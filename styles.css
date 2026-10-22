@@ -76,3 +76,14 @@ footer span:last-child{text-align:right;letter-spacing:.04em;font-weight:500}
 .edition-feature>p:not(.section-label):not(.small){max-width:76ch;font-family:Georgia,serif;font-size:1.1rem;line-height:1.7}
 .pending-asset{color:var(--muted);font-size:.75rem;font-style:italic}
 @media(max-width:520px){.edition-ribbon{font-size:.54rem;letter-spacing:.08em}.edition-feature{padding:1.6rem 0!important}}
+
+/* Original newspaper is the front page, not the introductory essay. */
+.front-edition{padding-top:1.4rem!important;text-align:center}
+.front-edition .section-label{margin:.25rem 0 .65rem}
+.front-edition h2{font-size:clamp(2.9rem,8vw,6.4rem);letter-spacing:-.055em;line-height:.96;margin:.35rem auto .8rem;max-width:16ch}
+.front-deck{font-family:Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.35rem)!important;margin:.5rem auto 1.2rem;line-height:1.45!important}
+.paper-cover{display:block;position:relative;max-width:800px;margin:1.2rem auto;border:1px solid var(--rule);background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.12);overflow:hidden;height:min(100vw,920px)}
+.paper-cover object{width:100%;height:100%;pointer-events:none}
+.edition-download{display:inline-block;background:var(--ink);color:#fff;padding:.85rem 1.3rem;text-decoration:none;font:800 .8rem 'DM Sans',sans-serif;letter-spacing:.09em}
+.edition-download:hover{color:#fff;background:var(--accent)}
+@media(max-width:520px){.masthead{padding:.9rem .8rem .7rem}.masthead .kicker{font-size:.52rem;margin-bottom:.35rem}.masthead h1{font-size:clamp(2rem,8.7vw,3.2rem);line-height:1.02}.dek{font-size:.82rem;margin:.3rem 0}.edition-ribbon{margin:.55rem auto 0;padding:.35rem;font-size:.46rem}nav{position:relative}.front-edition h2{font-size:clamp(2.7rem,12vw,4.5rem)}.paper-cover{height:105vw;max-height:600px}}
