@@ -162,3 +162,48 @@ nav a{font-family:Arial,sans-serif;font-size:.62rem}
 .heritage-pennant{display:grid;place-items:center;flex:0 0 clamp(55px,11vw,98px);height:clamp(53px,10vw,87px);background:#8c1717;color:#fff;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);font:700 clamp(1rem,2.5vw,1.65rem) Georgia,serif;padding-bottom:.5rem;filter:drop-shadow(0 2px 0 #171717)}.heritage-pennant span{font-size:.6em}.heritage-pennant-right{background:#283d32;border:2px solid #171717}
 .desk-flag{display:flex;align-items:center;gap:.6rem;font:700 .65rem Arial,sans-serif;letter-spacing:.1em;padding:.55rem 0;border-top:3px double var(--ink);border-bottom:1px solid var(--ink);margin-bottom:.65rem}.flag-icon{display:grid;place-items:center;width:37px;height:42px;flex:none;background:#8c1717;color:#fff;clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);font:700 .7rem Georgia,serif;padding-bottom:6px}
 @media(max-width:520px){.heritage-banner{gap:.4rem;padding:.5rem .15rem}.heritage-pennant{flex-basis:48px;height:53px;font-size:.92rem}.heritage-banner-copy strong{font-size:.62rem}.heritage-banner-copy small{font-size:.4rem;letter-spacing:.06em}.desk-flag{font-size:.54rem}}
+
+/* PRINT REBUILD: sourced from original SL&T pages 1, 39 and 40. */
+.heritage-banner,.heritage-pennant,.desk-flag{display:none!important}
+body{background:#fff;color:#17212b;font-family:Georgia,'Times New Roman',serif}
+main{max-width:1160px}
+.topline{background:#fff;border-bottom:1px solid #17212b;color:#17212b;font-family:Arial,sans-serif}
+.masthead{background:#fff!important;border-bottom:4px double #17212b!important;padding:1.05rem .6rem .7rem!important}
+.masthead .print-name{font-family:'UnifrakturCook','Old English Text MT',Georgia,serif!important;font-size:clamp(2.65rem,7.5vw,6rem)!important;letter-spacing:-.045em!important;color:#101417}
+.print-subtitle{font-family:Georgia,serif;font-size:.62rem;letter-spacing:.17em;border-top:1px solid #17212b;border-bottom:1px solid #17212b}
+.masthead .edition-ribbon{font-size:.57rem!important;color:#17212b!important}
+nav{background:#fff!important;border-bottom:1px solid #17212b!important}
+nav a{font-size:.62rem!important;color:#17212b!important}
+.live-front{padding:1.15rem 0!important;border-bottom:3px solid #17212b!important}
+.live-front .section-label{color:#9d2525!important;font-size:.65rem}
+.live-front h2{font-family:Georgia,serif!important;text-transform:uppercase!important;letter-spacing:.015em!important;font-size:clamp(2.5rem,6.4vw,5.5rem)!important;max-width:none!important;line-height:1.03!important;border-top:1px solid #17212b;padding-top:.5rem}
+.live-front .standfirst{font-family:Georgia,serif!important;font-size:1.12rem!important}
+.lead-photo{border:0;margin:1rem 0 .7rem;padding:0}.lead-photo img{max-height:570px;object-fit:cover}.lead-photo figcaption{font-size:.64rem;letter-spacing:0;font-weight:400}
+.front-briefs{border-top:2px solid #17212b;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.front-briefs h3{font-family:Georgia,serif}
+.section-head{border-bottom:2px solid #17212b}.section-head h2{font-family:Georgia,serif;font-weight:700;color:#17212b}
+#team-desk,#scores{padding-top:1.4rem!important}
+#team-desk .score-games{display:block!important}
+.newspaper-register{background:#fff;color:#17212b}
+.register-mast{padding:.7rem 0 .9rem;border-top:2px solid #17212b;border-bottom:1px solid #17212b}
+.register-mast>span{font:700 .61rem Arial,sans-serif;letter-spacing:.09em}
+.register-mast h3{font:700 clamp(2.1rem,4vw,3.2rem) Georgia,serif;margin:.3rem 0;line-height:1.1}
+.register-mast p{font:400 .74rem Arial,sans-serif;color:#737373;margin:.2rem 0}
+.register-section{padding:.9rem 0 1.1rem!important;border-bottom:1px solid #17212b!important}
+.register-heading{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-top:1px solid #17212b;border-bottom:1px solid #17212b;padding:.3rem 0;margin-bottom:.5rem}
+.register-heading h3{font:700 .7rem Arial,sans-serif;letter-spacing:.08em;margin:0}
+.register-heading span{font:700 .56rem Arial,sans-serif}
+.register-columns{columns:2;column-gap:1.4rem;column-rule:1px solid #d5d5d5}
+.register-date{break-after:avoid;break-inside:avoid;background:#eeeeeb;color:#17212b;padding:.35rem .45rem;font:700 .72rem Georgia,serif;margin:.3rem 0 .15rem}
+.register-game{break-inside:avoid;padding:.35rem .2rem .6rem;border-bottom:1px solid #b5b5b5;margin:0 0 .3rem}
+.register-sport{display:flex;justify-content:space-between;gap:.5rem;font:700 .64rem Arial,sans-serif;margin-bottom:.45rem}
+.register-sport strong{color:#a01d25;font-size:.72rem}
+.register-team{display:flex;align-items:center;justify-content:space-between;gap:1rem;font:400 .93rem Georgia,serif;padding:.16rem 0}
+.register-team strong{font:700 .93rem Georgia,serif;min-width:1.4rem;text-align:right}
+.register-team .team-with-logo{gap:.5rem}
+.register-team .team-logo{width:26px;height:26px;object-fit:contain}
+.register-venue,.register-broadcast{font:400 .65rem Arial,sans-serif;color:#666;margin:.3rem 0 0}
+.register-broadcast{color:#17212b;font-weight:700}
+.register-link{display:inline-block;font:700 .57rem Arial,sans-serif;color:#a01d25;letter-spacing:.01em;text-decoration:none;margin-top:.4rem}
+#team-desk .register-columns{columns:2}
+#wire .news-card h3{font-family:Georgia,serif}
+@media(max-width:700px){.register-columns,#team-desk .register-columns{columns:1}.front-briefs{grid-template-columns:1fr}.register-mast h3{font-size:2.2rem}.masthead .print-name{font-size:clamp(2.15rem,9vw,3.7rem)!important}.live-front h2{font-size:clamp(2.15rem,9vw,3.5rem)!important}}
