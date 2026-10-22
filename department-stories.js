@@ -13,7 +13,7 @@
   const escape=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   try{
     const r=await fetch('articles.json',{cache:'no-store'});if(!r.ok)throw Error('Feed unavailable');
-    const d=await r.json();const items=(Array.isArray(d.articles)?d.articles:[]).filter(a=>!/\b(?:draftkings|betmgm|mgm bets?|fanduel|fanatics sportsbook|caesars sportsbook|bet365|sportsbook|promo code|bonus bets?|free bets?|first wager|wagering bonus|betting bonus|odds boost|same.game parlay|sign.up bonus)\b/i.test([a.title,a.summary,a.url].join(' ')));
+    const d=await r.json();const items=(Array.isArray(d.articles)?d.articles:[]).filter(a=>!(window.SportingEditorial?.isPromotion(a)??true));
     for(const el of blocks){
       const id=el.dataset.department;const matched=items.filter(a=>patterns[id].test([a.title,a.summary,a.category].join(' '))&&/^https:\/\//.test(a.url||'')).slice(0,5);
       el.innerHTML=matched.length?matched.map(a=>'<article class="department-story"><p class="meta">'+escape(a.source||'Publisher')+'</p><h4><a href="'+escape(a.url)+'" target="_blank" rel="noopener noreferrer">'+escape(a.title)+'</a></h4>'+(a.summary?'<p>'+escape(a.summary)+'</p>':'')+'</article>').join(''):'<p class="small">No verified stories currently available for this desk. Browse the Sporting Wire for more coverage.</p><p><a href="#wire">Sporting Wire →</a></p>';
