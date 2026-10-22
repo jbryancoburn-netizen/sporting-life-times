@@ -1,96 +1,2082 @@
 {
-  "updated_at": "2026-10-22T13:54:01+00:00",
+  "updated_at": "2026-10-22T13:55:52+00:00",
   "source": "ESPN public scoreboard API",
   "leagues": [
     {
       "league": "NFL",
       "source_url": "https://www.espn.com/football/nfl/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401873010",
+          "name": "New England Patriots at Chicago Bears",
+          "date": "2026-10-23T00:15Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Chicago Bears",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/chi.png"
+            },
+            {
+              "name": "New England Patriots",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ne.png"
+            }
+          ],
+          "venue": "Soldier Field",
+          "broadcast": "Prime Video",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873010/patriots-bears"
+        },
+        {
+          "id": "401873011",
+          "name": "Pittsburgh Steelers at New Orleans Saints",
+          "date": "2026-10-25T13:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "New Orleans Saints",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/no.png"
+            },
+            {
+              "name": "Pittsburgh Steelers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/pit.png"
+            }
+          ],
+          "venue": "Stade de France",
+          "broadcast": "NFL Net",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873011/steelers-saints"
+        },
+        {
+          "id": "401873017",
+          "name": "San Francisco 49ers at Atlanta Falcons",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Atlanta Falcons",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/atl.png"
+            },
+            {
+              "name": "San Francisco 49ers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/sf.png"
+            }
+          ],
+          "venue": "Mercedes-Benz Stadium",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873017/49ers-falcons"
+        },
+        {
+          "id": "401873013",
+          "name": "Cleveland Browns at Tennessee Titans",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Tennessee Titans",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ten.png"
+            },
+            {
+              "name": "Cleveland Browns",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cle.png"
+            }
+          ],
+          "venue": "Nissan Stadium",
+          "broadcast": "CBS",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873013/browns-titans"
+        },
+        {
+          "id": "401873014",
+          "name": "Indianapolis Colts at Minnesota Vikings",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Minnesota Vikings",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/min.png"
+            },
+            {
+              "name": "Indianapolis Colts",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ind.png"
+            }
+          ],
+          "venue": "U.S. Bank Stadium",
+          "broadcast": "CBS",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873014/colts-vikings"
+        },
+        {
+          "id": "401873015",
+          "name": "Miami Dolphins at New York Jets",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "New York Jets",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png"
+            },
+            {
+              "name": "Miami Dolphins",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/mia.png"
+            }
+          ],
+          "venue": "MetLife Stadium",
+          "broadcast": "CBS",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873015/dolphins-jets"
+        },
+        {
+          "id": "401873018",
+          "name": "Tampa Bay Buccaneers at Carolina Panthers",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Carolina Panthers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/car.png"
+            },
+            {
+              "name": "Tampa Bay Buccaneers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/tb.png"
+            }
+          ],
+          "venue": "Bank of America Stadium",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873018/buccaneers-panthers"
+        },
+        {
+          "id": "401873012",
+          "name": "Cincinnati Bengals at Baltimore Ravens",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Baltimore Ravens",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png"
+            },
+            {
+              "name": "Cincinnati Bengals",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png"
+            }
+          ],
+          "venue": "M&T Bank Stadium",
+          "broadcast": "CBS",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873012/bengals-ravens"
+        },
+        {
+          "id": "401873016",
+          "name": "New York Giants at Houston Texans",
+          "date": "2026-10-25T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Houston Texans",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/hou.png"
+            },
+            {
+              "name": "New York Giants",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png"
+            }
+          ],
+          "venue": "Reliant Stadium",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873016/giants-texans"
+        },
+        {
+          "id": "401873019",
+          "name": "Denver Broncos at Arizona Cardinals",
+          "date": "2026-10-25T20:05Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Arizona Cardinals",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ari.png"
+            },
+            {
+              "name": "Denver Broncos",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/den.png"
+            }
+          ],
+          "venue": "State Farm Stadium",
+          "broadcast": "CBS",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873019/broncos-cardinals"
+        },
+        {
+          "id": "401873020",
+          "name": "Green Bay Packers at Detroit Lions",
+          "date": "2026-10-25T20:25Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Detroit Lions",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/det.png"
+            },
+            {
+              "name": "Green Bay Packers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"
+            }
+          ],
+          "venue": "Ford Field",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873020/packers-lions"
+        },
+        {
+          "id": "401873021",
+          "name": "Los Angeles Rams at Las Vegas Raiders",
+          "date": "2026-10-25T20:25Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Las Vegas Raiders",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png"
+            },
+            {
+              "name": "Los Angeles Rams",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/lar.png"
+            }
+          ],
+          "venue": "Allegiant Stadium",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873021/rams-raiders"
+        },
+        {
+          "id": "401873022",
+          "name": "Kansas City Chiefs at Seattle Seahawks",
+          "date": "2026-10-26T00:20Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Seattle Seahawks",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/sea.png"
+            },
+            {
+              "name": "Kansas City Chiefs",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png"
+            }
+          ],
+          "venue": "Lumen Field",
+          "broadcast": "NBC",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873022/chiefs-seahawks"
+        },
+        {
+          "id": "401873009",
+          "name": "Dallas Cowboys at Philadelphia Eagles",
+          "date": "2026-10-27T00:15Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Philadelphia Eagles",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/phi.png"
+            },
+            {
+              "name": "Dallas Cowboys",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png"
+            }
+          ],
+          "venue": "Lincoln Financial Field",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873009/cowboys-eagles"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 14
     },
     {
       "league": "MLB",
       "source_url": "https://www.espn.com/baseball/mlb/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401908042",
+          "name": "Tampa Bay Rays at Milwaukee Brewers",
+          "date": "2026-10-24T00:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Milwaukee Brewers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/mil.png"
+            },
+            {
+              "name": "Tampa Bay Rays",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/tb.png"
+            }
+          ],
+          "venue": "American Family Field",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/mlb/game/_/gameId/401908042/rays-brewers"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 1
     },
     {
       "league": "NBA",
       "source_url": "https://www.espn.com/basketball/nba/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401909834",
+          "name": "Atlanta Hawks at Orlando Magic",
+          "date": "2026-10-21T23:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Orlando Magic",
+              "score": "125",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/orl.png"
+            },
+            {
+              "name": "Atlanta Hawks",
+              "score": "132",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/atl.png"
+            }
+          ],
+          "venue": "Kia Center",
+          "broadcast": "NBA League Pass",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909834/hawks-magic"
+        },
+        {
+          "id": "401909835",
+          "name": "Milwaukee Bucks at Washington Wizards",
+          "date": "2026-10-21T23:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Washington Wizards",
+              "score": "128",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/wsh.png"
+            },
+            {
+              "name": "Milwaukee Bucks",
+              "score": "116",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/mil.png"
+            }
+          ],
+          "venue": "Capital One Arena",
+          "broadcast": "MNMT, NBA League Pass",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909835/bucks-wizards"
+        },
+        {
+          "id": "401909091",
+          "name": "Minnesota Timberwolves at Miami Heat",
+          "date": "2026-10-21T23:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Miami Heat",
+              "score": "106",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/mia.png"
+            },
+            {
+              "name": "Minnesota Timberwolves",
+              "score": "131",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/min.png"
+            }
+          ],
+          "venue": "Kaseya Center",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909091/timberwolves-heat"
+        },
+        {
+          "id": "401909836",
+          "name": "Charlotte Hornets at Brooklyn Nets",
+          "date": "2026-10-21T23:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Brooklyn Nets",
+              "score": "103",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/bkn.png"
+            },
+            {
+              "name": "Charlotte Hornets",
+              "score": "110",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/cha.png"
+            }
+          ],
+          "venue": "Barclays Center",
+          "broadcast": "NBA League Pass, DAZN (YES)",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909836/hornets-nets"
+        },
+        {
+          "id": "401909837",
+          "name": "Chicago Bulls at Toronto Raptors",
+          "date": "2026-10-21T23:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Toronto Raptors",
+              "score": "135",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/tor.png"
+            },
+            {
+              "name": "Chicago Bulls",
+              "score": "92",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/chi.png"
+            }
+          ],
+          "venue": "Scotiabank Arena",
+          "broadcast": "NBA League Pass",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909837/bulls-raptors"
+        },
+        {
+          "id": "401909838",
+          "name": "Utah Jazz at Memphis Grizzlies",
+          "date": "2026-10-22T00:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Memphis Grizzlies",
+              "score": "123",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/mem.png"
+            },
+            {
+              "name": "Utah Jazz",
+              "score": "103",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/utah.png"
+            }
+          ],
+          "venue": "FedExForum",
+          "broadcast": "NBA League Pass, DAZN MEM",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909838/jazz-grizzlies"
+        },
+        {
+          "id": "401909839",
+          "name": "Indiana Pacers at New Orleans Pelicans",
+          "date": "2026-10-22T00:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "New Orleans Pelicans",
+              "score": "120",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/no.png"
+            },
+            {
+              "name": "Indiana Pacers",
+              "score": "123",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/ind.png"
+            }
+          ],
+          "venue": "Smoothie King Center",
+          "broadcast": "NBA League Pass, GCSEN",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909839/pacers-pelicans"
+        },
+        {
+          "id": "401909840",
+          "name": "Dallas Mavericks at Houston Rockets",
+          "date": "2026-10-22T00:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Houston Rockets",
+              "score": "128",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/hou.png"
+            },
+            {
+              "name": "Dallas Mavericks",
+              "score": "110",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/dal.png"
+            }
+          ],
+          "venue": "Toyota Center (Houston)",
+          "broadcast": "NBA League Pass",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909840/mavericks-rockets"
+        },
+        {
+          "id": "401909092",
+          "name": "Golden State Warriors at Los Angeles Lakers",
+          "date": "2026-10-22T02:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Los Angeles Lakers",
+              "score": "127",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/lal.png"
+            },
+            {
+              "name": "Golden State Warriors",
+              "score": "105",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/gs.png"
+            }
+          ],
+          "venue": "crypto.com Arena",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909092/warriors-lakers"
+        },
+        {
+          "id": "401909841",
+          "name": "Phoenix Suns at Portland Trail Blazers",
+          "date": "2026-10-22T02:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Portland Trail Blazers",
+              "score": "124",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/por.png"
+            },
+            {
+              "name": "Phoenix Suns",
+              "score": "83",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/phx.png"
+            }
+          ],
+          "venue": "Moda Center",
+          "broadcast": "NBA League Pass, KUNP 16",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909841/suns-trail-blazers"
+        },
+        {
+          "id": "401909842",
+          "name": "Sacramento Kings at LA Clippers",
+          "date": "2026-10-22T02:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "LA Clippers",
+              "score": "121",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/lac.png"
+            },
+            {
+              "name": "Sacramento Kings",
+              "score": "96",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nba/500/sac.png"
+            }
+          ],
+          "venue": "Intuit Dome",
+          "broadcast": "NBA League Pass, KTLA",
+          "url": "https://www.espn.com/nba/game/_/gameId/401909842/kings-clippers"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 11
     },
     {
       "league": "NHL",
       "source_url": "https://www.espn.com/hockey/nhl/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401892550",
+          "name": "Philadelphia Flyers at Buffalo Sabres",
+          "date": "2026-10-21T23:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Buffalo Sabres",
+              "score": "1",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/buf.png"
+            },
+            {
+              "name": "Philadelphia Flyers",
+              "score": "3",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/phi.png"
+            }
+          ],
+          "venue": "KeyBank Center",
+          "broadcast": "TNT",
+          "url": "https://www.espn.com/nhl/game/_/gameId/401892550/flyers-sabres"
+        },
+        {
+          "id": "401892551",
+          "name": "Florida Panthers at Ottawa Senators",
+          "date": "2026-10-21T23:30Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Ottawa Senators",
+              "score": "5",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/ott.png"
+            },
+            {
+              "name": "Florida Panthers",
+              "score": "1",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/fla.png"
+            }
+          ],
+          "venue": "Canadian Tire Centre",
+          "broadcast": "ESPN+, Scripps Sports",
+          "url": "https://www.espn.com/nhl/game/_/gameId/401892551/panthers-senators"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 2
     },
     {
       "league": "Premier League",
       "source_url": "https://www.espn.com/soccer/eng.1/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401879253",
+          "name": "Nottingham Forest at Ipswich Town",
+          "date": "2026-10-23T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Ipswich Town",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png"
+            },
+            {
+              "name": "Nottingham Forest",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png"
+            }
+          ],
+          "venue": "Portman Road",
+          "broadcast": "USA Net",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401879253/nottingham-forest-ipswich-town"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 1
     },
     {
       "league": "College Football",
       "source_url": "https://www.espn.com/football/college-football/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401858274",
+          "name": "Pittsburgh Panthers at Miami Hurricanes",
+          "date": "2026-10-24T16:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Miami Hurricanes",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png"
+            },
+            {
+              "name": "Pittsburgh Panthers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/221.png"
+            }
+          ],
+          "venue": "Hard Rock Stadium",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858274/pitt-miami"
+        },
+        {
+          "id": "401858496",
+          "name": "Indiana Hoosiers at Michigan Wolverines",
+          "date": "2026-10-24T16:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Michigan Wolverines",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png"
+            },
+            {
+              "name": "Indiana Hoosiers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/84.png"
+            }
+          ],
+          "venue": "Michigan Stadium",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858496/indiana-michigan"
+        },
+        {
+          "id": "401856840",
+          "name": "Texas Tech Red Raiders at Cincinnati Bearcats",
+          "date": "2026-10-24T16:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Cincinnati Bearcats",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png"
+            },
+            {
+              "name": "Texas Tech Red Raiders",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": null
+            }
+          ],
+          "venue": "Nippert Stadium",
+          "broadcast": "FS1",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856840/texas-tech-cincinnati"
+        },
+        {
+          "id": "401856728",
+          "name": "LSU Tigers at Auburn Tigers",
+          "date": "2026-10-24T16:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Auburn Tigers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
+            },
+            {
+              "name": "LSU Tigers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/99.png"
+            }
+          ],
+          "venue": "Jordan-Hare Stadium",
+          "broadcast": "ABC",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856728/lsu-auburn"
+        },
+        {
+          "id": "401858270",
+          "name": "California Golden Bears at SMU Mustangs",
+          "date": "2026-10-24T16:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "SMU Mustangs",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": null
+            },
+            {
+              "name": "California Golden Bears",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/25.png"
+            }
+          ],
+          "venue": "Gerald J. Ford Stadium",
+          "broadcast": "CW",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858270/california-smu"
+        },
+        {
+          "id": "401858498",
+          "name": "Rutgers Scarlet Knights at Northwestern Wildcats",
+          "date": "2026-10-24T16:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Northwestern Wildcats",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/77.png"
+            },
+            {
+              "name": "Rutgers Scarlet Knights",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/164.png"
+            }
+          ],
+          "venue": "Ryan Field",
+          "broadcast": "Peacock",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858498/rutgers-northwestern"
+        },
+        {
+          "id": "401856835",
+          "name": "BYU Cougars at UCF Knights",
+          "date": "2026-10-24T19:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "UCF Knights",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2116.png"
+            },
+            {
+              "name": "BYU Cougars",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png"
+            }
+          ],
+          "venue": "Acrisure Bounce House",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856835/byu-ucf"
+        },
+        {
+          "id": "401858499",
+          "name": "Michigan State Spartans at UCLA Bruins",
+          "date": "2026-10-24T19:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "UCLA Bruins",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/26.png"
+            },
+            {
+              "name": "Michigan State Spartans",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png"
+            }
+          ],
+          "venue": "Rose Bowl",
+          "broadcast": "CBS",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858499/michigan-st-ucla"
+        },
+        {
+          "id": "401856731",
+          "name": "Tennessee Volunteers at South Carolina Gamecocks",
+          "date": "2026-10-24T19:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "South Carolina Gamecocks",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": null
+            },
+            {
+              "name": "Tennessee Volunteers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": null
+            }
+          ],
+          "venue": "Williams-Brice Stadium",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856731/tennessee-south-carolina"
+        },
+        {
+          "id": "401856727",
+          "name": "Texas A&M Aggies at Alabama Crimson Tide",
+          "date": "2026-10-24T19:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Alabama Crimson Tide",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png"
+            },
+            {
+              "name": "Texas A&M Aggies",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/245.png"
+            }
+          ],
+          "venue": "Bryant-Denny Stadium",
+          "broadcast": "ABC",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856727/texas-am-alabama"
+        },
+        {
+          "id": "401858497",
+          "name": "Iowa Hawkeyes at Minnesota Golden Gophers",
+          "date": "2026-10-24T19:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Minnesota Golden Gophers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/135.png"
+            },
+            {
+              "name": "Iowa Hawkeyes",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2294.png"
+            }
+          ],
+          "venue": "Huntington Bank Stadium",
+          "broadcast": "FS1",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858497/iowa-minnesota"
+        },
+        {
+          "id": "401860907",
+          "name": "Boise State Broncos at Washington State Cougars",
+          "date": "2026-10-24T22:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Washington State Cougars",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png"
+            },
+            {
+              "name": "Boise State Broncos",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/68.png"
+            }
+          ],
+          "venue": "Martin Stadium",
+          "broadcast": "USA Net",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401860907/boise-st-washington-st"
+        },
+        {
+          "id": "401856732",
+          "name": "Ole Miss Rebels at Texas Longhorns",
+          "date": "2026-10-24T23:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Texas Longhorns",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/251.png"
+            },
+            {
+              "name": "Ole Miss Rebels",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/145.png"
+            }
+          ],
+          "venue": "DKR-Texas Memorial Stadium",
+          "broadcast": "ABC",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856732/ole-miss-texas"
+        },
+        {
+          "id": "401856729",
+          "name": "Vanderbilt Commodores at Kentucky Wildcats",
+          "date": "2026-10-24T23:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Kentucky Wildcats",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/96.png"
+            },
+            {
+              "name": "Vanderbilt Commodores",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/238.png"
+            }
+          ],
+          "venue": "Kroger Field",
+          "broadcast": "SEC Network",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856729/vanderbilt-kentucky"
+        },
+        {
+          "id": "401858500",
+          "name": "USC Trojans at Wisconsin Badgers",
+          "date": "2026-10-24T23:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Wisconsin Badgers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/275.png"
+            },
+            {
+              "name": "USC Trojans",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/30.png"
+            }
+          ],
+          "venue": "Camp Randall Stadium",
+          "broadcast": "NBC",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401858500/usc-wisconsin"
+        },
+        {
+          "id": "401856838",
+          "name": "Iowa State Cyclones at Arizona Wildcats",
+          "date": "2026-10-24T23:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Arizona Wildcats",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/12.png"
+            },
+            {
+              "name": "Iowa State Cyclones",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/66.png"
+            }
+          ],
+          "venue": "Casino Del Sol Stadium",
+          "broadcast": "ESPN2",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856838/iowa-state-arizona"
+        },
+        {
+          "id": "401856837",
+          "name": "Houston Cougars at Utah Utes",
+          "date": "2026-10-25T02:15Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Utah Utes",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/254.png"
+            },
+            {
+              "name": "Houston Cougars",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/248.png"
+            }
+          ],
+          "venue": "Rice-Eccles Stadium",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/college-football/game/_/gameId/401856837/houston-utah"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 17
     },
     {
       "league": "Men's College Basketball",
       "source_url": "https://www.espn.com/basketball/mens-college-basketball/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401920982",
+          "name": "Notre Dame Fighting Irish at Villanova Wildcats",
+          "date": "2026-11-01T14:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Villanova Wildcats",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/222.png"
+            },
+            {
+              "name": "Notre Dame Fighting Irish",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
+            }
+          ],
+          "venue": "Palazzo dello Sport",
+          "broadcast": "Fox",
+          "url": "https://www.espn.com/mens-college-basketball/game/_/gameId/401920982/notre-dame-villanova"
+        },
+        {
+          "id": "401920409",
+          "name": "Liberty Flames at High Point Panthers",
+          "date": "2026-11-02T04:59Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "High Point Panthers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2272.png"
+            },
+            {
+              "name": "Liberty Flames",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2335.png"
+            }
+          ],
+          "venue": "Rock Hill Sports & Event Center",
+          "broadcast": "YouTube",
+          "url": "https://www.espn.com/mens-college-basketball/game/_/gameId/401920409/liberty-high-point"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 2
     },
     {
       "league": "Women's College Basketball",
       "source_url": "https://www.espn.com/basketball/womens-college-basketball/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401920983",
+          "name": "Notre Dame Fighting Irish at Villanova Wildcats",
+          "date": "2026-11-01T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Villanova Wildcats",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/222.png"
+            },
+            {
+              "name": "Notre Dame Fighting Irish",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
+            }
+          ],
+          "venue": "Palazzo dello Sport",
+          "broadcast": "FS1",
+          "url": "https://www.espn.com/womens-college-basketball/game/_/gameId/401920983/notre-dame-villanova"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 1
     },
     {
       "league": "Champions League",
       "source_url": "https://www.espn.com/soccer/uefa.champions/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401915395",
+          "name": "Manchester United at Como",
+          "date": "2026-10-21T16:45Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Como",
+              "score": "4",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png"
+            },
+            {
+              "name": "Manchester United",
+              "score": "1",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
+            }
+          ],
+          "venue": "Giuseppe Sinigaglia",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915395/manchester-united-como"
+        },
+        {
+          "id": "401915396",
+          "name": "Galatasaray at Lille",
+          "date": "2026-10-21T16:45Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Lille",
+              "score": "2",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png"
+            },
+            {
+              "name": "Galatasaray",
+              "score": "4",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/432.png"
+            }
+          ],
+          "venue": "Decathlon Arena - Stade Pierre-Mauroy",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915396/galatasaray-lille"
+        },
+        {
+          "id": "401915394",
+          "name": "Viking FK at Aston Villa",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Aston Villa",
+              "score": "3",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png"
+            },
+            {
+              "name": "Viking FK",
+              "score": "1",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/510.png"
+            }
+          ],
+          "venue": "Villa Park",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915394/viking-fk-aston-villa"
+        },
+        {
+          "id": "401915312",
+          "name": "Arsenal at Bayern Munich",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Bayern Munich",
+              "score": "2",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png"
+            },
+            {
+              "name": "Arsenal",
+              "score": "2",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+            }
+          ],
+          "venue": "Allianz Arena",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915312/arsenal-bayern-munich"
+        },
+        {
+          "id": "401915388",
+          "name": "Lens at Club Brugge",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Club Brugge",
+              "score": "3",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/570.png"
+            },
+            {
+              "name": "Lens",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png"
+            }
+          ],
+          "venue": "Jan Breydel Stadium",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915388/lens-club-brugge"
+        },
+        {
+          "id": "401915390",
+          "name": "Shakhtar Donetsk at Internazionale",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Internazionale",
+              "score": "1",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png"
+            },
+            {
+              "name": "Shakhtar Donetsk",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/493.png"
+            }
+          ],
+          "venue": "San Siro",
+          "broadcast": "CBSSN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915390/shakhtar-donetsk-internazionale"
+        },
+        {
+          "id": "401915389",
+          "name": "Feyenoord Rotterdam at Real Betis",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Real Betis",
+              "score": "1",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png"
+            },
+            {
+              "name": "Feyenoord Rotterdam",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/142.png"
+            }
+          ],
+          "venue": "Estadio La Cartuja",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915389/feyenoord-rotterdam-real-betis"
+        },
+        {
+          "id": "401915313",
+          "name": "RB Leipzig at Real Madrid",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Real Madrid",
+              "score": "4",
+              "home_away": "home",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png"
+            },
+            {
+              "name": "RB Leipzig",
+              "score": "1",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png"
+            }
+          ],
+          "venue": "Santiago Bernabéu",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915313/rb-leipzig-real-madrid"
+        },
+        {
+          "id": "401915391",
+          "name": "LASK Linz at Sporting CP",
+          "date": "2026-10-21T19:00Z",
+          "status": "Full Time",
+          "state": "post",
+          "teams": [
+            {
+              "name": "Sporting CP",
+              "score": "2",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2250.png"
+            },
+            {
+              "name": "LASK Linz",
+              "score": "3",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4411.png"
+            }
+          ],
+          "venue": "Estádio José Alvalade",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915391/lask-linz-sporting-cp"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 9
     },
     {
       "league": "Europa League",
       "source_url": "https://www.espn.com/soccer/uefa.europa/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401915548",
+          "name": "AZ Alkmaar at Ararat-Armenia",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Ararat-Armenia",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20024.png"
+            },
+            {
+              "name": "AZ Alkmaar",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/140.png"
+            }
+          ],
+          "venue": "Vazgen Sargsyan Republican Stadium",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915548/az-alkmaar-ararat-armenia"
+        },
+        {
+          "id": "401915556",
+          "name": "NEC Nijmegen at Dinamo Zagreb",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Dinamo Zagreb",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/597.png"
+            },
+            {
+              "name": "NEC Nijmegen",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/147.png"
+            }
+          ],
+          "venue": "Maksimir Stadium",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915556/nec-nijmegen-dinamo-zagreb"
+        },
+        {
+          "id": "401915558",
+          "name": "Torreense at Ferencvaros",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Ferencvaros",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/622.png"
+            },
+            {
+              "name": "Torreense",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21615.png"
+            }
+          ],
+          "venue": "Groupama Arena",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915558/torreense-ferencvaros"
+        },
+        {
+          "id": "401915547",
+          "name": "Stade Rennais at Juventus",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Juventus",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png"
+            },
+            {
+              "name": "Stade Rennais",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png"
+            }
+          ],
+          "venue": "Allianz Stadium",
+          "broadcast": "CBSSN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915547/stade-rennais-juventus"
+        },
+        {
+          "id": "401915546",
+          "name": "Sunderland at Lech Poznan",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Lech Poznan",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2990.png"
+            },
+            {
+              "name": "Sunderland",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
+            }
+          ],
+          "venue": "Municipal Stadium-Poznan",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915546/sunderland-lech-poznan"
+        },
+        {
+          "id": "401915559",
+          "name": "Bayer Leverkusen at OFI Crete",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "OFI Crete",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1010.png"
+            },
+            {
+              "name": "Bayer Leverkusen",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png"
+            }
+          ],
+          "venue": "Pankritio Stadium",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915559/bayer-leverkusen-ofi-crete"
+        },
+        {
+          "id": "401915557",
+          "name": "Marseille at SK Sturm Graz",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "SK Sturm Graz",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3746.png"
+            },
+            {
+              "name": "Marseille",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png"
+            }
+          ],
+          "venue": "Merkur Arena",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915557/marseille-sk-sturm-graz"
+        },
+        {
+          "id": "401915545",
+          "name": "Hapoel Be'er at Union St.-Gilloise",
+          "date": "2026-10-22T16:45Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Union St.-Gilloise",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5807.png"
+            },
+            {
+              "name": "Hapoel Be'er",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13083.png"
+            }
+          ],
+          "venue": "Merkur Spiel-Arena",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915545/hapoel-beer-union-st-gilloise"
+        },
+        {
+          "id": "401915552",
+          "name": "AC Milan at AFC Bournemouth",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "AFC Bournemouth",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
+            },
+            {
+              "name": "AC Milan",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png"
+            }
+          ],
+          "venue": "Vitality Stadium",
+          "broadcast": "CBSSN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915552/ac-milan-afc-bournemouth"
+        },
+        {
+          "id": "401915553",
+          "name": "Crystal Palace at Besiktas",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Besiktas",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1895.png"
+            },
+            {
+              "name": "Crystal Palace",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
+            }
+          ],
+          "venue": "Vodafone Park",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915553/crystal-palace-besiktas"
+        },
+        {
+          "id": "401915555",
+          "name": "Celta Vigo at Celtic",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Celtic",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/256.png"
+            },
+            {
+              "name": "Celta Vigo",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png"
+            }
+          ],
+          "venue": "Celtic Park",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915555/celta-vigo-celtic"
+        },
+        {
+          "id": "401915542",
+          "name": "Anderlecht at Jagiellonia Bialystok",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Jagiellonia Bialystok",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11505.png"
+            },
+            {
+              "name": "Anderlecht",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/441.png"
+            }
+          ],
+          "venue": "Stadion Miejski Bialystok",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915542/anderlecht-jagiellonia-bialystok"
+        },
+        {
+          "id": "401915540",
+          "name": "Real Sociedad at Lillestrom",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Lillestrom",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/987.png"
+            },
+            {
+              "name": "Real Sociedad",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+            }
+          ],
+          "venue": "Arasen Stadion",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915540/real-sociedad-lillestrom"
+        },
+        {
+          "id": "401915541",
+          "name": "RB Salzburg at NK Celje",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "NK Celje",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3362.png"
+            },
+            {
+              "name": "RB Salzburg",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2790.png"
+            }
+          ],
+          "venue": "Stadion Z'dezele",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915541/rb-salzburg-nk-celje"
+        },
+        {
+          "id": "401915554",
+          "name": "Sparta Prague at Olympiacos",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Olympiacos",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/435.png"
+            },
+            {
+              "name": "Sparta Prague",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/433.png"
+            }
+          ],
+          "venue": "Georgios Karaiskakis Stadium",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915554/sparta-prague-olympiacos"
+        },
+        {
+          "id": "401915544",
+          "name": "Benfica at Omonia Nicosia",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Omonia Nicosia",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/617.png"
+            },
+            {
+              "name": "Benfica",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1929.png"
+            }
+          ],
+          "venue": "GSP Stadium",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915544/benfica-omonia-nicosia"
+        },
+        {
+          "id": "401915543",
+          "name": "Lyon at TSG Hoffenheim",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "TSG Hoffenheim",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png"
+            },
+            {
+              "name": "Lyon",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png"
+            }
+          ],
+          "venue": "PreZero Arena",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915543/lyon-tsg-hoffenheim"
+        },
+        {
+          "id": "401915539",
+          "name": "Levski Sofia at Viktoria Plzen",
+          "date": "2026-10-22T19:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Viktoria Plzen",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11706.png"
+            },
+            {
+              "name": "Levski Sofia",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/490.png"
+            }
+          ],
+          "venue": "Doosan Arena",
+          "broadcast": "Paramount+",
+          "url": "https://www.espn.com/soccer/match/_/gameId/401915539/levski-sofia-viktoria-plzen"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 18
     },
     {
       "league": "Australian NBL",
@@ -105,9 +2091,9 @@
       "league": "EuroLeague",
       "source_url": "https://www.espn.com/basketball/euroleague/scoreboard",
       "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
       "game_count": 0
     },
     {
@@ -122,29 +2108,188 @@
     {
       "league": "College Baseball",
       "source_url": "https://www.espn.com/baseball/college-baseball/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401874453",
+          "name": "Oklahoma Sooners at North Carolina Tar Heels",
+          "date": "2026-06-22T23:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "North Carolina Tar Heels",
+              "score": "2",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/153.png"
+            },
+            {
+              "name": "Oklahoma Sooners",
+              "score": "13",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
+            }
+          ],
+          "venue": "Charles Schwab Field",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/college-baseball/game/_/gameId/401874453/oklahoma-sooners-north-carolina-tar-heels"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 1
     },
     {
       "league": "NCAA Men's Soccer",
       "source_url": "https://www.espn.com/soccer/usa.ncaa.m.1/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401898758",
+          "name": "Fairleigh Dickinson at Long Island University",
+          "date": "2026-10-22T17:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Long Island University",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2341.png"
+            },
+            {
+              "name": "Fairleigh Dickinson",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/161.png"
+            }
+          ],
+          "venue": "LIU Soccer Park",
+          "broadcast": "NEC Front Row",
+          "url": "https://www.espn.com/soccer/usa.ncaa.m.1/scoreboard"
+        },
+        {
+          "id": "401900654",
+          "name": "Charlotte at Tulsa",
+          "date": "2026-10-23T00:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Tulsa",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/202.png"
+            },
+            {
+              "name": "Charlotte",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png"
+            }
+          ],
+          "venue": "Hurricane Soccer & Track Stadium",
+          "broadcast": "ESPN+",
+          "url": "https://www.espn.com/soccer/usa.ncaa.m.1/scoreboard"
+        },
+        {
+          "id": "401898925",
+          "name": "Bradley at Missouri State",
+          "date": "2026-10-23T00:30Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Missouri State",
+              "score": "0",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2623.png"
+            },
+            {
+              "name": "Bradley",
+              "score": "0",
+              "home_away": "away",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/71.png"
+            }
+          ],
+          "venue": "Betty and Bobby Allison South Stadium",
+          "broadcast": "",
+          "url": "https://www.espn.com/soccer/usa.ncaa.m.1/scoreboard"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 3
     },
     {
       "league": "NCAA Men's Hockey",
       "source_url": "https://www.espn.com/hockey/mens-college-hockey/scoreboard",
-      "games": [],
-      "error": "HTTPError: HTTP Error 400: Bad Request",
-      "window_start": "20261018",
-      "window_end": "20261029",
-      "game_count": 0
+      "games": [
+        {
+          "id": "401913584",
+          "name": "Boston University Terriers at UConn Huskies",
+          "date": "2026-10-22T23:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "UConn Huskies",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/41.png"
+            },
+            {
+              "name": "Boston University Terriers",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/104.png"
+            }
+          ],
+          "venue": "Toscano Family Ice Forum",
+          "broadcast": "ESPN+",
+          "url": "https://www.espn.com/hockey/mens-college-hockey/scoreboard"
+        },
+        {
+          "id": "401905008",
+          "name": "North Dakota Fighting Hawks at Minnesota Golden Gophers",
+          "date": "2026-10-23T00:00Z",
+          "status": "Scheduled",
+          "state": "pre",
+          "teams": [
+            {
+              "name": "Minnesota Golden Gophers",
+              "score": "0",
+              "home_away": "home",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/135.png"
+            },
+            {
+              "name": "North Dakota Fighting Hawks",
+              "score": "0",
+              "home_away": "away",
+              "winner": null,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/155.png"
+            }
+          ],
+          "venue": "3M Arena at Mariucci",
+          "broadcast": "B1G+, Fox 9 MN",
+          "url": "https://www.espn.com/hockey/mens-college-hockey/scoreboard"
+        }
+      ],
+      "error": null,
+      "window_start": "20261022",
+      "window_end": "20261022",
+      "game_count": 2
     }
   ]
 }
