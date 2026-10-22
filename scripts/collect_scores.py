@@ -30,7 +30,15 @@ for label,path in LEAGUES:
         pass
     try:
         req=Request(query_url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
-        with urlopen(req,timeout=12) as response: data=json.load(response)
+        try:
+            with urlopen(req,timeout=12) as response: data=json.load(response)
+        except Exception:
+            # Some ESPN sports reject multi-day date ranges with HTTP 400.
+            # Retry the documented single-day scoreboard endpoint.
+            req=Request(url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
+            with urlopen(req,timeout=12) as response: data=json.load(response)
+            block["window_start"]=today.strftime("%Y%m%d")
+            block["window_end"]=today.strftime("%Y%m%d")
         for ev in data.get("events",[])[:250]:
             comp=(ev.get("competitions") or [{}])[0]
             competitors=comp.get("competitors",[])
@@ -42,8 +50,8 @@ for label,path in LEAGUES:
             block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"venue":(comp.get("venue") or {}).get("fullName",""),"broadcast":", ".join(x.get("names",[""])[0] for x in comp.get("broadcasts",[]) if x.get("names")),"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
     except Exception as exc: block["error"]=type(exc).__name__+": "+str(exc)[:100]
     block["games"].sort(key=lambda g:g.get("date") or "")
-    block["window_start"]=start
-    block["window_end"]=end
+    block.setdefault("window_start",start)
+    block.setdefault("window_end",end)
     block["game_count"]=len(block["games"])
     out["leagues"].append(block)
 (ROOT/"scoreboards.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
