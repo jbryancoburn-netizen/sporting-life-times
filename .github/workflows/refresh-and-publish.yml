@@ -1,5 +1,7 @@
 name: Refresh news and publish website
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: "17 */4 * * *"
