@@ -39,6 +39,7 @@ jobs:
         run: |
           python scripts/collect_feeds.py
           python scripts/collect_scores.py
+          python scripts/collect_match_details.py
           python scripts/collect_official_scores.py
           python scripts/collect_college_schedules.py
           python scripts/collect_multisource.py
