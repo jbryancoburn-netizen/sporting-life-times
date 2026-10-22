@@ -32,7 +32,10 @@ jobs:
       - name: Validate supplied independent EPL forecasts
         run: |
           if [ -f data/epl-match-center.json ]; then
-            python scripts/publish_eps_epl.py data/epl-match-center.json data/epl-match-center.json
+            if ! python scripts/publish_eps_epl.py data/epl-match-center.json data/epl-match-center.json; then
+              echo 'EPL forecast failed validation or expired; withholding from site build.'
+              rm -f data/epl-match-center.json
+            fi
           else
             echo 'No fresh validated EPL Match Center export; predictions remain unavailable.'
           fi
