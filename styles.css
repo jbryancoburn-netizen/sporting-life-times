@@ -127,3 +127,25 @@ nav a{font-size:.56rem!important;padding:.18rem 0!important}
 @media(max-width:520px){.masthead{padding:.55rem .45rem!important}.masthead .dek{font-size:.7rem!important}.masthead .edition-ribbon{font-size:.42rem!important}.live-front h2{font-size:clamp(1.95rem,8.1vw,2.7rem)!important;line-height:1.08!important}.live-front .standfirst{font-size:.96rem!important}.front-briefs{grid-template-columns:1fr;gap:.4rem}.front-briefs article{border-right:0;border-bottom:1px solid var(--rule);padding:.35rem 0}.front-briefs article:last-child{border:0}.front-briefs h3{font-size:1.03rem}nav{gap:.15rem .6rem!important}nav a{font-size:.51rem!important}.live-front .edition-download{display:inline-block!important;width:auto!important}}
 
 #team-desk{padding:1.2rem 0 1.6rem!important;border-bottom:4px double var(--ink)}#team-desk .section-head{margin-bottom:.6rem}#team-desk .score-games{margin-top:.7rem}#team-desk .score-game{border-top:3px solid var(--ink)}
+
+/* Original 48-page PDF design system: blackletter title, ink rules, print columns */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+:root{--paper:#f9f8f4;--paper-light:#fff;--ink:#171717;--rule:#999;--accent:#8c1717}
+body{font-family:Georgia,'Times New Roman',serif;line-height:1.42}
+.masthead{background:var(--paper);padding:.5rem .7rem!important;border-bottom:4px double #171717}
+.masthead .print-name{font-family:'UnifrakturCook','Old English Text MT',Georgia,serif;font-size:clamp(2.65rem,8vw,6.8rem)!important;font-weight:700;letter-spacing:-.045em;line-height:1.04;margin:0 auto .15rem!important}
+.print-subtitle{font:700 .58rem Arial,sans-serif;letter-spacing:.16em;margin:.2rem auto;padding:.25rem 0;border-top:1px solid #171717;border-bottom:1px solid #171717;max-width:760px}
+.masthead .edition-ribbon{font-size:.55rem;margin:.3rem auto 0;padding:.25rem .4rem;border:0}
+.topline{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--ink);font-size:.56rem;padding:.35rem 18px}
+#edition-date{color:var(--ink)}
+nav{background:var(--paper);box-shadow:none;border-bottom:2px solid var(--ink);padding:.4rem .6rem}
+nav a{font-family:Arial,sans-serif;font-size:.62rem}
+.live-front{border-bottom:4px double var(--ink)}
+.live-front h2{font-family:Georgia,serif!important;font-weight:700!important;text-transform:uppercase;font-size:clamp(2.15rem,5.3vw,4.8rem)!important;max-width:28ch!important;letter-spacing:-.025em!important}
+.live-front .standfirst{font-family:Georgia,serif;font-style:normal}
+.section-label,.meta,.small{font-family:Arial,sans-serif}
+.section-head{border-bottom:3px double var(--ink)}
+.section-head h2,.score-league h3{font-family:Georgia,serif}
+.news-grid{gap:0 1rem}.news-card{border-bottom:1px solid #888}.news-card h3{font-family:Georgia,serif}
+.team-with-logo{display:inline-flex;align-items:center;gap:.4rem;min-width:0}.team-logo{width:24px;height:24px;object-fit:contain;flex-shrink:0}
+@media(max-width:520px){.masthead .print-name{font-size:clamp(2.4rem,9vw,3.8rem)!important;letter-spacing:-.065em!important}.print-subtitle{font-size:.42rem;letter-spacing:.1em}.masthead .edition-ribbon{font-size:.43rem!important}.live-front h2{font-size:clamp(2rem,8vw,3rem)!important}.topline{font-size:.48rem;padding:.25rem 10px}.team-logo{width:21px;height:21px}}
