@@ -5,7 +5,7 @@ TEAMS="ATL BOS BKN CHA CHI CLE DAL DEN DET GSW HOU IND LAC LAL MEM MIA MIL MIN N
 def base():
     return {"league":"NBA","rankings":[{"team":t,"elo":1500.0} for t in TEAMS]}
 def roster():
-    return {"league":"NBA","as_of_utc":"2026-10-22T00:00:00Z","source":"test fixture only","players":[
+    return {"league":"NBA","as_of_utc":"2026-10-22T00:00:00Z","source":"test fixture only","baseline_source":"test fixture only","baseline_roster_impact_elo":{t:0.0 for t in TEAMS},"players":[
         {"team":"ATL","player_id":str(i),"expected_impact_elo":10.0,"projected_minutes":24,"availability":"out" if i==0 else "available"} for i in range(10)]}
 class RosterEloTests(unittest.TestCase):
     def test_verified_overlay_math(self):
@@ -15,7 +15,7 @@ class RosterEloTests(unittest.TestCase):
         self.assertEqual(atl["game_day_elo"],1545)
         self.assertEqual(atl["coverage"],"provisional")
         self.assertIsNone(next(x for x in result["ratings"] if x["team"]=="BOS")["roster_adjusted_elo"])
-    def test_no_empty_feed(self):
+    def test_baseline_delta_avoids_double_counting(self):\n        r=roster();r["baseline_roster_impact_elo"]["ATL"]=20.0\n        atl=next(x for x in build(base(),r)["ratings"] if x["team"]=="ATL")\n        self.assertEqual(atl["roster_adjusted_elo"],1530)\n        self.assertEqual(atl["game_day_elo"],1525)\n    def test_missing_baseline_rejected(self):\n        r=roster();del r["baseline_roster_impact_elo"]\n        with self.assertRaises(ValueError):build(base(),r)\n    def test_no_empty_feed(self):
         r=roster();r["players"]=[]
         with self.assertRaises(ValueError):build(base(),r)
     def test_no_overallocated_minutes(self):
