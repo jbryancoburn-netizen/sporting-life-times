@@ -286,3 +286,22 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 /* NHL crest files often have more transparent internal padding than other leagues. */
 #scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:58px;height:58px;max-width:none;flex:0 0 58px;object-fit:contain;margin:-7px -7px}
 @media(max-width:520px){#scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:54px;height:54px;flex-basis:54px;margin:-7px -7px}}
+
+/* Integrated live tracker: roomy, readable scoreboard layout */
+#scores #live-tracker{margin:1.4rem 0 2rem;padding:1.1rem 1.25rem;border:2px solid #252525;background:#f8f6f0}
+#live-tracker .section-head{margin-bottom:.6rem}
+#live-tracker .section-head h2{font-size:1.45rem}
+#live-tracker-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0!important}
+#live-tracker-tabs button{appearance:none;cursor:pointer;background:#fff;border:1px solid #555;border-radius:3px;color:#222;padding:.65rem 1.15rem;min-width:75px;font:700 .86rem Arial,sans-serif}
+#live-tracker-tabs button[aria-pressed="true"]{background:#202020;color:#fff;border-color:#202020}
+#live-tracker-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;align-items:stretch;margin:1rem 0}
+#live-tracker-games .live-tracker-card{display:block;min-width:0;margin:0;padding:1rem 1.15rem;background:#fff;border:1px solid #b9b4aa;box-shadow:0 2px 0 #dedbd4;break-inside:avoid}
+#live-tracker-games .register-sport{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-bottom:.6rem;margin-bottom:.75rem;border-bottom:1px solid #ddd}
+#live-tracker-games .live-tracker-team{display:grid;grid-template-columns:minmax(0,1fr) auto 3ch;gap:.8rem;align-items:center;min-height:2.8rem;font:1rem/1.4 Georgia,serif}
+#live-tracker-games .live-tracker-team span:first-child{min-width:0;overflow-wrap:break-word}
+#live-tracker-games .live-tracker-team span:nth-child(2){font:.76rem Arial,sans-serif;color:#666;white-space:nowrap}
+#live-tracker-games .live-tracker-team strong{text-align:right;font:700 1.4rem Georgia,serif;font-variant-numeric:tabular-nums}
+#live-tracker-games .live-tracker-active{color:#ae1721}
+#live-tracker-games .register-link{display:inline-block;margin-top:.8rem}
+@media(max-width:760px){#live-tracker-games{grid-template-columns:1fr}#scores #live-tracker{padding:.8rem}#live-tracker-games .live-tracker-card{padding:.85rem}}
+@media(max-width:390px){#live-tracker-games .live-tracker-team{grid-template-columns:minmax(0,1fr) auto 2.5ch;gap:.4rem;font-size:.9rem}#live-tracker-games .live-tracker-team strong{font-size:1.2rem}}
