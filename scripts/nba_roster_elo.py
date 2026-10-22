@@ -8,7 +8,7 @@ def build(base, roster):
     teams={r["team"]:r["elo"] for r in base["rankings"]}
     if len(teams)!=30 or any(not math.isfinite(x) for x in teams.values()):
         raise ValueError("Invalid base ratings")
-    if roster.get("league")!="NBA" or not roster.get("as_of_utc") or not roster.get("source"):
+    if roster.get("league")!="NBA" or not roster.get("as_of_utc") or not roster.get("source") or not roster.get("baseline_source"):
         raise ValueError("Roster inputs require league, timestamp and source")
     entries=roster.get("players",[])
     if not isinstance(entries,list) or not entries:
@@ -34,15 +34,15 @@ def build(base, roster):
         offsets[team]+=contribution
         gameday[team]+=contribution*prob
         coverage[team]+=1\n        minutes_total[team]+=minutes
-    if any(total>240.001 for total in minutes_total.values()):\n        raise ValueError("Projected team minutes exceed 240")\n    result=[]
+    if any(total>240.001 for total in minutes_total.values()):\n        raise ValueError("Projected team minutes exceed 240")\n    # Historical team Elo already reflects previous personnel; apply only change in roster contribution.\n    prior=roster.get("baseline_roster_impact_elo",{})\n    if not isinstance(prior,dict) or set(prior)!=set(teams) or any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) for v in prior.values()):\n        raise ValueError("Require verified prior-season roster impact for every team to prevent double counting")\n    result=[]
     for team,elo in teams.items():
         # Explicitly mark partial coverage. Never publish as validated full-team ratings.
         result.append(dict(team=team,traditional_elo=round(elo,3),
-                           roster_adjusted_elo=round(elo+offsets[team],3) if coverage[team]>=8 and 190<=minutes_total[team]<=240.001 else None,
-                           game_day_elo=round(elo+gameday[team],3) if coverage[team]>=8 else None,
+                           roster_adjusted_elo=round(elo+offsets[team]-prior[team],3) if coverage[team]>=8 and 190<=minutes_total[team]<=240.001 else None,
+                           game_day_elo=round(elo+gameday[team]-prior[team],3) if coverage[team]>=8 else None,
                            player_records=coverage[team],projected_team_minutes=round(minutes_total[team],1),\n                           coverage="provisional" if coverage[team]>=8 and 190<=minutes_total[team]<=240.001 else "insufficient"))
     return dict(league="NBA",model="USRS roster-aware Elo overlay v1",status="provisional",
-                as_of_utc=roster["as_of_utc"],source=roster["source"],
+                as_of_utc=roster["as_of_utc"],source=roster["source"],baseline_source=roster.get("baseline_source"),
                 methodology="Player impact in Elo units weighted by projected minutes/48; game-day adjustment weighted by availability probabilities; requires >=8 sourced player records and 190-240 projected team minutes per team",
                 ratings=sorted(result,key=lambda r:-r["traditional_elo"]))
 
