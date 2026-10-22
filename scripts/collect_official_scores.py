@@ -53,16 +53,17 @@ def standings_snapshot(league,day):
             abbr=(row.get("teamAbbrev") or {}).get("default")
             rank=row.get("divisionSequence")
             if not abbr or not isinstance(rank,int):continue
-            result[str(abbr)]={"wins":row.get("wins"),"losses":row.get("losses"),"ot_losses":row.get("otLosses"),"rank":rank}
+            result[str(abbr)]={"wins":row.get("wins"),"losses":row.get("losses"),"ot_losses":row.get("otLosses"),"rank":rank,"division":str((row.get("divisionAbbrev") or row.get("divisionName") or "") if isinstance(row.get("divisionAbbrev") or row.get("divisionName"),str) else (row.get("divisionName") or {}).get("default",""))}
         return result
     data=fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season="+str(day.year)+"&date="+day.isoformat()+"&standingsTypes=regularSeason")
     result={}
+    mlb_divisions={200:"ALW",201:"ALE",202:"ALC",203:"NLW",204:"NLE",205:"NLC"}
     for block in data.get("records",[]):
         for row in block.get("teamRecords",[]):
             ident=(row.get("team") or {}).get("id")
             try:rank=int(row.get("divisionRank"))
             except (TypeError,ValueError):continue
-            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank}
+            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank,"division":mlb_divisions.get((block.get("division") or {}).get("id"),"")}
     return result
 
 def enrich_standings(block):
