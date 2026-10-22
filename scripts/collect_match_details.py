@@ -25,7 +25,10 @@ except (OSError, ValueError, TypeError):
 try:
     req = Request("https://jbryancoburn-netizen.github.io/sporting-life-times/match_details.json", headers={"User-Agent":"SportingLifeTimes/1.0"})
     with urlopen(req, timeout=5) as response:
-        previous.update(json.load(response).get("games") or {})
+        published = json.load(response).get("games") or {}
+        for key, record in published.items():
+            if key not in previous or (not (previous[key].get("events") or previous[key].get("statistics") or previous[key].get("players")) and (record.get("events") or record.get("statistics") or record.get("players"))):
+                previous[key] = record
 except Exception:
     pass
 out["games"].update(previous)
