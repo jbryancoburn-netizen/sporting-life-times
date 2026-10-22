@@ -1,0 +1,15 @@
+(()=>{'use strict';
+const status=document.getElementById('nba-elo-status'),root=document.getElementById('nba-elo-grid');
+if(!status||!root)return;
+const names={ATL:'Atlanta Hawks',BOS:'Boston Celtics',BKN:'Brooklyn Nets',CHA:'Charlotte Hornets',CHI:'Chicago Bulls',CLE:'Cleveland Cavaliers',DAL:'Dallas Mavericks',DEN:'Denver Nuggets',DET:'Detroit Pistons',GSW:'Golden State Warriors',HOU:'Houston Rockets',IND:'Indiana Pacers',LAC:'LA Clippers',LAL:'Los Angeles Lakers',MEM:'Memphis Grizzlies',MIA:'Miami Heat',MIL:'Milwaukee Bucks',MIN:'Minnesota Timberwolves',NOP:'New Orleans Pelicans',NYK:'New York Knicks',OKC:'Oklahoma City Thunder',ORL:'Orlando Magic',PHI:'Philadelphia 76ers',PHX:'Phoenix Suns',POR:'Portland Trail Blazers',SAC:'Sacramento Kings',SAS:'San Antonio Spurs',TOR:'Toronto Raptors',UTA:'Utah Jazz',WAS:'Washington Wizards'};
+const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const get=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Missing '+p);return r.json()};
+const validate=(d,season,states)=>{if(d.league!=='NBA'||d.season!==season||!states.includes(d.status)||!Array.isArray(d.rankings)||d.rankings.length!==30||new Set(d.rankings.map(x=>x.team)).size!==30||d.rankings.some(x=>!names[x.team]||!Number.isFinite(x.elo)))throw Error('Invalid NBA ratings');return Object.fromEntries(d.rankings.map(x=>[x.team,x.elo]))};
+(async()=>{try{
+const [final,pre,current]=await Promise.all([get('data/nba-2025-26-final.json'),get('data/nba-2026-27-preseason-provisional.json'),get('data/nba-2026-27-current-provisional.json')]);
+const f=validate(final,'2025-26',['2025-26-final']),p=validate(pre,'2026-27',['provisional_historical_regression_only']),c=validate(current,'2026-27',['provisional_live_from_historical_baseline']);
+const sorted=Object.keys(names).sort((a,b)=>c[b]-c[a]);
+root.innerHTML='<div style="overflow-x:auto;width:100%"><table style="width:100%;border-collapse:collapse;text-align:right"><thead><tr><th style="text-align:left">Team</th><th>2025–26 Final</th><th>2026–27 Preseason*</th><th>2026–27 Current*</th><th>Change since preseason</th></tr></thead><tbody>'+sorted.map(t=>'<tr style="border-top:1px solid #b7b0a0"><td style="text-align:left;padding:.65rem .25rem"><img loading="lazy" style="width:24px;height:24px;vertical-align:middle;margin-right:.5rem" src="https://a.espncdn.com/i/teamlogos/nba/500/'+t.toLowerCase()+'.png" alt="">'+escape(names[t])+'</td><td>'+f[t].toFixed(3)+'</td><td>'+p[t].toFixed(3)+'</td><td>'+c[t].toFixed(3)+'</td><td>'+(c[t]-p[t]>=0?'+':'')+(c[t]-p[t]).toFixed(3)+'</td></tr>').join('')+'</tbody></table></div>';
+status.textContent='30 teams · '+current.games_played+' completed 2026–27 games · *PROVISIONAL: 2026–27 preseason currently uses historical regression only; verified roster and preseason adjustments are not complete. Current Elo is replayed from that provisional baseline. 2025–26 final remains frozen.';
+}catch(e){root.replaceChildren();status.textContent='2026–27 comparison unavailable: verified data files could not be loaded.'}})();
+})();
