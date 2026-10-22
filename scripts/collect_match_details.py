@@ -14,10 +14,17 @@ source = json.loads((ROOT/"scoreboards.json").read_text(encoding="utf-8"))
 out = {"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"games":{},"errors":[],"coverage":{}}
 # Reuse the last published verified records; do not erase them on provider failure.
 previous = {}
+archive_path = ROOT / "data" / "match_center_archive.json"
+try:
+    local_archive = json.loads(archive_path.read_text(encoding="utf-8"))
+    if isinstance(local_archive, dict):
+        previous.update(local_archive.get("games") or {})
+except (OSError, ValueError, TypeError):
+    pass
 try:
     req = Request("https://jbryancoburn-netizen.github.io/sporting-life-times/match_details.json", headers={"User-Agent":"SportingLifeTimes/1.0"})
     with urlopen(req, timeout=5) as response:
-        previous = json.load(response).get("games") or {}
+        previous.update(json.load(response).get("games") or {})
 except Exception:
     pass
 out["games"].update(previous)
