@@ -1,0 +1,140 @@
+{
+  "league": "NBA",
+  "model": "USRS independent NBA Elo",
+  "status": "2025-26-final",
+  "season": "2025-26",
+  "cutoff": "end of 2025-26 NBA Finals",
+  "regular_season_games": 1230,
+  "playoff_games": 85,
+  "historical_games": 3775,
+  "parameters": {
+    "k": 20,
+    "home_elo": 45,
+    "mov_weight": 0.4,
+    "season_retention": 0.6
+  },
+  "source": "ESPN completed final scores; independent USRS Elo replay",
+  "roster_adjustments_applied": false,
+  "rankings": [
+    {
+      "team": "NYK",
+      "elo": 1788.162
+    },
+    {
+      "team": "OKC",
+      "elo": 1772.974
+    },
+    {
+      "team": "SAS",
+      "elo": 1748.358
+    },
+    {
+      "team": "DET",
+      "elo": 1646.368
+    },
+    {
+      "team": "BOS",
+      "elo": 1643.002
+    },
+    {
+      "team": "DEN",
+      "elo": 1632.024
+    },
+    {
+      "team": "CHA",
+      "elo": 1616.34
+    },
+    {
+      "team": "LAL",
+      "elo": 1609.978
+    },
+    {
+      "team": "MIN",
+      "elo": 1605.44
+    },
+    {
+      "team": "CLE",
+      "elo": 1601.112
+    },
+    {
+      "team": "HOU",
+      "elo": 1590.491
+    },
+    {
+      "team": "ATL",
+      "elo": 1561.127
+    },
+    {
+      "team": "ORL",
+      "elo": 1560.372
+    },
+    {
+      "team": "LAC",
+      "elo": 1545.343
+    },
+    {
+      "team": "PHI",
+      "elo": 1543.082
+    },
+    {
+      "team": "TOR",
+      "elo": 1539.997
+    },
+    {
+      "team": "POR",
+      "elo": 1526.775
+    },
+    {
+      "team": "MIA",
+      "elo": 1508.605
+    },
+    {
+      "team": "PHX",
+      "elo": 1498.43
+    },
+    {
+      "team": "GSW",
+      "elo": 1403.066
+    },
+    {
+      "team": "NOP",
+      "elo": 1386.18
+    },
+    {
+      "team": "MIL",
+      "elo": 1368.768
+    },
+    {
+      "team": "DAL",
+      "elo": 1342.169
+    },
+    {
+      "team": "SAC",
+      "elo": 1337.265
+    },
+    {
+      "team": "CHI",
+      "elo": 1333.294
+    },
+    {
+      "team": "IND",
+      "elo": 1303.414
+    },
+    {
+      "team": "MEM",
+      "elo": 1262.826
+    },
+    {
+      "team": "UTA",
+      "elo": 1262.584
+    },
+    {
+      "team": "BKN",
+      "elo": 1261.638
+    },
+    {
+      "team": "WAS",
+      "elo": 1200.816
+    }
+  ]
+}
