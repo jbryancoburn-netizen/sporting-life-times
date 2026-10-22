@@ -58,4 +58,5 @@ if __name__=="__main__":
     p=argparse.ArgumentParser()
     p.add_argument("base");p.add_argument("roster");p.add_argument("output")
     a=p.parse_args()
-    Path(a.output).write_text(json.dumps(build(json.loads(Path(a.base).read_text()),json.loads(Path(a.roster).read_text())),indent=2)+"\n")
+    Path(a.output).write_text(json.dumps(build(json.loads(Path(a.base).read_text()),json.loads(Path(a.roster).read_text())),indent=2)+"
+")
