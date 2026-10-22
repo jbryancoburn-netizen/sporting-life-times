@@ -28,14 +28,24 @@
     if(last)last.insertAdjacentElement('afterend',bottom);
     const controls=[control,bottom];
     let current=0;
+    let turnTimer=null;
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
     function pageForHash(){
       const hash=decodeURIComponent(location.hash.slice(1));
       if(!hash)return -1;
       return pages.findIndex(p=>p.nodes.some(n=>n.id===hash||n.contains(document.getElementById(hash))));
     }
     function show(n,updateHash){
+      const previous=current;
       current=Math.max(0,Math.min(pages.length-1,n));
       pages.forEach((p,i)=>p.nodes.forEach(node=>{node.hidden=i!==current;}));
+      if(turnTimer)clearTimeout(turnTimer);
+      main.classList.remove('edition-turn-forward','edition-turn-back');
+      if(previous!==current&&!reducedMotion.matches){
+        void main.offsetWidth;
+        main.classList.add(current>previous?'edition-turn-forward':'edition-turn-back');
+        turnTimer=setTimeout(()=>main.classList.remove('edition-turn-forward','edition-turn-back'),560);
+      }
       controls.forEach(nav=>{
         nav.querySelector('.edition-prev').disabled=current===0;
         nav.querySelector('.edition-next').disabled=current===pages.length-1;
