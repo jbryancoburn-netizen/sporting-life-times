@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 2
+Updated: 2026-10-22 — batch 3
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -17,10 +17,10 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [x] Latest published workflow passed at commit 1b969b7b (GitHub Actions run 39829150819).
 
 ## Remaining steps — do these in order
-- [ ] 01. Verify published match_details.json and actual per-league data coverage; validate cache behavior with provider failure. IMPLEMENTED: coverage invariant fix (f14e211b); source-failure simulation pending.
+- [ ] 01. Verify published match_details.json and actual per-league data coverage; validate cache behavior with provider failure. IMPLEMENTED: coverage invariant fix (f14e211b); source-failure simulation pending; expanded health reporting (3a7a8b4d).
 - [ ] 02. Normalize player statistics with column headings and source identity; add schema tests. IMPLEMENTED: heading/category capture (1f44de43), schema checks (a42fcb78); awaiting deployment validation.
-- [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); team totals and deployment validation pending.
-- [ ] 04. Improve source efficiency, retries, concurrency, and rate-limit handling.
+- [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); team totals and deployment validation pending; overtime labels corrected (4093f29f).
+- [ ] 04. Improve source efficiency, retries, concurrency, and rate-limit handling. IMPLEMENTED: bounded transient HTTP retry/backoff (70a67342); concurrency and measured rate-limit behavior pending.
 - [ ] 05. Expand detailed coverage and validate IDs, freshness, and missing data.
 - [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot.
 - [ ] 07. Finish soccer scorers, assists, cards, substitutions, formations, and timelines.
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Recent batch notes
+- 70a67342: bounded retries for temporary source failures and safer player team attribution.
+- 4093f29f: correct overtime period headers and prevent EuroLeague from being classified as soccer.
+- 3a7a8b4d: publication health report now includes player, event, and team statistics coverage.
+- Latest workflow was queued at time of this tracker update; these changes are not yet deployment-verified.
 
 ## Acceptance standard
 The Match Center is not complete until supported sports show verified scores and relevant player/team statistics, update reliably, retain past games, handle provider failures, work on mobile, and distinguish unavailable forecasts from calibrated predictions.
