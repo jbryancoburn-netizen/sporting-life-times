@@ -9,6 +9,16 @@ ROOT = Path(__file__).resolve().parents[1]
 PATHS = {"NFL":"football/nfl","MLB":"baseball/mlb","NBA":"basketball/nba","NHL":"hockey/nhl","Premier League":"soccer/eng.1","College Football":"football/college-football","Men's College Basketball":"basketball/mens-college-basketball","Women's College Basketball":"basketball/womens-college-basketball","Champions League":"soccer/uefa.champions","Europa League":"soccer/uefa.europa"}
 source = json.loads((ROOT/"scoreboards.json").read_text(encoding="utf-8"))
 out = {"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"games":{},"errors":[],"coverage":{}}
+# Reuse the last published verified records; do not erase them on provider failure.
+previous = {}
+try:
+    req = Request("https://jbryancoburn-netizen.github.io/sporting-life-times/match_details.json", headers={"User-Agent":"SportingLifeTimes/1.0"})
+    with urlopen(req, timeout=5) as response:
+        previous = json.load(response).get("games") or {}
+except Exception:
+    pass
+out["games"].update(previous)
+out["retained_from_previous"] = len(previous)
 for league in source.get("leagues", []):
     label = league.get("league")
     if label not in PATHS:
@@ -55,5 +65,9 @@ for league in source.get("leagues", []):
         except Exception as exc:
             out["errors"].append({"game":key,"error":type(exc).__name__})
             out["coverage"][label]["failed"] += 1
+# Bound the archive and preserve original timestamps for cached details.
+if len(out["games"]) > 1500:
+    ordered = sorted(out["games"].items(), key=lambda item: item[1].get("fetched_at", ""), reverse=True)
+    out["games"] = dict(ordered[:1500])
 (ROOT/"match_details.json").write_text(json.dumps(out,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
 print("Published",len(out["games"]),"verified match detail records;",len(out["errors"]),"unavailable summaries")
