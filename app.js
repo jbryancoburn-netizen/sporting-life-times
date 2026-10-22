@@ -31,9 +31,26 @@ function loadRabbyLogos(teams){rabbyLogos={...permanentRabbyLogos};renderTeams(t
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 const isPromotion=a=>/\b(?:draftkings|betmgm|mgm bets?|fanduel|fanatics sportsbook|caesars sportsbook|bet365|sportsbook|promo code|bonus bets?|free bets?|first wager|wagering bonus|betting bonus|odds boost|same.game parlay|sign.up bonus)\b/i.test([a.title,a.summary,a.url].join(' '));
 async function init(){const data=await loadData();renderTeams(data.teams||[]);loadRabbyLogos(data.teams||[]);document.querySelector('#team-search')?.addEventListener('input',e=>renderTeams(data.teams||[],e.target.value));const date=document.querySelector('#edition-date');if(date)date.textContent=new Intl.DateTimeFormat('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).format(new Date()).toUpperCase();try{const r=await fetch('articles.json');if(!r.ok)throw Error('No feed data');const d=await r.json();const items=(d.articles||[]).filter(a=>!isPromotion(a));const sportOf=a=>{const t=(a.title||'').toLowerCase(),c=(a.category||'').toLowerCase(),src=(a.source||'').toLowerCase();if(c==='baseball'||src==='mlb')return 'Baseball';if(c==='basketball'||src==='nba'||/\\b(nba|wnba|basketball|lakers|celtics|knicks)\\b/.test(t))return 'Basketball';if(c==='hockey'||src==='nhl'||/\\b(nhl|hockey|stanley cup)\\b/.test(t))return 'Hockey';if(/\\b(nfl|football|quarterback|touchdown|super bowl|chiefs|bears|colts)\\b/.test(t))return 'Football';if(/\\b(soccer|premier league|champions league|europa league|man utd|man city|arsenal|chelsea|liverpool|real madrid|barcelona|bayern|ballon d'or|goal-kick|fifa)\\b/.test(t))return 'Soccer';return c==='multi-sport'?'Other sports':(a.category||'Other sports')};
-const grouped=new Map();for(const item of items){const key=sportOf(item);if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(item)}
-const priority=['Football','Basketball','Baseball','Hockey','Soccer','Other sports'];const groups=[...grouped].sort((a,b)=>priority.indexOf(a[0])===-1?1:priority.indexOf(b[0])===-1?-1:priority.indexOf(a[0])-priority.indexOf(b[0]));
-const balanced=[];let round=0;while(balanced.length<items.length){let added=false;for(const [,stories] of groups){if(stories[round]){balanced.push(stories[round]);added=true}}if(!added)break;round++}
+// Editorial front-page selection: substantive stories first, with topic variety.
+const newsworthy=a=>/^(https:\/\/)/.test(a.url||'')&&Boolean((a.title||'').trim());
+const editorialScore=a=>{
+  const summary=(a.summary||'').trim();
+  const title=(a.title||'').trim();
+  const age=Date.now()-Date.parse(a.published_at||'');
+  const freshness=Number.isFinite(age)&&age>=0?Math.max(0,28-age/3600000):0;
+  const substance=Math.min(18,summary.length/14);
+  const clickbait=/\b(promo|offer|deal|discount|how to watch|streaming guide|where to watch|best picks|prediction odds|betting tips)\b/i.test(title)?-45:0;
+  return freshness+substance+(title.length>35&&title.length<125?7:0)+clickbait;
+};
+const candidates=items.filter(newsworthy).sort((a,b)=>editorialScore(b)-editorialScore(a));
+const balanced=[],usedSports=new Set();
+for(const a of candidates){
+  const sport=sportOf(a);
+  if(!usedSports.has(sport)){balanced.push(a);usedSports.add(sport)}
+  if(balanced.length===5)break;
+}
+for(const a of candidates){if(balanced.length>=7)break;if(!balanced.includes(a))balanced.push(a)}
+// The full wire remains chronological; the cover is a compact editorial selection.
 const rabbyAliases=[
 ['Chicago Bears',/\b(chicago bears|bears quarterback|bears coach)\b/i],
 ['Chicago Cubs',/\b(chicago cubs|\bcubs\b|cubs manager|wrigley field)\b/i],
