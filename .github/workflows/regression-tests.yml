@@ -1,0 +1,20 @@
+name: Newspaper regression tests
+on:
+  push:
+  pull_request:
+jobs:
+  editorial-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          node --check editorial-policy.js
+          node --check department-stories.js
+          node --check edition-pages.js
+          node --check app.js
+      - name: Test editorial screening
+        run: node --test tests/editorial-policy.test.cjs
