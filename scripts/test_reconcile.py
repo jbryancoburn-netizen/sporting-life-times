@@ -41,7 +41,7 @@ class ReconcileTests(unittest.TestCase):
   aliases=load_aliases()
   a={"date":"2026-10-22","teams":[{"name":"Indiana Hoosiers"},{"name":"Purdue Boilermakers"}]}
   self.assertNotEqual(identity(a,"College Football",aliases),identity(a,"Men's College Basketball",aliases))
-  def test_ambiguous_unknown_names_not_cross_competition(self):
+ def test_ambiguous_unknown_names_not_cross_competition(self):
   a={"date":"2026-10-22","teams":[{"name":"Tigers"},{"name":"Bulldogs"}]}
   self.assertNotEqual(identity(a,"College Football"),identity(a,"Men's College Basketball"))
- if __name__=="__main__":unittest.main()
+if __name__=="__main__":unittest.main()
