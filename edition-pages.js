@@ -30,7 +30,7 @@
       header.className='edition-section-heading';
       const kicker=document.createElement('p');
       kicker.className='edition-section-kicker';
-      kicker.textContent='THE SPORTING LIFE & TIMES  /  SECTION '+String.fromCharCode(65+i);
+      kicker.textContent=i===0?'THE DAILY EDITION':'THE SPORTING LIFE & TIMES  /  SECTION '+String.fromCharCode(65+i);
       const title=document.createElement('h2');
       title.className='edition-section-title';
       title.textContent=page.title;
@@ -38,7 +38,7 @@
       folio.className='edition-section-folio';
       folio.textContent='PAGE '+String(i+1).padStart(2,'0');
       header.append(kicker,title,folio);
-      first.insertAdjacentElement('afterbegin',header);
+      if(i!==0)first.insertAdjacentElement('afterbegin',header);
       first.classList.add('edition-section-start');
       // The standardized heading replaces a redundant section headline, without
       // removing the supporting deck or any live content.
