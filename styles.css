@@ -207,3 +207,35 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 #team-desk .register-columns{columns:2}
 #wire .news-card h3{font-family:Georgia,serif}
 @media(max-width:700px){.register-columns,#team-desk .register-columns{columns:1}.front-briefs{grid-template-columns:1fr}.register-mast h3{font-size:2.2rem}.masthead .print-name{font-size:clamp(2.15rem,9vw,3.7rem)!important}.live-front h2{font-size:clamp(2.15rem,9vw,3.5rem)!important}}
+
+/* OCTOBER PRINT EDITION: authentic PDF masthead, live editorial grid, 20 team desks */
+.original-masthead{display:block;width:min(100%,995px);height:auto;max-height:135px;object-fit:contain;margin:0 auto}
+.masthead .print-name{margin:0 auto!important;line-height:1!important}
+.masthead a{text-decoration:none;color:inherit}
+.live-front{display:grid;grid-template-columns:minmax(0,2fr) minmax(225px,1fr);gap:0 1.7rem}
+.live-front>.section-label,.live-front>h2,.live-front>.standfirst,.live-front>.byline,.live-front>.lead-photo,.live-front>.edition-download,.live-front>.small{grid-column:1}
+.live-front .lead-photo img{width:100%;max-height:510px}
+.live-front .front-briefs{grid-column:2;grid-row:1/span 7;display:block;margin:0;border-top:3px solid #17212b;border-bottom:0;padding:.5rem 0}
+.live-front .front-briefs article{border:0;border-bottom:1px solid #aaa;padding:.6rem 0 1rem;margin:0}
+.live-front .front-briefs h3{font-size:clamp(1.12rem,1.65vw,1.55rem);line-height:1.17}
+.live-front .front-briefs .meta{font-size:.6rem}
+.team-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 .85rem}
+.team-card{border:0;border-top:2px solid #17212b;background:#fff;padding:.9rem .3rem 1.2rem;box-shadow:none}
+.team-card:hover{box-shadow:none;transform:none}
+.team-card h3{font:700 1.2rem/1.2 Georgia,serif}
+.team-card h3 a{color:#17212b;text-decoration:none}
+.team-card h3 a:hover{color:#9d2525;text-decoration:underline}
+.team-card-link{font:700 .61rem Arial,sans-serif;letter-spacing:.06em;color:#9d2525;text-decoration:none}
+.team-edition .team-crumb{font:700 .67rem Arial,sans-serif;letter-spacing:.08em;padding:1.1rem 0;border-bottom:1px solid #17212b}
+.team-edition .team-hero{padding:1.2rem 0 1.6rem;border-bottom:3px double #17212b}
+.team-edition .team-hero h2{font:700 clamp(2.5rem,6vw,5rem)/1.04 Georgia,serif;text-transform:uppercase;margin:.5rem 0}
+.team-edition .team-hero p:last-child{font:italic 1.05rem Georgia,serif}
+.league-register{margin:1.3rem 0 2.1rem}
+.league-register-title{display:flex;justify-content:space-between;align-items:baseline;gap:.7rem;padding:.55rem .25rem;border-top:3px double #17212b;border-bottom:1px solid #17212b}
+.league-register-title h3{font:700 1.55rem Georgia,serif;text-transform:uppercase;margin:0}
+.league-register-title span{font:700 .62rem Arial,sans-serif;white-space:nowrap}
+.league-register .register-section{padding:.5rem 0!important}
+.league-register .register-heading{border-top:0}
+.register-empty{font:italic .85rem Georgia,serif;color:#555;padding:.8rem .2rem}
+@media(max-width:850px){.live-front{display:block}.live-front .front-briefs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.original-masthead{max-height:72px}.live-front .front-briefs{grid-template-columns:1fr}.live-front .front-briefs h3{font-size:1.12rem}.team-edition .team-hero h2{font-size:2.35rem}.league-register-title h3{font-size:1.2rem}}
