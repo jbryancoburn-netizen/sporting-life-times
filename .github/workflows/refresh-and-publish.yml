@@ -18,7 +18,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Restore original PDF masthead\n        run: |\n          python -m pip install --quiet pymupdf\n          python scripts/extract_masthead.py\n      - name: Collect RSS headlines
+      - name: Restore original PDF masthead
+        run: |
+          python -m pip install --quiet pymupdf
+          python scripts/extract_masthead.py
+      - name: Collect RSS headlines
         run: python scripts/collect_feeds.py
       - name: Collect verified scoreboards
         run: python scripts/collect_scores.py
