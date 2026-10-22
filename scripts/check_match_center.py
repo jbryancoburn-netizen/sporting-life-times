@@ -7,6 +7,13 @@ ROOT = Path(__file__).resolve().parents[1]
 scoreboards = json.loads((ROOT / "scoreboards.json").read_text(encoding="utf-8"))
 details = json.loads((ROOT / "match_details.json").read_text(encoding="utf-8"))
 assert isinstance(details.get("games"), dict), "Missing game detail map"
+archive_path = ROOT / "data" / "match_center_archive.json"
+assert archive_path.is_file(), "Collector did not create Match Center archive snapshot"
+archive = json.loads(archive_path.read_text(encoding="utf-8"))
+assert isinstance(archive.get("games"), dict), "Invalid archive game map"
+assert archive["games"] == details.get("games"), "Archive and published game details disagree"
+assert len(archive["games"]) <= 1500, "Archive exceeds configured size limit"
+
 assert isinstance(details.get("coverage"), dict), "Missing league coverage diagnostics"
 assert isinstance(details.get("updated_at"), str), "Missing detail publication timestamp"
 assert isinstance(scoreboards.get("leagues"), list), "Missing scoreboard leagues"
@@ -43,6 +50,7 @@ for league, row in details["coverage"].items():
 print("MATCH CENTER DATA HEALTH")
 print("Scoreboard games:", len(indexed))
 print("Detail records (including archive):", len(details["games"]))
+print("Archive snapshot matches published detail records:", True)
 print("Current games with details:", len(indexed.intersection(details["games"])))
 print("Games with player statistics:", sum(bool(g.get("players")) for g in details["games"].values()))
 print("Games with team statistics:", sum(bool(g.get("statistics")) for g in details["games"].values()))
