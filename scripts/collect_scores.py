@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 ROOT=Path(__file__).resolve().parents[1]
-LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball")]
+LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball"),("Champions League","soccer/uefa.champions"),("Europa League","soccer/uefa.europa"),("Australian NBL","basketball/aus.nbl"),("EuroLeague","basketball/euroleague"),("ECHL","hockey/echl"),("NCAA Men's Soccer","soccer/usa.ncaa.m.1"),("NCAA Men's Hockey","hockey/mens-college-hockey")]
 out={"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"source":"ESPN public scoreboard API","leagues":[]}
 for label,path in LEAGUES:
     url="https://site.api.espn.com/apis/site/v2/sports/"+path+"/scoreboard"
@@ -33,7 +33,7 @@ for label,path in LEAGUES:
                 t=c.get("team") or {}
                 teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None) or logo_by_id.get(str(t.get("id")))})
             status=ev.get("status") or {}
-            block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
+            block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"venue":(comp.get("venue") or {}).get("fullName",""),"broadcast":", ".join(x.get("names",[""])[0] for x in comp.get("broadcasts",[]) if x.get("names")),"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
     except Exception as exc: block["error"]=type(exc).__name__+": "+str(exc)[:100]
     out["leagues"].append(block)
 (ROOT/"scoreboards.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
