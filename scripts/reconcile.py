@@ -15,7 +15,11 @@ def identity(g,league):
  if not date or date=="None":return ("id",league,str(g.get("id")))
  return (league,date,names)
 def score_map(g):
- return {normalize_name(t.get("name")):t.get("score") for t in g.get("teams",[])}
+ def canonical(v):
+  if v is None or str(v).strip()=="":return None
+  try:return int(v)
+  except (ValueError,TypeError):return str(v).strip()
+ return {normalize_name(t.get("name")):canonical(t.get("score")) for t in g.get("teams",[])}
 def provider(g,block):
  return str(g.get("provider") or block.get("provider") or ("espn" if "ESPN" in block.get("source_url","") else "unknown"))
 def rank(p,league):
@@ -27,6 +31,14 @@ def rank(p,league):
 def reconcile(base,official):
  leagues={}
  conflicts=[]
+ # Duplicate team/date pairings in any single feed are ambiguous: never merge by that key.
+ counts={}
+ for block in [*(base or []),*(official or [])]:
+  for game in block.get("games") or []:
+   k=identity(game,block.get("league"))
+   source=provider(game,block)
+   counts[(source,k)]=counts.get((source,k),0)+1
+ ambiguous={k for (_,k),n in counts.items() if n>1 and k[0]!="id"}
  for block in [*(base or []),*(official or [])]:
   league=block.get("league")
   if not league:continue
@@ -34,6 +46,10 @@ def reconcile(base,official):
   for game in block.get("games") or []:
    g=dict(game);p=provider(g,block);g["provider"]=p
    key=identity(g,league)
+   if key in ambiguous:
+    g["identity_warning"]="ambiguous_same_day_matchup"
+    target["games"].append(g)
+    continue
    idx=next((i for i,old in enumerate(target["games"]) if identity(old,league)==key),None)
    if idx is None:
     target["games"].append(g);continue
