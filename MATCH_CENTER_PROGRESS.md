@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 5, archive fallback
+Updated: 2026-10-22 — batch 6
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -22,7 +22,7 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); source-reported team totals added (75a2fed7, 43ab248e), deployment validation pending; category-aware player tables (b7c9b7d1), overtime labels corrected (4093f29f).
 - [ ] 04. Improve source efficiency, retries, concurrency, and rate-limit handling. IMPLEMENTED: bounded transient HTTP retry/backoff (70a67342); bounded concurrency implemented (54bad143); measured rate-limit behavior pending.
 - [ ] 05. Expand detailed coverage and validate IDs, freshness, and missing data. IMPLEMENTED: increase from 4 to 12 prioritized games per league (54bad143); deployment and data quality verification pending.
-- [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot. IN PROGRESS: repository archive fallback reader (0fe4fce7); persistent writer and full historical retrieval not yet implemented.
+- [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot. IN PROGRESS: archive fallback reader (0fe4fce7), snapshot writer (00fb869e), Actions cache restore/save (d7030540), game metadata (55402603), archived game picker (585e4991). Still limited to 1500 records and cache retention; end-to-end persistence testing pending.
 - [ ] 07. Finish soccer scorers, assists, cards, substitutions, formations, and timelines.
 - [ ] 08. Finish football drives, scoring plays, and individual player statistics.
 - [ ] 09. Finish baseball innings, batting, and pitching displays.
@@ -36,6 +36,13 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 6 notes
+- Implemented an archive snapshot written during collection and restored/saved between scheduled GitHub Actions runs.
+- Archived games with preserved metadata now appear in Match Center selection.
+- Added archived metadata validation (b87165df).
+- GitHub Actions cache is best-effort and retention-limited, not a durable database; archive step remains open.
+- Deployment verification for batch 6 pending.
 
 ## Batch 5 notes
 - 41342fdd: latest expanded-coverage batch completed successfully in GitHub Actions run 39830242910.
