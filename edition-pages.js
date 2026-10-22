@@ -4,10 +4,14 @@
   const editions=[
     {title:'Front Page',ids:['front-page']},
     {title:'The Scoreboard',ids:['scores']},
+    {title:'Professional Basketball',ids:['pro-basketball']},
+    {title:'Professional Football',ids:['pro-football']},
+    {title:'College Football',ids:['college-football']},
+    {title:'College Basketball',ids:['college-basketball']},
+    {title:'Other College Sports',ids:['other-college-sports','college-schedules']},
     {title:'The Rabby 20',ids:['rabby-front','team-desk']},
     {title:'Sporting Wire',ids:['wire']},
     {title:'Team Directory',ids:['coburn-20']},
-    {title:'College Athletics',ids:['college-schedules']},
     {title:'Ratings & Predictions',ids:['sports-home']},
     {title:'Print Archive',ids:['archive']},
     {title:'About the Newspaper',ids:['standards']}
