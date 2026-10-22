@@ -63,6 +63,16 @@ def fetch_detail(label, game):
         events = events.get("items") or events.get("events") or []
     if not isinstance(events, list):
         events = []
+    def event_record(e):
+        kind = e.get("type") or {}
+        clock = e.get("clock") or {}
+        team = e.get("team") or {}
+        return {"text":str(e.get("text") or e.get("description") or e.get("shortText") or kind.get("text") or "Event")[:500],
+                "clock":str(clock.get("displayValue") or e.get("displayClock") or "")[:40],
+                "period":str((e.get("period") or {}).get("number") or ""),
+                "type":str(kind.get("text") or kind.get("type") or "")[:80],
+                "team":str(team.get("displayName") or team.get("name") or "")[:100],
+                "scoring":bool(e.get("scoringPlay") or e.get("isScore"))}
     boxscore = data.get("boxscore") or {}
     teams = boxscore.get("teams") or []
     players = []
@@ -89,9 +99,7 @@ def fetch_detail(label, game):
                                 "category":str(bucket.get("name") or bucket.get("displayName") or ""),
                                 "labels":labels, "stats":[str(x) for x in stats]})
     record = {"source":"ESPN public summary","source_url":url,"fetched_at":out["updated_at"],
-              "events":[{"text":str(e.get("text") or e.get("description") or e.get("shortText") or (e.get("type") or {}).get("text") or "Event")[:500],
-                         "clock":str((e.get("clock") or {}).get("displayValue") or e.get("displayClock") or "")[:40]}
-                        for e in events[:150] if isinstance(e, dict)],
+              "events":[event_record(e) for e in events[:250] if isinstance(e, dict)],
               "statistics":[{"team":str((t.get("team") or {}).get("displayName") or "Team"),
                              "values":[{"name":str(v.get("label") or v.get("displayName") or v.get("name") or ""),
                                         "value":str(v.get("displayValue") if v.get("displayValue") is not None else v.get("value") or "")}
