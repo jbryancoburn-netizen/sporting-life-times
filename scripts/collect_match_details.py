@@ -124,7 +124,7 @@ for league in source.get("leagues", []):
             continue
         key = label + "::" + ident
         cached = previous.get(key)
-        if game.get("state") == "post" and isinstance(cached, dict) and (
+        if game.get("state") == "post" and isinstance(cached, dict) and isinstance(cached.get("game"), dict) and (
                 cached.get("events") or cached.get("statistics") or cached.get("players")):
             if not isinstance(cached.get("game"), dict):
                 cached["game"] = {"id":ident,"league":label,"date":game.get("date"),"name":game.get("name"),"state":game.get("state"),"teams":game.get("teams") or [],"status":game.get("status")}
