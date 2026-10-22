@@ -21,7 +21,7 @@ class FrontPageTests(unittest.TestCase):
         self.assertNotIn("<main>\\n", self.page)
 
     def test_internal_navigation_anchors_resolve(self):
-        ids = set(re.findall(r'\\bid="([^"]+)"', self.page))
+        ids = set(re.findall(r'\bid="([^"]+)"', self.page))
         for target in re.findall(r'href="#([^"]+)"', self.page):
             with self.subTest(anchor=target):
                 self.assertIn(target, ids)
