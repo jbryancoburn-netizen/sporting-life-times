@@ -4,8 +4,41 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from urllib.request import Request, urlopen
+from collections import defaultdict
 ROOT=Path(__file__).resolve().parents[1]
 LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball"),("Champions League","soccer/uefa.champions"),("Europa League","soccer/uefa.europa"),("Australian NBL","basketball/aus.nbl"),("EuroLeague","basketball/euroleague"),("ECHL","hockey/echl"),("College Baseball","baseball/college-baseball"),("NCAA Men's Soccer","soccer/usa.ncaa.m.1"),("NCAA Men's Hockey","hockey/mens-college-hockey")]
+def espn_standings(path):
+    """Return verified division standings from ESPN; never invent rank or movement."""
+    req=Request("https://site.api.espn.com/apis/v2/sports/"+path+"/standings",headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
+    with urlopen(req,timeout=12) as response: data=json.load(response)
+    result={}
+    def walk(node,division=""):
+        name=str(node.get("name") or node.get("abbreviation") or "")
+        if name.lower() in ("east","west","north","south","atlantic","central","pacific","southeast","northwest","southwest"):
+            division=name
+        standings=node.get("standings") or {}
+        entries=standings.get("entries") or []
+        for index,entry in enumerate(entries):
+            team=entry.get("team") or {}
+            ident=team.get("id")
+            stats={str(x.get("name") or x.get("abbreviation") or "").lower():x for x in entry.get("stats",[])}
+            def number(*keys):
+                for key in keys:
+                    v=stats.get(key.lower()) or {}
+                    raw=v.get("value")
+                    if raw is not None:
+                        try:return int(raw)
+                        except (TypeError,ValueError):pass
+                return None
+            wins=number("wins","W");losses=number("losses","L")
+            rank=number("divisionRank","divisionStanding")
+            if rank is None and division and entries:rank=index+1
+            if ident and wins is not None and losses is not None:
+                result[str(ident)]={"wins":wins,"losses":losses,"rank":rank,"division":division}
+        for child in node.get("children") or []:walk(child,division)
+    walk(data)
+    return result
+
 out={"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"source":"ESPN public scoreboard API","leagues":[]}
 for label,path in LEAGUES:
     url="https://site.api.espn.com/apis/site/v2/sports/"+path+"/scoreboard"
@@ -17,6 +50,10 @@ for label,path in LEAGUES:
     block["window_start"]=start
     block["window_end"]=end
     logo_by_id={}
+    standings={}
+    if label in ("NFL","NBA"):
+        try:standings=espn_standings(path)
+        except Exception as exc:block["standings_warning"]=type(exc).__name__
     try:
         team_req=Request("https://site.api.espn.com/apis/site/v2/sports/"+path+"/teams?limit=500",headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
         with urlopen(team_req,timeout=12) as response: team_data=json.load(response)
@@ -45,7 +82,7 @@ for label,path in LEAGUES:
             teams=[]
             for c in competitors:
                 t=c.get("team") or {}
-                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None) or logo_by_id.get(str(t.get("id")))})
+                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None) or logo_by_id.get(str(t.get("id"))),"standings":({"before":standings[str(t.get("id"))],"after":None,"basis":"espn_current_standings"} if str(t.get("id")) in standings else None)})
             status=ev.get("status") or {}
             block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"venue":(comp.get("venue") or {}).get("fullName",""),"broadcast":", ".join(x.get("names",[""])[0] for x in comp.get("broadcasts",[]) if x.get("names")),"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
     except Exception as exc: block["error"]=type(exc).__name__+": "+str(exc)[:100]
