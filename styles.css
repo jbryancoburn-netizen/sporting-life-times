@@ -405,3 +405,11 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 .sports-home-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:20px;padding-top:14px;border-top:1px solid #aaa}
 .sports-home-links a{font:700 11px Arial,sans-serif;letter-spacing:.05em}
 @media(max-width:760px){.sports-home-grid{grid-template-columns:1fr}.sports-home-card{min-height:0}.sports-home-hub{padding:16px}}
+
+/* Unified transparent newspaper masthead across the front page and sports desks. */
+.newspaper-wordmark{display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:100%;width:max-content;margin:0 auto;color:inherit!important;text-decoration:none!important;background:transparent!important;line-height:1.03;text-align:center}
+.newspaper-wordmark-small{font:700 clamp(.55rem,1vw,.8rem)/1 Georgia,'Times New Roman',serif;letter-spacing:.48em;margin:0 0 .28rem .48em}
+.newspaper-wordmark-main{font:900 clamp(1.75rem,5.8vw,4.8rem)/1 Georgia,'Times New Roman',serif;letter-spacing:-.065em;white-space:normal;text-transform:uppercase}
+.newspaper-wordmark-amp{font-style:italic;font-weight:400;font-size:.82em;margin:0 .035em}
+.newspaper-wordmark:hover .newspaper-wordmark-main,.newspaper-wordmark:focus-visible .newspaper-wordmark-main{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+@media(max-width:480px){.newspaper-wordmark-main{font-size:clamp(1.55rem,7vw,2.4rem)}.newspaper-wordmark-small{letter-spacing:.3em}}
