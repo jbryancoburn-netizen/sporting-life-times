@@ -33,18 +33,18 @@ const grouped=new Map();for(const item of items){const key=sportOf(item);if(!gro
 const priority=['Football','Basketball','Baseball','Hockey','Soccer','Other sports'];const groups=[...grouped].sort((a,b)=>priority.indexOf(a[0])===-1?1:priority.indexOf(b[0])===-1?-1:priority.indexOf(a[0])-priority.indexOf(b[0]));
 const balanced=[];let round=0;while(balanced.length<items.length){let added=false;for(const [,stories] of groups){if(stories[round]){balanced.push(stories[round]);added=true}}if(!added)break;round++}
 const rabbyAliases=[
-['Chicago Bears',/\\b(chicago bears|bears quarterback|bears coach)\\b/i],
-['Chicago Cubs',/\\b(chicago cubs|\\bcubs\\b|cubs manager|wrigley field)\\b/i],
-['Tampa Bay Rays',/\\b(tampa bay rays|rays baseball|\\brays\\b)\\b/i],
-['Tampa Bay Lightning',/\\b(tampa bay lightning|lightning hockey|\\bbolts\\b)\\b/i],
-['Indiana Pacers',/\\b(indiana pacers|pacers basketball|\\bpacers\\b)\\b/i],
-['Fort Wayne Komets',/\\b(fort wayne komets|komets hockey)\\b/i],
-['Tottenham Hotspur',/\\b(tottenham|spurs soccer|spurs football|hotspur)\\b/i],
-['FC Bayern Munich Basketball',/\\b(bayern basketball|bayern munich basketball)\\b/i],
-['Indiana Hoosiers',/\\b(indiana hoosiers|hoosiers football|hoosiers basketball|hoosiers baseball|hoosiers soccer)\\b/i],
-['South Florida Bulls',/\\b(south florida bulls|usf bulls|bulls football)\\b/i],
-['Vermont Catamounts',/\\b(vermont catamounts|catamounts hockey|catamounts basketball)\\b/i],
-['Trine Thunder',/\\b(trine thunder|trine university football|trine basketball)\\b/i]
+['Chicago Bears',/\b(chicago bears|bears quarterback|bears coach)\b/i],
+['Chicago Cubs',/\b(chicago cubs|\bcubs\b|cubs manager|wrigley field)\b/i],
+['Tampa Bay Rays',/\b(tampa bay rays|rays baseball|\brays\b)\b/i],
+['Tampa Bay Lightning',/\b(tampa bay lightning|lightning hockey|\bbolts\b)\b/i],
+['Indiana Pacers',/\b(indiana pacers|pacers basketball|\bpacers\b)\b/i],
+['Fort Wayne Komets',/\b(fort wayne komets|komets hockey)\b/i],
+['Tottenham Hotspur',/\b(tottenham|spurs soccer|spurs football|hotspur)\b/i],
+['FC Bayern Munich Basketball',/\b(bayern basketball|bayern munich basketball)\b/i],
+['Indiana Hoosiers',/\b(indiana hoosiers|hoosiers football|hoosiers basketball|hoosiers baseball|hoosiers soccer|indiana football|indiana basketball|iu basketball|iu football)\b/i],
+['South Florida Bulls',/\b(south florida bulls|usf bulls|usf football|usf basketball|south florida football|south florida basketball)\b/i],
+['Vermont Catamounts',/\b(vermont catamounts|catamounts hockey|catamounts basketball|vermont hockey|vermont basketball|uvm hockey)\b/i],
+['Trine Thunder',/\b(trine thunder|trine university football|trine basketball|trine football|trine university basketball)\b/i]
 ];
 const rabbyStories=items.map(a=>({...a,team:rabbyAliases.find(([,pattern])=>pattern.test(a.title||''))?.[0]})).filter(a=>a.team);
 const rabbyLead=document.querySelector('#rabby-front-lead'),rabbyBriefs=document.querySelector('#rabby-front-stories');
