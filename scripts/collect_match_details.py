@@ -36,60 +36,101 @@ def read_json(url, attempts=3):
             sleep(0.4 * (2 ** attempt))
 
 out["retained_from_previous"] = len(previous)
+def priority(game):
+    now = datetime.now(timezone.utc)
+    try:
+        stamp = datetime.fromisoformat(str(game.get("date", "")).replace("Z", "+00:00"))
+        distance = abs((stamp - now).total_seconds())
+    except (ValueError, TypeError):
+        distance = float("inf")
+    return (0 if game.get("state") == "in" else 1 if game.get("state") == "post" else 2, distance)
+
+
+def fetch_detail(label, game):
+    ident = str(game["id"])
+    key = label + "::" + ident
+    url = "https://site.api.espn.com/apis/site/v2/sports/" + PATHS[label] + "/summary?event=" + ident
+    data = read_json(url)
+    events = data.get("keyEvents") or data.get("plays") or []
+    if isinstance(events, dict):
+        events = events.get("items") or events.get("events") or []
+    if not isinstance(events, list):
+        events = []
+    boxscore = data.get("boxscore") or {}
+    teams = boxscore.get("teams") or []
+    players = []
+    for group in boxscore.get("players") or []:
+        if not isinstance(group, dict):
+            continue
+        team = (group.get("team") or {}).get("displayName") or "Team"
+        for bucket in group.get("statistics") or []:
+            if not isinstance(bucket, dict):
+                continue
+            labels = [str(x) for x in bucket.get("labels") or []]
+            for p in bucket.get("athletes") or []:
+                if not isinstance(p, dict):
+                    continue
+                stats = p.get("stats") or []
+                if not isinstance(stats, list):
+                    continue
+                players.append({"team":str((p.get("team") or {}).get("displayName") or team),
+                                "name":str((p.get("athlete") or {}).get("displayName") or "Player"),
+                                "category":str(bucket.get("name") or bucket.get("displayName") or ""),
+                                "labels":labels, "stats":[str(x) for x in stats]})
+    record = {"source":"ESPN public summary","source_url":url,"fetched_at":out["updated_at"],
+              "events":[{"text":str(e.get("text") or e.get("description") or e.get("shortText") or (e.get("type") or {}).get("text") or "Event")[:500],
+                         "clock":str((e.get("clock") or {}).get("displayValue") or e.get("displayClock") or "")[:40]}
+                        for e in events[:150] if isinstance(e, dict)],
+              "statistics":[{"team":str((t.get("team") or {}).get("displayName") or "Team"),
+                             "values":[{"name":str(v.get("label") or v.get("displayName") or v.get("name") or ""),
+                                        "value":str(v.get("displayValue") if v.get("displayValue") is not None else v.get("value") or "")}
+                                       for v in t.get("statistics") or [] if isinstance(v, dict)]}
+                            for t in teams if isinstance(t, dict)],
+              "lineups":[], "players":players[:150]}
+    return key, record
+
+
+pending = []
 for league in source.get("leagues", []):
     label = league.get("league")
     if label not in PATHS:
         continue
-    # Prioritize live games, recent finals, and nearby scheduled fixtures.
-    # Bound remote requests so the site can publish on schedule.
-    now = datetime.now(timezone.utc)
-    def priority(game):
-        state = game.get("state")
-        try:
-            stamp = datetime.fromisoformat(str(game.get("date", "")).replace("Z", "+00:00"))
-            distance = abs((stamp - now).total_seconds())
-        except (ValueError, TypeError):
-            distance = float("inf")
-        return (0 if state == "in" else 1 if state == "post" else 2, distance)
-    games = sorted(league.get("games", []), key=priority)[:4]
-    out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,"with_statistics":0,"failed":0,"cached":0}
+    games = sorted(league.get("games", []), key=priority)[:12]
+    row = out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,
+                                      "with_statistics":0,"failed":0,"cached":0}
     for game in games:
         ident = str(game.get("id") or "")
         if not ident.isdigit():
             continue
-        key = label+"::"+ident
-        # Avoid refetching settled games whose verified detail is already archived.
+        key = label + "::" + ident
         cached = previous.get(key)
-        if game.get("state") == "post" and isinstance(cached, dict) and (cached.get("events") or cached.get("statistics")):
-            out["coverage"][label]["available"] += 1
-            out["coverage"][label]["cached"] += 1
-            if cached.get("events"):
-                out["coverage"][label]["with_events"] += 1
-            if cached.get("statistics"):
-                out["coverage"][label]["with_statistics"] += 1
+        if game.get("state") == "post" and isinstance(cached, dict) and (
+                cached.get("events") or cached.get("statistics") or cached.get("players")):
+            row["available"] += 1
+            row["cached"] += 1
+            row["with_events"] += int(bool(cached.get("events")))
+            row["with_statistics"] += int(bool(cached.get("statistics")))
             continue
-        out["coverage"][label]["attempted"] += 1
-        url = "https://site.api.espn.com/apis/site/v2/sports/"+PATHS[label]+"/summary?event="+ident
+        row["attempted"] += 1
+        pending.append((label, game))
+
+# Bounded concurrency: all network I/O completes before the output is written.
+with ThreadPoolExecutor(max_workers=5) as pool:
+    futures = {pool.submit(fetch_detail, label, game): (label, str(game["id"]))
+               for label, game in pending}
+    for future in as_completed(futures):
+        label, ident = futures[future]
+        row = out["coverage"][label]
         try:
-            data = read_json(url)
-            events = data.get("keyEvents") or data.get("plays") or []
-            if isinstance(events, dict):
-                events = events.get("items") or events.get("events") or []
-            if not isinstance(events, list):
-                events = []
-            teams = (data.get("boxscore") or {}).get("teams") or []
-            out["games"][key] = {"source":"ESPN public summary","source_url":url,"fetched_at":out["updated_at"],
-                "events":[{"text":str(e.get("text") or e.get("description") or e.get("shortText") or (e.get("type") or {}).get("text") or "Event")[:500],"clock":str((e.get("clock") or {}).get("displayValue") or e.get("displayClock") or "")[:40]} for e in events[:150] if isinstance(e,dict)],
-                "statistics":[{"team":str((t.get("team") or {}).get("displayName") or "Team"),"values":[{"name":str(v.get("label") or v.get("displayName") or v.get("name") or ""),"value":str(v.get("displayValue") if v.get("displayValue") is not None else v.get("value") or "")} for v in (t.get("statistics") or []) if isinstance(v,dict)]} for t in teams if isinstance(t,dict)],
-                "lineups":[],"players":[{"team":str((p.get("team") or {}).get("displayName") or (group.get("team") or {}).get("displayName") or "Team"),"name":str((p.get("athlete") or {}).get("displayName") or "Player"),"category":str(bucket.get("name") or bucket.get("displayName") or ""),"labels":[str(x) for x in (bucket.get("labels") or [])],"stats":[str(x) for x in (p.get("stats") or [])]} for group in ((data.get("boxscore") or {}).get("players") or []) if isinstance(group,dict) for bucket in (group.get("statistics") or []) if isinstance(bucket,dict) for p in (bucket.get("athletes") or []) if isinstance(p,dict)][:150]}
-            out["coverage"][label]["available"] += 1
-            if out["games"][key]["events"]:
-                out["coverage"][label]["with_events"] += 1
-            if out["games"][key]["statistics"]:
-                out["coverage"][label]["with_statistics"] += 1
+            key, record = future.result()
+            out["games"][key] = record
+            row["available"] += 1
+            row["with_events"] += int(bool(record["events"]))
+            row["with_statistics"] += int(bool(record["statistics"]))
         except Exception as exc:
-            out["errors"].append({"game":key,"error":type(exc).__name__})
-            out["coverage"][label]["failed"] += 1
+            out["errors"].append({"game":label+"::"+ident,"error":type(exc).__name__})
+            row["failed"] += 1
+
 # Bound the archive and preserve original timestamps for cached details.
 if len(out["games"]) > 1500:
     ordered = sorted(out["games"].items(), key=lambda item: item[1].get("fetched_at", ""), reverse=True)
