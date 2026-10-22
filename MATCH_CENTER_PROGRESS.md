@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 18
+Updated: 2026-10-22 — batch 19
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,14 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 19 notes
+- 1ad30683 seven-day Match Center release passed GitHub Actions.
+- 6cecda5f / 477b87eb: generate and publish compact historical index after collecting archived records.
+- 86b79129: lazy-load index on historical search and load detailed monthly shard only when selected.
+- 79ffd2ae: resolve deep-linked historical games through the index.
+- 26041bbb: update browser cache version for new historical search.
+- Pending: new CI deployment, browser integration tests, and validation of historical shard retrieval at scale.
 
 ## Batch 18 notes
 - 5cc2132f: default picker to a seven-day window (three days back, today, three days ahead), retaining search/date/status access to older indexed games.
