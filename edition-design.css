@@ -111,3 +111,15 @@ body:has(#front-page) #scores .league-register-title h4{font:500 .9rem/1.25 Geor
 body:has(#front-page) #scores .league-register-title span{font:400 .65rem Georgia,serif;color:#777}
 body:has(#front-page) #scores .register-heading h3{font-size:.8rem!important}
 body:has(#front-page) #scores .team-logo{object-fit:contain}
+
+/* Shared register rendering: applies to scoreboard and Rabby desk. */
+body:has(#front-page) .register-game{min-width:0}
+body:has(#front-page) .register-team{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;column-gap:10px;align-items:center;position:relative}
+body:has(#front-page) .register-team .team-with-logo{display:inline-flex!important;align-items:center;gap:7px;min-width:0;overflow-wrap:anywhere}
+body:has(#front-page) .register-team .team-logo{width:23px!important;height:23px!important;max-width:23px!important;max-height:23px!important;object-fit:contain!important;flex:0 0 23px}
+body:has(#front-page) .register-team .register-score{font:500 1.05rem/1.2 Georgia,serif!important;font-variant-numeric:tabular-nums;min-width:1.5em;text-align:right}
+body:has(#front-page) .register-team-leading .register-score{font-weight:700!important}
+body:has(#front-page) .register-team .team-standing{grid-column:1/-1;margin:1px 0 5px 30px;font-size:.68rem}
+body:has(#front-page) .register-game-links{display:flex;flex-wrap:wrap;gap:7px 15px;margin-top:9px;padding-top:7px;border-top:1px solid #e2dfd9}
+body:has(#front-page) .register-game-links a{font:400 .64rem/1.35 Georgia,serif!important;letter-spacing:.025em!important;color:#56534c!important;position:static!important;display:inline!important;margin:0!important;padding:0!important;background:none!important;border:0!important}
+body:has(#front-page) .register-game-links a:hover{text-decoration:underline!important}
