@@ -118,6 +118,11 @@ for league in source.get("leagues", []):
         cached = previous.get(key)
         if game.get("state") == "post" and isinstance(cached, dict) and (
                 cached.get("events") or cached.get("statistics") or cached.get("players")):
+            if not isinstance(cached.get("game"), dict):
+                cached["game"] = {"id":ident,"league":label,"date":game.get("date"),"name":game.get("name"),"state":game.get("state"),"teams":game.get("teams") or [],"status":game.get("status")}
+            else:
+                cached["game"].update({"state":game.get("state"),"status":game.get("status"),"teams":game.get("teams") or cached["game"].get("teams") or []})
+            out["games"][key] = cached
             row["available"] += 1
             row["cached"] += 1
             row["with_events"] += int(bool(cached.get("events")))
