@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 ROOT=Path(__file__).resolve().parents[1]
-LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball"),("Champions League","soccer/uefa.champions"),("Europa League","soccer/uefa.europa"),("Australian NBL","basketball/aus.nbl"),("EuroLeague","basketball/euroleague"),("ECHL","hockey/echl"),("NCAA Men's Soccer","soccer/usa.ncaa.m.1"),("NCAA Men's Hockey","hockey/mens-college-hockey")]
+LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball"),("Champions League","soccer/uefa.champions"),("Europa League","soccer/uefa.europa"),("Australian NBL","basketball/aus.nbl"),("EuroLeague","basketball/euroleague"),("ECHL","hockey/echl"),("College Baseball","baseball/college-baseball"),("NCAA Men's Soccer","soccer/usa.ncaa.m.1"),("NCAA Men's Hockey","hockey/mens-college-hockey")]
 out={"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"source":"ESPN public scoreboard API","leagues":[]}
 for label,path in LEAGUES:
     url="https://site.api.espn.com/apis/site/v2/sports/"+path+"/scoreboard"
