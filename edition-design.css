@@ -75,3 +75,6 @@ body:has(#front-page) .edition-contents>summary::-webkit-details-marker{display:
 body:has(#front-page) .edition-contents>summary:after{content:'  ▾';font-size:.7em}
 body:has(#front-page) .edition-contents[open]>summary:after{content:'  ▴'}
 body:has(#front-page) .edition-contents .edition-index{border-top:1px solid #dedbd4!important;padding:10px 8px!important;margin:0 auto 8px}
+
+/* Respect native HTML hidden state before any scripts run. */
+main > section[hidden],body:has(#front-page) main > section[hidden]{display:none!important}
