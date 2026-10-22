@@ -28,6 +28,16 @@ def text_of(item, names):
             return clean(el.text)
     return ""
 
+def image_of(item):
+    for tag in ("{http://search.yahoo.com/mrss/}content", "{http://search.yahoo.com/mrss/}thumbnail", "enclosure"):
+        el=item.find(tag)
+        if el is None: continue
+        url=el.attrib.get("url","")
+        typ=el.attrib.get("type","")
+        if url.startswith("https://") and (typ.startswith("image/") or el.attrib.get("medium")=="image" or tag.endswith("thumbnail")):
+            return url
+    return None
+
 def main():
     articles, status, seen = [], [], set()
     for feed in FEEDS:
@@ -47,7 +57,7 @@ def main():
                 summary = text_of(item, ["description", "summary", "{http://www.w3.org/2005/Atom}summary", "content"])
                 if not title or not link or link in seen: continue
                 seen.add(link)
-                articles.append({"title":title, "url":link, "summary":summary[:600], "source":feed["name"], "category":feed.get("category","Sports"), "published_at":parse_date(item)})
+                articles.append({"title":title, "url":link, "summary":summary[:600], "source":feed["name"], "category":feed.get("category","Sports"), "published_at":parse_date(item), "image_url":image_of(item)})
             result["ok"] = True
             result["items"] = sum(1 for a in articles if a["source"] == feed["name"])
         except Exception as exc:
