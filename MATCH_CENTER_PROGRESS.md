@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 19
+Updated: 2026-10-22 — batch 20
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,13 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 20 notes
+- 6510ba9c: extract pure historical index builder for testability.
+- 7c78e93d: five tests for index source precedence, invalid records, duplicate keys, and ordering.
+- 03fdd77d: assert historical index integrity and shard file availability at publish time.
+- a9980bb4: build index before health validation in publishing workflow.
+- Latest CI and on-demand browser integration remain to be verified.
 
 ## Batch 19 notes
 - 1ad30683 seven-day Match Center release passed GitHub Actions.
