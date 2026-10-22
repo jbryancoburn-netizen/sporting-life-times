@@ -17,6 +17,8 @@ for key, game in details["games"].items():
     if not isinstance(game, dict) or not isinstance(game.get("events"), list) or not isinstance(game.get("statistics"), list):
         bad.append(key)
     assert isinstance(game.get("players", []), list), f"Malformed players collection: {key}"
+    for total in game.get("team_totals", []):
+        assert isinstance(total, dict) and isinstance(total.get("stats"), list) and isinstance(total.get("labels"), list), f"Malformed team total: {key}"
     for player in game.get("players", []):
         assert isinstance(player, dict), f"Malformed player: {key}"
         assert isinstance(player.get("stats"), list), f"Malformed player stats: {key}"
