@@ -1,5 +1,5 @@
 import unittest
-from reconcile import reconcile,identity
+from reconcile import reconcile,identity,load_aliases
 def game(provider,score=None,state="pre"):
  return {"id":provider,"date":"2026-10-22T18:00:00Z","provider":provider,"state":state,"teams":[{"name":"Chicago Cubs","score":score},{"name":"Tampa Bay Rays","score":2 if score is not None else None}]}
 def block(p,g):return {"league":"MLB","provider":p,"games":[g]}
@@ -32,4 +32,13 @@ class ReconcileTests(unittest.TestCase):
   a["gameNumber"]=1;b["gameNumber"]=2;b["id"]="mlb-second"
   l,c=reconcile([],[{"league":"MLB","provider":"mlb_stats","games":[a,b]}])
   self.assertEqual(len(l[0]["games"]),2);self.assertFalse(c)
-if __name__=="__main__":unittest.main()
+ def test_school_alias_same_competition(self):
+  aliases=load_aliases()
+  a={"date":"2026-10-22","teams":[{"name":"Indiana Hoosiers"},{"name":"Purdue Boilermakers"}]}
+  b={"date":"2026-10-22","teams":[{"name":"Indiana"},{"name":"Purdue Boilermakers"}]}
+  self.assertEqual(identity(a,"College Football",aliases),identity(b,"College Football",aliases))
+ def test_school_alias_not_cross_sport(self):
+  aliases=load_aliases()
+  a={"date":"2026-10-22","teams":[{"name":"Indiana Hoosiers"},{"name":"Purdue Boilermakers"}]}
+  self.assertNotEqual(identity(a,"College Football",aliases),identity(a,"Men's College Basketball",aliases))
+ if __name__=="__main__":unittest.main()
