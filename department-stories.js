@@ -4,6 +4,7 @@
   if(!blocks.length)return;
   const patterns={
     'pro-basketball':/\b(nba|euroleague|nbl|basketball|pacers|lakers|celtics|knicks|nuggets|spurs|warriors)\b/i,
+    'pro-hockey':/\b(nhl|echl|hockey|stanley cup|lightning|panthers|bruins|rangers|maple leafs|oilers)\b/i,
     'pro-football':/\b(nfl|cfl|ufl|chiefs|bears|packers|quarterback|touchdown|super bowl)\b/i,
     'college-football':/\b(college football|ncaa football|fbs|fcs|big ten football|cfp|college football playoff)\b/i,
     'college-basketball':/\b(college basketball|ncaa basketball|march madness|final four|men's basketball|women's basketball)\b/i,
