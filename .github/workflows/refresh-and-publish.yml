@@ -42,15 +42,11 @@ jobs:
         run: python scripts/collect_statcast.py
       - name: Publish provider health and conflict audit
         run: python scripts/publish_source_health.py
-      - name: Commit refreshed feed data
+      - name: Stage refreshed data without racing concurrent source commits
         run: |
-          if ! git diff --quiet -- articles.json scoreboards.json official_scoreboards.json multi_scoreboards.json statcast_health.json college_schedules.json data/source-health.json || [ -n "$(git ls-files --others --exclude-standard assets/)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add articles.json scoreboards.json official_scoreboards.json multi_scoreboards.json statcast_health.json college_schedules.json data/source-health.json assets/original-print-masthead.png
-            git commit -m "Refresh Sporting Wire and verified scoreboards"
-            git push
-          fi
+          # Data is included in this deployment artifact. Persisting it to main
+          # is handled separately so an out-of-date runner cannot reject the deploy.
+          git status --short
       - name: Upload website artifact
         uses: actions/upload-pages-artifact@v3
         with:
