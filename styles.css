@@ -388,3 +388,20 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 #scores .missing-team-logo,#team-desk .missing-team-logo{display:inline-grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border:1px dashed #b6b0a5;background:#f4f1e9;color:#888;font:700 1.2rem Georgia,serif}
 #scores .missing-team-logo[hidden],#team-desk .missing-team-logo[hidden]{display:none!important}
 @media(max-width:520px){#scores .missing-team-logo,#team-desk .missing-team-logo{width:42px;height:42px;flex-basis:42px}}
+
+
+/* Sport-model desks: front-page navigation */
+.sports-home-hub{margin:28px 0 38px;padding:24px;border:2px solid #222;background:#f8f5ec}
+.sports-home-hub>h2{font:700 clamp(2rem,4vw,3.5rem)/1 Georgia,serif;margin:8px 0 12px;letter-spacing:-.025em}
+.sports-home-intro{max-width:760px;font:1.1rem/1.55 Georgia,serif}
+.sports-home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.sports-home-card{display:flex;flex-direction:column;min-height:220px;padding:22px;background:#fff;border:1px solid #aaa;color:#202020;text-decoration:none;transition:transform .15s,border-color .15s}
+.sports-home-card:hover,.sports-home-card:focus{border-color:#8e2529;transform:translateY(-2px)}
+.sports-home-card>span{font:700 10px Arial,sans-serif;letter-spacing:.16em;color:#8e2529}
+.sports-home-card h3{font:700 clamp(1.8rem,3vw,2.6rem) Georgia,serif;margin:14px 0 8px}
+.sports-home-card p{font:1rem/1.5 Georgia,serif;flex:1}
+.sports-home-card strong{font:700 11px Arial,sans-serif;letter-spacing:.06em;margin-top:20px}
+.sports-home-card-plain{background:#eee9dc}
+.sports-home-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:20px;padding-top:14px;border-top:1px solid #aaa}
+.sports-home-links a{font:700 11px Arial,sans-serif;letter-spacing:.05em}
+@media(max-width:760px){.sports-home-grid{grid-template-columns:1fr}.sports-home-card{min-height:0}.sports-home-hub{padding:16px}}
