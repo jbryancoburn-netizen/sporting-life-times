@@ -7,6 +7,7 @@ from urllib.request import Request, urlopen
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from time import sleep
 from urllib.error import HTTPError, URLError
+from match_center_records import choose_games, merge_record
 
 ROOT = Path(__file__).resolve().parents[1]
 PATHS = {"NFL":"football/nfl","MLB":"baseball/mlb","NBA":"basketball/nba","NHL":"hockey/nhl","Premier League":"soccer/eng.1","College Football":"football/college-football","Men's College Basketball":"basketball/mens-college-basketball","Women's College Basketball":"basketball/womens-college-basketball","Champions League":"soccer/uefa.champions","Europa League":"soccer/uefa.europa"}
@@ -115,14 +116,7 @@ for league in source.get("leagues", []):
     label = league.get("league")
     if label not in PATHS:
         continue
-    ordered = sorted(league.get("games", []), key=priority)
-    live = [g for g in ordered if g.get("state") == "in"][:4]
-    finals = [g for g in ordered if g.get("state") == "post"][:4]
-    upcoming = [g for g in ordered if g.get("state") == "pre"][:4]
-    games = live + finals + upcoming
-    if len(games) < 12:
-        chosen = {str(g.get("id")) for g in games}
-        games += [g for g in ordered if str(g.get("id")) not in chosen][:12-len(games)]
+    games = choose_games(league.get("games", []))
     row = out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,
                                       "with_statistics":0,"failed":0,"cached":0}
     for game in games:
@@ -155,11 +149,7 @@ with ThreadPoolExecutor(max_workers=5) as pool:
         row = out["coverage"][label]
         try:
             key, record = future.result()
-            old_record = out["games"].get(key) or {}
-            if not (record.get("events") or record.get("statistics") or record.get("players")) and (
-                    old_record.get("events") or old_record.get("statistics") or old_record.get("players")):
-                old_record["game"] = record["game"]
-                record = old_record
+            record = merge_record(out["games"].get(key), record)
             out["games"][key] = record
             row["available"] += 1
             row["with_events"] += int(bool(record["events"]))
