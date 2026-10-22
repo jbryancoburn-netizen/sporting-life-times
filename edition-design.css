@@ -78,3 +78,17 @@ body:has(#front-page) .edition-contents .edition-index{border-top:1px solid #ded
 
 /* Respect native HTML hidden state before any scripts run. */
 main > section[hidden],body:has(#front-page) main > section[hidden]{display:none!important}
+
+/* Front page is a compact editorial cover, not a giant department title. */
+body:has(#front-page) #front-page.live-front{padding:9px 0 15px!important;column-gap:21px}
+body:has(#front-page) #front-page>.section-label{font:400 .65rem/1.3 Georgia,serif!important;letter-spacing:.025em!important;margin:0 0 7px!important;border:0!important}
+body:has(#front-page) #front-page>h2#lead-headline{font:500 clamp(1.22rem,1.65vw,1.58rem)/1.27 Georgia,serif!important;letter-spacing:-.014em!important;margin:0 0 7px!important;max-width:47ch!important}
+body:has(#front-page) #front-page>#lead-summary{font:400 .84rem/1.47 Georgia,serif!important;margin:0 0 7px!important}
+body:has(#front-page) #front-page>#lead-source{font:400 .64rem/1.3 Georgia,serif!important;margin:0 0 7px!important}
+body:has(#front-page) #front-page>#lead-photo img{max-height:175px!important}
+body:has(#front-page) #front-page>#front-briefs{padding-left:17px!important}
+body:has(#front-page) #front-page>#front-briefs h3{font:500 .91rem/1.33 Georgia,serif!important}
+body:has(#front-page) #front-page>#front-briefs article{padding-bottom:9px!important;margin-bottom:9px!important}
+body:has(#front-page) #front-page>#front-briefs article:nth-child(n+5){display:none!important}
+body:has(#front-page) #front-page>.small{font-size:.58rem!important}
+@media(max-width:760px){body:has(#front-page) #front-page.live-front{padding:9px 0 14px!important}body:has(#front-page) #front-page>h2#lead-headline{font-size:1.27rem!important}body:has(#front-page) #front-page>#lead-photo img{max-height:150px!important}}
