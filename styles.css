@@ -383,3 +383,8 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 #scores .register-team .team-logo,#team-desk .register-team .team-logo{width:48px;height:48px;flex:0 0 48px;object-fit:contain}
 #scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:62px;height:62px;flex-basis:62px;margin:-7px}
 @media(max-width:520px){#scores .register-heading,#team-desk .register-heading{padding:.6rem .45rem}#scores .register-team .team-logo,#team-desk .register-team .team-logo{width:42px;height:42px;flex-basis:42px}#scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:56px;height:56px;flex-basis:56px}}
+
+/* Clearly distinguish unavailable official logos from actual club crests. */
+#scores .missing-team-logo,#team-desk .missing-team-logo{display:inline-grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border:1px dashed #b6b0a5;background:#f4f1e9;color:#888;font:700 1.2rem Georgia,serif}
+#scores .missing-team-logo[hidden],#team-desk .missing-team-logo[hidden]{display:none!important}
+@media(max-width:520px){#scores .missing-team-logo,#team-desk .missing-team-logo{width:42px;height:42px;flex-basis:42px}}
