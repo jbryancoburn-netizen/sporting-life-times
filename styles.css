@@ -563,3 +563,22 @@ body:has(#front-page) header.masthead .print-subtitle{display:block!important;ma
 body:has(#front-page) #front-page>h2#lead-headline{font:500 clamp(1.35rem,2.1vw,1.95rem)/1.26 Georgia,'Times New Roman',serif!important;letter-spacing:-.015em!important;text-transform:none!important;max-width:36ch!important;margin:0 0 10px!important}
 body:has(#front-page) #front-page #front-briefs h3{font:500 clamp(.91rem,1.2vw,1.06rem)/1.32 Georgia,serif!important;letter-spacing:0!important;text-transform:none!important}
 @media(max-width:760px){body:has(#front-page) header.masthead{padding:14px 12px 11px!important}body:has(#front-page) header.masthead .newspaper-wordmark-main{font-size:clamp(1.4rem,5.7vw,2.15rem)!important}body:has(#front-page) #front-page>h2#lead-headline{font-size:clamp(1.25rem,4.5vw,1.65rem)!important}}
+
+/* Editorial cleanup: a centered wordmark, quiet reporting, legible front-page columns. */
+body:has(#front-page) .site-nav{position:relative!important;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px 18px;padding:8px 12px!important;background:#faf9f6!important;border-top:0;border-bottom:1px solid #33312c;box-shadow:none!important}
+body:has(#front-page) .site-nav a{font:400 .77rem/1.45 Georgia,serif!important;text-transform:none!important;letter-spacing:0!important;padding:3px 0!important;border-bottom:1px solid transparent!important}
+body:has(#front-page) .site-nav a:hover,body:has(#front-page) .site-nav a:focus-visible{border-bottom-color:#33312c!important;color:#25231f!important}
+body:has(#front-page) .edition-index{max-width:1120px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 17px;margin:0 auto 4px;padding:9px 4px!important;font:400 .71rem/1.45 Georgia,serif!important;letter-spacing:0!important;text-transform:none!important;border-top:0!important;border-bottom:1px solid #d0cdc6!important}
+body:has(#front-page) .edition-index a{padding:3px 0;color:#403d37;text-decoration:none}
+body:has(#front-page) .edition-index-label{color:#67635d;font-style:italic;font-weight:400}
+body:has(#front-page) #front-page{grid-template-columns:minmax(0,1.75fr) minmax(230px,.9fr);column-gap:26px;min-height:0}
+body:has(#front-page) #front-page>.section-label{grid-column:1/-1;margin-bottom:10px}
+body:has(#front-page) #lead-photo img{max-height:270px;object-fit:cover}
+body:has(#front-page) #front-briefs{max-height:none}
+body:has(#front-page) #front-briefs article:nth-child(n+5){display:none}
+body:has(#front-page) #front-briefs .front-story-excerpt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+body:has(#front-page) #front-briefs article{break-inside:avoid}
+body:has(#front-page) #front-briefs article .meta{font-size:.64rem;letter-spacing:.01em;color:#706b64}
+body:has(#front-page) #front-briefs article h3{margin:5px 0}
+body:has(#front-page) #front-briefs article a:hover{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){body:has(#front-page) #front-page{display:block}body:has(#front-page) #front-briefs article:nth-child(n+5){display:block}body:has(#front-page) .edition-index{justify-content:flex-start}body:has(#front-page) .site-nav{gap:3px 12px}}
