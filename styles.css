@@ -347,3 +347,26 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 .edition-links{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0}
 .edition-links a{display:inline-block;padding:.7rem 1rem;border:1px solid #242424;color:#242424;font:700 .8rem Arial,sans-serif;text-decoration:none}
 .edition-links a:hover{background:#242424;color:white}
+
+
+/* October 22 editorial refinement: compact broadsheet front pages and score registers. */
+@media(min-width:980px){
+  #rabby-front,#front-page{position:relative;padding-left:1.2rem!important;padding-right:1.2rem!important}
+  #rabby-front{border-left:1px solid #b5b0a6;border-right:1px solid #b5b0a6}
+  #rabby-front-stories,#front-briefs{column-gap:1.35rem}
+  #rabby-front-stories article,#front-briefs article{padding-right:1rem}
+}
+#rabby-front .section-label,#front-page .section-label{border-bottom:1px solid #252525;padding-bottom:.4rem;display:block}
+#rabby-front h2{letter-spacing:-.045em!important}
+#team-desk .section-head,#scores .section-head{align-items:baseline}
+#team-desk .section-head h2,#scores .section-head h2{font-variant:small-caps;letter-spacing:-.025em}
+#scores .register-game,#team-desk .register-game{background:#fffefa;border-bottom:1px solid #8d8d8d;transition:background-color .15s}
+#scores .register-game:hover,#team-desk .register-game:hover{background:#f2efe7}
+#scores .register-team strong,#team-desk .register-team strong{font-variant-numeric:tabular-nums}
+#scores .register-link:focus-visible,#team-desk .register-link:focus-visible,nav a:focus-visible{outline:2px solid #8c1717;outline-offset:3px}
+@media(max-width:520px){
+  #rabby-front,#front-page{overflow-wrap:anywhere}
+  #scores .register-game,#team-desk .register-game{padding:.8rem .15rem}
+  #scores .register-team,#team-desk .register-team{column-gap:.4rem}
+  #scores .register-team strong,#team-desk .register-team strong{font-size:1.2rem}
+}
