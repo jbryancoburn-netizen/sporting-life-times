@@ -14,6 +14,8 @@ for label,path in LEAGUES:
     start=(today-timedelta(days=4)).strftime("%Y%m%d")
     end=(today+timedelta(days=7)).strftime("%Y%m%d")
     query_url=url+"?dates="+start+"-"+end+"&limit=250"
+    block["window_start"]=start
+    block["window_end"]=end
     logo_by_id={}
     try:
         team_req=Request("https://site.api.espn.com/apis/site/v2/sports/"+path+"/teams?limit=500",headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
@@ -42,6 +44,7 @@ for label,path in LEAGUES:
     block["games"].sort(key=lambda g:g.get("date") or "")
     block["window_start"]=start
     block["window_end"]=end
+    block["game_count"]=len(block["games"])
     out["leagues"].append(block)
 (ROOT/"scoreboards.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print("Fetched",sum(len(x["games"]) for x in out["leagues"]),"games across",len(LEAGUES),"leagues")
