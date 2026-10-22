@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 10
+Updated: 2026-10-22 — batch 11
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 11 notes
+- 946319e7 scoring-highlights frontend passed publishing run 39831768563.
+- f2f9fdca / 3632d8bd: protect previous verified detail when a successful provider response is empty.
+- 739c610d: balance collection among live, finished and upcoming fixtures (up to four each, then fill remaining slots).
+- Latest combined workflow and archive persistence across publishing cycles still require verification.
 
 ## Batch 10 notes
 - 0a6ee308: preserve source event period, category, team and scoring flag.
