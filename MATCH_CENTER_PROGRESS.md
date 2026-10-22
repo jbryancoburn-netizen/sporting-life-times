@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 5
+Updated: 2026-10-22 — batch 5, archive fallback
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -22,7 +22,7 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); source-reported team totals added (75a2fed7, 43ab248e), deployment validation pending; category-aware player tables (b7c9b7d1), overtime labels corrected (4093f29f).
 - [ ] 04. Improve source efficiency, retries, concurrency, and rate-limit handling. IMPLEMENTED: bounded transient HTTP retry/backoff (70a67342); bounded concurrency implemented (54bad143); measured rate-limit behavior pending.
 - [ ] 05. Expand detailed coverage and validate IDs, freshness, and missing data. IMPLEMENTED: increase from 4 to 12 prioritized games per league (54bad143); deployment and data quality verification pending.
-- [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot.
+- [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot. IN PROGRESS: repository archive fallback reader (0fe4fce7); persistent writer and full historical retrieval not yet implemented.
 - [ ] 07. Finish soccer scorers, assists, cards, substitutions, formations, and timelines.
 - [ ] 08. Finish football drives, scoring plays, and individual player statistics.
 - [ ] 09. Finish baseball innings, batting, and pitching displays.
