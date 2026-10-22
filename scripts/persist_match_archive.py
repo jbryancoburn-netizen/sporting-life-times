@@ -46,7 +46,10 @@ def restore():
             pass
     games = dict(saved["games"])
     for key, record in existing.items():
-        if key not in games and isinstance(record, dict):
+        if not isinstance(record, dict):
+            continue
+        prior = games.get(key)
+        if not isinstance(prior, dict) or (not any(prior.get(k) for k in ("events", "statistics", "players")) and any(record.get(k) for k in ("events", "statistics", "players"))):
             games[key] = record
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps({"updated_at":saved.get("updated_at"), "games":games},
@@ -58,8 +61,8 @@ def restore():
 def save():
     path = ROOT / ARCHIVE
     data = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(data.get("games"), dict):
-        raise ValueError("Refusing to save invalid archive")
+    if not isinstance(data.get("games"), dict) or not data["games"]:
+        raise ValueError("Refusing to overwrite durable archive with empty or invalid data")
     existing_branch = fetch()
     with tempfile.TemporaryDirectory(prefix="match-center-branch-") as temp:
         worktree = Path(temp) / "worktree"
