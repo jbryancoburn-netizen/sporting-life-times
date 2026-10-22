@@ -155,8 +155,15 @@ with ThreadPoolExecutor(max_workers=5) as pool:
             row["with_events"] += int(bool(record["events"]))
             row["with_statistics"] += int(bool(record["statistics"]))
         except Exception as exc:
-            out["errors"].append({"game":label+"::"+ident,"error":type(exc).__name__})
+            key = label+"::"+ident
+            out["errors"].append({"game":key,"error":type(exc).__name__})
             row["failed"] += 1
+            cached = out["games"].get(key)
+            if isinstance(cached, dict) and (cached.get("events") or cached.get("statistics") or cached.get("players")):
+                row["cached"] += 1
+                row["available"] += 1
+                row["with_events"] += int(bool(cached.get("events")))
+                row["with_statistics"] += int(bool(cached.get("statistics")))
 
 # Bound the archive and preserve original timestamps for cached details.
 if len(out["games"]) > 1500:
