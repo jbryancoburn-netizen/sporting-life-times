@@ -104,3 +104,10 @@ nav a{font-size:.56rem!important;padding:.18rem 0!important}
 .paper-cover{width:100%;height:128vw;max-height:730px;margin:.7rem auto 1rem;border:0;box-shadow:0 3px 14px rgba(0,0,0,.13)}
 .front-edition .edition-download{display:block;width:100%;padding:.8rem .35rem;font-size:.7rem;letter-spacing:.03em}
 }
+
+/* Continuously updating newspaper front page */
+.live-front{padding:1.5rem 0 2rem;border-bottom:5px double var(--ink);text-align:left}
+.live-front h2{font:700 clamp(2.6rem,6.5vw,5.8rem)/1.04 'Playfair Display',Georgia,serif;letter-spacing:-.055em;max-width:21ch;margin:.6rem 0 1rem}
+.live-front .standfirst{max-width:75ch;font-size:clamp(1.1rem,2.2vw,1.5rem);line-height:1.55}
+.live-front .edition-download{margin:.6rem 0}
+@media(max-width:520px){.live-front{padding:.85rem 0 1.3rem}.live-front h2{font-size:clamp(2.4rem,10.5vw,4rem)}.live-front .standfirst{font-size:1.06rem}}
