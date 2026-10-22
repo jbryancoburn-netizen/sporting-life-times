@@ -171,6 +171,30 @@ with ThreadPoolExecutor(max_workers=5) as pool:
                 row["with_events"] += int(bool(cached.get("events")))
                 row["with_statistics"] += int(bool(cached.get("statistics")))
 
+# Preserve overflow records as dated historical shards on the durable branch.
+# The rolling published JSON remains bounded for responsive browser loading.
+overflow = {}
+if len(out["games"]) > 1500:
+    ordered_all = sorted(out["games"].items(), key=lambda item: item[1].get("fetched_at", ""), reverse=True)
+    overflow = dict(ordered_all[1500:])
+    out["games"] = dict(ordered_all[:1500])
+if overflow:
+    shards = ROOT / "data" / "match_archive_shards"
+    shards.mkdir(parents=True, exist_ok=True)
+    for key, record in overflow.items():
+        stamp = str((record.get("game") or {}).get("date") or record.get("fetched_at") or "unknown")
+        month = stamp[:7] if len(stamp) >= 7 and stamp[4:5] == "-" else "unknown"
+        filename = shards / (month + ".json")
+        try:
+            existing = json.loads(filename.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            existing = {}
+        if not isinstance(existing, dict):
+            existing = {}
+        existing[key] = record
+        filename.write_text(json.dumps(existing, ensure_ascii=False, separators=(",", ":")) + "\\n", encoding="utf-8")
+    print("Preserved overflow in historical shards:", len(overflow), "records")
+
 # Bound the archive and preserve original timestamps for cached details.
 if len(out["games"]) > 1500:
     ordered = sorted(out["games"].items(), key=lambda item: item[1].get("fetched_at", ""), reverse=True)
