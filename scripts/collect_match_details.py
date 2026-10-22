@@ -13,7 +13,18 @@ for league in source.get("leagues", []):
     label = league.get("league")
     if label not in PATHS:
         continue
-    games = sorted(league.get("games", []), key=lambda g: (g.get("state")!="in", g.get("state")!="post", g.get("date","")), reverse=False)[:30]
+    # Prioritize live games, recent finals, and nearby scheduled fixtures.
+    # Bound remote requests so the site can publish on schedule.
+    now = datetime.now(timezone.utc)
+    def priority(game):
+        state = game.get("state")
+        try:
+            stamp = datetime.fromisoformat(str(game.get("date", "")).replace("Z", "+00:00"))
+            distance = abs((stamp - now).total_seconds())
+        except (ValueError, TypeError):
+            distance = float("inf")
+        return (0 if state == "in" else 1 if state == "post" else 2, distance)
+    games = sorted(league.get("games", []), key=priority)[:8]
     for game in games:
         ident = str(game.get("id") or "")
         if not ident.isdigit():
