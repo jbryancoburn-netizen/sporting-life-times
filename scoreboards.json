@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-22T12:50:06+00:00",
+  "updated_at": "2026-10-22T13:28:17+00:00",
   "source": "ESPN public scoreboard API",
   "leagues": [
     {
@@ -2065,6 +2065,39 @@
       "source_url": "https://www.espn.com/hockey/echl/scoreboard",
       "games": [],
       "error": "HTTPError: HTTP Error 400: Bad Request"
+    },
+    {
+      "league": "College Baseball",
+      "source_url": "https://www.espn.com/baseball/college-baseball/scoreboard",
+      "games": [
+        {
+          "id": "401874453",
+          "name": "Oklahoma Sooners at North Carolina Tar Heels",
+          "date": "2026-06-22T23:00Z",
+          "status": "Final",
+          "state": "post",
+          "teams": [
+            {
+              "name": "North Carolina Tar Heels",
+              "score": "2",
+              "home_away": "home",
+              "winner": false,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/153.png"
+            },
+            {
+              "name": "Oklahoma Sooners",
+              "score": "13",
+              "home_away": "away",
+              "winner": true,
+              "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
+            }
+          ],
+          "venue": "Charles Schwab Field",
+          "broadcast": "ESPN",
+          "url": "https://www.espn.com/college-baseball/game/_/gameId/401874453/oklahoma-sooners-north-carolina-tar-heels"
+        }
+      ],
+      "error": null
     },
     {
       "league": "NCAA Men's Soccer",
