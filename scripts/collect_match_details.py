@@ -146,5 +146,7 @@ with ThreadPoolExecutor(max_workers=5) as pool:
 if len(out["games"]) > 1500:
     ordered = sorted(out["games"].items(), key=lambda item: item[1].get("fetched_at", ""), reverse=True)
     out["games"] = dict(ordered[:1500])
+archive_path.parent.mkdir(parents=True, exist_ok=True)
+archive_path.write_text(json.dumps({"updated_at":out["updated_at"],"games":out["games"]},ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
 (ROOT/"match_details.json").write_text(json.dumps(out,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
 print("Published",len(out["games"]),"verified match detail records;",len(out["errors"]),"unavailable summaries")
