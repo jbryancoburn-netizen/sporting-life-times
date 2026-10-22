@@ -67,7 +67,7 @@ def standings_snapshot(league,day):
             ident=(row.get("team") or {}).get("id")
             try:rank=int(row.get("divisionRank"))
             except (TypeError,ValueError):continue
-            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank,"division":mlb_divisions.get((block.get("division") or {}).get("id"),""),"season_final":True if day.month>=10 else False}
+            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank,"division":mlb_divisions.get(int((block.get("division") or {}).get("id") or 0),""),"season_final":True if day.month>=10 else False}
     return result
 
 def enrich_standings(block):
