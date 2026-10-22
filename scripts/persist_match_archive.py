@@ -95,7 +95,9 @@ def save():
                     dest = worktree / SHARDS / shard.name
                     dest.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copyfile(shard, dest)
-            git("add", ARCHIVE, SHARDS, cwd=worktree)
+            git("add", ARCHIVE, cwd=worktree)
+            if (worktree / SHARDS).exists():
+                git("add", SHARDS, cwd=worktree)
             if git("diff", "--cached", "--quiet", cwd=worktree, check=False).returncode == 0:
                 print("Archive unchanged; no new branch commit required")
                 return
