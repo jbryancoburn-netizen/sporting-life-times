@@ -52,6 +52,9 @@ jobs:
           key: match-center-archive-${{ github.run_id }}
           restore-keys: |
             match-center-archive-
+      - name: Report restored Match Center archive
+        run: |
+          python scripts/check_archive_restore.py
       - name: Refresh news and scoreboards before publishing
         run: |
           python scripts/collect_feeds.py
