@@ -30,12 +30,17 @@ def choose_games(games, limit=12, per_state=4):
     selected = []
     seen = set()
     for state in ("in", "post", "pre"):
-        for game in (g for g in ordered if g.get("state") == state):
+        added = 0
+        for game in ordered:
+            if game.get("state") != state:
+                continue
             ident = str(game.get("id") or "")
-            if ident and ident not in seen:
-                selected.append(game)
-                seen.add(ident)
-            if sum(g.get("state") == state for g in selected) >= per_state or len(selected) >= limit:
+            if not ident or ident in seen:
+                continue
+            selected.append(game)
+            seen.add(ident)
+            added += 1
+            if added >= per_state or len(selected) >= limit:
                 break
     for game in ordered:
         ident = str(game.get("id") or "")
