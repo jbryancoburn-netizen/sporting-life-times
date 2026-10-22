@@ -12,6 +12,7 @@ def identity(g,league):
  # A same-day doubleheader cannot safely be resolved by names and date alone.
  if g.get("doubleHeader") or g.get("doubleheader") or g.get("gameNumber"):
   return ("id",league,str(g.get("id")))
+ if not date or date=="None":return ("id",league,str(g.get("id")))
  return (league,date,names)
 def score_map(g):
  return {normalize_name(t.get("name")):t.get("score") for t in g.get("teams",[])}
