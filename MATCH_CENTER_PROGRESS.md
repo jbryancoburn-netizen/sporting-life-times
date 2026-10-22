@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 23
+Updated: 2026-10-22 — batch 24
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 24 notes
+- 348a64b9: align homepage navigation to the same shared site-nav treatment as secondary pages.
+- abf23aba: improve semantic, responsive basketball box-score markup.
+- 4cd217d2: add compact sticky-player-column styling, alternating rows and responsive horizontal scroll; refresh asset version.
+- Current workflow has overlapping/cancelled runs from rapid commits; latest run needs to finish before deployment is considered verified.
 
 ## Batch 23 notes
 - 665b2a90: align Sports Desks page with shared homepage masthead and global navigation.
