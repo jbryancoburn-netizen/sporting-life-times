@@ -1,8 +1,10 @@
-name: Publish website code
+name: Publish and refresh Sporting Life Times
 on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
 permissions:
   contents: read
   pages: write
