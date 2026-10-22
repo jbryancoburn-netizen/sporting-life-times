@@ -47,8 +47,7 @@ def reconcile(base,official):
    g=dict(game);p=provider(g,block);g["provider"]=p
    key=identity(g,league)
    if key in ambiguous:
-    g["identity_warning"]="ambiguous_same_day_matchup"
-    target["games"].append(g)
+    conflicts.append({"league":league,"identity":repr(key),"incoming_provider":p,"incoming_id":g.get("id"),"action":"quarantined_ambiguous_same_day"})
     continue
    idx=next((i for i,old in enumerate(target["games"]) if identity(old,league)==key),None)
    if idx is None:
