@@ -5,6 +5,10 @@ const rabbyColors={
 let rabbyLogos={};
 function renderTeams(teams,query=''){const root=document.querySelector('#team-list');if(!root)return;const q=query.trim().toLowerCase();const filtered=teams.filter(t=>(t.name+' '+t.category).toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name,'en',{sensitivity:'base'}));root.innerHTML=filtered.map(t=>{const color=rabbyColors[t.name]||'#283d32';const logo=rabbyLogos[t.name];const mark=t.name.split(' ').filter(w=>!['Men\'s','Women\'s'].includes(w)).map(w=>w[0]).slice(0,3).join('').toUpperCase();return '<article class="team-card rabby-card" style="--team-accent:'+color+'">'+'<span class="rabby-watermark rabby-monogram" aria-hidden="true">'+escapeHtml(mark)+'</span>'+(logo?'<img class="rabby-watermark" src="'+escapeHtml(logo)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<p class="meta">THE RABBY 20 · '+escapeHtml(t.category)+'</p><h3><a href="team.html?team='+encodeURIComponent(t.name)+'">'+escapeHtml(t.name)+'</a></h3><a class="team-card-link" href="team.html?team='+encodeURIComponent(t.name)+'">OPEN TEAM DESK →</a></article>'}).join('')||'<p>No matching teams.</p>'}
 const permanentRabbyLogos={
+'Fort Wayne Komets':'https://logotyp.us/file/komets.svg',
+'FC Bayern Munich Basketball':'https://img.fcbayern.com/image/upload/v1659540089/cms/public/images/fcb-basketball/logos/FC_Bayern_Basketball-Logo.svg',
+'Trine Thunder Football':'https://trinethunder.com/documents/2025/8/22/PowerT_Blue__2_.png',
+"Trine Thunder Men's Basketball":'https://trinethunder.com/documents/2025/8/22/PowerT_Blue__2_.png',
 'Chicago Bears':'https://a.espncdn.com/i/teamlogos/nfl/500/chi.png',
 'Chicago Cubs':'https://a.espncdn.com/i/teamlogos/mlb/500/chc.png',
 'Tampa Bay Rays':'https://a.espncdn.com/i/teamlogos/mlb/500/tb.png',
