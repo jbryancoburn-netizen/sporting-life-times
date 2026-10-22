@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 16
+Updated: 2026-10-22 — batch 17
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 17 notes
+- bcd26031: avoid redundant archive branch pushes for unchanged data.
+- 7f397cad / 9086326e: preserve overflow records in monthly historical JSON shards rather than discarding them.
+- 3d46908c / a9f14b73 / 434331b4: save and restore monthly shards in durable archive branch; handle first-run absence and valid JSON line endings.
+- Shard browsing/search, overflow regression tests and successful shard-enabled CI deployment remain pending.
 
 ## Batch 16 notes
 - 4a8f25c2 publishing run 39832908114 succeeded and created match-center-archive branch (ee55f36c).
