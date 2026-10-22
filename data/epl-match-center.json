@@ -3,9 +3,10 @@
   "competition": "EPL",
   "status": "provisional_research",
   "model": "eps-9.2-elo-poisson-50-50-research",
-  "issued_at_utc": "2026-10-22T18:36:16.097677+00:00",
+  "issued_at_utc": "2026-10-22T21:23:37.940667+00:00",
   "source_provider": "espn-eng1",
-  "source_sha256": "8a2651633ce1c8ef74edd61207657f8cec6bd7762e6b196f1f769b84641ccd88",
+  "source_sha256": "9a138f6e4b605af33b090296ccaf9f5ef06cdd60ee2070629f0b6661f9af35c6",
+  "settled_unique_fixtures": 0,
   "fixtures": [
     {
       "fixture_id": "401879253",
@@ -33,6 +34,25 @@
         "probability": 0.11129348729229778,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.11332631189929625,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.5763515687281965,
+        "under_2_5": 0.4236484312718035,
+        "both_teams_to_score_yes": 0.6016474541510575,
+        "both_teams_to_score_no": 0.39835254584894253,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4583308358537268,
+        "draw": 0.24559457389210013,
+        "away": 0.2960745902541727
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.5772536348128384,
         "under_2_5": 0.4227463651871616,
@@ -41,12 +61,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 24.122112788343202,
-        "expected_goal_difference": 0.22934881182374767,
+        "elo_difference": 24.12,
+        "expected_goal_difference": 0.229,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879256",
@@ -71,23 +91,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.10965775424458765,
+        "probability": 0.10965775424458762,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.11370547050128817,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.545871691362489,
+        "under_2_5": 0.45412830863751097,
+        "both_teams_to_score_yes": 0.5618640472843338,
+        "both_teams_to_score_no": 0.4381359527156662,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.2935942333726961,
+        "draw": 0.2414063551735981,
+        "away": 0.46499941145370555
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.5520942821142116,
-        "under_2_5": 0.44790571788578837,
-        "both_teams_to_score_yes": 0.557250172068669,
-        "both_teams_to_score_no": 0.442749827931331,
+        "over_2_5": 0.5520942821142115,
+        "under_2_5": 0.4479057178857885,
+        "both_teams_to_score_yes": 0.5572501720686689,
+        "both_teams_to_score_no": 0.4427498279313311,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -71.07528308718611,
-        "expected_goal_difference": -0.6754676128006338,
+        "elo_difference": -71.08,
+        "expected_goal_difference": -0.675,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878768",
@@ -112,23 +151,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.11879688174594911,
+        "probability": 0.11879688174594913,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.11884957240506744,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.48888020608796223,
+        "under_2_5": 0.5111197939120378,
+        "both_teams_to_score_yes": 0.5127782454068524,
+        "both_teams_to_score_no": 0.48722175459314765,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5093914317765287,
+        "draw": 0.24988921434764902,
+        "away": 0.24071935387582255
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.4887618356447226,
         "under_2_5": 0.5112381643552775,
-        "both_teams_to_score_yes": 0.5128439710579039,
-        "both_teams_to_score_no": 0.4871560289420961,
+        "both_teams_to_score_yes": 0.512843971057904,
+        "both_teams_to_score_no": 0.487156028942096,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 42.97799408511128,
-        "expected_goal_difference": 0.570902919363669,
+        "elo_difference": 42.98,
+        "expected_goal_difference": 0.571,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879255",
@@ -156,6 +214,25 @@
         "probability": 0.12560109317590107,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.12225572903132748,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.4810821709326827,
+        "under_2_5": 0.5189178290673173,
+        "both_teams_to_score_yes": 0.523822148533535,
+        "both_teams_to_score_no": 0.47617785146646496,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4268094150882014,
+        "draw": 0.25703337372599855,
+        "away": 0.31615721118580004
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.47851674629587476,
         "under_2_5": 0.5214832537041252,
@@ -164,12 +241,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 2.8471024129300986,
-        "expected_goal_difference": 0.12004331958308767,
+        "elo_difference": 2.85,
+        "expected_goal_difference": 0.12,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878767",
@@ -197,6 +274,25 @@
         "probability": 0.098347020831714,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10477718334539433,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6149577564971976,
+        "under_2_5": 0.38504224350280236,
+        "both_teams_to_score_yes": 0.6048123631095571,
+        "both_teams_to_score_no": 0.3951876368904429,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5457787807309521,
+        "draw": 0.23039494752683273,
+        "away": 0.22382627174221487
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6228049932907702,
         "under_2_5": 0.3771950067092298,
@@ -205,12 +301,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 43.09248384929538,
-        "expected_goal_difference": 0.8907085856694805,
+        "elo_difference": 43.09,
+        "expected_goal_difference": 0.891,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878765",
@@ -235,23 +331,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.0974655048306707,
+        "probability": 0.09746550483067067,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10474788915728768,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6202075592610885,
+        "under_2_5": 0.3797924407389115,
+        "both_teams_to_score_yes": 0.6275107199043173,
+        "both_teams_to_score_no": 0.3724892800956827,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.33460343286351035,
+        "draw": 0.23374907045178442,
+        "away": 0.43164749668470503
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.6302005188963306,
-        "under_2_5": 0.36979948110366945,
-        "both_teams_to_score_yes": 0.6192888732497865,
-        "both_teams_to_score_no": 0.38071112675021346,
+        "over_2_5": 0.6302005188963303,
+        "under_2_5": 0.36979948110366967,
+        "both_teams_to_score_yes": 0.6192888732497863,
+        "both_teams_to_score_no": 0.3807111267502137,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -18.79916617140725,
-        "expected_goal_difference": -0.7154448056530509,
+        "elo_difference": -18.8,
+        "expected_goal_difference": -0.715,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878766",
@@ -276,23 +391,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.12004729757799294,
+        "probability": 0.12004729757799297,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.11933802957275084,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.5106350156964583,
+        "under_2_5": 0.4893649843035417,
+        "both_teams_to_score_yes": 0.5440608299917029,
+        "both_teams_to_score_no": 0.4559391700082971,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4461747743857003,
+        "draw": 0.2514947218445808,
+        "away": 0.30233050376971865
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.5103183844126216,
-        "under_2_5": 0.48968161558737844,
-        "both_teams_to_score_yes": 0.544332761129334,
-        "both_teams_to_score_no": 0.45566723887066596,
+        "over_2_5": 0.5103183844126217,
+        "under_2_5": 0.4896816155873783,
+        "both_teams_to_score_yes": 0.5443327611293342,
+        "both_teams_to_score_no": 0.45566723887066585,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -8.933207715062736,
-        "expected_goal_difference": 0.3407225140627994,
+        "elo_difference": -8.93,
+        "expected_goal_difference": 0.341,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879252",
@@ -320,6 +454,25 @@
         "probability": 0.09578189904235121,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10002208018740838,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6517062705250027,
+        "under_2_5": 0.34829372947499726,
+        "both_teams_to_score_yes": 0.6439881379123263,
+        "both_teams_to_score_no": 0.35601186208767366,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5152085025170963,
+        "draw": 0.22935454753467854,
+        "away": 0.25543694994822463
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6599350990965117,
         "under_2_5": 0.3400649009034883,
@@ -328,12 +481,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 11.89458581461031,
-        "expected_goal_difference": 0.8110197248742017,
+        "elo_difference": 11.89,
+        "expected_goal_difference": 0.811,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879254",
@@ -358,9 +511,28 @@
       "projected_score": {
         "home": 2,
         "away": 1,
-        "probability": 0.0852840139827223,
+        "probability": 0.08528401398272231,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.0921288712759754,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.7045746131435751,
+        "under_2_5": 0.29542538685642494,
+        "both_teams_to_score_yes": 0.705736962064132,
+        "both_teams_to_score_no": 0.29426303793586805,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4552076513183865,
+        "draw": 0.23202628106658543,
+        "away": 0.31276606761502823
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.7096586278939083,
         "under_2_5": 0.2903413721060917,
@@ -369,12 +541,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -3.2140782413866873,
-        "expected_goal_difference": 0.34254640721150365,
+        "elo_difference": -3.21,
+        "expected_goal_difference": 0.343,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878764",
@@ -402,6 +574,25 @@
         "probability": 0.13221939086463758,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.1245852116787111,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.4113185555223718,
+        "under_2_5": 0.5886814444776283,
+        "both_teams_to_score_yes": 0.46425420770606546,
+        "both_teams_to_score_no": 0.5357457922939346,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.3629219318320415,
+        "draw": 0.2663191786836031,
+        "away": 0.3707588894843555
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.4063606236665991,
         "under_2_5": 0.5936393763334009,
@@ -410,12 +601,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -44.529162302688974,
-        "expected_goal_difference": -0.09290596123569617,
+        "elo_difference": -44.53,
+        "expected_goal_difference": -0.093,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879248",
@@ -440,23 +631,42 @@
       "projected_score": {
         "home": 2,
         "away": 1,
-        "probability": 0.09431744334495401,
+        "probability": 0.09431744334495402,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.09821613199997105,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6654980236024605,
+        "under_2_5": 0.33450197639753954,
+        "both_teams_to_score_yes": 0.6577706406465016,
+        "both_teams_to_score_no": 0.3422293593534984,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5214488052216545,
+        "draw": 0.2295378112278484,
+        "away": 0.249013383550497
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6725021181736736,
         "under_2_5": 0.32749788182632644,
-        "both_teams_to_score_yes": 0.6521265424063416,
-        "both_teams_to_score_no": 0.3478734575936584,
+        "both_teams_to_score_yes": 0.6521265424063417,
+        "both_teams_to_score_no": 0.3478734575936583,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 30.320017743267044,
-        "expected_goal_difference": 0.7528440570297457,
+        "elo_difference": 30.32,
+        "expected_goal_difference": 0.753,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878763",
@@ -484,6 +694,25 @@
         "probability": 0.1030100818897013,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10872073779645346,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.5969246599805444,
+        "under_2_5": 0.40307534001945555,
+        "both_teams_to_score_yes": 0.6049666451139802,
+        "both_teams_to_score_no": 0.39503335488601976,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4939237572791666,
+        "draw": 0.2375238434970836,
+        "away": 0.2685523992237501
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6021077378197658,
         "under_2_5": 0.3978922621802342,
@@ -492,12 +721,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 6.620529134924027,
-        "expected_goal_difference": 0.6465911822330468,
+        "elo_difference": 6.62,
+        "expected_goal_difference": 0.647,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879245",
@@ -522,23 +751,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.08000326263796893,
+        "probability": 0.08000326263796895,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.08712235724101725,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.7288976760214518,
+        "under_2_5": 0.27110232397854817,
+        "both_teams_to_score_yes": 0.7298560338534007,
+        "both_teams_to_score_no": 0.2701439661465993,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4357196252818703,
+        "draw": 0.23111474711035931,
+        "away": 0.3331656276077706
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.734206594193025,
         "under_2_5": 0.26579340580697497,
-        "both_teams_to_score_yes": 0.7255561876901944,
-        "both_teams_to_score_no": 0.27444381230980563,
+        "both_teams_to_score_yes": 0.7255561876901945,
+        "both_teams_to_score_no": 0.2744438123098055,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 25.554955442876917,
-        "expected_goal_difference": -0.05755875083254902,
+        "elo_difference": 25.55,
+        "expected_goal_difference": -0.058,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879247",
@@ -566,6 +814,25 @@
         "probability": 0.09805796121944357,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10311109863717878,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6462264750099911,
+        "under_2_5": 0.3537735249900089,
+        "both_teams_to_score_yes": 0.6590926377187022,
+        "both_teams_to_score_no": 0.3409073622812978,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.45475023457032326,
+        "draw": 0.2383206834300346,
+        "away": 0.30692908199964203
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6494881403550208,
         "under_2_5": 0.3505118596449792,
@@ -574,12 +841,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 11.20074571061923,
-        "expected_goal_difference": 0.25702011842509886,
+        "elo_difference": 11.2,
+        "expected_goal_difference": 0.257,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879249",
@@ -604,23 +871,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.1059790809972222,
+        "probability": 0.10597908099722216,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.11103273958528603,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.5773500195948553,
+        "under_2_5": 0.4226499804051447,
+        "both_teams_to_score_yes": 0.585570661861733,
+        "both_teams_to_score_no": 0.414429338138267,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5180676711222707,
+        "draw": 0.23911660050706945,
+        "away": 0.24281572837065943
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.5811394125430478,
-        "under_2_5": 0.4188605874569522,
-        "both_teams_to_score_yes": 0.5826018585846189,
-        "both_teams_to_score_no": 0.4173981414153811,
+        "over_2_5": 0.5811394125430476,
+        "under_2_5": 0.4188605874569524,
+        "both_teams_to_score_yes": 0.5826018585846187,
+        "both_teams_to_score_no": 0.41739814141538134,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 39.675849638329964,
-        "expected_goal_difference": 0.6598691950491478,
+        "elo_difference": 39.68,
+        "expected_goal_difference": 0.66,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879251",
@@ -645,23 +931,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.12922058067386077,
+        "probability": 0.1292205806738608,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.12367573153319489,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.43839512978396744,
+        "under_2_5": 0.5616048702160326,
+        "both_teams_to_score_yes": 0.4855459420437654,
+        "both_teams_to_score_no": 0.5144540579562347,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.41508936124162893,
+        "draw": 0.2617345460991338,
+        "away": 0.3231760926592368
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.4347643739111441,
-        "under_2_5": 0.5652356260888559,
-        "both_teams_to_score_yes": 0.488463923038301,
+        "over_2_5": 0.43476437391114414,
+        "under_2_5": 0.5652356260888558,
+        "both_teams_to_score_yes": 0.48846392303830105,
         "both_teams_to_score_no": 0.511536076961699,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -27.18292273386146,
-        "expected_goal_difference": 0.21534932060510426,
+        "elo_difference": -27.18,
+        "expected_goal_difference": 0.215,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878761",
@@ -689,6 +994,25 @@
         "probability": 0.11427840786577845,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.1161675654283064,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.534691123771657,
+        "under_2_5": 0.46530887622834305,
+        "both_teams_to_score_yes": 0.5577225269629331,
+        "both_teams_to_score_no": 0.4422774730370669,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4717425679225399,
+        "draw": 0.24599947060474767,
+        "away": 0.2822579614727123
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.5368980746224015,
         "under_2_5": 0.46310192537759853,
@@ -697,12 +1021,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -3.5596806349792587,
-        "expected_goal_difference": 0.5192789047564055,
+        "elo_difference": -3.56,
+        "expected_goal_difference": 0.519,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879250",
@@ -730,6 +1054,25 @@
         "probability": 0.1306676164843092,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 0,
+        "probability": 0.1318786954073582,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.42490888190105647,
+        "under_2_5": 0.5750911180989435,
+        "both_teams_to_score_yes": 0.47351935349070734,
+        "both_teams_to_score_no": 0.5264806465092926,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.44581684571619706,
+        "draw": 0.2639348541417668,
+        "away": 0.2902483001420358
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.4199084460156623,
         "under_2_5": 0.5800915539843376,
@@ -738,12 +1081,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 23.280729070942698,
-        "expected_goal_difference": 0.183592846818319,
+        "elo_difference": 23.28,
+        "expected_goal_difference": 0.184,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879246",
@@ -768,23 +1111,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.13067459537268222,
+        "probability": 0.1306745953726822,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.12412752925615793,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.42394485790422703,
+        "under_2_5": 0.5760551420957729,
+        "both_teams_to_score_yes": 0.4745917530704887,
+        "both_teams_to_score_no": 0.5254082469295114,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.3654699981770722,
+        "draw": 0.2639203953227104,
+        "away": 0.3706096065002173
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.4202410541442442,
-        "under_2_5": 0.5797589458557558,
+        "over_2_5": 0.4202410541442441,
+        "under_2_5": 0.5797589458557559,
         "both_teams_to_score_yes": 0.47772783473997854,
         "both_teams_to_score_no": 0.5222721652600215,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -28.026114290683836,
-        "expected_goal_difference": -0.17992720616224234,
+        "elo_difference": -28.03,
+        "expected_goal_difference": -0.18,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878762",
@@ -809,23 +1171,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.12372587517017188,
+        "probability": 0.12372587517017189,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.12127264284927228,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.49583375007788416,
+        "under_2_5": 0.5041662499221158,
+        "both_teams_to_score_yes": 0.5364734246454335,
+        "both_teams_to_score_no": 0.46352657535456654,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4128144944258233,
+        "draw": 0.2551616825693515,
+        "away": 0.33202382300482497
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.4940479269287381,
+        "over_2_5": 0.49404792692873817,
         "under_2_5": 0.5059520730712619,
-        "both_teams_to_score_yes": 0.5378728830457412,
-        "both_teams_to_score_no": 0.4621271169542588,
+        "both_teams_to_score_yes": 0.5378728830457413,
+        "both_teams_to_score_no": 0.4621271169542587,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -20.161535893330893,
-        "expected_goal_difference": 0.1327558039302139,
+        "elo_difference": -20.16,
+        "expected_goal_difference": 0.133,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879242",
@@ -853,6 +1234,25 @@
         "probability": 0.13110780616325474,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 0,
+        "probability": 0.12963987921286943,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.4440081599768455,
+        "under_2_5": 0.5559918400231545,
+        "both_teams_to_score_yes": 0.47218572223510913,
+        "both_teams_to_score_no": 0.5278142777648909,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5036272219379054,
+        "draw": 0.25452104907981093,
+        "away": 0.24185172898228322
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.44299257270716813,
         "under_2_5": 0.5570074272928318,
@@ -861,12 +1261,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 32.2029083364871,
-        "expected_goal_difference": 0.5862396836191055,
+        "elo_difference": 32.2,
+        "expected_goal_difference": 0.586,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878758",
@@ -891,23 +1291,42 @@
       "projected_score": {
         "home": 1,
         "away": 0,
-        "probability": 0.14190372707330254,
+        "probability": 0.14190372707330257,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 0,
+        "probability": 0.13856485081400485,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.4171785924903219,
+        "under_2_5": 0.582821407509678,
+        "both_teams_to_score_yes": 0.4458221887776582,
+        "both_teams_to_score_no": 0.5541778112223418,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.5044633329559128,
+        "draw": 0.2568835348300271,
+        "away": 0.23865313221406037
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.4159480703505685,
-        "under_2_5": 0.5840519296494315,
+        "over_2_5": 0.4159480703505686,
+        "under_2_5": 0.5840519296494314,
         "both_teams_to_score_yes": 0.4470703757325374,
         "both_teams_to_score_no": 0.5529296242674626,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 28.060803025279483,
-        "expected_goal_difference": 0.6167107932164323,
+        "elo_difference": 28.06,
+        "expected_goal_difference": 0.617,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878760",
@@ -935,6 +1354,25 @@
         "probability": 0.11630753001340695,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.11760791095895132,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.4985167914267764,
+        "under_2_5": 0.5014832085732236,
+        "both_teams_to_score_yes": 0.5167642149010996,
+        "both_teams_to_score_no": 0.4832357850989004,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.523102975340286,
+        "draw": 0.24726600028325024,
+        "away": 0.2296310243764631
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.49935333375775587,
         "under_2_5": 0.5006466662422442,
@@ -943,12 +1381,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 50.94923318818951,
-        "expected_goal_difference": 0.6395342003117512,
+        "elo_difference": 50.95,
+        "expected_goal_difference": 0.64,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879241",
@@ -976,6 +1414,25 @@
         "probability": 0.09969597569302896,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.1048892887003242,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6325965728592843,
+        "under_2_5": 0.3674034271407157,
+        "both_teams_to_score_yes": 0.6451727024702886,
+        "both_teams_to_score_no": 0.3548272975297114,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.45152348901452477,
+        "draw": 0.23820587239323984,
+        "away": 0.3102706385922355
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6366038335452217,
         "under_2_5": 0.36339616645477835,
@@ -984,12 +1441,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -14.888474856086304,
-        "expected_goal_difference": 0.39894671725920006,
+        "elo_difference": -14.89,
+        "expected_goal_difference": 0.399,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878757",
@@ -1014,23 +1471,42 @@
       "projected_score": {
         "home": 0,
         "away": 1,
-        "probability": 0.1514259778236938,
+        "probability": 0.15142597782369377,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 0,
+        "away": 1,
+        "probability": 0.14042680403492222,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.3876315606372896,
+        "under_2_5": 0.6123684393627105,
+        "both_teams_to_score_yes": 0.4221369587044583,
+        "both_teams_to_score_no": 0.5778630412955417,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.2653079495668899,
+        "draw": 0.2609925985014711,
+        "away": 0.4736994519316383
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.38685216070765555,
-        "under_2_5": 0.6131478392923444,
-        "both_teams_to_score_yes": 0.42361489292412674,
-        "both_teams_to_score_no": 0.5763851070758732,
+        "over_2_5": 0.3868521607076555,
+        "under_2_5": 0.6131478392923445,
+        "both_teams_to_score_yes": 0.4236148929241267,
+        "both_teams_to_score_no": 0.5763851070758733,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -98.01988243505707,
-        "expected_goal_difference": -0.5969477911646589,
+        "elo_difference": -98.02,
+        "expected_goal_difference": -0.597,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401878759",
@@ -1058,6 +1534,25 @@
         "probability": 0.1019079317379319,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10750944320216192,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6094743006953629,
+        "under_2_5": 0.3905256993046371,
+        "both_teams_to_score_yes": 0.6183054754503218,
+        "both_teams_to_score_no": 0.3816945245496782,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.49025197870840725,
+        "draw": 0.23761943199765423,
+        "away": 0.2721285892939385
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6140173028474663,
         "under_2_5": 0.38598269715253375,
@@ -1066,12 +1561,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 11.465646240276556,
-        "expected_goal_difference": 0.5837337955842059,
+        "elo_difference": 11.47,
+        "expected_goal_difference": 0.584,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879239",
@@ -1096,23 +1591,42 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.12443260071679275,
+        "probability": 0.12443260071679277,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.12164469945343621,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.49175179063804136,
+        "under_2_5": 0.5082482093619587,
+        "both_teams_to_score_yes": 0.5338746289715542,
+        "both_teams_to_score_no": 0.46612537102844576,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.3596774126245688,
+        "draw": 0.2558639920177263,
+        "away": 0.38445859535770455
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.4898870640787063,
-        "under_2_5": 0.5101129359212937,
+        "over_2_5": 0.4898870640787064,
+        "under_2_5": 0.5101129359212936,
         "both_teams_to_score_yes": 0.5353592101535315,
         "both_teams_to_score_no": 0.4646407898464685,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -59.56084312670487,
-        "expected_goal_difference": -0.07821412866102828,
+        "elo_difference": -59.56,
+        "expected_goal_difference": -0.078,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879243",
@@ -1140,6 +1654,25 @@
         "probability": 0.10050983052739883,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10580285702765924,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.6238111849484341,
+        "under_2_5": 0.3761888150515659,
+        "both_teams_to_score_yes": 0.638116860770298,
+        "both_teams_to_score_no": 0.36188313922970206,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.3442799835992885,
+        "draw": 0.23808905800067248,
+        "away": 0.41763095840003867
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6293797368144399,
         "under_2_5": 0.3706202631855601,
@@ -1148,12 +1681,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -38.32749392914502,
-        "expected_goal_difference": -0.4621085017774653,
+        "elo_difference": -38.33,
+        "expected_goal_difference": -0.462,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879244",
@@ -1181,6 +1714,25 @@
         "probability": 0.09916659253974505,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.10381047908848168,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.5980363404192415,
+        "under_2_5": 0.4019636595807585,
+        "both_teams_to_score_yes": 0.5695761715725505,
+        "both_teams_to_score_no": 0.43042382842744953,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.569258532081227,
+        "draw": 0.22335329956565905,
+        "away": 0.2073881683531138
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
         "over_2_5": 0.6121181647257219,
         "under_2_5": 0.3878818352742781,
@@ -1189,12 +1741,12 @@
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": 32.78907735385019,
-        "expected_goal_difference": 1.1666475914306857,
+        "elo_difference": 32.79,
+        "expected_goal_difference": 1.167,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     },
     {
       "fixture_id": "401879240",
@@ -1219,24 +1771,43 @@
       "projected_score": {
         "home": 1,
         "away": 1,
-        "probability": 0.11432594289602092,
+        "probability": 0.11432594289602094,
         "method": "most_likely_exact_score_from_poisson"
       },
+      "coherent_projected_score": {
+        "home": 1,
+        "away": 1,
+        "probability": 0.116065279990843,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_goal_markets": {
+        "over_2_5": 0.5396884425407761,
+        "under_2_5": 0.4603115574592239,
+        "both_teams_to_score_yes": 0.5638644305945868,
+        "both_teams_to_score_no": 0.4361355694054132,
+        "method": "outcome_reconciled_poisson_conditional_scores"
+      },
+      "coherent_outcomes": {
+        "home": 0.4673416987461528,
+        "draw": 0.24630885202581398,
+        "away": 0.2863494492280337
+      },
+      "score_reconciliation_method": "outcome_reconciled_poisson_conditional_scores",
       "goal_markets": {
-        "over_2_5": 0.541479144381407,
-        "under_2_5": 0.458520855618593,
-        "both_teams_to_score_yes": 0.5625012043809908,
-        "both_teams_to_score_no": 0.4374987956190092,
+        "over_2_5": 0.5414791443814071,
+        "under_2_5": 0.4585208556185929,
+        "both_teams_to_score_yes": 0.5625012043809909,
+        "both_teams_to_score_no": 0.43749879561900906,
         "method": "poisson_only_not_blended_elo"
       },
       "scenario_factors": {
-        "elo_difference": -2.393546985194007,
-        "expected_goal_difference": 0.47448325201279484,
+        "elo_difference": -2.39,
+        "expected_goal_difference": 0.474,
         "historical_results_used": 70
       },
       "cold_start": false,
-      "issued_at_utc": "2026-10-22T18:36:16.097677+00:00"
+      "issued_at_utc": "2026-10-22T21:23:37.940667+00:00"
     }
   ],
-  "disclaimer": "Research predictions from independently calculated Elo/Poisson model; provider fixture details not independently verified."
+  "disclaimer": "Research forecasts, not verified betting odds. Provider fixture details require independent cross-check."
 }
