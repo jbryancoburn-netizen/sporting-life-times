@@ -1,0 +1,144 @@
+{
+  "league": "NBA",
+  "model": "USRS independent NBA Elo",
+  "status": "historically_evaluated",
+  "generated_at_utc": "2026-10-22T18:57:54.009654+00:00",
+  "rankings": [
+    {
+      "team": "SAS",
+      "elo": 1746.366
+    },
+    {
+      "team": "OKC",
+      "elo": 1738.172
+    },
+    {
+      "team": "BOS",
+      "elo": 1698.496
+    },
+    {
+      "team": "DET",
+      "elo": 1686.044
+    },
+    {
+      "team": "DEN",
+      "elo": 1678.538
+    },
+    {
+      "team": "NYK",
+      "elo": 1631.782
+    },
+    {
+      "team": "LAL",
+      "elo": 1630.959
+    },
+    {
+      "team": "CLE",
+      "elo": 1626.983
+    },
+    {
+      "team": "CHA",
+      "elo": 1616.34
+    },
+    {
+      "team": "HOU",
+      "elo": 1605.501
+    },
+    {
+      "team": "ATL",
+      "elo": 1590.475
+    },
+    {
+      "team": "MIN",
+      "elo": 1565.516
+    },
+    {
+      "team": "ORL",
+      "elo": 1550.453
+    },
+    {
+      "team": "LAC",
+      "elo": 1545.343
+    },
+    {
+      "team": "POR",
+      "elo": 1535.326
+    },
+    {
+      "team": "PHI",
+      "elo": 1530.393
+    },
+    {
+      "team": "TOR",
+      "elo": 1529.545
+    },
+    {
+      "team": "PHX",
+      "elo": 1523.143
+    },
+    {
+      "team": "MIA",
+      "elo": 1508.605
+    },
+    {
+      "team": "GSW",
+      "elo": 1403.066
+    },
+    {
+      "team": "NOP",
+      "elo": 1386.18
+    },
+    {
+      "team": "MIL",
+      "elo": 1368.768
+    },
+    {
+      "team": "DAL",
+      "elo": 1342.169
+    },
+    {
+      "team": "SAC",
+      "elo": 1337.265
+    },
+    {
+      "team": "CHI",
+      "elo": 1333.294
+    },
+    {
+      "team": "IND",
+      "elo": 1303.414
+    },
+    {
+      "team": "MEM",
+      "elo": 1262.826
+    },
+    {
+      "team": "UTA",
+      "elo": 1262.584
+    },
+    {
+      "team": "BKN",
+      "elo": 1261.638
+    },
+    {
+      "team": "WAS",
+      "elo": 1200.816
+    }
+  ],
+  "validation": {
+    "holdout_seasons": [
+      "2025-26"
+    ],
+    "holdout_games": 1230,
+    "holdout_log_loss": 0.6001422089348508,
+    "holdout_brier": 0.2065160816895708,
+    "parameters": {
+      "k": 20,
+      "home_elo": 45,
+      "mov_weight": 0.4,
+      "season_retention": 0.6
+    },
+    "historical_games": 3690,
+    "source": "raw completed NBA scores; no external Elo rankings"
+  }
+}
