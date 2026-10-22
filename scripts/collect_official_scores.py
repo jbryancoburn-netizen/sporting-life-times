@@ -56,6 +56,10 @@ def standings_snapshot(league,day):
             result[str(abbr)]={"wins":row.get("wins"),"losses":row.get("losses"),"ot_losses":row.get("otLosses"),"rank":rank,"division":str((row.get("divisionAbbrev") or row.get("divisionName") or "") if isinstance(row.get("divisionAbbrev") or row.get("divisionName"),str) else (row.get("divisionName") or {}).get("default",""))}
         return result
     data=fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season="+str(day.year)+"&date="+day.isoformat()+"&standingsTypes=regularSeason")
+    # Postseason dated queries can return no regular-season rows. Fall back
+    # to the official season standings, clearly labeled as season-final.
+    if not data.get("records"):
+        data=fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season="+str(day.year)+"&standingsTypes=regularSeason")
     result={}
     mlb_divisions={200:"ALW",201:"ALE",202:"ALC",203:"NLW",204:"NLE",205:"NLC"}
     for block in data.get("records",[]):
@@ -63,7 +67,7 @@ def standings_snapshot(league,day):
             ident=(row.get("team") or {}).get("id")
             try:rank=int(row.get("divisionRank"))
             except (TypeError,ValueError):continue
-            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank,"division":mlb_divisions.get((block.get("division") or {}).get("id"),"")}
+            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank,"division":mlb_divisions.get((block.get("division") or {}).get("id"),""),"season_final":True if day.month>=10 else False}
     return result
 
 def enrich_standings(block):
@@ -91,7 +95,7 @@ def enrich_standings(block):
             if not ident:continue
             pre=cache[before_day].get(str(ident))
             post=cache.get(game_day,{}).get(str(ident))
-            if pre and (post or game["state"]!="post"):
+            if pre or post:
                 team["standings"]={"scope":"division","before":pre,"after":post,"basis":"official_daily_snapshots"}
     return block
 
