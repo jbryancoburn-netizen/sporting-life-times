@@ -192,7 +192,7 @@ if overflow:
         if not isinstance(existing, dict):
             existing = {}
         existing[key] = record
-        filename.write_text(json.dumps(existing, ensure_ascii=False, separators=(",", ":")) + "\\n", encoding="utf-8")
+        filename.write_text(json.dumps(existing, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print("Preserved overflow in historical shards:", len(overflow), "records")
 
 # Bound the archive and preserve original timestamps for cached details.
