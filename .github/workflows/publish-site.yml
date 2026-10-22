@@ -26,6 +26,15 @@ jobs:
         run: |
           python -m pip install --quiet pymupdf
           python scripts/extract_masthead.py
+      - name: Refresh news and scoreboards before publishing
+        run: |
+          python scripts/collect_feeds.py
+          python scripts/collect_scores.py
+          python scripts/collect_official_scores.py
+          python scripts/collect_college_schedules.py
+          python scripts/collect_multisource.py
+          python scripts/collect_statcast.py
+          python scripts/publish_source_health.py
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
