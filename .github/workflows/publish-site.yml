@@ -72,6 +72,13 @@ jobs:
           python scripts/publish_source_health.py
       - name: Commit durable Match Center archive branch
         run: python scripts/persist_match_archive.py save
+      - name: Cross-check published EPL forecasts against Match Center IDs
+        run: |
+          if [ -f data/epl-match-center.json ]; then
+            python scripts/check_eps_match_center.py
+          else
+            echo 'No current EPL forecast export; Match Center prediction panel remains unavailable.'
+          fi
       - name: Preserve Match Center archive across scheduled runs
         if: always()
         uses: actions/cache/save@v4
