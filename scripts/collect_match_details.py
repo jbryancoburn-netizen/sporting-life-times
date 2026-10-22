@@ -24,7 +24,7 @@ for league in source.get("leagues", []):
         except (ValueError, TypeError):
             distance = float("inf")
         return (0 if state == "in" else 1 if state == "post" else 2, distance)
-    games = sorted(league.get("games", []), key=priority)[:8]
+    games = sorted(league.get("games", []), key=priority)[:4]
     out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,"with_statistics":0,"failed":0}
     for game in games:
         ident = str(game.get("id") or "")
@@ -35,7 +35,7 @@ for league in source.get("leagues", []):
         url = "https://site.api.espn.com/apis/site/v2/sports/"+PATHS[label]+"/summary?event="+ident
         try:
             req = Request(url, headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
-            with urlopen(req, timeout=8) as response:
+            with urlopen(req, timeout=5) as response:
                 data = json.load(response)
             events = data.get("keyEvents") or data.get("plays") or []
             if isinstance(events, dict):
