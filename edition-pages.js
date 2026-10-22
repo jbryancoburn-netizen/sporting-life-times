@@ -17,6 +17,30 @@
     const index=main&&main.querySelector('.edition-index');
     if(!index)return;
     const pages=editions.map(e=>({title:e.title,nodes:e.ids.map(id=>document.getElementById(id)).filter(Boolean)}));
+    // Each page receives its own newspaper section flag and consistent department heading.
+    pages.forEach((page,i)=>{
+      const first=page.nodes[0];
+      if(!first)return;
+      const header=document.createElement('header');
+      header.className='edition-section-heading';
+      const kicker=document.createElement('p');
+      kicker.className='edition-section-kicker';
+      kicker.textContent='THE SPORTING LIFE & TIMES  /  SECTION '+String.fromCharCode(65+i);
+      const title=document.createElement('h2');
+      title.className='edition-section-title';
+      title.textContent=page.title;
+      const folio=document.createElement('span');
+      folio.className='edition-section-folio';
+      folio.textContent='PAGE '+String(i+1).padStart(2,'0');
+      header.append(kicker,title,folio);
+      first.insertAdjacentElement('afterbegin',header);
+      first.classList.add('edition-section-start');
+      // The standardized heading replaces a redundant section headline, without
+      // removing the supporting deck or any live content.
+      const old=first.querySelector(':scope > .section-head > h2, :scope > h2:not([id]), :scope > .section-label');
+      if(old&&old.textContent.trim().toLowerCase()===page.title.toLowerCase())old.classList.add('edition-redundant-heading');
+      page.nodes.slice(1).forEach(node=>node.classList.add('edition-subsection'));
+    });
     const control=document.createElement('nav');
     control.className='edition-pagination';
     control.setAttribute('aria-label','Newspaper pages');
