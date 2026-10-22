@@ -1,0 +1,28 @@
+/* Sporting Life & Times: editorial match graphics, mobile-first */
+:root{--mc-ink:#19212a;--mc-rule:#d6d0c5;--mc-paper:#fbfaf6}
+.mc-shell{max-width:1120px}
+.mc-head{margin-bottom:16px}
+.mc-head p{max-width:65ch;line-height:1.55}
+.mc-board{background:var(--mc-paper);border-left:1px solid var(--mc-rule);border-right:1px solid var(--mc-rule);border-bottom:1px solid var(--mc-rule);padding:clamp(18px,3vw,32px) clamp(10px,3vw,28px);gap:clamp(8px,2vw,22px)}
+.mc-team{gap:10px;min-width:0}
+.mc-team img{width:clamp(52px,9vw,96px);height:clamp(52px,9vw,96px)}
+.mc-score{font-variant-numeric:tabular-nums;line-height:1.05;color:var(--mc-ink)}
+#mc-phase{margin-top:10px;color:#555;max-width:150px;margin-inline:auto}
+.mc-meta{line-height:1.5}
+.mc-tabs{gap:0;scrollbar-width:thin}
+.mc-tabs button{flex:1;min-width:max-content;background:transparent;border:0;border-bottom:3px solid transparent;padding:13px 12px;color:var(--mc-ink)}
+.mc-tabs button[aria-selected=true]{background:transparent;color:var(--mc-ink);border-bottom-color:#8d2424}
+.mc-tabs button:focus-visible,.mc-forecast-nav button:focus-visible{outline:3px solid #125b91;outline-offset:2px}
+.mc-panel{padding:18px 0}
+.mc-grid{gap:clamp(12px,2vw,24px)}
+.mc-paper{background:var(--mc-paper);border:1px solid var(--mc-rule);box-shadow:none}
+.mc-paper h3{letter-spacing:-.02em}
+.mc-prob-track{overflow:hidden}
+.mc-forecast-metric{border:1px solid var(--mc-rule);background:#fffdfa}
+.mc-heatmap-wrap{overflow-x:auto;max-width:100%}
+.mc-heatmap{width:100%;border-collapse:separate;border-spacing:3px}
+.mc-heatmap th,.mc-heatmap td{text-align:center}
+.mc-heatmap td{font-variant-numeric:tabular-nums}
+.mc-source{line-height:1.5}
+@media(max-width:650px){.mc-board{grid-template-columns:minmax(0,1fr) minmax(82px,auto) minmax(0,1fr)}.mc-score{font-size:clamp(27px,7vw,42px)}.mc-team span{font-size:clamp(11px,3vw,15px)}.mc-tabs button{font-size:10px;padding:11px 10px}.mc-panel{padding:12px 0}.mc-heatmap{border-spacing:2px}.mc-heatmap td{font-size:10px;min-width:0}}
+@media(prefers-reduced-motion:reduce){.mc-shell *{scroll-behavior:auto!important;transition:none!important}}
