@@ -7,8 +7,8 @@ function renderTeams(teams,query=''){const root=document.querySelector('#team-li
 const permanentRabbyLogos={
 'Fort Wayne Komets':'https://logotyp.us/file/komets.svg',
 'FC Bayern Munich Basketball':'https://img.fcbayern.com/image/upload/v1659540089/cms/public/images/fcb-basketball/logos/FC_Bayern_Basketball-Logo.svg',
-'Trine Thunder Football':'https://trinethunder.com/documents/2025/8/22/PowerT_Blue__2_.png',
-"Trine Thunder Men's Basketball":'https://trinethunder.com/documents/2025/8/22/PowerT_Blue__2_.png',
+'Trine Thunder Football':'https://dbukjj6eu5tsf.cloudfront.net/sidearm.sites/trine.sidearmsports.com/documents/2025/8/22/PowerT_Blue__2_.png',
+"Trine Thunder Men's Basketball":'https://dbukjj6eu5tsf.cloudfront.net/sidearm.sites/trine.sidearmsports.com/documents/2025/8/22/PowerT_Blue__2_.png',
 'Chicago Bears':'https://a.espncdn.com/i/teamlogos/nfl/500/chi.png',
 'Chicago Cubs':'https://a.espncdn.com/i/teamlogos/mlb/500/chc.png',
 'Tampa Bay Rays':'https://a.espncdn.com/i/teamlogos/mlb/500/tb.png',
