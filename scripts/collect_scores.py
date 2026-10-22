@@ -9,7 +9,7 @@ LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),
 out={"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"source":"ESPN public scoreboard API","leagues":[]}
 for label,path in LEAGUES:
     url="https://site.api.espn.com/apis/site/v2/sports/"+path+"/scoreboard"
-    block={"league":label,"source_url":"https://www.espn.com/"+path+"/scoreboard","games":[],"error":None}
+    block={"league":label,"source_url":"https://www.espn.com/"+path+"/scoreboard","provider":"espn","games":[],"error":None}
     today=datetime.now(timezone.utc).date()
     start=(today-timedelta(days=4)).strftime("%Y%m%d")
     end=(today+timedelta(days=7)).strftime("%Y%m%d")
