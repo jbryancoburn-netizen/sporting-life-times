@@ -451,3 +451,45 @@ body:has(#front-page) .sports-home-hub{margin:28px 0;padding:22px;border:1px sol
 body:has(#front-page) .sports-home-hub>h2{font-size:clamp(1.5rem,2.5vw,2.25rem)}
 body:has(#front-page) .sports-home-card{min-height:145px}
 @media(max-width:760px){body:has(#front-page) #front-page{display:block;padding:25px 0}#front-page>#lead-headline{font-size:clamp(2.3rem,8vw,3.8rem)}#front-page>#front-briefs{border-left:0;border-top:3px double var(--ink);padding:12px 0 0;margin:20px 0}#front-page>#lead-photo img{max-height:340px}body:has(#front-page) .sports-home-hub{padding:15px}}
+
+/* Quiet editorial front page — restrained newspaper scale and whitespace. */
+body:has(#front-page){font-size:14px;line-height:1.5}
+body:has(#front-page) .masthead{padding:1.25rem 1rem 1rem;background:var(--paper-light)}
+body:has(#front-page) .masthead:before,body:has(#front-page) .masthead:after{display:none}
+body:has(#front-page) .newspaper-wordmark-main{font-size:clamp(1.6rem,4.15vw,3.25rem);letter-spacing:-.055em}
+body:has(#front-page) .newspaper-wordmark-small{font-size:.55rem}
+body:has(#front-page) .print-subtitle{font-size:.64rem;letter-spacing:.055em;margin:.4rem 0}
+body:has(#front-page) .edition-ribbon{font-size:.57rem;letter-spacing:.08em;margin:.35rem 0 0}
+body:has(#front-page) .topline{padding-top:.35rem;padding-bottom:.35rem;font-size:.58rem;letter-spacing:.07em}
+body:has(#front-page) .site-nav{position:relative;gap:clamp(.5rem,1.5vw,1.25rem);padding:.6rem .75rem;box-shadow:none;backdrop-filter:none}
+body:has(#front-page) .site-nav a{font-size:.62rem;font-weight:500;letter-spacing:.025em}
+body:has(#front-page) .edition-index{padding:.6rem .2rem;gap:.4rem 1.1rem;font-size:.68rem}
+body:has(#front-page) main{max-width:1150px}
+body:has(#front-page) #front-page{grid-template-columns:minmax(0,1.7fr) minmax(220px,.85fr);column-gap:clamp(18px,3vw,38px);padding:24px 0 28px;border-bottom:2px solid var(--ink)}
+#front-page>.section-label{font-size:.63rem;letter-spacing:.045em;margin-bottom:12px}
+#front-page>#lead-headline{font:600 clamp(1.7rem,3vw,2.75rem)/1.17 Georgia,'Times New Roman',serif;letter-spacing:-.025em;margin:0 0 12px;max-width:24ch}
+#front-page>#lead-summary{font:400 clamp(.92rem,1.25vw,1.04rem)/1.6 Georgia,serif;max-width:64ch;color:#4e4b44;margin-bottom:10px}
+#front-page>#lead-source{font-size:.64rem;font-weight:500;letter-spacing:.035em;margin-bottom:12px}
+#front-page>#lead-photo img{max-height:340px;aspect-ratio:16/9}
+#front-page>#front-briefs{padding-left:20px}
+#front-page>#front-briefs>*{padding:9px 0}
+#front-page>#front-briefs h3{font:500 clamp(.98rem,1.35vw,1.18rem)/1.3 Georgia,serif;letter-spacing:-.012em}
+#front-page>#front-briefs p{font-size:.8rem;line-height:1.5}
+#front-page>#lead-link{font-size:.73rem;padding:.5rem .8rem}
+body:has(#front-page) #rabby-front{padding:24px 0 28px}
+body:has(#front-page) #rabby-front>h2{font:500 clamp(1.55rem,2.5vw,2.15rem)/1.18 Georgia,serif}
+body:has(#front-page) #rabby-front>.standfirst{font-size:.94rem;line-height:1.5;max-width:65ch}
+body:has(#front-page) .sports-home-hub{padding:16px 0;margin:14px 0 24px;border:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:transparent}
+body:has(#front-page) .sports-home-hub>h2{font:500 1.55rem/1.2 Georgia,serif}
+body:has(#front-page) .sports-home-intro{font-size:.87rem;line-height:1.5}
+body:has(#front-page) .sports-home-grid{gap:12px;margin-top:12px}
+body:has(#front-page) .sports-home-card{min-height:120px;padding:13px 15px;border:1px solid #ddd6c9;background:transparent;transform:none}
+body:has(#front-page) .sports-home-card h3{font:500 1.25rem/1.25 Georgia,serif;margin:8px 0}
+body:has(#front-page) .sports-home-card p{font-size:.81rem;line-height:1.45}
+body:has(#front-page) .sports-home-card strong{font-size:.65rem;font-weight:500;margin-top:8px}
+body:has(#front-page) .section-head h2{font:500 clamp(1.35rem,2vw,1.8rem)/1.2 Georgia,serif}
+body:has(#front-page) section:not(.lead-grid){padding-top:1.5rem;padding-bottom:1.5rem}
+body:has(#front-page) .news-card h3{font-size:1.13rem;line-height:1.3}
+body:has(#front-page) .news-card:nth-child(1) h3{font-size:1.45rem}
+body:has(#front-page) .scoreboard-list,body:has(#front-page) .newspaper-register{font-size:.83rem}
+@media(max-width:760px){body:has(#front-page) #front-page{display:block;padding:20px 0}#front-page>#lead-headline{font-size:clamp(1.65rem,6vw,2.25rem)}#front-page>#front-briefs{border-left:0;padding:12px 0 0}body:has(#front-page) .sports-home-grid{grid-template-columns:1fr}body:has(#front-page) .masthead{padding:1rem .6rem}body:has(#front-page) .newspaper-wordmark-main{font-size:clamp(1.45rem,5.5vw,2.3rem)}}
