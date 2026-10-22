@@ -47,7 +47,19 @@ for league, row in details["coverage"].items():
     assert row["available"] + row["failed"] == row["attempted"] + row["cached"], f"Inconsistent coverage for {league}"
     assert row["with_events"] <= row["available"], f"Event coverage exceeds available: {league}"
     assert row["with_statistics"] <= row["available"], f"Statistic coverage exceeds available: {league}"
+index_path = ROOT / "match_archive_index.json"
+assert index_path.is_file(), "Historical game index missing"
+historical = json.loads(index_path.read_text(encoding="utf-8"))
+assert isinstance(historical.get("games"), list), "Historical index must contain games"
+index_keys = [r.get("key") for r in historical["games"]]
+assert len(index_keys) == len(set(index_keys)), "Historical index contains duplicate game keys"
+for item in historical["games"]:
+    assert isinstance(item.get("source"), str) and item["source"], "Historical index missing source"
+    assert isinstance(item.get("teams"), list) and len(item["teams"]) == 2, "Historical index missing teams"
+    assert item["source"] == "match_details.json" or (ROOT / item["source"]).is_file(), "Historical shard missing"
+
 print("MATCH CENTER DATA HEALTH")
+print("Historical indexed games:", len(index_keys))
 print("Scoreboard games:", len(indexed))
 print("Detail records (including archive):", len(details["games"]))
 print("Archive snapshot matches published detail records:", True)
