@@ -27,3 +27,21 @@ body:has(#front-page) #front-page>#front-briefs .front-story-excerpt{font:400 .7
 body:has(#front-page) #front-page>.small{grid-column:1;grid-row:7;font:400 .62rem/1.4 Georgia,serif!important;color:#777!important}
 @media(max-width:760px){body:has(#front-page) header.masthead .newspaper-wordmark-main{font-size:clamp(1.4rem,5.1vw,2rem)!important}body:has(#front-page) #front-page.live-front{display:block!important;padding:14px 0 20px!important}body:has(#front-page) #front-page.live-front[hidden]{display:none!important}body:has(#front-page) #front-page>#front-briefs{border-left:0!important;border-top:1px solid var(--edition-rule)!important;padding:14px 0 0!important;margin:16px 0 0!important}body:has(#front-page) #front-page>h2#lead-headline{font-size:clamp(1.3rem,4.2vw,1.65rem)!important}body:has(#front-page) #front-page>#lead-photo img{max-height:230px!important}}
 @media(prefers-reduced-motion:reduce){.paged-edition main.edition-turn-forward>section:not([hidden]),.paged-edition main.edition-turn-back>section:not([hidden]){animation:none!important}}
+
+/* Department flags and folios, consistent across the entire turnable edition. */
+body:has(#front-page) .edition-section-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:16px;grid-column:1/-1;width:100%;box-sizing:border-box;margin:0 0 19px;padding:10px 0 12px;border-top:3px double #33312c;border-bottom:1px solid #aaa69d;background:transparent}
+body:has(#front-page) .edition-section-kicker{grid-column:1/-1;margin:0 0 6px;font:400 .63rem/1.35 Georgia,serif;letter-spacing:.1em;color:#706b62}
+body:has(#front-page) .edition-section-title{grid-column:1;grid-row:2;margin:0;font:500 clamp(1.25rem,2.3vw,1.95rem)/1.15 Georgia,'Times New Roman',serif;letter-spacing:-.025em;color:#292720;text-transform:none}
+body:has(#front-page) .edition-section-folio{grid-column:2;grid-row:2;align-self:end;white-space:nowrap;font:400 .66rem/1.5 Georgia,serif;color:#716c64;letter-spacing:.08em}
+body:has(#front-page) .edition-redundant-heading{display:none!important}
+body:has(#front-page) #front-page.live-front>.edition-section-heading{grid-column:1/-1;grid-row:1;margin-bottom:14px}
+body:has(#front-page) #front-page.live-front>.section-label{grid-row:2;grid-column:1/-1}
+body:has(#front-page) #front-page.live-front>h2#lead-headline{grid-row:3}
+body:has(#front-page) #front-page.live-front>#lead-summary{grid-row:4}
+body:has(#front-page) #front-page.live-front>#lead-source{grid-row:5}
+body:has(#front-page) #front-page.live-front>#lead-photo{grid-row:6}
+body:has(#front-page) #front-page.live-front>#lead-link{grid-row:7}
+body:has(#front-page) #front-page.live-front>#front-briefs{grid-row:3/9}
+body:has(#front-page) #front-page.live-front>.small{grid-row:8}
+body:has(#front-page) .edition-subsection>.section-head{margin-top:10px;border-top:1px solid #bcb9b2;padding-top:12px}
+@media(max-width:760px){body:has(#front-page) .edition-section-heading{margin-bottom:14px;padding:9px 0 10px}body:has(#front-page) .edition-section-title{font-size:clamp(1.3rem,5vw,1.7rem)}}
