@@ -44,5 +44,6 @@ print("Games with player statistics:", sum(bool(g.get("players")) for g in detai
 print("Games with team statistics:", sum(bool(g.get("statistics")) for g in details["games"].values()))
 print("Games with events:", sum(bool(g.get("events")) for g in details["games"].values()))
 print("Provider errors:", len(details.get("errors", [])))
+print("Archived games with navigable metadata:", sum(isinstance(g.get("game"), dict) and len(g["game"].get("teams") or []) == 2 for g in details["games"].values()))
 for league, row in sorted(details["coverage"].items()):
     print(f"{league}: {row['available']}/{row['attempted']} available; {row['cached']} cached; {row['failed']} failed; {row.get('with_events',0)} with events; {row.get('with_statistics',0)} with team stats")
