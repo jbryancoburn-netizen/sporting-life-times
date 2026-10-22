@@ -1,36 +1,43 @@
-/* Optional browser-side live scores. Existing verified newspaper scoreboards remain intact. */
+/* Live updates embedded in the newspaper's existing league scoreboards. */
 (()=>{'use strict';
 const feeds={NFL:'football/nfl',MLB:'baseball/mlb',NBA:'basketball/nba',NHL:'hockey/nhl'};
-const root=document.getElementById('live-tracker-games'),status=document.getElementById('live-tracker-status'),tabs=document.getElementById('live-tracker-tabs');
-if(!root||!status||!tabs)return;
-let league='NFL',timer=null,lastGood={},busy=false,stopped=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function isLive(e){return e?.status?.type?.state==='in'}
-function render(data){
-const events=(data?.events||[]).slice().sort((a,b)=>Number(isLive(b))-Number(isLive(a)));
-root.innerHTML=events.length?events.map(e=>{
-const c=e.competitions?.[0]||{},teams=c.competitors||[],state=e.status?.type?.state||'pre',live=state==='in',post=state==='post';
-const label=live?(e.status?.type?.shortDetail||e.status?.type?.detail||'LIVE'):post?'FINAL':(e.status?.type?.shortDetail||'UPCOMING');
-const names=teams.map(t=>({name:t.team?.shortDisplayName||t.team?.displayName||'Team',abbr:t.team?.abbreviation||'',score:t.score,record:t.records?.[0]?.summary||''}));
-return '<article class="register-game live-tracker-card"><div class="register-sport"><span>'+esc(league)+'</span><strong'+(live?' class="live-tracker-active"':'')+'>'+esc(label)+'</strong></div>'+names.map(t=>'<div class="live-tracker-team"><span>'+esc(t.name)+'</span><span>'+esc(t.record)+'</span><strong>'+esc(t.score??(state==='pre'?'–':'—'))+'</strong></div>').join('')+(e.links?.[0]?.href?'<a class="register-link" href="'+esc(e.links[0].href)+'" target="_blank" rel="noopener noreferrer">GAME DETAILS ↗</a>':'')+'</article>'}).join(''):'<p class="register-empty">No games reported for this league today.</p>';
+let timer,working=false,stopped=false;
+function render(league,data){
+const register=[...document.querySelectorAll('.league-register')].find(x=>x.dataset.scoreLeague===league);
+if(!register)return;
+let section=register.querySelector('.inline-live-scores');
+if(!section){section=document.createElement('section');section.className='inline-live-scores';register.querySelector('.league-register-title')?.after(section)}
+const events=(data.events||[]).filter(e=>e.status?.type?.state==='in');
+const activeIds=new Set(events.map(e=>String(e.id)));
+register.querySelectorAll('.register-game[data-game-id]').forEach(el=>{el.hidden=activeIds.has(el.dataset.gameId)&&el.dataset.gameId!==''});
+if(!events.length){section.replaceChildren();return}
+section.innerHTML='<div class="register-heading"><h3>LIVE NOW <span class="live-tracker-active">●</span></h3><span>'+events.length+' GAMES · AUTO-UPDATING</span></div><div class="inline-live-grid">'+events.map(e=>{
+const c=e.competitions?.[0]||{},teams=c.competitors||[];
+const detail=e.status?.type?.shortDetail||e.status?.type?.detail||'LIVE';
+const rows=teams.map(t=>{const name=t.team?.shortDisplayName||t.team?.displayName||'Team';const record=t.records?.[0]?.summary||'';return '<div class="inline-live-team"><span>'+esc(name)+'</span><small>'+esc(record)+'</small><strong>'+esc(t.score??'—')+'</strong></div>'}).join('');
+const url=e.links?.[0]?.href||c?.links?.[0]?.href||'';
+return '<article class="register-game inline-live-card"><div class="register-sport"><span>'+esc(league)+'</span><strong class="live-tracker-active">'+esc(detail)+'</strong></div>'+rows+(url?'<a class="register-link" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">GAME DETAILS ↗</a>':'')+'</article>'}).join('')+'</div>';
 }
-async function refresh(){
-if(busy||stopped||document.hidden)return;
-busy=true;
+async function tick(){
+if(working||stopped||document.hidden)return;working=true;
+let live=false,failed=0;
+await Promise.all(Object.entries(feeds).map(async ([league,path])=>{
 try{
-const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12000);
-let response;
-try{response=await fetch('https://site.api.espn.com/apis/site/v2/sports/'+feeds[league]+'/scoreboard',{signal:controller.signal,cache:'no-store'})}finally{clearTimeout(timeout)}
+const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
+let response;try{response=await fetch('https://site.api.espn.com/apis/site/v2/sports/'+path+'/scoreboard',{signal:controller.signal,cache:'no-store'})}finally{clearTimeout(timeout)}
 if(!response.ok)throw Error('HTTP '+response.status);
-const data=await response.json();if(!Array.isArray(data.events))throw Error('Unexpected feed');
-lastGood[league]={data,time:Date.now()};render(data);
-status.textContent='Latest check '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})+' · Public ESPN feed (unofficial) · Refreshes while this tab is open';
-}catch(e){if(lastGood[league]){render(lastGood[league].data);status.textContent='Feed unavailable · Showing last known scores from '+new Date(lastGood[league].time).toLocaleTimeString()+' (not live)'}else{root.innerHTML='<p class="register-empty">Live feed unavailable. See the verified newspaper scoreboard below.</p>';status.textContent='Live feed unavailable · No scores invented'}}
-finally{busy=false;schedule()}
+const data=await response.json();if(!Array.isArray(data.events))throw Error('Invalid data');
+render(league,data);if(data.events.some(e=>e.status?.type?.state==='in'))live=true;
+}catch(_){failed++;}
+}));
+const status=document.getElementById('scores-status');
+if(status){let note=status.querySelector('.live-update-note');if(!note){note=document.createElement('span');note.className='live-update-note';status.append(' · ',note)}
+note.textContent=failed===4?'Live browser feeds unavailable; scheduled scores remain visible':failed?'Live check partial · '+(4-failed)+'/4 feeds available':live?'Live games checked '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}):'Live game check complete'}
+working=false;clearTimeout(timer);if(!stopped&&!document.hidden)timer=setTimeout(tick,live?30000:120000);
 }
-function schedule(){clearTimeout(timer);if(!stopped&&!document.hidden)timer=setTimeout(refresh,(lastGood[league]?.data?.events||[]).some(isLive)?30000:120000)}
-tabs.addEventListener('click',e=>{const button=e.target.closest('button[data-league]');if(!button||!feeds[button.dataset.league])return;league=button.dataset.league;tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));clearTimeout(timer);if(lastGood[league])render(lastGood[league].data);else root.innerHTML='<p>Loading live scores…</p>';refresh()});
-document.addEventListener('visibilitychange',()=>{clearTimeout(timer);if(!document.hidden)refresh()});
+function start(){if(document.querySelector('.league-register'))tick();else setTimeout(start,500)}
+document.addEventListener('visibilitychange',()=>{clearTimeout(timer);if(!document.hidden)tick()});
 window.addEventListener('pagehide',()=>{stopped=true;clearTimeout(timer)});
-refresh();
+start();
 })();
