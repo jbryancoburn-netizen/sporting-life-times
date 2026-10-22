@@ -4,6 +4,9 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from time import sleep
+from urllib.error import HTTPError, URLError
 
 ROOT = Path(__file__).resolve().parents[1]
 PATHS = {"NFL":"football/nfl","MLB":"baseball/mlb","NBA":"basketball/nba","NHL":"hockey/nhl","Premier League":"soccer/eng.1","College Football":"football/college-football","Men's College Basketball":"basketball/mens-college-basketball","Women's College Basketball":"basketball/womens-college-basketball","Champions League":"soccer/uefa.champions","Europa League":"soccer/uefa.europa"}
@@ -18,6 +21,20 @@ try:
 except Exception:
     pass
 out["games"].update(previous)
+
+def read_json(url, attempts=3):
+    for attempt in range(attempts):
+        try:
+            req = Request(url, headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
+            with urlopen(req, timeout=6) as response:
+                return json.load(response)
+        except (HTTPError, URLError, TimeoutError, ValueError) as exc:
+            if isinstance(exc, HTTPError) and exc.code not in (429, 500, 502, 503, 504):
+                raise
+            if attempt == attempts - 1:
+                raise
+            sleep(0.4 * (2 ** attempt))
+
 out["retained_from_previous"] = len(previous)
 for league in source.get("leagues", []):
     label = league.get("league")
@@ -54,9 +71,7 @@ for league in source.get("leagues", []):
         out["coverage"][label]["attempted"] += 1
         url = "https://site.api.espn.com/apis/site/v2/sports/"+PATHS[label]+"/summary?event="+ident
         try:
-            req = Request(url, headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
-            with urlopen(req, timeout=5) as response:
-                data = json.load(response)
+            data = read_json(url)
             events = data.get("keyEvents") or data.get("plays") or []
             if isinstance(events, dict):
                 events = events.get("items") or events.get("events") or []
@@ -66,7 +81,7 @@ for league in source.get("leagues", []):
             out["games"][key] = {"source":"ESPN public summary","source_url":url,"fetched_at":out["updated_at"],
                 "events":[{"text":str(e.get("text") or e.get("description") or e.get("shortText") or (e.get("type") or {}).get("text") or "Event")[:500],"clock":str((e.get("clock") or {}).get("displayValue") or e.get("displayClock") or "")[:40]} for e in events[:150] if isinstance(e,dict)],
                 "statistics":[{"team":str((t.get("team") or {}).get("displayName") or "Team"),"values":[{"name":str(v.get("label") or v.get("displayName") or v.get("name") or ""),"value":str(v.get("displayValue") if v.get("displayValue") is not None else v.get("value") or "")} for v in (t.get("statistics") or []) if isinstance(v,dict)]} for t in teams if isinstance(t,dict)],
-                "lineups":[],"players":[{"team":str((p.get("team") or {}).get("displayName") or group.get("team",{}).get("displayName") or "Team"),"name":str((p.get("athlete") or {}).get("displayName") or "Player"),"category":str(bucket.get("name") or bucket.get("displayName") or ""),"labels":[str(x) for x in (bucket.get("labels") or [])],"stats":[str(x) for x in (p.get("stats") or [])]} for group in ((data.get("boxscore") or {}).get("players") or []) if isinstance(group,dict) for bucket in (group.get("statistics") or []) if isinstance(bucket,dict) for p in (bucket.get("athletes") or []) if isinstance(p,dict)][:150]}
+                "lineups":[],"players":[{"team":str((p.get("team") or {}).get("displayName") or (group.get("team") or {}).get("displayName") or "Team"),"name":str((p.get("athlete") or {}).get("displayName") or "Player"),"category":str(bucket.get("name") or bucket.get("displayName") or ""),"labels":[str(x) for x in (bucket.get("labels") or [])],"stats":[str(x) for x in (p.get("stats") or [])]} for group in ((data.get("boxscore") or {}).get("players") or []) if isinstance(group,dict) for bucket in (group.get("statistics") or []) if isinstance(bucket,dict) for p in (bucket.get("athletes") or []) if isinstance(p,dict)][:150]}
             out["coverage"][label]["available"] += 1
             if out["games"][key]["events"]:
                 out["coverage"][label]["with_events"] += 1
