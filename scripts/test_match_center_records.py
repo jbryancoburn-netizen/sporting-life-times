@@ -39,6 +39,19 @@ class MatchCenterRecordTests(unittest.TestCase):
         self.assertEqual(len(selected), 12)
         self.assertEqual(len({g["id"] for g in selected}), 12)
 
+    def test_duplicate_ids_do_not_consume_state_quota(self):
+        games = [{"id": "1", "state": "in", "date": "2026-10-22T18:00:00Z"}] * 5
+        games += [{"id": str(i), "state": "in", "date": "2026-10-22T18:00:00Z"} for i in range(2, 7)]
+        games += [{"id": str(i), "state": "post", "date": "2026-10-22T18:00:00Z"} for i in range(10, 16)]
+        selected = choose_games(games, limit=8, per_state=4)
+        self.assertEqual(sum(g["state"] == "in" for g in selected), 4)
+        self.assertEqual(sum(g["state"] == "post" for g in selected), 4)
+        self.assertEqual(len({g["id"] for g in selected}), 8)
+
+    def test_missing_date_is_allowed(self):
+        selected = choose_games([{"id": "abc", "state": "pre"}])
+        self.assertEqual([g["id"] for g in selected], ["abc"])
+
     def test_selection_skips_missing_identifiers(self):
         self.assertEqual(choose_games([{"state": "pre"}, {"id": "1", "state": "pre"}]),
                          [{"id": "1", "state": "pre"}])
