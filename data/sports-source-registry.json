@@ -754,6 +754,253 @@
       "notes": "Ergast-compatible community replacement",
       "verified_live": false,
       "rights_cleared": false
+    },
+    {
+      "id": "sidearm",
+      "name": "SIDEARM Sports",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://sidearmsports.com/",
+      "auth": "varies",
+      "access": "public_website",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "college schedules, boxscores, rosters, cumulative stats, live stats; per-school URLs; no general free API verified",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "sidearmstats",
+      "name": "SIDEARM Stats / Event Central",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://sidearmstats.com/",
+      "auth": "varies",
+      "access": "public_website",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "live event coverage; XML ingestion upstream; no authorized bulk API verified",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "presto",
+      "name": "PrestoSports / PrestoStats",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://prestosports.com/",
+      "auth": "varies",
+      "access": "public_website",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "schedules, live scores, XML/packed game reports, season statistics; platform is paid to schools",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "statbroadcast",
+      "name": "StatBroadcast",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://www.statbroadcast.com/",
+      "auth": "varies",
+      "access": "public_website",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "live scores and detailed game stats across 13 sports; no open API verified",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "genius",
+      "name": "Genius Sports / NCAA LiveStats",
+      "sport": "multisport",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://developer.geniussports.com/",
+      "auth": "api_key",
+      "access": "api_key",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "REST and live stream APIs; requires credentials; public docs do not imply free access",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "fiba_livestats",
+      "name": "FIBA LiveStats",
+      "sport": "basketball",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://about.fiba.basketball/en/services/data-and-video-solutions/fiba-live-stats",
+      "auth": "varies",
+      "access": "restricted",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "free to eligible leagues and federations, not automatically to downstream publishers",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "fiba_gdap",
+      "name": "FIBA GDAP",
+      "sport": "basketball",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://gdap-portal.fiba.basketball/documentation",
+      "auth": "varies",
+      "access": "subscription",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "authenticated product subscription required",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "wmt",
+      "name": "WMT Digital college athletics",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://wmt.digital/",
+      "auth": "varies",
+      "access": "public_website",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "college athletics schedules, rosters and stats; APIs vary by client",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "statcrew",
+      "name": "CBS StatCrew XML",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://www.statcrew.com/",
+      "auth": "varies",
+      "access": "export_format",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "game/season XML interchange format; not a public hosted feed",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "dakstats",
+      "name": "DakStats",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://www.dakstats.com/",
+      "auth": "varies",
+      "access": "export_format",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "NAIA/college stats collection and export; not a public hosted feed",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "gamechanger",
+      "name": "GameChanger college XML",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://help.gc.com/hc/en-us/articles/24581262301453-XML-Export-College-Teams-Only",
+      "auth": "varies",
+      "access": "authorized_export",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "college baseball and softball XML export for authorized staff",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "huds",
+      "name": "Hudl / BlueFrame",
+      "sport": "college_athletics",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://www.hudl.com/",
+      "auth": "varies",
+      "access": "licensed",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "video and stats ecosystem; no free general API verified",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "genius_fiba_gamecenter",
+      "name": "FIBA Game Center",
+      "sport": "basketball",
+      "coverage": [
+        "schedules",
+        "results",
+        "rosters",
+        "statistics"
+      ],
+      "url": "https://www.fiba.basketball/",
+      "auth": "varies",
+      "access": "public_website",
+      "reliability_estimate": "unverified",
+      "role": "candidate",
+      "notes": "game stats and live boxscores; distinguish public view from GDAP license",
+      "verified_live": false,
+      "rights_cleared": false
     }
   ]
 }
