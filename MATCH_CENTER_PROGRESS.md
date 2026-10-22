@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 12
+Updated: 2026-10-22 — batch 13
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,13 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 13 notes
+- fbe73fa1: simplify fixture balancing and avoid repeated state counting.
+- 538d0dcc: report available cached data on source-fetch failures, preserving provider error diagnostics.
+- af39aeda: require local archive snapshot and published match detail map to match exactly.
+- d461cab6: add two fixture selection tests (eight total in new test module).
+- End-to-end CI and multi-run persistence verification pending.
 
 ## Batch 12 notes
 - e81a7887: pure helpers for verified-detail detection, safe merge, and balanced fixture selection.
