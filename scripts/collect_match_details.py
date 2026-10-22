@@ -41,6 +41,15 @@ for league in source.get("leagues", []):
         if not ident.isdigit():
             continue
         key = label+"::"+ident
+        # Avoid refetching settled games whose verified detail is already archived.
+        cached = previous.get(key)
+        if game.get("state") == "post" and isinstance(cached, dict) and (cached.get("events") or cached.get("statistics")):
+            out["coverage"][label]["available"] += 1
+            if cached.get("events"):
+                out["coverage"][label]["with_events"] += 1
+            if cached.get("statistics"):
+                out["coverage"][label]["with_statistics"] += 1
+            continue
         out["coverage"][label]["attempted"] += 1
         url = "https://site.api.espn.com/apis/site/v2/sports/"+PATHS[label]+"/summary?event="+ident
         try:
