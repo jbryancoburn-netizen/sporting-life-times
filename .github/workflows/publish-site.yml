@@ -4,14 +4,14 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: "7,22,37,52 * * * *"
+    - cron: "7 * * * *"
 permissions:
   contents: write
   pages: write
   id-token: write
 concurrency:
   group: sporting-life-times-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
