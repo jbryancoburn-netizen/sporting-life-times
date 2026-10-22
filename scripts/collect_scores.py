@@ -10,6 +10,18 @@ out={"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"sour
 for label,path in LEAGUES:
     url="https://site.api.espn.com/apis/site/v2/sports/"+path+"/scoreboard"
     block={"league":label,"source_url":"https://www.espn.com/"+path+"/scoreboard","games":[],"error":None}
+    logo_by_id={}
+    try:
+        team_req=Request("https://site.api.espn.com/apis/site/v2/sports/"+path+"/teams?limit=500",headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
+        with urlopen(team_req,timeout=12) as response: team_data=json.load(response)
+        for sport in team_data.get("sports",[]):
+            for league in sport.get("leagues",[]):
+                for item in league.get("teams",[]):
+                    team=item.get("team") or {}
+                    logo=next((x.get("href") for x in team.get("logos",[]) if x.get("href","").startswith("https://")),None)
+                    if logo: logo_by_id[str(team.get("id"))]=logo
+    except Exception:
+        pass
     try:
         req=Request(url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
         with urlopen(req,timeout=12) as response: data=json.load(response)
@@ -19,7 +31,7 @@ for label,path in LEAGUES:
             teams=[]
             for c in competitors:
                 t=c.get("team") or {}
-                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None)})
+                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None) or logo_by_id.get(str(t.get("id")))})
             status=ev.get("status") or {}
             block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
     except Exception as exc: block["error"]=type(exc).__name__+": "+str(exc)[:100]
