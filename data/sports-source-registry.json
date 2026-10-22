@@ -1,0 +1,759 @@
+{
+  "schema_version": "1.0",
+  "project": "The Sporting Life & Times / USRS",
+  "updated": "2026-10-22",
+  "status": "research_registry_not_live_certification",
+  "policy": {
+    "no_unverified_scores": true,
+    "do_not_treat_public_access_as_redistribution_permission": true,
+    "validate_endpoints_in_github_actions": true,
+    "track_provenance_and_attribution": true
+  },
+  "sources": [
+    {
+      "id": "mlb_stats",
+      "name": "MLB Stats API",
+      "sport": "baseball",
+      "coverage": [
+        "scores",
+        "schedules",
+        "rosters",
+        "standings",
+        "boxscores",
+        "play_by_play",
+        "stats"
+      ],
+      "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "high",
+      "role": "primary",
+      "notes": "MLB game data; terms review before republication",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "baseball_savant",
+      "name": "Baseball Savant Statcast",
+      "sport": "baseball",
+      "coverage": [
+        "statcast",
+        "pitch_tracking",
+        "batted_ball",
+        "expected_stats",
+        "sprint_speed"
+      ],
+      "url": "https://baseballsavant.mlb.com/",
+      "auth": "none",
+      "access": "public_exports",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Bulk downloads and automated reuse require terms review",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "pybaseball",
+      "name": "pybaseball",
+      "sport": "baseball",
+      "coverage": [
+        "statcast",
+        "fangraphs",
+        "baseball_reference"
+      ],
+      "url": "https://github.com/jldbc/pybaseball",
+      "auth": "none",
+      "access": "open_source_wrapper",
+      "reliability_estimate": "medium",
+      "role": "analytics",
+      "notes": "Underlying providers impose their own limits",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "fangraphs",
+      "name": "FanGraphs",
+      "sport": "baseball",
+      "coverage": [
+        "war",
+        "projections",
+        "advanced_stats"
+      ],
+      "url": "https://www.fangraphs.com/",
+      "auth": "none",
+      "access": "website_exports",
+      "reliability_estimate": "medium",
+      "role": "research_only",
+      "notes": "No unrestricted publishing API assumed",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nhl_web",
+      "name": "NHL Web API",
+      "sport": "hockey",
+      "coverage": [
+        "scores",
+        "schedules",
+        "standings",
+        "rosters",
+        "boxscores",
+        "play_by_play"
+      ],
+      "url": "https://api-web.nhle.com/v1/score/now",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "high",
+      "role": "primary",
+      "notes": "Validate schema and usage rights",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nhl_edge",
+      "name": "NHL EDGE",
+      "sport": "hockey",
+      "coverage": [
+        "player_tracking",
+        "skating_speed",
+        "shot_speed",
+        "zone_time"
+      ],
+      "url": "https://edge.nhl.com/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "analytics",
+      "notes": "Coverage and endpoint stability need testing",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nhl_stats",
+      "name": "NHL Stats REST",
+      "sport": "hockey",
+      "coverage": [
+        "player_stats",
+        "team_stats",
+        "game_logs"
+      ],
+      "url": "https://api.nhle.com/stats/rest/en/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "high",
+      "role": "secondary",
+      "notes": "Verify endpoint parameters",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "moneypuck",
+      "name": "MoneyPuck",
+      "sport": "hockey",
+      "coverage": [
+        "expected_goals",
+        "shots",
+        "goalie_metrics",
+        "advanced_stats"
+      ],
+      "url": "https://moneypuck.com/data.htm",
+      "auth": "none",
+      "access": "published_downloads",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Explicit noncommercial/journalist ad-hoc permission with attribution; commercial use inquire",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "hockeytech",
+      "name": "HockeyTech LeagueStat",
+      "sport": "hockey",
+      "coverage": [
+        "echl",
+        "ahl",
+        "pwhl",
+        "junior_hockey",
+        "scores",
+        "stats",
+        "game_reports"
+      ],
+      "url": "https://lscluster.hockeytech.com/",
+      "auth": "public_league_keys",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Check ECHL league configuration and automated-use terms",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nflverse",
+      "name": "nflverse",
+      "sport": "american_football",
+      "coverage": [
+        "nfl_pbp",
+        "epa",
+        "wp",
+        "rosters",
+        "player_stats",
+        "schedules"
+      ],
+      "url": "https://github.com/nflverse/nflverse-data/releases",
+      "auth": "none",
+      "access": "open_datasets",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Release datasets, not guaranteed real-time",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nfl_shield",
+      "name": "NFL Shield API",
+      "sport": "american_football",
+      "coverage": [
+        "nfl_scores",
+        "game_details",
+        "rosters"
+      ],
+      "url": "https://api.nfl.com/",
+      "auth": "anonymous_token",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Anonymous token and access stability may change",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "cfbd",
+      "name": "CollegeFootballData",
+      "sport": "american_football",
+      "coverage": [
+        "college_football",
+        "epa",
+        "plays",
+        "recruiting",
+        "ratings",
+        "advanced_stats"
+      ],
+      "url": "https://collegefootballdata.com/",
+      "auth": "api_key",
+      "access": "free_tier_limits",
+      "reliability_estimate": "high",
+      "role": "candidate",
+      "notes": "Check current free quota and division coverage",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "ncaa_stats",
+      "name": "NCAA statistics",
+      "sport": "multisport",
+      "coverage": [
+        "division_i",
+        "division_ii",
+        "division_iii",
+        "team_stats",
+        "boxscores"
+      ],
+      "url": "https://stats.ncaa.org/",
+      "auth": "none",
+      "access": "public_site",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "DIII Trine is important; HTML and endpoints may change",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "ncaa_api",
+      "name": "ncaa-api open-source wrapper",
+      "sport": "multisport",
+      "coverage": [
+        "ncaa_scores",
+        "schedules",
+        "standings",
+        "game_details"
+      ],
+      "url": "https://github.com/henrygd/ncaa-api",
+      "auth": "none",
+      "access": "open_source_wrapper",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Unofficial NCAA upstream; validate DII/DIII completeness",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "sportsdataverse",
+      "name": "SportsDataverse Python and JS",
+      "sport": "multisport",
+      "coverage": [
+        "scores",
+        "pbp",
+        "boxscores",
+        "stats",
+        "ncaa",
+        "nfl",
+        "nba",
+        "mlb",
+        "nhl",
+        "soccer"
+      ],
+      "url": "https://www.sportsdataverse.org/packages",
+      "auth": "varies",
+      "access": "open_source_wrapper",
+      "reliability_estimate": "high",
+      "role": "integration_layer",
+      "notes": "Provider-specific rights still apply",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "sportsdataverse_data",
+      "name": "SportsDataverse release datasets",
+      "sport": "multisport",
+      "coverage": [
+        "cfb",
+        "mbb",
+        "wbb",
+        "nfl",
+        "nba",
+        "mlb",
+        "nhl",
+        "wnba",
+        "pwhl"
+      ],
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data",
+      "auth": "none",
+      "access": "open_datasets",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Parquet snapshots; check release licenses",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "espn",
+      "name": "ESPN public site API",
+      "sport": "multisport",
+      "coverage": [
+        "scores",
+        "schedules",
+        "standings",
+        "rosters",
+        "boxscores",
+        "pbp"
+      ],
+      "url": "https://site.api.espn.com/apis/site/v2/sports/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "fallback",
+      "notes": "Recent project collector returned HTTP 400 for ranged requests",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "cbs",
+      "name": "CBS Sports public endpoints",
+      "sport": "multisport",
+      "coverage": [
+        "scores",
+        "teams",
+        "standings",
+        "stats"
+      ],
+      "url": "https://www.cbssports.com/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "low",
+      "role": "research_only",
+      "notes": "Unofficial; avoid assuming durable API",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "fox",
+      "name": "FOX Sports Bifrost",
+      "sport": "multisport",
+      "coverage": [
+        "scores",
+        "stats",
+        "game_details"
+      ],
+      "url": "https://www.foxsports.com/",
+      "auth": "site_key",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Site-specific API keys and restrictions",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "yahoo",
+      "name": "Yahoo Sports public feeds",
+      "sport": "multisport",
+      "coverage": [
+        "scores",
+        "stats",
+        "game_details"
+      ],
+      "url": "https://sports.yahoo.com/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Unofficial endpoints",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nba_stats",
+      "name": "NBA Stats",
+      "sport": "basketball",
+      "coverage": [
+        "nba",
+        "wnba",
+        "shot_charts",
+        "tracking",
+        "boxscores",
+        "advanced_stats"
+      ],
+      "url": "https://stats.nba.com/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "analytics",
+      "notes": "Datacenter IP blocking and rate limits common",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nba_live",
+      "name": "NBA live data",
+      "sport": "basketball",
+      "coverage": [
+        "nba_scores",
+        "boxscores",
+        "pbp"
+      ],
+      "url": "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Test freshness and publication permissions",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "hoopr",
+      "name": "hoopR and wehoop",
+      "sport": "basketball",
+      "coverage": [
+        "nba",
+        "wnba",
+        "ncaa_mbb",
+        "ncaa_wbb",
+        "pbp",
+        "boxscores"
+      ],
+      "url": "https://hoopr.sportsdataverse.org/",
+      "auth": "varies",
+      "access": "open_source_wrapper",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Underly ESPN/NBA access restrictions",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "torvik",
+      "name": "Bart Torvik T-Rank",
+      "sport": "basketball",
+      "coverage": [
+        "college_basketball",
+        "adjusted_efficiency",
+        "tempo",
+        "four_factors"
+      ],
+      "url": "https://barttorvik.com/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "research_only",
+      "notes": "Do not assume free bulk redistribution",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "euroleague",
+      "name": "EuroLeague public competition data",
+      "sport": "basketball",
+      "coverage": [
+        "euroleague",
+        "scores",
+        "boxscores",
+        "pbp",
+        "shot_charts"
+      ],
+      "url": "https://live.euroleague.net/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Bayern coverage; test endpoints and rights",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "nbl",
+      "name": "Australian NBL",
+      "sport": "basketball",
+      "coverage": [
+        "australian_nbl",
+        "scores",
+        "standings",
+        "stats"
+      ],
+      "url": "https://nbl.com.au/",
+      "auth": "unknown",
+      "access": "website_only",
+      "reliability_estimate": "low",
+      "role": "research_only",
+      "notes": "No verified durable free API yet",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "football_data_org",
+      "name": "football-data.org",
+      "sport": "soccer",
+      "coverage": [
+        "fixtures",
+        "results",
+        "standings",
+        "scorers"
+      ],
+      "url": "https://www.football-data.org/",
+      "auth": "api_key",
+      "access": "free_tier_limits",
+      "reliability_estimate": "high",
+      "role": "candidate",
+      "notes": "Free tier is limited/delayed; check covered competitions",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "football_data_co_uk",
+      "name": "football-data.co.uk",
+      "sport": "soccer",
+      "coverage": [
+        "historic_results",
+        "odds",
+        "fixtures"
+      ],
+      "url": "https://www.football-data.co.uk/data.php",
+      "auth": "none",
+      "access": "published_downloads",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Historic league CSVs; licensing review",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "statsbomb_open",
+      "name": "StatsBomb Open Data",
+      "sport": "soccer",
+      "coverage": [
+        "event_data",
+        "shot_locations",
+        "360_data",
+        "formations",
+        "selected_historical_matches"
+      ],
+      "url": "https://github.com/statsbomb/open-data",
+      "auth": "none",
+      "access": "open_datasets",
+      "reliability_estimate": "high",
+      "role": "analytics",
+      "notes": "Selected historical matches only; attribution required",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "american_soccer_analysis",
+      "name": "American Soccer Analysis",
+      "sport": "soccer",
+      "coverage": [
+        "mls",
+        "nwsl",
+        "xg",
+        "advanced_stats"
+      ],
+      "url": "https://www.americansocceranalysis.com/",
+      "auth": "none",
+      "access": "public_undocumented",
+      "reliability_estimate": "medium",
+      "role": "analytics",
+      "notes": "MLS/NWSL primarily",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "understat",
+      "name": "Understat",
+      "sport": "soccer",
+      "coverage": [
+        "xg",
+        "shots",
+        "player_stats"
+      ],
+      "url": "https://understat.com/",
+      "auth": "none",
+      "access": "website_scraping",
+      "reliability_estimate": "low",
+      "role": "research_only",
+      "notes": "No official free public API assumed",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "openligadb",
+      "name": "OpenLigaDB",
+      "sport": "soccer",
+      "coverage": [
+        "scores",
+        "fixtures",
+        "standings"
+      ],
+      "url": "https://www.openligadb.de/",
+      "auth": "none",
+      "access": "community_api",
+      "reliability_estimate": "medium",
+      "role": "candidate",
+      "notes": "Competition coverage varies",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "thesportsdb",
+      "name": "TheSportsDB",
+      "sport": "multisport",
+      "coverage": [
+        "teams",
+        "logos",
+        "events",
+        "leagues",
+        "venues"
+      ],
+      "url": "https://www.thesportsdb.com/api.php",
+      "auth": "api_key_or_test",
+      "access": "free_tier_limits",
+      "reliability_estimate": "medium",
+      "role": "metadata",
+      "notes": "Community coverage; check free-tier attribution and usage",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "openfootball",
+      "name": "openfootball",
+      "sport": "soccer",
+      "coverage": [
+        "historical_results",
+        "fixtures",
+        "league_tables"
+      ],
+      "url": "https://github.com/openfootball/football.json",
+      "auth": "none",
+      "access": "open_datasets",
+      "reliability_estimate": "medium",
+      "role": "analytics",
+      "notes": "Repository coverage and licenses vary",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "worldfootballr",
+      "name": "worldfootballR",
+      "sport": "soccer",
+      "coverage": [
+        "fbref",
+        "transfermarkt",
+        "understat",
+        "results",
+        "player_stats"
+      ],
+      "url": "https://github.com/JaseZiv/worldfootballR",
+      "auth": "varies",
+      "access": "open_source_wrapper",
+      "reliability_estimate": "medium",
+      "role": "research_only",
+      "notes": "Scraping risks; not primary production feed",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "fastf1",
+      "name": "FastF1",
+      "sport": "motorsport",
+      "coverage": [
+        "f1_lap_times",
+        "telemetry",
+        "timing",
+        "weather"
+      ],
+      "url": "https://docs.fastf1.dev/",
+      "auth": "none",
+      "access": "open_source_wrapper",
+      "reliability_estimate": "high",
+      "role": "expansion",
+      "notes": "Unofficial data access; not Rabby 20 priority",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "openf1",
+      "name": "OpenF1",
+      "sport": "motorsport",
+      "coverage": [
+        "f1_live_timing",
+        "telemetry",
+        "sessions"
+      ],
+      "url": "https://openf1.org/",
+      "auth": "varies",
+      "access": "community_api",
+      "reliability_estimate": "medium",
+      "role": "expansion",
+      "notes": "Check live-data plan and historical terms",
+      "verified_live": false,
+      "rights_cleared": false
+    },
+    {
+      "id": "ergast_jolpica",
+      "name": "Jolpica F1 API",
+      "sport": "motorsport",
+      "coverage": [
+        "f1_results",
+        "qualifying",
+        "standings",
+        "history"
+      ],
+      "url": "https://api.jolpi.ca/ergast/f1/",
+      "auth": "none",
+      "access": "community_api",
+      "reliability_estimate": "high",
+      "role": "expansion",
+      "notes": "Ergast-compatible community replacement",
+      "verified_live": false,
+      "rights_cleared": false
+    }
+  ]
+}
