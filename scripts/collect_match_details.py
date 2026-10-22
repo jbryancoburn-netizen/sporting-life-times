@@ -115,7 +115,14 @@ for league in source.get("leagues", []):
     label = league.get("league")
     if label not in PATHS:
         continue
-    games = sorted(league.get("games", []), key=priority)[:12]
+    ordered = sorted(league.get("games", []), key=priority)
+    live = [g for g in ordered if g.get("state") == "in"][:4]
+    finals = [g for g in ordered if g.get("state") == "post"][:4]
+    upcoming = [g for g in ordered if g.get("state") == "pre"][:4]
+    games = live + finals + upcoming
+    if len(games) < 12:
+        chosen = {str(g.get("id")) for g in games}
+        games += [g for g in ordered if str(g.get("id")) not in chosen][:12-len(games)]
     row = out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,
                                       "with_statistics":0,"failed":0,"cached":0}
     for game in games:
