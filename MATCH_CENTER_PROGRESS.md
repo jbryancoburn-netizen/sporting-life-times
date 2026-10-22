@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 7
+Updated: 2026-10-22 — batch 8
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -24,11 +24,11 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 05. Expand detailed coverage and validate IDs, freshness, and missing data. IMPLEMENTED: increase from 4 to 12 prioritized games per league (54bad143); deployment and data quality verification pending.
 - [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot. IN PROGRESS: archive fallback reader (0fe4fce7), snapshot writer (00fb869e), Actions cache restore/save (d7030540), game metadata (55402603), archived game picker (585e4991). Still limited to 1500 records and cache retention; end-to-end persistence testing pending.
 - [ ] 07. Finish soccer scorers, assists, cards, substitutions, formations, and timelines.
-- [ ] 08. Finish football drives, scoring plays, and individual player statistics.
-- [ ] 09. Finish baseball innings, batting, and pitching displays.
-- [ ] 10. Finish hockey scoring, goalie, and penalty displays.
+- [ ] 08. Finish football drives, scoring plays, and individual player statistics. IN PROGRESS: source-reported player tables added (a6b1fc10); drives and full scoring chronology pending.
+- [ ] 09. Finish baseball innings, batting, and pitching displays. IN PROGRESS: source-reported categorized player tables (a6b1fc10); inning and specialized layouts pending.
+- [ ] 10. Finish hockey scoring, goalie, and penalty displays. IN PROGRESS: source-reported categorized player tables (a6b1fc10); goalie/penalty layouts pending.
 - [ ] 11. Complete remaining leagues and sport-specific fallbacks.
-- [ ] 12. Add filters, search, date navigation, and permanent game links. IMPLEMENTED: team/league/game text search and live/upcoming/final/archive filters (f070d42d, f3725cc9); direct links existed previously; date navigation and deployment validation pending.
+- [ ] 12. Add filters, search, date navigation, and permanent game links. IMPLEMENTED: team/league/game text search and live/upcoming/final/archive filters (f070d42d, f3725cc9); direct links existed previously; date picker and clear filters added (2bc43f80, 1cc33f33); deployment validation pending.
 - [ ] 13. Connect verified USRS ratings and model forecasts.
 - [ ] 14. Validate forecasts with historical backtesting and calibration.
 - [ ] 15. Build the proposed Scenario Lab and evidence-based explanations.
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 8 notes
+- 2bc43f80 / 1cc33f33: date filter, reset controls and corrected archive-only filter.
+- a6b1fc10: generic source-backed player statistics tables for non-basketball sports.
+- 1da8c169: updated frontend asset version for cache invalidation.
+- Archive deployment remained queued at start of batch; historical persistence across separate runs unverified.
 
 ## Batch 7 notes
 - f070d42d / f3725cc9: game search and state filters in Match Center.
