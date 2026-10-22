@@ -13,7 +13,7 @@
     const text=[headline,summary,url].join(' ');
     const journalism=/\b(?:regulation|regulator|legislation|lawsuit|investigation|antitrust|earnings|financial results|fraud|ban(?:ned)?|court ruling|policy|congress)\b/i.test(headline);
     if(offer.test(text)||guide.test(text))return true;
-    if(picks.test(headline))return true;
+    if(picks.test(headline)&&!journalism)return true;
     if(brand.test(headline)&&/\b(?:odds|picks?|predictions?|bet(?:s|ting)?|wager|bonus|markets?|promo)\b/i.test(text))return !journalism;
     if(picks.test(summary)&&/\b(?:odds|picks?|predictions?|bet(?:s|ting)?|wager|markets?)\b/i.test(headline))return !journalism;
     return false;
