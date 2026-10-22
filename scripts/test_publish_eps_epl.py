@@ -19,6 +19,9 @@ class EPLEditorialTests(unittest.TestCase):
             source.write_text(json.dumps(self.sample()))
             self.assertEqual(publish(source,out),1)
             self.assertTrue(out.exists())
+    def test_reject_bad_goal_market_complements(self):
+        data=self.sample();data['fixtures'][0]['goal_markets']={'over_2_5':.7,'under_2_5':.7,'both_teams_to_score_yes':.4,'both_teams_to_score_no':.6}
+        with self.assertRaisesRegex(ValueError,'inconsistent goal market'):validate(data)
     def test_reject_bad_probabilities(self):
         data=self.sample();data["fixtures"][0]["probabilities"]["home"]=.9
         with self.assertRaises(ValueError):validate(data)
