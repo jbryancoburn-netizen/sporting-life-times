@@ -18,6 +18,7 @@ for key, game in details["games"].items():
         bad.append(key)
     assert isinstance(game.get("players", []), list), f"Malformed players collection: {key}"
     for player in game.get("players", []):
+        assert isinstance(player, dict), f"Malformed player: {key}"
         assert isinstance(player.get("stats"), list), f"Malformed player stats: {key}"
         assert isinstance(player.get("labels", []), list), f"Malformed player labels: {key}"
         assert len(player.get("stats", [])) <= 40, f"Unexpected player statistic width: {key}"
@@ -28,6 +29,8 @@ for league, row in details["coverage"].items():
     for field in ("attempted", "available", "failed", "cached"):
         assert isinstance(row.get(field), int) and row[field] >= 0, f"Invalid {league}.{field}"
     assert row["available"] + row["failed"] == row["attempted"] + row["cached"], f"Inconsistent coverage for {league}"
+    assert row["with_events"] <= row["available"], f"Event coverage exceeds available: {league}"
+    assert row["with_statistics"] <= row["available"], f"Statistic coverage exceeds available: {league}"
 print("MATCH CENTER DATA HEALTH")
 print("Scoreboard games:", len(indexed))
 print("Detail records (including archive):", len(details["games"]))
