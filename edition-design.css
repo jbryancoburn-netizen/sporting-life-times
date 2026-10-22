@@ -60,3 +60,18 @@ body:has(#front-page) .department-story p:not(.meta){font:400 .81rem/1.45 Georgi
 body:has(#front-page) .department-story a{color:inherit;text-decoration:none}
 body:has(#front-page) .department-story a:hover{text-decoration:underline}
 @media(max-width:760px){body:has(#front-page) .department-columns{grid-template-columns:1fr;gap:18px}body:has(#front-page) .department-columns>aside{border-left:0;border-top:1px solid #ccc8c0;padding:15px 0 0}}
+
+/* Page isolation: a hidden newspaper section must never leak into the front page.
+   Explicit author-level hidden rules override legacy grid/flex display declarations. */
+html.paged-edition main > section[hidden],
+html.paged-edition main > section[hidden].live-front,
+html.paged-edition main > section[hidden].sport-department,
+html.paged-edition main > section[hidden].sports-home-hub,
+html.paged-edition main > section[hidden].edition-subsection,
+body:has(#front-page) main > section[hidden] {display:none!important;visibility:hidden!important}
+body:has(#front-page) .edition-contents{max-width:1120px;margin:0 auto;border-bottom:1px solid #b9b6ae}
+body:has(#front-page) .edition-contents>summary{cursor:pointer;list-style:none;padding:9px 12px;font:400 .79rem/1.4 Georgia,serif;text-align:center;color:#4e4a44}
+body:has(#front-page) .edition-contents>summary::-webkit-details-marker{display:none}
+body:has(#front-page) .edition-contents>summary:after{content:'  ▾';font-size:.7em}
+body:has(#front-page) .edition-contents[open]>summary:after{content:'  ▴'}
+body:has(#front-page) .edition-contents .edition-index{border-top:1px solid #dedbd4!important;padding:10px 8px!important;margin:0 auto 8px}
