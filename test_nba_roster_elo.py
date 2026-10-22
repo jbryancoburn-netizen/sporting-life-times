@@ -1,0 +1,34 @@
+import unittest
+from scripts.nba_roster_elo import build
+
+TEAMS="ATL BOS BKN CHA CHI CLE DAL DEN DET GSW HOU IND LAC LAL MEM MIA MIL MIN NOP NYK OKC ORL PHI PHX POR SAC SAS TOR UTA WAS".split()
+def base():
+    return {"league":"NBA","rankings":[{"team":t,"elo":1500.0} for t in TEAMS]}
+def roster():
+    return {"league":"NBA","as_of_utc":"2026-10-22T00:00:00Z","source":"test fixture only","players":[
+        {"team":"ATL","player_id":str(i),"expected_impact_elo":10.0,"projected_minutes":24,"availability":"out" if i==0 else "available"} for i in range(10)]}
+class RosterEloTests(unittest.TestCase):
+    def test_verified_overlay_math(self):
+        result=build(base(),roster())
+        atl=next(x for x in result["ratings"] if x["team"]=="ATL")
+        self.assertEqual(atl["roster_adjusted_elo"],1550)
+        self.assertEqual(atl["game_day_elo"],1545)
+        self.assertEqual(atl["coverage"],"provisional")
+        self.assertIsNone(next(x for x in result["ratings"] if x["team"]=="BOS")["roster_adjusted_elo"])
+    def test_no_empty_feed(self):
+        r=roster();r["players"]=[]
+        with self.assertRaises(ValueError):build(base(),r)
+    def test_no_overallocated_minutes(self):
+        r=roster()
+        for p in r["players"]:p["projected_minutes"]=30
+        with self.assertRaises(ValueError):build(base(),r)
+    def test_no_duplicate_players(self):
+        r=roster();r["players"][1]["player_id"]="0"
+        with self.assertRaises(ValueError):build(base(),r)
+    def test_no_missing_availability(self):
+        r=roster();del r["players"][0]["availability"]
+        with self.assertRaises(ValueError):build(base(),r)
+    def test_no_bool_impact(self):
+        r=roster();r["players"][0]["expected_impact_elo"]=True
+        with self.assertRaises(ValueError):build(base(),r)
+if __name__=="__main__":unittest.main()
