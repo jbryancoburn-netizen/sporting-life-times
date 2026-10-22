@@ -9,7 +9,10 @@ def identity(g,league):
  names=tuple(sorted(normalize_name(t.get("name")) for t in teams))
  if not all(names):return ("id",league,str(g.get("id")))
  date=str(g.get("date") or "")[:10]
- # A same-day doubleheader cannot safely be resolved by names and date alone.\n if g.get("doubleHeader") or g.get("doubleheader") or g.get("gameNumber"):\n  return ("id",league,str(g.get("id")))\n return (league,date,names)
+ # A same-day doubleheader cannot safely be resolved by names and date alone.
+ if g.get("doubleHeader") or g.get("doubleheader") or g.get("gameNumber"):
+  return ("id",league,str(g.get("id")))
+ return (league,date,names)
 def score_map(g):
  return {normalize_name(t.get("name")):t.get("score") for t in g.get("teams",[])}
 def provider(g,block):
