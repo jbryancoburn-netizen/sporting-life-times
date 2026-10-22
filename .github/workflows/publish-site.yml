@@ -35,6 +35,13 @@ jobs:
         run: |
           python -m pip install --quiet pymupdf
           python scripts/extract_masthead.py
+      - name: Restore prior Match Center archive
+        uses: actions/cache/restore@v4
+        with:
+          path: data/match_center_archive.json
+          key: match-center-archive-${{ github.run_id }}
+          restore-keys: |
+            match-center-archive-
       - name: Refresh news and scoreboards before publishing
         run: |
           python scripts/collect_feeds.py
@@ -46,6 +53,12 @@ jobs:
           python scripts/collect_multisource.py
           python scripts/collect_statcast.py
           python scripts/publish_source_health.py
+      - name: Preserve Match Center archive across scheduled runs
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/match_center_archive.json
+          key: match-center-archive-${{ github.run_id }}
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
