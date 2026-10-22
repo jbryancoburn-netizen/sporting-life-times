@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: "7,22,37,52 * * * *"
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -52,6 +54,8 @@ jobs:
           key: match-center-archive-${{ github.run_id }}
           restore-keys: |
             match-center-archive-
+      - name: Restore durable Match Center archive branch
+        run: python scripts/persist_match_archive.py restore
       - name: Report restored Match Center archive
         run: |
           python scripts/check_archive_restore.py
@@ -66,6 +70,8 @@ jobs:
           python scripts/collect_multisource.py
           python scripts/collect_statcast.py
           python scripts/publish_source_health.py
+      - name: Commit durable Match Center archive branch
+        run: python scripts/persist_match_archive.py save
       - name: Preserve Match Center archive across scheduled runs
         if: always()
         uses: actions/cache/save@v4
