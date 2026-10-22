@@ -1,10 +1,11 @@
 {
-  "updated_at": "2026-10-22T14:15:22+00:00",
+  "updated_at": "2026-10-22T14:25:39+00:00",
   "source": "ESPN public scoreboard API",
   "leagues": [
     {
       "league": "NFL",
       "source_url": "https://www.espn.com/football/nfl/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401873010",
@@ -379,6 +380,7 @@
     {
       "league": "MLB",
       "source_url": "https://www.espn.com/baseball/mlb/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401908042",
@@ -415,6 +417,7 @@
     {
       "league": "NBA",
       "source_url": "https://www.espn.com/basketball/nba/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401909834",
@@ -711,6 +714,7 @@
     {
       "league": "NHL",
       "source_url": "https://www.espn.com/hockey/nhl/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401892550",
@@ -773,6 +777,7 @@
     {
       "league": "Premier League",
       "source_url": "https://www.espn.com/soccer/eng.1/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401879253",
@@ -809,6 +814,7 @@
     {
       "league": "College Football",
       "source_url": "https://www.espn.com/football/college-football/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401858274",
@@ -1261,6 +1267,7 @@
     {
       "league": "Men's College Basketball",
       "source_url": "https://www.espn.com/basketball/mens-college-basketball/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401920982",
@@ -1323,6 +1330,7 @@
     {
       "league": "Women's College Basketball",
       "source_url": "https://www.espn.com/basketball/womens-college-basketball/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401920983",
@@ -1359,6 +1367,7 @@
     {
       "league": "Champions League",
       "source_url": "https://www.espn.com/soccer/uefa.champions/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401915395",
@@ -1603,6 +1612,7 @@
     {
       "league": "Europa League",
       "source_url": "https://www.espn.com/soccer/uefa.europa/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401915548",
@@ -2081,6 +2091,7 @@
     {
       "league": "Australian NBL",
       "source_url": "https://www.espn.com/basketball/aus.nbl/scoreboard",
+      "provider": "espn",
       "games": [],
       "error": "HTTPError: HTTP Error 400: Bad Request",
       "window_start": "20261018",
@@ -2090,6 +2101,7 @@
     {
       "league": "EuroLeague",
       "source_url": "https://www.espn.com/basketball/euroleague/scoreboard",
+      "provider": "espn",
       "games": [],
       "error": null,
       "window_start": "20261022",
@@ -2099,6 +2111,7 @@
     {
       "league": "ECHL",
       "source_url": "https://www.espn.com/hockey/echl/scoreboard",
+      "provider": "espn",
       "games": [],
       "error": "HTTPError: HTTP Error 400: Bad Request",
       "window_start": "20261018",
@@ -2108,6 +2121,7 @@
     {
       "league": "College Baseball",
       "source_url": "https://www.espn.com/baseball/college-baseball/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401874453",
@@ -2144,6 +2158,7 @@
     {
       "league": "NCAA Men's Soccer",
       "source_url": "https://www.espn.com/soccer/usa.ncaa.m.1/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401898758",
@@ -2232,6 +2247,7 @@
     {
       "league": "NCAA Men's Hockey",
       "source_url": "https://www.espn.com/hockey/mens-college-hockey/scoreboard",
+      "provider": "espn",
       "games": [
         {
           "id": "401913584",
