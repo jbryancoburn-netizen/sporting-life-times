@@ -15,6 +15,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 BRANCH = "match-center-archive"
 ARCHIVE = "data/match_center_archive.json"
+SHARDS = "data/match_archive_shards"
 
 
 def git(*args, cwd=ROOT, check=True):
@@ -51,6 +52,17 @@ def restore():
         prior = games.get(key)
         if not isinstance(prior, dict) or (not any(prior.get(k) for k in ("events", "statistics", "players")) and any(record.get(k) for k in ("events", "statistics", "players"))):
             games[key] = record
+    shard_tree = git("ls-tree", "-r", "--name-only", f"refs/remotes/origin/{BRANCH}", "--", SHARDS)
+    for name in shard_tree.stdout.splitlines():
+        if not name.endswith(".json") or not name.startswith(SHARDS + "/"):
+            continue
+        result = git("show", f"refs/remotes/origin/{BRANCH}:{name}")
+        shard = json.loads(result.stdout)
+        if not isinstance(shard, dict):
+            raise ValueError("Invalid historical shard: " + name)
+        destination_shard = ROOT / name
+        destination_shard.parent.mkdir(parents=True, exist_ok=True)
+        destination_shard.write_text(json.dumps(shard, ensure_ascii=False, separators=(",", ":")) + "\\n", encoding="utf-8")
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps({"updated_at":saved.get("updated_at"), "games":games},
                                        ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
@@ -77,7 +89,13 @@ def save():
             target = worktree / ARCHIVE
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(path, target)
-            git("add", ARCHIVE, cwd=worktree)
+            source_shards = ROOT / SHARDS
+            if source_shards.exists():
+                for shard in source_shards.glob("*.json"):
+                    dest = worktree / SHARDS / shard.name
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(shard, dest)
+            git("add", ARCHIVE, SHARDS, cwd=worktree)
             if git("diff", "--cached", "--quiet", cwd=worktree, check=False).returncode == 0:
                 print("Archive unchanged; no new branch commit required")
                 return
