@@ -321,3 +321,19 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 
 /* National poll ranking, never confused with division standing. */
 .college-rank{display:inline-block;flex:none;font:800 .83rem/1.2 Arial,sans-serif;color:#161616;white-space:nowrap;margin-right:.25rem}
+
+/* Newspaper match center, full width and readable on phones */
+.match-center{margin:2rem 0;padding:1.3rem;background:#f8f6f0;border:3px double #252525}
+.match-center[hidden]{display:none!important}
+.match-center-inner{max-width:1100px;margin:auto}
+.match-center h2{font:700 2rem Georgia,serif;margin:.7rem 0}
+.match-center-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:2rem}
+.match-center-grid h3{font:700 1.35rem Georgia,serif;border-bottom:3px double #222;padding-bottom:.5rem}
+.match-events{padding-left:1.6rem;max-height:640px;overflow-y:auto}
+.match-events li{padding:.7rem .3rem;border-bottom:1px solid #d3cec3;line-height:1.5}
+.match-stat-team{margin-bottom:1.2rem}
+.match-stat-team h4{font:700 1.1rem Georgia,serif}
+.match-stat{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid #d9d4ca;padding:.35rem 0}
+.match-center-open,#match-center-close{display:inline-block;border:1px solid #222;background:#252525;color:white;padding:.55rem .8rem;font:700 .74rem Arial,sans-serif;cursor:pointer;margin:.5rem 0}
+.match-center-open:hover,#match-center-close:hover{background:#555}
+@media(max-width:760px){.match-center-grid{grid-template-columns:1fr}.match-center{padding:.8rem}.match-center h2{font-size:1.55rem}}
