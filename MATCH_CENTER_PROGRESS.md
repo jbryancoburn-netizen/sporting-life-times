@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 4
+Updated: 2026-10-22 — batch 5
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -19,7 +19,7 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 ## Remaining steps — do these in order
 - [ ] 01. Verify published match_details.json and actual per-league data coverage; validate cache behavior with provider failure. IMPLEMENTED: coverage invariant fix (f14e211b); source-failure simulation pending; expanded health reporting (3a7a8b4d).
 - [ ] 02. Normalize player statistics with column headings and source identity; add schema tests. IMPLEMENTED: heading/category capture (1f44de43), schema checks (a42fcb78); awaiting deployment validation.
-- [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); team totals and deployment validation pending; category-aware player tables (b7c9b7d1), overtime labels corrected (4093f29f).
+- [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); source-reported team totals added (75a2fed7, 43ab248e), deployment validation pending; category-aware player tables (b7c9b7d1), overtime labels corrected (4093f29f).
 - [ ] 04. Improve source efficiency, retries, concurrency, and rate-limit handling. IMPLEMENTED: bounded transient HTTP retry/backoff (70a67342); bounded concurrency implemented (54bad143); measured rate-limit behavior pending.
 - [ ] 05. Expand detailed coverage and validate IDs, freshness, and missing data. IMPLEMENTED: increase from 4 to 12 prioritized games per league (54bad143); deployment and data quality verification pending.
 - [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot.
@@ -36,6 +36,13 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 5 notes
+- 41342fdd: latest expanded-coverage batch completed successfully in GitHub Actions run 39830242910.
+- 75a2fed7: collect team totals only when the summary provider supplies them.
+- 43ab248e: display verified team totals under player box scores.
+- bd08120f: validate team total row shapes.
+- Source-reported totals are not guaranteed to exist for all games; coverage requires checking published snapshots.
 
 ## Batch 4 notes
 - 54bad143: concurrent collector with five workers and twelve prioritized games per league.
