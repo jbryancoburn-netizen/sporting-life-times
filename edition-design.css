@@ -45,3 +45,18 @@ body:has(#front-page) #front-page.live-front>#front-briefs{grid-row:3/9}
 body:has(#front-page) #front-page.live-front>.small{grid-row:8}
 body:has(#front-page) .edition-subsection>.section-head{margin-top:10px;border-top:1px solid #bcb9b2;padding-top:12px}
 @media(max-width:760px){body:has(#front-page) .edition-section-heading{margin-bottom:14px;padding:9px 0 10px}body:has(#front-page) .edition-section-title{font-size:clamp(1.3rem,5vw,1.7rem)}}
+
+/* Dedicated sport departments, matching the newspaper's quiet editorial system. */
+body:has(#front-page) .sport-department{padding:15px 0 28px;min-height:340px}
+body:has(#front-page) .sport-department .department-dek{font:italic 400 .91rem/1.5 Georgia,serif;color:#66615b;margin:0 0 22px}
+body:has(#front-page) .department-columns{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(220px,.85fr);gap:28px}
+body:has(#front-page) .department-columns>aside{border-left:1px solid #ccc8c0;padding-left:23px}
+body:has(#front-page) .department-columns h3{font:500 1.13rem/1.25 Georgia,serif;margin:0 0 13px;border-bottom:1px solid #aaa69e;padding-bottom:8px}
+body:has(#front-page) .department-columns aside p{font:400 .84rem/1.5 Georgia,serif;color:#514e49}
+body:has(#front-page) .department-story{padding:0 0 13px;margin:0 0 13px;border-bottom:1px solid #d6d2cb}
+body:has(#front-page) .department-story .meta{font:400 .65rem Georgia,serif;color:#76716a;margin:0 0 5px}
+body:has(#front-page) .department-story h4{font:500 1.05rem/1.32 Georgia,serif;margin:0 0 5px}
+body:has(#front-page) .department-story p:not(.meta){font:400 .81rem/1.45 Georgia,serif;color:#625e57;margin:0}
+body:has(#front-page) .department-story a{color:inherit;text-decoration:none}
+body:has(#front-page) .department-story a:hover{text-decoration:underline}
+@media(max-width:760px){body:has(#front-page) .department-columns{grid-template-columns:1fr;gap:18px}body:has(#front-page) .department-columns>aside{border-left:0;border-top:1px solid #ccc8c0;padding:15px 0 0}}
