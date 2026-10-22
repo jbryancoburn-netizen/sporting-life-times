@@ -19,7 +19,7 @@ for label,path in LEAGUES:
             teams=[]
             for c in competitors:
                 t=c.get("team") or {}
-                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner")})
+                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","score":c.get("score"),"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None)})
             status=ev.get("status") or {}
             block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
     except Exception as exc: block["error"]=type(exc).__name__+": "+str(exc)[:100]
