@@ -15,7 +15,15 @@ class RosterEloTests(unittest.TestCase):
         self.assertEqual(atl["game_day_elo"],1545)
         self.assertEqual(atl["coverage"],"provisional")
         self.assertIsNone(next(x for x in result["ratings"] if x["team"]=="BOS")["roster_adjusted_elo"])
-    def test_baseline_delta_avoids_double_counting(self):\n        r=roster();r["baseline_roster_impact_elo"]["ATL"]=20.0\n        atl=next(x for x in build(base(),r)["ratings"] if x["team"]=="ATL")\n        self.assertEqual(atl["roster_adjusted_elo"],1530)\n        self.assertEqual(atl["game_day_elo"],1525)\n    def test_missing_baseline_rejected(self):\n        r=roster();del r["baseline_roster_impact_elo"]\n        with self.assertRaises(ValueError):build(base(),r)\n    def test_no_empty_feed(self):
+    def test_baseline_delta_avoids_double_counting(self):
+        r=roster();r["baseline_roster_impact_elo"]["ATL"]=20.0
+        atl=next(x for x in build(base(),r)["ratings"] if x["team"]=="ATL")
+        self.assertEqual(atl["roster_adjusted_elo"],1530)
+        self.assertEqual(atl["game_day_elo"],1525)
+    def test_missing_baseline_rejected(self):
+        r=roster();del r["baseline_roster_impact_elo"]
+        with self.assertRaises(ValueError):build(base(),r)
+    def test_no_empty_feed(self):
         r=roster();r["players"]=[]
         with self.assertRaises(ValueError):build(base(),r)
     def test_no_overallocated_minutes(self):
