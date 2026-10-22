@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Collect a modest set of RSS headlines with attribution and feed health reporting."""
 import json, re, time
+from email.utils import parsedate_to_datetime
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -38,8 +39,29 @@ def image_of(item):
             return url
     return None
 
+def iso_date(raw):
+    if not raw:
+        return ""
+    try:
+        return parsedate_to_datetime(raw).astimezone(timezone.utc).isoformat()
+    except (TypeError, ValueError, IndexError):
+        try:
+            return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(timezone.utc).isoformat()
+        except (TypeError, ValueError):
+            return ""
+
+def is_recent(raw, now):
+    value = iso_date(raw)
+    if not value:
+        return False
+    try:
+        return 0 <= (now - datetime.fromisoformat(value)).total_seconds() <= 7 * 86400
+    except (TypeError, ValueError):
+        return False
+
 def main():
     articles, status, seen = [], [], set()
+    now = datetime.now(timezone.utc)
     for feed in FEEDS:
         result = {"source": feed["name"], "url": feed["url"], "ok": False, "items": 0, "error": None}
         try:
@@ -55,9 +77,13 @@ def main():
                     link_el = item.find("{http://www.w3.org/2005/Atom}link")
                     if link_el is not None: link = link_el.attrib.get("href", "")
                 summary = text_of(item, ["description", "summary", "{http://www.w3.org/2005/Atom}summary", "content"])
-                if not title or not link or link in seen: continue
+                if not title or not link or link in seen or not link.startswith("https://"): continue
+                published = parse_date(item)
+                if not is_recent(published, now): continue
                 seen.add(link)
-                articles.append({"title":title, "url":link, "summary":summary[:600], "source":feed["name"], "category":feed.get("category","Sports"), "published_at":parse_date(item), "image_url":image_of(item)})
+                articles.append({"title":title, "url":link, "summary":summary[:600], "source":feed["name"], "category":feed.get("category","Sports"), "published_at":iso_date(published), "image_url":image_of(item)})
+            if not any(a["source"] == feed["name"] for a in articles):
+                raise ValueError("No recent usable articles returned")
             result["ok"] = True
             result["items"] = sum(1 for a in articles if a["source"] == feed["name"])
         except Exception as exc:
@@ -69,6 +95,6 @@ def main():
     print(f"Collected {len(articles)} unique stories; {sum(1 for s in status if s['ok'])}/{len(status)} feeds responded.")
     for s in status: print(f"{'OK' if s['ok'] else 'FAIL'} {s['source']}: {s['items']} items" + (f" — {s['error']}" if s['error'] else ""))
     if not any(s["ok"] for s in status):
-        raise SystemExit("No RSS feeds responded; retaining diagnostic status and failing the workflow.")
+        raise SystemExit("No RSS feeds returned recent articles; deployment halted rather than publishing an empty edition.")
 
 if __name__ == "__main__": main()
