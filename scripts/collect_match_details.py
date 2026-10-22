@@ -151,9 +151,8 @@ with ThreadPoolExecutor(max_workers=5) as pool:
             old_record = out["games"].get(key) or {}
             if not (record.get("events") or record.get("statistics") or record.get("players")) and (
                     old_record.get("events") or old_record.get("statistics") or old_record.get("players")):
+                old_record["game"] = record["game"]
                 record = old_record
-                if isinstance(record.get("game"), dict):
-                    record["game"].update({"state":next((g.get("state") for l,g in pending if l+"::"+str(g["id"]) == key), record["game"].get("state"))})
             out["games"][key] = record
             row["available"] += 1
             row["with_events"] += int(bool(record["events"]))
