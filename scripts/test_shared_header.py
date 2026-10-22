@@ -10,12 +10,13 @@ LINKS = ["index.html", "sports.html", "nba.html", "epl.html",
 
 
 class SharedHeaderTests(unittest.TestCase):
-    def test_every_primary_page_uses_original_masthead(self):
+    def test_every_primary_page_uses_unified_transparent_masthead(self):
         for page in PAGES:
             with self.subTest(page=page):
                 content = (ROOT / page).read_text(encoding="utf-8")
-                self.assertIn('class="original-masthead"', content)
-                self.assertIn('assets/original-print-masthead.png', content)
+                self.assertIn('class="newspaper-wordmark"', content)
+                self.assertIn('class="newspaper-wordmark-main"', content)
+                self.assertNotIn('class="original-masthead"', content)
                 self.assertEqual(content.count('class="masthead"'), 1)
 
     def test_every_primary_page_has_same_core_navigation(self):
