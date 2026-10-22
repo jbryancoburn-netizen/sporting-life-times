@@ -59,6 +59,8 @@ def is_recent(raw, now):
     except (TypeError, ValueError):
         return False
 
+PROMOTION_RE = re.compile(r'\b(?:draftkings|betmgm|mgm bets?|fanduel|fanatics sportsbook|caesars sportsbook|bet365|sportsbook|promo code|bonus bets?|free bets?|first wager|wagering bonus|betting bonus|odds boost|same.game parlay|sign.up bonus)\b', re.I)
+
 def main():
     articles, status, seen = [], [], set()
     now = datetime.now(timezone.utc)
@@ -78,6 +80,7 @@ def main():
                     if link_el is not None: link = link_el.attrib.get("href", "")
                 summary = text_of(item, ["description", "summary", "{http://www.w3.org/2005/Atom}summary", "content"])
                 if not title or not link or link in seen or not link.startswith("https://"): continue
+                if PROMOTION_RE.search(" ".join((title, summary, link))): continue
                 published = parse_date(item)
                 if not is_recent(published, now): continue
                 seen.add(link)
