@@ -35,7 +35,7 @@ for league in source.get("leagues", []):
             distance = float("inf")
         return (0 if state == "in" else 1 if state == "post" else 2, distance)
     games = sorted(league.get("games", []), key=priority)[:4]
-    out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,"with_statistics":0,"failed":0}
+    out["coverage"][label] = {"attempted":0,"available":0,"with_events":0,"with_statistics":0,"failed":0,"cached":0}
     for game in games:
         ident = str(game.get("id") or "")
         if not ident.isdigit():
@@ -45,6 +45,7 @@ for league in source.get("leagues", []):
         cached = previous.get(key)
         if game.get("state") == "post" and isinstance(cached, dict) and (cached.get("events") or cached.get("statistics")):
             out["coverage"][label]["available"] += 1
+            out["coverage"][label]["cached"] += 1
             if cached.get("events"):
                 out["coverage"][label]["with_events"] += 1
             if cached.get("statistics"):
