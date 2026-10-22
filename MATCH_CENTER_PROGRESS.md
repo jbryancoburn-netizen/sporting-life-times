@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 11
+Updated: 2026-10-22 — batch 12
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -34,8 +34,14 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 15. Build the proposed Scenario Lab and evidence-based explanations.
 - [ ] 16. Add pregame/postgame editorial analysis and newspaper cross-links.
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
-- [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
+- [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 12 notes
+- e81a7887: pure helpers for verified-detail detection, safe merge, and balanced fixture selection.
+- 40ababac: collector now uses the testable helpers.
+- a65400d7: six regression tests cover empty-provider preservation, replacement, state balancing, missing identifiers and deduplication.
+- Prior batch remained queued at start; new test suite CI outcome pending.
 
 ## Batch 11 notes
 - 946319e7 scoring-highlights frontend passed publishing run 39831768563.
