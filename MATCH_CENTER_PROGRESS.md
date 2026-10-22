@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 14
+Updated: 2026-10-22 — batch 15
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 15 notes
+- 035eda88 publishing workflow passed; 39832438781.
+- 7e9b32ed: implement archive restore/save using a dedicated match-center-archive Git branch.
+- 192dc27e: grant workflow contents write; restore durable branch after cache; push rolling archive after validation, without triggering main branch builds.
+- Archive remains capped at 1500 records; long-term unbounded archival and branch-persistence CI verification remain outstanding.
 
 ## Batch 14 notes
 - fbe73fa1 passed publishing run 39832366885, including unit tests, archive cache restore/save, build and deploy.
