@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 6
+Updated: 2026-10-22 — batch 7
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -28,7 +28,7 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 09. Finish baseball innings, batting, and pitching displays.
 - [ ] 10. Finish hockey scoring, goalie, and penalty displays.
 - [ ] 11. Complete remaining leagues and sport-specific fallbacks.
-- [ ] 12. Add filters, search, date navigation, and permanent game links.
+- [ ] 12. Add filters, search, date navigation, and permanent game links. IMPLEMENTED: team/league/game text search and live/upcoming/final/archive filters (f070d42d, f3725cc9); direct links existed previously; date navigation and deployment validation pending.
 - [ ] 13. Connect verified USRS ratings and model forecasts.
 - [ ] 14. Validate forecasts with historical backtesting and calibration.
 - [ ] 15. Build the proposed Scenario Lab and evidence-based explanations.
@@ -36,6 +36,11 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 7 notes
+- f070d42d / f3725cc9: game search and state filters in Match Center.
+- 85822c48: coverage denominator accounts for previously cached finished games.
+- Batch 6 archive workflow was still pending at last check; archive persistence is not yet verified.
 
 ## Batch 6 notes
 - Implemented an archive snapshot written during collection and restored/saved between scheduled GitHub Actions runs.
