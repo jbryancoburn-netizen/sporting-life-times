@@ -62,7 +62,7 @@ def restore():
             raise ValueError("Invalid historical shard: " + name)
         destination_shard = ROOT / name
         destination_shard.parent.mkdir(parents=True, exist_ok=True)
-        destination_shard.write_text(json.dumps(shard, ensure_ascii=False, separators=(",", ":")) + "\\n", encoding="utf-8")
+        destination_shard.write_text(json.dumps(shard, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps({"updated_at":saved.get("updated_at"), "games":games},
                                        ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
