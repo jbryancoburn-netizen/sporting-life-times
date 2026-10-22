@@ -59,6 +59,7 @@ def fetch_detail(label, game):
     boxscore = data.get("boxscore") or {}
     teams = boxscore.get("teams") or []
     players = []
+    team_totals = []
     for group in boxscore.get("players") or []:
         if not isinstance(group, dict):
             continue
@@ -67,6 +68,9 @@ def fetch_detail(label, game):
             if not isinstance(bucket, dict):
                 continue
             labels = [str(x) for x in bucket.get("labels") or []]
+            totals = bucket.get("totals")
+            if isinstance(totals, list) and totals:
+                team_totals.append({"team":str(team), "category":str(bucket.get("name") or bucket.get("displayName") or ""), "labels":labels, "stats":[str(x) for x in totals]})
             for p in bucket.get("athletes") or []:
                 if not isinstance(p, dict):
                     continue
@@ -86,7 +90,7 @@ def fetch_detail(label, game):
                                         "value":str(v.get("displayValue") if v.get("displayValue") is not None else v.get("value") or "")}
                                        for v in t.get("statistics") or [] if isinstance(v, dict)]}
                             for t in teams if isinstance(t, dict)],
-              "lineups":[], "players":players[:150]}
+              "lineups":[], "players":players[:150], "team_totals":team_totals}
     return key, record
 
 
