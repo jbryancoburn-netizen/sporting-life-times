@@ -59,7 +59,7 @@ def is_recent(raw, now):
     except (TypeError, ValueError):
         return False
 
-PROMOTION_RE = re.compile(r'\b(?:draftkings|betmgm|mgm bets?|fanduel|fanatics sportsbook|caesars sportsbook|bet365|sportsbook|promo code|bonus bets?|free bets?|first wager|wagering bonus|betting bonus|odds boost|same.game parlay|sign.up bonus)\b', re.I)
+PROMOTION_RE = re.compile(r'\b(?:draftkings|betmgm|fanduel|bet365|kalshi|polymarket|prizepicks|sportsbook|promo codes?|bonus bets?|free bets?|first wager|odds boost|first touchdown scorer|anytime touchdown scorer|betting odds|odds and picks|odds,? predictions|best bets?|betting picks?|parlay picks?|prediction markets?|betting markets?|player prop bets?|how to bet|where to bet|betting guide)\b', re.I)
 
 def main():
     articles, status, seen = [], [], set()
