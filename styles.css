@@ -239,3 +239,14 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 .register-empty{font:italic .85rem Georgia,serif;color:#555;padding:.8rem .2rem}
 @media(max-width:850px){.live-front{display:block}.live-front .front-briefs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.original-masthead{max-height:72px}.live-front .front-briefs{grid-template-columns:1fr}.live-front .front-briefs h3{font-size:1.12rem}.team-edition .team-hero h2{font-size:2.35rem}.league-register-title h3{font-size:1.2rem}}
+
+/* Rabby 20: restrained team identity within the printed-paper design */
+.rabby-card{position:relative;isolation:isolate;overflow:hidden;min-height:154px;border-top:4px solid var(--team-accent,#283d32);background:linear-gradient(110deg,var(--paper-light) 40%,#f2eee5 100%);padding:1.15rem 1.2rem}
+.rabby-card::before{content:"";position:absolute;inset:auto 0 0; height:5px;background:var(--team-accent,#283d32);opacity:.22;z-index:-1}
+.rabby-card .rabby-watermark{position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:135px;height:135px;object-fit:contain;opacity:.13;pointer-events:none;z-index:-1}
+.rabby-card .rabby-monogram{display:flex;align-items:center;justify-content:center;font:800 3.3rem Georgia,serif;color:var(--team-accent,#283d32);letter-spacing:-.08em;opacity:.12}
+.rabby-card h3,.rabby-card .meta,.rabby-card .team-card-link{position:relative;z-index:1}
+.rabby-card h3{max-width:85%;text-wrap:balance}
+.rabby-card h3 a{color:var(--ink)}
+.rabby-card .team-card-link{color:var(--team-accent,#283d32);font-weight:800}
+@media (prefers-reduced-motion:reduce){.rabby-card{transition:none}}
