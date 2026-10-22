@@ -27,7 +27,10 @@ try:
     with urlopen(req, timeout=5) as response:
         published = json.load(response).get("games") or {}
         for key, record in published.items():
-            if key not in previous or (not (previous[key].get("events") or previous[key].get("statistics") or previous[key].get("players")) and (record.get("events") or record.get("statistics") or record.get("players"))):
+            if not isinstance(record, dict):
+                continue
+            old = previous.get(key)
+            if not isinstance(old, dict) or (not (old.get("events") or old.get("statistics") or old.get("players")) and (record.get("events") or record.get("statistics") or record.get("players"))):
                 previous[key] = record
 except Exception:
     pass
