@@ -12,6 +12,8 @@ def espn_standings(path):
     req=Request("https://site.api.espn.com/apis/v2/sports/"+path+"/standings",headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
     with urlopen(req,timeout=12) as response: data=json.load(response)
     result={}
+    groups={"AFC East":("BUF","MIA","NE","NYJ"),"AFC North":("BAL","CIN","CLE","PIT"),"AFC South":("HOU","IND","JAX","TEN"),"AFC West":("DEN","KC","LAC","LV"),"NFC East":("DAL","NYG","PHI","WSH"),"NFC North":("CHI","DET","GB","MIN"),"NFC South":("ATL","CAR","NO","TB"),"NFC West":("ARI","LA","SF","SEA")}
+    team_division={abbr:division for division,members in groups.items() for abbr in members}
     def walk(node,division=""):
         name=str(node.get("name") or node.get("abbreviation") or "")
         if name.lower() in ("east","west","north","south","atlantic","central","pacific","southeast","northwest","southwest") or (name.startswith(("AFC ","NFC ")) and name.split(" ")[-1] in ("East","West","North","South")):
@@ -31,10 +33,12 @@ def espn_standings(path):
                         except (TypeError,ValueError):pass
                 return None
             wins=number("wins","W");losses=number("losses","L")
+            abbr=str(team.get("abbreviation") or "").upper()
+            team_group=team_division.get(abbr,division) if path=="football/nfl" else division
             rank=number("divisionRank","divisionStanding","divisionPlace")
-            if rank is None and division and entries:rank=index+1
+            if rank is None and division and entries and all(team_division.get(str((e.get("team") or {}).get("abbreviation") or "").upper())==team_group for e in entries) and path=="football/nfl":rank=index+1
             if ident and wins is not None and losses is not None:
-                result[str(ident)]={"wins":wins,"losses":losses,"rank":rank,"division":division}
+                result[str(ident)]={"wins":wins,"losses":losses,"rank":rank,"division":team_group}
         for child in node.get("children") or []:walk(child,division)
     walk(data)
     return result
