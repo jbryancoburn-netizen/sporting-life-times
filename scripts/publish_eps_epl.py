@@ -37,6 +37,18 @@ def validate(data,now=None):
         if any(type(v) not in (int,float) or not math.isfinite(v) or not 0<v<1 for v in values) or abs(sum(values)-1)>1e-8:
             raise ValueError("invalid probabilities")
         if m.get("issued_at_utc")!=data["issued_at_utc"]:raise ValueError("mixed issue dates")
+        if "projected_score" in m:
+            score=m["projected_score"]
+            if any(type(score.get(k))!=int or not 0<=score[k]<=11 for k in ("home","away")):raise ValueError("invalid projected score")
+            prob=score.get("probability")
+            if type(prob) not in (int,float) or not math.isfinite(prob) or not 0<prob<1:raise ValueError("invalid exact score probability")
+        if "goal_markets" in m:
+            markets=m["goal_markets"]
+            for key in ("over_2_5","under_2_5","both_teams_to_score_yes","both_teams_to_score_no"):
+                value=markets.get(key)
+                if type(value) not in (int,float) or not math.isfinite(value) or not 0<=value<=1:raise ValueError("invalid goal market")
+            if abs(markets["over_2_5"]+markets["under_2_5"]-1)>1e-8 or abs(markets["both_teams_to_score_yes"]+markets["both_teams_to_score_no"]-1)>1e-8:
+                raise ValueError("inconsistent goal market complements")
     return data
 
 def publish(src,dest,now=None):
