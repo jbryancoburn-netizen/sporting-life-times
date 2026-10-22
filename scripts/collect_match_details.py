@@ -98,6 +98,7 @@ def fetch_detail(label, game):
                                        for v in t.get("statistics") or [] if isinstance(v, dict)]}
                             for t in teams if isinstance(t, dict)],
               "lineups":[], "players":players[:150], "team_totals":team_totals}
+    record["game"] = {"id":ident,"league":label,"date":game.get("date"),"name":game.get("name"),"state":game.get("state"),"teams":game.get("teams") or [],"status":game.get("status")}
     return key, record
 
 
