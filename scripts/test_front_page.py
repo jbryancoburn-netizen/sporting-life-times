@@ -12,7 +12,7 @@ class FrontPageTests(unittest.TestCase):
         cls.page = (ROOT / "index.html").read_text(encoding="utf-8")
 
     def test_front_page_leads_with_reporting(self):
-        order = ["front-page", "rabby-front", "sports-home", "team-desk", "wire", "scores"]
+        order = ["front-page", "scores", "rabby-front", "team-desk", "wire", "sports-home"]
         offsets = [self.page.index('<section id="' + section + '"') for section in order]
         self.assertEqual(offsets, sorted(offsets), "Editorial front page should precede model promotions")
 
