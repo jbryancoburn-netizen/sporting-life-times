@@ -19,4 +19,17 @@ class ReconcileTests(unittest.TestCase):
  def test_normalized_team_names(self):
   a=game("a");b=game("b");b["teams"][0]["name"]="Chicago-Cubs"
   self.assertEqual(identity(a,"MLB"),identity(b,"MLB"))
-if __name__=="__main__":unittest.main()
+ def test_score_string_matches_integer(self):
+  a=game("espn","3","post");b=game("mlb_stats",3,"post")
+  l,c=reconcile([block("espn",a)],[block("mlb_stats",b)])
+  self.assertEqual(len(c),0);self.assertEqual(l[0]["games"][0]["provider"],"mlb_stats")
+ def test_same_day_doubleheader_quarantined(self):
+  a=game("espn",3,"post");b=game("espn",5,"post");b["id"]="espn-second"
+  l,c=reconcile([{"league":"MLB","provider":"espn","games":[a,b]}],[])
+  self.assertEqual(l[0]["games"],[]);self.assertEqual(len(c),2)
+ def test_explicit_doubleheader_ids_distinct(self):
+  a=game("mlb_stats",3,"post");b=game("mlb_stats",5,"post")
+  a["gameNumber"]=1;b["gameNumber"]=2;b["id"]="mlb-second"
+  l,c=reconcile([],[{"league":"MLB","provider":"mlb_stats","games":[a,b]}])
+  self.assertEqual(len(l[0]["games"]),2);self.assertFalse(c)
+ if __name__=="__main__":unittest.main()
