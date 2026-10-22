@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-22T14:25:50.985559+00:00",
+  "updated_at": "2026-10-22T14:32:26.734441+00:00",
   "source": "ESPN plus official MLB/NHL",
   "leagues": [
     {
@@ -405,14 +405,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": null
+              "logo": "https://www.mlbstatic.com/team-logos/139.svg",
+              "team_id": 139
             },
             {
               "name": "Milwaukee Brewers",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": null
+              "logo": "https://www.mlbstatic.com/team-logos/158.svg",
+              "team_id": 158
             }
           ],
           "venue": "American Family Field",
@@ -432,14 +434,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": null
+              "logo": "https://www.mlbstatic.com/team-logos/139.svg",
+              "team_id": 139
             },
             {
               "name": "Milwaukee Brewers",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": null
+              "logo": "https://www.mlbstatic.com/team-logos/158.svg",
+              "team_id": 158
             }
           ],
           "venue": "American Family Field",
@@ -776,14 +780,48 @@
               "score": 3,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+              "team_id": "PHI",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 2,
+                  "losses": 6,
+                  "ot_losses": 3,
+                  "rank": 7
+                },
+                "after": {
+                  "wins": 3,
+                  "losses": 6,
+                  "ot_losses": 3,
+                  "rank": 6
+                },
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "Buffalo",
               "score": 1,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+              "team_id": "BUF",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 4,
+                  "losses": 3,
+                  "ot_losses": 2,
+                  "rank": 6
+                },
+                "after": {
+                  "wins": 4,
+                  "losses": 4,
+                  "ot_losses": 2,
+                  "rank": 7
+                },
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "KeyBank Center",
@@ -803,14 +841,48 @@
               "score": 1,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+              "team_id": "FLA",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 5,
+                  "losses": 2,
+                  "ot_losses": 2,
+                  "rank": 4
+                },
+                "after": {
+                  "wins": 5,
+                  "losses": 3,
+                  "ot_losses": 2,
+                  "rank": 4
+                },
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "Ottawa",
               "score": 5,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+              "team_id": "OTT",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 6,
+                  "losses": 3,
+                  "ot_losses": 0,
+                  "rank": 3
+                },
+                "after": {
+                  "wins": 7,
+                  "losses": 3,
+                  "ot_losses": 0,
+                  "rank": 3
+                },
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "Canadian Tire Centre",
@@ -830,14 +902,38 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+              "team_id": "NSH",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 3,
+                  "losses": 2,
+                  "ot_losses": 3,
+                  "rank": 6
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "Boston",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg",
+              "team_id": "BOS",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 7,
+                  "losses": 2,
+                  "ot_losses": 1,
+                  "rank": 1
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "TD Garden",
@@ -857,14 +953,38 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+              "team_id": "NYR",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 7,
+                  "losses": 3,
+                  "ot_losses": 1,
+                  "rank": 2
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "Toronto",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+              "team_id": "TOR",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 5,
+                  "losses": 4,
+                  "ot_losses": 2,
+                  "rank": 5
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "Scotiabank Arena",
@@ -884,14 +1004,38 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+              "team_id": "SJS",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 5,
+                  "losses": 4,
+                  "ot_losses": 1,
+                  "rank": 4
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "Ottawa",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+              "team_id": "OTT",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 7,
+                  "losses": 3,
+                  "ot_losses": 0,
+                  "rank": 3
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "Canadian Tire Centre",
@@ -911,14 +1055,38 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+              "team_id": "ANA",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 4,
+                  "losses": 5,
+                  "ot_losses": 0,
+                  "rank": 5
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "New Jersey",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+              "team_id": "NJD",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 5,
+                  "losses": 4,
+                  "ot_losses": 0,
+                  "rank": 5
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "Prudential Center",
@@ -938,14 +1106,38 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+              "team_id": "FLA",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 5,
+                  "losses": 3,
+                  "ot_losses": 2,
+                  "rank": 4
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "Pittsburgh",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+              "team_id": "PIT",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 3,
+                  "losses": 6,
+                  "ot_losses": 1,
+                  "rank": 7
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "PPG Paints Arena",
@@ -965,14 +1157,38 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+              "team_id": "LAK",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 1,
+                  "losses": 4,
+                  "ot_losses": 2,
+                  "rank": 7
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             },
             {
               "name": "New York",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg",
+              "team_id": "NYI",
+              "standings": {
+                "scope": "division",
+                "before": {
+                  "wins": 5,
+                  "losses": 3,
+                  "ot_losses": 1,
+                  "rank": 3
+                },
+                "after": null,
+                "basis": "official_daily_snapshots"
+              }
             }
           ],
           "venue": "UBS Arena",
@@ -992,14 +1208,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+              "team_id": "VGK"
             },
             {
               "name": "St. Louis",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg",
+              "team_id": "STL"
             }
           ],
           "venue": "Enterprise Center",
@@ -1019,14 +1237,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg",
+              "team_id": "WPG"
             },
             {
               "name": "Dallas",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+              "team_id": "DAL"
             }
           ],
           "venue": "American Airlines Center",
@@ -1046,14 +1266,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+              "team_id": "MIN"
             },
             {
               "name": "Calgary",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+              "team_id": "CGY"
             }
           ],
           "venue": "Scotiabank Saddledome",
@@ -1073,14 +1295,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+              "team_id": "CAR"
             },
             {
               "name": "Edmonton",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+              "team_id": "EDM"
             }
           ],
           "venue": "Rogers Place",
@@ -1100,14 +1324,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg",
+              "team_id": "UTA"
             },
             {
               "name": "Seattle",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+              "team_id": "SEA"
             }
           ],
           "venue": "Climate Pledge Arena",
@@ -1127,14 +1353,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg",
+              "team_id": "DET"
             },
             {
               "name": "Vancouver",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+              "team_id": "VAN"
             }
           ],
           "venue": "Rogers Arena",
@@ -1154,14 +1382,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+              "team_id": "MTL"
             },
             {
               "name": "Chicago",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg",
+              "team_id": "CHI"
             }
           ],
           "venue": "United Center",
@@ -1181,14 +1411,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+              "team_id": "TBL"
             },
             {
               "name": "Colorado",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+              "team_id": "COL"
             }
           ],
           "venue": "Ball Arena",
@@ -1208,14 +1440,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+              "team_id": "ANA"
             },
             {
               "name": "Philadelphia",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+              "team_id": "PHI"
             }
           ],
           "venue": "Xfinity Mobile Arena",
@@ -1235,14 +1469,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+              "team_id": "LAK"
             },
             {
               "name": "New Jersey",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+              "team_id": "NJD"
             }
           ],
           "venue": "Prudential Center",
@@ -1262,14 +1498,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+              "team_id": "SJS"
             },
             {
               "name": "Boston",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg",
+              "team_id": "BOS"
             }
           ],
           "venue": "TD Garden",
@@ -1289,14 +1527,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+              "team_id": "NYR"
             },
             {
               "name": "Ottawa",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+              "team_id": "OTT"
             }
           ],
           "venue": "Canadian Tire Centre",
@@ -1316,14 +1556,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+              "team_id": "NSH"
             },
             {
               "name": "Pittsburgh",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+              "team_id": "PIT"
             }
           ],
           "venue": "PPG Paints Arena",
@@ -1343,14 +1585,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+              "team_id": "BUF"
             },
             {
               "name": "Washington",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+              "team_id": "WSH"
             }
           ],
           "venue": "Capital One Arena",
@@ -1370,14 +1614,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+              "team_id": "VGK"
             },
             {
               "name": "Columbus",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+              "team_id": "CBJ"
             }
           ],
           "venue": "Nationwide Arena",
@@ -1397,14 +1643,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+              "team_id": "CAR"
             },
             {
               "name": "St. Louis",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg",
+              "team_id": "STL"
             }
           ],
           "venue": "Enterprise Center",
@@ -1424,14 +1672,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+              "team_id": "TOR"
             },
             {
               "name": "Edmonton",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+              "team_id": "EDM"
             }
           ],
           "venue": "Rogers Place",
@@ -1451,14 +1701,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+              "team_id": "TBL"
             },
             {
               "name": "Utah",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg",
+              "team_id": "UTA"
             }
           ],
           "venue": "Delta Center",
@@ -1478,14 +1730,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg",
+              "team_id": "DET"
             },
             {
               "name": "Calgary",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+              "team_id": "CGY"
             }
           ],
           "venue": "Scotiabank Saddledome",
@@ -1505,14 +1759,16 @@
               "score": null,
               "home_away": "away",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+              "team_id": "MIN"
             },
             {
               "name": "Seattle",
               "score": null,
               "home_away": "home",
               "winner": null,
-              "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg"
+              "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+              "team_id": "SEA"
             }
           ],
           "venue": "Climate Pledge Arena",
