@@ -37,7 +37,10 @@ def nhl(day):
             t=g.get(side+"Team") or {}
             name=(t.get("placeName") or {}).get("default","") if isinstance(t.get("placeName"),dict) else t.get("placeName","")
             common=(t.get("commonName") or {}).get("default","") if isinstance(t.get("commonName"),dict) else t.get("commonName","")
-            teams.append({"name":(" ".join([name,common]).strip() or (t.get("name") or {}).get("default","Unknown")),"score":t.get("score"),"home_away":side,"winner":None,"logo":t.get("logo")})
+            abbr=t.get("abbrev","")
+            cities={"ANA":"Anaheim","BOS":"Boston","BUF":"Buffalo","CAR":"Carolina","CBJ":"Columbus","CGY":"Calgary","CHI":"Chicago","COL":"Colorado","DAL":"Dallas","DET":"Detroit","EDM":"Edmonton","FLA":"Florida","LAK":"Los Angeles","MIN":"Minnesota","MTL":"Montreal","NJD":"New Jersey","NSH":"Nashville","NYI":"New York","NYR":"New York","OTT":"Ottawa","PHI":"Philadelphia","PIT":"Pittsburgh","SEA":"Seattle","SJS":"San Jose","STL":"St. Louis","TBL":"Tampa Bay","TOR":"Toronto","UTA":"Utah","VAN":"Vancouver","VGK":"Vegas","WPG":"Winnipeg","WSH":"Washington"}
+            full=(" ".join([name,common]).strip() if name else " ".join([cities.get(abbr,""),common]).strip())
+            teams.append({"name":full or common or str(abbr or "Unknown"),"score":t.get("score"),"home_away":side,"winner":None,"logo":t.get("logo")})
         status=g.get("gameState","")
         games.append({"id":"nhl:"+str(g.get("id")),"name":"","date":g.get("startTimeUTC",""),"status":status,"state":"post" if status in ("OFF","FINAL") else "in" if status in ("LIVE","CRIT") else "pre","teams":teams,"venue":(g.get("venue") or {}).get("default",""),"broadcast":", ".join(b.get("network","") for b in g.get("tvBroadcasts",[]) if b.get("network")),"url":"https://www.nhl.com/gamecenter/"+str(g.get("id")),"provider":"nhl_web"})
     return {"league":"NHL","source_url":"https://www.nhl.com/scores","games":games,"error":None,"window_start":day.strftime("%Y%m%d"),"window_end":day.strftime("%Y%m%d"),"game_count":len(games),"provider":"nhl_web"}
