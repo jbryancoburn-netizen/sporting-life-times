@@ -305,3 +305,16 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 #live-tracker-games .register-link{display:inline-block;margin-top:.8rem}
 @media(max-width:760px){#live-tracker-games{grid-template-columns:1fr}#scores #live-tracker{padding:.8rem}#live-tracker-games .live-tracker-card{padding:.85rem}}
 @media(max-width:390px){#live-tracker-games .live-tracker-team{grid-template-columns:minmax(0,1fr) auto 2.5ch;gap:.4rem;font-size:.9rem}#live-tracker-games .live-tracker-team strong{font-size:1.2rem}}
+
+/* Unified scoreboards: live games appear within their own league register. */
+.inline-live-scores{margin:.65rem 0 1rem}
+.inline-live-scores:empty{display:none}
+.inline-live-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;padding:.7rem 0}
+.inline-live-card{min-width:0;padding:1rem!important;background:#fff;border:1px solid #b7b1a8!important;break-inside:avoid}
+.inline-live-team{display:grid;grid-template-columns:minmax(0,1fr) auto 3ch;align-items:center;gap:.65rem;padding:.35rem 0;font:1.05rem/1.45 Georgia,serif}
+.inline-live-team span{overflow-wrap:break-word;min-width:0}
+.inline-live-team small{font:.76rem Arial,sans-serif;color:#666}
+.inline-live-team strong{font:700 1.4rem Georgia,serif;text-align:right;font-variant-numeric:tabular-nums}
+.register-game[hidden]{display:none!important}
+@media(max-width:850px){.inline-live-grid{grid-template-columns:1fr}}
+@media(max-width:420px){.inline-live-team{gap:.35rem;font-size:.95rem}.inline-live-team strong{font-size:1.25rem}}
