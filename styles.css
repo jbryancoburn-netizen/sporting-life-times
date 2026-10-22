@@ -282,3 +282,7 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 .standing-move{font-weight:800;white-space:nowrap;margin-left:.35rem}
 .standing-move.up{color:#18753a}.standing-move.down{color:#b4232c}.standing-move.flat{color:#777}
 @media(max-width:520px){#scores .register-team .team-logo,#team-desk .register-team .team-logo{width:40px;height:40px;flex-basis:40px}#scores .team-standing,#team-desk .team-standing{margin-left:47px;font-size:.72rem}}
+
+/* NHL crest files often have more transparent internal padding than other leagues. */
+#scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:58px;height:58px;max-width:none;flex:0 0 58px;object-fit:contain;margin:-7px -7px}
+@media(max-width:520px){#scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:54px;height:54px;flex-basis:54px;margin:-7px -7px}}
