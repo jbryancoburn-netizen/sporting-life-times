@@ -32,4 +32,4 @@ class ReconcileTests(unittest.TestCase):
   a["gameNumber"]=1;b["gameNumber"]=2;b["id"]="mlb-second"
   l,c=reconcile([],[{"league":"MLB","provider":"mlb_stats","games":[a,b]}])
   self.assertEqual(len(l[0]["games"]),2);self.assertFalse(c)
- if __name__=="__main__":unittest.main()
+if __name__=="__main__":unittest.main()
