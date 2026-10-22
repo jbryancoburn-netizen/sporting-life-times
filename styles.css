@@ -493,3 +493,38 @@ body:has(#front-page) .news-card h3{font-size:1.13rem;line-height:1.3}
 body:has(#front-page) .news-card:nth-child(1) h3{font-size:1.45rem}
 body:has(#front-page) .scoreboard-list,body:has(#front-page) .newspaper-register{font-size:.83rem}
 @media(max-width:760px){body:has(#front-page) #front-page{display:block;padding:20px 0}#front-page>#lead-headline{font-size:clamp(1.65rem,6vw,2.25rem)}#front-page>#front-briefs{border-left:0;padding:12px 0 0}body:has(#front-page) .sports-home-grid{grid-template-columns:1fr}body:has(#front-page) .masthead{padding:1rem .6rem}body:has(#front-page) .newspaper-wordmark-main{font-size:clamp(1.45rem,5.5vw,2.3rem)}}
+
+/* Broadsheet edition: an original, understated Sporting Life & Times identity. */
+body:has(#front-page){background:#faf9f6;color:#252421}
+body:has(#front-page) .masthead,body:has(#front-page) .site-nav{background:#faf9f6}
+body:has(#front-page) .masthead{border-bottom:0;padding:15px 12px 10px}
+body:has(#front-page) .newspaper-wordmark-main{font:700 clamp(1.7rem,4vw,3.15rem)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.06em}
+body:has(#front-page) .edition-ribbon{color:#56534d;font-weight:500}
+body:has(#front-page) .site-nav{border-top:1px solid #302f2b;border-bottom:1px solid #302f2b;gap:clamp(8px,1.7vw,22px);padding:8px 12px}
+body:has(#front-page) .site-nav a{color:#383630;text-transform:none;font:500 .73rem/1.4 Georgia,serif;letter-spacing:0}
+body:has(#front-page) .edition-index{border-top:0;border-bottom:1px solid #c9c6bf;justify-content:flex-start;padding:10px 0;margin-bottom:4px;font:400 .69rem/1.4 Georgia,serif;letter-spacing:0;text-transform:none}
+body:has(#front-page) .edition-index-label{font-style:normal;font-weight:700;color:#383630}
+body:has(#front-page) main{max-width:1120px}
+body:has(#front-page) #front-page{grid-template-columns:minmax(0,1.65fr) minmax(220px,.85fr);padding:22px 0 24px;border-bottom:1px solid #302f2b;gap:0 28px}
+body:has(#front-page) #front-page>.section-label{border:0;padding:0;margin:0 0 12px;font:600 .66rem/1.4 Georgia,serif;letter-spacing:.015em;text-transform:none;color:#55524b}
+body:has(#front-page) #lead-headline{font:600 clamp(1.75rem,2.75vw,2.55rem)/1.16 Georgia,serif;letter-spacing:-.03em;max-width:30ch}
+body:has(#front-page) #lead-summary{font:400 .98rem/1.52 Georgia,serif;color:#45423d}
+body:has(#front-page) #lead-link{background:transparent;border:0;padding:0;color:#333;text-decoration:underline;text-underline-offset:3px;font:400 .8rem Georgia,serif}
+body:has(#front-page) #front-briefs{border-left:1px solid #d0cdc6;padding-left:22px}
+body:has(#front-page) #front-briefs>*{border-bottom:1px solid #d6d3cd;padding:10px 0}
+body:has(#front-page) #front-briefs h3{font:600 1.05rem/1.3 Georgia,serif}
+body:has(#front-page) #scores{padding:18px 0 20px;border-bottom:1px solid #302f2b}
+body:has(#front-page) #scores .section-head{margin-bottom:10px}
+body:has(#front-page) #scores .section-head h2{font:600 1.35rem/1.2 Georgia,serif}
+body:has(#front-page) #scores .section-head p{font-size:.74rem;line-height:1.4}
+body:has(#front-page) #rabby-front{border-bottom:1px solid #302f2b}
+body:has(#front-page) .section-label{color:#5b5852;letter-spacing:.01em;text-transform:none;font:600 .69rem/1.35 Georgia,serif}
+body:has(#front-page) .section-head h2{font:600 1.4rem/1.25 Georgia,serif}
+body:has(#front-page) .sports-home-hub{border-top:1px solid #bdbab3;border-bottom:1px solid #bdbab3}
+body:has(#front-page) .sports-home-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+body:has(#front-page) .sports-home-card{border:0;border-right:1px solid #d2cfc8;padding:10px 18px 10px 0;min-height:0}
+body:has(#front-page) .sports-home-card:last-child{border-right:0}
+body:has(#front-page) .sports-home-card:hover,body:has(#front-page) .sports-home-card:focus-visible{transform:none;background:#f0eee9;text-decoration:underline}
+body:has(#front-page) .sports-home-card h3{font:600 1.16rem/1.3 Georgia,serif}
+body:has(#front-page) .sports-home-card strong{color:#514c45}
+@media(max-width:760px){body:has(#front-page) #front-page{display:block;padding:16px 0 20px}body:has(#front-page) #front-briefs{border-left:0;border-top:1px solid #bdbab3;padding:8px 0 0;margin:18px 0 0}body:has(#front-page) #lead-headline{font-size:clamp(1.65rem,6vw,2.1rem)}body:has(#front-page) .sports-home-grid{grid-template-columns:1fr}body:has(#front-page) .sports-home-card{border-right:0;border-bottom:1px solid #d2cfc8;padding:12px 0}body:has(#front-page) .site-nav{position:relative}}
