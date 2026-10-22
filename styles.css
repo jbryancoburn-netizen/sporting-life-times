@@ -254,3 +254,6 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 /* Show authentic crests only; never synthesize lettering behind them. */
 .rabby-card .rabby-monogram{display:none!important}
 .rabby-card .rabby-watermark{right:8px;width:145px;height:145px;opacity:.29}
+
+/* Final Rabby card cleanup: no decorative initial/letter watermark. */
+.rabby-card .rabby-monogram,.rabby-card [class*="monogram"]{display:none!important}
