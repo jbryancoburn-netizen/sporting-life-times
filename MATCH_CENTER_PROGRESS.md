@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22
+Updated: 2026-10-22 — batch 2
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -17,9 +17,9 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [x] Latest published workflow passed at commit 1b969b7b (GitHub Actions run 39829150819).
 
 ## Remaining steps — do these in order
-- [ ] 01. Verify published match_details.json and actual per-league data coverage; validate cache behavior with provider failure.
-- [ ] 02. Normalize player statistics with column headings and source identity; add schema tests.
-- [ ] 03. Build readable basketball player box scores and totals.
+- [ ] 01. Verify published match_details.json and actual per-league data coverage; validate cache behavior with provider failure. IMPLEMENTED: coverage invariant fix (f14e211b); source-failure simulation pending.
+- [ ] 02. Normalize player statistics with column headings and source identity; add schema tests. IMPLEMENTED: heading/category capture (1f44de43), schema checks (a42fcb78); awaiting deployment validation.
+- [ ] 03. Build readable basketball player box scores and totals. IMPLEMENTED: player tables (660542c8); team totals and deployment validation pending.
 - [ ] 04. Improve source efficiency, retries, concurrency, and rate-limit handling.
 - [ ] 05. Expand detailed coverage and validate IDs, freshness, and missing data.
 - [ ] 06. Persist a durable, searchable completed-game archive beyond the latest snapshot.
