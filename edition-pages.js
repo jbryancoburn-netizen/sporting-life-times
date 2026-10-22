@@ -50,7 +50,8 @@
     control.className='edition-pagination';
     control.setAttribute('aria-label','Newspaper pages');
     control.innerHTML='<button type="button" class="edition-prev" aria-label="Previous newspaper page">← Previous</button><span class="edition-position" aria-live="polite"></span><button type="button" class="edition-next" aria-label="Next newspaper page">Next →</button>';
-    index.insertAdjacentElement('afterend',control);
+    const contents=index.closest('.edition-contents');
+    (contents||index).insertAdjacentElement('afterend',control);
     const bottom=control.cloneNode(true);
     bottom.classList.add('edition-pagination-bottom');
     const last=pages.flatMap(p=>p.nodes).at(-1);
@@ -120,8 +121,8 @@
     });
     const m=location.hash.match(/^#page-(\d+)$/);
     const target=m?Number(m[1])-1:pageForHash();
-    show(target>=0?target:0,false);
     document.documentElement.classList.add('paged-edition');
+    show(target>=0?target:0,false);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
