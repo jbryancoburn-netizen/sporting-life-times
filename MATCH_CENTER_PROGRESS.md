@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 8
+Updated: 2026-10-22 — batch 9
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,13 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 9 notes
+- 1da8c169: multisport player tables and date-filter frontend passed publishing workflow run 39831182376.
+- 1f419b7f: backfill navigable game metadata for completed cached games, including final score updates.
+- 0d76a4f5: normalize game ID matching for historical deep links.
+- b462d79d: add archive navigation coverage diagnostics.
+- Latest batch awaiting deployment validation; durable archive remains in progress.
 
 ## Batch 8 notes
 - 2bc43f80 / 1cc33f33: date filter, reset controls and corrected archive-only filter.
