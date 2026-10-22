@@ -542,3 +542,13 @@ body:has(#front-page) .sports-home-card strong{color:#514c45}
 @keyframes edition-appear{from{opacity:.75}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.paged-edition main>section:not([hidden]){animation:none}}
 @media(max-width:520px){.edition-pagination{gap:5px;font-size:.67rem}.edition-pagination button{padding:7px 8px;font-size:.68rem}.edition-position{max-width:50%;line-height:1.3}}
+
+/* Magazine-like leaf motion: restrained paper fold, not a carousel slide. */
+.paged-edition main{perspective:1600px;transform-style:preserve-3d}
+.paged-edition main.edition-turn-forward>section:not([hidden]){transform-origin:left center;animation:edition-leaf-forward .52s cubic-bezier(.2,.65,.25,1) both}
+.paged-edition main.edition-turn-back>section:not([hidden]){transform-origin:right center;animation:edition-leaf-back .52s cubic-bezier(.2,.65,.25,1) both}
+@keyframes edition-leaf-forward{0%{opacity:.55;transform:rotateY(-12deg) translateX(12px);filter:brightness(.95)}55%{opacity:1}100%{opacity:1;transform:rotateY(0) translateX(0);filter:brightness(1)}}
+@keyframes edition-leaf-back{0%{opacity:.55;transform:rotateY(12deg) translateX(-12px);filter:brightness(.95)}55%{opacity:1}100%{opacity:1;transform:rotateY(0) translateX(0);filter:brightness(1)}}
+#front-page .front-story-excerpt{font:400 .79rem/1.45 Georgia,serif;color:#625f58;margin:6px 0}
+#front-page .front-story-read{display:inline-block;margin:2px 0 0;font:400 .72rem Georgia,serif;color:#4a453f;text-decoration:underline;text-underline-offset:2px}
+@media(prefers-reduced-motion:reduce){.paged-edition main.edition-turn-forward>section:not([hidden]),.paged-edition main.edition-turn-back>section:not([hidden]){animation:none}}
