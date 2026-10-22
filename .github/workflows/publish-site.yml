@@ -90,6 +90,27 @@ jobs:
         with:
           path: data/match_center_archive.json
           key: match-center-archive-${{ github.run_id }}
+      - name: Import and validate NBA Elo ratings for the website
+        run: |
+          set -euo pipefail
+          mkdir -p data
+          curl --fail --location --silent --show-error \
+            https://github.com/jbryancoburn-netizen/universal-sports-rating-system/releases/download/nba-elo-latest/published_ratings.json \
+            --output data/nba-ratings.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("data/nba-ratings.json").read_text())
+          rows = d.get("rankings", [])
+          v = d.get("validation", {})
+          assert d.get("league") == "NBA", "Wrong league in NBA Elo feed"
+          assert d.get("status") == "historically_evaluated", "NBA Elo feed is not validated"
+          assert len(rows) == 30 and len({r.get("team") for r in rows}) == 30, "Expected 30 unique NBA teams"
+          assert v.get("historical_games") == 3690, "Unexpected historical game count"
+          assert v.get("holdout_games") == 1230, "Unexpected holdout game count"
+          assert v.get("holdout_log_loss", 1) < 0.69314718056, "NBA Elo failed baseline validation"
+          print("Validated NBA Elo data ready for same-origin website delivery.")
+          PY
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
