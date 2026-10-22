@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Independent official-league scoreboard adapters; no fabricated game records."""
 import json
-from datetime import datetime,timezone,timedelta
+from datetime import datetime,timezone,timedelta,date
 from urllib.request import Request,urlopen
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -44,6 +44,56 @@ def nhl(day):
         status=g.get("gameState","")
         games.append({"id":"nhl:"+str(g.get("id")),"name":"","date":g.get("startTimeUTC",""),"status":status,"state":"post" if status in ("OFF","FINAL") else "in" if status in ("LIVE","CRIT") else "pre","teams":teams,"venue":(g.get("venue") or {}).get("default",""),"broadcast":", ".join(b.get("network","") for b in g.get("tvBroadcasts",[]) if b.get("network")),"url":"https://www.nhl.com/gamecenter/"+str(g.get("id")),"provider":"nhl_web"})
     return {"league":"NHL","source_url":"https://www.nhl.com/scores","games":games,"error":None,"window_start":day.strftime("%Y%m%d"),"window_end":day.strftime("%Y%m%d"),"game_count":len(games),"provider":"nhl_web"}
+def standings_snapshot(league,day):
+    """End-of-day official division standings. Missing fields remain absent."""
+    if league=="NHL":
+        data=fetch("https://api-web.nhle.com/v1/standings/"+day.isoformat())
+        result={}
+        for row in data.get("standings",[]):
+            abbr=(row.get("teamAbbrev") or {}).get("default")
+            rank=row.get("divisionSequence")
+            if not abbr or not isinstance(rank,int):continue
+            result[str(abbr)]={"wins":row.get("wins"),"losses":row.get("losses"),"ot_losses":row.get("otLosses"),"rank":rank}
+        return result
+    data=fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season="+str(day.year)+"&date="+day.isoformat()+"&standingsTypes=regularSeason")
+    result={}
+    for block in data.get("records",[]):
+        for row in block.get("teamRecords",[]):
+            ident=(row.get("team") or {}).get("id")
+            try:rank=int(row.get("divisionRank"))
+            except (TypeError,ValueError):continue
+            if ident is not None:result[str(ident)]={"wins":row.get("wins"),"losses":row.get("losses"),"rank":rank}
+    return result
+
+def enrich_standings(block):
+    """Show before/after only from separate official dated snapshots.
+    Dates represent start/end of game day, not intraday ordering.
+    """
+    league=block["league"];cache={}
+    today=datetime.now(timezone.utc).date()
+    for game in block["games"]:
+        try:game_day=date.fromisoformat(game["date"][:10])
+        except (ValueError,KeyError):continue
+        before_day=game_day-timedelta(days=1)
+        # Future games can use yesterday's actual standings as a pregame approximation
+        # only when the game is today; future dates have intervening games.
+        if game["state"]!="post" and game_day!=today:continue
+        days=[before_day]+([game_day] if game["state"]=="post" else [])
+        for d in days:
+            if d not in cache:
+                try:cache[d]=standings_snapshot(league,d)
+                except Exception as exc:
+                    cache[d]={}
+                    block.setdefault("standings_warnings",[]).append(d.isoformat()+": "+type(exc).__name__)
+        for team in game["teams"]:
+            ident=team.get("team_id")
+            if not ident:continue
+            pre=cache[before_day].get(str(ident))
+            post=cache.get(game_day,{}).get(str(ident))
+            if pre and (post or game["state"]!="post"):
+                team["standings"]={"scope":"division","before":pre,"after":post,"basis":"official_daily_snapshots"}
+    return block
+
 def collect():
     now=datetime.now(timezone.utc);out={"updated_at":now.isoformat(timespec="seconds"),"source":"MLB Stats API and NHL Web API","leagues":[]}
     for name,adapter in (("MLB",mlb),("NHL",nhl)):
@@ -58,6 +108,7 @@ def collect():
             except Exception as exc:
                 block.setdefault("warnings",[]).append(day.isoformat()+": "+type(exc).__name__+": "+str(exc)[:120])
         block["games"].sort(key=lambda g:g.get("date") or "")
+        enrich_standings(block)
         block["game_count"]=len(block["games"])
         block["window_start"]=(now.date()-timedelta(days=1)).strftime("%Y%m%d")
         block["window_end"]=(now.date()+timedelta(days=2)).strftime("%Y%m%d")
