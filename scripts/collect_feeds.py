@@ -65,7 +65,7 @@ def main():
         status.append(result)
         time.sleep(0.25)
     articles.sort(key=lambda a: a.get("published_at",""), reverse=True)
-    OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:80],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:300],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Collected {len(articles)} unique stories; {sum(1 for s in status if s['ok'])}/{len(status)} feeds responded.")
     for s in status: print(f"{'OK' if s['ok'] else 'FAIL'} {s['source']}: {s['items']} items" + (f" — {s['error']}" if s['error'] else ""))
     if not any(s["ok"] for s in status):
