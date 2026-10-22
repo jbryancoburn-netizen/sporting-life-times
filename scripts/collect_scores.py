@@ -14,7 +14,7 @@ def espn_standings(path):
     result={}
     def walk(node,division=""):
         name=str(node.get("name") or node.get("abbreviation") or "")
-        if name.lower() in ("east","west","north","south","atlantic","central","pacific","southeast","northwest","southwest"):
+        if name.lower() in ("east","west","north","south","atlantic","central","pacific","southeast","northwest","southwest") or (name.startswith(("AFC ","NFC ")) and name.split(" ")[-1] in ("East","West","North","South")):
             division=name
         standings=node.get("standings") or {}
         entries=standings.get("entries") or []
@@ -31,7 +31,7 @@ def espn_standings(path):
                         except (TypeError,ValueError):pass
                 return None
             wins=number("wins","W");losses=number("losses","L")
-            rank=number("divisionRank","divisionStanding")
+            rank=number("divisionRank","divisionStanding","divisionPlace")
             if rank is None and division and entries:rank=index+1
             if ident and wins is not None and losses is not None:
                 result[str(ident)]={"wins":wins,"losses":losses,"rank":rank,"division":division}
