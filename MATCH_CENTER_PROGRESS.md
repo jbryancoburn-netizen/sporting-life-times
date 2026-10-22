@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 21
+Updated: 2026-10-22 — batch 22
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 22 notes
+- 7bc8a81c: prior archive-index and infographic work passed GitHub Actions.
+- dac6deb7: group event timelines by period and emphasize source-flagged scoring/key moments across soccer, basketball, football, baseball and hockey.
+- 154bd47c: add responsive timeline styling and refresh frontend asset version.
+- Next workflow run pending; full sport-specific box-score completeness remains data-dependent.
 
 ## Batch 21 notes
 - 53fa1999: source-backed proportional team statistic bars in Match Center.
