@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 17
+Updated: 2026-10-22 — batch 18
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 18 notes
+- 5cc2132f: default picker to a seven-day window (three days back, today, three days ahead), retaining search/date/status access to older indexed games.
+- d6330d61: preserve selected historical deep-link in default picker.
+- 92a92150: label recent-games default and refresh browser script cache.
+- This is a frontend display window, not a limit on historical storage; lazy loading historical shards remains future work.
 
 ## Batch 17 notes
 - bcd26031: avoid redundant archive branch pushes for unchanged data.
