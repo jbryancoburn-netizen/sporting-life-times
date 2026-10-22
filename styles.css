@@ -428,3 +428,26 @@ body:has(.rabby-front) .edition-index{border-top:1px solid #a69b8b;border-bottom
 body:has(.rabby-front) .edition-index-label{color:#736455}
 body:has(.rabby-front) .site-nav a{font-weight:600;letter-spacing:.035em}
 body:has(.rabby-front) .edition-links a,body:has(.rabby-front) .sports-home-links a{letter-spacing:.025em;text-transform:none}
+
+/* Newspaper front-page edition: clear lead, supporting briefs and quieter desks. */
+body:has(#front-page) main{max-width:1280px}
+body:has(#front-page) #front-page{position:relative;display:grid;grid-template-columns:minmax(0,1.85fr) minmax(255px,.82fr);column-gap:clamp(24px,4vw,58px);align-items:start;padding:clamp(24px,4vw,52px) 0;border-bottom:5px double var(--ink)}
+#front-page>.section-label{grid-column:1/-1;margin:0 0 15px;padding:0 0 10px;border-bottom:1px solid var(--ink);font:700 .7rem 'DM Sans',Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+#front-page>#lead-headline{grid-column:1;grid-row:2;font:700 clamp(2.6rem,5.1vw,5.3rem)/1.04 'Playfair Display',Georgia,serif;letter-spacing:-.048em;margin:0 0 16px;overflow-wrap:break-word}
+#front-page>#lead-summary{grid-column:1;grid-row:3;font:400 clamp(1.05rem,1.7vw,1.27rem)/1.58 Georgia,serif;color:#49463f;margin:0 0 14px}
+#front-page>#lead-source{grid-column:1;grid-row:4;margin:0 0 16px;font-size:.7rem;letter-spacing:.06em}
+#front-page>#lead-photo{grid-column:1;grid-row:5;margin:0 0 15px;max-width:100%}
+#front-page>#lead-photo[hidden]{display:none}
+#front-page>#lead-photo img{display:block;width:100%;height:auto;max-height:480px;aspect-ratio:16/9;object-fit:cover;background:#e8e3d9}
+#front-page>#lead-photo figcaption{font:400 .68rem/1.4 'DM Sans',Arial,sans-serif;color:var(--muted);padding-top:6px}
+#front-page>#front-briefs{grid-column:2;grid-row:2/7;align-self:stretch;border-left:1px solid var(--rule);padding-left:clamp(18px,2.4vw,32px);display:block;min-width:0}
+#front-page>#front-briefs>*{border-bottom:1px solid var(--rule);padding:12px 0;margin:0}
+#front-page>#front-briefs h3{font:600 clamp(1.12rem,1.8vw,1.55rem)/1.2 Georgia,serif;letter-spacing:-.025em}
+#front-page>#lead-link{grid-column:1;grid-row:6;justify-self:start;margin:6px 0 12px}
+#front-page>.small{grid-column:1;grid-row:7;margin:0;color:var(--muted)}
+body:has(#front-page) #rabby-front{padding:clamp(22px,3vw,40px) 0;border-bottom:2px solid var(--ink)}
+body:has(#front-page) #rabby-front>h2{margin-top:5px}
+body:has(#front-page) .sports-home-hub{margin:28px 0;padding:22px;border:1px solid var(--rule);background:transparent}
+body:has(#front-page) .sports-home-hub>h2{font-size:clamp(1.5rem,2.5vw,2.25rem)}
+body:has(#front-page) .sports-home-card{min-height:145px}
+@media(max-width:760px){body:has(#front-page) #front-page{display:block;padding:25px 0}#front-page>#lead-headline{font-size:clamp(2.3rem,8vw,3.8rem)}#front-page>#front-briefs{border-left:0;border-top:3px double var(--ink);padding:12px 0 0;margin:20px 0}#front-page>#lead-photo img{max-height:340px}body:has(#front-page) .sports-home-hub{padding:15px}}
