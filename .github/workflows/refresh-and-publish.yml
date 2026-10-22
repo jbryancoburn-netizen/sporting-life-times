@@ -24,6 +24,8 @@ jobs:
         run: |
           python -m pip install --quiet pymupdf
           python scripts/extract_masthead.py
+      - name: Test multi-source engine
+        run: python -m unittest discover -s scripts -p 'test_*.py' -v
       - name: Collect RSS headlines
         run: python scripts/collect_feeds.py
       - name: Validate sports data source registry
@@ -32,12 +34,16 @@ jobs:
         run: python scripts/collect_scores.py
       - name: Collect official MLB and NHL scores
         run: python scripts/collect_official_scores.py
+      - name: Merge official and backup scoreboards
+        run: python scripts/collect_multisource.py
+      - name: Probe Statcast schema (non-fatal)
+        run: python scripts/collect_statcast.py
       - name: Commit refreshed feed data
         run: |
-          if ! git diff --quiet -- articles.json scoreboards.json official_scoreboards.json || [ -n "$(git ls-files --others --exclude-standard assets/)" ]; then
+          if ! git diff --quiet -- articles.json scoreboards.json official_scoreboards.json multi_scoreboards.json statcast_health.json || [ -n "$(git ls-files --others --exclude-standard assets/)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add articles.json scoreboards.json official_scoreboards.json assets/original-print-masthead.png
+            git add articles.json scoreboards.json official_scoreboards.json multi_scoreboards.json statcast_health.json assets/original-print-masthead.png
             git commit -m "Refresh Sporting Wire and verified scoreboards"
             git push
           fi
