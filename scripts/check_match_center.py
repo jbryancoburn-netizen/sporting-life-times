@@ -21,7 +21,7 @@ assert not bad, "Malformed detail records: " + ", ".join(bad[:5])
 for league, row in details["coverage"].items():
     for field in ("attempted", "available", "failed", "cached"):
         assert isinstance(row.get(field), int) and row[field] >= 0, f"Invalid {league}.{field}"
-    assert row["available"] + row["failed"] == row["attempted"], f"Inconsistent coverage for {league}"
+    assert row["available"] + row["failed"] == row["attempted"] + row["cached"], f"Inconsistent coverage for {league}"
 print("MATCH CENTER DATA HEALTH")
 print("Scoreboard games:", len(indexed))
 print("Detail records (including archive):", len(details["games"]))
