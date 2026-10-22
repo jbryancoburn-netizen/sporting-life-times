@@ -6,6 +6,7 @@
     {title:'The Scoreboard',ids:['scores']},
     {title:'Professional Basketball',ids:['pro-basketball']},
     {title:'Professional Football',ids:['pro-football']},
+    {title:'Professional Hockey',ids:['pro-hockey']},
     {title:'College Football',ids:['college-football']},
     {title:'College Basketball',ids:['college-basketball']},
     {title:'Other College Sports',ids:['other-college-sports','college-schedules']},
