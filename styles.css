@@ -370,3 +370,16 @@ nav a{font-size:.62rem!important;color:#17212b!important}
   #scores .register-team,#team-desk .register-team{column-gap:.4rem}
   #scores .register-team strong,#team-desk .register-team strong{font-size:1.2rem}
 }
+
+/* Scoreboard edition: clearer league dividers and prominent authentic crests. */
+#scores .register-section,#team-desk .register-section{margin:1.3rem 0 2rem}
+#scores .register-heading,#team-desk .register-heading{background:#f0ede5;border-top:4px double #1c1c1c;border-bottom:1px solid #1c1c1c;padding:.7rem .8rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+#scores .register-heading h3,#team-desk .register-heading h3{font:700 clamp(1.1rem,2.3vw,1.55rem)/1.2 Georgia,serif;text-transform:uppercase;letter-spacing:.035em;margin:0}
+#scores .register-heading span,#team-desk .register-heading span{font:700 .65rem Arial,sans-serif;letter-spacing:.09em;white-space:nowrap}
+#scores .register-columns,#team-desk .register-columns{padding:.6rem .2rem}
+#scores .register-game,#team-desk .register-game{border-left:3px solid transparent;padding-left:.65rem}
+#scores .register-game:focus-within,#team-desk .register-game:focus-within{border-left-color:#8c1717}
+#scores .register-team .team-with-logo,#team-desk .register-team .team-with-logo{display:inline-flex;align-items:center;gap:.75rem}
+#scores .register-team .team-logo,#team-desk .register-team .team-logo{width:48px;height:48px;flex:0 0 48px;object-fit:contain}
+#scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:62px;height:62px;flex-basis:62px;margin:-7px}
+@media(max-width:520px){#scores .register-heading,#team-desk .register-heading{padding:.6rem .45rem}#scores .register-team .team-logo,#team-desk .register-team .team-logo{width:42px;height:42px;flex-basis:42px}#scores .register-team .team-logo-nhl,#team-desk .register-team .team-logo-nhl{width:56px;height:56px;flex-basis:56px}}
