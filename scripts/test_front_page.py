@@ -16,6 +16,17 @@ class FrontPageTests(unittest.TestCase):
         offsets = [self.page.index('<section id="' + section + '"') for section in order]
         self.assertEqual(offsets, sorted(offsets), "Editorial front page should precede model promotions")
 
+    def test_page_turn_navigation_is_present(self):
+        self.assertIn('edition-pages.js', self.page)
+        js = (ROOT / "edition-pages.js").read_text(encoding="utf-8")
+        for section in ["front-page", "scores", "rabby-front", "team-desk",
+                        "wire", "coburn-20", "college-schedules",
+                        "sports-home", "archive", "standards"]:
+            self.assertIn(section, js)
+        self.assertIn("edition-prev", js)
+        self.assertIn("edition-next", js)
+        self.assertIn("hashchange", js)
+
     def test_no_empty_archive_placeholders(self):
         self.assertNotIn("PDF upload pending", self.page)
         self.assertNotIn("<main>\\n", self.page)
