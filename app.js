@@ -34,12 +34,12 @@ const priority=['Football','Basketball','Baseball','Hockey','Soccer','Other spor
 const balanced=[];let round=0;while(balanced.length<items.length){let added=false;for(const [,stories] of groups){if(stories[round]){balanced.push(stories[round]);added=true}}if(!added)break;round++}
 const rabbyAliases=[
 ['Chicago Bears',/\\b(chicago bears|bears quarterback|bears coach)\\b/i],
-['Chicago Cubs',/\\b(chicago cubs|cubs manager|wrigley field)\\b/i],
-['Tampa Bay Rays',/\\b(tampa bay rays|rays baseball)\\b/i],
-['Tampa Bay Lightning',/\\b(tampa bay lightning|lightning hockey)\\b/i],
-['Indiana Pacers',/\\b(indiana pacers|pacers basketball)\\b/i],
+['Chicago Cubs',/\\b(chicago cubs|\\bcubs\\b|cubs manager|wrigley field)\\b/i],
+['Tampa Bay Rays',/\\b(tampa bay rays|rays baseball|\\brays\\b)\\b/i],
+['Tampa Bay Lightning',/\\b(tampa bay lightning|lightning hockey|\\bbolts\\b)\\b/i],
+['Indiana Pacers',/\\b(indiana pacers|pacers basketball|\\bpacers\\b)\\b/i],
 ['Fort Wayne Komets',/\\b(fort wayne komets|komets hockey)\\b/i],
-['Tottenham Hotspur',/\\b(tottenham|spurs soccer|spurs football)\\b/i],
+['Tottenham Hotspur',/\\b(tottenham|spurs soccer|spurs football|hotspur)\\b/i],
 ['FC Bayern Munich Basketball',/\\b(bayern basketball|bayern munich basketball)\\b/i],
 ['Indiana Hoosiers',/\\b(indiana hoosiers|hoosiers football|hoosiers basketball|hoosiers baseball|hoosiers soccer)\\b/i],
 ['South Florida Bulls',/\\b(south florida bulls|usf bulls|bulls football)\\b/i],
