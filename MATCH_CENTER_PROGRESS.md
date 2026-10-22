@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 22
+Updated: 2026-10-22 — batch 23
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,14 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 23 notes
+- 665b2a90: align Sports Desks page with shared homepage masthead and global navigation.
+- d4f48003: align NBA desk header.
+- dcc414c5: align Premier League desk header.
+- cb637ffa: align USRS Forecast Desk header.
+- f72383ad: add shared masthead/navigation to Match Center.
+- Shared header uses the original newspaper masthead asset, consistent subtitle/ribbon, and common navigation links. Latest workflow and visual browser verification pending.
 
 ## Batch 22 notes
 - 7bc8a81c: prior archive-index and infographic work passed GitHub Actions.
