@@ -318,3 +318,6 @@ nav a{font-size:.62rem!important;color:#17212b!important}
 .register-game[hidden]{display:none!important}
 @media(max-width:850px){.inline-live-grid{grid-template-columns:1fr}}
 @media(max-width:420px){.inline-live-team{gap:.35rem;font-size:.95rem}.inline-live-team strong{font-size:1.25rem}}
+
+/* National poll ranking, never confused with division standing. */
+.college-rank{display:inline-block;flex:none;font:800 .83rem/1.2 Arial,sans-serif;color:#161616;white-space:nowrap;margin-right:.25rem}
