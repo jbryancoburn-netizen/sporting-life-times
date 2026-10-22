@@ -24,8 +24,9 @@ jobs:
           python-version: "3.12"
       - name: Validate browser JavaScript syntax
         run: |
-          node --check match-center-page.js
-          node --check match-center.js
+          for script in *.js; do node --check "$script"; done
+      - name: Audit local page links and assets
+        run: python scripts/audit_site_links.py
       - name: Run unit tests
         run: python -m unittest discover -s scripts -p 'test_*.py' -v
       - name: Validate any supplied USRS forecasts
