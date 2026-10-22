@@ -40,3 +40,26 @@ async function loadScoreboards(){const status=document.querySelector('#scores-st
 ['NFL',['Chicago Bears']],['MLB',['Chicago Cubs','Tampa Bay Rays']],['NHL',['Tampa Bay Lightning']],['NBA',['Indiana Pacers']],['ECHL',['Fort Wayne Komets']],['Premier League',['Tottenham Hotspur','Tottenham']],['Champions League',['Tottenham Hotspur','Tottenham']],['Europa League',['Tottenham Hotspur','Tottenham']],['EuroLeague',['Bayern Munich','FC Bayern']],['College Football',['Indiana Hoosiers','South Florida Bulls','Trine Thunder']],["Men's College Basketball",['Indiana Hoosiers','South Florida Bulls','Vermont Catamounts','Trine Thunder']],["Women's College Basketball",['Indiana Hoosiers','South Florida Bulls']],['College Baseball',['Indiana Hoosiers']],["NCAA Men's Soccer",['Indiana Hoosiers']],["NCAA Men's Hockey",['Vermont Catamounts']]];
 const mine=games.filter(g=>featuredRules.some(([league,names])=>league===g.league&&(g.teams||[]).some(t=>names.some(n=>t.name.toLowerCase()===n.toLowerCase()||t.name.toLowerCase().includes(n.toLowerCase())))));const sorted=arr=>arr.sort((a,b)=>gameStamp(a)-gameStamp(b));const completed=arr=>arr.sort((a,b)=>gameStamp(b)-gameStamp(a));const sections=arr=>registerSection('LIVE GAMES',sorted(arr.filter(g=>g.state==='in')))+registerSection('FINAL RESULTS',completed(arr.filter(g=>g.state==='post')))+registerSection('UPCOMING FIXTURES',sorted(arr.filter(g=>g.state!=='in'&&g.state!=='post')));const desk=document.querySelector('#team-desk-games'),deskStatus=document.querySelector('#team-desk-status');if(desk){desk.innerHTML=mine.length?'<div class="register-mast"><span>SPORTING LIFE & TIMES / PERSONAL SPORTS DESK</span><h3>THE RABBY 20</h3><p>Final results · Live scores · Upcoming fixtures</p></div>'+sections(mine):'<p>No Rabby 20 matchups found in the current feeds. Specialist team sources are still needed.</p>'}if(deskStatus)deskStatus.textContent=mine.length?mine.length+' verified featured matchups · Updated '+prettyDate(d.updated_at):'Current feeds do not cover every Rabby 20 program.';if(status)status.textContent='Source: '+(d.source||'ESPN')+' · Updated '+prettyDate(d.updated_at)+' · '+leagues.length+' leagues with reported games · Other leagues may be out of season or lack feed coverage';root.innerHTML='<div class="register-mast"><span>SPORTING LIFE & TIMES / THE DAILY REGISTER</span><h3>THE SCOREBOARD</h3><p>Results and scheduled games · All times Eastern</p></div>'+((d.leagues||[]).filter(l=>['NFL','MLB','NBA','NHL','Premier League','College Football',"Men's College Basketball","Women's College Basketball",'Champions League','Europa League','Australian NBL','EuroLeague'].includes(l.league)).map(l=>{const rows=(l.games||[]).map(g=>({...g,league:l.league,source_url:l.source_url}));return '<div class="league-register"><div class="league-register-title"><h3>'+escapeHtml(l.league)+'</h3><span>'+rows.length+' GAMES</span></div>'+(rows.length?sections(rows):'<p class="register-empty">No verified games returned for this league and date range'+(l.error?' · Source unavailable':'')+'.</p>')+'</div>'}).join(''))}catch(e){if(status)status.textContent='Scoreboard data unavailable; no scores have been fabricated.'}}
 loadScoreboards();
+
+async function loadCollegeDesk(){
+ const root=document.querySelector('#college-schedules-list'),status=document.querySelector('#college-schedules-status');if(!root)return;
+ try{
+  const response=await fetch('college_schedules.json?ts='+Math.floor(Date.now()/240000));if(!response.ok)throw Error('Not published yet');
+  const data=await response.json();const today=new Date().toISOString().slice(0,10);
+  let sections='',count=0;
+  for(const team of data.teams||[]){
+   const all=(team.games||[]).filter(g=>g.date&&g.teams?.length===2);
+   const recent=all.filter(g=>g.date<=today).slice(-3),upcoming=all.filter(g=>g.date>today).slice(0,4);
+   const selected=[...recent,...upcoming];if(!selected.length)continue;count+=selected.length;
+   const games=selected.map(g=>{
+    const opponent=g.teams[1],us=g.teams[0],date=new Date(g.date+'T12:00:00Z').toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'});
+    const score=g.state==='post'&&us.score!=null&&opponent.score!=null?'FINAL · '+escapeHtml(us.score)+'–'+escapeHtml(opponent.score):'SCHEDULED · TIME UNVERIFIED';
+    return '<article class="register-game"><div class="register-sport"><span>'+escapeHtml(date)+'</span><strong>'+score+'</strong></div><div class="register-team">'+escapeHtml(us.name)+' vs '+escapeHtml(opponent.name)+'</div><a class="register-link" href="'+escapeHtml(g.url)+'" target="_blank" rel="noopener noreferrer">OFFICIAL SCHOOL SCHEDULE ↗</a></article>';
+   }).join('');
+   sections+='<section class="register-section"><div class="register-heading"><h3>'+escapeHtml(team.team)+'</h3><span>'+selected.length+' GAMES</span></div><div class="register-columns">'+games+'</div></section>';
+  }
+  root.innerHTML=sections||'<p>School schedules are not yet available in a verified format.</p>';
+  if(status)status.textContent=count+' school-sourced schedule entries · '+(data.updated_at||'').slice(0,10)+' · Dates shown without unverified kickoff times';
+ }catch(e){if(status)status.textContent='Official college schedules have not been collected yet.'}
+}
+loadCollegeDesk();
