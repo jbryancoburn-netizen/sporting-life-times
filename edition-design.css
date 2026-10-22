@@ -92,3 +92,10 @@ body:has(#front-page) #front-page>#front-briefs article{padding-bottom:9px!impor
 body:has(#front-page) #front-page>#front-briefs article:nth-child(n+5){display:none!important}
 body:has(#front-page) #front-page>.small{font-size:.58rem!important}
 @media(max-width:760px){body:has(#front-page) #front-page.live-front{padding:9px 0 14px!important}body:has(#front-page) #front-page>h2#lead-headline{font-size:1.27rem!important}body:has(#front-page) #front-page>#lead-photo img{max-height:150px!important}}
+
+/* Curated broadsheet cover: quieter hierarchy and no repeated calls to action. */
+body:has(#front-page) #front-page #front-briefs article:first-child h3{font-size:1.04rem!important;line-height:1.3!important}
+body:has(#front-page) #front-page #front-briefs article .front-story-read{display:none!important}
+body:has(#front-page) #front-page #front-briefs article .meta{font:400 .61rem/1.3 Georgia,serif!important;letter-spacing:.025em!important;color:#77716a!important}
+body:has(#front-page) #front-page #front-briefs article .front-story-excerpt{font-size:.74rem!important;line-height:1.4!important;-webkit-line-clamp:2!important}
+body:has(#front-page) #front-page #lead-link{border:0!important;padding:0!important;text-decoration:underline;text-underline-offset:3px}
