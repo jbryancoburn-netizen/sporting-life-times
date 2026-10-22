@@ -25,6 +25,7 @@ jobs:
       - name: Validate browser JavaScript syntax
         run: |
           for script in *.js; do node --check "$script"; done
+          python scripts/check_inline_javascript.py
       - name: Audit local page links and assets
         run: python scripts/audit_site_links.py
       - name: Run unit tests
