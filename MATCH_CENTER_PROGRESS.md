@@ -1,5 +1,5 @@
 # Match Center — Development Tracker
-Updated: 2026-10-22 — batch 24
+Updated: 2026-10-22 — batch 25
 
 Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = implemented but needs validation or further work; TODO = not implemented. A passing build does not establish real-data completeness.
 
@@ -36,6 +36,12 @@ Status legend: DONE = implemented and publishing workflow passed; IN PROGRESS = 
 - [ ] 17. Polish PDF-inspired newspaper styling, logos, and mobile experience.
 - [ ] 18. Add source monitoring, fallback diagnostics, and automated regression tests. IN PROGRESS: six new merge/selection regression tests (a65400d7); CI result and further integration tests pending.
 - [ ] 19. Run end-to-end acceptance tests for pregame, live, final, and archived games.
+
+## Batch 25 notes
+- Latest GitHub Actions run 39862254002 passed before this batch.
+- 15222bfd: removed duplicate edition ribbon from Match Center beneath shared masthead.
+- c727bae6: added six-page header/navigation regression checks to existing unittest discovery.
+- Source inspection confirmed all six primary pages have one masthead, one topline, original masthead image and shared navigation; post-change CI pending.
 
 ## Batch 24 notes
 - 348a64b9: align homepage navigation to the same shared site-nav treatment as secondary pages.
