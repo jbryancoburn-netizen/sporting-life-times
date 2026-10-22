@@ -78,6 +78,9 @@ def save():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(path, target)
             git("add", ARCHIVE, cwd=worktree)
+            if git("diff", "--cached", "--quiet", cwd=worktree, check=False).returncode == 0:
+                print("Archive unchanged; no new branch commit required")
+                return
             git("-c", "user.name=Sporting Life Times Bot",
                 "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
                 "commit", "-m", f"Preserve {len(data['games'])} Match Center game records",
