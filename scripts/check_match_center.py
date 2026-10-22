@@ -20,6 +20,10 @@ for key, game in details["games"].items():
     metadata = game.get("game")
     if metadata is not None:
         assert isinstance(metadata, dict) and isinstance(metadata.get("teams"), list) and len(metadata["teams"]) == 2, f"Malformed archived game identity: {key}"
+    for event in game.get("events", []):
+        assert isinstance(event, dict) and isinstance(event.get("text"), str), f"Malformed event: {key}"
+        if "scoring" in event:
+            assert isinstance(event["scoring"], bool), f"Invalid scoring flag: {key}"
     for total in game.get("team_totals", []):
         assert isinstance(total, dict) and isinstance(total.get("stats"), list) and isinstance(total.get("labels"), list), f"Malformed team total: {key}"
     for player in game.get("players", []):
