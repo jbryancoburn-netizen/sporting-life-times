@@ -1,6 +1,7 @@
 """Deterministic tests for EuroLeague Elo input validation and scoring."""
 import importlib.util
 import pathlib
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -42,6 +43,30 @@ class TestModel(unittest.TestCase):
         self.assertLessEqual(result["brier"],1)
         self.assertGreater(result["log_loss"],0)
         self.assertAlmostEqual(result["predictions"][0]["pred"],el.expected(65))
+    def test_publish_full_model_from_mocked_seasons(self):
+        teams=["T"+str(i).zfill(2) for i in range(18)]
+        def season_games(season):
+            games=[]
+            for i in range(9):
+                a,b=teams[2*i],teams[2*i+1]
+                games.append({"id":str(i+1),"season":season,"date":season[1:]+"-10-01T19:00:00Z",
+                              "home":{"code":a,"name":a,"logo":None,"score":81},
+                              "away":{"code":b,"name":b,"logo":None,"score":75},
+                              "completed":True,"neutral":False})
+            return games
+        with tempfile.TemporaryDirectory() as tmp:
+            out=pathlib.Path(tmp)/"model.json"
+            with patch.object(el,"fetch_season",side_effect=season_games),patch.object(el,"OUT",out):
+                el.main()
+                import json
+                model=json.loads(out.read_text())
+                self.assertEqual(model["games_completed"],9)
+                self.assertEqual(len(model["standings"]),18)
+                self.assertEqual(sum(row["wins"] for row in model["standings"]),9)
+                self.assertEqual(sum(row["losses"] for row in model["standings"]),9)
+                self.assertEqual(len(model["rankings"]),18)
+                el.main()
+                self.assertEqual(json.loads(out.read_text())["games_completed"],9)
     def test_fetch_pages(self):
         def responder(url):
             if "offset=0" in url:return {"total":2,"data":[make_game(1)]}
