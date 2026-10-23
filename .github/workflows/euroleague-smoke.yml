@@ -1,6 +1,11 @@
 name: EuroLeague source smoke test
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/euroleague_model.py'
+      - 'scripts/euroleague_diagnose.py'
+      - '.github/workflows/euroleague-smoke.yml'
 permissions:
   contents: read
 jobs:
@@ -12,7 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Check season source and fallback
+      - name: Check production parser and source fallback
+        run: python scripts/euroleague_diagnose.py
+      - name: Check full season pagination and counts
         run: |
           python - <<'PY'
           import sys
