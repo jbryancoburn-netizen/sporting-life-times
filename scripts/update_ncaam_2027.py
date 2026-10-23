@@ -73,7 +73,7 @@ def main():
         (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
     roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
-    chosen=roster_adjusted if roster_adjusted.is_file() else base/"ncaam-2026-27-preseason-provisional.json"
+    # Audit hold: extreme transfer adjustments are not publication-approved.\n    # Re-enable only after team-level identity and magnitude validation.\n    approved=False\n    if roster_adjusted.is_file():\n        candidate=json.loads(roster_adjusted.read_text())\n        approved=candidate.get("audit",{}).get("release_approved") is True\n    chosen=roster_adjusted if approved else base/"ncaam-2026-27-preseason-provisional.json"
     pre=json.loads(chosen.read_text())
     if chosen==roster_adjusted:
         assert pre.get("status")=="provisional-roster-adjusted" and pre["evidence"]["roster_programs"]>=350, "Roster-adjusted preseason model below evidence gate"
