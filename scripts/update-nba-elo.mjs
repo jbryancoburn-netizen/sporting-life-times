@@ -59,9 +59,14 @@ async function fetchDate(date) {
    collected.set(id,result);
  }
 }
-for(let day=new Date(start);day<=end;day.setUTCDate(day.getUTCDate()+1)){
- await fetchDate(day);
+const dates=[];
+for(let day=new Date(start);day<=end;day.setUTCDate(day.getUTCDate()+1))dates.push(new Date(day));
+const failures=[];
+for(let offset=0;offset<dates.length;offset+=8){
+ const batch=await Promise.allSettled(dates.slice(offset,offset+8).map(fetchDate));
+ batch.forEach((result,i)=>{if(result.status==='rejected')failures.push(dateId(dates[offset+i])+': '+result.reason.message)});
 }
+if(failures.length)throw Error('Incomplete NBA season source coverage; refusing partial publication: '+failures.join(' | '));
 // Fail closed rather than inadvertently dropping or revising an already published result.
 for(const previous of old.events||[]){
  const match=collected.get(previous.id);
