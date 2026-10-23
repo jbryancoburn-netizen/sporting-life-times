@@ -79,7 +79,10 @@ def main():
     approved=False
     if roster_adjusted.is_file():
         candidate=json.loads(roster_adjusted.read_text())
-        approved=candidate.get("audit",{}).get("release_approved") is True
+        approved=(candidate.get("audit",{}).get("release_approved") is True and
+                  candidate.get("production_elo_approved") is True and
+                  candidate.get("identity_verified") is True and
+                  candidate.get("preseason_information_integrity_verified") is True)
     chosen=roster_adjusted if approved else base/"ncaam-2026-27-preseason-provisional.json"
     pre=json.loads(chosen.read_text())
     if chosen==roster_adjusted:
