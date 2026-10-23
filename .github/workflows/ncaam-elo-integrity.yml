@@ -1,0 +1,26 @@
+name: NCAA Men's D1 Elo integrity
+on:
+  push:
+    paths:
+      - 'scripts/ncaam_elo.py'
+      - 'scripts/test_ncaam_elo.py'
+      - '.github/workflows/ncaam-elo-integrity.yml'
+  pull_request:
+    paths:
+      - 'scripts/ncaam_elo.py'
+      - 'scripts/test_ncaam_elo.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile NCAA Elo engine
+        run: python -m py_compile scripts/ncaam_elo.py
+      - name: Execute college Elo deterministic tests
+        run: python -m unittest discover -s scripts -p 'test_ncaam_elo.py' -v
