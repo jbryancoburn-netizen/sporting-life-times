@@ -1,0 +1,40 @@
+name: NCAA 2026-27 roster evidence and identity audit
+on:
+  push:
+    paths:
+      - scripts/reconcile_ncaam_roster_ids.py
+      - scripts/collect_ncaam_roster_evidence.py
+      - .github/workflows/ncaam-roster-evidence.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Crosswalk all Division I identities
+        run: python scripts/reconcile_ncaam_roster_ids.py
+      - name: Collect preseason player roster evidence
+        run: python scripts/collect_ncaam_roster_evidence.py
+      - name: Retain source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-2027-roster-evidence
+          path: staging/ncaam-2027-roster-evidence.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Save audited team crosswalk
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-espn-team-crosswalk.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Audit 2026-27 team identity crosswalk for offseason roster data"
+          git pull --rebase origin main
+          git push origin HEAD:main
