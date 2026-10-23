@@ -1,7 +1,7 @@
 name: NBA Elo verified daily refresh
 on:
   schedule:
-    - cron: '30 11 * * *'
+    - cron: '0 9 * * *'
   workflow_dispatch:
 permissions:
   contents: write
