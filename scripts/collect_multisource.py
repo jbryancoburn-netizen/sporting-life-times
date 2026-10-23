@@ -28,7 +28,8 @@ def main():
    providers=sorted({g.get("provider","unknown") for g in block.get("games",[])})
    block["provider"]="mixed" if len(providers)>1 else (providers[0] if providers else "unknown")
   block["source_priority"]="official_first" if block.get("provider") in ("mlb_stats","nhl_web","nba_live") else "fallback_or_mixed"
-  block["fallback_used"]=block.get("provider") in ("espn","mixed")\n result={"schema_version":2,"updated_at":datetime.now(timezone.utc).isoformat(),"source":"Official MLB/NHL/NBA preferred; attributed ESPN fallback for unserved coverage","leagues":leagues,"conflicts":conflicts,"summary":{"games":sum(len(x.get("games",[])) for x in leagues),"leagues_with_games":sum(bool(x.get("games")) for x in leagues),"conflicts":len(conflicts)}}
+  block["fallback_used"]=block.get("provider") in ("espn","mixed")
+ result={"schema_version":2,"updated_at":datetime.now(timezone.utc).isoformat(),"source":"Official MLB/NHL/NBA preferred; attributed ESPN fallback for unserved coverage","leagues":leagues,"conflicts":conflicts,"summary":{"games":sum(len(x.get("games",[])) for x in leagues),"leagues_with_games":sum(bool(x.get("games")) for x in leagues),"conflicts":len(conflicts)}}
  (ROOT/"multi_scoreboards.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
  print(result["summary"])
 if __name__=="__main__":main()
