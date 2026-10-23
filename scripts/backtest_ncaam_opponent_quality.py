@@ -154,13 +154,10 @@ def run():
     full_game_only=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
         data[2026]["features"],data[2026]["quality"],0,
         roster_betas=(0,0),require_quality=False)
-    # Production-style fallback: use adjusted Elo only where both teams have
-    # the necessary verified-feature candidates; otherwise use game-only Elo.
-    # Score the entire 45-day sample, not only the selected covered games.
-    fallback_valid={t for t in data[2026]["features"] if t in data[2026]["quality"]}
-    fallback_full=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
-        data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"],
-        require_quality=False,roster_betas=(120,160))
+    # Quantify the uncovered portion explicitly. The current enhanced model
+    # has not been validated for those games; do not label it full coverage.
+    uncovered_games=full_game_only["games"]-game_only["games"]
+    if uncovered_games<0:raise ValueError("Matched sample exceeds all-game sample")
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -174,6 +171,8 @@ def run():
         "holdout_game_only":game_only,
         "holdout_all_games_game_only":full_game_only,
         "head_to_head_is_coverage_subset":game_only["games"]<full_game_only["games"],
+        "uncovered_games":uncovered_games,
+        "head_to_head_coverage_fraction":game_only["games"]/full_game_only["games"],
         "holdout_game_only_window_sensitivity":game_only_windows,
         "all_game_only_windows_improve":all_game_only_windows_improve,
         "adjusted_vs_game_only_logloss_gain":game_only["log_loss"]-hold["log_loss"],
