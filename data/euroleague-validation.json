@@ -1,4 +1,14 @@
 {
+  "scoring_forecast_validation": {
+    "games_evaluated": 17,
+    "minimum_prior_games_per_team": 5,
+    "status": "measured",
+    "home_score_mae": 7.87,
+    "away_score_mae": 8.25,
+    "total_mae": 14.07,
+    "margin_mae": 8.42,
+    "method": "strict pregame expanding-window; current published scoring formula"
+  },
   "status": "historical_exploratory_only",
   "evaluated_seasons": [
     "E2025",
