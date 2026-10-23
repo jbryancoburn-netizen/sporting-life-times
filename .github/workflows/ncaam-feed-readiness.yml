@@ -7,6 +7,7 @@ on:
     paths:
       - scripts/check_ncaam_feeds.py
       - .github/workflows/ncaam-feed-readiness.yml
+      - scripts/test_check_ncaam_feeds.py
 permissions:
   contents: write
 concurrency:
