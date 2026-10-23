@@ -93,6 +93,22 @@ class TestModel(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"pagination repeated"):
                 el.fetch_season("E2026")
         self.assertEqual(len(calls),2)
+    def test_primary_api_falls_back_to_mirror(self):
+        import io, json, urllib.error
+        visited=[]
+        class Response:
+            def __init__(self,content):self.stream=io.BytesIO(content)
+            def __enter__(self):return self.stream
+            def __exit__(self,*args):return False
+        def opener(request,timeout=25):
+            visited.append(request.full_url)
+            if "api-live.euroleague.net" in request.full_url:
+                raise urllib.error.URLError("primary unavailable")
+            return Response(json.dumps({"data":[make_game(1)]}).encode())
+        with patch.object(el.urllib.request,"urlopen",side_effect=opener), patch.object(el.time,"sleep"):
+            result=el.get(el.BASE+"E2026/games?limit=1&offset=0")
+        self.assertEqual(len(result["data"]),1)
+        self.assertTrue(any("feeds.incrowdsports.com/provider/euroleague-feeds/v2/" in x for x in visited))
     def test_fail_empty(self):
         with self.assertRaises(ValueError):el.parse({"data":[]},"E2026")
 
