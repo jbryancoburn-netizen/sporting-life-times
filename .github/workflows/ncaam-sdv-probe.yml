@@ -1,0 +1,30 @@
+name: NCAA 2025-26 official-origin season source probe
+on:
+  push:
+    paths:
+      - scripts/probe_ncaam_sdv.py
+      - .github/workflows/ncaam-sdv-probe.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Python syntax
+        run: python -m py_compile scripts/probe_ncaam_sdv.py
+      - name: Download public verified NCAA-origin 2025-26 season archive
+        run: python scripts/probe_ncaam_sdv.py --season 2026
+      - name: Preserve data and schema
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-2025-26-sdv-data-source
+          path: staging/ncaam-sdv-probe/
+          retention-days: 30
+          if-no-files-found: warn
