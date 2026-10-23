@@ -46,6 +46,12 @@ try{
    ['GAME TOTAL ERROR',v.total_mae+' pts','Mean absolute error in projected totals'],
    ['MARGIN ERROR',v.margin_mae+' pts','Mean absolute error in projected margin']
   ];
+  if(Number.isFinite(v.league_average_total_mae)&&Number.isFinite(v.zero_margin_baseline_mae)){
+   const totalGain=v.league_average_total_mae-v.total_mae;
+   const marginGain=v.zero_margin_baseline_mae-v.margin_mae;
+   boxes.push(['TOTAL VS BASELINE',(totalGain>=0?'-':'+')+Math.abs(totalGain).toFixed(2)+' pts MAE','League-average baseline '+v.league_average_total_mae.toFixed(2)+' · Lower error is better']);
+   boxes.push(['MARGIN VS BASELINE',(marginGain>=0?'-':'+')+Math.abs(marginGain).toFixed(2)+' pts MAE','Zero-margin baseline '+v.zero_margin_baseline_mae.toFixed(2)+' · '+v.games_evaluated+' tested games']);
+  }
   if(d.heldout_evaluation?.selected_holdout&&d.heldout_evaluation?.baseline_holdout){
    const h=d.heldout_evaluation,selected=h.selected_holdout,baseline=h.baseline_holdout;
    boxes.push(['ELO HOLDOUT', (selected.accuracy*100).toFixed(1)+'%','2026–27 held-out picks · '+selected.n+' games']);
