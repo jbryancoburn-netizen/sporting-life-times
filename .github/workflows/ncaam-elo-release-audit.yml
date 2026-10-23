@@ -8,6 +8,14 @@ on:
       - 'data/ncaam-2026-27-offseason-shadow.json'
       - 'data/ncaam-offseason-transfer-backtest.json'
       - '.github/workflows/ncaam-elo-release-audit.yml'
+      - 'scripts/build_ncaam_2027_verified_preseason.py'
+      - 'scripts/test_build_ncaam_2027_verified_preseason.py'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-minutes-retention-audit.json'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+      - 'ncaam-elo-page.js'
+      - 'tests/ncaam-page.test.cjs'
   pull_request:
     paths:
       - 'scripts/audit_ncaa_elo_release.py'
@@ -15,6 +23,14 @@ on:
       - 'data/ncaam-2026-27-preseason-provisional.json'
       - 'data/ncaam-2026-27-offseason-shadow.json'
       - 'data/ncaam-offseason-transfer-backtest.json'
+      - 'scripts/build_ncaam_2027_verified_preseason.py'
+      - 'scripts/test_build_ncaam_2027_verified_preseason.py'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-minutes-retention-audit.json'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+      - 'ncaam-elo-page.js'
+      - 'tests/ncaam-page.test.cjs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,6 +46,10 @@ jobs:
         run: python -m py_compile scripts/audit_ncaa_elo_release.py
       - name: Test release safeguards
         run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
+      - name: Test source-identified preseason rating calculation
+        run: python -m unittest discover -s scripts -p 'test_build_ncaam_2027_verified_preseason.py' -v
+      - name: Verify NCAA ratings newspaper renders newest provisional data
+        run: node --test tests/ncaam-page.test.cjs
       - name: Verify all 365 NCAA preseason ratings
         run: |
           python scripts/audit_ncaa_elo_release.py \
