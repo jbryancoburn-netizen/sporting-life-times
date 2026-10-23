@@ -18,10 +18,19 @@ def calculate(pre,old,current,games):
     currentmap={key(t["team"]):t for t in current}
     if len(currentmap)!=len(current):raise ValueError("Duplicate new names")
     previous={t["team_id"]:t["elo"] for t in pre["rankings"]}
-    r={};meta={};names={};changes=[]
+    old_by_id={t["id"]:t for t in old["teams"]}
+    if len(previous)!=len(pre["rankings"]) or set(previous)!=set(old_by_id):
+        raise ValueError("Preseason Elo must cover each registered team ID exactly once")
+    r={};meta={};names={};changes=[];current_ids=set()
     for name,t in currentmap.items():
         if not t["id"].isdigit():raise ValueError("Invalid new team ID")
-        uid="ncaa:"+t["id"];older=oldmap.get(name)
+        uid="ncaa:"+t["id"]
+        if uid in current_ids:raise ValueError("Duplicate current NCAA team ID: "+uid)
+        current_ids.add(uid)
+        # Stable NCAA-origin IDs take precedence over names. Renames must not reset Elo.
+        older=old_by_id.get(uid) or oldmap.get(name)
+        if older and older["id"] in current_ids and older["id"]!=uid:
+            raise ValueError("Conflicting crosswalk for "+t["team"])
         names[name]=uid;r[uid]=previous[older["id"]] if older else 1500.
         meta[uid]=t
         if not older:changes.append({"kind":"added","team":t["team"]})
