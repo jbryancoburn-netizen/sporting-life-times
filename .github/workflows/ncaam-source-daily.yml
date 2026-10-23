@@ -1,0 +1,30 @@
+name: NCAA D1 scoreboard source audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/collect_ncaam_2027_daily.py
+      - scripts/test_collect_ncaam_2027_daily.py
+      - .github/workflows/ncaam-source-daily.yml
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify collector tests
+        run: python -m unittest discover -s scripts -p test_collect_ncaam_2027_daily.py -v
+      - name: Collect and verify source coverage
+        run: python scripts/collect_ncaam_2027_daily.py
+      - name: Preserve results for audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-2027-scoreboard-candidates
+          path: data/ncaam-2026-27-source-candidates.json
+          if-no-files-found: warn
