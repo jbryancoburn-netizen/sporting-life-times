@@ -27,11 +27,11 @@ jobs:
           python-version: '3.12'
       - name: Validate collection code before using NBA feed
         run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
-      - name: Collect NBA official daily scoreboard and box scores
-        run: python scripts/collect_nba_game_center.py
       - name: Backfill missed completed NBA player box scores from official schedule
-        continue-on-error: true
         run: python scripts/backfill-nba-boxscores.py
+      - name: Collect NBA official daily scoreboard and box scores
+        continue-on-error: true
+        run: python scripts/collect_nba_game_center.py
       - name: Validate NBA collection modules
         run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
       - name: Collect published NBA player leader statistics
