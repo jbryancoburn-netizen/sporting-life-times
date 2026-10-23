@@ -176,3 +176,9 @@ body .nba-newspaper-grid .nba-news-lead h3{font-size:1.27rem!important}
 body .nba-main-rankings .nba-current-table-wrap{margin-top:6px!important}
 @media(max-width:1079px){body .nba-newspaper-grid #nba-boxscores,body .nba-newspaper-grid #nba-data-links{grid-column:1/-1!important}}
 @media(max-width:650px){body #nba-boxscore-ledger,body #nba-data-directory{grid-template-columns:1fr}}
+
+body #nba-data-links .nba-wire-subhead{border-top:2px solid #77716a;padding:6px 0 3px;margin-top:10px!important;font:700 .75rem/1.2 Georgia,serif!important;letter-spacing:.03em}
+body .nba-wire-line{border-bottom:1px solid #dedbd5;padding:4px 0;font:400 .69rem/1.22 Georgia,serif}
+body .nba-wire-line a{color:inherit;text-decoration:none}
+body .nba-wire-line a:hover{text-decoration:underline}
+body .nba-wire-line small{display:block;color:#726e65;font:.58rem/1.2 Georgia,serif;margin-top:2px}
