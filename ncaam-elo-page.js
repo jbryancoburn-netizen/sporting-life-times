@@ -34,7 +34,10 @@ try {
  const [current,roster,baseline]=await Promise.all([load(files.current),load(files.roster),load(files.baseline)]);
  if(!baseline)throw Error('Baseline ratings failed integrity checks');
  const available={baseline};
- // Audit hold: roster coefficients yield implausible +100 to +155 Elo jumps.\n // Do not present this experimental model as a validated default.\n const rosterAuditPassed=roster?.audit?.release_approved===true;\n if(rosterAuditPassed&&roster?.evidence?.roster_programs>=350)available.roster=roster;
+ // Audit hold: roster coefficients yield implausible +100 to +155 Elo jumps.
+ // Do not present this experimental model as a validated default.
+ const rosterAuditPassed=roster?.audit?.release_approved===true;
+ if(rosterAuditPassed&&roster?.evidence?.roster_programs>=350)available.roster=roster;
  if(current?.games_played>0)available.current=current;
  const defaults=available.current?'current':available.roster?'roster':'baseline';
  const labels={current:'Current season Elo',roster:'Roster-adjusted preseason',baseline:'Historical carryover baseline'};
