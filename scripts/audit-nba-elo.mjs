@@ -48,6 +48,21 @@ for(const e of current.events) {
 for(const team of expected){
   assert.ok(Math.abs(c[team]-p[team]-deltas[team])<.003,team+': current rating does not reconcile with logged game deltas');
 }
+// Stronger deterministic test: recompute every Elo delta in published event order.
+const replay={...p};
+for(const game of current.events){
+  const diff=replay[game.home]+preseason.parameters.home_elo-replay[game.away];
+  const expectedHome=1/(1+10**(-diff/400));
+  const result=game.home_score>game.away_score?1:0;
+  const multiplier=1+preseason.parameters.mov_weight*Math.log10(1+Math.abs(game.home_score-game.away_score));
+  const calculated=preseason.parameters.k*multiplier*(result-expectedHome);
+  assert.ok(Math.abs(calculated-game.home_elo_change)<.00001,'Elo formula or chronological ledger mismatch: '+game.id);
+  replay[game.home]+=calculated;
+  replay[game.away]-=calculated;
+}
+for(const team of expected){
+  assert.ok(Math.abs(replay[team]-c[team])<.0011,'End-to-end Elo replay diverged: '+team);
+}
 const sum = x=>Object.values(x).reduce((a,b)=>a+b,0);
 assert.ok(Math.abs(sum(c)-sum(p))<.01,'current ratings violate zero-sum Elo replay');
 // A green audit does NOT validate roster evidence, preseason calibration, or live freshness.
