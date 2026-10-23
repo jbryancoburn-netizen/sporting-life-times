@@ -1,0 +1,13 @@
+(()=>{'use strict';if(document.body.dataset.league!=='euroleague')return;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const when=s=>{const x=new Date(s);return isNaN(x)?'Unscheduled':x.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'};
+const logo=t=>/^https:\/\//.test(t?.logo||'')?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
+const side=t=>logo(t)+'<span>'+esc(t?.name||t?.code||'Unknown')+'</span>';
+fetch('data/euroleague-model.json?cache='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No model publication');return r.json()}).then(d=>{
+if(!Array.isArray(d.rankings)||!d.rankings.length||!d.updated_at)throw Error('Invalid model');
+$('el-model-status').textContent='Independent ratings · '+d.games_completed+' completed 2026–27 games · Updated '+when(d.updated_at)+' · Parameters provisional';
+$('el-elo-table').innerHTML='<div class="nba-current-table-wrap"><table class="nba-current-table"><thead><tr><th>#</th><th>Club</th><th>Elo</th><th>W–L</th></tr></thead><tbody>'+d.rankings.map((t,i)=>'<tr><td>'+(i+1)+'</td><td><span class="el-club">'+logo(t)+esc(t.name)+'</span></td><td class="nba-primary-number">'+Number(t.elo).toFixed(1)+'</td><td>'+esc(t.wins)+'–'+esc(t.losses)+'</td></tr>').join('')+'</tbody></table></div>';
+$('el-forecasts').innerHTML=(d.fixtures||[]).slice(0,12).map(g=>'<article class="el-forecast"><small>'+esc(when(g.date))+'</small><div class="el-match"><div>'+side(g.away)+'</div><strong>at</strong><div>'+side(g.home)+'</div></div><div class="el-metrics"><div><span>ELO FAVORITE</span><b>'+esc(g.home_win_probability>=.5?g.home.name:g.away.name)+'</b></div><div><span>HOME WIN CHANCE</span><b>'+(g.home_win_probability*100).toFixed(1)+'%</b></div>'+(g.projection?'<div><span>RABBY SCORE · EXPERIMENTAL</span><b>'+g.projection.away+' – '+g.projection.home+'</b></div><div><span>HOME SPREAD · EXPERIMENTAL</span><b>'+Number(g.projection.spread_home).toFixed(1)+'</b></div>':'<div><span>PROJECTED SCORE</span><b>Insufficient verified games</b></div>')+'</div></article>').join('')||'<p class="hub-small">No future matchups verified in the current full-season schedule.</p>';
+}).catch(e=>{$('el-model-status').textContent='Ratings not yet published or source validation failed. No estimates shown.';$('el-elo-table').textContent='Awaiting a successful verified model run.';$('el-forecasts').textContent='Projections unavailable until verified game ingestion succeeds.';console.warn('EuroLeague model:',e.message)});
+})();
