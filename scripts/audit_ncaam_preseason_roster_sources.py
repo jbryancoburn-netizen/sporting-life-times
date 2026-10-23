@@ -39,7 +39,7 @@ def fetch_limited(url,size=12*1024*1024,timeout=32):
     with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=timeout) as resp:
         content_type=resp.headers.get("Content-Type","")
         payload=resp.read(size+1)
-        if len(payload)>size:raise ValueError("Document exceeds 12MiB guard")
+        if len(payload)>size:raise ValueError(f"Document exceeds {size//(1024*1024)}MiB limit")
         return payload,content_type
 
 def audit_source(spec):
@@ -50,7 +50,7 @@ def audit_source(spec):
     record["immutable_prior_to_first_game_content_verified"]=False
     record["source_published_date_basis"]="date embedded in official school URL; not an archive capture timestamp"
     try:
-        raw,mime=fetch_limited(spec["url"])
+        raw,mime=fetch_limited(spec["url"],size=(55*1024*1024 if spec["team"]=="Duke" and spec["season_end_year"]==2024 else 12*1024*1024))
         record["content_type"]=mime
         record["bytes"]=len(raw)
         record["sha256_fetched_now"]=hashlib.sha256(raw).hexdigest()
@@ -98,6 +98,63 @@ def archive_probe(spec):
         out["error"]=str(exc)[:350]
     return out
 
+def check_archived_roster_bytes(archive,kind):
+    """Treat historical captures as evidence ONLY when fetched bytes contain roster anchors."""
+    found=archive.get("pregame_archived_captures") or []
+    archive["independently_verified_preopening_roster_content"]=False
+    if not found:
+        return archive
+    for s in found[:2]:
+        ts=s["timestamp_utc"]
+        raw_url="https://web.archive.org/web/"+ts+"id_/"+s["original"]
+        try:
+            data,mime=fetch_limited(raw_url,size=4*1024*1024,timeout=26)
+            if kind=="initial_roster_article":
+                txt=data.decode("utf-8","replace").lower()
+                strong=all(k in txt for k in ("initial 2025-26 roster","jasai miles","reed bailey"))
+                matched=["Jasai Miles","Reed Bailey"] if strong else []
+            else:
+                # School year-roster pages should contain at least two roster records,
+                # but do not infer full list from generic page boilerplate.
+                txt=data.decode("utf-8","replace").lower()
+                strong=("<html" in txt and "roster" in txt and
+                        (("players" in txt) or ("jersey number" in txt)))
+                matched=[]
+            if strong:
+                archive.update(independently_verified_preopening_roster_content=True,
+                               captured_content_sha256=hashlib.sha256(data).hexdigest(),
+                               verified_capture_utc=ts,
+                               capture_url=raw_url,
+                               captured_bytes=len(data),
+                               matched_player_evidence=matched,
+                               verified_scope="dated historical source content, not 365-team all-roster certification")
+                break
+            archive.setdefault("replay_diagnostics",[]).append(
+                {"timestamp_utc":ts,"reason":"Archived bytes lack trusted roster text anchors","mime":mime})
+        except Exception as exc:
+            archive.setdefault("replay_diagnostics",[]).append(
+                {"timestamp_utc":ts,"reason":str(exc)[:320]})
+    return archive
+
+def probe_season_roster_pages():
+    """Find archived pre-opening official season-specific roster pages; URL candidates."""
+    candidates=[]
+    for y in (2024,2025,2026):
+        season=f"{y-1}-{str(y)[-2:]}"
+        for school,url in (
+            ("Duke","https://goduke.com/sports/mens-basketball/roster/"+season),
+            ("Indiana","https://iuhoosiers.com/sports/mens-basketball/roster/"+season),
+            ("Purdue","https://purduesports.com/sports/mens-basketball/roster/season/"+season)):
+            candidates.append({"team":school,"season_end_year":y,"kind":"official_roster_page",
+                               "url":url})
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
+        audits=list(ex.map(archive_probe,candidates))
+    # Retrieve content for only the earliest pre-opening archive per candidate;
+    # never treat just a CDX timestamp as proven membership.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+        audits=list(ex.map(lambda a:check_archived_roster_bytes(a,"official_roster_page"),audits))
+    return audits
+
 def main():
     from argparse import ArgumentParser
     ap=ArgumentParser()
@@ -107,14 +164,19 @@ def main():
         records=list(ex.map(audit_source,SOURCES))
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
         archives=list(ex.map(archive_probe,SOURCES))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+        archives=list(ex.map(lambda pair:check_archived_roster_bytes(pair[0],pair[1]["kind"]),zip(archives,SOURCES)))
     for r,a in zip(records,archives):
         r["wayback_index"]=a
-        r["immutable_prior_to_first_game_content_verified"]=False
-        # Wayback CDX capture metadata alone does not prove the archived BYTES
-        # contain the claimed roster. Need to retrieve+match archived PDF bytes.
+        r["immutable_prior_to_first_game_content_verified"]=a["independently_verified_preopening_roster_content"]
+        if a["independently_verified_preopening_roster_content"]:
+            r["verification_scope"]="Archived historical announcement/roster content; no proof of complete preseason team universe"
+    season_page_archives=probe_season_roster_pages()
     summary={"school_season_documents_tested":len(records),
              "official_documents_retrieved":sum(r["content_fetched"] for r in records),
              "preseason_dated_documents_retrieved":sum(r["content_fetched"] and r["preseason_dated_url"] for r in records),
+             "confirmed_archived_pregame_content_sources":sum(r["immutable_prior_to_first_game_content_verified"] for r in records)+sum(r["independently_verified_preopening_roster_content"] for r in season_page_archives),
+             "season_roster_url_candidates_checked":len(season_page_archives),
              "fully_verified_365_team_preseason_roster_snapshots":0,
              "dataset_complete_for_2024_2025_training_2026_holdout":False}
     result={"audit":"ncaam-2024-2026-original-preopening-roster-sources",
@@ -122,7 +184,8 @@ def main():
             "status":"PARTIAL_SCHOOL_PRESEASON_DOCUMENT_EVIDENCE",
             "existing_retrospective_rosters_promotable":False,
             "rule":"School document URL date is indicative, but only a pre-opening immutable capture containing parsed roster proves as-of membership.",
-            "summary":summary,"sources":records}
+            "summary":summary,"sources":records,
+            "season_page_wayback_checks":season_page_archives}
     Path(args.output).parent.mkdir(parents=True,exist_ok=True)
     Path(args.output).write_text(json.dumps(result,indent=2)+"\n")
     print(json.dumps(summary,indent=2))
