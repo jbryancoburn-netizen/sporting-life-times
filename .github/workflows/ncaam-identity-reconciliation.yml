@@ -1,0 +1,24 @@
+name: NCAA Identity Reconciliation
+on:
+  push:
+    paths:
+      - scripts/reconcile_ncaam_player_identities.py
+      - scripts/test_reconcile_ncaam_player_identities.py
+      - .github/workflows/ncaam-identity-reconciliation.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_reconcile_ncaam_player_identities.py -v
+      - run: python scripts/reconcile_ncaam_player_identities.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-365-team-identity-audit
+          path: data/ncaam-2026-27-identity-reconciliation.json
