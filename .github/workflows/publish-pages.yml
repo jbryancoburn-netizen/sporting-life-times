@@ -30,6 +30,13 @@ jobs:
         run: |
           printf '%s\n' "${GITHUB_SHA}" > pages-build-sha.txt
           test -s pages-build-sha.txt
+      - name: Prepare static site and deployment diagnostics
+        run: |
+          touch .nojekyll
+          cat > deployment-status.html <<EOF
+          <!doctype html><html lang="en"><meta charset="utf-8"><title>Sporting Life & Times · Deployment Status</title><body><h1>Sporting Life & Times · Deployment Status</h1><p>Published source revision: ${GITHUB_SHA}</p><p><a href="nba-players.html">NBA individual player leaders</a> · <a href="nba.html">NBA newspaper</a></p></body></html>
+          EOF
+          test -s deployment-status.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload entire newspaper
