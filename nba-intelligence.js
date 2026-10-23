@@ -37,5 +37,42 @@ async function reporting(){
  for(const [id,re] of sections){const el=$(id);if(!el)continue;const selected=all.filter(a=>re.test(a.title||'')).slice(0,12);el.innerHTML=selected.length?selected.map(a=>'<div class="nba-wire-line"><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a><small>'+esc(a.source)+' · '+esc((a.published_at||'').slice(0,10))+'</small></div>').join(''):'<p class="hub-small">No recent attributed reports in the current feed. Consult the official source above for the latest status.</p>';}
  }catch(e){for(const id of ['nba-injury-wire','nba-transaction-wire'])if($(id))$(id).textContent='Recent reporting feed unavailable; use official source links above.'}
 }
+async function leagueLeaders(){
+ const container=$('nba-league-leaders'),status=$('nba-league-leaders-status');if(!container)return;
+ try{
+  const resp=await fetch('data/nba-player-leaders.json',{cache:'no-store'});
+  if(!resp.ok)throw Error('Player leaderboard has not yet been published');
+  const d=await resp.json();
+  if(d.season!=='2026-27'||!Array.isArray(d.rows)||!d.rows.length)throw Error('Incomplete league leaderboard');
+  const groups=[['SCORING','ppg'],['REBOUNDING','rpg'],['ASSISTS','apg'],['STEALS','spg'],['BLOCKS','bpg']];
+  const blocks=groups.map(([label,field])=>{
+    const rows=d.rows.filter(x=>x.stat===field&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,8);
+    return rows.length?'<section class="nba-player-leader-block"><h4>'+label+'</h4><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>'+field.toUpperCase()+'</th></tr></thead><tbody>'+rows.map(x=>'<tr><th>'+esc(x.player)+'</th><td>'+esc(x.team)+'</td><td>'+Number(x.value).toFixed(1)+'</td></tr>').join('')+'</tbody></table></section>':'';
+  }).filter(Boolean);
+  if(!blocks.length)throw Error('No verified PPG/RPG/APG leader categories');
+  container.innerHTML='<div class="nba-league-leader-panels">'+blocks.join('')+'</div>';
+  status.textContent='2026–27 NBA player leaders · '+esc(d.source)+' · '+(d.updated_at||'Published snapshot')+' · <a href="'+esc(d.url)+'" target="_blank" rel="noopener noreferrer">Data source ↗</a>';
+ }catch(_err){
+  // The Elo ledger contains scores, not player box scores. A valid, useful
+  // companion is team scoring ranked by *verified* points/game.
+  try{
+   const resp=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});
+   if(!resp.ok)throw Error('No verified league data');
+   const d=await resp.json();const teams={};
+   for(const g of d.events||[])for(const [t,pts] of [[g.home,g.home_score],[g.away,g.away_score]]){
+    if(!t||!Number.isFinite(pts))continue;
+    const row=teams[t]||(teams[t]={team:t,gp:0,points:0});
+    row.gp++;row.points+=pts;
+   }
+   const rows=Object.values(teams).filter(x=>x.gp).sort((a,b)=>b.points/b.gp-a.points/a.gp).slice(0,12);
+   container.innerHTML='<h4>VERIFIED TEAM SCORING LEADERS</h4><table class="nba-mini-table"><thead><tr><th>Team</th><th>GP</th><th>PPG</th><th>PTS</th></tr></thead><tbody>'+rows.map(x=>'<tr><th>'+esc(x.team)+'</th><td>'+x.gp+'</td><td>'+(x.points/x.gp).toFixed(1)+'</td><td>'+x.points+'</td></tr>').join('')+'</tbody></table><p class="hub-small">These are team figures from '+(d.events||[]).length+' completed Elo-ledger games, not player leader statistics or complete official standings.</p><p><a href="https://www.nba.com/stats/players" target="_blank" rel="noopener noreferrer">See current official NBA player leaders ↗</a></p>';
+   status.textContent='Player-leader feed pending · Showing verified team scoring instead';
+  }catch(e){
+   container.innerHTML='<p class="hub-small"><a href="https://www.nba.com/stats/players" target="_blank" rel="noopener noreferrer">Official NBA player leaders ↗</a></p>';
+   status.textContent='Player data unavailable; official link provided';
+  }
+ }
+}
+leagueLeaders();
 load();reporting();
 })();
