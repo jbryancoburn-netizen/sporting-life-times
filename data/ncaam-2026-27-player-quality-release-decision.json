@@ -18,7 +18,7 @@
     "legacy_holdout_not_applicable_to_new_scoring_features": true
   },
   "required_for_player_quality_promotion": "Obtain and timestamp 2023–24/2024–25/2025–26 rosters as captured before season opening; rebuild exactly the same 2024+2025 training / 2026 holdout without future roster membership; require improvement in both log loss and Brier, verify team identity and player feature parity, then consider releasing a calibrated scoring-quality model.",
-  "note": "A real 1,831-game retrospective holdout was completed and improved both scores, but season rosters are retrospective and may contain look-ahead. Keep published 365-team roster-informed Elo provisional. No player-quality production promotion.",
+  "note": "Historical scoring quality improves 1,831 retrospective opening-season games and 1,596 genuinely time-ordered games after day 14; neither establishes all 365 team rosters before opening day. Primary preseason Elo remains provisional pending documented pregame rosters.",
   "retrospective_player_quality_backtest": {
     "source": "data/ncaam-player-quality-retrospective-backtest.json",
     "training_seasons": [
@@ -35,5 +35,23 @@
     "improves_both": true,
     "preseason_roster_snapshots_verified": false,
     "eligible_for_primary": false
+  },
+  "chronological_earlyseason_quality_backtest": {
+    "source": "data/ncaam-quality-earlyseason-asof-backtest.json",
+    "training_seasons": [
+      2024,
+      2025
+    ],
+    "holdout_season": 2026,
+    "asof_policy": "Use only boxscore appearances within first 14 calendar days, freeze, predict following 45 days",
+    "holdout_games": 1596,
+    "minutes_log_loss": 0.5359995688061056,
+    "quality_log_loss": 0.5315570594972713,
+    "minutes_brier": 0.17980727480694886,
+    "quality_brier": 0.17821808465106778,
+    "selected_quality_coefficient": 400,
+    "improves_both": true,
+    "preseason_validation": false,
+    "valid_for_inseason_asof_after_14_days": true
   }
 }
