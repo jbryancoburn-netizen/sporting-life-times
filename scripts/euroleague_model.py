@@ -3,7 +3,7 @@ No ratings are imported. All results come from EuroLeague's games endpoint.
 Usage: python scripts/euroleague_model.py
 """
 import datetime as dt
-import json, math, pathlib, urllib.request
+import json, math, pathlib, time, urllib.error, urllib.request
 
 BASE="https://api-live.euroleague.net/v2/competitions/E/seasons/"
 OUT=pathlib.Path("data/euroleague-model.json")
@@ -13,7 +13,12 @@ HOME_ELO=65.0  # provisional: calibrate by walk-forward historical log loss
 CARRY=0.67
 def get(url):
     req=urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimes-EuroLeagueResearch/1.0","Accept":"application/json"})
-    with urllib.request.urlopen(req,timeout=35) as r:return json.load(r)
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req,timeout=35) as r:return json.load(r)
+        except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
+            if attempt==3:raise
+            time.sleep(2**attempt)
 def obj(v):return v if isinstance(v,dict) else {}
 def field(d,*names):
     for name in names:
@@ -151,6 +156,10 @@ def main():
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     payload={"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
+    if OUT.exists():
+        previous=json.loads(OUT.read_text())
+        if previous.get("season")==payload["season"] and previous.get("games_completed",0)>payload["games_completed"]:
+            raise ValueError("Source regression: fewer finals than previously published; refusing overwrite")
     temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n");temp.replace(OUT)
     print(f"EuroLeague: {len(ranked)} clubs, {len(history)} finals, {len(fixtures)} fixtures")
 if __name__=="__main__":main()
