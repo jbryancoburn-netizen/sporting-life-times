@@ -12,6 +12,10 @@ from backtest_ncaam_roster_elo import fetch
 def norm(x):return re.sub("[^a-z0-9]","",str(x or "").lower())
 def reconcile(old,current,box):
     historical={r["ncaa_id"]:r for r in old["rosters"]}
+    prior_by_id=defaultdict(list)
+    for school in old["rosters"]:
+        for player in school["players"]:
+            prior_by_id[str(player["id"])].append((school["ncaa_id"],player))
     prior_box=defaultdict(lambda:defaultdict(set))
     for p in box:
         team="ncaa:"+str(p.get("team_ncaa_team_id") or "")
@@ -21,26 +25,27 @@ def reconcile(old,current,box):
             prior_box[team][name].add(pid)
     results=[];counts=Counter()
     for school in current["rosters"]:
-        team=school["ncaa_id"]
-        before=historical.get(team)
-        if not before:
-            counts["missing_prior_espn_roster"]+=len(school["players"])
-            continue
-        prior_by_id={str(p["id"]):p for p in before["players"]}
+        target=school["ncaa_id"]
         for player in school["players"]:
-            pid=str(player["id"]);old_player=prior_by_id.get(pid)
-            if not old_player:
+            pid=str(player["id"])
+            candidates=prior_by_id.get(pid,[])
+            if not candidates:
                 counts["new_espn_athlete_id"]+=1;continue
-            if norm(old_player["name"])!=norm(player["name"]):
-                counts["same_espn_id_name_conflict"]+=1;continue
+            consistent=[(source,p) for source,p in candidates if norm(p["name"])==norm(player["name"])]
+            if len(consistent)!=1 or len(candidates)!=1:
+                counts["ambiguous_or_conflicting_espn_id"]+=1;continue
+            source,old_player=consistent[0]
+            status="verified_espn_returner" if source==target else "verified_espn_d1_transfer"
             counts["verified_espn_continuity"]+=1
-            candidates=prior_box[team].get(norm(player["name"]),set())
-            state="unique-ncaa-box-candidate" if len(candidates)==1 else ("ambiguous-ncaa-box" if candidates else "no-ncaa-box")
+            counts[status]+=1
+            box_candidates=prior_box[source].get(norm(player["name"]),set())
+            state="unique-ncaa-box-candidate" if len(box_candidates)==1 else ("ambiguous-ncaa-box" if box_candidates else "no-ncaa-box")
             counts[state]+=1
-            results.append({"team_id":team,"team":school["school"],"player":player["name"],
-                "espn_athlete_id":pid,"espn_identity_continuity_verified":True,
+            results.append({"team_id":target,"team":school["school"],"prior_team_id":source,
+                "player":player["name"],"espn_athlete_id":pid,"espn_status":status,
+                "espn_identity_continuity_verified":True,
                 "ncaa_box_identity_verified":False,"ncaa_box_status":state,
-                "ncaa_box_player_id":next(iter(candidates)) if len(candidates)==1 else None})
+                "ncaa_box_player_id":next(iter(box_candidates)) if len(box_candidates)==1 else None})
     return {"season":"2026-27","historical_espn_season":2026,
         "teams_current":len(current["rosters"]),"teams_prior":len(old["rosters"]),
         "counts":dict(counts),"production_elo_approved":False,
