@@ -42,5 +42,9 @@ jobs:
           git add data/ncaam-2025-26-player-production-ledger.json data/ncaam-2026-27-ranking-audit.json
           git diff --cached --quiet && exit 0
           git commit -m "Publish audited NCAA player production evidence and 365-team anomaly ledger"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
