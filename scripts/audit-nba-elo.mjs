@@ -65,5 +65,26 @@ for(const team of expected){
 }
 const sum = x=>Object.values(x).reduce((a,b)=>a+b,0);
 assert.ok(Math.abs(sum(c)-sum(p))<.01,'current ratings violate zero-sum Elo replay');
+// Movement values are materialized from the same final-score ledger, never invented.
+if(current.events.length){
+  const parts=date=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(date));
+  const easternDay=date=>{const p=parts(date),get=type=>p.find(x=>x.type===type)?.value;return get('year')+'-'+get('month')+'-'+get('day')};
+  for(const g of current.events)assert.ok(g.date&&!Number.isNaN(Date.parse(g.date)),'Missing dated final '+g.id);
+  const asOf=current.events.map(g=>easternDay(g.date)).sort().at(-1);
+  const weekDate=new Date(new Date(asOf+'T12:00:00Z').getTime()-7*86400000).toISOString().slice(0,10);
+  assert.equal(current.movement?.as_of_eastern_date,asOf,'Incorrect daily movement date');
+  assert.equal(current.movement?.last_week_eastern_date,weekDate,'Incorrect last-week baseline date');
+  const daily=Object.fromEntries(expected.map(t=>[t,0])),weekly=Object.fromEntries(expected.map(t=>[t,0]));
+  for(const g of current.events){
+    const d=easternDay(g.date);
+    if(d===asOf){daily[g.home]+=g.home_elo_change;daily[g.away]-=g.home_elo_change;}
+    if(d>weekDate){weekly[g.home]+=g.home_elo_change;weekly[g.away]-=g.home_elo_change;}
+  }
+  for(const team of expected){
+    const reported=current.movement?.daily_change?.[team],past=current.movement?.last_week_elo?.[team];
+    assert.ok(Number.isFinite(reported)&&Math.abs(reported-daily[team])<.00001,team+': daily Elo movement disagrees with dated finals');
+    assert.ok(Number.isFinite(past)&&Math.abs(past-(c[team]-weekly[team]))<.0011,team+': last-week Elo snapshot is incorrect');
+  }
+}
 // A green audit does NOT validate roster evidence, preseason calibration, or live freshness.
 console.log(JSON.stringify({status:'PASS',teams:30,completed_games:current.games_played,retention,preseason_status:preseason.status,current_status:current.status,latest_game_id:current.events.at(-1)?.id,warning:'Integrity only; roster/preseason calibration and freshness are NOT validated.'},null,2));
