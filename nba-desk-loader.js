@@ -16,8 +16,13 @@ async function render(){
  const [pre,cur,old]=await Promise.all([load('data/nba-2026-27-preseason-provisional.json'),load('data/nba-2026-27-current-provisional.json'),load('data/nba-2025-26-final.json')]);
  if([pre,cur,old].some(d=>!Array.isArray(d.rankings)||d.rankings.length!==30)||!Array.isArray(cur.events)||cur.events.length!==cur.games_played)throw Error('NBA data completeness check failed');
  const current=map(cur),start=map(pre),frozen=map(old),sorted=order(current);
- const movement=window.NBAEloMovement?.compute(cur)||{available:false,reason:'Daily Elo module unavailable'};
- const daily=t=>movement.available?window.NBAEloMovement.format(movement.daily[t]):'N/A';
+ const snapshot=cur.movement;
+ const verifiedSnapshot=snapshot&&/^\\d{4}-\\d{2}-\\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
+  Object.keys(snapshot.daily_change||{}).length===30&&Object.keys(snapshot.last_week_elo||{}).length===30;
+ const movement=verifiedSnapshot?{available:true,day:snapshot.as_of_eastern_date,weekDate:snapshot.last_week_eastern_date,
+  daily:snapshot.daily_change,lastWeek:snapshot.last_week_elo}:
+  (window.NBAEloMovement?.compute(cur)||{available:false,reason:'Published daily Elo movement unavailable'});
+ const daily=t=>movement.available?(window.NBAEloMovement?.format?.(movement.daily[t]) || (movement.daily[t]>0?'▲ +':movement.daily[t]<0?'▼ ':'')+movement.daily[t].toFixed(3)):'N/A';
  const lastWeek=t=>movement.available?movement.lastWeek[t].toFixed(2):'N/A';
  $('nba-elo-grid').innerHTML=table(['#','Team','Offseason','Last week','Current Elo','Daily Δ'],sorted.map((t,i)=>row([i+1,badge(t),start[t].toFixed(2),lastWeek(t),'<strong>'+current[t].toFixed(2)+'</strong>',daily(t)])));
  msg('nba-elo-status',cur.games_played+' verified finals · Current-season Elo · '+(movement.available?'Daily movement from completed games on '+movement.day+' (Eastern) · Last-week snapshot: '+movement.weekDate:movement.reason));
