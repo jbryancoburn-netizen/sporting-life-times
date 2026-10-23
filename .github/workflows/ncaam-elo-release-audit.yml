@@ -112,3 +112,32 @@ jobs:
             sleep $((attempt * 2))
           done
           exit 1
+
+      - name: Publish exact NCAA release CI outcome
+        if: always()
+        env:
+          AUDIT_JOB_STATUS: ${{ job.status }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          info={'run_id':os.environ.get('GITHUB_RUN_ID'),
+                'source_commit_sha':os.environ.get('GITHUB_SHA'),
+                'status':os.environ.get('AUDIT_JOB_STATUS'),
+                'checks':'Review job steps for failed checks; PASS requires status success',
+                'release_tier':'provisional 2026-27 roster-informed',
+                'roster_asof_time_verified':False}
+          Path('data/ncaam-elo-release-ci-status.json').write_text(json.dumps(info,indent=2)+chr(10))
+          print(json.dumps(info,indent=2))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-elo-release-ci-status.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record NCAA release audit CI outcome'
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt*2))
+          done
+          exit 1
