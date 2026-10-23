@@ -1,35 +1,40 @@
 #!/usr/bin/env python3
-"""Fetch ESPN's published NBA individual leaderboards. Never invent player stats."""
+"""Generate captured NBA player leaderboards from actual official NBA box scores.
+Never represent the captured sample as full-season NBA leaders.
+"""
 import json
-from datetime import datetime,timezone
+from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
-from urllib.request import urlopen,Request
-root=Path(__file__).resolve().parents[1]
-url="https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/statistics/byathlete?season=2027&seasontype=2&limit=100"
-with urlopen(Request(url,headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"}),timeout=18) as f:
-    d=json.load(f)
-print("ESPN leader payload root:",list(d)[:15])
-# Validate actual returned schema; publishing unrecognized or empty statistics is forbidden.
-cats=d.get("categories") or []
-records=[]
-for category in cats:
-    label=category.get("name") or category.get("displayName") or category.get("abbreviation") or ""
-    athletes=category.get("leaders") or category.get("athletes") or []
-    for item in athletes:
-        athlete=item.get("athlete") or {}
-        person=athlete.get("displayName") or athlete.get("fullName") or item.get("displayName")
-        team=(item.get("team") or athlete.get("team") or {})
-        teamcode=team.get("abbreviation") if isinstance(team,dict) else ""
-        stats=item.get("statistics") or []
-        for st in stats:
-            if not isinstance(st,dict):continue
-            name=(st.get("abbreviation") or st.get("name") or "").lower()
-            val=st.get("value")
-            if person and name in ("avg","ppg","rpg","apg","spg","bpg","points","rebounds","assists","steals","blocks") and isinstance(val,(int,float)):
-                records.append({"category":label,"stat":name,"player":person,"team":teamcode or "", "value":val})
-if len(records)<15: 
-    print("ESPN returned unrecognized leaderboard structure; retaining existing snapshot")
-    raise SystemExit(0)
-out={"updated_at":datetime.now(timezone.utc).isoformat(),"season":"2026-27","source":"ESPN NBA statistics by athlete","url":url,"rows":records}
-(root/"data/nba-player-leaders.json").write_text(json.dumps(out,indent=2)+"\n",encoding="utf-8")
-print("Published",len(records),"verified leader values")
+
+ROOT = Path(__file__).resolve().parents[1]
+source = ROOT / "data/nba-game-center.json"
+destination = ROOT / "data/nba-player-leaders.json"
+data = json.loads(source.read_text(encoding="utf-8"))
+games = [g for g in data.get("games", []) if g.get("state") == "post" and g.get("players")]
+players = defaultdict(lambda: {"gp":0, "pts":0, "reb":0, "ast":0, "stl":0, "blk":0})
+for game in games:
+    for p in game.get("players", []):
+        pid = str(p.get("id") or "")
+        name = str(p.get("name") or "").strip()
+        if not pid.isdigit() or not name:
+            continue
+        key = (pid, name, str(p.get("team") or ""))
+        row = players[key]
+        row["gp"] += 1
+        for field in ("pts", "reb", "ast", "stl", "blk"):
+            row[field] += int(p.get(field) or 0)
+
+rows = []
+for stat, field in {"ppg":"pts", "rpg":"reb", "apg":"ast", "spg":"stl", "bpg":"blk"}.items():
+    ranked = sorted(((v[field]/v["gp"], k, v) for k,v in players.items() if v["gp"]),key=lambda t:(-t[0],t[1][1]))[:15]
+    rows.extend({"stat":stat,"player":key[1],"team":key[2],"value":round(avg,3),"gp":record["gp"]} for avg,key,record in ranked)
+result = {"updated_at":datetime.now(timezone.utc).isoformat(),"season":"2026-27",
+    "source":"NBA.com official boxscores; independent captured-game leaderboard (incomplete sample)",
+    "url":"https://www.nba.com/stats/leaders",
+    "sample_only":True,
+    "coverage":{"completed_boxscores":len(games),"unique_players":len(players)},
+    "rows":rows}
+destination.parent.mkdir(parents=True,exist_ok=True)
+destination.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+print("NBA captured player leaders:",len(players),"players from",len(games),"verified game box scores")
