@@ -103,9 +103,9 @@ def main():
     best=candidates[0]
     scoring_validation=score_forecast_evaluation(games)
     heldout=heldout_evaluation(games)
-    document={"heldout_evaluation":heldout,"scoring_forecast_validation":scoring_validation,"status":"historical_exploratory_only","evaluated_seasons":["E2025","E2026"],
+    document={"heldout_evaluation":heldout,"scoring_forecast_validation":scoring_validation,"status":"holdout_measured_baseline_not_replaced","evaluated_seasons":["E2025","E2026"],
               "method":"chronological expanding-window (but candidate selection occurs on evaluation seasons)",
-              "caution":"Do not treat selected parameters as out-of-sample validated; reserve a future holdout.",
+              "caution":"2026-27 is held out from candidate selection; sample is early season. Published Elo still uses provisional baseline settings until a release decision.",
               "best_in_sample":best,"baseline":{"k":22,"home_elo":65,"season_carry":.67,
               "brier":round(baseline["brier"],6),"log_loss":round(baseline["log_loss"],6),"n":baseline["n"]},
               "tested":len(candidates),"leaderboard":candidates[:15]}
