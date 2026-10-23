@@ -8,7 +8,7 @@ on:
       - 'scripts/test_euroleague_model.py'
       - '.github/workflows/euroleague-model.yml'
   schedule:
-    - cron: '18,48 * * * *'
+    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
 permissions:
   contents: write
 concurrency:
