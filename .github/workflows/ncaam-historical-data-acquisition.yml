@@ -1,0 +1,79 @@
+name: Acquire NCAA historical player data
+on:
+  push:
+    paths:
+      - '.github/workflows/ncaam-historical-data-acquisition.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install parquet reader
+        run: python -m pip install --disable-pip-version-check pyarrow
+      - name: Download and inspect NCAA-origin historical assets
+        shell: bash
+        run: |
+          mkdir -p historical-data historical-report
+          python - <<'PY'
+          import datetime,hashlib,json,os,urllib.request
+          from pathlib import Path
+          import pyarrow.parquet as pq
+          root='https://github.com/sportsdataverse/sportsdataverse-data/releases/download'
+          groups={
+            'ncaa_mbb_team_rosters':'ncaa_mbb_team_rosters_{season}.parquet',
+            'ncaa_mbb_player_box':'ncaa_mbb_player_box_{season}.parquet',
+            'ncaa_mbb_schedule':'ncaa_mbb_schedule_{season}.parquet',
+          }
+          # Training 2024 and 2025; untouched holdout 2026;
+          # 2023 required to compute genuinely prior-year performance for 2024.
+          records=[]
+          for season in (2023,2024,2025,2026):
+            for group,format_ in groups.items():
+              name=format_.format(season=season)
+              url=f'{root}/{group}/{name}'
+              path=Path('historical-data')/name
+              record={'season':season,'kind':group,'asset':name,'url':url}
+              try:
+                req=urllib.request.Request(url,headers={'User-Agent':'SportingLifeTimes-acquisition/1.0'})
+                with urllib.request.urlopen(req,timeout=90) as src,open(path,'wb') as f:
+                  import shutil
+                  shutil.copyfileobj(src,f)
+                pfile=pq.ParquetFile(path)
+                record.update(status='fetched',bytes=path.stat().st_size,
+                    rows=pfile.metadata.num_rows,columns=pfile.schema.names,
+                    sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+                print('FETCHED',season,group,record['rows'],'rows',flush=True)
+              except Exception as exc:
+                record.update(status='failed',error=str(exc)[:400])
+                print('FAILED',season,group,repr(exc),flush=True)
+              records.append(record)
+          manifest={
+            'generated_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'origin':'SportsDataverse NCAA MBB (stats.ncaa.org)',
+            'historical_asof_preseason_verified':False,
+            'source_timing_warning':'Season roster archives do not by themselves establish pre-opening-day capture time. Never certify no-leakage until snapshot timestamps are proven.',
+            'records':records,
+          }
+          Path('historical-report/ncaam-historical-acquisition.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          success=sum(r['status']=='fetched' for r in records)
+          print(f'ACQUIRED {success} of {len(records)} historical parquet assets')
+          if success==0:
+            raise SystemExit('No historical assets fetched')
+          PY
+      - name: Save source manifest and acquired datasets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-historical-source-audit-${{ github.run_id }}
+          path: |
+            historical-report/
+            historical-data/
+          retention-days: 7
+          if-no-files-found: warn
