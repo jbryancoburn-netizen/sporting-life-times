@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/ncaam-historical-data-acquisition.yml'
+      - 'scripts/normalize_ncaam_historical_parquet.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -67,6 +68,8 @@ jobs:
           if success==0:
             raise SystemExit('No historical assets fetched')
           PY
+      - name: Convert historical player statistics, rosters and schedules for backtesting
+        run: python scripts/normalize_ncaam_historical_parquet.py
       - name: Publish acquisition status to the newspaper repository
         if: always()
         shell: bash
@@ -116,5 +119,6 @@ jobs:
           path: |
             historical-report/
             historical-data/
+            historical-normalized/
           retention-days: 7
           if-no-files-found: warn
