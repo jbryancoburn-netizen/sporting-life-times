@@ -44,6 +44,44 @@ def nhl(day):
         status=g.get("gameState","")
         games.append({"id":"nhl:"+str(g.get("id")),"name":"","date":g.get("startTimeUTC",""),"status":status,"state":"post" if status in ("OFF","FINAL") else "in" if status in ("LIVE","CRIT") else "pre","teams":teams,"venue":(g.get("venue") or {}).get("default",""),"broadcast":", ".join(b.get("network","") for b in g.get("tvBroadcasts",[]) if b.get("network")),"url":"https://www.nhl.com/gamecenter/"+str(g.get("id")),"provider":"nhl_web"})
     return {"league":"NHL","source_url":"https://www.nhl.com/scores","games":games,"error":None,"window_start":day.strftime("%Y%m%d"),"window_end":day.strftime("%Y%m%d"),"game_count":len(games),"provider":"nhl_web"}
+def nba(day):
+    """Official NBA CDN day scoreboard; omit games if day-specific data unavailable.
+
+    The NBA live endpoint covers *today* only. Never relabel its contents as
+    another day's schedule, and never synthesize missing dates.
+    """
+    today=datetime.now(timezone.utc).date()
+    if day!=today:return {"league":"NBA","games":[],"provider":"nba_live","error":None}
+    url="https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
+    data=fetch(url);scoreboard=data.get("scoreboard") or {}
+    games=[]
+    for g in scoreboard.get("games") or []:
+        teams=[]
+        for side in ("away","home"):
+            t=g.get(side+"Team") or {}
+            name=(t.get("teamCity","")+" "+t.get("teamName","")).strip()
+            if not name or not t.get("teamId"):continue
+            teams.append({"name":name,"score":t.get("score"),"home_away":side,
+                          "winner":None,"logo":None,"team_id":t.get("teamId"),
+                          "abbreviation":t.get("teamTricode")})
+        if len(teams)!=2:continue
+        status=g.get("gameStatus")
+        phase="post" if status==3 else "in" if status==2 else "pre"
+        game_time=g.get("gameTimeUTC") or ""
+        if not game_time:continue
+        # The live endpoint may cross UTC midnight. Preserve the actual NBA
+        # event date, never claim this is a full multi-day schedule.
+        games.append({"id":"nba:"+str(g.get("gameId")),"name":g.get("gameLabel") or "",
+                      "date":game_time,"status":g.get("gameStatusText") or "",
+                      "state":phase,"teams":teams,
+                      "venue":(g.get("arena") or {}).get("arenaName") or "",
+                      "broadcast":"","url":"https://www.nba.com/game/"+str(g.get("gameId")),
+                      "provider":"nba_live"})
+    return {"league":"NBA","games":games,"provider":"nba_live","error":None,
+            "source_url":"https://www.nba.com/games",
+            "window_start":day.strftime("%Y%m%d"),"window_end":day.strftime("%Y%m%d"),
+            "game_count":len(games)}
+
 def standings_snapshot(league,day):
     """End-of-day official division standings. Missing fields remain absent."""
     if league=="NHL":
@@ -100,11 +138,11 @@ def enrich_standings(block):
     return block
 
 def collect():
-    now=datetime.now(timezone.utc);out={"updated_at":now.isoformat(timespec="seconds"),"source":"MLB Stats API and NHL Web API","leagues":[]}
-    for name,adapter in (("MLB",mlb),("NHL",nhl)):
-        block={"league":name,"games":[],"provider":"mlb_stats" if name=="MLB" else "nhl_web","error":None}
+    now=datetime.now(timezone.utc);out={"updated_at":now.isoformat(timespec="seconds"),"source":"Official MLB, NHL and NBA score APIs","leagues":[]}
+    for name,adapter in (("MLB",mlb),("NHL",nhl),("NBA",nba)):
+        block={"league":name,"games":[],"provider":{"MLB":"mlb_stats","NHL":"nhl_web","NBA":"nba_live"}[name],"error":None}
         seen=set()
-        for offset in (-1,0,1,2):
+        for offset in ((0,) if name=="NBA" else (-1,0,1,2)):
             day=now.date()+timedelta(days=offset)
             try:
                 part=adapter(day)
@@ -113,12 +151,12 @@ def collect():
             except Exception as exc:
                 block.setdefault("warnings",[]).append(day.isoformat()+": "+type(exc).__name__+": "+str(exc)[:120])
         block["games"].sort(key=lambda g:g.get("date") or "")
-        enrich_standings(block)
+        if name in ("MLB","NHL"):enrich_standings(block)
         block["game_count"]=len(block["games"])
         block["window_start"]=(now.date()-timedelta(days=1)).strftime("%Y%m%d")
         block["window_end"]=(now.date()+timedelta(days=2)).strftime("%Y%m%d")
         if not block["games"] and block.get("warnings"):block["error"]="; ".join(block["warnings"])[:300]
-        block["source_url"]="https://www.mlb.com/scores" if name=="MLB" else "https://www.nhl.com/scores"
+        block["source_url"]={"MLB":"https://www.mlb.com/scores","NHL":"https://www.nhl.com/scores","NBA":"https://www.nba.com/games"}[name]
         out["leagues"].append(block)
     (ROOT/"official_scoreboards.json").write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print("Official adapters:",[(b["league"],len(b["games"]),b["error"]) for b in out["leagues"]])
