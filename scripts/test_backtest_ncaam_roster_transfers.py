@@ -7,15 +7,15 @@ module=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 class TransferTests(unittest.TestCase):
  def test_unique_player_moving_school_is_counted(self):
-  box=[{"team":"Indiana","clean_name":"Mila Gold","player_id":"1","mins":"1100"},
-       {"team":"Purdue","clean_name":"Alex White","player_id":"2","mins":"1050"}]
+  box=[{"team":"Indiana","clean_name":"Mila Gold","player_id":"1","mins":"55"} for _ in range(20)]+[
+       {"team":"Purdue","clean_name":"Alex White","player_id":"2","mins":"52.5"} for _ in range(20)]
   roster=[{"team":"Purdue","player":"Mila Gold"},*[
       {"team":"Purdue","player":"Other Person "+str(i)} for i in range(8)]]
   f=module.continuity(box,roster,{"purdue"})
   self.assertAlmostEqual(f["purdue"]["incoming_minutes"],1100/1050)
  def test_repeated_name_across_teams_not_claimed_as_transfer(self):
-  box=[{"team":"Indiana","clean_name":"Alex White","player_id":"1","mins":"900"},
-       {"team":"Purdue","clean_name":"Alex White","player_id":"2","mins":"1000"}]
+  box=[{"team":"Indiana","clean_name":"Alex White","player_id":"1","mins":"45"} for _ in range(20)]+[
+       {"team":"Purdue","clean_name":"Alex White","player_id":"2","mins":"50"} for _ in range(20)]
   roster=[{"team":"Purdue","player":"Alex White"},*[
       {"team":"Purdue","player":"Other Person "+str(i)} for i in range(8)]]
   f=module.continuity(box,roster,{"purdue"})
