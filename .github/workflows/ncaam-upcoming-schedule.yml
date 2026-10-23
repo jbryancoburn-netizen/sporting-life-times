@@ -1,0 +1,43 @@
+name: NCAA D1 opener schedule source validation
+on:
+  push:
+    paths:
+      - scripts/collect_ncaam_upcoming.py
+      - .github/workflows/ncaam-upcoming-schedule.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source collector syntax
+        run: python -m py_compile scripts/collect_ncaam_upcoming.py
+      - name: Read actual 2026-27 opening-night schedule
+        run: python scripts/collect_ncaam_upcoming.py --date 2026-11-02
+      - name: Assert verified schedule metadata and provenance
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path("data/ncaam-2026-27-opening-schedule-candidates.json").read_text())
+          assert s["use_for_elo"] is False
+          assert len(s["games"])>=5
+          assert len({g["source_event_id"] for g in s["games"]})==len(s["games"])
+          assert all(g["home"] and g["away"] and g["source_url"].startswith("https://") for g in s["games"])
+          print("Schedule verified:",len(s["games"]),"opening-night contests")
+          PY
+      - name: Save source-attributed candidate schedule
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-opening-schedule-candidates.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Archive sourced 2026-27 opening NCAA D1 candidate schedule"
+          git pull --rebase origin main
+          git push origin HEAD:main
