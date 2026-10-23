@@ -17,6 +17,12 @@ def audit(identity,production,exposure):
         raise ValueError("Identity and production movement totals disagree")
     if total!=exposure["counts"].get("verified_espn_returners",0)+exposure["counts"].get("verified_espn_transfers",0):
         raise ValueError("Identity and exposure movement totals disagree")
+    pcounts=production["counts"]
+    ecounts=exposure["counts"]
+    if pcounts.get("unique_ncaa_box_candidates",0)+pcounts.get("unresolved_box_candidates",0)!=total:
+        raise ValueError("Every ESPN movement must resolve to exactly one box candidate or unresolved state")
+    if ecounts.get("candidate_exposure_players",0)+ecounts.get("unresolved_exposure",0)!=total:
+        raise ValueError("Every ESPN movement must resolve to exactly one opponent exposure or unresolved state")
     if production["counts"].get("unique_ncaa_box_candidates",0)>total:
         raise ValueError("More NCAA candidates than verified ESPN movements")
     if exposure["counts"].get("candidate_exposure_players",0)>production["counts"].get("unique_ncaa_box_candidates",0):
