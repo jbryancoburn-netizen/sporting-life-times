@@ -19,6 +19,14 @@ def row(gid="g1",status="Final",site="home"):
                 source_url="https://ncaa.com/example",provider="ncaa",overtime="false")
 
 class NightlyReplayTest(unittest.TestCase):
+    def test_incomplete_membership_rejected(self):
+        from update_ncaam_2027 import calculate
+        pre={"rankings":[{"team_id":f"ncaa:{i}","elo":1500.0} for i in range(364)]}
+        old={"teams":[{"id":f"ncaa:{i}","name":f"Team {i}"} for i in range(364)]}
+        current=[{"id":str(i),"team":f"Team {i}","conference":"Test"} for i in range(364)]
+        with self.assertRaisesRegex(ValueError,"365-team"):
+            calculate(pre,old,current,[])
+
     def test_future_dated_score_is_excluded(self):
         from update_ncaam_2027 import calculate
         pre={"rankings":[{"team_id":f"ncaa:{i}","elo":1500.0} for i in range(365)]}
