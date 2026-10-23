@@ -1,0 +1,27 @@
+name: NCAA ESPN Athlete Identity Continuity
+on:
+  push:
+    paths:
+      - scripts/reconcile_ncaam_verified_espn_ids.py
+      - scripts/test_reconcile_ncaam_verified_espn_ids.py
+      - .github/workflows/ncaam-espn-identity-continuity.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  identity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_reconcile_ncaam_verified_espn_ids.py -v
+      - run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --out staging/ncaam-2026-roster-evidence.json
+      - run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
+      - run: python scripts/reconcile_ncaam_verified_espn_ids.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-espn-identity-continuity
+          path: data/ncaam-2026-27-espn-identity-continuity.json
