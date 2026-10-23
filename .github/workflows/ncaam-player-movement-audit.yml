@@ -5,6 +5,8 @@ on:
       - scripts/audit_ncaam_player_movements.py
       - scripts/apply_ncaam_official_identities.py
       - scripts/test_apply_ncaam_official_identities.py
+      - scripts/verify_ncaam_historical_identity_links.py
+      - scripts/test_verify_ncaam_historical_identity_links.py
       - data/ncaam-2026-27-official-player-resolutions.json
       - .github/workflows/ncaam-player-movement-audit.yml
   workflow_dispatch:
@@ -29,6 +31,23 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_apply_ncaam_official_identities.py' -v
       - name: Reconcile 34 institutional athlete histories without inventing NCAA IDs
         run: python scripts/apply_ncaam_official_identities.py
+      - name: Regression-test NCAA athlete historical source correlation
+        run: python -m unittest discover -s scripts -p 'test_verify_ncaam_historical_identity_links.py' -v
+      - name: Link institution-sourced player histories to unique 2025-26 NCAA-origin IDs
+        run: python scripts/verify_ncaam_historical_identity_links.py
+      - name: Verify NCAA historical identity evidence accounting
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('data/ncaam-2026-27-historical-athlete-links.json'))
+          assert a['source_candidate_count']==34
+          assert a['complete_classification_accounting']
+          assert a['source_correlated_ncaa_player_matches']+a['uncertain_historical_identity_count']+a['new_to_d1_no_box_expected']==34
+          assert a['exact_numeric_id_cross_provider_matches']==0
+          assert not a['approved_for_primary']
+          print('Source-correlated NCAA athlete IDs:',a['source_correlated_ncaa_player_matches'],
+                'remaining uncertain:',a['uncertain_historical_identity_count'])
+          PY
       - name: Verify sourced resolution count and promotion hold
         run: |
           python - <<'PY'
@@ -63,7 +82,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-player-movement-audit.json data/ncaam-2026-27-espn-team-crosswalk.json data/ncaam-2026-27-identity-resolved.json
+          git add data/ncaam-2026-27-player-movement-audit.json data/ncaam-2026-27-espn-team-crosswalk.json data/ncaam-2026-27-identity-resolved.json data/ncaam-2026-27-historical-athlete-links.json
           git diff --cached --quiet && exit 0
           git commit -m "Publish 2026-27 player-by-player transfer and returning production audit"
           for attempt in 1 2 3 4 5; do
