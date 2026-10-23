@@ -1,7 +1,7 @@
-name: NBA Elo verified daily refresh
+name: NBA Elo verified final-game refresh
 on:
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -26,7 +26,7 @@ jobs:
           node scripts/audit-nba-page.mjs
       - name: Audit published ratings before refresh
         run: node scripts/audit-nba-elo.mjs
-      - name: Replay only ESPN-confirmed 2026-27 regular-season finals
+      - name: Replay verified 2026-27 regular-season finals
         run: node scripts/update-nba-elo.mjs
       - name: Verify all rankings, Elo deltas and dated finals before publication
         run: |
