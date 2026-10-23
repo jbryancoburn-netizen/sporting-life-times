@@ -1,0 +1,37 @@
+name: Audit 2026-27 NCAA Elo team-level plausibility
+on:
+  push:
+    paths:
+      - scripts/audit_ncaam_rankings.py
+      - .github/workflows/ncaam-ranking-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/audit_ncaam_rankings.py
+      - name: Verify audit is fail-closed
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('data/ncaam-2026-27-ranking-audit.json'))
+          assert a['team_count']==365
+          assert a['release_approved'] is False
+          assert a['flagged_teams']>0
+          print('Rankings quarantined:',a['flagged_teams'],'teams require review')
+          PY
+      - name: Commit public evidence of ranking audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-ranking-audit.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish team-level 2026-27 NCAA Elo outlier audit and release blockers"
+          git pull --rebase origin main
+          git push origin HEAD:main
