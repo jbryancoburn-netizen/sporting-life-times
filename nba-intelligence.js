@@ -56,7 +56,7 @@ async function reporting(){
 }
 async function leagueLeaders(){
  const container=$('nba-league-leaders'),status=$('nba-league-leaders-status');if(!container)return;
- const groups=[['SCORING','ppg','PPG'],['REBOUNDING','rpg','RPG'],['ASSISTS','apg','APG'],['STEALS','spg','SPG'],['BLOCKS','bpg','BPG']];
+ const groups=[['SCORING','ppg','PPG'],['REBOUNDING','rpg','RPG'],['ASSISTS','apg','APG'],['STEALS','spg','SPG'],['BLOCKS','bpg','BPG'],['FIELD GOAL %','fg_pct','FG%'],['THREE POINT %','fg3_pct','3P%'],['FREE THROW %','ft_pct','FT%']];
  try{
   const resp=await fetch('data/nba-player-leaders.json',{cache:'no-store'});
   if(!resp.ok)throw Error('Player statistics have not been published');
@@ -86,6 +86,19 @@ async function leagueLeaders(){
   status.textContent='Awaiting verified individual-player records · No team leader duplicates';
  }
 }
+async function playerNotebook(){
+ const el=$('nba-player-notebook'),status=$('nba-player-notebook-status');if(!el)return;
+ try{
+  const r=await fetch('data/nba-player-leaders.json',{cache:'no-store'});if(!r.ok)throw Error('stats unavailable');
+  const d=await r.json(),rows=d.season_totals||[];
+  if(!rows.length)throw Error('no captured players');
+  rows.sort((a,b)=>b.pts/a.gp-a.pts/b.gp);
+  const pct=x=>Number.isFinite(x)?x.toFixed(1):'—';
+  el.innerHTML='<div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>GP</th><th>PPG</th><th>RPG</th><th>APG</th><th>FG%</th><th>3P%</th><th>FT%</th><th>TS%</th></tr></thead><tbody>'+rows.slice(0,45).map(p=>'<tr><th>'+esc(p.player)+'</th><td>'+esc(p.team)+'</td><td>'+p.gp+'</td><td>'+pct(p.ppg)+'</td><td>'+pct(p.rpg)+'</td><td>'+pct(p.apg)+'</td><td>'+pct(p.fg_pct)+'</td><td>'+pct(p.fg3_pct)+'</td><td>'+pct(p.ft_pct)+'</td><td>'+pct(p.ts_pct)+'</td></tr>').join('')+'</tbody></table></div>';
+  status.textContent=rows.length+' players · '+d.coverage.completed_boxscores+' completed games captured · shooting and TS% independently calculated · not full-season until coverage reconciles';
+ }catch(e){status.textContent='Verified player season totals are unavailable';el.innerHTML=''}
+}
 leagueLeaders();
+playerNotebook();
 load();reporting().then(rosterWireSnapshot);
 })();
