@@ -22,7 +22,7 @@ def team_id(team):
 def team_name(team):
     names=team.get("names") or {}
     return (names.get("full") or names.get("short") or names.get("seo") or team.get("name") or "").strip()
-def parse(record):
+def parse(record,venue_overrides=None):
     games=[];rejected=[]
     day=record["day"]
     canonical=record["canonical_url"]
@@ -52,6 +52,8 @@ def parse(record):
             neutral=venue.get("neutralSite",venue.get("isNeutral",game.get("neutralSite")))
         else:neutral=game.get("neutralSite")
         if isinstance(neutral,str):neutral=neutral.lower() in ("true","yes","1")
+        if neutral is None and venue_overrides and gameid in venue_overrides:
+            neutral=venue_overrides[gameid]["neutral"]
         if neutral is True:site="neutral"
         elif neutral is False:site="home"
         else:
@@ -70,8 +72,9 @@ def parse(record):
             {h:team_name(home),a:team_name(away)}))
     return games,rejected
 
-def convert(root,out,registry,report,expected_days=None):
+def convert(root,out,registry,report,expected_days=None,venue_overrides=None):
     rows={}; names={};rejections=[];days=[]
+    venue_overrides=venue_overrides or {}
     paths=sorted(root.glob("*/*/*.json"))
     if not paths:
         raise ValueError("No historical scoreboard archives were found; refusing empty output")
@@ -84,7 +87,7 @@ def convert(root,out,registry,report,expected_days=None):
         if path.stem!=day[-2:] or path.parent.name!=day[5:7] or path.parent.parent.name!=day[:4]:
             raise ValueError("Archive path/date mismatch: "+str(path))
         days.append(day)
-        games,bad=parse(record)
+        games,bad=parse(record,venue_overrides)
         rejections.extend(bad)
         for game,team_names in games:
             gid=game["game_id"]
@@ -130,6 +133,15 @@ def main():
     p.add_argument("--out",type=Path,default=Path("staging/ncaam-final-candidates.csv"))
     p.add_argument("--registry",type=Path,default=Path("staging/ncaam-team-candidates.json"))
     p.add_argument("--report",type=Path,default=Path("staging/ncaam-coverage-report.json"))
+    p.add_argument("--venue-evidence",type=Path)
     args=p.parse_args()
-    print(json.dumps(convert(args.root,args.out,args.registry,args.report),indent=2))
+    overrides={}
+    if args.venue_evidence:
+        evidence=json.loads(args.venue_evidence.read_text(encoding="utf-8"))
+        for item in evidence.get("games",[]):
+            gameid=str(item.get("game_id",""))
+            if not gameid or gameid in overrides or type(item.get("neutral")) is not bool or not str(item.get("source_url","")).startswith("https://"):
+                raise ValueError("Invalid or duplicate venue evidence for game "+gameid)
+            overrides[gameid]=item
+    print(json.dumps(convert(args.root,args.out,args.registry,args.report,venue_overrides=overrides),indent=2))
 if __name__=="__main__":main()
