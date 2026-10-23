@@ -72,7 +72,7 @@ def main():
                 raw = response.read(2_000_000)
             root = ET.fromstring(raw)
             nodes = root.findall(".//item") or root.findall(".//{http://www.w3.org/2005/Atom}entry")
-            for item in nodes[:25]:
+            for item in nodes[:20]:
                 title = text_of(item, ["title", "{http://www.w3.org/2005/Atom}title"])
                 link = text_of(item, ["link"])
                 if not link:
@@ -84,7 +84,9 @@ def main():
                 published = parse_date(item)
                 if not is_recent(published, now): continue
                 seen.add(link)
-                articles.append({"title":title, "url":link, "summary":summary[:600], "source":feed["name"], "category":feed.get("category","Sports"), "published_at":iso_date(published), "image_url":image_of(item)})
+                publisher = title.rsplit(" - ", 1)[-1] if feed.get("scope") == "local" and " - " in title else feed["name"]
+                if feed.get("scope") == "local" and " - " in title: title = title.rsplit(" - ", 1)[0]
+                articles.append({"title":title, "url":link, "summary":summary[:600], "source":publisher, "category":feed.get("category","Sports"), "team":feed.get("team"), "scope":feed.get("scope","national"), "published_at":iso_date(published), "image_url":image_of(item)})
             if not any(a["source"] == feed["name"] for a in articles):
                 raise ValueError("No recent usable articles returned")
             result["ok"] = True
@@ -92,9 +94,9 @@ def main():
         except Exception as exc:
             result["error"] = f"{type(exc).__name__}: {str(exc)[:180]}"
         status.append(result)
-        time.sleep(0.25)
+        if feed.get("scope") != "local": time.sleep(0.15)
     articles.sort(key=lambda a: a.get("published_at",""), reverse=True)
-    OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:300],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:1000],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Collected {len(articles)} unique stories; {sum(1 for s in status if s['ok'])}/{len(status)} feeds responded.")
     for s in status: print(f"{'OK' if s['ok'] else 'FAIL'} {s['source']}: {s['items']} items" + (f" — {s['error']}" if s['error'] else ""))
     if not any(s["ok"] for s in status):
