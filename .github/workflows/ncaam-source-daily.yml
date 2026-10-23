@@ -1,5 +1,7 @@
 name: NCAA D1 scoreboard source audit
 on:
+  schedule:
+    - cron: '50 11 * * *'
   workflow_dispatch:
   push:
     paths:
