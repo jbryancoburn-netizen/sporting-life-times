@@ -1,0 +1,8 @@
+/* Shared readable wire cards: source/time, headline, then summary. */
+.news-card .meta,.department-story .meta,.nba-news-item .nba-news-source{font-size:.73rem!important;line-height:1.4!important;letter-spacing:0!important;text-transform:none!important;color:#69655e!important;overflow-wrap:normal;word-break:normal;margin:0 0 .45rem!important}
+.news-card h3,.department-story h4,.nba-news-item h3{font-family:Georgia,'Times New Roman',serif!important;line-height:1.18!important;overflow-wrap:break-word;hyphens:auto;margin:.15rem 0 .45rem!important}
+.news-card>p:not(.meta),.department-story>p:not(.meta),.nba-news-item>p:not(.nba-news-source){font-size:.83rem!important;line-height:1.45!important;overflow-wrap:break-word;margin:.25rem 0 .5rem!important}
+.news-card,.department-story,.nba-news-item{min-width:0;overflow-wrap:break-word}
+body.edition-interior .nba-news-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px 22px!important}
+@media(max-width:850px){body.edition-interior .nba-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:540px){body.edition-interior .nba-news-grid{grid-template-columns:1fr!important}}
