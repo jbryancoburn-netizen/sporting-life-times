@@ -1,6 +1,6 @@
 {
   "audit": "ncaam-2024-2026-original-preopening-roster-sources",
-  "created_utc": "2026-10-23T23:40:17.656925+00:00",
+  "created_utc": "2026-10-23T23:44:13.836050+00:00",
   "status": "PARTIAL_SCHOOL_PRESEASON_DOCUMENT_EVIDENCE",
   "existing_retrospective_rosters_promotable": false,
   "rule": "School document URL date is indicative, but only a pre-opening immutable capture containing parsed roster proves as-of membership.",
@@ -8,7 +8,7 @@
     "school_season_documents_tested": 5,
     "official_documents_retrieved": 5,
     "preseason_dated_documents_retrieved": 5,
-    "confirmed_archived_pregame_content_sources": 4,
+    "confirmed_archived_pregame_content_sources": 3,
     "season_roster_url_candidates_checked": 9,
     "fully_verified_365_team_preseason_roster_snapshots": 0,
     "dataset_complete_for_2024_2025_training_2026_holdout": false
@@ -134,7 +134,7 @@
       "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
       "content_type": "text/html;charset=utf-8",
       "bytes": 463425,
-      "sha256_fetched_now": "cf89d3412320ccdb769b4edb2b996f0d1b6d670733c22b34c53d40358f872f46",
+      "sha256_fetched_now": "b3c6b8702b26720a9b5434f4a690495d012fcdc6edaf6502eacd1d754f3457b9",
       "initial_only": true,
       "roster_section_identified": true,
       "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
@@ -216,7 +216,10 @@
       "verified_capture_utc": "20230817044045",
       "capture_url": "https://web.archive.org/web/20230817044045id_/https://goduke.com/sports/mens-basketball/roster/2023-24",
       "captured_bytes": 1106324,
-      "matched_player_evidence": [],
+      "matched_player_evidence": [
+        "Jared McCain",
+        "Jeremy Roach"
+      ],
       "verified_scope": "dated historical source content, not 365-team all-roster certification"
     },
     {
@@ -313,13 +316,14 @@
         }
       ],
       "count_valid_pregame_capture_records": 1,
-      "independently_verified_preopening_roster_content": true,
-      "captured_content_sha256": "96775269c7cb7a0012525d561c12f31eeb9b4b842d0898c777c7af6e56cc3a7b",
-      "verified_capture_utc": "20250410022151",
-      "capture_url": "https://web.archive.org/web/20250410022151id_/https://iuhoosiers.com/sports/mens-basketball/roster/2025-26",
-      "captured_bytes": 89442,
-      "matched_player_evidence": [],
-      "verified_scope": "dated historical source content, not 365-team all-roster certification"
+      "independently_verified_preopening_roster_content": false,
+      "replay_diagnostics": [
+        {
+          "timestamp_utc": "20250410022151",
+          "reason": "Archived bytes lack trusted roster text anchors",
+          "mime": "text/html; charset=utf-8"
+        }
+      ]
     },
     {
       "team": "Purdue",
@@ -339,7 +343,10 @@
       "verified_capture_utc": "20250810011541",
       "capture_url": "https://web.archive.org/web/20250810011541id_/https://purduesports.com/sports/mens-basketball/roster/season/2025-26",
       "captured_bytes": 1204714,
-      "matched_player_evidence": [],
+      "matched_player_evidence": [
+        "Omer Mayer",
+        "Oscar Cluff"
+      ],
       "verified_scope": "dated historical source content, not 365-team all-roster certification"
     }
   ]
