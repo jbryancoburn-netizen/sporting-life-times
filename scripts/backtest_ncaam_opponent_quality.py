@@ -134,6 +134,7 @@ def run():
             "baseline_log_loss":reference["log_loss"],"adjusted_log_loss":adjusted["log_loss"],
             "logloss_gain":reference["log_loss"]-adjusted["log_loss"],
             "brier_gain":reference["brier"]-adjusted["brier"]}
+    windows_positive=all(v["logloss_gain"]>0 and v["brier_gain"]>0 for v in windows.values())
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -146,8 +147,9 @@ def run():
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_logloss_gain":gain,"holdout_brier_gain":brier_gain,
         "holdout_window_sensitivity":windows,
+        "holdout_all_windows_improve_both_metrics":windows_positive,
         "quality_team_coverage":{str(y):data[y]["coverage"] for y in data},
-        "validated_incremental_gain":gain>0.0002 and brier_gain>0.00005 and not edge_solution,
+        "validated_incremental_gain":gain>0.0002 and brier_gain>0.00005 and not edge_solution and windows_positive,
         "same_day_opponent_elo_snapshot":"Date-batched pregame snapshots prevent same-day result leakage",
         "preseason_information_integrity_verified":False,
         "approved_for_primary":False,
