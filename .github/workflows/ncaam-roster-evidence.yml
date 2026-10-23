@@ -4,6 +4,7 @@ on:
     paths:
       - scripts/reconcile_ncaam_roster_ids.py
       - scripts/collect_ncaam_roster_evidence.py
+      - scripts/measure_ncaam_roster_continuity.py
       - .github/workflows/ncaam-roster-evidence.yml
   workflow_dispatch:
 permissions:
@@ -19,14 +20,18 @@ jobs:
           python-version: '3.12'
       - name: Crosswalk all Division I identities
         run: python scripts/reconcile_ncaam_roster_ids.py
-      - name: Collect preseason player roster evidence
-        run: python scripts/collect_ncaam_roster_evidence.py
+      - name: Collect current-season player roster evidence
+        run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
+      - name: Collect prior-season player roster evidence
+        run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --out staging/ncaam-2026-roster-evidence.json
+      - name: Measure factual returning-player and transfer turnover
+        run: python scripts/measure_ncaam_roster_continuity.py --old staging/ncaam-2026-roster-evidence.json --new staging/ncaam-2027-roster-evidence.json
       - name: Retain source evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ncaam-2027-roster-evidence
-          path: staging/ncaam-2027-roster-evidence.json
+          path: staging/ncaam-*.json
           retention-days: 30
           if-no-files-found: warn
       - name: Save audited team crosswalk
