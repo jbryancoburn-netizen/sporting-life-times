@@ -1,0 +1,20 @@
+{
+  "season": "2026-27",
+  "release_tier": "provisional roster-informed preseason",
+  "ci_release_checks": "PASSED",
+  "not_full_model_certification": true,
+  "source_commit_sha": "e90158684f213058d542ffad35c8e70f095c6f44",
+  "workflow_run_id": "40021497585",
+  "verified_at_utc": "2026-10-23T20:44:14.748863+00:00",
+  "model_sha256": "ac6afd3438258c0d60746be1f445152c56fe07da9d4d237caa208d12cc16d3d2",
+  "teams_checked": 365,
+  "source_linked_player_ids": 3523,
+  "players_with_traced_historical_minutes": 2923,
+  "checks": [
+    "365-team independent baseline+roster integrity",
+    "baseline-shadow calibration contract",
+    "published identity-linked ratings reproduce from data",
+    "source crosswalk/missing-player corruption guards",
+    "paper-style college Elo page Node rendering tests"
+  ]
+}
