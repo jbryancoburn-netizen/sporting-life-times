@@ -1,0 +1,48 @@
+name: NCAA D1 source readiness and fallback audit
+on:
+  schedule:
+    - cron: '10 11 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/check_ncaam_feeds.py
+      - .github/workflows/ncaam-feed-readiness.yml
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-feed-readiness
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check current season NCAA-origin release and provenance
+        run: python scripts/check_ncaam_feeds.py
+      - name: Validate readiness provenance
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('data/ncaam-feed-health.json').read_text())
+          assert a['season']=='2026-27'
+          assert {'ncaa_schedule','ncaa_team_ids','espn_fallback'} <= set(a['sources'])
+          assert a['status'] in {'not_released','ncaa_origin_available_for_reconciliation','fallback_available_not_authorized_for_elo'}
+          if a['status']=='ncaa_origin_available_for_reconciliation':
+              assert a['sources']['ncaa_schedule']['available']
+              assert a['sources']['ncaa_team_ids']['available']
+          print('Source readiness validation passed:',a['status'])
+          PY
+      - name: Commit only changed readiness evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-feed-health.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Update NCAA mens D1 feed readiness audit"
+          git pull --rebase origin main
+          git push origin HEAD:main
