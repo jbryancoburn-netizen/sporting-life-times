@@ -78,6 +78,10 @@ def fetch_season(season):
         page=dict(obj(raw));page.pop("total",None);page.pop("totalCount",None)
         if not rows:break
         converted=parse(page,season)
+        seen={g["id"] for g in games}
+        duplicates=[g["id"] for g in converted if g["id"] in seen]
+        if duplicates:
+            raise ValueError(f"EuroLeague pagination repeated game codes in {season}, offset {offset}: {duplicates[:5]}")
         games.extend(converted)
         if total is not None and len(games)>=total:break
         if len(rows)<page_size and total is None:break
