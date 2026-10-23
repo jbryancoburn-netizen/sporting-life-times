@@ -6,6 +6,7 @@ on:
       - '.github/workflows/nba-official-game-center.yml'
       - 'scripts/collect_nba_game_center.py'
       - 'scripts/backfill-nba-boxscores.py'
+      - 'scripts/backfill-nba-espn.py'
       - 'scripts/collect-nba-player-leaders.py'
       - 'scripts/build-nba-possession-inputs.mjs'
       - 'scripts/test-nba-ingestion.py'
@@ -27,7 +28,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate collection code before using NBA feed
-        run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
+        run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/backfill-nba-espn.py scripts/collect-nba-player-leaders.py
       - name: Test NBA ingestion with synthetic fixtures and empty-feed rejection
         run: python scripts/test-nba-ingestion.py
       - name: Backfill missed completed NBA player box scores from official schedule
@@ -38,6 +39,9 @@ jobs:
         run: python scripts/collect_nba_game_center.py
       - name: Validate NBA collection modules
         run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
+      - name: Backfill ESPN game summaries when official NBA CDN misses box scores
+        continue-on-error: true
+        run: python scripts/backfill-nba-espn.py
       - name: Collect published NBA player leader statistics
         run: python scripts/collect-nba-player-leaders.py
       - name: Build Rabby verified possession inputs independently of Elo
