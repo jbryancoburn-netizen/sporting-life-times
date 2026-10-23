@@ -116,3 +116,21 @@ body #nba-elo-scoreboard .nba-result-separator{text-align:center}
 body #nba-elo-scoreboard .nba-result-elo{font:.58rem/1.1 Georgia,serif;color:#68645d;text-align:right;white-space:nowrap}
 @media(min-width:1350px){body #nba-elo-scoreboard .nba-results-ledger{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px}}
 @media(max-width:740px){body #nba-elo-scoreboard .nba-results-ledger{grid-template-columns:1fr}body #nba-elo-scoreboard .nba-result-line{grid-template-columns:29px minmax(0,1fr) 22px 7px 22px minmax(0,1fr) 48px;gap:2px}}
+
+/* Compact division table, recent finals and restrained power ratings. */
+body .nba-newspaper-grid #nba-yesterday{grid-column:1/-1!important;border-top:1px solid #777!important;padding:7px 0!important}
+body .nba-lastnight-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 10px}
+body .nba-lastnight-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:4px;padding:5px 3px;border-bottom:1px solid #d4d0c8;font:400 .77rem/1.2 Georgia,serif}
+body .nba-lastnight-row strong{font-variant-numeric:tabular-nums}
+body .nba-lastnight-row span:last-child{text-align:right}
+body .nba-newspaper-grid .nba-division table{font-size:.67rem!important;table-layout:auto}
+body .nba-newspaper-grid .nba-division table th,body .nba-newspaper-grid .nba-division table td{padding:3px 2px!important;font-size:.67rem!important}
+body #nba-current-elo .nba-current-table{font-size:.72rem!important}
+body #nba-current-elo .nba-current-table th,body #nba-current-elo .nba-current-table td{font-size:.72rem!important;padding:4px 6px!important}
+body #nba-current-elo .nba-team-label img{width:17px!important;height:17px!important}
+body #nba-three-models .nba-mini-table th,body #nba-three-models .nba-mini-table td{font-size:.7rem!important;padding:3px 4px!important}
+body .nba-news-item.nba-results-brief h3{font-size:.83rem!important;line-height:1.17!important}
+@media(min-width:1100px){body #nba-current-elo .nba-current-table-wrap{max-width:960px;margin:7px 0 12px}}
+@media(max-width:1050px){body .nba-lastnight-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){body .nba-lastnight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:400px){body .nba-lastnight-grid{grid-template-columns:1fr}}
