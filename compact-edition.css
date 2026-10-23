@@ -182,3 +182,21 @@ body .nba-wire-line{border-bottom:1px solid #dedbd5;padding:4px 0;font:400 .69re
 body .nba-wire-line a{color:inherit;text-decoration:none}
 body .nba-wire-line a:hover{text-decoration:underline}
 body .nba-wire-line small{display:block;color:#726e65;font:.58rem/1.2 Georgia,serif;margin-top:2px}
+
+/* Edition hierarchy: two paired newspaper rails followed by a compact forecast strip. */
+body .nba-newspaper-grid{align-items:start!important;row-gap:0!important}
+body .nba-newspaper-grid #nba-news,body .nba-newspaper-grid #nba-official-standings{grid-row:1!important}
+body .nba-newspaper-grid #nba-boxscores,body .nba-newspaper-grid #nba-data-links{grid-row:2!important}
+body .nba-newspaper-grid #nba-upcoming{grid-row:3!important;grid-column:1/-1!important}
+body .nba-newspaper-grid #nba-boxscores{border-right:1px solid #c9c7c0!important;padding-right:12px!important}
+body .nba-newspaper-grid #nba-data-links{padding-left:10px!important}
+body .nba-newspaper-grid #nba-news{max-height:none!important}
+body .nba-secondary-data{border-top:2px solid #37332d;margin-top:12px;padding-top:8px}
+body .nba-secondary-data>summary{cursor:pointer;font:700 .8rem/1.3 Georgia,serif;letter-spacing:.04em}
+body .nba-secondary-data>.hub-feature{margin-top:10px!important}
+body .hub:has(#nba-news)>.elo-method-note{display:none}
+body #nba-current-elo{margin-top:12px!important}
+@media(max-width:1079px){
+ body .nba-newspaper-grid #nba-news,body .nba-newspaper-grid #nba-official-standings,body .nba-newspaper-grid #nba-boxscores,body .nba-newspaper-grid #nba-data-links,body .nba-newspaper-grid #nba-upcoming{grid-row:auto!important}
+ body .nba-newspaper-grid #nba-boxscores{border-right:0!important}
+}
