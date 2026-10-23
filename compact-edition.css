@@ -37,3 +37,8 @@ body:has(#front-page) #front-page article h2,body:has(#front-page) #front-page a
 body:has(#front-page) #front-page article p{line-height:1.37!important;margin:4px 0!important}
 @media(min-width:900px){body .hub-cards{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:680px){body .hub{padding:10px 10px 30px!important}body .hub-feature{margin-top:11px!important}body .hub-feature table{font-size:.73rem!important}body .hub-feature table th,body .hub-feature table td{padding:5px 4px!important}body .nba-snapshot-grid{grid-template-columns:1fr!important}body .mc-shell{padding:10px 10px 30px!important}}
+
+/* Rating-methodology briefs are part of the printed data, not popovers. */
+body .elo-method-note{font:400 .75rem/1.43 Georgia,serif!important;color:#4e4a43!important;background:transparent!important;border-top:1px solid #c9c7c0;border-bottom:1px solid #c9c7c0;padding:7px 2px!important;margin:9px 0 12px!important;max-width:1050px}
+body .elo-method-note strong{font-weight:700;color:#24231f;margin-right:5px}
+body .elo-method-note a{text-decoration:underline}
