@@ -4,7 +4,9 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const when=s=>{const x=new Date(s);return isNaN(x)?'Unscheduled':x.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'};
 const logo=t=>/^https:\/\//.test(t?.logo||'')?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
 const side=t=>logo(t)+'<span>'+esc(t?.name||t?.code||'Unknown')+'</span>';
-fetch('data/euroleague-model.json?cache='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No model publication');return r.json()}).then(d=>{
+let lastRendered=null;
+function refreshModel(){return fetch('data/euroleague-model.json?cache='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No model publication');return r.json()}).then(d=>{
+if(lastRendered===d.updated_at)return;
 if(!Array.isArray(d.rankings)||d.rankings.length<18||!Array.isArray(d.standings)||d.standings.length!==d.rankings.length||!Number.isInteger(d.games_completed)||d.games_completed<1||!Number.isFinite(Date.parse(d.updated_at)))throw Error('Invalid EuroLeague season publication');
 if(new Set(d.rankings.map(t=>t.code)).size!==d.rankings.length||d.standings.reduce((s,t)=>s+t.wins,0)!==d.games_completed||d.standings.reduce((s,t)=>s+t.losses,0)!==d.games_completed)throw Error('EuroLeague published totals do not reconcile');
 $('el-model-status').textContent='Independent ratings · '+d.games_completed+' completed 2026–27 games · Updated '+when(d.updated_at)+' · Parameters provisional';
@@ -13,5 +15,10 @@ if($('el-standings')&&Array.isArray(d.standings)){
 $('el-standings').innerHTML='<div class="nba-current-table-wrap"><table class="nba-current-table"><thead><tr><th>Club</th><th>W</th><th>L</th><th>PCT</th><th>DIFF</th></tr></thead><tbody>'+d.standings.map(t=>'<tr><td><span class="el-club">'+logo(t)+esc(t.name)+'</span></td><td>'+t.wins+'</td><td>'+t.losses+'</td><td>'+Number(t.win_pct).toFixed(3)+'</td><td>'+t.point_diff+'</td></tr>').join('')+'</tbody></table></div>';
 }
 $('el-forecasts').innerHTML=(d.fixtures||[]).slice(0,12).map(g=>'<article class="el-forecast"><small>'+esc(when(g.date))+'</small><div class="el-match"><div>'+side(g.away)+'</div><strong>at</strong><div>'+side(g.home)+'</div></div><div class="el-metrics"><div><span>ELO FAVORITE</span><b>'+esc(g.home_win_probability>=.5?g.home.name:g.away.name)+'</b></div><div><span>HOME WIN CHANCE</span><b>'+(g.home_win_probability*100).toFixed(1)+'%</b></div><div><span>AWAY WIN CHANCE</span><b>'+((1-g.home_win_probability)*100).toFixed(1)+'%</b></div>'+(g.projection?'<div><span>RABBY SCORE · EXPERIMENTAL</span><b>'+g.projection.away+' – '+g.projection.home+'</b></div><div><span>PROJECTED TOTAL · EXPERIMENTAL</span><b>'+Number(g.projection.total).toFixed(1)+'</b></div><div><span>HOME SPREAD · EXPERIMENTAL</span><b>'+Number(g.projection.spread_home).toFixed(1)+'</b></div>':'<div><span>PROJECTED SCORE</span><b>Insufficient verified games</b></div>')+'</div></article>').join('')||'<p class="hub-small">No future matchups verified in the current full-season schedule.</p>';
-}).catch(e=>{$('el-model-status').textContent='Ratings not yet published or source validation failed. No estimates shown.';$('el-elo-table').textContent='Awaiting a successful verified model run.';$('el-forecasts').textContent='Projections unavailable until verified game ingestion succeeds.';console.warn('EuroLeague model:',e.message)});
+lastRendered=d.updated_at;
+}).catch(e=>{if(lastRendered){console.warn('EuroLeague model refresh:',e.message);return;}$('el-model-status').textContent='Ratings not yet published or source validation failed. No estimates shown.';$('el-elo-table').textContent='Awaiting a successful verified model run.';$('el-forecasts').textContent='Projections unavailable until verified game ingestion succeeds.';console.warn('EuroLeague model:',e.message)});}
+refreshModel();
+setInterval(()=>{if(!document.hidden)refreshModel()},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshModel()});
+window.addEventListener('focus',()=>{if(!document.hidden)refreshModel()});
 })();
