@@ -1,6 +1,11 @@
 name: EuroLeague historical model evaluation
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/euroleague_model.py'
+      - 'scripts/euroleague_backtest.py'
+      - '.github/workflows/euroleague-backtest.yml'
   schedule:
     - cron: '37 4 * * *'
 permissions:
