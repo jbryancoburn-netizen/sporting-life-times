@@ -22,7 +22,7 @@ def opponent_quality(box,schedule,team_rows):
     return by_team
 
 def quality_continuity(box,roster,members,quality):
-    names=defaultdict(set);old=defaultdict(lambda:defaultdict(set))
+    names=defaultdict(set);old=defaultdict(set)
     minutes=defaultdict(float)
     for r in box:
         team=clean(r.get("team"));name=clean(r.get("clean_name") or r.get("player"))
