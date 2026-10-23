@@ -7,7 +7,9 @@ const page=read('nba.html'),ui=read('nba-desk-loader.js'),model=read('nba-elo-mo
 assert.match(policy,/ESPN is an optional, attributed \*\*last-resort fallback\*\*/);
 assert.match(page,/id="nba-elo-scoreboard"/);
 assert.match(page,/id="nba-elo-grid"/);
-assert.match(page,/id="nba-elo-standings"/);
+assert.match(page,/id="nba-conference-standings"/);
+assert.doesNotMatch(page,/id="nba-season-records"/);
+assert.doesNotMatch(page,/id="nba-elo-standings"/);
 assert.match(page,/nba-elo-page\.js/);
 assert.match(ui,/m\.rawEvents/);
 assert.match(model,/rawEvents:cur\.events/);
