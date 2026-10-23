@@ -22,7 +22,9 @@ async function get(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)t
 function predict(home,away,ratings,metrics){
  const ph=1/(1+10**(-(ratings[home]+45-ratings[away])/400));
  const margin=(ph*2-1)*metrics.meanAbsoluteMargin;
- const homePts=Math.round((metrics.meanTotal+margin)/2),awayPts=Math.round((metrics.meanTotal-margin)/2);
+ let homePts=Math.round((metrics.meanTotal+margin)/2),awayPts=Math.round((metrics.meanTotal-margin)/2);
+ // NBA forecasts cannot end tied: enforce a one-point edge in close model projections.
+ if(homePts===awayPts){if(margin>=0)homePts+=1;else awayPts+=1;}
  return {ph,homePts,awayPts,winner:margin>=0?home:away,spread:Math.abs(margin)};
 }
 async function show(){
