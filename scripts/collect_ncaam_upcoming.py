@@ -29,6 +29,8 @@ def load(day,fetch=None):
         if type(neutral) is not bool:neutral=None
         games.append({"source_event_id":eid,"date":event.get("date"),"name":event.get("name"),
            "home":home.get("team",{}).get("displayName"),"away":away.get("team",{}).get("displayName"),
+           "home_location":home.get("team",{}).get("location"),"away_location":away.get("team",{}).get("location"),
+           "home_short":home.get("team",{}).get("shortDisplayName"),"away_short":away.get("team",{}).get("shortDisplayName"),
            "home_espn_id":home.get("team",{}).get("id"),"away_espn_id":away.get("team",{}).get("id"),
            "venue_neutral":neutral,
            "state":event.get("status",{}).get("type",{}).get("name"),
