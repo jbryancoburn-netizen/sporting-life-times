@@ -136,7 +136,7 @@ def run():
             "brier_gain":reference["brier"]-adjusted["brier"]}
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
-    return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v2",
+    return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
         "quality_feature":"minutes-weighted prior opponent pregame Elo minus prior source team end Elo",
         "training_seasons":[2024,2025],"untouched_holdout":2026,
         "training_winner":best,"training_candidates":train,
@@ -148,6 +148,7 @@ def run():
         "holdout_window_sensitivity":windows,
         "quality_team_coverage":{str(y):data[y]["coverage"] for y in data},
         "validated_incremental_gain":gain>0.0002 and brier_gain>0.00005 and not edge_solution,
+        "same_day_opponent_elo_snapshot":"Date-batched pregame snapshots prevent same-day result leakage",
         "preseason_information_integrity_verified":False,
         "approved_for_primary":False,
         "limitations":["Historical roster snapshot timing unverified",
