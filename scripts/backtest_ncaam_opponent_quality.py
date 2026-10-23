@@ -172,6 +172,20 @@ def run():
         require_quality=False,coverage_fallback=True)
     if full_fallback["games"]!=full_game_only["games"] or full_fallback["fallback_games"]!=uncovered_games:
         raise ValueError("Fallback did not account for all uncovered games")
+    fallback_windows={}
+    for days in (14,30,45):
+        plain=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],0,
+            days=days,roster_betas=(0,0),require_quality=False)
+        hybrid=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"],
+            days=days,require_quality=False,coverage_fallback=True)
+        if plain["games"]!=hybrid["games"]:raise ValueError("Fallback window coverage mismatch")
+        fallback_windows[str(days)]={"games":plain["games"],
+            "fallback_games":hybrid["fallback_games"],
+            "logloss_gain":plain["log_loss"]-hybrid["log_loss"],
+            "brier_gain":plain["brier"]-hybrid["brier"]}
+    fallback_all_windows_improve=all(x["logloss_gain"]>0 and x["brier_gain"]>0 for x in fallback_windows.values())
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -185,6 +199,8 @@ def run():
         "holdout_game_only":game_only,
         "holdout_all_games_game_only":full_game_only,
         "holdout_all_games_enhanced_with_fallback":full_fallback,
+        "holdout_fallback_window_sensitivity":fallback_windows,
+        "fallback_all_windows_improve_both_metrics":fallback_all_windows_improve,
         "full_coverage_logloss_gain":full_game_only["log_loss"]-full_fallback["log_loss"],
         "full_coverage_brier_gain":full_game_only["brier"]-full_fallback["brier"],
         "head_to_head_is_coverage_subset":game_only["games"]<full_game_only["games"],
