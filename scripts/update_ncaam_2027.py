@@ -72,9 +72,15 @@ def main():
         state["reason"]="2026-27 season source not released (HTTP 404)"
         (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
-    pre=json.loads((base/"ncaam-2026-27-preseason-provisional.json").read_text())
+    roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
+    chosen=roster_adjusted if roster_adjusted.is_file() else base/"ncaam-2026-27-preseason-provisional.json"
+    pre=json.loads(chosen.read_text())
+    if chosen==roster_adjusted:
+        assert pre.get("status")=="provisional-roster-adjusted" and pre["evidence"]["roster_programs"]>=350, "Roster-adjusted preseason model below evidence gate"
     old=json.loads((base/"ncaam-2026-27-team-registry.json").read_text())
     result=calculate(pre,old,current,games)
+    result["preseason_seed"]=str(chosen)
+    result["preseason_roster_adjusted"]=(chosen==roster_adjusted)
     (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"\n")
     state.update({"ready":True,"teams":result["team_count"],"games":result["games_played"]})
     (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
