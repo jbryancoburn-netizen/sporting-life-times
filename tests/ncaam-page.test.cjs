@@ -24,7 +24,8 @@ function fixture(kind,gameCount=0){
 }
 async function render({withCurrent=false,withRoster=true,approved=false}={}){
  const ids=['ratings','status','source-note','team-search','conference-filter',
-   'rating-version','reference-heading','rating-heading'];
+   'rating-version','reference-heading','rating-heading',
+   'matchup-a','matchup-b','matchup-venue','matchup-result'];
  const elements=Object.fromEntries(ids.map(id=>[id,element(id==='rating-version'?'auto':'')]));
  const data={
    'data/ncaam-2026-27-preseason-provisional.json':fixture('baseline',0)};
