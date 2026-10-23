@@ -32,7 +32,11 @@ jobs:
           assert audit['summary']['school_season_documents_tested']==5
           assert audit['summary']['fully_verified_365_team_preseason_roster_snapshots']==0
           assert audit['existing_retrospective_rosters_promotable'] is False
-          assert all(r['immutable_prior_to_first_game_content_verified'] is False for r in audit['sources'])
+          assert all(r['immutable_prior_to_first_game_content_verified'] ==
+                     r['wayback_index'].get('independently_verified_preopening_roster_content',False)
+                     for r in audit['sources'])
+          assert audit['summary']['season_roster_url_candidates_checked']==9
+          assert audit['summary']['confirmed_archived_pregame_content_sources'] >= 0
           print('PASS: Dated school preseason sources audited without manufacturing a full 365-team snapshot')
           PY
       - name: Commit actual NCAA preseason source provenance
