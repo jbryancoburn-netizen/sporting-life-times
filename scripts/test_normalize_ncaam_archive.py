@@ -33,7 +33,22 @@ class NormalizationTests(unittest.TestCase):
         del a["payload"]["games"][0]["game"]["neutralSite"]
         rows,bad=norm.parse(a)
         self.assertFalse(rows)
-        self.assertIn("venue",bad[0]["reason"] .replace("neutral-site status","venue"))
+        self.assertIn("neutral-site",bad[0]["reason"])
+    def test_bridge_seo_id_is_candidate_only(self):
+        a=archive()
+        team=a["payload"]["games"][0]["game"]["away"]
+        del team["teamId"]
+        team["names"]["seo"]="purdue"
+        rows,bad=norm.parse(a)
+        self.assertFalse(bad)
+        self.assertEqual(rows[0][0]["away_id"],"ncaa-seo:purdue")
+    def test_bridge_without_venue_does_not_emit_false_home_game(self):
+        a=archive()
+        game=a["payload"]["games"][0]["game"]
+        del game["neutralSite"]
+        rows,bad=norm.parse(a)
+        self.assertFalse(rows)
+        self.assertIn("unverified neutral",bad[0]["reason"])
     def test_report_not_promoted_as_d1(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);p=root/"source"/"2026"/"03";p.mkdir(parents=True)
