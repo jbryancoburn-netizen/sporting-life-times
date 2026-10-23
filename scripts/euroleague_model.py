@@ -159,7 +159,7 @@ def main():
     avg_for=sum(v["for"] for v in stats.values())/sum(v["played"] for v in stats.values()) if stats else None
     fixtures=[]
     for g in current:
-        if g["completed"] or clock(g["date"])<NOW:continue
+        if g["completed"] or clock(g["date"])==dt.datetime.max.replace(tzinfo=dt.timezone.utc) or clock(g["date"])<NOW:continue
         h,a=g["home"]["code"],g["away"]["code"]
         probability=expected(ratings[h]-ratings[a]+(0 if g["neutral"] else HOME_ELO))
         hst,ast=stats.get(h,{}),stats.get(a,{})
