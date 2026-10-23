@@ -43,20 +43,29 @@ def calculate(pre,old,current,games):
             excluded.append({"id":gid,"reason":"not a valid final"});continue
         ledger.append({"id":gid,"date":day,"home":h,"away":a,"home_score":hs,"away_score":aws})
     ledger.sort(key=lambda x:(x["date"],x["id"]))
+    opening_total=sum(r.values())
     counts=Counter()
     for g in ledger:
         h,a=g["home"],g["away"]
         p=1/(1+10**(-(r[h]-r[a])/400))
         delta=24*(1+.55*math.log10(1+abs(g["home_score"]-g["away_score"])))*((g["home_score"]>g["away_score"])-p)
+        g["home_elo_before"]=round(r[h],6)
+        g["away_elo_before"]=round(r[a],6)
+        g["home_win_probability"]=round(p,8)
         r[h]+=delta;r[a]-=delta
+        g["home_elo_after"]=round(r[h],6)
+        g["away_elo_after"]=round(r[a],6)
         g["home_change"]=round(delta,6)
         counts[h]+=1;counts[a]+=1
+    if abs(sum(r.values())-opening_total)>1e-6:
+        raise AssertionError("NCAA Elo conservation failure")
     ranked=sorted(r,key=lambda t:(-r[t],t))
     return {"model":"slat-ncaam-d1-elo-v1","season":"2026-27",
       "status":"provisional-current-venue-neutral",
       "note":"Locations unresolved; all games modeled venue-neutral. Predictions not calibrated.",
       "team_count":len(r),"games_played":len(ledger),"membership_changes":changes,
       "excluded_count":len(excluded),"excluded_examples":excluded[:30],
+      "prediction_policy":"venue-neutral until venue source verified; no fabricated home advantage",
       "rankings":[{"rank":i,"team_id":t,"team":meta[t]["team"],"conference":meta[t].get("conference"),
                    "elo":round(r[t],4),"games":counts[t]} for i,t in enumerate(ranked,1)],
       "events":ledger}
