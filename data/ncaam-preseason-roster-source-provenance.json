@@ -1,13 +1,15 @@
 {
   "audit": "ncaam-2024-2026-original-preopening-roster-sources",
-  "created_utc": "2026-10-23T23:37:45.993859+00:00",
+  "created_utc": "2026-10-23T23:40:17.656925+00:00",
   "status": "PARTIAL_SCHOOL_PRESEASON_DOCUMENT_EVIDENCE",
   "existing_retrospective_rosters_promotable": false,
   "rule": "School document URL date is indicative, but only a pre-opening immutable capture containing parsed roster proves as-of membership.",
   "summary": {
     "school_season_documents_tested": 5,
-    "official_documents_retrieved": 4,
-    "preseason_dated_documents_retrieved": 4,
+    "official_documents_retrieved": 5,
+    "preseason_dated_documents_retrieved": 5,
+    "confirmed_archived_pregame_content_sources": 4,
+    "season_roster_url_candidates_checked": 9,
     "fully_verified_365_team_preseason_roster_snapshots": 0,
     "dataset_complete_for_2024_2025_training_2026_holdout": false
   },
@@ -19,11 +21,15 @@
       "published_date": "2023-10-06",
       "url": "https://goduke.com/documents/download/2023/10/6/2023-24_Preseason_Information.pdf",
       "preseason_dated_url": true,
-      "content_fetched": false,
+      "content_fetched": true,
       "immutable_prior_to_first_game_content_verified": false,
       "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
-      "status": "SOURCE_UNAVAILABLE_OR_UNREADABLE",
-      "error": "Document exceeds 12MiB guard",
+      "content_type": "application/pdf",
+      "bytes": 16272609,
+      "sha256_fetched_now": "380bc985ca9973fab80671f8e31b22c837ea5b84658ec56880e05bd808628315",
+      "page_count": 5,
+      "roster_section_identified": true,
+      "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
       "wayback_index": {
         "team": "Duke",
         "season_end_year": 2024,
@@ -31,7 +37,8 @@
         "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fdocuments%2Fdownload%2F2023%2F10%2F6%2F2023-24_Preseason_Information.pdf&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
         "status": "checked",
         "pregame_archived_captures": [],
-        "count_valid_pregame_capture_records": 0
+        "count_valid_pregame_capture_records": 0,
+        "independently_verified_preopening_roster_content": false
       }
     },
     {
@@ -57,7 +64,8 @@
         "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fdocuments%2Fdownload%2F2024%2F9%2F26%2F2024-25_Duke_MBB_Preseason_Information.pdf&output=json&from=2024&to=2024&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
         "status": "checked",
         "pregame_archived_captures": [],
-        "count_valid_pregame_capture_records": 0
+        "count_valid_pregame_capture_records": 0,
+        "independently_verified_preopening_roster_content": false
       }
     },
     {
@@ -83,7 +91,8 @@
         "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fdocuments%2Fdownload%2F2025%2F10%2F16%2F2025-26_Duke_MBB_Preseason_Information.pdf&output=json&from=2025&to=2025&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
         "status": "checked",
         "pregame_archived_captures": [],
-        "count_valid_pregame_capture_records": 0
+        "count_valid_pregame_capture_records": 0,
+        "independently_verified_preopening_roster_content": false
       }
     },
     {
@@ -109,7 +118,8 @@
         "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fiuhoosiers.com%2Fdocuments%2Fdownload%2F2023%2F11%2F2%2F23_24_EX2_Marian.pdf&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
         "status": "checked",
         "pregame_archived_captures": [],
-        "count_valid_pregame_capture_records": 0
+        "count_valid_pregame_capture_records": 0,
+        "independently_verified_preopening_roster_content": false
       }
     },
     {
@@ -120,11 +130,11 @@
       "url": "https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster",
       "preseason_dated_url": true,
       "content_fetched": true,
-      "immutable_prior_to_first_game_content_verified": false,
+      "immutable_prior_to_first_game_content_verified": true,
       "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
       "content_type": "text/html;charset=utf-8",
       "bytes": 463425,
-      "sha256_fetched_now": "8aef29487a9947bb5b632886a541b7fffd9c2378d8be6d86b3ea92cecdcad5c4",
+      "sha256_fetched_now": "cf89d3412320ccdb769b4edb2b996f0d1b6d670733c22b34c53d40358f872f46",
       "initial_only": true,
       "roster_section_identified": true,
       "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
@@ -144,8 +154,193 @@
             "original": "https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster"
           }
         ],
-        "count_valid_pregame_capture_records": 2
-      }
+        "count_valid_pregame_capture_records": 2,
+        "independently_verified_preopening_roster_content": true,
+        "captured_content_sha256": "fecb7ae97f8e5eed6733ccfabbb9844cc2615ef6f548aaed86bfcefe2621bcf0",
+        "verified_capture_utc": "20250611195202",
+        "capture_url": "https://web.archive.org/web/20250611195202id_/https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster",
+        "captured_bytes": 475068,
+        "matched_player_evidence": [
+          "Jasai Miles",
+          "Reed Bailey"
+        ],
+        "verified_scope": "dated historical source content, not 365-team all-roster certification"
+      },
+      "verification_scope": "Archived historical announcement/roster content; no proof of complete preseason team universe"
+    }
+  ],
+  "season_page_wayback_checks": [
+    {
+      "team": "Duke",
+      "season_end_year": 2024,
+      "original": "https://goduke.com/sports/mens-basketball/roster/2023-24",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fsports%2Fmens-basketball%2Froster%2F2023-24&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        },
+        {
+          "timestamp_utc": "20230817044045",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2023-24"
+        }
+      ],
+      "count_valid_pregame_capture_records": 8,
+      "independently_verified_preopening_roster_content": true,
+      "captured_content_sha256": "0f340a654a1956004544a2ab13634eb25dadae641a31ae8b3eced5c7f09c21a1",
+      "verified_capture_utc": "20230817044045",
+      "capture_url": "https://web.archive.org/web/20230817044045id_/https://goduke.com/sports/mens-basketball/roster/2023-24",
+      "captured_bytes": 1106324,
+      "matched_player_evidence": [],
+      "verified_scope": "dated historical source content, not 365-team all-roster certification"
+    },
+    {
+      "team": "Indiana",
+      "season_end_year": 2024,
+      "original": "https://iuhoosiers.com/sports/mens-basketball/roster/2023-24",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fiuhoosiers.com%2Fsports%2Fmens-basketball%2Froster%2F2023-24&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [],
+      "count_valid_pregame_capture_records": 0,
+      "independently_verified_preopening_roster_content": false
+    },
+    {
+      "team": "Purdue",
+      "season_end_year": 2024,
+      "original": "https://purduesports.com/sports/mens-basketball/roster/season/2023-24",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpurduesports.com%2Fsports%2Fmens-basketball%2Froster%2Fseason%2F2023-24&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [],
+      "count_valid_pregame_capture_records": 0,
+      "independently_verified_preopening_roster_content": false
+    },
+    {
+      "team": "Duke",
+      "season_end_year": 2025,
+      "original": "https://goduke.com/sports/mens-basketball/roster/2024-25",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fsports%2Fmens-basketball%2Froster%2F2024-25&output=json&from=2024&to=2024&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [
+        {
+          "timestamp_utc": "20240726102837",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2024-25"
+        },
+        {
+          "timestamp_utc": "20240805152257",
+          "original": "https://goduke.com/sports/mens-basketball/roster/2024-25"
+        }
+      ],
+      "count_valid_pregame_capture_records": 2,
+      "independently_verified_preopening_roster_content": false,
+      "replay_diagnostics": [
+        {
+          "timestamp_utc": "20240726102837",
+          "reason": "Archived bytes lack trusted roster text anchors",
+          "mime": "text/html; charset=utf-8"
+        },
+        {
+          "timestamp_utc": "20240805152257",
+          "reason": "Archived bytes lack trusted roster text anchors",
+          "mime": "text/html; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "team": "Indiana",
+      "season_end_year": 2025,
+      "original": "https://iuhoosiers.com/sports/mens-basketball/roster/2024-25",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fiuhoosiers.com%2Fsports%2Fmens-basketball%2Froster%2F2024-25&output=json&from=2024&to=2024&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [],
+      "count_valid_pregame_capture_records": 0,
+      "independently_verified_preopening_roster_content": false
+    },
+    {
+      "team": "Purdue",
+      "season_end_year": 2025,
+      "original": "https://purduesports.com/sports/mens-basketball/roster/season/2024-25",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpurduesports.com%2Fsports%2Fmens-basketball%2Froster%2Fseason%2F2024-25&output=json&from=2024&to=2024&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [],
+      "count_valid_pregame_capture_records": 0,
+      "independently_verified_preopening_roster_content": false
+    },
+    {
+      "team": "Duke",
+      "season_end_year": 2026,
+      "original": "https://goduke.com/sports/mens-basketball/roster/2025-26",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fsports%2Fmens-basketball%2Froster%2F2025-26&output=json&from=2025&to=2025&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [],
+      "count_valid_pregame_capture_records": 0,
+      "independently_verified_preopening_roster_content": false
+    },
+    {
+      "team": "Indiana",
+      "season_end_year": 2026,
+      "original": "https://iuhoosiers.com/sports/mens-basketball/roster/2025-26",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fiuhoosiers.com%2Fsports%2Fmens-basketball%2Froster%2F2025-26&output=json&from=2025&to=2025&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [
+        {
+          "timestamp_utc": "20250410022151",
+          "original": "https://iuhoosiers.com/sports/mens-basketball/roster/2025-26"
+        }
+      ],
+      "count_valid_pregame_capture_records": 1,
+      "independently_verified_preopening_roster_content": true,
+      "captured_content_sha256": "96775269c7cb7a0012525d561c12f31eeb9b4b842d0898c777c7af6e56cc3a7b",
+      "verified_capture_utc": "20250410022151",
+      "capture_url": "https://web.archive.org/web/20250410022151id_/https://iuhoosiers.com/sports/mens-basketball/roster/2025-26",
+      "captured_bytes": 89442,
+      "matched_player_evidence": [],
+      "verified_scope": "dated historical source content, not 365-team all-roster certification"
+    },
+    {
+      "team": "Purdue",
+      "season_end_year": 2026,
+      "original": "https://purduesports.com/sports/mens-basketball/roster/season/2025-26",
+      "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpurduesports.com%2Fsports%2Fmens-basketball%2Froster%2Fseason%2F2025-26&output=json&from=2025&to=2025&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+      "status": "checked",
+      "pregame_archived_captures": [
+        {
+          "timestamp_utc": "20250810011541",
+          "original": "https://purduesports.com/sports/mens-basketball/roster/season/2025-26"
+        }
+      ],
+      "count_valid_pregame_capture_records": 1,
+      "independently_verified_preopening_roster_content": true,
+      "captured_content_sha256": "f8c0716c22f26f26c0f9db771a8ee6c1257b81d266dd6385d9f65fbd61f6afb4",
+      "verified_capture_utc": "20250810011541",
+      "capture_url": "https://web.archive.org/web/20250810011541id_/https://purduesports.com/sports/mens-basketball/roster/season/2025-26",
+      "captured_bytes": 1204714,
+      "matched_player_evidence": [],
+      "verified_scope": "dated historical source content, not 365-team all-roster certification"
     }
   ]
 }
