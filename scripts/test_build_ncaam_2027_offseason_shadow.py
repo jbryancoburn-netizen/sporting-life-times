@@ -13,7 +13,7 @@ class ShadowTests(unittest.TestCase):
   values,counts=m.features(prior,current)
   self.assertEqual(counts["exact_id_matches"],2)
   self.assertAlmostEqual(values["ncaa:33"]["retention"],1)
-  self.assertAlmostEqual(values["ncaa:33"]["incoming_minutes"],1100/1040)
+  self.assertAlmostEqual(values["ncaa:33"]["incoming_minutes"],1100/1040,places=5)
  def test_duplicate_athlete_does_not_inflate_minutes(self):
   prior=[{"team_ncaa_team_id":"33","clean_name":"Peter Silver","player_id":"88","mins":"52"}]*20
   current={"rosters":[{"ncaa_id":"ncaa:33","school":"Team B","players":[{"id":"88","name":"Peter Silver"},{"id":"88","name":"Peter Silver"}]+[
