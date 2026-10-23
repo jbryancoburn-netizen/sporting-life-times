@@ -34,7 +34,7 @@ try {
  const [current,roster,baseline]=await Promise.all([load(files.current),load(files.roster),load(files.baseline)]);
  if(!baseline)throw Error('Baseline ratings failed integrity checks');
  const available={baseline};
- if(roster?.evidence?.roster_programs>=350)available.roster=roster;
+ // Audit hold: roster coefficients yield implausible +100 to +155 Elo jumps.\n // Do not present this experimental model as a validated default.\n const rosterAuditPassed=roster?.audit?.release_approved===true;\n if(rosterAuditPassed&&roster?.evidence?.roster_programs>=350)available.roster=roster;
  if(current?.games_played>0)available.current=current;
  const defaults=available.current?'current':available.roster?'roster':'baseline';
  const labels={current:'Current season Elo',roster:'Roster-adjusted preseason',baseline:'Historical carryover baseline'};
@@ -47,7 +47,7 @@ try {
  for(const name of [...new Set(initial.rankings.map(r=>r.conference).filter(Boolean))].sort()){
   const option=document.createElement('option');option.value=name;option.textContent=name;conference.append(option);
  }
- const initialById=new Map((roster||baseline).rankings.map(r=>[r.team_id,r]));
+ const initialById=new Map((available.roster||baseline).rankings.map(r=>[r.team_id,r]));
  function render(){
   const choice=version.value==='auto'?defaults:version.value;
   const data=available[choice]||available[defaults];
@@ -64,7 +64,7 @@ try {
    referenceHeading.textContent='Opening Elo';
   }else{
    status.textContent='2026–27 historical carryover baseline · '+data.team_count+' programs';
-   note.textContent='Independent 2025–26 Elo with 65% carryover. No player movements incorporated in this comparison.';
+   note.textContent='Independent 2025–26 Elo with 65% carryover. Roster-adjusted experiment temporarily withheld pending extreme-transfer and player-identity audit.';
    referenceHeading.textContent='2025–26 final Elo';
   }
   ratingHeading.textContent=choice==='current'?'Current Elo':'Preseason Elo';
