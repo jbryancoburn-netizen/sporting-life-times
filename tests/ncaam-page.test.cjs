@@ -22,13 +22,13 @@ function fixture(kind,gameCount=0){
    games_played:gameCount,rankings:ranks,carryover:.65,
    evidence:{roster_programs:364}};
 }
-async function render({withCurrent=false,withRoster=true}={}){
+async function render({withCurrent=false,withRoster=true,approved=false}={}){
  const ids=['ratings','status','source-note','team-search','conference-filter',
    'rating-version','reference-heading','rating-heading'];
  const elements=Object.fromEntries(ids.map(id=>[id,element(id==='rating-version'?'auto':'')]));
  const data={
    'data/ncaam-2026-27-preseason-provisional.json':fixture('baseline',0)};
- if(withRoster)data['data/ncaam-2026-27-offseason-shadow.json']=fixture('roster',0);
+ if(withRoster)data['data/ncaam-2026-27-offseason-shadow.json']={...fixture('roster',0),audit:{release_approved:approved}};
  if(withCurrent)data['data/ncaam-2026-27-current-provisional.json']=fixture('current',3);
  const context={
    document:{getElementById:id=>elements[id],createElement:()=>element()},
@@ -37,8 +37,8 @@ async function render({withCurrent=false,withRoster=true}={}){
  await vm.runInNewContext('(async()=>{\n'+code+'\n})()',context);
  return elements;
 }
-test('uses validated roster-adjusted preseason as dominant source',async()=>{
- const els=await render();
+test('uses approved roster-adjusted preseason only after audit gate',async()=>{
+ const els=await render({approved:true});
  assert.match(els.status.textContent,/roster-adjusted/);
  assert.match(els['source-note'].textContent,/364\/365/);
  assert.match(els.ratings.innerHTML,/12\.50/);
@@ -60,4 +60,10 @@ test('missing shadow data cleanly falls back to historical carryover',async()=>{
  const els=await render({withRoster:false});
  assert.match(els.status.textContent,/carryover baseline/);
  assert.doesNotMatch(els.ratings.innerHTML,/NaN/);
+});
+
+test('unapproved shadow is never exposed as a selectable primary rating',async()=>{
+ const els=await render({withRoster:true,approved:false});
+ assert.match(els.status.textContent,/carryover baseline/);
+ assert.ok(!els['rating-version'].children.some(x=>x.value==='roster'));
 });
