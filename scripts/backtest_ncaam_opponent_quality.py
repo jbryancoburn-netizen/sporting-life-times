@@ -63,7 +63,8 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
     end=schedule[0][0].toordinal()+days-1
     mk=sorted(x["retention"] for x in features.values())[len(features)//2]
     mt=sorted(x["incoming_minutes"] for x in features.values())[len(features)//2]
-    mq=sorted(quality[t] for t in valid)[len(valid)//2]
+    quality_values=sorted(quality.values())
+    mq=quality_values[len(quality_values)//2]
     # Keep retention and incoming coefficients fixed to previously trained
     # +120/+160. Only train opponent-quality slope on training seasons.
     ratings={t:1500+.65*(previous.get(t,1500)-1500)+
