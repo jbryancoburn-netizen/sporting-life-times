@@ -6,6 +6,7 @@ on:
       - 'scripts/euroleague_model.py'
       - 'scripts/euroleague_diagnose.py'
       - 'scripts/test_euroleague_model.py'
+      - 'scripts/euroleague_release_gate.py'
       - '.github/workflows/euroleague-model.yml'
   schedule:
     - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
@@ -49,6 +50,8 @@ jobs:
           assert all(isinstance(t["elo"],(int,float)) for t in teams)
           print("Validated EuroLeague publication:",len(teams),"teams,",finals,"finals")
           PY
+      - name: Release gate — Elo, standings, forecasts, live scoreboard
+        run: python scripts/euroleague_release_gate.py
       - name: Preserve source diagnostics on failure
         if: failure()
         run: |
