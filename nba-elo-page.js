@@ -1,5 +1,6 @@
 import {model,codes,logo,eloWin,changeTag,safe} from './nba-elo-model.js';
 const $=id=>document.getElementById(id);
+const notice=(id,message)=>{const el=$(id);if(el)el.textContent=message};
 const badges=t=>'<img loading="lazy" width="28" height="28" alt="" src="'+logo(t)+'" onerror="this.hidden=true"> '+safe(codes[t]);
 const clock=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
 function board(m){
