@@ -4,6 +4,7 @@ Usage: python scripts/euroleague_model.py
 """
 import datetime as dt
 import json, math, pathlib, time, urllib.error, urllib.request
+import euroleague_final_checks as verified
 
 BASE="https://api-live.euroleague.net/v2/competitions/E/seasons/"
 OUT=pathlib.Path("data/euroleague-model.json")
@@ -191,6 +192,7 @@ def main():
     # First E2026 record already triggered the rollover in the chronological loop.
     current=[g for g in all_games if g["season"]=="E2026"]
     current.sort(key=lambda g:(clock(g["date"]),g["id"]))
+    verified_applied=verified.apply(current,verified.load(),require_all=(OUT==pathlib.Path("data/euroleague-model.json")))
     active={t["code"] for g in current for t in (g["home"],g["away"])}
     for g in current:
         for t in (g["home"],g["away"]):team_info[t["code"]]={"code":t["code"],"name":t["name"],"logo":t["logo"]}
@@ -242,7 +244,7 @@ def main():
             projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
-    payload={"last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    payload={"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
@@ -257,13 +259,13 @@ def main():
             changed=[gid for gid in old_results if old_results[gid]!=new_results[gid]]
             if changed:
                 raise ValueError("Previously published final score changed; manual reconciliation required: "+str(changed))
-    temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n");temp.replace(OUT)
+    temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n");temp.replace(OUT)
     if saved_seed is None and OUT==pathlib.Path("data/euroleague-model.json"):
         seed={"season":"E2026","settings":{"K":K,"home_elo":HOME_ELO,"carry":CARRY},
               "ratings":preseason_ratings,"source":"Independent replay of 2024-25 and 2025-26 EuroLeague finals"}
         PRESEASON.parent.mkdir(parents=True,exist_ok=True)
         tempseed=PRESEASON.with_suffix(".tmp")
-        tempseed.write_text(json.dumps(seed,ensure_ascii=False,indent=2)+"\\n")
+        tempseed.write_text(json.dumps(seed,ensure_ascii=False,indent=2)+"\n")
         tempseed.replace(PRESEASON)
     print(f"EuroLeague: {len(ranked)} clubs, {len(history)} finals, {len(fixtures)} fixtures")
 if __name__=="__main__":main()
