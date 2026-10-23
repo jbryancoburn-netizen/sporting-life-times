@@ -27,6 +27,8 @@ def audit(identity,production,exposure):
         "opponent_calibration_not_approved":exposure.get("opponent_adjustment_calibrated_for_verified_identities") is not True,
         "historical_espn_coverage_incomplete":identity.get("teams_prior")!=365,
         "duplicate_current_athlete_ids":bool(identity.get("duplicate_current_athlete_ids")),
+        "historical_roster_partial":bool(identity.get("historical_partial_roster_teams")),
+        "historical_season_payload_not_source_verified":identity.get("historical_season_payload_verified") is not True,
     }
     return {"season":"2026-27","teams_audited":365,"espn_identity_verified_players":total,
         "candidate_box_players":production["counts"].get("unique_ncaa_box_candidates",0),
