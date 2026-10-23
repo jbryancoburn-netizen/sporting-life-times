@@ -57,7 +57,7 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
             weight[target]+=m
     return {t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
 
-def evaluate_quality(schedule,previous,features,quality,beta,days=45):
+def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160)):
     valid={t for t in features if t in quality}
     if len(valid)<200:raise ValueError("Insufficient quality feature coverage")
     end=schedule[0][0].toordinal()+days-1
@@ -67,7 +67,7 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45):
     # Keep retention and incoming coefficients fixed to previously trained
     # +120/+160. Only train opponent-quality slope on training seasons.
     ratings={t:1500+.65*(previous.get(t,1500)-1500)+
-        (120*(features[t]["retention"]-mk)+160*(features[t]["incoming_minutes"]-mt)
+        (roster_betas[0]*(features[t]["retention"]-mk)+roster_betas[1]*(features[t]["incoming_minutes"]-mt)
          if t in features else 0)+
         (beta*(quality[t]-mq)/100 if t in quality else 0)
         for t in {x for g in schedule for x in (g[2],g[3])}}
@@ -135,6 +135,8 @@ def run():
             "logloss_gain":reference["log_loss"]-adjusted["log_loss"],
             "brier_gain":reference["brier"]-adjusted["brier"]}
     windows_positive=all(v["logloss_gain"]>0 and v["brier_gain"]>0 for v in windows.values())
+    game_only=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+        data[2026]["features"],data[2026]["quality"],0,roster_betas=(0,0))
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -145,6 +147,9 @@ def run():
         "training_grid_values":list(slopes),
         "training_year_diagnostics":train_by_season,
         "holdout_baseline":base,"holdout_adjusted":hold,
+        "holdout_game_only":game_only,
+        "adjusted_vs_game_only_logloss_gain":game_only["log_loss"]-hold["log_loss"],
+        "adjusted_vs_game_only_brier_gain":game_only["brier"]-hold["brier"],
         "holdout_logloss_gain":gain,"holdout_brier_gain":brier_gain,
         "holdout_window_sensitivity":windows,
         "holdout_all_windows_improve_both_metrics":windows_positive,
