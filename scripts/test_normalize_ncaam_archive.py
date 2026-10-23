@@ -49,6 +49,22 @@ class NormalizationTests(unittest.TestCase):
         rows,bad=norm.parse(a)
         self.assertFalse(rows)
         self.assertIn("unverified neutral",bad[0]["reason"])
+    def test_refuse_missing_archive(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            with self.assertRaisesRegex(ValueError,"No historical"):
+                norm.convert(root/"missing",root/"games.csv",root/"teams.json",root/"audit.json")
+    def test_unresolved_final_output_is_valid_json(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);p=root/"source"/"2026"/"03";p.mkdir(parents=True)
+            obj=archive()
+            del obj["payload"]["games"][0]["game"]["neutralSite"]
+            (p/"01.json").write_text(json.dumps(obj))
+            result=norm.convert(root/"source",root/"games.csv",root/"teams.json",root/"audit.json")
+            unresolved=json.loads((root/"ncaam-unresolved-finals.json").read_text())
+            self.assertEqual(result["rejected_final_count"],1)
+            self.assertEqual(unresolved[0]["home_name"],"Indiana")
+            self.assertFalse(result["release_ready"])
     def test_report_not_promoted_as_d1(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);p=root/"source"/"2026"/"03";p.mkdir(parents=True)
