@@ -29,8 +29,8 @@ class OfficialSourceTests(unittest.TestCase):
  def test_official_replaces_fallback(self):
   import tempfile,json
   from pathlib import Path
-  fallback={'leagues':[{'league':'NBA','provider':'espn','games':[{'id':'espn-1','date':'2026-10-22T23:00:00Z','teams':[{'name':'Home Club','score':100},{'name':'Away Club','score':99}]}]}]}
-  primary={'leagues':[{'league':'NBA','provider':'nba_live','source_url':'https://www.nba.com/games','games':[{'id':'nba-1','date':'2026-10-22T23:00:00Z','provider':'nba_live','teams':[{'name':'Home Club','score':101},{'name':'Away Club','score':99}]}]}]}
+  fallback={'leagues':[{'league':'NBA','provider':'espn','games':[{'id':'espn-1','state':'post','date':'2026-10-22T23:00:00Z','teams':[{'name':'Home Club','score':100},{'name':'Away Club','score':99}]}]}]}
+  primary={'leagues':[{'league':'NBA','provider':'nba_live','source_url':'https://www.nba.com/games','games':[{'id':'nba-1','state':'post','date':'2026-10-22T23:00:00Z','provider':'nba_live','teams':[{'name':'Home Club','score':101},{'name':'Away Club','score':99}]}]}]}
   with tempfile.TemporaryDirectory() as d:
    root=Path(d)
    (root/'scoreboards.json').write_text(json.dumps(fallback))
