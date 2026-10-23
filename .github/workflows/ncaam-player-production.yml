@@ -1,0 +1,46 @@
+name: NCAA D1 player production and roster audit
+on:
+  push:
+    paths:
+      - scripts/build_ncaam_player_production.py
+      - scripts/test_build_ncaam_player_production.py
+      - scripts/audit_ncaam_rankings.py
+      - .github/workflows/ncaam-player-production.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_build_ncaam_player_production.py -v
+      - run: python scripts/build_ncaam_player_production.py
+      - run: python scripts/audit_ncaam_rankings.py
+      - name: Verify no uncalibrated ratings can be approved
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('data/ncaam-2025-26-player-production-ledger.json'))
+          a=json.load(open('data/ncaam-2026-27-ranking-audit.json'))
+          assert x['players']>3000
+          assert x['opponent_strength_adjusted'] is False
+          assert x['transfer_elo_coefficient_authorized'] is False
+          assert a['all_teams_audited_for_anomalies']==365
+          assert a['all_teams_player_level_verified']==0
+          assert not a['release_approved']
+          print('Player performance recorded; unsupported offseason Elo remains blocked')
+          PY
+      - name: Commit audit and player evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2025-26-player-production-ledger.json data/ncaam-2026-27-ranking-audit.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish audited NCAA player production evidence and 365-team anomaly ledger"
+          git pull --rebase origin main
+          git push origin HEAD:main
