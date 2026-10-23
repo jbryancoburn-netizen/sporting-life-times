@@ -84,7 +84,7 @@ jobs:
                        'source crosswalk/missing-player corruption guards',
                        'paper-style college Elo page Node rendering tests']}
           Path('data/ncaam-2026-27-release-verification.json').write_text(
-             json.dumps(record,indent=2)+'\\n',encoding='utf-8')
+             json.dumps(record,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(record,indent=2))
           PY
           git config user.name "github-actions[bot]"
