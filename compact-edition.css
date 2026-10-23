@@ -200,3 +200,11 @@ body #nba-current-elo{margin-top:12px!important}
  body .nba-newspaper-grid #nba-news,body .nba-newspaper-grid #nba-official-standings,body .nba-newspaper-grid #nba-boxscores,body .nba-newspaper-grid #nba-data-links,body .nba-newspaper-grid #nba-upcoming{grid-row:auto!important}
  body .nba-newspaper-grid #nba-boxscores{border-right:0!important}
 }
+
+/* Scoreboard identity restoration: team crests must remain legible at newspaper density. */
+body #nba-elo-scoreboard .nba-team-label img{width:30px!important;height:30px!important;max-height:30px!important;object-fit:contain!important;flex:0 0 30px!important}
+body #nba-elo-scoreboard .nba-result-line{min-height:42px!important;grid-template-columns:35px minmax(0,1fr) 23px 8px 23px minmax(0,1fr) 57px!important}
+body #nba-elo-scoreboard .nba-team-label{gap:6px!important}
+body #nba-current-elo .nba-team-label img{width:26px!important;height:26px!important;max-height:26px!important;object-fit:contain!important}
+body #nba-current-elo table img,body #nba-elo-scoreboard table img{max-height:32px!important}
+@media(max-width:740px){body #nba-elo-scoreboard .nba-team-label img{width:27px!important;height:27px!important;max-height:27px!important;flex-basis:27px!important}body #nba-elo-scoreboard .nba-result-line{grid-template-columns:29px minmax(0,1fr) 22px 7px 22px minmax(0,1fr) 48px!important;min-height:39px!important}}
