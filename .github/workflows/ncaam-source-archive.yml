@@ -34,7 +34,7 @@ jobs:
       - name: Collect NCAA-origin daily source archive
         run: |
           python scripts/archive_ncaam_ncaa_scores.py \
-            --start "${{ inputs.start }}" --end "${{ inputs.end }}" \
+            --start "${{ inputs.start || '2026-03-01' }}" --end "${{ inputs.end || '2026-03-01' }}" \
             --root staging/ncaam-source-archive
       - name: Normalize verified finals to candidate CSV and audit report
         if: success()
