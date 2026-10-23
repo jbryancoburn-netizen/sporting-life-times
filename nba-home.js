@@ -23,8 +23,16 @@ async function desk(){
  const records=Object.fromEntries(Object.keys(names).map(t=>[t,{w:0,l:0}]));
  const finals=games.filter(g=>g.state==='post'||/final/i.test(g.status||''));
  for(const g of finals){const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away'),hc=code(h?.name),ac=code(a?.name);if(!hc||!ac||!Number.isFinite(+h.score)||!Number.isFinite(+a.score))continue;const winner=+h.score>+a.score?hc:ac,loser=winner===hc?ac:hc;records[winner].w++;records[loser].l++}
- const conference=(label,keys)=>{const arr=keys.sort((a,b)=>{const x=records[a],y=records[b];return y.w-x.w||x.l-y.l||ratings[b]-ratings[a]});return '<section class="nba-conference"><h3>'+label+'</h3><table class="nba-mini-table"><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>PCT</th><th>Elo</th></tr></thead><tbody>'+arr.map((t,i)=>{const r=records[t],n=r.w+r.l;return '<tr><td>'+(i+1)+'</td><th>'+esc(names[t])+'</th><td>'+r.w+'</td><td>'+r.l+'</td><td>'+(n?(r.w/n).toFixed(3):'—')+'</td><td>'+ratings[t].toFixed(0)+'</td></tr>'}).join('')+'</tbody></table></section>'};
- $('nba-conference-standings').innerHTML='<p class="hub-small">Provisional W–L table derived from '+finals.length+' final games in the currently published scoreboard snapshot. <strong>Not complete official season standings.</strong> Rankings and records may be incomplete; use the official link for full standings.</p><div class="nba-conferences">'+conference('EASTERN CONFERENCE',Object.keys(names).filter(t=>east.has(t)))+conference('WESTERN CONFERENCE',Object.keys(names).filter(t=>!east.has(t)))+'</div>';
+ const divisions=[
+ ['ATLANTIC',['BOS','BKN','NYK','PHI','TOR']],
+ ['CENTRAL',['CHI','CLE','DET','IND','MIL']],
+ ['SOUTHEAST',['ATL','CHA','MIA','ORL','WAS']],
+ ['NORTHWEST',['DEN','MIN','OKC','POR','UTA']],
+ ['PACIFIC',['GSW','LAC','LAL','PHX','SAC']],
+ ['SOUTHWEST',['DAL','HOU','MEM','NOP','SAS']]
+ ];
+ const division=(label,keys)=>{const arr=[...keys].sort((a,b)=>{const x=records[a],y=records[b];return y.w-x.w||x.l-y.l||ratings[b]-ratings[a]});return '<section class="nba-division"><h3>'+label+'</h3><table class="nba-mini-table"><thead><tr><th>#</th><th>Club</th><th>W</th><th>L</th><th>Elo</th></tr></thead><tbody>'+arr.map((t,i)=>{const r=records[t];return '<tr><td>'+(i+1)+'</td><th><abbr title="'+esc(names[t])+'">'+esc(t)+'</abbr></th><td>'+r.w+'</td><td>'+r.l+'</td><td>'+ratings[t].toFixed(0)+'</td></tr>'}).join('')+'</tbody></table></section>'};
+ $('nba-conference-standings').innerHTML='<p class="hub-small">Six NBA divisions · Provisional records from '+finals.length+' finals in the published scoreboard snapshot. <strong>Not full official season standings.</strong> Elo is independent of W–L. <a href="https://www.nba.com/standings">Official NBA standings ↗</a></p><div class="nba-divisions">'+divisions.map(([label,keys])=>division(label,keys)).join('')+'</div>';
  msg('nba-standings-status','Published scoreboard snapshot · '+esc(scores.updated_at||'date not supplied'));
  const upcoming=games.filter(g=>g.state==='pre'||/scheduled/i.test(g.status||'')).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).slice(0,18);
  if(!upcoming.length){msg('nba-forecast-status','No future NBA games in the current published schedule snapshot');unavailable('nba-forecast-games','Upcoming predictions appear when verified future fixtures are available.');return}
