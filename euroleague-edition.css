@@ -1,0 +1,26 @@
+/* EuroLeague's own newspaper front page, built from the independently published model. */
+body.league-edition[data-league="euroleague"] .el-front-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-block:3px double #2d2a26;margin:14px 0 18px}
+body.league-edition[data-league="euroleague"] .el-front-number{padding:12px 14px;border-right:1px solid #c7c0b3;min-width:0}
+body.league-edition[data-league="euroleague"] .el-front-number:last-child{border-right:0}
+body.league-edition[data-league="euroleague"] .el-front-number small{display:block;font:10px/1.4 Georgia,serif;letter-spacing:.07em;text-transform:uppercase;color:#5d5851}
+body.league-edition[data-league="euroleague"] .el-front-number strong{display:block;font:600 clamp(18px,2.1vw,29px)/1.15 Georgia,serif;overflow-wrap:anywhere;margin:5px 0}
+body.league-edition[data-league="euroleague"] .el-front-number span{font:11px/1.35 Georgia,serif;color:#6b645b}
+body.league-edition[data-league="euroleague"] .el-model-columns{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;align-items:start}
+body.league-edition[data-league="euroleague"] .el-model-columns #el-ratings,body.league-edition[data-league="euroleague"] .el-model-columns #el-standings-panel{min-width:0;margin:0!important}
+body.league-edition[data-league="euroleague"] .el-model-columns .nba-current-table{font-size:12px}
+body.league-edition[data-league="euroleague"] .el-model-columns .nba-current-table th,body.league-edition[data-league="euroleague"] .el-model-columns .nba-current-table td{padding:7px 8px}
+body.league-edition[data-league="euroleague"] .el-model-columns .el-club img{width:24px;height:24px}
+body.league-edition[data-league="euroleague"] .el-results-strip{border-top:3px double #2d2a26;margin:18px 0;padding-top:10px}
+body.league-edition[data-league="euroleague"] .el-results-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+body.league-edition[data-league="euroleague"] .el-result-card{border:1px solid #c9c3b7;background:#faf8f3;padding:10px;min-width:0}
+body.league-edition[data-league="euroleague"] .el-result-card small{display:block;font:10px Georgia,serif;color:#777066;margin-bottom:6px}
+body.league-edition[data-league="euroleague"] .el-result-row{display:flex;justify-content:space-between;gap:5px;align-items:center;font:12px Georgia,serif;margin:6px 0}
+body.league-edition[data-league="euroleague"] .el-result-row span{display:inline-flex;gap:5px;align-items:center;min-width:0}
+body.league-edition[data-league="euroleague"] .el-result-row img{width:20px;height:20px;object-fit:contain}
+body.league-edition[data-league="euroleague"] .el-result-row b{font:700 15px Georgia,serif;white-space:nowrap}
+body.league-edition[data-league="euroleague"] .el-pulse{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+body.league-edition[data-league="euroleague"] .el-pulse article{border-top:1px solid #b8b0a5;padding-top:9px;font:13px/1.4 Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-pulse article b{display:block;font:700 14px Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-pulse article small{display:block;color:#6f685e}
+@media(max-width:900px){body.league-edition[data-league="euroleague"] .el-model-columns{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){body.league-edition[data-league="euroleague"] .el-front-strip{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-front-number:nth-child(2){border-right:0}body.league-edition[data-league="euroleague"] .el-front-number:nth-child(-n+2){border-bottom:1px solid #c7c0b3}body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-pulse{grid-template-columns:1fr}}
