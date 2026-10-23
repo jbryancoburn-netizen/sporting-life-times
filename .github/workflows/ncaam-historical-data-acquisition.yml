@@ -5,6 +5,7 @@ on:
       - '.github/workflows/ncaam-historical-data-acquisition.yml'
       - 'scripts/normalize_ncaam_historical_parquet.py'
       - 'scripts/backtest_ncaam_quality_retrospective.py'
+      - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -86,6 +87,21 @@ jobs:
           assert r['status']=='RETROSPECTIVE_DIAGNOSTIC_NOT_ASOF_PRESEASON_VALIDATED'
           print('PASS:',r['holdout_minutes_only']['games'],'holdout games with no misleading production promotion')
           PY
+      - name: Run strictly dated in-season 2024–25 train and 2026 holdout
+        run: |
+          python scripts/backtest_ncaam_quality_earlyseason_asof.py \
+            --source historical-normalized \
+            --output historical-report/ncaam-quality-earlyseason-asof-backtest.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          o=json.loads(Path('historical-report/ncaam-quality-earlyseason-asof-backtest.json').read_text())
+          assert o['holdout_minutes']['games']>1000
+          assert o['holdout_quality']['games']==o['holdout_minutes']['games']
+          assert o['status']=='CHRONOLOGICALLY_VALID_EARLYSEASON_NOT_PRESEASON'
+          assert o['preseason_release_approved'] is False
+          print('CHECKED:',o['holdout_minutes']['games'],'real post-cutoff 2026 contests')
+          PY
       - name: Publish acquisition status to the newspaper repository
         if: always()
         shell: bash
@@ -106,6 +122,9 @@ jobs:
           if [ -s historical-report/ncaam-player-quality-retrospective-backtest.json ]; then
             cp historical-report/ncaam-player-quality-retrospective-backtest.json data/ncaam-player-quality-retrospective-backtest.json
           fi
+          if [ -s historical-report/ncaam-quality-earlyseason-asof-backtest.json ]; then
+            cp historical-report/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json
+          fi
           python - <<'PY'
           import json,os
           from pathlib import Path
@@ -123,6 +142,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
+          git add data/ncaam-quality-earlyseason-asof-backtest.json || true
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main || exit 1
