@@ -114,12 +114,24 @@ def check_archived_roster_bytes(archive,kind):
                 strong=all(k in txt for k in ("initial 2025-26 roster","jasai miles","reed bailey"))
                 matched=["Jasai Miles","Reed Bailey"] if strong else []
             else:
-                # School year-roster pages should contain at least two roster records,
-                # but do not infer full list from generic page boilerplate.
+                # A generic 'roster' header is not evidence the actual players
+                # are the ones associated with the requested historical season.
+                # Require two season-specific athletes independently grounded in
+                # published school rosters; never accept empty/stale templates.
+                anchors={
+                    ("Duke",2024):("Jared McCain","Jeremy Roach"),
+                    ("Duke",2025):("Cooper Flagg","Kon Knueppel"),
+                    ("Duke",2026):("Cameron Boozer","Cayden Boozer"),
+                    ("Indiana",2024):("Kel'el Ware","Xavier Johnson"),
+                    ("Indiana",2025):("Oumar Ballo","Myles Rice"),
+                    ("Indiana",2026):("Jasai Miles","Reed Bailey"),
+                    ("Purdue",2024):("Zach Edey","Braden Smith"),
+                    ("Purdue",2025):("Daniel Jacobsen","Braden Smith"),
+                    ("Purdue",2026):("Omer Mayer","Oscar Cluff")}
                 txt=data.decode("utf-8","replace").lower()
-                strong=("<html" in txt and "roster" in txt and
-                        (("players" in txt) or ("jersey number" in txt)))
-                matched=[]
+                names=anchors.get((archive["team"],archive["season_end_year"]),())
+                matched=[name for name in names if name.lower() in txt]
+                strong=("<html" in txt and "roster" in txt and len(matched)>=2)
             if strong:
                 archive.update(independently_verified_preopening_roster_content=True,
                                captured_content_sha256=hashlib.sha256(data).hexdigest(),
