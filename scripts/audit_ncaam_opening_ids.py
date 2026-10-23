@@ -21,8 +21,9 @@ def audit(data,registry):
         result={"game_id":g["source_event_id"],"source_url":g["source_url"],
                 "venue_neutral":g["venue_neutral"],"home":g["home"],"away":g["away"]}
         for role in ("home","away"):
-            team=index.get(norm(g[role]))
+            team=index.get(norm(g.get(role+"_location"))) or index.get(norm(g.get(role+"_short"))) or index.get(norm(g[role]))
             result[role+"_canonical_id"]=team["id"] if team else None
+            result[role+"_match_method"]="exact_school_location_or_short_name" if team else None
         if result["venue_neutral"] is True:neutral+=1
         if result["home_canonical_id"] and result["away_canonical_id"]:matched.append(result)
         else:unmatched.append(result)
