@@ -1,0 +1,22 @@
+/* Compact newspaper-like NCAA college soccer Elo ratings, responsive on phones. */
+.college-elo-block { margin: 1.1rem 0 1.4rem; padding: 1rem 1.05rem; background: #fff; color:#202020; border-top:3px solid #252525; border-bottom:1px solid #b5b5b5; }
+.college-elo-head { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.35rem; }
+.college-elo-block h2 { font-size:1.14rem; margin:0; color:#222; letter-spacing:.01em; font-weight:700; text-transform:none; }
+.college-elo-block .college-elo-status { font-size:.75rem; color:#686868; margin:.3rem 0 .8rem; }
+.college-elo-controls { display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; margin:.8rem 0; }
+.college-elo-button-group { display:flex; flex-wrap:wrap; gap:.2rem; }
+.college-elo-button { font:inherit; font-size:.79rem; border:1px solid #ccc; color:#242424; background:#f8f8f8; padding:.4rem .7rem; cursor:pointer; }
+.college-elo-button.is-selected { background:#252525; color:white; border-color:#252525; }
+.college-elo-button:focus-visible { outline:2px solid #1d4687; outline-offset:2px; }
+.college-elo-table-header { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:.35rem; margin:.8rem 0 .4rem; }
+.college-elo-table-header h3 { font-size:.97rem; font-weight:700; margin:0; text-transform:none; }
+.college-elo-table-header span { font-size:.72rem; color:#676767; }
+.college-elo-scroll { max-height:450px; overflow:auto; border-top:1px solid #222; border-bottom:1px solid #ddd; }
+.college-elo-table { width:100%; border-collapse:collapse; font-size:.78rem; color:#202020; }
+.college-elo-table th, .college-elo-table td {padding:.35rem .45rem; border-bottom:1px solid #e5e5e5; vertical-align:middle; white-space:nowrap; }
+.college-elo-table th { position:sticky; top:0; z-index:1; background:#f0f0f0; text-transform:uppercase; font-size:.66rem; text-align:left; letter-spacing:.03em; }
+.college-elo-table tbody tr:nth-child(even){background:#fafafa;}
+.college-elo-table .numeric {text-align:right;}
+.college-elo-table .college-elo-school {font-weight:600; white-space:normal; min-width:100px;}
+.college-elo-note {font-size:.75rem; color:#666; line-height:1.45; margin:.65rem 0 0;}
+@media(max-width:550px){ .college-elo-block{padding:.65rem .55rem;} .college-elo-table{font-size:.71rem;} .college-elo-table td,.college-elo-table th{padding:.3rem .25rem;} .college-elo-scroll{max-height:380px;} }
