@@ -1,0 +1,119 @@
+{
+  "experiment": "ncaa-d1-offseason-retention-backtest-v1",
+  "train_years": [
+    2024,
+    2025
+  ],
+  "holdout_year": 2026,
+  "first_days_per_season": 45,
+  "source_family": "NCAA-origin scoreboards / player box / rosters, via SportsDataverse",
+  "model": "Independent venue-neutral 24K margin-aware Elo with .65 annual carryover",
+  "feature": "Verified player returning minutes / previous-season total minutes, exact team/player identity only",
+  "parameters_tested": [
+    {
+      "beta": -240,
+      "games": 3570,
+      "log_loss": 0.60864303
+    },
+    {
+      "beta": -180,
+      "games": 3570,
+      "log_loss": 0.60327104
+    },
+    {
+      "beta": -120,
+      "games": 3570,
+      "log_loss": 0.59918554
+    },
+    {
+      "beta": -80,
+      "games": 3570,
+      "log_loss": 0.59717631
+    },
+    {
+      "beta": -40,
+      "games": 3570,
+      "log_loss": 0.59573785
+    },
+    {
+      "beta": -20,
+      "games": 3570,
+      "log_loss": 0.59523234
+    },
+    {
+      "beta": 0,
+      "games": 3570,
+      "log_loss": 0.59486909
+    },
+    {
+      "beta": 20,
+      "games": 3570,
+      "log_loss": 0.59464793
+    },
+    {
+      "beta": 40,
+      "games": 3570,
+      "log_loss": 0.59456864
+    },
+    {
+      "beta": 80,
+      "games": 3570,
+      "log_loss": 0.59483476
+    },
+    {
+      "beta": 120,
+      "games": 3570,
+      "log_loss": 0.5956654
+    },
+    {
+      "beta": 180,
+      "games": 3570,
+      "log_loss": 0.59796448
+    },
+    {
+      "beta": 240,
+      "games": 3570,
+      "log_loss": 0.60151861
+    }
+  ],
+  "selected_beta": 40,
+  "train_baseline": {
+    "beta": 0,
+    "games": 3570,
+    "log_loss": 0.59486909
+  },
+  "train_best": {
+    "beta": 40,
+    "games": 3570,
+    "log_loss": 0.59456864
+  },
+  "holdout_baseline": {
+    "games": 1823,
+    "all_d1_games_window": 1831,
+    "coverage": 0.9956,
+    "log_loss": 0.5700167888431895,
+    "brier": 0.19292978807157288
+  },
+  "holdout_adjusted": {
+    "games": 1823,
+    "all_d1_games_window": 1831,
+    "coverage": 0.9956,
+    "log_loss": 0.5699158389027607,
+    "brier": 0.19291153205187359
+  },
+  "holdout_log_loss_gain": 0.00010095,
+  "holdout_brier_gain": 1.826e-05,
+  "team_feature_coverage": {
+    "2024": 357,
+    "2025": 359,
+    "2026": 364
+  },
+  "release_approved": false,
+  "caveats": [
+    "Venue status unavailable historically; evaluated as neutral throughout",
+    "Retrospective roster lists may reflect in-season roster updates",
+    "Exact player-name joins exclude aliases and are incomplete",
+    "One chronologically held-out season; further seasons required before final production model"
+  ],
+  "decision": "Do not adjust 2026-27 published Elo; held-out evidence does not justify coefficient"
+}
