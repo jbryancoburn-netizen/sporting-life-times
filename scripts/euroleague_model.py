@@ -3,7 +3,7 @@ No ratings are imported. All results come from EuroLeague's games endpoint.
 Usage: python scripts/euroleague_model.py
 """
 import datetime as dt
-import json, math, os, pathlib, urllib.request
+import json, math, pathlib, urllib.request
 
 BASE="https://api-live.euroleague.net/v2/competitions/E/seasons/"
 OUT=pathlib.Path("data/euroleague-model.json")
@@ -25,7 +25,7 @@ def team(game,key):
     club=obj(field(side,"club"))
     code=field(club,"code","clubCode") or field(side,"clubCode","code")
     name=field(club,"name","clubName","abbreviatedName") or field(side,"name","clubName")
-    crest=field(obj(field(club,"images")),"crest") or field(club,"imageUrl")
+    crest=field(obj(field(club,"images")),"crest") or field(club,"imageUrl") or field(side,"clubImageUrl")
     score=field(side,"score","standingsScore")
     return {"code":str(code or "").strip(),"name":str(name or code or "").strip(),"logo":crest,"score":score}
 def parse(raw,season):
@@ -39,11 +39,12 @@ def parse(raw,season):
         if not home["code"] or not away["code"] or home["code"]==away["code"]:continue
         date=field(g,"utcDate","date","localDate")
         status=str(field(g,"gameStatus","status") or "").lower()
-        played=field(g,"played")
+        played=field(g,"played","isPlayed")
         hs,aws=home["score"],away["score"]
-        completed=(played is True or status in ("played","result","finished","final")) and isinstance(hs,(int,float)) and isinstance(aws,(int,float))
+        completed=(played is True or status in ("played","result","finished","final","closed")) and isinstance(hs,(int,float)) and isinstance(aws,(int,float)) and not isinstance(hs,bool) and not isinstance(aws,bool)
         if completed and (hs==aws or hs<0 or aws<0):raise ValueError("Invalid completed score: "+str(g.get("gameCode")))
         games.append({"id":str(field(g,"gameCode","code","id") or ""),"season":season,"date":date,"home":home,"away":away,"completed":completed,"neutral":bool(field(g,"isNeutralVenue","neutralVenue") or False)})
+    if not games:raise ValueError("No readable fixtures for "+season+"; API schema may have changed")
     # API normally returns full season; fail closed on partial data
     total=field(d,"total","totalCount")
     if isinstance(total,int) and len(games)<total:raise ValueError(f"Partial season {season}: {len(games)}/{total}; pagination required")
@@ -61,7 +62,7 @@ def main():
         s="E"+str(year)
         all_games+=parse(get(BASE+s+"/games?limit=1000&offset=0"),s)
     # Reconstruct season chronologically; previous season used solely for initial strength.
-    all_games.sort(key=lambda g:(clock(g["date"]),g["season"],g["id"]))
+    all_games.sort(key=lambda g:(g["season"],clock(g["date"]),g["id"]))
     ratings={}; stats={}; history=[]; season_seen=None
     team_info={}
     for game in all_games:
@@ -89,6 +90,7 @@ def main():
     for g in current:
         h,a=g["home"],g["away"]
         if not g["completed"]:continue
+        if clock(g["date"])>NOW+dt.timedelta(hours=2):raise ValueError("Future dated final; refusing publication")
         p=expected(ratings[h["code"]]-ratings[a["code"]]+(0 if g["neutral"] else HOME_ELO))
         result=1 if h["score"]>a["score"] else 0
         margin=abs(h["score"]-a["score"])
@@ -100,6 +102,9 @@ def main():
             st["played"]+=1;st["wins"]+=win;st["losses"]+=1-win;st["for"]+=points;st["against"]+=against
         history.append({"id":g["id"],"date":g["date"],"home":h["code"],"away":a["code"],"score":[h["score"],a["score"]],"pregame_home_probability":round(p,5)})
     if not current or not active or not history:raise ValueError("No verified current season finals; refusing uncalculated Elo publication")
+    ids=[g["id"] for g in current]
+    if len(ids)!=len(set(ids)) or any(not x for x in ids):raise ValueError("Missing or duplicate EuroLeague game codes")
+    if len(active)<18 or len(active)>24:raise ValueError("Unexpected number of EuroLeague participants")
     ranked=[{**team_info[c],"elo":round(ratings[c],1),**stats.get(c,{"played":0,"wins":0,"losses":0,"for":0,"against":0})} for c in active]
     ranked.sort(key=lambda x:(-x["elo"],x["name"]))
     # Temporary 40-minute points model based on current season observed PPG.
