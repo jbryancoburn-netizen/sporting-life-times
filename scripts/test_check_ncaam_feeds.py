@@ -21,6 +21,6 @@ class HealthTests(unittest.TestCase):
     return {"assets":[{"name":"mbb_schedule_2027.csv.gz","browser_download_url":"https://github.com/test"}]}
    return {"assets":[]}
   out=mod.check(reader=read)
-  self.assertEqual(out["status"],"not_released")
+  self.assertEqual(out["status"],"fallback_available_not_authorized_for_elo")
   self.assertFalse(out["sources"]["ncaa_schedule"]["available"])
 if __name__=="__main__":unittest.main()
