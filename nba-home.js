@@ -20,8 +20,13 @@ async function desk(){
  try{const [scores,elo]=await Promise.all([fetchJSON('multi_scoreboards.json'),fetchJSON('data/nba-2026-27-current-provisional.json')]);
  const block=(scores.leagues||[]).find(l=>l.league==='NBA');const games=block?.games||[];const ratings=Object.fromEntries((elo.rankings||[]).map(r=>[r.team,r.elo]));
  if(Object.keys(ratings).length!==30)throw Error('Incomplete current-season Elo');
- const movement=window.NBAEloMovement?.compute(elo)||{available:false};
- const daily=t=>movement.available?window.NBAEloMovement.format(movement.daily[t]):'N/A';
+ const snapshot=elo.movement;
+ const verifiedSnapshot=snapshot&&/^\\d{4}-\\d{2}-\\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
+  Object.keys(snapshot.daily_change||{}).length===30&&Object.keys(snapshot.last_week_elo||{}).length===30;
+ const movement=verifiedSnapshot?{available:true,day:snapshot.as_of_eastern_date,weekDate:snapshot.last_week_eastern_date,
+  daily:snapshot.daily_change,lastWeek:snapshot.last_week_elo}:
+  (window.NBAEloMovement?.compute(elo)||{available:false,reason:'Published daily Elo movement unavailable'});
+ const daily=t=>movement.available?(window.NBAEloMovement?.format?.(movement.daily[t]) || (movement.daily[t]>0?'▲ +':movement.daily[t]<0?'▼ ':'')+movement.daily[t].toFixed(3)):'N/A';
  const records=Object.fromEntries(Object.keys(names).map(t=>[t,{w:0,l:0}]));
  const ledger=(elo.events||[]).filter(g=>Number.isFinite(g.home_score)&&Number.isFinite(g.away_score));
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
