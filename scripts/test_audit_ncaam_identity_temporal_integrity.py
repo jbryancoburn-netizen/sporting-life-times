@@ -15,6 +15,7 @@ class GateTests(unittest.TestCase):
         self.assertFalse(result["release_approved"])
         self.assertEqual(result["espn_identity_verified_players"],5)
         self.assertTrue(result["release_blockers"]["historical_roster_asof_not_proven"])
+        self.assertTrue(result["release_blockers"]["historical_season_payload_not_source_verified"])
     def test_mismatched_movement_totals_fail(self):
         i,p,e=self.inputs()
         p["counts"]["verified_espn_transfers"]=1
