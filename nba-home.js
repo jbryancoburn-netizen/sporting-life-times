@@ -25,6 +25,10 @@ async function desk(){
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
 
  const finals=games.filter(g=>g.state==='post'||/final/i.test(g.status||''));
+ const ledgerKeys=new Set(ledger.map(g=>[g.home,g.away,g.home_score,g.away_score].join('|')));
+ const pending=finals.filter(g=>{const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');const hc=code(h?.name),ac=code(a?.name);return hc&&ac&&Number.isFinite(Number(h?.score))&&Number.isFinite(Number(a?.score))&&!ledgerKeys.has([hc,ac,Number(h.score),Number(a.score)].join('|'))});
+ const syncLabel=pending.length?' · '+pending.length+' final game(s) awaiting Elo/standings synchronization':' · Verified Elo ledger aligned with available finals';
+
  const divisions=[
  ['ATLANTIC',['BOS','BKN','NYK','PHI','TOR']],
  ['CENTRAL',['CHI','CLE','DET','IND','MIL']],
@@ -34,9 +38,9 @@ async function desk(){
  ['SOUTHWEST',['DAL','HOU','MEM','NOP','SAS']]
  ];
  const division=(label,keys)=>{const arr=[...keys].sort((a,b)=>{const x=records[a],y=records[b];return y.w-x.w||x.l-y.l||ratings[b]-ratings[a]});return '<section class="nba-division"><h3>'+label+'</h3><table class="nba-mini-table"><thead><tr><th>#</th><th>Club</th><th>W</th><th>L</th><th>PCT</th><th>Elo</th></tr></thead><tbody>'+arr.map((t,i)=>{const r=records[t];return '<tr><td>'+(i+1)+'</td><th><abbr title="'+esc(names[t])+'">'+esc(t)+'</abbr></th><td>'+r.w+'</td><td>'+r.l+'</td><td>'+(r.w+r.l?(r.w/(r.w+r.l)).toFixed(3):'—')+'</td><td>'+ratings[t].toFixed(0)+'</td></tr>'}).join('')+'</tbody></table></section>'};
- $('nba-conference-standings').innerHTML='<p class="hub-small">Six NBA divisions · Provisional records from '+ledger.length+' verified completed games in the Elo ledger. <strong>Not full official season standings.</strong> Elo is independent of W–L. <a href="https://www.nba.com/standings">Official NBA standings ↗</a></p><div class="nba-divisions">'+divisions.map(([label,keys])=>division(label,keys)).join('')+'</div>';
+ $('nba-conference-standings').innerHTML='<p class="hub-small">'+(pending.length?'<strong>UPDATE PENDING: '+pending.length+' reported finals are not yet reflected in W–L or Elo.</strong> ':'')+'Six NBA divisions · Provisional records from '+ledger.length+' verified completed games in the Elo ledger. <strong>Not full official season standings.</strong> Elo is independent of W–L. <a href="https://www.nba.com/standings">Official NBA standings ↗</a></p><div class="nba-divisions">'+divisions.map(([label,keys])=>division(label,keys)).join('')+'</div>';
  const briefs=ledger.slice(-9).reverse().map(g=>{const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home,ws=Math.max(g.home_score,g.away_score),ls=Math.min(g.home_score,g.away_score);return '<article class="nba-news-item nba-results-brief"><p class="nba-news-source">THE RESULTS DESK · VERIFIED FINAL</p><h3>'+esc(names[winner])+' defeat '+esc(names[loser])+', '+ws+'–'+ls+'</h3><p>'+esc(winner)+' '+ratings[winner].toFixed(0)+' Elo · '+esc(loser)+' '+ratings[loser].toFixed(0)+' Elo (current ratings)</p></article>'}).join('');if(briefs){$('nba-news-grid').insertAdjacentHTML('beforeend',briefs);msg('nba-news-status',$('nba-news-status').textContent+' · Plus '+Math.min(9,ledger.length)+' original results briefs')}
- msg('nba-standings-status','Results updated through the latest verified Elo ledger · '+ledger.length+' completed games');
+ msg('nba-standings-status','Results updated through the latest verified Elo ledger · '+ledger.length+' completed games'+syncLabel);
 
  const easternDay=d=>new Date(d).toLocaleDateString('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
  const dated=ledger.filter(g=>g.date&&Number.isFinite(Date.parse(g.date)));
