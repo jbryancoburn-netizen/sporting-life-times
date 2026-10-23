@@ -1,6 +1,7 @@
 """Offline validation for live EuroLeague scorebug classification and data safety."""
 import importlib.util
 import pathlib
+import datetime as dt
 import unittest
 from unittest.mock import patch
 
@@ -21,16 +22,14 @@ class TestLiveScorebugs(unittest.TestCase):
         self.assertEqual(live.live_status(game(1,status="Final")),"final")
         self.assertEqual(live.live_status(game(1,played=True)),"final")
     def test_scheduled_zero_is_not_score(self):
-        row=game(1,score=0)
-        with patch.object(live.model,"get",return_value={"total":1,"data":[row]}),patch.object(live.dt,"datetime",wraps=live.dt.datetime) as clock:
-            clock.now.return_value=live.dt.datetime(2026,10,23,18,30,tzinfo=live.UTC)
+        row=game(1,when=dt.datetime.now(dt.timezone.utc).isoformat(),score=0)
+        with patch.object(live.model,"get",return_value={"total":1,"data":[row]}):
             result=live.build()
         self.assertEqual(result["games"][0]["status"],"scheduled")
         self.assertIsNone(result["games"][0]["home"]["score"])
     def test_final_requires_scores(self):
-        row=game(1,status="Final",score=None)
-        with patch.object(live.model,"get",return_value={"total":1,"data":[row]}),patch.object(live.dt,"datetime",wraps=live.dt.datetime) as clock:
-            clock.now.return_value=live.dt.datetime(2026,10,23,18,30,tzinfo=live.UTC)
+        row=game(1,when=dt.datetime.now(dt.timezone.utc).isoformat(),status="Final",score=None)
+        with patch.object(live.model,"get",return_value={"total":1,"data":[row]}):
             with self.assertRaisesRegex(ValueError,"Final missing score"):live.build()
 
 if __name__=="__main__":unittest.main()
