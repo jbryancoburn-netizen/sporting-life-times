@@ -65,6 +65,13 @@ jobs:
       - name: Report restored Match Center archive
         run: |
           python scripts/check_archive_restore.py
+      - name: Restore cumulative NBA game archive
+        uses: actions/cache/restore@v4
+        with:
+          path: data/nba-game-center.json
+          key: nba-game-center-${{ github.run_id }}
+          restore-keys: |
+            nba-game-center-
       - name: Refresh news and scoreboards before publishing
         run: |
           python scripts/collect_feeds.py
@@ -95,6 +102,12 @@ jobs:
         with:
           path: data/match_center_archive.json
           key: match-center-archive-${{ github.run_id }}
+      - name: Preserve cumulative NBA game archive
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/nba-game-center.json
+          key: nba-game-center-${{ github.run_id }}
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
