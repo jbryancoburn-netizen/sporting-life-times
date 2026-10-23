@@ -21,7 +21,7 @@ async function desk(){
  const block=(scores.leagues||[]).find(l=>l.league==='NBA');const games=block?.games||[];const ratings=Object.fromEntries((elo.rankings||[]).map(r=>[r.team,r.elo]));
  if(Object.keys(ratings).length!==30)throw Error('Incomplete current-season Elo');
  const snapshot=elo.movement;
- const verifiedSnapshot=snapshot&&/^\\d{4}-\\d{2}-\\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
+ const verifiedSnapshot=snapshot&&/^\d{4}-\d{2}-\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
   Object.keys(snapshot.daily_change||{}).length===30&&Object.keys(snapshot.last_week_elo||{}).length===30;
  const movement=verifiedSnapshot?{available:true,day:snapshot.as_of_eastern_date,weekDate:snapshot.last_week_eastern_date,
   daily:snapshot.daily_change,lastWeek:snapshot.last_week_elo}:
