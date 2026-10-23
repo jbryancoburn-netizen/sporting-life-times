@@ -37,6 +37,28 @@ jobs:
           <!doctype html><html lang="en"><meta charset="utf-8"><title>Sporting Life & Times · Deployment Status</title><body><h1>Sporting Life & Times · Deployment Status</h1><p>Published source revision: ${GITHUB_SHA}</p><p><a href="nba-players.html">NBA individual player leaders</a> · <a href="nba.html">NBA newspaper</a></p></body></html>
           EOF
           test -s deployment-status.html
+      - name: Diagnose Pages publishing configuration
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          STATUS="$(curl -sS -o /tmp/pages-config.json -w '%{http_code}' -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")"
+          echo "GitHub Pages settings HTTP status: $STATUS"
+          if [ "$STATUS" = 200 ]; then
+            python - <<'PY'
+          import json
+          with open('/tmp/pages-config.json') as f: p=json.load(f)
+          print('Pages address:',p.get('html_url'))
+          print('Build type:',p.get('build_type'))
+          print('Publishing source:',p.get('source'))
+          if p.get('build_type') not in ('workflow',None):
+              print('WARNING: Pages appears to use branch publishing; select GitHub Actions in Settings > Pages.')
+          PY
+          elif [ "$STATUS" = 404 ]; then
+            echo 'Pages is not enabled or cannot be read with this token; check Settings > Pages.' >&2
+          else
+            echo "Unable to inspect Pages settings (HTTP $STATUS); continuing to attempt publication." >&2
+          fi
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload entire newspaper
