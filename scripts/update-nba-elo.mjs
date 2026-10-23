@@ -34,6 +34,7 @@ async function fetchDate(date) {
    const seasonType=event.season?.type??competition?.type?.type;
    // NBA regular-season is ESPN type 2. Omit preseason and postseason.
    if(Number(seasonType)!==2)continue;
+   if(event.season?.year && Number(event.season.year)!==2027)throw Error('Unexpected ESPN NBA season year '+event.season.year);
    if(!Array.isArray(competition?.competitors)||competition.competitors.length!==2)throw Error('Incomplete competitors '+event.id);
    const home=competition.competitors.find(x=>x.homeAway==='home');
    const away=competition.competitors.find(x=>x.homeAway==='away');
