@@ -18,6 +18,32 @@ def row(gid="g1",status="Final",site="home"):
                 home_score="79",away_score="70",site=site,status=status,
                 source_url="https://ncaa.com/example",provider="ncaa",overtime="false")
 
+class NightlyReplayTest(unittest.TestCase):
+    def test_game_predictions_and_zero_sum(self):
+        from update_ncaam_2027 import calculate
+        pre={"rankings":[{"team_id":"indiana","elo":1600.0},
+                         {"team_id":"purdue","elo":1500.0}]}
+        old={"teams":[{"id":"indiana","name":"Indiana"},{"id":"purdue","name":"Purdue"}]}
+        # Nightly replay requires full current D-I membership; create synthetic
+        # complete registry with 350 uniquely named programs.
+        for i in range(348):
+            ident=f"synthetic-{i}"
+            old["teams"].append({"id":ident,"name":ident})
+            pre["rankings"].append({"team_id":ident,"elo":1500.0})
+        current=[{"id":str(i+1),"team":t["name"],"conference":"test"} for i,t in enumerate(old["teams"])]
+        game=[{"contest_id":"fixture-1","game_date":"11/01/2026",
+               "home":"Indiana","away":"Purdue","home_score":"80","away_score":"70"}]
+        result=calculate(pre,old,current,game)
+        self.assertEqual(result["games_played"],1)
+        event=result["events"][0]
+        self.assertGreater(event["home_win_probability"],0.5)
+        self.assertAlmostEqual(event["home_elo_after"]-event["home_elo_before"],
+                               event["home_change"],places=5)
+        self.assertAlmostEqual(event["away_elo_before"]-event["away_elo_after"],
+                               event["home_change"],places=5)
+        self.assertAlmostEqual(sum(x["elo"] for x in result["rankings"]),
+                               sum(x["elo"] for x in pre["rankings"]),places=2)
+
 class EloTest(unittest.TestCase):
     def setUp(self):self.teams=validate_teams(TEAMS)
     def file(self,rows):
