@@ -11,12 +11,25 @@ from pathlib import Path
 from backtest_ncaam_roster_elo import fetch,games,step,clean
 
 def pregame_opponents(schedule,members):
+    """Snapshot opponent Elo at start of each date; no same-day score leakage.
+
+    Historical schedules have dates but no reliable intraday tipoff order.
+    Every contest on a given date therefore sees the same pre-date Elo.
+    """
     played,known=games(schedule,members)
     ratings={t:1500. for t in known}
     pre={}
-    for _,gid,home,away,hs,aws in played:
-        pre[gid]={home:ratings[away],away:ratings[home]}
-        step(ratings,home,away,hs,aws)
+    index=0
+    while index<len(played):
+        day=played[index][0]
+        batch=[]
+        while index<len(played) and played[index][0]==day:
+            batch.append(played[index])
+            index+=1
+        for _,gid,home,away,hs,aws in batch:
+            pre[gid]={home:ratings[away],away:ratings[home]}
+        for _,gid,home,away,hs,aws in batch:
+            step(ratings,home,away,hs,aws)
     return pre
 
 def exposure(rows,pre):
