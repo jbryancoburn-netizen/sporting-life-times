@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - scripts/backtest_ncaam_opponent_quality.py
+      - scripts/test_ncaam_opponent_quality.py
       - .github/workflows/ncaam-opponent-quality-backtest.yml
   workflow_dispatch:
 permissions:
@@ -16,6 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_ncaam_opponent_quality.py -v
       - run: python scripts/backtest_ncaam_opponent_quality.py
       - uses: actions/upload-artifact@v4
         with:
