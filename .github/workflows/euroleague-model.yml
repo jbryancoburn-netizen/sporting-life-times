@@ -18,6 +18,8 @@ jobs:
           python-version: '3.12'
       - name: Test Elo ingestion and invariants
         run: python -m unittest discover -s scripts -p "test_euroleague_model.py" -v
+      - name: Probe live EuroLeague source schema
+        run: python scripts/euroleague_diagnose.py
       - name: Rebuild from EuroLeague completed games
         run: python scripts/euroleague_model.py
       - name: Publish only verified model data changes
