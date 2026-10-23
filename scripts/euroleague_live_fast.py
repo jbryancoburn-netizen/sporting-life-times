@@ -9,6 +9,7 @@ import pathlib
 import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import euroleague_header as header
+import euroleague_final_checks as verified
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 UTC=dt.timezone.utc
@@ -61,6 +62,20 @@ def build(model, previous, now=None, get_header=None):
             "status_detail":"Final","home":{"code":h,"name":clubs[h]["name"],"logo":clubs[h].get("logo"),"score":result["score"][0]},
             "away":{"code":a,"name":clubs[a]["name"],"logo":clubs[a].get("logo"),"score":result["score"][1]},
             "score_updated_at":model["updated_at"]}
+    # Club-confirmed finals take priority over old live states even if the
+    # competition-wide results endpoint has not yet marked them played.
+    for official in verified.validated(verified.load()):
+        g=games.get(str(official["id"]))
+        if g is None:continue
+        if g["home"]["code"]!=official["home"] or g["away"]["code"]!=official["away"]:
+            raise ValueError("Official result club mismatch: "+str(official["id"]))
+        if g["status"]=="final" and (g["home"]["score"],g["away"]["score"])!=tuple(official["score"]):
+            raise ValueError("Conflicting confirmed final: "+str(official["id"]))
+        g["status"]="final"
+        g["status_detail"]="Final · club confirmed"
+        g["home"]["score"],g["away"]["score"]=official["score"]
+        g["score_updated_at"]=g.get("score_updated_at") or now.isoformat()
+        g["final_source"]=official["source"]
     responses=0
     refreshed=0
     for g in games.values():
