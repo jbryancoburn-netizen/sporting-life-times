@@ -56,6 +56,6 @@ def main():
   if a["url"] in seen or k in seen:continue
   seen.add(a["url"]);seen.add(k);dedup.append(a)
  if not dedup:raise SystemExit("No NBA publisher stories obtained; refusing empty overwrite: "+" | ".join(fail))
- OUT.write_text(json.dumps(dict(updated_at=now.isoformat(),articles=dedup[:100],feed_errors=fail),indent=2,ensure_ascii=False)+"\\n")
+ OUT.write_text(json.dumps(dict(updated_at=now.isoformat(),articles=dedup[:100],feed_errors=fail),indent=2,ensure_ascii=False)+"\n")
  print("NBA stories:",len(dedup),"feed failures:",len(fail))
 if __name__=="__main__":main()
