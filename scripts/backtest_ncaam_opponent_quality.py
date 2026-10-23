@@ -154,6 +154,13 @@ def run():
     full_game_only=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
         data[2026]["features"],data[2026]["quality"],0,
         roster_betas=(0,0),require_quality=False)
+    # Production-style fallback: use adjusted Elo only where both teams have
+    # the necessary verified-feature candidates; otherwise use game-only Elo.
+    # Score the entire 45-day sample, not only the selected covered games.
+    fallback_valid={t for t in data[2026]["features"] if t in data[2026]["quality"]}
+    fallback_full=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+        data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"],
+        require_quality=False,roster_betas=(120,160))
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
