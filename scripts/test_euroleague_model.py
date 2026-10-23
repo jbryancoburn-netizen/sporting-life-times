@@ -15,6 +15,25 @@ def make_game(n,played=True):
             "road":{"club":{"code":"BBB","name":"Road"},"score":75 if played else None}}
 
 class TestModel(unittest.TestCase):
+    def test_euroleague_wins_outrank_win_percentage(self):
+        rows=[{"code":"A","name":"A","played":6,"wins":5,"losses":1,"for":480,"against":450},
+              {"code":"B","name":"B","played":5,"wins":4,"losses":1,"for":420,"against":380}]
+        self.assertEqual([r["code"] for r in el.order_standings(rows,[])],["A","B"])
+    def test_euroleague_fewer_games_wins_tie(self):
+        rows=[{"code":"A","name":"A","played":7,"wins":5,"losses":2,"for":600,"against":480},
+              {"code":"B","name":"B","played":6,"wins":5,"losses":1,"for":495,"against":465}]
+        self.assertEqual([r["code"] for r in el.order_standings(rows,[])],["B","A"])
+    def test_euroleague_partial_meetings_use_point_difference(self):
+        rows=[{"code":"A","name":"A","played":4,"wins":3,"losses":1,"for":320,"against":305},
+              {"code":"B","name":"B","played":4,"wins":3,"losses":1,"for":325,"against":300}]
+        games=[{"home":"A","away":"B","score":[90,70]}]
+        self.assertEqual([r["code"] for r in el.order_standings(rows,games)],["B","A"])
+    def test_euroleague_completed_head_to_head(self):
+        rows=[{"code":"A","name":"A","played":4,"wins":3,"losses":1,"for":340,"against":330},
+              {"code":"B","name":"B","played":4,"wins":3,"losses":1,"for":330,"against":300}]
+        games=[{"home":"A","away":"B","score":[91,82]},
+               {"home":"B","away":"A","score":[86,89]}]
+        self.assertEqual([r["code"] for r in el.order_standings(rows,games)],["A","B"])
     def test_even_elo(self):
         self.assertAlmostEqual(el.expected(0),0.5)
         self.assertAlmostEqual(el.expected(400),10/11)
