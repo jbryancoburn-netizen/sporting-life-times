@@ -21,7 +21,7 @@ async function news(){
   let payload;
   try{payload=await fetchJSON('data/nba-top-stories.json')}
   catch(err){payload=await fetchJSON('articles.json')}
-  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||/\\/nba\\//i.test(a.url||'')).filter(a=>/^https:\/\//.test(a.url||'')&&a.title).slice(0,60);
+  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title).slice(0,60);
   if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA').slice(0,60)}
   if(!items.length)throw Error('No attributed NBA headlines');
   const format=window.SportingNewsFormat;
