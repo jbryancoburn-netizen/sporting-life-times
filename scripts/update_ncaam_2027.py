@@ -70,8 +70,7 @@ def main():
     except urllib.error.HTTPError as exc:
         if exc.code!=404:raise
         state["reason"]="2026-27 season source not released (HTTP 404)"
-        (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"
-")
+        (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
     roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
     # Audit hold: extreme transfer adjustments are not publication-approved.
@@ -91,10 +90,8 @@ def main():
     result=calculate(pre,old,current,games)
     result["preseason_seed"]=str(chosen)
     result["preseason_roster_adjusted"]=(chosen==roster_adjusted)
-    (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"
-")
+    (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"\n")
     state.update({"ready":True,"teams":result["team_count"],"games":result["games_played"]})
-    (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"
-")
+    (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
     print("Replayed",result["games_played"],"finals for",result["team_count"],"programs")
 if __name__=="__main__":main()
