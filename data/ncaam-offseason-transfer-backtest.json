@@ -1,0 +1,55 @@
+{
+  "experiment": "ncaa-roster-elo-retention-and-incoming-minutes-v2",
+  "source": "NCAA-origin historical player box and rosters via SportsDataverse",
+  "train_seasons": [
+    2024,
+    2025
+  ],
+  "untouched_holdout_season": 2026,
+  "first_days": 45,
+  "features": [
+    "returning share of previous team minutes",
+    "incoming D1 transfer prior minutes share"
+  ],
+  "training": {
+    "retention_beta": 120,
+    "transfer_beta": 160,
+    "games": 3570,
+    "log_loss": 0.57746154
+  },
+  "training_baseline": {
+    "retention_beta": 0,
+    "transfer_beta": 0,
+    "games": 3570,
+    "log_loss": 0.59486909
+  },
+  "test_baseline": {
+    "games": 1823,
+    "coverage": 0.9956,
+    "log_loss": 0.570016788843191,
+    "brier": 0.1929297880715729
+  },
+  "test_candidate": {
+    "games": 1823,
+    "coverage": 0.9956,
+    "log_loss": 0.5529979610275323,
+    "brier": 0.18578980454795338
+  },
+  "test_logloss_gain": 0.01701883,
+  "test_brier_gain": 0.00713998,
+  "team_feature_coverage": {
+    "2024": 357,
+    "2025": 359,
+    "2026": 364
+  },
+  "approved_for_shadow_experiment": true,
+  "approved_for_primary": false,
+  "limitations": [
+    "2025-26 data evaluated as neutral-court",
+    "Historical source rosters may reflect in-season joins",
+    "Ambiguous name aliases excluded rather than guessed",
+    "Transfers from D2/international programs not captured",
+    "Current 2026-27 school roster coverage incomplete"
+  ],
+  "decision": "Shadow-model candidate only; primary independent Elo remains unchanged pending production safeguards"
+}
