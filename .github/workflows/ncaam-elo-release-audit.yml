@@ -33,7 +33,10 @@ on:
       - 'tests/ncaam-page.test.cjs'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: ncaam-elo-release-proof
+  cancel-in-progress: false
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -43,7 +46,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile release audit
-        run: python -m py_compile scripts/audit_ncaa_elo_release.py
+        run: python -m py_compile scripts/audit_ncaa_elo_release.py scripts/build_ncaam_2027_verified_preseason.py scripts/update_ncaam_2027.py scripts/replay_ncaam_espn_2027.py
       - name: Test release safeguards
         run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
       - name: Test source-identified preseason rating calculation
@@ -56,3 +59,42 @@ jobs:
             data/ncaam-2026-27-preseason-provisional.json \
             data/ncaam-2026-27-offseason-shadow.json \
             data/ncaam-offseason-transfer-backtest.json
+      - name: Preserve passing preseason release test evidence
+        run: |
+          python - <<'PY'
+          import hashlib,json,os
+          from datetime import datetime,timezone
+          from pathlib import Path
+          data=Path('data/ncaam-2026-27-preseason-roster-informed.json')
+          obj=json.loads(data.read_text(encoding='utf-8'))
+          assert obj['team_count']==365
+          assert obj['evidence']['players_with_verified_historical_minutes']==2923
+          assert obj['production_elo_approved'] is False
+          record={'season':'2026-27','release_tier':'provisional roster-informed preseason',
+             'ci_release_checks':'PASSED',
+             'not_full_model_certification':True,
+             'source_commit_sha':os.environ.get('GITHUB_SHA'),
+             'workflow_run_id':os.environ.get('GITHUB_RUN_ID'),
+             'verified_at_utc':datetime.now(timezone.utc).isoformat(),
+             'model_sha256':hashlib.sha256(data.read_bytes()).hexdigest(),
+             'teams_checked':365,'source_linked_player_ids':obj['evidence']['source_linked_player_ids'],
+             'players_with_traced_historical_minutes':obj['evidence']['players_with_verified_historical_minutes'],
+             'checks':['365-team independent baseline+roster integrity','baseline-shadow calibration contract',
+                       'published identity-linked ratings reproduce from data',
+                       'source crosswalk/missing-player corruption guards',
+                       'paper-style college Elo page Node rendering tests']}
+          Path('data/ncaam-2026-27-release-verification.json').write_text(
+             json.dumps(record,indent=2)+'\\n',encoding='utf-8')
+          print(json.dumps(record,indent=2))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-release-verification.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Certify provisional 2026-27 NCAA roster-informed preseason Elo release tests"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
