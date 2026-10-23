@@ -15,7 +15,7 @@ FEEDS=[
  ("NBA.com","https://www.nba.com/rss/nba_rss.xml","league"),
  ("Hoops Rumors","https://www.hoopsrumors.com/feed","national"),
 ]
-def clean(s): return re.sub(r"\\s+"," ",re.sub(r"<[^>]*>"," ",s or "")).strip()
+def clean(s): return re.sub(r"\s+"," ",re.sub(r"<[^>]*>"," ",s or "")).strip()
 def when(raw):
  try: return parsedate_to_datetime(raw).astimezone(timezone.utc)
  except Exception:
