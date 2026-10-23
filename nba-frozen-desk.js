@@ -10,7 +10,7 @@ const rows=data.rankings;
 if(data.league!=='NBA'||data.season!=='2025-26'||data.status!=='2025-26-final'||data.regular_season_games!==1230||data.playoff_games!==85||!Array.isArray(rows)||rows.length!==30||new Set(rows.map(x=>x.team)).size!==30||rows.some(x=>!names[x.team]||!Number.isFinite(x.elo)))throw Error('Invalid frozen final Elo archive');
 const sorted=[...rows].sort((a,b)=>b.elo-a.elo);
 const lo=Math.min(...sorted.map(r=>r.elo)),hi=Math.max(...sorted.map(r=>r.elo));
-root.innerHTML=sorted.map((x,i)=>'<article class="forecast-card hub-nba-team"><div class="hub-nba-heading"><span class="hub-rank">#'+(i+1)+'</span><img loading="lazy" src="'+logo(x.team)" alt="" onerror="this.style.display=\'none\'"></div><h3>'+escape(names[x.team])+'</h3><div class="forecast-line"><span>Final 2025–26 Elo</span><strong>'+x.elo.toFixed(3)+'</strong></div><div class="hub-rating-track"><span style="width:'+Math.max(5,100*(x.elo-lo)/Math.max(1,hi-lo)).toFixed(1)+'%"></span></div></article>').join('');
+root.innerHTML=sorted.map((x,i)=>'<article class="forecast-card hub-nba-team"><div class="hub-nba-heading"><span class="hub-rank">#'+(i+1)+'</span><img loading="lazy" src="'+logo(x.team)+'" alt="" onerror="this.style.display=\'none\'"></div><h3>'+escape(names[x.team])+'</h3><div class="forecast-line"><span>Final 2025–26 Elo</span><strong>'+x.elo.toFixed(3)+'</strong></div><div class="hub-rating-track"><span style="width:'+Math.max(5,100*(x.elo-lo)/Math.max(1,hi-lo)).toFixed(1)+'%"></span></div></article>').join('');
 status.textContent='PERMANENT ARCHIVE · 30 teams · 1,230 regular-season games + 85 playoff games · No 2026–27 adjustments.';
 }).catch(()=>{root.replaceChildren();status.textContent='Frozen 2025–26 NBA Elo archive is temporarily unavailable.'});
 })();
