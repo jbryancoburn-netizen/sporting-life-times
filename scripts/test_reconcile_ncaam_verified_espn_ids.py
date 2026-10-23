@@ -15,6 +15,16 @@ class IdentityTests(unittest.TestCase):
         old={"rosters":[{"ncaa_id":"ncaa:10","players":[{"id":"123","name":"A Sample"}]}]}
         current={"rosters":[{"ncaa_id":"ncaa:10","school":"School","players":[{"id":"123","name":"B Sample"}]}]}
         r=reconcile(old,current,[])
-        self.assertEqual(r["counts"]["same_espn_id_name_conflict"],1)
+        self.assertEqual(r["counts"]["ambiguous_or_conflicting_espn_id"],1)
         self.assertEqual(r["matched"],[])
+    def test_verified_transfer_across_different_espn_schools(self):
+        old={"rosters":[{"ncaa_id":"ncaa:10","players":[{"id":"123","name":"A Sample"}]}]}
+        current={"rosters":[{"ncaa_id":"ncaa:20","school":"New School",
+            "players":[{"id":"123","name":"A Sample"}]}]}
+        box=[{"team_ncaa_team_id":"10","player_id":"999","clean_name":"A Sample"}]
+        r=reconcile(old,current,box)
+        self.assertEqual(r["counts"]["verified_espn_d1_transfer"],1)
+        self.assertEqual(r["matched"][0]["prior_team_id"],"ncaa:10")
+        self.assertEqual(r["matched"][0]["team_id"],"ncaa:20")
+        self.assertFalse(r["matched"][0]["ncaa_box_identity_verified"])
 if __name__=="__main__":unittest.main()
