@@ -117,6 +117,25 @@ def main():
                 if article["url"] not in seen_links and key not in seen_titles:
                     seen_links.add(article["url"]);seen_titles.add(key);articles.append(article)
         except (OSError,ValueError,TypeError): pass
+    # ESPN's structured NBA news endpoint is a backup when RSS hosts block runners.
+    # It supplies real headlines and original links, never generated stories.
+    try:
+        req=Request("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news?limit=60",headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"})
+        with urlopen(req,timeout=12) as response: nba_data=json.load(response)
+        for item in nba_data.get("articles",[]):
+            title=clean(item.get("headline",""))
+            links=item.get("links") or {}
+            link=(links.get("web") or {}).get("href","")
+            if not title or not link.startswith("https://") or PROMOTION_RE.search(title):continue
+            published=iso_date(item.get("published") or item.get("lastModified") or "")
+            if not is_recent(published,now):continue
+            key=re.sub(r"[^a-z0-9]+","",title.lower())
+            if link in seen_links or key in seen_titles:continue
+            seen_links.add(link);seen_titles.add(key)
+            articles.append({"title":title,"url":link,"summary":clean(item.get("story") or item.get("description") or "")[:600],"source":"ESPN NBA","category":"NBA","scope":"national","team":None,"published_at":published,"image_url":None})
+        status.append({"source":"ESPN NBA structured news","url":"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news","ok":True,"items":sum(a.get("source")=="ESPN NBA" for a in articles),"error":None})
+    except (OSError,ValueError,TypeError,KeyError) as exc:
+        status.append({"source":"ESPN NBA structured news","ok":False,"items":0,"error":type(exc).__name__})
     articles.sort(key=lambda a: a.get("published_at",""), reverse=True)
     nba_count=sum(a.get("category")=="NBA" or "NBA" in a.get("source","") for a in articles)
     if nba_count==0: print("WARNING: zero NBA articles collected; source health must be reviewed")
