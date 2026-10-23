@@ -21,16 +21,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Collect and reject incomplete NCAA-origin data
+      - name: Validate extraction and rating math
+        run: |
+          python -m unittest discover -s scripts -p 'test_ncaam_elo.py' -v
+          python -m unittest discover -s scripts -p 'test_normalize_ncaam_archive.py' -v
+      - name: Collect NCAA-origin daily source archive
         run: |
           python scripts/archive_ncaam_ncaa_scores.py \
             --start "${{ inputs.start }}" --end "${{ inputs.end }}" \
             --root staging/ncaam-source-archive
-      - name: Preserve source evidence
+      - name: Normalize verified finals to candidate CSV and audit report
+        if: success()
+        run: |
+          python scripts/normalize_ncaam_archive.py \
+            --root staging/ncaam-source-archive \
+            --out staging/ncaam-final-candidates.csv \
+            --registry staging/ncaam-team-candidates.json \
+            --report staging/ncaam-coverage-report.json
+      - name: Preserve evidence and reconciliation report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ncaa-men-d1-source-audit
-          path: staging/ncaam-source-archive/
+          path: staging/
           if-no-files-found: warn
           retention-days: 14
