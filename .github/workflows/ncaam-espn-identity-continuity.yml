@@ -2,6 +2,7 @@ name: NCAA ESPN Athlete Identity Continuity
 on:
   push:
     paths:
+      - scripts/collect_ncaam_roster_evidence.py
       - scripts/reconcile_ncaam_verified_espn_ids.py
       - scripts/test_reconcile_ncaam_verified_espn_ids.py
       - scripts/summarize_ncaam_verified_movements.py
