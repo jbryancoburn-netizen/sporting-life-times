@@ -1,0 +1,35 @@
+name: EuroLeague live scorebugs
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/euroleague_live.py'
+      - '.github/workflows/euroleague-live.yml'
+  schedule:
+    - cron: '*/5 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: euroleague-live
+  cancel-in-progress: false
+jobs:
+  scoreboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Retrieve EuroLeague scoreboard
+        run: python scripts/euroleague_live.py
+      - name: Publish verified scoreboard
+        run: |
+          if [ -n "$(git status --porcelain -- data/euroleague-live.json)" ]; then
+            git config user.name "sporting-life-times-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/euroleague-live.json
+            git commit -m "Refresh EuroLeague live scorebugs"
+            git pull --rebase
+            git push
+          fi
