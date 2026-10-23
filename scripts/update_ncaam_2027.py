@@ -12,7 +12,7 @@ def fetch(url):
     with urllib.request.urlopen(req,timeout=60) as r:raw=r.read(15000000)
     return list(csv.DictReader(gzip.decompress(raw).decode("utf-8-sig").splitlines()))
 def calculate(pre,old,current,games):
-    if len(current)<350:raise ValueError("New registry incomplete")
+    if len(current)!=365:raise ValueError("Expected complete 365-team registry")
     oldmap={key(t["name"]):t for t in old["teams"]}
     if len(oldmap)!=len(old["teams"]):raise ValueError("Duplicate old names")
     currentmap={key(t["team"]):t for t in current}
