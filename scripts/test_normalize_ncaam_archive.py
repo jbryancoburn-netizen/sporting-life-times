@@ -65,6 +65,23 @@ class NormalizationTests(unittest.TestCase):
             self.assertEqual(result["rejected_final_count"],1)
             self.assertEqual(unresolved[0]["home_name"],"Indiana")
             self.assertFalse(result["release_ready"])
+    def test_venue_evidence_resolves_missing_neutral_field(self):
+        a=archive()
+        del a["payload"]["games"][0]["game"]["neutralSite"]
+        rows,bad=norm.parse(a,{"123":{"neutral":True,"source_url":"https://www.ncaa.com/game/123"}})
+        self.assertFalse(bad)
+        self.assertEqual(rows[0][0]["site"],"neutral")
+    def test_bridge_shape_only_seo_and_no_venue_stays_unresolved(self):
+        a=archive()
+        g=a["payload"]["games"][0]["game"]
+        del g["neutralSite"]
+        for team,seo in [(g["home"],"indiana"),(g["away"],"purdue")]:
+            del team["teamId"]
+            team["names"]={"seo":seo,"short":seo.title(),"full":""}
+        rows,bad=norm.parse(a)
+        self.assertEqual(rows,[])
+        self.assertEqual(bad[0]["home_id"],"ncaa-seo:indiana")
+        self.assertIn("neutral-site",bad[0]["reason"])
     def test_report_not_promoted_as_d1(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);p=root/"source"/"2026"/"03";p.mkdir(parents=True)
