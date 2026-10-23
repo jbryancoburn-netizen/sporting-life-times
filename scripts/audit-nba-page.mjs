@@ -3,7 +3,7 @@
 import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
-const page=read('nba.html'),ui=read('nba-elo-page.js'),model=read('nba-elo-model.js'),policy=read('SOURCE_POLICY.md');
+const page=read('nba.html'),ui=read('nba-desk-loader.js'),model=read('nba-elo-model.js'),policy=read('SOURCE_POLICY.md');
 assert.match(policy,/ESPN is an optional, attributed \*\*last-resort fallback\*\*/);
 assert.match(page,/id="nba-elo-scoreboard"/);
 assert.match(page,/id="nba-elo-grid"/);
