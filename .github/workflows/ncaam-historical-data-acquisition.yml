@@ -10,6 +10,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: ncaam-historical-source-acquisition
+  cancel-in-progress: true
 jobs:
   acquire:
     runs-on: ubuntu-latest
