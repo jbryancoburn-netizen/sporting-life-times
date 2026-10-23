@@ -5,7 +5,8 @@ ESPN is used only as attributed secondary roster evidence. No third-party
 ratings enter the independent Elo calculation. Coverage and identity are
 explicit publication gates.
 """
-import argparse,json,time,urllib.request,urllib.parse
+import argparse,json,urllib.request,urllib.parse
+from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
 
 BASE="https://site.api.espn.com/apis/common/v3/sports/basketball/mens-college-basketball/teams/"
@@ -35,15 +36,19 @@ def main():
     a=p.parse_args()
     teams=json.loads(a.team_ids.read_text())["teams"]
     output=[];failures=[]
-    for t in teams:
-        if not t.get("espn_id"):failures.append({"team":t["name"],"reason":"no verified ESPN crosswalk"});continue
+    def one(t):
+        if not t.get("espn_id"):return None,{"team":t["name"],"reason":"missing ESPN school ID"}
         try:
             x=fetch_team(t["espn_id"],a.season)
             x["ncaa_id"]=t["id"];x["school"]=t["name"]
-            if len(x["players"])<8:raise ValueError("Roster has fewer than 8 players")
-            output.append(x)
-        except Exception as exc:failures.append({"team":t["name"],"error":str(exc)[:160]})
-        time.sleep(.09)
+            if len(x["players"])<8:raise ValueError("Fewer than 8 listed players")
+            return x,None
+        except Exception as exc:return None,{"team":t["name"],"error":str(exc)[:160]}
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        for x,err in executor.map(one,teams):
+            if x:output.append(x)
+            if err:failures.append(err)
+    output.sort(key=lambda x:x["ncaa_id"])
     result={"season":a.season,"provenance":"ESPN roster endpoint; secondary evidence",
             "rosters":output,"failed":failures,"full_coverage":len(output)==len(teams)}
     a.out.parent.mkdir(parents=True,exist_ok=True)
