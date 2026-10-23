@@ -45,8 +45,15 @@ jobs:
           for attempt in $(seq 1 12); do
             if curl --fail --location --silent --show-error --max-time 12 "$TARGET" -o /tmp/published-nba-players.html; then
               if grep -q 'NBA · Individual Player Leaders' /tmp/published-nba-players.html && grep -q 'Anthony Edwards' /tmp/published-nba-players.html && grep -q 'Victor Wembanyama' /tmp/published-nba-players.html; then
-                echo "PASS: live GitHub Pages includes the individual player-leaders edition"
-                exit 0
+                NBA_TARGET="${PAGES_URL%/}/nba.html"
+                if ! curl --fail --location --silent --show-error --max-time 12 "$NBA_TARGET" -o /tmp/published-nba.html; then
+                  echo "NBA front page is still unavailable" >&2
+                elif grep -q 'id="nba-individual-player-leaders"' /tmp/published-nba.html && ! grep -q "Showing verified team scoring instead" /tmp/published-nba.html; then
+                  echo "PASS: live NBA desk and individual player-leaders edition both match current source"
+                  exit 0
+                else
+                  echo "The live NBA desk still serves old markup" >&2
+                fi
               fi
             fi
             echo "Published site not current yet (attempt $attempt of 12)"
