@@ -39,7 +39,11 @@ def main():
     p.add_argument("--out",type=Path,default=Path("data/ncaam-2026-27-source-candidates.json"))
     a=p.parse_args()
     if not 1<=a.days<=7:p.error("days must be between 1 and 7")
-    result=collect(date.fromisoformat(a.start),a.days)
+    day=date.fromisoformat(a.start)
+    if day<date(2026,11,2):
+        print("Current-season scoreboard collection deferred until 2026-11-02; use historical smoke-test separately.")
+        return
+    result=collect(day,a.days)
     a.out.parent.mkdir(parents=True,exist_ok=True)
     a.out.write_text(json.dumps(result,indent=2)+"\n")
     print("NCAA candidate games:",len(result["games"]),"failed dates:",len(result["failed_days"]))
