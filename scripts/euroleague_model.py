@@ -222,8 +222,17 @@ def main():
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
-        if previous.get("season")==payload["season"] and previous.get("games_completed",0)>payload["games_completed"]:
-            raise ValueError("Source regression: fewer finals than previously published; refusing overwrite")
+        if previous.get("season")==payload["season"]:
+            if previous.get("games_completed",0)>payload["games_completed"]:
+                raise ValueError("Source regression: fewer finals than previously published; refusing overwrite")
+            old_results={str(g["id"]):(g["home"],g["away"],tuple(g["score"])) for g in previous.get("recent_results",[])}
+            new_results={str(g["id"]):(g["home"],g["away"],tuple(g["score"])) for g in history}
+            missing=set(old_results)-set(new_results)
+            if missing:
+                raise ValueError("Source regression: previously verified finals disappeared: "+str(sorted(missing)))
+            changed=[gid for gid in old_results if old_results[gid]!=new_results[gid]]
+            if changed:
+                raise ValueError("Previously published final score changed; manual reconciliation required: "+str(changed))
     temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n");temp.replace(OUT)
     print(f"EuroLeague: {len(ranked)} clubs, {len(history)} finals, {len(fixtures)} fixtures")
 if __name__=="__main__":main()
