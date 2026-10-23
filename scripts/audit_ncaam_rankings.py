@@ -51,8 +51,7 @@ def main():
     p.add_argument("--out",type=Path,default=Path("data/ncaam-2026-27-ranking-audit.json"))
     a=p.parse_args()
     x=audit(json.loads(a.ratings.read_text()))
-    a.out.write_text(json.dumps(x,indent=2)+"
-")
+    a.out.write_text(json.dumps(x,indent=2)+chr(10))
     print(json.dumps({k:x[k] for k in ("team_count","flagged_teams","maximum_absolute_adjustment","release_approved","release_blockers")},indent=2))
     for row in x["flagged"][:20]:
         print(row["team"],row["adjustment"],",".join(row["reasons"]))
