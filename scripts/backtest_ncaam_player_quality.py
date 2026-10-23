@@ -73,6 +73,6 @@ def main():
     a=ap.parse_args()
     result=run(load(a.historical_jsonl))
     rendered=json.dumps(result,indent=2)
-    if a.output: Path(a.output).write_text(rendered+"\\n")
+    if a.output: Path(a.output).write_text(rendered+chr(10))
     print(rendered)
 if __name__=="__main__": main()
