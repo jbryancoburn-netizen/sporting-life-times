@@ -83,6 +83,15 @@ class TestModel(unittest.TestCase):
             return {"total":2,"data":[make_game(2)]}
         with patch.object(el,"get",side_effect=responder):
             self.assertEqual(len(el.fetch_season("E2026")),2)
+    def test_reject_repeated_api_pages(self):
+        calls=[]
+        def repeated(url):
+            calls.append(url)
+            return {"total":3,"data":[make_game(1)]}
+        with patch.object(el,"get",side_effect=repeated):
+            with self.assertRaisesRegex(ValueError,"pagination repeated"):
+                el.fetch_season("E2026")
+        self.assertEqual(len(calls),2)
     def test_fail_empty(self):
         with self.assertRaises(ValueError):el.parse({"data":[]},"E2026")
 
