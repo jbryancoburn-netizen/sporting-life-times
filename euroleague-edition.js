@@ -33,4 +33,21 @@ try{
  console.warn('EuroLeague edition',err.message);
 }
 })();
+(async()=>{
+ const el=document.getElementById('el-validation-panel');
+ if(!el)return;
+ try{
+  const r=await fetch('data/euroleague-validation.json?cache='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('Not published');
+  const d=await r.json(),v=d.scoring_forecast_validation;
+  if(!v||!v.games_evaluated)throw Error('No scoring evaluation');
+  const boxes=[
+   ['SCORE SAMPLE',v.games_evaluated+' games','Historical pregame-only evaluation'],
+   ['GAME TOTAL ERROR',v.total_mae+' pts','Mean absolute error in projected totals'],
+   ['MARGIN ERROR',v.margin_mae+' pts','Mean absolute error in projected margin']
+  ];
+  if(d.heldout_evaluation?.selected_holdout)boxes.push(['ELO HOLDOUT',d.heldout_evaluation.selected_holdout.accuracy*100+'%','Win pick accuracy · '+d.heldout_evaluation.selected_holdout.n+' games']);
+  el.innerHTML=boxes.map(([heading,value,note])=>'<article><small>'+esc(heading)+'</small><b>'+esc(value)+'</b><small>'+esc(note)+'</small></article>').join('');
+ }catch(e){el.textContent='Historical forecast evaluation not yet available; scoring parameters remain provisional.';}
+})();
 })();
