@@ -56,9 +56,9 @@ def build(previous):
     if len(result)!=365 or len({x["id"] for x in result})!=365:
         raise ValueError("Invalid final total or identities")
     counts=dict(sorted(Counter(x["conference"] for x in result).items()))
-    expected={"ACC":18,"America East":9,"AAC":13,"A-10":14,"ASUN":8,
+    expected={"ACC":18,"America East":9,"AAC":13,"Atlantic 10":14,"ASUN":8,
               "Big 12":16,"Big East":11,"Big Sky":11,"Big South":9,"Big Ten":18,
-              "Big West":12,"CAA":13,"C-USA":10,"Horizon":12,"Ivy":8,
+              "Big West":12,"CAA":13,"C-USA":10,"Horizon":12,"Ivy League":8,
               "Metro":13,"MAC":12,"MEAC":8,"MVC":11,"MWC":10,"NEC":9,
               "OVC":9,"Pac-12":9,"Patriot":10,"SEC":16,"SoCon":11,
               "Southland":12,"SWAC":12,"Summit League":8,"Sun Belt":14,
