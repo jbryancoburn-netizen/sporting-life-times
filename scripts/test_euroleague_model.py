@@ -127,6 +127,33 @@ class TestModel(unittest.TestCase):
                 self.assertEqual(len(model["rankings"]),18)
                 el.main()
                 self.assertEqual(json.loads(out.read_text())["games_completed"],9)
+    def test_completed_game_is_not_double_counted(self):
+        import json
+        teams=["T"+str(i).zfill(2) for i in range(18)]
+        def season(season):
+            rows=[]
+            for i in range(9):
+                rows.append({"id":str(i+1),"season":season,"date":"2026-10-01T19:00:00Z",
+                  "home":{"code":teams[2*i],"name":teams[2*i],"logo":None,"score":81},
+                  "away":{"code":teams[2*i+1],"name":teams[2*i+1],"logo":None,"score":75},
+                  "completed":True,"neutral":False})
+            if season=="E2026":
+                rows.append({"id":"10","season":season,"date":"2026-10-02T19:00:00Z",
+                  "home":{"code":teams[0],"name":teams[0],"logo":None,"score":90},
+                  "away":{"code":teams[1],"name":teams[1],"logo":None,"score":87},
+                  "completed":True,"neutral":False})
+            return rows
+        with tempfile.TemporaryDirectory() as tmp:
+            target=pathlib.Path(tmp)/"out.json"
+            with patch.object(el,"fetch_season",side_effect=season),patch.object(el,"OUT",target):
+                el.main()
+                first=json.loads(target.read_text())
+                el.main()
+                second=json.loads(target.read_text())
+            self.assertEqual(first["games_completed"],10)
+            self.assertEqual(second["games_completed"],10)
+            self.assertEqual(first["rankings"],second["rankings"])
+            self.assertEqual(sum(r["played"] for r in second["standings"]),20)
     def test_fetch_pages(self):
         def responder(url):
             if "offset=0" in url:return {"total":2,"data":[make_game(1)]}
