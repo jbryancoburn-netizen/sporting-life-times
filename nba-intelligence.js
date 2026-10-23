@@ -43,15 +43,20 @@ async function leagueLeaders(){
  try{
   const resp=await fetch('data/nba-player-leaders.json',{cache:'no-store'});
   if(!resp.ok)throw Error('Player statistics have not been published');
-  const data=await resp.json();
-  if(data.season!=='2026-27'||!Array.isArray(data.rows)||!data.rows.length||!data.coverage?.completed_boxscores)throw Error('No verified player observations');
+  let data=await resp.json();
+  if(!Array.isArray(data.rows)||!data.rows.length||!data.coverage?.completed_boxscores){
+    const backup=await fetch('data/nba-player-leaders-snapshot.json',{cache:'no-store'});
+    if(!backup.ok)throw Error('No verified player leader snapshot');
+    data=await backup.json();
+  }
+  if(data.season!=='2026-27'||!Array.isArray(data.rows)||!data.rows.length)throw Error('No verified player observations');
   const blocks=groups.map(([label,field,unit])=>{
    const rows=data.rows.filter(r=>r.stat===field&&Number.isFinite(r.value)&&r.player).sort((a,b)=>b.value-a.value).slice(0,10);
    return rows.length?'<section class="nba-player-leader-block"><h4>'+label+'</h4><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>GP</th><th>'+unit+'</th></tr></thead><tbody>'+rows.map(r=>'<tr><th>'+esc(r.player)+'</th><td>'+esc(r.team)+'</td><td>'+esc(r.gp??'—')+'</td><td>'+r.value.toFixed(1)+'</td></tr>').join('')+'</tbody></table></section>':'';
   }).filter(Boolean);
   if(!blocks.length)throw Error('No supported player categories');
   container.innerHTML='<div class="nba-league-leader-panels">'+blocks.join('')+'</div>';
-  status.textContent=(data.sample_only?'CAPTURED GAMES · INCOMPLETE SEASON':'2026–27 VERIFIED PLAYER LEADERS')+' · '+data.coverage.completed_boxscores+' player box scores · '+data.coverage.unique_players+' players';
+  status.textContent=data.snapshot?'Individual leaders through '+data.as_of+' · '+data.source+' · Dated snapshot, not live statistics':(data.sample_only?'CAPTURED GAMES · INCOMPLETE SEASON':'2026–27 VERIFIED PLAYER LEADERS')+' · '+data.coverage.completed_boxscores+' player box scores · '+data.coverage.unique_players+' players';
  }catch(_err){
   // A team-score ledger cannot reconstruct player performances. Never
   // duplicate team scoring rankings under a misleading player heading.
