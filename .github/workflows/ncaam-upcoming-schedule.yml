@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - scripts/collect_ncaam_upcoming.py
+      - scripts/audit_ncaam_opening_ids.py
       - .github/workflows/ncaam-upcoming-schedule.yml
   workflow_dispatch:
 permissions:
@@ -32,11 +33,13 @@ jobs:
           assert all(g["home"] and g["away"] and g["source_url"].startswith("https://") for g in s["games"])
           print("Schedule verified:",len(s["games"]),"opening-night contests")
           PY
+      - name: Audit canonical team matches and neutral-site evidence
+        run: python scripts/audit_ncaam_opening_ids.py
       - name: Save source-attributed candidate schedule
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-opening-schedule-candidates.json
+          git add data/ncaam-2026-27-opening-schedule-candidates.json data/ncaam-2026-27-opening-identity-audit.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Archive sourced 2026-27 opening NCAA D1 candidate schedule"
           git pull --rebase origin main
