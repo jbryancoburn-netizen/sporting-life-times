@@ -16,6 +16,7 @@ on:
       - 'nba-desk-loader.js'
       - 'nba-home.js'
       - 'scripts/test-nba-elo-movement.mjs'
+      - 'scripts/test-nba-elo-render.mjs'
       - '.github/workflows/nba-elo-integrity.yml'
       - '.github/workflows/nba-elo-refresh.yml'
   pull_request:
@@ -33,6 +34,7 @@ on:
       - 'nba-desk-loader.js'
       - 'nba-home.js'
       - 'scripts/test-nba-elo-movement.mjs'
+      - 'scripts/test-nba-elo-render.mjs'
       - '.github/workflows/nba-elo-integrity.yml'
       - '.github/workflows/nba-elo-refresh.yml'
   workflow_dispatch:
@@ -54,5 +56,7 @@ jobs:
         run: node scripts/audit-nba-page.mjs
       - name: Validate dated daily Elo changes and website arrows
         run: node scripts/test-nba-elo-movement.mjs
+      - name: Render actual NBA power rankings and division standings from published movement snapshot
+        run: node scripts/test-nba-elo-render.mjs
       - name: Verify archived and current NBA Elo consistency
         run: node scripts/audit-nba-elo.mjs
