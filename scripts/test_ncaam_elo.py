@@ -42,7 +42,7 @@ class NightlyReplayTest(unittest.TestCase):
             old["teams"].append({"id":ident,"name":ident})
             pre["rankings"].append({"team_id":ident,"elo":1500.0})
         current=[{"id":str(i+1),"team":t["name"],"conference":"test"} for i,t in enumerate(old["teams"])]
-        game=[{"contest_id":"fixture-1","game_date":"11/01/2026",
+        game=[{"contest_id":"fixture-1","game_date":"10/01/2026",
                "home":"Indiana","away":"Purdue","home_score":"80","away_score":"70"}]
         result=calculate(pre,old,current,game)
         self.assertEqual(result["games_played"],1)
