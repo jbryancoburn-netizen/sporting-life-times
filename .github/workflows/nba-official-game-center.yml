@@ -28,6 +28,7 @@ jobs:
       - name: Validate collection code before using NBA feed
         run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
       - name: Backfill missed completed NBA player box scores from official schedule
+        continue-on-error: true
         run: python scripts/backfill-nba-boxscores.py
       - name: Collect NBA official daily scoreboard and box scores
         continue-on-error: true
@@ -43,9 +44,9 @@ jobs:
           node --check nba-rabby-forecast.js
           node --check nba-rabby-possession.js
           node --check nba-intelligence.js
-          python -c "import json; d=json.load(open('data/nba-player-leaders.json')); assert d['sample_only'] and isinstance(d['rows'],list)"
+          python -c "import json; d=json.load(open('data/nba-player-leaders.json')); assert d['sample_only'] and len(d['rows']) > 0"
           node scripts/audit-nba-elo.mjs
-          python -c "import json; d=json.load(open('data/nba-game-center.json')); assert isinstance(d['games'],list)"
+          python -c "import json; d=json.load(open('data/nba-game-center.json')); assert d['coverage']['boxscores_with_players'] > 0 and len(d['games']) > 0"
       - name: Commit verified official NBA game center
         run: |
           git config user.name "github-actions[bot]"
