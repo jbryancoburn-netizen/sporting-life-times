@@ -30,13 +30,50 @@ def verify(scoring, preseason, legacy, decision):
         raise ValueError("Legacy promotion unexpectedly approved")
     return True
 
+def verify_retrospective_holdout(report, decision):
+    if (report.get("status") != "RETROSPECTIVE_DIAGNOSTIC_NOT_ASOF_PRESEASON_VALIDATED" or
+        report.get("production_approval") is not False or
+        report.get("train_seasons") != [2024, 2025] or
+        report.get("untouched_holdout_season") != 2026):
+        raise ValueError("Retrospective holdout status or chronology invalid")
+    baseline=report.get("holdout_minutes_only",{})
+    candidate=report.get("holdout_minutes_plus_quality",{})
+    if baseline.get("games",0)<1000 or baseline.get("games")!=candidate.get("games"):
+        raise ValueError("Insufficient matched 2026 test games")
+    for metric in ("log_loss","brier"):
+        b,c=baseline.get(metric),candidate.get(metric)
+        if not isinstance(b,(int,float)) or not isinstance(c,(int,float)) or not (0<c<b<1):
+            raise ValueError("Player scoring improvement or numeric holdout missing")
+    if not report.get("holdout_both_metrics_improved"):
+        raise ValueError("Holdout reporting disagrees with recorded metrics")
+    if len(report.get("source_hashes",{}))!=4 or any(len(v)!=3 for v in report["source_hashes"].values()):
+        raise ValueError("Missing provenance for 12 source files")
+    detail=decision.get("retrospective_player_quality_backtest",{})
+    if (detail.get("holdout_games")!=baseline["games"] or
+        detail.get("quality_coefficient")!=report["features"]["selected_quality_beta"] or
+        detail.get("preseason_roster_snapshots_verified") is not False or
+        detail.get("eligible_for_primary") is not False):
+        raise ValueError("Release decision contradicts historical roster-timing safeguards")
+    for label,metric in (("minutes_log_loss","log_loss"),("minutes_brier","brier")):
+        if abs(detail.get(label,-1)-baseline[metric])>1e-10:raise ValueError("Stale baseline audit")
+    for label,metric in (("quality_log_loss","log_loss"),("quality_brier","brier")):
+        if abs(detail.get(label,-1)-candidate[metric])>1e-10:raise ValueError("Stale candidate audit")
+    if decision["player_quality_model_approved_for_primary"] is not False:
+        raise ValueError("Retrospective-only study cannot approve player-quality Elo")
+    if decision["player_quality_holdout"]["source_roster_asof_times_verified"] is not False:
+        raise ValueError("No historical preseason-asof team roster snapshot has been verified")
+    return True
+
 def main():
     names = ["ncaam-2026-27-player-scoring-shadow.json",
              "ncaam-2026-27-preseason-roster-informed.json",
              "ncaam-offseason-transfer-backtest.json",
              "ncaam-2026-27-player-quality-release-decision.json"]
     verify(*(json.loads((ROOT / n).read_text()) for n in names))
-    print("PASS: scoring evidence reconciles and unvalidated quality model remains shadow-only")
+    report=json.loads((ROOT/"ncaam-player-quality-retrospective-backtest.json").read_text())
+    decision=json.loads((ROOT/"ncaam-2026-27-player-quality-release-decision.json").read_text())
+    verify_retrospective_holdout(report,decision)
+    print("PASS: 1,831-game retrospective holdout reconciles; no unsupported as-of preseason certification")
 
 if __name__ == "__main__":
     main()
