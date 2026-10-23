@@ -1,0 +1,59 @@
+name: Publish NCAA 2026-27 roster-adjusted Elo research model
+on:
+  push:
+    paths:
+      - scripts/build_ncaam_2027_offseason_shadow.py
+      - scripts/test_build_ncaam_2027_offseason_shadow.py
+      - .github/workflows/ncaam-2027-roster-shadow.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-2027-roster-shadow
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate identity and duplicate guards
+        run: python -m unittest discover -s scripts -p test_build_ncaam_2027_offseason_shadow.py -v
+      - name: Fetch crosswalked 2026-27 player rosters
+        run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
+      - name: Build held-out-validated NCAA-origin minutes-based offseason shadow Elo
+        run: python scripts/build_ncaam_2027_offseason_shadow.py
+      - name: Enforce research publication invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('data/ncaam-2026-27-offseason-shadow.json').read_text())
+          assert len(m['rankings'])==m['team_count']==365
+          assert len({t['team_id'] for t in m['rankings']})==365
+          assert m['status']=='provisional-roster-adjusted'
+          assert m['games_played']==0
+          assert m['evidence']['roster_programs']>=250
+          assert 0<m['evidence']['roster_programs']<365
+          assert any(abs(t['offseason_adjustment'])>1 for t in m['rankings'])
+          assert all(t['offseason_adjustment']==0 for t in m['rankings'] if t['roster_coverage']=='no-current-roster')
+          print('Validated shadow:',m['evidence']['roster_programs'],'roster-adjusted teams, with transparent coverage')
+          PY
+      - name: Preserve roster provenance as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-offseason-roster-evidence
+          path: staging/ncaam-2027-roster-evidence.json
+          retention-days: 30
+      - name: Publish shadow Elo without overriding original preseason
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-offseason-shadow.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish historically validated 2026-27 roster-adjusted NCAA Elo research edition"
+          git pull --rebase origin main
+          git push origin HEAD:main
