@@ -4,8 +4,8 @@ import euroleague_header as header
 
 class HeaderTests(unittest.TestCase):
     def payload(self, **kwargs):
-        return {"CodeTeamA":"OLY ","CodeTeamB":"ULK ","Live":True,
-                "ScoreA":"55","ScoreB":"49","Quarter":"3","RemainingPartialTime":"04:12",**kwargs}
+        return dict({"CodeTeamA":"OLY ","CodeTeamB":"ULK ","Live":True,
+                "ScoreA":"55","ScoreB":"49","Quarter":"3","RemainingPartialTime":"04:12"},**kwargs)
     def test_true_live_scores(self):
         item=header.details(self.payload(),"OLY","ULK","scheduled")
         self.assertEqual(item["state"],"live")
