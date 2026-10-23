@@ -28,6 +28,9 @@ def main():
       candidates.append(g)
   # Up to 36 new box scores per invocation avoids API bursts and job timeouts.
   candidates=sorted(candidates,key=lambda g:g.get("gameTimeUTC") or "",reverse=True)[:36]
+  print("Official NBA schedule dates:",len(dates),"unarchived completed regular-season candidates:",len(candidates))
+  if not candidates and not any(g.get("players") for g in prior.values()):
+    raise RuntimeError("No completed regular-season games in NBA schedule or prior captured archive; refusing empty publication")
   with ThreadPoolExecutor(max_workers=5) as pool:
     fetched=[g for g in pool.map(game_record,candidates) if g and g.get("state")=="post"]
   for g in fetched:
@@ -40,6 +43,8 @@ def main():
       "last_game_date":max((g.get("date") for g in games if g.get("date")),default=None)}
   result={"updated_at":datetime.now(timezone.utc).isoformat(),"source":"Official NBA LiveData plus NBA schedule; captured regular-season box scores (not guaranteed complete)","games":games,"coverage":coverage}
   OUT.parent.mkdir(parents=True,exist_ok=True)
+  if not coverage["boxscores_with_players"]:
+    raise RuntimeError("Official NBA box-score backfill captured zero player boxes; refusing empty publication")
   OUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
   print("NBA backfill: fetched",len(fetched),"completed NBA games; total full player boxes",coverage["boxscores_with_players"])
 if __name__=="__main__":main()
