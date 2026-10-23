@@ -124,13 +124,14 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--data",type=Path,default=Path("data"))
     parser.add_argument("--historical-player-box",type=Path,required=True)
+    parser.add_argument("--study",type=Path,help="Fresh actual early-season backtest result; overrides published study")
     parser.add_argument("--out",type=Path,default=Path("data/ncaam-2026-27-scoring-quality-shadow.json"))
     args=parser.parse_args()
     d=args.data
     doc=build(load_json(d/"ncaam-2026-27-preseason-roster-informed.json"),
               load_json(d/"ncaam-2026-27-player-scoring-shadow.json"),
               load_json(d/"ncaam-2026-27-minutes-retention-audit.json"),
-              load_json(d/"ncaam-quality-earlyseason-asof-backtest.json"),
+              load_json(args.study or (d/"ncaam-quality-earlyseason-asof-backtest.json")),
               load_json(d/"ncaam-2026-27-player-quality-release-decision.json"),
               args.historical_player_box)
     args.out.parent.mkdir(parents=True,exist_ok=True)
