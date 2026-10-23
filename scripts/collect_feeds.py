@@ -118,6 +118,8 @@ def main():
                     seen_links.add(article["url"]);seen_titles.add(key);articles.append(article)
         except (OSError,ValueError,TypeError): pass
     articles.sort(key=lambda a: a.get("published_at",""), reverse=True)
+    nba_count=sum(a.get("category")=="NBA" or "NBA" in a.get("source","") for a in articles)
+    if nba_count==0: print("WARNING: zero NBA articles collected; source health must be reviewed")
     OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:1000],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Collected {len(articles)} unique stories; {sum(1 for x in status if x['ok'])}/{len(status)} feeds responded.")
     for item in status: print(f"{'OK' if item['ok'] else 'FAIL'} {item['source']}: {item['items']} items" + (f" — {item['error']}" if item['error'] else ""))
