@@ -1,0 +1,21 @@
+{
+  "season": "2026-27",
+  "decision": "RETAIN_PROVISIONAL_ROSTER_INFORMED_PRESEASON",
+  "player_quality_model_approved_for_primary": false,
+  "current_preseason_approval": false,
+  "player_quality_holdout": {
+    "games": 0,
+    "chronological_train_test_separation": false,
+    "source_roster_asof_times_verified": false
+  },
+  "basis": {
+    "scoring_players": 2923,
+    "teams": 365,
+    "legacy_holdout_games": 1823,
+    "legacy_log_loss_baseline": 0.570016788843191,
+    "legacy_log_loss_candidate": 0.5529979610275323,
+    "legacy_holdout_not_applicable_to_new_scoring_features": true
+  },
+  "required_for_player_quality_promotion": "Historical as-of preseason rosters for training/holdout years; join player stats from prior seasons only; fit quality weights on training seasons; evaluate log loss and Brier on untouched subsequent-season games against roster-minutes incumbent; reconcile and publish only if validation passes.",
+  "note": "This decision documents actual available evidence. It does not pretend a 2026-27 scoring-quality backtest has been performed."
+}
