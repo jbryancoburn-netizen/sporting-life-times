@@ -12,6 +12,19 @@ source = ROOT / "data/nba-game-center.json"
 destination = ROOT / "data/nba-player-leaders.json"
 data = json.loads(source.read_text(encoding="utf-8"))
 games = [g for g in data.get("games", []) if g.get("state") == "post" and g.get("players")]
+# The official NBA CDN and ESPN may both capture one final: count it only once.
+seen_fixtures=set()
+deduplicated=[]
+for game in sorted(games,key=lambda g:len(g.get("players") or []),reverse=True):
+    teams=game.get("teams") or []
+    codes=sorted(t.get("code") for t in teams if t.get("code"))
+    day=str(game.get("date") or "")[:10]
+    key=(day,tuple(codes))
+    if len(codes)!=2 or not day or key in seen_fixtures:
+        continue
+    seen_fixtures.add(key)
+    deduplicated.append(game)
+games=deduplicated
 players = defaultdict(lambda: {"gp":0, "pts":0, "reb":0, "ast":0, "stl":0, "blk":0, "tov":0,"fgm":0,"fga":0,"fg3m":0,"fg3a":0,"ftm":0,"fta":0})
 for game in games:
     for p in game.get("players", []):
