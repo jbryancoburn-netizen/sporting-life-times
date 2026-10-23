@@ -99,7 +99,7 @@ def main():
             st=stats.setdefault(t["code"],{"played":0,"wins":0,"losses":0,"for":0,"against":0})
             st["played"]+=1;st["wins"]+=win;st["losses"]+=1-win;st["for"]+=points;st["against"]+=against
         history.append({"id":g["id"],"date":g["date"],"home":h["code"],"away":a["code"],"score":[h["score"],a["score"]],"pregame_home_probability":round(p,5)})
-    if not current or not active:raise ValueError("No current season clubs; refusing empty publication")
+    if not current or not active or not history:raise ValueError("No verified current season finals; refusing uncalculated Elo publication")
     ranked=[{**team_info[c],"elo":round(ratings[c],1),**stats.get(c,{"played":0,"wins":0,"losses":0,"for":0,"against":0})} for c in active]
     ranked.sort(key=lambda x:(-x["elo"],x["name"]))
     # Temporary 40-minute points model based on current season observed PPG.
