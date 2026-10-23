@@ -91,8 +91,8 @@ def build(roster,scoring,minutes,study,decision,source_path):
     result.sort(key=lambda t:(-t["elo"],t["team_id"]))
     for i,t in enumerate(result,1):
         t["rank"]=i
-    if abs(sum(p["experimental_scoring_quality_adjustment"] for p in result))>1000:
-        raise ValueError("Unusually large noncentered aggregate scoring adjustments")
+    if max(abs(p["experimental_scoring_quality_adjustment"]) for p in result)>80:
+        raise ValueError("One or more experimental scoring adjustments exceed safe review range")
     return {
         "model":"slat-ncaam-2026-27-experimental-scorer-v1",
         "season":"2026-27",
