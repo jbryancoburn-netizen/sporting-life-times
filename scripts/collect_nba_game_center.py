@@ -16,6 +16,7 @@ def game_record(g):
     if len(gid)!=10 or not gid.isdigit():return None
     status=g.get("gameStatus")
     entry={"id":gid,"date":g.get("gameTimeUTC"),"status":g.get("gameStatusText"),"state":"post" if status==3 else "in" if status==2 else "pre","url":"https://www.nba.com/game/"+gid+"/box-score","teams":[],"leaders":[],"players":[]}
+    entry["official_stats"]={}
     for side in ("away","home"):
         team=g.get(side+"Team") or {}
         entry["teams"].append({"name":(str(team.get("teamCity") or "")+" "+str(team.get("teamName") or "")).strip(),"score":team.get("score"),"home_away":side,"code":team.get("teamTricode")})
@@ -24,6 +25,11 @@ def game_record(g):
             box=(fetch("https://cdn.nba.com/static/json/liveData/boxscore/boxscore_"+gid+".json").get("game") or {})
             for side in ("awayTeam","homeTeam"):
                 team=box.get(side) or {}
+                st=team.get("statistics") or {}
+                side_name="home" if side=="homeTeam" else "away"
+                keys={"fga":"fieldGoalsAttempted","oreb":"reboundsOffensive","tov":"turnoversTotal","fta":"freeThrowsAttempted"}
+                if all(isinstance(st.get(v),(int,float)) for v in keys.values()):
+                    entry["official_stats"][side_name]={"code":team.get("teamTricode"),"points":team.get("score"),**{k:st[v] for k,v in keys.items()}}
                 for player in team.get("players") or []:
                     if not player.get("played"):continue
                     st=player.get("statistics") or {}
