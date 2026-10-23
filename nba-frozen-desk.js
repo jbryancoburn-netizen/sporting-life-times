@@ -2,6 +2,8 @@
 const status=document.getElementById('nba-frozen-status'),root=document.getElementById('nba-frozen-grid');
 if(!status||!root)return;
 const names={ATL:'Atlanta Hawks',BOS:'Boston Celtics',BKN:'Brooklyn Nets',CHA:'Charlotte Hornets',CHI:'Chicago Bulls',CLE:'Cleveland Cavaliers',DAL:'Dallas Mavericks',DEN:'Denver Nuggets',DET:'Detroit Pistons',GSW:'Golden State Warriors',HOU:'Houston Rockets',IND:'Indiana Pacers',LAC:'Los Angeles Clippers',LAL:'Los Angeles Lakers',MEM:'Memphis Grizzlies',MIA:'Miami Heat',MIL:'Milwaukee Bucks',MIN:'Minnesota Timberwolves',NOP:'New Orleans Pelicans',NYK:'New York Knicks',OKC:'Oklahoma City Thunder',ORL:'Orlando Magic',PHI:'Philadelphia 76ers',PHX:'Phoenix Suns',POR:'Portland Trail Blazers',SAC:'Sacramento Kings',SAS:'San Antonio Spurs',TOR:'Toronto Raptors',UTA:'Utah Jazz',WAS:'Washington Wizards'};
+const logoAlias={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no'};
+const logo=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(logoAlias[t]||t.toLowerCase())+'.png';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 fetch('data/nba-2025-26-final.json').then(r=>{if(!r.ok)throw Error('Frozen NBA data unavailable');return r.json()}).then(data=>{
 const rows=data.rankings;
