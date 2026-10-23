@@ -48,10 +48,14 @@ def reconcile(old,current,box):
                 "ncaa_box_player_id":next(iter(box_candidates)) if len(box_candidates)==1 else None})
     return {"season":"2026-27","historical_espn_season":2026,
         "teams_current":len(current["rosters"]),"teams_prior":len(old["rosters"]),
+        "historical_partial_roster_teams":old.get("partial_roster_teams"),
+        "historical_roster_asof_verified":False,
+        "identity_release_approved":False,
         "counts":dict(counts),"production_elo_approved":False,
         "limitations":["ESPN identity continuity proves same provider athlete ID across seasons",
             "NCAA player box joins remain school/name candidates, not source-level verified identities",
-            "Historical ESPN roster snapshot may include in-season roster changes"],
+            "Historical ESPN roster snapshot may include in-season roster changes",
+            "No historical as-of timestamp proving preseason availability"],
         "matched":results}
 def main():
     p=argparse.ArgumentParser()
