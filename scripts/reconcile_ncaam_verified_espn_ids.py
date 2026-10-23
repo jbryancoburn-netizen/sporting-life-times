@@ -55,8 +55,19 @@ def reconcile(old,current,box):
                 "espn_identity_continuity_verified":True,
                 "ncaa_box_identity_verified":False,"ncaa_box_status":state,
                 "ncaa_box_player_id":next(iter(box_candidates)) if len(box_candidates)==1 else None})
+    # Audit roster coverage against actual prior-season D-I membership,
+    # rather than assuming the current season's entrants were present.
+    registry_path=Path("data/ncaam-2025-26-team-registry.json")
+    if not registry_path.exists():raise FileNotFoundError(registry_path)
+    historical_members={t["id"] for t in json.loads(registry_path.read_text())["teams"] if t.get("division")=="D1"}
+    observed_prior={t["ncaa_id"] for t in old["rosters"]}
+    missing_prior=sorted(historical_members-observed_prior)
+    unexpected_prior=sorted(observed_prior-historical_members)
     return {"season":"2026-27","historical_espn_season":2026,
         "teams_current":len(current["rosters"]),"teams_prior":len(old["rosters"]),
+        "historical_expected_d1_teams":len(historical_members),
+        "historical_missing_d1_team_ids":missing_prior,
+        "historical_unexpected_team_ids":unexpected_prior,
         "historical_partial_roster_teams":old.get("partial_roster_teams"),
         "historical_roster_asof_verified":False,
         "historical_season_payload_verified":old.get("source_payload_season_verified") is True,
