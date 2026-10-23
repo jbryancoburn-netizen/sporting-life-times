@@ -31,5 +31,17 @@ def main():
  a.output.mkdir(parents=True,exist_ok=True)
  (a.output/"schema-report.json").write_text(json.dumps(result,indent=2)+"\n")
  (a.output/"season.csv.gz").write_bytes(data)
+ ids_url=f"https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_team_ids/ncaa_mbb_team_ids_{a.season}.csv.gz"
+ with urlopen(Request(ids_url,headers={"User-Agent":"SportingLifeTimes/1.0"}),timeout=60) as response:
+  team_bytes=response.read(2000000)
+ id_rows=list(csv.DictReader(gzip.decompress(team_bytes).decode("utf-8-sig").splitlines()))
+ if not id_rows:raise ValueError("NCAA team ID asset empty")
+ (a.output/"team-ids.csv.gz").write_bytes(team_bytes)
+ result["teams_source_url"]=ids_url
+ result["team_ids_count"]=len(id_rows)
+ result["team_ids_columns"]=list(id_rows[0])
+ result["team_ids_sample"]=id_rows[:3]
+ (a.output/"schema-report.json").write_text(json.dumps(result,indent=2)+"\\n")
+ print(json.dumps({"team_ids_count":len(id_rows),"team_ids_columns":list(id_rows[0]),"team_ids_sample":id_rows[:3]},indent=2))
  print(json.dumps({"rows":len(rows),"columns":keys,"sample_rows":rows[:3],"sha256":result["sha256_gzip"]},indent=2))
 if __name__=="__main__":main()
