@@ -18,3 +18,5 @@ jobs:
           node --check app.js
       - name: Test newspaper systems
         run: node --test tests/*.test.cjs
+      - name: Validate USRS publication safety gate
+        run: python3 -m unittest discover -s scripts -p 'test_publish_usrs.py' -v
