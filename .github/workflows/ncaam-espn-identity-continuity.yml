@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s scripts -p test_reconcile_ncaam_verified_espn_ids.py -v
-      - run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --out staging/ncaam-2026-roster-evidence.json
+      - run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --min-players 1 --out staging/ncaam-2026-roster-evidence.json
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
       - run: python scripts/reconcile_ncaam_verified_espn_ids.py
       - uses: actions/upload-artifact@v4
