@@ -20,7 +20,12 @@ def diagnose(old,current,registry):
         "partial_current":sorted(partial_current,key=lambda x:x["team"]),
         "source_failures_prior":old.get("failed",[]),
         "source_failures_current":current.get("failed",[]),
-        "historical_asof_verified":False,"release_approved":False}
+        "historical_asof_verified":False,"release_approved":False,
+        "historical_missing_count":len(missing_prior),
+        "historical_partial_count":len(partial_prior),
+        "current_missing_count":len(missing_current),
+        "current_partial_count":len(partial_current),
+        "remediation":"Use timestamped 2025-26 roster snapshots or original provider athlete IDs; do not infer missing players from season endpoint"}
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--prior",default="staging/ncaam-2026-roster-evidence.json")
