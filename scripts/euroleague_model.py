@@ -56,11 +56,35 @@ def clock(s):
         return d if d.tzinfo else d.replace(tzinfo=dt.timezone.utc)
     except ValueError:return dt.datetime.max.replace(tzinfo=dt.timezone.utc)
 def expected(diff):return 1/(1+10**(-diff/400))
+def fetch_season(season):
+    page_size=100
+    games=[]
+    total=None
+    for offset in range(0,1500,page_size):
+        raw=get(BASE+season+f"/games?limit={page_size}&offset={offset}")
+        rows=field(raw,"data","games","items")
+        if not isinstance(rows,list):raise ValueError("Invalid EuroLeague page for "+season)
+        reported=field(raw,"total","totalCount")
+        if isinstance(reported,int):total=reported
+        # Parse each page without the season-total completeness check.
+        page=dict(obj(raw));page.pop("total",None);page.pop("totalCount",None)
+        if not rows:break
+        converted=parse(page,season)
+        games.extend(converted)
+        if total is not None and len(games)>=total:break
+        if len(rows)<page_size:break
+    if total is not None and len(games)!=total:
+        raise ValueError(f"Incomplete {season}: parsed {len(games)} of {total} fixtures")
+    codes=[g["id"] for g in games]
+    if not all(codes) or len(codes)!=len(set(codes)):
+        raise ValueError("Duplicate or missing game identifiers in "+season)
+    return games
+
 def main():
     all_games=[]
     for year in (2024,2025,2026):
         s="E"+str(year)
-        all_games+=parse(get(BASE+s+"/games?limit=1000&offset=0"),s)
+        all_games+=fetch_season(s)
     # Reconstruct season chronologically; previous season used solely for initial strength.
     all_games.sort(key=lambda g:(g["season"],clock(g["date"]),g["id"]))
     ratings={}; stats={}; history=[]; season_seen=None
