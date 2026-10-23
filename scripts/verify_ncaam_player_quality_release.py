@@ -64,6 +64,44 @@ def verify_retrospective_holdout(report, decision):
         raise ValueError("No historical preseason-asof team roster snapshot has been verified")
     return True
 
+def verify_earlyseason_asof(report, decision):
+    """Verify the genuinely dated post-day-14 trial but NEVER promote as preseason."""
+    if (report.get("status") != "CHRONOLOGICALLY_VALID_EARLYSEASON_NOT_PRESEASON"
+        or report.get("preseason_release_approved") is not False
+        or report.get("asof_current_roster_verified") is not True
+        or report.get("training_seasons") != [2024, 2025]
+        or report.get("holdout_season") != 2026):
+        raise ValueError("Invalid 14-day chronological evaluation contract")
+    base=report.get("holdout_minutes",{})
+    candidate=report.get("holdout_quality",{})
+    if base.get("games",0)<1000 or base.get("games")!=candidate.get("games"):
+        raise ValueError("Unmatched 2026 in-season games")
+    for metric in ("log_loss","brier"):
+        if not (0<candidate.get(metric,2)<base.get(metric,0)<1):
+            raise ValueError("Reported early-season quality uplift not supported")
+    if report.get("holdout_both_improved") is not True:
+        raise ValueError("Earlyseason holdout not improved on both measures")
+    if len(report.get("source_hashes",{}))!=4:
+        raise ValueError("Earlyseason source provenance missing")
+    for year,s in report.get("asof_player_evidence",{}).items():
+        if s.get("postcutoff_box_rows_excluded",0)<1000:
+            raise ValueError("Future-season player entries were not rejected")
+        if s.get("roster_capture_policy")!="first 14 days of dated NCAA player-box entries; no later roster rows":
+            raise ValueError("Unapproved feature capture rule")
+    observed=decision.get("chronological_earlyseason_quality_backtest",{})
+    if (observed.get("holdout_games")!=base["games"] or
+        observed.get("selected_quality_coefficient")!=report.get("selected_quality_beta") or
+        observed.get("preseason_validation") is not False or
+        observed.get("valid_for_inseason_asof_after_14_days") is not True):
+        raise ValueError("Earlyseason release report and decision disagree")
+    for group,col in ((base,"minutes"),(candidate,"quality")):
+        for metric in ("log_loss","brier"):
+            if abs(group[metric]-observed.get(col+"_"+metric,-1))>1e-10:
+                raise ValueError("Earlyseason metric stale")
+    if decision["player_quality_model_approved_for_primary"] is not False:
+        raise ValueError("Post-opening roster data cannot certify PRESEASON rating")
+    return True
+
 def main():
     names = ["ncaam-2026-27-player-scoring-shadow.json",
              "ncaam-2026-27-preseason-roster-informed.json",
@@ -73,7 +111,9 @@ def main():
     report=json.loads((ROOT/"ncaam-player-quality-retrospective-backtest.json").read_text())
     decision=json.loads((ROOT/"ncaam-2026-27-player-quality-release-decision.json").read_text())
     verify_retrospective_holdout(report,decision)
-    print("PASS: 1,831-game retrospective holdout reconciles; no unsupported as-of preseason certification")
+    asof_report=json.loads((ROOT/"ncaam-quality-earlyseason-asof-backtest.json").read_text())
+    verify_earlyseason_asof(asof_report,decision)
+    print("PASS: 1,831-game retrospective and 1,596-game genuine earlyseason as-of holdouts reconcile; preseason promotion blocked")
 
 if __name__ == "__main__":
     main()
