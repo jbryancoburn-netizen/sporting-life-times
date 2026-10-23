@@ -109,6 +109,13 @@ def run():
         train.append({"beta_per_100_opponent_elo":beta,"games":n,
             "log_loss":sum(s["games"]*s["log_loss"] for s in scores)/n})
     best=min(train,key=lambda x:(x["log_loss"],abs(x["beta_per_100_opponent_elo"])))
+    train_by_season={}
+    for year in (2024,2025):
+        train_by_season[str(year)]={}
+        for beta in (0,best["beta_per_100_opponent_elo"]):
+            train_by_season[str(year)][str(beta)]=evaluate_quality(
+                seasons[year]["schedule"],seasons[year-1]["end"],
+                data[year]["features"],data[year]["quality"],beta)
     edge_solution=best["beta_per_100_opponent_elo"] in (min(slopes),max(slopes))
     base=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
         data[2026]["features"],data[2026]["quality"],0)
@@ -131,6 +138,7 @@ def run():
         "training_winner":best,"training_candidates":train,
         "training_grid_edge_solution":edge_solution,
         "training_grid_values":list(slopes),
+        "training_year_diagnostics":train_by_season,
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_logloss_gain":gain,"holdout_brier_gain":brier_gain,
         "holdout_window_sensitivity":windows,
