@@ -74,3 +74,21 @@ body .nba-division abbr{text-decoration:none;cursor:help}
 @media(min-width:1450px){body .nba-prediction-list{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @media(max-width:800px){body .nba-divisions{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:500px){body .nba-divisions{grid-template-columns:1fr}}
+
+/* Newspaper page architecture: five underlying columns, unequal story spans. */
+body .nba-newspaper-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 14px;align-items:start;border-top:3px double #35332e;border-bottom:3px double #35332e;margin:12px 0 18px}
+body .nba-newspaper-grid>.hub-feature{margin:0!important;padding:9px 0 12px!important;border-top:0!important;min-width:0}
+body .nba-newspaper-grid #nba-news{grid-column:span 3;border-right:1px solid #c9c7c0!important;padding-right:14px!important}
+body .nba-newspaper-grid #nba-official-standings{grid-column:span 2}
+body .nba-newspaper-grid #nba-upcoming{grid-column:1/-1;border-top:1px solid #9c978d!important;padding-top:10px!important}
+body .nba-newspaper-grid .nba-news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px}
+body .nba-newspaper-grid .nba-news-lead{grid-column:span 2}
+body .nba-newspaper-grid .nba-news-lead h3{font:600 clamp(1.3rem,2.3vw,2rem)/1.1 Georgia,serif!important;letter-spacing:-.02em}
+body .nba-newspaper-grid .nba-news-item:not(.nba-news-lead){border-top:1px solid #d4d0c8}
+body .nba-newspaper-grid .nba-divisions{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}
+body .nba-newspaper-grid .nba-division table{font-size:.7rem!important}
+body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:repeat(5,minmax(0,1fr));gap:0 13px}
+body .nba-newspaper-grid .nba-prediction{border-right:1px solid #d8d5ce;padding-right:9px}
+@media(max-width:1050px){body .nba-newspaper-grid{grid-template-columns:repeat(3,minmax(0,1fr))}body .nba-newspaper-grid #nba-news{grid-column:span 2}body .nba-newspaper-grid #nba-official-standings{grid-column:span 1}body .nba-newspaper-grid .nba-divisions{grid-template-columns:1fr}body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){body .nba-newspaper-grid{grid-template-columns:1fr}body .nba-newspaper-grid #nba-news,body .nba-newspaper-grid #nba-official-standings,body .nba-newspaper-grid #nba-upcoming{grid-column:1;border-right:0!important;padding-right:0!important;border-top:1px solid #b6b2aa!important}body .nba-newspaper-grid .nba-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body .nba-newspaper-grid .nba-divisions{grid-template-columns:repeat(2,minmax(0,1fr))}body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:410px){body .nba-newspaper-grid .nba-news-grid,body .nba-newspaper-grid .nba-divisions,body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:1fr}body .nba-newspaper-grid .nba-news-lead{grid-column:1}}
