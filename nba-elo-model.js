@@ -9,20 +9,29 @@ export async function model(){
  const [pre,cur]=await Promise.all([load('data/nba-2026-27-preseason-provisional.json'),load('data/nba-2026-27-current-provisional.json')]);
  if(pre.rankings?.length!==30||cur.rankings?.length!==30||cur.events?.length!==cur.games_played)throw Error('Incomplete NBA Elo');
  const ratings={...map(pre)},start={...ratings},ledger=[],K=pre.parameters.k,H=pre.parameters.home_elo,M=pre.parameters.mov_weight;
+ const allDated=cur.events.every(e=>typeof e.date==='string'&&!Number.isNaN(Date.parse(e.date)));
+ const lastDate=allDated&&cur.events.length?Math.max(...cur.events.map(e=>Date.parse(e.date))):null;
+ const weeklyCutoff=lastDate===null?null:lastDate-7*86400000;
+ const dailyCutoff=lastDate===null?null:lastDate-86400000;
+ let weekly=null,daily=null;
  // Old ledger has no verified timestamps. Compare previous snapshot to most recent event,
  // but NEVER invent a seven-day earlier state.
  for(const game of cur.events){
+  if(allDated&&weekly===null&&Date.parse(game.date)>weeklyCutoff)weekly={...ratings};
+  if(allDated&&daily===null&&Date.parse(game.date)>dailyCutoff)daily={...ratings};
   const prob=1/(1+10**(-(ratings[game.home]+H-ratings[game.away])/400));
   const delta=K*(1+M*Math.log10(1+Math.abs(game.home_score-game.away_score)))*((game.home_score>game.away_score?1:0)-prob);
   if(Math.abs(delta-game.home_elo_change)>.00001)throw Error('NBA event inconsistent');
   ledger.push({id:game.id,home:game.home,away:game.away,home_before:ratings[game.home],away_before:ratings[game.away],home_change:delta});
   ratings[game.home]+=delta;ratings[game.away]-=delta;
  }
+ if(allDated&&weekly===null)weekly={...ratings};
+ if(allDated&&daily===null)daily={...ratings};
  for(const r of cur.rankings)if(Math.abs(ratings[r.team]-r.elo)>.0011)throw Error('NBA current Elo mismatch');
  let beforeLast={...ratings},last=ledger.at(-1);
  if(last){beforeLast[last.home]-=last.home_change;beforeLast[last.away]+=last.home_change}
  // No timestamps means a valid weekly baseline does not exist yet.
- return {start,current:ratings,beforeLast,last,ledger,season:cur.season,games:cur.games_played,weekly:null,weeklyReason:'Historical game ledger lacks reliable final timestamps'};
+ return {start,current:ratings,beforeLast,last,ledger,season:cur.season,games:cur.games_played,weekly,daily,weeklyReason:allDated?null:'Historical game ledger lacks reliable final timestamps'};
 }
 export function changeTag(n){if(n>0.0005)return '<span class="nba-up" aria-label="up">▲ +'+n.toFixed(2)+'</span>';if(n<-.0005)return '<span class="nba-down" aria-label="down">▼ '+n.toFixed(2)+'</span>';return '<span class="nba-flat">—</span>'}
 export const safe=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
