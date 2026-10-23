@@ -76,7 +76,9 @@ jobs:
           python scripts/collect_college_schedules.py
           python scripts/collect_multisource.py
           python scripts/collect_statcast.py
-          python scripts/publish_source_health.py\n      - name: Audit scoreboard and Match Center freshness, coverage, and provenance\n        run: python scripts/audit_feed_integrity.py
+          python scripts/publish_source_health.py
+      - name: Audit scoreboard and Match Center freshness, coverage, and provenance
+        run: python scripts/audit_feed_integrity.py
       - name: Commit durable Match Center archive branch
         run: python scripts/persist_match_archive.py save
       - name: Cross-check published EPL forecasts against Match Center IDs
