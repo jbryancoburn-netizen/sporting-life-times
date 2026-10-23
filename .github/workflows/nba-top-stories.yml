@@ -1,0 +1,54 @@
+name: NBA top stories refresh
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-nba-stories.py'
+      - '.github/workflows/nba-top-stories.yml'
+permissions:
+  contents: write
+concurrency:
+  group: nba-top-stories-main
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate NBA collector
+        run: python -m py_compile scripts/collect-nba-stories.py
+      - name: Refresh attributed headlines
+        run: python scripts/collect-nba-stories.py
+      - name: Validate published stories
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/nba-top-stories.json'))
+          a=d.get('articles',[])
+          assert len(a)>=3, 'Refusing empty or undersized NBA top stories'
+          assert all(x['category']=='NBA' and x['url'].startswith('https://') and x.get('published_at') for x in a)
+          print('Validated',len(a),'NBA articles')
+          PY
+      - name: Commit NBA news without overwriting other sports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nba-top-stories.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh attributed NBA top stories"
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || exit 1
+            sleep 2
+          done
+          exit 1
