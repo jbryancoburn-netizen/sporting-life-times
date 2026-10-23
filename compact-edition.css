@@ -141,3 +141,38 @@ body #nba-official-standings #nba-yesterday h2{font:700 .82rem/1.15 Georgia,seri
 body #nba-official-standings #nba-yesterday .hub-small{font-size:.63rem!important;margin:0 0 5px!important}
 body #nba-official-standings .nba-lastnight-grid{display:block!important}
 body #nba-official-standings .nba-lastnight-row{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);padding:3px 0!important;font-size:.69rem!important;gap:3px!important}
+
+/* NBA broadsheet: use every available laptop column, no dashboard-style empty bands. */
+@media(min-width:1080px){
+ body.edition-interior .hub:has(#nba-elo-scoreboard){max-width:none!important;width:calc(100% - 20px)!important;margin:0 10px!important}
+ body .nba-newspaper-grid #nba-boxscores{grid-column:span 4!important}
+ body .nba-newspaper-grid #nba-data-links{grid-column:span 3!important}
+ body #nba-current-elo .nba-current-table-wrap{max-width:none!important;width:100%!important}
+ body .nba-newspaper-grid .nba-news-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(min-width:1450px){
+ body .nba-newspaper-grid{grid-template-columns:repeat(8,minmax(0,1fr))!important}
+ body .nba-newspaper-grid #nba-news{grid-column:span 5!important}
+ body .nba-newspaper-grid #nba-official-standings{grid-column:span 3!important}
+ body .nba-newspaper-grid #nba-boxscores{grid-column:span 5!important}
+ body .nba-newspaper-grid #nba-data-links{grid-column:span 3!important}
+ body .nba-newspaper-grid .nba-news-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+}
+body .nba-newspaper-grid #nba-boxscores,body .nba-newspaper-grid #nba-data-links{border-top:1px solid #99938a!important;padding:8px 8px 12px 0!important;margin:0!important;min-width:0}
+body #nba-boxscore-ledger{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+body .nba-boxscore-item{padding:5px 0;border-top:1px solid #d1cdc5;min-width:0}
+body .nba-boxscore-head{display:flex;justify-content:space-between;align-items:baseline;gap:7px;font:400 .68rem/1.25 Georgia,serif}
+body .nba-boxscore-head strong{font-weight:600}
+body .nba-boxscore-head a{flex-shrink:0;font:600 .57rem/1.2 Georgia,serif}
+body .nba-boxscore-players{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:4px;font:400 .62rem/1.2 Georgia,serif}
+body #nba-data-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}
+body .nba-directory-item{border-top:1px solid #d1cdc5;padding:5px 0}
+body .nba-directory-item h3{font:700 .7rem/1.2 Georgia,serif!important;margin:0 0 3px!important}
+body .nba-directory-item p{font:400 .63rem/1.3 Georgia,serif!important;margin:0!important}
+body .nba-news-item p:not(.nba-news-source){font-size:.68rem!important;line-height:1.25!important}
+body .nba-newspaper-grid .nba-news-item{padding:5px 0 6px!important}
+body .nba-newspaper-grid .nba-news-item h3{font-size:.83rem!important;line-height:1.16!important}
+body .nba-newspaper-grid .nba-news-lead h3{font-size:1.27rem!important}
+body .nba-main-rankings .nba-current-table-wrap{margin-top:6px!important}
+@media(max-width:1079px){body .nba-newspaper-grid #nba-boxscores,body .nba-newspaper-grid #nba-data-links{grid-column:1/-1!important}}
+@media(max-width:650px){body #nba-boxscore-ledger,body #nba-data-directory{grid-template-columns:1fr}}
