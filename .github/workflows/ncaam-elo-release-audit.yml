@@ -9,6 +9,8 @@ on:
       - 'data/ncaam-offseason-transfer-backtest.json'
       - '.github/workflows/ncaam-elo-release-audit.yml'
       - 'scripts/build_ncaam_2027_verified_preseason.py'
+      - 'scripts/audit_ncaam_player_scoring_shadow.py'
+      - 'data/ncaam-2026-27-player-scoring-shadow.json'
       - 'scripts/test_build_ncaam_2027_verified_preseason.py'
       - 'data/ncaam-2026-27-direct-player-crosswalk.json'
       - 'data/ncaam-2026-27-player-movement-audit.json'
@@ -51,6 +53,8 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
       - name: Test source-identified preseason rating calculation
         run: python -m unittest discover -s scripts -p 'test_build_ncaam_2027_verified_preseason.py' -v
+      - name: Verify player scoring evidence reproduces without altering official Elo
+        run: python scripts/audit_ncaam_player_scoring_shadow.py
       - name: Verify NCAA ratings newspaper renders newest provisional data
         run: node --test tests/ncaam-page.test.cjs
       - name: Verify all 365 NCAA preseason ratings
