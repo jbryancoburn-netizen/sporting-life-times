@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - scripts/probe_ncaam_sdv.py
+      - scripts/build_ncaam_2026_bootstrap.py
       - .github/workflows/ncaam-sdv-probe.yml
   workflow_dispatch:
 permissions:
@@ -20,11 +21,13 @@ jobs:
         run: python -m py_compile scripts/probe_ncaam_sdv.py
       - name: Download public verified NCAA-origin 2025-26 season archive
         run: python scripts/probe_ncaam_sdv.py --season 2026
-      - name: Preserve data and schema
+      - name: Build provisional 2025-26 independent Elo from verified results
+        run: python scripts/build_ncaam_2026_bootstrap.py
+      - name: Preserve data, schema and Elo bootstrap
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ncaam-2025-26-sdv-data-source
-          path: staging/ncaam-sdv-probe/
+          path: staging/
           retention-days: 30
           if-no-files-found: warn
