@@ -1,0 +1,36 @@
+name: NCAA D1 men's source archive smoke test
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: First calendar day (YYYY-MM-DD)
+        required: true
+        default: '2026-03-01'
+      end:
+        description: Last calendar day (YYYY-MM-DD; no more than 15 days)
+        required: true
+        default: '2026-03-02'
+permissions:
+  contents: read
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect and reject incomplete NCAA-origin data
+        run: |
+          python scripts/archive_ncaam_ncaa_scores.py \
+            --start "${{ inputs.start }}" --end "${{ inputs.end }}" \
+            --root staging/ncaam-source-archive
+      - name: Preserve source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaa-men-d1-source-audit
+          path: staging/ncaam-source-archive/
+          if-no-files-found: warn
+          retention-days: 14
