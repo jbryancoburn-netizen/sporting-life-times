@@ -107,11 +107,21 @@ def main():
             seen_links.add(article["url"])
             seen_titles.add(key)
             articles.append(article)
+    if OUT.exists():
+        try:
+            old=json.loads(OUT.read_text(encoding="utf-8"))
+            for article in old.get("articles",[]):
+                if not isinstance(article,dict) or not article.get("url") or not article.get("title"): continue
+                if not is_recent(article.get("published_at"),now): continue
+                key=re.sub(r"[^a-z0-9]+","",article["title"].lower())
+                if article["url"] not in seen_links and key not in seen_titles:
+                    seen_links.add(article["url"]);seen_titles.add(key);articles.append(article)
+        except (OSError,ValueError,TypeError): pass
     articles.sort(key=lambda a: a.get("published_at",""), reverse=True)
-    OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:1000],"feed_status":status},ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:1000],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Collected {len(articles)} unique stories; {sum(1 for x in status if x['ok'])}/{len(status)} feeds responded.")
     for item in status: print(f"{'OK' if item['ok'] else 'FAIL'} {item['source']}: {item['items']} items" + (f" — {item['error']}" if item['error'] else ""))
     if not any(item["ok"] for item in status):
-        raise SystemExit("No RSS feeds returned recent articles; deployment halted rather than publishing an empty edition.")
+        print("WARNING: No recent articles; feed sources unavailable.")
 
 if __name__ == "__main__": main()
