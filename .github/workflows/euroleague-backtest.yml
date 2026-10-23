@@ -1,0 +1,32 @@
+name: EuroLeague historical model evaluation
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 4 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: euroleague-history
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run deterministic ingestion tests
+        run: python -m unittest discover -s scripts -p 'test_euroleague_model.py' -v
+      - name: Score historical forecasts and parameter candidates
+        run: python scripts/euroleague_backtest.py
+      - name: Commit validation results
+        run: |
+          if [ -n "$(git status --porcelain -- data/euroleague-validation.json)" ]; then
+            git config user.name "sporting-life-times-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/euroleague-validation.json
+            git commit -m "Evaluate historical EuroLeague model performance"
+            git pull --rebase
+            git push
+          fi
