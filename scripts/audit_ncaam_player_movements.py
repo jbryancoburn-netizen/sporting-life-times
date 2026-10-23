@@ -55,14 +55,22 @@ def audit(rosters,rows):
             else:
                 possible=by_name.get(name,set())
                 source=None
-                status="id-not-found-name-ambiguous" if len(possible)>1 else (
-                    "id-not-found-name-only" if len(possible)==1 else "no-prior-d1-box")
+                if len(possible)==1:
+                    candidate=by_id[next(iter(possible))]
+                    if len(candidate["teams"])==1 and len(candidate["names"])==1:
+                        source=next(iter(candidate["teams"]))
+                        status="unique-name-returner-candidate" if source==target else "unique-name-transfer-candidate"
+                    else:
+                        status="name-match-multiple-prior-schools"
+                else:
+                    status="id-not-found-name-ambiguous" if len(possible)>1 else "no-prior-d1-box"
             totals[status]+=1
             player={"player":p["name"],"current_id":pid,"status":status,"prior_school_id":source}
             if source is not None:
-                player["prior_minutes"]=round(item["minutes"][source],2)
-                player["prior_points"]=round(item["points"][source],2)
-                player["prior_games"]=len(item["games"][source])
+                historical=item if status in ("returner","transfer-from-d1") else candidate
+                player["prior_minutes"]=round(historical["minutes"][source],2)
+                player["prior_points"]=round(historical["points"][source],2)
+                player["prior_games"]=len(historical["games"][source])
             players.append(player)
         counts=dict(Counter(p["status"] for p in players))
         teams.append({"team_id":target,"team":school["school"],"roster_players":len(players),
