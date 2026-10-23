@@ -54,6 +54,20 @@ class TestModel(unittest.TestCase):
         self.assertGreater(result["log_loss"],0)
         self.assertAlmostEqual(result["predictions"][0]["pred"],el.expected(65))
         self.assertNotAlmostEqual(result["predictions"][1]["pred"],el.expected(65))
+    def test_score_model_does_not_score_before_five_games(self):
+        import euroleague_backtest as bt
+        games=[]
+        for i in range(5):
+            g=el.parse({"data":[make_game(i+1)]},"E2026")[0]
+            g["date"]=f"2026-10-{i+1:02d}T19:00:00Z"
+            games.append(g)
+        result=bt.score_forecast_evaluation(games)
+        self.assertEqual(result["games_evaluated"],0)
+        g=el.parse({"data":[make_game(6)]},"E2026")[0]
+        g["date"]="2026-10-06T19:00:00Z"
+        result=bt.score_forecast_evaluation(games+[g])
+        self.assertEqual(result["games_evaluated"],1)
+        self.assertIsNotNone(result["total_mae"])
     def test_publish_full_model_from_mocked_seasons(self):
         teams=["T"+str(i).zfill(2) for i in range(18)]
         def season_games(season):
