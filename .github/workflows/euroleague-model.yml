@@ -22,6 +22,25 @@ jobs:
         run: python scripts/euroleague_diagnose.py
       - name: Rebuild from EuroLeague completed games
         run: python scripts/euroleague_model.py
+      - name: Validate generated publication schema
+        run: |
+          python - <<'PY'
+          import json, pathlib, datetime
+          path=pathlib.Path("data/euroleague-model.json")
+          data=json.loads(path.read_text())
+          teams=data.get("rankings",[])
+          standings=data.get("standings",[])
+          finals=data.get("games_completed",0)
+          assert data.get("season")=="2026-27"
+          assert 18 <= len(teams) <= 24
+          assert len(standings)==len(teams)
+          assert len({t["code"] for t in teams})==len(teams)
+          assert finals>0
+          assert sum(t["wins"] for t in standings)==finals
+          assert sum(t["losses"] for t in standings)==finals
+          assert all(isinstance(t["elo"],(int,float)) for t in teams)
+          print("Validated EuroLeague publication:",len(teams),"teams,",finals,"finals")
+          PY
       - name: Publish only verified model data changes
         run: |
           if ! git diff --quiet -- data/euroleague-model.json || [ -n "$(git ls-files --others --exclude-standard data/euroleague-model.json)" ]; then
