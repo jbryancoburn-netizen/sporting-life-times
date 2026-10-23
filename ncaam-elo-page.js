@@ -46,7 +46,39 @@ try {
   const option=document.createElement('option');option.value=choice;option.textContent=labels[choice];
   version.append(option);
  }
+ const matchupA=document.getElementById('matchup-a');
+ const matchupB=document.getElementById('matchup-b');
+ const matchupVenue=document.getElementById('matchup-venue');
+ const matchupResult=document.getElementById('matchup-result');
  const initial=available[defaults];
+ const teamsAlphabetical=[...initial.rankings].sort((a,b)=>a.team.localeCompare(b.team));
+ for(const team of teamsAlphabetical){
+  for(const select of [matchupA,matchupB]){
+   const option=document.createElement('option');
+   option.value=team.team_id;option.textContent=team.team;select.append(option);
+  }
+ }
+ const indiana=teamsAlphabetical.find(t=>t.team.toLowerCase()==='indiana');
+ const purdue=teamsAlphabetical.find(t=>t.team.toLowerCase()==='purdue');
+ matchupA.value=indiana?.team_id||teamsAlphabetical[0]?.team_id;
+ matchupB.value=purdue?.team_id||teamsAlphabetical[1]?.team_id;
+ function renderMatchup(){
+  const choice=version.value==='auto'?defaults:version.value;
+  const data=available[choice]||available[defaults];
+  const byId=new Map(data.rankings.map(r=>[r.team_id,r]));
+  const a=byId.get(matchupA.value),b=byId.get(matchupB.value);
+  if(!a||!b||a.team_id===b.team_id){
+   matchupResult.textContent='Choose two different programs.';return;
+  }
+  const venue=matchupVenue.value;
+  const advantage=venue==='a'?65:venue==='b'?-65:0;
+  const p=100/(1+10**(-((a.elo-b.elo+advantage)/400)));
+  matchupResult.textContent=a.team+' '+p.toFixed(1)+'% · '+b.team+' '+(100-p).toFixed(1)+'% — '+(venue==='neutral'?'neutral court':venue==='a'?a.team+' home':b.team+' home')+' · Elo difference '+(a.elo-b.elo).toFixed(1);
+ }
+ matchupA.addEventListener('change',renderMatchup);
+ matchupB.addEventListener('change',renderMatchup);
+ matchupVenue.addEventListener('change',renderMatchup);
+
  for(const name of [...new Set(initial.rankings.map(r=>r.conference).filter(Boolean))].sort()){
   const option=document.createElement('option');option.value=name;option.textContent=name;conference.append(option);
  }
@@ -70,6 +102,7 @@ try {
    note.textContent='Independent 2025–26 Elo with 65% carryover. Roster-adjusted experiment temporarily withheld pending extreme-transfer and player-identity audit.';
    referenceHeading.textContent='2025–26 final Elo';
   }
+  renderMatchup();
   ratingHeading.textContent=choice==='current'?'Current Elo':'Preseason Elo';
   tbody.innerHTML=rows.length?rows.map(r=>{
    let reference='—';
