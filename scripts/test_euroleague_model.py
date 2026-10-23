@@ -87,6 +87,9 @@ class TestModel(unittest.TestCase):
         result=bt.score_forecast_evaluation(games+[g])
         self.assertEqual(result["games_evaluated"],1)
         self.assertIsNotNone(result["total_mae"])
+        self.assertIsNotNone(result["league_average_total_mae"])
+        self.assertIsNotNone(result["zero_margin_baseline_mae"])
+        self.assertIsInstance(result["beats_simple_total_baseline"],bool)
     def test_heldout_elo_evaluation_is_season_separated(self):
         import euroleague_backtest as bt
         games=[]
