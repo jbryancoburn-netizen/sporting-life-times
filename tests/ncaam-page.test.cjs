@@ -40,7 +40,9 @@ async function render({withCurrent=false,withRoster=true,approved=false}={}){
 }
 test('uses approved roster-adjusted preseason only after audit gate',async()=>{
  const els=await render({approved:true});
- assert.match(els.status.textContent,/roster-adjusted/);
+ assert.match(els.status.textContent,/carryover baseline/);
+ els['rating-version'].value='roster';els['rating-version'].handlers.change();
+ assert.match(els.status.textContent,/EXPERIMENTAL.*roster-adjusted/);
  assert.match(els['source-note'].textContent,/364\/365/);
  assert.match(els.ratings.innerHTML,/12\.50/);
  assert.doesNotMatch(els.ratings.innerHTML,/NaN|undefined/);
@@ -66,5 +68,7 @@ test('missing shadow data cleanly falls back to historical carryover',async()=>{
 test('unapproved shadow is never exposed as a selectable primary rating',async()=>{
  const els=await render({withRoster:true,approved:false});
  assert.match(els.status.textContent,/carryover baseline/);
- assert.ok(!els['rating-version'].children.some(x=>x.value==='roster'));
+ assert.ok(els['rating-version'].children.some(x=>x.value==='roster'));
+ els['rating-version'].value='roster';els['rating-version'].handlers.change();
+ assert.match(els.status.textContent,/EXPERIMENTAL/);
 });
