@@ -137,6 +137,17 @@ def run():
     windows_positive=all(v["logloss_gain"]>0 and v["brier_gain"]>0 for v in windows.values())
     game_only=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
         data[2026]["features"],data[2026]["quality"],0,roster_betas=(0,0))
+    game_only_windows={}
+    for days in (14,30,45):
+        plain=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],0,days=days,roster_betas=(0,0))
+        adjusted=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"],days=days)
+        game_only_windows[str(days)]={"games":plain["games"],
+            "game_only_log_loss":plain["log_loss"],"adjusted_log_loss":adjusted["log_loss"],
+            "logloss_gain":plain["log_loss"]-adjusted["log_loss"],
+            "brier_gain":plain["brier"]-adjusted["brier"]}
+    all_game_only_windows_improve=all(x["logloss_gain"]>0 and x["brier_gain"]>0 for x in game_only_windows.values())
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -148,6 +159,8 @@ def run():
         "training_year_diagnostics":train_by_season,
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_game_only":game_only,
+        "holdout_game_only_window_sensitivity":game_only_windows,
+        "all_game_only_windows_improve":all_game_only_windows_improve,
         "adjusted_vs_game_only_logloss_gain":game_only["log_loss"]-hold["log_loss"],
         "adjusted_vs_game_only_brier_gain":game_only["brier"]-hold["brier"],
         "holdout_logloss_gain":gain,"holdout_brier_gain":brier_gain,
