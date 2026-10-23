@@ -13,6 +13,8 @@ class GateTests(unittest.TestCase):
     def test_unverified_roster_timing_and_cross_provider_ids_hold_release(self):
         result=audit(*self.inputs())
         self.assertFalse(result["release_approved"])
+        self.assertEqual(result["release_blocker_count"],sum(result["release_blockers"].values()))
+        self.assertEqual(set(result["release_blocker_names"]),{k for k,v in result["release_blockers"].items() if v})
         self.assertEqual(result["espn_identity_verified_players"],5)
         self.assertTrue(result["release_blockers"]["historical_roster_asof_not_proven"])
         self.assertTrue(result["release_blockers"]["historical_season_payload_not_source_verified"])
