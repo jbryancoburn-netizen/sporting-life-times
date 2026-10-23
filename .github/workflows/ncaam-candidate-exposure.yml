@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - scripts/reconcile_ncaam_candidate_exposure.py
+      - scripts/test_reconcile_ncaam_candidate_exposure.py
       - .github/workflows/ncaam-candidate-exposure.yml
   workflow_dispatch:
 permissions:
@@ -16,6 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_reconcile_ncaam_candidate_exposure.py -v
       - run: python scripts/build_ncaam_player_opponent_elo.py
       - run: python scripts/reconcile_ncaam_candidate_exposure.py
       - uses: actions/upload-artifact@v4
