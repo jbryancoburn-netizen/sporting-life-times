@@ -18,6 +18,6 @@ class TestQualityBacktest(unittest.TestCase):
     def test_leakage_rejected(self):
         r=row(2026,1,1);r["source_snapshot_at"]="2026-02-01"
         with tempfile.TemporaryDirectory() as d:
-            p=pathlib.Path(d)/"in.jsonl";p.write_text(json.dumps(r)+"\\n")
+            p=pathlib.Path(d)/"in.jsonl";p.write_text(json.dumps(r)+chr(10))
             with self.assertRaisesRegex(ValueError,"LEAKAGE"):m.load(p)
 if __name__=="__main__": unittest.main()
