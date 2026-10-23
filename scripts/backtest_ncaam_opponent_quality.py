@@ -21,7 +21,7 @@ def opponent_quality(box,schedule,team_rows):
             by_team[p["team_key"]][p["historical_player_id"]]=p
     return by_team
 
-def quality_continuity(box,roster,members,quality):
+def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
     names=defaultdict(set);old=defaultdict(set)
     minutes=defaultdict(float)
     for r in box:
@@ -50,7 +50,10 @@ def quality_continuity(box,roster,members,quality):
             if q is None:continue
             m=minutes[(source,pid)]
             if m<200:continue
-            weighted[target]+=(q["opponent_pregame_elo"]-1500)*m
+            # Control for source-team strength; raw opponent exposure can proxy
+            # for playing at a historically strong school.
+            baseline=(prior_team_ratings or {}).get(source,1500.)
+            weighted[target]+=(q["opponent_pregame_elo"]-baseline)*m
             weight[target]+=m
     return {t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
 
@@ -97,7 +100,7 @@ def run():
     for year in (2024,2025,2026):
         prior=seasons[year-1];now=seasons[year]
         f=continuity(prior["box"],now["roster"],now["members"])
-        q=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"])
+        q=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"])
         data[year]={"features":f,"quality":q,"coverage":len(q)}
     # Wide predeclared search checks whether the prior optimum sat on a grid edge.
     slopes=(-240,-200,-160,-120,-80,-40,-20,0,20,40,80,120,160,200,240)
@@ -133,7 +136,8 @@ def run():
             "brier_gain":reference["brier"]-adjusted["brier"]}
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
-    return {"experiment":"ncaa-opponent-exposure-incremental-calibration-v1",
+    return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v2",
+        "quality_feature":"minutes-weighted prior opponent pregame Elo minus prior source team end Elo",
         "training_seasons":[2024,2025],"untouched_holdout":2026,
         "training_winner":best,"training_candidates":train,
         "training_grid_edge_solution":edge_solution,
