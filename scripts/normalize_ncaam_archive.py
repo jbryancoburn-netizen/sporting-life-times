@@ -111,7 +111,7 @@ def convert(root,out,registry,report,expected_days=None):
         for i,name in sorted(names.items())]},indent=2)+"\n",encoding="utf-8")
     pending=report.with_name("ncaam-unresolved-finals.json")
     pending.parent.mkdir(parents=True,exist_ok=True)
-    pending.write_text(json.dumps(rejections,indent=2)+"\\n",encoding="utf-8")
+    pending.write_text(json.dumps(rejections,indent=2)+"\n",encoding="utf-8")
     summary={"archive_days":len(days),"unique_finals":len(rows),"candidate_teams":len(names),
              "rejection_reasons":dict(Counter(x["reason"] for x in rejections)),
              "rejected_final_count":len(rejections),"rejections":rejections,
