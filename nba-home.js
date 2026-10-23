@@ -22,6 +22,9 @@ async function news(){
   try{payload=await fetchJSON('data/nba-top-stories.json')}
   catch(err){payload=await fetchJSON('articles.json')}
   let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title).slice(0,60);
+  items=items.filter(a=>!/(?:fantasy basketball|betting picks|sportsbook|odds boost|parlay|best bets|wager|prop bets)/i.test(a.title||''));
+  const ranked=items.map((a,index)=>({a,index,weight:(/^(?:NBA.com|Reuters|ESPN NBA|CBS Sports NBA)$/i.test(a.source||'')?2:0)+( /\\b(?:76ers|Thunder|NBA|LeBron|Knicks|Celtics|trade|injur|season|comeback)\\b/i.test(a.title||'')?1:0)})).sort((x,y)=>y.weight-x.weight||x.index-y.index);
+  items=ranked.map(x=>x.a).slice(0,36);
   if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA').slice(0,60)}
   if(!items.length)throw Error('No attributed NBA headlines');
   const format=window.SportingNewsFormat;
