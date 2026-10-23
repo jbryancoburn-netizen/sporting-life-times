@@ -96,7 +96,9 @@ def main():
         state["reason"]="2026-27 season source not released (HTTP 404)"
         (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
-    if len(current)!=365 or len({str(t.get('id')) for t in current})!=365:\n        raise ValueError(f'2026-27 membership source incomplete: {len(current)} rows; expected 365 unique teams')\n    # The identity-linked 365-team roster-informed edition is our PROVISIONAL
+    if len(current)!=365 or len({str(t.get('id')) for t in current})!=365:
+        raise ValueError(f'2026-27 membership source incomplete: {len(current)} rows; expected 365 unique teams')
+    # The identity-linked 365-team roster-informed edition is our PROVISIONAL
     # preseason opening seed. Older exact-name shadow ratings remain research
     # only; never mistake them for production-approved roster adjustments.
     roster_informed=base/"ncaam-2026-27-preseason-roster-informed.json"
