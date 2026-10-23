@@ -1,0 +1,49 @@
+name: NCAA D1 offseason roster Elo calibration
+on:
+  push:
+    paths:
+      - scripts/backtest_ncaam_roster_elo.py
+      - scripts/test_backtest_ncaam_roster_elo.py
+      - .github/workflows/ncaam-offseason-calibration.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-offseason-calibration
+  cancel-in-progress: false
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit test temporal calibration behavior
+        run: python -m unittest discover -s scripts -p test_backtest_ncaam_roster_elo.py -v
+      - name: Download historical NCAA-origin games/rosters and run time-ordered holdout
+        run: python scripts/backtest_ncaam_roster_elo.py
+      - name: Validate calibration outcome and publication guard
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("data/ncaam-offseason-retention-backtest.json").read_text())
+          assert r["holdout_baseline"]["games"] >= 200
+          assert r["train_best"]["games"] >= 500
+          assert r["holdout_baseline"]["games"] == r["holdout_adjusted"]["games"]
+          assert r["holdout_baseline"]["coverage"] > 0.65
+          assert r["holdout_adjusted"]["coverage"] > 0.65
+          assert isinstance(r["release_approved"],bool)
+          print("Backtest gates:",r["release_approved"],"selected coefficient:",r["selected_beta"])
+          PY
+      - name: Publish auditable results, never automatically overwrite primary Elo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-offseason-retention-backtest.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Report independently held-out NCAA offseason Elo retention calibration"
+          git pull --rebase origin main
+          git push origin HEAD:main
