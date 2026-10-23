@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'scripts/euroleague_live.py'
+      - 'scripts/euroleague_header.py'
+      - 'scripts/test_euroleague_header.py'
       - 'scripts/test_euroleague_live.py'
       - '.github/workflows/euroleague-live.yml'
   schedule:
@@ -24,6 +26,8 @@ jobs:
           python-version: '3.12'
       - name: Test EuroLeague live scorebug invariants
         run: python -m unittest discover -s scripts -p 'test_euroleague_live.py' -v
+      - name: Test game Header live-score safeguards
+        run: python -m unittest discover -s scripts -p 'test_euroleague_header.py' -v
       - name: Retrieve EuroLeague scoreboard
         run: python scripts/euroleague_live.py
       - name: Publish verified scoreboard
