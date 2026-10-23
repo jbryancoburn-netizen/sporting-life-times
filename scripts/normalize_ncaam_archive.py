@@ -72,12 +72,17 @@ def parse(record):
 
 def convert(root,out,registry,report,expected_days=None):
     rows={}; names={};rejections=[];days=[]
-    for path in sorted(root.glob("*/*/*.json")):
+    paths=sorted(root.glob("*/*/*.json"))
+    if not paths:
+        raise ValueError("No historical scoreboard archives were found; refusing empty output")
+    for path in paths:
         record=json.loads(path.read_text(encoding="utf-8"))
         if not record.get("raw_sha256") or not record.get("source_url") or not isinstance(record.get("payload",{}).get("games"),list):
             raise ValueError("Unverifiable archive: "+str(path))
         day=record["day"]
         if day in days:raise ValueError("Duplicate archive day "+day)
+        if path.stem!=day[-2:] or path.parent.name!=day[5:7] or path.parent.parent.name!=day[:4]:
+            raise ValueError("Archive path/date mismatch: "+str(path))
         days.append(day)
         games,bad=parse(record)
         rejections.extend(bad)
