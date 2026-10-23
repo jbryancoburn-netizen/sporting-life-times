@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'scripts/audit_ncaa_elo_release.py'
+      - 'scripts/test_audit_ncaa_elo_release.py'
+      - 'scripts/test_audit_ncaa_elo_release.py'
       - 'data/ncaam-2026-27-preseason-provisional.json'
       - 'data/ncaam-2026-27-offseason-shadow.json'
       - 'data/ncaam-offseason-transfer-backtest.json'
@@ -26,6 +28,8 @@ jobs:
           python-version: '3.12'
       - name: Compile release audit
         run: python -m py_compile scripts/audit_ncaa_elo_release.py
+      - name: Test release safeguards
+        run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
       - name: Verify all 365 NCAA preseason ratings
         run: |
           python scripts/audit_ncaa_elo_release.py \
