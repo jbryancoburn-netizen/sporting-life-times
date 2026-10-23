@@ -30,3 +30,12 @@ body.edition-interior .nba-analysis-brief h3{font:600 .96rem/1.25 Georgia,serif!
 body.edition-interior .nba-analysis-brief p{font:400 .76rem/1.4 Georgia,serif;margin:4px 0}
 body.edition-interior .nba-analysis-brief .nba-news-source{font-size:.63rem!important;color:#746e65}
 @media(max-width:430px){body.edition-interior .nba-paper-news #nba-game-analysis-grid{grid-template-columns:1fr}}
+
+/* Player statistics occupy the full central measure rather than a tiny caption. */
+body.edition-interior .nba-paper-stat #nba-league-leaders{min-height:0}
+body.edition-interior .nba-paper-stat .nba-league-leader-panels{display:grid;grid-template-columns:1fr;gap:10px}
+body.edition-interior .nba-paper-stat .nba-player-leader-block{border-top:1px solid #bfb8aa;padding-top:7px}
+body.edition-interior .nba-paper-stat .nba-player-leader-block h4{font:700 14px Georgia,serif;margin:3px 0 7px}
+body.edition-interior .nba-paper-stat #nba-league-leaders .nba-mini-table{width:100%;border-collapse:collapse}
+body.edition-interior .nba-paper-stat #nba-league-leaders .nba-mini-table th,body.edition-interior .nba-paper-stat #nba-league-leaders .nba-mini-table td{padding:6px 7px!important;text-align:left;font:12px Georgia,serif!important;border-bottom:1px solid #d8d1c5}
+body.edition-interior .nba-paper-stat #nba-league-leaders .nba-mini-table th:last-child,body.edition-interior .nba-paper-stat #nba-league-leaders .nba-mini-table td:last-child{text-align:right;font-variant-numeric:tabular-nums}
