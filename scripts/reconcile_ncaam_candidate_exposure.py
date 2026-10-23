@@ -14,16 +14,18 @@ def normalize(name):
 
 def build_index(box):
     ids=defaultdict(set)
+    school_names=defaultdict(set)
     for row in box:
         team=str(row.get("team_ncaa_team_id") or "")
         pid=str(row.get("player_id") or "")
         name=normalize(row.get("clean_name") or row.get("player"))
         if team.isdigit() and pid.isdigit() and name:
             ids[("ncaa:"+team,name)].add(pid)
-    return ids
+            school_names["ncaa:"+team].add(normalize(row.get("team")))
+    return ids,school_names
 
 def reconcile(movement,exposure,box):
-    ids=build_index(box)
+    ids,school_names=build_index(box)
     strengths={(x["team_key"],str(x["historical_player_id"])):x
                for x in exposure["player_exposure"]}
     counts=Counter();results=[]
@@ -38,9 +40,11 @@ def reconcile(movement,exposure,box):
             if len(possible)!=1:
                 summary["historical_identity_ambiguous"]+=1;continue
             historical_id=next(iter(possible))
-            observation=strengths.get((source.removeprefix("ncaa:"),historical_id))
+            names=school_names.get(source,set())
+            if len(names)!=1:
+                summary["historical_school_name_ambiguous"]+=1;continue
+            observation=strengths.get((next(iter(names)),historical_id))
             if observation is None:
-                # Exposure uses normalized historical team NAME, not NCAA numeric ID.
                 summary["exposure_join_unresolved"]+=1;continue
             if observation["minutes"]<200 or observation["opponent_pregame_elo"] is None:
                 summary["insufficient_observed_minutes"]+=1;continue
