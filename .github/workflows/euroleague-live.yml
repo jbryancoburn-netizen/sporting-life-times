@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'scripts/euroleague_live.py'
+      - 'scripts/euroleague_live_fast.py'
+      - 'scripts/test_euroleague_live_fast.py'
       - 'scripts/euroleague_header.py'
       - 'scripts/test_euroleague_header.py'
       - 'scripts/test_euroleague_live.py'
@@ -28,8 +30,10 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_euroleague_live.py' -v
       - name: Test game Header live-score safeguards
         run: python -m unittest discover -s scripts -p 'test_euroleague_header.py' -v
-      - name: Retrieve EuroLeague scoreboard
-        run: python scripts/euroleague_live.py
+      - name: Test fast-game updates and final handoff
+        run: python -m unittest discover -s scripts -p 'test_euroleague_live_fast.py' -v
+      - name: Retrieve active-game scores without full-season download
+        run: python scripts/euroleague_live_fast.py
       - name: Publish verified scoreboard
         run: |
           if [ -n "$(git status --porcelain -- data/euroleague-live.json)" ]; then
