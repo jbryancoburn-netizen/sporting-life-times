@@ -5,6 +5,7 @@ Usage: python scripts/euroleague_model.py
 import datetime as dt
 import json, math, pathlib, time, urllib.error, urllib.request
 import euroleague_final_checks as verified
+import euroleague_header as header
 
 BASE="https://api-live.euroleague.net/v2/competitions/E/seasons/"
 OUT=pathlib.Path("data/euroleague-model.json")
@@ -164,6 +165,27 @@ def load_preseason():
     except (OSError,ValueError,TypeError):
         return None
 
+def recover_recent_header_finals(games, now=None):
+    """Cross-check recently played unfinished fixtures against completed EuroLeague Q4 data."""
+    now=now or dt.datetime.now(dt.timezone.utc)
+    recovered=[]
+    for game in games:
+        if game["completed"]:continue
+        minutes=(now-clock(game["date"])).total_seconds()/60
+        if not 85<=minutes<=420:continue
+        try:
+            raw=header.get_header(game["id"])
+            final=header.completed_score(raw,game["home"]["code"],game["away"]["code"],minutes)
+        except (OSError,TimeoutError,ValueError) as exc:
+            print("EuroLeague game-header check failed for "+game["id"]+": "+str(exc))
+            continue
+        if final:
+            game["home"]["score"]=final["home"]
+            game["away"]["score"]=final["away"]
+            game["completed"]=True
+            recovered.append(game["id"])
+    return recovered
+
 def main():
     saved_seed=load_preseason()
     all_games=[]
@@ -193,6 +215,7 @@ def main():
     current=[g for g in all_games if g["season"]=="E2026"]
     current.sort(key=lambda g:(clock(g["date"]),g["id"]))
     verified_applied=verified.apply(current,verified.load(),require_all=(OUT==pathlib.Path("data/euroleague-model.json")))
+    header_recovered=recover_recent_header_finals(current)
     active={t["code"] for g in current for t in (g["home"],g["away"])}
     for g in current:
         for t in (g["home"],g["away"]):team_info[t["code"]]={"code":t["code"],"name":t["name"],"logo":t["logo"]}
@@ -244,7 +267,7 @@ def main():
             projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
-    payload={"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
