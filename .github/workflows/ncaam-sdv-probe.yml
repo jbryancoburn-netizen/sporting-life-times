@@ -7,7 +7,7 @@ on:
       - .github/workflows/ncaam-sdv-probe.yml
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -23,6 +23,28 @@ jobs:
         run: python scripts/probe_ncaam_sdv.py --season 2026
       - name: Build provisional 2025-26 independent Elo from verified results
         run: python scripts/build_ncaam_2026_bootstrap.py
+      - name: Enforce conservative historical bootstrap coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('staging/ncaam-elo/ncaam-2025-26-elo-bootstrap.json').read_text())
+          assert p['team_count'] >= 360, 'Division I team registry incomplete'
+          assert p['games_played'] >= 4500, 'Insufficient 2025-26 D1-vs-D1 finals'
+          assert p['status'] == 'historical-bootstrap-venue-neutral'
+          print('Verified provisional bootstrap:', p['team_count'], 'teams;',p['games_played'],'completed games')
+          PY
+      - name: Commit validated historical bootstrap (not production release)
+        run: |
+          mkdir -p data
+          cp staging/ncaam-elo/ncaam-2025-26-elo-bootstrap.json data/ncaam-2025-26-elo-bootstrap.json
+          cp staging/ncaam-elo/ncaam-2025-26-team-registry.json data/ncaam-2025-26-team-registry.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2025-26-elo-bootstrap.json data/ncaam-2025-26-team-registry.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Archive reproducible 2025-26 NCAA men's D1 provisional Elo bootstrap"
+          git push
       - name: Preserve data, schema and Elo bootstrap
         if: always()
         uses: actions/upload-artifact@v4
