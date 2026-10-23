@@ -2,17 +2,19 @@
   "season": "2026-27",
   "status": "shadow-player-scoring-evidence-not-calibrated",
   "source": "2025-26 NCAA points/minutes from movement audit, pinned ESPN-NCAA crosswalk",
-  "method": "Use strong approved name/jersey-linked source IDs, matching historical school, nonnegative recorded points and positive minutes. Do not create new Elo coefficients.",
+  "method": "Use non-fuzzy crosswalk IDs with corroborated historical school, valid positive prior minutes and nonnegative prior points. Unlinked/new entrants are not imputed. Scoring contributions are diagnostics only, not Elo adjustments.",
   "source_counts": {
     "roster_players": 5537,
     "crosswalk_links": 3523,
     "matched_scoring_records": 2923,
     "excluded": {
       "fuzzy": 6,
-      "no_minutes": 0,
-      "school_conflict": 594,
-      "no_points": 0
-    }
+      "prior_school_mismatch": 594,
+      "missing_prior_minutes": 0,
+      "missing_prior_points": 0
+    },
+    "unlinked_roster_players": 2014,
+    "strong_links": 3517
   },
   "warning": "Prior points per minute is a scoring-rate proxy, not efficiency adjusted for usage, opponents or team context; no chronological validation is supplied. Do not change official rankings based on this report.",
   "teams": [
