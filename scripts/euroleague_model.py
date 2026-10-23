@@ -48,6 +48,8 @@ def parse(raw,season):
         hs,aws=home["score"],away["score"]
         completed=(played is True or status in ("played","result","finished","final","closed")) and isinstance(hs,(int,float)) and isinstance(aws,(int,float)) and not isinstance(hs,bool) and not isinstance(aws,bool)
         if completed and (hs==aws or hs<0 or aws<0 or hs>250 or aws>250):raise ValueError("Invalid completed score: "+str(g.get("gameCode")))
+        if completed and (not date or clock(date)==dt.datetime.max.replace(tzinfo=dt.timezone.utc)):
+            raise ValueError("Completed fixture missing a valid date: "+str(g.get("gameCode")))
         games.append({"id":str(field(g,"gameCode","code","id") or ""),"season":season,"date":date,"home":home,"away":away,"completed":completed,"neutral":bool(field(g,"isNeutralVenue","neutralVenue") or False)})
     if not games:raise ValueError("No readable fixtures for "+season+"; API schema may have changed")
     # API normally returns full season; fail closed on partial data
@@ -78,6 +80,7 @@ def fetch_season(season):
         games.extend(converted)
         if total is not None and len(games)>=total:break
         if len(rows)<page_size and total is None:break
+    if total is None and len(games)>=1500:raise ValueError("Season exceeded pagination safety limit: "+season)
     if total is not None and len(games)!=total:
         raise ValueError(f"Incomplete {season}: parsed {len(games)} of {total} fixtures")
     codes=[g["id"] for g in games]
@@ -151,7 +154,7 @@ def main():
     avg_for=sum(v["for"] for v in stats.values())/sum(v["played"] for v in stats.values()) if stats else None
     fixtures=[]
     for g in current:
-        if g["completed"] or clock(g["date"])<NOW-dt.timedelta(hours=6):continue
+        if g["completed"] or clock(g["date"])<NOW:continue
         h,a=g["home"]["code"],g["away"]["code"]
         probability=expected(ratings[h]-ratings[a]+(0 if g["neutral"] else HOME_ELO))
         hst,ast=stats.get(h,{}),stats.get(a,{})
@@ -164,7 +167,8 @@ def main():
             projected_away=0.7*ap+0.3*avg_for-(1.5 if not g["neutral"] else 0)
             projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
-    payload={"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    source_latest=max(clock(g["date"]) for g in current if g["completed"])
+    payload={"last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
