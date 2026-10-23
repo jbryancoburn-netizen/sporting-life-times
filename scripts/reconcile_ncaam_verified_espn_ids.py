@@ -13,6 +13,7 @@ def norm(x):return re.sub("[^a-z0-9]","",str(x or "").lower())
 def reconcile(old,current,box):
     historical={r["ncaa_id"]:r for r in old["rosters"]}
     prior_by_id=defaultdict(list)
+    current_by_id=defaultdict(list)
     for school in old["rosters"]:
         for player in school["players"]:
             prior_by_id[str(player["id"])].append((school["ncaa_id"],player))
@@ -28,7 +29,8 @@ def reconcile(old,current,box):
     for school in current["rosters"]:
         for p in school["players"]:
             current_ids[str(p["id"])].add(school["ncaa_id"])
-    duplicate_current={pid:sorted(schools) for pid,schools in current_ids.items() if len(schools)>1}
+            current_by_id[str(p["id"])].append((school["ncaa_id"],p))
+    duplicate_current={pid:sorted(schools) for pid,schools in current_ids.items() if len(schools)>1 or len(current_by_id[pid])>1}
     for school in current["rosters"]:
         target=school["ncaa_id"]
         for player in school["players"]:
