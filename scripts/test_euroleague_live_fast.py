@@ -39,6 +39,12 @@ class FastTests(unittest.TestCase):
         self.assertEqual(result["games"][0]["score_updated_at"],NOW.isoformat())
         self.assertEqual(result["live_scores_refreshed"],0)
         self.assertEqual(result["updated_at"],old["updated_at"])
+    def test_finished_flag_needs_verification_before_final(self):
+        previous=fast.build(model(),{},NOW,lambda _:header())
+        waiting=fast.build(model(),previous,NOW+dt.timedelta(minutes=6),lambda _:header(live=False))
+        self.assertEqual(waiting["games"][0]["status"],"awaiting_final")
+        self.assertEqual(waiting["games"][0]["home"]["score"],64)
+        self.assertEqual(waiting["live_scores_refreshed"],0)
     def test_scheduled_has_no_fake_score(self):
         value=fast.build(model(),{},NOW,lambda _:header(live=False))
         self.assertEqual(value["games"][0]["status"],"scheduled")
