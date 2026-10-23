@@ -102,6 +102,45 @@ def fetch_season(season):
         raise ValueError("Duplicate or missing game identifiers in "+season)
     return games
 
+def order_standings(rows, results):
+    """EuroLeague Article 19 order: wins, fewer GP, then phase-specific tiebreaks.
+    Head-to-head applies only after every tied pair has met twice; incomplete
+    round-robin groups use full-phase point difference, then points scored.
+    Overtime-only points require period scores not supplied by this feed.
+    """
+    from itertools import combinations
+    from collections import defaultdict
+    by_wins=defaultdict(list)
+    for row in rows:
+        row["win_pct"]=round(row["wins"]/(row["played"] or 1),3)
+        row["point_diff"]=row["for"]-row["against"]
+        by_wins[row["wins"]].append(row)
+    ordered=[]
+    for wins in sorted(by_wins,reverse=True):
+        by_gp=defaultdict(list)
+        for row in by_wins[wins]:
+            by_gp[row["played"]].append(row)
+        for gp in sorted(by_gp):
+            tied=by_gp[gp]
+            codes={t["code"] for t in tied}
+            meetings=defaultdict(list)
+            for g in results:
+                if g["home"] in codes and g["away"] in codes:
+                    meetings[frozenset((g["home"],g["away"]))].append(g)
+            complete=len(tied)>1 and all(len(meetings[frozenset((a["code"],b["code"]))])>=2 for a,b in combinations(tied,2))
+            def key(row):
+                if complete:
+                    matches=[g for g in results if g["home"] in codes and g["away"] in codes and row["code"] in (g["home"],g["away"])]
+                    h2h_wins=sum((g["score"][0]>g["score"][1]) if g["home"]==row["code"] else (g["score"][1]>g["score"][0]) for g in matches)
+                    h2h_diff=sum((g["score"][0]-g["score"][1]) if g["home"]==row["code"] else (g["score"][1]-g["score"][0]) for g in matches)
+                    return (-h2h_wins,-h2h_diff,-row["point_diff"],-row["for"],row["name"])
+                return (-row["point_diff"],-row["for"],row["name"])
+            tied.sort(key=key)
+            for row in tied:
+                row["tiebreak_basis"]="complete_head_to_head" if complete else "phase_point_difference"
+            ordered.extend(tied)
+    return ordered
+
 def main():
     all_games=[]
     for year in (2024,2025,2026):
@@ -153,12 +192,9 @@ def main():
     if len(active)<18 or len(active)>24:raise ValueError("Unexpected number of EuroLeague participants")
     ranked=[{**team_info[c],"elo":round(ratings[c],1),**stats.get(c,{"played":0,"wins":0,"losses":0,"for":0,"against":0})} for c in active]
     ranked.sort(key=lambda x:(-x["elo"],x["name"]))
-    standings=sorted(
+    standings=order_standings(
         [{**team_info[code],**stats.get(code,{"played":0,"wins":0,"losses":0,"for":0,"against":0})} for code in active],
-        key=lambda r:(-r["wins"]/(r["played"] or 1),-r["wins"],-(r["for"]-r["against"]),r["name"]))
-    for row in standings:
-        row["win_pct"]=round(row["wins"]/(row["played"] or 1),3)
-        row["point_diff"]=row["for"]-row["against"]
+        history)
     if sum(r["wins"] for r in standings)!=len(history) or sum(r["losses"] for r in standings)!=len(history):
         raise ValueError("Win-loss reconciliation failed")
     if sum(r["played"] for r in standings)!=2*len(history):
@@ -182,7 +218,7 @@ def main():
             projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
-    payload={"last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    payload={"last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
