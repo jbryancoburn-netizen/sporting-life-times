@@ -28,6 +28,16 @@ class TestModel(unittest.TestCase):
     def test_fail_closed_on_bad_score(self):
         g=make_game(1);g["road"]["score"]=80
         with self.assertRaises(ValueError):el.parse({"data":[g]},"E2026")
+    def test_reject_final_without_date(self):
+        game=make_game(3)
+        game.pop("utcDate")
+        with self.assertRaises(ValueError):
+            el.parse({"data":[game]},"E2026")
+    def test_reject_final_with_invalid_date(self):
+        game=make_game(4)
+        game["utcDate"]="invalid"
+        with self.assertRaises(ValueError):
+            el.parse({"data":[game]},"E2026")
     def test_reject_partial_page(self):
         with self.assertRaises(ValueError):el.parse({"total":2,"data":[make_game(1)]},"E2026")
     def test_home_advantage_probability(self):
