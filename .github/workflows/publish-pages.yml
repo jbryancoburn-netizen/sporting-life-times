@@ -51,7 +51,7 @@ jobs:
           for attempt in $(seq 1 12); do
             if ! curl --fail --location --silent --show-error --max-time 12 "$ROOT/pages-build-sha.txt" -o /tmp/live-pages-sha.txt; then
               echo "Publication marker missing: site is still serving the previous build" >&2
-            elif [ "$(tr -d \\r\\n </tmp/live-pages-sha.txt)" != "$EXPECTED_SHA" ]; then
+            elif [ "$(cat /tmp/live-pages-sha.txt)" != "$EXPECTED_SHA" ]; then
               echo "Published site is stale: expected $EXPECTED_SHA; received $(cat /tmp/live-pages-sha.txt)" >&2
             elif curl --fail --location --silent --show-error --max-time 12 "$TARGET" -o /tmp/published-nba-players.html; then
               if grep -q 'NBA · Individual Player Leaders' /tmp/published-nba-players.html && grep -q 'Anthony Edwards' /tmp/published-nba-players.html && grep -q 'Victor Wembanyama' /tmp/published-nba-players.html; then
