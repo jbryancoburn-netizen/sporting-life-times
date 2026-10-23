@@ -12,6 +12,8 @@ on:
       - scripts/test_audit_ncaam_identity_exposure.py
       - scripts/audit_ncaam_identity_temporal_integrity.py
       - scripts/test_audit_ncaam_identity_temporal_integrity.py
+      - scripts/diagnose_ncaam_roster_gaps.py
+      - scripts/test_diagnose_ncaam_roster_gaps.py
       - .github/workflows/ncaam-espn-identity-continuity.yml
   workflow_dispatch:
 permissions:
@@ -29,8 +31,10 @@ jobs:
       - run: python -m unittest discover -s scripts -p test_audit_ncaam_verified_production_coverage.py -v
       - run: python -m unittest discover -s scripts -p test_audit_ncaam_identity_exposure.py -v
       - run: python -m unittest discover -s scripts -p test_audit_ncaam_identity_temporal_integrity.py -v
+      - run: python -m unittest discover -s scripts -p test_diagnose_ncaam_roster_gaps.py -v
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --min-players 1 --out staging/ncaam-2026-roster-evidence.json
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
+      - run: python scripts/diagnose_ncaam_roster_gaps.py
       - run: python scripts/reconcile_ncaam_verified_espn_ids.py
       - run: python scripts/summarize_ncaam_verified_movements.py
       - run: python scripts/audit_ncaam_verified_production_coverage.py
@@ -46,3 +50,4 @@ jobs:
             data/ncaam-2026-27-verified-production-coverage.json
             data/ncaam-2026-27-verified-movement-opponent-exposure.json
             data/ncaam-2026-27-identity-temporal-gate.json
+            data/ncaam-2026-27-roster-gap-diagnostics.json
