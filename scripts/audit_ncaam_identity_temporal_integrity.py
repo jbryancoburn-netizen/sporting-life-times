@@ -13,6 +13,7 @@ def audit(identity,production,exposure):
         raise ValueError("Production or opponent exposure missing schools")
     c=identity["counts"]
     total=c.get("verified_espn_returner",0)+c.get("verified_espn_d1_transfer",0)
+    if c.get("verified_espn_continuity",total)!=total:raise ValueError("Identity continuity total mismatch")
     if total!=production["counts"].get("verified_espn_returners",0)+production["counts"].get("verified_espn_transfers",0):
         raise ValueError("Identity and production movement totals disagree")
     if total!=exposure["counts"].get("verified_espn_returners",0)+exposure["counts"].get("verified_espn_transfers",0):
