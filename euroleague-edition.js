@@ -36,6 +36,7 @@ try{
  if($('el-recent-results-list'))$('el-recent-results-list').textContent='Recent verified EuroLeague results unavailable.';
  console.warn('EuroLeague edition',err.message);
 }
+}
 refreshEdition();
 setInterval(()=>{if(!document.hidden)refreshEdition()},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshEdition()});
