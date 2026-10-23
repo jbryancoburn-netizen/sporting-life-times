@@ -5,7 +5,8 @@ const when=s=>{const x=new Date(s);return isNaN(x)?'Unscheduled':x.toLocaleStrin
 const logo=t=>/^https:\/\//.test(t?.logo||'')?'<img src="'+esc(t.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
 const side=t=>logo(t)+'<span>'+esc(t?.name||t?.code||'Unknown')+'</span>';
 fetch('data/euroleague-model.json?cache='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No model publication');return r.json()}).then(d=>{
-if(!Array.isArray(d.rankings)||!d.rankings.length||!d.updated_at)throw Error('Invalid model');
+if(!Array.isArray(d.rankings)||d.rankings.length<18||!Array.isArray(d.standings)||d.standings.length!==d.rankings.length||!Number.isInteger(d.games_completed)||d.games_completed<1||!Number.isFinite(Date.parse(d.updated_at)))throw Error('Invalid EuroLeague season publication');
+if(new Set(d.rankings.map(t=>t.code)).size!==d.rankings.length||d.standings.reduce((s,t)=>s+t.wins,0)!==d.games_completed||d.standings.reduce((s,t)=>s+t.losses,0)!==d.games_completed)throw Error('EuroLeague published totals do not reconcile');
 $('el-model-status').textContent='Independent ratings · '+d.games_completed+' completed 2026–27 games · Updated '+when(d.updated_at)+' · Parameters provisional';
 $('el-elo-table').innerHTML='<div class="nba-current-table-wrap"><table class="nba-current-table"><thead><tr><th>#</th><th>Club</th><th>Elo</th><th>W–L</th></tr></thead><tbody>'+d.rankings.map((t,i)=>'<tr><td>'+(i+1)+'</td><td><span class="el-club">'+logo(t)+esc(t.name)+'</span></td><td class="nba-primary-number">'+Number(t.elo).toFixed(1)+'</td><td>'+esc(t.wins)+'–'+esc(t.losses)+'</td></tr>').join('')+'</tbody></table></div>';
 if($('el-standings')&&Array.isArray(d.standings)){
