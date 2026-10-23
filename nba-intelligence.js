@@ -31,6 +31,18 @@ async function load(){
  box.innerHTML=games.slice(0,20).map(g=>'<article class="nba-boxscore-item"><div class="nba-boxscore-head"><strong>'+esc((g.teams||[]).map(t=>t.name+' '+(t.score??'')).join(' · '))+'</strong><a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">BOX SCORE ↗</a></div>'+(g.leaders?.length?'<div class="nba-boxscore-players">'+g.leaders.slice(0,3).map(p=>'<span>'+esc(p.name)+' <b>'+p.pts+'</b> PTS · '+p.reb+' REB · '+p.ast+' AST</span>').join('')+'</div>':'<p class="hub-small">Player box-score details not yet verified for this game.</p>')+(g.players?.length?'<details class="nba-player-boxscore"><summary>Full captured player box score · '+g.players.length+' players</summary><div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>FG</th><th>3PT</th><th>FT</th></tr></thead><tbody>'+g.players.map(p=>'<tr><th>'+esc(p.name)+'</th><td>'+esc(p.team)+'</td><td>'+esc(p.min)+'</td><td>'+esc(p.pts)+'</td><td>'+esc(p.reb)+'</td><td>'+esc(p.ast)+'</td><td>'+esc(p.stl)+'</td><td>'+esc(p.blk)+'</td><td>'+esc(p.fgm)+'/'+esc(p.fga)+'</td><td>'+esc(p.fg3m)+'/'+esc(p.fg3a)+'</td><td>'+esc(p.ftm)+'/'+esc(p.fta)+'</td></tr>').join('')+'</tbody></table></div></details>':'')+'</article>').join('');
  }catch(e){console.error('NBA official box scores',e);$('nba-boxscore-status').textContent='Official game-center snapshot unavailable';box.innerHTML='<p class="hub-small">Player box scores unavailable. <a href="https://www.nba.com/games" target="_blank" rel="noopener noreferrer">See NBA game center ↗</a></p>'}
 }
+async function rosterWireSnapshot(){
+ const inj=$('nba-injury-wire'),txn=$('nba-transaction-wire');
+ if(!inj&&!txn)return;
+ try{
+  const res=await fetch('data/nba-roster-wire-snapshot.json',{cache:'no-store'});
+  if(!res.ok)throw Error('Wire HTTP '+res.status);
+  const data=await res.json();
+  const source=(url,label)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+' ↗</a>';
+  if(inj&&Array.isArray(data.injuries)&&data.injuries.length)inj.innerHTML='<p class="hub-small">Injury snapshot · '+esc(data.as_of)+' · '+source(data.injuries_source,'Full updated injury report')+'</p><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>Status</th><th>Injury</th></tr></thead><tbody>'+data.injuries.map(x=>'<tr><th>'+esc(x.player)+'</th><td>'+esc(x.team)+'</td><td>'+esc(x.status)+'</td><td>'+esc(x.detail)+'</td></tr>').join('')+'</tbody></table>';
+  if(txn&&Array.isArray(data.transactions)&&data.transactions.length)txn.innerHTML='<p class="hub-small">Recent official-filed moves · through '+esc(data.as_of)+' · '+source(data.transactions_source,'Full transaction log')+'</p><table class="nba-mini-table"><thead><tr><th>Date</th><th>Team</th><th>Player</th><th>Move</th></tr></thead><tbody>'+data.transactions.map(x=>'<tr><td>'+esc(x.date.slice(5))+'</td><td>'+esc(x.team)+'</td><th>'+esc(x.player)+'</th><td>'+esc(x.action)+'</td></tr>').join('')+'</tbody></table>';
+ }catch(e){console.error('NBA roster wire snapshot',e)}
+}
 async function reporting(){
  try{
  const r=await fetch('articles.json',{cache:'no-store'});if(!r.ok)throw Error('Headlines unavailable');
@@ -75,5 +87,5 @@ async function leagueLeaders(){
  }
 }
 leagueLeaders();
-load();reporting();
+load();reporting().then(rosterWireSnapshot);
 })();
