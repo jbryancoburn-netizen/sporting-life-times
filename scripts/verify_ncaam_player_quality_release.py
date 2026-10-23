@@ -102,6 +102,47 @@ def verify_earlyseason_asof(report, decision):
         raise ValueError("Post-opening roster data cannot certify PRESEASON rating")
     return True
 
+def verify_quality_shadow(shadow,primary,study):
+    import math
+    if (shadow.get("season")!="2026-27" or shadow.get("status")!="SHADOW_ONLY_DO_NOT_PROMOTE"
+        or shadow.get("production_elo_approved") is not False
+        or shadow.get("preseason_asof_certified") is not False
+        or shadow.get("team_count")!=365 or shadow.get("season_games")!=0):
+        raise ValueError("Quality shadow incorrectly marked approved or incomplete")
+    rows=shadow.get("rankings",[])
+    originals={r["team_id"]:r for r in primary["rankings"]}
+    seen={r["team_id"] for r in rows}
+    if len(rows)!=365 or len(seen)!=365 or seen!=set(originals):
+        raise ValueError("Experimental quality team universe mismatch")
+    source=shadow["source_integrity"]
+    if (source.get("historical_2025_26_player_box_sha256")!=study["source_hashes"]["2026"]["player_box"]
+        or source.get("quality_beta")!=study["selected_quality_beta"]
+        or source.get("matched_verified_history")!=2923
+        or source.get("adjusted_team_count")!=364
+        or source.get("fallback_team_count")!=1):
+        raise ValueError("Experimental NCAA source hashes or calibration mismatched")
+    last_rating=float("inf")
+    fallback=0
+    for i,row in enumerate(rows,1):
+        tid=row["team_id"]
+        if row["rank"]!=i or row["elo"]>last_rating+0.0002:
+            raise ValueError("Scoring quality ranking incorrectly sorted")
+        last_rating=row["elo"]
+        if abs(row["roster_informed_elo"]-originals[tid]["elo"])>0.0002:
+            raise ValueError("Experimental result modified independent baseline")
+        if abs(row["elo"]-row["roster_informed_elo"]-row["experimental_scoring_quality_adjustment"])>0.0002:
+            raise ValueError("Scoring quality bonus arithmetic incorrect")
+        if not all(math.isfinite(float(row[n])) for n in
+                   ("roster_informed_elo","elo","experimental_scoring_quality_adjustment")):
+            raise ValueError("Non-finite quality score")
+        if row["scoring_quality_evidence"]=="no-source-data-retain-baseline":
+            if row["experimental_scoring_quality_adjustment"]!=0:
+                raise ValueError("Missing player data may not move independent Elo")
+            fallback+=1
+    if fallback!=1:
+        raise ValueError("Expected one source-uncovered school")
+    return True
+
 def main():
     names = ["ncaam-2026-27-player-scoring-shadow.json",
              "ncaam-2026-27-preseason-roster-informed.json",
@@ -113,7 +154,10 @@ def main():
     verify_retrospective_holdout(report,decision)
     asof_report=json.loads((ROOT/"ncaam-quality-earlyseason-asof-backtest.json").read_text())
     verify_earlyseason_asof(asof_report,decision)
-    print("PASS: 1,831-game retrospective and 1,596-game genuine earlyseason as-of holdouts reconcile; preseason promotion blocked")
+    primary=json.loads((ROOT/"ncaam-2026-27-preseason-roster-informed.json").read_text())
+    shadow=json.loads((ROOT/"ncaam-2026-27-scoring-quality-shadow.json").read_text())
+    verify_quality_shadow(shadow,primary,asof_report)
+    print("PASS: 365-team player-quality shadow integrity, 1,831 retrospective and 1,596 time-ordered games; primary Elo untouched")
 
 if __name__ == "__main__":
     main()
