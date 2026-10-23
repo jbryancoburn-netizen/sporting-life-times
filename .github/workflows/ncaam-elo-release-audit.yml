@@ -4,7 +4,6 @@ on:
     paths:
       - 'scripts/audit_ncaa_elo_release.py'
       - 'scripts/test_audit_ncaa_elo_release.py'
-      - 'scripts/test_audit_ncaa_elo_release.py'
       - 'data/ncaam-2026-27-preseason-provisional.json'
       - 'data/ncaam-2026-27-offseason-shadow.json'
       - 'data/ncaam-offseason-transfer-backtest.json'
@@ -12,6 +11,7 @@ on:
   pull_request:
     paths:
       - 'scripts/audit_ncaa_elo_release.py'
+      - 'scripts/test_audit_ncaa_elo_release.py'
       - 'data/ncaam-2026-27-preseason-provisional.json'
       - 'data/ncaam-2026-27-offseason-shadow.json'
       - 'data/ncaam-offseason-transfer-backtest.json'
