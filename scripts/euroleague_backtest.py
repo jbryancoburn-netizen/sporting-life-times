@@ -30,6 +30,38 @@ def score(games,k,home,carry):
         "log_loss":-sum(y*math.log(p)+(1-y)*math.log1p(-p) for p,y in preds)/n,
         "accuracy":sum((p>=.5)==bool(y) for p,y in preds)/n,
         "predictions":details}
+def score_forecast_evaluation(games):
+    """Evaluate the published scoring formula before each final, without future leakage."""
+    stats={}; observed=[]; evaluated=0; abs_home=abs_away=abs_total=abs_margin=0.0
+    current=sorted((g for g in games if g["season"]=="E2026" and g["completed"]),key=lambda g:(el.clock(g["date"]),g["id"]))
+    for g in current:
+        h,a=g["home"]["code"],g["away"]["code"]
+        hst,ast=stats.get(h),stats.get(a)
+        total_games=sum(t["played"] for t in stats.values())
+        average=sum(t["for"] for t in stats.values())/total_games if total_games else None
+        if hst and ast and hst["played"]>=5 and ast["played"]>=5 and average is not None:
+            hp=.5*(hst["for"]/hst["played"]+ast["against"]/ast["played"])
+            ap=.5*(ast["for"]/ast["played"]+hst["against"]/hst["played"])
+            edge=1.5 if not g["neutral"] else 0
+            pred_h=.7*hp+.3*average+edge
+            pred_a=.7*ap+.3*average-edge
+            actual_h,actual_a=g["home"]["score"],g["away"]["score"]
+            evaluated+=1
+            abs_home+=abs(pred_h-actual_h)
+            abs_away+=abs(pred_a-actual_a)
+            abs_total+=abs(pred_h+pred_a-actual_h-actual_a)
+            abs_margin+=abs((pred_h-pred_a)-(actual_h-actual_a))
+        for code,points,against in ((h,g["home"]["score"],g["away"]["score"]),(a,g["away"]["score"],g["home"]["score"])):
+            st=stats.setdefault(code,{"played":0,"for":0,"against":0})
+            st["played"]+=1;st["for"]+=points;st["against"]+=against
+    return {"games_evaluated":evaluated,"minimum_prior_games_per_team":5,
+            "status":"measured" if evaluated else "insufficient_eligible_games",
+            "home_score_mae":round(abs_home/evaluated,2) if evaluated else None,
+            "away_score_mae":round(abs_away/evaluated,2) if evaluated else None,
+            "total_mae":round(abs_total/evaluated,2) if evaluated else None,
+            "margin_mae":round(abs_margin/evaluated,2) if evaluated else None,
+            "method":"strict pregame expanding-window; current published scoring formula"}
+
 def main():
     games=[g for year in (2024,2025,2026) for g in el.fetch_season("E"+str(year))]
     candidates=[]
@@ -41,7 +73,8 @@ def main():
     candidates.sort(key=lambda c:(c["log_loss"],c["brier"]))
     baseline=score(games,22.,65.,.67)
     best=candidates[0]
-    document={"status":"historical_exploratory_only","evaluated_seasons":["E2025","E2026"],
+    scoring_validation=score_forecast_evaluation(games)
+    document={"scoring_forecast_validation":scoring_validation,"status":"historical_exploratory_only","evaluated_seasons":["E2025","E2026"],
               "method":"chronological expanding-window (but candidate selection occurs on evaluation seasons)",
               "caution":"Do not treat selected parameters as out-of-sample validated; reserve a future holdout.",
               "best_in_sample":best,"baseline":{"k":22,"home_elo":65,"season_carry":.67,
