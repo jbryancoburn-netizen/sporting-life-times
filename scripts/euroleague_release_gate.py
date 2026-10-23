@@ -39,7 +39,7 @@ def validate(model, live):
         gid=str(g.get("id"))
         if gid in live_ids:errors.append("Duplicate live card "+gid)
         live_ids.add(gid)
-        if g.get("status") not in ("scheduled","live","final"):
+        if g.get("status") not in ("scheduled","live","final","awaiting_final"):
             errors.append("Unknown game state "+gid)
         hs=g.get("home",{}).get("score");aws=g.get("away",{}).get("score")
         if g.get("status")=="scheduled" and (hs is not None or aws is not None):
