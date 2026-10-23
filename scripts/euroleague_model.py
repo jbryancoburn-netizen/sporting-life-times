@@ -12,13 +12,22 @@ K=22.0
 HOME_ELO=65.0  # provisional: calibrate by walk-forward historical log loss
 CARRY=0.67
 def get(url):
-    req=urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimes-EuroLeagueResearch/1.0","Accept":"application/json"})
-    for attempt in range(4):
-        try:
-            with urllib.request.urlopen(req,timeout=35) as r:return json.load(r)
-        except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
-            if attempt==3:raise
-            time.sleep(2**attempt)
+    """Use EuroLeague's primary v2 feed, then its documented mirror if unavailable."""
+    primary="https://api-live.euroleague.net"
+    mirror="https://feeds.incrowdsports.com/provider/euroleague-feeds"
+    endpoints=[url]
+    if url.startswith(primary+"/v2/"):
+        endpoints.append(mirror+url[len(primary):])
+    failures=[]
+    for endpoint in endpoints:
+        req=urllib.request.Request(endpoint,headers={"User-Agent":"SportingLifeTimes-EuroLeagueResearch/1.0","Accept":"application/json"})
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(req,timeout=25) as r:return json.load(r)
+            except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError,ValueError) as exc:
+                failures.append(type(exc).__name__+": "+str(exc)[:100])
+                if attempt<2:time.sleep(2**attempt)
+    raise RuntimeError("EuroLeague API primary and mirror failed: "+"; ".join(failures[-3:]))
 def obj(v):return v if isinstance(v,dict) else {}
 def field(d,*names):
     for name in names:
