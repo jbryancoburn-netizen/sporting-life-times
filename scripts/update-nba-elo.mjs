@@ -82,7 +82,7 @@ for(const event of events){
  const delta=baseline.parameters.k*mov*(actual-expected);
  ratings[event.home]+=delta;ratings[event.away]-=delta;
  event.home_elo_change=round(delta,6);
- delete event.date;
+ // Retain verified scheduled game date for chronological weekly/daily Elo snapshots.
 }
 const ranked=Object.entries(ratings).map(([team,elo])=>({team,elo:round(elo,3)})).sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
 const result={league:'NBA',season:'2026-27',status:'provisional_live_from_historical_baseline',games_played:events.length,preseason_status:baseline.status,source:'ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo',rankings:ranked,events};
