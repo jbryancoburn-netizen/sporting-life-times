@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'scripts/euroleague_live.py'
+      - 'scripts/test_euroleague_live.py'
       - '.github/workflows/euroleague-live.yml'
   schedule:
     - cron: '*/5 * * * *'
@@ -21,6 +22,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Test EuroLeague live scorebug invariants
+        run: python -m unittest discover -s scripts -p 'test_euroleague_live.py' -v
       - name: Retrieve EuroLeague scoreboard
         run: python scripts/euroleague_live.py
       - name: Publish verified scoreboard
