@@ -26,10 +26,6 @@ jobs:
           python -c "import json; d=json.load(open('data/nba-game-center.json')); assert isinstance(d['games'],list)"
       - name: Commit verified official NBA game center
         run: |
-          if git diff --quiet -- data/nba-game-center.json && [ -f data/nba-game-center.json ]; then
-            echo "No official NBA data changes"
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nba-game-center.json
