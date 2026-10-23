@@ -1,0 +1,43 @@
+name: Audit and publish 2026-27 NCAA D1 men's membership
+on:
+  push:
+    paths:
+      - scripts/reconcile_ncaam_2027_membership.py
+      - .github/workflows/ncaam-2027-membership.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  membership:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile and strictly validate all conferences
+        run: python scripts/reconcile_ncaam_2027_membership.py
+      - name: Verify membership and identity invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("data/ncaam-2026-27-team-registry.json").read_text())
+          assert x['team_count']==len(x['teams'])==365
+          assert x['conference_count']==len(x['conference_counts'])==32
+          assert sum(x['conference_counts'].values())==365
+          assert len({t['id'] for t in x['teams']})==365
+          assert not any(t['name']=='Saint Francis' for t in x['teams'])
+          assert len([t for t in x['teams'] if t['name']=='West Florida'])==1
+          print('VERIFIED 2026-27 conference membership: 365 teams, 32 conferences')
+          PY
+      - name: Commit 2026-27 season-specific registry
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-team-registry.json
+          if git diff --cached --quiet; then echo "Registry unchanged"; exit 0; fi
+          git commit -m "Publish audited 2026-27 NCAA men's D1 membership registry"
+          git pull --rebase origin main
+          git push origin HEAD:main
