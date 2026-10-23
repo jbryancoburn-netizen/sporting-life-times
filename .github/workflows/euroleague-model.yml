@@ -1,6 +1,12 @@
 name: EuroLeague independent Elo
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/euroleague_model.py'
+      - 'scripts/euroleague_diagnose.py'
+      - 'scripts/test_euroleague_model.py'
+      - '.github/workflows/euroleague-model.yml'
   schedule:
     - cron: '18,48 * * * *'
 permissions:
@@ -42,6 +48,19 @@ jobs:
           assert all(isinstance(t["elo"],(int,float)) for t in teams)
           print("Validated EuroLeague publication:",len(teams),"teams,",finals,"finals")
           PY
+      - name: Preserve source diagnostics on failure
+        if: failure()
+        run: |
+          mkdir -p diagnostics
+          python scripts/euroleague_diagnose.py > diagnostics/euroleague-source.txt 2>&1 || true
+          python -m unittest discover -s scripts -p "test_euroleague_model.py" -v > diagnostics/euroleague-tests.txt 2>&1 || true
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: euroleague-failure-diagnostics
+          path: diagnostics/
+          retention-days: 7
       - name: Publish only verified model data changes
         run: |
           if ! git diff --quiet -- data/euroleague-model.json || [ -n "$(git ls-files --others --exclude-standard data/euroleague-model.json)" ]; then
