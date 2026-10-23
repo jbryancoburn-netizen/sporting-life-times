@@ -16,11 +16,18 @@ const newsLogos=a=>{
  return '<span class="nba-story-logos">'+(found.length?found.map(t=>'<img loading="lazy" alt="'+esc(names[t])+'" title="'+esc(names[t])+'" src="'+logo(t)+'" onerror="this.hidden=true">').join(''):'<img class="nba-story-logo nba-story-nba" loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/National_Basketball_Association_logo_2017-present.svg" alt="NBA" title="NBA league-wide story" onerror="this.hidden=true">')+'</span>';
 };
 async function news(){
- try{const data=await fetchJSON('articles.json');const items=(data.articles||[]).filter(a=>{const c=String(a.category||'').toLowerCase(),u=String(a.url||'').toLowerCase(),s=String(a.source||'').toLowerCase();return c==='nba'||s.includes('nba')||u.includes('/nba/')||u.includes('/basketball/nba/')||((c==='basketball')&&!/college|ncaa|ncaab|wnba/i.test(s+' '+u))}).filter(a=>/^https:\/\//.test(a.url)&&a.title).slice(0,72);
- if(!items.length)throw Error('No verified NBA headlines in this edition');
- $('nba-news-grid').innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+newsLogos(a)+window.SportingNewsFormat.meta(a)+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+window.SportingNewsFormat.title(a)+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+window.SportingNewsFormat.summary(a)+'</p>':'')+'</article>').join('');
- msg('nba-news-status',items.length+' attributed national and local headlines · Published sources · Updated '+esc(data.updated_at||'when feed refreshes'));
- }catch(e){msg('nba-news-status','NBA headlines unavailable');unavailable('nba-news-grid','The current feed has no verified NBA headlines. No invented stories are shown.')}
+ const grid=$('nba-news-grid');if(!grid)return;
+ try{
+  let payload;
+  try{payload=await fetchJSON('data/nba-top-stories.json')}
+  catch(err){payload=await fetchJSON('articles.json')}
+  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||/\\/nba\\//i.test(a.url||'')).filter(a=>/^https:\\/\\//.test(a.url||'')&&a.title).slice(0,60);
+  if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA').slice(0,60)}
+  if(!items.length)throw Error('No attributed NBA headlines');
+  const format=window.SportingNewsFormat;
+  grid.innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+newsLogos(a)+(format?.meta?format.meta(a):esc(a.source||'NBA NEWS')+' · '+esc((a.published_at||'').slice(0,10)))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+(format?.title?format.title(a):esc(a.title))+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+(format?.summary?format.summary(a):esc(a.summary))+'</p>':'')+'</article>').join('');
+  msg('nba-news-status',items.length+' attributed NBA stories · '+(payload.updated_at||'Dated reporting')+' · Original sources linked');
+ }catch(err){msg('nba-news-status','NBA top stories feed unavailable');unavailable('nba-news-grid','NBA reporting temporarily unavailable. <a href="https://www.nba.com/news" target="_blank" rel="noopener noreferrer">NBA.com News ↗</a>')}
 }
 async function desk(){
  try{const [scores,elo]=await Promise.all([fetchJSON('multi_scoreboards.json'),fetchJSON('data/nba-2026-27-current-provisional.json')]);
