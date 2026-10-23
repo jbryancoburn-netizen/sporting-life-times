@@ -1,5 +1,13 @@
 name: Official NBA game-center refresh
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nba-official-game-center.yml'
+      - 'scripts/collect_nba_game_center.py'
+      - 'scripts/backfill-nba-boxscores.py'
+      - 'scripts/collect-nba-player-leaders.py'
+      - 'scripts/build-nba-possession-inputs.mjs'
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
