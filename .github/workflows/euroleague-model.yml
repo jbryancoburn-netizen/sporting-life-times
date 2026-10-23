@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Test Elo ingestion and invariants
+        run: python -m unittest discover -s scripts -p "test_euroleague_model.py" -v
       - name: Rebuild from EuroLeague completed games
         run: python scripts/euroleague_model.py
       - name: Publish only verified model data changes
