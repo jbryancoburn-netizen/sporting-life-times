@@ -57,6 +57,6 @@ def main():
     # Retain regular-season archive from this edition's first capture onward.
     # Never present this as historical completeness without a backfill audit.
     out={"updated_at":datetime.now(timezone.utc).isoformat(),"source":"NBA official live scoreboard and boxscore; cumulative captured archive (not guaranteed complete)","games":games,"coverage":{"archived_games":len(games),"boxscores_with_players":sum(bool(g.get("players")) for g in games),"first_game_date":min((g.get("date") for g in games if g.get("date")),default=None),"last_game_date":max((g.get("date") for g in games if g.get("date")),default=None)}}
-    outpath.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\\n",encoding="utf-8")
+    outpath.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print("NBA archive: "+str(len(games))+" games; "+str(out["coverage"]["boxscores_with_players"])+" full player box scores")
 if __name__=="__main__":main()
