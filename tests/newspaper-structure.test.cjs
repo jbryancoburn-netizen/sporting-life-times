@@ -25,3 +25,11 @@ test('shared scoreboard renderer is reused by newspaper sections',()=>{
  assert.match(app,/function teamRows\(/);
  assert.ok((app.match(/registerGames\(/g)||[]).length>=2,'register renderer should be reused');
 });
+
+test('mastheads have no nested home links',()=>{
+ for(const name of ['nba.html','forecast-desk.html','sports.html','epl.html','match-center.html']){
+  const page=fs.readFileSync(name,'utf8');
+  assert.doesNotMatch(page,/<a\b[^>]*>\s*<a\b/i,name+' has invalid nested anchors');
+  assert.match(page,/<a class="newspaper-wordmark" href="index.html"/,name+' missing home link');
+ }
+});
