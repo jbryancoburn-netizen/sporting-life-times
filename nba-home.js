@@ -43,6 +43,17 @@ async function desk(){
  const ledger=(elo.events||[]).filter(g=>Number.isFinite(g.home_score)&&Number.isFinite(g.away_score));
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
 
+ const analyses=ledger.slice(-8).reverse().map(g=>{
+  const homeWon=g.home_score>g.away_score,w=homeWon?g.home:g.away,l=homeWon?g.away:g.home;
+  const wScore=Math.max(g.home_score,g.away_score),lScore=Math.min(g.home_score,g.away_score);
+  const margin=wScore-lScore;
+  const total=g.home_score+g.away_score;
+  const stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unverified';
+  const href='https://www.nba.com/games';
+  return '<article class="nba-analysis-brief"><p class="nba-news-source">THE ANALYSIS DESK · '+esc(stamp)+'</p><h3>'+esc(names[w])+' over '+esc(names[l])+', '+wScore+'–'+lScore+'</h3><p>'+esc(w)+' won by '+margin+' points; the teams combined for '+total+'. Current independent Elo: '+esc(w)+' '+ratings[w].toFixed(1)+'; '+esc(l)+' '+ratings[l].toFixed(1)+'. <a href="'+href+'" target="_blank" rel="noopener noreferrer">Official NBA games ↗</a></p></article>';
+ }).join('');
+ if($('nba-game-analysis-grid'))$('nba-game-analysis-grid').innerHTML=analyses||'<p class="hub-small">No completed NBA finals verified in the published season ledger.</p>';
+ msg('nba-game-analysis-status',Math.min(8,ledger.length)+' results · Original calculations from published final scores · Not syndicated news');
  const teamRows=Object.fromEntries(Object.keys(names).map(t=>[t,{team:t,gp:0,pf:0,pa:0}]));
  for(const g of ledger){
   if(!teamRows[g.home]||!teamRows[g.away])continue;
