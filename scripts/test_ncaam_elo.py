@@ -21,9 +21,9 @@ def row(gid="g1",status="Final",site="home"):
 class NightlyReplayTest(unittest.TestCase):
     def test_future_dated_score_is_excluded(self):
         from update_ncaam_2027 import calculate
-        pre={"rankings":[{"team_id":f"ncaa:{i}","elo":1500.0} for i in range(350)]}
-        old={"teams":[{"id":f"ncaa:{i}","name":f"Team {i}"} for i in range(350)]}
-        current=[{"id":str(i),"team":f"Team {i}","conference":"Test"} for i in range(350)]
+        pre={"rankings":[{"team_id":f"ncaa:{i}","elo":1500.0} for i in range(365)]}
+        old={"teams":[{"id":f"ncaa:{i}","name":f"Team {i}"} for i in range(365)]}
+        current=[{"id":str(i),"team":f"Team {i}","conference":"Test"} for i in range(365)]
         games=[{"contest_id":"future-fixture","game_date":"11/15/2099",
                 "home":"Team 0","away":"Team 1","home_score":"88","away_score":"70"}]
         result=calculate(pre,old,current,games)
@@ -36,8 +36,8 @@ class NightlyReplayTest(unittest.TestCase):
                          {"team_id":"purdue","elo":1500.0}]}
         old={"teams":[{"id":"indiana","name":"Indiana"},{"id":"purdue","name":"Purdue"}]}
         # Nightly replay requires full current D-I membership; create synthetic
-        # complete registry with 350 uniquely named programs.
-        for i in range(348):
+        # complete registry with 365 uniquely named programs.
+        for i in range(363):
             ident=f"synthetic-{i}"
             old["teams"].append({"id":ident,"name":ident})
             pre["rankings"].append({"team_id":ident,"elo":1500.0})
