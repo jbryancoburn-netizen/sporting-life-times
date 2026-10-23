@@ -12,6 +12,10 @@ on:
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
       - 'nba.html'
+      - 'nba-elo-movement.js'
+      - 'nba-desk-loader.js'
+      - 'nba-home.js'
+      - 'scripts/test-nba-elo-movement.mjs'
       - '.github/workflows/nba-elo-integrity.yml'
       - '.github/workflows/nba-elo-refresh.yml'
   pull_request:
@@ -25,6 +29,10 @@ on:
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
       - 'nba.html'
+      - 'nba-elo-movement.js'
+      - 'nba-desk-loader.js'
+      - 'nba-home.js'
+      - 'scripts/test-nba-elo-movement.mjs'
       - '.github/workflows/nba-elo-integrity.yml'
       - '.github/workflows/nba-elo-refresh.yml'
   workflow_dispatch:
@@ -44,5 +52,7 @@ jobs:
           node-version: '22'
       - name: Verify NBA page and source ownership
         run: node scripts/audit-nba-page.mjs
+      - name: Validate dated daily Elo changes and website arrows
+        run: node scripts/test-nba-elo-movement.mjs
       - name: Verify archived and current NBA Elo consistency
         run: node scripts/audit-nba-elo.mjs
