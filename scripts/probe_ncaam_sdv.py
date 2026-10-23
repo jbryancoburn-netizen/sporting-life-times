@@ -31,5 +31,5 @@ def main():
  a.output.mkdir(parents=True,exist_ok=True)
  (a.output/"schema-report.json").write_text(json.dumps(result,indent=2)+"\n")
  (a.output/"season.csv.gz").write_bytes(data)
- print(json.dumps({"rows":len(rows),"columns":keys,"sha256":result["sha256_gzip"]},indent=2))
+ print(json.dumps({"rows":len(rows),"columns":keys,"sample_rows":rows[:3],"sha256":result["sha256_gzip"]},indent=2))
 if __name__=="__main__":main()
