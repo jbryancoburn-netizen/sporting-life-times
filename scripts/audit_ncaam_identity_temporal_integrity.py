@@ -41,6 +41,8 @@ def audit(identity,production,exposure):
         "candidate_box_players":production["counts"].get("unique_ncaa_box_candidates",0),
         "candidate_opponent_exposure_players":exposure["counts"].get("candidate_exposure_players",0),
         "release_blockers":blockers,
+        "release_blocker_count":sum(bool(v) for v in blockers.values()),
+        "release_blocker_names":[k for k,v in blockers.items() if v],
         "release_approved":not any(blockers.values()),
         "decision":"HOLD: no unapproved offseason player adjustments may seed published NCAA Elo" if any(blockers.values()) else "All automated provenance gates passed; requires separate model approval"}
 def main():
