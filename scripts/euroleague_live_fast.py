@@ -82,6 +82,12 @@ def build(model, previous, now=None, get_header=None):
                 g["away"]["score"]=outcome["away"]
                 g["score_updated_at"]=now.isoformat()
                 refreshed+=1
+            elif raw.get("Live",raw.get("live")) is False and g["status"] in ("live","awaiting_final"):
+                home=str(raw.get("CodeTeamA",raw.get("codeTeamA",""))).strip().upper()
+                away=str(raw.get("CodeTeamB",raw.get("codeTeamB",""))).strip().upper()
+                if home==str(g["home"]["code"]).upper() and away==str(g["away"]["code"]).upper():
+                    g["status"]="awaiting_final"
+                    g["status_detail"]="Awaiting official final result"
         except (OSError,TimeoutError,ValueError) as exc:
             print("Header check failed for "+str(g["id"])+": "+str(exc),file=sys.stderr)
     for item in games.values():
