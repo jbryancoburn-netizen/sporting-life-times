@@ -10,7 +10,8 @@ const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'
 const num=n=>Number.isFinite(Number(n))?Number(n).toFixed(2):'—';
 const files={
  current:'data/ncaam-2026-27-current-provisional.json',
- roster:'data/ncaam-2026-27-offseason-shadow.json',
+ roster:'data/ncaam-2026-27-preseason-roster-informed.json',
+ shadow:'data/ncaam-2026-27-offseason-shadow.json',
  baseline:'data/ncaam-2026-27-preseason-provisional.json'
 };
 async function load(url){
@@ -18,9 +19,11 @@ async function load(url){
   const response=await fetch(url,{cache:'no-store'});
   if(!response.ok)return null;
   const x=await response.json();
-  if(x.season!=='2026-27'||x.team_count<350||x.rankings?.length!==x.team_count||
+  if(x.season!=='2026-27'||x.team_count!==365||x.rankings?.length!==365||
      !String(x.status).startsWith('provisional-')||
-     new Set(x.rankings.map(y=>y.team_id)).size!==x.team_count)return null;
+     new Set(x.rankings.map(y=>y.team_id)).size!==365||
+     x.rankings.some((y,i)=>y.rank!==i+1||!Number.isFinite(Number(y.elo))||
+      (i>0&&y.elo>x.rankings[i-1].elo)))return null;
   return x;
  }catch{return null;}
 }
@@ -31,17 +34,18 @@ function changeMarkup(n){
  return '<span class="'+(x>0?'elo-up':'elo-down')+'">'+(x>0?'↑ +':'↓ ')+num(x)+'</span>';
 }
 try {
- const [current,roster,baseline]=await Promise.all([load(files.current),load(files.roster),load(files.baseline)]);
+ const [current,roster,shadow,baseline]=await Promise.all([load(files.current),load(files.roster),load(files.shadow),load(files.baseline)]);
  if(!baseline)throw Error('Baseline ratings failed integrity checks');
  const available={baseline};
- // Audit hold: roster coefficients yield implausible +100 to +155 Elo jumps.
- // Do not present this experimental model as a validated default.
- const rosterAuditPassed=roster?.audit?.release_approved===true && roster?.production_elo_approved===true && roster?.identity_verified===true && roster?.preseason_information_integrity_verified===true;
- if(roster?.evidence?.roster_programs>=350)available.roster=roster;
+ // This preseason edition is provisional: identity-linked historical minutes
+ // are used when supported, with explicit baseline fallback and no invented player value.
+ if(roster?.preseason_roster_informed===true && roster?.evidence?.roster_programs===364 &&
+    roster?.evidence?.players_with_verified_historical_minutes>=2500)available.roster=roster;
+ if(shadow?.evidence?.roster_programs>=350)available.shadow=shadow;
  if(current?.games_played>0)available.current=current;
- const defaults=available.current?'current':rosterAuditPassed&&available.roster?'roster':'baseline';
- const labels={current:'Current season Elo',roster:'Experimental 2026–27 roster Elo (unverified)',baseline:'Historical carryover baseline'};
- for(const choice of ['current','roster','baseline']){
+ const defaults=available.current?'current':available.roster?'roster':'baseline';
+ const labels={current:'Current season Elo',roster:'New roster-informed preseason (provisional)',shadow:'Previous experimental roster model',baseline:'Historical carryover baseline'};
+ for(const choice of ['current','roster','shadow','baseline']){
   if(!available[choice])continue;
   const option=document.createElement('option');option.value=choice;option.textContent=labels[choice];
   version.append(option);
@@ -90,23 +94,27 @@ try {
   const c=conference.value;
   const rows=data.rankings.filter(r=>(!q||r.team.toLowerCase().includes(q))&&(!c||r.conference===c));
   if(choice==='roster'){
-   status.textContent='EXPERIMENTAL · 2026–27 roster-adjusted preseason · '+data.team_count+' programs · 0 games';
-   note.textContent='NOT APPROVED for official rankings or betting. '+data.evidence.roster_programs+'/'+data.team_count+' programs with roster evidence; '+(data.evidence.player_matches?.exact_id_matches??0)+' exact cross-provider player IDs; historical roster timing unverified. Estimates may shift sharply.';
+   status.textContent='2026–27 roster-informed preseason Elo · '+data.team_count+' teams · provisional';
+   note.textContent='Updated for 2026–27 rosters: '+data.evidence.source_linked_player_ids+' linked NCAA/ESPN player IDs; '+data.evidence.players_with_verified_historical_minutes+' players contributing documented prior minutes; '+data.evidence.roster_programs+'/'+data.team_count+' teams covered. Unverified players are not assigned invented production. Historical roster timing and independent model calibration remain provisional.';
    referenceHeading.textContent='Roster adjustment';
+  }else if(choice==='shadow'){
+   status.textContent='RESEARCH · Earlier experimental roster Elo · '+data.team_count+' programs';
+   note.textContent='Older exact-name-match model; available for comparison only. Its identity evidence is weaker than the newer roster-informed edition.';
+   referenceHeading.textContent='Research adjustment';
   }else if(choice==='current'){
    status.textContent='2026–27 current-season Elo · '+data.games_played+' completed games';
-   note.textContent='Verified game results replayed from the approved preseason opening Elo. Venue-neutral until court-data calibration.';
+   note.textContent='Completed game results independently replayed from the roster-informed provisional preseason Elo. Venue-neutral until court-data calibration. Verify source coverage for each reporting day.';
    referenceHeading.textContent='Opening Elo';
   }else{
    status.textContent='2026–27 historical carryover baseline · '+data.team_count+' programs';
-   note.textContent='Independent 2025–26 Elo with 65% carryover. Experimental 2026–27 player and transfer adjustments are available separately, not as official rankings.';
+   note.textContent='Independent 2025–26 Elo with 65% carryover, without player adjustments. The updated 2026–27 roster-informed edition is available separately.';
    referenceHeading.textContent='2025–26 final Elo';
   }
   renderMatchup();
   ratingHeading.textContent=choice==='current'?'Current Elo':'Preseason Elo';
   tbody.innerHTML=rows.length?rows.map(r=>{
    let reference='—';
-   if(choice==='roster')reference=changeMarkup(r.offseason_adjustment);
+   if(choice==='roster'||choice==='shadow')reference=changeMarkup(r.offseason_adjustment);
    else if(choice==='baseline')reference=num(r.last_season_elo);
    else reference=num(initialById.get(r.team_id)?.elo);
    return '<tr><td>'+r.rank+'</td><td class="team">'+safe(r.team)+'</td><td>'+safe(r.conference)+'</td><td class="number elo-standout">'+num(r.elo)+'</td><td class="number">'+reference+'</td><td class="number">'+(r.season_games??r.games??0)+'</td></tr>';
