@@ -22,7 +22,13 @@ async function render(){
  const movement=verifiedSnapshot?{available:true,day:snapshot.as_of_eastern_date,weekDate:snapshot.last_week_eastern_date,
   daily:snapshot.daily_change,lastWeek:snapshot.last_week_elo}:
   (window.NBAEloMovement?.compute(cur)||{available:false,reason:'Published daily Elo movement unavailable'});
- const daily=t=>movement.available?(window.NBAEloMovement?.format?.(movement.daily[t]) || (movement.daily[t]>0?'▲ +':movement.daily[t]<0?'▼ ':'')+movement.daily[t].toFixed(3)):'N/A';
+ const dailyMarkup=n=>{
+  if(!Number.isFinite(n))return 'N/A';
+  if(n>.0005)return '<span class="nba-elo-positive">▲ +'+n.toFixed(3)+'</span>';
+  if(n<-.0005)return '<span class="nba-elo-negative">▼ '+n.toFixed(3)+'</span>';
+  return '<span class="nba-elo-flat">—</span>';
+ };
+ const daily=t=>movement.available?dailyMarkup(movement.daily[t]):'N/A';
  const lastWeek=t=>movement.available?movement.lastWeek[t].toFixed(2):'N/A';
  $('nba-elo-grid').innerHTML=table(['#','Team','Offseason','Last week','Current Elo','Daily Δ'],sorted.map((t,i)=>row([i+1,badge(t),start[t].toFixed(2),lastWeek(t),'<strong>'+current[t].toFixed(2)+'</strong>',daily(t)])));
  msg('nba-elo-status',cur.games_played+' verified finals · Current-season Elo · '+(movement.available?'Daily movement from completed games on '+movement.day+' (Eastern) · Last-week snapshot: '+movement.weekDate:movement.reason));
