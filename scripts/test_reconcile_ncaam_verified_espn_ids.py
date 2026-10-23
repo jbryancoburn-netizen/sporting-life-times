@@ -27,4 +27,12 @@ class IdentityTests(unittest.TestCase):
         self.assertEqual(r["matched"][0]["prior_team_id"],"ncaa:10")
         self.assertEqual(r["matched"][0]["team_id"],"ncaa:20")
         self.assertFalse(r["matched"][0]["ncaa_box_identity_verified"])
+    def test_duplicate_current_id_cannot_be_verified_twice(self):
+        old={"rosters":[{"ncaa_id":"ncaa:10","players":[{"id":"123","name":"A Sample"}]}]}
+        current={"rosters":[
+            {"ncaa_id":"ncaa:10","school":"Old School","players":[{"id":"123","name":"A Sample"}]},
+            {"ncaa_id":"ncaa:20","school":"New School","players":[{"id":"123","name":"A Sample"}]}]}
+        r=reconcile(old,current,[])
+        self.assertEqual(r["counts"]["duplicate_current_espn_id"],2)
+        self.assertEqual(r["matched"],[])
 if __name__=="__main__":unittest.main()
