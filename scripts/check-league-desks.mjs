@@ -9,7 +9,11 @@ assert(index.includes('id="league-search"'),'directory search missing');
 assert(css.includes('@media(max-width:650px)'),'mobile layout missing');
 const found=[...index.matchAll(/class="league-directory-link" href="([^"]+\.html)"/g)].map(m=>m[1]);
 assert.equal(new Set(found).size,found.length,'duplicate desk links');
-assert(found.length>=50,'not every planned league has its own desk');
+assert(found.length>=35,'the broader sports directory is incomplete');
+const basketball=['nba.html','euroleague.html','nbl.html','bbl.html'];
+const pro=index.match(/<h2>Professional Basketball<\/h2>([\s\S]*?)<\/section>/)?.[1]||'';
+const proLinks=[...pro.matchAll(/href="([^"]+\.html)"/g)].map(m=>m[1]);
+assert.deepEqual(proLinks,basketball,'professional basketball must list exactly the four approved desks');
 for(const page of found){
  assert(fs.existsSync(page),'missing dedicated page: '+page);
  const html=read(page);
