@@ -21,5 +21,21 @@ jobs:
           python-version: '3.12'
       - name: Prove Elo replay is idempotent
         run: python -m unittest discover -s scripts -p test_euroleague_model.py -v
+      - name: Check publication arithmetic and cross-feed integrity
+        run: python scripts/euroleague_release_gate.py
       - name: Check published GitHub Pages edition and JSON
         run: python scripts/euroleague_deploy_audit.py
+      - name: Save verification evidence
+        if: always()
+        run: |
+          mkdir -p diagnostics
+          python scripts/euroleague_release_gate.py > diagnostics/release-gate.txt 2>&1 || true
+          python -m unittest discover -s scripts -p test_euroleague_model.py -v > diagnostics/elo-replay-tests.txt 2>&1 || true
+          cp data/euroleague-validation.json diagnostics/model-validation.json
+      - name: Upload release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: euroleague-signoff-evidence
+          path: diagnostics/
+          retention-days: 14
