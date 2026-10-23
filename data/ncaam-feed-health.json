@@ -1,0 +1,30 @@
+{
+  "season": "2026-27",
+  "status": "not_released",
+  "official_first": true,
+  "sources": {
+    "ncaa_team_ids": {
+      "available": false,
+      "asset": null,
+      "url": null,
+      "repository": "https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/tags/ncaa_mbb_team_ids"
+    },
+    "ncaa_schedule": {
+      "available": false,
+      "asset": null,
+      "url": null,
+      "repository": "https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/tags/ncaa_mbb_schedule"
+    },
+    "espn_fallback": {
+      "available": false,
+      "asset": null,
+      "url": null,
+      "repository": "https://api.github.com/repos/sportsdataverse/sportsdataverse-data/releases/tags/espn_mens_college_basketball_schedules"
+    }
+  },
+  "requirements": [
+    "2026-27 membership crosswalk",
+    "verified finals",
+    "venue verification"
+  ]
+}
