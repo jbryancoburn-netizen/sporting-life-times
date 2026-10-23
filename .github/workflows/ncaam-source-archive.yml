@@ -1,5 +1,11 @@
 name: NCAA D1 men's source archive smoke test
 on:
+  push:
+    paths:
+      - 'scripts/archive_ncaam_ncaa_scores.py'
+      - 'scripts/normalize_ncaam_archive.py'
+      - 'scripts/test_normalize_ncaam_archive.py'
+      - '.github/workflows/ncaam-source-archive.yml'
   workflow_dispatch:
     inputs:
       start:
