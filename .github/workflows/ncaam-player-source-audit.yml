@@ -1,0 +1,38 @@
+name: Audit NCAA-origin player performance sources
+on:
+  push:
+    paths:
+      - scripts/audit_ncaam_player_sources.py
+      - .github/workflows/ncaam-player-source-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/audit_ncaam_player_sources.py
+      - name: Assert all source evidence present
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('data/ncaam-historical-player-source-audit.json'))
+          assert x['source_evidence_verified']
+          assert x['datasets']['ncaa_rosters']['rows']>2000
+          assert x['datasets']['ncaa_player_box']['rows']>10000
+          print('NCAA-origin player sources validated')
+          PY
+      - name: Commit reproducible audit evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-historical-player-source-audit.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Validate NCAA-origin historical player data coverage"
+          git pull --rebase origin main
+          git push origin HEAD:main
