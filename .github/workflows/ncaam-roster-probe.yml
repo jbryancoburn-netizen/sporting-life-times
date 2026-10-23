@@ -1,0 +1,19 @@
+name: Probe college roster data contract
+on:
+  push:
+    paths:
+      - scripts/probe_ncaam_roster_endpoint.py
+      - .github/workflows/ncaam-roster-probe.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/probe_ncaam_roster_endpoint.py
