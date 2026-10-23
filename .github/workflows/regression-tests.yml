@@ -16,6 +16,7 @@ jobs:
           node --check department-stories.js
           node --check edition-pages.js
           node --check app.js
+          node --input-type=module --check < ncaam-elo-page.js
       - name: Test newspaper systems
         run: node --test tests/*.test.cjs
       - name: Validate USRS publication safety gate
