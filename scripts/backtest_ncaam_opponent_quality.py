@@ -57,8 +57,8 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
             weight[target]+=m
     return {t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
 
-def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160)):
-    valid={t for t in features if t in quality}
+def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True):
+    valid={t for t in features if t in quality} if require_quality else {t for g in schedule for t in (g[2],g[3])}
     if len(valid)<200:raise ValueError("Insufficient quality feature coverage")
     end=schedule[0][0].toordinal()+days-1
     mk=sorted(x["retention"] for x in features.values())[len(features)//2]
@@ -148,6 +148,11 @@ def run():
             "logloss_gain":plain["log_loss"]-adjusted["log_loss"],
             "brier_gain":plain["brier"]-adjusted["brier"]}
     all_game_only_windows_improve=all(x["logloss_gain"]>0 and x["brier_gain"]>0 for x in game_only_windows.values())
+    # Also compare coverage honestly: the model has missing quality features.
+    # A common-game comparison is useful but cannot stand in for all D1 games.
+    full_game_only=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+        data[2026]["features"],data[2026]["quality"],0,
+        roster_betas=(0,0),require_quality=False)
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -159,6 +164,8 @@ def run():
         "training_year_diagnostics":train_by_season,
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_game_only":game_only,
+        "holdout_all_games_game_only":full_game_only,
+        "head_to_head_is_coverage_subset":game_only["games"]<full_game_only["games"],
         "holdout_game_only_window_sensitivity":game_only_windows,
         "all_game_only_windows_improve":all_game_only_windows_improve,
         "adjusted_vs_game_only_logloss_gain":game_only["log_loss"]-hold["log_loss"],
