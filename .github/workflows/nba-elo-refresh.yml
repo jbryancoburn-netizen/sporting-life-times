@@ -1,5 +1,10 @@
 name: NBA Elo verified final-game refresh
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nba-elo-refresh.yml'
+      - 'scripts/update-nba-elo.mjs'
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
@@ -26,6 +31,8 @@ jobs:
           node scripts/audit-nba-page.mjs
       - name: Audit published ratings before refresh
         run: node scripts/audit-nba-elo.mjs
+      - name: Validate NBA Elo replay script before network access
+        run: node --check scripts/update-nba-elo.mjs
       - name: Replay verified 2026-27 regular-season finals
         run: node scripts/update-nba-elo.mjs
       - name: Verify all rankings, Elo deltas and dated finals before publication
@@ -42,4 +49,12 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nba-2026-27-current-provisional.json
           git commit -m "Update independent provisional NBA Elo with verified final scores"
-          git push
+          for attempt in 1 2 3; do
+            if git push; then echo "NBA Elo published successfully"; exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            node scripts/audit-nba-elo.mjs
+            sleep 2
+          done
+          echo "NBA Elo publication failed after three attempts" >&2
+          exit 1
