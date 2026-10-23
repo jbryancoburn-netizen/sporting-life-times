@@ -55,6 +55,7 @@ for label,path in LEAGUES:
     block["window_end"]=end
     logo_by_id={}
     standings={}
+    missing_logo_ids=set()
     if label in ("NFL","NBA"):
         try:standings=espn_standings(path)
         except Exception as exc:block["standings_warning"]=type(exc).__name__
@@ -86,10 +87,32 @@ for label,path in LEAGUES:
             teams=[]
             for c in competitors:
                 t=c.get("team") or {}
-                teams.append({"name":t.get("displayName") or t.get("name") or "Unknown","national_rank":(int(c["curatedRank"]["current"]) if str((c.get("curatedRank") or {}).get("current","")).isdigit() and 1<=int(c["curatedRank"]["current"])<=25 and label in ("College Football","Men\'s College Basketball","Women\'s College Basketball") else None),"score":c.get("score"),"linescores":[{"value":x.get("displayValue") if x.get("displayValue") is not None else x.get("value"),"period":x.get("period")} for x in (c.get("linescores") or []) if isinstance(x,dict)],"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None) or logo_by_id.get(str(t.get("id"))),"standings":({"before":standings[str(t.get("id"))],"after":None,"basis":"espn_current_standings"} if str(t.get("id")) in standings else None)})
+                teams.append({"espn_team_id":str(t.get("id") or ""),"name":t.get("displayName") or t.get("name") or "Unknown","national_rank":(int(c["curatedRank"]["current"]) if str((c.get("curatedRank") or {}).get("current","")).isdigit() and 1<=int(c["curatedRank"]["current"])<=25 and label in ("College Football","Men\'s College Basketball","Women\'s College Basketball") else None),"score":c.get("score"),"linescores":[{"value":x.get("displayValue") if x.get("displayValue") is not None else x.get("value"),"period":x.get("period")} for x in (c.get("linescores") or []) if isinstance(x,dict)],"home_away":c.get("homeAway"),"winner":c.get("winner"),"logo":next((x.get("href") for x in (t.get("logos") or []) if x.get("href","").startswith("https://")),None) or logo_by_id.get(str(t.get("id"))),"standings":({"before":standings[str(t.get("id"))],"after":None,"basis":"espn_current_standings"} if str(t.get("id")) in standings else None)})
             status=ev.get("status") or {}
             block["games"].append({"id":str(ev.get("id","")),"name":ev.get("name",""),"date":ev.get("date",""),"status":(status.get("type") or {}).get("description","Unknown"),"state":(status.get("type") or {}).get("state",""),"teams":teams,"venue":(comp.get("venue") or {}).get("fullName",""),"broadcast":", ".join(x.get("names",[""])[0] for x in comp.get("broadcasts",[]) if x.get("names")),"url":((comp.get("links") or ev.get("links") or [{}])[0]).get("href",block["source_url"])})
     except Exception as exc: block["error"]=type(exc).__name__+": "+str(exc)[:100]
+    # Recover missing ESPN logos by stable provider team ID, never by guessed URL.
+    # The scoreboard and team-list endpoints occasionally omit a team's crest.
+    if label=="College Football" and block["games"]:
+        for game in block["games"]:
+            for team in game["teams"]:
+                if not team.get("logo"):
+                    missing_logo_ids.add(team.get("espn_team_id"))
+        for team_id in sorted(missing_logo_ids-{None,""}):
+            try:
+                detail_url="https://site.api.espn.com/apis/site/v2/sports/"+path+"/teams/"+str(team_id)
+                detail_req=Request(detail_url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
+                with urlopen(detail_req,timeout=8) as response: detail=json.load(response)
+                info=detail.get("team") or {}
+                logo=next((x.get("href") for x in (info.get("logos") or []) if str(x.get("href","")).startswith("https://")),None)
+                if logo:logo_by_id[str(team_id)]=logo
+            except Exception:
+                continue
+        for game in block["games"]:
+            for team in game["teams"]:
+                if not team.get("logo"):team["logo"]=logo_by_id.get(str(team.get("espn_team_id")))
+    for game in block["games"]:
+        for team in game["teams"]:team.pop("espn_team_id",None)
     block["games"].sort(key=lambda g:g.get("date") or "")
     block.setdefault("window_start",start)
     block.setdefault("window_end",end)
