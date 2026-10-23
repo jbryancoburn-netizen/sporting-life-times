@@ -1,0 +1,56 @@
+name: NCAA men's 2026-27 Elo nightly refresh
+on:
+  schedule:
+    - cron: '25 10 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/update_ncaam_2027.py'
+      - '.github/workflows/ncaam-elo-nightly.yml'
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-elo-nightly
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run independent Elo tests
+        run: python -m unittest discover -s scripts -p test_ncaam_elo.py -v
+      - name: Reconcile season membership and replay NCAA-origin finals
+        run: python scripts/update_ncaam_2027.py
+      - name: Verify output schema before publication
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path('data')
+          state=json.loads((base/'ncaam-source-readiness.json').read_text())
+          if state['ready']:
+              out=json.loads((base/'ncaam-2026-27-current-provisional.json').read_text())
+              assert out['team_count']>=350
+              assert len(out['rankings'])==out['team_count']
+              assert out['games_played']==len(out['events'])
+              assert len({t['team_id'] for t in out['rankings']})==out['team_count']
+              assert out['status']=='provisional-current-venue-neutral'
+              print('Verified',out['games_played'],'real games')
+          else:
+              assert not (base/'ncaam-2026-27-current-provisional.json').exists()
+              print('Historical preseason remains primary: unreleased new-season data.')
+          PY
+      - name: Commit changed verified source readiness and ratings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-source-readiness.json
+          if [ -f data/ncaam-2026-27-current-provisional.json ]; then git add data/ncaam-2026-27-current-provisional.json; fi
+          if git diff --cached --quiet; then echo "No changed data"; exit 0; fi
+          git commit -m "Refresh NCAA D1 men source status and independent Elo ratings"
+          git pull --rebase origin main
+          git push origin HEAD:main
