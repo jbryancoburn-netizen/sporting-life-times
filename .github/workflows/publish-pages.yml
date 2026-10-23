@@ -59,6 +59,31 @@ jobs:
           else
             echo "Unable to inspect Pages settings (HTTP $STATUS); continuing to attempt publication." >&2
           fi
+      - name: Ensure GitHub Actions is the Pages publishing source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          STATUS="$(curl -sS -o /tmp/current-pages-config.json -w '%{http_code}' -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")"
+          if [ "$STATUS" = 200 ]; then
+            TYPE="$(python -c "import json;print(json.load(open('/tmp/current-pages-config.json')).get('build_type','unknown'))")"
+            echo "Existing GitHub Pages build type: $TYPE"
+            if [ "$TYPE" != workflow ]; then
+              echo "Pages is not configured for Actions deployment. Attempting to select workflow source."
+              UPDATE_STATUS="$(curl -sS -X PUT -o /tmp/pages-update.json -w '%{http_code}' -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' -H 'Content-Type: application/json' -d '{"build_type":"workflow"}' "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")"
+              echo "Pages configuration update status: $UPDATE_STATUS"
+              if [ "$UPDATE_STATUS" != 204 ] && [ "$UPDATE_STATUS" != 200 ]; then
+                echo "::error::GitHub Pages uses branch publishing, and the Actions token cannot switch it. Open Settings > Pages > Build and deployment > Source: GitHub Actions."
+                cat /tmp/pages-update.json
+                exit 1
+              fi
+            fi
+          elif [ "$STATUS" = 404 ]; then
+            echo "::error::GitHub Pages is not enabled or the Actions token cannot read its configuration. Enable GitHub Pages in repository Settings > Pages."
+            exit 1
+          else
+            echo "::warning::GitHub Pages settings returned HTTP $STATUS; deployment will be attempted."
+          fi
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload entire newspaper
