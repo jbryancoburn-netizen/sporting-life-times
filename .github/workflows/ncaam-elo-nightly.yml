@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'scripts/update_ncaam_2027.py'
+      - 'scripts/test_ncaam_elo.py'
       - '.github/workflows/ncaam-elo-nightly.yml'
 permissions:
   contents: write
