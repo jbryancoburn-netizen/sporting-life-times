@@ -43,6 +43,18 @@ async function desk(){
  const ledger=(elo.events||[]).filter(g=>Number.isFinite(g.home_score)&&Number.isFinite(g.away_score));
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
 
+ const teamRows=Object.fromEntries(Object.keys(names).map(t=>[t,{team:t,gp:0,pf:0,pa:0}]));
+ for(const g of ledger){
+  if(!teamRows[g.home]||!teamRows[g.away])continue;
+  for(const [t,pts,opp] of [[g.home,g.home_score,g.away_score],[g.away,g.away_score,g.home_score]]){
+   const row=teamRows[t];row.gp++;row.pf+=pts;row.pa+=opp;
+  }
+ }
+ const leaders=Object.values(teamRows).filter(t=>t.gp>0);
+ const top=(key,desc=true)=>[...leaders].sort((a,b)=>(desc?b[key]/b.gp-a[key]/a.gp:a[key]/a.gp-b[key]/b.gp)||a.team.localeCompare(b.team)).slice(0,5);
+ const leaderRows=(title,arr,key)=>'<div class="nba-early-leader"><h3>'+title+'</h3><table class="nba-mini-table"><thead><tr><th>Team</th><th>GP</th><th>Avg</th></tr></thead><tbody>'+arr.map(t=>'<tr><th>'+esc(t.team)+'</th><td>'+t.gp+'</td><td>'+(t[key]/t.gp).toFixed(1)+'</td></tr>').join('')+'</tbody></table></div>';
+ if($('nba-captured-leaders'))$('nba-captured-leaders').innerHTML='<div class="nba-early-leader-grid">'+leaderRows('Points per game',top('pf'),'pf')+leaderRows('Fewest allowed / game',top('pa',false),'pa')+'</div>';
+ msg('nba-captured-leaders-status',ledger.length+' captured final games · Small, uneven team samples · Not official full-season NBA leaders');
  const finals=games.filter(g=>g.state==='post'||/final/i.test(g.status||''));
  const ledgerKeys=new Set(ledger.map(g=>[g.home,g.away,g.home_score,g.away_score].join('|')));
  const pending=finals.filter(g=>{const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');const hc=code(h?.name),ac=code(a?.name);return hc&&ac&&Number.isFinite(Number(h?.score))&&Number.isFinite(Number(a?.score))&&!ledgerKeys.has([hc,ac,Number(h.score),Number(a.score)].join('|'))});
