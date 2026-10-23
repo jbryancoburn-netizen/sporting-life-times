@@ -31,6 +31,7 @@ def fetch_team(team_id,season,reader=request):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--season",type=int,default=2027)
+    p.add_argument("--min-players",type=int,default=8)
     p.add_argument("--team-ids",type=Path,default=Path("data/ncaam-2026-27-espn-team-crosswalk.json"))
     p.add_argument("--out",type=Path,default=Path("staging/ncaam-2027-roster-evidence.json"))
     a=p.parse_args()
@@ -41,7 +42,7 @@ def main():
         try:
             x=fetch_team(t["espn_id"],a.season)
             x["ncaa_id"]=t["id"];x["school"]=t["name"]
-            if len(x["players"])<8:raise ValueError("Fewer than 8 listed players")
+            if len(x["players"])<a.min_players:raise ValueError("Fewer than "+str(a.min_players)+" listed players")
             return x,None
         except Exception as exc:return None,{"team":t["name"],"error":str(exc)[:160]}
     with ThreadPoolExecutor(max_workers=6) as executor:
@@ -50,7 +51,9 @@ def main():
             if err:failures.append(err)
     output.sort(key=lambda x:x["ncaa_id"])
     result={"season":a.season,"provenance":"ESPN roster endpoint; secondary evidence",
-            "rosters":output,"failed":failures,"full_coverage":len(output)==len(teams)}
+            "rosters":output,"failed":failures,"minimum_players":a.min_players,
+            "partial_roster_teams":sum(len(t["players"])<8 for t in output),
+            "full_coverage":len(output)==len(teams)}
     a.out.parent.mkdir(parents=True,exist_ok=True)
     a.out.write_text(json.dumps(result,indent=2)+"\n")
     print("Complete rosters",len(output),"of",len(teams),"; failures",len(failures))
