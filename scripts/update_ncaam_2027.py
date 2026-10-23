@@ -70,10 +70,17 @@ def main():
     except urllib.error.HTTPError as exc:
         if exc.code!=404:raise
         state["reason"]="2026-27 season source not released (HTTP 404)"
-        (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
+        (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"
+")
         print(state["reason"]);return
     roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
-    # Audit hold: extreme transfer adjustments are not publication-approved.\n    # Re-enable only after team-level identity and magnitude validation.\n    approved=False\n    if roster_adjusted.is_file():\n        candidate=json.loads(roster_adjusted.read_text())\n        approved=candidate.get("audit",{}).get("release_approved") is True\n    chosen=roster_adjusted if approved else base/"ncaam-2026-27-preseason-provisional.json"
+    # Audit hold: extreme transfer adjustments are not publication-approved.
+    # Re-enable only after team-level identity and magnitude validation.
+    approved=False
+    if roster_adjusted.is_file():
+        candidate=json.loads(roster_adjusted.read_text())
+        approved=candidate.get("audit",{}).get("release_approved") is True
+    chosen=roster_adjusted if approved else base/"ncaam-2026-27-preseason-provisional.json"
     pre=json.loads(chosen.read_text())
     if chosen==roster_adjusted:
         assert pre.get("status")=="provisional-roster-adjusted" and pre["evidence"]["roster_programs"]>=350, "Roster-adjusted preseason model below evidence gate"
@@ -81,8 +88,10 @@ def main():
     result=calculate(pre,old,current,games)
     result["preseason_seed"]=str(chosen)
     result["preseason_roster_adjusted"]=(chosen==roster_adjusted)
-    (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"\n")
+    (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"
+")
     state.update({"ready":True,"teams":result["team_count"],"games":result["games_played"]})
-    (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
+    (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"
+")
     print("Replayed",result["games_played"],"finals for",result["team_count"],"programs")
 if __name__=="__main__":main()
