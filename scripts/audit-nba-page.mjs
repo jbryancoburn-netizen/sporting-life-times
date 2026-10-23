@@ -16,7 +16,7 @@ assert.match(ui,/cur\.events/);
 assert.match(ui,/const put=/);
 assert.match(home,/nba-yesterday-scores/);
 assert.match(home,/nba-conference-standings/);
-assert.match(home,/r\.w\/(r\.w\+r\.l)/);
+assert.ok(home.includes('(r.w/(r.w+r.l)).toFixed(3)'));
 assert.match(home,/ledger/);
 assert.doesNotMatch(home,/c\.includes\('basketball'\)/);
 assert.match(page,/id="nba-yesterday-scores"/);
