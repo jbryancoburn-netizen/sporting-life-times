@@ -13,6 +13,8 @@ on:
       - 'data/ncaam-2026-27-player-scoring-shadow.json'
       - 'scripts/verify_ncaam_player_quality_release.py'
       - 'data/ncaam-2026-27-player-quality-release-decision.json'
+      - 'scripts/test_backtest_ncaam_player_quality.py'
+      - 'scripts/backtest_ncaam_player_quality.py'
       - 'scripts/test_build_ncaam_2027_verified_preseason.py'
       - 'data/ncaam-2026-27-direct-player-crosswalk.json'
       - 'data/ncaam-2026-27-player-movement-audit.json'
@@ -57,6 +59,8 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_build_ncaam_2027_verified_preseason.py' -v
       - name: Verify player scoring evidence reproduces without altering official Elo
         run: python scripts/audit_ncaam_player_scoring_shadow.py
+      - name: Test chronological scoring-quality backtest and leakage detection
+        run: python -m unittest discover -s scripts -p 'test_backtest_ncaam_player_quality.py' -v
       - name: Enforce evidence-based scoring-quality release decision
         run: python scripts/verify_ncaam_player_quality_release.py
       - name: Verify NCAA ratings newspaper renders newest provisional data
