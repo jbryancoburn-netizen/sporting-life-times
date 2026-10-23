@@ -32,6 +32,16 @@ class TestModel(unittest.TestCase):
     def test_home_advantage_probability(self):
         self.assertGreater(el.expected(65),0.5)
         self.assertLess(el.expected(-65),0.5)
+    def test_historical_backtest(self):
+        import euroleague_backtest as bt
+        g1=el.parse({"data":[make_game(1)]},"E2025")[0]
+        g2=el.parse({"data":[make_game(2)]},"E2026")[0]
+        result=bt.score([g1,g2],22.,65.,.67)
+        self.assertEqual(result["n"],2)
+        self.assertGreaterEqual(result["brier"],0)
+        self.assertLessEqual(result["brier"],1)
+        self.assertGreater(result["log_loss"],0)
+        self.assertAlmostEqual(result["predictions"][0]["pred"],el.expected(65))
     def test_fetch_pages(self):
         def responder(url):
             if "offset=0" in url:return {"total":2,"data":[make_game(1)]}
