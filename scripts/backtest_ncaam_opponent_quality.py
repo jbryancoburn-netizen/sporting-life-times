@@ -99,7 +99,8 @@ def run():
         f=continuity(prior["box"],now["roster"],now["members"])
         q=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"])
         data[year]={"features":f,"quality":q,"coverage":len(q)}
-    slopes=(-80,-40,-20,0,20,40,80)
+    # Wide predeclared search checks whether the prior optimum sat on a grid edge.
+    slopes=(-240,-200,-160,-120,-80,-40,-20,0,20,40,80,120,160,200,240)
     train=[]
     for beta in slopes:
         scores=[evaluate_quality(seasons[y]["schedule"],seasons[y-1]["end"],
@@ -108,6 +109,7 @@ def run():
         train.append({"beta_per_100_opponent_elo":beta,"games":n,
             "log_loss":sum(s["games"]*s["log_loss"] for s in scores)/n})
     best=min(train,key=lambda x:(x["log_loss"],abs(x["beta_per_100_opponent_elo"])))
+    edge_solution=best["beta_per_100_opponent_elo"] in (min(slopes),max(slopes))
     base=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
         data[2026]["features"],data[2026]["quality"],0)
     hold=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
@@ -127,11 +129,13 @@ def run():
     return {"experiment":"ncaa-opponent-exposure-incremental-calibration-v1",
         "training_seasons":[2024,2025],"untouched_holdout":2026,
         "training_winner":best,"training_candidates":train,
+        "training_grid_edge_solution":edge_solution,
+        "training_grid_values":list(slopes),
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_logloss_gain":gain,"holdout_brier_gain":brier_gain,
         "holdout_window_sensitivity":windows,
         "quality_team_coverage":{str(y):data[y]["coverage"] for y in data},
-        "validated_incremental_gain":gain>0.0002 and brier_gain>0.00005,
+        "validated_incremental_gain":gain>0.0002 and brier_gain>0.00005 and not edge_solution,
         "preseason_information_integrity_verified":False,
         "approved_for_primary":False,
         "limitations":["Historical roster snapshot timing unverified",
