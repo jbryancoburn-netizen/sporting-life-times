@@ -26,6 +26,18 @@ jobs:
           grep -q 'NBA · Individual Player Leaders' nba-players.html
           grep -q 'Anthony Edwards' nba-players.html
           grep -q 'id="nba-individual-player-leaders"' nba.html
+          test -s data/nba-top-stories.json
+          node --check nba-home.js
+          node --check nba-intelligence.js
+          python - <<'PY'
+          import json
+          news=json.load(open('data/nba-top-stories.json'))
+          headlines=news.get('articles',[])
+          assert len(headlines)>=3, 'NBA Top Stories source is empty'
+          assert all(a.get('title') and a.get('url','').startswith('https://') and a.get('category')=='NBA' for a in headlines)
+          assert 'data/nba-top-stories.json' in open('nba-home.js').read(), 'NBA page does not load its own news feed'
+          print('PASS: NBA Top Stories contains',len(headlines),'attributed stories')
+          PY
       - name: Stamp the exact Git commit into the published edition
         run: |
           printf '%s\n' "${GITHUB_SHA}" > pages-build-sha.txt
