@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - scripts/build_ncaam_2027_offseason_shadow.py
+      - scripts/reconcile_ncaam_roster_ids.py
       - scripts/test_build_ncaam_2027_offseason_shadow.py
       - .github/workflows/ncaam-2027-roster-shadow.yml
   workflow_dispatch:
@@ -22,6 +23,8 @@ jobs:
           python-version: '3.12'
       - name: Validate identity and duplicate guards
         run: python -m unittest discover -s scripts -p test_build_ncaam_2027_offseason_shadow.py -v
+      - name: Build NCAA-origin team ID crosswalk
+        run: python scripts/reconcile_ncaam_roster_ids.py
       - name: Fetch crosswalked 2026-27 player rosters
         run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
       - name: Build held-out-validated NCAA-origin minutes-based offseason shadow Elo
@@ -52,7 +55,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-offseason-shadow.json
+          git add data/ncaam-2026-27-offseason-shadow.json data/ncaam-2026-27-espn-team-crosswalk.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Publish historically validated 2026-27 roster-adjusted NCAA Elo research edition"
           git pull --rebase origin main
