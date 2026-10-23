@@ -34,6 +34,33 @@ class TestModel(unittest.TestCase):
         games=[{"home":"A","away":"B","score":[91,82]},
                {"home":"B","away":"A","score":[86,89]}]
         self.assertEqual([r["code"] for r in el.order_standings(rows,games)],["A","B"])
+    def test_header_completed_game_updates_model_once(self):
+        import datetime
+        now=datetime.datetime(2026,10,23,21,5,tzinfo=datetime.timezone.utc)
+        g={"id":"70","date":"2026-10-23T18:15:00Z",
+           "home":{"code":"OLY","score":None},
+           "away":{"code":"ULK","score":None},
+           "completed":False}
+        data={"Live":False,"CodeTeamA":"OLY","CodeTeamB":"ULK",
+              "ScoreA":61,"ScoreB":64,"ScoreQuarter4A":61,
+              "ScoreQuarter4B":64,"RemainingPartialTime":"00:00"}
+        with patch.object(el.header,"get_header",return_value=data):
+            self.assertEqual(el.recover_recent_header_finals([g],now),["70"])
+            self.assertEqual(el.recover_recent_header_finals([g],now),[])
+        self.assertTrue(g["completed"])
+        self.assertEqual((g["home"]["score"],g["away"]["score"]),(61,64))
+    def test_header_partial_score_does_not_finish_game(self):
+        import datetime
+        now=datetime.datetime(2026,10,23,21,5,tzinfo=datetime.timezone.utc)
+        g={"id":"70","date":"2026-10-23T18:15:00Z",
+           "home":{"code":"OLY","score":34},
+           "away":{"code":"ULK","score":24},
+           "completed":False}
+        data={"Live":False,"CodeTeamA":"OLY","CodeTeamB":"ULK",
+              "ScoreA":34,"ScoreB":24,"RemainingPartialTime":"00:00"}
+        with patch.object(el.header,"get_header",return_value=data):
+            self.assertEqual(el.recover_recent_header_finals([g],now),[])
+        self.assertFalse(g["completed"])
     def test_even_elo(self):
         self.assertAlmostEqual(el.expected(0),0.5)
         self.assertAlmostEqual(el.expected(400),10/11)
