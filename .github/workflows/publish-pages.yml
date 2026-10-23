@@ -1,0 +1,43 @@
+name: Publish The Sporting Life & Times (main)
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'nba.html'
+      - 'nba-players.html'
+      - 'nba-intelligence.js'
+      - 'nba-paper-layout.css'
+      - '.github/workflows/publish-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the exact published files and individual leaders
+        run: |
+          test -s nba.html
+          test -s nba-players.html
+          test -s nba-intelligence.js
+          grep -q 'NBA · Individual Player Leaders' nba-players.html
+          grep -q 'Anthony Edwards' nba-players.html
+          grep -q 'id="nba-individual-player-leaders"' nba.html
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload entire newspaper
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
