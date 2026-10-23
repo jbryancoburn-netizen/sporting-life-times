@@ -1,0 +1,390 @@
+{
+  "season": "2026-27",
+  "model": "slat-ncaam-offseason-adjusted-elo-v1",
+  "team_count": 365,
+  "flagged_teams": 28,
+  "maximum_absolute_adjustment": 154.999,
+  "thresholds": {
+    "absolute_adjustment": 75,
+    "incoming_ratio_warning": 0.8,
+    "incoming_ratio_hard": 1
+  },
+  "identity_findings": [
+    "Historical backtest matches normalized player names; same-name athletes across schools are ambiguous.",
+    "Production uses cross-provider player IDs without an independently audited player-ID namespace crosswalk.",
+    "Production incoming minutes count prior raw minutes, not opponent-adjusted performance.",
+    "Transfer minutes are divided by old team's minutes, which can over-reward high-volume imports.",
+    "Only a single held-out season was used; team-level coefficient stability is unverified."
+  ],
+  "release_approved": false,
+  "release_blockers": [
+    "team-level outliers present",
+    "cross-provider player IDs require collision and namespace audit",
+    "conference-strength and transfer-quality adjustment not backtested"
+  ],
+  "flagged": [
+    {
+      "team_id": "ncaa:609700",
+      "team": "Cincinnati",
+      "rank": 8,
+      "base_elo": 1589.7616,
+      "adjustment": 154.999,
+      "incoming_ratio": 1.444571,
+      "returning_ratio": 0.001256,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_prior_minutes_exceed_previous_team_minutes",
+        "incoming_minutes_high_needs_player_by_player_verification",
+        "near_zero_returners_large_positive_boost"
+      ]
+    },
+    {
+      "team_id": "ncaa:609540",
+      "team": "Grand Canyon",
+      "rank": 13,
+      "base_elo": 1574.3793,
+      "adjustment": 148.4088,
+      "incoming_ratio": 1.05,
+      "returning_ratio": 0.472432,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_prior_minutes_exceed_previous_team_minutes",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609883",
+      "team": "UC San Diego",
+      "rank": 30,
+      "base_elo": 1545.9888,
+      "adjustment": 114.0403,
+      "incoming_ratio": 0.713474,
+      "returning_ratio": 0.634729,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609667",
+      "team": "Miami (FL)",
+      "rank": 7,
+      "base_elo": 1637.1618,
+      "adjustment": 112.1322,
+      "incoming_ratio": 0.858679,
+      "returning_ratio": 0.425222,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609905",
+      "team": "South Fla.",
+      "rank": 5,
+      "base_elo": 1650.5464,
+      "adjustment": 100.9447,
+      "incoming_ratio": 1.007072,
+      "returning_ratio": 0.134135,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_prior_minutes_exceed_previous_team_minutes",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609487",
+      "team": "Tennessee",
+      "rank": 11,
+      "base_elo": 1636.0401,
+      "adjustment": 100.1113,
+      "incoming_ratio": 1.032552,
+      "returning_ratio": 0.093217,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_prior_minutes_exceed_previous_team_minutes",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609608",
+      "team": "High Point",
+      "rank": 9,
+      "base_elo": 1642.9952,
+      "adjustment": 96.3534,
+      "incoming_ratio": 0.84204,
+      "returning_ratio": 0.315917,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609674",
+      "team": "Ole Miss",
+      "rank": 80,
+      "base_elo": 1492.4035,
+      "adjustment": 94.243,
+      "incoming_ratio": 0.843348,
+      "returning_ratio": 0.296586,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609536",
+      "team": "Iowa St.",
+      "rank": 4,
+      "base_elo": 1660.5523,
+      "adjustment": 91.615,
+      "incoming_ratio": 0.651534,
+      "returning_ratio": 0.530438,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609556",
+      "team": "NC State",
+      "rank": 36,
+      "base_elo": 1563.2252,
+      "adjustment": 88.9748,
+      "incoming_ratio": 0.821478,
+      "returning_ratio": 0.281845,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609492",
+      "team": "Texas Tech",
+      "rank": 20,
+      "base_elo": 1612.7768,
+      "adjustment": 88.7215,
+      "incoming_ratio": 0.774803,
+      "returning_ratio": 0.341967,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609521",
+      "team": "Western Mich.",
+      "rank": 186,
+      "base_elo": 1413.1062,
+      "adjustment": 86.2814,
+      "incoming_ratio": 1.016028,
+      "returning_ratio": 0.0,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_prior_minutes_exceed_previous_team_minutes",
+        "incoming_minutes_high_needs_player_by_player_verification",
+        "near_zero_returners_large_positive_boost"
+      ]
+    },
+    {
+      "team_id": "ncaa:609664",
+      "team": "Memphis",
+      "rank": 122,
+      "base_elo": 1467.3284,
+      "adjustment": 84.5283,
+      "incoming_ratio": 0.92129,
+      "returning_ratio": 0.111708,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609482",
+      "team": "Syracuse",
+      "rank": 102,
+      "base_elo": 1485.9083,
+      "adjustment": 84.1182,
+      "incoming_ratio": 0.886254,
+      "returning_ratio": 0.155005,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609558",
+      "team": "Oregon",
+      "rank": 104,
+      "base_elo": 1485.8358,
+      "adjustment": 83.9479,
+      "incoming_ratio": 0.845966,
+      "returning_ratio": 0.207303,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609469",
+      "team": "Southern California",
+      "rank": 86,
+      "base_elo": 1498.9953,
+      "adjustment": 83.8873,
+      "incoming_ratio": 0.818954,
+      "returning_ratio": 0.242814,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609834",
+      "team": "Providence",
+      "rank": 74,
+      "base_elo": 1512.2981,
+      "adjustment": 83.1409,
+      "incoming_ratio": 0.902204,
+      "returning_ratio": 0.125594,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609512",
+      "team": "Virginia Tech",
+      "rank": 42,
+      "base_elo": 1561.7042,
+      "adjustment": 81.7756,
+      "incoming_ratio": 0.709213,
+      "returning_ratio": 0.371538,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609714",
+      "team": "DePaul",
+      "rank": 91,
+      "base_elo": 1498.7465,
+      "adjustment": 81.208,
+      "incoming_ratio": 0.778648,
+      "returning_ratio": 0.274228,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609710",
+      "team": "Creighton",
+      "rank": 81,
+      "base_elo": 1505.608,
+      "adjustment": 80.4178,
+      "incoming_ratio": 0.685686,
+      "returning_ratio": 0.391592,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609477",
+      "team": "Texas St.",
+      "rank": 62,
+      "base_elo": 1530.5942,
+      "adjustment": 78.6788,
+      "incoming_ratio": 0.560896,
+      "returning_ratio": 0.543487,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75"
+      ]
+    },
+    {
+      "team_id": "ncaa:609824",
+      "team": "Pittsburgh",
+      "rank": 95,
+      "base_elo": 1495.1496,
+      "adjustment": 78.6252,
+      "incoming_ratio": 0.953566,
+      "returning_ratio": 0.019481,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification",
+        "near_zero_returners_large_positive_boost"
+      ]
+    },
+    {
+      "team_id": "ncaa:609893",
+      "team": "Seton Hall",
+      "rank": 43,
+      "base_elo": 1565.3766,
+      "adjustment": 77.9257,
+      "incoming_ratio": 0.829857,
+      "returning_ratio": 0.178597,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609593",
+      "team": "Louisville",
+      "rank": 21,
+      "base_elo": 1623.5456,
+      "adjustment": 75.0463,
+      "incoming_ratio": 0.860745,
+      "returning_ratio": 0.113418,
+      "reasons": [
+        "extreme_absolute_adjustment_over_75",
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609634",
+      "team": "Boston College",
+      "rank": 135,
+      "base_elo": 1473.5533,
+      "adjustment": 70.057,
+      "incoming_ratio": 0.914553,
+      "returning_ratio": 9.6e-05,
+      "reasons": [
+        "incoming_minutes_high_needs_player_by_player_verification",
+        "near_zero_returners_large_positive_boost"
+      ]
+    },
+    {
+      "team_id": "ncaa:609582",
+      "team": "Kansas",
+      "rank": 22,
+      "base_elo": 1630.7557,
+      "adjustment": 63.9944,
+      "incoming_ratio": 0.829149,
+      "returning_ratio": 0.063447,
+      "reasons": [
+        "incoming_minutes_high_needs_player_by_player_verification"
+      ]
+    },
+    {
+      "team_id": "ncaa:609741",
+      "team": "Georgia St.",
+      "rank": 263,
+      "base_elo": 1395.7797,
+      "adjustment": 55.1262,
+      "incoming_ratio": 0.821308,
+      "returning_ratio": 0.0,
+      "reasons": [
+        "incoming_minutes_high_needs_player_by_player_verification",
+        "near_zero_returners_large_positive_boost"
+      ]
+    },
+    {
+      "team_id": "ncaa:609642",
+      "team": "Buffalo",
+      "rank": 149,
+      "base_elo": 1472.626,
+      "adjustment": 53.0788,
+      "incoming_ratio": 0.781818,
+      "returning_ratio": 0.035591,
+      "reasons": [
+        "near_zero_returners_large_positive_boost"
+      ]
+    }
+  ]
+}
