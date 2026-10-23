@@ -24,10 +24,17 @@ def reconcile(old,current,box):
         if team[5:].isdigit() and pid.isdigit() and name:
             prior_box[team][name].add(pid)
     results=[];counts=Counter()
+    current_ids=defaultdict(set)
+    for school in current["rosters"]:
+        for p in school["players"]:
+            current_ids[str(p["id"])].add(school["ncaa_id"])
+    duplicate_current={pid:sorted(schools) for pid,schools in current_ids.items() if len(schools)>1}
     for school in current["rosters"]:
         target=school["ncaa_id"]
         for player in school["players"]:
             pid=str(player["id"])
+            if pid in duplicate_current:
+                counts["duplicate_current_espn_id"]+=1;continue
             candidates=prior_by_id.get(pid,[])
             if not candidates:
                 counts["new_espn_athlete_id"]+=1;continue
@@ -51,7 +58,8 @@ def reconcile(old,current,box):
         "historical_partial_roster_teams":old.get("partial_roster_teams"),
         "historical_roster_asof_verified":False,
         "identity_release_approved":False,
-        "counts":dict(counts),"production_elo_approved":False,
+        "counts":dict(counts),"duplicate_current_athlete_ids":duplicate_current,
+        "production_elo_approved":False,
         "limitations":["ESPN identity continuity proves same provider athlete ID across seasons",
             "NCAA player box joins remain school/name candidates, not source-level verified identities",
             "Historical ESPN roster snapshot may include in-season roster changes",
