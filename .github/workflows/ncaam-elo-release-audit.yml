@@ -15,6 +15,8 @@ on:
       - 'data/ncaam-2026-27-player-quality-release-decision.json'
       - 'scripts/test_backtest_ncaam_player_quality.py'
       - 'scripts/backtest_ncaam_player_quality.py'
+      - 'scripts/backtest_ncaam_quality_retrospective.py'
+      - 'data/ncaam-player-quality-retrospective-backtest.json'
       - 'scripts/test_build_ncaam_2027_verified_preseason.py'
       - 'data/ncaam-2026-27-direct-player-crosswalk.json'
       - 'data/ncaam-2026-27-player-movement-audit.json'
@@ -52,7 +54,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile release audit
-        run: python -m py_compile scripts/audit_ncaa_elo_release.py scripts/build_ncaam_2027_verified_preseason.py scripts/update_ncaam_2027.py scripts/replay_ncaam_espn_2027.py
+        run: python -m py_compile scripts/audit_ncaa_elo_release.py scripts/build_ncaam_2027_verified_preseason.py scripts/update_ncaam_2027.py scripts/replay_ncaam_espn_2027.py scripts/backtest_ncaam_quality_retrospective.py
       - name: Test release safeguards
         run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
       - name: Test source-identified preseason rating calculation
