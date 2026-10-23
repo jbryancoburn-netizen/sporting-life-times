@@ -13,7 +13,7 @@ const logo=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+({NYK:'ny',UTA:'utah'
 const newsLogos=a=>{
  const text=(String(a.title||'')+' '+String(a.summary||'')).toLowerCase();
  const found=Object.entries(names).filter(([t,name])=>text.includes(name.toLowerCase())||(t==='LAC'&&text.includes('la clippers'))).map(([t])=>t).slice(0,2);
- return '<span class="nba-story-logos">'+(found.length?found.map(t=>'<img loading="lazy" alt="'+esc(names[t])+'" title="'+esc(names[t])+'" src="'+logo(t)+'" onerror="this.hidden=true">').join(''):'<img class="nba-story-logo nba-story-nba" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/0/03/National_Basketball_Association_logo_2017-present.svg" alt="NBA" title="NBA league-wide story" onerror="this.hidden=true">')+'</span>';
+ return '<span class="nba-story-logos">'+(found.length?found.map(t=>'<img loading="lazy" alt="'+esc(names[t])+'" title="'+esc(names[t])+'" src="'+logo(t)+'" onerror="this.hidden=true">').join(''):'<img class="nba-story-logo nba-story-nba" loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/National_Basketball_Association_logo_2017-present.svg" alt="NBA" title="NBA league-wide story" onerror="this.hidden=true">')+'</span>';
 };
 async function news(){
  try{const data=await fetchJSON('articles.json');const items=(data.articles||[]).filter(a=>{const c=String(a.category||'').toLowerCase(),u=String(a.url||'').toLowerCase(),s=String(a.source||'').toLowerCase();return c==='nba'||s.includes('nba')||u.includes('/nba/')||u.includes('/basketball/nba/')||((c==='basketball')&&!/college|ncaa|ncaab|wnba/i.test(s+' '+u))}).filter(a=>/^https:\/\//.test(a.url)&&a.title).slice(0,72);
