@@ -1,0 +1,25 @@
+name: NCAA Pregame Opponent Elo Exposure
+on:
+  push:
+    paths:
+      - scripts/build_ncaam_player_opponent_elo.py
+      - scripts/test_ncaam_player_opponent_elo.py
+      - .github/workflows/ncaam-player-opponent-elo.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exposure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_ncaam_player_opponent_elo.py -v
+      - run: python scripts/build_ncaam_player_opponent_elo.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-pregame-player-exposure
+          path: data/ncaam-2025-26-opponent-adjusted-player-exposure.json
