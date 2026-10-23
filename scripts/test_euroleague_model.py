@@ -68,6 +68,19 @@ class TestModel(unittest.TestCase):
         result=bt.score_forecast_evaluation(games+[g])
         self.assertEqual(result["games_evaluated"],1)
         self.assertIsNotNone(result["total_mae"])
+    def test_heldout_elo_evaluation_is_season_separated(self):
+        import euroleague_backtest as bt
+        games=[]
+        for season in ("E2024","E2025","E2026"):
+            for i in range(3):
+                g=el.parse({"data":[make_game(i+1)]},season)[0]
+                g["date"]=f"{season[1:]}-10-{i+1:02d}T19:00:00Z"
+                games.append(g)
+        result=bt.heldout_evaluation(games)
+        self.assertEqual(result["training_season"],"E2025")
+        self.assertEqual(result["holdout_season"],"E2026")
+        self.assertEqual(result["selected_holdout"]["n"],3)
+        self.assertEqual(result["baseline_holdout"]["n"],3)
     def test_publish_full_model_from_mocked_seasons(self):
         teams=["T"+str(i).zfill(2) for i in range(18)]
         def season_games(season):
