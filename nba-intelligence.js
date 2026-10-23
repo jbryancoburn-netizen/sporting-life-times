@@ -51,7 +51,7 @@ async function leagueLeaders(){
   }).filter(Boolean);
   if(!blocks.length)throw Error('No verified PPG/RPG/APG leader categories');
   container.innerHTML='<div class="nba-league-leader-panels">'+blocks.join('')+'</div>';
-  status.textContent='2026–27 NBA player leaders · '+esc(d.source)+' · '+(d.updated_at||'Published snapshot')+' · <a href="'+esc(d.url)+'" target="_blank" rel="noopener noreferrer">Data source ↗</a>';
+  status.textContent=(d.sample_only?'CAPTURED GAMES ONLY · Not an official full-season leaderboard':'2026–27 NBA player leaders')+' · '+d.source+' · '+(d.coverage?.completed_boxscores??'?')+' captured complete box scores · Updated '+(d.updated_at||'unknown');
  }catch(_err){
   // The Elo ledger contains scores, not player box scores. A valid, useful
   // companion is team scoring ranked by *verified* points/game.
