@@ -36,11 +36,11 @@ try {
  const available={baseline};
  // Audit hold: roster coefficients yield implausible +100 to +155 Elo jumps.
  // Do not present this experimental model as a validated default.
- const rosterAuditPassed=roster?.audit?.release_approved===true;
- if(rosterAuditPassed&&roster?.evidence?.roster_programs>=350)available.roster=roster;
+ const rosterAuditPassed=roster?.audit?.release_approved===true && roster?.production_elo_approved===true && roster?.identity_verified===true && roster?.preseason_information_integrity_verified===true;
+ if(roster?.evidence?.roster_programs>=350)available.roster=roster;
  if(current?.games_played>0)available.current=current;
- const defaults=available.current?'current':available.roster?'roster':'baseline';
- const labels={current:'Current season Elo',roster:'Roster-adjusted preseason',baseline:'Historical carryover baseline'};
+ const defaults=available.current?'current':rosterAuditPassed&&available.roster?'roster':'baseline';
+ const labels={current:'Current season Elo',roster:'Experimental 2026–27 roster Elo (unverified)',baseline:'Historical carryover baseline'};
  for(const choice of ['current','roster','baseline']){
   if(!available[choice])continue;
   const option=document.createElement('option');option.value=choice;option.textContent=labels[choice];
@@ -90,16 +90,16 @@ try {
   const c=conference.value;
   const rows=data.rankings.filter(r=>(!q||r.team.toLowerCase().includes(q))&&(!c||r.conference===c));
   if(choice==='roster'){
-   status.textContent='2026–27 roster-adjusted preseason · '+data.team_count+' programs · 0 games';
-   note.textContent='Independently backtested transfer + returning-minutes Elo · '+data.evidence.roster_programs+'/'+data.team_count+' teams with observed historical/current roster evidence · NCAA-origin player minutes; ESPN current rosters · Provisional';
+   status.textContent='EXPERIMENTAL · 2026–27 roster-adjusted preseason · '+data.team_count+' programs · 0 games';
+   note.textContent='NOT APPROVED for official rankings or betting. '+data.evidence.roster_programs+'/'+data.team_count+' programs with roster evidence; '+(data.evidence.player_matches?.exact_id_matches??0)+' exact cross-provider player IDs; historical roster timing unverified. Estimates may shift sharply.';
    referenceHeading.textContent='Roster adjustment';
   }else if(choice==='current'){
    status.textContent='2026–27 current-season Elo · '+data.games_played+' completed games';
-   note.textContent='Verified results replayed from roster-adjusted opening Elo where available. Model venue-neutral until court-data calibration.';
+   note.textContent='Verified game results replayed from the approved preseason opening Elo. Venue-neutral until court-data calibration.';
    referenceHeading.textContent='Opening Elo';
   }else{
    status.textContent='2026–27 historical carryover baseline · '+data.team_count+' programs';
-   note.textContent='Independent 2025–26 Elo with 65% carryover. Roster-adjusted experiment temporarily withheld pending extreme-transfer and player-identity audit.';
+   note.textContent='Independent 2025–26 Elo with 65% carryover. Experimental 2026–27 player and transfer adjustments are available separately, not as official rankings.';
    referenceHeading.textContent='2025–26 final Elo';
   }
   renderMatchup();
