@@ -19,6 +19,8 @@ jobs:
           python-version: '3.12'
       - name: Collect NBA official daily scoreboard and box scores
         run: python scripts/collect_nba_game_center.py
+      - name: Backfill missed completed NBA player box scores from official schedule
+        run: python scripts/backfill-nba-boxscores.py
       - name: Collect published NBA player leader statistics
         run: python scripts/collect-nba-player-leaders.py
       - name: Build Rabby verified possession inputs independently of Elo
