@@ -17,7 +17,7 @@ async function render(){
  if([pre,cur,old].some(d=>!Array.isArray(d.rankings)||d.rankings.length!==30)||!Array.isArray(cur.events)||cur.events.length!==cur.games_played)throw Error('NBA data completeness check failed');
  const current=map(cur),start=map(pre),frozen=map(old),sorted=order(current);
  const snapshot=cur.movement;
- const verifiedSnapshot=snapshot&&/^\\d{4}-\\d{2}-\\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
+ const verifiedSnapshot=snapshot&&/^\d{4}-\d{2}-\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
   Object.keys(snapshot.daily_change||{}).length===30&&Object.keys(snapshot.last_week_elo||{}).length===30;
  const movement=verifiedSnapshot?{available:true,day:snapshot.as_of_eastern_date,weekDate:snapshot.last_week_eastern_date,
   daily:snapshot.daily_change,lastWeek:snapshot.last_week_elo}:
