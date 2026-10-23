@@ -6,6 +6,10 @@ on:
       - 'scripts/euroleague_model.py'
       - 'scripts/euroleague_diagnose.py'
       - 'scripts/test_euroleague_model.py'
+      - 'scripts/test_euroleague_final_checks.py'
+      - 'scripts/euroleague_final_checks.py'
+      - 'scripts/euroleague_header.py'
+      - 'data/euroleague-final-verifications.json'
       - 'scripts/euroleague_release_gate.py'
       - '.github/workflows/euroleague-model.yml'
   schedule:
@@ -26,6 +30,10 @@ jobs:
           python-version: '3.12'
       - name: Test Elo ingestion and invariants
         run: python -m unittest discover -s scripts -p "test_euroleague_model.py" -v
+      - name: Validate club-verified final safeguards
+        run: python -m unittest discover -s scripts -p 'test_euroleague_final_checks.py' -v
+      - name: Validate safe game-header final detection
+        run: python -m unittest discover -s scripts -p 'test_euroleague_header.py' -v
       - name: Rebuild from EuroLeague completed games
         run: python scripts/euroleague_model.py
       - name: Validate generated publication schema
