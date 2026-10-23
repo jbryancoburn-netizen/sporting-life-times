@@ -11,4 +11,8 @@ class GapTests(unittest.TestCase):
         self.assertEqual(result["partial_prior"][0]["listed_players"],1)
         self.assertEqual(result["missing_current"],[])
         self.assertFalse(result["release_approved"])
+        self.assertEqual(result["historical_missing_count"],1)
+        self.assertEqual(result["historical_partial_count"],1)
+        self.assertEqual(result["current_missing_count"],0)
+        self.assertEqual(result["current_partial_count"],0)
 if __name__=="__main__":unittest.main()
