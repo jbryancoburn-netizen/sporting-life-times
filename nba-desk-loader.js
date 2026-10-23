@@ -16,8 +16,11 @@ async function render(){
  const [pre,cur,old]=await Promise.all([load('data/nba-2026-27-preseason-provisional.json'),load('data/nba-2026-27-current-provisional.json'),load('data/nba-2025-26-final.json')]);
  if([pre,cur,old].some(d=>!Array.isArray(d.rankings)||d.rankings.length!==30)||!Array.isArray(cur.events)||cur.events.length!==cur.games_played)throw Error('NBA data completeness check failed');
  const current=map(cur),start=map(pre),frozen=map(old),sorted=order(current);
- $('nba-elo-grid').innerHTML=table(['#','Team','Offseason','Current Elo','Daily change'],sorted.map((t,i)=>row([i+1,badge(t),start[t].toFixed(2),'<strong>'+current[t].toFixed(2)+'</strong>','—'])));
- msg('nba-elo-status',cur.games_played+' verified final games · Current-season Elo · Daily changes unavailable until timestamps are verified.');
+ const movement=window.NBAEloMovement?.compute(cur)||{available:false,reason:'Daily Elo module unavailable'};
+ const daily=t=>movement.available?window.NBAEloMovement.format(movement.daily[t]):'N/A';
+ const lastWeek=t=>movement.available?movement.lastWeek[t].toFixed(2):'N/A';
+ $('nba-elo-grid').innerHTML=table(['#','Team','Offseason','Last week','Current Elo','Daily Δ'],sorted.map((t,i)=>row([i+1,badge(t),start[t].toFixed(2),lastWeek(t),'<strong>'+current[t].toFixed(2)+'</strong>',daily(t)])));
+ msg('nba-elo-status',cur.games_played+' verified finals · Current-season Elo · '+(movement.available?'Daily movement from completed games on '+movement.day+' (Eastern) · Last-week snapshot: '+movement.weekDate:movement.reason));
  put('nba-elo-standings',table(['Rank','Team','Elo'],sorted.map((t,i)=>row([i+1,badge(t),current[t].toFixed(1)]))));
  $('nba-elo-comparison').innerHTML='<div class="nba-snapshot-grid">'+[['2026–27 CURRENT',current],['2026–27 OPENING',start],['2025–26 FINAL',frozen]].map(([title,m])=>'<section class="nba-snapshot"><h3>'+title+'</h3><table class="nba-mini-table"><thead><tr><th>#</th><th>Club</th><th>Elo</th></tr></thead><tbody>'+order(m).map((t,i)=>row([i+1,badge(t,true),m[t].toFixed(1)])).join('')+'</tbody></table></section>').join('')+'</div>';
  const records=Object.fromEntries(Object.keys(names).map(t=>[t,{w:0,l:0}]));
