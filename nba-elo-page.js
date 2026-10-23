@@ -10,25 +10,23 @@ function board(m){
  const standings=rows.map((t,i)=>'<tr><td>'+(i+1)+'</td><th>'+badges(t)+'</th><td><strong>'+m.current[t].toFixed(1)+'</strong></td></tr>').join('');
  $('nba-elo-standings').innerHTML='<div class="nba-current-table-wrap"><table class="nba-current-table"><thead><tr><th>Elo rank</th><th>Team</th><th>Elo</th></tr></thead><tbody>'+standings+'</tbody></table></div>';
 }
-const teamFrom=competitor=>{const a=competitor?.team?.abbreviation;const aliases={NY:'NYK',GS:'GSW',SA:'SAS',NO:'NOP',WSH:'WAS',UTAH:'UTA'};return aliases[a]||a};
-async function getGames(){
- const dt=new Date(), date=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(dt).replaceAll('-','');
- const url='https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+date+'&limit=100';
- const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('Score feed unavailable');
- const data=await response.json();if(!Array.isArray(data.events))throw Error('Invalid NBA schedule');
- return data.events;
+// The scoreboard uses the same verified, published ledger as the ratings.
+// Do not make an unapproved third-party request in a visitor's browser.
+function showGames(m){
+ const recent=m.ledger.slice(-12).reverse();
+ if(!recent.length){
+   $('nba-elo-scoreboard').innerHTML='<p>No verified completed games in the NBA Elo ledger yet.</p>';
+   $('nba-score-status').textContent='Official-source schedule integration pending; no unsupported fixtures are displayed.';
+   return;
+ }
+ $('nba-elo-scoreboard').innerHTML=recent.map(game=>{
+  const away=game.away,home=game.home;
+  // Use pregame Elo from the audited event replay, not postgame ratings to label predictions.
+  const prob=eloWin(game.home_before,game.away_before);
+  const raw=m.rawEvents?.find(e=>e.id===game.id);
+  const result=raw?safe(raw.away_score)+' – '+safe(raw.home_score):'Final';
+  return '<article class="nba-fixture"><div class="nba-fixture-head">FINAL · Verified NBA Elo ledger</div><div class="nba-fixture-match"><span>'+badges(away)+'<small>Current Elo '+m.current[away].toFixed(1)+'</small></span><strong>'+result+'</strong><span>'+badges(home)+'<small>Current Elo '+m.current[home].toFixed(1)+'</small></span></div><div class="nba-forecast-bar"><span style="width:'+(100*(1-prob)).toFixed(1)+'%"></span><span style="width:'+(100*prob).toFixed(1)+'%"></span></div><p class="hub-small">Reconstructed pregame Elo: '+safe(codes[away])+' '+(100*(1-prob)).toFixed(1)+'% · '+safe(codes[home])+' '+(100*prob).toFixed(1)+'%. Retrospective model estimate, not an archived pregame prediction.</p></article>';
+ }).join('');
+ $('nba-score-status').textContent='Recent completed NBA games from our independently audited Elo ledger. The upcoming and live fixture feed is withheld pending the official-first adapter.';
 }
-function showGames(m,games){
- const rows=games.map(ev=>{
- const comp=ev.competitions?.[0],h=comp?.competitors?.find(x=>x.homeAway==='home'),a=comp?.competitors?.find(x=>x.homeAway==='away');
- const home=teamFrom(h),away=teamFrom(a);
- if(!m.current[home]||!m.current[away])return '';
- const prob=eloWin(m.current[home],m.current[away]),finished=ev.status?.type?.completed===true;
- const live=ev.status?.type?.state==='in';
- const score=(finished||live)?safe(a.score??'–')+' – '+safe(h.score??'–'):clock.format(new Date(ev.date));
- return '<article class="nba-fixture"><div class="nba-fixture-head">'+safe(ev.status?.type?.shortDetail||'Scheduled')+'</div><div class="nba-fixture-match"><span>'+badges(away)+'<small>Elo '+m.current[away].toFixed(1)+'</small></span><strong>'+score+'</strong><span>'+badges(home)+'<small>Elo '+m.current[home].toFixed(1)+'</small></span></div><div class="nba-forecast-bar"><span style="width:'+(100*(1-prob)).toFixed(1)+'%"></span><span style="width:'+(100*prob).toFixed(1)+'%"></span></div><p class="hub-small">Pre-game-style Elo baseline using latest published ratings: '+safe(codes[away])+' '+(100*(1-prob)).toFixed(1)+'% · '+safe(codes[home])+' '+(100*prob).toFixed(1)+'%. '+(finished?'Shown for reference, not archived as an actual pregame forecast.':'Win probabilities are provisional; player availability not included.')+'</p></article>';
- }).filter(Boolean);
- $('nba-elo-scoreboard').innerHTML=rows.join('')||'<p>No NBA games listed for today.</p>';
- $('nba-score-status').textContent='NBA scoreboard · scores may refresh independently of Elo, which changes only after finalized nightly replay.';
-}
-(async()=>{try{const m=await model();board(m);try{showGames(m,await getGames())}catch(e){$('nba-score-status').textContent='NBA game feed temporarily unavailable; Elo rankings remain available.'}}catch(e){$('nba-elo-status').textContent='Ratings unavailable: '+e.message}}})();
+(async()=>{try{const m=await model();board(m);showGames(m)}catch(e){$('nba-elo-status').textContent='Ratings unavailable: '+e.message}}})();
