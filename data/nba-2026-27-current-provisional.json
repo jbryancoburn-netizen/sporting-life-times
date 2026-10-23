@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 16,
+  "games_played": 17,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -91,8 +91,8 @@
       "elo": 1416
     },
     {
-      "team": "MIL",
-      "elo": 1404.504
+      "team": "CHI",
+      "elo": 1406.772
     },
     {
       "team": "DAL",
@@ -107,8 +107,8 @@
       "elo": 1393.798
     },
     {
-      "team": "CHI",
-      "elo": 1390.884
+      "team": "MIL",
+      "elo": 1388.617
     },
     {
       "team": "MEM",
@@ -271,12 +271,21 @@
       "away_score": 84,
       "date": "2026-10-23T01:30:00.000Z",
       "home_elo_change": 8.740375
+    },
+    {
+      "id": "espn-nba-401909848",
+      "home": "MIL",
+      "away": "CHI",
+      "home_score": 125,
+      "away_score": 132,
+      "date": "2026-10-23T20:00:00.000Z",
+      "home_elo_change": -15.887535
     }
   ],
   "movement": {
-    "as_of_eastern_date": "2026-10-22",
+    "as_of_eastern_date": "2026-10-23",
     "daily_change": {
-      "OKC": 8.740375,
+      "OKC": 0,
       "NYK": 0,
       "SAS": 0,
       "DET": 0,
@@ -284,11 +293,11 @@
       "CHA": 0,
       "LAL": 0,
       "BOS": 0,
-      "DEN": -8.740375,
+      "DEN": 0,
       "HOU": 0,
-      "PHI": 12.615538,
+      "PHI": 0,
       "ATL": 0,
-      "CLE": -12.615538,
+      "CLE": 0,
       "LAC": 0,
       "TOR": 0,
       "POR": 0,
@@ -297,17 +306,17 @@
       "PHX": 0,
       "GSW": 0,
       "NOP": 0,
-      "MIL": 0,
+      "CHI": 15.887535,
       "DAL": 0,
       "IND": 0,
       "SAC": 0,
-      "CHI": 0,
+      "MIL": -15.887535,
       "MEM": 0,
       "BKN": 0,
       "UTA": 0,
       "WAS": 0
     },
-    "last_week_eastern_date": "2026-10-15",
+    "last_week_eastern_date": "2026-10-16",
     "last_week_elo": {
       "OKC": 1663.784,
       "NYK": 1672.897,
@@ -330,11 +339,11 @@
       "PHX": 1499.058,
       "GSW": 1441.84,
       "NOP": 1431.708,
-      "MIL": 1421.261,
+      "CHI": 1399.976,
       "DAL": 1405.301,
       "IND": 1382.048,
       "SAC": 1402.359,
-      "CHI": 1399.976,
+      "MIL": 1421.261,
       "MEM": 1357.696,
       "BKN": 1356.983,
       "UTA": 1357.55,
