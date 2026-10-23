@@ -17,21 +17,26 @@ def live_status(raw):
 
 def build():
     now=dt.datetime.now(UTC)
-    raw=model.fetch_season("E2026")  # full-season verified fixture identifiers and metadata
-    candidates=[g for g in raw if model.clock(g["date"])!=dt.datetime.max.replace(tzinfo=UTC) and abs((model.clock(g["date"])-now).total_seconds())<=3*86400]
-    # Request game status/scores directly from the EuroLeague feed, rather than
-    # inferring that a scheduled game is underway from its tipoff clock.
-    updates={}
+    # One full pass is enough: avoid downloading all ~380 games twice every 5 min.
+    # Parse each page for verified fixture identifiers; retain the original
+    # records for current game status and scores.
+    fixtures=[];updates={};total=None
     for offset in range(0,1500,100):
         page=model.get(model.BASE+"E2026"+f"/games?limit=100&offset={offset}")
         rows=model.field(page,"data","games","items")
         if not isinstance(rows,list):raise ValueError("Unexpected live game response")
-        for item in rows:
-            key=str(model.field(item,"gameCode","code","id") or "")
-            if key:updates[key]=item
-        reported=model.field(page,"total","totalCount")
-        if isinstance(reported,int) and len(updates)>=reported:break
+        count=model.field(page,"total","totalCount")
+        if isinstance(count,int):total=count
+        clean=dict(model.obj(page));clean.pop("total",None);clean.pop("totalCount",None)
+        converted=model.parse(clean,"E2026") if rows else []
+        for item,g in zip(rows,converted):
+            if not g["id"] or g["id"] in updates:raise ValueError("Duplicate or missing EuroLeague game identifier")
+            updates[g["id"]]=item
+            fixtures.append(g)
+        if total is not None and len(fixtures)>=total:break
         if len(rows)<100:break
+    if total is not None and len(fixtures)!=total:raise ValueError("EuroLeague live scoreboard partial schedule")
+    candidates=[g for g in fixtures if model.clock(g["date"])!=dt.datetime.max.replace(tzinfo=UTC) and abs((model.clock(g["date"])-now).total_seconds())<=3*86400]
     entries=[]
     for g in candidates:
         record=updates.get(g["id"])
