@@ -23,4 +23,6 @@ try{
 }
 }
 refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+window.addEventListener('focus',()=>{if(!document.hidden)refresh()});
 })();
