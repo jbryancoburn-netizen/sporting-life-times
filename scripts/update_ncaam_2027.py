@@ -41,6 +41,12 @@ def calculate(pre,old,current,games):
             if hs==aws or min(hs,aws)<0:raise ValueError()
         except (ValueError,TypeError,KeyError):
             excluded.append({"id":gid,"reason":"not a valid final"});continue
+        # NCAA schedule rows can contain future fixtures and non-final rows.
+        # Only games with a valid final score AND a date no later than today
+        # may alter ratings. A future-dated score is never treated as played.
+        if day>datetime.now().date().isoformat():
+            excluded.append({"id":gid,"reason":"future-dated result","date":day})
+            continue
         ledger.append({"id":gid,"date":day,"home":h,"away":a,"home_score":hs,"away_score":aws})
     ledger.sort(key=lambda x:(x["date"],x["id"]))
     opening_total=sum(r.values())
