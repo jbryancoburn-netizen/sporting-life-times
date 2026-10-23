@@ -15,29 +15,29 @@ def build(previous, registry, carryover=0.65):
         raise ValueError("Expected explicitly provisional venue-neutral historical baseline")
     teams=registry.get("teams",[])
     old=previous["ratings"]
-    if len(teams)!=365 or set(old)!={t["id"] for t in teams}:
+    if len(teams)!=365 or len({t["id"] for t in teams})!=365:
         raise ValueError("Team registry and historical rating IDs do not match")
     if not 0<=carryover<=1:raise ValueError("Invalid carryover")
-    rating={i:round(1500+carryover*(v-1500),4) for i,v in old.items()}
+    rating={t["id"]:round(1500+carryover*(old[t["id"]]-1500),4) if t["id"] in old else 1500.0 for t in teams}
     ranked=sorted(teams,key=lambda t:(-rating[t["id"]],t["id"]))
     return {"model":"slat-ncaam-d1-elo-v1","season":"2026-27",
-      "status":"provisional-preseason-2025-26-membership",
+      "status":"provisional-preseason-2026-27-membership",
       "generated_at":datetime.now(timezone.utc).isoformat(),
       "as_of":"2026-10-22","games_played":0,"team_count":len(teams),
       "carryover":carryover,
       "historical_baseline":"data/ncaam-2025-26-elo-bootstrap.json",
       "historical_note":"2025-26 ratings treated every game as venue-neutral because source lacked verified location.",
-      "membership_note":"2025-26 membership carried forward provisionally; 2026-27 D1 changes not yet verified.",
+      "membership_note":"2026-27 membership and conferences audited; West Florida uses a temporary project identity pending official NCAA ID.",
       "prediction_note":"Preseason power index only; win probability and spread are not calibrated.",
       "rankings":[{"rank":n,"team_id":t["id"],"team":t["name"],
           "conference":t.get("conference"),"elo":rating[t["id"]],
-          "last_season_elo":old[t["id"]],"season_games":0}
+          "last_season_elo":old.get(t["id"]),"season_games":0}
           for n,t in enumerate(ranked,1)]}
 
 def main():
  p=argparse.ArgumentParser()
  p.add_argument("--previous",type=Path,default=Path("data/ncaam-2025-26-elo-bootstrap.json"))
- p.add_argument("--registry",type=Path,default=Path("data/ncaam-2025-26-team-registry.json"))
+ p.add_argument("--registry",type=Path,default=Path("data/ncaam-2026-27-team-registry.json"))
  p.add_argument("--output",type=Path,default=Path("data/ncaam-2026-27-preseason-provisional.json"))
  a=p.parse_args()
  obj=build(json.loads(a.previous.read_text()),json.loads(a.registry.read_text()))
