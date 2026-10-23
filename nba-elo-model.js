@@ -31,7 +31,7 @@ export async function model(){
  let beforeLast={...ratings},last=ledger.at(-1);
  if(last){beforeLast[last.home]-=last.home_change;beforeLast[last.away]+=last.home_change}
  // No timestamps means a valid weekly baseline does not exist yet.
- return {start,current:ratings,beforeLast,last,ledger,season:cur.season,games:cur.games_played,weekly,daily,weeklyReason:allDated?null:'Historical game ledger lacks reliable final timestamps'};
+ return {start,current:ratings,beforeLast,last,ledger,rawEvents:cur.events,season:cur.season,games:cur.games_played,weekly,daily,weeklyReason:allDated?null:'Historical game ledger lacks reliable final timestamps'};
 }
 export function changeTag(n){if(n>0.0005)return '<span class="nba-up" aria-label="up">▲ +'+n.toFixed(2)+'</span>';if(n<-.0005)return '<span class="nba-down" aria-label="down">▼ '+n.toFixed(2)+'</span>';return '<span class="nba-flat">—</span>'}
 export const safe=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
