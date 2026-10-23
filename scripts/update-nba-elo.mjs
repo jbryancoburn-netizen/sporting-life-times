@@ -22,10 +22,19 @@ assert.ok(end<maxEnd,'season window expired: update season configuration');
 const dateId=d=>d.toISOString().slice(0,10).replaceAll('-','');
 const collected=new Map();
 async function fetchDate(date) {
- const url='https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+dateId(date)+'&limit=100';
- const response=await fetch(url,{headers:{'User-Agent':'SportingLifeTimes-Elo/1.0 (historical result audit)','Accept':'application/json'},signal:AbortSignal.timeout(20000)});
- if(!response.ok)throw Error('ESPN HTTP '+response.status+' on '+dateId(date));
- const data=await response.json();
+ const path='/apis/site/v2/sports/basketball/nba/scoreboard?dates='+dateId(date)+'&limit=100';
+ const hosts=['site.web.api.espn.com','site.api.espn.com'];
+ let data=null;let failures=[];
+ for(const host of hosts){
+   try{
+     const response=await fetch('https://'+host+path,{headers:{'Accept':'application/json'},signal:AbortSignal.timeout(20000)});
+     if(!response.ok){failures.push(host+' HTTP '+response.status);continue;}
+     data=await response.json();
+     if(!Array.isArray(data.events))throw Error('Invalid events payload');
+     break;
+   }catch(error){failures.push(host+': '+error.message);}
+ }
+ if(!data)throw Error('ESPN scoreboard unavailable '+dateId(date)+': '+failures.join('; '));
  if(!Array.isArray(data.events))throw Error('ESPN events absent for '+dateId(date));
  for(const event of data.events) {
    const competition=event.competitions?.[0];
