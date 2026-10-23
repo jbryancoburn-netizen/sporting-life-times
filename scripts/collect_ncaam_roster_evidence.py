@@ -27,7 +27,9 @@ def fetch_team(team_id,season,reader=request):
         if pid and name:players.append({"id":pid,"name":name,
           "position":a.get("position",{}).get("abbreviation") if isinstance(a.get("position"),dict) else None,
           "experience":a.get("experience",{}).get("displayValue") if isinstance(a.get("experience"),dict) else None})
-    return {"team_id":str(team_id),"season":season,"url":url,"players":players}
+    return {"team_id":str(team_id),"season":season,"url":url,"players":players,
+            "source_payload_season_verified":False,
+            "source_payload_season_note":"Requested URL season alone does not verify historical roster snapshot"}
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--season",type=int,default=2027)
@@ -53,6 +55,7 @@ def main():
     result={"season":a.season,"provenance":"ESPN roster endpoint; secondary evidence",
             "rosters":output,"failed":failures,"minimum_players":a.min_players,
             "partial_roster_teams":sum(len(t["players"])<8 for t in output),
+            "source_payload_season_verified":all(t["source_payload_season_verified"] for t in output) if output else False,
             "full_coverage":len(output)==len(teams)}
     a.out.parent.mkdir(parents=True,exist_ok=True)
     a.out.write_text(json.dumps(result,indent=2)+"\n")
