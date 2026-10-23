@@ -14,10 +14,14 @@ def team_id(team):
     for key in ("teamId","teamID","team_id","id"):
         value=team.get(key)
         if value is not None and str(value).strip().isdigit():return "ncaa:"+str(value).strip()
+    names=team.get("names") or {}
+    seo=str(names.get("seo") or "").strip().lower()
+    if re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",seo):
+        return "ncaa-seo:"+seo
     return None
 def team_name(team):
     names=team.get("names") or {}
-    return (names.get("full") or names.get("short") or team.get("name") or "").strip()
+    return (names.get("full") or names.get("short") or names.get("seo") or team.get("name") or "").strip()
 def parse(record):
     games=[];rejected=[]
     day=record["day"]
@@ -97,11 +101,11 @@ def convert(root,out,registry,report,expected_days=None):
     registry.write_text(json.dumps({"status":"unverified-candidates","teams":[
         {"id":i,"name":name,"division":"UNVERIFIED"}
         for i,name in sorted(names.items())]},indent=2)+"\n",encoding="utf-8")
-    summary={"archive_days":len(days),"unique_finals":len(rows),"candidate_teams":len(names),
+    summary={"archive_days":len(days),"unique_finals":len(rows),"candidate_teams":len(names),\n             "rejection_reasons":dict(Counter(x["reason"] for x in rejections)),
              "rejected_final_count":len(rejections),"rejections":rejections,
              "release_ready":False,"blockers":["verify D1 membership of every team",
              "resolve rejected games and missing venue data","validate full season date coverage",
-             "cross-check season game counts and scores"]}
+             "cross-check season game counts and scores",\n             "bridge SEO aliases are candidates, not NCAA numeric IDs",\n             "upstream NCAA bridge does not expose neutral-site field reliably"]}
     report.parent.mkdir(parents=True,exist_ok=True)
     report.write_text(json.dumps(summary,indent=2)+"\n",encoding="utf-8")
     return summary
