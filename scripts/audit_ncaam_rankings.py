@@ -7,7 +7,7 @@ plausibility. This is a strict publication gate, not a cosmetic Elo cap.
 import json,argparse
 from pathlib import Path
 def audit(data):
-    rows=data["rankings"];issues=[]
+    rows=data["rankings"];issues=[];all_teams=[]
     for row in rows:
         reasons=[]
         adjustment=float(row["offseason_adjustment"])
@@ -17,7 +17,7 @@ def audit(data):
         if incoming is not None and incoming>1:reasons.append("incoming_prior_minutes_exceed_previous_team_minutes")
         if incoming is not None and incoming>.8:reasons.append("incoming_minutes_high_needs_player_by_player_verification")
         if returning is not None and returning<.05 and adjustment>50:reasons.append("near_zero_returners_large_positive_boost")
-        if reasons:issues.append({"team_id":row["team_id"],"team":row["team"],
+        detail={"team_id":row["team_id"],"team":row["team"],"rank":row["rank"],\n            "base_elo":row["base_elo"],"adjustment":adjustment,\n            "incoming_ratio":incoming,"returning_ratio":returning,\n            "reasons":reasons,"status":"flagged" if reasons else "pending-player-level-verification"}\n        all_teams.append(detail)\n        if reasons:issues.append({"team_id":row["team_id"],"team":row["team"],
             "rank":row["rank"],"base_elo":row["base_elo"],
             "adjustment":adjustment,"incoming_ratio":incoming,
             "returning_ratio":returning,"reasons":reasons})
@@ -34,11 +34,11 @@ def audit(data):
           "Production incoming minutes count prior raw minutes, not opponent-adjusted performance.",
           "Transfer minutes are divided by old team's minutes, which can over-reward high-volume imports.",
           "Only a single held-out season was used; team-level coefficient stability is unverified."],
-        "release_approved":False,
+        "release_approved":False,"all_teams_audited_for_anomalies":len(all_teams),\n        "all_teams_player_level_verified":0,
         "release_blockers":["team-level outliers present" if issues else "player-identity and strength-of-schedule calibration not validated",
                             "cross-provider player IDs require collision and namespace audit",
                             "conference-strength and transfer-quality adjustment not backtested"],
-        "flagged":issues}
+        "flagged":issues,"all_teams":sorted(all_teams,key=lambda x:x["team"])}
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--ratings",type=Path,default=Path("data/ncaam-2026-27-offseason-shadow.json"))
