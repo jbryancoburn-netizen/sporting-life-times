@@ -2,7 +2,7 @@
   "last_completed_game_at": "2026-10-22T18:45:00+00:00",
   "model": "Sporting Life & Times independent EuroLeague Elo v0.1",
   "season": "2026-27",
-  "updated_at": "2026-10-23T18:06:07.649057+00:00",
+  "updated_at": "2026-10-23T18:21:33.550688+00:00",
   "source": "EuroLeague public v2 games endpoint",
   "settings": {
     "K": 22.0,
@@ -245,7 +245,8 @@
       "for": 613,
       "against": 517,
       "win_pct": 0.857,
-      "point_diff": 96
+      "point_diff": 96,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "ULK",
@@ -257,7 +258,8 @@
       "for": 501,
       "against": 447,
       "win_pct": 0.833,
-      "point_diff": 54
+      "point_diff": 54,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "OLY",
@@ -269,7 +271,8 @@
       "for": 589,
       "against": 539,
       "win_pct": 0.833,
-      "point_diff": 50
+      "point_diff": 50,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "HTA",
@@ -281,7 +284,8 @@
       "for": 630,
       "against": 601,
       "win_pct": 0.714,
-      "point_diff": 29
+      "point_diff": 29,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "DUB",
@@ -293,7 +297,8 @@
       "for": 597,
       "against": 584,
       "win_pct": 0.714,
-      "point_diff": 13
+      "point_diff": 13,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "PAM",
@@ -305,7 +310,8 @@
       "for": 590,
       "against": 549,
       "win_pct": 0.667,
-      "point_diff": 41
+      "point_diff": 41,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "MAD",
@@ -317,7 +323,8 @@
       "for": 667,
       "against": 630,
       "win_pct": 0.571,
-      "point_diff": 37
+      "point_diff": 37,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "RED",
@@ -329,7 +336,8 @@
       "for": 567,
       "against": 542,
       "win_pct": 0.571,
-      "point_diff": 25
+      "point_diff": 25,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "BAR",
@@ -341,19 +349,8 @@
       "for": 631,
       "against": 619,
       "win_pct": 0.571,
-      "point_diff": 12
-    },
-    {
-      "code": "PAR",
-      "name": "Partizan Mozzart Bet Belgrade",
-      "logo": "https://media-cdn.incrowdsports.com/2681304e-77dd-4331-88b1-683078c0fb49.png",
-      "played": 7,
-      "wins": 4,
-      "losses": 3,
-      "for": 551,
-      "against": 553,
-      "win_pct": 0.571,
-      "point_diff": -2
+      "point_diff": 12,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "VIR",
@@ -365,7 +362,21 @@
       "for": 606,
       "against": 608,
       "win_pct": 0.571,
-      "point_diff": -2
+      "point_diff": -2,
+      "tiebreak_basis": "phase_point_difference"
+    },
+    {
+      "code": "PAR",
+      "name": "Partizan Mozzart Bet Belgrade",
+      "logo": "https://media-cdn.incrowdsports.com/2681304e-77dd-4331-88b1-683078c0fb49.png",
+      "played": 7,
+      "wins": 4,
+      "losses": 3,
+      "for": 551,
+      "against": 553,
+      "win_pct": 0.571,
+      "point_diff": -2,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "IST",
@@ -377,7 +388,8 @@
       "for": 581,
       "against": 590,
       "win_pct": 0.429,
-      "point_diff": -9
+      "point_diff": -9,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "BES",
@@ -389,7 +401,8 @@
       "for": 634,
       "against": 644,
       "win_pct": 0.429,
-      "point_diff": -10
+      "point_diff": -10,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "ZAL",
@@ -401,7 +414,8 @@
       "for": 490,
       "against": 517,
       "win_pct": 0.333,
-      "point_diff": -27
+      "point_diff": -27,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "ASV",
@@ -413,7 +427,8 @@
       "for": 527,
       "against": 572,
       "win_pct": 0.333,
-      "point_diff": -45
+      "point_diff": -45,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "TEL",
@@ -425,7 +440,8 @@
       "for": 608,
       "against": 653,
       "win_pct": 0.286,
-      "point_diff": -45
+      "point_diff": -45,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "MUN",
@@ -437,7 +453,8 @@
       "for": 612,
       "against": 659,
       "win_pct": 0.286,
-      "point_diff": -47
+      "point_diff": -47,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "PRS",
@@ -449,7 +466,8 @@
       "for": 504,
       "against": 545,
       "win_pct": 0.167,
-      "point_diff": -41
+      "point_diff": -41,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "MIL",
@@ -461,7 +479,8 @@
       "for": 585,
       "against": 648,
       "win_pct": 0.143,
-      "point_diff": -63
+      "point_diff": -63,
+      "tiebreak_basis": "phase_point_difference"
     },
     {
       "code": "BAS",
@@ -473,34 +492,12 @@
       "for": 583,
       "against": 649,
       "win_pct": 0.143,
-      "point_diff": -66
+      "point_diff": -66,
+      "tiebreak_basis": "phase_point_difference"
     }
   ],
+  "standings_order": "EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable",
   "fixtures": [
-    {
-      "id": "70",
-      "date": "2026-10-23T18:15:00Z",
-      "home": {
-        "code": "OLY",
-        "name": "Olympiacos Piraeus",
-        "logo": "https://media-cdn.incrowdsports.com/789423ac-3cdf-4b89-b11c-b458aa5f59a6.png",
-        "score": 0
-      },
-      "away": {
-        "code": "ULK",
-        "name": "Fenerbahce Tarfin Istanbul",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
-        "score": 0
-      },
-      "home_win_probability": 0.6937,
-      "projection": {
-        "home": 88.1,
-        "away": 85.3,
-        "spread_home": -2.8,
-        "total": 173.3,
-        "status": "experimental_uncalibrated"
-      }
-    },
     {
       "id": "69",
       "date": "2026-10-23T18:45:00Z",
