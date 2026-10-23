@@ -112,6 +112,16 @@ def run():
         data[2026]["features"],data[2026]["quality"],0)
     hold=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
         data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"])
+    windows={}
+    for days in (14,30,45):
+        reference=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],0,days=days)
+        adjusted=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"],days=days)
+        windows[str(days)]={"games":reference["games"],
+            "baseline_log_loss":reference["log_loss"],"adjusted_log_loss":adjusted["log_loss"],
+            "logloss_gain":reference["log_loss"]-adjusted["log_loss"],
+            "brier_gain":reference["brier"]-adjusted["brier"]}
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-incremental-calibration-v1",
@@ -119,8 +129,10 @@ def run():
         "training_winner":best,"training_candidates":train,
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_logloss_gain":gain,"holdout_brier_gain":brier_gain,
+        "holdout_window_sensitivity":windows,
         "quality_team_coverage":{str(y):data[y]["coverage"] for y in data},
         "validated_incremental_gain":gain>0.0002 and brier_gain>0.00005,
+        "preseason_information_integrity_verified":False,
         "approved_for_primary":False,
         "limitations":["Historical roster snapshot timing unverified",
             "Exact name joins are provisional identities",
