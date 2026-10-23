@@ -26,7 +26,13 @@ async function desk(){
  const movement=verifiedSnapshot?{available:true,day:snapshot.as_of_eastern_date,weekDate:snapshot.last_week_eastern_date,
   daily:snapshot.daily_change,lastWeek:snapshot.last_week_elo}:
   (window.NBAEloMovement?.compute(elo)||{available:false,reason:'Published daily Elo movement unavailable'});
- const daily=t=>movement.available?(window.NBAEloMovement?.format?.(movement.daily[t]) || (movement.daily[t]>0?'▲ +':movement.daily[t]<0?'▼ ':'')+movement.daily[t].toFixed(3)):'N/A';
+ const dailyMarkup=n=>{
+  if(!Number.isFinite(n))return 'N/A';
+  if(n>.0005)return '<span class="nba-elo-positive">▲ +'+n.toFixed(3)+'</span>';
+  if(n<-.0005)return '<span class="nba-elo-negative">▼ '+n.toFixed(3)+'</span>';
+  return '<span class="nba-elo-flat">—</span>';
+ };
+ const daily=t=>movement.available?dailyMarkup(movement.daily[t]):'N/A';
  const records=Object.fromEntries(Object.keys(names).map(t=>[t,{w:0,l:0}]));
  const ledger=(elo.events||[]).filter(g=>Number.isFinite(g.home_score)&&Number.isFinite(g.away_score));
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
