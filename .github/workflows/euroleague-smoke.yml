@@ -1,0 +1,25 @@
+name: EuroLeague source smoke test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check season source and fallback
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,"scripts")
+          import euroleague_model as m
+          for season in ("E2024","E2025","E2026"):
+              games=m.fetch_season(season)
+              played=sum(g["completed"] for g in games)
+              print(f"{season}: {len(games)} fixtures, {played} finals, {len({g['home']['code'] for g in games}|{g['away']['code'] for g in games})} clubs")
+          PY
