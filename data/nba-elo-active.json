@@ -1,0 +1,20 @@
+{
+  "league": "NBA",
+  "season": "2026-27",
+  "primary_model": "current_season_elo",
+  "primary_rankings_path": "data/nba-2026-27-current-provisional.json",
+  "comparison_models": [
+    {
+      "id": "preseason_elo",
+      "path": "data/nba-2026-27-preseason-provisional.json"
+    },
+    {
+      "id": "prior_season_final_elo",
+      "path": "data/nba-2025-26-final.json"
+    }
+  ],
+  "publication_status": "provisional_traditional_elo",
+  "description": "The current-season Elo is the sole NBA power-ranking authority; the other two snapshots are comparisons, not independent ranking defaults.",
+  "prediction_status": "not_validated",
+  "roster_adjusted_status": "not_validated"
+}
