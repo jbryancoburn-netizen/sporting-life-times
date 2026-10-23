@@ -19,6 +19,8 @@ jobs:
           python-version: '3.12'
       - name: Collect NBA official daily scoreboard and box scores
         run: python scripts/collect_nba_game_center.py
+      - name: Collect published NBA player leader statistics
+        run: python scripts/collect-nba-player-leaders.py
       - name: Build Rabby verified possession inputs independently of Elo
         run: node scripts/build-nba-possession-inputs.mjs
       - name: Validate NBA schedule and forecasts against Elo
@@ -31,7 +33,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nba-game-center.json data/nba-possession-inputs.json
+          git add data/nba-game-center.json data/nba-possession-inputs.json data/nba-player-leaders.json 2>/dev/null || git add data/nba-game-center.json data/nba-possession-inputs.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh official NBA score and schedule archive"
           git push
