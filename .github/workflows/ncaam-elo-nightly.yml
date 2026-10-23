@@ -7,6 +7,9 @@ on:
     paths:
       - 'scripts/update_ncaam_2027.py'
       - 'scripts/test_ncaam_elo.py'
+      - 'scripts/replay_ncaam_espn_2027.py'
+      - 'scripts/test_replay_ncaam_espn_2027.py'
+      - 'data/ncaam-2026-27-espn-team-crosswalk.json'
       - '.github/workflows/ncaam-elo-nightly.yml'
 permissions:
   contents: write
@@ -24,8 +27,22 @@ jobs:
           python-version: '3.12'
       - name: Run independent Elo tests
         run: python -m unittest discover -s scripts -p test_ncaam_elo.py -v
+      - name: Verify secondary-provider end-to-end Elo replay tests
+        run: python -m unittest discover -s scripts -p test_replay_ncaam_espn_2027.py -v
       - name: Reconcile season membership and replay NCAA-origin finals
         run: python scripts/update_ncaam_2027.py
+      - name: Replay verified ESPN final results if NCAA-origin season archive is not published
+        run: |
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          ready=json.loads(Path('data/ncaam-source-readiness.json').read_text()).get('ready') is True
+          if not ready:
+              print('NCAA-origin season archive unavailable; validate ESPN final-score replay')
+              subprocess.run([sys.executable,'scripts/replay_ncaam_espn_2027.py'],check=True)
+          else:
+              print('NCAA-origin results available; ESPN fallback not needed')
+          PY
       - name: Verify output schema before publication
         run: |
           python - <<'PY'
