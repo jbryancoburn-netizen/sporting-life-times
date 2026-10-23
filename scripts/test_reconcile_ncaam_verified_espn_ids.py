@@ -35,4 +35,11 @@ class IdentityTests(unittest.TestCase):
         r=reconcile(old,current,[])
         self.assertEqual(r["counts"]["duplicate_current_espn_id"],2)
         self.assertEqual(r["matched"],[])
+    def test_duplicate_id_within_one_current_school_is_rejected(self):
+        old={"rosters":[{"ncaa_id":"ncaa:10","players":[{"id":"123","name":"A Sample"}]}]}
+        current={"rosters":[{"ncaa_id":"ncaa:10","school":"Old School",
+            "players":[{"id":"123","name":"A Sample"},{"id":"123","name":"A Sample"}]}]}
+        r=reconcile(old,current,[])
+        self.assertEqual(r["counts"]["duplicate_current_espn_id"],2)
+        self.assertEqual(r["matched"],[])
 if __name__=="__main__":unittest.main()
