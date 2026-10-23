@@ -31,7 +31,7 @@ def game_record(g):
                 if all(isinstance(st.get(v),(int,float)) for v in keys.values()):
                     entry["official_stats"][side_name]={"code":team.get("teamTricode"),"points":team.get("score"),**{k:st[v] for k,v in keys.items()}}
                 for player in team.get("players") or []:
-                    if not player.get("played"):continue
+                    if str(player.get("played", "")).lower() not in ("true", "1"):continue
                     st=player.get("statistics") or {}
                     row={"id":str(player.get("personId") or ""),"name":player.get("name") or (str(player.get("firstName") or "")+" "+str(player.get("familyName") or "")).strip(),"team":team.get("teamTricode"),"pts":int(st.get("points") or 0),"reb":int(st.get("reboundsTotal") or 0),"ast":int(st.get("assists") or 0),"stl":int(st.get("steals") or 0),"blk":int(st.get("blocks") or 0),"tov":int(st.get("turnovers") or 0),"fgm":int(st.get("fieldGoalsMade") or 0),"fga":int(st.get("fieldGoalsAttempted") or 0),"fg3m":int(st.get("threePointersMade") or 0),"fg3a":int(st.get("threePointersAttempted") or 0),"ftm":int(st.get("freeThrowsMade") or 0),"fta":int(st.get("freeThrowsAttempted") or 0),"min":st.get("minutes") or ""}
                     entry["players"].append(row)
@@ -63,6 +63,7 @@ def main():
     # Retain regular-season archive from this edition's first capture onward.
     # Never present this as historical completeness without a backfill audit.
     out={"updated_at":datetime.now(timezone.utc).isoformat(),"source":"NBA official live scoreboard and boxscore; cumulative captured archive (not guaranteed complete)","games":games,"coverage":{"archived_games":len(games),"boxscores_with_players":sum(bool(g.get("players")) for g in games),"first_game_date":min((g.get("date") for g in games if g.get("date")),default=None),"last_game_date":max((g.get("date") for g in games if g.get("date")),default=None)}}
+    outpath.parent.mkdir(parents=True,exist_ok=True)
     outpath.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print("NBA archive: "+str(len(games))+" games; "+str(out["coverage"]["boxscores_with_players"])+" full player box scores")
 if __name__=="__main__":main()
