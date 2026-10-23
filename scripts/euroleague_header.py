@@ -38,3 +38,44 @@ def details(raw,home_code,away_code,scheduled_state):
     clock=val("RemainingPartialTime","remainingPartialTime","remaining_partial_time")
     detail=" · ".join(str(x).strip() for x in (period,clock) if x is not None and str(x).strip())
     return {"state":state,"home":a,"away":b,"detail":detail}
+
+def completed_score(raw,home_code,away_code,minutes_after_tipoff=0):
+    """Conservatively confirm a final from EuroLeague's own completed Q4 fields.
+
+    A false live flag alone is NOT enough: it may also mean timeout or source
+    delay. We require matching clubs, non-tied final totals, 4th-period totals
+    matching the final score, and a finished game clock after tipoff.
+    """
+    if not isinstance(raw,dict) or minutes_after_tipoff<85:return None
+    def pick(*keys):
+        return next((raw[k] for k in keys if k in raw and raw[k] is not None),None)
+    if pick("Live","live") is not False:return None
+    if (str(pick("CodeTeamA","codeTeamA") or "").strip().upper()!=home_code.upper() or
+        str(pick("CodeTeamB","codeTeamB") or "").strip().upper()!=away_code.upper()):
+        return None
+    def number(v):
+        if isinstance(v,bool) or v is None:return None
+        try:
+            n=int(str(v).strip())
+            return n if 0<=n<=250 else None
+        except (TypeError,ValueError):return None
+    home=number(pick("ScoreA","scoreA"))
+    away=number(pick("ScoreB","scoreB"))
+    q4h=number(pick("ScoreQuarter4A","scoreQuarter4A"))
+    q4a=number(pick("ScoreQuarter4B","scoreQuarter4B"))
+    clock=str(pick("RemainingPartialTime","remainingPartialTime") or "").strip()
+    game_time=str(pick("GameTime","gameTime") or "").strip()
+    clock_finished=clock in ("00:00","0:00") or game_time in ("40:00","45:00","50:00")
+    if not clock_finished or home is None or away is None or home==away:return None
+    # Regulation conclusion. Do not confuse third-quarter / partial game
+    # snapshots with a finished forty-minute game.
+    if q4h==home and q4a==away:
+        return {"home":home,"away":away,"method":"euroleague_completed_fourth_quarter"}
+    # Overtime requires a tied fourth period and positive extra-time points.
+    exh=number(pick("ScoreExtraTimeA","scoreExtraTimeA"))
+    exa=number(pick("ScoreExtraTimeB","scoreExtraTimeB"))
+    if (q4h is not None and q4a is not None and q4h==q4a and
+        exh is not None and exa is not None and exh+exa>0 and
+        home==q4h+exh and away==q4a+exa):
+        return {"home":home,"away":away,"method":"euroleague_completed_overtime"}
+    return None
