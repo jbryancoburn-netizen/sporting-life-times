@@ -90,7 +90,29 @@ for(const event of events){
  // Retain verified scheduled game date for chronological weekly/daily Elo snapshots.
 }
 const ranked=Object.entries(ratings).map(([team,elo])=>({team,elo:round(elo,3)})).sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
-const result={league:'NBA',season:'2026-27',status:'provisional_live_from_historical_baseline',games_played:events.length,preseason_status:baseline.status,source:'ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo',rankings:ranked,events};
+// Publish date-verified daily and seven-day Elo snapshots with the ratings.
+// This avoids requiring a separate browser calculation for basic standings movement.
+const dayET=value=>{
+ const pts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(value));
+ const part=t=>pts.find(p=>p.type===t)?.value;
+ return part('year')+'-'+part('month')+'-'+part('day');
+};
+const asOf=events.length?events.map(e=>dayET(e.date)).sort().at(-1):null;
+const weekStart=asOf?new Date(new Date(asOf+'T12:00:00Z').getTime()-7*86400000).toISOString().slice(0,10):null;
+const dailyChange=Object.fromEntries(ranked.map(r=>[r.team,0]));
+const weekChange=Object.fromEntries(ranked.map(r=>[r.team,0]));
+for(const ev of events){
+ const date=dayET(ev.date);
+ if(date===asOf){dailyChange[ev.home]+=ev.home_elo_change;dailyChange[ev.away]-=ev.home_elo_change;}
+ if(date>weekStart){weekChange[ev.home]+=ev.home_elo_change;weekChange[ev.away]-=ev.home_elo_change;}
+}
+const movement=asOf?{
+ as_of_eastern_date:asOf,
+ daily_change:Object.fromEntries(ranked.map(r=>[r.team,round(dailyChange[r.team],6)])),
+ last_week_eastern_date:weekStart,
+ last_week_elo:Object.fromEntries(ranked.map(r=>[r.team,round(r.elo-weekChange[r.team],3)]))
+}:null;
+const result={league:'NBA',season:'2026-27',status:'provisional_live_from_historical_baseline',games_played:events.length,preseason_status:baseline.status,source:'ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo',rankings:ranked,events,movement};
 assert.equal(result.rankings.length,30);
 assert.equal(result.events.length,result.games_played);
 const oldLedger=new Map((old.events||[]).map(x=>[x.id,x]));
