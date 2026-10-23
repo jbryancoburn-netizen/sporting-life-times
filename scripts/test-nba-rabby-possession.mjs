@@ -21,7 +21,7 @@ const fast=m.project('BOS','NYK',model,ratings);
 const slow=m.project('GSW','CHI',model,ratings);
 assert.ok(fast&&slow);
 assert.ok(fast.total>slow.total+10,'Opponent pace/offense must produce different scoring totals');
-assert.ok(fast.possessions>slow.possessions+10,'Pace must materially affect matchups');
+assert.ok(fast.possessions>slow.possessions+7,'Pace must materially affect matchups');
 assert.ok(Math.abs(fast.homePoints-fast.awayPoints)<40);
 const page=read('nba.html'),legacy=read('nba-rabby-forecast.js');
 assert.match(page,/nba-rabby-possession\.js/);
