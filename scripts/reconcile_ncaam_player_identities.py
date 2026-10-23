@@ -39,7 +39,7 @@ def reconcile(movement,registry):
           "returner_candidates":ret,"incoming_d1_candidates":incoming,
           "unresolved":unknown,"unresolved_share":round(unknown/n,4),
           "priority_score":round(priority,2),"flags":sorted(set(reasons)),
-          "identity_verified":False}
+          "identity_verified":False,"reviewed_for_internal_consistency":True}
         audit.append(record)
         if reasons:issues.append(record)
     duplicate_current_ids={pid:places for pid,places in global_ids.items() if len(places)>1}
