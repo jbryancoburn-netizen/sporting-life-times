@@ -53,6 +53,7 @@ class TestModel(unittest.TestCase):
         self.assertLessEqual(result["brier"],1)
         self.assertGreater(result["log_loss"],0)
         self.assertAlmostEqual(result["predictions"][0]["pred"],el.expected(65))
+        self.assertNotAlmostEqual(result["predictions"][1]["pred"],el.expected(65))
     def test_publish_full_model_from_mocked_seasons(self):
         teams=["T"+str(i).zfill(2) for i in range(18)]
         def season_games(season):
