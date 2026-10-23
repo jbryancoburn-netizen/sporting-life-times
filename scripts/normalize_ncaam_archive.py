@@ -58,7 +58,10 @@ def parse(record):
             site=None
             why=why or "unverified neutral-site status"
         if why:
-            rejected.append({"id":gameid,"date":day,"reason":why,\n                "home_id":h,"away_id":a,"home_score":hs,"away_score":aws,\n                "home_name":team_name(home),"away_name":team_name(away),\n                "source_url":canonical})
+            rejected.append({"id":gameid,"date":day,"reason":why,
+                "home_id":h,"away_id":a,"home_score":hs,"away_score":aws,
+                "home_name":team_name(home),"away_name":team_name(away),
+                "source_url":canonical})
             continue
         games.append(({"game_id":"ncaa:"+gameid,"date":day,"home_id":h,"away_id":a,
             "home_score":hs,"away_score":aws,"site":site,"status":"Final",
@@ -101,11 +104,17 @@ def convert(root,out,registry,report,expected_days=None):
     registry.write_text(json.dumps({"status":"unverified-candidates","teams":[
         {"id":i,"name":name,"division":"UNVERIFIED"}
         for i,name in sorted(names.items())]},indent=2)+"\n",encoding="utf-8")
-    pending=report.with_name("ncaam-unresolved-finals.json")\n    pending.parent.mkdir(parents=True,exist_ok=True)\n    pending.write_text(json.dumps(rejections,indent=2)+"\\n",encoding="utf-8")\n    summary={"archive_days":len(days),"unique_finals":len(rows),"candidate_teams":len(names),\n             "rejection_reasons":dict(Counter(x["reason"] for x in rejections)),
+    pending=report.with_name("ncaam-unresolved-finals.json")
+    pending.parent.mkdir(parents=True,exist_ok=True)
+    pending.write_text(json.dumps(rejections,indent=2)+"\\n",encoding="utf-8")
+    summary={"archive_days":len(days),"unique_finals":len(rows),"candidate_teams":len(names),
+             "rejection_reasons":dict(Counter(x["reason"] for x in rejections)),
              "rejected_final_count":len(rejections),"rejections":rejections,
              "release_ready":False,"blockers":["verify D1 membership of every team",
              "resolve rejected games and missing venue data","validate full season date coverage",
-             "cross-check season game counts and scores",\n             "bridge SEO aliases are candidates, not NCAA numeric IDs",\n             "upstream NCAA bridge does not expose neutral-site field reliably"]}
+             "cross-check season game counts and scores",
+             "bridge SEO aliases are candidates, not NCAA numeric IDs",
+             "upstream NCAA bridge does not expose neutral-site field reliably"]}
     report.parent.mkdir(parents=True,exist_ok=True)
     report.write_text(json.dumps(summary,indent=2)+"\n",encoding="utf-8")
     return summary
