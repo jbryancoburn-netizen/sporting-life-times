@@ -10,7 +10,7 @@ const msg=(id,t)=>{if($(id))$(id).textContent=t};
 const unavailable=(id,message)=>{if($(id))$(id).innerHTML='<p class="hub-small">'+esc(message)+'</p>'};
 const date=s=>{const n=Date.parse(s);return Number.isFinite(n)?new Date(n).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'Time unverified'};
 async function news(){
- try{const data=await fetchJSON('articles.json');const items=(data.articles||[]).filter(a=>{const c=String(a.category||'').toLowerCase(),u=String(a.url||'').toLowerCase(),s=String(a.source||'').toLowerCase();return c.includes('basketball')||c.includes('nba')||u.includes('/nba/')||s.includes('nba')}).filter(a=>/^https:\/\//.test(a.url)&&a.title).slice(0,16);
+ try{const data=await fetchJSON('articles.json');const items=(data.articles||[]).filter(a=>{const c=String(a.category||'').toLowerCase(),u=String(a.url||'').toLowerCase(),s=String(a.source||'').toLowerCase();return c==='nba'||s.includes('nba')||u.includes('/nba/')||u.includes('/basketball/nba/')}).filter(a=>/^https:\/\//.test(a.url)&&a.title).slice(0,16);
  if(!items.length)throw Error('No verified NBA headlines in this edition');
  $('nba-news-grid').innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+esc(a.source)+' · '+esc(a.published_at||'Date unavailable')+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(a.summary.slice(0,230))+'</p>':'')+'</article>').join('');
  msg('nba-news-status',items.length+' attributed headlines · Published sources · Updated '+esc(data.updated_at||'when feed refreshes'));
@@ -44,5 +44,5 @@ async function desk(){
  msg('nba-forecast-status','Model-derived win probabilities for verified upcoming fixtures · Not betting odds · Ratings as published');
  }catch(e){console.error('NBA home desk',e);msg('nba-standings-status','NBA standings source unavailable');unavailable('nba-conference-standings','Unable to verify conference records. See official NBA standings.');msg('nba-yesterday-status','Recent final scores unavailable');unavailable('nba-yesterday-scores','Score feed unavailable.');msg('nba-forecast-status','NBA prediction source unavailable');unavailable('nba-forecast-games','Unable to produce predictions from verified schedule and Elo.')}
 }
-news().finally(()=>desk());
+news().catch(e=>console.error('NBA headlines',e)).finally(()=>desk());
 })();
