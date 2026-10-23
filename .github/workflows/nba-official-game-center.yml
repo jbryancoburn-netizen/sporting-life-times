@@ -8,6 +8,7 @@ on:
       - 'scripts/backfill-nba-boxscores.py'
       - 'scripts/collect-nba-player-leaders.py'
       - 'scripts/build-nba-possession-inputs.mjs'
+      - 'scripts/test-nba-ingestion.py'
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
@@ -27,6 +28,8 @@ jobs:
           python-version: '3.12'
       - name: Validate collection code before using NBA feed
         run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
+      - name: Test NBA ingestion with synthetic fixtures and empty-feed rejection
+        run: python scripts/test-nba-ingestion.py
       - name: Backfill missed completed NBA player box scores from official schedule
         continue-on-error: true
         run: python scripts/backfill-nba-boxscores.py
