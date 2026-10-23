@@ -41,7 +41,8 @@ def parse(raw,season):
     for g in arr:
         if not isinstance(g,dict):continue
         home=team(g,"local");away=team(g,"road")
-        if not home["code"] or not away["code"] or home["code"]==away["code"]:continue
+        if not home["code"] or not away["code"] or home["code"]==away["code"]:
+            raise ValueError("Unrecognized team or invalid fixture in "+season+": "+str(field(g,"gameCode","id")))
         date=field(g,"utcDate","date","localDate")
         status=str(field(g,"gameStatus","status") or "").lower()
         played=field(g,"played","isPlayed")
