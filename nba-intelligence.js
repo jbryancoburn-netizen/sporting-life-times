@@ -58,6 +58,11 @@ async function leagueLeaders(){
   container.innerHTML='<div class="nba-league-leader-panels">'+blocks.join('')+'</div>';
   status.textContent=data.snapshot?'Individual leaders through '+data.as_of+' · '+data.source+' · Dated snapshot, not live statistics':(data.sample_only?'CAPTURED GAMES · INCOMPLETE SEASON':'2026–27 VERIFIED PLAYER LEADERS')+' · '+data.coverage.completed_boxscores+' player box scores · '+data.coverage.unique_players+' players';
  }catch(_err){
+  // Keep the independently rendered dated snapshot if network requests fail.
+  if(container.innerHTML.includes('nba-player-leader-block')){
+   status.textContent='Individual player leaders · dated October 22 snapshot · live refresh unavailable';
+   return;
+  }
   // A team-score ledger cannot reconstruct player performances. Never
   // duplicate team scoring rankings under a misleading player heading.
   container.innerHTML='<div class="nba-player-source-index"><p>Individual player statistics are not yet available from our verified game archive. The independent Elo results do not contain player statistics.</p><div class="nba-player-source-grid"><a href="https://www.nba.com/stats/leaders" target="_blank" rel="noopener noreferrer"><strong>NBA official player leaders ↗</strong><small>Scoring · Rebounds · Assists · Steals · Blocks</small></a><a href="https://www.nba.com/stats/players/traditional" target="_blank" rel="noopener noreferrer"><strong>Traditional player statistics ↗</strong><small>Games · Minutes · Shooting · Turnovers</small></a><a href="https://www.nba.com/stats/players/advanced" target="_blank" rel="noopener noreferrer"><strong>Advanced player statistics ↗</strong><small>Offensive efficiency · Usage · Net rating</small></a><a href="https://www.nba.com/stats/players/shooting" target="_blank" rel="noopener noreferrer"><strong>Player shot profiles ↗</strong><small>Field-goal range · Shot distribution</small></a></div></div>';
