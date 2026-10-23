@@ -1,0 +1,23 @@
+name: NCAA Opponent Quality Historical Backtest
+on:
+  push:
+    paths:
+      - scripts/backtest_ncaam_opponent_quality.py
+      - .github/workflows/ncaam-opponent-quality-backtest.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/backtest_ncaam_opponent_quality.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-opponent-quality-holdout-backtest
+          path: data/ncaam-opponent-quality-backtest.json
