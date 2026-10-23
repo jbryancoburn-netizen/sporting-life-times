@@ -12,6 +12,10 @@ on:
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
       - 'nba.html'
+      - 'nba-rabby-possession.js'
+      - 'nba-rabby-forecast.js'
+      - 'nba-home.js'
+      - 'scripts/test-nba-rabby-possession.mjs'
       - 'nba-elo-movement.js'
       - 'nba-desk-loader.js'
       - 'nba-home.js'
@@ -30,6 +34,10 @@ on:
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
       - 'nba.html'
+      - 'nba-rabby-possession.js'
+      - 'nba-rabby-forecast.js'
+      - 'nba-home.js'
+      - 'scripts/test-nba-rabby-possession.mjs'
       - 'nba-elo-movement.js'
       - 'nba-desk-loader.js'
       - 'nba-home.js'
@@ -58,5 +66,7 @@ jobs:
         run: node scripts/test-nba-elo-movement.mjs
       - name: Render actual NBA power rankings and division standings from published movement snapshot
         run: node scripts/test-nba-elo-render.mjs
+      - name: Verify independent Rabby possession scoring and story logo contracts
+        run: node scripts/test-nba-rabby-possession.mjs
       - name: Verify archived and current NBA Elo consistency
         run: node scripts/audit-nba-elo.mjs
