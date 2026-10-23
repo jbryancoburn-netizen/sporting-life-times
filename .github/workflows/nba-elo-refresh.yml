@@ -19,12 +19,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify NBA browser scripts and page contract
+        run: |
+          node --check nba-home.js
+          node --check nba-desk-loader.js
+          node scripts/audit-nba-page.mjs
       - name: Audit published ratings before refresh
         run: node scripts/audit-nba-elo.mjs
       - name: Replay only ESPN-confirmed 2026-27 regular-season finals
         run: node scripts/update-nba-elo.mjs
-      - name: Verify all rankings and Elo deltas before publication
-        run: node scripts/audit-nba-elo.mjs
+      - name: Verify all rankings, Elo deltas and dated finals before publication
+        run: |
+          node scripts/audit-nba-elo.mjs
+          node scripts/audit-nba-page.mjs
       - name: Publish new verified game results, if any
         run: |
           if git diff --quiet -- data/nba-2026-27-current-provisional.json; then
