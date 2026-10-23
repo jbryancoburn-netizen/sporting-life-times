@@ -9,6 +9,8 @@ on:
       - scripts/test_audit_ncaam_verified_production_coverage.py
       - scripts/audit_ncaam_identity_exposure.py
       - scripts/test_audit_ncaam_identity_exposure.py
+      - scripts/audit_ncaam_identity_temporal_integrity.py
+      - scripts/test_audit_ncaam_identity_temporal_integrity.py
       - .github/workflows/ncaam-espn-identity-continuity.yml
   workflow_dispatch:
 permissions:
@@ -25,6 +27,7 @@ jobs:
       - run: python -m unittest discover -s scripts -p test_reconcile_ncaam_verified_espn_ids.py -v
       - run: python -m unittest discover -s scripts -p test_audit_ncaam_verified_production_coverage.py -v
       - run: python -m unittest discover -s scripts -p test_audit_ncaam_identity_exposure.py -v
+      - run: python -m unittest discover -s scripts -p test_audit_ncaam_identity_temporal_integrity.py -v
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --min-players 1 --out staging/ncaam-2026-roster-evidence.json
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
       - run: python scripts/reconcile_ncaam_verified_espn_ids.py
@@ -32,6 +35,7 @@ jobs:
       - run: python scripts/audit_ncaam_verified_production_coverage.py
       - run: python scripts/build_ncaam_player_opponent_elo.py
       - run: python scripts/audit_ncaam_identity_exposure.py
+      - run: python scripts/audit_ncaam_identity_temporal_integrity.py
       - uses: actions/upload-artifact@v4
         with:
           name: ncaam-espn-identity-continuity
@@ -40,3 +44,4 @@ jobs:
             data/ncaam-2026-27-verified-movement-team-audit.json
             data/ncaam-2026-27-verified-production-coverage.json
             data/ncaam-2026-27-verified-movement-opponent-exposure.json
+            data/ncaam-2026-27-identity-temporal-gate.json
