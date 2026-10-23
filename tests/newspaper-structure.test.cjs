@@ -38,7 +38,7 @@ test('all primary newspaper pages share the exact front-page masthead and design
  const targets=['digital-edition.html','epl-club.html','epl-elo.html','epl.html','forecast-desk.html','match-center.html','nba.html','sports.html','team.html'];
  for(const name of targets){
   const page=fs.readFileSync(name,'utf8');
-  assert.match(page,/<body class="edition-interior">/,name+' missing shared edition scope');
+  assert.match(page,/<body class="edition-interior(?: [^"]+)?">/,name+' missing shared edition scope');
   assert.match(page,/edition-design\.css\?v=interior1/,name+' missing newspaper style');
   assert.match(page,/The Sporting Life <span class="newspaper-wordmark-amp">&amp;<\/span> Times/,name+' missing front-page masthead');
   assert.match(page,/aria-label="Main navigation"/,name+' missing common navigation');
