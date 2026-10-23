@@ -46,7 +46,11 @@ try{
    ['GAME TOTAL ERROR',v.total_mae+' pts','Mean absolute error in projected totals'],
    ['MARGIN ERROR',v.margin_mae+' pts','Mean absolute error in projected margin']
   ];
-  if(d.heldout_evaluation?.selected_holdout)boxes.push(['ELO HOLDOUT',d.heldout_evaluation.selected_holdout.accuracy*100+'%','Win pick accuracy · '+d.heldout_evaluation.selected_holdout.n+' games']);
+  if(d.heldout_evaluation?.selected_holdout&&d.heldout_evaluation?.baseline_holdout){
+   const h=d.heldout_evaluation,selected=h.selected_holdout,baseline=h.baseline_holdout;
+   boxes.push(['ELO HOLDOUT', (selected.accuracy*100).toFixed(1)+'%','2026–27 held-out picks · '+selected.n+' games']);
+   boxes.push(['HOLDOUT LOG LOSS',selected.log_loss.toFixed(3),'Tuned vs baseline '+baseline.log_loss.toFixed(3)+' · Lower is better']);
+  }
   el.innerHTML=boxes.map(([heading,value,note])=>'<article><small>'+esc(heading)+'</small><b>'+esc(value)+'</b><small>'+esc(note)+'</small></article>').join('');
  }catch(e){el.textContent='Historical forecast evaluation not yet available; scoring parameters remain provisional.';}
 })();
