@@ -87,7 +87,7 @@ def main():
         state["reason"]="2026-27 season source not released (HTTP 404)"
         (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
-    roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
+    if len(current)!=365 or len({str(t.get('id')) for t in current})!=365:\n        raise ValueError(f'2026-27 membership source incomplete: {len(current)} rows; expected 365 unique teams')\n    roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
     # Audit hold: extreme transfer adjustments are not publication-approved.
     # Re-enable only after team-level identity and magnitude validation.
     approved=False
