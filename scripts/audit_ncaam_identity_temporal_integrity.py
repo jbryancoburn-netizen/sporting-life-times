@@ -32,7 +32,10 @@ def audit(identity,production,exposure):
         "historical_roster_asof_not_proven":identity.get("historical_roster_asof_verified") is not True,
         "ncaa_box_identity_not_source_verified":production.get("cross_provider_identity_verified") is not True,
         "opponent_calibration_not_approved":exposure.get("opponent_adjustment_calibrated_for_verified_identities") is not True,
-        "historical_espn_coverage_incomplete":identity.get("teams_prior")!=365,
+        "historical_espn_coverage_incomplete":(identity.get("historical_expected_d1_teams")!=365
+            or bool(identity.get("historical_missing_d1_team_ids"))
+            or bool(identity.get("historical_unexpected_team_ids"))
+            or identity.get("teams_prior")!=identity.get("historical_expected_d1_teams")),
         "duplicate_current_athlete_ids":bool(identity.get("duplicate_current_athlete_ids")),
         "historical_roster_partial":bool(identity.get("historical_partial_roster_teams")),
         "historical_season_payload_not_source_verified":identity.get("historical_season_payload_verified") is not True,
