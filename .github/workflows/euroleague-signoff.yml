@@ -1,0 +1,25 @@
+name: EuroLeague production sign-off
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/euroleague_deploy_audit.py'
+      - 'scripts/test_euroleague_model.py'
+      - '.github/workflows/euroleague-signoff.yml'
+  schedule:
+    - cron: '25 * * * *'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove Elo replay is idempotent
+        run: python -m unittest discover -s scripts -p test_euroleague_model.py -v
+      - name: Check published GitHub Pages edition and JSON
+        run: python scripts/euroleague_deploy_audit.py
