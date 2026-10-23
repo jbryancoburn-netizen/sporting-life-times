@@ -62,6 +62,34 @@ def score_forecast_evaluation(games):
             "margin_mae":round(abs_margin/evaluated,2) if evaluated else None,
             "method":"strict pregame expanding-window; current published scoring formula"}
 
+def heldout_evaluation(games):
+    """Select settings on 2025-26; report untouched 2026-27 pregame predictions."""
+    train=[g for g in games if g["season"] in ("E2024","E2025")]
+    test=[g for g in games if g["season"]=="E2026" and g["completed"]]
+    if not test:
+        raise ValueError("No held-out 2026-27 games")
+    candidates=[]
+    for k,home,carry in PARAMS:
+        r=score(train,k,home,carry)
+        candidates.append((r["log_loss"],r["brier"],k,home,carry))
+    candidates.sort()
+    _,_,k,home,carry=candidates[0]
+    full=score(games,k,home,carry)
+    hold=[p for p in full["predictions"] if p["season"]=="E2026"]
+    baseline=score(games,22.,65.,.67)
+    basehold=[p for p in baseline["predictions"] if p["season"]=="E2026"]
+    def metrics(rows):
+        n=len(rows)
+        if not n:raise ValueError("No held-out predictions")
+        return {"n":n,"log_loss":round(-sum(r["actual"]*math.log(max(1e-6,min(1-1e-6,r["pred"])))+(1-r["actual"])*math.log1p(-max(1e-6,min(1-1e-6,r["pred"]))) for r in rows)/n,6),
+                "brier":round(sum((r["pred"]-r["actual"])**2 for r in rows)/n,6),
+                "accuracy":round(sum((r["pred"]>=.5)==bool(r["actual"]) for r in rows)/n,4)}
+    return {"method":"train candidates on 2025-26; evaluate unseen 2026-27 chronologically",
+            "training_season":"E2025","holdout_season":"E2026",
+            "selected_parameters":{"k":k,"home_elo":home,"season_carry":carry},
+            "selected_holdout":metrics(hold),"baseline_holdout":metrics(basehold),
+            "note":"True season holdout; selections are not retrained on holdout games."}
+
 def main():
     games=[g for year in (2024,2025,2026) for g in el.fetch_season("E"+str(year))]
     candidates=[]
@@ -74,7 +102,8 @@ def main():
     baseline=score(games,22.,65.,.67)
     best=candidates[0]
     scoring_validation=score_forecast_evaluation(games)
-    document={"scoring_forecast_validation":scoring_validation,"status":"historical_exploratory_only","evaluated_seasons":["E2025","E2026"],
+    heldout=heldout_evaluation(games)
+    document={"heldout_evaluation":heldout,"scoring_forecast_validation":scoring_validation,"status":"historical_exploratory_only","evaluated_seasons":["E2025","E2026"],
               "method":"chronological expanding-window (but candidate selection occurs on evaluation seasons)",
               "caution":"Do not treat selected parameters as out-of-sample validated; reserve a future holdout.",
               "best_in_sample":best,"baseline":{"k":22,"home_elo":65,"season_carry":.67,
