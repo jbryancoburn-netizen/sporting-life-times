@@ -22,8 +22,8 @@ class TransferTests(unittest.TestCase):
   self.assertEqual(f["purdue"]["incoming_minutes"],0)
  def test_early_game_window_is_explicit(self):
   start=date(2025,11,3)
-  games=[(start+timedelta(days=k),"g"+str(k),"a","b",75,70) for k in range(53)]
+  games=[(start+timedelta(days=k//5),"g"+str(k),"a","b",75,70) for k in range(260)]
   feature={"a":{"retention":.4,"incoming_minutes":.2},"b":{"retention":.3,"incoming_minutes":.5}}
   result=module.evaluate(games,{"a":1550,"b":1450},feature,(20,30),days=45)
-  self.assertEqual(result["games"],45)
+  self.assertEqual(result["games"],225)
 if __name__=="__main__":unittest.main()
