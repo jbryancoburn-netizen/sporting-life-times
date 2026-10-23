@@ -1,0 +1,36 @@
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const names={ATL:'Atlanta Hawks',BOS:'Boston Celtics',BKN:'Brooklyn Nets',CHA:'Charlotte Hornets',CHI:'Chicago Bulls',CLE:'Cleveland Cavaliers',DAL:'Dallas Mavericks',DEN:'Denver Nuggets',DET:'Detroit Pistons',GSW:'Golden State Warriors',HOU:'Houston Rockets',IND:'Indiana Pacers',LAC:'LA Clippers',LAL:'Los Angeles Lakers',MEM:'Memphis Grizzlies',MIA:'Miami Heat',MIL:'Milwaukee Bucks',MIN:'Minnesota Timberwolves',NOP:'New Orleans Pelicans',NYK:'New York Knicks',OKC:'Oklahoma City Thunder',ORL:'Orlando Magic',PHI:'Philadelphia 76ers',PHX:'Phoenix Suns',POR:'Portland Trail Blazers',SAC:'Sacramento Kings',SAS:'San Antonio Spurs',TOR:'Toronto Raptors',UTA:'Utah Jazz',WAS:'Washington Wizards'};
+const east=new Set(['ATL','BOS','BKN','CHA','CHI','CLE','DET','IND','MIA','MIL','NYK','ORL','PHI','TOR','WAS']);
+const aliases={'LA Clippers':'LAC','Los Angeles Clippers':'LAC','New York Knicks':'NYK','Golden State Warriors':'GSW','New Orleans Pelicans':'NOP','San Antonio Spurs':'SAS','Portland Trail Blazers':'POR','Philadelphia 76ers':'PHI','Utah Jazz':'UTA','Washington Wizards':'WAS'};
+const code=n=>aliases[n]||Object.keys(names).find(k=>names[k]===n)||null;
+const fetchJSON=async path=>{const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()};
+const msg=(id,t)=>{if($(id))$(id).textContent=t};
+const unavailable=(id,message)=>{if($(id))$(id).innerHTML='<p class="hub-small">'+esc(message)+'</p>'};
+const date=s=>{const n=Date.parse(s);return Number.isFinite(n)?new Date(n).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'Time unverified'};
+async function news(){
+ try{const data=await fetchJSON('articles.json');const items=(data.articles||[]).filter(a=>{const c=String(a.category||'').toLowerCase(),u=String(a.url||'').toLowerCase(),s=String(a.source||'').toLowerCase();return c.includes('basketball')||c.includes('nba')||u.includes('/nba/')||s.includes('nba')}).filter(a=>/^https:\/\//.test(a.url)&&a.title).slice(0,16);
+ if(!items.length)throw Error('No verified NBA headlines in this edition');
+ $('nba-news-grid').innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+esc(a.source)+' · '+esc(a.published_at||'Date unavailable')+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(a.summary.slice(0,230))+'</p>':'')+'</article>').join('');
+ msg('nba-news-status',items.length+' attributed headlines · Published sources · Updated '+esc(data.updated_at||'when feed refreshes'));
+ }catch(e){msg('nba-news-status','NBA headlines unavailable');unavailable('nba-news-grid','The current feed has no verified NBA headlines. No invented stories are shown.')}
+}
+async function desk(){
+ try{const [scores,elo]=await Promise.all([fetchJSON('multi_scoreboards.json'),fetchJSON('data/nba-2026-27-current-provisional.json')]);
+ const block=(scores.leagues||[]).find(l=>l.league==='NBA');const games=block?.games||[];const ratings=Object.fromEntries((elo.rankings||[]).map(r=>[r.team,r.elo]));
+ if(Object.keys(ratings).length!==30)throw Error('Incomplete current-season Elo');
+ const records=Object.fromEntries(Object.keys(names).map(t=>[t,{w:0,l:0}]));
+ const finals=games.filter(g=>g.state==='post'||/final/i.test(g.status||''));
+ for(const g of finals){const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away'),hc=code(h?.name),ac=code(a?.name);if(!hc||!ac||!Number.isFinite(+h.score)||!Number.isFinite(+a.score))continue;const winner=+h.score>+a.score?hc:ac,loser=winner===hc?ac:hc;records[winner].w++;records[loser].l++}
+ const conference=(label,keys)=>{const arr=keys.sort((a,b)=>{const x=records[a],y=records[b];return y.w-x.w||x.l-y.l||ratings[b]-ratings[a]});return '<section class="nba-conference"><h3>'+label+'</h3><table class="nba-mini-table"><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>PCT</th><th>Elo</th></tr></thead><tbody>'+arr.map((t,i)=>{const r=records[t],n=r.w+r.l;return '<tr><td>'+(i+1)+'</td><th>'+esc(names[t])+'</th><td>'+r.w+'</td><td>'+r.l+'</td><td>'+(n?(r.w/n).toFixed(3):'—')+'</td><td>'+ratings[t].toFixed(0)+'</td></tr>'}).join('')+'</tbody></table></section>'};
+ $('nba-conference-standings').innerHTML='<p class="hub-small">Provisional W–L table derived from '+finals.length+' final games in the currently published scoreboard snapshot. <strong>Not complete official season standings.</strong> Rankings and records may be incomplete; use the official link for full standings.</p><div class="nba-conferences">'+conference('EASTERN CONFERENCE',Object.keys(names).filter(t=>east.has(t)))+conference('WESTERN CONFERENCE',Object.keys(names).filter(t=>!east.has(t)))+'</div>';
+ msg('nba-standings-status','Published scoreboard snapshot · '+esc(scores.updated_at||'date not supplied'));
+ const upcoming=games.filter(g=>g.state==='pre'||/scheduled/i.test(g.status||'')).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).slice(0,18);
+ if(!upcoming.length){msg('nba-forecast-status','No future NBA games in the current published schedule snapshot');unavailable('nba-forecast-games','Upcoming predictions appear when verified future fixtures are available.');return}
+ $('nba-forecast-games').innerHTML='<div class="nba-prediction-list">'+upcoming.map(g=>{const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away'),hc=code(h?.name),ac=code(a?.name);if(!hc||!ac||!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';const hp=1/(1+Math.pow(10,-(ratings[hc]+45-ratings[ac])/400));return '<article class="nba-prediction"><p class="nba-news-source">'+esc(date(g.date))+' · '+esc(g.provider||block.provider||'Published fixture')+'</p><div><strong>'+esc(ac)+' @ '+esc(hc)+'</strong><span>'+esc(names[ac])+' '+(100*(1-hp)).toFixed(1)+'% · '+esc(names[hc])+' '+(100*hp).toFixed(1)+'%</span></div><p class="hub-small">Elo '+ratings[ac].toFixed(1)+' / '+ratings[hc].toFixed(1)+' · Home edge +45 · Pregame estimate based on current published ratings; no lineup adjustment.</p></article>'}).join('')+'</div>';
+ msg('nba-forecast-status','Model-derived win probabilities for verified upcoming fixtures · Not betting odds · Ratings as published');
+ }catch(e){console.error('NBA home desk',e);msg('nba-standings-status','NBA standings source unavailable');unavailable('nba-conference-standings','Unable to verify conference records. See official NBA standings.');msg('nba-forecast-status','NBA prediction source unavailable');unavailable('nba-forecast-games','Unable to produce predictions from verified schedule and Elo.')}
+}
+Promise.allSettled([news(),desk()]);
+})();
