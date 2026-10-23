@@ -79,11 +79,12 @@ def main():
         factor=min(1.65,0.80+0.22*math.log1p(margin))
         delta=K*factor*(out-p)
         ratings[h["code"]]+=delta;ratings[a["code"]]-=delta
-    # Explicit season rollover once for current year, preserving prior Elo.
-    ratings={k:1500+(v-1500)*CARRY for k,v in ratings.items()}
+    # First E2026 record already triggered the rollover in the chronological loop.
     current=[g for g in all_games if g["season"]=="E2026"]
     current.sort(key=lambda g:(clock(g["date"]),g["id"]))
     active={t["code"] for g in current for t in (g["home"],g["away"])}
+    for g in current:
+        for t in (g["home"],g["away"]):team_info[t["code"]]={"code":t["code"],"name":t["name"],"logo":t["logo"]}
     for code in active:ratings.setdefault(code,1500.)
     for g in current:
         h,a=g["home"],g["away"]
@@ -98,6 +99,7 @@ def main():
             st=stats.setdefault(t["code"],{"played":0,"wins":0,"losses":0,"for":0,"against":0})
             st["played"]+=1;st["wins"]+=win;st["losses"]+=1-win;st["for"]+=points;st["against"]+=against
         history.append({"id":g["id"],"date":g["date"],"home":h["code"],"away":a["code"],"score":[h["score"],a["score"]],"pregame_home_probability":round(p,5)})
+    if not current or not active:raise ValueError("No current season clubs; refusing empty publication")
     ranked=[{**team_info[c],"elo":round(ratings[c],1),**stats.get(c,{"played":0,"wins":0,"losses":0,"for":0,"against":0})} for c in active]
     ranked.sort(key=lambda x:(-x["elo"],x["name"]))
     # Temporary 40-minute points model based on current season observed PPG.
