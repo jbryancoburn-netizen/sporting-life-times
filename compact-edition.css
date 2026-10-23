@@ -92,3 +92,27 @@ body .nba-newspaper-grid .nba-prediction{border-right:1px solid #d8d5ce;padding-
 @media(max-width:1050px){body .nba-newspaper-grid{grid-template-columns:repeat(3,minmax(0,1fr))}body .nba-newspaper-grid #nba-news{grid-column:span 2}body .nba-newspaper-grid #nba-official-standings{grid-column:span 1}body .nba-newspaper-grid .nba-divisions{grid-template-columns:1fr}body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:680px){body .nba-newspaper-grid{grid-template-columns:1fr}body .nba-newspaper-grid #nba-news,body .nba-newspaper-grid #nba-official-standings,body .nba-newspaper-grid #nba-upcoming{grid-column:1;border-right:0!important;padding-right:0!important;border-top:1px solid #b6b2aa!important}body .nba-newspaper-grid .nba-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body .nba-newspaper-grid .nba-divisions{grid-template-columns:repeat(2,minmax(0,1fr))}body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:410px){body .nba-newspaper-grid .nba-news-grid,body .nba-newspaper-grid .nba-divisions,body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:1fr}body .nba-newspaper-grid .nba-news-lead{grid-column:1}}
+
+/* Laptop newspaper: broad usable page, no giant scoreboard cards. */
+@media(min-width:1080px){
+ body.edition-interior .hub:has(#nba-elo-scoreboard){max-width:1600px!important;width:calc(100% - 24px)!important;padding:10px 12px 35px!important}
+ body .nba-newspaper-grid{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:0 11px!important}
+ body .nba-newspaper-grid #nba-news{grid-column:span 4!important;padding-right:11px!important}
+ body .nba-newspaper-grid #nba-official-standings{grid-column:span 3!important}
+ body .nba-newspaper-grid #nba-upcoming{grid-column:1/-1!important}
+ body .nba-newspaper-grid .nba-news-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0 10px!important}
+ body .nba-newspaper-grid .nba-news-lead{grid-column:span 2!important}
+ body .nba-newspaper-grid .nba-divisions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px 9px!important}
+ body .nba-newspaper-grid .nba-prediction-list{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:0 10px!important}
+}
+body #nba-elo-scoreboard .nba-results-ledger{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+body #nba-elo-scoreboard .nba-result-line{display:grid;grid-template-columns:35px minmax(0,1fr) 23px 8px 23px minmax(0,1fr) 57px;align-items:center;gap:3px;padding:5px 2px;border-bottom:1px solid #d5d1c9;font:400 .72rem/1.15 Georgia,serif;min-width:0}
+body #nba-elo-scoreboard .nba-result-date{font:600 .53rem/1.1 Georgia,serif;letter-spacing:.02em;color:#666}
+body #nba-elo-scoreboard .nba-result-team{min-width:0}
+body #nba-elo-scoreboard .nba-team-label{display:flex;align-items:center;gap:3px;min-width:0;white-space:nowrap}
+body #nba-elo-scoreboard .nba-team-label img{width:16px!important;height:16px!important}
+body #nba-elo-scoreboard .nba-result-score{font:700 .83rem/1 Georgia,serif;text-align:center;font-variant-numeric:tabular-nums}
+body #nba-elo-scoreboard .nba-result-separator{text-align:center}
+body #nba-elo-scoreboard .nba-result-elo{font:.58rem/1.1 Georgia,serif;color:#68645d;text-align:right;white-space:nowrap}
+@media(min-width:1350px){body #nba-elo-scoreboard .nba-results-ledger{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px}}
+@media(max-width:740px){body #nba-elo-scoreboard .nba-results-ledger{grid-template-columns:1fr}body #nba-elo-scoreboard .nba-result-line{grid-template-columns:29px minmax(0,1fr) 22px 7px 22px minmax(0,1fr) 48px;gap:2px}}
