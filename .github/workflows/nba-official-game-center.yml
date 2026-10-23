@@ -20,7 +20,10 @@ jobs:
       - name: Collect NBA official daily scoreboard and box scores
         run: python scripts/collect_nba_game_center.py
       - name: Backfill missed completed NBA player box scores from official schedule
+        continue-on-error: true
         run: python scripts/backfill-nba-boxscores.py
+      - name: Validate NBA collection modules
+        run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/collect-nba-player-leaders.py
       - name: Collect published NBA player leader statistics
         run: python scripts/collect-nba-player-leaders.py
       - name: Build Rabby verified possession inputs independently of Elo
@@ -29,6 +32,8 @@ jobs:
         run: |
           node --check nba-rabby-forecast.js
           node --check nba-rabby-possession.js
+          node --check nba-intelligence.js
+          python -c "import json; d=json.load(open('data/nba-player-leaders.json')); assert d['sample_only'] and isinstance(d['rows'],list)"
           node scripts/audit-nba-elo.mjs
           python -c "import json; d=json.load(open('data/nba-game-center.json')); assert isinstance(d['games'],list)"
       - name: Commit verified official NBA game center
