@@ -35,11 +35,14 @@ jobs:
           state=json.loads((base/'ncaam-source-readiness.json').read_text())
           if state['ready']:
               out=json.loads((base/'ncaam-2026-27-current-provisional.json').read_text())
-              assert out['team_count']>=350
-              assert len(out['rankings'])==out['team_count']
+              assert out['team_count']==365
+              assert len(out['rankings'])==365
               assert out['games_played']==len(out['events'])
-              assert len({t['team_id'] for t in out['rankings']})==out['team_count']
+              assert len({t['team_id'] for t in out['rankings']})==365
               assert out['status']=='provisional-current-venue-neutral'
+              assert all(isinstance(t['elo'],(int,float)) for t in out['rankings'])
+              assert all(t['rank']==i for i,t in enumerate(out['rankings'],1))
+              assert all(out['rankings'][i-1]['elo']>=out['rankings'][i]['elo'] for i in range(1,365))
               print('Verified',out['games_played'],'real games')
           else:
               assert not (base/'ncaam-2026-27-current-provisional.json').exists()
