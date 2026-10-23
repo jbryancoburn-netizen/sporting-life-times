@@ -4,11 +4,13 @@ const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const logo=t=>/^https:\/\//.test(t?.logo||'')?'<img loading="lazy" alt="" src="'+esc(t.logo)+'">':'';
 const date=v=>{const x=new Date(v);return Number.isFinite(x.getTime())?x.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric'}):'Date unavailable'};
-(async()=>{
+let lastEditionStamp=null;
+async function refreshEdition(){
 try{
  const r=await fetch('data/euroleague-model.json?v='+Date.now(),{cache:'no-store'});
  if(!r.ok)throw Error('Ratings missing');
  const d=await r.json(),teams=d.rankings||[],table=d.standings||[],results=d.recent_results||[];
+ if(d.updated_at===lastEditionStamp)return;
  if(teams.length<18||teams.length>24||table.length!==teams.length||!Number.isInteger(d.games_completed)||d.games_completed<1||table.reduce((n,t)=>n+t.wins,0)!==d.games_completed||table.reduce((n,t)=>n+t.losses,0)!==d.games_completed)throw Error('Ratings totals inconsistent');
  const elo=teams[0],record=[...table].sort((a,b)=>b.wins/(b.played||1)-a.wins/(a.played||1)||b.wins-a.wins)[0];
  const offense=[...table].filter(t=>t.played>0).sort((a,b)=>b.for/b.played-a.for/a.played)[0];
@@ -26,13 +28,18 @@ try{
  const row=(t,score)=>'<div class="el-result-row"><span>'+logo(t)+esc(t.code)+'</span><b>'+esc(score)+'</b></div>';
  return '<article class="el-result-card"><small>'+esc(date(g.date))+' · FINAL</small>'+row(away,g.score?.[1])+row(home,g.score?.[0])+'</article>';
  }).join(''):'<p class="hub-small">Recent verified finals not yet provided by the model.</p>';
+ lastEditionStamp=d.updated_at;
  if($('el-prediction-status'))$('el-prediction-status').textContent=(d.fixtures||[]).length+' future matchups in the published schedule · Elo probabilities use independent ratings; projected scores and spreads remain experimental.';
 }catch(err){
+ if(lastEditionStamp){console.warn('EuroLeague edition refresh',err.message);return;}
  if($('el-front-strip'))$('el-front-strip').textContent='Model statistical summary unavailable.';
  if($('el-recent-results-list'))$('el-recent-results-list').textContent='Recent verified EuroLeague results unavailable.';
  console.warn('EuroLeague edition',err.message);
 }
-})();
+refreshEdition();
+setInterval(()=>{if(!document.hidden)refreshEdition()},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshEdition()});
+window.addEventListener('focus',()=>{if(!document.hidden)refreshEdition()});
 (async()=>{
  const el=document.getElementById('el-validation-panel');
  if(!el)return;
