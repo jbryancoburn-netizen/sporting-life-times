@@ -1,0 +1,49 @@
+name: NCAA 2026-27 complete player movement verification
+on:
+  push:
+    paths:
+      - scripts/audit_ncaam_player_movements.py
+      - .github/workflows/ncaam-player-movement-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile NCAA IDs and current ESPN roster endpoints
+        run: |
+          python scripts/reconcile_ncaam_roster_ids.py
+          python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
+      - name: Audit every athlete and prior school without guessed matches
+        run: python scripts/audit_ncaam_player_movements.py
+      - name: Verify identity status and release block
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('data/ncaam-2026-27-player-movement-audit.json'))
+          assert x['roster_teams']>=350
+          assert x['players_audited']>3500
+          assert not x['production_elo_approved']
+          assert sum(x['player_status_counts'].values())==x['players_audited']
+          print(x['player_status_counts'])
+          PY
+      - name: Preserve current roster evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-current-rosters-for-movement-audit
+          path: staging/ncaam-2027-roster-evidence.json
+      - name: Publish movement ledger and audited team crosswalk
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-player-movement-audit.json data/ncaam-2026-27-espn-team-crosswalk.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish 2026-27 player-by-player transfer and returning production audit"
+          git pull --rebase origin main
+          git push origin HEAD:main
