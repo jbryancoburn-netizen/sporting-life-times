@@ -72,7 +72,7 @@ def fetch_season(season):
         converted=parse(page,season)
         games.extend(converted)
         if total is not None and len(games)>=total:break
-        if len(rows)<page_size:break
+        if len(rows)<page_size and total is None:break
     if total is not None and len(games)!=total:
         raise ValueError(f"Incomplete {season}: parsed {len(games)} of {total} fixtures")
     codes=[g["id"] for g in games]
