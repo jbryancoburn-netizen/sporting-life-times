@@ -59,6 +59,7 @@ def reconcile(old,current,box):
         "teams_current":len(current["rosters"]),"teams_prior":len(old["rosters"]),
         "historical_partial_roster_teams":old.get("partial_roster_teams"),
         "historical_roster_asof_verified":False,
+        "historical_season_payload_verified":False,
         "identity_release_approved":False,
         "counts":dict(counts),"duplicate_current_athlete_ids":duplicate_current,
         "production_elo_approved":False,
