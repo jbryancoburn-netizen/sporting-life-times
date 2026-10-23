@@ -1,4 +1,27 @@
 {
+  "heldout_evaluation": {
+    "method": "train candidates on 2025-26; evaluate unseen 2026-27 chronologically",
+    "training_season": "E2025",
+    "holdout_season": "E2026",
+    "selected_parameters": {
+      "k": 12.0,
+      "home_elo": 90.0,
+      "season_carry": 0.85
+    },
+    "selected_holdout": {
+      "n": 67,
+      "log_loss": 0.644929,
+      "brier": 0.227939,
+      "accuracy": 0.597
+    },
+    "baseline_holdout": {
+      "n": 67,
+      "log_loss": 0.63722,
+      "brier": 0.223311,
+      "accuracy": 0.6269
+    },
+    "note": "True season holdout; selections are not retrained on holdout games."
+  },
   "scoring_forecast_validation": {
     "games_evaluated": 17,
     "minimum_prior_games_per_team": 5,
@@ -9,13 +32,13 @@
     "margin_mae": 8.42,
     "method": "strict pregame expanding-window; current published scoring formula"
   },
-  "status": "historical_exploratory_only",
+  "status": "holdout_measured_baseline_not_replaced",
   "evaluated_seasons": [
     "E2025",
     "E2026"
   ],
   "method": "chronological expanding-window (but candidate selection occurs on evaluation seasons)",
-  "caution": "Do not treat selected parameters as out-of-sample validated; reserve a future holdout.",
+  "caution": "2026-27 is held out from candidate selection; sample is early season. Published Elo still uses provisional baseline settings until a release decision.",
   "best_in_sample": {
     "k": 12.0,
     "home_elo": 90.0,
