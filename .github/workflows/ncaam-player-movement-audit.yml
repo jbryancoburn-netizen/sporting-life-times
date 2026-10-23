@@ -45,5 +45,9 @@ jobs:
           git add data/ncaam-2026-27-player-movement-audit.json data/ncaam-2026-27-espn-team-crosswalk.json
           git diff --cached --quiet && exit 0
           git commit -m "Publish 2026-27 player-by-player transfer and returning production audit"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
