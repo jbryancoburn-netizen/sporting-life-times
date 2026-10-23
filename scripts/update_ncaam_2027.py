@@ -73,7 +73,7 @@ def main():
         (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
     pre=json.loads((base/"ncaam-2026-27-preseason-provisional.json").read_text())
-    old=json.loads((base/"ncaam-2025-26-team-registry.json").read_text())
+    old=json.loads((base/"ncaam-2026-27-team-registry.json").read_text())
     result=calculate(pre,old,current,games)
     (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"\n")
     state.update({"ready":True,"teams":result["team_count"],"games":result["games_played"]})
