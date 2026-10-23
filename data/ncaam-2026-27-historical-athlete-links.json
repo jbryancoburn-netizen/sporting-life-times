@@ -2,11 +2,11 @@
   "season": "2026-27",
   "historical_season": "2025-26",
   "source_candidate_count": 34,
-  "source_correlated_ncaa_player_matches": 29,
-  "source_correlated_returners": 15,
+  "source_correlated_ncaa_player_matches": 30,
+  "source_correlated_returners": 16,
   "source_correlated_transfers": 14,
   "new_to_d1_no_box_expected": 4,
-  "uncertain_historical_identity_count": 1,
+  "uncertain_historical_identity_count": 0,
   "complete_classification_accounting": true,
   "exact_numeric_id_cross_provider_matches": 0,
   "approved_for_primary": false,
@@ -144,6 +144,23 @@
       "prior_points": 28.0,
       "identity_basis": "institutional school history + unique NCAA prior-school/name player-box join",
       "institutional_source": "https://hubison.com/sports/mens-basketball/roster/jeremiah-johnson/9596",
+      "historical_stat_source": "SportsDataverse mirror of NCAA-origin ncaa_mbb_player_box_2026.csv.gz",
+      "cross_provider_numeric_id_equivalence_claimed": false,
+      "direct_cross_provider_id_match": false
+    },
+    {
+      "espn_athlete_id": "5176150",
+      "player": "Jake Davis",
+      "current_team_id": "ncaa:609554",
+      "prior_team_id": "ncaa:609554",
+      "classification": "returner",
+      "historical_ncaa_player_id": "9324631",
+      "historical_season": "2025-26",
+      "prior_games": 37,
+      "prior_minutes": 722.65,
+      "prior_points": 198.0,
+      "identity_basis": "institutional school history + unique NCAA prior-school/name player-box join",
+      "institutional_source": "https://fightingillini.com/sports/mens-basketball/roster/jake-davis/15974",
       "historical_stat_source": "SportsDataverse mirror of NCAA-origin ncaa_mbb_player_box_2026.csv.gz",
       "cross_provider_numeric_id_equivalence_claimed": false,
       "direct_cross_provider_id_match": false
@@ -506,16 +523,7 @@
       "direct_cross_provider_id_match": false
     }
   ],
-  "unlinked": [
-    {
-      "espn_athlete_id": "5176150",
-      "player": "Jake Davis",
-      "current_team_id": "ncaa:609554",
-      "prior_team_id": "ncaa:609665",
-      "status": "no_ncaa_box_record",
-      "candidate_player_ids": 0
-    }
-  ],
+  "unlinked": [],
   "newcomers": [
     {
       "espn_athlete_id": "5319273",
