@@ -7,14 +7,18 @@ on:
       - 'data/nba-2026-27-preseason-provisional.json'
       - 'data/nba-2026-27-current-provisional.json'
       - 'scripts/audit-nba-elo.mjs'
+      - 'scripts/update-nba-elo.mjs'
       - '.github/workflows/nba-elo-integrity.yml'
+      - '.github/workflows/nba-elo-refresh.yml'
   pull_request:
     paths:
       - 'data/nba-2025-26-final.json'
       - 'data/nba-2026-27-preseason-provisional.json'
       - 'data/nba-2026-27-current-provisional.json'
       - 'scripts/audit-nba-elo.mjs'
+      - 'scripts/update-nba-elo.mjs'
       - '.github/workflows/nba-elo-integrity.yml'
+      - '.github/workflows/nba-elo-refresh.yml'
   workflow_dispatch:
 permissions:
   contents: read
