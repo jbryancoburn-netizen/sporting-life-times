@@ -96,24 +96,32 @@ def main():
         state["reason"]="2026-27 season source not released (HTTP 404)"
         (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
         print(state["reason"]);return
-    if len(current)!=365 or len({str(t.get('id')) for t in current})!=365:\n        raise ValueError(f'2026-27 membership source incomplete: {len(current)} rows; expected 365 unique teams')\n    roster_adjusted=base/"ncaam-2026-27-offseason-shadow.json"
-    # Audit hold: extreme transfer adjustments are not publication-approved.
-    # Re-enable only after team-level identity and magnitude validation.
-    approved=False
-    if roster_adjusted.is_file():
-        candidate=json.loads(roster_adjusted.read_text())
-        approved=(candidate.get("audit",{}).get("release_approved") is True and
-                  candidate.get("production_elo_approved") is True and
-                  candidate.get("identity_verified") is True and
-                  candidate.get("preseason_information_integrity_verified") is True)
-    chosen=roster_adjusted if approved else base/"ncaam-2026-27-preseason-provisional.json"
-    pre=json.loads(chosen.read_text())
-    if chosen==roster_adjusted:
-        assert pre.get("status")=="provisional-roster-adjusted" and pre["evidence"]["roster_programs"]>=350, "Roster-adjusted preseason model below evidence gate"
+    if len(current)!=365 or len({str(t.get('id')) for t in current})!=365:\n        raise ValueError(f'2026-27 membership source incomplete: {len(current)} rows; expected 365 unique teams')\n    # The identity-linked 365-team roster-informed edition is our PROVISIONAL
+    # preseason opening seed. Older exact-name shadow ratings remain research
+    # only; never mistake them for production-approved roster adjustments.
+    roster_informed=base/"ncaam-2026-27-preseason-roster-informed.json"
+    chosen=base/"ncaam-2026-27-preseason-provisional.json"
+    if roster_informed.is_file():
+        proposed=json.loads(roster_informed.read_text(encoding="utf-8"))
+        items=proposed.get("rankings",[])
+        evidence=proposed.get("evidence",{})
+        if (proposed.get("season")=="2026-27" and
+            proposed.get("status")=="provisional-roster-identity-linked" and
+            proposed.get("preseason_roster_informed") is True and
+            proposed.get("production_elo_approved") is False and
+            proposed.get("team_count")==365 and
+            proposed.get("games_played")==0 and
+            len(items)==365 and len({i["team_id"] for i in items})==365 and
+            evidence.get("roster_programs")==364 and
+            evidence.get("players_with_verified_historical_minutes",0)>=2500):
+            chosen=roster_informed
+        else:
+            raise ValueError("Published provisional roster-informed preseason ratings failed release gate")
+    pre=json.loads(chosen.read_text(encoding="utf-8"))
     old=json.loads((base/"ncaam-2026-27-team-registry.json").read_text())
     result=calculate(pre,old,current,games)
     result["preseason_seed"]=str(chosen)
-    result["preseason_roster_adjusted"]=(chosen==roster_adjusted)
+    result["preseason_roster_adjusted"]=(chosen==roster_informed)
     (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"\n")
     state.update({"ready":True,"teams":result["team_count"],"games":result["games_played"]})
     (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
