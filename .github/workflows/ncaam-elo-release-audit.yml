@@ -1,0 +1,34 @@
+name: NCAA Elo release audit
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaa_elo_release.py'
+      - 'data/ncaam-2026-27-preseason-provisional.json'
+      - 'data/ncaam-2026-27-offseason-shadow.json'
+      - 'data/ncaam-offseason-transfer-backtest.json'
+      - '.github/workflows/ncaam-elo-release-audit.yml'
+  pull_request:
+    paths:
+      - 'scripts/audit_ncaa_elo_release.py'
+      - 'data/ncaam-2026-27-preseason-provisional.json'
+      - 'data/ncaam-2026-27-offseason-shadow.json'
+      - 'data/ncaam-offseason-transfer-backtest.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile release audit
+        run: python -m py_compile scripts/audit_ncaa_elo_release.py
+      - name: Verify all 365 NCAA preseason ratings
+        run: |
+          python scripts/audit_ncaa_elo_release.py \
+            data/ncaam-2026-27-preseason-provisional.json \
+            data/ncaam-2026-27-offseason-shadow.json \
+            data/ncaam-offseason-transfer-backtest.json
