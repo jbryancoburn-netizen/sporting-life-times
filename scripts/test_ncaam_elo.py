@@ -19,6 +19,17 @@ def row(gid="g1",status="Final",site="home"):
                 source_url="https://ncaa.com/example",provider="ncaa",overtime="false")
 
 class NightlyReplayTest(unittest.TestCase):
+    def test_future_dated_score_is_excluded(self):
+        from update_ncaam_2027 import calculate
+        pre={"rankings":[{"team_id":f"ncaa:{i}","elo":1500.0} for i in range(350)]}
+        old={"teams":[{"id":f"ncaa:{i}","name":f"Team {i}"} for i in range(350)]}
+        current=[{"id":str(i),"team":f"Team {i}","conference":"Test"} for i in range(350)]
+        games=[{"contest_id":"future-fixture","game_date":"11/15/2099",
+                "home":"Team 0","away":"Team 1","home_score":"88","away_score":"70"}]
+        result=calculate(pre,old,current,games)
+        self.assertEqual(result["games_played"],0)
+        self.assertEqual(result["excluded_examples"][0]["reason"],"future-dated result")
+
     def test_game_predictions_and_zero_sum(self):
         from update_ncaam_2027 import calculate
         pre={"rankings":[{"team_id":"indiana","elo":1600.0},
