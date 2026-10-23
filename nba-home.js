@@ -12,7 +12,7 @@ const date=s=>{const n=Date.parse(s);return Number.isFinite(n)?new Date(n).toLoc
 async function news(){
  try{const data=await fetchJSON('articles.json');const items=(data.articles||[]).filter(a=>{const c=String(a.category||'').toLowerCase(),u=String(a.url||'').toLowerCase(),s=String(a.source||'').toLowerCase();return c==='nba'||s.includes('nba')||u.includes('/nba/')||u.includes('/basketball/nba/')||((c==='basketball')&&!/college|ncaa|ncaab|wnba/i.test(s+' '+u))}).filter(a=>/^https:\/\//.test(a.url)&&a.title).slice(0,72);
  if(!items.length)throw Error('No verified NBA headlines in this edition');
- $('nba-news-grid').innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+esc(a.source)+' · '+esc(a.published_at||'Date unavailable')+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(a.summary.slice(0,i===0?210:100))+'</p>':'')+'</article>').join('');
+ $('nba-news-grid').innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+window.SportingNewsFormat.meta(a)+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+window.SportingNewsFormat.title(a)+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+window.SportingNewsFormat.summary(a)+'</p>':'')+'</article>').join('');
  msg('nba-news-status',items.length+' attributed national and local headlines · Published sources · Updated '+esc(data.updated_at||'when feed refreshes'));
  }catch(e){msg('nba-news-status','NBA headlines unavailable');unavailable('nba-news-grid','The current feed has no verified NBA headlines. No invented stories are shown.')}
 }
