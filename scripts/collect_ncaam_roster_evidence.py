@@ -54,4 +54,5 @@ def main():
     a.out.parent.mkdir(parents=True,exist_ok=True)
     a.out.write_text(json.dumps(result,indent=2)+"\n")
     print("Complete rosters",len(output),"of",len(teams),"; failures",len(failures))
+    print("Failure samples:",json.dumps(failures[:5]))
 if __name__=="__main__":main()
