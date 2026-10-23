@@ -29,6 +29,9 @@ class TestModel(unittest.TestCase):
         with self.assertRaises(ValueError):el.parse({"data":[g]},"E2026")
     def test_reject_partial_page(self):
         with self.assertRaises(ValueError):el.parse({"total":2,"data":[make_game(1)]},"E2026")
+    def test_home_advantage_probability(self):
+        self.assertGreater(el.expected(65),0.5)
+        self.assertLess(el.expected(-65),0.5)
     def test_fetch_pages(self):
         def responder(url):
             if "offset=0" in url:return {"total":2,"data":[make_game(1)]}
