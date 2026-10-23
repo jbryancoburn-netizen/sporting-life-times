@@ -9,7 +9,7 @@ import argparse,json,urllib.request,urllib.parse
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
 
-BASE="https://site.api.espn.com/apis/common/v3/sports/basketball/mens-college-basketball/teams/"
+BASE="https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/"
 def request(url):
     with urllib.request.urlopen(urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimes/1.0"}),timeout=20) as r:
         return json.loads(r.read(4000000))
