@@ -61,11 +61,11 @@ def build(roster,scoring,minutes,study,decision,source_path):
         s=scores[tid]
         denominator=denominators[tid]
         expected=p.get("evidence_player_count",0)
-        if expected!=s["verified_players"]:
-            raise ValueError("Scoring and minutes source disagree on matched player count for "+tid)
         if p["roster_coverage"]!="source-confirmed-prior-minutes" or denominator<1000:
             residual[tid]=None
             continue
+        if expected!=s["verified_players"]:
+            raise ValueError("Scoring and minutes source disagree on matched player count for "+tid)
         total_points=float(s["returning_prior_points"])+float(s["incoming_prior_points"])
         total_minutes=float(s["returning_prior_minutes"])+float(s["incoming_prior_minutes"])
         if total_points<0 or total_minutes<=0 or s["verified_players"]<1:
