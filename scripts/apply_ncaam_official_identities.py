@@ -64,7 +64,7 @@ def resolve(movement, official):
             "school": school["team"], "team_id": school["team_id"],
             "category": category, "prior_team_id": previous,
             "institutional_source": url,
-            "school_history_corrobated": True,
+            "school_history_corroborated": True,
             "historical_ncaa_player_id": None,
             "historical_ncaa_box_match_verified": False,
             "eligible_for_player_minutes_input": False
