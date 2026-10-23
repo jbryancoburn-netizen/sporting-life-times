@@ -6,6 +6,7 @@ on:
       - 'scripts/normalize_ncaam_historical_parquet.py'
       - 'scripts/backtest_ncaam_quality_retrospective.py'
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
+      - 'scripts/build_ncaam_2027_quality_shadow.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -102,6 +103,25 @@ jobs:
           assert o['preseason_release_approved'] is False
           print('CHECKED:',o['holdout_minutes']['games'],'real post-cutoff 2026 contests')
           PY
+      - name: Generate and validate 365-team player-quality PRESEASON shadow
+        run: |
+          python scripts/build_ncaam_2027_quality_shadow.py \
+            --historical-player-box historical-normalized/ncaa_mbb_player_box_2026.csv.gz \
+            --study historical-report/ncaam-quality-earlyseason-asof-backtest.json \
+            --out historical-report/ncaam-2026-27-scoring-quality-shadow.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('historical-report/ncaam-2026-27-scoring-quality-shadow.json').read_text())
+          assert report['team_count']==365
+          assert report['status']=='SHADOW_ONLY_DO_NOT_PROMOTE'
+          assert report['production_elo_approved'] is False
+          assert report['preseason_asof_certified'] is False
+          assert len({r['team_id'] for r in report['rankings']})==365
+          assert report['source_integrity']['matched_verified_history']==2923
+          assert report['source_integrity']['fallback_team_count']==1
+          print('CHECKED: 365 experimental player-quality adjusted NCAA ratings, not official Elo')
+          PY
       - name: Publish acquisition status to the newspaper repository
         if: always()
         shell: bash
@@ -125,6 +145,9 @@ jobs:
           if [ -s historical-report/ncaam-quality-earlyseason-asof-backtest.json ]; then
             cp historical-report/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json
           fi
+          if [ -s historical-report/ncaam-2026-27-scoring-quality-shadow.json ]; then
+            cp historical-report/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-scoring-quality-shadow.json
+          fi
           python - <<'PY'
           import json,os
           from pathlib import Path
@@ -142,7 +165,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
-          git add data/ncaam-quality-earlyseason-asof-backtest.json || true
+          git add data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json || true
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main || exit 1
