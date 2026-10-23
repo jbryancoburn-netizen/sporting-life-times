@@ -28,7 +28,16 @@ function predict(home,away,ratings,metrics){
  return {ph,homePts,awayPts,winner:margin>=0?home:away,spread:Math.abs(margin)};
 }
 async function show(){
- const [elo,official]=await Promise.all([get('data/nba-2026-27-current-provisional.json'),get('data/nba-game-center.json')]);
+ const elo=await get('data/nba-2026-27-current-provisional.json');
+ let official;
+ try{official=await get('data/nba-game-center.json');}
+ catch(error){
+  // Official NBA.com schedule backstop. Only render games for the snapshot's
+  // exact date: never silently present yesterday's games as today's.
+  const fallback=await get('data/nba-official-schedule-snapshot.json');
+  if(fallback.date!==today()||!Array.isArray(fallback.games))throw Error('Official game-center unavailable and no verified schedule for today');
+  official=fallback;
+ }
  const ratings=Object.fromEntries(elo.rankings.map(r=>[r.team,r.elo]));
  const played=elo.events||[];
  if(Object.keys(ratings).length!==30||played.length<5)throw Error('Not enough verified NBA Elo data for provisional forecasts');
