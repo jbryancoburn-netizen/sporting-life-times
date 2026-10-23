@@ -7,6 +7,7 @@ import json, math, pathlib, time, urllib.error, urllib.request
 
 BASE="https://api-live.euroleague.net/v2/competitions/E/seasons/"
 OUT=pathlib.Path("data/euroleague-model.json")
+PRESEASON=pathlib.Path("data/euroleague-preseason-seed.json")
 NOW=dt.datetime.now(dt.timezone.utc)
 K=22.0
 HOME_ELO=65.0  # provisional: calibrate by walk-forward historical log loss
@@ -141,16 +142,38 @@ def order_standings(rows, results):
             ordered.extend(tied)
     return ordered
 
+def load_preseason():
+    """Restore the same historical Elo starting point instead of re-fetching
+    two full prior seasons on every five-minute model publication.
+    Tests with redirected OUT paths always reconstruct from source.
+    """
+    if OUT!=pathlib.Path("data/euroleague-model.json") or not PRESEASON.exists():
+        return None
+    try:
+        data=json.loads(PRESEASON.read_text())
+        if (data.get("season")!="E2026" or
+            data.get("settings")!={"K":K,"home_elo":HOME_ELO,"carry":CARRY}):
+            return None
+        values=data.get("ratings")
+        if not isinstance(values,dict) or len(values)<18 or not all(
+            isinstance(v,(float,int)) and not isinstance(v,bool) and 1200<v<1900
+            for v in values.values()):
+            return None
+        return {str(code):float(rating) for code,rating in values.items()}
+    except (OSError,ValueError,TypeError):
+        return None
+
 def main():
+    saved_seed=load_preseason()
     all_games=[]
-    for year in (2024,2025,2026):
+    for year in ((2026,) if saved_seed is not None else (2024,2025,2026)):
         s="E"+str(year)
         all_games+=fetch_season(s)
     # Reconstruct season chronologically; previous season used solely for initial strength.
     all_games.sort(key=lambda g:(g["season"],clock(g["date"]),g["id"]))
-    ratings={}; stats={}; history=[]; season_seen=None
+    ratings=dict(saved_seed) if saved_seed is not None else {}; stats={}; history=[]; season_seen=None
     team_info={}
-    for game in all_games:
+    for game in ([] if saved_seed is not None else all_games):
         h,a=game["home"],game["away"]
         for t in (h,a):team_info[t["code"]]={"code":t["code"],"name":t["name"],"logo":t["logo"]}
         if season_seen!=game["season"]:
@@ -172,6 +195,7 @@ def main():
     for g in current:
         for t in (g["home"],g["away"]):team_info[t["code"]]={"code":t["code"],"name":t["name"],"logo":t["logo"]}
     for code in active:ratings.setdefault(code,1500.)
+    preseason_ratings={code:ratings[code] for code in active}
     for g in current:
         h,a=g["home"],g["away"]
         if not g["completed"]:continue
@@ -233,6 +257,13 @@ def main():
             changed=[gid for gid in old_results if old_results[gid]!=new_results[gid]]
             if changed:
                 raise ValueError("Previously published final score changed; manual reconciliation required: "+str(changed))
-    temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n");temp.replace(OUT)
+    temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n");temp.replace(OUT)
+    if saved_seed is None and OUT==pathlib.Path("data/euroleague-model.json"):
+        seed={"season":"E2026","settings":{"K":K,"home_elo":HOME_ELO,"carry":CARRY},
+              "ratings":preseason_ratings,"source":"Independent replay of 2024-25 and 2025-26 EuroLeague finals"}
+        PRESEASON.parent.mkdir(parents=True,exist_ok=True)
+        tempseed=PRESEASON.with_suffix(".tmp")
+        tempseed.write_text(json.dumps(seed,ensure_ascii=False,indent=2)+"\\n")
+        tempseed.replace(PRESEASON)
     print(f"EuroLeague: {len(ranked)} clubs, {len(history)} finals, {len(fixtures)} fixtures")
 if __name__=="__main__":main()
