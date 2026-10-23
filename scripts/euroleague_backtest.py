@@ -32,7 +32,7 @@ def score(games,k,home,carry):
         "predictions":details}
 def score_forecast_evaluation(games):
     """Evaluate the published scoring formula before each final, without future leakage."""
-    stats={}; observed=[]; evaluated=0; abs_home=abs_away=abs_total=abs_margin=0.0
+    stats={}; evaluated=0; abs_home=abs_away=abs_total=abs_margin=0.0; baseline_total_error=0.0; baseline_margin_error=0.0
     current=sorted((g for g in games if g["season"]=="E2026" and g["completed"]),key=lambda g:(el.clock(g["date"]),g["id"]))
     for g in current:
         h,a=g["home"]["code"],g["away"]["code"]
@@ -51,6 +51,8 @@ def score_forecast_evaluation(games):
             abs_away+=abs(pred_a-actual_a)
             abs_total+=abs(pred_h+pred_a-actual_h-actual_a)
             abs_margin+=abs((pred_h-pred_a)-(actual_h-actual_a))
+            baseline_total_error+=abs(2*average-actual_h-actual_a)
+            baseline_margin_error+=abs(actual_h-actual_a)
         for code,points,against in ((h,g["home"]["score"],g["away"]["score"]),(a,g["away"]["score"],g["home"]["score"])):
             st=stats.setdefault(code,{"played":0,"for":0,"against":0})
             st["played"]+=1;st["for"]+=points;st["against"]+=against
@@ -60,6 +62,10 @@ def score_forecast_evaluation(games):
             "away_score_mae":round(abs_away/evaluated,2) if evaluated else None,
             "total_mae":round(abs_total/evaluated,2) if evaluated else None,
             "margin_mae":round(abs_margin/evaluated,2) if evaluated else None,
+            "league_average_total_mae":round(baseline_total_error/evaluated,2) if evaluated else None,
+            "zero_margin_baseline_mae":round(baseline_margin_error/evaluated,2) if evaluated else None,
+            "beats_simple_total_baseline":abs_total<baseline_total_error if evaluated else None,
+            "beats_zero_margin_baseline":abs_margin<baseline_margin_error if evaluated else None,
             "method":"strict pregame expanding-window; current published scoring formula"}
 
 def heldout_evaluation(games):
