@@ -57,7 +57,7 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
             weight[target]+=m
     return {t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
 
-def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True):
+def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True,coverage_fallback=False):
     valid={t for t in features if t in quality} if require_quality else {t for g in schedule for t in (g[2],g[3])}
     if len(valid)<200:raise ValueError("Insufficient quality feature coverage")
     end=schedule[0][0].toordinal()+days-1
@@ -72,18 +72,27 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
          if t in features else 0)+
         (beta*(quality[t]-mq)/100 if t in quality else 0)
         for t in {x for g in schedule for x in (g[2],g[3])}}
-    ll=0.;bs=0.;n=0
+    # Two rating tracks are replayed through every game. The game-only track
+    # is used for missing-feature matchups, including when the opponent is
+    # covered. A separate track prevents partial features from leaking into
+    # the fallback prediction.
+    plain={t:1500+.65*(previous.get(t,1500)-1500) for t in ratings}
+    ll=0.;bs=0.;n=0;fallback_games=0
     for day,gid,h,a,hs,aws in schedule:
         if day.toordinal()>end:break
         if h in valid and a in valid:
-            p=1/(1+10**(-(ratings[h]-ratings[a])/400))
+            use_plain=coverage_fallback and (h not in features or a not in features or h not in quality or a not in quality)
+            chosen=plain if use_plain else ratings
+            if use_plain:fallback_games+=1
+            p=1/(1+10**(-(chosen[h]-chosen[a])/400))
             y=int(hs>aws)
             ll-=y*math.log(max(1e-9,p))+(1-y)*math.log(max(1e-9,1-p))
             bs+=(p-y)**2;n+=1
         from backtest_ncaam_roster_elo import step
         step(ratings,h,a,hs,aws)
+        step(plain,h,a,hs,aws)
     if n<150:raise ValueError("Too few evaluation games "+str(n))
-    return {"games":n,"log_loss":ll/n,"brier":bs/n}
+    return {"games":n,"log_loss":ll/n,"brier":bs/n,"fallback_games":fallback_games}
 
 def run():
     seasons={}
@@ -158,6 +167,11 @@ def run():
     # has not been validated for those games; do not label it full coverage.
     uncovered_games=full_game_only["games"]-game_only["games"]
     if uncovered_games<0:raise ValueError("Matched sample exceeds all-game sample")
+    full_fallback=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+        data[2026]["features"],data[2026]["quality"],best["beta_per_100_opponent_elo"],
+        require_quality=False,coverage_fallback=True)
+    if full_fallback["games"]!=full_game_only["games"] or full_fallback["fallback_games"]!=uncovered_games:
+        raise ValueError("Fallback did not account for all uncovered games")
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
@@ -170,6 +184,9 @@ def run():
         "holdout_baseline":base,"holdout_adjusted":hold,
         "holdout_game_only":game_only,
         "holdout_all_games_game_only":full_game_only,
+        "holdout_all_games_enhanced_with_fallback":full_fallback,
+        "full_coverage_logloss_gain":full_game_only["log_loss"]-full_fallback["log_loss"],
+        "full_coverage_brier_gain":full_game_only["brier"]-full_fallback["brier"],
         "head_to_head_is_coverage_subset":game_only["games"]<full_game_only["games"],
         "uncovered_games":uncovered_games,
         "head_to_head_coverage_fraction":game_only["games"]/full_game_only["games"],
