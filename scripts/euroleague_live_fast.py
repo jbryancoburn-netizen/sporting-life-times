@@ -89,6 +89,16 @@ def build(model, previous, now=None, get_header=None):
             if not isinstance(raw,dict):
                 continue
             responses+=1
+            finished=header.completed_score(raw,g["home"]["code"],g["away"]["code"],hours*60)
+            if finished:
+                g["status"]="final"
+                g["status_detail"]="Final · EuroLeague completed periods"
+                g["home"]["score"]=finished["home"]
+                g["away"]["score"]=finished["away"]
+                g["score_updated_at"]=now.isoformat()
+                g["final_source"]="https://live.euroleague.net/api/Header?gamecode="+str(g["id"])+"&seasoncode=E2026"
+                refreshed+=1
+                continue
             outcome=header.details(raw,g["home"]["code"],g["away"]["code"],g["status"])
             if outcome and outcome["state"]=="live":
                 g["status"]="live"
