@@ -1,0 +1,45 @@
+name: NCAA 2026-27 provisional preseason Elo
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_2027_preseason.py'
+      - '.github/workflows/ncaam-preseason.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run independent deterministic Elo tests
+        run: python -m unittest discover -s scripts -p 'test_ncaam_elo.py' -v
+      - name: Build provisional opening ratings
+        run: python scripts/build_ncaam_2027_preseason.py
+      - name: Verify correct roster, ratings and empty current-season ledger
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('data/ncaam-2026-27-preseason-provisional.json').read_text())
+          assert len(x['rankings'])==365 and x['team_count']==365
+          assert x['games_played']==0
+          assert x['status'].startswith('provisional-')
+          assert len({t['team_id'] for t in x['rankings']})==365
+          assert all(abs(t['elo']-(1500+.65*(t['last_season_elo']-1500)))<.00011 for t in x['rankings'])
+          print('PRESEASON ELO CHECK PASSED')
+          PY
+      - name: Commit strictly provisional preseason ratings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-preseason-provisional.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Publish provisional 2026-27 Division I men preseason Elo"
+          git push
