@@ -1,0 +1,151 @@
+{
+  "audit": "ncaam-2024-2026-original-preopening-roster-sources",
+  "created_utc": "2026-10-23T23:37:45.993859+00:00",
+  "status": "PARTIAL_SCHOOL_PRESEASON_DOCUMENT_EVIDENCE",
+  "existing_retrospective_rosters_promotable": false,
+  "rule": "School document URL date is indicative, but only a pre-opening immutable capture containing parsed roster proves as-of membership.",
+  "summary": {
+    "school_season_documents_tested": 5,
+    "official_documents_retrieved": 4,
+    "preseason_dated_documents_retrieved": 4,
+    "fully_verified_365_team_preseason_roster_snapshots": 0,
+    "dataset_complete_for_2024_2025_training_2026_holdout": false
+  },
+  "sources": [
+    {
+      "team": "Duke",
+      "season_end_year": 2024,
+      "kind": "preseason_pdf",
+      "published_date": "2023-10-06",
+      "url": "https://goduke.com/documents/download/2023/10/6/2023-24_Preseason_Information.pdf",
+      "preseason_dated_url": true,
+      "content_fetched": false,
+      "immutable_prior_to_first_game_content_verified": false,
+      "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
+      "status": "SOURCE_UNAVAILABLE_OR_UNREADABLE",
+      "error": "Document exceeds 12MiB guard",
+      "wayback_index": {
+        "team": "Duke",
+        "season_end_year": 2024,
+        "original": "https://goduke.com/documents/download/2023/10/6/2023-24_Preseason_Information.pdf",
+        "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fdocuments%2Fdownload%2F2023%2F10%2F6%2F2023-24_Preseason_Information.pdf&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+        "status": "checked",
+        "pregame_archived_captures": [],
+        "count_valid_pregame_capture_records": 0
+      }
+    },
+    {
+      "team": "Duke",
+      "season_end_year": 2025,
+      "kind": "preseason_pdf",
+      "published_date": "2024-09-26",
+      "url": "https://goduke.com/documents/download/2024/9/26/2024-25_Duke_MBB_Preseason_Information.pdf",
+      "preseason_dated_url": true,
+      "content_fetched": true,
+      "immutable_prior_to_first_game_content_verified": false,
+      "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
+      "content_type": "application/pdf",
+      "bytes": 3822754,
+      "sha256_fetched_now": "1b8f6c6a0566791d5d736c6410e265820b0271f58c9354e7b2e2e5883c8de6f1",
+      "page_count": 5,
+      "roster_section_identified": true,
+      "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
+      "wayback_index": {
+        "team": "Duke",
+        "season_end_year": 2025,
+        "original": "https://goduke.com/documents/download/2024/9/26/2024-25_Duke_MBB_Preseason_Information.pdf",
+        "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fdocuments%2Fdownload%2F2024%2F9%2F26%2F2024-25_Duke_MBB_Preseason_Information.pdf&output=json&from=2024&to=2024&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+        "status": "checked",
+        "pregame_archived_captures": [],
+        "count_valid_pregame_capture_records": 0
+      }
+    },
+    {
+      "team": "Duke",
+      "season_end_year": 2026,
+      "kind": "preseason_pdf",
+      "published_date": "2025-10-16",
+      "url": "https://goduke.com/documents/download/2025/10/16/2025-26_Duke_MBB_Preseason_Information.pdf",
+      "preseason_dated_url": true,
+      "content_fetched": true,
+      "immutable_prior_to_first_game_content_verified": false,
+      "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
+      "content_type": "application/pdf",
+      "bytes": 4151710,
+      "sha256_fetched_now": "780e10ef9fd78e4c53a7a450a56e4b59a83e0aefa22a688d5b9a609a57b13daa",
+      "page_count": 5,
+      "roster_section_identified": true,
+      "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
+      "wayback_index": {
+        "team": "Duke",
+        "season_end_year": 2026,
+        "original": "https://goduke.com/documents/download/2025/10/16/2025-26_Duke_MBB_Preseason_Information.pdf",
+        "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fgoduke.com%2Fdocuments%2Fdownload%2F2025%2F10%2F16%2F2025-26_Duke_MBB_Preseason_Information.pdf&output=json&from=2025&to=2025&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+        "status": "checked",
+        "pregame_archived_captures": [],
+        "count_valid_pregame_capture_records": 0
+      }
+    },
+    {
+      "team": "Indiana",
+      "season_end_year": 2024,
+      "kind": "pregame_game_notes_pdf",
+      "published_date": "2023-11-02",
+      "url": "https://iuhoosiers.com/documents/download/2023/11/2/23_24_EX2_Marian.pdf",
+      "preseason_dated_url": true,
+      "content_fetched": true,
+      "immutable_prior_to_first_game_content_verified": false,
+      "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
+      "content_type": "application/pdf",
+      "bytes": 7767814,
+      "sha256_fetched_now": "30639a2775c62759d809397ceeecae68dbd9ff847eebf02aa91d1e60777444a4",
+      "page_count": 21,
+      "roster_section_identified": true,
+      "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
+      "wayback_index": {
+        "team": "Indiana",
+        "season_end_year": 2024,
+        "original": "https://iuhoosiers.com/documents/download/2023/11/2/23_24_EX2_Marian.pdf",
+        "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fiuhoosiers.com%2Fdocuments%2Fdownload%2F2023%2F11%2F2%2F23_24_EX2_Marian.pdf&output=json&from=2023&to=2023&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+        "status": "checked",
+        "pregame_archived_captures": [],
+        "count_valid_pregame_capture_records": 0
+      }
+    },
+    {
+      "team": "Indiana",
+      "season_end_year": 2026,
+      "kind": "initial_roster_article",
+      "published_date": "2025-06-02",
+      "url": "https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster",
+      "preseason_dated_url": true,
+      "content_fetched": true,
+      "immutable_prior_to_first_game_content_verified": false,
+      "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
+      "content_type": "text/html;charset=utf-8",
+      "bytes": 463425,
+      "sha256_fetched_now": "8aef29487a9947bb5b632886a541b7fffd9c2378d8be6d86b3ea92cecdcad5c4",
+      "initial_only": true,
+      "roster_section_identified": true,
+      "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
+      "wayback_index": {
+        "team": "Indiana",
+        "season_end_year": 2026,
+        "original": "https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster",
+        "cdx_query": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fiuhoosiers.com%2Fnews%2F2025%2F6%2F2%2Fmens-basketball-mens-basketball-announces-initial-2025-26-roster&output=json&from=2025&to=2025&fl=timestamp%2Coriginal%2Cstatuscode&filter=statuscode%3A200&limit=10",
+        "status": "checked",
+        "pregame_archived_captures": [
+          {
+            "timestamp_utc": "20250611195202",
+            "original": "https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster"
+          },
+          {
+            "timestamp_utc": "20250612004001",
+            "original": "https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster"
+          }
+        ],
+        "count_valid_pregame_capture_records": 2
+      }
+    }
+  ]
+}
