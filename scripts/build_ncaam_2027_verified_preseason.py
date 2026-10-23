@@ -81,8 +81,11 @@ def build(baseline, registry, movement, minutes_report, crosswalk, validation):
             raise ValueError("Unapproved NCAA-ESPN crosswalk join method")
         tid,raw=athletes[eid]
         previous=link.get("prior")
-        if previous not in teams or not str(link.get("pid","")).isdigit():
-            raise ValueError("Unknown prior-school ID or invalid NCAA player ID")
+        # A valid 2025-26 D-I prior school can legitimately be absent from
+        # the 2026-27 membership (realignment, reclassification, closure).
+        if (not isinstance(previous,str) or not previous.startswith("ncaa:") or
+            not previous[5:].isdigit() or not str(link.get("pid","")).isdigit()):
+            raise ValueError("Invalid NCAA source prior-school ID or player ID")
         prior_minutes=raw.get("prior_minutes")
         if (not isinstance(prior_minutes,(int,float)) or
             not math.isfinite(prior_minutes) or prior_minutes<=0 or
