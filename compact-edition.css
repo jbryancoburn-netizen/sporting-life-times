@@ -134,3 +134,10 @@ body .nba-news-item.nba-results-brief h3{font-size:.83rem!important;line-height:
 @media(max-width:1050px){body .nba-lastnight-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){body .nba-lastnight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:400px){body .nba-lastnight-grid{grid-template-columns:1fr}}
+
+/* Newspaper standings rail: scores belong immediately beneath division tables, not across the whole page. */
+body .nba-newspaper-grid #nba-official-standings #nba-yesterday{display:block!important;grid-column:auto!important;border-top:2px solid #292723!important;margin-top:10px!important;padding:7px 0 0!important;background:transparent!important}
+body #nba-official-standings #nba-yesterday h2{font:700 .82rem/1.15 Georgia,serif!important;letter-spacing:.04em;margin:0 0 4px!important}
+body #nba-official-standings #nba-yesterday .hub-small{font-size:.63rem!important;margin:0 0 5px!important}
+body #nba-official-standings .nba-lastnight-grid{display:block!important}
+body #nba-official-standings .nba-lastnight-row{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);padding:3px 0!important;font-size:.69rem!important;gap:3px!important}
