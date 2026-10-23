@@ -8,6 +8,10 @@ on:
       - 'data/nba-2026-27-current-provisional.json'
       - 'scripts/audit-nba-elo.mjs'
       - 'scripts/update-nba-elo.mjs'
+      - 'scripts/audit-nba-page.mjs'
+      - 'nba-elo-model.js'
+      - 'nba-elo-page.js'
+      - 'nba.html'
       - '.github/workflows/nba-elo-integrity.yml'
       - '.github/workflows/nba-elo-refresh.yml'
   pull_request:
@@ -17,6 +21,10 @@ on:
       - 'data/nba-2026-27-current-provisional.json'
       - 'scripts/audit-nba-elo.mjs'
       - 'scripts/update-nba-elo.mjs'
+      - 'scripts/audit-nba-page.mjs'
+      - 'nba-elo-model.js'
+      - 'nba-elo-page.js'
+      - 'nba.html'
       - '.github/workflows/nba-elo-integrity.yml'
       - '.github/workflows/nba-elo-refresh.yml'
   workflow_dispatch:
@@ -34,5 +42,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify NBA page and source ownership
+        run: node scripts/audit-nba-page.mjs
       - name: Verify archived and current NBA Elo consistency
         run: node scripts/audit-nba-elo.mjs
