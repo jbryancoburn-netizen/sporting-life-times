@@ -9,7 +9,8 @@
   "selected": {
     "quality_beta": 1200.0,
     "churn_gamma": 1.0,
-    "origin_beta": 25.0
+    "origin_beta": 25.0,
+    "multistat_beta": 150.0
   },
   "diagnostic_baseline": {
     "games": 5750,
@@ -18,8 +19,8 @@
   },
   "diagnostic_combined": {
     "games": 5750,
-    "log_loss": 0.5691101007102444,
-    "brier": 0.19514634776861728
+    "log_loss": 0.568595511281899,
+    "brier": 0.19499759547115544
   },
   "better_both": true,
   "transfers_origin_included_in_scoring": true,
@@ -31,8 +32,8 @@
       "teams_with_origin_strength": 320,
       "matched_transfer_records": 956,
       "excluded": {
-        "linked_transfer_records": 956,
-        "unmatched_or_ambiguous_prior_name": 2365
+        "unmatched_or_ambiguous_prior_name": 2365,
+        "linked_transfer_records": 956
       }
     },
     "2025": {
@@ -49,11 +50,47 @@
       "teams_with_origin_strength": 341,
       "matched_transfer_records": 1389,
       "excluded": {
-        "unmatched_or_ambiguous_prior_name": 2578,
-        "linked_transfer_records": 1389
+        "linked_transfer_records": 1389,
+        "unmatched_or_ambiguous_prior_name": 2578
       }
     }
   },
+  "historical_multistat_audits": {
+    "2024": {
+      "teams_with_verified_prior_stats": 361,
+      "unique_prior_player_names": 9506,
+      "matched_player_counts": 3346,
+      "metrics": [
+        "shooting",
+        "playmaking",
+        "defense"
+      ],
+      "roster_asof_preseason_certified": false
+    },
+    "2025": {
+      "teams_with_verified_prior_stats": 362,
+      "unique_prior_player_names": 9637,
+      "matched_player_counts": 3345,
+      "metrics": [
+        "shooting",
+        "playmaking",
+        "defense"
+      ],
+      "roster_asof_preseason_certified": false
+    },
+    "2026": {
+      "teams_with_verified_prior_stats": 364,
+      "unique_prior_player_names": 9622,
+      "matched_player_counts": 3145,
+      "metrics": [
+        "shooting",
+        "playmaking",
+        "defense"
+      ],
+      "roster_asof_preseason_certified": false
+    }
+  },
+  "multistat_selected_nonzero": true,
   "preseason_roster_asof_verified": false,
   "automatic_promotion": false,
   "limitations": [
@@ -68,6 +105,7 @@
       "quality_beta": 0.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.585646960900206,
       "diagnostic_2026": {
         "games": 5750,
@@ -77,8 +115,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5848089435010331,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5746553508939589,
+        "brier": 0.19659912311353392
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5847753642355957,
       "diagnostic_2026": {
         "games": 5750,
@@ -88,8 +139,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5839616566266284,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.573560810799669,
+        "brier": 0.1962067866087758
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5836850516588806,
       "diagnostic_2026": {
         "games": 5750,
@@ -99,8 +163,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5829077775001454,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721879981488969,
+        "brier": 0.19574159400991112
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5854130719885674,
       "diagnostic_2026": {
         "games": 5750,
@@ -110,8 +187,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5845781362625132,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5745726245322621,
+        "brier": 0.1965561879079452
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5845440127426799,
       "diagnostic_2026": {
         "games": 5750,
@@ -121,8 +211,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.583733129256703,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5734879530098477,
+        "brier": 0.19616836911629928
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5834575609739284,
       "diagnostic_2026": {
         "games": 5750,
@@ -132,8 +235,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5826827383341261,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721307657216469,
+        "brier": 0.19571034052417496
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5852511668565569,
       "diagnostic_2026": {
         "games": 5750,
@@ -143,8 +259,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5844186095051059,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5745529229501722,
+        "brier": 0.19654122602586718
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5843835568644459,
       "diagnostic_2026": {
         "games": 5750,
@@ -154,8 +283,21 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5835748303348551,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5734772354280032,
+        "brier": 0.19615749907566904
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5832996445128468,
       "diagnostic_2026": {
         "games": 5750,
@@ -164,9 +306,22 @@
       }
     },
     {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.582526656417716,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721347225542817,
+        "brier": 0.195706153018887
+      }
+    },
+    {
       "quality_beta": 400.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5833990451204585,
       "diagnostic_2026": {
         "games": 5750,
@@ -176,8 +331,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5826441384032659,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5723789460280273,
+        "brier": 0.19587825716923687
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5825712523805453,
       "diagnostic_2026": {
         "games": 5750,
@@ -187,8 +355,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5818403859070093,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5713791346392619,
+        "brier": 0.19553260227961666
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5815459859409421,
       "diagnostic_2026": {
         "games": 5750,
@@ -198,8 +379,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5808511696379779,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5701482405314647,
+        "brier": 0.19513409087775974
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5831780076573627,
       "diagnostic_2026": {
         "games": 5750,
@@ -209,8 +403,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5824261636351135,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5723116875260171,
+        "brier": 0.19584364396406775
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.582352626958573,
       "diagnostic_2026": {
         "games": 5750,
@@ -220,8 +427,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.581624579733586,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5713209070966312,
+        "brier": 0.19550196403179218
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5813310671467331,
       "diagnostic_2026": {
         "games": 5750,
@@ -231,8 +451,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5806387174476052,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5701044681962603,
+        "brier": 0.1951098346443164
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.583026877747908,
       "diagnostic_2026": {
         "games": 5750,
@@ -242,8 +475,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5822775062688589,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5723039493000823,
+        "brier": 0.19583515038957083
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5822029038785941,
       "diagnostic_2026": {
         "games": 5750,
@@ -253,8 +499,21 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5814771193848405,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5713214732275838,
+        "brier": 0.19549709724497275
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5811838440946226,
       "diagnostic_2026": {
         "games": 5750,
@@ -263,9 +522,22 @@
       }
     },
     {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5804934509584587,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5701187571961005,
+        "brier": 0.19511097647916797
+      }
+    },
+    {
       "quality_beta": 1200.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5809959546577622,
       "diagnostic_2026": {
         "games": 5750,
@@ -275,8 +547,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5804052056361547,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5703497184401742,
+        "brier": 0.1955555879336688
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5802517658574191,
       "diagnostic_2026": {
         "games": 5750,
@@ -286,8 +571,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5796845496672771,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5695356963967599,
+        "brier": 0.1952885149994188
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5793510775264747,
       "diagnostic_2026": {
         "games": 5750,
@@ -297,8 +595,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.578819163195762,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685834420010066,
+        "brier": 0.19500079548557384
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.580791006743331,
       "diagnostic_2026": {
         "games": 5750,
@@ -308,8 +619,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5802033994375504,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5703080261141626,
+        "brier": 0.19553413143372558
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5800491346860189,
       "diagnostic_2026": {
         "games": 5750,
@@ -319,8 +643,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.579484844093094,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5695016913971175,
+        "brier": 0.19527012954870362
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.579152074529153,
       "diagnostic_2026": {
         "games": 5750,
@@ -330,8 +667,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5786227717291674,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685620459300423,
+        "brier": 0.19498749903901275
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5806545903836056,
       "diagnostic_2026": {
         "games": 5750,
@@ -341,8 +691,21 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5800697161255421,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5703220837612006,
+        "brier": 0.19553652001015157
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.579914166059179,
       "diagnostic_2026": {
         "games": 5750,
@@ -352,13 +715,38 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.579352421134693,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5695229533458779,
+        "brier": 0.19527535609356825
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
       "train_log_loss": 0.5790197106870484,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5691101007102444,
         "brier": 0.19514634776861728
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "train_log_loss": 0.5784926788279375,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568595511281899,
+        "brier": 0.19499759547115544
       }
     }
   ]
