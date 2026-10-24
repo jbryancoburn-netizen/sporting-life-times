@@ -1,6 +1,8 @@
 import unittest
 from datetime import date
-from ncaam_espn_source import collect,normalize_event,merge
+from ncaam_espn_source import collect,normalize_event,merge,write_cache
+from tempfile import TemporaryDirectory
+from pathlib import Path
 
 CROSS={
     "2619":{"team_id":"ncaa:100","team":"Test College","conference":"Test"},
@@ -48,6 +50,18 @@ class ESPNSourceTests(unittest.TestCase):
         self.assertEqual(len(rows),1)
         self.assertEqual(count,0)
         self.assertEqual(rows[0]["status"],"final")
+
+    def test_unchanged_events_do_not_rewrite_cache(self):
+        with TemporaryDirectory() as temp:
+            path=Path(temp)/"events.json"
+            row,_=normalize_event(sample(),CROSS)
+            self.assertTrue(write_cache(path,[row]))
+            original=path.read_bytes()
+            self.assertFalse(write_cache(path,[row]))
+            self.assertEqual(original,path.read_bytes())
+            changed=dict(row,home_score="88")
+            self.assertTrue(write_cache(path,[changed]))
+            self.assertNotEqual(original,path.read_bytes())
 
     def test_identity_changes_abort(self):
         previous,_=normalize_event(sample(),CROSS)
