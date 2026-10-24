@@ -4,6 +4,9 @@ on:
     paths:
       - scripts/backtest_ncaam_opponent_quality.py
       - scripts/test_ncaam_opponent_quality.py
+      - scripts/test_ncaam_opponent_exposure_integrity.py
+      - scripts/verify_ncaam_opponent_quality_promotion.py
+      - scripts/test_ncaam_opponent_quality_promotion.py
       - .github/workflows/ncaam-opponent-quality-backtest.yml
   workflow_dispatch:
 permissions:
@@ -18,8 +21,15 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s scripts -p test_ncaam_opponent_quality.py -v
-      - run: python scripts/backtest_ncaam_opponent_quality.py
+      - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_exposure_integrity.py' -v
+      - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_quality_promotion.py' -v
+      - name: Run historical opponent-quality train/holdout
+        run: python scripts/backtest_ncaam_opponent_quality.py
+      - name: Classify calibration evidence and enforce non-promotion
+        run: python scripts/verify_ncaam_opponent_quality_promotion.py --report data/ncaam-opponent-quality-backtest.json
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: ncaam-opponent-quality-holdout-backtest
           path: data/ncaam-opponent-quality-backtest.json
+          if-no-files-found: warn
