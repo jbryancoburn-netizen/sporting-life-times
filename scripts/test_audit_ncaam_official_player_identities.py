@@ -13,7 +13,8 @@ class AthleteOfficialIdentityTests(unittest.TestCase):
                "ncaam-2026-27-minutes-retention-audit.json",
                "ncaam-2026-27-official-negative-player-identities.json",
                "ncaam-2026-27-preseason-roster-informed.json",
-               "ncaam-2026-27-official-prior-school-corroborations.json"]
+               "ncaam-2026-27-official-prior-school-corroborations.json",
+               "ncaam-2026-27-official-ambiguous-current-player-origins.json"]
         cls.source=[model.read_json(model.ROOT/name) for name in names]
     def simulate(self,index,mutate):
         inputs=list(self.source)
@@ -24,7 +25,7 @@ class AthleteOfficialIdentityTests(unittest.TestCase):
         d=model.verify(*self.source)
         s=d["summary"]
         self.assertEqual(s["school_officially_rejected_false_prior_player_links"],22)
-        self.assertEqual(s["open_high_priority_candidate_links"],4)
+        self.assertEqual(s["open_high_priority_candidate_links"],0)
         self.assertEqual(s["source_unlinked_unique_name_transfer_candidates"],26)
         self.assertEqual(s["source_unlinked_ambiguous_name_cases"],4)
         self.assertEqual(s["source_unlinked_without_prior_d1_box"],1984)
@@ -47,6 +48,17 @@ class AthleteOfficialIdentityTests(unittest.TestCase):
     def test_positive_evidence_cannot_authorize_elo(self):
         with self.assertRaisesRegex(ValueError,"must not authorize"):
             self.simulate(5,lambda d:d.__setitem__("automatic_elo_linking_authorized",True))
+    def test_all_four_ambiguous_athletes_are_officially_reviewed(self):
+        d=model.verify(*self.source)
+        s=d["summary"]
+        self.assertEqual(s["source_unlinked_ambiguous_cases_officially_reviewed_no_2025_26_d1_player_id"],4)
+        self.assertEqual(s["remaining_high_risk_name_candidates_without_official_school_status"],0)
+        self.assertEqual(len(d["officially_reviewed_ambiguous_no_prior_d1"]),4)
+        self.assertEqual(len(d["high_priority_positive_identity_review_queue"]),0)
+        self.assertTrue(all(not r["eligible_for_elo"] for r in d["officially_reviewed_ambiguous_no_prior_d1"]))
+    def test_mislabeled_non_d1_ambiguous_origin_is_rejected(self):
+        with self.assertRaisesRegex(ValueError,"unknown class"):
+            self.simulate(6,lambda d:d["records"][0].__setitem__("prior_2025_26_category","direct_D1_transfer"))
     def test_negative_id_if_ever_linked_fails_closed(self):
         false_id=self.source[3]["records"][0]["current_espn_id"]
         with self.assertRaisesRegex(ValueError,"Unlinked ESPN athletes|Prior minutes for OFFICIALLY"):
