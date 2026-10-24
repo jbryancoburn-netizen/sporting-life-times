@@ -21,7 +21,7 @@ function render(args){
  if(mode==='final'&&(args.awayScore==null||args.homeScore==null))throw Error('Final scorebug requires verified away and home scores');
  const rows=team(args.away,{score:args.awayScore,logo:args.away.logo,projected,mode,winner:winner===args.away.code})+
   team(args.home,{score:args.homeScore,logo:args.home.logo,projected,mode,winner:winner===args.home.code});
- return '<div class="slt-scorebug slt-scorebug-'+mode+'"><div class="slt-scorebug-top"><strong>'+headline+(projected?' · PROJECTED SCORE':'')+'</strong><span>'+subtitle+'</span></div><div class="slt-scorebug-rows">'+rows+'</div>'+
+ return '<div class="slt-scorebug slt-scorebug-'+mode+'"><div class="slt-scorebug-top"><strong>'+(projected?'PROJECTED':headline)+'</strong><span>'+subtitle+'</span></div><div class="slt-scorebug-rows">'+rows+'</div>'+
  (args.footer?'<div class="slt-scorebug-footer">'+args.footer+'</div>':'')+'</div>';
 }
 root.SLTScorebug={render};
