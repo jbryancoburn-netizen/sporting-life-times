@@ -78,19 +78,26 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
     # the fallback prediction.
     plain={t:1500+.65*(previous.get(t,1500)-1500) for t in ratings}
     ll=0.;bs=0.;n=0;fallback_games=0
-    for day,gid,h,a,hs,aws in schedule:
+    # Schedules contain calendar dates, not verified tipoff sequences.
+    # Snapshot predictions before ANY result from that date is applied.
+    # A two-game same-day team schedule is still evaluated from pre-date Elo.
+    from itertools import groupby
+    from backtest_ncaam_roster_elo import step
+    for day,day_games in groupby(schedule,key=lambda g:g[0]):
         if day.toordinal()>end:break
-        if h in valid and a in valid:
-            use_plain=coverage_fallback and (h not in features or a not in features or h not in quality or a not in quality)
-            chosen=plain if use_plain else ratings
-            if use_plain:fallback_games+=1
-            p=1/(1+10**(-(chosen[h]-chosen[a])/400))
-            y=int(hs>aws)
-            ll-=y*math.log(max(1e-9,p))+(1-y)*math.log(max(1e-9,1-p))
-            bs+=(p-y)**2;n+=1
-        from backtest_ncaam_roster_elo import step
-        step(ratings,h,a,hs,aws)
-        step(plain,h,a,hs,aws)
+        matches=list(day_games)
+        for _,gid,h,a,hs,aws in matches:
+            if h in valid and a in valid:
+                use_plain=coverage_fallback and (h not in features or a not in features or h not in quality or a not in quality)
+                chosen=plain if use_plain else ratings
+                if use_plain:fallback_games+=1
+                p=1/(1+10**(-(chosen[h]-chosen[a])/400))
+                y=int(hs>aws)
+                ll-=y*math.log(max(1e-9,p))+(1-y)*math.log(max(1e-9,1-p))
+                bs+=(p-y)**2;n+=1
+        for _,gid,h,a,hs,aws in matches:
+            step(ratings,h,a,hs,aws)
+            step(plain,h,a,hs,aws)
     if n<150:raise ValueError("Too few evaluation games "+str(n))
     return {"games":n,"log_loss":ll/n,"brier":bs/n,"fallback_games":fallback_games}
 
