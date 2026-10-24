@@ -101,4 +101,7 @@ async function playerNotebook(){
 leagueLeaders();
 playerNotebook();
 load();reporting().then(rosterWireSnapshot);
+// Refresh archived player results alongside every standings refresh.
+setInterval(()=>{if(!document.hidden){leagueLeaders();playerNotebook();load()}},3*60*1000);
+setInterval(()=>{if(!document.hidden)reporting().then(rosterWireSnapshot)},15*60*1000);
 })();
