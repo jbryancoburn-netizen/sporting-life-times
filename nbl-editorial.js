@@ -55,8 +55,8 @@ function editorialScore(g,logos){
 function updateScoreboard(d,logos){
  const games=Array.isArray(d?.recent_finals)?d.recent_finals:[];
  const deck=$('nbl-featured-finals');
- if(deck)deck.innerHTML=games.length?games.slice(-4).reverse().map(g=>editorialScore(g,logos)).join(''):'<p class="nbl-scoreboard-empty">Recent sourced finals are unavailable in this edition.</p>';
- const latest=games.at(-1),score=$('nbl-hero-final');
+ if(deck)deck.innerHTML=games.length?games.slice(0,4).map(g=>editorialScore(g,logos)).join(''):'<p class="nbl-scoreboard-empty">Recent sourced finals are unavailable in this edition.</p>';
+ const latest=games[0],score=$('nbl-hero-final');
  if(score){
   if(!latest){score.textContent='Recent results unavailable';return}
   const u=validURL(latest.source_url);
@@ -109,8 +109,9 @@ async function run(){
  const d=standingResult.status==='fulfilled'?standingResult.value:null;
  const e=ratingsResult.status==='fulfilled'?ratingsResult.value:null;
  const logos=sources(scoreResult.status==='fulfilled'?scoreResult.value:null);
- try {for(const [name,url] of await officialLogos())logos.set(name,url)}catch{}
  clubRibbon(logos);
+ // Show the sourced edition immediately; third-party crest lookup must not block it.
+ officialLogos().then(directory=>{for(const [name,url] of directory)logos.set(name,url);clubRibbon(logos);for(const id of ['league-standings-table','nbl-elo-table']){const root=$(id);if(root)for(const img of root.querySelectorAll('.nbl-club-mark'))img.remove();const rows=root?.querySelectorAll('tbody tr th');if(rows)for(const cell of rows){const club=cell.textContent.trim();const badge=cell.querySelector('.nbl-brand-initial');if(badge&&logos.has(canonical(club)))badge.outerHTML=logo(club,logos);}}if(validStandings)updateScoreboard(d,logos);}).catch(()=>{});
  const validStandings=d?.league==='Australian NBL'&&d?.status==='source_derived_not_officially_reconciled'&&d?.rows?.length===10;
  const validRatings=e?.status==='RESEARCH_ONLY_UNCERTIFIED'&&e?.production_approved===false&&e?.prediction_certified===false&&e?.ratings?.length===10;
  const regular=validStandings?d.rows:[];
