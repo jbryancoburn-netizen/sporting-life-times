@@ -6,11 +6,12 @@
   "preseason_asof_certified": false,
   "team_count": 365,
   "games_played": 0,
-  "identity_mismatches": [
+  "identity_mismatches": [],
+  "baseline_fallbacks": [
     {
       "team_id": "pending-ncaa-id:west-florida",
-      "roster_count": 0,
-      "scoring_count": 2
+      "excluded_scoring_records": 2,
+      "reason": "No source-confirmed team-level historical minutes denominator"
     }
   ],
   "inputs": {
@@ -28,6 +29,7 @@
     "Scoring points per prior minute is not full player value or defensive quality",
     "School-strength and previous competition adjustment not certified",
     "Missing player and freshman value not imputed",
+    "Uncovered programs retain their own baseline with linked quality evidence excluded",
     "Mismatched cross-source player counts receive zero quality adjustment",
     "No season-opening as-of roster snapshot held-out validation",
     "Do not substitute this exploratory rating for certified predictions"

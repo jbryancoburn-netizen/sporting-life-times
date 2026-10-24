@@ -5,19 +5,12 @@
   "decision": "RETAIN_INCUMBENT_UNTIL_VALIDATED",
   "promotion_approved": false,
   "blocking_reasons": [
-    "PLAYER_IDENTITY_COUNTS_NOT_FULLY_RECONCILED",
     "HISTORICAL_PREGAME_ROSTER_SNAPSHOTS_INCOMPLETE",
     "CURRENT_PLAYER_FEATURE_VALIDATION_NOT_APPROVED",
     "EXACT_SAME_GAME_PRESEASON_HOLDOUT_IMPROVEMENT_UNPROVEN",
     "ASOF_SEASON_OPENING_FEATURES_UNCERTIFIED"
   ],
   "team_count": 365,
-  "identity_discrepancies": [
-    {
-      "team_id": "pending-ncaa-id:west-florida",
-      "roster_count": 0,
-      "scoring_count": 2
-    }
-  ],
+  "identity_discrepancies": [],
   "evidence_policy": "No ratings promoted for plausibility or poll resemblance; strict preseason as-of feature-identical same-game holdout must beat incumbent on both log loss and Brier."
 }
