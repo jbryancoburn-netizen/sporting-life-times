@@ -34,8 +34,8 @@ async function load(){
    perGame.set(key,{home:{elo:homeAfter,delta,rank:afterHome,rankChange:beforeHome-afterHome},away:{elo:awayAfter,delta:-delta,rank:afterAway,rankChange:beforeAway-afterAway}});
   }
  }
- const rankLabel=info=>{if(!info)return '';const shift=info.rankChange;return '#'+info.rank+(shift>0?' ▲'+shift:shift<0?' ▼'+Math.abs(shift):' ·');};
- const eloDetail=(label,info)=>info?'<span><b>'+esc(label)+'</b> Elo '+info.elo.toFixed(1)+' <em class="'+(info.delta>=0?'nba-elo-positive':'nba-elo-negative')+'">'+(info.delta>0?'+':'')+info.delta.toFixed(1)+'</em> · Rank '+rankLabel(info)+'</span>':'';
+ const rankLabel=info=>{const d=info.rankChange;return '#'+info.rank+(d>0?' ▲'+d:d<0?' ▼'+Math.abs(d):'');};
+ const eloDetail=(label,info)=>info?'<div class="nba-elo-teamline"><b>'+esc(label)+'</b><span class="nba-elo-rating">'+info.elo.toFixed(1)+'</span><span class="nba-elo-delta '+(info.delta>=0?'nba-elo-positive':'nba-elo-negative')+'">'+(info.delta>0?'+':'')+info.delta.toFixed(1)+'</span><span class="nba-elo-rank">'+rankLabel(info)+'</span></div>':'';
 
  $('nba-boxscore-status').textContent='NBA official game feed · Updated '+(data.updated_at?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(data.updated_at))+' ET':'unknown')+' · Captured archive (not yet full-season verified)';
  const completed=games.filter(g=>g.state==='post'&&Array.isArray(g.players)&&g.players.length);
