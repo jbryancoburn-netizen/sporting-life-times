@@ -87,6 +87,10 @@ jobs:
         run: |
           python scripts/collect_feeds.py
           python scripts/collect_scores.py
+          if ! python scripts/publish_nbl_standings.py; then
+            echo 'NBL ESPN season replay unavailable; withholding reconstructed standings this build'
+            rm -f data/nbl-standings.json
+          fi
           python scripts/collect_match_details.py
           python scripts/build_match_archive_index.py
           python scripts/check_match_center.py
