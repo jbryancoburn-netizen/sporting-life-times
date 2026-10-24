@@ -20,7 +20,7 @@ async function get(url){
   try{const r=await fetch(url,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
 const [roster,current,ledger,upcoming,feeds,news]=await Promise.all(Object.values(files).map(get));
-const polls=await get("data/ncaam-2026-27-national-polls.json");
+const [polls,teamCrosswalk]=await Promise.all([get("data/ncaam-2026-27-national-polls.json"),get("data/ncaam-2026-27-espn-team-crosswalk.json")]);
 const pollBox=byId("cbb-polls");
 const pollButtons=[...document.querySelectorAll("[data-poll]")];
 const pollValid=p=>p&&Array.isArray(p.rankings)&&p.rankings.length===25&&p.rankings.every((x,i)=>x.rank===i+1&&x.team);
@@ -56,6 +56,18 @@ if(!ratings){
 }
 const teams=ratings.rankings;
 const lookup=new Map(teams.map(t=>[t.team_id,t]));
+const espnIds=new Map((teamCrosswalk?.teams||[]).filter(t=>t.id&&/^\\d+$/.test(String(t.espn_id||""))).map(t=>[t.id,String(t.espn_id)]));
+const logo=t=>espnIds.has(t.team_id)?'<img loading="lazy" alt="" src="https://a.espncdn.com/i/teamlogos/ncaa/500/'+espnIds.get(t.team_id)+'.png">':'';
+const pollRanks=key=>new Map((polls?.polls?.[key]?.rankings||[]).map(x=>[x.team,x.rank]));
+const apRanks=pollRanks("ap"),coachRanks=pollRanks("coaches");
+const normalize=n=>String(n).toLowerCase().replace(/[^a-z0-9]/g,"");
+const aliases={"Connecticut":"UConn","Miami":"Miami (FL)","Southern California":"USC","Brigham Young":"BYU","Saint John's":"St. John's"};
+const rankFor=(map,t)=>map.get(t.team)||map.get(aliases[t.team])||[...map.entries()].find(([n])=>normalize(n)===normalize(t.team))?.[1]||null;
+const spotlight=byId("cbb-feature-teams");
+if(spotlight){
+ spotlight.innerHTML=teams.slice(0,5).map(t=>'<a class="cbb-feature-team" href="ncaam-elo.html?team='+encodeURIComponent(t.team)+'"><div class="cbb-feature-head">'+logo(t)+'<span class="cbb-feature-rank">ELO #'+t.rank+'</span></div><strong>'+safe(t.team)+'</strong><div class="cbb-feature-score">'+number(t.elo)+'</div><small>'+safe(conferenceName(t.conference))+'</small><div class="cbb-feature-polls">AP '+(rankFor(apRanks,t)||"NR")+' <span>·</span> Coaches '+(rankFor(coachRanks,t)||"NR")+'</div></a>').join("");
+}
+
 const teamSearch=byId("cbb-team-search");
 function searchTeams(){
  if(!teamSearch)return;
@@ -72,7 +84,7 @@ byId("desk-summary").textContent=fullSeason?
  "Game results, records, Elo and forecasts all come from the same deduplicated NCAA result ledger. No unverified player-quality coefficient.":
  "The season has not started. Showing the roster-informed preseason baseline; records are 0–0 until verified completed games enter the NCAA ledger.";
 byId("elo-leaders").innerHTML=teams.slice(0,16).map(t=>
- '<div class="cbb-ranking"><span class="cbb-rank">'+t.rank+'</span><strong>'+safe(t.team)+'</strong><span class="cbb-muted">'+safe(conferenceName(t.conference))+'</span><b>'+number(t.elo)+'</b></div>').join("");
+ '<div class="cbb-ranking"><span class="cbb-rank">'+t.rank+'</span><strong class="cbb-ranking-name">'+logo(t)+safe(t.team)+'</strong><span class="cbb-muted">'+safe(conferenceName(t.conference))+'</span><b>'+number(t.elo)+'</b></div>').join("");
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort((a,b)=>conferenceName(a).localeCompare(conferenceName(b)));
 const selector=byId("conference-filter");
 for(const c of confs){const option=document.createElement("option");option.value=c;option.textContent=conferenceName(c);selector.appendChild(option)}
