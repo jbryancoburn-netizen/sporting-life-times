@@ -6,6 +6,10 @@ on:
       - nba.html
       - nba-home.js
       - nba-scorebug.js
+      - nba-game-comparison.js
+      - nba-game-center.js
+      - nba-game-center.html
+      - scripts/test-nba-comparison.mjs
       - nba-intelligence.js
       - nba-rabby-forecast.js
       - scripts/test-nba-scorebug.mjs
@@ -34,6 +38,8 @@ jobs:
         run: |
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
+      - name: Check NBA comparison metrics
+        run: node scripts/test-nba-comparison.mjs
       - name: Check scorebug ordering and state rules
         run: node scripts/test-nba-scorebug.mjs
       - name: Assert iPhone-sized layouts and capture images
