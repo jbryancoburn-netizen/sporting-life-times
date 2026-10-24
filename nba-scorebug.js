@@ -6,7 +6,10 @@ const colors={"ATL":"#E03A3E","BOS":"#007A33","BKN":"#242424","CHA":"#1D1160","C
 const color=t=>colors[String(t.code||'').toUpperCase()]||'#3b414b';
 function team(t,opts={}){
  const score=opts.score;
- const logo=opts.logo?'<img src="'+esc(opts.logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
+ const normalized=String(t.code||'').toUpperCase();
+ const espnCodes={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'};
+ const logoUrl=opts.logo||(colors[normalized]?'https://a.espncdn.com/i/teamlogos/nba/500/'+(espnCodes[normalized]||normalized.toLowerCase())+'.png':'');
+ const logo=logoUrl?'<img src="'+esc(logoUrl)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
  return '<div class="slt-scorebug-team '+(opts.winner?'is-winner':'')+'" style="--team-color:'+color(t)+'"><span class="slt-scorebug-identity">'+logo+'<span><b>'+esc(t.code)+'</b><small>'+esc(t.name||t.code)+'</small></span></span><span class="slt-scorebug-number">'+(score===undefined||score===null?'—':esc(score))+'</span></div>';
 }
 function render(args){
