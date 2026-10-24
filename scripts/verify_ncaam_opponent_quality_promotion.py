@@ -29,11 +29,14 @@ def decision(report):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--report",type=Path,default=Path("data/ncaam-opponent-quality-backtest.json"))
+    p.add_argument("--require-report",action="store_true",help="Fail CI when actual backtest output is absent")
     args=p.parse_args()
     if not args.report.exists():
         print(json.dumps({"approved":False,"reason":"BACKTEST_REPORT_NOT_PUBLISHED",
                           "path":str(args.report)}))
-        return  # Expected research state; no false promotion
+        if args.require_report:
+            raise SystemExit("ERROR: historical backtest produced no report")
+        return  # Research-only direct invocation; never claim successful execution
     verdict=decision(json.loads(args.report.read_text(encoding="utf-8")))
     print(json.dumps(verdict,indent=2))
     if verdict["approved"]:
