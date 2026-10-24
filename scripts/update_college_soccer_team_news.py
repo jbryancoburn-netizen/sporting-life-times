@@ -25,6 +25,7 @@ QUERIES=[
  '"Division III" "women\'s soccer"',
  '"college soccer" "men"',
  '"college soccer" "women"',
+ '"Trine University" "men\'s soccer"',
 ]
 def clean(s):
  return re.sub(r'<[^>]*>',' ',unescape(s or '')).strip()
@@ -93,6 +94,12 @@ def main():
    a={'title':title,'url':link,'source':source,'published_at':published,'summary':'','team_keys':keys}
    if link in selected:selected[link]['team_keys']=sorted(set(selected[link]['team_keys'])|set(keys))
    else:selected[link]=a
+ # Preserve separately verified official-program articles, not the unreviewed previous search classifications.
+ for link,article in old.items():
+  if not article.get('curated_verified') or not article.get('team_keys'):continue
+  try: age=now-dt.datetime.fromisoformat(article['published_at'].replace('Z','+00:00'))
+  except (ValueError,KeyError):continue
+  if dt.timedelta(days=0)<=age<=dt.timedelta(days=35) and link not in selected:selected[link]=article
  # Build a fresh verified index: never keep previously misclassified team assignments.
  if len(failures)==len(QUERIES):
   raise RuntimeError('All news queries failed; existing feed left intact')
