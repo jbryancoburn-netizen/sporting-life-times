@@ -278,8 +278,10 @@ def main():
             for item in previous_audit.get("independent_reconciliation",{}).get("unresolved_conflicts",[]):
                 retained[item["espn_event_id"]]=item
         source_for_elo,reconciliation=reconcile(source,preseason,through)
-        checked={item["espn_event_id"] for item in reconciliation["conflicts"]}
-        for item in reconciliation["conflicts"]:
+        from ncaam_archive_reconcile import check as archive_check
+        source_for_elo,archive_audit=archive_check(source_for_elo,preseason,through)
+        reconciliation["ncaa_origin_archive"]=archive_audit
+        for item in reconciliation["conflicts"]+archive_audit.get("score_conflicts",[]):
             retained[item["espn_event_id"]]=item
         # No silent restoration of formerly disputed finals if official API fails.
         source=[row for row in source_for_elo if row["contest_id"] not in retained]
