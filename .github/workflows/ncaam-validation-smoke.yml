@@ -1,0 +1,58 @@
+name: NCAA Validation Smoke Test
+on:
+  push:
+    paths:
+      - '.github/workflows/ncaam-validation-smoke.yml'
+      - 'scripts/backtest_ncaam_quality_retrospective.py'
+      - 'scripts/test_ncaam_exact_source_schema.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and test exact NCAA scoring modules
+        id: validation
+        continue-on-error: true
+        run: |
+          python -m py_compile scripts/backtest_ncaam_quality_retrospective.py scripts/run_ncaam_exact_formula_diagnostic.py scripts/test_ncaam_exact_source_schema.py scripts/test_ncaam_exact_scoring_day_batch.py
+          python -m unittest discover -s scripts -p 'test_ncaam_exact_source_schema.py' -v
+          python -m unittest discover -s scripts -p 'test_ncaam_exact_scoring_day_batch.py' -v
+      - name: Write machine-readable execution receipt
+        if: always()
+        env:
+          TEST_OUTCOME: ${{ steps.validation.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path('data/ncaam-validation-smoke-receipt.json')
+          p.parent.mkdir(exist_ok=True)
+          p.write_text(json.dumps({
+             'workflow':'ncaam-validation-smoke',
+             'commit':os.environ['GITHUB_SHA'],
+             'run_id':os.environ['GITHUB_RUN_ID'],
+             'test_outcome':os.environ['TEST_OUTCOME'],
+          },indent=2)+'\\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-validation-smoke-receipt
+          path: data/ncaam-validation-smoke-receipt.json
+      - name: Publish receipt
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-validation-smoke-receipt.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record NCAA validation smoke result [skip ci]'
+            git push
+          fi
