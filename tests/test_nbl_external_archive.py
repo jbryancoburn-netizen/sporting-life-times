@@ -35,6 +35,15 @@ class NBLExternalArchiveTests(unittest.TestCase):
              "away":"Perth Wildcats","home_score":95,"away_score":80}]}
         result=audit(data,compact("Sydney Kings 95 Perth Wildcats 80"))
         self.assertEqual(result["status"],"partial_or_unreconciled")
+    def test_all_five_official_exceptions_match_game_dates_and_scorelines(self):
+        from scripts.crosscheck_nbl26_archive import OFFICIAL_EXCEPTIONS,check_official_exception
+        for gid,ref in OFFICIAL_EXCEPTIONS.items():
+            score=ref["score"]
+            game={"id":gid,"played_at":ref["date"]+"T09:00Z"}
+            page="The "+ref["clubs"][0]+" faced "+ref["clubs"][1]+" in a "+score+" result."
+            with self.subTest(game=gid):
+                self.assertTrue(check_official_exception(game,page))
+                self.assertFalse(check_official_exception({**game,"played_at":"2024-01-01T09:00Z"},page))
     def test_rejects_promoted_inputs(self):
         with self.assertRaises(ValueError):
             audit({"status":"certified","games":[]},compact(""))
