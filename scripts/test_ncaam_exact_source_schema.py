@@ -9,6 +9,6 @@ class RealisticRosterSchemaTests(unittest.TestCase):
           for i in range(10)]
         features,teams,audit=preseason_features(roster,previous)
         self.assertIn("sample college",features)
-        self.assertEqual(features["sample college"]["covered"],False)
+        self.assertFalse(features["sample college"]["covered"])
         self.assertEqual(audit["current_roster_players"],10)
 if __name__=="__main__":unittest.main()
