@@ -1,0 +1,20 @@
+name: NCAA individual player values integrity
+on:
+  push:
+    paths:
+      - 'data/ncaam-2026-27-individual-player-values.json'
+      - 'data/ncaam-2026-27-player-value-experimental-v1.json'
+      - 'scripts/verify_ncaam_individual_player_values.py'
+      - '.github/workflows/ncaam-individual-player-values.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_individual_player_values.py
