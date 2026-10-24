@@ -93,14 +93,11 @@ def main():
    a={'title':title,'url':link,'source':source,'published_at':published,'summary':'','team_keys':keys}
    if link in selected:selected[link]['team_keys']=sorted(set(selected[link]['team_keys'])|set(keys))
    else:selected[link]=a
- # Preserve only recently published old entries after successful or failed scans.
- for link,article in old.items():
-  try: recent=dt.datetime.fromisoformat(article['published_at'].replace('Z','+00:00'))>now-dt.timedelta(days=7)
-  except (KeyError,ValueError):recent=False
-  if recent and link not in selected:selected[link]=article
+ # Build a fresh verified index: never keep previously misclassified team assignments.
+ if len(failures)==len(QUERIES):
+  raise RuntimeError('All news queries failed; existing feed left intact')
  articles=sorted(selected.values(),key=lambda a:a['published_at'],reverse=True)[:700]
  payload={'schema_version':1,'updated_at':now.isoformat(),'source':'Google News RSS search discovery; original publisher links','queries_attempted':len(QUERIES),'queries_failed':len(failures),'articles':articles,'notice':'Only articles explicitly identifying a soccer program and gender are assigned; unmatched programs show no stories. Feed discovery is not exhaustive.'}
  OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
  print('stories',len(articles),'queries failed',len(failures))
- if len(failures)==len(QUERIES):raise RuntimeError('All news queries failed; kept old stories')
 if __name__=='__main__': main()
