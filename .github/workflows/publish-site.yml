@@ -88,10 +88,11 @@ jobs:
           python scripts/collect_feeds.py
           python scripts/collect_scores.py
           if python scripts/publish_nbl_standings.py; then
+            python scripts/publish_nbl_research_elo.py
             python -c 'import json; from pathlib import Path; Path("data/nbl-standings-publication-status.json").write_text(json.dumps({"league":"Australian NBL","published":True}))'
           else
             echo 'NBL ESPN season replay unavailable; withholding reconstructed standings this build'
-            rm -f data/nbl-standings.json
+            rm -f data/nbl-standings.json data/nbl-research-current-ledger.json data/nbl-elo-research.json
             python -c 'import json; from pathlib import Path; Path("data/nbl-standings-publication-status.json").write_text(json.dumps({"league":"Australian NBL","published":False}))'
           fi
           python scripts/collect_match_details.py
