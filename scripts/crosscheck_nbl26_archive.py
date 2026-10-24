@@ -26,7 +26,7 @@ class VisibleText(HTMLParser):
 
 def compact(text):
     text=unicodedata.normalize("NFKC",unescape(text))
-    return re.sub(r"\\s+"," ",text).strip().casefold()
+    return re.sub(r"\s+"," ",text).strip().casefold()
 
 def visible(html):
     p=VisibleText();p.feed(html);return compact(" ".join(p.parts))
@@ -66,7 +66,7 @@ def main():
                 "status":"source_unavailable","reason":str(exc)[:280],
                 "production_approved":False}
     out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
-    out.write_text(json.dumps(result,indent=2)+"\\n")
+    out.write_text(json.dumps(result,indent=2))
     print(json.dumps({k:result.get(k) for k in
         ("status","ESPN_candidates_excluding_cup","matched_scorelines","unmatched_count","reason")},indent=2))
 if __name__=="__main__":main()
