@@ -12,6 +12,7 @@ on:
       - 'scripts/backtest_ncaam_combined_elo.py'
       - 'scripts/audit_ncaam_historical_transfer_origin.py'
       - 'scripts/audit_ncaam_historical_multistat_coverage.py'
+      - 'scripts/build_ncaam_historical_multistat_features.py'
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
       - 'scripts/build_ncaam_2027_quality_shadow.py'
       - 'scripts/recover_ncaam_prior_player_stats_by_id.py'
@@ -145,7 +146,8 @@ jobs:
           assert d['automatic_promotion'] is False
           assert d['transfers_origin_included_in_scoring'] is True
           assert d['transfer_origin_audits']['2026']['matched_transfer_records'] > 100
-          assert len(d['trials'])==27
+          assert len(d['trials'])==54
+          assert d['historical_multistat_audits']['2026']['teams_with_verified_prior_stats'] > 250
           assert d['diagnostic_baseline']['games']==d['diagnostic_combined']['games']
           PY
       - name: Run real NCAA historical player-quality backtest
