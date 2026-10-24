@@ -49,6 +49,15 @@ jobs:
           else
             echo 'No fresh validated EPL Match Center export; predictions remain unavailable.'
           fi
+      - name: Record actual EPL forecast publication status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('data/epl-match-center.json')
+          status={'competition':'EPL','published':path.exists(),'reason':None if path.exists() else 'forecast export not validated or withheld'}
+          Path('data/epl-forecast-publication-status.json').write_text(json.dumps(status,indent=2)+'\n')
+          PY
       - name: Verify source registry
         run: python scripts/check_sources.py
       - name: Restore PDF masthead
@@ -134,9 +143,17 @@ jobs:
             test -s /tmp/newspaper-page.html
             grep -qi '<html' /tmp/newspaper-page.html
           done
-          echo "Checking published independent EPL model snapshot"
-          curl --fail --location --silent --show-error --retry 4 --retry-delay 3 --retry-all-errors "$base/data/epl-match-center.json" -o /tmp/newspaper-epl.json
-          python -c 'import json; d=json.load(open("/tmp/newspaper-epl.json")); assert d.get("competition")=="EPL" and len(d.get("fixtures",[]))>0'
+          echo "Checking approved EPL forecast publication state"
+          curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "$base/data/epl-forecast-publication-status.json" -o /tmp/epl-release-status.json
+          python -c 'import json; s=json.load(open("/tmp/epl-release-status.json")); assert s.get("competition")=="EPL" and isinstance(s.get("published"),bool)'
+          if python -c 'import json,sys;sys.exit(0 if json.load(open("/tmp/epl-release-status.json"))["published"] else 1)'; then
+            curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "$base/data/epl-match-center.json" -o /tmp/newspaper-epl.json
+            python -c 'import json; d=json.load(open("/tmp/newspaper-epl.json")); assert d.get("competition")=="EPL" and len(d.get("fixtures",[]))>0'
+          else
+            echo "EPL forecast withheld by model publication gate; absence is expected, not a deployment failure"
+            status=$(curl --location --silent --output /dev/null --write-out '%{http_code}' "$base/data/epl-match-center.json")
+            test "$status" = "404"
+          fi
           echo "Checking Tottenham crest URL"
           curl --fail --location --silent --show-error --retry 3 --retry-delay 2 --retry-all-errors "https://a.espncdn.com/i/teamlogos/soccer/500/367.png" -o /tmp/newspaper-crest.png
           python -c 'from pathlib import Path; assert Path("/tmp/newspaper-crest.png").read_bytes()[:8]==bytes.fromhex("89504e470d0a1a0a")'
