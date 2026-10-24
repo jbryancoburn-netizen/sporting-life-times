@@ -39,7 +39,7 @@ jobs:
              'commit':os.environ['GITHUB_SHA'],
              'run_id':os.environ['GITHUB_RUN_ID'],
              'test_outcome':os.environ['TEST_OUTCOME'],
-          },indent=2)+'\\n')
+          },indent=2))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
