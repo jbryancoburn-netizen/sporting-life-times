@@ -1,0 +1,20 @@
+name: NCAA player value sensitivity QA
+on:
+  push:
+    paths:
+      - 'data/ncaam-2026-27-player-value-experimental-v1.json'
+      - 'data/ncaam-2026-27-player-value-sensitivity.json'
+      - 'scripts/verify_ncaam_player_value_sensitivity.py'
+      - '.github/workflows/ncaam-player-value-sensitivity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_player_value_sensitivity.py
