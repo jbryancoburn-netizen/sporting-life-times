@@ -38,6 +38,10 @@ def espn(now):
   dt=when(a.get("published","") or a.get("lastModified",""))
   if not title or not link.startswith("https://") or not dt or not (now-timedelta(days=5)<=dt<=now+timedelta(hours=1)):continue
   yield dict(title=title,url=link,summary=clean(a.get("description",""))[:360],source="ESPN NBA",category="NBA",scope="national",published_at=dt.isoformat())
+PROMOTIONS = re.compile(r"(?:betmgm|draftkings|fanduel|caesars sportsbook|bet365|sportsbook|bonus (?:bet|code|offer)|promo code|promotional code|free bet|bonus bets?|best bets?|player props?|same.game parlay|parlay|odds boost|betting picks?|wager|risk.free|sports betting|fantasy basketball|pick(?:s)? against the spread|world series|brewers|rays)",re.I)
+def editorial(a):
+ return not PROMOTIONS.search(" ".join(str(a.get(k) or "") for k in ("title","summary","url")))
+
 def main():
  now=datetime.now(timezone.utc);items=[];fail=[]
  for name,url,scope in FEEDS:
@@ -50,6 +54,7 @@ def main():
    old=json.loads(OUT.read_text())
    items.extend(a for a in old.get("articles",[]) if when(a.get("published_at","")) and now-timedelta(days=7)<=when(a.get("published_at",""))<=now+timedelta(hours=1))
   except (ValueError,OSError,TypeError):pass
+ items=[a for a in items if editorial(a)]
  seen=set();dedup=[]
  for a in sorted(items,key=lambda a:a.get("published_at",""),reverse=True):
   k=re.sub(r"[^a-z0-9]","",a["title"].lower())
