@@ -83,7 +83,7 @@ def rebuild(today=None,loader=get_day):
     prior=json.loads(old_path.read_text()) if old_path.exists() else {}
     floor=max(70,int(prior.get("completed_matches",0)))
     if len(played)<floor:raise ValueError(f"Only {len(played)} finals; expected >= {floor}. No files published.")
-    names=set(name for C L U B S in CLUBS.values())
+    names=set(CLUBS.values())
     if len(names)!=20:raise ValueError("Expected exactly 20 clubs")
     ratings={name:1500.0 for name in names}
     table={name:{"club":name,"played":0,"won":0,"drawn":0,"lost":0,"gf":0,"ga":0,"gd":0,"points":0} for name in names}
