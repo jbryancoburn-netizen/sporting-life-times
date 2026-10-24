@@ -32,7 +32,7 @@ def score_forecasts(archive, ledger, now):
         if any(type(g[k]) is not int or not 0 <= g[k] <= 40 for k in ('home_goals', 'away_goals')):
             raise ValueError('invalid final score')
         finals[g['match_id']] = g
-    seen, scored = set(), []
+    seen, scored, quarantined = set(), [], []
     for f in forecasts:
         gid = f['match_id']
         if gid in seen:
@@ -56,7 +56,8 @@ def score_forecasts(archive, ledger, now):
         if any(g[k] != f[k] for k in ('home_team', 'away_team')) or g['gender'] != gender or g['source_game'] != f['source_game']:
             raise ValueError('forecast/final identity mismatch')
         if kickoff > now or g['date'] != kickoff.astimezone(ZoneInfo('America/New_York')).date().isoformat():
-            raise ValueError('final contradicts locked kickoff date; review rescheduling')
+            quarantined.append({'match_id': gid, 'reason': 'final contradicts locked kickoff time or date; review schedule', 'kickoff_utc': f['kickoff_utc'], 'final_date': g['date']})
+            continue
         outcome = 2 if g['home_goals'] > g['away_goals'] else 0 if g['away_goals'] > g['home_goals'] else 1
         best = max(p)
         winners = [i for i, v in enumerate(p) if v == best]
@@ -79,7 +80,8 @@ def score_forecasts(archive, ledger, now):
                 'unambiguous_picks': len(decisive)}
 
     return {'schema_version': 1, 'status': 'prospective_research_only',
-            'count_locked': len(forecasts), 'awaiting_final': len(forecasts) - len(scored),
+            'count_locked': len(forecasts), 'awaiting_final': len(forecasts) - len(scored) - len(quarantined),
+            'quarantined_count': len(quarantined), 'quarantined': quarantined,
             'overall': summary(scored),
             'cohorts': {key: summary([r for r in scored if r['cohort'] == key]) for key in COHORTS},
             'scores': sorted(scored, key=lambda r: r['match_id']),

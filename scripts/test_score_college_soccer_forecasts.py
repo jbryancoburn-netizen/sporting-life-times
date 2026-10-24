@@ -62,7 +62,7 @@ class ForecastScoringTests(unittest.TestCase):
             with self.assertRaises(ValueError): self.score()
 
     def test_identity_and_schedule_mismatch_rejected(self):
-        for field, value in [('home_team', 'wrong'), ('date', '2026-10-23'), ('gender', 'women')]:
+        for field, value in [('home_team', 'wrong'), ('gender', 'women')]:
             original = self.l['results'][0][field]
             self.l['results'][0][field] = value
             with self.assertRaises(ValueError): self.score()
@@ -70,7 +70,19 @@ class ForecastScoringTests(unittest.TestCase):
 
     def test_future_final_rejected(self):
         self.now = dt.datetime.fromisoformat('2026-10-24T13:00:00+00:00')
-        with self.assertRaises(ValueError): self.score()
+        r = self.score()
+        self.assertEqual(r['quarantined_count'], 1)
+        self.assertEqual(r['overall']['scored'], 0)
+
+    def test_schedule_conflict_does_not_block_other_finals(self):
+        f = copy.deepcopy(self.f['forecasts'][0]); f['match_id'] = 'men-2'
+        self.f['forecasts'].append(f); self.f['count_locked'] = 2
+        g = copy.deepcopy(self.l['results'][0]); g['match_id'] = 'men-2'; g['date'] = '2026-10-23'
+        self.l['results'].append(g)
+        r = self.score()
+        self.assertEqual(r['quarantined_count'], 1)
+        self.assertEqual(r['overall']['scored'], 1)
+        self.assertEqual(r['awaiting_final'], 0)
 
 
 if __name__ == '__main__':
