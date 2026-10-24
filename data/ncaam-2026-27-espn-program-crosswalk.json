@@ -2,36 +2,15 @@
   "season": "2026-27",
   "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?limit=500&groups=50",
   "match_method": "unique exact normalized aliases for ESPN school labels; no fuzzy matching",
-  "matched_team_count": 360,
+  "matched_team_count": 362,
   "missing_ncaa_teams": [
     "Queens (NC)",
-    "A&M-Corpus Christi",
     "Lindenwood",
-    "Southern Ind.",
-    "Mississippi Val."
+    "Southern Ind."
   ],
   "espn_team_count": 362,
   "ambiguous_espn_teams": [],
-  "unmatched_espn_teams": [
-    {
-      "espn_id": "2400",
-      "names": [
-        "Mississippi Valley State",
-        "Miss Valley St",
-        "Mississippi Valley State Delta Devils"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "357",
-      "names": [
-        "Texas A&M-Corpus Christi",
-        "Texas A&M-CC",
-        "Texas A&M-Corpus Christi Islanders"
-      ],
-      "possible_ncaa_ids": []
-    }
-  ],
+  "unmatched_espn_teams": [],
   "crosswalk": {
     "2000": {
       "team_id": "ncaa:609614",
@@ -1083,6 +1062,12 @@
       "conference": "SEC",
       "espn_team_name": "Mississippi State Bulldogs"
     },
+    "2400": {
+      "team_id": "ncaa:609673",
+      "team": "Mississippi Val.",
+      "conference": "SWAC",
+      "espn_team_name": "Mississippi Valley State Delta Devils"
+    },
     "2623": {
       "team_id": "ncaa:609476",
       "team": "Missouri St.",
@@ -1784,6 +1769,12 @@
       "team": "Texas A&M",
       "conference": "SEC",
       "espn_team_name": "Texas A&M Aggies"
+    },
+    "357": {
+      "team_id": "ncaa:609609",
+      "team": "A&M-Corpus Christi",
+      "conference": "Southland",
+      "espn_team_name": "Texas A&M-Corpus Christi Islanders"
     },
     "251": {
       "team_id": "ncaa:609494",
