@@ -7,6 +7,7 @@ on:
       - 'scripts/collect_nba_game_center.py'
       - 'scripts/backfill-nba-boxscores.py'
       - 'scripts/backfill-nba-espn.py'
+      - 'scripts/collect-nba-schedule.py'
       - 'scripts/collect-nba-player-leaders.py'
       - 'scripts/build-nba-possession-inputs.mjs'
       - 'scripts/test-nba-ingestion.py'
@@ -29,7 +30,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate collection code before using NBA feed
-        run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/backfill-nba-espn.py scripts/collect-nba-player-leaders.py
+        run: python -m py_compile scripts/collect_nba_game_center.py scripts/backfill-nba-boxscores.py scripts/backfill-nba-espn.py scripts/collect-nba-player-leaders.py scripts/collect-nba-schedule.py
       - name: Test NBA ingestion with synthetic fixtures and empty-feed rejection
         run: |
           python scripts/test-nba-ingestion.py
@@ -45,6 +46,9 @@ jobs:
       - name: Backfill ESPN game summaries when official NBA CDN misses box scores
         continue-on-error: true
         run: python scripts/backfill-nba-espn.py
+      - name: Collect next seven days and live NBA scores
+        continue-on-error: true
+        run: python scripts/collect-nba-schedule.py
       - name: Collect published NBA player leader statistics
         run: python scripts/collect-nba-player-leaders.py
       - name: Build Rabby verified possession inputs independently of Elo
@@ -62,6 +66,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nba-game-center.json data/nba-possession-inputs.json data/nba-player-leaders.json
+          if test -f data/nba-upcoming-schedule.json; then git add data/nba-upcoming-schedule.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh official NBA score and schedule archive"
           for attempt in 1 2 3; do
