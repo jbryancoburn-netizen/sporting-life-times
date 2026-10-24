@@ -33,9 +33,12 @@ def build(candidate):
     if not valid:raise ValueError("No NBL27 regular-season finals")
     rows=[{"team":t,"wins":wins[t],"losses":losses[t],"played":wins[t]+losses[t],
           "win_pct":round(wins[t]/(wins[t]+losses[t]),3) if wins[t]+losses[t] else None,
-          "points_for":points_for[t],"points_against":points_against[t]}
+          "points_for":points_for[t],"points_against":points_against[t],
+          "points_pct":round(100*points_for[t]/points_against[t],2) if points_against[t] else None}
           for t in TEAMS]
-    rows.sort(key=lambda r:(1 if r["win_pct"] is None else -r["win_pct"],-r["wins"],r["team"]))
+    # NBL tie-breaks on points percentage (points scored / points conceded).
+    rows.sort(key=lambda r:(1 if r["win_pct"] is None else -r["win_pct"],
+                            1 if r["points_pct"] is None else -r["points_pct"],r["team"]))
     return {"league":"Australian NBL","season":"2026-27","status":"source_derived_not_officially_reconciled",
          "is_official":False,"elo_approved":False,"source":"ESPN site API, completed finals since NBL27 regular-season opening",
          "season_start":START.isoformat(),"updated_at":datetime.now(timezone.utc).isoformat(),
