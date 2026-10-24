@@ -123,6 +123,15 @@ def collect(through,crosswalk_path,cache_path,fetcher=fetch_day):
     return merged,report
 
 def write_cache(path,rows):
-    Path(path).write_text(json.dumps({"season":"2026-27","provider":"ESPN",
+    path=Path(path)
+    if path.exists():
+        try:
+            existing=json.loads(path.read_text(encoding="utf-8"))
+            if existing.get("season")=="2026-27" and existing.get("events")==rows:
+                return False  # No new score, status or fixture: no timestamp-only churn.
+        except (ValueError,OSError):
+            pass
+    path.write_text(json.dumps({"season":"2026-27","provider":"ESPN",
         "updated_at":datetime.now(timezone.utc).isoformat(),
-        "events":rows},indent=2)+"\n")
+        "events":rows},indent=2)+"\n",encoding="utf-8")
+    return True
