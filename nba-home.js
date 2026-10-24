@@ -148,4 +148,7 @@ async function desk(){
  }catch(e){console.error('NBA home desk',e);msg('nba-standings-status','NBA standings source unavailable');unavailable('nba-conference-standings','Unable to verify conference records. See official NBA standings.');msg('nba-yesterday-status','Recent final scores unavailable');unavailable('nba-yesterday-scores','Score feed unavailable.');msg('nba-forecast-status','NBA prediction source unavailable');unavailable('nba-forecast-games','Unable to produce predictions from verified schedule and Elo.')}
 }
 news().catch(e=>console.error('NBA headlines',e)).finally(()=>desk());
+// The newspaper stays current in an open tab; GitHub data is read without cache.
+setInterval(()=>{if(!document.hidden)desk()},3*60*1000);
+setInterval(()=>{if(!document.hidden)news()},15*60*1000);
 })();
