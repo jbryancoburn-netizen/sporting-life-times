@@ -11,6 +11,77 @@
     "returning share of previous team minutes",
     "incoming D1 transfer prior minutes share"
   ],
+  "shrinkage_challenge": {
+    "training_selection": "minimize 2024+2025 log loss, then Brier, then smaller strength",
+    "tested_strengths": [
+      {
+        "strength": 0.0,
+        "training_games": 3570,
+        "training_log_loss": 0.5948690948189003,
+        "training_brier": 0.20405392025510666,
+        "holdout": {
+          "games": 1823,
+          "coverage": 0.9956,
+          "log_loss": 0.570016788843191,
+          "brier": 0.1929297880715729
+        }
+      },
+      {
+        "strength": 0.25,
+        "training_games": 3570,
+        "training_log_loss": 0.5896317524321187,
+        "training_brier": 0.20173545375347848,
+        "holdout": {
+          "games": 1823,
+          "coverage": 0.9956,
+          "log_loss": 0.5649077472746048,
+          "brier": 0.1906867619669824
+        }
+      },
+      {
+        "strength": 0.5,
+        "training_games": 3570,
+        "training_log_loss": 0.5849906333896354,
+        "training_brier": 0.1997274346504281,
+        "holdout": {
+          "games": 1823,
+          "coverage": 0.9956,
+          "log_loss": 0.5603747458965088,
+          "brier": 0.18875263152581875
+        }
+      },
+      {
+        "strength": 0.75,
+        "training_games": 3570,
+        "training_log_loss": 0.5809368452124934,
+        "training_brier": 0.1980246985149443,
+        "holdout": {
+          "games": 1823,
+          "coverage": 0.9956,
+          "log_loss": 0.5564080124243355,
+          "brier": 0.18712289308802263
+        }
+      },
+      {
+        "strength": 1.0,
+        "training_games": 3570,
+        "training_log_loss": 0.577461544447716,
+        "training_brier": 0.1966195349221456,
+        "holdout": {
+          "games": 1823,
+          "coverage": 0.9956,
+          "log_loss": 0.5529979610275323,
+          "brier": 0.18578980454795344
+        }
+      }
+    ],
+    "selected_strength": 1.0,
+    "selection_holdout_logloss_delta_vs_incumbent": 0.0,
+    "selection_holdout_brier_delta_vs_incumbent": 0.0,
+    "same_game_count": 1823,
+    "historical_preseason_asof_certified": false,
+    "promote_to_primary": false
+  },
   "training": {
     "retention_beta": 120,
     "transfer_beta": 160,
@@ -33,7 +104,7 @@
     "games": 1823,
     "coverage": 0.9956,
     "log_loss": 0.5529979610275323,
-    "brier": 0.18578980454795338
+    "brier": 0.18578980454795344
   },
   "test_logloss_gain": 0.01701883,
   "test_brier_gain": 0.00713998,
