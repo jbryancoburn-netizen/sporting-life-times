@@ -100,10 +100,39 @@ def run():
     diff_b=base["brier"]-hold["brier"]
     # Convergence threshold prevents "winning" on measurement noise alone.
     approved=(delta>0.0002 and diff_b>0.00005 and hold["coverage"]>.65)
+
+    # Independent shrinkage challenge. Fit 0/25/50/75/100% on 2024+25 only.
+    strengths=(0.0,0.25,0.5,0.75,1.0)
+    rows=[]
+    for strength in strengths:
+        params=(strength*winner["retention_beta"],strength*winner["transfer_beta"])
+        training=[evaluate(transitions[y]["games"],transitions[y-1]["end"],feats[y],params) for y in (2024,2025)]
+        n=sum(x["games"] for x in training)
+        rows.append({"strength":strength,"training_games":n,
+                     "training_log_loss":sum(x["games"]*x["log_loss"] for x in training)/n,
+                     "training_brier":sum(x["games"]*x["brier"] for x in training)/n})
+    chosen=min(rows,key=lambda r:(r["training_log_loss"],r["training_brier"],r["strength"]))
+    holdouts=[]
+    for row in rows:
+        strength=row["strength"]
+        scored=evaluate(transitions[2026]["games"],transitions[2025]["end"],feats[2026],
+                       (strength*winner["retention_beta"],strength*winner["transfer_beta"]))
+        holdouts.append({**row,"holdout":scored})
+    assert len({r["holdout"]["games"] for r in holdouts})==1
+    selected=next(x for x in holdouts if x["strength"]==chosen["strength"])
+    original=next(x for x in holdouts if x["strength"]==1.0)
+    shrinkage={"training_selection":"minimize 2024+2025 log loss, then Brier, then smaller strength",
+       "tested_strengths":holdouts,"selected_strength":chosen["strength"],
+       "selection_holdout_logloss_delta_vs_incumbent":original["holdout"]["log_loss"]-selected["holdout"]["log_loss"],
+       "selection_holdout_brier_delta_vs_incumbent":original["holdout"]["brier"]-selected["holdout"]["brier"],
+       "same_game_count":selected["holdout"]["games"],
+       "historical_preseason_asof_certified":False,
+       "promote_to_primary":False}
     return {"experiment":"ncaa-roster-elo-retention-and-incoming-minutes-v2",
       "source":"NCAA-origin historical player box and rosters via SportsDataverse",
       "train_seasons":[2024,2025],"untouched_holdout_season":2026,"first_days":45,
       "features":["returning share of previous team minutes","incoming D1 transfer prior minutes share"],
+      "shrinkage_challenge":shrinkage,
       "training":winner,"training_baseline":next(t for t in train if t["retention_beta"]==0 and t["transfer_beta"]==0),
       "test_baseline":base,"test_candidate":hold,"test_logloss_gain":round(delta,8),
       "test_brier_gain":round(diff_b,8),"team_feature_coverage":{str(y):len(feats[y]) for y in feats},
