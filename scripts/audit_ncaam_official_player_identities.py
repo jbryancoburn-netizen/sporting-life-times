@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """2026–27 NCAA negative player-identity audit.
 
-A unique full name is NOT a unique student athlete. Some 2026 freshmen share
-names with experienced 2025–26 D-I players. Protect preseason Elo from a
-future accidental name-only match, and prioritize the 18 other unlinked
-name-matches for official verification.
+A unique full name is NOT a unique student athlete. Some 2026 freshmen, junior-college and Division II players share names with
+experienced 2025–26 D-I players. Protect preseason Elo from a future false
+name-only match, and classify four independently corroborated D-I origins
+without mistakenly granting them unseen historical NCAA athlete IDs.
 
 Source facts come from school roster biographies/official news, pinned by URL
 in a separate reviewed negative-identity manifest. This script validates
@@ -34,6 +34,18 @@ OFFICIAL_HOSTS={
     "Western Mich.":{"wmubroncos.com"},
     "UC San Diego":{"ucsdtritons.com"},
     "Montana":{"gogriz.com"},
+    "UAlbany":{"ualbanysports.com"},
+    "FIU":{"fiusports.com"},
+    "Longwood":{"longwoodlancers.com"},
+    "Texas Tech":{"texastech.com"},
+    "Illinois St.":{"goredbirds.com"},
+    "Illinois":{"fightingillini.com"},
+    "South Carolina":{"gamecocksonline.com"},
+    "Akron":{"gozips.com"},
+    "Old Dominion":{"odusports.com"},
+    "Wake Forest":{"godeacs.com"},
+    "Massachusetts":{"umassathletics.com"},
+    "Wright St.":{"wsuraiders.com"},
 }
 SECONDARY_HOSTS={"uclabruins.com","gocamels.com","umassathletics.com","goshockers.com",
                  "goexplorers.com","saintanselmhawks.com","gogriz.com"}
@@ -41,7 +53,7 @@ def stable_json(doc):
     return json.dumps(doc,indent=2,ensure_ascii=False)+"\n"
 def read_json(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
-def verify(movement,crosswalk,minutes,negatives,ratings):
+def verify(movement,crosswalk,minutes,negatives,ratings,positives):
     teams=movement.get("teams",[])
     if len(teams)!=365 or movement.get("players_audited")!=5537:
         raise ValueError("Roster participant count changed")
@@ -122,12 +134,42 @@ def verify(movement,crosswalk,minutes,negatives,ratings):
             "actually_used_by_official_or_experimental_elo":False,
             "identically_named_other_current_roster_athletes":others}
 
+    if (positives.get("season")!="2026-27" or
+        positives.get("status")!="official_prior_school_corroborated_player_identity_id_unlinked" or
+        positives.get("production_elo_approved") is not False or
+        positives.get("unique_prior_athlete_id_proven") is not False or
+        positives.get("automatic_elo_linking_authorized") is not False):
+        raise ValueError("Prior-school corroborations must not authorize player identity or primary Elo")
+    origin_confirmed={}
+    for row in positives["records"]:
+        pid=str(row["current_espn_id"])
+        person=roster.get(pid)
+        if pid in origin_confirmed or pid in exclusions or pid in links or pid not in unlinked:
+            raise ValueError("Cannot create duplicate/automatic crosswalk athlete from prior-school corroboration: "+pid)
+        if not person or person["team"]!=row["school"] or person["player"]!=row["player"]:
+            raise ValueError("Prior-school source mismatch to current player roster")
+        if (person["status"]!="unique-name-transfer-candidate" or
+            person.get("prior_school_id")!=row.get("prior_school_id") or
+            not isinstance(person.get("prior_minutes"),(int,float)) or
+            person["prior_minutes"]<=0):
+            raise ValueError("Official prior-school document does not corroborate the old NCAA-origin candidate")
+        url=urlsplit(row.get("source_url",""))
+        if url.scheme!="https" or url.hostname not in OFFICIAL_HOSTS.get(person["team"],set()):
+            raise ValueError("Prior-school corroboration is not an official destination-school athletics page")
+        if not row.get("source_statement") or not row.get("verified_prior_school"):
+            raise ValueError("Missing source-specific official prior-school claim")
+        origin_confirmed[pid]={**row,
+            "source_name_matched_historical_minutes":round(person["prior_minutes"],2),
+            "source_name_matched_historical_points":person.get("prior_points"),
+            "historical_ncaa_player_id_verified":False,
+            "eligible_for_elo":False,
+            "next_evidence_required":"Independent current ESPN athlete ID to prior NCAA athlete ID proof; school-name match alone is not proof"}
     statuses=Counter()
     ranked=[]
     for pid in sorted(unlinked):
         person=roster[pid]
         statuses[person["status"]]+=1
-        if pid in exclusions:continue
+        if pid in exclusions or pid in origin_confirmed:continue
         if person["status"] not in ("unique-name-transfer-candidate","id-not-found-name-ambiguous"):
             continue
         possible_minutes=person.get("prior_minutes") or 0.0
@@ -143,7 +185,7 @@ def verify(movement,crosswalk,minutes,negatives,ratings):
             "review_reason":"source-level player identity must be confirmed; do not use candidate production",
             "eligible_for_elo":False})
     ranked.sort(key=lambda r:(-r["potential_false_transfer_elo_if_naively_matched"],r["team"],r["player"]))
-    if len(exclusions)!=14 or len(ranked)!=16 or statuses["unique-name-transfer-candidate"]!=26 or statuses["id-not-found-name-ambiguous"]!=4:
+    if len(exclusions)!=22 or len(origin_confirmed)!=4 or len(ranked)!=4 or statuses["unique-name-transfer-candidate"]!=26 or statuses["id-not-found-name-ambiguous"]!=4:
         raise ValueError("Unexpected vetted exclusions or unmatched transfer review workload")
     unlinked_no_prior=statuses["no-prior-d1-box"]
     summary={
@@ -157,6 +199,9 @@ def verify(movement,crosswalk,minutes,negatives,ratings):
         "source_unlinked_ambiguous_name_cases":statuses["id-not-found-name-ambiguous"],
         "source_unlinked_without_prior_d1_box":unlinked_no_prior,
         "school_officially_rejected_false_prior_player_links":len(exclusions),
+        "prior_d1_schools_confirmed_but_current_to_old_athlete_id_unlinked":len(origin_confirmed),
+        "unresolved_unique_name_d1_transfer_candidates_after_school_review":
+            statuses["unique-name-transfer-candidate"]-len(exclusions)-len(origin_confirmed),
         "open_high_priority_candidate_links":len(ranked),
         "unlinked_players_remaining_without_approved_prior_history":len(unlinked),
         "negative_identity_cases_separately_flagged":len(exclusions),
@@ -175,9 +220,11 @@ def verify(movement,crosswalk,minutes,negatives,ratings):
         "source":"Pinned current 2026-27 ESPN athlete IDs; 2025-26 NCAA player stat ledger; official university roster pages",
         "summary":summary,
         "officially_disambiguated_exclusions":sorted(exclusions.values(),key=lambda r:-r["estimated_avoided_false_transfer_elo_if_mislinked"]),
+        "officially_corroborated_prior_schools_only":sorted(origin_confirmed.values(),key=lambda r:r["school"]),
         "high_priority_positive_identity_review_queue":ranked,
         "model_policy":{
             "do_not_auto_attach_old_stats_by_name":True,
+            "confirm_prior_school_does_not_suffice_to_link_athlete_ID":True,
             "excluded_negative_ids_must_remain_unlinked":True,
             "unresolved_names_require_independent_school_and_player_identity_evidence":True,
             "do_not_recalculate_primary_elo_from_this_review":True}}
@@ -191,13 +238,14 @@ def main():
            "ncaam-2026-27-direct-player-crosswalk.json",
            "ncaam-2026-27-minutes-retention-audit.json",
            "ncaam-2026-27-official-negative-player-identities.json",
-           "ncaam-2026-27-preseason-roster-informed.json"]
+           "ncaam-2026-27-preseason-roster-informed.json",
+           "ncaam-2026-27-official-prior-school-corroborations.json"]
     result=verify(*(read_json(args.root/p) for p in paths))
     actual=stable_json(result)
     if args.verify:
         if not args.output.exists() or args.output.read_text(encoding="utf-8")!=actual:
             raise SystemExit("FAIL: official-player-identity review report does not reproduce")
-        print("PASS: verified fourteen false name collisions and all remaining priority reviews")
+        print("PASS: verified 22 false name collisions, 4 prior-school-only cases, and 4 ambiguous identities")
     else:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(actual,encoding="utf-8")
