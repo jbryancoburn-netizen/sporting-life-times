@@ -82,7 +82,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
+          git -c rebase.autoStash=true pull --rebase origin main
           git add data/ncaam-exact-scoring-formula-retrospective-backtest.json data/ncaam-exact-scoring-promotion-decision.json
           if ! git diff --cached --quiet; then
             git commit -m "Publish exact-formula NCAA scoring backtest [skip ci]"
@@ -96,7 +96,7 @@ jobs:
           if test -s data/ncaam-exact-scoring-execution-diagnostic.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git pull --rebase origin main
+            git -c rebase.autoStash=true pull --rebase origin main
             git add data/ncaam-exact-scoring-execution-diagnostic.json
             if ! git diff --cached --quiet; then
               git commit -m "Publish NCAA exact scoring execution diagnostic [skip ci]"
