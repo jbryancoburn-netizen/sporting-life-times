@@ -4,6 +4,8 @@ on:
     paths:
       - 'scripts/update_ncaam_season.py'
       - 'scripts/test_ncaam_season_updates.py'
+      - 'scripts/ncaam_espn_source.py'
+      - 'scripts/test_ncaam_espn_source.py'
       - 'ncaam-desk.js'
       - 'ncaam.html'
       - '.github/workflows/ncaam-production-qa.yml'
@@ -25,8 +27,9 @@ jobs:
         id: tests
         continue-on-error: true
         run: |
-          python -m py_compile scripts/update_ncaam_season.py scripts/test_ncaam_season_updates.py
+          python -m py_compile scripts/update_ncaam_season.py scripts/test_ncaam_season_updates.py scripts/ncaam_espn_source.py scripts/test_ncaam_espn_source.py
           python -m unittest discover -s scripts -p test_ncaam_season_updates.py -v
+          python -m unittest discover -s scripts -p test_ncaam_espn_source.py -v
           node --check ncaam-desk.js
           python - <<'PY'
           import csv,json,subprocess,sys,tempfile
