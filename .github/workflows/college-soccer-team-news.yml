@@ -1,0 +1,55 @@
+name: NCAA Soccer Team News
+
+on:
+  schedule:
+    - cron: '11 */3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_college_soccer_team_news.py'
+      - '.github/workflows/college-soccer-team-news.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: college-soccer-team-news
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch and classify sourced soccer stories
+        run: python scripts/update_college_soccer_team_news.py
+      - name: Verify source and classification integrity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('data/college-soccer-team-news.json').read_text())
+          assert data['schema_version']==1
+          assert len({a['url'] for a in data['articles']})==len(data['articles'])
+          for a in data['articles']:
+              assert a['url'].startswith('https://')
+              assert a['title'] and a['published_at'] and a['team_keys']
+          print('Verified sourced article index:', len(data['articles']))
+          PY
+      - name: Publish updated story index
+        run: |
+          if git diff --quiet -- data/college-soccer-team-news.json && git ls-files --error-unmatch data/college-soccer-team-news.json >/dev/null 2>&1; then
+            echo "News index unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-team-news.json
+          git commit -m "Refresh verified college soccer program news"
+          git pull --rebase origin main
+          git push origin HEAD:main
