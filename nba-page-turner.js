@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const pages=[
  {name:'Front Page',ids:['nba-news']},
- {name:'Scores',ids:['nba-nba-scoreboard','nba-yesterday','nba-boxscores']},
+ {name:'Scores',ids:['nba-live-games','nba-nba-scoreboard','nba-yesterday','nba-boxscores']},
  {name:'Standings & Elo',ids:['nba-official-standings','nba-current-elo','nba-results-desk']},
  {name:'Players',ids:['nba-individual-player-leaders','nba-player-stat-notebook','nba-data-links']},
  {name:'Forecasts',ids:['nba-rabby-today','nba-upcoming','nba-three-models','nba-frozen-2025-26']}
