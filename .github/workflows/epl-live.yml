@@ -1,0 +1,31 @@
+name: EPL verified results and independent Elo
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: epl-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild verified EPL snapshot
+        run: python scripts/update_epl_live.py
+      - name: Commit matched Elo and forecast exports
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/epl-ratings.json data/epl-match-center.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update EPL verified finals, standings, Elo and forecasts"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
