@@ -25,6 +25,11 @@ def main():
           "evaluator_sha256":hashlib.sha256(Path(__file__).with_name("backtest_ncaam_quality_retrospective.py").read_bytes()).hexdigest()}
     path=Path("data/ncaam-exact-scoring-execution-diagnostic.json")
     path.parent.mkdir(exist_ok=True)
+    # Fail clearly on a stale checkout; old diagnostics cannot certify new fixes.
+    evaluator=Path(__file__).with_name("backtest_ncaam_quality_retrospective.py").read_text()
+    if "programs={y:{school_key(r['team']):r['team_id']" in evaluator:
+        raise RuntimeError("STALE_CHECKOUT: evaluator still requires roster team_id")
+    diag["schema_patch_detected"]=True
     try:
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)
