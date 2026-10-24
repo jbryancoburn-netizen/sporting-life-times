@@ -34,7 +34,7 @@ async function show(){
  const played=elo.events||[];
  let possession=null;
  try{possession=window.RabbyPossessionModel.build(await get('data/nba-possession-inputs.json'));}catch(_e){}
- const early=!possession&&window.RabbyEarlyScore?window.RabbyEarlyScore.build(played):null;
+ const early=window.RabbyEarlyScore?window.RabbyEarlyScore.build(played):null;
  if(Object.keys(ratings).length!==30||played.length<5)throw Error('Not enough verified NBA Elo data for provisional forecasts');
  const date=today();
  const games=(official.games||[]).filter(g=>day(g.date)===date&&g.state==='pre'&&Date.parse(g.date)>Date.now()).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
@@ -42,15 +42,17 @@ async function show(){
    const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');
    const hc=norm(h?.code),ac=norm(a?.code);if(!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';
    const hp=1/(1+Math.pow(10,-(ratings[hc]+45-ratings[ac])/400));
-   const p=possession?window.RabbyPossessionModel.project(hc,ac,possession,ratings):(early?window.RabbyEarlyScore.project(hc,ac,early,ratings):null);
+   const possessionScore=possession?window.RabbyPossessionModel.project(hc,ac,possession,ratings):null;
+   const p=possessionScore||(early?window.RabbyEarlyScore.project(hc,ac,early,ratings):null);
+   const scoringLabel=possessionScore?'Experimental possession model':'Experimental early-season Elo model';
    const favorite=hp>=.5?hc:ac;
    const names={home:h?.name||hc,away:a?.name||ac};
    const bug=window.SLTScorebug.render({mode:'upcoming',projected:Boolean(p),subtitle:fmt(g.date),away:{code:ac,name:names.away},home:{code:hc,name:names.home},awayScore:p?Math.round(p.awayPoints):undefined,homeScore:p?Math.round(p.homePoints):undefined,footer:''});
-   return '<article class="rabby-game">'+bug+'<div class="rabby-model"><span><strong>Elo favorite</strong> '+esc(favorite===hc?names.home:names.away)+'</span><span><strong>Win probability</strong> '+(100*Math.max(hp,1-hp)).toFixed(1)+'%</span>'+(p?'<span><strong>Experimental model spread</strong> '+esc(p.margin>=0?hc:ac)+' -'+Math.abs(p.margin).toFixed(1)+'</span><span><strong>Projected total</strong> '+p.total.toFixed(1)+'</span>':'<span>Scoring projection awaiting qualifying data</span>')+'</div></article>';
+   return '<article class="rabby-game">'+bug+'<div class="rabby-model"><span><strong>Elo favorite</strong> '+esc(favorite===hc?names.home:names.away)+'</span><span><strong>Win probability</strong> '+(100*Math.max(hp,1-hp)).toFixed(1)+'%</span>'+(p?'<span><strong>Scoring model</strong> '+scoringLabel+'</span><span><strong>Experimental model spread</strong> '+esc(p.margin>=0?hc:ac)+' -'+Math.abs(p.margin).toFixed(1)+'</span><span><strong>Projected total</strong> '+p.total.toFixed(1)+'</span>':'<span>Scoring projection awaiting qualifying data</span>')+'</div></article>';
 
  }).filter(Boolean);
  $('nba-rabby-games').innerHTML=entries.length?entries.join(''):'<p class="hub-small">No upcoming NBA games in today’s published schedule. <a href="nba-game-center.html">Live games and finals ↗</a></p>';
- $('nba-rabby-status').textContent=date+' · '+entries.length+' upcoming games · Current Elo: '+elo.games_played+' completed games · Official NBA schedule · '+(possession?'Possession model based on '+possession.coverage.games+' NBA official box scores':early?'Experimental scores based on '+early.games+' captured finals; no validated betting edge':'Elo win probabilities available; scoring model awaiting verified results');
+ $('nba-rabby-status').textContent=date+' · '+entries.length+' upcoming games · Current Elo: '+elo.games_played+' completed games · Official NBA schedule · '+'Scores remain experimental; model shown with each matchup';
 }
 function unavailable(e){
  $('nba-rabby-status').textContent='Official NBA schedule or model unavailable: '+e.message;
