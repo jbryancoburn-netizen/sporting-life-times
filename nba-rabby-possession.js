@@ -2,8 +2,9 @@
 (function(root){'use strict';
 function finite(x){return typeof x==='number'&&Number.isFinite(x)}
 function validate(stats){
- if(stats?.source_type!=='official_nba_boxscores'||!Array.isArray(stats.games)||stats.games.length<20)return false;
- return stats.games.every(g=>g.final===true&&g.regular_season===true&&['home','away'].every(k=>{
+ if(!['official_nba_boxscores','attributed_nba_boxscores'].includes(stats?.source_type)||!Array.isArray(stats.games)||stats.games.length<20)return false;
+ if(new Set(stats.games.map(g=>g.id)).size!==stats.games.length&&stats.source_type==='attributed_nba_boxscores')return false;
+ return stats.games.every(g=>(stats.source_type==='official_nba_boxscores'||(g.id&&g.source&&typeof g.source_url==='string'&&g.source_url.startsWith('https://')))&&g.final===true&&g.regular_season===true&&['home','away'].every(k=>{
   const t=g[k];return t&&typeof t.code==='string'&&finite(t.points)&&finite(t.fga)&&finite(t.oreb)&&finite(t.tov)&&finite(t.fta)&&t.fga>0&&t.points>0;
  }));
 }
