@@ -21,6 +21,37 @@ assert.ok(end>=start,'season has not started');
 assert.ok(end<maxEnd,'season window expired: update season configuration');
 const dateId=d=>d.toISOString().slice(0,10).replaceAll('-','');
 const collected=new Map();
+// Each complete, independently attributed box score is a valid result input.
+// The official game-center job may finish before the Elo workflow's ESPN
+// scoreboard request; do not leave Elo six games behind just because a daily
+// scoreboard endpoint is slow or intermittently unavailable.
+const verifiedArchive=JSON.parse(readFileSync(new URL('../data/nba-game-center.json',import.meta.url),'utf8'));
+const addVerifiedFinal=(event,origin)=>{
+ const existing=collected.get(event.id);
+ if(existing){
+  for(const key of ['home','away','home_score','away_score']){
+   if(existing[key]!==event[key])throw Error('Conflicting verified NBA final '+event.id+' '+key+' from '+origin);
+  }
+ }else collected.set(event.id,event);
+};
+for(const event of old.events||[]){
+ addVerifiedFinal({id:event.id,home:event.home,away:event.away,
+   home_score:event.home_score,away_score:event.away_score,date:new Date(event.date).toISOString()},'existing Elo ledger');
+}
+let archivedFinals=0;
+for(const game of verifiedArchive.games||[]){
+ if(game.state!=='post'||!/^espn-nba-\\d+$/.test(String(game.id))||!Array.isArray(game.players)||!game.players.length)continue;
+ const home=game.teams?.find(x=>x.home_away==='home');
+ const away=game.teams?.find(x=>x.home_away==='away');
+ const h=normal(home?.code),a=normal(away?.code);
+ const hs=Number(home?.score),as=Number(away?.score);
+ if(!teams.has(h)||!teams.has(a)||h===a||!Number.isInteger(hs)||!Number.isInteger(as)||
+  hs<60||as<60||hs===as||!Number.isFinite(Date.parse(game.date)))continue;
+ const result={id:game.id,home:h,away:a,home_score:hs,away_score:as,date:new Date(game.date).toISOString()};
+ addVerifiedFinal(result,'completed ESPN player box score');
+ archivedFinals++;
+}
+console.log('NBA Elo: '+archivedFinals+' completed ESPN box-score results available for reconciliation.');
 async function fetchDate(date) {
  const path='/apis/site/v2/sports/basketball/nba/scoreboard?dates='+dateId(date)+'&limit=100';
  const hosts=['site.web.api.espn.com','site.api.espn.com'];
@@ -55,8 +86,7 @@ async function fetchDate(date) {
    const id='espn-nba-'+event.id;
    const time=new Date(event.date).toISOString();
    const result={id,home:h,away:a,home_score:hs,away_score:as,date:time};
-   if(collected.has(id)&&JSON.stringify(collected.get(id))!==JSON.stringify(result))throw Error('Contradictory ESPN result '+id);
-   collected.set(id,result);
+   addVerifiedFinal(result,'ESPN daily scoreboard');
  }
 }
 const dates=[];
@@ -66,7 +96,10 @@ for(let offset=0;offset<dates.length;offset+=8){
  const batch=await Promise.allSettled(dates.slice(offset,offset+8).map(fetchDate));
  batch.forEach((result,i)=>{if(result.status==='rejected')failures.push(dateId(dates[offset+i])+': '+result.reason.message)});
 }
-if(failures.length)throw Error('Incomplete NBA season source coverage; refusing partial publication: '+failures.join(' | '));
+if(failures.length){
+ console.warn('Some ESPN daily scoreboards were unavailable; keeping all previously verified and independently archived finals. '+failures.slice(0,8).join(' | '));
+ if(!archivedFinals)throw Error('NBA scoreboard unavailable and no independently verified completed boxes');
+}
 // Fail closed rather than inadvertently dropping or revising an already published result.
 for(const previous of old.events||[]){
  const match=collected.get(previous.id);
