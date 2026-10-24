@@ -1,0 +1,22 @@
+name: NCAA final preseason release decision
+on:
+  push:
+    paths:
+      - 'data/ncaam-2026-27-preseason-final-release-decision.json'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+      - 'data/ncaam-2026-27-player-value-experimental-v1.json'
+      - 'data/ncaam-opponent-quality-backtest.json'
+      - 'scripts/verify_ncaam_final_preseason_release.py'
+      - '.github/workflows/ncaam-final-preseason-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_final_preseason_release.py
