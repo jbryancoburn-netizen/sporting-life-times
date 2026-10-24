@@ -1,0 +1,42 @@
+{
+  "experiment": "measured roster shrinkage challenge",
+  "train_games": 3570,
+  "holdout_games": 1823,
+  "training_selection": 1,
+  "holdout_scores": [
+    {
+      "strength": 0,
+      "training_log_loss": 0.5948690948189003,
+      "holdout_log_loss": 0.570016788843191,
+      "holdout_brier": 0.1929297880715729
+    },
+    {
+      "strength": 0.25,
+      "training_log_loss": 0.5896317524321187,
+      "holdout_log_loss": 0.5649077472746048,
+      "holdout_brier": 0.1906867619669824
+    },
+    {
+      "strength": 0.5,
+      "training_log_loss": 0.5849906333896354,
+      "holdout_log_loss": 0.5603747458965088,
+      "holdout_brier": 0.18875263152581875
+    },
+    {
+      "strength": 0.75,
+      "training_log_loss": 0.5809368452124934,
+      "holdout_log_loss": 0.5564080124243355,
+      "holdout_brier": 0.18712289308802263
+    },
+    {
+      "strength": 1,
+      "training_log_loss": 0.577461544447716,
+      "holdout_log_loss": 0.5529979610275323,
+      "holdout_brier": 0.18578980454795344
+    }
+  ],
+  "incumbent_wins_all_tested_strengths": true,
+  "historical_roster_snapshot_certified": false,
+  "decision": "RETAIN_100_PERCENT_ROSTER_ADJUSTMENT",
+  "production_rating_changed": false
+}
