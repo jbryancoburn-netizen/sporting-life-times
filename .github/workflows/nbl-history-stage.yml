@@ -5,6 +5,7 @@ on:
       - 'scripts/stage_nbl_history.py'
       - 'scripts/audit_nbl_candidates.py'
       - 'scripts/backtest_nbl_elo.py'
+      - 'scripts/nbl_three_season_eval.py'
       - '.github/workflows/nbl-history-stage.yml'
   workflow_dispatch:
   schedule:
@@ -21,6 +22,8 @@ jobs:
           python-version: '3.12'
       - name: Test historical staging semantics
         run: python -m unittest discover -s tests -p test_nbl_staging.py -v
+      - name: Stage 2024-25 historical warm-up season
+        run: python scripts/stage_nbl_history.py --start 2024-09-19 --end 2025-03-31 --output /tmp/nbl-history/2024-25-candidates.json
       - name: Stage complete 2025-26 season candidate finals
         run: python scripts/stage_nbl_history.py --start 2025-09-01 --end 2026-04-30 --output /tmp/nbl-history/2025-26-candidates.json
       - name: Stage 2026-27 candidate finals to date
@@ -29,6 +32,8 @@ jobs:
         run: python scripts/audit_nbl_candidates.py --past /tmp/nbl-history/2025-26-candidates.json --current /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/reconciliation-audit.json
       - name: Evaluate existing Elo settings against held-out current season
         run: python scripts/backtest_nbl_elo.py --past /tmp/nbl-history/2025-26-candidates.json --current /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-holdout-report.json
+      - name: Evaluate fixed Elo settings across three chronological seasons
+        run: python scripts/nbl_three_season_eval.py --s2024 /tmp/nbl-history/2024-25-candidates.json --s2025 /tmp/nbl-history/2025-26-candidates.json --s2026 /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-three-season-report.json
       - name: Upload original-source audit candidates
         uses: actions/upload-artifact@v4
         with:
