@@ -53,7 +53,7 @@ def main():
     train_raw=validate(json.loads(past_bytes));test_raw=validate(json.loads(current_bytes))
     # NBL26 began 2025-09-18; NBL27 regular season began 2026-09-19.
     # The NBL Blitz and other September 2026 exhibition games are excluded.
-    train=[g for g in train_raw if g["played_at"][:10]>="2025-09-18"]
+    train=[g for g in train_raw if g["played_at"][:10]>="2025-09-18" and g["id"]!="401858632"]
     test=[g for g in test_raw if g["played_at"][:10]>="2026-09-19"]
     if not train or not test:raise ValueError("No regular-season training or holdout finals")
 
@@ -64,7 +64,8 @@ def main():
     naive={"log_loss":round(-math.log(.5),6),"brier":.25}
     report={"status":"RESEARCH_UNCERTIFIED","approved_for_publication":False,
             "train_games":len(train),"holdout_games":len(test),
-            "excluded_preseason_train":len(train_raw)-len(train),
+            "excluded_nonleague_train":len(train_raw)-len(train),
+            "excluded_2025_26_ignite_final_ids":["401858632"],
             "excluded_preseason_holdout":len(test_raw)-len(test),
             "regular_season_start_dates":{"2025-26":"2025-09-18","2026-27":"2026-09-19"},
             "regular_season_start_sources":["https://www.nbl.com.au/news/nbl26-schedule-the-burning-questions","https://league.nbl.com.au/news/how-to-watch-saturday-nights-nbl27-season-openers"],
