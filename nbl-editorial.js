@@ -10,7 +10,30 @@ const short={'Adelaide 36ers':'Adelaide','Brisbane Bullets':'Brisbane','Cairns T
 const json=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()};
 const stamp=s=>{const d=new Date(s);return Number.isFinite(d.valueOf())?new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(d):'Date unverified'};
 const teamLink=team=>'nbl-team.html?team='+encodeURIComponent(team);
-const logo=(team,logos,size='small')=>{const u=logos.get(canonical(team));return u?'<img class="nbl-club-mark" src="'+esc(u)+'" alt="" loading="lazy" onerror="this.hidden=true">':''};
+const clubs=[
+ ['Adelaide 36ers','36','Adelaide','#c8102e'],['Brisbane Bullets','BB','Brisbane','#0e5d9d'],
+ ['Cairns Taipans','CT','Cairns','#ef6b22'],['Illawarra Hawks','IH','Illawarra','#dc292c'],
+ ['Melbourne United','MU','Melbourne','#282c35'],['New Zealand Breakers','NZ','NZ Breakers','#0c8e9b'],
+ ['Perth Wildcats','PW','Perth','#d02030'],['South East Melbourne Phoenix','SEM','SEM Phoenix','#0a7754'],
+ ['Sydney Kings','SK','Sydney','#5c2693'],['Tasmania JackJumpers','TJ','Tasmania','#34714c']
+];
+const clubMeta=team=>clubs.find(c=>canonical(c[0])===canonical(team));
+const brand=team=>{const c=clubMeta(team);return '<span class="nbl-brand-initial" style="--club-color:'+(c?c[3]:'#424242')+'">'+esc(c?c[1]:'NBL')+'</span>'};
+const logo=(team,logos,size='small')=>{const u=logos.get(canonical(team));return u?'<img class="nbl-club-mark" src="'+esc(u)+'" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('+JSON.stringify("◉")+'))">':brand(team)};
+async function officialLogos(){
+ const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/teams?limit=100',{cache:'no-store'});
+ if(!r.ok)throw Error('Team image source unavailable');
+ const j=await r.json();const out=new Map();
+ for(const item of j?.sports?.[0]?.leagues?.[0]?.teams||[]){
+   const t=item.team||item;const src=validURL(t.logos?.[0]?.href||t.logo);
+   for(const n of [t.displayName,t.name,t.shortDisplayName])if(n&&src)out.set(canonical(n),src);
+ }
+ return out;
+}
+function clubRibbon(logos){
+ const root=$('nbl-club-ribbon');if(!root)return;
+ root.innerHTML=clubs.map(c=>'<a class="nbl-club-tile" href="'+esc(teamLink(c[0]))+'" style="--club-color:'+c[3]+'"><span class="nbl-tile-mark">'+(logos.get(canonical(c[0]))?'<img src="'+esc(logos.get(canonical(c[0])))+'" alt="" loading="lazy" onerror="this.remove()">':esc(c[1]))+'</span><span class="nbl-tile-name">'+esc(c[0])+'<small>Club desk ↗</small></span></a>').join('');
+}
 function sources(s){
  const logos=new Map();
  for(const b of (s?.leagues||[])){if(b.league!=='Australian NBL')continue;
@@ -86,6 +109,8 @@ async function run(){
  const d=standingResult.status==='fulfilled'?standingResult.value:null;
  const e=ratingsResult.status==='fulfilled'?ratingsResult.value:null;
  const logos=sources(scoreResult.status==='fulfilled'?scoreResult.value:null);
+ try {for(const [name,url] of await officialLogos())logos.set(name,url)}catch{}
+ clubRibbon(logos);
  const validStandings=d?.league==='Australian NBL'&&d?.status==='source_derived_not_officially_reconciled'&&d?.rows?.length===10;
  const validRatings=e?.status==='RESEARCH_ONLY_UNCERTIFIED'&&e?.production_approved===false&&e?.prediction_certified===false&&e?.ratings?.length===10;
  const regular=validStandings?d.rows:[];
