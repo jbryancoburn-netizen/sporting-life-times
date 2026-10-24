@@ -1,0 +1,32 @@
+name: NCAA Missing Program ID Audit
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_missing_espn_teams.py'
+      - '.github/workflows/ncaam-missing-team-id-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check 21 days of NCAA ESPN event IDs
+        run: |
+          python -m py_compile scripts/audit_ncaam_missing_espn_teams.py
+          python scripts/audit_ncaam_missing_espn_teams.py
+      - name: Publish only observed candidate IDs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-missing-team-id-evidence.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record verified source evidence for missing NCAA program IDs [skip ci]'
+            git -c rebase.autoStash=true pull --rebase origin main
+            git push
+          fi
