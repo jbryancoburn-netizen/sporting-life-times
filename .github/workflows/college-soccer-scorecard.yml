@@ -1,0 +1,61 @@
+name: NCAA Soccer Forecast Scoring
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/college-soccer-elo-final-ledger.json'
+      - 'data/college-soccer-prospective-v2.json'
+      - 'scripts/score_college_soccer_v2.py'
+      - '.github/workflows/college-soccer-scorecard.yml'
+  schedule:
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ncaa-soccer-scorecard
+  cancel-in-progress: false
+
+jobs:
+  scorecard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate input and score prospective forecasts
+        run: python scripts/score_college_soccer_v2.py
+      - name: Validate generated report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('data/college-soccer-prospective-v2.json').read_text())
+          s=json.loads(Path('data/college-soccer-forecast-scores-v2.json').read_text())
+          assert s['count_locked']==len(a['forecasts'])
+          assert s['overall']['scored']==len(s['scores'])
+          assert s['awaiting_final']+s['overall']['scored']==s['count_locked']
+          assert len(set(x['match_id'] for x in s['scores']))==len(s['scores'])
+          print('Forecast scorecard integrity passed')
+          PY
+      - name: Commit changed scorecard
+        run: |
+          if git diff --quiet -- data/college-soccer-forecast-scores-v2.json; then
+            echo "No new verified forecast outcomes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-forecast-scores-v2.json
+          git commit -m "Update verified NCAA soccer prospective scorecard"
+          git pull --rebase origin main
+          git push origin HEAD:main
