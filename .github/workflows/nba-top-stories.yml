@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect-nba-stories.py'
+      - 'scripts/test-nba-news-editorial.py'
       - '.github/workflows/nba-top-stories.yml'
 permissions:
   contents: write
@@ -26,6 +27,8 @@ jobs:
           python-version: '3.12'
       - name: Validate NBA collector
         run: python -m py_compile scripts/collect-nba-stories.py
+      - name: Verify editorial filtering
+        run: python scripts/test-nba-news-editorial.py
       - name: Refresh attributed headlines
         run: python scripts/collect-nba-stories.py
       - name: Validate published stories
