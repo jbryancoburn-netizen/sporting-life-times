@@ -8,9 +8,10 @@ class IncrementalPlayerScoringTests(unittest.TestCase):
               "contest_id":str(i)} for i in range(45)]
         roster=[{"team":"New School","player":"Taylor Example"}]
         quality={"oldschool":{"91":{"minutes":1125,"opponent_pregame_elo":1640}}}
-        opponent,scoring=quality_continuity(box,roster,{"newschool"},quality,{"oldschool":1600.},return_scoring=True)
+        opponent,scoring,efficiency=quality_continuity(box,roster,{"newschool"},quality,{"oldschool":1600.},return_scoring=True)
         self.assertAlmostEqual(opponent["newschool"],40.)
         self.assertAlmostEqual(scoring["newschool"],0.)
+        self.assertNotIn("newschool",efficiency)
     def test_scoring_coefficient_zero_is_identical_to_incumbent(self):
         names=[f"t{i}" for i in range(202)]
         games=[(date(2025,11,5),str(i),names[i%202],names[(i+1)%202],81,72) for i in range(201)]
