@@ -1,0 +1,32 @@
+name: NCAA 2026-27 Score Source Readiness
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_season_feed.py'
+      - '.github/workflows/ncaam-source-readiness.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test real NCAA and ESPN source endpoints
+        run: |
+          python -m py_compile scripts/audit_ncaam_season_feed.py
+          python scripts/audit_ncaam_season_feed.py
+      - name: Publish sourced endpoint findings
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-live-source-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish NCAA live source availability [skip ci]'
+            git -c rebase.autoStash=true pull --rebase origin main
+            git push
+          fi
