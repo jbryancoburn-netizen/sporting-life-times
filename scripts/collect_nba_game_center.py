@@ -58,6 +58,9 @@ def main():
     for game in current:
         old=prior.get(game["id"])
         if old and old.get("state")=="post" and old.get("players") and not game.get("players"):continue
+        if old:
+            for key in ("period_scores","team_comparison"):
+                if old.get(key) and not game.get(key):game[key]=old[key]
         prior[game["id"]]=game
     games=sorted(prior.values(),key=lambda x:(x.get("date") or "",x["id"]),reverse=True)
     # Retain regular-season archive from this edition's first capture onward.
