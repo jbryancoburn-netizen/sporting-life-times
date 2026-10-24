@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Record observed public live-to-final transitions. Never infers an unseen live state."""
 import json
+from copy import deepcopy
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,26 +10,35 @@ BASE = 'https://jbryancoburn-netizen.github.io/sporting-life-times/'
 
 
 def observe(previous, schedule, archive, elo, checked_at):
-    history = dict(previous.get('games', {}))
+    history = deepcopy(previous.get('games', {}))
+    prior_games = previous.get('games', {})
     events = elo.get('events', [])
-    boxes = {g['id']: g for g in archive.get('games', []) if g.get('state') == 'post'}
+    boxes = {}
+    for game in archive.get('games', []):
+        if game.get('state') == 'post':
+            boxes.setdefault(game.get('id'), []).append(game)
     issues = []
     for game in schedule.get('games', []) + archive.get('games', []):
         gid = str(game.get('id', ''))
         if not gid:
             continue
         row = dict(history.get(gid, {}))
-        if game.get('state') == 'in':
+        if game.get('state') == 'in' and not row.get('first_observed_final_at'):
             row.setdefault('first_observed_live_at', checked_at)
         if game.get('state') == 'post':
             row.setdefault('first_observed_final_at', checked_at)
+            prior = prior_games.get(gid, {})
+            live_at = prior.get('first_observed_live_at')
+            if live_at and not prior.get('first_observed_final_at') and live_at < checked_at:
+                row['observed_live_before_final'] = True
         row['last_observed_state'] = game.get('state')
         history[gid] = row
     for gid, row in history.items():
-        if not row.get('first_observed_live_at') or not row.get('first_observed_final_at'):
+        if not row.get('observed_live_before_final'):
             continue
         matches = [g for g in events if g.get('id') == gid]
-        box = boxes.get(gid)
+        matching_boxes = boxes.get(gid, [])
+        box = matching_boxes[0] if len(matching_boxes) == 1 else None
         row['public_elo_entries'] = len(matches)
         row['verified'] = False
         if len(matches) != 1 or box is None:
