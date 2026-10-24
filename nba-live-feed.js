@@ -19,7 +19,7 @@ function render(payload){
  root.innerHTML=mapped.map(g=>{
   const playing=g.state==='in';const final=g.state==='post';const state=playing?'LIVE · '+g.label:final?'FINAL':new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
   const team=t=>'<div class="nba-live-team"><img src="'+logo(esc(t.code))+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
-  return '<article class="nba-live-match'+(playing?' playing':'')+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'VERIFIED FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'</article>'
+  return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'VERIFIED FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'</a>'
  }).join('');
 }
 async function update(){
