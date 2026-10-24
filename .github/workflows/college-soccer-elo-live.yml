@@ -60,6 +60,13 @@ jobs:
                   if i: assert rows[i-1]['elo']>=row['elo']
           print('PASS: six-cohort provisional NCAA Elo, unique verified final IDs, valid GP and ranks')
           PY
+      - name: Verify deterministic replay leaves no ratings drift
+        run: |
+          before="$(sha256sum data/college-soccer-elo.json | cut -d' ' -f1)"
+          python scripts/update_college_soccer_elo.py --offline
+          after="$(sha256sum data/college-soccer-elo.json | cut -d' ' -f1)"
+          test "$before" = "$after"
+          echo "PASS: replayed stored NCAA finals without changing Elo output"
       - name: Commit refreshed newspaper Elo only after validation
         shell: bash
         run: |
