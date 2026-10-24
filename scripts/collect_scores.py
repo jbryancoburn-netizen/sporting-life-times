@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 from collections import defaultdict
 ROOT=Path(__file__).resolve().parents[1]
-LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball"),("Champions League","soccer/uefa.champions"),("Europa League","soccer/uefa.europa"),("Australian NBL","basketball/aus.nbl"),("EuroLeague","basketball/euroleague"),("ECHL","hockey/echl"),("College Baseball","baseball/college-baseball"),("NCAA Men's Soccer","soccer/usa.ncaa.m.1"),("NCAA Men's Hockey","hockey/mens-college-hockey")]
+LEAGUES=[("NFL","football/nfl"),("MLB","baseball/mlb"),("NBA","basketball/nba"),("NHL","hockey/nhl"),("Premier League","soccer/eng.1"),("College Football","football/college-football"),("Men's College Basketball","basketball/mens-college-basketball"),("Women's College Basketball","basketball/womens-college-basketball"),("Champions League","soccer/uefa.champions"),("Europa League","soccer/uefa.europa"),("Australian NBL","basketball/nbl"),("EuroLeague","basketball/euroleague"),("ECHL","hockey/echl"),("College Baseball","baseball/college-baseball"),("NCAA Men's Soccer","soccer/usa.ncaa.m.1"),("NCAA Men's Hockey","hockey/mens-college-hockey")]
 def espn_standings(path):
     """Return verified division standings from ESPN; never invent rank or movement."""
     req=Request("https://site.api.espn.com/apis/v2/sports/"+path+"/standings",headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
