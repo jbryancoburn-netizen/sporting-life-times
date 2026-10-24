@@ -89,6 +89,7 @@ jobs:
           python scripts/collect_scores.py
           if python scripts/publish_nbl_standings.py; then
             python scripts/publish_nbl_research_elo.py
+            python scripts/embed_nbl_ratings.py
             python -c 'import json; from pathlib import Path; Path("data/nbl-standings-publication-status.json").write_text(json.dumps({"league":"Australian NBL","published":True}))'
           else
             echo 'NBL ESPN season replay unavailable; withholding reconstructed standings this build'
@@ -184,6 +185,10 @@ jobs:
           else
             echo "NBL standings source withheld safely: snapshot not present"
           fi
+          echo "Checking NBL HTML contains visible pre-rendered Elo standings"
+          curl --fail --location --silent --show-error "$base/nbl.html" -o /tmp/nbl-visible.html
+          grep -q 'data-nbl-static-elo="ready"' /tmp/nbl-visible.html
+          grep -q 'Sydney Kings' /tmp/nbl-visible.html
           echo "Checking published independent NBL research Elo"
           curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-elo-research.json" -o /tmp/nbl-research-elo.json
           python - <<'PY'
