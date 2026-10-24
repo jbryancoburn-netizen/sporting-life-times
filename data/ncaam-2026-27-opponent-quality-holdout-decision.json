@@ -1,0 +1,29 @@
+{
+  "season": "2026-27",
+  "decision": "CONTINUE_OPPONENT_QUALITY_RESEARCH_NO_PRESEASON_PROMOTION",
+  "report_source": "data/ncaam-opponent-quality-backtest.json",
+  "training_seasons": [
+    2024,
+    2025
+  ],
+  "holdout_season": 2026,
+  "selected_opponent_strength_beta": -20,
+  "matched_holdout_games": 1658,
+  "matched_sample_equal": true,
+  "matched_roster_log_loss": 0.5604084047399379,
+  "matched_opponent_log_loss": 0.557252107253897,
+  "matched_roster_brier": 0.18888054454631656,
+  "matched_opponent_brier": 0.18788732525664906,
+  "matched_incremental_gain_log_loss": 0.00315629748604096,
+  "matched_incremental_gain_brier": 0.0009932192896675018,
+  "full_holdout_games": 1831,
+  "full_sample_equal": true,
+  "full_game_only_log_loss": 0.5705332587903005,
+  "full_enhanced_log_loss": 0.5548493160405142,
+  "full_game_only_brier": 0.19317147219652112,
+  "full_enhanced_brier": 0.18683016677974326,
+  "full_fallback_games": 173,
+  "preseason_roster_asof_verified": false,
+  "production_elo_approved": false,
+  "interpretation": "The opponent-strength residual increment improves 2026 held-out roster-model accuracy on a matched 1658-game subset; combined enhanced model improves all-game baseline on 1831 contests, but does not directly validate the 2026-27 365-team experimental Model B formula or its preseason roster-as-of information."
+}
