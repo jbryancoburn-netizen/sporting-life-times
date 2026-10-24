@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Rebuild formula-matched historical college-basketball player scoring experiment."""
+"""Rebuild formula-matched historical college-basketball player scoring experiment.
+
+The validated smoke test has passed; this runner records full historical evidence.
+"""
 import csv
 import gzip
 import json
