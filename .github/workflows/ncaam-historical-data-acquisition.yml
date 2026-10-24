@@ -133,8 +133,9 @@ jobs:
           import json
           d=json.load(open('historical-report/ncaam-combined-elo-research.json'))
           assert d['automatic_promotion'] is False
-          assert d['transfers_origin_included_in_scoring'] is False
-          assert len(d['trials'])==9
+          assert d['transfers_origin_included_in_scoring'] is True
+          assert d['transfer_origin_audits']['2026']['matched_transfer_records'] > 100
+          assert len(d['trials'])==27
           assert d['diagnostic_baseline']['games']==d['diagnostic_combined']['games']
           PY
       - name: Run real NCAA historical player-quality backtest
