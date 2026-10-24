@@ -16,6 +16,19 @@
       const o=el("option",label);o.value=key;modelChoice.append(o);
     }
     if(d.status!=="prospective_research_only"||!Array.isArray(d.forecasts))throw Error("Prediction release is unverified");
+    let scoring=null;
+    try {
+      const report=await fetch("data/college-soccer-forecast-scores-v2.json?t="+Date.now(),{cache:"no-store"});
+      if(report.ok)scoring=await report.json();
+    }catch(e){}
+    if(scoring&&scoring.count_locked===d.forecasts.length){
+      const insight=el("p",undefined,"college-elo-note");
+      const all=scoring.overall||{};
+      insight.textContent="Prospective tracking · "+(all.scored||0)+" verified outcomes of "+d.count_locked+
+        " locked forecasts · "+(scoring.awaiting_final||0)+" awaiting verified finals"+
+        (all.scored?" · Pick accuracy "+(100*all.pick_accuracy).toFixed(1)+"% · Log loss "+all.mean_log_loss.toFixed(3)+" · Brier "+all.mean_brier_score.toFixed(3):" · Accuracy pending first matched final");
+      table.before(insight);
+    }
     let finals=[];
     try{
       const response=await fetch("data/college-soccer-elo-final-ledger.json?t="+Date.now(),{cache:"no-store"});
