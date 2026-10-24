@@ -28,8 +28,15 @@ OFFICIAL_HOSTS={
     "Syracuse":{"cuse.com"},
     "The Citadel":{"citadelsports.com"},
     "UMass Lowell":{"goriverhawks.com"},
+    "La Salle":{"goexplorers.com"},
+    "UMES":{"umeshawksports.com"},
+    "Manhattan":{"gojaspers.com"},
+    "Western Mich.":{"wmubroncos.com"},
+    "UC San Diego":{"ucsdtritons.com"},
+    "Montana":{"gogriz.com"},
 }
-SECONDARY_HOSTS={"uclabruins.com","gocamels.com","umassathletics.com","goshockers.com"}
+SECONDARY_HOSTS={"uclabruins.com","gocamels.com","umassathletics.com","goshockers.com",
+                 "goexplorers.com","saintanselmhawks.com","gogriz.com"}
 def stable_json(doc):
     return json.dumps(doc,indent=2,ensure_ascii=False)+"\n"
 def read_json(path):
@@ -136,7 +143,7 @@ def verify(movement,crosswalk,minutes,negatives,ratings):
             "review_reason":"source-level player identity must be confirmed; do not use candidate production",
             "eligible_for_elo":False})
     ranked.sort(key=lambda r:(-r["potential_false_transfer_elo_if_naively_matched"],r["team"],r["player"]))
-    if len(exclusions)!=8 or len(ranked)!=22 or statuses["unique-name-transfer-candidate"]!=26 or statuses["id-not-found-name-ambiguous"]!=4:
+    if len(exclusions)!=14 or len(ranked)!=16 or statuses["unique-name-transfer-candidate"]!=26 or statuses["id-not-found-name-ambiguous"]!=4:
         raise ValueError("Unexpected vetted exclusions or unmatched transfer review workload")
     unlinked_no_prior=statuses["no-prior-d1-box"]
     summary={
@@ -190,7 +197,7 @@ def main():
     if args.verify:
         if not args.output.exists() or args.output.read_text(encoding="utf-8")!=actual:
             raise SystemExit("FAIL: official-player-identity review report does not reproduce")
-        print("PASS: verified eight false name collisions and all remaining priority reviews")
+        print("PASS: verified fourteen false name collisions and all remaining priority reviews")
     else:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(actual,encoding="utf-8")
