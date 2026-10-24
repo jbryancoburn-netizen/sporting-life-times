@@ -95,11 +95,11 @@ def audit(data,article_text):
 
 def check_official_exception(game,source_text):
     reference=OFFICIAL_EXCEPTIONS.get(game.get("id"))
-    if reference is None or str(game.get("date",""))[:10]!=reference["date"]:
+    if reference is None or str(game.get("date") or game.get("played_at") or "")[:10]!=reference["date"]:
         return False
     src=compact(source_text).replace("–","-").replace("—","-").replace("‑","-")
     parts=reference["score"].split("-")
-    score_pattern=r"(?<!\\d)"+parts[0]+r"\\s*-\\s*"+parts[1]+r"(?!\\d)"
+    score_pattern=r"(?<!\d)"+parts[0]+r"\s*-\s*"+parts[1]+r"(?!\d)"
     return bool(re.search(score_pattern,src)) and all(name in src for name in reference["clubs"])
 
 def corroborate_official_outliers(report):
