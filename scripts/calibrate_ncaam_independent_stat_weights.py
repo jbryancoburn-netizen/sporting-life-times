@@ -41,12 +41,27 @@ def run(games,feat,origin,multi):
    "train_2024":result[2024],"validation_2025":result[2025],
    "reused_diagnostic_2026":result[2026]})
  best=min(candidates,key=lambda x:(x["train_2024"]["log_loss"],sum(x["weights"].values())))
+ # Penalize coefficient magnitude in Elo-point units; penalties operate on
+ # training log loss only, never on validation results.
+ strengths=(0.,0.0001,0.00025,0.0005,0.001)
+ regularized={}
+ for lam in strengths:
+  chosen=min(candidates,key=lambda x:(
+   x["train_2024"]["log_loss"]+lam*sum((v/600.)**2 for v in x["weights"].values()),
+   sum(x["weights"].values())))
+  regularized[str(lam)]={"selected_weights":chosen["weights"],
+   "train_log_loss":chosen["train_2024"]["log_loss"],
+   "validation_2025":chosen["validation_2025"],
+   "reused_2026":chosen["reused_diagnostic_2026"],
+   "selected_at_grid_boundary":any(v==max(WEIGHTS) for v in chosen["weights"].values())}
  equal=next(x for x in candidates if all(z==150 for z in x["weights"].values()))
  zero=next(x for x in candidates if all(z==0 for z in x["weights"].values()))
  return {"model":"ncaam-independent-player-stat-coefficients-v1",
  "status":"RETROSPECTIVE_ONLY_PRESEASON_ASOF_NOT_VERIFIED",
  "training_year":2024,"validation_year":2025,"reused_diagnostic_year":2026,
  "selected_weights":best["weights"],"selected_training":best["train_2024"],
+ "regularization_sensitivity":regularized,
+ "regularization_rule":"L2 penalty on squared normalized weights, selected using 2024 training only; do not optimize penalty on 2025/2026",
  "selected_validation":best["validation_2025"],
  "equal_weights_validation":equal["validation_2025"],
  "no_extra_player_stats_validation":zero["validation_2025"],
