@@ -28,7 +28,9 @@ async function news(){
   if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA').slice(0,60)}
   if(!items.length)throw Error('No attributed NBA headlines');
   const format=window.SportingNewsFormat;
-  grid.innerHTML=items.map((a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+newsLogos(a)+(format?.meta?format.meta(a):esc(a.source||'NBA NEWS')+' · '+esc((a.published_at||'').slice(0,10)))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+(format?.title?format.title(a):esc(a.title))+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+(format?.summary?format.summary(a):esc(a.summary))+'</p>':'')+'</article>').join('');
+  const newsItem=(a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+newsLogos(a)+(format?.meta?format.meta(a):esc(a.source||'NBA NEWS')+' · '+esc((a.published_at||'').slice(0,10)))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+(format?.title?format.title(a):esc(a.title))+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+(format?.summary?format.summary(a):esc(a.summary))+'</p>':'')+'</article>';
+  const featured=items.slice(0,11),more=items.slice(11);
+  grid.innerHTML=featured.map(newsItem).join('')+(more.length?'<details class="nba-more-stories"><summary>MORE NBA HEADLINES · '+more.length+' ADDITIONAL STORIES</summary><div class="nba-more-list">'+more.map((a,i)=>newsItem(a,i+featured.length)).join('')+'</div></details>':'');
   msg('nba-news-status',items.length+' attributed NBA stories · '+(payload.updated_at||'Dated reporting')+' · Original sources linked');
  }catch(err){msg('nba-news-status','NBA top stories feed unavailable');unavailable('nba-news-grid','NBA reporting temporarily unavailable. <a href="https://www.nba.com/news" target="_blank" rel="noopener noreferrer">NBA.com News ↗</a>')}
 }
