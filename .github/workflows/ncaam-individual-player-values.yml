@@ -5,6 +5,9 @@ on:
       - 'data/ncaam-2026-27-individual-player-values.json'
       - 'data/ncaam-2026-27-player-value-experimental-v1.json'
       - 'scripts/verify_ncaam_individual_player_values.py'
+      - 'scripts/rebuild_ncaam_individual_player_values.py'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
       - '.github/workflows/ncaam-individual-player-values.yml'
   workflow_dispatch:
 permissions:
@@ -18,3 +21,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/verify_ncaam_individual_player_values.py
+      - run: python scripts/rebuild_ncaam_individual_player_values.py
