@@ -15,6 +15,11 @@ on:
       - 'college-soccer.html'
       - 'college-soccer-predictions.js'
       - 'forecast-design.css'
+      - 'scripts/publish_college_soccer_dynamic.py'
+      - 'scripts/college_soccer_fixture_source.py'
+      - 'scripts/test_publish_college_soccer_dynamic.py'
+      - 'data/college-soccer-dynamic-state.json'
+      - 'data/college-soccer-prospective-v2.json'
       - 'data/college-soccer-prospective.json'
       - 'data/college-soccer-elo-baseline.json'
       - 'data/college-soccer-elo-final-ledger.json'
@@ -43,8 +48,14 @@ jobs:
         run: python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -v
       - name: Verify prospective forecast scoring
         run: python -m unittest discover -s scripts -p test_score_college_soccer_forecasts.py -v
+      - name: Verify matchup draw probabilities and prior-day data isolation
+        run: python -m unittest discover -s scripts -p test_publish_college_soccer_dynamic.py -v
       - name: Check new NCAA men's and women's final scores in all divisions
         run: python scripts/update_college_soccer_elo.py --lookback 4
+      - name: Lock new matchup-specific forecasts before kickoff
+        run: python scripts/publish_college_soccer_dynamic.py
+      - name: Score matchup-model forecasts against verified finals
+        run: python scripts/score_college_soccer_forecasts.py --archive data/college-soccer-prospective-v2.json --output data/college-soccer-forecast-scores-v2.json
       - name: Score locked pregame forecasts against verified finals
         run: python scripts/score_college_soccer_forecasts.py
       - name: Validate JSON contract and published game evidence
@@ -81,7 +92,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json
+          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json
           if git diff --cached --quiet; then
             echo "No new verified NCAA finals or repairs. Published ratings unchanged."
             exit 0
@@ -98,7 +109,8 @@ jobs:
             git rebase origin/main || { git rebase --abort || true; exit 1; }
             python scripts/update_college_soccer_elo.py --offline
             python scripts/score_college_soccer_forecasts.py
-            git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json
+            python scripts/score_college_soccer_forecasts.py --archive data/college-soccer-prospective-v2.json --output data/college-soccer-forecast-scores-v2.json
+            git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json
             git diff --cached --quiet || git commit -m "Reconcile NCAA soccer ratings and forecast scores after rebase"
             python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -q
             sleep 2
@@ -112,7 +124,7 @@ jobs:
           from pathlib import Path
           import hashlib, os, urllib.request
           root='https://jbryancoburn-netizen.github.io/sporting-life-times'
-          paths=['data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json','college-soccer-predictions.js','forecast-design.css']
+          paths=['data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json','college-soccer-predictions.js','forecast-design.css','data/college-soccer-prospective-v2.json','data/college-soccer-forecast-scores-v2.json']
           differences=[]
           for path in paths:
               expected=hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -166,6 +178,10 @@ jobs:
           assert 'college-soccer-elo.js' in Path('college-soccer.html').read_text()
           print('Source edition:',d['as_of'], 'accepted new finals:',d.get('applied_finals_since_baseline',0))
           PY
+      - name: Verify published v2 forecast contract
+        run: |
+          python scripts/publish_college_soccer_dynamic.py --offline
+          python scripts/score_college_soccer_forecasts.py --archive data/college-soccer-prospective-v2.json --output data/college-soccer-forecast-scores-v2.json
       - name: Add current source revision and Pages marker
         run: |
           git rev-parse HEAD > pages-build-sha.txt
@@ -179,3 +195,5 @@ jobs:
         uses: actions/deploy-pages@v4
       - name: Verify live newspaper HTML, JS, CSS and Elo data bytes
         run: python scripts/check_college_soccer_publication.py --attempts 15 --delay 10
+      - name: Verify live matchup draw probabilities and archive
+        run: python scripts/check_college_soccer_predictions_public.py

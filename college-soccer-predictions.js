@@ -6,9 +6,15 @@
   const table=document.getElementById("college-soccer-predictions-list");
   function el(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(className)n.className=className;return n;}
   try{
-    const r=await fetch("data/college-soccer-prospective.json?t="+Date.now(),{cache:"no-store"});
+    const r=await fetch("data/college-soccer-prospective-v2.json?t="+Date.now(),{cache:"no-store"});
     if(!r.ok)throw Error("Pregame ledger unavailable");
     const d=await r.json();
+    if(d.model!=="ncaa_matchup_draw_v2")throw Error("Expected matchup draw model");
+    let current=d;
+    const modelChoice=el("select");modelChoice.setAttribute("aria-label","Forecast model archive");
+    for(const [key,label] of [["v2","Current matchup model"],["v1","Original fixed-draw archive"]]){
+      const o=el("option",label);o.value=key;modelChoice.append(o);
+    }
     if(d.status!=="prospective_research_only"||!Array.isArray(d.forecasts))throw Error("Prediction release is unverified");
     let finals=[];
     try{
@@ -36,7 +42,7 @@
       const o=el("option",(key.startsWith("men")?"Men":"Women")+" · Division "+["","I","II","III"][Number(key.slice(-1))]);
       o.value=key;options.append(o);
     }
-    controls.append(options);
+    controls.append(options,modelChoice);
     const summary=el("p",undefined,"college-elo-note");
     let page=0, view="upcoming";
     const views=el("select");views.setAttribute("aria-label","Select forecast window");
@@ -46,10 +52,11 @@
     controls.append(views);
     const render=()=>{
       table.replaceChildren();
-      const all=d.forecasts.filter(g=>g.cohort===selected&&(view==="all"||(view==="results"?finalById.has(g.match_id):Date.parse(g.kickoff_utc)>Date.now())))
+      status.textContent=(current===d?"Matchup model v2":"Original fixed-draw model v1")+" · "+current.count_locked+" archived pregame forecasts · Research estimates";
+      const all=current.forecasts.filter(g=>g.cohort===selected&&(view==="all"||(view==="results"?finalById.has(g.match_id):Date.parse(g.kickoff_utc)>Date.now())))
         .sort((a,b)=>view==="results"?Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc):Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
       const pages=Math.max(1,Math.ceil(all.length/12));page=Math.min(page,pages-1);
-      summary.textContent=all.length+" "+(view==="results"?"completed matchups":view==="upcoming"?"upcoming matchups":"archived forecasts")+" · Original pregame picks";
+      summary.textContent=all.length+" "+(view==="results"?"completed matchups":view==="upcoming"?"upcoming matchups":"archived forecasts")+(current===d?" · Matchup-specific draw probabilities":" · Original fixed-draw estimates, retained for comparison");
       if(!all.length){table.append(el("p","No "+view+" forecasts in this division.","forecast-empty"));return;}
       const grid=el("div",undefined,"forecast-match-grid");
       for(const g of all.slice(page*12,page*12+12)){
@@ -91,10 +98,22 @@
         nav.append(prev,el("span",(page+1)+" / "+pages),next);table.append(nav);
       }
     };
+    modelChoice.addEventListener("change",async()=>{
+      if(modelChoice.value==="v1"){
+        try{
+          const response=await fetch("data/college-soccer-prospective.json?t="+Date.now(),{cache:"no-store"});
+          if(!response.ok)throw Error("archive unavailable");
+          const archive=await response.json();
+          if(archive.status!=="prospective_research_only"||!Array.isArray(archive.forecasts))throw Error("invalid archive");
+          current=archive;
+        }catch(e){modelChoice.value="v2";current=d;status.textContent="Original archive unavailable; showing current matchup model.";}
+      }else current=d;
+      page=0;render();
+    });
     views.addEventListener("change",()=>{view=views.value;page=0;render();});
     options.addEventListener("change",()=>{selected=options.value;page=0;render();});
     table.before(controls,summary);
-    status.textContent="Research forecasts · "+d.count_locked+" timestamped pregame predictions archived · Original predictions retained alongside available final results.";
+    status.textContent="Matchup model v2 · "+d.count_locked+" pregame forecasts archived · Research estimates";
     render();
   }catch(e){status.textContent="No independently verified pregame forecast feed is available.";table.replaceChildren();}
 })();

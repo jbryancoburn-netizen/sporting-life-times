@@ -92,15 +92,18 @@ def score_forecasts(archive, ledger, now):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--now', help='Explicit timezone-aware scoring time')
+    parser.add_argument('--archive', default='data/college-soccer-prospective.json')
+    parser.add_argument('--output', default='data/college-soccer-forecast-scores.json')
     args = parser.parse_args()
     now = timestamp(args.now) if args.now else dt.datetime.now(dt.timezone.utc)
-    forecast_path = HERE / 'data/college-soccer-prospective.json'
+    forecast_path = HERE / args.archive
     before = forecast_path.read_bytes()
     report = score_forecasts(read_json(forecast_path), read_json(HERE / 'data/college-soccer-elo-final-ledger.json'), now)
     report['forecast_archive_canonical_sha256'] = canonical_digest(read_json(forecast_path))
     if forecast_path.read_bytes() != before:
         raise RuntimeError('forecast archive changed during scoring')
-    atomic_json(HERE / 'data/college-soccer-forecast-scores.json', report)
+    report['model_archive'] = args.archive
+    atomic_json(HERE / args.output, report)
     print(f"Forecast scoring: {report['overall']['scored']} finals, {report['awaiting_final']} awaiting finals")
 
 

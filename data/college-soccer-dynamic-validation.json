@@ -1,0 +1,124 @@
+{
+  "cohorts": {
+    "men-d1": {
+      "coefficients": [
+        -0.5721082969837797,
+        0.46719717096262836,
+        -0.14180523374983403
+      ],
+      "train_matches": 948,
+      "holdout_matches": 471,
+      "old_log_loss": 0.9678652907439416,
+      "dynamic_log_loss": 0.9619381317683651,
+      "draw_range": [
+        0.0982554925073115,
+        0.2875508808738242
+      ],
+      "actual_draw_frequency": 0.23354564755838642,
+      "predicted_draw_frequency": 0.22489805451563846
+    },
+    "men-d2": {
+      "coefficients": [
+        -0.8989652077540468,
+        0.0,
+        -0.4310629300141143
+      ],
+      "train_matches": 894,
+      "holdout_matches": 538,
+      "old_log_loss": 0.93115515292257,
+      "dynamic_log_loss": 0.9241040439348261,
+      "draw_range": [
+        0.05582101152877068,
+        0.2891823454241793
+      ],
+      "actual_draw_frequency": 0.21561338289962825,
+      "predicted_draw_frequency": 0.21070808790636558
+    },
+    "men-d3": {
+      "coefficients": [
+        -0.7066371686196337,
+        0.3083319255192397,
+        -0.3642823559880397
+      ],
+      "train_matches": 1765,
+      "holdout_matches": 1149,
+      "old_log_loss": 0.839484604990241,
+      "dynamic_log_loss": 0.8269430332757011,
+      "draw_range": [
+        0.043934746705663746,
+        0.2814210893416373
+      ],
+      "actual_draw_frequency": 0.17667536988685814,
+      "predicted_draw_frequency": 0.18351687074909925
+    },
+    "women-d1": {
+      "coefficients": [
+        -0.2000557789645365,
+        0.6817705574302296,
+        -0.40902493520861616
+      ],
+      "train_matches": 1786,
+      "holdout_matches": 800,
+      "old_log_loss": 0.9315962667619101,
+      "dynamic_log_loss": 0.9186447323574507,
+      "draw_range": [
+        0.01876121583472325,
+        0.33838433069314583
+      ],
+      "actual_draw_frequency": 0.21125,
+      "predicted_draw_frequency": 0.20994184102512706
+    },
+    "women-d2": {
+      "coefficients": [
+        -0.19435460925831052,
+        0.7206642354292073,
+        -0.40723043206196413
+      ],
+      "train_matches": 1163,
+      "holdout_matches": 700,
+      "old_log_loss": 0.8450387286631946,
+      "dynamic_log_loss": 0.8243877604112914,
+      "draw_range": [
+        0.01123631482038721,
+        0.36213211261861017
+      ],
+      "actual_draw_frequency": 0.19857142857142857,
+      "predicted_draw_frequency": 0.1759684818818203
+    },
+    "women-d3": {
+      "coefficients": [
+        -0.17471267308773342,
+        0.820801472885327,
+        -0.5312767188049582
+      ],
+      "train_matches": 1752,
+      "holdout_matches": 1175,
+      "old_log_loss": 0.7268765460528732,
+      "dynamic_log_loss": 0.6887380613874661,
+      "draw_range": [
+        0.0019395912104550233,
+        0.33689327658212165
+      ],
+      "actual_draw_frequency": 0.13957446808510637,
+      "predicted_draw_frequency": 0.13596323596014173
+    }
+  },
+  "training_cutoff": "2026-10-01",
+  "status": "research_only",
+  "holdout_reused": true,
+  "old_log_loss": 0.8508747983514208,
+  "dynamic_log_loss": 0.8321234887725542,
+  "holdout_matches": 4833,
+  "model": "ncaa_matchup_draw_v2",
+  "production_promotion": false,
+  "training_matches": 8308,
+  "method": "L2-regularized binomial draw calibration; logit Poisson draw and absolute shadow Elo logit; goal slope >=0 and balance slope <=0; conditional win split from shadow Elo",
+  "regularization": 1.0,
+  "source_sha256": "7e94820f322e70375757ed517e212b9f51e4a6ad85fa06502a792a4f38f0dcd5",
+  "limitations": [
+    "Reused October research holdout; not fresh prospective evidence.",
+    "Nominal home venue; neutral sites not independently certified.",
+    "Expected goals are smoothed team scoring rates, not shot-based xG.",
+    "Men DII training fit selected zero Poisson coefficient; its draw probability varies through strength balance."
+  ]
+}
