@@ -5,6 +5,13 @@ class NBLHeldoutTests(unittest.TestCase):
     def game(self,id,home="Sydney Kings",away="Perth Wildcats",hs=93,aws=84,at="2025-10-01T10:00Z"):
         return {"id":id,"home":home,"away":away,"home_score":hs,"away_score":aws,
                 "played_at":at,"verified":False,"state":"candidate"}
+    def test_lagged_baseline_uses_only_prior_season(self):
+        from scripts.nbl_three_season_eval import lagged_home_baseline
+        old=[self.game("a",hs=91,aws=82)]
+        current=[self.game("b",hs=65,aws=82,at="2026-10-01T10:00Z")]
+        report=lagged_home_baseline([("2025-26",old),("2026-27",current)])
+        self.assertEqual(report["2025-26"]["predicted_home_win_rate"],.5)
+        self.assertAlmostEqual(report["2026-27"]["predicted_home_win_rate"],11/21,places=6)
     def test_scoring_is_deterministic(self):
         training=[self.game("1")]
         holdout=[self.game("2",hs=75,aws=85,at="2026-10-01T10:00Z")]
