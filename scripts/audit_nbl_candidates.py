@@ -63,7 +63,19 @@ def main():
     coverage={"games":len(regular),"expected_games":165,
               "all_clubs_have_33_games":all(reg_counts[t]==33 for t in TEAMS),
               "team_games":dict(sorted(reg_counts.items()))}
-    coverage["status"]="pass" if coverage["games"]==165 and coverage["all_clubs_have_33_games"] else "fail"
+    # Independently published regular-season W-L records (RealGM 2025-26 table).
+    expected_wins={"Sydney Kings":24,"Adelaide 36ers":23,
+                   "South East Melbourne Phoenix":22,"Perth Wildcats":21,
+                   "Melbourne United":20,"Tasmania JackJumpers":14,
+                   "New Zealand Breakers":13,"Illawarra Hawks":13,
+                   "Cairns Taipans":9,"Brisbane Bullets":6}
+    observed_wins=collections.Counter(
+        g["home"] if g["home_score"]>g["away_score"] else g["away"] for g in regular)
+    coverage["observed_wins"]=dict(sorted(observed_wins.items()))
+    coverage["wins_match_independent_table"]=all(
+        observed_wins[t]==expected_wins[t] for t in TEAMS)
+    coverage["independent_table_url"]="https://basketball.realgm.com/international/league/5/Australian-NBL/standings/1389/2026"
+    coverage["status"]="pass" if coverage["games"]==165 and coverage["all_clubs_have_33_games"] and coverage["wins_match_independent_table"] else "fail"
     results["2025_26_regular_season_coverage"]=coverage
     if coverage["status"]!="pass":
         results["model_publication_approved"]=False
