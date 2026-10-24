@@ -34,10 +34,20 @@ profile.classList.toggle('team-has-brand',!!brand);
 const header=node('div',undefined,'team-hero');
 header.append(node('p',cohortName(t.cohort)+' · '+String(rankings.as_of||'Latest published edition'),'team-eyebrow'));
 const badge=node('span',t.team.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'team-monogram');
+if(brand?.logo_url){
+  const logo=node('img');logo.src=brand.logo_url;logo.alt=t.team+' athletics logo';logo.loading='lazy';logo.decoding='async';
+  logo.addEventListener('error',()=>{logo.remove();badge.textContent=brand.badge_text||t.team.slice(0,1);});
+  badge.replaceChildren(logo);
+}
 const identity=node('div',undefined,'team-identity');
 identity.append(badge);
 const identityText=node('div');identityText.append(node('h2',t.team),node('p',(brand?.nickname?brand.nickname.toUpperCase()+' · ':'')+'2026 NCAA SOCCER · PROGRAM REPORT','team-identity-caption'));
-if(brand?.conference)identityText.append(node('p',brand.conference+' · '+brand.location,'team-brand-location'));
+if(brand){
+ const details=node('div',undefined,'team-identity-detail');
+ if(brand.city||brand.location)details.append(node('span','CITY  ·  '+(brand.city?(brand.city+', '+(brand.state||'')):brand.location)));
+ if(brand.conference)details.append(node('span','CONFERENCE  ·  '+(brand.conference_short||brand.conference)));
+ identityText.append(details);
+}
 
 identity.append(identityText);header.append(identity);
 const actions=node('div',undefined,'team-hero-actions');
