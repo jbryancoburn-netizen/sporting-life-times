@@ -5,6 +5,8 @@ import gzip
 import json
 import tempfile
 import traceback
+import os
+import hashlib
 from pathlib import Path
 from backtest_ncaam_roster_elo import fetch
 from backtest_ncaam_quality_retrospective import evaluate
@@ -18,7 +20,9 @@ def save(rows, destination):
         writer.writerows(rows)
 
 def main():
-    diag={"status":"RUNNING","stage":"initialize","download_counts":{}}
+    diag={"status":"RUNNING","stage":"initialize","download_counts":{},
+          "source_commit":os.getenv("GITHUB_SHA","unknown"),
+          "evaluator_sha256":hashlib.sha256(Path(__file__).with_name("backtest_ncaam_quality_retrospective.py").read_bytes()).hexdigest()}
     path=Path("data/ncaam-exact-scoring-execution-diagnostic.json")
     path.parent.mkdir(exist_ok=True)
     try:
