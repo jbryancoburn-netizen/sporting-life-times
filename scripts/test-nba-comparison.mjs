@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const {analyze}=require('../nba-game-comparison.js');
@@ -14,4 +15,17 @@ assert.equal(analyze({team_comparison:{away:{'FG%':104,'REB':20},home:{'FG%':50,
 assert.equal(analyze({team_comparison:{away:{'REB':null},home:{'REB':40}}}).length,0);
 assert.equal(analyze({team_comparison:{away:{'REB':-3},home:{'REB':40}}}).length,0);
 assert.deepEqual(analyze({}),[]);
-console.log('PASS NBA comparison: scales, turnover direction, rejection of invalid values');
+const archive=JSON.parse(readFileSync(new URL('../data/nba-game-center.json',import.meta.url),'utf8'));
+let tested=0;
+for(const game of archive.games||[]){
+ const compared=analyze(game);
+ for(const metric of compared){
+  assert(Number.isFinite(metric.awayWidth) && metric.awayWidth>=0 && metric.awayWidth<=100);
+  assert(Number.isFinite(metric.homeWidth) && metric.homeWidth>=0 && metric.homeWidth<=100);
+  assert(['away','home','even'].includes(metric.advantage));
+  if(metric.key.endsWith('%'))assert.equal(metric.awayWidth,metric.away);
+ }
+ if(compared.length)tested++;
+}
+assert(tested>0,'No actual captured NBA team statistics were evaluated');
+console.log('PASS NBA comparison: '+tested+' archived games, correct scales, turnover direction and invalid-data rejection');
