@@ -78,7 +78,8 @@ class TestCollegeSoccerLive(unittest.TestCase):
 
     def test_draw_and_home_expectation(self):
         _, m, _ = c.update(self.b, self.l, [game(hg=0,ag=0)])
-        a, b = m["cohorts"]["men-d1"]
+        teams = {r["team_id"]: r for r in m["cohorts"]["men-d1"]}
+        a, b = teams["men-d1-a"], teams["men-d1-b"]
         self.assertEqual(a["record"], "0-0-1")
         self.assertEqual(b["record"], "0-0-1")
         self.assertLess(a["elo"], 1500)
