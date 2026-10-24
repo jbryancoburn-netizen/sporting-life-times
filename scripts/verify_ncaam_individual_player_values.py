@@ -10,6 +10,9 @@ rows=p["players"]; groups=defaultdict(list)
 assert len(rows)==p["current_roster_players"]==5537
 assert len({x["current_player_id"] for x in rows})==5537
 assert p["production_elo_approved"] is False
+assert p["model"]=="slat-player-scoring-value-experimental-v1"
+assert p["current_roster_players"]==len(rows)
+assert p["measured_prior_d1_players"]==sum(x["score_status"]=="MEASURED_HISTORICAL_SCORING_SHRUNK" for x in rows)
 assert p["measured_prior_d1_players"]==2923
 for row in rows:
     groups[row["team_id"]].append(row)
