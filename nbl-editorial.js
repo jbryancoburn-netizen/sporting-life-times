@@ -19,7 +19,7 @@ const clubs=[
 ];
 const clubMeta=team=>clubs.find(c=>canonical(c[0])===canonical(team));
 const brand=team=>{const c=clubMeta(team);return '<span class="nbl-brand-initial" style="--club-color:'+(c?c[3]:'#424242')+'">'+esc(c?c[1]:'NBL')+'</span>'};
-const logo=(team,logos,size='small')=>{const u=logos.get(canonical(team));return u?'<img class="nbl-club-mark" src="'+esc(u)+'" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('+JSON.stringify("◉")+'))">':brand(team)};
+const logo=(team,logos,size='small')=>{const u=logos.get(canonical(team));return u?'<img class="nbl-club-mark" src="'+esc(u)+'" alt="" loading="lazy" onerror="this.hidden=true">':brand(team)};
 async function officialLogos(){
  const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/teams?limit=100',{cache:'no-store'});
  if(!r.ok)throw Error('Team image source unavailable');
