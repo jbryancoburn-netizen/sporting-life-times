@@ -79,12 +79,10 @@ async function desk(){
 
  const analyses=ledger.slice(-8).reverse().map(g=>{
   const homeWon=g.home_score>g.away_score,w=homeWon?g.home:g.away,l=homeWon?g.away:g.home;
-  const wScore=Math.max(g.home_score,g.away_score),lScore=Math.min(g.home_score,g.away_score);
-  const margin=wScore-lScore;
-  const total=g.home_score+g.away_score;
+  const winScore=Math.max(g.home_score,g.away_score),loseScore=Math.min(g.home_score,g.away_score);
+  const margin=winScore-loseScore,total=g.home_score+g.away_score;
   const stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unverified';
-  const href='https://www.nba.com/games';
-  return '<article class="nba-analysis-brief"><p class="nba-news-source">THE ANALYSIS DESK · '+esc(stamp)+'</p><h3>'+esc(names[w])+' over '+esc(names[l])+', '+wScore+'–'+lScore+'</h3><p>'+esc(w)+' won by '+margin+' points; the teams combined for '+total+'. Current independent Elo: '+esc(w)+' '+ratings[w].toFixed(1)+'; '+esc(l)+' '+ratings[l].toFixed(1)+'. <a href="'+href+'" target="_blank" rel="noopener noreferrer">Official NBA games ↗</a></p></article>';
+  return '<article class="nba-analysis-brief"><p class="nba-news-source">FINAL · '+esc(stamp)+'</p><div class="nba-analysis-result"><span>'+esc(w)+'</span><strong>'+winScore+'</strong><span class="nba-analysis-dash">–</span><strong>'+loseScore+'</strong><span>'+esc(l)+'</span></div><h3>'+esc(names[w])+' defeat '+esc(names[l])+'</h3><div class="nba-analysis-facts"><span>Margin <b>+'+margin+'</b></span><span>Combined <b>'+total+'</b></span><span>Winner Elo <b>'+ratings[w].toFixed(1)+'</b></span></div></article>';
  }).join('');
  if($('nba-game-analysis-grid'))$('nba-game-analysis-grid').innerHTML=analyses||'<p class="hub-small">No completed NBA finals verified in the published season ledger.</p>';
  msg('nba-game-analysis-status',Math.min(8,ledger.length)+' results · Original calculations from published final scores · Not syndicated news');
@@ -143,7 +141,15 @@ async function desk(){
  msg('nba-yesterday-status',useLedger?(yesterdayGames.length?'Previous Eastern calendar day · '+yesterdayET+' · '+yesterdayGames.length+' verified finals':lastDay?'No verified finals for '+yesterdayET+' · Latest dated ledger: '+lastDay:'No dated ledger events available'):(snapshotGames.length?'Previous Eastern calendar day · '+yesterdayET+' · Scoreboard snapshot':fallbackDay?'Latest scoreboard snapshot: '+fallbackDay+' · Full-season dated ledger not yet published':'No dated final scores available'));
  const upcoming=games.filter(g=>g.state==='pre'||/scheduled/i.test(g.status||'')).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).slice(0,18);
  if(!upcoming.length){msg('nba-forecast-status','No future NBA games in the current published schedule snapshot');unavailable('nba-forecast-games','Upcoming predictions appear when verified future fixtures are available.');return}
- $('nba-forecast-games').innerHTML='<div class="nba-prediction-list">'+upcoming.map(g=>{const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away'),hc=code(h?.name),ac=code(a?.name);if(!hc||!ac||!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';const hp=1/(1+Math.pow(10,-(ratings[hc]+45-ratings[ac])/400));return '<article class="nba-prediction"><p class="nba-news-source">'+esc(date(g.date))+' · '+esc(g.provider||block.provider||'Published fixture')+'</p><div><strong>'+esc(ac)+' @ '+esc(hc)+'</strong><span>'+esc(names[ac])+' '+(100*(1-hp)).toFixed(1)+'% · '+esc(names[hc])+' '+(100*hp).toFixed(1)+'%</span></div><p class="hub-small">Elo '+ratings[ac].toFixed(1)+' / '+ratings[hc].toFixed(1)+' · Home edge +45 · Pregame estimate based on current published ratings; no lineup adjustment.</p></article>'}).join('')+'</div>';
+ $('nba-forecast-games').innerHTML='<div class="nba-prediction-list">'+upcoming.map(g=>{
+ const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');
+ const hc=code(h?.name)||h?.code,ac=code(a?.name)||a?.code;
+ if(!hc||!ac||!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';
+ const hp=1/(1+Math.pow(10,-(ratings[hc]+45-ratings[ac])/400));
+ const favorite=hp>=.5?hc:ac;
+ return '<article class="nba-prediction"><p class="nba-news-source">'+esc(date(g.date))+' · NBA FORECAST</p><div class="nba-forecast-match"><div><img src="'+logo(ac)+'" alt="" loading="lazy"><span><b>'+esc(ac)+'</b><small>'+esc(names[ac])+'</small></span></div><span class="nba-forecast-at">@</span><div><img src="'+logo(hc)+'" alt="" loading="lazy"><span><b>'+esc(hc)+'</b><small>'+esc(names[hc])+'</small></span></div></div><div class="nba-forecast-prob"><div><b>'+((1-hp)*100).toFixed(1)+'%</b><small>'+esc(ac)+' win</small></div><div class="nba-forecast-track"><span style="width:'+((1-hp)*100).toFixed(1)+'%"></span></div><div><b>'+(hp*100).toFixed(1)+'%</b><small>'+esc(hc)+' win</small></div></div><p class="hub-small">Elo favorite: <b>'+esc(favorite)+'</b> · Ratings '+ratings[ac].toFixed(0)+' / '+ratings[hc].toFixed(0)+' · Home advantage included · No lineup adjustment</p></article>';
+ }).join('')+'</div>';
+
  msg('nba-forecast-status','Model-derived win probabilities for verified upcoming fixtures · Not betting odds · Ratings as published');
  }catch(e){console.error('NBA home desk',e);msg('nba-standings-status','NBA standings source unavailable');unavailable('nba-conference-standings','Unable to verify conference records. See official NBA standings.');msg('nba-yesterday-status','Recent final scores unavailable');unavailable('nba-yesterday-scores','Score feed unavailable.');msg('nba-forecast-status','NBA prediction source unavailable');unavailable('nba-forecast-games','Unable to produce predictions from verified schedule and Elo.')}
 }
