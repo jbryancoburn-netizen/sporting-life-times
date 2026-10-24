@@ -52,7 +52,7 @@
     controls.append(views);
     const render=()=>{
       table.replaceChildren();
-      status.textContent=(current===d?"Matchup model v2":"Original fixed-draw model v1")+" · "+current.count_locked+" archived pregame forecasts · Research estimates";
+      status.textContent=(current===d?"Matchup model v2":"Original fixed-draw model v1")+" · "+current.count_locked+" archived pregame forecasts · Research estimates"+(current===d&&d.source_status&&d.source_status!=="complete"?" · Schedule feed incomplete":"");
       const all=current.forecasts.filter(g=>g.cohort===selected&&(view==="all"||(view==="results"?finalById.has(g.match_id):Date.parse(g.kickoff_utc)>Date.now())))
         .sort((a,b)=>view==="results"?Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc):Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
       const pages=Math.max(1,Math.ceil(all.length/12));page=Math.min(page,pages-1);

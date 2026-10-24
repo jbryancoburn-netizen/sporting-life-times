@@ -92,7 +92,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json
+          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
           if git diff --cached --quiet; then
             echo "No new verified NCAA finals or repairs. Published ratings unchanged."
             exit 0
@@ -110,7 +110,7 @@ jobs:
             python scripts/update_college_soccer_elo.py --offline
             python scripts/score_college_soccer_forecasts.py
             python scripts/score_college_soccer_forecasts.py --archive data/college-soccer-prospective-v2.json --output data/college-soccer-forecast-scores-v2.json
-            git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json
+            git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
             git diff --cached --quiet || git commit -m "Reconcile NCAA soccer ratings and forecast scores after rebase"
             python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -q
             sleep 2

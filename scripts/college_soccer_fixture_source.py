@@ -4,7 +4,7 @@ Ratings come from calibrated shadow model; probabilities from heldout
 cohort-specific draw/ensemble configuration. Until NCAA goals-rate feed is
 separately certified, games requiring Poisson blending are not forecast.
 """
-import argparse,datetime as dt,json,urllib.request,urllib.error
+import argparse,datetime as dt,json,urllib.request,urllib.error,time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -54,21 +54,41 @@ def candidate(game,gender,div,ratings,config,clock):
        "kickoff_utc":start.isoformat(),"source_game":"https://www.ncaa.com/game/"+gid,
        "p_home":None,"p_draw":None,"p_away":None,"relative_home":ph}
 
-def fetch_scoreboards(clock):
+def fetch_json(url):
+    request=urllib.request.Request(url,headers={"User-Agent":"SLT-NCAA-Matchup-Forecast/2.0","Accept":"application/json"})
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request,timeout=25) as res:doc=json.load(res)
+            if not isinstance(doc.get("games"),list):raise ValueError("invalid NCAA schedule response")
+            return doc
+        except urllib.error.HTTPError as exc:
+            if exc.code==404:return {"games":[]}
+            if exc.code not in (408,428,429,500,502,503,504) or attempt==2:raise
+        except (urllib.error.URLError,TimeoutError):
+            if attempt==2:raise
+        time.sleep(2**attempt)
+    raise RuntimeError("source retry exhausted")
+
+def fetch_scoreboards_with_audit(clock,getter=fetch_json):
     local=clock.astimezone(ET).date()
     jobs=[(gender,div,local+dt.timedelta(days=delta)) for gender in ("men","women") for div in (1,2,3) for delta in range(3)]
     def fetch(job):
-        gender,div,day=job
+        gender,div,day=job;key=f"{gender}-d{div}"
         url=f"{API}/soccer-{gender}/d{div}/{day:%Y/%m/%d}/all-conf"
-        request=urllib.request.Request(url,headers={"User-Agent":"SLT-NCAA-Matchup-Forecast/2.0"})
         try:
-            with urllib.request.urlopen(request,timeout=30) as res:doc=json.load(res)
-        except urllib.error.HTTPError as exc:
-            if exc.code==404:return f"{gender}-d{div}",[]
-            raise
-        if not isinstance(doc.get("games"),list):raise ValueError("invalid NCAA schedule")
-        return f"{gender}-d{div}",doc["games"]
-    data={f"{gender}-d{div}":[] for gender in ("men","women") for div in (1,2,3)}
-    with ThreadPoolExecutor(max_workers=6) as pool:
-        for key,games in pool.map(fetch,jobs):data[key].extend(games)
+            doc=getter(url)
+            if not isinstance(doc.get("games"),list):raise ValueError("invalid schedule response")
+            return key,doc["games"],None
+        except Exception as exc:
+            return key,[],{"cohort":key,"date":day.isoformat(),"http_status":getattr(exc,"code",None),"error":str(exc)}
+    data={f"{gender}-d{div}":[] for gender in ("men","women") for div in (1,2,3)};errors=[]
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        for key,games,error in pool.map(fetch,jobs):
+            data[key].extend(games)
+            if error:errors.append(error)
+    return data,errors
+
+def fetch_scoreboards(clock):
+    data,errors=fetch_scoreboards_with_audit(clock)
+    if errors:raise RuntimeError("NCAA fixture source incomplete: "+json.dumps(errors))
     return data

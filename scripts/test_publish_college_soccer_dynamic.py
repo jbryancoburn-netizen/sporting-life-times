@@ -1,7 +1,17 @@
 import copy,datetime as dt,unittest
 from publish_college_soccer_dynamic import predict,poisson_draw,rates,prior_state,build
+from college_soccer_fixture_source import fetch_scoreboards_with_audit
 
 class DynamicPublisherTests(unittest.TestCase):
+    def test_partial_schedule_failure_is_explicit(self):
+        def getter(url):
+            if '/soccer-women/d2/' in url:raise OSError('source unavailable')
+            return {'games':[{'source':url}]}
+        source,errors=fetch_scoreboards_with_audit(dt.datetime.fromisoformat('2026-10-24T12:00:00+00:00'),getter)
+        self.assertEqual(len(errors),3)
+        self.assertEqual(source['women-d2'],[])
+        self.assertEqual(len(source['men-d1']),3)
+
     def fixture(self):
         goal={'matches':10,'home_goals':15,'away_goals':10,'teams':{'a':{'home_n':5,'home_gf':8,'home_ga':3},'b':{'away_n':5,'away_gf':4,'away_ga':9}}}
         bundle={'goal_as_of':'2026-10-22','goals':{'men-d1':goal},

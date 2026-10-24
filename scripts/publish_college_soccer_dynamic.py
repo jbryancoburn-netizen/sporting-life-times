@@ -6,7 +6,7 @@ Original v1 forecasts are never read for modification or overwritten.
 import copy,datetime as dt,math,json,argparse
 from pathlib import Path
 from collections import defaultdict
-from college_soccer_fixture_source import candidate,fetch_scoreboards,now_utc,ET
+from college_soccer_fixture_source import candidate,fetch_scoreboards_with_audit,now_utc,ET
 from update_college_soccer_elo import atomic_json,read_json,HERE
 
 MODEL='ncaa_matchup_draw_v2'
@@ -104,19 +104,26 @@ def build(bundle,finals,source,existing,clock):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--offline',action='store_true');args=p.parse_args()
     path=HERE/'data/college-soccer-prospective-v2.json'
-    old=read_json(path)['forecasts'] if path.exists() else []
+    prior=read_json(path) if path.exists() else {}
+    old=prior.get('forecasts',[])
     bundle=read_json(HERE/'data/college-soccer-dynamic-state.json')
     finals=read_json(HERE/'data/college-soccer-elo-final-ledger.json')['results']
-    source={} if args.offline else fetch_scoreboards(now_utc())
+    if args.offline:
+        source,errors={},[]
+        source_status=prior.get('source_status','not_checked')
+    else:
+        source,errors=fetch_scoreboards_with_audit(now_utc())
+        source_status='complete' if not errors else 'unavailable' if len(errors)==18 else 'partial'
+        atomic_json(HERE/'data/college-soccer-forecast-source-audit.json',{'checked_at':now_utc().isoformat(),'status':source_status,'scoreboards_expected':18,'scoreboards_succeeded':18-len(errors),'errors':errors})
     clock=now_utc() # Timestamp only after the network source has arrived.
     rows,new=build(bundle,finals,source,old,clock)
     expired={r['match_id'] for r in new if dt.datetime.fromisoformat(r['kickoff_utc'])<=now_utc()}
     rows=[r for r in rows if r['match_id'] not in expired]
     new=[r for r in new if r['match_id'] not in expired]
     envelope={'status':'prospective_research_only','model':MODEL,'count_locked':len(rows),'forecasts':rows,
-              'published_at':max((r['forecasted_at_utc'] for r in rows),default=None),
+              'published_at':max((r['forecasted_at_utc'] for r in rows),default=None),'source_status':source_status,
               'notice':'Matchup-specific research forecasts. Original v1 archive is retained separately.'}
     atomic_json(path,envelope)
-    print(json.dumps({'locked':len(rows),'new':len(new),'distinct_draw_probabilities':len({r['p_draw'] for r in rows})}))
+    print(json.dumps({'locked':len(rows),'new':len(new),'distinct_draw_probabilities':len({r['p_draw'] for r in rows}),'source_status':source_status,'source_errors':len(errors)}))
 
 if __name__=='__main__':main()
