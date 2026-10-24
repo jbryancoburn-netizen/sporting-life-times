@@ -6,6 +6,8 @@ on:
       - 'scripts/test_build_ncaam_player_quality_overhaul.py'
       - 'scripts/audit_ncaam_overhaul_promotion.py'
       - 'scripts/audit_ncaam_transfer_source_strength.py'
+      - 'data/ncaam-2026-27-scoring-quality-shadow.json'
+      - 'data/ncaam-quality-earlyseason-asof-backtest.json'
       - '.github/workflows/ncaam-player-quality-overhaul.yml'
   workflow_dispatch:
 permissions:
