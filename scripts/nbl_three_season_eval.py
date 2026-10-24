@@ -41,6 +41,17 @@ def evaluate(seasons,k=20.,home=65.,regression=.25):
         reports[name]=scoring(obs)
     return reports
 
+def lagged_home_baseline(seasons,smoothing=20):
+    """Use only the PRECEDING season's home win rate, never held-out results."""
+    prior=None
+    output={}
+    for name,games in seasons:
+        p=.5 if prior is None else (prior[0]+smoothing*.5)/(prior[1]+smoothing)
+        output[name]={"predicted_home_win_rate":round(p,6),
+                      **scoring([(p,int(g["home_score"]>g["away_score"])) for g in games])}
+        prior=(sum(g["home_score"]>g["away_score"] for g in games),len(games))
+    return output
+
 def main():
     parser=argparse.ArgumentParser()
     for season in START:parser.add_argument("--s"+season[:4],required=True)
@@ -51,6 +62,7 @@ def main():
     for season,path in inputs:data[season],excluded[season]=games(path,season)
     seasons=list(data.items())
     prediction=evaluate(seasons)
+    lagged_baseline=lagged_home_baseline(seasons)
     baseline={"log_loss":round(math.log(2),6),"brier":.25}
     outcome={"status":"RESEARCH_UNCERTIFIED","publication_approved":False,
              "parameters":{"k":20,"home_advantage_elo":65,"regression":.25},
@@ -59,6 +71,8 @@ def main():
              "known_standalone_cup_final_exclusion":{"2025-26":["401858632"]},
              "season_predictions":prediction,
              "coin_flip_baseline":baseline,
+             "prior_season_home_rate_baseline":lagged_baseline,
+             "holdout_beats_lagged_home_rate":prediction["2026-27"]["log_loss"]<lagged_baseline["2026-27"]["log_loss"],
              "validation_beats_coin_flip":prediction["2025-26"]["log_loss"]<baseline["log_loss"],
              "untouched_holdout_beats_coin_flip":prediction["2026-27"]["log_loss"]<baseline["log_loss"],
              "warnings":["2024-25 candidate scores have not received independent game-level confirmation",
