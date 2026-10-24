@@ -10,6 +10,9 @@ on:
       - '.github/workflows/college-soccer-elo-live.yml'
       - 'scripts/update_college_soccer_elo.py'
       - 'scripts/test_update_college_soccer_elo.py'
+      - 'scripts/score_college_soccer_forecasts.py'
+      - 'scripts/test_score_college_soccer_forecasts.py'
+      - 'data/college-soccer-prospective.json'
       - 'data/college-soccer-elo-baseline.json'
       - 'data/college-soccer-elo-final-ledger.json'
 
@@ -35,8 +38,12 @@ jobs:
           python-version: '3.12'
       - name: Verify source parser and no-duplicate Elo replay
         run: python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -v
+      - name: Verify prospective forecast scoring
+        run: python -m unittest discover -s scripts -p test_score_college_soccer_forecasts.py -v
       - name: Check new NCAA men's and women's final scores in all divisions
         run: python scripts/update_college_soccer_elo.py --lookback 4
+      - name: Score locked pregame forecasts against verified finals
+        run: python scripts/score_college_soccer_forecasts.py
       - name: Validate JSON contract and published game evidence
         run: |
           python - <<'PY'
@@ -71,7 +78,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json
+          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json
           if git diff --cached --quiet; then
             echo "No new verified NCAA finals or repairs. Published ratings unchanged."
             exit 0
@@ -87,6 +94,9 @@ jobs:
             git fetch origin main
             git rebase origin/main || { git rebase --abort || true; exit 1; }
             python scripts/update_college_soccer_elo.py --offline
+            python scripts/score_college_soccer_forecasts.py
+            git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json
+            git diff --cached --quiet || git commit -m "Reconcile NCAA soccer ratings and forecast scores after rebase"
             python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -q
             sleep 2
           done
@@ -99,7 +109,7 @@ jobs:
           from pathlib import Path
           import hashlib, os, urllib.request
           root='https://jbryancoburn-netizen.github.io/sporting-life-times'
-          paths=['data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html']
+          paths=['data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json']
           differences=[]
           for path in paths:
               expected=hashlib.sha256(Path(path).read_bytes()).hexdigest()
