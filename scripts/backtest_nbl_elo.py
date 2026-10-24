@@ -69,6 +69,6 @@ def main():
                "No lineup effects or score-margin calibration",
                "Model parameters must be chosen using training years, not this holdout"]}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
-    Path(a.output).write_text(json.dumps(report,indent=2)+"\\n")
+    Path(a.output).write_text(json.dumps(report,indent=2)+"\n")
     print(json.dumps(report,indent=2))
 if __name__=="__main__":main()
