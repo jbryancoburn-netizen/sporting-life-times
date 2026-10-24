@@ -21,9 +21,11 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
     assert len(b)==len(s)==len(q)==365
     assert {x["team_id"] for x in roster["rankings"]}==set(b)
     rows=[]
+    identity_mismatches=[]
     for team in roster["rankings"]:
         tid=team["team_id"]
-        assert s[tid]["verified_players"]==team["evidence_player_count"]
+        identity_ok=s[tid]["verified_players"]==team["evidence_player_count"]
+        if not identity_ok:identity_mismatches.append({"team_id":tid,"roster_count":team["evidence_player_count"],"scoring_count":s[tid]["verified_players"]})
         baseline=float(b[tid]["elo"])
         # Do not reward unverified incoming minutes as though all transfers
         # came from comparably strong competition.
@@ -35,21 +37,21 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
         transfer_component=160*(incoming-median_i)*transfer_weight
         # Quality term is calculated from verified historical scoring; it is
         # context-uncalibrated and retained strictly as a research scenario.
-        quality=float(q[tid]["experimental_scoring_quality_adjustment"])*scoring_weight
+        quality=float(q[tid]["experimental_scoring_quality_adjustment"])*scoring_weight if identity_ok else 0.0
         adj=round(roster_weight*(retention_component+transfer_component)+quality,4)
         rows.append({"team_id":tid,"team":team["team"],"conference":team["conference"],
                      "base_elo":round(baseline,4),"retention_component":round(retention_component*roster_weight,4),
                      "transfer_component":round(transfer_component*roster_weight,4),
                      "quality_component":round(quality,4),"offseason_adjustment":adj,
                      "elo":round(baseline+adj,4),
-                     "verified_player_count":s[tid]["verified_players"],
+                     "verified_player_count":s[tid]["verified_players"],"identity_count_reconciled":identity_ok,
                      "unverified_player_quality_imputed":False,"season_games":0})
     rows.sort(key=lambda x:(-x["elo"],x["team_id"]))
     for i,x in enumerate(rows,1):x["rank"]=i
     return {"model":"slat-ncaam-2026-27-player-quality-challenger-v3",
       "season":"2026-27","status":"SHADOW_UNCERTIFIED_PRESEASON",
       "production_elo_approved":False,"preseason_asof_certified":False,
-      "team_count":365,"games_played":0,
+      "team_count":365,"games_played":0,"identity_mismatches":identity_mismatches,
       "inputs":{"game_baseline":"ncaam-2026-27-preseason-provisional.json",
                 "roster":"ncaam-2026-27-preseason-roster-informed.json",
                 "player_quality":"ncaam-2026-27-scoring-quality-shadow.json",
@@ -59,6 +61,7 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
       "limitations":["Scoring points per prior minute is not full player value or defensive quality",
                      "School-strength and previous competition adjustment not certified",
                      "Missing player and freshman value not imputed",
+                     "Mismatched cross-source player counts receive zero quality adjustment",
                      "No season-opening as-of roster snapshot held-out validation",
                      "Do not substitute this exploratory rating for certified predictions"],
       "rankings":rows}
