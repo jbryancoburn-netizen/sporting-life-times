@@ -29,6 +29,6 @@ function render(args){
  return '<div class="slt-scorebug slt-scorebug-'+mode+'" style="--away-color:'+color(args.away)+';--home-color:'+color(args.home)+'"><div class="slt-scorebug-top"><strong>'+(projected?'PROJECTED':headline)+'</strong><span>'+subtitle+'</span></div><div class="slt-scorebug-rows">'+rows+'</div>'+
  (args.footer?'<div class="slt-scorebug-footer">'+args.footer+'</div>':'')+'</div>';
 }
-root.SLTScorebug={render};
+root.SLTScorebug={render,color:code=>color({code})};
 if(typeof module!=='undefined')module.exports={render};
 })(typeof window!=='undefined'?window:globalThis);
