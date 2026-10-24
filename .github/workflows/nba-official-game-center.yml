@@ -9,6 +9,7 @@ on:
       - 'scripts/backfill-nba-espn.py'
       - 'scripts/collect-nba-schedule.py'
       - 'scripts/enrich-nba-game-details.py'
+      - 'scripts/test-nba-game-details.py'
       - 'scripts/collect-nba-player-leaders.py'
       - 'scripts/build-nba-possession-inputs.mjs'
       - 'scripts/test-nba-ingestion.py'
@@ -36,6 +37,7 @@ jobs:
         run: |
           python scripts/test-nba-ingestion.py
           python scripts/test-nba-espn-backfill.py
+          python scripts/test-nba-game-details.py
       - name: Backfill missed completed NBA player box scores from official schedule
         continue-on-error: true
         run: python scripts/backfill-nba-boxscores.py
