@@ -44,4 +44,6 @@ async function render(){
  msg('nba-frozen-status','2025–26 historical final Elo · 30 teams · 1,230 regular-season games + 85 playoff games.');
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>render().catch(error),{once:true});else render().catch(error);
+// Keep standings and independent Elo current without requiring manual refresh.
+setInterval(()=>{if(!document.hidden)render().catch(error)},3*60*1000);
 })();
