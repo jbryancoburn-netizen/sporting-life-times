@@ -92,3 +92,24 @@ body[data-league="nbl"] .league-newspaper-grid #nbl-compare-desk .nbl-compare-gr
  body[data-league="nbl"] .league-newspaper-grid #league-data-links,
  body[data-league="nbl"] .league-newspaper-grid #league-upcoming{grid-column:1!important}
 }
+
+/* Individual NBL club edition — shares the same masthead and journal grid. */
+body[data-league="nbl"] .nbl-club-page{max-width:1240px!important}
+body[data-league="nbl"] .nbl-club-page .nbl-edition-head{margin-bottom:13px}
+body[data-league="nbl"] .nbl-club-page .nbl-edition-data{grid-template-columns:repeat(4,minmax(0,1fr))}
+body[data-league="nbl"] .nbl-club-page .nbl-edition-cell strong{font-variant-numeric:tabular-nums}
+body[data-league="nbl"] .nbl-club-two-column{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:22px;border-top:3px double var(--nbl-ink);padding-top:10px}
+body[data-league="nbl"] .nbl-club-two-column>.hub-feature{min-width:0;margin:0!important}
+body[data-league="nbl"] .nbl-club-two-column .nbl-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+body[data-league="nbl"] .nbl-club-two-column #nbl-club-upcoming{grid-template-columns:1fr}
+body[data-league="nbl"] .nbl-team-crest{width:clamp(55px,8vw,98px);height:clamp(55px,8vw,98px);object-fit:contain;flex:none}
+body[data-league="nbl"] .nbl-club-page .nbl-team-summary-head{gap:17px;align-items:center}
+body[data-league="nbl"] .nbl-club-research-note{border-top:2px solid var(--nbl-ink);margin-top:18px;padding:10px 0;font:13px/1.55 Georgia,serif}
+body[data-league="nbl"] .nbl-club-research-note h3{font:700 14px Arial,sans-serif;text-transform:uppercase;letter-spacing:.06em;margin:4px 0 7px}
+body[data-league="nbl"] .nbl-club-research-note a{color:var(--nbl-ink);text-underline-offset:3px}
+body[data-league="nbl"] .nbl-elo-club a{color:inherit;text-decoration:none}
+body[data-league="nbl"] .nbl-elo-club a:hover,body[data-league="nbl"] .nbl-elo-club a:focus-visible{text-decoration:underline;text-decoration-color:var(--nbl-accent);text-underline-offset:3px}
+body[data-league="nbl"] .nbl-team-summary h3 a{color:inherit;text-decoration:none}
+body[data-league="nbl"] .nbl-team-summary h3 a:hover{text-decoration:underline}
+@media(max-width:850px){body[data-league="nbl"] .nbl-club-two-column{grid-template-columns:1fr}body[data-league="nbl"] .nbl-club-page .nbl-edition-data{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:590px){body[data-league="nbl"] .nbl-club-two-column .nbl-results-list{grid-template-columns:1fr}body[data-league="nbl"] .nbl-club-page .nbl-edition-title{font-size:2.1rem}}
