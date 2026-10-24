@@ -1,0 +1,39 @@
+/* NCAA men's desk follows the NBA edition's restrained newspaper design. */
+body.league-page[data-slug="ncaam"]{background:#f7f5f0;color:#28231f;font-family:Georgia,"Times New Roman",serif}
+body[data-slug="ncaam"] .desk-wrap{max-width:1430px}
+body[data-slug="ncaam"] .cbb-shell{max-width:1430px;padding:0 20px 50px}
+body[data-slug="ncaam"] .cbb-headline{font-weight:700;letter-spacing:-.05em}
+body[data-slug="ncaam"] .cbb-grid{grid-template-columns:minmax(0,1.22fr) minmax(0,.98fr) minmax(0,.9fr);gap:clamp(14px,2vw,28px);margin-top:16px}
+body[data-slug="ncaam"] .cbb-panel{border-top:2px solid #35302b;padding:12px 0 22px}
+body[data-slug="ncaam"] .cbb-panel h2{font-weight:700;font-size:clamp(19px,1.7vw,24px);letter-spacing:-.035em;border-bottom:1px solid #d2cbc0;padding-bottom:9px}
+body[data-slug="ncaam"] .cbb-editorial .cbb-news-panel{border-top:3px double #28231f}
+body[data-slug="ncaam"] .cbb-story{padding:13px 0;border-bottom:1px solid #d8d0c4}
+body[data-slug="ncaam"] .cbb-story:first-child a{font-size:clamp(25px,2.4vw,34px);line-height:1.1;font-weight:700;letter-spacing:-.025em}
+body[data-slug="ncaam"] .cbb-story:not(:first-child) a{font-size:17px;line-height:1.2;font-weight:600}
+body[data-slug="ncaam"] .cbb-story p{font:13px/1.5 Georgia,serif;color:#655e55;margin:6px 0}
+body[data-slug="ncaam"] .cbb-story small{font:10px Arial,sans-serif;letter-spacing:.025em;color:#766c5e}
+body[data-slug="ncaam"] .cbb-ticker{border-top:3px double #39332e;border-bottom:3px double #39332e;margin:14px 0;padding:11px 0;display:flex;justify-content:space-between;align-items:start;gap:16px}
+body[data-slug="ncaam"] .cbb-ticker>div{min-width:0;flex:1}
+body[data-slug="ncaam"] .cbb-ticker strong{font:700 11px Arial,sans-serif;letter-spacing:.08em}
+body[data-slug="ncaam"] .cbb-ticker>a{font:700 12px Georgia,serif;white-space:nowrap}
+body[data-slug="ncaam"] #live-scoreboard{display:flex;gap:10px;overflow-x:auto;scrollbar-width:thin}
+body[data-slug="ncaam"] #live-scoreboard>.cbb-game{min-width:200px;max-width:260px;flex:0 0 auto;padding:8px 10px;border:1px solid #d4cbbd;background:#fffdf9;margin:8px 0 0}
+body[data-slug="ncaam"] .cbb-game{background:#fffefa;border:1px solid #dad2c7;border-top:3px solid #454039;padding:12px;margin:8px 0;box-shadow:0 3px 9px rgba(35,28,20,.045)}
+body[data-slug="ncaam"] .cbb-versus{margin-top:8px}
+body[data-slug="ncaam"] .cbb-versus strong{font:600 13px Georgia,serif}
+body[data-slug="ncaam"] .cbb-versus b{font:700 24px Georgia,serif}
+body[data-slug="ncaam"] .cbb-versus img{width:27px;height:27px}
+body[data-slug="ncaam"] .cbb-probability{display:grid;grid-template-columns:1fr 1fr;gap:12px;font:700 12px Georgia,serif}
+body[data-slug="ncaam"] .cbb-probability span:last-child{text-align:right}
+body[data-slug="ncaam"] .cbb-probability-track{height:7px;background:#aaa197;border-radius:5px;margin-top:10px;overflow:hidden}
+body[data-slug="ncaam"] .cbb-probability-track span{display:block;height:100%;background:#49413b}
+body[data-slug="ncaam"] .cbb-ranking{grid-template-columns:22px minmax(0,1fr) 78px 58px;gap:7px;padding:8px 0}
+body[data-slug="ncaam"] .cbb-ranking strong{font-size:15px;font-weight:600}
+body[data-slug="ncaam"] .cbb-table{font:12px Georgia,serif}
+body[data-slug="ncaam"] .cbb-table th,body[data-slug="ncaam"] .cbb-table td{padding:8px 2px}
+body[data-slug="ncaam"] #conference-filter,body[data-slug="ncaam"] #cbb-team-search{display:block;width:100%;border:1px solid #beb5aa;background:#fffefa;border-radius:2px;padding:10px;margin:8px 0 12px;font:13px Georgia,serif;color:inherit}
+body[data-slug="ncaam"] .cbb-team-link{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #d8d0c4;color:inherit;text-decoration:none;font:13px Georgia,serif}
+body[data-slug="ncaam"] .cbb-team-link span:last-child{font-variant-numeric:tabular-nums}
+body[data-slug="ncaam"] .cbb-muted{color:#70675d}
+@media(max-width:1050px){body[data-slug="ncaam"] .cbb-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}body[data-slug="ncaam"] .cbb-editorial{grid-column:1/-1}body[data-slug="ncaam"] #stories{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}body[data-slug="ncaam"] #stories .cbb-story:first-child{grid-column:1/-1}}
+@media(max-width:650px){body[data-slug="ncaam"] .cbb-shell{padding:0 13px 35px}body[data-slug="ncaam"] .cbb-grid{display:block}body[data-slug="ncaam"] .cbb-column{display:block}body[data-slug="ncaam"] .cbb-panel{margin-bottom:14px}body[data-slug="ncaam"] #stories{display:block}body[data-slug="ncaam"] .cbb-ticker{display:block}body[data-slug="ncaam"] .cbb-ticker>a{display:inline-block;margin-top:10px}body[data-slug="ncaam"] .cbb-ranking{grid-template-columns:23px minmax(0,1fr) 70px 58px}}
