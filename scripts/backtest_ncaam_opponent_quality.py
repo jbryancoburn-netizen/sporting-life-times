@@ -24,6 +24,9 @@ def opponent_quality(box,schedule,team_rows):
 def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
     names=defaultdict(set);old=defaultdict(set)
     minutes=defaultdict(float)
+    points=defaultdict(float)
+    all_minutes=0.0
+    all_points=0.0
     for r in box:
         team=clean(r.get("team"));name=clean(r.get("clean_name") or r.get("player"))
         pid=str(r.get("player_id") or "")
@@ -31,13 +34,23 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
             old[(team,name)].add(pid)
             try:m=float(r.get("mins") or 0)
             except (ValueError,TypeError):continue
-            if 0<=m<=75:minutes[(team,pid)]+=m
+            if 0<=m<=75:
+                minutes[(team,pid)]+=m
+                try:p=float(r.get("pts") or 0)
+                except (ValueError,TypeError):p=-1
+                if 0<=p<=100:
+                    points[(team,pid)]+=p
+                    all_minutes+=m
+                    all_points+=p
     for r in roster:
         team=clean(r.get("team"));name=clean(r.get("player"))
         if team and name:names[team].add(name)
     teams_by_name=defaultdict(set)
     for team,name in old:teams_by_name[name].add(team)
     weighted=defaultdict(float);weight=defaultdict(float)
+    scored=defaultdict(float);scored_minutes=defaultdict(float)
+    mean_ppm=all_points/all_minutes if all_minutes else 0
+    if not (0.2<mean_ppm<0.65):raise ValueError("Implausible historical points per minute")
     for target in members:
         for name in names.get(target,set()):
             prior=teams_by_name.get(name,set())
@@ -50,14 +63,18 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
             if q is None:continue
             m=minutes[(source,pid)]
             if m<200:continue
+            scored[target]+=points[(source,pid)]-mean_ppm*m
+            scored_minutes[target]+=m
             # Control for source-team strength; raw opponent exposure can proxy
             # for playing at a historically strong school.
             baseline=(prior_team_ratings or {}).get(source,1500.)
             weighted[target]+=(q["opponent_pregame_elo"]-baseline)*m
             weight[target]+=m
-    return {t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
+    opponent={t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
+    scoring={t:scored[t]/scored_minutes[t] for t in members if scored_minutes[t]>=1000}
+    return opponent,scoring
 
-def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True,coverage_fallback=False):
+def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True,coverage_fallback=False,scoring=None,scoring_beta=0):
     valid={t for t in features if t in quality} if require_quality else {t for g in schedule for t in (g[2],g[3])}
     if len(valid)<200:raise ValueError("Insufficient quality feature coverage")
     end=schedule[0][0].toordinal()+days-1
@@ -65,12 +82,16 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
     mt=sorted(x["incoming_minutes"] for x in features.values())[len(features)//2]
     quality_values=sorted(quality.values())
     mq=quality_values[len(quality_values)//2]
+    scoring=scoring or {}
+    sq=sorted(scoring.values())
+    ms=sq[len(sq)//2] if sq else 0.0
     # Keep retention and incoming coefficients fixed to previously trained
     # +120/+160. Only train opponent-quality slope on training seasons.
     ratings={t:1500+.65*(previous.get(t,1500)-1500)+
         (roster_betas[0]*(features[t]["retention"]-mk)+roster_betas[1]*(features[t]["incoming_minutes"]-mt)
          if t in features else 0)+
-        (beta*(quality[t]-mq)/100 if t in quality else 0)
+        (beta*(quality[t]-mq)/100 if t in quality else 0)+
+        (scoring_beta*(scoring[t]-ms) if t in scoring else 0)
         for t in {x for g in schedule for x in (g[2],g[3])}}
     # Two rating tracks are replayed through every game. The game-only track
     # is used for missing-feature matchups, including when the opponent is
@@ -118,8 +139,8 @@ def run():
     for year in (2024,2025,2026):
         prior=seasons[year-1];now=seasons[year]
         f=continuity(prior["box"],now["roster"],now["members"])
-        q=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"])
-        data[year]={"features":f,"quality":q,"coverage":len(q)}
+        q,scoring=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"])
+        data[year]={"features":f,"quality":q,"scoring":scoring,"coverage":len(q)}
     # Wide predeclared search checks whether the prior optimum sat on a grid edge.
     slopes=(-240,-200,-160,-120,-80,-40,-20,0,20,40,80,120,160,200,240)
     train=[]
@@ -194,6 +215,33 @@ def run():
             "logloss_gain":plain["log_loss"]-hybrid["log_loss"],
             "brier_gain":plain["brier"]-hybrid["brier"]}
     fallback_all_windows_improve=all(x["logloss_gain"]>0 and x["brier_gain"]>0 for x in fallback_windows.values())
+    # Isolate extra player scoring beyond the incumbent minute+opponent model.
+    # Select coefficient from 2024+2025 only; report 2026 just once.
+    score_grid=(-600,-400,-200,-100,0,100,200,400,600)
+    score_trials=[]
+    opponent_beta=best["beta_per_100_opponent_elo"]
+    for score_beta in score_grid:
+        trial=[]
+        for yr in (2024,2025):
+            trial.append(evaluate_quality(seasons[yr]["schedule"],seasons[yr-1]["end"],
+                data[yr]["features"],data[yr]["quality"],opponent_beta,
+                scoring=data[yr]["scoring"],scoring_beta=score_beta))
+        total=sum(x["games"] for x in trial)
+        score_trials.append({"scoring_beta":score_beta,"games":total,
+            "log_loss":sum(x["log_loss"]*x["games"] for x in trial)/total,
+            "brier":sum(x["brier"]*x["games"] for x in trial)/total})
+    scoring_winner=min(score_trials,key=lambda x:(x["log_loss"],x["brier"],abs(x["scoring_beta"])))
+    score_holdout=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+        data[2026]["features"],data[2026]["quality"],opponent_beta,
+        scoring=data[2026]["scoring"],scoring_beta=scoring_winner["scoring_beta"])
+    if score_holdout["matched_games_sha256"]!=hold["matched_games_sha256"]:
+        raise ValueError("Incremental player scoring trial changed opponent-model holdout games")
+    scoring_incremental={"training_grid":score_trials,"selected_beta":scoring_winner["scoring_beta"],
+        "holdout_roster_opponent_baseline":hold,"holdout_plus_individual_scoring":score_holdout,
+        "holdout_logloss_gain":hold["log_loss"]-score_holdout["log_loss"],
+        "holdout_brier_gain":hold["brier"]-score_holdout["brier"],
+        "identical_holdout_games":True,"preseason_roster_asof_verified":False,
+        "primary_elo_promotion_approved":False}
     if base["matched_games_sha256"]!=hold["matched_games_sha256"]:
         raise ValueError("Opponent model holdout must predict identical contests")
     if full_game_only["matched_games_sha256"]!=full_fallback["matched_games_sha256"]:
@@ -208,6 +256,7 @@ def run():
         "training_grid_values":list(slopes),
         "training_year_diagnostics":train_by_season,
         "holdout_baseline":base,"holdout_adjusted":hold,
+        "scoring_incremental_challenge":scoring_incremental,
         "holdout_game_only":game_only,
         "holdout_all_games_game_only":full_game_only,
         "holdout_all_games_enhanced_with_fallback":full_fallback,
