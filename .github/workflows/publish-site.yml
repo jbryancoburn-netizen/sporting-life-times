@@ -160,6 +160,21 @@ jobs:
           else
             echo "NBL standings source withheld safely: snapshot not present"
           fi
+          echo "Checking published independent NBL research Elo"
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-elo-research.json" -o /tmp/nbl-research-elo.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/nbl-research-elo.json'))
+          assert d.get('status')=='RESEARCH_ONLY_UNCERTIFIED'
+          assert d.get('production_approved') is False and d.get('prediction_certified') is False
+          rows=d.get('ratings',[])
+          assert len(rows)==10 and len({r['team'] for r in rows})==10
+          assert [r['rank'] for r in rows]==list(range(1,11))
+          assert all(isinstance(r.get('elo'),(float,int)) for r in rows)
+          assert sum(r['wins'] for r in rows)==d['current_regular_season_games']
+          assert sum(r['losses'] for r in rows)==d['current_regular_season_games']
+          print('Confirmed ten NBL ratings, consistent records, and explicit research-only release status')
+          PY
           echo "Checking approved EPL forecast publication state"
           curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "$base/data/epl-forecast-publication-status.json" -o /tmp/epl-release-status.json
           python -c 'import json; s=json.load(open("/tmp/epl-release-status.json")); assert s.get("competition")=="EPL" and isinstance(s.get("published"),bool)'
