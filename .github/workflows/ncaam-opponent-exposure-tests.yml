@@ -5,6 +5,8 @@ on:
       - 'scripts/build_ncaam_player_opponent_elo.py'
       - 'scripts/backtest_ncaam_opponent_quality.py'
       - 'scripts/test_ncaam_opponent_exposure_integrity.py'
+      - 'scripts/verify_ncaam_opponent_quality_promotion.py'
+      - 'scripts/test_ncaam_opponent_quality_promotion.py'
       - '.github/workflows/ncaam-opponent-exposure-tests.yml'
   workflow_dispatch:
 permissions:
@@ -18,3 +20,5 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_exposure_integrity.py' -v
+      - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_quality_promotion.py' -v
+      - run: python scripts/verify_ncaam_opponent_quality_promotion.py
