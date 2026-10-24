@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
-const {analyze}=require('../nba-game-comparison.js');
+const {analyze,shooting}=require('../nba-game-comparison.js');
 const game={team_comparison:{away:{'FG%':47.5,'3PT%':35,'REB':41,'TO':9},home:{'FG%':51.2,'3PT%':29,'REB':39,'TO':14}}};
 const m=Object.fromEntries(analyze(game).map(x=>[x.key,x]));
 assert.equal(m['FG%'].advantage,'home');
@@ -25,7 +25,16 @@ for(const game of archive.games||[]){
   assert(['away','home','even'].includes(metric.advantage));
   if(metric.key.endsWith('%'))assert.equal(metric.awayWidth,metric.away);
  }
+ const advanced=shooting(game);
+ if(advanced.away&&advanced.home){
+  for(const side of ['away','home']){
+   assert(advanced[side]['eFG%']>=0&&advanced[side]['eFG%']<=100);
+   assert(advanced[side]['TS%']>0&&advanced[side]['TS%']<150);
+   assert(advanced[side]['3PA RATE']>=0&&advanced[side]['3PA RATE']<=100);
+  }
+ }
  if(compared.length)tested++;
 }
 assert(tested>0,'No actual captured NBA team statistics were evaluated');
+assert.deepEqual(shooting({teams:[{code:'A',home_away:'away',score:100}],players:[{team:'A',pts:1,fgm:0,fga:1,fg3m:0,fg3a:0,ftm:0,fta:0}]}),{},'Do not invent efficiency from incomplete box scores');
 console.log('PASS NBA comparison: '+tested+' archived games, correct scales, turnover direction and invalid-data rejection');
