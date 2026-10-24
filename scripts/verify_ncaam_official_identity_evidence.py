@@ -38,7 +38,27 @@ def verify():
                 f"Unsafe historical identity acceptance for {key}"
             )
             statuses[key] = evidence["evidence_status"]
+    # Official school biographies establish zero 2025-26 appearances for these
+    # athletes. Positive minutes in proposed historical joins are a hard conflict,
+    # not a reason to silently substitute another player's production.
+    official_no_action = {
+        "5313825": "CONFIRMED_NO_2025_26_GAME_ACTION",  # Gustavo Guimares
+        "5107366": "OFFICIAL_2025_26_DID_NOT_PLAY",   # Joshua Hughes
+        "5311606": "OFFICIAL_2025_26_REDSHIRT",      # Jayden Reid
+        "5314629": "OFFICIAL_2025_26_DID_NOT_PLAY",   # Isaiah Williams
+    }
+    for athlete_id, expected_status in official_no_action.items():
+        assert statuses[athlete_id] == expected_status, (
+            f"Loss of official no-action safeguard for {athlete_id}"
+        )
+        assert athlete_id in flagged, f"Missing player exception: {athlete_id}"
+        assert flagged[athlete_id]["release_action"] == (
+            "EXCLUDE_PENDING_DOCUMENTARY_VERIFICATION"
+        ), f"Player improperly cleared without verified historical identity: {athlete_id}"
     assert seen == set(flagged), f"Not every flagged identity has evidence: {set(flagged)-seen}"
+    assert len(statuses) == 13
+    print("PASS: all 13 cases have documentation and four no-action safeguards remain excluded")
+
     print(json.dumps({
         "total_flagged": len(flagged),
         "documented_with_official_sources": len(seen),
