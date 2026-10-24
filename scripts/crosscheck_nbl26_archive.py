@@ -31,23 +31,57 @@ def compact(text):
 def visible(html):
     p=VisibleText();p.feed(html);return compact(" ".join(p.parts))
 
+# These exceptions were separately reviewed against game-level scores, rather
+# than silently overriding source data to match an article's typed summary.
+# "article_line" is the exact discrepant text expected in the article.
+REVIEWED={
+ "401787560":{"article_line":"South East Melbourne Phoenix 81 Adelaide 36ers 93",
+   "kind":"article_score_discrepancy",
+   "evidence":"https://www.basketball-reference.com/international/schedules/se-melbourne/2026.html"},
+ "401787588":{"article_line":"Sydney Kings 117 Cairns Taipans 77",
+   "kind":"article_score_discrepancy",
+   "evidence":"https://www.basketball-reference.com/international/schedules/sydney/2026.html"},
+ "401787629":{"article_line":"New Zealand Breakers 106 Illawarra Hawks 94",
+   "kind":"article_score_discrepancy",
+   "evidence":"https://www.hawks.com.au/news/game-report-hawks-breakers-rd20-nbl26"},
+ "401787634":{"article_line":"South East Melbourne Phoenix 88 Sydney Kings 113",
+   "kind":"article_score_discrepancy",
+   "evidence":"https://www.basketball.com.au/games/south-east-melbourne-phoenix-v-sydney-kings-men-08-02-2026"},
+ "401863732":{"article_line":"Sydney Kings 89 Perth Wildcats 75",
+   "kind":"article_reverses_team_order",
+   "evidence":"https://www.basketball.com.au/games/perth-wildcats-v-sydney-kings-men-14-03-2026"}
+}
+
 def audit(data,article_text):
     if data.get("status")!="uncertified_source_candidates":
         raise ValueError("Expected research candidate source payload")
     games=[g for g in data.get("games",[]) if g.get("id")!=CUP_FINAL_ID]
-    found=[];unmatched=[]
+    found=[];unmatched=[];reviewed=[]
     for g in games:
         home=ALIASES.get(g["home"],g["home"])
         away=ALIASES.get(g["away"],g["away"])
         scoreline=compact(f"{home} {g['home_score']} {away} {g['away_score']}")
-        match=scoreline in article_text
-        (found if match else unmatched).append({"id":g["id"],"date":g["played_at"],"scoreline":scoreline})
+        entry={"id":g["id"],"date":g["played_at"],"scoreline":scoreline}
+        if scoreline in article_text:
+            found.append(entry)
+            continue
+        exception=REVIEWED.get(g["id"])
+        if exception and compact(exception["article_line"]) in article_text:
+            reviewed.append({**entry,"article_line":exception["article_line"],
+                             "discrepancy":exception["kind"],"independent_game_source":exception["evidence"],
+                             "review_status":"documented_manual_crosscheck_not_automatically_certified"})
+        else:
+            unmatched.append(entry)
+    complete=len(games)==178 and not unmatched
     return {"provider":"basketball.com.au","article_url":ARTICLE,
             "ESPN_candidates_excluding_cup":len(games),
-            "matched_scorelines":len(found),"unmatched_count":len(unmatched),
-            "unmatched":unmatched[:40],
-            "status":"all_scorelines_matched" if len(games)==178 and not unmatched else "partial_or_unreconciled",
-            "qualification":"Matches team names and scorelines; full date and venue reconciliation requires a separate check.",
+            "matched_scorelines":len(found),
+            "documented_discrepancies":len(reviewed),
+            "discrepancy_details":reviewed,
+            "unmatched_count":len(unmatched),"unmatched":unmatched[:40],
+            "status":"reconciled_with_documented_discrepancies" if complete and reviewed else
+                     "all_scorelines_matched" if complete else "partial_or_unreconciled",
+            "qualification":"178 candidates accounted for only when the external article contains the recorded exceptional wording; the five exceptions cite independent game-level evidence but were manually reviewed, not continuously authenticated. Full date and venue reconciliation remains separate.",
             "production_approved":False}
 
 def main():
