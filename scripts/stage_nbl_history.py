@@ -6,16 +6,33 @@ import argparse, json, time
 from datetime import date, timedelta, datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError
 from urllib.parse import urlencode
 
 URL="https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/scoreboard"
-def fetch_month(start,end):
-    url=URL+"?"+urlencode({"dates":start.strftime("%Y%m%d")+"-"+end.strftime("%Y%m%d"),"limit":500})
+def fetch_events(url):
     req=Request(url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
     with urlopen(req,timeout=25) as response:
         doc=json.load(response)
     if not isinstance(doc.get("events"),list): raise ValueError("Missing events array for "+url)
-    return doc["events"],url
+    return doc["events"]
+
+def fetch_month(start,end):
+    url=URL+"?"+urlencode({"dates":start.strftime("%Y%m%d")+"-"+end.strftime("%Y%m%d"),"limit":500})
+    try:
+        return fetch_events(url),[url]
+    except HTTPError as ex:
+        if ex.code!=400:raise
+    events=[]
+    urls=[]
+    cursor=start
+    while cursor<=end:
+        day_url=URL+"?"+urlencode({"dates":cursor.strftime("%Y%m%d"),"limit":100})
+        events.extend(fetch_events(day_url))
+        urls.append(day_url)
+        cursor+=timedelta(days=1)
+        time.sleep(.08)
+    return events,urls
 
 def months(start,end):
     cursor=date(start.year,start.month,1)
@@ -46,8 +63,8 @@ def collect(start,end):
     ids={}
     probes=[]
     for a,b in months(start,end):
-        ev,url=fetch_month(a,b)
-        probes.append({"from":str(a),"to":str(b),"events":len(ev),"endpoint":url})
+        ev,urls=fetch_month(a,b)
+        probes.append({"from":str(a),"to":str(b),"events":len(ev),"endpoints":urls,"request_count":len(urls)})
         for raw in ev:
             game=normalize(raw)
             if game and game["id"]:
