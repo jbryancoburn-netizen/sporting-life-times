@@ -8,6 +8,7 @@ on:
       - 'scripts/verify_ncaam_accuracy_first_promotion.py'
       - 'scripts/test_ncaam_accuracy_first_promotion.py'
       - 'scripts/test_ncaam_exact_scoring_day_batch.py'
+      - 'scripts/test_ncaam_exact_source_schema.py'
       - '.github/workflows/ncaam-exact-scoring-validation.yml'
   workflow_dispatch:
 permissions:
@@ -27,6 +28,8 @@ jobs:
         run: python -m unittest discover -s scripts -p test_ncaam_accuracy_first_promotion.py -v
       - name: Verify same-day game independence
         run: python -m unittest discover -s scripts -p test_ncaam_exact_scoring_day_batch.py -v
+      - name: Verify historical roster schema compatibility
+        run: python -m unittest discover -s scripts -p test_ncaam_exact_source_schema.py -v
       - name: Train and hold out using identical scoring feature
         run: python scripts/run_ncaam_exact_formula_diagnostic.py
       - name: Validate output has unchanged evaluation period
