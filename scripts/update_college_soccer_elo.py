@@ -315,7 +315,7 @@ def main():
     if not args.offline:
         incoming, probe = fetch_finals(start, today)
     else:
-        incoming, probe = [], {"scoreboards": 0, "fetched_finals": 0}
+        incoming, probe = [], {"scoreboards": 0, "fetched_finals": 0, "quarantined_final_rows": 0}
     next_ledger, model, audit = update(base, ledger, incoming)
     audit.update({"checked_through":today.isoformat(),"scoreboard_checks":probe["scoreboards"],
                   "source_finals_in_window":probe["fetched_finals"],
