@@ -11,8 +11,8 @@ from itertools import groupby
 from pathlib import Path
 from backtest_ncaam_quality_retrospective import read_gz,extract_games,school_key
 
-K_GRID=(12.,16.,20.,24.,28.,32.,40.)
-MOV_GRID=(0.,.25,.55,.85,1.1)
+K_GRID=(8.,12.,16.,20.,24.,28.,32.,40.,48.)
+MOV_GRID=(0.,.25,.55,.85,1.1,1.4,1.7,2.0,2.4)
 CARRYOVER=.65
 def probability(a,b):
     d=max(-1500.,min(1500.,a-b))
