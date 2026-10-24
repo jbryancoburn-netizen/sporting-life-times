@@ -1,0 +1,136 @@
+{
+  "model": "ncaam-combined-elo-research-v1",
+  "status": "RETROSPECTIVE_COMBINATION_NOT_PRESEASON_CERTIFIED",
+  "train_years": [
+    2024,
+    2025
+  ],
+  "reused_diagnostic_year": 2026,
+  "selected": {
+    "quality_beta": 1200.0,
+    "churn_gamma": 1.0,
+    "origin_beta": 0.0
+  },
+  "diagnostic_baseline": {
+    "games": 5750,
+    "log_loss": 0.5756029402718345,
+    "brier": 0.19692797071750193
+  },
+  "diagnostic_combined": {
+    "games": 5750,
+    "log_loss": 0.5709335991148401,
+    "brier": 0.19572473536830048
+  },
+  "better_both": true,
+  "transfers_origin_included_in_scoring": false,
+  "transfer_origin_reason": "Missing verified player-to-previous-school join in historical seasonal features; no manufactured effect",
+  "preseason_roster_asof_verified": false,
+  "automatic_promotion": false,
+  "limitations": [
+    "Roster membership may contain post-opening information",
+    "2026 reused for diagnostic after earlier inspection",
+    "No verified home/neutral venue labels",
+    "Incoming transfer source-strength feature has been withheld from historical scoring"
+  ],
+  "trials": [
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.585646960900206,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5756029402718345,
+        "brier": 0.19692797071750193
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.5854130719885674,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5755184444028747,
+        "brier": 0.19688420219749977
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5852511668565569,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5754983356023993,
+        "brier": 0.19686913692969107
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5833990451204585,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5732150096745111,
+        "brier": 0.19615596700444646
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.5831780076573627,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5731462188651054,
+        "brier": 0.196120669575119
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.583026877747908,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5731380981896157,
+        "brier": 0.19611211544318813
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5809959546577622,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5709629462550163,
+        "brier": 0.1957444127823023
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.580791006743331,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5709199940217154,
+        "brier": 0.19572242278047203
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5806545903836056,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5709335991148401,
+        "brier": 0.19572473536830048
+      }
+    }
+  ]
+}
