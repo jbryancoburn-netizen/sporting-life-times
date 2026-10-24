@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const code=fs.readFileSync('ncaam-elo-page.js','utf8');
 
 function element(value=''){
-  return {value,textContent:'',innerHTML:'',children:[],handlers:{},
+  return {value,textContent:'',innerHTML:'',children:[],handlers:{},dataset:{},hidden:false,
           append(option){this.children.push(option)},
           addEventListener(name,callback){this.handlers[name]=callback}};
 }
@@ -113,7 +113,7 @@ test('new 365-team player scoring research model is selectable but never automat
  const els=await render();
  assert.match(els.status.textContent,/roster-informed preseason/);
  assert.ok(els['rating-version'].children.some(x=>x.value==='quality'));
- assert.doesNotMatch(els['rating-version'].children.find(x=>x.value==='quality').textContent,/certified(?!.*not certified)/);
+ assert.match(els['rating-version'].children.find(x=>x.value==='quality').textContent,/experimental.*not certified/);
  els['rating-version'].value='quality';
  els['rating-version'].handlers.change();
  assert.match(els.status.textContent,/EXPERIMENTAL RESEARCH/);
