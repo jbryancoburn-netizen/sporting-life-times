@@ -75,10 +75,22 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
       - name: Test source-identified preseason rating calculation
         run: python -m unittest discover -s scripts -p 'test_build_ncaam_2027_verified_preseason.py' -v
-      - name: Lock out 22 proven wrong D-I athlete identities and verify all 30 school-source name cases
+      - name: Verify all 30 school-source athlete identities against fresh source, never stale published report
         run: |
           python -m unittest discover -s scripts -p 'test_audit_ncaam_official_player_identities.py' -v
-          python scripts/audit_ncaam_official_player_identities.py --verify
+          python scripts/audit_ncaam_official_player_identities.py --output /tmp/ncaam-fresh-identity-audit.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('/tmp/ncaam-fresh-identity-audit.json').read_text())
+          s=report['summary']
+          assert s['school_officially_rejected_false_prior_player_links']==22
+          assert s['prior_d1_schools_confirmed_but_current_to_old_athlete_id_unlinked']==4
+          assert s['source_unlinked_ambiguous_cases_officially_reviewed_no_2025_26_d1_player_id']==4
+          assert s['open_high_priority_candidate_links']==0
+          assert not report['production_elo_approved']
+          print('PASS: source-recomputed 30 identity protections; independent publication workflow verifies report parity')
+          PY
       - name: Verify player scoring evidence reproduces without altering official Elo
         run: python scripts/audit_ncaam_player_scoring_shadow.py
       - name: Test chronological scoring-quality backtest and leakage detection
