@@ -266,6 +266,7 @@ def main():
     else:
         from ncaam_espn_source import collect
         source,source_details=collect(through,a.espn_crosswalk,a.espn_cache)
+    raw_espn_events=list(source)  # Persist complete merged provider events, not the filtered Elo subset.
     reconciliation={"status":"TEST_FIXTURE_NO_EXTERNAL_CHECK"}
     if not a.schedule:
         from ncaam_official_reconcile import reconcile
@@ -297,8 +298,7 @@ def main():
         (dest/fn).write_text(json.dumps(doc,indent=2)+"\n",encoding="utf-8")
     if not a.schedule:
         from ncaam_espn_source import write_cache
-        # Preserve original verified ESPN event cache; filtered games belong only in Elo.
-        original_cache=read_json(a.espn_cache)["events"] if Path(a.espn_cache).exists() else source
-        write_cache(dest/"ncaam-2026-27-source-events.json",original_cache)
+        # Persist all provider events, including score-conflict quarantines.
+        write_cache(dest/"ncaam-2026-27-source-events.json",raw_espn_events)
     print(json.dumps({k:integrity[k] for k in ("completed_unique_games","upcoming_or_unconfirmed_games","excluded")},indent=2))
 if __name__=="__main__":main()
