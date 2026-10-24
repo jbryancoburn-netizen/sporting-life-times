@@ -1,0 +1,63 @@
+{
+  "status": "RESEARCH_ONLY",
+  "coefficient_grid_upper_limit": 600,
+  "selected_coefficients": {
+    "shooting": 300.0,
+    "playmaking": 600.0,
+    "defense": 450.0
+  },
+  "coefficients_on_upper_boundary": [
+    "playmaking"
+  ],
+  "coefficient_boundary_is_arbitrary_search_limit": true,
+  "source_preseason_snapshot_verified": false,
+  "actual_stat_elo_effects": {
+    "2024": {
+      "covered_teams": 361,
+      "total_adjustment_elo_points": {
+        "min": -30.947363068903535,
+        "median": 0.4251238366049537,
+        "p05": -16.864474062338672,
+        "p95": 19.60893218315239,
+        "max": 38.22127981457508
+      },
+      "per_stat_p95_absolute_elo_points": {
+        "shooting": 10.899050709515832,
+        "playmaking": 17.012719285590414,
+        "defense": 7.611543858005144
+      }
+    },
+    "2025": {
+      "covered_teams": 362,
+      "total_adjustment_elo_points": {
+        "min": -35.60583927342001,
+        "median": -0.4916996621939078,
+        "p05": -19.26219984977587,
+        "p95": 20.575859145839807,
+        "max": 45.717712881867584
+      },
+      "per_stat_p95_absolute_elo_points": {
+        "shooting": 10.42336020248579,
+        "playmaking": 18.54857170662911,
+        "defense": 9.524298255533102
+      }
+    },
+    "2026": {
+      "covered_teams": 364,
+      "total_adjustment_elo_points": {
+        "min": -42.17080702423084,
+        "median": 0.7556648313587019,
+        "p05": -19.24285014072923,
+        "p95": 21.176072672519236,
+        "max": 44.60716655918027
+      },
+      "per_stat_p95_absolute_elo_points": {
+        "shooting": 11.691078663371089,
+        "playmaking": 14.582469481737453,
+        "defense": 8.646007192769734
+      }
+    }
+  },
+  "production_promotion_allowed": false,
+  "purpose": "Evaluate whether grid-edge coefficient causes outsized practical Elo adjustments"
+}
