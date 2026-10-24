@@ -65,6 +65,9 @@ async function render({withCurrent=false,withRoster=true,withShadow=true,withQua
    fetch:async url=>({ok:!!data[url],json:async()=>data[url]}),
    console};
  await vm.runInNewContext('(async()=>{\n'+code+'\n})()',context);
+ if(elements.status.textContent==='College Elo data temporarily unavailable'){
+   throw new Error('Page render exception: '+elements['source-note'].textContent);
+ }
  return elements;
 }
 test('identity-linked roster-informed Elo is the provisional preseason default',async()=>{
