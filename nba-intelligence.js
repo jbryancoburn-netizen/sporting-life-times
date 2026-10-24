@@ -15,6 +15,28 @@ async function load(){
  try{
  const r=await fetch('data/nba-game-center.json',{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);
  const data=await r.json();const games=Array.isArray(data.games)?data.games:[];
+ let elo=null;
+ try{const response=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(response.ok)elo=await response.json()}catch(_error){}
+ const currentRatings=Object.fromEntries((elo?.rankings||[]).map(t=>[t.team,Number(t.elo)]));
+ const events=elo?.events||[];
+ const rankOf=(scores,code)=>Object.entries(scores).filter(([,v])=>Number.isFinite(v)).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).findIndex(([t])=>t===code)+1;
+ const perGame=new Map();
+ if(Object.keys(currentRatings).length===30){
+  const rolling={...currentRatings};
+  for(let i=events.length-1;i>=0;i--){
+   const e=events[i];const key=e.id;
+   const delta=Number(e.home_elo_change);
+   if(!Number.isFinite(delta)||!Number.isFinite(rolling[e.home])||!Number.isFinite(rolling[e.away]))continue;
+   const afterHome=rankOf(rolling,e.home),afterAway=rankOf(rolling,e.away);
+   const homeAfter=rolling[e.home],awayAfter=rolling[e.away];
+   rolling[e.home]-=delta;rolling[e.away]+=delta;
+   const beforeHome=rankOf(rolling,e.home),beforeAway=rankOf(rolling,e.away);
+   perGame.set(key,{home:{elo:homeAfter,delta,rank:afterHome,rankChange:beforeHome-afterHome},away:{elo:awayAfter,delta:-delta,rank:afterAway,rankChange:beforeAway-afterAway}});
+  }
+ }
+ const rankLabel=info=>{if(!info)return '';const shift=info.rankChange;return '#'+info.rank+(shift>0?' ▲'+shift:shift<0?' ▼'+Math.abs(shift):' ·');};
+ const eloDetail=(label,info)=>info?'<span><b>'+esc(label)+'</b> Elo '+info.elo.toFixed(1)+' <em class="'+(info.delta>=0?'nba-elo-positive':'nba-elo-negative')+'">'+(info.delta>0?'+':'')+info.delta.toFixed(1)+'</em> · Rank '+rankLabel(info)+'</span>':'';
+
  $('nba-boxscore-status').textContent='NBA official game feed · Updated '+(data.updated_at?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(data.updated_at))+' ET':'unknown')+' · Captured archive (not yet full-season verified)';
  const completed=games.filter(g=>g.state==='post'&&Array.isArray(g.players)&&g.players.length);
  const players=new Map();
@@ -31,7 +53,8 @@ async function load(){
  box.innerHTML=games.slice(0,20).map(g=>{
   const home=g.teams?.find(t=>t.home_away==='home'),away=g.teams?.find(t=>t.home_away==='away');
   const bug=window.SLTScorebug.render({mode:'final',subtitle:'VERIFIED BOX SCORE',away:{code:away?.code||'AWAY',name:away?.name||'Away'},home:{code:home?.code||'HOME',name:home?.name||'Home'},awayScore:away?.score,homeScore:home?.score,winner:Number(away?.score)>Number(home?.score)?away?.code:home?.code});
-  return '<article class="nba-boxscore-item">'+bug+'<div class="nba-boxscore-actions"><a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Official box score ↗</a></div>'+(g.leaders?.length?'<div class="nba-boxscore-players">'+g.leaders.slice(0,3).map(p=>'<div><b>'+esc(p.name)+'</b><span><strong>'+esc(p.pts)+'</strong> PTS · '+esc(p.reb)+' REB · '+esc(p.ast)+' AST</span></div>').join('')+'</div>':'<p class="hub-small">Player box-score details not yet verified.</p>')+(g.players?.length?'<details class="nba-player-boxscore"><summary>Complete player box score · '+g.players.length+' players</summary><div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>FG</th><th>3PT</th><th>FT</th></tr></thead><tbody>'+g.players.map(p=>'<tr><th>'+esc(p.name)+'</th><td>'+esc(p.team)+'</td><td>'+esc(p.min)+'</td><td>'+esc(p.pts)+'</td><td>'+esc(p.reb)+'</td><td>'+esc(p.ast)+'</td><td>'+esc(p.stl)+'</td><td>'+esc(p.blk)+'</td><td>'+esc(p.fgm)+'/'+esc(p.fga)+'</td><td>'+esc(p.fg3m)+'/'+esc(p.fg3a)+'</td><td>'+esc(p.ftm)+'/'+esc(p.fta)+'</td></tr>').join('')+'</tbody></table></div></details>':'')+'</article>';
+  const gameElo=perGame.get(g.id);const eloStrip=gameElo?'<div class="nba-boxscore-elo">'+eloDetail(away?.code,gameElo.away)+eloDetail(home?.code,gameElo.home)+'</div>':'';
+  return '<article class="nba-boxscore-item">'+bug+eloStrip+'<div class="nba-boxscore-actions"><a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Official box score ↗</a></div>'+(g.leaders?.length?'<div class="nba-boxscore-players">'+g.leaders.slice(0,3).map(p=>'<div><b>'+esc(p.name)+'</b><span><strong>'+esc(p.pts)+'</strong> PTS · '+esc(p.reb)+' REB · '+esc(p.ast)+' AST</span></div>').join('')+'</div>':'<p class="hub-small">Player box-score details not yet verified.</p>')+(g.players?.length?'<details class="nba-player-boxscore"><summary>Complete player box score · '+g.players.length+' players</summary><div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>FG</th><th>3PT</th><th>FT</th></tr></thead><tbody>'+g.players.map(p=>'<tr><th>'+esc(p.name)+'</th><td>'+esc(p.team)+'</td><td>'+esc(p.min)+'</td><td>'+esc(p.pts)+'</td><td>'+esc(p.reb)+'</td><td>'+esc(p.ast)+'</td><td>'+esc(p.stl)+'</td><td>'+esc(p.blk)+'</td><td>'+esc(p.fgm)+'/'+esc(p.fga)+'</td><td>'+esc(p.fg3m)+'/'+esc(p.fg3a)+'</td><td>'+esc(p.ftm)+'/'+esc(p.fta)+'</td></tr>').join('')+'</tbody></table></div></details>':'')+'</article>';
  }).join('');
 
  }catch(e){console.error('NBA official box scores',e);$('nba-boxscore-status').textContent='Official game-center snapshot unavailable';box.innerHTML='<p class="hub-small">Player box scores unavailable. <a href="https://www.nba.com/games" target="_blank" rel="noopener noreferrer">See NBA game center ↗</a></p>'}
