@@ -155,12 +155,26 @@ jobs:
         run: |
           set -euo pipefail
           base="https://jbryancoburn-netizen.github.io/sporting-life-times"
-          for page in index.html epl.html epl-elo.html epl-club.html match-center.html nba.html nbl.html; do
+          for page in index.html epl.html epl-elo.html epl-club.html match-center.html nba.html nbl.html nbl-team.html; do
             echo "Checking published $page"
             curl --fail --location --silent --show-error --retry 4 --retry-delay 3 --retry-all-errors "$base/$page" -o /tmp/newspaper-page.html
             test -s /tmp/newspaper-page.html
             grep -qi '<html' /tmp/newspaper-page.html
           done
+          echo "Checking NBL editorial research ratings and club navigation"
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-elo-research.json" -o /tmp/nbl-research.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/nbl-research.json'))
+          assert d['status']=='RESEARCH_ONLY_UNCERTIFIED'
+          assert d['production_approved'] is False and d['prediction_certified'] is False
+          assert len(d['ratings'])==10 and len(set(r['team'] for r in d['ratings']))==10
+          assert d['current_regular_season_games']>=1
+          assert all(isinstance(r['elo'],(int,float)) for r in d['ratings'])
+          PY
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/nbl-editorial.js" -o /tmp/nbl-editorial.js
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/nbl-team.js" -o /tmp/nbl-team.js
+          test -s /tmp/nbl-editorial.js && test -s /tmp/nbl-team.js
           echo "Checking published NBL standings release decision"
           curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-standings-publication-status.json" -o /tmp/nbl-release-status.json
           python -c 'import json; s=json.load(open("/tmp/nbl-release-status.json")); assert s.get("league")=="Australian NBL" and isinstance(s.get("published"),bool)'
