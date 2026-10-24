@@ -49,7 +49,10 @@ def build(candidate):
 def main():
     today=datetime.now(timezone.utc).date()
     if today<START:raise ValueError("Season not started")
-    result=build(collect(START,today))
+    candidate=collect(START,today)
+    result=build(candidate)
+    ledger=Path("data/nbl-research-current-ledger.json")
+    ledger.write_text(json.dumps({"season":"2026-27","source_status":"uncertified_source_candidates","games":[g for g in candidate["games"] if g["played_at"][:10]>=START.isoformat()]},indent=2)+"\n")
     dst=Path("data/nbl-standings.json")
     dst.parent.mkdir(parents=True,exist_ok=True)
     dst.write_text(json.dumps(result,indent=2)+"\n")
