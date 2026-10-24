@@ -9,6 +9,7 @@ const canonical=s=>nameAliases[key(s)]||key(s);
 const short={'Adelaide 36ers':'Adelaide','Brisbane Bullets':'Brisbane','Cairns Taipans':'Cairns','Illawarra Hawks':'Illawarra','Melbourne United':'Melbourne','New Zealand Breakers':'NZ Breakers','Perth Wildcats':'Perth','South East Melbourne Phoenix':'SEM Phoenix','Sydney Kings':'Sydney','Tasmania JackJumpers':'Tasmania'};
 const json=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()};
 const stamp=s=>{const d=new Date(s);return Number.isFinite(d.valueOf())?new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(d):'Date unverified'};
+const teamLink=team=>'nbl-team.html?team='+encodeURIComponent(team);
 const logo=(team,logos,size='small')=>{const u=logos.get(canonical(team));return u?'<img class="nbl-club-mark" src="'+esc(u)+'" alt="" loading="lazy" onerror="this.hidden=true">':''};
 function sources(s){
  const logos=new Map();
@@ -44,7 +45,7 @@ function record(r){return r?r.wins+'–'+r.losses:'—'}
 function teamCard(name,rankings,standings,logos){
  const elo=rankings.find(x=>x.team===name),regular=standings.find(x=>x.team===name);
  return '<article class="nbl-team-summary"><div class="nbl-team-summary-head">'+logo(name,logos)+
- '<div><h3>'+esc(name)+'</h3><small>'+esc(elo?'Independent Elo research edition · Rank '+elo.rank:'Research rating unavailable')+'</small></div></div>'+
+ '<div><h3><a href="'+esc(teamLink(name))+'">'+esc(name)+'</a></h3><small>'+esc(elo?'Independent Elo research edition · Rank '+elo.rank:'Research rating unavailable')+'</small></div></div>'+
  '<div class="nbl-metrics"><div><b>'+esc(record(regular))+'</b><span>Season record</span></div>'+
  '<div><b>'+esc(elo?Number(elo.elo).toFixed(1):'—')+'</b><span>Research Elo</span></div></div></article>';
 }
@@ -107,7 +108,7 @@ async function run(){
    const body=$('nbl-elo-table');
    if(body)for(const tr of body.querySelectorAll('tbody tr')){
     const cell=tr.querySelector('th');
-    if(cell){const n=cell.textContent;cell.innerHTML='<span class="nbl-elo-club">'+logo(n,logos)+esc(n)+'</span>'}
+    if(cell){const n=cell.textContent;cell.innerHTML='<span class="nbl-elo-club">'+logo(n,logos)+'<a href="'+esc(teamLink(n))+'">'+esc(n)+'</a></span>'}
    }
  }
  if(validStandings){
@@ -116,6 +117,24 @@ async function run(){
     const cell=tr.querySelector('th');
     if(cell){const n=cell.textContent;cell.innerHTML='<span class="nbl-elo-club">'+logo(n,logos)+esc(n)+'</span>'}
    }
+ }
+ // Shared league desk populates its tables asynchronously. Observe only the
+ // two target tables so club links and sourced crests remain after they render.
+ const decorate=id=>{
+  const root=$(id);if(!root)return;
+  for(const cell of root.querySelectorAll('tbody tr th')){
+   if(cell.querySelector('.nbl-elo-club'))continue;
+   const club=cell.textContent.trim();
+   if(!club)return;
+   cell.innerHTML='<span class="nbl-elo-club">'+logo(club,logos)+
+     '<a href="'+esc(teamLink(club))+'">'+esc(club)+'</a></span>';
+  }
+ };
+ for(const id of ['league-standings-table','nbl-elo-table']){
+  const root=$(id);if(!root)continue;
+  decorate(id);
+  const observer=new MutationObserver(()=>decorate(id));
+  observer.observe(root,{childList:true,subtree:true});
  }
  teamFinder();
 }
