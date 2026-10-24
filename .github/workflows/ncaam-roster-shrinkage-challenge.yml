@@ -1,0 +1,52 @@
+name: NCAA 5-strength roster Elo challenge
+on:
+  push:
+    paths:
+      - 'scripts/backtest_ncaam_roster_transfers.py'
+      - '.github/workflows/ncaam-roster-shrinkage-challenge.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Score historical NCAA games and compare five strengths
+        run: python scripts/backtest_ncaam_roster_transfers.py
+      - name: Verify complete matched five-strength experiment
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open("data/ncaam-offseason-transfer-backtest.json"))
+          s=x["shrinkage_challenge"]
+          rows=s["tested_strengths"]
+          assert [r["strength"] for r in rows]==[0,.25,.5,.75,1]
+          assert len({r["holdout"]["games"] for r in rows})==1
+          assert rows[0]["holdout"]["games"]>=1500
+          assert all(r["training_games"]>=3000 for r in rows)
+          assert s["historical_preseason_asof_certified"] is False
+          assert s["promote_to_primary"] is False
+          print("HOLDOUT WINNER",s["selected_strength"])
+          for r in rows:print(r["strength"],r["holdout"]["log_loss"],r["holdout"]["brier"])
+          PY
+      - name: Commit computed scores
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-offseason-transfer-backtest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record measured five-strength historical NCAA Elo challenge [skip ci]"
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-five-strength-elo-backtest
+          path: data/ncaam-offseason-transfer-backtest.json
+          if-no-files-found: warn
