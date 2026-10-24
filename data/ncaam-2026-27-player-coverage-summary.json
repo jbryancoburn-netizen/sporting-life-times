@@ -1,0 +1,623 @@
+{
+  "season": "2026-27",
+  "audit_status": "PLAYER_SOURCE_COVERAGE_AUDIT_NONPROMOTABLE",
+  "roster_players": 5537,
+  "team_count": 365,
+  "measured_prior_stats": 2923,
+  "without_eligible_prior_stats": 2614,
+  "reason_counts": {
+    "linked_fuzzy_excluded": 6,
+    "linked_prior_school_conflict": 594,
+    "measured_and_counted": 2923,
+    "officially_confirmed_prior_school_no_player_id": 4,
+    "officially_excluded_false_identity": 22,
+    "officially_reviewed_non_d1_no_player_id": 4,
+    "unlinked_no_prior_d1_box": 1984
+  },
+  "highest_priority_programs": [
+    {
+      "team": "Purdue Fort Wayne",
+      "team_id": "ncaa:609575",
+      "total_roster": 15,
+      "unmeasured_players": 12,
+      "covered_players": 3,
+      "unmeasured_share": 0.8,
+      "previous_team_minutes": 6380.3,
+      "source_priority": 95.0,
+      "case_counts": {
+        "linked_prior_school_conflict": 5,
+        "unlinked_no_prior_d1_box": 7
+      }
+    },
+    {
+      "team": "Louisiana Tech",
+      "team_id": "ncaa:609592",
+      "total_roster": 12,
+      "unmeasured_players": 11,
+      "covered_players": 1,
+      "unmeasured_share": 0.9167,
+      "previous_team_minutes": 6857.3,
+      "source_priority": 94.67,
+      "case_counts": {
+        "linked_prior_school_conflict": 1,
+        "unlinked_no_prior_d1_box": 10
+      }
+    },
+    {
+      "team": "Campbell",
+      "team_id": "ncaa:609694",
+      "total_roster": 16,
+      "unmeasured_players": 14,
+      "covered_players": 2,
+      "unmeasured_share": 0.875,
+      "previous_team_minutes": 6783.2,
+      "source_priority": 93.5,
+      "case_counts": {
+        "linked_prior_school_conflict": 2,
+        "unlinked_no_prior_d1_box": 12
+      }
+    },
+    {
+      "team": "South Alabama",
+      "team_id": "ncaa:609897",
+      "total_roster": 14,
+      "unmeasured_players": 12,
+      "covered_players": 2,
+      "unmeasured_share": 0.8571,
+      "previous_team_minutes": 6708.7,
+      "source_priority": 91.71,
+      "case_counts": {
+        "linked_prior_school_conflict": 2,
+        "unlinked_no_prior_d1_box": 10
+      }
+    },
+    {
+      "team": "Mississippi Val.",
+      "team_id": "ncaa:609673",
+      "total_roster": 12,
+      "unmeasured_players": 11,
+      "covered_players": 1,
+      "unmeasured_share": 0.9167,
+      "previous_team_minutes": 6609.3,
+      "source_priority": 91.67,
+      "case_counts": {
+        "unlinked_no_prior_d1_box": 11
+      }
+    },
+    {
+      "team": "West Florida",
+      "team_id": "pending-ncaa-id:west-florida",
+      "total_roster": 15,
+      "unmeasured_players": 13,
+      "covered_players": 2,
+      "unmeasured_share": 0.8667,
+      "previous_team_minutes": 0.0,
+      "source_priority": 89.67,
+      "case_counts": {
+        "linked_prior_school_conflict": 1,
+        "unlinked_no_prior_d1_box": 12
+      }
+    },
+    {
+      "team": "East Texas A&M",
+      "team_id": "ncaa:609533",
+      "total_roster": 15,
+      "unmeasured_players": 12,
+      "covered_players": 3,
+      "unmeasured_share": 0.8,
+      "previous_team_minutes": 6376.8,
+      "source_priority": 89.0,
+      "case_counts": {
+        "linked_prior_school_conflict": 3,
+        "unlinked_no_prior_d1_box": 9
+      }
+    },
+    {
+      "team": "Merrimack",
+      "team_id": "ncaa:609880",
+      "total_roster": 15,
+      "unmeasured_players": 11,
+      "covered_players": 4,
+      "unmeasured_share": 0.7333,
+      "previous_team_minutes": 6858.3,
+      "source_priority": 88.33,
+      "case_counts": {
+        "linked_prior_school_conflict": 5,
+        "unlinked_no_prior_d1_box": 6
+      }
+    },
+    {
+      "team": "Western Ill.",
+      "team_id": "ncaa:609520",
+      "total_roster": 13,
+      "unmeasured_players": 11,
+      "covered_players": 2,
+      "unmeasured_share": 0.8462,
+      "previous_team_minutes": 6197.0,
+      "source_priority": 87.62,
+      "case_counts": {
+        "linked_prior_school_conflict": 1,
+        "unlinked_no_prior_d1_box": 10
+      }
+    },
+    {
+      "team": "San Francisco",
+      "team_id": "ncaa:609874",
+      "total_roster": 16,
+      "unmeasured_players": 13,
+      "covered_players": 3,
+      "unmeasured_share": 0.8125,
+      "previous_team_minutes": 6622.1,
+      "source_priority": 87.25,
+      "case_counts": {
+        "linked_prior_school_conflict": 2,
+        "unlinked_no_prior_d1_box": 11
+      }
+    },
+    {
+      "team": "UMES",
+      "team_id": "ncaa:609662",
+      "total_roster": 15,
+      "unmeasured_players": 13,
+      "covered_players": 2,
+      "unmeasured_share": 0.8667,
+      "previous_team_minutes": 6494.3,
+      "source_priority": 86.67,
+      "case_counts": {
+        "officially_excluded_false_identity": 1,
+        "unlinked_no_prior_d1_box": 12
+      }
+    },
+    {
+      "team": "Weber St.",
+      "team_id": "ncaa:609517",
+      "total_roster": 14,
+      "unmeasured_players": 10,
+      "covered_players": 4,
+      "unmeasured_share": 0.7143,
+      "previous_team_minutes": 6446.3,
+      "source_priority": 86.43,
+      "case_counts": {
+        "linked_prior_school_conflict": 5,
+        "unlinked_no_prior_d1_box": 5
+      }
+    },
+    {
+      "team": "Missouri St.",
+      "team_id": "ncaa:609476",
+      "total_roster": 15,
+      "unmeasured_players": 12,
+      "covered_players": 3,
+      "unmeasured_share": 0.8,
+      "previous_team_minutes": 6880.1,
+      "source_priority": 86.0,
+      "case_counts": {
+        "linked_prior_school_conflict": 2,
+        "unlinked_no_prior_d1_box": 10
+      }
+    },
+    {
+      "team": "South Carolina St.",
+      "team_id": "ncaa:609899",
+      "total_roster": 15,
+      "unmeasured_players": 12,
+      "covered_players": 3,
+      "unmeasured_share": 0.8,
+      "previous_team_minutes": 6376.6,
+      "source_priority": 86.0,
+      "case_counts": {
+        "linked_prior_school_conflict": 2,
+        "unlinked_no_prior_d1_box": 10
+      }
+    },
+    {
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "total_roster": 15,
+      "unmeasured_players": 10,
+      "covered_players": 5,
+      "unmeasured_share": 0.6667,
+      "previous_team_minutes": 6606.8,
+      "source_priority": 84.67,
+      "case_counts": {
+        "linked_prior_school_conflict": 6,
+        "unlinked_no_prior_d1_box": 4
+      }
+    },
+    {
+      "team": "Central Ark.",
+      "team_id": "ncaa:609532",
+      "total_roster": 15,
+      "unmeasured_players": 10,
+      "covered_players": 5,
+      "unmeasured_share": 0.6667,
+      "previous_team_minutes": 6895.3,
+      "source_priority": 84.67,
+      "case_counts": {
+        "linked_prior_school_conflict": 6,
+        "unlinked_no_prior_d1_box": 4
+      }
+    },
+    {
+      "team": "Idaho St.",
+      "team_id": "ncaa:609753",
+      "total_roster": 16,
+      "unmeasured_players": 13,
+      "covered_players": 3,
+      "unmeasured_share": 0.8125,
+      "previous_team_minutes": 6596.6,
+      "source_priority": 84.25,
+      "case_counts": {
+        "linked_prior_school_conflict": 1,
+        "unlinked_no_prior_d1_box": 12
+      }
+    },
+    {
+      "team": "Eastern Ill.",
+      "team_id": "ncaa:609723",
+      "total_roster": 15,
+      "unmeasured_players": 12,
+      "covered_players": 3,
+      "unmeasured_share": 0.8,
+      "previous_team_minutes": 6651.7,
+      "source_priority": 83.0,
+      "case_counts": {
+        "linked_prior_school_conflict": 1,
+        "unlinked_no_prior_d1_box": 11
+      }
+    },
+    {
+      "team": "UT Martin",
+      "team_id": "ncaa:609488",
+      "total_roster": 15,
+      "unmeasured_players": 12,
+      "covered_players": 3,
+      "unmeasured_share": 0.8,
+      "previous_team_minutes": 6603.5,
+      "source_priority": 83.0,
+      "case_counts": {
+        "linked_prior_school_conflict": 1,
+        "unlinked_no_prior_d1_box": 11
+      }
+    },
+    {
+      "team": "Arkansas St.",
+      "team_id": "ncaa:609624",
+      "total_roster": 15,
+      "unmeasured_players": 11,
+      "covered_players": 4,
+      "unmeasured_share": 0.7333,
+      "previous_team_minutes": 6453.1,
+      "source_priority": 82.33,
+      "case_counts": {
+        "linked_prior_school_conflict": 3,
+        "unlinked_no_prior_d1_box": 8
+      }
+    }
+  ],
+  "first_highest_priority_players": [
+    {
+      "player": "Joshua Hughes",
+      "current_espn_id": "5107366",
+      "team": "Samford",
+      "team_id": "ncaa:609561",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9324703",
+      "crosswalk_prior_school_id": "ncaa:609561",
+      "name_candidate_prior_school_id": "ncaa:609727",
+      "name_candidate_prior_minutes": 898.76,
+      "hypothetical_false_link_transfer_points": 22.28,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Jayden Reid",
+      "current_espn_id": "5311606",
+      "team": "Quinnipiac",
+      "team_id": "ncaa:609838",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "11195099",
+      "crosswalk_prior_school_id": "ncaa:609838",
+      "name_candidate_prior_school_id": "ncaa:609799",
+      "name_candidate_prior_minutes": 875.85,
+      "hypothetical_false_link_transfer_points": 21.79,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Jayden Jackson",
+      "current_espn_id": "5313396",
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9999156",
+      "crosswalk_prior_school_id": "ncaa:609615",
+      "name_candidate_prior_school_id": "ncaa:609878",
+      "name_candidate_prior_minutes": 813.65,
+      "hypothetical_false_link_transfer_points": 19.7,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Devin Brown",
+      "current_espn_id": "5312426",
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "10804882",
+      "crosswalk_prior_school_id": "ncaa:609704",
+      "name_candidate_prior_school_id": "ncaa:609712",
+      "name_candidate_prior_minutes": 791.72,
+      "hypothetical_false_link_transfer_points": 19.17,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Jalen Haynes",
+      "current_espn_id": "4709151",
+      "team": "Dayton",
+      "team_id": "ncaa:609713",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "10287839",
+      "crosswalk_prior_school_id": "ncaa:609700",
+      "name_candidate_prior_school_id": "ncaa:609470",
+      "name_candidate_prior_minutes": 655.98,
+      "hypothetical_false_link_transfer_points": 14.07,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Isaiah Williams",
+      "current_espn_id": "5314629",
+      "team": "Wright St.",
+      "team_id": "ncaa:609528",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "10807737",
+      "crosswalk_prior_school_id": "ncaa:609528",
+      "name_candidate_prior_school_id": "ncaa:609826",
+      "name_candidate_prior_minutes": 341.6,
+      "hypothetical_false_link_transfer_points": 7.81,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Mike James",
+      "current_espn_id": "5314773",
+      "team": "Alabama St.",
+      "team_id": "ncaa:609616",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "unique-name-transfer-candidate",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "10809347",
+      "crosswalk_prior_school_id": "ncaa:609673",
+      "name_candidate_prior_school_id": "ncaa:609508",
+      "name_candidate_prior_minutes": 229.9,
+      "hypothetical_false_link_transfer_points": 5.78,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Bin Basil",
+      "current_espn_id": "5317320",
+      "team": "A&M-Corpus Christi",
+      "team_id": "ncaa:609609",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "11198340",
+      "crosswalk_prior_school_id": "ncaa:609565",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Chabi Barre",
+      "current_espn_id": "5105882",
+      "team": "Akron",
+      "team_id": "ncaa:609541",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "last_jersey",
+      "linked_ncaa_player_id": "9960396",
+      "crosswalk_prior_school_id": "ncaa:609541",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Cody Head",
+      "current_espn_id": "5176192",
+      "team": "Akron",
+      "team_id": "ncaa:609541",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9960394",
+      "crosswalk_prior_school_id": "ncaa:609541",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Josh Henderson",
+      "current_espn_id": "5314280",
+      "team": "Akron",
+      "team_id": "ncaa:609541",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9960393",
+      "crosswalk_prior_school_id": "ncaa:609541",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Tai Perkins",
+      "current_espn_id": "5314279",
+      "team": "Akron",
+      "team_id": "ncaa:609541",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9960392",
+      "crosswalk_prior_school_id": "ncaa:609541",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "James Graham III",
+      "current_espn_id": "4711691",
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9999146",
+      "crosswalk_prior_school_id": "ncaa:609615",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Javantae Edwards",
+      "current_espn_id": "5311726",
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "10257970",
+      "crosswalk_prior_school_id": "ncaa:609695",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Nate Johnson",
+      "current_espn_id": "5241614",
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "id-not-found-name-ambiguous",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9335945",
+      "crosswalk_prior_school_id": "ncaa:609718",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Stephaun Walker",
+      "current_espn_id": "5106791",
+      "team": "Alabama A&M",
+      "team_id": "ncaa:609615",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9336658",
+      "crosswalk_prior_school_id": "ncaa:609810",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Damarion Bonds",
+      "current_espn_id": "5114198",
+      "team": "Alabama St.",
+      "team_id": "ncaa:609616",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "11198066",
+      "crosswalk_prior_school_id": "ncaa:609616",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Noah Benny",
+      "current_espn_id": "5314532",
+      "team": "Alabama St.",
+      "team_id": "ncaa:609616",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "11192294",
+      "crosswalk_prior_school_id": "ncaa:609868",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Adam Tokpah",
+      "current_espn_id": "5312325",
+      "team": "Alcorn",
+      "team_id": "ncaa:609619",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "9994791",
+      "crosswalk_prior_school_id": "ncaa:609685",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    },
+    {
+      "player": "Nigel Thomas",
+      "current_espn_id": "5312346",
+      "team": "Alcorn",
+      "team_id": "ncaa:609619",
+      "classification": "linked_prior_school_conflict",
+      "current_roster_status": "no-prior-d1-box",
+      "crosswalk_method": "name_jersey",
+      "linked_ncaa_player_id": "10806911",
+      "crosswalk_prior_school_id": "ncaa:609597",
+      "name_candidate_prior_school_id": null,
+      "name_candidate_prior_minutes": null,
+      "hypothetical_false_link_transfer_points": 0.0,
+      "production_eligible": false,
+      "next_evidence": "Resolve NCAA player ID and prior-school conflict; require source-verified player identity"
+    }
+  ],
+  "no_ratings_modified": true,
+  "no_unverified_player_production_added": true,
+  "full_source": "data/ncaam-2026-27-player-coverage-review-queue.json"
+}\n
