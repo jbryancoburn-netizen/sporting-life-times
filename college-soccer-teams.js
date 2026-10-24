@@ -16,6 +16,9 @@ const [rankings,ledger,archive]=await Promise.all(responses.map(r=>r.json()));
 const teams=Object.entries(rankings.cohorts).flatMap(([cohort,rows])=>rows.map(t=>({...t,cohort})));
 const byId=new Map(teams.map(t=>[t.cohort+':'+t.team_id,t]));
 const forecasts=archive.forecasts||[],verified=ledger.results||[];
+let newsData={articles:[],updated_at:null};
+try{const r=await fetch('data/college-soccer-team-news.json',{cache:'no-store'});if(r.ok)newsData=await r.json();}catch(e){}
+
 const box=(heading)=>{const section=node('section',undefined,'team-panel');section.append(node('h3',heading));profile.append(section);return section;};
 function open(t){
 profile.replaceChildren();results.replaceChildren();
@@ -53,6 +56,18 @@ const right=node('div',undefined,'team-game-forecast');
 const a=node('a',gf+'–'+ga+' '+(gf>ga?'W':gf<ga?'L':'D'));a.href=g.source_game;a.rel='noopener noreferrer';a.target='_blank';right.append(a);
 line.append(left,right);finals.append(line);
 }
+const stories=box('Latest program news');
+const matched=(newsData.articles||[]).filter(a=>Array.isArray(a.team_keys)&&a.team_keys.includes(key)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0));
+const newsInfo=node('p',(newsData.updated_at?'News scan: '+new Date(newsData.updated_at).toLocaleString()+' · ':'')+matched.length+' matched sourced stories','college-elo-note');stories.append(newsInfo);
+for(const a of matched.slice(0,12)){
+  const article=node('article',undefined,'team-news-story');
+  const link=node('a',a.title);link.href=a.url;link.target='_blank';link.rel='noopener noreferrer';article.append(link);
+  article.append(node('small',(a.source||'Publisher')+(a.published_at?' · '+new Date(a.published_at).toLocaleDateString():'')+' · External report'));
+  if(a.summary)article.append(node('p',a.summary));stories.append(article);
+}
+if(!matched.length)stories.append(node('p','No confirmed program-specific articles in the current news scan. This page will not substitute unrelated headlines.'));
+const newsSearch=node('a','More '+t.team+' '+(t.cohort.startsWith('women')?'women’s':'men’s')+' soccer coverage ↗');
+newsSearch.href='https://news.google.com/search?q='+encodeURIComponent('"'+t.team+'" '+(t.cohort.startsWith('women')?'women\'s':'men\'s')+' college soccer');newsSearch.target='_blank';newsSearch.rel='noopener noreferrer';newsSearch.className='team-share';stories.append(newsSearch);
 const stat=box('Model & data coverage');
 stat.append(node('p',teamForecasts.length+' timestamped forecasts found for this team · '+games.length+' recent verified ledger results. Forecasts are research predictions, not guarantees.'));
 stat.append(node('p','An Elo movement chart requires saved date-by-date ratings. The published current rating is not enough to reconstruct that history; no synthetic trend is shown.','college-elo-note'));
