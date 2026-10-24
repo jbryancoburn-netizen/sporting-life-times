@@ -229,7 +229,13 @@ def replay(baseline: dict, ledger: dict) -> tuple[dict, dict]:
     output["baseline_as_of"] = baseline["as_of"]
     output["applied_finals_since_baseline"] = accepted
     output["excluded_finals_since_baseline"] = excluded
-    output["latest_finals"] = recent[-40:][::-1]
+    # Keep a balanced recent-finals sample; otherwise a busy DIII slate
+    # can crowd all of the DI and DII scorelines off the newspaper.
+    recent_by_cohort = {key: [] for key in COHORTS}
+    for event in recent:
+        recent_by_cohort[event["cohort"]].append(event)
+    latest = [event for key in COHORTS for event in recent_by_cohort[key][-12:]]
+    output["latest_finals"] = sorted(latest, key=lambda g: (g["date"], g["match_id"]), reverse=True)
     warnings = output.get("warnings") or []
     extra = "Newspaper-side USRS-compatible mirror; direct private-repository synchronization has not been configured."
     if extra not in warnings: warnings.append(extra)
