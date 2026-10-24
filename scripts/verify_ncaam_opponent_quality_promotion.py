@@ -10,7 +10,9 @@ def decision(report):
     if missing:return {"approved":False,"reason":"MISSING_BACKTEST_FIELDS","missing":missing}
     base=report["holdout_all_games_game_only"]
     candidate=report["holdout_all_games_enhanced_with_fallback"]
-    complete=(base.get("games")==candidate.get("games")
+    same_contests=(bool(base.get("matched_games_sha256")) and
+                   base.get("matched_games_sha256")==candidate.get("matched_games_sha256"))
+    complete=(same_contests and base.get("games")==candidate.get("games")
               and isinstance(base.get("games"),int) and base["games"]>=1000)
     improved=all(math.isfinite(base.get(k,float("nan"))) and
                  math.isfinite(candidate.get(k,float("nan"))) and
@@ -19,6 +21,7 @@ def decision(report):
            and report.get("training_grid_edge_solution") is False
            and report.get("fallback_all_windows_improve_both_metrics") is True)
     return {"approved":bool(valid),"complete_game_coverage":bool(complete),
+            "identical_contest_id_sample":bool(same_contests),
             "both_scores_improve":bool(improved),
             "preseason_roster_provenance_verified":
                 report.get("preseason_information_integrity_verified") is True,
