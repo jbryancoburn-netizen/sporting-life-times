@@ -2,7 +2,7 @@
 if(document.body.dataset.league!=='nbl')return;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const validURL=u=>{try{const x=new URL(u);return x.protocol==='https:'&&(/(^|\\.)espn(cdn)?\\.com$/.test(x.hostname)||/(^|\\.)nbl\\.com\\.au$/.test(x.hostname))?x.href:''}catch{return''}};
+const validURL=u=>{try{const x=new URL(u);return x.protocol==='https:'&&(/(^|\.)espn(cdn)?\.com$/.test(x.hostname)||/(^|\.)nbl\.com\.au$/.test(x.hostname))?x.href:''}catch{return''}};
 const key=s=>String(s??'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const nameAliases={'southeastmelbournephoenix':'southeastmelbournephoenix','semelbournephoenix':'southeastmelbournephoenix','nzbreakers':'newzealandbreakers'};
 const canonical=s=>nameAliases[key(s)]||key(s);
