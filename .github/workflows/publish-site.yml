@@ -10,7 +10,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: sporting-life-times-pages
+  group: github-pages
   cancel-in-progress: false
 jobs:
   build:
