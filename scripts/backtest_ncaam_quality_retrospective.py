@@ -52,6 +52,21 @@ def game_update(ratings,g):
     ratings[h]+=shift
     ratings[a]-=shift
     return p
+def update_date_batch(ratings, games):
+    """Score every game from the same pre-date Elo; apply net changes together."""
+    changes=defaultdict(float)
+    for g in games:
+        h,a=g['home'],g['away']
+        if h not in ratings or a not in ratings:continue
+        prob=logistic(ratings[h]-ratings[a])
+        margin=abs(g['home_score']-g['away_score'])
+        multiplier=1+MOV*math.log1p(margin)/math.log(10)
+        delta=K*multiplier*((1.0 if g['home_score']>g['away_score'] else 0.0)-prob)
+        changes[h]+=delta
+        changes[a]-=delta
+    for team,change in changes.items():
+        ratings[team]+=change
+
 def extract_games(schedules,programs,boxes):
     ids=defaultdict(lambda:defaultdict(set))
     for r in boxes:
@@ -197,15 +212,13 @@ def season_prediction(games,prior_elo,features,quality_beta,first_days=45):
                 ll-=y*math.log(max(p,1e-12))+(1-y)*math.log(max(1-p,1e-12))
                 brier+=(p-y)**2
                 n+=1
-        for g in matches:
-            if g['home'] in ratings and g['away'] in ratings:
-                game_update(ratings,g)
+        update_date_batch(ratings,matches)
     if n<100:raise ValueError(f'insufficient first {first_days} days games: {n}')
     return {'games':n,'log_loss':ll/n,'brier':brier/n}
 def unadjusted_end(games,prior_elo,programs):
     ratings={t:1500+CARRYOVER*(prior_elo.get(t,1500)-1500) for t in programs}
-    for g in games:
-        if g['home'] in ratings and g['away'] in ratings:game_update(ratings,g)
+    for day,matches in groupby(games,key=lambda g:g['day']):
+        update_date_batch(ratings,list(matches))
     return ratings
 def evaluate(root):
     source=Path(root);years=(2023,2024,2025,2026)
