@@ -217,7 +217,7 @@ def run():
     fallback_all_windows_improve=all(x["logloss_gain"]>0 and x["brier_gain"]>0 for x in fallback_windows.values())
     # Isolate extra player scoring beyond the incumbent minute+opponent model.
     # Select coefficient from 2024+2025 only; report 2026 just once.
-    score_grid=(-600,-400,-200,-100,0,100,200,400,600)
+    score_grid=(-600,-400,-200,-100,0,100,200,400,600,800,1000,1200,1600,2000)
     score_trials=[]
     opponent_beta=best["beta_per_100_opponent_elo"]
     for score_beta in score_grid:
@@ -237,6 +237,8 @@ def run():
     if score_holdout["matched_games_sha256"]!=hold["matched_games_sha256"]:
         raise ValueError("Incremental player scoring trial changed opponent-model holdout games")
     scoring_incremental={"training_grid":score_trials,"selected_beta":scoring_winner["scoring_beta"],
+        "winner_on_grid_boundary":scoring_winner["scoring_beta"] in (min(score_grid),max(score_grid)),
+        "model_complexity_warning":"Boundary winner means coefficient is not bounded by tested region" if scoring_winner["scoring_beta"] in (min(score_grid),max(score_grid)) else None,
         "holdout_roster_opponent_baseline":hold,"holdout_plus_individual_scoring":score_holdout,
         "holdout_logloss_gain":hold["log_loss"]-score_holdout["log_loss"],
         "holdout_brier_gain":hold["brier"]-score_holdout["brier"],
