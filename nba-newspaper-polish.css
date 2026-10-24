@@ -1,154 +1,53 @@
-/* NBA editorial refresh — calm, dense sports-newspaper presentation. */
-body.edition-interior .hub{max-width:1460px!important}
-body.edition-interior .nba-paper-layout{
-  grid-template-columns:minmax(0,1.18fr) minmax(0,1fr) minmax(275px,.88fr)!important;
-  gap:clamp(16px,1.7vw,28px)!important;align-items:start!important;
-  border-top:3px double #484136!important
-}
-body.edition-interior .nba-paper-layout .hub-feature{min-width:0}
-body.edition-interior .nba-paper-column{gap:18px!important}
-body.edition-interior .nba-paper-layout h2{
-  font:700 clamp(16px,1.28vw,20px)/1.2 Georgia,'Times New Roman',serif!important;
-  letter-spacing:-.025em!important
-}
-body.edition-interior .nba-paper-layout .hub-small{
-  font:400 12px/1.5 Georgia,serif!important;color:#655e54!important
-}
-/* Stories: one lead with restrained hierarchy; no overflow or accidental shouting. */
-body.edition-interior .nba-paper-news #nba-news-grid{
-  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  column-gap:18px!important;row-gap:0!important;align-content:start!important
-}
-body.edition-interior #nba-news-grid .nba-news-item{
-  min-width:0!important;max-width:100%!important;margin:0!important;
-  padding:12px 0 14px!important;border:0!important;
-  border-top:1px solid #d0c9bd!important;break-inside:avoid
-}
-body.edition-interior #nba-news-grid .nba-news-item:first-child{border-top:3px solid #3d362c!important}
-body.edition-interior #nba-news-grid .nba-news-lead{
-  grid-column:1/-1!important;padding:13px 0 18px!important;
-  border-top:3px solid #3d362c!important;border-bottom:1px solid #b6ac9d!important
-}
-body.edition-interior #nba-news-grid .nba-news-item h3{
-  font:600 clamp(15px,1.04vw,18px)/1.25 Georgia,'Times New Roman',serif!important;
-  letter-spacing:-.016em!important;margin:6px 0 7px!important;
-  overflow-wrap:break-word!important;word-break:normal!important
-}
-body.edition-interior #nba-news-grid .nba-news-lead h3{
-  font:700 clamp(23px,2.25vw,33px)/1.12 Georgia,'Times New Roman',serif!important;
-  letter-spacing:-.026em!important;max-width:27ch
-}
-body.edition-interior #nba-news-grid a{color:#25211e!important;text-decoration:none!important}
-body.edition-interior #nba-news-grid a:hover{text-decoration:underline!important;text-underline-offset:3px}
-body.edition-interior #nba-news-grid .nba-news-source{
-  color:#746859!important;font:500 10px/1.5 Georgia,serif!important;
-  letter-spacing:.025em!important;overflow-wrap:anywhere
-}
-body.edition-interior #nba-news-grid .nba-news-summary{
-  font:400 12px/1.48 Georgia,serif!important;color:#554e47!important;
-  margin:0!important;display:-webkit-box;-webkit-box-orient:vertical;
-  -webkit-line-clamp:3;overflow:hidden
-}
-body.edition-interior #nba-news-grid .nba-news-lead .nba-news-summary{
-  font-size:13px!important;max-width:70ch;-webkit-line-clamp:4
-}
-body.edition-interior #nba-news-grid .nba-story-logos img{width:20px!important;height:20px!important;max-width:20px!important;max-height:20px!important}
-body.edition-interior #nba-news-grid .nba-more-stories{
-  grid-column:1/-1;min-width:0;border-top:2px solid #4b4237;margin-top:6px;padding:10px 0
-}
-body.edition-interior #nba-news-grid .nba-more-stories>summary{
-  cursor:pointer;font:700 12px/1.6 Georgia,serif;color:#3a3127;list-style-position:inside
-}
-body.edition-interior #nba-news-grid .nba-more-list{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;
-  padding-top:7px
-}
-/* Scores: compact scorebugs with visible hierarchy and no large blank gaps. */
-body.edition-interior #nba-results-rail{
-  display:grid!important;grid-template-columns:1fr!important;gap:7px!important;
-  max-height:none!important;overflow:visible!important;align-content:start!important
-}
-body.edition-interior .nba-paper-rail .nba-scorebug{
-  margin:0!important;background:#faf8f3!important;border:1px solid #d1c9bd!important;
-  border-radius:4px;overflow:hidden
-}
-body.edition-interior .nba-paper-rail .nba-scorebug summary{padding:9px 11px!important}
-body.edition-interior .nba-paper-rail .nba-scorebug-team strong{
-  font:700 23px/1.1 Georgia,serif!important;font-variant-numeric:tabular-nums
-}
-body.edition-interior .nba-paper-rail .nba-scorebug-meta{font-size:10px!important}
-body.edition-interior .nba-paper-rail .nba-scorebug-team img{width:27px;height:27px}
-body.edition-interior .nba-paper-rail .nba-scorebug-team b{font-size:12px!important}
-/* Standings: remove enforced blank heights, align columns, tighten rules. */
-body.edition-interior #nba-conference-standings .nba-divisions{
-  display:grid!important;grid-template-columns:1fr!important;
-  grid-auto-rows:min-content!important;row-gap:14px!important;align-content:start!important
-}
-body.edition-interior #nba-conference-standings .nba-division{
-  min-height:0!important;height:auto!important;max-height:none!important;
-  margin:0!important;padding:0 0 6px!important;align-self:start!important
-}
-body.edition-interior #nba-conference-standings .nba-division h3{
-  margin:0 0 7px!important;padding-top:7px!important;
-  border-top:2px solid #51483d!important;font:700 15px/1.25 Georgia,serif!important;
-  letter-spacing:.02em!important
-}
-body.edition-interior #nba-conference-standings .nba-mini-table{
-  border-collapse:collapse!important;table-layout:auto!important
-}
+/* Mobile-safe NBA newspaper polish. No fixed content widths or narrow columns. */
+body.edition-interior .nba-paper-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(260px,.85fr);gap:20px;align-items:start}
+body.edition-interior .nba-paper-layout .nba-paper-column,
+body.edition-interior .nba-paper-layout .hub-feature{min-width:0;max-width:100%}
+body.edition-interior #nba-news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+body.edition-interior #nba-news-grid .nba-news-item{min-width:0;border-top:1px solid #d3cdc4;padding:12px 0}
+body.edition-interior #nba-news-grid .nba-news-lead{grid-column:1/-1;border-top:3px solid #403b34;padding-top:14px}
+body.edition-interior #nba-news-grid .nba-news-lead h3{font:700 clamp(22px,2.2vw,32px)/1.15 Georgia,serif;max-width:100%;overflow-wrap:break-word}
+body.edition-interior #nba-news-grid .nba-news-item h3{font:600 17px/1.27 Georgia,serif;overflow-wrap:break-word}
+body.edition-interior #nba-news-grid .nba-news-summary{font:13px/1.48 Georgia,serif;color:#5a544c}
+body.edition-interior #nba-news-grid .nba-more-stories{grid-column:1/-1;border-top:2px solid #403b34;padding:10px 0}
+body.edition-interior #nba-news-grid .nba-more-stories summary{cursor:pointer;font:700 12px Georgia,serif}
+body.edition-interior #nba-news-grid .nba-more-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+body.edition-interior #nba-conference-standings .nba-divisions{display:grid;grid-template-columns:1fr;gap:14px;align-content:start}
+body.edition-interior #nba-conference-standings .nba-division{min-width:0;min-height:0;height:auto;margin:0}
+body.edition-interior #nba-conference-standings .nba-division h3{margin:0 0 7px;padding-top:7px;border-top:2px solid #51483d;font:700 15px Georgia,serif}
+body.edition-interior #nba-conference-standings table{width:100%;border-collapse:collapse}
 body.edition-interior #nba-conference-standings .nba-mini-table th,
-body.edition-interior #nba-conference-standings .nba-mini-table td{
-  padding:5px 4px!important;font:400 11px/1.35 Georgia,serif!important;
-  white-space:nowrap!important;border-bottom:1px solid #e0d9d0!important
-}
-body.edition-interior #nba-conference-standings .nba-mini-table th:nth-child(2){font-weight:700!important}
-body.edition-interior #nba-conference-standings .nba-mini-table thead th{
-  font-weight:700!important;border-bottom:1px solid #40372d!important
-}
-body.edition-interior #nba-conference-standings .nba-mini-table td:nth-child(n+3){font-variant-numeric:tabular-nums}
-body.edition-interior #nba-conference-standings .nba-mini-table td:last-child,
-body.edition-interior #nba-conference-standings .nba-mini-table th:last-child{text-align:right!important}
-/* Projection model: little scoreboards rather than loud scattered boxes. */
-body.edition-interior #nba-rabby-today{
-  background:#f7f4ed!important;border:1px solid #c9c1b5!important;
-  border-top:4px solid #34302b!important;padding:14px 16px 16px!important;
-  margin-top:15px!important
-}
-body.edition-interior #nba-rabby-today h2{font:700 clamp(17px,1.55vw,22px)/1.2 Georgia,serif!important;margin:3px 0 8px!important}
-body.edition-interior #nba-rabby-today .rabby-board{gap:10px!important}
-body.edition-interior #nba-rabby-today .rabby-game{border-radius:3px;background:#fffdf8!important;padding:12px!important}
-body.edition-interior #nba-rabby-today .rabby-model{
-  grid-template-columns:repeat(2,minmax(0,1fr));font-size:12px!important
-}
-body.edition-interior #nba-rabby-today .rabby-model strong{font:700 10px/1.4 Georgia,serif!important}
-/* Player tables and transaction wire: quieter tabular typography. */
-body.edition-interior .nba-paper-stat .nba-player-leader-block{margin:0!important;padding:8px 0!important}
-body.edition-interior .nba-paper-stat .nba-player-leader-block h4{font-size:12px!important;letter-spacing:.05em}
-body.edition-interior .nba-paper-layout .nba-mini-table tbody tr:hover{background:#efeae1!important}
-body.edition-interior #nba-injury-wire,body.edition-interior #nba-transaction-wire{
-  column-count:1!important;overflow-x:auto!important
-}
-@media(max-width:1199px){
-  body.edition-interior .nba-paper-layout{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)!important}
+body.edition-interior #nba-conference-standings .nba-mini-table td{font-size:11px!important;padding:5px 4px!important}
+body.edition-interior #nba-results-rail{display:grid;grid-template-columns:1fr;gap:8px;max-height:none;overflow:visible}
+body.edition-interior #nba-results-rail .nba-scorebug{margin:0;background:#faf8f3;border:1px solid #d1c9bd;border-radius:3px;min-width:0}
+body.edition-interior #nba-rabby-today{background:#f7f4ed;border:1px solid #c9c1b5;border-top:3px solid #403b34;padding:14px}
+body.edition-interior .nba-paper-layout .nba-current-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:1100px){
+ body.edition-interior .nba-paper-layout{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.edition-interior .nba-paper-rail{grid-column:1/-1;grid-row:auto}
 }
 @media(max-width:760px){
- body.edition-interior .nba-paper-layout{grid-template-columns:1fr!important;gap:20px!important}
- body.edition-interior .nba-paper-news,body.edition-interior .nba-paper-stat,body.edition-interior .nba-paper-rail{
-   grid-column:1!important;grid-row:auto!important
- }
- body.edition-interior .nba-paper-news #nba-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
- body.edition-interior #nba-results-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}
- body.edition-interior #nba-conference-standings .nba-divisions{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media(max-width:520px){
- body.edition-interior #nba-rabby-today{padding:12px!important}
- body.edition-interior .nba-paper-news #nba-news-grid,
+ body.edition-interior .hub{width:auto!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ body.edition-interior .nba-paper-layout{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important}
+ body.edition-interior .nba-paper-column{display:block!important;grid-column:auto!important;grid-row:auto!important;width:100%!important;min-width:0!important;max-width:100%!important}
+ body.edition-interior .nba-paper-column>.hub-feature{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;margin-bottom:18px!important}
+ body.edition-interior #nba-news-grid,
  body.edition-interior #nba-news-grid .nba-more-list,
  body.edition-interior #nba-results-rail,
- body.edition-interior #nba-conference-standings .nba-divisions{
-  grid-template-columns:1fr!important
- }
- body.edition-interior #nba-news-grid .nba-news-lead{grid-column:1!important}
- body.edition-interior #nba-news-grid .nba-news-lead h3{font-size:24px!important}
+ body.edition-interior #nba-conference-standings .nba-divisions,
+ body.edition-interior #nba-boxscore-ledger{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;min-width:0!important;max-width:100%!important}
+ body.edition-interior #nba-news-grid .nba-news-item,
+ body.edition-interior #nba-news-grid .nba-news-lead,
+ body.edition-interior #nba-news-grid .nba-more-stories{grid-column:1!important;min-width:0!important;max-width:100%!important}
+ body.edition-interior #nba-news-grid h3{overflow-wrap:break-word!important;word-break:normal!important;white-space:normal!important;hyphens:none!important}
+ body.edition-interior .nba-paper-layout h1,
+ body.edition-interior .nba-paper-layout h2,
+ body.edition-interior .nba-paper-layout h3,
+ body.edition-interior .nba-paper-layout p,
+ body.edition-interior .nba-paper-layout a,
+ body.edition-interior .nba-paper-layout span{writing-mode:horizontal-tb!important;word-break:normal!important;overflow-wrap:break-word!important;white-space:normal!important}
+ body.edition-interior .nba-paper-layout .nba-mini-table{width:100%!important;max-width:none}
+ body.edition-interior .nba-paper-layout .nba-current-table-wrap{overflow-x:auto!important}
+ body.edition-interior #nba-news-grid .nba-news-lead h3{font-size:24px!important;max-width:none!important}
  body.edition-interior #nba-news-grid .nba-news-item h3{font-size:17px!important}
+ body.edition-interior #nba-rabby-today{max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
 }
