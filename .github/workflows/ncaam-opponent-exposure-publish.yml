@@ -1,0 +1,44 @@
+name: NCAA player opponent exposure publication
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_player_opponent_elo.py'
+      - 'scripts/join_ncaam_opponent_exposure.py'
+      - 'scripts/test_ncaam_opponent_exposure_integrity.py'
+      - '.github/workflows/ncaam-opponent-exposure-publish.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test opponent game identity and temporal integrity
+        run: python -m unittest discover -s scripts -p test_ncaam_opponent_exposure_integrity.py -v
+      - name: Generate opponent exposure from 2025-26 NCAA box scores
+        run: python scripts/build_ncaam_player_opponent_elo.py
+      - name: Join source IDs to 2026-27 current rosters
+        run: python scripts/join_ncaam_opponent_exposure.py
+      - name: Publish provenance and current-roster linked exposure
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2025-26-opponent-adjusted-player-exposure.json data/ncaam-2026-27-opponent-exposure-links.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish verified NCAA player opponent exposure linked to 2026-27 rosters [skip ci]"
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-player-opponent-2026-27-linked
+          path: |
+            data/ncaam-2025-26-opponent-adjusted-player-exposure.json
+            data/ncaam-2026-27-opponent-exposure-links.json
+          if-no-files-found: warn
