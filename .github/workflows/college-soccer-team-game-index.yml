@@ -1,0 +1,61 @@
+name: NCAA Soccer Team Game Index
+
+on:
+  schedule:
+    - cron: '23,53 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'data/college-soccer-elo-final-ledger.json'
+      - 'data/college-soccer-prospective-v2.json'
+      - 'data/college-soccer-elo.json'
+      - 'scripts/build_college_soccer_team_game_index.py'
+      - '.github/workflows/college-soccer-team-game-index.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: college-soccer-game-index
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build derived program game indexes
+        run: python scripts/build_college_soccer_team_game_index.py
+      - name: Verify no duplicated matches per team
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/college-soccer-team-game-index.json').read_text())
+          assert not d['unresolved'], f"Unresolved school IDs: {d['unresolved'][:5]}"
+          for team,report in d['teams'].items():
+              ids=[g['match_id'] for g in report['games']]
+              assert len(ids)==len(set(ids)), f"Duplicate game: {team}"
+              for game in report['games']:
+                  if game['status']=='final':
+                      assert game['source_type']=='verified_official_final'
+                      assert game['goals_for'] is not None and game['goals_against'] is not None
+          print('Validated',len(d['teams']),'team game indexes')
+          PY
+      - name: Commit changed index
+        run: |
+          if git diff --quiet -- data/college-soccer-team-game-index.json; then
+            echo "No game-index changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-team-game-index.json
+          git commit -m "Rebuild NCAA soccer program fixture and results index"
+          git pull --rebase origin main
+          git push origin HEAD:main
