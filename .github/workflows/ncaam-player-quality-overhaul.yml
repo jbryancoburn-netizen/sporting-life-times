@@ -5,6 +5,7 @@ on:
       - 'scripts/build_ncaam_player_quality_overhaul.py'
       - 'scripts/test_build_ncaam_player_quality_overhaul.py'
       - 'scripts/audit_ncaam_overhaul_promotion.py'
+      - 'scripts/audit_ncaam_transfer_source_strength.py'
       - '.github/workflows/ncaam-player-quality-overhaul.yml'
   workflow_dispatch:
 permissions:
@@ -37,12 +38,14 @@ jobs:
           assert all(abs(x['elo']-x['base_elo']-x['offseason_adjustment'])<.00021 for x in d['rankings'])
           print('Validated',len(d['rankings']),'research ratings, no primary promotion')
           PY
+      - name: Reconcile historical transfer source program strength
+        run: python scripts/audit_ncaam_transfer_source_strength.py
       - name: Audit whether research can replace production ratings
         run: |
           python scripts/audit_ncaam_overhaul_promotion.py
           python - <<'PY'
           import json
-          d=json.load(open('data/ncaam-2026-27-overhaul-promotion-audit.json'))
+          d=json.load(open('data/ncaam-2026-27-overhaul-promotion-audit.json data/ncaam-2026-27-transfer-source-strength-audit.json'))
           assert d['promotion_approved'] is False, 'Requires a separate reviewed production promotion'
           assert d['blocking_reasons'], 'Missing genuine validation evidence'
           print('PASS: Uncertified contender withheld with explicit evidence reasons')
