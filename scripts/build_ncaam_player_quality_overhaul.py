@@ -10,8 +10,10 @@ preseason historical as-of validation is possible.
 import json
 from pathlib import Path
 
-def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5, scoring_weight=1.0, calibration=None):
+def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5, scoring_weight=1.0, calibration=None, transfer_sources=None, source_strength_beta=0.0):
     assert 0 <= transfer_weight <= 1 and 0 <= roster_weight <= 1 and 0 <= scoring_weight <= 1
+    assert -100 <= source_strength_beta <= 100
+    assert source_strength_beta == 0 or transfer_sources is not None
     assert base["season"] == roster["season"] == scoring["season"] == shadow["season"] == "2026-27"
     assert len(base["rankings"]) == len(roster["rankings"]) == len(scoring["teams"]) == len(shadow["rankings"]) == 365
     assert shadow["status"] == "SHADOW_ONLY_DO_NOT_PROMOTE"
@@ -24,6 +26,10 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
     q={x["team_id"]:x for x in shadow["rankings"]}
     assert len(b)==len(s)==len(q)==365
     assert {x["team_id"] for x in roster["rankings"]}==set(b)
+    sources={x["team_id"]:x for x in transfer_sources["teams"]} if transfer_sources else {}
+    if transfer_sources:
+        assert transfer_sources["team_count"]==365 and set(sources)==set(b)
+        assert transfer_sources["status"]=="UNVALIDATED_CONTEXT_FEATURE_DO_NOT_PROMOTE"
     rows=[]
     identity_mismatches=[]
     baseline_fallbacks=[]
@@ -47,13 +53,24 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
         # Quality term is calculated from verified historical scoring; it is
         # context-uncalibrated and retained strictly as a research scenario.
         quality=float(q[tid]["experimental_scoring_quality_adjustment"])*scoring_weight if identity_ok else 0.0
+        source=sources.get(tid)
+        source_elo=source["transfer_source_weighted_2025_26_elo"] if source else None
+        # Center historical source-school Elo at the independently defined 1500
+        # neutral reference; cap at one normalized unit to avoid outsized input.
+        # Only the explicitly scenario-selected beta turns this into an adjustment.
+        source_feature=max(-1.0,min(1.0,(source_elo-1500)/200)) if source_elo is not None else None
+        source_component=round(source_strength_beta*source_feature,4) if source_feature is not None else 0.0
         if team["roster_coverage"]=="baseline-fallback":
-            retention_component=transfer_component=quality=0.0
-        adj=round(roster_weight*(retention_component+transfer_component)+quality,4)
+            retention_component=transfer_component=quality=source_component=0.0
+        adj=round(roster_weight*(retention_component+transfer_component)+quality+source_component,4)
         rows.append({"team_id":tid,"team":team["team"],"conference":team["conference"],
                      "base_elo":round(baseline,4),"retention_component":round(retention_component*roster_weight,4),
                      "transfer_component":round(transfer_component*roster_weight,4),
-                     "quality_component":round(quality,4),"offseason_adjustment":adj,
+                     "quality_component":round(quality,4),
+                     "prior_transfer_source_elo":source_elo,
+                     "transfer_source_strength_feature":round(source_feature,6) if source_feature is not None else None,
+                     "transfer_source_strength_component":source_component,
+                     "offseason_adjustment":adj,
                      "elo":round(baseline+adj,4),
                      "verified_player_count":s[tid]["verified_players"],"identity_count_reconciled":identity_ok,
                      "unverified_player_quality_imputed":False,"season_games":0})
@@ -69,10 +86,11 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
                 "player_quality":"ncaam-2026-27-scoring-quality-shadow.json",
                 "player_scoring":"ncaam-2026-27-player-scoring-shadow.json"},
       "source_quality_beta":shadow["source_integrity"]["quality_beta"],
+      "transfer_source_evidence_teams":sum(x["transfer_source_strength_feature"] is not None for x in rows),
       "scenario":{"transfer_weight":transfer_weight,"roster_weight":roster_weight,
-                  "scoring_weight":scoring_weight},
+                  "scoring_weight":scoring_weight,"source_strength_beta":source_strength_beta},
       "limitations":["Scoring points per prior minute is not full player value or defensive quality",
-                     "School-strength and previous competition adjustment not certified",
+                     "Prior-school Elo transfer-strength feature is measured; predictive coefficient defaults to zero until held-out validation",
                      "Missing player and freshman value not imputed",
                      "Uncovered programs retain their own baseline with linked quality evidence excluded",
                      "Mismatched cross-source player counts receive zero quality adjustment",
@@ -87,7 +105,8 @@ def main():
                  read("ncaam-2026-27-preseason-roster-informed.json"),
                  read("ncaam-2026-27-player-scoring-shadow.json"),
                  read("ncaam-2026-27-scoring-quality-shadow.json"),
-                 calibration=read("ncaam-quality-earlyseason-asof-backtest.json"))
+                 calibration=read("ncaam-quality-earlyseason-asof-backtest.json"),
+                 transfer_sources=read("ncaam-2026-27-transfer-source-strength-audit.json"))
     path=d/"ncaam-2026-27-player-quality-overhaul-shadow.json"
     path.write_text(json.dumps(result,indent=2)+"\n")
     print("Built independent player-quality offseason challenger:",len(result["rankings"]),"teams")
