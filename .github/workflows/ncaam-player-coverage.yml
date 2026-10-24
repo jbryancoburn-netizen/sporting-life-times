@@ -1,0 +1,63 @@
+name: NCAA player source coverage priorities
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_player_coverage_queue.py'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-minutes-retention-audit.json'
+      - 'data/ncaam-2026-27-player-identity-source-review.json'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+      - '.github/workflows/ncaam-player-coverage.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-player-coverage-audit
+  cancel-in-progress: true
+jobs:
+  player-source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile player review model
+        run: python -m py_compile scripts/audit_ncaam_player_coverage_queue.py
+      - name: Recalculate player-level and team-level evidence
+        run: |
+          python scripts/audit_ncaam_player_coverage_queue.py
+          python scripts/audit_ncaam_player_coverage_queue.py --verify
+      - name: Validate exhaustive coverage and no fabricated historical production
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('data/ncaam-2026-27-player-coverage-review-queue.json').read_text())
+          assert x['team_count']==365 and len(x['team_priority'])==365
+          assert x['roster_players']==5537
+          assert x['players_with_measured_prior_stats']==2923
+          assert x['players_without_eligible_prior_stats']==2614
+          assert x['model_ratings_modified'] is False
+          assert x['unverified_production_added']==0
+          assert len(x['player_review_queue'])==2614
+          assert all(z['production_eligible'] is False for z in x['player_review_queue'])
+          assert sum(x['reason_counts'].values())==5537
+          assert len({z['current_espn_id'] for z in x['player_review_queue']})==2614
+          print('PASS: 365 programs, 5,537 athletes, 2,923 measured, 2,614 without verified scoring evidence')
+          PY
+      - name: Publish source-by-source unresolved evidence queue
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-player-coverage-review-queue.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Publish 365-team NCAA player stat evidence coverage priorities'
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
