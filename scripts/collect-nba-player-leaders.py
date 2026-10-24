@@ -50,10 +50,13 @@ season_totals=[{"id":k[0],"player":k[1],"team":k[2],**dict(v),
   "fg_pct":round(100*v["fgm"]/v["fga"],3) if v["fga"] else None,
   "fg3_pct":round(100*v["fg3m"]/v["fg3a"],3) if v["fg3a"] else None,
   "ft_pct":round(100*v["ftm"]/v["fta"],3) if v["fta"] else None,
+  "efg_pct":round(100*(v["fgm"]+.5*v["fg3m"])/v["fga"],3) if v["fga"] else None,
+  "ast_to_ratio":round(v["ast"]/v["tov"],3) if v["tov"] else None,
+  "tov_pct":round(100*v["tov"]/(v["fga"]+.44*v["fta"]+v["tov"]),3) if v["fga"]+.44*v["fta"]+v["tov"] else None,
   "ts_pct":round(100*v["pts"]/(2*(v["fga"]+0.44*v["fta"])),3) if v["fga"]+0.44*v["fta"] else None}
   for k,v in players.items() if v["gp"]]
 result = {"updated_at":datetime.now(timezone.utc).isoformat(),"season":"2026-27",
-    "source":"NBA.com official boxscores; independent captured-game leaderboard (incomplete sample)",
+    "source":"Attributed NBA and ESPN boxscores; independent captured-game leaderboard (incomplete sample)",
     "url":"https://www.nba.com/stats/leaders",
     "sample_only":True,
     "coverage":{"completed_boxscores":len(games),"unique_players":len(players)},
@@ -61,3 +64,4 @@ result = {"updated_at":datetime.now(timezone.utc).isoformat(),"season":"2026-27"
 destination.parent.mkdir(parents=True,exist_ok=True)
 destination.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print("NBA captured player leaders:",len(players),"players from",len(games),"verified game box scores")
+
