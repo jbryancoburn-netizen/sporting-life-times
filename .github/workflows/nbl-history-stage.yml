@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/stage_nbl_history.py'
+      - 'scripts/audit_nbl_candidates.py'
       - '.github/workflows/nbl-history-stage.yml'
   workflow_dispatch:
   schedule:
@@ -23,6 +24,8 @@ jobs:
         run: python scripts/stage_nbl_history.py --start 2025-09-01 --end 2026-04-30 --output /tmp/nbl-history/2025-26-candidates.json
       - name: Stage 2026-27 candidate finals to date
         run: python scripts/stage_nbl_history.py --start 2026-09-01 --end $(date -u +%F) --output /tmp/nbl-history/2026-27-candidates.json
+      - name: Audit candidate identity and chronological integrity
+        run: python scripts/audit_nbl_candidates.py --past /tmp/nbl-history/2025-26-candidates.json --current /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/reconciliation-audit.json
       - name: Upload original-source audit candidates
         uses: actions/upload-artifact@v4
         with:
