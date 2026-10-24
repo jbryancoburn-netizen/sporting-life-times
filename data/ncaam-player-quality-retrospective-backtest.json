@@ -12,88 +12,88 @@
     "baseline": "independent prior-year Elo plus 120*(returning share minus median) and 160*(incoming share minus median)",
     "quality": "weighted 2023/24/25 prior-year player scoring residual per minute, source-unique exact names only",
     "quality_grid": [
+      -1000,
+      -600,
       -400,
-      -300,
       -200,
-      -150,
       -100,
-      -75,
-      -50,
-      -25,
       0,
-      25,
-      50,
-      75,
       100,
-      150,
       200,
       300,
-      400
+      400,
+      600,
+      800,
+      1000,
+      1200,
+      1600,
+      2000
     ],
-    "selected_quality_beta": 400,
+    "selected_quality_beta": 1600,
     "prior_elo_source": "independent replay of NCAA actual scores without third-party ratings",
     "game_venue": "neutral (unverified true-home/neutral venue)"
   },
   "training_minutes_only": {
     "games": 3602,
-    "log_loss": 0.5703702874849358,
-    "brier": 0.19380682478363023,
+    "log_loss": 0.570391003608638,
+    "brier": 0.19381712270072757,
     "per_season": {
       "2024": {
         "games": 1794,
-        "log_loss": 0.5809015103973115,
-        "brier": 0.19795491898392006
+        "log_loss": 0.5809618518653162,
+        "brier": 0.19798536274420447
       },
       "2025": {
         "games": 1808,
-        "log_loss": 0.5599206116526338,
-        "brier": 0.18969085078179396
+        "log_loss": 0.5599020092654516,
+        "brier": 0.1896811588522776
       }
     }
   },
   "training_minutes_plus_quality": {
     "games": 3602,
-    "log_loss": 0.5657230058407196,
-    "brier": 0.19201172618516374,
+    "log_loss": 0.5596522888939108,
+    "brier": 0.19022437454207683,
     "per_season": {
       "2024": {
         "games": 1794,
-        "log_loss": 0.5765343262372674,
-        "brier": 0.19623043804748527
+        "log_loss": 0.5702461283969593,
+        "brier": 0.19430492879461528
       },
       "2025": {
         "games": 1808,
-        "log_loss": 0.5549954014206936,
-        "brier": 0.1878256813394753
+        "log_loss": 0.5491404813339169,
+        "brier": 0.18617541750167083
       }
     }
   },
   "holdout_minutes_only": {
     "games": 1831,
-    "log_loss": 0.53418110153678,
-    "brier": 0.17848441104356183,
+    "log_loss": 0.5341768990649545,
+    "brier": 0.17848420399657344,
     "per_season": {
       "2026": {
         "games": 1831,
-        "log_loss": 0.53418110153678,
-        "brier": 0.17848441104356183
+        "log_loss": 0.5341768990649545,
+        "brier": 0.17848420399657344
       }
     }
   },
   "holdout_minutes_plus_quality": {
     "games": 1831,
-    "log_loss": 0.5288555883834017,
-    "brier": 0.1765494558118438,
+    "log_loss": 0.5204351776082639,
+    "brier": 0.17417821809361306,
     "per_season": {
       "2026": {
         "games": 1831,
-        "log_loss": 0.5288555883834017,
-        "brier": 0.1765494558118438
+        "log_loss": 0.5204351776082639,
+        "brier": 0.17417821809361306
       }
     }
   },
-  "holdout_log_loss_gain": 0.0053255131533782585,
-  "holdout_brier_gain": 0.0019349552317180219,
+  "holdout_log_loss_gain": 0.013741721456690614,
+  "holdout_brier_gain": 0.004305985902960385,
+  "training_grid_boundary": false,
   "holdout_both_metrics_improved": true,
   "roster_audit": {
     "2024": {
@@ -155,22 +155,19 @@
     "2023": {
       "usable_d1": 5593,
       "excluded": {
-        "outside_roster_teams": 538,
-        "no_ncaa_game_identifiers": 90
+        "outside_roster_teams": 628
       }
     },
     "2024": {
       "usable_d1": 5611,
       "excluded": {
-        "no_ncaa_game_identifiers": 85,
-        "outside_roster_teams": 547
+        "outside_roster_teams": 632
       }
     },
     "2025": {
       "usable_d1": 5674,
       "excluded": {
-        "outside_roster_teams": 560,
-        "no_ncaa_game_identifiers": 59
+        "outside_roster_teams": 619
       }
     },
     "2026": {

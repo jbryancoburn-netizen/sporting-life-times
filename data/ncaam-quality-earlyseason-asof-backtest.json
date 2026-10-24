@@ -9,23 +9,23 @@
     2025
   ],
   "holdout_season": 2026,
-  "selected_quality_beta": 400,
+  "selected_quality_beta": 1200,
   "training_minutes": {
     "games": 3091,
-    "log_loss": 0.5689657382997029,
-    "brier": 0.19380416863065553,
+    "log_loss": 0.5689624383785018,
+    "brier": 0.1938024550284728,
     "per_season": {
       "2024": {
         "games": 1541,
-        "log_loss": 0.5739278158348712,
-        "brier": 0.19526001174181604,
+        "log_loss": 0.5739287773854993,
+        "brier": 0.19526041364424887,
         "from": "2023-11-20",
         "through_exclusive": "2024-01-04"
       },
       "2025": {
         "games": 1550,
-        "log_loss": 0.5640324728276419,
-        "brier": 0.1923567788020759,
+        "log_loss": 0.5640249361786417,
+        "brier": 0.19235296197885285,
         "from": "2024-11-18",
         "through_exclusive": "2025-01-02"
       }
@@ -33,20 +33,20 @@
   },
   "training_quality": {
     "games": 3091,
-    "log_loss": 0.565687405724598,
-    "brier": 0.19261193907132973,
+    "log_loss": 0.5629369395043449,
+    "brier": 0.1919023319422603,
     "per_season": {
       "2024": {
         "games": 1541,
-        "log_loss": 0.5708315930803362,
-        "brier": 0.1941051387853973,
+        "log_loss": 0.5678469960229586,
+        "brier": 0.193286970111177,
         "from": "2023-11-20",
         "through_exclusive": "2024-01-04"
       },
       "2025": {
         "games": 1550,
-        "log_loss": 0.5605730878438286,
-        "brier": 0.19112740954915025,
+        "log_loss": 0.558055392991323,
+        "brier": 0.1905257336078728,
         "from": "2024-11-18",
         "through_exclusive": "2025-01-02"
       }
@@ -54,13 +54,13 @@
   },
   "holdout_minutes": {
     "games": 1596,
-    "log_loss": 0.5359995688061056,
-    "brier": 0.17980727480694886,
+    "log_loss": 0.5360046530003357,
+    "brier": 0.1798088607215804,
     "per_season": {
       "2026": {
         "games": 1596,
-        "log_loss": 0.5359995688061056,
-        "brier": 0.17980727480694886,
+        "log_loss": 0.5360046530003357,
+        "brier": 0.1798088607215804,
         "from": "2025-11-17",
         "through_exclusive": "2026-01-01"
       }
@@ -68,21 +68,21 @@
   },
   "holdout_quality": {
     "games": 1596,
-    "log_loss": 0.5315570594972713,
-    "brier": 0.17821808465106778,
+    "log_loss": 0.5261184796504091,
+    "brier": 0.17662886502527583,
     "per_season": {
       "2026": {
         "games": 1596,
-        "log_loss": 0.5315570594972713,
-        "brier": 0.17821808465106778,
+        "log_loss": 0.5261184796504091,
+        "brier": 0.17662886502527583,
         "from": "2025-11-17",
         "through_exclusive": "2026-01-01"
       }
     }
   },
   "holdout_both_improved": true,
-  "holdout_log_loss_gain": 0.004442509308834275,
-  "holdout_brier_gain": 0.0015891901558810761,
+  "holdout_log_loss_gain": 0.009886173349926586,
+  "holdout_brier_gain": 0.0031799956963045606,
   "asof_player_evidence": {
     "2024": {
       "roster_teams": 358,
