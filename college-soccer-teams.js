@@ -51,7 +51,7 @@ metrics.firstElementChild.classList.add('team-metric-lead');
 profile.append(metrics);
 const sectionNav=node('nav',undefined,'team-section-nav');
 sectionNav.setAttribute('aria-label','Team profile sections');
-for(const [href,label] of [['team-news','News'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
+for(const [href,label] of [['team-featured','Match Center'],['team-news','News'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
  const a=node('a',label);a.href='#'+href;sectionNav.append(a);
 }
 profile.append(sectionNav);
@@ -61,11 +61,40 @@ const schedule=node('a',"Official 2026 Trine men's soccer schedule & results ↗
 schedule.href='https://trinethunder.com/sports/mens-soccer/schedule/2026';schedule.target='_blank';schedule.rel='noopener noreferrer';
 official.append(schedule);profile.append(official);
 }
+const teamRankings=rankings.cohorts[t.cohort]||[];
+const standing=node('div',undefined,'team-elo-standing');
+const pct=teamRankings.length>1?Math.max(0,Math.min(100,100*(1-(t.rank-1)/(teamRankings.length-1)))):50;
+const standingHeading=node('div',undefined,'team-standing-heading');
+standingHeading.append(node('strong','USRS Elo · Division standing'),node('span','#'+t.rank+' of '+teamRankings.length));
+standing.append(standingHeading);
+const track=node('div',undefined,'team-standing-track');track.setAttribute('role','img');track.setAttribute('aria-label',t.team+' ranks '+t.rank+' of '+teamRankings.length+' in '+cohortName(t.cohort));
+const fill=node('div',undefined,'team-standing-fill');fill.style.width=pct.toFixed(2)+'%';track.append(fill);standing.append(track);
+standing.append(node('p','The marker reflects divisional rank—not an Elo change or forecast probability. Ratings remain provisional.','team-standing-caption'));
+profile.append(standing);
 const note=node('p','Ratings and season records come from the published provisional NCAA soccer Elo dataset. Verified finals below are only the incremental official-game ledger, not a complete season schedule.','college-elo-note');profile.append(note);
 const key=t.cohort+':'+t.team_id;
 const teamForecasts=forecasts.filter(f=>f.cohort===t.cohort&&(f.home_team===t.team_id||f.away_team===t.team_id));
 const finalById=new Map(verified.map(f=>[f.match_id,f]));
 const upcoming=teamForecasts.filter(f=>!finalById.has(f.match_id)).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
+const keyData=scheduleData.teams?.[key]||gameIndex.teams?.[key]||{games:[]};
+const finishedGames=(keyData.games||[]).filter(g=>g.status==='final').slice().sort((a,b)=>b.date.localeCompare(a.date));
+const pendingGames=(keyData.games||[]).filter(g=>g.status!=='final').slice().sort((a,b)=>a.date.localeCompare(b.date));
+const feature=node('section',undefined,'team-match-feature');feature.id='team-featured';
+feature.append(node('h3','Match Center','team-feature-heading'));
+const last=finishedGames[0];
+const next=pendingGames.find(g=>g.kickoff_utc?Date.parse(g.kickoff_utc)>Date.now():g.date>=new Date().toISOString().slice(0,10));
+const prominent=last||next;
+if(prominent){
+ const eye=node('div',undefined,'team-match-eyebrow');
+ eye.append(node('span',last?'LATEST VERIFIED FINAL':'NEXT LISTED FIXTURE'),node('span',fullDate(prominent.date)));feature.append(eye);
+ const match=node('div',undefined,'team-match-scorebug');
+ const first=node('div',undefined,'team-match-side');first.append(node('small',prominent.venue==='home'?'HOME':'AWAY'),node('strong',t.team));
+ const nums=node('div',undefined,'team-match-number');nums.append(node('strong',prominent.status==='final'?prominent.goals_for+' : '+prominent.goals_against:'vs'),node('span',prominent.status==='final'?'FINAL · '+(prominent.goals_for>prominent.goals_against?'WIN':prominent.goals_for<prominent.goals_against?'LOSS':'DRAW'):'FIXTURE'));
+ const second=node('div',undefined,'team-match-side');second.append(node('small',prominent.venue==='home'?'AWAY':'HOME'),node('strong',prominent.opponent));
+ match.append(first,nums,second);feature.append(match);
+ if(prominent.source_url){const a=node('a','Official match record ↗');a.href=prominent.source_url;a.target='_blank';a.rel='noopener noreferrer';a.className='team-feature-source';feature.append(a);}
+}else feature.append(node('p','Verified game coverage is not yet available for this program.'));
+profile.append(feature);
 const stories=box('Latest program news');stories.id='team-news';stories.classList.add('team-panel-news');
 const curated=scheduleData.teams?.[key];
 const indexed=gameIndex.teams?.[key];
