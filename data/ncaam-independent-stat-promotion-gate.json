@@ -1,0 +1,85 @@
+{
+  "model": "ncaam-stat-weights-research-promotion-gate-v1",
+  "decision": "RETAIN_INCUMBENT_RESEARCH_UNCERTIFIED",
+  "validation_2025_reused_in_prior_model_search": true,
+  "historical_roster_preopening_verified": false,
+  "production_promotable": false,
+  "compared_game_count": 5674,
+  "retrospective_lowest_validation_loss_penalty": "0.0",
+  "retrospective_best_weights": {
+    "shooting": 300.0,
+    "playmaking": 600.0,
+    "defense": 450.0
+  },
+  "training_selected_weights": {
+    "shooting": 300.0,
+    "playmaking": 600.0,
+    "defense": 450.0
+  },
+  "training_selected_at_boundary": true,
+  "coefficients_not_identified_as_stable": true,
+  "regularization_tradeoff": [
+    {
+      "penalty": "0.0",
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 600.0,
+        "defense": 450.0
+      },
+      "validation_log_loss": 0.5666597781476658,
+      "validation_brier": 0.19372380466376077,
+      "boundary": true
+    },
+    {
+      "penalty": "0.0001",
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 150.0
+      },
+      "validation_log_loss": 0.5670950426378057,
+      "validation_brier": 0.19387584295318766,
+      "boundary": true
+    },
+    {
+      "penalty": "0.00025",
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 150.0
+      },
+      "validation_log_loss": 0.5670950426378057,
+      "validation_brier": 0.19387584295318766,
+      "boundary": true
+    },
+    {
+      "penalty": "0.0005",
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 450.0,
+        "defense": 0.0
+      },
+      "validation_log_loss": 0.5675602523391402,
+      "validation_brier": 0.19404425948798323,
+      "boundary": false
+    },
+    {
+      "penalty": "0.001",
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 300.0,
+        "defense": 0.0
+      },
+      "validation_log_loss": 0.5681044487735876,
+      "validation_brier": 0.19423267675423725,
+      "boundary": false
+    }
+  ],
+  "requirements_before_promotion": [
+    "Verify roster/player membership as of preseason rather than retrospectively",
+    "Use an independently held future season or prospective predictions",
+    "Validate source-school and athlete identity joins",
+    "Validate home court/neutral locations and complete integrated model",
+    "Verify predictive calibration and model stability"
+  ]
+}
