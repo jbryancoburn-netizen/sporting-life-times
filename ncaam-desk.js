@@ -55,6 +55,20 @@ if(!ratings){
   return;
 }
 const teams=ratings.rankings;
+const scoringShadow=await get("data/ncaam-2026-27-scoring-quality-shadow.json");
+const modelBox=byId("cbb-model-compare");
+if(modelBox){
+ const shadowOK=scoringShadow?.season==="2026-27"&&scoringShadow.status==="SHADOW_ONLY_DO_NOT_PROMOTE"&&scoringShadow.production_elo_approved===false&&scoringShadow.rankings?.length===365;
+ const candidate=new Map(shadowOK?scoringShadow.rankings.map(t=>[t.team_id,t]):[]);
+ const renderModel=()=>{const rows=teams.slice(0,15).map(t=>{
+ const shadow=candidate.get(t.team_id);
+ return '<tr><td>'+t.rank+'</td><td>'+safe(t.team)+'</td><td>'+number(t.base_elo)+'</td><td>'+number(t.elo)+'</td><td>'+(shadow?number(shadow.elo):"—")+'</td></tr>';
+ }).join("");
+ modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">*Research only, not preseason-certified. Rankings ordered by published roster model, not by shadow candidate.</p>';
+ };
+ renderModel();
+}
+
 const lookup=new Map(teams.map(t=>[t.team_id,t]));
 const espnIds=new Map((teamCrosswalk?.teams||[]).filter(t=>t.id&&/^\d+$/.test(String(t.espn_id||""))).map(t=>[t.id,String(t.espn_id)]));
 const logo=t=>espnIds.has(t.team_id)?'<img loading="lazy" alt="" src="https://a.espncdn.com/i/teamlogos/ncaa/500/'+espnIds.get(t.team_id)+'.png">':'';
