@@ -50,7 +50,13 @@ def main():
     p.add_argument("--past",required=True);p.add_argument("--current",required=True);p.add_argument("--output",required=True)
     a=p.parse_args()
     past_bytes=Path(a.past).read_bytes();current_bytes=Path(a.current).read_bytes()
-    train=validate(json.loads(past_bytes));test=validate(json.loads(current_bytes))
+    train_raw=validate(json.loads(past_bytes));test_raw=validate(json.loads(current_bytes))
+    # NBL26 began 2025-09-18; NBL27 regular season began 2026-09-19.
+    # The NBL Blitz and other September 2026 exhibition games are excluded.
+    train=[g for g in train_raw if g["played_at"][:10]>="2025-09-18"]
+    test=[g for g in test_raw if g["played_at"][:10]>="2026-09-19"]
+    if not train or not test:raise ValueError("No regular-season training or holdout finals")
+
     if {g["id"] for g in train}&{g["id"] for g in test}:raise ValueError("Overlapping seasons")
     if not train[-1]["played_at"]<test[0]["played_at"]:raise ValueError("Temporal leakage")
     observed=replay(train,test)
@@ -58,6 +64,10 @@ def main():
     naive={"log_loss":round(-math.log(.5),6),"brier":.25}
     report={"status":"RESEARCH_UNCERTIFIED","approved_for_publication":False,
             "train_games":len(train),"holdout_games":len(test),
+            "excluded_preseason_train":len(train_raw)-len(train),
+            "excluded_preseason_holdout":len(test_raw)-len(test),
+            "regular_season_start_dates":{"2025-26":"2025-09-18","2026-27":"2026-09-19"},
+            "regular_season_start_sources":["https://www.nbl.com.au/news/nbl26-schedule-the-burning-questions","https://league.nbl.com.au/news/how-to-watch-saturday-nights-nbl27-season-openers"],
             "train_end":train[-1]["played_at"],"holdout_start":test[0]["played_at"],
             "source_sha256":{"past":hashlib.sha256(past_bytes).hexdigest(),"current":hashlib.sha256(current_bytes).hexdigest()},
             "existing_model":{"k":20,"home_advantage_elo":65,"offseason_regression":.25,"holdout":observed},
