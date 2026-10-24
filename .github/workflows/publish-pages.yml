@@ -47,9 +47,12 @@ jobs:
           grep -q 'nba-analysis-match' nba.html
           test -s nba-team-desk.html
           test -s nba-team-desk.js
-          grep -q 'nba-team-desk.js?v=2' nba-team-desk.html
+          grep -q 'nba-team-desk.js?v=3' nba-team-desk.html
           grep -q 'AROUND THE CLUB' nba-team-desk.html
           grep -q 'THE SCOREBOOK' nba-team-desk.html
+          grep -q 'LATEST GAME' nba-team-desk.html
+          grep -q 'TEAM LEADERS' nba-team-desk.html
+          grep -q 'nba-scorebug.js' nba-team-desk.html
           grep -q 'Editorial architecture' nba-team-desk.html
           grep -q 'recent team-specific articles' nba-team-desk.js
           grep -q 'TEAM DESKS' nba.html
@@ -162,7 +165,7 @@ jobs:
           ROOT="${PAGES_URL%/}"
           for attempt in $(seq 1 12); do
             if curl -fsSL --max-time 15 "$ROOT/nba-team-desk.html?team=IND" -o /tmp/nba-team-page.html && \
-               curl -fsSL --max-time 15 "$ROOT/nba-team-desk.js?v=2" -o /tmp/nba-team-page.js && \
+               curl -fsSL --max-time 15 "$ROOT/nba-team-desk.js?v=3" -o /tmp/nba-team-page.js && \
                grep -q 'THE SCOREBOOK' /tmp/nba-team-page.html && \
                grep -q 'nba-top-stories.json' /tmp/nba-team-page.js; then
               echo 'PASS: public NBA team desk and team news renderer accessible'
