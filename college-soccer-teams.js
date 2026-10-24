@@ -17,7 +17,7 @@ const teams=Object.entries(rankings.cohorts).flatMap(([cohort,rows])=>rows.map(t
 const byId=new Map(teams.map(t=>[t.cohort+':'+t.team_id,t]));
 const forecasts=archive.forecasts||[],verified=ledger.results||[];
 let newsData={articles:[],updated_at:null};
-try{const r=await fetch('data/college-soccer-team-news.json',{cache:'no-store'});if(r.ok)newsData=await r.json();}catch(e){}
+try{const r=await fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'});if(r.ok)newsData=await r.json();}catch(e){}
 
 const box=(heading)=>{const section=node('section',undefined,'team-panel');section.append(node('h3',heading));profile.append(section);return section;};
 function open(t){
@@ -28,6 +28,12 @@ header.append(node('h2',t.team));profile.append(header);
 const metrics=node('div',undefined,'team-metrics');
 for(const [label,value] of [['Elo',fmt(t.elo)],['Division rank','#'+t.rank],['Record',t.record],['Goals for / against',t.gf+' / '+t.ga],['Goal differential',(t.gd>0?'+':'')+t.gd]]){const metric=node('div',undefined,'team-metric');metric.append(node('span',label),node('strong',value));metrics.append(metric);}
 profile.append(metrics);
+if(t.cohort==='men-d3'&&t.team_id==='trine'){
+const official=node('p',undefined,'team-official-links');
+const schedule=node('a','Official 2026 Trine men's soccer schedule & results ↗');
+schedule.href='https://trinethunder.com/sports/mens-soccer/schedule/2026';schedule.target='_blank';schedule.rel='noopener noreferrer';
+official.append(schedule);profile.append(official);
+}
 const note=node('p','Ratings and season records come from the published provisional NCAA soccer Elo dataset. Verified finals below are only the incremental official-game ledger, not a complete season schedule.','college-elo-note');profile.append(note);
 const key=t.cohort+':'+t.team_id;
 const teamForecasts=forecasts.filter(f=>f.cohort===t.cohort&&(f.home_team===t.team_id||f.away_team===t.team_id));
