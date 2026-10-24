@@ -18,6 +18,17 @@ class NBLReleaseDecisionTests(unittest.TestCase):
         self.assertFalse(d["production_approved"])
         self.assertEqual(d["current_season_games_tested"],41)
         self.assertFalse(d["requires_future_results_to_run"])
+    def test_missing_metrics_cannot_be_reported_as_valid_evidence(self):
+        a,b=self.fixture()
+        del b["season_predictions"]["2026-27"]["log_loss"]
+        result=decide(a,b)
+        self.assertFalse(result["audit_input_valid"])
+        self.assertFalse(result["production_approved"])
+    def test_valid_evidence_can_still_withhold_an_unvalidated_model(self):
+        a,b=self.fixture()
+        result=decide(a,b)
+        self.assertTrue(result["audit_input_valid"])
+        self.assertEqual(result["status"],"withheld")
     def test_bad_historical_coverage_fails_reconciliation(self):
         a,b=self.fixture()
         a["2025_26_regular_season_coverage"]["status"]="fail"
