@@ -16,6 +16,9 @@ for(const g of raw.games||[]){
  if(!['home','away'].every(side=>{const team=g.teams?.find(t=>t.home_away===side);return team?.code===stats[side].code&&Number(team.score)===stats[side].points;}))throw Error('Possession inputs conflict with final '+g.id);
  result.games.push({id:g.id,date:g.date,final:true,regular_season:true,source:official?'NBA official box score':stats.source,source_url:official?'https://cdn.nba.com/static/json/liveData/boxscore/'+g.id+'.json':stats.source_url,home:h,away:a});
 }
+const calibration=JSON.parse(readFileSync(new URL('nba-possession-historical-calibration.json',base),'utf8'));
+if(calibration.status!=='historical_possession_diagnostic'||calibration.untouched_test_games<400)throw Error('Historical scoring evidence missing');
+result.calibration=calibration;
 const ids=new Set(result.games.map(g=>g.id));if(ids.size!==result.games.length)throw Error('Duplicate NBA official possession games');
 writeFileSync(new URL('nba-possession-inputs.json',base),JSON.stringify(result,null,2)+'\n');
 console.log('NBA possession inputs: '+result.games.length+' attributed completed regular-season box scores');
