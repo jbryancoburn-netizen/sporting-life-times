@@ -74,6 +74,10 @@ jobs:
           assert 'data/nba-top-stories.json' in open('nba-home.js').read(), 'NBA page does not load its own news feed'
           print('PASS: NBA Top Stories contains',len(headlines),'attributed stories')
           PY
+      - name: Refuse NBA newspaper deployment when completed scores and Elo disagree
+        run: |
+          node scripts/audit-nba-elo.mjs
+          node scripts/audit-nba-boxscore-elo.mjs
       - name: Stamp the exact Git commit into the published edition
         run: |
           printf '%s\n' "${GITHUB_SHA}" > pages-build-sha.txt
