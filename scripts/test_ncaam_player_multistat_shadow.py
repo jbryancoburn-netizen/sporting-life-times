@@ -11,6 +11,16 @@ class Multistat(unittest.TestCase):
         self.assertEqual(x["linked_athletes"],1)
         self.assertEqual(x["players"][0]["totals"]["assists"],4)
         self.assertEqual(x["players"][0]["totals"]["rebounds"],8)
+    def test_actual_sportsdataverse_rebound_and_turnover_fields(self):
+        box,cross,roster=self.setup_data()
+        box[0].pop("reb")
+        box[0].pop("to")
+        box[0].update({"orb":"3","drb":"5","tov":"2"})
+        values=aggregate(box,cross,roster)["players"][0]["totals"]
+        self.assertEqual(values["offensive_rebounds"],3)
+        self.assertEqual(values["defensive_rebounds"],5)
+        self.assertEqual(values["rebounds"],8)
+        self.assertEqual(values["turnovers"],2)
     def test_missing_stat_is_not_zero(self):
         box,cross,roster=self.setup_data()
         box[0].pop("stl")
