@@ -10,20 +10,23 @@ function validate(stats){
 }
 function build(stats,minimum=5){
  if(!validate(stats))return null;
- const agg={};let allPoss=0,allPts=0,n=0;
+ const agg={};let allPoss=0,allPace=0,allPts=0,n=0;
  for(const g of stats.games){
   const h=g.home,a=g.away;
   const poss=t=>t.fga-t.oreb+t.tov+0.44*t.fta;
-  const pace=(poss(h)+poss(a))/2;
+  const actualPoss=(poss(h)+poss(a))/2;
+  const minutes=g.minutes??48;
+  if(!finite(minutes)||minutes<48||minutes>90)continue;
+  const pace=actualPoss*48/minutes;
   if(pace<60||pace>140)continue;
   for(const [t,opp] of [[h,a],[a,h]]){
-   const x=agg[t.code]??={code:t.code,gp:0,poss:0,pf:0,pa:0};
-   x.gp++;x.poss+=pace;x.pf+=t.points;x.pa+=opp.points;
+   const x=agg[t.code]??={code:t.code,gp:0,pace:0,poss:0,pf:0,pa:0};
+   x.gp++;x.pace+=pace;x.poss+=actualPoss;x.pf+=t.points;x.pa+=opp.points;
   }
-  allPoss+=pace;allPts+=h.points+a.points;n++;
+  allPoss+=actualPoss;allPace+=pace;allPts+=h.points+a.points;n++;
  }
  if(n<20)return null;
- const basePace=allPoss/n,baseRating=100*(allPts/(2*allPoss));
+ const basePace=allPace/n,baseRating=100*(allPts/(2*allPoss));
  const teams={};
  for(const [code,t] of Object.entries(agg)){
   if(t.gp<minimum)continue;
@@ -31,7 +34,7 @@ function build(stats,minimum=5){
   // becoming extreme scores. Historical priors can replace this neutral prior
   // only when sourced and backtested.
   const weight=t.gp/(t.gp+12);
-  teams[code]={gp:t.gp,pace:weight*t.poss/t.gp+(1-weight)*basePace,
+  teams[code]={gp:t.gp,pace:weight*t.pace/t.gp+(1-weight)*basePace,
    offense:weight*100*t.pf/t.poss+(1-weight)*baseRating,
    defense:weight*100*t.pa/t.poss+(1-weight)*baseRating};
  }
