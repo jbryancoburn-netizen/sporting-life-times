@@ -78,11 +78,12 @@ async function desk(){
  for(const g of ledger){if(!records[g.home]||!records[g.away])continue;const winner=g.home_score>g.away_score?g.home:g.away,loser=winner===g.home?g.away:g.home;records[winner].w++;records[loser].l++}
 
  const analyses=ledger.slice(-8).reverse().map(g=>{
-  const homeWon=g.home_score>g.away_score,w=homeWon?g.home:g.away,l=homeWon?g.away:g.home;
-  const winScore=Math.max(g.home_score,g.away_score),loseScore=Math.min(g.home_score,g.away_score);
-  const margin=winScore-loseScore,total=g.home_score+g.away_score;
-  const stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unverified';
-  return '<article class="nba-analysis-brief"><p class="nba-news-source">FINAL · '+esc(stamp)+'</p><div class="nba-analysis-result"><span>'+esc(w)+'</span><strong>'+winScore+'</strong><span class="nba-analysis-dash">–</span><strong>'+loseScore+'</strong><span>'+esc(l)+'</span></div><h3>'+esc(names[w])+' defeat '+esc(names[l])+'</h3><div class="nba-analysis-facts"><span>Margin <b>+'+margin+'</b></span><span>Combined <b>'+total+'</b></span><span>Winner Elo <b>'+ratings[w].toFixed(1)+'</b></span></div></article>';
+  const away=g.away,home=g.home,homeWon=g.home_score>g.away_score;
+  const winner=homeWon?home:away;
+  const margin=Math.abs(g.home_score-g.away_score),total=g.home_score+g.away_score;
+  const stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unavailable';
+  const panel=(t,score,won)=>'<div class="nba-analysis-team'+(won?' is-winner':'')+'"><img src="'+logo(t)+'" alt="" loading="lazy" onerror="this.hidden=true"><span class="nba-analysis-team-label"><b>'+esc(t)+'</b><small>'+esc(names[t])+'</small></span><strong>'+score+'</strong></div>';
+  return '<article class="nba-analysis-brief"><p class="nba-news-source">FINAL · '+esc(stamp)+'</p><div class="nba-analysis-match">'+panel(away,g.away_score,!homeWon)+'<span class="nba-analysis-vs">–</span>'+panel(home,g.home_score,homeWon)+'</div><div class="nba-analysis-facts"><span>Margin <b>'+margin+'</b></span><span>Total <b>'+total+'</b></span><span>Winner Elo <b>'+ratings[winner].toFixed(1)+'</b></span></div></article>';
  }).join('');
  if($('nba-game-analysis-grid'))$('nba-game-analysis-grid').innerHTML=analyses||'<p class="hub-small">No completed NBA finals verified in the published season ledger.</p>';
  msg('nba-game-analysis-status',Math.min(8,ledger.length)+' results · Original calculations from published final scores · Not syndicated news');
