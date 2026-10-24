@@ -18,4 +18,4 @@
   "exception_type": "KeyError",
   "exception_message": "'team_id'",
   "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/sporting-life-times/sporting-life-times/scripts/run_ncaam_exact_formula_diagnostic.py\", line 35, in main\n    result=evaluate(root)\n           ^^^^^^^^^^^^^^\n  File \"/home/runner/work/sporting-life-times/sporting-life-times/scripts/backtest_ncaam_quality_retrospective.py\", line 211, in evaluate\n    programs={y:{school_key(r['team']):r['team_id'] for r in rosters[y]} for y in years}\n                                       ~^^^^^^^^^^^\nKeyError: 'team_id'\n"
-}\n
+}
