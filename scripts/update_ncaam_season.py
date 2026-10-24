@@ -113,6 +113,8 @@ def replay(baseline, games, through):
     roster=baseline["rankings"]
     ratings={t["team_id"]:float(t["elo"]) for t in roster}
     wins=defaultdict(int);losses=defaultdict(int)
+    conf_wins=defaultdict(int);conf_losses=defaultdict(int)
+    conf={t["team_id"]:t.get("conference") for t in roster}
     ledger=[]
     recent=[]
     # The published Elo state always begins at the proven preseason baseline.
@@ -129,6 +131,8 @@ def replay(baseline, games, through):
             winner=h if g["home_score"]>g["away_score"] else a
             loser=a if winner==h else h
             wins[winner]+=1;losses[loser]+=1
+            if conf.get(h) and conf.get(h)==conf.get(a):
+                conf_wins[winner]+=1;conf_losses[loser]+=1
             ledger.append({"id":g["id"],"date":day,"home_id":h,"away_id":a,
                 "home_score":g["home_score"],"away_score":g["away_score"],
                 "home_win_probability":round(p,6),"winner_id":winner})
@@ -147,6 +151,8 @@ def replay(baseline, games, through):
         x=dict(t)
         x.update(rank=rank,elo=round(ratings[t["team_id"]],4),
                  wins=wins[t["team_id"]],losses=losses[t["team_id"]],
+                 conference_wins=conf_wins[t["team_id"]],
+                 conference_losses=conf_losses[t["team_id"]],
                  season_games=wins[t["team_id"]]+losses[t["team_id"]])
         rankings.append(x)
     result=dict(
