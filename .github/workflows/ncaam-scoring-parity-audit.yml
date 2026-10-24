@@ -1,0 +1,50 @@
+name: NCAA Scoring Parity Audit
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_current_scoring_parity.py'
+      - '.github/workflows/ncaam-scoring-parity-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit current scoring versus held-out scoring formula
+        run: |
+          python -m py_compile scripts/audit_ncaam_current_scoring_parity.py
+          python scripts/audit_ncaam_current_scoring_parity.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/ncaam-2026-27-scoring-parity-reproducible.json').read_text())
+          assert d['matched_team_count']==364
+          assert d['production_approval'] is False
+          assert d['same_scoring_reference'] is False
+          assert d['mean_absolute_reference_only_elo_difference']>1
+          print('PASS: scoring mismatch recognized, unverified production promotion blocked')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-scoring-parity-audit
+          path: data/ncaam-2026-27-scoring-parity-reproducible.json
+      - name: Publish audit
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-scoring-parity-reproducible.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish checked NCAA scoring feature parity [skip ci]'
+            git -c rebase.autoStash=true pull --rebase origin main
+            git push
+          fi
