@@ -18,6 +18,27 @@ function render(a){
  const facts=[['W–L',elo?wins+'–'+(teamEvents.length-wins):'—'],['ELO',Number.isFinite(score)?score.toFixed(1):'—'],['ELO RANK',rank>=0?'#'+(rank+1):'—']];
  $('facts').innerHTML=facts.map(([label,v])=>'<div class="fact"><b>'+esc(v)+'</b><small>'+esc(label)+'</small></div>').join('');
  if($('facts-front'))$('facts-front').innerHTML=$('facts').innerHTML;
+ const completed=(archive?.games||[]).filter(g=>g.state==='post'&&g.teams?.some(z=>z.code===t)).sort((x,y)=>Date.parse(y.date)-Date.parse(x.date));
+ const latestGame=completed[0];
+ if($('team-scorebug')){
+  if(latestGame&&window.SLTScorebug){
+   const a=latestGame.teams.find(z=>z.home_away==='away'),h=latestGame.teams.find(z=>z.home_away==='home');
+   $('team-scorebug').innerHTML=a&&h?window.SLTScorebug.render({mode:'final',away:a,home:h,awayScore:Number(a.score),homeScore:Number(h.score),winner:Number(a.score)>Number(h.score)?a.code:h.code,subtitle:d(latestGame.date)}):'<p class="muted">Game scores unavailable.</p>';
+  }else $('team-scorebug').innerHTML='<p class="muted">No verified completed game available.</p>';
+ }
+ const playerTotals=new Map();
+ for(const game of completed){
+  for(const p of game.players||[]){
+   if(p.team!==t||!p.id)continue;
+   const old=playerTotals.get(String(p.id))||{name:p.name,gp:0,pts:0,reb:0,ast:0};
+   old.gp++;old.pts+=Number(p.pts)||0;old.reb+=Number(p.reb)||0;old.ast+=Number(p.ast)||0;
+   playerTotals.set(String(p.id),old);
+  }
+ }
+ const leaders=[...playerTotals.values()].sort((a,b)=>b.pts/b.gp-a.pts/a.gp).slice(0,6);
+ $('team-leaders').innerHTML=leaders.length?'<table class="leader-table"><thead><tr><th>PLAYER</th><th>GP</th><th>PTS</th><th>REB</th><th>AST</th></tr></thead><tbody>'+leaders.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+p.gp+'</td><td>'+ (p.pts/p.gp).toFixed(1)+'</td><td>'+(p.reb/p.gp).toFixed(1)+'</td><td>'+(p.ast/p.gp).toFixed(1)+'</td></tr>').join('')+'</tbody></table><small class="muted">Per game · captured verified games only ('+completed.length+' team games)</small>':'<p class="muted">Player box-score data unavailable.</p>';
+ const lastFive=teamEvents.slice(-5).reverse();
+ $('team-form').innerHTML=lastFive.length?'<div class="form-line">'+lastFive.map(e=>{const win=e.home===t?e.home_score>e.away_score:e.away_score>e.home_score;return '<span class="'+(win?'win':'loss')+'">'+(win?'W':'L')+' · '+esc((e.home===t?e.away:e.home))+'</span>'}).join('')+'</div>':'<p class="muted">No verified season results.</p>';
  const rows=(archive?.games||[]).filter(g=>g.teams?.some(e=>e.code===t)&&g.state==='post').slice(0,8);
  $('results').innerHTML=rows.length?rows.map(g=>{const h=g.teams.find(z=>z.home_away==='home'),aw=g.teams.find(z=>z.home_away==='away');return '<tr><td>'+esc(d(g.date))+'</td><td>'+esc(aw?.code)+' '+esc(aw?.score)+' – '+esc(h?.code)+' '+esc(h?.score)+'</td><td>Final</td></tr>'}).join(''):'<tr><td>Verified results unavailable</td></tr>';
  const future=(schedule?.games||[]).filter(g=>g.state==='pre'&&g.teams?.some(z=>z.code===t)).slice(0,8);
