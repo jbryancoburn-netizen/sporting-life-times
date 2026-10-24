@@ -292,7 +292,13 @@ def main():
         raise SystemExit("--lookback must be 1 to 120")
     base = read_json(BASELINE)
     validate_baseline(base)
-    ledger = read_json(LEDGER)
+    ledger_existed = LEDGER.is_file()
+    ledger = read_json(LEDGER) if ledger_existed else {
+        "schema_version": 1,
+        "baseline_as_of": base["as_of"],
+        "baseline_sha256": canonical_digest(base),
+        "results": [],
+    }
     validate_ledger(ledger, base)
     today = dt.date.fromisoformat(args.now) if args.now else dt.datetime.now(ZoneInfo("America/New_York")).date()
     start = max(dt.date.fromisoformat(base["as_of"]) + dt.timedelta(days=1), today - dt.timedelta(days=args.lookback - 1))
@@ -304,10 +310,13 @@ def main():
     audit.update({"checked_through":today.isoformat(),"scoreboard_checks":probe["scoreboards"],
                   "source_finals_in_window":probe["fetched_finals"],
                   "source":"NCAA.com scoreboards through ncaa-api compatibility transport"})
-    changed = next_ledger != ledger
+    model_needs_repair = not OUTPUT.is_file() or read_json(OUTPUT) != model
+    changed = not ledger_existed or next_ledger != ledger or model_needs_repair
     if changed:
-        atomic_json(LEDGER, next_ledger)
+        # Write the deterministic model first; if interrupted before ledger,
+        # the next invocation replays and repairs the two outputs.
         atomic_json(OUTPUT, model)
+        atomic_json(LEDGER, next_ledger)
         atomic_json(AUDIT, audit)
     print(json.dumps({"changed":changed, **audit}, sort_keys=True))
 
