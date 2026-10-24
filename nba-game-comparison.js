@@ -24,7 +24,7 @@ function analyze(game){
   const advantage=gap===0?'even':(gap*m.direction>0?'away':'home');
   // Percentages always use a fixed 0–100 scale. Totals use a shared 0–max scale.
   const scale=m.cap||Math.max(a,h,1);
-  out.push({...m,away:a,home:h,gap,advantage,awayWidth:100*a/scale,homeWidth:100*h/scale});
+  out.push({...m,away:a,home:h,gap,advantage,awayWidth:Math.min(100,100*a/scale),homeWidth:Math.min(100,100*h/scale)});
  }
  return out;
 }
