@@ -39,3 +39,21 @@ body.league-edition[data-league="euroleague"] .el-live-team b{font:700 19px Geor
 @media(max-width:1000px){body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:680px){body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:400px){body.league-edition[data-league="euroleague"] .el-live-board{grid-template-columns:1fr}}
+
+/* All five standings columns remain visible on narrow screens. */
+body.league-edition[data-league="euroleague"] #el-standings .nba-current-table-wrap{width:100%;max-width:100%;overflow-x:visible;}
+body.league-edition[data-league="euroleague"] #el-standings .nba-current-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+body.league-edition[data-league="euroleague"] #el-standings th:first-child,body.league-edition[data-league="euroleague"] #el-standings td:first-child{width:43%;text-align:left;}
+body.league-edition[data-league="euroleague"] #el-standings th:not(:first-child),body.league-edition[data-league="euroleague"] #el-standings td:not(:first-child){text-align:right;}
+body.league-edition[data-league="euroleague"] #el-standings .el-club{display:flex;min-width:0;gap:5px;align-items:center;}
+body.league-edition[data-league="euroleague"] #el-standings .el-club-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+body.league-edition[data-league="euroleague"] #el-standings .el-club-code{display:none;}
+@media(max-width:600px){
+ body.league-edition[data-league="euroleague"] #el-standings .nba-current-table{font-size:11px;}
+ body.league-edition[data-league="euroleague"] #el-standings th,body.league-edition[data-league="euroleague"] #el-standings td{padding:7px 3px;white-space:nowrap;}
+ body.league-edition[data-league="euroleague"] #el-standings th:first-child,body.league-edition[data-league="euroleague"] #el-standings td:first-child{width:32%;}
+ body.league-edition[data-league="euroleague"] #el-standings .el-club img{width:19px;height:19px;flex:none;}
+ body.league-edition[data-league="euroleague"] #el-standings .el-club-name{display:none;}
+ body.league-edition[data-league="euroleague"] #el-standings .el-club-code{display:inline;font-weight:600;}
+}
+@media(max-width:360px){body.league-edition[data-league="euroleague"] #el-standings .nba-current-table{font-size:10px;}body.league-edition[data-league="euroleague"] #el-standings th,body.league-edition[data-league="euroleague"] #el-standings td{padding-inline:2px;}}
