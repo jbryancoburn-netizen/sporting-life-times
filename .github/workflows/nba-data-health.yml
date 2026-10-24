@@ -1,14 +1,15 @@
 name: NBA data freshness and overnight reconciliation
 on:
   schedule:
-    - cron: '20 */6 * * *'
-    - cron: '25 8 * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'scripts/audit-nba-daily-health.py'
       - 'scripts/test_nba_daily_health.py'
+      - 'scripts/verify-nba-final-transitions.py'
+      - 'scripts/test_nba_final_transitions.py'
       - '.github/workflows/nba-data-health.yml'
 permissions:
   contents: write
@@ -30,12 +31,18 @@ jobs:
       - name: Audit Elo, completed games, box score coverage and feed freshness
         continue-on-error: true
         run: python scripts/audit-nba-daily-health.py
+      - name: Test public live-to-final evidence checks
+        run: python -m unittest discover -s scripts -p 'test_nba_final_transitions.py' -v
+      - name: Observe actual public NBA final transitions
+        continue-on-error: true
+        run: python scripts/verify-nba-final-transitions.py
       - name: Commit health status even when feeds are stale
         run: |
           test -s data/nba-pipeline-health.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nba-pipeline-health.json
+          if test -f data/nba-final-transition-evidence.json; then git add data/nba-final-transition-evidence.json; fi
           git diff --cached --quiet && exit 0
           git commit -m "Audit overnight NBA data coverage and feed freshness"
           for attempt in 1 2 3; do
