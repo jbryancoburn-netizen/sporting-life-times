@@ -266,9 +266,28 @@ def main():
     else:
         from ncaam_espn_source import collect
         source,source_details=collect(through,a.espn_crosswalk,a.espn_cache)
+    reconciliation={"status":"TEST_FIXTURE_NO_EXTERNAL_CHECK"}
+    if not a.schedule:
+        from ncaam_official_reconcile import reconcile
+        # Retain quarantines across transient NCAA source outages.
+        previous_audit_path=ROOT/"ncaam-2026-27-source-audit.json"
+        retained={}
+        if previous_audit_path.exists():
+            previous_audit=read_json(previous_audit_path)
+            for item in previous_audit.get("independent_reconciliation",{}).get("unresolved_conflicts",[]):
+                retained[item["espn_event_id"]]=item
+        source_for_elo,reconciliation=reconcile(source,preseason,through)
+        checked={item["espn_event_id"] for item in reconciliation["conflicts"]}
+        for item in reconciliation["conflicts"]:
+            retained[item["espn_event_id"]]=item
+        # No silent restoration of formerly disputed finals if official API fails.
+        source=[row for row in source_for_elo if row["contest_id"] not in retained]
+        reconciliation["unresolved_conflicts"]=list(retained.values())
+        reconciliation["quarantined_event_count"]=len(retained)
     current,ledger,upcoming,integrity=build(preseason,source,through)
     current["source"]=source_details["provider"]+" completed event statuses; independent Elo calculation"
     integrity["provider_audit"]=source_details
+    integrity["independent_reconciliation"]=reconciliation
     dest=Path(a.out_dir);dest.mkdir(parents=True,exist_ok=True)
     for fn,doc in (
         ("ncaam-2026-27-current-provisional.json",current),
@@ -278,6 +297,8 @@ def main():
         (dest/fn).write_text(json.dumps(doc,indent=2)+"\n",encoding="utf-8")
     if not a.schedule:
         from ncaam_espn_source import write_cache
-        write_cache(dest/"ncaam-2026-27-source-events.json",source)
+        # Preserve original verified ESPN event cache; filtered games belong only in Elo.
+        original_cache=read_json(a.espn_cache)["events"] if Path(a.espn_cache).exists() else source
+        write_cache(dest/"ncaam-2026-27-source-events.json",original_cache)
     print(json.dumps({k:integrity[k] for k in ("completed_unique_games","upcoming_or_unconfirmed_games","excluded")},indent=2))
 if __name__=="__main__":main()
