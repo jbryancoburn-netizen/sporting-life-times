@@ -122,6 +122,7 @@ try {
  const initialById=new Map((available.roster||baseline).rankings.map(r=>[r.team_id,r]));
  const rankedById=new Map((available.roster||baseline).rankings.map(r=>[r.team_id,r.rank]));
  const comparison=document.getElementById('elo-quality-comparison');
+ const modelPill=document.getElementById('elo-model-pill');
  function render(){
   const choice=version.value==='auto'?defaults:version.value;
   const data=available[choice]||available[defaults];
@@ -153,6 +154,10 @@ try {
   ratingHeading.textContent=choice==='current'?'Current Elo':choice==='quality'?'Research Elo':'Preseason Elo';
   if(comparison){
    comparison.hidden=choice!=='quality';
+  }
+  if(modelPill){
+   modelPill.textContent=choice==='quality'?'EXPERIMENTAL':'PROVISIONAL';
+   modelPill.dataset.status=choice==='quality'?'experimental':'provisional';
   }
   tbody.innerHTML=rows.length?rows.map(r=>{
    let reference='—';
