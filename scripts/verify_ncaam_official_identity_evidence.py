@@ -10,6 +10,7 @@ AUDIT = ROOT / "data/ncaam-2026-27-player-identity-triage.json"
 BATCHES = [
     ROOT / "data/ncaam-2026-27-official-identity-evidence-batch-01.json",
     ROOT / "data/ncaam-2026-27-official-identity-evidence-batch-02.json",
+    ROOT / "data/ncaam-2026-27-official-identity-evidence-batch-03.json",
 ]
 
 def verify():
@@ -37,7 +38,7 @@ def verify():
                 f"Unsafe historical identity acceptance for {key}"
             )
             statuses[key] = evidence["evidence_status"]
-    assert len(seen) == 9, f"Expected nine documented cases, got {len(seen)}"
+    assert seen == set(flagged), f"Not every flagged identity has evidence: {set(flagged)-seen}"
     print(json.dumps({
         "total_flagged": len(flagged),
         "documented_with_official_sources": len(seen),
