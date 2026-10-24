@@ -8,6 +8,8 @@ on:
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
       - 'scripts/build_ncaam_2027_quality_shadow.py'
       - 'scripts/recover_ncaam_prior_player_stats_by_id.py'
+      - 'scripts/replay_ncaam_official_transfer_source_ids.py'
+      - 'data/ncaam-2026-27-official-prior-school-corroborations.json'
   workflow_dispatch:
 permissions:
   contents: write
@@ -126,6 +128,16 @@ jobs:
           assert report['source_integrity']['fallback_team_count']==1
           print('CHECKED: 365 experimental player-quality adjusted NCAA ratings, not official Elo')
           PY
+      - name: Reproduce four NCAA athlete IDs for official 2026-27 D-I transfers
+        run: |
+          python scripts/replay_ncaam_official_transfer_source_ids.py \
+            --parquet historical-data/ncaa_mbb_player_box_2026.parquet \
+            --csv historical-normalized/ncaa_mbb_player_box_2026.csv.gz \
+            --out historical-report/ncaam-2026-27-four-player-source-replay.json
+          python scripts/replay_ncaam_official_transfer_source_ids.py \
+            --parquet historical-data/ncaa_mbb_player_box_2026.parquet \
+            --csv historical-normalized/ncaa_mbb_player_box_2026.csv.gz \
+            --out historical-report/ncaam-2026-27-four-player-source-replay.json --verify
       - name: Recover 2025–26 transfer scoring by strict NCAA athlete ID
         run: |
           python scripts/recover_ncaam_prior_player_stats_by_id.py \
@@ -170,6 +182,9 @@ jobs:
           if [ -s historical-report/ncaam-2026-27-scoring-quality-shadow.json ]; then
             cp historical-report/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-scoring-quality-shadow.json
           fi
+          if [ -s historical-report/ncaam-2026-27-four-player-source-replay.json ]; then
+            cp historical-report/ncaam-2026-27-four-player-source-replay.json data/ncaam-2026-27-four-player-source-replay.json
+          fi
           if [ -s historical-report/ncaam-2026-27-id-history-recoveries.json ]; then
             cp historical-report/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-id-history-recoveries.json
           fi
@@ -190,7 +205,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
-          git add data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json || true
+          git add data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json || true
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main || exit 1
