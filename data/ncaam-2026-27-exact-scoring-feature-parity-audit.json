@@ -1,0 +1,124 @@
+{
+  "status": "FORMULA_PARITY_FAILED_NOT_PRODUCTION_APPROVED",
+  "experiment": "2026-27-scoring-baseline-parity-audit",
+  "historical_backtest": "data/ncaam-exact-scoring-formula-retrospective-backtest.json",
+  "current_shadow": "data/ncaam-2026-27-transfer-player-scoring-residual-challenge.json",
+  "historical_2026_reference_ppm": 0.367783,
+  "current_shadow_reference_ppm": 0.3447378813327881,
+  "reference_ppm_difference": 0.023045118667211928,
+  "selected_historical_beta": 1600,
+  "matched_team_count": 364,
+  "unmatched_teams": [
+    "West Florida"
+  ],
+  "mean_absolute_elo_difference_due_to_reference_only": 21.696880494505482,
+  "max_absolute_elo_difference_due_to_reference_only": 56.1357,
+  "largest_reference_only_changes": [
+    {
+      "team": "Grand Canyon",
+      "team_id": "ncaa:609540",
+      "reference_only_delta_elo": -56.1357
+    },
+    {
+      "team": "Cincinnati",
+      "team_id": "ncaa:609700",
+      "reference_only_delta_elo": -53.3109
+    },
+    {
+      "team": "Miami (FL)",
+      "team_id": "ncaa:609667",
+      "reference_only_delta_elo": -47.3404
+    },
+    {
+      "team": "UC San Diego",
+      "team_id": "ncaa:609883",
+      "reference_only_delta_elo": -46.8803
+    },
+    {
+      "team": "Iowa St.",
+      "team_id": "ncaa:609536",
+      "reference_only_delta_elo": -43.5821
+    },
+    {
+      "team": "High Point",
+      "team_id": "ncaa:609608",
+      "reference_only_delta_elo": -42.6965
+    },
+    {
+      "team": "Ole Miss",
+      "team_id": "ncaa:609674",
+      "reference_only_delta_elo": -42.0318
+    },
+    {
+      "team": "Tennessee",
+      "team_id": "ncaa:609487",
+      "reference_only_delta_elo": -41.5097
+    },
+    {
+      "team": "Texas St.",
+      "team_id": "ncaa:609477",
+      "reference_only_delta_elo": -40.7211
+    },
+    {
+      "team": "NC State",
+      "team_id": "ncaa:609556",
+      "reference_only_delta_elo": -40.6816
+    },
+    {
+      "team": "Texas Tech",
+      "team_id": "ncaa:609492",
+      "reference_only_delta_elo": -40.1819
+    },
+    {
+      "team": "Virginia Tech",
+      "team_id": "ncaa:609512",
+      "reference_only_delta_elo": -39.8495
+    },
+    {
+      "team": "Creighton",
+      "team_id": "ncaa:609710",
+      "reference_only_delta_elo": -39.7214
+    },
+    {
+      "team": "Southern California",
+      "team_id": "ncaa:609469",
+      "reference_only_delta_elo": -39.1494
+    },
+    {
+      "team": "Oregon",
+      "team_id": "ncaa:609558",
+      "reference_only_delta_elo": -38.8364
+    },
+    {
+      "team": "DePaul",
+      "team_id": "ncaa:609714",
+      "reference_only_delta_elo": -38.8219
+    },
+    {
+      "team": "Marquette",
+      "team_id": "ncaa:609658",
+      "reference_only_delta_elo": -38.1955
+    },
+    {
+      "team": "Memphis",
+      "team_id": "ncaa:609664",
+      "reference_only_delta_elo": -38.0886
+    },
+    {
+      "team": "Providence",
+      "team_id": "ncaa:609834",
+      "reference_only_delta_elo": -37.8971
+    },
+    {
+      "team": "South Fla.",
+      "team_id": "ncaa:609905",
+      "reference_only_delta_elo": -37.3347
+    }
+  ],
+  "historical_matching_method": "Unique exact normalized names from retrospectively compiled season roster and prior NCAA box",
+  "current_matching_method": "Pinned ESPN-to-NCAA crosswalk ID links with school corroboration",
+  "historical_roster_asof_verified": false,
+  "identical_scoring_feature_verified": false,
+  "production_approved": false,
+  "interpretation": "This quantifies ONLY league scoring-reference mismatch. Player matching, roster universe, median centering and prior-season reference denominators also differ and have not been reconciled. It does not estimate total model accuracy or license coefficient promotion."
+}
