@@ -31,6 +31,18 @@ class PlayerQualityOverhaulTests(unittest.TestCase):
   self.assertIn("pending-ncaa-id:west-florida",fallback)
   row=next(x for x in out["rankings"] if x["team_id"]=="pending-ncaa-id:west-florida")
   self.assertEqual(row["quality_component"],0)
+ def test_transfer_source_context_measured_but_not_applied_by_default(self):
+  transfer=json.loads((Path("data")/"ncaam-2026-27-transfer-source-strength-audit.json").read_text())
+  out=build(*self.args,transfer_sources=transfer)
+  self.assertEqual(out["transfer_source_evidence_teams"],337)
+  self.assertEqual(out["scenario"]["source_strength_beta"],0)
+  self.assertTrue(all(x["transfer_source_strength_component"]==0 for x in out["rankings"]))
+  enhanced=build(*self.args,transfer_sources=transfer,source_strength_beta=20)
+  key="ncaa:609700"
+  a=next(x for x in out["rankings"] if x["team_id"]==key)
+  b=next(x for x in enhanced["rankings"] if x["team_id"]==key)
+  self.assertNotEqual(a["elo"],b["elo"])
+  self.assertEqual(b["prior_transfer_source_elo"],1594.023)
  def test_invalid_scenario_fails(self):
   with self.assertRaises(AssertionError):build(*self.args,transfer_weight=1.5)
 if __name__=="__main__":unittest.main()
