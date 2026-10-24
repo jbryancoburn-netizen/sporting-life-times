@@ -19,7 +19,7 @@ def build(roster,source):
         retention=r["returning_minutes_share"]
         incoming=r["incoming_transfer_prior_minutes_share"]
         if retention is not None: assert 0<=retention<=1
-        if incoming is not None: assert 0<=incoming<=1
+        if incoming is not None: assert incoming>=0  # Prior transfer minutes can exceed one team-season denominator
         linked=int(s["linked_transfers_with_source_elo"])
         missing=int(s["linked_transfers_without_source_elo"])
         uncovered=r["roster_coverage"]=="baseline-fallback"
@@ -27,7 +27,7 @@ def build(roster,source):
           "team_id":tid,"team":r["team"],"conference":r["conference"],
           "preseason_elo":r["elo"],
           "returning_minutes_share":retention,
-          "incoming_verified_transfer_minutes_share":incoming,
+          "incoming_verified_transfer_prior_minutes_ratio":incoming,
           "verified_prior_player_count":r["evidence_player_count"],
           "verified_returner_count":s["verified_returners"],
           "linked_transfers_with_source_elo":linked,
