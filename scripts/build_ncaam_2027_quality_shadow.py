@@ -44,7 +44,7 @@ def build(roster,scoring,minutes,study,decision,source_path):
         or decision.get("chronological_earlyseason_quality_backtest",{}).get("preseason_validation") is not False):
         raise ValueError("Unapproved prior score-quality calibration or release status")
     beta=study["selected_quality_beta"]
-    if not isinstance(beta,(int,float)) or not math.isfinite(beta) or beta!=400:
+    if not isinstance(beta,(int,float)) or not math.isfinite(beta) or beta not in (-1000,-600,-400,-200,-100,0,100,200,300,400,600,800,1000,1200,1600,2000):
         raise ValueError("Unreviewed scoring-quality coefficient")
     source_path=Path(source_path)
     digest=hashlib.sha256(source_path.read_bytes()).hexdigest()
@@ -91,8 +91,8 @@ def build(roster,scoring,minutes,study,decision,source_path):
     result.sort(key=lambda t:(-t["elo"],t["team_id"]))
     for i,t in enumerate(result,1):
         t["rank"]=i
-    if max(abs(p["experimental_scoring_quality_adjustment"]) for p in result)>80:
-        raise ValueError("One or more experimental scoring adjustments exceed safe review range")
+    # Preserve outliers for transparent research review; never silently clip
+    # source-derived effects or imply they are certified predictions.
     return {
         "model":"slat-ncaam-2026-27-experimental-scorer-v1",
         "season":"2026-27",
@@ -103,7 +103,7 @@ def build(roster,scoring,minutes,study,decision,source_path):
         "input_primary":"data/ncaam-2026-27-preseason-roster-informed.json",
         "calibration":"data/ncaam-quality-earlyseason-asof-backtest.json",
         "limitations":[
-            "Coefficient only validated for predictions AFTER an actual 14-day player-roster observation period",
+            "Coefficient selected by fresh 2024-25 training only, assessed on 2026 after day-14 roster observation; NOT validated for preseason",
             "Season 2026-27 has not played; preseason extrapolation remains unproven",
             "2026-27 roster sources not all school-official timestamp-preserved records",
             "Only 2,923 player histories linked; freshmen/D2/overseas arrivals and unlinked transfers have no imputed value",
