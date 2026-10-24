@@ -1,0 +1,126 @@
+{
+  "season": "2026-27",
+  "title": "Preseason Elo publication quality assurance",
+  "decision": "PUBLISH_PROVISIONAL_365_TEAM_ROSTER_INFORMED_ELO",
+  "published_ratings_path": "data/ncaam-2026-27-preseason-roster-informed.json",
+  "ratings_model": "slat-ncaam-2026-27-identity-linked-elo-v2",
+  "verified_by": "Independent repository-file integrity inspection, not full CI execution",
+  "all_teams_present": true,
+  "unique_team_ids": true,
+  "rank_sequence_valid": true,
+  "rating_sort_valid": true,
+  "rating_arithmetic_valid": true,
+  "games_played": 0,
+  "uncovered_programs": [
+    "West Florida"
+  ],
+  "large_offseason_adjustment_review_threshold_elo": 90,
+  "large_offseason_adjustment_flags": [
+    {
+      "team": "Cincinnati",
+      "rank": 7,
+      "adjustment": 156.6436
+    },
+    {
+      "team": "Grand Canyon",
+      "rank": 13,
+      "adjustment": 150.0541
+    },
+    {
+      "team": "Miami (FL)",
+      "rank": 6,
+      "adjustment": 113.7768
+    },
+    {
+      "team": "UC San Diego",
+      "rank": 39,
+      "adjustment": 103.4003
+    },
+    {
+      "team": "Tennessee",
+      "rank": 10,
+      "adjustment": 101.756
+    },
+    {
+      "team": "High Point",
+      "rank": 8,
+      "adjustment": 97.9978
+    },
+    {
+      "team": "Ole Miss",
+      "rank": 80,
+      "adjustment": 95.8865
+    },
+    {
+      "team": "Iowa St.",
+      "rank": 4,
+      "adjustment": 93.2598
+    },
+    {
+      "team": "NC State",
+      "rank": 35,
+      "adjustment": 90.6174
+    }
+  ],
+  "ranking_top_10": [
+    {
+      "rank": 1,
+      "team": "Michigan",
+      "elo": 1799.6453
+    },
+    {
+      "rank": 2,
+      "team": "Duke",
+      "elo": 1781.5598
+    },
+    {
+      "rank": 3,
+      "team": "Arizona",
+      "elo": 1774.7785
+    },
+    {
+      "rank": 4,
+      "team": "Iowa St.",
+      "elo": 1753.8121
+    },
+    {
+      "rank": 5,
+      "team": "UConn",
+      "elo": 1751.6049
+    },
+    {
+      "rank": 6,
+      "team": "Miami (FL)",
+      "elo": 1750.9386
+    },
+    {
+      "rank": 7,
+      "team": "Cincinnati",
+      "elo": 1746.4052
+    },
+    {
+      "rank": 8,
+      "team": "High Point",
+      "elo": 1740.993
+    },
+    {
+      "rank": 9,
+      "team": "St. John's (NY)",
+      "elo": 1738.0721
+    },
+    {
+      "rank": 10,
+      "team": "Tennessee",
+      "elo": 1737.7961
+    }
+  ],
+  "publication_cautions": [
+    "Player-quality adjustment remains unapproved for primary release due to historical preopening roster provenance limitations.",
+    "Offseason incoming-transfer minutes metric can exceed 1.0 because it normalizes transfers' prior-season minutes by receiving team's own prior-season total; it is NOT a bounded percent share.",
+    "Exceptional offseason adjustments are research-sensitive; retain a visible provisional label.",
+    "Flagged 13 identities excluded; incomplete incoming-player coverage can bias roster adjustments.",
+    "Historical 2025-26 bootstrap used venue-neutral results; home-court calibration not certified."
+  ],
+  "production_approval": false,
+  "complete_preseason_rankings_available": true
+}
