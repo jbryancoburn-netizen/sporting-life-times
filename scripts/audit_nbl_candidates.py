@@ -57,9 +57,19 @@ def main():
     past=json.loads(Path(a.past).read_text());current=json.loads(Path(a.current).read_text())
     results={"generated_at":datetime.now(timezone.utc).isoformat(),"seasons":{
        "2025-26":audit(past),"2026-27":audit(current,past)},"model_publication_approved":False}
+    # Source: 2025-26 NBL schedule published 165 regular-season games, 33 per club.
+    regular=[g for g in past["games"] if "2025-09-18"<=g["played_at"][:10]<="2026-02-20"]
+    reg_counts=collections.Counter(t for g in regular for t in (g["home"],g["away"]))
+    coverage={"games":len(regular),"expected_games":165,
+              "all_clubs_have_33_games":all(reg_counts[t]==33 for t in TEAMS),
+              "team_games":dict(sorted(reg_counts.items()))}
+    coverage["status"]="pass" if coverage["games"]==165 and coverage["all_clubs_have_33_games"] else "fail"
+    results["2025_26_regular_season_coverage"]=coverage
+    if coverage["status"]!="pass":
+        results["model_publication_approved"]=False
     output=Path(a.output);output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(results,indent=2)+"\n")
     print(json.dumps({k:{"status":v["status"],"games":v["candidate_count"],"errors":v["errors"]} for k,v in results["seasons"].items()},indent=2))
-    if any(v["errors"] for v in results["seasons"].values()):raise SystemExit(1)
+    if any(v["errors"] for v in results["seasons"].values()) or coverage["status"]!="pass":raise SystemExit(1)
 
 if __name__=="__main__":main()
