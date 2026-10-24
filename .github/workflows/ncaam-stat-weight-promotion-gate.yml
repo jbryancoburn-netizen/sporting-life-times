@@ -1,0 +1,43 @@
+name: NCAA player-stat research release gate
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_stat_weight_promotion.py'
+      - 'data/ncaam-independent-stat-weights.json'
+      - '.github/workflows/ncaam-stat-weight-promotion-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit model stability and prohibit uncertified production use
+        run: |
+          python scripts/audit_ncaam_stat_weight_promotion.py
+          python - <<'PY'
+          import json
+          p=json.load(open('data/ncaam-independent-stat-promotion-gate.json'))
+          assert p['production_promotable'] is False
+          assert p['compared_game_count']>=5000
+          assert len(p['regularization_tradeoff'])==5
+          print('PASS: research-only NCAA player-stat release gate')
+          PY
+      - name: Publish validated model decision
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-independent-stat-promotion-gate.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish NCAA player-stat regularization release assessment'
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin main || exit 1
+              if git push origin HEAD:main; then exit 0; fi
+            done
+            exit 1
+          fi
