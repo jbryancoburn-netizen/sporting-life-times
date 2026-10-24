@@ -104,6 +104,16 @@ jobs:
           python scripts/collect_multisource.py
           python scripts/collect_statcast.py
           python scripts/publish_source_health.py
+      - name: Reconcile NBL research Elo and standings to identical completed-game cutoff
+        run: |
+          if [ -f data/nbl-elo-research.json ] && [ -f data/nbl-standings.json ]; then
+            python scripts/check_nbl_edition_consistency.py --elo data/nbl-elo-research.json --standings data/nbl-standings.json
+          elif [ -f data/nbl-elo-research.json ] || [ -f data/nbl-standings.json ]; then
+            echo 'NBL published files disagree: one snapshot is missing'
+            exit 1
+          else
+            echo 'NBL source unavailable; both dependent snapshots withheld'
+          fi
       - name: Audit scoreboard and Match Center freshness, coverage, and provenance
         run: python scripts/audit_feed_integrity.py
       - name: Commit durable Match Center archive branch
