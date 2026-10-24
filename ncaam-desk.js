@@ -77,11 +77,6 @@ const apRanks=pollRanks("ap"),coachRanks=pollRanks("coaches");
 const normalize=n=>String(n).toLowerCase().replace(/[^a-z0-9]/g,"");
 const aliases={"Connecticut":"UConn","Miami":"Miami (FL)","Southern California":"USC","Brigham Young":"BYU","Saint John's":"St. John's"};
 const rankFor=(map,t)=>map.get(t.team)||map.get(aliases[t.team])||[...map.entries()].find(([n])=>normalize(n)===normalize(t.team))?.[1]||null;
-const spotlight=byId("cbb-feature-teams");
-if(spotlight){
- spotlight.innerHTML=teams.slice(0,5).map(t=>'<a class="cbb-feature-team" href="ncaam-elo.html?team='+encodeURIComponent(t.team)+'"><div class="cbb-feature-head">'+logo(t)+'<span class="cbb-feature-rank">ELO #'+t.rank+'</span></div><strong>'+safe(t.team)+'</strong><div class="cbb-feature-score">'+number(t.elo)+'</div><small>'+safe(conferenceName(t.conference))+'</small><div class="cbb-feature-polls">AP '+(rankFor(apRanks,t)||"NR")+' <span>·</span> Coaches '+(rankFor(coachRanks,t)||"NR")+'</div></a>').join("");
-}
-
 const teamSearch=byId("cbb-team-search");
 function searchTeams(){
  if(!teamSearch)return;
