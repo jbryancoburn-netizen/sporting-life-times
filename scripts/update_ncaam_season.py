@@ -5,7 +5,7 @@ Source: NCAA-origin schedule CSV (sportsdataverse mirror). Does not ingest
 uncertified scoring-quality beta. Every run REPLAYS deduplicated finals from
 the immutable 365-school preseason rating baseline; never double-counts.
 """
-import argparse,csv,gzip,io,json,math,sys,urllib.request
+import argparse,csv,gzip,io,json,math,sys,urllib.request,unicodedata
 from collections import defaultdict
 from datetime import date,datetime,timezone
 from pathlib import Path
@@ -17,7 +17,8 @@ MOV=0.55
 HOME_ADV=0.0  # Neutral until venue calibration independently verified.
 
 def key(v):
-    return ''.join(c for c in str(v or '').lower() if c.isalnum())
+    normalized=unicodedata.normalize('NFKD',str(v or '').lower())
+    return ''.join(c for c in normalized if c.isalnum() and not unicodedata.combining(c))
 
 ALIASES={
     "southerncalifornia":"usc","southernill":"southernillinois",
@@ -29,6 +30,69 @@ ALIASES={
     "ucsd":"ucsandiego","olemiss":"mississippi","pitt":"pittsburgh",
     "unc":"northcarolina","uconn":"connecticut",
 }
+# ESPN's verified school labels differ from NCAA short-name conventions.
+# Only explicit, reviewed program aliases are admitted to live Elo joins.
+ALIASES.update({
+    "alcornstate": "alcorn",
+    "arkansaspinebluff": "arkpinebluff",
+    "army": "armywestpoint",
+    "ballstate": "ballst",
+    "calstatebakersfield": "csubakersfield",
+    "calstatefullerton": "calstfullerton",
+    "calstatenorthridge": "csun",
+    "centralarkansas": "centralark",
+    "centralconnecticut": "centralconnst",
+    "centralmichigan": "centralmich",
+    "charleston": "colofcharleston",
+    "easternillinois": "easternill",
+    "easternkentucky": "easternky",
+    "easternmichigan": "easternmich",
+    "easternwashington": "easternwash",
+    "floridaatlantic": "flaatlantic",
+    "incarnateword": "uiw",
+    "iowastate": "iowast",
+    "jacksonvillestate": "jacksonvillest",
+    "kentstate": "kentst",
+    "lsuneworleans": "neworleans",
+    "lamar": "lamaruniversity",
+    "longislanduniversity": "liu",
+    "loyolamarymount": "lmuca",
+    "marylandeasternshore": "umes",
+    "mississippivalleystate": "mississippival",
+    "northalabama": "northala",
+    "northdakotastate": "northdakotast",
+    "northernarizona": "northernariz",
+    "northerncolorado": "northerncolo",
+    "northernillinois": "niu",
+    "northerniowa": "uni",
+    "northernkentucky": "northernky",
+    "northwesternstate": "northwesternst",
+    "ohiostate": "ohiost",
+    "pennstate": "pennst",
+    "selouisiana": "southeasternla",
+    "saintmarys": "saintmarysca",
+    "sanjosestate": "sanjosest",
+    "southcarolinastate": "southcarolinast",
+    "southcarolinaupstate": "uscupstate",
+    "southdakotastate": "southdakotast",
+    "southflorida": "southfla",
+    "southeastmissouristate": "southeastmost",
+    "southern": "southernu",
+    "stjohns": "stjohnsny",
+    "stthomas": "stthomasmn",
+    "stephenfaustin": "sfa",
+    "texasandmcorpuschristi": "amcorpuschristi",
+    "ulmonroe": "ulm",
+    "uncwilmington": "uncw",
+    "utriograndevalley": "utrgv",
+    "utahstate": "utahst",
+    "westgeorgia": "westga",
+    "westerncarolina": "westerncaro",
+    "westernillinois": "westernill",
+    "westernmichigan": "westernmich",
+    "middletennessee": "middletenn",
+})
+
 def school_key(v):
     k=key(v)
     return ALIASES.get(k,k)
