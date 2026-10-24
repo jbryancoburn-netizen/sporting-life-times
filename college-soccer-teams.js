@@ -19,6 +19,7 @@ let forecasts=[],verified=[];
 let newsData={articles:[],updated_at:null};
 let scheduleData={teams:{}};
 let gameIndex={teams:{}};
+let brandData={teams:{}};
 
 
 
@@ -26,16 +27,24 @@ let gameIndex={teams:{}};
 const box=(heading)=>{const section=node('section',undefined,'team-panel');section.append(node('h3',heading));profile.append(section);return section;};
 function open(t){
 profile.replaceChildren();results.replaceChildren();
+const brand=brandData.teams?.[t.cohort+':'+t.team_id];
+profile.style.setProperty('--team-primary',brand?.primary||'#152b42');
+profile.style.setProperty('--team-accent',brand?.accent||'#c5a15a');
+profile.classList.toggle('team-has-brand',!!brand);
 const header=node('div',undefined,'team-hero');
 header.append(node('p',cohortName(t.cohort)+' · '+String(rankings.as_of||'Latest published edition'),'team-eyebrow'));
 const badge=node('span',t.team.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'team-monogram');
 const identity=node('div',undefined,'team-identity');
 identity.append(badge);
-const identityText=node('div');identityText.append(node('h2',t.team),node('p','2026 NCAA SOCCER · PROGRAM REPORT','team-identity-caption'));
+const identityText=node('div');identityText.append(node('h2',t.team),node('p',(brand?.nickname?brand.nickname.toUpperCase()+' · ':'')+'2026 NCAA SOCCER · PROGRAM REPORT','team-identity-caption'));
+if(brand?.conference)identityText.append(node('p',brand.conference+' · '+brand.location,'team-brand-location'));
+
 identity.append(identityText);header.append(identity);
 const actions=node('div',undefined,'team-hero-actions');
 const share=node('a','Share program page ↗','team-hero-link');share.href='college-soccer-team.html?team='+encodeURIComponent(t.cohort+':'+t.team_id);
-actions.append(share);header.append(actions);profile.append(header);
+actions.append(share);
+if(brand?.official_team_url){const official=node('a','Official athletics ↗','team-hero-link');official.href=brand.official_team_url;official.target='_blank';official.rel='noopener noreferrer';actions.append(official);}
+header.append(actions);profile.append(header);
 const metrics=node('div',undefined,'team-metrics');
 for(const [label,value] of [['Elo',fmt(t.elo)],['Division rank','#'+t.rank],['Record',t.record],['Goals for / against',t.gf+' / '+t.ga],['Goal differential',(t.gd>0?'+':'')+t.gd]]){const metric=node('div',undefined,'team-metric');metric.append(node('span',label),node('strong',value));metrics.append(metric);}
 metrics.firstElementChild.classList.add('team-metric-lead');
@@ -168,13 +177,15 @@ const resources=await Promise.allSettled([
  fetch('data/college-soccer-prospective-v2.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
  fetch('data/college-soccer-team-game-index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
  fetch('data/college-soccer-team-schedules.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
- fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
+ fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-team-branding.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
 ]);
 if(resources[0].status==='fulfilled')verified=resources[0].value.results||[];
 if(resources[1].status==='fulfilled')forecasts=resources[1].value.forecasts||[];
 if(resources[2].status==='fulfilled')gameIndex=resources[2].value;
 if(resources[3].status==='fulfilled')scheduleData=resources[3].value;
 if(resources[4].status==='fulfilled')newsData=resources[4].value;
+if(resources[5].status==='fulfilled')brandData=resources[5].value;
 if(search.value.trim().length>=2){
  const current=new URLSearchParams(location.search).get('team');
  if(current&&byId.has(current))open(byId.get(current));
