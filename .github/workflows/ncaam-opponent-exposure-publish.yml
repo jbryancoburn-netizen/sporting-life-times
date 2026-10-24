@@ -5,6 +5,7 @@ on:
       - 'scripts/build_ncaam_player_opponent_elo.py'
       - 'scripts/join_ncaam_opponent_exposure.py'
       - 'scripts/test_ncaam_opponent_exposure_integrity.py'
+      - 'scripts/test_ncaam_opponent_exposure_join.py'
       - '.github/workflows/ncaam-opponent-exposure-publish.yml'
   workflow_dispatch:
 permissions:
@@ -20,6 +21,8 @@ jobs:
           python-version: '3.12'
       - name: Test opponent game identity and temporal integrity
         run: python -m unittest discover -s scripts -p test_ncaam_opponent_exposure_integrity.py -v
+      - name: Test 2026-27 prior NCAA source identity joins
+        run: python -m unittest discover -s scripts -p test_ncaam_opponent_exposure_join.py -v
       - name: Generate opponent exposure from 2025-26 NCAA box scores
         run: python scripts/build_ncaam_player_opponent_elo.py
       - name: Join source IDs to 2026-27 current rosters
