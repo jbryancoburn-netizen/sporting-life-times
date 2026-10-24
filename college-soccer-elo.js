@@ -63,9 +63,26 @@
         tr.append(makeCell('td',entry.gd>=0?'+'+entry.gd:entry.gd,'numeric'));
         tbody.append(tr);
       }
-      table.append(thead,tbody);scroll.append(table);tableHost.replaceChildren(header,scroll);
+      table.append(thead,tbody);scroll.append(table);
+      const recentResults=(model.latest_finals||[]).filter(g=>g.cohort===key).slice(0,12);
+      const recentPanel=el('section',null,'college-elo-recent');
+      if(recentResults.length){
+        recentPanel.append(el('h4','Recent Finals · Elo Changes'));
+        for(const final of recentResults){
+          const item=el('div',null,'college-elo-scoreline');
+          const link=el('a',final.home+' '+final.score+' '+final.away);
+          if(/^https:\/\/www\.ncaa\.com\/game\/\d+$/.test(final.source_game)){
+            link.href=final.source_game;link.target='_blank';link.rel='noopener noreferrer';
+          }
+          item.append(link);
+          item.append(el('span',final.date+' · Home Elo '+(final.home_elo_change>=0?'+':'')+final.home_elo_change));
+          recentPanel.append(item);
+        }
+      }
+      tableHost.replaceChildren(header,scroll);
+      if(recentResults.length)tableHost.append(recentPanel);
     };
-    status.textContent='Updated through '+model.as_of+' · Provisional Elo · Source: NCAA.com final scores';
+    status.textContent='Updated through '+model.as_of+' · Provisional Elo · '+(model.applied_finals_since_baseline||0)+' verified new finals since the baseline';
     const note=document.getElementById('college-soccer-elo-note');
     if(note){note.textContent='Independent USRS Elo ratings, not NCAA RPI or a coaches poll. Each division is a separate rating pool. Neutral-site and historical completeness audits are ongoing; probabilities are not certified betting lines.';}
     render();
