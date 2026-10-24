@@ -18,6 +18,8 @@ const byId=new Map(teams.map(t=>[t.cohort+':'+t.team_id,t]));
 const forecasts=archive.forecasts||[],verified=ledger.results||[];
 let newsData={articles:[],updated_at:null};
 let scheduleData={teams:{}};
+let gameIndex={teams:{}};
+try{const r=await fetch('data/college-soccer-team-game-index.json',{cache:'no-store'});if(r.ok)gameIndex=await r.json();}catch(e){}
 try{const r=await fetch('data/college-soccer-team-schedules.json',{cache:'no-store'});if(r.ok)scheduleData=await r.json();}catch(e){}
 try{const r=await fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'});if(r.ok)newsData=await r.json();}catch(e){}
 
@@ -42,10 +44,12 @@ const teamForecasts=forecasts.filter(f=>f.cohort===t.cohort&&(f.home_team===t.te
 const finalById=new Map(verified.map(f=>[f.match_id,f]));
 const upcoming=teamForecasts.filter(f=>!finalById.has(f.match_id)).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
 const stories=box('Latest program news');
-const season=scheduleData.teams?.[key];
+const curated=scheduleData.teams?.[key];
+const indexed=gameIndex.teams?.[key];
+const season=curated||indexed;
 const scheduleSection=box('2026 Season · Schedule & Results');
 if(season?.games?.length){
- const official=node('p','Official source: '+(scheduleData.source_name||'College athletics'),'college-elo-note');
+ const official=node('p',curated?'Full season · '+(scheduleData.source_name||'Official college athletics source'):'Partial coverage · Verified NCAA finals and archived pregame forecasts; not the full season','college-elo-note');
  scheduleSection.append(official);
  const table=node('table',undefined,'team-schedule-table');
  const head=node('thead');const heading=node('tr');
@@ -57,13 +61,14 @@ if(season?.games?.length){
    tr.append(node('td',fullDate(g.date)));
    tr.append(node('td',(g.venue==='home'?'vs ':'at ')+g.opponent));
    tr.append(node('td',g.status==='final'?g.goals_for+'–'+g.goals_against:'—'));
-   tr.append(node('td',g.status==='final'?(g.goals_for>g.goals_against?'W':g.goals_for<g.goals_against?'L':'D'):'Scheduled'));
+   tr.append(node('td',g.status==='final'?(g.goals_for>g.goals_against?'W':g.goals_for<g.goals_against?'L':'D'):g.kickoff_utc&&Date.parse(g.kickoff_utc)<Date.now()?'Awaiting final':'Scheduled'));
+   if(g.source_url){const link=node('a','Official game ↗');link.href=g.source_url;link.target='_blank';link.rel='noopener noreferrer';tr.children[1].append(' ',link);}
    tbody.append(tr);
  }
  table.append(tbody);scheduleSection.append(table);
- const citation=node('a','View official season schedule ↗');citation.href=scheduleData.source_url;citation.target='_blank';citation.rel='noopener noreferrer';scheduleSection.append(citation);
+ if(curated&&scheduleData.source_url){const citation=node('a','View official season schedule ↗');citation.href=scheduleData.source_url;citation.target='_blank';citation.rel='noopener noreferrer';scheduleSection.append(citation);}
 }else{
- scheduleSection.append(node('p','A verified, complete 2026 team schedule is not yet available in our published team schedule feed.'));
+ scheduleSection.append(node('p','No verified fixtures for this team are currently available in our published game index.'));
 }
 const pred=box('Scheduled matches & locked forecasts');
 if(!upcoming.length)pred.append(node('p','No unmatched locked forecasts for this program in the current archive.'));
