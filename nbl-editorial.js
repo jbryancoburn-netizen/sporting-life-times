@@ -109,9 +109,10 @@ async function run(){
  const d=standingResult.status==='fulfilled'?standingResult.value:null;
  const e=ratingsResult.status==='fulfilled'?ratingsResult.value:null;
  const logos=sources(scoreResult.status==='fulfilled'?scoreResult.value:null);
+ try {const m=await json('assets/nbl-logos/manifest.json');for(const [team,url] of Object.entries(m.teams||{}))logos.set(canonical(team),url)}catch{}
  clubRibbon(logos);
  // Show the sourced edition immediately; third-party crest lookup must not block it.
- officialLogos().then(directory=>{for(const [name,url] of directory)logos.set(name,url);clubRibbon(logos);for(const id of ['league-standings-table','nbl-elo-table']){const root=$(id);if(root)for(const img of root.querySelectorAll('.nbl-club-mark'))img.remove();const rows=root?.querySelectorAll('tbody tr th');if(rows)for(const cell of rows){const club=cell.textContent.trim();const badge=cell.querySelector('.nbl-brand-initial');if(badge&&logos.has(canonical(club)))badge.outerHTML=logo(club,logos);}}if(validStandings)updateScoreboard(d,logos);}).catch(()=>{});
+ officialLogos().then(directory=>{for(const [name,url] of directory)if(!logos.has(name))logos.set(name,url);clubRibbon(logos);for(const id of ['league-standings-table','nbl-elo-table']){const root=$(id);if(root)for(const img of root.querySelectorAll('.nbl-club-mark'))img.remove();const rows=root?.querySelectorAll('tbody tr th');if(rows)for(const cell of rows){const club=cell.textContent.trim();const badge=cell.querySelector('.nbl-brand-initial');if(badge&&logos.has(canonical(club)))badge.outerHTML=logo(club,logos);}}if(validStandings)updateScoreboard(d,logos);}).catch(()=>{});
  const validStandings=d?.league==='Australian NBL'&&d?.status==='source_derived_not_officially_reconciled'&&d?.rows?.length===10;
  const validRatings=e?.status==='RESEARCH_ONLY_UNCERTIFIED'&&e?.production_approved===false&&e?.prediction_certified===false&&e?.ratings?.length===10;
  const regular=validStandings?d.rows:[];
