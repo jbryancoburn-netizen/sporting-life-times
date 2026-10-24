@@ -234,14 +234,19 @@ def evaluate(root):
             tid=str(row.get('team_ncaa_team_id') or '').strip()
             if team and tid:mapping[team].add(tid)
         programs[y]={team:next(iter(ids)) for team,ids in mapping.items() if len(ids)==1}
+        print(f'VALIDATION_STAGE program_ids season={y} teams={len(programs[y])}',flush=True)
         if len(programs[y])<300:
             raise ValueError(f'Too few verified NCAA school IDs from box: {y} {len(programs[y])}')
 
     games={};discard={};ratings={};feature={};feature_audit={}
     for y in years:
         games[y],discard[y]=extract_games(schedule[y],programs[y],boxes[y])
+        print(f'VALIDATION_STAGE extracted_games season={y} count={len(games[y])} excluded={discard[y]}',flush=True)
+        if len(games[y])<500:
+            raise ValueError(f'Insufficient NCAA games after source concordance: {y}, {len(games[y])}')
         ratings[y]=unadjusted_end(games[y],ratings.get(y-1,{}),programs[y])
         if y>2023:feature[y],_,feature_audit[y]=preseason_features(rosters[y],boxes[y-1])
+        if y>2023:print(f'VALIDATION_STAGE roster_features season={y} audit={feature_audit[y]}',flush=True)
     for y in years[1:]:
         if not max(g['day'] for g in games[y-1])<min(g['day'] for g in games[y]):
             raise ValueError('Prior-season results leak into later prediction period')
