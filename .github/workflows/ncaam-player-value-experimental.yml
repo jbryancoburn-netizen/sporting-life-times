@@ -4,6 +4,7 @@ on:
     paths:
       - 'data/ncaam-2026-27-player-value-experimental-v1.json'
       - 'scripts/verify_ncaam_player_value_experimental.py'
+      - 'scripts/rebuild_ncaam_player_value_experimental.py'
       - '.github/workflows/ncaam-player-value-experimental.yml'
   workflow_dispatch:
 permissions:
@@ -17,3 +18,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/verify_ncaam_player_value_experimental.py
+      - run: python scripts/rebuild_ncaam_player_value_experimental.py
