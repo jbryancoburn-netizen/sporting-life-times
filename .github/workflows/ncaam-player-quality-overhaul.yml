@@ -7,6 +7,8 @@ on:
       - 'scripts/audit_ncaam_overhaul_promotion.py'
       - 'scripts/test_audit_ncaam_overhaul_promotion.py'
       - 'scripts/audit_ncaam_transfer_source_strength.py'
+      - 'scripts/build_ncaam_uncertainty_features.py'
+      - 'scripts/test_build_ncaam_uncertainty_features.py'
       - 'data/ncaam-2026-27-scoring-quality-shadow.json'
       - 'data/ncaam-quality-earlyseason-asof-backtest.json'
       - '.github/workflows/ncaam-player-quality-overhaul.yml'
@@ -29,6 +31,7 @@ jobs:
         run: |
           python -m unittest discover -s scripts -p test_build_ncaam_player_quality_overhaul.py -v
           python -m unittest discover -s scripts -p test_audit_ncaam_overhaul_promotion.py -v
+          python -m unittest discover -s scripts -p test_build_ncaam_uncertainty_features.py -v
       - name: Build 365-school challenger
         run: python scripts/build_ncaam_player_quality_overhaul.py
       - name: Verify research-only decision and all-school arithmetic
@@ -44,6 +47,8 @@ jobs:
           PY
       - name: Reconcile historical transfer source program strength
         run: python scripts/audit_ncaam_transfer_source_strength.py
+      - name: Build observed all-team preseason uncertainty feature research
+        run: python scripts/build_ncaam_uncertainty_features.py
       - name: Audit whether research can replace production ratings
         run: |
           python scripts/audit_ncaam_overhaul_promotion.py
@@ -59,7 +64,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ncaam-2026-27-player-quality-overhaul-shadow.json data/ncaam-2026-27-overhaul-promotion-audit.json data/ncaam-2026-27-transfer-source-strength-audit.json
+          git add data/ncaam-2026-27-player-quality-overhaul-shadow.json data/ncaam-2026-27-overhaul-promotion-audit.json data/ncaam-2026-27-transfer-source-strength-audit.json data/ncaam-2026-27-preseason-uncertainty-features.json
           if ! git diff --cached --quiet; then
             git commit -m 'Publish audited NCAA player-quality overhaul research scenario'
             for attempt in 1 2 3; do
