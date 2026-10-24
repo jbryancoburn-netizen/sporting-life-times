@@ -45,6 +45,13 @@ class AthleteOfficialIdentityTests(unittest.TestCase):
     def test_positive_prior_school_cannot_be_wrong(self):
         with self.assertRaisesRegex(ValueError,"does not corroborate"):
             self.simulate(5,lambda d:d["records"][0].__setitem__("prior_school_id","ncaa:999999"))
+    def test_official_transfer_cannot_claim_another_linked_ncaa_athlete(self):
+        occupied=str(self.source[1]["links"][0]["pid"])
+        with self.assertRaisesRegex(ValueError,"missing, duplicated or credited"):
+            self.simulate(5,lambda d:d["records"][0].__setitem__("historical_ncaa_athlete_id",occupied))
+    def test_official_player_historical_minutes_must_reconcile(self):
+        with self.assertRaisesRegex(ValueError,"box minutes"):
+            self.simulate(5,lambda d:d["records"][0].__setitem__("historical_2025_26_minutes",999.0))
     def test_positive_evidence_cannot_authorize_elo(self):
         with self.assertRaisesRegex(ValueError,"must not authorize"):
             self.simulate(5,lambda d:d.__setitem__("automatic_elo_linking_authorized",True))
