@@ -49,13 +49,16 @@ function render(g,events,rankings){
   return '<section class="section"><h3>Quarter by Quarter</h3><div class="quarter-scroller"><div class="quarter-table" style="--periods:'+labels.length+'"><div class="quarter-row quarter-head"><b></b>'+labels.map(v=>'<span>'+v+'</span>').join('')+'<strong>FINAL</strong></div>'+row(away,periods.away)+row(home,periods.home)+'</div></div></section>';
  })();
  const teamComparison=(()=>{
-  const x=g.team_comparison;if(!x?.away||!x?.home)return '';
-  const labels=['FG%','3PT%','FT%','REB','AST','TO','PAINT','FAST BREAK','BENCH'];
-  const rows=labels.filter(label=>Number.isFinite(x.away[label])&&Number.isFinite(x.home[label])).map(label=>{
-   const a=x.away[label],h=x.home[label],max=Math.max(a,h,1);
-   return '<div class="compare-row"><div class="compare-value">'+a+'</div><div class="compare-bars"><span style="width:'+(100*a/max).toFixed(1)+'%;background:'+window.SLTScorebug.color(away.code)+'"></span></div><div class="compare-name">'+label+'</div><div class="compare-bars compare-home"><span style="width:'+(100*h/max).toFixed(1)+'%;background:'+window.SLTScorebug.color(home.code)+'"></span></div><div class="compare-value">'+h+'</div></div>';
+  const values=window.SLTGameComparison?.analyze(g)||[];
+  if(!values.length)return '';
+  const fmt=n=>Number.isInteger(n)?String(n):n.toFixed(1);
+  const rows=values.map(m=>{
+   const difference=Math.abs(m.gap).toFixed(m.unit==='%'?1:0);
+   const delta=m.advantage==='even'?'Even':(m.advantage==='away'?esc(away.code):esc(home.code))+' +'+difference+(m.unit==='%'?' pp':'');
+   return '<div class="compare-row meaningful-compare"><div class="compare-value">'+fmt(m.away)+(m.unit||'')+'</div><div class="compare-bars"><span style="width:'+m.awayWidth.toFixed(1)+'%;background:'+window.SLTScorebug.color(away.code)+'"></span></div><div class="compare-name"><b>'+esc(m.name)+'</b><small>'+delta+'</small></div><div class="compare-bars compare-home"><span style="width:'+m.homeWidth.toFixed(1)+'%;background:'+window.SLTScorebug.color(home.code)+'"></span></div><div class="compare-value">'+fmt(m.home)+(m.unit||'')+'</div></div>';
   }).join('');
-  return rows?'<section class="section"><h3>Team Comparison</h3><div class="comparison"><div class="compare-header"><span>'+esc(away.code)+'</span><span>'+esc(home.code)+'</span></div>'+rows+'</div></section>':'';
+  const notes=values.filter(m=>m.advantage!=='even').sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap)).slice(0,2).map(m=>'<span>'+esc(m.name)+': '+esc(m.advantage==='away'?away.code:home.code)+' '+Math.abs(m.gap).toFixed(m.unit==='%'?1:0)+(m.unit==='%'?' percentage points':'')+' '+(m.direction<0?'fewer':'more')+'</span>').join('');
+  return '<section class="section"><h3>Team Comparison</h3><p class="notice">Shooting differences are percentage points. Turnover advantage goes to the team with fewer turnovers. Each pair of bars shares the same scale.</p><div class="comparison"><div class="compare-header"><span>'+esc(away.code)+'</span><span>'+esc(home.code)+'</span></div>'+rows+'</div>'+(notes?'<div class="game-observations"><b>Notable differences</b>'+notes+'</div>':'')+'</section>';
  })();
  const highlight=(g.leaders||[]).slice(0,4).map(p=>'<div class="star"><small>'+esc(p.team)+'</small><b>'+esc(p.name)+'</b><strong>'+esc(p.pts)+' <small>PTS</small></strong><small>'+esc(p.reb)+' REB · '+esc(p.ast)+' AST</small></div>').join('');
  const roster=t=>'<section class="roster" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><h4>'+esc(t.name)+'</h4>'+g.players.filter(p=>p.team===t.code).sort((a,b)=>num(b.pts)-num(a.pts)).map(player).join('')+'</section>';
