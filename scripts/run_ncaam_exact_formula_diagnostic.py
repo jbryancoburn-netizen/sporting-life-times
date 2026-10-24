@@ -10,6 +10,9 @@ import tempfile
 import traceback
 import os
 import hashlib
+import io
+import sys
+import contextlib
 from pathlib import Path
 from backtest_ncaam_roster_elo import fetch
 from backtest_ncaam_quality_retrospective import evaluate
@@ -44,7 +47,21 @@ def main():
                     save(rows,root/f"ncaa_mbb_{local}_{year}.csv.gz")
                     diag["download_counts"][f"{remote}_{year}"]=len(rows)
             diag["stage"]="evaluate"
-            result=evaluate(root)
+            class Tee:
+                def __init__(self):
+                    self.capture=io.StringIO()
+                def write(self,chunk):
+                    sys.__stdout__.write(chunk)
+                    self.capture.write(chunk)
+                def flush(self):
+                    sys.__stdout__.flush()
+                    self.capture.flush()
+            tee=Tee()
+            try:
+                with contextlib.redirect_stdout(tee):
+                    result=evaluate(root)
+            finally:
+                diag["evaluator_checkpoint_log"]=tee.capture.getvalue()[-12000:]
             output=Path("data/ncaam-exact-scoring-formula-retrospective-backtest.json")
             output.write_text(json.dumps(result,indent=2)+"\n")
             diag.update(status="SUCCESS",stage="complete",holdout_games=result["holdout_minutes_plus_quality"]["games"],beta=result["features"]["selected_quality_beta"])
