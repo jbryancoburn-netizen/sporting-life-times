@@ -9,29 +9,29 @@
       "season_carry": 0.85
     },
     "selected_holdout": {
-      "n": 67,
-      "log_loss": 0.644929,
-      "brier": 0.227939,
-      "accuracy": 0.597
+      "n": 70,
+      "log_loss": 0.646985,
+      "brier": 0.228959,
+      "accuracy": 0.6
     },
     "baseline_holdout": {
-      "n": 67,
-      "log_loss": 0.63722,
-      "brier": 0.223311,
-      "accuracy": 0.6269
+      "n": 70,
+      "log_loss": 0.637771,
+      "brier": 0.223596,
+      "accuracy": 0.6286
     },
     "note": "True season holdout; selections are not retrained on holdout games."
   },
   "scoring_forecast_validation": {
-    "games_evaluated": 17,
+    "games_evaluated": 20,
     "minimum_prior_games_per_team": 5,
     "status": "measured",
-    "home_score_mae": 7.87,
-    "away_score_mae": 8.25,
-    "total_mae": 14.07,
-    "margin_mae": 8.42,
-    "league_average_total_mae": 15.29,
-    "zero_margin_baseline_mae": 9.12,
+    "home_score_mae": 9.02,
+    "away_score_mae": 8.77,
+    "total_mae": 15.99,
+    "margin_mae": 8.71,
+    "league_average_total_mae": 17.43,
+    "zero_margin_baseline_mae": 9.45,
     "beats_simple_total_baseline": true,
     "beats_zero_margin_baseline": true,
     "method": "strict pregame expanding-window; current published scoring formula"
@@ -47,18 +47,18 @@
     "k": 12.0,
     "home_elo": 90.0,
     "season_carry": 0.85,
-    "brier": 0.220371,
-    "log_loss": 0.630394,
-    "accuracy": 0.6461,
-    "n": 469
+    "brier": 0.22057,
+    "log_loss": 0.630791,
+    "accuracy": 0.6462,
+    "n": 472
   },
   "baseline": {
     "k": 22,
     "home_elo": 65,
     "season_carry": 0.67,
-    "brier": 0.223101,
-    "log_loss": 0.635848,
-    "n": 469
+    "brier": 0.223145,
+    "log_loss": 0.635939,
+    "n": 472
   },
   "tested": 75,
   "leaderboard": [
@@ -66,136 +66,136 @@
       "k": 12.0,
       "home_elo": 90.0,
       "season_carry": 0.85,
-      "brier": 0.220371,
-      "log_loss": 0.630394,
-      "accuracy": 0.6461,
-      "n": 469
+      "brier": 0.22057,
+      "log_loss": 0.630791,
+      "accuracy": 0.6462,
+      "n": 472
     },
     {
       "k": 18.0,
       "home_elo": 90.0,
       "season_carry": 0.85,
-      "brier": 0.220691,
-      "log_loss": 0.630532,
-      "accuracy": 0.6461,
-      "n": 469
+      "brier": 0.220861,
+      "log_loss": 0.630885,
+      "accuracy": 0.6462,
+      "n": 472
     },
     {
       "k": 18.0,
       "home_elo": 90.0,
       "season_carry": 0.67,
-      "brier": 0.221208,
-      "log_loss": 0.631868,
-      "accuracy": 0.6439,
-      "n": 469
+      "brier": 0.221406,
+      "log_loss": 0.632284,
+      "accuracy": 0.6441,
+      "n": 472
     },
     {
       "k": 22.0,
       "home_elo": 90.0,
       "season_carry": 0.85,
-      "brier": 0.221543,
-      "log_loss": 0.632216,
-      "accuracy": 0.6375,
-      "n": 469
+      "brier": 0.221709,
+      "log_loss": 0.632572,
+      "accuracy": 0.6377,
+      "n": 472
+    },
+    {
+      "k": 12.0,
+      "home_elo": 65.0,
+      "season_carry": 0.85,
+      "brier": 0.221376,
+      "log_loss": 0.632925,
+      "accuracy": 0.6483,
+      "n": 472
     },
     {
       "k": 12.0,
       "home_elo": 90.0,
       "season_carry": 0.67,
-      "brier": 0.221299,
-      "log_loss": 0.632621,
-      "accuracy": 0.6418,
-      "n": 469
+      "brier": 0.221533,
+      "log_loss": 0.633097,
+      "accuracy": 0.6419,
+      "n": 472
     },
     {
-      "k": 12.0,
+      "k": 18.0,
       "home_elo": 65.0,
       "season_carry": 0.85,
-      "brier": 0.221318,
-      "log_loss": 0.632825,
-      "accuracy": 0.6482,
-      "n": 469
+      "brier": 0.221919,
+      "log_loss": 0.633362,
+      "accuracy": 0.6208,
+      "n": 472
     },
     {
       "k": 22.0,
       "home_elo": 90.0,
       "season_carry": 0.67,
-      "brier": 0.221829,
-      "log_loss": 0.632983,
-      "accuracy": 0.6439,
-      "n": 469
-    },
-    {
-      "k": 18.0,
-      "home_elo": 65.0,
-      "season_carry": 0.85,
-      "brier": 0.221889,
-      "log_loss": 0.633315,
-      "accuracy": 0.6205,
-      "n": 469
+      "brier": 0.222015,
+      "log_loss": 0.633386,
+      "accuracy": 0.6441,
+      "n": 472
     },
     {
       "k": 18.0,
       "home_elo": 120.0,
       "season_carry": 0.85,
-      "brier": 0.221993,
-      "log_loss": 0.633436,
-      "accuracy": 0.6461,
-      "n": 469
+      "brier": 0.222323,
+      "log_loss": 0.634149,
+      "accuracy": 0.6462,
+      "n": 472
     },
     {
       "k": 12.0,
       "home_elo": 120.0,
       "season_carry": 0.85,
-      "brier": 0.222092,
-      "log_loss": 0.633738,
-      "accuracy": 0.6418,
-      "n": 469
+      "brier": 0.222454,
+      "log_loss": 0.634488,
+      "accuracy": 0.6398,
+      "n": 472
     },
     {
       "k": 18.0,
       "home_elo": 65.0,
       "season_carry": 0.67,
-      "brier": 0.222339,
-      "log_loss": 0.634548,
-      "accuracy": 0.6205,
-      "n": 469
-    },
-    {
-      "k": 22.0,
-      "home_elo": 120.0,
-      "season_carry": 0.85,
-      "brier": 0.222612,
-      "log_loss": 0.634908,
-      "accuracy": 0.6482,
-      "n": 469
-    },
-    {
-      "k": 18.0,
-      "home_elo": 120.0,
-      "season_carry": 0.67,
-      "brier": 0.222655,
-      "log_loss": 0.634942,
-      "accuracy": 0.6397,
-      "n": 469
+      "brier": 0.222394,
+      "log_loss": 0.634658,
+      "accuracy": 0.6208,
+      "n": 472
     },
     {
       "k": 12.0,
       "home_elo": 65.0,
       "season_carry": 0.67,
-      "brier": 0.222197,
-      "log_loss": 0.634966,
-      "accuracy": 0.6439,
-      "n": 469
+      "brier": 0.222288,
+      "log_loss": 0.635146,
+      "accuracy": 0.6441,
+      "n": 472
     },
     {
       "k": 22.0,
       "home_elo": 65.0,
       "season_carry": 0.85,
-      "brier": 0.222884,
-      "log_loss": 0.635183,
-      "accuracy": 0.6205,
-      "n": 469
+      "brier": 0.22291,
+      "log_loss": 0.635227,
+      "accuracy": 0.6208,
+      "n": 472
+    },
+    {
+      "k": 22.0,
+      "home_elo": 120.0,
+      "season_carry": 0.85,
+      "brier": 0.222934,
+      "log_loss": 0.63563,
+      "accuracy": 0.6483,
+      "n": 472
+    },
+    {
+      "k": 18.0,
+      "home_elo": 120.0,
+      "season_carry": 0.67,
+      "brier": 0.223017,
+      "log_loss": 0.635722,
+      "accuracy": 0.6398,
+      "n": 472
     }
   ]
 }
