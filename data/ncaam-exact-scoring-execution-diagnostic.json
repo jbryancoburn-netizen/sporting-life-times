@@ -1,6 +1,6 @@
 {
-  "status": "FAILED",
-  "stage": "evaluate",
+  "status": "SUCCESS",
+  "stage": "complete",
   "download_counts": {
     "ncaa_mbb_rosters_2023": 9824,
     "ncaa_mbb_player_box_2023": 125371,
@@ -15,7 +15,10 @@
     "ncaa_mbb_player_box_2026": 127465,
     "ncaa_mbb_schedule_2026": 6297
   },
-  "exception_type": "KeyError",
-  "exception_message": "'team_id'",
-  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/sporting-life-times/sporting-life-times/scripts/run_ncaam_exact_formula_diagnostic.py\", line 35, in main\n    result=evaluate(root)\n           ^^^^^^^^^^^^^^\n  File \"/home/runner/work/sporting-life-times/sporting-life-times/scripts/backtest_ncaam_quality_retrospective.py\", line 211, in evaluate\n    programs={y:{school_key(r['team']):r['team_id'] for r in rosters[y]} for y in years}\n                                       ~^^^^^^^^^^^\nKeyError: 'team_id'\n"
+  "source_commit": "a52082f0e1d7279e5ca6c129604e12c45ec405bf",
+  "evaluator_sha256": "189fa35c12698fc9404084de534bb966bc035be79211b9966676ada1b8a68e7e",
+  "schema_patch_detected": true,
+  "evaluator_checkpoint_log": "VALIDATION_STAGE program_ids season=2023 teams=359\nVALIDATION_STAGE program_ids season=2024 teams=358\nVALIDATION_STAGE program_ids season=2025 teams=361\nVALIDATION_STAGE program_ids season=2026 teams=365\nVALIDATION_STAGE extracted_games season=2023 count=5593 excluded={'outside_roster_teams': 628}\nVALIDATION_STAGE extracted_games season=2024 count=5611 excluded={'outside_roster_teams': 632}\nVALIDATION_STAGE roster_features season=2024 audit={'roster_teams': 718, 'covered_teams': 358, 'current_roster_players': 9904, 'unique_exact_prior_name_matches': 3273, 'returner_prior_name_matches': 2242, 'transfer_prior_name_matches': 1031, 'unmatched_current_roster_players': 6631, 'ambiguous_prior_season_names_excluded': 32, 'roster_duplicates_excluded': 2, 'prior_box_warnings': {'incomplete_or_invalid_box': 8258}, 'league_prior_points_per_minute': 0.35662, 'median_retention': 0.433457, 'median_transfer': 0.156336, 'median_quality_residual': -0.004192}\nVALIDATION_STAGE extracted_games season=2025 count=5674 excluded={'outside_roster_teams': 619}\nVALIDATION_STAGE roster_features season=2025 audit={'roster_teams': 701, 'covered_teams': 358, 'current_roster_players': 9848, 'unique_exact_prior_name_matches': 3223, 'returner_prior_name_matches': 1951, 'transfer_prior_name_matches': 1272, 'unmatched_current_roster_players': 6625, 'ambiguous_prior_season_names_excluded': 38, 'roster_duplicates_excluded': 0, 'prior_box_warnings': {'incomplete_or_invalid_box': 8403}, 'league_prior_points_per_minute': 0.366431, 'median_retention': 0.38484, 'median_transfer': 0.23381, 'median_quality_residual': -0.006797}\nVALIDATION_STAGE extracted_games season=2026 count=5750 excluded={'outside_roster_teams': 547}\nVALIDATION_STAGE roster_features season=2026 audit={'roster_teams': 726, 'covered_teams': 361, 'current_roster_players': 10227, 'unique_exact_prior_name_matches': 2988, 'returner_prior_name_matches': 1548, 'transfer_prior_name_matches': 1440, 'unmatched_current_roster_players': 7239, 'ambiguous_prior_season_names_excluded': 27, 'roster_duplicates_excluded': 0, 'prior_box_warnings': {'incomplete_or_invalid_box': 8245}, 'league_prior_points_per_minute': 0.367783, 'median_retention': 0.259955, 'median_transfer': 0.258104, 'median_quality_residual': -0.00561}\n",
+  "holdout_games": 1831,
+  "beta": 1600
 }
