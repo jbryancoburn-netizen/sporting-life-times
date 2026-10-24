@@ -4,7 +4,6 @@ Never claim full-season coverage from incremental game feeds.
 """
 import json
 from collections import defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]
@@ -60,7 +59,8 @@ for forecast in archive['forecasts']:
         }
 payload={
  'schema_version':1,
- 'generated_at':datetime.now(timezone.utc).isoformat(),
+ 'source_elo_as_of':elo.get('as_of'),
+ 'source_forecasts_published_at':archive.get('published_at'),
  'coverage':'partial_verified_finals_plus_locked_forecasts',
  'notice':'Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.',
  'verified_final_count':len(by_match),
