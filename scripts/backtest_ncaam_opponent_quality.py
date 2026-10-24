@@ -25,6 +25,7 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None,return
     names=defaultdict(set);old=defaultdict(set)
     minutes=defaultdict(float)
     points=defaultdict(float)
+    shot=defaultdict(lambda:{"p":0.,"fga":0.,"fta":0.,"minutes":0.,"missing":False})
     all_minutes=0.0
     all_points=0.0
     for r in box:
@@ -40,6 +41,13 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None,return
                 except (ValueError,TypeError):p=-1
                 if 0<=p<=100:
                     points[(team,pid)]+=p
+                    row=shot[(team,pid)]
+                    row["p"]+=p;row["minutes"]+=m
+                    try:
+                        fga=float(r["fga"]);fta=float(r["fta"])
+                        if not all(map(math.isfinite,(fga,fta))) or min(fga,fta)<0:raise ValueError()
+                        row["fga"]+=fga;row["fta"]+=fta
+                    except (KeyError,ValueError,TypeError):row["missing"]=True
                     all_minutes+=m
                     all_points+=p
     for r in roster:
@@ -49,6 +57,7 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None,return
     for team,name in old:teams_by_name[name].add(team)
     weighted=defaultdict(float);weight=defaultdict(float)
     scored=defaultdict(float);scored_minutes=defaultdict(float)
+    ts_total=defaultdict(float);ts_mins=defaultdict(float)
     mean_ppm=all_points/all_minutes if all_minutes else 0
     if return_scoring and not (0.2<mean_ppm<0.65):raise ValueError("Implausible historical points per minute")
     for target in members:
@@ -65,6 +74,11 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None,return
             if m<200:continue
             scored[target]+=points[(source,pid)]-mean_ppm*m
             scored_minutes[target]+=m
+            st=shot[(source,pid)]
+            if not st["missing"] and st["fga"]+0.44*st["fta"]>0:
+                rate=st["p"]/(2*(st["fga"]+0.44*st["fta"]))
+                if 0<=rate<=1.2:
+                    ts_total[target]+=m*rate;ts_mins[target]+=m
             # Control for source-team strength; raw opponent exposure can proxy
             # for playing at a historically strong school.
             baseline=(prior_team_ratings or {}).get(source,1500.)
@@ -72,9 +86,10 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None,return
             weight[target]+=m
     opponent={t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
     scoring={t:scored[t]/scored_minutes[t] for t in members if scored_minutes[t]>=1000}
-    return (opponent,scoring) if return_scoring else opponent
+    efficiency={t:ts_total[t]/ts_mins[t] for t in members if ts_mins[t]>=1000}
+    return (opponent,scoring,efficiency) if return_scoring else opponent
 
-def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True,coverage_fallback=False,scoring=None,scoring_beta=0):
+def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True,coverage_fallback=False,scoring=None,scoring_beta=0,efficiency=None,efficiency_beta=0):
     valid={t for t in features if t in quality} if require_quality else {t for g in schedule for t in (g[2],g[3])}
     if len(valid)<200:raise ValueError("Insufficient quality feature coverage")
     end=schedule[0][0].toordinal()+days-1
@@ -85,13 +100,17 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
     scoring=scoring or {}
     sq=sorted(scoring.values())
     ms=sq[len(sq)//2] if sq else 0.0
+    efficiency=efficiency or {}
+    eq=sorted(efficiency.values())
+    me=eq[len(eq)//2] if eq else 0.0
     # Keep retention and incoming coefficients fixed to previously trained
     # +120/+160. Only train opponent-quality slope on training seasons.
     ratings={t:1500+.65*(previous.get(t,1500)-1500)+
         (roster_betas[0]*(features[t]["retention"]-mk)+roster_betas[1]*(features[t]["incoming_minutes"]-mt)
          if t in features else 0)+
         (beta*(quality[t]-mq)/100 if t in quality else 0)+
-        (scoring_beta*(scoring[t]-ms) if t in scoring else 0)
+        (scoring_beta*(scoring[t]-ms) if t in scoring else 0)+
+        (efficiency_beta*(efficiency[t]-me) if t in efficiency else 0)
         for t in {x for g in schedule for x in (g[2],g[3])}}
     # Two rating tracks are replayed through every game. The game-only track
     # is used for missing-feature matchups, including when the opponent is
@@ -139,8 +158,8 @@ def run():
     for year in (2024,2025,2026):
         prior=seasons[year-1];now=seasons[year]
         f=continuity(prior["box"],now["roster"],now["members"])
-        q,scoring=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"],return_scoring=True)
-        data[year]={"features":f,"quality":q,"scoring":scoring,"coverage":len(q)}
+        q,scoring,efficiency=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"],return_scoring=True)
+        data[year]={"features":f,"quality":q,"scoring":scoring,"efficiency":efficiency,"coverage":len(q)}
     # Wide predeclared search checks whether the prior optimum sat on a grid edge.
     slopes=(-240,-200,-160,-120,-80,-40,-20,0,20,40,80,120,160,200,240)
     train=[]
@@ -244,6 +263,31 @@ def run():
         "holdout_brier_gain":hold["brier"]-score_holdout["brier"],
         "identical_holdout_games":True,"preseason_roster_asof_verified":False,
         "primary_elo_promotion_approved":False}
+    # Incremental measured true-shooting value after scoring; no fabricated FGA/FTA.
+    eff_coverage={str(y):len(data[y]["efficiency"]) for y in (2024,2025,2026)}
+    eff_result={"coverage_teams":eff_coverage,"status":"INSUFFICIENT_SHOOTING_DATA","production_elo_approved":False}
+    if min(eff_coverage.values())>=200:
+        eff_trials=[]
+        for weight in (-800,-400,-200,0,200,400,800):
+            trials=[evaluate_quality(seasons[y]["schedule"],seasons[y-1]["end"],data[y]["features"],
+                data[y]["quality"],opponent_beta,scoring=data[y]["scoring"],
+                scoring_beta=scoring_winner["scoring_beta"],efficiency=data[y]["efficiency"],
+                efficiency_beta=weight) for y in (2024,2025)]
+            count=sum(z["games"] for z in trials)
+            eff_trials.append({"beta":weight,"games":count,
+                "log_loss":sum(z["games"]*z["log_loss"] for z in trials)/count})
+        chosen_eff=min(eff_trials,key=lambda z:(z["log_loss"],abs(z["beta"])))
+        held=evaluate_quality(seasons[2026]["schedule"],seasons[2025]["end"],
+            data[2026]["features"],data[2026]["quality"],opponent_beta,
+            scoring=data[2026]["scoring"],scoring_beta=scoring_winner["scoring_beta"],
+            efficiency=data[2026]["efficiency"],efficiency_beta=chosen_eff["beta"])
+        if held["matched_games_sha256"]!=score_holdout["matched_games_sha256"]:
+            raise ValueError("Incremental efficiency trial changed holdout games")
+        eff_result={"coverage_teams":eff_coverage,"training_grid":eff_trials,
+            "selected_beta":chosen_eff["beta"],"baseline":score_holdout,
+            "challenger":held,"holdout_logloss_gain":score_holdout["log_loss"]-held["log_loss"],
+            "holdout_brier_gain":score_holdout["brier"]-held["brier"],
+            "status":"HISTORICAL_RESEARCH_ONLY","production_elo_approved":False}
     if base["matched_games_sha256"]!=hold["matched_games_sha256"]:
         raise ValueError("Opponent model holdout must predict identical contests")
     if full_game_only["matched_games_sha256"]!=full_fallback["matched_games_sha256"]:
@@ -259,6 +303,7 @@ def run():
         "training_year_diagnostics":train_by_season,
         "holdout_baseline":base,"holdout_adjusted":hold,
         "scoring_incremental_challenge":scoring_incremental,
+        "efficiency_incremental_challenge":eff_result,
         "holdout_game_only":game_only,
         "holdout_all_games_game_only":full_game_only,
         "holdout_all_games_enhanced_with_fallback":full_fallback,
