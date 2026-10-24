@@ -116,7 +116,7 @@ async function desk(){
  const results=ledger.slice(-16).reverse().map(g=>{
   const h=g.home,a=g.away,homeWon=g.home_score>g.away_score;
   const delta=Number(g.home_elo_change),stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unavailable';
-  const bug=window.SLTScorebug.render({mode:'final',subtitle:stamp,away:{code:a,name:names[a],logo:logo(a)},home:{code:h,name:names[h],logo:logo(h)},awayScore:g.away_score,homeScore:g.home_score,winner:homeWon?h:a,footer:'AWAY · HOME'});
+  const bug=window.SLTScorebug.render({mode:'final',subtitle:stamp,away:{code:a,name:names[a],logo:logo(a)},home:{code:h,name:names[h],logo:logo(h)},awayScore:g.away_score,homeScore:g.home_score,winner:homeWon?h:a});
   const movement=Number.isFinite(delta)?'<div><span>'+esc(a)+' Elo '+(-delta>=0?'+':'')+(-delta).toFixed(2)+'</span><span>'+esc(h)+' Elo '+(delta>=0?'+':'')+delta.toFixed(2)+'</span></div>':'';
   return '<details class="nba-scorebug"><summary>'+bug+'<span class="slt-scorebug-expand">Game details ▾</span></summary><div class="nba-scorebug-details">'+movement+'<p>Independent Elo: '+esc(a)+' '+ratings[a].toFixed(1)+' · '+esc(h)+' '+ratings[h].toFixed(1)+'</p></div></details>';
  }).join('');
@@ -145,7 +145,7 @@ async function desk(){
   if(!hc||!ac||!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';
   const hp=1/(1+Math.pow(10,-(ratings[hc]+45-ratings[ac])/400));
   const bug=window.SLTScorebug.render({mode:'upcoming',subtitle:date(g.date),away:{code:ac,name:names[ac],logo:logo(ac)},home:{code:hc,name:names[hc],logo:logo(hc)},footer:'<span>'+esc(ac)+' '+((1-hp)*100).toFixed(1)+'%</span><span>'+esc(hc)+' '+(hp*100).toFixed(1)+'%</span>'});
-  return '<article class="nba-prediction">'+bug+'<p class="hub-small">Independent Elo win probability · Ratings '+ratings[ac].toFixed(0)+' / '+ratings[hc].toFixed(0)+' · No lineup adjustment</p></article>';
+  return '<article class="nba-prediction">'+bug+'<p class="hub-small">Elo '+ratings[ac].toFixed(0)+' / '+ratings[hc].toFixed(0)+'</p></article>';
  }).join('')+'</div>';
 
  msg('nba-forecast-status','Model-derived win probabilities for verified upcoming fixtures · Not betting odds · Ratings as published');
