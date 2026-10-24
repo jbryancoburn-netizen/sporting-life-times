@@ -8,20 +8,20 @@ const url=new URL(location.href);
 const cohortName=c=>(c.startsWith('women')?'Women':'Men')+' · Division '+({1:'I',2:'II',3:'III'}[c.slice(-1)]);
 const fmt=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:1});
 const fullDate=s=>{try{return new Date(s).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});}catch{return s;}};
+results.textContent='Loading NCAA soccer schools…';
 try{
-const paths=['data/college-soccer-elo.json','data/college-soccer-elo-final-ledger.json','data/college-soccer-prospective-v2.json'];
-const responses=await Promise.all(paths.map(p=>fetch(p,{cache:'no-store'})));
-if(responses.some(r=>!r.ok))throw Error('One or more verified datasets are unavailable');
-const [rankings,ledger,archive]=await Promise.all(responses.map(r=>r.json()));
+const rankingResponse=await fetch('data/college-soccer-elo.json',{cache:'no-store'});
+if(!rankingResponse.ok)throw Error('Rankings unavailable: '+rankingResponse.status);
+const rankings=await rankingResponse.json();
 const teams=Object.entries(rankings.cohorts).flatMap(([cohort,rows])=>rows.map(t=>({...t,cohort})));
 const byId=new Map(teams.map(t=>[t.cohort+':'+t.team_id,t]));
-const forecasts=archive.forecasts||[],verified=ledger.results||[];
+let forecasts=[],verified=[];
 let newsData={articles:[],updated_at:null};
 let scheduleData={teams:{}};
 let gameIndex={teams:{}};
-try{const r=await fetch('data/college-soccer-team-game-index.json',{cache:'no-store'});if(r.ok)gameIndex=await r.json();}catch(e){}
-try{const r=await fetch('data/college-soccer-team-schedules.json',{cache:'no-store'});if(r.ok)scheduleData=await r.json();}catch(e){}
-try{const r=await fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'});if(r.ok)newsData=await r.json();}catch(e){}
+
+
+
 
 const box=(heading)=>{const section=node('section',undefined,'team-panel');section.append(node('h3',heading));profile.append(section);return section;};
 function open(t){
@@ -118,7 +118,29 @@ for(const t of matches){const button=node('button',t.team+' · '+cohortName(t.co
 if(!matches.length)results.append(node('p','No matching school. Try a shorter school name.'));
 }
 search.addEventListener('input',render);
-const selected=new URLSearchParams(location.search).get('team');if(selected&&byId.has(selected)){const t=byId.get(selected);search.value=t.team;open(t);}
+results.replaceChildren();
 results.setAttribute('aria-label',teams.length+' searchable NCAA soccer programs');
+const selected=new URLSearchParams(location.search).get('team');
+if(selected&&byId.has(selected)){
+ const t=byId.get(selected);search.value=t.team;open(t);
+}
+const resources=await Promise.allSettled([
+ fetch('data/college-soccer-elo-final-ledger.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-prospective-v2.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-team-game-index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-team-schedules.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
+]);
+if(resources[0].status==='fulfilled')verified=resources[0].value.results||[];
+if(resources[1].status==='fulfilled')forecasts=resources[1].value.forecasts||[];
+if(resources[2].status==='fulfilled')gameIndex=resources[2].value;
+if(resources[3].status==='fulfilled')scheduleData=resources[3].value;
+if(resources[4].status==='fulfilled')newsData=resources[4].value;
+if(search.value.trim().length>=2){
+ const current=new URLSearchParams(location.search).get('team');
+ if(current&&byId.has(current))open(byId.get(current));
+ else render();
+}
+
 }catch(err){results.textContent='Team profiles are temporarily unavailable because a required published data feed could not be loaded.';console.error('NCAA soccer team finder',err);}
 })();
