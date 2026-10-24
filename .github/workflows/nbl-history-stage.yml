@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/stage_nbl_history.py'
       - 'scripts/audit_nbl_candidates.py'
+      - 'scripts/backtest_nbl_elo.py'
       - '.github/workflows/nbl-history-stage.yml'
   workflow_dispatch:
   schedule:
@@ -26,6 +27,8 @@ jobs:
         run: python scripts/stage_nbl_history.py --start 2026-09-01 --end $(date -u +%F) --output /tmp/nbl-history/2026-27-candidates.json
       - name: Audit candidate identity and chronological integrity
         run: python scripts/audit_nbl_candidates.py --past /tmp/nbl-history/2025-26-candidates.json --current /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/reconciliation-audit.json
+      - name: Evaluate existing Elo settings against held-out current season
+        run: python scripts/backtest_nbl_elo.py --past /tmp/nbl-history/2025-26-candidates.json --current /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-holdout-report.json
       - name: Upload original-source audit candidates
         uses: actions/upload-artifact@v4
         with:
