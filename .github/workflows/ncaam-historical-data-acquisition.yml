@@ -230,7 +230,7 @@ jobs:
           # concurrently published acquisitions. Re-apply our complete files
           # on the latest branch rather than merging two partial JSON reports.
           mkdir -p /tmp/ncaam-acquisition-publish
-          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
+          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json; do
             if [ -f "$file" ]; then cp "$file" /tmp/ncaam-acquisition-publish/; fi
           done
           for attempt in 1 2 3 4 5; do
