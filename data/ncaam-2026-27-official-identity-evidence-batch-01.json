@@ -1,0 +1,48 @@
+{
+  "season": "2026-27",
+  "purpose": "Official-school documentary evidence for NCAA preseason player identity exceptions; evidence only, no production ratings change",
+  "source_audit": "data/ncaam-2026-27-player-identity-triage.json",
+  "evidence_date": "2026-10-23",
+  "cases": [
+    {
+      "current_player_id": "5313054",
+      "player": "Ace Glass",
+      "team": "Vanderbilt",
+      "evidence_status": "CONFIRMED_TRANSFER_SCHOOLS_NOT_CROSSWALK_ID",
+      "documented_prior_school": "Washington State",
+      "documented_current_school": "Vanderbilt",
+      "official_sources": [
+        "https://vucommodores.com/sports/mbball/roster/player/ace-glass",
+        "https://wsucougars.com/sports/mens-basketball/roster/player/ace-glass"
+      ],
+      "observation": "Official Vanderbilt bio explicitly states 2025-26 at Washington State; official WSU bio lists 2025-26 freshman production. Fuzzy historical ID must not be accepted until historical identifier and school code are checked against source.",
+      "production_action": "KEEP_EXCLUDED_PENDING_ID_CROSSWALK_VALIDATION"
+    },
+    {
+      "current_player_id": "5313825",
+      "player": "Gustavo Guimares",
+      "team": "Bradley",
+      "evidence_status": "CONFIRMED_NO_2025_26_GAME_ACTION",
+      "documented_current_school": "Bradley",
+      "official_sources": [
+        "https://bradleybraves.com/sports/mens-basketball/roster/gustavo-guimar-es/13959"
+      ],
+      "observation": "Bradley official bio lists Guimarães as redshirt freshman in 2026-27 and says he redshirted without game action in 2025-26; no 2025-26 D1 player minutes should be fabricated.",
+      "production_action": "KEEP_HISTORICAL_PRODUCTION_EXCLUDED"
+    },
+    {
+      "current_player_id": "4709151",
+      "player": "Jalen Haynes",
+      "team": "Dayton",
+      "evidence_status": "CURRENT_ROSTER_CONFIRMED_PRIOR_SCHOOL_NOT_YET_VERIFIED",
+      "official_sources": [
+        "https://daytonflyers.com/sports/mens-basketball/roster"
+      ],
+      "observation": "Official Dayton 2026-27 roster lists Jalen Haynes, graduate forward number 9; roster listing alone does not adjudicate conflicting prior-school IDs.",
+      "production_action": "KEEP_EXCLUDED_PENDING_PRIOR_SCHOOL_VERIFICATION"
+    }
+  ],
+  "unreviewed_flagged_cases": 10,
+  "model_mutation": false,
+  "production_elo_changed": false
+}
