@@ -15,12 +15,12 @@
     "source_unlinked_unique_name_transfer_candidates": 26,
     "source_unlinked_ambiguous_name_cases": 4,
     "source_unlinked_without_prior_d1_box": 1984,
-    "school_officially_rejected_false_prior_player_links": 8,
-    "open_high_priority_candidate_links": 22,
+    "school_officially_rejected_false_prior_player_links": 14,
+    "open_high_priority_candidate_links": 16,
     "unlinked_players_remaining_without_approved_prior_history": 2014,
-    "negative_identity_cases_separately_flagged": 8,
-    "incorrect_prior_d1_minutes_in_negative_name_candidates": 7588.55,
-    "hypothetical_elo_points_not_added_by_invalid_matches": 175.8,
+    "negative_identity_cases_separately_flagged": 14,
+    "incorrect_prior_d1_minutes_in_negative_name_candidates": 11769.5,
+    "hypothetical_elo_points_not_added_by_invalid_matches": 278.84,
     "prior_player_ids_credited_to_multiple_current_athletes": 0,
     "crosswalk_method_counts": {
       "jaro_winkler": 6,
@@ -101,6 +101,44 @@
       ]
     },
     {
+      "current_espn_id": "5458213",
+      "player": "RJ Smith",
+      "school": "La Salle",
+      "decision": "exclude_prior_d1_name_only",
+      "evidence_kind": "2026-entry-from-high-school",
+      "reason": "La Salle official roster calls RJ Smith a freshman from Roman Catholic High School; not the prior 2025-26 DePaul player with same name.",
+      "school_source_url": "https://goexplorers.com/sports/mens-basketball/roster/rj-smith/13683",
+      "contrasting_source_url": "https://goexplorers.com/news/2025/11/12/mens-basketball-mens-basketball-announces-four-additions-for-2026-27-season.aspx",
+      "erroneously_suggested_prior_school_id": "ncaa:609714",
+      "incorrect_prior_minutes_if_name_reused": 882.11,
+      "incorrect_prior_points_if_name_reused": 212.0,
+      "estimated_avoided_false_transfer_elo_if_mislinked": 22.12,
+      "actually_used_by_official_or_experimental_elo": false,
+      "identically_named_other_current_roster_athletes": [
+        {
+          "current_espn_id": "5105612",
+          "team": "UC Santa Barbara",
+          "linked_to_historical": true
+        }
+      ]
+    },
+    {
+      "current_espn_id": "5177342",
+      "player": "Isaiah Griffin",
+      "school": "UMES",
+      "decision": "exclude_prior_d1_name_only",
+      "evidence_kind": "2025-26-d2-origin-not-previous-d1",
+      "reason": "UMES official roster lists prior school Saint Anselm, which confirms Isaiah Griffin competed there in 2025-26, not the 2025-26 Western Illinois name-matched athlete.",
+      "school_source_url": "https://umeshawksports.com/sports/mens-basketball/roster/2026-2027",
+      "contrasting_source_url": "https://saintanselmhawks.com/sports/mens-basketball/roster/isaiah-griffin/14689",
+      "erroneously_suggested_prior_school_id": "ncaa:609520",
+      "incorrect_prior_minutes_if_name_reused": 883.03,
+      "incorrect_prior_points_if_name_reused": 330.0,
+      "estimated_avoided_false_transfer_elo_if_mislinked": 21.76,
+      "actually_used_by_official_or_experimental_elo": false,
+      "identically_named_other_current_roster_athletes": []
+    },
+    {
       "current_espn_id": "5458737",
       "player": "Jayden Johnson",
       "school": "South Fla.",
@@ -143,6 +181,36 @@
       ]
     },
     {
+      "current_espn_id": "5455021",
+      "player": "Isaac Johnson",
+      "school": "Manhattan",
+      "decision": "exclude_prior_d1_name_only",
+      "evidence_kind": "2025-26-juco-origin-not-previous-d1",
+      "reason": "Manhattan official May 2026 signing says junior Isaac Johnson arrives from Pima Community College in 2025-26, not the same-name D-I Hawaii athlete.",
+      "school_source_url": "https://gojaspers.com/news/2026/5/22/mens-basketball-pima-aztecs-isaac-johnson-signs-with-mens-basketball-for-2026-27.aspx",
+      "erroneously_suggested_prior_school_id": "ncaa:609747",
+      "incorrect_prior_minutes_if_name_reused": 700.29,
+      "incorrect_prior_points_if_name_reused": 466.0,
+      "estimated_avoided_false_transfer_elo_if_mislinked": 17.35,
+      "actually_used_by_official_or_experimental_elo": false,
+      "identically_named_other_current_roster_athletes": []
+    },
+    {
+      "current_espn_id": "5459593",
+      "player": "Ben Johnson",
+      "school": "Western Mich.",
+      "decision": "exclude_prior_d1_name_only",
+      "evidence_kind": "2026-entry-from-high-school",
+      "reason": "Western Michigan lists Ben Johnson as 2026 freshman from Portage Central High School, not the 2025-26 Vermont name-match.",
+      "school_source_url": "https://wmubroncos.com/sports/mens-basketball/roster/ben-johnson/16105",
+      "erroneously_suggested_prior_school_id": "ncaa:609564",
+      "incorrect_prior_minutes_if_name_reused": 610.27,
+      "incorrect_prior_points_if_name_reused": 185.0,
+      "estimated_avoided_false_transfer_elo_if_mislinked": 15.74,
+      "actually_used_by_official_or_experimental_elo": false,
+      "identically_named_other_current_roster_athletes": []
+    },
+    {
       "current_espn_id": "5210407",
       "player": "Cameron Williams",
       "school": "Duke",
@@ -164,6 +232,43 @@
       ]
     },
     {
+      "current_espn_id": "5108041",
+      "player": "Josiah Sanders",
+      "school": "Montana",
+      "decision": "exclude_prior_d1_name_only",
+      "evidence_kind": "2025-26-d2-origin-not-previous-d1",
+      "reason": "Montana official 2026 preseason basketball report identifies Josiah Sanders as a 2025-26 Cal State Dominguez Hills Division II player, not the D-I Colorado name-match.",
+      "school_source_url": "https://gogriz.com/news/2026/10/23/mens-basketball-griz-host-exhibition-vs-cal-state-bakersfield",
+      "contrasting_source_url": "https://gogriz.com/sports/mens-basketball/roster",
+      "erroneously_suggested_prior_school_id": "ncaa:609706",
+      "incorrect_prior_minutes_if_name_reused": 584.83,
+      "incorrect_prior_points_if_name_reused": 146.0,
+      "estimated_avoided_false_transfer_elo_if_mislinked": 13.79,
+      "actually_used_by_official_or_experimental_elo": false,
+      "identically_named_other_current_roster_athletes": [
+        {
+          "current_espn_id": "5237444",
+          "team": "Colorado",
+          "linked_to_historical": true
+        }
+      ]
+    },
+    {
+      "current_espn_id": "5458702",
+      "player": "Jordan Johnson",
+      "school": "UC San Diego",
+      "decision": "exclude_prior_d1_name_only",
+      "evidence_kind": "2025-26-juco-origin-not-previous-d1",
+      "reason": "UC San Diego June 2026 announcement confirms Jordan Johnson played 2025-26 at Calhoun Community College, not the matched D-I Bethune-Cookman player.",
+      "school_source_url": "https://ucsdtritons.com/news/2026/6/29/mens-basketball-six-newcomers-join-tritons-for-2026-27.aspx",
+      "erroneously_suggested_prior_school_id": "ncaa:609631",
+      "incorrect_prior_minutes_if_name_reused": 520.42,
+      "incorrect_prior_points_if_name_reused": 158.0,
+      "estimated_avoided_false_transfer_elo_if_mislinked": 12.28,
+      "actually_used_by_official_or_experimental_elo": false,
+      "identically_named_other_current_roster_athletes": []
+    },
+    {
       "current_espn_id": "5454818",
       "player": "Ethan Butler",
       "school": "Syracuse",
@@ -180,78 +285,6 @@
     }
   ],
   "high_priority_positive_identity_review_queue": [
-    {
-      "current_espn_id": "5458213",
-      "player": "RJ Smith",
-      "team": "La Salle",
-      "team_id": "ncaa:609585",
-      "unverified_candidate_type": "unique-name-transfer-candidate",
-      "name_matched_prior_school_id": "ncaa:609714",
-      "name_matched_prior_minutes": 882.11,
-      "potential_false_transfer_elo_if_naively_matched": 22.12,
-      "review_reason": "source-level player identity must be confirmed; do not use candidate production",
-      "eligible_for_elo": false
-    },
-    {
-      "current_espn_id": "5177342",
-      "player": "Isaiah Griffin",
-      "team": "UMES",
-      "team_id": "ncaa:609662",
-      "unverified_candidate_type": "unique-name-transfer-candidate",
-      "name_matched_prior_school_id": "ncaa:609520",
-      "name_matched_prior_minutes": 883.03,
-      "potential_false_transfer_elo_if_naively_matched": 21.76,
-      "review_reason": "source-level player identity must be confirmed; do not use candidate production",
-      "eligible_for_elo": false
-    },
-    {
-      "current_espn_id": "5455021",
-      "player": "Isaac Johnson",
-      "team": "Manhattan",
-      "team_id": "ncaa:609656",
-      "unverified_candidate_type": "unique-name-transfer-candidate",
-      "name_matched_prior_school_id": "ncaa:609747",
-      "name_matched_prior_minutes": 700.29,
-      "potential_false_transfer_elo_if_naively_matched": 17.35,
-      "review_reason": "source-level player identity must be confirmed; do not use candidate production",
-      "eligible_for_elo": false
-    },
-    {
-      "current_espn_id": "5459593",
-      "player": "Ben Johnson",
-      "team": "Western Mich.",
-      "team_id": "ncaa:609521",
-      "unverified_candidate_type": "unique-name-transfer-candidate",
-      "name_matched_prior_school_id": "ncaa:609564",
-      "name_matched_prior_minutes": 610.27,
-      "potential_false_transfer_elo_if_naively_matched": 15.74,
-      "review_reason": "source-level player identity must be confirmed; do not use candidate production",
-      "eligible_for_elo": false
-    },
-    {
-      "current_espn_id": "5108041",
-      "player": "Josiah Sanders",
-      "team": "Montana",
-      "team_id": "ncaa:609677",
-      "unverified_candidate_type": "unique-name-transfer-candidate",
-      "name_matched_prior_school_id": "ncaa:609706",
-      "name_matched_prior_minutes": 584.83,
-      "potential_false_transfer_elo_if_naively_matched": 13.79,
-      "review_reason": "source-level player identity must be confirmed; do not use candidate production",
-      "eligible_for_elo": false
-    },
-    {
-      "current_espn_id": "5458702",
-      "player": "Jordan Johnson",
-      "team": "UC San Diego",
-      "team_id": "ncaa:609883",
-      "unverified_candidate_type": "unique-name-transfer-candidate",
-      "name_matched_prior_school_id": "ncaa:609631",
-      "name_matched_prior_minutes": 520.42,
-      "potential_false_transfer_elo_if_naively_matched": 12.28,
-      "review_reason": "source-level player identity must be confirmed; do not use candidate production",
-      "eligible_for_elo": false
-    },
     {
       "current_espn_id": "5457800",
       "player": "Tyler Jones",
