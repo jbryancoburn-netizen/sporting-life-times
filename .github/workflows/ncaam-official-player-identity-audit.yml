@@ -1,0 +1,61 @@
+name: NCAA 2026-27 official player identity audit
+on:
+  push:
+    paths:
+      - '.github/workflows/ncaam-official-player-identity-audit.yml'
+      - 'scripts/audit_ncaam_official_player_identities.py'
+      - 'scripts/test_audit_ncaam_official_player_identities.py'
+      - 'data/ncaam-2026-27-official-negative-player-identities.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-minutes-retention-audit.json'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-negative-athlete-identities
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile source-backed athlete identities
+        run: python -m py_compile scripts/audit_ncaam_official_player_identities.py scripts/test_audit_ncaam_official_player_identities.py
+      - name: Test exclusions, source provenance, and duplicate prevention
+        run: python -m unittest discover -s scripts -p 'test_audit_ncaam_official_player_identities.py' -v
+      - name: Build real 2026-27 roster identity review report
+        run: |
+          python scripts/audit_ncaam_official_player_identities.py
+          python scripts/audit_ncaam_official_player_identities.py --verify
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/ncaam-2026-27-player-identity-source-review.json').read_text())
+          assert d['production_elo_approved'] is False
+          assert d['summary']['school_officially_rejected_false_prior_player_links']==8
+          assert d['summary']['open_high_priority_candidate_links']==22
+          assert d['summary']['source_linked_athletes']==3523
+          assert d['summary']['source_unlinked_athletes']==2014
+          assert len(d['officially_disambiguated_exclusions'])==8
+          assert all(not x['eligible_for_elo'] for x in d['high_priority_positive_identity_review_queue'])
+          print('PASS: eight false player transfers blocked, 22 high priority identity reviews queued')
+          PY
+      - name: Publish reproducible school-sourced candidate exclusions and review queue
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-player-identity-source-review.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Publish eight adjudicated NCAA name collisions and 22 athlete identity reviews'
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main || exit 1
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
