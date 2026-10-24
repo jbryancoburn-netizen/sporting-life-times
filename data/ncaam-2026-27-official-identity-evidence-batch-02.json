@@ -1,0 +1,75 @@
+{
+  "season": "2026-27",
+  "source_audit": "data/ncaam-2026-27-player-identity-triage.json",
+  "evidence_date": "2026-10-23",
+  "cases": [
+    {
+      "current_player_id": "5107366",
+      "player": "Joshua Hughes",
+      "team": "Samford",
+      "evidence_status": "OFFICIAL_2025_26_DID_NOT_PLAY",
+      "official_sources": [
+        "https://samfordsports.com/sports/mens-basketball/roster/joshua-hughes/10843"
+      ],
+      "observation": "Official bio states 2025-26 senior: did not see action; reject crosswalk claiming 898.76 minutes.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5311606",
+      "player": "Jayden Reid",
+      "team": "Quinnipiac",
+      "evidence_status": "OFFICIAL_2025_26_REDSHIRT",
+      "official_sources": [
+        "https://gobobcats.com/sports/mens-basketball/roster/jayden-reid/15147"
+      ],
+      "observation": "Official bio says 2025-26 first year took a redshirt season; reject 875.85 claimed prior minutes.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5311767",
+      "player": "Asier Miguel",
+      "team": "Manhattan",
+      "evidence_status": "OFFICIAL_2025_26_PARTICIPATION",
+      "official_sources": [
+        "https://gojaspers.com/sports/mens-basketball/roster/asier-miguel/12556"
+      ],
+      "observation": "Official bio confirms nine games and 44 minutes in 2025-26 for Manhattan; historical identity link still requires ID proof.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5317273",
+      "player": "Jalen St Clair",
+      "team": "Delaware St.",
+      "evidence_status": "OFFICIAL_ROSTER_CONFIRMED",
+      "official_sources": [
+        "https://dsuhornets.com/sports/mens-basketball/roster/jalen-st-clair/9007"
+      ],
+      "observation": "Official 2026-27 roster confirms sophomore Jalen St Clair, but not historical box identifier.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5316045",
+      "player": "Max Garcia-Plata",
+      "team": "UIW",
+      "evidence_status": "OFFICIAL_ROSTER_CONFIRMED",
+      "official_sources": [
+        "https://uiwcardinals.com/sports/mens-basketball/roster"
+      ],
+      "observation": "Official UIW roster lists Max Garcia-Plata as redshirt freshman; does not justify fuzzy prior identifier.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5314757",
+      "player": "Anthony Smith III",
+      "team": "Winthrop",
+      "evidence_status": "OFFICIAL_PRIOR_SCHOOL_NORTH_DAKOTA",
+      "official_sources": [
+        "https://winthropeagles.com/sports/mens-basketball/roster"
+      ],
+      "observation": "Official 2026-27 roster lists sophomore Anthony Smith III and North Dakota as prior school; ID crosswalk still unproved.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    }
+  ],
+  "model_mutation": false,
+  "production_elo_changed": false
+}
