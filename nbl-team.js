@@ -45,9 +45,19 @@ async function start(){
  const row=standingsOk?stand.rows.find(r=>r.team===selected):null;
  const rating=eloOk?elo.ratings.find(r=>r.team===selected):null;
  const logos=scrapeLogos(scores);
+ try{
+   const resp=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/teams?limit=100',{cache:'no-store'});
+   if(resp.ok){const directory=await resp.json();
+     for(const item of directory?.sports?.[0]?.leagues?.[0]?.teams||[]){
+       const t=item.team||item,u=valid(t.logos?.[0]?.href||t.logo);
+       if(u)for(const name of [t.displayName,t.name,t.shortDisplayName])if(name)logos.set(normalize(name),u);
+     }
+   }
+ }catch{ /* retain sourced score-feed logo or textual team name */ }
+
  const image=logos.get(normalize(selected));
  document.title=selected+' | NBL Club Desk | The Sporting Life & Times';
- $('nbl-club-heading').innerHTML='<div class="nbl-team-summary-head">'+(image?'<img class="nbl-team-crest" src="'+esc(image)+'" alt="" loading="lazy">':'')+'<h1 class="nbl-edition-title">'+esc(selected)+'</h1></div>';
+ $('nbl-club-heading').innerHTML='<div class="nbl-team-summary-head">'+(image?'<img class="nbl-team-crest" src="'+esc(image)+'" alt="" loading="lazy">': '<span class="nbl-brand-initial" aria-hidden="true">'+esc(selected.split(' ').map(x=>x[0]).slice(0,2).join(''))+'</span>')+'<h1 class="nbl-edition-title">'+esc(selected)+'</h1></div>';
  fill('nbl-club-description',row?'The 2026–27 club report. Completed-season records and independently calculated Elo, updated through '+pretty(stand.updated_at)+'.':'Club report: waiting for a complete current-season source snapshot.');
  const metrics=[
   ['Regular-season record',row?row.wins+'–'+row.losses:'Unavailable','ESPN-derived league table'],
