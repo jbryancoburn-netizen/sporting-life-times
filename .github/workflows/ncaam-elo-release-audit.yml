@@ -27,6 +27,12 @@ on:
       - 'scripts/test_build_ncaam_2027_verified_preseason.py'
       - 'data/ncaam-2026-27-scoring-quality-shadow.json'
       - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-official-negative-player-identities.json'
+      - 'data/ncaam-2026-27-official-prior-school-corroborations.json'
+      - 'data/ncaam-2026-27-official-ambiguous-current-player-origins.json'
+      - 'data/ncaam-2026-27-player-identity-source-review.json'
+      - 'scripts/audit_ncaam_official_player_identities.py'
+      - 'scripts/test_audit_ncaam_official_player_identities.py'
       - 'data/ncaam-2026-27-player-movement-audit.json'
       - 'data/ncaam-2026-27-minutes-retention-audit.json'
       - 'data/ncaam-2026-27-preseason-roster-informed.json'
@@ -69,6 +75,10 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_audit_ncaa_elo_release.py' -v
       - name: Test source-identified preseason rating calculation
         run: python -m unittest discover -s scripts -p 'test_build_ncaam_2027_verified_preseason.py' -v
+      - name: Lock out 22 proven wrong D-I athlete identities and verify all 30 school-source name cases
+        run: |
+          python -m unittest discover -s scripts -p 'test_audit_ncaam_official_player_identities.py' -v
+          python scripts/audit_ncaam_official_player_identities.py --verify
       - name: Verify player scoring evidence reproduces without altering official Elo
         run: python scripts/audit_ncaam_player_scoring_shadow.py
       - name: Test chronological scoring-quality backtest and leakage detection
