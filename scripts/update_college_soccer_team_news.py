@@ -73,7 +73,12 @@ def main():
    men=bool(re.search(r"\bmen(?:'s|s)?\b|male",hay))
    if women==men:continue
    gender='women' if women else 'men'
-   keys=sorted({k for k,name,g in teams if g==gender and words_match(hay,name)})
+   candidates=[(k,name) for k,name,g in teams if g==gender and words_match(hay,name)]
+   # Suppress a shorter school name that only matched inside a longer matching institution.
+   keys=sorted({k for k,name in candidates if not any(
+    other!=name and name.lower() in other.lower() and words_match(other.lower(),name.lower())
+    for _,other in candidates)})
+
    if not keys:continue
    a={'title':title,'url':link,'source':source,'published_at':published,'summary':'','team_keys':keys}
    if link in selected:selected[link]['team_keys']=sorted(set(selected[link]['team_keys'])|set(keys))
