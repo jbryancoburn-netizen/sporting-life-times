@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/build_ncaam_espn_program_map.py'
+      - 'scripts/update_ncaam_season.py'
       - '.github/workflows/ncaam-espn-program-map.yml'
   workflow_dispatch:
 permissions:
