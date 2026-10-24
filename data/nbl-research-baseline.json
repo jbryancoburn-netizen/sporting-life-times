@@ -1,0 +1,31 @@
+{
+  "status": "RESEARCH_ONLY_UNCERTIFIED",
+  "model": "nbl-game-elo-research-v1",
+  "as_of": "2026-04-05",
+  "prior": "1500 for all 10 teams in 2024-25",
+  "season_to_publish": "2026-27",
+  "training_games": 337,
+  "parameters": {
+    "k": 20,
+    "home_advantage_elo": 65,
+    "offseason_regression": 0.25
+  },
+  "sources": {
+    "archive_run": "https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/40121790921",
+    "2024-25_sha256": "a95c09cb9a8f4fb6b3119e48a7ad854dd359bff17366b12f5f3c280b711891d7",
+    "2025-26_sha256": "edff5163865bb80e743dbea6be211d83f149392d1f574a81a7658fa59bbc53f3"
+  },
+  "ratings_end_2025_26": {
+    "Adelaide 36ers": 1578.06209482,
+    "Brisbane Bullets": 1337.50004046,
+    "Cairns Taipans": 1377.5802657,
+    "Illawarra Hawks": 1494.85033565,
+    "Melbourne United": 1540.31547263,
+    "New Zealand Breakers": 1439.69489639,
+    "Perth Wildcats": 1567.30953272,
+    "South East Melbourne Phoenix": 1579.06088904,
+    "Sydney Kings": 1636.81825386,
+    "Tasmania JackJumpers": 1448.80821872
+  },
+  "warning": "Research Elo ratings are independently calculated and descriptive, not validated forecast probabilities. Current-season forecasts are withheld."
+}
