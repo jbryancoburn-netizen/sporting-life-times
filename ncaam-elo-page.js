@@ -3,6 +3,7 @@ const status=document.getElementById('status');
 const note=document.getElementById('source-note');
 const search=document.getElementById('team-search');
 const conference=document.getElementById('conference-filter');
+const conferenceName=c=>({AAC:'American',MWC:'Mountain West',MVC:'Missouri Valley',MAC:'Mid-American',MEAC:'Mid-Eastern Athletic',NEC:'Northeast',OVC:'Ohio Valley',SWAC:'Southwestern Athletic',UAC:'United Athletic Conference',CAA:'Coastal Athletic Association',ASUN:'Atlantic Sun',WCC:'West Coast',SoCon:'Southern'}[c]||c);
 const version=document.getElementById('rating-version');
 const referenceHeading=document.getElementById('reference-heading');
 const ratingHeading=document.getElementById('rating-heading');
@@ -116,8 +117,8 @@ try {
  matchupB.addEventListener('change',renderMatchup);
  matchupVenue.addEventListener('change',renderMatchup);
 
- for(const name of [...new Set(initial.rankings.map(r=>r.conference).filter(Boolean))].sort()){
-  const option=document.createElement('option');option.value=name;option.textContent=name;conference.append(option);
+ for(const name of [...new Set(initial.rankings.map(r=>r.conference).filter(Boolean))].sort((a,b)=>conferenceName(a).localeCompare(conferenceName(b)))){
+  const option=document.createElement('option');option.value=name;option.textContent=conferenceName(name);conference.append(option);
  }
  const initialById=new Map((available.roster||baseline).rankings.map(r=>[r.team_id,r]));
  const rankedById=new Map((available.roster||baseline).rankings.map(r=>[r.team_id,r.rank]));
@@ -169,7 +170,7 @@ try {
    const move=choice==='quality'&&Number.isInteger(baselineRank)&&baselineRank!==r.rank?
     '<span class="elo-rank-move" aria-label="'+Math.abs(baselineRank-r.rank)+' rank places '+(baselineRank>r.rank?'up':'down')+'">'+
     (baselineRank>r.rank?'↑':'↓')+Math.abs(baselineRank-r.rank)+'</span>':'';
-   return '<tr><td>'+r.rank+move+'</td><td class="team">'+safe(r.team)+'</td><td>'+safe(r.conference)+'</td><td class="number elo-standout">'+num(r.elo)+'</td><td class="number">'+reference+'</td><td class="number">'+(r.season_games??r.games??0)+'</td></tr>';
+   return '<tr><td>'+r.rank+move+'</td><td class="team">'+safe(r.team)+'</td><td>'+safe(conferenceName(r.conference))+'</td><td class="number elo-standout">'+num(r.elo)+'</td><td class="number">'+reference+'</td><td class="number">'+(r.season_games??r.games??0)+'</td></tr>';
   }).join(''):'<tr><td colspan="6">No matching teams.</td></tr>';
  }
  search.addEventListener('input',render);
