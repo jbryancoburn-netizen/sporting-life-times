@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/college-soccer-public-check.yml'
       - 'scripts/check_college_soccer_public.py'
+      - 'data/college-soccer-elo.json'
 permissions:
   contents: read
 jobs:
