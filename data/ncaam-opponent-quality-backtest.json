@@ -1,0 +1,262 @@
+{
+  "experiment": "ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
+  "quality_feature": "minutes-weighted prior opponent pregame Elo minus prior source team end Elo",
+  "training_seasons": [
+    2024,
+    2025
+  ],
+  "untouched_holdout": 2026,
+  "training_winner": {
+    "beta_per_100_opponent_elo": -20,
+    "games": 3333,
+    "log_loss": 0.5771265776348992
+  },
+  "training_candidates": [
+    {
+      "beta_per_100_opponent_elo": -240,
+      "games": 3333,
+      "log_loss": 0.6836372538727188
+    },
+    {
+      "beta_per_100_opponent_elo": -200,
+      "games": 3333,
+      "log_loss": 0.6502823867048162
+    },
+    {
+      "beta_per_100_opponent_elo": -160,
+      "games": 3333,
+      "log_loss": 0.622057102080779
+    },
+    {
+      "beta_per_100_opponent_elo": -120,
+      "games": 3333,
+      "log_loss": 0.5998575222145675
+    },
+    {
+      "beta_per_100_opponent_elo": -80,
+      "games": 3333,
+      "log_loss": 0.5846546589939764
+    },
+    {
+      "beta_per_100_opponent_elo": -40,
+      "games": 3333,
+      "log_loss": 0.5774405547319562
+    },
+    {
+      "beta_per_100_opponent_elo": -20,
+      "games": 3333,
+      "log_loss": 0.5771265776348992
+    },
+    {
+      "beta_per_100_opponent_elo": 0,
+      "games": 3333,
+      "log_loss": 0.5791525661447999
+    },
+    {
+      "beta_per_100_opponent_elo": 20,
+      "games": 3333,
+      "log_loss": 0.5836149825131332
+    },
+    {
+      "beta_per_100_opponent_elo": 40,
+      "games": 3333,
+      "log_loss": 0.590600430040094
+    },
+    {
+      "beta_per_100_opponent_elo": 80,
+      "games": 3333,
+      "log_loss": 0.612446989631465
+    },
+    {
+      "beta_per_100_opponent_elo": 120,
+      "games": 3333,
+      "log_loss": 0.6452472714654733
+    },
+    {
+      "beta_per_100_opponent_elo": 160,
+      "games": 3333,
+      "log_loss": 0.6894277804530828
+    },
+    {
+      "beta_per_100_opponent_elo": 200,
+      "games": 3333,
+      "log_loss": 0.7451187402849547
+    },
+    {
+      "beta_per_100_opponent_elo": 240,
+      "games": 3333,
+      "log_loss": 0.811992444724156
+    }
+  ],
+  "training_grid_edge_solution": false,
+  "training_grid_values": [
+    -240,
+    -200,
+    -160,
+    -120,
+    -80,
+    -40,
+    -20,
+    0,
+    20,
+    40,
+    80,
+    120,
+    160,
+    200,
+    240
+  ],
+  "training_year_diagnostics": {
+    "2024": {
+      "0": {
+        "games": 1682,
+        "log_loss": 0.5809201006245539,
+        "brier": 0.1978920690398117,
+        "fallback_games": 0
+      },
+      "-20": {
+        "games": 1682,
+        "log_loss": 0.5803161123900189,
+        "brier": 0.19794758560653314,
+        "fallback_games": 0
+      }
+    },
+    "2025": {
+      "0": {
+        "games": 1651,
+        "log_loss": 0.5773518435554926,
+        "brier": 0.19657354691093287,
+        "fallback_games": 0
+      },
+      "-20": {
+        "games": 1651,
+        "log_loss": 0.5738771545833476,
+        "brier": 0.195406011692736,
+        "fallback_games": 0
+      }
+    }
+  },
+  "holdout_baseline": {
+    "games": 1658,
+    "log_loss": 0.560408404739938,
+    "brier": 0.18888054454631656,
+    "fallback_games": 0
+  },
+  "holdout_adjusted": {
+    "games": 1658,
+    "log_loss": 0.5572521072538968,
+    "brier": 0.18788732525664906,
+    "fallback_games": 0
+  },
+  "holdout_game_only": {
+    "games": 1658,
+    "log_loss": 0.5745725530770924,
+    "brier": 0.19489029885020764,
+    "fallback_games": 0
+  },
+  "holdout_all_games_game_only": {
+    "games": 1831,
+    "log_loss": 0.5705332587903005,
+    "brier": 0.19317147219652112,
+    "fallback_games": 0
+  },
+  "holdout_all_games_enhanced_with_fallback": {
+    "games": 1831,
+    "log_loss": 0.5548493160405142,
+    "brier": 0.18683016677974326,
+    "fallback_games": 173
+  },
+  "holdout_fallback_window_sensitivity": {
+    "14": {
+      "games": 612,
+      "fallback_games": 65,
+      "logloss_gain": 0.02897566834094889,
+      "brier_gain": 0.012063706440718774
+    },
+    "30": {
+      "games": 1307,
+      "fallback_games": 128,
+      "logloss_gain": 0.01853217148791364,
+      "brier_gain": 0.007508227192988742
+    },
+    "45": {
+      "games": 1831,
+      "fallback_games": 173,
+      "logloss_gain": 0.01568394274978624,
+      "brier_gain": 0.006341305416777854
+    }
+  },
+  "fallback_all_windows_improve_both_metrics": true,
+  "full_coverage_logloss_gain": 0.01568394274978624,
+  "full_coverage_brier_gain": 0.006341305416777854,
+  "head_to_head_is_coverage_subset": true,
+  "uncovered_games": 173,
+  "head_to_head_coverage_fraction": 0.9055161114145276,
+  "holdout_game_only_window_sensitivity": {
+    "14": {
+      "games": 547,
+      "game_only_log_loss": 0.5569497757336543,
+      "adjusted_log_loss": 0.5245309292534706,
+      "logloss_gain": 0.03241884648018378,
+      "brier_gain": 0.013497236456526368
+    },
+    "30": {
+      "games": 1179,
+      "game_only_log_loss": 0.572246309361776,
+      "adjusted_log_loss": 0.5517021633611798,
+      "logloss_gain": 0.020544146000596175,
+      "brier_gain": 0.008323369755077442
+    },
+    "45": {
+      "games": 1658,
+      "game_only_log_loss": 0.5745725530770924,
+      "adjusted_log_loss": 0.5572521072538968,
+      "logloss_gain": 0.017320445823195585,
+      "brier_gain": 0.007002973593558587
+    }
+  },
+  "all_game_only_windows_improve": true,
+  "adjusted_vs_game_only_logloss_gain": 0.017320445823195585,
+  "adjusted_vs_game_only_brier_gain": 0.007002973593558587,
+  "holdout_logloss_gain": 0.003156297486041182,
+  "holdout_brier_gain": 0.0009932192896675018,
+  "holdout_window_sensitivity": {
+    "14": {
+      "games": 547,
+      "baseline_log_loss": 0.531387787632429,
+      "adjusted_log_loss": 0.5245309292534706,
+      "logloss_gain": 0.006856858378958441,
+      "brier_gain": 0.002311990935400021
+    },
+    "30": {
+      "games": 1179,
+      "baseline_log_loss": 0.5550578087297486,
+      "adjusted_log_loss": 0.5517021633611798,
+      "logloss_gain": 0.003355645368568805,
+      "brier_gain": 0.0010417485822265538
+    },
+    "45": {
+      "games": 1658,
+      "baseline_log_loss": 0.560408404739938,
+      "adjusted_log_loss": 0.5572521072538968,
+      "logloss_gain": 0.003156297486041182,
+      "brier_gain": 0.0009932192896675018
+    }
+  },
+  "holdout_all_windows_improve_both_metrics": true,
+  "quality_team_coverage": {
+    "2024": 347,
+    "2025": 345,
+    "2026": 346
+  },
+  "validated_incremental_gain": true,
+  "same_day_opponent_elo_snapshot": "Date-batched pregame snapshots prevent same-day result leakage",
+  "preseason_information_integrity_verified": false,
+  "approved_for_primary": false,
+  "limitations": [
+    "Historical roster snapshot timing unverified",
+    "Exact name joins are provisional identities",
+    "Competition quality is opponent pregame team Elo, not player impact",
+    "Home court not identified in historical schedules"
+  ]
+}
