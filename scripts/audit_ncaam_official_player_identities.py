@@ -141,6 +141,8 @@ def verify(movement,crosswalk,minutes,negatives,ratings,positives,ambiguous):
         positives.get("automatic_elo_linking_authorized") is not False):
         raise ValueError("Prior-school corroborations must not authorize player identity or primary Elo")
     origin_confirmed={}
+    historically_occupied_ids=set(prior_athletes)
+    extra_historical_ids=set()
     for row in positives["records"]:
         pid=str(row["current_espn_id"])
         person=roster.get(pid)
@@ -158,6 +160,16 @@ def verify(movement,crosswalk,minutes,negatives,ratings,positives,ambiguous):
             raise ValueError("Prior-school corroboration is not an official destination-school athletics page")
         if not row.get("source_statement") or not row.get("verified_prior_school"):
             raise ValueError("Missing source-specific official prior-school claim")
+        old_id=str(row.get("historical_ncaa_athlete_id",""))
+        if (not old_id.isdigit() or old_id in historically_occupied_ids or
+            old_id in extra_historical_ids):
+            raise ValueError("Historical NCAA player ID is missing, duplicated or credited to another 2026-27 athlete")
+        if (abs(float(row.get("historical_2025_26_minutes",0))-person["prior_minutes"])>0.04 or
+            abs(float(row.get("historical_2025_26_points",-1))-person.get("prior_points",-2))>0.01 or
+            row.get("historical_ncaa_athlete_id_at_prior_school_unique") is not True or
+            row.get("current_espn_to_prior_ncaa_direct_id_bridge_proven") is not False):
+            raise ValueError("Source-pinned four NCAA player IDs, box minutes or direct-identity claims are inconsistent")
+        extra_historical_ids.add(old_id)
         origin_confirmed[pid]={**row,
             "source_name_matched_historical_minutes":round(person["prior_minutes"],2),
             "source_name_matched_historical_points":person.get("prior_points"),
