@@ -39,6 +39,7 @@ for(const event of old.events||[]){
    home_score:event.home_score,away_score:event.away_score,date:new Date(event.date).toISOString()},'existing Elo ledger');
 }
 let archivedFinals=0;
+const archivedVerifiedIds=new Set();
 for(const game of verifiedArchive.games||[]){
  if(game.state!=='post'||!/^espn-nba-\d+$/.test(String(game.id))||!Array.isArray(game.players)||!game.players.length)continue;
  const home=game.teams?.find(x=>x.home_away==='home');
@@ -49,6 +50,7 @@ for(const game of verifiedArchive.games||[]){
   hs<60||as<60||hs===as||!Number.isFinite(Date.parse(game.date)))continue;
  const result={id:game.id,home:h,away:a,home_score:hs,away_score:as,date:new Date(game.date).toISOString()};
  addVerifiedFinal(result,'completed ESPN player box score');
+ archivedVerifiedIds.add(game.id);
  archivedFinals++;
 }
 console.log('NBA Elo: '+archivedFinals+' completed ESPN box-score results available for reconciliation.');
@@ -84,6 +86,9 @@ async function fetchDate(date) {
    const hs=Number(home.score),as=Number(away.score);
    if(!Number.isInteger(hs)||!Number.isInteger(as)||hs<0||as<0||hs===as)throw Error('Bad final score '+event.id);
    const id='espn-nba-'+event.id;
+   // Wait until Game Center has captured the verified final so Pages never
+   // publishes an Elo event without its corresponding public game record.
+   if(!archivedVerifiedIds.has(id) && !(old.events||[]).some(e=>e.id===id))continue;
    const time=new Date(event.date).toISOString();
    const result={id,home:h,away:a,home_score:hs,away_score:as,date:time};
    addVerifiedFinal(result,'ESPN daily scoreboard');
