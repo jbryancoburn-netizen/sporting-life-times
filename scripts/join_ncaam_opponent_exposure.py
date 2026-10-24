@@ -15,6 +15,9 @@ def join(exposure,movement,cross):
         source[key]=r
     athletes={str(p["current_id"]):(t["team_id"],p)
               for t in movement["teams"] for p in t["players"]}
+    roster_count=sum(len(t["players"]) for t in movement["teams"])
+    if len(athletes)!=roster_count:
+        raise ValueError("Duplicate player identities in current NCAA roster")
     seen=set();matched=[];excluded=Counter()
     for link in cross["links"]:
         eid=str(link["id"])
