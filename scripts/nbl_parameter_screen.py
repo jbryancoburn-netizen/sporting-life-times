@@ -2,9 +2,10 @@
 """Train-era-only NBL Elo parameter screen and untouched 2026-27 evaluation.
 Research only: never promotes ratings or predictions.
 """
-import argparse,itertools,json
+import argparse,itertools,json,sys
 from pathlib import Path
-from nbl_three_season_eval import games,evaluate,START,lagged_home_baseline
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.nbl_three_season_eval import games,evaluate,START,lagged_home_baseline
 GRID={"k":(5,10,15,20,30,40),"home":(0,20,40,65,90,120),"regression":(0,.15,.30,.50)}
 
 def screen(seasons):
