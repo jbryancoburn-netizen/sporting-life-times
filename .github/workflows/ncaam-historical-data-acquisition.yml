@@ -206,10 +206,12 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
-          git add data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json || true
+          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
+            if [ -f "$file" ]; then git add "$file"; fi
+          done
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
           for attempt in 1 2 3 4 5; do
-            git pull --rebase origin main || exit 1
+            git -c rebase.autoStash=true pull --rebase origin main || exit 1
             if git push origin HEAD:main; then exit 0; fi
             sleep "$((attempt*2))"
           done
