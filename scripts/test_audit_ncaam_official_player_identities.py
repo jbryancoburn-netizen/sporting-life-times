@@ -22,8 +22,8 @@ class AthleteOfficialIdentityTests(unittest.TestCase):
     def test_real_reconciled_exclusions(self):
         d=model.verify(*self.source)
         s=d["summary"]
-        self.assertEqual(s["school_officially_rejected_false_prior_player_links"],8)
-        self.assertEqual(s["open_high_priority_candidate_links"],22)
+        self.assertEqual(s["school_officially_rejected_false_prior_player_links"],14)
+        self.assertEqual(s["open_high_priority_candidate_links"],16)
         self.assertEqual(s["source_unlinked_unique_name_transfer_candidates"],26)
         self.assertEqual(s["source_unlinked_ambiguous_name_cases"],4)
         self.assertEqual(s["source_unlinked_without_prior_d1_box"],1984)
