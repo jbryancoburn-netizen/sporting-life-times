@@ -33,6 +33,7 @@ const key=t.cohort+':'+t.team_id;
 const teamForecasts=forecasts.filter(f=>f.cohort===t.cohort&&(f.home_team===t.team_id||f.away_team===t.team_id));
 const finalById=new Map(verified.map(f=>[f.match_id,f]));
 const upcoming=teamForecasts.filter(f=>!finalById.has(f.match_id)).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
+const stories=box('Latest program news');
 const pred=box('Scheduled matches & locked forecasts');
 if(!upcoming.length)pred.append(node('p','No unmatched locked forecasts for this program in the current archive.'));
 for(const f of upcoming.slice(0,20)){
@@ -56,7 +57,6 @@ const right=node('div',undefined,'team-game-forecast');
 const a=node('a',gf+'–'+ga+' '+(gf>ga?'W':gf<ga?'L':'D'));a.href=g.source_game;a.rel='noopener noreferrer';a.target='_blank';right.append(a);
 line.append(left,right);finals.append(line);
 }
-const stories=box('Latest program news');
 const matched=(newsData.articles||[]).filter(a=>Array.isArray(a.team_keys)&&a.team_keys.includes(key)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0));
 const newsInfo=node('p',(newsData.updated_at?'News scan: '+new Date(newsData.updated_at).toLocaleString()+' · ':'')+matched.length+' matched sourced stories','college-elo-note');stories.append(newsInfo);
 for(const a of matched.slice(0,12)){
