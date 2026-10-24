@@ -1,0 +1,195 @@
+{
+  "status": "RESEARCH_ONLY_UNCERTIFIED",
+  "production_approved": false,
+  "model": "nbl-game-elo-research-v1",
+  "season": "2026-27",
+  "calculated_at": "2026-10-24T20:00:18.288487+00:00",
+  "historical_training_games": 337,
+  "current_regular_season_games": 41,
+  "parameters": {
+    "k": 20,
+    "home_advantage_elo": 65,
+    "offseason_regression": 0.25
+  },
+  "historical_sources": {
+    "archive_run": "https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/40121790921",
+    "2024-25_sha256": "a95c09cb9a8f4fb6b3119e48a7ad854dd359bff17366b12f5f3c280b711891d7",
+    "2025-26_sha256": "edff5163865bb80e743dbea6be211d83f149392d1f574a81a7658fa59bbc53f3"
+  },
+  "ratings": [
+    {
+      "rank": 1,
+      "team": "Sydney Kings",
+      "elo": 1601.07,
+      "wins": 5,
+      "losses": 2
+    },
+    {
+      "rank": 2,
+      "team": "Perth Wildcats",
+      "elo": 1566.7,
+      "wins": 5,
+      "losses": 2
+    },
+    {
+      "rank": 3,
+      "team": "Adelaide 36ers",
+      "elo": 1542.94,
+      "wins": 4,
+      "losses": 5
+    },
+    {
+      "rank": 4,
+      "team": "South East Melbourne Phoenix",
+      "elo": 1535.18,
+      "wins": 4,
+      "losses": 5
+    },
+    {
+      "rank": 5,
+      "team": "Melbourne United",
+      "elo": 1511.41,
+      "wins": 3,
+      "losses": 5
+    },
+    {
+      "rank": 6,
+      "team": "Tasmania JackJumpers",
+      "elo": 1497.29,
+      "wins": 6,
+      "losses": 2
+    },
+    {
+      "rank": 7,
+      "team": "New Zealand Breakers",
+      "elo": 1470.77,
+      "wins": 4,
+      "losses": 4
+    },
+    {
+      "rank": 8,
+      "team": "Illawarra Hawks",
+      "elo": 1442.72,
+      "wins": 2,
+      "losses": 8
+    },
+    {
+      "rank": 9,
+      "team": "Cairns Taipans",
+      "elo": 1431.96,
+      "wins": 4,
+      "losses": 4
+    },
+    {
+      "rank": 10,
+      "team": "Brisbane Bullets",
+      "elo": 1399.94,
+      "wins": 4,
+      "losses": 4
+    }
+  ],
+  "recent_results": [
+    {
+      "id": "401875264",
+      "played_at": "2026-10-16T08:30Z",
+      "home": "Tasmania JackJumpers",
+      "away": "Adelaide 36ers",
+      "home_score": 88,
+      "away_score": 94,
+      "elo_delta_home": -10.515,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875264/36ers-jackjumpers"
+    },
+    {
+      "id": "401875270",
+      "played_at": "2026-10-17T06:30Z",
+      "home": "South East Melbourne Phoenix",
+      "away": "Cairns Taipans",
+      "home_score": 115,
+      "away_score": 83,
+      "elo_delta_home": 5.996,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875270/taipans-phoenix"
+    },
+    {
+      "id": "401875271",
+      "played_at": "2026-10-17T08:30Z",
+      "home": "Sydney Kings",
+      "away": "Perth Wildcats",
+      "home_score": 102,
+      "away_score": 81,
+      "elo_delta_home": 7.659,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875271/wildcats-kings"
+    },
+    {
+      "id": "401875281",
+      "played_at": "2026-10-18T04:00Z",
+      "home": "Tasmania JackJumpers",
+      "away": "New Zealand Breakers",
+      "home_score": 98,
+      "away_score": 92,
+      "elo_delta_home": 8.015,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875281/breakers-jackjumpers"
+    },
+    {
+      "id": "401875272",
+      "played_at": "2026-10-18T06:00Z",
+      "home": "Melbourne United",
+      "away": "Illawarra Hawks",
+      "home_score": 89,
+      "away_score": 91,
+      "elo_delta_home": -13.991,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875272/hawks-united"
+    },
+    {
+      "id": "401875282",
+      "played_at": "2026-10-21T08:30Z",
+      "home": "Tasmania JackJumpers",
+      "away": "Brisbane Bullets",
+      "home_score": 106,
+      "away_score": 85,
+      "elo_delta_home": 5.581,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875282/bullets-jackjumpers"
+    },
+    {
+      "id": "401875283",
+      "played_at": "2026-10-22T08:30Z",
+      "home": "Illawarra Hawks",
+      "away": "Sydney Kings",
+      "home_score": 82,
+      "away_score": 108,
+      "elo_delta_home": -8.2,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875283/kings-hawks"
+    },
+    {
+      "id": "401875274",
+      "played_at": "2026-10-23T10:30Z",
+      "home": "Perth Wildcats",
+      "away": "Melbourne United",
+      "home_score": 103,
+      "away_score": 102,
+      "elo_delta_home": 7.035,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875274/united-wildcats"
+    },
+    {
+      "id": "401875273",
+      "played_at": "2026-10-24T06:30Z",
+      "home": "Illawarra Hawks",
+      "away": "Brisbane Bullets",
+      "home_score": 81,
+      "away_score": 98,
+      "elo_delta_home": -13.706,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875273/bullets-hawks"
+    },
+    {
+      "id": "401875275",
+      "played_at": "2026-10-24T08:30Z",
+      "home": "South East Melbourne Phoenix",
+      "away": "Adelaide 36ers",
+      "home_score": 108,
+      "away_score": 94,
+      "elo_delta_home": 8.868,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875275/36ers-phoenix"
+    }
+  ],
+  "prediction_certified": false,
+  "reason": "Research-only ratings; 2026-27 held-out probabilities failed 50/50 and prior-season home-rate benchmarks."
+}
