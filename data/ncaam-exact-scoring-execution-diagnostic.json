@@ -1,0 +1,21 @@
+{
+  "status": "FAILED",
+  "stage": "evaluate",
+  "download_counts": {
+    "ncaa_mbb_rosters_2023": 9824,
+    "ncaa_mbb_player_box_2023": 125371,
+    "ncaa_mbb_schedule_2023": 6221,
+    "ncaa_mbb_rosters_2024": 9906,
+    "ncaa_mbb_player_box_2024": 125973,
+    "ncaa_mbb_schedule_2024": 6243,
+    "ncaa_mbb_rosters_2025": 9848,
+    "ncaa_mbb_player_box_2025": 127466,
+    "ncaa_mbb_schedule_2025": 6293,
+    "ncaa_mbb_rosters_2026": 10228,
+    "ncaa_mbb_player_box_2026": 127465,
+    "ncaa_mbb_schedule_2026": 6297
+  },
+  "exception_type": "KeyError",
+  "exception_message": "'team_id'",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/sporting-life-times/sporting-life-times/scripts/run_ncaam_exact_formula_diagnostic.py\", line 35, in main\n    result=evaluate(root)\n           ^^^^^^^^^^^^^^\n  File \"/home/runner/work/sporting-life-times/sporting-life-times/scripts/backtest_ncaam_quality_retrospective.py\", line 211, in evaluate\n    programs={y:{school_key(r['team']):r['team_id'] for r in rosters[y]} for y in years}\n                                       ~^^^^^^^^^^^\nKeyError: 'team_id'\n"
+}\n
