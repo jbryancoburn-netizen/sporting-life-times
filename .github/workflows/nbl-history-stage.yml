@@ -37,12 +37,12 @@ jobs:
         run: python scripts/backtest_nbl_elo.py --past /tmp/nbl-history/2025-26-candidates.json --current /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-holdout-report.json
       - name: Evaluate fixed Elo settings across three chronological seasons
         run: python scripts/nbl_three_season_eval.py --s2024 /tmp/nbl-history/2024-25-candidates.json --s2025 /tmp/nbl-history/2025-26-candidates.json --s2026 /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-three-season-report.json
-      - name: Record machine-readable NBL predictive release decision
-        run: python scripts/nbl_release_decision.py --audit /tmp/nbl-history/reconciliation-audit.json --evaluation /tmp/nbl-history/elo-three-season-report.json --output /tmp/nbl-history/release-decision.json
       - name: Select Elo parameters on historical validation, then evaluate holdout once
         run: python scripts/select_nbl_elo.py --s2024 /tmp/nbl-history/2024-25-candidates.json --s2025 /tmp/nbl-history/2025-26-candidates.json --s2026 /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-selection-audit.json
       - name: Screen fixed NBL parameter grid on validation season only
         run: python scripts/nbl_parameter_screen.py --s2024 /tmp/nbl-history/2024-25-candidates.json --s2025 /tmp/nbl-history/2025-26-candidates.json --s2026 /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/parameter-screen-research.json
+      - name: Record definitive NBL predictive release decision
+        run: python scripts/nbl_release_decision.py --audit /tmp/nbl-history/reconciliation-audit.json --evaluation /tmp/nbl-history/elo-three-season-report.json --selection /tmp/nbl-history/elo-selection-audit.json --output /tmp/nbl-history/release-decision.json
       - name: Upload original-source audit candidates
         uses: actions/upload-artifact@v4
         with:
