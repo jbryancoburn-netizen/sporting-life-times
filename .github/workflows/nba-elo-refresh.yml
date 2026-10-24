@@ -5,8 +5,13 @@ on:
     paths:
       - '.github/workflows/nba-elo-refresh.yml'
       - 'scripts/update-nba-elo.mjs'
+      - 'scripts/audit-nba-boxscore-elo.mjs'
   schedule:
     - cron: '*/15 * * * *'
+  workflow_run:
+    workflows: ['Official NBA game-center refresh']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
@@ -15,6 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   refresh:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -38,6 +44,7 @@ jobs:
       - name: Verify all rankings, Elo deltas and dated finals before publication
         run: |
           node scripts/audit-nba-elo.mjs
+          node scripts/audit-nba-boxscore-elo.mjs
           node scripts/audit-nba-page.mjs
       - name: Publish new verified game results, if any
         run: |
