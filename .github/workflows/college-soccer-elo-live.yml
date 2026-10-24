@@ -103,7 +103,7 @@ jobs:
           stale=current!=expected
           print('Published college soccer Elo is', 'STALE' if stale else 'CURRENT')
           with open(os.environ['GITHUB_OUTPUT'],'a') as output:
-              output.write('needs_deploy='+('true' if stale else 'false')+'\\n')
+              output.write('needs_deploy='+('true' if stale else 'false')+'\n')
           PY
 
   deploy-updated-elo:
