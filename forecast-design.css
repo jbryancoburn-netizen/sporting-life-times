@@ -1,0 +1,40 @@
+/* Forecast edition: editorial match cards, scoped to forecast surfaces. */
+.forecast-wrap{max-width:1200px;padding:clamp(16px,3vw,36px);margin:auto}
+.forecast-hero{padding:24px 0 28px;border-bottom:3px solid #202c32;margin-bottom:22px}
+.forecast-hero .forecast-kicker{font:600 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#72513b}
+.forecast-hero h2{font:normal clamp(36px,6vw,68px)/1.05 Georgia,serif!important;letter-spacing:-.045em;text-transform:none!important;margin:12px 0}
+.forecast-hero p{max-width:580px;line-height:1.6;color:#555}
+.forecast-section-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.forecast-section-nav a,.forecast-pagination button{padding:10px 16px;border:1px solid #b7b2a6;background:#fffdf8;color:#202c32;border-radius:30px;text-decoration:none;font:600 12px Arial,sans-serif}
+.forecast-match-grid,.forecast-wrap .forecast-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:16px 0}
+.forecast-match-card,.forecast-wrap .forecast-card{background:#fffdf8;border:1px solid #d8d3c7;border-radius:12px;padding:20px;box-shadow:0 5px 18px #232b3210;min-width:0;color:#202c32;overflow:hidden}
+.forecast-card-top{display:flex;justify-content:space-between;gap:12px;font:600 10px Arial,sans-serif;letter-spacing:.04em;color:#666;border-bottom:1px solid #e4dfd3;padding-bottom:12px}
+.forecast-card-top>span{color:#72513b}
+.forecast-matchup{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.forecast-team{text-align:center;min-width:0}
+.forecast-team h3{font:600 18px/1.2 Georgia,serif!important;text-transform:none!important;margin:9px 0 4px;overflow-wrap:anywhere;color:#202c32}
+.forecast-team small{font:10px Arial,sans-serif;color:#777}
+.forecast-monogram{width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #ccc5b7;border-radius:50%;font:600 16px Georgia,serif;background:#f0ece2;color:#344953}
+.forecast-pick{background:#20363d;color:#fffdf8;padding:15px 16px;border-radius:7px;display:flex;flex-direction:column;gap:5px}
+.forecast-pick>span{font:10px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#d0ded8}
+.forecast-pick strong{font:600 20px/1.25 Georgia,serif}
+.forecast-probabilities{margin:16px 0}
+.forecast-probability{margin:10px 0}
+.forecast-probability-label{display:flex;justify-content:space-between;gap:8px;font:12px/1.4 Arial,sans-serif}
+.forecast-probability-label strong{font-variant-numeric:tabular-nums}
+.forecast-probability-track{height:4px;background:#e5e1d8;margin-top:5px;border-radius:3px;overflow:hidden}
+.forecast-probability-track span{display:block;height:100%;background:#506b72;border-radius:3px}
+.forecast-probability:nth-child(2) .forecast-probability-track span{background:#aa8c63}
+.forecast-card-footer{border-top:1px solid #e4dfd3;padding-top:12px;display:flex;flex-direction:column;gap:8px;font:11px/1.5 Arial,sans-serif;color:#666}
+.forecast-card-footer a{color:#294c58;text-underline-offset:3px}
+.forecast-pagination{display:flex;justify-content:center;gap:16px;align-items:center;font:12px Arial,sans-serif;margin:20px 0}
+.forecast-pagination button{cursor:pointer}
+.forecast-pagination button:disabled{opacity:.4;cursor:default}
+.forecast-pagination button:focus-visible,.forecast-section-nav a:focus-visible{outline:2px solid #294c58;outline-offset:3px}
+#college-soccer-predictions .college-elo-controls select{padding:10px 14px;border:1px solid #c8c1b4;border-radius:7px;background:#fffdf8;color:#202c32;max-width:100%;font:13px Arial,sans-serif}
+#college-soccer-predictions .college-elo-head h2{text-transform:none;font:normal 28px Georgia,serif}
+.forecast-empty{padding:24px;background:#f4f0e7;border-radius:8px}
+.forecast-wrap .forecast-card h3{font:600 25px Georgia,serif;text-transform:none}
+.forecast-wrap .forecast-line{padding:10px 0;border-color:#e6e1d6;font:13px Arial,sans-serif}
+@media(max-width:1000px){.forecast-match-grid,.forecast-wrap .forecast-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.forecast-match-grid,.forecast-wrap .forecast-grid{grid-template-columns:1fr}.forecast-match-card{padding:16px}.forecast-wrap{padding:16px}.forecast-card-top{font-size:10px}}
