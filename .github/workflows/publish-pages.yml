@@ -46,7 +46,7 @@ jobs:
           grep -q 'nba-analysis-match' nba.html
           test -s nba-game-center.html
           test -s nba-game-center.js
-          grep -q 'nba-game-center.js?v=5' nba-game-center.html
+          grep -q 'nba-game-center.js?v=7' nba-game-center.html
           grep -q "esc(record)" nba-game-center.js
           grep -q 'Quarter by Quarter' nba-game-center.js
           grep -q 'Team Comparison' nba-game-center.js
@@ -155,7 +155,7 @@ jobs:
                 NBA_TARGET="${PAGES_URL%/}/nba.html"
                 if ! curl --fail --location --silent --show-error --max-time 12 "$NBA_TARGET" -o /tmp/published-nba.html; then
                   echo "NBA front page is still unavailable" >&2
-                elif grep -q 'id="nba-individual-player-leaders"' /tmp/published-nba.html && grep -q 'NBA EDITION · SIGNATURE R4' /tmp/published-nba.html && grep -q 'nba-analysis-result' /tmp/published-nba.html && grep -q 'nba-boxscore-match' /tmp/published-nba.html && grep -q 'nba-forecast-match' /tmp/published-nba.html && grep -q 'nba-analysis-match' /tmp/published-nba.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-center.html" -o /tmp/live-game-center.html && grep -q 'nba-game-center.js?v=5' /tmp/live-game-center.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-center.js?v=5" -o /tmp/live-game-center.js && grep -q 'esc(record)' /tmp/live-game-center.js && grep -q 'Quarter by Quarter' /tmp/live-game-center.js && grep -q 'Team Comparison' /tmp/live-game-center.js && curl --fail --location --silent --show-error --max-time 12 "$ROOT/data/nba-game-center.json" -o /tmp/live-game-center-data.json && python -c "import json;g=json.load(open('/tmp/live-game-center-data.json'))['games'];assert any(x.get('period_scores') and x.get('team_comparison') for x in g)"; then
+                elif grep -q 'id="nba-individual-player-leaders"' /tmp/published-nba.html && grep -q 'NBA EDITION · SIGNATURE R4' /tmp/published-nba.html && grep -q 'nba-analysis-result' /tmp/published-nba.html && grep -q 'nba-boxscore-match' /tmp/published-nba.html && grep -q 'nba-forecast-match' /tmp/published-nba.html && grep -q 'nba-analysis-match' /tmp/published-nba.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-center.html" -o /tmp/live-game-center.html && grep -q 'nba-game-center.js?v=7' /tmp/live-game-center.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-center.js?v=7" -o /tmp/live-game-center.js && grep -q 'esc(record)' /tmp/live-game-center.js && grep -q 'Quarter by Quarter' /tmp/live-game-center.js && grep -q 'Team Comparison' /tmp/live-game-center.js && curl --fail --location --silent --show-error --max-time 12 "$ROOT/data/nba-game-center.json" -o /tmp/live-game-center-data.json && python -c "import json;g=json.load(open('/tmp/live-game-center-data.json'))['games'];assert any(x.get('period_scores') and x.get('team_comparison') for x in g)"; then
                   echo "PASS: live NBA desk and individual player-leaders edition both match current source"
                   exit 0
                 else
