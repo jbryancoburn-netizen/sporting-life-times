@@ -39,6 +39,10 @@ jobs:
           grep -q 'NBA · Individual Player Leaders' nba-players.html
           grep -q 'Anthony Edwards' nba-players.html
           grep -q 'id="nba-individual-player-leaders"' nba.html
+          grep -q 'NBA EDITION · CARD LAYOUT 2026-10-23 R2' nba.html
+          grep -q 'nba-analysis-result' nba.html
+          grep -q 'nba-boxscore-match' nba.html
+          grep -q 'nba-forecast-match' nba.html
           test -s data/nba-top-stories.json
           node --check nba-home.js
           node --check nba-intelligence.js
@@ -137,7 +141,7 @@ jobs:
                 NBA_TARGET="${PAGES_URL%/}/nba.html"
                 if ! curl --fail --location --silent --show-error --max-time 12 "$NBA_TARGET" -o /tmp/published-nba.html; then
                   echo "NBA front page is still unavailable" >&2
-                elif grep -q 'id="nba-individual-player-leaders"' /tmp/published-nba.html && ! grep -q "Showing verified team scoring instead" /tmp/published-nba.html; then
+                elif grep -q 'id="nba-individual-player-leaders"' /tmp/published-nba.html && grep -q 'NBA EDITION · CARD LAYOUT 2026-10-23 R2' /tmp/published-nba.html && grep -q 'nba-analysis-result' /tmp/published-nba.html && grep -q 'nba-boxscore-match' /tmp/published-nba.html && grep -q 'nba-forecast-match' /tmp/published-nba.html; then
                   echo "PASS: live NBA desk and individual player-leaders edition both match current source"
                   exit 0
                 else
