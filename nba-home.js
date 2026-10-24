@@ -82,8 +82,9 @@ async function desk(){
   const winner=homeWon?home:away;
   const margin=Math.abs(g.home_score-g.away_score),total=g.home_score+g.away_score;
   const stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unavailable';
-  const panel=(t,score,won)=>'<div class="nba-analysis-team'+(won?' is-winner':'')+'"><img src="'+logo(t)+'" alt="" loading="lazy" onerror="this.hidden=true"><span class="nba-analysis-team-label"><b>'+esc(t)+'</b><small>'+esc(names[t])+'</small></span><strong>'+score+'</strong></div>';
-  return '<article class="nba-analysis-brief"><p class="nba-news-source">FINAL · '+esc(stamp)+'</p><div class="nba-analysis-match">'+panel(away,g.away_score,!homeWon)+'<span class="nba-analysis-vs">–</span>'+panel(home,g.home_score,homeWon)+'</div><div class="nba-analysis-facts"><span>Margin <b>'+margin+'</b></span><span>Total <b>'+total+'</b></span><span>Winner Elo <b>'+ratings[winner].toFixed(1)+'</b></span></div></article>';
+  const color=t=>window.SLTScorebug?.color?.(t)||'#354152';
+  const panel=(t,score,won)=>'<div class="nba-analysis-team'+(won?' is-winner':'')+'" style="--team-color:'+color(t)+'"><img src="'+logo(t)+'" alt="" loading="lazy" onerror="this.hidden=true"><span class="nba-analysis-team-label"><b>'+esc(t)+'</b><small>'+esc(names[t])+'</small></span><strong>'+score+'</strong></div>';
+  return '<article class="nba-analysis-brief"><p class="nba-news-source">FINAL · '+esc(stamp)+'</p><div class="nba-analysis-match">'+panel(away,g.away_score,!homeWon)+panel(home,g.home_score,homeWon)+'</div><div class="nba-analysis-facts"><span>Margin <b>'+margin+'</b></span><span>Total <b>'+total+'</b></span><span>'+esc(away)+' Elo <b>'+ratings[away].toFixed(1)+'</b></span><span>'+esc(home)+' Elo <b>'+ratings[home].toFixed(1)+'</b></span></div></article>';
  }).join('');
  if($('nba-game-analysis-grid'))$('nba-game-analysis-grid').innerHTML=analyses||'<p class="hub-small">No completed NBA finals verified in the published season ledger.</p>';
  msg('nba-game-analysis-status',Math.min(8,ledger.length)+' results · Original calculations from published final scores · Not syndicated news');
