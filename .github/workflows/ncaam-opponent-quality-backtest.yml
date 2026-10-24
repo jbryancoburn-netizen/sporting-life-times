@@ -33,6 +33,25 @@ jobs:
       - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_quality_promotion.py' -v
       - name: Run historical opponent-quality train/holdout
         run: python scripts/backtest_ncaam_opponent_quality.py
+      - name: Confirm shooting-efficiency challenge is reported
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path("data/ncaam-opponent-quality-backtest.json").read_text())
+          result=report.get("efficiency_incremental_challenge")
+          if not isinstance(result,dict):
+              raise SystemExit("ERROR: No shooting efficiency experiment in completed historical backtest")
+          if result.get("production_elo_approved") is not False:
+              raise SystemExit("ERROR: Unverified efficiency model may not be promoted")
+          if result.get("status")=="INSUFFICIENT_SHOOTING_DATA":
+              print("SHOOTING EFFICIENCY NOT EVALUABLE:",result["coverage_teams"])
+          else:
+              assert result.get("status")=="HISTORICAL_RESEARCH_ONLY"
+              assert result["baseline"]["matched_games_sha256"]==result["challenger"]["matched_games_sha256"]
+              assert result["baseline"]["games"]==result["challenger"]["games"]
+              print("SHOOTING EFFICIENCY HOLDOUT:",result["selected_beta"],result["holdout_logloss_gain"],result["holdout_brier_gain"])
+          PY
       - name: Classify calibration evidence and enforce non-promotion
         run: python scripts/verify_ncaam_opponent_quality_promotion.py --require-report --report data/ncaam-opponent-quality-backtest.json
       - uses: actions/upload-artifact@v4
