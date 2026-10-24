@@ -1,0 +1,27 @@
+{
+  "season": "2026-27",
+  "team": "High Point",
+  "model_status": "RESEARCH_ONLY",
+  "published_elo_unchanged": true,
+  "baseline_elo": 1642.9952,
+  "roster_elo_bonus": 97.9978,
+  "published_preseason_elo": 1740.993,
+  "published_rank": 8,
+  "roster_count": 17,
+  "linked_valid_historical_players": 12,
+  "verified_transfer_candidates": 8,
+  "verified_returners": 4,
+  "unverified_players": 5,
+  "verified_transfer_historical_points_per_minute_weighted": 0.434713,
+  "scope": "Direct same-source NCAA-origin prior points/minutes; not opponent adjusted",
+  "identified_issue": "The large +97.9978 bonus rewards 2025-26 transfer minutes even if some are lower-impact or overlapping 2026-27 rotation players.",
+  "recommendation": "Retain published provisional v2; benchmark historical opponent-adjusted player impact and departure replacements using dated preseason rosters before promoting candidate to primary.",
+  "test_needed": [
+    "Historical opponent difficulty by player-game",
+    "Regression-to-mean by prior playing time and league quality",
+    "Projected team 200-minute regulation rotation constraint",
+    "Departing production explicitly accounted for",
+    "No lookahead historical preseason snapshots",
+    "Holdout log-loss and Brier superiority at opening day"
+  ]
+}
