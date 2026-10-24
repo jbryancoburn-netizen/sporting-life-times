@@ -53,7 +53,7 @@ def stable_json(doc):
     return json.dumps(doc,indent=2,ensure_ascii=False)+"\n"
 def read_json(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
-def verify(movement,crosswalk,minutes,negatives,ratings,positives):
+def verify(movement,crosswalk,minutes,negatives,ratings,positives,ambiguous):
     teams=movement.get("teams",[])
     if len(teams)!=365 or movement.get("players_audited")!=5537:
         raise ValueError("Roster participant count changed")
@@ -164,12 +164,38 @@ def verify(movement,crosswalk,minutes,negatives,ratings,positives):
             "historical_ncaa_player_id_verified":False,
             "eligible_for_elo":False,
             "next_evidence_required":"Independent current ESPN athlete ID to prior NCAA athlete ID proof; school-name match alone is not proof"}
+    if (ambiguous.get("season")!="2026-27" or
+        ambiguous.get("status")!="official_status_reviewed_prior_d1_identity_unavailable" or
+        ambiguous.get("production_elo_approved") is not False or
+        ambiguous.get("create_historical_player_id") is not False):
+        raise ValueError("Ambiguous athlete status record authorizes unsupported NCAA player ID")
+    AMBIGUOUS_OFFICIAL_HOSTS={
+        "Auburn":{"auburntigers.com"},"Le Moyne":{"lemoynedolphins.com"},
+        "North Florida":{"unfospreys.com"},"Southern Ind.":{"usiscreamingeagles.com"}}
+    ambiguous_resolved={}
+    for row in ambiguous["records"]:
+        pid=str(row["current_espn_id"])
+        person=roster.get(pid)
+        if pid in ambiguous_resolved or pid in origin_confirmed or pid in exclusions or pid not in unlinked:
+            raise ValueError("Conflicting or duplicate ambiguous athlete source: "+pid)
+        if (not person or person["player"]!=row["player"] or person["team"]!=row["school"] or
+            person["status"]!="id-not-found-name-ambiguous" or person["prior_school_id"] is not None):
+            raise ValueError("Official ambiguous athlete class and current roster disagree")
+        url=urlsplit(row.get("source_url",""))
+        if url.scheme!="https" or url.hostname not in AMBIGUOUS_OFFICIAL_HOSTS.get(person["team"],set()):
+            raise ValueError("Ambiguous athlete category source is not official school athletics")
+        if row.get("prior_2025_26_category") not in (
+            "high_school","high_school_or_non_d1_preparation","non_d1_naia","junior_college"):
+            raise ValueError("Cannot infer player had D-I 2025-26 statistics from an unknown class")
+        if not row.get("reason"):raise ValueError("Missing individually reviewed ambiguous-athlete evidence")
+        ambiguous_resolved[pid]={**row,
+            "historical_d1_player_ID_available":False,"eligible_for_elo":False}
     statuses=Counter()
     ranked=[]
     for pid in sorted(unlinked):
         person=roster[pid]
         statuses[person["status"]]+=1
-        if pid in exclusions or pid in origin_confirmed:continue
+        if pid in exclusions or pid in origin_confirmed or pid in ambiguous_resolved:continue
         if person["status"] not in ("unique-name-transfer-candidate","id-not-found-name-ambiguous"):
             continue
         possible_minutes=person.get("prior_minutes") or 0.0
@@ -185,7 +211,7 @@ def verify(movement,crosswalk,minutes,negatives,ratings,positives):
             "review_reason":"source-level player identity must be confirmed; do not use candidate production",
             "eligible_for_elo":False})
     ranked.sort(key=lambda r:(-r["potential_false_transfer_elo_if_naively_matched"],r["team"],r["player"]))
-    if len(exclusions)!=22 or len(origin_confirmed)!=4 or len(ranked)!=4 or statuses["unique-name-transfer-candidate"]!=26 or statuses["id-not-found-name-ambiguous"]!=4:
+    if len(exclusions)!=22 or len(origin_confirmed)!=4 or len(ambiguous_resolved)!=4 or len(ranked)!=0 or statuses["unique-name-transfer-candidate"]!=26 or statuses["id-not-found-name-ambiguous"]!=4:
         raise ValueError("Unexpected vetted exclusions or unmatched transfer review workload")
     unlinked_no_prior=statuses["no-prior-d1-box"]
     summary={
@@ -197,6 +223,8 @@ def verify(movement,crosswalk,minutes,negatives,ratings,positives):
         "linked_but_not_enough_verified_player_stats":ratings["evidence"]["strong_id_players_missing_verified_minutes"],
         "source_unlinked_unique_name_transfer_candidates":statuses["unique-name-transfer-candidate"],
         "source_unlinked_ambiguous_name_cases":statuses["id-not-found-name-ambiguous"],
+        "source_unlinked_ambiguous_cases_officially_reviewed_no_2025_26_d1_player_id":len(ambiguous_resolved),
+        "remaining_high_risk_name_candidates_without_official_school_status":len(ranked),
         "source_unlinked_without_prior_d1_box":unlinked_no_prior,
         "school_officially_rejected_false_prior_player_links":len(exclusions),
         "prior_d1_schools_confirmed_but_current_to_old_athlete_id_unlinked":len(origin_confirmed),
@@ -221,6 +249,7 @@ def verify(movement,crosswalk,minutes,negatives,ratings,positives):
         "summary":summary,
         "officially_disambiguated_exclusions":sorted(exclusions.values(),key=lambda r:-r["estimated_avoided_false_transfer_elo_if_mislinked"]),
         "officially_corroborated_prior_schools_only":sorted(origin_confirmed.values(),key=lambda r:r["school"]),
+        "officially_reviewed_ambiguous_no_prior_d1":sorted(ambiguous_resolved.values(),key=lambda r:r["school"]),
         "high_priority_positive_identity_review_queue":ranked,
         "model_policy":{
             "do_not_auto_attach_old_stats_by_name":True,
@@ -239,13 +268,14 @@ def main():
            "ncaam-2026-27-minutes-retention-audit.json",
            "ncaam-2026-27-official-negative-player-identities.json",
            "ncaam-2026-27-preseason-roster-informed.json",
-           "ncaam-2026-27-official-prior-school-corroborations.json"]
+           "ncaam-2026-27-official-prior-school-corroborations.json",
+           "ncaam-2026-27-official-ambiguous-current-player-origins.json"]
     result=verify(*(read_json(args.root/p) for p in paths))
     actual=stable_json(result)
     if args.verify:
         if not args.output.exists() or args.output.read_text(encoding="utf-8")!=actual:
             raise SystemExit("FAIL: official-player-identity review report does not reproduce")
-        print("PASS: verified 22 false name collisions, 4 prior-school-only cases, and 4 ambiguous identities")
+        print("PASS: all 30 high-priority nonlinked name cases source-reviewed (22 false, 4 prior-D1 schools, 4 non-D1/first-year)")
     else:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(actual,encoding="utf-8")
