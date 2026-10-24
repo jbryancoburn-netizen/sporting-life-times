@@ -7,6 +7,7 @@ const byId=id=>document.getElementById(id);
 const safe=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 const pct=(w,l)=>w+l?(100*w/(w+l)).toFixed(1)+"%":"—";
 const number=x=>Number.isFinite(Number(x))?Number(x).toFixed(1):"—";
+const conferenceName=c=>({AAC:"American",MWC:"Mountain West",MVC:"Missouri Valley",MAC:"Mid-American",MEAC:"Mid-Eastern Athletic",NEC:"Northeast",OVC:"Ohio Valley",SWAC:"Southwestern Athletic",UAC:"United Athletic Conference",CAA:"Coastal Athletic Association",ASUN:"Atlantic Sun",WCC:"West Coast",SoCon:"Southern"}[c]||c);
 const files={
   roster:"data/ncaam-2026-27-preseason-roster-informed.json",
   current:"data/ncaam-2026-27-current-provisional.json",
@@ -41,10 +42,10 @@ byId("desk-summary").textContent=fullSeason?
  "Game results, records, Elo and forecasts all come from the same deduplicated NCAA result ledger. No unverified player-quality coefficient.":
  "The season has not started. Showing the roster-informed preseason baseline; records are 0–0 until verified completed games enter the NCAA ledger.";
 byId("elo-leaders").innerHTML=teams.slice(0,16).map(t=>
- '<div class="cbb-ranking"><span class="cbb-rank">'+t.rank+'</span><strong>'+safe(t.team)+'</strong><span class="cbb-muted">'+safe(t.conference)+'</span><b>'+number(t.elo)+'</b></div>').join("");
-const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort();
+ '<div class="cbb-ranking"><span class="cbb-rank">'+t.rank+'</span><strong>'+safe(t.team)+'</strong><span class="cbb-muted">'+safe(conferenceName(t.conference))+'</span><b>'+number(t.elo)+'</b></div>').join("");
+const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort((a,b)=>conferenceName(a).localeCompare(conferenceName(b)));
 const selector=byId("conference-filter");
-for(const c of confs){const option=document.createElement("option");option.value=c;option.textContent=c;selector.appendChild(option)}
+for(const c of confs){const option=document.createElement("option");option.value=c;option.textContent=conferenceName(c);selector.appendChild(option)}
 const want=confs.includes("Big Ten")?"Big Ten":confs[0];
 selector.value=want;
 function standings(){
