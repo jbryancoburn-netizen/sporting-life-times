@@ -125,6 +125,7 @@ def rebuild(today=None,loader=get_day):
           "probabilities":{"home":p[0],"draw":p[1],"away":p[2]},
           "projected_score":{"home":round(xh),"away":round(xa),"method":"heuristic_unvalidated_goal_rates"}})
     forecast_doc={"schema_version":1,"competition":"EPL","status":"provisional_research",
+       "recent_results":[{"fixture_id":g["id"],"kickoff_utc":g["kickoff"],"home":g["home"],"away":g["away"],"home_score":g["home_score"],"away_score":g["away_score"]} for g in played[-18:][::-1]],
        "issued_at_utc":stamp,"fixtures":fixtures}
     DATA.mkdir(parents=True,exist_ok=True)
     for name,obj in [("epl-ratings.json",rating_doc),("epl-match-center.json",forecast_doc)]:
