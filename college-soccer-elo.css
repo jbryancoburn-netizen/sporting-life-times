@@ -26,3 +26,21 @@
 .college-elo-scoreline {display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;padding:.36rem .15rem;border-bottom:1px solid #eee;font-size:.76rem;}
 .college-elo-scoreline a {color:inherit;text-decoration:underline;text-underline-offset:2px;}
 .college-elo-scoreline span {color:#666;font-variant-numeric:tabular-nums;}
+
+/* Paired final scores: fixed numeric columns and one date per group. */
+.college-final-date{margin:16px 0 6px;font:600 12px Arial,sans-serif;color:#666;text-transform:none;letter-spacing:.02em}
+.college-final-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px}
+.college-final-table th{font:600 10px Arial,sans-serif;color:#666;text-align:right;padding:8px 6px;border-bottom:1px solid #bbb;text-transform:none}
+.college-final-table th:first-child{text-align:left;width:68%}
+.college-final-table th:nth-child(2){width:12%}
+.college-final-table th:nth-child(3){width:20%}
+.college-final-table td{padding:5px 6px;line-height:1.35;vertical-align:middle}
+.college-final-table td:first-child{overflow-wrap:anywhere}
+.college-final-table a{color:inherit;text-decoration:none}
+.college-final-table a:hover{text-decoration:underline}
+.college-final-table a:focus-visible{outline:2px solid #294c58;outline-offset:2px}
+.college-final-table .college-final-score,.college-final-table .college-final-delta{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.college-final-delta{color:#666;font:12px Arial,sans-serif}
+.college-final-first td{padding-top:10px}
+.college-final-last td{padding-bottom:10px;border-bottom:1px solid #e0e0dc}
+.college-final-winner td:first-child,.college-final-winner .college-final-score{font-weight:700}

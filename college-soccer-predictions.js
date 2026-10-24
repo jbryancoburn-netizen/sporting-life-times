@@ -57,11 +57,16 @@
         const header=el("div",undefined,"forecast-card-top");
         header.append(el("span",finalById.has(g.match_id)?"Final":"Pregame"),el("time",new Date(g.kickoff_utc).toLocaleString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" ET"));
         const matchup=el("div",undefined,"forecast-matchup");
-        for(const [name,side] of [[g.away_name,"Away"],[g.home_name,"Home"]]){
+        for(const [name,side,slug] of [[g.away_name,"Away",g.away_team],[g.home_name,"Home",g.home_team]]){
           const team=el("div",undefined,"forecast-team");
           const monogram=name.split(/\s+/).slice(0,2).map(w=>w[0]).join("");
           const badge=el("span",monogram,"forecast-monogram");badge.setAttribute("aria-hidden","true");
-          team.append(badge,el("h3",name),el("small",side));matchup.append(team);
+          const logo=el("img");
+          logo.alt="";logo.width=64;logo.height=64;logo.loading="lazy";logo.decoding="async";
+          logo.style.cssText="width:64px;height:64px;object-fit:contain;display:block;margin:auto";
+          logo.addEventListener("error",()=>{logo.replaceWith(badge);},{once:true});
+          logo.src="https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/"+encodeURIComponent(slug)+".svg";
+          team.append(logo,el("h3",name),el("small",side));matchup.append(team);
         }
         const prediction=el("div",undefined,"forecast-pick");
         prediction.append(el("span","Our pick"),el("strong",pick(g)));

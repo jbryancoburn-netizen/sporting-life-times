@@ -68,15 +68,31 @@
       const recentPanel=el('section',null,'college-elo-recent');
       if(recentResults.length){
         recentPanel.append(el('h4','Recent Finals · Elo Changes'));
-        for(const final of recentResults){
-          const item=el('div',null,'college-elo-scoreline');
-          const link=el('a',final.home+' '+final.score+' '+final.away);
-          if(/^https:\/\/www\.ncaa\.com\/game\/\d+$/.test(final.source_game)){
-            link.href=final.source_game;link.target='_blank';link.rel='noopener noreferrer';
+        const dates=[...new Set(recentResults.map(g=>g.date))].sort().reverse();
+        const delta=n=>(n>0?'+':n<0?'−':'')+Math.abs(n).toFixed(1);
+        for(const date of dates){
+          recentPanel.append(el('h5',new Date(date+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'}),'college-final-date'));
+          const resultsTable=el('table',null,'college-final-table');
+          const head=el('thead'),heading=el('tr');
+          for(const label of ['Team','Score','Elo Δ'])heading.append(el('th',label));
+          head.append(heading);resultsTable.append(head);
+          const body=el('tbody');
+          for(const final of recentResults.filter(g=>g.date===date)){
+            const scores=String(final.score).split('-').map(Number);
+            for(const [i,name,change] of [[0,final.home,Number(final.home_elo_change)],[1,final.away,-Number(final.home_elo_change)]]){
+              const row=el('tr',null,i===0?'college-final-first':'college-final-last');
+              const nameCell=el('td'),link=el('a',name);
+              if(/^https:\/\/www\.ncaa\.com\/game\/\d+$/.test(final.source_game)){
+                link.href=final.source_game;link.target='_blank';link.rel='noopener noreferrer';
+              }
+              nameCell.append(link);
+              const score=el('td',Number.isFinite(scores[i])?scores[i]:'—','college-final-score');
+              if(scores[i]>scores[1-i])row.className+=' college-final-winner';
+              row.append(nameCell,score,el('td',Number.isFinite(change)?delta(change):'—','college-final-delta'));
+              body.append(row);
+            }
           }
-          item.append(link);
-          item.append(el('span',final.date+' · Home Elo '+(final.home_elo_change>=0?'+':'')+final.home_elo_change));
-          recentPanel.append(item);
+          resultsTable.append(body);recentPanel.append(resultsTable);
         }
       }
       tableHost.replaceChildren(header,scroll);
