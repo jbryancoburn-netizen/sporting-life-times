@@ -1,0 +1,51 @@
+{
+  "status": "historical_possession_diagnostic",
+  "season": "2025-26",
+  "games_reconciled": 1230,
+  "teams": 30,
+  "team_games_each": 82,
+  "player_box_rows": 32179,
+  "training_games": 650,
+  "untouched_test_games": 501,
+  "test_start": "2026-02-01",
+  "metrics": {
+    "margin": {
+      "model_mae": 12.025881828286233,
+      "baseline_mae": 14.463073852295409
+    },
+    "total": {
+      "model_mae": 15.308879935146074,
+      "baseline_mae": 16.02308900268612
+    }
+  },
+  "coefficients": {
+    "margin": [
+      1.7542615044834868,
+      0.979644922684267
+    ],
+    "total": [
+      19.416792205639233,
+      0.9124661509363203
+    ]
+  },
+  "method": "Prior Eastern-date team histories only; fixed 12-game shrinkage and five-game minimum; pace normalized to 48 minutes; coefficients fitted before February 1 and frozen for test.",
+  "limitations": [
+    "One historical season only.",
+    "No roster or injury effects.",
+    "No claim of improved prediction unless holdout beats stated baseline."
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_team_boxscores/team_boxscores_2026.parquet",
+      "sha256": "7822e7069ada35711f9da47939a4a047d8bbb1e7dfd8f458e41bff30e4f5881e"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_player_boxscores/player_boxscores_2026.parquet",
+      "sha256": "a0b280ebb0c955e501c0e6feab3f6d726bd9f1b7c2d13f5b5c0746049459132e"
+    },
+    {
+      "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_schedules/nba_schedule_2026.parquet",
+      "sha256": "1604c62a6d0a03dace9f1b8238c1374ecf87efeb6455175514a2d3d064fe520e"
+    }
+  ]
+}
