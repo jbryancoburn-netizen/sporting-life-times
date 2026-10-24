@@ -33,7 +33,14 @@ if(!ratings){
 }
 const teams=ratings.rankings;
 const lookup=new Map(teams.map(t=>[t.team_id,t]));
-const names=new Map(teams.map(t=>[t.team.toLowerCase(),t]));
+const teamSearch=byId("cbb-team-search");
+function searchTeams(){
+ if(!teamSearch)return;
+ const q=teamSearch.value.trim().toLowerCase();
+ const found=q?teams.filter(t=>t.team.toLowerCase().includes(q)).slice(0,12):teams.slice(0,6);
+ byId("cbb-team-results").innerHTML=found.map(t=>'<a class="cbb-team-link" href="ncaam-elo.html?team='+encodeURIComponent(t.team)+'"><span>'+safe(t.team)+'</span><span>#'+t.rank+' · '+number(t.elo)+'</span></a>').join("") || '<p class="cbb-muted">No school found in the 365-team rating field.</p>';
+}
+if(teamSearch){teamSearch.addEventListener("input",searchTeams);searchTeams()}
 const fullSeason=Boolean(live);
 byId("desk-state").textContent=fullSeason?
  "CURRENT SEASON · "+ratings.games_played+" VERIFIED FINALS · ELO UPDATED THROUGH "+safe(ratings.as_of):
@@ -72,7 +79,7 @@ byId("results").innerHTML=finals.length?finals.slice(-12).reverse().map(result).
 function forecast(g){
  const h=lookup.get(g.home_id),a=lookup.get(g.away_id);
  if(!h||!a)return "";
- return '<div class="cbb-game"><small>'+safe(g.date)+' · UPCOMING / UNCONFIRMED</small><div class="cbb-versus"><strong>'+safe(a.team)+'</strong><span>'+((a.wins||0)+'-'+(a.losses||0))+'</span></div><div class="cbb-versus"><strong>'+safe(h.team)+'</strong><span>'+((h.wins||0)+'-'+(h.losses||0))+'</span></div><div class="cbb-probability"><span>'+safe(h.team)+' '+(100*g.home_win_probability).toFixed(1)+'%</span><span>'+safe(a.team)+' '+(100*(1-g.home_win_probability)).toFixed(1)+'%</span></div></div>';
+ return '<div class="cbb-game"><small>'+safe(g.date)+' · UPCOMING / UNCONFIRMED</small><div class="cbb-versus"><strong>'+safe(a.team)+'</strong><span>'+((a.wins||0)+'-'+(a.losses||0))+'</span></div><div class="cbb-versus"><strong>'+safe(h.team)+'</strong><span>'+((h.wins||0)+'-'+(h.losses||0))+'</span></div><div class="cbb-probability"><span>'+safe(h.team)+' '+(100*g.home_win_probability).toFixed(1)+'%</span><span>'+safe(a.team)+' '+(100*(1-g.home_win_probability)).toFixed(1)+'%</span></div><div class="cbb-probability-track" aria-hidden="true"><span style="width:'+(100*g.home_win_probability).toFixed(1)+'%"></span></div></div>';
 }
 const future=Array.isArray(upcoming?.games)?upcoming.games.filter(g=>g.date>=new Date().toISOString().slice(0,10)):[];
 byId("forecasts").innerHTML=future.length?future.slice(0,12).map(forecast).join(""):'<p class="cbb-muted">Verified schedule forecasts will appear when the 2026–27 NCAA game feed becomes available. No probabilities have been invented.</p>';
@@ -83,7 +90,7 @@ const today=new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"n
 const dateOf=g=>String(g.date||g.game_date||g.start_date||g.startTime||g.start_time||"").slice(0,10);
 const livegames=(entry?.games||[]).filter(g=>dateOf(g)===today&&["pre","in"].includes(g.state)).slice(0,8);
 byId("live-scoreboard").innerHTML=livegames.length?livegames.map(g=>'<div class="cbb-game"><small>'+safe(g.status||"Scheduled")+'</small>'+(g.teams||[]).map(t=>'<div class="cbb-versus"><span>'+(t.logo?'<img loading="lazy" alt="" src="'+safe(t.logo)+'">':"")+'<strong>'+safe(t.name)+'</strong></span><b>'+safe(g.state==="pre"?"":t.score??"")+'</b></div>').join("")+'</div>').join(""):'<p class="cbb-muted">No current scoreboard entries from the external game feed.</p>';
-const stories=(news?.articles||[]).filter(a=>/college basketball|ncaa basketball|march madness|hoosiers basketball/i.test([a.title,a.summary,a.category].join(" "))).slice(0,7);
-byId("stories").innerHTML=stories.length?stories.map(a=>'<article class="cbb-story"><a href="'+safe(a.url||"#")+'" target="_blank" rel="noopener">'+safe(a.title)+'</a><small>'+safe(a.source||"")+'</small></article>').join(""):'<p class="cbb-muted">No verified college basketball headlines available in the latest news feed.</p>';
+const stories=(news?.articles||[]).filter(a=>/college basketball|ncaa basketball|march madness|hoosiers basketball|ncaam|men.s basketball/i.test([a.title,a.summary,a.category].join(" ")) && /^https:\/\//.test(a.url||"") && a.title).slice(0,15);
+byId("stories").innerHTML=stories.length?stories.map((a,i)=>'<article class="cbb-story"><small>'+safe(a.source||"COLLEGE BASKETBALL")+(a.published_at?' · '+safe(String(a.published_at).slice(0,10)):'')+'</small><div><a href="'+safe(a.url)+'" target="_blank" rel="noopener noreferrer">'+safe(a.title)+'</a></div>'+(i<4&&a.summary?'<p>'+safe(a.summary)+'</p>':'')+'</article>').join(""):'<p class="cbb-muted">No attributed college basketball articles available from the current news feed.</p>';
 byId("updated").textContent=fullSeason?"Independent Elo ledger: "+safe(ratings.as_of):"Preseason edition · No games played";
 })();
