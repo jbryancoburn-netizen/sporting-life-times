@@ -81,8 +81,8 @@ def main():
     # Apply only to standalone one-word school names to avoid over-excluding exact multiword names.
     if ' ' not in name:
      modifiers=r'(?:north(?:ern)?|south(?:ern)?|east(?:ern)?|west(?:ern)?|central|state|tech|university|college)'
-     if re.search(r'(?<![a-z])'+modifiers+r'\\s+'+re.escape(name.lower())+r'(?![a-z])',hay):continue
-     if re.search(r'(?<![a-z])'+re.escape(name.lower())+r'\\s+'+modifiers+r'(?![a-z])',hay):continue
+     if re.search(r'(?<![a-z])'+modifiers+r'\s+'+re.escape(name.lower())+r'(?![a-z])',hay):continue
+     if re.search(r'(?<![a-z])'+re.escape(name.lower())+r'\s+'+modifiers+r'(?![a-z])',hay):continue
     candidates.append((k,name))
    # Suppress a shorter school name that only matched inside a longer matching institution.
    keys=sorted({k for k,name in candidates if not any(
