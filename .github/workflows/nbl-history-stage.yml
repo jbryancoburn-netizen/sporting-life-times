@@ -8,6 +8,7 @@ on:
       - 'scripts/nbl_three_season_eval.py'
       - 'scripts/select_nbl_elo.py'
       - 'scripts/nbl_release_decision.py'
+      - 'scripts/nbl_parameter_screen.py'
       - '.github/workflows/nbl-history-stage.yml'
   workflow_dispatch:
   schedule:
@@ -40,6 +41,8 @@ jobs:
         run: python scripts/nbl_release_decision.py --audit /tmp/nbl-history/reconciliation-audit.json --evaluation /tmp/nbl-history/elo-three-season-report.json --output /tmp/nbl-history/release-decision.json
       - name: Select Elo parameters on historical validation, then evaluate holdout once
         run: python scripts/select_nbl_elo.py --s2024 /tmp/nbl-history/2024-25-candidates.json --s2025 /tmp/nbl-history/2025-26-candidates.json --s2026 /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/elo-selection-audit.json
+      - name: Screen fixed NBL parameter grid on validation season only
+        run: python scripts/nbl_parameter_screen.py --s2024 /tmp/nbl-history/2024-25-candidates.json --s2025 /tmp/nbl-history/2025-26-candidates.json --s2026 /tmp/nbl-history/2026-27-candidates.json --output /tmp/nbl-history/parameter-screen-research.json
       - name: Upload original-source audit candidates
         uses: actions/upload-artifact@v4
         with:
