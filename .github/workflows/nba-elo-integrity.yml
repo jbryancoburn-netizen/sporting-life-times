@@ -7,6 +7,8 @@ on:
       - 'data/nba-2026-27-preseason-provisional.json'
       - 'data/nba-2026-27-current-provisional.json'
       - 'scripts/audit-nba-elo.mjs'
+      - 'scripts/audit-nba-boxscore-elo.mjs'
+      - 'data/nba-game-center.json'
       - 'scripts/update-nba-elo.mjs'
       - 'scripts/audit-nba-page.mjs'
       - 'nba-elo-model.js'
@@ -29,6 +31,8 @@ on:
       - 'data/nba-2026-27-preseason-provisional.json'
       - 'data/nba-2026-27-current-provisional.json'
       - 'scripts/audit-nba-elo.mjs'
+      - 'scripts/audit-nba-boxscore-elo.mjs'
+      - 'data/nba-game-center.json'
       - 'scripts/update-nba-elo.mjs'
       - 'scripts/audit-nba-page.mjs'
       - 'nba-elo-model.js'
@@ -69,4 +73,6 @@ jobs:
       - name: Verify independent Rabby possession scoring and story logo contracts
         run: node scripts/test-nba-rabby-possession.mjs
       - name: Verify archived and current NBA Elo consistency
-        run: node scripts/audit-nba-elo.mjs
+        run: |
+          node scripts/audit-nba-elo.mjs
+          node scripts/audit-nba-boxscore-elo.mjs
