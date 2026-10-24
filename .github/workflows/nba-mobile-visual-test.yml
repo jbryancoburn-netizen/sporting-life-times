@@ -1,0 +1,41 @@
+name: NBA mobile visual regression
+on:
+  push:
+    branches: [main]
+    paths:
+      - nba.html
+      - nba-home.js
+      - nba-paper-layout.css
+      - nba-newspaper-polish.css
+      - nba-editorial.css
+      - compact-edition.css
+      - scripts/test-nba-mobile-layout.mjs
+      - .github/workflows/nba-mobile-visual-test.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Assert iPhone-sized layouts and capture images
+        run: node scripts/test-nba-mobile-layout.mjs
+      - name: Upload screenshots even when layout fails
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nba-mobile-screenshots
+          path: test-artifacts
+          if-no-files-found: ignore
