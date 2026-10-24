@@ -120,7 +120,7 @@ async function playerNotebook(){
   const r=await fetch('data/nba-player-leaders.json',{cache:'no-store'});if(!r.ok)throw Error('stats unavailable');
   const d=await r.json(),rows=d.season_totals||[];
   if(!rows.length)throw Error('no captured players');
-  rows.sort((a,b)=>b.pts/a.gp-a.pts/b.gp);
+  rows.sort((a,b)=>b.pts/b.gp-a.pts/a.gp);
   const pct=x=>Number.isFinite(x)?x.toFixed(1):'—';
   el.innerHTML='<div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Player</th><th>Team</th><th>GP</th><th>PPG</th><th>RPG</th><th>APG</th><th>FG%</th><th>3P%</th><th>FT%</th><th>TS%</th></tr></thead><tbody>'+rows.slice(0,45).map(p=>'<tr><th>'+esc(p.player)+'</th><td>'+esc(p.team)+'</td><td>'+p.gp+'</td><td>'+pct(p.ppg)+'</td><td>'+pct(p.rpg)+'</td><td>'+pct(p.apg)+'</td><td>'+pct(p.fg_pct)+'</td><td>'+pct(p.fg3_pct)+'</td><td>'+pct(p.ft_pct)+'</td><td>'+pct(p.ts_pct)+'</td></tr>').join('')+'</tbody></table></div>';
   status.textContent=rows.length+' players · '+d.coverage.completed_boxscores+' completed games captured · shooting and TS% independently calculated · not full-season until coverage reconciles';

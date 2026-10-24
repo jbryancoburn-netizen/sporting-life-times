@@ -21,7 +21,7 @@ class OpponentEvidenceTests(unittest.TestCase):
     def test_minutes_weighted_competition_exposure(self):
         rows=[
             {"team":"High Point","team_ncaa_team_id":"609608","player_id":"77","contest_id":"one","mins":"20","pts":"14"},
-            {"team":"High Point","player_id":"77","contest_id":"two","mins":"30","pts":"18"},
+            {"team":"High Point","team_ncaa_team_id":"609608","player_id":"77","contest_id":"two","mins":"30","pts":"18"},
         ]
         from backtest_ncaam_roster_elo import clean
         t=clean("High Point")

@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const root=document.getElementById('elo-command');if(!root)return;
-const url='https://raw.githubusercontent.com/jbryancoburn-netizen/universal-sports-rating-system/main/newspaper-feed/epl.json';
+const url='data/epl-ratings.json';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const colors={'Arsenal':'#EF0107','Liverpool':'#C8102E','Chelsea':'#034694','Man City':'#6CABDD','Man United':'#DA291C','Tottenham':'#132257','Aston Villa':'#670E36','Newcastle':'#242424','Everton':'#003399','Brighton':'#0057B8','Brentford':'#E30613','Fulham':'#111111','Crystal Palace':'#1B458F','Bournemouth':'#DA291C','Nottm Forest':'#DD0000','Sunderland':'#EB172B','Leeds':'#FFCD00','Coventry':'#77C8E8','Hull':'#F18A00','Ipswich':'#0044A9'};
 const brand=name=>colors[name]||Object.entries(colors).find(([k])=>name.toLowerCase().includes(k.toLowerCase()))?.[1]||'#303c43';

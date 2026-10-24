@@ -21,7 +21,7 @@ class PregameOpponentTests(unittest.TestCase):
         self.assertEqual(pre["2"]["gamma"],1500.)
         self.assertGreater(pre["3"]["gamma"],1500.)
     def test_player_exposure_uses_opponent_not_own(self):
-        rows=[{"team":"Alpha","player_id":"5","contest_id":"2","mins":"20","pts":"10"}]
+        rows=[{"team":"Alpha","team_ncaa_team_id":"123","player_id":"5","contest_id":"2","mins":"20","pts":"10"}]
         pre={"2":{"alpha":1450.,"beta":1550.}}
         result=exposure(rows,pre)
         self.assertEqual(result["player_exposure"][0]["opponent_pregame_elo"],1450.)

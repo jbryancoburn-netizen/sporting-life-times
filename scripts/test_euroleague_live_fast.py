@@ -1,6 +1,7 @@
 """Offline tests for fast EuroLeague scorebug updates and final transitions."""
 import datetime as dt
 import unittest
+from unittest.mock import patch
 import euroleague_live_fast as fast
 
 UTC=dt.timezone.utc
@@ -17,6 +18,10 @@ def header(live=True,a=64,b=60):
     return {"Live":live,"CodeTeamA":"OLY","CodeTeamB":"ULK","ScoreA":a,
         "ScoreB":b,"Quarter":"4","RemainingPartialTime":"06:21"}
 class FastTests(unittest.TestCase):
+    def setUp(self):
+        mock=patch.object(fast.verified,"load",return_value={"season":"E2026","games":[]})
+        mock.start()
+        self.addCleanup(mock.stop)
     def test_live_updates_from_header(self):
         value=fast.build(model(),{},NOW,lambda _:header())
         g=value["games"][0]

@@ -2,7 +2,7 @@
 const target=document.getElementById('usrs-live-ratings');
 const status=document.getElementById('usrs-live-status');
 if(!target||!status)return;
-const endpoint='https://raw.githubusercontent.com/jbryancoburn-netizen/universal-sports-rating-system/main/newspaper-feed/epl.json';
+const endpoint='data/epl-ratings.json';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 (async()=>{try{
 const response=await fetch(endpoint,{cache:'no-store'});
