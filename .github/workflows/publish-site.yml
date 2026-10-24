@@ -87,9 +87,12 @@ jobs:
         run: |
           python scripts/collect_feeds.py
           python scripts/collect_scores.py
-          if ! python scripts/publish_nbl_standings.py; then
+          if python scripts/publish_nbl_standings.py; then
+            printf '{"league":"Australian NBL","published":true}\\n' > data/nbl-standings-publication-status.json
+          else
             echo 'NBL ESPN season replay unavailable; withholding reconstructed standings this build'
             rm -f data/nbl-standings.json
+            printf '{"league":"Australian NBL","published":false}\\n' > data/nbl-standings-publication-status.json
           fi
           python scripts/collect_match_details.py
           python scripts/build_match_archive_index.py
@@ -147,6 +150,15 @@ jobs:
             test -s /tmp/newspaper-page.html
             grep -qi '<html' /tmp/newspaper-page.html
           done
+          echo "Checking published NBL standings release decision"
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-standings-publication-status.json" -o /tmp/nbl-release-status.json
+          python -c 'import json; s=json.load(open("/tmp/nbl-release-status.json")); assert s.get("league")=="Australian NBL" and isinstance(s.get("published"),bool)'
+          if python -c 'import json,sys;sys.exit(0 if json.load(open("/tmp/nbl-release-status.json"))["published"] else 1)'; then
+            curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-standings.json" -o /tmp/nbl-standings.json
+            python -c 'import json; d=json.load(open("/tmp/nbl-standings.json")); assert d.get("status")=="source_derived_not_officially_reconciled" and d.get("teams")==10 and len(d.get("rows",[]))==10 and sum(r["wins"] for r in d["rows"])==d["games_replayed"]'
+          else
+            echo "NBL standings source withheld safely: snapshot not present"
+          fi
           echo "Checking approved EPL forecast publication state"
           curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "$base/data/epl-forecast-publication-status.json" -o /tmp/epl-release-status.json
           python -c 'import json; s=json.load(open("/tmp/epl-release-status.json")); assert s.get("competition")=="EPL" and isinstance(s.get("published"),bool)'
