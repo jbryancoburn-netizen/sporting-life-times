@@ -126,8 +126,7 @@ class TestCollegeSoccerLive(unittest.TestCase):
         self.assertEqual(x["away_goals"],0)
 
     def test_bad_final_has_no_synthetic_score(self):
-        with self.assertRaisesRegex(ValueError, "invalid posted"):
-            c.normalized_final(original_scoreboard(hg="",ag=""),"men",dt.date(2026,10,23))
+        self.assertIsNone(c.normalized_final(original_scoreboard(hg="",ag=""),"men",dt.date(2026,10,23)))
 
     def test_api_cross_feed_id_dedup(self):
         def provider(url):
