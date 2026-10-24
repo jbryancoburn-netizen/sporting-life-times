@@ -13,7 +13,7 @@ from audit_ncaam_historical_transfer_origin import origin_features
 from build_ncaam_historical_multistat_features import multistat_features
 
 FEATURES=("shooting","playmaking","defense")
-WEIGHTS=(0.,75.,150.,300.)
+WEIGHTS=(0.,150.,300.,450.,600.)
 def data(root):
  games={};feats={};origins={};multi={};prev_ratings={}
  for y in (2023,2024,2025,2026):
@@ -52,12 +52,14 @@ def run(games,feat,origin,multi):
  "no_extra_player_stats_validation":zero["validation_2025"],
  "selected_reused_2026":best["reused_diagnostic_2026"],
  "equal_weights_reused_2026":equal["reused_diagnostic_2026"],
+ "selected_at_grid_boundary":any(w==max(WEIGHTS) for w in best["weights"].values()),
  "validation_both_better_than_equal":all(best["validation_2025"][k]<equal["validation_2025"][k] for k in ("log_loss","brier")),
  "games_identical":best["validation_2025"]["games"]==equal["validation_2025"]["games"],
  "auto_promote":False,
  "limitations":["Historical roster membership not proven available before opening game",
  "2026 previously inspected; repeated diagnostic not untouched holdout",
  "Selected quality/origin/turnover coefficients previously chosen using 2024–25",
+ "Validation year 2025 has also been inspected in previous studies; do not call it untouched",
  "Venue information not verified; games treated neutral"],
  "grid":candidates}
 def main():
