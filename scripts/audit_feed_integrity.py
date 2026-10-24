@@ -25,6 +25,7 @@ def audit(now=None):
    provider=block.get('provider') or 'unknown'
    if provider=='unknown':warnings.append(name+': missing provider attribution')
    if block.get('error'):warnings.append(name+': '+str(block['error'])[:90])
+   if name=='Australian NBL' and not games:warnings.append('Australian NBL: no games in published scoreboard window; NBL desk incomplete')
    seen=set()
    for g in games:
     ident=str(g.get('id') or '')
