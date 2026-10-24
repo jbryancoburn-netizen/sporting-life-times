@@ -2,6 +2,18 @@ name: Publish The Sporting Life & Times (main)
 on:
   push:
     branches: [main]
+  # The built-in GITHUB_TOKEN pushes made by collector workflows do not
+  # trigger another push workflow. Deploy independently of those commits.
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_run:
+    workflows:
+      - Official NBA game-center refresh
+      - NBA Elo verified final-game refresh
+      - NBA top stories refresh
+      - NBA injury and transaction wire
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,6 +24,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
