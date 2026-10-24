@@ -10,7 +10,8 @@
     "quality_beta": 1200.0,
     "churn_gamma": 1.0,
     "origin_beta": 25.0,
-    "multistat_beta": 150.0
+    "multistat_beta": 150.0,
+    "stat_mode": "all"
   },
   "diagnostic_baseline": {
     "games": 5750,
@@ -50,8 +51,8 @@
       "teams_with_origin_strength": 341,
       "matched_transfer_records": 1389,
       "excluded": {
-        "linked_transfer_records": 1389,
-        "unmatched_or_ambiguous_prior_name": 2578
+        "unmatched_or_ambiguous_prior_name": 2578,
+        "linked_transfer_records": 1389
       }
     }
   },
@@ -91,6 +92,73 @@
     }
   },
   "multistat_selected_nonzero": true,
+  "multistat_ablation_winners": {
+    "none": {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 0.0,
+      "stat_mode": "none",
+      "train_log_loss": 0.5790197106870484,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5691101007102444,
+        "brier": 0.19514634776861728
+      }
+    },
+    "shooting": {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.578886199888304,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5688832539071514,
+        "brier": 0.19508893936847235
+      }
+    },
+    "playmaking": {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5787125950441172,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568855865967734,
+        "brier": 0.19506217560298197
+      }
+    },
+    "defense": {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.578927569296981,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5690660850176155,
+        "brier": 0.19513501957323515
+      }
+    },
+    "all": {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
+      "train_log_loss": 0.5784926788279375,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568595511281899,
+        "brier": 0.19499759547115544
+      }
+    }
+  },
   "preseason_roster_asof_verified": false,
   "automatic_promotion": false,
   "limitations": [
@@ -106,6 +174,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.585646960900206,
       "diagnostic_2026": {
         "games": 5750,
@@ -118,6 +187,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5853067769699404,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5750626924973663,
+        "brier": 0.1967390228372706
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5852843556619047,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5752703625096047,
+        "brier": 0.19681213594889063
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5855058916213336,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.575517549645382,
+        "brier": 0.19689885543114224
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5848089435010331,
       "diagnostic_2026": {
         "games": 5750,
@@ -130,6 +239,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5847753642355957,
       "diagnostic_2026": {
         "games": 5750,
@@ -142,11 +252,51 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.584446257142522,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5739493503096439,
+        "brier": 0.1963373994032214
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5844210866154467,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5741475432013123,
+        "brier": 0.19640619874110932
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5846392168586846,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5743888152962991,
+        "brier": 0.19648971359129017
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5839616566266284,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.573560810799669,
-        "brier": 0.1962067866087758
+        "brier": 0.19620678660877575
       }
     },
     {
@@ -154,6 +304,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5836850516588806,
       "diagnostic_2026": {
         "games": 5750,
@@ -166,6 +317,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5833725663678228,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5725482108822498,
+        "brier": 0.19585883888822583
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5833432246096207,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5727321847112936,
+        "brier": 0.19592131728041876
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5835562876822933,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5729646193366372,
+        "brier": 0.19600022744654733
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5829077775001454,
       "diagnostic_2026": {
         "games": 5750,
@@ -178,6 +369,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5854130719885674,
       "diagnostic_2026": {
         "games": 5750,
@@ -190,11 +382,51 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5850763961711791,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5749798081893731,
+        "brier": 0.1966960233080972
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.585050350319771,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.575186028229919,
+        "brier": 0.19676840092814624
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5852716645070661,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5754330970801051,
+        "brier": 0.1968551353583047
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5845781362625132,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5745726245322621,
-        "brier": 0.1965561879079452
+        "log_loss": 0.574572624532262,
+        "brier": 0.19655618790794527
       }
     },
     {
@@ -202,6 +434,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5845440127426799,
       "diagnostic_2026": {
         "games": 5750,
@@ -214,6 +447,46 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5842182738904976,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5738765283184991,
+        "brier": 0.19629899840065837
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5841895396571484,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5740733795377703,
+        "brier": 0.19636712026516126
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5844074872421365,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5743147294740876,
+        "brier": 0.1964507210552029
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.583733129256703,
       "diagnostic_2026": {
         "games": 5750,
@@ -226,6 +499,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5834575609739284,
       "diagnostic_2026": {
         "games": 5750,
@@ -238,6 +512,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5831482421572499,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.572491288182291,
+        "brier": 0.1958277136485059
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.583115424141948,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5726740700138723,
+        "brier": 0.1958895985711722
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.583328360489502,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5729068690439333,
+        "brier": 0.19596869116062413
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5826827383341261,
       "diagnostic_2026": {
         "games": 5750,
@@ -250,6 +564,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5852511668565569,
       "diagnostic_2026": {
         "games": 5750,
@@ -262,6 +577,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5849177061919678,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5749605155808937,
+        "brier": 0.19668130241140244
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5848880079379418,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5751654664680741,
+        "brier": 0.19675305366660917
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5851093256906819,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5754130591121805,
+        "brier": 0.19684011942125565
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5844186095051059,
       "diagnostic_2026": {
         "games": 5750,
@@ -274,6 +629,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5843835568644459,
       "diagnostic_2026": {
         "games": 5750,
@@ -286,6 +642,46 @@
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.584060911488592,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5738663766377152,
+        "brier": 0.19628843179707386
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5840285806575656,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5740620521206454,
+        "brier": 0.19635597854802733
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5842465626873349,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5743041096350389,
+        "brier": 0.19643997570274396
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5835748303348551,
       "diagnostic_2026": {
         "games": 5750,
@@ -298,6 +694,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5832996445128468,
       "diagnostic_2026": {
         "games": 5750,
@@ -310,6 +707,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5829932427613197,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5724960325503003,
+        "brier": 0.19582391529295434
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5829569084359432,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.572677767942126,
+        "brier": 0.1958853000355436
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5831699238365559,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5729115437964362,
+        "brier": 0.1959648768484304
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.582526656417716,
       "diagnostic_2026": {
         "games": 5750,
@@ -322,6 +759,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5833990451204585,
       "diagnostic_2026": {
         "games": 5750,
@@ -334,6 +772,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5831170274977737,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5727609788317021,
+        "brier": 0.1960066101313026
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5830486975486802,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5728993318143767,
+        "brier": 0.1960478203488186
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5832707172268619,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5731380229122696,
+        "brier": 0.19613093158668787
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5826441384032659,
       "diagnostic_2026": {
         "games": 5750,
@@ -346,6 +824,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5825712523805453,
       "diagnostic_2026": {
         "games": 5750,
@@ -358,6 +837,46 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5823001804018434,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5717425192692548,
+        "brier": 0.19565211823108383
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5822291382532748,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5718714988787671,
+        "brier": 0.1956893687738607
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5824478007501052,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721043686084852,
+        "brier": 0.1957695085258936
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5818403859070093,
       "diagnostic_2026": {
         "games": 5750,
@@ -370,6 +889,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5815459859409421,
       "diagnostic_2026": {
         "games": 5750,
@@ -382,6 +902,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5812913556980207,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5704835245015989,
+        "brier": 0.1952409045097656
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5812161811123685,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5705984129448558,
+        "brier": 0.1952723790491213
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.581429854564448,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5708225767221844,
+        "brier": 0.19534826192143692
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5808511696379779,
       "diagnostic_2026": {
         "games": 5750,
@@ -394,6 +954,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5831780076573627,
       "diagnostic_2026": {
         "games": 5750,
@@ -406,6 +967,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5828994060682496,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5726937905918812,
+        "brier": 0.19597206491452648
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5828276265134256,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5728305338704098,
+        "brier": 0.19601247531294338
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5830493289215744,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5730692102542473,
+        "brier": 0.19609562682622178
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5824261636351135,
       "diagnostic_2026": {
         "games": 5750,
@@ -418,6 +1019,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.582352626958573,
       "diagnostic_2026": {
         "games": 5750,
@@ -430,6 +1032,46 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.582084840358025,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.571684545384853,
+        "brier": 0.19562162314144912
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5820104031153669,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5718120134131526,
+        "brier": 0.19565812690491716
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5822287866381046,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5720450569148304,
+        "brier": 0.1957383730086437
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.581624579733586,
       "diagnostic_2026": {
         "games": 5750,
@@ -442,6 +1084,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5813310671467331,
       "diagnostic_2026": {
         "games": 5750,
@@ -454,7 +1097,47 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
-      "train_log_loss": 0.5806387174476052,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5810795338274004,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5704402637509295,
+        "brier": 0.19521689433639994
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5810010420814635,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5705537755230775,
+        "brier": 0.19524769890487514
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5812144916669634,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5707783879662102,
+        "brier": 0.1953237774409136
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
+      "train_log_loss": 0.5806387174476053,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5701044681962603,
@@ -466,6 +1149,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.583026877747908,
       "diagnostic_2026": {
         "games": 5750,
@@ -478,6 +1162,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5827514716103216,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5726866202301766,
+        "brier": 0.19596390892592566
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5826761597984166,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5728218496355555,
+        "brier": 0.19600358873714507
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5828977767403541,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5730611077319933,
+        "brier": 0.19608707213719043
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5822775062688589,
       "diagnostic_2026": {
         "games": 5750,
@@ -490,6 +1214,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5822029038785941,
       "diagnostic_2026": {
         "games": 5750,
@@ -502,10 +1227,50 @@
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5819381987587043,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5716858287793705,
+        "brier": 0.19561715255708453
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5818602795917713,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5718118683350912,
+        "brier": 0.1956529731366004
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5820786080285887,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5720456707116508,
+        "brier": 0.1957336120879348
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5814771193848405,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5713214732275838,
+        "log_loss": 0.5713214732275839,
         "brier": 0.19549709724497275
       }
     },
@@ -514,6 +1279,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5811838440946226,
       "diagnostic_2026": {
         "games": 5750,
@@ -526,7 +1292,47 @@
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
-      "train_log_loss": 0.5804934509584587,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5809352268802761,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5704554799445339,
+        "brier": 0.1952185120008879
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5808533253144499,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5705676810368872,
+        "brier": 0.19524870281557974
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5810667640272332,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5707933115337288,
+        "brier": 0.1953252562159566
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
+      "train_log_loss": 0.5804934509584586,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5701187571961005,
@@ -538,6 +1344,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5809959546577622,
       "diagnostic_2026": {
         "games": 5750,
@@ -550,6 +1357,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5808296726456292,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5706813911701484,
+        "brier": 0.19566527659681426
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.580669052831871,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5706804930282096,
+        "brier": 0.19564815874760041
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5808926969263212,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5709031326057326,
+        "brier": 0.19572657543241587
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5804052056361547,
       "diagnostic_2026": {
         "games": 5750,
@@ -562,6 +1409,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5802517658574191,
       "diagnostic_2026": {
         "games": 5750,
@@ -574,6 +1422,46 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5800961685635929,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5698490533442098,
+        "brier": 0.19539027068318765
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5799329171134541,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5698390187453423,
+        "brier": 0.19536988438391234
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5801533183577164,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5700560305959219,
+        "brier": 0.19544576985571976
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5796845496672771,
       "diagnostic_2026": {
         "games": 5750,
@@ -586,6 +1474,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5793510775264747,
       "diagnostic_2026": {
         "games": 5750,
@@ -598,6 +1487,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5792115477659942,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5688692276805819,
+        "brier": 0.1950911569915141
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5790442602644558,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5688454424049982,
+        "brier": 0.19506603236955988
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5792598553725443,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5690540452159433,
+        "brier": 0.19513830016796324
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.578819163195762,
       "diagnostic_2026": {
         "games": 5750,
@@ -610,6 +1539,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.580791006743331,
       "diagnostic_2026": {
         "games": 5750,
@@ -622,6 +1552,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5806280462628057,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.570640133898025,
+        "brier": 0.19564407016775934
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5804642546290095,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5706372717386731,
+        "brier": 0.19562602960846767
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5806873830767523,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5708600447146429,
+        "brier": 0.19570447966244395
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5802033994375504,
       "diagnostic_2026": {
         "games": 5750,
@@ -634,6 +1604,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5800491346860189,
       "diagnostic_2026": {
         "games": 5750,
@@ -646,6 +1617,46 @@
       "origin_beta": 10.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5798967458708818,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5698156447923157,
+        "brier": 0.19537219929025698
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5797303652848668,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5698037266194174,
+        "brier": 0.19535093179715698
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5799502875073167,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5700210448985165,
+        "brier": 0.19542690792316822
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.579484844093094,
       "diagnostic_2026": {
         "games": 5750,
@@ -658,6 +1669,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.579152074529153,
       "diagnostic_2026": {
         "games": 5750,
@@ -670,6 +1682,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5790155900190143,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5688486528452337,
+        "brier": 0.19507826101183243
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5788452337488662,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5688230937948265,
+        "brier": 0.19505231579666926
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5790604032121163,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5690322552774499,
+        "brier": 0.1951247515310894
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5786227717291674,
       "diagnostic_2026": {
         "games": 5750,
@@ -682,6 +1734,7 @@
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5806545903836056,
       "diagnostic_2026": {
         "games": 5750,
@@ -694,6 +1747,46 @@
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5804948474514974,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5706550087656334,
+        "brier": 0.19564692154515745
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5803277097962936,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5706501478758573,
+        "brier": 0.19562796867692067
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5805505708202661,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5708735754964224,
+        "brier": 0.1957067011554947
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 0.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5800697161255421,
       "diagnostic_2026": {
         "games": 5750,
@@ -706,6 +1799,7 @@
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.579914166059179,
       "diagnostic_2026": {
         "games": 5750,
@@ -718,11 +1812,51 @@
       "origin_beta": 10.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
-      "train_log_loss": 0.579352421134693,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.5797648954703668,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5698378571185045,
+        "brier": 0.1953779395198155
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5795952091068062,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.569824011774954,
+        "brier": 0.19535579750452328
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.5798148930672533,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5700421482703332,
+        "brier": 0.19543210965855257
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
+      "train_log_loss": 0.5793524211346931,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5695229533458779,
-        "brier": 0.19527535609356825
+        "brier": 0.1952753560935682
       }
     },
     {
@@ -730,6 +1864,7 @@
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
       "multistat_beta": 0.0,
+      "stat_mode": "none",
       "train_log_loss": 0.5790197106870484,
       "diagnostic_2026": {
         "games": 5750,
@@ -742,6 +1877,46 @@
       "origin_beta": 25.0,
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
+      "stat_mode": "shooting",
+      "train_log_loss": 0.578886199888304,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5688832539071514,
+        "brier": 0.19508893936847235
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "playmaking",
+      "train_log_loss": 0.5787125950441172,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568855865967734,
+        "brier": 0.19506217560298197
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "defense",
+      "train_log_loss": 0.578927569296981,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5690660850176155,
+        "brier": 0.19513501957323515
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "multistat_beta": 150.0,
+      "stat_mode": "all",
       "train_log_loss": 0.5784926788279375,
       "diagnostic_2026": {
         "games": 5750,
