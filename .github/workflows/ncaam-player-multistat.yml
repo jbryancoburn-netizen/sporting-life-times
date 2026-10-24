@@ -1,0 +1,46 @@
+name: NCAA individual player box impact components
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_player_multistat_shadow.py'
+      - 'scripts/test_ncaam_player_multistat_shadow.py'
+      - '.github/workflows/ncaam-player-multistat.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate identity and missing-stat guards
+        run: python -m unittest discover -s scripts -p test_ncaam_player_multistat_shadow.py -v
+      - name: Download historical NCAA 2025-26 player box data
+        run: |
+          python - <<'PY'
+          import urllib.request
+          url="https://github.com/sportsdataverse/sportsdataverse-data/releases/download/ncaa_mbb_player_box/ncaa_mbb_player_box_2026.csv.gz"
+          urllib.request.urlretrieve(url,"/tmp/ncaam-player-box-2026.csv.gz")
+          PY
+      - name: Generate measured player box impacts
+        run: python scripts/build_ncaam_player_multistat_shadow.py --box /tmp/ncaam-player-box-2026.csv.gz
+      - name: Publish research values
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-2026-27-player-multistat-shadow.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish source-linked NCAA player multi-stat records [skip ci]"
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-player-multistat
+          path: data/ncaam-2026-27-player-multistat-shadow.json
+          if-no-files-found: warn
