@@ -53,9 +53,18 @@ jobs:
           grep -q 'nba-live-game.html?game=' nba-live-feed.js
           node --check nba-live-game.js
           grep -q 'NBA LIVE' nba.html
+          python - <<'PY'
+          from pathlib import Path
+          html=Path('nba.html').read_text()
+          live=html.index('id="nba-live-games"')
+          collapsed=html.index('<details class="nba-secondary-data">')
+          assert live < collapsed, 'Live games must not sit inside collapsed secondary data'
+          assert 'nba-live-game.html?game=' in Path('nba-live-feed.js').read_text()
+          print('Live scoreboard exposed, linked to game details')
+          PY
           grep -q "'nba-live-games'" nba-page-turner.js
-          grep -q 'nba-page-turner.js?v=5' nba.html
-          grep -q 'nba-live-feed.js?v=1' nba.html
+          grep -q 'nba-page-turner.js?v=6' nba.html
+          grep -q 'nba-live-feed.js?v=2' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
           grep -q 'nba-team-desk.js?v=4' nba-team-desk.html
