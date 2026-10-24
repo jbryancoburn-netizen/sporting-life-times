@@ -1,5 +1,9 @@
 name: NBL historical result staging
 on:
+  push:
+    paths:
+      - 'scripts/stage_nbl_history.py'
+      - '.github/workflows/nbl-history-stage.yml'
   workflow_dispatch:
   schedule:
     - cron: '23 5 * * *'
