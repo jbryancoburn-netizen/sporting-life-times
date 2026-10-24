@@ -5,7 +5,7 @@ TRAIN 2024, 2025; LOCKED HOLDOUT 2026. Each season's player quality uses only
 the PRIOR season's player-game opponents' PRE-GAME independently replayed Elo.
 This is an experiment, not a production ranking or player identity validation.
 """
-import json,math
+import json,math,hashlib
 from collections import defaultdict
 from pathlib import Path
 from backtest_ncaam_roster_elo import fetch,games,end_ratings,clean
@@ -77,7 +77,7 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
     # covered. A separate track prevents partial features from leaking into
     # the fallback prediction.
     plain={t:1500+.65*(previous.get(t,1500)-1500) for t in ratings}
-    ll=0.;bs=0.;n=0;fallback_games=0
+    ll=0.;bs=0.;n=0;fallback_games=0;matched_game_ids=[]
     # Schedules contain calendar dates, not verified tipoff sequences.
     # Snapshot predictions before ANY result from that date is applied.
     # A two-game same-day team schedule is still evaluated from pre-date Elo.
@@ -94,12 +94,13 @@ def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_beta
                 p=1/(1+10**(-(chosen[h]-chosen[a])/400))
                 y=int(hs>aws)
                 ll-=y*math.log(max(1e-9,p))+(1-y)*math.log(max(1e-9,1-p))
-                bs+=(p-y)**2;n+=1
+                bs+=(p-y)**2;n+=1;matched_game_ids.append(str(gid))
         for _,gid,h,a,hs,aws in matches:
             step(ratings,h,a,hs,aws)
             step(plain,h,a,hs,aws)
     if n<150:raise ValueError("Too few evaluation games "+str(n))
-    return {"games":n,"log_loss":ll/n,"brier":bs/n,"fallback_games":fallback_games}
+    return {"games":n,"log_loss":ll/n,"brier":bs/n,"fallback_games":fallback_games,
+            "matched_games_sha256":hashlib.sha256("\\n".join(sorted(matched_game_ids)).encode()).hexdigest()}
 
 def run():
     seasons={}
@@ -193,6 +194,10 @@ def run():
             "logloss_gain":plain["log_loss"]-hybrid["log_loss"],
             "brier_gain":plain["brier"]-hybrid["brier"]}
     fallback_all_windows_improve=all(x["logloss_gain"]>0 and x["brier_gain"]>0 for x in fallback_windows.values())
+    if base["matched_games_sha256"]!=hold["matched_games_sha256"]:
+        raise ValueError("Opponent model holdout must predict identical contests")
+    if full_game_only["matched_games_sha256"]!=full_fallback["matched_games_sha256"]:
+        raise ValueError("Full-coverage baseline/candidate contest IDs differ")
     gain=base["log_loss"]-hold["log_loss"]
     brier_gain=base["brier"]-hold["brier"]
     return {"experiment":"ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
