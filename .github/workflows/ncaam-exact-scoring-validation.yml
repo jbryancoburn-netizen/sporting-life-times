@@ -31,6 +31,7 @@ jobs:
       - name: Verify historical roster schema compatibility
         run: python -m unittest discover -s scripts -p test_ncaam_exact_source_schema.py -v
       - name: Train and hold out using identical scoring feature
+        if: always()
         run: python scripts/run_ncaam_exact_formula_diagnostic.py
       - name: Validate output has unchanged evaluation period
         run: |
