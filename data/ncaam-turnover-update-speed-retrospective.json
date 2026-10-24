@@ -1,0 +1,308 @@
+{
+  "status": "RETROSPECTIVE_TURNOVER_HYPOTHESIS_NOT_ASOF_PRESEASON",
+  "model": "ncaam-roster-dependent-update-speed-research-v1",
+  "training": [
+    2024,
+    2025
+  ],
+  "reused_diagnostic": 2026,
+  "training_feature_timing_verified": false,
+  "selected_gamma": 1.0,
+  "diagnostic_2026_selected": {
+    "games": 5750,
+    "log_loss": 0.5845443353046252,
+    "brier": 0.20030837595843973,
+    "games_with_both_rosters": 5641,
+    "roster_feature_timing_verified": false
+  },
+  "diagnostic_2026_baseline": {
+    "games": 5750,
+    "log_loss": 0.5848021252987833,
+    "brier": 0.20044259928071398,
+    "games_with_both_rosters": 5641,
+    "roster_feature_timing_verified": false
+  },
+  "diagnostic_improved_both": true,
+  "no_automatic_production_promotion": true,
+  "design": "First 45 days, team-pair centered returning-minute churn changes K symmetrically; unchanged afterward",
+  "limitations": [
+    "Historical roster lists may include in-season roster changes, creating future leakage",
+    "2026 holdout has been inspected in other studies",
+    "No independently certified historical preseason roster snapshots",
+    "Neutral-venue prediction, no verified home-court flag"
+  ],
+  "trials": [
+    {
+      "gamma": -0.75,
+      "train_log_loss": 0.5948845867622283,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6034290966504704,
+          "brier": 0.20830091237494314,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5864349489435948,
+          "brier": 0.20104196772206,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.5851988857454303,
+          "brier": 0.20063594209939983,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": -0.5,
+      "train_log_loss": 0.5946330203593362,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6032608053595959,
+          "brier": 0.208232580967551,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5861010320554134,
+          "brier": 0.2008896710965585,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.585047433674063,
+          "brier": 0.20056278531996138,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": -0.25,
+      "train_log_loss": 0.5944038212159283,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6031122227669661,
+          "brier": 0.20817352240183426,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5857921114692112,
+          "brier": 0.20074889466610749,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.5849151671744285,
+          "brier": 0.2004983256901027,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": 0.0,
+      "train_log_loss": 0.5941966718426075,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6029832011806106,
+          "brier": 0.20812366867216436,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5855077017834719,
+          "brier": 0.2006194284994418,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.5848021252987833,
+          "brier": 0.20044259928071398,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": 0.25,
+      "train_log_loss": 0.5940112969042787,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6028736221190327,
+          "brier": 0.2080829635068883,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5852473725510914,
+          "brier": 0.2005010855160099,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.5847083848676513,
+          "brier": 0.20039565969632583,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": 0.5,
+      "train_log_loss": 0.5938474623556041,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6027833960830308,
+          "brier": 0.20805136243096764,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5850107467855317,
+          "brier": 0.200393701238966,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.584634061730781,
+          "brier": 0.20035757876141172,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": 0.75,
+      "train_log_loss": 0.5937049746823353,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6027124623540074,
+          "brier": 0.2080288327846895,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5847974996513603,
+          "brier": 0.20029713355007123,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.5845793122898911,
+          "brier": 0.20032844729278934,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    },
+    {
+      "gamma": 1.0,
+      "train_log_loss": 0.5935836802496067,
+      "by_year": {
+        "2023": {
+          "games": 5593,
+          "log_loss": 0.6237938663810806,
+          "brier": 0.21710768041447073,
+          "games_with_both_rosters": 0,
+          "roster_feature_timing_verified": false
+        },
+        "2024": {
+          "games": 5611,
+          "log_loss": 0.6026607888195084,
+          "brier": 0.20801535369959387,
+          "games_with_both_rosters": 5587,
+          "roster_feature_timing_verified": false
+        },
+        "2025": {
+          "games": 5674,
+          "log_loss": 0.5846073573405974,
+          "brier": 0.20021126245408552,
+          "games_with_both_rosters": 5591,
+          "roster_feature_timing_verified": false
+        },
+        "2026": {
+          "games": 5750,
+          "log_loss": 0.5845443353046252,
+          "brier": 0.20030837595843973,
+          "games_with_both_rosters": 5641,
+          "roster_feature_timing_verified": false
+        }
+      }
+    }
+  ]
+}
