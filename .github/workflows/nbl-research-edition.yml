@@ -1,0 +1,57 @@
+name: NBL research newspaper edition
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */3 * * *'
+  push:
+    paths:
+      - 'scripts/publish_nbl_standings.py'
+      - 'scripts/publish_nbl_research_elo.py'
+      - 'scripts/check_nbl_edition_consistency.py'
+      - '.github/workflows/nbl-research-edition.yml'
+permissions:
+  contents: write
+concurrency:
+  group: nbl-research-edition
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate NBL generation and consistency logic
+        run: |
+          python -m unittest discover -s tests -p 'test_nbl*.py' -v
+      - name: Build source-derived regular season ledger and standings
+        run: python scripts/publish_nbl_standings.py
+      - name: Replay independent research Elo
+        run: python scripts/publish_nbl_research_elo.py
+      - name: Require same ten clubs, same final cutoff and research-only status
+        run: |
+          python scripts/check_nbl_edition_consistency.py --elo data/nbl-elo-research.json --standings data/nbl-standings.json
+      - name: Refuse prediction promotion
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/nbl-elo-research.json'))
+          assert d['production_approved'] is False
+          assert d['prediction_certified'] is False
+          assert d['status']=='RESEARCH_ONLY_UNCERTIFIED'
+          PY
+      - name: Publish verified-consistent newspaper snapshot only when changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nbl-standings.json data/nbl-research-current-ledger.json data/nbl-elo-research.json
+          if git diff --cached --quiet; then
+            echo "No changed NBL data files"
+            exit 0
+          fi
+          git commit -m "Publish source-derived NBL standings and research Elo [skip ci]"
+          git push
