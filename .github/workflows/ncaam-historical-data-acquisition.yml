@@ -161,6 +161,8 @@ jobs:
           assert d['auto_promote'] is False
           assert d['games_identical'] is True
           assert len(d['grid'])==125
+          assert len(d['regularization_sensitivity'])==5
+          assert all(v['validation_2025']['games']==d['selected_validation']['games'] for v in d['regularization_sensitivity'].values())
           assert isinstance(d['selected_at_grid_boundary'],bool)
           PY
       - name: Run real NCAA historical player-quality backtest
