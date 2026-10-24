@@ -1,0 +1,42 @@
+name: NCAA Elo volatility integrity
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_earlyseason_volatility.py'
+      - 'scripts/test_audit_ncaam_earlyseason_volatility.py'
+      - '.github/workflows/ncaam-elo-volatility.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-elo-volatility
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regression-test live Elo volatility formula
+        run: python -m unittest discover -s scripts -p test_audit_ncaam_earlyseason_volatility.py -v
+      - name: Measure rating response to upset and margin
+        run: python scripts/audit_ncaam_earlyseason_volatility.py
+      - name: Publish transparent research audit
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp data/ncaam-2026-27-elo-volatility-audit.json /tmp/ncaam-elo-volatility-audit.json
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/ncaam-elo-volatility-audit.json data/ncaam-2026-27-elo-volatility-audit.json
+            git add data/ncaam-2026-27-elo-volatility-audit.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Publish NCAA Elo volatility scenarios'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
