@@ -43,7 +43,7 @@ def source_rows(path=None):
         req=urllib.request.Request(SCHEDULE,headers={"User-Agent":"SportingLifeTimes-CBB-Elo/1.0"})
         with urllib.request.urlopen(req,timeout=90) as response:
             raw=response.read(25000000)
-    if raw[:2]==b"\\x1f\\x8b":raw=gzip.decompress(raw)
+    if raw.startswith(bytes((31,139))):raw=gzip.decompress(raw)
     rows=list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
     if not rows:raise ValueError("NCAA schedule source returned zero rows")
     return rows
@@ -176,7 +176,7 @@ def build(preseason,source,through):
         "stable_event_deduplication":True,
         "preseason_fallback_count":sum(t.get("roster_coverage")=="baseline-fallback" for t in current["rankings"])}
     return current,{"season":"2026-27","as_of":through.isoformat(),
-            "count":len(ledger),"games":ledger},           {"season":"2026-27","as_of":through.isoformat(),"games":upcoming[:200]},integrity
+            "count":len(ledger),"games":ledger}, {"season":"2026-27","as_of":through.isoformat(),"games":upcoming[:200]},integrity
 
 def main():
     p=argparse.ArgumentParser()
@@ -195,6 +195,6 @@ def main():
         ("ncaam-2026-27-game-ledger.json",ledger),
         ("ncaam-2026-27-upcoming-forecasts.json",upcoming),
         ("ncaam-2026-27-source-audit.json",integrity)):
-        (dest/fn).write_text(json.dumps(doc,indent=2)+"\\n",encoding="utf-8")
+        (dest/fn).write_text(json.dumps(doc,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({k:integrity[k] for k in ("completed_unique_games","upcoming_or_unconfirmed_games","excluded")},indent=2))
 if __name__=="__main__":main()
