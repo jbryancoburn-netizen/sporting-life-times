@@ -78,6 +78,9 @@ def extract_games(schedules,programs,boxes):
         if cid not in ids or not ids[cid]['home'] or not ids[cid]['away']:
             excluded['no_ncaa_game_identifiers']+=1
             continue
+        if len(ids[cid]['home'])!=1 or len(ids[cid]['away'])!=1:
+            excluded['ambiguous_ncaa_game_identifiers']+=1
+            continue
         if programs[home]!=next(iter(ids[cid]['home'])) or programs[away]!=next(iter(ids[cid]['away'])):
             excluded['ncaa_team_identifier_mismatch']+=1
             continue
