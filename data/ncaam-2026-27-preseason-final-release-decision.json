@@ -1,0 +1,52 @@
+{
+  "season": "2026-27",
+  "decision": "RELEASE_PROVISIONAL_COMPLETE_FIELD_KEEP_EXPERIMENTS_SEPARATE",
+  "selected_publication": "data/ncaam-2026-27-preseason-roster-informed.json",
+  "selected_model": "slat-ncaam-2026-27-identity-linked-elo-v2",
+  "selected_model_status": "provisional-roster-identity-linked",
+  "ranked_teams": 365,
+  "identity_unique": true,
+  "all_ranks_ordered": true,
+  "all_rating_math_valid": true,
+  "games_played": 0,
+  "comparators": [
+    {
+      "path": "data/ncaam-2026-27-preseason-provisional.json",
+      "type": "unadjusted_preseason"
+    },
+    {
+      "path": "data/ncaam-2026-27-player-value-experimental-v1.json",
+      "type": "research_only_not_validated"
+    }
+  ],
+  "measured_holdout": {
+    "experiment": "ncaa-opponent-exposure-residualized-calibration-v3-date-batched",
+    "training_seasons": [
+      2024,
+      2025
+    ],
+    "holdout_season": 2026,
+    "matched_games": 1658,
+    "matched_baseline_log_loss": 0.5604084047399379,
+    "matched_candidate_log_loss": 0.557252107253897,
+    "matched_baseline_brier": 0.18888054454631656,
+    "matched_candidate_brier": 0.18788732525664906,
+    "identical_contest_ids": true,
+    "not_direct_validation_of_current_player_value_v1": true
+  },
+  "quality_gate": {
+    "complete_2026_27_ratings": true,
+    "opponent_2025_26_exposure_published": false,
+    "current_opponent_exposure_links_published": false,
+    "historical_preopening_roster_membership_validated": false,
+    "experimental_beta_300_preseason_validated": false,
+    "fully_certified": false
+  },
+  "warnings": [
+    "Experimental player-value v1 is not demonstrated to be superior to selected roster-informed model on a strictly preseason 2026 holdout.",
+    "Opponent-quality historical improvement is not a direct calibration of 2026-27 player-value v1.",
+    "13 identity flags are nonblocking and remain excluded from undocumented historical joins.",
+    "The 2025-26 independent bootstrap lacks verified venue adjustments."
+  ],
+  "policy": "Public 365-team Elo uses selected_publication until a demonstrably better same-game strictly preseason holdout passes. No rankings manually adjusted to satisfy expectations."
+}
