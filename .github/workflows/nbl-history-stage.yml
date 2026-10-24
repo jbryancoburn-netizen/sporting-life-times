@@ -46,6 +46,20 @@ jobs:
         run: python scripts/nbl_release_decision.py --audit /tmp/nbl-history/reconciliation-audit.json --evaluation /tmp/nbl-history/elo-three-season-report.json --selection /tmp/nbl-history/elo-selection-audit.json --output /tmp/nbl-history/release-decision.json
       - name: Cross-check 2025-26 scorelines with independent publication
         run: python scripts/crosscheck_nbl26_archive.py --candidate /tmp/nbl-history/2025-26-candidates.json --output /tmp/nbl-history/independent-nbl26-crosscheck.json
+      - name: Require complete independent NBL26 source reconciliation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nbl-history/independent-nbl26-crosscheck.json')
+          d=json.loads(p.read_text())
+          assert d.get('status') in ('all_scorelines_matched','reconciled_with_documented_discrepancies'), d
+          assert d.get('ESPN_candidates_excluding_cup')==178, d
+          assert d.get('unmatched_count')==0, d
+          assert d.get('matched_scorelines',0)+d.get('documented_discrepancies',0)==178, d
+          assert d.get('production_approved') is False, d
+          print('All 178 NBL26 league and playoff game scores externally accounted for.')
+          PY
       - name: Upload original-source audit candidates
         uses: actions/upload-artifact@v4
         with:
