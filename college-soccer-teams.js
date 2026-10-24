@@ -120,6 +120,8 @@ if(!matches.length)results.append(node('p','No matching school. Try a shorter sc
 search.addEventListener('input',render);
 results.replaceChildren();
 results.setAttribute('aria-label',teams.length+' searchable NCAA soccer programs');
+if(search.value.trim().length>=2)render();
+else results.append(node('p','Type at least two letters to search '+teams.length.toLocaleString()+' college soccer programs.','college-elo-note'));
 const selected=new URLSearchParams(location.search).get('team');
 if(selected&&byId.has(selected)){
  const t=byId.get(selected);search.value=t.team;open(t);
