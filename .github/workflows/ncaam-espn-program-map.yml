@@ -1,0 +1,34 @@
+name: NCAA ESPN Program Crosswalk Audit
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_espn_program_map.py'
+      - '.github/workflows/ncaam-espn-program-map.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  crosswalk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build audited crosswalk from ESPN team source
+        run: |
+          python -m py_compile scripts/build_ncaam_espn_program_map.py
+          python scripts/build_ncaam_espn_program_map.py
+      - name: Publish auditable IDs and missing program list
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-espn-program-crosswalk.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish auditable ESPN to NCAA school crosswalk [skip ci]'
+            git -c rebase.autoStash=true pull --rebase origin main
+            git push
+          fi
