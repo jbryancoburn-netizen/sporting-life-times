@@ -72,6 +72,8 @@ jobs:
         run: node scripts/test-nba-elo-render.mjs
       - name: Verify independent Rabby possession scoring and story logo contracts
         run: node scripts/test-nba-rabby-possession.mjs
+      - name: Test chronological NBA live-to-final transitions, duplicates and score conflicts
+        run: python scripts/test_nba_final_transitions.py
       - name: Verify archived and current NBA Elo consistency
         run: |
           node scripts/audit-nba-elo.mjs
