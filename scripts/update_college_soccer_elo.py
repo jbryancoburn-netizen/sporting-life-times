@@ -76,7 +76,7 @@ def normalized_final(raw: dict, gender: str, requested: dt.date):
         if type(h.get("score")) is int and h["score"] == 0: hs = "0"
         if type(a.get("score")) is int and a["score"] == 0: ass = "0"
     if not hs.isdecimal() or not ass.isdecimal() or int(hs) > 40 or int(ass) > 40:
-        raise ValueError(f"invalid posted final score for {gender}-{gid}")
+        return None  # Quarantine incomplete or implausible FINAL; retry on next source check
     date_text = str(g.get("startDate") or "").strip()
     if not date_text:
         raise ValueError(f"final has no startDate: {gender}-{gid}")
@@ -118,9 +118,10 @@ def scoreboard(url: str, retries: int = 4) -> dict:
 
 def fetch_finals(start: dt.date, end: dt.date, getter=scoreboard):
     if start > end:
-        return [], {"scoreboards": 0, "fetched_finals": 0}
+        return [], {"scoreboards": 0, "fetched_finals": 0, "quarantined_final_rows": 0}
     incoming = {}
     checked = 0
+    quarantined = 0
     day = start
     while day <= end:
         for gender in ("men", "women"):
@@ -131,6 +132,8 @@ def fetch_finals(start: dt.date, end: dt.date, getter=scoreboard):
                 for g in raw["games"]:
                     result = normalized_final(g, gender, day)
                     if result is None:
+                        if (g.get("game") or {}).get("gameState") == "final":
+                            quarantined += 1
                         continue
                     key = result["match_id"]
                     if key in incoming and incoming[key] != result:
@@ -138,7 +141,8 @@ def fetch_finals(start: dt.date, end: dt.date, getter=scoreboard):
                     incoming[key] = result
         day += dt.timedelta(days=1)
     return sorted(incoming.values(), key=lambda g: (g["date"], g["match_id"])), {
-        "scoreboards": checked, "fetched_finals": len(incoming)
+        "scoreboards": checked, "fetched_finals": len(incoming),
+        "quarantined_final_rows": quarantined
     }
 
 
@@ -315,6 +319,7 @@ def main():
     next_ledger, model, audit = update(base, ledger, incoming)
     audit.update({"checked_through":today.isoformat(),"scoreboard_checks":probe["scoreboards"],
                   "source_finals_in_window":probe["fetched_finals"],
+                  "quarantined_final_rows":probe["quarantined_final_rows"],
                   "source":"NCAA.com scoreboards through ncaa-api compatibility transport"})
     model_needs_repair = not OUTPUT.is_file() or read_json(OUTPUT) != model
     changed = not ledger_existed or next_ledger != ledger or model_needs_repair
