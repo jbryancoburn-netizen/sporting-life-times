@@ -66,17 +66,59 @@ def team_comparison(summary,game):
         if stats:output[side]=stats
     return output if "away" in output and "home" in output else None
 
+def possession_inputs(summary, game):
+    """Observed ESPN team totals, attributed separately from official NBA inputs."""
+    season=(summary.get("header") or {}).get("season") or {}
+    competition=(((summary.get("header") or {}).get("competitions") or [{}])[0])
+    if (game.get("state")!="post" or season.get("year")!=2027 or season.get("type")!=2
+        or not ((competition.get("status") or {}).get("type") or {}).get("completed")
+        or not periods(summary,game)):
+        return None
+    output={}
+    def count(value):
+        number=float(value)
+        if not number.is_integer() or not 0<=number<=200:raise ValueError("Invalid count")
+        return int(number)
+    try:
+        for item in (summary.get("boxscore") or {}).get("teams") or []:
+            team=code((item.get("team") or {}).get("abbreviation"))
+            saved=next((t for t in game["teams"] if t.get("code")==team),None)
+            if not saved:return None
+            side=saved["home_away"]
+            if side in output:return None
+            stats={v["name"]:v.get("displayValue",v.get("value")) for v in item.get("statistics",[])}
+            def shots(name):
+                made,attempted=map(count,str(stats[name]).split("-"))
+                if made>attempted:raise ValueError("Makes exceed attempts")
+                return made,attempted
+            fgm,fga=shots("fieldGoalsMade-fieldGoalsAttempted")
+            threes,three_attempts=shots("threePointFieldGoalsMade-threePointFieldGoalsAttempted")
+            ftm,fta=shots("freeThrowsMade-freeThrowsAttempted")
+            oreb=count(stats["offensiveRebounds"])
+            tov=count(stats["totalTurnovers"])
+            points=count(saved["score"])
+            if (fga<=0 or threes>fgm or three_attempts>fga or oreb>fga
+                or 2*fgm+threes+ftm!=points):return None
+            output[side]={"code":team,"points":points,"fga":fga,"oreb":oreb,"tov":tov,"fta":fta}
+    except (KeyError,ValueError,TypeError):
+        return None
+    if set(output)!={"home","away"}:return None
+    return {"source":"ESPN completed-game team box score", "source_url":BASE+str(game["id"]).removeprefix("espn-nba-"),
+            "regular_season":True,"season":"2026-27", **output}
+
 def enrich(game,summary):
     result=dict(game)
     period=periods(summary,game)
     if period:result["period_scores"]=period
     stats=team_comparison(summary,game)
     if stats:result["team_comparison"]=stats
+    inputs=possession_inputs(summary,game)
+    if inputs:result["possession_stats"]=inputs
     return result
 
 def main():
     data=json.loads(FILE.read_text())
-    pending=[g for g in data.get("games",[]) if g.get("state")=="post" and str(g.get("id","")).startswith("espn-nba-") and (not g.get("period_scores") or not g.get("team_comparison"))]
+    pending=[g for g in data.get("games",[]) if g.get("state")=="post" and str(g.get("id","")).startswith("espn-nba-") and (not g.get("period_scores") or not g.get("team_comparison") or not g.get("possession_stats"))]
     def collect(g):
         try:
             result=enrich(g,fetch(g["id"].split("espn-nba-")[-1]))
