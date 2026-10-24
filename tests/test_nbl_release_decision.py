@@ -29,6 +29,16 @@ class NBLReleaseDecisionTests(unittest.TestCase):
         result=decide(a,b)
         self.assertTrue(result["audit_input_valid"])
         self.assertEqual(result["status"],"withheld")
+    def test_validation_selected_model_fails_holdout_even_if_validation_won(self):
+        a,b=self.fixture()
+        selection={"selected_from_validation":{"k":32,"home_advantage_elo":25,"regression":.15,
+                        "validation_log_loss":.623258},
+                   "selected_holdout":{"log_loss":.742054},
+                   "incumbent_holdout":{"log_loss":.709414}}
+        d=decide(a,b,selection)
+        self.assertFalse(d["parameter_selection_audit"]["selected_model_beats_coinflip"])
+        self.assertFalse(d["parameter_selection_audit"]["promotion_allowed"])
+        self.assertIn("Validation-selected Elo fails untouched current-season benchmark",d["blockers"])
     def test_bad_historical_coverage_fails_reconciliation(self):
         a,b=self.fixture()
         a["2025_26_regular_season_coverage"]["status"]="fail"
