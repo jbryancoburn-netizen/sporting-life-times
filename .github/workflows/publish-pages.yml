@@ -48,7 +48,8 @@ jobs:
           test -s nba-team-desk.html
           test -s nba-team-desk.js
           grep -q 'nba-team-desk.js?v=2' nba-team-desk.html
-          grep -q 'LATEST REPORTING' nba-team-desk.html
+          grep -q 'AROUND THE CLUB' nba-team-desk.html
+          grep -q 'Editorial architecture' nba-team-desk.html
           grep -q 'recent team-specific articles' nba-team-desk.js
           grep -q 'TEAM DESKS' nba.html
           node --check nba-team-desk.js
