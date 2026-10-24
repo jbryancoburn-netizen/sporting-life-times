@@ -20,9 +20,10 @@ QUALITY=(0.,400.,1200.)
 ORIGIN=(0.,10.,25.)
 CHURN=(0.,.5,1.)
 MULTISTAT=(0.,150.)
+STAT_ABLATIONS=("none","shooting","playmaking","defense","all")
 
 def trial(games,feature,config,source_strength,multistat):
- quality,origin,churn_gamma,multi_beta=config
+ quality,origin,churn_gamma,multi_beta,stat_mode=config
  elo={}
  reports={}
  for year in (2023,2024,2025,2026):
@@ -33,7 +34,8 @@ def trial(games,feature,config,source_strength,multistat):
   pivot=statistics.median((1-z["r"] for z in good)) if good else 0
   elo={t:1500+CARRY*(previous.get(t,1500)-1500)
        +(f[t]["minute_adj"]+quality*f[t]["q_centered"]+origin*source_strength.get(year,{}).get(t,0.)
-         +multi_beta*sum(multistat.get(year,{}).get(t,{}).values())
+         +multi_beta*(sum(multistat.get(year,{}).get(t,{}).values()) if stat_mode=="all" else
+           multistat.get(year,{}).get(t,{}).get(stat_mode,0.) if stat_mode!="none" else 0.)
          if t in f and f[t]["covered"] else 0.)
        for t in teams}
   ll=bs=0.;n=0
@@ -55,19 +57,21 @@ def trial(games,feature,config,source_strength,multistat):
 
 def calibrate(games,features,source_strength,source_audits,multistat,multistat_audits):
  trials=[]
- for quality,churn,origin,multi_beta in product(QUALITY,CHURN,ORIGIN,MULTISTAT):
-  cfg=(quality,origin,churn,multi_beta)
+ for quality,churn,origin,multi_beta,stat_mode in product(QUALITY,CHURN,ORIGIN,MULTISTAT,STAT_ABLATIONS):
+  if multi_beta==0 and stat_mode!="none":continue
+  if multi_beta!=0 and stat_mode=="none":continue
+  cfg=(quality,origin,churn,multi_beta,stat_mode)
   result=trial(games,features,cfg,source_strength,multistat)
   n=sum(result[y]["games"] for y in (2024,2025))
   loss=sum(result[y]["log_loss"]*result[y]["games"] for y in (2024,2025))/n
-  trials.append({"quality_beta":quality,"origin_beta":origin,"churn_gamma":churn,"multistat_beta":multi_beta,
+  trials.append({"quality_beta":quality,"origin_beta":origin,"churn_gamma":churn,"multistat_beta":multi_beta,"stat_mode":stat_mode,
                  "train_log_loss":loss,"diagnostic_2026":result[2026]})
  winner=min(trials,key=lambda x:(x["train_log_loss"],x["quality_beta"],x["churn_gamma"]))
  baseline=next(x for x in trials if x["quality_beta"]==0 and x["churn_gamma"]==0 and x["origin_beta"]==0 and x["multistat_beta"]==0)
  return {"model":"ncaam-combined-elo-research-v1",
   "status":"RETROSPECTIVE_COMBINATION_NOT_PRESEASON_CERTIFIED",
   "train_years":[2024,2025],"reused_diagnostic_year":2026,
-  "selected":{"quality_beta":winner["quality_beta"],"churn_gamma":winner["churn_gamma"],"origin_beta":winner["origin_beta"],"multistat_beta":winner["multistat_beta"]},
+  "selected":{"quality_beta":winner["quality_beta"],"churn_gamma":winner["churn_gamma"],"origin_beta":winner["origin_beta"],"multistat_beta":winner["multistat_beta"],"stat_mode":winner["stat_mode"]},
   "diagnostic_baseline":baseline["diagnostic_2026"],
   "diagnostic_combined":winner["diagnostic_2026"],
   "better_both":winner["diagnostic_2026"]["log_loss"]<baseline["diagnostic_2026"]["log_loss"] and winner["diagnostic_2026"]["brier"]<baseline["diagnostic_2026"]["brier"],
@@ -77,6 +81,7 @@ def calibrate(games,features,source_strength,source_audits,multistat,multistat_a
   "transfer_origin_audits":source_audits,
   "historical_multistat_audits":multistat_audits,
   "multistat_selected_nonzero":winner["multistat_beta"]!=0,
+  "multistat_ablation_winners":{mode:min((t for t in trials if t["stat_mode"]==mode),key=lambda t:t["train_log_loss"]) for mode in STAT_ABLATIONS},
   "preseason_roster_asof_verified":False,
   "automatic_promotion":False,
   "limitations":["Previous-school transfer identity is unique name matched, not verified cross-year athlete ID",
