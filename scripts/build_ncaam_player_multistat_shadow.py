@@ -8,8 +8,9 @@ import argparse,csv,gzip,json,math
 from collections import defaultdict
 from pathlib import Path
 
-METRICS={"points":("pts",),"rebounds":("reb","rebounds","treb"),
-         "assists":("ast","assists"),"turnovers":("to","tov","turnovers"),
+METRICS={"points":("pts",),"offensive_rebounds":("orb",),
+         "defensive_rebounds":("drb",),"rebounds":("reb","rebounds","treb"),
+         "assists":("ast","assists"),"turnovers":("tov","to","turnovers"),
          "steals":("stl","steals"),"blocks":("blk","blocks")}
 def parse_count(value):
     try: n=float(value)
@@ -50,6 +51,9 @@ def aggregate(rows,links,movement):
         v=out[eid];v["minutes"]+=mins;v["games"].add(gid)
         for metric,aliases in METRICS.items():
             n=value(row,aliases)
+            if metric=="rebounds" and n is None:
+                orb=value(row,("orb",));drb=value(row,("drb",))
+                if orb is not None and drb is not None:n=orb+drb
             if n is not None:
                 v["totals"][metric]+=n;v["available"][metric]+=1
     result=[]
