@@ -1,0 +1,108 @@
+{
+  "season": "2026-27",
+  "challenge": "Incremental historical player scoring beyond roster continuity and opponent strength",
+  "training_seasons": [
+    2024,
+    2025
+  ],
+  "untouched_holdout": 2026,
+  "selected_scoring_beta": 1000,
+  "selected_at_grid_boundary": false,
+  "training_grid": [
+    {
+      "scoring_beta": -600,
+      "games": 3333,
+      "log_loss": 0.5941562522775704,
+      "brier": 0.20407857662991138
+    },
+    {
+      "scoring_beta": -400,
+      "games": 3333,
+      "log_loss": 0.5875433118803086,
+      "brier": 0.20116415682870242
+    },
+    {
+      "scoring_beta": -200,
+      "games": 3333,
+      "log_loss": 0.5818714839234681,
+      "brier": 0.1987016436754108
+    },
+    {
+      "scoring_beta": -100,
+      "games": 3333,
+      "log_loss": 0.5793840951827538,
+      "brier": 0.1976393230878182
+    },
+    {
+      "scoring_beta": 0,
+      "games": 3333,
+      "log_loss": 0.5771265776348992,
+      "brier": 0.19668861815028377
+    },
+    {
+      "scoring_beta": 100,
+      "games": 3333,
+      "log_loss": 0.575096989857503,
+      "brier": 0.19584833835451043
+    },
+    {
+      "scoring_beta": 200,
+      "games": 3333,
+      "log_loss": 0.5732933258119741,
+      "brier": 0.19511696277748217
+    },
+    {
+      "scoring_beta": 400,
+      "games": 3333,
+      "log_loss": 0.5703554225426362,
+      "brier": 0.19397329334722085
+    },
+    {
+      "scoring_beta": 600,
+      "games": 3333,
+      "log_loss": 0.5682955240618173,
+      "brier": 0.19323954326042223
+    },
+    {
+      "scoring_beta": 800,
+      "games": 3333,
+      "log_loss": 0.5670952267758093,
+      "brier": 0.1928936911523405
+    },
+    {
+      "scoring_beta": 1000,
+      "games": 3333,
+      "log_loss": 0.5667350440412303,
+      "brier": 0.1929105928585014
+    },
+    {
+      "scoring_beta": 1200,
+      "games": 3333,
+      "log_loss": 0.5671944029876693,
+      "brier": 0.19326286285093688
+    },
+    {
+      "scoring_beta": 1600,
+      "games": 3333,
+      "log_loss": 0.5704842564546456,
+      "brier": 0.19485791130264365
+    },
+    {
+      "scoring_beta": 2000,
+      "games": 3333,
+      "log_loss": 0.5767807277303932,
+      "brier": 0.19744599945030017
+    }
+  ],
+  "holdout_games": 1658,
+  "holdout_baseline_logloss": 0.557252107253897,
+  "holdout_candidate_logloss": 0.5395338724668315,
+  "holdout_baseline_brier": 0.18788732525664906,
+  "holdout_candidate_brier": 0.18139995330300046,
+  "holdout_logloss_gain": 0.017718234787065468,
+  "holdout_brier_gain": 0.006487371953648596,
+  "identical_contests": true,
+  "preseason_roster_asof_verified": false,
+  "exact_2026_27_player_index_equivalence_validated": false,
+  "decision": "RESEARCH_MODEL_WINS_HISTORICAL_SAMPLE_NO_PRIMARY_PROMOTION"
+}
