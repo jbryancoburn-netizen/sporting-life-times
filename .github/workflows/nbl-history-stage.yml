@@ -1,0 +1,25 @@
+name: NBL historical result staging
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 5 * * *'
+permissions:
+  contents: read
+jobs:
+  stage-nbl-history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Stage complete 2025-26 season candidate finals
+        run: python scripts/stage_nbl_history.py --start 2025-09-01 --end 2026-04-30 --output /tmp/nbl-history/2025-26-candidates.json
+      - name: Stage 2026-27 candidate finals to date
+        run: python scripts/stage_nbl_history.py --start 2026-09-01 --end $(date -u +%F) --output /tmp/nbl-history/2026-27-candidates.json
+      - name: Upload original-source audit candidates
+        uses: actions/upload-artifact@v4
+        with:
+          name: nbl-source-candidates
+          path: /tmp/nbl-history/
+          retention-days: 30
