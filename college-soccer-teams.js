@@ -70,7 +70,7 @@ if(season?.games?.length){
 }else{
  scheduleSection.append(node('p','No verified fixtures for this team are currently available in our published game index.'));
 }
-const pred=box('Scheduled matches & locked forecasts');
+const pred=box('Locked forecasts · Awaiting official results');
 if(!upcoming.length)pred.append(node('p','No unmatched locked forecasts for this program in the current archive.'));
 for(const f of upcoming.slice(0,20)){
 const home=f.home_team===t.team_id,opp=home?f.away_name:f.home_name;
@@ -78,7 +78,7 @@ const item=node('div',undefined,'team-game');
 const left=node('div');left.append(node('strong',(home?'vs ':'at ')+opp));left.append(node('small',new Date(f.kickoff_utc).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})));
 const right=node('div',undefined,'team-game-forecast');
 const p=home?f.p_home:f.p_away;
-right.append(node('strong',Math.round(p*100)+'% win'));right.append(node('small',Math.round(f.p_draw*100)+'% draw'));
+right.append(node('strong',Math.round(p*100)+'% win'));right.append(node('small',Math.round(f.p_draw*100)+'% draw · '+(Date.parse(f.kickoff_utc)<Date.now()?'Awaiting final':'Pregame')));
 item.append(left,right);pred.append(item);
 }
 const games=verified.filter(g=>g.match_id.startsWith(t.cohort.startsWith('women')?'women-':'men-')&&(g.home_team===t.team_id||g.away_team===t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
