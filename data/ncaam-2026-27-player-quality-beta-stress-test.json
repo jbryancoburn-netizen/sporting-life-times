@@ -1,0 +1,432 @@
+{
+  "season": "2026-27",
+  "experiment": "Player scoring-quality beta robustness sweep conditional on incumbent roster minutes",
+  "source_incumbent": "data/ncaam-2026-27-preseason-roster-informed.json",
+  "source_player_index": "data/ncaam-2026-27-player-value-experimental-v1.json",
+  "candidates": [
+    {
+      "beta": 0,
+      "average_absolute_rank_shift": 0,
+      "high_point_rank": 8,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "UConn",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee"
+      ]
+    },
+    {
+      "beta": 100,
+      "average_absolute_rank_shift": 1.4958904109589042,
+      "high_point_rank": 9,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "UConn",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee"
+      ]
+    },
+    {
+      "beta": 200,
+      "average_absolute_rank_shift": 2.8328767123287673,
+      "high_point_rank": 10,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "UConn",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee"
+      ]
+    },
+    {
+      "beta": 300,
+      "average_absolute_rank_shift": 4.213698630136986,
+      "high_point_rank": 10,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "UConn",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee"
+      ]
+    },
+    {
+      "beta": 400,
+      "average_absolute_rank_shift": 5.446575342465754,
+      "high_point_rank": 9,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "UConn",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee"
+      ]
+    },
+    {
+      "beta": 600,
+      "average_absolute_rank_shift": 7.693150684931507,
+      "high_point_rank": 8,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee",
+        "Houston"
+      ]
+    },
+    {
+      "beta": 800,
+      "average_absolute_rank_shift": 9.830136986301369,
+      "high_point_rank": 7,
+      "top10": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee",
+        "Houston",
+        "Texas Tech"
+      ]
+    }
+  ],
+  "most_beta_sensitive_teams": [
+    {
+      "team": "Georgia Tech",
+      "id": "ncaa:609742",
+      "current_rank": 225,
+      "min": 161,
+      "max": 225,
+      "range": 64,
+      "quality_index": 0.067112,
+      "players": 7
+    },
+    {
+      "team": "Ohio",
+      "id": "ncaa:609805",
+      "current_rank": 204,
+      "min": 147,
+      "max": 204,
+      "range": 57,
+      "quality_index": 0.070284,
+      "players": 6
+    },
+    {
+      "team": "Cal Poly",
+      "id": "ncaa:609644",
+      "current_rank": 208,
+      "min": 169,
+      "max": 208,
+      "range": 39,
+      "quality_index": 0.045961,
+      "players": 11
+    },
+    {
+      "team": "Rutgers",
+      "id": "ncaa:609851",
+      "current_rank": 138,
+      "min": 102,
+      "max": 138,
+      "range": 36,
+      "quality_index": 0.054612,
+      "players": 10
+    },
+    {
+      "team": "Minnesota",
+      "id": "ncaa:609671",
+      "current_rank": 150,
+      "min": 150,
+      "max": 185,
+      "range": 35,
+      "quality_index": -0.024778,
+      "players": 10
+    },
+    {
+      "team": "Mississippi St.",
+      "id": "ncaa:609672",
+      "current_rank": 203,
+      "min": 168,
+      "max": 203,
+      "range": 35,
+      "quality_index": 0.040233,
+      "players": 7
+    },
+    {
+      "team": "Memphis",
+      "id": "ncaa:609664",
+      "current_rank": 121,
+      "min": 87,
+      "max": 121,
+      "range": 34,
+      "quality_index": 0.062671,
+      "players": 11
+    },
+    {
+      "team": "Northern Ky.",
+      "id": "ncaa:609796",
+      "current_rank": 181,
+      "min": 181,
+      "max": 215,
+      "range": 34,
+      "quality_index": -0.020725,
+      "players": 8
+    },
+    {
+      "team": "Massachusetts",
+      "id": "ncaa:609663",
+      "current_rank": 205,
+      "min": 205,
+      "max": 239,
+      "range": 34,
+      "quality_index": -0.027649,
+      "players": 8
+    },
+    {
+      "team": "Merrimack",
+      "id": "ncaa:609880",
+      "current_rank": 95,
+      "min": 95,
+      "max": 127,
+      "range": 32,
+      "quality_index": -0.01882,
+      "players": 4
+    },
+    {
+      "team": "George Washington",
+      "id": "ncaa:609738",
+      "current_rank": 77,
+      "min": 77,
+      "max": 108,
+      "range": 31,
+      "quality_index": -0.02086,
+      "players": 11
+    },
+    {
+      "team": "Boston College",
+      "id": "ncaa:609634",
+      "current_rank": 135,
+      "min": 104,
+      "max": 135,
+      "range": 31,
+      "quality_index": 0.044228,
+      "players": 10
+    },
+    {
+      "team": "Little Rock",
+      "id": "ncaa:609626",
+      "current_rank": 240,
+      "min": 209,
+      "max": 240,
+      "range": 31,
+      "quality_index": 0.0352,
+      "players": 9
+    },
+    {
+      "team": "Hampton",
+      "id": "ncaa:609745",
+      "current_rank": 257,
+      "min": 226,
+      "max": 257,
+      "range": 31,
+      "quality_index": 0.032001,
+      "players": 8
+    },
+    {
+      "team": "UNC Asheville",
+      "id": "ncaa:609681",
+      "current_rank": 238,
+      "min": 238,
+      "max": 268,
+      "range": 30,
+      "quality_index": -0.028118,
+      "players": 9
+    },
+    {
+      "team": "Fla. Atlantic",
+      "id": "ncaa:609731",
+      "current_rank": 142,
+      "min": 113,
+      "max": 142,
+      "range": 29,
+      "quality_index": 0.050061,
+      "players": 8
+    },
+    {
+      "team": "Xavier",
+      "id": "ncaa:609530",
+      "current_rank": 152,
+      "min": 123,
+      "max": 152,
+      "range": 29,
+      "quality_index": 0.045673,
+      "players": 8
+    },
+    {
+      "team": "Drake",
+      "id": "ncaa:609550",
+      "current_rank": 191,
+      "min": 191,
+      "max": 220,
+      "range": 29,
+      "quality_index": -0.017989,
+      "players": 7
+    },
+    {
+      "team": "Bowling Green",
+      "id": "ncaa:609636",
+      "current_rank": 194,
+      "min": 165,
+      "max": 194,
+      "range": 29,
+      "quality_index": 0.034111,
+      "players": 10
+    },
+    {
+      "team": "Western Mich.",
+      "id": "ncaa:609521",
+      "current_rank": 207,
+      "min": 178,
+      "max": 207,
+      "range": 29,
+      "quality_index": 0.038856,
+      "players": 8
+    },
+    {
+      "team": "Sacramento St.",
+      "id": "ncaa:609649",
+      "current_rank": 241,
+      "min": 212,
+      "max": 241,
+      "range": 29,
+      "quality_index": 0.0354,
+      "players": 10
+    },
+    {
+      "team": "North Dakota St.",
+      "id": "ncaa:609779",
+      "current_rank": 82,
+      "min": 82,
+      "max": 110,
+      "range": 28,
+      "quality_index": -0.013087,
+      "players": 6
+    },
+    {
+      "team": "Utah",
+      "id": "ncaa:609506",
+      "current_rank": 218,
+      "min": 192,
+      "max": 218,
+      "range": 26,
+      "quality_index": 0.029127,
+      "players": 8
+    },
+    {
+      "team": "Oregon St.",
+      "id": "ncaa:609813",
+      "current_rank": 105,
+      "min": 80,
+      "max": 105,
+      "range": 25,
+      "quality_index": 0.055129,
+      "players": 10
+    },
+    {
+      "team": "LIU",
+      "id": "ncaa:609590",
+      "current_rank": 157,
+      "min": 157,
+      "max": 182,
+      "range": 25,
+      "quality_index": -0.00971,
+      "players": 8
+    },
+    {
+      "team": "Butler",
+      "id": "ncaa:609643",
+      "current_rank": 180,
+      "min": 155,
+      "max": 180,
+      "range": 25,
+      "quality_index": 0.030672,
+      "players": 8
+    },
+    {
+      "team": "San Diego",
+      "id": "ncaa:609871",
+      "current_rank": 261,
+      "min": 236,
+      "max": 261,
+      "range": 25,
+      "quality_index": 0.020715,
+      "players": 9
+    },
+    {
+      "team": "Iowa",
+      "id": "ncaa:609577",
+      "current_rank": 51,
+      "min": 51,
+      "max": 75,
+      "range": 24,
+      "quality_index": -0.009679,
+      "players": 10
+    },
+    {
+      "team": "Indiana St.",
+      "id": "ncaa:609573",
+      "current_rank": 272,
+      "min": 248,
+      "max": 272,
+      "range": 24,
+      "quality_index": 0.024463,
+      "players": 6
+    },
+    {
+      "team": "Marquette",
+      "id": "ncaa:609658",
+      "current_rank": 101,
+      "min": 78,
+      "max": 101,
+      "range": 23,
+      "quality_index": 0.050636,
+      "players": 10
+    }
+  ],
+  "measurement": "Actual recomputed 365-team Elo ranks, not predictive validation",
+  "decision": "No rank promotion. Need historical same-feature player-quality holdout with beta selected exclusively on training.",
+  "beta0_to_beta800_mean_abs_rank_shift": 9.830136986301369
+}
