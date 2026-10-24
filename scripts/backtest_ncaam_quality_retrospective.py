@@ -8,6 +8,7 @@ player links use only unique exact normalized full names; ambiguous excluded.
 """
 import argparse,csv,gzip,hashlib,json,math,statistics
 from collections import defaultdict,Counter
+from itertools import groupby
 from datetime import datetime,timedelta
 from pathlib import Path
 
@@ -180,15 +181,21 @@ def season_prediction(games,prior_elo,features,quality_beta,first_days=45):
     if not games:raise ValueError('no historical D1 games')
     beginning=games[0]['day'];end=beginning+timedelta(days=first_days)
     ll=brier=0.0;n=0
-    for g in games:
-        if g['home'] not in ratings or g['away'] not in ratings:continue
-        p=logistic(ratings[g['home']]-ratings[g['away']])
-        if g['day']<end:
-            y=1.0 if g['home_score']>g['away_score'] else 0.0
-            ll-=y*math.log(max(p,1e-12))+(1-y)*math.log(max(1-p,1e-12))
-            brier+=(p-y)**2
-            n+=1
-        game_update(ratings,g)
+    # We have dates, not verified tipoff timestamps. Every matchup on a date
+    # must be predicted from the same pre-date ratings snapshot.
+    for day, matches_iter in groupby(games,key=lambda g:g['day']):
+        matches=list(matches_iter)
+        if day<end:
+            for g in matches:
+                if g['home'] not in ratings or g['away'] not in ratings:continue
+                p=logistic(ratings[g['home']]-ratings[g['away']])
+                y=1.0 if g['home_score']>g['away_score'] else 0.0
+                ll-=y*math.log(max(p,1e-12))+(1-y)*math.log(max(1-p,1e-12))
+                brier+=(p-y)**2
+                n+=1
+        for g in matches:
+            if g['home'] in ratings and g['away'] in ratings:
+                game_update(ratings,g)
     if n<100:raise ValueError(f'insufficient first {first_days} days games: {n}')
     return {'games':n,'log_loss':ll/n,'brier':brier/n}
 def unadjusted_end(games,prior_elo,programs):
