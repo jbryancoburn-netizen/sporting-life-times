@@ -21,8 +21,8 @@
     const summary=el("p",undefined,"college-elo-note");
     const render=()=>{
       table.replaceChildren();
-      const filtered=d.forecasts.filter(x=>x.cohort===selected).slice(0,35);
-      summary.textContent=filtered.length+" available timestamped fixtures in this division · Research-only, not a betting recommendation.";
+      const filtered=d.forecasts.filter(x=>x.cohort===selected && Date.parse(x.kickoff_utc)>Date.now()).slice(0,35);
+      summary.textContent=filtered.length+" future fixtures currently visible in this division · Research-only, not a betting recommendation.";
       if(!filtered.length){table.append(el("p","No pregame forecasts in the published window for this division."));return;}
       const grid=el("div",undefined,"college-elo-scroll"),t=el("table",undefined,"college-elo-table"),thead=el("thead"),hdr=el("tr");
       for(const h of ["Kickoff (ET)","Away","Home","Away win","Draw","Home win"]){hdr.append(el("th",h));}thead.append(hdr);t.append(thead);
@@ -42,7 +42,7 @@
     };
     options.addEventListener("change",()=>{selected=options.value;render();});
     node.append(controls,summary);
-    status.textContent="Research forecasts · "+d.count_locked+" pregame probabilities archived · Only sourced start times and known teams shown.";
+    status.textContent="Research forecasts · "+d.count_locked+" timestamped pregame predictions archived · Upcoming only; no after-kickoff forecasts shown.";
     render();
   }catch(e){status.textContent="No independently verified pregame forecast feed is available.";table.replaceChildren();}
 })();
