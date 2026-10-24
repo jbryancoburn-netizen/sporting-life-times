@@ -3,22 +3,24 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const updater=fs.readFileSync('scripts/update_ncaam_2027.py','utf8');
 const page=fs.readFileSync('ncaam-elo-page.js','utf8');
-test('Python updater contains no literal escaped newlines in source logic',()=>{
- assert.ok(!updater.includes('approved=False\\n'));
- assert.ok(updater.includes('candidate.get("identity_verified") is True'));
- assert.ok(updater.includes('candidate.get("preseason_information_integrity_verified") is True'));
- assert.ok(updater.includes('candidate.get("production_elo_approved") is True'));
+test('NCAA current-season updater enforces complete membership and source integrity',()=>{
+ assert.match(updater,/len\(current\)!=365/);
+ assert.match(updater,/Duplicate\/missing contest ID/);
+ assert.match(updater,/future-dated result/);
+ assert.match(updater,/NCAA Elo conservation failure/);
 });
-test('NCAA page excludes unapproved shadow and preserves baseline',()=>{
- assert.ok(!page.includes('const rosterAuditPassed=roster?.audit?.release_approved===true;\\n'));
- assert.ok(page.includes('roster?.audit?.release_approved===true'));
- assert.ok(page.includes('const available={baseline}'));
+test('NCAA page keeps scoring-quality research unapproved and a validated baseline',()=>{
+ assert.match(page,/production_elo_approved!==false/);
+ assert.match(page,/preseason_asof_certified!==false/);
+ assert.match(page,/SHADOW_ONLY_DO_NOT_PROMOTE/);
+ assert.match(page,/const available=\{baseline\}/);
+ assert.match(page,/if\(current\?\.games_played>0\)available\.current=current/);
 });
-
-test('NCAA page explains that published baseline is not the unapproved roster shadow',()=>{
+test('NCAA page communicates uncertain roster timing and experimental status',()=>{
  const html=fs.readFileSync('ncaam-elo.html','utf8');
- assert.match(html,/Player-based adjustments are experimental and are not included in the official ratings/);
- assert.match(html,/historical roster timing and cross-provider identities are not verified/);
+ assert.match(html,/Historical first-day rosters have not been verified/);
+ assert.match(html,/improvement does not certify an opening-day adjustment/);
+ assert.match(html,/Players lacking sufficient evidence are not assigned synthetic value/);
 });
 test('Historical opponent backtest reports a real full-coverage two-track fallback',()=>{
  const code=fs.readFileSync('scripts/backtest_ncaam_opponent_quality.py','utf8');
