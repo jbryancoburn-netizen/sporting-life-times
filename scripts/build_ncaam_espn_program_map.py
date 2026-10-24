@@ -63,6 +63,8 @@ def mapping(snapshot,baseline):
 def main():
     baseline=json.loads(Path("data/ncaam-2026-27-preseason-roster-informed.json").read_text())
     d=mapping(get(),baseline)
+    if d["matched_team_count"]<362:
+        raise ValueError("ESPN 2026-27 D1 mapping regression: expected at least 362 verified school IDs, got "+str(d["matched_team_count"]))
     path=Path("data/ncaam-2026-27-espn-program-crosswalk.json")
     path.write_text(json.dumps(d,indent=2)+"\n")
     print(json.dumps({"matched":d["matched_team_count"],"espn_teams":d["espn_team_count"],
