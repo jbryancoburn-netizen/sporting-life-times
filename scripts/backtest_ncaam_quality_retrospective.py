@@ -16,7 +16,7 @@ MOV=0.55
 CARRYOVER=0.65
 BETA_RET=120.0
 BETA_TRANSFER=160.0
-BETA_GRID=(-400,-300,-200,-150,-100,-75,-50,-25,0,25,50,75,100,150,200,300,400)
+BETA_GRID=(-1000,-600,-400,-200,-100,0,100,200,300,400,600,800,1000,1200,1600,2000)
 SCHOOL_ALIASES={'iupui':'iu indy','fairleigh dickinson':'fdu',
                 'tex a&m-commerce':'east texas a&m',
                 'saint francis (pa)':'saint francis'}
@@ -241,6 +241,7 @@ def evaluate(root):
         'holdout_minutes_plus_quality':hold_quality,
         'holdout_log_loss_gain':hold_baseline['log_loss']-hold_quality['log_loss'],
         'holdout_brier_gain':hold_baseline['brier']-hold_quality['brier'],
+        'training_grid_boundary':best in (min(BETA_GRID),max(BETA_GRID)),
         'holdout_both_metrics_improved':hold_quality['log_loss']<hold_baseline['log_loss'] and
                                         hold_quality['brier']<hold_baseline['brier'] and best!=0,
         'roster_audit':feature_audit,
