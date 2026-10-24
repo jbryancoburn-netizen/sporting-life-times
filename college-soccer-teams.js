@@ -34,7 +34,7 @@ for(const [label,value] of [['Elo',fmt(t.elo)],['Division rank','#'+t.rank],['Re
 profile.append(metrics);
 if(t.cohort==='men-d3'&&t.team_id==='trine'){
 const official=node('p',undefined,'team-official-links');
-const schedule=node('a','Official 2026 Trine men's soccer schedule & results ↗');
+const schedule=node('a',"Official 2026 Trine men's soccer schedule & results ↗");
 schedule.href='https://trinethunder.com/sports/mens-soccer/schedule/2026';schedule.target='_blank';schedule.rel='noopener noreferrer';
 official.append(schedule);profile.append(official);
 }
