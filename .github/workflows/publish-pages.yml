@@ -46,6 +46,10 @@ jobs:
           grep -q 'nba-forecast-match' nba.html
           grep -q 'nba-analysis-match' nba.html
           test -s nba-team-desk.html
+          test -s nba-live-feed.js
+          grep -q 'NBA LIVE' nba.html
+          grep -q 'nba-live-feed.js?v=1' nba.html
+          node --check nba-live-feed.js
           test -s nba-team-desk.js
           grep -q 'nba-team-desk.js?v=4' nba-team-desk.html
           grep -q 'AROUND THE CLUB' nba-team-desk.html
