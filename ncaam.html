@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NCAA Men's Basketball | The Sporting Life &amp; Times</title>
-<link rel="stylesheet" href="league-desk.css">
+<link rel="stylesheet" href="league-desk.css"><link rel="stylesheet" href="ncaam-edition.css?v=1">
 <style>
 .cbb-shell{max-width:1260px;margin:auto;padding:0 14px 45px}
 .cbb-headline{font:normal clamp(25px,4vw,46px)/1.1 Georgia,serif;margin:25px 0 10px}
@@ -48,18 +48,19 @@
 <p id="desk-state" class="cbb-section-kicker">Loading verified college basketball data…</p>
 <h2 class="cbb-headline">The College Basketball Desk</h2>
 <p class="cbb-subtitle" id="desk-summary">Independent predictions built from actual NCAA team results.</p>
+<div class="cbb-ticker"><div><strong>GAME CENTER</strong><div id="live-scoreboard"></div></div><a href="ncaam-elo.html">ALL 365 TEAMS · ELO ↗</a></div>
 <div class="cbb-grid">
-<div class="cbb-column">
-<section class="cbb-panel"><div class="cbb-section-kicker">The Ratings</div><h2>Independent Elo Top 16</h2><div id="elo-leaders"></div><p class="cbb-muted"><a class="cbb-link" href="ncaam-elo.html">All 365 schools, searchable rankings and matchup probabilities →</a></p></section>
-<section class="cbb-panel"><div class="cbb-section-kicker">League Tables</div><h2>Conference Standings</h2><label for="conference-filter" class="cbb-muted">Choose conference</label><select id="conference-filter"></select><div id="standings"></div><p class="cbb-muted">W–L and conference records come from the same once-only NCAA game ledger as Elo. Preseason numbers are 0–0.</p></section>
+<div class="cbb-column cbb-editorial">
+<section class="cbb-panel cbb-news-panel"><div class="cbb-section-kicker">The Lead / Across the Sport</div><h2>College Basketball News</h2><p class="cbb-muted">Latest attributed reporting from around Division I</p><div id="stories"></div></section>
+<section class="cbb-panel"><div class="cbb-section-kicker">The Game Book</div><h2>Recent Finals</h2><div id="results"></div></section>
 </div>
-<div class="cbb-column">
-<section class="cbb-panel"><div class="cbb-section-kicker">Prediction Desk</div><h2>Upcoming Forecasts</h2><div id="forecasts"></div><p class="cbb-muted">Model probabilities are experimental, not guaranteed outcomes. Venue advantage remains uncalibrated.</p></section>
-<section class="cbb-panel"><div class="cbb-section-kicker">The Scoreboard</div><h2>External Live Feed</h2><div id="live-scoreboard"></div><p class="cbb-muted">Live feed is informational; only confirmed games enter the independent Elo ledger.</p></section>
+<div class="cbb-column cbb-ratings-column">
+<section class="cbb-panel"><div class="cbb-section-kicker">The Ratings</div><h2>Independent Elo Top 16</h2><div id="elo-leaders"></div><p class="cbb-muted"><a class="cbb-link" href="ncaam-elo.html">All 365 schools · searchable rankings & matchup calculator →</a></p></section>
+<section class="cbb-panel"><div class="cbb-section-kicker">Prediction Desk</div><h2>Upcoming Forecasts</h2><div id="forecasts"></div><p class="cbb-muted">Preseason probabilities are model estimates; home-court adjustment is not yet calibrated.</p></section>
 </div>
-<div class="cbb-column">
-<section class="cbb-panel"><div class="cbb-section-kicker">Game Book</div><h2>Recent Finals</h2><div id="results"></div></section>
-<section class="cbb-panel"><div class="cbb-section-kicker">Across the Sport</div><h2>College Basketball News</h2><div id="stories"></div></section>
+<div class="cbb-column cbb-standings-column">
+<section class="cbb-panel"><div class="cbb-section-kicker">League Tables / All Conferences</div><h2>Conference Standings</h2><label for="conference-filter" class="cbb-muted">Choose conference</label><select id="conference-filter"></select><div id="standings"></div><p class="cbb-muted">W–L, win percentage, conference record and independent Elo. Preseason records are 0–0.</p></section>
+<section class="cbb-panel"><div class="cbb-section-kicker">Team Directory</div><h2>Find Your Team</h2><input id="cbb-team-search" type="search" placeholder="Search all 365 programs…" aria-label="Find a college basketball team"><div id="cbb-team-results"></div></section>
 </div>
 </div>
 <footer class="cbb-footer"><span id="updated">Loading…</span> · Independently calculated ratings; roster-informed preseason is provisional. Uncertified experimental player-quality coefficients are not used.</footer>
