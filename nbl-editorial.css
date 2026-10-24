@@ -67,3 +67,28 @@ body[data-league="nbl"] .nbl-scoreboard-empty{font:13px/1.5 Georgia,serif;color:
 @media(max-width:850px){body[data-league="nbl"] .nbl-edition-data{grid-template-columns:1fr 1fr}body[data-league="nbl"] .nbl-edition-cell:nth-child(2){border-right:0}body[data-league="nbl"] .nbl-edition-cell:nth-child(-n+2){border-bottom:1px solid var(--nbl-rule)}}
 @media(max-width:590px){body[data-league="nbl"] .nbl-edition-title{font-size:2.55rem}body[data-league="nbl"] .nbl-jump{gap:3px 10px}body[data-league="nbl"] .nbl-jump a{font-size:10px}body[data-league="nbl"] .nbl-edition-data{grid-template-columns:1fr 1fr}body[data-league="nbl"] .nbl-edition-cell{padding:10px 9px}body[data-league="nbl"] .nbl-edition-cell strong{font-size:1.02rem}body[data-league="nbl"] .nbl-results-list,body[data-league="nbl"] .nbl-compare-grid{grid-template-columns:1fr}body[data-league="nbl"] .nbl-team-summary{padding:12px}body[data-league="nbl"] #league-standings-table th,body[data-league="nbl"] #league-standings-table td,body[data-league="nbl"] #nbl-elo-table th,body[data-league="nbl"] #nbl-elo-table td{padding:7px 3px;font-size:.75rem}body[data-league="nbl"] .nbl-club-mark{width:18px;height:18px}}
 @media(max-width:370px){body[data-league="nbl"] .nbl-edition-data{grid-template-columns:1fr}body[data-league="nbl"] .nbl-edition-cell{border-right:0;border-bottom:1px solid var(--nbl-rule)}body[data-league="nbl"] .nbl-edition-cell:last-child{border-bottom:0}body[data-league="nbl"] .nbl-controls label{flex-basis:100%}}
+
+/* Intentional newspaper section order; prevent squeezed incidental grid columns. */
+body[data-league="nbl"] .league-newspaper-grid #nbl-power-index{grid-column:span 2!important;border-top:1px solid var(--nbl-rule)!important;padding-left:0!important}
+body[data-league="nbl"] .league-newspaper-grid #nbl-compare-desk{grid-column:1/-1!important;border-top:2px solid var(--nbl-ink)!important;padding-top:16px!important}
+body[data-league="nbl"] .league-newspaper-grid #league-data-links{grid-column:span 3!important}
+body[data-league="nbl"] .league-newspaper-grid #league-upcoming{grid-column:span 2!important}
+body[data-league="nbl"] .league-newspaper-grid #nbl-compare-desk .nbl-compare-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:1080px){
+ body[data-league="nbl"] .league-newspaper-grid #nbl-power-index{grid-column:span 3!important}
+ body[data-league="nbl"] .league-newspaper-grid #league-data-links{grid-column:span 4!important}
+ body[data-league="nbl"] .league-newspaper-grid #league-upcoming{grid-column:span 3!important}
+}
+@media(max-width:850px){
+ body[data-league="nbl"] .league-newspaper-grid #nbl-power-index,
+ body[data-league="nbl"] .league-newspaper-grid #nbl-compare-desk,
+ body[data-league="nbl"] .league-newspaper-grid #league-data-links,
+ body[data-league="nbl"] .league-newspaper-grid #league-upcoming{grid-column:1/-1!important;border-right:0!important;padding-right:0!important}
+}
+@media(max-width:590px){
+ body[data-league="nbl"] .league-newspaper-grid #nbl-compare-desk .nbl-compare-grid{grid-template-columns:1fr}
+ body[data-league="nbl"] .league-newspaper-grid #nbl-power-index,
+ body[data-league="nbl"] .league-newspaper-grid #nbl-compare-desk,
+ body[data-league="nbl"] .league-newspaper-grid #league-data-links,
+ body[data-league="nbl"] .league-newspaper-grid #league-upcoming{grid-column:1!important}
+}
