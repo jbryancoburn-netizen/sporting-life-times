@@ -5,6 +5,7 @@ on:
       - scripts/backtest_ncaam_opponent_quality.py
       - scripts/test_ncaam_opponent_quality.py
       - scripts/test_ncaam_incremental_player_scoring.py
+      - scripts/test_ncaam_true_shooting_incremental.py
       - scripts/test_ncaam_opponent_quality_date_batch.py
       - scripts/test_ncaam_opponent_exposure_integrity.py
       - scripts/verify_ncaam_opponent_quality_promotion.py
@@ -26,6 +27,7 @@ jobs:
           python-version: '3.12'
       - run: python -m unittest discover -s scripts -p test_ncaam_opponent_quality.py -v
       - run: python -m unittest discover -s scripts -p test_ncaam_incremental_player_scoring.py -v
+      - run: python -m unittest discover -s scripts -p test_ncaam_true_shooting_incremental.py -v
       - run: python -m unittest discover -s scripts -p test_ncaam_opponent_quality_date_batch.py -v
       - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_exposure_integrity.py' -v
       - run: python -m unittest discover -s scripts -p 'test_ncaam_opponent_quality_promotion.py' -v
