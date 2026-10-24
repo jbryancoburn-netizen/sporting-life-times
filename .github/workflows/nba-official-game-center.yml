@@ -8,6 +8,7 @@ on:
       - 'scripts/backfill-nba-boxscores.py'
       - 'scripts/backfill-nba-espn.py'
       - 'scripts/collect-nba-schedule.py'
+      - 'scripts/enrich-nba-game-details.py'
       - 'scripts/collect-nba-player-leaders.py'
       - 'scripts/build-nba-possession-inputs.mjs'
       - 'scripts/test-nba-ingestion.py'
@@ -46,6 +47,9 @@ jobs:
       - name: Backfill ESPN game summaries when official NBA CDN misses box scores
         continue-on-error: true
         run: python scripts/backfill-nba-espn.py
+      - name: Enrich completed games with quarter scores and team comparisons
+        continue-on-error: true
+        run: python scripts/enrich-nba-game-details.py
       - name: Collect next seven days and live NBA scores
         continue-on-error: true
         run: python scripts/collect-nba-schedule.py
