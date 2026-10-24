@@ -11,6 +11,24 @@ class NBLExternalArchiveTests(unittest.TestCase):
         self.assertEqual(result["matched_scorelines"],1)
         self.assertEqual(result["unmatched_count"],0)
         self.assertFalse(result["production_approved"])
+    def test_documented_external_typo_must_be_present_to_reconcile(self):
+        game={"id":"401787560","played_at":"2025-11-22T09:00Z",
+            "home":"South East Melbourne Phoenix","away":"Adelaide 36ers",
+            "home_score":81,"away_score":94}
+        d={"status":"uncertified_source_candidates","games":[game]}
+        result=audit(d,compact("South East Melbourne Phoenix 81 Adelaide 36ers 93"))
+        self.assertEqual(result["documented_discrepancies"],1)
+        self.assertEqual(result["unmatched_count"],0)
+        self.assertFalse(result["production_approved"])
+        bad=audit(d,compact("South East Melbourne Phoenix 81 Adelaide 36ers 92"))
+        self.assertEqual(bad["unmatched_count"],1)
+    def test_reviewed_reversed_matchup_is_explicit_not_hidden(self):
+        game={"id":"401863732","played_at":"2026-03-14T09:00Z",
+            "home":"Perth Wildcats","away":"Sydney Kings",
+            "home_score":75,"away_score":89}
+        result=audit({"status":"uncertified_source_candidates","games":[game]},
+            compact("Sydney Kings 89 Perth Wildcats 75"))
+        self.assertEqual(result["discrepancy_details"][0]["discrepancy"],"article_reverses_team_order")
     def test_does_not_falsely_certify_partial_archive(self):
         data={"status":"uncertified_source_candidates","games":[
             {"id":"401000001","played_at":"2025-10-01T08:00Z","home":"Sydney Kings",
