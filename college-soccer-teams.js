@@ -1,26 +1,73 @@
 (async()=>{'use strict';
-const search=document.getElementById('college-team-search'),results=document.getElementById('college-team-results'),profile=document.getElementById('college-team-profile');
-if(!search)return;
-const el=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);return n;};
+const search=document.getElementById('college-team-search');
+const results=document.getElementById('college-team-results');
+const profile=document.getElementById('college-team-profile');
+if(!search||!results||!profile)return;
+const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;return n;};
+const url=new URL(location.href);
+const cohortName=c=>(c.startsWith('women')?'Women':'Men')+' · Division '+({1:'I',2:'II',3:'III'}[c.slice(-1)]);
+const fmt=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:1});
+const fullDate=s=>{try{return new Date(s).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});}catch{return s;}};
 try{
-const [r,f]=await Promise.all([fetch('data/college-soccer-elo.json',{cache:'no-store'}),fetch('data/college-soccer-elo-final-ledger.json',{cache:'no-store'})]);
-if(!r.ok||!f.ok)throw Error('Team feeds unavailable');
-const data=await r.json(),ledger=(await f.json()).results||[];
-const teams=Object.entries(data.cohorts).flatMap(([cohort,rows])=>rows.map(t=>({...t,cohort})));
-const params=new URLSearchParams(location.search);
+const paths=['data/college-soccer-elo.json','data/college-soccer-elo-final-ledger.json','data/college-soccer-prospective-v2.json'];
+const responses=await Promise.all(paths.map(p=>fetch(p,{cache:'no-store'})));
+if(responses.some(r=>!r.ok))throw Error('One or more verified datasets are unavailable');
+const [rankings,ledger,archive]=await Promise.all(responses.map(r=>r.json()));
+const teams=Object.entries(rankings.cohorts).flatMap(([cohort,rows])=>rows.map(t=>({...t,cohort})));
+const byId=new Map(teams.map(t=>[t.cohort+':'+t.team_id,t]));
+const forecasts=archive.forecasts||[],verified=ledger.results||[];
+const box=(heading)=>{const section=node('section',undefined,'team-panel');section.append(node('h3',heading));profile.append(section);return section;};
 function open(t){
-profile.replaceChildren();const title=el('h2',t.team+' · '+(t.cohort.startsWith('women')?"Women's":"Men's")+' Division '+['','I','II','III'][Number(t.cohort.slice(-1))]);profile.append(title);
-const summary=el('p','Elo '+Number(t.elo).toFixed(1)+' · Rank #'+t.rank+' · Record '+t.record+' · Goal difference '+(t.gd>0?'+':'')+t.gd);profile.append(summary);
-const note=el('p','Provisional independent Elo. Recent scores below come from the published verified final ledger, not necessarily the full season.');note.className='hub-small';profile.append(note);
-const games=ledger.filter(g=>g.match_id.startsWith(t.cohort.startsWith('women')?'women-':'men-')&&(g.home_team===t.team_id||g.away_team===t.team_id)).slice().reverse().slice(0,20);
-const h=el('h3','Recent verified finals');profile.append(h);
-if(!games.length)profile.append(el('p','No matching finals in the current published ledger.'));
-for(const g of games){const line=el('p');const a=el('a',g.date+' · '+g.away_team+' '+g.away_goals+' – '+g.home_goals+' '+g.home_team);a.href=g.source_game;a.target='_blank';a.rel='noopener noreferrer';line.append(a);profile.append(line);}
-const link=el('a','Share this team page ↗');link.href='?team='+encodeURIComponent(t.cohort+':'+t.team_id)+'#college-team-finder';profile.append(link);
-history.replaceState(null,'',link.href);
+profile.replaceChildren();results.replaceChildren();
+const header=node('div',undefined,'team-hero');
+header.append(node('p',cohortName(t.cohort)+' · '+String(rankings.as_of||'Latest published edition'),'team-eyebrow'));
+header.append(node('h2',t.team));profile.append(header);
+const metrics=node('div',undefined,'team-metrics');
+for(const [label,value] of [['Elo',fmt(t.elo)],['Division rank','#'+t.rank],['Record',t.record],['Goals for / against',t.gf+' / '+t.ga],['Goal differential',(t.gd>0?'+':'')+t.gd]]){const metric=node('div',undefined,'team-metric');metric.append(node('span',label),node('strong',value));metrics.append(metric);}
+profile.append(metrics);
+const note=node('p','Ratings and season records come from the published provisional NCAA soccer Elo dataset. Verified finals below are only the incremental official-game ledger, not a complete season schedule.','college-elo-note');profile.append(note);
+const key=t.cohort+':'+t.team_id;
+const teamForecasts=forecasts.filter(f=>f.cohort===t.cohort&&(f.home_team===t.team_id||f.away_team===t.team_id));
+const finalById=new Map(verified.map(f=>[f.match_id,f]));
+const upcoming=teamForecasts.filter(f=>!finalById.has(f.match_id)).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
+const pred=box('Scheduled matches & locked forecasts');
+if(!upcoming.length)pred.append(node('p','No unmatched locked forecasts for this program in the current archive.'));
+for(const f of upcoming.slice(0,20)){
+const home=f.home_team===t.team_id,opp=home?f.away_name:f.home_name;
+const item=node('div',undefined,'team-game');
+const left=node('div');left.append(node('strong',(home?'vs ':'at ')+opp));left.append(node('small',new Date(f.kickoff_utc).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})));
+const right=node('div',undefined,'team-game-forecast');
+const p=home?f.p_home:f.p_away;
+right.append(node('strong',Math.round(p*100)+'% win'));right.append(node('small',Math.round(f.p_draw*100)+'% draw'));
+item.append(left,right);pred.append(item);
 }
-function render(){const q=search.value.trim().toLowerCase();results.replaceChildren();if(q.length<2)return;const matches=teams.filter(t=>t.team.toLowerCase().includes(q)).slice(0,30);for(const t of matches){const b=el('button',t.team+' · '+t.cohort.replace('-d',' Division '));b.type='button';b.style.cssText='display:block;margin:6px 0;padding:8px 12px;text-align:left;width:100%;max-width:480px';b.onclick=()=>open(t);results.append(b);}if(!matches.length)results.append(el('p','No school found. Try a shorter name.'));}
+const games=verified.filter(g=>g.match_id.startsWith(t.cohort.startsWith('women')?'women-':'men-')&&(g.home_team===t.team_id||g.away_team===t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
+const finals=box('Recent verified results');
+if(!games.length)finals.append(node('p','No verified recent finals appear in the currently published incremental ledger.'));
+for(const g of games.slice(0,30)){
+const home=g.home_team===t.team_id,opponent=home?g.away_team:g.home_team;
+const gf=home?g.home_goals:g.away_goals,ga=home?g.away_goals:g.home_goals;
+const line=node('div',undefined,'team-game');
+const left=node('div');left.append(node('strong',(home?'vs ':'at ')+opponent));left.append(node('small',fullDate(g.date)));
+const right=node('div',undefined,'team-game-forecast');
+const a=node('a',gf+'–'+ga+' '+(gf>ga?'W':gf<ga?'L':'D'));a.href=g.source_game;a.rel='noopener noreferrer';a.target='_blank';right.append(a);
+line.append(left,right);finals.append(line);
+}
+const stat=box('Model & data coverage');
+stat.append(node('p',teamForecasts.length+' timestamped forecasts found for this team · '+games.length+' recent verified ledger results. Forecasts are research predictions, not guarantees.'));
+stat.append(node('p','An Elo movement chart requires saved date-by-date ratings. The published current rating is not enough to reconstruct that history; no synthetic trend is shown.','college-elo-note'));
+const link=node('a','Share team profile ↗');link.href='college-soccer-team.html?team='+encodeURIComponent(key);link.className='team-share';profile.append(link);
+if(location.pathname.endsWith('college-soccer-team.html'))document.title=t.team+' Soccer Elo & Scores | The Sporting Life & Times';
+history.replaceState(null,'',location.pathname+'?team='+encodeURIComponent(key)+'#college-team-finder');
+}
+function render(){
+const q=search.value.trim().toLocaleLowerCase();results.replaceChildren();if(q.length<2)return;
+const matches=teams.filter(t=>t.team.toLocaleLowerCase().includes(q)).sort((a,b)=>a.team.localeCompare(b.team)).slice(0,35);
+for(const t of matches){const button=node('button',t.team+' · '+cohortName(t.cohort),'team-search-result');button.type='button';button.addEventListener('click',()=>{search.value=t.team;open(t);});results.append(button);}
+if(!matches.length)results.append(node('p','No matching school. Try a shorter school name.'));
+}
 search.addEventListener('input',render);
-const target=params.get('team');if(target){const t=teams.find(x=>x.cohort+':'+x.team_id===target);if(t){search.value=t.team;render();open(t);}}
-}catch(e){results.textContent='Team search is temporarily unavailable.';}
+const selected=new URLSearchParams(location.search).get('team');if(selected&&byId.has(selected)){const t=byId.get(selected);search.value=t.team;open(t);}
+results.setAttribute('aria-label',teams.length+' searchable NCAA soccer programs');
+}catch(err){results.textContent='Team profiles are temporarily unavailable because a required published data feed could not be loaded.';console.error('NCAA soccer team finder',err);}
 })();
