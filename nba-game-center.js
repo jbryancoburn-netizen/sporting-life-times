@@ -41,9 +41,25 @@ function render(g,events,rankings){
  const eloStat=t=>{const v=gameElo?.[t.code];if(!v)return '<small>Elo unavailable</small>';
   return '<b>'+v.elo.toFixed(1)+'</b><small>ELO '+(v.delta>0?'+':'')+v.delta.toFixed(1)+' · RANK #'+v.rank+(v.movement>0?' ▲'+v.movement:v.movement<0?' ▼'+Math.abs(v.movement):'')+'</small>';
  };
+ const quarterScores=(()=>{
+  const periods=g.period_scores;
+  if(!periods?.away?.length||!periods?.home?.length||periods.away.length!==periods.home.length)return '';
+  const labels=periods.away.map((_,i)=>i<4?'Q'+(i+1):'OT'+(i-3));
+  const row=(t,values)=>'<div class="quarter-row"><b>'+esc(t.code)+'</b>'+values.map(v=>'<span>'+esc(v)+'</span>').join('')+'<strong>'+esc(t.score)+'</strong></div>';
+  return '<section class="section"><h3>Quarter by Quarter</h3><div class="quarter-scroller"><div class="quarter-table" style="--periods:'+labels.length+'"><div class="quarter-row quarter-head"><b></b>'+labels.map(v=>'<span>'+v+'</span>').join('')+'<strong>FINAL</strong></div>'+row(away,periods.away)+row(home,periods.home)+'</div></div></section>';
+ })();
+ const teamComparison=(()=>{
+  const x=g.team_comparison;if(!x?.away||!x?.home)return '';
+  const labels=['FG%','3PT%','FT%','REB','AST','TO','PAINT','FAST BREAK','BENCH'];
+  const rows=labels.filter(label=>Number.isFinite(x.away[label])&&Number.isFinite(x.home[label])).map(label=>{
+   const a=x.away[label],h=x.home[label],max=Math.max(a,h,1);
+   return '<div class="compare-row"><div class="compare-value">'+a+'</div><div class="compare-bars"><span style="width:'+(100*a/max).toFixed(1)+'%;background:'+window.SLTScorebug.color(away.code)+'"></span></div><div class="compare-name">'+label+'</div><div class="compare-bars compare-home"><span style="width:'+(100*h/max).toFixed(1)+'%;background:'+window.SLTScorebug.color(home.code)+'"></span></div><div class="compare-value">'+h+'</div></div>';
+  }).join('');
+  return rows?'<section class="section"><h3>Team Comparison</h3><div class="comparison"><div class="compare-header"><span>'+esc(away.code)+'</span><span>'+esc(home.code)+'</span></div>'+rows+'</div></section>':'';
+ })();
  const highlight=(g.leaders||[]).slice(0,4).map(p=>'<div class="star"><small>'+esc(p.team)+'</small><b>'+esc(p.name)+'</b><strong>'+esc(p.pts)+' <small>PTS</small></strong><small>'+esc(p.reb)+' REB · '+esc(p.ast)+' AST</small></div>').join('');
  const roster=t=>'<section class="roster" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><h4>'+esc(t.name)+'</h4>'+g.players.filter(p=>p.team===t.code).sort((a,b)=>num(b.pts)-num(a.pts)).map(player).join('')+'</section>';
- $('game').innerHTML='<div class="game-hero"><div class="game-label"><span>'+esc(g.status||'FINAL')+'</span><span>'+esc(fmt(g.date))+'</span></div><div class="game-teams">'+panel(away,recordFor(away))+panel(home,recordFor(home))+'</div><div class="game-summary"><div>'+eloStat(away)+'</div><div>'+eloStat(home)+'</div></div></div><section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section><section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section><section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official game box score ↗</a><a href="nba.html#page-3">Standings & Elo ↗</a></div><p class="notice">Player statistics are sourced from captured completed-game box scores. Possession timelines and quarter scoring are not included until verified data is available.</p></section>';
+ $('game').innerHTML='<div class="game-hero"><div class="game-label"><span>'+esc(g.status||'FINAL')+'</span><span>'+esc(fmt(g.date))+'</span></div><div class="game-teams">'+panel(away,recordFor(away))+panel(home,recordFor(home))+'</div><div class="game-summary"><div>'+eloStat(away)+'</div><div>'+eloStat(home)+'</div></div></div>'+quarterScores+teamComparison+'<section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section><section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section><section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official game box score ↗</a><a href="nba.html#page-3">Standings & Elo ↗</a></div><p class="notice">Player statistics are sourced from captured completed-game box scores. Possession timelines and quarter scoring are not included until verified data is available.</p></section>';
 }
 async function boot(){
  try{
