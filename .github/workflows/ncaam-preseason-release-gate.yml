@@ -1,0 +1,44 @@
+name: NCAA 2026-27 Preseason Release Gate
+on:
+  push:
+    paths:
+      - 'scripts/verify_ncaam_preseason_release.py'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+      - 'data/ncaam-2026-27-preseason-provisional.json'
+      - 'data/ncaam-exact-scoring-promotion-decision.json'
+      - 'data/ncaam-2026-27-scoring-parity-reproducible.json'
+      - '.github/workflows/ncaam-preseason-release-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute independent preseason release gate
+        run: |
+          python -m py_compile scripts/verify_ncaam_preseason_release.py
+          python scripts/verify_ncaam_preseason_release.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-2026-27-release-decision
+          path: data/ncaam-2026-27-release-decision.json
+      - name: Publish release decision
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-release-decision.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish verified NCAA preseason release decision [skip ci]'
+            git -c rebase.autoStash=true pull --rebase origin main
+            git push
+          fi
