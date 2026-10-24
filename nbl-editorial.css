@@ -113,3 +113,27 @@ body[data-league="nbl"] .nbl-team-summary h3 a{color:inherit;text-decoration:non
 body[data-league="nbl"] .nbl-team-summary h3 a:hover{text-decoration:underline}
 @media(max-width:850px){body[data-league="nbl"] .nbl-club-two-column{grid-template-columns:1fr}body[data-league="nbl"] .nbl-club-page .nbl-edition-data{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:590px){body[data-league="nbl"] .nbl-club-two-column .nbl-results-list{grid-template-columns:1fr}body[data-league="nbl"] .nbl-club-page .nbl-edition-title{font-size:2.1rem}}
+
+/* Branded ten-club directory and compact sports-newspaper hierarchy */
+body[data-league="nbl"] .nbl-edition-head{padding:22px 0 20px;border-top:7px solid #25221f}
+body[data-league="nbl"] .nbl-edition-title{font-size:clamp(3rem,7vw,5.6rem);font-weight:700;letter-spacing:-.058em}
+body[data-league="nbl"] .nbl-edition-lede{max-width:700px}
+body[data-league="nbl"] .nbl-club-ribbon{border-block:3px double #2c2925;margin:16px 0;padding:13px 0}
+body[data-league="nbl"] .nbl-ribbon-heading{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:12px}
+body[data-league="nbl"] .nbl-ribbon-heading span{font:800 12px Arial,sans-serif;letter-spacing:.15em}
+body[data-league="nbl"] .nbl-ribbon-heading small{font:11px Arial,sans-serif;color:#665f56}
+body[data-league="nbl"] .nbl-ribbon-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+body[data-league="nbl"] .nbl-club-tile{display:flex;align-items:center;gap:10px;min-width:0;padding:10px;background:#fffdfa;border:1px solid #d7d1c8;text-decoration:none;color:#211f1c;transition:border-color .15s,background .15s}
+body[data-league="nbl"] .nbl-club-tile:hover,body[data-league="nbl"] .nbl-club-tile:focus-visible{background:#f2ece4;border-color:#24221e}
+body[data-league="nbl"] .nbl-tile-mark{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:50%;background:var(--club-color,#333);color:white;font:800 14px Arial,sans-serif}
+body[data-league="nbl"] .nbl-tile-mark:has(img){background:transparent}
+body[data-league="nbl"] .nbl-tile-mark img{width:100%;height:100%;object-fit:contain}
+body[data-league="nbl"] .nbl-tile-name{font:700 12px/1.2 Arial,sans-serif}
+body[data-league="nbl"] .nbl-tile-name small{display:block;margin-top:5px;color:#70695f;font:10px Arial,sans-serif}
+body[data-league="nbl"] .nbl-brand-initial{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;color:white;background:var(--club-color,#333);font:800 10px Arial,sans-serif}
+body[data-league="nbl"] .nbl-elo-club .nbl-club-mark{width:29px;height:29px}
+body[data-league="nbl"] .nbl-edition-data{background:#f2eee7}
+body[data-league="nbl"] .nbl-result-card{border-top:3px solid #3d3934;padding:15px}
+body[data-league="nbl"] .nbl-result-row b{font-size:20px}
+@media(max-width:1050px){body[data-league="nbl"] .nbl-ribbon-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){body[data-league="nbl"] .nbl-ribbon-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}body[data-league="nbl"] .nbl-club-tile{padding:8px 6px;gap:7px}body[data-league="nbl"] .nbl-tile-mark{flex-basis:38px;width:38px;height:38px;font-size:11px}body[data-league="nbl"] .nbl-tile-name{font-size:11px}body[data-league="nbl"] .nbl-ribbon-heading small{font-size:10px}}
