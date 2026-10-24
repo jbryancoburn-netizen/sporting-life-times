@@ -46,23 +46,24 @@
     const summary=el("p",undefined,"college-elo-note");
     let page=0, view="upcoming";
     const views=el("select");views.setAttribute("aria-label","Select forecast window");
-    for(const [key,label] of [["upcoming","Upcoming"],["results","Completed"],["all","All forecasts"]]){
+    for(const [key,label] of [["upcoming","Upcoming"],["pending","Awaiting final"],["results","Completed"],["all","All forecasts"]]){
       const option=el("option",label);option.value=key;views.append(option);
     }
     controls.append(views);
     const render=()=>{
       table.replaceChildren();
       status.textContent=(current===d?"Matchup model v2":"Original fixed-draw model v1")+" · "+current.count_locked+" archived pregame forecasts · Research estimates"+(current===d&&d.source_status&&d.source_status!=="complete"?" · Schedule feed incomplete":"");
-      const all=current.forecasts.filter(g=>g.cohort===selected&&(view==="all"||(view==="results"?finalById.has(g.match_id):Date.parse(g.kickoff_utc)>Date.now())))
+      const now=Date.now();
+      const all=current.forecasts.filter(g=>g.cohort===selected&&(view==="all"||(view==="results"?finalById.has(g.match_id):view==="pending"?!finalById.has(g.match_id)&&Date.parse(g.kickoff_utc)<=now:!finalById.has(g.match_id)&&Date.parse(g.kickoff_utc)>now)))
         .sort((a,b)=>view==="results"?Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc):Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
       const pages=Math.max(1,Math.ceil(all.length/12));page=Math.min(page,pages-1);
-      summary.textContent=all.length+" "+(view==="results"?"completed matchups":view==="upcoming"?"upcoming matchups":"archived forecasts")+(current===d?" · Matchup-specific draw probabilities":" · Original fixed-draw estimates, retained for comparison");
+      summary.textContent=all.length+" "+(view==="results"?"completed matchups":view==="pending"?"matchups awaiting an official final":view==="upcoming"?"upcoming matchups":"archived forecasts")+(current===d?" · Matchup-specific draw probabilities":" · Original fixed-draw estimates, retained for comparison");
       if(!all.length){table.append(el("p","No "+view+" forecasts in this division.","forecast-empty"));return;}
       const grid=el("div",undefined,"forecast-match-grid");
       for(const g of all.slice(page*12,page*12+12)){
         const card=el("article",undefined,"forecast-match-card");
         const header=el("div",undefined,"forecast-card-top");
-        header.append(el("span",finalById.has(g.match_id)?"Final":"Pregame"),el("time",new Date(g.kickoff_utc).toLocaleString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" ET"));
+        header.append(el("span",finalById.has(g.match_id)?"Final":Date.parse(g.kickoff_utc)<=now?"Awaiting final":"Pregame"),el("time",new Date(g.kickoff_utc).toLocaleString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" ET"));
         const matchup=el("div",undefined,"forecast-matchup");
         for(const [name,side,slug] of [[g.away_name,"Away",g.away_team],[g.home_name,"Home",g.home_team]]){
           const team=el("div",undefined,"forecast-team");
