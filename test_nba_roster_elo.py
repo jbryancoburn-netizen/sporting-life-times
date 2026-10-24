@@ -36,6 +36,28 @@ class RosterEloTests(unittest.TestCase):
     def test_no_missing_availability(self):
         r=roster();del r["players"][0]["availability"]
         with self.assertRaises(ValueError):build(base(),r)
+    def test_low_minutes_withhold_both_ratings(self):
+        r=roster()
+        for p in r["players"]:p["projected_minutes"]=10
+        atl=next(x for x in build(base(),r)["ratings"] if x["team"]=="ATL")
+        self.assertIsNone(atl["roster_adjusted_elo"])
+        self.assertIsNone(atl["game_day_elo"])
+    def test_uncertain_status_does_not_invent_probability(self):
+        for status in ("questionable","doubtful"):
+            r=roster();r["players"][0]["availability"]=status
+            atl=next(x for x in build(base(),r)["ratings"] if x["team"]=="ATL")
+            self.assertEqual(atl["roster_adjusted_elo"],1550)
+            self.assertIsNone(atl["game_day_elo"])
+    def test_sourced_availability_probability(self):
+        r=roster();r["players"][0].update(availability="questionable",availability_probability=.8,availability_probability_source="test fixture only")
+        atl=next(x for x in build(base(),r)["ratings"] if x["team"]=="ATL")
+        self.assertEqual(atl["game_day_elo"],1549)
+    def test_unsourced_probability_rejected(self):
+        r=roster();r["players"][0].update(availability="questionable",availability_probability=.8)
+        with self.assertRaises(ValueError):build(base(),r)
+    def test_player_on_multiple_teams_rejected(self):
+        r=roster();other=dict(r["players"][0],team="BOS");r["players"].append(other)
+        with self.assertRaises(ValueError):build(base(),r)
     def test_no_bool_impact(self):
         r=roster();r["players"][0]["expected_impact_elo"]=True
         with self.assertRaises(ValueError):build(base(),r)
