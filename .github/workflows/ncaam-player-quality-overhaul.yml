@@ -1,0 +1,52 @@
+name: NCAA player-quality overhaul research builder
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_player_quality_overhaul.py'
+      - 'scripts/test_build_ncaam_player_quality_overhaul.py'
+      - '.github/workflows/ncaam-player-quality-overhaul.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-player-quality-overhaul
+  cancel-in-progress: false
+jobs:
+  validate-and-build-shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run independent player quality challenger tests
+        run: |
+          python -m unittest discover -s scripts -p test_build_ncaam_player_quality_overhaul.py -v
+      - name: Build 365-school challenger
+        run: python scripts/build_ncaam_player_quality_overhaul.py
+      - name: Verify research-only decision and all-school arithmetic
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-2026-27-player-quality-overhaul-shadow.json'))
+          assert len(d['rankings'])==365
+          assert d['production_elo_approved'] is False
+          assert d['preseason_asof_certified'] is False
+          assert all(abs(x['elo']-x['base_elo']-x['offseason_adjustment'])<.00021 for x in d['rankings'])
+          print('Validated',len(d['rankings']),'research ratings, no primary promotion')
+          PY
+      - name: Publish reproducible shadow candidate
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2026-27-player-quality-overhaul-shadow.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish audited NCAA player-quality overhaul research scenario'
+            for attempt in 1 2 3; do
+              git pull --rebase origin main || exit 1
+              if git push origin HEAD:main; then exit 0; fi
+            done
+            exit 1
+          fi
