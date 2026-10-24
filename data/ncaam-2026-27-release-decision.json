@@ -1,0 +1,24 @@
+{
+  "season": "2026-27",
+  "checks_passed": true,
+  "failures": [],
+  "release_decision": "PUBLISH_EXISTING_ROSTER_INFORMED_PRESEASON_WITH_EXPLICIT_PROVISIONAL_LABEL",
+  "scoring_quality_promotion": "REJECT_UNTIL_ASOF_PRESEASON_AND_FEATURE_PARITY_VALIDATED",
+  "rating_source": "data/ncaam-2026-27-preseason-roster-informed.json",
+  "team_count": 365,
+  "distinct_ids": 365,
+  "baseline_fallback_teams": [
+    "West Florida"
+  ],
+  "inseason_transition": "NOT_VERIFIED_BY_THIS_GATE",
+  "predictive_accuracy_certification": "NOT_CLAIMED",
+  "retrospective_2026_games": 1831,
+  "retrospective_log_loss_baseline": 0.5346291931082648,
+  "retrospective_log_loss_quality": 0.5202061433723063,
+  "data_limitations": [
+    "Historical roster archive has no demonstrated as-of-before-season snapshots",
+    "Historical scorer matched unique exact names; current rosters used corroborated crosswalk IDs",
+    "Historical and current player scoring reference rates differ",
+    "No claim that provisional 2026-27 Elo has been prospective-calibrated"
+  ]
+}
