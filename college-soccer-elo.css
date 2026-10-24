@@ -44,3 +44,6 @@
 .college-final-first td{padding-top:10px}
 .college-final-last td{padding-bottom:10px;border-bottom:1px solid #e0e0dc}
 .college-final-winner td:first-child,.college-final-winner .college-final-score{font-weight:700}
+
+/* One full-width news section beneath the canonical ratings and forecast desks. */
+body.league-edition[data-league="college-soccer"] .league-newspaper-grid #league-news{grid-column:1/-1!important;border-right:0!important;padding-right:0!important}
