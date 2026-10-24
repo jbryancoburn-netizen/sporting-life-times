@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Own NCAA men's Elo current-season publisher.
 
-Source: NCAA-origin schedule CSV (sportsdataverse mirror). Does not ingest
+Source: ESPN completed-event status, with local CSV for deterministic tests. Does not ingest
 uncertified scoring-quality beta. Every run REPLAYS deduplicated finals from
 the immutable 365-school preseason rating baseline; never double-counts.
 """
@@ -251,15 +251,24 @@ def build(preseason,source,through):
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--schedule",help="Local verified NCAA schedule CSV or gz for deterministic tests")
+    p.add_argument("--schedule",help="Optional local NCAA schedule CSV or gz for deterministic tests")
+    p.add_argument("--espn-crosswalk",default=str(ROOT/"ncaam-2026-27-espn-program-crosswalk.json"))
+    p.add_argument("--espn-cache",default=str(ROOT/"ncaam-2026-27-source-events.json"))
     p.add_argument("--baseline",default=str(ROOT/"ncaam-2026-27-preseason-roster-informed.json"))
     p.add_argument("--as-of",default=datetime.now(timezone.utc).date().isoformat())
     p.add_argument("--out-dir",default=str(ROOT))
     a=p.parse_args()
     preseason=read_json(a.baseline)
     through=date.fromisoformat(a.as_of)
-    source=source_rows(a.schedule)
+    if a.schedule:
+        source=source_rows(a.schedule)
+        source_details={"provider":"local_verified_fixture"}
+    else:
+        from ncaam_espn_source import collect
+        source,source_details=collect(through,a.espn_crosswalk,a.espn_cache)
     current,ledger,upcoming,integrity=build(preseason,source,through)
+    current["source"]=source_details["provider"]+" completed event statuses; independent Elo calculation"
+    integrity["provider_audit"]=source_details
     dest=Path(a.out_dir);dest.mkdir(parents=True,exist_ok=True)
     for fn,doc in (
         ("ncaam-2026-27-current-provisional.json",current),
@@ -267,5 +276,8 @@ def main():
         ("ncaam-2026-27-upcoming-forecasts.json",upcoming),
         ("ncaam-2026-27-source-audit.json",integrity)):
         (dest/fn).write_text(json.dumps(doc,indent=2)+"\n",encoding="utf-8")
+    if not a.schedule:
+        from ncaam_espn_source import write_cache
+        write_cache(dest/"ncaam-2026-27-source-events.json",source)
     print(json.dumps({k:integrity[k] for k in ("completed_unique_games","upcoming_or_unconfirmed_games","excluded")},indent=2))
 if __name__=="__main__":main()
