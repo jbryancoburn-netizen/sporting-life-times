@@ -24,7 +24,7 @@ function render(payload){
 }
 async function update(){
  try{
-  const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()).replace(/\D/g,'');
+  const today=(()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+p.month+p.day})();
   const url='https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+today+'&_='+Date.now();
   const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('score feed '+r.status);
   const p=await r.json();render(p);lastOK=Date.now();
