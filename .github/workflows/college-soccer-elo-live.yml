@@ -1,0 +1,84 @@
+name: NCAA college soccer Elo final-score newspaper refresh
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/college-soccer-elo-live.yml'
+      - 'scripts/update_college_soccer_elo.py'
+      - 'scripts/test_update_college_soccer_elo.py'
+      - 'data/college-soccer-elo-baseline.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: college-soccer-elo-newspaper
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source parser and no-duplicate Elo replay
+        run: python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -v
+      - name: Check new NCAA men's and women's final scores in all divisions
+        run: python scripts/update_college_soccer_elo.py --lookback 4
+      - name: Validate JSON contract and published game evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          baseline=json.loads(Path('data/college-soccer-elo-baseline.json').read_text())
+          current=json.loads(Path('data/college-soccer-elo.json').read_text())
+          ledger=json.loads(Path('data/college-soccer-elo-final-ledger.json').read_text())
+          audit=json.loads(Path('data/college-soccer-elo-live-audit.json').read_text())
+          assert current['status']=='provisional'
+          assert len(current['cohorts'])==6
+          assert len({g['match_id'] for g in ledger['results']})==len(ledger['results'])
+          assert audit['ledger_finals']==len(ledger['results'])
+          assert current['as_of']>=baseline['as_of']
+          assert current.get('applied_finals_since_baseline',0)==audit['applied_finals'] if ledger['results'] else audit['applied_finals']==0
+          for cohort, rows in current['cohorts'].items():
+              assert rows and len({r['team_id'] for r in rows})==len(rows)
+              for i,row in enumerate(rows):
+                  assert row['rank']==i+1
+                  assert row['gp']==row['w']+row['l']+row['d']
+                  if i: assert rows[i-1]['elo']>=row['elo']
+          print('PASS: six-cohort provisional NCAA Elo, unique verified final IDs, valid GP and ranks')
+          PY
+      - name: Commit refreshed newspaper Elo only after validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json
+          if git diff --cached --quiet; then
+            echo "No new verified NCAA finals or repairs. Published ratings unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refresh college soccer Elo from final NCAA scores"
+          for try in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "New NCAA soccer Elo ratings published to newspaper repository"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            python scripts/update_college_soccer_elo.py --offline
+            python -m unittest discover -s scripts -p test_update_college_soccer_elo.py -q
+            sleep 2
+          done
+          echo "Failed to publish audited NCAA soccer feed" >&2
+          exit 1
