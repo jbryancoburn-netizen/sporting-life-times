@@ -55,10 +55,10 @@ if(!ratings){
   return;
 }
 const teams=ratings.rankings;
-const scoringShadow=await get("data/ncaam-2026-27-scoring-quality-shadow.json");
+const scoringShadow=await get("data/ncaam-2026-27-player-quality-overhaul-shadow.json");
 const modelBox=byId("cbb-model-compare");
 if(modelBox){
- const shadowOK=scoringShadow?.season==="2026-27"&&scoringShadow.status==="SHADOW_ONLY_DO_NOT_PROMOTE"&&scoringShadow.production_elo_approved===false&&scoringShadow.rankings?.length===365;
+ const shadowOK=scoringShadow?.season==="2026-27"&&scoringShadow.status==="SHADOW_UNCERTIFIED_PRESEASON"&&scoringShadow.production_elo_approved===false&&scoringShadow.rankings?.length===365;
  const candidate=new Map(shadowOK?scoringShadow.rankings.map(t=>[t.team_id,t]):[]);
  const renderModel=()=>{const rows=teams.slice(0,15).map(t=>{
  const shadow=candidate.get(t.team_id);
