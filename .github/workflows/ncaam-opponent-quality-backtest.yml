@@ -30,7 +30,7 @@ jobs:
       - name: Run historical opponent-quality train/holdout
         run: python scripts/backtest_ncaam_opponent_quality.py
       - name: Classify calibration evidence and enforce non-promotion
-        run: python scripts/verify_ncaam_opponent_quality_promotion.py --report data/ncaam-opponent-quality-backtest.json
+        run: python scripts/verify_ncaam_opponent_quality_promotion.py --require-report --report data/ncaam-opponent-quality-backtest.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
