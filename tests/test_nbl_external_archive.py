@@ -44,6 +44,17 @@ class NBLExternalArchiveTests(unittest.TestCase):
             with self.subTest(game=gid):
                 self.assertTrue(check_official_exception(game,page))
                 self.assertFalse(check_official_exception({**game,"played_at":"2024-01-01T09:00Z"},page))
+    def test_documented_discrepancies_are_checked_not_silently_certified(self):
+        from scripts.crosscheck_nbl26_archive import corroborate_official_outliers
+        from unittest.mock import patch
+        report={"ESPN_candidates_excluding_cup":178,"matched_scorelines":173,
+                "unmatched_count":0,
+                "discrepancy_details":[{"id":"401787560","date":"2025-11-22T09:00Z"}]}
+        with patch("scripts.crosscheck_nbl26_archive.urlopen",side_effect=TimeoutError("outage")):
+            result=corroborate_official_outliers(report)
+        self.assertEqual(result["status"],"partial_or_unreconciled")
+        self.assertEqual(result["official_exception_checks"][0]["status"],"official_source_unavailable")
+        self.assertFalse(result["production_approved"])
     def test_rejects_promoted_inputs(self):
         with self.assertRaises(ValueError):
             audit({"status":"certified","games":[]},compact(""))
