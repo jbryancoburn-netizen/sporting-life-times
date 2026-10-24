@@ -37,3 +37,12 @@ body[data-slug="ncaam"] .cbb-team-link span:last-child{font-variant-numeric:tabu
 body[data-slug="ncaam"] .cbb-muted{color:#70675d}
 @media(max-width:1050px){body[data-slug="ncaam"] .cbb-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}body[data-slug="ncaam"] .cbb-editorial{grid-column:1/-1}body[data-slug="ncaam"] #stories{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}body[data-slug="ncaam"] #stories .cbb-story:first-child{grid-column:1/-1}}
 @media(max-width:650px){body[data-slug="ncaam"] .cbb-shell{padding:0 13px 35px}body[data-slug="ncaam"] .cbb-grid{display:block}body[data-slug="ncaam"] .cbb-column{display:block}body[data-slug="ncaam"] .cbb-panel{margin-bottom:14px}body[data-slug="ncaam"] #stories{display:block}body[data-slug="ncaam"] .cbb-ticker{display:block}body[data-slug="ncaam"] .cbb-ticker>a{display:inline-block;margin-top:10px}body[data-slug="ncaam"] .cbb-ranking{grid-template-columns:23px minmax(0,1fr) 70px 58px}}
+
+/* National poll navigation intentionally distinct from the owned Elo model. */
+body[data-slug="ncaam"] .cbb-poll-tabs{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0 12px}
+body[data-slug="ncaam"] .cbb-poll-tabs button{font:700 11px Georgia,serif;color:#51473d;background:transparent;border:1px solid #d0c6b9;padding:8px 10px;cursor:pointer}
+body[data-slug="ncaam"] .cbb-poll-tabs button.active{background:#33302b;color:#fffdf9;border-color:#33302b}
+body[data-slug="ncaam"] .cbb-poll-table{table-layout:auto}
+body[data-slug="ncaam"] .cbb-poll-table th:first-child,body[data-slug="ncaam"] .cbb-poll-table td:first-child{width:35px;text-align:center}
+body[data-slug="ncaam"] .cbb-poll-table th:nth-child(2),body[data-slug="ncaam"] .cbb-poll-table td:nth-child(2){text-align:left;width:auto}
+body[data-slug="ncaam"] .cbb-poll-table th:last-child:not(:nth-child(2)),body[data-slug="ncaam"] .cbb-poll-table td:last-child:not(:nth-child(2)){text-align:right;width:65px}
