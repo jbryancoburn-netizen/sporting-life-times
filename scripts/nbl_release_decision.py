@@ -34,6 +34,7 @@ def decide(coverage,three_season):
     # Passing predictions alone cannot substitute for outside source confirmation.
     issues.append("Independent game-by-game source verification and parameter calibration incomplete")
     return {"status":"withheld","production_approved":False,
+      "audit_input_valid":not any(x.startswith(("Missing evaluated","Missing finite","Research evaluator incorrectly")) for x in issues),
       "historical_data_audited":coverage.get("2025_26_regular_season_coverage",{}).get("status")=="pass",
       "current_season_games_tested":current.get("games"),"benchmark_results":benchmarks,
       "blockers":issues,"requires_future_results_to_run":False}
@@ -50,7 +51,7 @@ def main():
     path=Path(a.output);path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(result,indent=2)+"\n")
     print(json.dumps(result,indent=2))
-    if not result["historical_data_audited"] or not result["current_season_games_tested"]:
+    if not result["audit_input_valid"] or not result["historical_data_audited"] or not result["current_season_games_tested"]:
         raise SystemExit(1)
 
 if __name__=="__main__":main()
