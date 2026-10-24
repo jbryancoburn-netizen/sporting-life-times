@@ -49,6 +49,7 @@ def analyze(movement,crosswalk):
                 "crosswalk_prior_school_id":linked,"prior_minutes":minutes,
                 "matching_method":method,"release_action":"EXCLUDE_PENDING_DOCUMENTARY_VERIFICATION"})
     categories["unlinked_current_roster_player"]=len(people)-len(source_seen)
+    categories["missing_valid_prior_minutes"]+=0
     expected={"accepted_prior_production":2923,"no_prior_d1_box":587,
               "actual_prior_school_conflict":7,"fuzzy_identity_excluded":6,
               "missing_valid_prior_minutes":0,"unlinked_current_roster_player":2014}
