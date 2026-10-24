@@ -6,13 +6,13 @@ const source=readFileSync(new URL('../nba-rabby-forecast.js',`file://${__filenam
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 const now=Date.parse('2026-10-24T18:00:00Z');
 class Clock extends Date{constructor(...args){super(...(args.length?args:[now]));}static now(){return now;}}
-async function desk(){
+async function desk(models={}){
  const nodes={'nba-rabby-status':{},'nba-rabby-games':{}};
  let fail=false,refresh,interval;
  const games=[['future','pre','20:00'],['live','in','17:00'],['final','post','16:00'],['late','pre','17:55'],['unknown',null,'21:00']].map(([id,state,time])=>({id,state,date:`2026-10-24T${time}:00Z`,teams:[{home_away:'home',code:'BOS',name:id},{home_away:'away',code:'CHI',name:'Chicago'}]}));
  const ratings=Array.from({length:30},(_,i)=>({team:i===0?'BOS':i===1?'CHI':`T${i}`,elo:1500}));
  runInNewContext(source,{
-  window:{SLTScorebug:{render:g=>`<div>${g.home.name}</div>`}},
+  window:{...models,SLTScorebug:{render:g=>`<div>${g.home.name}</div>`}},
   document:{hidden:false,getElementById:id=>nodes[id]},Date:Clock,Intl,
   fetch:async path=>{if(fail)throw Error('network down');return {ok:true,json:async()=>path.includes('current-provisional')?{rankings:ratings,events:Array(5).fill({}),games_played:5}:path.includes('upcoming-schedule')?{games}: {}};},
   setInterval:(f,ms)=>{refresh=f;interval=ms;}
@@ -33,4 +33,18 @@ test('failed scheduled refresh removes previous forecast cards',async()=>{
  assert.doesNotMatch(d.nodes['nba-rabby-games'].innerHTML,/future/);
  assert.match(d.nodes['nba-rabby-games'].innerHTML,/Current forecasts unavailable/);
  assert.match(d.nodes['nba-rabby-status'].textContent,/network down/);
+});
+
+const projection={homePoints:110,awayPoints:100,margin:10,total:210};
+test('insufficient team possession coverage uses qualified early-season fallback',async()=>{
+ const d=await desk({RabbyPossessionModel:{build:()=>({coverage:{games:28}}),project:()=>null},RabbyEarlyScore:{build:()=>({games:28}),project:()=>projection}});
+ const html=d.nodes['nba-rabby-games'].innerHTML;
+ assert.match(html,/Experimental early-season Elo model/);
+ assert.match(html,/210.0/);
+ assert.doesNotMatch(html,/awaiting qualifying data/);
+});
+test('qualified possession projection takes precedence over early-season fallback',async()=>{
+ const d=await desk({RabbyPossessionModel:{build:()=>({coverage:{games:28}}),project:()=>projection},RabbyEarlyScore:{build:()=>({games:28}),project:()=>{throw Error('Fallback should not run');}}});
+ assert.match(d.nodes['nba-rabby-games'].innerHTML,/Experimental possession model/);
+ assert.doesNotMatch(d.nodes['nba-rabby-games'].innerHTML,/Current forecasts unavailable/);
 });
