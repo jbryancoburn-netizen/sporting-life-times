@@ -46,7 +46,7 @@ async function show(){
    const p=possession?window.RabbyPossessionModel.project(hc,ac,possession,ratings):(early?window.RabbyEarlyScore.project(hc,ac,early,ratings):null);
    const favorite=hp>=.5?hc:ac;
    const names={home:h?.name||hc,away:a?.name||ac};
-   const bug=window.SLTScorebug.render({mode:'upcoming',projected:Boolean(p),subtitle:fmt(g.date),away:{code:ac,name:names.away},home:{code:hc,name:names.home},awayScore:p?Math.round(p.awayPoints):undefined,homeScore:p?Math.round(p.homePoints):undefined,footer:'MODEL FORECAST · AWAY FIRST / HOME SECOND'});
+   const bug=window.SLTScorebug.render({mode:'upcoming',projected:Boolean(p),subtitle:fmt(g.date),away:{code:ac,name:names.away},home:{code:hc,name:names.home},awayScore:p?Math.round(p.awayPoints):undefined,homeScore:p?Math.round(p.homePoints):undefined,footer:p?'Projected':'Elo forecast'});
    return '<article class="rabby-game">'+bug+'<div class="rabby-model"><span><strong>Elo favorite</strong> '+esc(favorite===hc?names.home:names.away)+'</span><span><strong>Win probability</strong> '+(100*Math.max(hp,1-hp)).toFixed(1)+'%</span>'+(p?'<span><strong>Experimental model spread</strong> '+esc(p.margin>=0?hc:ac)+' -'+Math.abs(p.margin).toFixed(1)+'</span><span><strong>Projected total</strong> '+p.total.toFixed(1)+'</span>':'<span>Scoring projection awaiting qualifying data</span>')+'</div></article>';
 
  }).filter(Boolean);
