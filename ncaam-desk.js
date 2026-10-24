@@ -20,6 +20,29 @@ async function get(url){
   try{const r=await fetch(url,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}
 }
 const [roster,current,ledger,upcoming,feeds,news]=await Promise.all(Object.values(files).map(get));
+const polls=await get("data/ncaam-2026-27-national-polls.json");
+const pollBox=byId("cbb-polls");
+const pollButtons=[...document.querySelectorAll("[data-poll]")];
+const pollValid=p=>p&&Array.isArray(p.rankings)&&p.rankings.length===25&&p.rankings.every((x,i)=>x.rank===i+1&&x.team);
+function renderPoll(which="ap"){
+ if(!pollBox)return;
+ const ap=polls?.polls?.ap,coaches=polls?.polls?.coaches;
+ if(polls?.season!=="2026-27"||!pollValid(ap)||!pollValid(coaches)){
+   pollBox.innerHTML='<p class="cbb-muted">Official national polls currently unavailable.</p>';return;
+ }
+ pollButtons.forEach(b=>{b.classList.toggle("active",b.dataset.poll===which);b.setAttribute("aria-pressed",String(b.dataset.poll===which))});
+ const other=new Map(coaches.rankings.map(x=>[x.team,x.rank]));
+ const rows=(which==="compare"?ap.rankings:polls.polls[which].rankings).map(x=>{
+   const rankOther=other.get(x.team);
+   return '<tr><td>'+x.rank+'</td><td>'+safe(x.team)+'</td>'+(which==="compare"?'<td>'+(rankOther??"NR")+'</td>':'')+'</tr>';
+ }).join("");
+ pollBox.innerHTML='<table class="cbb-table cbb-poll-table"><thead><tr><th>'+(which==="compare"?"AP":"#")+'</th><th>Team</th>'+(which==="compare"?"<th>Coaches</th>":"")+'</tr></thead><tbody>'+rows+'</tbody></table>';
+ const link=which==="coaches"?coaches.source_url:ap.source_url;
+ byId("cbb-poll-source").innerHTML='Preseason · October 19, 2026 · <a class="cbb-link" target="_blank" rel="noopener noreferrer" href="'+safe(link)+'">Source ↗</a> · Polls are independent of our Elo.';
+}
+pollButtons.forEach(b=>b.addEventListener("click",()=>renderPoll(b.dataset.poll)));
+renderPoll();
+
 const verified=x=>x?.season==="2026-27"&&x.team_count===365&&x.rankings?.length===365
  &&new Set(x.rankings.map(t=>t.team_id)).size===365
  &&x.rankings.every((t,i)=>t.rank===i+1&&Number.isFinite(Number(t.elo)));
