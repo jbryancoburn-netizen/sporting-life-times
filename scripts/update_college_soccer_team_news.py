@@ -73,7 +73,17 @@ def main():
    men=bool(re.search(r"\bmen(?:'s|s)?\b|male",hay))
    if women==men:continue
    gender='women' if women else 'men'
-   candidates=[(k,name) for k,name,g in teams if g==gender and words_match(hay,name)]
+   generic={'eastern','western','northern','southern','central','union','trinity','hope','kings','queens'}
+   candidates=[]
+   for k,name,g in teams:
+    if g!=gender or name.lower() in generic or not words_match(hay,name):continue
+    # A named institution such as Michigan must not match Northern Michigan or Michigan State.
+    # Apply only to standalone one-word school names to avoid over-excluding exact multiword names.
+    if ' ' not in name:
+     modifiers=r'(?:north(?:ern)?|south(?:ern)?|east(?:ern)?|west(?:ern)?|central|state|tech|university|college)'
+     if re.search(r'(?<![a-z])'+modifiers+r'\\s+'+re.escape(name.lower())+r'(?![a-z])',hay):continue
+     if re.search(r'(?<![a-z])'+re.escape(name.lower())+r'\\s+'+modifiers+r'(?![a-z])',hay):continue
+    candidates.append((k,name))
    # Suppress a shorter school name that only matched inside a longer matching institution.
    keys=sorted({k for k,name in candidates if not any(
     other!=name and name.lower() in other.lower() and words_match(other.lower(),name.lower())
