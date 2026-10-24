@@ -22,6 +22,14 @@ class NBLStandingsTests(unittest.TestCase):
         g["away"]="Unknown Club"
         with self.assertRaises(ValueError):
             build({"status":"uncertified_source_candidates","games":[g]})
+    def test_equal_record_uses_points_percentage_tiebreak(self):
+        # Both teams finish 1-1; Sydney scored more relative to points allowed.
+        d=build({"status":"uncertified_source_candidates","games":[
+          self.game("1","2026-09-19T07:00Z",hs=100,aws=90),
+          self.game("2","2026-09-20T07:00Z",hs=95,aws=100)]})
+        ranked=[r["team"] for r in d["rows"] if r["played"]>0]
+        self.assertEqual(ranked,["Sydney Kings","Perth Wildcats"])
+        self.assertGreater(d["rows"][0]["points_pct"],d["rows"][1]["points_pct"])
     def test_standings_never_advertised_as_official(self):
         d=build({"status":"uncertified_source_candidates","games":[
            self.game("1","2026-09-20T09:30Z")]})
