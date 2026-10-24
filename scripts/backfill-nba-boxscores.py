@@ -27,12 +27,19 @@ def main():
       if gid in prior and prior[gid].get("players"):continue
       candidates.append(g)
   # Up to 36 new box scores per invocation avoids API bursts and job timeouts.
+  total_candidates=len(candidates)
   candidates=sorted(candidates,key=lambda g:g.get("gameTimeUTC") or "",reverse=True)[:36]
-  print("Official NBA schedule dates:",len(dates),"unarchived completed regular-season candidates:",len(candidates))
+  print("Official NBA schedule dates:",len(dates),"total unarchived completed regular-season candidates:",total_candidates,"selected for this batch:",len(candidates))
   if not candidates and not any(g.get("players") for g in prior.values()):
     raise RuntimeError("No completed regular-season games in NBA schedule or prior captured archive; refusing empty publication")
   with ThreadPoolExecutor(max_workers=5) as pool:
-    fetched=[g for g in pool.map(game_record,candidates) if g and g.get("state")=="post"]
+    responses=list(pool.map(game_record,candidates))
+  fetched=[g for g in responses if g and g.get("state")=="post"]
+  failed_ids=[str(candidate.get("gameId")) for candidate,response in zip(candidates,responses) if not response or response.get("state")!="post"]
+  if failed_ids:
+    print("Official NBA box scores not captured:",", ".join(failed_ids),file=sys.stderr)
+  if candidates and not fetched:
+    raise RuntimeError("All selected completed-game box-score fetches failed; refusing to republish unchanged archive as a successful backfill")
   for g in fetched:
     old=prior.get(g["id"])
     if old and len(old.get("players") or [])>len(g.get("players") or []):continue
