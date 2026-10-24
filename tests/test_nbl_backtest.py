@@ -15,6 +15,12 @@ class NBLHeldoutTests(unittest.TestCase):
         game["verified"]=True
         with self.assertRaises(ValueError):
             validate({"status":"uncertified_source_candidates","games":[game]})
+    def test_preseason_excluded_at_regular_season_boundary(self):
+        cutoff="2026-09-19"
+        fixtures=[self.game("blitz",at="2026-09-02T07:30Z"),
+                  self.game("season",at="2026-09-19T09:30Z")]
+        eligible=[g for g in fixtures if g["played_at"][:10]>=cutoff]
+        self.assertEqual([g["id"] for g in eligible],["season"])
     def test_log_loss_and_brier_are_probabilistic(self):
         out=replay([self.game("1")],[self.game("2",at="2026-10-01T10:00Z")])
         self.assertTrue(0<out["brier"]<1)
