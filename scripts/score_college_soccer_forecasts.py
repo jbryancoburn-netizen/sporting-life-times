@@ -3,12 +3,11 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import hashlib
 import math
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from update_college_soccer_elo import HERE, atomic_json, read_json
+from update_college_soccer_elo import COHORTS, HERE, atomic_json, canonical_digest, read_json
 
 
 def timestamp(value):
@@ -82,7 +81,7 @@ def score_forecasts(archive, ledger, now):
     return {'schema_version': 1, 'status': 'prospective_research_only',
             'count_locked': len(forecasts), 'awaiting_final': len(forecasts) - len(scored),
             'overall': summary(scored),
-            'cohorts': {key: summary([r for r in scored if r['cohort'] == key]) for key in sorted({f['cohort'] for f in forecasts})},
+            'cohorts': {key: summary([r for r in scored if r['cohort'] == key]) for key in COHORTS},
             'scores': sorted(scored, key=lambda r: r['match_id']),
             'brier_definition': 'Sum of squared errors across away/draw/home; range 0 to 2.',
             'zero_probability_log_floor': 1e-15}
@@ -96,7 +95,7 @@ def main():
     forecast_path = HERE / 'data/college-soccer-prospective.json'
     before = forecast_path.read_bytes()
     report = score_forecasts(read_json(forecast_path), read_json(HERE / 'data/college-soccer-elo-final-ledger.json'), now)
-    report['forecast_archive_sha256'] = hashlib.sha256(before).hexdigest()
+    report['forecast_archive_canonical_sha256'] = canonical_digest(read_json(forecast_path))
     if forecast_path.read_bytes() != before:
         raise RuntimeError('forecast archive changed during scoring')
     atomic_json(HERE / 'data/college-soccer-forecast-scores.json', report)
