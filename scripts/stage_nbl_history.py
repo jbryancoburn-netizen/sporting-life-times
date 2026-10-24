@@ -6,16 +6,25 @@ import argparse, json, time
 from datetime import date, timedelta, datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 
 URL="https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/scoreboard"
 def fetch_events(url):
     req=Request(url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
-    with urlopen(req,timeout=25) as response:
-        doc=json.load(response)
-    if not isinstance(doc.get("events"),list): raise ValueError("Missing events array for "+url)
-    return doc["events"]
+    for attempt in range(4):
+        try:
+            with urlopen(req,timeout=30) as response:
+                doc=json.load(response)
+            if not isinstance(doc.get("events"),list):
+                raise ValueError("Missing events array for "+url)
+            return doc["events"]
+        except HTTPError as exc:
+            if exc.code not in (429,500,502,503,504) or attempt==3:raise
+        except (TimeoutError,URLError,ConnectionError) as exc:
+            if attempt==3:raise
+        time.sleep(min(2**attempt,5))
+    raise RuntimeError("Unreachable fetch retry exit")
 
 def fetch_month(start,end):
     url=URL+"?"+urlencode({"dates":start.strftime("%Y%m%d")+"-"+end.strftime("%Y%m%d"),"limit":500})
