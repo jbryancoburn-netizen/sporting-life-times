@@ -10,11 +10,15 @@ preseason historical as-of validation is possible.
 import json
 from pathlib import Path
 
-def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5, scoring_weight=1.0):
+def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5, scoring_weight=1.0, calibration=None):
     assert 0 <= transfer_weight <= 1 and 0 <= roster_weight <= 1 and 0 <= scoring_weight <= 1
     assert base["season"] == roster["season"] == scoring["season"] == shadow["season"] == "2026-27"
     assert len(base["rankings"]) == len(roster["rankings"]) == len(scoring["teams"]) == len(shadow["rankings"]) == 365
     assert shadow["status"] == "SHADOW_ONLY_DO_NOT_PROMOTE"
+    if calibration is not None:
+        assert shadow["source_integrity"]["quality_beta"] == calibration["selected_quality_beta"], "Stale player-quality shadow coefficient"
+        assert calibration["status"] == "CHRONOLOGICALLY_VALID_EARLYSEASON_NOT_PRESEASON"
+        assert calibration["preseason_release_approved"] is False
     b={x["team_id"]:x for x in base["rankings"]}
     s={x["team_id"]:x for x in scoring["teams"]}
     q={x["team_id"]:x for x in shadow["rankings"]}
@@ -43,6 +47,8 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
         # Quality term is calculated from verified historical scoring; it is
         # context-uncalibrated and retained strictly as a research scenario.
         quality=float(q[tid]["experimental_scoring_quality_adjustment"])*scoring_weight if identity_ok else 0.0
+        if team["roster_coverage"]=="baseline-fallback":
+            retention_component=transfer_component=quality=0.0
         adj=round(roster_weight*(retention_component+transfer_component)+quality,4)
         rows.append({"team_id":tid,"team":team["team"],"conference":team["conference"],
                      "base_elo":round(baseline,4),"retention_component":round(retention_component*roster_weight,4),
@@ -62,6 +68,7 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
                 "roster":"ncaam-2026-27-preseason-roster-informed.json",
                 "player_quality":"ncaam-2026-27-scoring-quality-shadow.json",
                 "player_scoring":"ncaam-2026-27-player-scoring-shadow.json"},
+      "source_quality_beta":shadow["source_integrity"]["quality_beta"],
       "scenario":{"transfer_weight":transfer_weight,"roster_weight":roster_weight,
                   "scoring_weight":scoring_weight},
       "limitations":["Scoring points per prior minute is not full player value or defensive quality",
@@ -79,7 +86,8 @@ def main():
     result=build(read("ncaam-2026-27-preseason-provisional.json"),
                  read("ncaam-2026-27-preseason-roster-informed.json"),
                  read("ncaam-2026-27-player-scoring-shadow.json"),
-                 read("ncaam-2026-27-scoring-quality-shadow.json"))
+                 read("ncaam-2026-27-scoring-quality-shadow.json"),
+                 calibration=read("ncaam-quality-earlyseason-asof-backtest.json"))
     path=d/"ncaam-2026-27-player-quality-overhaul-shadow.json"
     path.write_text(json.dumps(result,indent=2)+"\n")
     print("Built independent player-quality offseason challenger:",len(result["rankings"]),"teams")
