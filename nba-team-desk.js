@@ -17,6 +17,7 @@ function render(a){
  const rank=elo?.rankings?.findIndex(e=>e.team===t)??-1,score=rank>=0?elo.rankings[rank].elo:null;
  const facts=[['W–L',elo?wins+'–'+(teamEvents.length-wins):'—'],['ELO',Number.isFinite(score)?score.toFixed(1):'—'],['ELO RANK',rank>=0?'#'+(rank+1):'—']];
  $('facts').innerHTML=facts.map(([label,v])=>'<div class="fact"><b>'+esc(v)+'</b><small>'+esc(label)+'</small></div>').join('');
+ if($('facts-front'))$('facts-front').innerHTML=$('facts').innerHTML;
  const rows=(archive?.games||[]).filter(g=>g.teams?.some(e=>e.code===t)&&g.state==='post').slice(0,8);
  $('results').innerHTML=rows.length?rows.map(g=>{const h=g.teams.find(z=>z.home_away==='home'),aw=g.teams.find(z=>z.home_away==='away');return '<tr><td>'+esc(d(g.date))+'</td><td>'+esc(aw?.code)+' '+esc(aw?.score)+' – '+esc(h?.code)+' '+esc(h?.score)+'</td><td>Final</td></tr>'}).join(''):'<tr><td>Verified results unavailable</td></tr>';
  const future=(schedule?.games||[]).filter(g=>g.state==='pre'&&g.teams?.some(z=>z.code===t)).slice(0,8);
