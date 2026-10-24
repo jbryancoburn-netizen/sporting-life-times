@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - 'scripts/update_ncaam_season.py'
+      - 'scripts/ncaam_espn_source.py'
+      - 'data/ncaam-2026-27-espn-program-crosswalk.json'
       - 'scripts/test_ncaam_season_updates.py'
       - '.github/workflows/ncaam-season-elo.yml'
   workflow_dispatch:
@@ -28,17 +30,17 @@ jobs:
         run: |
           python -m py_compile scripts/update_ncaam_season.py scripts/test_ncaam_season_updates.py
           python -m unittest discover -s scripts -p test_ncaam_season_updates.py -v
-      - name: Replay NCAA completed results
+      - name: Check season forecast window
         if: success()
         run: |
           python - <<'PY'
           from datetime import date,timezone,datetime
           import os
           now=datetime.now(timezone.utc).date()
-          if not date(2026,11,1)<=now<=date(2027,4,30):
+          if not date(2026,10,24)<=now<=date(2027,4,30):
               with open(os.environ['GITHUB_ENV'],'a') as f:
                   f.write('IN_SEASON=false\n')
-              print('Preseason: no unverified 2026-27 games are published.')
+              print('Outside supported 2026–27 college basketball forecast window.')
           else:
               with open(os.environ['GITHUB_ENV'],'a') as f:
                   f.write('IN_SEASON=true\n')
@@ -51,7 +53,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ncaam-2026-27-current-provisional.json data/ncaam-2026-27-game-ledger.json data/ncaam-2026-27-upcoming-forecasts.json data/ncaam-2026-27-source-audit.json
+          git add data/ncaam-2026-27-current-provisional.json data/ncaam-2026-27-game-ledger.json data/ncaam-2026-27-upcoming-forecasts.json data/ncaam-2026-27-source-audit.json data/ncaam-2026-27-source-events.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update NCAA completed games, Elo, records and forecasts [skip ci]'
             git -c rebase.autoStash=true pull --rebase origin main
