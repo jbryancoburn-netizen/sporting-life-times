@@ -1,0 +1,21 @@
+name: NCAA official player evidence integrity
+on:
+  push:
+    paths:
+      - 'scripts/verify_ncaam_official_identity_evidence.py'
+      - 'data/ncaam-2026-27-player-identity-triage.json'
+      - 'data/ncaam-2026-27-official-identity-evidence-batch-01.json'
+      - 'data/ncaam-2026-27-official-identity-evidence-batch-02.json'
+      - '.github/workflows/ncaam-official-identity-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_official_identity_evidence.py
