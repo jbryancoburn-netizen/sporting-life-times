@@ -1,0 +1,631 @@
+{
+  "model": "SLAT-NCAAM-centered-margin-elo-v1",
+  "status": "RESEARCH_VALIDATION_NOT_PRODUCTION",
+  "selection_year": 2024,
+  "validation_year": 2025,
+  "reused_diagnostic_year": 2026,
+  "honest_test_policy": "2026 has been previously inspected; not a fresh untouched holdout",
+  "margin_reference": 10,
+  "parameter_grid": {
+    "base_k": [
+      16.0,
+      24.0,
+      32.0,
+      40.0,
+      48.0
+    ],
+    "slope": [
+      0.0,
+      5.0,
+      10.0,
+      15.0,
+      20.0,
+      25.0
+    ]
+  },
+  "training_selected": {
+    "base_k_at_10pt": 48.0,
+    "margin_slope": 25.0
+  },
+  "validation_selected": {
+    "games": 5674,
+    "log_loss": 0.5793510591588099,
+    "brier": 0.198389922027392
+  },
+  "validation_current_formula": {
+    "games": 5674,
+    "log_loss": 0.5855077017834719,
+    "brier": 0.20061942849944173
+  },
+  "validation_improved_both": true,
+  "diagnostic_2026_selected": {
+    "games": 5750,
+    "log_loss": 0.5795253483741442,
+    "brier": 0.19860872174149333
+  },
+  "diagnostic_2026_current_formula": {
+    "games": 5750,
+    "log_loss": 0.5848021252987835,
+    "brier": 0.20044259928071384
+  },
+  "grid_boundary": true,
+  "eligible_for_automatic_live_promotion": false,
+  "limitations": [
+    "Historical game venue not verified",
+    "Current preseason roster strength excluded from comparison",
+    "2026 is a reused diagnostic not fresh holdout",
+    "Only one independent validation season available"
+  ],
+  "all_trials": [
+    {
+      "base_k_at_10pt": 16.0,
+      "margin_slope": 0.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6297742242625844,
+        "brier": 0.21943394320452211
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6165223681113277,
+        "brier": 0.21331391629966115
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.6134822015100183,
+        "brier": 0.21197788575823534
+      }
+    },
+    {
+      "base_k_at_10pt": 16.0,
+      "margin_slope": 5.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6266569297647655,
+        "brier": 0.21797979936652476
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6129912411117534,
+        "brier": 0.21172171185837158
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.6101664747970013,
+        "brier": 0.21051384439691118
+      }
+    },
+    {
+      "base_k_at_10pt": 16.0,
+      "margin_slope": 10.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6238201187888404,
+        "brier": 0.21667044411385303
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6098063603591305,
+        "brier": 0.21030915042268794
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.6071784766099498,
+        "brier": 0.20921668396455517
+      }
+    },
+    {
+      "base_k_at_10pt": 16.0,
+      "margin_slope": 15.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6212554930398457,
+        "brier": 0.2155009593722779
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6069551731920104,
+        "brier": 0.2090686336257157
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.6045028558257927,
+        "brier": 0.20807735497320248
+      }
+    },
+    {
+      "base_k_at_10pt": 16.0,
+      "margin_slope": 20.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6189562066600198,
+        "brier": 0.21446689372594102
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6044278728695248,
+        "brier": 0.20799365752371116
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.6021278083383025,
+        "brier": 0.20708846333325756
+      }
+    },
+    {
+      "base_k_at_10pt": 16.0,
+      "margin_slope": 25.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6170264953516235,
+        "brier": 0.21361405218461388
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6022090742995029,
+        "brier": 0.2070640253090657
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5999462798334532,
+        "brier": 0.20619016917363858
+      }
+    },
+    {
+      "base_k_at_10pt": 24.0,
+      "margin_slope": 0.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6176959632828958,
+        "brier": 0.21421392879427864
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.6024535400007356,
+        "brier": 0.20735838926535594
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.6001854835135497,
+        "brier": 0.2064235936957868
+      }
+    },
+    {
+      "base_k_at_10pt": 24.0,
+      "margin_slope": 5.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6153208241789418,
+        "brier": 0.21313110993494708
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5998643131462613,
+        "brier": 0.20623022267065508
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5977836853962514,
+        "brier": 0.20540322338314024
+      }
+    },
+    {
+      "base_k_at_10pt": 24.0,
+      "margin_slope": 10.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6131393323837819,
+        "brier": 0.21214471369721835
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5974979830842538,
+        "brier": 0.2052140906419635
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5955857986040962,
+        "brier": 0.2044830800491506
+      }
+    },
+    {
+      "base_k_at_10pt": 24.0,
+      "margin_slope": 15.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6111473665366162,
+        "brier": 0.21125222814855296
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5953491128162028,
+        "brier": 0.204306685974317
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5935853462300476,
+        "brier": 0.20365934048792766
+      }
+    },
+    {
+      "base_k_at_10pt": 24.0,
+      "margin_slope": 20.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6093415667201164,
+        "brier": 0.2104513935105743
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5934135120609265,
+        "brier": 0.20350518867681183
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5917772748843462,
+        "brier": 0.20292880729686993
+      }
+    },
+    {
+      "base_k_at_10pt": 24.0,
+      "margin_slope": 25.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6077192898939716,
+        "brier": 0.20974018275061662
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5916881366801625,
+        "brier": 0.20280720533287325
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5901578268135832,
+        "brier": 0.2022888340010038
+      }
+    },
+    {
+      "base_k_at_10pt": 32.0,
+      "margin_slope": 0.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6104965901729247,
+        "brier": 0.21128175207588287
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5939419416717433,
+        "brier": 0.20397836620964802
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5924189114954924,
+        "brier": 0.20339520101405398
+      }
+    },
+    {
+      "base_k_at_10pt": 32.0,
+      "margin_slope": 5.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6085694130510424,
+        "brier": 0.21041494663801638
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5918882732103824,
+        "brier": 0.20310222146993664
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5905209972003927,
+        "brier": 0.20260789690963998
+      }
+    },
+    {
+      "base_k_at_10pt": 32.0,
+      "margin_slope": 10.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6067865795441959,
+        "brier": 0.2096175164722527
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5899930319140317,
+        "brier": 0.20230341353462103
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5887663371880167,
+        "brier": 0.20188893891685553
+      }
+    },
+    {
+      "base_k_at_10pt": 32.0,
+      "margin_slope": 15.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6051458813181751,
+        "brier": 0.20888809600805622
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5882535915865871,
+        "brier": 0.20158033849701423
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5871518267856538,
+        "brier": 0.201236482465591
+      }
+    },
+    {
+      "base_k_at_10pt": 32.0,
+      "margin_slope": 20.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6036455459594735,
+        "brier": 0.20822545860498165
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5866679746650029,
+        "brier": 0.20093163481888685
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5856750398313573,
+        "brier": 0.20064896031370785
+      }
+    },
+    {
+      "base_k_at_10pt": 32.0,
+      "margin_slope": 25.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6022842158523811,
+        "brier": 0.20762850574265146
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5852348117269854,
+        "brier": 0.20035615825164566
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5843341802789463,
+        "brier": 0.200125053683514
+      }
+    },
+    {
+      "base_k_at_10pt": 40.0,
+      "margin_slope": 0.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6062749515201478,
+        "brier": 0.20965842588065006
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5887906334141622,
+        "brier": 0.202063657485139
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5879304510432869,
+        "brier": 0.2017750142186195
+      }
+    },
+    {
+      "base_k_at_10pt": 40.0,
+      "margin_slope": 5.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6046376248535853,
+        "brier": 0.20892774568354372
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5870714332597031,
+        "brier": 0.2013397367793366
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5863407262322393,
+        "brier": 0.20112498196789697
+      }
+    },
+    {
+      "base_k_at_10pt": 40.0,
+      "margin_slope": 10.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6031139454244226,
+        "brier": 0.20824988310960807
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5854727557829695,
+        "brier": 0.2006730828142905
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5848600184394535,
+        "brier": 0.20052559812932252
+      }
+    },
+    {
+      "base_k_at_10pt": 40.0,
+      "margin_slope": 15.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6017026567415732,
+        "brier": 0.20762405415084798
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5839932345281431,
+        "brier": 0.20006284964885235
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5834867247618568,
+        "brier": 0.1999758937395993
+      }
+    },
+    {
+      "base_k_at_10pt": 40.0,
+      "margin_slope": 20.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6004027721412594,
+        "brier": 0.20704955575310743
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5826318782487548,
+        "brier": 0.19950832458133266
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.582219611669241,
+        "brier": 0.199475040059968
+      }
+    },
+    {
+      "base_k_at_10pt": 40.0,
+      "margin_slope": 25.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.599213564061289,
+        "brier": 0.20652575970182457
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5813880526045035,
+        "brier": 0.1990089168179254
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5810577939246336,
+        "brier": 0.19902233561521945
+      }
+    },
+    {
+      "base_k_at_10pt": 48.0,
+      "margin_slope": 0.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6040527211264002,
+        "brier": 0.20886200474755376
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5858754895228079,
+        "brier": 0.20107103827905518
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5855974653872711,
+        "brier": 0.20103014284973553
+      }
+    },
+    {
+      "base_k_at_10pt": 48.0,
+      "margin_slope": 5.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6026126372224128,
+        "brier": 0.20822246699549932
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5843792990547623,
+        "brier": 0.20044648705636514
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5842092155769499,
+        "brier": 0.20046741281938754
+      }
+    },
+    {
+      "base_k_at_10pt": 48.0,
+      "margin_slope": 10.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.601265718574656,
+        "brier": 0.20762486684426978
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5829793896570451,
+        "brier": 0.1998665346773444
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5829086295091789,
+        "brier": 0.19994440415043835
+      }
+    },
+    {
+      "base_k_at_10pt": 48.0,
+      "margin_slope": 15.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.6000112168410664,
+        "brier": 0.2070687359403377
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5816750155228034,
+        "brier": 0.1993307072132398
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5816948461156399,
+        "brier": 0.19946057957028232
+      }
+    },
+    {
+      "base_k_at_10pt": 48.0,
+      "margin_slope": 20.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.5988485616519807,
+        "brier": 0.20655365569893996
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5804656665277257,
+        "brier": 0.19883860998085906
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5805672274099639,
+        "brier": 0.19901548073926092
+      }
+    },
+    {
+      "base_k_at_10pt": 48.0,
+      "margin_slope": 25.0,
+      "training_2024": {
+        "games": 5611,
+        "log_loss": 0.5977773548107896,
+        "brier": 0.20607925366785568
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5793510591588099,
+        "brier": 0.198389922027392
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5795253483741442,
+        "brier": 0.19860872174149333
+      }
+    }
+  ]
+}
