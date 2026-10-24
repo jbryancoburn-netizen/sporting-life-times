@@ -38,13 +38,13 @@ jobs:
           from pathlib import Path
           d=json.loads(Path('data/ncaam-2026-27-player-identity-source-review.json').read_text())
           assert d['production_elo_approved'] is False
-          assert d['summary']['school_officially_rejected_false_prior_player_links']==8
-          assert d['summary']['open_high_priority_candidate_links']==22
+          assert d['summary']['school_officially_rejected_false_prior_player_links']==14
+          assert d['summary']['open_high_priority_candidate_links']==16
           assert d['summary']['source_linked_athletes']==3523
           assert d['summary']['source_unlinked_athletes']==2014
-          assert len(d['officially_disambiguated_exclusions'])==8
+          assert len(d['officially_disambiguated_exclusions'])==14
           assert all(not x['eligible_for_elo'] for x in d['high_priority_positive_identity_review_queue'])
-          print('PASS: eight false player transfers blocked, 22 high priority identity reviews queued')
+          print('PASS: fourteen false player transfers blocked, 16 high priority identity reviews queued')
           PY
       - name: Publish reproducible school-sourced candidate exclusions and review queue
         run: |
@@ -52,7 +52,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-2026-27-player-identity-source-review.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Publish eight adjudicated NCAA name collisions and 22 athlete identity reviews'
+          git commit -m 'Publish 14 official-source NCAA name collision exclusions and 16 remaining priority reviews'
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main || exit 1
             if git push origin HEAD:main; then exit 0; fi
