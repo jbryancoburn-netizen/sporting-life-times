@@ -1,0 +1,40 @@
+{
+  "status": "RESEARCH_ONLY_NOT_CERTIFIED",
+  "as_of": "2026-10-24",
+  "season": "2026-27",
+  "production_approved": false,
+  "source_artifact_run": "https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/40120234234",
+  "source_candidate_sha256": {
+    "2024-25": "f28bba5ca4f25fa5092c8d11295eda78662976e85968cf9fc3212830cd45c3af",
+    "2025-26": "51d1b029f28e1c20b1dfe4e7b26e8c75871b3c629f7d955957e097a6f40a3289",
+    "2026-27": "c9008120aa5962d7b3a922c78894fc7f7b76d3d2790de22c071e490f25bb025a"
+  },
+  "training_games": 159,
+  "validation_games": 178,
+  "holdout_games": 41,
+  "excluded_preseason_2026_27": 13,
+  "excluded_cup_2025_26": 1,
+  "benchmarks": {
+    "validation_selected": {
+      "k": 32,
+      "home_advantage_elo": 25,
+      "offseason_regression": 0.15,
+      "validation_log_loss": 0.623258,
+      "holdout_log_loss": 0.742054
+    },
+    "existing_elo": {
+      "k": 20,
+      "home_advantage_elo": 65,
+      "offseason_regression": 0.25,
+      "holdout_log_loss": 0.709414
+    },
+    "coin_flip": {
+      "holdout_log_loss": 0.693147
+    },
+    "lagged_home_rate": {
+      "holdout_log_loss": 0.681667
+    }
+  },
+  "release_reason": "Both independent Elo specifications underperformed the 50-50 and prior-season home-rate baselines on 41 completed 2026-27 regular-season games. Inputs are sourced candidates, not independently certified game by game.",
+  "requires_future_games_for_this_decision": false
+}
