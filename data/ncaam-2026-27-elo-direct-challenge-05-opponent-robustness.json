@@ -1,0 +1,65 @@
+{
+  "challenge": "opponent-quality coefficient robustness across training seasons and 2026 holdout windows",
+  "coefficient": -20,
+  "training_seasons": [
+    {
+      "year": 2024,
+      "games": 1682,
+      "log_loss_gain": 0.0006039882345350023,
+      "brier_gain": -0.00005551656672142524,
+      "both_improve": false
+    },
+    {
+      "year": 2025,
+      "games": 1651,
+      "log_loss_gain": 0.003474688972144868,
+      "brier_gain": 0.0011675352181968746,
+      "both_improve": true
+    }
+  ],
+  "holdout_windows": [
+    {
+      "days": 14,
+      "games": 547,
+      "baseline_log_loss": 0.531387787632429,
+      "adjusted_log_loss": 0.5245309292534708,
+      "logloss_gain": 0.006856858378958219,
+      "brier_gain": 0.0023119909353999935
+    },
+    {
+      "days": 30,
+      "games": 1179,
+      "baseline_log_loss": 0.5550578087297486,
+      "adjusted_log_loss": 0.5517021633611798,
+      "logloss_gain": 0.003355645368568805,
+      "brier_gain": 0.0010417485822265538
+    },
+    {
+      "days": 45,
+      "games": 1658,
+      "baseline_log_loss": 0.5604084047399379,
+      "adjusted_log_loss": 0.557252107253897,
+      "logloss_gain": 0.00315629748604096,
+      "brier_gain": 0.0009932192896675018
+    }
+  ],
+  "holdout_45": {
+    "games": 1658,
+    "log_loss": 0.557252107253897,
+    "brier": 0.18788732525664906,
+    "fallback_games": 0,
+    "matched_games_sha256": "1096e38a375326143b4d7ddf72658c9f59ef54efd51b01a2cf7edf95d42f2f13"
+  },
+  "incumbent_45": {
+    "games": 1658,
+    "log_loss": 0.5604084047399379,
+    "brier": 0.18888054454631656,
+    "fallback_games": 0,
+    "matched_games_sha256": "1096e38a375326143b4d7ddf72658c9f59ef54efd51b01a2cf7edf95d42f2f13"
+  },
+  "season_by_season_brier_unanimous": false,
+  "holdout_windows_both_improve": true,
+  "finding": "One of two training years worsens Brier while logloss improves; 2026 holdout improves both across all examined windows. Evidence supports research continuation, not automatic production promotion.",
+  "decision": "RETAIN_RESEARCH_ONLY",
+  "incumbent_changed": false
+}
