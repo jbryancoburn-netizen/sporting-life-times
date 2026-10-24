@@ -56,7 +56,7 @@ if(!ratings){
 }
 const teams=ratings.rankings;
 const lookup=new Map(teams.map(t=>[t.team_id,t]));
-const espnIds=new Map((teamCrosswalk?.teams||[]).filter(t=>t.id&&/^\\d+$/.test(String(t.espn_id||""))).map(t=>[t.id,String(t.espn_id)]));
+const espnIds=new Map((teamCrosswalk?.teams||[]).filter(t=>t.id&&/^\d+$/.test(String(t.espn_id||""))).map(t=>[t.id,String(t.espn_id)]));
 const logo=t=>espnIds.has(t.team_id)?'<img loading="lazy" alt="" src="https://a.espncdn.com/i/teamlogos/ncaa/500/'+espnIds.get(t.team_id)+'.png">':'';
 const pollRanks=key=>new Map((polls?.polls?.[key]?.rankings||[]).map(x=>[x.team,x.rank]));
 const apRanks=pollRanks("ap"),coachRanks=pollRanks("coaches");
