@@ -1,0 +1,81 @@
+{
+  "season": "2026-27",
+  "model": "slat-ncaam-player-value-sensitivity-v1",
+  "status": "SENSITIVITY_ANALYSIS_NOT_BACKTEST",
+  "primary_ratings_changed": false,
+  "player_value_source": "data/ncaam-2026-27-player-value-experimental-v1.json",
+  "coefficient_grid_elo_per_scoring_rate": [
+    0,
+    150,
+    300,
+    450,
+    600
+  ],
+  "results": [
+    {
+      "beta": 0,
+      "high_point_rank": 20,
+      "high_point_elo": 1642.9952,
+      "top_5": [
+        "Michigan",
+        "Arizona",
+        "Duke",
+        "St. John's (NY)",
+        "UConn"
+      ]
+    },
+    {
+      "beta": 150,
+      "high_point_rank": 17,
+      "high_point_elo": 1650.5294,
+      "top_5": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "St. John's (NY)",
+        "UConn"
+      ]
+    },
+    {
+      "beta": 300,
+      "high_point_rank": 18,
+      "high_point_elo": 1658.0636,
+      "top_5": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "St. John's (NY)",
+        "UConn"
+      ]
+    },
+    {
+      "beta": 450,
+      "high_point_rank": 18,
+      "high_point_elo": 1665.5978,
+      "top_5": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "St. John's (NY)",
+        "Houston"
+      ]
+    },
+    {
+      "beta": 600,
+      "high_point_rank": 16,
+      "high_point_elo": 1673.132,
+      "top_5": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "St. John's (NY)",
+        "Houston"
+      ]
+    }
+  ],
+  "high_point_rank_range": [
+    16,
+    20
+  ],
+  "interpretation": "High Point does not rank top ten at any tested quality coefficient; this is not evidence that a coefficient is calibrated. Historical opponent-adjusted and as-of-preseason validations remain required."
+}
