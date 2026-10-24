@@ -9,7 +9,7 @@
   "selected": {
     "quality_beta": 1200.0,
     "churn_gamma": 1.0,
-    "origin_beta": 0.0
+    "origin_beta": 25.0
   },
   "diagnostic_baseline": {
     "games": 5750,
@@ -18,19 +18,50 @@
   },
   "diagnostic_combined": {
     "games": 5750,
-    "log_loss": 0.5709335991148401,
-    "brier": 0.19572473536830048
+    "log_loss": 0.5691101007102444,
+    "brier": 0.19514634776861728
   },
   "better_both": true,
-  "transfers_origin_included_in_scoring": false,
-  "transfer_origin_reason": "Missing verified player-to-previous-school join in historical seasonal features; no manufactured effect",
+  "transfers_origin_included_in_scoring": true,
+  "transfer_origin_selected_nonzero": true,
+  "transfer_origin_evidence": "Unique exact historical player-name to previous school, minutes-weighted using independently replayed prior-year Elo",
+  "transfer_origin_audits": {
+    "2024": {
+      "ambiguous_prior_names_excluded": 32,
+      "teams_with_origin_strength": 320,
+      "matched_transfer_records": 956,
+      "excluded": {
+        "unmatched_or_ambiguous_prior_name": 2365,
+        "linked_transfer_records": 956
+      }
+    },
+    "2025": {
+      "ambiguous_prior_names_excluded": 38,
+      "teams_with_origin_strength": 332,
+      "matched_transfer_records": 1221,
+      "excluded": {
+        "unmatched_or_ambiguous_prior_name": 2488,
+        "linked_transfer_records": 1221
+      }
+    },
+    "2026": {
+      "ambiguous_prior_names_excluded": 27,
+      "teams_with_origin_strength": 341,
+      "matched_transfer_records": 1389,
+      "excluded": {
+        "unmatched_or_ambiguous_prior_name": 2578,
+        "linked_transfer_records": 1389
+      }
+    }
+  },
   "preseason_roster_asof_verified": false,
   "automatic_promotion": false,
   "limitations": [
+    "Previous-school transfer identity is unique name matched, not verified cross-year athlete ID",
     "Roster membership may contain post-opening information",
     "2026 reused for diagnostic after earlier inspection",
     "No verified home/neutral venue labels",
-    "Incoming transfer source-strength feature has been withheld from historical scoring"
+    "Previous school not independently rated or unmatched athlete receives no source-strength value"
   ],
   "trials": [
     {
@@ -46,6 +77,28 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5847753642355957,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.574467755904852,
+        "brier": 0.19651573693154262
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5836850516588806,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5730338095094335,
+        "brier": 0.1960217908042621
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "train_log_loss": 0.5854130719885674,
@@ -57,6 +110,28 @@
     },
     {
       "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.5845440127426799,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5743936274325306,
+        "brier": 0.19647670202154072
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.5834575609739284,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5729760129537916,
+        "brier": 0.19599022141632963
+      }
+    },
+    {
+      "quality_beta": 0.0,
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "train_log_loss": 0.5852511668565569,
@@ -64,6 +139,28 @@
         "games": 5750,
         "log_loss": 0.5754983356023993,
         "brier": 0.19686913692969107
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5843835568644459,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5743829248414015,
+        "brier": 0.19646590697803276
+      }
+    },
+    {
+      "quality_beta": 0.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5832996445128468,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5729805833162291,
+        "brier": 0.19598635760901498
       }
     },
     {
@@ -79,6 +176,28 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5825712523805453,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721749350481212,
+        "brier": 0.19579155942566023
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5815459859409421,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.570883437901224,
+        "brier": 0.19536601149892793
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "train_log_loss": 0.5831780076573627,
@@ -90,6 +209,28 @@
     },
     {
       "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.582352626958573,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721156445562027,
+        "brier": 0.195760436990189
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.5813310671467331,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5708392646131211,
+        "brier": 0.19534154855621094
+      }
+    },
+    {
+      "quality_beta": 400.0,
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "train_log_loss": 0.583026877747908,
@@ -97,6 +238,28 @@
         "games": 5750,
         "log_loss": 0.5731380981896157,
         "brier": 0.19611211544318813
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5822029038785941,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5721162278736126,
+        "brier": 0.19575567643384104
+      }
+    },
+    {
+      "quality_beta": 400.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5811838440946226,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5708541352867629,
+        "brier": 0.19534302780735513
       }
     },
     {
@@ -112,6 +275,28 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5802517658574191,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5701094882446391,
+        "brier": 0.19546085556686818
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.0,
+      "train_log_loss": 0.5793510775264747,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5690979041824171,
+        "brier": 0.1951494219952547
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 0.0,
       "churn_gamma": 0.5,
       "train_log_loss": 0.580791006743331,
@@ -123,6 +308,28 @@
     },
     {
       "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.5800491346860189,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5700746343299882,
+        "brier": 0.19544210391038497
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 0.5,
+      "train_log_loss": 0.579152074529153,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5690762350357064,
+        "brier": 0.1951359897567764
+      }
+    },
+    {
+      "quality_beta": 1200.0,
       "origin_beta": 0.0,
       "churn_gamma": 1.0,
       "train_log_loss": 0.5806545903836056,
@@ -130,6 +337,28 @@
         "games": 5750,
         "log_loss": 0.5709335991148401,
         "brier": 0.19572473536830048
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 10.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.579914166059179,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5700957984178101,
+        "brier": 0.1954473963434834
+      }
+    },
+    {
+      "quality_beta": 1200.0,
+      "origin_beta": 25.0,
+      "churn_gamma": 1.0,
+      "train_log_loss": 0.5790197106870484,
+      "diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5691101007102444,
+        "brier": 0.19514634776861728
       }
     }
   ]
