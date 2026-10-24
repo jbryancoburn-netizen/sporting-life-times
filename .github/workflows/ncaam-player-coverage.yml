@@ -48,11 +48,32 @@ jobs:
           assert len({z['current_espn_id'] for z in x['player_review_queue']})==2614
           print('PASS: 365 programs, 5,537 athletes, 2,923 measured, 2,614 without verified scoring evidence')
           PY
+      - name: Build small human-readable review summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('data/ncaam-2026-27-player-coverage-review-queue.json').read_text())
+          short={
+            'season':data['season'],'audit_status':data['status'],
+            'roster_players':data['roster_players'],'team_count':data['team_count'],
+            'measured_prior_stats':data['players_with_measured_prior_stats'],
+            'without_eligible_prior_stats':data['players_without_eligible_prior_stats'],
+            'reason_counts':data['reason_counts'],
+            'highest_priority_programs':data['team_priority'][:20],
+            'first_highest_priority_players':data['player_review_queue'][:20],
+            'no_ratings_modified':data['model_ratings_modified'] is False,
+            'no_unverified_player_production_added':data['unverified_production_added']==0,
+            'full_source':'data/ncaam-2026-27-player-coverage-review-queue.json'}
+          Path('data/ncaam-2026-27-player-coverage-summary.json').write_text(
+              json.dumps(short,indent=2,ensure_ascii=False)+'\\n')
+          print(json.dumps({k:short[k] for k in ('roster_players','measured_prior_stats','without_eligible_prior_stats','reason_counts')},indent=2))
+          PY
       - name: Publish source-by-source unresolved evidence queue
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ncaam-2026-27-player-coverage-review-queue.json
+          git add data/ncaam-2026-27-player-coverage-review-queue.json data/ncaam-2026-27-player-coverage-summary.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Publish 365-team NCAA player stat evidence coverage priorities'
           for attempt in 1 2 3 4 5; do
