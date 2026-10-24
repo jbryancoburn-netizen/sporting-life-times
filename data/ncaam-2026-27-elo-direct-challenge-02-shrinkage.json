@@ -1,0 +1,104 @@
+{
+  "experiment": "2026-27 incumbent roster shrinkage rank sensitivity",
+  "team_count": 365,
+  "comparison": "Fixed historical 2026 45-day holdout compared zero roster adjustments and trained full coefficients; intermediate strength weights are rank sensitivity only and NOT holdout predictions.",
+  "historical_test_games": 1823,
+  "historical_full_minus_zero_logloss_gain": 0.017018827815658666,
+  "historical_full_minus_zero_brier_gain": 0.007139983523619525,
+  "incumbent_strength": 1,
+  "strength_sensitivity": [
+    {
+      "roster_adjustment_strength": 0,
+      "median_rank_distance_from_incumbent": 23,
+      "mean_rank_distance_from_incumbent": 30.318,
+      "high_point_rank": 20,
+      "top_ten": [
+        "Michigan",
+        "Arizona",
+        "Duke",
+        "St. John's (NY)",
+        "UConn",
+        "Purdue",
+        "Illinois",
+        "Florida",
+        "Virginia",
+        "Houston"
+      ]
+    },
+    {
+      "roster_adjustment_strength": 0.25,
+      "median_rank_distance_from_incumbent": 17,
+      "mean_rank_distance_from_incumbent": 21.529,
+      "high_point_rank": 16,
+      "top_ten": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "St. John's (NY)",
+        "UConn",
+        "Houston",
+        "Florida",
+        "Virginia",
+        "VCU",
+        "Illinois"
+      ]
+    },
+    {
+      "roster_adjustment_strength": 0.5,
+      "median_rank_distance_from_incumbent": 11,
+      "mean_rank_distance_from_incumbent": 13.759,
+      "high_point_rank": 13,
+      "top_ten": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "UConn",
+        "St. John's (NY)",
+        "Iowa St.",
+        "VCU",
+        "Houston",
+        "Florida",
+        "Virginia"
+      ]
+    },
+    {
+      "roster_adjustment_strength": 0.75,
+      "median_rank_distance_from_incumbent": 5,
+      "mean_rank_distance_from_incumbent": 6.712,
+      "high_point_rank": 8,
+      "top_ten": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "UConn",
+        "Iowa St.",
+        "St. John's (NY)",
+        "Miami (FL)",
+        "High Point",
+        "VCU",
+        "Tennessee"
+      ]
+    },
+    {
+      "roster_adjustment_strength": 1,
+      "median_rank_distance_from_incumbent": 0,
+      "mean_rank_distance_from_incumbent": 0,
+      "high_point_rank": 8,
+      "top_ten": [
+        "Michigan",
+        "Duke",
+        "Arizona",
+        "Iowa St.",
+        "UConn",
+        "Miami (FL)",
+        "Cincinnati",
+        "High Point",
+        "St. John's (NY)",
+        "Tennessee"
+      ]
+    }
+  ],
+  "provenance_warning": "Retrospective historical roster timestamp was not independently verified; cannot certify true preseason advantage.",
+  "decision": "RETAIN_FULL_VS_ZERO_ON_OBSERVED_HOLDOUT; NO_DECISION_ON_PARTIAL_SHRINKAGE_WITHOUT_SAME_SAMPLE_GAMES",
+  "incumbent_elo_changed": false
+}
