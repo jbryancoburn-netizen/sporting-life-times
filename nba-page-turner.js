@@ -13,7 +13,7 @@ const pageIds=new Map();
 pages.forEach((page,index)=>page.ids.forEach(id=>{const e=document.getElementById(id);if(e){e.dataset.editionPage=index;pageIds.set(id,index)}}));
 let current=0;
 const allIndex=pages.length;
-const allButton=document.createElement('button');allButton.type='button';allButton.textContent='Full Edition';labels.appendChild(allButton);
+const allButton=document.createElement('button');allButton.type='button';allButton.textContent='Full Edition';
 function turn(index,scroll){
  current=Math.max(0,Math.min(allIndex,index));
  const full=current===allIndex;
@@ -28,6 +28,7 @@ function turn(index,scroll){
 }
 pages.forEach((page,i)=>{const btn=document.createElement('button');btn.type='button';btn.textContent=page.name;btn.addEventListener('click',()=>turn(i,true));labels.appendChild(btn)});
 allButton.addEventListener('click',()=>turn(allIndex,true));
+labels.appendChild(allButton);
 back.addEventListener('click',()=>turn(current-1,true));forward.addEventListener('click',()=>turn(current+1,true));
 document.addEventListener('click',event=>{const anchor=event.target.closest('a[href^="#"]');if(!anchor)return;const id=anchor.getAttribute('href').slice(1);if(pageIds.has(id)){turn(pageIds.get(id),false);}});
 const deepLink=location.hash.slice(1);
