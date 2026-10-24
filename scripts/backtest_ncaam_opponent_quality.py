@@ -21,7 +21,7 @@ def opponent_quality(box,schedule,team_rows):
             by_team[p["team_key"]][p["historical_player_id"]]=p
     return by_team
 
-def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
+def quality_continuity(box,roster,members,quality,prior_team_ratings=None,return_scoring=False):
     names=defaultdict(set);old=defaultdict(set)
     minutes=defaultdict(float)
     points=defaultdict(float)
@@ -50,7 +50,7 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
     weighted=defaultdict(float);weight=defaultdict(float)
     scored=defaultdict(float);scored_minutes=defaultdict(float)
     mean_ppm=all_points/all_minutes if all_minutes else 0
-    if not (0.2<mean_ppm<0.65):raise ValueError("Implausible historical points per minute")
+    if return_scoring and not (0.2<mean_ppm<0.65):raise ValueError("Implausible historical points per minute")
     for target in members:
         for name in names.get(target,set()):
             prior=teams_by_name.get(name,set())
@@ -72,7 +72,7 @@ def quality_continuity(box,roster,members,quality,prior_team_ratings=None):
             weight[target]+=m
     opponent={t:weighted[t]/weight[t] for t in members if weight[t]>=1000}
     scoring={t:scored[t]/scored_minutes[t] for t in members if scored_minutes[t]>=1000}
-    return opponent,scoring
+    return (opponent,scoring) if return_scoring else opponent
 
 def evaluate_quality(schedule,previous,features,quality,beta,days=45,roster_betas=(120,160),require_quality=True,coverage_fallback=False,scoring=None,scoring_beta=0):
     valid={t for t in features if t in quality} if require_quality else {t for g in schedule for t in (g[2],g[3])}
@@ -139,7 +139,7 @@ def run():
     for year in (2024,2025,2026):
         prior=seasons[year-1];now=seasons[year]
         f=continuity(prior["box"],now["roster"],now["members"])
-        q,scoring=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"])
+        q,scoring=quality_continuity(prior["box"],now["roster"],now["members"],prior["quality"],prior["end"],return_scoring=True)
         data[year]={"features":f,"quality":q,"scoring":scoring,"coverage":len(q)}
     # Wide predeclared search checks whether the prior optimum sat on a grid edge.
     slopes=(-240,-200,-160,-120,-80,-40,-20,0,20,40,80,120,160,200,240)
