@@ -24,6 +24,13 @@ class PlayerQualityOverhaulTests(unittest.TestCase):
   before=json.dumps(self.args,sort_keys=True)
   build(*self.args)
   self.assertEqual(before,json.dumps(self.args,sort_keys=True))
+ def test_uncovered_program_is_not_a_false_identity_error(self):
+  out=build(*self.args)
+  self.assertFalse(out["identity_mismatches"])
+  fallback={x["team_id"]:x for x in out["baseline_fallbacks"]}
+  self.assertIn("pending-ncaa-id:west-florida",fallback)
+  row=next(x for x in out["rankings"] if x["team_id"]=="pending-ncaa-id:west-florida")
+  self.assertEqual(row["quality_component"],0)
  def test_invalid_scenario_fails(self):
   with self.assertRaises(AssertionError):build(*self.args,transfer_weight=1.5)
 if __name__=="__main__":unittest.main()
