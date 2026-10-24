@@ -45,12 +45,13 @@ async function start(){
  const row=standingsOk?stand.rows.find(r=>r.team===selected):null;
  const rating=eloOk?elo.ratings.find(r=>r.team===selected):null;
  const logos=scrapeLogos(scores);
+ try{const manifest=await get('assets/nbl-logos/manifest.json');for(const [team,url] of Object.entries(manifest.teams||{}))logos.set(normalize(team),url)}catch{}
  try{
    const resp=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/teams?limit=100',{cache:'no-store'});
    if(resp.ok){const directory=await resp.json();
      for(const item of directory?.sports?.[0]?.leagues?.[0]?.teams||[]){
        const t=item.team||item,u=valid(t.logos?.[0]?.href||t.logo);
-       if(u)for(const name of [t.displayName,t.name,t.shortDisplayName])if(name)logos.set(normalize(name),u);
+       if(u)for(const name of [t.displayName,t.name,t.shortDisplayName])if(name&&!logos.has(normalize(name)))logos.set(normalize(name),u);
      }
    }
  }catch{ /* retain sourced score-feed logo or textual team name */ }
