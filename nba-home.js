@@ -21,11 +21,11 @@ async function news(){
   let payload;
   try{payload=await fetchJSON('data/nba-top-stories.json')}
   catch(err){payload=await fetchJSON('articles.json')}
-  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title).slice(0,60);
-  items=items.filter(a=>!/(?:fantasy basketball|betting picks|sportsbook|odds boost|parlay|best bets|wager|prop bets)/i.test(a.title||''));
+  const editorial=a=>!/(?:betmgm|draftkings|fanduel|caesars sportsbook|bet365|sportsbook|bonus (?:bet|code|offer)|promo code|promotional code|free bet|bonus bets?|best bets?|player props?|same.game parlay|parlay|odds boost|betting picks?|wager|risk.free|sports betting|fantasy basketball|pick(?:s)? against the spread|world series|brewers|rays)/i.test([a.title,a.summary,a.url].join(' '));
+  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title&&editorial(a)).slice(0,60);
   const ranked=items.map((a,index)=>({a,index,weight:(/^(?:NBA.com|Reuters|ESPN NBA|CBS Sports NBA)$/i.test(a.source||'')?2:0)+( /\\b(?:76ers|Thunder|NBA|LeBron|Knicks|Celtics|trade|injur|season|comeback)\\b/i.test(a.title||'')?1:0)})).sort((x,y)=>y.weight-x.weight||x.index-y.index);
   items=ranked.map(x=>x.a).slice(0,36);
-  if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA').slice(0,60)}
+  if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'&&editorial(a)).slice(0,60)}
   if(!items.length)throw Error('No attributed NBA headlines');
   const format=window.SportingNewsFormat;
   const newsItem=(a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+newsLogos(a)+(format?.meta?format.meta(a):esc(a.source||'NBA NEWS')+' · '+esc((a.published_at||'').slice(0,10)))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+(format?.title?format.title(a):esc(a.title))+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+(format?.summary?format.summary(a):esc(a.summary))+'</p>':'')+'</article>';
