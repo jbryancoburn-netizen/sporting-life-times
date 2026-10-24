@@ -5,7 +5,7 @@ const num=n=>Number.isFinite(Number(n))?Number(n):0;
 const logo=code=>'https://a.espncdn.com/i/teamlogos/nba/500/'+({NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'}[code]||String(code).toLowerCase())+'.png';
 const fmt=d=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',dateStyle:'medium'}).format(new Date(d));
 async function fetchData(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+path);return r.json()}
-const panel=(t,record)=>'<div class="game-team" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><img src="'+logo(t.code)+'" alt="" onerror="this.hidden=true"><b>'+esc(t.name)+'</b><strong>'+esc(t.score)+'</strong><small>'+esc(t.home_away==='away'?'AWAY':'HOME')+'</small></div>';
+const panel=(t,record)=>'<div class="game-team" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><img src="'+logo(t.code)+'" alt="" onerror="this.hidden=true"><b>'+esc(t.name)+'</b><strong>'+esc(t.score)+'</strong><small>'+esc(record)+' · '+esc(t.home_away==='away'?'AWAY':'HOME')+'</small></div>';
 const player=p=>'<div class="player"><div class="player-head"><b>'+esc(p.name)+'</b><small>'+esc(p.min)+' MIN</small></div><div class="big-stats"><span><b>'+esc(p.pts)+'</b><small>PTS</small></span><span><b>'+esc(p.reb)+'</b><small>REB</small></span><span><b>'+esc(p.ast)+'</b><small>AST</small></span></div><div class="fine-stats">STL '+esc(p.stl)+' · BLK '+esc(p.blk)+' · FG '+esc(p.fgm)+'/'+esc(p.fga)+' · 3PT '+esc(p.fg3m)+'/'+esc(p.fg3a)+' · FT '+esc(p.ftm)+'/'+esc(p.fta)+'</div></div>';
 function render(g,events,rankings){
  const away=g.teams.find(t=>t.home_away==='away'),home=g.teams.find(t=>t.home_away==='home');
