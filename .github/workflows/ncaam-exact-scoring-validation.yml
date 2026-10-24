@@ -24,6 +24,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Publish full-run execution receipt
+        env:
+          RUN_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path('data/ncaam-exact-scoring-run-start.json')
+          p.parent.mkdir(exist_ok=True)
+          p.write_text(json.dumps({'commit':os.environ['RUN_SHA'],'run_id':os.environ['RUN_ID'],'status':'started'},indent=2)+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-exact-scoring-run-start.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record NCAA exact scoring workflow start [skip ci]'
+            git push
+          fi
       - name: Compile NCAA validation scripts before running tests
         run: python -m py_compile scripts/backtest_ncaam_quality_retrospective.py scripts/run_ncaam_exact_formula_diagnostic.py scripts/test_ncaam_exact_source_schema.py scripts/test_ncaam_exact_scoring_day_batch.py scripts/verify_ncaam_accuracy_first_promotion.py
       - name: Verify accuracy-first gating logic
@@ -63,6 +82,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add data/ncaam-exact-scoring-formula-retrospective-backtest.json data/ncaam-exact-scoring-promotion-decision.json
           if ! git diff --cached --quiet; then
             git commit -m "Publish exact-formula NCAA scoring backtest [skip ci]"
@@ -76,6 +96,7 @@ jobs:
           if test -s data/ncaam-exact-scoring-execution-diagnostic.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git pull --rebase origin main
             git add data/ncaam-exact-scoring-execution-diagnostic.json
             if ! git diff --cached --quiet; then
               git commit -m "Publish NCAA exact scoring execution diagnostic [skip ci]"
