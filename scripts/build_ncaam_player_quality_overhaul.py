@@ -22,10 +22,15 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
     assert {x["team_id"] for x in roster["rankings"]}==set(b)
     rows=[]
     identity_mismatches=[]
+    baseline_fallbacks=[]
     for team in roster["rankings"]:
         tid=team["team_id"]
         identity_ok=s[tid]["verified_players"]==team["evidence_player_count"]
-        if not identity_ok:identity_mismatches.append({"team_id":tid,"roster_count":team["evidence_player_count"],"scoring_count":s[tid]["verified_players"]})
+        if not identity_ok:
+            if team["roster_coverage"]=="baseline-fallback" and team["evidence_player_count"]==0:
+                baseline_fallbacks.append({"team_id":tid,"excluded_scoring_records":s[tid]["verified_players"],"reason":"No source-confirmed team-level historical minutes denominator"})
+            else:
+                identity_mismatches.append({"team_id":tid,"roster_count":team["evidence_player_count"],"scoring_count":s[tid]["verified_players"]})
         baseline=float(b[tid]["elo"])
         # Do not reward unverified incoming minutes as though all transfers
         # came from comparably strong competition.
@@ -52,6 +57,7 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
       "season":"2026-27","status":"SHADOW_UNCERTIFIED_PRESEASON",
       "production_elo_approved":False,"preseason_asof_certified":False,
       "team_count":365,"games_played":0,"identity_mismatches":identity_mismatches,
+      "baseline_fallbacks":baseline_fallbacks,
       "inputs":{"game_baseline":"ncaam-2026-27-preseason-provisional.json",
                 "roster":"ncaam-2026-27-preseason-roster-informed.json",
                 "player_quality":"ncaam-2026-27-scoring-quality-shadow.json",
@@ -61,6 +67,7 @@ def build(base, roster, scoring, shadow, transfer_weight=0.5, roster_weight=0.5,
       "limitations":["Scoring points per prior minute is not full player value or defensive quality",
                      "School-strength and previous competition adjustment not certified",
                      "Missing player and freshman value not imputed",
+                     "Uncovered programs retain their own baseline with linked quality evidence excluded",
                      "Mismatched cross-source player counts receive zero quality adjustment",
                      "No season-opening as-of roster snapshot held-out validation",
                      "Do not substitute this exploratory rating for certified predictions"],
