@@ -1,0 +1,53 @@
+{
+  "season": "2026-27",
+  "source_audit": "data/ncaam-2026-27-player-identity-triage.json",
+  "evidence_date": "2026-10-23",
+  "cases": [
+    {
+      "current_player_id": "5312426",
+      "player": "Devin Brown",
+      "team": "Alabama A&M",
+      "evidence_status": "OFFICIAL_PREVIOUS_SCHOOL_COASTAL_CAROLINA",
+      "official_sources": [
+        "https://aamusports.com/sports/mens-basketball/roster/2026-27"
+      ],
+      "observation": "Official roster identifies Devin Brown as redshirt freshman and previous school Coastal Carolina. Historical ID crosswalk claiming a different previous school cannot be approved without player-level verification.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5313396",
+      "player": "Jayden Jackson",
+      "team": "Alabama A&M",
+      "evidence_status": "OFFICIAL_REDSHIRT_FRESHMAN_FROM_HIGH_SCHOOL",
+      "official_sources": [
+        "https://aamusports.com/sports/mens-basketball/roster/jayden-jackson/7937"
+      ],
+      "observation": "Official athlete bio identifies redshirt freshman from West Monroe High School, no recorded 2025-26 statistics. Prior DI 813.65 minutes match cannot be accepted.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5314773",
+      "player": "Mike James",
+      "team": "Alabama St.",
+      "evidence_status": "OFFICIAL_PREVIOUS_SCHOOLS_MERIDIAN_CC_MVSU",
+      "official_sources": [
+        "https://bamastatesports.com/sports/mens-basketball/roster/"
+      ],
+      "observation": "Official 2026-27 roster lists senior Mike James from Meridian CC/Mississippi Valley State; common name requires strict source ID verification before matching historical DI minutes.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    },
+    {
+      "current_player_id": "5314629",
+      "player": "Isaiah Williams",
+      "team": "Wright St.",
+      "evidence_status": "OFFICIAL_2025_26_DID_NOT_PLAY",
+      "official_sources": [
+        "https://wsuraiders.com/sports/mens-basketball/roster/isaiah-williams/6876"
+      ],
+      "observation": "Official player biography explicitly states 2025-26: Did not play; do not accept historical 341.6-minute crosswalk.",
+      "production_action": "DO_NOT_ACCEPT_UNVERIFIED_HISTORICAL_PLAYER_ID"
+    }
+  ],
+  "model_mutation": false,
+  "production_elo_changed": false
+}
