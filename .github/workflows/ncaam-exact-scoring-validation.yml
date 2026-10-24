@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/backtest_ncaam_quality_retrospective.py'
       - 'scripts/run_ncaam_exact_formula_backtest.py'
+      - 'scripts/run_ncaam_exact_formula_diagnostic.py'
       - 'scripts/verify_ncaam_accuracy_first_promotion.py'
       - 'scripts/test_ncaam_accuracy_first_promotion.py'
       - 'scripts/test_ncaam_exact_scoring_day_batch.py'
@@ -27,7 +28,7 @@ jobs:
       - name: Verify same-day game independence
         run: python -m unittest discover -s scripts -p test_ncaam_exact_scoring_day_batch.py -v
       - name: Train and hold out using identical scoring feature
-        run: python scripts/run_ncaam_exact_formula_backtest.py
+        run: python scripts/run_ncaam_exact_formula_diagnostic.py
       - name: Validate output has unchanged evaluation period
         run: |
           python - <<'PY'
@@ -50,6 +51,7 @@ jobs:
           path: |
             data/ncaam-exact-scoring-formula-retrospective-backtest.json
             data/ncaam-exact-scoring-promotion-decision.json
+            data/ncaam-exact-scoring-execution-diagnostic.json
       - name: Publish historical holdout measurements
         if: success() && github.ref == 'refs/heads/main'
         run: |
@@ -59,4 +61,18 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "Publish exact-formula NCAA scoring backtest [skip ci]"
             git push
+          fi
+
+      - name: Publish execution diagnostic even when backtest fails
+        if: always() && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          if test -s data/ncaam-exact-scoring-execution-diagnostic.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/ncaam-exact-scoring-execution-diagnostic.json
+            if ! git diff --cached --quiet; then
+              git commit -m "Publish NCAA exact scoring execution diagnostic [skip ci]"
+              git push
+            fi
           fi
