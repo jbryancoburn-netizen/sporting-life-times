@@ -72,11 +72,13 @@ jobs:
           python -c "import json; d=json.load(open('data/nba-player-leaders.json')); assert d['sample_only'] and len(d['rows']) > 0"
           node scripts/audit-nba-elo.mjs
           python -c "import json; d=json.load(open('data/nba-game-center.json')); assert d['coverage']['boxscores_with_players'] > 0 and len(d['games']) > 0"
+      - name: Reconcile captured player statistics and season aggregates
+        run: python scripts/audit-nba-stat-coverage.py
       - name: Commit verified official NBA game center
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nba-game-center.json data/nba-possession-inputs.json data/nba-player-leaders.json data/nba-2026-27-current-provisional.json
+          git add data/nba-stat-coverage-audit.json data/nba-game-center.json data/nba-possession-inputs.json data/nba-player-leaders.json data/nba-2026-27-current-provisional.json
           if test -f data/nba-upcoming-schedule.json; then git add data/nba-upcoming-schedule.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh official NBA score and schedule archive"
