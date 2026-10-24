@@ -11,17 +11,27 @@ function render(g,events,rankings){
  const away=g.teams.find(t=>t.home_away==='away'),home=g.teams.find(t=>t.home_away==='home');
  if(!away||!home){$('game').textContent='Verified teams unavailable';return}
  const event=events.find(e=>e.id===g.id);
- const eloByTeam=Object.fromEntries(rankings.map(x=>[x.team,x.elo]));
- const index=events.findIndex(e=>e.id===g.id);
- const atEnd=index===events.length-1;
- const delta=Number(event?.home_elo_change);
- const eloStat=(team,homeTeam)=>{if(!event||!Number.isFinite(delta))return 'Elo unavailable';const d=homeTeam?delta:-delta;
-   const after=atEnd?eloByTeam[team.code]:null;
-   return '<b>'+(after!=null?Number(after).toFixed(1):'—')+'</b><small>GAME ELO CHANGE '+(d>0?'+':'')+d.toFixed(1)+(after==null?' · Historical postgame rating not displayed':'')+'</small>';
+ const latest=Object.fromEntries(rankings.map(x=>[x.team,Number(x.elo)]));
+ const rolling={...latest}, postgame=new Map();
+ for(let i=events.length-1;i>=0;i--){
+  const e=events[i],d=Number(e.home_elo_change);
+  if(!Number.isFinite(d)||!Number.isFinite(rolling[e.home])||!Number.isFinite(rolling[e.away]))continue;
+  const ranks=Object.entries(rolling).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  const place=t=>ranks.findIndex(x=>x[0]===t)+1;
+  const afterH=place(e.home),afterA=place(e.away);
+  const hElo=rolling[e.home],aElo=rolling[e.away];
+  rolling[e.home]-=d;rolling[e.away]+=d;
+  const before=Object.entries(rolling).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  const previous=t=>before.findIndex(x=>x[0]===t)+1;
+  postgame.set(e.id,{[e.home]:{elo:hElo,delta:d,rank:afterH,movement:previous(e.home)-afterH},[e.away]:{elo:aElo,delta:-d,rank:afterA,movement:previous(e.away)-afterA}});
+ }
+ const gameElo=postgame.get(g.id);
+ const eloStat=t=>{const v=gameElo?.[t.code];if(!v)return '<small>Elo unavailable</small>';
+  return '<b>'+v.elo.toFixed(1)+'</b><small>ELO '+(v.delta>0?'+':'')+v.delta.toFixed(1)+' · RANK #'+v.rank+(v.movement>0?' ▲'+v.movement:v.movement<0?' ▼'+Math.abs(v.movement):'')+'</small>';
  };
  const highlight=(g.leaders||[]).slice(0,4).map(p=>'<div class="star"><small>'+esc(p.team)+'</small><b>'+esc(p.name)+'</b><strong>'+esc(p.pts)+' <small>PTS</small></strong><small>'+esc(p.reb)+' REB · '+esc(p.ast)+' AST</small></div>').join('');
  const roster=t=>'<section class="roster" style="--team-color:'+window.SLTScorebug.color(t.code)+'"><h4>'+esc(t.name)+'</h4>'+g.players.filter(p=>p.team===t.code).sort((a,b)=>num(b.pts)-num(a.pts)).map(player).join('')+'</section>';
- $('game').innerHTML='<div class="game-hero"><div class="game-label"><span>'+esc(g.status||'FINAL')+'</span><span>'+esc(fmt(g.date))+'</span></div><div class="game-teams">'+panel(away)+panel(home)+'</div><div class="game-summary"><div>'+eloStat(away,false)+'</div><div>'+eloStat(home,true)+'</div></div></div><section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section><section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section><section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official game box score ↗</a><a href="nba.html#page-3">Standings & Elo ↗</a></div><p class="notice">Player statistics are sourced from captured completed-game box scores. Possession timelines and quarter scoring are not included until verified data is available.</p></section>';
+ $('game').innerHTML='<div class="game-hero"><div class="game-label"><span>'+esc(g.status||'FINAL')+'</span><span>'+esc(fmt(g.date))+'</span></div><div class="game-teams">'+panel(away)+panel(home)+'</div><div class="game-summary"><div>'+eloStat(away)+'</div><div>'+eloStat(home)+'</div></div></div><section class="section"><h3>Top Performers</h3><div class="star-grid">'+highlight+'</div></section><section class="section"><h3>Complete Player Box Score</h3><div class="rosters">'+roster(away)+roster(home)+'</div></section><section class="section"><h3>Game Sources</h3><div class="links"><a target="_blank" rel="noopener noreferrer" href="'+esc(g.url)+'">Official game box score ↗</a><a href="nba.html#page-3">Standings & Elo ↗</a></div><p class="notice">Player statistics are sourced from captured completed-game box scores. Possession timelines and quarter scoring are not included until verified data is available.</p></section>';
 }
 async function boot(){
  try{
