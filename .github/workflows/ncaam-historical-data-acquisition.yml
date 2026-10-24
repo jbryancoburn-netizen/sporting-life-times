@@ -210,8 +210,23 @@ jobs:
             if [ -f "$file" ]; then git add "$file"; fi
           done
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
+          # Generated audit JSON changes every run. Rebase can conflict with
+          # concurrently published acquisitions. Re-apply our complete files
+          # on the latest branch rather than merging two partial JSON reports.
+          mkdir -p /tmp/ncaam-acquisition-publish
+          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
+            if [ -f "$file" ]; then cp "$file" /tmp/ncaam-acquisition-publish/; fi
+          done
           for attempt in 1 2 3 4 5; do
-            git -c rebase.autoStash=true pull --rebase origin main || exit 1
+            git fetch origin main || exit 1
+            git reset --hard origin/main || exit 1
+            cp /tmp/ncaam-acquisition-publish/* data/
+            git add data/ncaam-historical-acquisition-status.json
+            for file in data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
+              if [ -f "$file" ]; then git add "$file"; fi
+            done
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Publish complete NCAA historical validation artifacts' || exit 1
             if git push origin HEAD:main; then exit 0; fi
             sleep "$((attempt*2))"
           done
