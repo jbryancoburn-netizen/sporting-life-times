@@ -127,7 +127,8 @@ def preseason_features(current_roster,previous_box):
     current=defaultdict(list);schools={};ids_seen=set();dup_ids=0
     for r in current_roster:
         school=school_key(r['team']);id_=str(r.get('team_id') or r.get('team_ncaa_team_id') or '')
-        if id_ and school in schools and schools[school] and schools[school]!=id_:\n            raise ValueError('one name maps to two current-team IDs')
+        if id_ and school in schools and schools[school] and schools[school]!=id_:
+            raise ValueError('one name maps to two current-team IDs')
         schools[school]=id_
         key=player_key(r.get('player'))
         if not key:continue
