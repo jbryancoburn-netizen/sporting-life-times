@@ -6,18 +6,18 @@
   "reused_diagnostic_year": 2026,
   "selected_weights": {
     "shooting": 300.0,
-    "playmaking": 300.0,
-    "defense": 300.0
+    "playmaking": 600.0,
+    "defense": 450.0
   },
   "selected_training": {
     "games": 5611,
-    "log_loss": 0.5887650326242364,
-    "brier": 0.20246812559409852
+    "log_loss": 0.5883836148173033,
+    "brier": 0.20232393590512876
   },
   "selected_validation": {
     "games": 5674,
-    "log_loss": 0.5674290546539578,
-    "brier": 0.19400005176395957
+    "log_loss": 0.5666597781476658,
+    "brier": 0.19372380466376074
   },
   "equal_weights_validation": {
     "games": 5674,
@@ -31,14 +31,15 @@
   },
   "selected_reused_2026": {
     "games": 5750,
-    "log_loss": 0.5681758889612968,
-    "brier": 0.194887559990039
+    "log_loss": 0.5677797046927737,
+    "brier": 0.19477172600739595
   },
   "equal_weights_reused_2026": {
     "games": 5750,
     "log_loss": 0.568595511281899,
     "brier": 0.19499759547115544
   },
+  "selected_at_grid_boundary": true,
   "validation_both_better_than_equal": true,
   "games_identical": true,
   "auto_promote": false,
@@ -46,6 +47,7 @@
     "Historical roster membership not proven available before opening game",
     "2026 previously inspected; repeated diagnostic not untouched holdout",
     "Selected quality/origin/turnover coefficients previously chosen using 2024\u201325",
+    "Validation year 2025 has also been inspected in previous studies; do not call it untouched",
     "Venue information not verified; games treated neutral"
   ],
   "grid": [
@@ -69,28 +71,6 @@
         "games": 5750,
         "log_loss": 0.5691101007102444,
         "brier": 0.19514634776861728
-      }
-    },
-    {
-      "weights": {
-        "shooting": 0.0,
-        "playmaking": 0.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5893018695302409,
-        "brier": 0.20264579208934472
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5687578303123867,
-        "brier": 0.19447015309176993
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5690866256052974,
-        "brier": 0.19514005434039958
       }
     },
     {
@@ -129,7 +109,7 @@
       "validation_2025": {
         "games": 5674,
         "log_loss": 0.5685391301792598,
-        "brier": 0.194387993193084
+        "brier": 0.19438799319308397
       },
       "reused_diagnostic_2026": {
         "games": 5750,
@@ -140,89 +120,45 @@
     {
       "weights": {
         "shooting": 0.0,
-        "playmaking": 75.0,
-        "defense": 0.0
+        "playmaking": 0.0,
+        "defense": 450.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891967904717694,
-        "brier": 0.20260169823628915
+        "log_loss": 0.5892506875924459,
+        "brier": 0.20263740782469705
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5686455088394881,
-        "brier": 0.19442968249633455
+        "log_loss": 0.5684067361617938,
+        "brier": 0.19433922567661607
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5689805279162757,
-        "brier": 0.19510322064926003
+        "log_loss": 0.5690132982753155,
+        "brier": 0.1951274459070059
       }
     },
     {
       "weights": {
         "shooting": 0.0,
-        "playmaking": 75.0,
-        "defense": 75.0
+        "playmaking": 0.0,
+        "defense": 600.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891812043559227,
-        "brier": 0.20259755760170495
+        "log_loss": 0.5892432039607269,
+        "brier": 0.2026399909298902
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5685670377912474,
-        "brier": 0.1943997978699817
+        "log_loss": 0.568285068721301,
+        "brier": 0.19429525131295522
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5689570399246238,
-        "brier": 0.19509691894674547
-      }
-    },
-    {
-      "weights": {
-        "shooting": 0.0,
-        "playmaking": 75.0,
-        "defense": 150.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5891674727433068,
-        "brier": 0.20259426867516975
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5684912478821674,
-        "brier": 0.19437111619029826
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5689364871834285,
-        "brier": 0.19509187511497958
-      }
-    },
-    {
-      "weights": {
-        "shooting": 0.0,
-        "playmaking": 75.0,
-        "defense": 300.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5891455741960432,
-        "brier": 0.20259024191034175
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5683477117897001,
-        "brier": 0.19431735737017267
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5689041934597701,
-        "brier": 0.19508555695403815
+        "log_loss": 0.5690045525894633,
+        "brier": 0.19513118179685227
       }
     },
     {
@@ -251,33 +187,11 @@
       "weights": {
         "shooting": 0.0,
         "playmaking": 150.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5890648951917171,
-        "brier": 0.2025512676172896
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5683813583257609,
-        "brier": 0.19433174345027687
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5688323657795511,
-        "brier": 0.19505586512076095
-      }
-    },
-    {
-      "weights": {
-        "shooting": 0.0,
-        "playmaking": 150.0,
         "defense": 150.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.589051378301847,
+        "log_loss": 0.5890513783018468,
         "brier": 0.20254806626158192
       },
       "validation_2025": {
@@ -287,8 +201,8 @@
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5688118015961398,
-        "brier": 0.1950508116960929
+        "log_loss": 0.5688118015961399,
+        "brier": 0.19505081169609287
       }
     },
     {
@@ -300,7 +214,7 @@
       "train_2024": {
         "games": 5611,
         "log_loss": 0.5890299097073902,
-        "brier": 0.20254421282778692
+        "brier": 0.20254421282778695
       },
       "validation_2025": {
         "games": 5674,
@@ -309,8 +223,52 @@
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5687794872437892,
+        "log_loss": 0.5687794872437894,
         "brier": 0.1950444719218063
+      }
+    },
+    {
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 150.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890158634464984,
+        "brier": 0.20254375145253
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5680281798685384,
+        "brier": 0.19419986839599915
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5687589352735137,
+        "brier": 0.19504314748607102
+      }
+    },
+    {
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 150.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890092422049464,
+        "brier": 0.20254667342026372
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5679056816124982,
+        "brier": 0.19415549862574477
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5687501586248356,
+        "brier": 0.1950468286433274
       }
     },
     {
@@ -327,7 +285,7 @@
       "validation_2025": {
         "games": 5674,
         "log_loss": 0.5681044487735876,
-        "brier": 0.19423267675423725
+        "brier": 0.1942326767542372
       },
       "reused_diagnostic_2026": {
         "games": 5750,
@@ -339,34 +297,12 @@
       "weights": {
         "shooting": 0.0,
         "playmaking": 300.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.588845347770268,
-        "brier": 0.20246450190497123
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5680253501770606,
-        "brier": 0.1942025182815495
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5685977720033618,
-        "brier": 0.1949799845552205
-      }
-    },
-    {
-      "weights": {
-        "shooting": 0.0,
-        "playmaking": 300.0,
         "defense": 150.0
       },
       "train_2024": {
         "games": 5611,
         "log_loss": 0.5888322605167284,
-        "brier": 0.20246147307447881
+        "brier": 0.20246147307447887
       },
       "validation_2025": {
         "games": 5674,
@@ -387,7 +323,7 @@
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5888116523177526,
+        "log_loss": 0.5888116523177525,
         "brier": 0.20245796093725799
       },
       "validation_2025": {
@@ -403,354 +339,266 @@
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 0.0,
+        "shooting": 0.0,
+        "playmaking": 300.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887984679595151,
+        "brier": 0.20245783584332866
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5676700869559189,
+        "brier": 0.1940696933412232
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568524253331348,
+        "brier": 0.19496714639791576
+      }
+    },
+    {
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 300.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887927101377801,
+        "brier": 0.20246108906595903
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5675467582087781,
+        "brier": 0.1940249266760886
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568515452302801,
+        "brier": 0.1949707676556854
+      }
+    },
+    {
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 450.0,
         "defense": 0.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5892903242725073,
-        "brier": 0.20264596855767306
+        "log_loss": 0.5886577468491843,
+        "brier": 0.2023891639151756
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5687223453224015,
-        "brier": 0.19446232598193477
+        "log_loss": 0.5677693477477285,
+        "brier": 0.19411277980276956
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5689913899118207,
-        "brier": 0.1951154658966277
+        "log_loss": 0.5684064273164317,
+        "brier": 0.19491872674842026
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 0.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5892752143564457,
-        "brier": 0.20264202581178675
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.568644932210139,
-        "brier": 0.19443285771159252
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5689689272961136,
-        "brier": 0.19510960232157454
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 0.0,
+        "shooting": 0.0,
+        "playmaking": 450.0,
         "defense": 150.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5892619590635015,
-        "brier": 0.20263893416829948
+        "log_loss": 0.588630576682702,
+        "brier": 0.20238259570566178
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5685702003546532,
-        "brier": 0.19440459183456202
+        "log_loss": 0.5676129954159115,
+        "brier": 0.19405329417316566
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5689494012277141,
-        "brier": 0.1951049959747655
+        "log_loss": 0.5683622823160422,
+        "brier": 0.19490727933118088
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 0.0,
+        "shooting": 0.0,
+        "playmaking": 450.0,
         "defense": 300.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5892410135253605,
-        "brier": 0.2026353001340572
+        "log_loss": 0.5886108295489717,
+        "brier": 0.20237941764066078
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5684287807598719,
-        "brier": 0.19435166290467323
+        "log_loss": 0.5674673731041245,
+        "brier": 0.19399859122380828
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5689191647616779,
-        "brier": 0.1950995507953986
+        "log_loss": 0.5683299001961004,
+        "brier": 0.19490084217085787
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 75.0,
+        "shooting": 0.0,
+        "playmaking": 450.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885985079476638,
+        "brier": 0.20237962137291704
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5673324817156554,
+        "brier": 0.19394866213180909
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683092932560714,
+        "brier": 0.19489940657284324
+      }
+    },
+    {
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 450.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885936145821303,
+        "brier": 0.20238319816664255
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5672083227004049,
+        "brier": 0.19390349732235734
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683004743678166,
+        "brier": 0.1949029628951393
+      }
+    },
+    {
+      "weights": {
+        "shooting": 0.0,
+        "playmaking": 600.0,
         "defense": 0.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891699809535853,
-        "brier": 0.20259782454388578
+        "log_loss": 0.5884726454333626,
+        "brier": 0.20231762924961783
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5685325458448849,
-        "brier": 0.19439232356832958
+        "log_loss": 0.56745476188007,
+        "brier": 0.1940019870342447
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5688634382127511,
-        "brier": 0.19507296526945878
+        "log_loss": 0.568211306996173,
+        "brier": 0.19485937530014935
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 75.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5891550856819648,
-        "brier": 0.20259397045162367
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5684549235227838,
-        "brier": 0.19436276369660438
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5688409628432726,
-        "brier": 0.1950670928476622
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 75.0,
+        "shooting": 0.0,
+        "playmaking": 600.0,
         "defense": 150.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891420451874512,
-        "brier": 0.20259096687850148
+        "log_loss": 0.5884463351559304,
+        "brier": 0.2023113932661479
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5683799826619802,
-        "brier": 0.194334405035164
+        "log_loss": 0.567297571865032,
+        "brier": 0.19394213341541514
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5688214247535158,
-        "brier": 0.19506247686078476
+        "log_loss": 0.5681671299711648,
+        "brier": 0.19484788034086586
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 75.0,
+        "shooting": 0.0,
+        "playmaking": 600.0,
         "defense": 300.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891215297122055,
-        "brier": 0.20258750723132277
+        "log_loss": 0.5884274497728086,
+        "brier": 0.20230854196252818
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5682381456643678,
-        "brier": 0.1942812870136222
+        "log_loss": 0.5671511144127387,
+        "brier": 0.19388705198767173
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.568791166434744,
-        "brier": 0.19505701003320508
+        "log_loss": 0.5681347227341926,
+        "brier": 0.19484138815508706
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 150.0,
-        "defense": 0.0
+        "shooting": 0.0,
+        "playmaking": 600.0,
+        "defense": 450.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5890539946833395,
-        "brier": 0.2025516226735267
+        "log_loss": 0.5884159917913383,
+        "brier": 0.20230906698341386
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5683478609266517,
-        "brier": 0.19432461851508162
+        "log_loss": 0.5670153903991297,
+        "brier": 0.19383673402660226
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.568740401195678,
-        "brier": 0.1950325428840451
+        "log_loss": 0.5681140975511901,
+        "brier": 0.1948398900986216
       }
     },
     {
       "weights": {
-        "shooting": 75.0,
-        "playmaking": 150.0,
-        "defense": 75.0
+        "shooting": 0.0,
+        "playmaking": 600.0,
+        "defense": 600.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5890393141080963,
-        "brier": 0.20254785638128933
+        "log_loss": 0.5884119639201103,
+        "brier": 0.2023129595861603
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5682700293254226,
-        "brier": 0.1942949669773332
+        "log_loss": 0.5668904012412818,
+        "brier": 0.19379117006149732
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5687179137715289,
-        "brier": 0.19502666111343916
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 150.0,
-        "defense": 150.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5890264884762672,
-        "brier": 0.2025449400100276
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5681948794083714,
-        "brier": 0.19426651544612003
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5686983643804352,
-        "brier": 0.195022034961606
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 150.0,
-        "defense": 300.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5890064032290521,
-        "brier": 0.20254165296844417
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.568052624961084,
-        "brier": 0.19421320809958093
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5686680857115683,
-        "brier": 0.1950165453676084
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 300.0,
-        "defense": 0.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.588835096118215,
-        "brier": 0.20246502617725518
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5679938463494992,
-        "brier": 0.19419608181769818
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5685090911473907,
-        "brier": 0.19495791513108188
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 300.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5888208450992622,
-        "brier": 0.20246143290227786
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5679155959646147,
-        "brier": 0.19416624680971112
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5684865817021352,
-        "brier": 0.19495201318862726
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 300.0,
-        "defense": 150.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5888084493923996,
-        "brier": 0.20245868830771208
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5678400277634055,
-        "brier": 0.19413760933923435
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5684670118582578,
-        "brier": 0.19494736516432568
-      }
-    },
-    {
-      "weights": {
-        "shooting": 75.0,
-        "playmaking": 300.0,
-        "defense": 300.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5887892251077531,
-        "brier": 0.20245574109125997
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5676969382344729,
-        "brier": 0.19408392275737074
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.568436696973471,
-        "brier": 0.1949418267474376
+        "log_loss": 0.5681052672581759,
+        "brier": 0.194843376582415
       }
     },
     {
@@ -773,28 +621,6 @@
         "games": 5750,
         "log_loss": 0.5688832539071514,
         "brier": 0.19508893936847235
-      }
-    },
-    {
-      "weights": {
-        "shooting": 150.0,
-        "playmaking": 0.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5892557359643276,
-        "brier": 0.20264145814769674
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5685409772736376,
-        "brier": 0.19439926894439566
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5688618064487571,
-        "brier": 0.19508350326540416
       }
     },
     {
@@ -844,89 +670,45 @@
     {
       "weights": {
         "shooting": 150.0,
-        "playmaking": 75.0,
-        "defense": 0.0
+        "playmaking": 0.0,
+        "defense": 450.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891503479184287,
-        "brier": 0.2025971485332811
+        "log_loss": 0.5892114716637475,
+        "brier": 0.20263589778751567
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5684285263162673,
-        "brier": 0.19435866916070083
+        "log_loss": 0.5681983853246922,
+        "brier": 0.1942715325374959
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5687569252751357,
-        "brier": 0.19504705859601132
+        "log_loss": 0.5687986787107796,
+        "brier": 0.19507513707374627
       }
     },
     {
       "weights": {
         "shooting": 150.0,
-        "playmaking": 75.0,
-        "defense": 75.0
+        "playmaking": 0.0,
+        "defense": 600.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891361438778103,
-        "brier": 0.20259357923030033
+        "log_loss": 0.5892067592408988,
+        "brier": 0.20263959324819547
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5683517532717853,
-        "brier": 0.19432943247740736
+        "log_loss": 0.5680801238929868,
+        "brier": 0.194228809634911
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.56873546518972,
-        "brier": 0.195041613092
-      }
-    },
-    {
-      "weights": {
-        "shooting": 150.0,
-        "playmaking": 75.0,
-        "defense": 150.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5891237949047773,
-        "brier": 0.20259085922893302
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.568277662037015,
-        "brier": 0.19430139523412046
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5687169444347735,
-        "brier": 0.19503742252595993
-      }
-    },
-    {
-      "weights": {
-        "shooting": 150.0,
-        "playmaking": 75.0,
-        "defense": 300.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5891046633572903,
-        "brier": 0.20258796305070823
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5681375253676751,
-        "brier": 0.19424891470943395
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.568688726950721,
-        "brier": 0.19503280200111792
+        "log_loss": 0.5687940416049392,
+        "brier": 0.1950805487074649
       }
     },
     {
@@ -949,28 +731,6 @@
         "games": 5750,
         "log_loss": 0.5686355152087986,
         "brier": 0.19500725215921047
-      }
-    },
-    {
-      "weights": {
-        "shooting": 150.0,
-        "playmaking": 150.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5890209100283673,
-        "brier": 0.20254763834746337
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5681676452186774,
-        "brier": 0.19426188973286004
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5686140432040461,
-        "brier": 0.1950017967556727
       }
     },
     {
@@ -1004,7 +764,7 @@
       "train_2024": {
         "games": 5611,
         "log_loss": 0.5889900750135402,
-        "brier": 0.20254228088704868
+        "brier": 0.2025422808870487
       },
       "validation_2025": {
         "games": 5674,
@@ -1014,7 +774,51 @@
       "reused_diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5685672737121898,
-        "brier": 0.19499295106428935
+        "brier": 0.19499295106428932
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 150.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889787986263951,
+        "brier": 0.20254293892744327
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5678229653670354,
+        "brier": 0.19413319733541276
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568550814910575,
+        "brier": 0.19499330995304007
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 150.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889749496293296,
+        "brier": 0.2025469705016166
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5677038716596239,
+        "brier": 0.19409007573082704
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685461478563691,
+        "brier": 0.19499866220529688
       }
     },
     {
@@ -1037,28 +841,6 @@
         "games": 5750,
         "log_loss": 0.568407470729833,
         "brier": 0.19493384452839976
-      }
-    },
-    {
-      "weights": {
-        "shooting": 150.0,
-        "playmaking": 300.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5888035198353057,
-        "brier": 0.20246155152447057
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5678147884673539,
-        "brier": 0.19413366691394696
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5683859769995252,
-        "brier": 0.19492836786241483
       }
     },
     {
@@ -1107,6 +889,270 @@
     },
     {
       "weights": {
+        "shooting": 150.0,
+        "playmaking": 300.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887635631813726,
+        "brier": 0.2024576949143796
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5674680203796263,
+        "brier": 0.19400401626047786
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683226634781002,
+        "brier": 0.1949197492765272
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 300.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588760578677365,
+        "brier": 0.20246205494484582
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5673480947612117,
+        "brier": 0.19396049446115
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683179731744956,
+        "brier": 0.19492503704350986
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 450.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886167012408677,
+        "brier": 0.20238629930146756
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5675602523391402,
+        "brier": 0.19404425948798323
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681991614575289,
+        "brier": 0.1948686797976443
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 450.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885922987172395,
+        "brier": 0.2023808638048281
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5674072932951317,
+        "brier": 0.19398605776842726
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681590794388753,
+        "brier": 0.19485893076339403
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 450.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885753214400425,
+        "brier": 0.20237880895523722
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5672650669744947,
+        "brier": 0.19393262472407238
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681307765862608,
+        "brier": 0.19485418004715999
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 450.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588565771957742,
+        "brier": 0.20238012631696475
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5671335743986485,
+        "brier": 0.19388395141770273
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681142652438875,
+        "brier": 0.1948544187603226
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 450.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885636530181005,
+        "brier": 0.20238480706805043
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670128171298062,
+        "brier": 0.19384002817120644
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681095583202661,
+        "brier": 0.19485963707195184
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884337735150535,
+        "brier": 0.202315394145772
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5672488406305252,
+        "brier": 0.19393441606196496
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5680106300225396,
+        "brier": 0.1948117194567508
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884102321255628,
+        "brier": 0.20231028775470453
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670950426378057,
+        "brier": 0.19387584295318766
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679705174318933,
+        "brier": 0.19480191855376625
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5883941178104364,
+        "brier": 0.20230855661855923
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5669519798853637,
+        "brier": 0.1938220280648344
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679421908795834,
+        "brier": 0.1947971084450623
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5883854331245466,
+        "brier": 0.2023101922930211
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5668196533657684,
+        "brier": 0.19377296255555668
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679256626746929,
+        "brier": 0.1947972802909593
+      }
+    },
+    {
+      "weights": {
+        "shooting": 150.0,
+        "playmaking": 600.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5883841808196861,
+        "brier": 0.20231518594869793
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5666980646069452,
+        "brier": 0.19372863684876448
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679209456883677,
+        "brier": 0.19480242431204822
+      }
+    },
+    {
+      "weights": {
         "shooting": 300.0,
         "playmaking": 0.0,
         "defense": 0.0
@@ -1125,28 +1171,6 @@
         "games": 5750,
         "log_loss": 0.5686987539338728,
         "brier": 0.19504886614010494
-      }
-    },
-    {
-      "weights": {
-        "shooting": 300.0,
-        "playmaking": 0.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5892383269322407,
-        "brier": 0.20264986945255486
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5683599460848897,
-        "brier": 0.1943431534807132
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5686793447450228,
-        "brier": 0.1950442777009965
       }
     },
     {
@@ -1180,105 +1204,61 @@
       "train_2024": {
         "games": 5611,
         "log_loss": 0.5892103551416094,
-        "brier": 0.20264567166913072
+        "brier": 0.20264567166913078
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5681514517136605,
+        "log_loss": 0.5681514517136604,
         "brier": 0.1942648242530444
       },
       "reused_diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.568638779824166,
-        "brier": 0.19503802346506377
+        "brier": 0.19503802346506383
       }
     },
     {
       "weights": {
         "shooting": 300.0,
-        "playmaking": 75.0,
-        "defense": 0.0
+        "playmaking": 0.0,
+        "defense": 450.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.589132628567894,
-        "brier": 0.2026053404327512
+        "log_loss": 0.5892009892017567,
+        "brier": 0.20264709593765703
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5682473665433863,
-        "brier": 0.19430241631777614
+        "log_loss": 0.5680258691719092,
+        "brier": 0.19421857437783044
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5685756772257706,
-        "brier": 0.1950082050185581
+        "log_loss": 0.568626470928537,
+        "brier": 0.19504010183607282
       }
     },
     {
       "weights": {
         "shooting": 300.0,
-        "playmaking": 75.0,
-        "defense": 75.0
+        "playmaking": 0.0,
+        "defense": 600.0
       },
       "train_2024": {
         "games": 5611,
-        "log_loss": 0.5891198081978126,
-        "brier": 0.20260233539484074
+        "log_loss": 0.5891990519929757,
+        "brier": 0.20265188815009494
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5681722937565502,
-        "brier": 0.19427382128685314
+        "log_loss": 0.5679110195800402,
+        "brier": 0.1941770885187151
       },
       "reused_diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5685562556432937,
-        "brier": 0.19500360612533682
-      }
-    },
-    {
-      "weights": {
-        "shooting": 300.0,
-        "playmaking": 75.0,
-        "defense": 150.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5891088435242839,
-        "brier": 0.2026001771388261
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5680999035530365,
-        "brier": 0.19424642205498835
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5685397775531698,
-        "brier": 0.19500025899610324
-      }
-    },
-    {
-      "weights": {
-        "shooting": 300.0,
-        "playmaking": 75.0,
-        "defense": 300.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5890924824869682,
-        "brier": 0.2025983968496099
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5679631713261363,
-        "brier": 0.1941952065734114
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5685156579061934,
-        "brier": 0.19499731572921425
+        "log_loss": 0.5686259646763655,
+        "brier": 0.1950471667810006
       }
     },
     {
@@ -1301,28 +1281,6 @@
         "games": 5750,
         "log_loss": 0.5684575269828764,
         "brier": 0.19496961019859618
-      }
-    },
-    {
-      "weights": {
-        "shooting": 300.0,
-        "playmaking": 150.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5890056501074588,
-        "brier": 0.2025567327380678
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.56798976035968,
-        "brier": 0.19420677546886048
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5684380937306343,
-        "brier": 0.1949650003599967
       }
     },
     {
@@ -1372,13 +1330,57 @@
     {
       "weights": {
         "shooting": 300.0,
+        "playmaking": 150.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889704679717249,
+        "brier": 0.20255481307864304
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5676535918679121,
+        "brier": 0.1940812325037272
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683851216838647,
+        "brier": 0.19496069322782136
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 150.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889693952147121,
+        "brier": 0.20255993868689448
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5675379085025056,
+        "brier": 0.19403934484040236
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683845863681717,
+        "brier": 0.19496769445065287
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
         "playmaking": 300.0,
         "defense": 0.0
       },
       "train_2024": {
         "games": 5611,
         "log_loss": 0.5888025933792458,
-        "brier": 0.20247405014076442
+        "brier": 0.20247405014076436
       },
       "validation_2025": {
         "games": 5674,
@@ -1395,38 +1397,16 @@
       "weights": {
         "shooting": 300.0,
         "playmaking": 300.0,
-        "defense": 75.0
-      },
-      "train_2024": {
-        "games": 5611,
-        "log_loss": 0.5887904185602929,
-        "brier": 0.20247130256456344
-      },
-      "validation_2025": {
-        "games": 5674,
-        "log_loss": 0.5676400617481309,
-        "brier": 0.19407952470063586
-      },
-      "reused_diagnostic_2026": {
-        "games": 5750,
-        "log_loss": 0.5682165714285903,
-        "brier": 0.19489396842315226
-      }
-    },
-    {
-      "weights": {
-        "shooting": 300.0,
-        "playmaking": 300.0,
         "defense": 150.0
       },
       "train_2024": {
         "games": 5611,
         "log_loss": 0.5887800999566641,
-        "brier": 0.2024693999703171
+        "brier": 0.20246939997031715
       },
       "validation_2025": {
         "games": 5674,
-        "log_loss": 0.5675670426163036,
+        "log_loss": 0.5675670426163035,
         "brier": 0.19405184302435072
       },
       "reused_diagnostic_2026": {
@@ -1455,6 +1435,1370 @@
         "games": 5750,
         "log_loss": 0.5681758889612968,
         "brier": 0.194887559990039
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 300.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887573939653888,
+        "brier": 0.20247021850290087
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5673018014516262,
+        "brier": 0.19395301559336006
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681635167702466,
+        "brier": 0.19488951900969306
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 300.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887571867606745,
+        "brier": 0.20247566980278986
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5671852847111463,
+        "brier": 0.19391072463049897
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681629591955693,
+        "brier": 0.19489645147375986
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 450.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886043828062962,
+        "brier": 0.2023961202533854
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5673869967697612,
+        "brier": 0.1939904230088103
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568034291538727,
+        "brier": 0.19483580344467555
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 450.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885827511677716,
+        "brier": 0.20239180330288623
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5672374355342493,
+        "brier": 0.1939334929649304
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679982934702432,
+        "brier": 0.19482773412655618
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 450.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588568547236144,
+        "brier": 0.20239085705310111
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670986101258048,
+        "brier": 0.19388131705685352
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679740911585006,
+        "brier": 0.19482465023756337
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 450.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885617736022605,
+        "brier": 0.20239327298359786
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.566970521676453,
+        "brier": 0.19383388623429507
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679616969824306,
+        "brier": 0.1948265427015006
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 450.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885624330518048,
+        "brier": 0.20239904219019933
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5668531718529001,
+        "brier": 0.19379119071760995
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.567961123877213,
+        "brier": 0.19483340150565215
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 600.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884236315431971,
+        "brier": 0.20232582107637495
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670787665902469,
+        "brier": 0.1938814963910743
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678523665746047,
+        "brier": 0.1947811770574259
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 600.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588402862271375,
+        "brier": 0.20232183014687782
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5669283650938405,
+        "brier": 0.1938241917510789
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678163392461615,
+        "brier": 0.19477305184703703
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 600.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5883895224973966,
+        "brier": 0.2023212045996428
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5667887019124032,
+        "brier": 0.19377163082764745
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677921145047357,
+        "brier": 0.19476990450668982
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 600.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5883836148173033,
+        "brier": 0.20232393590512876
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5666597781476658,
+        "brier": 0.19372380466376074
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677797046927737,
+        "brier": 0.19477172600739595
+      }
+    },
+    {
+      "weights": {
+        "shooting": 300.0,
+        "playmaking": 600.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5883851420196814,
+        "brier": 0.20233001515111249
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5665415954306335,
+        "brier": 0.19368070357870876
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677791227068059,
+        "brier": 0.19477850638628774
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 0.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892613292949669,
+        "brier": 0.2026734600718822
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.568287996603764,
+        "brier": 0.19432955467527738
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685566971490656,
+        "brier": 0.19502595150952004
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 0.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.589239884826288,
+        "brier": 0.20266923523419073
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5681443597296323,
+        "brier": 0.19427501554812832
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685249233271461,
+        "brier": 0.19501969927814855
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 0.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892258665595926,
+        "brier": 0.20266838509207677
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5680114563680594,
+        "brier": 0.19422524472408195
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685049435978148,
+        "brier": 0.19501843929224552
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 0.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892192770963127,
+        "brier": 0.20267090108557664
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5678892878465919,
+        "brier": 0.19418023274744478
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5684967704714263,
+        "brier": 0.19502216215900725
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 0.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892201192348746,
+        "brier": 0.20267677427122804
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5677778560366883,
+        "brier": 0.1941399694281199
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5685004170119994,
+        "brier": 0.195030857549458
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 150.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890303711653313,
+        "brier": 0.20258081219512591
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5679213828716958,
+        "brier": 0.19419433643578096
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5683219970657746,
+        "brier": 0.19494907260653424
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 150.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890097884790263,
+        "brier": 0.20257693180261696
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5677769057943799,
+        "brier": 0.1941394205413316
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5682901774340007,
+        "brier": 0.1949427720402664
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 150.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889966332119435,
+        "brier": 0.20257642154070152
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5676431638925631,
+        "brier": 0.1940892635306111
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5682701577601129,
+        "brier": 0.19494145720121683
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 150.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889909079762271,
+        "brier": 0.20257927283368293
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5675201584634374,
+        "brier": 0.19404385604946509
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5682619505201997,
+        "brier": 0.1949451187418611
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 150.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5889926155787913,
+        "brier": 0.20258547672309224
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5674078913429821,
+        "brier": 0.19400318801499378
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5682655687423168,
+        "brier": 0.19495374638022267
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 300.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5888168682587883,
+        "brier": 0.20249584729244027
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5675752685813692,
+        "brier": 0.19406821544296565
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681070550363444,
+        "brier": 0.1948804076419821
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 300.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887971479381676,
+        "brier": 0.20249230428008036
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5674299509033676,
+        "brier": 0.19401292227382455
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.568075195556192,
+        "brier": 0.1948740548489105
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 300.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887848564383489,
+        "brier": 0.20249212660358307
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5672953703386366,
+        "brier": 0.19396237824320503
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5680551422131961,
+        "brier": 0.19487268090653487
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 300.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887799963799212,
+        "brier": 0.20249530567345686
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5671715281535717,
+        "brier": 0.19391657409477187
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5680469074480035,
+        "brier": 0.19487627651253753
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 300.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5887825705760366,
+        "brier": 0.20250183251825007
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670584261481256,
+        "brier": 0.19387549984912403
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5680505042514126,
+        "brier": 0.19488483143219934
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 450.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886208267283762,
+        "brier": 0.20241852662366677
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5672496774429091,
+        "brier": 0.19395115406977156
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679119119601322,
+        "brier": 0.19481991955631997
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 450.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886019693750029,
+        "brier": 0.20241531383305433
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5671035186898861,
+        "brier": 0.193895483344975
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678800185358054,
+        "brier": 0.19481351077727554
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 450.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885905424218797,
+        "brier": 0.20241546135721458
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5669680992522028,
+        "brier": 0.1938445516924428
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678599377334715,
+        "brier": 0.1948120736152666
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 450.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885865484958167,
+        "brier": 0.20241896059488398
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5668434203649968,
+        "brier": 0.1937983499500319
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678516819572295,
+        "brier": 0.19481559881316202
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 450.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5885899904139654,
+        "brier": 0.20242580256373496
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5667294837917028,
+        "brier": 0.19375686823822233
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678552641593552,
+        "brier": 0.19482407618381536
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 600.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884422542319696,
+        "brier": 0.20234881008629554
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5669446349537497,
+        "brier": 0.1938431123509682
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677366102644642,
+        "brier": 0.19476756949221832
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 600.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884242604609926,
+        "brier": 0.20234592026376527
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5667976345781935,
+        "brier": 0.19378706401480628
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677046887404013,
+        "brier": 0.19476110109957748
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 600.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884136988410701,
+        "brier": 0.20234638551209463
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5666613759739627,
+        "brier": 0.1937357443682468
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676845866203052,
+        "brier": 0.19475959673449905
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 600.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884105720030729,
+        "brier": 0.2023501972203579
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5665358603444954,
+        "brier": 0.19368914433980133
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676763162706323,
+        "brier": 0.19476304718509627
+      }
+    },
+    {
+      "weights": {
+        "shooting": 450.0,
+        "playmaking": 600.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884148827659585,
+        "brier": 0.2023573463975369
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5664210894161684,
+        "brier": 0.1936472541463097
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676798906039418,
+        "brier": 0.1947714423121654
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 0.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5893000945469548,
+        "brier": 0.20270650559086575
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5681772051805741,
+        "brier": 0.19430198821555625
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5684571812668462,
+        "brier": 0.19502001252214438
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 0.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892814244895872,
+        "brier": 0.20270337909044375
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5680369800141222,
+        "brier": 0.19424870434046243
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5684295300316137,
+        "brier": 0.19501541181981982
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 0.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892701836577471,
+        "brier": 0.20270361625871022
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5679074922902596,
+        "brier": 0.19420017309140583
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5684136901257828,
+        "brier": 0.1950157887488503
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 0.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5892663746860672,
+        "brier": 0.2027072084605052
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5677887434364969,
+        "brier": 0.19415638490945278
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5684096740787429,
+        "brier": 0.19502113374811209
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 0.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.58927000040143,
+        "brier": 0.20271414668030346
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5676807354174673,
+        "brier": 0.19411732951360433
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5684174949653048,
+        "brier": 0.19503143632729897
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 150.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.589071285200353,
+        "brier": 0.20261449948491816
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5678137481684731,
+        "brier": 0.19416771591347565
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5682290225007012,
+        "brier": 0.19494545595295143
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 150.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890534780258185,
+        "brier": 0.20261171455505234
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5676726812830117,
+        "brier": 0.1941140524623805
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5682013261633857,
+        "brier": 0.19494080330419725
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 150.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890431012600778,
+        "brier": 0.20261228879686544
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5675423534839913,
+        "brier": 0.1940651322491696
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681854469846664,
+        "brier": 0.19494112173449563
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 150.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890401575472088,
+        "brier": 0.20261621355893025
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5674227661670903,
+        "brier": 0.19402094581403123
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681813974586191,
+        "brier": 0.1949464017262149
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 150.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5890446497213858,
+        "brier": 0.20262347981009343
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5673139212600191,
+        "brier": 0.19398148298077214
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5681891906230896,
+        "brier": 0.19495663283430958
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 300.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5888599419230245,
+        "brier": 0.20253014869077718
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5674708029028879,
+        "brier": 0.19404250960096084
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5680206545605871,
+        "brier": 0.19487907879065214
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 300.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5888429982490044,
+        "brier": 0.20252769821761185
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5673288939368515,
+        "brier": 0.1939884660612676
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679929191860356,
+        "brier": 0.19487437036738617
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 300.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5888334863481746,
+        "brier": 0.20252860219190666
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5671977259706846,
+        "brier": 0.19393915604767473
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679770071070525,
+        "brier": 0.19487462611543668
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 300.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5888314088718601,
+        "brier": 0.20253285194789117
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670773003678308,
+        "brier": 0.19389457019570525
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679729307812611,
+        "brier": 0.1948798365604396
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 300.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5888367686593199,
+        "brier": 0.20254043844078606
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5669676190186,
+        "brier": 0.19385469843020328
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5679807032083135,
+        "brier": 0.19488999130273063
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 450.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588666070624536,
+        "brier": 0.20245341470320627
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5671483927756722,
+        "brier": 0.19392633212756374
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678321182181992,
+        "brier": 0.1948208438181608
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 450.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886499910840548,
+        "brier": 0.20245129147787808
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5670056412887944,
+        "brier": 0.19387190821273323
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5678043498075421,
+        "brier": 0.1948160759247238
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 450.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886413448559878,
+        "brier": 0.20245251775181752
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5668736329743412,
+        "brier": 0.19382220779326276
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677884111289718,
+        "brier": 0.19481626494059018
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 450.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588640134596748,
+        "brier": 0.2024570848469108
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.56675236916312,
+        "brier": 0.19377722159631905
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677843146025813,
+        "brier": 0.19482140143451954
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 450.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5886463631485135,
+        "brier": 0.20246498370685417
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5666418517075619,
+        "brier": 0.19373693964410227
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5677920731886186,
+        "brier": 0.19483147505241183
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 600.0,
+        "defense": 0.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884896786941058,
+        "brier": 0.2023842576743851
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5668465429130652,
+        "brier": 0.19381914401575065
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.567663455717559,
+        "brier": 0.19477071203890683
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 600.0,
+        "defense": 150.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884744639309484,
+        "brier": 0.20238245439131994
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5667029483901079,
+        "brier": 0.1937643396638237
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676356602056432,
+        "brier": 0.19476588111004278
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 600.0,
+        "defense": 300.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5884666841879307,
+        "brier": 0.20238399543872876
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.566570099460977,
+        "brier": 0.19371424846208676
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676197011536128,
+        "brier": 0.1947659994755488
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 600.0,
+        "defense": 450.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588466342124433,
+        "brier": 0.20238887212826015
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5664479974234378,
+        "brier": 0.19366886122577057
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676155909429978,
+        "brier": 0.19477105774725909
+      }
+    },
+    {
+      "weights": {
+        "shooting": 600.0,
+        "playmaking": 600.0,
+        "defense": 600.0
+      },
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.588473440583439,
+        "brier": 0.20239707539425467
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.566336644091565,
+        "brier": 0.1936281680708534
+      },
+      "reused_diagnostic_2026": {
+        "games": 5750,
+        "log_loss": 0.5676233424934607,
+        "brier": 0.19478104561689444
       }
     }
   ]
