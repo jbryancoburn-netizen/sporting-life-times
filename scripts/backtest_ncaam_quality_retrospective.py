@@ -123,7 +123,7 @@ def preseason_features(current_roster,previous_box):
     previous,denom,mean_rate,prior_errors,ambiguous=collect_prior_stats(previous_box)
     current=defaultdict(list);schools={};ids_seen=set();dup_ids=0
     for r in current_roster:
-        school=school_key(r['team']);id_=str(r.get('team_id') or '')
+        school=school_key(r['team']);id_=str(r.get('team_id') or r.get('team_ncaa_team_id') or '')
         if school in schools and schools[school]!=id_:raise ValueError('one name maps to two current-team IDs')
         schools[school]=id_
         key=player_key(r.get('player'))
@@ -208,7 +208,18 @@ def evaluate(root):
     rosters={y:read_gz(source,'team_rosters',y) for y in years}
     boxes={y:read_gz(source,'player_box',y) for y in years}
     schedule={y:read_gz(source,'schedule',y) for y in years}
-    programs={y:{school_key(r['team']):r['team_id'] for r in rosters[y]} for y in years}
+    # Rosters have no guaranteed team_id; use box-proven NCAA program identifiers.
+    programs={}
+    for y in years:
+        mapping=defaultdict(set)
+        for row in boxes[y]:
+            team=school_key(row.get('team'))
+            tid=str(row.get('team_ncaa_team_id') or '').strip()
+            if team and tid:mapping[team].add(tid)
+        programs[y]={team:next(iter(ids)) for team,ids in mapping.items() if len(ids)==1}
+        if len(programs[y])<300:
+            raise ValueError(f'Too few verified NCAA school IDs from box: {y} {len(programs[y])}')
+
     games={};discard={};ratings={};feature={};feature_audit={}
     for y in years:
         games[y],discard[y]=extract_games(schedule[y],programs[y],boxes[y])
