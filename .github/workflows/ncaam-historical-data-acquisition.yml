@@ -6,6 +6,7 @@ on:
       - '.github/workflows/ncaam-historical-data-acquisition.yml'
       - 'scripts/normalize_ncaam_historical_parquet.py'
       - 'scripts/backtest_ncaam_quality_retrospective.py'
+      - 'scripts/calibrate_ncaam_game_elo.py'
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
       - 'scripts/build_ncaam_2027_quality_shadow.py'
       - 'scripts/recover_ncaam_prior_player_stats_by_id.py'
@@ -80,6 +81,18 @@ jobs:
           PY
       - name: Convert historical player statistics, rosters and schedules for backtesting
         run: python scripts/normalize_ncaam_historical_parquet.py
+      - name: Calibrate current game Elo K and margin multipliers on untouched 2026 holdout
+        run: |
+          python scripts/calibrate_ncaam_game_elo.py --source historical-normalized --output historical-report/ncaam-elo-k-mov-historical-calibration.json
+          python - <<'PY'
+          import json
+          d=json.load(open('historical-report/ncaam-elo-k-mov-historical-calibration.json'))
+          assert d['training_selected']['games'] >= 5000
+          assert d['identical_game_count']
+          assert d['holdout_baseline']['games'] >= 3000
+          assert d['eligible_for_automatic_live_promotion'] is False
+          print('PASS: 2026 unseen games held separate from parameter selection')
+          PY
       - name: Run real NCAA historical player-quality backtest
         run: |
           python scripts/backtest_ncaam_quality_retrospective.py \
@@ -174,6 +187,9 @@ jobs:
           PY
           fi
           cp historical-report/ncaam-historical-acquisition.json data/ncaam-historical-acquisition-status.json
+          if [ -s historical-report/ncaam-elo-k-mov-historical-calibration.json ]; then
+            cp historical-report/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-k-mov-historical-calibration.json
+          fi
           if [ -s historical-report/ncaam-player-quality-retrospective-backtest.json ]; then
             cp historical-report/ncaam-player-quality-retrospective-backtest.json data/ncaam-player-quality-retrospective-backtest.json
           fi
@@ -206,7 +222,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
-          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
+          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json; do
             if [ -f "$file" ]; then git add "$file"; fi
           done
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
@@ -222,6 +238,7 @@ jobs:
             git reset --hard origin/main || exit 1
             cp /tmp/ncaam-acquisition-publish/* data/
             git add data/ncaam-historical-acquisition-status.json
+            if [ -f data/ncaam-elo-k-mov-historical-calibration.json ]; then git add data/ncaam-elo-k-mov-historical-calibration.json; fi
             for file in data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
               if [ -f "$file" ]; then git add "$file"; fi
             done
