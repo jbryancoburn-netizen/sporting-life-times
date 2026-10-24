@@ -30,7 +30,7 @@
     {
       "beta_per_100_opponent_elo": -120,
       "games": 3333,
-      "log_loss": 0.5998575222145675
+      "log_loss": 0.5998575222145673
     },
     {
       "beta_per_100_opponent_elo": -80,
@@ -60,22 +60,22 @@
     {
       "beta_per_100_opponent_elo": 40,
       "games": 3333,
-      "log_loss": 0.590600430040094
+      "log_loss": 0.5906004300400941
     },
     {
       "beta_per_100_opponent_elo": 80,
       "games": 3333,
-      "log_loss": 0.612446989631465
+      "log_loss": 0.6124469896314652
     },
     {
       "beta_per_100_opponent_elo": 120,
       "games": 3333,
-      "log_loss": 0.6452472714654733
+      "log_loss": 0.6452472714654736
     },
     {
       "beta_per_100_opponent_elo": 160,
       "games": 3333,
-      "log_loss": 0.6894277804530828
+      "log_loss": 0.6894277804530827
     },
     {
       "beta_per_100_opponent_elo": 200,
@@ -85,7 +85,7 @@
     {
       "beta_per_100_opponent_elo": 240,
       "games": 3333,
-      "log_loss": 0.811992444724156
+      "log_loss": 0.8119924447241561
     }
   ],
   "training_grid_edge_solution": false,
@@ -112,13 +112,15 @@
         "games": 1682,
         "log_loss": 0.5809201006245539,
         "brier": 0.1978920690398117,
-        "fallback_games": 0
+        "fallback_games": 0,
+        "matched_games_sha256": "5023c9a2639e6c2332f83d216a1ce7089982ac2ad4c25e774602038b28ed3b8f"
       },
       "-20": {
         "games": 1682,
         "log_loss": 0.5803161123900189,
         "brier": 0.19794758560653314,
-        "fallback_games": 0
+        "fallback_games": 0,
+        "matched_games_sha256": "5023c9a2639e6c2332f83d216a1ce7089982ac2ad4c25e774602038b28ed3b8f"
       }
     },
     "2025": {
@@ -126,45 +128,52 @@
         "games": 1651,
         "log_loss": 0.5773518435554926,
         "brier": 0.19657354691093287,
-        "fallback_games": 0
+        "fallback_games": 0,
+        "matched_games_sha256": "c95e829b4ed240d4e3701758b397e2d068bd7fbe4f1855bd6af4cfad5f5a2eee"
       },
       "-20": {
         "games": 1651,
-        "log_loss": 0.5738771545833476,
+        "log_loss": 0.5738771545833478,
         "brier": 0.195406011692736,
-        "fallback_games": 0
+        "fallback_games": 0,
+        "matched_games_sha256": "c95e829b4ed240d4e3701758b397e2d068bd7fbe4f1855bd6af4cfad5f5a2eee"
       }
     }
   },
   "holdout_baseline": {
     "games": 1658,
-    "log_loss": 0.560408404739938,
+    "log_loss": 0.5604084047399379,
     "brier": 0.18888054454631656,
-    "fallback_games": 0
+    "fallback_games": 0,
+    "matched_games_sha256": "1096e38a375326143b4d7ddf72658c9f59ef54efd51b01a2cf7edf95d42f2f13"
   },
   "holdout_adjusted": {
     "games": 1658,
-    "log_loss": 0.5572521072538968,
+    "log_loss": 0.557252107253897,
     "brier": 0.18788732525664906,
-    "fallback_games": 0
+    "fallback_games": 0,
+    "matched_games_sha256": "1096e38a375326143b4d7ddf72658c9f59ef54efd51b01a2cf7edf95d42f2f13"
   },
   "holdout_game_only": {
     "games": 1658,
     "log_loss": 0.5745725530770924,
     "brier": 0.19489029885020764,
-    "fallback_games": 0
+    "fallback_games": 0,
+    "matched_games_sha256": "1096e38a375326143b4d7ddf72658c9f59ef54efd51b01a2cf7edf95d42f2f13"
   },
   "holdout_all_games_game_only": {
     "games": 1831,
     "log_loss": 0.5705332587903005,
     "brier": 0.19317147219652112,
-    "fallback_games": 0
+    "fallback_games": 0,
+    "matched_games_sha256": "2bfeacd1f42f945a875a5a3e906b8a4581db3b339aee0e06c0d8dc6fca02a37a"
   },
   "holdout_all_games_enhanced_with_fallback": {
     "games": 1831,
     "log_loss": 0.5548493160405142,
     "brier": 0.18683016677974326,
-    "fallback_games": 173
+    "fallback_games": 173,
+    "matched_games_sha256": "2bfeacd1f42f945a875a5a3e906b8a4581db3b339aee0e06c0d8dc6fca02a37a"
   },
   "holdout_fallback_window_sensitivity": {
     "14": {
@@ -196,9 +205,9 @@
     "14": {
       "games": 547,
       "game_only_log_loss": 0.5569497757336543,
-      "adjusted_log_loss": 0.5245309292534706,
-      "logloss_gain": 0.03241884648018378,
-      "brier_gain": 0.013497236456526368
+      "adjusted_log_loss": 0.5245309292534708,
+      "logloss_gain": 0.03241884648018356,
+      "brier_gain": 0.01349723645652634
     },
     "30": {
       "games": 1179,
@@ -210,23 +219,23 @@
     "45": {
       "games": 1658,
       "game_only_log_loss": 0.5745725530770924,
-      "adjusted_log_loss": 0.5572521072538968,
-      "logloss_gain": 0.017320445823195585,
+      "adjusted_log_loss": 0.557252107253897,
+      "logloss_gain": 0.017320445823195474,
       "brier_gain": 0.007002973593558587
     }
   },
   "all_game_only_windows_improve": true,
-  "adjusted_vs_game_only_logloss_gain": 0.017320445823195585,
+  "adjusted_vs_game_only_logloss_gain": 0.017320445823195474,
   "adjusted_vs_game_only_brier_gain": 0.007002973593558587,
-  "holdout_logloss_gain": 0.003156297486041182,
+  "holdout_logloss_gain": 0.00315629748604096,
   "holdout_brier_gain": 0.0009932192896675018,
   "holdout_window_sensitivity": {
     "14": {
       "games": 547,
       "baseline_log_loss": 0.531387787632429,
-      "adjusted_log_loss": 0.5245309292534706,
-      "logloss_gain": 0.006856858378958441,
-      "brier_gain": 0.002311990935400021
+      "adjusted_log_loss": 0.5245309292534708,
+      "logloss_gain": 0.006856858378958219,
+      "brier_gain": 0.0023119909353999935
     },
     "30": {
       "games": 1179,
@@ -237,9 +246,9 @@
     },
     "45": {
       "games": 1658,
-      "baseline_log_loss": 0.560408404739938,
-      "adjusted_log_loss": 0.5572521072538968,
-      "logloss_gain": 0.003156297486041182,
+      "baseline_log_loss": 0.5604084047399379,
+      "adjusted_log_loss": 0.557252107253897,
+      "logloss_gain": 0.00315629748604096,
       "brier_gain": 0.0009932192896675018
     }
   },
