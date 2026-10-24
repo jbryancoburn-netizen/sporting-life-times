@@ -160,7 +160,8 @@ jobs:
           d=json.load(open('historical-report/ncaam-independent-stat-weights.json'))
           assert d['auto_promote'] is False
           assert d['games_identical'] is True
-          assert len(d['grid'])==64
+          assert len(d['grid'])==125
+          assert isinstance(d['selected_at_grid_boundary'],bool)
           PY
       - name: Run real NCAA historical player-quality backtest
         run: |
