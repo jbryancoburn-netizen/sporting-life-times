@@ -1,0 +1,315 @@
+{
+  "model": "SLAT-NCAAM-game-Elo-update-parameter-backtest-v1",
+  "status": "CHRONOLOGICAL_TEAM_GAME_HOLDOUT_VENUE_UNVERIFIED",
+  "train_seasons": [
+    2024,
+    2025
+  ],
+  "untouched_holdout_season": 2026,
+  "prior_replay_season": 2023,
+  "carryover": 0.65,
+  "selection_rule": "Lowest training log loss, then Brier; no holdout tuning",
+  "venue_policy": "All games neutral because historical venue unverified",
+  "selected": {
+    "k": 28.0,
+    "mov": 1.1
+  },
+  "baseline_parameters": {
+    "k": 24,
+    "mov": 0.55
+  },
+  "training_baseline": {
+    "k": 24.0,
+    "mov": 0.55,
+    "games": 11285,
+    "log_loss": 0.5941966718426075,
+    "brier": 0.204350601880846
+  },
+  "training_selected": {
+    "k": 28.0,
+    "mov": 1.1,
+    "games": 11285,
+    "log_loss": 0.5871550304491912,
+    "brier": 0.20183759379046629
+  },
+  "holdout_baseline": {
+    "games": 5750,
+    "log_loss": 0.5848021252987833,
+    "brier": 0.20044259928071398,
+    "per_season": {
+      "2026": {
+        "games": 5750,
+        "log_loss": 0.5848021252987833,
+        "brier": 0.20044259928071398
+      }
+    }
+  },
+  "holdout_selected": {
+    "games": 5750,
+    "log_loss": 0.5785191589676254,
+    "brier": 0.19845348238041488,
+    "per_season": {
+      "2026": {
+        "games": 5750,
+        "log_loss": 0.5785191589676254,
+        "brier": 0.19845348238041488
+      }
+    }
+  },
+  "holdout_both_metrics_improved": true,
+  "selected_at_grid_boundary": true,
+  "identical_game_count": true,
+  "eligible_for_automatic_live_promotion": false,
+  "limitations": [
+    "No true home-versus-neutral indicator in historical data",
+    "Game-only Elo trial; not an evaluation of 2026-27 player-quality preseason adjustments",
+    "Live production K and MOV remain unchanged until reviewed"
+  ],
+  "training_grid": [
+    {
+      "k": 12.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.6328777333939521,
+      "brier": 0.2207367166652268
+    },
+    {
+      "k": 12.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.622904164120472,
+      "brier": 0.21622472783216
+    },
+    {
+      "k": 12.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.613751921056448,
+      "brier": 0.21221938370898102
+    },
+    {
+      "k": 12.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.6067705459951482,
+      "brier": 0.20926465374344458
+    },
+    {
+      "k": 12.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.6021682421966891,
+      "brier": 0.20737121575609155
+    },
+    {
+      "k": 16.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.623111306070096,
+      "brier": 0.21635684682364653
+    },
+    {
+      "k": 16.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.6131750818453312,
+      "brier": 0.2120124958958893
+    },
+    {
+      "k": 16.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.6045469487913312,
+      "brier": 0.2083850535392712
+    },
+    {
+      "k": 16.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.5983545220817122,
+      "brier": 0.20588084211906554
+    },
+    {
+      "k": 16.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.5945170800898811,
+      "brier": 0.20437954391195184
+    },
+    {
+      "k": 20.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.6157216029100692,
+      "brier": 0.21315464056400252
+    },
+    {
+      "k": 20.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.6061881437134647,
+      "brier": 0.20910829446158535
+    },
+    {
+      "k": 20.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.5983572003797695,
+      "brier": 0.20592697335752888
+    },
+    {
+      "k": 20.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.5931191073968616,
+      "brier": 0.2038902209493165
+    },
+    {
+      "k": 20.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.5901350685167925,
+      "brier": 0.20277444480968146
+    },
+    {
+      "k": 24.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.6100322052232611,
+      "brier": 0.2107670230532855
+    },
+    {
+      "k": 24.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.601097327659807,
+      "brier": 0.20707150970585134
+    },
+    {
+      "k": 24.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.5941966718426075,
+      "brier": 0.204350601880846
+    },
+    {
+      "k": 24.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.5899863562778812,
+      "brier": 0.20277073993591105
+    },
+    {
+      "k": 24.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.587892307357725,
+      "brier": 0.2020228700121981
+    },
+    {
+      "k": 28.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.6056123084099196,
+      "brier": 0.20896801733604406
+    },
+    {
+      "k": 28.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.5973882761123435,
+      "brier": 0.20564256747236898
+    },
+    {
+      "k": 28.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.5914880483366929,
+      "brier": 0.20337692799685173
+    },
+    {
+      "k": 28.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.5883414317070885,
+      "brier": 0.20223617716027834
+    },
+    {
+      "k": 28.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.5871550304491912,
+      "brier": 0.20183759379046629
+    },
+    {
+      "k": 32.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.6021730566686533,
+      "brier": 0.20760967308562886
+    },
+    {
+      "k": 32.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.5947275626601417,
+      "brier": 0.20465804938988452
+    },
+    {
+      "k": 32.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.5898670575467971,
+      "brier": 0.20283543661579367
+    },
+    {
+      "k": 32.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.5878037707164219,
+      "brier": 0.20211503002535477
+    },
+    {
+      "k": 32.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.5875359350276305,
+      "brier": 0.20204862563072631
+    },
+    {
+      "k": 40.0,
+      "mov": 0.0,
+      "games": 11285,
+      "log_loss": 0.597483988211919,
+      "brier": 0.2058398422850692
+    },
+    {
+      "k": 40.0,
+      "mov": 0.25,
+      "games": 11285,
+      "log_loss": 0.5917080976143279,
+      "brier": 0.20362155338887075
+    },
+    {
+      "k": 40.0,
+      "mov": 0.55,
+      "games": 11285,
+      "log_loss": 0.5889890330003847,
+      "brier": 0.20264130677150358
+    },
+    {
+      "k": 40.0,
+      "mov": 0.85,
+      "games": 11285,
+      "log_loss": 0.5891278722148643,
+      "brier": 0.2027099992037545
+    },
+    {
+      "k": 40.0,
+      "mov": 1.1,
+      "games": 11285,
+      "log_loss": 0.5907251522106082,
+      "brier": 0.20326458482066895
+    }
+  ]
+}
