@@ -1,0 +1,37 @@
+name: NCAA player identity triage verification
+on:
+  push:
+    paths:
+      - 'scripts/audit_ncaam_player_identity_triage.py'
+      - 'data/ncaam-2026-27-player-identity-triage.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - '.github/workflows/ncaam-player-identity-triage.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild NCAA player identity exceptions without guessed joins
+        run: |
+          python scripts/audit_ncaam_player_identity_triage.py --output /tmp/ncaam-player-identity-triage.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          actual=json.loads(Path('/tmp/ncaam-player-identity-triage.json').read_text())
+          committed=json.loads(Path('data/ncaam-2026-27-player-identity-triage.json').read_text())
+          assert actual==committed, 'Committed player triage does not reproduce from raw player evidence'
+          expected={'accepted_prior_production':2923,'no_prior_d1_box':587,
+                    'actual_prior_school_conflict':7,'fuzzy_identity_excluded':6,
+                    'missing_valid_prior_minutes':0,'unlinked_current_roster_player':2014}
+          assert actual['numbers']==expected
+          assert actual['remaining_document_verification_cases']==13
+          assert not actual['production_elo_changed']
+          print('PASS: 2,923 usable records, 587 no-box, 7 real conflicts, 6 fuzzy, 2,014 unlinked')
+          PY
