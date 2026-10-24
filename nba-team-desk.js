@@ -10,7 +10,7 @@ const opts=$('teams');for(const [code,name] of Object.entries(names).sort((a,b)=
 const chosen=new URLSearchParams(location.search).get('team')?.toUpperCase();opts.value=names[chosen]?chosen:'IND';
 const data=Promise.allSettled([get('data/nba-top-stories.json'),get('data/nba-2026-27-current-provisional.json'),get('data/nba-game-center.json'),get('data/nba-upcoming-schedule.json')]);
 function render(a){
- const t=opts.value;history.replaceState(null,'','?team='+encodeURIComponent(t));$('team-name').textContent=names[t];document.title=names[t]+' | The Sporting Life & Times';$('crest').src=logo(t);$('crest').alt=names[t]+' logo';$('identity').style.setProperty('--team-color',colors[t]||'#333');
+ const t=opts.value;history.replaceState(null,'','?team='+encodeURIComponent(t));$('team-name').textContent=names[t];document.title=names[t]+' | The Sporting Life & Times';$('crest').src=logo(t);$('crest').alt=names[t]+' logo';$('identity').style.setProperty('--team-color',colors[t]||'#333');document.documentElement.style.setProperty('--team-color',colors[t]||'#344a68');
  const value=i=>a[i].status==='fulfilled'?a[i].value:null;
  const elo=value(1),archive=value(2),schedule=value(3),news=value(0);
  const events=elo?.events||[],teamEvents=events.filter(e=>e.home===t||e.away===t),wins=teamEvents.filter(e=>(e.home===t&&e.home_score>e.away_score)||(e.away===t&&e.away_score>e.home_score)).length;
@@ -36,7 +36,7 @@ function render(a){
   }
  }
  const leaders=[...playerTotals.values()].sort((a,b)=>b.pts/b.gp-a.pts/a.gp).slice(0,6);
- $('team-leaders').innerHTML=leaders.length?'<table class="leader-table"><thead><tr><th>PLAYER</th><th>GP</th><th>PTS</th><th>REB</th><th>AST</th></tr></thead><tbody>'+leaders.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+p.gp+'</td><td>'+ (p.pts/p.gp).toFixed(1)+'</td><td>'+(p.reb/p.gp).toFixed(1)+'</td><td>'+(p.ast/p.gp).toFixed(1)+'</td></tr>').join('')+'</tbody></table><small class="muted">Per game · captured verified games only ('+completed.length+' team games)</small>':'<p class="muted">Player box-score data unavailable.</p>';
+ $('team-leaders').innerHTML=leaders.length?'<table class="leader-table"><thead><tr><th>PLAYER</th><th>GP</th><th>PTS</th><th>REB</th><th>AST</th></tr></thead><tbody>'+leaders.map(p=>'<tr><td>'+esc(p.name)+'<div class="leader-meter" aria-hidden="true"><i style="width:'+Math.max(4,Math.min(100,(p.pts/p.gp)/(leaders[0].pts/leaders[0].gp)*100)).toFixed(1)+'%"></i></div></td><td>'+p.gp+'</td><td>'+ (p.pts/p.gp).toFixed(1)+'</td><td>'+(p.reb/p.gp).toFixed(1)+'</td><td>'+(p.ast/p.gp).toFixed(1)+'</td></tr>').join('')+'</tbody></table><small class="muted">Per game · captured verified games only ('+completed.length+' team games)</small>':'<p class="muted">Player box-score data unavailable.</p>';
  const lastFive=teamEvents.slice(-5).reverse();
  $('team-form').innerHTML=lastFive.length?'<div class="form-line">'+lastFive.map(e=>{const win=e.home===t?e.home_score>e.away_score:e.away_score>e.home_score;return '<span class="'+(win?'win':'loss')+'">'+(win?'W':'L')+' · '+esc((e.home===t?e.away:e.home))+'</span>'}).join('')+'</div>':'<p class="muted">No verified season results.</p>';
  const rows=(archive?.games||[]).filter(g=>g.teams?.some(e=>e.code===t)&&g.state==='post').slice(0,8);
