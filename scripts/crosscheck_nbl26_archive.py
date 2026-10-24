@@ -104,7 +104,7 @@ def check_official_exception(game,source_text):
 
 def corroborate_official_outliers(report):
     findings=[]
-    for game in report.get("unmatched",[]):
+    for game in report.get("discrepancy_details",[]):
         meta=OFFICIAL_EXCEPTIONS.get(game["id"])
         if not meta:
             findings.append({"id":game["id"],"status":"no_official_exception_documented"})
@@ -125,7 +125,8 @@ def corroborate_official_outliers(report):
     report["total_independently_corroborated_scorelines"]=report.get("matched_scorelines",0)+confirmed
     report["status"]="all_178_scorelines_corroborated" if (
         report.get("ESPN_candidates_excluding_cup")==178 and
-        report["total_independently_corroborated_scorelines"]==178
+        report["total_independently_corroborated_scorelines"]==178 and
+        report.get("unmatched_count")==0
     ) else "partial_or_unreconciled"
     report["production_approved"]=False
     return report
