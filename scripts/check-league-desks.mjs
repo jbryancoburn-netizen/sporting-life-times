@@ -19,7 +19,11 @@ for(const page of found){
  const html=read(page);
  assert(html.includes('THE SPORTING LIFE')||html.includes('The Sporting Life'),'masthead missing: '+page);
  assert(html.includes('sports.html'),'return navigation missing: '+page);
- if(!['nba.html','epl.html'].includes(page)){
+ if(page==='college-soccer.html'){
+  for(const id of ['college-soccer-elo-table','college-soccer-predictions-list','league-news-grid'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
+  for(const id of ['league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(!html.includes('id="'+id+'"'),'legacy soccer panel remains: '+id);
+  for(const loader of ['league-desks.js','college-soccer-elo.js','college-soccer-predictions.js'])assert(html.includes(loader),'soccer loader missing: '+loader);
+ }else if(!['nba.html','epl.html'].includes(page)){
   for(const id of ['league-news-grid','league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
   assert(html.includes('league-desks.js'),'shared data loader missing: '+page);
  }
