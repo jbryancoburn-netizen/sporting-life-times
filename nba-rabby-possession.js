@@ -35,7 +35,9 @@ function build(stats,minimum=5){
    offense:weight*100*t.pf/t.poss+(1-weight)*baseRating,
    defense:weight*100*t.pa/t.poss+(1-weight)*baseRating};
  }
- return {teams,league:{pace:basePace,offense:baseRating},coverage:{games:n,teams:Object.keys(teams).length,minimum}};
+ const calibration=stats.calibration;
+ if(calibration&&!(['margin','total'].every(k=>Array.isArray(calibration.coefficients?.[k])&&calibration.coefficients[k].length===2&&calibration.coefficients[k].every(finite))))return null;
+ return {calibration,teams,league:{pace:basePace,offense:baseRating},coverage:{games:n,teams:Object.keys(teams).length,minimum}};
 }
 function project(home,away,model,ratings){
  const h=model?.teams?.[home],a=model?.teams?.[away];
@@ -47,8 +49,14 @@ function project(home,away,model,ratings){
  // Calibrated NBA scoring home-court effect is intentionally NOT assumed.
  // Keep the scoring component neutral until an independent, rolling test
  // derives a defensible points-home parameter.
- const homePoints=possessions*homeEfficiency/100;
- const awayPoints=possessions*awayEfficiency/100;
+ let homePoints=possessions*homeEfficiency/100;
+ let awayPoints=possessions*awayEfficiency/100;
+ if(model.calibration){
+  const c=model.calibration.coefficients;
+  const margin=c.margin[0]+c.margin[1]*(homePoints-awayPoints);
+  const total=c.total[0]+c.total[1]*(homePoints+awayPoints);
+  homePoints=(total+margin)/2;awayPoints=(total-margin)/2;
+ }
  if(![homePoints,awayPoints].every(finite)||homePoints<70||awayPoints<70||homePoints>170||awayPoints>170)return null;
  const eloHome=1/(1+Math.pow(10,-(ratings[home]+45-ratings[away])/400));
  return {homePoints,awayPoints,possessions,margin:homePoints-awayPoints,total:homePoints+awayPoints,eloHome,
