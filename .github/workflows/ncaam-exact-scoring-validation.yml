@@ -1,0 +1,51 @@
+name: NCAA Exact Scoring Feature Validation
+on:
+  push:
+    paths:
+      - 'scripts/backtest_ncaam_quality_retrospective.py'
+      - 'scripts/run_ncaam_exact_formula_backtest.py'
+      - '.github/workflows/ncaam-exact-scoring-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Train and hold out using identical scoring feature
+        run: python scripts/run_ncaam_exact_formula_backtest.py
+      - name: Validate output has unchanged evaluation period
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("data/ncaam-exact-scoring-formula-retrospective-backtest.json")
+          d=json.loads(f.read_text())
+          assert d["untouched_holdout_season"]==2026
+          assert d["train_seasons"]==[2024,2025]
+          assert d["holdout_minutes_only"]["games"]==d["holdout_minutes_plus_quality"]["games"]
+          assert d["production_approval"] is False
+          print(d["features"]["selected_quality_beta"],d["holdout_log_loss_gain"],d["holdout_brier_gain"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-exact-scoring-formula-backtest
+          path: data/ncaam-exact-scoring-formula-retrospective-backtest.json
+      - name: Publish historical holdout measurements
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-exact-scoring-formula-retrospective-backtest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish exact-formula NCAA scoring backtest [skip ci]"
+            git push
+          fi
