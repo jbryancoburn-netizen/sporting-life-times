@@ -6,7 +6,7 @@
   "authoritative_for_prior_school_only": true,
   "unique_prior_athlete_id_proven": false,
   "automatic_elo_linking_authorized": false,
-  "reason": "Current school names and 2025-26 D-I prior schools independently confirmed. No authoritative source has yet joined the current ESPN athlete ID to the 2025-26 NCAA athlete ID. Historical stats remain excluded pending independent ID verification.",
+  "reason": "Official 2026-27 school biographies corroborate each athlete's 2025-26 D-I school; the 2025-26 NCAA box has one unique NCAA player ID with exact name and previous school for each. Replayed prior minutes and points agree with roster evidence. No direct ESPN-to-NCAA person-ID bridge has yet been independently proven, so the four remain a supplemental research-grade match and not automatic primary Elo inputs.",
   "records": [
     {
       "current_espn_id": "5177709",
@@ -15,7 +15,13 @@
       "verified_prior_school": "Oakland",
       "prior_school_id": "ncaa:609557",
       "source_url": "https://odusports.com/news/2026/06/16/former-juco-all-american-khoi-thurmon-joins-odu-mens-basketball",
-      "source_statement": "Official ODU June 2026 transfer announcement states that Khoi Thurmon arrives from Oakland where he played before the 2026-27 season."
+      "source_statement": "Official ODU June 2026 transfer announcement states that Khoi Thurmon arrives from Oakland where he played before the 2026-27 season.",
+      "historical_ncaa_athlete_id": "9961469",
+      "historical_2025_26_games_with_positive_minutes": 32,
+      "historical_2025_26_minutes": 379.75,
+      "historical_2025_26_points": 81,
+      "historical_ncaa_athlete_id_at_prior_school_unique": true,
+      "current_espn_to_prior_ncaa_direct_id_bridge_proven": false
     },
     {
       "current_espn_id": "5107252",
@@ -24,7 +30,13 @@
       "verified_prior_school": "Georgia",
       "prior_school_id": "ncaa:609743",
       "source_url": "https://godeacs.com/sports/mens-basketball/roster/justin-abson/9815",
-      "source_statement": "Wake Forest official 2026-27 biography describes prior two seasons at Georgia, including 2025-26 SEC blocks."
+      "source_statement": "Wake Forest official 2026-27 biography describes prior two seasons at Georgia, including 2025-26 SEC blocks.",
+      "historical_ncaa_athlete_id": "9336234",
+      "historical_2025_26_games_with_positive_minutes": 31,
+      "historical_2025_26_minutes": 352.636,
+      "historical_2025_26_points": 90,
+      "historical_ncaa_athlete_id_at_prior_school_unique": true,
+      "current_espn_to_prior_ncaa_direct_id_bridge_proven": false
     },
     {
       "current_espn_id": "5326293",
@@ -33,7 +45,13 @@
       "verified_prior_school": "BYU",
       "prior_school_id": "ncaa:609638",
       "source_url": "https://umassathletics.com/sports/mens-basketball/roster/abdullah-ahmed/18390",
-      "source_statement": "UMass official 2026-27 player biography explicitly recounts Abdullah Ahmed's 2025-26 games and statistics at BYU."
+      "source_statement": "UMass official 2026-27 player biography explicitly recounts Abdullah Ahmed's 2025-26 games and statistics at BYU.",
+      "historical_ncaa_athlete_id": "11216159",
+      "historical_2025_26_games_with_positive_minutes": 20,
+      "historical_2025_26_minutes": 246.051,
+      "historical_2025_26_points": 25,
+      "historical_ncaa_athlete_id_at_prior_school_unique": true,
+      "current_espn_to_prior_ncaa_direct_id_bridge_proven": false
     },
     {
       "current_espn_id": "5234298",
@@ -42,7 +60,15 @@
       "verified_prior_school": "DePaul",
       "prior_school_id": "ncaa:609714",
       "source_url": "https://wsuraiders.com/sports/mens-basketball/roster/ilija-milija-evic/6885",
-      "source_statement": "Wright State official player biography says Ilija Milijasevic played 16 games at DePaul in 2025-26, averaging 7.5 minutes."
+      "source_statement": "Wright State official player biography says Ilija Milijasevic played 16 games at DePaul in 2025-26, averaging 7.5 minutes.",
+      "historical_ncaa_athlete_id": "10808018",
+      "historical_2025_26_games_with_positive_minutes": 16,
+      "historical_2025_26_minutes": 114.2,
+      "historical_2025_26_points": 33,
+      "historical_ncaa_athlete_id_at_prior_school_unique": true,
+      "current_espn_to_prior_ncaa_direct_id_bridge_proven": false
     }
-  ]
+  ],
+  "canonical_ncaam_player_box_2026_parquet_sha256": "462bf8ba96b796768902b27fc91eee0681faef834c98d7c5b1d774631fd2ce11",
+  "historical_ncaa_athlete_ids_identified": 4
 }
