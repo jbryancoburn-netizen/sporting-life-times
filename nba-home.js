@@ -120,7 +120,7 @@ async function desk(){
   const delta=Number(g.home_elo_change),stamp=g.date&&Number.isFinite(Date.parse(g.date))?date(g.date):'Date unavailable';
   const bug=window.SLTScorebug.render({mode:'final',subtitle:stamp,away:{code:a,name:names[a],logo:logo(a)},home:{code:h,name:names[h],logo:logo(h)},awayScore:g.away_score,homeScore:g.home_score,winner:homeWon?h:a});
   const movement=Number.isFinite(delta)?'<div><span>'+esc(a)+' Elo '+(-delta>=0?'+':'')+(-delta).toFixed(2)+'</span><span>'+esc(h)+' Elo '+(delta>=0?'+':'')+delta.toFixed(2)+'</span></div>':'';
-  return '<details class="nba-scorebug"><summary>'+bug+'<span class="slt-scorebug-expand">Game details ▾</span></summary><div class="nba-scorebug-details">'+movement+'<p>Independent Elo: '+esc(a)+' '+ratings[a].toFixed(1)+' · '+esc(h)+' '+ratings[h].toFixed(1)+'</p></div></details>';
+  return '<details class="nba-scorebug"><summary>'+bug+'<span class="slt-scorebug-expand">Game details ▾</span></summary><div class="nba-scorebug-details">'+movement+'<p><a href="nba-game-center.html?game='+encodeURIComponent(g.id)+'">Full game center ↗</a></p><p>Independent Elo: '+esc(a)+' '+ratings[a].toFixed(1)+' · '+esc(h)+' '+ratings[h].toFixed(1)+'</p></div></details>';
  }).join('');
  if($('nba-results-rail'))$('nba-results-rail').innerHTML=results||'<p class="hub-small">No verified finals in the published NBA Elo ledger.</p>';
  msg('nba-results-status',ledger.length+' verified final games · Latest 16 shown · Expand a game for Elo and result detail.');
