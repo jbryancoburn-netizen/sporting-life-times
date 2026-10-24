@@ -3,8 +3,9 @@
 2026-27 is a single untouched evaluation, never used to choose settings.
 Any model failing the held-out 50/50 baseline is blocked from publication.
 """
-import argparse,json,math
+import argparse,json,math,sys
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.nbl_three_season_eval import games,evaluate
 GRID={"k":[12,20,32],"home_advantage_elo":[25,65,90],"regression":[.15,.35,.55]}
 def loss(predictions,season):
