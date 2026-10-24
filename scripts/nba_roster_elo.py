@@ -13,11 +13,12 @@ def build(base, roster):
     entries=roster.get("players",[])
     if not isinstance(entries,list) or not entries:
         raise ValueError("No verified player records: do not fabricate roster adjustments")
+    uncertain=set()
     seen=set(); offsets={t:0.0 for t in teams}; gameday={t:0.0 for t in teams}; coverage={t:0 for t in teams}; minutes_total={t:0.0 for t in teams}
     for p in entries:
         team=p.get("team"); pid=p.get("player_id")
-        if team not in teams or not pid or (team,pid) in seen: raise ValueError("Unknown team or duplicate/missing player")
-        seen.add((team,pid))
+        if team not in teams or not pid or pid in seen: raise ValueError("Unknown team or duplicate/missing player")
+        seen.add(pid)
         # expected_impact_elo is a sourced player impact in Elo units at full playing time.
         # Values are centered around replacement level by the input producer.
         impact=p.get("expected_impact_elo"); minutes=p.get("projected_minutes")
@@ -28,7 +29,17 @@ def build(base, roster):
         availability=p.get("availability")
         if availability not in ("available","out","questionable","doubtful"):
             raise ValueError("Missing player availability")
-        prob={"available":1.0,"out":0.0,"questionable":0.5,"doubtful":0.25}[availability]
+        if availability in ("available", "out"):
+            prob = 1.0 if availability == "available" else 0.0
+        else:
+            prob = p.get("availability_probability")
+            if prob is None:
+                uncertain.add(team)
+                prob = 0.0  # Game-day output is withheld for this team below.
+            elif (isinstance(prob, bool) or not isinstance(prob, (int, float))
+                  or not math.isfinite(prob) or not 0 <= prob <= 1
+                  or not p.get("availability_probability_source")):
+                raise ValueError("Uncertain availability requires a sourced probability between zero and one")
         # 240 team minutes; each player impact is proportional to minutes share.
         contribution=impact*minutes/48
         offsets[team]+=contribution
@@ -46,17 +57,16 @@ def build(base, roster):
         # Explicitly mark partial coverage. Never publish as validated full-team ratings.
         result.append(dict(team=team,traditional_elo=round(elo,3),
                            roster_adjusted_elo=round(elo+offsets[team]-prior[team],3) if coverage[team]>=8 and 190<=minutes_total[team]<=240.001 else None,
-                           game_day_elo=round(elo+gameday[team]-prior[team],3) if coverage[team]>=8 else None,
+                           game_day_elo=round(elo+gameday[team]-prior[team],3) if coverage[team]>=8 and 190<=minutes_total[team]<=240.001 and team not in uncertain else None,
                            player_records=coverage[team],projected_team_minutes=round(minutes_total[team],1),
                            coverage="provisional" if coverage[team]>=8 and 190<=minutes_total[team]<=240.001 else "insufficient"))
     return dict(league="NBA",model="USRS roster-aware Elo overlay v1",status="provisional",
                 as_of_utc=roster["as_of_utc"],source=roster["source"],baseline_source=roster.get("baseline_source"),
-                methodology="Player impact in Elo units weighted by projected minutes/48; game-day adjustment weighted by availability probabilities; requires >=8 sourced player records and 190-240 projected team minutes per team",
+                methodology="Player impact in Elo units weighted by projected minutes/48; game-day adjustment uses sourced probabilities for uncertain availability and is withheld when those probabilities are missing; requires >=8 sourced player records and 190-240 projected team minutes per team",
                 ratings=sorted(result,key=lambda r:-r["traditional_elo"]))
 
 if __name__=="__main__":
     p=argparse.ArgumentParser()
     p.add_argument("base");p.add_argument("roster");p.add_argument("output")
     a=p.parse_args()
-    Path(a.output).write_text(json.dumps(build(json.loads(Path(a.base).read_text()),json.loads(Path(a.roster).read_text())),indent=2)+"
-")
+    Path(a.output).write_text(json.dumps(build(json.loads(Path(a.base).read_text()),json.loads(Path(a.roster).read_text())),indent=2)+"\n")
