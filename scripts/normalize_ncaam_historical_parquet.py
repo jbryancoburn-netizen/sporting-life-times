@@ -8,7 +8,7 @@ import io
 from pathlib import Path
 BOX=('contest_id','game_date','home','away','team','player','player_id',
      'home_ncaa_team_id','away_ncaa_team_id','team_ncaa_team_id',
-     'mins','pts','fga','fta','season')
+     'mins','pts','fga','fta','fgm','fg3m','fg3a','ftm','oreb','dreb','reb','ast','tov','stl','blk','season')
 ROSTER=('season','team_id','team','player_id','player','clean_name','name','jersey')
 SCHEDULE=('contest_id','game_date','home','away','home_score','away_score','season')
 def extract(source,destination,required,allow_missing=()):
@@ -44,7 +44,7 @@ def main():
         for name,fields in [('player_box',BOX),('team_rosters',ROSTER),('schedule',SCHEDULE)]:
             filename=f'ncaa_mbb_{name}_{season}'
             out.append(extract(args.source/(filename+'.parquet'),args.out/(filename+'.csv.gz'),fields,
-                               allow_missing=('player_id','clean_name','name','jersey') if name=='team_rosters' else ()))
+                               allow_missing=('player_id','clean_name','name','jersey') if name=='team_rosters' else tuple(set(BOX)-{'contest_id','game_date','home','away','team','player','home_ncaa_team_id','away_ncaa_team_id','team_ncaa_team_id','mins','pts','fga','fta','season'})))
     dest=args.out/'normalization_manifest.json'
     dest.write_text(json.dumps({'source':'NCAA/SportsDataverse','retrospective_roster_snapshots':True,
                                 'preseason_timestamp_verified':False,'datasets':out},indent=2)+'\n')
