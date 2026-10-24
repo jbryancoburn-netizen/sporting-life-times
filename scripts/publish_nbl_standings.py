@@ -35,7 +35,7 @@ def build(candidate):
           "win_pct":round(wins[t]/(wins[t]+losses[t]),3) if wins[t]+losses[t] else None,
           "points_for":points_for[t],"points_against":points_against[t]}
           for t in TEAMS]
-    rows.sort(key=lambda r:(-1 if r["win_pct"] is None else -r["win_pct"],-r["wins"],r["team"]))
+    rows.sort(key=lambda r:(1 if r["win_pct"] is None else -r["win_pct"],-r["wins"],r["team"]))
     return {"league":"Australian NBL","season":"2026-27","status":"source_derived_not_officially_reconciled",
          "is_official":False,"elo_approved":False,"source":"ESPN site API, completed finals since NBL27 regular-season opening",
          "season_start":START.isoformat(),"updated_at":datetime.now(timezone.utc).isoformat(),
