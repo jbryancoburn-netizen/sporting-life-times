@@ -1,0 +1,211 @@
+{
+  "experiment": "ncaam-retrospective-scoring-quality-over-minute-elo-v1",
+  "status": "RETROSPECTIVE_DIAGNOSTIC_NOT_ASOF_PRESEASON_VALIDATED",
+  "production_approval": false,
+  "train_seasons": [
+    2024,
+    2025
+  ],
+  "untouched_holdout_season": 2026,
+  "first_days_per_season": 45,
+  "features": {
+    "baseline": "independent prior-year Elo plus 120*(returning share minus median) and 160*(incoming share minus median)",
+    "quality": "weighted 2023/24/25 prior-year player scoring residual per minute, source-unique exact names only",
+    "quality_grid": [
+      -1000,
+      -600,
+      -400,
+      -200,
+      -100,
+      0,
+      100,
+      200,
+      300,
+      400,
+      600,
+      800,
+      1000,
+      1200,
+      1600,
+      2000
+    ],
+    "selected_quality_beta": 1600,
+    "prior_elo_source": "independent replay of NCAA actual scores without third-party ratings",
+    "game_venue": "neutral (unverified true-home/neutral venue)"
+  },
+  "training_minutes_only": {
+    "games": 3602,
+    "log_loss": 0.5705151604746307,
+    "brier": 0.1938336095743709,
+    "per_season": {
+      "2024": {
+        "games": 1794,
+        "log_loss": 0.5810411640746315,
+        "brier": 0.19798179518749762
+      },
+      "2025": {
+        "games": 1808,
+        "log_loss": 0.5600706635396742,
+        "brier": 0.18971754486754053
+      }
+    }
+  },
+  "training_minutes_plus_quality": {
+    "games": 3602,
+    "log_loss": 0.5601187343348145,
+    "brier": 0.1903267190182336,
+    "per_season": {
+      "2024": {
+        "games": 1794,
+        "log_loss": 0.5711727047785772,
+        "brier": 0.1946276036694336
+      },
+      "2025": {
+        "games": 1808,
+        "log_loss": 0.5491503587949305,
+        "brier": 0.18605913767738583
+      }
+    }
+  },
+  "holdout_minutes_only": {
+    "games": 1831,
+    "log_loss": 0.5346291931082648,
+    "brier": 0.17865822092622421,
+    "per_season": {
+      "2026": {
+        "games": 1831,
+        "log_loss": 0.5346291931082648,
+        "brier": 0.17865822092622421
+      }
+    }
+  },
+  "holdout_minutes_plus_quality": {
+    "games": 1831,
+    "log_loss": 0.5202061433723063,
+    "brier": 0.17406736160757577,
+    "per_season": {
+      "2026": {
+        "games": 1831,
+        "log_loss": 0.5202061433723063,
+        "brier": 0.17406736160757577
+      }
+    }
+  },
+  "holdout_log_loss_gain": 0.014423049735958537,
+  "holdout_brier_gain": 0.004590859318648444,
+  "training_grid_boundary": false,
+  "holdout_both_metrics_improved": true,
+  "roster_audit": {
+    "2024": {
+      "roster_teams": 718,
+      "covered_teams": 358,
+      "current_roster_players": 9904,
+      "unique_exact_prior_name_matches": 3273,
+      "returner_prior_name_matches": 2242,
+      "transfer_prior_name_matches": 1031,
+      "unmatched_current_roster_players": 6631,
+      "ambiguous_prior_season_names_excluded": 32,
+      "roster_duplicates_excluded": 2,
+      "prior_box_warnings": {
+        "incomplete_or_invalid_box": 8258
+      },
+      "league_prior_points_per_minute": 0.35662,
+      "median_retention": 0.433457,
+      "median_transfer": 0.156336,
+      "median_quality_residual": -0.004192
+    },
+    "2025": {
+      "roster_teams": 701,
+      "covered_teams": 358,
+      "current_roster_players": 9848,
+      "unique_exact_prior_name_matches": 3223,
+      "returner_prior_name_matches": 1951,
+      "transfer_prior_name_matches": 1272,
+      "unmatched_current_roster_players": 6625,
+      "ambiguous_prior_season_names_excluded": 38,
+      "roster_duplicates_excluded": 0,
+      "prior_box_warnings": {
+        "incomplete_or_invalid_box": 8403
+      },
+      "league_prior_points_per_minute": 0.366431,
+      "median_retention": 0.38484,
+      "median_transfer": 0.23381,
+      "median_quality_residual": -0.006797
+    },
+    "2026": {
+      "roster_teams": 726,
+      "covered_teams": 361,
+      "current_roster_players": 10227,
+      "unique_exact_prior_name_matches": 2988,
+      "returner_prior_name_matches": 1548,
+      "transfer_prior_name_matches": 1440,
+      "unmatched_current_roster_players": 7239,
+      "ambiguous_prior_season_names_excluded": 27,
+      "roster_duplicates_excluded": 0,
+      "prior_box_warnings": {
+        "incomplete_or_invalid_box": 8245
+      },
+      "league_prior_points_per_minute": 0.367783,
+      "median_retention": 0.259955,
+      "median_transfer": 0.258104,
+      "median_quality_residual": -0.00561
+    }
+  },
+  "game_counts": {
+    "2023": {
+      "usable_d1": 5593,
+      "excluded": {
+        "outside_roster_teams": 628
+      }
+    },
+    "2024": {
+      "usable_d1": 5611,
+      "excluded": {
+        "outside_roster_teams": 632
+      }
+    },
+    "2025": {
+      "usable_d1": 5674,
+      "excluded": {
+        "outside_roster_teams": 619
+      }
+    },
+    "2026": {
+      "usable_d1": 5750,
+      "excluded": {
+        "outside_roster_teams": 547
+      }
+    }
+  },
+  "source_hashes": {
+    "2023": {
+      "team_rosters": "4ed37f94ef7c4636812a44f874e54eddd7547b3c13e49429b0688bb9dd2ccc72",
+      "player_box": "f15ba766dd567fd1f83b486379adceccedbd07a39f9e54aa7a6f363e8c602267",
+      "schedule": "2cb0ee4155c5c1940903fab964649f05c46b6a9645119fba5394f74630f5d475"
+    },
+    "2024": {
+      "team_rosters": "18432859e59b4f3f879896a709ed583d8e6f696778a4eadab1ce2b42fafffc02",
+      "player_box": "eae6e48e6832ed886e21bfb550b0159209fae9ed25b99108ddd83e002ebf263b",
+      "schedule": "b26cabc42ee46a747912700bc1b970cac38cdce578ddda2adc405f73007ee830"
+    },
+    "2025": {
+      "team_rosters": "cc9200097bedcbbae7ca417659d3b294f09f0873b3fca46d16ced7db2323f66e",
+      "player_box": "e2b346721a9c53834f9eb79de3680fcd110cd2ed85f0720c1528aa846865449d",
+      "schedule": "4962056fc37a4acb3bc0e3d47839db874fab7640fdb3b6dc928c6843e3798194"
+    },
+    "2026": {
+      "team_rosters": "86dbe3082745cae1626ba3fab1495005124dfccf67861b887c044d21dfb02b36",
+      "player_box": "5ea88c51118f9b42289bb4b9f0eedc449fa9968a75ae9c39639ca2a76a0d81c6",
+      "schedule": "1418efa45a1d7fff18934bb6450d663b3889ba2c578b2d80c247414a73913fc3"
+    }
+  },
+  "limitations": [
+    "Historical team-rosters source appears to be retrospectively compiled, not time-stamped preseason snapshots",
+    "Therefore current-season roster membership could incorporate games or transfers learned after opening day",
+    "Player IDs are season-specific; matches are unique exact names, not cross-season IDs",
+    "Venue is treated as neutral for both incumbent and candidate",
+    "Matchup population restricted to reported NCAA team ID concordance; missing data excluded",
+    "No outcome was used to choose the quality coefficient from untouched 2026 games"
+  ],
+  "release_decision": "Remain provisional, do not promote new player-quality coefficient until legitimate as-of preseason historical roster captures exist."
+}
