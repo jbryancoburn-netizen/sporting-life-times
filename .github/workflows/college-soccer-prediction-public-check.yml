@@ -1,0 +1,24 @@
+name: NCAA soccer public prediction release verification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - college-soccer.html
+      - college-soccer-predictions.js
+      - data/college-soccer-prospective.json
+      - scripts/check_college_soccer_predictions_public.py
+      - .github/workflows/college-soccer-prediction-public-check.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify real deployed prospective fixtures and script
+        run: python scripts/check_college_soccer_predictions_public.py
