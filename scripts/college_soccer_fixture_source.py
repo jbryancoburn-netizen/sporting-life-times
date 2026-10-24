@@ -36,7 +36,7 @@ def parse_start(g):
 
 def candidate(game,gender,div,ratings,config,clock):
     g=game.get("game") or {}
-    if str(g.get("gameState","")).lower() in ("final","live","in progress"):return None
+    if str(g.get("gameState","")).lower() not in ("pre","scheduled","pregame","pre-game"):return None
     gid=str(g.get("gameID") or "")
     h=g.get("home") or {};a=g.get("away") or {}
     hs=(h.get("names") or {}).get("seo"); ass=(a.get("names") or {}).get("seo")

@@ -3,6 +3,17 @@ from publish_college_soccer_dynamic import predict,poisson_draw,rates,prior_stat
 from college_soccer_fixture_source import fetch_scoreboards_with_audit
 
 class DynamicPublisherTests(unittest.TestCase):
+    def test_known_final_cannot_receive_new_prediction(self):
+        b,source,clock=self.fixture()
+        final={'match_id':'men-1','gender':'men','date':'2026-10-24','home_team':'a','away_team':'b','home_goals':2,'away_goals':0}
+        self.assertEqual(build(b,[final],source,[],clock)[0],[])
+
+    def test_cancelled_fixture_cannot_receive_prediction(self):
+        b,source,clock=self.fixture()
+        for state in ('cancelled','postponed','final','live','unknown',''):
+            source['men-d1'][0]['game']['gameState']=state
+            self.assertEqual(build(b,[],source,[],clock)[0],[])
+
     def test_partial_schedule_failure_is_explicit(self):
         def getter(url):
             if '/soccer-women/d2/' in url:raise OSError('source unavailable')

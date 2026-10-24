@@ -72,6 +72,7 @@ def build(bundle,finals,source,existing,clock):
     if clock.tzinfo is None:raise ValueError('aware clock required')
     if bundle['calibration']['status']!='research_only':raise ValueError('unexpected model status')
     byid={r['match_id']:r for r in existing};cache={};new=[]
+    completed_ids={g['match_id'] for g in finals}
     if len(byid)!=len(existing):raise ValueError('duplicate archived forecast')
     for row in existing:
         made=dt.datetime.fromisoformat(row['forecasted_at_utc']);start=dt.datetime.fromisoformat(row['kickoff_utc'])
@@ -89,7 +90,7 @@ def build(bundle,finals,source,existing,clock):
             if day not in cache:cache[day]=prior_state(bundle,finals,day)
             ratings,goals=cache[day]
             row=candidate(item,gender,int(div),ratings,bundle['shadow']['params'][cohort],clock)
-            if row is None or row['match_id'] in byid:continue
+            if row is None or row['match_id'] in byid or row['match_id'] in completed_ids:continue
             h,a=rates(goals[cohort],row['home_team'],row['away_team'])
             p=predict(row.pop('relative_home'),h,a,bundle['calibration']['cohorts'][cohort]['coefficients'])
             row.update({k:round(v,8) for k,v in p.items()})
