@@ -10,7 +10,7 @@ START={"2024-25":"2024-09-19","2025-26":"2025-09-18","2026-27":"2026-09-19"}
 def games(path,season):
     ledger=validate(json.loads(Path(path).read_text()))
     cutoff=START[season]
-    regular=[g for g in ledger if g["played_at"][:10]>=cutoff]
+    regular=[g for g in ledger if g["played_at"][:10]>=cutoff and not (season=="2025-26" and g["id"]=="401858632")]
     if not regular:raise ValueError("No regular-season candidates for "+season)
     return regular, len(ledger)-len(regular)
 
@@ -55,7 +55,8 @@ def main():
     outcome={"status":"RESEARCH_UNCERTIFIED","publication_approved":False,
              "parameters":{"k":20,"home_advantage_elo":65,"regression":.25},
              "opening_prior":"equal 1500; assumption only",
-             "preseason_excluded":excluded,
+             "nonleague_games_excluded":excluded,
+             "known_standalone_cup_final_exclusion":{"2025-26":["401858632"]},
              "season_predictions":prediction,
              "coin_flip_baseline":baseline,
              "validation_beats_coin_flip":prediction["2025-26"]["log_loss"]<baseline["log_loss"],
