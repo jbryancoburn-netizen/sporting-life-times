@@ -60,3 +60,30 @@
 #college-team-profile.team-has-brand .team-metric-lead strong{color:var(--team-primary)}
 #college-team-profile .team-brand-location{margin:.35rem 0 0;color:#e8e5d9;font: .75rem Arial,sans-serif}
 #college-team-profile .team-hero-actions{display:flex;gap:1.3rem;flex-wrap:wrap}
+
+/* Live-style featured game scoreboard and division context */
+#college-team-profile .team-elo-standing{padding:.7rem .85rem .85rem;margin:.45rem 0 1rem;border:1px solid #d9dfe3;background:#f7f8f7}
+#college-team-profile .team-standing-heading{display:flex;justify-content:space-between;gap:1rem;font:700 .75rem Arial,sans-serif;color:#263849;margin-bottom:.5rem}
+#college-team-profile .team-standing-heading span{font-variant-numeric:tabular-nums}
+#college-team-profile .team-standing-track{height:8px;background:#d6dee2;overflow:hidden;border-radius:5px}
+#college-team-profile .team-standing-fill{height:100%;background:var(--team-primary,#234e70);border-radius:5px}
+#college-team-profile .team-standing-caption{font: .68rem/1.45 Arial,sans-serif;color:#647584;margin:.45rem 0 0}
+#college-team-profile .team-match-feature{margin:1rem 0 1.4rem;border-top:3px solid var(--team-primary,#172a3f);background:#f4f6f6;padding:0}
+#college-team-profile .team-feature-heading{padding:.7rem .9rem;margin:0;background:#e8eded;color:#172a3b;font:700 .75rem Arial,sans-serif;text-transform:uppercase;letter-spacing:.1em}
+#college-team-profile .team-match-eyebrow{display:flex;justify-content:space-between;gap:.75rem;padding:.65rem .9rem;font:700 .66rem Arial,sans-serif;color:#607080}
+#college-team-profile .team-match-scorebug{display:grid;grid-template-columns:minmax(0,1fr) minmax(95px,auto) minmax(0,1fr);align-items:center;gap:1rem;padding:1.2rem .9rem .9rem}
+#college-team-profile .team-match-side{min-width:0;display:flex;flex-direction:column;gap:.35rem}
+#college-team-profile .team-match-side:last-child{text-align:right}
+#college-team-profile .team-match-side small{font:700 .65rem Arial,sans-serif;letter-spacing:.07em;color:#697b87}
+#college-team-profile .team-match-side strong{font:700 clamp(1.05rem,2.5vw,1.65rem)/1.15 Georgia,serif;overflow-wrap:anywhere;color:#112b42}
+#college-team-profile .team-match-number{text-align:center;display:flex;flex-direction:column;gap:.2rem;font-variant-numeric:tabular-nums}
+#college-team-profile .team-match-number strong{font:700 clamp(1.65rem,4vw,2.7rem) Georgia,serif;white-space:nowrap;color:var(--team-primary,#172a3f)}
+#college-team-profile .team-match-number span{font:700 .66rem Arial,sans-serif;letter-spacing:.05em;color:#627585}
+#college-team-profile .team-feature-source{display:inline-block;font:.73rem Arial,sans-serif;margin:0 .9rem .9rem;color:#32516a}
+@media(max-width:540px){#college-team-profile .team-match-scorebug{grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr);gap:.4rem;padding:.8rem .5rem}#college-team-profile .team-match-side strong{font-size:1rem}#college-team-profile .team-match-number strong{font-size:1.5rem}}
+/* Identity */
+#college-team-profile .team-monogram:has(img){background:#fff}
+#college-team-profile .team-monogram img{max-width:90%;max-height:90%;object-fit:contain;display:block}
+#college-team-profile .team-identity-detail{display:flex;gap:.45rem 1rem;flex-wrap:wrap;font:.78rem Arial,sans-serif;color:#ebeced;margin:.65rem 0 0}
+#college-team-profile .team-identity-detail span+span{border-left:1px solid #ffffff66;padding-left:1rem}
+@media(max-width:560px){#college-team-profile .team-identity-detail{font-size:.69rem}#college-team-profile .team-identity-detail span+span{border-left:0;padding-left:0}}
