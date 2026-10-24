@@ -1,0 +1,57 @@
+{
+  "status": "historical_score_diagnostic_not_possession_or_roster_validation",
+  "source_repository": "jbryancoburn-netizen/universal-sports-rating-system",
+  "source": "ESPN final-score CSV archives; own Elo replay and fitted coefficients",
+  "games_loaded": 6150,
+  "training_games": 3533,
+  "training_seasons": [
+    "2021-22",
+    "2022-23",
+    "2023-24"
+  ],
+  "validation": {
+    "season": "2024-25",
+    "games": 1230,
+    "metrics": {
+      "margin": {
+        "mae": 11.061097005988543,
+        "baseline_mae": 12.606504065040651
+      },
+      "total": {
+        "mae": 14.823843884222374,
+        "baseline_mae": 14.853739837398376
+      }
+    }
+  },
+  "test": {
+    "season": "2025-26",
+    "games": 1230,
+    "metrics": {
+      "margin": {
+        "mae": 11.40944375654386,
+        "baseline_mae": 13.0869918699187
+      },
+      "total": {
+        "mae": 15.170668500121309,
+        "baseline_mae": 15.1719918699187
+      }
+    }
+  },
+  "coefficients": {
+    "margin": [
+      2.1604376231152527,
+      2.540700080175512,
+      0.27381014659702246
+    ],
+    "total": [
+      -4.262069581490482,
+      1.0207360018408798
+    ]
+  },
+  "method": "Fixed 20-game histories and 10-game minimum. Train once on first three seasons; no fitting on validation or test. Ratings and history update after each Eastern date. Baselines: home margin 3 points and rolling team total.",
+  "limitations": [
+    "Final-score model; possession statistics and roster/injury inputs not included.",
+    "Early games without sufficient history excluded.",
+    "Not connected to live scoring pending comparison with existing forecast and historical possession model."
+  ]
+}
