@@ -2,9 +2,10 @@
 """Three-season NBL temporal evaluation. Fixed parameters only; never certifies Elo.
 2024-25 serves as historical warm-up, 2025-26 validation, 2026-27 untouched holdout.
 """
-import argparse,json,math
+import argparse,json,math,sys
 from pathlib import Path
-from backtest_nbl_elo import validate, TEAMS
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.backtest_nbl_elo import validate, TEAMS
 
 START={"2024-25":"2024-09-19","2025-26":"2025-09-18","2026-27":"2026-09-19"}
 def games(path,season):
