@@ -2,307 +2,17 @@
   "season": "2026-27",
   "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?limit=500&groups=50",
   "match_method": "unique exact normalized aliases for ESPN school labels; no fuzzy matching",
-  "matched_team_count": 304,
+  "matched_team_count": 360,
   "missing_ncaa_teams": [
-    "Iowa St.",
-    "St. John's (NY)",
-    "South Fla.",
-    "Utah St.",
-    "Saint Mary's (CA)",
-    "Ohio St.",
-    "Col. of Charleston",
-    "SFA",
-    "UNCW",
-    "UNI",
-    "North Dakota St.",
-    "Kent St.",
-    "CSUN",
-    "Central Ark.",
-    "Fla. Atlantic",
-    "St. Thomas (MN)",
     "Queens (NC)",
-    "LIU",
-    "Ball St.",
-    "Northern Colo.",
-    "LMU (CA)",
-    "Western Caro.",
-    "Middle Tenn.",
-    "Northern Ky.",
     "A&M-Corpus Christi",
-    "Southeast Mo. St.",
-    "Cal St. Fullerton",
-    "UTRGV",
-    "Penn St.",
-    "Western Mich.",
-    "New Orleans",
-    "Eastern Wash.",
-    "Southern U.",
-    "South Dakota St.",
-    "Central Conn. St.",
-    "Jacksonville St.",
-    "Southeastern La.",
-    "Eastern Mich.",
     "Lindenwood",
-    "Central Mich.",
-    "West Ga.",
-    "NIU",
-    "San Jose St.",
-    "Eastern Ky.",
-    "UIW",
-    "Lamar University",
-    "Northwestern St.",
     "Southern Ind.",
-    "North Ala.",
-    "USC Upstate",
-    "Army West Point",
-    "Eastern Ill.",
-    "Ark.-Pine Bluff",
-    "South Carolina St.",
-    "Northern Ariz.",
-    "Alcorn",
-    "CSU Bakersfield",
-    "UMES",
-    "ULM",
-    "Western Ill.",
     "Mississippi Val."
   ],
   "espn_team_count": 362,
   "ambiguous_espn_teams": [],
   "unmatched_espn_teams": [
-    {
-      "espn_id": "2016",
-      "names": [
-        "Alcorn State",
-        "Alcorn St",
-        "Alcorn State Braves"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2029",
-      "names": [
-        "Arkansas-Pine Bluff",
-        "AR-Pine Bluff",
-        "Arkansas-Pine Bluff Golden Lions"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "349",
-      "names": [
-        "Army",
-        "Army",
-        "Army Black Knights"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2050",
-      "names": [
-        "Ball State",
-        "Ball State",
-        "Ball State Cardinals"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2934",
-      "names": [
-        "Cal State Bakersfield",
-        "Bakersfield",
-        "Cal State Bakersfield Roadrunners"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2239",
-      "names": [
-        "Cal State Fullerton",
-        "Fullerton",
-        "Cal State Fullerton Titans"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2463",
-      "names": [
-        "Cal State Northridge",
-        "CSU Northridge",
-        "Cal State Northridge Matadors"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2110",
-      "names": [
-        "Central Arkansas",
-        "C Arkansas",
-        "Central Arkansas Bears"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2115",
-      "names": [
-        "Central Connecticut",
-        "C Connecticut",
-        "Central Connecticut Blue Devils"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2117",
-      "names": [
-        "Central Michigan",
-        "C Michigan",
-        "Central Michigan Chippewas"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "232",
-      "names": [
-        "Charleston",
-        "Charleston",
-        "Charleston Cougars"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2197",
-      "names": [
-        "Eastern Illinois",
-        "E Illinois",
-        "Eastern Illinois Panthers"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2198",
-      "names": [
-        "Eastern Kentucky",
-        "E Kentucky",
-        "Eastern Kentucky Colonels"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2199",
-      "names": [
-        "Eastern Michigan",
-        "E Michigan",
-        "Eastern Michigan Eagles"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "331",
-      "names": [
-        "Eastern Washington",
-        "E Washington",
-        "Eastern Washington Eagles"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2226",
-      "names": [
-        "Florida Atlantic",
-        "FAU",
-        "Florida Atlantic Owls"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2916",
-      "names": [
-        "Incarnate Word",
-        "Incarnate Word",
-        "Incarnate Word Cardinals"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "66",
-      "names": [
-        "Iowa State",
-        "Iowa State",
-        "Iowa State Cyclones"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "55",
-      "names": [
-        "Jacksonville State",
-        "Jax State",
-        "Jacksonville State Gamecocks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2309",
-      "names": [
-        "Kent State",
-        "Kent State",
-        "Kent State Golden Flashes"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2443",
-      "names": [
-        "LSU New Orleans",
-        "LSU N Orleans",
-        "LSU New Orleans Privateers"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2320",
-      "names": [
-        "Lamar",
-        "Lamar",
-        "Lamar Cardinals"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "112358",
-      "names": [
-        "Long Island University",
-        "Long Island",
-        "Long Island University Sharks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2351",
-      "names": [
-        "Loyola Marymount",
-        "LMU",
-        "Loyola Marymount Lions"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2379",
-      "names": [
-        "Maryland Eastern Shore",
-        "MD Eastern",
-        "Maryland Eastern Shore Hawks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2393",
-      "names": [
-        "Middle Tennessee",
-        "MTSU",
-        "Middle Tennessee Blue Raiders"
-      ],
-      "possible_ncaa_ids": []
-    },
     {
       "espn_id": "2400",
       "names": [
@@ -313,281 +23,11 @@
       "possible_ncaa_ids": []
     },
     {
-      "espn_id": "2453",
-      "names": [
-        "North Alabama",
-        "North Alabama",
-        "North Alabama Lions"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2449",
-      "names": [
-        "North Dakota State",
-        "N Dakota St",
-        "North Dakota State Bison"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2464",
-      "names": [
-        "Northern Arizona",
-        "N Arizona",
-        "Northern Arizona Lumberjacks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2458",
-      "names": [
-        "Northern Colorado",
-        "N Colorado",
-        "Northern Colorado Bears"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2459",
-      "names": [
-        "Northern Illinois",
-        "N Illinois",
-        "Northern Illinois Huskies"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2460",
-      "names": [
-        "Northern Iowa",
-        "Northern Iowa",
-        "Northern Iowa Panthers"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "94",
-      "names": [
-        "Northern Kentucky",
-        "N Kentucky",
-        "Northern Kentucky Norse"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2466",
-      "names": [
-        "Northwestern State",
-        "N'Western St",
-        "Northwestern State Demons"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "194",
-      "names": [
-        "Ohio State",
-        "Ohio State",
-        "Ohio State Buckeyes"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "213",
-      "names": [
-        "Penn State",
-        "Penn State",
-        "Penn State Nittany Lions"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2545",
-      "names": [
-        "SE Louisiana",
-        "SE Louisiana",
-        "SE Louisiana Lions"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2608",
-      "names": [
-        "Saint Mary's",
-        "Saint Mary's",
-        "Saint Mary's Gaels"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "23",
-      "names": [
-        "San Jos\u00e9 State",
-        "San Jos\u00e9 St",
-        "San Jos\u00e9 State Spartans"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2569",
-      "names": [
-        "South Carolina State",
-        "SC State",
-        "South Carolina State Bulldogs"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2908",
-      "names": [
-        "South Carolina Upstate",
-        "SC Upstate",
-        "South Carolina Upstate Spartans"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2571",
-      "names": [
-        "South Dakota State",
-        "S Dakota St",
-        "South Dakota State Jackrabbits"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "58",
-      "names": [
-        "South Florida",
-        "South Florida",
-        "South Florida Bulls"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2546",
-      "names": [
-        "Southeast Missouri State",
-        "SE Missouri",
-        "Southeast Missouri State Redhawks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2582",
-      "names": [
-        "Southern",
-        "Southern",
-        "Southern Jaguars"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2599",
-      "names": [
-        "St. John's",
-        "St John's",
-        "St. John's Red Storm"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2900",
-      "names": [
-        "St. Thomas",
-        "St Thomas",
-        "St. Thomas Tommies"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2617",
-      "names": [
-        "Stephen F. Austin",
-        "SF Austin",
-        "Stephen F. Austin Lumberjacks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
       "espn_id": "357",
       "names": [
         "Texas A&M-Corpus Christi",
         "Texas A&M-CC",
         "Texas A&M-Corpus Christi Islanders"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2433",
-      "names": [
-        "UL Monroe",
-        "UL Monroe",
-        "UL Monroe Warhawks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "350",
-      "names": [
-        "UNC Wilmington",
-        "UNC Wilmington",
-        "UNC Wilmington Seahawks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "292",
-      "names": [
-        "UT Rio Grande Valley",
-        "UT Rio Grande",
-        "UT Rio Grande Valley Vaqueros"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "328",
-      "names": [
-        "Utah State",
-        "Utah State",
-        "Utah State Aggies"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2698",
-      "names": [
-        "West Georgia",
-        "West Georgia",
-        "West Georgia Wolves"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2717",
-      "names": [
-        "Western Carolina",
-        "W Carolina",
-        "Western Carolina Catamounts"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2710",
-      "names": [
-        "Western Illinois",
-        "W Illinois",
-        "Western Illinois Leathernecks"
-      ],
-      "possible_ncaa_ids": []
-    },
-    {
-      "espn_id": "2711",
-      "names": [
-        "Western Michigan",
-        "W Michigan",
-        "Western Michigan Broncos"
       ],
       "possible_ncaa_ids": []
     }
@@ -629,6 +69,12 @@
       "conference": "SWAC",
       "espn_team_name": "Alabama State Hornets"
     },
+    "2016": {
+      "team_id": "ncaa:609619",
+      "team": "Alcorn",
+      "conference": "SWAC",
+      "espn_team_name": "Alcorn State Braves"
+    },
     "44": {
       "team_id": "ncaa:609620",
       "team": "American",
@@ -665,6 +111,18 @@
       "conference": "Sun Belt",
       "espn_team_name": "Arkansas State Red Wolves"
     },
+    "2029": {
+      "team_id": "ncaa:609600",
+      "team": "Ark.-Pine Bluff",
+      "conference": "SWAC",
+      "espn_team_name": "Arkansas-Pine Bluff Golden Lions"
+    },
+    "349": {
+      "team_id": "ncaa:609503",
+      "team": "Army West Point",
+      "conference": "Patriot",
+      "espn_team_name": "Army Black Knights"
+    },
     "2": {
       "team_id": "ncaa:609543",
       "team": "Auburn",
@@ -682,6 +140,12 @@
       "team": "BYU",
       "conference": "Big 12",
       "espn_team_name": "BYU Cougars"
+    },
+    "2050": {
+      "team_id": "ncaa:609628",
+      "team": "Ball St.",
+      "conference": "MAC",
+      "espn_team_name": "Ball State Cardinals"
     },
     "239": {
       "team_id": "ncaa:609630",
@@ -779,6 +243,24 @@
       "conference": "Big West",
       "espn_team_name": "Cal Poly Mustangs"
     },
+    "2934": {
+      "team_id": "ncaa:609645",
+      "team": "CSU Bakersfield",
+      "conference": "Big West",
+      "espn_team_name": "Cal State Bakersfield Roadrunners"
+    },
+    "2239": {
+      "team_id": "ncaa:609647",
+      "team": "Cal St. Fullerton",
+      "conference": "Big West",
+      "espn_team_name": "Cal State Fullerton Titans"
+    },
+    "2463": {
+      "team_id": "ncaa:609648",
+      "team": "CSUN",
+      "conference": "Big West",
+      "espn_team_name": "Cal State Northridge Matadors"
+    },
     "2856": {
       "team_id": "ncaa:609878",
       "team": "California Baptist",
@@ -802,6 +284,30 @@
       "team": "Canisius",
       "conference": "Metro",
       "espn_team_name": "Canisius Golden Griffins"
+    },
+    "2110": {
+      "team_id": "ncaa:609532",
+      "team": "Central Ark.",
+      "conference": "UAC",
+      "espn_team_name": "Central Arkansas Bears"
+    },
+    "2115": {
+      "team_id": "ncaa:609696",
+      "team": "Central Conn. St.",
+      "conference": "NEC",
+      "espn_team_name": "Central Connecticut Blue Devils"
+    },
+    "2117": {
+      "team_id": "ncaa:609698",
+      "team": "Central Mich.",
+      "conference": "MAC",
+      "espn_team_name": "Central Michigan Chippewas"
+    },
+    "232": {
+      "team_id": "ncaa:609539",
+      "team": "Col. of Charleston",
+      "conference": "CAA",
+      "espn_team_name": "Charleston Cougars"
     },
     "2127": {
       "team_id": "ncaa:609629",
@@ -983,6 +489,30 @@
       "conference": "Southland",
       "espn_team_name": "East Texas A&M Lions"
     },
+    "2197": {
+      "team_id": "ncaa:609723",
+      "team": "Eastern Ill.",
+      "conference": "OVC",
+      "espn_team_name": "Eastern Illinois Panthers"
+    },
+    "2198": {
+      "team_id": "ncaa:609724",
+      "team": "Eastern Ky.",
+      "conference": "UAC",
+      "espn_team_name": "Eastern Kentucky Colonels"
+    },
+    "2199": {
+      "team_id": "ncaa:609725",
+      "team": "Eastern Mich.",
+      "conference": "MAC",
+      "espn_team_name": "Eastern Michigan Eagles"
+    },
+    "331": {
+      "team_id": "ncaa:609726",
+      "team": "Eastern Wash.",
+      "conference": "Big Sky",
+      "espn_team_name": "Eastern Washington Eagles"
+    },
     "2210": {
       "team_id": "ncaa:609595",
       "team": "Elon",
@@ -1012,6 +542,12 @@
       "team": "Florida A&M",
       "conference": "SWAC",
       "espn_team_name": "Florida A&M Rattlers"
+    },
+    "2226": {
+      "team_id": "ncaa:609731",
+      "team": "Fla. Atlantic",
+      "conference": "AAC",
+      "espn_team_name": "Florida Atlantic Owls"
     },
     "57": {
       "team_id": "ncaa:609734",
@@ -1211,6 +747,12 @@
       "conference": "MVC",
       "espn_team_name": "Illinois State Redbirds"
     },
+    "2916": {
+      "team_id": "ncaa:609604",
+      "team": "UIW",
+      "conference": "Southland",
+      "espn_team_name": "Incarnate Word Cardinals"
+    },
     "84": {
       "team_id": "ncaa:609574",
       "team": "Indiana",
@@ -1235,6 +777,12 @@
       "conference": "Big Ten",
       "espn_team_name": "Iowa Hawkeyes"
     },
+    "66": {
+      "team_id": "ncaa:609536",
+      "team": "Iowa St.",
+      "conference": "Big 12",
+      "espn_team_name": "Iowa State Cyclones"
+    },
     "2296": {
       "team_id": "ncaa:609578",
       "team": "Jackson St.",
@@ -1246,6 +794,12 @@
       "team": "Jacksonville",
       "conference": "ASUN",
       "espn_team_name": "Jacksonville Dolphins"
+    },
+    "55": {
+      "team_id": "ncaa:609579",
+      "team": "Jacksonville St.",
+      "conference": "C-USA",
+      "espn_team_name": "Jacksonville State Gamecocks"
     },
     "256": {
       "team_id": "ncaa:609537",
@@ -1277,11 +831,23 @@
       "conference": "C-USA",
       "espn_team_name": "Kennesaw State Owls"
     },
+    "2309": {
+      "team_id": "ncaa:609583",
+      "team": "Kent St.",
+      "conference": "MAC",
+      "espn_team_name": "Kent State Golden Flashes"
+    },
     "96": {
       "team_id": "ncaa:609584",
       "team": "Kentucky",
       "conference": "SEC",
       "espn_team_name": "Kentucky Wildcats"
+    },
+    "2443": {
+      "team_id": "ncaa:609767",
+      "team": "New Orleans",
+      "conference": "Southland",
+      "espn_team_name": "LSU New Orleans Privateers"
     },
     "99": {
       "team_id": "ncaa:609591",
@@ -1300,6 +866,12 @@
       "team": "Lafayette",
       "conference": "Patriot",
       "espn_team_name": "Lafayette Leopards"
+    },
+    "2320": {
+      "team_id": "ncaa:609587",
+      "team": "Lamar University",
+      "conference": "Southland",
+      "espn_team_name": "Lamar Cardinals"
     },
     "2330": {
       "team_id": "ncaa:609570",
@@ -1337,6 +909,12 @@
       "conference": "Big West",
       "espn_team_name": "Long Beach State Beach"
     },
+    "112358": {
+      "team_id": "ncaa:609590",
+      "team": "LIU",
+      "conference": "NEC",
+      "espn_team_name": "Long Island University Sharks"
+    },
     "2344": {
       "team_id": "ncaa:609538",
       "team": "Longwood",
@@ -1373,6 +951,12 @@
       "conference": "Patriot",
       "espn_team_name": "Loyola Maryland Greyhounds"
     },
+    "2351": {
+      "team_id": "ncaa:609653",
+      "team": "LMU (CA)",
+      "conference": "WCC",
+      "espn_team_name": "Loyola Marymount Lions"
+    },
     "311": {
       "team_id": "ncaa:609655",
       "team": "Maine",
@@ -1402,6 +986,12 @@
       "team": "Marshall",
       "conference": "Sun Belt",
       "espn_team_name": "Marshall Thundering Herd"
+    },
+    "2379": {
+      "team_id": "ncaa:609662",
+      "team": "UMES",
+      "conference": "MEAC",
+      "espn_team_name": "Maryland Eastern Shore Hawks"
     },
     "120": {
       "team_id": "ncaa:609661",
@@ -1468,6 +1058,12 @@
       "team": "Michigan",
       "conference": "Big Ten",
       "espn_team_name": "Michigan Wolverines"
+    },
+    "2393": {
+      "team_id": "ncaa:609670",
+      "team": "Middle Tenn.",
+      "conference": "C-USA",
+      "espn_team_name": "Middle Tennessee Blue Raiders"
     },
     "270": {
       "team_id": "ncaa:609527",
@@ -1613,6 +1209,12 @@
       "conference": "MEAC",
       "espn_team_name": "Norfolk State Spartans"
     },
+    "2453": {
+      "team_id": "ncaa:609613",
+      "team": "North Ala.",
+      "conference": "UAC",
+      "espn_team_name": "North Alabama Lions"
+    },
     "2448": {
       "team_id": "ncaa:609775",
       "team": "N.C. A&T",
@@ -1637,6 +1239,12 @@
       "conference": "Summit League",
       "espn_team_name": "North Dakota Fighting Hawks"
     },
+    "2449": {
+      "team_id": "ncaa:609779",
+      "team": "North Dakota St.",
+      "conference": "Summit League",
+      "espn_team_name": "North Dakota State Bison"
+    },
     "2454": {
       "team_id": "ncaa:609603",
       "team": "North Florida",
@@ -1654,6 +1262,42 @@
       "team": "Northeastern",
       "conference": "CAA",
       "espn_team_name": "Northeastern Huskies"
+    },
+    "2464": {
+      "team_id": "ncaa:609788",
+      "team": "Northern Ariz.",
+      "conference": "Big Sky",
+      "espn_team_name": "Northern Arizona Lumberjacks"
+    },
+    "2458": {
+      "team_id": "ncaa:609790",
+      "team": "Northern Colo.",
+      "conference": "Big Sky",
+      "espn_team_name": "Northern Colorado Bears"
+    },
+    "2459": {
+      "team_id": "ncaa:609792",
+      "team": "NIU",
+      "conference": "Horizon",
+      "espn_team_name": "Northern Illinois Huskies"
+    },
+    "2460": {
+      "team_id": "ncaa:609793",
+      "team": "UNI",
+      "conference": "MVC",
+      "espn_team_name": "Northern Iowa Panthers"
+    },
+    "94": {
+      "team_id": "ncaa:609796",
+      "team": "Northern Ky.",
+      "conference": "Horizon",
+      "espn_team_name": "Northern Kentucky Norse"
+    },
+    "2466": {
+      "team_id": "ncaa:609797",
+      "team": "Northwestern St.",
+      "conference": "Southland",
+      "espn_team_name": "Northwestern State Demons"
     },
     "77": {
       "team_id": "ncaa:609799",
@@ -1678,6 +1322,12 @@
       "team": "Ohio",
       "conference": "MAC",
       "espn_team_name": "Ohio Bobcats"
+    },
+    "194": {
+      "team_id": "ncaa:609803",
+      "team": "Ohio St.",
+      "conference": "Big Ten",
+      "espn_team_name": "Ohio State Buckeyes"
     },
     "201": {
       "team_id": "ncaa:609808",
@@ -1732,6 +1382,12 @@
       "team": "Pacific",
       "conference": "WCC",
       "espn_team_name": "Pacific Tigers"
+    },
+    "213": {
+      "team_id": "ncaa:609819",
+      "team": "Penn St.",
+      "conference": "Big Ten",
+      "espn_team_name": "Penn State Nittany Lions"
     },
     "219": {
       "team_id": "ncaa:609821",
@@ -1847,6 +1503,12 @@
       "conference": "Big Ten",
       "espn_team_name": "Rutgers Scarlet Knights"
     },
+    "2545": {
+      "team_id": "ncaa:609909",
+      "team": "Southeastern La.",
+      "conference": "Southland",
+      "espn_team_name": "SE Louisiana Lions"
+    },
     "2565": {
       "team_id": "ncaa:609471",
       "team": "SIUE",
@@ -1882,6 +1544,12 @@
       "team": "Saint Louis",
       "conference": "Atlantic 10",
       "espn_team_name": "Saint Louis Billikens"
+    },
+    "2608": {
+      "team_id": "ncaa:609559",
+      "team": "Saint Mary's (CA)",
+      "conference": "WCC",
+      "espn_team_name": "Saint Mary's Gaels"
     },
     "2612": {
       "team_id": "ncaa:609560",
@@ -1919,6 +1587,12 @@
       "conference": "WCC",
       "espn_team_name": "San Francisco Dons"
     },
+    "23": {
+      "team_id": "ncaa:609876",
+      "team": "San Jose St.",
+      "conference": "MWC",
+      "espn_team_name": "San Jos\u00e9 State Spartans"
+    },
     "2541": {
       "team_id": "ncaa:609891",
       "team": "Santa Clara",
@@ -1955,17 +1629,53 @@
       "conference": "SEC",
       "espn_team_name": "South Carolina Gamecocks"
     },
+    "2569": {
+      "team_id": "ncaa:609899",
+      "team": "South Carolina St.",
+      "conference": "MEAC",
+      "espn_team_name": "South Carolina State Bulldogs"
+    },
+    "2908": {
+      "team_id": "ncaa:609606",
+      "team": "USC Upstate",
+      "conference": "Big South",
+      "espn_team_name": "South Carolina Upstate Spartans"
+    },
     "233": {
       "team_id": "ncaa:609903",
       "team": "South Dakota",
       "conference": "Summit League",
       "espn_team_name": "South Dakota Coyotes"
     },
+    "2571": {
+      "team_id": "ncaa:609562",
+      "team": "South Dakota St.",
+      "conference": "Summit League",
+      "espn_team_name": "South Dakota State Jackrabbits"
+    },
+    "58": {
+      "team_id": "ncaa:609905",
+      "team": "South Fla.",
+      "conference": "AAC",
+      "espn_team_name": "South Florida Bulls"
+    },
+    "2546": {
+      "team_id": "ncaa:609907",
+      "team": "Southeast Mo. St.",
+      "conference": "OVC",
+      "espn_team_name": "Southeast Missouri State Redhawks"
+    },
     "79": {
       "team_id": "ncaa:609470",
       "team": "Southern Ill.",
       "conference": "MVC",
       "espn_team_name": "Southern Illinois Salukis"
+    },
+    "2582": {
+      "team_id": "ncaa:609474",
+      "team": "Southern U.",
+      "conference": "SWAC",
+      "espn_team_name": "Southern Jaguars"
     },
     "2572": {
       "team_id": "ncaa:609473",
@@ -1985,11 +1695,29 @@
       "conference": "Atlantic 10",
       "espn_team_name": "St. Bonaventure Bonnies"
     },
+    "2599": {
+      "team_id": "ncaa:609861",
+      "team": "St. John's (NY)",
+      "conference": "Big East",
+      "espn_team_name": "St. John's Red Storm"
+    },
+    "2900": {
+      "team_id": "ncaa:609889",
+      "team": "St. Thomas (MN)",
+      "conference": "Summit League",
+      "espn_team_name": "St. Thomas Tommies"
+    },
     "24": {
       "team_id": "ncaa:609479",
       "team": "Stanford",
       "conference": "ACC",
       "espn_team_name": "Stanford Cardinal"
+    },
+    "2617": {
+      "team_id": "ncaa:609480",
+      "team": "SFA",
+      "conference": "Southland",
+      "espn_team_name": "Stephen F. Austin Lumberjacks"
     },
     "56": {
       "team_id": "ncaa:609563",
@@ -2183,6 +1911,12 @@
       "conference": "MVC",
       "espn_team_name": "UIC Flames"
     },
+    "2433": {
+      "team_id": "ncaa:609785",
+      "team": "ULM",
+      "conference": "Sun Belt",
+      "espn_team_name": "UL Monroe Warhawks"
+    },
     "2378": {
       "team_id": "ncaa:609660",
       "team": "UMBC",
@@ -2206,6 +1940,12 @@
       "team": "UNC Greensboro",
       "conference": "SoCon",
       "espn_team_name": "UNC Greensboro Spartans"
+    },
+    "350": {
+      "team_id": "ncaa:609685",
+      "team": "UNCW",
+      "conference": "CAA",
+      "espn_team_name": "UNC Wilmington Seahawks"
     },
     "2439": {
       "team_id": "ncaa:609688",
@@ -2231,6 +1971,12 @@
       "conference": "OVC",
       "espn_team_name": "UT Martin Skyhawks"
     },
+    "292": {
+      "team_id": "ncaa:609817",
+      "team": "UTRGV",
+      "conference": "Southland",
+      "espn_team_name": "UT Rio Grande Valley Vaqueros"
+    },
     "2638": {
       "team_id": "ncaa:609495",
       "team": "UTEP",
@@ -2242,6 +1988,12 @@
       "team": "UTSA",
       "conference": "AAC",
       "espn_team_name": "UTSA Roadrunners"
+    },
+    "328": {
+      "team_id": "ncaa:609505",
+      "team": "Utah St.",
+      "conference": "Pac-12",
+      "espn_team_name": "Utah State Aggies"
     },
     "3101": {
       "team_id": "ncaa:609885",
@@ -2345,17 +2097,41 @@
       "conference": "ASUN",
       "espn_team_name": "West Florida Argonauts"
     },
+    "2698": {
+      "team_id": "ncaa:609569",
+      "team": "West Ga.",
+      "conference": "UAC",
+      "espn_team_name": "West Georgia Wolves"
+    },
     "277": {
       "team_id": "ncaa:609518",
       "team": "West Virginia",
       "conference": "Big 12",
       "espn_team_name": "West Virginia Mountaineers"
     },
+    "2717": {
+      "team_id": "ncaa:609519",
+      "team": "Western Caro.",
+      "conference": "SoCon",
+      "espn_team_name": "Western Carolina Catamounts"
+    },
+    "2710": {
+      "team_id": "ncaa:609520",
+      "team": "Western Ill.",
+      "conference": "OVC",
+      "espn_team_name": "Western Illinois Leathernecks"
+    },
     "98": {
       "team_id": "ncaa:609566",
       "team": "Western Ky.",
       "conference": "C-USA",
       "espn_team_name": "Western Kentucky Hilltoppers"
+    },
+    "2711": {
+      "team_id": "ncaa:609521",
+      "team": "Western Mich.",
+      "conference": "MAC",
+      "espn_team_name": "Western Michigan Broncos"
     },
     "2724": {
       "team_id": "ncaa:609522",
