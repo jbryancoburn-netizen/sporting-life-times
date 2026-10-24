@@ -22,12 +22,13 @@ async function get(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)t
 async function show(){
  const elo=await get('data/nba-2026-27-current-provisional.json');
  let official;
- try{official=await get('data/nba-game-center.json');}
+ try{official=await get('data/nba-upcoming-schedule.json');}
  catch(error){
-  // Official NBA.com schedule backstop. Only render games for the snapshot's
-  // exact date: never silently present yesterday's games as today's.
+  // The archived game-center file contains completed games, not the full
+  // upcoming schedule. Use static backup only on its exact stamped day.
   const fallback=await get('data/nba-official-schedule-snapshot.json');
-  if(fallback.date!==today()||!Array.isArray(fallback.games))throw Error('Official game-center unavailable and no verified schedule for today');
+  if(fallback.date!==today()||!Array.isArray(fallback.games))
+   throw Error('Dated NBA schedule unavailable; awaiting verified collector');
   official=fallback;
  }
  const ratings=Object.fromEntries(elo.rankings.map(r=>[r.team,r.elo]));
@@ -37,7 +38,7 @@ async function show(){
  const early=!possession&&window.RabbyEarlyScore?window.RabbyEarlyScore.build(played):null;
  if(Object.keys(ratings).length!==30||played.length<5)throw Error('Not enough verified NBA Elo data for provisional forecasts');
  const date=today();
- const games=(official.games||[]).filter(g=>day(g.date)===date&&g.state!=='post').sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
+ const games=(official.games||[]).filter(g=>day(g.date)===date&&g.state!=='post'&&(g.state==='in'||Date.parse(g.date)>=Date.now()-15*60000)).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
  const entries=games.map(g=>{
    const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');
    const hc=norm(h?.code),ac=norm(a?.code);if(!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';
@@ -51,4 +52,5 @@ async function show(){
  $('nba-rabby-status').textContent=date+' · '+entries.length+' pending games · Current Elo: '+elo.games_played+' completed games · Official NBA schedule · '+(possession?'Possession model based on '+possession.coverage.games+' NBA official box scores':early?'Experimental scores based on '+early.games+' captured finals; no validated betting edge':'Elo win probabilities available; scoring model awaiting verified results');
 }
 show().catch(e=>{$('nba-rabby-status').textContent='Official NBA schedule or model unavailable: '+e.message;$('nba-rabby-games').innerHTML='<p class="hub-small">Rabby will not invent scheduled games or projected scores when verified inputs are missing.</p>';});
+setInterval(()=>{if(!document.hidden)show().catch(e=>console.error('NBA forecast refresh',e))},3*60*1000);
 })();
