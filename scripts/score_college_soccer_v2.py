@@ -5,7 +5,6 @@ Writes data/college-soccer-forecast-scores-v2.json.
 """
 import json
 import math
-from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -40,15 +39,17 @@ def score():
         indexed[key] = f
     finals = {}
     quarantine = []
+    conflicts = set()
     for game in ledger["results"]:
         key = game["match_id"]
         if key in finals and finals[key] != game:
             quarantine.append({"match_id": key, "reason": "conflicting_finals"})
+            conflicts.add(key)
         finals.setdefault(key, game)
     scores = []
     for key, forecast in indexed.items():
         game = finals.get(key)
-        if not game:
+        if key in conflicts or not game:
             continue
         if game["home_team"] != forecast["home_team"] or game["away_team"] != forecast["away_team"]:
             quarantine.append({"match_id": key, "reason": "team_mismatch"})
@@ -66,10 +67,12 @@ def score():
         order = ("away", "draw", "home")
         probs = [float(forecast["p_" + name]) for name in order]
         truth = [int(name == outcome) for name in order]
-        pick = order[max(range(3), key=lambda i: probs[i])]
+        top = max(probs)
+        winners = [order[i] for i, value in enumerate(probs) if abs(value - top) < 1e-12]
+        pick = winners[0] if len(winners) == 1 else None
         scores.append({
             "match_id": key, "cohort": forecast["cohort"], "outcome": outcome,
-            "pick": pick, "correct_pick": pick == outcome,
+            "pick": pick, "correct_pick": pick == outcome if pick is not None else None,
             "log_loss": round(-math.log(max(probs[order.index(outcome)], 1e-15)), 8),
             "brier_score": round(sum((p - t) ** 2 for p, t in zip(probs, truth)), 8),
             "source_game": game["source_game"]
@@ -78,8 +81,8 @@ def score():
     def stats(items):
         return {"scored": len(items), "mean_log_loss": mean([x["log_loss"] for x in items]),
                 "mean_brier_score": mean([x["brier_score"] for x in items]),
-                "pick_accuracy": mean([int(x["correct_pick"]) for x in items]),
-                "unambiguous_picks": len(items)}
+                "pick_accuracy": mean([int(x["correct_pick"]) for x in items if x["pick"] is not None]),
+                "unambiguous_picks": sum(x["pick"] is not None for x in items)}
     output = {
         "schema_version": 1, "status": "prospective_research_only",
         "model_archive": "data/college-soccer-prospective-v2.json",
