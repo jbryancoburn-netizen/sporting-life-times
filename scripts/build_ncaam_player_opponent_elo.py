@@ -50,12 +50,15 @@ def exposure(rows,pre):
         except (TypeError,ValueError):invalid+=1;continue
         if not (math.isfinite(mins) and 0<=mins<=75 and math.isfinite(pts) and pts>=0):
             invalid+=1;continue
-        x=out[(team,pid)]
+        source_team=str(row.get("team_ncaa_team_id") or "").strip()
+        if not source_team or not source_team.isdigit():invalid+=1;continue
+        x=out[(team,pid,source_team)]
         x["minutes"]+=mins;x["weighted"]+=value*mins;x["games"]+=1;x["points"]+=pts
     players=[{"team_key":t,"historical_player_id":pid,"minutes":round(x["minutes"],2),
        "games":x["games"],"points":round(x["points"],2),
        "opponent_pregame_elo":round(x["weighted"]/x["minutes"],2) if x["minutes"]>0 else None,
-       "quality_status":"descriptive-not-calibrated"} for (t,pid),x in out.items()]
+       "historical_team_id":"ncaa:"+source_team,
+       "quality_status":"descriptive-not-calibrated"} for (t,pid,source_team),x in out.items()]
     return {"matched_player_games":sum(x["games"] for x in out.values()),
        "unmatched_player_games":unmatched,"invalid_player_games":invalid,
        "players":len(players),"player_exposure":sorted(players,key=lambda x:(x["team_key"],x["historical_player_id"]))}
