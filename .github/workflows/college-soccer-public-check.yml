@@ -1,0 +1,23 @@
+name: College soccer public newspaper Elo integrity
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '22 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/college-soccer-public-check.yml'
+      - 'scripts/check_college_soccer_public.py'
+permissions:
+  contents: read
+jobs:
+  public-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm published newspaper actually serves current NCAA Elo
+        run: python scripts/check_college_soccer_public.py --attempts 12 --wait-seconds 10
