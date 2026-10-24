@@ -1,0 +1,26 @@
+name: NBL Elo integrity
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/nbl_elo.py'
+      - 'data/nbl-elo-baseline.json'
+      - 'data/nbl-final-ledger.json'
+      - '.github/workflows/nbl-elo-integrity.yml'
+jobs:
+  nbl-elo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate or explicitly withhold NBL ratings
+        run: |
+          python scripts/nbl_elo.py && exit 0
+          python - <<'PY'
+          import json
+          d=json.load(open('data/nbl-elo.json'))
+          assert d['status']=='withheld' and not d['ratings']
+          print('NBL Elo withheld safely pending certified data')
+          PY
