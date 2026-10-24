@@ -66,17 +66,21 @@ function result(g){
  const winner=g.winner_id===home.team_id;
  return '<div class="cbb-game"><small>'+safe(g.date)+' · FINAL</small><div class="cbb-versus"><span><strong>'+safe(away.team)+'</strong><em>'+safe((away.wins||0)+'-'+(away.losses||0))+'</em></span><b>'+g.away_score+'</b></div><div class="cbb-versus"><span><strong>'+safe(home.team)+'</strong><em>'+safe((home.wins||0)+'-'+(home.losses||0))+'</em></span><b>'+g.home_score+'</b></div><small>Pre-game forecast: '+safe(home.team)+' '+(100*g.home_win_probability).toFixed(1)+'%'+(winner?' · home team won':' · away team won')+'</small></div>';
 }
-const finals=Array.isArray(ledger?.games)?ledger.games:[];
+const finals=ledger?.season==="2026-27"&&Array.isArray(ledger.games)?ledger.games:[];
 byId("results").innerHTML=finals.length?finals.slice(-12).reverse().map(result).join(""):'<p class="cbb-muted">No confirmed 2026–27 finals have entered the independent Elo ledger yet.</p>';
 function forecast(g){
  const h=lookup.get(g.home_id),a=lookup.get(g.away_id);
  if(!h||!a)return "";
  return '<div class="cbb-game"><small>'+safe(g.date)+' · UPCOMING / UNCONFIRMED</small><div class="cbb-versus"><strong>'+safe(a.team)+'</strong><span>'+((a.wins||0)+'-'+(a.losses||0))+'</span></div><div class="cbb-versus"><strong>'+safe(h.team)+'</strong><span>'+((h.wins||0)+'-'+(h.losses||0))+'</span></div><div class="cbb-probability"><span>'+safe(h.team)+' '+(100*g.home_win_probability).toFixed(1)+'%</span><span>'+safe(a.team)+' '+(100*(1-g.home_win_probability)).toFixed(1)+'%</span></div></div>';
 }
-const future=Array.isArray(upcoming?.games)?upcoming.games:[];
+const future=Array.isArray(upcoming?.games)?upcoming.games.filter(g=>g.date>=new Date().toISOString().slice(0,10)):[];
 byId("forecasts").innerHTML=future.length?future.slice(0,12).map(forecast).join(""):'<p class="cbb-muted">Verified schedule forecasts will appear when the 2026–27 NCAA game feed becomes available. No probabilities have been invented.</p>';
 const entry=feeds?.leagues?.find(e=>e.league==="Men's College Basketball");
-const livegames=(entry?.games||[]).filter(g=>g.state!=="post").slice(0,8);
+// Limit the external scoreboard to explicitly dated games today; never
+// present last season's entries as live. Finals come from the verified ledger.
+const today=new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+const dateOf=g=>String(g.date||g.game_date||g.start_date||g.startTime||g.start_time||"").slice(0,10);
+const livegames=(entry?.games||[]).filter(g=>dateOf(g)===today&&["pre","in"].includes(g.state)).slice(0,8);
 byId("live-scoreboard").innerHTML=livegames.length?livegames.map(g=>'<div class="cbb-game"><small>'+safe(g.status||"Scheduled")+'</small>'+(g.teams||[]).map(t=>'<div class="cbb-versus"><span>'+(t.logo?'<img loading="lazy" alt="" src="'+safe(t.logo)+'">':"")+'<strong>'+safe(t.name)+'</strong></span><b>'+safe(g.state==="pre"?"":t.score??"")+'</b></div>').join("")+'</div>').join(""):'<p class="cbb-muted">No current scoreboard entries from the external game feed.</p>';
 const stories=(news?.articles||[]).filter(a=>/college basketball|ncaa basketball|march madness|hoosiers basketball/i.test([a.title,a.summary,a.category].join(" "))).slice(0,7);
 byId("stories").innerHTML=stories.length?stories.map(a=>'<article class="cbb-story"><a href="'+safe(a.url||"#")+'" target="_blank" rel="noopener">'+safe(a.title)+'</a><small>'+safe(a.source||"")+'</small></article>').join(""):'<p class="cbb-muted">No verified college basketball headlines available in the latest news feed.</p>';
