@@ -59,6 +59,11 @@ jobs:
         run: python scripts/collect-nba-player-leaders.py
       - name: Build Rabby verified possession inputs independently of Elo
         run: node scripts/build-nba-possession-inputs.mjs
+      - name: Reconcile final scores with independent Elo before committing the edition
+        run: |
+          node scripts/update-nba-elo.mjs
+          node scripts/audit-nba-elo.mjs
+          node scripts/audit-nba-boxscore-elo.mjs
       - name: Validate NBA schedule and forecasts against Elo
         run: |
           node --check nba-rabby-forecast.js
@@ -71,7 +76,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nba-game-center.json data/nba-possession-inputs.json data/nba-player-leaders.json
+          git add data/nba-game-center.json data/nba-possession-inputs.json data/nba-player-leaders.json data/nba-2026-27-current-provisional.json
           if test -f data/nba-upcoming-schedule.json; then git add data/nba-upcoming-schedule.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh official NBA score and schedule archive"
@@ -79,6 +84,8 @@ jobs:
             if git push; then exit 0; fi
             git fetch origin main
             git rebase origin/main || exit 1
+            node scripts/audit-nba-elo.mjs
+            node scripts/audit-nba-boxscore-elo.mjs
             sleep 2
           done
           echo "Could not publish the NBA archive after three synchronized attempts" >&2

@@ -26,6 +26,6 @@ assert.ok(Math.abs(fast.homePoints-fast.awayPoints)<40);
 const page=read('nba.html'),legacy=read('nba-rabby-forecast.js');
 assert.match(page,/nba-rabby-possession\.js/);
 assert.doesNotMatch(legacy,/meanAbsoluteMargin|meanTotal|function predict\(/);
-assert.match(legacy,/Pending verified team possession data/);
+assert.match(legacy,/Scoring projection awaiting qualifying data/);
 assert.match(read('nba-home.js'),/Special:FilePath\/National_Basketball_Association_logo/);
 console.log('Rabby NBA possession model PASS: distinct projected totals and possession counts; invalid data blocked, Elo unchanged.');

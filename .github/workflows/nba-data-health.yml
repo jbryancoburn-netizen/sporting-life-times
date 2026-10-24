@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/audit-nba-daily-health.py'
+      - 'scripts/test_nba_daily_health.py'
       - '.github/workflows/nba-data-health.yml'
 permissions:
   contents: write
@@ -24,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Check audit syntax
         run: python -m py_compile scripts/audit-nba-daily-health.py
+      - name: Test missing-final and stale-scoreboard detection
+        run: python -m unittest discover -s scripts -p 'test_nba_daily_health.py' -v
       - name: Audit Elo, completed games, box score coverage and feed freshness
         continue-on-error: true
         run: python scripts/audit-nba-daily-health.py

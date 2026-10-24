@@ -40,7 +40,7 @@ for(const event of old.events||[]){
 }
 let archivedFinals=0;
 for(const game of verifiedArchive.games||[]){
- if(game.state!=='post'||!/^espn-nba-\\d+$/.test(String(game.id))||!Array.isArray(game.players)||!game.players.length)continue;
+ if(game.state!=='post'||!/^espn-nba-\d+$/.test(String(game.id))||!Array.isArray(game.players)||!game.players.length)continue;
  const home=game.teams?.find(x=>x.home_away==='home');
  const away=game.teams?.find(x=>x.home_away==='away');
  const h=normal(home?.code),a=normal(away?.code);

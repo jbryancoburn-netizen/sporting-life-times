@@ -1,7 +1,6 @@
-// Rabby NBA Forecast v0.1: empirical 2026-27 Elo-only baseline.
-// Winner probability: independently owned USRS Elo +45 home advantage.
-// Spread/score: current completed-game mean absolute margin and mean total.
-// Not a validated point-spread model; no roster, injury or market adjustments.
+// Rabby NBA pregame forecasts: independently owned Elo +45 home advantage.
+// Experimental scores use qualifying possession data or the early-season model.
+// Live games require an archived pregame forecast, never a fresh pregame calculation.
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -38,7 +37,7 @@ async function show(){
  const early=!possession&&window.RabbyEarlyScore?window.RabbyEarlyScore.build(played):null;
  if(Object.keys(ratings).length!==30||played.length<5)throw Error('Not enough verified NBA Elo data for provisional forecasts');
  const date=today();
- const games=(official.games||[]).filter(g=>day(g.date)===date&&g.state!=='post'&&(g.state==='in'||Date.parse(g.date)>=Date.now()-15*60000)).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
+ const games=(official.games||[]).filter(g=>day(g.date)===date&&g.state==='pre'&&Date.parse(g.date)>Date.now()).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
  const entries=games.map(g=>{
    const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');
    const hc=norm(h?.code),ac=norm(a?.code);if(!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';
@@ -50,9 +49,14 @@ async function show(){
    return '<article class="rabby-game">'+bug+'<div class="rabby-model"><span><strong>Elo favorite</strong> '+esc(favorite===hc?names.home:names.away)+'</span><span><strong>Win probability</strong> '+(100*Math.max(hp,1-hp)).toFixed(1)+'%</span>'+(p?'<span><strong>Experimental model spread</strong> '+esc(p.margin>=0?hc:ac)+' -'+Math.abs(p.margin).toFixed(1)+'</span><span><strong>Projected total</strong> '+p.total.toFixed(1)+'</span>':'<span>Scoring projection awaiting qualifying data</span>')+'</div></article>';
 
  }).filter(Boolean);
- $('nba-rabby-games').innerHTML=entries.length?entries.join(''):'<p class="hub-small">No pending NBA games in today’s published official NBA schedule. No unverified matchups will be shown.</p>';
- $('nba-rabby-status').textContent=date+' · '+entries.length+' pending games · Current Elo: '+elo.games_played+' completed games · Official NBA schedule · '+(possession?'Possession model based on '+possession.coverage.games+' NBA official box scores':early?'Experimental scores based on '+early.games+' captured finals; no validated betting edge':'Elo win probabilities available; scoring model awaiting verified results');
+ $('nba-rabby-games').innerHTML=entries.length?entries.join(''):'<p class="hub-small">No upcoming NBA games in today’s published schedule. <a href="nba-game-center.html">Live games and finals ↗</a></p>';
+ $('nba-rabby-status').textContent=date+' · '+entries.length+' upcoming games · Current Elo: '+elo.games_played+' completed games · Official NBA schedule · '+(possession?'Possession model based on '+possession.coverage.games+' NBA official box scores':early?'Experimental scores based on '+early.games+' captured finals; no validated betting edge':'Elo win probabilities available; scoring model awaiting verified results');
 }
-show().catch(e=>{$('nba-rabby-status').textContent='Official NBA schedule or model unavailable: '+e.message;$('nba-rabby-games').innerHTML='<p class="hub-small">Rabby will not invent scheduled games or projected scores when verified inputs are missing.</p>';});
-setInterval(()=>{if(!document.hidden)show().catch(e=>console.error('NBA forecast refresh',e))},3*60*1000);
+function unavailable(e){
+ $('nba-rabby-status').textContent='Official NBA schedule or model unavailable: '+e.message;
+ $('nba-rabby-games').innerHTML='<p class="hub-small">Current forecasts unavailable. <a href="nba-game-center.html">Open the Game Center ↗</a></p>';
+}
+async function refresh(){try{await show();}catch(e){unavailable(e);}}
+refresh();
+setInterval(()=>{if(!document.hidden)return refresh();},60*1000);
 })();
