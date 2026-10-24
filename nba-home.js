@@ -35,8 +35,30 @@ async function news(){
  }catch(err){msg('nba-news-status','NBA top stories feed unavailable');unavailable('nba-news-grid','NBA reporting temporarily unavailable. <a href="https://www.nba.com/news" target="_blank" rel="noopener noreferrer">NBA.com News ↗</a>')}
 }
 async function desk(){
- try{const [scores,elo]=await Promise.all([fetchJSON('multi_scoreboards.json'),fetchJSON('data/nba-2026-27-current-provisional.json')]);
- const block=(scores.leagues||[]).find(l=>l.league==='NBA');const games=block?.games||[];const ratings=Object.fromEntries((elo.rankings||[]).map(r=>[r.team,r.elo]));
+ try{
+ const [elo,gameCenter]=await Promise.all([
+  fetchJSON('data/nba-2026-27-current-provisional.json'),
+  fetchJSON('data/nba-game-center.json')
+ ]);
+ let schedule;
+ try{schedule=await fetchJSON('data/nba-upcoming-schedule.json')}
+ catch(e){
+  // Never display a static previous-day schedule as current. The archive and
+  // independent Elo ledger still work when the upcoming feed is unavailable.
+  schedule={games:[],source:'Upcoming schedule temporarily unavailable'};
+ }
+ const archiveGames=(gameCenter.games||[]).filter(g=>g.state==='post');
+ const gameById=new Map(archiveGames.map(g=>[g.id,g]));
+ for(const g of schedule.games||[]){
+  if(!g?.id||!g.date)continue;
+  const previous=gameById.get(g.id);
+  if(previous?.state==='post')continue;
+  if(g.state==='pre'&&Date.parse(g.date)<Date.now()-15*60*1000)continue;
+  gameById.set(g.id,g);
+ }
+ const games=[...gameById.values()].sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
+ const block={provider:'Verified ESPN game boxes and dated NBA schedule'};
+ const ratings=Object.fromEntries((elo.rankings||[]).map(r=>[r.team,r.elo]));
  if(Object.keys(ratings).length!==30)throw Error('Incomplete current-season Elo');
  const snapshot=elo.movement;
  const verifiedSnapshot=snapshot&&/^\d{4}-\d{2}-\d{2}$/.test(snapshot.as_of_eastern_date||'')&&
