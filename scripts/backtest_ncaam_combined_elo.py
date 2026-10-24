@@ -24,6 +24,7 @@ STAT_ABLATIONS=("none","shooting","playmaking","defense","all")
 
 def trial(games,feature,config,source_strength,multistat):
  quality,origin,churn_gamma,multi_beta,stat_mode=config
+ weights=stat_mode if isinstance(stat_mode,dict) else None
  elo={}
  reports={}
  for year in (2023,2024,2025,2026):
@@ -34,7 +35,8 @@ def trial(games,feature,config,source_strength,multistat):
   pivot=statistics.median((1-z["r"] for z in good)) if good else 0
   elo={t:1500+CARRY*(previous.get(t,1500)-1500)
        +(f[t]["minute_adj"]+quality*f[t]["q_centered"]+origin*source_strength.get(year,{}).get(t,0.)
-         +multi_beta*(sum(multistat.get(year,{}).get(t,{}).values()) if stat_mode=="all" else
+         +multi_beta*(sum(multistat.get(year,{}).get(t,{}).get(k,0.)*v for k,v in weights.items()) if weights is not None else
+           sum(multistat.get(year,{}).get(t,{}).values()) if stat_mode=="all" else
            multistat.get(year,{}).get(t,{}).get(stat_mode,0.) if stat_mode!="none" else 0.)
          if t in f and f[t]["covered"] else 0.)
        for t in teams}
