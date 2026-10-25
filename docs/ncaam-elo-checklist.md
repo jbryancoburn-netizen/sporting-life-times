@@ -61,3 +61,8 @@ Updated: 2026-10-24. Check items only with passing evidence. No automatic produc
 - CI independently reconciles each label and current roster athlete ID/name/team with official evidence; it also blocks use of these records as unauthorized 2025-26 NCAA box-stat joins. Evidence: workflow run 40156483759 (PASS).
 - Scope: this certifies the **34 documented origin labels within the recorded source snapshot**, not the full 5,537-player origin classification and not cross-provider historical numeric ID equivalence. P03/P05 remain open.
 - The existing 365-team preseason Elo ratings were not modified; roster validation and time-correct predictive holdout remain release blockers.
+
+## Corroborated player integration finding (2026-10-24)
+- Independently compared all 30 source-correlated NCAA 2025-26 athlete history links with the 2026-27 direct crosswalk: **30/30 already linked to the same NCAA historical player IDs**; 0 new identity links or historical minutes eligible from this set. Evidence: `data/ncaam-2026-27-corroborated-player-overlap-audit.json`.
+- Added automated duplicate-input guard `scripts/test_ncaam_corroborated_player_overlap.py` and `.github/workflows/ncaam-corroborated-player-overlap.yml`.
+- Do not claim a new backtest improvement from an unchanged candidate. The primary preseason Elo and release gate remain unchanged; seek **new** validated player histories and time-stamped preseason rosters for substantive model improvement.
