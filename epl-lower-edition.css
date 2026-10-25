@@ -1,0 +1,29 @@
+/* EPL lower edition: one editorial news desk; no duplicate match/standings widgets. */
+body.epl-editorial .elo-method-note,
+body.epl-editorial main.hub>#elo-command,
+body.epl-editorial main.hub>.hub-feature{display:none!important}
+body.epl-editorial .league-newspaper-grid{display:block!important;margin-top:22px!important}
+body.epl-editorial .league-newspaper-grid>section:not(#league-news){display:none!important}
+body.epl-editorial .league-newspaper-grid>#league-news{display:block!important;grid-column:auto!important;grid-row:auto!important;padding:13px 0!important;border:0!important;border-top:5px double #23392c!important;margin:0!important}
+body.epl-editorial #league-news>h2{font:700 clamp(1.6rem,2.8vw,2.5rem)/1.05 Georgia,serif!important;letter-spacing:-.045em!important;text-transform:none!important;color:#25382e!important;margin-bottom:4px!important}
+body.epl-editorial #league-news-status{font:11px Arial,sans-serif!important;color:#84715f!important;margin:0 0 18px!important}
+body.epl-editorial #league-news-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0 20px!important}
+body.epl-editorial #league-news-grid .nba-news-item{min-width:0!important;grid-column:auto!important;border:0!important;border-bottom:1px solid #d7d2c8!important;padding:13px 0 17px!important;margin:0!important}
+body.epl-editorial #league-news-grid .nba-news-item:first-child{grid-column:span 2!important;grid-row:span 2!important;border-bottom:0!important;border-right:1px solid #c5bfae!important;padding:10px 24px 20px 0!important;margin:0 0 12px!important}
+body.epl-editorial #league-news-grid .nba-news-item:first-child h3{font:500 clamp(2.4rem,4vw,4.2rem)/1 Georgia,serif!important}
+body.epl-editorial #league-news-grid .nba-news-item h3{font:500 clamp(1.13rem,1.55vw,1.55rem)/1.14 Georgia,serif!important}
+body.epl-editorial #league-news-grid .nba-news-item:first-child p:not(.nba-news-source){font:400 1.1rem/1.5 Georgia,serif!important}
+body.epl-editorial #league-news-grid .nba-news-item a{color:#1d3026!important}
+body.epl-editorial #league-snapshot,body.epl-editorial #league-freshness{display:none!important}
+body.epl-editorial .epl-races{padding:20px 0 12px;border-top:3px solid #24382f;margin-top:20px}
+body.epl-editorial .epl-races h2{font:500 clamp(1.5rem,2.7vw,2.4rem)/1.12 Georgia,serif!important;margin:3px 0 14px!important}
+body.epl-editorial .epl-race-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+body.epl-editorial .epl-race-grid section{border-top:2px solid #a7a397;padding-top:8px}
+body.epl-editorial .epl-race-grid h3{font:700 11px Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase;margin:0 0 11px}
+body.epl-editorial .epl-race-club{display:grid;grid-template-columns:minmax(0,1fr) 1fr auto;gap:9px;align-items:center;margin:9px 0;font:700 11px Arial,sans-serif}
+body.epl-editorial .epl-race-club .epl-crest{height:19px;width:19px}
+body.epl-editorial .epl-race-bar{height:8px;background:#e7e2d7;overflow:hidden}
+body.epl-editorial .epl-race-bar i{display:block;height:100%;background:var(--club,#527563)}
+body.epl-editorial .epl-race-context{font:12px/1.5 Georgia,serif;color:#6d685f}
+@media(max-width:750px){body.epl-editorial #league-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}body.epl-editorial #league-news-grid .nba-news-item:first-child{grid-column:span 2!important;grid-row:auto!important;border-right:0!important;border-bottom:2px solid #354338!important}body.epl-editorial .epl-race-grid{grid-template-columns:1fr 1fr;gap:12px}}
+@media(max-width:500px){body.epl-editorial .epl-race-grid{grid-template-columns:1fr}body.epl-editorial #league-news-grid .nba-news-item:first-child h3{font-size:2.25rem!important}}
