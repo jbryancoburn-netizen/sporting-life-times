@@ -37,7 +37,7 @@ function render(conf,table,ratings,rules){
  const predictions=el('section',null,'cs-post-predictions');right.append(predictions);predictions.append(el('h3','If this bracket started today'));
  // Experimental knockout probability: transparent Elo-only logistic with a modest home offset.
  // Does not simulate regulation draws or an explicit penalty-kick model.
- const win=(a,b)=>1/(1+Math.pow(10,-((a.team.elo-b.team.elo+55)/400)));
+ const win=(a,b)=>{const advantage=seeded.indexOf(a)<seeded.indexOf(b)?55:-55;return 1/(1+Math.pow(10,-((a.team.elo-b.team.elo+advantage)/400)));};
  const distribution=(a,b)=>[{team:a,p:win(a,b)},{team:b,p:1-win(a,b)}];
  const sfA=distribution(top[3],top[4]).flatMap(x=>[{team:top[0],p:x.p*win(top[0],x.team)},{team:x.team,p:x.p*(1-win(top[0],x.team))}]);
  const sfB=distribution(top[2],top[5]).flatMap(x=>[{team:top[1],p:x.p*win(top[1],x.team)},{team:x.team,p:x.p*(1-win(top[1],x.team))}]);
@@ -46,7 +46,7 @@ function render(conf,table,ratings,rules){
  for(const x of a)for(const y of b){const wp=win(x.team,y.team);out.set(x.team.id,(out.get(x.team.id)||0)+x.p*y.p*wp);out.set(y.team.id,(out.get(y.team.id)||0)+x.p*y.p*(1-wp));}
  const contenders=[...out.entries()].map(([id,p])=>({team:seeded.find(t=>t.id===id),p})).sort((a,b)=>b.p-a.p);
  for(const entry of contenders){const d=el('div',null,'cs-post-odds');const line=el('div',null,'cs-post-odds-head');line.append(el('strong',entry.team.team.team),el('span',fmt(entry.p)));d.append(line);const track=el('div',null,'cs-post-odds-track'),bar=el('i');bar.style.width=(100*entry.p)+'%';track.append(bar);d.append(track);predictions.append(d);}
- predictions.append(el('p','Experimental Elo-only knockout scenario: 55 Elo points of home advantage to the listed higher seed, logistic result probabilities, and a decisive result. No draw/penalty model, official tiebreaker, remaining-game simulation, or NCAA selection committee adjustment. NOT calibrated tournament odds.','cs-post-note'));
+ predictions.append(el('p','Experimental Elo-only knockout scenario: 55 Elo points of home advantage to the higher projected seed, logistic result probabilities, and a decisive result. No draw/penalty model, official tiebreaker, remaining-game simulation, or NCAA selection committee adjustment. NOT calibrated tournament odds.','cs-post-note'));
  const national=el('section',null,'cs-national-rules');national.id='cs-ncaa-rules';root.append(national);
  const nh=el('div',null,'cs-post-section-head');nh.append(el('h3','NCAA Championship Watch'),el('span','OFFICIAL FIELD RULES · INDEPENDENT MODEL'));national.append(nh);
  const items=el('div',null,'cs-national-grid');
