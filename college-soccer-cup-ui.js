@@ -93,7 +93,7 @@ function bracketFifteen(parent,teams,cohort,branding,labels={}){
 }
 
 function predictiveBracket(parent,teams,cohort,branding,labels={}){
- if(![6,8,15].includes(teams.length)||teams.some(t=>!Number.isFinite(Number(t.elo))))return null;
+ if(![4,6,8,15].includes(teams.length)||teams.some(t=>!Number.isFinite(Number(t.elo))))return null;
  const t=teams.map((x,i)=>({...x,id:x.id||x.team_id,name:x.name||x.team?.team||x.team,seed:i+1}));
  const odds=(a,b)=>1/(1+Math.pow(10,-((a.elo-b.elo)/400)));
  const decide=(a,b)=>({winner:odds(a,b)>=.5?a:b,prob:Math.max(odds(a,b),1-odds(a,b))});
@@ -103,7 +103,10 @@ function predictiveBracket(parent,teams,cohort,branding,labels={}){
  const round=(title)=>{const r=node('section','cs-cup-round');r.append(node('h4','cs-cup-round-title',title));root.append(r);return r;};
  const game=(group,label,a,b)=>{const d=decide(a,b);const card=pair(label,a,b,cohort,branding);card.classList.add('cs-cup-predicted-match');card.append(node('small','cs-cup-prediction-label','USRS PICK: '+d.winner.name+' · '+Math.round(100*d.prob)+'%'));group.append(card);return d.winner;};
  let finalists=[];
- if(t.length===6){
+ if(t.length===4){
+  const semi=round(labels.s||'SEMIFINALS');
+  finalists=[game(semi,'#1 vs #4',t[0],t[3]),game(semi,'#2 vs #3',t[1],t[2])];
+ }else if(t.length===6){
   const q=round(labels.q||'OPENING ROUND');
   const w36=game(q,'#3 vs #6',t[2],t[5]),w45=game(q,'#4 vs #5',t[3],t[4]);
   const s=round(labels.s||'SEMIFINALS');
