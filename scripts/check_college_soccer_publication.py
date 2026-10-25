@@ -14,9 +14,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FILES = [
     "data/college-soccer-elo.json",
-    "college-soccer-elo.js",
+    "college-soccer-visual-desk.js",
     "college-soccer.html",
-    "college-soccer-elo.css",
+    "college-soccer-visual-desk.css",
 ]
 DEFAULT_ROOT = "https://jbryancoburn-netizen.github.io/sporting-life-times"
 
@@ -44,8 +44,10 @@ def inspect(source_root: str, reader=None):
     report = json.loads((ROOT / FILES[0]).read_text())
     assert report["status"] == "provisional"
     assert len(report["cohorts"]) == 6
-    assert "college-soccer-elo.js" in (ROOT / "college-soccer.html").read_text()
-    assert 'id="college-soccer-elo"' in (ROOT / "college-soccer.html").read_text()
+    html=(ROOT / "college-soccer.html").read_text()
+    assert "college-soccer-visual-desk.js" in html
+    assert 'id="college-soccer-visual-desk"' in html
+    assert "data/college-soccer-elo.json" in (ROOT / "college-soccer-visual-desk.js").read_text()
     return {"result": "PASS", "as_of": report["as_of"],
             "finals_since_baseline": report.get("applied_finals_since_baseline", 0),
             "files_verified": outcomes}
