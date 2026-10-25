@@ -2,7 +2,7 @@
   "schema_version": 1,
   "source": "Official MIAA, MIAC, CCIW men's 2026 soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
-  "scope": "Verified 2026 NCAA men's Division III soccer conference memberships: MIAA, MIAC, CCIW; other leagues not yet mapped.",
+  "scope": "Verified 2026 men's and women's NCAA Division III soccer conference memberships: MIAA men/women, MIAC men, CCIW men",
   "notice": "Incomplete conference directory. Listed men's Division III memberships are official-source verified; conference standings and tournament rules come from independent league-specific records. No unmatched program is assigned to a conference by guess.",
   "conferences": {
     "men-d3:miaa": {
@@ -52,6 +52,22 @@
         "carthage"
       ],
       "source_url": "https://cciw.org/standings.aspx?path=msoc"
+    },
+    "women-d3:miaa": {
+      "name": "Michigan Intercollegiate Athletic Association",
+      "short": "MIAA Women",
+      "teams": [
+        "calvin",
+        "hope",
+        "kalamazoo",
+        "trine",
+        "albion",
+        "alma",
+        "adrian",
+        "st-marys-in",
+        "olivet"
+      ],
+      "source_url": "https://miaa.org/standings.aspx?path=wsoc"
     }
   },
   "team_to_conference": {
@@ -82,6 +98,15 @@
     "men-d3:augustana-il": "men-d3:cciw",
     "men-d3:carroll-wi": "men-d3:cciw",
     "men-d3:elmhurst": "men-d3:cciw",
-    "men-d3:carthage": "men-d3:cciw"
+    "men-d3:carthage": "men-d3:cciw",
+    "women-d3:calvin": "women-d3:miaa",
+    "women-d3:hope": "women-d3:miaa",
+    "women-d3:kalamazoo": "women-d3:miaa",
+    "women-d3:trine": "women-d3:miaa",
+    "women-d3:albion": "women-d3:miaa",
+    "women-d3:alma": "women-d3:miaa",
+    "women-d3:adrian": "women-d3:miaa",
+    "women-d3:st-marys-in": "women-d3:miaa",
+    "women-d3:olivet": "women-d3:miaa"
   }
 }
