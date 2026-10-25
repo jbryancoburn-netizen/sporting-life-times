@@ -166,6 +166,11 @@ if(conference){
  const tbody=node('tbody');
  const official=(conferenceStandings.rows||[]).slice().sort((a,b)=>Number(b.conference_points)-Number(a.conference_points));
  const checked=conferenceStandings.checked_date;
+ const dateTime=checked?Date.parse(checked+'T23:59:59Z'):NaN;
+ const isStale=!Number.isFinite(dateTime)||(Date.now()-dateTime)>36*3600*1000;
+ const freshness=node('div',undefined,'team-feed-freshness'+(isStale?' is-stale':''));
+ freshness.append(node('strong',isStale?'Official table may be stale':'Official table snapshot'),node('span',checked?'Verified standings dated '+checked:'No official date available'));
+ tableSection.append(freshness);
  const reportDate=node('p',checked?'Official table published snapshot: '+checked+' · Records may lag games played today.':'Official conference snapshot unavailable; check the league source for current standings.','team-visual-footnote');
  tableSection.append(reportDate);
  for(const entry of official){
@@ -206,6 +211,10 @@ const schedule=node('a',"Official 2026 Trine men's soccer schedule & results ↗
 schedule.href='https://trinethunder.com/sports/mens-soccer/schedule/2026';schedule.target='_blank';schedule.rel='noopener noreferrer';
 official.append(schedule);profile.append(official);
 }
+const snapshot=node('div',undefined,'team-snapshot-line');
+const eloAt=String(rankings.as_of||'Date not provided');
+snapshot.append(node('span','USRS model cutoff: '+eloAt),node('span','Conference: '+(conferenceStandings.checked_date||'not verified')));
+profile.append(snapshot);
 const teamRankings=rankings.cohorts[t.cohort]||[];
 const standing=node('div',undefined,'team-elo-standing');
 const pct=teamRankings.length>1?Math.max(0,Math.min(100,100*(1-(t.rank-1)/(teamRankings.length-1)))):50;
