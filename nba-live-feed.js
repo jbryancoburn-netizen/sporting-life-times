@@ -14,17 +14,20 @@ function render(payload){
   if(!away||!home)return null;
   const team=c=>({name:c.team?.displayName||c.team?.name||'',code:c.team?.abbreviation||'',score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||''});
   return {away:team(away),home:team(home),state,label,date:e.date,id:e.id};
- }).filter(Boolean);
+ }).filter(g=>g&&/^[0-9]{7,12}$/.test(String(g.id)));
+ if(!mapped.length){root.innerHTML='<p class="hub-small">No game details with valid provider IDs are available. <a href="nba-game-center.html">Verified archive</a>.</p>';return;}
  mapped.sort((a,b)=>({in:0,pre:1,post:2}[a.state]??3)-({in:0,pre:1,post:2}[b.state]??3));
  root.innerHTML=mapped.map(g=>{
   const playing=g.state==='in';const final=g.state==='post';const state=playing?'LIVE · '+g.label:final?'FINAL':new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
   const team=t=>'<div class="nba-live-team"><img src="'+logo(esc(t.code))+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
-  return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'VERIFIED FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'</a>'
+  return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'</a>'
  }).join('');
 }
 function fromNba(raw){
  const games=raw.scoreboard?.games||raw.games||[];
- return {events:games.map(g=>{
+ const today=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));const todayKey=today.year+today.month+today.day;
+ const dated=games.filter(g=>{const d=g.gameTimeUTC||g.gameTime;if(!d)return false;const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(d)).map(x=>[x.type,x.value]));return p.year+p.month+p.day===todayKey});
+ return {events:dated.map(g=>{
   const home=g.homeTeam||{},away=g.awayTeam||{},st=g.gameStatus||1;
   const comp=(t,side)=>({homeAway:side,team:{displayName:t.teamName?((t.teamCity||'')+' '+t.teamName).trim():t.teamTricode,abbreviation:t.teamTricode},score:t.score,records:[]});
   return {id:String(g.gameId),date:g.gameTimeUTC||g.gameTime,competitions:[{competitors:[comp(away,'away'),comp(home,'home')]}],status:{type:{state:st===3?'post':st===2?'in':'pre',shortDetail:g.gameStatusText||''}}};
