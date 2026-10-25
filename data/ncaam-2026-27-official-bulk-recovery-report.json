@@ -1,16 +1,10 @@
 {
   "input_targets": 489,
-  "already_classified": 195,
-  "new_official_class_years": 0,
+  "already_classified": 202,
+  "new_official_class_years": 16,
   "source_results": [
     {
       "school": "Western Ill.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
-      "school": "Chicago St.",
       "status": "processed",
       "matched": 0,
       "targeted": 1
@@ -49,7 +43,7 @@
       "school": "CSU Bakersfield",
       "status": "processed",
       "matched": 0,
-      "targeted": 7
+      "targeted": 6
     },
     {
       "school": "LSU",
@@ -182,8 +176,9 @@
     },
     {
       "school": "Georgia Tech",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
+      "status": "processed",
+      "matched": 4,
+      "targeted": 6
     },
     {
       "school": "James Madison",
@@ -223,8 +218,9 @@
     },
     {
       "school": "New Mexico",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
+      "status": "processed",
+      "matched": 5,
+      "targeted": 5
     },
     {
       "school": "Northwestern",
@@ -234,8 +230,9 @@
     },
     {
       "school": "Notre Dame",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
+      "status": "processed",
+      "matched": 5,
+      "targeted": 5
     },
     {
       "school": "Penn St.",
@@ -338,12 +335,6 @@
       "targeted": 6
     },
     {
-      "school": "Houston Christian",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "Mercyhurst",
       "status": "processed",
       "matched": 0,
@@ -396,12 +387,6 @@
       "targeted": 4
     },
     {
-      "school": "FGCU",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "Fla. Atlantic",
       "status": "processed",
       "matched": 0,
@@ -431,12 +416,6 @@
       "targeted": 1
     },
     {
-      "school": "Seattle U",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "Troy",
       "status": "processed",
       "matched": 0,
@@ -460,8 +439,9 @@
     },
     {
       "school": "Auburn",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
+      "status": "processed",
+      "matched": 2,
+      "targeted": 3
     },
     {
       "school": "Cincinnati",
@@ -508,32 +488,14 @@
       "status": "processed",
       "matched": 0,
       "targeted": 1
-    },
-    {
-      "school": "Tarleton St.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
-      "school": "UNCW",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 294,
+  "still_unmatched_in_queue": 271,
   "unmatched_sample": [
     {
       "id": "5462468",
       "school": "Western Ill.",
       "name": "Tayelor Moore",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5463670",
-      "school": "Chicago St.",
-      "name": "Foday Sheriff",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -636,12 +598,6 @@
       "id": "5458641",
       "school": "CSU Bakersfield",
       "name": "Iliyan Pishtikov",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5107754",
-      "school": "CSU Bakersfield",
-      "name": "Snookey Wigington",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -1029,6 +985,18 @@
       "reason": "no_unambiguous_card_year"
     },
     {
+      "id": "5174455",
+      "school": "Georgia Tech",
+      "name": "Kayden Allen",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5144491",
+      "school": "Georgia Tech",
+      "name": "Kaiden Bailey",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
       "id": "5460914",
       "school": "James Madison",
       "name": "Joseph Brown",
@@ -1125,7 +1093,10 @@
       "reason": "no_unambiguous_card_year"
     }
   ],
-  "class_counts": {},
-  "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1727
+  "class_counts": {
+    "Freshman": 13,
+    "Senior": 3
+  },
+  "new_unique_saved_against_latest_main": 16,
+  "total_official_class_year_records": 1743
 }
