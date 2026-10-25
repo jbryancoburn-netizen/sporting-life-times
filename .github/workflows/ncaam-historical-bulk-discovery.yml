@@ -1,0 +1,44 @@
+name: NCAA 345-school historical roster discovery
+on:
+  push:
+    paths:
+      - 'scripts/discover_ncaam_historical_rosters_bulk.py'
+      - '.github/workflows/ncaam-historical-bulk-discovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-historical-bulk
+  cancel-in-progress: false
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [0,1,2,3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m py_compile scripts/discover_ncaam_historical_rosters_bulk.py
+      - run: python scripts/discover_ncaam_historical_rosters_bulk.py --batch ${{ matrix.batch }} --batch-size 100 --workers 12
+      - uses: actions/upload-artifact@v4
+        with:
+          name: historical-school-batch-${{ matrix.batch }}
+          path: data/ncaam-historical-bulk-discovery/batch-*.json
+      - name: Publish school-batch audit with rebase retry
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-historical-bulk-discovery/batch-*.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record historical NCAA school batch ${{ matrix.batch }} discovery [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 4
+          done
+          exit 1
