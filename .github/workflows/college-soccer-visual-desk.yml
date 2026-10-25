@@ -20,6 +20,8 @@ on:
       - 'college-soccer-women-miaa.css'
       - 'college-soccer-conference-index.js'
       - 'college-soccer-conference-index.css'
+      - 'college-soccer-cup-ui.js'
+      - 'college-soccer-cup-ui.css'
       - 'data/college-soccer-miaa-women-standings.json'
       - 'scripts/update_college_soccer_miaa_women_standings.py'
       - 'scripts/test_college_soccer_miaa_women_standings.py'
@@ -57,6 +59,7 @@ jobs:
           node --check college-soccer-cciw.js
           node --check college-soccer-women-miaa.js
           node --check college-soccer-conference-index.js
+          node --check college-soccer-cup-ui.js
       - name: Validate NCAA postseason rules and normalized MIAA probabilities
         run: python -m unittest discover -s scripts -p test_college_soccer_postseason.py -v
       - name: Validate MIAC collector parsing
@@ -112,11 +115,11 @@ jobs:
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
                     assert(html.includes('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch7'));
+          assert(html.includes('college-soccer-postseason.js?v=bracket8'));
           assert(html.includes('college-soccer-postseason.css?v=launch3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
           assert(html.includes('id="college-soccer-cciw"'));
-          assert(html.includes('college-soccer-cciw.js?v=1'));
+          assert(html.includes('college-soccer-cciw.js?v=bracket3'));
           assert(html.includes('college-soccer-cciw.css?v=1'));
           const cciw=JSON.parse(fs.readFileSync('data/college-soccer-cciw-standings.json','utf8'));
           const cciwScript=fs.readFileSync('college-soccer-cciw.js','utf8');
@@ -132,21 +135,35 @@ jobs:
                     const women=JSON.parse(fs.readFileSync('data/college-soccer-miaa-women-standings.json','utf8'));
           assert(html.includes('id="college-soccer-women-miaa"'));
           assert(html.includes('id="college-soccer-conference-index"'));
-          assert(html.includes('college-soccer-conference-index.js?v=1'));
-          assert(html.includes('college-soccer-conference-index.css?v=1'));
+          assert(html.includes('college-soccer-conference-index.js?v=coverage2'));
+          assert(html.includes('college-soccer-conference-index.css?v=coverage2'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-conference-index"'));
           const directory=fs.readFileSync('college-soccer-conference-index.js','utf8');
           assert(directory.includes("'men-d3:miaa'"));
           assert(directory.includes("'men-d3:miac'"));
           assert(directory.includes("'men-d3:cciw'"));
           assert(directory.includes("'women-d3:miaa'"));
-          assert(html.includes('college-soccer-women-miaa.js?v=2'));
+          assert(html.includes('college-soccer-women-miaa.js?v=bracket4'));
           assert(html.includes('college-soccer-women-miaa.css?v=1'));
           assert.equal(women.rows.length,9);
           assert.deepEqual(new Set(women.rows.map(r=>r.team_id)),new Set(JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8')).conferences['women-d3:miaa'].teams));
           for(const row of women.rows){
              const [w,l,d=0]=row.conference_record.split('-').map(Number);
              assert.equal(3*w+d,row.conference_points,'Invalid women MIAA points');
+          }
+                    assert(html.includes('college-soccer-cup-ui.js?v=2'));
+          assert(html.includes('college-soccer-cup-ui.css?v=2'));
+          assert(html.indexOf('college-soccer-cup-ui.js?v=2')<html.indexOf('college-soccer-postseason.js?v=bracket8'));
+          assert(html.indexOf('college-soccer-cup-ui.js?v=2')<html.indexOf('college-soccer-cciw.js?v=bracket3'));
+          const shared=fs.readFileSync('college-soccer-cup-ui.js','utf8');
+          assert(shared.includes('cs-cup-bracket'));
+          assert(shared.includes('ncaa.com/sites/default/files/images/logos/schools/bgl/'));
+          const mjs=fs.readFileSync('college-soccer-postseason.js','utf8');
+          const cjs=fs.readFileSync('college-soccer-cciw.js','utf8');
+          const wjs=fs.readFileSync('college-soccer-women-miaa.js','utf8');
+          for(const src of [mjs,cjs,wjs]){
+            assert(src.includes('cupUI.bracket('),'Missing shared bracket');
+            assert(src.includes('cupUI.decorateTable('),'Missing school crests');
           }
                     const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
           const conf=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
@@ -181,7 +198,7 @@ jobs:
           assert(postseasonJs.includes('MIAA stays active'));
           assert(html.includes('CONFERENCES &amp; TOURNAMENTS'));
           assert(html.indexOf('id="college-team-search"') < html.indexOf('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch7'));
+          assert(html.includes('college-soccer-postseason.js?v=bracket8'));
           assert(postseasonJs.includes('NOT odds of qualifying for or winning the MIAC playoff'));
           assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
