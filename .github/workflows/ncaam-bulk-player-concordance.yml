@@ -1,0 +1,54 @@
+name: NCAA bulk historical player concordance
+on:
+  push:
+    paths:
+      - 'scripts/match_ncaam_bulk_historical_players.py'
+      - 'data/ncaam-historical-bulk-player-reconciliation.json'
+      - '.github/workflows/ncaam-bulk-player-concordance.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-bulk-player-concordance
+  cancel-in-progress: false
+jobs:
+  match:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m py_compile scripts/match_ncaam_bulk_historical_players.py
+      - run: python scripts/match_ncaam_bulk_historical_players.py
+      - run: |
+          python - <<'PY'
+          import json
+          d=json.load(open("data/ncaam-historical-player-concordance.json"))
+          assert d["summary"]["extracted_names"]==9954
+          assert d["summary"]["matched_to_historical_ncaa_season_rosters"]<=9954
+          assert d["source_roster_timing_verified"] is False
+          assert d["preopening_production_approved"] is False
+          print("PASS: all historical name matches reconciled without preseason certification")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-bulk-player-concordance
+          path: data/ncaam-historical-player-concordance.json
+      - name: Publish historical NCAA player matching
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-historical-player-concordance.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish all-school historical player name concordance [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
