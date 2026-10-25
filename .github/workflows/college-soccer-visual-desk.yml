@@ -16,6 +16,11 @@ on:
       - 'college-soccer-postseason.css'
       - 'college-soccer-cciw.js'
       - 'college-soccer-cciw.css'
+      - 'college-soccer-women-miaa.js'
+      - 'college-soccer-women-miaa.css'
+      - 'data/college-soccer-miaa-women-standings.json'
+      - 'scripts/update_college_soccer_miaa_women_standings.py'
+      - 'scripts/test_college_soccer_miaa_women_standings.py'
       - 'data/college-soccer-cciw-standings.json'
       - 'scripts/test_college_soccer_cciw_standings.py'
       - 'scripts/test_college_soccer_postseason.py'
@@ -48,6 +53,7 @@ jobs:
           node --check college-soccer-match.js
           node --check college-soccer-postseason.js
           node --check college-soccer-cciw.js
+          node --check college-soccer-women-miaa.js
       - name: Validate NCAA postseason rules and normalized MIAA probabilities
         run: python -m unittest discover -s scripts -p test_college_soccer_postseason.py -v
       - name: Validate MIAC collector parsing
@@ -58,6 +64,10 @@ jobs:
         run: |
           python -m pip install beautifulsoup4
           python -m unittest discover -s scripts -p test_college_soccer_cciw_standings.py -v
+      - name: Verify women's MIAA official standings parser
+        run: |
+          python -m pip install beautifulsoup4
+          python -m unittest discover -s scripts -p test_college_soccer_miaa_women_standings.py -v
       - name: Audit real data and published page
         run: |
           node <<'NODE'
@@ -99,7 +109,7 @@ jobs:
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
                     assert(html.includes('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch6'));
+          assert(html.includes('college-soccer-postseason.js?v=launch7'));
           assert(html.includes('college-soccer-postseason.css?v=launch3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
           assert(html.includes('id="college-soccer-cciw"'));
@@ -116,6 +126,16 @@ jobs:
             assert.equal(wins*3+draws,row.conference_points,'Bad CCIW points for '+row.team_id);
             assert.equal(wins+losses+draws,row.conference_games,'Bad CCIW GP for '+row.team_id);
           }
+                    const women=JSON.parse(fs.readFileSync('data/college-soccer-miaa-women-standings.json','utf8'));
+          assert(html.includes('id="college-soccer-women-miaa"'));
+          assert(html.includes('college-soccer-women-miaa.js?v=2'));
+          assert(html.includes('college-soccer-women-miaa.css?v=1'));
+          assert.equal(women.rows.length,9);
+          assert.deepEqual(new Set(women.rows.map(r=>r.team_id)),new Set(JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8')).conferences['women-d3:miaa'].teams));
+          for(const row of women.rows){
+             const [w,l,d=0]=row.conference_record.split('-').map(Number);
+             assert.equal(3*w+d,row.conference_points,'Invalid women MIAA points');
+          }
                     const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
           const conf=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
           const miaa=JSON.parse(fs.readFileSync('data/college-soccer-miaa-standings.json','utf8'));
@@ -123,6 +143,7 @@ jobs:
           assert.equal(tournamentRules.ncaa['women-d1'].field,64);
           assert.equal(tournamentRules.ncaa['men-d1'].seeded_teams,24);
           assert.equal(tournamentRules.conferences['men-d3:miaa'].tournament.field,6);
+          assert.equal(tournamentRules.conferences['women-d3:miaa'].tournament.field,6);
           const members=conf.conferences['men-d3:miaa'].teams;
           assert.equal(members.length,8);
           assert.equal(new Set(members).size,8);
@@ -148,7 +169,7 @@ jobs:
           assert(postseasonJs.includes('MIAA stays active'));
           assert(html.includes('CONFERENCES &amp; TOURNAMENTS'));
           assert(html.indexOf('id="college-team-search"') < html.indexOf('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch6'));
+          assert(html.includes('college-soccer-postseason.js?v=launch7'));
           assert(postseasonJs.includes('NOT odds of qualifying for or winning the MIAC playoff'));
           assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
