@@ -1,0 +1,27 @@
+name: Newspaper browser runtime stability
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '19 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/test-site-browser-runtime.mjs'
+      - '.github/workflows/site-browser-stability.yml'
+permissions:
+  contents: read
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Chromium browser testing tools
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check ten public newspaper pages for runtime JavaScript errors
+        run: node scripts/test-site-browser-runtime.mjs
