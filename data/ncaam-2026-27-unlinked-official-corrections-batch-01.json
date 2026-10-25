@@ -1,8 +1,8 @@
 {
   "season": "2026-27",
   "evidence_type": "institutional-athletics-biographical-source",
-  "status": "FIVE_FALSE_D1_NAME_ONLY_CANDIDATES_REJECTED",
-  "reviews": 5,
+  "status": "EIGHT_FALSE_D1_NAME_ONLY_CANDIDATES_REJECTED",
+  "reviews": 8,
   "statistical_records_removed_from_published_elo": 0,
   "published_elo_changed": false,
   "records": [
@@ -50,6 +50,33 @@
       "evidence": "Texas Tech official 2026-27 player bio identifies Trey Hall as a freshman who played 2025-26 at North Crowley High School. Name-only Division I stats do not belong to this player.",
       "source_url": "https://texastech.com/sports/mens-basketball/roster/trey-hall/14457",
       "action": "REJECT_FALSE_TRANSFER_CANDIDATE"
+    },
+    {
+      "espn_athlete_id": "5210407",
+      "player": "Cameron Williams",
+      "team": "Duke",
+      "classification": "new-to-d1",
+      "evidence": "Duke 2026-27 official athlete profile describes first-year recruit from St. Mary's High School in Phoenix, including 2025-26 high school season; reject proposed 742.73 previous D-I minutes.",
+      "source_url": "https://goduke.com/sports/mens-basketball/roster/cameron-williams/24893",
+      "action": "REJECT_FALSE_TRANSFER_CANDIDATE"
+    },
+    {
+      "espn_athlete_id": "5458213",
+      "player": "RJ Smith",
+      "team": "La Salle",
+      "classification": "new-to-d1",
+      "evidence": "La Salle 2026-27 official profile lists a freshman from Roman Catholic High School; university 2025 signing announcement confirms senior high-school enrollment; reject 882.11 unrelated D-I minutes.",
+      "source_url": "https://goexplorers.com/sports/mens-basketball/roster/rj-smith/13683",
+      "action": "REJECT_FALSE_TRANSFER_CANDIDATE"
+    },
+    {
+      "espn_athlete_id": "5458702",
+      "player": "Jordan Johnson",
+      "team": "UC San Diego",
+      "classification": "junior-college-transfer",
+      "evidence": "UC San Diego June 29 2026 newcomer release explicitly documents 2025-26 at Calhoun Community College, a junior college, not the proposed NCAA D-I prior school. Reject claimed 520.42 D-I minutes.",
+      "source_url": "https://ucsdtritons.com/news/2026/6/29/mens-basketball-six-newcomers-join-tritons-for-2026-27.aspx",
+      "action": "REJECT_FALSE_PRIOR_D1_STAT_CANDIDATE"
     }
   ]
 }
