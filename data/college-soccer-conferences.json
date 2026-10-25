@@ -299,6 +299,63 @@
       "page": "college-soccer-america-east-men.html",
       "standings_feed": "data/college-soccer-men-d1-america-east-standings.json",
       "verification_status": "mapped_verified"
+    },
+    "men-d1:american": {
+      "name": "American Conference",
+      "short": "American",
+      "teams": [
+        "missouri-st",
+        "charlotte",
+        "tulsa",
+        "memphis",
+        "fiu",
+        "uab",
+        "fla-atlantic",
+        "temple",
+        "south-fla"
+      ],
+      "source_url": "https://theamerican.org/allstandings.aspx",
+      "page": "college-soccer-american-men.html",
+      "standings_feed": "data/college-soccer-men-d1-american-standings.json",
+      "verification_status": "mapped_verified"
+    },
+    "men-d1:sun-belt": {
+      "name": "Sun Belt Conference",
+      "short": "Sun Belt",
+      "teams": [
+        "james-madison",
+        "south-carolina",
+        "marshall",
+        "west-virginia",
+        "ga-southern",
+        "coastal-caro",
+        "ucf",
+        "old-dominion",
+        "georgia-st",
+        "kentucky"
+      ],
+      "source_url": "https://sunbeltsports.org/standings.aspx?path=msoc",
+      "page": "college-soccer-sun-belt-men.html",
+      "standings_feed": "data/college-soccer-men-d1-sun-belt-standings.json",
+      "verification_status": "mapped_verified"
+    },
+    "men-d1:ivy": {
+      "name": "Ivy League",
+      "short": "Ivy",
+      "teams": [
+        "cornell",
+        "penn",
+        "dartmouth",
+        "harvard",
+        "yale",
+        "princeton",
+        "columbia",
+        "brown"
+      ],
+      "source_url": "https://ivyleague.com/standings.aspx?path=msoc",
+      "page": "college-soccer-ivy-men.html",
+      "standings_feed": "data/college-soccer-men-d1-ivy-standings.json",
+      "verification_status": "mapped_verified"
     }
   },
   "team_to_conference": {
@@ -457,6 +514,33 @@
     "men-d1:binghamton": "men-d1:america-east",
     "men-d1:umass-lowell": "men-d1:america-east",
     "men-d1:new-hampshire": "men-d1:america-east",
-    "men-d1:umbc": "men-d1:america-east"
+    "men-d1:umbc": "men-d1:america-east",
+    "men-d1:missouri-st": "men-d1:american",
+    "men-d1:charlotte": "men-d1:american",
+    "men-d1:tulsa": "men-d1:american",
+    "men-d1:memphis": "men-d1:american",
+    "men-d1:fiu": "men-d1:american",
+    "men-d1:uab": "men-d1:american",
+    "men-d1:fla-atlantic": "men-d1:american",
+    "men-d1:temple": "men-d1:american",
+    "men-d1:south-fla": "men-d1:american",
+    "men-d1:james-madison": "men-d1:sun-belt",
+    "men-d1:south-carolina": "men-d1:sun-belt",
+    "men-d1:marshall": "men-d1:sun-belt",
+    "men-d1:west-virginia": "men-d1:sun-belt",
+    "men-d1:ga-southern": "men-d1:sun-belt",
+    "men-d1:coastal-caro": "men-d1:sun-belt",
+    "men-d1:ucf": "men-d1:sun-belt",
+    "men-d1:old-dominion": "men-d1:sun-belt",
+    "men-d1:georgia-st": "men-d1:sun-belt",
+    "men-d1:kentucky": "men-d1:sun-belt",
+    "men-d1:cornell": "men-d1:ivy",
+    "men-d1:penn": "men-d1:ivy",
+    "men-d1:dartmouth": "men-d1:ivy",
+    "men-d1:harvard": "men-d1:ivy",
+    "men-d1:yale": "men-d1:ivy",
+    "men-d1:princeton": "men-d1:ivy",
+    "men-d1:columbia": "men-d1:ivy",
+    "men-d1:brown": "men-d1:ivy"
   }
 }
