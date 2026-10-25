@@ -2,7 +2,7 @@
 const host=document.getElementById('college-soccer-visual-desk');if(!host)return;
 const E=(tag,txt,cls)=>{const e=document.createElement(tag);if(txt!==null&&txt!==undefined)e.textContent=String(txt);if(cls)e.className=cls;return e;};
 const URL_TEAM=(c,id)=>'college-soccer-team.html?team='+encodeURIComponent(c+':'+id);
-const date=d=>{const x=new Date(d),now=new Date();if(isNaN(x))return String(d);const eventDay=String(d).match(/^\d{4}-\d{2}-\d{2}/)?.[0];const localDay=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(eventDay===localDay)return 'TODAY';return x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:/^\d{4}-\d{2}-\d{2}$/.test(String(d))?'UTC':undefined});};
+const date=d=>{const x=new Date(d),now=new Date();if(isNaN(x))return String(d);const eventDay=String(d).match(/^\d{4}-\d{2}-\d{2}/)?.[0];const localDay=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(eventDay===localDay)return '';return x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:/^\d{4}-\d{2}-\d{2}$/.test(String(d))?'UTC':undefined});};
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:1});
 const rank=(s)=>({1:'I',2:'II',3:'III'})[s.slice(-1)];
 let gender='men',division=1,model=null,forecast=null,brand={teams:{}},audit=null,index=null;
@@ -62,7 +62,7 @@ function render(){
  for(const m of finals){
   const scores=String(m.score||'').match(/^(\d+)\s*[-–]\s*(\d+)$/);if(!scores)continue;
   const tile=E('a',null,'cs-score-tile');tile.href='college-soccer-match.html?game='+encodeURIComponent(m.match_id);tile.setAttribute('aria-label','Open NCAA match details: '+m.home+' vs '+m.away);
-  tile.append(E('small','FINAL · '+date(m.date)));
+  tile.append(E('small','FINAL'+(date(m.date)?' · '+date(m.date):'')));
   for(const [n,score] of [[m.home,scores[1]],[m.away,scores[2]]]){
    const line=E('div',null,'cs-score-side');const entry=byName.get(n);
    if(entry?.team_id)line.append(club(n,cohort,entry.team_id));else line.append(E('span',n));
@@ -105,7 +105,7 @@ function render(){
  const games=(forecast.forecasts||[]).filter(m=>m.cohort===cohort&&!finalIds.has(m.match_id)&&Date.parse(m.kickoff_utc)>now&&Number.isFinite(Number(m.p_home))&&Number.isFinite(Number(m.p_draw))&&Number.isFinite(Number(m.p_away))).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc)).slice(0,5);
  if(!games.length)upcoming.append(E('p','No verified future fixture forecasts remain in the published feed.','cs-note'));
  for(const g of games){
- const item=E('div',null,'cs-fixture');item.append(E('small',date(g.kickoff_utc)+' · LOCKED PROJECTION'));const detail=E('a','View match analysis ↗','cs-game-link');detail.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);
+ const item=E('div',null,'cs-fixture');item.append(E('small',(date(g.kickoff_utc)?date(g.kickoff_utc)+' · ':'')+'LOCKED PROJECTION'));const detail=E('a','View match analysis ↗','cs-game-link');detail.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);
  const teamsLine=E('div',null,'cs-fixture-teams');teamsLine.append(club(g.home_name||g.home_team,cohort,g.home_team),E('span','vs'),club(g.away_name||g.away_team,cohort,g.away_team));item.append(teamsLine);
  const prob=E('div',null,'cs-prob');for(const [val,kind] of [[g.p_home,'home'],[g.p_draw,'draw'],[g.p_away,'away']]){const bar=E('i',null,'cs-prob-'+kind);bar.style.width=(Math.max(0,100*Number(val)))+'%';prob.append(bar);}item.append(prob);
  const labels=E('div',null,'cs-prob-labels');labels.append(E('span',pct(g.p_home)+' '+(g.home_name||g.home_team)),E('span',pct(g.p_draw)+' draw'),E('span',pct(g.p_away)+' '+(g.away_name||g.away_team)));item.append(labels);
