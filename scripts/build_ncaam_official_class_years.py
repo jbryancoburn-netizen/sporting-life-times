@@ -39,7 +39,7 @@ def classify(movement,crosswalk,rows):
         t,p=roster[athlete]
         if normalized(record.get("player"))!=normalized(p["player"]) or normalized(record.get("team"))!=normalized(t["team"]):
             rejected.append({"row":i,"reason":"athlete_name_or_team_mismatch"});continue
-        if not url.startswith("https://") or not re.search(r"/(sports|roster|athletics)/",url):
+        if not url.startswith("https://") or any(provider in url.casefold() for provider in ("espn.com","247sports.com","on3.com","verbalcommits.com")):
             rejected.append({"row":i,"reason":"not_an_official_roster_url"});continue
         if not year:
             rejected.append({"row":i,"reason":"unrecognized_academic_year"});continue
