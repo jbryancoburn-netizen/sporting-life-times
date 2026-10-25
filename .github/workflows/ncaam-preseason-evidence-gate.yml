@@ -1,0 +1,23 @@
+name: NCAA preopening evidence gate
+on:
+  push:
+    paths:
+      - 'scripts/verify_ncaam_preseason_evidence_gate.py'
+      - 'data/ncaam-preseason-roster-source-provenance.json'
+      - 'data/ncaam-opponent-quality-backtest.json'
+      - 'data/ncaam-2026-27-opponent-quality-holdout-decision.json'
+      - 'data/ncaam-2026-27-preseason-final-release-decision.json'
+      - '.github/workflows/ncaam-preseason-evidence-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_preseason_evidence_gate.py
+      - run: python scripts/verify_ncaam_final_preseason_release.py
