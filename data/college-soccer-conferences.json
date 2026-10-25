@@ -2,7 +2,7 @@
   "schema_version": 1,
   "source": "Official MIAA, MIAC, CCIW men's 2026 soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
-  "scope": "Verified 2026 soccer conference memberships and published tables for eight men's and women's conference desks in NCAA DI/DIII. NCAA DII and remaining conferences not yet mapped.",
+  "scope": "Ten verified 2026 NCAA soccer conference desks across Divisions I, II and III (men/women). Remaining conference memberships, rules and live collectors incomplete.",
   "notice": "Only verified conferences; no automatic team assignment from geographic/name similarity. Missing Elo is flagged rather than invented.",
   "conferences": {
     "men-d3:miaa": {
@@ -150,6 +150,39 @@
       ],
       "source_url": "https://cciw.org/standings.aspx?path=wsoc",
       "page": "college-soccer-cciw-women.html"
+    },
+    "men-d2:gliac": {
+      "name": "Great Lakes Intercollegiate Athletic Conference",
+      "short": "GLIAC",
+      "teams": [
+        "northern-mich",
+        "saginaw-valley",
+        "roosevelt-university",
+        "purdue-northwest",
+        "wis-parkside",
+        "davenport",
+        "st-cloud-st"
+      ],
+      "source_url": "https://gliac.org/standings.aspx?path=msoc",
+      "page": "college-soccer-gliac-men.html"
+    },
+    "women-d2:gliac": {
+      "name": "Great Lakes Intercollegiate Athletic Conference",
+      "short": "GLIAC",
+      "teams": [
+        "wayne-st-mi",
+        "grand-valley-st",
+        "davenport",
+        "saginaw-valley",
+        "northern-mich",
+        "wis-parkside",
+        "ferris-st",
+        "purdue-northwest",
+        "michigan-tech",
+        "roosevelt-university"
+      ],
+      "source_url": "https://gliac.org/standings.aspx?path=wsoc",
+      "page": "college-soccer-gliac-women.html"
     }
   },
   "team_to_conference": {
@@ -239,6 +272,23 @@
     "women-d3:millikin": "women-d3:cciw",
     "women-d3:north-park": "women-d3:cciw",
     "women-d3:carthage": "women-d3:cciw",
-    "women-d3:augustana-il": "women-d3:cciw"
+    "women-d3:augustana-il": "women-d3:cciw",
+    "men-d2:northern-mich": "men-d2:gliac",
+    "men-d2:saginaw-valley": "men-d2:gliac",
+    "men-d2:roosevelt-university": "men-d2:gliac",
+    "men-d2:purdue-northwest": "men-d2:gliac",
+    "men-d2:wis-parkside": "men-d2:gliac",
+    "men-d2:davenport": "men-d2:gliac",
+    "men-d2:st-cloud-st": "men-d2:gliac",
+    "women-d2:wayne-st-mi": "women-d2:gliac",
+    "women-d2:grand-valley-st": "women-d2:gliac",
+    "women-d2:davenport": "women-d2:gliac",
+    "women-d2:saginaw-valley": "women-d2:gliac",
+    "women-d2:northern-mich": "women-d2:gliac",
+    "women-d2:wis-parkside": "women-d2:gliac",
+    "women-d2:ferris-st": "women-d2:gliac",
+    "women-d2:purdue-northwest": "women-d2:gliac",
+    "women-d2:michigan-tech": "women-d2:gliac",
+    "women-d2:roosevelt-university": "women-d2:gliac"
   }
 }
