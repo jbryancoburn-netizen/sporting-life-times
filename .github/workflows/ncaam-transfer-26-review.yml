@@ -1,0 +1,22 @@
+name: NCAA 26 transfer candidate reconciliation
+on:
+  push:
+    paths:
+      - 'scripts/test_ncaam_transfer_all_26.py'
+      - 'data/ncaam-2026-27-unlinked-transfer-final-16-review.json'
+      - 'data/ncaam-2026-27-unlinked-official-corrections-batch-01.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - '.github/workflows/ncaam-transfer-26-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_ncaam_transfer_all_26.py
