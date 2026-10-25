@@ -32,7 +32,7 @@ try{
   const gc=await browser.newPage({viewport:{width:390,height:844}});
   try{
    const response=await gc.goto(new URL('nba-game-center.html',root).href,{waitUntil:'domcontentloaded',timeout:35000});
-   await gc.locator('#games option').first().waitFor({timeout:20000});
+   await gc.waitForFunction(()=>document.querySelectorAll('#games option').length>0&&document.querySelector('#games option')?.value?.startsWith('espn-nba-'),{timeout:20000});
    const count=await gc.locator('#games option').count();
    const detail=await gc.locator('#game').innerText();
    if(response.status()!==200||!count||!detail.includes('Complete Player Box Score'))throw Error('Game Center archive could not render a game and box score');
