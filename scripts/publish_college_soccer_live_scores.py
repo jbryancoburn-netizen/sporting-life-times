@@ -3,6 +3,8 @@ import datetime as dt
 import json
 import pathlib
 import urllib.request
+import urllib.error
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -30,7 +32,13 @@ def collect(today=None,get=None):
     if get is None:
         def get(url):
             req=urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimes/1.0","Accept":"application/json"})
-            with urllib.request.urlopen(req,timeout=18) as r:return json.load(r)
+            for attempt in range(5):
+                try:
+                    with urllib.request.urlopen(req,timeout=20) as r:return json.load(r)
+                except urllib.error.HTTPError as exc:
+                    if exc.code not in (428,429,500,502,503,504) or attempt==4:raise
+                    time.sleep(min(30,3*(2**attempt)))
+            raise RuntimeError("NCAA source retries exhausted")
     games={};failures=[]
     requests=[(day,gender,division,f"{API}/soccer-{gender}/d{division}/{day:%Y/%m/%d}/all-conf")
               for day in (today-dt.timedelta(days=1),today)
@@ -38,7 +46,7 @@ def collect(today=None,get=None):
     def fetch_one(request):
         day,gender,division,url=request
         return day,gender,division,get(url)
-    with ThreadPoolExecutor(max_workers=6) as pool:
+    with ThreadPoolExecutor(max_workers=2) as pool:
         pending={pool.submit(fetch_one,request):request for request in requests}
         for future in as_completed(pending):
             day,gender,division,_=pending[future]
