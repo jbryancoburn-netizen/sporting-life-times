@@ -124,8 +124,8 @@ function render(conf,table,ratings,rules,miacTable){
  national.append(el('p','Nationwide conference-by-conference brackets and NCAA at-large probability projections require complete 2026 soccer conference membership, conference tournament rules, official qualification status and NCAA selection metrics. Until verified, no unsupported at-large odds are published.','cs-post-note'));
 }
 async function refresh(){
- try{const [c,t,e,r,m]=await Promise.all([fetchJSON('data/college-soccer-conferences.json'),fetchJSON('data/college-soccer-miaa-standings.json'),fetchJSON('data/college-soccer-elo.json'),fetchJSON('data/college-soccer-postseason-rules.json'),fetchJSON('data/college-soccer-miac-standings.json')]);
- const signature=JSON.stringify([t.checked_at_utc,m.snapshot_checked_date,e.as_of,e.applied_finals_since_baseline,r.updated]);
+ try{const [c,t,e,r,m]=await Promise.all([fetchJSON('data/college-soccer-conferences.json'),fetchJSON('data/college-soccer-miaa-standings.json'),fetchJSON('data/college-soccer-elo.json'),fetchJSON('data/college-soccer-postseason-rules.json'),fetchJSON('data/college-soccer-miac-standings.json').catch(error=>{console.warn('MIAC standings temporarily unavailable; MIAA stays active',error);return null;})]);
+ const signature=JSON.stringify([t.checked_at_utc,m?.snapshot_checked_date||'miac-unavailable',e.as_of,e.applied_finals_since_baseline,r.updated]);
  if(signature!==lastSignature){render(c,t,e,r,m);lastSignature=signature;}
  }catch(error){if(!lastSignature){root.replaceChildren(el('p','Conference and postseason data unavailable: official standings or model feeds could not be verified.','cs-post-note'));}console.error('NCAA conference forecast',error);}
 }
