@@ -85,5 +85,8 @@
 .cs-data-freshness.cs-fresh-warn{border-left:3px solid #a56d3c;background:#f9f4eb}
 .cs-data-freshness.cs-fresh-warn strong{color:#9b552f}
 
-/* Match cards: remove decorative vertical strokes beside team names. */
-#college-soccer-visual-desk .cs-score-side{border-left:0!important;padding-left:0!important}
+/* Meaningful team-color score rails; winning side has added weight. */
+#college-soccer-visual-desk .cs-score-side{border-left:3px solid var(--team-stripe,#9aaab3)!important;padding-left:.4rem!important}
+#college-soccer-visual-desk .cs-score-side.cs-score-winner{border-left-width:6px!important;font-weight:700}
+#college-soccer-visual-desk .cs-score-side.cs-score-loser{opacity:.68}
+#college-soccer-visual-desk .cs-score-side:not(.cs-score-winner):not(.cs-score-loser){opacity:1}
