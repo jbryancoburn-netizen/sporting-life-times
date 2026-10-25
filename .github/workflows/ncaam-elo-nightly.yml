@@ -8,6 +8,7 @@ on:
       - 'scripts/update_ncaam_2027.py'
       - 'scripts/test_ncaam_elo.py'
       - 'scripts/replay_ncaam_espn_2027.py'
+      - 'data/ncaam-2026-27-preseason-player-quality-live.json'
       - 'scripts/test_replay_ncaam_espn_2027.py'
       - 'data/ncaam-2026-27-espn-team-crosswalk.json'
       - '.github/workflows/ncaam-elo-nightly.yml'
@@ -57,13 +58,14 @@ jobs:
               assert out['games_played']==len(out['events'])
               assert len({t['team_id'] for t in out['rankings']})==365
               assert out['status']=='provisional-current-venue-neutral'
+              assert out['preseason_seed']=='data/ncaam-2026-27-preseason-player-quality-live.json'
               assert all(isinstance(t['elo'],(int,float)) for t in out['rankings'])
               assert all(t['rank']==i for i,t in enumerate(out['rankings'],1))
               assert all(out['rankings'][i-1]['elo']>=out['rankings'][i]['elo'] for i in range(1,365))
               print('Verified',out['games_played'],'real games')
           else:
               assert not (base/'ncaam-2026-27-current-provisional.json').exists()
-              print('Historical preseason remains primary: unreleased new-season data.')
+              print('Player-quality preseason remains primary until real finals are available.')
           PY
       - name: Commit changed verified source readiness and ratings
         run: |
