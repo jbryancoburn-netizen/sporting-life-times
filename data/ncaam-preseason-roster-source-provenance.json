@@ -1,6 +1,6 @@
 {
   "audit": "ncaam-2024-2026-original-preopening-roster-sources",
-  "created_utc": "2026-10-25T19:45:07.493517+00:00",
+  "created_utc": "2026-10-25T19:46:30.220833+00:00",
   "status": "PARTIAL_SCHOOL_PRESEASON_DOCUMENT_EVIDENCE",
   "existing_retrospective_rosters_promotable": false,
   "rule": "School document URL date is indicative, but only a pre-opening immutable capture containing parsed roster proves as-of membership.",
@@ -8,8 +8,10 @@
     "school_season_documents_tested": 5,
     "official_documents_retrieved": 5,
     "preseason_dated_documents_retrieved": 5,
-    "confirmed_archived_pregame_content_sources": 2,
+    "confirmed_archived_pregame_content_sources": 3,
     "season_roster_url_candidates_checked": 9,
+    "season_roster_archive_replay_inconclusive": 0,
+    "document_archive_replay_inconclusive": 0,
     "fully_verified_365_team_preseason_roster_snapshots": 0,
     "dataset_complete_for_2024_2025_training_2026_holdout": false
   },
@@ -133,8 +135,8 @@
       "immutable_prior_to_first_game_content_verified": true,
       "source_published_date_basis": "date embedded in official school URL; not an archive capture timestamp",
       "content_type": "text/html;charset=utf-8",
-      "bytes": 463534,
-      "sha256_fetched_now": "88f53139550619d6ec9f6a6f8c88c697dba8987f62d2cddaabce8839003909e9",
+      "bytes": 463535,
+      "sha256_fetched_now": "26900bd3eab90b31b5c870b80573d862c2bb1826808547eedbfef2b9a53889c7",
       "initial_only": true,
       "roster_section_identified": true,
       "status": "DATED_OFFICIAL_CONTENT_RETRIEVED_NO_HISTORICAL_CAPTURE",
@@ -164,7 +166,9 @@
           "Jasai Miles",
           "Reed Bailey"
         ],
-        "verified_scope": "dated historical source content, not 365-team all-roster certification"
+        "verified_scope": "dated historical source content, not 365-team all-roster certification",
+        "replay_transient_failures": 0,
+        "verification_inconclusive_due_to_replay_errors": false
       },
       "verification_scope": "Archived historical announcement/roster content; no proof of complete preseason team universe"
     }
@@ -212,16 +216,6 @@
       ],
       "count_valid_pregame_capture_records": 8,
       "independently_verified_preopening_roster_content": true,
-      "replay_diagnostics": [
-        {
-          "timestamp_utc": "20230817044045",
-          "reason": "<urlopen error timed out>"
-        },
-        {
-          "timestamp_utc": "20230817044045",
-          "reason": "<urlopen error timed out>"
-        }
-      ],
       "captured_content_sha256": "0f340a654a1956004544a2ab13634eb25dadae641a31ae8b3eced5c7f09c21a1",
       "verified_capture_utc": "20230817044045",
       "capture_url": "https://web.archive.org/web/20230817044045id_/https://goduke.com/sports/mens-basketball/roster/2023-24",
@@ -230,7 +224,9 @@
         "Jared McCain",
         "Jeremy Roach"
       ],
-      "verified_scope": "dated historical source content, not 365-team all-roster certification"
+      "verified_scope": "dated historical source content, not 365-team all-roster certification",
+      "replay_transient_failures": 0,
+      "verification_inconclusive_due_to_replay_errors": false
     },
     {
       "team": "Indiana",
@@ -273,14 +269,17 @@
       "replay_diagnostics": [
         {
           "timestamp_utc": "20240726102837",
-          "reason": "<urlopen error timed out>"
+          "reason": "Archived bytes lack trusted roster text anchors",
+          "mime": "text/html; charset=utf-8"
         },
         {
           "timestamp_utc": "20240805152257",
           "reason": "Archived bytes lack trusted roster text anchors",
           "mime": "text/html; charset=utf-8"
         }
-      ]
+      ],
+      "replay_transient_failures": 0,
+      "verification_inconclusive_due_to_replay_errors": false
     },
     {
       "team": "Indiana",
@@ -329,9 +328,12 @@
       "replay_diagnostics": [
         {
           "timestamp_utc": "20250410022151",
-          "reason": "<urlopen error timed out>"
+          "reason": "Archived bytes lack trusted roster text anchors",
+          "mime": "text/html; charset=utf-8"
         }
-      ]
+      ],
+      "replay_transient_failures": 0,
+      "verification_inconclusive_due_to_replay_errors": false
     },
     {
       "team": "Purdue",
@@ -346,13 +348,18 @@
         }
       ],
       "count_valid_pregame_capture_records": 1,
-      "independently_verified_preopening_roster_content": false,
-      "replay_diagnostics": [
-        {
-          "timestamp_utc": "20250810011541",
-          "reason": "<urlopen error timed out>"
-        }
-      ]
+      "independently_verified_preopening_roster_content": true,
+      "captured_content_sha256": "f8c0716c22f26f26c0f9db771a8ee6c1257b81d266dd6385d9f65fbd61f6afb4",
+      "verified_capture_utc": "20250810011541",
+      "capture_url": "https://web.archive.org/web/20250810011541id_/https://purduesports.com/sports/mens-basketball/roster/season/2025-26",
+      "captured_bytes": 1204714,
+      "matched_player_evidence": [
+        "Omer Mayer",
+        "Oscar Cluff"
+      ],
+      "verified_scope": "dated historical source content, not 365-team all-roster certification",
+      "replay_transient_failures": 0,
+      "verification_inconclusive_due_to_replay_errors": false
     }
   ]
 }
