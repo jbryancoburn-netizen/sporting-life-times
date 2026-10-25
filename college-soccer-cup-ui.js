@@ -42,6 +42,20 @@ function bracket(parent,teams,cohort,branding,labels={}){
  root.append(node('p','cs-cup-caveat','Illustrative seeding from the latest published conference table; actual opponents, tiebreakers and eligibility remain subject to the conference.'));
  parent.append(root);return root;
 }
+function bracketEight(parent,teams,cohort,branding,labels={}){
+ if(!Array.isArray(teams)||teams.length!==8)return;
+ const t=teams.map((x,i)=>({id:x.id||x.team_id,name:x.name||x.team?.team||x.team,seed:i+1}));
+ const root=node('div','cs-cup-bracket');root.setAttribute('aria-label','Provisional eight-team conference tournament bracket');
+ const round=(title,cls)=>{const r=node('section','cs-cup-round '+cls);r.append(node('h4','cs-cup-round-title',title));root.append(r);return r;};
+ const first=round(labels.q||'QUARTERFINALS','quarter');
+ for(const [a,b]of [[0,7],[3,4],[1,6],[2,5]])first.append(pair('SEEDS '+(a+1)+' / '+(b+1),t[a],t[b],cohort,branding));
+ const semi=round(labels.s||'SEMIFINALS','semis');
+ semi.append(pair('1/8 WINNER VS 4/5 WINNER',null,null,cohort,branding),pair('2/7 WINNER VS 3/6 WINNER',null,null,cohort,branding));
+ const final=round(labels.f||'CHAMPIONSHIP','championship');const card=node('div','cs-cup-final');
+ card.append(node('span','cs-cup-trophy','★'),node('strong',null,'CONFERENCE FINAL'),node('span',null,'Semifinal winners'));final.append(card);
+ root.append(node('p','cs-cup-caveat','Provisional pairings from official standings; official seeds/tiebreakers determine the final bracket.'));
+ parent.append(root);return root;
+}
 function decorateTable(table,teams,cohort,branding){
  if(!table)return;
  const rows=table.querySelectorAll('tbody tr');
@@ -53,5 +67,5 @@ function decorateTable(table,teams,cohort,branding){
   link.prepend(crest(name,id,cohort,branding));
  }
 }
-window.CollegeSoccerCupUI=Object.freeze({crest,school,bracket,decorateTable});
+window.CollegeSoccerCupUI=Object.freeze({crest,school,bracket,bracketEight,decorateTable});
 })();
