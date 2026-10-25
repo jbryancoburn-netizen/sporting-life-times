@@ -28,6 +28,23 @@ class ArchivePDFTest(unittest.TestCase):
             out=audit.check_archived_roster_bytes(archive,"preseason_pdf")
         self.assertTrue(out["independently_verified_preopening_roster_content"])
         self.assertEqual(out["matched_player_evidence"],["Cooper Flagg","Kon Knueppel"])
+    def test_later_valid_capture_is_examined(self):
+        archive={"team":"Duke","season_end_year":2025,
+                 "pregame_archived_captures":[
+                     {"timestamp_utc":"20240701000000","original":"https://goduke.com/documents/roster.pdf"},
+                     {"timestamp_utc":"20240801000000","original":"https://goduke.com/documents/roster.pdf"},
+                     {"timestamp_utc":"20241001000000","original":"https://goduke.com/documents/roster.pdf"}]}
+        fake=types.ModuleType("pypdf")
+        fake.PdfReader=DummyReader
+        # The first two archived snapshots may predate final roster publication.
+        replies=[(b"<html>Old roster</html>","text/html"),
+                 (b"<html>Old roster</html>","text/html"),
+                 (b"%PDF-1.4 sample","application/pdf")]
+        with patch.dict(sys.modules,{"pypdf":fake}),patch.object(audit,"fetch_limited",side_effect=replies) as fetch:
+            out=audit.check_archived_roster_bytes(archive,"preseason_pdf")
+        self.assertTrue(out["independently_verified_preopening_roster_content"])
+        self.assertEqual(out["verified_capture_utc"],"20241001000000")
+        self.assertEqual(fetch.call_count,3)
     def test_missing_players_fails_closed(self):
         class WrongReader:
             def __init__(self,*args,**kwargs):self.pages=[types.SimpleNamespace(extract_text=lambda:"TEAM ROSTER Cooper Flagg")]
