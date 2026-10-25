@@ -20,8 +20,34 @@ function render(x){
  const plays=x.plays||x.scoringPlays||[];
  $('plays').innerHTML=plays.length?'<ol class="plays">'+plays.slice(-35).reverse().map(p=>'<li><b>'+esc(p.clock?.displayValue||'')+'</b> '+esc(p.text||p.type?.text||'')+'</li>').join('')+'</ol>':'<p class="muted">Play-by-play not available for this game.</p>';
 }
+function renderNba(payload){
+ const g=payload.game||payload;if(!g.homeTeam||!g.awayTeam)throw Error('NBA box score incomplete');
+ const teams=[g.awayTeam,g.homeTeam];
+ const team=t=>'<div class="team" style="--team-color:#293448"><img src="'+logo(t.teamTricode)+'" alt=""><span class="name">'+esc(((t.teamCity||'')+' '+(t.teamName||'')).trim()||t.teamTricode)+'</span><b>'+esc(t.score??'—')+'</b></div>';
+ $('score').innerHTML='<div class="game-state">'+esc(g.gameStatusText||'NBA LIVE')+'</div><div class="teams">'+teams.map(team).join('')+'</div>';
+ const max=Math.max(4,...teams.map(t=>(t.periods||[]).length));
+ $('quarters').innerHTML='<table><thead><tr><th>TEAM</th>'+Array.from({length:max},(_,i)=>'<th>'+(i<4?'Q'+(i+1):'OT'+(i-3))+'</th>').join('')+'<th>TTL</th></tr></thead><tbody>'+teams.map(t=>'<tr><td>'+esc(t.teamTricode)+'</td>'+Array.from({length:max},(_,i)=>'<td>'+esc(t.periods?.[i]?.score??'–')+'</td>').join('')+'<td>'+esc(t.score)+'</td></tr>').join('')+'</tbody></table>';
+ const keys=[['pointsInThePaint','Paint points'],['pointsSecondChance','Second-chance'],['pointsFastBreak','Fast-break'],['reboundsTotal','Rebounds'],['assists','Assists'],['turnovers','Turnovers'],['blocks','Blocks'],['steals','Steals']];
+ $('team-stats').innerHTML='<table><thead><tr><th>STAT</th>'+teams.map(t=>'<th>'+esc(t.teamTricode)+'</th>').join('')+'</tr></thead><tbody>'+keys.map(([key,label])=>'<tr><td>'+label+'</td>'+teams.map(t=>'<td>'+esc(t.statistics?.[key]??'—')+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+ $('players').innerHTML=teams.map(t=>'<h4>'+esc(t.teamTricode)+'</h4><div class="scroll"><table><thead><tr><th>PLAYER</th><th>MIN</th><th>PTS</th><th>REB</th><th>AST</th><th>FG</th><th>3PT</th></tr></thead><tbody>'+(t.players||[]).map(p=>{let q=p.statistics||{};return '<tr><td>'+esc(p.name||p.nameI||'')+'</td><td>'+esc(q.minutes||'—')+'</td><td>'+esc(q.points??'—')+'</td><td>'+esc(q.reboundsTotal??'—')+'</td><td>'+esc(q.assists??'—')+'</td><td>'+esc((q.fieldGoalsMade??'—')+'/'+(q.fieldGoalsAttempted??'—'))+'</td><td>'+esc((q.threePointersMade??'—')+'/'+(q.threePointersAttempted??'—'))+'</td></tr>'}).join('')+'</tbody></table></div>').join('');
+ $('plays').innerHTML='<p class="muted">Play-by-play is unavailable from this NBA box-score endpoint.</p>';
+}
 async function update(){
- try{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event='+encodeURIComponent(id)+'&_='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const x=await r.json();render(x);lastGood=Date.now();$('updated').textContent='Last checked '+new Date(lastGood).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET · auto-refresh 60 sec'}catch(e){$('updated').textContent='Live update failed'+(lastGood?' · showing last received data':' · data unavailable');if(!lastGood)$('score').textContent='Could not retrieve game details. '+e.message}
+ const sources=id.startsWith('00')?[
+  ['NBA live box score','https://cdn.nba.com/static/json/liveData/boxscore/boxscore_'+id+'.json',renderNba],
+  ['ESPN game summary','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event='+id,render]
+ ]:[
+  ['ESPN game summary','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event='+id,render],
+  ['NBA live box score','https://cdn.nba.com/static/json/liveData/boxscore/boxscore_'+id+'.json',renderNba]
+ ];
+ for(const [name,url,show] of sources){
+  try{const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),6500);let response;try{response=await fetch(url+(url.includes('?')?'&':'?')+'_='+Date.now(),{cache:'no-store',signal:controller.signal})}finally{clearTimeout(timer)}if(!response.ok)throw Error('HTTP '+response.status);
+   const json=await response.json();show(json);lastGood=Date.now();
+   $('updated').textContent=name+' · checked '+new Date(lastGood).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET · refresh 60 sec';return;
+  }catch(e){console.warn(name+' unavailable:',e.message)}
+ }
+ $('updated').textContent='Live game sources unavailable'+(lastGood?' · showing last received data':'');
+ if(!lastGood)$('score').innerHTML='<p class="muted">Game details could not be verified from either source. <a href="nba.html">Return to NBA scores</a>.</p>';
 }
 update();setInterval(()=>{if(!document.hidden)update()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 })();
