@@ -1,16 +1,10 @@
 {
   "input_targets": 489,
-  "already_classified": 447,
+  "already_classified": 449,
   "new_official_class_years": 0,
   "source_results": [
     {
       "school": "Western Ill.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
-      "school": "East Texas A&M",
       "status": "processed",
       "matched": 0,
       "targeted": 1
@@ -90,12 +84,6 @@
       "error": "HTTP Error 405: Not Allowed"
     },
     {
-      "school": "Wright St.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "Auburn",
       "status": "processed",
       "matched": 0,
@@ -120,18 +108,12 @@
       "targeted": 2
     }
   ],
-  "still_unmatched_in_queue": 42,
+  "still_unmatched_in_queue": 40,
   "unmatched_sample": [
     {
       "id": "5462468",
       "school": "Western Ill.",
       "name": "Tayelor Moore",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5460719",
-      "school": "East Texas A&M",
-      "name": "Gasper Skorjanc",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -213,12 +195,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5234298",
-      "school": "Wright St.",
-      "name": "Ilija Milijasevic",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5351499",
       "school": "Auburn",
       "name": "Mantas Rubstavicius",
@@ -251,5 +227,5 @@
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1972
+  "total_official_class_year_records": 1974
 }
