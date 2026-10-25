@@ -51,7 +51,7 @@ jobs:
           report=json.loads(Path("/tmp/collected-school-report.json").read_text())
           report["new_unique_saved_against_latest_main"]=len(new)
           report["total_official_class_year_records"]=len(saved)+len(new)
-          Path("data/ncaam-2026-27-official-bulk-recovery-report.json").write_text(json.dumps(report,indent=2)+"\\n")
+          Path("data/ncaam-2026-27-official-bulk-recovery-report.json").write_text(json.dumps(report,indent=2)+chr(10))
           print("Merged",len(new),"new player records; total",len(saved)+len(new))
           PY
             git add data/ncaam-2026-27-school-roster-class-years.csv data/ncaam-2026-27-official-bulk-recovery-report.json
