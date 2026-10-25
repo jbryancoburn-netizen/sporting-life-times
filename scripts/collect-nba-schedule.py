@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Upcoming/live NBA games for the independent NBA newspaper.
 
-Fetches the active and next seven Eastern calendar dates from ESPN scoreboards.
+Fetches the previous two, current, and next seven Eastern calendar dates from ESPN scoreboards.
 Schedules and live scores are attributed to ESPN, never invented. Completed games
 remain in the separate final-score Elo and player-box repositories.
 """
@@ -64,7 +64,7 @@ def main():
     from zoneinfo import ZoneInfo
     now = datetime.now(timezone.utc)
     eastern_today = now.astimezone(ZoneInfo("America/New_York")).date()
-    dates = [(eastern_today + timedelta(days=i)).strftime("%Y%m%d") for i in range(8)]
+    dates = [(eastern_today + timedelta(days=i)).strftime("%Y%m%d") for i in range(-2, 8)]
     data = {}
     failed_dates = []
     with ThreadPoolExecutor(max_workers=4) as pool:
