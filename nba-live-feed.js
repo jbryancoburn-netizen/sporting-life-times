@@ -64,16 +64,29 @@ async function update(){
    }
   }catch(e){console.warn('NBA feed failed:',name,e.message)}
  }
- if(!successful.length){
-  try{
-   const response=await fetch('data/nba-upcoming-schedule.json?_='+Date.now(),{cache:'no-store'});
-   if(!response.ok)throw Error('HTTP '+response.status);
-   for(const event of fromArchive(await response.json()).events){
-    const when=Date.parse(event.date||'');
-    if(Number.isFinite(when)&&when>=Date.now()-36*3600000&&when<=Date.now()+24*3600000)merged.set(String(event.id),event);
+ // Merge the published schedule even when a live provider returns an incomplete set.
+ // Never let a successful but partial scoreboard silently erase a scheduled matchup.
+ try{
+  const response=await fetch('data/nba-upcoming-schedule.json?_='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const snapshot=await response.json();
+  const publishedAt=Date.parse(snapshot.updated_at||'');
+  const stale=!Number.isFinite(publishedAt)||Date.now()-publishedAt>30*60000;
+  for(const event of fromArchive(snapshot).events){
+   const when=Date.parse(event.date||'');
+   if(!Number.isFinite(when)||when<Date.now()-48*3600000||when>Date.now()+24*3600000)continue;
+   const teams=event.competitions?.[0]?.competitors||[];
+   const away=teams.find(x=>x.homeAway==='away')?.team?.abbreviation||'';
+   const home=teams.find(x=>x.homeAway==='home')?.team?.abbreviation||'';
+   const gameKey=away&&home?away+'-'+home+'-'+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(when)):String(event.id);
+   if(merged.has(gameKey))continue;
+   if(stale&&event.status?.type?.state==='in'){
+    event.status.type.state='pre';
+    event.status.type.shortDetail='Score update pending';
    }
-  }catch(e){console.warn('Published NBA schedule unavailable:',e.message)}
- }
+   merged.set(gameKey,event);
+  }
+ }catch(e){console.warn('Published NBA schedule unavailable:',e.message)}
  if(merged.size){
   render({events:[...merged.values()]});lastOK=Date.now();
   status.textContent=(successful.length?'LIVE SOURCES · '+successful.join(' + '):'Live feeds unavailable · published snapshot')+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
