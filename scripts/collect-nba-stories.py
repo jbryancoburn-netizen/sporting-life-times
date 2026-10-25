@@ -42,7 +42,7 @@ def espn(now):
   yield dict(title=title,url=link,summary=clean(a.get("description",""))[:360],source="ESPN NBA",category="NBA",scope="national",published_at=dt.isoformat())
 PROMOTIONS = re.compile(r"(?:betmgm|draftkings|fanduel|caesars sportsbook|bet365|sportsbook|bonus (?:bet|code|offer)|promo code|promotional code|free bet|bonus bets?|best bets?|player props?|same.game parlay|parlay|odds boost|betting picks?|wager|risk.free|sports betting|fantasy basketball|pick(?:s)? against the spread|world series|brewers|rays)",re.I)
 NON_NBA = re.compile(r"\b(?:WNBA|Valkyries|women['’]s national basketball association|G League Draft Results)\b",re.I)
-DIRECTORY = re.compile(r"^(?:Get Your Latest NBA News|Latest NBA News|NBA News and Rumors|NBA News)$",re.I)
+DIRECTORY = re.compile(r"^(?:Get Your Latest NBA News.*|Latest NBA News.*|NBA News and Rumors.*|NBA News)$",re.I)
 def editorial(a):
  title=clean(str(a.get("title") or ""))
  body=" ".join(str(a.get(k) or "") for k in ("title","summary","url"))
@@ -52,12 +52,16 @@ def editorial(a):
 
 
 def main():
- now=datetime.now(timezone.utc);items=[];fail=[]
+ now=datetime.now(timezone.utc);items=[];fail=[];fresh_sources=0
  for name,url,scope in FEEDS:
-  try:items.extend(rss(name,url,scope,now))
+  try:
+   collected=list(rss(name,url,scope,now));items.extend(collected);fresh_sources+=len(collected)
   except Exception as e:fail.append(name+": "+str(e)[:100])
- try:items.extend(espn(now))
+ try:
+  collected=list(espn(now));items.extend(collected);fresh_sources+=len(collected)
  except Exception as e:fail.append("ESPN API: "+str(e)[:100])
+ if fresh_sources==0:
+  raise SystemExit("All live NBA news sources yielded zero usable stories; refusing to redate an old feed: "+" | ".join(fail))
  if OUT.exists():
   try:
    old=json.loads(OUT.read_text())
@@ -70,6 +74,6 @@ def main():
   if a["url"] in seen or k in seen:continue
   seen.add(a["url"]);seen.add(k);dedup.append(a)
  if not dedup:raise SystemExit("No NBA publisher stories obtained; refusing empty overwrite: "+" | ".join(fail))
- OUT.write_text(json.dumps(dict(updated_at=now.isoformat(),articles=dedup[:100],feed_errors=fail),indent=2,ensure_ascii=False)+"\n")
+ OUT.write_text(json.dumps(dict(updated_at=now.isoformat(),articles=dedup[:100],feed_errors=fail,live_source_articles=fresh_sources),indent=2,ensure_ascii=False)+"\n")
  print("NBA stories:",len(dedup),"feed failures:",len(fail))
 if __name__=="__main__":main()
