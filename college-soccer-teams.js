@@ -59,9 +59,64 @@ const metrics=node('div',undefined,'team-metrics');
 for(const [label,value] of [['Elo',fmt(t.elo)],['Division rank','#'+t.rank],['Record',t.record],['Goals for / against',t.gf+' / '+t.ga],['Goal differential',(t.gd>0?'+':'')+t.gd]]){const metric=node('div',undefined,'team-metric');metric.append(node('span',label),node('strong',value));metrics.append(metric);}
 metrics.firstElementChild.classList.add('team-metric-lead');
 profile.append(metrics);
+const visual=node('section',undefined,'team-visual-report');
+visual.id='team-visual-report';
+const visualHead=node('div',undefined,'team-visual-heading');
+visualHead.append(node('h3','The Season in Numbers'),node('span','2026 · '+t.gp+' matches'));
+visual.append(visualHead);
+const panels=node('div',undefined,'team-visual-grid');
+const formPanel=node('div',undefined,'team-visual-panel');
+formPanel.append(node('h4','Season Results'));
+const resultVisual=node('div',undefined,'team-results-visual');
+const donut=node('div',undefined,'team-results-donut');
+const matches=Math.max(0,Number(t.w)+Number(t.d)+Number(t.l));
+if(matches){
+ const wp=100*Number(t.w)/matches,dp=100*Number(t.d)/matches;
+ donut.style.background='conic-gradient(#2d775b 0 '+wp+'%,#d7ae64 '+wp+'% '+(wp+dp)+'%,#ba6257 '+(wp+dp)+'% 100%)';
+}else donut.classList.add('team-empty-donut');
+const hole=node('div',undefined,'team-donut-hole');
+hole.append(node('strong',String(matches)),node('small','MATCHES'));donut.append(hole);
+resultVisual.append(donut);
+const legend=node('div',undefined,'team-results-legend');
+for(const [label,value,k] of [['Wins',t.w,'win'],['Draws',t.d,'draw'],['Losses',t.l,'loss']]){
+ const line=node('div',undefined,'team-legend-line');
+ line.append(node('span',label,'team-legend-label team-legend-'+k),node('strong',String(value)));
+ legend.append(line);
+}
+resultVisual.append(legend);formPanel.append(resultVisual);
+panels.append(formPanel);
+const goalsPanel=node('div',undefined,'team-visual-panel');
+goalsPanel.append(node('h4','Attack & Defense'));
+const maxGoals=Math.max(1,Number(t.gf)||0,Number(t.ga)||0);
+for(const [label,value,type] of [['Goals scored',t.gf,'for'],['Goals conceded',t.ga,'against']]){
+ const row=node('div',undefined,'team-goal-row');
+ const heading=node('div',undefined,'team-goal-row-head');heading.append(node('span',label),node('strong',String(value)));row.append(heading);
+ const rail=node('div',undefined,'team-goal-rail'),bar=node('div',undefined,'team-goal-fill team-goal-'+type);
+ bar.style.width=(100*Number(value)/maxGoals).toFixed(1)+'%';rail.append(bar);row.append(rail);goalsPanel.append(row);
+}
+const gd=node('div',undefined,'team-goal-difference');gd.append(node('span','Goal difference'),node('strong',(Number(t.gd)>0?'+':'')+t.gd));goalsPanel.append(gd);
+panels.append(goalsPanel);
+const ratingPanel=node('div',undefined,'team-visual-panel');
+ratingPanel.append(node('h4','Elo League Context'));
+const division=rankings.cohorts[t.cohort]||[];
+const ratingValues=division.map(team=>Number(team.elo)).filter(Number.isFinite);
+const avg=ratingValues.length?ratingValues.reduce((sum,v)=>sum+v,0)/ratingValues.length:0;
+const top=ratingValues.length?Math.max(...ratingValues):0;
+const ratingList=node('div',undefined,'team-elo-bars');
+const scale=Math.max(top,Number(t.elo),1);
+for(const [label,value,type] of [['This program',Number(t.elo),'team'],['Division average',avg,'average'],['Division leader',top,'leader']]){
+ const row=node('div',undefined,'team-elo-bar-row');const labelRow=node('div',undefined,'team-goal-row-head');
+ labelRow.append(node('span',label),node('strong',fmt(value)));row.append(labelRow);
+ const rail=node('div',undefined,'team-goal-rail');const bar=node('div',undefined,'team-goal-fill team-elo-'+type);
+ bar.style.width=(100*value/scale).toFixed(1)+'%';rail.append(bar);row.append(rail);ratingList.append(row);
+}
+ratingPanel.append(ratingList);
+ratingPanel.append(node('p','Current provisional Elo ratings within this division. Bars share a zero-based scale; not historical change.','team-visual-footnote'));
+panels.append(ratingPanel);
+visual.append(panels);profile.append(visual);
 const sectionNav=node('nav',undefined,'team-section-nav');
 sectionNav.setAttribute('aria-label','Team profile sections');
-for(const [href,label] of [['team-featured','Match Center'],['team-news','News'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
+for(const [href,label] of [['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
  const a=node('a',label);a.href='#'+href;sectionNav.append(a);
 }
 profile.append(sectionNav);
