@@ -114,7 +114,7 @@ async function render(){
     else if(match.kickoff)card.append(E('span',String(match.kickoff),'cs-official-kickoff'));
     group.append(card)}rounds.append(group)}bracket.append(rounds,A('Official tournament bracket source',officialBracket.source_url));
  }else 
- if(cup&&formatCertified&&(field===6||field===8||field===15)&&entrants.length===field){const visual=field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket;visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',quarter:rule.tournament?.quarterfinal_date||'QUARTERFINALS',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
+ if(cup&&formatCertified&&(field===6||field===8||field===15)&&entrants.length===field){const visual=entrants.every(t=>Number.isFinite(t.elo))&&cup.predictiveBracket?cup.predictiveBracket:(field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket);visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',quarter:rule.tournament?.quarterfinal_date||'QUARTERFINALS',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
   const note=E('div',null,'cs-conf-unverified-bracket');
   note.append(E('strong','TOURNAMENT BRACKET PENDING OFFICIAL RULES'));
   const strip=E('div',null,'cs-conf-qualifier-strip');
