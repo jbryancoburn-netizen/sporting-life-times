@@ -1,5 +1,11 @@
 name: News wire refresh
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/refresh_news.py'
+      - 'test_news_wire.py'
+      - '.github/workflows/news-wire.yml'
   workflow_dispatch:
   schedule:
     - cron: '11,41 * * * *'
