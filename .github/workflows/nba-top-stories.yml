@@ -27,10 +27,10 @@ jobs:
           python-version: '3.12'
       - name: Validate NBA collector
         run: python -m py_compile scripts/collect-nba-stories.py
-      - name: Verify editorial filtering
-        run: python scripts/test-nba-news-editorial.py
       - name: Refresh attributed headlines
         run: python scripts/collect-nba-stories.py
+      - name: Verify editorial filtering on refreshed headlines
+        run: python scripts/test-nba-news-editorial.py
       - name: Validate published stories
         run: |
           python - <<'PY'
