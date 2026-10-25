@@ -48,3 +48,14 @@
 
 .epl-form-cell{white-space:nowrap}.epl-form-cell span{display:inline-grid;place-items:center;width:15px;height:16px;margin-left:2px;font:700 9px Arial,sans-serif;color:#fff}.epl-form-w{background:#2f7757}.epl-form-d{background:#a18b5f}.epl-form-l{background:#b35550}
 @media(max-width:620px){.epl-standings th:last-child,.epl-standings td:last-child{display:none}}
+
+/* Score-rail repair: one link per match, two balanced team rows. */
+#epl-visual-desk .epl-score-rail{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important}
+#epl-visual-desk .epl-score-tile{display:block!important;min-width:0!important;padding:12px 13px!important;box-sizing:border-box!important}
+#epl-visual-desk .epl-score-tile>div{display:grid!important;grid-template-columns:minmax(0,1fr) 28px!important;gap:8px!important;align-items:center!important;margin:8px 0!important;min-width:0!important}
+#epl-visual-desk .epl-score-tile .epl-team{display:flex!important;align-items:center!important;min-width:0!important;width:100%!important;gap:7px!important}
+#epl-visual-desk .epl-score-tile .epl-team>span:last-child{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;min-width:0!important}
+#epl-visual-desk .epl-score-tile>div>b{font:800 19px/1 Arial,sans-serif!important;text-align:right!important;white-space:nowrap!important}
+#epl-visual-desk .epl-score-tile .epl-crest{width:25px!important;height:25px!important}
+@media(max-width:800px){#epl-visual-desk .epl-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:400px){#epl-visual-desk .epl-score-rail{grid-template-columns:minmax(0,1fr)!important}#epl-visual-desk .epl-score-tile{padding:10px 12px!important}#epl-visual-desk .epl-score-tile:nth-child(n){border-right:0!important;border-top:1px solid #ccc!important}}
