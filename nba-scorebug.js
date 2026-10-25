@@ -10,7 +10,7 @@ function team(t,opts={}){
  const espnCodes={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'};
  const logoUrl=opts.logo||(colors[normalized]?'https://a.espncdn.com/i/teamlogos/nba/500/'+(espnCodes[normalized]||normalized.toLowerCase())+'.png':'');
  const logo=logoUrl?'<img src="'+esc(logoUrl)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
- return '<div class="slt-scorebug-team '+(opts.winner?'is-winner':'')+'" style="--team-color:'+color(t)+'"><span class="slt-scorebug-identity">'+logo+'<span><b>'+esc(t.code)+'</b><small>'+esc(t.name||t.code)+'</small></span></span><span class="slt-scorebug-number">'+(score===undefined||score===null?'—':esc(score))+'</span></div>';
+ return '<div class="slt-scorebug-team '+(opts.winner?'is-winner':'')+'" style="--team-color:'+color(t)+'"><span class="slt-scorebug-identity">'+logo+'<span><b>'+esc(t.code)+'</b><small>'+esc(t.name||t.code)+'</small>'+(t.record?'<small class="slt-scorebug-record">'+esc(t.record)+'</small>':'')</span></span><span class="slt-scorebug-number">'+(score===undefined||score===null?'—':esc(score))+'</span></div>';
 }
 function render(args){
  if(!args?.away||!args?.home)throw Error('Scorebug requires ordered away/home teams');
