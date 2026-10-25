@@ -356,6 +356,43 @@
       "page": "college-soccer-ivy-men.html",
       "standings_feed": "data/college-soccer-men-d1-ivy-standings.json",
       "verification_status": "mapped_verified"
+    },
+    "men-d1:wcc": {
+      "name": "West Coast Conference",
+      "short": "WCC",
+      "teams": [
+        "portland",
+        "san-diego",
+        "denver",
+        "pacific",
+        "san-francisco",
+        "santa-clara",
+        "seattle",
+        "loyola-marymount",
+        "st-marys-ca"
+      ],
+      "source_url": "https://wccsports.com/standings.aspx?path=msoc",
+      "page": "college-soccer-wcc-men.html",
+      "standings_feed": "data/college-soccer-men-d1-wcc-standings.json",
+      "verification_status": "snapshot_provisional"
+    },
+    "men-d1:ovc": {
+      "name": "Ohio Valley Conference",
+      "short": "OVC",
+      "teams": [
+        "siu-edwardsville",
+        "uiw",
+        "lindenwood-mo",
+        "eastern-ill",
+        "houston-christian",
+        "western-ill",
+        "southern-ind",
+        "utrgv"
+      ],
+      "source_url": "https://ovcsports.com/standings.aspx?path=msoc",
+      "page": "college-soccer-ovc-men.html",
+      "standings_feed": "data/college-soccer-men-d1-ovc-standings.json",
+      "verification_status": "snapshot_provisional"
     }
   },
   "team_to_conference": {
@@ -541,6 +578,23 @@
     "men-d1:yale": "men-d1:ivy",
     "men-d1:princeton": "men-d1:ivy",
     "men-d1:columbia": "men-d1:ivy",
-    "men-d1:brown": "men-d1:ivy"
+    "men-d1:brown": "men-d1:ivy",
+    "men-d1:portland": "men-d1:wcc",
+    "men-d1:san-diego": "men-d1:wcc",
+    "men-d1:denver": "men-d1:wcc",
+    "men-d1:pacific": "men-d1:wcc",
+    "men-d1:san-francisco": "men-d1:wcc",
+    "men-d1:santa-clara": "men-d1:wcc",
+    "men-d1:seattle": "men-d1:wcc",
+    "men-d1:loyola-marymount": "men-d1:wcc",
+    "men-d1:st-marys-ca": "men-d1:wcc",
+    "men-d1:siu-edwardsville": "men-d1:ovc",
+    "men-d1:uiw": "men-d1:ovc",
+    "men-d1:lindenwood-mo": "men-d1:ovc",
+    "men-d1:eastern-ill": "men-d1:ovc",
+    "men-d1:houston-christian": "men-d1:ovc",
+    "men-d1:western-ill": "men-d1:ovc",
+    "men-d1:southern-ind": "men-d1:ovc",
+    "men-d1:utrgv": "men-d1:ovc"
   }
 }
