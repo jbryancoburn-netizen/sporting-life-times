@@ -64,12 +64,21 @@ jobs:
           test -s nba-live-game.js
           grep -q 'nba-live-game.js?v=4' nba-live-game.html
           grep -q 'nba-live-game.html?game=' nba-live-feed.js
+          grep -q 'fallbackRecords' nba-live-feed.js
+          grep -q 'recordsByEvent' nba-intelligence.js
+          grep -q 'slt-scorebug-record' nba-scorebug.js
           node --check nba-live-game.js
           grep -q 'id="live-leaders"' nba-live-game.html
           grep -q 'leadersPanel' nba-live-game.js
           grep -q 'function comparison(' nba-live-game.js
           grep -q 'comparison-bars' nba-live-game.html
           grep -q 'NBA LIVE' nba.html
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('nba.html').read_text()
+          assert h.index('id="nba-page-turner"') < h.index('id="nba-live-games"') < h.index('id="nba-news"') < h.index('id="nba-rabby-today"')
+          print('PASS NBA page hierarchy: navigation, live scores, news, then forecast')
+          PY
           python - <<'PY'
           from pathlib import Path
           html=Path('nba.html').read_text()
@@ -83,7 +92,7 @@ jobs:
           PY
           test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
           grep -q 'nba-page-turner.js?v=7' nba.html
-          grep -q 'nba-live-feed.js?v=4' nba.html
+          grep -q 'nba-live-feed.js?v=5' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
           grep -q 'nba-team-desk.js?v=4' nba-team-desk.html
