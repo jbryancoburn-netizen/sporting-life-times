@@ -79,23 +79,23 @@ async function render(){
  const hero=E('header',null,'cs-conference-hero');
  const kicker=E('span',cfg.gender+' · NCAA DIVISION '+(cfg.cohort.endsWith('d1')?'I':cfg.cohort.endsWith('d2')?'II':'III')+' · 2026','cs-conference-kicker');
  hero.append(kicker,E('h1',cfg.name+' SOCCER','cs-conference-title'),E('p','The conference race, independent Elo ratings and the road to the NCAA championship.','cs-conference-deck'));root.append(hero);
- const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('TOURNAMENT BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
+ const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('PROJECTED BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
  const info=E('div',null,'cs-conference-stamp');info.append(E('span','Official standings snapshot: '+(table.checked_at_utc||table.snapshot_checked_date||'date unavailable')),E('span','Independent Elo edition: '+String(elo.as_of||'unknown')));root.append(info);
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
- standSection.append(E('h2','THE CONFERENCE TABLE'));
- const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts','Elo'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
- teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(i===field-1)row.classList.add('cutoff');row.append(E('td',field&&i<field?i+1:'—'));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'),E('td',Number.isFinite(team.elo)?team.elo.toFixed(1):'N/A'));tb.append(row)});
+ standSection.append(E('h2','OFFICIAL CONFERENCE STANDINGS'));
+ const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
+ teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(i===field-1)row.classList.add('cutoff');row.append(E('td',field&&i<field?i+1:'—'));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;if(cup)cup.decorateTable(t,teams,cfg.cohort,branding);
  standSection.append(E('p','The qualification line is illustrative and displayed only where the tournament field size is verified. The published conference feed determines table order; independent Elo never breaks official standings ties. Tournament seed projections remain provisional.','cs-conf-caption'));
- modelSection.append(E('h2','CONFERENCE TITLE WATCH'));
+ modelSection.append(E('h2','USRS ELO · PREDICTED TITLE ODDS'));
  const field=Number(rule.tournament?.field)||0,entrants=teams.slice(0,field);
  if((field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
   const probs=bracketOdds(entrants,!!rule.tournament?.reseed);
   for(const x of probs){const line=E('div',null,'cs-conf-oddsline'),label=E('div',null,'cs-conf-oddslabel');label.append(E('strong',x.name),E('span',pct(x.p)));line.append(label);const rail=E('div',null,'cs-conf-rail'),bar=E('i');bar.style.width=pct(x.p);rail.append(bar);line.append(rail);modelSection.append(line)}
  }else modelSection.append(E('p','Title probabilities withheld: tournament format or a required Elo rating is unverified.','cs-conf-caption'));
- modelSection.append(E('p','Independent experimental Elo model with higher-seed home advantage, decisive matchups, and conference reseeding when required. Provisional seeds. Not calibrated title odds.','cs-conf-caption'));
- const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2','THE ROAD TO THE TITLE'));
+ modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
+ const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2','HYPOTHETICAL ROAD TO THE TITLE'));
  if(cup&&(field===6||field===8||field===15)){const visual=field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket;visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
   const note=E('div',null,'cs-conf-unverified-bracket');
   note.append(E('strong','TOURNAMENT BRACKET PENDING OFFICIAL RULES'));
@@ -107,7 +107,7 @@ async function render(){
     else tile.append(E('strong',team.name));
     strip.append(tile);
   });
-  note.append(strip,E('p','Official conference order shown for context. These are NOT a confirmed playoff field or predicted bracket.','cs-conf-caption'));
+  note.append(strip,E('p','Published conference order shown for context only. No entrants or seeds are inferred from Elo; this is NOT a confirmed playoff field.','cs-conf-caption'));
   bracket.append(note);
  }root.append(bracket);
  const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','TOURNAMENT RULES & SOURCES'));
@@ -115,7 +115,7 @@ async function render(){
  if(rule.tournament?.automatic_qualifier)rulesSection.append(E('p',rule.tournament.automatic_qualifier));
  if(table.source_url)rulesSection.append(A('Official conference standings ↗',table.source_url));
  for(const url of rule.tournament?.sources||[])rulesSection.append(A('Official championship source ↗',url));
- rulesSection.append(E('p','The site does not treat a projected seed as confirmed or use current Elo as NCAA selection criteria.','cs-conf-caption'));
+ rulesSection.append(E('p','Source-of-truth policy: actual scores, standings, tiebreakers, eligibility, tournament entrants, seeds and brackets must come from competition authorities. Elo is limited to forecasts and must never replace an official competition fact.','cs-conf-caption'));
  root.append(rulesSection);previous=signal;
  }catch(err){if(!previous){root.replaceChildren(E('p','Conference data could not be reconciled; the previous figures have not been replaced with estimates.','cs-conf-caption'));root.append(A('Return to NCAA Soccer','college-soccer.html'))}console.error('Conference desk',key,err)}
 }
