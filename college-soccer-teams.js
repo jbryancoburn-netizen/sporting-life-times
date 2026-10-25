@@ -32,6 +32,11 @@ profile.style.setProperty('--team-primary',brand?.primary||'#152b42');
 profile.style.setProperty('--team-accent',brand?.accent||'#c5a15a');
 profile.classList.toggle('team-has-brand',!!brand);
 const header=node('div',undefined,'team-hero');
+if(brand?.logo_url){
+ const watermark=node('img');watermark.className='team-hero-logo-bg';watermark.alt='';watermark.setAttribute('aria-hidden','true');
+ watermark.src=brand.logo_url;watermark.loading='lazy';
+ watermark.addEventListener('error',()=>watermark.remove());header.append(watermark);
+}
 header.append(node('p',cohortName(t.cohort)+' · '+String(rankings.as_of||'Latest published edition'),'team-eyebrow'));
 const badge=node('span',t.team.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'team-monogram');
 if(brand?.logo_url){
