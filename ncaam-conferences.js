@@ -35,12 +35,14 @@ function render(){
 $("heading").textContent=conf+" Basketball";
 document.title=conf+" Basketball | The Sporting Life & Times";
 const members=teams.filter(t=>t.conference===conf);
-const sorted=[...members].sort((a,b)=>(b.conference_wins||0)-(a.conference_wins||0)||(a.conference_losses||0)-(b.conference_losses||0)||b.elo-a.elo);
+const sorted=[...members].sort((a,b)=>{const ar=(a.conference_wins||0)+(a.conference_losses||0),br=(b.conference_wins||0)+(b.conference_losses||0);return (ar&&br?((b.conference_wins||0)/br-(a.conference_wins||0)/ar):0)||b.elo-a.elo});
 $("meta").textContent=members.length+" teams · "+(live?rating.games_played+" final games in current Elo":"2026–27 preseason Elo")+" · Updated automatically from verified finals";
 const rows=sorted.map((t,i)=>'<tr><td>'+teamName(t)+'</td><td class="num">'+(t.wins||0)+'–'+(t.losses||0)+'</td><td class="num">'+(t.conference_wins||0)+'–'+(t.conference_losses||0)+'</td><td class="num">'+t.elo.toFixed(1)+'</td><td class="num">#'+(i+1)+'</td></tr>').join("");
 $("standings").innerHTML='<table class="table"><thead><tr><th>Team</th><th>Overall</th><th>Conf.</th><th>Elo</th><th>Projected seed*</th></tr></thead><tbody>'+rows+'</tbody></table><p class="deck">*Projected seed is provisional Elo order, not an official conference tiebreak calculation. Actual records are displayed separately.</p>';
 const projected=[...members].sort((a,b)=>b.elo-a.elo);
-$("postseason").innerHTML='<p class="tag">Illustrative projected seed order</p><div class="deck">'+projected.map((t,i)=>'<div class="fixture"><strong>'+(i+1)+'. '+esc(t.team)+'</strong>Elo '+t.elo.toFixed(1)+(i===0?' · Current model favorite':'')+'</div>').join("")+'</div>';
+const odds=window.NCAAMForecast.simulate(projected);
+const chances=new Map(odds.map(x=>[x.team.team_id,x.champion]));
+$("postseason").innerHTML='<p class="tag">Hypothetical all-team seeded knockout · NOT official conference bracket</p><div class="deck">'+projected.map((t,i)=>'<div class="fixture"><strong>'+(i+1)+'. '+esc(t.team)+'</strong>Elo '+t.elo.toFixed(1)+' · '+((chances.get(t.team_id)||0)*100).toFixed(1)+'% tournament champion chance<div class="meter"><span style="width:'+((chances.get(t.team_id)||0)*100).toFixed(1)+'%"></span></div></div>').join("")+'</div>';
 const games=(schedule?.games||[]).filter(g=>g.date>=new Date().toISOString().slice(0,10)&&((byId.get(g.home_id)?.conference===conf)||(byId.get(g.away_id)?.conference===conf))).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,20);
 $("games").innerHTML=games.length?games.map(g=>{const h=byId.get(g.home_id),a=byId.get(g.away_id);if(!h||!a)return"";let p=prob(h,a),s=scores(h,a);return '<div class="fixture"><span class="tag">'+esc(g.date)+' · Projected</span><strong>'+esc(a.team)+' '+s[1]+' — '+s[0]+' '+esc(h.team)+'</strong><div>'+esc(h.team)+' '+(p*100).toFixed(1)+'% to win · '+esc(a.team)+' '+((1-p)*100).toFixed(1)+'%</div><div class="meter"><span style="width:'+(p*100).toFixed(1)+'%"></span></div></div>'}).join(""):'<p class="deck">No upcoming games for this conference in the currently published schedule snapshot. No fixtures invented.</p>';
 $("directory").innerHTML=confs.map(c=>'<a class="fixture" style="display:block;color:inherit" href="ncaam-conference.html?conference='+encodeURIComponent(c)+'">'+esc(c)+'</a>').join("");
