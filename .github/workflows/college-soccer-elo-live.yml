@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/college-soccer-elo-live.yml'
       - 'scripts/update_college_soccer_elo.py'
+      - 'scripts/build_college_soccer_conference_projections.py'
       - 'scripts/test_update_college_soccer_elo.py'
       - 'scripts/score_college_soccer_forecasts.py'
       - 'scripts/test_score_college_soccer_forecasts.py'
@@ -54,6 +55,8 @@ jobs:
         run: python -m unittest discover -s scripts -p test_publish_college_soccer_dynamic.py -v
       - name: Check new NCAA men's and women's final scores in all divisions
         run: python scripts/update_college_soccer_elo.py --lookback 4
+      - name: Update provisional conference standings and postseason seeds
+        run: python scripts/build_college_soccer_conference_projections.py
       - name: Lock new matchup-specific forecasts before kickoff
         run: python scripts/publish_college_soccer_dynamic.py
       - name: Score matchup-model forecasts against verified finals
@@ -94,7 +97,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
+          git add data/college-soccer-projected-standings.json data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
           if git diff --cached --quiet; then
             echo "No new verified NCAA finals or repairs. Published ratings unchanged."
             exit 0
@@ -110,6 +113,7 @@ jobs:
             git fetch origin main
             git rebase origin/main || { git rebase --abort || true; exit 1; }
             python scripts/update_college_soccer_elo.py --offline
+            python scripts/build_college_soccer_conference_projections.py
             python scripts/score_college_soccer_forecasts.py
             python scripts/score_college_soccer_forecasts.py --archive data/college-soccer-prospective-v2.json --output data/college-soccer-forecast-scores-v2.json
             git add data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
