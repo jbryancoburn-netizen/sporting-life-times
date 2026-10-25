@@ -1,0 +1,54 @@
+name: NCAA Soccer Visual Desk Checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'college-soccer-visual-desk.js'
+      - 'college-soccer-visual-desk.css'
+      - 'college-soccer.html'
+      - 'data/college-soccer-elo.json'
+      - 'data/college-soccer-prospective-v2.json'
+      - '.github/workflows/college-soccer-visual-desk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate visual desk JavaScript
+        run: node --check college-soccer-visual-desk.js
+      - name: Audit real data and published page
+        run: |
+          node <<'NODE'
+          const fs=require('fs'), assert=require('node:assert/strict');
+          const html=fs.readFileSync('college-soccer.html','utf8');
+          assert(html.includes('id="college-soccer-visual-desk"'));
+          assert(html.includes('college-soccer-visual-desk.js?v=phase1'));
+          assert(html.includes('college-soccer-visual-desk.css?v=phase1'));
+          const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
+          const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
+          for(const sex of ['men','women'])for(const division of [1,2,3]){
+            const cohort=sex+'-d'+division, teams=elo.cohorts[cohort];
+            assert(Array.isArray(teams)&&teams.length>=10,'Missing cohort '+cohort);
+            assert(teams.every(t=>Number.isFinite(t.elo)&&Number.isFinite(t.gf)&&Number.isFinite(t.ga)&&Number.isFinite(t.gp)));
+            assert.equal(new Set(teams.map(t=>t.team_id)).size,teams.length,'Duplicate school IDs in '+cohort);
+          }
+          assert(Array.isArray(elo.latest_finals));
+          for(const game of elo.latest_finals){
+            assert(game.match_id && game.cohort && game.source_game && /^\\d+[-–]\\d+$/.test(game.score));
+          }
+          assert(Array.isArray(forecast.forecasts));
+          for(const g of forecast.forecasts){
+            assert(g.match_id && g.kickoff_utc && g.source_game);
+            const p=Number(g.p_home)+Number(g.p_draw)+Number(g.p_away);
+            assert(Math.abs(p-1)<0.002,'Probabilities do not sum to one');
+          }
+          console.log('Visual desk validated against six published rating cohorts and locked forecast probabilities.');
+          NODE
