@@ -32,6 +32,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Validate every browser JavaScript file and inline script
+        run: |
+          set -euo pipefail
+          for script in *.js; do node --check "$script"; done
+          python3 scripts/check_inline_javascript.py
+      - name: Verify newspaper structural regressions
+        run: node --test tests/newspaper-structure.test.cjs
       - name: Check the exact published files and individual leaders
         run: |
           test -s nba.html
