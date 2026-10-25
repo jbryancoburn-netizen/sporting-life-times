@@ -11,8 +11,8 @@ function render(conf,table,ratings,rules,miacTable,branding){
  const official=new Map((table.rows||[]).map(t=>[t.team_id,t]));
  if(!miaa||!rule||miaa.teams.some(id=>!members.has(id)||!official.has(id)))throw Error('MIAA team membership or standings incomplete');
  const seeded=[...miaa.teams].map(id=>({id,team:members.get(id),standing:official.get(id)}))
- .sort((a,b)=>b.standing.conference_points-a.standing.conference_points||b.team.elo-a.team.elo);
- // Elo is only a displayed provisional tiebreaker; the MIAA's actual rules take precedence.
+ .sort((a,b)=> (table.rows||[]).findIndex(x=>x.team_id===a.id)-(table.rows||[]).findIndex(x=>x.team_id===b.id));
+ // Standings preserve published conference ordering; Elo never breaks ties.
  const top=seeded.slice(0,6);root.replaceChildren();
  const intro=el('div',null,'cs-post-heading');intro.append(el('h2','CONFERENCES & THE ROAD TO THE NCAA'),el('span','2026 · VERIFIED RULES / PROVISIONAL PROJECTIONS'));root.append(intro);
  const nav=el('nav',null,'cs-post-nav');nav.setAttribute('aria-label','College soccer postseason sections');nav.append(link('MIAA tournament','#cs-miaa'),link('MIAC tournament','#cs-miac'),link('CCIW tournament','#college-soccer-cciw'),link('MIAA women','#college-soccer-women-miaa'),link('NCAA championship rules','#cs-ncaa-rules'));root.append(nav);
@@ -23,7 +23,7 @@ function render(conf,table,ratings,rules,miacTable,branding){
  left.append(el('p','Conference table from the MIAA snapshot; standings last confirmed through '+(table.last_verified_game_date||'an unconfirmed date')+'. Positions below are an illustration, not final tournament seeds.','cs-post-note'));
  const tableNode=el('table',null,'cs-post-table');const tr=el('tr');for(const h of ['Seed*','School','Conf.','Pts','USRS'])tr.append(el('th',h));const thead=el('thead');thead.append(tr);const body=el('tbody');
  for(const [i,t] of seeded.entries()){const row=el('tr');row.append(el('td',i<6?i+1:'—'));const name=el('td');name.append(link(t.team.team,'college-soccer-team.html?team=men-d3%3A'+encodeURIComponent(t.id)));row.append(name,el('td',t.standing.conference_record),el('td',t.standing.conference_points),el('td',Number(t.team.elo).toFixed(1)));if(i===5)row.className='cs-post-cutline';body.append(row);}tableNode.append(thead,body);left.append(tableNode);
- left.append(el('p','*Provisional seed order uses official conference points, then independent Elo only as an illustration where points are tied. Official tiebreakers may change that order.','cs-post-note'));
+ left.append(el('p','*Provisional bracket positions follow the published conference table. Official tiebreakers determine actual seeds; Elo is only for predictions.','cs-post-note'));
  const head2=el('div',null,'cs-post-section-head');head2.append(el('h3','Projected six-team path'),el('span','BRACKET STRUCTURE · NOT OFFICIAL PAIRINGS'));left.append(head2);
  const cupUI=window.CollegeSoccerCupUI;
  if(cupUI){cupUI.decorateTable(tableNode,seeded,'men-d3',branding);cupUI.bracket(left,top,'men-d3',branding,{q:'OCT 31 · QUARTERFINALS',s:'NOV 3 · SEMIFINALS',f:'NOV 7 · CHAMPIONSHIP'});}
@@ -55,10 +55,10 @@ function render(conf,table,ratings,rules,miacTable,branding){
   const complete=miacConf.teams.every(id=>miacRatings.has(id)&&miacRows.has(id));
   if(complete){
    const seedList=miacConf.teams.map(id=>({id,team:miacRatings.get(id),standing:miacRows.get(id)}))
-    .sort((a,b)=>b.standing.conference_points-a.standing.conference_points||b.team.elo-a.team.elo);
+    .sort((a,b)=> (miacTable.rows||[]).findIndex(x=>x.team_id===a.id)-(miacTable.rows||[]).findIndex(x=>x.team_id===b.id));
    const layout=el('div',null,'cs-miac-columns');miacSection.append(layout);
    const standingsWrap=el('div');layout.append(standingsWrap);
-   standingsWrap.append(el('p','Official MIAC league points · 2026 snapshot checked '+(miacTable.snapshot_checked_date||'date unavailable')+'. Tie order uses Elo solely as a provisional display aid; it is not the league’s tiebreaker.','cs-post-note'));
+   standingsWrap.append(el('p','Official MIAC league points · 2026 snapshot checked '+(miacTable.snapshot_checked_date||'date unavailable')+'. Tie order follows the published conference table; Elo never determines positions.','cs-post-note'));
    const tableNode=el('table',null,'cs-post-table');
    const head=el('tr');for(const label of ['Seed*','School','Conf.','Pts','USRS'])head.append(el('th',label));
    const thead=el('thead');thead.append(head);const tbody=el('tbody');
