@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 375,
+  "already_classified": 384,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -32,12 +32,6 @@
       "status": "processed",
       "matched": 0,
       "targeted": 1
-    },
-    {
-      "school": "LSU",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 3
     },
     {
       "school": "Georgia",
@@ -147,12 +141,6 @@
       "targeted": 2
     },
     {
-      "school": "Northwestern",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 3
-    },
-    {
       "school": "Penn St.",
       "status": "processed",
       "matched": 0,
@@ -211,12 +199,6 @@
       "targeted": 1
     },
     {
-      "school": "Quinnipiac",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 3
-    },
-    {
       "school": "Tennessee Tech",
       "status": "fetch_failed",
       "error": "HTTP Error 405: Not Allowed"
@@ -263,9 +245,8 @@
     },
     {
       "school": "Auburn",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
+      "status": "season_unverified",
+      "heading": " "
     },
     {
       "school": "Gonzaga",
@@ -310,7 +291,7 @@
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 114,
+  "still_unmatched_in_queue": 105,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -340,24 +321,6 @@
       "id": "5462782",
       "school": "UTRGV",
       "name": "Josiah Hill",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458827",
-      "school": "LSU",
-      "name": "Bradley Fife",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458829",
-      "school": "LSU",
-      "name": "Strake Pearson",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5177518",
-      "school": "LSU",
-      "name": "Luke Stansbury",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -523,24 +486,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5456493",
-      "school": "Northwestern",
-      "name": "Elijah Eschmeyer",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5210966",
-      "school": "Northwestern",
-      "name": "Symon Ghai",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5142720",
-      "school": "Northwestern",
-      "name": "Jayden Hodge",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5458318",
       "school": "Penn St.",
       "name": "Roko Prkacin",
@@ -655,24 +600,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5455072",
-      "school": "Quinnipiac",
-      "name": "Nedas Cholevinskas",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5455071",
-      "school": "Quinnipiac",
-      "name": "Ali Diouf",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5455069",
-      "school": "Quinnipiac",
-      "name": "Malik Fields",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5234298",
       "school": "Wright St.",
       "name": "Ilija Milijasevic",
@@ -730,12 +657,6 @@
       "id": "5460904",
       "school": "Georgia St.",
       "name": "Owen Augunas",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5351499",
-      "school": "Auburn",
-      "name": "Mantas Rubstavicius",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -801,5 +722,5 @@
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1900
+  "total_official_class_year_records": 1909
 }
