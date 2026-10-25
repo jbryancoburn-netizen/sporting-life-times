@@ -471,6 +471,63 @@
       "page": "college-soccer-mvc-men.html",
       "standings_feed": "data/college-soccer-men-d1-mvc-standings.json",
       "verification_status": "snapshot_provisional"
+    },
+    "men-d1:big-west": {
+      "name": "Big West Conference",
+      "short": "Big West",
+      "teams": [
+        "uc-irvine",
+        "utah-valley",
+        "uc-santa-barbara",
+        "bakersfield",
+        "sacramento-st",
+        "cal-st-northridge",
+        "cal-st-fullerton"
+      ],
+      "source_url": "https://bigwest.org/standings.aspx?path=msoc",
+      "page": "college-soccer-big-west-men.html",
+      "standings_feed": "data/college-soccer-men-d1-big-west-standings.json",
+      "verification_status": "snapshot_provisional"
+    },
+    "men-d1:asun": {
+      "name": "ASUN Conference",
+      "short": "ASUN",
+      "teams": [
+        "north-florida",
+        "central-ark",
+        "stetson",
+        "west-florida",
+        "queens-nc",
+        "lipscomb",
+        "bellarmine",
+        "jacksonville",
+        "fgcu"
+      ],
+      "source_url": "https://asunsports.org/sports/msoc/2025-26/standings",
+      "page": "college-soccer-asun-men.html",
+      "standings_feed": "data/college-soccer-men-d1-asun-standings.json",
+      "verification_status": "snapshot_provisional"
+    },
+    "men-d1:horizon": {
+      "name": "Horizon League",
+      "short": "Horizon",
+      "teams": [
+        "northern-ill",
+        "cleveland-st",
+        "wright-st",
+        "milwaukee",
+        "oakland",
+        "ipfw",
+        "robert-morris",
+        "green-bay",
+        "detroit",
+        "northern-ky",
+        "iu-indy"
+      ],
+      "source_url": "https://horizonleague.org/standings.aspx?path=msoc",
+      "page": "college-soccer-horizon-men.html",
+      "standings_feed": "data/college-soccer-men-d1-horizon-standings.json",
+      "verification_status": "snapshot_provisional"
     }
   },
   "team_to_conference": {
@@ -711,6 +768,33 @@
     "men-d1:ill-chicago": "men-d1:mvc",
     "men-d1:western-mich": "men-d1:mvc",
     "men-d1:drake": "men-d1:mvc",
-    "men-d1:bradley": "men-d1:mvc"
+    "men-d1:bradley": "men-d1:mvc",
+    "men-d1:uc-irvine": "men-d1:big-west",
+    "men-d1:utah-valley": "men-d1:big-west",
+    "men-d1:uc-santa-barbara": "men-d1:big-west",
+    "men-d1:bakersfield": "men-d1:big-west",
+    "men-d1:sacramento-st": "men-d1:big-west",
+    "men-d1:cal-st-northridge": "men-d1:big-west",
+    "men-d1:cal-st-fullerton": "men-d1:big-west",
+    "men-d1:north-florida": "men-d1:asun",
+    "men-d1:central-ark": "men-d1:asun",
+    "men-d1:stetson": "men-d1:asun",
+    "men-d1:west-florida": "men-d1:asun",
+    "men-d1:queens-nc": "men-d1:asun",
+    "men-d1:lipscomb": "men-d1:asun",
+    "men-d1:bellarmine": "men-d1:asun",
+    "men-d1:jacksonville": "men-d1:asun",
+    "men-d1:fgcu": "men-d1:asun",
+    "men-d1:northern-ill": "men-d1:horizon",
+    "men-d1:cleveland-st": "men-d1:horizon",
+    "men-d1:wright-st": "men-d1:horizon",
+    "men-d1:milwaukee": "men-d1:horizon",
+    "men-d1:oakland": "men-d1:horizon",
+    "men-d1:ipfw": "men-d1:horizon",
+    "men-d1:robert-morris": "men-d1:horizon",
+    "men-d1:green-bay": "men-d1:horizon",
+    "men-d1:detroit": "men-d1:horizon",
+    "men-d1:northern-ky": "men-d1:horizon",
+    "men-d1:iu-indy": "men-d1:horizon"
   }
 }
