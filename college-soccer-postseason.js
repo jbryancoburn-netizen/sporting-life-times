@@ -15,7 +15,7 @@ function render(conf,table,ratings,rules,miacTable){
  // Elo is only a displayed provisional tiebreaker; the MIAA's actual rules take precedence.
  const top=seeded.slice(0,6);root.replaceChildren();
  const intro=el('div',null,'cs-post-heading');intro.append(el('h2','CONFERENCES & THE ROAD TO THE NCAA'),el('span','2026 · VERIFIED RULES / PROVISIONAL PROJECTIONS'));root.append(intro);
- const nav=el('nav',null,'cs-post-nav');nav.setAttribute('aria-label','College soccer postseason sections');nav.append(link('MIAA tournament','#cs-miaa'),link('MIAC tournament','#cs-miac'),link('CCIW tournament','#college-soccer-cciw'),link('NCAA championship rules','#cs-ncaa-rules'));root.append(nav);
+ const nav=el('nav',null,'cs-post-nav');nav.setAttribute('aria-label','College soccer postseason sections');nav.append(link('MIAA tournament','#cs-miaa'),link('MIAC tournament','#cs-miac'),link('CCIW tournament','#college-soccer-cciw'),link('MIAA women','#college-soccer-women-miaa'),link('NCAA championship rules','#cs-ncaa-rules'));root.append(nav);
  const split=el('div',null,'cs-post-columns');root.append(split);
  const left=el('section',null,'cs-post-main');left.id='cs-miaa';split.append(left);
  const right=el('aside',null,'cs-post-side');split.append(right);
