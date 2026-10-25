@@ -90,3 +90,8 @@
 #college-soccer-visual-desk .cs-score-side.cs-score-winner{border-left-width:6px!important;font-weight:700}
 #college-soccer-visual-desk .cs-score-side.cs-score-loser{opacity:.68}
 #college-soccer-visual-desk .cs-score-side:not(.cs-score-winner):not(.cs-score-loser){opacity:1}
+
+#college-soccer-visual-desk .cs-matchday-rich-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,325px),1fr));gap:12px;margin:14px 0}
+#college-soccer-visual-desk .cs-matchday-rich{background:#f7fafb;border:1px solid #cad6dd;border-left:4px solid #2c536b;padding:14px;min-width:0}
+#college-soccer-visual-desk .cs-matchday-rich .cs-fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#college-soccer-visual-desk .cs-matchday-rich .cs-game-link{display:inline-block;margin-top:10px}
