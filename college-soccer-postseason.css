@@ -51,3 +51,14 @@
 .cs-post-contender-row .cs-post-odds-head a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#2b5368!important;text-decoration:none!important;font-weight:700}
 .cs-post-contender-row .cs-post-odds-head a:hover{text-decoration:underline!important}
 @media(max-width:580px){.cs-contender-grid{grid-template-columns:1fr!important;gap:.9rem!important}}
+
+.cs-miac-section{margin-top:1.5rem;border-top:3px solid #294458;padding:.4rem 0 1rem}
+.cs-miac-columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.8fr);gap:clamp(1rem,3vw,2rem)}
+.cs-miac-path{padding:.3rem 0;border-top:1px solid #d7e1e4}
+.cs-miac-path h4,.cs-miac-contender-strength h4{font:700 1.05rem Georgia,serif;margin:.5rem 0 .7rem;color:#273f50}
+.cs-post-entrant{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.46rem 0;border-bottom:1px solid #e1e8ea;font:.73rem Arial,sans-serif}
+.cs-post-entrant span{font-variant-numeric:tabular-nums;color:#70828b;white-space:nowrap}
+.cs-miac-path>a{font:.72rem Arial,sans-serif;color:#365d72!important;text-decoration:underline}
+.cs-miac-contender-strength{margin-top:1rem;border-top:2px solid #344f61}
+.cs-miac-contender-strength .cs-post-odds-head strong{font-size:.74rem}
+@media(max-width:760px){.cs-miac-columns{grid-template-columns:1fr}}
