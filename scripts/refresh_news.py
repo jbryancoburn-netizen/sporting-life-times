@@ -8,7 +8,12 @@ import re
 import urllib.request
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from urllib.parse import quotSOURCES=[
+from urllib.parse import quote_plus
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parents[1]
+DEST=ROOT/"articles.json"
+SOURCES=[
  ("BBC Sport","https://feeds.bbci.co.uk/sport/rss.xml","Multi-sport"),
  ("BBC Football","https://feeds.bbci.co.uk/sport/football/rss.xml","Football"),
  ("The Guardian Sport","https://www.theguardian.com/uk/sport/rss","Multi-sport"),
