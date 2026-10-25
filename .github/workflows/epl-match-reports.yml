@@ -1,5 +1,11 @@
 name: EPL detailed match reports
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_epl_match_reports.py'
+      - '.github/workflows/epl-match-reports.yml'
+      - 'data/epl-match-center.json'
   workflow_dispatch:
   schedule:
     - cron: '17,47 * * * *'
@@ -21,6 +27,18 @@ jobs:
         run: python -m py_compile scripts/update_epl_match_reports.py
       - name: Collect match reports
         run: python scripts/update_epl_match_reports.py
+      - name: Verify published report structure
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/epl-match-reports.json').read_text())
+          assert d.get('matches'), 'No match reports produced'
+          for key,match in d['matches'].items():
+              assert str(key).isdecimal() and all(k in match for k in ('home','away','home_score','away_score','source_url'))
+              assert any(match.get(k) for k in ('teams','players','events')), 'Details missing for '+key
+          print('Verified detailed reports:',len(d['matches']))
+          PY
       - name: Publish verified details
         run: |
           git config user.name "sporting-life-times-bot"
