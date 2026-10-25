@@ -1,0 +1,150 @@
+{
+  "model": "ncaam-stat-adjustment-coverage-timing-v1",
+  "status": "RETROSPECTIVE_RESEARCH_ONLY",
+  "production_promotion_allowed": false,
+  "results": {
+    "2025": {
+      "groups": [
+        {
+          "adjustment_group": "70_plus",
+          "period": "early_0_44",
+          "matched_team_count": 1,
+          "games": 1,
+          "ll_adjusted_mean": 0.0470762179147324,
+          "ll_reference_mean": 0.07364117976096682,
+          "brier_adjusted_mean": 0.0021146494890712177,
+          "brier_reference_mean": 0.005040292888689072
+        },
+        {
+          "adjustment_group": "70_plus",
+          "period": "early_0_44",
+          "matched_team_count": 2,
+          "games": 110,
+          "ll_adjusted_mean": 0.3549163279371592,
+          "ll_reference_mean": 0.3702360821717887,
+          "brier_adjusted_mean": 0.1122858209288744,
+          "brier_reference_mean": 0.11538833406473606
+        },
+        {
+          "adjustment_group": "70_plus",
+          "period": "later_45_plus",
+          "matched_team_count": 2,
+          "games": 240,
+          "ll_adjusted_mean": 0.4976748034360143,
+          "ll_reference_mean": 0.4992368483668614,
+          "brier_adjusted_mean": 0.16442459777831883,
+          "brier_reference_mean": 0.1641499870592489
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "early_0_44",
+          "matched_team_count": 1,
+          "games": 22,
+          "ll_adjusted_mean": 0.4521771889402901,
+          "ll_reference_mean": 0.4517282720567517,
+          "brier_adjusted_mean": 0.14361497132110726,
+          "brier_reference_mean": 0.14281873539602843
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "early_0_44",
+          "matched_team_count": 2,
+          "games": 1675,
+          "ll_adjusted_mean": 0.54491238110298,
+          "ll_reference_mean": 0.550799265617235,
+          "brier_adjusted_mean": 0.18509266760527313,
+          "brier_reference_mean": 0.1872958418034704
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "later_45_plus",
+          "matched_team_count": 1,
+          "games": 36,
+          "ll_adjusted_mean": 0.4481850035295454,
+          "ll_reference_mean": 0.4426424658018659,
+          "brier_adjusted_mean": 0.14466263568107596,
+          "brier_reference_mean": 0.14192157177420095
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "later_45_plus",
+          "matched_team_count": 2,
+          "games": 3590,
+          "ll_adjusted_mean": 0.5871826177733084,
+          "ll_reference_mean": 0.5896365359545022,
+          "brier_adjusted_mean": 0.20220556451470287,
+          "brier_reference_mean": 0.20311124122090876
+        }
+      ]
+    },
+    "2026": {
+      "groups": [
+        {
+          "adjustment_group": "70_plus",
+          "period": "early_0_44",
+          "matched_team_count": 2,
+          "games": 60,
+          "ll_adjusted_mean": 0.4513599997527588,
+          "ll_reference_mean": 0.45881537548508106,
+          "brier_adjusted_mean": 0.14711118862544223,
+          "brier_reference_mean": 0.15171652828713147
+        },
+        {
+          "adjustment_group": "70_plus",
+          "period": "later_45_plus",
+          "matched_team_count": 2,
+          "games": 130,
+          "ll_adjusted_mean": 0.47700884003583355,
+          "ll_reference_mean": 0.4903407670712661,
+          "brier_adjusted_mean": 0.15544988240220414,
+          "brier_reference_mean": 0.16135349038061464
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "early_0_44",
+          "matched_team_count": 1,
+          "games": 11,
+          "ll_adjusted_mean": 0.6007289976983938,
+          "ll_reference_mean": 0.5880236084057567,
+          "brier_adjusted_mean": 0.21458884403211334,
+          "brier_reference_mean": 0.20801320318413422
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "early_0_44",
+          "matched_team_count": 2,
+          "games": 1760,
+          "ll_adjusted_mean": 0.5067694170410201,
+          "ll_reference_mean": 0.5082527401448251,
+          "brier_adjusted_mean": 0.17034578760586946,
+          "brier_reference_mean": 0.1705307277856095
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "later_45_plus",
+          "matched_team_count": 1,
+          "games": 19,
+          "ll_adjusted_mean": 0.5214657903280593,
+          "ll_reference_mean": 0.5219611337931835,
+          "brier_adjusted_mean": 0.1625970545950535,
+          "brier_reference_mean": 0.16232120466139918
+        },
+        {
+          "adjustment_group": "under_70",
+          "period": "later_45_plus",
+          "matched_team_count": 2,
+          "games": 3770,
+          "ll_adjusted_mean": 0.6004329002178632,
+          "ll_reference_mean": 0.6010173797795452,
+          "brier_adjusted_mean": 0.2082301081234035,
+          "brier_reference_mean": 0.20836735363307218
+        }
+      ]
+    }
+  },
+  "cautions": [
+    "Matched historical player name and roster is not validated as-of opening date",
+    "Earlier seasons have been repeatedly inspected",
+    "Reference comparison omits stat term but inherits earlier optimized ratings"
+  ]
+}
