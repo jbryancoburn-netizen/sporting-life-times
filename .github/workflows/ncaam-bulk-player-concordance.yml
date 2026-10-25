@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/match_ncaam_bulk_historical_players.py'
+      - 'scripts/test_ncaam_bulk_name_variants.py'
       - 'data/ncaam-historical-bulk-player-reconciliation.json'
       - '.github/workflows/ncaam-bulk-player-concordance.yml'
   workflow_dispatch:
@@ -23,6 +24,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m py_compile scripts/match_ncaam_bulk_historical_players.py
+      - run: python -m unittest discover -s scripts -p test_ncaam_bulk_name_variants.py -v
       - run: python scripts/match_ncaam_bulk_historical_players.py
       - run: |
           python - <<'PY'
