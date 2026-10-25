@@ -143,6 +143,34 @@ async function render(){
     else tile.append(E('strong',team.name));
     strip.append(tile);
   });
+  // Render a structure-only bracket whenever the sourced tournament field is known.
+  // Seed labels are placeholders, never assignments from an unresolved conference tie.
+  if([4,6,8,15].includes(field)&&!/(format.*unverified|eligibility.*unverified|carried forward|inferred from|based on official 2025)/i.test(rule.tournament?.status||'')){
+    const paths=field===4?[
+      ['SEMIFINALS',['Seed 1 vs Seed 4','Seed 2 vs Seed 3']],
+      ['CHAMPIONSHIP',['Semifinal winner 1 vs Semifinal winner 2']]
+    ]:field===6?[
+      ['OPENING ROUND',['Seed 3 vs Seed 6','Seed 4 vs Seed 5','Seeds 1 and 2 receive byes']],
+      ['SEMIFINALS',['Seed 1 vs advancing team (subject to official pairing rules)','Seed 2 vs advancing team (subject to official pairing rules)']],
+      ['CHAMPIONSHIP',['Semifinal winner 1 vs Semifinal winner 2']]
+    ]:field===8?[
+      ['QUARTERFINALS',['Seed 1 vs Seed 8','Seed 4 vs Seed 5','Seed 2 vs Seed 7','Seed 3 vs Seed 6']],
+      ['SEMIFINALS',['Quarterfinal winners (official pairing pending)']],
+      ['CHAMPIONSHIP',['Semifinal winners']]
+    ]:[
+      ['OPENING ROUND',['Tournament seed slots 1–15 (official pairing pending)']],
+      ['SUBSEQUENT ROUNDS',['Advancement according to the official conference bracket']],
+      ['CHAMPIONSHIP',['Finalists to be determined']]
+    ];
+    const schematic=E('div',null,'cs-official-rounds');
+    for(const [round,slots] of paths){
+      const section=E('section',null,'cs-official-round');
+      section.append(E('h3',round));
+      for(const slot of slots){const tile=E('article',null,'cs-official-match');tile.append(E('strong',slot));section.append(tile)}
+      schematic.append(section);
+    }
+    note.append(E('p','TOURNAMENT FORMAT · SEED SLOTS ONLY. No team is assigned to a position until official standings and tie procedures support it.','cs-conf-caption'),schematic);
+  }
   note.append(strip,E('p','Published conference order shown for context only. No entrants or seeds are inferred from Elo; this is NOT a confirmed playoff field.','cs-conf-caption'));
   bracket.append(note);
  }root.append(bracket);
