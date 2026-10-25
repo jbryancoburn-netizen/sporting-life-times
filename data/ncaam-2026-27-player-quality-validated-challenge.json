@@ -1,0 +1,54 @@
+{
+  "season": "2026-27",
+  "assessment": "CHRONOLOGICAL_PLAYER_QUALITY_FEATURE_VALIDATED_FOR_AFTER_DAY_14_SHADOW_NOT_PRESEASON_PROMOTION",
+  "primary_publication_unchanged": true,
+  "earlyseason_asof": {
+    "training_seasons": [
+      2024,
+      2025
+    ],
+    "holdout_season": 2026,
+    "games": 1596,
+    "baseline_log_loss": 0.5360046530003357,
+    "candidate_log_loss": 0.5261184796504091,
+    "log_loss_gain": 0.009886173349926586,
+    "baseline_brier": 0.1798088607215804,
+    "candidate_brier": 0.17662886502527583,
+    "brier_gain": 0.0031799956963045606,
+    "selected_quality_beta": 1200,
+    "feature_capture_rule": "Use only boxscore appearances within first 14 calendar days, freeze, predict following 45 days",
+    "asof_cutoff_2026": "2025-11-17",
+    "holdout_2026": {
+      "games": 1596,
+      "log_loss": 0.5261184796504091,
+      "brier": 0.17662886502527583,
+      "from": "2025-11-17",
+      "through_exclusive": "2026-01-01"
+    }
+  },
+  "retrospective_diagnostic": {
+    "games": 1831,
+    "baseline_log_loss": 0.5346291931082648,
+    "candidate_log_loss": 0.5202061433723063,
+    "baseline_brier": 0.17865822092622421,
+    "candidate_brier": 0.17406736160757577
+  },
+  "checks": {
+    "chronological_holdout": true,
+    "identical_game_count": true,
+    "holdout_both_metrics_better": true,
+    "postcutoff_data_excluded": true,
+    "preseason_leakage_protection": true
+  },
+  "production_policy": {
+    "preseason_model": "RETAIN_ROSTER_INFORMED_BASELINE",
+    "earlyseason_candidate": "ELIGIBLE_FOR_FUTURE_DAY_14_SHADOW_CHECK_ONLY",
+    "promotion": "REQUIRES_CURRENT_SEASON_TIMED_ROSTER_EVIDENCE_AND_MATCHED_GAME_VALIDATION",
+    "automatic_primary_promotion": false
+  },
+  "limitations": [
+    "The 2026 holdout tests an in-season frozen 14-day player sample, not preopening rosters.",
+    "This does not certify the exact current 2026-27 experimental model formula.",
+    "Historical archived preopening roster coverage is incomplete."
+  ]
+}
