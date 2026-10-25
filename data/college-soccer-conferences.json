@@ -3,7 +3,7 @@
   "source": "Official MIAA 2026 men's soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
   "scope": "2026 NCAA men's Division III soccer",
-  "notice": "Official conference records are a separately sourced snapshot. Independent USRS Elo and full-season totals use our published Elo snapshot and may have different game cutoffs. Do not equate USRS conference Elo order with official MIAA standings.",
+  "notice": "MIAA membership only; official 2026 conference records are loaded from the separately refreshed data/college-soccer-miaa-standings.json feed. Our independent USRS Elo snapshot can have a different cutoff.",
   "conferences": {
     "men-d3:miaa": {
       "name": "Michigan Intercollegiate Athletic Association",
@@ -17,48 +17,6 @@
         "alma",
         "trine",
         "olivet"
-      ],
-      "official_conference": [
-        {
-          "team_id": "calvin",
-          "record": "4-0-1",
-          "points": 13
-        },
-        {
-          "team_id": "kalamazoo",
-          "record": "4-1-0",
-          "points": 12
-        },
-        {
-          "team_id": "albion",
-          "record": "3-0-2",
-          "points": 11
-        },
-        {
-          "team_id": "hope",
-          "record": "2-1-2",
-          "points": 8
-        },
-        {
-          "team_id": "adrian",
-          "record": "1-2-2",
-          "points": 5
-        },
-        {
-          "team_id": "alma",
-          "record": "1-3-1",
-          "points": 4
-        },
-        {
-          "team_id": "trine",
-          "record": "1-4-0",
-          "points": 3
-        },
-        {
-          "team_id": "olivet",
-          "record": "0-5-0",
-          "points": 0
-        }
       ]
     }
   },
