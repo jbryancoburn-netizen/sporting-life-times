@@ -4,6 +4,7 @@ on:
     paths:
       - scripts/collect_ncaam_school_class_years_bulk.py
       - data/ncaam-2026-27-official-roster-urls.json
+      - data/ncaam-2026-27-next-900-unclassified-targets.json
       - .github/workflows/ncaam-bulk-university-class-years.yml
   workflow_dispatch:
 permissions:
@@ -23,7 +24,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install beautifulsoup4
-      - run: python scripts/collect_ncaam_school_class_years_bulk.py
+      - run: python scripts/collect_ncaam_school_class_years_bulk.py --queue data/ncaam-2026-27-next-900-unclassified-targets.json
       - name: Commit matched records and source audit
         run: |
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
