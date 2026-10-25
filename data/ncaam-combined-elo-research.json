@@ -42,8 +42,8 @@
       "teams_with_origin_strength": 332,
       "matched_transfer_records": 1221,
       "excluded": {
-        "linked_transfer_records": 1221,
-        "unmatched_or_ambiguous_prior_name": 2488
+        "unmatched_or_ambiguous_prior_name": 2488,
+        "linked_transfer_records": 1221
       }
     },
     "2026": {
@@ -51,15 +51,19 @@
       "teams_with_origin_strength": 341,
       "matched_transfer_records": 1389,
       "excluded": {
-        "unmatched_or_ambiguous_prior_name": 2578,
-        "linked_transfer_records": 1389
+        "linked_transfer_records": 1389,
+        "unmatched_or_ambiguous_prior_name": 2578
       }
     }
   },
   "historical_multistat_audits": {
     "2024": {
       "teams_with_verified_prior_stats": 361,
-      "unique_prior_player_names": 9506,
+      "player_reconciliation_status": {
+        "matched_unique_name": 3346,
+        "unmatched_no_previous_box": 2229,
+        "ambiguous_same_name_multiple_schools": 94
+      },
       "matched_player_counts": 3346,
       "metrics": [
         "shooting",
@@ -70,7 +74,11 @@
     },
     "2025": {
       "teams_with_verified_prior_stats": 362,
-      "unique_prior_player_names": 9637,
+      "player_reconciliation_status": {
+        "unmatched_no_previous_box": 2363,
+        "matched_unique_name": 3345,
+        "ambiguous_same_name_multiple_schools": 86
+      },
       "matched_player_counts": 3345,
       "metrics": [
         "shooting",
@@ -81,7 +89,11 @@
     },
     "2026": {
       "teams_with_verified_prior_stats": 364,
-      "unique_prior_player_names": 9622,
+      "player_reconciliation_status": {
+        "unmatched_no_previous_box": 2414,
+        "matched_unique_name": 3145,
+        "ambiguous_same_name_multiple_schools": 74
+      },
       "matched_player_counts": 3145,
       "metrics": [
         "shooting",
@@ -269,7 +281,7 @@
       "train_log_loss": 0.5844210866154467,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5741475432013123,
+        "log_loss": 0.5741475432013122,
         "brier": 0.19640619874110932
       }
     },
@@ -282,7 +294,7 @@
       "train_log_loss": 0.5846392168586846,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5743888152962991,
+        "log_loss": 0.574388815296299,
         "brier": 0.19648971359129017
       }
     },
@@ -295,8 +307,8 @@
       "train_log_loss": 0.5839616566266284,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.573560810799669,
-        "brier": 0.1962067866087758
+        "log_loss": 0.5735608107996691,
+        "brier": 0.19620678660877575
       }
     },
     {
@@ -347,8 +359,8 @@
       "train_log_loss": 0.5835562876822933,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5729646193366372,
-        "brier": 0.19600022744654733
+        "log_loss": 0.5729646193366373,
+        "brier": 0.19600022744654727
       }
     },
     {
@@ -425,7 +437,7 @@
       "train_log_loss": 0.5845781362625132,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.574572624532262,
+        "log_loss": 0.5745726245322621,
         "brier": 0.1965561879079452
       }
     },
@@ -461,7 +473,7 @@
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
       "stat_mode": "playmaking",
-      "train_log_loss": 0.5841895396571484,
+      "train_log_loss": 0.5841895396571483,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5740733795377703,
@@ -490,8 +502,8 @@
       "train_log_loss": 0.583733129256703,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5734879530098477,
-        "brier": 0.19616836911629928
+        "log_loss": 0.5734879530098478,
+        "brier": 0.19616836911629926
       }
     },
     {
@@ -539,7 +551,7 @@
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
       "stat_mode": "defense",
-      "train_log_loss": 0.583328360489502,
+      "train_log_loss": 0.5833283604895019,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5729068690439333,
@@ -552,7 +564,7 @@
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
       "stat_mode": "all",
-      "train_log_loss": 0.5826827383341261,
+      "train_log_loss": 0.582682738334126,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5721307657216469,
@@ -620,7 +632,7 @@
       "train_log_loss": 0.5844186095051058,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5745529229501722,
+        "log_loss": 0.5745529229501721,
         "brier": 0.19654122602586718
       }
     },
@@ -734,7 +746,7 @@
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
       "stat_mode": "defense",
-      "train_log_loss": 0.5831699238365559,
+      "train_log_loss": 0.5831699238365557,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5729115437964362,
@@ -815,8 +827,8 @@
       "train_log_loss": 0.5826441384032659,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5723789460280273,
-        "brier": 0.19587825716923687
+        "log_loss": 0.5723789460280272,
+        "brier": 0.19587825716923682
       }
     },
     {
@@ -851,7 +863,7 @@
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
       "stat_mode": "playmaking",
-      "train_log_loss": 0.5822291382532748,
+      "train_log_loss": 0.5822291382532747,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5718714988787671,
@@ -880,7 +892,7 @@
       "train_log_loss": 0.5818403859070093,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5713791346392619,
+        "log_loss": 0.571379134639262,
         "brier": 0.19553260227961666
       }
     },
@@ -903,7 +915,7 @@
       "churn_gamma": 0.0,
       "multistat_beta": 150.0,
       "stat_mode": "shooting",
-      "train_log_loss": 0.5812913556980207,
+      "train_log_loss": 0.5812913556980208,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5704835245015989,
@@ -932,7 +944,7 @@
       "train_log_loss": 0.581429854564448,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5708225767221844,
+        "log_loss": 0.5708225767221845,
         "brier": 0.19534826192143692
       }
     },
@@ -998,7 +1010,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5730692102542473,
-        "brier": 0.19609562682622178
+        "brier": 0.19609562682622175
       }
     },
     {
@@ -1011,7 +1023,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5723116875260171,
-        "brier": 0.19584364396406775
+        "brier": 0.19584364396406778
       }
     },
     {
@@ -1062,7 +1074,7 @@
       "train_log_loss": 0.5822287866381046,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5720450569148304,
+        "log_loss": 0.5720450569148305,
         "brier": 0.1957383730086437
       }
     },
@@ -1127,7 +1139,7 @@
       "train_log_loss": 0.5812144916669634,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5707783879662102,
+        "log_loss": 0.5707783879662103,
         "brier": 0.1953237774409136
       }
     },
@@ -1137,10 +1149,10 @@
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
       "stat_mode": "all",
-      "train_log_loss": 0.5806387174476052,
+      "train_log_loss": 0.5806387174476053,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5701044681962603,
+        "log_loss": 0.5701044681962602,
         "brier": 0.1951098346443164
       }
     },
@@ -1167,7 +1179,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5726866202301766,
-        "brier": 0.19596390892592566
+        "brier": 0.19596390892592563
       }
     },
     {
@@ -1192,8 +1204,8 @@
       "train_log_loss": 0.5828977767403541,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5730611077319933,
-        "brier": 0.19608707213719043
+        "log_loss": 0.5730611077319934,
+        "brier": 0.19608707213719037
       }
     },
     {
@@ -1257,8 +1269,8 @@
       "train_log_loss": 0.5820786080285887,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5720456707116507,
-        "brier": 0.1957336120879348
+        "log_loss": 0.5720456707116508,
+        "brier": 0.19573361208793477
       }
     },
     {
@@ -1270,7 +1282,7 @@
       "train_log_loss": 0.5814771193848405,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5713214732275838,
+        "log_loss": 0.5713214732275836,
         "brier": 0.19549709724497275
       }
     },
@@ -1332,7 +1344,7 @@
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
       "stat_mode": "all",
-      "train_log_loss": 0.5804934509584587,
+      "train_log_loss": 0.5804934509584586,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5701187571961005,
@@ -1466,7 +1478,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.56953569639676,
-        "brier": 0.1952885149994188
+        "brier": 0.19528851499941874
       }
     },
     {
@@ -1557,7 +1569,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.570640133898025,
-        "brier": 0.19564407016775934
+        "brier": 0.1956440701677594
       }
     },
     {
@@ -1583,7 +1595,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5708600447146429,
-        "brier": 0.19570447966244395
+        "brier": 0.19570447966244403
       }
     },
     {
@@ -1618,7 +1630,7 @@
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
       "stat_mode": "shooting",
-      "train_log_loss": 0.5798967458708818,
+      "train_log_loss": 0.579896745870882,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5698156447923157,
@@ -1648,7 +1660,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5700210448985165,
-        "brier": 0.19542690792316822
+        "brier": 0.1954269079231682
       }
     },
     {
@@ -1661,7 +1673,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5695016913971175,
-        "brier": 0.19527012954870362
+        "brier": 0.19527012954870368
       }
     },
     {
@@ -1709,7 +1721,7 @@
       "churn_gamma": 0.5,
       "multistat_beta": 150.0,
       "stat_mode": "defense",
-      "train_log_loss": 0.5790604032121162,
+      "train_log_loss": 0.5790604032121163,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5690322552774499,
@@ -1725,7 +1737,7 @@
       "train_log_loss": 0.5786227717291674,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5685620459300423,
+        "log_loss": 0.5685620459300422,
         "brier": 0.19498749903901275
       }
     },
@@ -1777,7 +1789,7 @@
       "train_log_loss": 0.5805505708202661,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5708735754964224,
+        "log_loss": 0.5708735754964226,
         "brier": 0.1957067011554947
       }
     },
@@ -1790,7 +1802,7 @@
       "train_log_loss": 0.5800697161255421,
       "diagnostic_2026": {
         "games": 5750,
-        "log_loss": 0.5703220837612006,
+        "log_loss": 0.5703220837612007,
         "brier": 0.19553652001015157
       }
     },
@@ -1813,7 +1825,7 @@
       "churn_gamma": 1.0,
       "multistat_beta": 150.0,
       "stat_mode": "shooting",
-      "train_log_loss": 0.5797648954703668,
+      "train_log_loss": 0.5797648954703667,
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5698378571185045,
@@ -1856,7 +1868,7 @@
       "diagnostic_2026": {
         "games": 5750,
         "log_loss": 0.5695229533458779,
-        "brier": 0.19527535609356825
+        "brier": 0.1952753560935682
       }
     },
     {
