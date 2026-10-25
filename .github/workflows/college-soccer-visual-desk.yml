@@ -157,7 +157,7 @@ jobs:
                     const women=JSON.parse(fs.readFileSync('data/college-soccer-miaa-women-standings.json','utf8'));
 
           assert(html.includes('id="college-soccer-conference-index"'));
-          assert(html.includes('college-soccer-conference-index.js?v=pages2'));
+          assert(html.includes('college-soccer-conference-index.js?v=coverage3'));
           assert(html.includes('college-soccer-conference-index.css?v=pages1'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-conference-index"'));
           const directory=fs.readFileSync('college-soccer-conference-index.js','utf8');
@@ -165,6 +165,7 @@ jobs:
           assert(directory.includes('men-d3:miac'));
           assert(directory.includes('men-d3:cciw'));
           assert(directory.includes('women-d3:miaa'));
+          assert(directory.includes('cs-conf-cohort-coverage'));
           assert(html.includes('CONFERENCE DESKS &amp; TOURNAMENTS'));
           assert(!html.includes('id="college-soccer-postseason"'));
           assert(!html.includes('id="college-soccer-cciw"'));
