@@ -35,7 +35,9 @@ class PostseasonTest(unittest.TestCase):
         self.assertEqual(len(set(members)),8)
         self.assertEqual(set(members),{x['team_id'] for x in actual})
         self.assertEqual(self.rules['conferences']['men-d3:miaa']['tournament']['field'],6)
-        self.assertTrue(self.table['last_verified_game_date'])
+        self.assertTrue(self.table.get('checked_at_utc') or self.table.get('checked_date'))
+        # A conference-table source may not establish the date of the latest individual result.
+        self.assertIn('last_verified_game_date',self.table)
 
     def test_experimental_probabilities_sum_to_one(self):
         table={x['team_id']:x for x in self.table['rows']}
