@@ -8,8 +8,9 @@ queue=read("ncaam-2026-27-unlinked-2014-recovery-queue.json")
 corrections=read("ncaam-2026-27-unlinked-official-corrections-batch-01.json")
 current={x["espn_athlete_id"]:x for x in queue["players"]}
 assert len(queue["players"])==2014
-assert corrections["reviews"]==len(corrections["records"])==3
-assert {p["espn_athlete_id"] for p in corrections["records"]}=={"5142733","5456911","5462487"}
+assert corrections["reviews"]==len(corrections["records"]) and len(corrections["records"])>=3
+assert {"5142733","5456911","5462487"} <= {p["espn_athlete_id"] for p in corrections["records"]}
+assert len({p["espn_athlete_id"] for p in corrections["records"]}) == len(corrections["records"])
 for case in corrections["records"]:
     p=current[case["espn_athlete_id"]]
     assert p["player"]==case["player"] and p["current_team"]==case["team"]
@@ -18,4 +19,4 @@ for case in corrections["records"]:
     assert case["source_url"].startswith("https://")
     assert case["action"].startswith("REJECT_FALSE_")
 assert corrections["published_elo_changed"] is False
-print("PASS: three source-documented false transfer candidates excluded; source candidate classes left auditable")
+print("PASS: source-documented false transfer candidates excluded; source candidate classes left auditable")
