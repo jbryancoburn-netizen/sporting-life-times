@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 324,
+  "already_classified": 346,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -129,12 +129,6 @@
       "targeted": 2
     },
     {
-      "school": "Lehigh",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 4
-    },
-    {
       "school": "Manhattan",
       "status": "processed",
       "matched": 0,
@@ -177,21 +171,9 @@
       "targeted": 1
     },
     {
-      "school": "Rhode Island",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 5
-    },
-    {
       "school": "South Carolina",
       "status": "fetch_failed",
       "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "school": "Stanford",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 5
     },
     {
       "school": "Texas A&M",
@@ -282,18 +264,6 @@
       "targeted": 3
     },
     {
-      "school": "BYU",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 4
-    },
-    {
-      "school": "Dartmouth",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 4
-    },
-    {
       "school": "Fla. Atlantic",
       "status": "processed",
       "matched": 0,
@@ -340,9 +310,8 @@
     },
     {
       "school": "Auburn",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
+      "status": "season_unverified",
+      "heading": " "
     },
     {
       "school": "Gonzaga",
@@ -387,7 +356,7 @@
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 165,
+  "still_unmatched_in_queue": 143,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -582,30 +551,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5459530",
-      "school": "Lehigh",
-      "name": "Carter Cohen",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5459532",
-      "school": "Lehigh",
-      "name": "Nate Djanogly",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5459529",
-      "school": "Lehigh",
-      "name": "Ralfs Rudusans",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5459531",
-      "school": "Lehigh",
-      "name": "Colton Watson",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5455023",
       "school": "Manhattan",
       "name": "Dusan Eric",
@@ -675,66 +620,6 @@
       "id": "5144501",
       "school": "Pittsburgh",
       "name": "Jermal Jones",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5308006",
-      "school": "Rhode Island",
-      "name": "Jaen Chatman",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458227",
-      "school": "Rhode Island",
-      "name": "Dashiell Mabilon",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458226",
-      "school": "Rhode Island",
-      "name": "Tim Martin II",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458225",
-      "school": "Rhode Island",
-      "name": "Nedas Raupelis",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458224",
-      "school": "Rhode Island",
-      "name": "Steven Sherman",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5315566",
-      "school": "Stanford",
-      "name": "Drew Anderson",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5210812",
-      "school": "Stanford",
-      "name": "Elias Obenyah",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5292604",
-      "school": "Stanford",
-      "name": "Aziz Olajuwon",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5210397",
-      "school": "Stanford",
-      "name": "Julius Price",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5210805",
-      "school": "Stanford",
-      "name": "Isaiah Rogers",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -972,25 +857,109 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5455681",
-      "school": "BYU",
-      "name": "Brooks Bahr",
+      "id": "5254160",
+      "school": "Fla. Atlantic",
+      "name": "Tacko Ifaola",
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5210917",
-      "school": "BYU",
-      "name": "Bruce Branch III",
+      "id": "5458629",
+      "school": "Fla. Atlantic",
+      "name": "Matthew Puodziukaitis",
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5455682",
-      "school": "BYU",
-      "name": "Dovydas Buika",
+      "id": "5460972",
+      "school": "Le Moyne",
+      "name": "Isaiah Brown",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5460975",
+      "school": "Le Moyne",
+      "name": "Hunter Frazier",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5460973",
+      "school": "Le Moyne",
+      "name": "Leandro Gysel",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5460974",
+      "school": "Le Moyne",
+      "name": "Connor Johnson",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5242118",
+      "school": "Le Moyne",
+      "name": "Kole Williams",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5308465",
+      "school": "Loyola Chicago",
+      "name": "Ryan Kreager",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5461631",
+      "school": "Troy",
+      "name": "Afonso Pacheco",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5461627",
+      "school": "Troy",
+      "name": "Caua Pacheco",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5461629",
+      "school": "Troy",
+      "name": "Romain Valakou",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5461630",
+      "school": "Troy",
+      "name": "Tucker Wadsworth",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5460904",
+      "school": "Georgia St.",
+      "name": "Owen Augunas",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5458832",
+      "school": "Gonzaga",
+      "name": "Nathan De Sousa",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5239109",
+      "school": "Houston",
+      "name": "Arafan Diane",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5326291",
+      "school": "Iowa",
+      "name": "Jaidyn Coon",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5308447",
+      "school": "Iowa",
+      "name": "Ethan Harris",
       "reason": "no_unambiguous_card_year"
     }
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1871
+  "total_official_class_year_records": 1879
 }
