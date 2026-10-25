@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/build_ncaam_official_class_years.py --out /tmp/ncaam-official-class-years.json
-      - run: python -c "import json; r=json.load(open('/tmp/ncaam-official-class-years.json')); assert r['players_targeted']==2014 and not r['rejected_input_rows'] and r['official_class_year_records']>=100 and r['counts'].get('freshman',0)>=94 and not r['publication_elo_changed']"
+      - run: python -c "import json; r=json.load(open('/tmp/ncaam-official-class-years.json')); assert r['players_targeted']==2014 and not r['rejected_input_rows'] and r['official_class_year_records']>=149 and r['counts'].get('freshman',0)>=121 and not r['publication_elo_changed']"
       - uses: actions/upload-artifact@v4
         with:
           name: ncaam-official-class-years
