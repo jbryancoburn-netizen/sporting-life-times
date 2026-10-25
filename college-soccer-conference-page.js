@@ -93,7 +93,7 @@ async function render(){
  const field=Number(rule.tournament?.field)||0;
  const snapshot=table.checked_at_utc||table.snapshot_checked_date;
  const age=snapshot?(Date.now()-Date.parse(snapshot))/86400000:Infinity;
- const fresh=table.derived_from_verified_finals?table.projection_status==='provisional_not_official_tiebreakers':Number.isFinite(age)&&age>=0&&age<=2;
+ const fresh=table.derived_from_verified_finals?table.projection_status==='provisional_not_official_tiebreakers'&&Number.isFinite((Date.now()-Date.parse(table.projected_through))/86400000)&&(Date.now()-Date.parse(table.projected_through))/86400000<=2:Number.isFinite(age)&&age>=0&&age<=2;
  const hasStandings=table.rows.every(r=>r.conference_record&&r.conference_record!=='N/A'&&Number.isFinite(r.conference_points));
  const formatCertified=field>0&&fresh&&hasStandings&&!/inferred from|based on official 2025|carried forward|format.*unverified|eligibility.*unverified/i.test(rule.tournament?.status||'');
  const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seeds.length===field&&new Set(table.tournament_seeds).size===field&&table.tournament_seeds.every(id=>member.includes(id))?table.tournament_seeds:null;
