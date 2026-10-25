@@ -17,7 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 9
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,7 +37,10 @@ jobs:
           for key,match in d['matches'].items():
               assert str(key).isdecimal() and all(k in match for k in ('home','away','home_score','away_score','source_url'))
               assert any(match.get(k) for k in ('teams','players','events')), 'Details missing for '+key
-          print('Verified detailed reports:',len(d['matches']))
+          ratings=json.loads(Path('data/epl-ratings.json').read_text())
+          season={str(x['fixture_id']) for x in ratings['season_results']}
+          assert set(d['matches']).issubset(season), 'Report IDs not in verified results archive'
+          print('Verified detailed reports:',len(d['matches']),'of',len(season),'completed matches')
           PY
       - name: Publish verified details
         run: |
