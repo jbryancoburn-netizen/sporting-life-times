@@ -35,8 +35,8 @@ jobs:
           const pages=['college-soccer-team.html','college-soccer.html'];
           for(const p of pages){
             const html=fs.readFileSync(p,'utf8');
-            assert.match(html,/college-soccer-teams\.js\?v=cutoff20/);
-            assert.match(html,/college-soccer-teams\.css\?v=cutoff20/);
+            assert.match(html,/college-soccer-teams\.js\?v=home21/);
+            assert.match(html,/college-soccer-teams\.css\?v=home21/);
             assert.match(html,/id="college-team-search"/);
             assert.match(html,/id="college-team-profile"/);
           }
@@ -62,7 +62,7 @@ jobs:
           const branding=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json'));
           assert.equal(branding.teams['men-d3:trine'].city,'Angola');
           assert(branding.teams['men-d3:trine'].logo_url.startsWith('https://'));
-          for(const marker of ['team-result-timeline','team-splits','team-visual-report','team-hero-logo-bg']){
+          for(const marker of ['team-result-timeline','team-splits','team-visual-report','team-hero-logo-bg','team-porch-grid']){
             assert(fs.readFileSync('college-soccer-teams.js','utf8').includes(marker),marker+' missing');
           }
           console.log('Team UI references, graphs and Trine source-backed records validated.');
