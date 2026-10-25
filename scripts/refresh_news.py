@@ -61,8 +61,6 @@ DISCOVERY_SOURCES=[
  ("Eurohoops","eurohoops.net"),
  ("NBL","nbl.com.au"),
  ("BBC Local Football","bbc.co.uk/sport/football"),
-]otball/rss","Football"),
- ("Sky Sports Football","https://www.skysports.com/rss/12040","Football")
 ]
 FOOTBALL=("premier league","arsenal","chelsea","liverpool","tottenham","manchester united","manchester city","newcastle","aston villa","brighton","everton","fulham","brentford","sunderland","leeds","crystal palace","bournemouth","ipswich","nottingham forest","coventry","hull city")
 def clean(value):
