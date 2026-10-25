@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 36,
+  "games_played": 37,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -31,12 +31,12 @@
       "elo": 1593.227
     },
     {
-      "team": "BOS",
-      "elo": 1587.885
+      "team": "LAL",
+      "elo": 1592.226
     },
     {
-      "team": "LAL",
-      "elo": 1585.008
+      "team": "BOS",
+      "elo": 1587.885
     },
     {
       "team": "DEN",
@@ -116,7 +116,7 @@
     },
     {
       "team": "UTA",
-      "elo": 1356.302
+      "elo": 1349.084
     },
     {
       "team": "WAS",
@@ -451,43 +451,52 @@
       "away_score": 122,
       "date": "2026-10-25T02:00:00.000Z",
       "home_elo_change": 9.592252
+    },
+    {
+      "id": "espn-nba-401909861",
+      "home": "UTA",
+      "away": "LAL",
+      "home_score": 123,
+      "away_score": 132,
+      "date": "2026-10-25T21:00:00.000Z",
+      "home_elo_change": -7.218069
     }
   ],
   "movement": {
-    "as_of_eastern_date": "2026-10-24",
+    "as_of_eastern_date": "2026-10-25",
     "daily_change": {
       "OKC": 0,
       "NYK": 0,
-      "SAS": 8.614358,
+      "SAS": 0,
       "DET": 0,
-      "HOU": 15.110849,
+      "HOU": 0,
       "MIN": 0,
+      "LAL": 7.218069,
       "BOS": 0,
-      "LAL": 0,
-      "DEN": 6.110525,
-      "CHA": 8.608164,
-      "PHI": 6.439506,
-      "ATL": -15.110849,
-      "CLE": 5.053853,
+      "DEN": 0,
+      "CHA": 0,
+      "PHI": 0,
+      "ATL": 0,
+      "CLE": 0,
       "TOR": 0,
       "POR": 0,
       "LAC": 0,
       "ORL": 0,
-      "PHX": 9.592252,
-      "MIA": -8.608164,
-      "GSW": -9.592252,
-      "DAL": -8.614358,
-      "NOP": -6.110525,
-      "CHI": -17.142421,
+      "PHX": 0,
+      "MIA": 0,
+      "GSW": 0,
+      "DAL": 0,
+      "NOP": 0,
+      "CHI": 0,
       "MEM": 0,
       "SAC": 0,
-      "MIL": -6.439506,
+      "MIL": 0,
       "IND": 0,
-      "UTA": 0,
-      "WAS": 17.142421,
-      "BKN": -5.053853
+      "UTA": -7.218069,
+      "WAS": 0,
+      "BKN": 0
     },
-    "last_week_eastern_date": "2026-10-17",
+    "last_week_eastern_date": "2026-10-18",
     "last_week_elo": {
       "OKC": 1663.784,
       "NYK": 1672.897,
@@ -495,8 +504,8 @@
       "DET": 1587.821,
       "HOU": 1554.295,
       "MIN": 1563.264,
-      "BOS": 1585.801,
       "LAL": 1565.987,
+      "BOS": 1585.801,
       "DEN": 1579.214,
       "CHA": 1569.804,
       "PHI": 1525.849,
