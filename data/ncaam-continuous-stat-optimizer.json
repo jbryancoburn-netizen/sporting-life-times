@@ -1,0 +1,339 @@
+{
+  "model": "ncaam-continuous-coordinate-player-stat-v1",
+  "status": "RETROSPECTIVE_ONLY_NOT_PRESEASON_CERTIFIED",
+  "optimizer": "nonnegative coordinate descent with adaptive step and two starts",
+  "optimizer_converged_to_global_minimum": false,
+  "search_has_arbitrary_upper_coefficient_cap": false,
+  "train_year": 2024,
+  "validation_year": 2025,
+  "reused_diagnostic_year": 2026,
+  "selected_weights": {
+    "shooting": 126.5625,
+    "playmaking": 2075.0,
+    "defense": 385.9375
+  },
+  "training_log_loss": 0.5875431067686154,
+  "validation_2025": {
+    "games": 5674,
+    "log_loss": 0.5649147373198922,
+    "brier": 0.19318488500505074
+  },
+  "prior_grid_validation_2025": {
+    "games": 5674,
+    "log_loss": 0.5666597781476658,
+    "brier": 0.19372380466376074
+  },
+  "reused_2026": {
+    "games": 5750,
+    "log_loss": 0.5671573610424833,
+    "brier": 0.19466453411530996
+  },
+  "prior_grid_reused_2026": {
+    "games": 5750,
+    "log_loss": 0.5677797046927738,
+    "brier": 0.19477172600739595
+  },
+  "two_initializations": [
+    {
+      "weights": [
+        126.5625,
+        2075.0,
+        385.9375
+      ],
+      "train_log_loss": 0.5875431067686154,
+      "iterations": 14,
+      "trace": [
+        {
+          "iteration": 0,
+          "step": 400.0,
+          "train_log_loss": 0.5886387851018999,
+          "weights": {
+            "shooting": 400.0,
+            "playmaking": 400.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 1,
+          "step": 400.0,
+          "train_log_loss": 0.5881701496942916,
+          "weights": {
+            "shooting": 200.0,
+            "playmaking": 800.0,
+            "defense": 600.0
+          }
+        },
+        {
+          "iteration": 2,
+          "step": 400.0,
+          "train_log_loss": 0.5878385507797,
+          "weights": {
+            "shooting": 200.0,
+            "playmaking": 1200.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 3,
+          "step": 400.0,
+          "train_log_loss": 0.5876309705599904,
+          "weights": {
+            "shooting": 200.0,
+            "playmaking": 1600.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 4,
+          "step": 400.0,
+          "train_log_loss": 0.5875482678388501,
+          "weights": {
+            "shooting": 200.0,
+            "playmaking": 2000.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 5,
+          "step": 400.0,
+          "train_log_loss": 0.5875482678388501,
+          "weights": {
+            "shooting": 200.0,
+            "playmaking": 2000.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 6,
+          "step": 200.0,
+          "train_log_loss": 0.5875437541464232,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2100.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 7,
+          "step": 200.0,
+          "train_log_loss": 0.5875437541464232,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2100.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 8,
+          "step": 100.0,
+          "train_log_loss": 0.5875437541464232,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2100.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 9,
+          "step": 50.0,
+          "train_log_loss": 0.5875431327436036,
+          "weights": {
+            "shooting": 125.0,
+            "playmaking": 2075.0,
+            "defense": 375.0
+          }
+        },
+        {
+          "iteration": 10,
+          "step": 25.0,
+          "train_log_loss": 0.5875431086624692,
+          "weights": {
+            "shooting": 125.0,
+            "playmaking": 2075.0,
+            "defense": 387.5
+          }
+        },
+        {
+          "iteration": 11,
+          "step": 12.5,
+          "train_log_loss": 0.5875431086624692,
+          "weights": {
+            "shooting": 125.0,
+            "playmaking": 2075.0,
+            "defense": 387.5
+          }
+        },
+        {
+          "iteration": 12,
+          "step": 6.25,
+          "train_log_loss": 0.5875431082029783,
+          "weights": {
+            "shooting": 128.125,
+            "playmaking": 2075.0,
+            "defense": 384.375
+          }
+        },
+        {
+          "iteration": 13,
+          "step": 3.125,
+          "train_log_loss": 0.5875431067686154,
+          "weights": {
+            "shooting": 126.5625,
+            "playmaking": 2075.0,
+            "defense": 385.9375
+          }
+        }
+      ]
+    },
+    {
+      "weights": [
+        126.5625,
+        2075.0,
+        385.9375
+      ],
+      "train_log_loss": 0.5875431067686154,
+      "iterations": 13,
+      "trace": [
+        {
+          "iteration": 0,
+          "step": 400.0,
+          "train_log_loss": 0.5879939681218835,
+          "weights": {
+            "shooting": 300.0,
+            "playmaking": 1000.0,
+            "defense": 450.0
+          }
+        },
+        {
+          "iteration": 1,
+          "step": 400.0,
+          "train_log_loss": 0.5877287880705693,
+          "weights": {
+            "shooting": 300.0,
+            "playmaking": 1400.0,
+            "defense": 450.0
+          }
+        },
+        {
+          "iteration": 2,
+          "step": 400.0,
+          "train_log_loss": 0.5875735328629451,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 1800.0,
+            "defense": 450.0
+          }
+        },
+        {
+          "iteration": 3,
+          "step": 400.0,
+          "train_log_loss": 0.5875462048999253,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2000.0,
+            "defense": 450.0
+          }
+        },
+        {
+          "iteration": 4,
+          "step": 400.0,
+          "train_log_loss": 0.5875462048999253,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2000.0,
+            "defense": 450.0
+          }
+        },
+        {
+          "iteration": 5,
+          "step": 200.0,
+          "train_log_loss": 0.5875440603709213,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2100.0,
+            "defense": 350.0
+          }
+        },
+        {
+          "iteration": 6,
+          "step": 200.0,
+          "train_log_loss": 0.5875440603709213,
+          "weights": {
+            "shooting": 100.0,
+            "playmaking": 2100.0,
+            "defense": 350.0
+          }
+        },
+        {
+          "iteration": 7,
+          "step": 100.0,
+          "train_log_loss": 0.5875436827225132,
+          "weights": {
+            "shooting": 150.0,
+            "playmaking": 2050.0,
+            "defense": 400.0
+          }
+        },
+        {
+          "iteration": 8,
+          "step": 50.0,
+          "train_log_loss": 0.5875431327436036,
+          "weights": {
+            "shooting": 125.0,
+            "playmaking": 2075.0,
+            "defense": 375.0
+          }
+        },
+        {
+          "iteration": 9,
+          "step": 25.0,
+          "train_log_loss": 0.5875431086624692,
+          "weights": {
+            "shooting": 125.0,
+            "playmaking": 2075.0,
+            "defense": 387.5
+          }
+        },
+        {
+          "iteration": 10,
+          "step": 12.5,
+          "train_log_loss": 0.5875431086624692,
+          "weights": {
+            "shooting": 125.0,
+            "playmaking": 2075.0,
+            "defense": 387.5
+          }
+        },
+        {
+          "iteration": 11,
+          "step": 6.25,
+          "train_log_loss": 0.5875431082029783,
+          "weights": {
+            "shooting": 128.125,
+            "playmaking": 2075.0,
+            "defense": 384.375
+          }
+        },
+        {
+          "iteration": 12,
+          "step": 3.125,
+          "train_log_loss": 0.5875431067686154,
+          "weights": {
+            "shooting": 126.5625,
+            "playmaking": 2075.0,
+            "defense": 385.9375
+          }
+        }
+      ]
+    }
+  ],
+  "evaluation_cache_count": 200,
+  "production_promotion_allowed": false,
+  "limitations": [
+    "Historical rosters not verified as-of the season opener",
+    "2025 was inspected in earlier experiments; not untouched",
+    "2026 was inspected repeatedly; diagnostic only",
+    "Existing quality, transfer, churn and venue assumptions are fixed and not independently certified",
+    "Coordinate descent convergence is not global-optimum proof"
+  ]
+}
