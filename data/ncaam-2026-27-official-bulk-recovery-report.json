@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 346,
+  "already_classified": 354,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -176,12 +176,6 @@
       "error": "HTTP Error 404: Not Found"
     },
     {
-      "school": "Texas A&M",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 4
-    },
-    {
       "school": "Tulsa",
       "status": "processed",
       "matched": 0,
@@ -287,12 +281,6 @@
       "targeted": 1
     },
     {
-      "school": "Troy",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 4
-    },
-    {
       "school": "Georgia St.",
       "status": "processed",
       "matched": 0,
@@ -310,8 +298,9 @@
     },
     {
       "school": "Auburn",
-      "status": "season_unverified",
-      "heading": " "
+      "status": "processed",
+      "matched": 0,
+      "targeted": 1
     },
     {
       "school": "Gonzaga",
@@ -356,7 +345,7 @@
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 143,
+  "still_unmatched_in_queue": 135,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -623,30 +612,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5106282",
-      "school": "Texas A&M",
-      "name": "Preston Clark",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5308457",
-      "school": "Texas A&M",
-      "name": "Josh Irving",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5455531",
-      "school": "Texas A&M",
-      "name": "Kyle Moran",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5210792",
-      "school": "Texas A&M",
-      "name": "Neiko Mundey",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5458760",
       "school": "Tulsa",
       "name": "Derelle Desire",
@@ -905,33 +870,15 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5461631",
-      "school": "Troy",
-      "name": "Afonso Pacheco",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5461627",
-      "school": "Troy",
-      "name": "Caua Pacheco",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5461629",
-      "school": "Troy",
-      "name": "Romain Valakou",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5461630",
-      "school": "Troy",
-      "name": "Tucker Wadsworth",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5460904",
       "school": "Georgia St.",
       "name": "Owen Augunas",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5351499",
+      "school": "Auburn",
+      "name": "Mantas Rubstavicius",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -957,9 +904,45 @@
       "school": "Iowa",
       "name": "Ethan Harris",
       "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5458631",
+      "school": "Memphis",
+      "name": "Nemanja Popovic",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5459304",
+      "school": "Northern Ky.",
+      "name": "Willie Foster",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5459305",
+      "school": "Northern Ky.",
+      "name": "Patrick Otto Mae",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5455081",
+      "school": "Sacred Heart",
+      "name": "DJ Brown",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5455080",
+      "school": "Sacred Heart",
+      "name": "Landon Krygier",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5459979",
+      "school": "Stony Brook",
+      "name": "Ozgur Cengiz",
+      "reason": "no_unambiguous_card_year"
     }
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1879
+  "total_official_class_year_records": 1891
 }
