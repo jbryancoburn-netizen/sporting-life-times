@@ -161,11 +161,13 @@ jobs:
           assert(html.includes('college-soccer-conference-index.css?v=coverage3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-conference-index"'));
           const directory=fs.readFileSync('college-soccer-conference-index.js','utf8');
-          assert(directory.includes('men-d3:miaa'));
-          assert(directory.includes('men-d3:miac'));
-          assert(directory.includes('men-d3:cciw'));
-          assert(directory.includes('women-d3:miaa'));
+          
+          
+          
+          
           assert(directory.includes('cs-conf-cohort-coverage'));
+          assert(directory.includes('Object.entries(data.conferences'));
+          assert(directory.includes('v.page'));
           assert(html.includes('CONFERENCE DESKS &amp; TOURNAMENTS'));
           assert(!html.includes('id="college-soccer-postseason"'));
           assert(!html.includes('id="college-soccer-cciw"'));
@@ -188,7 +190,7 @@ jobs:
             assert(pageHtml.includes('college-soccer-conference-page.js?v=3'));
             assert(pageHtml.includes('college-soccer-cup-ui.js?v=3'));
             assert(pageHtml.includes('college-soccer-conference-page.css?v=2'));
-            assert(directory.includes(page),'Directory link missing '+page);
+            assert(conferenceData.conferences[conference]?.page===page,'Registry destination missing '+page);
           }
           const conferenceData=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
           for(const [page,cohortKey] of Object.entries(dedicated)){
