@@ -8,6 +8,18 @@ class PlayerNames(unittest.TestCase):
         index={"col. of charleston":{"JANEPLAYER","JOHNPLAYER"}}
         self.assertEqual(choose_known_team("Charleston",["Jane Player"],index)[2],False)
         self.assertEqual(choose_known_team("Charleston",["Jane Player","John Player"],index)[2],True)
+    def test_unknown_school_discovered_from_three_players(self):
+        index={"different school":{"ALICEBROWN","BOBWHITE","CARLGRAY"}}
+        result=choose_known_team("Unmatched School",["Alice Brown","Bob White","Carl Gray"],index)
+        self.assertEqual(result[1],"different school")
+        self.assertTrue(result[2])
+    def test_unknown_school_needs_three_players(self):
+        index={"different school":{"ALICEBROWN","BOBWHITE"}}
+        self.assertFalse(choose_known_team("Unmatched School",["Alice Brown","Bob White"],index)[2])
+    def test_unknown_school_ambiguous_rejected(self):
+        index={"school a":{"ALICEBROWN","BOBWHITE","CARLGRAY"},
+               "school b":{"ALICEBROWN","BOBWHITE","CARLGRAY"}}
+        self.assertFalse(choose_known_team("Unmatched School",["Alice Brown","Bob White","Carl Gray"],index)[2])
     def test_unique_suffix(self):
         self.assertTrue(safe_unique_suffix_match("Tedrick Washington Jr.",{"TEDRICKWASHINGTON"}))
         self.assertTrue(safe_unique_suffix_match("Jordan Smith",{"JORDANSMITHJR"}))
