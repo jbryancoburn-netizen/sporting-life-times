@@ -2,7 +2,7 @@
   "schema_version": 1,
   "source": "Official MIAA, MIAC, CCIW men's 2026 soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
-  "scope": "Ten verified 2026 NCAA soccer conference desks across Divisions I, II and III (men/women). Remaining conference memberships, rules and live collectors incomplete.",
+  "scope": "Verified conference membership and standings links for ten NCAA men's/women's soccer league desks across DI, DII and DIII; national mapping not yet complete.",
   "notice": "Only verified conferences; no automatic team assignment from geographic/name similarity. Missing Elo is flagged rather than invented.",
   "conferences": {
     "men-d3:miaa": {
@@ -17,7 +17,10 @@
         "alma",
         "trine",
         "olivet"
-      ]
+      ],
+      "page": "college-soccer-miaa-men.html",
+      "standings_feed": "data/college-soccer-miaa-standings.json",
+      "verification_status": "mapped_verified"
     },
     "men-d3:miac": {
       "name": "Minnesota Intercollegiate Athletic Conference",
@@ -35,7 +38,10 @@
         "concordia-mhead",
         "st-marys-mn"
       ],
-      "source_url": "https://miacathletics.com/standings.aspx?path=msoc"
+      "source_url": "https://miacathletics.com/standings.aspx?path=msoc",
+      "page": "college-soccer-miac-men.html",
+      "standings_feed": "data/college-soccer-miac-standings.json",
+      "verification_status": "mapped_verified"
     },
     "men-d3:cciw": {
       "name": "College Conference of Illinois & Wisconsin",
@@ -51,7 +57,10 @@
         "elmhurst",
         "carthage"
       ],
-      "source_url": "https://cciw.org/standings.aspx?path=msoc"
+      "source_url": "https://cciw.org/standings.aspx?path=msoc",
+      "page": "college-soccer-cciw-men.html",
+      "standings_feed": "data/college-soccer-cciw-standings.json",
+      "verification_status": "mapped_verified"
     },
     "women-d3:miaa": {
       "name": "Michigan Intercollegiate Athletic Association",
@@ -67,7 +76,10 @@
         "st-marys-in",
         "olivet"
       ],
-      "source_url": "https://miaa.org/standings.aspx?path=wsoc"
+      "source_url": "https://miaa.org/standings.aspx?path=wsoc",
+      "page": "college-soccer-miaa-women.html",
+      "standings_feed": "data/college-soccer-miaa-women-standings.json",
+      "verification_status": "mapped_verified"
     },
     "men-d1:big-ten": {
       "name": "Big Ten Conference",
@@ -86,7 +98,9 @@
         "penn-st"
       ],
       "source_url": "https://bigten.org/standings.aspx?path=msoc",
-      "page": "college-soccer-big-ten-men.html"
+      "page": "college-soccer-big-ten-men.html",
+      "standings_feed": "data/college-soccer-men-d1-big-ten-standings.json",
+      "verification_status": "mapped_verified"
     },
     "women-d1:big-ten": {
       "name": "Big Ten Conference",
@@ -112,7 +126,9 @@
         "indiana"
       ],
       "source_url": "https://bigten.org/sports/wsoc/standings",
-      "page": "college-soccer-big-ten-women.html"
+      "page": "college-soccer-big-ten-women.html",
+      "standings_feed": "data/college-soccer-women-d1-big-ten-standings.json",
+      "verification_status": "mapped_verified"
     },
     "women-d3:miac": {
       "name": "Minnesota Intercollegiate Athletic Conference",
@@ -132,7 +148,9 @@
         "hamline"
       ],
       "source_url": "https://miacathletics.com/standings.aspx?path=wsoc",
-      "page": "college-soccer-miac-women.html"
+      "page": "college-soccer-miac-women.html",
+      "standings_feed": "data/college-soccer-women-d3-miac-standings.json",
+      "verification_status": "mapped_verified"
     },
     "women-d3:cciw": {
       "name": "College Conference of Illinois & Wisconsin",
@@ -149,7 +167,9 @@
         "augustana-il"
       ],
       "source_url": "https://cciw.org/standings.aspx?path=wsoc",
-      "page": "college-soccer-cciw-women.html"
+      "page": "college-soccer-cciw-women.html",
+      "standings_feed": "data/college-soccer-women-d3-cciw-standings.json",
+      "verification_status": "mapped_verified"
     },
     "men-d2:gliac": {
       "name": "Great Lakes Intercollegiate Athletic Conference",
@@ -164,7 +184,9 @@
         "st-cloud-st"
       ],
       "source_url": "https://gliac.org/standings.aspx?path=msoc",
-      "page": "college-soccer-gliac-men.html"
+      "page": "college-soccer-gliac-men.html",
+      "standings_feed": "data/college-soccer-men-d2-gliac-standings.json",
+      "verification_status": "mapped_verified"
     },
     "women-d2:gliac": {
       "name": "Great Lakes Intercollegiate Athletic Conference",
@@ -182,7 +204,9 @@
         "roosevelt-university"
       ],
       "source_url": "https://gliac.org/standings.aspx?path=wsoc",
-      "page": "college-soccer-gliac-women.html"
+      "page": "college-soccer-gliac-women.html",
+      "standings_feed": "data/college-soccer-women-d2-gliac-standings.json",
+      "verification_status": "mapped_verified"
     }
   },
   "team_to_conference": {
