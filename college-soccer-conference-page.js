@@ -137,5 +137,5 @@ async function render(){
  root.append(rulesSection);previous=signal;
  }catch(err){if(!previous){root.replaceChildren(E('p','Conference data could not be reconciled; the previous figures have not been replaced with estimates.','cs-conf-caption'));root.append(A('Return to NCAA Soccer','college-soccer.html'))}console.error('Conference desk',key,err)}
 }
-render();setInterval(()=>{if(document.visibilityState==='visible')render()},15*60*1000);
+render();setInterval(()=>{if(document.visibilityState==='visible')render()},60*1000);
 })();
