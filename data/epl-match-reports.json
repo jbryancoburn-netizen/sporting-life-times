@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 79,
+    "matches_covered": 80,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -1179,7 +1179,7 @@
     "own_goals_not_counted": 10,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-10-25T19:42:48.638816+00:00",
+  "updated_at": "2026-10-25T22:04:00.345410+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -37856,13 +37856,478 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879301"
+    },
+    "401878764": {
+      "home": "Sunderland",
+      "away": "Leeds United",
+      "home_score": 0,
+      "away_score": 0,
+      "kickoff_utc": "2026-10-25T16:30:00+00:00",
+      "teams": [
+        {
+          "team": "Sunderland",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "10",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "3",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "4",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "3",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "50.4",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "15",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "4",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "279",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "375",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.7",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "3",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "20",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "61",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "14",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.2",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "7",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "3",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "11",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.3",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "15",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "44",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "44",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Leeds United",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "14",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "2",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "0",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "5",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "49.6",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "11",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "4",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.4",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "261",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "361",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.7",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "6",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "22",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "64",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "27",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "5",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "15",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.3",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "10",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "36",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "36",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "19'",
+          "text": "Delay in match because of an injury Nordi Mukiele (Sunderland).",
+          "type": "Start Delay",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "19'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "20'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "20'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "29'",
+          "text": "Ethan Ampadu (Leeds United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "39'",
+          "text": "Reinildo Mandava (Sunderland) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "45'+2'",
+          "text": null,
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "47'",
+          "text": "Delay in match because of an injury Nordi Mukiele (Sunderland).",
+          "type": "Start Delay",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "47'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "50'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "50'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "52'",
+          "text": "Substitution, Sunderland. Omar Alderete replaces Nordi Mukiele because of an injury.",
+          "type": "Substitution",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Sunderland. Tymur Tutierov replaces Brian Brobbey.",
+          "type": "Substitution",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "65'",
+          "text": "Substitution, Leeds United. Noah Okafor replaces Brenden Aaronson.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Leeds United. Anton Stach replaces Harry Wilson.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "67'",
+          "text": "Jayden Bogle (Leeds United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "79'",
+          "text": "Substitution, Sunderland. Chemsdine Talbi replaces Nilson Angulo.",
+          "type": "Substitution",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "79'",
+          "text": "Substitution, Sunderland. Habib Diarra replaces Enzo Le Fée.",
+          "type": "Substitution",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "85'",
+          "text": "Substitution, Leeds United. Lukas Nmecha replaces Dominic Calvert-Lewin.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "86'",
+          "text": "Delay in match because of an injury James Trafford (Leeds United).",
+          "type": "Start Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "86'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "88'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "88'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Sunderland"
+        },
+        {
+          "clock": "89'",
+          "text": "Substitution, Leeds United. Sean Longstaff replaces Ao Tanaka.",
+          "type": "Substitution",
+          "team": "Leeds United"
+        },
+        {
+          "clock": "90'+7'",
+          "text": "Second Half ends, Sunderland 0, Leeds United 0.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401878764"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 79,
-    "detailed_reports": 79
+    "attempted": 1,
+    "season_finals": 80,
+    "detailed_reports": 80
   }
 }
