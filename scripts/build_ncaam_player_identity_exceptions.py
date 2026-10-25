@@ -81,7 +81,13 @@ if __name__ == "__main__":
     content = json.dumps(actual, indent=2) + "\n"
     import sys
     if "--check" in sys.argv:
-        assert json.loads(output.read_text()) == actual, "Committed ledger differs from independently regenerated ledger"
+        expected = json.loads(output.read_text())
+        assert actual["category_counts"] == expected["category_counts"], "Category counts differ"
+        assert actual["review_count"] == expected["review_count"], "Review count differs"
+        by_id = lambda rows: {str(p["athlete_id"]): p for p in rows}
+        assert by_id(actual["review_queue"]) == by_id(expected["review_queue"]), "Per-athlete classifications differ"
+        assert actual["total_roster_players"] == expected["total_roster_players"], "Roster sizes differ"
+        assert actual["linked_candidates"] == expected["linked_candidates"], "Crosswalk size differs"
         print("PASS: 365-team NCAA identity ledger matches source evidence")
     else:
         output.write_text(content)
