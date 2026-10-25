@@ -22,6 +22,8 @@ jobs:
           import json
           d=json.load(open('data/ncaam-historical-name-gap-triage.json'))
           s=d['summary']
+          source=json.load(open('data/ncaam-historical-player-concordance.json'))
+          assert s['source_unmatched']==source['summary']['unmatched']
           assert s['unmatched_on_team_without_name_alignment']+s['unmatched_on_aligned_team']+s['explicit_staff_title_candidates']==s['source_unmatched']
           assert d['production_elo_promotion'] is False
           print('PASS: exhaustive historical name gap triage')
