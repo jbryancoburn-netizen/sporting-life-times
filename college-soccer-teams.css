@@ -329,3 +329,14 @@
 #college-team-profile .team-mascot-accent-label small{font-size:.42rem}
 #college-team-profile .team-mascot-accent-label strong{font-size:.65rem}
 }
+
+/* October 2026: integrated mascot lockup, with no floating image or reserved column. */
+#college-team-profile .team-hero{padding-right:clamp(1rem,3vw,2.3rem)!important;min-height:0}
+#college-team-profile .team-identity{align-items:center}
+#college-team-profile .team-identity>div{min-width:0}
+#college-team-profile .team-identity>div>a:has(.team-mascot-signature){display:inline-flex;max-width:100%;text-decoration:none;color:inherit;margin:.35rem 0 0}
+#college-team-profile .team-mascot-signature{display:inline-flex;align-items:center;gap:.5rem;max-width:100%;font:600 .7rem/1.25 Arial,sans-serif;color:#e2e8e9;letter-spacing:.015em;white-space:normal}
+#college-team-profile .team-mascot-signature img{width:48px;height:53px;flex:none;display:block;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;box-shadow:none;filter:drop-shadow(0 1px 2px #001c3380)}
+#college-team-profile .team-identity>div>a:has(.team-mascot-signature):hover .team-mascot-signature{color:#fff}
+#college-team-profile .team-identity>div>a:has(.team-mascot-signature):focus-visible{outline:2px solid var(--team-accent,#d1bd8c);outline-offset:3px}
+@media(max-width:650px){#college-team-profile .team-hero{padding:1rem!important}#college-team-profile .team-mascot-signature img{width:38px;height:44px}#college-team-profile .team-mascot-signature{font-size:.66rem;gap:.35rem}}
