@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 32,
+  "games_played": 33,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -87,16 +87,16 @@
       "elo": 1417.246
     },
     {
-      "team": "CHI",
-      "elo": 1406.772
-    },
-    {
       "team": "DAL",
       "elo": 1406.071
     },
     {
       "team": "NOP",
       "elo": 1403.935
+    },
+    {
+      "team": "CHI",
+      "elo": 1389.629
     },
     {
       "team": "MEM",
@@ -119,12 +119,12 @@
       "elo": 1356.302
     },
     {
-      "team": "BKN",
-      "elo": 1344.424
+      "team": "WAS",
+      "elo": 1346.014
     },
     {
-      "team": "WAS",
-      "elo": 1328.872
+      "team": "BKN",
+      "elo": 1344.424
     }
   ],
   "events": [
@@ -408,6 +408,15 @@
       "home_elo_change": 6.439506
     },
     {
+      "id": "espn-nba-401909857",
+      "home": "CHI",
+      "away": "WAS",
+      "home_score": 120,
+      "away_score": 124,
+      "date": "2026-10-25T00:00:00.000Z",
+      "home_elo_change": -17.142421
+    },
+    {
       "id": "espn-nba-401909858",
       "home": "DAL",
       "away": "SAS",
@@ -440,16 +449,16 @@
       "PHX": 0,
       "MIA": -8.608164,
       "GSW": 0,
-      "CHI": 0,
       "DAL": -8.614358,
       "NOP": 0,
+      "CHI": -17.142421,
       "MEM": 0,
       "SAC": 0,
       "MIL": -6.439506,
       "IND": 0,
       "UTA": 0,
-      "BKN": -5.053853,
-      "WAS": 0
+      "WAS": 17.142421,
+      "BKN": -5.053853
     },
     "last_week_eastern_date": "2026-10-17",
     "last_week_elo": {
@@ -473,16 +482,16 @@
       "PHX": 1499.058,
       "MIA": 1505.163,
       "GSW": 1441.84,
-      "CHI": 1399.976,
       "DAL": 1405.301,
       "NOP": 1431.708,
+      "CHI": 1399.976,
       "MEM": 1357.696,
       "SAC": 1402.359,
       "MIL": 1421.261,
       "IND": 1382.048,
       "UTA": 1357.55,
-      "BKN": 1356.983,
-      "WAS": 1320.49
+      "WAS": 1320.49,
+      "BKN": 1356.983
     }
   }
 }
