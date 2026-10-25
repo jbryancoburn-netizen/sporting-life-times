@@ -66,7 +66,9 @@ async function render(){
  cfg.name=conferenceMeta.short||conferenceMeta.name||cfg.name;
  cfg.standings=conferenceMeta.standings_feed;
  const [baseTable,elo,rules,branding,projections]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}})),get('data/college-soccer-projected-standings.json').catch(()=>({conferences:{}}))]);
- const table=projections.conferences?.[key]||baseTable;
+ const projectedTable=projections.conferences?.[key];
+ const projectionUsable=projectedTable?.rows?.length===baseTable.rows?.length&&projectedTable.rows.every(r=>Number.isFinite(r.conference_points))&&String(projectedTable.snapshot_checked_date||'')>=String(baseTable.snapshot_checked_date||'');
+ const table=projectionUsable?projectedTable:baseTable;
  const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
