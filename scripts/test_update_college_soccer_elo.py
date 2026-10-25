@@ -94,10 +94,14 @@ class TestCollegeSoccerLive(unittest.TestCase):
         self.assertEqual(table2, table3)
         self.assertEqual(got, direct)
 
-    def test_score_correction_blocks_publication(self):
-        l, _, _ = c.update(self.b, self.l, [game()])
-        with self.assertRaisesRegex(ValueError, "FINAL_CORRECTION_REQUIRED"):
-            c.update(self.b, l, [game(hg=3)])
+    def test_score_correction_quarantined_without_changing_prior_elo(self):
+        l, prior_model, _ = c.update(self.b, self.l, [game()])
+        result, model, audit = c.update(self.b, l, [game(hg=3)])
+        self.assertEqual(result, l)
+        self.assertEqual(model, prior_model)
+        self.assertEqual(audit["unresolved_source_correction_count"], 1)
+        self.assertEqual(audit["unresolved_source_corrections"][0]["match_id"], "men-100")
+        self.assertEqual(audit["status"], "provisional_conflicted")
 
     def test_cross_division_excluded_with_evidence(self):
         _, m, a = c.update(self.b, self.l, [game(away="women-d1-a")])
