@@ -24,7 +24,7 @@ jobs:
           TRIGGER: ${{ github.event_name }}
           RUN_ID: ${{ github.run_id }}
         run: |
-          python -c 'import datetime,json,os,pathlib; p=pathlib.Path("data/epl-pipeline-status.json"); p.write_text(json.dumps({"checked_at_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),"trigger":os.environ["TRIGGER"],"run_id":os.environ["RUN_ID"]},indent=2)+"\\n")'
+          python -c 'import datetime,json,os,pathlib; p=pathlib.Path("data/epl-pipeline-status.json"); p.write_text(json.dumps({"checked_at_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),"trigger":os.environ["TRIGGER"],"run_id":os.environ["RUN_ID"]},indent=2)+chr(10))'
       - name: Commit matched Elo and forecast exports
         run: |
           git config user.name "sporting-life-times-bot"
