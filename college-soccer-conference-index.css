@@ -23,3 +23,11 @@
 .cs-conf-cohort-track i{display:block;background:#54778f;height:100%}
 @media(max-width:800px){.cs-conf-cohort-coverage{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:450px){.cs-conf-cohort-coverage{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.cs-conf-directory-filters{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;margin:.65rem 0 .7rem}
+.cs-conf-directory-search,.cs-conf-directory-select{box-sizing:border-box;min-height:2.4rem;padding:.5rem .6rem;border:1px solid #8fa8b5;border-radius:3px;background:#fff;color:#213947!important;font:600 .79rem Arial,sans-serif}
+.cs-conf-directory-search{flex:2 1 220px;min-width:0}
+.cs-conf-directory-select{flex:1 1 125px}
+.cs-conf-directory-matchcount{font:700 .7rem Arial,sans-serif;color:#526979;margin-left:auto}
+.cs-conf-directory-link[hidden]{display:none!important}
+@media(max-width:500px){.cs-conf-directory-search{flex-basis:100%}.cs-conf-directory-select{flex:1 1 40%}.cs-conf-directory-matchcount{width:100%;text-align:right}}
