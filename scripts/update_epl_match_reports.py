@@ -3,6 +3,7 @@
 import concurrent.futures
 import datetime as dt
 import json
+import re
 from pathlib import Path
 from urllib.request import urlopen, Request
 
@@ -30,6 +31,32 @@ def fetch(game):
         events.append({"clock":e.get("clock",{}).get("displayValue"),"text":e.get("text"),"type":e.get("type",{}).get("text"),"team":e.get("team",{}).get("displayName")})
     if not (teamstats or teams or events):raise ValueError("Event summary contains no detailed statistics or events")
     return gid,{"home":game["home"],"away":game["away"],"home_score":game["home_score"],"away_score":game["away_score"],"kickoff_utc":game["kickoff_utc"],"teams":teamstats,"players":teams,"events":events,"source_url":"https://www.espn.com/soccer/match/_/gameId/"+gid}
+def player_snapshot(matches):
+    """Event-derived leaders for only the stored match-report window, not season totals."""
+    goals={};assists={};own_goals=0
+    for match in matches.values():
+        for event in match.get("events",[]):
+            kind=(event.get("type") or "").lower()
+            description=event.get("text") or ""
+            if "own goal" in kind:
+                own_goals+=1
+                continue
+            if not (kind.startswith("goal") or kind=="penalty - scored"):
+                continue
+            scorer=re.search(r"\\.\\s+(.+?)\\s+\\(([^()]+)\\)\\s+(?:right footed|left footed|header|converts|scores|penalty)",description,re.I)
+            if scorer:
+                key=(scorer.group(1).strip(),scorer.group(2).strip())
+                goals[key]=goals.get(key,0)+1
+            helper=re.search(r"Assisted by (.+?)(?: with | following |\\.|$)",description,re.I)
+            if helper and event.get("team"):
+                key=(helper.group(1).strip(),event["team"])
+                assists[key]=assists.get(key,0)+1
+    def sorted_rows(values,label):
+        return [{"player":p,"team":t,label:v} for (p,t),v in sorted(values.items(),key=lambda row:(-row[1],row[0][0]))]
+    return {"scope":"published_match_reports_only","matches_covered":len(matches),
+            "goals":sorted_rows(goals,"count"),"assists":sorted_rows(assists,"count"),
+            "own_goals_not_counted":own_goals,
+            "note":"Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."}
 def main():
     feed=json.loads((DATA/"epl-match-center.json").read_text())
     finals=feed.get("recent_results",[])[:18]
@@ -46,7 +73,7 @@ def main():
                 successful+=1
             except Exception as exc:failed[gid]=str(exc)[:150]
     if not successful and not matches:raise RuntimeError("No detailed match reports available; refusing empty publication")
-    output={"updated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"ESPN event summary; third-party match facts only, not Elo","matches":matches,"fetch_status":{"successful":successful,"failed":failed}}
+    output={"player_snapshot":player_snapshot(matches),"updated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"ESPN event summary; third-party match facts only, not Elo","matches":matches,"fetch_status":{"successful":successful,"failed":failed}}
     DETAILS.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n")
     print(json.dumps({"reports":len(matches),"newly_verified":successful,"failed":len(failed)}))
 if __name__=="__main__":main()
