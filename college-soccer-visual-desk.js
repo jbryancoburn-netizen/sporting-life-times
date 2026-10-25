@@ -67,6 +67,11 @@ function render(){
    const line=E('div',null,'cs-score-side');const entry=byName.get(n);
    if(entry?.team_id)line.append(club(n,cohort,entry.team_id));else line.append(E('span',n));
    line.append(E('strong',score));
+   const identity=entry?.team_id?brand.teams?.[cohort+':'+entry.team_id]:null;
+   if(/^#[0-9a-fA-F]{6}$/.test(identity?.primary||''))line.style.setProperty('--team-stripe',identity.primary);
+   const otherScore=n===m.home?Number(scores[2]):Number(scores[1]);
+   if(Number(score)>otherScore)line.classList.add('cs-score-winner');
+   else if(Number(score)<otherScore)line.classList.add('cs-score-loser');
    tile.append(line);
   }grid.append(tile);
  }rail.append(grid);}
