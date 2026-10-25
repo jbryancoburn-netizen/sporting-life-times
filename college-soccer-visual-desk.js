@@ -58,6 +58,19 @@ function render(){
  const low=Math.min(...top.map(t=>t.elo)),high=Math.max(...top.map(t=>t.elo));
  for(const t of top){const item=E('div',null,'cs-power-row');item.append(E('span',t.rank,'cs-number'),club(t.team,cohort,t.team_id));
  const track=E('span',null,'cs-power-track'),fill=E('i');fill.style.width=(7+93*(t.elo-low)/(high-low||1))+'%';const color=brand.teams?.[cohort+':'+t.team_id]?.primary;if(color)fill.style.background=color;track.append(fill);item.append(track,E('strong',fmt(t.elo)));power.append(item);}
+ const movement=(model.latest_finals||[]).filter(g=>g.cohort===cohort&&Number.isFinite(Number(g.home_elo_change))).slice(0,5);
+ if(movement.length){
+  const changes=section(right,'Elo at the final whistle','VERIFIED GAME MOVEMENT · HOME TEAM');
+  for(const g of movement){
+   const delta=Number(g.home_elo_change);
+   const line=E('div',null,'cs-movement-row');
+   const a=E('a',g.home+' vs '+g.away);
+   a.href=g.source_game||'#college-soccer-elo';if(g.source_game){a.target='_blank';a.rel='noopener noreferrer';}
+   line.append(a,E('strong',(delta>0?'+':'')+delta.toFixed(1),'cs-delta '+(delta>0?'up':delta<0?'down':'flat')));
+   changes.append(line);
+  }
+  changes.append(E('p','Actual published Elo change for the home team in each listed final—not a daily change or an invented movement for every school.','cs-note'));
+ }
  const upcoming=section(right,'Forecast watch','LOCKED PREMATCH MODEL · NOT LIVE SCORES');
  const finalIds=new Set((model.latest_finals||[]).map(f=>f.match_id));
  const now=Date.now();
