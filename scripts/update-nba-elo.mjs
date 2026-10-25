@@ -86,9 +86,10 @@ async function fetchDate(date) {
    const hs=Number(home.score),as=Number(away.score);
    if(!Number.isInteger(hs)||!Number.isInteger(as)||hs<0||as<0||hs===as)throw Error('Bad final score '+event.id);
    const id='espn-nba-'+event.id;
-   // Wait until Game Center has captured the verified final so Pages never
-   // publishes an Elo event without its corresponding public game record.
-   if(!archivedVerifiedIds.has(id) && !(old.events||[]).some(e=>e.id===id))continue;
+   // A completed ESPN regular-season scoreboard game with validated teams and
+   // integer final scores is independently sufficient to update Elo.
+   // Player box scores are enriched separately and may lag the official final.
+   // Do not hold league ratings hostage to the player-stat archive.
    const time=new Date(event.date).toISOString();
    const result={id,home:h,away:a,home_score:hs,away_score:as,date:time};
    addVerifiedFinal(result,'ESPN daily scoreboard');
