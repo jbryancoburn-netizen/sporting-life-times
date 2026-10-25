@@ -29,7 +29,7 @@ const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seed
 const selected=officialSeeds?officialSeeds.map(id=>known.get(id)):rows.slice(0,field);
 const teams=selected.map((x,i)=>({id:x.team_id,name:ratings.get(x.team_id)?.team||x.team_id.replaceAll('-',' '),elo:ratings.get(x.team_id)?.elo,seed:i+1}));
 article.append(E('p','dim-note','Official table checked: '+(table.checked_at_utc||table.snapshot_checked_date||'date unverified')+' · '+(officialSeeds?'Conference-supplied seeds':'Provisional published table order')));
-if(certified&&[6,8,15].includes(field)&&teams.length===field&&teams.every(t=>typeof t.elo==='number'&&Number.isFinite(t.elo))&&window.CollegeSoccerCupUI?.predictiveBracket){
+if(certified&&[4,6,8,15].includes(field)&&teams.length===field&&teams.every(t=>typeof t.elo==='number'&&Number.isFinite(t.elo))&&window.CollegeSoccerCupUI?.predictiveBracket){
 window.CollegeSoccerCupUI.predictiveBracket(article,teams,division,branding);
 report.complete++;
 }else{
