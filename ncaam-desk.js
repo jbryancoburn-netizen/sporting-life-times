@@ -64,7 +64,7 @@ if(modelBox){
  const shadow=candidate.get(t.team_id);
  return '<tr><td>'+t.rank+'</td><td>'+safe(t.team)+'</td><td>'+number(t.base_elo)+'</td><td>'+number(t.elo)+'</td><td>'+(shadow?number(shadow.elo):"—")+'</td></tr>';
  }).join("");
- modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">Published provisional player-quality ratings compared against the previous roster-informed Elo. Historical roster timing remains a limitation.</p>';
+ modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">Published preseason player-quality ratings compared against the previous roster-informed Elo. Historical roster timing remains a limitation.</p>';
  };
  renderModel();
 }
@@ -88,10 +88,10 @@ if(teamSearch){teamSearch.addEventListener("input",searchTeams);searchTeams()}
 const fullSeason=Boolean(live);
 byId("desk-state").textContent=fullSeason?
  "CURRENT SEASON · "+ratings.games_played+" VERIFIED FINALS · ELO UPDATED THROUGH "+safe(ratings.as_of):
- "2026–27 PRESEASON EDITION · 365 INDEPENDENT ELO RATINGS · PLAYER-QUALITY, PROVISIONAL";
+ "2026–27 PRESEASON ELO · 365 TEAMS · PLAYER-QUALITY MODEL";
 byId("desk-summary").textContent=fullSeason?
  "Game results, records, Elo and forecasts use the same verified final-score ledger and player-quality preseason seed.":
- "The season has not started. Showing the provisional player-quality preseason Elo; results will update after verified finals.";
+ "The season has not started. Showing the official player-quality preseason Elo; results will update after verified finals.";
 byId("elo-leaders").innerHTML=teams.slice(0,16).map(t=>
  '<div class="cbb-ranking"><span class="cbb-rank">'+t.rank+'</span><strong class="cbb-ranking-name">'+logo(t)+safe(t.team)+'</strong><span class="cbb-muted">'+safe(conferenceName(t.conference))+'</span><b>'+number(t.elo)+'</b></div>').join("");
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort((a,b)=>conferenceName(a).localeCompare(conferenceName(b)));
