@@ -22,10 +22,11 @@ def main():
                 assert made.tzinfo and start.tzinfo and made<start
                 assert abs(sum(r[k] for k in ('p_home','p_draw','p_away'))-1)<1e-7
             assert len({r['p_draw'] for r in got['forecasts']})>1,'draws still constant'
-            html=fetch('college-soccer.html');js=fetch('college-soccer-predictions.js')
-            assert 'id="college-soccer-predictions"' in html and 'college-soccer-predictions.js' in html
-            assert 'data/college-soccer-prospective-v2.json' in js and 'ncaa_matchup_draw_v2' in js
-            assert 'Date.parse(g.kickoff_utc)>Date.now()' in js
+            html=fetch('college-soccer.html');js=fetch('college-soccer-visual-desk.js')
+            assert 'id="college-soccer-visual-desk"' in html and 'college-soccer-visual-desk.js' in html
+            assert 'data/college-soccer-prospective-v2.json' in js
+            assert 'g.p_home' in js and 'g.p_draw' in js and 'g.p_away' in js
+            assert 'college-soccer-match.html?game=' in js
             print(json.dumps({'status':'PASS','model':got['model'],'locked':len(rows),'distinct_draws':len({r['p_draw'] for r in got['forecasts']})}))
             return
         except Exception as exc:
