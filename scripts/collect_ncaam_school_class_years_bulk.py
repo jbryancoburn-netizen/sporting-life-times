@@ -73,7 +73,7 @@ def run(targets,existing,sources):
         soup=BeautifulSoup(raw,"html.parser")
         heading=soup.title.get_text(" ",strip=True) if soup.title else ""
         heading+=" "+ " ".join(h.get_text(" ",strip=True) for h in soup.find_all(["h1","h2"],limit=8))
-        if not re.search(r"2026\s*[-–]\s*27|2026\s*/\s*27",heading):
+        if not re.search(r"2026\s*[-–/]\s*(?:27|2027)",heading):
             sources_run.append({"school":school,"status":"season_unverified","heading":heading[:130]});continue
         n=0
         for p in by_school[school]:
