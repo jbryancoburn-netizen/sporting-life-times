@@ -158,7 +158,7 @@ jobs:
 
           assert(html.includes('id="college-soccer-conference-index"'));
           assert(html.includes('college-soccer-conference-index.js?v=coverage3'));
-          assert(html.includes('college-soccer-conference-index.css?v=pages1'));
+          assert(html.includes('college-soccer-conference-index.css?v=coverage3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-conference-index"'));
           const directory=fs.readFileSync('college-soccer-conference-index.js','utf8');
           assert(directory.includes('men-d3:miaa'));
