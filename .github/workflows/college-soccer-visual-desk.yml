@@ -154,10 +154,10 @@ jobs:
           assert(html.includes('college-soccer-conference-index.css?v=pages1'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-conference-index"'));
           const directory=fs.readFileSync('college-soccer-conference-index.js','utf8');
-          assert(directory.includes("'men-d3:miaa'"));
-          assert(directory.includes("'men-d3:miac'"));
-          assert(directory.includes("'men-d3:cciw'"));
-          assert(directory.includes("'women-d3:miaa'"));
+          assert(directory.includes('men-d3:miaa'));
+          assert(directory.includes('men-d3:miac'));
+          assert(directory.includes('men-d3:cciw'));
+          assert(directory.includes('women-d3:miaa'));
           assert(html.includes('CONFERENCE DESKS &amp; TOURNAMENTS'));
           assert(!html.includes('id="college-soccer-postseason"'));
           assert(!html.includes('id="college-soccer-cciw"'));
