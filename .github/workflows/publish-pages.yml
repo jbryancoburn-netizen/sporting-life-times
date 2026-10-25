@@ -212,12 +212,7 @@ jobs:
           for attempt in $(seq 1 12); do
             if curl -fsSL --max-time 15 "$ROOT/nba.html?edition=$GITHUB_SHA" -o /tmp/nba-published-desk.html && \
                curl -fsSL --max-time 15 "$ROOT/pages-build-sha.txt?edition=$GITHUB_SHA" -o /tmp/nba-published-sha.txt; then
-              if grep -q "^$GITHUB_SHA$" /tmp/nba-published-sha.txt && python3 - <<'PY'
-from pathlib import Path
-h=Path('/tmp/nba-published-desk.html').read_text()
-assert h.index('<h1>THE NBA DESK</h1>') < h.index('class="nba-quick-desk-nav"') < h.index('id="nba-page-turner"') < h.index('id="nba-live-games"')
-print('PASS: deployed NBA Desk heading, navigation and live scores are in the intended order')
-PY
+              if grep -q "^$GITHUB_SHA$" /tmp/nba-published-sha.txt && python3 -c 'from pathlib import Path;h=Path("/tmp/nba-published-desk.html").read_text();assert h.index("<h1>THE NBA DESK</h1>") < h.index("class=\"nba-quick-desk-nav\"") < h.index("id=\"nba-page-turner\"") < h.index("id=\"nba-live-games\"")'
               then
                 echo "PASS: public NBA Desk is built from $GITHUB_SHA"
                 exit 0
