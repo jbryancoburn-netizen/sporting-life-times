@@ -19,6 +19,8 @@ on:
       - 'data/college-soccer-conferences.json'
       - 'data/college-soccer-miaa-standings.json'
       - 'data/college-soccer-miac-standings.json'
+      - 'scripts/update_college_soccer_miac_standings.py'
+      - 'scripts/test_college_soccer_miac_standings.py'
       - 'data/college-soccer-elo.json'
       - 'data/college-soccer-prospective-v2.json'
       - '.github/workflows/college-soccer-visual-desk.yml'
@@ -43,6 +45,10 @@ jobs:
           node --check college-soccer-postseason.js
       - name: Validate NCAA postseason rules and normalized MIAA probabilities
         run: python -m unittest discover -s scripts -p test_college_soccer_postseason.py -v
+      - name: Validate MIAC collector parsing
+        run: |
+          python -m pip install beautifulsoup4
+          python -m unittest discover -s scripts -p test_college_soccer_miac_standings.py -v
       - name: Audit real data and published page
         run: |
           node <<'NODE'
@@ -84,7 +90,7 @@ jobs:
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
                     assert(html.includes('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch3'));
+          assert(html.includes('college-soccer-postseason.js?v=launch4'));
           assert(html.includes('college-soccer-postseason.css?v=launch3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
           const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
@@ -112,6 +118,10 @@ jobs:
           assert(postseasonJs.includes('Early Division I contender forecast'));
           assert(postseasonJs.includes('MIAC · Men’s Division III'));
           assert(postseasonJs.includes('data/college-soccer-miac-standings.json'));
+          assert(postseasonJs.includes('MIAA stays active'));
+          assert(html.includes('CONFERENCES &amp; TOURNAMENTS'));
+          assert(html.indexOf('id="college-team-search"') < html.indexOf('id="college-soccer-postseason"'));
+          assert(html.includes('college-soccer-postseason.js?v=launch4'));
           assert(postseasonJs.includes('NOT odds of qualifying for or winning the MIAC playoff'));
           assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
