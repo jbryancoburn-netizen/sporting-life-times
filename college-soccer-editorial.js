@@ -52,16 +52,25 @@ leadArticle.append(tagged(null,'THE LEAD STORY'),nav(lead.url,lead.title),el('p'
 }else stories.append(el('p','No verified program stories are available in this edition.','cs-edit-note'));
 stories.append(el('p','Links open the original publisher. No synthetic or unsourced reporting is inserted.','cs-edit-note'));
 const races=el('aside',null,'cs-edit-races');layout.append(races);
-races.append(el('h3','The Race Watch'),el('p','Top of every division · Latest published independent Elo','cs-edit-note'));
-for(const [key,label] of [['men-d1',"Men’s Division I"],['women-d1',"Women’s Division I"],['men-d2',"Men’s Division II"],['women-d2',"Women’s Division II"],['men-d3',"Men’s Division III"],['women-d3',"Women’s Division III"]]){
-const cohort=ratings.cohorts?.[key];if(!cohort?.length)continue;
-const winner=cohort[0],runner=cohort[1];
-const block=el('div',null,'cs-edit-race');
-block.append(el('small',label));
-const lead=el('div',null,'cs-edit-race-lead');lead.append(schoolLabel(winner.team,key,winner.team_id),el('strong',Number(winner.elo).toFixed(1)));block.append(lead);
-if(runner){const next=el('div',null,'cs-edit-race-chaser');next.append(schoolLabel(runner.team,key,runner.team_id),el('span',Number(runner.elo).toFixed(1)));block.append(next);}
-races.append(block);
+races.append(el('h3','The Results Notebook'),el('p','Recently verified finals across NCAA men’s and women’s Divisions I–III','cs-edit-note'));
+const finals=(ratings.latest_finals||[]).filter(g=>g.cohort&&g.home&&g.away&&/^\\d+\\s*[-–]\\s*\\d+$/.test(String(g.score||'')))
+ .sort((a,b)=>Date.parse(b.date||0)-Date.parse(a.date||0)).slice(0,9);
+if(!finals.length)races.append(el('p','No recent verified finals in the current published edition.','cs-edit-note'));
+for(const game of finals){
+ const cohort=String(game.cohort),names=ratings.cohorts?.[cohort]||[];
+ const home=names.find(t=>t.team===game.home),away=names.find(t=>t.team===game.away);
+ const block=el('article',null,'cs-edit-race cs-edit-result');
+ const division=/d([123])$/.exec(cohort)?.[1]||'?';
+ const label=(cohort.startsWith('women')?'WOMEN’S':'MEN’S')+' DIVISION '+({1:'I',2:'II',3:'III'}[division]||division);
+ block.append(el('small',label+' · '+showDate(game.date)));
+ const matchup=el('div',null,'cs-edit-result-match');
+ const namesRow=el('div',null,'cs-edit-result-teams');
+ if(home)namesRow.append(schoolLabel(home.team,cohort,home.team_id));else namesRow.append(el('span',game.home));
+ if(away)namesRow.append(schoolLabel(away.team,cohort,away.team_id));else namesRow.append(el('span',game.away));
+ matchup.append(namesRow,el('strong',game.score,'cs-edit-result-score'));block.append(matchup);
+ if(game.match_id)block.append(nav('college-soccer-match.html?game='+encodeURIComponent(game.match_id),'Match report & Elo →'));
+ races.append(block);
 }
-races.append(el('p','These are Elo leaders, not official conference standings or postseason qualification probabilities. Edition: '+String(ratings.as_of||'unknown')+'.','cs-edit-note'));
+races.append(el('p','Only scores recorded in the published verified-finals ledger are shown; this is not a complete NCAA scoreboard. Edition: '+String(ratings.as_of||'unknown')+'.','cs-edit-note'));
 }catch(e){root.replaceChildren(el('p','College soccer editorial coverage is unavailable until the published source feeds load.','cs-edit-note'));console.error('College soccer editorial',e);}})();
 })();
