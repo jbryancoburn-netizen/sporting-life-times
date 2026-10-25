@@ -32,6 +32,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Refresh NBA headlines in the actual Pages artifact
+        run: |
+          # Collector commits do not themselves trigger push workflows with GITHUB_TOKEN.
+          # Rebuild NBA headlines within this independent Pages deployment, so the
+          # published page is not stranded on last night's committed snapshot.
+          if ! python3 scripts/collect-nba-stories.py; then
+            echo "::warning::NBA news sources unavailable; retaining last verified stories"
+          fi
+          python3 scripts/test-nba-news-editorial.py
       - name: Validate every browser JavaScript file and inline script
         run: |
           set -euo pipefail
