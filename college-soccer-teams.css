@@ -191,3 +191,9 @@
 #college-team-profile .team-rival-result{display:flex;justify-content:space-between;gap:.8rem;border-bottom:1px solid #e2e6e9;padding:.6rem .2rem;font:.74rem Arial,sans-serif}
 #college-team-profile .team-rival-result strong{white-space:nowrap}
 @media(max-width:580px){#college-team-profile .team-conference-desk{padding:.65rem}#college-team-profile .team-conference-bar-row{grid-template-columns:minmax(72px,1fr) minmax(70px,1.4fr) 51px;gap:.3rem;padding:.35rem .25rem}#college-team-profile .team-conference-name a{font-size:.69rem}#college-team-profile .team-conference-elo{font-size:.68rem}#college-team-profile .team-conference-compare{grid-template-columns:1fr 1fr}#college-team-profile .team-conf-stat:last-child{grid-column:1/-1}#college-team-profile .team-conference-table{font-size:.69rem}#college-team-profile .team-conference-table th{font-size:.56rem;padding:.35rem .18rem}#college-team-profile .team-conference-table td{padding:.42rem .15rem}}
+
+/* Explicit source cutoffs: keep stale league records distinguishable from live Elo. */
+#college-team-profile .team-snapshot-line{display:flex;gap:.35rem 1.5rem;flex-wrap:wrap;margin:.6rem 0;padding:.6rem .8rem;border-left:3px solid #879bad;background:#eef1f3;font:700 .68rem/1.5 Arial,sans-serif;color:#40566a}
+#college-team-profile .team-feed-freshness{display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:center;margin:.5rem 0;padding:.6rem .75rem;border:1px solid #bed2c6;background:#f1f8f3;font:.71rem Arial,sans-serif;color:#285541}
+#college-team-profile .team-feed-freshness.is-stale{border-color:#dabda0;background:#fcf5e9;color:#7a4c26}
+#college-team-profile .team-feed-freshness strong{font-weight:700}
