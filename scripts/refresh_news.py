@@ -98,7 +98,7 @@ def rebuild(fetcher=fetch,now=None):
     def task(entry):
         source,url,category=entry
         try:
-            items=parse_rss(fetcher(url),source,category)
+            items=parse_rss(fetcher(url),source+(" (via Google News)" if entry not in SOURCES else ""),category)
             if not items:raise ValueError("No recent dated stories")
             return items,{"source":source,"state":"ok","items":len(items),"discovery":entry not in SOURCES}
         except Exception as exc:
