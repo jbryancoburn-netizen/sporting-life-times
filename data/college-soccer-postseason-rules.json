@@ -443,6 +443,74 @@
       },
       "table_source": "https://ovcsports.com/standings.aspx?path=msoc",
       "projection_warning": "Official order snapshot; OVC top-two seeds from separate pods may differ from standings order. No certification of exact tournament seeds."
+    },
+    "men-d1:atlantic-10": {
+      "name": "Atlantic 10 Conference",
+      "short": "A-10",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 8,
+        "first_round_date": "2026-11-06",
+        "semifinal_date": "2026-11-10",
+        "final_date": "2026-11-14",
+        "status": "2026 conference championship 8-team field; standings order provisional, tiebreakers authoritative",
+        "sources": [
+          "https://atlantic10.com/sports/2026/7/23/Champs2627.aspx"
+        ]
+      },
+      "table_source": "https://atlantic10.com/standings.aspx?standings=183",
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
+    },
+    "men-d1:patriot": {
+      "name": "Patriot League",
+      "short": "Patriot",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "first_round_date": "2026-11-07",
+        "semifinal_date": "2026-11-10",
+        "final_date": "2026-11-14",
+        "status": "2026 conference championship 6-team field; standings order provisional, tiebreakers authoritative",
+        "sources": [
+          "https://patriotleague.org/sports/2026/5/27/2026-27ChampionshipSchedule.aspx"
+        ]
+      },
+      "table_source": "https://patriotleague.org/standings.aspx?path=msoc",
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
+    },
+    "men-d1:big-south": {
+      "name": "Big South Conference",
+      "short": "Big South",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "first_round_date": "2026-11-04",
+        "semifinal_date": "2026-11-08",
+        "final_date": "2026-11-14",
+        "status": "2026 conference championship 6-team field; standings order provisional, tiebreakers authoritative",
+        "sources": [
+          "https://bigsouthsports.com/sports/2026/9/30/MSOC_0930264746.aspx"
+        ]
+      },
+      "table_source": "https://bigsouthsports.com/standings.aspx?path=msoc",
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
+    },
+    "men-d1:mvc": {
+      "name": "Missouri Valley Conference",
+      "short": "MVC",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 0,
+        "first_round_date": "2026-11-08",
+        "semifinal_date": "2026-11-11",
+        "final_date": "2026-11-14",
+        "status": "2026 dates official, field size and byes not yet confirmed; do not generate a bracket",
+        "sources": [
+          "https://mvc-sports.com/news/2026/8/19/general-missouri-valley-conference-announces-2026-27-championship-schedule.aspx"
+        ]
+      },
+      "table_source": "https://mvc-sports.com/standings.aspx?path=msoc",
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
     }
   }
 }
