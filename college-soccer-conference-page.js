@@ -90,8 +90,12 @@ async function render(){
  standSection.append(E('p','Numbers identify published table position, not tournament seed. Any qualification line marks the current table cutoff only. Official results and tiebreakers determine actual seeds; Elo has no role in qualification.','cs-conf-caption'));
  modelSection.append(E('h2','USRS ELO · PREDICTED TITLE ODDS'));
  const field=Number(rule.tournament?.field)||0;
- const formatCertified=field>0&&!/inferred from|based on official 2025/i.test(rule.tournament?.status||'');
- const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seeds.length===field?table.tournament_seeds:null;
+ const snapshot=table.checked_at_utc||table.snapshot_checked_date;
+ const age=snapshot?(Date.now()-Date.parse(snapshot))/86400000:Infinity;
+ const fresh=Number.isFinite(age)&&age>=0&&age<=2;
+ const hasStandings=table.rows.every(r=>r.conference_record&&r.conference_record!=='N/A'&&Number.isFinite(r.conference_points));
+ const formatCertified=field>0&&fresh&&hasStandings&&!/inferred from|based on official 2025|carried forward|format.*unverified|eligibility.*unverified/i.test(rule.tournament?.status||'');
+ const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seeds.length===field&&new Set(table.tournament_seeds).size===field&&table.tournament_seeds.every(id=>member.includes(id))?table.tournament_seeds:null;
  const entrants=officialSeeds?officialSeeds.map(id=>teams.find(t=>t.id===id)).filter(Boolean):teams.slice(0,field);
  const provisional=!officialSeeds;
  const officialBracket=table.tournament_bracket;
