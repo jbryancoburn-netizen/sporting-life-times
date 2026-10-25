@@ -1,0 +1,114 @@
+{
+  "model": "ncaam-continuous-optimizer-impact-v1",
+  "production_promotion_allowed": false,
+  "both_starts_weights": false,
+  "start_weight_absolute_differences": {
+    "shooting": 0.0,
+    "playmaking": 0.0,
+    "defense": 0.0
+  },
+  "starts_training_loss_gap": 0.0,
+  "seasons": {
+    "2024": {
+      "continuous": {
+        "covered_teams": 361,
+        "total_adjustment_elo_points": {
+          "min": -114.82695595539751,
+          "median": -1.182837069781185,
+          "p05": -42.56541383475278,
+          "p95": 53.442352801498586,
+          "max": 97.21294172005732
+        },
+        "per_stat_p95_absolute_elo_points": {
+          "shooting": 4.598037018076994,
+          "playmaking": 58.835654196000185,
+          "defense": 6.527956017108574
+        }
+      },
+      "previous_grid": {
+        "covered_teams": 361,
+        "total_adjustment_elo_points": {
+          "min": -30.947363068903535,
+          "median": 0.42512383660495573,
+          "p05": -16.864474062338676,
+          "p95": 19.608932183152387,
+          "max": 38.22127981457507
+        },
+        "per_stat_p95_absolute_elo_points": {
+          "shooting": 10.899050709515837,
+          "playmaking": 17.012719285590414,
+          "defense": 7.611543858005138
+        }
+      }
+    },
+    "2025": {
+      "continuous": {
+        "covered_teams": 362,
+        "total_adjustment_elo_points": {
+          "min": -94.34853812745129,
+          "median": 0.12281254805960369,
+          "p05": -46.44111927300074,
+          "p95": 56.256606117765784,
+          "max": 181.11720591019485
+        },
+        "per_stat_p95_absolute_elo_points": {
+          "shooting": 4.397355085423694,
+          "playmaking": 64.147143818759,
+          "defense": 8.168408573321788
+        }
+      },
+      "previous_grid": {
+        "covered_teams": 362,
+        "total_adjustment_elo_points": {
+          "min": -35.60583927342002,
+          "median": -0.49169966219391403,
+          "p05": -19.26219984977588,
+          "p95": 20.575859145839807,
+          "max": 45.717712881867584
+        },
+        "per_stat_p95_absolute_elo_points": {
+          "shooting": 10.423360202485792,
+          "playmaking": 18.54857170662911,
+          "defense": 9.524298255533095
+        }
+      }
+    },
+    "2026": {
+      "continuous": {
+        "covered_teams": 364,
+        "total_adjustment_elo_points": {
+          "min": -85.11203966250488,
+          "median": -0.45643933585668467,
+          "p05": -44.344002187980315,
+          "p95": 47.69527786158498,
+          "max": 121.48632415599374
+        },
+        "per_stat_p95_absolute_elo_points": {
+          "shooting": 4.932173811109679,
+          "playmaking": 50.43104029100869,
+          "defense": 7.415152002132373
+        }
+      },
+      "previous_grid": {
+        "covered_teams": 364,
+        "total_adjustment_elo_points": {
+          "min": -42.17080702423084,
+          "median": 0.7556648313587019,
+          "p05": -19.242850140729228,
+          "p95": 21.176072672519236,
+          "max": 44.60716655918027
+        },
+        "per_stat_p95_absolute_elo_points": {
+          "shooting": 11.691078663371089,
+          "playmaking": 14.582469481737453,
+          "defense": 8.646007192769732
+        }
+      }
+    }
+  },
+  "warnings": [
+    "Historical roster as-of date not certified",
+    "Repeated validation years are not pristine holdouts",
+    "No verified venue correction"
+  ]
+}
