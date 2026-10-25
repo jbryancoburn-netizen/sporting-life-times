@@ -87,3 +87,40 @@
 #college-team-profile .team-identity-detail{display:flex;gap:.45rem 1rem;flex-wrap:wrap;font:.78rem Arial,sans-serif;color:#ebeced;margin:.65rem 0 0}
 #college-team-profile .team-identity-detail span+span{border-left:1px solid #ffffff66;padding-left:1rem}
 @media(max-width:560px){#college-team-profile .team-identity-detail{font-size:.69rem}#college-team-profile .team-identity-detail span+span{border-left:0;padding-left:0}}
+
+/* Three useful, data-backed season infographics. Every school inherits this design. */
+#college-team-profile .team-visual-report{background:#f7f8f7;border-block:1px solid #d5dce0;padding:1rem;margin:.9rem 0 1.3rem;scroll-margin-top:1rem}
+#college-team-profile .team-visual-heading{display:flex;justify-content:space-between;align-items:baseline;gap:.7rem;flex-wrap:wrap;border-bottom:2px solid var(--team-primary,#172c43);padding-bottom:.65rem;margin-bottom:.8rem}
+#college-team-profile .team-visual-heading h3{font:700 clamp(1.15rem,2vw,1.5rem) Georgia,serif;color:#14293d;letter-spacing:-.02em;margin:0}
+#college-team-profile .team-visual-heading span{font:700 .65rem Arial,sans-serif;color:#647683;letter-spacing:.065em}
+#college-team-profile .team-visual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+#college-team-profile .team-visual-panel{min-width:0;background:#fff;border:1px solid #dfe5e8;padding:1rem .9rem}
+#college-team-profile .team-visual-panel h4{margin:0 0 1rem;font:700 .78rem Arial,sans-serif;color:#2a4354;text-transform:uppercase;letter-spacing:.06em}
+#college-team-profile .team-results-visual{display:flex;align-items:center;gap:1rem}
+#college-team-profile .team-results-donut{width:clamp(82px,9vw,124px);height:clamp(82px,9vw,124px);border-radius:50%;display:grid;place-items:center;flex:none}
+#college-team-profile .team-empty-donut{background:#d9dfe1}
+#college-team-profile .team-donut-hole{width:69%;height:69%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border-radius:50%}
+#college-team-profile .team-donut-hole strong{font:700 clamp(1.3rem,2vw,2rem) Georgia,serif;color:#17314a}
+#college-team-profile .team-donut-hole small{font:700 .55rem Arial,sans-serif;color:#677a88;letter-spacing:.05em}
+#college-team-profile .team-results-legend{flex:1;min-width:0}
+#college-team-profile .team-legend-line{display:flex;align-items:center;justify-content:space-between;gap:.35rem;padding:.25rem 0;font:.75rem Arial,sans-serif;border-bottom:1px solid #edf0f1}
+#college-team-profile .team-legend-line strong{font-variant-numeric:tabular-nums}
+#college-team-profile .team-legend-label::before{content:"";display:inline-block;width:8px;height:8px;margin-right:7px;background:#aaa}
+#college-team-profile .team-legend-win::before{background:#2d775b}
+#college-team-profile .team-legend-draw::before{background:#d7ae64}
+#college-team-profile .team-legend-loss::before{background:#ba6257}
+#college-team-profile .team-goal-row,#college-team-profile .team-elo-bar-row{margin:.9rem 0}
+#college-team-profile .team-goal-row-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;font:.74rem Arial,sans-serif;color:#485f70;margin-bottom:.35rem}
+#college-team-profile .team-goal-row-head strong{font-size:.82rem;font-variant-numeric:tabular-nums;color:#182e45}
+#college-team-profile .team-goal-rail{height:12px;background:#e4e9eb;border-radius:2px;overflow:hidden}
+#college-team-profile .team-goal-fill{height:100%;min-width:0;background:#547891}
+#college-team-profile .team-goal-for{background:#2d775b}
+#college-team-profile .team-goal-against{background:#ba6257}
+#college-team-profile .team-elo-team{background:var(--team-primary,#204d6a)}
+#college-team-profile .team-elo-average{background:#8d9ea9}
+#college-team-profile .team-elo-leader{background:#c1a15f}
+#college-team-profile .team-goal-difference{border-top:1px solid #dfe6e9;padding-top:.6rem;margin-top:1rem;display:flex;justify-content:space-between;gap:.5rem;font:.75rem Arial,sans-serif}
+#college-team-profile .team-goal-difference strong{font:700 1.1rem Georgia,serif}
+#college-team-profile .team-visual-footnote{font:.66rem/1.45 Arial,sans-serif;color:#6d7d89;margin:.7rem 0 0}
+@media(max-width:1100px){#college-team-profile .team-visual-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#college-team-profile .team-visual-panel:last-child{grid-column:1/-1}}
+@media(max-width:630px){#college-team-profile .team-visual-grid{grid-template-columns:1fr}#college-team-profile .team-visual-panel:last-child{grid-column:auto}#college-team-profile .team-results-donut{width:112px;height:112px}}
