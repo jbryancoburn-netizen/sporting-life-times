@@ -42,5 +42,16 @@ Updated: 2026-10-24. Check items only with passing evidence. No automatic produc
 - Retrospective roster archives do not establish pre-opening availability.
 - The published Elo has not been replaced by the research player coefficients.
 
+## Reconciled identity evidence (2026-10-24)
+- 365 programs, 5,537 roster players, 3,523 candidate crosswalk links, 2,014 unlinked current ESPN player IDs.
+- 2,923 accepted prior-stat histories; targeted triage: 587 without prior D-I game box, 7 confirmed prior-school conflicts, 6 fuzzy exclusions. Source: data/ncaam-2026-27-player-identity-triage.json.
+- The separate coverage report lists 594 broad prior-school-conflict classifications; these are NOT 594 confirmed errors. Do not conflate broad coverage with the seven confirmed conflicts.
+- Institutional biographical evidence resolves 34 ambiguous names at a school-history level, but is not automatic validation of cross-provider numeric athlete IDs.
+- Retrospective model improvements do not establish a valid as-of-preseason holdout. Keep the provisionally published Elo unchanged.
+
 ## Next priority
-P01/P02: examine availability, consistency, collisions and cross-season agreement of source athlete IDs and create a machine-readable identity-exceptions report. Do not certify IDs merely because a column exists.
+1. P01/P02: Produce reproducible cross-season athlete-ID collisions, migration, and evidence exception reports. Never infer identity solely from similar names or numeric IDs in different providers.
+2. P05/R02: Resolve high-impact unlinked arrivals, departures and prior-school conflicts with dated source evidence.
+3. P06/V03: Obtain archived, date-stamped preseason roster snapshots for historical train and holdout seasons.
+4. M07/V04/V05: Refit coefficients and compare on identical, leakage-controlled games with venue treatment and both log loss/Brier.
+5. R04-R07: Test live final-score exactly-once handling, official reconciliation, deployed page freshness, then record approval.
