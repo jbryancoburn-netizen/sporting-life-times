@@ -796,13 +796,15 @@
       "short": "SoCon",
       "cohort": "men-d1",
       "tournament": {
-        "field": 0,
+        "field": 6,
         "semifinal_date": null,
         "final_date": null,
-        "status": "Bracket withheld pending independent 2026 tournament rule verification.",
+        "status": "PROVISIONAL 2026 tournament scenario using official 2025 six-team format. Not verified as the 2026 field or pairings.",
         "sources": [
-          "https://soconsports.com/standings.aspx?path=msoc"
-        ]
+          "https://soconsports.com/msoc/article/58707/"
+        ],
+        "first_round_byes": 2,
+        "reseed": false
       },
       "table_source": "https://soconsports.com/standings.aspx?path=msoc",
       "projection_warning": "Bracket withheld pending independent 2026 tournament rule verification.",
@@ -840,13 +842,15 @@
       "short": "MAAC",
       "cohort": "men-d1",
       "tournament": {
-        "field": 0,
+        "field": 6,
         "semifinal_date": null,
         "final_date": null,
-        "status": "Standings records and format await official confirmation; no guessed rankings.",
+        "status": "PROVISIONAL 2026 tournament scenario using official 2025 six-team format. Not verified as the 2026 field or pairings.",
         "sources": [
-          "https://maacsports.com/standings.aspx?path=msoc"
-        ]
+          "https://themetro.org/news/2025/11/7/2025-maac-mens-soccer-championship-kickoffs-on-sunday-with-first-round-action.aspx"
+        ],
+        "first_round_byes": 2,
+        "reseed": true
       },
       "table_source": "https://maacsports.com/standings.aspx?path=msoc",
       "projection_warning": "Standings records and format await official confirmation; no guessed rankings.",
