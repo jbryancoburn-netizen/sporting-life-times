@@ -2,7 +2,7 @@
   "schema_version": 1,
   "source": "Official MIAA, MIAC, CCIW men's 2026 soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
-  "scope": "Verified conference membership and standings links for ten NCAA men's/women's soccer league desks across DI, DII and DIII; national mapping not yet complete.",
+  "scope": "Officially sourced NCAA men's/women's soccer conference memberships; national mapping remains incomplete.",
   "notice": "Only verified conferences; no automatic team assignment from geographic/name similarity. Missing Elo is flagged rather than invented.",
   "conferences": {
     "men-d3:miaa": {
@@ -232,6 +232,33 @@
       "page": "college-soccer-acc-men.html",
       "standings_feed": "data/college-soccer-men-d1-acc-standings.json",
       "verification_status": "mapped_verified"
+    },
+    "women-d1:acc": {
+      "name": "Atlantic Coast Conference",
+      "short": "ACC",
+      "teams": [
+        "north-carolina",
+        "notre-dame",
+        "wake-forest",
+        "louisville",
+        "duke",
+        "virginia",
+        "florida-st",
+        "miami-fl",
+        "stanford",
+        "north-carolina-st",
+        "clemson",
+        "boston-college",
+        "virginia-tech",
+        "california",
+        "smu",
+        "pittsburgh",
+        "syracuse"
+      ],
+      "source_url": "https://theacc.com/standings.aspx?path=wsoc",
+      "page": "college-soccer-acc-women.html",
+      "standings_feed": "data/college-soccer-women-d1-acc-standings.json",
+      "verification_status": "mapped_verified"
     }
   },
   "team_to_conference": {
@@ -353,6 +380,23 @@
     "men-d1:syracuse": "men-d1:acc",
     "men-d1:california": "men-d1:acc",
     "men-d1:duke": "men-d1:acc",
-    "men-d1:boston-college": "men-d1:acc"
+    "men-d1:boston-college": "men-d1:acc",
+    "women-d1:north-carolina": "women-d1:acc",
+    "women-d1:notre-dame": "women-d1:acc",
+    "women-d1:wake-forest": "women-d1:acc",
+    "women-d1:louisville": "women-d1:acc",
+    "women-d1:duke": "women-d1:acc",
+    "women-d1:virginia": "women-d1:acc",
+    "women-d1:florida-st": "women-d1:acc",
+    "women-d1:miami-fl": "women-d1:acc",
+    "women-d1:stanford": "women-d1:acc",
+    "women-d1:north-carolina-st": "women-d1:acc",
+    "women-d1:clemson": "women-d1:acc",
+    "women-d1:boston-college": "women-d1:acc",
+    "women-d1:virginia-tech": "women-d1:acc",
+    "women-d1:california": "women-d1:acc",
+    "women-d1:smu": "women-d1:acc",
+    "women-d1:pittsburgh": "women-d1:acc",
+    "women-d1:syracuse": "women-d1:acc"
   }
 }
