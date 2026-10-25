@@ -18,7 +18,7 @@ function odds(six){
 let signature='';
 async function render(){
 try{
-const [c,s,r,rules]=await Promise.all([get('data/college-soccer-conferences.json'),get('data/college-soccer-women-miaa-standings.json'),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json')]);
+const [c,s,r,rules]=await Promise.all([get('data/college-soccer-conferences.json'),get('data/college-soccer-miaa-women-standings.json'),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json')]);
 const k='women-d3:miaa',ids=c.conferences?.[k]?.teams||[],raw=rules.conferences?.[k],rows=s.rows||[],rated=r.cohorts?.['women-d3']||[];
 if(ids.length!==9||rows.length!==9||!raw||raw.tournament.field!==6)throw Error('MIAA Women source and format mismatch');
 const byId=new Map(rows.map(x=>[x.team_id,x])),elo=new Map(rated.map(x=>[x.team_id,x]));
