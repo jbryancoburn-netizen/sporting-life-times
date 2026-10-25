@@ -94,6 +94,8 @@ def rebuild(today=None,loader=get_day):
     if len(names)!=20:raise ValueError("Expected exactly 20 clubs")
     ratings={name:1500.0 for name in names}
     table={name:{"club":name,"played":0,"won":0,"drawn":0,"lost":0,"gf":0,"ga":0,"gd":0,"points":0} for name in names}
+    elo_movements={name:0.0 for name in names}
+    form={name:[] for name in names}
     for g in played:
         h,a=g["home"],g["away"];hg,ag=g["home_score"],g["away_score"]
         if h==a:raise ValueError("Self-match")
@@ -101,6 +103,9 @@ def rebuild(today=None,loader=get_day):
         expected=p[0]+.5*p[1]
         delta=20*(actual-expected)
         ratings[h]+=delta;ratings[a]-=delta
+        elo_movements[h]=delta;elo_movements[a]=-delta
+        form[h].append("W" if hg>ag else "D" if hg==ag else "L")
+        form[a].append("W" if ag>hg else "D" if ag==hg else "L")
         for club,goals,conceded in [(h,hg,ag),(a,ag,hg)]:
             t=table[club];t["played"]+=1;t["gf"]+=goals;t["ga"]+=conceded
             t["gd"]=t["gf"]-t["ga"]
@@ -113,7 +118,9 @@ def rebuild(today=None,loader=get_day):
     source=hashlib.sha256(json.dumps(played,sort_keys=True).encode()).hexdigest()
     stamp=dt.datetime.now(dt.timezone.utc).isoformat()
     rating_doc={"as_of_date":today.isoformat(),"completed_matches":len(played),
-      "ratings":{k:round(v,5) for k,v in ratings.items()},"predictions":[],
+      "ratings":{k:round(v,5) for k,v in ratings.items()},
+      "last_match_elo_delta":{k:round(v,5) for k,v in elo_movements.items()},
+      "last_five_form":{k:v[-5:] for k,v in form.items()},"predictions":[],
       "model_status":"provisional_unvalidated",
       "note":"Independent 1500-initialized Elo, K=20, 55-point home advantage, heuristic draw prior; not independently calibrated.",
       "standings":ordered,"standings_note":"Calculated from verified feed finals; no disciplinary deductions or head-to-head tiebreaks.",
