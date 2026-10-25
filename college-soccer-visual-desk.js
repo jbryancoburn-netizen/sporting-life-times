@@ -2,7 +2,7 @@
 const host=document.getElementById('college-soccer-visual-desk');if(!host)return;
 const E=(tag,txt,cls)=>{const e=document.createElement(tag);if(txt!==null&&txt!==undefined)e.textContent=String(txt);if(cls)e.className=cls;return e;};
 const URL_TEAM=(c,id)=>'college-soccer-team.html?team='+encodeURIComponent(c+':'+id);
-const date=d=>{const x=new Date(d);return isNaN(x)?String(d):x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});};
+const date=d=>{const x=new Date(d),now=new Date();if(isNaN(x))return String(d);const eventDay=String(d).match(/^\d{4}-\d{2}-\d{2}/)?.[0];const localDay=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(eventDay===localDay)return 'TODAY';return x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:/^\d{4}-\d{2}-\d{2}$/.test(String(d))?'UTC':undefined});};
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:1});
 const rank=(s)=>({1:'I',2:'II',3:'III'})[s.slice(-1)];
 let gender='men',division=1,model=null,forecast=null,brand={teams:{}},audit=null,index=null;
@@ -67,7 +67,6 @@ function render(){
    const line=E('div',null,'cs-score-side');const entry=byName.get(n);
    if(entry?.team_id)line.append(club(n,cohort,entry.team_id));else line.append(E('span',n));
    line.append(E('strong',score));
-   if(entry?.team_id){const identity=brand.teams?.[cohort+':'+entry.team_id];if(identity?.primary)line.style.borderLeftColor=identity.primary;}
    tile.append(line);
   }grid.append(tile);
  }rail.append(grid);}
