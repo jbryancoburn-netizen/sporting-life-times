@@ -27,7 +27,7 @@ if(!meta.teams.every(id=>known.has(id))||meta.teams.length!==rows.length)throw E
 const field=Number(rule.field)||0;
 const snapshot=table.checked_at_utc||table.snapshot_checked_date;
 const age=snapshot?(Date.now()-Date.parse(snapshot))/(86400000):Infinity;
-const fresh=table.derived_from_verified_finals?table.projection_status==='provisional_not_official_tiebreakers':Number.isFinite(age)&&age>=0&&age<=2;
+const fresh=table.derived_from_verified_finals?table.projection_status==='provisional_not_official_tiebreakers'&&Number.isFinite((Date.now()-Date.parse(table.projected_through))/86400000)&&(Date.now()-Date.parse(table.projected_through))/86400000<=2:Number.isFinite(age)&&age>=0&&age<=2;
 const numeric=rows.every(r=>Number.isFinite(Number(r.conference_points))&&r.conference_record!=='N/A');
 const formatKnown=field>0&&!/inferred from|based on official 2025|carried forward|provisional.*format|format.*unverified|eligibility.*unverified/i.test(rule.status||'');
 const certified=fresh&&numeric&&formatKnown;
