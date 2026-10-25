@@ -16,7 +16,7 @@ YEARS={"fr":"freshman","freshman":"freshman","first year":"freshman",
 "r-jr":"redshirt_junior","redshirt junior":"redshirt_junior",
 "sr":"senior","senior":"senior","r-sr":"redshirt_senior",
 "redshirt senior":"redshirt_senior","gr":"graduate","grad":"graduate",
-"graduate":"graduate","fifth year":"graduate"}
+"graduate":"graduate","fifth year":"fifth_year"}
 def normalized(v):return re.sub(r"[^a-z0-9]","",str(v).casefold())
 def classify(movement,crosswalk,rows):
     roster={}
