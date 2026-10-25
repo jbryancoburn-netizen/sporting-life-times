@@ -1,6 +1,1362 @@
 {
   "as_of_date": "2026-10-25",
   "completed_matches": 75,
+  "elo_history": {
+    "Arsenal": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-21",
+        "elo": 1508.43006,
+        "fixture_id": "401879301",
+        "match": 1,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-08-31",
+        "elo": 1519.52343,
+        "fixture_id": "401879295",
+        "match": 2,
+        "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-09-06",
+        "elo": 1527.9644,
+        "fixture_id": "401879292",
+        "match": 3,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1538.79149,
+        "fixture_id": "401878779",
+        "match": 4,
+        "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1529.53402,
+        "fixture_id": "401879274",
+        "match": 5,
+        "opponent": "Brighton"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1537.61131,
+        "fixture_id": "401879268",
+        "match": 6,
+        "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1547.50085,
+        "fixture_id": "401878769",
+        "match": 7,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1554.79995,
+        "fixture_id": "401878768",
+        "match": 8,
+        "opponent": "Everton"
+      }
+    ],
+    "Aston Villa": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-23",
+        "elo": 1491.56994,
+        "fixture_id": "401879297",
+        "match": 1,
+        "opponent": "Brighton"
+      },
+      {
+        "date": "2026-08-31",
+        "elo": 1480.47657,
+        "fixture_id": "401879295",
+        "match": 2,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1483.11922,
+        "fixture_id": "401878781",
+        "match": 3,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1471.70105,
+        "fixture_id": "401879284",
+        "match": 4,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1483.53657,
+        "fixture_id": "401879269",
+        "match": 5,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1482.94075,
+        "fixture_id": "401878776",
+        "match": 6,
+        "opponent": "Brentford"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1494.95664,
+        "fixture_id": "401879258",
+        "match": 7,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1505.32193,
+        "fixture_id": "401879256",
+        "match": 8,
+        "opponent": "Manchester City"
+      }
+    ],
+    "Bournemouth": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-23",
+        "elo": 1491.56994,
+        "fixture_id": "401879320",
+        "match": 1,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1490.47657,
+        "fixture_id": "401879296",
+        "match": 2,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1492.58391,
+        "fixture_id": "401879286",
+        "match": 3,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1491.45614,
+        "fixture_id": "401879285",
+        "match": 4,
+        "opponent": "Brentford"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1480.36689,
+        "fixture_id": "401879276",
+        "match": 5,
+        "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1472.52662,
+        "fixture_id": "401878775",
+        "match": 6,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1480.97605,
+        "fixture_id": "401879263",
+        "match": 7,
+        "opponent": "Sunderland"
+      }
+    ],
+    "Brentford": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1508.43006,
+        "fixture_id": "401879321",
+        "match": 1,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1510.08802,
+        "fixture_id": "401879315",
+        "match": 2,
+        "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1508.2338,
+        "fixture_id": "401879311",
+        "match": 3,
+        "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1509.36157,
+        "fixture_id": "401879285",
+        "match": 4,
+        "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-09-18",
+        "elo": 1517.81106,
+        "fixture_id": "401879275",
+        "match": 5,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1518.40688,
+        "fixture_id": "401878776",
+        "match": 6,
+        "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1506.56568,
+        "fixture_id": "401879262",
+        "match": 7,
+        "opponent": "Liverpool"
+      }
+    ],
+    "Brighton": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-23",
+        "elo": 1508.43006,
+        "fixture_id": "401879297",
+        "match": 1,
+        "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1500.08802,
+        "fixture_id": "401879317",
+        "match": 2,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1498.79503,
+        "fixture_id": "401879290",
+        "match": 3,
+        "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-09-13",
+        "elo": 1509.63705,
+        "fixture_id": "401879282",
+        "match": 4,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1518.89452,
+        "fixture_id": "401879274",
+        "match": 5,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1529.46649,
+        "fixture_id": "401878772",
+        "match": 6,
+        "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1536.85411,
+        "fixture_id": "401879261",
+        "match": 7,
+        "opponent": "Crystal Palace"
+      }
+    ],
+    "Chelsea": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-24",
+        "elo": 1511.56994,
+        "fixture_id": "401879318",
+        "match": 1,
+        "opponent": "Fulham"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1519.91198,
+        "fixture_id": "401879317",
+        "match": 2,
+        "opponent": "Brighton"
+      },
+      {
+        "date": "2026-09-06",
+        "elo": 1511.47101,
+        "fixture_id": "401879292",
+        "match": 3,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1510.0533,
+        "fixture_id": "401879283",
+        "match": 4,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-09-18",
+        "elo": 1501.60381,
+        "fixture_id": "401879275",
+        "match": 5,
+        "opponent": "Brentford"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1509.44409,
+        "fixture_id": "401878775",
+        "match": 6,
+        "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1521.25564,
+        "fixture_id": "401878771",
+        "match": 7,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1508.56374,
+        "fixture_id": "401878767",
+        "match": 8,
+        "opponent": "Tottenham"
+      }
+    ],
+    "Coventry": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-21",
+        "elo": 1491.56994,
+        "fixture_id": "401879301",
+        "match": 1,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1480.47657,
+        "fixture_id": "401879316",
+        "match": 2,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1473.11922,
+        "fixture_id": "401879287",
+        "match": 3,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-09-13",
+        "elo": 1462.2772,
+        "fixture_id": "401879282",
+        "match": 4,
+        "opponent": "Brighton"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1474.88251,
+        "fixture_id": "401879270",
+        "match": 5,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-10-12",
+        "elo": 1484.26307,
+        "fixture_id": "401879267",
+        "match": 6,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-10-19",
+        "elo": 1475.47502,
+        "fixture_id": "401879257",
+        "match": 7,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1463.81204,
+        "fixture_id": "401879255",
+        "match": 8,
+        "opponent": "Fulham"
+      }
+    ],
+    "Crystal Palace": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1491.56994,
+        "fixture_id": "401879300",
+        "match": 1,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-08-28",
+        "elo": 1480.47657,
+        "fixture_id": "401879294",
+        "match": 2,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1492.0356,
+        "fixture_id": "401879289",
+        "match": 3,
+        "opponent": "Fulham"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1480.35137,
+        "fixture_id": "401879281",
+        "match": 4,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1482.99773,
+        "fixture_id": "401879273",
+        "match": 5,
+        "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-10-11",
+        "elo": 1491.54951,
+        "fixture_id": "401879266",
+        "match": 6,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1484.16189,
+        "fixture_id": "401879261",
+        "match": 7,
+        "opponent": "Brighton"
+      }
+    ],
+    "Everton": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1508.43006,
+        "fixture_id": "401879300",
+        "match": 1,
+        "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1509.52343,
+        "fixture_id": "401879296",
+        "match": 2,
+        "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-09-06",
+        "elo": 1507.70061,
+        "fixture_id": "401879291",
+        "match": 3,
+        "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1508.54328,
+        "fixture_id": "401879277",
+        "match": 4,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1516.72448,
+        "fixture_id": "401878778",
+        "match": 5,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-10-11",
+        "elo": 1518.08625,
+        "fixture_id": "401878774",
+        "match": 6,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1506.2747,
+        "fixture_id": "401878771",
+        "match": 7,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1498.9756,
+        "fixture_id": "401878768",
+        "match": 8,
+        "opponent": "Arsenal"
+      }
+    ],
+    "Fulham": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-24",
+        "elo": 1488.43006,
+        "fixture_id": "401879318",
+        "match": 1,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1480.08802,
+        "fixture_id": "401879313",
+        "match": 2,
+        "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1468.52899,
+        "fixture_id": "401879289",
+        "match": 3,
+        "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1471.26841,
+        "fixture_id": "401879279",
+        "match": 4,
+        "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1470.26892,
+        "fixture_id": "401878777",
+        "match": 5,
+        "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1462.42737,
+        "fixture_id": "401879265",
+        "match": 6,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1472.15527,
+        "fixture_id": "401878770",
+        "match": 7,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1483.81826,
+        "fixture_id": "401879255",
+        "match": 8,
+        "opponent": "Coventry"
+      }
+    ],
+    "Hull": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1508.43006,
+        "fixture_id": "401879322",
+        "match": 1,
+        "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1519.52343,
+        "fixture_id": "401879316",
+        "match": 2,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1516.88078,
+        "fixture_id": "401878781",
+        "match": 3,
+        "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1518.29848,
+        "fixture_id": "401879283",
+        "match": 4,
+        "opponent": "Chelsea"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1509.33292,
+        "fixture_id": "401879271",
+        "match": 5,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-10-11",
+        "elo": 1507.97116,
+        "fixture_id": "401878774",
+        "match": 6,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1498.24326,
+        "fixture_id": "401878770",
+        "match": 7,
+        "opponent": "Fulham"
+      }
+    ],
+    "Ipswich": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1508.43006,
+        "fixture_id": "401879299",
+        "match": 1,
+        "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1499.52343,
+        "fixture_id": "401879293",
+        "match": 2,
+        "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-09-04",
+        "elo": 1487.95658,
+        "fixture_id": "401879288",
+        "match": 3,
+        "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1499.64081,
+        "fixture_id": "401879281",
+        "match": 4,
+        "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1491.45961,
+        "fixture_id": "401878778",
+        "match": 5,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1499.30116,
+        "fixture_id": "401879265",
+        "match": 6,
+        "opponent": "Fulham"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1492.40339,
+        "fixture_id": "401879259",
+        "match": 7,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-10-23",
+        "elo": 1490.18112,
+        "fixture_id": "401879253",
+        "match": 8,
+        "opponent": "Nott'm Forest"
+      }
+    ],
+    "Leeds United": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1511.56994,
+        "fixture_id": "401879298",
+        "match": 1,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1509.91198,
+        "fixture_id": "401879315",
+        "match": 2,
+        "opponent": "Brentford"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1511.20497,
+        "fixture_id": "401879290",
+        "match": 3,
+        "opponent": "Brighton"
+      },
+      {
+        "date": "2026-09-14",
+        "elo": 1519.53679,
+        "fixture_id": "401879280",
+        "match": 4,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1516.89043,
+        "fixture_id": "401879273",
+        "match": 5,
+        "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1508.81313,
+        "fixture_id": "401879268",
+        "match": 6,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1506.72596,
+        "fixture_id": "401879260",
+        "match": 7,
+        "opponent": "Manchester United"
+      }
+    ],
+    "Liverpool": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-23",
+        "elo": 1501.56994,
+        "fixture_id": "401879319",
+        "match": 1,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1499.63348,
+        "fixture_id": "401879314",
+        "match": 2,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-09-04",
+        "elo": 1511.20032,
+        "fixture_id": "401879288",
+        "match": 3,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1508.4609,
+        "fixture_id": "401879279",
+        "match": 4,
+        "opponent": "Fulham"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1519.55015,
+        "fixture_id": "401879276",
+        "match": 5,
+        "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-10-11",
+        "elo": 1508.69895,
+        "fixture_id": "401879264",
+        "match": 6,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1520.54016,
+        "fixture_id": "401879262",
+        "match": 7,
+        "opponent": "Brentford"
+      }
+    ],
+    "Manchester City": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-23",
+        "elo": 1508.43006,
+        "fixture_id": "401879320",
+        "match": 1,
+        "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-08-28",
+        "elo": 1519.52343,
+        "fixture_id": "401879294",
+        "match": 2,
+        "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1526.88078,
+        "fixture_id": "401879287",
+        "match": 3,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-09-13",
+        "elo": 1537.75406,
+        "fixture_id": "401879278",
+        "match": 4,
+        "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1544.90469,
+        "fixture_id": "401879272",
+        "match": 5,
+        "opponent": "Sunderland"
+      },
+      {
+        "date": "2026-10-11",
+        "elo": 1555.75589,
+        "fixture_id": "401879264",
+        "match": 6,
+        "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1562.65366,
+        "fixture_id": "401879259",
+        "match": 7,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1552.28837,
+        "fixture_id": "401879256",
+        "match": 8,
+        "opponent": "Aston Villa"
+      }
+    ],
+    "Manchester United": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1491.56994,
+        "fixture_id": "401879322",
+        "match": 1,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1500.47657,
+        "fixture_id": "401879293",
+        "match": 2,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-09-06",
+        "elo": 1502.29939,
+        "fixture_id": "401879291",
+        "match": 3,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-09-13",
+        "elo": 1491.4261,
+        "fixture_id": "401879278",
+        "match": 4,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1492.42559,
+        "fixture_id": "401878777",
+        "match": 5,
+        "opponent": "Fulham"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1490.216,
+        "fixture_id": "401878773",
+        "match": 6,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1492.30317,
+        "fixture_id": "401879260",
+        "match": 7,
+        "opponent": "Leeds United"
+      }
+    ],
+    "Newcastle United": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-23",
+        "elo": 1498.43006,
+        "fixture_id": "401879319",
+        "match": 1,
+        "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1509.80684,
+        "fixture_id": "401879312",
+        "match": 2,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1507.6995,
+        "fixture_id": "401879286",
+        "match": 3,
+        "opponent": "Bournemouth"
+      },
+      {
+        "date": "2026-09-14",
+        "elo": 1499.36768,
+        "fixture_id": "401879280",
+        "match": 4,
+        "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1508.33324,
+        "fixture_id": "401879271",
+        "match": 5,
+        "opponent": "Hull"
+      },
+      {
+        "date": "2026-10-12",
+        "elo": 1498.95269,
+        "fixture_id": "401879267",
+        "match": 6,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-10-17",
+        "elo": 1486.93679,
+        "fixture_id": "401879258",
+        "match": 7,
+        "opponent": "Aston Villa"
+      }
+    ],
+    "Nott'm Forest": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1488.43006,
+        "fixture_id": "401879298",
+        "match": 1,
+        "opponent": "Leeds United"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1490.36652,
+        "fixture_id": "401879314",
+        "match": 2,
+        "opponent": "Liverpool"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1488.51238,
+        "fixture_id": "401878780",
+        "match": 3,
+        "opponent": "Tottenham"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1499.93056,
+        "fixture_id": "401879284",
+        "match": 4,
+        "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1487.32525,
+        "fixture_id": "401879270",
+        "match": 5,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-10-11",
+        "elo": 1478.77347,
+        "fixture_id": "401879266",
+        "match": 6,
+        "opponent": "Crystal Palace"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1468.88392,
+        "fixture_id": "401878769",
+        "match": 7,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-10-23",
+        "elo": 1471.10619,
+        "fixture_id": "401879253",
+        "match": 8,
+        "opponent": "Ipswich"
+      }
+    ],
+    "Sunderland": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1491.56994,
+        "fixture_id": "401879299",
+        "match": 1,
+        "opponent": "Ipswich"
+      },
+      {
+        "date": "2026-08-30",
+        "elo": 1499.91198,
+        "fixture_id": "401879313",
+        "match": 2,
+        "opponent": "Fulham"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1501.7662,
+        "fixture_id": "401879311",
+        "match": 3,
+        "opponent": "Brentford"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1490.93911,
+        "fixture_id": "401878779",
+        "match": 4,
+        "opponent": "Arsenal"
+      },
+      {
+        "date": "2026-09-20",
+        "elo": 1483.78848,
+        "fixture_id": "401879272",
+        "match": 5,
+        "opponent": "Manchester City"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1473.21651,
+        "fixture_id": "401878772",
+        "match": 6,
+        "opponent": "Brighton"
+      },
+      {
+        "date": "2026-10-18",
+        "elo": 1464.76707,
+        "fixture_id": "401879263",
+        "match": 7,
+        "opponent": "Bournemouth"
+      }
+    ],
+    "Tottenham": [
+      {
+        "date": "2026-08-01",
+        "elo": 1500.0,
+        "match": 0
+      },
+      {
+        "date": "2026-08-22",
+        "elo": 1491.56994,
+        "fixture_id": "401879321",
+        "match": 1,
+        "opponent": "Brentford"
+      },
+      {
+        "date": "2026-08-29",
+        "elo": 1480.19316,
+        "fixture_id": "401879312",
+        "match": 2,
+        "opponent": "Newcastle United"
+      },
+      {
+        "date": "2026-09-05",
+        "elo": 1482.0473,
+        "fixture_id": "401878780",
+        "match": 3,
+        "opponent": "Nott'm Forest"
+      },
+      {
+        "date": "2026-09-12",
+        "elo": 1481.20464,
+        "fixture_id": "401879277",
+        "match": 4,
+        "opponent": "Everton"
+      },
+      {
+        "date": "2026-09-19",
+        "elo": 1469.36912,
+        "fixture_id": "401879269",
+        "match": 5,
+        "opponent": "Aston Villa"
+      },
+      {
+        "date": "2026-10-10",
+        "elo": 1471.57871,
+        "fixture_id": "401878773",
+        "match": 6,
+        "opponent": "Manchester United"
+      },
+      {
+        "date": "2026-10-19",
+        "elo": 1480.36676,
+        "fixture_id": "401879257",
+        "match": 7,
+        "opponent": "Coventry"
+      },
+      {
+        "date": "2026-10-24",
+        "elo": 1493.05866,
+        "fixture_id": "401878767",
+        "match": 8,
+        "opponent": "Chelsea"
+      }
+    ]
+  },
+  "last_five_form": {
+    "Arsenal": [
+      "W",
+      "L",
+      "W",
+      "W",
+      "W"
+    ],
+    "Aston Villa": [
+      "L",
+      "W",
+      "D",
+      "W",
+      "W"
+    ],
+    "Bournemouth": [
+      "D",
+      "D",
+      "L",
+      "L",
+      "W"
+    ],
+    "Brentford": [
+      "D",
+      "D",
+      "W",
+      "D",
+      "L"
+    ],
+    "Brighton": [
+      "D",
+      "W",
+      "W",
+      "W",
+      "W"
+    ],
+    "Chelsea": [
+      "D",
+      "L",
+      "W",
+      "W",
+      "L"
+    ],
+    "Coventry": [
+      "L",
+      "W",
+      "W",
+      "L",
+      "L"
+    ],
+    "Crystal Palace": [
+      "W",
+      "L",
+      "D",
+      "W",
+      "L"
+    ],
+    "Everton": [
+      "D",
+      "W",
+      "D",
+      "L",
+      "L"
+    ],
+    "Fulham": [
+      "D",
+      "D",
+      "L",
+      "W",
+      "W"
+    ],
+    "Hull": [
+      "D",
+      "D",
+      "L",
+      "D",
+      "L"
+    ],
+    "Ipswich": [
+      "W",
+      "L",
+      "W",
+      "L",
+      "D"
+    ],
+    "Leeds United": [
+      "D",
+      "W",
+      "D",
+      "L",
+      "D"
+    ],
+    "Liverpool": [
+      "W",
+      "D",
+      "W",
+      "L",
+      "W"
+    ],
+    "Manchester City": [
+      "W",
+      "W",
+      "W",
+      "W",
+      "L"
+    ],
+    "Manchester United": [
+      "D",
+      "L",
+      "D",
+      "D",
+      "D"
+    ],
+    "Newcastle United": [
+      "D",
+      "L",
+      "W",
+      "L",
+      "L"
+    ],
+    "Nott'm Forest": [
+      "W",
+      "L",
+      "L",
+      "L",
+      "D"
+    ],
+    "Sunderland": [
+      "D",
+      "L",
+      "L",
+      "L",
+      "L"
+    ],
+    "Tottenham": [
+      "D",
+      "L",
+      "D",
+      "W",
+      "W"
+    ]
+  },
+  "last_match_elo_delta": {
+    "Arsenal": 7.2991,
+    "Aston Villa": 10.36529,
+    "Bournemouth": 8.44944,
+    "Brentford": -11.8412,
+    "Brighton": 7.38762,
+    "Chelsea": -12.6919,
+    "Coventry": -11.66299,
+    "Crystal Palace": -7.38762,
+    "Everton": -7.2991,
+    "Fulham": 11.66299,
+    "Hull": -9.7279,
+    "Ipswich": -2.22227,
+    "Leeds United": -2.08717,
+    "Liverpool": 11.8412,
+    "Manchester City": -10.36529,
+    "Manchester United": 2.08717,
+    "Newcastle United": -12.01589,
+    "Nott'm Forest": 2.22227,
+    "Sunderland": -8.44944,
+    "Tottenham": 12.6919
+  },
   "model_status": "provisional_unvalidated",
   "note": "Independent 1500-initialized Elo, K=20, 55-point home advantage, heuristic draw prior; not independently calibrated.",
   "predictions": [],
