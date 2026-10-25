@@ -12,6 +12,11 @@ on:
       - 'college-soccer-match.html'
       - 'college-soccer-match.js'
       - 'college-soccer-match.css'
+      - 'college-soccer-postseason.js'
+      - 'college-soccer-postseason.css'
+      - 'data/college-soccer-postseason-rules.json'
+      - 'data/college-soccer-conferences.json'
+      - 'data/college-soccer-miaa-standings.json'
       - 'data/college-soccer-elo.json'
       - 'data/college-soccer-prospective-v2.json'
       - '.github/workflows/college-soccer-visual-desk.yml'
@@ -33,6 +38,7 @@ jobs:
           node --check college-soccer-visual-desk.js
           node --check college-soccer-editorial.js
           node --check college-soccer-match.js
+          node --check college-soccer-postseason.js
       - name: Audit real data and published page
         run: |
           node <<'NODE'
@@ -56,8 +62,8 @@ jobs:
           assert(!html.includes('college-soccer-predictions.js'));
           assert(fs.readFileSync('college-soccer-visual-desk.js','utf8').includes('www.ncaa.com/sites/default/files/images/logos/schools/bgl/'));
           assert(fs.readFileSync('college-soccer-visual-desk.js','utf8').includes('cs-score-tile'));
-          assert(html.includes('college-soccer-visual-desk.js?v=match1'));
-          assert(html.includes('college-soccer-visual-desk.css?v=phase5'));
+          assert(html.includes('college-soccer-visual-desk.js?v=reconcile1'));
+          assert(html.includes('college-soccer-visual-desk.css?v=reconcile1'));
           const matchPage=fs.readFileSync('college-soccer-match.html','utf8');
           const deskJs=fs.readFileSync('college-soccer-visual-desk.js','utf8');
           assert(matchPage.includes('id="cs-match-view"'));
@@ -73,6 +79,25 @@ jobs:
           assert(matchJs.includes('Recent verified results'));
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
+                    assert(html.includes('id="college-soccer-postseason"'));
+          assert(html.includes('college-soccer-postseason.js?v=launch1'));
+          assert(html.includes('college-soccer-postseason.css?v=launch1'));
+          assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
+          const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
+          const conf=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
+          const miaa=JSON.parse(fs.readFileSync('data/college-soccer-miaa-standings.json','utf8'));
+          assert.equal(tournamentRules.ncaa['men-d1'].field,48);
+          assert.equal(tournamentRules.ncaa['women-d1'].field,64);
+          assert.equal(tournamentRules.ncaa['men-d1'].seeded_teams,24);
+          assert.equal(tournamentRules.conferences['men-d3:miaa'].tournament.field,6);
+          const members=conf.conferences['men-d3:miaa'].teams;
+          assert.equal(members.length,8);
+          assert.equal(new Set(members).size,8);
+          assert.deepEqual(new Set(miaa.rows.map(r=>r.team_id)),new Set(members));
+          assert(miaa.last_verified_game_date,'Missing MIAA source cutoff');
+          const postseasonJs=fs.readFileSync('college-soccer-postseason.js','utf8');
+          assert(postseasonJs.includes('setInterval'));
+          assert(postseasonJs.includes('NOT calibrated tournament odds'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
           const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
           for(const sex of ['men','women'])for(const division of [1,2,3]){
