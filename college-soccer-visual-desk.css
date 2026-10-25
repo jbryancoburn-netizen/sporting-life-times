@@ -1,0 +1,51 @@
+/* NCAA matchday visual desk — editorial density inspired by the EPL desk. */
+#college-soccer-visual-desk{font-family:Arial,Helvetica,sans-serif;color:#263238;background:#fff;margin:1rem 0 1.7rem;min-width:0}
+#college-soccer-visual-desk *{box-sizing:border-box}
+.cs-main-heading,.cs-section-title{display:flex;justify-content:space-between;align-items:baseline;gap:.8rem;border-top:3px solid #203849;padding:.65rem 0}
+.cs-main-heading strong{font-size:.77rem;letter-spacing:.11em}
+.cs-main-heading span,.cs-section-title span{font-size:.64rem;color:#6d7578;letter-spacing:.02em}
+.cs-section-title h3{font:700 1.01rem Georgia,serif;margin:0;color:#192e3e}
+.cs-controls{display:flex;gap:.25rem;flex-wrap:wrap;align-items:center;padding:.55rem 0 .9rem}
+.cs-choice{border:1px solid #c7d0d5;background:#f7f9fa;padding:.37rem .6rem;color:#273c4b;cursor:pointer;font:700 .7rem Arial,sans-serif}
+.cs-choice.active{background:#243d53;color:#fff}
+.cs-controls-desc{color:#6a7a84;font-size:.69rem;margin-left:.45rem}
+.cs-score-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #c9d0d2;border-bottom:1px solid #c9d0d2}
+.cs-score-tile{min-width:0;padding:.7rem .65rem;text-decoration:none!important;color:#27323a!important;border-right:1px solid #d9dfe1;border-bottom:1px solid #eef0f2}
+.cs-score-tile:nth-child(4n){border-right:0}
+.cs-score-tile small,.cs-fixture small{display:block;color:#8a653e;font:700 .62rem Arial,sans-serif;letter-spacing:.04em;margin-bottom:.55rem}
+.cs-score-side{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:.3rem 0;border-left:3px solid #c5d0d7;padding-left:.4rem;font-size:.78rem}
+.cs-score-side span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-score-side strong{font-size:1.1rem;font-variant-numeric:tabular-nums}
+.cs-columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1.4rem}
+.cs-visual-section{margin-top:1rem;min-width:0}
+.cs-table-scroll{overflow:auto;max-height:550px;border-bottom:1px solid #cdd4d8}
+.cs-table{border-collapse:collapse;width:100%;font:500 .7rem Arial,sans-serif;font-variant-numeric:tabular-nums}
+.cs-table th{font-size:.62rem;color:#526472;background:#f0f3f4;position:sticky;top:0;z-index:2;border-bottom:1px solid #bfcbd0;padding:.5rem .3rem;text-align:right}
+.cs-table th:nth-child(2),.cs-table td:nth-child(2){text-align:left}
+.cs-table td{padding:.43rem .3rem;border-bottom:1px solid #edf0f1;text-align:right}
+.cs-table tbody tr:hover{background:#f3f6f7}
+.cs-team{display:inline-flex;align-items:center;gap:.38rem;min-width:0;max-width:100%;font-size:.74rem}
+.cs-team a{min-width:0;color:inherit!important;text-decoration:none!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-team a:hover{text-decoration:underline!important}
+.cs-mark{background:var(--cs-color,#536d80);color:#fff;display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;font-size:.59rem;font-weight:800}
+.cs-mark img{height:90%;width:90%;object-fit:contain}
+.cs-power-row{display:grid;grid-template-columns:20px minmax(98px,1.25fr) minmax(35px,.85fr) 45px;align-items:center;gap:.4rem;border-bottom:1px solid #e2e7e9;padding:.38rem 0}
+.cs-number{font-size:.68rem;color:#73858e}
+.cs-power-track{height:7px;background:#e5eaec;overflow:hidden}
+.cs-power-track i{display:block;background:#51778e;height:100%}
+.cs-power-row strong{font-size:.69rem;text-align:right;font-variant-numeric:tabular-nums}
+.cs-fixture{border-bottom:1px solid #e2e7e9;padding:.7rem 0}
+.cs-fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:.4rem;min-width:0}
+.cs-fixture-teams .cs-team{max-width:44%}
+.cs-fixture-teams>span:nth-child(2){font:italic .68rem Georgia,serif;color:#8a959a}
+.cs-prob{display:flex;height:9px;background:#e7ecef;margin:.7rem 0 .35rem;overflow:hidden}
+.cs-prob i{display:block;height:100%}.cs-prob-home{background:#47798b}.cs-prob-draw{background:#b7a583}.cs-prob-away{background:#516786}
+.cs-prob-labels{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.25rem;font-size:.61rem;color:#556a78}
+.cs-game-link{display:block;color:#365a76;font-size:.65rem;margin-top:.4rem;text-decoration:underline}
+.cs-stat-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}
+.cs-leader-row{display:flex;justify-content:space-between;gap:.5rem;padding:.43rem 0;border-bottom:1px solid #e4e9eb;font-size:.76rem}
+.cs-leader-row a{color:#284a61!important;text-decoration:none!important}.cs-leader-row a:hover{text-decoration:underline!important}
+.cs-leader-row strong{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:.72rem}
+.cs-note{font:italic .7rem/1.5 Georgia,serif;color:#657580;margin:.7rem 0}
+@media(max-width:1050px){.cs-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-score-tile:nth-child(2n){border-right:0}.cs-columns{grid-template-columns:1fr}.cs-table-scroll{max-height:460px}}
+@media(max-width:580px){.cs-main-heading,.cs-section-title{align-items:flex-start}.cs-main-heading span,.cs-section-title span{text-align:right}.cs-score-tile{padding:.6rem .4rem}.cs-score-side{font-size:.67rem}.cs-score-side strong{font-size:.9rem}.cs-stat-columns{grid-template-columns:1fr}.cs-controls-desc{width:100%;margin:.4rem 0 0}.cs-table{font-size:.64rem}.cs-table th,.cs-table td{padding:.35rem .2rem}.cs-table .cs-mark{width:18px;height:18px}.cs-table .cs-team{font-size:.65rem}.cs-power-row .cs-team{font-size:.69rem}}
