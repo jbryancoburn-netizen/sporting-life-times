@@ -18,7 +18,7 @@ CLASS_MAP={"fr":"Freshman","freshman":"Freshman","r fr":"Redshirt Freshman",
 "r jr":"Redshirt Junior","redshirt junior":"Redshirt Junior",
 "sr":"Senior","senior":"Senior","r sr":"Redshirt Senior",
 "redshirt senior":"Redshirt Senior","gr":"Graduate","grad":"Graduate",
-"graduate":"Graduate","graduate student":"Graduate","rs fr":"Redshirt Freshman","rs so":"Redshirt Sophomore","rs jr":"Redshirt Junior","rs sr":"Redshirt Senior","fifth year":"Graduate"}
+"graduate":"Graduate","graduate student":"Graduate","rs fr":"Redshirt Freshman","rs so":"Redshirt Sophomore","rs jr":"Redshirt Junior","rs sr":"Redshirt Senior"}
 def norm(s):return re.sub("[^a-z0-9]","",str(s).casefold())
 def label(s):
     x=re.sub(r"[^a-z ]"," ",str(s).lower()).strip()
@@ -45,7 +45,7 @@ def classify_player(soup,name):
             if parent.name!="tr" and not any(k in " ".join(parent.get("class",[])).lower() for k in ("roster","player","card","athlete","person","sidearm")):
                 continue
             if text.lower().count(name.lower())>2:continue
-            tokens=re.findall(r"(?<![A-Za-z])(?:R[Ss]?[-. ]?(?:Fr|So|Jr|Sr)|Fr|So|Jr|Sr|Gr|Grad|Freshman|Sophomore|Junior|Senior|Graduate(?: Student)?|Redshirt (?:Freshman|Sophomore|Junior|Senior)|Fifth[- ]Year)(?![A-Za-z])",text,re.I)
+            tokens=re.findall(r"(?<![A-Za-z])(?:R[Ss]?[-. ]?(?:Fr|So|Jr|Sr)|Fr|So|Jr|Sr|Gr|Grad|Freshman|Sophomore|Junior|Senior|Graduate(?: Student)?|Redshirt (?:Freshman|Sophomore|Junior|Senior))(?![A-Za-z])",text,re.I)
             classes={label(token) for token in tokens if label(token)}
             if len(classes)==1:
                 hits.append(next(iter(classes)))
