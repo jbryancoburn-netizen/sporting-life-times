@@ -1,0 +1,21 @@
+name: NCAA full 2014 player-class coverage
+on:
+  push:
+    paths:
+      - 'scripts/verify_ncaam_final_class_year_coverage.py'
+      - 'data/ncaam-2026-27-final-class-year-exceptions.json'
+      - 'data/ncaam-2026-27-school-roster-class-years.csv'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - '.github/workflows/ncaam-final-class-year-coverage.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_final_class_year_coverage.py
