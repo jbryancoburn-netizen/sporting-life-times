@@ -1,0 +1,59 @@
+{
+  "test": "historical exact-formula roster-v2 versus player-quality-v3",
+  "fixed_params": {
+    "retention_incumbent": 120,
+    "transfer_incumbent": 160,
+    "retention_challenger": 60,
+    "transfer_challenger": 40,
+    "quality_challenger": 1200
+  },
+  "seasons": {
+    "2024": {
+      "incumbent": {
+        "games": 1794,
+        "log_loss": 0.5809618518653162,
+        "brier": 0.1979853627442047
+      },
+      "challenger": {
+        "games": 1794,
+        "log_loss": 0.5804068501856318,
+        "brier": 0.1981750122072558
+      },
+      "same_games": true
+    },
+    "2025": {
+      "incumbent": {
+        "games": 1808,
+        "log_loss": 0.5599020092654525,
+        "brier": 0.18968115885227735
+      },
+      "challenger": {
+        "games": 1808,
+        "log_loss": 0.5582844972499379,
+        "brier": 0.18919158371700726
+      },
+      "same_games": true
+    },
+    "2026": {
+      "incumbent": {
+        "games": 1831,
+        "log_loss": 0.5341768990649539,
+        "brier": 0.17848420399657347
+      },
+      "challenger": {
+        "games": 1831,
+        "log_loss": 0.5299776157093563,
+        "brier": 0.17718173655962077
+      },
+      "same_games": true
+    }
+  },
+  "holdout_season": 2026,
+  "holdout_games": 1831,
+  "log_loss_gain": 0.004199283355597605,
+  "brier_gain": 0.0013024674369526978,
+  "challenger_wins_both": true,
+  "same_game_replay": true,
+  "preopening_asof_certified": false,
+  "production_policy": "Do not auto-promote without preopening source timing verification and live release checks"
+}
