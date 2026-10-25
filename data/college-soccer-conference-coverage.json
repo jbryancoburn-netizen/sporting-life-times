@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "as_of_ratings": "2026-10-24",
+  "as_of_ratings": "2026-10-25",
   "source": "Independent published NCAA soccer Elo + officially verified conference membership registry",
   "scope": "Coverage audit; unassigned does not imply unaffiliated. NCAA conference assignments are only published when grounded in official membership/standings.",
   "by_cohort": {
     "men-d1": {
       "rated_teams": 213,
-      "mapped_teams": 73,
-      "unmapped_teams": 140,
-      "verified_conferences": 7,
+      "mapped_teams": 90,
+      "unmapped_teams": 123,
+      "verified_conferences": 9,
       "conference_keys": [
         "men-d1:big-ten",
         "men-d1:acc",
@@ -16,7 +16,9 @@
         "men-d1:america-east",
         "men-d1:american",
         "men-d1:sun-belt",
-        "men-d1:ivy"
+        "men-d1:ivy",
+        "men-d1:wcc",
+        "men-d1:ovc"
       ]
     },
     "men-d2": {
@@ -81,12 +83,8 @@
         "team": "High Point"
       },
       {
-        "team_id": "portland",
-        "team": "Portland"
-      },
-      {
-        "team_id": "san-diego",
-        "team": "San Diego"
+        "team_id": "hofstra",
+        "team": "Hofstra"
       },
       {
         "team_id": "california-baptist",
@@ -101,24 +99,16 @@
         "team": "Gardner-Webb"
       },
       {
-        "team_id": "oregon-st",
-        "team": "Oregon St."
-      },
-      {
-        "team_id": "hofstra",
-        "team": "Hofstra"
-      },
-      {
         "team_id": "fairfield",
         "team": "Fairfield"
       },
       {
-        "team_id": "furman",
-        "team": "Furman"
+        "team_id": "oregon-st",
+        "team": "Oregon St."
       },
       {
-        "team_id": "delaware",
-        "team": "Delaware"
+        "team_id": "furman",
+        "team": "Furman"
       },
       {
         "team_id": "north-florida",
@@ -129,18 +119,6 @@
         "team": "Grand Canyon"
       },
       {
-        "team_id": "elon",
-        "team": "Elon"
-      },
-      {
-        "team_id": "fdu",
-        "team": "FDU"
-      },
-      {
-        "team_id": "unc-greensboro",
-        "team": "UNC Greensboro"
-      },
-      {
         "team_id": "uc-irvine",
         "team": "UC Irvine"
       },
@@ -149,16 +127,28 @@
         "team": "Saint Louis"
       },
       {
-        "team_id": "uc-santa-barbara",
-        "team": "UC Santa Barbara"
-      },
-      {
         "team_id": "utah-valley",
         "team": "Utah Valley"
       },
       {
+        "team_id": "elon",
+        "team": "Elon"
+      },
+      {
+        "team_id": "delaware",
+        "team": "Delaware"
+      },
+      {
+        "team_id": "unc-greensboro",
+        "team": "UNC Greensboro"
+      },
+      {
         "team_id": "duquesne",
         "team": "Duquesne"
+      },
+      {
+        "team_id": "fdu",
+        "team": "FDU"
       },
       {
         "team_id": "dayton",
@@ -169,12 +159,16 @@
         "team": "UNCW"
       },
       {
-        "team_id": "lindenwood-mo",
-        "team": "Lindenwood"
-      },
-      {
         "team_id": "boston-u",
         "team": "Boston U."
+      },
+      {
+        "team_id": "uc-santa-barbara",
+        "team": "UC Santa Barbara"
+      },
+      {
+        "team_id": "bellarmine",
+        "team": "Bellarmine"
       },
       {
         "team_id": "belmont",
@@ -185,104 +179,88 @@
         "team": "UNLV"
       },
       {
-        "team_id": "bellarmine",
-        "team": "Bellarmine"
+        "team_id": "northern-ill",
+        "team": "NIU"
       },
       {
         "team_id": "san-jose-st",
         "team": "San Jose St."
       },
       {
-        "team_id": "cal-poly",
-        "team": "Cal Poly"
-      },
-      {
-        "team_id": "northern-ill",
-        "team": "NIU"
-      },
-      {
-        "team_id": "san-francisco",
-        "team": "San Francisco"
-      },
-      {
-        "team_id": "col-of-charleston",
-        "team": "Col. of Charleston"
-      },
-      {
         "team_id": "cleveland-st",
         "team": "Cleveland St."
-      },
-      {
-        "team_id": "unc-asheville",
-        "team": "UNC Asheville"
-      },
-      {
-        "team_id": "denver",
-        "team": "Denver"
       },
       {
         "team_id": "wofford",
         "team": "Wofford"
       },
       {
-        "team_id": "long-island",
-        "team": "LIU"
-      },
-      {
-        "team_id": "ill-chicago",
-        "team": "UIC"
-      },
-      {
         "team_id": "marist",
         "team": "Marist"
       },
       {
-        "team_id": "neb-omaha",
-        "team": "Omaha"
+        "team_id": "long-island",
+        "team": "LIU"
+      },
+      {
+        "team_id": "col-of-charleston",
+        "team": "Col. of Charleston"
+      },
+      {
+        "team_id": "cal-poly",
+        "team": "Cal Poly"
       },
       {
         "team_id": "sacred-heart",
         "team": "Sacred Heart"
       },
       {
-        "team_id": "iona",
-        "team": "Iona"
+        "team_id": "quinnipiac",
+        "team": "Quinnipiac"
       },
       {
-        "team_id": "jacksonville",
-        "team": "Jacksonville"
-      },
-      {
-        "team_id": "ipfw",
-        "team": "Purdue Fort Wayne"
-      },
-      {
-        "team_id": "saint-josephs",
-        "team": "Saint Joseph's"
+        "team_id": "unc-asheville",
+        "team": "UNC Asheville"
       },
       {
         "team_id": "siena",
         "team": "Siena"
       },
       {
+        "team_id": "ipfw",
+        "team": "Purdue Fort Wayne"
+      },
+      {
+        "team_id": "jacksonville",
+        "team": "Jacksonville"
+      },
+      {
+        "team_id": "davidson",
+        "team": "Davidson"
+      },
+      {
+        "team_id": "evansville",
+        "team": "Evansville"
+      },
+      {
+        "team_id": "ill-chicago",
+        "team": "UIC"
+      },
+      {
         "team_id": "robert-morris",
         "team": "Robert Morris"
       },
       {
+        "team_id": "iona",
+        "team": "Iona"
+      },
+      {
+        "team_id": "neb-omaha",
+        "team": "Omaha"
+      },
+      {
         "team_id": "bowling-green",
         "team": "Bowling Green"
-      },
-      {
-        "team_id": "quinnipiac",
-        "team": "Quinnipiac"
-      },
-      {
-        "team_id": "american",
-        "team": "American"
-      },
-      {
-        "team_id": "lehigh",
-        "team": "Lehigh"
       },
       {
         "team_id": "rhode-island",
@@ -293,152 +271,140 @@
         "team": "George Mason"
       },
       {
-        "team_id": "rider",
-        "team": "Rider"
-      },
-      {
-        "team_id": "le-moyne",
-        "team": "Le Moyne"
-      },
-      {
-        "team_id": "fordham",
-        "team": "Fordham"
-      },
-      {
-        "team_id": "central-ark",
-        "team": "Central Ark."
-      },
-      {
-        "team_id": "houston-christian",
-        "team": "Houston Christian"
+        "team_id": "american",
+        "team": "American"
       },
       {
         "team_id": "stetson",
         "team": "Stetson"
       },
       {
+        "team_id": "fordham",
+        "team": "Fordham"
+      },
+      {
+        "team_id": "rider",
+        "team": "Rider"
+      },
+      {
+        "team_id": "central-ark",
+        "team": "Central Ark."
+      },
+      {
         "team_id": "bucknell",
         "team": "Bucknell"
-      },
-      {
-        "team_id": "fgcu",
-        "team": "FGCU"
-      },
-      {
-        "team_id": "massachusetts",
-        "team": "Massachusetts"
-      },
-      {
-        "team_id": "drexel",
-        "team": "Drexel"
-      },
-      {
-        "team_id": "cal-st-northridge",
-        "team": "CSUN"
-      },
-      {
-        "team_id": "davidson",
-        "team": "Davidson"
-      },
-      {
-        "team_id": "liberty",
-        "team": "Liberty"
-      },
-      {
-        "team_id": "milwaukee",
-        "team": "Milwaukee"
-      },
-      {
-        "team_id": "loyola-chicago",
-        "team": "Loyola Chicago"
-      },
-      {
-        "team_id": "william-mary",
-        "team": "William & Mary"
-      },
-      {
-        "team_id": "evansville",
-        "team": "Evansville"
-      },
-      {
-        "team_id": "drake",
-        "team": "Drake"
-      },
-      {
-        "team_id": "longwood",
-        "team": "Longwood"
-      },
-      {
-        "team_id": "northeastern",
-        "team": "Northeastern"
-      },
-      {
-        "team_id": "merrimack",
-        "team": "Merrimack"
       },
       {
         "team_id": "niagara",
         "team": "Niagara"
       },
       {
-        "team_id": "east-tenn-st",
-        "team": "ETSU"
+        "team_id": "drexel",
+        "team": "Drexel"
       },
       {
-        "team_id": "seattle",
-        "team": "Seattle U"
+        "team_id": "saint-josephs",
+        "team": "Saint Joseph's"
       },
       {
-        "team_id": "santa-clara",
-        "team": "Santa Clara"
+        "team_id": "liberty",
+        "team": "Liberty"
       },
       {
-        "team_id": "uc-san-diego",
-        "team": "UC San Diego"
+        "team_id": "fgcu",
+        "team": "FGCU"
+      },
+      {
+        "team_id": "merrimack",
+        "team": "Merrimack"
       },
       {
         "team_id": "bakersfield",
         "team": "CSU Bakersfield"
       },
       {
+        "team_id": "milwaukee",
+        "team": "Milwaukee"
+      },
+      {
+        "team_id": "massachusetts",
+        "team": "Massachusetts"
+      },
+      {
+        "team_id": "le-moyne",
+        "team": "Le Moyne"
+      },
+      {
+        "team_id": "longwood",
+        "team": "Longwood"
+      },
+      {
+        "team_id": "lehigh",
+        "team": "Lehigh"
+      },
+      {
         "team_id": "mercyhurst",
         "team": "Mercyhurst"
       },
       {
-        "team_id": "siu-edwardsville",
-        "team": "SIUE"
+        "team_id": "east-tenn-st",
+        "team": "ETSU"
+      },
+      {
+        "team_id": "loyola-chicago",
+        "team": "Loyola Chicago"
       },
       {
         "team_id": "green-bay",
         "team": "Green Bay"
       },
       {
-        "team_id": "west-florida",
-        "team": "West Florida"
-      },
-      {
-        "team_id": "cal-st-fullerton",
-        "team": "Cal St. Fullerton"
-      },
-      {
-        "team_id": "vcu",
-        "team": "VCU"
-      },
-      {
-        "team_id": "la-salle",
-        "team": "La Salle"
-      },
-      {
-        "team_id": "uiw",
-        "team": "UIW"
+        "team_id": "uc-san-diego",
+        "team": "UC San Diego"
       },
       {
         "team_id": "st-thomas-mn",
         "team": "St. Thomas (MN)"
       },
       {
+        "team_id": "northeastern",
+        "team": "Northeastern"
+      },
+      {
+        "team_id": "drake",
+        "team": "Drake"
+      },
+      {
+        "team_id": "william-mary",
+        "team": "William & Mary"
+      },
+      {
+        "team_id": "west-florida",
+        "team": "West Florida"
+      },
+      {
+        "team_id": "la-salle",
+        "team": "La Salle"
+      },
+      {
+        "team_id": "cal-st-northridge",
+        "team": "CSUN"
+      },
+      {
+        "team_id": "colgate",
+        "team": "Colgate"
+      },
+      {
         "team_id": "western-mich",
         "team": "Western Mich."
+      },
+      {
+        "team_id": "vcu",
+        "team": "VCU"
+      },
+      {
+        "team_id": "cal-st-fullerton",
+        "team": "Cal St. Fullerton"
       },
       {
         "team_id": "oakland",
@@ -453,144 +419,116 @@
         "team": "San Diego St."
       },
       {
-        "team_id": "colgate",
-        "team": "Colgate"
-      },
-      {
         "team_id": "st-peters",
         "team": "Saint Peter's"
-      },
-      {
-        "team_id": "loyola-marymount",
-        "team": "LMU (CA)"
-      },
-      {
-        "team_id": "st-bonaventure",
-        "team": "St. Bonaventure"
-      },
-      {
-        "team_id": "oral-roberts",
-        "team": "Oral Roberts"
-      },
-      {
-        "team_id": "utrgv",
-        "team": "UTRGV"
-      },
-      {
-        "team_id": "queens-nc",
-        "team": "Queens (NC)"
-      },
-      {
-        "team_id": "eastern-ill",
-        "team": "Eastern Ill."
       },
       {
         "team_id": "new-haven",
         "team": "New Haven"
       },
       {
-        "team_id": "navy",
-        "team": "Navy"
-      },
-      {
-        "team_id": "gonzaga",
-        "team": "Gonzaga"
-      },
-      {
-        "team_id": "iu-indy",
-        "team": "IU Indy"
-      },
-      {
-        "team_id": "uc-riverside",
-        "team": "UC Riverside"
-      },
-      {
-        "team_id": "mt-st-marys",
-        "team": "Mount St. Mary's"
-      },
-      {
-        "team_id": "george-washington",
-        "team": "George Washington"
+        "team_id": "oral-roberts",
+        "team": "Oral Roberts"
       },
       {
         "team_id": "usc-upstate",
         "team": "USC Upstate"
       },
       {
-        "team_id": "holy-cross",
-        "team": "Holy Cross"
-      },
-      {
-        "team_id": "monmouth",
-        "team": "Monmouth"
-      },
-      {
-        "team_id": "lafayette",
-        "team": "Lafayette"
+        "team_id": "gonzaga",
+        "team": "Gonzaga"
       },
       {
         "team_id": "detroit",
         "team": "Detroit Mercy"
       },
       {
-        "team_id": "bradley",
-        "team": "Bradley"
+        "team_id": "st-bonaventure",
+        "team": "St. Bonaventure"
       },
       {
-        "team_id": "manhattan",
-        "team": "Manhattan"
+        "team_id": "queens-nc",
+        "team": "Queens (NC)"
+      },
+      {
+        "team_id": "lafayette",
+        "team": "Lafayette"
+      },
+      {
+        "team_id": "monmouth",
+        "team": "Monmouth"
       },
       {
         "team_id": "loyola-maryland",
         "team": "Loyola Maryland"
       },
       {
-        "team_id": "winthrop",
-        "team": "Winthrop"
+        "team_id": "bradley",
+        "team": "Bradley"
       },
       {
-        "team_id": "central-conn-st",
-        "team": "Central Conn. St."
+        "team_id": "uc-riverside",
+        "team": "UC Riverside"
       },
       {
-        "team_id": "western-ill",
-        "team": "Western Ill."
-      },
-      {
-        "team_id": "army",
-        "team": "Army West Point"
-      },
-      {
-        "team_id": "air-force",
-        "team": "Air Force"
-      },
-      {
-        "team_id": "stonehill",
-        "team": "Stonehill"
-      },
-      {
-        "team_id": "lipscomb",
-        "team": "Lipscomb"
-      },
-      {
-        "team_id": "st-marys-ca",
-        "team": "Saint Mary's (CA)"
+        "team_id": "iu-indy",
+        "team": "IU Indy"
       },
       {
         "team_id": "sacramento-st",
         "team": "Sacramento St."
       },
       {
-        "team_id": "southern-ind",
-        "team": "Southern Ind."
+        "team_id": "george-washington",
+        "team": "George Washington"
+      },
+      {
+        "team_id": "mt-st-marys",
+        "team": "Mount St. Mary's"
+      },
+      {
+        "team_id": "central-conn-st",
+        "team": "Central Conn. St."
+      },
+      {
+        "team_id": "holy-cross",
+        "team": "Holy Cross"
+      },
+      {
+        "team_id": "navy",
+        "team": "Navy"
+      },
+      {
+        "team_id": "winthrop",
+        "team": "Winthrop"
+      },
+      {
+        "team_id": "air-force",
+        "team": "Air Force"
+      },
+      {
+        "team_id": "manhattan",
+        "team": "Manhattan"
+      },
+      {
+        "team_id": "army",
+        "team": "Army West Point"
+      },
+      {
+        "team_id": "stonehill",
+        "team": "Stonehill"
       },
       {
         "team_id": "radford",
         "team": "Radford"
       },
       {
-        "team_id": "pacific",
-        "team": "Pacific"
+        "team_id": "campbell",
+        "team": "Campbell"
+      },
+      {
+        "team_id": "lipscomb",
+        "team": "Lipscomb"
       },
       {
         "team_id": "utah-tech",
@@ -605,10 +543,6 @@
         "team": "Mercer"
       },
       {
-        "team_id": "campbell",
-        "team": "Campbell"
-      },
-      {
         "team_id": "howard",
         "team": "Howard"
       },
@@ -621,12 +555,12 @@
         "team": "Presbyterian"
       },
       {
-        "team_id": "canisius",
-        "team": "Canisius"
-      },
-      {
         "team_id": "vmi",
         "team": "VMI"
+      },
+      {
+        "team_id": "canisius",
+        "team": "Canisius"
       },
       {
         "team_id": "chicago-st",
