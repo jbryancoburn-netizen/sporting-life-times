@@ -143,8 +143,8 @@ async function render(){
     else tile.append(E('strong',team.name));
     strip.append(tile);
   });
-  // Render a structure-only bracket whenever the sourced tournament field is known.
-  // Seed labels are placeholders, never assignments from an unresolved conference tie.
+  // Render a live standings-based projected field whenever the sourced format is known.
+  // Teams tied on points retain the published order provisionally, not as official seeds.
   if([4,6,8,15].includes(field)&&!/(format.*unverified|eligibility.*unverified|carried forward|inferred from|based on official 2025)/i.test(rule.tournament?.status||'')){
     const paths=field===4?[
       ['SEMIFINALS',['Seed 1 vs Seed 4','Seed 2 vs Seed 3']],
@@ -162,14 +162,28 @@ async function render(){
       ['SUBSEQUENT ROUNDS',['Advancement according to the official conference bracket']],
       ['CHAMPIONSHIP',['Finalists to be determined']]
     ];
+    const contested=new Set((table.unresolved_tie_groups||[]).flatMap(g=>g.teams||[]));
+    const projectedName=(number)=>{
+      const candidate=teams[number-1];
+      if(!candidate)return 'Seed '+number+' · TBD';
+      return '#'+number+' '+candidate.name+(contested.has(candidate.id)?' †':'');
+    };
+    const nameSlot=(slot)=>slot.replace(/Seeds? (\\d+)(?: and (\\d+))?/g,(_all,one,two)=>two?projectedName(Number(one))+' and '+projectedName(Number(two)):projectedName(Number(one)));
     const schematic=E('div',null,'cs-official-rounds');
     for(const [round,slots] of paths){
       const section=E('section',null,'cs-official-round');
       section.append(E('h3',round));
-      for(const slot of slots){const tile=E('article',null,'cs-official-match');tile.append(E('strong',slot));section.append(tile)}
+      for(const slot of slots){const tile=E('article',null,'cs-official-match');tile.append(E('strong',nameSlot(slot)));section.append(tile)}
       schematic.append(section);
     }
-    note.append(E('p','TOURNAMENT FORMAT · SEED SLOTS ONLY. No team is assigned to a position until official standings and tie procedures support it.','cs-conf-caption'),schematic);
+    if(field===15){
+      const opening=schematic.querySelector('.cs-official-round');
+      if(opening){
+        opening.replaceChildren(E('h3','CURRENT PROJECTED FIELD · TABLE ORDER'));
+        teams.slice(0,field).forEach((team,i)=>{const tile=E('article',null,'cs-official-match');tile.append(E('strong',projectedName(i+1)));opening.append(tile)});
+      }
+    }
+    note.append(E('p','CURRENT PROJECTED SEEDS FROM LATEST AVAILABLE CONFERENCE STANDINGS · † tied on points, displayed order not official. These change as verified finals enter the feed; formal tiebreakers and qualification rules control the actual draw. '+(!fresh?'STANDINGS SNAPSHOT NOT CURRENTLY VERIFIED AS FRESH.':''),'cs-conf-caption'),schematic);
   }
   note.append(strip,E('p','Published conference order shown for context only. No entrants or seeds are inferred from Elo; this is NOT a confirmed playoff field.','cs-conf-caption'));
   bracket.append(note);
