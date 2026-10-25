@@ -623,6 +623,39 @@
       "page": "college-soccer-maac-men.html",
       "standings_feed": "data/college-soccer-men-d1-maac-standings.json",
       "verification_status": "snapshot_provisional"
+    },
+    "men-d1:mountain-west": {
+      "name": "Mountain West Conference",
+      "short": "Mountain West",
+      "teams": [
+        "air-force",
+        "grand-canyon",
+        "san-jose-st",
+        "uc-davis",
+        "unlv",
+        "utah-tech"
+      ],
+      "source_url": "https://themw.com/news/2026/6/4/mountain-west-announces-inaugural-2026-mens-soccer-schedule.aspx",
+      "page": "college-soccer-mountain-west-men.html",
+      "standings_feed": "data/college-soccer-men-d1-mountain-west-standings.json",
+      "verification_status": "membership_verified_standings_pending"
+    },
+    "men-d1:pac-12": {
+      "name": "Pac-12 Conference",
+      "short": "Pac-12",
+      "teams": [
+        "california-baptist",
+        "cal-poly",
+        "uc-riverside",
+        "uc-san-diego",
+        "oregon-st",
+        "gonzaga",
+        "san-diego-st"
+      ],
+      "source_url": "https://pac-12.com/news/2026/3/30/pac-12-conference-and-the-big-west-announce-collaborative-mens-soccer-partnership-to-strengthen-opportunities-in-the-west.aspx",
+      "page": "college-soccer-pac-12-men.html",
+      "standings_feed": "data/college-soccer-men-d1-pac-12-standings.json",
+      "verification_status": "membership_verified_standings_pending"
     }
   },
   "team_to_conference": {
@@ -935,6 +968,19 @@
     "men-d1:niagara": "men-d1:maac",
     "men-d1:manhattan": "men-d1:maac",
     "men-d1:mt-st-marys": "men-d1:maac",
-    "men-d1:canisius": "men-d1:maac"
+    "men-d1:canisius": "men-d1:maac",
+    "men-d1:air-force": "men-d1:mountain-west",
+    "men-d1:grand-canyon": "men-d1:mountain-west",
+    "men-d1:san-jose-st": "men-d1:mountain-west",
+    "men-d1:uc-davis": "men-d1:mountain-west",
+    "men-d1:unlv": "men-d1:mountain-west",
+    "men-d1:utah-tech": "men-d1:mountain-west",
+    "men-d1:california-baptist": "men-d1:pac-12",
+    "men-d1:cal-poly": "men-d1:pac-12",
+    "men-d1:uc-riverside": "men-d1:pac-12",
+    "men-d1:uc-san-diego": "men-d1:pac-12",
+    "men-d1:oregon-st": "men-d1:pac-12",
+    "men-d1:gonzaga": "men-d1:pac-12",
+    "men-d1:san-diego-st": "men-d1:pac-12"
   }
 }
