@@ -81,7 +81,7 @@ if __name__ == "__main__":
     content = json.dumps(actual, indent=2) + "\n"
     import sys
     if "--check" in sys.argv:
-        assert output.read_text() == content, "Committed ledger differs from independently regenerated ledger"
+        assert json.loads(output.read_text()) == actual, "Committed ledger differs from independently regenerated ledger"
         print("PASS: 365-team NCAA identity ledger matches source evidence")
     else:
         output.write_text(content)
