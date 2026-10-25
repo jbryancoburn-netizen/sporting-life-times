@@ -512,6 +512,57 @@
       },
       "table_source": "https://mvc-sports.com/standings.aspx?path=msoc",
       "projection_warning": "PROVISIONAL 2026 bracket: six-team structure inferred from 2025 (seeds 1 and 2 receive byes; 3 hosts 6, 4 hosts 5); 2026 format not independently confirmed. Seeds are the Oct. 25 published standings snapshot, not confirmed official tournament seeds."
+    },
+    "men-d1:big-west": {
+      "name": "Big West Conference",
+      "short": "Big West",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 4,
+        "first_round_date": null,
+        "semifinal_date": "2026-11-07",
+        "final_date": "2026-11-13",
+        "status": "2026 4-team playoff explicitly confirmed: 1-v-4 and 2-v-3 semis Nov 7; higher seed hosts championship Nov 13. Seeds reflect source table snapshot, not final official tiebreakers.",
+        "sources": [
+          "https://bigwest.org/news/2026/9/30/the-big-west-crowns-six-champions-in-less-than-30-days.aspx"
+        ]
+      },
+      "table_source": "https://bigwest.org/standings.aspx?path=msoc",
+      "projection_warning": "2026 4-team playoff explicitly confirmed: 1-v-4 and 2-v-3 semis Nov 7; higher seed hosts championship Nov 13. Seeds reflect source table snapshot, not final official tiebreakers."
+    },
+    "men-d1:asun": {
+      "name": "ASUN Conference",
+      "short": "ASUN",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "first_round_date": null,
+        "semifinal_date": null,
+        "final_date": null,
+        "status": "Six-team playoff structure carried forward provisionally from prior championship; West Florida in NCAA transition and may not be eligible. Model qualifying field must not be presented as verified until eligibility and seeds are resolved.",
+        "sources": [
+          "https://asunsports.org/tournaments/?id=69"
+        ]
+      },
+      "table_source": "https://asunsports.org/sports/msoc/2025-26/standings",
+      "projection_warning": "Six-team playoff structure carried forward provisionally from prior championship; West Florida in NCAA transition and may not be eligible. Model qualifying field must not be presented as verified until eligibility and seeds are resolved."
+    },
+    "men-d1:horizon": {
+      "name": "Horizon League",
+      "short": "Horizon",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "first_round_date": "2026-11-08",
+        "semifinal_date": "2026-11-11",
+        "final_date": "2026-11-14",
+        "status": "2026 Nov 8/11/14 tournament rounds confirmed by school schedule. Six-team format carried forward provisionally; league tiebreakers required.",
+        "sources": [
+          "https://csuvikings.com/sports/mens-soccer/schedule/2026?grid=true"
+        ]
+      },
+      "table_source": "https://horizonleague.org/standings.aspx?path=msoc",
+      "projection_warning": "2026 Nov 8/11/14 tournament rounds confirmed by school schedule. Six-team format carried forward provisionally; league tiebreakers required."
     }
   }
 }
