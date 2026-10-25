@@ -4,7 +4,7 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const name=x=>String(x).replace('Tottenham Hotspur','Tottenham').replace('Newcastle United','Newcastle').replace('Nottingham Forest',"Nott'm Forest");
 const colors={'Chelsea':'#034694','Tottenham':'#132257','Arsenal':'#ef0107','Everton':'#003399','Liverpool':'#c8102e','Manchester City':'#6cabdd','Manchester United':'#da291c','Aston Villa':'#670e36','Sunderland':'#eb172b','Newcastle':'#242424','Crystal Palace':'#1b458f','Brighton':'#0057b8'};
 const ids={'Chelsea':363,'Tottenham':367,'Arsenal':359,'Everton':368,'Liverpool':364,'Manchester City':382,'Manchester United':360,'Aston Villa':362,'Newcastle':361,'Crystal Palace':384};
-const crest=x=>ids[name(x)]?'<img src="https://a.espncdn.com/i/teamlogos/soccer/500/'+ids[name(x)]+'.png" alt="" onerror="this.style.display=\'none\'">':'';
+const crest=x=>'<span class="match-crest-badge" aria-label="'+esc(name(x))+' crest">'+(ids[name(x)]?'<img src="https://a.espncdn.com/i/teamlogos/soccer/500/'+ids[name(x)]+'.png" alt="" loading="eager" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'grid\'"><span class="match-crest-fallback" style="display:none">'+esc(name(x).slice(0,3).toUpperCase())+'</span>':'<span class="match-crest-fallback">'+esc(name(x).slice(0,3).toUpperCase())+'</span>')+'</span>';
 if(!id||!/^\d+$/.test(id)){title.textContent='Invalid match';target.textContent='Match ID unavailable';return;}
 fetch('data/epl-match-reports.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Feed');return r.json()}).then(d=>{
 const g=d.matches?.[id];if(!g){title.textContent='Match report pending';target.textContent='Detailed verified match statistics have not been published for this fixture.';return;}
