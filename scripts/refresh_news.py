@@ -85,7 +85,8 @@ def parse_rss(payload,source,category):
         if published>now+dt.timedelta(hours=2) or now-published>dt.timedelta(days=5):continue
         summary=clean(item.findtext("description"))[:400]
         bucket=category
-        if any(k in (title+" "+summary).lower() for k in FOOTBALL):
+        # Classify from the headline, not incidental mentions in an unrelated summary.
+        if any(re.search(r"(?<![a-z])"+re.escape(k)+r"(?![a-z])",title.lower()) for k in FOOTBALL):
             bucket="Premier League"
         out.append({"title":title,"url":link,"summary":summary,"source":source,
                     "category":bucket,"published_at":email.utils.format_datetime(published),
