@@ -1,0 +1,23 @@
+name: NCAA frozen preopening exact formula integrity
+on:
+  push:
+    paths:
+      - 'scripts/verify_ncaam_preopening_input_freeze.py'
+      - 'data/ncaam-2026-27-preopening-input-freeze.json'
+      - '.github/workflows/ncaam-preopening-input-freeze.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_preopening_input_freeze.py
+      - run: python scripts/verify_ncaam_player_value_experimental.py
+      - run: python scripts/verify_ncaam_final_preseason_release.py
