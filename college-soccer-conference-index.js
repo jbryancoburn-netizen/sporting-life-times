@@ -25,15 +25,26 @@ Promise.all(['data/college-soccer-conferences.json','data/college-soccer-elo.jso
   const track=node('div',null,'cs-conf-cohort-track'),fill=node('i');fill.style.width=100*assigned/Math.max(rows.length,1)+'%';track.append(fill);tile.append(track);audit.append(tile);
  }
  root.append(audit);
+ const filters=node('div',null,'cs-conf-directory-filters');
+ const search=node('input',null,'cs-conf-directory-search');search.type='search';search.placeholder='Find a conference (ACC, Big Ten, MIAC…)';search.setAttribute('aria-label','Search NCAA soccer conferences');
+ const division=node('select',null,'cs-conf-directory-select');division.setAttribute('aria-label','Filter by NCAA division');
+ for(const [value,label] of [['','All divisions'],['I','Division I'],['II','Division II'],['III','Division III']]){const option=node('option',label);option.value=value;division.append(option)}
+ const gender=node('select',null,'cs-conf-directory-select');gender.setAttribute('aria-label','Filter by men or women');
+ for(const [value,label] of [['','Men and women'],['Men','Men'],['Women','Women']]){const option=node('option',label);option.value=value;gender.append(option)}
+ const count=node('span',null,'cs-conf-directory-matchcount');count.setAttribute('aria-live','polite');
+ filters.append(search,division,gender,count);root.append(filters);
  const rail=node('nav',null,'cs-conf-directory-rail');rail.setAttribute('aria-label','NCAA soccer conference directory');root.append(rail);
+ const applyFilters=()=>{const q=search.value.trim().toLowerCase();let matched=0;for(const a of rail.querySelectorAll('.cs-conf-directory-link')){const ok=(!q||a.dataset.search.includes(q))&&(!division.value||a.dataset.division===division.value)&&(!gender.value||a.dataset.gender===gender.value);a.hidden=!ok;if(ok)matched++}count.textContent=matched+' of '+groups.length+' desks';};
+ for(const el of [search,division,gender])el.addEventListener('input',applyFilters);
 for(const conf of groups){const meta=data.conferences[conf.key];
-  const link=node('a',null,'cs-conf-directory-link');link.href=conf.href;
+  const link=node('a',null,'cs-conf-directory-link');link.href=conf.href;link.dataset.search=(conf.label+' '+meta.name+' '+conf.key).toLowerCase();link.dataset.division=conf.division;link.dataset.gender=conf.sex;
   const kicker=node('span',conf.sex.toUpperCase()+' · DIVISION '+(conf.division),'cs-conf-directory-kicker');
   const name=node('strong',conf.label,'cs-conf-directory-name');
   const count=node('span',meta.teams.length+' programs · Tournament race','cs-conf-directory-count');
   link.append(kicker,name,count);rail.append(link);
 
  }
+ applyFilters();
  root.append(node('p','Directory generated automatically from verified conference records. Every mapped league has its own page; unmapped leagues are not invented.','cs-conf-directory-note'));
 }).catch(error=>{root.replaceChildren(node('p','Conference directory temporarily unavailable. Conference desks remain accessible below.','cs-conf-directory-note'));console.error('NCAA conference index',error)});
 })();
