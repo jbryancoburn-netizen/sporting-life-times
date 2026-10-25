@@ -1,7 +1,7 @@
 {
   "input_targets": 489,
   "already_classified": 195,
-  "new_official_class_years": 7,
+  "new_official_class_years": 0,
   "source_results": [
     {
       "school": "Western Ill.",
@@ -12,7 +12,7 @@
     {
       "school": "Chicago St.",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 1
     },
     {
@@ -48,7 +48,7 @@
     {
       "school": "CSU Bakersfield",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 7
     },
     {
@@ -205,8 +205,9 @@
     },
     {
       "school": "Miami (FL)",
-      "status": "season_unverified",
-      "heading": " "
+      "status": "processed",
+      "matched": 0,
+      "targeted": 1
     },
     {
       "school": "Missouri",
@@ -303,8 +304,9 @@
     },
     {
       "school": "Washington St.",
-      "status": "season_unverified",
-      "heading": " "
+      "status": "processed",
+      "matched": 0,
+      "targeted": 4
     },
     {
       "school": "Wisconsin",
@@ -338,7 +340,7 @@
     {
       "school": "Houston Christian",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 1
     },
     {
@@ -396,7 +398,7 @@
     {
       "school": "FGCU",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 1
     },
     {
@@ -431,7 +433,7 @@
     {
       "school": "Seattle U",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 1
     },
     {
@@ -510,22 +512,28 @@
     {
       "school": "Tarleton St.",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 1
     },
     {
       "school": "UNCW",
       "status": "processed",
-      "matched": 1,
+      "matched": 0,
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 287,
+  "still_unmatched_in_queue": 294,
   "unmatched_sample": [
     {
       "id": "5462468",
       "school": "Western Ill.",
       "name": "Tayelor Moore",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5463670",
+      "school": "Chicago St.",
+      "name": "Foday Sheriff",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -628,6 +636,12 @@
       "id": "5458641",
       "school": "CSU Bakersfield",
       "name": "Iliyan Pishtikov",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5107754",
+      "school": "CSU Bakersfield",
+      "name": "Snookey Wigington",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -1075,6 +1089,12 @@
       "reason": "no_unambiguous_card_year"
     },
     {
+      "id": "5142723",
+      "school": "Miami (FL)",
+      "name": "Caleb Gaskins",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
       "id": "5144572",
       "school": "Missouri",
       "name": "Toni Bryant",
@@ -1103,29 +1123,9 @@
       "school": "Northwestern",
       "name": "Elijah Eschmeyer",
       "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5210966",
-      "school": "Northwestern",
-      "name": "Symon Ghai",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5142720",
-      "school": "Northwestern",
-      "name": "Jayden Hodge",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458321",
-      "school": "Penn St.",
-      "name": "Thomas Allard",
-      "reason": "no_unambiguous_card_year"
     }
   ],
-  "class_counts": {
-    "Graduate": 7
-  },
-  "new_unique_saved_against_latest_main": 7,
+  "class_counts": {},
+  "new_unique_saved_against_latest_main": 0,
   "total_official_class_year_records": 1727
 }
