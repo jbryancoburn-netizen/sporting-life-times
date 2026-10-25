@@ -99,6 +99,35 @@
       },
       "table_source": "https://miaa.org/standings.aspx?path=msoc",
       "projection_warning": "Standings and provisional seed order are from the official league standings snapshot, not a confirmed bracket. Tiebreakers, remaining matches and eligibility may alter the tournament entrants and seeds."
+    },
+    "men-d3:miac": {
+      "name": "Minnesota Intercollegiate Athletic Conference",
+      "short": "MIAC",
+      "cohort": "men-d3",
+      "confirmed_teams": [
+        "st-olaf",
+        "gust-adolphus",
+        "carleton",
+        "saint-johns-mn",
+        "augsburg",
+        "st-scholastica",
+        "macalester",
+        "hamline",
+        "bethel-mn",
+        "concordia-mhead",
+        "st-marys-mn"
+      ],
+      "tournament": {
+        "field": 6,
+        "status": "Verified six-team playoff in MIAC 2026 season preview; exact 2026 dates and current tiebreakers still require confirmation.",
+        "automatic_qualifier": "2026 MIAC playoff winner receives the NCAA DIII men's soccer AQ",
+        "sources": [
+          "https://miacathletics.com/news/2026/8/25/2026-miac-mens-soccer-season-preview.aspx",
+          "https://miacathletics.com/standings.aspx?path=msoc"
+        ]
+      },
+      "table_source": "https://miacathletics.com/standings.aspx?path=msoc",
+      "projection_warning": "Current standings only; playoff seeds, tie resolution and 2026 tournament dates must be checked against a current league bracket. Elo-only title odds are experimental, not official."
     }
   }
 }
