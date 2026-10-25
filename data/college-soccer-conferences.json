@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "source": "Official MIAA 2026 men's soccer standings",
+  "source": "Official MIAA and MIAC 2026 men's soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
-  "scope": "2026 NCAA men's Division III soccer",
-  "notice": "MIAA membership only; official 2026 conference records are loaded from the separately refreshed data/college-soccer-miaa-standings.json feed. Our independent USRS Elo snapshot can have a different cutoff.",
+  "scope": "Verified 2026 men's NCAA Division III soccer conference membership: MIAA and MIAC; other NCAA conferences not yet mapped.",
+  "notice": "Incomplete conference directory. MIAA and MIAC men’s 2026 memberships only; official conference records come from separate standings snapshots and may have different data cutoffs from USRS Elo.",
   "conferences": {
     "men-d3:miaa": {
       "name": "Michigan Intercollegiate Athletic Association",
@@ -18,6 +18,24 @@
         "trine",
         "olivet"
       ]
+    },
+    "men-d3:miac": {
+      "name": "Minnesota Intercollegiate Athletic Conference",
+      "short": "MIAC",
+      "teams": [
+        "st-olaf",
+        "gust-adolphus",
+        "carleton",
+        "saint-johns-mn",
+        "augsburg",
+        "st-scholastica",
+        "macalester",
+        "hamline",
+        "bethel-mn",
+        "concordia-mhead",
+        "st-marys-mn"
+      ],
+      "source_url": "https://miacathletics.com/standings.aspx?path=msoc"
     }
   },
   "team_to_conference": {
@@ -28,6 +46,17 @@
     "men-d3:hope": "men-d3:miaa",
     "men-d3:adrian": "men-d3:miaa",
     "men-d3:alma": "men-d3:miaa",
-    "men-d3:olivet": "men-d3:miaa"
+    "men-d3:olivet": "men-d3:miaa",
+    "men-d3:st-olaf": "men-d3:miac",
+    "men-d3:gust-adolphus": "men-d3:miac",
+    "men-d3:carleton": "men-d3:miac",
+    "men-d3:saint-johns-mn": "men-d3:miac",
+    "men-d3:augsburg": "men-d3:miac",
+    "men-d3:st-scholastica": "men-d3:miac",
+    "men-d3:macalester": "men-d3:miac",
+    "men-d3:hamline": "men-d3:miac",
+    "men-d3:bethel-mn": "men-d3:miac",
+    "men-d3:concordia-mhead": "men-d3:miac",
+    "men-d3:st-marys-mn": "men-d3:miac"
   }
 }
