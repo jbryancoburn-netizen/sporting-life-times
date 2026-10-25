@@ -1,0 +1,20 @@
+name: NCAA player reconciliation safety tests
+on:
+  push:
+    paths:
+      - 'scripts/reconcile_ncaam_players.py'
+      - 'scripts/test_ncaam_player_reconciliation.py'
+      - '.github/workflows/ncaam-player-reconciliation-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  identity-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify ambiguity, transfers, duplicate records and unknown players
+        run: python -m unittest discover -s scripts -p 'test_ncaam_player_reconciliation.py' -v
