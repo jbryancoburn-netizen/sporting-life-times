@@ -19,14 +19,16 @@ function turn(index,scroll){
  const full=current===allIndex;
  document.body.classList.add('edition-paged');
  document.querySelectorAll('[data-edition-page]').forEach(el=>{el.hidden=!full&&Number(el.dataset.editionPage)!==current;});
- labels.querySelectorAll('button').forEach((button,i)=>{button.setAttribute('aria-current',i===current?'page':'false');});
+ labels.querySelectorAll('a[href^="#page-"],button').forEach((button,i)=>{button.setAttribute('aria-current',i===current?'page':'false');});
  allButton.setAttribute('aria-current',full?'page':'false');
  nav.querySelector('.edition-page-count').textContent=full?'FULL EDITION':'PAGE '+(current+1)+' / '+pages.length;
  back.disabled=current===0;forward.disabled=current===allIndex;
  if(scroll)nav.scrollIntoView({block:'start',behavior:'smooth'});
  try{history.replaceState(null,'',full?'#all-pages':'#page-'+(current+1))}catch{}
 }
-pages.forEach((page,i)=>{const btn=document.createElement('button');btn.type='button';btn.textContent=page.name;btn.addEventListener('click',()=>turn(i,true));labels.appendChild(btn)});
+const staticLinks=[...labels.querySelectorAll('a[href^="#page-"]')];
+if(staticLinks.length===pages.length){staticLinks.forEach((a,i)=>a.addEventListener('click',event=>{event.preventDefault();turn(i,true)}));}
+else pages.forEach((page,i)=>{const btn=document.createElement('button');btn.type='button';btn.textContent=page.name;btn.addEventListener('click',()=>turn(i,true));labels.appendChild(btn)});
 allButton.addEventListener('click',()=>turn(allIndex,true));
 labels.appendChild(allButton);
 back.addEventListener('click',()=>turn(current-1,true));forward.addEventListener('click',()=>turn(current+1,true));
