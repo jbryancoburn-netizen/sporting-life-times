@@ -3,9 +3,9 @@
   "production_approved": false,
   "model": "nbl-game-elo-research-v1",
   "season": "2026-27",
-  "calculated_at": "2026-10-25T04:53:01.433464+00:00",
+  "calculated_at": "2026-10-25T11:43:21.967789+00:00",
   "historical_training_games": 337,
-  "current_regular_season_games": 41,
+  "current_regular_season_games": 43,
   "parameters": {
     "k": 20,
     "home_advantage_elo": 65,
@@ -20,9 +20,9 @@
     {
       "rank": 1,
       "team": "Sydney Kings",
-      "elo": 1601.07,
+      "elo": 1590.36,
       "wins": 5,
-      "losses": 2
+      "losses": 3
     },
     {
       "rank": 2,
@@ -48,8 +48,8 @@
     {
       "rank": 5,
       "team": "Melbourne United",
-      "elo": 1511.41,
-      "wins": 3,
+      "elo": 1522.12,
+      "wins": 4,
       "losses": 5
     },
     {
@@ -62,9 +62,9 @@
     {
       "rank": 7,
       "team": "New Zealand Breakers",
-      "elo": 1470.77,
+      "elo": 1461.53,
       "wins": 4,
-      "losses": 4
+      "losses": 5
     },
     {
       "rank": 8,
@@ -76,8 +76,8 @@
     {
       "rank": 9,
       "team": "Cairns Taipans",
-      "elo": 1431.96,
-      "wins": 4,
+      "elo": 1441.21,
+      "wins": 5,
       "losses": 4
     },
     {
@@ -89,26 +89,6 @@
     }
   ],
   "recent_results": [
-    {
-      "id": "401875264",
-      "played_at": "2026-10-16T08:30Z",
-      "home": "Tasmania JackJumpers",
-      "away": "Adelaide 36ers",
-      "home_score": 88,
-      "away_score": 94,
-      "elo_delta_home": -10.515,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875264/36ers-jackjumpers"
-    },
-    {
-      "id": "401875270",
-      "played_at": "2026-10-17T06:30Z",
-      "home": "South East Melbourne Phoenix",
-      "away": "Cairns Taipans",
-      "home_score": 115,
-      "away_score": 83,
-      "elo_delta_home": 5.996,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875270/taipans-phoenix"
-    },
     {
       "id": "401875271",
       "played_at": "2026-10-17T08:30Z",
@@ -188,6 +168,26 @@
       "away_score": 94,
       "elo_delta_home": 8.868,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875275/36ers-phoenix"
+    },
+    {
+      "id": "401875276",
+      "played_at": "2026-10-25T04:00Z",
+      "home": "Cairns Taipans",
+      "away": "New Zealand Breakers",
+      "home_score": 86,
+      "away_score": 84,
+      "elo_delta_home": 9.248,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875276/breakers-taipans"
+    },
+    {
+      "id": "401875284",
+      "played_at": "2026-10-25T06:00Z",
+      "home": "Melbourne United",
+      "away": "Sydney Kings",
+      "home_score": 105,
+      "away_score": 95,
+      "elo_delta_home": 10.708,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875284/kings-united"
     }
   ],
   "prediction_certified": false,
