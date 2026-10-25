@@ -25,15 +25,38 @@ jobs:
           python-version: '3.12'
       - run: pip install beautifulsoup4
       - run: python scripts/collect_ncaam_school_class_years_bulk.py --queue data/ncaam-2026-27-next-900-unclassified-targets.json
-      - name: Commit matched records and source audit
+      - name: Merge by athlete ID with latest main and publish
         run: |
+          cp data/ncaam-2026-27-school-roster-class-years.csv /tmp/collected-school-years.csv
+          cp data/ncaam-2026-27-official-bulk-recovery-report.json /tmp/collected-school-report.json
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add data/ncaam-2026-27-school-roster-class-years.csv data/ncaam-2026-27-official-bulk-recovery-report.json
-          git diff --cached --quiet || git commit -m "Collect university verified NCAA class year records"
-          for attempt in 1 2 3 4; do
+          for attempt in 1 2 3 4 5 6; do
             git fetch origin main
-            git rebase origin/main
+            git reset --hard origin/main
+            python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          target=Path("data/ncaam-2026-27-school-roster-class-years.csv")
+          with target.open(newline="") as f:
+              saved=list(csv.DictReader(f))
+          with open("/tmp/collected-school-years.csv",newline="") as f:
+              candidates=list(csv.DictReader(f))
+          known={r["current_athlete_id"] for r in saved}
+          new=[r for r in candidates if r["current_athlete_id"] not in known]
+          with target.open("w",newline="") as f:
+              w=csv.DictWriter(f,fieldnames=["current_athlete_id","player","team","class_year","official_roster_url"])
+              w.writeheader()
+              w.writerows(saved+new)
+          report=json.loads(Path("/tmp/collected-school-report.json").read_text())
+          report["new_unique_saved_against_latest_main"]=len(new)
+          report["total_official_class_year_records"]=len(saved)+len(new)
+          Path("data/ncaam-2026-27-official-bulk-recovery-report.json").write_text(json.dumps(report,indent=2)+"\\n")
+          print("Merged",len(new),"new player records; total",len(saved)+len(new))
+          PY
+            git add data/ncaam-2026-27-school-roster-class-years.csv data/ncaam-2026-27-official-bulk-recovery-report.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Merge university class years using deduplicated athlete IDs"
             if git push origin HEAD:main; then exit 0; fi
             sleep 3
           done
