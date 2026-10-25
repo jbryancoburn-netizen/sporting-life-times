@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 29,
+  "games_played": 30,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -52,7 +52,7 @@
     },
     {
       "team": "PHI",
-      "elo": 1558.57
+      "elo": 1565.009
     },
     {
       "team": "CLE",
@@ -99,16 +99,16 @@
       "elo": 1403.935
     },
     {
-      "team": "MIL",
-      "elo": 1388.617
-    },
-    {
       "team": "MEM",
       "elo": 1387.134
     },
     {
       "team": "SAC",
       "elo": 1383.514
+    },
+    {
+      "team": "MIL",
+      "elo": 1382.177
     },
     {
       "team": "IND",
@@ -388,6 +388,15 @@
       "away_score": 110,
       "date": "2026-10-24T22:00:00.000Z",
       "home_elo_change": 8.608164
+    },
+    {
+      "id": "espn-nba-401909855",
+      "home": "PHI",
+      "away": "MIL",
+      "home_score": 127,
+      "away_score": 116,
+      "date": "2026-10-24T23:30:00.000Z",
+      "home_elo_change": 6.439506
     }
   ],
   "movement": {
@@ -404,7 +413,7 @@
       "ATL": 0,
       "DEN": 0,
       "CHA": 8.608164,
-      "PHI": 0,
+      "PHI": 6.439506,
       "CLE": 0,
       "TOR": 0,
       "POR": 0,
@@ -416,9 +425,9 @@
       "DAL": 0,
       "CHI": 0,
       "NOP": 0,
-      "MIL": 0,
       "MEM": 0,
       "SAC": 0,
+      "MIL": -6.439506,
       "IND": 0,
       "UTA": 0,
       "BKN": 0,
@@ -449,9 +458,9 @@
       "DAL": 1405.301,
       "CHI": 1399.976,
       "NOP": 1431.708,
-      "MIL": 1421.261,
       "MEM": 1357.696,
       "SAC": 1402.359,
+      "MIL": 1421.261,
       "IND": 1382.048,
       "UTA": 1357.55,
       "BKN": 1356.983,
