@@ -1,0 +1,52 @@
+{
+  "season": "2026-27",
+  "captured_date_utc": "2026-10-25",
+  "baseline_commit": "099295561990286c290e8e7898f1aa37b2001592",
+  "population": {
+    "teams": 365,
+    "current_roster_player_records": 5537,
+    "experimental_linked_histories": 2923
+  },
+  "research_coefficient_elo_per_point_per_minute": 300,
+  "independent_formula_parity": {
+    "teams_tested": 365,
+    "unique_team_ids": 365,
+    "errors": 0,
+    "checks": [
+      "baseline Elo equals pinned independent baseline",
+      "experimental Elo equals baseline plus quality adjustment",
+      "quality adjustment equals 300*(player quality index - quality center) within rounding",
+      "projected plus unmodeled minutes equals 200"
+    ]
+  },
+  "frozen_blob_refs": [
+    {
+      "path": "data/ncaam-2026-27-player-movement-audit.json",
+      "git_blob_sha": "c4f4e90e4cc2b385b880103319c7f703f736a211"
+    },
+    {
+      "path": "data/ncaam-2026-27-direct-player-crosswalk.json",
+      "git_blob_sha": "c6bb9c6d3a0a94b49d0ad1e462f163515b898b1c"
+    },
+    {
+      "path": "data/ncaam-2026-27-preseason-provisional.json",
+      "git_blob_sha": "9e7408dfa67c163b492a26ed9a1db52d946efcfe"
+    },
+    {
+      "path": "data/ncaam-2026-27-preseason-roster-informed.json",
+      "git_blob_sha": "414513e1fc765968684d2912b303ef25a4fd3ae7"
+    },
+    {
+      "path": "data/ncaam-2026-27-player-value-experimental-v1.json",
+      "git_blob_sha": "b51bd957a5a02a1470938096904c88eb9b4126d7"
+    }
+  ],
+  "evidence_classification": "GIT_VERSIONED_SOURCE_FREEZE_NOT_OFFICIAL_SCHOOL_ROSTER_ASOF_VERIFICATION",
+  "limitations": [
+    "Freeze documents data in Git as of the stated date; it does not establish that every player was confirmed by a university at this date.",
+    "This is independent arithmetic parity, not a 2024-2026 preseason historical backtest.",
+    "Historical roster membership is still retrospectively sourced for parts of the earlier backtest.",
+    "Player-value v1 has not met production promotion criteria; published 365-team primary model remains provisional."
+  ],
+  "production_promotion_approved": false
+}
