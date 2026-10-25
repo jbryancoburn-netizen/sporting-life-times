@@ -19,9 +19,10 @@ const brandMark=(team,cohort,branding)=>{
 (async()=>{
  try{
  if(!/^(men|women)-\d{6,9}$/.test(id))throw Error('Invalid or missing game ID');
- const [ledger,forecasts,ratings,branding]=await Promise.all([
+ const [ledger,forecasts,ratings,branding,gameIndex]=await Promise.all([
   get('data/college-soccer-elo-final-ledger.json'),get('data/college-soccer-prospective-v2.json'),
-  get('data/college-soccer-elo.json'),get('data/college-soccer-team-branding.json')
+  get('data/college-soccer-elo.json'),get('data/college-soccer-team-branding.json'),
+  get('data/college-soccer-team-game-index.json').catch(()=>({teams:{}}))
  ]);
  const final=ledger.results?.find(x=>x.match_id===id)||null;
  const pre=forecasts.forecasts?.find(x=>x.match_id===id)||null;
@@ -94,6 +95,25 @@ const brandMark=(team,cohort,branding)=>{
   pred.append(estimates);
   pred.append($('p','Forecast locked '+date(pre.forecasted_at_utc)+'; training cutoff '+String(pre.training_cutoff||'not published')+'. Model projections are not actual match statistics.','cs-match-note'));
  }
+ const form=$('section',null,'cs-match-panel cs-recent-form');form.append($('h2','Recent verified results'));
+ let formCount=0;
+ for(const side of [home,away]){
+  const all=gameIndex.teams?.[cohort+':'+side.team_id]?.games||[];
+  const finals=all.filter(g=>g.status==='final'&&Number.isInteger(g.goals_for)&&Number.isInteger(g.goals_against)&&g.source_url).sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,5);
+  if(!finals.length)continue;
+  formCount++;
+  const group=$('div',null,'cs-form-group');group.append(link(side.team,profile(cohort,side.team_id)));
+  const results=$('div',null,'cs-form-results');
+  for(const game of finals){
+   const outcome=game.goals_for>game.goals_against?'W':game.goals_for<game.goals_against?'L':'D';
+   const a=link(outcome,game.source_url);a.className='cs-form-pill cs-form-'+outcome.toLowerCase();
+   a.title=date(game.date)+' · '+side.team+' '+game.goals_for+'-'+game.goals_against+' vs '+game.opponent;
+   a.setAttribute('aria-label',a.title);results.append(a);
+  }
+  group.append(results);group.append($('small',finals.length+' verified final'+(finals.length!==1?'s':'')+' indexed · newest first'));
+  form.append(group);
+ }
+ if(formCount){form.append($('p','Partial verified-final coverage only. These strips are not presented as full season form when historical games are missing.','cs-match-note'));root.append(form);}
  const foot=$('p','Data sources: NCAA verified final ledger, frozen pregame forecasts, and independent USRS ratings. Games without verified play-by-play or box scores do not display invented events, shots, cards, or lineups.','cs-match-footer');root.append(foot);
  }catch(err){root.replaceChildren($('h1','NCAA match unavailable'),$('p','There is no confirmed match record for this link.'));root.append(link('Return to NCAA Soccer','college-soccer.html'));console.error('NCAA match detail',err);}
 })();
