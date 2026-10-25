@@ -84,6 +84,7 @@ def main():
         print("Official table unchanged; existing published values remain")
         return
     old["rows"] = new_rows
+    old["last_verified_game_date"] = None  # Not inferable from a standings-only source.
     old["checked_date"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     old["checked_at_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     old["note"] = "Eight MIAA teams parsed from current official conference standings; no results inferred."
