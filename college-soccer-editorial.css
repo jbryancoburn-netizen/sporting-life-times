@@ -51,3 +51,12 @@
 #college-team-finder[data-cs-search] #college-team-results:empty{display:none}
 #college-team-finder[data-cs-search] #college-team-results{margin:0 0 .35rem}
 @media(min-width:800px){#college-team-finder[data-cs-search] #college-team-search{max-width:700px!important}}
+
+/* Compact results notebook replaces repeated division Elo leaders. */
+#college-soccer-editorial .cs-edit-result{padding:.62rem 0}
+#college-soccer-editorial .cs-edit-result-match{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.75rem}
+#college-soccer-editorial .cs-edit-result-teams{display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;min-width:0}
+#college-soccer-editorial .cs-edit-result-teams .cs-edit-school{max-width:100%}
+#college-soccer-editorial .cs-edit-result-teams .cs-edit-school-mark{width:21px;height:21px}
+#college-soccer-editorial .cs-edit-result-score{font:800 1.05rem Arial,sans-serif;color:#203a4a;white-space:nowrap;font-variant-numeric:tabular-nums}
+#college-soccer-editorial .cs-edit-result>a{display:inline-block;margin-top:.32rem;font:700 .65rem Arial,sans-serif;color:#285979!important;text-decoration:underline!important}
