@@ -153,7 +153,9 @@ if(prominent){
  const eye=node('div',undefined,'team-match-eyebrow');
  eye.append(node('span',last?'LATEST VERIFIED FINAL':'NEXT LISTED FIXTURE'),node('span',fullDate(prominent.date)));feature.append(eye);
  const match=node('div',undefined,'team-match-scorebug');
- const first=node('div',undefined,'team-match-side');first.append(node('small',prominent.venue==='home'?'HOME':'AWAY'),node('strong',t.team));
+ const first=node('div',undefined,'team-match-side');
+if(brand?.logo_url){const teamLogo=node('img');teamLogo.className='team-match-logo';teamLogo.src=brand.logo_url;teamLogo.alt=t.team+' crest';teamLogo.loading='lazy';teamLogo.addEventListener('error',()=>teamLogo.remove());first.append(teamLogo);}
+first.append(node('small',prominent.venue==='home'?'HOME':'AWAY'),node('strong',t.team));
  const nums=node('div',undefined,'team-match-number');nums.append(node('strong',prominent.status==='final'?prominent.goals_for+' : '+prominent.goals_against:'vs'),node('span',prominent.status==='final'?'FINAL · '+(prominent.goals_for>prominent.goals_against?'WIN':prominent.goals_for<prominent.goals_against?'LOSS':'DRAW'):'FIXTURE'));
  const second=node('div',undefined,'team-match-side');second.append(node('small',prominent.venue==='home'?'AWAY':'HOME'),node('strong',prominent.opponent));
  match.append(first,nums,second);feature.append(match);
