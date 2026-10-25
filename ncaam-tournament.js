@@ -14,5 +14,8 @@ const row=(t,detail)=>'<div class="line"><strong>'+esc(t.team)+'</strong><span>'
 document.getElementById("auto").innerHTML=auto.map(t=>row(t,t.conference)).join("");
 document.getElementById("atlarge").innerHTML=at.map((t,i)=>row(t,'At-large '+(i+1))).join("");
 document.getElementById("bubble").innerHTML=bubble.map(t=>row(t,t.conference)).join("");
+const eligible=[...auto,...at].sort((a,b)=>b.elo-a.elo).slice(0,64);
+const national=window.NCAAMForecast.simulate(eligible);
+document.getElementById("titleodds").innerHTML=national.slice(0,25).map((x,i)=>row(x.team,((100*x.champion).toFixed(2)+"% champion odds"))).join("");
 document.getElementById("status").textContent=data.games_played+' played games in active Elo · '+grouped.size+' conferences · '+auto.length+' projected conference representatives · '+at.length+' Elo-based at-large selections · 68 projected teams';
 })();
