@@ -71,6 +71,9 @@ jobs:
           grep -q 'function comparison(' nba-live-game.js
           grep -q 'comparison-bars' nba-live-game.html
           grep -q 'NBA LIVE' nba.html
+          test -s nba-elo-live-status.js
+          node --check nba-elo-live-status.js
+          grep -q 'nba-elo-update-state' nba.html
           grep -q 'href="#page-2">SCORES</a>' nba.html
           grep -q 'staticLinks' nba-page-turner.js
           python - <<'PY'
