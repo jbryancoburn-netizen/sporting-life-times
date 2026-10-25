@@ -1,0 +1,21 @@
+name: NCAA 13 player identity evidence reconciliation
+on:
+  push:
+    paths:
+      - 'scripts/test_ncaam_identity_13_reconciliation.py'
+      - 'data/ncaam-2026-27-identity-13-evidence-reconciliation.json'
+      - 'data/ncaam-2026-27-official-identity-evidence-batch-*.json'
+      - 'data/ncaam-2026-27-player-identity-triage.json'
+      - '.github/workflows/ncaam-identity-13-reconciliation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_ncaam_identity_13_reconciliation.py
