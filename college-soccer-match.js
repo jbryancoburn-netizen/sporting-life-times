@@ -54,7 +54,7 @@ const brandMark=(team,cohort,branding)=>{
   }
  }else lead.append($('p','A locked pregame projection is available. A scheduled kickoff does not establish that a match is currently live or final.','cs-match-note'));
  const comparison=$('section',null,'cs-match-panel');grid.append(comparison);comparison.append($('h2','The matchup · current model ratings'));
- if(Number.isFinite(Number(home.elo))&&Number.isFinite(Number(away.elo))){
+ if(home.elo!==null&&home.elo!==undefined&&away.elo!==null&&away.elo!==undefined&&Number.isFinite(Number(home.elo))&&Number.isFinite(Number(away.elo))){
   for(const team of [home,away]){
    const d=$('div',null,'cs-match-elo-row');d.append(link(team.team,profile(cohort,team.team_id)), $('strong',Number(team.elo).toFixed(1)));
    comparison.append(d);
