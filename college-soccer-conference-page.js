@@ -65,7 +65,8 @@ async function render(){
  if(!conferenceMeta?.teams?.length||!conferenceMeta.standings_feed||!conferenceMeta.page)throw Error('Conference membership, standings feed or page not certified');
  cfg.name=conferenceMeta.short||conferenceMeta.name||cfg.name;
  cfg.standings=conferenceMeta.standings_feed;
- const [table,elo,rules,branding]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}}))]);
+ const [baseTable,elo,rules,branding,projections]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}})),get('data/college-soccer-projected-standings.json').catch(()=>({conferences:{}}))]);
+ const table=projections.conferences?.[key]||baseTable;
  const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
@@ -82,7 +83,7 @@ async function render(){
  const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('PROJECTED BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
  const info=E('div',null,'cs-conference-stamp');info.append(E('span','Official standings snapshot: '+(table.checked_at_utc||table.snapshot_checked_date||'date unavailable')),E('span','Independent Elo edition: '+String(elo.as_of||'unknown')));root.append(info);
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
- standSection.append(E('h2','OFFICIAL CONFERENCE STANDINGS'));
+ standSection.append(E('h2','CONFERENCE STANDINGS · PROVISIONAL PROJECTED SEEDS'));
  const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
  teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');row.append(E('td',i+1));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
@@ -92,7 +93,7 @@ async function render(){
  const field=Number(rule.tournament?.field)||0;
  const snapshot=table.checked_at_utc||table.snapshot_checked_date;
  const age=snapshot?(Date.now()-Date.parse(snapshot))/86400000:Infinity;
- const fresh=Number.isFinite(age)&&age>=0&&age<=2;
+ const fresh=table.derived_from_verified_finals?table.projection_status==='provisional_not_official_tiebreakers':Number.isFinite(age)&&age>=0&&age<=2;
  const hasStandings=table.rows.every(r=>r.conference_record&&r.conference_record!=='N/A'&&Number.isFinite(r.conference_points));
  const formatCertified=field>0&&fresh&&hasStandings&&!/inferred from|based on official 2025|carried forward|format.*unverified|eligibility.*unverified/i.test(rule.tournament?.status||'');
  const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seeds.length===field&&new Set(table.tournament_seeds).size===field&&table.tournament_seeds.every(id=>member.includes(id))?table.tournament_seeds:null;
