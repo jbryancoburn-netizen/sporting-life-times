@@ -361,6 +361,56 @@
       },
       "table_source": "https://americaeast.com/standings.aspx?path=msoc",
       "projection_warning": "As-if-played-today bracket uses the official published standings order; ties may change after application of the conference's formal tiebreak rules. The forecasted winners are predicted using USRS; dates and format are official."
+    },
+    "men-d1:american": {
+      "name": "American Conference",
+      "short": "American",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "first_round_byes": 2,
+        "status": "Six-team format confirmed by American Conference 2025 official event. 2026 format carried forward provisionally pending independent 2026 rules confirmation.",
+        "sources": [
+          "https://theamerican.org/news/2025/11/3/field-set-for-2025-american-conference-mens-soccer-championship.aspx",
+          "https://theamerican.org/tournaments/?id=1344"
+        ]
+      },
+      "table_source": "https://theamerican.org/allstandings.aspx",
+      "projection_warning": "This is a what-if forecast using conference table positions and the last verified format; 2026 official bracket seeds are not announced."
+    },
+    "men-d1:sun-belt": {
+      "name": "Sun Belt Conference",
+      "short": "Sun Belt",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 8,
+        "quarterfinal_date": "2026-11-08",
+        "semifinal_date": "2026-11-11",
+        "final_date": "2026-11-15",
+        "status": "2026 format verified: eight-team single elimination with 1/8, 4/5, 2/7, 3/6 quarterfinals.",
+        "sources": [
+          "https://sunbeltsports.org/sports/2026/7/23/2026-mens-soccer-championship.aspx"
+        ]
+      },
+      "table_source": "https://sunbeltsports.org/standings.aspx?path=msoc",
+      "projection_warning": "Published standings order is provisional seeding subject to official conference tiebreakers; Elo only predicts who advances."
+    },
+    "men-d1:ivy": {
+      "name": "Ivy League",
+      "short": "Ivy",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 4,
+        "semifinal_date": "2026-11-13",
+        "final_date": "2026-11-15",
+        "status": "2026 top-four qualifier tournament, with 1/4 and 2/3 semifinals, as stated by conference teams. Conference tiebreakers are authoritative.",
+        "sources": [
+          "https://gocrimson.com/news/2026/10/15/mens-soccer-travels-to-yale-for-key-ivy-league-matchup.aspx",
+          "https://ivyleague.com/sports/2023/10/9/MSOCTiebreakers.aspx"
+        ]
+      },
+      "table_source": "https://ivyleague.com/standings.aspx?path=msoc",
+      "projection_warning": "Four-team as-if-today field follows published order; actual seeds depend on official tiebreakers."
     }
   }
 }
