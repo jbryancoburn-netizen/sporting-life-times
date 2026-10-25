@@ -55,3 +55,9 @@ Updated: 2026-10-24. Check items only with passing evidence. No automatic produc
 3. P06/V03: Obtain archived, date-stamped preseason roster snapshots for historical train and holdout seasons.
 4. M07/V04/V05: Refit coefficients and compare on identical, leakage-controlled games with venue treatment and both log loss/Brier.
 5. R04-R07: Test live final-score exactly-once handling, official reconciliation, deployed page freshness, then record approval.
+
+## Latest verified origin milestone (2026-10-24)
+- 34 school-athletics-supported origin labels (16 returners, 14 transfers, 4 new-to-D-I) are now separately published in `data/ncaam-2026-27-official-player-origin-overlay.json`.
+- CI independently reconciles each label and current roster athlete ID/name/team with official evidence; it also blocks use of these records as unauthorized 2025-26 NCAA box-stat joins. Evidence: workflow run 40156483759 (PASS).
+- Scope: this certifies the **34 documented origin labels within the recorded source snapshot**, not the full 5,537-player origin classification and not cross-provider historical numeric ID equivalence. P03/P05 remain open.
+- The existing 365-team preseason Elo ratings were not modified; roster validation and time-correct predictive holdout remain release blockers.
