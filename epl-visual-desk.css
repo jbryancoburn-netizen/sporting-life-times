@@ -59,3 +59,13 @@
 #epl-visual-desk .epl-score-tile .epl-crest{width:25px!important;height:25px!important}
 @media(max-width:800px){#epl-visual-desk .epl-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:400px){#epl-visual-desk .epl-score-rail{grid-template-columns:minmax(0,1fr)!important}#epl-visual-desk .epl-score-tile{padding:10px 12px!important}#epl-visual-desk .epl-score-tile:nth-child(n){border-right:0!important;border-top:1px solid #ccc!important}}
+
+/* Structural audit: forecast is now a non-link container with separate club links. */
+#epl-visual-desk .epl-forecast-row{display:block!important;min-width:0!important;color:inherit!important;text-decoration:none!important}
+#epl-visual-desk .epl-forecast-teams{min-width:0!important}
+#epl-visual-desk .epl-forecast-teams .epl-team{min-width:0!important;max-width:45%!important;overflow:hidden!important}
+#epl-visual-desk .epl-forecast-open{display:inline-block;margin-top:7px;font:700 10px/1.3 Arial,sans-serif;color:#264535;text-decoration:underline}
+#epl-visual-desk .epl-table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#epl-visual-desk .epl-data-mast{flex-wrap:wrap;row-gap:4px}
+#epl-visual-desk .epl-standings .epl-team{display:inline-flex;max-width:100%;min-width:0}
+@media(max-width:520px){#epl-visual-desk .epl-forecast-teams{gap:4px}#epl-visual-desk .epl-forecast-teams .epl-team{font-size:10px}#epl-visual-desk .epl-data-mast{font-size:10px}}
