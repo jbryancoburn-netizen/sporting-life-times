@@ -96,6 +96,7 @@ def rebuild(today=None,loader=get_day):
     table={name:{"club":name,"played":0,"won":0,"drawn":0,"lost":0,"gf":0,"ga":0,"gd":0,"points":0} for name in names}
     elo_movements={name:0.0 for name in names}
     form={name:[] for name in names}
+    history={name:[{"match":0,"elo":1500.0,"date":first.isoformat()}] for name in names}
     for g in played:
         h,a=g["home"],g["away"];hg,ag=g["home_score"],g["away_score"]
         if h==a:raise ValueError("Self-match")
@@ -104,6 +105,9 @@ def rebuild(today=None,loader=get_day):
         delta=20*(actual-expected)
         ratings[h]+=delta;ratings[a]-=delta
         elo_movements[h]=delta;elo_movements[a]=-delta
+        for side in (h,a):
+            history[side].append({"match":len(history[side]),"elo":round(ratings[side],5),
+                "date":g["date"],"opponent":a if side==h else h,"fixture_id":g["id"]})
         form[h].append("W" if hg>ag else "D" if hg==ag else "L")
         form[a].append("W" if ag>hg else "D" if ag==hg else "L")
         for club,goals,conceded in [(h,hg,ag),(a,ag,hg)]:
@@ -119,6 +123,7 @@ def rebuild(today=None,loader=get_day):
     stamp=dt.datetime.now(dt.timezone.utc).isoformat()
     rating_doc={"as_of_date":today.isoformat(),"completed_matches":len(played),
       "ratings":{k:round(v,5) for k,v in ratings.items()},
+      "elo_history":history,
       "last_match_elo_delta":{k:round(v,5) for k,v in elo_movements.items()},
       "last_five_form":{k:v[-5:] for k,v in form.items()},"predictions":[],
       "model_status":"provisional_unvalidated",
