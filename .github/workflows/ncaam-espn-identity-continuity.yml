@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - scripts/collect_ncaam_roster_evidence.py
+      - scripts/recover_ncaam_2014_espn_ids.py
       - scripts/reconcile_ncaam_verified_espn_ids.py
       - scripts/test_reconcile_ncaam_verified_espn_ids.py
       - scripts/summarize_ncaam_verified_movements.py
@@ -34,6 +35,7 @@ jobs:
       - run: python -m unittest discover -s scripts -p test_diagnose_ncaam_roster_gaps.py -v
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2026 --min-players 1 --out staging/ncaam-2026-roster-evidence.json
       - run: python scripts/collect_ncaam_roster_evidence.py --season 2027 --out staging/ncaam-2027-roster-evidence.json
+      - run: python scripts/recover_ncaam_2014_espn_ids.py
       - run: python scripts/diagnose_ncaam_roster_gaps.py
       - run: python scripts/reconcile_ncaam_verified_espn_ids.py
       - run: python scripts/summarize_ncaam_verified_movements.py
@@ -45,6 +47,7 @@ jobs:
         with:
           name: ncaam-espn-identity-continuity
           path: |
+            staging/ncaam-unlinked-2014-espn-id-recovery.json
             data/ncaam-2026-27-espn-identity-continuity.json
             data/ncaam-2026-27-verified-movement-team-audit.json
             data/ncaam-2026-27-verified-production-coverage.json
