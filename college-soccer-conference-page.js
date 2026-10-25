@@ -143,49 +143,36 @@ async function render(){
     else tile.append(E('strong',team.name));
     strip.append(tile);
   });
-  // Render a live standings-based projected field whenever the sourced format is known.
-  // Teams tied on points retain the published order provisionally, not as official seeds.
-  if([4,6,8,15].includes(field)&&!/(format.*unverified|eligibility.*unverified|carried forward|inferred from|based on official 2025)/i.test(rule.tournament?.status||'')){
-    const paths=field===4?[
-      ['SEMIFINALS',['Seed 1 vs Seed 4','Seed 2 vs Seed 3']],
-      ['CHAMPIONSHIP',['Semifinal winner 1 vs Semifinal winner 2']]
-    ]:field===6?[
-      ['OPENING ROUND',['Seed 3 vs Seed 6','Seed 4 vs Seed 5','Seeds 1 and 2 receive byes']],
-      ['SEMIFINALS',['Seed 1 vs advancing team (subject to official pairing rules)','Seed 2 vs advancing team (subject to official pairing rules)']],
-      ['CHAMPIONSHIP',['Semifinal winner 1 vs Semifinal winner 2']]
-    ]:field===8?[
-      ['QUARTERFINALS',['Seed 1 vs Seed 8','Seed 4 vs Seed 5','Seed 2 vs Seed 7','Seed 3 vs Seed 6']],
-      ['SEMIFINALS',['Quarterfinal winners (official pairing pending)']],
-      ['CHAMPIONSHIP',['Semifinal winners']]
-    ]:[
-      ['OPENING ROUND',['Tournament seed slots 1–15 (official pairing pending)']],
-      ['SUBSEQUENT ROUNDS',['Advancement according to the official conference bracket']],
-      ['CHAMPIONSHIP',['Finalists to be determined']]
-    ];
-    const contested=new Set((table.unresolved_tie_groups||[]).flatMap(g=>g.teams||[]));
-    const projectedName=(number)=>{
-      const candidate=teams[number-1];
-      if(!candidate)return 'Seed '+number+' · TBD';
-      return '#'+number+' '+candidate.name+(contested.has(candidate.id)?' †':'');
-    };
-    const nameSlot=(slot)=>slot.replace(/Seeds? (\\d+)(?: and (\\d+))?/g,(_all,one,two)=>two?projectedName(Number(one))+' and '+projectedName(Number(two)):projectedName(Number(one)));
-    const schematic=E('div',null,'cs-official-rounds');
-    for(const [round,slots] of paths){
-      const section=E('section',null,'cs-official-round');
-      section.append(E('h3',round));
-      for(const slot of slots){const tile=E('article',null,'cs-official-match');tile.append(E('strong',nameSlot(slot)));section.append(tile)}
-      schematic.append(section);
+  // Standings-based bracket: seed assignments are provisional, never official.
+  const contested=new Set((table.unresolved_tie_groups||[]).flatMap(group=>group.teams||[]));
+  const seed=(n)=>{const x=teams[n-1];return x?'#'+n+' '+x.name+(contested.has(x.id)?' †':''):'Seed '+n+' TBD'};
+  const rounds=E('div',null,'cs-official-rounds');
+  const round=(title,matchups)=>{const section=E('section',null,'cs-official-round');section.append(E('h3',title));for(const matchup of matchups){const tile=E('article',null,'cs-official-match');tile.append(E('strong',matchup));section.append(tile)}rounds.append(section)};
+  const six=field===6,eight=field===8,four=field===4;
+  const known=[4,6,8,15].includes(field)&&!/(format.*unverified|eligibility.*unverified|carried forward|inferred from|based on official 2025)/i.test(rule.tournament?.status||'');
+  if(known&&table.rows.every(row=>Number.isFinite(row.conference_points))){
+    if(four){
+      round('SEMIFINALS',[seed(1)+' vs '+seed(4),seed(2)+' vs '+seed(3)]);
+      round('CHAMPIONSHIP',['Semifinal winner 1 vs semifinal winner 2']);
+    }else if(six){
+      round('FIRST ROUND',[seed(3)+' vs '+seed(6),seed(4)+' vs '+seed(5)]);
+      round('SEMIFINALS',[seed(1)+' vs first-round winner',seed(2)+' vs first-round winner']);
+      round('CHAMPIONSHIP',['Semifinal winner 1 vs semifinal winner 2']);
+      rounds.append(E('p',seed(1)+' and '+seed(2)+' receive opening-round byes. Semifinal paths depend on conference pairing/reseeding rules.','cs-conf-caption'));
+    }else if(eight){
+      round('QUARTERFINALS',[seed(1)+' vs '+seed(8),seed(4)+' vs '+seed(5),seed(2)+' vs '+seed(7),seed(3)+' vs '+seed(6)]);
+      round('SEMIFINALS',['Quarterfinal 1/2 advancing teams','Quarterfinal 3/4 advancing teams']);
+      round('CHAMPIONSHIP',['Semifinal winners']);
+    }else{
+      round('CURRENT PROJECTED FIELD',teams.slice(0,15).map((_,i)=>seed(i+1)));
+      round('OPENING ROUND',['Official seed-pairing paths to be determined']);
+      round('SUBSEQUENT ROUNDS',['Winners advance under conference rules']);
     }
-    if(field===15){
-      const opening=schematic.querySelector('.cs-official-round');
-      if(opening){
-        opening.replaceChildren(E('h3','CURRENT PROJECTED FIELD · TABLE ORDER'));
-        teams.slice(0,field).forEach((team,i)=>{const tile=E('article',null,'cs-official-match');tile.append(E('strong',projectedName(i+1)));opening.append(tile)});
-      }
-    }
-    note.append(E('p','CURRENT PROJECTED SEEDS FROM LATEST AVAILABLE CONFERENCE STANDINGS · † tied on points, displayed order not official. These change as verified finals enter the feed; formal tiebreakers and qualification rules control the actual draw. '+(!fresh?'STANDINGS SNAPSHOT NOT CURRENTLY VERIFIED AS FRESH.':''),'cs-conf-caption'),schematic);
+    note.replaceChildren(E('h3','CURRENT PROJECTED TOURNAMENT BRACKET'));
+    note.append(E('p','Team names reflect the latest available standings and verified final updates. † Point ties not resolved by official conference tiebreakers. Matchups are projections, not an announced bracket.'+(!fresh?' Standings are not verified as fresh.':''),'cs-conf-caption'),rounds);
+  }else{
+    note.append(strip,E('p','Tournament seeding not currently computable from verified points and rules.','cs-conf-caption'));
   }
-  note.append(strip,E('p','Published conference order shown for context only. No entrants or seeds are inferred from Elo; this is NOT a confirmed playoff field.','cs-conf-caption'));
   bracket.append(note);
  }root.append(bracket);
  const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','TOURNAMENT RULES & SOURCES'));
