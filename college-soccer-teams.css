@@ -220,3 +220,23 @@
 #college-team-profile .team-home-links a:hover{text-decoration:underline}
 @media(min-width:1120px){#college-team-profile .team-porch-grid{grid-template-columns:repeat(4,minmax(0,1fr))}#college-team-profile .team-porch-card{padding:.8rem;min-height:190px}}
 @media(max-width:590px){#college-team-profile .team-porch{padding:.65rem}#college-team-profile .team-porch-grid{grid-template-columns:1fr;gap:.5rem}#college-team-profile .team-porch-card{min-height:0;padding:.8rem}#college-team-profile .team-porch-card h4{font-size:1.1rem}#college-team-profile .team-home-links{gap:.3rem .8rem}}
+
+/* Local school identity: actual mascot portrait and a pinned campus map. */
+#college-team-profile .team-hometown{margin:0 0 1.4rem;background:#f7f6f2;border:1px solid #dce0dc;border-top:4px solid var(--team-primary,#183854);padding:clamp(.7rem,2vw,1.2rem);scroll-margin-top:1rem}
+#college-team-profile .team-hometown-header{border-bottom:1px solid #d9dedf;padding:0 0 .75rem;margin:0 0 1rem}
+#college-team-profile .team-hometown-header small{font:700 .63rem Arial,sans-serif;color:#657b8c;letter-spacing:.12em}
+#college-team-profile .team-hometown-header h3{font:700 clamp(1.3rem,3vw,2rem)/1.12 Georgia,serif;margin:.35rem 0 0;color:var(--team-primary,#1c374e)}
+#college-team-profile .team-hometown-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1rem;align-items:stretch}
+#college-team-profile .team-place-card,#college-team-profile .team-spirit-card{min-width:0;padding:1rem;background:#fff;border:1px solid #e0e5e7;display:flex;flex-direction:column;gap:.6rem}
+#college-team-profile .team-place-tag{font:800 .64rem Arial,sans-serif;letter-spacing:.07em;color:#5c7181}
+#college-team-profile .team-place-card h4,#college-team-profile .team-spirit-card h4{font:700 clamp(1.1rem,2vw,1.5rem) Georgia,serif;letter-spacing:-.025em;color:#193249;margin:0}
+#college-team-profile .team-place-card p,#college-team-profile .team-spirit-card p{font:.82rem/1.5 Arial,sans-serif;color:#475d6b;margin:.1rem 0}
+#college-team-profile .team-campus-address{font-weight:700!important;color:#1d425e!important}
+#college-team-profile .team-campus-map{display:block;border:1px solid #d6dee1;border-radius:3px;width:100%;height:225px;background:#e6edf1;margin:.35rem 0;max-width:100%}
+#college-team-profile .team-hometown a{font:700 .75rem Arial,sans-serif;color:#204967;text-underline-offset:3px}
+#college-team-profile .team-mascot-photo{display:block;width:100%;height:225px;object-fit:cover;object-position:center 43%;background:#18324f;border-radius:3px}
+#college-team-profile .team-spirit-facts{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.4rem;border-top:1px solid #e0e6e9;padding-top:.6rem}
+#college-team-profile .team-spirit-facts span{font:700 .67rem Arial,sans-serif;letter-spacing:.04em;color:#667b89}
+#college-team-profile .team-spirit-facts strong{font:700 .94rem Georgia,serif;color:#1a354e;text-align:right}
+#college-team-profile .team-photo-unavailable{background:#f5f7f7}
+@media(max-width:700px){#college-team-profile .team-hometown-grid{grid-template-columns:1fr}#college-team-profile .team-place-card,#college-team-profile .team-spirit-card{padding:.8rem}#college-team-profile .team-campus-map{height:210px}#college-team-profile .team-mascot-photo{height:235px;object-position:center 40%}}
