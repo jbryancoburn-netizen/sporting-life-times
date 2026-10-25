@@ -1,0 +1,45 @@
+/* Conference and postseason desk: newspaper tables, bracket paths, conservative attribution. */
+#college-soccer-postseason{font-family:Arial,Helvetica,sans-serif;color:#263949;margin:1.4rem 0 1.6rem}
+#college-soccer-postseason *{box-sizing:border-box}
+.cs-post-heading,.cs-post-section-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem;border-top:3px solid #294458;padding:.65rem 0}
+.cs-post-heading h2{margin:0;font:700 clamp(1.3rem,2vw,1.75rem) Georgia,serif;color:#1b3446}
+.cs-post-heading span,.cs-post-section-head span{font:700 .62rem Arial,sans-serif;letter-spacing:.065em;color:#71818a}
+.cs-post-nav{display:flex;gap:1.1rem;flex-wrap:wrap;border-bottom:1px solid #ced8dc;padding:.5rem 0 .85rem}
+.cs-post-nav a{font-size:.78rem;color:#31546a!important;text-decoration:underline!important;text-underline-offset:3px}
+.cs-post-columns{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(235px,.8fr);gap:clamp(1.2rem,3vw,2rem)}
+.cs-post-main,.cs-post-side{min-width:0}
+.cs-post-section-head{border-width:2px;margin:.7rem 0}
+.cs-post-section-head h3,.cs-post-rules h3,.cs-post-predictions h3{margin:.1rem 0;font:700 1.06rem Georgia,serif}
+.cs-post-section-head a{font:700 .66rem Arial,sans-serif;color:#31546a!important}
+.cs-post-note{font:.71rem/1.5 Georgia,serif;color:#75828a;margin:.55rem 0 .8rem}
+.cs-post-table{width:100%;border-collapse:collapse;font:500 .77rem Arial,sans-serif;font-variant-numeric:tabular-nums}
+.cs-post-table th{background:#edf2f4;color:#5d7080;font-size:.64rem;padding:.55rem .38rem;text-align:right;border-bottom:1px solid #b7c5cc}
+.cs-post-table th:nth-child(2),.cs-post-table td:nth-child(2){text-align:left}
+.cs-post-table td{padding:.55rem .38rem;border-bottom:1px solid #e0e7e9;text-align:right}
+.cs-post-table a{color:#2b4c62!important;text-decoration:none!important;font-weight:700}
+.cs-post-table a:hover{text-decoration:underline!important}
+.cs-post-table .cs-post-cutline{border-bottom:3px solid #ac7c52}
+.cs-post-bracket{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-block:1px solid #c5d1d7;margin:0 0 1rem}
+.cs-post-round{padding:.7rem .65rem;border-right:1px solid #d9e0e3;min-width:0}
+.cs-post-round:last-child{border-right:0}
+.cs-post-round>small{display:block;font:700 .59rem Arial,sans-serif;letter-spacing:.025em;color:#815f3d;margin-bottom:.6rem}
+.cs-post-pair{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;padding:.6rem .4rem;margin:.45rem 0;background:#f2f5f6;font-size:.71rem;line-height:1.35;min-height:70px}
+.cs-post-pair strong{font-size:.72rem}
+.cs-post-pair span{font:italic .63rem Georgia,serif;color:#88949a}
+.cs-post-rules,.cs-post-predictions{padding:.6rem .1rem 1rem;border-top:2px solid #2d4659;margin:.75rem 0}
+.cs-post-rules>a{display:inline-block;color:#31566a!important;font-size:.72rem;margin:.5rem 0}
+.cs-post-fact{display:flex;justify-content:space-between;gap:.8rem;border-bottom:1px solid #e2e7e9;padding:.5rem 0;font-size:.73rem}
+.cs-post-fact span{color:#6a7c86}.cs-post-fact strong{text-align:right;font-weight:700}
+.cs-post-odds{border-bottom:1px solid #e0e6e9;padding:.55rem 0}
+.cs-post-odds-head{display:flex;justify-content:space-between;gap:.5rem;font:.75rem Arial,sans-serif}
+.cs-post-odds-head span{font-variant-numeric:tabular-nums}
+.cs-post-odds-track{height:8px;background:#e5eaed;margin:.38rem 0 0}
+.cs-post-odds-track i{display:block;height:100%;background:#496e85}
+.cs-national-rules{margin-top:1.2rem}
+.cs-national-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 1.2rem}
+.cs-national-item{border-bottom:1px solid #e0e6e9;padding:.75rem 0;min-width:0}
+.cs-national-item h4{font:700 .93rem Georgia,serif;margin:.1rem 0 .45rem}
+.cs-national-item strong{font:.74rem/1.4 Arial,sans-serif;color:#31556a}
+.cs-national-item>a{font:.68rem Arial,sans-serif;color:#315b72!important;text-decoration:underline!important}
+@media(max-width:850px){.cs-post-columns{grid-template-columns:1fr}.cs-post-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.cs-national-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.cs-post-side{grid-template-columns:1fr}.cs-post-bracket{grid-template-columns:1fr}.cs-post-round{border-right:0;border-bottom:1px solid #dbe3e6}.cs-post-round:last-child{border-bottom:0}.cs-post-pair{min-height:0}.cs-national-grid{grid-template-columns:1fr}.cs-post-table{font-size:.68rem}.cs-post-table th,.cs-post-table td{padding:.4rem .22rem}}
