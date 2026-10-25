@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "season": 2026,
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "notice": "Official tournament formats below are source-specific. Projections are independent model scenarios, not committee selections, tournament seeds, or announced bids.",
   "ncaa": {
     "men-d1": {
@@ -207,10 +207,14 @@
       "table_source": "https://bigten.org/standings.aspx?path=msoc",
       "projection_warning": "Provisional seeds use conference points and Elo only for display ties; official tie procedure controls.",
       "tiebreakers": {
-        "verification": "unverified_2026_procedure",
-        "source_url": null,
-        "ordered_criteria": [],
-        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+        "verification": "conference_wide_2025_26_parameters_found_not_2026_mens_soccer_specific",
+        "source_url": "https://bigten.org/api/media/file/Tiebreaker.pdf",
+        "ordered_criteria": [
+          "head_to_head_first",
+          "higher_winning_percentage_vs_tied_team_or_group",
+          "restart_after_each_seed_is_awarded"
+        ],
+        "automatic_resolution": "blocked_until_mens_soccer_specific_2026_procedure_and_match_ledger_verified"
       }
     },
     "women-d1:big-ten": {
@@ -432,16 +436,22 @@
       "table_source": "https://sunbeltsports.org/standings.aspx?path=msoc",
       "projection_warning": "Published standings order is provisional seeding subject to official conference tiebreakers; Elo only predicts who advances.",
       "tiebreakers": {
-        "verification": "published_procedure_requires_full_season_match_evidence",
+        "verification": "official_published_verify_2026_applicability",
         "source_url": "https://sunbeltsports.org/sports/2024/10/30/MSOC_1030240237.aspx",
         "ordered_criteria": [
-          "head_to_head",
-          "common_opponent_goal_difference",
-          "common_opponent_goals_for",
-          "points_against_ranked_common_opponents"
+          "two_team_head_to_head",
+          "common_opponents_conference_goal_difference",
+          "common_opponents_conference_goals_for",
+          "points_against_highest_ranked_common_opponent_descending",
+          "commissioner_coin_toss",
+          "multi_team_head_to_head_points_if_all_played",
+          "multi_team_common_opponents_goal_difference",
+          "multi_team_common_opponents_goals_for",
+          "multi_team_ranked_common_opponent_points",
+          "commissioner_draw"
         ],
-        "multi_team": "conference_specific_multi_team",
-        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+        "multi_team": "restart_after_highest_seed_resolved",
+        "automatic_resolution": "requires_complete_verified_match_ledger;random_draw_manual"
       }
     },
     "men-d1:ivy": {
@@ -461,18 +471,18 @@
       "table_source": "https://ivyleague.com/standings.aspx?path=msoc",
       "projection_warning": "Four-team as-if-today field follows published order; actual seeds depend on official tiebreakers.",
       "tiebreakers": {
-        "verification": "published_procedure_requires_full_season_match_evidence",
+        "verification": "official_published_verify_2026_applicability",
         "source_url": "https://ivyleague.com/sports/2023/10/9/MSOCTiebreakers.aspx",
         "ordered_criteria": [
           "head_to_head",
-          "results_against_ranked_opponents",
-          "conference_goal_difference_capped_6",
+          "points_vs_opponents_in_descending_seed_order",
+          "conference_goal_difference_capped_6_per_match",
           "conference_shutouts",
-          "ncaa_rpi",
-          "administrative_decision"
+          "latest_ncaa_rpi",
+          "executive_director_random_draw"
         ],
-        "multi_team": "separate_multi_team_procedure",
-        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+        "multi_team": "mini_table_and_recurse_when_group_reduces",
+        "automatic_resolution": "requires_verified_ledger_rpi_and_shutouts;draw_manual"
       }
     },
     "men-d1:wcc": {
@@ -513,17 +523,23 @@
       "table_source": "https://ovcsports.com/standings.aspx?path=msoc",
       "projection_warning": "Official order snapshot; OVC top-two seeds from separate pods may differ from standings order. No certification of exact tournament seeds.",
       "tiebreakers": {
-        "verification": "published_procedure_requires_full_season_match_evidence",
+        "verification": "official_2026_published",
         "source_url": "https://ovcsports.com/sports/2026/7/30/MSOC_0729261951.aspx",
         "ordered_criteria": [
-          "head_to_head",
-          "head_to_head_goal_difference_cap_3",
-          "points_per_match_against_ranked_opponents",
-          "conference_goal_difference_cap_3",
-          "coin_toss"
+          "pod_leaders_head_to_head_then_tied_goal_difference_then_other_pod_results_then_pod_goal_difference_capped_3_then_all_conference_goal_difference_capped_3",
+          "two_team_head_to_head",
+          "two_team_head_to_head_goal_difference_capped_3",
+          "two_team_average_points_against_other_ranked_conference_opponents",
+          "two_team_all_conference_goal_difference_capped_3",
+          "two_team_coin_toss",
+          "multi_team_average_points_among_tied",
+          "multi_team_points_per_match_against_ranked_outside_teams",
+          "multi_team_average_goal_difference_among_tied_capped_3",
+          "multi_team_all_conference_goal_difference_capped_3",
+          "multi_team_coin_toss_or_draw"
         ],
-        "multi_team": "multiple_team_points_per_match_and_goal_difference",
-        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+        "special_structure": "two_pods_with_one_top_seed_and_opening_round_bye_each",
+        "automatic_resolution": "requires_verified_conference_match_ledger_and_pod_membership;random_draw_manual"
       }
     },
     "men-d1:atlantic-10": {
@@ -538,15 +554,16 @@
         "status": "2026 conference championship 8-team field; standings order provisional, tiebreakers authoritative",
         "sources": [
           "https://atlantic10.com/sports/2026/7/23/Champs2627.aspx"
-        ]
+        ],
+        "reseed": true
       },
       "table_source": "https://atlantic10.com/standings.aspx?standings=183",
       "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks.",
       "tiebreakers": {
-        "verification": "unverified_2026_procedure",
-        "source_url": null,
+        "verification": "2026_tiebreak_steps_unverified;post_quarterfinal_reseeding_official",
+        "source_url": "https://atlantic10.com/news/2022/6/10/about-the-atlantic-10-atlantic-10-concludes-spring-meetings.aspx",
         "ordered_criteria": [],
-        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+        "automatic_resolution": "blocked_until_actual_2026_tiebreak_order_verified"
       }
     },
     "men-d1:patriot": {
