@@ -22,14 +22,35 @@ function render(payload){
   return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'VERIFIED FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'</a>'
  }).join('');
 }
+function fromNba(raw){
+ const games=raw.scoreboard?.games||raw.games||[];
+ return {events:games.map(g=>{
+  const home=g.homeTeam||{},away=g.awayTeam||{},st=g.gameStatus||1;
+  const comp=(t,side)=>({homeAway:side,team:{displayName:t.teamName?((t.teamCity||'')+' '+t.teamName).trim():t.teamTricode,abbreviation:t.teamTricode},score:t.score,records:[]});
+  return {id:String(g.gameId),date:g.gameTimeUTC||g.gameTime,competitions:[{competitors:[comp(away,'away'),comp(home,'home')]}],status:{type:{state:st===3?'post':st===2?'in':'pre',shortDetail:g.gameStatusText||''}}};
+ })};
+}
+function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/^espn-nba-/,'')||'',date:g.date,competitions:[{competitors:(g.teams||[]).map(t=>({homeAway:t.home_away,team:{displayName:t.name,abbreviation:t.code},score:t.score}))}],status:{type:{state:g.state==='post'?'post':g.state==='in'?'in':'pre',shortDetail:g.status||'Scheduled'}}}))};}
 async function update(){
- try{
-  const today=(()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+p.month+p.day})();
-  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+today+'&_='+Date.now();
-  const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('score feed '+r.status);
-  const p=await r.json();render(p);lastOK=Date.now();
-  status.textContent='Live NBA feed · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
- }catch(e){status.textContent='Live feed unavailable · last successful check '+(lastOK?new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'not yet available')+'. Archive scores below may be older.';if(!lastOK)root.innerHTML='<p class="hub-small">Live scores unavailable. The verified game archive remains below.</p>';}
+ const dates=(()=>{const q=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return q.year+q.month+q.day})();
+ const sources=[
+ ['NBA live data','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba],
+ ['ESPN live data','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+dates+'&_='+Date.now(),x=>x],
+ ['published schedule','data/nba-upcoming-schedule.json?_='+Date.now(),fromArchive]
+ ];
+ for(const [name,url,normalize] of sources){
+  try{
+   const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),6500);
+   let response;try{response=await fetch(url,{cache:'no-store',signal:ctrl.signal})}finally{clearTimeout(timeout)}
+   if(!response.ok)throw Error('HTTP '+response.status);
+   const data=normalize(await response.json());if(!data.events?.length)throw Error('empty');
+   render(data);lastOK=Date.now();
+   status.textContent=(name==='published schedule'?'Live feeds unavailable · showing latest published schedule':'LIVE SOURCE · '+name)+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
+   return;
+  }catch(e){console.warn('NBA feed failed:',name,e.message)}
+ }
+ status.textContent='Live sources unavailable · no current score is confirmed';
+ root.innerHTML='<p class="hub-small">Live scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
 }
 update();setInterval(()=>{if(!document.hidden)update()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 })();
