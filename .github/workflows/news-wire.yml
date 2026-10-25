@@ -6,6 +6,14 @@ on:
       - 'scripts/refresh_news.py'
       - 'test_news_wire.py'
       - '.github/workflows/news-wire.yml'
+      - 'data/epl-ratings.json'
+      - 'data/euroleague-model.json'
+  workflow_run:
+    workflows:
+      - 'EuroLeague independent Elo'
+      - 'EPL verified results and independent Elo'
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '7,22,37,52 * * * *'
@@ -16,6 +24,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
