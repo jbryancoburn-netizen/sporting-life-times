@@ -259,6 +259,28 @@
       "page": "college-soccer-acc-women.html",
       "standings_feed": "data/college-soccer-women-d1-acc-standings.json",
       "verification_status": "mapped_verified"
+    },
+    "men-d1:big-east": {
+      "name": "Big East Conference",
+      "short": "BIG EAST",
+      "teams": [
+        "georgetown",
+        "seton-hall",
+        "uconn",
+        "st-johns-ny",
+        "providence",
+        "villanova",
+        "xavier",
+        "creighton",
+        "akron",
+        "depaul",
+        "butler",
+        "marquette"
+      ],
+      "source_url": "https://www.bigeast.com/standings.aspx?standings=1131",
+      "page": "college-soccer-big-east-men.html",
+      "standings_feed": "data/college-soccer-men-d1-big-east-standings.json",
+      "verification_status": "mapped_verified"
     }
   },
   "team_to_conference": {
@@ -397,6 +419,18 @@
     "women-d1:california": "women-d1:acc",
     "women-d1:smu": "women-d1:acc",
     "women-d1:pittsburgh": "women-d1:acc",
-    "women-d1:syracuse": "women-d1:acc"
+    "women-d1:syracuse": "women-d1:acc",
+    "men-d1:georgetown": "men-d1:big-east",
+    "men-d1:seton-hall": "men-d1:big-east",
+    "men-d1:uconn": "men-d1:big-east",
+    "men-d1:st-johns-ny": "men-d1:big-east",
+    "men-d1:providence": "men-d1:big-east",
+    "men-d1:villanova": "men-d1:big-east",
+    "men-d1:xavier": "men-d1:big-east",
+    "men-d1:creighton": "men-d1:big-east",
+    "men-d1:akron": "men-d1:big-east",
+    "men-d1:depaul": "men-d1:big-east",
+    "men-d1:butler": "men-d1:big-east",
+    "men-d1:marquette": "men-d1:big-east"
   }
 }
