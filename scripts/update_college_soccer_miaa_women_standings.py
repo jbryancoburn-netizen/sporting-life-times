@@ -51,6 +51,9 @@ def parse_table(html):
             if overall and not RECORD.fullmatch(overall): overall = ""
             parts = [int(v) for v in conf.split("-")]
             games = sum(parts)
+            expected_points = 3 * parts[0] + (parts[2] if len(parts) > 2 else 0)
+            if int(points) != expected_points:
+                raise ValueError(f"Conference points do not match record for {school}: {conf} / {points}")
             if gp and INTEGER.fullmatch(gp) and int(gp) != games:
                 raise ValueError(f"Conference games mismatch for {school}: {gp} vs {conf}")
             rows[TEAMS[school]] = {
