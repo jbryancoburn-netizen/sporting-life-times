@@ -5,7 +5,7 @@ const fetchJSON=async p=>{const r=await fetch(p+'?t='+Date.now(),{cache:'no-stor
 const link=(txt,url)=>{const a=el('a',txt);a.href=url;if(/^https:/.test(url)){a.target='_blank';a.rel='noopener noreferrer';}return a;};
 const fmt=n=>Math.round(n*100)+'%';
 let lastSignature='';
-function render(conf,table,ratings,rules){
+function render(conf,table,ratings,rules,miacTable){
  const miaa=conf.conferences?.['men-d3:miaa'],rule=rules.conferences?.['men-d3:miaa'];
  const members=new Map((ratings.cohorts?.['men-d3']||[]).map(t=>[t.team_id,t]));
  const official=new Map((table.rows||[]).map(t=>[t.team_id,t]));
@@ -15,7 +15,7 @@ function render(conf,table,ratings,rules){
  // Elo is only a displayed provisional tiebreaker; the MIAA's actual rules take precedence.
  const top=seeded.slice(0,6);root.replaceChildren();
  const intro=el('div',null,'cs-post-heading');intro.append(el('h2','CONFERENCES & THE ROAD TO THE NCAA'),el('span','2026 · VERIFIED RULES / PROVISIONAL PROJECTIONS'));root.append(intro);
- const nav=el('nav',null,'cs-post-nav');nav.setAttribute('aria-label','College soccer postseason sections');nav.append(link('MIAA tournament','#cs-miaa'),link('NCAA championship rules','#cs-ncaa-rules'));root.append(nav);
+ const nav=el('nav',null,'cs-post-nav');nav.setAttribute('aria-label','College soccer postseason sections');nav.append(link('MIAA tournament','#cs-miaa'),link('MIAC tournament','#cs-miac'),link('NCAA championship rules','#cs-ncaa-rules'));root.append(nav);
  const split=el('div',null,'cs-post-columns');root.append(split);
  const left=el('section',null,'cs-post-main');left.id='cs-miaa';split.append(left);
  const right=el('aside',null,'cs-post-side');split.append(right);
@@ -47,7 +47,49 @@ function render(conf,table,ratings,rules){
  const contenders=[...out.entries()].map(([id,p])=>({team:seeded.find(t=>t.id===id),p})).sort((a,b)=>b.p-a.p);
  for(const entry of contenders){const d=el('div',null,'cs-post-odds');const line=el('div',null,'cs-post-odds-head');line.append(el('strong',entry.team.team.team),el('span',fmt(entry.p)));d.append(line);const track=el('div',null,'cs-post-odds-track'),bar=el('i');bar.style.width=(100*entry.p)+'%';track.append(bar);d.append(track);predictions.append(d);}
  predictions.append(el('p','Experimental Elo-only knockout scenario: 55 Elo points of home advantage to the higher projected seed, logistic result probabilities, and a decisive result. No draw/penalty model, official tiebreaker, remaining-game simulation, or NCAA selection committee adjustment. NOT calibrated tournament odds.','cs-post-note'));
- const national=el('section',null,'cs-national-rules');national.id='cs-ncaa-rules';root.append(national);
+ const miacConf=conf.conferences?.['men-d3:miac'];
+ const miacRule=rules.conferences?.['men-d3:miac'];
+ if(miacConf&&miacRule){
+  const miacSection=el('section',null,'cs-miac-section');miacSection.id='cs-miac';root.append(miacSection);
+  const miacTitle=el('div',null,'cs-post-section-head');miacTitle.append(el('h3','MIAC · Men’s Division III'),link('Official MIAC standings ↗',miacTable?.source_url||miacRule.table_source));miacSection.append(miacTitle);
+  const miacRatings=new Map((ratings.cohorts?.['men-d3']||[]).map(t=>[t.team_id,t]));
+  const miacRows=new Map((miacTable?.rows||[]).map(t=>[t.team_id,t]));
+  const complete=miacConf.teams.every(id=>miacRatings.has(id)&&miacRows.has(id));
+  if(complete){
+   const seedList=miacConf.teams.map(id=>({id,team:miacRatings.get(id),standing:miacRows.get(id)}))
+    .sort((a,b)=>b.standing.conference_points-a.standing.conference_points||b.team.elo-a.team.elo);
+   const layout=el('div',null,'cs-miac-columns');miacSection.append(layout);
+   const standingsWrap=el('div');layout.append(standingsWrap);
+   standingsWrap.append(el('p','Official MIAC league points · 2026 snapshot checked '+(miacTable.snapshot_checked_date||'date unavailable')+'. Tie order uses Elo solely as a provisional display aid; it is not the league’s tiebreaker.','cs-post-note'));
+   const tableNode=el('table',null,'cs-post-table');
+   const head=el('tr');for(const label of ['Seed*','School','Conf.','Pts','USRS'])head.append(el('th',label));
+   const thead=el('thead');thead.append(head);const tbody=el('tbody');
+   seedList.forEach((item,i)=>{
+    const row=el('tr');row.append(el('td',i<6?i+1:'—'));
+    const school=el('td');school.append(link(item.team.team,'college-soccer-team.html?team=men-d3%3A'+encodeURIComponent(item.id)));
+    row.append(school,el('td',item.standing.conference_record),el('td',item.standing.conference_points),el('td',Number(item.team.elo).toFixed(1)));
+    if(i===5)row.className='cs-post-cutline';
+    tbody.append(row);
+   });tableNode.append(thead,tbody);standingsWrap.append(tableNode);
+   const sidebar=el('aside',null,'cs-miac-path');layout.append(sidebar);
+   sidebar.append(el('h4','Six-team MIAC playoff watch'));
+   const entrants=seedList.slice(0,6);
+   entrants.forEach((entry,i)=>{const row=el('div',null,'cs-post-entrant');row.append(el('strong','#'+(i+1)+' '+entry.team.team),el('span',Number(entry.team.elo).toFixed(1)+' Elo'));sidebar.append(row);});
+   sidebar.append(el('p','League preview confirms six qualifiers and an NCAA Division III automatic bid for the playoff champion. Current bracket, tiebreakers and 2026 dates have not been confirmed.','cs-post-note'));
+   sidebar.append(link('MIAC 2026 championship format ↗',miacRule.tournament.sources[0]));
+   const strength=el('div',null,'cs-miac-contender-strength');strength.append(el('h4','Contender matchup strength'));
+   const midpoint=(entrants[0].team.elo+entrants[5].team.elo)/2;
+   for(const entry of entrants){
+    const probability=1/(1+Math.pow(10,-((entry.team.elo-midpoint)/400)));
+    const box=el('div',null,'cs-post-contender-row'),line=el('div',null,'cs-post-odds-head');
+    line.append(el('strong',entry.team.team),el('span',fmt(prob)));box.append(line);
+    const track=el('div',null,'cs-post-odds-track'),bar=el('i');bar.style.width=probability*100+'%';track.append(bar);box.append(track);strength.append(box);
+   }
+   strength.append(el('p','Experimental neutral-field head-to-head probability against the median strength of these six provisional entrants. NOT odds of qualifying for or winning the MIAC playoff.','cs-post-note'));
+   sidebar.append(strength);
+  }else miacSection.append(el('p','Conference ratings and official standings are not fully reconciled. Tournament projections withheld.','cs-post-note'));
+ }
+  const national=el('section',null,'cs-national-rules');national.id='cs-ncaa-rules';root.append(national);
  const nh=el('div',null,'cs-post-section-head');nh.append(el('h3','NCAA Championship Watch'),el('span','OFFICIAL FIELD RULES · INDEPENDENT MODEL'));national.append(nh);
  const items=el('div',null,'cs-national-grid');
  for(const [key,label] of [['men-d1','Men’s Division I'],['women-d1','Women’s Division I'],['men-d2','Men’s Division II'],['women-d2','Women’s Division II'],['men-d3','Men’s Division III'],['women-d3','Women’s Division III']]){
@@ -82,9 +124,9 @@ function render(conf,table,ratings,rules){
  national.append(el('p','Nationwide conference-by-conference brackets and NCAA at-large probability projections require complete 2026 soccer conference membership, conference tournament rules, official qualification status and NCAA selection metrics. Until verified, no unsupported at-large odds are published.','cs-post-note'));
 }
 async function refresh(){
- try{const [c,t,e,r]=await Promise.all([fetchJSON('data/college-soccer-conferences.json'),fetchJSON('data/college-soccer-miaa-standings.json'),fetchJSON('data/college-soccer-elo.json'),fetchJSON('data/college-soccer-postseason-rules.json')]);
- const signature=JSON.stringify([t.checked_at_utc,e.as_of,e.applied_finals_since_baseline,r.updated]);
- if(signature!==lastSignature){render(c,t,e,r);lastSignature=signature;}
+ try{const [c,t,e,r,m]=await Promise.all([fetchJSON('data/college-soccer-conferences.json'),fetchJSON('data/college-soccer-miaa-standings.json'),fetchJSON('data/college-soccer-elo.json'),fetchJSON('data/college-soccer-postseason-rules.json'),fetchJSON('data/college-soccer-miac-standings.json')]);
+ const signature=JSON.stringify([t.checked_at_utc,m.snapshot_checked_date,e.as_of,e.applied_finals_since_baseline,r.updated]);
+ if(signature!==lastSignature){render(c,t,e,r,m);lastSignature=signature;}
  }catch(error){if(!lastSignature){root.replaceChildren(el('p','Conference and postseason data unavailable: official standings or model feeds could not be verified.','cs-post-note'));}console.error('NCAA conference forecast',error);}
 }
 refresh();setInterval(()=>{if(document.visibilityState==='visible')refresh();},15*60*1000);
