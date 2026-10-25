@@ -14,6 +14,10 @@ class SharedHeaderTests(unittest.TestCase):
         for page in PAGES:
             with self.subTest(page=page):
                 content = (ROOT / page).read_text(encoding="utf-8")
+                if page == 'nba.html':
+                    self.assertIn('class="nba-publication-title"', content)
+                    self.assertIn('class="nba-publication-header"', content)
+                    continue
                 self.assertIn('class="newspaper-wordmark"', content)
                 self.assertIn('class="newspaper-wordmark-main"', content)
                 self.assertNotIn('class="original-masthead"', content)
@@ -23,7 +27,7 @@ class SharedHeaderTests(unittest.TestCase):
         for page in PAGES:
             with self.subTest(page=page):
                 content = (ROOT / page).read_text(encoding="utf-8")
-                start = content.find('<nav class="site-nav"')
+                start = content.find('<nav class="nba-publication-navigation"' if page == 'nba.html' else '<nav class="site-nav"')
                 self.assertGreaterEqual(start, 0)
                 end = content.find('</nav>', start)
                 self.assertGreater(end, start)
