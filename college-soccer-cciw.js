@@ -18,7 +18,7 @@ function odds(six){
 let signature='';
 async function render(){
 try{
-const [c,s,r,rules]=await Promise.all([get('data/college-soccer-conferences.json'),get('data/college-soccer-cciw-standings.json'),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json')]);
+const [c,s,r,rules,branding]=await Promise.all([get('data/college-soccer-conferences.json'),get('data/college-soccer-cciw-standings.json'),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}}))]);
 const k='men-d3:cciw',ids=c.conferences?.[k]?.teams||[],raw=rules.conferences?.[k],rows=s.rows||[],rated=r.cohorts?.['men-d3']||[];
 if(ids.length!==9||rows.length!==9||!raw||raw.tournament.field!==6)throw Error('CCIW source and format mismatch');
 const byId=new Map(rows.map(x=>[x.team_id,x])),elo=new Map(rated.map(x=>[x.team_id,x]));
@@ -41,11 +41,10 @@ const tbody=node('tbody');sorted.forEach((t,i)=>{
 });table.append(thead,tbody);tableWrap.append(table);
 tableWrap.append(node('p','Official conference records from '+s.snapshot_checked_date+'. Seed order is provisional: league points, then Elo only to break display ties. Elo is not an official CCIW tiebreaker.','cs-cciw-note'));
 forecastWrap.append(node('h3','If the postseason began today'));
-const six=sorted.slice(0,6),bracket=node('div',null,'cs-cciw-bracket');
-for(const [label,a,b] of [['Quarterfinal 3 / 6',six[2],six[5]],['Quarterfinal 4 / 5',six[3],six[4]],['Semifinal · 1',six[0],null],['Semifinal · 2',six[1],null]]){
- const m=node('div',null,'cs-cciw-pair');m.append(node('small',label),node('strong',a.team));
- m.append(node('span',b?'vs '+b.team:'vs quarterfinal winner'));bracket.append(m);
-}forecastWrap.append(bracket);
+const six=sorted.slice(0,6);
+const cupUI=window.CollegeSoccerCupUI;
+if(cupUI){cupUI.decorateTable(table,sorted,'men-d3',branding);cupUI.bracket(forecastWrap,six,'men-d3',branding,{q:'OPENING ROUND',s:'SEMIFINALS',f:'CHAMPIONSHIP'});}
+else forecastWrap.append(node('p','Bracket artwork unavailable; current tournament contenders appear in the odds below.','cs-cciw-note'));
 forecastWrap.append(node('h3','Experimental tournament title projection'));
 const p=odds(six),total=p.reduce((acc,x)=>acc+x.probability,0);
 if(Math.abs(total-1)>1e-8)throw Error('Bracket probability normalization failed');
