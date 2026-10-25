@@ -1,4 +1,4 @@
-name: Publish and refresh Sporting Life Times
+name: Collect and validate Sporting Life Times data
 on:
   push:
     branches: [main]
@@ -7,10 +7,8 @@ on:
     - cron: "7 * * * *"
 permissions:
   contents: write
-  pages: write
-  id-token: write
 concurrency:
-  group: github-pages
+  group: newspaper-data-collection
   cancel-in-progress: false
 jobs:
   build:
@@ -138,84 +136,3 @@ jobs:
         with:
           path: data/nba-game-center.json
           key: nba-game-center-${{ github.run_id }}
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-      - name: Smoke test published newspaper pages and club crest
-        run: |
-          set -euo pipefail
-          base="https://jbryancoburn-netizen.github.io/sporting-life-times"
-          for page in index.html epl.html epl-elo.html epl-club.html match-center.html nba.html nbl.html nbl-team.html; do
-            echo "Checking published $page"
-            curl --fail --location --silent --show-error --retry 4 --retry-delay 3 --retry-all-errors "$base/$page" -o /tmp/newspaper-page.html
-            test -s /tmp/newspaper-page.html
-            grep -qi '<html' /tmp/newspaper-page.html
-          done
-          echo "Checking NBL editorial research ratings and club navigation"
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-elo-research.json" -o /tmp/nbl-research.json
-          python - <<'PY'
-          import json
-          d=json.load(open('/tmp/nbl-research.json'))
-          assert d['status']=='RESEARCH_ONLY_UNCERTIFIED'
-          assert d['production_approved'] is False and d['prediction_certified'] is False
-          assert len(d['ratings'])==10 and len(set(r['team'] for r in d['ratings']))==10
-          assert d['current_regular_season_games']>=1
-          assert all(isinstance(r['elo'],(int,float)) for r in d['ratings'])
-          PY
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/nbl-editorial.js" -o /tmp/nbl-editorial.js
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/nbl-team.js" -o /tmp/nbl-team.js
-          test -s /tmp/nbl-editorial.js && test -s /tmp/nbl-team.js
-          echo "Checking published NBL standings release decision"
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-standings-publication-status.json" -o /tmp/nbl-release-status.json
-          python -c 'import json; s=json.load(open("/tmp/nbl-release-status.json")); assert s.get("league")=="Australian NBL" and isinstance(s.get("published"),bool)'
-          if python -c 'import json,sys;sys.exit(0 if json.load(open("/tmp/nbl-release-status.json"))["published"] else 1)'; then
-            curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-standings.json" -o /tmp/nbl-standings.json
-            python -c 'import json; d=json.load(open("/tmp/nbl-standings.json")); assert d.get("status")=="source_derived_not_officially_reconciled" and d.get("teams")==10 and len(d.get("rows",[]))==10 and sum(r["wins"] for r in d["rows"])==d["games_replayed"]'
-          else
-            echo "NBL standings source withheld safely: snapshot not present"
-          fi
-          echo "Checking NBL HTML contains visible pre-rendered Elo standings"
-          curl --fail --location --silent --show-error "$base/nbl.html" -o /tmp/nbl-visible.html
-          grep -q 'data-nbl-static-elo="ready"' /tmp/nbl-visible.html
-          grep -q 'Sydney Kings' /tmp/nbl-visible.html
-          echo "Checking published independent NBL research Elo"
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 3 "$base/data/nbl-elo-research.json" -o /tmp/nbl-research-elo.json
-          python - <<'PY'
-          import json
-          d=json.load(open('/tmp/nbl-research-elo.json'))
-          assert d.get('status')=='RESEARCH_ONLY_UNCERTIFIED'
-          assert d.get('production_approved') is False and d.get('prediction_certified') is False
-          rows=d.get('ratings',[])
-          assert len(rows)==10 and len({r['team'] for r in rows})==10
-          assert [r['rank'] for r in rows]==list(range(1,11))
-          assert all(isinstance(r.get('elo'),(float,int)) for r in rows)
-          assert sum(r['wins'] for r in rows)==d['current_regular_season_games']
-          assert sum(r['losses'] for r in rows)==d['current_regular_season_games']
-          print('Confirmed ten NBL ratings, consistent records, and explicit research-only release status')
-          PY
-          echo "Checking approved EPL forecast publication state"
-          curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "$base/data/epl-forecast-publication-status.json" -o /tmp/epl-release-status.json
-          python -c 'import json; s=json.load(open("/tmp/epl-release-status.json")); assert s.get("competition")=="EPL" and isinstance(s.get("published"),bool)'
-          if python -c 'import json,sys;sys.exit(0 if json.load(open("/tmp/epl-release-status.json"))["published"] else 1)'; then
-            curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "$base/data/epl-match-center.json" -o /tmp/newspaper-epl.json
-            python -c 'import json; d=json.load(open("/tmp/newspaper-epl.json")); assert d.get("competition")=="EPL" and len(d.get("fixtures",[]))>0'
-          else
-            echo "EPL forecast withheld by model publication gate; absence is expected, not a deployment failure"
-            status=$(curl --location --silent --output /dev/null --write-out '%{http_code}' "$base/data/epl-match-center.json")
-            test "$status" = "404"
-          fi
-          echo "Checking Tottenham crest URL"
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 2 --retry-all-errors "https://a.espncdn.com/i/teamlogos/soccer/500/367.png" -o /tmp/newspaper-crest.png
-          python -c 'from pathlib import Path; assert Path("/tmp/newspaper-crest.png").read_bytes()[:8]==bytes.fromhex("89504e470d0a1a0a")'
-
