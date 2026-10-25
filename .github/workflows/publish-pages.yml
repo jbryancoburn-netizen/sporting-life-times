@@ -49,6 +49,9 @@ jobs:
           test -s nba-live-feed.js
           test -s nba-live-game.html
           grep -q 'Accessible newspaper links' nba.html
+          grep -q 'edition-design.css?v=contrast2' nba.html
+          grep -q 'NBA contrast contract' nba.html
+          if grep -q 'body.edition-interior .site-nav a:hover,body.edition-interior .site-nav a:focus-visible{color:#242420' edition-design.css; then echo 'FAIL: shared stylesheet forces dark NBA navigation links' >&2; exit 1; fi
           grep -q 'Explicit contrast for every interactive region' nba-live-game.html
           test -s nba-live-game.js
           grep -q 'nba-live-game.js?v=3' nba-live-game.html
