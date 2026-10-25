@@ -1,6 +1,11 @@
 name: NCAA soccer live game-card scores
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/college-soccer-live-gamecards.yml'
+      - 'scripts/publish_college_soccer_live_scores.py'
   schedule:
     - cron: '*/5 * * * *'
 permissions:
