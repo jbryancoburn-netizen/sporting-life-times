@@ -12,7 +12,9 @@ const key=host.dataset.conference;const config={
  'men-d2:gliac':{name:'GLIAC',gender:'MEN',cohort:'men-d2',standings:'data/college-soccer-men-d2-gliac-standings.json',other:'college-soccer-gliac-women.html'},
  'women-d2:gliac':{name:'GLIAC',gender:'WOMEN',cohort:'women-d2',standings:'data/college-soccer-women-d2-gliac-standings.json',other:'college-soccer-gliac-men.html'}
 };
-const cfg=config[key];if(!cfg){root.textContent='This conference desk is not yet available.';return;}
+const [cohortCode,conferenceSlug]=String(key||'').split(':');
+const cfg=config[key]||{name:String(conferenceSlug||'Conference').replaceAll('-',' ').toUpperCase(),gender:cohortCode?.startsWith('women-')?'WOMEN':'MEN',cohort:cohortCode,standings:null};
+if(!cohortCode||!conferenceSlug||!/^(men|women)-d[123]$/.test(cohortCode)){root.textContent='This NCAA conference desk has no verified identity.';return;}
 const E=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==null&&text!==undefined)x.textContent=String(text);if(cls)x.className=cls;return x};
 const A=(label,href)=>{const a=E('a',label);a.href=href;if(/^https:/.test(href)){a.rel='noopener noreferrer';a.target='_blank'}return a};
 const get=async p=>{const r=await fetch(p+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Missing '+p);return r.json()};
@@ -58,7 +60,12 @@ const bracketOdds=(teams,reseed=false)=>{
 let previous='';
 async function render(){
  try{
- const [directory,table,elo,rules,branding]=await Promise.all([get('data/college-soccer-conferences.json'),get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}}))]);
+ const directory=await get('data/college-soccer-conferences.json');
+ const conferenceMeta=directory.conferences?.[key];
+ if(!conferenceMeta?.teams?.length||!conferenceMeta.standings_feed||!conferenceMeta.page)throw Error('Conference membership, standings feed or page not certified');
+ cfg.name=conferenceMeta.short||conferenceMeta.name||cfg.name;
+ cfg.standings=conferenceMeta.standings_feed;
+ const [table,elo,rules,branding]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}}))]);
  const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,elo.as_of,elo.applied_finals_since_baseline,rules.updated]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
