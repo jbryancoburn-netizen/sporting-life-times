@@ -1,5 +1,10 @@
 name: EPL verified results and independent Elo
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_epl_live.py'
+      - '.github/workflows/epl-live.yml'
   workflow_dispatch:
   schedule:
     - cron: '7,22,37,52 * * * *'
