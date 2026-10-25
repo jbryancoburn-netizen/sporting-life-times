@@ -9,7 +9,7 @@ const pct=(w,l)=>w+l?(100*w/(w+l)).toFixed(1)+"%":"—";
 const number=x=>Number.isFinite(Number(x))?Number(x).toFixed(1):"—";
 const conferenceName=c=>({AAC:"American",MWC:"Mountain West",MVC:"Missouri Valley",MAC:"Mid-American",MEAC:"Mid-Eastern Athletic",NEC:"Northeast",OVC:"Ohio Valley",SWAC:"Southwestern Athletic",UAC:"United Athletic Conference",CAA:"Coastal Athletic Association",ASUN:"Atlantic Sun",WCC:"West Coast",SoCon:"Southern"}[c]||c);
 const files={
-  roster:"data/ncaam-2026-27-preseason-roster-informed.json",
+  roster:"data/ncaam-2026-27-preseason-player-quality-live.json",
   current:"data/ncaam-2026-27-current-provisional.json",
   ledger:"data/ncaam-2026-27-game-ledger.json",
   upcoming:"data/ncaam-2026-27-upcoming-forecasts.json",
@@ -48,7 +48,7 @@ const verified=x=>x?.season==="2026-27"&&x.team_count===365&&x.rankings?.length=
  &&x.rankings.every((t,i)=>t.rank===i+1&&Number.isFinite(Number(t.elo)));
 const base=verified(roster)?roster:null;
 const live=verified(current)&&current.games_played>0&&
- current.preseason_baseline==="data/ncaam-2026-27-preseason-roster-informed.json"?current:null;
+ current.preseason_seed==="data/ncaam-2026-27-preseason-player-quality-live.json"?current:null;
 const ratings=live||base;
 if(!ratings){
   byId("desk-state").textContent="Verified NCAA ratings unavailable; no fabricated rankings will be shown.";
@@ -64,7 +64,7 @@ if(modelBox){
  const shadow=candidate.get(t.team_id);
  return '<tr><td>'+t.rank+'</td><td>'+safe(t.team)+'</td><td>'+number(t.base_elo)+'</td><td>'+number(t.elo)+'</td><td>'+(shadow?number(shadow.elo):"—")+'</td></tr>';
  }).join("");
- modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">*Research only, not preseason-certified. Rankings ordered by published roster model, not by shadow candidate.</p>';
+ modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">Published provisional player-quality ratings; historical roster timing is not fully certified.</p>';
  };
  renderModel();
 }
@@ -88,10 +88,10 @@ if(teamSearch){teamSearch.addEventListener("input",searchTeams);searchTeams()}
 const fullSeason=Boolean(live);
 byId("desk-state").textContent=fullSeason?
  "CURRENT SEASON · "+ratings.games_played+" VERIFIED FINALS · ELO UPDATED THROUGH "+safe(ratings.as_of):
- "2026–27 PRESEASON EDITION · 365 INDEPENDENT ELO RATINGS · ROSTER-INFORMED, PROVISIONAL";
+ "2026–27 PRESEASON EDITION · 365 INDEPENDENT ELO RATINGS · PLAYER-QUALITY, PROVISIONAL";
 byId("desk-summary").textContent=fullSeason?
- "Game results, records, Elo and forecasts all come from the same deduplicated NCAA result ledger. No unverified player-quality coefficient.":
- "The season has not started. Showing the roster-informed preseason baseline; records are 0–0 until verified completed games enter the NCAA ledger.";
+ "Game results, records, Elo and forecasts use the same verified final-score ledger and player-quality preseason seed.":
+ "The season has not started. Showing the provisional player-quality preseason Elo; results will update after verified finals.";
 byId("elo-leaders").innerHTML=teams.slice(0,16).map(t=>
  '<div class="cbb-ranking"><span class="cbb-rank">'+t.rank+'</span><strong class="cbb-ranking-name">'+logo(t)+safe(t.team)+'</strong><span class="cbb-muted">'+safe(conferenceName(t.conference))+'</span><b>'+number(t.elo)+'</b></div>').join("");
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort((a,b)=>conferenceName(a).localeCompare(conferenceName(b)));
