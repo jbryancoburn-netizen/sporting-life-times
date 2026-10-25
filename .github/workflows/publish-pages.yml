@@ -53,8 +53,8 @@ jobs:
           grep -q 'NBA contrast contract' nba.html
           grep -q 'body.edition-interior.nba-edition nav.site-nav{background:#262b32!important' edition-design.css
           grep -q 'class="edition-interior nba-edition"' nba.html
-          grep -q 'style="background-color:#262b32!important' nba.html
-          grep -q 'style="color:#ffffff!important;-webkit-text-fill-color:#ffffff!important' nba.html
+          grep -q 'background-color:#ffffff!important' nba.html
+          grep -q 'style="color:#17212b!important;-webkit-text-fill-color:#17212b!important' nba.html
           if grep -q 'body.edition-interior .site-nav a:hover,body.edition-interior .site-nav a:focus-visible{color:#242420' edition-design.css; then echo 'FAIL: shared stylesheet forces dark NBA navigation links' >&2; exit 1; fi
           grep -q 'Explicit contrast for every interactive region' nba-live-game.html
           test -s nba-live-game.js
