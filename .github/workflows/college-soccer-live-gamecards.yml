@@ -24,6 +24,20 @@ jobs:
           python-version: '3.12'
       - name: Fetch six NCAA soccer divisions
         run: python scripts/publish_college_soccer_live_scores.py
+      - name: Verify fresh live-score snapshot and unique match IDs
+        run: |
+          python - <<'PY'
+          import datetime,json
+          from pathlib import Path
+          d=json.loads(Path('data/college-soccer-live-scores.json').read_text())
+          assert d.get('checked_at_utc'), 'NCAA live feed has no successful poll timestamp'
+          age=(datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(d['checked_at_utc'])).total_seconds()
+          assert 0<=age<180, f'NCAA live feed stale immediately after poll: {age}s'
+          keys=[g['match_id'] for g in d['games']]
+          assert len(keys)==len(set(keys)), 'Duplicate NCAA game IDs'
+          assert all(g['status'] in ('live','final') and isinstance(g['home_score'],int) and isinstance(g['away_score'],int) for g in d['games'])
+          print('Fresh NCAA live snapshot verified:',len(keys),'records')
+          PY
       - name: Commit live snapshot only on change
         run: |
           git config user.name "github-actions[bot]"
