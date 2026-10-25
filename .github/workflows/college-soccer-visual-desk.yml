@@ -89,8 +89,8 @@ jobs:
           assert(fs.readFileSync('college-soccer-search.css','utf8').includes('visibility:visible!important'));
           assert(fs.readFileSync('college-soccer-teams.js','utf8').includes("search.addEventListener('input',render)"));
           assert(html.indexOf('id="college-team-finder"') < html.indexOf('id="college-soccer-visual-desk"'),'School search must precede visual matchday desk');
-          assert(html.includes('college-soccer-editorial.js?v=phase3'));
-          assert(html.includes('college-soccer-editorial.css?v=phase4'));
+          assert(html.includes('college-soccer-editorial.js?v=results1'));
+          assert(html.includes('college-soccer-editorial.css?v=results1'));
           assert(!html.includes('id="college-soccer-elo"'));
           assert(!html.includes('id="college-soccer-predictions"'));
           assert(!html.includes('college-soccer-elo.js'));
