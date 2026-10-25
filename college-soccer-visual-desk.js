@@ -9,10 +9,24 @@ let gender='men',division=1,model=null,forecast=null,brand={teams:{}};
 const section=(parent,title,subtitle)=>{const wrap=E('section',null,'cs-visual-section');const hd=E('div',null,'cs-section-title');hd.append(E('h3',title),E('span',subtitle));wrap.append(hd);parent.append(wrap);return wrap;};
 const link=(name,cohort,id)=>{const a=E('a',name);a.href=URL_TEAM(cohort,id);return a;};
 const pct=n=>Math.round(100*Number(n))+'%';
+const logoFor=(cohort,id)=>{
+ const identity=brand.teams?.[cohort+':'+id];
+ if(identity?.logo_url)return identity.logo_url;
+ // NCAA.com itself publishes member-school marks using its canonical school slug.
+ // Only exact safe school identifiers are candidates; failed loads keep the text badge.
+ if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id||'')))return null;
+ return 'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg';
+};
 const club=(name,cohort,id,small=false)=>{
  const wrap=E('span',null,'cs-team');const mark=E('span',null,'cs-mark');const identity=brand.teams?.[cohort+':'+id];
- if(identity?.logo_url){const pic=E('img');pic.src=identity.logo_url;pic.alt='';pic.loading='lazy';pic.addEventListener('error',()=>{pic.remove();mark.textContent=String(name).slice(0,2).toUpperCase();});mark.append(pic);}
- else mark.textContent=String(name).slice(0,2).toUpperCase();
+ mark.textContent=String(name).slice(0,2).toUpperCase();
+ const src=logoFor(cohort,id);
+ if(src){
+  const pic=E('img');pic.src=src;pic.alt='';pic.loading='lazy';pic.decoding='async';
+  pic.addEventListener('load',()=>mark.classList.add('cs-has-logo'));
+  pic.addEventListener('error',()=>pic.remove());
+  mark.append(pic);
+ }
  if(identity?.primary)mark.style.setProperty('--cs-color',identity.primary);
  wrap.append(mark,link(name,cohort,id));return wrap;
 };
@@ -37,7 +51,9 @@ function render(){
   const tile=E('a',null,'cs-score-tile');tile.href=m.source_game||'#college-soccer-elo';if(m.source_game){tile.target='_blank';tile.rel='noopener noreferrer';}
   tile.append(E('small','FINAL · '+date(m.date)));
   for(const [n,score] of [[m.home,scores[1]],[m.away,scores[2]]]){
-   const line=E('div',null,'cs-score-side');const entry=byName.get(n);line.append(E('span',n),E('strong',score));
+   const line=E('div',null,'cs-score-side');const entry=byName.get(n);
+   if(entry?.team_id)line.append(club(n,cohort,entry.team_id));else line.append(E('span',n));
+   line.append(E('strong',score));
    if(entry?.team_id){const identity=brand.teams?.[cohort+':'+entry.team_id];if(identity?.primary)line.style.borderLeftColor=identity.primary;}
    tile.append(line);
   }grid.append(tile);
