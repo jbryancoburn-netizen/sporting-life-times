@@ -5,7 +5,7 @@ const URL_TEAM=(c,id)=>'college-soccer-team.html?team='+encodeURIComponent(c+':'
 const date=d=>{const x=new Date(d),now=new Date();if(isNaN(x))return String(d);const eventDay=String(d).match(/^\d{4}-\d{2}-\d{2}/)?.[0];const localDay=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(eventDay===localDay)return '';return x.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:/^\d{4}-\d{2}-\d{2}$/.test(String(d))?'UTC':undefined});};
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:1});
 const rank=(s)=>({1:'I',2:'II',3:'III'})[s.slice(-1)];
-let gender='men',division=1,model=null,forecast=null,brand={teams:{}},audit=null,index=null;
+let gender='men',division=1,model=null,forecast=null,brand={teams:{}},audit=null,index=null,liveScores={games:[]};
 const section=(parent,title,subtitle)=>{const wrap=E('section',null,'cs-visual-section');const hd=E('div',null,'cs-section-title');hd.append(E('h3',title),E('span',subtitle));wrap.append(hd);parent.append(wrap);return wrap;};
 const link=(name,cohort,id)=>{const a=E('a',name);a.href=URL_TEAM(cohort,id);return a;};
 const pct=n=>Math.round(100*Number(n))+'%';
@@ -32,6 +32,10 @@ const club=(name,cohort,id,small=false)=>{
 };
 const row=(container,title,value,linkUrl)=>{const r=E('div',null,'cs-leader-row');const a=E('a',title);a.href=linkUrl;r.append(a,E('strong',value));container.append(r);};
 const load=async path=>{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' '+r.status);return r.json();};
+async function refreshLiveScores(){
+ try{const d=await load('data/college-soccer-live-scores.json');if(!Array.isArray(d.games))throw Error('invalid live scoreboard');liveScores=d;render();}
+ catch(err){console.warn('NCAA live score snapshot unavailable',err);}
+}
 function render(){
  const cohort=gender+'-d'+division,teams=model.cohorts[cohort];if(!Array.isArray(teams)||!teams.length)return;
  host.replaceChildren();
@@ -65,7 +69,12 @@ function render(){
  for(const g of matchday){
  const item=E('article',null,'cs-fixture cs-matchday-rich');
  const time=new Date(g.kickoff_utc).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
- item.append(E('small',time+' ET · '+(finalIds.has(g.match_id)?'VERIFIED FINAL AVAILABLE':'SCHEDULED / RESULT NOT VERIFIED')));
+ const score=liveScores.games?.find(x=>x.match_id===g.match_id&&x.cohort===cohort);
+ const stamp=liveScores.checked_at_utc?Date.parse(liveScores.checked_at_utc):NaN;
+ const fresh=Number.isFinite(stamp)&&Date.now()-stamp<20*60*1000;
+ const show=score&&(score.status==='final'||(score.status==='live'&&fresh));
+ item.append(E('small',time+' ET · '+(show?(score.status==='final'?'FINAL':'LIVE'+(score.period?' · '+score.period:'')):(finalIds.has(g.match_id)?'VERIFIED FINAL':'RESULT NOT VERIFIED'))));
+ if(show){const line=E('div',null,'cs-live-score-line');line.append(E('strong',(g.away_name||g.away_team)+' '+score.away_score+' — '+score.home_score+' '+(g.home_name||g.home_team)));item.append(line);if(score.status==='live')item.classList.add('cs-game-is-live');}
  const teamsLine=E('div',null,'cs-fixture-teams');
  teamsLine.append(club(g.away_name||g.away_team,cohort,g.away_team),E('span','AT'),club(g.home_name||g.home_team,cohort,g.home_team));item.append(teamsLine);
  if([g.p_home,g.p_draw,g.p_away].every(v=>Number.isFinite(Number(v)))){
@@ -137,5 +146,5 @@ function render(){
  for(const t of def)row(defenses,t.team,(t.ga/t.gp).toFixed(2)+' GA/GP',URL_TEAM(cohort,t.team_id));
  const foot=E('p','Source cutoffs: USRS '+String(model.as_of||'unknown')+' · forecasts '+String(forecast.published_at||'unknown')+'. Elo movement needs prior certified rating snapshots; it is deliberately not inferred from ranks or scores.','cs-note');host.append(foot);
 }
-(async()=>{try{const [a,b,c,d,e]=await Promise.allSettled([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json'),load('data/college-soccer-team-branding.json'),load('data/college-soccer-elo-live-audit.json'),load('data/college-soccer-team-game-index.json')]);if(a.status!=='fulfilled'||b.status!=='fulfilled')throw Error('Required ratings or forecast feed missing');model=a.value;forecast=b.value;if(c.status==='fulfilled')brand=c.value;if(d.status==='fulfilled')audit=d.value;if(e.status==='fulfilled')index=e.value;if(!model?.cohorts||!Array.isArray(forecast?.forecasts))throw Error('Invalid schema');render();}catch(e){host.replaceChildren(E('p','NCAA visual dashboard unavailable: required published ratings or forecasts could not be loaded.','cs-note'));console.error('College soccer visual desk',e);}})();
+(async()=>{try{const [a,b,c,d,e]=await Promise.allSettled([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json'),load('data/college-soccer-team-branding.json'),load('data/college-soccer-elo-live-audit.json'),load('data/college-soccer-team-game-index.json')]);if(a.status!=='fulfilled'||b.status!=='fulfilled')throw Error('Required ratings or forecast feed missing');model=a.value;forecast=b.value;if(c.status==='fulfilled')brand=c.value;if(d.status==='fulfilled')audit=d.value;if(e.status==='fulfilled')index=e.value;if(!model?.cohorts||!Array.isArray(forecast?.forecasts))throw Error('Invalid schema');render();refreshLiveScores();setInterval(()=>{if(document.visibilityState==='visible')refreshLiveScores()},60000);}catch(e){host.replaceChildren(E('p','NCAA visual dashboard unavailable: required published ratings or forecasts could not be loaded.','cs-note'));console.error('College soccer visual desk',e);}})();
 })();
