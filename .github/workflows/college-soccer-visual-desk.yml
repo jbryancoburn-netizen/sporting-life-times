@@ -32,6 +32,10 @@ on:
       - 'college-soccer-big-ten-women.html'
       - 'college-soccer-miac-women.html'
       - 'college-soccer-cciw-women.html'
+      - 'college-soccer-gliac-men.html'
+      - 'college-soccer-gliac-women.html'
+      - 'data/college-soccer-men-d2-gliac-standings.json'
+      - 'data/college-soccer-women-d2-gliac-standings.json'
       - 'data/college-soccer-men-d1-big-ten-standings.json'
       - 'data/college-soccer-women-d1-big-ten-standings.json'
       - 'data/college-soccer-women-d3-miac-standings.json'
@@ -170,14 +174,16 @@ jobs:
             'college-soccer-big-ten-men.html':'men-d1:big-ten',
             'college-soccer-big-ten-women.html':'women-d1:big-ten',
             'college-soccer-miac-women.html':'women-d3:miac',
-            'college-soccer-cciw-women.html':'women-d3:cciw'
+            'college-soccer-cciw-women.html':'women-d3:cciw',
+            'college-soccer-gliac-men.html':'men-d2:gliac',
+            'college-soccer-gliac-women.html':'women-d2:gliac'
           };
           for(const [page,conference] of Object.entries(dedicated)){
             const pageHtml=fs.readFileSync(page,'utf8');
             assert(pageHtml.includes('data-conference="'+conference+'"'),'Conference mismatch in '+page);
-            assert(pageHtml.includes('college-soccer-conference-page.js?v=2'));
+            assert(pageHtml.includes('college-soccer-conference-page.js?v=3'));
             assert(pageHtml.includes('college-soccer-cup-ui.js?v=3'));
-            assert(pageHtml.includes('college-soccer-conference-page.css?v=1'));
+            assert(pageHtml.includes('college-soccer-conference-page.css?v=2'));
             assert(directory.includes(page),'Directory link missing '+page);
           }
           const conferenceData=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
@@ -199,6 +205,8 @@ jobs:
           assert.equal(postseasonRules.conferences['women-d1:big-ten'].tournament.field,8);
           assert.equal(postseasonRules.conferences['women-d3:miac'].tournament.reseed,true);
           assert.equal(postseasonRules.conferences['women-d3:cciw'].tournament.field,null);
+          assert.equal(postseasonRules.conferences['men-d2:gliac'].tournament.field,null);
+          assert.equal(postseasonRules.conferences['women-d2:gliac'].tournament.field,null);
                     const confJs=fs.readFileSync('college-soccer-conference-page.js','utf8');
           assert(confJs.includes('cup.bracket(')||confJs.includes('cup.bracketEight'));
           assert(confJs.includes('cup.decorateTable('));
@@ -206,6 +214,7 @@ jobs:
           assert(confJs.includes('bracketOdds('));
           assert(confJs.includes('bracketEight'));
           assert(confJs.includes("'N/A'"));
+          assert(confJs.includes('cs-conf-unverified-bracket'));
 
 
           assert.equal(women.rows.length,9);
