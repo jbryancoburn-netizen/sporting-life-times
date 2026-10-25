@@ -1,0 +1,54 @@
+name: Refresh CCIW Soccer Standings
+on:
+  schedule:
+    - cron: '19,49 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_college_soccer_cciw_standings.py'
+      - 'scripts/test_college_soccer_cciw_standings.py'
+      - '.github/workflows/college-soccer-cciw-standings.yml'
+permissions:
+  contents: write
+concurrency:
+  group: update-cciw-official-standings
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install official table parser
+        run: python -m pip install beautifulsoup4
+      - name: Test CCIW table integrity and fail-closed behavior
+        run: python -m unittest discover -s scripts -p test_college_soccer_cciw_standings.py -v
+      - name: Collect complete official nine-school standings
+        run: python scripts/update_college_soccer_cciw_standings.py
+      - name: Confirm integrity before publication
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/college-soccer-cciw-standings.json').read_text())
+          assert len(d['rows'])==9
+          assert len({r['team_id'] for r in d['rows']})==9
+          assert all(r['conference_points']>=0 for r in d['rows'])
+          print('CCIW complete official table PASS')
+          PY
+      - name: Publish only verified changes
+        run: |
+          if git diff --quiet -- data/college-soccer-cciw-standings.json; then
+            echo "No new CCIW standings to publish"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-cciw-standings.json
+          git commit -m "Refresh official CCIW men's soccer standings"
+          git pull --rebase origin main
+          git push origin HEAD:main
