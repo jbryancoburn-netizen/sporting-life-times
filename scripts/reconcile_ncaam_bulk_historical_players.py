@@ -7,7 +7,7 @@ Exclude navigation labels and flag suspicious staffs/overlarge rosters.
 import json,re,collections
 from pathlib import Path
 ROOT=Path("data/ncaam-historical-roster-extraction")
-BAD=re.compile(r"(?i)^(jersey number|full|view|roster|bio|staff|coach|print|schedule|stats|number|home|next|previous)\b")
+BAD=re.compile(r"(?i)^(jersey number|full|view|roster|bio|staff|coach|head coach|assistant coach|associate head coach|director|manager|operations|strength coach|print|schedule|stats|number|home|next|previous)\b")
 def clean(name):
     name=" ".join(str(name).split())
     if len(name.split())<2 or len(name.split())>5 or len(name)>85 or BAD.search(name):
