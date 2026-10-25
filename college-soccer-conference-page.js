@@ -8,7 +8,9 @@ const key=host.dataset.conference;const config={
  'men-d1:big-ten':{name:'Big Ten',gender:'MEN',cohort:'men-d1',standings:'data/college-soccer-men-d1-big-ten-standings.json',other:'college-soccer-big-ten-women.html'},
  'women-d1:big-ten':{name:'Big Ten',gender:'WOMEN',cohort:'women-d1',standings:'data/college-soccer-women-d1-big-ten-standings.json',other:'college-soccer-big-ten-men.html'},
  'women-d3:miac':{name:'MIAC',gender:'WOMEN',cohort:'women-d3',standings:'data/college-soccer-women-d3-miac-standings.json'},
- 'women-d3:cciw':{name:'CCIW',gender:'WOMEN',cohort:'women-d3',standings:'data/college-soccer-women-d3-cciw-standings.json'}
+ 'women-d3:cciw':{name:'CCIW',gender:'WOMEN',cohort:'women-d3',standings:'data/college-soccer-women-d3-cciw-standings.json'},
+ 'men-d2:gliac':{name:'GLIAC',gender:'MEN',cohort:'men-d2',standings:'data/college-soccer-men-d2-gliac-standings.json',other:'college-soccer-gliac-women.html'},
+ 'women-d2:gliac':{name:'GLIAC',gender:'WOMEN',cohort:'women-d2',standings:'data/college-soccer-women-d2-gliac-standings.json',other:'college-soccer-gliac-men.html'}
 };
 const cfg=config[key];if(!cfg){root.textContent='This conference desk is not yet available.';return;}
 const E=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==null&&text!==undefined)x.textContent=String(text);if(cls)x.className=cls;return x};
@@ -68,7 +70,7 @@ async function render(){
  
  root.replaceChildren();
  const hero=E('header',null,'cs-conference-hero');
- const kicker=E('span',cfg.gender+' · NCAA DIVISION '+(cfg.cohort.endsWith('d1')?'I':'III')+' · 2026','cs-conference-kicker');
+ const kicker=E('span',cfg.gender+' · NCAA DIVISION '+(cfg.cohort.endsWith('d1')?'I':cfg.cohort.endsWith('d2')?'II':'III')+' · 2026','cs-conference-kicker');
  hero.append(kicker,E('h1',cfg.name+' SOCCER','cs-conference-title'),E('p','The conference race, independent Elo ratings and the road to the NCAA championship.','cs-conference-deck'));root.append(hero);
  const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('TOURNAMENT BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
  const info=E('div',null,'cs-conference-stamp');info.append(E('span','Official standings snapshot: '+(table.checked_at_utc||table.snapshot_checked_date||'date unavailable')),E('span','Independent Elo edition: '+String(elo.as_of||'unknown')));root.append(info);
@@ -87,7 +89,20 @@ async function render(){
  }else modelSection.append(E('p','Title probabilities withheld: tournament format or a required Elo rating is unverified.','cs-conf-caption'));
  modelSection.append(E('p','Independent experimental Elo model with higher-seed home advantage, decisive matchups, and conference reseeding when required. Provisional seeds. Not calibrated title odds.','cs-conf-caption'));
  const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2','THE ROAD TO THE TITLE'));
- if(cup&&(field===6||field===8)){const visual=field===8?cup.bracketEight:cup.bracket;visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}root.append(bracket);
+ if(cup&&(field===6||field===8)){const visual=field===8?cup.bracketEight:cup.bracket;visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
+  const note=E('div',null,'cs-conf-unverified-bracket');
+  note.append(E('strong','TOURNAMENT BRACKET PENDING OFFICIAL RULES'));
+  const strip=E('div',null,'cs-conf-qualifier-strip');
+  teams.slice(0,Math.min(8,teams.length)).forEach((team,i)=>{
+    const tile=E('div',null,'cs-conf-qualifier');
+    tile.append(E('span','TABLE POSITION '+(i+1)));
+    if(cup)tile.append(cup.school(team.name,team.id,cfg.cohort,branding,i+1));
+    else tile.append(E('strong',team.name));
+    strip.append(tile);
+  });
+  note.append(strip,E('p','Official conference order shown for context. These are NOT a confirmed playoff field or predicted bracket.','cs-conf-caption'));
+  bracket.append(note);
+ }root.append(bracket);
  const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','TOURNAMENT RULES & SOURCES'));
  rulesSection.append(E('p','Field: '+(rule.tournament?.field||'unverified')+' provisional entrants. '+(rule.tournament?.status||'')+' '+(rule.projection_warning||'')));
  if(rule.tournament?.automatic_qualifier)rulesSection.append(E('p',rule.tournament.automatic_qualifier));
