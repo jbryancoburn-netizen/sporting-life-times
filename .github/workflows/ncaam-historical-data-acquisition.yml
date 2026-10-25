@@ -20,6 +20,7 @@ on:
       - 'scripts/audit_ncaam_adjustment_size_buckets.py'
       - 'scripts/audit_ncaam_stat_coverage_timing.py'
       - 'scripts/audit_ncaam_stat_player_match_coverage.py'
+      - 'scripts/backtest_ncaam_coverage_shrinkage.py'
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
       - 'scripts/build_ncaam_2027_quality_shadow.py'
       - 'scripts/recover_ncaam_prior_player_stats_by_id.py'
@@ -232,6 +233,15 @@ jobs:
           assert d['production_promotion_allowed'] is False
           assert all(d['years'][str(y)]['teams']>250 for y in (2024,2025,2026))
           PY
+      - name: Test coverage-aware player-stat shrinkage against no shrinkage
+        run: |
+          python scripts/backtest_ncaam_coverage_shrinkage.py --source historical-normalized --out historical-report/ncaam-coverage-shrinkage.json
+          python - <<'PY'
+          import json
+          x=json.load(open('historical-report/ncaam-coverage-shrinkage.json'))
+          assert len(x['trials'])==5 and not x['production_promotion_allowed']
+          assert all(r['validation_2025']['games']==x['unshrunk_validation_2025']['games'] for r in x['trials'])
+          PY
       - name: Run real NCAA historical player-quality backtest
         run: |
           python scripts/backtest_ncaam_quality_retrospective.py \
@@ -326,6 +336,9 @@ jobs:
           PY
           fi
           cp historical-report/ncaam-historical-acquisition.json data/ncaam-historical-acquisition-status.json
+          if [ -s historical-report/ncaam-coverage-shrinkage.json ]; then
+            cp historical-report/ncaam-coverage-shrinkage.json data/ncaam-coverage-shrinkage.json
+          fi
           if [ -s historical-report/ncaam-stat-player-match-audit.json ]; then
             cp historical-report/ncaam-stat-player-match-audit.json data/ncaam-stat-player-match-audit.json
           fi
@@ -397,7 +410,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
-          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json; do
+          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json data/ncaam-coverage-shrinkage.json; do
             if [ -f "$file" ]; then git add "$file"; fi
           done
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
@@ -405,7 +418,7 @@ jobs:
           # concurrently published acquisitions. Re-apply our complete files
           # on the latest branch rather than merging two partial JSON reports.
           mkdir -p /tmp/ncaam-acquisition-publish
-          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json; do
+          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json data/ncaam-coverage-shrinkage.json; do
             if [ -f "$file" ]; then cp "$file" /tmp/ncaam-acquisition-publish/; fi
           done
           for attempt in 1 2 3 4 5; do
@@ -426,6 +439,7 @@ jobs:
             if [ -f data/ncaam-continuous-size-buckets.json ]; then git add data/ncaam-continuous-size-buckets.json; fi
             if [ -f data/ncaam-stat-adjustment-coverage-timing.json ]; then git add data/ncaam-stat-adjustment-coverage-timing.json; fi
             if [ -f data/ncaam-stat-player-match-audit.json ]; then git add data/ncaam-stat-player-match-audit.json; fi
+            if [ -f data/ncaam-coverage-shrinkage.json ]; then git add data/ncaam-coverage-shrinkage.json; fi
             for file in data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
               if [ -f "$file" ]; then git add "$file"; fi
             done
