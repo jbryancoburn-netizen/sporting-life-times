@@ -79,7 +79,7 @@ try {
  if(shadow?.evidence?.roster_programs>=350)available.shadow=shadow;
  if(current?.games_played>0 && current.preseason_seed==='data/ncaam-2026-27-preseason-player-quality-live.json')available.current=current;
  const defaults=available.current?'current':available.roster?'roster':'baseline';
- const labels={current:'Current season Elo',roster:'Player-quality preseason Elo (provisional)',quality:'Player scoring quality (experimental · not certified)',shadow:'Previous experimental roster model',baseline:'Historical carryover baseline'};
+ const labels={current:'Current season Elo',roster:'2026–27 Preseason Elo · Player Quality',quality:'Player scoring quality (experimental · not certified)',shadow:'Previous experimental roster model',baseline:'Historical carryover baseline'};
  for(const choice of ['current','roster','quality','shadow','baseline']){
   if(!available[choice])continue;
   const option=document.createElement('option');option.value=choice;option.textContent=labels[choice];
@@ -132,8 +132,8 @@ try {
   const c=conference.value;
   const rows=data.rankings.filter(r=>(!q||r.team.toLowerCase().includes(q))&&(!c||r.conference===c));
   if(choice==='roster'){
-   status.textContent='2026–27 player-quality preseason Elo · '+data.team_count+' teams · provisional';
-   note.textContent='Provisional player-quality model selected after improvement on 1,831 identical historical games. '+data.evidence.players_with_verified_historical_minutes+' verified player histories contributed; unverified players receive no invented production. Historical opening-day roster timing remains a limitation.';
+   status.textContent='2026–27 Preseason Elo · '+data.team_count+' teams';
+   note.textContent='Selected player-quality model after improvement on 1,831 identical historical games. '+data.evidence.players_with_verified_historical_minutes+' verified player histories contributed; unverified players receive no invented production. Historical opening-day roster timing remains a limitation.';
    referenceHeading.textContent='Roster adjustment';
   }else if(choice==='quality'){
    status.textContent='EXPERIMENTAL RESEARCH · 2026–27 player-scoring Elo · '+data.team_count+' teams';
