@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/nba-elo-refresh.yml'
       - 'scripts/update-nba-elo.mjs'
+      - 'scripts/audit-nba-elo.mjs'
       - 'scripts/audit-nba-boxscore-elo.mjs'
   schedule:
     - cron: '*/5 * * * *'
