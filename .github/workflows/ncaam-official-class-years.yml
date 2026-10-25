@@ -1,0 +1,26 @@
+name: NCAA official university class years
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_official_class_years.py'
+      - 'data/ncaam-2026-27-school-roster-class-years.csv'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - '.github/workflows/ncaam-official-class-years.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/build_ncaam_official_class_years.py --out /tmp/ncaam-official-class-years.json
+      - run: python -c "import json; r=json.load(open('/tmp/ncaam-official-class-years.json')); assert r['players_targeted']==2014 and not r['rejected_input_rows'] and r['counts'].get('freshman',0)==8 and not r['publication_elo_changed']"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-official-class-years
+          path: /tmp/ncaam-official-class-years.json
