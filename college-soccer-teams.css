@@ -126,3 +126,27 @@
 @media(max-width:630px){#college-team-profile .team-visual-grid{grid-template-columns:1fr}#college-team-profile .team-visual-panel:last-child{grid-column:auto}#college-team-profile .team-results-donut{width:112px;height:112px}}
 
 #college-team-profile .team-match-logo{width:54px;height:54px;max-width:100%;object-fit:contain;object-position:left center;margin-bottom:.45rem;filter:drop-shadow(0 2px 2px #0002)}#college-team-profile .team-hero.team-has-logo{background-image:linear-gradient(120deg,var(--team-primary),color-mix(in srgb,var(--team-primary) 78%,white))}#college-team-profile .team-visual-report .team-visual-panel{box-shadow:0 1px 2px #172a3b09}@media(max-width:560px){#college-team-profile .team-match-logo{width:39px;height:39px}}
+
+/* Chronological program form, based exclusively on verified scorelines. */
+#college-team-profile .team-panel-graphics{background:linear-gradient(180deg,#f7f8f8,#fff);padding:.8rem .85rem 1rem;border:1px solid #e0e6e8;border-top:3px solid var(--team-primary,#203d54)}
+#college-team-profile .team-result-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(31px,1fr));gap:4px;margin:.75rem 0 .45rem}
+#college-team-profile .team-timeline-match{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:55px;padding:.25rem 0;color:#fff;border-radius:2px;cursor:help}
+#college-team-profile .team-timeline-w{background:#347854}
+#college-team-profile .team-timeline-d{background:#b18c41}
+#college-team-profile .team-timeline-l{background:#a9504d}
+#college-team-profile .team-timeline-number{font:600 .59rem Arial,sans-serif;opacity:.78}
+#college-team-profile .team-timeline-match strong{font:800 .82rem Arial,sans-serif}
+#college-team-profile .team-timeline-match:hover{filter:brightness(1.16)}
+#college-team-profile .team-splits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:.9rem}
+#college-team-profile .team-split-card{background:white;padding:.85rem;border:1px solid #dde3e6;min-width:0}
+#college-team-profile .team-split-title{display:block;font:700 .67rem Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#516676}
+#college-team-profile .team-split-record{display:block;margin:.45rem 0;font:700 clamp(1.2rem,2.5vw,1.8rem) Georgia,serif;color:#162b3e;font-variant-numeric:tabular-nums}
+#college-team-profile .team-split-stack{display:flex;width:100%;height:13px;background:#e1e5e7;overflow:hidden}
+#college-team-profile .team-split-win{background:#347854}
+#college-team-profile .team-split-draw{background:#b18c41}
+#college-team-profile .team-split-loss{background:#a9504d}
+#college-team-profile .team-split-card small{display:block;margin-top:.5rem;color:#697784;font-size:.69rem}
+#college-team-profile .team-hero{isolation:isolate}
+#college-team-profile .team-hero-logo-bg{position:absolute;right:0;top:-5%;height:110%;width:38%;object-fit:contain;object-position:center;opacity:.10;pointer-events:none;z-index:0;filter:grayscale(1) brightness(3)}
+#college-team-profile .team-identity,#college-team-profile .team-hero-actions,#college-team-profile .team-eyebrow{position:relative;z-index:1}
+@media(max-width:600px){#college-team-profile .team-result-timeline{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}#college-team-profile .team-timeline-match{min-height:45px}#college-team-profile .team-splits{gap:.45rem}#college-team-profile .team-split-card{padding:.65rem}#college-team-profile .team-hero-logo-bg{width:55%;opacity:.06}}
