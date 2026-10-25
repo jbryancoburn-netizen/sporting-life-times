@@ -207,6 +207,31 @@
       "page": "college-soccer-gliac-women.html",
       "standings_feed": "data/college-soccer-women-d2-gliac-standings.json",
       "verification_status": "mapped_verified"
+    },
+    "men-d1:acc": {
+      "name": "Atlantic Coast Conference",
+      "short": "ACC",
+      "teams": [
+        "smu",
+        "clemson",
+        "wake-forest",
+        "pittsburgh",
+        "north-carolina",
+        "louisville",
+        "virginia-tech",
+        "virginia",
+        "notre-dame",
+        "stanford",
+        "north-carolina-st",
+        "syracuse",
+        "california",
+        "duke",
+        "boston-college"
+      ],
+      "source_url": "https://theacc.com/standings.aspx?path=msoc",
+      "page": "college-soccer-acc-men.html",
+      "standings_feed": "data/college-soccer-men-d1-acc-standings.json",
+      "verification_status": "mapped_verified"
     }
   },
   "team_to_conference": {
@@ -313,6 +338,21 @@
     "women-d2:purdue-northwest": "women-d2:gliac",
     "women-d2:michigan-tech": "women-d2:gliac",
     "women-d2:roosevelt-university": "women-d2:gliac",
-    "women-d1:southern-california": "women-d1:big-ten"
+    "women-d1:southern-california": "women-d1:big-ten",
+    "men-d1:smu": "men-d1:acc",
+    "men-d1:clemson": "men-d1:acc",
+    "men-d1:wake-forest": "men-d1:acc",
+    "men-d1:pittsburgh": "men-d1:acc",
+    "men-d1:north-carolina": "men-d1:acc",
+    "men-d1:louisville": "men-d1:acc",
+    "men-d1:virginia-tech": "men-d1:acc",
+    "men-d1:virginia": "men-d1:acc",
+    "men-d1:notre-dame": "men-d1:acc",
+    "men-d1:stanford": "men-d1:acc",
+    "men-d1:north-carolina-st": "men-d1:acc",
+    "men-d1:syracuse": "men-d1:acc",
+    "men-d1:california": "men-d1:acc",
+    "men-d1:duke": "men-d1:acc",
+    "men-d1:boston-college": "men-d1:acc"
   }
 }
