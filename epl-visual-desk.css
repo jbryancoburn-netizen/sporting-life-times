@@ -69,3 +69,13 @@
 #epl-visual-desk .epl-data-mast{flex-wrap:wrap;row-gap:4px}
 #epl-visual-desk .epl-standings .epl-team{display:inline-flex;max-width:100%;min-width:0}
 @media(max-width:520px){#epl-visual-desk .epl-forecast-teams{gap:4px}#epl-visual-desk .epl-forecast-teams .epl-team{font-size:10px}#epl-visual-desk .epl-data-mast{font-size:10px}}
+
+/* Full verified EPL results archive: clean, responsive newspaper rows. */
+#epl-season-archive .epl-archive-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;max-height:490px;overflow:auto;border-top:1px solid #a9a49a}
+#epl-season-archive .epl-archive-row{display:grid;grid-template-columns:48px minmax(0,1fr) 42px minmax(0,1fr);align-items:center;gap:7px;padding:9px 3px;border-bottom:1px solid #d7d3ca;color:inherit;text-decoration:none;min-width:0}
+#epl-season-archive .epl-archive-row time{font:700 10px Arial,sans-serif;color:#786f60}
+#epl-season-archive .epl-archive-row strong{text-align:center;font:800 17px Arial,sans-serif;white-space:nowrap}
+#epl-season-archive .epl-archive-club{font:600 11px/1.25 Arial,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#epl-season-archive .epl-archive-row small{grid-column:2 / 5;font:italic 10px Georgia,serif;color:#777166}
+#epl-season-archive .epl-archive-row:hover,#epl-season-archive .epl-archive-row:focus{background:#eae6dc}
+@media(max-width:700px){#epl-season-archive .epl-archive-list{grid-template-columns:1fr;max-height:520px}}
