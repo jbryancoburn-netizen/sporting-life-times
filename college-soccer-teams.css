@@ -124,3 +124,5 @@
 #college-team-profile .team-visual-footnote{font:.66rem/1.45 Arial,sans-serif;color:#6d7d89;margin:.7rem 0 0}
 @media(max-width:1100px){#college-team-profile .team-visual-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#college-team-profile .team-visual-panel:last-child{grid-column:1/-1}}
 @media(max-width:630px){#college-team-profile .team-visual-grid{grid-template-columns:1fr}#college-team-profile .team-visual-panel:last-child{grid-column:auto}#college-team-profile .team-results-donut{width:112px;height:112px}}
+
+#college-team-profile .team-match-logo{width:54px;height:54px;max-width:100%;object-fit:contain;object-position:left center;margin-bottom:.45rem;filter:drop-shadow(0 2px 2px #0002)}#college-team-profile .team-hero.team-has-logo{background-image:linear-gradient(120deg,var(--team-primary),color-mix(in srgb,var(--team-primary) 78%,white))}#college-team-profile .team-visual-report .team-visual-panel{box-shadow:0 1px 2px #172a3b09}@media(max-width:560px){#college-team-profile .team-match-logo{width:39px;height:39px}}
