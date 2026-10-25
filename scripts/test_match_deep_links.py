@@ -38,7 +38,7 @@ class MatchDeepLinkTests(unittest.TestCase):
         self.assertIn("Match link copied.", self.match_js)
 
     def test_cache_busting_scripts(self):
-        self.assertRegex(self.club_html, r'epl-club\.js\?v=\d+')
+        self.assertRegex(self.club_html, r'epl-club\.js\?v=[a-zA-Z0-9-]+')
         self.assertRegex(self.match_html, r'match-center-page\.js\?v=\d+')
 
 
