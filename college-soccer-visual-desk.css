@@ -84,3 +84,6 @@
 .cs-data-freshness small{flex-basis:100%;font:italic .64rem/1.4 Georgia,serif;color:#78858c}
 .cs-data-freshness.cs-fresh-warn{border-left:3px solid #a56d3c;background:#f9f4eb}
 .cs-data-freshness.cs-fresh-warn strong{color:#9b552f}
+
+/* Match cards: remove decorative vertical strokes beside team names. */
+#college-soccer-visual-desk .cs-score-side{border-left:0!important;padding-left:0!important}
