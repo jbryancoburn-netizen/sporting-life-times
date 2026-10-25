@@ -1,0 +1,127 @@
+{
+  "model": "ncaam-coverage-dependent-player-stat-shrinkage-v1",
+  "selection_year": 2024,
+  "previously_inspected_validation_year": 2025,
+  "reused_diagnostic_year": 2026,
+  "selected_strength": 0.25,
+  "selected_validation_2025": {
+    "games": 5674,
+    "log_loss": 0.5650617352794021,
+    "brier": 0.19321755379947148
+  },
+  "unshrunk_validation_2025": {
+    "games": 5674,
+    "log_loss": 0.5649147373198922,
+    "brier": 0.19318488500505065
+  },
+  "selected_reused_2026": {
+    "games": 5750,
+    "log_loss": 0.5671424597343421,
+    "brier": 0.194632722791878
+  },
+  "unshrunk_reused_2026": {
+    "games": 5750,
+    "log_loss": 0.5671573610424832,
+    "brier": 0.1946645341153099
+  },
+  "method": "coefficient_multiplier 1/(1+strength*(1-matched_roster_fraction))",
+  "roster_asof_certified": false,
+  "production_promotion_allowed": false,
+  "limitations": [
+    "Unique name matching is not verified athlete ID",
+    "Historical roster membership is retrospectively assembled",
+    "2025 and 2026 previously inspected; model terms other than strength previously calibrated"
+  ],
+  "trials": [
+    {
+      "strength": 0.0,
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5875431067686155,
+        "brier": 0.20201576921424697
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5649147373198922,
+        "brier": 0.19318488500505065
+      },
+      "reused_2026": {
+        "games": 5750,
+        "log_loss": 0.5671573610424832,
+        "brier": 0.1946645341153099
+      }
+    },
+    {
+      "strength": 0.25,
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5875178154446621,
+        "brier": 0.20199218012874412
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5650617352794021,
+        "brier": 0.19321755379947148
+      },
+      "reused_2026": {
+        "games": 5750,
+        "log_loss": 0.5671424597343421,
+        "brier": 0.194632722791878
+      }
+    },
+    {
+      "strength": 0.5,
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.5875312389256033,
+        "brier": 0.2019877307408788
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5652190802768602,
+        "brier": 0.193259510414378
+      },
+      "reused_2026": {
+        "games": 5750,
+        "log_loss": 0.5671686701907563,
+        "brier": 0.19462120248325088
+      }
+    },
+    {
+      "strength": 1.0,
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.587607740110613,
+        "brier": 0.20200494373118388
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.5655239526217014,
+        "brier": 0.19334969497657153
+      },
+      "reused_2026": {
+        "games": 5750,
+        "log_loss": 0.5672709120355828,
+        "brier": 0.19462708494735595
+      }
+    },
+    {
+      "strength": 2.0,
+      "train_2024": {
+        "games": 5611,
+        "log_loss": 0.587803521738326,
+        "brier": 0.20206853103469063
+      },
+      "validation_2025": {
+        "games": 5674,
+        "log_loss": 0.566032394556933,
+        "brier": 0.19351255355127117
+      },
+      "reused_2026": {
+        "games": 5750,
+        "log_loss": 0.5675075718666689,
+        "brier": 0.1946747209795805
+      }
+    }
+  ]
+}
