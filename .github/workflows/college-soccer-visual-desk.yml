@@ -9,6 +9,9 @@ on:
       - 'college-soccer-search.css'
       - 'college-soccer-editorial.js'
       - 'college-soccer-editorial.css'
+      - 'college-soccer-match.html'
+      - 'college-soccer-match.js'
+      - 'college-soccer-match.css'
       - 'data/college-soccer-elo.json'
       - 'data/college-soccer-prospective-v2.json'
       - '.github/workflows/college-soccer-visual-desk.yml'
@@ -29,6 +32,7 @@ jobs:
         run: |
           node --check college-soccer-visual-desk.js
           node --check college-soccer-editorial.js
+          node --check college-soccer-match.js
       - name: Audit real data and published page
         run: |
           node <<'NODE'
@@ -52,9 +56,18 @@ jobs:
           assert(!html.includes('college-soccer-predictions.js'));
           assert(fs.readFileSync('college-soccer-visual-desk.js','utf8').includes('www.ncaa.com/sites/default/files/images/logos/schools/bgl/'));
           assert(fs.readFileSync('college-soccer-visual-desk.js','utf8').includes('cs-score-tile'));
-          assert(html.includes('college-soccer-visual-desk.js?v=phase4'));
+          assert(html.includes('college-soccer-visual-desk.js?v=match1'));
           assert(html.includes('college-soccer-visual-desk.css?v=phase5'));
-          const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
+          const matchPage=fs.readFileSync('college-soccer-match.html','utf8');
+          const deskJs=fs.readFileSync('college-soccer-visual-desk.js','utf8');
+          assert(matchPage.includes('id="cs-match-view"'));
+          assert(matchPage.includes('college-soccer-match.js?v=2'));
+          assert(deskJs.includes("college-soccer-match.html?game="),'Result rail and forecasts must link to match center');
+          assert(deskJs.includes("tile.href='college-soccer-match.html?game="),'Recent finals must open details');
+          const matchJs=fs.readFileSync('college-soccer-match.js','utf8');
+          assert(matchJs.includes("data/college-soccer-elo-final-ledger.json"));
+          assert(matchJs.includes("data/college-soccer-prospective-v2.json"));
+                    const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
           const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
           for(const sex of ['men','women'])for(const division of [1,2,3]){
             const cohort=sex+'-d'+division, teams=elo.cohorts[cohort];
@@ -66,7 +79,15 @@ jobs:
           for(const game of elo.latest_finals){
             assert(game.match_id && game.cohort && game.source_game && /^\\d+[-–]\\d+$/.test(game.score));
           }
-          assert(Array.isArray(forecast.forecasts));
+          const ledger=JSON.parse(fs.readFileSync('data/college-soccer-elo-final-ledger.json','utf8'));
+          assert(Array.isArray(ledger.results));
+          assert.equal(new Set(ledger.results.map(g=>g.match_id)).size,ledger.results.length);
+          for(const g of ledger.results){
+            assert(g.match_id && g.source_game && Number.isInteger(g.home_goals) && Number.isInteger(g.away_goals));
+            const candidates=Object.entries(elo.cohorts).filter(([k,rows])=>k.startsWith(g.gender+'-') && rows.some(t=>t.team_id===g.home_team) && rows.some(t=>t.team_id===g.away_team));
+            assert(candidates.length>0,'Cannot resolve both teams for '+g.match_id);
+          }
+                    assert(Array.isArray(forecast.forecasts));
           for(const g of forecast.forecasts){
             assert(g.match_id && g.kickoff_utc && g.source_game);
             const p=Number(g.p_home)+Number(g.p_draw)+Number(g.p_away);
