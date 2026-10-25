@@ -98,32 +98,26 @@ def main():
         print(state["reason"]);return
     if len(current)!=365 or len({str(t.get('id')) for t in current})!=365:
         raise ValueError(f'2026-27 membership source incomplete: {len(current)} rows; expected 365 unique teams')
-    # The identity-linked 365-team roster-informed edition is our PROVISIONAL
-    # preseason opening seed. Older exact-name shadow ratings remain research
-    # only; never mistake them for production-approved roster adjustments.
-    roster_informed=base/"ncaam-2026-27-preseason-roster-informed.json"
-    chosen=base/"ncaam-2026-27-preseason-provisional.json"
-    if roster_informed.is_file():
-        proposed=json.loads(roster_informed.read_text(encoding="utf-8"))
-        items=proposed.get("rankings",[])
-        evidence=proposed.get("evidence",{})
-        if (proposed.get("season")=="2026-27" and
-            proposed.get("status")=="provisional-roster-identity-linked" and
-            proposed.get("preseason_roster_informed") is True and
-            proposed.get("production_elo_approved") is False and
-            proposed.get("team_count")==365 and
-            proposed.get("games_played")==0 and
-            len(items)==365 and len({i["team_id"] for i in items})==365 and
-            evidence.get("roster_programs")==364 and
-            evidence.get("players_with_verified_historical_minutes",0)>=2500):
-            chosen=roster_informed
-        else:
-            raise ValueError("Published provisional roster-informed preseason ratings failed release gate")
+    # Frozen provisional player-quality Elo is the 2026-27 opening seed.
+    # It was chosen after a matched 1,831-game retrospective comparison.
+    # Its preopening historical snapshot certification remains explicitly false.
+    chosen=base/"ncaam-2026-27-preseason-player-quality-live.json"
+    proposed=json.loads(chosen.read_text(encoding="utf-8"))
+    rows=proposed.get("rankings",[])
+    if not (proposed.get("season")=="2026-27" and
+            proposed.get("status")=="provisional-player-quality-preseason" and
+            proposed.get("preseason_player_quality") is True and
+            proposed.get("team_count")==365 and proposed.get("games_played")==0 and
+            len(rows)==365 and len({r["team_id"] for r in rows})==365 and
+            all(r["rank"]==i and isinstance(r["elo"],(int,float))
+                for i,r in enumerate(rows,1))):
+        raise ValueError("Published player-quality preseason seed failed integrity checks")
     pre=json.loads(chosen.read_text(encoding="utf-8"))
     old=json.loads((base/"ncaam-2026-27-team-registry.json").read_text())
     result=calculate(pre,old,current,games)
     result["preseason_seed"]=str(chosen)
-    result["preseason_roster_adjusted"]=(chosen==roster_informed)
+    result["preseason_roster_adjusted"]=True
+    result["preseason_player_quality"]=True
     (base/"ncaam-2026-27-current-provisional.json").write_text(json.dumps(result,indent=2)+"\n")
     state.update({"ready":True,"teams":result["team_count"],"games":result["games_played"]})
     (base/"ncaam-source-readiness.json").write_text(json.dumps(state,indent=2)+"\n")
