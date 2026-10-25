@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 443,
+  "already_classified": 447,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -39,18 +39,6 @@
       "error": "HTTP Error 405: Not Allowed"
     },
     {
-      "school": "Queens (NC)",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
-      "school": "San Diego St.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "UIC",
       "status": "processed",
       "matched": 0,
@@ -75,21 +63,9 @@
       "targeted": 2
     },
     {
-      "school": "Pittsburgh",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "South Carolina",
       "status": "fetch_failed",
       "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "school": "Tulsa",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
     },
     {
       "school": "Wisconsin",
@@ -144,7 +120,7 @@
       "targeted": 2
     }
   ],
-  "still_unmatched_in_queue": 46,
+  "still_unmatched_in_queue": 42,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -195,18 +171,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5459813",
-      "school": "Queens (NC)",
-      "name": "Nicholas McLean",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5309818",
-      "school": "San Diego St.",
-      "name": "Zach White",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "4702706",
       "school": "UIC",
       "name": "Jalen Johnson",
@@ -234,18 +198,6 @@
       "id": "5458320",
       "school": "Penn St.",
       "name": "Francois Wibaut",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5144501",
-      "school": "Pittsburgh",
-      "name": "Jermal Jones",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5458760",
-      "school": "Tulsa",
-      "name": "Derelle Desire",
       "reason": "no_unambiguous_card_year"
     },
     {
