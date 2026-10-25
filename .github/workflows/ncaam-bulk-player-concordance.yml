@@ -39,7 +39,19 @@ jobs:
           assert d["preopening_production_approved"] is False
           triage=json.load(open("data/ncaam-historical-name-gap-triage.json"))
           assert triage["summary"]["source_unmatched"]==d["summary"]["unmatched"]
-          print("PASS: concordance and unmatched triage published from identical inputs")
+          summary=d["summary"]
+          rows=d["results"]
+          assert summary["school_seasons"]==len(rows)
+          assert summary["extracted_names"]==sum(r["extracted_names"] for r in rows)
+          assert summary["matched_to_historical_ncaa_season_rosters"]==sum(r["ncaa_matched_names"] for r in rows)
+          assert summary["unmatched"]==sum(len(r["unmatched_names"]) for r in rows)
+          assert summary["unmatched"]+summary["matched_to_historical_ncaa_season_rosters"]==summary["extracted_names"]
+          assert all(r["ncaa_matched_names"]+len(r["unmatched_names"])==r["extracted_names"] for r in rows)
+          assert all(r["exact_matches"]+r["unique_suffix_matches"]==r["ncaa_matched_names"] for r in rows)
+          assert all(r["preopening_membership_certified"] is False for r in rows)
+          assert len({(r["school"],r["season_end_year"]) for r in rows})==len(rows)
+          assert triage["summary"]["unmatched_on_team_without_name_alignment"]+triage["summary"]["unmatched_on_aligned_team"]+triage["summary"]["explicit_staff_title_candidates"]==summary["unmatched"]
+          print("PASS: bulk name matching fully reconciled; preseason approval correctly blocked")
           PY
       - uses: actions/upload-artifact@v4
         if: always()
