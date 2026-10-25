@@ -233,6 +233,49 @@ const upcoming=teamForecasts.filter(f=>!finalById.has(f.match_id)).sort((a,b)=>a
 const keyData=scheduleData.teams?.[key]||gameIndex.teams?.[key]||{games:[]};
 const finishedGames=(keyData.games||[]).filter(g=>g.status==='final').slice().sort((a,b)=>b.date.localeCompare(a.date));
 const pendingGames=(keyData.games||[]).filter(g=>g.status!=='final').slice().sort((a,b)=>a.date.localeCompare(b.date));
+
+const porch=node('section',undefined,'team-porch');porch.id='team-porch';
+const porchHeading=node('div',undefined,'team-porch-head');
+const porchIntro=node('div');
+porchIntro.append(node('small','YOUR PROGRAM · AT A GLANCE'),node('h3',(brand?.nickname||t.team)+' Soccer'));
+porchHeading.append(porchIntro,node('span','USRS edition · '+String(rankings.as_of||'date not provided')));
+porch.append(porchHeading);
+const porchGrid=node('div',undefined,'team-porch-grid');
+function addPorch(kicker,title,detail,linkLabel,href,kind){
+ const item=node('article',undefined,'team-porch-card team-porch-'+kind);
+ item.append(node('small',kicker),node('h4',title),node('p',detail));
+ const a=node('a',linkLabel+' ↗');a.href=href;
+ if(href.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}
+ item.append(a);porchGrid.append(item);
+}
+const recent=finishedGames[0];
+if(recent){
+ const result=recent.goals_for>recent.goals_against?'W':recent.goals_for<recent.goals_against?'L':'D';
+ addPorch('LATEST CONFIRMED RESULT',recent.goals_for+'–'+recent.goals_against+' '+result+' '+(recent.venue==='home'?'vs ':'at ')+recent.opponent,
+ fullDate(recent.date)+' · Verified schedule entry','Game-by-game season','#team-season','result');
+}else addPorch('LATEST CONFIRMED RESULT','Waiting on official scores','No sourced final in the available schedule.','Full season','#team-season','result');
+const today=new Date().toISOString().slice(0,10);
+const future=pendingGames.find(g=>g.kickoff_utc?Date.parse(g.kickoff_utc)>Date.now():g.date>=today);
+const pending=pendingGames.find(g=>g.kickoff_utc?Date.parse(g.kickoff_utc)<=Date.now():g.date<today);
+if(future)addPorch('COMING UP',(future.venue==='home'?'vs ':'at ')+future.opponent,fullDate(future.date)+' · Schedule is subject to change','Official schedule',brand?.official_team_url||'#team-season','fixture');
+else if(pending)addPorch('SCORE AWAITED',pending.opponent,'Listed '+fullDate(pending.date)+' · Final not yet verified','Check program schedule',brand?.official_team_url||'#team-season','fixture');
+else addPorch('WHAT IS NEXT?','Follow the schedule','No further verified upcoming fixture in the current feed.','Team schedule','#team-season','fixture');
+const headlines=(newsData.articles||[]).filter(a=>a.team_keys?.includes(t.cohort+':'+t.team_id)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0));
+if(headlines.length)addPorch('LATEST REPORT',headlines[0].title,(headlines[0].source||'Original publisher')+' · '+fullDate(headlines[0].published_at),'Read the story',headlines[0].url,'news');
+else addPorch('PROGRAM COVERAGE','Your team in the news','Only sourced reports about this program are featured.','More coverage','#team-news','news');
+const rivals=conference?.teams?.map(id=>byId.get(t.cohort+':'+id)).filter(m=>m&&m.team_id!==t.team_id)||[];
+rivals.sort((a,b)=>Math.abs(a.elo-t.elo)-Math.abs(b.elo-t.elo));
+if(rivals.length)addPorch('YOUR CONFERENCE','Closest Elo peer: '+rivals[0].team,'Compare all '+conference.teams.length+' members, league records and rivalry results.','Conference desk','#team-conference','conference');
+else addPorch('AROUND THE GAME','Explore NCAA soccer','More programs, ratings and match forecasts.','College soccer desk','college-soccer.html','conference');
+porch.append(porchGrid);
+const links=node('nav',undefined,'team-home-links');links.setAttribute('aria-label','Program shortcuts');
+links.append(node('span','YOUR SHORTCUTS'));
+for(const [name,href] of [['News','#team-news'],['Matches','#team-season'],['Elo','#team-visual-report'],...(conference?[['Rivals','#team-conference']]:[]),...(brand?.official_team_url?[['Athletics site',brand.official_team_url]]:[])]){
+ const a=node('a',name+' ↗');a.href=href;if(href.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);
+}
+porch.append(links);
+profile.insertBefore(porch,metrics);
+
 const feature=node('section',undefined,'team-match-feature');feature.id='team-featured';
 feature.append(node('h3','Match Center','team-feature-heading'));
 const last=finishedGames[0];
