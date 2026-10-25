@@ -17,6 +17,28 @@ def safe_unique_suffix_match(name,known):
     key=strip_suffix(normalize(name))
     return sum(strip_suffix(n)==key for n in known)==1
 
+SCHOOL_CANDIDATES={
+    "Charleston":["col. of charleston"],
+    "Florida Atlantic":["fla. atlantic"],
+    "Northern Iowa":["uni"],
+    "Hawai'i":["hawaii"],
+    "Western Kentucky":["western ky."],
+    "Southern Indiana":["southern ind."],
+    "St. John's (NY)":["st. john's"]
+}
+def choose_known_team(school,names,index):
+    original=school_key(school)
+    known=index.get(original,set())
+    if known:return known,original,False
+    for alias in SCHOOL_CANDIDATES.get(school,[]):
+        alternate=school_key(alias)
+        candidate=index.get(alternate,set())
+        # Require two corroborating player identities before recognizing alias.
+        evidence=sum(normalize(name) in candidate or safe_unique_suffix_match(name,candidate)
+                     for name in names)
+        if evidence>=2:return candidate,alternate,True
+    return set(),original,False
+
 def run():
     reconciled=json.loads(Path("data/ncaam-historical-bulk-player-reconciliation.json").read_text())
     official={};season_indexes={}
@@ -32,8 +54,8 @@ def run():
     results=[];matched=0;total=0;school_years=0
     for school,seasons in sorted(teams.items()):
         for year,entry in sorted(seasons.items()):
-            known=season_indexes[year].get(school_key(school),set())
             names=entry["names"]
+            known,known_school,school_alias_verified=choose_known_team(school,names,season_indexes[year])
             exact=[n for n in names if normalize(n) in known]
             remaining=[n for n in names if normalize(n) not in known]
             suffix=[n for n in remaining if safe_unique_suffix_match(n,known)]
@@ -43,13 +65,15 @@ def run():
             results.append({"school":school,"season_end_year":int(year),
                 "extracted_names":len(names),"ncaa_matched_names":len(found),"exact_matches":len(exact),"unique_suffix_matches":len(suffix),
                 "unmatched_names":missed,"matched_names":found,
-                "ncaa_team_name_matched":bool(known),
+                "ncaa_team_name_matched":bool(known),"ncaa_school_key":known_school,
+                "school_alias_corrobated_with_two_players":school_alias_verified,
                 "source":entry["source"],"preopening_membership_certified":False})
     report={"status":"BULK_HISTORICAL_NAME_CONCORDANCE_NOT_PRESEASON_ASOF",
         "summary":{"school_seasons":school_years,"extracted_names":total,
             "matched_to_historical_ncaa_season_rosters":matched,
             "unmatched":total-matched,"match_fraction":round(matched/total,4) if total else 0,
             "team_seasons_with_match":sum(r["ncaa_team_name_matched"] for r in results),
+            "school_aliases_corrobated":sum(r["school_alias_corrobated_with_two_players"] for r in results),
             "exact_name_matches":sum(r["exact_matches"] for r in results),
             "unique_suffix_matches":sum(r["unique_suffix_matches"] for r in results)},
         "seasons":[2024,2025,2026],"source_roster_timing_verified":False,
