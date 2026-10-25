@@ -8,7 +8,7 @@ on:
       - '.github/workflows/news-wire.yml'
   workflow_dispatch:
   schedule:
-    - cron: '11,41 * * * *'
+    - cron: '7,22,37,52 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -30,6 +30,17 @@ jobs:
       - name: Fetch and validate current news
         id: ingest
         run: python scripts/refresh_news.py
+      - name: Verify freshly rebuilt feed is current
+        run: |
+          python - <<'PY'
+          import datetime,json,pathlib
+          d=json.loads(pathlib.Path('articles.json').read_text())
+          stamp=datetime.datetime.fromisoformat(d['updated_at'])
+          now=datetime.datetime.now(datetime.timezone.utc)
+          assert 0 <= (now-stamp).total_seconds() < 900, 'News collector wrote an outdated snapshot'
+          assert d['health']['sources_ok']>=5
+          print('News wire current:',len(d['articles']),'stories at',stamp.isoformat())
+          PY
       - name: Publish news separately from Elo
         if: success()
         run: |
