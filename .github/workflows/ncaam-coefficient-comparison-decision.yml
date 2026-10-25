@@ -1,0 +1,22 @@
+name: NCAA 300 vs 1200 decision integrity
+on:
+  push:
+    paths:
+      - 'data/ncaam-coefficient-head-to-head.json'
+      - 'data/ncaam-coefficient-head-to-head-diagnostic.json'
+      - 'data/ncaam-2026-27-coefficient-comparison-decision.json'
+      - 'scripts/verify_ncaam_coefficient_comparison_decision.py'
+      - '.github/workflows/ncaam-coefficient-comparison-decision.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_coefficient_comparison_decision.py
+      - run: python scripts/verify_ncaam_final_preseason_release.py
