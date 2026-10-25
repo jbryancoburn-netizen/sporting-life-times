@@ -9,6 +9,8 @@ on:
       - 'college-soccer.html'
       - 'data/college-soccer-team-schedules.json'
       - 'data/college-soccer-team-branding.json'
+      - 'data/college-soccer-miaa-standings.json'
+      - 'data/college-soccer-conferences.json'
       - '.github/workflows/college-soccer-team-ui-check.yml'
   workflow_dispatch:
 
@@ -33,7 +35,7 @@ jobs:
           const pages=['college-soccer-team.html','college-soccer.html'];
           for(const p of pages){
             const html=fs.readFileSync(p,'utf8');
-            assert.match(html,/college-soccer-teams\.js\?v=conference16/);
+            assert.match(html,/college-soccer-teams\.js\?v=miaa-refresh17/);
             assert.match(html,/college-soccer-teams\.css\?v=conference16/);
             assert.match(html,/id="college-team-search"/);
             assert.match(html,/id="college-team-profile"/);
