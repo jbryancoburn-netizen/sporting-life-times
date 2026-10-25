@@ -11,7 +11,8 @@ const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'
 const num=n=>Number.isFinite(Number(n))?Number(n).toFixed(2):'—';
 const files={
  current:'data/ncaam-2026-27-current-provisional.json',
- roster:'data/ncaam-2026-27-preseason-roster-informed.json',
+ roster:'data/ncaam-2026-27-preseason-player-quality-live.json',
+ previous:'data/ncaam-2026-27-preseason-roster-informed.json',
  quality:'data/ncaam-2026-27-scoring-quality-shadow.json',
  shadow:'data/ncaam-2026-27-offseason-shadow.json',
  baseline:'data/ncaam-2026-27-preseason-provisional.json'
@@ -67,18 +68,18 @@ function changeMarkup(n){
  return '<span class="'+(x>0?'elo-up':'elo-down')+'">'+(x>0?'↑ +':'↓ ')+num(x)+'</span>';
 }
 try {
- const [current,roster,quality,shadow,baseline]=await Promise.all([load(files.current),load(files.roster),loadQuality(files.quality),load(files.shadow),load(files.baseline)]);
+ const [current,roster,quality,shadow,baseline,previous]=await Promise.all([load(files.current),load(files.roster),loadQuality(files.quality),load(files.shadow),load(files.baseline),load(files.previous)]);
  if(!baseline)throw Error('Baseline ratings failed integrity checks');
  const available={baseline};
  // This preseason edition is provisional: identity-linked historical minutes
  // are used when supported, with explicit baseline fallback and no invented player value.
  if(roster?.preseason_roster_informed===true && roster?.evidence?.roster_programs===364 &&
     roster?.evidence?.players_with_verified_historical_minutes>=2500)available.roster=roster;
- if(compatibleQuality(quality,available.roster))available.quality=quality;
+ if(compatibleQuality(quality,previous))available.quality=quality;
  if(shadow?.evidence?.roster_programs>=350)available.shadow=shadow;
- if(current?.games_played>0)available.current=current;
+ if(current?.games_played>0 && current.preseason_seed==='data/ncaam-2026-27-preseason-player-quality-live.json')available.current=current;
  const defaults=available.current?'current':available.roster?'roster':'baseline';
- const labels={current:'Current season Elo',roster:'New roster-informed preseason (provisional)',quality:'Player scoring quality (experimental · not certified)',shadow:'Previous experimental roster model',baseline:'Historical carryover baseline'};
+ const labels={current:'Current season Elo',roster:'Player-quality preseason Elo (provisional)',quality:'Player scoring quality (experimental · not certified)',shadow:'Previous experimental roster model',baseline:'Historical carryover baseline'};
  for(const choice of ['current','roster','quality','shadow','baseline']){
   if(!available[choice])continue;
   const option=document.createElement('option');option.value=choice;option.textContent=labels[choice];
@@ -131,8 +132,8 @@ try {
   const c=conference.value;
   const rows=data.rankings.filter(r=>(!q||r.team.toLowerCase().includes(q))&&(!c||r.conference===c));
   if(choice==='roster'){
-   status.textContent='2026–27 roster-informed preseason Elo · '+data.team_count+' teams · provisional';
-   note.textContent='Updated for 2026–27 rosters: '+data.evidence.source_linked_player_ids+' linked NCAA/ESPN player IDs; '+data.evidence.players_with_verified_historical_minutes+' players contributing documented prior minutes; '+data.evidence.roster_programs+'/'+data.team_count+' teams covered. Unverified players are not assigned invented production. Historical roster timing and independent model calibration remain provisional.';
+   status.textContent='2026–27 player-quality preseason Elo · '+data.team_count+' teams · provisional';
+   note.textContent='Provisional player-quality model selected after improvement on 1,831 identical historical games. '+data.evidence.players_with_verified_historical_minutes+' verified player histories contributed; unverified players receive no invented production. Historical opening-day roster timing remains a limitation.';
    referenceHeading.textContent='Roster adjustment';
   }else if(choice==='quality'){
    status.textContent='EXPERIMENTAL RESEARCH · 2026–27 player-scoring Elo · '+data.team_count+' teams';
@@ -144,7 +145,7 @@ try {
    referenceHeading.textContent='Research adjustment';
   }else if(choice==='current'){
    status.textContent='2026–27 current-season Elo · '+data.games_played+' completed games';
-   note.textContent='Completed game results independently replayed from the roster-informed provisional preseason Elo. Venue-neutral until court-data calibration. Verify source coverage for each reporting day.';
+   note.textContent='Completed game results independently replayed from the player-quality provisional preseason Elo. Venue-neutral until court-data calibration. Verify source coverage for each reporting day.';
    referenceHeading.textContent='Opening Elo';
   }else{
    status.textContent='2026–27 historical carryover baseline · '+data.team_count+' programs';
