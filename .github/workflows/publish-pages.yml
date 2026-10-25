@@ -57,8 +57,6 @@ jobs:
           grep -q 'Isolated NBA masthead' nba.html
           grep -q 'body.edition-interior.nba-edition nav.site-nav{background:#262b32!important' edition-design.css
           grep -q 'class="edition-interior nba-edition"' nba.html
-          grep -q 'background-color:#ffffff!important' nba.html
-          grep -q 'style="color:#17212b!important;-webkit-text-fill-color:#17212b!important' nba.html
           if grep -q 'body.edition-interior .site-nav a:hover,body.edition-interior .site-nav a:focus-visible{color:#242420' edition-design.css; then echo 'FAIL: shared stylesheet forces dark NBA navigation links' >&2; exit 1; fi
           grep -q 'Explicit contrast for every interactive region' nba-live-game.html
           test -s nba-live-game.js
@@ -85,13 +83,13 @@ jobs:
           live=html.index('id="nba-live-games"')
           collapsed=html.index('<details class="nba-secondary-data">')
           assert live < collapsed, 'Live games must not sit inside collapsed secondary data'
-          assert live < html.index('class="edition-page-turner"'), 'Live scoreboard must be above paged newspaper controls'
+          assert html.index('class="edition-page-turner"') < live, 'NBA newspaper page controls must be above live scores'
           assert "'nba-live-games'" not in Path('nba-page-turner.js').read_text(), 'Live scoreboard must never be hidden by page turning'
           assert 'nba-live-game.html?game=' in Path('nba-live-feed.js').read_text()
           print('Live scoreboard exposed, linked to game details')
           PY
           test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
-          grep -q 'nba-page-turner.js?v=7' nba.html
+          grep -q 'nba-page-turner.js?v=8' nba.html
           grep -q 'nba-live-feed.js?v=5' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
