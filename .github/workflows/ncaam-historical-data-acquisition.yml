@@ -15,6 +15,7 @@ on:
       - 'scripts/build_ncaam_historical_multistat_features.py'
       - 'scripts/calibrate_ncaam_independent_stat_weights.py'
       - 'scripts/audit_ncaam_coefficient_impact.py'
+      - 'scripts/optimize_ncaam_continuous_stat_weights.py'
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
       - 'scripts/build_ncaam_2027_quality_shadow.py'
       - 'scripts/recover_ncaam_prior_player_stats_by_id.py'
@@ -177,6 +178,16 @@ jobs:
           assert len(d['actual_stat_elo_effects'])==3
           assert all(x['covered_teams']>250 for x in d['actual_stat_elo_effects'].values())
           PY
+      - name: Optimize continuous player-stat coefficients and compare future seasons
+        run: |
+          python scripts/optimize_ncaam_continuous_stat_weights.py --source historical-normalized --out historical-report/ncaam-continuous-stat-optimizer.json
+          python - <<'PY'
+          import json,math
+          d=json.load(open('historical-report/ncaam-continuous-stat-optimizer.json'))
+          assert d['production_promotion_allowed'] is False
+          assert d['validation_2025']['games']==d['prior_grid_validation_2025']['games']
+          assert all(math.isfinite(x) and x>=0 for x in d['selected_weights'].values())
+          PY
       - name: Run real NCAA historical player-quality backtest
         run: |
           python scripts/backtest_ncaam_quality_retrospective.py \
@@ -271,6 +282,9 @@ jobs:
           PY
           fi
           cp historical-report/ncaam-historical-acquisition.json data/ncaam-historical-acquisition-status.json
+          if [ -s historical-report/ncaam-continuous-stat-optimizer.json ]; then
+            cp historical-report/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-stat-optimizer.json
+          fi
           if [ -s historical-report/ncaam-stat-coefficient-impact.json ]; then
             cp historical-report/ncaam-stat-coefficient-impact.json data/ncaam-stat-coefficient-impact.json
           fi
@@ -327,7 +341,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
-          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json; do
+          for file in data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json; do
             if [ -f "$file" ]; then git add "$file"; fi
           done
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
@@ -335,7 +349,7 @@ jobs:
           # concurrently published acquisitions. Re-apply our complete files
           # on the latest branch rather than merging two partial JSON reports.
           mkdir -p /tmp/ncaam-acquisition-publish
-          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json; do
+          for file in data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json; do
             if [ -f "$file" ]; then cp "$file" /tmp/ncaam-acquisition-publish/; fi
           done
           for attempt in 1 2 3 4 5; do
@@ -351,6 +365,7 @@ jobs:
             if [ -f data/ncaam-historical-multistat-coverage.json ]; then git add data/ncaam-historical-multistat-coverage.json; fi
             if [ -f data/ncaam-independent-stat-weights.json ]; then git add data/ncaam-independent-stat-weights.json; fi
             if [ -f data/ncaam-stat-coefficient-impact.json ]; then git add data/ncaam-stat-coefficient-impact.json; fi
+            if [ -f data/ncaam-continuous-stat-optimizer.json ]; then git add data/ncaam-continuous-stat-optimizer.json; fi
             for file in data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
               if [ -f "$file" ]; then git add "$file"; fi
             done
