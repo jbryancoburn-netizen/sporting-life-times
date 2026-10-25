@@ -5,3 +5,20 @@
 .match-club .match-crest-badge img{display:block;width:100%;height:100%;max-width:108px;max-height:108px;object-fit:contain;filter:none!important}
 .match-club .match-crest-fallback{display:grid;place-items:center;width:100%;height:100%;font:800 23px Arial,sans-serif;color:#23372d}
 @media(max-width:720px){.match-club .match-crest-badge{width:clamp(62px,19vw,95px);height:clamp(62px,19vw,95px);padding:8px;border-width:1px}.match-club .match-crest-fallback{font-size:14px}}
+
+/* Editorial match timeline: event importance drives contrast and spacing. */
+.report .event-grid{grid-template-columns:68px minmax(0,1fr);gap:14px;padding:13px 11px;border-left:4px solid transparent;align-items:start}
+.report .event-minute{display:flex;align-items:center;gap:7px;font:800 14px/1.2 Arial,sans-serif;white-space:nowrap}
+.report .event-symbol{font-size:16px}
+.report .event-goal{background:#e5f0e9;border-left-color:#24754b;margin:9px 0}
+.report .event-goal .event-category{color:#17613d;font-size:12px}
+.report .event-red{background:#f8e5e1;border-left-color:#ae3532}
+.report .event-red .event-category{color:#ae3532}
+.report .event-yellow{background:#fbf3dd;border-left-color:#c69b2e}
+.report .event-yellow .event-category{color:#8a6b1d}
+.report .event-sub{border-left-color:#6990a3;background:#eef3f4}
+.report .event-period{background:#e9e8e2;border-left-color:#77786c;margin:7px 0}
+.report .event-extra{border-top:1px solid #b7b8b0;margin-top:16px}
+.report .event-extra summary{cursor:pointer;padding:12px 4px;font:700 11px Arial,sans-serif;letter-spacing:.06em;color:#285441}
+.report .event-extra .event-grid{opacity:.85;padding-top:8px;padding-bottom:8px}
+@media(max-width:720px){.report .event-grid{grid-template-columns:52px minmax(0,1fr);gap:9px;padding:10px 6px}.report .event-minute{font-size:12px}.report .event-symbol{font-size:12px}}
