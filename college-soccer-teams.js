@@ -58,16 +58,23 @@ if(brand){
 
 identity.append(identityText);header.append(identity);
 if(brand?.mascot_name){
- const mascotByline=node('span',undefined,'team-mascot-byline');
+ const mascot=node('div',undefined,'team-mascot-accent');
  if(brand.mascot_photo_url){
-  const picture=node('img');picture.src=brand.mascot_photo_url;
-  picture.alt='';picture.loading='lazy';picture.decoding='async';
-  picture.addEventListener('error',()=>picture.remove());
-  mascotByline.append(picture);
+  const figure=node('img');figure.src=brand.mascot_photo_url;
+  figure.alt=brand.mascot_name+' mascot artwork';figure.loading='lazy';figure.decoding='async';
+  figure.addEventListener('error',()=>figure.remove());
+  mascot.append(figure);
  }
- const info=node('span','With '+brand.mascot_name+(brand.mascot_type?' · '+brand.mascot_type:''));
- mascotByline.append(info);
- identityText.append(mascotByline);
+ const label=node('div',undefined,'team-mascot-accent-label');
+ label.append(node('small','THE MASCOT'),node('strong',brand.mascot_name));
+ mascot.append(label);
+ if(brand.mascot_source){
+  const link=node('a');link.href=brand.mascot_source;
+  link.target='_blank';link.rel='noopener noreferrer';
+  link.setAttribute('aria-label','Learn about '+brand.mascot_name);
+  link.className='team-mascot-accent-link';link.append(mascot);
+  header.append(link);
+ }else header.append(mascot);
 }
 const actions=node('div',undefined,'team-hero-actions');
 const share=node('a','Share program page ↗','team-hero-link');share.href='college-soccer-team.html?team='+encodeURIComponent(t.cohort+':'+t.team_id);
