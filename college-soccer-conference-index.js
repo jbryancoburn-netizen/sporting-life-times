@@ -11,6 +11,7 @@ if(legacy[location.hash]){location.replace(legacy[location.hash]);return;}
 Promise.all(['data/college-soccer-conferences.json','data/college-soccer-elo.json'].map(p=>fetch(p+'?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(p+' '+r.status);return r.json()}))).then(([data,elo])=>{
  root.replaceChildren();
  const mast=node('div',null,'cs-conf-directory-heading');mast.append(node('h2','THE CONFERENCE DIRECTORY'),node('span','CONFERENCE RACES · NCAA POSTSEASON'));root.append(mast);
+ const d1link=document.createElement('a');d1link.href='college-soccer-di-men.html';d1link.className='cs-conf-directory-d1-link';d1link.textContent='MEN’S DIVISION I · CHAMPIONSHIP FORECAST BRACKETS';d1link.style.cssText='display:block;padding:14px 16px;margin:12px 0;border-top:3px solid #28495c;background:#eff4f7;font:800 13px Arial,sans-serif;color:#244a63;text-decoration:underline';root.append(d1link);
  const groups=Object.entries(data.conferences||{}).filter(([key,v])=>v.page&&v.teams?.length).map(([key,v])=>{
  const [cohort,league]=key.split(':');const [sex,division]=cohort.split('-');
  return {key,label:v.short||v.name||league,sex:sex==='women'?'Women':'Men',division:division==='d1'?'I':division==='d2'?'II':'III',href:v.page};
