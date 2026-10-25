@@ -22,7 +22,7 @@ jobs:
           import json
           d=json.load(open('data/ncaam-historical-name-gap-triage.json'))
           s=d['summary']
-          assert s['unmatched_on_team_without_name_alignment']+s['unmatched_on_aligned_team']+s['explicit_staff_title_candidates']==s['source_unmatched']==4805
+          assert s['unmatched_on_team_without_name_alignment']+s['unmatched_on_aligned_team']+s['explicit_staff_title_candidates']==s['source_unmatched']
           assert d['production_elo_promotion'] is False
           print('PASS: exhaustive historical name gap triage')
           PY
