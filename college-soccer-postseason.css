@@ -43,3 +43,11 @@
 .cs-national-item>a{font:.68rem Arial,sans-serif;color:#315b72!important;text-decoration:underline!important}
 @media(max-width:850px){.cs-post-columns{grid-template-columns:1fr}.cs-post-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.cs-national-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:580px){.cs-post-side{grid-template-columns:1fr}.cs-post-bracket{grid-template-columns:1fr}.cs-post-round{border-right:0;border-bottom:1px solid #dbe3e6}.cs-post-round:last-child{border-bottom:0}.cs-post-pair{min-height:0}.cs-national-grid{grid-template-columns:1fr}.cs-post-table{font-size:.68rem}.cs-post-table th,.cs-post-table td{padding:.4rem .22rem}}
+
+.cs-contender-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem!important;margin:.5rem 0 1rem}
+.cs-post-contender{min-width:0;border-top:1px solid #dce3e7}
+.cs-post-contender h4{margin:.65rem 0 .15rem;font:700 1rem Georgia,serif}
+.cs-post-contender-row{padding:.4rem 0;border-bottom:1px solid #e8ecee}
+.cs-post-contender-row .cs-post-odds-head a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#2b5368!important;text-decoration:none!important;font-weight:700}
+.cs-post-contender-row .cs-post-odds-head a:hover{text-decoration:underline!important}
+@media(max-width:580px){.cs-contender-grid{grid-template-columns:1fr!important;gap:.9rem!important}}
