@@ -43,7 +43,7 @@ tableWrap.append(node('p','Official conference records from '+s.snapshot_checked
 forecastWrap.append(node('h3','If the postseason began today'));
 const six=sorted.slice(0,6);
 const cupUI=window.CollegeSoccerCupUI;
-if(cupUI){cupUI.decorateTable(table,sorted,'men-d3',branding);cupUI.bracket(forecastWrap,six,'men-d3',branding,{q:'OPENING ROUND',s:'SEMIFINALS',f:'CHAMPIONSHIP'});}
+if(cupUI){cupUI.decorateTable(table,sorted,'men-d3',branding);root.append(node('h3','THE PROJECTED TOURNAMENT BRACKET'));cupUI.bracket(root,six,'men-d3',branding,{q:'OPENING ROUND',s:'SEMIFINALS',f:'CHAMPIONSHIP'});}
 else forecastWrap.append(node('p','Bracket artwork unavailable; current tournament contenders appear in the odds below.','cs-cciw-note'));
 forecastWrap.append(node('h3','Experimental tournament title projection'));
 const p=odds(six),total=p.reduce((acc,x)=>acc+x.probability,0);
