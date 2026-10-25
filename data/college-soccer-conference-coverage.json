@@ -6,11 +6,17 @@
   "by_cohort": {
     "men-d1": {
       "rated_teams": 213,
-      "mapped_teams": 11,
-      "unmapped_teams": 202,
-      "verified_conferences": 1,
+      "mapped_teams": 73,
+      "unmapped_teams": 140,
+      "verified_conferences": 7,
       "conference_keys": [
-        "men-d1:big-ten"
+        "men-d1:big-ten",
+        "men-d1:acc",
+        "men-d1:big-east",
+        "men-d1:america-east",
+        "men-d1:american",
+        "men-d1:sun-belt",
+        "men-d1:ivy"
       ]
     },
     "men-d2": {
@@ -35,11 +41,12 @@
     },
     "women-d1": {
       "rated_teams": 350,
-      "mapped_teams": 17,
-      "unmapped_teams": 333,
-      "verified_conferences": 1,
+      "mapped_teams": 35,
+      "unmapped_teams": 315,
+      "verified_conferences": 2,
       "conference_keys": [
-        "women-d1:big-ten"
+        "women-d1:big-ten",
+        "women-d1:acc"
       ]
     },
     "women-d2": {
@@ -66,40 +73,12 @@
   "unassigned": {
     "men-d1": [
       {
-        "team_id": "georgetown",
-        "team": "Georgetown"
-      },
-      {
-        "team_id": "smu",
-        "team": "SMU"
-      },
-      {
-        "team_id": "vermont",
-        "team": "Vermont"
-      },
-      {
-        "team_id": "bryant",
-        "team": "Bryant"
-      },
-      {
         "team_id": "umkc",
         "team": "Kansas City"
       },
       {
-        "team_id": "cornell",
-        "team": "Cornell"
-      },
-      {
         "team_id": "high-point",
         "team": "High Point"
-      },
-      {
-        "team_id": "clemson",
-        "team": "Clemson"
-      },
-      {
-        "team_id": "creighton",
-        "team": "Creighton"
       },
       {
         "team_id": "portland",
@@ -110,28 +89,12 @@
         "team": "San Diego"
       },
       {
-        "team_id": "akron",
-        "team": "Akron"
-      },
-      {
         "team_id": "california-baptist",
         "team": "California Baptist"
       },
       {
-        "team_id": "wake-forest",
-        "team": "Wake Forest"
-      },
-      {
         "team_id": "stony-brook",
         "team": "Stony Brook"
-      },
-      {
-        "team_id": "princeton",
-        "team": "Princeton"
-      },
-      {
-        "team_id": "marshall",
-        "team": "Marshall"
       },
       {
         "team_id": "gardner-webb",
@@ -146,14 +109,6 @@
         "team": "Hofstra"
       },
       {
-        "team_id": "west-virginia",
-        "team": "West Virginia"
-      },
-      {
-        "team_id": "north-carolina",
-        "team": "North Carolina"
-      },
-      {
         "team_id": "fairfield",
         "team": "Fairfield"
       },
@@ -162,16 +117,8 @@
         "team": "Furman"
       },
       {
-        "team_id": "stanford",
-        "team": "Stanford"
-      },
-      {
         "team_id": "delaware",
         "team": "Delaware"
-      },
-      {
-        "team_id": "xavier",
-        "team": "Xavier"
       },
       {
         "team_id": "north-florida",
@@ -186,10 +133,6 @@
         "team": "Elon"
       },
       {
-        "team_id": "missouri-st",
-        "team": "Missouri St."
-      },
-      {
         "team_id": "fdu",
         "team": "FDU"
       },
@@ -198,20 +141,8 @@
         "team": "UNC Greensboro"
       },
       {
-        "team_id": "north-carolina-st",
-        "team": "NC State"
-      },
-      {
-        "team_id": "charlotte",
-        "team": "Charlotte"
-      },
-      {
         "team_id": "uc-irvine",
         "team": "UC Irvine"
-      },
-      {
-        "team_id": "louisville",
-        "team": "Louisville"
       },
       {
         "team_id": "saint-louis",
@@ -226,56 +157,16 @@
         "team": "Utah Valley"
       },
       {
-        "team_id": "south-carolina",
-        "team": "South Carolina"
-      },
-      {
         "team_id": "duquesne",
         "team": "Duquesne"
-      },
-      {
-        "team_id": "virginia",
-        "team": "Virginia"
-      },
-      {
-        "team_id": "pittsburgh",
-        "team": "Pittsburgh"
-      },
-      {
-        "team_id": "penn",
-        "team": "Penn"
       },
       {
         "team_id": "dayton",
         "team": "Dayton"
       },
       {
-        "team_id": "ucf",
-        "team": "UCF"
-      },
-      {
         "team_id": "unc-wilmington",
         "team": "UNCW"
-      },
-      {
-        "team_id": "fla-atlantic",
-        "team": "Fla. Atlantic"
-      },
-      {
-        "team_id": "old-dominion",
-        "team": "Old Dominion"
-      },
-      {
-        "team_id": "seton-hall",
-        "team": "Seton Hall"
-      },
-      {
-        "team_id": "ga-southern",
-        "team": "Ga. Southern"
-      },
-      {
-        "team_id": "fiu",
-        "team": "FIU"
       },
       {
         "team_id": "lindenwood-mo",
@@ -290,18 +181,6 @@
         "team": "Belmont"
       },
       {
-        "team_id": "memphis",
-        "team": "Memphis"
-      },
-      {
-        "team_id": "california",
-        "team": "California"
-      },
-      {
-        "team_id": "albany-ny",
-        "team": "UAlbany"
-      },
-      {
         "team_id": "unlv",
         "team": "UNLV"
       },
@@ -310,16 +189,8 @@
         "team": "Bellarmine"
       },
       {
-        "team_id": "syracuse",
-        "team": "Syracuse"
-      },
-      {
         "team_id": "san-jose-st",
         "team": "San Jose St."
-      },
-      {
-        "team_id": "virginia-tech",
-        "team": "Virginia Tech"
       },
       {
         "team_id": "cal-poly",
@@ -346,20 +217,8 @@
         "team": "UNC Asheville"
       },
       {
-        "team_id": "uconn",
-        "team": "UConn"
-      },
-      {
         "team_id": "denver",
         "team": "Denver"
-      },
-      {
-        "team_id": "providence",
-        "team": "Providence"
-      },
-      {
-        "team_id": "notre-dame",
-        "team": "Notre Dame"
       },
       {
         "team_id": "wofford",
@@ -390,26 +249,6 @@
         "team": "Iona"
       },
       {
-        "team_id": "njit",
-        "team": "NJIT"
-      },
-      {
-        "team_id": "umass-lowell",
-        "team": "UMass Lowell"
-      },
-      {
-        "team_id": "st-johns-ny",
-        "team": "St. John's (NY)"
-      },
-      {
-        "team_id": "tulsa",
-        "team": "Tulsa"
-      },
-      {
-        "team_id": "uab",
-        "team": "UAB"
-      },
-      {
         "team_id": "jacksonville",
         "team": "Jacksonville"
       },
@@ -426,10 +265,6 @@
         "team": "Siena"
       },
       {
-        "team_id": "duke",
-        "team": "Duke"
-      },
-      {
         "team_id": "robert-morris",
         "team": "Robert Morris"
       },
@@ -442,20 +277,12 @@
         "team": "Quinnipiac"
       },
       {
-        "team_id": "james-madison",
-        "team": "James Madison"
-      },
-      {
         "team_id": "american",
         "team": "American"
       },
       {
         "team_id": "lehigh",
         "team": "Lehigh"
-      },
-      {
-        "team_id": "marquette",
-        "team": "Marquette"
       },
       {
         "team_id": "rhode-island",
@@ -474,10 +301,6 @@
         "team": "Le Moyne"
       },
       {
-        "team_id": "harvard",
-        "team": "Harvard"
-      },
-      {
         "team_id": "fordham",
         "team": "Fordham"
       },
@@ -488,10 +311,6 @@
       {
         "team_id": "houston-christian",
         "team": "Houston Christian"
-      },
-      {
-        "team_id": "new-hampshire",
-        "team": "New Hampshire"
       },
       {
         "team_id": "stetson",
@@ -510,20 +329,12 @@
         "team": "Massachusetts"
       },
       {
-        "team_id": "dartmouth",
-        "team": "Dartmouth"
-      },
-      {
         "team_id": "drexel",
         "team": "Drexel"
       },
       {
         "team_id": "cal-st-northridge",
         "team": "CSUN"
-      },
-      {
-        "team_id": "brown",
-        "team": "Brown"
       },
       {
         "team_id": "davidson",
@@ -542,10 +353,6 @@
         "team": "Loyola Chicago"
       },
       {
-        "team_id": "columbia",
-        "team": "Columbia"
-      },
-      {
         "team_id": "william-mary",
         "team": "William & Mary"
       },
@@ -558,20 +365,12 @@
         "team": "Drake"
       },
       {
-        "team_id": "georgia-st",
-        "team": "Georgia St."
-      },
-      {
         "team_id": "longwood",
         "team": "Longwood"
       },
       {
         "team_id": "northeastern",
         "team": "Northeastern"
-      },
-      {
-        "team_id": "coastal-caro",
-        "team": "Coastal Carolina"
       },
       {
         "team_id": "merrimack",
@@ -610,10 +409,6 @@
         "team": "SIUE"
       },
       {
-        "team_id": "depaul",
-        "team": "DePaul"
-      },
-      {
         "team_id": "green-bay",
         "team": "Green Bay"
       },
@@ -626,14 +421,6 @@
         "team": "Cal St. Fullerton"
       },
       {
-        "team_id": "villanova",
-        "team": "Villanova"
-      },
-      {
-        "team_id": "boston-college",
-        "team": "Boston College"
-      },
-      {
         "team_id": "vcu",
         "team": "VCU"
       },
@@ -644,10 +431,6 @@
       {
         "team_id": "uiw",
         "team": "UIW"
-      },
-      {
-        "team_id": "umbc",
-        "team": "UMBC"
       },
       {
         "team_id": "st-thomas-mn",
@@ -666,10 +449,6 @@
         "team": "Wright St."
       },
       {
-        "team_id": "yale",
-        "team": "Yale"
-      },
-      {
         "team_id": "san-diego-st",
         "team": "San Diego St."
       },
@@ -684,10 +463,6 @@
       {
         "team_id": "loyola-marymount",
         "team": "LMU (CA)"
-      },
-      {
-        "team_id": "kentucky",
-        "team": "Kentucky"
       },
       {
         "team_id": "st-bonaventure",
@@ -770,10 +545,6 @@
         "team": "Loyola Maryland"
       },
       {
-        "team_id": "butler",
-        "team": "Butler"
-      },
-      {
         "team_id": "winthrop",
         "team": "Winthrop"
       },
@@ -798,10 +569,6 @@
         "team": "Stonehill"
       },
       {
-        "team_id": "binghamton",
-        "team": "Binghamton"
-      },
-      {
         "team_id": "lipscomb",
         "team": "Lipscomb"
       },
@@ -822,10 +589,6 @@
         "team": "Radford"
       },
       {
-        "team_id": "south-fla",
-        "team": "South Fla."
-      },
-      {
         "team_id": "pacific",
         "team": "Pacific"
       },
@@ -844,10 +607,6 @@
       {
         "team_id": "campbell",
         "team": "Campbell"
-      },
-      {
-        "team_id": "temple",
-        "team": "Temple"
       },
       {
         "team_id": "howard",
@@ -3248,24 +3007,8 @@
         "team": "Vanderbilt"
       },
       {
-        "team_id": "north-carolina",
-        "team": "North Carolina"
-      },
-      {
-        "team_id": "florida-st",
-        "team": "Florida St."
-      },
-      {
-        "team_id": "stanford",
-        "team": "Stanford"
-      },
-      {
         "team_id": "baylor",
         "team": "Baylor"
-      },
-      {
-        "team_id": "duke",
-        "team": "Duke"
       },
       {
         "team_id": "texas-tech",
@@ -3288,16 +3031,8 @@
         "team": "Liberty"
       },
       {
-        "team_id": "wake-forest",
-        "team": "Wake Forest"
-      },
-      {
         "team_id": "utah-st",
         "team": "Utah St."
-      },
-      {
-        "team_id": "louisville",
-        "team": "Louisville"
       },
       {
         "team_id": "memphis",
@@ -3310,10 +3045,6 @@
       {
         "team_id": "saint-louis",
         "team": "Saint Louis"
-      },
-      {
-        "team_id": "notre-dame",
-        "team": "Notre Dame"
       },
       {
         "team_id": "south-carolina",
@@ -3334,10 +3065,6 @@
       {
         "team_id": "samford",
         "team": "Samford"
-      },
-      {
-        "team_id": "virginia",
-        "team": "Virginia"
       },
       {
         "team_id": "ucf",
@@ -3488,20 +3215,12 @@
         "team": "Western Ky."
       },
       {
-        "team_id": "north-carolina-st",
-        "team": "NC State"
-      },
-      {
         "team_id": "seattle",
         "team": "Seattle U"
       },
       {
         "team_id": "illinois-st",
         "team": "Illinois St."
-      },
-      {
-        "team_id": "miami-fl",
-        "team": "Miami (FL)"
       },
       {
         "team_id": "south-dakota-st",
@@ -3560,10 +3279,6 @@
         "team": "Massachusetts"
       },
       {
-        "team_id": "boston-college",
-        "team": "Boston College"
-      },
-      {
         "team_id": "georgia",
         "team": "Georgia"
       },
@@ -3586,10 +3301,6 @@
       {
         "team_id": "tennessee",
         "team": "Tennessee"
-      },
-      {
-        "team_id": "clemson",
-        "team": "Clemson"
       },
       {
         "team_id": "niagara",
@@ -3776,10 +3487,6 @@
         "team": "Kansas St."
       },
       {
-        "team_id": "california",
-        "team": "California"
-      },
-      {
         "team_id": "butler",
         "team": "Butler"
       },
@@ -3822,10 +3529,6 @@
       {
         "team_id": "grand-canyon",
         "team": "Grand Canyon"
-      },
-      {
-        "team_id": "smu",
-        "team": "SMU"
       },
       {
         "team_id": "buffalo",
@@ -3908,10 +3611,6 @@
         "team": "Central Conn. St."
       },
       {
-        "team_id": "virginia-tech",
-        "team": "Virginia Tech"
-      },
-      {
         "team_id": "unc-asheville",
         "team": "UNC Asheville"
       },
@@ -3926,10 +3625,6 @@
       {
         "team_id": "tennessee-tech",
         "team": "Tennessee Tech"
-      },
-      {
-        "team_id": "pittsburgh",
-        "team": "Pittsburgh"
       },
       {
         "team_id": "tulsa",
@@ -4066,10 +3761,6 @@
       {
         "team_id": "col-of-charleston",
         "team": "Col. of Charleston"
-      },
-      {
-        "team_id": "southern-california",
-        "team": "Southern California"
       },
       {
         "team_id": "bucknell",
@@ -4238,10 +3929,6 @@
       {
         "team_id": "san-diego",
         "team": "San Diego"
-      },
-      {
-        "team_id": "syracuse",
-        "team": "Syracuse"
       },
       {
         "team_id": "texas-am",
@@ -7208,5 +6895,6 @@
         "team": "Rockford"
       }
     ]
-  }
+  },
+  "updated_registry_date": "2026-10-25"
 }
