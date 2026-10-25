@@ -37,6 +37,50 @@ def check():
     for path in list(ROOT.glob('*.json'))+list((ROOT/'data').glob('*.json')):
         try:json.loads(path.read_text(encoding='utf8'))
         except Exception as e:issues.append(f'{path.relative_to(ROOT)}: invalid JSON {e}')
+    rating_path=ROOT/'data'/'epl-ratings.json'
+    if rating_path.exists():
+        try:
+            d=json.loads(rating_path.read_text(encoding='utf8'))
+            standings=d.get('standings',[])
+            history=d.get('elo_history',{})
+            ratings=d.get('ratings',{})
+            if len(standings)!=20 or len({x.get('club') for x in standings})!=20:
+                issues.append('EPL: standings must contain 20 unique clubs')
+            if len(history)!=20:
+                issues.append(f'EPL: expected 20 club Elo histories, found {len(history)}')
+            appearances=0
+            fixture_teams={}
+            for row in standings:
+                club=row['club']; games=int(row.get('played',0))
+                if int(row.get('won',0))+int(row.get('drawn',0))+int(row.get('lost',0))!=games:
+                    issues.append(f'EPL: W-D-L mismatch for {club}')
+                points=3*int(row.get('won',0))+int(row.get('drawn',0))
+                if int(row.get('points',-1))!=points:
+                    issues.append(f'EPL: points mismatch for {club}')
+                hist=history.get(club,[])
+                if len(hist)!=games+1:
+                    issues.append(f'EPL: Elo history length mismatch for {club}')
+                if hist and club in ratings and abs(float(hist[-1]['elo'])-float(ratings[club]))>.001:
+                    issues.append(f'EPL: latest Elo mismatch for {club}')
+                for entry in hist[1:]:
+                    fixture=str(entry.get('fixture_id',''))
+                    if not fixture:
+                        issues.append(f'EPL: missing fixture id for {club}')
+                    else:
+                        fixture_teams.setdefault(fixture,[]).append(club)
+                    appearances+=1
+            if appearances!=2*int(d.get('completed_matches',-1)):
+                issues.append('EPL: replay history appearances differ from completed finals')
+            for fixture,teams in fixture_teams.items():
+                if len(teams)!=2 or teams[0]==teams[1]:
+                    issues.append(f'EPL: fixture {fixture} incorrectly appears for {teams}')
+            season=d.get('season_results')
+            if season is not None:
+                fixture_ids=[str(x.get('fixture_id')) for x in season]
+                if len(season)!=int(d.get('completed_matches',-1)) or len(set(fixture_ids))!=len(fixture_ids):
+                    issues.append('EPL: season archive total or fixture IDs inconsistent')
+        except Exception as e:
+            issues.append(f'EPL: unable to audit ratings: {e}')
     print(f'Checked {len(pages)} HTML pages, {len(used_js)} referenced JS files and JSON files.')
     for x in issues:print('FAIL:',x)
     return 1 if issues else 0
