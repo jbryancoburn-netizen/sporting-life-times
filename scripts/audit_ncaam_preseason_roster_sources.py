@@ -104,7 +104,7 @@ def check_archived_roster_bytes(archive,kind):
     archive["independently_verified_preopening_roster_content"]=False
     if not found:
         return archive
-    for s in found[:2]:
+    for s in found[:10]:
         ts=s["timestamp_utc"]
         raw_url="https://web.archive.org/web/"+ts+"id_/"+s["original"]
         try:
@@ -170,7 +170,7 @@ def probe_season_roster_pages():
         audits=list(ex.map(archive_probe,candidates))
     # Retrieve content for only the earliest pre-opening archive per candidate;
     # never treat just a CDX timestamp as proven membership.
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
         audits=list(ex.map(lambda a:check_archived_roster_bytes(a,"official_roster_page"),audits))
     return audits
 
