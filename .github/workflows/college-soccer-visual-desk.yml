@@ -211,7 +211,7 @@ jobs:
           }
           assert(Array.isArray(elo.latest_finals));
           for(const game of elo.latest_finals){
-            assert(game.match_id && game.cohort && game.source_game && /^\\d+[-–]\\d+$/.test(game.score));
+            assert(game.match_id && game.cohort && game.source_game && /^\d+[-–]\d+$/.test(game.score));
           }
           const ledger=JSON.parse(fs.readFileSync('data/college-soccer-elo-final-ledger.json','utf8'));
           assert(Array.isArray(ledger.results));
