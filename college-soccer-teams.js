@@ -116,7 +116,7 @@ panels.append(ratingPanel);
 visual.append(panels);profile.append(visual);
 const sectionNav=node('nav',undefined,'team-section-nav');
 sectionNav.setAttribute('aria-label','Team profile sections');
-for(const [href,label] of [['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
+for(const [href,label] of [['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
  const a=node('a',label);a.href='#'+href;sectionNav.append(a);
 }
 profile.append(sectionNav);
@@ -226,6 +226,40 @@ newsSearch.href='https://news.google.com/search?q='+encodeURIComponent('"'+t.tea
 const stat=box('Model & data coverage');stat.id='team-data';stat.classList.add('team-panel-data');
 stat.append(node('p',teamForecasts.length+' timestamped forecasts found for this team · '+games.length+' recent verified ledger results. Forecasts are research predictions, not guarantees.'));
 stat.append(node('p','An Elo movement chart requires saved date-by-date ratings. The published current rating is not enough to reconstruct that history; no synthetic trend is shown.','college-elo-note'));
+const seasonGraphics=box('Season Form · Every Result');
+seasonGraphics.id='team-season-graphics';
+seasonGraphics.classList.add('team-panel-graphics');
+const seasonGames=(season?.games||[]).filter(g=>g.status==='final').slice().sort((a,b)=>a.date.localeCompare(b.date));
+if(seasonGames.length){
+ const run=node('div',undefined,'team-result-timeline');run.setAttribute('role','list');run.setAttribute('aria-label','Results in chronological order');
+ seasonGames.forEach((g,index)=>{
+   const result=g.goals_for>g.goals_against?'W':g.goals_for<g.goals_against?'L':'D';
+   const tile=node('div',undefined,'team-timeline-match team-timeline-'+result.toLowerCase());
+   tile.setAttribute('role','listitem');
+   tile.setAttribute('title',fullDate(g.date)+' · '+result+' '+g.goals_for+'–'+g.goals_against+' '+(g.venue==='home'?'vs ':'at ')+g.opponent);
+   tile.append(node('span',String(index+1),'team-timeline-number'),node('strong',result));
+   run.append(tile);
+ });
+ seasonGraphics.append(run);
+ seasonGraphics.append(node('p','Season progression, oldest to newest. Green = win · Gold = draw · Red = loss. Tap or hover a match for details.','team-visual-footnote'));
+ const splits=node('div',undefined,'team-splits');
+ for(const [venue,label] of [['home','At Home'],['away','On the Road']]){
+  const subset=seasonGames.filter(g=>g.venue===venue);
+  const wins=subset.filter(g=>g.goals_for>g.goals_against).length;
+  const draws=subset.filter(g=>g.goals_for===g.goals_against).length;
+  const losses=subset.length-wins-draws;
+  const card=node('div',undefined,'team-split-card');
+  card.append(node('span',label,'team-split-title'),node('strong',wins+'–'+losses+'–'+draws,'team-split-record'));
+  const stack=node('div',undefined,'team-split-stack');stack.setAttribute('role','img');stack.setAttribute('aria-label',label+': '+wins+' wins, '+draws+' draws, '+losses+' losses');
+  for(const [count,type] of [[wins,'win'],[draws,'draw'],[losses,'loss']]){
+   if(!count)continue;
+   const seg=node('span',undefined,'team-split-segment team-split-'+type);seg.style.width=(100*count/subset.length).toFixed(1)+'%';stack.append(seg);
+  }
+  card.append(stack);card.append(node('small',subset.length+' verified matches'));
+  splits.append(card);
+ }
+ seasonGraphics.append(splits);
+}else seasonGraphics.append(node('p','A season-wide form graphic will appear when a verified game sequence becomes available.'));
 const form=box('Latest scorelines');form.id='team-form';form.classList.add('team-panel-form');
 const finished=(season?.games||[]).filter(g=>g.status==='final').slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
 if(!finished.length)form.append(node('p','Recent verified scorelines will appear as official results arrive.'));
@@ -245,7 +279,7 @@ else{
 const dashboard=node('div',undefined,'team-dashboard');
 const main=node('div',undefined,'team-dashboard-main');
 const aside=node('aside',undefined,'team-dashboard-aside');
-main.append(form,stories,scheduleSection);
+main.append(form,stories,seasonGraphics,scheduleSection);
 aside.append(pred,finals,stat);
 dashboard.append(main,aside);
 profile.append(dashboard);
