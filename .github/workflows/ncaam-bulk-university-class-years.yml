@@ -29,7 +29,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add data/ncaam-2026-27-school-roster-class-years.csv data/ncaam-2026-27-official-bulk-recovery-report.json
-          git diff --cached --quiet || (git commit -m "Collect university verified NCAA class year records" && git push)
+          git diff --cached --quiet || git commit -m "Collect university verified NCAA class year records"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
+          exit 1
       - uses: actions/upload-artifact@v4
         with:
           name: ncaam-university-bulk-roster-evidence
