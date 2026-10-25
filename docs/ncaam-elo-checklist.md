@@ -77,3 +77,9 @@ Updated: 2026-10-24. Check items only with passing evidence. No automatic produc
 - New 16-case evidence: `data/ncaam-2026-27-unlinked-transfer-final-16-review.json`; earlier ten cases: `data/ncaam-2026-27-unlinked-official-corrections-batch-01.json`.
 - Additional important distinction: Josiah Sanders and Isaiah Griffin have older college histories; classification as a false *2025-26 D-I name match* does not mean they never played Division I.
 - A complete 26-case identity regression test and workflow now exist. Keep P01/P03 and full production certification open until verified cross-provider identity and as-of roster checks. Zero Elo changes made.
+
+## Identity collision evidence — Kenyon Giles (2026-10-24)
+- UMass Lowell lists junior Kenyon Giles from Cleveland, Ohio; Wichita State lists a fifth-year Kenyon Giles from Chesapeake, Virginia. These are incompatible profiles for an automatic same-name historical join. See `data/ncaam-2026-27-kenyon-giles-identity-collision.json`.
+- Reject the proposed Wichita State approximately 1,300-minute statistical link for the UMass Lowell athlete. Do not treat secondary reports of Florida SouthWestern as independently verified prior-school evidence; historical minutes remain excluded.
+- `scripts/test_ncaam_kenyon_giles_collision.py` was added for regression testing. End-to-end CI for that test has not yet been confirmed; production ratings unchanged.
+- Full 2,014-player classification remains open. The 26 candidate-name review is complete, but that is only one subset; a verified entire-history/backtest certification is not achieved.
