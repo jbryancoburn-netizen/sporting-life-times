@@ -245,6 +245,13 @@ jobs:
           done
           echo 'FAIL: published NBA Desk does not match the current deployment' >&2
           exit 1
+      - name: Confirm the live NBA news file matches this deployment
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error --max-time 25 "${PAGES_URL%/}/data/nba-top-stories.json?revision=$GITHUB_SHA" -o /tmp/published-nba-news.json
+          python3 scripts/verify-nba-news-artifact.py /tmp/published-nba-news.json
       - name: Certify all 30 published NBA records and Elo ratings
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
