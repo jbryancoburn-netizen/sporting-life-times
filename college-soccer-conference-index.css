@@ -1,0 +1,14 @@
+#college-soccer-conference-index{margin:1rem 0 1.4rem;color:#233846;font-family:Arial,Helvetica,sans-serif}
+.cs-conf-directory-heading{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;border-top:3px solid #253c4d;padding:.65rem 0}
+.cs-conf-directory-heading h2{font:700 1.12rem Georgia,serif;margin:0!important;color:#1c3545}
+.cs-conf-directory-heading>span{font:700 .61rem Arial,sans-serif;color:#748692;letter-spacing:.06em;text-align:right}
+.cs-conf-directory-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #bac9d1;border-bottom:1px solid #bac9d1}
+.cs-conf-directory-link{display:flex;flex-direction:column;gap:.27rem;padding:.75rem .8rem;border-right:1px solid #dce3e7;color:#29475a!important;text-decoration:none!important;min-width:0}
+.cs-conf-directory-link:last-child{border-right:0}
+.cs-conf-directory-link:hover,.cs-conf-directory-link:focus-visible{background:#f1f5f7;outline-offset:-3px}
+.cs-conf-directory-kicker{font:700 .59rem Arial,sans-serif;letter-spacing:.055em;color:#866b4e}
+.cs-conf-directory-name{font:700 1.32rem Georgia,serif}
+.cs-conf-directory-count{font:500 .66rem Arial,sans-serif;color:#758691}
+.cs-conf-directory-note{font:italic .68rem/1.45 Georgia,serif;color:#76858d;margin:.6rem 0}
+.cs-conf-highlight{outline:2px solid #b99252;outline-offset:5px;transition:outline .2s}
+@media(max-width:740px){.cs-conf-directory-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-conf-directory-link:nth-child(2){border-right:0}.cs-conf-directory-link:nth-child(n+3){border-top:1px solid #dde5e8}}
