@@ -1,0 +1,48 @@
+{
+  "schema": "ncaam-verified-pregame-archive-evidence-v1",
+  "evidence_source": "data/ncaam-preseason-roster-source-provenance.json",
+  "recording_policy": "Append certified capture evidence after actual archived content and two player anchors verified; never infer a successful replay from a timeout.",
+  "verified_captures": [
+    {
+      "team": "Indiana",
+      "season_end_year": 2026,
+      "kind": "initial_roster_article",
+      "archived_capture_utc": "20250611195202",
+      "capture_url": "https://web.archive.org/web/20250611195202id_/https://iuhoosiers.com/news/2025/6/2/mens-basketball-mens-basketball-announces-initial-2025-26-roster",
+      "captured_content_sha256": "fecb7ae97f8e5eed6733ccfabbb9844cc2615ef6f548aaed86bfcefe2621bcf0",
+      "matched_player_evidence": [
+        "Jasai Miles",
+        "Reed Bailey"
+      ],
+      "scope": "confirmed two-or-more player roster evidence at archived timestamp; not complete school roster"
+    },
+    {
+      "team": "Duke",
+      "season_end_year": 2024,
+      "kind": "official_roster_page",
+      "archived_capture_utc": "20230817044045",
+      "capture_url": "https://web.archive.org/web/20230817044045id_/https://goduke.com/sports/mens-basketball/roster/2023-24",
+      "captured_content_sha256": "0f340a654a1956004544a2ab13634eb25dadae641a31ae8b3eced5c7f09c21a1",
+      "matched_player_evidence": [
+        "Jared McCain",
+        "Jeremy Roach"
+      ],
+      "scope": "confirmed two-or-more player roster evidence at archived timestamp; not complete school roster"
+    },
+    {
+      "team": "Purdue",
+      "season_end_year": 2026,
+      "kind": "official_roster_page",
+      "archived_capture_utc": "20250810011541",
+      "capture_url": "https://web.archive.org/web/20250810011541id_/https://purduesports.com/sports/mens-basketball/roster/season/2025-26",
+      "captured_content_sha256": "f8c0716c22f26f26c0f9db771a8ee6c1257b81d266dd6385d9f65fbd61f6afb4",
+      "matched_player_evidence": [
+        "Omer Mayer",
+        "Oscar Cluff"
+      ],
+      "scope": "confirmed two-or-more player roster evidence at archived timestamp; not complete school roster"
+    }
+  ],
+  "full_365_team_snapshot_verified": false,
+  "primary_elo_promotion_authorized": false
+}
