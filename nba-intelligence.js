@@ -18,6 +18,15 @@ async function load(){
  let elo=null;
  try{const response=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(response.ok)elo=await response.json()}catch(_error){}
  const currentRatings=Object.fromEntries((elo?.rankings||[]).map(t=>[t.team,Number(t.elo)]));
+ const completedWl={};const recordsByEvent=new Map();
+ for(const e of elo?.events||[]){
+  if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;
+  for(const t of [e.home,e.away])completedWl[t]??={w:0,l:0};
+  const winner=Number(e.home_score)>Number(e.away_score)?e.home:e.away,loser=winner===e.home?e.away:e.home;
+  completedWl[winner].w++;completedWl[loser].l++;
+  recordsByEvent.set(String(e.id),{[e.home]:completedWl[e.home].w+'–'+completedWl[e.home].l,[e.away]:completedWl[e.away].w+'–'+completedWl[e.away].l});
+ }
+
  const events=elo?.events||[];
  const rankOf=(scores,code)=>Object.entries(scores).filter(([,v])=>Number.isFinite(v)).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).findIndex(([t])=>t===code)+1;
  const perGame=new Map();
@@ -52,7 +61,7 @@ async function load(){
  }
  box.innerHTML=games.slice(0,20).map(g=>{
   const home=g.teams?.find(t=>t.home_away==='home'),away=g.teams?.find(t=>t.home_away==='away');
-  const bug=window.SLTScorebug.render({mode:'final',subtitle:'VERIFIED BOX SCORE',away:{code:away?.code||'AWAY',name:away?.name||'Away'},home:{code:home?.code||'HOME',name:home?.name||'Home'},awayScore:away?.score,homeScore:home?.score,winner:Number(away?.score)>Number(home?.score)?away?.code:home?.code});
+  const bug=window.SLTScorebug.render({mode:'final',subtitle:'VERIFIED BOX SCORE',away:{code:away?.code||'AWAY',name:away?.name||'Away',record:recordsByEvent.get(String(g.id))?.[away?.code]||''},home:{code:home?.code||'HOME',name:home?.name||'Home',record:recordsByEvent.get(String(g.id))?.[home?.code]||''},awayScore:away?.score,homeScore:home?.score,winner:Number(away?.score)>Number(home?.score)?away?.code:home?.code});
   const gameElo=perGame.get(g.id);const eloStrip=gameElo?'<div class="nba-boxscore-elo">'+eloDetail(away?.code,gameElo.away)+eloDetail(home?.code,gameElo.home)+'</div>':'';
   const spotlight=(g.leaders||[]).slice(0,3).map(p=>'<div class="nba-game-star"><span class="nba-star-team">'+esc(p.team)+'</span><b>'+esc(p.name)+'</b><strong>'+esc(p.pts)+' <small>PTS</small></strong><span>'+esc(p.reb)+' REB · '+esc(p.ast)+' AST</span></div>').join('');
   const playerCard=p=>'<div class="nba-player-stat-card"><div class="nba-player-stat-name"><b>'+esc(p.name)+'</b><small>'+esc(p.min)+' MIN</small></div><div class="nba-player-stat-main"><span><b>'+esc(p.pts)+'</b><small>PTS</small></span><span><b>'+esc(p.reb)+'</b><small>REB</small></span><span><b>'+esc(p.ast)+'</b><small>AST</small></span></div><div class="nba-player-stat-detail"><span>STL '+esc(p.stl)+'</span><span>BLK '+esc(p.blk)+'</span><span>FG '+esc(p.fgm)+'/'+esc(p.fga)+'</span><span>3PT '+esc(p.fg3m)+'/'+esc(p.fg3a)+'</span><span>FT '+esc(p.ftm)+'/'+esc(p.fta)+'</span></div></div>';
