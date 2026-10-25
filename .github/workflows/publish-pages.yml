@@ -52,7 +52,9 @@ jobs:
           grep -q 'edition-design.css?v=nba-contrast4' nba.html
           grep -q 'NBA contrast contract' nba.html
           grep -q 'NBA masthead/nav match actual white surface' nba.html
-          grep -q 'class="newspaper-wordmark" style="color:#17212b!important' nba.html
+          grep -q 'class="nba-publication-title"' nba.html
+          grep -q 'class="nba-publication-navigation"' nba.html
+          grep -q 'Isolated NBA masthead' nba.html
           grep -q 'body.edition-interior.nba-edition nav.site-nav{background:#262b32!important' edition-design.css
           grep -q 'class="edition-interior nba-edition"' nba.html
           grep -q 'background-color:#ffffff!important' nba.html
