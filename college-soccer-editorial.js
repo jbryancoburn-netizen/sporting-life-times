@@ -4,6 +4,18 @@ const el=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!==undefined&
 const showDate=s=>{const d=new Date(s);return isNaN(d)?'Date unavailable':d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});};
 const load=async p=>{const r=await fetch(p+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(p);return r.json();};
 const nav=(href,name)=>{const a=el('a',name);a.href=href;if(/^https?:/.test(href)){a.target='_blank';a.rel='noopener noreferrer';}return a;};
+const schoolLabel=(name,cohort,id)=>{
+ const frag=el('span',null,'cs-edit-school');
+ const badge=el('span',String(name).slice(0,2).toUpperCase(),'cs-edit-school-mark');
+ if(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id||''))){
+  const img=el('img');img.alt='';img.loading='lazy';img.decoding='async';
+  img.src='https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg';
+  img.addEventListener('load',()=>badge.classList.add('has-image'));
+  img.addEventListener('error',()=>img.remove());badge.append(img);
+ }
+ frag.append(badge,nav('college-soccer-team.html?team='+encodeURIComponent(cohort+':'+id),name));
+ return frag;
+};
 const tagged=(cohort,label)=>{const x=el('span',label,'cs-edit-tag');return x;};
 (async()=>{try{
 const [feed,ratings]=await Promise.all([load('data/college-soccer-team-news.json'),load('data/college-soccer-elo.json')]);
@@ -33,8 +45,8 @@ const cohort=ratings.cohorts?.[key];if(!cohort?.length)continue;
 const winner=cohort[0],runner=cohort[1];
 const block=el('div',null,'cs-edit-race');
 block.append(el('small',label));
-const lead=el('div',null,'cs-edit-race-lead');lead.append(nav('college-soccer-team.html?team='+encodeURIComponent(key+':'+winner.team_id),winner.team),el('strong',Number(winner.elo).toFixed(1)));block.append(lead);
-if(runner){const next=el('div',null,'cs-edit-race-chaser');next.append(nav('college-soccer-team.html?team='+encodeURIComponent(key+':'+runner.team_id),runner.team),el('span',Number(runner.elo).toFixed(1)));block.append(next);}
+const lead=el('div',null,'cs-edit-race-lead');lead.append(schoolLabel(winner.team,key,winner.team_id),el('strong',Number(winner.elo).toFixed(1)));block.append(lead);
+if(runner){const next=el('div',null,'cs-edit-race-chaser');next.append(schoolLabel(runner.team,key,runner.team_id),el('span',Number(runner.elo).toFixed(1)));block.append(next);}
 races.append(block);
 }
 races.append(el('p','These are Elo leaders, not official conference standings or postseason qualification probabilities. Edition: '+String(ratings.as_of||'unknown')+'.','cs-edit-note'));
