@@ -3,6 +3,9 @@ on:
   push:
     paths:
       - 'scripts/test_ncaam_preseason_release_final.py'
+      - 'scripts/verify_ncaam_model_challenger_decision.py'
+      - 'data/ncaam-2026-27-player-value-experimental-v1.json'
+      - 'data/ncaam-offseason-transfer-backtest.json'
       - 'data/ncaam-2026-27-preseason-final-release-decision.json'
       - 'data/ncaam-2026-27-preseason-roster-informed.json'
       - 'data/ncaam-2026-27-player-identity-triage.json'
@@ -22,3 +25,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/test_ncaam_preseason_release_final.py
+      - run: python scripts/verify_ncaam_model_challenger_decision.py
