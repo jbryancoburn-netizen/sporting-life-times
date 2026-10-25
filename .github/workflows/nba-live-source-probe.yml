@@ -1,0 +1,36 @@
+name: NBA live source diagnostic
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7,37 * * * *'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Check NBA and ESPN live endpoints from deployment network
+        shell: bash
+        run: |
+          set -uo pipefail
+          DAY="$(TZ=America/New_York date +%Y%m%d)"
+          echo "Eastern NBA scoreboard date: $DAY"
+          for entry in \
+            "NBA|https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json" \
+            "ESPN|https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=$DAY"; do
+            provider="${entry%%|*}"
+            url="${entry#*|}"
+            code="$(curl -L -sS --max-time 12 -o /tmp/nba-live-response.json -w '%{http_code}' "$url" || true)"
+            echo "$provider HTTP $code"
+            if [[ "$code" == 200 ]]; then
+              PROVIDER="$provider" python3 - <<'PY'
+import json,os
+try:
+  data=json.load(open('/tmp/nba-live-response.json'))
+  games=(data.get('scoreboard',{}).get('games',[]) if os.environ['PROVIDER']=='NBA' else data.get('events',[]))
+  print(os.environ['PROVIDER'],'games',len(games),'IDs',[g.get('gameId',g.get('id')) for g in games][:3])
+except Exception as e: print(os.environ['PROVIDER'],'invalid JSON:',str(e));raise
+PY
+            fi
+          done
