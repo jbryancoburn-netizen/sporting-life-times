@@ -98,7 +98,18 @@ async function render(){
  const hasStandings=table.rows.every(r=>r.conference_record&&r.conference_record!=='N/A'&&Number.isFinite(r.conference_points));
  const formatCertified=field>0&&!table.cutoff_tie_unresolved&&!(table.unresolved_tie_groups||[]).some(group=>group.teams.some(id=>table.rows.slice(0,field).some(r=>r.team_id===id)))&&fresh&&hasStandings&&!/inferred from|based on official 2025|carried forward|format.*unverified|eligibility.*unverified/i.test(rule.tournament?.status||'');
  const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seeds.length===field&&new Set(table.tournament_seeds).size===field&&table.tournament_seeds.every(id=>member.includes(id))?table.tournament_seeds:null;
- const entrants=officialSeeds?officialSeeds.map(id=>teams.find(t=>t.id===id)).filter(Boolean):teams.slice(0,field);
+ const entrants=(()=>{
+  if(officialSeeds)return officialSeeds.map(id=>teams.find(t=>t.id===id)).filter(Boolean);
+  if(key==='men-d1:big-east'){
+    const east=teams.filter(t=>t.division==='East').sort((a,b)=>b.conference_points-a.conference_points);
+    const midwest=teams.filter(t=>t.division==='Midwest').sort((a,b)=>b.conference_points-a.conference_points);
+    if(!east.length||!midwest.length)return [];
+    const leaders=[east[0],midwest[0]].sort((a,b)=>b.conference_points-a.conference_points);
+    const others=teams.filter(t=>!leaders.includes(t)).sort((a,b)=>b.conference_points-a.conference_points);
+    return [...leaders,...others.slice(0,2)];
+  }
+  return teams.slice(0,field);
+})();
  const provisional=!officialSeeds;
  const officialBracket=table.tournament_bracket;
  const bracketVerified=officialBracket?.status==='official'&&typeof officialBracket.source_url==='string'&&/^https:\/\//.test(officialBracket.source_url)&&Array.isArray(officialBracket.matches)&&officialBracket.matches.length>0&&officialBracket.matches.every(match=>match.round&&match.home_id&&match.away_id&&member.includes(match.home_id)&&member.includes(match.away_id)&&match.home_id!==match.away_id);
@@ -132,7 +143,7 @@ async function render(){
     else if(match.kickoff)card.append(E('span',String(match.kickoff),'cs-official-kickoff'));
     group.append(card)}rounds.append(group)}bracket.append(rounds,A('Official tournament bracket source',officialBracket.source_url));
  }else 
- if(cup&&hasStandings&&(field===4||field===6||field===8||field===15)&&entrants.length===field&&!/format.*unverified|eligibility.*unverified|carried forward|inferred from|based on official 2025/i.test(rule.tournament?.status||'')){const visual=entrants.every(t=>t.elo!==null&&Number.isFinite(t.elo))&&cup.predictiveBracket?cup.predictiveBracket:(field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket);bracket.append(E('p','CURRENT STANDINGS PROJECTION · Tied teams retain published order provisionally. Seed positions and projected results update from the data feeds, not from Elo rankings.','cs-conf-caption'));visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',quarter:rule.tournament?.quarterfinal_date||'QUARTERFINALS',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
+ if(cup&&hasStandings&&(field===4||field===6||field===8||field===15)&&entrants.length===field&&!/format.*unverified|eligibility.*unverified|inferred from|based on official 2025/i.test(rule.tournament?.status||'')){const visual=entrants.every(t=>t.elo!==null&&Number.isFinite(t.elo))&&cup.predictiveBracket?cup.predictiveBracket:(field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket);bracket.append(E('p','CURRENT STANDINGS PROJECTION · Tied teams retain published order provisionally. Seed positions and projected results update from the data feeds, not from Elo rankings.','cs-conf-caption'));visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',quarter:rule.tournament?.quarterfinal_date||'QUARTERFINALS',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
   const note=E('div',null,'cs-conf-unverified-bracket');
   note.append(E('strong','TOURNAMENT BRACKET PENDING OFFICIAL RULES'));
   const strip=E('div',null,'cs-conf-qualifier-strip');
@@ -171,7 +182,7 @@ async function render(){
     note.replaceChildren(E('h3','CURRENT PROJECTED TOURNAMENT BRACKET'));
     note.append(E('p','Team names reflect the latest available standings and verified final updates. † Point ties not resolved by official conference tiebreakers. Matchups are projections, not an announced bracket.'+(!fresh?' Standings are not verified as fresh.':''),'cs-conf-caption'),rounds);
   }else{
-    note.append(strip,E('p','Tournament seeding not currently computable from verified points and rules.','cs-conf-caption'));
+    note.replaceChildren(E('h3','CURRENT CONFERENCE QUALIFICATION RACE'));note.append(E('p','The 2026 championship format or complete seeding criteria are not yet verified. Current table positions appear below; they are not tournament seeds or invented matchups.','cs-conf-caption'),strip);
   }
   bracket.append(note);
  }root.append(bracket);
