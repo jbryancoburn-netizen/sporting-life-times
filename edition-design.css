@@ -137,7 +137,7 @@ body.edition-interior main h2{font-size:clamp(1.25rem,2.5vw,1.85rem)!important}
 body.edition-interior main h3{font-size:clamp(1.05rem,2vw,1.35rem)!important}
 body.edition-interior main p,body.edition-interior main li{line-height:1.55}
 body.edition-interior main section{border-color:#c9c7c0!important}
-body.edition-interior .site-nav a:hover,body.edition-interior .site-nav a:focus-visible{color:#242420!important;text-decoration:underline!important}
+body.edition-interior .site-nav a:hover,body.edition-interior .site-nav a:focus-visible{text-decoration:underline!important}
 body.edition-interior :focus-visible{outline:2px solid #534c40;outline-offset:3px}
 body.edition-interior main img{max-width:100%}
 :where(body:has(#front-page)) #front-page>#front-more-stories{grid-column:1/-1;grid-row:9;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 22px;border-top:1px solid #c9c7c0;padding-top:18px;margin-top:16px}
