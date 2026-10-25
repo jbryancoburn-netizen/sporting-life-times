@@ -8,6 +8,7 @@ def read(p):return json.loads((ROOT/p).read_text())
 def build():
     directory=read("data/college-soccer-conferences.json")["conferences"]
     ledger=read("data/college-soccer-elo-final-ledger.json")["results"]
+    rules=read("data/college-soccer-postseason-rules.json")["conferences"]
     out={}
     for key,meta in directory.items():
         if not key.startswith("men-d1:"):continue
@@ -33,7 +34,14 @@ def build():
                 added.append(game["match_id"])
             original={r["team_id"]:i for i,r in enumerate(rows)}
             rows.sort(key=lambda r:(-r["conference_points"],original[r["team_id"]]))
-        out[key]={"schema_version":1,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
+        tie_groups=[]
+        for points in sorted({r.get("conference_points") for r in rows if isinstance(r.get("conference_points"),int)},reverse=True):
+            tied=[r["team_id"] for r in rows if r.get("conference_points")==points]
+            if len(tied)>1:tie_groups.append({"points":points,"teams":tied,"status":"unresolved_requires_official_tiebreaker"})
+        field=int((rules.get(key) or {}).get("tournament",{}).get("field") or 0)
+        at_cutoff=field>0 and field<len(rows) and rows[field-1].get("conference_points")==rows[field].get("conference_points")
+        policy=(rules.get(key) or {}).get("tiebreakers") or {}
+        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
                   "snapshot_checked_date":date,"projected_through":max([date]+[g["date"] for g in ledger if g["match_id"] in added]),
                   "derived_from_verified_finals":True,"new_finals_applied":len(added),"applied_match_ids":added,
                   "projection_status":"provisional_not_official_tiebreakers" if can_project else "unverified_baseline_no_projection",
