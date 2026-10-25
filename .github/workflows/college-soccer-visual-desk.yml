@@ -127,7 +127,7 @@ jobs:
           assert.equal(members.length,8);
           assert.equal(new Set(members).size,8);
           assert.deepEqual(new Set(miaa.rows.map(r=>r.team_id)),new Set(members));
-          assert(miaa.last_verified_game_date,'Missing MIAA source cutoff');
+          assert(miaa.checked_at_utc || miaa.checked_date,'Missing MIAA table check date');
           const miac=JSON.parse(fs.readFileSync('data/college-soccer-miac-standings.json','utf8'));
           const miacMembers=conf.conferences['men-d3:miac'].teams;
           assert.equal(miacMembers.length,11);
