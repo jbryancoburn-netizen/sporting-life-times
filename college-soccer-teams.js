@@ -323,7 +323,7 @@ if(brand && (brand.mascot_name || brand.campus_lat)){
  if(brand.nickname)actions.append(node('span','THE '+brand.nickname.toUpperCase(),'team-hometown-nickname'));
  intro.append(actions);home.append(intro);
  // Map is part of the school's geography, not a competing article-sized card.
- profile.append(home);
+ profile.insertBefore(home,metrics.nextSibling);
 }
 
 
