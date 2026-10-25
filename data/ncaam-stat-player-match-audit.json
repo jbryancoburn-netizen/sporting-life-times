@@ -1,0 +1,506 @@
+{
+  "model": "ncaam-player-match-coverage-audit-v1",
+  "production_promotion_allowed": false,
+  "identity_matching": "Unique player name across previous-year schools only; not verified NCAA athlete ID",
+  "roster_asof_verified": false,
+  "years": {
+    "2024": {
+      "teams": 357,
+      "bands": {
+        "under_20": {
+          "teams": 202,
+          "median_matched_roster_fraction": 0.6201923076923077,
+          "median_matched_players": 9.5,
+          "median_prior_minutes": 4430.487
+        },
+        "20_to_39": {
+          "teams": 98,
+          "median_matched_roster_fraction": 0.6,
+          "median_matched_players": 10.0,
+          "median_prior_minutes": 4417.718500000001
+        },
+        "40_to_69": {
+          "teams": 47,
+          "median_matched_roster_fraction": 0.5625,
+          "median_matched_players": 9,
+          "median_prior_minutes": 4338.290000000001
+        },
+        "70_plus": {
+          "teams": 10,
+          "median_matched_roster_fraction": 0.513157894736842,
+          "median_matched_players": 9.0,
+          "median_prior_minutes": 3131.8909999999996
+        }
+      },
+      "largest_adjustments": [
+        {
+          "team": "northwestern st.",
+          "player_stat_adjustment": -114.82695595539751,
+          "roster_players": 16,
+          "matched_players": 3,
+          "matched_roster_fraction": 0.1875,
+          "matched_prior_minutes": 613.767,
+          "matched_prior_minutes_per_rostered_player": 38.3604375
+        },
+        {
+          "team": "marquette",
+          "player_stat_adjustment": 97.21294172005732,
+          "roster_players": 18,
+          "matched_players": 11,
+          "matched_roster_fraction": 0.6111111111111112,
+          "matched_prior_minutes": 6163.297,
+          "matched_prior_minutes_per_rostered_player": 342.40538888888887
+        },
+        {
+          "team": "uconn",
+          "player_stat_adjustment": 88.15198277345644,
+          "roster_players": 14,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.7142857142857143,
+          "matched_prior_minutes": 4388.790999999999,
+          "matched_prior_minutes_per_rostered_player": 313.48507142857136
+        },
+        {
+          "team": "southern u.",
+          "player_stat_adjustment": -84.66661509177705,
+          "roster_players": 15,
+          "matched_players": 7,
+          "matched_roster_fraction": 0.4666666666666667,
+          "matched_prior_minutes": 2543.46,
+          "matched_prior_minutes_per_rostered_player": 169.564
+        },
+        {
+          "team": "gonzaga",
+          "player_stat_adjustment": 81.83810961537623,
+          "roster_players": 14,
+          "matched_players": 6,
+          "matched_roster_fraction": 0.42857142857142855,
+          "matched_prior_minutes": 4878.589000000001,
+          "matched_prior_minutes_per_rostered_player": 348.47064285714293
+        },
+        {
+          "team": "oral roberts",
+          "player_stat_adjustment": 78.57751588259448,
+          "roster_players": 17,
+          "matched_players": 11,
+          "matched_roster_fraction": 0.6470588235294118,
+          "matched_prior_minutes": 3340.0509999999995,
+          "matched_prior_minutes_per_rostered_player": 196.47358823529407
+        },
+        {
+          "team": "nicholls",
+          "player_stat_adjustment": 76.6035511673071,
+          "roster_players": 14,
+          "matched_players": 7,
+          "matched_roster_fraction": 0.5,
+          "matched_prior_minutes": 1164.1380000000001,
+          "matched_prior_minutes_per_rostered_player": 83.1527142857143
+        },
+        {
+          "team": "air force",
+          "player_stat_adjustment": 73.28451484970365,
+          "roster_players": 20,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.4,
+          "matched_prior_minutes": 2572.8140000000003,
+          "matched_prior_minutes_per_rostered_player": 128.6407
+        },
+        {
+          "team": "mississippi val.",
+          "player_stat_adjustment": -72.66923507950773,
+          "roster_players": 18,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.5555555555555556,
+          "matched_prior_minutes": 3517.385,
+          "matched_prior_minutes_per_rostered_player": 195.4102777777778
+        },
+        {
+          "team": "florida a&m",
+          "player_stat_adjustment": -70.3766808552835,
+          "roster_players": 19,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.5263157894736842,
+          "matched_prior_minutes": 2923.731,
+          "matched_prior_minutes_per_rostered_player": 153.88057894736843
+        },
+        {
+          "team": "liberty",
+          "player_stat_adjustment": 66.75440608005155,
+          "roster_players": 15,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.6666666666666666,
+          "matched_prior_minutes": 5606.282,
+          "matched_prior_minutes_per_rostered_player": 373.75213333333335
+        },
+        {
+          "team": "colgate",
+          "player_stat_adjustment": 66.09271524106991,
+          "roster_players": 15,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.6666666666666666,
+          "matched_prior_minutes": 5111.351,
+          "matched_prior_minutes_per_rostered_player": 340.75673333333333
+        },
+        {
+          "team": "uc irvine",
+          "player_stat_adjustment": 65.19912075719326,
+          "roster_players": 16,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.625,
+          "matched_prior_minutes": 4338.290000000001,
+          "matched_prior_minutes_per_rostered_player": 271.14312500000005
+        },
+        {
+          "team": "virginia",
+          "player_stat_adjustment": 64.29079456516375,
+          "roster_players": 16,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.5,
+          "matched_prior_minutes": 4858.651,
+          "matched_prior_minutes_per_rostered_player": 303.6656875
+        },
+        {
+          "team": "belmont",
+          "player_stat_adjustment": 63.1581228925989,
+          "roster_players": 14,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.5714285714285714,
+          "matched_prior_minutes": 2818.9860000000003,
+          "matched_prior_minutes_per_rostered_player": 201.35614285714288
+        }
+      ]
+    },
+    "2025": {
+      "teams": 357,
+      "bands": {
+        "under_20": {
+          "teams": 191,
+          "median_matched_roster_fraction": 0.6111111111111112,
+          "median_matched_players": 10,
+          "median_prior_minutes": 4655.333999999999
+        },
+        "20_to_39": {
+          "teams": 109,
+          "median_matched_roster_fraction": 0.5789473684210527,
+          "median_matched_players": 9,
+          "median_prior_minutes": 4128.402
+        },
+        "40_to_69": {
+          "teams": 46,
+          "median_matched_roster_fraction": 0.5625,
+          "median_matched_players": 9.0,
+          "median_prior_minutes": 3553.8790000000004
+        },
+        "70_plus": {
+          "teams": 11,
+          "median_matched_roster_fraction": 0.6111111111111112,
+          "median_matched_players": 10,
+          "median_prior_minutes": 4243.706
+        }
+      },
+      "largest_adjustments": [
+        {
+          "team": "iowa",
+          "player_stat_adjustment": 95.68014891289813,
+          "roster_players": 16,
+          "matched_players": 11,
+          "matched_roster_fraction": 0.6875,
+          "matched_prior_minutes": 5771.365000000001,
+          "matched_prior_minutes_per_rostered_player": 360.71031250000004
+        },
+        {
+          "team": "jacksonville st.",
+          "player_stat_adjustment": -94.3485381274513,
+          "roster_players": 16,
+          "matched_players": 10,
+          "matched_roster_fraction": 0.625,
+          "matched_prior_minutes": 3459.505,
+          "matched_prior_minutes_per_rostered_player": 216.2190625
+        },
+        {
+          "team": "purdue",
+          "player_stat_adjustment": 92.12587931950182,
+          "roster_players": 18,
+          "matched_players": 11,
+          "matched_roster_fraction": 0.6111111111111112,
+          "matched_prior_minutes": 4243.706,
+          "matched_prior_minutes_per_rostered_player": 235.76144444444446
+        },
+        {
+          "team": "alabama a&m",
+          "player_stat_adjustment": -86.02020866902895,
+          "roster_players": 21,
+          "matched_players": 12,
+          "matched_roster_fraction": 0.5714285714285714,
+          "matched_prior_minutes": 3448.6710000000003,
+          "matched_prior_minutes_per_rostered_player": 164.2224285714286
+        },
+        {
+          "team": "umes",
+          "player_stat_adjustment": 84.43770780443893,
+          "roster_players": 13,
+          "matched_players": 3,
+          "matched_roster_fraction": 0.23076923076923078,
+          "matched_prior_minutes": 292.898,
+          "matched_prior_minutes_per_rostered_player": 22.530615384615388
+        },
+        {
+          "team": "duke",
+          "player_stat_adjustment": 81.15148307461989,
+          "roster_players": 15,
+          "matched_players": 7,
+          "matched_roster_fraction": 0.4666666666666667,
+          "matched_prior_minutes": 4586.949999999999,
+          "matched_prior_minutes_per_rostered_player": 305.79666666666657
+        },
+        {
+          "team": "st. john's (ny)",
+          "player_stat_adjustment": 80.14521878472084,
+          "roster_players": 13,
+          "matched_players": 9,
+          "matched_roster_fraction": 0.6923076923076923,
+          "matched_prior_minutes": 4891.429,
+          "matched_prior_minutes_per_rostered_player": 376.26376923076924
+        },
+        {
+          "team": "louisville",
+          "player_stat_adjustment": 79.31808209257713,
+          "roster_players": 17,
+          "matched_players": 15,
+          "matched_roster_fraction": 0.8823529411764706,
+          "matched_prior_minutes": 9964.232,
+          "matched_prior_minutes_per_rostered_player": 586.131294117647
+        },
+        {
+          "team": "jackson st.",
+          "player_stat_adjustment": -73.78512844330172,
+          "roster_players": 16,
+          "matched_players": 7,
+          "matched_roster_fraction": 0.4375,
+          "matched_prior_minutes": 1678.088,
+          "matched_prior_minutes_per_rostered_player": 104.8805
+        },
+        {
+          "team": "mississippi val.",
+          "player_stat_adjustment": -72.7886034194908,
+          "roster_players": 16,
+          "matched_players": 6,
+          "matched_roster_fraction": 0.375,
+          "matched_prior_minutes": 2017.733,
+          "matched_prior_minutes_per_rostered_player": 126.1083125
+        },
+        {
+          "team": "ohio st.",
+          "player_stat_adjustment": 70.87769090728888,
+          "roster_players": 16,
+          "matched_players": 11,
+          "matched_roster_fraction": 0.6875,
+          "matched_prior_minutes": 5050.368,
+          "matched_prior_minutes_per_rostered_player": 315.648
+        },
+        {
+          "team": "evansville",
+          "player_stat_adjustment": 69.62475831539753,
+          "roster_players": 16,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.5,
+          "matched_prior_minutes": 1779.289,
+          "matched_prior_minutes_per_rostered_player": 111.2055625
+        },
+        {
+          "team": "lipscomb",
+          "player_stat_adjustment": 68.23215576002737,
+          "roster_players": 15,
+          "matched_players": 9,
+          "matched_roster_fraction": 0.6,
+          "matched_prior_minutes": 5369.211,
+          "matched_prior_minutes_per_rostered_player": 357.9474
+        },
+        {
+          "team": "csu bakersfield",
+          "player_stat_adjustment": -67.43037957606363,
+          "roster_players": 14,
+          "matched_players": 5,
+          "matched_roster_fraction": 0.35714285714285715,
+          "matched_prior_minutes": 2885.716,
+          "matched_prior_minutes_per_rostered_player": 206.12257142857143
+        },
+        {
+          "team": "ut martin",
+          "player_stat_adjustment": -67.2812127714279,
+          "roster_players": 17,
+          "matched_players": 2,
+          "matched_roster_fraction": 0.11764705882352941,
+          "matched_prior_minutes": 602.522,
+          "matched_prior_minutes_per_rostered_player": 35.442470588235295
+        }
+      ]
+    },
+    "2026": {
+      "teams": 360,
+      "bands": {
+        "under_20": {
+          "teams": 186,
+          "median_matched_roster_fraction": 0.5625,
+          "median_matched_players": 9.0,
+          "median_prior_minutes": 4061.2299999999996
+        },
+        "20_to_39": {
+          "teams": 115,
+          "median_matched_roster_fraction": 0.5625,
+          "median_matched_players": 9,
+          "median_prior_minutes": 3776.803
+        },
+        "40_to_69": {
+          "teams": 53,
+          "median_matched_roster_fraction": 0.5333333333333333,
+          "median_matched_players": 8,
+          "median_prior_minutes": 3019.1339999999996
+        },
+        "70_plus": {
+          "teams": 6,
+          "median_matched_roster_fraction": 0.5019607843137255,
+          "median_matched_players": 8.0,
+          "median_prior_minutes": 2446.258
+        }
+      },
+      "largest_adjustments": [
+        {
+          "team": "utah valley",
+          "player_stat_adjustment": 121.48632415599371,
+          "roster_players": 15,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.5333333333333333,
+          "matched_prior_minutes": 2527.179,
+          "matched_prior_minutes_per_rostered_player": 168.4786
+        },
+        {
+          "team": "liberty",
+          "player_stat_adjustment": 86.59048453599615,
+          "roster_players": 15,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.5333333333333333,
+          "matched_prior_minutes": 3920.1330000000003,
+          "matched_prior_minutes_per_rostered_player": 261.3422
+        },
+        {
+          "team": "mississippi val.",
+          "player_stat_adjustment": -85.11203966250488,
+          "roster_players": 16,
+          "matched_players": 2,
+          "matched_roster_fraction": 0.125,
+          "matched_prior_minutes": 1079.003,
+          "matched_prior_minutes_per_rostered_player": 67.4376875
+        },
+        {
+          "team": "florida",
+          "player_stat_adjustment": 78.71131231994795,
+          "roster_players": 15,
+          "matched_players": 12,
+          "matched_roster_fraction": 0.8,
+          "matched_prior_minutes": 5707.634,
+          "matched_prior_minutes_per_rostered_player": 380.50893333333335
+        },
+        {
+          "team": "south alabama",
+          "player_stat_adjustment": 72.77249358162965,
+          "roster_players": 13,
+          "matched_players": 4,
+          "matched_roster_fraction": 0.3076923076923077,
+          "matched_prior_minutes": 2365.337,
+          "matched_prior_minutes_per_rostered_player": 181.949
+        },
+        {
+          "team": "gardner-webb",
+          "player_stat_adjustment": -72.30964237844702,
+          "roster_players": 17,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.47058823529411764,
+          "matched_prior_minutes": 1502.472,
+          "matched_prior_minutes_per_rostered_player": 88.38070588235294
+        },
+        {
+          "team": "fla. atlantic",
+          "player_stat_adjustment": 66.05504161057853,
+          "roster_players": 15,
+          "matched_players": 6,
+          "matched_roster_fraction": 0.4,
+          "matched_prior_minutes": 1665.3150000000003,
+          "matched_prior_minutes_per_rostered_player": 111.02100000000002
+        },
+        {
+          "team": "santa clara",
+          "player_stat_adjustment": 64.88884620820959,
+          "roster_players": 17,
+          "matched_players": 9,
+          "matched_roster_fraction": 0.5294117647058824,
+          "matched_prior_minutes": 2531.635,
+          "matched_prior_minutes_per_rostered_player": 148.91970588235296
+        },
+        {
+          "team": "montana st.",
+          "player_stat_adjustment": 63.81882377295047,
+          "roster_players": 15,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.5333333333333333,
+          "matched_prior_minutes": 1627.0310000000002,
+          "matched_prior_minutes_per_rostered_player": 108.46873333333335
+        },
+        {
+          "team": "michigan",
+          "player_stat_adjustment": 61.1070575155637,
+          "roster_players": 16,
+          "matched_players": 11,
+          "matched_roster_fraction": 0.6875,
+          "matched_prior_minutes": 6096.317,
+          "matched_prior_minutes_per_rostered_player": 381.0198125
+        },
+        {
+          "team": "uconn",
+          "player_stat_adjustment": 59.850439712738506,
+          "roster_players": 15,
+          "matched_players": 9,
+          "matched_roster_fraction": 0.6,
+          "matched_prior_minutes": 7788.865999999999,
+          "matched_prior_minutes_per_rostered_player": 519.2577333333332
+        },
+        {
+          "team": "ark.-pine bluff",
+          "player_stat_adjustment": -59.350354137619675,
+          "roster_players": 15,
+          "matched_players": 7,
+          "matched_roster_fraction": 0.4666666666666667,
+          "matched_prior_minutes": 1944.8210000000001,
+          "matched_prior_minutes_per_rostered_player": 129.65473333333335
+        },
+        {
+          "team": "new mexico",
+          "player_stat_adjustment": 58.730431580254994,
+          "roster_players": 14,
+          "matched_players": 6,
+          "matched_roster_fraction": 0.42857142857142855,
+          "matched_prior_minutes": 2558.753,
+          "matched_prior_minutes_per_rostered_player": 182.76807142857143
+        },
+        {
+          "team": "southern miss.",
+          "player_stat_adjustment": -58.237572248452366,
+          "roster_players": 18,
+          "matched_players": 8,
+          "matched_roster_fraction": 0.4444444444444444,
+          "matched_prior_minutes": 2318.122,
+          "matched_prior_minutes_per_rostered_player": 128.78455555555556
+        },
+        {
+          "team": "cleveland st.",
+          "player_stat_adjustment": -57.99388372157517,
+          "roster_players": 15,
+          "matched_players": 7,
+          "matched_roster_fraction": 0.4666666666666667,
+          "matched_prior_minutes": 881.9000000000001,
+          "matched_prior_minutes_per_rostered_player": 58.79333333333334
+        }
+      ]
+    }
+  }
+}
