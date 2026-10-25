@@ -173,6 +173,20 @@ if(conference){
  table.append(tbody);tableSection.append(table);
  const src=node('a','Official conference standings ↗');src.href=conferenceData.source_url;src.target='_blank';src.rel='noopener noreferrer';tableSection.append(src);
  conferencePanel.append(tableSection);
+ const rivalIds=new Set(conference.teams.filter(id=>id!==t.team_id));
+ const complete=(scheduleData.teams?.[t.cohort+':'+t.team_id]?.games||[]);
+ const officialRivals=complete.filter(g=>g.status==='final'&&rivalIds.has(String(g.opponent).toLowerCase().replace(/[^a-z0-9]+/g,'-')));
+ if(officialRivals.length){
+  const rivalSection=node('div',undefined,'team-conference-headtohead');
+  rivalSection.append(node('h4','Verified matchups against conference opponents'));
+  for(const game of officialRivals){
+   const row=node('div',undefined,'team-rival-result');
+   const result=game.goals_for>game.goals_against?'W':game.goals_for<game.goals_against?'L':'D';
+   row.append(node('span',fullDate(game.date)+' · '+(game.venue==='home'?'vs ':'at ')+game.opponent),node('strong',game.goals_for+'–'+game.goals_against+' · '+result));
+   rivalSection.append(row);
+  }
+  conferencePanel.append(rivalSection);
+ }
  conferencePanel.append(node('p','Conference records are sourced from the official MIAA standings; Elo, full-season totals and comparisons use our independently maintained rating snapshot. Cutoffs may differ.','team-visual-footnote'));
  profile.append(conferencePanel);
 }
