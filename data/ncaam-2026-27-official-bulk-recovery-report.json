@@ -1,7 +1,7 @@
 {
   "input_targets": 489,
   "already_classified": 202,
-  "new_official_class_years": 16,
+  "new_official_class_years": 17,
   "source_results": [
     {
       "school": "Western Ill.",
@@ -445,8 +445,9 @@
     },
     {
       "school": "Cincinnati",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
+      "status": "processed",
+      "matched": 1,
+      "targeted": 1
     },
     {
       "school": "Gonzaga",
@@ -462,8 +463,9 @@
     },
     {
       "school": "Iowa",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
+      "status": "processed",
+      "matched": 0,
+      "targeted": 2
     },
     {
       "school": "Memphis",
@@ -490,7 +492,7 @@
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 271,
+  "still_unmatched_in_queue": 270,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -1095,8 +1097,9 @@
   ],
   "class_counts": {
     "Freshman": 13,
-    "Senior": 3
+    "Senior": 3,
+    "Junior": 1
   },
-  "new_unique_saved_against_latest_main": 16,
-  "total_official_class_year_records": 1743
+  "new_unique_saved_against_latest_main": 1,
+  "total_official_class_year_records": 1744
 }
