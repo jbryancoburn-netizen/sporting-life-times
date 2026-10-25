@@ -1,0 +1,57 @@
+name: NCAA Soccer Team UI Checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'college-soccer-teams.js'
+      - 'college-soccer-teams.css'
+      - 'college-soccer-team.html'
+      - 'college-soccer.html'
+      - 'data/college-soccer-team-schedules.json'
+      - 'data/college-soccer-team-branding.json'
+      - '.github/workflows/college-soccer-team-ui-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript parsing
+        run: node --check college-soccer-teams.js
+      - name: Check team page asset references and official records
+        run: |
+          node <<'JS'
+          const fs=require('fs');
+          const assert=require('assert/strict');
+          const pages=['college-soccer-team.html','college-soccer.html'];
+          for(const p of pages){
+            const html=fs.readFileSync(p,'utf8');
+            assert.match(html,/college-soccer-teams\.js\?v=seasonform15/);
+            assert.match(html,/college-soccer-teams\.css\?v=seasonform15/);
+            assert.match(html,/id="college-team-search"/);
+            assert.match(html,/id="college-team-profile"/);
+          }
+          const schedule=JSON.parse(fs.readFileSync('data/college-soccer-team-schedules.json'));
+          const trine=schedule.teams['men-d3:trine'].games;
+          const rank=JSON.parse(fs.readFileSync('data/college-soccer-elo.json'));
+          const trineTeam=rank.cohorts['men-d3'].find(t=>t.team_id==='trine');
+          assert(trineTeam && trine.length>=14);
+          const final=trine.filter(g=>g.status==='final');
+          assert.equal(final.filter(g=>g.goals_for>g.goals_against).length,trineTeam.w);
+          assert.equal(final.filter(g=>g.goals_for<g.goals_against).length,trineTeam.l);
+          assert.equal(final.filter(g=>g.goals_for===g.goals_against).length,trineTeam.d);
+          const branding=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json'));
+          assert.equal(branding.teams['men-d3:trine'].city,'Angola');
+          assert(branding.teams['men-d3:trine'].logo_url.startsWith('https://'));
+          for(const marker of ['team-result-timeline','team-splits','team-visual-report','team-hero-logo-bg']){
+            assert(fs.readFileSync('college-soccer-teams.js','utf8').includes(marker),marker+' missing');
+          }
+          console.log('Team UI references, graphs and Trine source-backed records validated.');
+          JS
