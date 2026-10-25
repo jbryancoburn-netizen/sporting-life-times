@@ -35,8 +35,8 @@ jobs:
           const pages=['college-soccer-team.html','college-soccer.html'];
           for(const p of pages){
             const html=fs.readFileSync(p,'utf8');
-            assert.match(html,/college-soccer-teams\.js\?v=clean-rollback29/);
-            assert.match(html,/college-soccer-teams\.css\?v=clean-rollback29/);
+            assert.match(html,/college-soccer-teams\.js\?v=nomascot30/);
+            assert.match(html,/college-soccer-teams\.css\?v=nomascot30/);
             assert.match(html,/id="college-team-search"/);
             assert.match(html,/id="college-team-profile"/);
           }
@@ -62,9 +62,9 @@ jobs:
           const branding=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json'));
           assert.equal(branding.teams['men-d3:trine'].city,'Angola');
           assert(branding.teams['men-d3:trine'].logo_url.startsWith('https://'));
-          assert.equal(branding.teams['men-d3:trine'].mascot_name,'Storm');
-          assert.equal(branding.teams['men-d3:trine'].mascot_photo_url,'https://www.trine.edu/images/about/storm-cutout.png');
           assert(Number.isFinite(branding.teams['men-d3:trine'].campus_lat));
+          assert(!JSON.stringify(branding).toLowerCase().includes('storm-cutout'),'Mascot image unexpectedly remains in branding');
+          assert(!('mascot_name' in branding.teams['men-d3:trine']),'Mascot feature must remain disabled');
           for(const marker of ['team-result-timeline','team-splits','team-visual-report','team-hero-logo-bg','team-porch-grid']){
             assert(fs.readFileSync('college-soccer-teams.js','utf8').includes(marker),marker+' missing');
           }
