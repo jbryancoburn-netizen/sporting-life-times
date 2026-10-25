@@ -1,0 +1,59 @@
+name: NCAA exact player v1 beta300 historical challenge
+on:
+  push:
+    paths:
+      - 'scripts/backtest_ncaam_exact_player_v1.py'
+      - 'scripts/run_ncaam_exact_player_v1_challenge.py'
+      - 'scripts/test_ncaam_exact_player_v1.py'
+      - '.github/workflows/ncaam-exact-player-v1-challenge.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-exact-player-v1-history
+  cancel-in-progress: false
+jobs:
+  exact-beta300:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and exact formula unit tests
+        run: |
+          python -m py_compile scripts/backtest_ncaam_exact_player_v1.py scripts/run_ncaam_exact_player_v1_challenge.py
+          python -m unittest discover -s scripts -p test_ncaam_exact_player_v1.py -v
+      - name: Fetch 12 season files and evaluate fixed beta 300
+        run: python scripts/run_ncaam_exact_player_v1_challenge.py
+      - name: Upload held-out results and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-exact-beta300-historical-evidence
+          path: |
+            data/ncaam-exact-player-v1-retrospective-challenge.json
+            data/ncaam-exact-player-v1-execution-diagnostic.json
+      - name: Publish benchmark evidence without promoting primary Elo
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if test -f data/ncaam-exact-player-v1-retrospective-challenge.json; then
+            git add data/ncaam-exact-player-v1-retrospective-challenge.json
+          fi
+          if test -f data/ncaam-exact-player-v1-execution-diagnostic.json; then
+            git add data/ncaam-exact-player-v1-execution-diagnostic.json
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish exact beta-300 NCAA historical validation evidence [skip ci]"
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 2
+            done
+            exit 1
+          fi
