@@ -22,7 +22,7 @@ async function news(){
   try{payload=await fetchJSON('data/nba-top-stories.json')}
   catch(err){payload=await fetchJSON('articles.json')}
   const editorial=a=>!/(?:betmgm|draftkings|fanduel|caesars sportsbook|bet365|sportsbook|bonus (?:bet|code|offer)|promo code|promotional code|free bet|bonus bets?|best bets?|player props?|same.game parlay|parlay|odds boost|betting picks?|wager|risk.free|sports betting|fantasy basketball|pick(?:s)? against the spread|world series|brewers|rays)/i.test([a.title,a.summary,a.url].join(' '));
-  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title&&editorial(a)).slice(0,60);
+  let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title&&editorial(a)&&!/\\b(?:WNBA|Valkyries|G League Draft Results)\\b/i.test(a.title)&&!/^(?:Get Your Latest NBA News|Latest NBA News|NBA News and Rumors|NBA News)$/i.test(a.title)).slice(0,60);
   // Lead with timely verified reporting; source prestige cannot pin old stories above today's news.
   const now=Date.now();
   const ranked=items.map((a,index)=>{
@@ -39,7 +39,12 @@ async function news(){
   const newsItem=(a,i)=>'<article class="nba-news-item'+(i===0?' nba-news-lead':'')+'"><p class="nba-news-source">'+newsLogos(a)+(format?.meta?format.meta(a):esc(a.source||'NBA NEWS')+' · '+esc((a.published_at||'').slice(0,10)))+'</p><h3><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+(format?.title?format.title(a):esc(a.title))+'</a></h3>'+(a.summary?'<p class="nba-news-summary">'+(format?.summary?format.summary(a):esc(a.summary))+'</p>':'')+'</article>';
   const featured=items.slice(0,11),more=items.slice(11);
   grid.innerHTML=featured.map(newsItem).join('')+(more.length?'<details class="nba-more-stories"><summary>MORE NBA HEADLINES · '+more.length+' ADDITIONAL STORIES</summary><div class="nba-more-list">'+more.map((a,i)=>newsItem(a,i+featured.length)).join('')+'</div></details>':'');
-  msg('nba-news-status',items.length+' attributed NBA stories · '+(payload.updated_at||'Dated reporting')+' · Original sources linked');
+  const newest=items.map(a=>Date.parse(a.published_at||'')).filter(Number.isFinite).sort((a,b)=>b-a)[0];
+  const feedTime=Date.parse(payload.updated_at||'');
+  const feedAge=Number.isFinite(feedTime)?Math.max(0,Date.now()-feedTime):Infinity;
+  const feedState=feedAge>90*60000?' · NEWS REFRESH DELAYED':feedAge>30*60000?' · Refresh overdue':' · Feed current';
+  const latestLabel=Number.isFinite(newest)?' · Latest article '+date(newest):' · Publication time unverified';
+  msg('nba-news-status',items.length+' attributed NBA stories'+latestLabel+feedState+' · Original sources linked');
  }catch(err){msg('nba-news-status','NBA top stories feed unavailable');unavailable('nba-news-grid','NBA reporting temporarily unavailable. <a href="https://www.nba.com/news" target="_blank" rel="noopener noreferrer">NBA.com News ↗</a>')}
 }
 async function desk(){
