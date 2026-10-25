@@ -1,0 +1,56 @@
+name: Refresh MIAA Women's Soccer Standings
+on:
+  schedule:
+    - cron: '13,43 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_college_soccer_miaa_women_standings.py'
+      - 'scripts/test_college_soccer_miaa_women_standings.py'
+      - '.github/workflows/college-soccer-miaa-women-standings.yml'
+permissions:
+  contents: write
+concurrency:
+  group: update-miaa-women-soccer-standings
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install official-table parser
+        run: python -m pip install beautifulsoup4
+      - name: Test women's nine-team standings parser
+        run: python -m unittest discover -s scripts -p test_college_soccer_miaa_women_standings.py -v
+      - name: Collect nine verified conference records
+        run: python scripts/update_college_soccer_miaa_women_standings.py
+      - name: Validate all nine records
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/college-soccer-miaa-women-standings.json').read_text())
+          assert len(d['rows'])==9
+          assert len({r['team_id'] for r in d['rows']})==9
+          for r in d['rows']:
+              w,l,*draw=map(int,r['conference_record'].split('-'))
+              assert w*3+(draw[0] if draw else 0)==r['conference_points']
+          print('MIAA women soccer official table PASS')
+          PY
+      - name: Publish only changed official standings
+        run: |
+          if git diff --quiet -- data/college-soccer-miaa-women-standings.json; then
+            echo 'No official table changes'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-miaa-women-standings.json
+          git commit -m "Refresh MIAA women's soccer standings"
+          git pull --rebase origin main
+          git push origin HEAD:main
