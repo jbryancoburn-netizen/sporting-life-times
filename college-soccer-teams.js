@@ -169,7 +169,7 @@ if(conference){
  const dateTime=checked?Date.parse(checked+'T23:59:59Z'):NaN;
  const isStale=!Number.isFinite(dateTime)||(Date.now()-dateTime)>36*3600*1000;
  const freshness=node('div',undefined,'team-feed-freshness'+(isStale?' is-stale':''));
- freshness.append(node('strong',isStale?'Official table may be stale':'Official table snapshot'),node('span',checked?'Verified standings dated '+checked:'No official date available'));
+ freshness.append(node('strong',isStale?'Official table may be stale':'Official table snapshot'),node('span',checked?'Checked '+checked+(conferenceStandings.last_verified_game_date?' · results through '+conferenceStandings.last_verified_game_date:' · exact last-game cutoff not confirmed'):'No official date available'));
  tableSection.append(freshness);
  const reportDate=node('p',checked?'Official table published snapshot: '+checked+' · Records may lag games played today.':'Official conference snapshot unavailable; check the league source for current standings.','team-visual-footnote');
  tableSection.append(reportDate);
