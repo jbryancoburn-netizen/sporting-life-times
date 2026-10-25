@@ -188,6 +188,79 @@
       },
       "table_source": "https://miaa.org/standings.aspx?path=wsoc",
       "projection_warning": "Top-six hypothetical field is based on the 2025 format and current 2026 conference standings, NOT the announced 2026 tournament bracket or certified 2026 tiebreakers."
+    },
+    "men-d1:big-ten": {
+      "name": "Big Ten Conference",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "first_round_byes": 2,
+        "first_round_date": "2026-11-08",
+        "semifinal_date": "2026-11-11",
+        "final_date": "2026-11-15",
+        "automatic_qualifier": "Tournament winner earns the NCAA Division I men's soccer automatic bid.",
+        "status": "2026 field, dates, byes and hosting verified by official conference tournament central.",
+        "sources": [
+          "https://bigten.org/sports/2026/8/12/MSOC_0812262540.aspx"
+        ]
+      },
+      "table_source": "https://bigten.org/standings.aspx?path=msoc",
+      "projection_warning": "Provisional seeds use conference points and Elo only for display ties; official tie procedure controls."
+    },
+    "women-d1:big-ten": {
+      "name": "Big Ten Conference",
+      "cohort": "women-d1",
+      "tournament": {
+        "field": 8,
+        "first_round_byes": 0,
+        "first_round_date": "2026-11-04",
+        "quarterfinal_dates": [
+          "2026-11-04",
+          "2026-11-05"
+        ],
+        "semifinal_date": "2026-11-08",
+        "final_date": "2026-11-13",
+        "automatic_qualifier": "Tournament champion receives NCAA DI women's automatic bid.",
+        "status": "2026 eight-team field and quarterfinal 1/8, 2/7, 4/5, 3/6 pairing confirmed; semis Nov 8, final Nov 13.",
+        "sources": [
+          "https://bigten.org/sports/2026/10/13/2026WSOCB1GTournament.aspx"
+        ]
+      },
+      "table_source": "https://bigten.org/sports/wsoc/standings",
+      "projection_warning": "Official league tie rules and final tournament seeds supersede projected ordering; missing USC Elo is not filled in."
+    },
+    "women-d3:miac": {
+      "name": "Minnesota Intercollegiate Athletic Conference",
+      "cohort": "women-d3",
+      "tournament": {
+        "field": 6,
+        "first_round_byes": 2,
+        "first_round_date": "2026-11-03",
+        "semifinal_date": "2026-11-05",
+        "final_date": "2026-11-07",
+        "reseed": true,
+        "automatic_qualifier": "MIAC playoff champion gets NCAA Division III women's automatic bid.",
+        "status": "2026 six-team field/dates verified; conference policy specifies reseeding after quarterfinals.",
+        "sources": [
+          "https://miacathletics.com/news/2026/8/24/2026-miac-womens-soccer-season-preview.aspx",
+          "https://miac_ftp.sidearmsports.com/custompages/policy_book/WSOCCER.pdf"
+        ]
+      },
+      "table_source": "https://miacathletics.com/standings.aspx?path=wsoc",
+      "projection_warning": "Official reseeding must be used for a certified bracket; simple six-team fixed-branch approximations are not valid MIAC title odds."
+    },
+    "women-d3:cciw": {
+      "name": "College Conference of Illinois & Wisconsin",
+      "cohort": "women-d3",
+      "tournament": {
+        "field": null,
+        "status": "2026 conference standings and tournament qualifier markings verified; exact current field and bracket format not independently established.",
+        "sources": [
+          "https://cciw.org/standings.aspx?path=wsoc"
+        ]
+      },
+      "table_source": "https://cciw.org/standings.aspx?path=wsoc",
+      "projection_warning": "No complete bracket, seed probabilities or automatic-bid odds until official current format and tiebreakers verified."
     }
   }
 }
