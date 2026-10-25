@@ -21,7 +21,7 @@ def parse_players(html):
         name=re.sub(r"\s+(?:View|Profile|Bio)$","",name,flags=re.I)
         if not (3<=len(name)<=85 and re.search(r"[A-Za-z]",name)):
             continue
-        if re.search(r"(?i)^(jersey number|full|view|roster|bio|staff|coach|head coach|assistant coach|director|manager|operations|print|schedule|stats|number)\\b",name):
+        if re.search(r"(?i)^(jersey number|full|view|roster|bio|staff|coach|head coach|assistant coach|director|manager|operations|print|schedule|stats|number)\b",name):
             continue
         if len(name.split())<2 or len(name.split())>5 or not re.fullmatch(r"[\w\s.'’\-]+",name,re.UNICODE):
             continue
