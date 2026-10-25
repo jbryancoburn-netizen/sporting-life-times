@@ -411,6 +411,38 @@
       },
       "table_source": "https://ivyleague.com/standings.aspx?path=msoc",
       "projection_warning": "Four-team as-if-today field follows published order; actual seeds depend on official tiebreakers."
+    },
+    "men-d1:wcc": {
+      "name": "West Coast Conference",
+      "short": "WCC",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 4,
+        "semifinal_date": "2026-11-11",
+        "final_date": "2026-11-14",
+        "status": "2026 four-team single-elimination format, highest remaining seed hosts; confirmed by WCC.",
+        "sources": [
+          "https://wccsports.com/news/2026/6/2/west-coast-conference-announces-2026-mens-soccer-conference-schedule.aspx"
+        ]
+      },
+      "table_source": "https://wccsports.com/standings.aspx?path=msoc",
+      "projection_warning": "Portland championship clinch is official; full league table snapshot combines a league standings view and Portland Oct 24 result, and needs automated standings sync."
+    },
+    "men-d1:ovc": {
+      "name": "Ohio Valley Conference",
+      "short": "OVC",
+      "cohort": "men-d1",
+      "tournament": {
+        "field": 6,
+        "semifinal_date": "2026-11-11",
+        "final_date": "2026-11-14",
+        "status": "2026 six-team tournament. Pod champions are assigned seeds 1 and 2, not necessarily the top two in the overall standings; bracket is provisional until official pod seeding.",
+        "sources": [
+          "https://ovcsports.com/sports/2026/7/30/MSOC_0729261951.aspx"
+        ]
+      },
+      "table_source": "https://ovcsports.com/standings.aspx?path=msoc",
+      "projection_warning": "Official order snapshot; OVC top-two seeds from separate pods may differ from standings order. No certification of exact tournament seeds."
     }
   }
 }
