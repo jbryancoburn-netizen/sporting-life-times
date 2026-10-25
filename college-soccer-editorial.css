@@ -41,3 +41,13 @@
 #college-soccer-editorial .cs-edit-lead-school .cs-edit-school{font:700 .8rem Arial,sans-serif}
 #college-soccer-editorial .cs-edit-lead-school .cs-edit-school-mark{width:42px;height:42px}
 #college-soccer-editorial .cs-edit-lead-school>span:last-child{font:700 .59rem Arial,sans-serif;letter-spacing:.07em;color:#73838e;text-align:right}
+
+/* School finder is a front-of-page utility, not another bottom feature card. */
+#college-team-finder[data-cs-search]{margin:.75rem 0 .9rem!important;padding:.65rem .9rem .55rem!important;border:1px solid #d4dde1!important;border-left:4px solid #28475b!important;background:#f5f8fa!important;box-shadow:none!important}
+#college-team-finder[data-cs-search]>h2{margin:0 0 .2rem!important;font:700 1.08rem Georgia,serif!important;color:#1e3645!important}
+#college-team-finder[data-cs-search]>.hub-small{margin:.3rem 0 .45rem!important;font:.73rem/1.45 Arial,sans-serif!important;color:#5b7180!important}
+#college-team-finder[data-cs-search]>label{display:block;margin:.2rem 0;font:700 .68rem Arial,sans-serif!important;letter-spacing:.02em}
+#college-team-finder[data-cs-search] #college-team-search{max-width:100%!important;width:100%!important;box-sizing:border-box!important;margin:.15rem 0 .25rem!important;padding:.75rem .9rem!important;background:#fff!important;color:#1d3040!important;border:1px solid #acbdc8!important;font:500 .88rem Arial,sans-serif!important}
+#college-team-finder[data-cs-search] #college-team-results:empty{display:none}
+#college-team-finder[data-cs-search] #college-team-results{margin:0 0 .35rem}
+@media(min-width:800px){#college-team-finder[data-cs-search] #college-team-search{max-width:700px!important}}
