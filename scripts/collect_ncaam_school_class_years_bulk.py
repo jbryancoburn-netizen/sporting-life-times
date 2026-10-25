@@ -18,7 +18,7 @@ CLASS_MAP={"fr":"Freshman","freshman":"Freshman","r fr":"Redshirt Freshman",
 "r jr":"Redshirt Junior","redshirt junior":"Redshirt Junior",
 "sr":"Senior","senior":"Senior","r sr":"Redshirt Senior",
 "redshirt senior":"Redshirt Senior","gr":"Graduate","grad":"Graduate",
-"graduate":"Graduate","graduate student":"Graduate"}
+"graduate":"Graduate","graduate student":"Graduate","rs fr":"Redshirt Freshman","rs so":"Redshirt Sophomore","rs jr":"Redshirt Junior","rs sr":"Redshirt Senior","fifth year":"Graduate"}
 def norm(s):return re.sub("[^a-z0-9]","",str(s).casefold())
 def label(s):
     x=re.sub(r"[^a-z ]"," ",str(s).lower()).strip()
@@ -31,21 +31,21 @@ def fetch(url):
 def classify_player(soup,name):
     wanted=norm(name)
     hits=[]
-    for tag in soup.find_all(["a","span","div","h3","h4","td","strong"]):
+    for tag in soup.find_all(["a","span","div","h3","h4","td","strong","h2","p"]):
         own=tag.get_text(" ",strip=True)
         if norm(own)!=wanted or len(own)>len(name)+5:continue
         # Skip container duplications, prefer the most deeply nested matching text.
         if any(norm(c.get_text(" ",strip=True))==wanted for c in tag.find_all(True)):
             continue
         for parent in list(tag.parents)[:6]:
-            if parent.name not in ("tr","li","div","article","section"):continue
+            if parent.name not in ("tr","li","div","article","section","a"):continue
             text=parent.get_text(" ",strip=True)
             if len(text)>450:continue
             # Restricted to an isolated roster table row or athlete card.
-            if parent.name!="tr" and not any(k in " ".join(parent.get("class",[])).lower() for k in ("roster","player","card","athlete","person")):
+            if parent.name!="tr" and not any(k in " ".join(parent.get("class",[])).lower() for k in ("roster","player","card","athlete","person","sidearm")):
                 continue
             if text.lower().count(name.lower())>2:continue
-            tokens=re.findall(r"(?<![A-Za-z])(?:R[-. ]?(?:Fr|So|Jr|Sr)|Fr|So|Jr|Sr|Gr|Grad|Freshman|Sophomore|Junior|Senior|Graduate(?: Student)?|Redshirt (?:Freshman|Sophomore|Junior|Senior))(?![A-Za-z])",text,re.I)
+            tokens=re.findall(r"(?<![A-Za-z])(?:R[Ss]?[-. ]?(?:Fr|So|Jr|Sr)|Fr|So|Jr|Sr|Gr|Grad|Freshman|Sophomore|Junior|Senior|Graduate(?: Student)?|Redshirt (?:Freshman|Sophomore|Junior|Senior)|Fifth[- ]Year)(?![A-Za-z])",text,re.I)
             classes={label(token) for token in tokens if label(token)}
             if len(classes)==1:
                 hits.append(next(iter(classes)))
