@@ -1,0 +1,28 @@
+#college-soccer-women-miaa{margin:1.3rem 0 1.6rem;color:#253c4b;font-family:Arial,Helvetica,sans-serif}
+#college-soccer-women-miaa *{box-sizing:border-box}
+.cs-wmiaa-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.6rem;padding:.7rem 0;border-top:3px solid #294458}
+.cs-wmiaa-head h2{font:700 clamp(1.15rem,2vw,1.55rem) Georgia,serif;margin:0!important;color:#243a4a}
+.cs-wmiaa-head>span{font:700 .63rem Arial,sans-serif;color:#79858b;letter-spacing:.05em}
+.cs-wmiaa-mast{display:flex;justify-content:space-between;align-items:center;gap:.6rem 1.2rem;flex-wrap:wrap;border-bottom:1px solid #cbd7dd;padding:.5rem 0 .7rem;font:.82rem Arial,sans-serif}
+.cs-wmiaa-mast>a{font:700 .7rem Arial,sans-serif;color:#35576b!important;text-decoration:underline!important}
+.cs-wmiaa-columns{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);gap:clamp(1rem,3vw,2rem)}
+.cs-wmiaa-columns>section{min-width:0}
+.cs-wmiaa-columns h3{font:700 1rem Georgia,serif;margin:1rem 0 .5rem}
+.cs-wmiaa-table{width:100%;border-collapse:collapse;font:500 .75rem Arial,sans-serif;font-variant-numeric:tabular-nums}
+.cs-wmiaa-table th{padding:.5rem .3rem;background:#eef2f4;color:#667987;font-size:.65rem;text-align:right;border-bottom:1px solid #bdc8ce}
+.cs-wmiaa-table th:nth-child(2),.cs-wmiaa-table td:nth-child(2){text-align:left}
+.cs-wmiaa-table td{padding:.48rem .3rem;border-bottom:1px solid #e0e6e9;text-align:right}
+.cs-wmiaa-table a{color:#274c64!important;text-decoration:none!important;font-weight:700}
+.cs-wmiaa-table .cs-wmiaa-cutoff{border-bottom:3px solid #b27c4b}
+.cs-wmiaa-bracket{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+.cs-wmiaa-pair{background:#f1f4f6;padding:.6rem;display:flex;flex-direction:column;gap:.35rem}
+.cs-wmiaa-pair small{font:700 .6rem Arial,sans-serif;color:#8d6846}
+.cs-wmiaa-pair strong{font:.8rem Georgia,serif}
+.cs-wmiaa-pair span{font:.67rem Arial,sans-serif;color:#637783}
+.cs-wmiaa-odds{padding:.45rem 0;border-bottom:1px solid #e2e8eb}
+.cs-wmiaa-odds-label{display:flex;justify-content:space-between;gap:.8rem;font:.76rem Arial,sans-serif}
+.cs-wmiaa-odds-track{height:8px;background:#e3e9ed;margin-top:.3rem}
+.cs-wmiaa-odds-track i{display:block;height:100%;background:#52778e}
+.cs-wmiaa-note{font:italic .71rem/1.5 Georgia,serif;color:#73818a;margin:.7rem 0}
+@media(max-width:760px){.cs-wmiaa-columns{grid-template-columns:1fr}}
+@media(max-width:480px){.cs-wmiaa-bracket{grid-template-columns:1fr}.cs-wmiaa-table{font-size:.69rem}.cs-wmiaa-table td,.cs-wmiaa-table th{padding:.42rem .2rem}}
