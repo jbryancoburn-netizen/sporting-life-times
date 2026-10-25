@@ -91,6 +91,43 @@ function bracketFifteen(parent,teams,cohort,branding,labels={}){
  root.append(node('p','cs-cup-caveat','Bracket paths follow the ACC championship format, not projected game winners. Actual scores advance only when reported as official results. Whenever standings change, the provisional first-round field is rebuilt.'));
  parent.append(root);return root;
 }
+
+function predictiveBracket(parent,teams,cohort,branding,labels={}){
+ if(![6,8,15].includes(teams.length)||teams.some(t=>!Number.isFinite(Number(t.elo))))return null;
+ const t=teams.map((x,i)=>({...x,id:x.id||x.team_id,name:x.name||x.team?.team||x.team,seed:i+1}));
+ const odds=(a,b)=>1/(1+Math.pow(10,-((a.elo-b.elo)/400)));
+ const decide=(a,b)=>({winner:odds(a,b)>=.5?a:b,prob:Math.max(odds(a,b),1-odds(a,b))});
+ const root=node('div','cs-cup-bracket cs-cup-prediction-bracket');
+ root.setAttribute('aria-label','USRS predicted conference tournament bracket, hypothetical games');
+ root.append(node('p','cs-cup-caveat','IF PLAYED WITH THE CURRENT CONFERENCE TABLE · Forecast winners and advancement are based on USRS Elo. Team positions follow published standings, never Elo. This is NOT the official bracket.'));
+ const round=(title)=>{const r=node('section','cs-cup-round');r.append(node('h4','cs-cup-round-title',title));root.append(r);return r;};
+ const game=(group,label,a,b)=>{const d=decide(a,b);const card=pair(label,a,b,cohort,branding);card.classList.add('cs-cup-predicted-match');card.append(node('small','cs-cup-prediction-label','USRS PICK: '+d.winner.name+' · '+Math.round(100*d.prob)+'%'));group.append(card);return d.winner;};
+ let finalists=[];
+ if(t.length===6){
+  const q=round(labels.q||'OPENING ROUND');
+  const w36=game(q,'#3 vs #6',t[2],t[5]),w45=game(q,'#4 vs #5',t[3],t[4]);
+  const s=round(labels.s||'SEMIFINALS');
+  finalists=[game(s,'#1 bracket path',t[0],w45),game(s,'#2 bracket path',t[1],w36)];
+ }else if(t.length===8){
+  const q=round(labels.q||'QUARTERFINALS');
+  const w=[[0,7],[3,4],[1,6],[2,5]].map(([a,b])=>game(q,'#'+(a+1)+' vs #'+(b+1),t[a],t[b]));
+  const s=round(labels.s||'SEMIFINALS');
+  finalists=[game(s,'Semifinal 1',w[0],w[1]),game(s,'Semifinal 2',w[2],w[3])];
+ }else{
+  const q=round(labels.q||'FIRST ROUND');
+  q.append(pair('#1 · BYE',t[0],null,cohort,branding,'bye'));
+  const games=[[8,9],[4,13],[5,12],[3,14],[6,11],[7,10],[2,15]];
+  const w=games.map(([a,b])=>game(q,'#'+a+' vs #'+b,t[a-1],t[b-1]));
+  const quarter=round(labels.quarter||'QUARTERFINALS');
+  const v=[game(quarter,'Quarterfinal 1',t[0],w[0]),game(quarter,'Quarterfinal 2',w[1],w[2]),game(quarter,'Quarterfinal 3',w[3],w[4]),game(quarter,'Quarterfinal 4',w[5],w[6])];
+  const s=round(labels.s||'SEMIFINALS');
+  finalists=[game(s,'Semifinal 1',v[0],v[1]),game(s,'Semifinal 2',v[2],v[3])];
+ }
+ const f=round(labels.f||'CHAMPIONSHIP');
+ const champion=game(f,'PROJECTED CONFERENCE FINAL',finalists[0],finalists[1]);
+ f.append(node('strong','cs-cup-projected-champion','USRS PROJECTED CHAMPION: '+champion.name));
+ parent.append(root);return root;
+}
 function decorateTable(table,teams,cohort,branding){
  if(!table)return;
  const rows=table.querySelectorAll('tbody tr');
@@ -102,5 +139,5 @@ function decorateTable(table,teams,cohort,branding){
   link.prepend(crest(name,id,cohort,branding));
  }
 }
-window.CollegeSoccerCupUI=Object.freeze({crest,school,bracket,bracketEight,bracketFifteen,decorateTable});
+window.CollegeSoccerCupUI=Object.freeze({crest,school,bracket,bracketEight,bracketFifteen,predictiveBracket,decorateTable});
 })();
