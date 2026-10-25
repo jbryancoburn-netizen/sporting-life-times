@@ -156,7 +156,7 @@ def rebuild(today=None,loader=get_day):
                     "home_away":"away"}]}
         league["games"]=[row(g) for g in sample]
         league["updated_at"]=stamp
-        board_text=json.dumps(board,indent=2,ensure_ascii=False)+"\\n"
+        board_text=json.dumps(board,indent=2,ensure_ascii=False)+chr(10)
         if board_text!=score_path.read_text():score_path.write_text(board_text)
     print(json.dumps({"verified_finals":len(played),"upcoming":len(fixtures),"issued_at":stamp}))
 if __name__=="__main__":rebuild()
