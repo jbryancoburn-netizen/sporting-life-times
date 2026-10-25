@@ -155,6 +155,6 @@ async function desk(){
 }
 news().catch(e=>console.error('NBA headlines',e)).finally(()=>desk());
 // The newspaper stays current in an open tab; GitHub data is read without cache.
-setInterval(()=>{if(!document.hidden)desk()},3*60*1000);
-setInterval(()=>{if(!document.hidden)news()},15*60*1000);
+setInterval(()=>{if(!document.hidden)desk()},60*1000);
+setInterval(()=>{if(!document.hidden)news()},5*60*1000);
 })();
