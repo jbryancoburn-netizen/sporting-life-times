@@ -57,24 +57,6 @@ if(brand){
 }
 
 identity.append(identityText);header.append(identity);
-if(brand?.mascot_name){
- const signature=node('span',undefined,'team-mascot-signature');
- if(brand.mascot_photo_url){
-  const artwork=node('img');
-  artwork.src=brand.mascot_photo_url;
-  artwork.alt='';artwork.loading='lazy';artwork.decoding='async';
-  artwork.addEventListener('error',()=>artwork.remove());
-  signature.append(artwork);
- }
- const label=node('span','Storm'===brand.mascot_name?'Storm · '+(brand.mascot_type||'Mascot'):brand.mascot_name+(brand.mascot_type?' · '+brand.mascot_type:''));
- signature.append(label);
- if(brand.mascot_source){
-  const link=node('a');link.href=brand.mascot_source;
-  link.target='_blank';link.rel='noopener noreferrer';
-  link.setAttribute('aria-label','Meet '+brand.mascot_name);
-  link.append(signature);identityText.append(link);
- }else identityText.append(signature);
-}
 const actions=node('div',undefined,'team-hero-actions');
 const share=node('a','Share program page ↗','team-hero-link');share.href='college-soccer-team.html?team='+encodeURIComponent(t.cohort+':'+t.team_id);
 actions.append(share);
@@ -288,7 +270,7 @@ else addPorch('AROUND THE GAME','Explore NCAA soccer','More programs, ratings an
 porch.append(porchGrid);
 const links=node('nav',undefined,'team-home-links');links.setAttribute('aria-label','Program shortcuts');
 links.append(node('span','YOUR SHORTCUTS'));
-for(const [name,href] of [['Meet the mascot','#team-hometown'],['News','#team-news'],['Matches','#team-season'],['Elo','#team-visual-report'],...(conference?[['Rivals','#team-conference']]:[]),...(brand?.official_team_url?[['Athletics site',brand.official_team_url]]:[])]){
+for(const [name,href] of [['News','#team-news'],['Matches','#team-season'],['Elo','#team-visual-report'],...(conference?[['Rivals','#team-conference']]:[]),...(brand?.official_team_url?[['Athletics site',brand.official_team_url]]:[])]){
  const a=node('a',name+' ↗');a.href=href;if(href.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);
 }
 porch.append(links);
@@ -318,10 +300,7 @@ if(brand && (brand.city || brand.campus_address || brand.campus_lat)){
    link.target='_blank';link.rel='noopener noreferrer';map.append(link);links.append(map);
   }
  }
- if(brand.mascot_source){
-  const link=node('a','Meet '+brand.mascot_name+' ↗');link.href=brand.mascot_source;
-  link.target='_blank';link.rel='noopener noreferrer';links.append(link);
- }
+
  home.append(links);
  profile.insertBefore(home,metrics.nextSibling);
 }
