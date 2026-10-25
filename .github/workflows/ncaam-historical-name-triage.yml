@@ -1,0 +1,44 @@
+name: NCAA historical name gap triage
+on:
+  push:
+    paths:
+      - 'scripts/triage_ncaam_historical_name_gaps.py'
+      - 'data/ncaam-historical-player-concordance.json'
+      - '.github/workflows/ncaam-historical-name-triage.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/triage_ncaam_historical_name_gaps.py
+      - run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-historical-name-gap-triage.json'))
+          s=d['summary']
+          assert s['unmatched_on_team_without_name_alignment']+s['unmatched_on_aligned_team']+s['explicit_staff_title_candidates']==s['source_unmatched']==4805
+          assert d['production_elo_promotion'] is False
+          print('PASS: exhaustive historical name gap triage')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-name-gap-triage
+          path: data/ncaam-historical-name-gap-triage.json
+      - name: Publish gap categories
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaam-historical-name-gap-triage.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish all NCAA historical name gap categories [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
