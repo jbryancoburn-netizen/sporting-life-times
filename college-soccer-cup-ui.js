@@ -63,9 +63,9 @@ function bracketFifteen(parent,teams,cohort,branding,labels={}){
  root.setAttribute('aria-label','Hypothetical fifteen-team ACC tournament bracket, with current table order used only as an illustrative seed scenario');
  const round=(title,kind)=>{const r=node('section','cs-cup-round '+kind);r.append(node('h4','cs-cup-round-title',title));root.append(r);return r};
  const opening=round(labels.q||'NOV 4 · OPENING ROUND','opening');
- opening.append(pair('#1 BYE',t[0],null,cohort,branding,'bye'));
+ opening.append(pair('PROVISIONAL #1 · FIRST-ROUND BYE',t[0],null,cohort,branding,'bye'));
  for(const [a,b] of [[7,8],[4,11],[3,12],[5,10],[2,13],[6,9],[1,14]]){
-  opening.append(pair('SEEDS #'+(a+1)+' / #'+(b+1),t[a],t[b],cohort,branding));
+  opening.append(pair('TABLE POSITIONS '+(a+1)+' / '+(b+1),t[a],t[b],cohort,branding));
  }
  const quarters=round(labels.quarter||'NOV 8 · QUARTERFINALS','quarter');
  for(const label of ['#1 vs #8/#9 winner','#4/#13 vs #5/#12','#3/#14 vs #6/#11','#2/#15 vs #7/#10']){
@@ -77,7 +77,7 @@ function bracketFifteen(parent,teams,cohort,branding,labels={}){
  const card=node('div','cs-cup-final');
  card.append(node('span','cs-cup-trophy','★'),node('strong',null,'ACC CHAMPIONSHIP'),node('span',null,'Semifinal winners'),node('small',null,'CARY · NORTH CAROLINA'));
  final.append(card);
- root.append(node('p','cs-cup-caveat','Official fifteen-team format, but current standings positions are NOT official tournament seeds. All pairings shown are hypothetical. Actual ACC tiebreakers and the published championship bracket take precedence; Elo only forecasts outcomes.'));
+ root.append(node('p','cs-cup-caveat','Illustrative matchups use published conference-table positions, NOT official tournament seeds. All pairings shown are hypothetical. Actual ACC tiebreakers and the published championship bracket take precedence; Elo only forecasts outcomes.'));
  parent.append(root);return root;
 }
 function decorateTable(table,teams,cohort,branding){
