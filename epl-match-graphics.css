@@ -22,3 +22,11 @@
 .report .event-extra summary{cursor:pointer;padding:12px 4px;font:700 11px Arial,sans-serif;letter-spacing:.06em;color:#285441}
 .report .event-extra .event-grid{opacity:.85;padding-top:8px;padding-bottom:8px}
 @media(max-width:720px){.report .event-grid{grid-template-columns:52px minmax(0,1fr);gap:9px;padding:10px 6px}.report .event-minute{font-size:12px}.report .event-symbol{font-size:12px}}
+
+/* Matchday spacing: equal club lanes, anchored score and no redundant heading/footer. */
+.report .match-hero{padding:18px clamp(10px,3vw,32px)!important}
+.report .match-scorebug{grid-template-columns:minmax(0,1fr) minmax(95px,max-content) minmax(0,1fr)!important;column-gap:clamp(8px,2.5vw,30px)!important;padding:16px 0!important;align-items:center!important}
+.report .match-scorebug>.match-club{min-width:0;width:100%;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:11px!important;text-align:center!important}
+.report .match-scorebug>.match-club>span:last-child{display:block;max-width:100%;line-height:1.17;text-wrap:balance}
+.report .match-scorebug>strong{display:block;min-width:0;text-align:center!important;font-variant-numeric:tabular-nums!important;letter-spacing:-.065em!important;line-height:1!important;font-size:clamp(44px,7.5vw,99px)!important;white-space:nowrap!important}
+@media(max-width:690px){.report .match-scorebug{grid-template-columns:minmax(0,1fr) minmax(76px,max-content) minmax(0,1fr)!important;column-gap:5px!important;padding:12px 0!important}.report .match-scorebug>strong{font-size:clamp(36px,9vw,58px)!important}.report .match-scorebug>.match-club{gap:6px!important}.report .match-scorebug>.match-club>span:last-child{font-size:clamp(11px,3vw,15px)!important}}
