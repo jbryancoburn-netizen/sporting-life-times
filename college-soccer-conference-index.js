@@ -1,6 +1,13 @@
 (()=>{'use strict';
 const root=document.getElementById('college-soccer-conference-index');if(!root)return;
 const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined&&text!==null)n.textContent=String(text);if(cls)n.className=cls;return n};
+const legacy={
+ '#cs-miaa':'college-soccer-miaa-men.html',
+ '#cs-miac':'college-soccer-miac-men.html',
+ '#college-soccer-cciw':'college-soccer-cciw-men.html',
+ '#college-soccer-women-miaa':'college-soccer-miaa-women.html'
+};
+if(legacy[location.hash]){location.replace(legacy[location.hash]);return;}
 const groups=[
  {key:'men-d3:miaa',label:'MIAA',sex:"Men",href:'college-soccer-miaa-men.html'},
  {key:'men-d3:miac',label:'MIAC',sex:"Men",href:'college-soccer-miac-men.html'},
