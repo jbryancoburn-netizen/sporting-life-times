@@ -1,9 +1,34 @@
 {
   "source_type": "attributed_nba_boxscores",
   "source_url": "Attribution retained per game",
-  "updated_at": "2026-10-25T04:16:57.049534+00:00",
+  "updated_at": "2026-10-25T06:10:47.715496+00:00",
   "coverage": "captured completed games, not necessarily full NBA season",
   "games": [
+    {
+      "id": "espn-nba-401909860",
+      "date": "2026-10-25T02:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909860",
+      "home": {
+        "code": "PHX",
+        "points": 131,
+        "fga": 86,
+        "oreb": 9,
+        "tov": 17,
+        "fta": 22
+      },
+      "away": {
+        "code": "GSW",
+        "points": 122,
+        "fga": 91,
+        "oreb": 19,
+        "tov": 17,
+        "fta": 32
+      }
+    },
     {
       "id": "espn-nba-401909859",
       "date": "2026-10-25T01:00Z",
