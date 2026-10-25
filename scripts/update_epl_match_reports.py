@@ -58,13 +58,17 @@ def player_snapshot(matches):
             "own_goals_not_counted":own_goals,
             "note":"Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."}
 def main():
-    feed=json.loads((DATA/"epl-match-center.json").read_text())
-    finals=feed.get("recent_results",[])[:18]
+    ratings=json.loads((DATA/"epl-ratings.json").read_text())
+    finals=ratings.get("season_results",[])
+    if len(finals)!=ratings.get("completed_matches") or len({str(x["fixture_id"]) for x in finals})!=len(finals):
+        raise ValueError("Season results archive is incomplete or contains duplicate IDs")
     old=json.loads(DETAILS.read_text()) if DETAILS.exists() else {"matches":{}}
     matches=old.get("matches",{})
+    # Prioritize fresh finals, then backfill older missing reports. Keep all verified details.
+    candidates=[g for g in reversed(finals) if str(g["fixture_id"]) not in matches][:30]
     successful=0;failed={}
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
-        futures={pool.submit(fetch,g):str(g["fixture_id"]) for g in finals}
+        futures={pool.submit(fetch,g):str(g["fixture_id"]) for g in candidates}
         for fut in concurrent.futures.as_completed(futures):
             gid=futures[fut]
             try:
@@ -75,5 +79,6 @@ def main():
     if not successful and not matches:raise RuntimeError("No detailed match reports available; refusing empty publication")
     output={"player_snapshot":player_snapshot(matches),"updated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"ESPN event summary; third-party match facts only, not Elo","matches":matches,"fetch_status":{"successful":successful,"failed":failed}}
     DETAILS.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n")
-    print(json.dumps({"reports":len(matches),"newly_verified":successful,"failed":len(failed)}))
+    covered=sum(str(g["fixture_id"]) in matches for g in finals)
+    print(json.dumps({"reports":len(matches),"covered_finals":covered,"season_finals":len(finals),"remaining":len(finals)-covered,"newly_verified":successful,"attempted":len(candidates),"failed":len(failed)}))
 if __name__=="__main__":main()
