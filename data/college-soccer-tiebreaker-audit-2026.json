@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "generated_date": "2026-10-25",
+  "scope": "23 NCAA Division I men's soccer conferences",
+  "ledger_coverage": {
+    "men_finals": 384,
+    "earliest": "2026-10-23",
+    "latest": "2026-10-25",
+    "complete_regular_season_unverified": true
+  },
+  "audit": [
+    {
+      "conference": "men-d1:acc",
+      "unresolved_tie_groups": [
+        {
+          "points": 13,
+          "teams": [
+            "pittsburgh",
+            "louisville"
+          ]
+        },
+        {
+          "points": 6,
+          "teams": [
+            "stanford",
+            "north-carolina-st"
+          ]
+        },
+        {
+          "points": 5,
+          "teams": [
+            "syracuse",
+            "california"
+          ]
+        },
+        {
+          "points": 4,
+          "teams": [
+            "duke",
+            "boston-college"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "published_procedure_requires_full_season_match_evidence",
+      "official_rule_source": "https://s3.amazonaws.com/sidearm.sites/acc.sidearmsports.com/documents/2024/9/27/ChampionshipSeeding.pdf",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:america-east",
+      "unresolved_tie_groups": [
+        {
+          "points": 10,
+          "teams": [
+            "vermont",
+            "njit"
+          ]
+        },
+        {
+          "points": 1,
+          "teams": [
+            "new-hampshire",
+            "umbc"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:american",
+      "unresolved_tie_groups": [
+        {
+          "points": 11,
+          "teams": [
+            "missouri-st",
+            "charlotte",
+            "tulsa"
+          ]
+        },
+        {
+          "points": 9,
+          "teams": [
+            "fiu",
+            "uab"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:asun",
+      "unresolved_tie_groups": [
+        {
+          "points": 9,
+          "teams": [
+            "stetson",
+            "west-florida"
+          ]
+        },
+        {
+          "points": 5,
+          "teams": [
+            "bellarmine",
+            "jacksonville",
+            "fgcu"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "official_2026_standings_published",
+      "official_rule_source": "https://asunsports.org/sports/msoc/2025-26/standings",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:atlantic-10",
+      "unresolved_tie_groups": [
+        {
+          "points": 15,
+          "teams": [
+            "rhode-island",
+            "duquesne"
+          ]
+        },
+        {
+          "points": 10,
+          "teams": [
+            "fordham",
+            "george-mason"
+          ]
+        },
+        {
+          "points": 7,
+          "teams": [
+            "vcu",
+            "st-bonaventure",
+            "loyola-chicago"
+          ]
+        },
+        {
+          "points": 5,
+          "teams": [
+            "la-salle",
+            "saint-josephs"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": true,
+      "procedure_verification": "2026_tiebreak_steps_unverified;post_quarterfinal_reseeding_official",
+      "official_rule_source": "https://atlantic10.com/news/2022/6/10/about-the-atlantic-10-atlantic-10-concludes-spring-meetings.aspx",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:big-east",
+      "unresolved_tie_groups": [
+        {
+          "points": 9,
+          "teams": [
+            "xavier",
+            "creighton"
+          ]
+        },
+        {
+          "points": 6,
+          "teams": [
+            "uconn",
+            "akron"
+          ]
+        },
+        {
+          "points": 5,
+          "teams": [
+            "seton-hall",
+            "st-johns-ny",
+            "depaul",
+            "butler"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:big-south",
+      "unresolved_tie_groups": [
+        {
+          "points": 9,
+          "teams": [
+            "unc-asheville",
+            "longwood"
+          ]
+        },
+        {
+          "points": 6,
+          "teams": [
+            "winthrop",
+            "usc-upstate"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:big-ten",
+      "unresolved_tie_groups": [
+        {
+          "points": 17,
+          "teams": [
+            "indiana",
+            "michigan-st"
+          ]
+        },
+        {
+          "points": 4,
+          "teams": [
+            "ohio-st",
+            "michigan"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "provisional_2025_mens_soccer_procedure_2026_not_confirmed",
+      "official_rule_source": "https://iuhoosiers.com/documents/download/2025/11/6/18_Rutgers.pdf",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:big-west",
+      "unresolved_tie_groups": [],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": true,
+      "assessment": "no_current_equal_point_groups",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:caa",
+      "unresolved_tie_groups": [
+        {
+          "points": 8,
+          "teams": [
+            "northeastern",
+            "william-mary"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:horizon",
+      "unresolved_tie_groups": [
+        {
+          "points": 14,
+          "teams": [
+            "northern-ill",
+            "cleveland-st"
+          ]
+        },
+        {
+          "points": 11,
+          "teams": [
+            "oakland",
+            "ipfw"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:ivy",
+      "unresolved_tie_groups": [
+        {
+          "points": 7,
+          "teams": [
+            "penn",
+            "dartmouth"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "official_published_verify_2026_applicability",
+      "official_rule_source": "https://ivyleague.com/sports/2023/10/9/MSOCTiebreakers.aspx",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:maac",
+      "unresolved_tie_groups": [],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "no_current_equal_point_groups",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:mountain-west",
+      "unresolved_tie_groups": [],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "no_current_equal_point_groups",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:mvc",
+      "unresolved_tie_groups": [
+        {
+          "points": 5,
+          "teams": [
+            "ill-chicago",
+            "western-mich"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:nec",
+      "unresolved_tie_groups": [
+        {
+          "points": 8,
+          "teams": [
+            "fdu",
+            "le-moyne"
+          ]
+        },
+        {
+          "points": 6,
+          "teams": [
+            "mercyhurst",
+            "stonehill"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:ovc",
+      "unresolved_tie_groups": [
+        {
+          "points": 13,
+          "teams": [
+            "siu-edwardsville",
+            "uiw"
+          ]
+        },
+        {
+          "points": 7,
+          "teams": [
+            "western-ill",
+            "southern-ind"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": true,
+      "procedure_verification": "official_2026_published",
+      "official_rule_source": "https://ovcsports.com/sports/2026/7/30/MSOC_0729261951.aspx",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:pac-12",
+      "unresolved_tie_groups": [],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "no_current_equal_point_groups",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:patriot",
+      "unresolved_tie_groups": [
+        {
+          "points": 13,
+          "teams": [
+            "lehigh",
+            "american"
+          ]
+        },
+        {
+          "points": 7,
+          "teams": [
+            "navy",
+            "loyola-maryland"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": true,
+      "procedure_verification": "published_procedure_requires_full_season_match_evidence",
+      "official_rule_source": "https://admin.patriotleague.org/standings.aspx?standings=2224",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:socon",
+      "unresolved_tie_groups": [
+        {
+          "points": 6,
+          "teams": [
+            "furman",
+            "liberty"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:summit",
+      "unresolved_tie_groups": [
+        {
+          "points": 0,
+          "teams": [
+            "umkc",
+            "st-thomas-mn",
+            "neb-omaha",
+            "delaware",
+            "massachusetts",
+            "oral-roberts"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:sun-belt",
+      "unresolved_tie_groups": [
+        {
+          "points": 11,
+          "teams": [
+            "south-carolina",
+            "marshall",
+            "west-virginia"
+          ]
+        },
+        {
+          "points": 8,
+          "teams": [
+            "ga-southern",
+            "coastal-caro"
+          ]
+        },
+        {
+          "points": 4,
+          "teams": [
+            "georgia-st",
+            "kentucky"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "official_conference_document_applicability_2026_pending",
+      "official_rule_source": "https://sunbeltsports.org/sports/2024/10/30/MSOC_1030240237.aspx",
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    },
+    {
+      "conference": "men-d1:wcc",
+      "unresolved_tie_groups": [
+        {
+          "points": 6,
+          "teams": [
+            "san-francisco",
+            "santa-clara"
+          ]
+        }
+      ],
+      "qualifying_cutoff_tie": false,
+      "procedure_verification": "unverified_2026_procedure",
+      "official_rule_source": null,
+      "automatic_seeding_certified": false,
+      "assessment": "tiebreak_evidence_incomplete_do_not_claim_official_order",
+      "needed": "complete 2026 intraconference fixture scores and complete sport-specific procedure including multi-team ties"
+    }
+  ]
+}
