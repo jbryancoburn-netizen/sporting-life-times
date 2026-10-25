@@ -104,7 +104,7 @@ async function render(){
  modelSection.append(E('p',provisional?'Field and seeds are a hypothetical snapshot of the published table, NOT confirmed qualifiers or official seed positions.':'Tournament seeds are supplied explicitly by the conference standings dataset.','cs-conf-caption'));
  modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
  const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT MATCHUPS':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
- if(cfg.conference==='men-d1:caa'&&!bracketVerified){
+ if(key==='men-d1:caa'&&!bracketVerified){
   const note=E('p','2026 CAA championship: three qualifiers from each division. Division-specific official seeds are not supplied in this snapshot; matchups cannot be assigned from one overall conference table.','cs-conf-caption');
   bracket.append(note);
   const rounds=E('div',null,'cs-official-rounds');
