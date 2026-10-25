@@ -3,7 +3,8 @@ const root=document.getElementById('nba-live-feed');if(!root)return;
 const status=document.getElementById('nba-live-status');
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const logo=c=>'https://a.espncdn.com/i/teamlogos/nba/500/'+({NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'}[c]||c.toLowerCase())+'.png';
-let lastOK=0;
+let lastOK=0;let fallbackRecords={};
+async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
 function render(payload){
  const events=Array.isArray(payload.events)?payload.events:[];
  if(!events.length){root.innerHTML='<p class="hub-small">No NBA games listed for today.</p>';return;}
@@ -12,7 +13,7 @@ function render(payload){
   const away=cs.find(c=>c.homeAway==='away'),home=cs.find(c=>c.homeAway==='home');
   const st=e.status?.type||{},state=st.state||'pre',label=st.shortDetail||st.description||'Scheduled';
   if(!away||!home)return null;
-  const team=c=>({name:c.team?.displayName||c.team?.name||'',code:c.team?.abbreviation||'',score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||''});
+  const team=c=>({name:c.team?.displayName||c.team?.name||'',code:c.team?.abbreviation||'',score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[c.team?.abbreviation]||''});
   return {away:team(away),home:team(home),state,label,date:e.date,id:e.id};
  }).filter(g=>g&&/^[0-9]{7,12}$/.test(String(g.id)));
  if(!mapped.length){root.innerHTML='<p class="hub-small">No game details with valid provider IDs are available. <a href="nba-game-center.html">Verified archive</a>.</p>';return;}
@@ -55,5 +56,5 @@ async function update(){
  status.textContent='Live sources unavailable · no current score is confirmed';
  root.innerHTML='<p class="hub-small">Live scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
 }
-update();setInterval(()=>{if(!document.hidden)update()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+refreshRecords().then(update);setInterval(()=>{if(!document.hidden)update()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 })();
