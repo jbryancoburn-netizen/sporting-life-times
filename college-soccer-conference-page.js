@@ -104,7 +104,19 @@ async function render(){
  modelSection.append(E('p',provisional?'Field and seeds are a hypothetical snapshot of the published table, NOT confirmed qualifiers or official seed positions.':'Tournament seeds are supplied explicitly by the conference standings dataset.','cs-conf-caption'));
  modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
  const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT MATCHUPS':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
- if(bracketVerified){
+ if(cfg.conference==='men-d1:caa'&&!bracketVerified){
+  const note=E('p','2026 CAA championship: three qualifiers from each division. Division-specific official seeds are not supplied in this snapshot; matchups cannot be assigned from one overall conference table.','cs-conf-caption');
+  bracket.append(note);
+  const rounds=E('div',null,'cs-official-rounds');
+  for(const divisionName of ['NORTH DIVISION','SOUTH DIVISION']){
+    const group=E('section',null,'cs-official-round');group.append(E('h3',divisionName+' · TOP THREE QUALIFY'));
+    for(const slot of ['DIVISION #1 · BYE','DIVISION #2 vs DIVISION #3']){
+      const tile=E('article',null,'cs-official-match');tile.append(E('strong',slot),E('p','Teams assigned after official divisional standings and tiebreakers.','cs-conf-caption'));group.append(tile);
+    }
+    rounds.append(group);
+  }
+  const final=E('section',null,'cs-official-round');final.append(E('h3','CONFERENCE CHAMPIONSHIP'),E('p','Divisional pathways converge in the championship. Exact matchups and venues await the official bracket.','cs-conf-caption'));rounds.append(final);bracket.append(rounds);
+ }else if(bracketVerified){
   const note=E('p','Actual announced tournament matchups; sourced from the conference. USRS Elo does not determine these pairings.','cs-conf-caption');bracket.append(note);
   const rounds=E('div',null,'cs-official-rounds');
   const groups=new Map();
