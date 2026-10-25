@@ -201,7 +201,7 @@ if(conference){
 }
 const sectionNav=node('nav',undefined,'team-section-nav');
 sectionNav.setAttribute('aria-label','Team profile sections');
-for(const [href,label] of [['team-conference','Conference'],['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
+for(const [href,label] of [['team-hometown','Hometown'],['team-conference','Conference'],['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
  const a=node('a',label);a.href='#'+href;sectionNav.append(a);
 }
 profile.append(sectionNav);
@@ -270,7 +270,7 @@ else addPorch('AROUND THE GAME','Explore NCAA soccer','More programs, ratings an
 porch.append(porchGrid);
 const links=node('nav',undefined,'team-home-links');links.setAttribute('aria-label','Program shortcuts');
 links.append(node('span','YOUR SHORTCUTS'));
-for(const [name,href] of [['News','#team-news'],['Matches','#team-season'],['Elo','#team-visual-report'],...(conference?[['Rivals','#team-conference']]:[]),...(brand?.official_team_url?[['Athletics site',brand.official_team_url]]:[])]){
+for(const [name,href] of [['Meet the mascot','#team-hometown'],['News','#team-news'],['Matches','#team-season'],['Elo','#team-visual-report'],...(conference?[['Rivals','#team-conference']]:[]),...(brand?.official_team_url?[['Athletics site',brand.official_team_url]]:[])]){
  const a=node('a',name+' ↗');a.href=href;if(href.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);
 }
 porch.append(links);
