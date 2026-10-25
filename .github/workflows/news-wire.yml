@@ -22,14 +22,33 @@ jobs:
       - name: Test news parser before publication
         run: python -m unittest -v test_news_wire
       - name: Fetch and validate current news
+        id: ingest
         run: python scripts/refresh_news.py
       - name: Publish news separately from Elo
+        if: success()
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add articles.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh attributed sports news wire"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Publish independent news pipeline heartbeat
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          TRIGGER: ${{ github.event_name }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python -c 'import os,json,datetime,pathlib; p=pathlib.Path("data/news-pipeline-status.json"); p.parent.mkdir(exist_ok=True); p.write_text(json.dumps({"checked_at_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),"job_status":os.getenv("JOB_STATUS"),"trigger":os.getenv("TRIGGER"),"run_id":os.getenv("RUN_ID")},indent=2)+chr(10))'
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/news-pipeline-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record news pipeline execution status"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
