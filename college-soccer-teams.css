@@ -197,3 +197,26 @@
 #college-team-profile .team-feed-freshness{display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:center;margin:.5rem 0;padding:.6rem .75rem;border:1px solid #bed2c6;background:#f1f8f3;font:.71rem Arial,sans-serif;color:#285541}
 #college-team-profile .team-feed-freshness.is-stale{border-color:#dabda0;background:#fcf5e9;color:#7a4c26}
 #college-team-profile .team-feed-freshness strong{font-weight:700}
+
+/* A welcoming, editorial front porch for every program. */
+#college-team-profile .team-porch{margin:0 0 1.3rem;background:#f8f7f2;border:1px solid #d9d8d0;border-top:4px solid var(--team-accent,#bba66e);padding:1rem;scroll-margin-top:1rem}
+#college-team-profile .team-porch-head{display:flex;justify-content:space-between;gap:.8rem;align-items:end;flex-wrap:wrap;padding-bottom:.8rem;border-bottom:1px solid #d8d8d2}
+#college-team-profile .team-porch-head small{font:700 .66rem Arial,sans-serif;letter-spacing:.11em;color:#6b7580}
+#college-team-profile .team-porch-head h3{font:700 clamp(1.4rem,2.8vw,2.15rem)/1.1 Georgia,serif;margin:.25rem 0 0;color:var(--team-primary,#19314a)}
+#college-team-profile .team-porch-head>span{font:.71rem Arial,sans-serif;color:#64717e}
+#college-team-profile .team-porch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:.8rem 0}
+#college-team-profile .team-porch-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;padding:1rem;background:#fff;border:1px solid #e2e4e1;border-left:4px solid #8496a2;min-height:155px}
+#college-team-profile .team-porch-result{border-left-color:#397652}
+#college-team-profile .team-porch-fixture{border-left-color:var(--team-accent,#bba66e)}
+#college-team-profile .team-porch-news{border-left-color:#436c90;background:#f5f8fa}
+#college-team-profile .team-porch-conference{border-left-color:var(--team-primary,#17334d)}
+#college-team-profile .team-porch-card>small{font:700 .62rem Arial,sans-serif;color:#6e7b86;letter-spacing:.08em}
+#college-team-profile .team-porch-card h4{font:700 clamp(.98rem,1.6vw,1.3rem)/1.2 Georgia,serif;letter-spacing:-.025em;margin:.55rem 0 .35rem;color:#1c3349}
+#college-team-profile .team-porch-card p{font:.77rem/1.5 Arial,sans-serif;color:#586a78;margin:.15rem 0 .7rem}
+#college-team-profile .team-porch-card a{font:700 .75rem Arial,sans-serif;color:var(--team-primary,#234966);margin-top:auto;text-underline-offset:3px}
+#college-team-profile .team-home-links{display:flex;align-items:center;gap:.45rem 1rem;flex-wrap:wrap;border-top:1px solid #d8d8d2;padding-top:.7rem;margin-top:.3rem}
+#college-team-profile .team-home-links span{font:700 .63rem Arial,sans-serif;color:#677785;letter-spacing:.08em}
+#college-team-profile .team-home-links a{font:700 .71rem Arial,sans-serif;color:#233f57;text-decoration:none;padding:.25rem .1rem}
+#college-team-profile .team-home-links a:hover{text-decoration:underline}
+@media(min-width:1120px){#college-team-profile .team-porch-grid{grid-template-columns:repeat(4,minmax(0,1fr))}#college-team-profile .team-porch-card{padding:.8rem;min-height:190px}}
+@media(max-width:590px){#college-team-profile .team-porch{padding:.65rem}#college-team-profile .team-porch-grid{grid-template-columns:1fr;gap:.5rem}#college-team-profile .team-porch-card{min-height:0;padding:.8rem}#college-team-profile .team-porch-card h4{font-size:1.1rem}#college-team-profile .team-home-links{gap:.3rem .8rem}}
