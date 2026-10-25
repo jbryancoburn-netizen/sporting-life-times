@@ -55,16 +55,16 @@ if(!ratings){
   return;
 }
 const teams=ratings.rankings;
-const scoringShadow=await get("data/ncaam-2026-27-player-quality-overhaul-shadow.json");
+const scoringShadow=await get("data/ncaam-2026-27-preseason-roster-informed.json");
 const modelBox=byId("cbb-model-compare");
 if(modelBox){
- const shadowOK=scoringShadow?.season==="2026-27"&&scoringShadow.status==="SHADOW_UNCERTIFIED_PRESEASON"&&scoringShadow.production_elo_approved===false&&scoringShadow.rankings?.length===365;
+ const shadowOK=scoringShadow?.season==="2026-27"&&scoringShadow.status==="provisional-roster-identity-linked"&&scoringShadow.rankings?.length===365;
  const candidate=new Map(shadowOK?scoringShadow.rankings.map(t=>[t.team_id,t]):[]);
  const renderModel=()=>{const rows=teams.slice(0,15).map(t=>{
  const shadow=candidate.get(t.team_id);
  return '<tr><td>'+t.rank+'</td><td>'+safe(t.team)+'</td><td>'+number(t.base_elo)+'</td><td>'+number(t.elo)+'</td><td>'+(shadow?number(shadow.elo):"—")+'</td></tr>';
  }).join("");
- modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">Published provisional player-quality ratings; historical roster timing is not fully certified.</p>';
+ modelBox.innerHTML='<div class="cbb-table-scroll"><table class="cbb-table cbb-model-table"><thead><tr><th>#</th><th>Team</th><th>Game Elo</th><th>Roster</th><th>Quality*</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="cbb-muted">Published provisional player-quality ratings compared against the previous roster-informed Elo. Historical roster timing remains a limitation.</p>';
  };
  renderModel();
 }
