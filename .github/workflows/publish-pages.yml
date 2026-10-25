@@ -71,6 +71,8 @@ jobs:
           grep -q 'function comparison(' nba-live-game.js
           grep -q 'comparison-bars' nba-live-game.html
           grep -q 'NBA LIVE' nba.html
+          grep -q 'href="#page-2">SCORES</a>' nba.html
+          grep -q 'staticLinks' nba-page-turner.js
           python - <<'PY'
           from pathlib import Path
           h=Path('nba.html').read_text()
@@ -89,7 +91,7 @@ jobs:
           print('Live scoreboard exposed, linked to game details')
           PY
           test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
-          grep -q 'nba-page-turner.js?v=8' nba.html
+          grep -q 'nba-page-turner.js?v=9' nba.html
           grep -q 'nba-live-feed.js?v=5' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
