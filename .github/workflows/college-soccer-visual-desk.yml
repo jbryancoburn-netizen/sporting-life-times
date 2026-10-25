@@ -30,8 +30,8 @@ jobs:
           const fs=require('fs'), assert=require('node:assert/strict');
           const html=fs.readFileSync('college-soccer.html','utf8');
           assert(html.includes('id="college-soccer-visual-desk"'));
-          assert(html.includes('college-soccer-visual-desk.js?v=phase1'));
-          assert(html.includes('college-soccer-visual-desk.css?v=phase1'));
+          assert(html.includes('college-soccer-visual-desk.js?v=phase2'));
+          assert(html.includes('college-soccer-visual-desk.css?v=phase2'));
           const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
           const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
           for(const sex of ['men','women'])for(const division of [1,2,3]){
