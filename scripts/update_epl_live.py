@@ -138,5 +138,25 @@ def rebuild(today=None,loader=get_day):
     for name,obj in [("epl-ratings.json",rating_doc),("epl-match-center.json",forecast_doc)]:
         path=DATA/name;body=json.dumps(obj,indent=2,sort_keys=True)+"\n"
         if not path.exists() or path.read_text()!=body:path.write_text(body)
+    # Keep the newspaper's shared scoreboard in sync with EPL results, without
+    # pretending the other leagues were refreshed.
+    score_path=ROOT/"multi_scoreboards.json"
+    if score_path.exists():
+        board=json.loads(score_path.read_text())
+        league=next((entry for entry in board.get("leagues",[]) if entry.get("league")=="Premier League"),None)
+        if league is None:raise ValueError("Premier League scoreboard entry missing")
+        recent=[g for g in played if (today-dt.date.fromisoformat(g["date"])).days<=7]
+        sample=(recent[-18:]+upcoming[:18])
+        def row(g):
+            done=g["completed"]
+            return {"id":g["id"],"name":g["away"]+" at "+g["home"],"date":g["kickoff"],
+                "status":"Final" if done else "Scheduled","state":"post" if done else "pre",
+                "teams":[{"name":g["home"],"score":str(g["home_score"]) if done else "",
+                    "home_away":"home"},{"name":g["away"],"score":str(g["away_score"]) if done else "",
+                    "home_away":"away"}]}
+        league["games"]=[row(g) for g in sample]
+        league["updated_at"]=stamp
+        board_text=json.dumps(board,indent=2,ensure_ascii=False)+"\\n"
+        if board_text!=score_path.read_text():score_path.write_text(board_text)
     print(json.dumps({"verified_finals":len(played),"upcoming":len(fixtures),"issued_at":stamp}))
 if __name__=="__main__":rebuild()
