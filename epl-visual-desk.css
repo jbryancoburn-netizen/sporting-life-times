@@ -43,3 +43,5 @@
 .epl-leader-row small{font-size:9px;color:#777;font-weight:400}
 @media(max-width:800px){.epl-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-score-tile:nth-child(3n){border-right:1px solid #ccc}.epl-score-tile:nth-child(2n){border-right:0}.epl-score-tile:nth-child(n+3){border-top:1px solid #ccc}.epl-dash-columns{grid-template-columns:1fr}}
 @media(max-width:520px){.epl-stat-duo{grid-template-columns:1fr;gap:0}.epl-standings th:nth-child(5),.epl-standings td:nth-child(5),.epl-standings th:nth-child(6),.epl-standings td:nth-child(6){display:none}.epl-standings th,.epl-standings td{padding:6px 2px}.epl-score-tile{padding:9px 6px}.epl-team{font-size:10px}.epl-crest,.epl-fallback{width:19px;height:19px}.epl-prob-labels{font-size:8px}}
+
+.epl-elo-delta{font:700 10px/1 Arial,sans-serif;white-space:nowrap;min-width:42px;text-align:right;color:#56715d}.epl-elo-delta:empty{display:none}
