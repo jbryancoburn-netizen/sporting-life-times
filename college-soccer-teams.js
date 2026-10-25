@@ -275,6 +275,53 @@ for(const [name,href] of [['News','#team-news'],['Matches','#team-season'],['Elo
 }
 porch.append(links);
 profile.insertBefore(porch,metrics);
+if(brand && (brand.mascot_name || brand.campus_lat)){
+ const home=node('section',undefined,'team-hometown');home.id='team-hometown';
+ const homeHeader=node('div',undefined,'team-hometown-header');
+ homeHeader.append(node('small','THE PLACE · THE PEOPLE · THE PROGRAM'),node('h3','Welcome to '+(brand.city||t.team)));
+ home.append(homeHeader);
+ const two=node('div',undefined,'team-hometown-grid');
+ const place=node('article',undefined,'team-place-card');
+ place.append(node('div','📍 HOME TURF','team-place-tag'));
+ place.append(node('h4',brand.city?(brand.city+', '+(brand.state||'')):brand.location||t.team));
+ if(brand.school_story)place.append(node('p',brand.school_story));
+ if(brand.campus_address)place.append(node('p',brand.campus_address,'team-campus-address'));
+ if(Number.isFinite(Number(brand.campus_lat))&&Number.isFinite(Number(brand.campus_lon))){
+  const lat=Number(brand.campus_lat),lon=Number(brand.campus_lon);
+  if(lat>=-90&&lat<=90&&lon>=-180&&lon<=180){
+   const frame=node('iframe');frame.className='team-campus-map';frame.title=t.team+' campus location map';
+   frame.loading='lazy';frame.referrerPolicy='no-referrer-when-downgrade';
+   frame.setAttribute('allowfullscreen','');
+   const left=lon-0.018,right=lon+0.018,bottom=lat-0.012,top=lat+0.012;
+   frame.src='https://www.openstreetmap.org/export/embed.html?bbox='+[left,bottom,right,top].join('%2C')+'&layer=mapnik&marker='+lat+'%2C'+lon;
+   place.append(frame);
+   const mapLink=node('a','Open interactive campus map ↗');
+   mapLink.href=brand.campus_map_source||'https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lon+'&zoom=15';
+   mapLink.target='_blank';mapLink.rel='noopener noreferrer';place.append(mapLink);
+  }
+ }
+ two.append(place);
+ const spirit=node('article',undefined,'team-spirit-card');
+ spirit.append(node('div','🐾 SCHOOL SPIRIT','team-place-tag'));
+ if(brand.mascot_photo_url){
+  const img=node('img');img.className='team-mascot-photo';img.alt=(brand.mascot_name||'School mascot')+' — '+t.team+' official university image';
+  img.src=brand.mascot_photo_url;img.loading='lazy';img.decoding='async';
+  img.addEventListener('error',()=>{img.remove();spirit.classList.add('team-photo-unavailable');});
+  spirit.append(img);
+ }
+ spirit.append(node('h4','Meet '+(brand.mascot_name||'the mascot')));
+ if(brand.mascot_type)spirit.append(node('p',(brand.mascot_name||'The mascot')+' is the university’s '+brand.mascot_type.toLowerCase()+' mascot.','team-mascot-description'));
+ const detail=node('div',undefined,'team-spirit-facts');
+ if(brand.nickname)detail.append(node('span','ATHLETICS NICKNAME'),node('strong',brand.nickname));
+ if(brand.founded_year)detail.append(node('span','FOUNDED'),node('strong',brand.founded_year));
+ spirit.append(detail);
+ if(brand.mascot_source){
+  const mascotLink=node('a','Meet the official mascot ↗');mascotLink.href=brand.mascot_source;
+  mascotLink.target='_blank';mascotLink.rel='noopener noreferrer';spirit.append(mascotLink);
+ }
+ two.append(spirit);home.append(two);profile.insertBefore(home,metrics);
+}
+
 
 const feature=node('section',undefined,'team-match-feature');feature.id='team-featured';
 feature.append(node('h3','Match Center','team-feature-heading'));
