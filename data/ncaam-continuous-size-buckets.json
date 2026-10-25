@@ -1,0 +1,121 @@
+{
+  "status": "RETROSPECTIVE_ONLY",
+  "production_promotion_allowed": false,
+  "label": "Game category uses max absolute opening-season player-stat adjustment",
+  "reference": "Identical underlying Elo replay with the player-stat term removed, using same season-opening previous-year ratings",
+  "limitations": [
+    "Historical rosters are not verified preseason snapshots",
+    "2025/26 previously inspected",
+    "No venue correction; category includes unmatched-player zero adjustments"
+  ],
+  "results": {
+    "2025": {
+      "team_adjustment_counts": {
+        "0-20": 195,
+        "20-40": 109,
+        "40-70": 46,
+        "70+": 11
+      },
+      "game_bucket_by_max_team_adjustment": {
+        "70+": {
+          "n": 351,
+          "ll_new": 158.52982511564568,
+          "ll_old": 160.61645382670457,
+          "brier_new": 51.81545841846175,
+          "brier_old": 52.09375393422936,
+          "ll_new_mean": 0.4516519234063979,
+          "ll_old_mean": 0.4575967345490159,
+          "brier_new_mean": 0.1476223886565862,
+          "brier_old_mean": 0.14841525337387282
+        },
+        "20-40": {
+          "n": 2342,
+          "ll_new": 1369.8495058908375,
+          "ll_old": 1374.1273830608675,
+          "brier_new": 469.16080003166127,
+          "brier_old": 470.98888833647266,
+          "ll_new_mean": 0.5849058522164122,
+          "ll_old_mean": 0.5867324436639059,
+          "brier_new_mean": 0.20032485056860003,
+          "brier_old_mean": 0.20110541773547083
+        },
+        "40-70": {
+          "n": 1305,
+          "ll_new": 686.9743915241983,
+          "ll_old": 699.3395916905457,
+          "brier_new": 232.10641660394614,
+          "brier_old": 236.43838569145055,
+          "ll_new_mean": 0.5264171582560906,
+          "ll_old_mean": 0.5358924074257055,
+          "brier_new_mean": 0.17785932306815797,
+          "brier_old_mean": 0.18117883961030692
+        },
+        "0-20": {
+          "n": 1676,
+          "ll_new": 989.9724970223804,
+          "ll_old": 991.7901099882295,
+          "brier_new": 343.04836246459155,
+          "brier_old": 343.71380573853673,
+          "ll_new_mean": 0.5906757142138308,
+          "ll_old_mean": 0.591760208823526,
+          "brier_new_mean": 0.20468279383328852,
+          "brier_old_mean": 0.2050798363595088
+        }
+      }
+    },
+    "2026": {
+      "team_adjustment_counts": {
+        "0-20": 191,
+        "20-40": 115,
+        "40-70": 53,
+        "70+": 6
+      },
+      "game_bucket_by_max_team_adjustment": {
+        "40-70": {
+          "n": 1530,
+          "ll_new": 828.1650058320096,
+          "ll_old": 833.555293881507,
+          "brier_new": 281.60280415734763,
+          "brier_old": 283.050456239072,
+          "ll_new_mean": 0.5412843175372611,
+          "ll_old_mean": 0.5448073816219,
+          "brier_new_mean": 0.1840541203642795,
+          "brier_old_mean": 0.1850002981954719
+        },
+        "20-40": {
+          "n": 2430,
+          "ll_new": 1386.724881376384,
+          "ll_old": 1386.3650714987557,
+          "brier_new": 476.07745096338095,
+          "brier_old": 475.50684617416124,
+          "ll_new_mean": 0.5706686754635325,
+          "ll_old_mean": 0.5705206055550435,
+          "brier_new_mean": 0.19591664648698806,
+          "brier_old_mean": 0.1956818297013009
+        },
+        "70+": {
+          "n": 190,
+          "ll_new": 89.09274918982395,
+          "ll_old": 91.27322224836954,
+          "brier_new": 29.03515602981309,
+          "brier_old": 30.07894544670779,
+          "ll_new_mean": 0.4689092062622313,
+          "ll_old_mean": 0.4803853802545765,
+          "brier_new_mean": 0.1528166106832268,
+          "brier_old_mean": 0.1583102391931989
+        },
+        "0-20": {
+          "n": 1600,
+          "ll_new": 957.172189596069,
+          "ll_old": 956.8255002780601,
+          "brier_new": 332.6056600124907,
+          "brier_old": 332.4939498097109,
+          "ll_new_mean": 0.5982326184975431,
+          "ll_old_mean": 0.5980159376737876,
+          "brier_new_mean": 0.2078785375078067,
+          "brier_old_mean": 0.2078087186310693
+        }
+      }
+    }
+  }
+}
