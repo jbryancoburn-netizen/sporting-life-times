@@ -148,3 +148,7 @@ body.edition-interior main img{max-width:100%}
 :where(body:has(#front-page)) #front-more-stories p{font:400 .79rem/1.48 Georgia,serif;color:#514e48;margin:5px 0}
 :where(body:has(#front-page)) #front-more-stories .meta{font-size:.69rem;color:#77736b}
 @media(max-width:760px){:where(body:has(#front-page)) #front-page>#front-more-stories{display:block}:where(body:has(#front-page)) #front-more-stories article{margin-bottom:15px}body.edition-interior main{padding:16px 16px 45px!important}}
+
+/* NBA dark navigation: override the shared transparent editorial nav surface. */
+body.edition-interior.nba-edition nav.site-nav{background:#262b32!important;background-color:#262b32!important;border:0!important;color:#fff!important}
+body.edition-interior.nba-edition nav.site-nav a,body.edition-interior.nba-edition nav.site-nav a:visited,body.edition-interior.nba-edition nav.site-nav a:hover,body.edition-interior.nba-edition nav.site-nav a:focus-visible{color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important}
