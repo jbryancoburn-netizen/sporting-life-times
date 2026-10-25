@@ -10,3 +10,12 @@
 .cs-conf-qualifier .cs-cup-teamname{font-size:.72rem}
 @media(max-width:700px){.cs-conf-qualifier-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){.cs-conf-qualifier-strip{grid-template-columns:1fr}}
+
+/* Sourced tournament fixtures — never generated from Elo */
+.cs-official-rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem;margin:1rem 0}
+.cs-official-round{padding:.8rem;border-top:3px solid #294759;background:#f5f8f9;min-width:0}
+.cs-official-round h3{font:700 .84rem Georgia,serif;color:#223b4c;margin:.1rem 0 .75rem}
+.cs-official-match{padding:.65rem;background:#fff;border:1px solid #d4e0e5;margin-bottom:.65rem}
+.cs-official-match-names{display:flex;flex-direction:column;gap:.4rem}
+.cs-official-team{min-width:0}
+.cs-official-result,.cs-official-kickoff{display:block;margin:.55rem 0 0;font:700 .72rem Arial,sans-serif;color:#35556c}
