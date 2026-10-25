@@ -14,6 +14,7 @@ on:
       - 'college-soccer-match.css'
       - 'college-soccer-postseason.js'
       - 'college-soccer-postseason.css'
+      - 'scripts/test_college_soccer_postseason.py'
       - 'data/college-soccer-postseason-rules.json'
       - 'data/college-soccer-conferences.json'
       - 'data/college-soccer-miaa-standings.json'
@@ -39,6 +40,8 @@ jobs:
           node --check college-soccer-editorial.js
           node --check college-soccer-match.js
           node --check college-soccer-postseason.js
+      - name: Validate NCAA postseason rules and normalized MIAA probabilities
+        run: python -m unittest discover -s scripts -p test_college_soccer_postseason.py -v
       - name: Audit real data and published page
         run: |
           node <<'NODE'
@@ -80,8 +83,8 @@ jobs:
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
                     assert(html.includes('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch1'));
-          assert(html.includes('college-soccer-postseason.css?v=launch1'));
+          assert(html.includes('college-soccer-postseason.js?v=launch2'));
+          assert(html.includes('college-soccer-postseason.css?v=launch2'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
           const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
           const conf=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
@@ -98,6 +101,8 @@ jobs:
           const postseasonJs=fs.readFileSync('college-soccer-postseason.js','utf8');
           assert(postseasonJs.includes('setInterval'));
           assert(postseasonJs.includes('NOT calibrated tournament odds'));
+          assert(postseasonJs.includes('Early Division I contender forecast'));
+          assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
           const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
           for(const sex of ['men','women'])for(const division of [1,2,3]){
