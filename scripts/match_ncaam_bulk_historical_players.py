@@ -37,6 +37,16 @@ def choose_known_team(school,names,index):
         evidence=sum(normalize(name) in candidate or safe_unique_suffix_match(name,candidate)
                      for name in names)
         if evidence>=2:return candidate,alternate,True
+    # Discover unknown school aliases from actual NCAA player membership,
+    # not assumed spelling. Require >=3 unique names and a decisive winner.
+    evidence=[]
+    for candidate_school,candidate_names in index.items():
+        count=sum(normalize(n) in candidate_names for n in names)
+        if count>=3:evidence.append((count,candidate_school,candidate_names))
+    evidence.sort(key=lambda x:-x[0])
+    if evidence and (len(evidence)==1 or evidence[0][0]>=evidence[1][0]+2):
+        _,key,players=evidence[0]
+        return players,key,True
     return set(),original,False
 
 def run():
