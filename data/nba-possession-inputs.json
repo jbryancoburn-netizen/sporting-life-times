@@ -1,9 +1,34 @@
 {
   "source_type": "attributed_nba_boxscores",
   "source_url": "Attribution retained per game",
-  "updated_at": "2026-10-24T23:12:50.901714+00:00",
+  "updated_at": "2026-10-25T01:12:57.085331+00:00",
   "coverage": "captured completed games, not necessarily full NBA season",
   "games": [
+    {
+      "id": "espn-nba-401909853",
+      "date": "2026-10-24T22:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909853",
+      "home": {
+        "code": "CHA",
+        "points": 115,
+        "fga": 87,
+        "oreb": 10,
+        "tov": 15,
+        "fta": 25
+      },
+      "away": {
+        "code": "MIA",
+        "points": 110,
+        "fga": 86,
+        "oreb": 8,
+        "tov": 13,
+        "fta": 25
+      }
+    },
     {
       "id": "espn-nba-401909852",
       "date": "2026-10-24T02:00Z",
