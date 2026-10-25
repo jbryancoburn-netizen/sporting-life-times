@@ -20,6 +20,12 @@ def fetch(game):
     # Reject mismatched events instead of attaching statistics to the wrong result.
     event_id=str(raw.get("header",{}).get("id") or raw.get("header",{}).get("competitions",[{}])[0].get("id") or gid)
     if event_id!=gid:raise ValueError("Event ID mismatch: "+event_id)
+    competitors=(raw.get('header',{}).get('competitions') or [{}])[0].get('competitors') or []
+    if len(competitors)==2:
+        scores={c.get('homeAway'):c.get('score') for c in competitors}
+        if scores.get('home') is not None and scores.get('away') is not None:
+            if int(scores['home'])!=int(game['home_score']) or int(scores['away'])!=int(game['away_score']):
+                raise ValueError('Source final score differs from verified Elo archive')
     teams=[]
     for t in box.get("players",[]):
         teams.append({"name":t.get("team",{}).get("displayName"),"athletes":t.get("statistics",[])})
@@ -65,7 +71,9 @@ def main():
     old=json.loads(DETAILS.read_text()) if DETAILS.exists() else {"matches":{}}
     matches=old.get("matches",{})
     # Prioritize fresh finals, then backfill older missing reports. Keep all verified details.
-    candidates=[g for g in reversed(finals) if str(g["fixture_id"]) not in matches][:30]
+    # Check every missing result. A permanently unavailable recent report must not
+    # block older reports. Six workers bound remote request concurrency.
+    candidates=[g for g in reversed(finals) if str(g["fixture_id"]) not in matches]
     successful=0;failed={}
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         futures={pool.submit(fetch,g):str(g["fixture_id"]) for g in candidates}
@@ -77,7 +85,7 @@ def main():
                 successful+=1
             except Exception as exc:failed[gid]=str(exc)[:150]
     if not successful and not matches:raise RuntimeError("No detailed match reports available; refusing empty publication")
-    output={"player_snapshot":player_snapshot(matches),"updated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"ESPN event summary; third-party match facts only, not Elo","matches":matches,"fetch_status":{"successful":successful,"failed":failed}}
+    output={"player_snapshot":player_snapshot(matches),"updated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"ESPN event summary; third-party match facts only, not Elo","matches":matches,"fetch_status":{"successful":successful,"failed":failed,"attempted":len(candidates),"season_finals":len(finals),"detailed_reports":sum(str(g["fixture_id"]) in matches for g in finals)}}
     DETAILS.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n")
     covered=sum(str(g["fixture_id"]) in matches for g in finals)
     print(json.dumps({"reports":len(matches),"covered_finals":covered,"season_finals":len(finals),"remaining":len(finals)-covered,"newly_verified":successful,"attempted":len(candidates),"failed":len(failed)}))
