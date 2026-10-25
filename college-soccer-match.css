@@ -31,3 +31,16 @@
 .cs-match-prob-labels strong{font-size:1.25rem}
 .cs-match-footer{border-top:1px solid #d8e1e5;padding-top:.85rem}
 @media(max-width:620px){.cs-match-hero{grid-template-columns:minmax(0,1fr) 85px minmax(0,1fr);gap:.45rem;padding:1rem .5rem}.cs-match-badge{width:53px;height:53px}.cs-match-school>a{font-size:.93rem}.cs-match-score strong{font-size:1.6rem}.cs-match-score span{font-size:.51rem}.cs-match-grid{grid-template-columns:1fr}.cs-match-prob-labels{gap:.25rem}.cs-match-prob-labels .cs-match-fact{font-size:.65rem}.cs-match-prob-labels strong{font-size:1rem}}
+
+.cs-match-stat-comparison{border-top:1px solid #dce4e8;margin-top:.5rem}
+.cs-match-stat-row{padding:.85rem 0;border-bottom:1px solid #e3e9eb}
+.cs-match-stat-row>small{display:block;color:#596e7c;font:700 .7rem Arial,sans-serif;margin-bottom:.4rem}
+.cs-match-stat-values{display:flex;align-items:center;justify-content:space-between;gap:1rem;font-variant-numeric:tabular-nums}
+.cs-match-stat-values strong{font-size:1rem;color:#526878}
+.cs-match-stat-values .cs-match-stat-advantage{color:#245c70}
+.cs-match-stat-values span{font-size:.75rem;color:#a0aaaf}
+.cs-match-stat-tracks{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.35rem 0}
+.cs-match-stat-track{height:9px;background:#e4e9ea;overflow:hidden}
+.cs-match-stat-track i{height:100%;display:block}
+.cs-match-stat-home{background:#3e738b}
+.cs-match-stat-away{background:#657b9c}
