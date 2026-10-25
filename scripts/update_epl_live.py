@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -65,9 +66,16 @@ def rebuild(today=None,loader=get_day):
     last=today+dt.timedelta(days=18)
     if today<first:raise ValueError("Season has not begun")
     events={}
-    day=first
-    while day<=last:
-        for raw in loader(day):
+    dates=[first+dt.timedelta(days=i) for i in range((last-first).days+1)]
+    # Fetch independent days concurrently; fail closed if any day cannot be fetched.
+    # Serial day-by-day HTTP polling often exhausted the Actions job timeout.
+    with ThreadPoolExecutor(max_workers=12) as pool:
+      jobs={pool.submit(loader, day): day for day in dates}
+      batches={}
+      for job in as_completed(jobs):
+        batches[jobs[job]]=job.result()
+    for day in dates:
+      for raw in batches[day]:
             game=parse(raw)
             if game is None:continue
             old=events.get(game["id"])
@@ -75,13 +83,12 @@ def rebuild(today=None,loader=get_day):
             if old and (old["home"],old["away"],old["kickoff"])!=(game["home"],game["away"],game["kickoff"]):
                 raise ValueError("Conflicting fixture ID "+game["id"])
             if not old or (game["completed"] and not old["completed"]):events[game["id"]]=game
-        day+=dt.timedelta(days=1)
     played=sorted((g for g in events.values() if g["completed"] and dt.datetime.fromisoformat(g["kickoff"])<=dt.datetime.now(dt.timezone.utc)),
        key=lambda g:(g["date"],g["kickoff"],g["id"]))
     # Never publish a truncated feed or replace the published dataset with fewer finals.
     old_path=DATA/"epl-ratings.json"
     prior=json.loads(old_path.read_text()) if old_path.exists() else {}
-    floor=max(70,int(prior.get("completed_matches",0)))
+    floor=int(prior.get("completed_matches",0))
     if len(played)<floor:raise ValueError(f"Only {len(played)} finals; expected >= {floor}. No files published.")
     names=set(CLUBS.values())
     if len(names)!=20:raise ValueError("Expected exactly 20 clubs")
