@@ -1,0 +1,32 @@
+name: NCAA soccer full-season tiebreak history
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: ncaa-soccer-history
+  cancel-in-progress: false
+jobs:
+  season-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Backfill full season D-I men's results without modifying Elo baseline
+        run: python scripts/backfill_college_soccer_season_finals.py --start 2026-08-01
+      - name: Rebuild current standings projections
+        run: python scripts/build_college_soccer_conference_projections.py
+      - name: Commit only validated season evidence and projections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-season-finals-2026.json data/college-soccer-projected-standings.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh independent NCAA soccer full-season tiebreak evidence"
+            git push
+          fi
