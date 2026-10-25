@@ -298,3 +298,15 @@
  #college-team-profile .team-hometown-inline{align-items:flex-start}
  #college-team-profile .team-location-address{display:none}
 }
+
+/* Fix legacy boxed styles: a quiet location footnote and an unframed authentic mascot cutout. */
+#college-team-profile .team-mascot-byline{display:inline-flex;align-items:center;gap:.35rem;vertical-align:middle;margin:.25rem 0 0;color:#e7ebec;font:.68rem/1.2 Arial,sans-serif;white-space:normal}
+#college-team-profile .team-mascot-byline img{width:33px;height:43px;display:block;flex:none;object-fit:contain;object-position:center bottom;border:0;border-radius:0;box-shadow:none;background:transparent;filter:drop-shadow(0 1px 2px #0003)}
+#college-team-profile .team-hometown-inline{display:flex;gap:.45rem 1.2rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:.3rem 0 .85rem;padding:.35rem 0;background:transparent;border:0;border-bottom:1px solid #d7dfe2;border-radius:0;box-shadow:none}
+#college-team-profile .team-hometown-line{display:flex;flex-wrap:wrap;align-items:center;gap:.18rem .5rem;min-width:0;line-height:1.5}
+#college-team-profile .team-hometown-links{display:flex;align-items:center;gap:.5rem 1rem;flex-wrap:wrap}
+#college-team-profile .team-hometown-inline .team-map-details{border:0!important;box-shadow:none!important;padding:0!important;background:transparent!important;border-radius:0!important}
+#college-team-profile .team-hometown-inline .team-map-details summary{cursor:pointer;color:#325a73;text-decoration:underline;text-underline-offset:3px;font:500 .7rem Arial,sans-serif}
+#college-team-profile .team-hometown-inline .team-map-details[open]{flex-basis:100%;width:100%;margin:.35rem 0 0;border:0}
+#college-team-profile .team-hometown-inline .team-map-details .team-campus-map{height:190px;display:block;border:1px solid #dce3e5;border-radius:0}
+@media(max-width:650px){#college-team-profile .team-mascot-byline img{width:29px;height:37px}#college-team-profile .team-hometown-inline{gap:.3rem .6rem;padding:.25rem 0}#college-team-profile .team-hometown-links{font-size:.68rem}}
