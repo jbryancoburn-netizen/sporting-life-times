@@ -49,7 +49,7 @@ jobs:
           test -s nba-live-feed.js
           test -s nba-live-game.html
           test -s nba-live-game.js
-          grep -q 'nba-live-game.js?v=1' nba-live-game.html
+          grep -q 'nba-live-game.js?v=2' nba-live-game.html
           grep -q 'nba-live-game.html?game=' nba-live-feed.js
           node --check nba-live-game.js
           grep -q 'NBA LIVE' nba.html
@@ -66,7 +66,7 @@ jobs:
           PY
           test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
           grep -q 'nba-page-turner.js?v=7' nba.html
-          grep -q 'nba-live-feed.js?v=2' nba.html
+          grep -q 'nba-live-feed.js?v=3' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
           grep -q 'nba-team-desk.js?v=4' nba-team-desk.html
