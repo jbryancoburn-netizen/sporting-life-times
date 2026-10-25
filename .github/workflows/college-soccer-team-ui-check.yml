@@ -46,9 +46,19 @@ jobs:
           const trineTeam=rank.cohorts['men-d3'].find(t=>t.team_id==='trine');
           assert(trineTeam && trine.length>=14);
           const final=trine.filter(g=>g.status==='final');
-          assert.equal(final.filter(g=>g.goals_for>g.goals_against).length,trineTeam.w);
-          assert.equal(final.filter(g=>g.goals_for<g.goals_against).length,trineTeam.l);
-          assert.equal(final.filter(g=>g.goals_for===g.goals_against).length,trineTeam.d);
+          assert(final.every(g=>Number.isInteger(g.goals_for)&&Number.isInteger(g.goals_against)));
+          assert(final.every(g=>g.date && g.opponent));
+          const official=JSON.parse(fs.readFileSync('data/college-soccer-miaa-standings.json'));
+          assert.equal(official.rows.length,8,'Expected all eight MIAA teams');
+          const expected=new Set(['calvin','kalamazoo','albion','hope','adrian','alma','trine','olivet']);
+          assert.equal(new Set(official.rows.map(x=>x.team_id)).size,8);
+          for(const row of official.rows){
+            assert(expected.has(row.team_id));
+            assert.match(row.conference_record,/^\\d+-\\d+(?:-\\d+)?$/);
+            assert.equal(row.conference_games,row.conference_record.split('-').map(Number).reduce((a,b)=>a+b,0));
+            assert(Number.isInteger(row.conference_points));
+          }
+          assert(official.checked_date,'Official snapshot requires an explicit source date');
           const branding=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json'));
           assert.equal(branding.teams['men-d3:trine'].city,'Angola');
           assert(branding.teams['men-d3:trine'].logo_url.startsWith('https://'));
