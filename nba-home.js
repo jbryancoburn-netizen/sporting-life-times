@@ -23,7 +23,15 @@ async function news(){
   catch(err){payload=await fetchJSON('articles.json')}
   const editorial=a=>!/(?:betmgm|draftkings|fanduel|caesars sportsbook|bet365|sportsbook|bonus (?:bet|code|offer)|promo code|promotional code|free bet|bonus bets?|best bets?|player props?|same.game parlay|parlay|odds boost|betting picks?|wager|risk.free|sports betting|fantasy basketball|pick(?:s)? against the spread|world series|brewers|rays)/i.test([a.title,a.summary,a.url].join(' '));
   let items=(payload.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'||String(a.url||'').includes('/nba/')).filter(a=>String(a.url||'').startsWith('https://')&&a.title&&editorial(a)).slice(0,60);
-  const ranked=items.map((a,index)=>({a,index,weight:(/^(?:NBA.com|Reuters|ESPN NBA|CBS Sports NBA)$/i.test(a.source||'')?2:0)+( /\\b(?:76ers|Thunder|NBA|LeBron|Knicks|Celtics|trade|injur|season|comeback)\\b/i.test(a.title||'')?1:0)})).sort((x,y)=>y.weight-x.weight||x.index-y.index);
+  // Lead with timely verified reporting; source prestige cannot pin old stories above today's news.
+  const now=Date.now();
+  const ranked=items.map((a,index)=>{
+   const published=Date.parse(a.published_at||'');
+   const age=Number.isFinite(published)?Math.max(0,now-published):Infinity;
+   const freshness=age<=6*3600000?3:age<=24*3600000?2:age<=48*3600000?1:0;
+   const weight=(/^(?:NBA.com|Reuters|ESPN NBA|CBS Sports NBA)$/i.test(a.source||'')?2:0)+(/\\b(?:76ers|Thunder|NBA|LeBron|Knicks|Celtics|trade|injur|season|comeback)\\b/i.test(a.title||'')?1:0);
+   return {a,index,freshness,weight,published:Number.isFinite(published)?published:0};
+  }).sort((x,y)=>y.freshness-x.freshness||y.published-x.published||y.weight-x.weight||x.index-y.index);
   items=ranked.map(x=>x.a).slice(0,36);
   if(!items.length&&payload!==null){const fallback=await fetchJSON('articles.json');items=(fallback.articles||[]).filter(a=>String(a.category||'').toUpperCase()==='NBA'&&editorial(a)).slice(0,60)}
   if(!items.length)throw Error('No attributed NBA headlines');
