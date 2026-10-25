@@ -18,6 +18,8 @@ on:
       - 'college-soccer-cciw.css'
       - 'college-soccer-women-miaa.js'
       - 'college-soccer-women-miaa.css'
+      - 'college-soccer-conference-index.js'
+      - 'college-soccer-conference-index.css'
       - 'data/college-soccer-miaa-women-standings.json'
       - 'scripts/update_college_soccer_miaa_women_standings.py'
       - 'scripts/test_college_soccer_miaa_women_standings.py'
@@ -54,6 +56,7 @@ jobs:
           node --check college-soccer-postseason.js
           node --check college-soccer-cciw.js
           node --check college-soccer-women-miaa.js
+          node --check college-soccer-conference-index.js
       - name: Validate NCAA postseason rules and normalized MIAA probabilities
         run: python -m unittest discover -s scripts -p test_college_soccer_postseason.py -v
       - name: Validate MIAC collector parsing
@@ -128,6 +131,15 @@ jobs:
           }
                     const women=JSON.parse(fs.readFileSync('data/college-soccer-miaa-women-standings.json','utf8'));
           assert(html.includes('id="college-soccer-women-miaa"'));
+          assert(html.includes('id="college-soccer-conference-index"'));
+          assert(html.includes('college-soccer-conference-index.js?v=1'));
+          assert(html.includes('college-soccer-conference-index.css?v=1'));
+          assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-conference-index"'));
+          const directory=fs.readFileSync('college-soccer-conference-index.js','utf8');
+          assert(directory.includes("'men-d3:miaa'"));
+          assert(directory.includes("'men-d3:miac'"));
+          assert(directory.includes("'men-d3:cciw'"));
+          assert(directory.includes("'women-d3:miaa'"));
           assert(html.includes('college-soccer-women-miaa.js?v=2'));
           assert(html.includes('college-soccer-women-miaa.css?v=1'));
           assert.equal(women.rows.length,9);
