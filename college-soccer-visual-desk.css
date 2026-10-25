@@ -62,3 +62,18 @@
 #college-soccer-visual-desk .cs-score-side strong{flex:none}
 #college-soccer-visual-desk .cs-score-side .cs-mark{width:27px;height:27px}
 @media(max-width:560px){#college-soccer-visual-desk .cs-score-side .cs-mark{width:21px;height:21px}#college-soccer-visual-desk .cs-score-side .cs-team{font-size:.68rem}}
+
+/* Preserve the full table on desktop. Compact essential standings columns on narrow screens. */
+@media(max-width:650px){
+ #college-soccer-visual-desk .cs-table th:nth-child(3),#college-soccer-visual-desk .cs-table td:nth-child(3),
+ #college-soccer-visual-desk .cs-table th:nth-child(5),#college-soccer-visual-desk .cs-table td:nth-child(5),
+ #college-soccer-visual-desk .cs-table th:nth-child(6),#college-soccer-visual-desk .cs-table td:nth-child(6){display:none}
+ #college-soccer-visual-desk .cs-table{table-layout:fixed;width:100%}
+ #college-soccer-visual-desk .cs-table th:first-child{width:7%}
+ #college-soccer-visual-desk .cs-table th:nth-child(2){width:43%}
+ #college-soccer-visual-desk .cs-table th:nth-child(4){width:22%}
+ #college-soccer-visual-desk .cs-table th:nth-child(7){width:10%}
+ #college-soccer-visual-desk .cs-table th:nth-child(8){width:18%}
+ #college-soccer-visual-desk .cs-table td:nth-child(2) .cs-team{max-width:100%;min-width:0}
+ #college-soccer-visual-desk .cs-table-scroll{overflow-x:hidden}
+}
