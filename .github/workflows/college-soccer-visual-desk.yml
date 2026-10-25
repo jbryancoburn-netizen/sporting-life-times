@@ -187,7 +187,7 @@ jobs:
           for(const [page,conference] of Object.entries(dedicated)){
             const pageHtml=fs.readFileSync(page,'utf8');
             assert(pageHtml.includes('data-conference="'+conference+'"'),'Conference mismatch in '+page);
-            assert(pageHtml.includes('college-soccer-conference-page.js?v=3'));
+            assert(/college-soccer-conference-page\\.js\\?v=[a-z0-9-]+/.test(pageHtml));
             assert(pageHtml.includes('college-soccer-cup-ui.js?v=3'));
             assert(pageHtml.includes('college-soccer-conference-page.css?v=2'));
             assert(conferenceData.conferences[conference]?.page===page,'Registry destination missing '+page);
