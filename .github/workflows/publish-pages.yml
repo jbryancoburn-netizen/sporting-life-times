@@ -59,13 +59,13 @@ jobs:
           live=html.index('id="nba-live-games"')
           collapsed=html.index('<details class="nba-secondary-data">')
           assert live < collapsed, 'Live games must not sit inside collapsed secondary data'
-          scores=html.index('id="nba-yesterday"')
-          assert scores < live < html.index('id="nba-yesterday-scores"'), 'Live games must be inside the visible Scores panel'
+          assert live < html.index('class="edition-page-turner"'), 'Live scoreboard must be above paged newspaper controls'
+          assert "'nba-live-games'" not in Path('nba-page-turner.js').read_text(), 'Live scoreboard must never be hidden by page turning'
           assert 'nba-live-game.html?game=' in Path('nba-live-feed.js').read_text()
           print('Live scoreboard exposed, linked to game details')
           PY
-          grep -q "'nba-live-games'" nba-page-turner.js
-          grep -q 'nba-page-turner.js?v=6' nba.html
+          test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
+          grep -q 'nba-page-turner.js?v=7' nba.html
           grep -q 'nba-live-feed.js?v=2' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
