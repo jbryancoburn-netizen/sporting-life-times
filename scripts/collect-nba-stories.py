@@ -41,7 +41,7 @@ def espn(now):
   if not title or not link.startswith("https://") or not dt or not (now-timedelta(days=5)<=dt<=now+timedelta(hours=1)):continue
   yield dict(title=title,url=link,summary=clean(a.get("description",""))[:360],source="ESPN NBA",category="NBA",scope="national",published_at=dt.isoformat())
 PROMOTIONS = re.compile(r"(?:betmgm|draftkings|fanduel|caesars sportsbook|bet365|sportsbook|bonus (?:bet|code|offer)|promo code|promotional code|free bet|bonus bets?|best bets?|player props?|same.game parlay|parlay|odds boost|betting picks?|wager|risk.free|sports betting|fantasy basketball|pick(?:s)? against the spread|world series|brewers|rays)",re.I)
-NON_NBA = re.compile(r"\\b(?:WNBA|Valkyries|women['’]s national basketball association|G League Draft Results)\\b",re.I)
+NON_NBA = re.compile(r"\b(?:WNBA|Valkyries|women['’]s national basketball association|G League Draft Results)\b",re.I)
 DIRECTORY = re.compile(r"^(?:Get Your Latest NBA News|Latest NBA News|NBA News and Rumors|NBA News)$",re.I)
 def editorial(a):
  title=clean(str(a.get("title") or ""))
