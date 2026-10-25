@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Refresh independently attributed NBA stories; preserve valid prior stories during outages."""
-import json, re
+import json, re, html
 from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -12,10 +12,12 @@ OUT=ROOT/"data/nba-top-stories.json"
 FEEDS=[
  ("ESPN NBA","https://www.espn.com/espn/rss/nba/news","national"),
  ("CBS Sports NBA","https://www.cbssports.com/rss/headlines/nba","national"),
- ("NBA.com","https://www.nba.com/rss/nba_rss.xml","league"),
+ ("The Athletic NBA","https://www.nytimes.com/athletic/rss/nba/","national"),
+ ("Hoops Wire","https://hoopswire.com/feed/","national"),
+ ("RealGM Wiretap","https://basketball.realgm.com/rss/realgm_nba_wiretap.xml","national"),
  ("Hoops Rumors","https://www.hoopsrumors.com/feed","national"),
 ]
-def clean(s): return re.sub(r"\s+"," ",re.sub(r"<[^>]*>"," ",s or "")).strip()
+def clean(s): return re.sub(r"\s+"," ",re.sub(r"<[^>]*>"," ",html.unescape(s or ""))).strip()
 def when(raw):
  try: return parsedate_to_datetime(raw).astimezone(timezone.utc)
  except Exception:
