@@ -98,9 +98,10 @@ async function fetchDate(date) {
 const dates=[];
 for(let day=new Date(start);day<=end;day.setUTCDate(day.getUTCDate()+1))dates.push(new Date(day));
 const failures=[];
+const checkedDates=[];
 for(let offset=0;offset<dates.length;offset+=8){
  const batch=await Promise.allSettled(dates.slice(offset,offset+8).map(fetchDate));
- batch.forEach((result,i)=>{if(result.status==='rejected')failures.push(dateId(dates[offset+i])+': '+result.reason.message)});
+ batch.forEach((result,i)=>{if(result.status==='rejected')failures.push(dateId(dates[offset+i])+': '+result.reason.message);else checkedDates.push(dateId(dates[offset+i]))});
 }
 if(failures.length){
  console.warn('Some ESPN daily scoreboards were unavailable; keeping all previously verified and independently archived finals. '+failures.slice(0,8).join(' | '));
@@ -157,4 +158,16 @@ assert.equal(result.events.length,result.games_played);
 const oldLedger=new Map((old.events||[]).map(x=>[x.id,x]));
 for(const ev of events){const prev=oldLedger.get(ev.id);if(prev&&Math.abs(prev.home_elo_change-ev.home_elo_change)>.005)throw Error('Previously published Elo delta diverged: '+ev.id);}
 writeFileSync(target,JSON.stringify(result,null,2)+'\n');
+const todayET=dayET(new Date());
+const todayEvents=events.filter(ev=>dayET(ev.date)===todayET);
+const reconciliation={
+ league:'NBA',season:'2026-27',eastern_date:todayET,
+ verified_finals_total:events.length,verified_finals_today:todayEvents.length,
+ verified_finals_today_games:todayEvents.map(({id,away,away_score,home,home_score,date,home_elo_change})=>({id,away,away_score,home,home_score,date,home_elo_change})),
+ scoreboard_dates_checked:checkedDates.length,scoreboard_dates_unavailable:failures,
+ complete_source_reconciliation:failures.length===0,
+ note:failures.length?'Upstream scoreboard days unavailable; full completeness NOT certified.':'All requested ESPN scoreboards retrieved; completed regular-season results processed once.'
+};
+writeFileSync(new URL('../data/nba-elo-reconciliation.json',import.meta.url),JSON.stringify(reconciliation,null,2)+'\n');
+
 console.log('NBA final-score Elo replay: '+events.length+' games, 30 teams. No frozen data changed.');
