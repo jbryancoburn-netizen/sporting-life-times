@@ -61,7 +61,7 @@ jobs:
           const matchPage=fs.readFileSync('college-soccer-match.html','utf8');
           const deskJs=fs.readFileSync('college-soccer-visual-desk.js','utf8');
           assert(matchPage.includes('id="cs-match-view"'));
-          assert(matchPage.includes('college-soccer-match.js?v=3'));
+          assert(matchPage.includes('college-soccer-match.js?v=4'));
           assert(deskJs.includes("college-soccer-match.html?game="),'Result rail and forecasts must link to match center');
           assert(deskJs.includes("tile.href='college-soccer-match.html?game="),'Recent finals must open details');
           const matchJs=fs.readFileSync('college-soccer-match.js','utf8');
@@ -69,7 +69,10 @@ jobs:
           assert(matchJs.includes("data/college-soccer-prospective-v2.json"));
           assert(matchJs.includes('Goals scored per match'));
           assert(matchJs.includes('Goals allowed per match'));
-          assert(matchPage.includes('college-soccer-match.css?v=2'));
+          assert(matchJs.includes('data/college-soccer-team-game-index.json'));
+          assert(matchJs.includes('Recent verified results'));
+          assert(matchJs.includes("g.status==='final'"));
+          assert(matchPage.includes('college-soccer-match.css?v=3'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
           const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
           for(const sex of ['men','women'])for(const division of [1,2,3]){
