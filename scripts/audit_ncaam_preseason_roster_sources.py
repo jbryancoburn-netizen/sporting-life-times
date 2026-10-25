@@ -108,7 +108,7 @@ def check_archived_roster_bytes(archive,kind):
         ts=s["timestamp_utc"]
         raw_url="https://web.archive.org/web/"+ts+"id_/"+s["original"]
         try:
-            data,mime=fetch_limited(raw_url,size=4*1024*1024,timeout=26)
+            data,mime=fetch_limited(raw_url,size=(55*1024*1024 if s["original"].lower().endswith(".pdf") else 4*1024*1024),timeout=40)
             if kind=="initial_roster_article":
                 txt=data.decode("utf-8","replace").lower()
                 strong=all(k in txt for k in ("initial 2025-26 roster","jasai miles","reed bailey"))
@@ -128,10 +128,17 @@ def check_archived_roster_bytes(archive,kind):
                     ("Purdue",2024):("Zach Edey","Braden Smith"),
                     ("Purdue",2025):("Daniel Jacobsen","Braden Smith"),
                     ("Purdue",2026):("Omer Mayer","Oscar Cluff")}
-                txt=data.decode("utf-8","replace").lower()
+                if data.startswith(b"%PDF"):
+                    from pypdf import PdfReader
+                    reader=PdfReader(io.BytesIO(data),strict=False)
+                    txt=" ".join((p.extract_text() or "") for p in reader.pages[:min(25,len(reader.pages))]).lower()
+                    document_kind="archived_pdf"
+                else:
+                    txt=data.decode("utf-8","replace").lower()
+                    document_kind="archived_html"
                 names=anchors.get((archive["team"],archive["season_end_year"]),())
                 matched=[name for name in names if name.lower() in txt]
-                strong=("<html" in txt and "roster" in txt and len(matched)>=2)
+                strong=("roster" in txt and len(matched)>=2 and (document_kind=="archived_pdf" or "<html" in txt))
             if strong:
                 archive.update(independently_verified_preopening_roster_content=True,
                                captured_content_sha256=hashlib.sha256(data).hexdigest(),
