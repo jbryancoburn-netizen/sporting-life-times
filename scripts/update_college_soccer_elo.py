@@ -264,13 +264,15 @@ def replay(baseline: dict, ledger: dict) -> tuple[dict, dict]:
 def update(baseline: dict, ledger: dict, incoming: list[dict]):
     lookup = validate_ledger(ledger, baseline)
     additions = 0
+    conflicts = []
     for game in incoming:
         if game["date"] <= baseline["as_of"]:
             continue
         key = game["match_id"]
         if key in lookup:
             if lookup[key] != game:
-                raise ValueError(f"FINAL_CORRECTION_REQUIRED: existing result changed for {key}")
+                conflicts.append({"match_id":key,"ledger":lookup[key],"source":game})
+                continue  # Do not silently rewrite previously published Elo history
         else:
             lookup[key] = game
             additions += 1
@@ -282,6 +284,10 @@ def update(baseline: dict, ledger: dict, incoming: list[dict]):
     }
     model, audit = replay(baseline, result)
     audit["new_games_seen"] = additions
+    audit["unresolved_source_corrections"] = conflicts
+    audit["unresolved_source_correction_count"] = len(conflicts)
+    if conflicts:
+        audit["status"] = "provisional_conflicted"
     return result, model, audit
 
 
