@@ -8,6 +8,7 @@ Writes candidates/rejections and optionally merges validated results to CSV.
 """
 import argparse,csv,json,re,urllib.request,html,collections
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from bs4 import BeautifulSoup
 
 CLASS_MAP={"fr":"Freshman","freshman":"Freshman","r fr":"Redshirt Freshman",
@@ -57,12 +58,18 @@ def run(targets,existing,sources):
     for p in targeted.values():
         if p["current_athlete_id"] not in old:by_school[p["current_school"]].append(p)
     recovered=[];failed=[];sources_run=[]
-    for school,url in sources.items():
-        if school not in by_school:continue
+    eligible={school:url for school,url in sources.items() if school in by_school}
+    with ThreadPoolExecutor(max_workers=14) as pool:
+        futures={school:pool.submit(fetch,url) for school,url in eligible.items()}
+        responses={}
+        for school,future in futures.items():
+            try:responses[school]=(future.result(),None)
+            except Exception as exc:responses[school]=(None,str(exc)[:110])
+    for school,url in eligible.items():
         if not url.startswith("https://") or "espn" in url.lower():raise ValueError("Non-school URL")
-        try: raw=fetch(url)
-        except Exception as e:
-            sources_run.append({"school":school,"status":"fetch_failed","error":str(e)[:110]});continue
+        raw,error=responses[school]
+        if error is not None:
+            sources_run.append({"school":school,"status":"fetch_failed","error":error});continue
         soup=BeautifulSoup(raw,"html.parser")
         heading=soup.title.get_text(" ",strip=True) if soup.title else ""
         heading+=" "+ " ".join(h.get_text(" ",strip=True) for h in soup.find_all(["h1","h2"],limit=8))
