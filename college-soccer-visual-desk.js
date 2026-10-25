@@ -54,6 +54,29 @@ function render(){
  const b=E('button',label,'cs-choice'+((g?gender===g:division===d)?' active':''));b.type='button';b.setAttribute('aria-pressed',String(g?gender===g:division===d));
  b.addEventListener('click',()=>{if(g)gender=g;else division=d;render();});controls.append(b);}
  controls.append(E('span',teams.length+' programs · '+(gender==='men'?"Men's":"Women's")+' Division '+rank(cohort),'cs-controls-desc'));host.append(controls);
+ const todayGames=section(host,'TODAY’S GAMES','SCHOOL CRESTS · PREDICTIONS · MATCH CENTER');
+ const dayNY=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(value).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return parts.year+'-'+parts.month+'-'+parts.day;};
+ const today=dayNY(new Date());
+ const finalIds=new Set((model.latest_finals||[]).map(f=>f.match_id));
+ const matchday=(forecast.forecasts||[]).filter(g=>g.cohort===cohort&&g.kickoff_utc&&Number.isFinite(Date.parse(g.kickoff_utc))&&dayNY(new Date(g.kickoff_utc))===today);
+ matchday.sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
+ if(!matchday.length)todayGames.append(E('p','No fixtures for today in the available published feed. This does not mean no NCAA games are scheduled.','cs-note'));
+ const cards=E('div',null,'cs-matchday-rich-grid');todayGames.append(cards);
+ for(const g of matchday){
+ const item=E('article',null,'cs-fixture cs-matchday-rich');
+ const time=new Date(g.kickoff_utc).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
+ item.append(E('small',time+' ET · '+(finalIds.has(g.match_id)?'VERIFIED FINAL AVAILABLE':'SCHEDULED / RESULT NOT VERIFIED')));
+ const teamsLine=E('div',null,'cs-fixture-teams');
+ teamsLine.append(club(g.away_name||g.away_team,cohort,g.away_team),E('span','AT'),club(g.home_name||g.home_team,cohort,g.home_team));item.append(teamsLine);
+ if([g.p_home,g.p_draw,g.p_away].every(v=>Number.isFinite(Number(v)))){
+ const prob=E('div',null,'cs-prob');for(const [val,kind] of [[g.p_away,'away'],[g.p_draw,'draw'],[g.p_home,'home']]){const bar=E('i',null,'cs-prob-'+kind);bar.style.width=Math.max(0,Math.min(100,100*Number(val)))+'%';prob.append(bar);}item.append(prob);
+ const labels=E('div',null,'cs-prob-labels');labels.append(E('span',pct(g.p_away)+' away'),E('span',pct(g.p_draw)+' draw'),E('span',pct(g.p_home)+' home'));item.append(labels);
+ }
+ const detail=E('a','OPEN MATCH CENTER ↗','cs-game-link');detail.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);item.append(detail);
+ cards.append(item);
+ }
+ todayGames.append(E('p','Matchups come from the published NCAA fixture forecast feed. This panel retains today’s matches after kickoff; status is only marked final when recorded in the verified ledger.','cs-note'));
+
  const byName=new Map(teams.map(t=>[t.team,t]));
  const finals=(model.latest_finals||[]).filter(m=>m.cohort===cohort).slice(0,8);
  const rail=section(host,'Latest verified finals','OPEN A MATCH FOR STATS & ELO CONTEXT');
@@ -104,19 +127,7 @@ function render(){
   }
   changes.append(E('p','Actual published Elo change for the home team in each listed final—not a daily change or an invented movement for every school.','cs-note'));
  }
-  const upcoming=section(right,'Forecast watch','LOCKED PREMATCH MODEL · NOT LIVE SCORES');
- const finalIds=new Set((model.latest_finals||[]).map(f=>f.match_id));
- const now=Date.now();
- const games=(forecast.forecasts||[]).filter(m=>m.cohort===cohort&&!finalIds.has(m.match_id)&&Date.parse(m.kickoff_utc)>now&&Number.isFinite(Number(m.p_home))&&Number.isFinite(Number(m.p_draw))&&Number.isFinite(Number(m.p_away))).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc)).slice(0,5);
- if(!games.length)upcoming.append(E('p','No verified future fixture forecasts remain in the published feed.','cs-note'));
- for(const g of games){
- const item=E('div',null,'cs-fixture');item.append(E('small',(date(g.kickoff_utc)?date(g.kickoff_utc)+' · ':'')+'LOCKED PROJECTION'));const detail=E('a','View match analysis ↗','cs-game-link');detail.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);
- const teamsLine=E('div',null,'cs-fixture-teams');teamsLine.append(club(g.home_name||g.home_team,cohort,g.home_team),E('span','vs'),club(g.away_name||g.away_team,cohort,g.away_team));item.append(teamsLine);
- const prob=E('div',null,'cs-prob');for(const [val,kind] of [[g.p_home,'home'],[g.p_draw,'draw'],[g.p_away,'away']]){const bar=E('i',null,'cs-prob-'+kind);bar.style.width=(Math.max(0,100*Number(val)))+'%';prob.append(bar);}item.append(prob);
- const labels=E('div',null,'cs-prob-labels');labels.append(E('span',pct(g.p_home)+' '+(g.home_name||g.home_team)),E('span',pct(g.p_draw)+' draw'),E('span',pct(g.p_away)+' '+(g.away_name||g.away_team)));item.append(labels);
- item.append(detail);if(g.source_game){const a=E('a','Official NCAA match listing ↗','cs-game-link');a.href=g.source_game;a.target='_blank';a.rel='noopener noreferrer';item.append(a);}upcoming.append(item);
- }
- const stats=E('div',null,'cs-stat-columns');host.append(stats);
+  const stats=E('div',null,'cs-stat-columns');host.append(stats);
  const attacks=section(stats,'Attack leaders','GOALS FOR · RATE PER MATCH');
  const defenses=section(stats,'Defense leaders','LOWEST GOALS CONCEDED PER MATCH');
  const valid=teams.filter(t=>Number(t.gp)>0);
