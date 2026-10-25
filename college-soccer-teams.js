@@ -201,7 +201,7 @@ if(conference){
 }
 const sectionNav=node('nav',undefined,'team-section-nav');
 sectionNav.setAttribute('aria-label','Team profile sections');
-for(const [href,label] of [['team-hometown','Hometown'],['team-conference','Conference'],['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
+for(const [href,label] of [['team-conference','Conference'],['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
  const a=node('a',label);a.href='#'+href;sectionNav.append(a);
 }
 profile.append(sectionNav);
@@ -275,35 +275,7 @@ for(const [name,href] of [['News','#team-news'],['Matches','#team-season'],['Elo
 }
 porch.append(links);
 profile.insertBefore(porch,metrics);
-if(brand && (brand.city || brand.campus_address || brand.campus_lat)){
- const home=node('div',undefined,'team-hometown-inline');home.id='team-hometown';
- const line=node('div',undefined,'team-hometown-line');
- line.append(node('span','⌖','team-location-pin'));
- const city=node('strong',brand.city?(brand.city+', '+(brand.state||'')):brand.location||t.team);
- line.append(city);
- if(brand.conference_short)line.append(node('span','· '+brand.conference_short,'team-location-conference'));
- if(brand.campus_address)line.append(node('span','· '+brand.campus_address,'team-location-address'));
- home.append(line);
- const links=node('div',undefined,'team-hometown-links');
- if(Number.isFinite(Number(brand.campus_lat))&&Number.isFinite(Number(brand.campus_lon))){
-  const lat=Number(brand.campus_lat),lon=Number(brand.campus_lon);
-  if(lat>=-90&&lat<=90&&lon>=-180&&lon<=180){
-   const map=node('details',undefined,'team-map-details');
-   map.append(node('summary','See campus map'));
-   const frame=node('iframe');frame.className='team-campus-map';
-   frame.title=t.team+' campus';frame.loading='lazy';
-   const bbox=[lon-.018,lat-.012,lon+.018,lat+.012].join('%2C');
-   frame.src='https://www.openstreetmap.org/export/embed.html?bbox='+bbox+'&layer=mapnik&marker='+lat+'%2C'+lon;
-   map.append(frame);
-   const link=node('a','Directions ↗');
-   link.href=brand.campus_map_source||'https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lon+'&zoom=15';
-   link.target='_blank';link.rel='noopener noreferrer';map.append(link);links.append(map);
-  }
- }
 
- home.append(links);
- profile.insertBefore(home,metrics.nextSibling);
-}
 
 
 const feature=node('section',undefined,'team-match-feature');feature.id='team-featured';
