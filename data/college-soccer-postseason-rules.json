@@ -207,14 +207,38 @@
       "table_source": "https://bigten.org/standings.aspx?path=msoc",
       "projection_warning": "Provisional seeds use conference points and Elo only for display ties; official tie procedure controls.",
       "tiebreakers": {
-        "verification": "conference_wide_2025_26_parameters_found_not_2026_mens_soccer_specific",
-        "source_url": "https://bigten.org/api/media/file/Tiebreaker.pdf",
+        "verification": "provisional_2025_mens_soccer_procedure_2026_not_confirmed",
+        "source_url": "https://iuhoosiers.com/documents/download/2025/11/6/18_Rutgers.pdf",
+        "conference_parameters_url": "https://bigten.org/api/media/file/Tiebreaker.pdf",
         "ordered_criteria": [
-          "head_to_head_first",
-          "higher_winning_percentage_vs_tied_team_or_group",
-          "restart_after_each_seed_is_awarded"
+          "head_to_head",
+          "conference_goal_difference",
+          "conference_goals_scored"
         ],
-        "automatic_resolution": "blocked_until_mens_soccer_specific_2026_procedure_and_match_ledger_verified"
+        "automatic_resolution": "provisional_only_until_2026_sport_specific_procedure_confirmed",
+        "example_as_of_2026_10_24": {
+          "teams": [
+            "michigan-st",
+            "indiana"
+          ],
+          "conference_points": [
+            17,
+            17
+          ],
+          "head_to_head": "not_played_until_2026-11-04",
+          "conference_goal_difference": [
+            5,
+            5
+          ],
+          "conference_goals_for": [
+            13,
+            9
+          ],
+          "provisional_order": [
+            "michigan-st",
+            "indiana"
+          ]
+        }
       }
     },
     "women-d1:big-ten": {
