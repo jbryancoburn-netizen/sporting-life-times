@@ -66,7 +66,7 @@ async function render(){
  cfg.name=conferenceMeta.short||conferenceMeta.name||cfg.name;
  cfg.standings=conferenceMeta.standings_feed;
  const [table,elo,rules,branding]=await Promise.all([get(cfg.standings),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}}))]);
- const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,elo.as_of,elo.applied_finals_since_baseline,rules.updated]);
+ const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
  if(!member||!rule||!rated||!Array.isArray(table.rows))throw Error('One or more required verified feeds unavailable');
@@ -94,13 +94,26 @@ async function render(){
  const officialSeeds=Array.isArray(table.tournament_seeds)&&table.tournament_seeds.length===field?table.tournament_seeds:null;
  const entrants=officialSeeds?officialSeeds.map(id=>teams.find(t=>t.id===id)).filter(Boolean):teams.slice(0,field);
  const provisional=!officialSeeds;
+ const officialBracket=table.tournament_bracket;
+ const bracketVerified=officialBracket?.status==='official'&&typeof officialBracket.source_url==='string'&&/^https:\/\//.test(officialBracket.source_url)&&Array.isArray(officialBracket.matches)&&officialBracket.matches.length>0&&officialBracket.matches.every(match=>match.round&&match.home_id&&match.away_id&&member.includes(match.home_id)&&member.includes(match.away_id)&&match.home_id!==match.away_id);
+
  if(formatCertified&&(field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
   const probs=bracketOdds(entrants,!!rule.tournament?.reseed);
   for(const x of probs){const line=E('div',null,'cs-conf-oddsline'),label=E('div',null,'cs-conf-oddslabel');label.append(E('strong',x.name),E('span',pct(x.p)));line.append(label);const rail=E('div',null,'cs-conf-rail'),bar=E('i');bar.style.width=pct(x.p);rail.append(bar);line.append(rail);modelSection.append(line)}
  }else modelSection.append(E('p','Title probabilities withheld: tournament format or a required Elo rating is unverified.','cs-conf-caption'));
  modelSection.append(E('p',provisional?'Field and seeds are a hypothetical snapshot of the published table, NOT confirmed qualifiers or official seed positions.':'Tournament seeds are supplied explicitly by the conference standings dataset.','cs-conf-caption'));
  modelSection.append(E('p','Elo is used solely to forecast possible match outcomes after a hypothetical field and seed order have been supplied from standings data. These are experimental predictions, not actual brackets or NCAA selection probabilities. Home advantage is a modeling assumption, not a verified venue.','cs-conf-caption'));
- const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2','ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
+ const bracket=E('section',null,'cs-conference-bracket-section');bracket.id='conference-bracket';bracket.append(E('h2',bracketVerified?'OFFICIAL TOURNAMENT MATCHUPS':'ROAD TO THE TITLE · '+(provisional?'PROVISIONAL FIELD':'VERIFIED SEEDS')));
+ if(bracketVerified){
+  const note=E('p','Actual announced tournament matchups; sourced from the conference. USRS Elo does not determine these pairings.','cs-conf-caption');bracket.append(note);
+  const rounds=E('div',null,'cs-official-rounds');
+  const groups=new Map();
+  for(const match of officialBracket.matches){if(!groups.has(match.round))groups.set(match.round,[]);groups.get(match.round).push(match)}
+  for(const [roundName,matches] of groups){const group=E('section',null,'cs-official-round');group.append(E('h3',roundName));for(const match of matches){const card=E('article',null,'cs-official-match');const names=[match.home_id,match.away_id].map(id=>teams.find(t=>t.id===id));const label=E('div',null,'cs-official-match-names');for(const team of names){const cell=E('div',null,'cs-official-team');if(cup)cell.append(cup.school(team.name,team.id,cfg.cohort,branding));else cell.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));label.append(cell)}card.append(label);
+    if(match.status==='final'&&Number.isInteger(match.home_score)&&Number.isInteger(match.away_score))card.append(E('strong',match.home_score+' – '+match.away_score+' · FINAL','cs-official-result'));
+    else if(match.kickoff)card.append(E('span',String(match.kickoff),'cs-official-kickoff'));
+    group.append(card)}rounds.append(group)}bracket.append(rounds,A('Official tournament bracket source',officialBracket.source_url));
+ }else 
  if(cup&&formatCertified&&(field===6||field===8||field===15)&&entrants.length===field){const visual=field===15?cup.bracketFifteen:field===8?cup.bracketEight:cup.bracket;visual(bracket,entrants,cfg.cohort,branding,{q:rule.tournament?.first_round_date||rule.tournament?.quarterfinal_date||'OPENING ROUND',s:rule.tournament?.semifinal_date||rule.tournament?.semifinals_date||'SEMIFINALS',f:rule.tournament?.final_date||'CHAMPIONSHIP'});}else {
   const note=E('div',null,'cs-conf-unverified-bracket');
   note.append(E('strong','TOURNAMENT BRACKET PENDING OFFICIAL RULES'));
