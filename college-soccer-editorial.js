@@ -27,7 +27,20 @@ const stories=el('section',null,'cs-edit-stories');layout.append(stories);
 const top=articles.slice(0,7);
 if(top.length){
  const lead=top[0];const leadArticle=el('article',null,'cs-edit-lead');
- leadArticle.append(tagged(null,'THE LEAD STORY'),nav(lead.url,lead.title),el('p',(lead.source||'Original publisher')+' · '+showDate(lead.published_at),'cs-edit-byline'));
+ const programId=lead.team_keys?.[0];
+const teamIndex=String(programId||'').indexOf(':');
+const leaderCohort=teamIndex>=0?programId.slice(0,teamIndex):'';
+const leaderId=teamIndex>=0?programId.slice(teamIndex+1):'';
+const leadBadge=el('div',null,'cs-edit-lead-school');
+if(leaderCohort&&leaderId){
+ const matched=ratings.cohorts?.[leaderCohort]?.find(t=>t.team_id===leaderId);
+ if(matched){
+  const brandRow=schoolLabel(matched.team,leaderCohort,leaderId);
+  leadBadge.append(brandRow,el('span','PROGRAM REPORT · '+leaderCohort.toUpperCase().replace('-',' ')));
+ }
+}
+if(leadBadge.childNodes.length)leadArticle.append(leadBadge);
+leadArticle.append(tagged(null,'THE LEAD STORY'),nav(lead.url,lead.title),el('p',(lead.source||'Original publisher')+' · '+showDate(lead.published_at),'cs-edit-byline'));
  if(lead.summary)leadArticle.append(el('p',lead.summary,'cs-edit-excerpt'));
  stories.append(leadArticle);
  const list=el('div',null,'cs-edit-headlines');
