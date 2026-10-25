@@ -203,6 +203,31 @@ jobs:
       - name: Publish GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published NBA Desk ordering and deployed commit
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          ROOT="${PAGES_URL%/}"
+          for attempt in $(seq 1 12); do
+            if curl -fsSL --max-time 15 "$ROOT/nba.html?edition=$GITHUB_SHA" -o /tmp/nba-published-desk.html && \
+               curl -fsSL --max-time 15 "$ROOT/pages-build-sha.txt?edition=$GITHUB_SHA" -o /tmp/nba-published-sha.txt; then
+              if grep -q "^$GITHUB_SHA$" /tmp/nba-published-sha.txt && python3 - <<'PY'
+from pathlib import Path
+h=Path('/tmp/nba-published-desk.html').read_text()
+assert h.index('<h1>THE NBA DESK</h1>') < h.index('class="nba-quick-desk-nav"') < h.index('id="nba-page-turner"') < h.index('id="nba-live-games"')
+print('PASS: deployed NBA Desk heading, navigation and live scores are in the intended order')
+PY
+              then
+                echo "PASS: public NBA Desk is built from $GITHUB_SHA"
+                exit 0
+              fi
+            fi
+            echo "Waiting for public NBA Desk edition: attempt $attempt"
+            sleep 10
+          done
+          echo 'FAIL: published NBA Desk does not match the current deployment' >&2
+          exit 1
       - name: Verify new team desk is publicly served
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
