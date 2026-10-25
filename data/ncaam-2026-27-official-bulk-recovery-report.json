@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 313,
+  "already_classified": 324,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -127,12 +127,6 @@
       "status": "processed",
       "matched": 0,
       "targeted": 2
-    },
-    {
-      "school": "James Madison",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 5
     },
     {
       "school": "Lehigh",
@@ -306,12 +300,6 @@
       "targeted": 2
     },
     {
-      "school": "Harvard",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 5
-    },
-    {
       "school": "LIU",
       "status": "fetch_failed",
       "error": "<urlopen error [Errno -2] Name or service not known>"
@@ -399,7 +387,7 @@
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 176,
+  "still_unmatched_in_queue": 165,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -591,36 +579,6 @@
       "id": "5144491",
       "school": "Georgia Tech",
       "name": "Kaiden Bailey",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5460914",
-      "school": "James Madison",
-      "name": "Joseph Brown",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5460916",
-      "school": "James Madison",
-      "name": "AJ Evans",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5460912",
-      "school": "James Madison",
-      "name": "Emarquis Jones",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5460913",
-      "school": "James Madison",
-      "name": "Ace Meeks",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5460915",
-      "school": "James Madison",
-      "name": "Matthew Owens",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -1000,9 +958,39 @@
       "school": "Arizona St.",
       "name": "JRob Croy",
       "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5351302",
+      "school": "Arizona St.",
+      "name": "Ajak Nyuon",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5289378",
+      "school": "Arizona St.",
+      "name": "Marcus Vaughns",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5455681",
+      "school": "BYU",
+      "name": "Brooks Bahr",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5210917",
+      "school": "BYU",
+      "name": "Bruce Branch III",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5455682",
+      "school": "BYU",
+      "name": "Dovydas Buika",
+      "reason": "no_unambiguous_card_year"
     }
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1849
+  "total_official_class_year_records": 1871
 }
