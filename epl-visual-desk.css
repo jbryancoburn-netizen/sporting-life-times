@@ -1,0 +1,45 @@
+/* Editorial infographics, not generic boxed cards */
+#epl-visual-desk{margin:8px 0 23px;color:#242b28;font-family:Arial,Helvetica,sans-serif}
+.epl-data-mast,.epl-section-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:3px solid #26372f;padding:9px 0 7px}
+.epl-data-mast{font-size:11px;font-weight:800;letter-spacing:.11em}
+.epl-score-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-block:1px solid #b7b7af}
+.epl-score-tile{padding:12px 14px;color:inherit!important;text-decoration:none!important;border-right:1px solid #c8c6bf;min-width:0}
+.epl-score-tile:nth-child(3n){border-right:0}
+.epl-score-tile:nth-child(n+4){border-top:1px solid #ccc9c0}
+.epl-score-date{display:block;color:#866347;font:700 10px/1.3 Arial,sans-serif;letter-spacing:.06em;margin-bottom:8px}
+.epl-score-tile>div{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0}
+.epl-score-tile b{font-size:19px;font-variant-numeric:tabular-nums}
+.epl-team{display:inline-flex;align-items:center;gap:7px;min-width:0;font:600 12px/1.2 Arial,sans-serif}
+.epl-team>span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.epl-crest{width:23px;height:23px;object-fit:contain;flex-shrink:0}
+.epl-fallback{background:var(--club);color:white;align-items:center;justify-content:center;font-size:10px;font-weight:800;border-radius:50%;width:23px;height:23px;flex-shrink:0}
+.epl-dash-columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:25px}
+.epl-data-section{margin-top:20px;min-width:0}
+.epl-section-label h2{font:700 15px/1.2 Arial,sans-serif!important;letter-spacing:-.01em!important;margin:0!important;color:#26372f}
+.epl-section-label>span{font-size:9px;font-weight:700;letter-spacing:.05em;color:#776f64;text-align:right}
+.epl-standings{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}
+.epl-standings th{text-align:right;border-bottom:1px solid #a49d8c;color:#706b5d;font-size:9px;padding:8px 4px}
+.epl-standings td{text-align:right;padding:6px 4px;border-bottom:1px solid #e2dfd7}
+.epl-standings th:nth-child(2),.epl-standings td:nth-child(2){text-align:left}
+.epl-standings .epl-zone-top td:first-child{border-left:3px solid #4c8466}
+.epl-standings .epl-zone-bottom td:first-child{border-left:3px solid #c2664c}
+.epl-standings .epl-pts{font-weight:800}
+.epl-standings .epl-team{font-size:11px}
+.epl-standings .epl-crest,.epl-standings .epl-fallback{width:20px;height:20px}
+.epl-data-note{font:11px/1.5 Georgia,serif;color:#777064}
+.epl-power-row,.epl-leader-row{display:flex;gap:8px;align-items:center;border-bottom:1px solid #e0ddd4;padding:7px 0}
+.epl-power-row .epl-team{min-width:130px;max-width:46%;flex:1}
+.epl-power-track{height:7px;background:#e5e1d7;flex:1;overflow:hidden}
+.epl-power-track i,.epl-probability i{height:100%;display:block}
+.epl-rank{width:21px;color:#777;font-size:11px}
+.epl-power-row strong{font-size:11px;font-variant-numeric:tabular-nums}
+.epl-forecast-row{display:block;padding:10px 0;border-bottom:1px solid #ddd9ce;text-decoration:none!important;color:inherit!important}
+.epl-forecast-teams{display:flex;justify-content:space-between;align-items:center;gap:7px}
+.epl-forecast-teams>strong{font:italic 11px Georgia,serif;color:#8a8172}
+.epl-probability{display:flex;height:9px;margin:10px 0 5px;background:#ddd}
+.epl-prob-labels{display:flex;justify-content:space-between;gap:6px;color:#5b5a53;font-size:9px}
+.epl-stat-duo{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.epl-leader-row{justify-content:space-between}
+.epl-leader-row small{font-size:9px;color:#777;font-weight:400}
+@media(max-width:800px){.epl-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-score-tile:nth-child(3n){border-right:1px solid #ccc}.epl-score-tile:nth-child(2n){border-right:0}.epl-score-tile:nth-child(n+3){border-top:1px solid #ccc}.epl-dash-columns{grid-template-columns:1fr}}
+@media(max-width:520px){.epl-stat-duo{grid-template-columns:1fr;gap:0}.epl-standings th:nth-child(5),.epl-standings td:nth-child(5),.epl-standings th:nth-child(6),.epl-standings td:nth-child(6){display:none}.epl-standings th,.epl-standings td{padding:6px 2px}.epl-score-tile{padding:9px 6px}.epl-team{font-size:10px}.epl-crest,.epl-fallback{width:19px;height:19px}.epl-prob-labels{font-size:8px}}
