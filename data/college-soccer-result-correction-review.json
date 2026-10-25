@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-25",
+  "policy": "Do not overwrite the immutable Elo final ledger without a tested historical replay and verified authoritative evidence.",
+  "cases": [
+    {
+      "match_id": "women-6610471",
+      "match": "East Central vs Oklahoma Baptist",
+      "date": "2026-10-24",
+      "ledger_score": "0-0",
+      "ncaa_source_score": "1-0",
+      "independent_score": "1-0",
+      "independent_source": "https://ecutigers.com/sports/womens-soccer/stats/2026/oklahoma-baptist-university/boxscore/7430",
+      "status": "independently_confirmed_correction_pending_replay"
+    },
+    {
+      "match_id": "men-6636956",
+      "match": "Lawrence vs Beloit",
+      "date": "2026-10-24",
+      "ledger_score": "0-0",
+      "ncaa_source_score": "3-0",
+      "independent_score": null,
+      "independent_source": "https://midwestconference.org/schedule.aspx?schedule=3959",
+      "status": "needs_authoritative_mens_box_score"
+    },
+    {
+      "match_id": "women-6614829",
+      "match": "Mount Saint Mary (NY) vs Old Westbury",
+      "date": "2026-10-24",
+      "ledger_score": "0-0",
+      "ncaa_source_score": "6-0",
+      "independent_score": null,
+      "independent_source": "https://skylineconference.org/schedule.aspx?schedule=3593",
+      "status": "needs_authoritative_result_box_score"
+    }
+  ]
+}
