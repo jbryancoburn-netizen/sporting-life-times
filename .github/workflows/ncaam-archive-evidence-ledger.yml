@@ -1,0 +1,22 @@
+name: NCAA archived roster evidence integrity
+on:
+  push:
+    paths:
+      - 'data/ncaam-confirmed-pregame-archive-captures.json'
+      - 'data/ncaam-preseason-roster-source-provenance.json'
+      - 'scripts/verify_ncaam_archive_evidence_ledger.py'
+      - '.github/workflows/ncaam-archive-evidence-ledger.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_archive_evidence_ledger.py
+      - run: python scripts/verify_ncaam_preseason_evidence_gate.py
+      - run: python scripts/verify_ncaam_final_preseason_release.py
