@@ -76,8 +76,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           h=Path('nba.html').read_text()
-          assert h.index('id="nba-page-turner"') < h.index('id="nba-live-games"') < h.index('id="nba-news"') < h.index('id="nba-rabby-today"')
-          print('PASS NBA page hierarchy: navigation, live scores, news, then forecast')
+          assert h.index('<h1>THE NBA DESK</h1>') < h.index('class="nba-quick-desk-nav"') < h.index('id="nba-page-turner"') < h.index('id="nba-live-games"') < h.index('id="nba-news"') < h.index('id="nba-rabby-today"')
+          print('PASS NBA page hierarchy: desk, navigation, live scores, news, then forecast')
           PY
           python - <<'PY'
           from pathlib import Path
