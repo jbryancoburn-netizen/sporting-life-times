@@ -102,7 +102,7 @@ jobs:
           PY
           test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
           grep -q 'nba-page-turner.js?v=9' nba.html
-          grep -q 'nba-live-feed.js?v=5' nba.html
+          grep -q 'nba-live-feed.js?v=6' nba.html
           node --check nba-live-feed.js
           test -s nba-team-desk.js
           grep -q 'nba-team-desk.js?v=4' nba-team-desk.html
