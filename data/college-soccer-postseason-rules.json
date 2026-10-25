@@ -287,6 +287,28 @@
       },
       "table_source": "https://gliac.org/standings.aspx?path=wsoc",
       "projection_warning": "No playoff bracket or championship probabilities published until official 2026 field, pairings and rules are confirmed."
+    },
+    "men-d1:acc": {
+      "name": "Atlantic Coast Conference",
+      "short": "ACC",
+      "cohort": "men-d1",
+      "confirmed_teams": 15,
+      "tournament": {
+        "field": 15,
+        "first_round_byes": 1,
+        "first_round_date": "2026-11-04",
+        "quarterfinal_date": "2026-11-08",
+        "semifinal_date": "2026-11-12",
+        "final_date": "2026-11-15",
+        "format": "15-team single-elimination: #1 earns first-round bye; 2-8 host first round; quarterfinals hosted by #1 and highest remaining seed in each bracket; semifinals/final Cary NC",
+        "status": "Verified 2026 official ACC schedule and format. Exact pairings depend on conference final seeds.",
+        "sources": [
+          "https://theacc.com/news/2026/6/17/baseball-sites-and-dates-announced-for-2026-27-acc-championships.aspx",
+          "https://theacc.com/standings.aspx?path=msoc"
+        ]
+      },
+      "table_source": "https://theacc.com/standings.aspx?path=msoc",
+      "projection_warning": "Entire 15-team field qualifies; projected seed order uses conference points and Elo for display ties, not official ACC tiebreakers. Exact seed and knockout odds not certified."
     }
   }
 }
