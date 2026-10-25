@@ -1,7 +1,7 @@
 {
   "input_targets": 489,
-  "already_classified": 174,
-  "new_official_class_years": 21,
+  "already_classified": 195,
+  "new_official_class_years": 7,
   "source_results": [
     {
       "school": "Western Ill.",
@@ -12,7 +12,7 @@
     {
       "school": "Chicago St.",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 1
     },
     {
@@ -48,13 +48,14 @@
     {
       "school": "CSU Bakersfield",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 7
     },
     {
       "school": "LSU",
-      "status": "season_unverified",
-      "heading": " "
+      "status": "processed",
+      "matched": 0,
+      "targeted": 3
     },
     {
       "school": "Georgia",
@@ -128,8 +129,8 @@
     {
       "school": "Queens (NC)",
       "status": "processed",
-      "matched": 6,
-      "targeted": 7
+      "matched": 0,
+      "targeted": 1
     },
     {
       "school": "Rider",
@@ -193,8 +194,8 @@
     {
       "school": "Lehigh",
       "status": "processed",
-      "matched": 1,
-      "targeted": 5
+      "matched": 0,
+      "targeted": 4
     },
     {
       "school": "Manhattan",
@@ -203,16 +204,9 @@
       "targeted": 1
     },
     {
-      "school": "McNeese",
-      "status": "processed",
-      "matched": 4,
-      "targeted": 4
-    },
-    {
       "school": "Miami (FL)",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
+      "status": "season_unverified",
+      "heading": " "
     },
     {
       "school": "Missouri",
@@ -309,9 +303,8 @@
     },
     {
       "school": "Washington St.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 4
+      "status": "season_unverified",
+      "heading": " "
     },
     {
       "school": "Wisconsin",
@@ -345,7 +338,7 @@
     {
       "school": "Houston Christian",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 1
     },
     {
@@ -391,8 +384,8 @@
     {
       "school": "BYU",
       "status": "processed",
-      "matched": 1,
-      "targeted": 5
+      "matched": 0,
+      "targeted": 4
     },
     {
       "school": "Dartmouth",
@@ -403,7 +396,7 @@
     {
       "school": "FGCU",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 1
     },
     {
@@ -416,12 +409,6 @@
       "school": "Harvard",
       "status": "processed",
       "matched": 0,
-      "targeted": 5
-    },
-    {
-      "school": "Hawaii",
-      "status": "processed",
-      "matched": 5,
       "targeted": 5
     },
     {
@@ -444,7 +431,7 @@
     {
       "school": "Seattle U",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 1
     },
     {
@@ -458,12 +445,6 @@
       "status": "processed",
       "matched": 0,
       "targeted": 1
-    },
-    {
-      "school": "Texas St.",
-      "status": "processed",
-      "matched": 4,
-      "targeted": 4
     },
     {
       "school": "St. Thomas (MN)",
@@ -529,28 +510,22 @@
     {
       "school": "Tarleton St.",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 1
     },
     {
       "school": "UNCW",
       "status": "processed",
-      "matched": 0,
+      "matched": 1,
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 294,
+  "still_unmatched_in_queue": 287,
   "unmatched_sample": [
     {
       "id": "5462468",
       "school": "Western Ill.",
       "name": "Tayelor Moore",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5463670",
-      "school": "Chicago St.",
-      "name": "Foday Sheriff",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -656,9 +631,21 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5107754",
-      "school": "CSU Bakersfield",
-      "name": "Snookey Wigington",
+      "id": "5458827",
+      "school": "LSU",
+      "name": "Bradley Fife",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5458829",
+      "school": "LSU",
+      "name": "Strake Pearson",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5177518",
+      "school": "LSU",
+      "name": "Luke Stansbury",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -1088,12 +1075,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5142723",
-      "school": "Miami (FL)",
-      "name": "Caleb Gaskins",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5144572",
       "school": "Missouri",
       "name": "Toni Bryant",
@@ -1143,12 +1124,8 @@
     }
   ],
   "class_counts": {
-    "Freshman": 14,
-    "Sophomore": 3,
-    "Graduate": 1,
-    "Junior": 2,
-    "Senior": 1
+    "Graduate": 7
   },
-  "new_unique_saved_against_latest_main": 21,
-  "total_official_class_year_records": 1720
+  "new_unique_saved_against_latest_main": 7,
+  "total_official_class_year_records": 1727
 }
