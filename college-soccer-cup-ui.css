@@ -1,0 +1,29 @@
+/* Shared NCAA tournament visual language — dense editorial bracket, school identity, no oversized cards. */
+.cs-cup-crest{--club:#36566b;position:relative;display:inline-grid;place-items:center;flex:0 0 auto;width:29px;height:29px;border:1px solid #d0dce1;border-radius:50%;background:var(--club);color:#fff;font:800 .6rem Arial,sans-serif;overflow:hidden;vertical-align:middle}
+.cs-cup-crest img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:white}
+.cs-cup-crest.has-image{color:transparent;background:transparent}
+.cs-cup-crest.has-image img{background:transparent}
+a.cs-cup-table-school{display:inline-flex;align-items:center;gap:.45rem;min-width:0;max-width:100%}
+.cs-cup-table-school .cs-cup-crest{width:23px;height:23px}
+.cs-cup-bracket{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.82fr);align-items:stretch;border-top:1px solid #c6d1d7;border-bottom:1px solid #c6d1d7;gap:0;margin:.7rem 0 1.1rem}
+.cs-cup-round{position:relative;padding:.9rem clamp(.35rem,1.2vw,.85rem);min-width:0;border-right:1px solid #dae2e6;display:flex;flex-direction:column;justify-content:space-evenly;gap:1rem}
+.cs-cup-round:last-of-type{border-right:0}
+.cs-cup-round-title{font:800 .63rem Arial,sans-serif;letter-spacing:.08em;color:#6d7f88;margin:0 0 .5rem;white-space:normal}
+.cs-cup-match{border:1px solid #c6d4dc;background:#fff;min-width:0;padding:.5rem .48rem;position:relative;box-shadow:0 2px 0 #e2e9ec}
+.cs-cup-match-label{display:block;font:700 .59rem Arial,sans-serif;color:#987048;letter-spacing:.03em;margin:0 0 .4rem}
+.cs-cup-school{display:flex;align-items:center;gap:.3rem;padding:.28rem 0;min-width:0}
+.cs-cup-school+.cs-cup-school{border-top:1px solid #e5ecef}
+.cs-cup-seed{font:800 .68rem Arial,sans-serif;color:#607888;width:13px;text-align:center;flex:0 0 auto}
+.cs-cup-school .cs-cup-crest{width:24px;height:24px}
+.cs-cup-teamname{color:#263f51!important;font:700 clamp(.63rem,.9vw,.74rem)/1.25 Arial,sans-serif;text-decoration:none!important;overflow-wrap:anywhere;min-width:0}
+.cs-cup-teamname:hover{text-decoration:underline!important}
+.cs-cup-tbd{font:italic .7rem Georgia,serif;color:#86929b;border-top:1px solid #e5ecef;padding:.55rem .2rem .2rem}
+.cs-cup-match.bye{border-top:3px solid #b49353}
+.cs-cup-final{border:2px solid #496b7f;padding:1rem .5rem;min-height:125px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.35rem;text-align:center;background:#f5f8f9}
+.cs-cup-final .cs-cup-trophy{font-size:1.55rem;color:#b38b4c}
+.cs-cup-final strong{font:800 .7rem Arial,sans-serif;letter-spacing:.06em}
+.cs-cup-final span:not(.cs-cup-trophy){font:italic .82rem Georgia,serif;color:#426478}
+.cs-cup-final small{font:700 .53rem/1.4 Arial,sans-serif;letter-spacing:.06em;color:#71838c}
+.cs-cup-caveat{grid-column:1/-1;font:italic .65rem/1.4 Georgia,serif;color:#6f838c;border-top:1px solid #d9e1e5;margin:0;padding:.6rem .4rem}
+@media(max-width:800px){.cs-cup-bracket{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-cup-round.championship{grid-column:1/-1;border-top:1px solid #dae2e6}.cs-cup-round.semis{border-right:0}.cs-cup-final{min-height:80px}}
+@media(max-width:500px){.cs-cup-bracket{grid-template-columns:1fr}.cs-cup-round{border-right:0;border-bottom:1px solid #dae2e6;padding:.65rem .35rem}.cs-cup-round.championship{grid-column:auto}.cs-cup-match{padding:.5rem .7rem}.cs-cup-school .cs-cup-crest{width:29px;height:29px}}
