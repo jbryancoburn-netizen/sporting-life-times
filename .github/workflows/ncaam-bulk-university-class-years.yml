@@ -1,0 +1,36 @@
+name: NCAA bulk university roster recovery
+on:
+  push:
+    paths:
+      - scripts/collect_ncaam_school_class_years_bulk.py
+      - data/ncaam-2026-27-official-roster-urls.json
+      - .github/workflows/ncaam-bulk-university-class-years.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-bulk-university-rosters
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install beautifulsoup4
+      - run: python scripts/collect_ncaam_school_class_years_bulk.py
+      - name: Commit matched records and source audit
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add data/ncaam-2026-27-school-roster-class-years.csv data/ncaam-2026-27-official-bulk-recovery-report.json
+          git diff --cached --quiet || (git commit -m "Collect university verified NCAA class year records" && git push)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ncaam-university-bulk-roster-evidence
+          path: data/ncaam-2026-27-official-bulk-recovery-report.json
