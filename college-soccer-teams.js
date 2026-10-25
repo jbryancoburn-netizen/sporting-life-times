@@ -20,6 +20,7 @@ let newsData={articles:[],updated_at:null};
 let scheduleData={teams:{}};
 let gameIndex={teams:{}};
 let brandData={teams:{}};
+let conferenceData={conferences:{},team_to_conference:{}};
 
 
 
@@ -119,9 +120,65 @@ ratingPanel.append(ratingList);
 ratingPanel.append(node('p','Current provisional Elo ratings within this division. Bars share a zero-based scale; not historical change.','team-visual-footnote'));
 panels.append(ratingPanel);
 visual.append(panels);profile.append(visual);
+const conferenceKey=conferenceData.team_to_conference?.[t.cohort+':'+t.team_id];
+const conference=conferenceData.conferences?.[conferenceKey];
+if(conference){
+ const members=(conference.teams||[]).map(id=>byId.get(t.cohort+':'+id)).filter(Boolean).sort((a,b)=>Number(b.elo)-Number(a.elo));
+ const ownPos=members.findIndex(a=>a.team_id===t.team_id)+1;
+ const conferencePanel=node('section',undefined,'team-conference-desk');conferencePanel.id='team-conference';
+ const confHeader=node('div',undefined,'team-conference-head');
+ const textHead=node('div');textHead.append(node('small','CONFERENCE COMPARISON · INDEPENDENT USRS'),node('h3',conference.name));
+ const confMetric=node('div',undefined,'team-conference-position');
+ confMetric.append(node('strong','#'+ownPos),node('small','of '+members.length+' in conference Elo'));
+ confHeader.append(textHead,confMetric);conferencePanel.append(confHeader);
+ const barChart=node('div',undefined,'team-conference-bars');
+ const maxElo=Math.max(1,...members.map(a=>Number(a.elo)));
+ for(const member of members){
+  const selected=member.team_id===t.team_id;
+  const line=node('div',undefined,'team-conference-bar-row'+(selected?' is-current':''));
+  const teamLink=node('a',member.team);teamLink.href='college-soccer-team.html?team='+encodeURIComponent(t.cohort+':'+member.team_id);
+  const name=node('div',undefined,'team-conference-name');name.append(teamLink);
+  if(selected)name.append(node('small','THIS PROGRAM'));
+  const graph=node('div',undefined,'team-conference-rail');
+  const fill=node('span',undefined,'team-conference-fill');fill.style.width=(100*Number(member.elo)/maxElo).toFixed(1)+'%';graph.append(fill);
+  const value=node('strong',fmt(member.elo),'team-conference-elo');
+  line.append(name,graph,value);barChart.append(line);
+ }
+ conferencePanel.append(barChart);
+ const stats=node('div',undefined,'team-conference-compare');
+ const avg=members.reduce((sum,v)=>sum+Number(v.elo),0)/Math.max(1,members.length);
+ const above=members.filter(m=>Number(m.elo)>Number(t.elo)).length;
+ for(const [label,value,details] of [
+  ['USRS conference rank','#'+ownPos+' / '+members.length,'Current independently calculated Elo order'],
+  ['Conference Elo average',fmt(avg),(Number(t.elo)>=avg?'+':'')+fmt(Number(t.elo)-avg)+' Elo versus conference average'],
+  ['Conference teams ahead',String(above),'By current Elo, not official league points']
+ ]){
+  const card=node('div',undefined,'team-conf-stat');card.append(node('span',label),node('strong',value),node('small',details));stats.append(card);
+ }
+ conferencePanel.append(stats);
+ const tableSection=node('div',undefined,'team-official-conference');
+ tableSection.append(node('h4','Official MIAA conference standings'));
+ const table=node('table',undefined,'team-conference-table');
+ const thead=node('thead'),heading=node('tr');
+ for(const label of ['School','Conf. W–L–D','Points','USRS Elo'])heading.append(node('th',label));
+ thead.append(heading);table.append(thead);
+ const tbody=node('tbody');
+ const official=(conference.official_conference||[]).slice().sort((a,b)=>Number(b.points)-Number(a.points));
+ for(const entry of official){
+  const member=byId.get(t.cohort+':'+entry.team_id);if(!member)continue;
+  const tr=node('tr');if(member.team_id===t.team_id)tr.className='is-current';
+  const first=node('td');const anchor=node('a',member.team);anchor.href='college-soccer-team.html?team='+encodeURIComponent(t.cohort+':'+member.team_id);first.append(anchor);
+  tr.append(first,node('td',entry.record),node('td',entry.points),node('td',fmt(member.elo)));tbody.append(tr);
+ }
+ table.append(tbody);tableSection.append(table);
+ const src=node('a','Official conference standings ↗');src.href=conferenceData.source_url;src.target='_blank';src.rel='noopener noreferrer';tableSection.append(src);
+ conferencePanel.append(tableSection);
+ conferencePanel.append(node('p','Conference records are sourced from the official MIAA standings; Elo, full-season totals and comparisons use our independently maintained rating snapshot. Cutoffs may differ.','team-visual-footnote'));
+ profile.append(conferencePanel);
+}
 const sectionNav=node('nav',undefined,'team-section-nav');
 sectionNav.setAttribute('aria-label','Team profile sections');
-for(const [href,label] of [['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
+for(const [href,label] of [['team-conference','Conference'],['team-visual-report','Infographics'],['team-featured','Match Center'],['team-news','News'],['team-season-graphics','Season form'],['team-form','Latest scores'],['team-season','Season'],['team-forecast','Forecasts'],['team-results','Results'],['team-data','Methodology']]){
  const a=node('a',label);a.href='#'+href;sectionNav.append(a);
 }
 profile.append(sectionNav);
@@ -313,7 +370,8 @@ const resources=await Promise.allSettled([
  fetch('data/college-soccer-team-game-index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
  fetch('data/college-soccer-team-schedules.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
  fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
- fetch('data/college-soccer-team-branding.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
+ fetch('data/college-soccer-team-branding.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-conferences.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
 ]);
 if(resources[0].status==='fulfilled')verified=resources[0].value.results||[];
 if(resources[1].status==='fulfilled')forecasts=resources[1].value.forecasts||[];
@@ -321,6 +379,7 @@ if(resources[2].status==='fulfilled')gameIndex=resources[2].value;
 if(resources[3].status==='fulfilled')scheduleData=resources[3].value;
 if(resources[4].status==='fulfilled')newsData=resources[4].value;
 if(resources[5].status==='fulfilled')brandData=resources[5].value;
+if(resources[6].status==='fulfilled')conferenceData=resources[6].value;
 if(search.value.trim().length>=2){
  const current=new URLSearchParams(location.search).get('team');
  if(current&&byId.has(current))open(byId.get(current));
