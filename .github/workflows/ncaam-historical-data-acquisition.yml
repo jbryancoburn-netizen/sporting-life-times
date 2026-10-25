@@ -25,6 +25,7 @@ on:
       - 'scripts/audit_ncaam_player_reconciliation.py'
       - 'scripts/reconcile_ncaam_multi_year.py'
       - 'scripts/audit_ncaam_multiyear_identity.py'
+      - 'scripts/audit_ncaam_athlete_ids.py'
       - 'scripts/backtest_ncaam_multiyear_stat_recovery.py'
       - 'scripts/backtest_ncaam_quality_earlyseason_asof.py'
       - 'scripts/build_ncaam_2027_quality_shadow.py'
@@ -123,6 +124,15 @@ jobs:
             x=d['results'][y]
             assert x['current_roster_entries_accounted']>4000
             assert x['additional_previous_two_seasons_matches']>=0
+          PY
+      - name: Audit NCAA cross-season athlete source ID consistency
+        run: |
+          python scripts/audit_ncaam_athlete_ids.py --source historical-normalized --out historical-report/ncaam-athlete-id-audit.json
+          python - <<'PY'
+          import json
+          x=json.load(open('historical-report/ncaam-athlete-id-audit.json'))
+          assert not x['production_promotion_allowed']
+          assert len(x['years'])==3
           PY
       - name: Calibrate current game Elo K and margin multipliers on untouched 2026 holdout
         run: |
@@ -378,6 +388,9 @@ jobs:
           if [ -s historical-report/ncaam-two-year-stat-recovery-backtest.json ]; then
             cp historical-report/ncaam-two-year-stat-recovery-backtest.json data/ncaam-two-year-stat-recovery-backtest.json
           fi
+          if [ -s historical-report/ncaam-athlete-id-audit.json ]; then
+            cp historical-report/ncaam-athlete-id-audit.json data/ncaam-athlete-id-audit.json
+          fi
           if [ -s historical-report/ncaam-multiyear-identity-audit.json ]; then
             cp historical-report/ncaam-multiyear-identity-audit.json data/ncaam-multiyear-identity-audit.json
           fi
@@ -490,6 +503,7 @@ jobs:
             if [ -f data/ncaam-coverage-shrinkage.json ]; then git add data/ncaam-coverage-shrinkage.json; fi
             if [ -f data/ncaam-player-reconciliation.json ]; then git add data/ncaam-player-reconciliation.json; fi
             if [ -f data/ncaam-multiyear-identity-audit.json ]; then git add data/ncaam-multiyear-identity-audit.json; fi
+            if [ -f data/ncaam-athlete-id-audit.json ]; then git add data/ncaam-athlete-id-audit.json; fi
             if [ -f data/ncaam-two-year-stat-recovery-backtest.json ]; then git add data/ncaam-two-year-stat-recovery-backtest.json; fi
             for file in data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json; do
               if [ -f "$file" ]; then git add "$file"; fi
