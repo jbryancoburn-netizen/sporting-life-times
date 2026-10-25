@@ -848,10 +848,15 @@
       "table_source": "https://maacsports.com/standings.aspx?path=msoc",
       "projection_warning": "Standings records and format await official confirmation; no guessed rankings.",
       "tiebreakers": {
-        "verification": "unverified_2026_procedure",
-        "source_url": null,
-        "ordered_criteria": [],
-        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+        "verification": "published_2024_mens_soccer_policy_2026_applicability_unverified",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/maacconf.sidearmsports.com/documents/2024/9/13/Men_s_Soccer_Tiebreaker_FINAL.pdf",
+        "ordered_criteria": [
+          "regular_season_conference_points",
+          "two_team_regular_season_head_to_head",
+          "additional_steps_in_official_pdf_require_individual_verification"
+        ],
+        "multi_team": "when_teams_extracted_restart_at_beginning",
+        "automatic_resolution": "blocked_until_all_published_steps_verified_and_full_2026_match_history"
       }
     },
     "men-d1:mountain-west": {
