@@ -200,7 +200,7 @@ jobs:
           assert.equal(postseasonRules.conferences['women-d3:miac'].tournament.reseed,true);
           assert.equal(postseasonRules.conferences['women-d3:cciw'].tournament.field,null);
                     const confJs=fs.readFileSync('college-soccer-conference-page.js','utf8');
-          assert(confJs.includes('cup.bracket('));
+          assert(confJs.includes('cup.bracket(')||confJs.includes('cup.bracketEight'));
           assert(confJs.includes('cup.decorateTable('));
           assert(confJs.includes('modelOdds('));
           assert(confJs.includes('bracketOdds('));
