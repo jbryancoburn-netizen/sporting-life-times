@@ -275,3 +275,26 @@
 #college-team-profile .team-map-details{max-width:none}
 #college-team-profile .team-hometown-integrated{padding:.7rem}
 }
+
+/* Quiet school identity: no competing mascot box, no map card. */
+#college-team-profile .team-hero:has(.team-hero-spirit){padding-right:clamp(1rem,3vw,2.3rem);min-height:140px}
+#college-team-profile .team-mascot-byline{display:inline-flex;align-items:center;gap:.45rem;color:#dbe5e8;font:500 .72rem/1.25 Arial,sans-serif;margin-top:.5rem}
+#college-team-profile .team-mascot-byline img{width:27px;height:27px;border-radius:50%;object-fit:cover;object-position:center 35%;border:1px solid #ffffff80;box-shadow:none}
+#college-team-profile .team-hometown-inline{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.25rem .9rem;padding:.55rem 0;margin:.2rem 0 1rem;border:0;border-bottom:1px solid #d6dfe1;background:transparent}
+#college-team-profile .team-hometown-line{display:flex;align-items:center;flex-wrap:wrap;gap:.25rem .5rem;min-width:0;font:.74rem/1.45 Arial,sans-serif;color:#647383}
+#college-team-profile .team-hometown-line strong{font-weight:700;color:#2d4a5c}
+#college-team-profile .team-location-pin{font-size:1.05rem;color:var(--team-primary,#244e68)}
+#college-team-profile .team-location-address{color:#7a8790}
+#college-team-profile .team-hometown-links{display:flex;align-items:center;gap:.55rem 1rem;flex-wrap:wrap;font:.72rem Arial,sans-serif}
+#college-team-profile .team-hometown-links a{color:#43627a;text-decoration:underline;text-underline-offset:3px}
+#college-team-profile .team-hometown-inline .team-map-details{width:auto;max-width:none;padding:0;background:transparent;border:0;position:relative}
+#college-team-profile .team-hometown-inline .team-map-details summary{padding:0;color:#43627a;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:500 .72rem Arial,sans-serif}
+#college-team-profile .team-hometown-inline .team-map-details[open]{width:min(100%,490px);flex-basis:100%;margin-top:.4rem;padding:.4rem 0}
+#college-team-profile .team-hometown-inline .team-campus-map{height:195px;width:100%;margin:.5rem 0;border:1px solid #d8dfe2}
+#college-team-profile .team-hero-logo-bg{opacity:.055}
+@media(max-width:680px){
+ #college-team-profile .team-hero:has(.team-hero-spirit){min-height:0;padding:1rem}
+ #college-team-profile .team-mascot-byline img{width:24px;height:24px}
+ #college-team-profile .team-hometown-inline{align-items:flex-start}
+ #college-team-profile .team-location-address{display:none}
+}
