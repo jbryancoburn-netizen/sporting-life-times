@@ -60,6 +60,29 @@ const brandMark=(team,cohort,branding)=>{
    comparison.append(d);
   }
   comparison.append($('p','Ratings reflect the published current edition, not necessarily the ratings available before kickoff.','cs-match-note'));
+  if(Number(home.gp)>0&&Number(away.gp)>0){
+   const compare=$('div',null,'cs-match-stat-comparison');
+   const duel=(label,a,b,lowerBetter)=>{
+    const row=$('div',null,'cs-match-stat-row');row.append($('small',label));
+    const values=$('div',null,'cs-match-stat-values');
+    const left=$('strong',Number(a).toFixed(2)),right=$('strong',Number(b).toFixed(2));
+    const better=lowerBetter?a<b:a>b;
+    const reverse=lowerBetter?b<a:b>a;
+    if(better)left.className='cs-match-stat-advantage';
+    if(reverse)right.className='cs-match-stat-advantage';
+    values.append(left,$('span','—'),right);row.append(values);
+    const tracks=$('div',null,'cs-match-stat-tracks');
+    const high=Math.max(a,b,.01);
+    for(const [v,kind] of [[a,'home'],[b,'away']]){
+     const track=$('span',null,'cs-match-stat-track');const bar=$('i',null,'cs-match-stat-'+kind);
+     bar.style.width=100*v/high+'%';track.append(bar);tracks.append(track);
+    }row.append(tracks);compare.append(row);
+   };
+   duel('Goals scored per match',home.gf/home.gp,away.gf/away.gp,false);
+   duel('Goals allowed per match',home.ga/home.gp,away.ga/away.gp,true);
+   comparison.append(compare);
+   comparison.append($('p','Season rates are calculated directly from verified published goals and games played. They are not match-specific statistics.','cs-match-note'));
+  }
  }else comparison.append($('p','Comparable published Elo ratings could not be resolved for both programs.','cs-match-note'));
  if(pre){
   const pred=$('section',null,'cs-match-panel cs-pregame');root.append(pred);
