@@ -9,6 +9,11 @@ class TestOfficialRosterExtraction(unittest.TestCase):
               '<a href="/sports/mens-basketball/roster/john-doe/655">John Doe</a>'
               '<a href="/sports/mens-basketball/roster/jane-smith/321">Jane Smith</a>')
         self.assertEqual(parse_players(html),["Jane Smith","John Doe"])
+    def test_staff_labels_not_players(self):
+        html=('<a href="/sports/mens-basketball/roster/head-coach/555">Head Coach Dustin Ford</a>'
+              '<a href="/sports/mens-basketball/roster/player-one/111">Player One</a>'
+              '<a href="/sports/mens-basketball/roster/jersey-0/222">Jersey Number 0</a>')
+        self.assertEqual(parse_players(html),["Player One"])
     def test_unrelated_links_not_players(self):
         self.assertEqual(parse_players('<a href="/sports/mens-basketball/news">Latest news</a>'),[])
 if __name__=="__main__":unittest.main()
