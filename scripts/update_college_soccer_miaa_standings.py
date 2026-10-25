@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 SOURCE = "https://miaa.org/standings.aspx?path=msoc"
 OUT = Path("data/college-soccer-miaa-standings.json")
 TEAMS = {"Calvin":"calvin","Kalamazoo":"kalamazoo","Albion":"albion","Hope":"hope","Adrian":"adrian","Alma":"alma","Trine":"trine","Olivet":"olivet"}
-RECORD = re.compile(r"^\\d+-\\d+(?:-\\d+)?$")
-INTEGER = re.compile(r"^\\d+$")
+RECORD = re.compile(r"^\d+-\d+(?:-\d+)?$")
+INTEGER = re.compile(r"^\d+$")
 
 
 def parse_table(html):
@@ -87,7 +87,7 @@ def main():
     old["checked_date"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     old["checked_at_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     old["note"] = "Eight MIAA teams parsed from current official conference standings; no results inferred."
-    OUT.write_text(json.dumps(old,indent=2)+"\\n",encoding="utf-8")
+    OUT.write_text(json.dumps(old,indent=2)+"\n",encoding="utf-8")
     print("Published eight fully validated official conference records")
 
 
