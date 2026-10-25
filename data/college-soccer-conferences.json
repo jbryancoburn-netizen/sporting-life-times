@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "source": "Official MIAA and MIAC 2026 men's soccer standings",
+  "source": "Official MIAA, MIAC, CCIW men's 2026 soccer standings",
   "source_url": "https://miaa.org/standings.aspx?path=msoc",
-  "scope": "Verified 2026 men's NCAA Division III soccer conference membership: MIAA and MIAC; other NCAA conferences not yet mapped.",
-  "notice": "Incomplete conference directory. MIAA and MIAC men’s 2026 memberships only; official conference records come from separate standings snapshots and may have different data cutoffs from USRS Elo.",
+  "scope": "Verified 2026 NCAA men's Division III soccer conference memberships: MIAA, MIAC, CCIW; other leagues not yet mapped.",
+  "notice": "Incomplete conference directory. Listed men's Division III memberships are official-source verified; conference standings and tournament rules come from independent league-specific records. No unmatched program is assigned to a conference by guess.",
   "conferences": {
     "men-d3:miaa": {
       "name": "Michigan Intercollegiate Athletic Association",
@@ -36,6 +36,22 @@
         "st-marys-mn"
       ],
       "source_url": "https://miacathletics.com/standings.aspx?path=msoc"
+    },
+    "men-d3:cciw": {
+      "name": "College Conference of Illinois & Wisconsin",
+      "short": "CCIW",
+      "teams": [
+        "north-central-il",
+        "north-park",
+        "ill-wesleyan",
+        "wheaton-il",
+        "millikin",
+        "augustana-il",
+        "carroll-wi",
+        "elmhurst",
+        "carthage"
+      ],
+      "source_url": "https://cciw.org/standings.aspx?path=msoc"
     }
   },
   "team_to_conference": {
@@ -57,6 +73,15 @@
     "men-d3:hamline": "men-d3:miac",
     "men-d3:bethel-mn": "men-d3:miac",
     "men-d3:concordia-mhead": "men-d3:miac",
-    "men-d3:st-marys-mn": "men-d3:miac"
+    "men-d3:st-marys-mn": "men-d3:miac",
+    "men-d3:north-central-il": "men-d3:cciw",
+    "men-d3:north-park": "men-d3:cciw",
+    "men-d3:ill-wesleyan": "men-d3:cciw",
+    "men-d3:wheaton-il": "men-d3:cciw",
+    "men-d3:millikin": "men-d3:cciw",
+    "men-d3:augustana-il": "men-d3:cciw",
+    "men-d3:carroll-wi": "men-d3:cciw",
+    "men-d3:elmhurst": "men-d3:cciw",
+    "men-d3:carthage": "men-d3:cciw"
   }
 }
