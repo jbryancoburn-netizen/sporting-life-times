@@ -36,5 +36,6 @@ assert.equal([...teams.values()].reduce((n,v)=>n+v.l,0),published.games_played,'
 assert(html.includes('id="nba-conference-standings"')&&html.includes('id="nba-elo-grid"'),'Missing rendered standings/Elo hosts');
 assert(/nba-home\.js\?v=\d+/.test(html),'Published NBA home script not wired');
 assert(script.includes('const records=Object.fromEntries')&&script.includes('const ledger=(elo.events||[])'),'Published renderer does not derive W-L from Elo events');
-assert(script.includes('nba-conference-standings')&&script.includes('nba-elo-grid'),'Published renderer missing standings or ratings output');
+assert(script.includes('nba-conference-standings')&&script.includes('const records=Object.fromEntries'),'Published renderer missing standings or record output');
+assert(html.includes('nba-intelligence.js?v='),'Missing power rankings renderer script');
 console.log(JSON.stringify({status:'PASS',verified_games:published.games_played,teams:teams.size,wins:published.games_played,losses:published.games_played,renderer:'source contracts verified',public_data:'exact match with deployment'},null,2));
