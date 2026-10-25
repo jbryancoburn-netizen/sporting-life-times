@@ -57,6 +57,28 @@ function render(conf,table,ratings,rules){
   card.append(link('Official NCAA requirements ↗',r.sources?.[0]||r.official_source||'https://www.ncaa.org/championships/general-championship-resources/'));items.append(card);
  }
  national.append(items);
+ const contenderHead=el('div',null,'cs-post-section-head');
+ contenderHead.append(el('h3','Early Division I contender forecast'),el('span','NEUTRAL-FIELD ELO MODEL · NOT SELECTION ODDS'));national.append(contenderHead);
+ const contenderGrid=el('div',null,'cs-national-grid cs-contender-grid');
+ for(const [cohort,label] of [['men-d1','Men’s DI'],['women-d1','Women’s DI']]){
+  const pool=(ratings.cohorts?.[cohort]||[]).filter(t=>Number.isFinite(t.elo)).slice().sort((a,b)=>b.elo-a.elo);
+  if(pool.length<16)continue;
+  const benchmark=(pool[7].elo+pool[8].elo)/2;
+  const column=el('div',null,'cs-post-contender');
+  column.append(el('h4',label),el('p','Chance of beating the midpoint of the current Elo top 16 in a neutral, decisive matchup.','cs-post-note'));
+  for(const team of pool.slice(0,10)){
+   const prob=1/(1+Math.pow(10,-((team.elo-benchmark)/400)));
+   const item=el('div',null,'cs-post-contender-row');
+   const line=el('div',null,'cs-post-odds-head');line.append(link(team.team,'college-soccer-team.html?team='+encodeURIComponent(cohort+':'+team.team_id)),el('span',fmt(prob)));
+   item.append(line);
+   const track=el('div',null,'cs-post-odds-track'),bar=el('i');
+   bar.style.width=prob*100+'%';track.append(bar);item.append(track);
+   column.append(item);
+  }
+  contenderGrid.append(column);
+ }
+ national.append(contenderGrid);
+ national.append(el('p','These matchup probabilities are Elo-only experimental head-to-head forecasts. They are not odds of being selected, reaching the College Cup or winning an NCAA tournament. At-large NCAA selections require official committee criteria and conference automatic qualifiers.','cs-post-note'));
  national.append(el('p','Nationwide conference-by-conference brackets and NCAA at-large probability projections require complete 2026 soccer conference membership, conference tournament rules, official qualification status and NCAA selection metrics. Until verified, no unsupported at-large odds are published.','cs-post-note'));
 }
 async function refresh(){
