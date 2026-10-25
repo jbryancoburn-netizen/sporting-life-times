@@ -14,3 +14,12 @@
 @media(max-width:740px){.cs-conf-directory-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-conf-directory-link:nth-child(2){border-right:0}.cs-conf-directory-link:nth-child(n+3){border-top:1px solid #dde5e8}}
 
 .cs-conf-directory-coverage{font:700 .71rem/1.45 Arial,sans-serif;color:#47657a;margin:.1rem 0 .65rem}
+
+.cs-conf-cohort-coverage{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.6rem;padding:.5rem 0 1rem}
+.cs-conf-cohort-tile{border-top:2px solid #466b7f;background:#f3f7f8;padding:.6rem .55rem;min-width:0;display:flex;flex-direction:column;gap:.3rem}
+.cs-conf-cohort-tile strong{font:800 .7rem Arial,sans-serif;color:#2a4859}
+.cs-conf-cohort-tile span{font:500 .63rem/1.4 Arial,sans-serif;color:#637d8b}
+.cs-conf-cohort-track{background:#d9e5e9;height:7px;margin-top:auto;overflow:hidden}
+.cs-conf-cohort-track i{display:block;background:#54778f;height:100%}
+@media(max-width:800px){.cs-conf-cohort-coverage{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:450px){.cs-conf-cohort-coverage{grid-template-columns:repeat(2,minmax(0,1fr))}}
