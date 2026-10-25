@@ -40,3 +40,15 @@ a.cs-cup-table-school{display:inline-flex;align-items:center;gap:.45rem;min-widt
 .cs-cup-bracket-fifteen .cs-cup-round.opening .cs-cup-match:first-of-type{background:#f8f1e3;border-top:3px solid #a47a3f}
 @media(max-width:900px){.cs-cup-bracket-fifteen{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-cup-bracket-fifteen .cs-cup-round.championship{grid-column:auto}.cs-cup-bracket-fifteen .cs-cup-round.semis{border-top:1px solid #d9e3e6}}
 @media(max-width:540px){.cs-cup-bracket-fifteen{grid-template-columns:1fr}.cs-cup-bracket-fifteen .cs-cup-round.championship{grid-column:auto}.cs-cup-bracket-fifteen .cs-cup-round{border-right:0;border-bottom:1px solid #d9e3e6}}
+
+/* ACC fifteen-team bracket: legible round hierarchy and touch-friendly team rows. */
+.cs-cup-bracket-fifteen .cs-cup-round-title{position:sticky;top:0;background:#f5f8f9;padding:.45rem .3rem;border-bottom:2px solid #516e7e;z-index:1;line-height:1.4}
+.cs-cup-bracket-fifteen .cs-cup-match-label{line-height:1.45;overflow-wrap:anywhere}
+.cs-cup-bracket-fifteen .cs-cup-teamname{line-height:1.4}
+@media(max-width:540px){
+ .cs-cup-bracket-fifteen .cs-cup-round{gap:.6rem;padding:.75rem .3rem}
+ .cs-cup-bracket-fifteen .cs-cup-teamname{font-size:.79rem}
+ .cs-cup-bracket-fifteen .cs-cup-match-label{font-size:.65rem}
+ .cs-cup-bracket-fifteen .cs-cup-school{min-height:35px}
+ .cs-cup-bracket-fifteen .cs-cup-crest{width:29px!important;height:29px!important}
+}
