@@ -7,7 +7,7 @@ read=lambda s:json.loads((root/s).read_text())
 cases=read("ncaam-2026-27-unlinked-official-corrections-batch-01.json")
 queue=read("ncaam-2026-27-unlinked-2014-recovery-queue.json")
 index={p["espn_athlete_id"]:p for p in queue["players"]}
-assert cases["reviews"]==5 and len(cases["records"])==5
+assert cases["reviews"]==8 and len(cases["records"])==8
 assert not cases["published_elo_changed"] and cases["statistical_records_removed_from_published_elo"]==0
 seen=set()
 for p in cases["records"]:
@@ -20,4 +20,4 @@ for p in cases["records"]:
     assert not candidate["statistical_join_approved"]
     assert p["source_url"].startswith("https://")
     assert p["action"].startswith("REJECT_FALSE_")
-print("PASS: five official-source mismatches rejected; no unsupported player minutes or Elo mutations")
+print("PASS: eight official-source mismatches rejected; no unsupported player minutes or Elo mutations")
