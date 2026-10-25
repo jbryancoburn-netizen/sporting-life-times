@@ -43,11 +43,11 @@ def player_snapshot(matches):
                 continue
             if not (kind.startswith("goal") or kind=="penalty - scored"):
                 continue
-            scorer=re.search(r"\\.\\s+(.+?)\\s+\\(([^()]+)\\)\\s+(?:right footed|left footed|header|converts|scores|penalty)",description,re.I)
+            scorer=re.search(r"\.\s+(.+?)\s+\(([^()]+)\)\s+(?:right footed|left footed|header|converts|scores|penalty)",description,re.I)
             if scorer:
                 key=(scorer.group(1).strip(),scorer.group(2).strip())
                 goals[key]=goals.get(key,0)+1
-            helper=re.search(r"Assisted by (.+?)(?: with | following |\\.|$)",description,re.I)
+            helper=re.search(r"Assisted by (.+?)(?: with | following |\.|$)",description,re.I)
             if helper and event.get("team"):
                 key=(helper.group(1).strip(),event["team"])
                 assists[key]=assists.get(key,0)+1
