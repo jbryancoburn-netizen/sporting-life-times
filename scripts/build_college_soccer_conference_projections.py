@@ -41,7 +41,7 @@ def build():
         field=int((rules.get(key) or {}).get("tournament",{}).get("field") or 0)
         at_cutoff=field>0 and field<len(rows) and rows[field-1].get("conference_points")==rows[field].get("conference_points")
         policy=(rules.get(key) or {}).get("tiebreakers") or {}
-        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
+        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
                   "snapshot_checked_date":date,"projected_through":max([date]+[g["date"] for g in ledger if g["match_id"] in added]),
                   "derived_from_verified_finals":True,"new_finals_applied":len(added),"applied_match_ids":added,
                   "projection_status":"provisional_not_official_tiebreakers" if can_project else "unverified_baseline_no_projection",
