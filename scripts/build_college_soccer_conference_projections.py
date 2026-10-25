@@ -10,6 +10,10 @@ def build():
     ledger=read("data/college-soccer-elo-final-ledger.json")["results"]
     rules=read("data/college-soccer-postseason-rules.json")["conferences"]
     out={}
+    history_path=ROOT/"data/college-soccer-season-finals-2026.json"
+    history=read("data/college-soccer-season-finals-2026.json") if history_path.exists() else {"results":[],"checked_dates":[]}
+    all_history=history.get("results",[])
+    checked=set(history.get("checked_dates",[]))
     for key,meta in directory.items():
         if not key.startswith("men-d1:"):continue
         base=read(meta["standings_feed"])
@@ -39,9 +43,25 @@ def build():
             tied=[r["team_id"] for r in rows if r.get("conference_points")==points]
             if len(tied)>1:tie_groups.append({"points":points,"teams":tied,"status":"unresolved_requires_official_tiebreaker"})
         field=int((rules.get(key) or {}).get("tournament",{}).get("field") or 0)
+        # Derive head-to-head evidence from independently backfilled season finals.
+        # Never sort tied teams from an incomplete historical interval.
+        tiebreak_evidence=[]
+        for tied_group in tie_groups:
+            ids=set(tied_group["teams"])
+            games=[g for g in all_history if g.get("gender")=="men" and g.get("home_team") in ids and g.get("away_team") in ids and g.get("date","")<=date]
+            dates_complete=bool(checked) and all((dt.date(2026,8,1)+dt.timedelta(days=n)).isoformat() in checked for n in range((dt.date.fromisoformat(date)-dt.date(2026,8,1)).days+1))
+            points={team:0 for team in ids}
+            for game in games:
+                h,a=game["home_team"],game["away_team"]
+                score_h,score_a=game["home_goals"],game["away_goals"]
+                points[h]+=3 if score_h>score_a else 1 if score_h==score_a else 0
+                points[a]+=3 if score_a>score_h else 1 if score_h==score_a else 0
+            tiebreak_evidence.append({"teams":sorted(ids),"matches":len(games),"head_to_head_points":points,
+                                    "full_date_coverage":dates_complete,
+                                    "head_to_head_decisive":dates_complete and len(games)>0 and len(set(points.values()))==len(ids)})
         at_cutoff=field>0 and field<len(rows) and rows[field-1].get("conference_points")==rows[field].get("conference_points")
         policy=(rules.get(key) or {}).get("tiebreakers") or {}
-        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
+        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"tiebreak_evidence":tiebreak_evidence,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
                   "snapshot_checked_date":date,"projected_through":max([date]+[g["date"] for g in ledger if g["match_id"] in added]),
                   "derived_from_verified_finals":True,"new_finals_applied":len(added),"applied_match_ids":added,
                   "projection_status":"provisional_not_official_tiebreakers" if can_project else "unverified_baseline_no_projection",
