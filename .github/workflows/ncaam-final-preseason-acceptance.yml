@@ -1,0 +1,24 @@
+name: NCAA final preseason release acceptance
+on:
+  push:
+    paths:
+      - 'scripts/test_ncaam_preseason_release_final.py'
+      - 'data/ncaam-2026-27-preseason-final-release-decision.json'
+      - 'data/ncaam-2026-27-preseason-roster-informed.json'
+      - 'data/ncaam-2026-27-player-identity-triage.json'
+      - 'data/ncaam-2026-27-corroborated-player-overlap-audit.json'
+      - 'data/ncaam-2026-27-unlinked-transfer-final-16-review.json'
+      - 'data/ncaam-2026-27-unlinked-official-corrections-batch-01.json'
+      - '.github/workflows/ncaam-final-preseason-acceptance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_ncaam_preseason_release_final.py
