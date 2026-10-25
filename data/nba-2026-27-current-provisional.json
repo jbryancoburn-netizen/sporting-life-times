@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 34,
+  "games_played": 35,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -40,7 +40,7 @@
     },
     {
       "team": "DEN",
-      "elo": 1570.474
+      "elo": 1576.584
     },
     {
       "team": "CHA",
@@ -92,7 +92,7 @@
     },
     {
       "team": "NOP",
-      "elo": 1403.935
+      "elo": 1397.824
     },
     {
       "team": "CHI",
@@ -433,6 +433,15 @@
       "away_score": 121,
       "date": "2026-10-25T00:30:00.000Z",
       "home_elo_change": -15.110849
+    },
+    {
+      "id": "espn-nba-401909859",
+      "home": "DEN",
+      "away": "NOP",
+      "home_score": 141,
+      "away_score": 135,
+      "date": "2026-10-25T01:00:00.000Z",
+      "home_elo_change": 6.110525
     }
   ],
   "movement": {
@@ -446,7 +455,7 @@
       "MIN": 0,
       "BOS": 0,
       "LAL": 0,
-      "DEN": 0,
+      "DEN": 6.110525,
       "CHA": 8.608164,
       "PHI": 6.439506,
       "ATL": -15.110849,
@@ -459,7 +468,7 @@
       "MIA": -8.608164,
       "GSW": 0,
       "DAL": -8.614358,
-      "NOP": 0,
+      "NOP": -6.110525,
       "CHI": -17.142421,
       "MEM": 0,
       "SAC": 0,
