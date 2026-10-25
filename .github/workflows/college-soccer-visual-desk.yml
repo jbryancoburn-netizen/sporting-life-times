@@ -18,6 +18,7 @@ on:
       - 'data/college-soccer-postseason-rules.json'
       - 'data/college-soccer-conferences.json'
       - 'data/college-soccer-miaa-standings.json'
+      - 'data/college-soccer-miac-standings.json'
       - 'data/college-soccer-elo.json'
       - 'data/college-soccer-prospective-v2.json'
       - '.github/workflows/college-soccer-visual-desk.yml'
@@ -83,8 +84,8 @@ jobs:
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
                     assert(html.includes('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch2'));
-          assert(html.includes('college-soccer-postseason.css?v=launch2'));
+          assert(html.includes('college-soccer-postseason.js?v=launch3'));
+          assert(html.includes('college-soccer-postseason.css?v=launch3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
           const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
           const conf=JSON.parse(fs.readFileSync('data/college-soccer-conferences.json','utf8'));
@@ -98,10 +99,20 @@ jobs:
           assert.equal(new Set(members).size,8);
           assert.deepEqual(new Set(miaa.rows.map(r=>r.team_id)),new Set(members));
           assert(miaa.last_verified_game_date,'Missing MIAA source cutoff');
+          const miac=JSON.parse(fs.readFileSync('data/college-soccer-miac-standings.json','utf8'));
+          const miacMembers=conf.conferences['men-d3:miac'].teams;
+          assert.equal(miacMembers.length,11);
+          assert.equal(new Set(miacMembers).size,11);
+          assert.deepEqual(new Set(miac.rows.map(r=>r.team_id)),new Set(miacMembers));
+          assert.equal(tournamentRules.conferences['men-d3:miac'].tournament.field,6);
+          assert(miac.snapshot_checked_date,'MIAC source date missing');
           const postseasonJs=fs.readFileSync('college-soccer-postseason.js','utf8');
           assert(postseasonJs.includes('setInterval'));
           assert(postseasonJs.includes('NOT calibrated tournament odds'));
           assert(postseasonJs.includes('Early Division I contender forecast'));
+          assert(postseasonJs.includes('MIAC · Men’s Division III'));
+          assert(postseasonJs.includes('data/college-soccer-miac-standings.json'));
+          assert(postseasonJs.includes('NOT odds of qualifying for or winning the MIAC playoff'));
           assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
           const forecast=JSON.parse(fs.readFileSync('data/college-soccer-prospective-v2.json','utf8'));
