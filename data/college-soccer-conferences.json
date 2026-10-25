@@ -281,6 +281,24 @@
       "page": "college-soccer-big-east-men.html",
       "standings_feed": "data/college-soccer-men-d1-big-east-standings.json",
       "verification_status": "mapped_verified"
+    },
+    "men-d1:america-east": {
+      "name": "America East Conference",
+      "short": "America East",
+      "teams": [
+        "vermont",
+        "njit",
+        "bryant",
+        "albany-ny",
+        "binghamton",
+        "umass-lowell",
+        "new-hampshire",
+        "umbc"
+      ],
+      "source_url": "https://americaeast.com/standings.aspx?path=msoc",
+      "page": "college-soccer-america-east-men.html",
+      "standings_feed": "data/college-soccer-men-d1-america-east-standings.json",
+      "verification_status": "mapped_verified"
     }
   },
   "team_to_conference": {
@@ -431,6 +449,14 @@
     "men-d1:akron": "men-d1:big-east",
     "men-d1:depaul": "men-d1:big-east",
     "men-d1:butler": "men-d1:big-east",
-    "men-d1:marquette": "men-d1:big-east"
+    "men-d1:marquette": "men-d1:big-east",
+    "men-d1:vermont": "men-d1:america-east",
+    "men-d1:njit": "men-d1:america-east",
+    "men-d1:bryant": "men-d1:america-east",
+    "men-d1:albany-ny": "men-d1:america-east",
+    "men-d1:binghamton": "men-d1:america-east",
+    "men-d1:umass-lowell": "men-d1:america-east",
+    "men-d1:new-hampshire": "men-d1:america-east",
+    "men-d1:umbc": "men-d1:america-east"
   }
 }
