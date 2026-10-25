@@ -6,9 +6,9 @@
   "by_cohort": {
     "men-d1": {
       "rated_teams": 213,
-      "mapped_teams": 155,
-      "unmapped_teams": 58,
-      "verified_conferences": 16,
+      "mapped_teams": 200,
+      "unmapped_teams": 13,
+      "verified_conferences": 21,
       "conference_keys": [
         "men-d1:big-ten",
         "men-d1:acc",
@@ -25,7 +25,12 @@
         "men-d1:mvc",
         "men-d1:big-west",
         "men-d1:asun",
-        "men-d1:horizon"
+        "men-d1:horizon",
+        "men-d1:caa",
+        "men-d1:nec",
+        "men-d1:socon",
+        "men-d1:summit",
+        "men-d1:maac"
       ]
     },
     "men-d2": {
@@ -82,56 +87,16 @@
   "unassigned": {
     "men-d1": [
       {
-        "team_id": "umkc",
-        "team": "Kansas City"
-      },
-      {
-        "team_id": "hofstra",
-        "team": "Hofstra"
-      },
-      {
         "team_id": "california-baptist",
         "team": "California Baptist"
-      },
-      {
-        "team_id": "stony-brook",
-        "team": "Stony Brook"
-      },
-      {
-        "team_id": "fairfield",
-        "team": "Fairfield"
       },
       {
         "team_id": "oregon-st",
         "team": "Oregon St."
       },
       {
-        "team_id": "furman",
-        "team": "Furman"
-      },
-      {
         "team_id": "grand-canyon",
         "team": "Grand Canyon"
-      },
-      {
-        "team_id": "elon",
-        "team": "Elon"
-      },
-      {
-        "team_id": "delaware",
-        "team": "Delaware"
-      },
-      {
-        "team_id": "unc-greensboro",
-        "team": "UNC Greensboro"
-      },
-      {
-        "team_id": "fdu",
-        "team": "FDU"
-      },
-      {
-        "team_id": "unc-wilmington",
-        "team": "UNCW"
       },
       {
         "team_id": "unlv",
@@ -142,148 +107,28 @@
         "team": "San Jose St."
       },
       {
-        "team_id": "wofford",
-        "team": "Wofford"
-      },
-      {
-        "team_id": "marist",
-        "team": "Marist"
-      },
-      {
-        "team_id": "long-island",
-        "team": "LIU"
-      },
-      {
-        "team_id": "col-of-charleston",
-        "team": "Col. of Charleston"
-      },
-      {
         "team_id": "cal-poly",
         "team": "Cal Poly"
-      },
-      {
-        "team_id": "sacred-heart",
-        "team": "Sacred Heart"
-      },
-      {
-        "team_id": "quinnipiac",
-        "team": "Quinnipiac"
-      },
-      {
-        "team_id": "siena",
-        "team": "Siena"
-      },
-      {
-        "team_id": "iona",
-        "team": "Iona"
-      },
-      {
-        "team_id": "neb-omaha",
-        "team": "Omaha"
-      },
-      {
-        "team_id": "rider",
-        "team": "Rider"
-      },
-      {
-        "team_id": "niagara",
-        "team": "Niagara"
-      },
-      {
-        "team_id": "drexel",
-        "team": "Drexel"
-      },
-      {
-        "team_id": "liberty",
-        "team": "Liberty"
-      },
-      {
-        "team_id": "merrimack",
-        "team": "Merrimack"
-      },
-      {
-        "team_id": "massachusetts",
-        "team": "Massachusetts"
-      },
-      {
-        "team_id": "le-moyne",
-        "team": "Le Moyne"
-      },
-      {
-        "team_id": "mercyhurst",
-        "team": "Mercyhurst"
-      },
-      {
-        "team_id": "east-tenn-st",
-        "team": "ETSU"
       },
       {
         "team_id": "uc-san-diego",
         "team": "UC San Diego"
       },
       {
-        "team_id": "st-thomas-mn",
-        "team": "St. Thomas (MN)"
-      },
-      {
-        "team_id": "northeastern",
-        "team": "Northeastern"
-      },
-      {
-        "team_id": "william-mary",
-        "team": "William & Mary"
-      },
-      {
         "team_id": "san-diego-st",
         "team": "San Diego St."
-      },
-      {
-        "team_id": "st-peters",
-        "team": "Saint Peter's"
-      },
-      {
-        "team_id": "new-haven",
-        "team": "New Haven"
-      },
-      {
-        "team_id": "oral-roberts",
-        "team": "Oral Roberts"
       },
       {
         "team_id": "gonzaga",
         "team": "Gonzaga"
       },
       {
-        "team_id": "monmouth",
-        "team": "Monmouth"
-      },
-      {
         "team_id": "uc-riverside",
         "team": "UC Riverside"
       },
       {
-        "team_id": "mt-st-marys",
-        "team": "Mount St. Mary's"
-      },
-      {
-        "team_id": "central-conn-st",
-        "team": "Central Conn. St."
-      },
-      {
         "team_id": "air-force",
         "team": "Air Force"
-      },
-      {
-        "team_id": "manhattan",
-        "team": "Manhattan"
-      },
-      {
-        "team_id": "stonehill",
-        "team": "Stonehill"
-      },
-      {
-        "team_id": "campbell",
-        "team": "Campbell"
       },
       {
         "team_id": "utah-tech",
@@ -292,26 +137,6 @@
       {
         "team_id": "uc-davis",
         "team": "UC Davis"
-      },
-      {
-        "team_id": "mercer",
-        "team": "Mercer"
-      },
-      {
-        "team_id": "howard",
-        "team": "Howard"
-      },
-      {
-        "team_id": "vmi",
-        "team": "VMI"
-      },
-      {
-        "team_id": "canisius",
-        "team": "Canisius"
-      },
-      {
-        "team_id": "chicago-st",
-        "team": "Chicago St."
       }
     ],
     "men-d2": [
