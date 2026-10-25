@@ -310,3 +310,22 @@
 #college-team-profile .team-hometown-inline .team-map-details[open]{flex-basis:100%;width:100%;margin:.35rem 0 0;border:0}
 #college-team-profile .team-hometown-inline .team-map-details .team-campus-map{height:190px;display:block;border:1px solid #dce3e5;border-radius:0}
 @media(max-width:650px){#college-team-profile .team-mascot-byline img{width:29px;height:37px}#college-team-profile .team-hometown-inline{gap:.3rem .6rem;padding:.25rem 0}#college-team-profile .team-hometown-links{font-size:.68rem}}
+
+/* Balanced mascot integration — transparent illustrated accent, never a photo card. */
+#college-team-profile .team-hero:has(.team-mascot-accent){padding-right:clamp(108px,16vw,160px)}
+#college-team-profile .team-mascot-accent-link{position:absolute;right:clamp(.75rem,2vw,1.6rem);top:50%;transform:translateY(-44%);display:block;z-index:2;text-decoration:none;color:#f1f3f1;width:clamp(78px,10vw,110px)}
+#college-team-profile .team-mascot-accent{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.14rem;opacity:.92;transition:opacity .15s ease,transform .15s ease}
+#college-team-profile .team-mascot-accent-link:hover .team-mascot-accent,
+#college-team-profile .team-mascot-accent-link:focus-visible .team-mascot-accent{opacity:1;transform:translateY(-2px)}
+#college-team-profile .team-mascot-accent img{display:block;width:clamp(72px,9vw,105px);height:clamp(76px,10vw,115px);object-fit:contain;object-position:center bottom;background:transparent;border:0;border-radius:0;box-shadow:none;filter:drop-shadow(0 2px 3px #00172855)}
+#college-team-profile .team-mascot-accent-label{display:flex;flex-direction:column;align-items:center;gap:.07rem;text-align:center;text-shadow:0 1px 2px #001d34aa}
+#college-team-profile .team-mascot-accent-label small{font:600 .48rem Arial,sans-serif;letter-spacing:.09em;color:#cdd8dc}
+#college-team-profile .team-mascot-accent-label strong{font:700 .73rem Georgia,serif;color:#f3eee0}
+#college-team-profile .team-mascot-accent-link:focus-visible{outline:2px solid var(--team-accent,#d7bd8b);outline-offset:3px}
+@media(max-width:650px){
+#college-team-profile .team-hero:has(.team-mascot-accent){padding-right:86px;padding-bottom:1rem;min-height:142px}
+#college-team-profile .team-mascot-accent-link{width:62px;right:.65rem;top:50%;transform:translateY(-36%)}
+#college-team-profile .team-mascot-accent img{width:59px;height:66px}
+#college-team-profile .team-mascot-accent-label small{font-size:.42rem}
+#college-team-profile .team-mascot-accent-label strong{font-size:.65rem}
+}
