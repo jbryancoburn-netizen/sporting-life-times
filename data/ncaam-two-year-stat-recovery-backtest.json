@@ -1,0 +1,110 @@
+{
+  "experiment": "two-year-historical-player-stats-influence",
+  "training_selection_year": 2025,
+  "reused_diagnostic_year": 2026,
+  "baseline": {
+    "training_2025": {
+      "games": 5674,
+      "log_loss": 0.5649147373198922,
+      "brier": 0.19318488500505074
+    },
+    "reused_2026": {
+      "games": 5750,
+      "log_loss": 0.5671573610424833,
+      "brier": 0.19466453411530996
+    }
+  },
+  "selected": {
+    "historical_recovery_influence": 1.0,
+    "training_2025": {
+      "games": 5674,
+      "log_loss": 0.5646204753909441,
+      "brier": 0.19305897724795834
+    },
+    "previously_inspected_2026": {
+      "games": 5750,
+      "log_loss": 0.5669786454868282,
+      "brier": 0.19461040553335252
+    }
+  },
+  "source_recovery": {
+    "2025": {
+      "recovered_roster_entries": 282,
+      "usable_names": 246,
+      "extra_box_rows": 4103,
+      "selection_uses_verified_athlete_id": false,
+      "roster_asof_verified": false
+    },
+    "2026": {
+      "recovered_roster_entries": 282,
+      "usable_names": 262,
+      "extra_box_rows": 4353,
+      "selection_uses_verified_athlete_id": false,
+      "roster_asof_verified": false
+    }
+  },
+  "preserves_original_rating_until_verified": true,
+  "production_promotion_allowed": false,
+  "historical_roster_asof_verified": false,
+  "limitations": [
+    "2025 model parameters previously inspected",
+    "2026 is repeatedly inspected diagnostic",
+    "Cross-season identifiers not certified; unique names only",
+    "No trustworthy offseason opening-day roster timestamps",
+    "This tests reusing stale statistics and does not certify actual player identity"
+  ],
+  "trials": [
+    {
+      "historical_recovery_influence": 0.0,
+      "training_2025": {
+        "games": 5674,
+        "log_loss": 0.5649147373198922,
+        "brier": 0.19318488500505074
+      },
+      "previously_inspected_2026": {
+        "games": 5750,
+        "log_loss": 0.5671573610424833,
+        "brier": 0.19466453411530996
+      }
+    },
+    {
+      "historical_recovery_influence": 0.25,
+      "training_2025": {
+        "games": 5674,
+        "log_loss": 0.5648277805480206,
+        "brier": 0.19314791006107637
+      },
+      "previously_inspected_2026": {
+        "games": 5750,
+        "log_loss": 0.567094871683943,
+        "brier": 0.19464387580472517
+      }
+    },
+    {
+      "historical_recovery_influence": 0.5,
+      "training_2025": {
+        "games": 5674,
+        "log_loss": 0.5647497580616196,
+        "brier": 0.19311458584037336
+      },
+      "previously_inspected_2026": {
+        "games": 5750,
+        "log_loss": 0.5670442580097852,
+        "brier": 0.19462796768466675
+      }
+    },
+    {
+      "historical_recovery_influence": 1.0,
+      "training_2025": {
+        "games": 5674,
+        "log_loss": 0.5646204753909441,
+        "brier": 0.19305897724795834
+      },
+      "previously_inspected_2026": {
+        "games": 5750,
+        "log_loss": 0.5669786454868282,
+        "brier": 0.19461040553335252
+      }
+    }
+  ]
+}
