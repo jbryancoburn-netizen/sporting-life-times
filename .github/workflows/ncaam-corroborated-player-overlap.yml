@@ -1,0 +1,21 @@
+name: NCAA corroborated player overlap audit
+on:
+  push:
+    paths:
+      - 'scripts/test_ncaam_corroborated_player_overlap.py'
+      - 'data/ncaam-2026-27-corroborated-player-overlap-audit.json'
+      - 'data/ncaam-2026-27-historical-athlete-links.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - '.github/workflows/ncaam-corroborated-player-overlap.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_ncaam_corroborated_player_overlap.py
