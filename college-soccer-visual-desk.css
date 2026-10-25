@@ -77,3 +77,10 @@
  #college-soccer-visual-desk .cs-table td:nth-child(2) .cs-team{max-width:100%;min-width:0}
  #college-soccer-visual-desk .cs-table-scroll{overflow-x:hidden}
 }
+
+.cs-data-freshness{display:flex;align-items:baseline;flex-wrap:wrap;gap:.3rem 1rem;border-block:1px solid #d7e1e5;background:#f3f6f7;padding:.47rem .65rem;margin:.2rem 0 .65rem;font:600 .65rem/1.4 Arial,sans-serif}
+.cs-data-freshness strong{letter-spacing:.035em;color:#335a6a}
+.cs-data-freshness span{color:#617782}
+.cs-data-freshness small{flex-basis:100%;font:italic .64rem/1.4 Georgia,serif;color:#78858c}
+.cs-data-freshness.cs-fresh-warn{border-left:3px solid #a56d3c;background:#f9f4eb}
+.cs-data-freshness.cs-fresh-warn strong{color:#9b552f}
