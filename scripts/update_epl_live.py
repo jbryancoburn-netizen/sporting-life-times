@@ -124,6 +124,7 @@ def rebuild(today=None,loader=get_day):
     rating_doc={"as_of_date":today.isoformat(),"completed_matches":len(played),
       "ratings":{k:round(v,5) for k,v in ratings.items()},
       "elo_history":history,
+      "season_results":[{"fixture_id":g["id"],"kickoff_utc":g["kickoff"],"home":g["home"],"away":g["away"],"home_score":g["home_score"],"away_score":g["away_score"]} for g in played],
       "last_match_elo_delta":{k:round(v,5) for k,v in elo_movements.items()},
       "last_five_form":{k:v[-5:] for k,v in form.items()},"predictions":[],
       "model_status":"provisional_unvalidated",
