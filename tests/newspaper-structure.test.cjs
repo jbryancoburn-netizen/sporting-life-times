@@ -30,7 +30,7 @@ test('mastheads have no nested home links',()=>{
  for(const name of ['nba.html','forecast-desk.html','sports.html','epl.html','match-center.html']){
   const page=fs.readFileSync(name,'utf8');
   assert.doesNotMatch(page,/<a\b[^>]*>\s*<a\b/i,name+' has invalid nested anchors');
-  assert.match(page,/<a class="newspaper-wordmark" href="index.html"/,name+' missing home link');
+  assert.match(page,name==='nba.html'?/<a href="index.html" class="nba-publication-title">/:/<a class="newspaper-wordmark" href="index.html"/,name+' missing home link');
  }
 });
 
@@ -40,7 +40,7 @@ test('all primary newspaper pages share the exact front-page masthead and design
   const page=fs.readFileSync(name,'utf8');
   assert.match(page,/<body class="edition-interior(?: [^"]+)?">/,name+' missing shared edition scope');
   assert.match(page,/edition-design\.css\?v=[a-z0-9-]+/,name+' missing newspaper style');
-  assert.match(page,/The Sporting Life <span class="newspaper-wordmark-amp">&amp;<\/span> Times/,name+' missing front-page masthead');
+  assert.match(page,name==='nba.html'?/class="nba-publication-title">The Sporting Life &amp; Times/:/The Sporting Life <span class="newspaper-wordmark-amp">&amp;<\/span> Times/,name+' missing front-page masthead');
   assert.match(page,/aria-label="Main navigation"/,name+' missing common navigation');
  }
 });
