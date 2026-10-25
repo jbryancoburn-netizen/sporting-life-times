@@ -59,9 +59,30 @@ def build():
             tiebreak_evidence.append({"teams":sorted(ids),"matches":len(games),"head_to_head_points":points,
                                     "full_date_coverage":dates_complete,
                                     "head_to_head_decisive":dates_complete and len(games)>0 and len(set(points.values()))==len(ids)})
+        # Reorder only two-team ties whose full-date coverage and decisive head-to-head
+        # are supported by evidence, and whose conference procedure starts with H2H.
+        # Never mark unofficial procedures as certified.
+        policy=(rules.get(key) or {}).get("tiebreakers") or {}
+        first=str((policy.get("ordered_criteria") or [""])[0]).lower()
+        first_is_h2h=("head_to_head" in first or "head-to-head" in first)
+        applied_head_to_head=[]
+        if first_is_h2h:
+            for evidence in tiebreak_evidence:
+                ids=evidence["teams"]
+                if len(ids)!=2 or not evidence["head_to_head_decisive"]:continue
+                points=evidence["head_to_head_points"]
+                higher=max(ids,key=lambda team:points[team])
+                lower=next(team for team in ids if team!=higher)
+                positions=[i for i,row in enumerate(rows) if row["team_id"] in ids]
+                if len(positions)!=2:continue
+                positions.sort()
+                pair={row["team_id"]:row for row in rows if row["team_id"] in ids}
+                rows[positions[0]]=pair[higher]
+                rows[positions[1]]=pair[lower]
+                applied_head_to_head.append({"higher":higher,"lower":lower,"matched_results":evidence["matches"],"status":"provisional_h2h_order"})
         at_cutoff=field>0 and field<len(rows) and rows[field-1].get("conference_points")==rows[field].get("conference_points")
         policy=(rules.get(key) or {}).get("tiebreakers") or {}
-        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"tiebreak_evidence":tiebreak_evidence,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
+        out[key]={"schema_version":1,"tiebreaker_policy":policy,"unresolved_tie_groups":tie_groups,"tiebreak_evidence":tiebreak_evidence,"provisional_head_to_head_order":applied_head_to_head,"cutoff_tie_unresolved":bool(at_cutoff),"projected_seeds_certified":not tie_groups and can_project,"source_name":base.get("source_name"),"source_url":base.get("source_url"),
                   "snapshot_checked_date":date,"projected_through":max([date]+[g["date"] for g in ledger if g["match_id"] in added]),
                   "derived_from_verified_finals":True,"new_finals_applied":len(added),"applied_match_ids":added,
                   "projection_status":"provisional_not_official_tiebreakers" if can_project else "unverified_baseline_no_projection",
