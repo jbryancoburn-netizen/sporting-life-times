@@ -1,0 +1,23 @@
+name: NCAA 2014 unlinked player identity queue
+on:
+  push:
+    paths:
+      - 'scripts/test_ncaam_unlinked_2014_recovery.py'
+      - 'data/ncaam-2026-27-unlinked-2014-recovery-queue.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-official-player-origin-overlay.json'
+      - 'data/ncaam-2026-27-official-prior-school-corroborations.json'
+      - '.github/workflows/ncaam-unlinked-2014-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/test_ncaam_unlinked_2014_recovery.py
