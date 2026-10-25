@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 460,
+  "already_classified": 465,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -27,12 +27,6 @@
       "targeted": 1
     },
     {
-      "school": "Denver",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "Manhattan",
       "status": "processed",
       "matched": 0,
@@ -43,17 +37,6 @@
       "status": "processed",
       "matched": 0,
       "targeted": 2
-    },
-    {
-      "school": "South Carolina",
-      "status": "fetch_failed",
-      "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "school": "Wisconsin",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
     },
     {
       "school": "Wyoming",
@@ -78,19 +61,13 @@
       "targeted": 1
     },
     {
-      "school": "Gonzaga",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 1
-    },
-    {
       "school": "Memphis",
       "status": "processed",
       "matched": 0,
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 29,
+  "still_unmatched_in_queue": 24,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -108,12 +85,6 @@
       "id": "4702706",
       "school": "UIC",
       "name": "Jalen Johnson",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5107089",
-      "school": "Denver",
-      "name": "Logan Threatt",
       "reason": "no_unambiguous_card_year"
     },
     {
@@ -135,12 +106,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5345014",
-      "school": "Wisconsin",
-      "name": "Owen Foxwell",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5461362",
       "school": "Mercyhurst",
       "name": "Shuto Sakihama",
@@ -153,12 +118,6 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5458832",
-      "school": "Gonzaga",
-      "name": "Nathan De Sousa",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
       "id": "5458631",
       "school": "Memphis",
       "name": "Nemanja Popovic",
@@ -167,5 +126,5 @@
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1985
+  "total_official_class_year_records": 1990
 }
