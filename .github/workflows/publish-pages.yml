@@ -49,9 +49,11 @@ jobs:
           test -s nba-live-feed.js
           test -s nba-live-game.html
           test -s nba-live-game.js
-          grep -q 'nba-live-game.js?v=2' nba-live-game.html
+          grep -q 'nba-live-game.js?v=3' nba-live-game.html
           grep -q 'nba-live-game.html?game=' nba-live-feed.js
           node --check nba-live-game.js
+          grep -q 'id="live-leaders"' nba-live-game.html
+          grep -q 'leadersPanel' nba-live-game.js
           grep -q 'NBA LIVE' nba.html
           python - <<'PY'
           from pathlib import Path
