@@ -1,0 +1,9 @@
+/* Front-page responsive containment and editorial legibility. */
+#front-page,#front-page *{box-sizing:border-box}
+#front-page{min-width:0;max-width:100%;overflow-wrap:anywhere}
+#front-page .front-briefs,#front-page .front-more-stories,#news-list{min-width:0;max-width:100%}
+#front-page img,#front-page figure,#news-list img{max-width:100%;height:auto}
+#front-page h2,#front-page h3,#front-page h4,#news-list h3,#news-list h4{overflow-wrap:break-word;word-break:normal;hyphens:auto}
+#front-page .front-briefs>* ,#front-page .front-more-stories>*,#news-list>*{min-width:0}
+#news-status{font:12px/1.5 Arial,sans-serif!important;padding:8px 0!important;margin:4px 0 14px!important;color:#555d60!important;overflow-wrap:anywhere}
+@media(max-width:760px){#front-page .front-briefs,#front-page .front-more-stories,#news-list{grid-template-columns:minmax(0,1fr)!important}#front-page{padding-left:0!important;padding-right:0!important}#front-page #lead-headline{font-size:clamp(27px,7.4vw,42px)!important;line-height:1.12!important}#front-page .standfirst{font-size:clamp(15px,4vw,19px)!important;line-height:1.4!important}}
