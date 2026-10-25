@@ -1,0 +1,23 @@
+name: NCAA player identity exceptions complete ledger
+on:
+  push:
+    paths:
+      - 'scripts/build_ncaam_player_identity_exceptions.py'
+      - 'data/ncaam-2026-27-player-identity-exceptions-complete.json'
+      - 'data/ncaam-2026-27-player-movement-audit.json'
+      - 'data/ncaam-2026-27-direct-player-crosswalk.json'
+      - 'data/ncaam-2026-27-player-identity-triage.json'
+      - '.github/workflows/ncaam-player-identity-exceptions.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reproduce all 5537 identity classifications
+        run: python scripts/build_ncaam_player_identity_exceptions.py --check
