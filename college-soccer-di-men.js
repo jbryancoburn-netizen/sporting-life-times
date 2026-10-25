@@ -30,13 +30,13 @@ const age=snapshot?(Date.now()-Date.parse(snapshot))/(86400000):Infinity;
 const fresh=table.derived_from_verified_finals?table.projection_status==='provisional_not_official_tiebreakers'&&Number.isFinite((Date.now()-Date.parse(table.projected_through))/86400000)&&(Date.now()-Date.parse(table.projected_through))/86400000<=2:Number.isFinite(age)&&age>=0&&age<=2;
 const numeric=rows.every(r=>Number.isFinite(Number(r.conference_points))&&r.conference_record!=='N/A');
 const formatKnown=field>0&&!/inferred from|based on official 2025|carried forward|provisional.*format|format.*unverified|eligibility.*unverified/i.test(rule.status||'');
-const certified=fresh&&numeric&&formatKnown;
+const certified=fresh&&numeric&&formatKnown&&!table.cutoff_tie_unresolved&&!(table.unresolved_tie_groups||[]).some(group=>group.teams.some(id=>rows.slice(0,field).some(r=>r.team_id===id)));
 const isCAA=key==='men-d1:caa';
 const seeds=table.tournament_seeds;
 const officialSeeds=Array.isArray(seeds)&&seeds.length===field&&new Set(seeds).size===field&&seeds.every(id=>known.has(id))?seeds:null;
 const selected=officialSeeds?officialSeeds.map(id=>known.get(id)):rows.slice(0,field);
 const teams=selected.map((x,i)=>({id:x.team_id,name:ratings.get(x.team_id)?.team||x.team_id.replaceAll('-',' '),elo:ratings.get(x.team_id)?.elo,seed:i+1}));
-article.append(E('p','dim-note','Source snapshot: '+(snapshot||'date unavailable')+' · '+(table.derived_from_verified_finals?'Later verified conference finals: '+table.new_finals_applied+' (through '+table.projected_through+'); provisional seeds':'Snapshot freshness: '+(fresh?'recent':'stale or undated'))+' · '+(officialSeeds?'Conference-supplied seeds':'Provisional table order')));
+article.append(E('p','dim-note','Source snapshot: '+(snapshot||'date unavailable')+' · '+(table.derived_from_verified_finals?'Later verified conference finals: '+table.new_finals_applied+' (through '+table.projected_through+'); provisional seeds':'Snapshot freshness: '+(fresh?'recent':'stale or undated'))+' · '+(table.unresolved_tie_groups?.length?'UNRESOLVED TIE GROUPS: '+table.unresolved_tie_groups.length:'No detected point ties')+' · '+(officialSeeds?'Conference-supplied seeds':'Provisional table order')));
 if(isCAA){const area=E('div','dim-pending');area.append(E('strong',null,'NORTH / SOUTH DIVISIONAL PATHS'));for(const label of ['North: division #1 bye; #2 vs #3','South: division #1 bye; #2 vs #3','Championship: divisional winners'])area.append(E('p',null,label));area.append(E('p',null,'Official divisional seeds are pending; no teams have been assigned to these slots.'));article.append(area);report.limited++;grid.append(article);return;}
 if(certified&&[4,6,8,15].includes(field)&&teams.length===field&&teams.every(t=>typeof t.elo==='number'&&Number.isFinite(t.elo))&&window.CollegeSoccerCupUI?.predictiveBracket){
 window.CollegeSoccerCupUI.predictiveBracket(article,teams,division,branding);
