@@ -16,7 +16,7 @@ SOURCES=[
  ("BBC Football","https://feeds.bbci.co.uk/sport/football/rss.xml","Football"),
  ("The Guardian Sport","https://www.theguardian.com/uk/sport/rss","Multi-sport"),
  ("The Guardian Football","https://www.theguardian.com/football/rss","Football"),
- ("ESPN News","https://www.espn.com/espn/rss/news","Multi-sport")
+ ("Sky Sports Football","https://www.skysports.com/rss/12040","Football")
 ]
 FOOTBALL=("premier league","arsenal","chelsea","liverpool","tottenham","manchester united","manchester city","newcastle","aston villa","brighton","everton","fulham","brentford","sunderland","leeds","crystal palace","bournemouth","ipswich","nottingham forest","coventry","hull city")
 def clean(value):
@@ -73,7 +73,7 @@ def rebuild(fetcher=fetch,now=None):
     articles=sorted(unique.values(),key=lambda a:parse_date(a["published_at"]),reverse=True)[:140]
     recent=sum((now-parse_date(a["published_at"])).total_seconds()<=86400 for a in articles)
     if len(articles)<8 or recent<5:raise RuntimeError("News freshness gate failed: "+str((len(articles),recent)))
-    doc={"updated_at":now.isoformat(),"articles":articles,"feed_status":status}
+    doc={"updated_at":now.isoformat(),"articles":articles,"feed_status":status,"health":{"sources_ok":good,"sources_failed":len(status)-good,"last_24h":recent,"latest_article_at":articles[0]["published_at"],"status":"healthy"}}
     DEST.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\n")
     print(json.dumps({"articles":len(articles),"last_24h":recent,"sources_ok":good,"sources_failed":len(status)-good}))
 if __name__=="__main__":rebuild()
