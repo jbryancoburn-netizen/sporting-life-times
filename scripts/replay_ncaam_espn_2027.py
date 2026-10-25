@@ -123,9 +123,9 @@ def replay(pre, crosswalk, days, today=None):
     order=sorted(ratings,key=lambda x:(-ratings[x],x))
     return {'model':'slat-ncaam-d1-elo-v1', 'season':'2026-27',
             'status':'provisional-current-venue-neutral', 'team_count':365,
-            'games_played':len(games), 'preseason_seed':('data/ncaam-2026-27-preseason-roster-informed.json'
-                              if pre.get('preseason_roster_informed') is True
-                              else 'data/ncaam-2026-27-preseason-provisional.json'),
+            'games_played':len(games), 'preseason_seed':('data/ncaam-2026-27-preseason-player-quality-live.json'
+                              if pre.get('preseason_player_quality') is True
+                              else 'data/ncaam-2026-27-preseason-roster-informed.json'),
             'preseason_roster_adjusted':pre.get('preseason_roster_informed') is True,
             'prediction_policy':'Independently calculated; venue-neutral pending calibrated court advantage',
             'provider':'ESPN final results; independent Elo calculations',
@@ -142,7 +142,7 @@ def replay(pre, crosswalk, days, today=None):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--through',type=date.fromisoformat,default=datetime.now(EASTERN).date())
-    parser.add_argument('--baseline',type=Path,default=Path('data/ncaam-2026-27-preseason-roster-informed.json'))
+    parser.add_argument('--baseline',type=Path,default=Path('data/ncaam-2026-27-preseason-player-quality-live.json'))
     parser.add_argument('--crosswalk',type=Path,default=Path('data/ncaam-2026-27-espn-team-crosswalk.json'))
     parser.add_argument('--output',type=Path,default=Path('data/ncaam-2026-27-current-provisional.json'))
     parser.add_argument('--readiness',type=Path,default=Path('data/ncaam-source-readiness.json'))
