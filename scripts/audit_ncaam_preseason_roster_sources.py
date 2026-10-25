@@ -153,6 +153,12 @@ def check_archived_roster_bytes(archive,kind):
         except Exception as exc:
             archive.setdefault("replay_diagnostics",[]).append(
                 {"timestamp_utc":ts,"reason":str(exc)[:320]})
+    archive["replay_transient_failures"]=sum(
+        any(k in d.get("reason","").lower() for k in ("timed out","429","502","503","504","connection reset"))
+        for d in archive.get("replay_diagnostics",[]))
+    archive["verification_inconclusive_due_to_replay_errors"]=(
+        not archive["independently_verified_preopening_roster_content"]
+        and archive["replay_transient_failures"]>0)
     return archive
 
 def probe_season_roster_pages():
@@ -196,6 +202,11 @@ def main():
              "preseason_dated_documents_retrieved":sum(r["content_fetched"] and r["preseason_dated_url"] for r in records),
              "confirmed_archived_pregame_content_sources":sum(r["immutable_prior_to_first_game_content_verified"] for r in records)+sum(r["independently_verified_preopening_roster_content"] for r in season_page_archives),
              "season_roster_url_candidates_checked":len(season_page_archives),
+             "season_roster_archive_replay_inconclusive":sum(
+                 x.get("verification_inconclusive_due_to_replay_errors",False) for x in season_page_archives),
+             "document_archive_replay_inconclusive":sum(
+                 r["wayback_index"].get("verification_inconclusive_due_to_replay_errors",False)
+                 for r in records),
              "fully_verified_365_team_preseason_roster_snapshots":0,
              "dataset_complete_for_2024_2025_training_2026_holdout":False}
     result={"audit":"ncaam-2024-2026-original-preopening-roster-sources",
