@@ -35,8 +35,8 @@ jobs:
           const pages=['college-soccer-team.html','college-soccer.html'];
           for(const p of pages){
             const html=fs.readFileSync(p,'utf8');
-            assert.match(html,/college-soccer-teams\.js\?v=cutoff19/);
-            assert.match(html,/college-soccer-teams\.css\?v=cutoff19/);
+            assert.match(html,/college-soccer-teams\.js\?v=cutoff20/);
+            assert.match(html,/college-soccer-teams\.css\?v=cutoff20/);
             assert.match(html,/id="college-team-search"/);
             assert.match(html,/id="college-team-profile"/);
           }
