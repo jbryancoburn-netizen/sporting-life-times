@@ -64,11 +64,11 @@ function bracketFifteen(parent,teams,cohort,branding,labels={}){
  const round=(title,kind)=>{const r=node('section','cs-cup-round '+kind);r.append(node('h4','cs-cup-round-title',title));root.append(r);return r};
  const opening=round(labels.q||'NOV 4 · OPENING ROUND','opening');
  opening.append(pair('PROVISIONAL #1 · FIRST-ROUND BYE',t[0],null,cohort,branding,'bye'));
- for(const [a,b] of [[7,8],[4,11],[3,12],[5,10],[2,13],[6,9],[1,14]]){
+ for(const [a,b] of [[7,8],[3,12],[4,11],[2,13],[5,10],[6,9],[1,14]]){
   opening.append(pair('TABLE POSITIONS '+(a+1)+' / '+(b+1),t[a],t[b],cohort,branding));
  }
  const quarters=round(labels.quarter||'NOV 8 · QUARTERFINALS','quarter');
- for(const label of ['#1 vs #8/#9 winner','#4/#13 vs #5/#12','#3/#14 vs #6/#11','#2/#15 vs #7/#10']){
+ for(const label of ['#1 vs winner #8/#9','Winner #4/#13 vs winner #5/#12','Winner #3/#14 vs winner #6/#11','Winner #7/#10 vs winner #2/#15']){
   quarters.append(pair(label,null,null,cohort,branding));
  }
  const semis=round(labels.s||'NOV 12 · SEMIFINALS','semis');
