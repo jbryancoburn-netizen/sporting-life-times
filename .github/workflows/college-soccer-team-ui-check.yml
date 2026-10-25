@@ -35,8 +35,8 @@ jobs:
           const pages=['college-soccer-team.html','college-soccer.html'];
           for(const p of pages){
             const html=fs.readFileSync(p,'utf8');
-            assert.match(html,/college-soccer-teams\.js\?v=clean28/);
-            assert.match(html,/college-soccer-teams\.css\?v=clean28/);
+            assert.match(html,/college-soccer-teams\.js\?v=clean-rollback29/);
+            assert.match(html,/college-soccer-teams\.css\?v=clean-rollback29/);
             assert.match(html,/id="college-team-search"/);
             assert.match(html,/id="college-team-profile"/);
           }
@@ -65,8 +65,14 @@ jobs:
           assert.equal(branding.teams['men-d3:trine'].mascot_name,'Storm');
           assert.equal(branding.teams['men-d3:trine'].mascot_photo_url,'https://www.trine.edu/images/about/storm-cutout.png');
           assert(Number.isFinite(branding.teams['men-d3:trine'].campus_lat));
-          for(const marker of ['team-result-timeline','team-splits','team-visual-report','team-hero-logo-bg','team-porch-grid','team-campus-map']){
+          for(const marker of ['team-result-timeline','team-splits','team-visual-report','team-hero-logo-bg','team-porch-grid']){
             assert(fs.readFileSync('college-soccer-teams.js','utf8').includes(marker),marker+' missing');
           }
-          console.log('Team UI references, graphs and Trine source-backed records validated.');
+          const teamJs=fs.readFileSync('college-soccer-teams.js','utf8');
+          const css=fs.readFileSync('college-soccer-teams.css','utf8');
+          for(const obsolete of ['team-hero-spirit','team-mascot-accent','team-mascot-signature','team-hometown','team-campus-map']){
+            assert(!teamJs.includes(obsolete),'Obsolete feature in JS: '+obsolete);
+            assert(!css.includes(obsolete),'Obsolete CSS feature: '+obsolete);
+          }
+          console.log('Team UI, official records and full mascot/map rollback validated.');
           JS
