@@ -45,6 +45,20 @@ for(const e of current.events) {
   assert.ok(Number.isFinite(e.home_elo_change),'missing Elo delta '+e.id);
   deltas[e.home]+=e.home_elo_change;deltas[e.away]-=e.home_elo_change;
 }
+// All 30 traditional W-L records derive from the exact same unique finals as Elo.
+const standings=Object.fromEntries(expected.map(team=>[team,{w:0,l:0,played:0}]));
+for(const game of current.events){
+  const win=game.home_score>game.away_score?game.home:game.away;
+  const lose=win===game.home?game.away:game.home;
+  standings[win].w++;standings[lose].l++;
+  standings[game.home].played++;standings[game.away].played++;
+}
+assert.equal(Object.values(standings).reduce((sum,row)=>sum+row.w,0),current.games_played,'Total standings wins disagree with verified finals');
+assert.equal(Object.values(standings).reduce((sum,row)=>sum+row.l,0),current.games_played,'Total standings losses disagree with verified finals');
+for(const [team,row] of Object.entries(standings)){
+  assert.equal(row.w+row.l,row.played,team+': W-L differs from games played');
+  assert.ok(Number.isFinite(c[team]),team+': missing current Elo');
+}
 for(const team of expected){
   assert.ok(Math.abs(c[team]-p[team]-deltas[team])<.003,team+': current rating does not reconcile with logged game deltas');
 }
@@ -87,4 +101,4 @@ if(current.events.length){
   }
 }
 // A green audit does NOT validate roster evidence, preseason calibration, or live freshness.
-console.log(JSON.stringify({status:'PASS',teams:30,completed_games:current.games_played,retention,preseason_status:preseason.status,current_status:current.status,latest_game_id:current.events.at(-1)?.id,warning:'Integrity only; roster/preseason calibration and freshness are NOT validated.'},null,2));
+console.log(JSON.stringify({status:'PASS',teams:30,completed_games:current.games_played,record_wins:Object.values(standings).reduce((n,x)=>n+x.w,0),record_losses:Object.values(standings).reduce((n,x)=>n+x.l,0),retention,preseason_status:preseason.status,current_status:current.status,latest_game_id:current.events.at(-1)?.id,warning:'Integrity only; roster/preseason calibration and freshness are NOT validated.'},null,2));
