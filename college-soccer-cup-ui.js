@@ -60,24 +60,35 @@ function bracketFifteen(parent,teams,cohort,branding,labels={}){
  if(!Array.isArray(teams)||teams.length!==15)return;
  const t=teams.map((x,i)=>({id:x.id||x.team_id,name:x.name||x.team?.team||x.team,seed:i+1}));
  const root=node('div','cs-cup-bracket cs-cup-bracket-fifteen');
- root.setAttribute('aria-label','Hypothetical fifteen-team ACC tournament bracket, with current table order used only as an illustrative seed scenario');
- const round=(title,kind)=>{const r=node('section','cs-cup-round '+kind);r.append(node('h4','cs-cup-round-title',title));root.append(r);return r};
- const opening=round(labels.q||'NOV 4 · OPENING ROUND','opening');
- opening.append(pair('PROVISIONAL #1 · FIRST-ROUND BYE',t[0],null,cohort,branding,'bye'));
- for(const [a,b] of [[7,8],[3,12],[4,11],[2,13],[5,10],[6,9],[1,14]]){
-  opening.append(pair('TABLE POSITIONS '+(a+1)+' / '+(b+1),t[a],t[b],cohort,branding));
+ root.setAttribute('aria-label','ACC fifteen-team bracket if the tournament began with the latest published standings');
+ root.append(node('p','cs-cup-caveat','IF THE TOURNAMENT STARTED TODAY · Seeds reflect the published standings order, subject to official ACC tiebreakers. This is not an announced bracket. Elo never determines the seeds.'));
+ const round=(title,kind)=>{const r=node('section','cs-cup-round '+kind);r.append(node('h4','cs-cup-round-title',title));root.append(r);return r;};
+ const first=round(labels.q||'FIRST ROUND','opening');
+ const opening=[[8,9],[4,13],[5,12],[3,14],[6,11],[7,10],[2,15]];
+ const match=(a,b)=>pair('POSITION '+a+' vs '+b,t[a-1],t[b-1],cohort,branding);
+ first.append(pair('#1 · FIRST-ROUND BYE',t[0],null,cohort,branding,'bye'));
+ for(const [a,b] of opening)first.append(match(a,b));
+ const quarters=round(labels.quarter||'QUARTERFINALS','quarter');
+ const qPaths=[
+  ['#1 vs winner #8/#9',t[0],'Winner 8/9'],
+  ['Winner #4/#13 vs #5/#12',null,'Winner 4/13 vs winner 5/12'],
+  ['Winner #3/#14 vs #6/#11',null,'Winner 3/14 vs winner 6/11'],
+  ['Winner #7/#10 vs #2/#15',null,'Winner 7/10 vs winner 2/15']
+ ];
+ for(const [label,team,opponent] of qPaths){
+  const card=pair(label,team,null,cohort,branding);
+  const placeholder=card.querySelector('.cs-cup-tbd');if(placeholder)placeholder.textContent=opponent;
+  if(team){const second=node('div','cs-cup-path',opponent);card.append(second);}
+  quarters.append(card);
  }
- const quarters=round(labels.quarter||'NOV 8 · QUARTERFINALS','quarter');
- for(const label of ['#1 vs winner #8/#9','Winner #4/#13 vs winner #5/#12','Winner #3/#14 vs winner #6/#11','Winner #7/#10 vs winner #2/#15']){
-  quarters.append(pair(label,null,null,cohort,branding));
+ const semis=round(labels.s||'SEMIFINALS','semis');
+ for(const [title,left,right] of [['SEMIFINAL 1','Quarterfinal 1 winner','Quarterfinal 2 winner'],['SEMIFINAL 2','Quarterfinal 3 winner','Quarterfinal 4 winner']]){
+  const card=pair(title,null,null,cohort,branding);const placeholders=card.querySelectorAll('.cs-cup-tbd');placeholders[0].textContent=left;placeholders[1].textContent=right;semis.append(card);
  }
- const semis=round(labels.s||'NOV 12 · SEMIFINALS','semis');
- semis.append(pair('UPPER BRACKET WINNERS',null,null,cohort,branding),pair('LOWER BRACKET WINNERS',null,null,cohort,branding));
- const final=round(labels.f||'NOV 15 · FINAL','championship');
- const card=node('div','cs-cup-final');
- card.append(node('span','cs-cup-trophy','★'),node('strong',null,'ACC CHAMPIONSHIP'),node('span',null,'Semifinal winners'),node('small',null,'CARY · NORTH CAROLINA'));
- final.append(card);
- root.append(node('p','cs-cup-caveat','Illustrative matchups use published conference-table positions, NOT official tournament seeds. All pairings shown are hypothetical. Actual ACC tiebreakers and the published championship bracket take precedence; Elo only forecasts outcomes.'));
+ const final=round(labels.f||'CHAMPIONSHIP','championship');
+ const title=pair('ACC FINAL',null,null,cohort,branding);
+ const places=title.querySelectorAll('.cs-cup-tbd');places[0].textContent='Semifinal 1 winner';places[1].textContent='Semifinal 2 winner';final.append(title);
+ root.append(node('p','cs-cup-caveat','Bracket paths follow the ACC championship format, not projected game winners. Actual scores advance only when reported as official results. Whenever standings change, the provisional first-round field is rebuilt.'));
  parent.append(root);return root;
 }
 function decorateTable(table,teams,cohort,branding){
