@@ -1,0 +1,38 @@
+{
+  "season": "2026-27",
+  "comparison_source": "data/ncaam-coefficient-head-to-head.json",
+  "comparison_status": "COMPLETED_IDENTICAL_POST_DAY14_GAMES",
+  "research_winner": "quality_beta1200",
+  "holdout_season": 2026,
+  "holdout_games": 1596,
+  "holdout": {
+    "baseline": {
+      "games": 1596,
+      "log_loss": 0.548853248219776,
+      "brier": 0.18468134918985465,
+      "from": "2025-11-17",
+      "through_exclusive": "2026-01-01"
+    },
+    "exact_beta300": {
+      "games": 1596,
+      "log_loss": 0.5454557576042459,
+      "brier": 0.18334675319169774,
+      "from": "2025-11-17",
+      "through_exclusive": "2026-01-01"
+    },
+    "quality_beta1200": {
+      "games": 1596,
+      "log_loss": 0.5261184796504091,
+      "brier": 0.17662886502527583,
+      "from": "2025-11-17",
+      "through_exclusive": "2026-01-01"
+    }
+  },
+  "winner_gain_over_300": {
+    "log_loss": 0.019337277953836773,
+    "brier": 0.006717888166421909
+  },
+  "training_seasons_agree": true,
+  "production_preseason_approved": false,
+  "policy": "Retain primary provisional preseason Elo; select full beta1200 quality formula as winning historical post-day14 research candidate only. Do not interpret beta magnitudes as interchangeable or promote based on inseason test."
+}
