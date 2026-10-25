@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "season": 2026,
+  "updated": "2026-10-24",
+  "notice": "Official tournament formats below are source-specific. Projections are independent model scenarios, not committee selections, tournament seeds, or announced bids.",
+  "ncaa": {
+    "men-d1": {
+      "field": 48,
+      "automatic_bids": 23,
+      "at_large": 25,
+      "seeded_teams": 24,
+      "first_round_byes": 16,
+      "selection_date": "2026-11-16",
+      "status": "verified",
+      "sources": [
+        "https://www.ncaatickets.com/mens-college-cup-road-to-the-championship",
+        "https://www.ncaa.org/news/di-field-hockey-mens-soccer-to-seed-50-of-their-championship-brackets/"
+      ],
+      "note": "Twenty-four teams seeded; 16 highest seeds receive first-round byes. Committee rankings and selections cannot be derived directly from USRS Elo."
+    },
+    "women-d1": {
+      "field": 64,
+      "automatic_bids": 31,
+      "at_large": 33,
+      "selection_date": "2026-11-16",
+      "status": "verified",
+      "sources": [
+        "https://www.ncaatickets.com/womens-college-cup-road-to-the-championship"
+      ],
+      "note": "Conference AQ and at-large places decided under official NCAA selection process. Elo is not an NCAA selection ranking."
+    },
+    "men-d2": {
+      "status": "rules_pending",
+      "official_source": "https://www.ncaa.org/championship/division-ii/mens-soccer/",
+      "note": "NCAA Power Index and selection manual required before modeling exact berths."
+    },
+    "women-d2": {
+      "status": "rules_pending",
+      "official_source": "https://www.ncaa.org/championship/division-ii/womens-soccer/",
+      "note": "NCAA Power Index and selection manual required before modeling exact berths."
+    },
+    "men-d3": {
+      "status": "rules_pending",
+      "official_source": "https://www.ncaa.org/championship/division-iii/mens-soccer/",
+      "note": "Official automatic qualification and NCAA Power Index selection criteria required before exact field model."
+    },
+    "women-d3": {
+      "status": "rules_pending",
+      "official_source": "https://www.ncaa.org/championship/division-iii/womens-soccer/",
+      "note": "Exact national field and selection process require verification."
+    }
+  },
+  "conferences": {
+    "men-d3:miaa": {
+      "name": "Michigan Intercollegiate Athletic Association",
+      "short": "MIAA",
+      "cohort": "men-d3",
+      "confirmed_teams": [
+        "calvin",
+        "kalamazoo",
+        "albion",
+        "hope",
+        "adrian",
+        "alma",
+        "trine",
+        "olivet"
+      ],
+      "tournament": {
+        "field": 6,
+        "first_round": [
+          [
+            "3",
+            "6"
+          ],
+          [
+            "4",
+            "5"
+          ]
+        ],
+        "semifinals": [
+          [
+            "1",
+            "4/5 winner"
+          ],
+          [
+            "2",
+            "3/6 winner"
+          ]
+        ],
+        "host": "Higher seeds",
+        "first_round_date": "2026-10-31",
+        "semifinals_date": "2026-11-03",
+        "final_date": "2026-11-07",
+        "status": "2026 format based on official 2025 six-team bracket and 2026 published round dates; 2026 tiebreaker/seeding rules not independently certified",
+        "sources": [
+          "https://miaa.org/sports/2026/8/6/miaa-championships-26-27.aspx",
+          "https://s3.amazonaws.com/sidearm.sites/miaa.org/documents/2026/3/27/miaa_recordbook_3_msoc_2026.pdf"
+        ]
+      },
+      "table_source": "https://miaa.org/standings.aspx?path=msoc",
+      "projection_warning": "Standings and provisional seed order are from the official league standings snapshot, not a confirmed bracket. Tiebreakers, remaining matches and eligibility may alter the tournament entrants and seeds."
+    }
+  }
+}
