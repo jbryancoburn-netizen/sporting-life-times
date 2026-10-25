@@ -73,7 +73,7 @@ async function render(){
  const standings=new Map(table.rows.map(t=>[t.team_id,t])),ratings=new Map(rated.map(t=>[t.team_id,t]));
  if(member.some(id=>!standings.has(id))||member.length!==table.rows.length)throw Error('Conference roster mismatch');
  const knownName={usc:'USC'};
- const teams=member.map(id=>({id,name:ratings.get(id)?.team||knownName[id]||id.replaceAll('-',' '),elo:ratings.has(id)?Number(ratings.get(id).elo):null,...standings.get(id)})).sort((a,b)=>b.conference_points-a.conference_points||(Number.isFinite(b.elo)?b.elo:0)-(Number.isFinite(a.elo)?a.elo:0));
+ const teams=table.rows.map(record=>{const id=record.team_id;return {id,name:ratings.get(id)?.team||knownName[id]||id.replaceAll('-',' '),elo:ratings.has(id)?Number(ratings.get(id).elo):null,...record};});
  
  root.replaceChildren();
  const hero=E('header',null,'cs-conference-hero');
@@ -83,11 +83,11 @@ async function render(){
  const info=E('div',null,'cs-conference-stamp');info.append(E('span','Official standings snapshot: '+(table.checked_at_utc||table.snapshot_checked_date||'date unavailable')),E('span','Independent Elo edition: '+String(elo.as_of||'unknown')));root.append(info);
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
  standSection.append(E('h2','THE CONFERENCE TABLE'));
- const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conference','Pts','Elo'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
- teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(i===field-1)row.classList.add('cutoff');row.append(E('td',field&&i<field?i+1:'—'));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record),E('td',team.conference_points),E('td',Number.isFinite(team.elo)?team.elo.toFixed(1):'N/A'));tb.append(row)});
+ const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts','Elo'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
+ teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(i===field-1)row.classList.add('cutoff');row.append(E('td',field&&i<field?i+1:'—'));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'),E('td',Number.isFinite(team.elo)?team.elo.toFixed(1):'N/A'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;if(cup)cup.decorateTable(t,teams,cfg.cohort,branding);
- standSection.append(E('p','The qualification line is illustrative and displayed only where the tournament field size is verified. Where conference points are tied, the display uses independent Elo—not official conference tiebreakers.','cs-conf-caption'));
+ standSection.append(E('p','The qualification line is illustrative and displayed only where the tournament field size is verified. The published conference feed determines table order; independent Elo never breaks official standings ties. Tournament seed projections remain provisional.','cs-conf-caption'));
  modelSection.append(E('h2','CONFERENCE TITLE WATCH'));
  const field=Number(rule.tournament?.field)||0,entrants=teams.slice(0,field);
  if((field===6||field===8)&&entrants.length===field&&entrants.every(t=>Number.isFinite(t.elo))){
