@@ -4,7 +4,7 @@ on:
     paths:
       - scripts/collect_ncaam_school_class_years_bulk.py
       - data/ncaam-2026-27-official-roster-urls.json
-      - data/ncaam-2026-27-next-1016-unclassified-targets.json
+      - data/ncaam-2026-27-final-489-unclassified-targets.json
       - data/ncaam-2026-27-next-1016-unclassified-targets.json
       - .github/workflows/ncaam-bulk-university-class-years.yml
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install beautifulsoup4
-      - run: python scripts/collect_ncaam_school_class_years_bulk.py --queue data/ncaam-2026-27-next-1016-unclassified-targets.json --queue data/ncaam-2026-27-next-1016-unclassified-targets.json
+      - run: python scripts/collect_ncaam_school_class_years_bulk.py --queue data/ncaam-2026-27-final-489-unclassified-targets.json
       - name: Merge by athlete ID with latest main and publish
         run: |
           cp data/ncaam-2026-27-school-roster-class-years.csv /tmp/collected-school-years.csv
