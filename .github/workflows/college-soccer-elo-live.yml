@@ -192,9 +192,12 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+          name: ncaa-soccer-pages-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Publish edition via GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ncaa-soccer-pages-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Verify live newspaper HTML, JS, CSS and Elo data bytes
         run: python scripts/check_college_soccer_publication.py --attempts 15 --delay 10
       - name: Verify live matchup draw probabilities and archive
