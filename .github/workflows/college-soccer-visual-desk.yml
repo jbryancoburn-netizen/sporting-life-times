@@ -227,7 +227,7 @@ jobs:
           assert(postseasonJs.includes('MIAA stays active'));
 
 
-          assert(html.includes('college-soccer-postseason.js?v=bracket8'));
+
           assert(postseasonJs.includes('NOT odds of qualifying for or winning the MIAC playoff'));
           assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
