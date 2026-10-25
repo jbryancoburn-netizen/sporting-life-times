@@ -4,6 +4,8 @@ on:
     paths:
       - 'scripts/verify_ncaam_final_class_year_coverage.py'
       - 'data/ncaam-2026-27-final-class-year-exceptions.json'
+      - 'data/ncaam-2026-27-class-year-third-party-research.json'
+      - 'scripts/verify_ncaam_class_year_research_separation.py'
       - 'data/ncaam-2026-27-school-roster-class-years.csv'
       - 'data/ncaam-2026-27-direct-player-crosswalk.json'
       - '.github/workflows/ncaam-final-class-year-coverage.yml'
@@ -19,3 +21,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/verify_ncaam_final_class_year_coverage.py
+      - run: python scripts/verify_ncaam_class_year_research_separation.py
