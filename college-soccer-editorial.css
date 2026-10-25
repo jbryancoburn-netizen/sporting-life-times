@@ -28,3 +28,11 @@
 #college-team-finder[data-cs-search]>h2{font:700 1.1rem Georgia,serif}
 @media(max-width:800px){.cs-edit-columns{grid-template-columns:1fr}.cs-edit-races{border:0;border-top:2px solid #d7e0e3;padding:1rem 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1rem}.cs-edit-races h3,.cs-edit-races>p{grid-column:1/-1}}
 @media(max-width:560px){.cs-edit-headlines{grid-template-columns:1fr}.cs-edit-races{grid-template-columns:1fr 1fr}.cs-edit-race-lead,.cs-edit-race-chaser{font-size:.67rem}.cs-edit-heading span{font-size:.57rem}}
+
+#college-soccer-editorial .cs-edit-school{display:inline-flex;align-items:center;gap:.42rem;min-width:0}
+#college-soccer-editorial .cs-edit-school>a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#college-soccer-editorial .cs-edit-school-mark{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;width:25px;height:25px;border-radius:50%;background:#dce5ea;color:#38566c;font:700 .58rem Arial,sans-serif;overflow:hidden}
+#college-soccer-editorial .cs-edit-school-mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+#college-soccer-editorial .cs-edit-school-mark.has-image{background:transparent;color:transparent}
+#college-soccer-editorial .cs-edit-school-mark.has-image img{background:transparent}
+#college-soccer-editorial .cs-edit-race-lead,#college-soccer-editorial .cs-edit-race-chaser{align-items:center}
