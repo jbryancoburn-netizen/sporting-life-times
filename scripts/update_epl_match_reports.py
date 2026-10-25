@@ -16,6 +16,9 @@ def fetch(game):
     with urlopen(Request(SOURCE+gid,headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"}),timeout=17) as r:
         raw=json.load(r)
     box=raw.get("boxscore") or {}
+    # Reject mismatched events instead of attaching statistics to the wrong result.
+    event_id=str(raw.get("header",{}).get("id") or raw.get("header",{}).get("competitions",[{}])[0].get("id") or gid)
+    if event_id!=gid:raise ValueError("Event ID mismatch: "+event_id)
     teams=[]
     for t in box.get("players",[]):
         teams.append({"name":t.get("team",{}).get("displayName"),"athletes":t.get("statistics",[])})
@@ -25,6 +28,7 @@ def fetch(game):
     events=[]
     for e in (raw.get("keyEvents") or raw.get("plays") or [])[:150]:
         events.append({"clock":e.get("clock",{}).get("displayValue"),"text":e.get("text"),"type":e.get("type",{}).get("text"),"team":e.get("team",{}).get("displayName")})
+    if not (teamstats or teams or events):raise ValueError("Event summary contains no detailed statistics or events")
     return gid,{"home":game["home"],"away":game["away"],"home_score":game["home_score"],"away_score":game["away_score"],"kickoff_utc":game["kickoff_utc"],"teams":teamstats,"players":teams,"events":events,"source_url":"https://www.espn.com/soccer/match/_/gameId/"+gid}
 def main():
     feed=json.loads((DATA/"epl-match-center.json").read_text())
@@ -41,7 +45,7 @@ def main():
                 matches[key]=report
                 successful+=1
             except Exception as exc:failed[gid]=str(exc)[:150]
-    if not successful and not matches:raise RuntimeError("No match reports available; refusing empty publication")
+    if not successful and not matches:raise RuntimeError("No detailed match reports available; refusing empty publication")
     output={"updated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"ESPN event summary; third-party match facts only, not Elo","matches":matches,"fetch_status":{"successful":successful,"failed":failed}}
     DETAILS.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n")
     print(json.dumps({"reports":len(matches),"newly_verified":successful,"failed":len(failed)}))
