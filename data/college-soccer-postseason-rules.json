@@ -205,7 +205,13 @@
         ]
       },
       "table_source": "https://bigten.org/standings.aspx?path=msoc",
-      "projection_warning": "Provisional seeds use conference points and Elo only for display ties; official tie procedure controls."
+      "projection_warning": "Provisional seeds use conference points and Elo only for display ties; official tie procedure controls.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "women-d1:big-ten": {
       "name": "Big Ten Conference",
@@ -308,7 +314,20 @@
         ]
       },
       "table_source": "https://theacc.com/standings.aspx?path=msoc",
-      "projection_warning": "All 15 conference programs qualify. The newspaper's scenario uses current published table order as hypothetical seed positions only; it does not apply Elo to tiebreakers, nor claim these are official ACC seeds or released first-round pairings. The official conference bracket supersedes this scenario."
+      "projection_warning": "All 15 conference programs qualify. The newspaper's scenario uses current published table order as hypothetical seed positions only; it does not apply Elo to tiebreakers, nor claim these are official ACC seeds or released first-round pairings. The official conference bracket supersedes this scenario.",
+      "tiebreakers": {
+        "verification": "published_procedure_requires_full_season_match_evidence",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/acc.sidearmsports.com/documents/2024/9/27/ChampionshipSeeding.pdf",
+        "ordered_criteria": [
+          "head_to_head_conference_points",
+          "conference_goal_difference",
+          "conference_goals_for",
+          "results_against_ranked_common_opponents",
+          "commissioner_draw"
+        ],
+        "multi_team": "restart_after_multi_team_reduction",
+        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+      }
     },
     "women-d1:acc": {
       "name": "Atlantic Coast Conference",
@@ -341,7 +360,13 @@
         ]
       },
       "table_source": "https://www.bigeast.com/standings.aspx?standings=1131",
-      "projection_warning": "Division standings are official. No conference-wide seeds or tournament qualifiers may be inferred by combining divisional points. Elo predicts match outcomes only."
+      "projection_warning": "Division standings are official. No conference-wide seeds or tournament qualifiers may be inferred by combining divisional points. Elo predicts match outcomes only.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:america-east": {
       "name": "America East Conference",
@@ -360,7 +385,13 @@
         ]
       },
       "table_source": "https://americaeast.com/standings.aspx?path=msoc",
-      "projection_warning": "As-if-played-today bracket uses the official published standings order; ties may change after application of the conference's formal tiebreak rules. The forecasted winners are predicted using USRS; dates and format are official."
+      "projection_warning": "As-if-played-today bracket uses the official published standings order; ties may change after application of the conference's formal tiebreak rules. The forecasted winners are predicted using USRS; dates and format are official.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:american": {
       "name": "American Conference",
@@ -376,7 +407,13 @@
         ]
       },
       "table_source": "https://theamerican.org/allstandings.aspx",
-      "projection_warning": "This is a what-if forecast using conference table positions and the last verified format; 2026 official bracket seeds are not announced."
+      "projection_warning": "This is a what-if forecast using conference table positions and the last verified format; 2026 official bracket seeds are not announced.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:sun-belt": {
       "name": "Sun Belt Conference",
@@ -393,7 +430,19 @@
         ]
       },
       "table_source": "https://sunbeltsports.org/standings.aspx?path=msoc",
-      "projection_warning": "Published standings order is provisional seeding subject to official conference tiebreakers; Elo only predicts who advances."
+      "projection_warning": "Published standings order is provisional seeding subject to official conference tiebreakers; Elo only predicts who advances.",
+      "tiebreakers": {
+        "verification": "published_procedure_requires_full_season_match_evidence",
+        "source_url": "https://sunbeltsports.org/sports/2024/10/30/MSOC_1030240237.aspx",
+        "ordered_criteria": [
+          "head_to_head",
+          "common_opponent_goal_difference",
+          "common_opponent_goals_for",
+          "points_against_ranked_common_opponents"
+        ],
+        "multi_team": "conference_specific_multi_team",
+        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+      }
     },
     "men-d1:ivy": {
       "name": "Ivy League",
@@ -410,7 +459,21 @@
         ]
       },
       "table_source": "https://ivyleague.com/standings.aspx?path=msoc",
-      "projection_warning": "Four-team as-if-today field follows published order; actual seeds depend on official tiebreakers."
+      "projection_warning": "Four-team as-if-today field follows published order; actual seeds depend on official tiebreakers.",
+      "tiebreakers": {
+        "verification": "published_procedure_requires_full_season_match_evidence",
+        "source_url": "https://ivyleague.com/sports/2023/10/9/MSOCTiebreakers.aspx",
+        "ordered_criteria": [
+          "head_to_head",
+          "results_against_ranked_opponents",
+          "conference_goal_difference_capped_6",
+          "conference_shutouts",
+          "ncaa_rpi",
+          "administrative_decision"
+        ],
+        "multi_team": "separate_multi_team_procedure",
+        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+      }
     },
     "men-d1:wcc": {
       "name": "West Coast Conference",
@@ -426,7 +489,13 @@
         ]
       },
       "table_source": "https://wccsports.com/standings.aspx?path=msoc",
-      "projection_warning": "Portland championship clinch is official; full league table snapshot combines a league standings view and Portland Oct 24 result, and needs automated standings sync."
+      "projection_warning": "Portland championship clinch is official; full league table snapshot combines a league standings view and Portland Oct 24 result, and needs automated standings sync.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:ovc": {
       "name": "Ohio Valley Conference",
@@ -442,7 +511,20 @@
         ]
       },
       "table_source": "https://ovcsports.com/standings.aspx?path=msoc",
-      "projection_warning": "Official order snapshot; OVC top-two seeds from separate pods may differ from standings order. No certification of exact tournament seeds."
+      "projection_warning": "Official order snapshot; OVC top-two seeds from separate pods may differ from standings order. No certification of exact tournament seeds.",
+      "tiebreakers": {
+        "verification": "published_procedure_requires_full_season_match_evidence",
+        "source_url": "https://ovcsports.com/sports/2026/7/30/MSOC_0729261951.aspx",
+        "ordered_criteria": [
+          "head_to_head",
+          "head_to_head_goal_difference_cap_3",
+          "points_per_match_against_ranked_opponents",
+          "conference_goal_difference_cap_3",
+          "coin_toss"
+        ],
+        "multi_team": "multiple_team_points_per_match_and_goal_difference",
+        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+      }
     },
     "men-d1:atlantic-10": {
       "name": "Atlantic 10 Conference",
@@ -459,7 +541,13 @@
         ]
       },
       "table_source": "https://atlantic10.com/standings.aspx?standings=183",
-      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:patriot": {
       "name": "Patriot League",
@@ -476,7 +564,21 @@
         ]
       },
       "table_source": "https://patriotleague.org/standings.aspx?path=msoc",
-      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks.",
+      "tiebreakers": {
+        "verification": "published_procedure_requires_full_season_match_evidence",
+        "source_url": "https://admin.patriotleague.org/standings.aspx?standings=2224",
+        "ordered_criteria": [
+          "head_to_head_wins",
+          "records_against_ranked_opponents",
+          "conference_goals_against",
+          "conference_goal_difference",
+          "common_nonconference_opponents",
+          "coin_flip"
+        ],
+        "multi_team": "multiple_team_special_procedure",
+        "automatic_resolution": "blocked_until_full_season_conference_games_and_required_metrics_verified"
+      }
     },
     "men-d1:big-south": {
       "name": "Big South Conference",
@@ -493,7 +595,13 @@
         ]
       },
       "table_source": "https://bigsouthsports.com/standings.aspx?path=msoc",
-      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks."
+      "projection_warning": "Official snapshot not live-ingested; tournament seed order provisional and needs official conference tiebreaker checks.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:mvc": {
       "name": "Missouri Valley Conference",
@@ -511,7 +619,13 @@
         ]
       },
       "table_source": "https://mvc-sports.com/standings.aspx?path=msoc",
-      "projection_warning": "PROVISIONAL 2026 bracket: six-team structure inferred from 2025 (seeds 1 and 2 receive byes; 3 hosts 6, 4 hosts 5); 2026 format not independently confirmed. Seeds are the Oct. 25 published standings snapshot, not confirmed official tournament seeds."
+      "projection_warning": "PROVISIONAL 2026 bracket: six-team structure inferred from 2025 (seeds 1 and 2 receive byes; 3 hosts 6, 4 hosts 5); 2026 format not independently confirmed. Seeds are the Oct. 25 published standings snapshot, not confirmed official tournament seeds.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:big-west": {
       "name": "Big West Conference",
@@ -528,7 +642,13 @@
         ]
       },
       "table_source": "https://bigwest.org/standings.aspx?path=msoc",
-      "projection_warning": "2026 4-team playoff explicitly confirmed: 1-v-4 and 2-v-3 semis Nov 7; higher seed hosts championship Nov 13. Seeds reflect source table snapshot, not final official tiebreakers."
+      "projection_warning": "2026 4-team playoff explicitly confirmed: 1-v-4 and 2-v-3 semis Nov 7; higher seed hosts championship Nov 13. Seeds reflect source table snapshot, not final official tiebreakers.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:asun": {
       "name": "ASUN Conference",
@@ -545,7 +665,13 @@
         ]
       },
       "table_source": "https://asunsports.org/sports/msoc/2025-26/standings",
-      "projection_warning": "Six-team playoff structure carried forward provisionally from prior championship; West Florida in NCAA transition and may not be eligible. Model qualifying field must not be presented as verified until eligibility and seeds are resolved."
+      "projection_warning": "Six-team playoff structure carried forward provisionally from prior championship; West Florida in NCAA transition and may not be eligible. Model qualifying field must not be presented as verified until eligibility and seeds are resolved.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:horizon": {
       "name": "Horizon League",
@@ -562,7 +688,13 @@
         ]
       },
       "table_source": "https://horizonleague.org/standings.aspx?path=msoc",
-      "projection_warning": "2026 Nov 8/11/14 tournament rounds confirmed by school schedule. Six-team format carried forward provisionally; league tiebreakers required."
+      "projection_warning": "2026 Nov 8/11/14 tournament rounds confirmed by school schedule. Six-team format carried forward provisionally; league tiebreakers required.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:caa": {
       "name": "Coastal Athletic Association",
@@ -578,7 +710,13 @@
         ]
       },
       "table_source": "https://caasports.com/standings.aspx?path=msoc",
-      "projection_warning": "Six-team divisional format: top three in each of North and South, not a generic seeded bracket."
+      "projection_warning": "Six-team divisional format: top three in each of North and South, not a generic seeded bracket.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:nec": {
       "name": "Northeast Conference",
@@ -594,7 +732,13 @@
         ]
       },
       "table_source": "https://necsports.com/sports/msoc/standings",
-      "projection_warning": "Top four, semifinals 2026-11-12 and final 2026-11-15; conference tournament participation does not guarantee NCAA eligibility."
+      "projection_warning": "Top four, semifinals 2026-11-12 and final 2026-11-15; conference tournament participation does not guarantee NCAA eligibility.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:socon": {
       "name": "Southern Conference",
@@ -610,7 +754,13 @@
         ]
       },
       "table_source": "https://soconsports.com/standings.aspx?path=msoc",
-      "projection_warning": "Bracket withheld pending independent 2026 tournament rule verification."
+      "projection_warning": "Bracket withheld pending independent 2026 tournament rule verification.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:summit": {
       "name": "Summit League",
@@ -626,7 +776,13 @@
         ]
       },
       "table_source": "https://thesummitleague.org/standings.aspx?path=msoc",
-      "projection_warning": "2026 championship format and date not yet announced by conference."
+      "projection_warning": "2026 championship format and date not yet announced by conference.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:maac": {
       "name": "Metro Atlantic Athletic Conference",
@@ -642,7 +798,13 @@
         ]
       },
       "table_source": "https://maacsports.com/standings.aspx?path=msoc",
-      "projection_warning": "Standings records and format await official confirmation; no guessed rankings."
+      "projection_warning": "Standings records and format await official confirmation; no guessed rankings.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:mountain-west": {
       "name": "Mountain West Conference",
@@ -656,7 +818,13 @@
         ]
       },
       "table_source": "https://themw.com/news/2026/6/4/mountain-west-announces-inaugural-2026-mens-soccer-schedule.aspx",
-      "projection_warning": "2026 championship November 8–14 verified; qualification field size and exact bracket unverified; no forecast seeding."
+      "projection_warning": "2026 championship November 8–14 verified; qualification field size and exact bracket unverified; no forecast seeding.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     },
     "men-d1:pac-12": {
       "name": "Pac-12 Conference",
@@ -670,7 +838,13 @@
         ]
       },
       "table_source": "https://pac-12.com/news/2026/3/30/pac-12-conference-and-the-big-west-announce-collaborative-mens-soccer-partnership-to-strengthen-opportunities-in-the-west.aspx",
-      "projection_warning": "Top four advance to 2026 championship, but verified live table/seeds missing. Bracket withheld until actual table available."
+      "projection_warning": "Top four advance to 2026 championship, but verified live table/seeds missing. Bracket withheld until actual table available.",
+      "tiebreakers": {
+        "verification": "unverified_2026_procedure",
+        "source_url": null,
+        "ordered_criteria": [],
+        "automatic_resolution": "blocked_pending_official_rules_and_match_evidence"
+      }
     }
   }
 }
