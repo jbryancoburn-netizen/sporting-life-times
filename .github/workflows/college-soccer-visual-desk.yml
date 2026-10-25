@@ -210,7 +210,7 @@ jobs:
                     const confJs=fs.readFileSync('college-soccer-conference-page.js','utf8');
           assert(confJs.includes('cup.bracket(')||confJs.includes('cup.bracketEight'));
           assert(confJs.includes('cup.decorateTable('));
-          assert(confJs.includes('modelOdds('));
+          assert(confJs.includes('bracketOdds('));
           assert(confJs.includes('bracketOdds('));
           assert(confJs.includes('bracketEight'));
           assert(confJs.includes("'N/A'"));
