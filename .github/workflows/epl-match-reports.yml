@@ -1,0 +1,33 @@
+name: EPL detailed match reports
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17,47 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: epl-match-reports
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate report collector
+        run: python -m py_compile scripts/update_epl_match_reports.py
+      - name: Collect match reports
+        run: python scripts/update_epl_match_reports.py
+      - name: Publish verified details
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/epl-match-reports.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update verified EPL match reports"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
