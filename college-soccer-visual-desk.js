@@ -54,6 +54,25 @@ function render(){
  const b=E('button',label,'cs-choice'+((g?gender===g:division===d)?' active':''));b.type='button';b.setAttribute('aria-pressed',String(g?gender===g:division===d));
  b.addEventListener('click',()=>{if(g)gender=g;else division=d;render();});controls.append(b);}
  controls.append(E('span',teams.length+' programs · '+(gender==='men'?"Men's":"Women's")+' Division '+rank(cohort),'cs-controls-desc'));host.append(controls);
+ const matchday=section(host,'TODAY’S GAMES · MATCHDAY SCOREBOARD','SCHEDULED FIXTURES · SCORES ONLY WHEN VERIFIED');
+ const todayNY=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
+ const dayKey=x=>{const parts=Object.fromEntries(todayNY.formatToParts(x).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));return parts.year+'-'+parts.month+'-'+parts.day;};
+ const todayKey=dayKey(new Date());
+ const matchdayRows=(forecast.forecasts||[]).filter(g=>g.cohort===cohort&&g.kickoff_utc&&!Number.isNaN(Date.parse(g.kickoff_utc))&&dayKey(new Date(g.kickoff_utc))===todayKey)
+   .sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
+ if(!matchdayRows.length)matchday.append(E('p','No fixtures listed today in the published NCAA schedule feed. This feed is incomplete and this does not mean there are no games.','cs-note'));
+ else{
+   const summary=E('p',matchdayRows.length+' scheduled fixtures in the published forecast feed. Times Eastern; scores/status require official verification.','cs-note');matchday.append(summary);
+   for(const g of matchdayRows.slice(0,80)){
+    const card=E('div',null,'cs-fixture cs-matchday-fixture');
+    const kickoff=new Date(g.kickoff_utc);
+    card.append(E('small',kickoff.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET · SCHEDULED LISTING'));
+    const line=E('div',null,'cs-fixture-teams');line.append(club(g.home_name||g.home_team,cohort,g.home_team),E('span','vs'),club(g.away_name||g.away_team,cohort,g.away_team));card.append(line);
+    const more=E('a','Match details ↗','cs-game-link');more.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);card.append(more);
+    matchday.append(card);
+   }
+ }
+
  const byName=new Map(teams.map(t=>[t.team,t]));
  const finals=(model.latest_finals||[]).filter(m=>m.cohort===cohort).slice(0,8);
  const rail=section(host,'Latest verified finals','OPEN A MATCH FOR STATS & ELO CONTEXT');
@@ -104,25 +123,7 @@ function render(){
   }
   changes.append(E('p','Actual published Elo change for the home team in each listed final—not a daily change or an invented movement for every school.','cs-note'));
  }
- const matchday=section(right,'Matchday schedule','PUBLISHED FIXTURES · NOT LIVE SCORES');
- const todayNY=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
- const dayKey=x=>todayNY.format(x).split('/').join('-');
- const todayKey=dayKey(new Date());
- const matchdayRows=(forecast.forecasts||[]).filter(g=>g.cohort===cohort&&g.kickoff_utc&&dayKey(new Date(g.kickoff_utc))===todayKey)
-   .sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
- if(!matchdayRows.length)matchday.append(E('p','No fixtures in the current published schedule snapshot for this cohort.','cs-note'));
- else{
-   const summary=E('p',matchdayRows.length+' scheduled fixtures in the published forecast feed. Times Eastern; scores/status require official verification.','cs-note');matchday.append(summary);
-   for(const g of matchdayRows.slice(0,80)){
-    const card=E('div',null,'cs-fixture cs-matchday-fixture');
-    const kickoff=new Date(g.kickoff_utc);
-    card.append(E('small',kickoff.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET · SCHEDULED LISTING'));
-    const line=E('div',null,'cs-fixture-teams');line.append(club(g.home_name||g.home_team,cohort,g.home_team),E('span','vs'),club(g.away_name||g.away_team,cohort,g.away_team));card.append(line);
-    const more=E('a','Match details ↗','cs-game-link');more.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);card.append(more);
-    matchday.append(card);
-   }
- }
- const upcoming=section(right,'Forecast watch','LOCKED PREMATCH MODEL · NOT LIVE SCORES');
+  const upcoming=section(right,'Forecast watch','LOCKED PREMATCH MODEL · NOT LIVE SCORES');
  const finalIds=new Set((model.latest_finals||[]).map(f=>f.match_id));
  const now=Date.now();
  const games=(forecast.forecasts||[]).filter(m=>m.cohort===cohort&&!finalIds.has(m.match_id)&&Date.parse(m.kickoff_utc)>now&&Number.isFinite(Number(m.p_home))&&Number.isFinite(Number(m.p_draw))&&Number.isFinite(Number(m.p_away))).sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc)).slice(0,5);
