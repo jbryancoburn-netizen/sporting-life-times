@@ -175,7 +175,9 @@ jobs:
           from pathlib import Path
           d=json.loads(Path('data/college-soccer-elo.json').read_text())
           assert len(d['cohorts'])==6 and d['status']=='provisional'
-          assert 'college-soccer-elo.js' in Path('college-soccer.html').read_text()
+          html=Path('college-soccer.html').read_text()
+          assert 'college-soccer-visual-desk.js' in html
+          assert "data/college-soccer-elo.json" in Path('college-soccer-visual-desk.js').read_text()
           print('Source edition:',d['as_of'], 'accepted new finals:',d.get('applied_finals_since_baseline',0))
           PY
       - name: Verify published v2 forecast contract
