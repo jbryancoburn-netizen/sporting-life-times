@@ -36,25 +36,47 @@ function fromNba(raw){
 }
 function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/^espn-nba-/,'')||'',date:g.date,competitions:[{competitors:(g.teams||[]).map(t=>({homeAway:t.home_away,team:{displayName:t.name,abbreviation:t.code},score:t.score}))}],status:{type:{state:g.state==='post'?'post':g.state==='in'?'in':'pre',shortDetail:g.status||'Scheduled'}}}))};}
 async function update(){
- const dates=(()=>{const q=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return q.year+q.month+q.day})();
+ const easternKey=offset=>{const q=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(Date.now()+offset)).map(x=>[x.type,x.value]));return q.year+q.month+q.day};
+ const today=easternKey(0),yesterday=easternKey(-24*3600000);
  const sources=[
- ['NBA live data','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba],
- ['ESPN live data','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+dates+'&_='+Date.now(),x=>x],
- ['published schedule','data/nba-upcoming-schedule.json?_='+Date.now(),fromArchive]
+  ['NBA official','https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',fromNba],
+  ['ESPN today','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+today+'&_='+Date.now(),x=>x],
+  ['ESPN previous day','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+yesterday+'&_='+Date.now(),x=>x]
  ];
+ const merged=new Map(),successful=[];
  for(const [name,url,normalize] of sources){
   try{
-   const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),6500);
+   const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),6500);
    let response;try{response=await fetch(url,{cache:'no-store',signal:ctrl.signal})}finally{clearTimeout(timeout)}
    if(!response.ok)throw Error('HTTP '+response.status);
-   const data=normalize(await response.json());if(!data.events?.length)throw Error('empty');
-   render(data);lastOK=Date.now();
-   status.textContent=(name==='published schedule'?'Live feeds unavailable · showing latest published schedule':'LIVE SOURCE · '+name)+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
-   return;
+   const data=normalize(await response.json());
+   if(!Array.isArray(data.events))throw Error('invalid events');
+   successful.push(name);
+   for(const event of data.events){
+    const id=String(event.id||'');if(!id||merged.has(id))continue;
+    const when=Date.parse(event.date||'');
+    if(!Number.isFinite(when)||when<Date.now()-36*3600000||when>Date.now()+24*3600000)continue;
+    merged.set(id,event);
+   }
   }catch(e){console.warn('NBA feed failed:',name,e.message)}
  }
- status.textContent='Live sources unavailable · no current score is confirmed';
- root.innerHTML='<p class="hub-small">Live scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
+ if(!successful.length){
+  try{
+   const response=await fetch('data/nba-upcoming-schedule.json?_='+Date.now(),{cache:'no-store'});
+   if(!response.ok)throw Error('HTTP '+response.status);
+   for(const event of fromArchive(await response.json()).events){
+    const when=Date.parse(event.date||'');
+    if(Number.isFinite(when)&&when>=Date.now()-36*3600000&&when<=Date.now()+24*3600000)merged.set(String(event.id),event);
+   }
+  }catch(e){console.warn('Published NBA schedule unavailable:',e.message)}
+ }
+ if(merged.size){
+  render({events:[...merged.values()]});lastOK=Date.now();
+  status.textContent=(successful.length?'LIVE SOURCES · '+successful.join(' + '):'Live feeds unavailable · published snapshot')+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
+  return;
+ }
+ status.textContent='NBA score feeds unavailable · no recent game confirmed';
+ root.innerHTML='<p class="hub-small">Recent scores could not be verified. <a href="nba-game-center.html">Open the verified game archive</a>.</p>';
 }
 refreshRecords().then(update);setInterval(()=>{if(!document.hidden)update()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 })();
