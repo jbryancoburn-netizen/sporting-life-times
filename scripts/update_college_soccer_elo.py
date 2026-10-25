@@ -69,7 +69,7 @@ def normalized_final(raw: dict, gender: str, requested: dt.date):
     away_slug = str((a.get("names") or {}).get("seo") or "").strip()
     hs, ass = str(h.get("score") or "").strip(), str(a.get("score") or "").strip()
     if not gid or not home_slug or not away_slug or home_slug == away_slug:
-        raise ValueError("final with missing ID or team slug")
+        return None  # Quarantine incomplete FINAL row; preserve remaining valid finals
     if not hs.isdecimal() or not ass.isdecimal():
         # A 0 score is converted to "0" because str(0 or "") would be "", so
         # providers must supply a string or the explicit numeric zero.
@@ -79,7 +79,7 @@ def normalized_final(raw: dict, gender: str, requested: dt.date):
         return None  # Quarantine incomplete or implausible FINAL; retry on next source check
     date_text = str(g.get("startDate") or "").strip()
     if not date_text:
-        raise ValueError(f"final has no startDate: {gender}-{gid}")
+        return None  # Date-less FINAL cannot safely enter Elo
     played = dt.datetime.strptime(date_text, "%m/%d/%Y").date()
     if abs((requested - played).days) > 1:
         raise ValueError(f"scoreboard date mismatch: {gender}-{gid}")
