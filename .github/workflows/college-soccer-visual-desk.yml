@@ -90,7 +90,7 @@ jobs:
           assert(matchJs.includes("g.status==='final'"));
           assert(matchPage.includes('college-soccer-match.css?v=3'));
                     assert(html.includes('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch4'));
+          assert(html.includes('college-soccer-postseason.js?v=launch5'));
           assert(html.includes('college-soccer-postseason.css?v=launch3'));
           assert(html.indexOf('id="college-team-search"')<html.indexOf('id="college-soccer-postseason"'),'School finder displaced');
           const tournamentRules=JSON.parse(fs.readFileSync('data/college-soccer-postseason-rules.json','utf8'));
@@ -121,7 +121,7 @@ jobs:
           assert(postseasonJs.includes('MIAA stays active'));
           assert(html.includes('CONFERENCES &amp; TOURNAMENTS'));
           assert(html.indexOf('id="college-team-search"') < html.indexOf('id="college-soccer-postseason"'));
-          assert(html.includes('college-soccer-postseason.js?v=launch4'));
+          assert(html.includes('college-soccer-postseason.js?v=launch5'));
           assert(postseasonJs.includes('NOT odds of qualifying for or winning the MIAC playoff'));
           assert(postseasonJs.includes('15*60*1000'));
                     const elo=JSON.parse(fs.readFileSync('data/college-soccer-elo.json','utf8'));
