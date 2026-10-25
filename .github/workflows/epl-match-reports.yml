@@ -49,3 +49,24 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+
+      - name: Record report collection heartbeat
+        if: always()
+        env:
+          RUN_STATUS: ${{ job.status }}
+          TRIGGER: ${{ github.event_name }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python - <<'PY'
+          import json,os,datetime,pathlib
+          p=pathlib.Path("data/epl-match-report-status.json")
+          p.write_text(json.dumps({"checked_at_utc":datetime.datetime.now(datetime.timezone.utc).isoformat(),"job_status":os.getenv("RUN_STATUS"),"trigger":os.getenv("TRIGGER"),"run_id":os.getenv("RUN_ID")},indent=2)+chr(10))
+          PY
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/epl-match-report-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record EPL match report pipeline status"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
