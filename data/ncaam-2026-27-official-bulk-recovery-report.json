@@ -1,6 +1,6 @@
 {
   "input_targets": 489,
-  "already_classified": 307,
+  "already_classified": 313,
   "new_official_class_years": 0,
   "source_results": [
     {
@@ -201,8 +201,9 @@
     },
     {
       "school": "Texas A&M",
-      "status": "season_unverified",
-      "heading": " "
+      "status": "processed",
+      "matched": 0,
+      "targeted": 4
     },
     {
       "school": "Tulsa",
@@ -268,12 +269,6 @@
       "status": "processed",
       "matched": 0,
       "targeted": 3
-    },
-    {
-      "school": "San Jose St.",
-      "status": "processed",
-      "matched": 0,
-      "targeted": 6
     },
     {
       "school": "Tennessee Tech",
@@ -404,7 +399,7 @@
       "targeted": 1
     }
   ],
-  "still_unmatched_in_queue": 182,
+  "still_unmatched_in_queue": 176,
   "unmatched_sample": [
     {
       "id": "5462468",
@@ -785,6 +780,30 @@
       "reason": "no_unambiguous_card_year"
     },
     {
+      "id": "5106282",
+      "school": "Texas A&M",
+      "name": "Preston Clark",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5308457",
+      "school": "Texas A&M",
+      "name": "Josh Irving",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5455531",
+      "school": "Texas A&M",
+      "name": "Kyle Moran",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
+      "id": "5210792",
+      "school": "Texas A&M",
+      "name": "Neiko Mundey",
+      "reason": "no_unambiguous_card_year"
+    },
+    {
       "id": "5458760",
       "school": "Tulsa",
       "name": "Derelle Desire",
@@ -971,43 +990,19 @@
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5461288",
-      "school": "San Jose St.",
-      "name": "Brayden Barrett",
+      "id": "5234298",
+      "school": "Wright St.",
+      "name": "Ilija Milijasevic",
       "reason": "no_unambiguous_card_year"
     },
     {
-      "id": "5461290",
-      "school": "San Jose St.",
-      "name": "Moses Dau Nyangol",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5222133",
-      "school": "San Jose St.",
-      "name": "Rokiem Green",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "4592277",
-      "school": "San Jose St.",
-      "name": "Luke Howard",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5461287",
-      "school": "San Jose St.",
-      "name": "Cade Krueger",
-      "reason": "no_unambiguous_card_year"
-    },
-    {
-      "id": "5461289",
-      "school": "San Jose St.",
-      "name": "Oliver Kullamae",
+      "id": "5329576",
+      "school": "Arizona St.",
+      "name": "JRob Croy",
       "reason": "no_unambiguous_card_year"
     }
   ],
   "class_counts": {},
   "new_unique_saved_against_latest_main": 0,
-  "total_official_class_year_records": 1838
+  "total_official_class_year_records": 1849
 }
