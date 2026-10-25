@@ -27,3 +27,16 @@ a.cs-cup-table-school{display:inline-flex;align-items:center;gap:.45rem;min-widt
 .cs-cup-caveat{grid-column:1/-1;font:italic .65rem/1.4 Georgia,serif;color:#6f838c;border-top:1px solid #d9e1e5;margin:0;padding:.6rem .4rem}
 @media(max-width:800px){.cs-cup-bracket{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-cup-round.championship{grid-column:1/-1;border-top:1px solid #dae2e6}.cs-cup-round.semis{border-right:0}.cs-cup-final{min-height:80px}}
 @media(max-width:500px){.cs-cup-bracket{grid-template-columns:1fr}.cs-cup-round{border-right:0;border-bottom:1px solid #dae2e6;padding:.65rem .35rem}.cs-cup-round.championship{grid-column:auto}.cs-cup-match{padding:.5rem .7rem}.cs-cup-school .cs-cup-crest{width:29px;height:29px}}
+
+/* Four-column tournament flight plan for full 15-team Atlantic Coast field. */
+.cs-cup-bracket-fifteen{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,.9fr) minmax(0,.8fr)}
+.cs-cup-bracket-fifteen .cs-cup-round{gap:.55rem;padding:.55rem}
+.cs-cup-bracket-fifteen .cs-cup-match{padding:.4rem .45rem}
+.cs-cup-bracket-fifteen .cs-cup-school{padding:.18rem 0}
+.cs-cup-bracket-fifteen .cs-cup-teamname{font-size:.66rem}
+.cs-cup-bracket-fifteen .cs-cup-match-label{font-size:.54rem}
+.cs-cup-bracket-fifteen .cs-cup-round.opening .cs-cup-crest{width:22px;height:22px}
+.cs-cup-bracket-fifteen .cs-cup-round.opening{justify-content:flex-start}
+.cs-cup-bracket-fifteen .cs-cup-round.opening .cs-cup-match:first-of-type{background:#f8f1e3;border-top:3px solid #a47a3f}
+@media(max-width:900px){.cs-cup-bracket-fifteen{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-cup-bracket-fifteen .cs-cup-round.championship{grid-column:auto}.cs-cup-bracket-fifteen .cs-cup-round.semis{border-top:1px solid #d9e3e6}}
+@media(max-width:540px){.cs-cup-bracket-fifteen{grid-template-columns:1fr}.cs-cup-bracket-fifteen .cs-cup-round.championship{grid-column:auto}.cs-cup-bracket-fifteen .cs-cup-round{border-right:0;border-bottom:1px solid #d9e3e6}}
