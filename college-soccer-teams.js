@@ -21,6 +21,7 @@ let scheduleData={teams:{}};
 let gameIndex={teams:{}};
 let brandData={teams:{}};
 let conferenceData={conferences:{},team_to_conference:{}};
+let conferenceStandings={rows:[],checked_date:null};
 
 
 
@@ -163,12 +164,15 @@ if(conference){
  for(const label of ['School','Conf. W–L–D','Points','USRS Elo'])heading.append(node('th',label));
  thead.append(heading);table.append(thead);
  const tbody=node('tbody');
- const official=(conference.official_conference||[]).slice().sort((a,b)=>Number(b.points)-Number(a.points));
+ const official=(conferenceStandings.rows||[]).slice().sort((a,b)=>Number(b.conference_points)-Number(a.conference_points));
+ const checked=conferenceStandings.checked_date;
+ const reportDate=node('p',checked?'Official table published snapshot: '+checked+' · Records may lag games played today.':'Official conference snapshot unavailable; check the league source for current standings.','team-visual-footnote');
+ tableSection.append(reportDate);
  for(const entry of official){
   const member=byId.get(t.cohort+':'+entry.team_id);if(!member)continue;
   const tr=node('tr');if(member.team_id===t.team_id)tr.className='is-current';
   const first=node('td');const anchor=node('a',member.team);anchor.href='college-soccer-team.html?team='+encodeURIComponent(t.cohort+':'+member.team_id);first.append(anchor);
-  tr.append(first,node('td',entry.record),node('td',entry.points),node('td',fmt(member.elo)));tbody.append(tr);
+  tr.append(first,node('td',entry.conference_record),node('td',entry.conference_points),node('td',fmt(member.elo)));tbody.append(tr);
  }
  table.append(tbody);tableSection.append(table);
  const src=node('a','Official conference standings ↗');src.href=conferenceData.source_url;src.target='_blank';src.rel='noopener noreferrer';tableSection.append(src);
@@ -187,7 +191,7 @@ if(conference){
   }
   conferencePanel.append(rivalSection);
  }
- conferencePanel.append(node('p','Conference records are sourced from the official MIAA standings; Elo, full-season totals and comparisons use our independently maintained rating snapshot. Cutoffs may differ.','team-visual-footnote'));
+ conferencePanel.append(node('p','The official conference feed is checked automatically, but updates appear only after its entire table validates. The published USRS Elo snapshot may lag independently. Never infer a final from a scheduled fixture.','team-visual-footnote'));
  profile.append(conferencePanel);
 }
 const sectionNav=node('nav',undefined,'team-section-nav');
@@ -385,7 +389,8 @@ const resources=await Promise.allSettled([
  fetch('data/college-soccer-team-schedules.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
  fetch('data/college-soccer-team-news.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
  fetch('data/college-soccer-team-branding.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
- fetch('data/college-soccer-conferences.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
+ fetch('data/college-soccer-conferences.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+ fetch('data/college-soccer-miaa-standings.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
 ]);
 if(resources[0].status==='fulfilled')verified=resources[0].value.results||[];
 if(resources[1].status==='fulfilled')forecasts=resources[1].value.forecasts||[];
@@ -394,6 +399,7 @@ if(resources[3].status==='fulfilled')scheduleData=resources[3].value;
 if(resources[4].status==='fulfilled')newsData=resources[4].value;
 if(resources[5].status==='fulfilled')brandData=resources[5].value;
 if(resources[6].status==='fulfilled')conferenceData=resources[6].value;
+if(resources[7].status==='fulfilled')conferenceStandings=resources[7].value;
 if(search.value.trim().length>=2){
  const current=new URLSearchParams(location.search).get('team');
  if(current&&byId.has(current))open(byId.get(current));
