@@ -30,8 +30,9 @@ jobs:
           python - <<'PY'
           import json
           d=json.load(open("data/ncaam-historical-player-concordance.json"))
-          assert d["summary"]["extracted_names"]==9954
-          assert d["summary"]["matched_to_historical_ncaa_season_rosters"]<=9954
+          source=json.load(open("data/ncaam-historical-bulk-player-reconciliation.json"))
+          assert d["summary"]["extracted_names"]==source["filtered_name_mentions"]
+          assert d["summary"]["matched_to_historical_ncaa_season_rosters"]<=source["filtered_name_mentions"]
           assert d["source_roster_timing_verified"] is False
           assert d["preopening_production_approved"] is False
           print("PASS: all historical name matches reconciled without preseason certification")
