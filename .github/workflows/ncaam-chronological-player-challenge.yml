@@ -1,0 +1,23 @@
+name: NCAA chronological player-quality challenge
+on:
+  push:
+    paths:
+      - 'scripts/verify_ncaam_chronological_player_challenge.py'
+      - 'data/ncaam-2026-27-player-quality-validated-challenge.json'
+      - 'data/ncaam-quality-earlyseason-asof-backtest.json'
+      - 'data/ncaam-2026-27-player-quality-release-decision.json'
+      - 'data/ncaam-2026-27-preseason-final-release-decision.json'
+      - '.github/workflows/ncaam-chronological-player-challenge.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_ncaam_chronological_player_challenge.py
+      - run: python scripts/verify_ncaam_player_quality_release.py
