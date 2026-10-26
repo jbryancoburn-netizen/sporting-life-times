@@ -27,7 +27,7 @@ const scores=(a,b)=>{
  // Research estimate pending possession/venue calibration; both sides share a neutral-tempo center.
  const difference=Math.max(-28,Math.min(28,(a.elo-b.elo)/25));
  const h=Math.round(72+difference/2),v=Math.round(72-difference/2);
- return [h,v];
+ if(h===v){return a.elo>=b.elo?[h+1,v]:[h,v+1];}\n return [h,v];
 };
 const prob=(a,b)=>1/(1+Math.pow(10,-(a.elo-b.elo)/400));
 const played=ledger?.games||[];
