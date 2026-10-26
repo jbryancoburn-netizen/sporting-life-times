@@ -2,7 +2,7 @@
 const $=id=>document.getElementById(id);
 const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/master/inst/kaggle_data/";
 const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),aliases=new Map(),known=new Set();
-const logos=new Map(),teamColors=new Map();
+const logos=new Map(),teamColors=new Map();let eraLogos={};
 const norm=s=>String(s||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
 const dateAdd=(base,days)=>{const d=new Date(base+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+Number(days));return d.toISOString().slice(0,10)};
 function parseCSV(raw){const lines=raw.replace(/^\uFEFF/,"").trim().split(/\r?\n/);const cols=lines.shift().split(",");return lines.filter(Boolean).map(line=>{const v=line.split(",");const x={};cols.forEach((c,i)=>x[c]=v[i]);return x})}
@@ -10,6 +10,8 @@ function register(label,id){if(!label||!id)return;const key=norm(label);if(!alia
 function resolve(label){const ids=aliases.get(norm(label));return ids&&ids.size===1?[...ids][0]:null}
 function name(id){return names.get(String(id))||String(id)}
 async function download(url){const r=await fetch(url,{cache:"force-cache"});if(!r.ok)throw Error("HTTP "+r.status+" for "+url);return r.text()}
+ const logoFor=(id,year)=>{const entries=eraLogos[id]||[];const found=entries.find(x=>year>=x.start&&year<=x.end&&x.url);return found?found.url:logos.get(id)};
+ const applyTheme=(elem,id)=>{const colors=teamColors.get(id)||["#293F5F","#D6AF69"];elem.style.setProperty("--club",colors[0]);elem.style.setProperty("--club-secondary",colors[1])};
 async function start(){
 
 
@@ -27,9 +29,7 @@ async function start(){
    if(id&&Number(t.espn_id)>0)logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
- let eraLogos={};try{const resp=await fetch("data/ncaam-rivalry-era-logos.json",{cache:"force-cache"});if(resp.ok)eraLogos=await resp.json()}catch(e){}
- const logoFor=(id,year)=>{const entries=eraLogos[id]||[];const found=entries.find(x=>year>=x.start&&year<=x.end&&x.url);return found?found.url:logos.get(id)};
- const applyTheme=(elem,id)=>{const colors=teamColors.get(id)||["#293F5F","#D6AF69"];elem.style.setProperty("--club",colors[0]);elem.style.setProperty("--club-secondary",colors[1])};
+ try{const resp=await fetch("data/ncaam-rivalry-era-logos.json",{cache:"force-cache"});if(resp.ok)eraLogos=await resp.json()}catch(e){}
 
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
