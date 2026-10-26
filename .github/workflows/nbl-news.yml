@@ -1,0 +1,48 @@
+name: NBL dedicated article wire
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - feeds.json
+      - scripts/collect_feeds.py
+      - .github/workflows/nbl-news.yml
+  schedule:
+    - cron: '9,39 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: nbl-dedicated-news
+  cancel-in-progress: false
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m py_compile scripts/collect_feeds.py
+      - run: python scripts/collect_feeds.py
+      - name: Validate dedicated NBL edition
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('nbl-articles.json')
+          d=json.loads(p.read_text())
+          print('NBL articles',len(d['articles']))
+          print('Sources',[(s['source'],s['items']) for s in d['feed_status']])
+          PY
+      - name: Publish independent NBL wire
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nbl-articles.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh verified NBL newspaper articles [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
+          exit 1
