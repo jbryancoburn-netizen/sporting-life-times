@@ -23,7 +23,9 @@ def main():
   games={};invalid=0;names=set()
   for rec in table.to_pylist():
    try:
-    y=int(rec["season"]);raw_date=str(rec["game_date"]).strip()\n    try:date=datetime.date.fromisoformat(raw_date[:10]).isoformat()\n    except ValueError:date=datetime.datetime.strptime(raw_date,"%m/%d/%Y").date().isoformat()
+    y=int(rec["season"]);raw_date=str(rec["game_date"]).strip()
+    try:date=datetime.date.fromisoformat(raw_date[:10]).isoformat()
+    except ValueError:date=datetime.datetime.strptime(raw_date,"%m/%d/%Y").date().isoformat()
     home=str(rec["home"] or "").strip();away=str(rec["away"] or "").strip()
     hs=int(rec["home_score"]);aws=int(rec["away_score"])
     if y!=season or not home or not away or home==away or hs==aws or min(hs,aws)<0:invalid+=1;continue
