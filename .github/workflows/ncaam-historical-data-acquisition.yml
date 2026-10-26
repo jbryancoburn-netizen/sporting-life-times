@@ -15,6 +15,7 @@ on:
       - 'scripts/build_ncaam_scoring_profiles.py'
       - 'scripts/build_ncaam_2027_multistat_challenger.py'
       - 'scripts/test_ncaam_multistat_release.py'
+      - 'scripts/audit_ncaam_indiana_highpoint_baseline.py'
       - 'scripts/audit_ncaam_historical_transfer_origin.py'
       - 'scripts/audit_ncaam_historical_multistat_coverage.py'
       - 'scripts/build_ncaam_historical_multistat_features.py'
@@ -106,6 +107,17 @@ jobs:
           PY
       - name: Convert historical player statistics, rosters and schedules for backtesting
         run: python scripts/normalize_ncaam_historical_parquet.py
+      - name: Reconstruct Indiana and High Point historical Elo baseline
+        run: |
+          python scripts/audit_ncaam_indiana_highpoint_baseline.py --source historical-normalized --output data/ncaam-indiana-high-point-baseline-audit.json
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-indiana-high-point-baseline-audit.json'))
+          assert len(d['years']['2026']['teams']['indiana']['match_ledger'])>=20
+          assert len(d['years']['2026']['teams']['high point']['match_ledger'])>=20
+          assert d['years']['2026']['games_replayed']>3000
+          print('Verified source games; published Elo parity:',d['published_baseline_comparison'])
+          PY
       - name: Reconcile and account for every historical roster player
         run: |
           python scripts/audit_ncaam_player_reconciliation.py --source historical-normalized --out historical-report/ncaam-player-reconciliation.json
