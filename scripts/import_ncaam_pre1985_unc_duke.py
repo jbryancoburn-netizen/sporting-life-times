@@ -13,8 +13,8 @@ def main():
  for r in rows:
   try:
    date=datetime.date.fromisoformat(r["Game_Date"]);season=int(r["Season"])
-   if not 1949<=season<=1984:continue
-   school=clean(r["Source_Team"]);other=clean(r["Opponent_School"])
+   if not 1950<=season<=1985:continue
+   school=clean(r["Source_Team"]);other=clean(r["Opponent_School"])\n   if other in ("unc","north carolina tar heels"):other="north carolina"\n   if other in ("duke blue devils",):other="duke"
    if school==other or not school or not other:errors["team_missing"]+=1;continue
    tm=int(r["Tm"]);opp=int(r["Opp"])
    if tm==opp or min(tm,opp)<0:errors["score_invalid"]+=1;continue
