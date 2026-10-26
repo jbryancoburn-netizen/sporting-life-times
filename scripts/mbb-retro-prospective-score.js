@@ -3,8 +3,8 @@
 const fs=require('node:fs');
 const predictionPath='data/mbb-retro-prospective-predictions-2026-27.json';
 const resultsPath='data/mbb-2026-2027-results.json';
-if(!fs.existsSync(predictionPath))throw Error('No timestamped prospective predictions yet; refusing to backfill.');
-if(!fs.existsSync(resultsPath))throw Error('No 2026-27 completed-game feed yet.');
+if(!fs.existsSync(predictionPath)){console.log('No pregame predictions yet; nothing to score.');process.exit(0);}
+if(!fs.existsSync(resultsPath)){console.log('No completed-game feed yet; nothing to score.');process.exit(0);
 const pred=JSON.parse(fs.readFileSync(predictionPath,'utf8'));
 const result=JSON.parse(fs.readFileSync(resultsPath,'utf8'));
 if(!Array.isArray(pred.predictions)||!Array.isArray(result.games))throw Error('Malformed predictions/results');
