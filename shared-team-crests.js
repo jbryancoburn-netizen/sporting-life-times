@@ -12,6 +12,10 @@ const OWNED_SELECTOR='img[src],img.team-logo,img.club-logo,img.school-logo,img.t
 const control=x=>(x||'').trim().toLowerCase();
 function isTeamLogo(img){
  if(img.dataset.sltMarkState||img.closest(PREMARKED))return false;
+ // Preserve oversized hero/cover crests: the shared system is for repeatable
+ // rank, score, standings and directory marks, not artwork-sized club symbols.
+ if(img.matches('.nbl-team-crest,.team-hero-logo-bg')||
+    img.closest('.depth-club-mark,.nbl-team-summary-head,.club-hero,.team-hero,.depth-club-hero,.hero-team,.hero-art'))return false;
  if(PHOTO_CONTEXT.test(String(img.className||''))||PHOTO_CONTEXT.test(String(img.parentElement?.className||'')))return false;
  const src=img.getAttribute('src')||'';
  const klass=String(img.className||'');
