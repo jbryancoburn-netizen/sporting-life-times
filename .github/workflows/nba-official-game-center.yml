@@ -20,7 +20,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: official-nba-game-center
+  group: nba-shared-elo-game-center-data
   cancel-in-progress: false
 jobs:
   update:
