@@ -3,6 +3,7 @@
 import json, re, html
 from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.request import Request,urlopen
 from xml.etree import ElementTree as ET
@@ -53,13 +54,18 @@ def editorial(a):
 
 def main():
  now=datetime.now(timezone.utc);items=[];fail=[];fresh_sources=0
- for name,url,scope in FEEDS:
-  try:
-   collected=list(rss(name,url,scope,now));items.extend(collected);fresh_sources+=len(collected)
-  except Exception as e:fail.append(name+": "+str(e)[:100])
- try:
-  collected=list(espn(now));items.extend(collected);fresh_sources+=len(collected)
- except Exception as e:fail.append("ESPN API: "+str(e)[:100])
+ # Parallel independent sources prevent one slow publisher from delaying every release.
+ # Each request has its own timeout; a failed source cannot block usable reports.
+ with ThreadPoolExecutor(max_workers=len(FEEDS)+1) as pool:
+  running={pool.submit(lambda n=name,u=url,sc=scope: list(rss(n,u,sc,now))):name for name,url,scope in FEEDS}
+  running[pool.submit(lambda: list(espn(now)))]="ESPN API"
+  for future in as_completed(running):
+   name=running[future]
+   try:
+    collected=future.result()
+    items.extend(collected);fresh_sources+=len(collected)
+   except Exception as e:
+    fail.append(name+": "+str(e)[:100])
  if fresh_sources==0:
   raise SystemExit("All live NBA news sources yielded zero usable stories; refusing to redate an old feed: "+" | ".join(fail))
  if OUT.exists():

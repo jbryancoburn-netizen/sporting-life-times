@@ -10,7 +10,12 @@ const href=s=>{try{const u=new URL(s);return ['http:','https:'].includes(u.proto
 const fmt=(n,d=0)=>Number.isFinite(Number(n))?Number(n).toFixed(d):'—';
 const date=s=>{let d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'Date unavailable'};
 const nyday=s=>{let d=new Date(s);return Number.isFinite(+d)?new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(d):''};
-const load=async path=>{try{let r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(12000)});return r.ok?await r.json():null}catch{return null}};
+const load=async path=>{try{
+ // Per-minute versioning avoids a stale Pages CDN response for the separately updated news wire.
+ const url=path==='data/nba-top-stories.json'?path+'?edition='+Math.floor(Date.now()/60000):path;
+ const r=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(12000)});
+ return r.ok?await r.json():null;
+ }catch{return null}};
 const meta={
 ATL:['Atlanta Hawks','East','Southeast','#e03a3e'],BOS:['Boston Celtics','East','Atlantic','#007a33'],BKN:['Brooklyn Nets','East','Atlantic','#333333'],
 CHA:['Charlotte Hornets','East','Southeast','#1d1160'],CHI:['Chicago Bulls','East','Central','#ce1141'],CLE:['Cleveland Cavaliers','East','Central','#860038'],
@@ -33,7 +38,8 @@ const blank=t=>'<div class="nba-empty">'+esc(t)+'</div>';
 let data={},rates={},seed={},prior={},records={},ordered=[],lastState='',filter='',playerFilter='';
 const gets=[['current','data/nba-2026-27-current-provisional.json'],['pre','data/nba-2026-27-preseason-provisional.json'],['old','data/nba-2025-26-final.json'],['schedule','data/nba-upcoming-schedule.json'],['archive','data/nba-game-center.json'],['leaders','data/nba-player-leaders.json'],['news','data/nba-top-stories.json'],['wire','data/nba-roster-wire-snapshot.json']];
 async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],await load(x[1])]));
- data=Object.fromEntries(result);
+ // Keep the last successfully read news and data if a single refresh request fails.
+ data=Object.fromEntries(result.map(([key,value])=>[key,value??data[key]??null]));
  rates=Object.fromEntries((data.current?.rankings||[]).filter(x=>meta[x.team]&&Number.isFinite(x.elo)).map(x=>[x.team,x.elo]));
  seed=Object.fromEntries((data.pre?.rankings||[]).map(x=>[x.team,x.elo]));
  prior=Object.fromEntries((data.old?.rankings||[]).map(x=>[x.team,x.elo]));
@@ -73,7 +79,13 @@ function stories(t){
  const today=Date.now(),seen=new Set();let filtered=items.filter(a=>{if(seen.has(a.url))return false;seen.add(a.url);return true})
  .sort((a,b)=>(Date.parse(b.published_at)||0)-(Date.parse(a.published_at)||0));
  if(t){const full=name(t).toLowerCase(),short=full.split(' ').at(-1),city=full.substring(0,full.lastIndexOf(' '));filtered=filtered.filter(a=>{let s=(a.title+' '+(a.summary||'')).toLowerCase();return s.includes(full)||s.includes(short)||(city.length>7&&s.includes(city));});}
- return filtered.slice(0,t?12:12).map((a,i)=>'<article class="nba-story '+(i===0?'lead':'')+'"><div class="byline">'+esc(a.source||'NBA desk')+' · '+date(a.published_at)+'</div><h3><a target="_blank" rel="noopener noreferrer" href="'+href(a.url)+'">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(a.summary).slice(0,i?210:325)+'</p>':'')+'</article>').join('')||blank('No verified attributed stories are available for this selection.');
+ const storiesHtml=filtered.slice(0,12).map((a,i)=>'<article class="nba-story '+(i===0?'lead':'')+'"><div class="byline">'+esc(a.source||'NBA desk')+' · '+date(a.published_at)+'</div><h3><a target="_blank" rel="noopener noreferrer" href="'+href(a.url)+'">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(a.summary).slice(0,i?210:325)+'</p>':'')+'</article>').join('');
+ const updatedAt=Date.parse(data.news?.updated_at||'');
+ const age=Number.isFinite(updatedAt)?Date.now()-updatedAt:Infinity;
+ const feedNotice='<p class="nba-news-updated '+(age>45*60000?'is-delayed':'')+'" role="status">'+
+ (Number.isFinite(updatedAt)?'NBA news feed: '+date(data.news.updated_at)+(age>45*60000?' · Delayed, showing last published reports':' · Updated from publisher sources'):
+ 'NBA news feed temporarily unavailable')+'</p>';
+ return feedNotice+(storiesHtml||blank('No attributed NBA articles matched this desk. Previously published reports will appear when the feed is restored.'));
 }
 function rankRows(list){return list.map(t=>'<div class="rank-row"><span class="rank">'+rank(t)+'</span>'+team(t)+'<span class="rank-score">'+fmt(rates[t],1)+'<small>'+rec(t)+' · '+esc(meta[t][1])+'</small></span></div>').join('')}
 function leaders(stat,count=4){

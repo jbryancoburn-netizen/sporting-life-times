@@ -71,3 +71,15 @@ test('NBA power table uses eleven sourced and compact analytical columns',()=>{
  assert.doesNotMatch(js,/nba-power-spotlights|nba-power-spotlight-team/,'oversized featured NBA logo cards must not reappear');
  assert.doesNotMatch(css,/nba-power-spotlights|nba-power-spotlight-team/,'unused oversized featured panel styling should not return');
 });
+
+test('NBA articles are rebuilt in fast Pages publishes and survive transient browser feed errors',()=>{
+ const wf=read('.github/workflows/publish-newspaper.yml');
+ const js=read('nba-newspaper.js'),py=read('scripts/collect-nba-stories.py');
+ assert.match(wf,/schedule:/);
+ assert.match(wf,/collect-nba-stories\.py/);
+ assert.match(wf,/test-nba-news-editorial\.py/);
+ assert.match(js,/edition='\+Math\.floor\(Date\.now\(\)\/60000\)/);
+ assert.match(js,/value\?\?data\[key\]\?\?null/);
+ assert.match(js,/nba-news-updated/);
+ assert.match(py,/ThreadPoolExecutor/);
+});

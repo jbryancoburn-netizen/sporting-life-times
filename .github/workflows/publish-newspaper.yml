@@ -6,6 +6,8 @@ on:
       - '**'
       - '!README.md'
   workflow_dispatch:
+  schedule:
+    - cron: '4,19,34,49 * * * *'
 permissions:
   contents: read
   pages: write
@@ -27,6 +29,23 @@ jobs:
           test -f index.html
           grep -q 'Sports Desks' index.html
           test -f sports.html
+      - name: Refresh NBA headlines inside the deployable Pages artifact
+        run: |
+          set -euo pipefail
+          if python3 scripts/collect-nba-stories.py && python3 scripts/test-nba-news-editorial.py; then
+            python3 - <<'PY'
+          from pathlib import Path
+          import json,datetime
+          data=json.loads(Path('data/nba-top-stories.json').read_text())
+          updated=datetime.datetime.fromisoformat(data['updated_at'].replace('Z','+00:00'))
+          age=(datetime.datetime.now(datetime.timezone.utc)-updated).total_seconds()
+          assert 0 <= age < 1200, 'Collected NBA news is unexpectedly stale'
+          assert len(data['articles'])>=3, 'NBA headline feed is incomplete'
+          print('Rebuilt NBA headlines within Pages artifact:',len(data['articles']),'as of',updated.isoformat())
+          PY
+          else
+            echo "::warning::NBA source collection failed; retaining last-attributed feed with its original timestamp"
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

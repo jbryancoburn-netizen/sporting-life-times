@@ -219,3 +219,7 @@ body.nba-newspaper[data-page="rankings"] table.nba-power-table th:nth-child(2),
 body.nba-newspaper[data-page="rankings"] table.nba-power-table td:nth-child(2){position:sticky;left:43px;z-index:2;background:var(--paper);box-shadow:2px 0 0 var(--line)}
 body.nba-newspaper[data-page="rankings"] table.nba-power-table th:nth-child(-n+2){z-index:3}
 }
+
+/* Transparent status of publisher-sourced NBA reporting */
+body.nba-newspaper .nba-news-updated{font:10px/1.4 'DM Sans',Arial,sans-serif;color:#31666d;background:#e5efec;border-left:3px solid #087e83;padding:7px 10px;margin:0 0 10px}
+body.nba-newspaper .nba-news-updated.is-delayed{color:#875a28;background:#f4e9d4;border-left-color:#b58d37}
