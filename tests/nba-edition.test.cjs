@@ -59,3 +59,13 @@ test('ratings and simulated standings are identified distinctly from official NB
  assert.match(s,/45-point home advantage/);
  assert.match(s,/Captured-game|captured box-score|Captured box-score/);
 });
+
+test('NBA power table uses eleven sourced and compact analytical columns',()=>{
+ const js=read('nba-newspaper.js'),css=read('nba-newspaper.css');
+ for(const key of ['function powerLog(','function powerForm(','nba-power-table','Last 5','Streak','PF/G','PA/G','Margin','Δ Elo','nba-power-history'])assert.ok(js.includes(key),'missing '+key);
+ assert.ok(js.includes('g.home_score')&&js.includes('g.away_score'),'power form must use final scores');
+ assert.ok(js.includes('records[t].pf/gp')&&js.includes('records[t].pa/gp'),'per-game stats use actual finals');
+ assert.ok(js.includes("all.slice(-5)"),'last-five record must be actual trailing finals');
+ assert.ok(css.includes('table-layout:fixed')&&css.includes('height:48px'));
+ assert.match(read('nba-rankings.html'),/20261026power4/);
+});

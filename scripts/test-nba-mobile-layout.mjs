@@ -89,6 +89,10 @@ try{
  await page.goto('http://127.0.0.1:8765/nba-rankings.html');
  await page.waitForSelector('#app .nba-table tbody tr',{timeout:15000});
  if(await page.locator('#app .nba-table tbody tr').count()<30)throw Error('Thirty-team Elo rankings missing');
+  const tableShape=await page.evaluate(()=>({columns:document.querySelectorAll('.nba-power-table thead th').length,rows:document.querySelectorAll('.nba-power-table tbody tr').length,heights:[...document.querySelectorAll('.nba-power-table tbody tr')].slice(0,5).map(el=>Math.round(el.getBoundingClientRect().height)),form:!!document.querySelector('.nba-power-recent'),streak:!!document.querySelector('.nba-power-streak'),margin:!!document.querySelector('.nba-power-difference')}));
+  if(tableShape.columns!==11||tableShape.rows!==30||!tableShape.form||!tableShape.streak||!tableShape.margin)throw Error('Power rankings analytical data missing: '+JSON.stringify(tableShape));
+  if(tableShape.heights.some(h=>h>62))throw Error('Power rankings rows still excessively tall: '+JSON.stringify(tableShape.heights));
+
  for(const width of [390,1280]){
   await page.setViewportSize({width,height:844});
   await page.goto('http://127.0.0.1:8765/nba-rankings.html');

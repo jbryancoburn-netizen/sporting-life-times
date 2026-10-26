@@ -100,9 +100,52 @@ function standings(){
  const blocs=['East','West'].map(c=>'<section class="panel">'+section('Standings desk',c+'ern Conference','nba-conference.html?conference='+c,'Conference desk →')+table(standingHeads,standingRows(stand(c)))+'</section>').join('');
  const divs=['Atlantic','Central','Southeast','Northwest','Pacific','Southwest'].map(d=>'<div class="nba-division-card"><h3>'+d+'</h3>'+table([['Club'],['W–L','num'],['Elo','num']],codes.filter(t=>meta[t][2]===d).sort((a,b)=>stand(meta[a][1]).indexOf(a)-stand(meta[b][1]).indexOf(b)).map(t=>'<tr><td>'+team(t)+'</td><td class="num">'+rec(t)+'</td><td class="num">'+fmt(rates[t],0)+'</td></tr>'))+'</div>').join('');
  return '<div class="eyebrow">2026–27 · NBA</div><h1>STANDINGS DESK</h1><p class="nba-note">Win–loss records are reconstructed from the independent verified-finals ledger. Equal-record ordering here uses Elo, not the NBA’s full official multi-team tiebreaker procedure.</p><div class="nba-mini-grid">'+blocs+'</div><h2>Six Divisions</h2><div class="nba-mini-grid">'+divs+'</div>'+directory();}
+function powerLog(t){
+ return (data.current?.events||[]).filter(g=>(g.home===t||g.away===t)&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score)
+ .slice().sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)||String(a.id).localeCompare(String(b.id)))
+ .map(g=>({won:g.home===t?(+g.home_score>+g.away_score):(+g.away_score>+g.home_score)}));
+}
+function powerForm(t){
+ const all=powerLog(t),last=all.slice(-5),wins=last.filter(g=>g.won).length;
+ const final=all[all.length-1];let n=0;
+ if(final){for(let i=all.length-1;i>=0&&all[i].won===final.won;i--)n++;}
+ const streak=final?(final.won?'W':'L')+n:'—';
+ const gp=records[t].w+records[t].l;
+ const scored=gp?records[t].pf/gp:null,allowed=gp?records[t].pa/gp:null;
+ const margin=gp?(records[t].pf-records[t].pa)/gp:null;
+ return {last,wins,streak,scored,allowed,margin,gp};
+}
 function rankings(){
- const rows=ordered.map((t,i)=>'<tr><td class="num">'+(i+1)+'</td><td>'+team(t)+'</td><td>'+esc(meta[t][1])+'</td><td class="num">'+rec(t)+'</td><td class="num"><strong>'+fmt(rates[t],2)+'</strong></td><td class="num">'+fmt(seed[t],2)+'</td><td class="num">'+(Number.isFinite(seed[t])?'<span style="color:'+(rates[t]-seed[t]>=0?'#147b62':'#bb5331')+'">'+(rates[t]-seed[t]>=0?'+':'')+fmt(rates[t]-seed[t],2)+'</span>':'—')+'</td><td class="num">'+fmt(prior[t],2)+'</td></tr>');
- return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note">Current ratings update from verified finals. The preseason and 2025–26 end-of-season baselines remain separate comparisons; they are not overwritten by live results.</p>'+stats()+table([['#','num'],['Team'],['Conf.'],['W–L','num'],['Current Elo','num'],['Opening Elo','num'],['Change','num'],['2025–26 Final','num']],rows)+'<p class="note">Traditional Elo incorporates prior-season strength and completed game outcomes; roster-adjusted estimates are separate and must not be presented as verified without sourced coverage.</p>';}
+ const forms=Object.fromEntries(ordered.map(t=>[t,powerForm(t)]));
+ const scores=ordered.filter(t=>forms[t].gp>=2),attack=scores.slice().sort((a,b)=>forms[b].scored-forms[a].scored)[0];
+ const leader=ordered[0];
+ const moved=ordered.filter(t=>Number.isFinite(seed[t])).slice().sort((a,b)=>(rates[b]-seed[b])-(rates[a]-seed[a]))[0];
+ const tile=(label,t,value,foot)=>t?'<a class="nba-power-spotlight" href="'+tl(t)+'"><small>'+esc(label)+'</small><div class="nba-power-spotlight-team">'+image(t)+'<b>'+esc(name(t))+'</b></div><strong>'+esc(value)+'</strong><span>'+esc(foot)+'</span></a>':'';
+ const highlights='<div class="nba-power-spotlights">'+
+ tile('USRS front-runner',leader,fmt(rates[leader],1),'Independent Elo points')+
+ (moved?tile('Biggest early rise',moved,(rates[moved]-seed[moved]>=0?'+':'')+fmt(rates[moved]-seed[moved],1),'Elo versus opening rating'):'')+
+ (attack?tile('Fastest scoring attack',attack,fmt(forms[attack].scored,1),'Points per game · min. 2 verified finals'):'')+'</div>';
+ const row=(t,i)=>{
+  const f=forms[t],delta=Number.isFinite(seed[t])?rates[t]-seed[t]:null,negative=delta!==null&&delta<0;
+  const form=f.last.length?'<span class="nba-power-recent">'+f.last.map(x=>'<i class="'+(x.won?'win':'loss')+'" aria-label="'+(x.won?'win':'loss')+'">'+(x.won?'W':'L')+'</i>').join('')+'</span><small>'+f.wins+'–'+(f.last.length-f.wins)+'</small>':'<span class="nba-power-empty">—</span>';
+  return '<tr><td class="num nba-power-rank">'+(i+1)+'</td><td class="nba-power-club">'+team(t)+'</td>'+
+  '<td class="nba-power-conf">'+esc(meta[t][1])+'</td><td class="num nba-power-record">'+rec(t)+'</td>'+
+  '<td class="nba-power-form" aria-label="Last '+f.last.length+' games: '+f.wins+' wins">'+form+'</td>'+
+  '<td class="num"><span class="nba-power-streak '+(f.streak.startsWith('W')?'win':f.streak.startsWith('L')?'loss':'')+'">'+esc(f.streak)+'</span></td>'+
+  '<td class="num">'+(f.gp?fmt(f.scored,1):'—')+'</td><td class="num">'+(f.gp?fmt(f.allowed,1):'—')+'</td>'+
+  '<td class="num"><span class="nba-power-difference '+(f.margin===null?'':f.margin>=0?'pos':'neg')+'">'+(f.margin===null?'—':(f.margin>0?'+':'')+fmt(f.margin,1))+'</span></td>'+
+  '<td class="num nba-power-elo"><strong>'+fmt(rates[t],1)+'</strong></td>'+
+  '<td class="num"><span class="nba-power-change '+(negative?'neg':'pos')+'">'+(delta===null?'—':(delta>0?'+':'')+fmt(delta,1))+'</span></td></tr>';
+ };
+ const header=[['#','num'],['Team',''],['Conf.',''],['W–L','num'],['Last 5',''],['Streak','num'],['PF/G','num'],['PA/G','num'],['Margin','num'],['USRS Elo','num'],['Δ Elo','num']];
+ const tableHtml='<div class="nba-table-wrap nba-power-table-wrap" role="region" tabindex="0" aria-label="NBA power rankings, horizontally scrollable on smaller screens"><table class="nba-table nba-power-table"><thead><tr>'+header.map(([label,cls])=>'<th scope="col" class="'+cls+'">'+label+'</th>').join('')+'</tr></thead><tbody>'+ordered.map(row).join('')+'</tbody></table></div>';
+ const baseline='<details class="nba-power-history"><summary>Compare historical rating baselines</summary><p class="nba-note">Opening Elo and 2025–26 final Elo are preserved separately; neither is changed by this season’s results.</p><div class="nba-table-wrap"><table class="nba-table nba-power-baseline"><thead><tr><th>Team</th><th class="num">2025–26 Final</th><th class="num">2026–27 Opening</th><th class="num">Current Elo</th></tr></thead><tbody>'+ordered.map(t=>'<tr><td>'+team(t)+'</td><td class="num">'+fmt(prior[t],1)+'</td><td class="num">'+fmt(seed[t],1)+'</td><td class="num">'+fmt(rates[t],1)+'</td></tr>').join('')+'</tbody></table></div></details>';
+ return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. Ranked by independent Elo, not NBA conference standings.</p>'+
+ highlights+
+ '<div class="nba-power-table-intro"><div><div class="eyebrow">The complete USRS 30</div><h2>Power Table</h2></div><small>PF/G = points scored · PA/G = points allowed · Margin = point differential per game · Δ Elo = movement from opening rating</small></div>'+
+ tableHtml+'<p class="nba-power-footnote">Last 5 and streak use completed games only. Early-season averages are sensitive to small samples; figures update with verified finals.</p>'+baseline;
+}
+
 function playoff(){
  const list=['East','West'].map(c=>'<div class="nba-projection"><div class="eyebrow">2026–27 · '+c+'ern Conference</div><h3>Current Projected Seeds</h3><div class="nba-seeds">'+stand(c).map((t,i)=>'<a href="'+tl(t)+'" class="nba-seed"><span class="seed">'+(i+1)+'</span>'+image(t)+'<span><b>'+esc(name(t))+'</b><small>'+rec(t)+' · Elo #'+rank(t)+' · '+(i<6?'Top-six position':i<10?'Play-in position':'Outside current top ten')+'</small></span></a>').join('')+'</div></div>').join('');
  return '<div class="eyebrow">The Road to the NBA Playoffs</div><h1>PLAYOFF PICTURE</h1><p class="nba-note">Projected order from the current reconstructed conference records, with independent Elo used to separate ties. Play-in positions are seeds 7–10, direct positions 1–6. These are early projections—not official seeds, schedules, or qualified teams.</p>'+list+'<div class="panel">'+section('How It Works','Conference Race & Play-In')+'<div class="nba-mini-grid"><div class="nba-static-cover"><div class="nba-kicker">Seeds 1–6</div><h3>Direct playoff places</h3><p>Each conference’s six highest seeds advance directly under the current NBA postseason format.</p></div><div class="nba-static-cover"><div class="nba-kicker">Seeds 7–10</div><h3>Play-In Tournament</h3><p>7 hosts 8 for the seventh seed; 9 hosts 10 in an elimination game. The 7–8 loser plays the 9–10 winner for eighth.</p></div></div></div>';}
