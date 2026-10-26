@@ -52,3 +52,34 @@ jobs:
           path: '.'
       - id: deploy
         uses: actions/deploy-pages@v4
+      - name: Verify refreshed NBA headlines actually reached public Pages
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${PAGE_URL%/}"
+          for attempt in 1 2 3 4 5 6 7 8; do
+            if curl -fsSL --max-time 20 "$ROOT/data/nba-top-stories.json?news_release=${GITHUB_RUN_ID}-${attempt}" -o /tmp/nba-stories-public.json; then
+              if python3 - <<'PY'
+          import json,datetime
+          from pathlib import Path
+          local=json.loads(Path('data/nba-top-stories.json').read_text())
+          public=json.loads(Path('/tmp/nba-stories-public.json').read_text())
+          assert public['updated_at']==local['updated_at'], 'Public NBA headlines differ from the just-deployed artifact'
+          assert len(public.get('articles',[]))>=3, 'Public NBA headlines are missing'
+          dt=datetime.datetime.fromisoformat(public['updated_at'].replace('Z','+00:00'))
+          age=(datetime.datetime.now(datetime.timezone.utc)-dt).total_seconds()
+          assert -300 <= age < 2700, f'Public NBA headline feed is stale: {age/60:.0f} min'
+          print('PASS: public NBA headlines match deployment; freshness',round(age/60),'minutes')
+          PY
+              then
+                exit 0
+              fi
+            fi
+            echo "::notice::NBA public feed not updated yet (attempt $attempt/8)"
+            sleep 8
+          done
+          echo "::error::NBA public feed is stale or differs from the published artifact"
+          exit 1
+
