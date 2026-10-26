@@ -30,6 +30,13 @@ jobs:
           import json,pathlib
           p=pathlib.Path('nbl-articles.json')
           d=json.loads(p.read_text())
+          import datetime
+          now=datetime.datetime.now(datetime.timezone.utc)
+          updated=datetime.datetime.fromisoformat(d['updated_at'])
+          assert 0 <= (now-updated).total_seconds() < 900, 'NBL article snapshot is stale'
+          assert len(d['articles']) >= 5, 'Too few NBL reports; preserve previously published edition'
+          assert any(x.get('items',0)>0 for x in d['feed_status']), 'No working NBL-specific feed'
+          assert all(a.get('url','').startswith('https://') and a.get('title') for a in d['articles']), 'Invalid article entry'
           print('NBL articles',len(d['articles']))
           print('Sources',[(s['source'],s['items']) for s in d['feed_status']])
           PY
