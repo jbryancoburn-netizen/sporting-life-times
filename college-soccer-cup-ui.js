@@ -8,7 +8,7 @@ function crest(name,id,cohort,branding){
  const mark=node('span','slt-mark slt-mark--medium slt-mark--verified soccer-school-mark');
  mark.style.setProperty('--slt-mark-ring',color);
  mark.style.cssText+=';display:inline-flex!important;align-items:center!important;justify-content:center!important;position:relative!important;box-sizing:border-box!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;flex:0 0 44px!important;border:3px solid '+color+'!important;border-radius:50%!important;overflow:hidden!important;background:white!important;';
- const fallback=node('span','slt-mark-initial soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
+ const fallback=node('span','slt-mark-initial soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
  fallback.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;position:absolute!important;inset:0!important;font:800 11px Arial,sans-serif!important;color:'+color+'!important;background:white!important;';
  mark.append(fallback);
  if(info.logo_url){
