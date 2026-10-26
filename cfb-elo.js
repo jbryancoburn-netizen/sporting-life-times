@@ -33,18 +33,35 @@ for(const [id,fixtures] of opponents){const record=records.get(id)||{wins:0,loss
 // adjusted power rating is distinct from the immutable chronological Elo ledger.
 const current=new Map([...ratings].map(([id,t])=>[id,t.elo]));
 const retrospective=new Map(current);
-const graph=[...opponents].map(([id,games])=>[id,games.map(g=>({id:g.id,edge:g.homeEdge}))]);
+// Re-score every historic game against the latest estimate of its opponent.
+// Each pass uses a frozen snapshot so update order cannot favor any team.
 for(let pass=0;pass<12;pass++){
- const next=new Map();
- for(const [id,games] of graph){
-  const own=current.get(id)??initial;
-  const oppAverage=games.reduce((sum,g)=>sum+(retrospective.get(g.id)??initial),0)/games.length;
-  const originalAverage=games.reduce((sum,g)=>sum+(current.get(g.id)??initial),0)/games.length;
-  // Damped and capped opponent-strength correction; prevents runaway feedback.
-  const correction=Math.max(-100,Math.min(100,(oppAverage-originalAverage)*0.35));
-  next.set(id,own+correction);
+ const snapshot=new Map(retrospective),corrections=new Map(),played=new Map();
+ for(const e of events){
+  const c=e.competitions[0],a=c.competitors[0],b=c.competitors[1];
+  const ia=String(a.team.id),ib=String(b.team.id);
+  const ra=snapshot.get(ia)??initial,rb=snapshot.get(ib)??initial;
+  const edge=c.neutralSite?0:a.homeAway==='home'?homeEdge:b.homeAway==='home'?-homeEdge:0;
+  const actual=Number(a.score)>Number(b.score)?1:Number(a.score)<Number(b.score)?0:0.5;
+  const expected=winProbability(ra,rb,edge);
+  const mov=Math.min(2.5,1+Math.log1p(Math.abs(Number(a.score)-Number(b.score)))/3);
+  const residual=K*mov*(actual-expected);
+  corrections.set(ia,(corrections.get(ia)||0)+residual);
+  corrections.set(ib,(corrections.get(ib)||0)-residual);
+  played.set(ia,(played.get(ia)||0)+1);played.set(ib,(played.get(ib)||0)+1);
  }
- for(const [id,value] of next)retrospective.set(id,value);
+ let maxChange=0;
+ for(const [id,base] of current){
+  const count=played.get(id)||0;
+  // Retain the original chronological result as anchor, and correct only
+  // the current mismatch with all opponents' revised strengths.
+  const residual=count?(corrections.get(id)||0)/count:0;
+  const target=base+Math.max(-90,Math.min(90,0.9*residual));
+  const next=0.5*(snapshot.get(id)??base)+0.5*target;
+  maxChange=Math.max(maxChange,Math.abs(next-(snapshot.get(id)??base)));
+  retrospective.set(id,next);
+ }
+ if(maxChange<0.0001)break;
 }
 for(const [id,fixtures] of opponents){
  const old=scheduleMetrics.get(id);
