@@ -3,11 +3,19 @@ const node=(tag,cls,text)=>{const x=document.createElement(tag);if(cls)x.classNa
 const svgSafe=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const profile=(cohort,id)=>'college-soccer-team.html?team='+encodeURIComponent(cohort+':'+id);
 function crest(name,id,cohort,branding){
- const mark=node('span','cs-cup-crest',String(name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()||'SC');
  const info=branding?.teams?.[cohort+':'+id]||{};
- if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))mark.style.setProperty('--club',info.primary);
- const src=info.logo_url||null;
- if(src){const img=node('img');img.alt='';img.loading='lazy';img.decoding='async';img.addEventListener('load',()=>{if(img.naturalWidth>0&&img.naturalHeight>0){mark.classList.add('has-image')}else{img.remove();mark.classList.remove('has-image')}});img.addEventListener('error',()=>{img.remove();mark.classList.remove('has-image')});mark.append(img);img.src=src;}
+ const mark=node('span','soccer-school-mark');
+ const initials=String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC';
+ const fallback=node('span','soccer-school-fallback',initials);
+ if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))fallback.style.color=info.primary;
+ mark.append(fallback);
+ if(info.logo_url){
+  const img=node('img','soccer-school-image');
+  img.alt=name+' logo';img.loading='eager';img.decoding='async';
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){img.style.display='block';fallback.style.display='none';}else img.remove()});
+  img.addEventListener('error',()=>img.remove());
+  mark.append(img);img.src=info.logo_url;
+ }
  return mark;
 }
 function school(name,id,cohort,branding,seed){
