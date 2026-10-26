@@ -1,18 +1,37 @@
 (()=>{'use strict';
 const host=document.getElementById('ncaa-selection-forecast');if(!host)return;
-const el=(tag,txt,cls)=>{const e=document.createElement(tag);if(txt!==undefined&&txt!==null)e.textContent=String(txt);if(cls)e.className=cls;return e};
-async function show(){
- try{
-  const r=await fetch('data/college-soccer-ncaa-selection-forecast.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Forecast data is unavailable');
-  const d=await r.json();if(d.field?.length!==48||d.automatic_bid_scenarios?.length!==23||d.at_large_proxy?.length!==25)throw Error('Invalid selection forecast field');
-  host.replaceChildren();
-  const headline=el('div',null,'cs-selection-summary');
-  for(const [value,label] of [[48,'FIELD'],[23,'AUTO BIDS'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));headline.append(x)}host.append(headline);
-  host.append(el('p','EXPERIMENTAL FORECAST · '+d.rating_cutoff+' · Conference champions and at-large entries are illustrative Elo scenarios, not NCAA RPI, committee selections, official seeds or selection probabilities.','cs-selection-warning'));
-  const groups=[['EXPERIMENTAL TOP 24 · NOT NCAA SEEDS',d.field.slice(0,24)],['PROJECTED FIELD · REMAINING 24',d.field.slice(24)],['BUBBLE · FIRST FOUR OUT (ELO PROXY)',d.first_four_out_proxy]];
-  for(const [heading,rows] of groups){const block=el('section',null,'cs-selection-group');block.append(el('h2',heading));const table=el('table',null,'cs-selection-table');const head=el('tr');for(const name of ['#','School','Route','USRS'])head.append(el('th',name));table.append(head);
-   rows.forEach((entry,i)=>{const tr=el('tr');tr.append(el('td',entry.experimental_strength_order||i+49),el('td',entry.team),el('td',entry.bid_type==='projected_aq'?'AQ scenario':entry.bid_type==='elo_proxy_at_large'?'At-large proxy':'Bubble'),el('td',Math.round(entry.elo)));table.append(tr)});block.append(table);host.append(block)}
-  const source=el('p','Official NCAA selection criteria require RPI, strength of schedule, quality of results, head-to-head, common opponents and eligibility review. These cannot be substituted with Elo. NCAA selection is November 16.','cs-selection-warning');host.append(source);
- }catch(error){host.replaceChildren(el('p','NCAA selection model could not load: '+error.message,'cs-selection-warning'))}
-}show();setInterval(show,60000);
+const el=(tag,txt,cls)=>{const x=document.createElement(tag);if(txt!==undefined&&txt!==null)x.textContent=String(txt);if(cls)x.className=cls;return x};
+const file=async path=>{const r=await fetch(path+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' unavailable');return r.json()};
+let mode='ncaa';
+function draw(data,metrics){
+ host.replaceChildren();
+ const nav=el('div',null,'cs-selection-modes');
+ for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + USRS ELO']]){
+  const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics)};nav.append(b)
+ }host.append(nav);
+ const summary=el('div',null,'cs-selection-summary');
+ for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
+ if(mode==='ncaa'){
+  host.append(el('h2','NCAA CRITERIA FORECAST'));
+  host.append(el('p','The NCAA view is built around adjusted RPI, strength of schedule, record, nonconference results, head-to-head, common opponents, selected-opponent results and the final eight matches. It does NOT use USRS Elo.','cs-selection-warning'));
+  if(metrics?.status!=='verified_complete'){
+   host.append(el('h3','NCAA FIELD NOT YET CERTIFIED'));
+   host.append(el('p','A complete 2026 NCAA RPI/résumé dataset is not available in the project. Rather than falsely label Elo selections as an NCAA-style field, this view remains pending until the verified selection metrics are loaded. The at-large bubble and seeds are not calculated from absent data.','cs-selection-warning'));
+   return;
+  }
+ }
+ const entries=mode==='usrs'?data.field:metrics.field;
+ host.append(el('h2',mode==='usrs'?'NCAA FORMAT + YOUR USRS ELO · INITIAL PROXY':'COMMITTEE-CRITERIA FIELD'));
+ host.append(el('p',mode==='usrs'?'This is currently the USRS baseline model. It uses Elo for illustrative conference winners and remaining at-large selections; the NCAA résumé factors must still be added before it qualifies as the full hybrid model.':'Selection based on verified NCAA résumé metrics.','cs-selection-warning'));
+ const groups=[['FIRST 24 · EXPERIMENTAL ORDER',entries.slice(0,24)],['REMAINING FIELD',entries.slice(24)],['BUBBLE / NEXT FOUR',mode==='usrs'?data.first_four_out_proxy:metrics.first_four_out||[]]];
+ for(const [name,rows] of groups){
+  const section=el('section',null,'cs-selection-group');section.append(el('h2',name));
+  const table=el('table',null,'cs-selection-table');const head=el('tr');
+  for(const h of ['#','School','Bid path',mode==='usrs'?'USRS':'Résumé score'])head.append(el('th',h));table.append(head);
+  rows.forEach((x,i)=>{const tr=el('tr');for(const v of [x.experimental_strength_order||i+1,x.team,x.bid_type==='projected_aq'?'Projected AQ':'At-large scenario',mode==='usrs'?Math.round(x.elo):x.resume_score??'—'])tr.append(el('td',v));table.append(tr)});
+  section.append(table);host.append(section);
+ }
+}
+async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-criteria.json').catch(()=>({status:'not_ready'}));draw(data,metrics)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
+show();setInterval(show,60000);
 })();
