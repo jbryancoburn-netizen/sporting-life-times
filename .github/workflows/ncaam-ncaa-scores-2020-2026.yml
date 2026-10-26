@@ -1,0 +1,42 @@
+name: Retrieve and audit NCAA D1 scores 2020–2026
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: Season ending year (2020-2026)
+        required: true
+        default: '2020'
+  push:
+    paths:
+      - 'scripts/acquire_ncaam_ncaa_2020_2026.py'
+      - '.github/workflows/ncaam-ncaa-scores-2020-2026.yml'
+permissions:
+  contents: write
+concurrency:
+  group: ncaa-historical-scores
+  cancel-in-progress: false
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        season: [2020,2021,2022,2023,2024,2025,2026]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pull genuine NCAA results by day
+        run: |
+          python scripts/acquire_ncaam_ncaa_2020_2026.py --season ${{ matrix.season }} --sleep 0.4
+      - name: Preserve complete scored fixture archives
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaa-score-source-${{ matrix.season }}
+          path: |
+            historical-normalized/ncaa/ncaa-${{ matrix.season }}-finals.csv
+            historical-normalized/ncaa/ncaa-${{ matrix.season }}-audit.json
+          if-no-files-found: warn
