@@ -16,11 +16,9 @@ for(const g of schedule.games||[]){
  if(!g.id||!g.home_id||!g.away_id||!Number.isFinite(tip)||tip<=now.getTime()||!['home','neutral'].includes(site)||seen.has(String(g.id))||g.home_score!=null||g.away_score!=null){skipped++;continue;}
  const earlier=completed.filter(x=>x.date&&Date.parse(x.date)<now.getTime()&&Number.isFinite(Number(x.home_score))&&Number.isFinite(Number(x.away_score))&&x.home_score!==''&&x.away_score!==''&&x.id!==g.id);
  const p={game_id:String(g.id),home_id:String(g.home_id),away_id:String(g.away_id),game_date:g.date,recorded_at:now.toISOString(),tipoff_at:new Date(tip).toISOString(),venue:site,completed_games_used:earlier.length};
- for(const edge of [65,100]){
-  const ratings=globalThis.MBB_RETRO.calculate(earlier,{baseline:1500,homeEdge:edge}).ratings;
-  const a=ratings[p.home_id]??1500,b=ratings[p.away_id]??1500;
-  p['p_home_'+edge]=1/(1+10**((b-a-(site==='neutral'?0:edge))/400));
- }
+ const ratings=globalThis.MBB_RETRO.calculate(earlier,{baseline:1500,homeEdge:100}).ratings;
+ const a=ratings[p.home_id]??1500,b=ratings[p.away_id]??1500;
+ p.p_home_100=1/(1+10**((b-a-(site==='neutral'?0:100))/400));
  archive.predictions.push(p);seen.add(p.game_id);captured++;
 }
 if(captured)fs.writeFileSync(dest,JSON.stringify(archive,null,2)+'\n');
