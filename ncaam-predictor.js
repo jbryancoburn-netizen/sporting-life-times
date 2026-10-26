@@ -39,7 +39,18 @@ $("caveat").textContent=calibrated?
  "Win probability is based on selected Elo. Scores use a temporary 72-point-per-team baseline pending historical validation; they are not yet a team-specific offense/defense forecast.";
 const impact=(t)=>[['Returning minutes',t.retention_component],['Transfer minutes',t.transfer_component],['Player scoring quality',t.quality_component]].map(([title,v])=>
  '<div class="impact"><span>'+title+'</span><strong>'+ (Number.isFinite(Number(v))?signed(v):"Not available")+' Elo</strong></div>').join("");
-function image(team,key){const id=logoIds.get(team.team_id);const el=$("logo-"+key);if(id&&/^\d+$/.test(id)){el.src="https://a.espncdn.com/i/teamlogos/ncaa/500/"+id+".png";el.hidden=false;el.onerror=()=>{el.hidden=true}}else{el.removeAttribute("src");el.hidden=true}}
+const schoolColors={"Indiana":"#990000","Purdue":"#CEB888","Duke":"#003087","North Carolina":"#7BAFD4","Michigan":"#00274C","Kentucky":"#0033A0","Kansas":"#0051BA","UConn":"#000E2F","Gonzaga":"#002967","Michigan State":"#18453B","UCLA":"#2774AE","Florida":"#0021A5","Houston":"#C8102E","Arizona":"#AB0520","Illinois":"#E84A27","Tennessee":"#FF8200"};
+function image(team,key){
+ const id=logoIds.get(team.team_id),el=$("logo-"+key),fallback=$("logo-fallback-"+key),side=$("logo-shell-"+key).closest(".team-side");
+ const short=team.team.split(/\s+/).map(x=>x[0]).slice(0,3).join("").toUpperCase();
+ const color=schoolColors[team.team]||"#466580";
+ side.style.setProperty("--side-color",color);
+ $("hero").style.setProperty("--team-"+key+"-color",color);
+ fallback.textContent=short;
+ function failed(){el.hidden=true;fallback.hidden=false}
+ if(id&&/^\d+$/.test(id)){el.onload=()=>{fallback.hidden=true;el.hidden=false};el.onerror=failed;fallback.hidden=false;el.hidden=true;el.src="https://a.espncdn.com/i/teamlogos/ncaa/500/"+id+".png"}
+ else{el.removeAttribute("src");failed()}
+}
 function render(){
  const a=map.get($("team-a").value),b=map.get($("team-b").value);
  if(!a||!b)return;
