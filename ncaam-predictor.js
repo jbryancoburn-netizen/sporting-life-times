@@ -29,6 +29,8 @@ const scoringProfiles=await get("data/ncaam-team-scoring-profiles.json");
 const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);
 const volatility=await get("data/ncaam-2026-27-preseason-uncertainty-features.json");
 const volatilityMap=new Map((volatility?.teams||[]).map(x=>[x.team_id,x]));
+const multistatChallenger=await get("data/ncaam-2026-27-multistat-challenger.json");
+const multistatMap=multistatChallenger?.team_count===365&&multistatChallenger?.status==="SHADOW_ONLY_RETROSPECTIVE_WEIGHTS_NOT_PRESEASON_VALIDATED"?new Map(multistatChallenger.teams.map(t=>[t.team_id,t])):null;
 const modelPartsMissing=[!scoringProfiles?"historical team scoring profiles":null,!calibration?"historical margin calibration":null].filter(Boolean);
 $("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(profilesLoaded?"historical team scoring profiles loaded":"historical scoring profiles pending")+" · "+(calibrated?"calibrated point margin":"score calibration pending")+(modelPartsMissing.length?" · Missing: "+modelPartsMissing.join(", "):"");
 $("model-grade").textContent=calibrated?"Historical scoring test passed":"Preliminary scoring estimates";
@@ -68,6 +70,18 @@ function render(){
 
  $("roster-name-a").textContent=a.team;$("roster-name-b").textContent=b.team;
  $("roster-a").innerHTML=impact(a);$("roster-b").innerHTML=impact(b);
+ const statA=multistatMap?.get(a.team_id),statB=multistatMap?.get(b.team_id);
+ if(statA&&statB){
+  const candidate=window.NCAAMScores.predict({...a,elo:statA.challenger_elo},{...b,elo:statB.challenger_elo});
+  $("multistat-comparison").innerHTML='<div class="factor"><strong>Official player-quality Elo</strong> · '+safe(a.team)+' '+num(p.homeProbability*100)+'% · '+safe(b.team)+' '+num(p.awayProbability*100)+'%</div>'+
+   '<div class="factor"><strong>Experimental three-stat challenger</strong> · '+safe(a.team)+' '+num(candidate.homeProbability*100)+'% · '+safe(b.team)+' '+num(candidate.awayProbability*100)+'%</div>'+
+   '<div class="factor">'+safe(a.team)+': shooting '+signed(statA.components.shooting)+' · playmaking '+signed(statA.components.playmaking)+' · defensive box '+signed(statA.components.defense)+' Elo<br>'+
+   safe(b.team)+': shooting '+signed(statB.components.shooting)+' · playmaking '+signed(statB.components.playmaking)+' · defensive box '+signed(statB.components.defense)+' Elo</div>'+
+   '<p class="fine">Matched prior-season players: '+statA.matched_players+' / '+statB.matched_players+'. This comparison has not passed a full-model prospective validation.</p>';
+ }else{
+  $("multistat-comparison").textContent="Research model awaiting verified data publication. Official Elo remains active.";
+ }
+
  const teamVol=t=>{
    const v=volatilityMap.get(t.team_id);
    if(!v)return '<div class="mini"><h3>'+safe(t.team)+'</h3><p class="fine">No verified roster continuity record.</p></div>';
