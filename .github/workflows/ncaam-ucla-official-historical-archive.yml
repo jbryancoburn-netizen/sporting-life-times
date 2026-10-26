@@ -1,11 +1,6 @@
 name: Discover no-key official historical basketball archives
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/ncaam-ucla-official-historical-archive.yml'
-      - 'scripts/acquire_ncaam_ucla_historical_archive.py'
-      - 'scripts/test_ncaam_ucla_archive.py'
 permissions:
   contents: write
 concurrency:
