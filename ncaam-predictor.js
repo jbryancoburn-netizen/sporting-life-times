@@ -42,6 +42,8 @@ function render(){
  $("score-a").textContent=p.homeScore;$("score-b").textContent=p.awayScore;
  $("elo-a").textContent=num(a.elo);$("elo-b").textContent=num(b.elo);
  $("margin").textContent=num(Math.abs(p.expectedMargin))+" pts";
+ $("elo-gap").textContent=num(Math.abs(a.elo-b.elo));
+ $("verified-total").textContent=String((Number(a.verified_player_count??a.evidence_player_count)||0)+(Number(b.verified_player_count??b.evidence_player_count)||0));
  $("wintext").textContent=a.team+" "+num(p.homeProbability*100)+"% · "+b.team+" "+num(p.awayProbability*100)+"% (neutral-site estimate)";
  $("probbar").style.width=num(p.homeProbability*100)+"%";
  $("roster-name-a").textContent=a.team;$("roster-name-b").textContent=b.team;
