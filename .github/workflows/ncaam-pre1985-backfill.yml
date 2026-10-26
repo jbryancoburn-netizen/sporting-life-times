@@ -1,0 +1,76 @@
+name: Backfill NCAA 1949–1984 documented game scores
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ncaam-pre1985-backfill.yml'
+      - 'scripts/import_ncaam_pre1985_unc_duke.py'
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-pre1985-source
+  cancel-in-progress: false
+jobs:
+  historical-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install published historical schedules
+        run: Rscript -e "install.packages('uncmbb', repos='https://cloud.r-project.org')"
+      - name: Export documented historical school fixture data
+        run: |
+          mkdir -p historical-normalized
+          Rscript - <<'RS'
+          library(uncmbb)
+          required <- c('Season','Game_Date','Opponent_School','Tm','Opp')
+          objects <- data(package='uncmbb')$results[,3]
+          rows <- list()
+          for (n in objects) {
+            e <- new.env(parent=emptyenv())
+            try(data(list=n,package='uncmbb',envir=e),silent=TRUE)
+            if (!exists(n,envir=e,inherits=FALSE)) next
+            v <- get(n,envir=e)
+            if (!is.data.frame(v) || !all(required %in% names(v))) next
+            if (!(tolower(n) %in% c('unc','duke'))) next
+            v$Source_Team <- if (tolower(n)=='unc') 'North Carolina' else 'Duke'
+            rows[[length(rows)+1]] <- v[,c(required,'Source_Team')]
+          }
+          if (!length(rows)) stop('No compatible published UNC/Duke game fixture objects')
+          write.csv(do.call(rbind,rows),'historical-normalized/unc-duke-historical-fixtures.csv',row.names=FALSE,na='')
+          RS
+      - name: Validate and replay pre-1985 school fixture evidence
+        run: |
+          python scripts/import_ncaam_pre1985_unc_duke.py --input historical-normalized/unc-duke-historical-fixtures.csv
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-pre1985-unc-duke-replay.json'))
+          assert d['verified_imported_rows']>=500
+          assert d['seasons_present']>=20
+          assert d['not_a_national_rankings_history']
+          assert d['status']=='PARTIAL_1949_1984_SCHOOL_SAMPLE_NOT_FULL_NCAA_ELO'
+          PY
+      - name: Publish partial historical research with provenance
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-pre1985-unc-duke-replay.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: document and replay 1949-1984 partial historical game evidence'
+            git pull --rebase
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaa-pre1985-historical-source
+          path: |
+            historical-normalized/unc-duke-historical-fixtures.csv
+            data/ncaam-pre1985-unc-duke-replay.json
+          if-no-files-found: warn
