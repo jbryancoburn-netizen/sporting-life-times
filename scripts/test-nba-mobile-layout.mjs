@@ -112,7 +112,7 @@ try{
   await page.setViewportSize({width,height:844});
   await page.goto('http://127.0.0.1:8765/nba-rankings.html');
   await page.waitForSelector('.nba-table tbody tr:nth-child(10) td:nth-child(2) .team-link span',{timeout:15000});
-  const clubPos=await page.evaluate(()=>[...document.querySelectorAll('.nba-table tbody tr td:nth-child(2) .team-link span')].slice(0,15).map(el=>({x:el.getBoundingClientRect().x,center:el.getBoundingClientRect().y+el.getBoundingClientRect().height/2,row:el.closest('tr').getBoundingClientRect().y+el.closest('tr').getBoundingClientRect().height/2})));
+  const clubPos=await page.evaluate(()=>[...document.querySelectorAll('.nba-table tbody tr td:nth-child(2) .team-link > span:not(.slt-mark)')].slice(0,15).map(el=>({x:el.getBoundingClientRect().x,center:el.getBoundingClientRect().y+el.getBoundingClientRect().height/2,row:el.closest('tr').getBoundingClientRect().y+el.closest('tr').getBoundingClientRect().height/2})));
   if(Math.max(...clubPos.map(x=>x.x))-Math.min(...clubPos.map(x=>x.x))>1.5)throw Error('NBA power ranking names are horizontally misaligned at '+width+'px: '+JSON.stringify(clubPos));
   if(clubPos.some(p=>Math.abs(p.center-p.row)>5))throw Error('NBA power ranking names are not vertically centered at '+width+'px');
   await page.goto('http://127.0.0.1:8765/nba-players.html');
