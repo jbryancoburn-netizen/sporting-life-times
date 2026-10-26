@@ -25,7 +25,7 @@ async function start(){
   const r=await fetch("data/ncaam-2026-27-espn-team-crosswalk.json",{cache:"force-cache"});
   if(r.ok){const cross=await r.json();for(const t of cross.teams||[]){
    const candidates=[t.name,t.espn_name,String(t.name||"").replace(/\s+(Wildcats|Blue Devils|Tar Heels|Hoosiers|Boilermakers|Bulldogs|Spartans|Jayhawks|Huskies|Bruins|Cardinals|Orange|Cougars|Tigers|Gators|Volunteers|Aggies)$/i,"")];
-   const id=candidates.map(resolve).find(Boolean);
+   const id=candidates.map(resolve).find(Boolean) || (t.name==="UConn"?resolve("Connecticut"):null) || (t.name==="NC State"?resolve("North Carolina St"):null);
    if(id&&Number(t.espn_id)>0)logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
