@@ -30,7 +30,9 @@ def main():
     if dates>=args.max_days_per_year:break
     url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
     try:
-     data=scoreboard(url);dates+=1;checked.add(stamp)
+     data=scoreboard(url);dates+=1
+     if not isinstance(data,dict) or not isinstance(data.get('games'),list):raise ValueError('invalid scoreboard response')
+     checked.add(stamp)
      if data is not None:
       for item in data.get("games",[]):
        result=parse(item,day)
@@ -46,7 +48,7 @@ def main():
     time.sleep(.38)
    if dates>=args.max_days_per_year:break
   games=sorted(records.values(),key=lambda x:(x["date"],x["game_id"]))
-  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"checked_dates":sorted(checked),"finals_seen":valid,"unique_finals":len(games),"coverage_complete":len(checked)==153 and not errors,"dates_expected":153,"errors":errors,"games":games}
+  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"checked_dates":sorted(checked),"finals_seen":valid,"unique_finals":len(games),"coverage_complete":len(checked)==153 and len(games)>=100 and not errors,"dates_expected":153,"errors":errors,"games":games}
   path.write_text(json.dumps(output,indent=2)+"\n")
   print(year,"days",dates,"games",len(games),"errors",len(errors),flush=True)
   if errors:print(f"Collection incomplete for {year}: {len(errors)} source errors; retry next run",flush=True)
