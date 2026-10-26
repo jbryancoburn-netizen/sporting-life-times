@@ -4,16 +4,16 @@ const svgSafe=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const profile=(cohort,id)=>'college-soccer-team.html?team='+encodeURIComponent(cohort+':'+id);
 function crest(name,id,cohort,branding){
  const info=branding?.teams?.[cohort+':'+id]||{};
- const mark=node('span','soccer-school-mark');
+ const mark=node('span','soccer-school-mark slt-mark slt-mark--medium slt-mark--verified');\n if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))mark.style.setProperty('--slt-mark-ring',info.primary);
  const initials=String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC';
- const fallback=node('span','soccer-school-fallback',initials);
+ const fallback=node('span','soccer-school-fallback slt-mark-initial',initials);\n mark.classList.add('slt-mark--missing');
  if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))fallback.style.color=info.primary;
  mark.append(fallback);
  if(info.logo_url){
   const img=node('img','soccer-school-image');
   img.alt=name+' logo';img.loading='eager';img.decoding='async';
-  img.addEventListener('load',()=>{if(img.naturalWidth>0){mark.classList.add('logo-ready');}else img.remove()});
-  img.addEventListener('error',()=>img.remove());
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){mark.classList.add('logo-ready');mark.classList.remove('slt-mark--missing');}else img.remove()});
+  img.addEventListener('error',()=>{img.remove();mark.classList.add('slt-mark--missing')});
   mark.append(img);img.src=info.logo_url;
  }
  return mark;
