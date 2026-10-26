@@ -9,3 +9,8 @@
 .edition-interior .cs-conf-page .cs-cup-crest.has-image{color:transparent!important}
 .edition-interior .cs-conf-page .cs-cup-table-school{display:inline-flex!important;align-items:center!important;gap:10px!important;min-height:32px!important}
 .edition-interior .cs-conf-page .cs-conference-table td:nth-child(2){min-width:150px}
+
+/* Verified B1G mark has dark lettering: present on a white plate, not dark blue. */
+.edition-interior .cs-conf-page[data-conference$=":big-ten"] .cs-conf-header-emblem{background:#fff!important;border-radius:12px!important;padding:12px 22px!important;box-sizing:border-box!important;min-width:210px!important;height:104px!important;box-shadow:0 5px 18px #001e3d55!important;color:#005a9c!important}
+.edition-interior .cs-conf-page[data-conference$=":big-ten"] .cs-conf-header-emblem img{max-height:78px!important;max-width:185px!important;filter:none!important}
+.edition-interior .cs-conf-page .cs-cup-crest{font-size:10px!important;letter-spacing:0!important}
