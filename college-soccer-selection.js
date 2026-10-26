@@ -2,7 +2,7 @@
 const host=document.getElementById('ncaa-selection-forecast');if(!host)return;
 const el=(tag,txt,cls)=>{const x=document.createElement(tag);if(txt!==undefined&&txt!==null)x.textContent=String(txt);if(cls)x.className=cls;return x};
 const file=async path=>{const r=await fetch(path+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' unavailable');return r.json()};
-let mode='usrs';
+let mode='ncaa';
 const brandFor=(entry,branding)=>branding?.teams?.['men-d1:'+entry?.team_id]||{};
 function schoolRow(entry,branding,kind=''){
  const line=el('div',null,'ncaa-school-row '+kind);
@@ -20,6 +20,24 @@ function draw(data,metrics,branding){
  for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + USRS ELO']]){
   const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
+ if(Array.isArray(metrics?.field)&&metrics.field.length===48){
+  const nIds=new Set(metrics.field.map(x=>x.team_id)),uIds=new Set(data.field.map(x=>x.team_id));
+  const ncaaOnly=metrics.field.filter(x=>!uIds.has(x.team_id));
+  const usrsOnly=data.field.filter(x=>!nIds.has(x.team_id));
+  const comparison=el('section',null,'ncaa-selection-comparison');
+  comparison.append(el('h2','THE SELECTION SPLIT'));
+  const stats=el('div',null,'ncaa-selection-compare-grid');
+  const same=el('div',null,'ncaa-selection-compare-metric');same.append(el('strong',48-ncaaOnly.length),el('span','AGREED TEAMS'));
+  const different=el('div',null,'ncaa-selection-compare-metric');different.append(el('strong',ncaaOnly.length),el('span','EACH MODEL PICKS DIFFERENTLY'));
+  stats.append(same,different);comparison.append(stats);
+  const lists=el('div',null,'ncaa-selection-compare-lists');
+  for(const [label,rows] of [['NCAA RPI ONLY',ncaaOnly],['USRS ONLY',usrsOnly]]){
+   const col=el('section');col.append(el('h3',label));
+   for(const x of rows)col.append(schoolRow(x,branding,'ncaa-compare-team'));
+   lists.append(col);
+  }
+  comparison.append(lists);host.append(comparison);
+ }
  const summary=el('div',null,'cs-selection-summary');
  for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
  if(mode==='ncaa'){
