@@ -225,7 +225,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           pages=[p for p in Path('.').glob('*.html') if '</body>' in p.read_text().lower()]
-          missing=[p.name for p in pages if 'site-access-clock.js?v=1' not in p.read_text()]
+          missing=[p.name for p in pages if 'site-access-clock.js?v=' not in p.read_text()]
           assert not missing, f'Pages without reader timestamp: {missing}'
           print(f'PASS: all {len(pages)} newspaper pages display access clock')
           PY
