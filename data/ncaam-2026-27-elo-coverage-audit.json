@@ -1,0 +1,26 @@
+{
+  "model": "ncaam-2026-27-preseason-coverage-and-risk-audit",
+  "status": "OBSERVED_FEATURES_NOT_VALIDATED_FORECAST_UNCERTAINTY",
+  "teams": 365,
+  "roster_coverage_teams": 364,
+  "roster_fallback_teams": 1,
+  "current_roster_players": 5537,
+  "verified_prior_minutes_players": 2923,
+  "unlinked_roster_players": 2014,
+  "mean_components": {
+    "retention": 1.1113523287671232,
+    "transfers": 1.8133942465753432,
+    "scoring_quality": 8.185857534246576
+  },
+  "teams_over_100_absolute_quality_elo": 11,
+  "missing_information": [
+    "verified possessions",
+    "offensive rebounds",
+    "defensive rebounds",
+    "3-point shot attempt split",
+    "individual player on-off defense",
+    "reliable opening day injured/available status",
+    "player match identities for 2014 current roster players"
+  ],
+  "interpretation": "Scoring-quality component is predictive not comprehensive player value. Coverage risk is not calibrated uncertainty. Do not silently add inferred rebounds, defense or injury corrections."
+}
