@@ -125,3 +125,18 @@ body.slt-epl-mbb .slt-live-score{border-top:3px solid var(--ep-pink)!important}
 /* Editorial lead imagery only when the source feed provides a real image. */
 body.slt-epl-mbb .epl-news-article .epl-news-photo{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;margin:10px 0 13px;background:#e3e8e9}
 body.slt-epl-mbb #epl-featured.slt-forecast-highlight{grid-template-columns:minmax(0,1fr)!important}
+
+/* MBB season pulse strip: four useful numbers from the published EPL archive. */
+body.slt-epl-mbb .slt-pulse-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ep-line);border-bottom:1px solid var(--ep-line);margin:0 0 25px}
+body.slt-epl-mbb .slt-pulse-stats .slt-metric{padding:17px 18px 15px;border-right:1px solid var(--ep-line);min-width:0}
+body.slt-epl-mbb .slt-pulse-stats .slt-metric:last-child{border-right:0}
+body.slt-epl-mbb .slt-pulse-stats .slt-metric>b{display:block;font:700 clamp(23px,2.6vw,39px)/1.06 'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:-.025em;color:var(--ep-ink);overflow-wrap:anywhere}
+body.slt-epl-mbb .slt-pulse-stats .slt-metric>span{display:block;margin-top:6px;font:700 10px/1.45 'DM Sans',Arial,sans-serif;color:var(--ep-muted);letter-spacing:.035em;text-transform:uppercase;overflow-wrap:anywhere}
+body.slt-epl-mbb #epl-score-rail .slt-next-score{border-top:3px solid var(--ep-teal)!important;background:#f2f7f7!important}
+body.slt-epl-mbb #epl-score-rail .slt-next-score .epl-score-date{color:var(--ep-teal)!important}
+body.slt-epl-mbb #epl-score-rail .slt-next-score .slt-versus{font:700 13px 'DM Sans',Arial,sans-serif;color:var(--ep-muted)}
+body.slt-epl-mbb #epl-score-rail .slt-next-score .epl-team>span:last-child{max-width:155px}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile:hover{background:#f4eeee!important;text-decoration:none}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile:focus-visible{outline-offset:-4px!important}
+body.slt-epl-mbb #epl-score-rail .slt-next-score .epl-crest{width:29px;height:29px}
+@media(max-width:720px){body.slt-epl-mbb .slt-pulse-stats{grid-template-columns:repeat(2,minmax(0,1fr))}body.slt-epl-mbb .slt-pulse-stats .slt-metric{padding:12px}body.slt-epl-mbb .slt-pulse-stats .slt-metric:nth-child(2){border-right:0}body.slt-epl-mbb .slt-pulse-stats .slt-metric:nth-child(-n+2){border-bottom:1px solid var(--ep-line)}body.slt-epl-mbb .slt-pulse-stats .slt-metric>b{font-size:clamp(23px,6vw,34px)}}
