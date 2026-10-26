@@ -87,7 +87,7 @@ async function render(){
  
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
  standSection.append(E('h2','CONFERENCE STANDINGS · PROVISIONAL PROJECTED SEEDS'));
- if(table.unresolved_tie_groups?.length)standSection.append(E('p','cs-conf-caption','TIEBREAKERS UNRESOLVED: '+table.unresolved_tie_groups.map(g=>g.teams.join(' / ')).join('; ')+'. Bracket seeding withheld where tie affects qualifiers.'));
+ if(table.unresolved_tie_groups?.length)standSection.append(E('p','TIEBREAKERS UNRESOLVED: '+table.unresolved_tie_groups.map(g=>g.teams.join(' / ')).join('; ')+'. Bracket seeding withheld where tie affects qualifiers.','cs-conf-caption'));
  const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
  teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');row.append(E('td',i+1));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
