@@ -1,20 +1,5 @@
 name: Publish The Sporting Life & Times (main)
 on:
-  # Immediate push-based site releases run in publish-newspaper.yml. This
-  # richer NBA-certified publisher stays scheduled and collector-triggered.
-  # The independent NBA integrity gate must not block HTML/CSS-only pushes.
-  # The built-in GITHUB_TOKEN pushes made by collector workflows do not
-  # trigger another push workflow. Deploy independently of those commits.
-  schedule:
-    - cron: '11,26,41,56 * * * *'
-  workflow_run:
-    workflows:
-      - Official NBA game-center refresh
-      - NBA Elo verified final-game refresh
-      - NBA top stories refresh
-      - NBA injury and transaction wire
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
