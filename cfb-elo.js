@@ -3,8 +3,8 @@ const root=document.getElementById('elo-list');if(!root)return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ratings=new Map(),seen=new Set(),history=new Map(),counts=new Map(),errors=[];const opponents=new Map();const records=new Map();
 const initial=1500,K=28,homeEdge=65;const winProbability=(own,opp,edge=0)=>1/(1+Math.pow(10,(opp-own-edge)/400));
-const weeks=Array.from({length:19},(_,i)=>{const d=new Date(Date.UTC(2026,7,22+i*7));return d.toISOString().slice(0,10).replace(/-/g,'')});
-const fetchWeek=async date=>{const u='https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=400';const r=await fetch(u);if(!r.ok)throw Error('HTTP '+r.status);return (await r.json()).events||[]};
+const weeks=Array.from({length:17},(_,i)=>i+1);
+const fetchWeek=async week=>{const u='https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=2026&seasontype=2&week='+week+'&groups=80&limit=400';const r=await fetch(u);if(!r.ok)throw Error('HTTP '+r.status);return (await r.json()).events||[]};
 const complete=e=>e.status?.type?.completed===true;
 const all=[];
 Promise.allSettled(weeks.map(fetchWeek)).then(results=>{
@@ -31,7 +31,7 @@ for(const [id,fixtures] of opponents){const record=records.get(id)||{wins:0,loss
 const ranked=[...ratings].sort((a,b)=>b[1].elo-a[1].elo);
 window.CFB_RATINGS=Object.fromEntries(ranked.map(([id,t])=>[id,{...t,games:counts.get(id),history:history.get(id)||[],...scheduleMetrics.get(id),model:'2026-results-only-provisional',rosterAdjusted:false}]));
 document.dispatchEvent(new Event('cfb-ratings-ready'));
-const note='<p class="data-note">2026 provisional results-based Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · roster adjustments not yet applied. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'Weekly score feeds loaded.')+'</p>';
+const note='<p class="data-note">2026 provisional results-based Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · roster adjustments not yet applied. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'Weekly score feeds loaded. Ratings refresh on page reload.')+'</p>';
 root.innerHTML=seen.size?note+ranked.slice(0,25).map(([id,t],i)=>'<a class="school-line" href="cfb-team.html?team='+encodeURIComponent(id)+'"><strong style="min-width:25px">'+(i+1)+'</strong><img loading="lazy" alt="" src="'+esc(t.logo)+'"><span style="flex:1">'+esc(t.name)+'</span><small>'+Math.round(t.elo)+' Elo · SOS '+Math.round(scheduleMetrics.get(id)?.sos||1500)+' · SOR '+(scheduleMetrics.get(id)?.sor||0).toFixed(2)+' · '+counts.get(id)+' GP</small></a>').join(''):'<p class="data-note">No completed 2026 games could be verified from the weekly score feeds.</p>';
 }).catch(()=>{root.textContent='2026 game history could not be processed; ratings unavailable.'});
 })();
