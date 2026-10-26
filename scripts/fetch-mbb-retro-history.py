@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Import complete NCAA men's D-I basketball seasons from ESPN scoreboard by calendar day.
-Produces independently auditable input for RETRO. Runs only for 2024-25 and 2025-26.
+Produces independently auditable input for RETRO. Supports the five NIL-era seasons from 2021-22 through 2025-26.
 """
 import json,urllib.request,datetime,time,sys,pathlib
 year=int(sys.argv[1]) if len(sys.argv)>1 else 2026
-if year not in (2025,2026): raise SystemExit('Season ending year must be 2025 or 2026')
+if year not in (2022,2023,2024,2025,2026): raise SystemExit('Season ending year must be 2022 through 2026')
 start=datetime.date(year-1,11,1);end=datetime.date(year,4,15)
 games={};fail=[]
 day=start
