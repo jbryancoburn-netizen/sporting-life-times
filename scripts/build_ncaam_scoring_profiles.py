@@ -31,7 +31,7 @@ def main():
   observed=n>=10
   # Prior-year team means shrunk toward verified league scoring as continuity decreases.
   # No prospective possession rate or future team play-by-play is invented.
-  r=max(0,min(1,float(team.get("returning_minutes_share",0))))
+  r=max(0,min(1,float(team.get("returning_minutes_share") or 0)))
   reliability=(n/(n+15))*(.35+.65*r) if observed else 0
   attack=mean+reliability*(statistics.mean(src["for"])-mean) if observed else mean
   defense=mean+reliability*(statistics.mean(src["against"])-mean) if observed else mean
