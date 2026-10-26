@@ -47,6 +47,8 @@ jobs:
           PY
       - name: Collect available sourced NBL player box scores
         run: python scripts/publish_nbl_player_stats.py
+      - name: Reconcile player point totals against final results
+        run: python scripts/check_nbl_player_boxes.py
       - name: Publish verified-consistent newspaper snapshot only when changed
         run: |
           git config user.name "github-actions[bot]"
