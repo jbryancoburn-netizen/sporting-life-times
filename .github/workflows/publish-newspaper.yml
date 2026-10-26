@@ -58,6 +58,23 @@ jobs:
           path: '.'
       - id: deploy
         uses: actions/deploy-pages@v4
+      - name: Verify college football newspaper on public Pages
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${PAGE_URL%/}"
+          for file in college-football.html cfb-newspaper.js cfb-directory.js cfb-elo.js cfb-team.html cfb-team.js cfb-newspaper.css; do
+            curl --fail --location --silent --show-error --retry 5 --retry-delay 3 --max-time 30 "$ROOT/$file?release=${GITHUB_SHA}" -o "/tmp/cfb-${file//\//_}"
+            test -s "/tmp/cfb-${file//\//_}"
+            echo "PASS public CFB asset: $file"
+          done
+          grep -q 'The College Football Edition' /tmp/cfb-college-football.html
+          grep -q 'cfb-directory.js' /tmp/cfb-college-football.html
+          grep -q 'cfb-team.html' /tmp/cfb-cfb-directory.js
+          grep -q 'Season Record' /tmp/cfb-cfb-team.html
+          echo "PASS: public college football newspaper and linked assets are deployed"
       - name: Verify refreshed NBA headlines actually reached public Pages
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
