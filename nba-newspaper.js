@@ -117,14 +117,6 @@ function powerForm(t){
 }
 function rankings(){
  const forms=Object.fromEntries(ordered.map(t=>[t,powerForm(t)]));
- const scores=ordered.filter(t=>forms[t].gp>=2),attack=scores.slice().sort((a,b)=>forms[b].scored-forms[a].scored)[0];
- const leader=ordered[0];
- const moved=ordered.filter(t=>Number.isFinite(seed[t])).slice().sort((a,b)=>(rates[b]-seed[b])-(rates[a]-seed[a]))[0];
- const tile=(label,t,value,foot)=>t?'<a class="nba-power-spotlight" href="'+tl(t)+'"><small>'+esc(label)+'</small><div class="nba-power-spotlight-team">'+image(t)+'<b>'+esc(name(t))+'</b></div><strong>'+esc(value)+'</strong><span>'+esc(foot)+'</span></a>':'';
- const highlights='<div class="nba-power-spotlights">'+
- tile('USRS front-runner',leader,fmt(rates[leader],1),'Independent Elo points')+
- (moved?tile('Biggest early rise',moved,(rates[moved]-seed[moved]>=0?'+':'')+fmt(rates[moved]-seed[moved],1),'Elo versus opening rating'):'')+
- (attack?tile('Fastest scoring attack',attack,fmt(forms[attack].scored,1),'Points per game · min. 2 verified finals'):'')+'</div>';
  const row=(t,i)=>{
   const f=forms[t],delta=Number.isFinite(seed[t])?rates[t]-seed[t]:null,negative=delta!==null&&delta<0;
   const form=f.last.length?'<span class="nba-power-recent">'+f.last.map(x=>'<i class="'+(x.won?'win':'loss')+'" aria-label="'+(x.won?'win':'loss')+'">'+(x.won?'W':'L')+'</i>').join('')+'</span><small>'+f.wins+'–'+(f.last.length-f.wins)+'</small>':'<span class="nba-power-empty">—</span>';
@@ -141,7 +133,6 @@ function rankings(){
  const tableHtml='<div class="nba-table-wrap nba-power-table-wrap" role="region" tabindex="0" aria-label="NBA power rankings, horizontally scrollable on smaller screens"><table class="nba-table nba-power-table"><thead><tr>'+header.map(([label,cls])=>'<th scope="col" class="'+cls+'">'+label+'</th>').join('')+'</tr></thead><tbody>'+ordered.map(row).join('')+'</tbody></table></div>';
  const baseline='<details class="nba-power-history"><summary>Compare historical rating baselines</summary><p class="nba-note">Opening Elo and 2025–26 final Elo are preserved separately; neither is changed by this season’s results.</p><div class="nba-table-wrap"><table class="nba-table nba-power-baseline"><thead><tr><th>Team</th><th class="num">2025–26 Final</th><th class="num">2026–27 Opening</th><th class="num">Current Elo</th></tr></thead><tbody>'+ordered.map(t=>'<tr><td>'+team(t)+'</td><td class="num">'+fmt(prior[t],1)+'</td><td class="num">'+fmt(seed[t],1)+'</td><td class="num">'+fmt(rates[t],1)+'</td></tr>').join('')+'</tbody></table></div></details>';
  return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. Ranked by independent Elo, not NBA conference standings.</p>'+
- highlights+
  '<div class="nba-power-table-intro"><div><div class="eyebrow">The complete USRS 30</div><h2>Power Table</h2></div><small>PF/G = points scored · PA/G = points allowed · Margin = point differential per game · Δ Elo = movement from opening rating</small></div>'+
  tableHtml+'<p class="nba-power-footnote">Last 5 and streak use completed games only. Early-season averages are sensitive to small samples; figures update with verified finals.</p>'+baseline;
 }
