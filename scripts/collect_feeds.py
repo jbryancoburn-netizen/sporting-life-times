@@ -141,7 +141,7 @@ def main():
     if nba_count==0: print("WARNING: zero NBA articles collected; source health must be reviewed")
     nbl_articles=[a for a in articles if a.get("category")=="Australian NBL"]
     nbl_dest=ROOT/"nbl-articles.json"
-    nbl_dest.write_text(json.dumps({"updated_at":now.isoformat(),"articles":nbl_articles[:300],"feed_status":[v for v in status if "NBL" in v.get("source","") or "Breakers" in v.get("source","") or "Wildcats" in v.get("source","") or "Kings" in v.get("source","") or "Melbourne United" in v.get("source","")]},ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    nbl_dest.write_text(json.dumps({"updated_at":now.isoformat(),"articles":nbl_articles[:300],"feed_status":[v for v in status if "NBL" in v.get("source","") or "Breakers" in v.get("source","") or "Wildcats" in v.get("source","") or "Kings" in v.get("source","") or "Melbourne United" in v.get("source","")]},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("NBL wire:",len(nbl_articles),"attributed headlines",flush=True)
     OUT.write_text(json.dumps({"updated_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),"articles":articles[:1000],"feed_status":status},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"Collected {len(articles)} unique stories; {sum(1 for x in status if x['ok'])}/{len(status)} feeds responded.")
