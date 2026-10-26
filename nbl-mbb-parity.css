@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap');
+/* The NBL edition follows the visual system of the MBB newspaper. Keep league-specific existing feature logic intact. */
+body[data-league="nbl"]{--nbl-ink:#152a30;--nbl-faint:#647479;--nbl-rule:#d3d9d6;--nbl-paper:#f5f2ea;--nbl-accent:#c74d24;--nbl-panel:#e9eeeb;background:#f5f2ea!important;color:#152a30;font:14px/1.5 'DM Sans',Arial,sans-serif}
+body[data-league="nbl"] .nbl-mbb-wrap{max-width:1460px;margin:0 auto;padding:0 28px}
+body[data-league="nbl"] .nbl-mbb-topline{display:flex;justify-content:space-between;border-bottom:1px solid #152a30;padding:12px 0;font:600 10px/1.3 'DM Sans',sans-serif;letter-spacing:1.6px;text-transform:uppercase}
+body[data-league="nbl"] .nbl-mbb-topline a{text-decoration:none;color:inherit}
+body[data-league="nbl"] .nbl-mbb-masthead{text-align:center;font:clamp(28px,5vw,63px)/1.1 'Libre Caslon Display',Georgia,serif;letter-spacing:-1.7px;margin:16px 0 8px}
+body[data-league="nbl"] .nbl-mbb-masthead a{color:#152a30;text-decoration:none}
+body[data-league="nbl"] .nbl-mbb-edition{text-align:center;text-transform:uppercase;letter-spacing:3px;font:500 10px 'DM Sans',sans-serif;margin-bottom:18px}
+body[data-league="nbl"] .nbl-mbb-nav{display:flex;gap:25px;border-top:3px solid #152a30;border-bottom:1px solid #152a30;padding:13px 0;overflow-x:auto;white-space:nowrap;font:700 12px 'DM Sans',sans-serif;scrollbar-width:thin}
+body[data-league="nbl"] .nbl-mbb-nav a{color:#152a30;text-decoration:none}
+body[data-league="nbl"] .nbl-mbb-nav a[aria-current=page]{color:#c74d24}
+body[data-league="nbl"] .nbl-mbb-stamp{display:flex;justify-content:space-between;gap:12px;padding:10px 0;color:#647479;font:11px 'DM Sans',sans-serif}
+body[data-league="nbl"] .hub.league-hub{max-width:1460px!important;margin:0 auto!important;padding:0 28px 40px!important;background:transparent}
+body[data-league="nbl"] .hub-nav,body[data-league="nbl"] .nbl-edition-head,body[data-league="nbl"] .nbl-jump{display:none!important}
+body[data-league="nbl"] #nbl-showcase{margin:3px 0 20px}
+body[data-league="nbl"] .nbl-showcase-hero{background:#12343b!important;color:white;min-height:300px;border-radius:0}
+body[data-league="nbl"] .nbl-showcase-hero:after{color:#ffffff0d}
+body[data-league="nbl"] .nbl-showcase-side{border-radius:0;background:#163e43}
+body[data-league="nbl"] .nbl-showcase-hero h2,body[data-league="nbl"] .nbl-showcase-heading h2{font-family:'Libre Caslon Display',Georgia,serif;letter-spacing:-.03em}
+body[data-league="nbl"] .nbl-showcase-big-number{font-family:'Barlow Condensed',Impact,sans-serif;letter-spacing:-.02em}
+body[data-league="nbl"] .nbl-showcase-hero .nbl-showcase-kicker{color:#f4c35d}
+body[data-league="nbl"] .nbl-showcase-heading h2{font-size:clamp(26px,3vw,37px)}
+body[data-league="nbl"] .nbl-showcase-section{border-top:3px solid #152a30}
+body[data-league="nbl"] .nbl-showcase-heading small{color:#087e83}
+body[data-league="nbl"] .nbl-power-track{background:#fffefa;border:0;border-bottom:1px solid #d3d9d6}
+body[data-league="nbl"] .nbl-showcase-score{border-radius:0;background:#163e43}
+body[data-league="nbl"] .nbl-showcase-stand-row{background:#fffefa}
+body[data-league="nbl"] .nbl-club-ribbon{border-top:3px solid #152a30!important}
+body[data-league="nbl"] .nbl-ribbon-heading span{color:#087e83}
+body[data-league="nbl"] .nbl-club-tile{background:#fffefa!important}
+body[data-league="nbl"] .nbl-edition-data{background:#fffefa}
+body[data-league="nbl"] .nbl-edition-cell strong{font-family:'Barlow Condensed',Impact,sans-serif;font-weight:700;font-size:clamp(20px,2vw,30px)}
+body[data-league="nbl"] .nbl-edition-cell small{font-family:'DM Sans',sans-serif}
+body[data-league="nbl"] .league-freshness{color:#647479}
+body[data-league="nbl"] .nba-newspaper-grid.league-newspaper-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr) minmax(0,.9fr);gap:26px;align-items:start}
+body[data-league="nbl"] .league-newspaper-grid>.hub-feature{min-width:0;border:0;border-top:3px solid #152a30!important;background:transparent!important;padding:15px 0 0!important;box-shadow:none!important;margin:0 0 26px!important}
+body[data-league="nbl"] .league-newspaper-grid>.hub-feature:nth-child(3n + 2){border-top-color:#c74d24!important}
+body[data-league="nbl"] .league-newspaper-grid>.hub-feature:nth-child(3n){border-top-color:#087e83!important}
+body[data-league="nbl"] .hub-feature h2{font:32px/1.1 'Libre Caslon Display',Georgia,serif!important;text-transform:none!important;letter-spacing:-.02em!important;color:#152a30!important;margin:5px 0 18px!important}
+body[data-league="nbl"] .hub-feature h3{font-family:'Libre Caslon Display',Georgia,serif}
+body[data-league="nbl"] .nba-news-item{background:none!important;border:0!important;border-bottom:1px solid #d3d9d6!important;border-radius:0!important;padding:16px 0!important;box-shadow:none!important}
+body[data-league="nbl"] .nba-news-item:first-child{padding-top:0!important}
+body[data-league="nbl"] .nba-news-item h3{font:23px/1.13 'Libre Caslon Display',Georgia,serif!important}
+body[data-league="nbl"] .nba-news-item:first-child h3{font-size:31px!important}
+body[data-league="nbl"] .nba-news-source{font:700 10px 'DM Sans',sans-serif!important;letter-spacing:.7px;color:#087e83!important}
+body[data-league="nbl"] .nbl-rating-desk #nbl-elo-table{font-family:'DM Sans',sans-serif}
+body[data-league="nbl"] .nbl-result-card{background:#fffefa}
+body[data-league="nbl"] .nbl-model-note{border-left:3px solid #c74d24}
+body[data-league="nbl"] .nbl-mbb-footer{border-top:2px solid #152a30;padding:25px 0 35px;color:#647479;font:11px 'DM Sans',sans-serif}
+@media(max-width:1060px){body[data-league="nbl"] .nba-newspaper-grid.league-newspaper-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){body[data-league="nbl"] .nbl-mbb-wrap,body[data-league="nbl"] .hub.league-hub{padding-left:13px!important;padding-right:13px!important}body[data-league="nbl"] .nba-newspaper-grid.league-newspaper-grid{display:block}body[data-league="nbl"] .nbl-mbb-nav{gap:18px}body[data-league="nbl"] .nbl-mbb-topline{font-size:9px}body[data-league="nbl"] .nbl-mbb-stamp{flex-wrap:wrap}}
