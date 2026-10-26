@@ -44,6 +44,8 @@ def work(item):
   doc=BeautifulSoup(raw,'html.parser')
   headings=[h for h in doc.find_all(['h1','h2']) if norm(h.get_text(' ',strip=True))==norm(name)]
   candidates=[h.find_next('img') for h in headings]
+  if name=='Sam Mennenga':
+   print('SAM_PROFILE_IMAGES',[(str(im.get('alt',''))[:45],str(im.get('src',''))[:110],str(im.get('class',''))[:60]) for im in doc.find_all('img') if im.get('src')][:45],flush=True)
   candidates += [im for im in doc.find_all('img') if norm(name) in norm(im.get('alt',''))]
   for im in candidates:
    if im is None:continue
