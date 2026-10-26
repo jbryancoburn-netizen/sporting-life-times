@@ -1,0 +1,53 @@
+name: Acquire historical national NCAA game archives
+on:
+  workflow_dispatch:
+    inputs:
+      first_season:
+        description: First ending-year season
+        required: true
+        default: '1950'
+      last_season:
+        description: Last ending-year season
+        required: true
+        default: '1984'
+permissions:
+  contents: write
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      CBBD_API_KEY: ${{ secrets.CBBD_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check that the historical API credential is available
+        run: |
+          if [ -z "$CBBD_API_KEY" ]; then
+            echo "::error::Missing CBBD_API_KEY repository secret; no data acquired"
+            exit 1
+          fi
+      - name: Acquire date-windowed official historical game evidence
+        run: |
+          python scripts/acquire_ncaam_cbbd_pre1985.py --start-season "${{ inputs.first_season }}" --end-season "${{ inputs.last_season }}"
+      - name: Upload acquired source and manifest for auditing
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cbbd-historical-acquisition
+          path: |
+            historical-normalized/cbbd/*.json
+            data/ncaam-cbbd-historical-acquisition.json
+          if-no-files-found: warn
+      - name: Publish historical inventory only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-cbbd-historical-acquisition.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: record historical college basketball API acquisition provenance'
+            git pull --rebase
+            git push
+          fi
