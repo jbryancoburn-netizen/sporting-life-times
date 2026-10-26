@@ -59,6 +59,30 @@ try{
  await page.goto('http://127.0.0.1:8765/nba-players.html');
  await page.waitForSelector('#app h1',{timeout:15000});
  if(!await page.locator('#nba-player-search').count())throw Error('Player search missing');
+ for(const width of [390,1280]){
+  await page.setViewportSize({width,height:844});
+  for(const [dest,selector] of [['nba-team-desk.html?team=IND','.depth-team-upgrade .depth-club-hero'],['nba-players.html','#nba-visual-players .depth-star-grid'],['nba-matchups.html','.depth-matchroom #depth-scout-preview']]){
+   const errors=[],onError=err=>errors.push(err.message);
+   page.on('pageerror',onError);
+   await page.goto('http://127.0.0.1:8765/'+dest,{waitUntil:'domcontentloaded'});
+   await page.waitForSelector(selector,{timeout:15000});
+   const metrics=await page.evaluate(()=>({width:innerWidth,html:document.documentElement.scrollWidth,body:document.body.scrollWidth}));
+   if(metrics.html>width+3||metrics.body>width+3)throw Error('NBA depth overflow on '+dest+' at '+width+'px: '+JSON.stringify(metrics));
+   if(errors.some(x=>/SyntaxError|ReferenceError|TypeError/.test(x)))throw Error('NBA browser errors on '+dest+': '+errors.join('; '));
+   await page.screenshot({path:'test-artifacts/nba-depth-'+dest.split('?')[0].replace('.html','')+'-'+width+'.png',fullPage:false});
+   page.off('pageerror',onError);
+  }
+  await page.goto('http://127.0.0.1:8765/nba-players.html');
+  await page.waitForSelector('[data-stat="apg"]',{timeout:15000});
+  await page.click('[data-stat="apg"]');
+  if(await page.locator('[data-stat="apg"]').getAttribute('aria-pressed')!=='true')throw Error('NBA player chart selection not working');
+  await page.goto('http://127.0.0.1:8765/nba-matchups.html');
+  await page.waitForSelector('#depth-away',{timeout:15000});
+  await page.selectOption('#depth-away','IND');
+  await page.selectOption('#depth-home','BOS');
+  const scouting=await page.locator('#depth-scout-preview').innerText();
+  if(!scouting.includes('Indiana Pacers')||!scouting.includes('Boston Celtics')||!scouting.includes('win probability'))throw Error('NBA team matchup interaction failed');
+ }
  await page.goto('http://127.0.0.1:8765/nba-rankings.html');
  await page.waitForSelector('#app .nba-table tbody tr',{timeout:15000});
  if(await page.locator('#app .nba-table tbody tr').count()<30)throw Error('Thirty-team Elo rankings missing');
