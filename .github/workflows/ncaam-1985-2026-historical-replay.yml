@@ -1,0 +1,65 @@
+name: NCAA historical Elo 1985–2026 complete replay
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+      KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify authenticated Kaggle competition data access
+        run: |
+          if [ -z "$KAGGLE_USERNAME" ] || [ -z "$KAGGLE_KEY" ]; then
+            echo "::error::KAGGLE_USERNAME and KAGGLE_KEY required for permitted 2026 official archive download"
+            exit 1
+          fi
+      - name: Retrieve 2026 Kaggle historical compact game dataset
+        run: |
+          python -m pip install --quiet kaggle
+          mkdir -p /tmp/slat-ncaam-kaggle
+          kaggle competitions download -c march-machine-learning-mania-2026 -p /tmp/slat-ncaam-kaggle
+          unzip -o -j /tmp/slat-ncaam-kaggle/march-machine-learning-mania-2026.zip MRegularSeasonCompactResults.csv -d /tmp/slat-ncaam-kaggle
+      - name: Validate complete 1985–2026 ID-continuous archive and replay
+        run: |
+          python scripts/test_ncaam_long_history_scores.py
+          python scripts/backtest_ncaam_long_history_scores.py \
+            --input /tmp/slat-ncaam-kaggle/MRegularSeasonCompactResults.csv \
+            --output data/ncaam-long-history-elo-backtest.json
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-long-history-elo-backtest.json'))
+          c=d['coverage']
+          assert c['earliest']==1985,c
+          assert c['latest']==2026,c
+          assert c['seasons']==42,c
+          assert c['games']>161552,c
+          years={s['season'] for s in d['seasons']}
+          assert years==set(range(1985,2027)),sorted(years)
+          assert all(s['games']>=1000 for s in d['seasons']),[(s['season'],s['games']) for s in d['seasons'] if s['games']<1000]
+          assert all(s['covered_by_source'] for s in d['seasons'])
+          print('REPLAY PASSED: 42 seasons and complete expected season identifiers',c)
+          PY
+      - name: Publish only when all seven new seasons pass
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-long-history-elo-backtest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: extend NCAA historical Elo replay through 2026'
+            git pull --rebase
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-1985-2026-replay-report
+          path: data/ncaam-long-history-elo-backtest.json
+          if-no-files-found: warn
