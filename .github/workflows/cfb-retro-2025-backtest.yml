@@ -1,6 +1,9 @@
 name: Backtest 2025 CFB RETRO
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/cfb-retro-2025-backtest.yml
 permissions:
   contents: write
 jobs:
