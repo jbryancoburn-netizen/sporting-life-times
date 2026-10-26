@@ -1,0 +1,149 @@
+{
+  "study": "2021-22 through 2025-26 home court, strength-adjusted",
+  "method": "Prior seasons select Elo home advantage by rolling-day Brier score; next season is untouched holdout; all teams reset to 1500 each season.",
+  "limitations": [
+    "Home vs neutral classification comes from source feed and is not independently venue-audited",
+    "Schedule and team strength can still confound raw home-win and margin statistics",
+    "The tuning model is chronological Elo; a RETRO-specific edge requires a separate rolling RETRO evaluation",
+    "Conference status, travel and rest cannot be evaluated from this dataset without additional verified metadata"
+  ],
+  "candidate_home_edges": [
+    0,
+    15,
+    30,
+    45,
+    60,
+    75,
+    90,
+    105,
+    120
+  ],
+  "season_reports": [
+    {
+      "season": "2021-22",
+      "games": 5976,
+      "home_games": 5282,
+      "neutral_games": 694,
+      "home_win_pct": 0.6677394926164332,
+      "home_margin": 7.936577054146157,
+      "neutral_designated_home_win_pct": 0.5489913544668588
+    },
+    {
+      "season": "2022-23",
+      "games": 6228,
+      "home_games": 5460,
+      "neutral_games": 768,
+      "home_win_pct": 0.6776556776556777,
+      "home_margin": 8.376373626373626,
+      "neutral_designated_home_win_pct": 0.6067708333333334,
+      "trained_home_edge": 90,
+      "holdout_baseline": {
+        "n": 5732,
+        "brier": 0.213841044108055,
+        "logloss": 0.616205721298821,
+        "homeN": 4968,
+        "homeBrier": 0.21309485330538047,
+        "neutralN": 764,
+        "neutralBrier": 0.21869323770450613
+      },
+      "holdout_calibrated": {
+        "n": 5732,
+        "brier": 0.19768254115551678,
+        "logloss": 0.5803999238115622,
+        "homeN": 4968,
+        "homeBrier": 0.1942389005199141,
+        "neutralN": 764,
+        "neutralBrier": 0.22007522005299945
+      }
+    },
+    {
+      "season": "2023-24",
+      "games": 6243,
+      "home_games": 5497,
+      "neutral_games": 746,
+      "home_win_pct": 0.6810987811533564,
+      "home_margin": 8.34000363834819,
+      "neutral_designated_home_win_pct": 0.5630026809651475,
+      "trained_home_edge": 105,
+      "holdout_baseline": {
+        "n": 5739,
+        "brier": 0.214748480192881,
+        "logloss": 0.6174659806621295,
+        "homeN": 5002,
+        "homeBrier": 0.21222555716714764,
+        "neutralN": 737,
+        "neutralBrier": 0.2318714937270985
+      },
+      "holdout_calibrated": {
+        "n": 5739,
+        "brier": 0.19819462787679432,
+        "logloss": 0.5808935616182817,
+        "homeN": 5002,
+        "homeBrier": 0.19311473547004412,
+        "neutralN": 737,
+        "neutralBrier": 0.23267172668081748
+      }
+    },
+    {
+      "season": "2024-25",
+      "games": 6292,
+      "home_games": 5545,
+      "neutral_games": 747,
+      "home_win_pct": 0.6797114517583408,
+      "home_margin": 8.930207394048692,
+      "neutral_designated_home_win_pct": 0.6091030789825971,
+      "trained_home_edge": 105,
+      "holdout_baseline": {
+        "n": 5806,
+        "brier": 0.20971919466298292,
+        "logloss": 0.606536878010075,
+        "homeN": 5070,
+        "homeBrier": 0.20877883932248434,
+        "neutralN": 736,
+        "neutralBrier": 0.21619691419603537
+      },
+      "holdout_calibrated": {
+        "n": 5806,
+        "brier": 0.19420025710756686,
+        "logloss": 0.5718314887394707,
+        "homeN": 5070,
+        "homeBrier": 0.19076364316303443,
+        "neutralN": 736,
+        "neutralBrier": 0.21787367110047628
+      }
+    },
+    {
+      "season": "2025-26",
+      "games": 6300,
+      "home_games": 5592,
+      "neutral_games": 708,
+      "home_win_pct": 0.6777539341917024,
+      "home_margin": 9.13340486409156,
+      "neutral_designated_home_win_pct": 0.5833333333333334,
+      "trained_home_edge": 105,
+      "holdout_baseline": {
+        "n": 5784,
+        "brier": 0.2117327480675941,
+        "logloss": 0.6114503579843619,
+        "homeN": 5091,
+        "homeBrier": 0.2099088942553125,
+        "neutralN": 693,
+        "neutralBrier": 0.22513136243747042
+      },
+      "holdout_calibrated": {
+        "n": 5784,
+        "brier": 0.1976984973451014,
+        "logloss": 0.580377869066695,
+        "homeN": 5091,
+        "homeBrier": 0.1937697690047285,
+        "neutralN": 693,
+        "neutralBrier": 0.22656019428714796
+      }
+    }
+  ],
+  "holdout_combined": {
+    "games": 23061,
+    "zero_edge_brier": 0.21250033613852642,
+    "calibrated_brier": 0.19693725756467387
+  }
+}
