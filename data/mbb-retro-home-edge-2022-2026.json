@@ -1,0 +1,463 @@
+{
+  "model": "RETRO rolling-date network ratings",
+  "seasons": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "edges": [
+    0,
+    75,
+    90,
+    105,
+    120
+  ],
+  "method": "All games on earlier calendar dates are used to recompute RETRO for each edge; 1500 fresh each season; no same-day or future results; candidate selected only on earlier seasons by weighted Brier; tested on subsequent season.",
+  "limitations": [
+    "Source home/neutral venue flags are not independently venue-audited",
+    "Zero edge is the comparison; original 65 Elo baseline not in this grid",
+    "Early games lacking prior team ratings are excluded equally for all edges",
+    "This evaluates home-court adjustment for RETRO, not travel, conference effects, or roster priors"
+  ],
+  "season_reports": [
+    {
+      "season": "2021-22",
+      "candidates": {
+        "0": {
+          "n": 5498,
+          "brier": 0.19899371910784114,
+          "logloss": 0.581914838728951,
+          "homeN": 4809,
+          "homeBrier": 0.19589981054564148,
+          "neutralN": 689,
+          "neutralBrier": 0.2205882129766674
+        },
+        "75": {
+          "n": 5498,
+          "brier": 0.1898660642300843,
+          "logloss": 0.5599494006790398,
+          "homeN": 4809,
+          "homeBrier": 0.1853994112876965,
+          "neutralN": 689,
+          "neutralBrier": 0.22104187555075877
+        },
+        "90": {
+          "n": 5498,
+          "brier": 0.18974504959446956,
+          "logloss": 0.5595436793830781,
+          "homeN": 4809,
+          "homeBrier": 0.18523562945388838,
+          "neutralN": 689,
+          "neutralBrier": 0.221219362302818
+        },
+        "105": {
+          "n": 5498,
+          "brier": 0.19014696558496907,
+          "logloss": 0.5604262609455342,
+          "homeN": 4809,
+          "homeBrier": 0.1856645216620455,
+          "neutralN": 689,
+          "neutralBrier": 0.22143299290767243
+        },
+        "120": {
+          "n": 5498,
+          "brier": 0.19102943531245103,
+          "logloss": 0.5625459937186154,
+          "homeN": 4809,
+          "homeBrier": 0.1866391359555604,
+          "neutralN": 689,
+          "neutralBrier": 0.2216723229863082
+        }
+      }
+    },
+    {
+      "season": "2022-23",
+      "candidates": {
+        "0": {
+          "n": 5732,
+          "brier": 0.20676690830352143,
+          "logloss": 0.5997515784351019,
+          "homeN": 4968,
+          "homeBrier": 0.20528914302186138,
+          "neutralN": 764,
+          "neutralBrier": 0.2163762511298135
+        },
+        "75": {
+          "n": 5732,
+          "brier": 0.19421915404959472,
+          "logloss": 0.5709641470023256,
+          "homeN": 4968,
+          "homeBrier": 0.1906797530680285,
+          "neutralN": 764,
+          "neutralBrier": 0.21723452587737113
+        },
+        "90": {
+          "n": 5732,
+          "brier": 0.19344530026407986,
+          "logloss": 0.5692529446800163,
+          "homeN": 4968,
+          "homeBrier": 0.18974339034211277,
+          "neutralN": 764,
+          "neutralBrier": 0.2175174056205351
+        },
+        "105": {
+          "n": 5732,
+          "brier": 0.19320342965266132,
+          "logloss": 0.5688359810309471,
+          "homeN": 4968,
+          "homeBrier": 0.189416850012137,
+          "neutralN": 764,
+          "neutralBrier": 0.2178261098282199
+        },
+        "120": {
+          "n": 5732,
+          "brier": 0.19346087497856537,
+          "logloss": 0.5696768690706914,
+          "homeN": 4968,
+          "homeBrier": 0.18966185277030637,
+          "neutralN": 764,
+          "neutralBrier": 0.21816446441656442
+        }
+      }
+    },
+    {
+      "season": "2023-24",
+      "candidates": {
+        "0": {
+          "n": 5739,
+          "brier": 0.20722419764276703,
+          "logloss": 0.5992645081543823,
+          "homeN": 5002,
+          "homeBrier": 0.20394365653300497,
+          "neutralN": 737,
+          "neutralBrier": 0.22948914558174785
+        },
+        "75": {
+          "n": 5739,
+          "brier": 0.19513355036806354,
+          "logloss": 0.5714145194696111,
+          "homeN": 5002,
+          "homeBrier": 0.19007261912639067,
+          "neutralN": 737,
+          "neutralBrier": 0.2294819602335281
+        },
+        "90": {
+          "n": 5739,
+          "brier": 0.19444651699498866,
+          "logloss": 0.5698877695217428,
+          "homeN": 5002,
+          "homeBrier": 0.18926092672666556,
+          "neutralN": 737,
+          "neutralBrier": 0.22964098446058945
+        },
+        "105": {
+          "n": 5739,
+          "brier": 0.19429047377054862,
+          "logloss": 0.5696573902886568,
+          "homeN": 5002,
+          "homeBrier": 0.18905014435483405,
+          "neutralN": 737,
+          "neutralBrier": 0.22985645441831642
+        },
+        "120": {
+          "n": 5739,
+          "brier": 0.19463201965624094,
+          "logloss": 0.570693837361933,
+          "homeN": 5002,
+          "homeBrier": 0.18940196626193476,
+          "neutralN": 737,
+          "neutralBrier": 0.2301282572116246
+        }
+      }
+    },
+    {
+      "season": "2024-25",
+      "candidates": {
+        "0": {
+          "n": 5806,
+          "brier": 0.20186475453935537,
+          "logloss": 0.587057295885312,
+          "homeN": 5070,
+          "homeBrier": 0.19960014050303088,
+          "neutralN": 736,
+          "neutralBrier": 0.2174647452515334
+        },
+        "75": {
+          "n": 5806,
+          "brier": 0.19016553070924017,
+          "logloss": 0.5601171939544942,
+          "homeN": 5070,
+          "homeBrier": 0.18618740811529633,
+          "neutralN": 736,
+          "neutralBrier": 0.21756917412132779
+        },
+        "90": {
+          "n": 5806,
+          "brier": 0.18958791628152855,
+          "logloss": 0.5587975934344508,
+          "homeN": 5070,
+          "homeBrier": 0.185502785147463,
+          "neutralN": 736,
+          "neutralBrier": 0.21772869732733224
+        },
+        "105": {
+          "n": 5806,
+          "brier": 0.18954733898110646,
+          "logloss": 0.5587839480457991,
+          "homeN": 5070,
+          "homeBrier": 0.1854243214599741,
+          "neutralN": 736,
+          "neutralBrier": 0.2179491036986903
+        },
+        "120": {
+          "n": 5806,
+          "brier": 0.1900124832532056,
+          "logloss": 0.5600486739205829,
+          "homeN": 5070,
+          "homeBrier": 0.18591613639755464,
+          "neutralN": 736,
+          "neutralBrier": 0.21823052477242844
+        }
+      }
+    },
+    {
+      "season": "2025-26",
+      "candidates": {
+        "0": {
+          "n": 5784,
+          "brier": 0.20294124375161418,
+          "logloss": 0.5895573402166614,
+          "homeN": 5091,
+          "homeBrier": 0.20033747579148029,
+          "neutralN": 693,
+          "neutralBrier": 0.22206935729424376
+        },
+        "75": {
+          "n": 5784,
+          "brier": 0.19243814178127186,
+          "logloss": 0.5657430080295354,
+          "homeN": 5091,
+          "homeBrier": 0.18836198625849618,
+          "neutralN": 693,
+          "neutralBrier": 0.22238288603300585
+        },
+        "90": {
+          "n": 5784,
+          "brier": 0.19207457601976385,
+          "logloss": 0.5650929197142688,
+          "homeN": 5091,
+          "homeBrier": 0.1879202672369644,
+          "neutralN": 693,
+          "neutralBrier": 0.22259345915574075
+        },
+        "105": {
+          "n": 5784,
+          "brier": 0.1922358673498923,
+          "logloss": 0.5657487134425312,
+          "homeN": 5091,
+          "homeBrier": 0.188067390650004,
+          "neutralN": 693,
+          "neutralBrier": 0.22285883254344305
+        },
+        "120": {
+          "n": 5784,
+          "brier": 0.1928883331151774,
+          "logloss": 0.5676843631959403,
+          "homeN": 5091,
+          "homeBrier": 0.18876625291290777,
+          "neutralN": 693,
+          "neutralBrier": 0.2231704547742745
+        }
+      }
+    }
+  ],
+  "holdout_reports": [
+    {
+      "season": "2022-23",
+      "selected_edge": 90,
+      "training_scores": [
+        {
+          "edge": 90,
+          "brier": 0.18974504959446956
+        },
+        {
+          "edge": 75,
+          "brier": 0.1898660642300843
+        },
+        {
+          "edge": 105,
+          "brier": 0.19014696558496907
+        },
+        {
+          "edge": 120,
+          "brier": 0.19102943531245103
+        },
+        {
+          "edge": 0,
+          "brier": 0.19899371910784114
+        }
+      ],
+      "holdout": {
+        "n": 5732,
+        "brier": 0.19344530026407986,
+        "logloss": 0.5692529446800163,
+        "homeN": 4968,
+        "homeBrier": 0.18974339034211277,
+        "neutralN": 764,
+        "neutralBrier": 0.2175174056205351
+      },
+      "zero_edge": {
+        "n": 5732,
+        "brier": 0.20676690830352143,
+        "logloss": 0.5997515784351019,
+        "homeN": 4968,
+        "homeBrier": 0.20528914302186138,
+        "neutralN": 764,
+        "neutralBrier": 0.2163762511298135
+      },
+      "prior_65_not_tested": true
+    },
+    {
+      "season": "2023-24",
+      "selected_edge": 90,
+      "training_scores": [
+        {
+          "edge": 90,
+          "brier": 0.19163372607160278
+        },
+        {
+          "edge": 105,
+          "brier": 0.19170704145638598
+        },
+        {
+          "edge": 75,
+          "brier": 0.19208796190109353
+        },
+        {
+          "edge": 120,
+          "brier": 0.19227048715271527
+        },
+        {
+          "edge": 0,
+          "brier": 0.20296129884690076
+        }
+      ],
+      "holdout": {
+        "n": 5739,
+        "brier": 0.19444651699498866,
+        "logloss": 0.5698877695217428,
+        "homeN": 5002,
+        "homeBrier": 0.18926092672666556,
+        "neutralN": 737,
+        "neutralBrier": 0.22964098446058945
+      },
+      "zero_edge": {
+        "n": 5739,
+        "brier": 0.20722419764276703,
+        "logloss": 0.5992645081543823,
+        "homeN": 5002,
+        "homeBrier": 0.20394365653300497,
+        "neutralN": 737,
+        "neutralBrier": 0.22948914558174785
+      },
+      "prior_65_not_tested": true
+    },
+    {
+      "season": "2024-25",
+      "selected_edge": 105,
+      "training_scores": [
+        {
+          "edge": 105,
+          "brier": 0.19258077108399982
+        },
+        {
+          "edge": 90,
+          "brier": 0.19258502591893095
+        },
+        {
+          "edge": 120,
+          "brier": 0.19306916916330719
+        },
+        {
+          "edge": 75,
+          "brier": 0.19311799503280083
+        },
+        {
+          "edge": 0,
+          "brier": 0.20440303237212182
+        }
+      ],
+      "holdout": {
+        "n": 5806,
+        "brier": 0.18954733898110646,
+        "logloss": 0.5587839480457991,
+        "homeN": 5070,
+        "homeBrier": 0.1854243214599741,
+        "neutralN": 736,
+        "neutralBrier": 0.2179491036986903
+      },
+      "zero_edge": {
+        "n": 5806,
+        "brier": 0.20186475453935537,
+        "logloss": 0.587057295885312,
+        "homeN": 5070,
+        "homeBrier": 0.19960014050303088,
+        "neutralN": 736,
+        "neutralBrier": 0.2174647452515334
+      },
+      "prior_65_not_tested": true
+    },
+    {
+      "season": "2025-26",
+      "selected_edge": 105,
+      "training_scores": [
+        {
+          "edge": 105,
+          "brier": 0.19180746233364201
+        },
+        {
+          "edge": 90,
+          "brier": 0.19182097680565943
+        },
+        {
+          "edge": 120,
+          "brier": 0.19228993235127428
+        },
+        {
+          "edge": 75,
+          "brier": 0.19236532728910846
+        },
+        {
+          "edge": 0,
+          "brier": 0.2037559526313077
+        }
+      ],
+      "holdout": {
+        "n": 5784,
+        "brier": 0.1922358673498923,
+        "logloss": 0.5657487134425312,
+        "homeN": 5091,
+        "homeBrier": 0.188067390650004,
+        "neutralN": 693,
+        "neutralBrier": 0.22285883254344305
+      },
+      "zero_edge": {
+        "n": 5784,
+        "brier": 0.20294124375161418,
+        "logloss": 0.5895573402166614,
+        "homeN": 5091,
+        "homeBrier": 0.20033747579148029,
+        "neutralN": 693,
+        "neutralBrier": 0.22206935729424376
+      },
+      "prior_65_not_tested": true
+    }
+  ],
+  "holdout_combined": {
+    "games": 23061,
+    "calibrated_brier": 0.19240974498174523,
+    "zero_edge_brier": 0.20468698267128302
+  }
+}
