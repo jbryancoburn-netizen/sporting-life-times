@@ -11,12 +11,26 @@ function resolve(label){const ids=aliases.get(norm(label));return ids&&ids.size=
 function name(id){return names.get(String(id))||String(id)}
 async function download(url){const r=await fetch(url,{cache:"force-cache"});if(!r.ok)throw Error("HTTP "+r.status+" for "+url);return r.text()}
 async function start(){
- try{const [cross,pre]=await Promise.all(["data/ncaam-2026-27-espn-team-crosswalk.json","data/ncaam-2026-27-preseason-player-quality-live.json"].map(async u=>{const r=await fetch(u);return r.ok?r.json():null}));const byTeam=new Map((pre?.rankings||[]).map(t=>[norm(t.team),t]));for(const t of (cross?.teams||[])){const rating=byTeam.get(norm(t.team||t.name||""));const id=resolve(t.team||t.name||rating?.team);if(id&&Number(t.espn_id)>0){logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+t.espn_id+".png");if(rating?.color)teamColors.set(id,rating.color)}}}catch(e){}
+
 
  $("status").textContent="Loading 1985–2019 historical results and modern game records…";
  const [teamText,spellingText,seasonText,resultsText]=await Promise.all(["teams.csv","TeamSpellings.csv","seasons.csv","RegularSeasonCompactResults.csv"].map(n=>download(SOURCE+n)));
  for(const row of parseCSV(teamText)){names.set(row.TeamID,row.TeamName);register(row.TeamName,row.TeamID)}
  for(const row of parseCSV(spellingText))register(row.TeamNameSpelling,row.TeamID);
+ const palette={"Indiana":["#990000","#EEEDEB"],"Purdue":["#CEB888","#000000"],"Duke":["#003087","#FFFFFF"],"North Carolina":["#7BAFD4","#FFFFFF"],"Kansas":["#0051BA","#E8000D"],"Kentucky":["#0033A0","#FFFFFF"],"Louisville":["#AD0000","#000000"],"UConn":["#000E2F","#FFFFFF"],"UCLA":["#2D68C4","#F2A900"],"Michigan":["#00274C","#FFCB05"],"Michigan St":["#18453B","#FFFFFF"],"Michigan State":["#18453B","#FFFFFF"],"Syracuse":["#F76900","#FFFFFF"],"Gonzaga":["#002967","#C8102E"],"Kansas St":["#512888","#FFFFFF"],"Pittsburgh":["#003594","#FFB81C"],"Ohio St":["#BB0000","#666666"],"North Carolina St":["#CC0000","#FFFFFF"],"Florida":["#0021A5","#FA4616"],"Arizona":["#AB0520","#0C234B"],"Villanova":["#00205B","#13B5EA"],"Purdue Fort Wayne":["#003F87","#FFFFFF"],"Wisconsin":["#C5050C","#FFFFFF"],"Illinois":["#13294B","#E84A27"],"Tennessee":["#FF8200","#FFFFFF"],"Texas":["#BF5700","#FFFFFF"],"Auburn":["#0C2340","#E87722"],"Alabama":["#9E1B32","#FFFFFF"]};
+ for(const [school,colors] of Object.entries(palette)){const id=resolve(school);if(id)teamColors.set(id,colors)}
+ try{
+  const r=await fetch("data/ncaam-2026-27-espn-team-crosswalk.json",{cache:"force-cache"});
+  if(r.ok){const cross=await r.json();for(const t of cross.teams||[]){
+   const candidates=[t.name,t.espn_name,String(t.name||"").replace(/\s+(Wildcats|Blue Devils|Tar Heels|Hoosiers|Boilermakers|Bulldogs|Spartans|Jayhawks|Huskies|Bruins|Cardinals|Orange|Cougars|Tigers|Gators|Volunteers|Aggies)$/i,"")];
+   const id=candidates.map(resolve).find(Boolean);
+   if(id&&Number(t.espn_id)>0)logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
+  }}
+ }catch(e){console.warn("Logo crosswalk unavailable",e)}
+ let eraLogos={};try{const resp=await fetch("data/ncaam-rivalry-era-logos.json",{cache:"force-cache"});if(resp.ok)eraLogos=await resp.json()}catch(e){}
+ const logoFor=(id,year)=>{const entries=eraLogos[id]||[];const found=entries.find(x=>year>=x.start&&year<=x.end&&x.url);return found?found.url:logos.get(id)};
+ const applyTheme=(elem,id)=>{const colors=teamColors.get(id)||["#293F5F","#D6AF69"];elem.style.setProperty("--club",colors[0]);elem.style.setProperty("--club-secondary",colors[1])};
+
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
   const base=zero.get(row.Season);if(!base||!names.has(row.WTeamID)||!names.has(row.LTeamID))continue;
@@ -48,9 +62,9 @@ function show(){
  arr.sort((x,y)=>y.date.localeCompare(x.date));
  const won=g=>((g.a===a?g.as:g.bs)>(g.a===a?g.bs:g.as));
  const wins=arr.filter(won).length,losses=arr.length-wins,last10=arr.slice(0,10),lastWins=last10.filter(won).length;
- const mklogo=(team,element)=>{element.replaceChildren();const url=logos.get(team);if(url){const img=document.createElement("img");img.src=url;img.alt=name(team)+" logo";img.loading="lazy";img.onerror=()=>{element.textContent=name(team).slice(0,2).toUpperCase()};element.append(img)}else element.textContent=name(team).slice(0,2).toUpperCase()};
+ const mklogo=(team,element,year)=>{element.replaceChildren();const url=logoFor(team,year||2026);if(url){const img=document.createElement("img");img.src=url;img.alt=name(team)+" logo";img.loading="lazy";img.onerror=()=>{img.remove();element.textContent=name(team).slice(0,2).toUpperCase()};element.append(img)}else element.textContent=name(team).slice(0,2).toUpperCase()};
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
- $("hero-a").style.setProperty("--club",teamColors.get(a)||"#8a292f");$("hero-b").style.setProperty("--club",teamColors.get(b)||"#234e75");
+ applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
  $("series-a").textContent=wins;$("series-b").textContent=losses;$("series-a-name").textContent=name(a);$("series-b-name").textContent=name(b);
  $("win-bar-a").style.width=(arr.length?100*wins/arr.length:50)+"%";$("win-bar-b").style.width=(arr.length?100*losses/arr.length:50)+"%";
@@ -65,7 +79,7 @@ function show(){
  const filter=$("filter").value;const list=filter==="ten"?arr.slice(0,10):filter==="five"?arr.slice(0,5):arr;
  const cards=$("games");cards.replaceChildren();
  if(!list.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="No recorded meetings in this archive.";cards.append(empty)}
- for(const g of list){const card=document.createElement("article");card.className="meeting-card";const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+g.season;const label=document.createElement("span");label.textContent=g.historical?"Historical archive":"NCAA score archive";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
+ for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+g.season;const label=document.createElement("span");label.textContent=g.historical?"Historical archive":"NCAA score archive";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo,g.season);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
 }
 
 $("show").addEventListener("click",show);$("filter").addEventListener("change",show);start().catch(e=>{$("status").textContent="Historical archive retrieval failed: "+e.message});
