@@ -34,6 +34,19 @@ jobs:
       - name: Acquire date-windowed official historical game evidence
         run: |
           python scripts/acquire_ncaam_cbbd_pre1985.py --start-season "${{ inputs.first_season }}" --end-season "${{ inputs.last_season }}"
+      - name: Convert historical API games and publish coverage audit
+        run: |
+          python scripts/convert_ncaam_cbbd_historical_games.py
+          python scripts/import_ncaam_pre1985_national.py \
+            --input historical-normalized/cbbd-national-fixtures.csv \
+            --output data/ncaam-pre1985-national-coverage.json \
+            --fixtures-output historical-normalized/ncaam-pre1985-national-verified.csv
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-pre1985-national-coverage.json'))
+          assert d['games_verified']>0
+          assert not any(x['eligible_full_national_elo'] for x in d['seasons'])
+          PY
       - name: Upload acquired source and manifest for auditing
         uses: actions/upload-artifact@v4
         if: always()
@@ -42,12 +55,14 @@ jobs:
           path: |
             historical-normalized/cbbd/*.json
             data/ncaam-cbbd-historical-acquisition.json
+            data/ncaam-pre1985-national-coverage.json
+            historical-normalized/cbbd-national-fixtures.csv
           if-no-files-found: warn
       - name: Publish historical inventory only
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ncaam-cbbd-historical-acquisition.json
+          git add data/ncaam-cbbd-historical-acquisition.json data/ncaam-pre1985-national-coverage.json
           if ! git diff --cached --quiet; then
             git commit -m 'data: record historical college basketball API acquisition provenance'
             git pull --rebase
