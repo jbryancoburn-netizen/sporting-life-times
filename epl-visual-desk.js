@@ -23,7 +23,22 @@ const table='<div class="epl-table-scroll"><table class="epl-standings"><thead><
 const forecast=f.fixtures.slice(0,5).map(g=>{const p=g.probabilities;return '<div class="epl-forecast-row"><span class="epl-score-date">'+date(g.kickoff_utc)+'</span><div class="epl-forecast-teams">'+team(g.home.name,g.home.id)+'<strong>vs</strong>'+team(g.away.name,g.away.id)+'</div><div class="epl-probability" aria-label="Home '+Math.round(p.home*100)+' percent, draw '+Math.round(p.draw*100)+' percent, away '+Math.round(p.away*100)+' percent"><i style="width:'+(100*p.home)+'%;background:'+esc(COLORS[g.home.name]||'#52695d')+'"></i><i style="width:'+(100*p.draw)+'%;background:#c1b39b"></i><i style="width:'+(100*p.away)+'%;background:'+esc(COLORS[g.away.name]||'#384b6b')+'"></i></div><div class="epl-prob-labels"><span>'+Math.round(p.home*100)+'% '+esc(g.home.name)+'</span><span>'+Math.round(p.draw*100)+'% draw</span><span>'+Math.round(p.away*100)+'% '+esc(g.away.name)+'</span></div><a class="epl-forecast-open" href="match-center.html?league=Premier%20League&amp;game='+encodeURIComponent(g.fixture_id)+'">Match details</a></div>'}).join('');
 const attacks=[...r.standings].sort((a,b)=>b.gf-a.gf).slice(0,5).map((t,i)=>'<div class="epl-leader-row">'+team(t.club,idByTeam[t.club])+'<strong>'+t.gf+' <small>goals</small></strong></div>').join('');
 const defense=[...r.standings].filter(t=>t.played>0).sort((a,b)=>a.ga/a.played-b.ga/b.played).slice(0,5).map(t=>'<div class="epl-leader-row">'+team(t.club,idByTeam[t.club])+'<strong>'+num(t.ga/t.played)+' <small>GA/GP</small></strong></div>').join('');
-root.innerHTML='<div class="epl-data-mast"><span>THE MATCHDAY FILE</span><span>'+r.completed_matches+' VERIFIED FINALS · USRS RATINGS</span></div>'+rail+'<div class="epl-dash-columns"><div>'+section('League standings','20 CLUBS · POINTS & ELO',table)+'</div><div>'+section('Power 20','ALL CLUBS · LAST MATCH ELO CHANGE',power)+section('Upcoming forecast','MODEL ESTIMATES · NOT RESULTS',forecast)+'</div></div><div class="epl-stat-duo">'+section('Best attacks','TOTAL GOALS',attacks)+section('Tightest defenses','GOALS ALLOWED PER MATCH',defense)+'</div>';
+
+const compact='<div class="slt-compact-table"><table class="epl-standings"><thead><tr><th>#</th><th>Club</th><th>W–D–L</th><th>Pts</th><th>Elo</th></tr></thead><tbody>'+r.standings.map((t,i)=>'<tr class="'+(i<4?'epl-zone-top':i>=17?'epl-zone-bottom':'')+'"><td>'+(i+1)+'</td><td>'+team(t.club,idByTeam[t.club])+'</td><td>'+t.won+'–'+t.drawn+'–'+t.lost+'</td><td class="epl-pts">'+t.points+'</td><td>'+num(r.ratings[t.club])+'</td></tr>').join('')+'</tbody></table></div>';
+const full='<details class="slt-full-table"><summary>Open full statistical table · GF, GA, GD, form</summary>'+table+'</details>';
+const target=id=>document.getElementById(id);
+if(target('epl-score-rail'))target('epl-score-rail').innerHTML=rail||'<p>Verified finals are not available in this match snapshot.</p>';
+if(target('epl-table-board'))target('epl-table-board').innerHTML=section('League table','POINTS · W–D–L · ELO',compact+full);
+if(target('epl-power-board'))target('epl-power-board').innerHTML=section('USRS Power 20','ALL CLUBS · VERIFIED ELO DELTA',power);
+if(target('epl-attack-board'))target('epl-attack-board').innerHTML=section('Best attacks','GOALS SCORED',attacks);
+if(target('epl-defense-board'))target('epl-defense-board').innerHTML=section('Tightest defenses','GOALS ALLOWED PER MATCH',defense);
+const top=target('epl-hero-clubs');
+if(top)top.innerHTML=sorted.slice(0,4).map(([club,rating],i)=>'<a class="slt-hero-club" href="epl-club.html?club='+encodeURIComponent(idByTeam[club]||FIXED_IDS[club]||'')+'">'+crest(club,idByTeam[club])+'<strong>'+num(rating)+'</strong><small>#'+(i+1)+' '+esc(club)+'</small></a>').join('');
+const heroNote=target('epl-hero-note');if(heroNote)heroNote.textContent='Rating edition '+r.as_of_date+' · '+r.completed_matches+' verified final scores';
+const clubList=target('epl-club-directory');
+if(clubList)clubList.innerHTML=r.standings.map((t,i)=>'<a class="slt-club-link" href="epl-club.html?club='+encodeURIComponent(idByTeam[t.club]||FIXED_IDS[t.club]||'')+'">'+crest(t.club,idByTeam[t.club])+'<span>'+esc(t.club)+'</span><small>'+(i+1)+'. · '+t.points+' pts · '+num(r.ratings[t.club])+' Elo</small></a>').join('');
+root.textContent='Results through '+r.as_of_date+' · '+r.completed_matches+' verified finals · Scores and ratings from the current published edition';
+
 }catch(e){root.innerHTML='<p role="status">EPL visual dashboard unavailable. Published model data could not be verified.</p>';}}
 load();
 })();
