@@ -40,7 +40,13 @@ def build():
         picks.append({"conference":key,"conference_name":meta.get("short") or meta["name"],"team_id":candidate["team_id"],"team":candidate["team"],"elo":candidate["elo"],"method":method,"official_aq":False})
     aqids={r["team_id"] for r in picks}
     pool=sorted((r for r in ratings.values() if r["team_id"] not in aqids),key=lambda r:(-r["elo"],r["team_id"]))
-    selected=pool[:25]
+    # Provisional .500 at-large gate from the 2025-26 NCAA manual.
+    # The season records must still be reconciled to DI-countable matches.
+    def eligible(row):
+        w,l,d=(int(row.get(k,0)) for k in ("w","l","d"))
+        return w+l+d>0 and (w+d/3)/(w+l+d)>=0.5
+    eligible_pool=[r for r in pool if eligible(r)]
+    selected=eligible_pool[:25]
     if len(selected)!=25 or len(aqids)!=23:raise ValueError("Invalid selection counts")
     entrants=[{"team_id":r["team_id"],"team":r["team"],"conference":r["conference"],"elo":r["elo"],"bid_type":"projected_aq"} for r in picks]+[
        {"team_id":r["team_id"],"team":r["team"],"conference":members.get(r["team_id"],"independent_or_unmapped"),"elo":r["elo"],"bid_type":"proxy_at_large"} for r in selected]
@@ -53,7 +59,13 @@ def build():
     output={"schema_version":1,"season":2026,"rating_cutoff":elo["as_of"],
       "selection_date":"2026-11-16","field_size":48,"automatic_bids":23,"at_large_bids":25,
       "seeded_teams":24,"first_round_byes":16,
-      "status":"experimental_proxy_not_selection_criteria_certified",
+      "status":"usrs_hypothetical_ncaa_committee_provisional",
+      "selection_policy":{"field":"23 conference automatic qualifiers plus 25 at-large",
+       "usrs_role":"Independent Elo is the hypothetical NCAA committee's evaluation and seed-order metric",
+       "at_large_record_gate":"provisional DI .500 proxy from 2025-26 manual; DI-only records pending verification",
+       "seeds":"Top 24 selected participants by Elo","byes":"Top 16 selected participants by Elo",
+       "early_round_conference_separation":"placement constraint pending implementation",
+       "host_sites_and_geography":"not verified; do not invent"},
       "methodology":{"automatic_bids":"Illustrative conference champion picked by Elo among available provisional tournament entrants; not official AQs or title probabilities.",
          "at_large":"Top 25 remaining teams by independently maintained Elo, used ONLY as an explicit interim proxy, not actual NCAA RPI or committee selection criteria.",
          "strength_order":"Elo-order illustration, NOT NCAA bracket seed or committee ranking.",
@@ -61,7 +73,7 @@ def build():
          "future_requirements":["complete DI season fixtures and results","2026 selection-manual approved criteria","official NCAA RPI reconciliation","eligibility verification","conference AQ winners and division tiebreak rules","at-large cutline backtest"]},
       "official_sources":["https://www.ncaa.org/championship/division-i/mens-soccer/","https://www.ncaa.org/news/di-field-hockey-mens-soccer-to-seed-50-of-their-championship-brackets/","https://www.ncaatickets.com/mens-college-cup-road-to-the-championship"],
       "automatic_bid_scenarios":picks,"at_large_proxy":[{"team_id":r["team_id"],"team":r["team"],"elo":r["elo"],"conference":members.get(r["team_id"],"independent_or_unmapped")} for r in selected],
-      "first_four_out_proxy":[{"team_id":r["team_id"],"team":r["team"],"elo":r["elo"],"conference":members.get(r["team_id"],"independent_or_unmapped")} for r in pool[25:29]],"field":entrants}
+      "first_four_out_proxy":[{"team_id":r["team_id"],"team":r["team"],"elo":r["elo"],"conference":members.get(r["team_id"],"independent_or_unmapped")} for r in eligible_pool[25:29]],"field":entrants}
     path=ROOT/"data/college-soccer-ncaa-selection-forecast.json"
     path.write_text(json.dumps(output,indent=2)+"\n")
     print("Built experimental field:",len(entrants),"AQ scenarios:",len(picks),"at-large:",len(selected))
