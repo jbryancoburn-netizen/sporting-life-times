@@ -17,7 +17,7 @@ def game_fields(record,date):
  g=record.get("game",record)
  if not isinstance(g,dict):return None,"malformed"
  state=str(g.get("gameState") or g.get("game_state") or g.get("state") or g.get("status") or "").lower()
- if state not in ("final","f","final/ot","final/2ot","final/3ot") and not state.startswith("final"):return None,"not_final"
+ if not (state.startswith("final") or state in ("f","complete","completed")):return None,"not_final"
  home=g.get("home",{});away=g.get("away",{})
  if not isinstance(home,dict) or not isinstance(away,dict):return None,"team_missing"
  def team(t):
