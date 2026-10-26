@@ -67,7 +67,10 @@ try{
    await page.goto('http://127.0.0.1:8765/'+dest,{waitUntil:'domcontentloaded'});
    await page.waitForSelector(selector,{timeout:15000});
    const metrics=await page.evaluate(()=>({width:innerWidth,html:document.documentElement.scrollWidth,body:document.body.scrollWidth}));
-   if(metrics.html>width+3||metrics.body>width+3)throw Error('NBA depth overflow on '+dest+' at '+width+'px: '+JSON.stringify(metrics));
+   if(metrics.html>width+3||metrics.body>width+3){
+    const offenders=await page.evaluate(()=>[...document.querySelectorAll('#app *')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName,cls:String(el.className).slice(0,70),right:Math.round(r.right),left:Math.round(r.left),w:Math.round(r.width),text:(el.textContent||'').trim().slice(0,42)}}).filter(x=>x.right>innerWidth+4||x.left< -4).sort((a,b)=>b.right-a.right).slice(0,22));
+    throw Error('NBA depth overflow on '+dest+' at '+width+'px: '+JSON.stringify(metrics)+' offenders='+JSON.stringify(offenders));
+   }
    if(errors.some(x=>/SyntaxError|ReferenceError|TypeError/.test(x)))throw Error('NBA browser errors on '+dest+': '+errors.join('; '));
    await page.screenshot({path:'test-artifacts/nba-depth-'+dest.split('?')[0].replace('.html','')+'-'+width+'.png',fullPage:false});
    page.off('pageerror',onError);
