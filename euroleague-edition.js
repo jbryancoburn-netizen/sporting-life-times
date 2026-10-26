@@ -25,7 +25,7 @@ try{
  const byCode=new Map(teams.map(t=>[t.code,t]));
  $('el-recent-results-list').innerHTML=results.length?results.slice(0,10).map(g=>{
  const away=byCode.get(g.away)||{code:g.away},home=byCode.get(g.home)||{code:g.home};
- const row=(t,score)=>'<div class="el-result-row"><span>'+logo(t)+esc(t.code)+'</span><b>'+esc(score)+'</b></div>';
+ const row=(t,score)=>'<div class="el-result-row"><span>'+logo(t)+'<span class="el-result-name" title="'+esc(t.name||t.code)+'">'+esc(t.name||t.code)+'</span></span><b>'+esc(score)+'</b></div>';
  return '<article class="el-result-card"><small>'+esc(date(g.date))+' · FINAL</small>'+row(away,g.score?.[1])+row(home,g.score?.[0])+'</article>';
  }).join(''):'<p class="hub-small">Recent verified finals not yet provided by the model.</p>';
  lastEditionStamp=d.updated_at;

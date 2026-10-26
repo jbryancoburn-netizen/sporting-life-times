@@ -176,10 +176,18 @@ try{
   });
   if(euro.rankings.length!==20||euro.standings.length!==20)throw Error('EuroLeague missing 20 real club crest wrappers at '+width+': '+JSON.stringify(euro));
 
+  await page.evaluate(()=>{
+   document.querySelectorAll('#el-elo-table img[data-euroleague-code]').forEach(im=>im.loading='eager');
+   document.querySelectorAll('#el-recent-results-list img[data-euroleague-code]').forEach(im=>im.loading='eager');
+  });
   await page.waitForFunction(()=>{
    const imgs=[...document.querySelectorAll('#el-elo-table img[data-euroleague-code]')];
    return imgs.length===20&&imgs.every(im=>im.complete&&im.naturalWidth>=100&&!im.hidden);
-  },{timeout:15000});
+  },undefined,{timeout:16000});
+  await page.waitForFunction(()=>{
+   const imgs=[...document.querySelectorAll('#el-recent-results-list img[data-euroleague-code]')];
+   return imgs.length>=16&&imgs.every(im=>im.complete&&im.naturalWidth>=100&&!im.hidden);
+  },undefined,{timeout:16000});
   const images=await page.evaluate(()=>{
    const imgs=[...document.querySelectorAll('#el-recent-results-list img[data-euroleague-code]')];
    return {count:imgs.length,real:imgs.filter(im=>im.complete&&im.naturalWidth>=100&&!im.hidden).length,local:imgs.every(im=>im.getAttribute('src').startsWith('assets/euroleague-logos/'))};
