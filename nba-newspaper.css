@@ -223,3 +223,27 @@ body.nba-newspaper[data-page="rankings"] table.nba-power-table th:nth-child(-n+2
 /* Transparent status of publisher-sourced NBA reporting */
 body.nba-newspaper .nba-news-updated{font:10px/1.4 'DM Sans',Arial,sans-serif;color:#31666d;background:#e5efec;border-left:3px solid #087e83;padding:7px 10px;margin:0 0 10px}
 body.nba-newspaper .nba-news-updated.is-delayed{color:#875a28;background:#f4e9d4;border-left-color:#b58d37}
+
+
+/* NBA interactive player leaderboard */
+.nba-leader-tabs{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0 8px}
+.nba-leader-tab{cursor:pointer;border:1px solid #d4d8d8;background:#f7f6f1;color:#244354;border-radius:3px;padding:7px 9px;font:700 11px Arial,sans-serif}
+.nba-leader-tab.is-active,.nba-leader-tab[aria-pressed=true]{background:#123d50;color:white;border-color:#123d50}
+.nba-leader-tab:focus-visible{outline:2px solid #e76e32;outline-offset:2px}
+.nba-leaderboard{display:grid;border-top:1px solid #d9d7d0}
+.nba-leaderboard .nba-leader-compact{display:grid;grid-template-columns:26px 52px minmax(0,1fr) 70px;align-items:center;gap:5px 9px;min-height:0;margin:0;padding:10px 5px;border:0;border-bottom:1px solid #dedbd3;border-left:3px solid var(--leader-team);background:transparent;box-shadow:none}
+.nba-leader-compact .nba-leader-place{font:700 18px Georgia,serif;color:#8d938f;text-align:center}
+.nba-leader-compact .nba-leader-photo{display:flex;align-items:flex-end;justify-content:center;width:50px;height:52px;border-radius:6px;background:linear-gradient(150deg,#e9eeef,#d7dfe1);overflow:hidden}
+.nba-leader-compact .nba-leader-photo img{height:100%;width:100%;object-fit:cover;object-position:top}
+.nba-leader-compact .nba-leader-photo.no-photo:after{content:'NBA';font:700 12px Arial,sans-serif;color:#627783;margin:auto}
+.nba-leader-compact .nba-leader-identity{min-width:0;display:flex;flex-direction:column;gap:3px}
+.nba-leader-compact .nba-leader-identity>b{font-size:14px;line-height:1.15}
+.nba-leader-compact .nba-leader-club{font-size:10px;line-height:1.1}
+.nba-leader-compact .nba-leader-club img{width:20px!important;height:20px!important;object-fit:contain}
+.nba-leader-compact .nba-leader-sample{font-size:10px;color:#697984}
+.nba-leader-compact .nba-leader-output{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.nba-leader-compact .nba-leader-output strong{font:700 27px/1 Georgia,serif;color:#092b3c}
+.nba-leader-compact .nba-leader-output span{font:700 9px/1.5 Arial,sans-serif;letter-spacing:.03em;color:#60727a}
+.nba-leader-compact .nba-leader-meter{grid-column:3/5;height:4px;background:#e7e5df;border-radius:4px;overflow:hidden}
+.nba-leader-compact .nba-leader-meter span{display:block;height:100%;background:var(--leader-team);border-radius:4px}
+@media(max-width:430px){.nba-leaderboard .nba-leader-compact{grid-template-columns:22px 43px minmax(0,1fr) 62px;gap:5px}.nba-leader-compact .nba-leader-photo{width:42px;height:46px}.nba-leader-compact .nba-leader-output strong{font-size:24px}.nba-leader-tab{padding:6px 7px}}
