@@ -48,6 +48,11 @@ function render(){
  $("margin").textContent=num(Math.abs(p.expectedMargin))+" pts";
  $("elo-gap").textContent=num(Math.abs(a.elo-b.elo));
  $("verified-total").textContent=String((Number(a.verified_player_count??a.evidence_player_count)||0)+(Number(b.verified_player_count??b.evidence_player_count)||0));
+ const favoriteA=p.homeProbability>=.5;
+ const favorite=favoriteA?a:b;
+ $("blowout-favorite").textContent="Chance that "+favorite.team+" wins by at least the listed number of points";
+ const tail=favoriteA?p.homeWinBy:p.awayWinBy;
+ for(const n of [10,20,30])$("blowout-"+n).textContent=tail?num(100*tail[n])+"%":"Not modeled";
  $("wintext").textContent=a.team+" "+num(p.homeProbability*100)+"% · "+b.team+" "+num(p.awayProbability*100)+"% (neutral-site estimate)";
  $("probbar").style.width=num(p.homeProbability*100)+"%";
  $("roster-name-a").textContent=a.team;$("roster-name-b").textContent=b.team;
