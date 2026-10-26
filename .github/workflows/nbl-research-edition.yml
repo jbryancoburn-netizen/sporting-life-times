@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'scripts/publish_nbl_standings.py'
+      - 'scripts/publish_nbl_player_stats.py'
       - 'scripts/publish_nbl_research_elo.py'
       - 'scripts/check_nbl_edition_consistency.py'
       - '.github/workflows/nbl-research-edition.yml'
@@ -44,11 +45,13 @@ jobs:
           assert d['prediction_certified'] is False
           assert d['status']=='RESEARCH_ONLY_UNCERTIFIED'
           PY
+      - name: Collect available sourced NBL player box scores
+        run: python scripts/publish_nbl_player_stats.py
       - name: Publish verified-consistent newspaper snapshot only when changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nbl-standings.json data/nbl-research-current-ledger.json data/nbl-elo-research.json
+          git add data/nbl-standings.json data/nbl-research-current-ledger.json data/nbl-elo-research.json data/nbl-player-boxscores.json
           if git diff --cached --quiet; then
             echo "No changed NBL data files"
             exit 0
