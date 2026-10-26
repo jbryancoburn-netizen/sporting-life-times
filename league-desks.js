@@ -25,7 +25,7 @@ async function standings(){if(id==='nbl'){try{
  const d=await json('data/nbl-standings.json');
  if(d.league!=='Australian NBL'||d.season!=='2026-27'||d.status!=='source_derived_not_officially_reconciled'||d.teams!==10||d.rows?.length!==10||!Number.isInteger(d.games_replayed))throw Error('No complete ESPN snapshot');
  if(new Set(d.rows.map(r=>r.team)).size!==10||d.rows.some(r=>!Number.isInteger(r.wins)||!Number.isInteger(r.losses)||r.wins<0||r.losses<0)||d.rows.reduce((s,r)=>s+r.wins,0)!==d.games_replayed||d.rows.reduce((s,r)=>s+r.losses,0)!==d.games_replayed)throw Error('NBL standings integrity mismatch');
- const cell=r=>'<tr><th>'+esc(r.team)+'</th><td>'+r.wins+'</td><td>'+r.losses+'</td><td>'+(r.win_pct===null?'—':Number(r.win_pct).toFixed(3))+'</td></tr>';
+ const cell=r=>'<tr><th>'+esc(r.team)+'</th><td>'+r.wins+'</td><td>'+r.losses+'</td><td>'+(r.win_pct===null?'—':Number(r.win_pct).toFixed(3).replace(/^0/,''))+'</td></tr>';
  html('league-standings-table','<div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Club</th><th>W</th><th>L</th><th>PCT</th></tr></thead><tbody>'+d.rows.map(cell).join('')+'</tbody></table></div>');
  const age=Date.now()-Date.parse(d.updated_at);
  text('league-standings-status','ESPN-derived full-season standings · '+d.games_replayed+' finals · '+(age>4*3600000?'DELAYED · ':'')+'Checked '+time(d.updated_at)+' · Not independently official-certified');
