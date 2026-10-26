@@ -23,13 +23,10 @@ const selector=$("conference");
 selector.innerHTML=confs.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join("");
 selector.value=conf;selector.addEventListener("change",()=>{location.href="ncaam-conference.html?conference="+encodeURIComponent(selector.value)});
 const teamName=t=>{let id=badges.get(t.team_id);return '<span class="team">'+(id?'<img loading="lazy" alt="" src="https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(id)+'.png">':"")+esc(t.team)+"</span>"};
-const scores=(a,b)=>{
- // Research estimate pending possession/venue calibration; both sides share a neutral-tempo center.
- const difference=Math.max(-28,Math.min(28,(a.elo-b.elo)/25));
- const h=Math.round(72+difference/2),v=Math.round(72-difference/2);
- if(h===v){return a.elo>=b.elo?[h+1,v]:[h,v+1];}\n return [h,v];
-};
-const prob=(a,b)=>1/(1+Math.pow(10,-(a.elo-b.elo)/400));
+const fitted=await get("data/ncaam-score-calibration.json");
+window.NCAAMScores.configure(fitted);
+const scores=(a,b)=>{let p=window.NCAAMScores.predict(a,b);return [p.homeScore,p.awayScore]};
+const prob=(a,b)=>window.NCAAMScores.predict(a,b).homeProbability;
 const played=ledger?.games||[];
 function render(){
 $("heading").textContent=conf+" Basketball";
