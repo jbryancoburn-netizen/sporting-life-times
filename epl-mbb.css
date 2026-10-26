@@ -104,3 +104,20 @@ body.slt-epl-mbb .slt-footer{margin:27px 0 34px;padding:16px 0;border-top:3px so
 body.slt-epl-mbb #epl-feed-health{display:block!important;max-width:none!important;width:auto;margin:3px 0 0!important;padding:0!important;border:0!important;background:transparent!important;color:var(--ep-muted)!important;font:500 10px/1.5 'DM Sans',Arial,sans-serif!important}
 @media(max-width:1100px){body.slt-epl-mbb .slt-columns{grid-template-columns:repeat(2,minmax(0,1fr))}body.slt-epl-mbb .slt-column:first-child{grid-column:1/-1}body.slt-epl-mbb #epl-independent-news{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}body.slt-epl-mbb .slt-hero{grid-template-columns:1.12fr 1fr}}
 @media(max-width:720px){body.slt-epl-mbb .slt-wrap{padding:0 14px}body.slt-epl-mbb .slt-topline{font-size:8px;letter-spacing:.03em}body.slt-epl-mbb .slt-masthead{font-size:clamp(26px,7.5vw,44px)}body.slt-epl-mbb .slt-edition-line{letter-spacing:.12em}body.slt-epl-mbb .slt-nav{gap:18px;font-size:11px}body.slt-epl-mbb .slt-hero{grid-template-columns:1fr;padding:22px;gap:18px}body.slt-epl-mbb .slt-hero h1{font-size:clamp(43px,11vw,61px)!important}body.slt-epl-mbb .slt-hero-art{padding:34px 13px 13px}body.slt-epl-mbb .slt-hero-club img{width:52px;height:52px}body.slt-epl-mbb .slt-hero-club strong{font-size:26px}body.slt-epl-mbb .slt-columns,body.slt-epl-mbb .slt-more{display:block}body.slt-epl-mbb .slt-forecast-highlight{grid-template-columns:1fr}body.slt-epl-mbb #epl-independent-news{display:block!important}body.slt-epl-mbb #forecast-grid{grid-template-columns:1fr}body.slt-epl-mbb .slt-panel{margin-bottom:26px!important}body.slt-epl-mbb #epl-score-rail .epl-score-tile{min-width:226px}}
+
+/* Club index matches the MBB "Every Team Has a Desk" directory. */
+body.slt-epl-mbb .slt-club-directory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:13px}
+body.slt-epl-mbb .slt-club-link{min-width:0;display:grid;grid-template-columns:43px minmax(0,1fr);column-gap:12px;align-items:center;background:var(--ep-card);border:1px solid var(--ep-line);padding:13px 10px;transition:transform .16s,border-color .16s}
+body.slt-epl-mbb .slt-club-link:hover{border-color:var(--ep-pink);text-decoration:none;transform:translateY(-2px)}
+body.slt-epl-mbb .slt-club-link .epl-crest{width:43px;height:43px;object-fit:contain;grid-row:span 2}
+body.slt-epl-mbb .slt-club-link>span:not(.epl-fallback){display:block;min-width:0;font:700 13px 'DM Sans',Arial,sans-serif;overflow-wrap:anywhere}
+body.slt-epl-mbb .slt-club-link small{grid-column:2;display:block;color:var(--ep-muted);font:500 10px 'DM Sans',Arial,sans-serif}
+body.slt-epl-mbb .slt-club-link .epl-fallback{grid-row:span 2}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile:nth-child(n){border-top:0!important}
+body.slt-epl-mbb .slt-compact-table .epl-standings th:nth-child(5),body.slt-epl-mbb .slt-compact-table .epl-standings td:nth-child(5){display:table-cell!important}
+body.slt-epl-mbb .slt-full-table .epl-table-scroll{max-width:100%;overflow-x:auto}
+body.slt-epl-mbb #epl-visual-desk{margin:0!important;color:var(--ep-muted)!important;font:500 11px/1.5 'DM Sans',Arial,sans-serif!important}
+body.slt-epl-mbb .slt-live-score{border-top:3px solid var(--ep-pink)!important}
+@media(max-width:1000px){body.slt-epl-mbb .slt-club-directory{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){body.slt-epl-mbb .slt-club-directory{grid-template-columns:repeat(2,minmax(0,1fr))}body.slt-epl-mbb .slt-club-link{padding:10px 8px;grid-template-columns:32px minmax(0,1fr);column-gap:8px}body.slt-epl-mbb .slt-club-link .epl-crest{height:32px;width:32px}body.slt-epl-mbb .slt-club-link>span:not(.epl-fallback){font-size:11px}body.slt-epl-mbb .slt-club-link small{font-size:9px}}
+@media(max-width:380px){body.slt-epl-mbb .slt-club-directory{grid-template-columns:1fr}}
