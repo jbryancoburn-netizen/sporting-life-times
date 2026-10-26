@@ -16,6 +16,7 @@ on:
       - 'scripts/build_ncaam_2027_multistat_challenger.py'
       - 'scripts/test_ncaam_multistat_release.py'
       - 'scripts/audit_ncaam_indiana_highpoint_baseline.py'
+      - 'scripts/audit_ncaam_bootstrap_coldstart.py'
       - 'scripts/audit_ncaam_historical_transfer_origin.py'
       - 'scripts/audit_ncaam_historical_multistat_coverage.py'
       - 'scripts/build_ncaam_historical_multistat_features.py'
@@ -117,6 +118,15 @@ jobs:
           assert len(d['years']['2026']['teams']['high point']['match_ledger'])>=20
           assert d['years']['2026']['games_replayed']>3000
           print('Verified source games; published Elo parity:',d['published_baseline_comparison'])
+          PY
+      - name: Test historical Elo cold start against published bootstrap
+        run: |
+          python scripts/audit_ncaam_bootstrap_coldstart.py --source historical-normalized
+          python - <<'PY'
+          import json
+          a=json.load(open('data/ncaam-bootstrap-initialization-comparison.json'))
+          assert a['verified_games']>5000
+          assert all(k in a['teams'] for k in ('indiana','high point'))
           PY
       - name: Reconcile and account for every historical roster player
         run: |
@@ -542,6 +552,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
+          if [ -f data/ncaam-bootstrap-initialization-comparison.json ]; then git add data/ncaam-bootstrap-initialization-comparison.json; fi
           if [ -f data/ncaam-indiana-high-point-baseline-audit.json ]; then git add data/ncaam-indiana-high-point-baseline-audit.json; fi
           if [ -f data/ncaam-score-calibration.json ]; then git add data/ncaam-score-calibration.json; fi
           if [ -f data/ncaam-team-scoring-profiles.json ]; then git add data/ncaam-team-scoring-profiles.json; fi
@@ -555,7 +566,7 @@ jobs:
           # concurrently published acquisitions. Re-apply our complete files
           # on the latest branch rather than merging two partial JSON reports.
           mkdir -p /tmp/ncaam-acquisition-publish
-          for file in data/ncaam-indiana-high-point-baseline-audit.json data/ncaam-2026-27-multistat-challenger.json data/ncaam-score-calibration.json data/ncaam-team-scoring-profiles.json data/ncaam-exact-challenger-v3-head-to-head.json data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json data/ncaam-coverage-shrinkage.json data/ncaam-player-reconciliation.json data/ncaam-multiyear-identity-audit.json data/ncaam-two-year-stat-recovery-backtest.json; do
+          for file in data/ncaam-bootstrap-initialization-comparison.json data/ncaam-indiana-high-point-baseline-audit.json data/ncaam-2026-27-multistat-challenger.json data/ncaam-score-calibration.json data/ncaam-team-scoring-profiles.json data/ncaam-exact-challenger-v3-head-to-head.json data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json data/ncaam-coverage-shrinkage.json data/ncaam-player-reconciliation.json data/ncaam-multiyear-identity-audit.json data/ncaam-two-year-stat-recovery-backtest.json; do
             if [ -f "$file" ]; then cp "$file" /tmp/ncaam-acquisition-publish/; fi
           done
           for attempt in 1 2 3 4 5; do
@@ -563,7 +574,7 @@ jobs:
             git reset --hard origin/main || exit 1
             cp /tmp/ncaam-acquisition-publish/* data/
             git add data/ncaam-historical-acquisition-status.json
-            for file in data/ncaam-indiana-high-point-baseline-audit.json data/ncaam-2026-27-multistat-challenger.json data/ncaam-score-calibration.json data/ncaam-team-scoring-profiles.json; do
+            for file in data/ncaam-bootstrap-initialization-comparison.json data/ncaam-indiana-high-point-baseline-audit.json data/ncaam-2026-27-multistat-challenger.json data/ncaam-score-calibration.json data/ncaam-team-scoring-profiles.json; do
               if [ -f "$file" ]; then git add "$file"; fi
             done
             if [ -f data/ncaam-exact-challenger-v3-head-to-head.json ]; then git add data/ncaam-exact-challenger-v3-head-to-head.json; fi
