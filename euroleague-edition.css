@@ -72,3 +72,32 @@ body.league-edition[data-league="euroleague"] .el-match>div{min-width:0}
  body.league-edition[data-league="euroleague"] #el-standings .el-club .slt-mark{--slt-mark-size:21px}
  body.league-edition[data-league="euroleague"] .el-match .slt-mark{--slt-mark-size:26px}
 }
+
+/* 2026 EuroLeague crest sizing: club identities should lead the editorial design.
+   Scale the actual shared crest slots, not just the nested PNG dimensions. */
+body.league-edition[data-league="euroleague"] #el-elo-table .el-club .slt-mark{--slt-mark-size:38px}
+body.league-edition[data-league="euroleague"] #el-standings .el-club .slt-mark{--slt-mark-size:31px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match .slt-mark{--slt-mark-size:42px}
+body.league-edition[data-league="euroleague"] #el-live-scorebugs .el-live-team .slt-mark{--slt-mark-size:36px}
+body.league-edition[data-league="euroleague"] #el-recent-results-list .el-result-row .slt-mark{--slt-mark-size:34px}
+/* More visible artwork inside each team's existing 3px primary-color ring. */
+body.league-edition[data-league="euroleague"] .slt-mark>img{padding:2px!important}
+body.league-edition[data-league="euroleague"] #el-elo-table .el-club{gap:10px;min-width:0}
+body.league-edition[data-league="euroleague"] #el-elo-table .nba-current-table tbody tr{height:54px}
+body.league-edition[data-league="euroleague"] #el-standings .nba-current-table tbody tr{height:46px}
+body.league-edition[data-league="euroleague"] #el-live-scorebugs .el-live-team{grid-template-columns:36px minmax(0,1fr) auto;gap:8px;min-height:38px;margin:8px 0}
+body.league-edition[data-league="euroleague"] #el-live-scorebugs .el-live-team>span{min-width:0;overflow-wrap:break-word}
+body.league-edition[data-league="euroleague"] #el-recent-results-list .el-result-row{min-height:37px}
+body.league-edition[data-league="euroleague"] #el-recent-results-list .el-result-row>span{gap:8px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match{gap:9px;margin:12px 0}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match>div{gap:9px;min-width:0}
+@media(max-width:680px){
+ body.league-edition[data-league="euroleague"] #el-elo-table .el-club .slt-mark{--slt-mark-size:34px}
+ body.league-edition[data-league="euroleague"] #el-standings .el-club .slt-mark{--slt-mark-size:27px}
+ body.league-edition[data-league="euroleague"] #el-forecasts .el-match .slt-mark{--slt-mark-size:36px}
+ body.league-edition[data-league="euroleague"] #el-live-scorebugs .el-live-team .slt-mark{--slt-mark-size:32px}
+ body.league-edition[data-league="euroleague"] #el-recent-results-list .el-result-row .slt-mark{--slt-mark-size:30px}
+ body.league-edition[data-league="euroleague"] #el-live-scorebugs .el-live-team{grid-template-columns:32px minmax(0,1fr) auto}
+ body.league-edition[data-league="euroleague"] #el-elo-table .nba-current-table tbody tr{height:50px}
+ body.league-edition[data-league="euroleague"] #el-standings .nba-current-table tbody tr{height:42px}
+}

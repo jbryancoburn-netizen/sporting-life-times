@@ -178,6 +178,20 @@ try{
   const all=Object.values(euro).flat();
   if(all.some(x=>!x.marked||x.source!=='brand'||x.weight!=='3px'||!x.code||!x.width||Math.abs(x.width-x.height)>1))
    throw Error('EuroLeague color crest failure at '+width+': '+JSON.stringify(euro));
+  const sectionSizes=[
+    ['rankings',euro.rankings,width<681?34:38],
+    ['standings',euro.standings,width<681?27:31],
+    ['recent results',euro.results,width<681?30:34],
+    ['upcoming matchups',euro.fixtures,width<681?36:42],
+    ['live game rail',euro.live,width<681?32:36]
+  ];
+  for(const [section,items,expectedSize] of sectionSizes){
+    if(items.length&&items.some(x=>Math.abs(x.width-expectedSize)>1))
+      throw Error('EuroLeague '+section+' crests wrong size at '+width+'px. Expected '+expectedSize+': '+JSON.stringify(items));
+  }
+  const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));
+  if(layout.document>layout.viewport+3)
+    throw Error('Enlarged EuroLeague logos cause horizontal page overflow: '+JSON.stringify(layout));
   const expected={OLY:'rgb(207, 16, 45)',PAN:'rgb(0, 122, 61)',MAD:'rgb(0, 82, 159)'};
   for(const [code,color] of Object.entries(expected))
    if(euro.rankings.find(x=>x.code===code)?.color!==color)throw Error('EuroLeague '+code+' has incorrect primary color at '+width+': '+JSON.stringify(euro.rankings));
