@@ -4,18 +4,19 @@ const svgSafe=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const profile=(cohort,id)=>'college-soccer-team.html?team='+encodeURIComponent(cohort+':'+id);
 function crest(name,id,cohort,branding){
  const info=branding?.teams?.[cohort+':'+id]||{};
- const mark=node('span','soccer-school-mark slt-mark slt-mark--medium slt-mark--verified');
- if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))mark.style.setProperty('--slt-mark-ring',info.primary);
- const initials=String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC';
- const fallback=node('span','soccer-school-fallback slt-mark-initial',initials);
- mark.classList.add('slt-mark--missing');
- if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))fallback.style.color=info.primary;
+ const color=/^#[0-9a-fA-F]{6}$/.test(info.primary||'')?info.primary:'#54718a';
+ const mark=node('span','slt-mark slt-mark--medium slt-mark--verified soccer-school-mark');
+ mark.style.setProperty('--slt-mark-ring',color);
+ mark.style.cssText+=';display:inline-flex!important;align-items:center!important;justify-content:center!important;position:relative!important;box-sizing:border-box!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;flex:0 0 44px!important;border:3px solid '+color+'!important;border-radius:50%!important;overflow:hidden!important;background:white!important;';
+ const fallback=node('span','slt-mark-initial soccer-school-fallback',String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC');
+ fallback.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;position:absolute!important;inset:0!important;font:800 11px Arial,sans-serif!important;color:'+color+'!important;background:white!important;';
  mark.append(fallback);
  if(info.logo_url){
   const img=node('img','soccer-school-image');
   img.alt=name+' logo';img.loading='eager';img.decoding='async';
-  img.addEventListener('load',()=>{if(img.naturalWidth>0){mark.classList.add('logo-ready');mark.classList.remove('slt-mark--missing');}else img.remove()});
-  img.addEventListener('error',()=>{img.remove();mark.classList.add('slt-mark--missing')});
+  img.style.cssText='display:none!important;position:relative!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;padding:4px!important;box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;background:transparent!important;border:0!important;border-radius:0!important;clip-path:none!important;mask:none!important;opacity:1!important;';
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){img.style.setProperty('display','block','important');fallback.style.setProperty('display','none','important')}});
+  img.addEventListener('error',()=>img.remove());
   mark.append(img);img.src=info.logo_url;
  }
  return mark;
