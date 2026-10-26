@@ -42,3 +42,8 @@
 .nba-standing-strength-track>span{display:block;height:100%;background:linear-gradient(90deg,#087dad,#12c5ac);border-radius:8px}
 .nba-standing-trend{text-align:right;color:#315a70;font-size:10px}
 @media(max-width:490px){.nba-visual-row{grid-template-columns:14px 24px minmax(60px,1.2fr) 39px minmax(42px,1fr) 36px;gap:4px;padding:8px 5px;font-size:10px}.nba-standing-logo{width:23px;height:23px}.nba-standing-trend{font-size:9px}}
+
+.nba-notebook-visual{background:#fff;border:1px solid #e2e9f0;border-radius:12px;padding:12px!important;min-width:0}
+.nba-notebook-visual h3{color:#14314c!important;border-bottom:2px solid #e6ecf1;padding-bottom:9px}.nba-notebook-visual h3 small{float:right;color:#16858b}
+.nba-player-viz-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid #e9edf2;padding:9px 0;font:12px Arial,sans-serif;color:#203044}
+.nba-player-viz-position{font-weight:900;color:#b06b2d;min-width:14px}.nba-player-viz-name{flex:1;min-width:0;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nba-player-viz-name small{display:block;font-size:10px;font-weight:400;color:#718195;margin:3px 0 5px}.nba-player-viz-track{height:6px;background:#e5edf2;border-radius:9px;display:block;overflow:hidden}.nba-player-viz-track>span{display:block;background:linear-gradient(90deg,#006db7,#17b9ad);height:100%;border-radius:9px}.nba-player-viz-row strong{font-size:15px}
