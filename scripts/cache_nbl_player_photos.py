@@ -67,3 +67,5 @@ found={k:v for k,v in result.items() if v}
 print('FACE-VERIFIED PLAYER PHOTOS',len(found),'/',len(people),flush=True)
 
 # Faces required; logos never qualify.
+
+# OpenCV 4 face detection pinned in workflow.
