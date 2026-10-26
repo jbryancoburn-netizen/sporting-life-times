@@ -28,11 +28,38 @@ history.get(id).push({gameId:String(e.id),date:e.date,opponent,score,against,bef
 const recordTail=(probabilities,wins)=>{let dp=[1];for(const p of probabilities){const next=Array(dp.length+1).fill(0);for(let i=0;i<dp.length;i++){next[i]+=dp[i]*(1-p);next[i+1]+=dp[i]*p;}dp=next;}return dp.slice(wins).reduce((a,b)=>a+b,0)};
 const scheduleMetrics=new Map();
 for(const [id,fixtures] of opponents){const record=records.get(id)||{wins:0,losses:0,ties:0};const sos=fixtures.reduce((sum,g)=>sum+g.elo,0)/fixtures.length;const referenceWins=fixtures.map(g=>winProbability(initial,g.elo,g.homeEdge));const expectedWins=referenceWins.reduce((a,b)=>a+b,0);const tail=recordTail(referenceWins,record.wins);scheduleMetrics.set(id,{sos,sor:-Math.log10(Math.max(tail,1e-12)),sorTailProbability:tail,referenceExpectedWins:expectedWins,...record});}
-const ranked=[...ratings].sort((a,b)=>b[1].elo-a[1].elo);
+// Re-evaluate the complete schedule graph, not only the two teams in the latest final.
+// Every team's opponent rating is revised in simultaneous bounded passes. This
+// adjusted power rating is distinct from the immutable chronological Elo ledger.
+const current=new Map([...ratings].map(([id,t])=>[id,t.elo]));
+const retrospective=new Map(current);
+const graph=[...opponents].map(([id,games])=>[id,games.map(g=>({id:g.id,edge:g.homeEdge}))]);
+for(let pass=0;pass<12;pass++){
+ const next=new Map();
+ for(const [id,games] of graph){
+  const own=current.get(id)??initial;
+  const oppAverage=games.reduce((sum,g)=>sum+(retrospective.get(g.id)??initial),0)/games.length;
+  const originalAverage=games.reduce((sum,g)=>sum+(current.get(g.id)??initial),0)/games.length;
+  // Damped and capped opponent-strength correction; prevents runaway feedback.
+  const correction=Math.max(-100,Math.min(100,(oppAverage-originalAverage)*0.35));
+  next.set(id,own+correction);
+ }
+ for(const [id,value] of next)retrospective.set(id,value);
+}
+for(const [id,fixtures] of opponents){
+ const old=scheduleMetrics.get(id);
+ if(!old)continue;
+ const sosCurrent=fixtures.reduce((sum,g)=>sum+(retrospective.get(g.id)??initial),0)/fixtures.length;
+ const referenceWins=fixtures.map(g=>winProbability(initial,retrospective.get(g.id)??initial,g.homeEdge));
+ const expectedWins=referenceWins.reduce((a,b)=>a+b,0);
+ const tail=recordTail(referenceWins,old.wins);
+ scheduleMetrics.set(id,{...old,sos:sosCurrent,sor:-Math.log10(Math.max(tail,1e-12)),sorTailProbability:tail,referenceExpectedWins:expectedWins,originalSOS:old.sos});
+}
+const ranked=[...ratings].sort((a,b)=>(retrospective.get(b[0])??b[1].elo)-(retrospective.get(a[0])??a[1].elo));
 window.CFB_ELO_REPLAY={season:2026,baseline:1500,fromWeek:0,completedGames:seen.size,failedWeeks:[...errors],duplicateConflicts:[...new Set(duplicateConflicts)],earliestGame:events[0]?.date||null,latestGame:events.at(-1)?.date||null,certified:true};
-window.CFB_RATINGS=Object.fromEntries(ranked.map(([id,t])=>[id,{...t,games:counts.get(id),history:history.get(id)||[],...scheduleMetrics.get(id),model:'2026-results-only',rosterAdjusted:false}]));
+window.CFB_RATINGS=Object.fromEntries(ranked.map(([id,t])=>[id,{...t,adjustedElo:retrospective.get(id)??t.elo,retrospectiveAdjustment:(retrospective.get(id)??t.elo)-t.elo,games:counts.get(id),history:history.get(id)||[],...scheduleMetrics.get(id),model:'2026-results-only',rosterAdjusted:false}]));
 document.dispatchEvent(new Event('cfb-ratings-ready'));
-const note='<p class="data-note">2026 results-based Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · 2026 ratings use game results only; no roster or external rankings. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'ESPN saved results snapshot loaded. Ratings recalculate on page reload.')+'</p>';
-root.innerHTML=seen.size?note+ranked.slice(0,25).map(([id,t],i)=>'<a class="school-line" href="cfb-team.html?team='+encodeURIComponent(id)+'"><strong style="min-width:25px">'+(i+1)+'</strong><img loading="lazy" alt="" src="'+esc(t.logo)+'"><span style="flex:1">'+esc(t.name)+'</span><small>'+Math.round(t.elo)+' Elo · SOS '+Math.round(scheduleMetrics.get(id)?.sos||1500)+' · SOR '+(scheduleMetrics.get(id)?.sor||0).toFixed(2)+' · '+counts.get(id)+' GP</small></a>').join(''):'<p class="data-note">No completed 2026 games could be verified from the weekly score feeds.</p>';
+const note='<p class="data-note">2026 adjusted power ranking with chronological Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · 2026 ratings use game results only; no roster or external rankings. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'ESPN saved results snapshot loaded. Ratings recalculate on page reload.')+'</p>';
+root.innerHTML=seen.size?note+ranked.slice(0,25).map(([id,t],i)=>'<a class="school-line" href="cfb-team.html?team='+encodeURIComponent(id)+'"><strong style="min-width:25px">'+(i+1)+'</strong><img loading="lazy" alt="" src="'+esc(t.logo)+'"><span style="flex:1">'+esc(t.name)+'</span><small>'+Math.round(retrospective.get(id)??t.elo)+' adjusted · '+Math.round(t.elo)+' Elo · SOS '+Math.round(scheduleMetrics.get(id)?.sos||1500)+' · SOR '+(scheduleMetrics.get(id)?.sor||0).toFixed(2)+' · '+counts.get(id)+' GP</small></a>').join(''):'<p class="data-note">No completed 2026 games could be verified from the weekly score feeds.</p>';
 }).catch(()=>{root.textContent='2026 game history could not be processed; ratings unavailable.'});
 })();
