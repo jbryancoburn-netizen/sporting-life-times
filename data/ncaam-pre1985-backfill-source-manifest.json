@@ -1,0 +1,59 @@
+{
+  "project": "NCAA men's basketball pre-1985 Elo backfill",
+  "status": "SOURCE_IDENTIFICATION_COMPLETE_DATA_ACQUISITION_PENDING",
+  "as_of": "2026-10-26",
+  "periods": [
+    {
+      "start": 1949,
+      "end": 1984,
+      "priority": 1,
+      "source": "Sports Reference college basketball schedules (1949-50 onward)",
+      "source_url": "https://www.sports-reference.com/blog/2015/05/college-basketball-schedules-back-to-1949-50/",
+      "source_type": "team game dates/opponent/final score",
+      "verified_bulk_game_count": 0,
+      "imported": false,
+      "validation_required": "team-season schedule completeness, neutral/home flags, duplicate contests, school identity and historical NCAA division changes"
+    },
+    {
+      "start": 1939,
+      "end": 1948,
+      "priority": 2,
+      "source": "Sports Reference NCAA tournament historical results",
+      "source_url": "https://www.sports-reference.com/cbb/tools/tiny.fcgi?id=hvEIq",
+      "source_type": "postseason scores only; not complete regular seasons",
+      "verified_bulk_game_count": 0,
+      "imported": false,
+      "validation_required": "exclude postseason-only eras from full-season predictive Elo parity"
+    },
+    {
+      "start": 1892,
+      "end": 1938,
+      "priority": 3,
+      "source": "School athletics archives, historical schedules, season indexes",
+      "source_url": "https://www.sports-reference.com/cbb/seasons/",
+      "source_type": "incomplete scattered historical results",
+      "verified_bulk_game_count": 0,
+      "imported": false,
+      "validation_required": "date and opponent provenance per game, school alias resolution, incomplete coverage warning"
+    }
+  ],
+  "acceptance": {
+    "minimum_game_fields": [
+      "season",
+      "game_date",
+      "team_a_id",
+      "team_b_id",
+      "score_a",
+      "score_b",
+      "source_url"
+    ],
+    "mandatory_checks": [
+      "no duplicate team/date/opponent game",
+      "preserve original school name and canonical mapping",
+      "same-date Elo updates",
+      "record team-season known games and completeness",
+      "do not infer missing game results"
+    ],
+    "publish_gate": "No pre-1985 season may be labeled replayed until game records are downloaded, cross-checked and backtest output published."
+  }
+}
