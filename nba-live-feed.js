@@ -87,8 +87,28 @@ async function update(){
    merged.set(gameKey,event);
   }
  }catch(e){console.warn('Published NBA schedule unavailable:',e.message)}
- if(merged.size){
-  render({events:[...merged.values()]});lastOK=Date.now();
+ // Cross-source match identity: normalize provider abbreviations and collapse
+ // stale scheduled copies when an actual live/final version of the game exists.
+ const aliases={NY:'NYK',GS:'GSW',SA:'SAS',NO:'NOP',WSH:'WAS',UTAH:'UTA'};
+ const canonical=t=>aliases[t]||t;
+ const priority=e=>({in:3,post:2,pre:1}[e.status?.type?.state]||0);
+ const dedup=new Map();
+ for(const event of merged.values()){
+  const competitors=event.competitions?.[0]?.competitors||[];
+  const away=canonical(competitors.find(t=>t.homeAway==='away')?.team?.abbreviation||'');
+  const home=canonical(competitors.find(t=>t.homeAway==='home')?.team?.abbreviation||'');
+  const stamp=Date.parse(event.date||'');
+  if(!away||!home||!Number.isFinite(stamp))continue;
+  const pair=away+'-'+home;
+  const current=dedup.get(pair);
+  if(!current){dedup.set(pair,event);continue;}
+  const diff=Math.abs(Date.parse(current.date)-stamp);
+  // Separate true rematches when tipoffs differ by more than 30 hours.
+  if(diff>30*3600000){dedup.set(pair+'-'+event.id,event);continue;}
+  if(priority(event)>priority(current))dedup.set(pair,event);
+ }
+ if(dedup.size){
+  render({events:[...dedup.values()]});lastOK=Date.now();
   status.textContent=(successful.length?'LIVE SOURCES · '+successful.join(' + '):'Live feeds unavailable · published snapshot')+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
   return;
  }
