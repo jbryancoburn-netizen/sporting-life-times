@@ -1,0 +1,46 @@
+/* EPL club desks — MBB team desk layout, Premier League palette */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap');
+body{--ep-paper:#f5f2ea;--ep-ink:#182a34;--ep-muted:#647479;--ep-line:#cbd5d5;--ep-pink:#bc597b;--ep-teal:#1393a1;--ep-deep:#241c40;background:var(--ep-paper)!important;color:var(--ep-ink)}
+.club-page{max-width:1460px!important;padding:13px clamp(14px,2.5vw,28px) 70px!important;font-family:'DM Sans',Arial,sans-serif!important}
+.club-page>.club-eyebrow,.club-page #club-status{font:700 10px 'DM Sans',Arial,sans-serif!important;color:var(--ep-muted)!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+.club-page>.club-eyebrow{margin:15px 0 8px!important}
+.club-hero{background:radial-gradient(ellipse at 90% 20%,color-mix(in srgb,var(--club-primary,#536699) 65%,#241c40),transparent 56%),var(--ep-deep)!important;color:#fff!important;border-top:6px solid var(--club-primary,#bc597b)!important;padding:29px!important;min-height:235px!important;box-shadow:none!important}
+.club-hero:before{background:radial-gradient(circle at 86% 60%,#ffffff13,transparent 45%)!important}
+.club-hero h1{font:700 clamp(42px,6vw,87px)/.94 'Barlow Condensed',Impact,sans-serif!important;letter-spacing:-.025em!important}
+.club-hero>img{background:#fffefa!important;border:0!important;padding:13px!important}
+.club-hero .club-eyebrow{color:#b4e3c4!important;font:700 10px 'DM Sans',Arial,sans-serif!important;letter-spacing:.15em!important}
+.club-hero #club-meta{font:600 12px 'DM Sans',Arial,sans-serif!important;line-height:1.65!important}
+.club-rating{border:1px solid #ffffff5c!important;background:#ffffff12!important;text-align:center!important;padding:15px!important}
+.club-rating span{font:700 10px 'DM Sans',Arial,sans-serif!important;color:#dce4eb!important;letter-spacing:.1em!important}
+.club-rating strong{font:700 clamp(38px,4vw,60px) 'Barlow Condensed',Impact,sans-serif!important;color:#fff!important}
+.club-section-nav{background:var(--ep-paper)!important;border-top:3px solid var(--ep-ink)!important;border-bottom:1px solid var(--ep-ink)!important;padding:13px 0!important;gap:17px!important;position:relative!important}
+.club-section-nav a{font:700 12px 'DM Sans',Arial,sans-serif!important;background:transparent!important;color:var(--ep-ink)!important;padding:0!important;border:0!important;letter-spacing:0!important;text-transform:none!important}
+.club-section-nav a:hover{color:var(--ep-pink)!important}
+.club-page h2,.club-detail-panel h2{font:400 clamp(26px,2.6vw,37px)/1.09 'Libre Caslon Display',Georgia,serif!important;color:var(--ep-ink)!important;letter-spacing:-.015em!important;text-transform:none!important}
+#club-fixtures-section{border-top:3px solid var(--ep-teal)!important;padding-top:15px!important;margin:25px 0!important}
+#club-fixtures-section>h2{margin:0 0 12px!important;border:0!important;padding:0!important}
+#club-fixtures-section>p{font:500 11px 'DM Sans',Arial,sans-serif!important;color:var(--ep-muted)!important}
+.club-fixtures{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+.club-fixture{border:1px solid var(--ep-line)!important;border-top:4px solid var(--club-primary,#bc597b)!important;background:#fffefa!important;padding:16px!important;border-radius:0!important}
+.club-expanded{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,.95fr)!important;gap:26px!important;align-items:start!important;margin-top:25px!important}
+.club-detail-panel{grid-column:auto!important;min-width:0;border-top:3px solid var(--ep-ink);padding-top:15px;background:none}
+.club-detail-panel:nth-child(3n+2){border-color:var(--ep-teal)}
+.club-detail-panel:nth-child(3n){border-color:var(--ep-pink)}
+.club-detail-panel h2{margin:0 0 16px!important;padding:0!important;border:0!important}
+.club-detail-panel>div{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.club-detail-panel :is(table,.table-wrap){width:100%;max-width:100%;font:12px 'DM Sans',Arial,sans-serif}
+.club-detail-panel :is(th,td){padding:9px 5px;border-bottom:1px solid var(--ep-line)}
+#club-record,#club-history,#club-results,#club-players{background:#fffefa!important;border:1px solid var(--ep-line)!important;padding:14px!important}
+#club-record{padding:12px!important}
+#club-record .club-mini-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+#club-record .club-mini-stats>div{border:1px solid var(--ep-line)!important;border-top:3px solid var(--club-primary,#bc597b)!important;background:#fffefa!important}
+#club-record .club-mini-stats strong{font:700 27px 'Barlow Condensed',Impact,sans-serif!important}
+#club-team-stats .club-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#club-team-stats .club-stat-cell{border-top-color:var(--club-primary,#bc597b)!important}
+#club-team-stats .club-stat-cell strong{font:700 34px 'Barlow Condensed',Impact,sans-serif!important}
+.club-data-row{font:600 11px 'DM Sans',Arial,sans-serif!important;border-bottom:1px solid var(--ep-line)!important}
+.club-result-scorebug{border-bottom:1px solid var(--ep-line)!important}
+.club-result-teams>strong{font:700 26px 'Barlow Condensed',Impact,sans-serif!important}
+.club-note{font:500 11px/1.6 'DM Sans',Arial,sans-serif!important;color:var(--ep-muted)!important}
+@media(max-width:1100px){.club-expanded{grid-template-columns:repeat(2,minmax(0,1fr))!important}.club-fixtures{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){.club-page{padding:10px 14px 45px!important}.club-hero{grid-template-columns:90px minmax(0,1fr)!important;padding:19px!important;gap:12px!important;min-height:175px!important}.club-hero>img{width:82px!important;height:82px!important;padding:8px!important}.club-hero h1{font-size:clamp(35px,9vw,59px)!important}.club-rating{grid-column:1/-1!important}.club-fixtures{grid-template-columns:1fr!important}.club-expanded{display:block!important}.club-detail-panel{margin-bottom:28px}.club-section-nav{gap:16px!important}.club-section-nav a{font-size:11px!important}}
