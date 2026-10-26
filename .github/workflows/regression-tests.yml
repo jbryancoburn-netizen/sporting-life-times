@@ -1,7 +1,22 @@
 name: Newspaper regression tests
 on:
   push:
+    branches: [main]
+    paths:
+      - '*.js'
+      - '*.html'
+      - '*.css'
+      - 'tests/*.test.cjs'
+      - 'scripts/check_inline_javascript.py'
+      - '.github/workflows/regression-tests.yml'
   pull_request:
+    paths:
+      - '*.js'
+      - '*.html'
+      - '*.css'
+      - 'tests/*.test.cjs'
+      - 'scripts/check_inline_javascript.py'
+      - '.github/workflows/regression-tests.yml'
 jobs:
   editorial-tests:
     runs-on: ubuntu-latest
