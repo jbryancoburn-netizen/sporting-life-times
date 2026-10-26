@@ -158,94 +158,63 @@ jobs:
       - name: Publish GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Verify published NBA Desk ordering and deployed commit
+      - name: Verify the public MBB-style NBA edition, linked desks and revision
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -euo pipefail
-          ROOT="${PAGES_URL%/}"
+          ROOT="$(printf '%s' "$PAGES_URL" | sed 's:/$::')"
           for attempt in $(seq 1 12); do
-            if curl -fsSL --max-time 15 "$ROOT/nba.html?edition=$GITHUB_SHA" -o /tmp/nba-published-desk.html && \
-               curl -fsSL --max-time 15 "$ROOT/pages-build-sha.txt?edition=$GITHUB_SHA" -o /tmp/nba-published-sha.txt; then
-              if grep -q "^$GITHUB_SHA$" /tmp/nba-published-sha.txt && python3 -c 'from pathlib import Path;h=Path("/tmp/nba-published-desk.html").read_text();assert h.index("<h1>THE NBA DESK</h1>") < h.index("class=\"nba-quick-desk-nav\"") < h.index("id=\"nba-page-turner\"") < h.index("id=\"nba-live-games\"");assert "class=\"hub-nav\"" not in h and "class=\"nba-elo-update-strip\"" not in h;assert h.count("id=\"nba-elo-update-state\"")==1'
-              then
-                echo "PASS: public NBA Desk is built from $GITHUB_SHA"
-                exit 0
+            if curl -fsSL --max-time 15 "$ROOT/pages-build-sha.txt?sha=$GITHUB_SHA" -o /tmp/nba-public-sha.txt && \
+               curl -fsSL --max-time 15 "$ROOT/nba.html?sha=$GITHUB_SHA" -o /tmp/nba-public.html && \
+               curl -fsSL --max-time 15 "$ROOT/nba-newspaper.js?sha=$GITHUB_SHA" -o /tmp/nba-public-renderer.js; then
+              if grep -qx "$GITHUB_SHA" /tmp/nba-public-sha.txt && \
+                 grep -q 'mbb-newspaper.css' /tmp/nba-public.html && \
+                 grep -q 'aria-label="NBA newspaper navigation"' /tmp/nba-public.html && \
+                 ! grep -q 'nba-page-turner.js' /tmp/nba-public.html && \
+                 grep -q 'data/nba-game-center.json' /tmp/nba-public-renderer.js; then
+                echo 'PASS: MBB-style NBA edition matches deployed Git SHA'
+                break
               fi
             fi
-            echo "Waiting for public NBA Desk edition: attempt $attempt"
+            if [ "$attempt" -eq 12 ]; then echo 'FAIL: public NBA edition not deployed' >&2; exit 1; fi
             sleep 10
           done
-          echo 'FAIL: published NBA Desk does not match the current deployment' >&2
-          exit 1
-      - name: Confirm the live NBA news file matches this deployment
+          for file in nba-standings.html nba-conference.html nba-playoffs.html nba-rankings.html nba-players.html nba-matchups.html nba-team-desk.html nba-game-center.html nba-live-game.html; do
+            curl -fsSL --max-time 15 "$ROOT/$file?sha=$GITHUB_SHA" -o /tmp/nba-detail.html
+            grep -q 'nba-newspaper.css' /tmp/nba-detail.html || { echo "FAIL: $file not rebuilt" >&2; exit 1; }
+          done
+          echo 'PASS: all NBA news, standings, playoff, Elo, player, franchise and game pages are served'
+      - name: Confirm published NBA news and completed-game player statistics
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -euo pipefail
-          curl --fail --location --silent --show-error --max-time 25 "${PAGES_URL%/}/data/nba-top-stories.json?revision=$GITHUB_SHA" -o /tmp/published-nba-news.json
+          ROOT="$(printf '%s' "$PAGES_URL" | sed 's:/$::')"
+          curl -fsSL --max-time 25 "$ROOT/data/nba-top-stories.json?sha=$GITHUB_SHA" -o /tmp/published-nba-news.json
           python3 scripts/verify-nba-news-artifact.py /tmp/published-nba-news.json
+          curl -fsSL --max-time 25 "$ROOT/data/nba-player-leaders.json?sha=$GITHUB_SHA" -o /tmp/nba-public-players.json
+          curl -fsSL --max-time 25 "$ROOT/data/nba-game-center.json?sha=$GITHUB_SHA" -o /tmp/nba-public-games.json
+          python3 - <<'PY'
+          import json
+          p=json.load(open('/tmp/nba-public-players.json'))
+          g=json.load(open('/tmp/nba-public-games.json'))
+          assert p.get('season')=='2026-27'
+          assert len(p.get('rows',[]))>=5 and len(p.get('season_totals',[]))>=10
+          assert any(x.get('period_scores') and x.get('team_comparison') for x in g.get('games',[]))
+          print('PASS: published NBA player leaders, rich box scores, and news verified')
+          PY
       - name: Certify all 30 published NBA records and Elo ratings
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -euo pipefail
           for attempt in $(seq 1 6); do
-            if node scripts/verify-nba-public-sync.mjs "${PAGES_URL%/}"; then
-              echo 'PASS: public NBA standings and Elo match the exact deployed verified finals'
+            if node scripts/verify-nba-public-sync.mjs "$(printf '%s' "$PAGES_URL" | sed 's:/$::')"; then
+              echo 'PASS: public NBA standings and Elo match the verified finals'
               exit 0
             fi
             sleep 10
           done
-          echo 'FAIL: live NBA rankings, records or data do not match the deployed edition' >&2
-          exit 1
-      - name: Verify new team desk is publicly served
-        env:
-          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
-        run: |
-          set -euo pipefail
-          ROOT="${PAGES_URL%/}"
-          for attempt in $(seq 1 12); do
-            if curl -fsSL --max-time 15 "$ROOT/nba-team-desk.html?team=IND" -o /tmp/nba-team-page.html && \
-               curl -fsSL --max-time 15 "$ROOT/nba-team-desk.js?v=4" -o /tmp/nba-team-page.js && \
-               grep -q 'THE SCOREBOOK' /tmp/nba-team-page.html && \
-               grep -q 'nba-top-stories.json' /tmp/nba-team-page.js; then
-              echo 'PASS: public NBA team desk and team news renderer accessible'
-              exit 0
-            fi
-            sleep 10
-          done
-          echo 'FAIL: team desk files missing from publicly deployed newspaper' >&2
-          exit 1
-      - name: Verify the actual public NBA player-leaders page
-        env:
-          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
-        run: |
-          set -euo pipefail
-          ROOT="${PAGES_URL%/}"
-          TARGET="$ROOT/nba-players.html"
-          EXPECTED_SHA="$GITHUB_SHA"
-          echo "Verifying published NBA statistics at: $TARGET"
-          for attempt in $(seq 1 12); do
-            if ! curl --fail --location --silent --show-error --max-time 12 "$ROOT/pages-build-sha.txt" -o /tmp/live-pages-sha.txt; then
-              echo "Publication marker missing: site is still serving the previous build" >&2
-            elif [ "$(cat /tmp/live-pages-sha.txt)" != "$EXPECTED_SHA" ]; then
-              echo "Published site is stale: expected $EXPECTED_SHA; received $(cat /tmp/live-pages-sha.txt)" >&2
-            elif curl --fail --location --silent --show-error --max-time 12 "$TARGET" -o /tmp/published-nba-players.html; then
-              if grep -q 'NBA · Individual Player Leaders' /tmp/published-nba-players.html && grep -q 'Anthony Edwards' /tmp/published-nba-players.html && grep -q 'Victor Wembanyama' /tmp/published-nba-players.html; then
-                NBA_TARGET="${PAGES_URL%/}/nba.html"
-                if ! curl --fail --location --silent --show-error --max-time 12 "$NBA_TARGET" -o /tmp/published-nba.html; then
-                  echo "NBA front page is still unavailable" >&2
-                elif grep -q 'id="nba-individual-player-leaders"' /tmp/published-nba.html && grep -q 'NBA EDITION · SIGNATURE R4' /tmp/published-nba.html && grep -q 'nba-analysis-result' /tmp/published-nba.html && grep -q 'nba-boxscore-match' /tmp/published-nba.html && grep -q 'nba-forecast-match' /tmp/published-nba.html && grep -q 'nba-analysis-match' /tmp/published-nba.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-center.html" -o /tmp/live-game-center.html && grep -q 'nba-game-center.js?v=7' /tmp/live-game-center.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-center.js?v=7" -o /tmp/live-game-center.js && grep -q 'esc(record)' /tmp/live-game-center.js && grep -q 'Quarter by Quarter' /tmp/live-game-center.js && grep -q 'Team Comparison' /tmp/live-game-center.js && grep -q 'nba-game-comparison.js?v=3' /tmp/live-game-center.html && curl --fail --location --silent --show-error --max-time 12 "$ROOT/nba-game-comparison.js?v=3" -o /tmp/live-game-comparison.js && grep -q 'function analyze' /tmp/live-game-comparison.js && curl --fail --location --silent --show-error --max-time 12 "$ROOT/data/nba-game-center.json" -o /tmp/live-game-center-data.json && python -c "import json;g=json.load(open('/tmp/live-game-center-data.json'))['games'];assert any(x.get('period_scores') and x.get('team_comparison') for x in g)"; then
-                  echo "PASS: live NBA desk and individual player-leaders edition both match current source"
-                  exit 0
-                else
-                  echo "The live NBA desk still serves old markup" >&2
-                fi
-              fi
-            fi
-            echo "Published site not current yet (attempt $attempt of 12)"
-            sleep 10
-          done
-          echo 'FAIL: deployed Pages did not serve the correct player-leader tables' >&2
+          echo 'FAIL: live NBA records or Elo differ from current verified finals' >&2
           exit 1
