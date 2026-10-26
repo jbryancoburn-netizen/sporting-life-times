@@ -16,3 +16,15 @@
 
 /* Names stay visible even when an external conference image is unavailable. */
 .soccer-hero .pitch-conf-logo{flex-direction:column!important;gap:2px!important;justify-content:center!important}.soccer-hero .pitch-conf-logo img{max-height:43px!important;max-width:96%!important;flex-shrink:1}.soccer-hero .pitch-conf-logo .pitch-conf-name{display:block!important;position:static!important;font-size:11px!important;letter-spacing:.1px!important;line-height:1.05!important;text-align:center!important;white-space:normal!important;max-width:100%;text-wrap:balance}.soccer-hero .pitch-conf-logo:not(:has(img)) .pitch-conf-name{font-size:14px!important;font-weight:800!important}.soccer-hero .pitch-conf-logo:nth-child(12),.soccer-hero .pitch-conf-logo:nth-child(13){transform:translateY(14px)}@media(max-width:850px){.soccer-hero .pitch-conf-logo img{max-height:30px!important}.soccer-hero .pitch-conf-logo .pitch-conf-name{font-size:9px!important}}
+
+/* 2026 editorial typography audit: quieter newspaper hierarchy, not billboard headlines. */
+body .masthead{font-size:clamp(27px,3.5vw,48px)!important;letter-spacing:-1px!important}
+body h1{font-family:'Libre Caslon Display',Georgia,serif!important;font-size:clamp(30px,3.2vw,48px)!important;line-height:1.1!important;letter-spacing:-.025em!important;font-weight:400!important;text-transform:none!important}
+body .soccer-hero h1{font-size:clamp(30px,3.1vw,46px)!important;line-height:1.13!important;letter-spacing:-.025em!important}
+body h2,body .panel h2{font-size:clamp(20px,2vw,26px)!important;line-height:1.22!important;letter-spacing:-.015em!important;text-transform:none!important}
+body h3{font-size:clamp(17px,1.6vw,22px)!important;line-height:1.25!important}
+body .eyebrow,body .panel-head small{letter-spacing:.075em!important}
+body .soccer-row .rating{font-size:19px!important}
+body .soccer-row .rank{font-size:18px!important}
+body .soccer-hero .pitch span b{font-size:clamp(21px,2.4vw,29px)!important}
+@media(max-width:680px){body .masthead{font-size:clamp(27px,7vw,38px)!important}body .soccer-hero h1{font-size:32px!important}body .panel h2{font-size:21px!important}}
