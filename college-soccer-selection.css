@@ -28,3 +28,14 @@
 .ncaa-bracket-finish h3{color:#d5bd80}
 @media(max-width:780px){.cs-selection-summary{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:620px){.cs-selection-summary{grid-template-columns:repeat(2,1fr)}.ncaa-bracket-pods{grid-template-columns:1fr}.ncaa-bracket-quadrant{padding:11px}.ncaa-school-crest{width:33px;height:33px;flex-basis:33px}}
+
+/* Bracket geometry: first-round matches feed indented second-round games. */
+.ncaa-bracket-pod{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:31px;position:relative;padding:12px;overflow:visible}
+.ncaa-round-one,.ncaa-round-two{min-width:0;display:flex;flex-direction:column;gap:5px;position:relative}
+.ncaa-round-one>strong,.ncaa-round-two>strong{font:700 10px Arial,sans-serif;letter-spacing:.06em;color:#615b4f;padding:5px 0}
+.ncaa-round-two{margin-left:12px;border-left:3px solid #b39a5d;padding:11px 0 11px 13px;background:#f7f5f0}
+.ncaa-round-one:after{content:"";position:absolute;top:50%;left:100%;width:43px;border-top:2px solid #a99d80;z-index:1}
+.ncaa-round-two:before{content:"";position:absolute;left:-14px;top:50%;height:2px;width:13px;background:#a99d80}
+.ncaa-round-one .ncaa-school-row,.ncaa-round-two .ncaa-school-row{background:#fff;margin:0 5px;border:1px solid #e5e1da;padding:7px}
+.ncaa-round-two .ncaa-bracket-advance{margin:4px 5px}
+@media(max-width:750px){.ncaa-bracket-pod{grid-template-columns:1fr;gap:20px}.ncaa-round-one:after{top:auto;bottom:-12px;left:24px;width:2px;height:12px;border-top:0;border-left:2px solid #a99d80}.ncaa-round-two{margin-left:25px}.ncaa-round-two:before{left:-23px;top:20px;width:22px}}
