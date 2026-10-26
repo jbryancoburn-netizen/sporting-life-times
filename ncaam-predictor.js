@@ -45,7 +45,7 @@ function image(team,key){
  const short=team.team.split(/\s+/).map(x=>x[0]).slice(0,3).join("").toUpperCase();
  const color=schoolColors[team.team]||"#466580";
  side.style.setProperty("--side-color",color);
- $("hero").style.setProperty("--team-"+key+"-color",color);
+ document.querySelector(".hero").style.setProperty("--team-"+key+"-color",color);
  fallback.textContent=short;
  function failed(){el.hidden=true;fallback.hidden=false}
  if(id&&/^\d+$/.test(id)){el.onload=()=>{fallback.hidden=true;el.hidden=false};el.onerror=failed;fallback.hidden=false;el.hidden=true;el.src="https://a.espncdn.com/i/teamlogos/ncaa/500/"+id+".png"}
