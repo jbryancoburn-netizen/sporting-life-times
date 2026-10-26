@@ -33,7 +33,14 @@ jobs:
             try(install.packages("uncmbb", repos="https://cloud.r-project.org"),silent=TRUE)
           }
           if (!requireNamespace("uncmbb",quietly=TRUE)) {
-            install.packages("uncmbb", repos=c("https://joongsup.r-universe.dev","https://cloud.r-project.org"))
+            try(install.packages("uncmbb", repos=c("https://joongsup.r-universe.dev","https://cloud.r-project.org")),silent=TRUE)
+          }
+          if (!requireNamespace("uncmbb",quietly=TRUE)) {
+            cat("CRAN and R-universe unavailable; install exact public project source instead\\n")
+            rc <- system("git clone --depth 1 https://github.com/joongsup/uncmbb.git /tmp/uncmbb-src",intern=FALSE)
+            if (rc!=0) stop("Unable to acquire source repository")
+            rc <- system("R CMD INSTALL /tmp/uncmbb-src",intern=FALSE)
+            if (rc!=0) stop("Unable to install source repository")
           }
           stopifnot(requireNamespace("uncmbb",quietly=TRUE))
           cat("INSTALLED HISTORICAL SOURCE VERSION",as.character(packageVersion("uncmbb")),"\\n")
