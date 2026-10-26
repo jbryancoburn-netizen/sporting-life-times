@@ -327,6 +327,18 @@ def main():
                   "source_finals_in_window":probe["fetched_finals"],
                   "quarantined_final_rows":probe["quarantined_final_rows"],
                   "source":"NCAA.com scoreboards through ncaa-api compatibility transport"})
+    # An offline deterministic replay has NO authority to clear live-source conflicts.
+    # Preserve the last real source-check results until an online fetch verifies them.
+    if args.offline and AUDIT.is_file():
+        previous_audit = read_json(AUDIT)
+        for field in ("status", "unresolved_source_corrections",
+                      "unresolved_source_correction_count", "quarantined_final_rows",
+                      "source_finals_in_window", "scoreboard_checks", "checked_through"):
+            if field in previous_audit:
+                audit[field] = previous_audit[field]
+        audit["verification_mode"] = "offline_replay_preserved_previous_source_audit"
+    else:
+        audit["verification_mode"] = "online_source_check"
     model_needs_repair = not OUTPUT.is_file() or read_json(OUTPUT) != model
     changed = not ledger_existed or next_ledger != ledger or model_needs_repair
     if changed:
