@@ -18,9 +18,9 @@ def main():
  games,errors=extract_games(schedule,programs,box)
  stats=defaultdict(lambda:{"for":[],"against":[],"totals":[]})
  for g in games:
-  h,a=g["home"],g["away"];hs,aws=g["home_score"],g["away_score"]
-  stats[h]["for"].append(hs);stats[h]["against"].append(aws)
-  stats[a]["for"].append(aws);stats[a]["against"].append(hs)
+  home_team,away_team=g["home"],g["away"];hs,aws=g["home_score"],g["away_score"]
+  stats[home_team]["for"].append(hs);stats[home_team]["against"].append(aws)
+  stats[away_team]["for"].append(aws);stats[away_team]["against"].append(hs)
  total=[(g["home_score"]+g["away_score"])/2 for g in games]
  mean=statistics.mean(total)
  elo=json.loads(Path(a.elo).read_text())
