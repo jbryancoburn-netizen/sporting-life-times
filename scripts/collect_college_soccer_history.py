@@ -11,7 +11,7 @@ def parse(raw,day):
  if not g:return None
  return {"game_id":g["match_id"],"date":g["date"],"home":g["home_team"],"away":g["away_team"],"home_goals":g["home_goals"],"away_goals":g["away_goals"],"neutral_venue":None,"source_url":g["source_game"],"status":"final"}
 def main():
- ap=argparse.ArgumentParser();ap.add_argument("--years",nargs="+",type=int,default=[2023,2024,2025]);args=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument("--years",nargs="+",type=int,default=[2023,2024,2025]);ap.add_argument('--max-days-per-year',type=int,default=35);args=ap.parse_args()
  dest=ROOT/"data"/"college-soccer-history";dest.mkdir(parents=True,exist_ok=True)
  for year in args.years:
   path=dest/f"men-d1-{year}.json"
@@ -27,6 +27,7 @@ def main():
     if stamp in checked:
      day+=dt.timedelta(days=1)
      continue
+    if dates>=args.max_days_per_year:break
     url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
     try:
      data=scoreboard(url);dates+=1;checked.add(stamp)
@@ -43,9 +44,10 @@ def main():
     except Exception as e:errors.append({"date":stamp,"error":str(e)[:180]})
     day+=dt.timedelta(days=1)
     time.sleep(.38)
+   if dates>=args.max_days_per_year:break
   games=sorted(records.values(),key=lambda x:(x["date"],x["game_id"]))
-  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"checked_dates":sorted(checked),"finals_seen":valid,"unique_finals":len(games),"errors":errors,"games":games}
+  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"checked_dates":sorted(checked),"finals_seen":valid,"unique_finals":len(games),"coverage_complete":len(checked)==153 and not errors,"dates_expected":153,"errors":errors,"games":games}
   path.write_text(json.dumps(output,indent=2)+"\n")
   print(year,"days",dates,"games",len(games),"errors",len(errors),flush=True)
-  if len(games)<100 or errors:raise SystemExit(f"Historical coverage not certified for {year}: {len(games)} finals, {len(errors)} source errors")
+  if errors:print(f"Collection incomplete for {year}: {len(errors)} source errors; retry next run",flush=True)
 if __name__=="__main__":main()
