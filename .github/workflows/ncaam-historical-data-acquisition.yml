@@ -14,6 +14,7 @@ on:
       - 'scripts/calibrate_ncaam_score_model.py'
       - 'scripts/build_ncaam_scoring_profiles.py'
       - 'scripts/build_ncaam_2027_multistat_challenger.py'
+      - 'scripts/test_ncaam_multistat_release.py'
       - 'scripts/audit_ncaam_historical_transfer_origin.py'
       - 'scripts/audit_ncaam_historical_multistat_coverage.py'
       - 'scripts/build_ncaam_historical_multistat_features.py'
@@ -166,6 +167,8 @@ jobs:
           assert d['team_count']==365 and d['published_elo_changed'] is False
           assert len({t['team_id'] for t in d['teams']})==365
           PY
+          cp historical-report/ncaam-2026-27-multistat-challenger.json data/ncaam-2026-27-multistat-challenger.json
+          python scripts/test_ncaam_multistat_release.py
       - name: Calibrate current game Elo K and margin multipliers on untouched 2026 holdout
         run: |
           python scripts/calibrate_ncaam_game_elo.py --source historical-normalized --output historical-report/ncaam-elo-k-mov-historical-calibration.json
