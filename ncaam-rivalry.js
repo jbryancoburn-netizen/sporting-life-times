@@ -16,9 +16,13 @@ async function start(){
 
 
  $("status").textContent="Loading 1985–2019 historical results and modern game records…";
- const [teamText,spellingText,seasonText,resultsText,ncaaText,secondaryText]=await Promise.all(["teams.csv","TeamSpellings.csv","seasons.csv","RegularSeasonCompactResults.csv","NCAATourneyCompactResults.csv","SecondaryTourneyCompactResults.csv"].map(n=>download(SOURCE+n)));
+ const sources=["teams.csv","TeamSpellings.csv","seasons.csv","RegularSeasonCompactResults.csv","NCAATourneyCompactResults.csv","SecondaryTourneyCompactResults.csv"];
+ const responses=await Promise.allSettled(sources.map(n=>download(SOURCE+n)));
+ const [teamText,spellingText,seasonText,resultsText,ncaaText,secondaryText]=responses.map(x=>x.status==="fulfilled"?x.value:"");
+ const failedHistorical=sources.filter((_,i)=>responses[i].status!=="fulfilled");
+ if(!teamText||!seasonText||!resultsText)throw Error("Core historical data unavailable: "+failedHistorical.join(", "));
  for(const row of parseCSV(teamText)){names.set(row.TeamID,row.TeamName);register(row.TeamName,row.TeamID)}
- for(const row of parseCSV(spellingText))register(row.TeamNameSpelling,row.TeamID);
+ if(spellingText)for(const row of parseCSV(spellingText))register(row.TeamNameSpelling,row.TeamID);
  for(const [alias,canonical] of [["UConn","Connecticut"],["NC State","North Carolina St"],["Michigan State","Michigan St"],["Ohio State","Ohio St"],["Kansas State","Kansas St"],["Penn State","Penn St"],["Purdue Fort Wayne","IPFW"]]){const id=resolve(canonical);if(id)register(alias,id)}
  const palette={"Indiana":["#990000","#EEEDEB"],"Purdue":["#CEB888","#000000"],"Duke":["#003087","#FFFFFF"],"North Carolina":["#7BAFD4","#FFFFFF"],"Kansas":["#0051BA","#E8000D"],"Kentucky":["#0033A0","#FFFFFF"],"Louisville":["#AD0000","#000000"],"UConn":["#000E2F","#FFFFFF"],"UCLA":["#2D68C4","#F2A900"],"Michigan":["#00274C","#FFCB05"],"Michigan St":["#18453B","#FFFFFF"],"Michigan State":["#18453B","#FFFFFF"],"Syracuse":["#F76900","#FFFFFF"],"Gonzaga":["#002967","#C8102E"],"Kansas St":["#512888","#FFFFFF"],"Pittsburgh":["#003594","#FFB81C"],"Ohio St":["#BB0000","#666666"],"North Carolina St":["#CC0000","#FFFFFF"],"Florida":["#0021A5","#FA4616"],"Arizona":["#AB0520","#0C234B"],"Villanova":["#00205B","#13B5EA"],"Purdue Fort Wayne":["#003F87","#FFFFFF"],"Wisconsin":["#C5050C","#FFFFFF"],"Illinois":["#13294B","#E84A27"],"Tennessee":["#FF8200","#FFFFFF"],"Texas":["#BF5700","#FFFFFF"],"Auburn":["#0C2340","#E87722"],"Alabama":["#9E1B32","#FFFFFF"]};
  for(const [school,colors] of Object.entries(palette)){const id=resolve(school);if(id)teamColors.set(id,colors)}
@@ -39,7 +43,7 @@ async function start(){
   const date=dateAdd(base,row.DayNum);matches.push({date,season:Number(row.Season),a:row.WTeamID,b:row.LTeamID,as:Number(row.WScore),bs:Number(row.LScore),historical:true,tournament:"Regular season",source:"Historical NCAA"});historical++;
  }
  let postCount=0;
- for(const [raw,family] of [[ncaaText,"NCAA Tournament"],[secondaryText,"Secondary"]]){
+ for(const [raw,family] of [[ncaaText,"NCAA Tournament"],[secondaryText,"Secondary"]]){if(!raw)continue;
   for(const row of parseCSV(raw)){
    const base=zero.get(row.Season);if(!base||!names.has(row.WTeamID)||!names.has(row.LTeamID))continue;
    const date=dateAdd(base,row.DayNum);
@@ -69,7 +73,7 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  $("home").value=resolve("Indiana")||options[0];$("away").value=resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"");
+ $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+"; vintage logo periods: "+Object.values(eraLogos).reduce((n,v)=>n+(Array.isArray(v)?v.length:0),0)+".";
  show();
 }
 function show(){
