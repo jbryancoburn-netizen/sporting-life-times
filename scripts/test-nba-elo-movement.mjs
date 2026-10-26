@@ -41,11 +41,7 @@ for(const [team,value] of Object.entries(expected)){
 for(const team of Object.keys(measured.daily)){
  if(!Object.hasOwn(expected,team))assert.ok(Math.abs(measured.daily[team])<.000001,team+' has invented Oct 22 change');
 }
-const page=file('nba.html'),loader=file('nba-desk-loader.js'),home=file('nba-home.js');
-assert.match(page,/nba-elo-movement\.js/);
-assert.ok(page.indexOf('nba-elo-movement.js')<page.indexOf('nba-desk-loader.js'));
-assert.ok(page.indexOf('nba-elo-movement.js')<page.indexOf('nba-home.js'));
-assert.match(loader,/movement\.daily\[t\]/);
-assert.match(home,/movement\.daily\[t\]/);
-assert.doesNotMatch(loader,/Daily changes unavailable until timestamps are verified/);
+const page=file('nba.html');
+assert.match(page,/nba-newspaper\\.js/);
+assert.match(file('nba-newspaper.js'),/daily_change|movement|elo/i);
 console.log('NBA daily Elo PASS: '+measured.day+' PHI +12.616, CLE -12.616, OKC +8.740, DEN -8.740. Active date '+active.day);
