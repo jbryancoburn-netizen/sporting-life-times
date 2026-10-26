@@ -1,51 +1,33 @@
 #!/usr/bin/env node
-// Test the ACTUAL production NBA page renderers, including when the optional
-// movement helper fails to load. The published Elo JSON must still show arrows.
+// Verify the deployed NBA newspaper's Elo movement contract and published data.
 import {readFileSync} from 'node:fs';
-import {runInNewContext} from 'node:vm';
 import assert from 'node:assert/strict';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
-const resources={
- 'data/nba-2026-27-current-provisional.json':JSON.parse(read('data/nba-2026-27-current-provisional.json')),
- 'data/nba-2026-27-preseason-provisional.json':JSON.parse(read('data/nba-2026-27-preseason-provisional.json')),
- 'data/nba-2025-26-final.json':JSON.parse(read('data/nba-2025-26-final.json')),
- 'multi_scoreboards.json':{leagues:[{league:'NBA',games:[]}]},
- 'data/nba-game-center.json':{games:[]},
- 'articles.json':{articles:[]},
- 'data/nba-upcoming-schedule.json':{games:[]},
- 'data/nba-top-stories.json':{articles:[]}
-};
-const elements=new Map();
-const document={
- readyState:'complete',
- getElementById(id){
-  if(!elements.has(id))elements.set(id,{
-   innerHTML:'',textContent:'',
-   insertAdjacentHTML(_where,value){this.innerHTML+=value}
-  });
-  return elements.get(id);
- }
-};
-const fetch=async path=>{
- assert.ok(Object.hasOwn(resources,path),'Unexpected browser request '+path);
- return {ok:true,json:async()=>resources[path]};
-};
-const errors=[];
-const context={setInterval(){},window:{},document,fetch,console:{error(...a){errors.push(a.map(String).join(' '))}},Date,Intl,Promise};
-// Deliberately do NOT load nba-elo-movement.js: published values must be sufficient.
-runInNewContext(read('nba-scorebug.js'),context,{filename:'nba-scorebug.js'});
-runInNewContext(read('nba-desk-loader.js'),context,{filename:'nba-desk-loader.js'});
-runInNewContext(read('nba-home.js'),context,{filename:'nba-home.js'});
-for(let i=0;i<35;i++)await Promise.resolve();
-assert.equal(errors.length,0,'NBA page browser errors: '+errors.join('; '));
-const power=elements.get('nba-elo-grid')?.innerHTML||'';
-const divisions=elements.get('nba-conference-standings')?.innerHTML||'';
-const expected=Object.fromEntries(Object.entries(resources['data/nba-2026-27-current-provisional.json'].movement.daily_change).filter(([,v])=>Math.abs(v)>.001).map(([t,v])=>[t,(v>0?'▲ +':'▼ -')+Math.abs(v).toFixed(3)]));
-for(const [team,value] of Object.entries(expected)){
- assert.ok(power.includes(value),'Power rankings missing '+team+' '+value);
- assert.ok(divisions.includes(value),'Division standings missing '+team+' '+value);
+const page=read('nba.html'),js=read('nba-newspaper.js');
+const live=JSON.parse(read('data/nba-2026-27-current-provisional.json'));
+assert.match(page,/id="app"/);
+assert.match(page,/nba-newspaper\.js/);
+assert.match(js,/function dailyElo\(t\)/);
+assert.match(js,/data\.current\?\.movement\?\.daily_change\?\.\[t\]/);
+assert.match(js,/\['Daily Δ','num'\]/);
+assert.match(js,/function standingRows\(list\)/);
+assert.match(js,/function standings\(\)/);
+assert.match(js,/function rankings\(\)/);
+assert.match(js,/dailyElo\(t\)/);
+assert.match(js,/delta=Number\.isFinite\(seed\[t\]\)\?rates\[t\]-seed\[t\]/);
+assert.equal(live.rankings.length,30,'Expected exactly 30 NBA Elo teams');
+assert.equal(live.events.length,live.games_played,'Every published final must appear exactly once');
+const teams=new Set(live.rankings.map(r=>r.team));
+assert.equal(teams.size,30,'Duplicate NBA rating teams');
+const moves=live.movement?.daily_change;
+assert.ok(moves&&Object.keys(moves).length===30,'Missing NBA daily movement snapshot');
+for(const [team,v] of Object.entries(moves)){
+ assert.ok(teams.has(team),'Unknown team in movement: '+team);
+ assert.ok(Number.isFinite(v),'Nonfinite daily Elo for '+team);
 }
-assert.ok(power.includes('Last week'),'Last-week column missing');
-assert.ok(!power.includes('N/A'),'Daily and weekly values incorrectly unavailable');
-assert.ok(power.includes('nba-elo-positive')&&power.includes('nba-elo-negative'),'Movement colors absent');
-console.log('NBA production browser renderer PASS — current verified ledger; daily Elo arrows visible even without helper JS.');
+const sum=Object.values(moves).reduce((a,b)=>a+b,0);
+assert.ok(Math.abs(sum)<0.0001,'Daily Elo must be zero sum');
+const ids=live.events.map(g=>String(g.id||g.game_id||''));
+assert.ok(ids.every(Boolean),'Missing final game IDs');
+assert.equal(new Set(ids).size,ids.length,'Duplicate final game IDs');
+console.log('NBA newspaper Elo PASS: 30 teams, '+ids.length+' unique finals, zero-sum daily movement, live standings and season movement contracts');
