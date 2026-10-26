@@ -25,47 +25,30 @@ jobs:
           python-version: '3.11'
       - name: Verify historical fixture importer before any source downloads
         run: python scripts/test_ncaam_pre1985_import.py
-      - name: Install published historical schedules
-        run: |
-          Rscript - <<'RS'
-          options(repos=c("https://cloud.r-project.org","https://joongsup.r-universe.dev"))
-          if (!requireNamespace("uncmbb",quietly=TRUE)) {
-            try(install.packages("uncmbb", repos="https://cloud.r-project.org"),silent=TRUE)
-          }
-          if (!requireNamespace("uncmbb",quietly=TRUE)) {
-            try(install.packages("uncmbb", repos=c("https://joongsup.r-universe.dev","https://cloud.r-project.org")),silent=TRUE)
-          }
-          if (!requireNamespace("uncmbb",quietly=TRUE)) {
-            cat("CRAN and R-universe unavailable; install exact public project source instead\\n")
-            rc <- system("git clone --depth 1 https://github.com/joongsup/uncmbb.git /tmp/uncmbb-src",intern=FALSE)
-            if (rc!=0) stop("Unable to acquire source repository")
-            rc <- system("R CMD INSTALL /tmp/uncmbb-src",intern=FALSE)
-            if (rc!=0) stop("Unable to install source repository")
-          }
-          stopifnot(requireNamespace("uncmbb",quietly=TRUE))
-          cat("INSTALLED HISTORICAL SOURCE VERSION",as.character(packageVersion("uncmbb")),"\\n")
-          RS
-      - name: Export documented historical school fixture data
+      - name: Download original historical UNC and Duke data archives
         run: |
           mkdir -p historical-normalized
+          curl -fL --retry 3 --connect-timeout 15 'https://raw.githubusercontent.com/joongsup/uncmbb/master/data/unc.rda' -o historical-normalized/unc.rda
+          curl -fL --retry 3 --connect-timeout 15 'https://raw.githubusercontent.com/joongsup/uncmbb/master/data/duke.rda' -o historical-normalized/duke.rda
+          test -s historical-normalized/unc.rda
+          test -s historical-normalized/duke.rda
+          sha256sum historical-normalized/unc.rda historical-normalized/duke.rda | tee historical-normalized/source-checksums.txt
+      - name: Export historical fixtures from original R data archives
+        run: |
           Rscript - <<'RS'
-          library(uncmbb)
           required <- c('Season','Game_Date','Opponent_School','Tm','Opp')
-          objects <- c('unc','duke')
           rows <- list()
-          for (n in objects) {
+          for (n in c('unc','duke')) {
             e <- new.env(parent=globalenv())
-            try(data(list=n,package='uncmbb',envir=e),silent=TRUE)
-            if (!exists(n,envir=e,inherits=FALSE)) next
-            v <- get(n,envir=e)
-            if (!is.data.frame(v) || !all(required %in% names(v))) next
-            if (!(tolower(n) %in% c('unc','duke'))) next
-            v$Source_Team <- if (tolower(n)=='unc') 'North Carolina' else 'Duke'
-            rows[[length(rows)+1]] <- v[,c(required,'Source_Team')]
+            imported <- load(paste0('historical-normalized/',n,'.rda'),envir=e)
+            if (!(n %in% imported) || !exists(n,envir=e,inherits=FALSE)) stop(paste('Missing archive object',n))
+            v <- get(n,envir=e,inherits=FALSE)
+            if (!is.data.frame(v) || !all(required %in% names(v))) stop(paste('Invalid historical archive schema',n))
+            v$Source_Team <- if (n=='unc') 'North Carolina' else 'Duke'
+            if (nrow(v)<800) stop(paste('Unexpectedly small historical archive',n,nrow(v)))
+            rows[[n]] <- v[,c(required,'Source_Team')]
           }
-          if (length(rows)!=2) stop(sprintf('Expected both UNC and Duke datasets, got %d', length(rows)))
-          stopifnot(all(vapply(rows,nrow,integer(1))>=800))
-          cat('Historical source row counts:', vapply(rows,nrow,integer(1)), '\\n')
+          cat('Historical source row counts:',vapply(rows,nrow,integer(1)),'\\n')
           write.csv(do.call(rbind,rows),'historical-normalized/unc-duke-historical-fixtures.csv',row.names=FALSE,na='')
           RS
       - name: Validate and replay pre-1985 school fixture evidence
