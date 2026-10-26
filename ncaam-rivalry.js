@@ -85,7 +85,7 @@ function show(){
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
  $("series-a").textContent=wins;$("series-b").textContent=losses;$("series-a-name").textContent=name(a);$("series-b-name").textContent=name(b);
- $("win-bar-a").style.width=(arr.length?100*wins/arr.length:50)+"%";$("win-bar-b").style.width=(arr.length?100*losses/arr.length:50)+"%";
+ $("win-bar-a").style.width=(arr.length?100*wins/arr.length:50)+"%";$("win-bar-b").style.width=(arr.length?100*losses/arr.length:50)+"%";$("win-bar-a").style.background=(teamColors.get(a)||["#ae634c"])[0];$("win-bar-b").style.background=(teamColors.get(b)||["#356a8b"])[0];
  $("last-ten").textContent=lastWins+"–"+(last10.length-lastWins);
  let streak=0,leader="";for(const g of arr){const thisWinner=won(g)?a:b;if(leader&&leader!==thisWinner)break;leader=thisWinner;streak++}
  $("streak").textContent=streak?name(leader)+" · "+streak:"—";
