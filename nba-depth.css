@@ -107,3 +107,25 @@
 @media(max-width:1100px){.nba-newspaper .depth-columns{grid-template-columns:1fr}.nba-newspaper .depth-form-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.nba-newspaper .depth-series-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.nba-newspaper .depth-club-hero{padding:16px}.nba-newspaper .depth-club-title{gap:10px}.nba-newspaper .depth-crest{width:72px;height:72px}.nba-newspaper .depth-crest img{width:62px;height:62px}.nba-newspaper .depth-club-title h2{font-size:37px}.nba-newspaper .depth-club-numbers{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.nba-newspaper .depth-club-numbers>div:nth-child(3){border:0;padding:0}.nba-newspaper .depth-series-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nba-newspaper .depth-person-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nba-newspaper .depth-star-grid,.nba-newspaper .depth-matchup-list{grid-template-columns:1fr}.nba-newspaper .depth-scout-factors{grid-template-columns:1fr}.nba-newspaper .depth-scout-side img{height:50px;width:50px}.nba-newspaper .depth-bar-row{grid-template-columns:20px minmax(90px,.9fr) minmax(40px,1fr) 42px;gap:6px}.nba-newspaper .depth-bar-row>strong{font-size:20px}.nba-newspaper .depth-bars-guide{grid-template-columns:.9fr 1fr 42px;font-size:8px}}
 @media(max-width:380px){.nba-newspaper .depth-form-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.nba-newspaper .depth-person-grid{grid-template-columns:1fr}.nba-newspaper .depth-club-title h2{font-size:31px}.nba-newspaper .depth-club-numbers b{font-size:26px}}
+
+/* Phone widths: prevent intrinsically sized team content from forcing the paper wider. */
+.nba-newspaper[data-page="team"] .nba-team-identity>div,
+.nba-newspaper[data-page="team"] .depth-team-upgrade,
+.nba-newspaper[data-page="team"] .depth-club-title>div,
+.nba-newspaper[data-page="team"] .depth-columns>section,
+.nba-newspaper[data-page="team"] .depth-person,
+.nba-newspaper[data-page="team"] .depth-person-inner>div,
+.nba-newspaper[data-page="team"] .depth-series-item,
+.nba-newspaper[data-page="team"] .depth-chart-top>div,
+.nba-newspaper[data-page="team"] .depth-chart-top>span{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.nba-newspaper[data-page="team"] .nba-team-identity h1,
+.nba-newspaper[data-page="team"] .depth-club-title h2,
+.nba-newspaper[data-page="team"] .depth-person b{overflow-wrap:anywhere}
+.nba-newspaper[data-page="team"] .nba-team-identity select{width:100%;min-width:0}
+@media(max-width:720px){
+ .nba-newspaper[data-page="team"] .depth-club-title>div:last-child{flex:1;min-width:0}
+ .nba-newspaper[data-page="team"] .depth-person-inner{min-width:0;align-items:start;gap:6px}
+ .nba-newspaper[data-page="team"] .depth-person-inner img{flex:none;width:37px;height:37px}
+ .nba-newspaper[data-page="team"] .depth-chart-top{flex-wrap:wrap}
+ .nba-newspaper[data-page="team"] .depth-person-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
