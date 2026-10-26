@@ -70,11 +70,15 @@ function draw(data,metrics,branding){
   const podGrid=el('div',null,'ncaa-bracket-pods');
   for(let i=q*4;i<q*4+4;i++){
    const p=pods[i],card=el('article',null,'ncaa-bracket-pod');
-   card.append(el('strong','FIRST ROUND · '+p.x+' vs '+p.y));
-   card.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));
-   card.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
-   card.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));card.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'))
-   if(p.advance)card.append(el('small','USRS ADVANCES · '+p.advance.team,'ncaa-bracket-advance'));
+   const first=el('div',null,'ncaa-round-one');
+   first.append(el('strong','FIRST ROUND · '+p.x+' vs '+p.y));
+   first.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));
+   const second=el('div',null,'ncaa-round-two');
+   second.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
+   second.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));
+   second.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'));
+   if(p.advance)second.append(el('small','USRS ADVANCES · '+p.advance.team,'ncaa-bracket-advance'));
+   card.append(first,second);
    podGrid.append(card);
   }
   quadrant.append(podGrid);
