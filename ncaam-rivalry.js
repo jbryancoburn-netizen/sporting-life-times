@@ -47,6 +47,8 @@ async function start(){
    postCount++;
   }
  }
+ let verified2021=new Map();try{const response=await fetch("data/ncaam-postseason-2021-verified.json",{cache:"force-cache"});if(response.ok){const dataset=await response.json();for(const g of dataset.games||[]){const key=[g.season,g.winner,g.loser,g.ws,g.ls].join("|");verified2021.set(key,g.tournament)}}}catch(e){console.warn("2021 tournament classification unavailable",e)}
+ let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  for(const year of years){
   try{const rows=parseCSV(await download("historical-normalized/sportsdataverse/ncaa-"+year+"-verified-results.csv"));
@@ -54,14 +56,19 @@ async function start(){
     if(!h||!a||h===a){for(const n of [g.homeTeam,g.awayTeam])if(!resolve(n))unmatched.set(n,(unmatched.get(n)||0)+1);continue}
     const hs=Number(g.homePoints),as=Number(g.awayPoints);
     if(!Number.isFinite(hs)||!Number.isFinite(as)||hs===as)continue;
-    matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament:"Unclassified (2020–2026)",source:"NCAA schedules"});recent++}
+    const winner=hs>as?h:a,loser=hs>as?a:h,ws=Math.max(hs,as),ls=Math.min(hs,as);
+    const key=[year,winner,loser,ws,ls].join("|");
+    const confirmed=verified2021.get(key);
+    const tournament=confirmed||(year===2020?"Regular season":"Unclassified (2020–2026)");
+    if(confirmed)classified++;
+    matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament,source:confirmed?"2021 verified postseason results":"NCAA schedules"});recent++}
   }catch(e){failed.push(year)}
  }
  for(const game of matches){known.add(game.a);known.add(game.b)}
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  $("home").value=resolve("Indiana")||options[0];$("away").value=resolve("Purdue")||options[1];
- $("status").textContent=historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026)."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"");
+ $("status").textContent=historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"");
  show();
 }
 function show(){
