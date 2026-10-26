@@ -2,6 +2,8 @@
 import json,re,urllib.request,urllib.parse,concurrent.futures,datetime
 from pathlib import Path
 from bs4 import BeautifulSoup
+import cv2,numpy as np
+FACE=cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 R=Path(__file__).resolve().parents[1]
 D=R/'assets/nbl-player-photos'
 D.mkdir(parents=True,exist_ok=True)
@@ -48,6 +50,10 @@ def work(item):
    if not src.startswith('https://cdn.prod.website-files.com/'):continue
    data,ct=get(src.split('?')[0])
    if not ct.startswith('image/') or len(data)<4000:continue
+   image=cv2.imdecode(np.frombuffer(data,np.uint8),cv2.IMREAD_COLOR)
+   if image is None:continue
+   gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+   if len(FACE.detectMultiScale(gray,scaleFactor=1.08,minNeighbors=4,minSize=(32,32)))<1:continue
    ext='.webp' if 'webp' in ct else '.png' if 'png' in ct else '.jpg'
    out=D/(pid+ext)
    out.write_bytes(data)
@@ -58,4 +64,4 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
  result=dict(pool.map(work,people.items()))
 found={k:v for k,v in result.items() if v}
 (D/'manifest.json').write_text(json.dumps({'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'players':found,'matched':len(found),'total':len(people)},indent=2)+'\n')
-print('PLAYER PHOTOS',len(found),'/',len(people),flush=True)
+print('FACE-VERIFIED PLAYER PHOTOS',len(found),'/',len(people),flush=True)
