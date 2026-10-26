@@ -3,15 +3,15 @@ const teams=['Adelaide 36ers','Brisbane Bullets','Cairns Taipans','Illawarra Haw
 const query=new URLSearchParams(location.search).get('team');const selected=teams.find(x=>x===query)||'Sydney Kings';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const path=t=>'assets/nbl-logos/'+t.toLowerCase().replace(/[^a-z0-9]/g,'')+'.png';
-const face=p=>'<span class="club-face"><img loading="lazy" src="https://a.espncdn.com/i/headshots/basketball/players/full/'+encodeURIComponent(p.id)+'.png" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden>'+esc(p.name.split(' ').map(x=>x[0]).slice(0,2).join(''))+'</span></span>';
+const face=p=>{const initials=esc(p.name.split(' ').map(x=>x[0]).slice(0,2).join(''));const url=typeof p.headshot==='string'&&/^https:\/\/[^"'<>]+$/.test(p.headshot)?p.headshot:null;return '<span class="club-face">'+(url?'<img loading="lazy" src="'+esc(url)+'" alt="" onerror="this.remove();this.parentNode.querySelector(\'.club-face-initials\').hidden=false">':'')+'<span class="club-face-initials"'+(url?' hidden':'')+'>'+initials+'</span></span>'};
 const number=(n)=>Number(n).toFixed(1);
 fetch('data/nbl-player-boxscores.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Player archive unavailable');return r.json()}).then(data=>{
 const games=data.games.filter(g=>g.home===selected||g.away===selected),players=new Map();
 for(const game of games){const team=game.teams.find(t=>t.team===selected);if(!team)continue;for(const athlete of team.players){
  const key=athlete.id||athlete.name;const stats=athlete.stats||{};const pts=Number(stats.points),reb=Number(stats.rebounds),ast=Number(stats.assists),stl=Number(stats.steals),blk=Number(stats.blocks),mins=Number(stats.minutes);
  if(![pts,reb,ast].every(Number.isFinite))continue;
- const p=players.get(key)||{id:athlete.id,name:athlete.name,gp:0,pts:0,reb:0,ast:0,stl:0,blk:0,min:0};
- p.gp++;p.pts+=pts;p.reb+=reb;p.ast+=ast;p.stl+=Number.isFinite(stl)?stl:0;p.blk+=Number.isFinite(blk)?blk:0;p.min+=Number.isFinite(mins)?mins:0;players.set(key,p);
+ const p=players.get(key)||{id:athlete.id,name:athlete.name,headshot:athlete.headshot||null,gp:0,pts:0,reb:0,ast:0,stl:0,blk:0,min:0};
+ if(!p.headshot&&athlete.headshot)p.headshot=athlete.headshot;p.gp++;p.pts+=pts;p.reb+=reb;p.ast+=ast;p.stl+=Number.isFinite(stl)?stl:0;p.blk+=Number.isFinite(blk)?blk:0;p.min+=Number.isFinite(mins)?mins:0;players.set(key,p);
 }}
 const eligible=[...players.values()].filter(p=>p.gp>=Math.max(2,Math.floor(games.length*.35)));
 if(!eligible.length){root.textContent='Player statistics are awaiting sufficient games.';return}
