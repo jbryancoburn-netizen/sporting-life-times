@@ -151,16 +151,6 @@ body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link i
 }
 
 /* NBA Power Table — compact, content-rich editorial layout; no stretched 70px rows */
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 26px}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight{display:block;min-width:0;background:linear-gradient(125deg,#123d4a,#1c6672);border-top:4px solid #edb953;color:#fff;padding:15px 17px;text-decoration:none}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight:nth-child(2){background:linear-gradient(125deg,#8c381e,#c36434)}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight:nth-child(3){background:linear-gradient(125deg,#204d4a,#278b79)}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight>small{font-size:9px;text-transform:uppercase;letter-spacing:1.2px;display:block;color:#d2e4e3}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight-team{display:flex;align-items:center;gap:10px;min-width:0;margin:12px 0 6px}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight-team img{width:38px;height:38px;max-width:38px;object-fit:contain;flex:none}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight-team b{font-size:13px;line-height:1.25;min-width:0}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight>strong{display:block;font:700 33px/1 'Barlow Condensed',Arial,sans-serif}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight>span{font-size:10px;color:#dceee9}
 body.nba-newspaper[data-page="rankings"] .nba-power-table-intro{display:flex;align-items:end;justify-content:space-between;gap:25px;border-top:3px solid var(--ink);padding-top:16px}
 body.nba-newspaper[data-page="rankings"] .nba-power-table-intro h2{font:700 31px/1 'Barlow Condensed',Arial,sans-serif;margin:3px 0}
 body.nba-newspaper[data-page="rankings"] .nba-power-table-intro>small{max-width:590px;text-align:right;line-height:1.5;color:var(--muted);font-size:10px}
@@ -219,9 +209,6 @@ body.nba-newspaper[data-page="rankings"] .nba-power-baseline th:first-child,
 body.nba-newspaper[data-page="rankings"] .nba-power-baseline td:first-child{text-align:left}
 body.nba-newspaper[data-page="rankings"] .nba-power-baseline .team-link{display:inline-flex;text-align:left}
 @media(max-width:750px){
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlights{grid-template-columns:1fr;gap:7px}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight{padding:11px 13px}
-body.nba-newspaper[data-page="rankings"] .nba-power-spotlight-team{margin:6px 0}
 body.nba-newspaper[data-page="rankings"] .nba-power-table-intro{display:block}
 body.nba-newspaper[data-page="rankings"] .nba-power-table-intro>small{display:block;text-align:left;margin-top:8px}
 body.nba-newspaper[data-page="rankings"] .nba-power-table-wrap{box-shadow:inset -9px 0 13px -14px #122}
