@@ -30,24 +30,29 @@ function draw(data,metrics){
  const label=n=>byRank(n)?'#'+n+' '+byRank(n).team:'Unassigned slot '+n;
  const win=(a,b)=>a&&b?(a.elo>=b.elo?a:b):null;
  const order=[1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11];
- // Assign all 32 first-round competitors; 17-24 are seeded, 25-48 unseeded.
- // For each opening game, preserve the seeded team and swap only unseeded
- // opponents to avoid a same-conference first-round pairing where feasible.
- const opponents=Array.from({length:16},(_,i)=>48-i);
+ // A 48-team single-elimination field has 16 first-round games.
+ // Seeds 1-16 have byes; seeds 17-24 join 24 unseeded teams in round one.
+ // Only eight first-round matches contain a 17-24 seed.
  const conference=n=>byRank(n)?.conference||null;
- const conflicts=(seed,opponent)=>conference(seed)&&conference(seed)===conference(opponent);
+ const conflict=(x,y)=>x&&y&&conference(x)&&conference(x)===conference(y);
+ const entrantsPool=Array.from({length:24},(_,i)=>25+i);
+ const pairings=[];
+ for(let i=0;i<8;i++)pairings.push([17+i,null]);
+ for(let i=0;i<8;i++)pairings.push([null,null]);
+ // Assign unseeded teams to opening games, preferring no intraconference match.
  for(let i=0;i<16;i++){
-   const home=17+i;
-   if(!conflicts(home,opponents[i]))continue;
-   let swap=-1;
-   for(let j=i+1;j<16;j++){
-     if(!conflicts(home,opponents[j])&&!conflicts(17+j,opponents[i])){swap=j;break}
+   for(let side=0;side<2;side++){
+     if(pairings[i][side]!==null)continue;
+     const other=pairings[i][1-side];
+     let idx=entrantsPool.findIndex(n=>!conflict(n,other));
+     if(idx<0)idx=0;
+     pairings[i][side]=entrantsPool.splice(idx,1)[0];
    }
-   if(swap>=0)[opponents[i],opponents[swap]]=[opponents[swap],opponents[i]];
  }
- const unresolvedOpening=opponents.reduce((n,op,i)=>n+(conflicts(17+i,op)?1:0),0);
- if(mode==='usrs'&&unresolvedOpening)bracket.append(el('p',unresolvedOpening+' first-round conference conflicts remain; bracket placement is not NCAA compliant.','cs-selection-warning'));
- const pods=order.map((seed,i)=>{const x=17+i,y=opponents[i],opening=win(byRank(x),byRank(y));return {seed,x,y,opening,advance:win(byRank(seed),opening)}});
+ if(entrantsPool.length)throw Error('Unassigned tournament entrants');
+ const unresolvedOpening=pairings.filter(([x,y])=>conflict(x,y)).length;
+ if(mode==='usrs'&&unresolvedOpening)bracket.append(el('p',unresolvedOpening+' same-conference opening-round pairing(s) remain; placement needs review.','cs-selection-warning'));
+ const pods=order.map((seed,i)=>{const [x,y]=pairings[i],opening=win(byRank(x),byRank(y));return {seed,x,y,opening,advance:win(byRank(seed),opening)}});
  const quarters=[];
  for(let q=0;q<4;q++){
   const quadrant=el('section',null,'ncaa-bracket-quadrant');quadrant.append(el('h3','REGION '+(q+1)));
