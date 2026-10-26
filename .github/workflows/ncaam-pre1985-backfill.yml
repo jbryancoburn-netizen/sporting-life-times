@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/ncaam-pre1985-backfill.yml'
       - 'scripts/import_ncaam_pre1985_unc_duke.py'
+      - 'scripts/test_ncaam_pre1985_import.py'
 permissions:
   contents: write
 concurrency:
@@ -22,6 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Verify historical fixture importer before any source downloads
+        run: python scripts/test_ncaam_pre1985_import.py
       - name: Install published historical schedules
         run: Rscript -e "install.packages('uncmbb', repos='https://cloud.r-project.org')"
       - name: Export documented historical school fixture data
@@ -42,7 +45,8 @@ jobs:
             v$Source_Team <- if (tolower(n)=='unc') 'North Carolina' else 'Duke'
             rows[[length(rows)+1]] <- v[,c(required,'Source_Team')]
           }
-          if (!length(rows)) stop('No compatible published UNC/Duke game fixture objects')
+          if (length(rows)!=2) stop(sprintf('Expected both UNC and Duke datasets, got %d', length(rows)))
+          cat('Historical source row counts:', vapply(rows,nrow,integer(1)), '\\n')
           write.csv(do.call(rbind,rows),'historical-normalized/unc-duke-historical-fixtures.csv',row.names=FALSE,na='')
           RS
       - name: Validate and replay pre-1985 school fixture evidence
