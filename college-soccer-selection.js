@@ -17,10 +17,9 @@ function draw(data,metrics){
   if(metrics?.status!=='verified_complete'){
    host.append(el('h3','NCAA FIELD NOT YET CERTIFIED'));
    host.append(el('p','A complete 2026 NCAA RPI/résumé dataset is not available in the project. Rather than falsely label Elo selections as an NCAA-style field, this view remains pending until the verified selection metrics are loaded. The at-large bubble and seeds are not calculated from absent data.','cs-selection-warning'));
-   return;
   }
  }
- const entries=mode==='usrs'?data.field:metrics.field;
+ const entries=mode==='usrs'?data.field:(Array.isArray(metrics.field)?metrics.field:[]);
  host.append(el('h2',mode==='usrs'?'NCAA FORMAT + YOUR USRS ELO · INITIAL PROXY':'COMMITTEE-CRITERIA FIELD'));
  host.append(el('p',mode==='usrs'?'This is currently the USRS baseline model. It uses Elo for illustrative conference winners and remaining at-large selections; the NCAA résumé factors must still be added before it qualifies as the full hybrid model.':'Selection based on verified NCAA résumé metrics.','cs-selection-warning'));
  const bracket=el('section',null,'ncaa-bracket');
