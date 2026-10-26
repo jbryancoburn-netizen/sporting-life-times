@@ -2,7 +2,7 @@
 const $=id=>document.getElementById(id);
 const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/master/inst/kaggle_data/";
 const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),aliases=new Map(),known=new Set();
-const logos=new Map(),teamColors=new Map();
+const logos=new Map(),teamColors=new Map();let selectedGames=[];
 const norm=s=>String(s||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
 const dateAdd=(base,days)=>{const d=new Date(base+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+Number(days));return d.toISOString().slice(0,10)};
 function parseCSV(raw){const lines=raw.replace(/^\uFEFF/,"").trim().split(/\r?\n/);const cols=lines.shift().split(",");return lines.filter(Boolean).map(line=>{const v=line.split(",");const x={};cols.forEach((c,i)=>x[c]=v[i]);return x})}
@@ -69,7 +69,7 @@ async function start(){
  for(const game of matches){known.add(game.a);known.add(game.b)}
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
- $("home").value=resolve("Indiana")||options[0];$("away").value=resolve("Purdue")||options[1];
+ const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
  $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
@@ -81,7 +81,11 @@ function show(){
  if(seen.has(key))continue;seen.add(key);arr.push(g)}
  arr.sort((x,y)=>y.date.localeCompare(x.date));
  const won=g=>((g.a===a?g.as:g.bs)>(g.a===a?g.bs:g.as));
- const wins=arr.filter(won).length,losses=arr.length-wins,last10=arr.slice(0,10),lastWins=last10.filter(won).length;
+ selectedGames=arr;const wins=arr.filter(won).length,losses=arr.length-wins,last10=arr.slice(0,10),lastWins=last10.filter(won).length;
+ const avg=(values)=>values.length?(values.reduce((sum,n)=>sum+n,0)/values.length).toFixed(1):"—";
+ $("avg-total").textContent=avg(arr.map(g=>g.as+g.bs));$("avg-margin").textContent=avg(arr.map(g=>Math.abs(g.as-g.bs)));
+ $("first-meeting").textContent=arr.length?arr[arr.length-1].date:"—";$("post-meetings").textContent=arr.filter(g=>g.tournament!=="Regular season"&&g.tournament!=="Competition not verified").length;
+ const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
  const mklogo=(team,element)=>{element.replaceChildren();const url=logos.get(team);const fallback=()=>{element.replaceChildren();element.textContent=name(team).slice(0,2).toUpperCase();element.title="Team logo unavailable"};if(!url){fallback();return}const img=document.createElement("img");img.src=url;img.alt=name(team)+" logo";img.loading="lazy";img.onerror=fallback;element.append(img);element.title=name(team)+" logo"};
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
@@ -106,5 +110,8 @@ function show(){
  for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament;label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
 }
 
+$("swap").addEventListener("click",()=>{const a=$("home").value;$("home").value=$("away").value;$("away").value=a;show()});
+$("share").addEventListener("click",async()=>{const button=$("share");try{await navigator.clipboard.writeText(location.href);button.textContent="Link copied";setTimeout(()=>button.textContent="Copy matchup link",1800)}catch(e){window.prompt("Copy matchup link",location.href)}});
+$("export").addEventListener("click",()=>{const rows=[["date","season","school_1","score_1","school_2","score_2","competition","source"],...selectedGames.map(g=>[g.date,g.season,name(g.a),g.as,name(g.b),g.bs,g.tournament,g.source])];const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});const link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="rivalry-"+$("home").value+"-"+$("away").value+".csv";link.click();setTimeout(()=>URL.revokeObjectURL(link.href),3000)});
 $("show").addEventListener("click",show);$("filter").addEventListener("change",show);$("tournament-filter").addEventListener("change",show);start().catch(e=>{$("status").textContent="Historical archive retrieval failed: "+e.message});
 })();
