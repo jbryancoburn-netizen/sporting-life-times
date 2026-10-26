@@ -1,0 +1,64 @@
+/* Sporting Life & Times — shared team-crest system.
+   Adapted from NCAA college soccer: sized crest slots, transparent artwork,
+   team-color border, verified-image presentation and initial fallback.
+   This deliberately does not style player photos, story artwork or hero watermarks. */
+.slt-mark {
+  --slt-mark-size:32px;
+  --slt-mark-ring:var(--club-color,var(--team-color,var(--school-color,var(--team-primary,#aabdc3))));
+  box-sizing:border-box;display:inline-grid;place-items:center;vertical-align:middle;
+  inline-size:var(--slt-mark-size);block-size:var(--slt-mark-size);
+  min-inline-size:var(--slt-mark-size);min-block-size:var(--slt-mark-size);
+  flex:0 0 var(--slt-mark-size);position:relative;overflow:hidden;
+  border:1.5px solid var(--slt-mark-ring);border-radius:50%;
+  background:#fff;box-shadow:0 1px 2px #101d251c;color:var(--slt-mark-ring);
+  isolation:isolate;line-height:1;align-self:center;
+}
+.slt-mark>img {
+  box-sizing:border-box!important;display:block;
+  inline-size:100%!important;block-size:100%!important;max-inline-size:100%!important;
+  max-block-size:100%!important;min-inline-size:0!important;
+  padding:3px!important;margin:0!important;border:0!important;
+  border-radius:50%!important;object-fit:contain!important;
+  object-position:center!important;background:transparent!important;
+  filter:none!important;transform:none!important;opacity:1;
+}
+.slt-mark>.slt-mark-initial {
+  display:none;align-items:center;justify-content:center;position:absolute;inset:0;
+  text-transform:uppercase;font:800 10px/1 Arial,Helvetica,sans-serif;
+  letter-spacing:-.04em;color:inherit;background:#f3f8f7;text-align:center;
+}
+.slt-mark.slt-mark--missing>img{display:none!important}
+.slt-mark.slt-mark--missing>.slt-mark-initial{display:flex}
+.slt-mark--tiny{--slt-mark-size:24px}
+.slt-mark--small{--slt-mark-size:28px}
+.slt-mark--medium{--slt-mark-size:44px}
+.slt-mark--large{--slt-mark-size:84px}
+.slt-mark--large>.slt-mark-initial{font-size:27px}
+.slt-mark--medium>.slt-mark-initial{font-size:15px}
+.slt-mark--medium>img,.slt-mark--large>img{padding:5px!important}
+.slt-mark:has(img[hidden])>.slt-mark-initial{display:flex}
+.slt-mark:has(img[hidden])>img{display:none!important}
+.slt-mark--verified{background:rgba(255,255,255,.98)}
+/* College soccer's original logo-bearing UI gets the same ring/transparent treatment.
+   Keep its existing image-load fallback and team-color logic intact. */
+.cs-mark,.cs-showcase-logo,.soccer-crest,.soccer-monogram{
+  box-sizing:border-box;flex-shrink:0;align-items:center;justify-content:center;
+  border:1.5px solid var(--cs-color,var(--school-color,var(--club-color,#adc5c6)));
+  border-radius:50%;overflow:hidden;
+}
+.cs-mark.cs-has-logo,.cs-showcase-logo:has(img),.soccer-crest{background:#fff}
+.cs-mark.cs-has-logo img,.cs-showcase-logo img,.soccer-crest img{
+  max-width:100%;max-height:100%;object-fit:contain;object-position:center;
+  background:transparent!important;border:0;padding:2px;
+}
+/* Team identity labels should never drift vertically when marks are present. */
+.team-link,.team-name,.cs-team,.depth-team,.slt-scorebug-identity,
+.nba-live-team,.score-team,.soccer-row,.nbl-team-summary-head{
+  align-items:center;
+}
+@media(max-width:600px){
+  .slt-mark:not(.slt-mark--large):not(.slt-mark--medium){--slt-mark-size:28px}
+  .slt-mark--tiny{--slt-mark-size:22px}
+  .slt-mark--small{--slt-mark-size:26px}
+}
+@media(prefers-reduced-motion:reduce){.slt-mark{transition:none!important}}
