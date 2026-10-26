@@ -1,0 +1,5872 @@
+{
+  "model": "slat-ncaam-2026-27-multistat-shadow-v1",
+  "status": "SHADOW_ONLY_RETROSPECTIVE_WEIGHTS_NOT_PRESEASON_VALIDATED",
+  "published_elo_changed": false,
+  "team_count": 365,
+  "covered_teams": 363,
+  "matched_players": 2803,
+  "unmatched_candidates": 154,
+  "source": "2025-26 NCAA player_box with uniquely identified previous-school player names and reconciled 2026-27 roster candidate histories",
+  "coefficients": {
+    "shooting": 126.5625,
+    "playmaking": 2075.0,
+    "defense": 385.9375
+  },
+  "feature_medians": {
+    "shooting": -0.010162034724753723,
+    "playmaking": 0.013350592359978404,
+    "defense": 0.04845399331487506
+  },
+  "source_exclusions": {
+    "movement_box_did_not_reconcile": 1
+  },
+  "limitations": [
+    "Current roster identity association remains candidate-level, not opening day as-of certified",
+    "The existing scoring-quality feature may overlap with shooting; additive fit has not been tested jointly",
+    "Box score steals plus blocks are not comprehensive defensive value",
+    "No verified 3pt splits, rebounds, possessions, injuries or freshman prior NCAA values",
+    "Do not promote challenger without held-out comparison using identical matchup samples"
+  ],
+  "teams": [
+    {
+      "team_id": "ncaa:609669",
+      "team": "Michigan",
+      "conference": "Big Ten",
+      "published_elo": 1856.0214,
+      "matched_players": 8,
+      "matched_previous_minutes": 5507.504,
+      "components": {
+        "shooting": 1.5849,
+        "playmaking": 34.0859,
+        "defense": -1.2516
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 34.4192,
+      "challenger_elo": 1890.4406
+    },
+    {
+      "team_id": "ncaa:609720",
+      "team": "Duke",
+      "conference": "ACC",
+      "published_elo": 1819.7129,
+      "matched_players": 7,
+      "matched_previous_minutes": 5755.369,
+      "components": {
+        "shooting": 2.5506,
+        "playmaking": 32.8671,
+        "defense": -0.729
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 34.6887,
+      "challenger_elo": 1854.4016
+    },
+    {
+      "team_id": "ncaa:609734",
+      "team": "Florida",
+      "conference": "SEC",
+      "published_elo": 1794.8798,
+      "matched_players": 9,
+      "matched_previous_minutes": 6069.87,
+      "components": {
+        "shooting": 3.4963,
+        "playmaking": 36.2239,
+        "defense": 1.3919
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 41.1121,
+      "challenger_elo": 1835.9919
+    },
+    {
+      "team_id": "ncaa:609513",
+      "team": "Virginia",
+      "conference": "ACC",
+      "published_elo": 1782.3459,
+      "matched_players": 11,
+      "matched_previous_minutes": 5703.363,
+      "components": {
+        "shooting": -0.1452,
+        "playmaking": 38.5128,
+        "defense": -1.2418
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 37.1258,
+      "challenger_elo": 1819.4717
+    },
+    {
+      "team_id": "ncaa:609492",
+      "team": "Texas Tech",
+      "conference": "Big 12",
+      "published_elo": 1803.2363,
+      "matched_players": 10,
+      "matched_previous_minutes": 7603.165,
+      "components": {
+        "shooting": 2.6345,
+        "playmaking": 12.4157,
+        "defense": 0.9947
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 16.0449,
+      "challenger_elo": 1819.2812
+    },
+    {
+      "team_id": "ncaa:609487",
+      "team": "Tennessee",
+      "conference": "SEC",
+      "published_elo": 1816.9613,
+      "matched_players": 11,
+      "matched_previous_minutes": 6991.465,
+      "components": {
+        "shooting": 3.4494,
+        "playmaking": -5.74,
+        "defense": 2.0555
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -0.2351,
+      "challenger_elo": 1816.7262
+    },
+    {
+      "team_id": "ncaa:609608",
+      "team": "High Point",
+      "conference": "Big South",
+      "published_elo": 1758.5881,
+      "matched_players": 11,
+      "matched_previous_minutes": 7304.117,
+      "components": {
+        "shooting": 2.6377,
+        "playmaking": 43.035,
+        "defense": 5.7639
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 51.4366,
+      "challenger_elo": 1810.0247
+    },
+    {
+      "team_id": "ncaa:609744",
+      "team": "Gonzaga",
+      "conference": "Pac-12",
+      "published_elo": 1773.9357,
+      "matched_players": 7,
+      "matched_previous_minutes": 5479.285,
+      "components": {
+        "shooting": 2.4064,
+        "playmaking": 28.7237,
+        "defense": 1.7262
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 32.8563,
+      "challenger_elo": 1806.792
+    },
+    {
+      "team_id": "ncaa:609623",
+      "team": "Arizona",
+      "conference": "Big 12",
+      "published_elo": 1772.6126,
+      "matched_players": 9,
+      "matched_previous_minutes": 4688.771,
+      "components": {
+        "shooting": 4.9706,
+        "playmaking": 18.7649,
+        "defense": 6.24
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 29.9755,
+      "challenger_elo": 1802.5881
+    },
+    {
+      "team_id": "ncaa:609861",
+      "team": "St. John's (NY)",
+      "conference": "Big East",
+      "published_elo": 1832.4343,
+      "matched_players": 9,
+      "matched_previous_minutes": 4614.07,
+      "components": {
+        "shooting": 3.6177,
+        "playmaking": -44.3418,
+        "defense": 1.0397
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -39.6844,
+      "challenger_elo": 1792.7499
+    },
+    {
+      "team_id": "ncaa:609536",
+      "team": "Iowa St.",
+      "conference": "Big 12",
+      "published_elo": 1721.9074,
+      "matched_players": 10,
+      "matched_previous_minutes": 6404.287,
+      "components": {
+        "shooting": 2.3138,
+        "playmaking": 52.9739,
+        "defense": 6.3689
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 61.6566,
+      "challenger_elo": 1783.564
+    },
+    {
+      "team_id": "ncaa:609686",
+      "team": "Nebraska",
+      "conference": "Big Ten",
+      "published_elo": 1731.794,
+      "matched_players": 11,
+      "matched_previous_minutes": 6971.939,
+      "components": {
+        "shooting": 3.9728,
+        "playmaking": 36.2862,
+        "defense": 0.8404
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 41.0994,
+      "challenger_elo": 1772.8934
+    },
+    {
+      "team_id": "ncaa:609505",
+      "team": "Utah St.",
+      "conference": "Pac-12",
+      "published_elo": 1692.8711,
+      "matched_players": 8,
+      "matched_previous_minutes": 6557.557,
+      "components": {
+        "shooting": 1.8941,
+        "playmaking": 72.6055,
+        "defense": 0.957
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 75.4566,
+      "challenger_elo": 1768.3277
+    },
+    {
+      "team_id": "ncaa:609700",
+      "team": "Cincinnati",
+      "conference": "Big 12",
+      "published_elo": 1735.6549,
+      "matched_players": 12,
+      "matched_previous_minutes": 9537.994,
+      "components": {
+        "shooting": 3.4623,
+        "playmaking": 24.9449,
+        "defense": 3.6759
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 32.0831,
+      "challenger_elo": 1767.738
+    },
+    {
+      "team_id": "ncaa:609582",
+      "team": "Kansas",
+      "conference": "Big 12",
+      "published_elo": 1742.8589,
+      "matched_players": 7,
+      "matched_previous_minutes": 4184.11,
+      "components": {
+        "shooting": 7.608,
+        "playmaking": 15.4429,
+        "defense": -4.1265
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.9244,
+      "challenger_elo": 1761.7833
+    },
+    {
+      "team_id": "ncaa:609667",
+      "team": "Miami (FL)",
+      "conference": "ACC",
+      "published_elo": 1746.2699,
+      "matched_players": 11,
+      "matched_previous_minutes": 8362.185,
+      "components": {
+        "shooting": 4.8353,
+        "playmaking": 5.7965,
+        "defense": 3.73
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 14.3618,
+      "challenger_elo": 1760.6317
+    },
+    {
+      "team_id": "ncaa:609866",
+      "team": "Saint Louis",
+      "conference": "Atlantic 10",
+      "published_elo": 1728.6475,
+      "matched_players": 10,
+      "matched_previous_minutes": 5168.271,
+      "components": {
+        "shooting": 1.5677,
+        "playmaking": 24.8925,
+        "defense": 2.2086
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.6688,
+      "challenger_elo": 1757.3163
+    },
+    {
+      "team_id": "ncaa:609905",
+      "team": "South Fla.",
+      "conference": "AAC",
+      "published_elo": 1724.9763,
+      "matched_players": 11,
+      "matched_previous_minutes": 7280.662,
+      "components": {
+        "shooting": 0.3996,
+        "playmaking": 33.8579,
+        "defense": -2.3736
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 31.8839,
+      "challenger_elo": 1756.8602
+    },
+    {
+      "team_id": "ncaa:609752",
+      "team": "Houston",
+      "conference": "Big 12",
+      "published_elo": 1789.9469,
+      "matched_players": 7,
+      "matched_previous_minutes": 4290.798,
+      "components": {
+        "shooting": 5.4893,
+        "playmaking": -47.5298,
+        "defense": 8.8231
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -33.2174,
+      "challenger_elo": 1756.7295
+    },
+    {
+      "team_id": "ncaa:609554",
+      "team": "Illinois",
+      "conference": "Big Ten",
+      "published_elo": 1756.9526,
+      "matched_players": 8,
+      "matched_previous_minutes": 4659.033,
+      "components": {
+        "shooting": 2.2641,
+        "playmaking": -3.2071,
+        "defense": -0.7247
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.6677,
+      "challenger_elo": 1755.2849
+    },
+    {
+      "team_id": "ncaa:609625",
+      "team": "Arkansas",
+      "conference": "SEC",
+      "published_elo": 1730.4866,
+      "matched_players": 5,
+      "matched_previous_minutes": 1681.651,
+      "components": {
+        "shooting": 7.6457,
+        "playmaking": 8.0808,
+        "defense": 6.7742
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 22.5007,
+      "challenger_elo": 1752.9873
+    },
+    {
+      "team_id": "ncaa:609509",
+      "team": "Villanova",
+      "conference": "Big East",
+      "published_elo": 1716.4301,
+      "matched_players": 7,
+      "matched_previous_minutes": 4091.184,
+      "components": {
+        "shooting": 2.3379,
+        "playmaking": 24.5379,
+        "defense": -2.0974
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 24.7784,
+      "challenger_elo": 1741.2085
+    },
+    {
+      "team_id": "ncaa:609549",
+      "team": "UConn",
+      "conference": "Big East",
+      "published_elo": 1727.355,
+      "matched_players": 9,
+      "matched_previous_minutes": 6160.42,
+      "components": {
+        "shooting": -0.0287,
+        "playmaking": 0.9279,
+        "defense": 4.4169
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 5.3161,
+      "challenger_elo": 1732.6711
+    },
+    {
+      "team_id": "ncaa:609510",
+      "team": "VCU",
+      "conference": "Atlantic 10",
+      "published_elo": 1748.5127,
+      "matched_players": 11,
+      "matched_previous_minutes": 6864.967,
+      "components": {
+        "shooting": 3.6828,
+        "playmaking": -25.8889,
+        "defense": 2.8314
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -19.3747,
+      "challenger_elo": 1729.138
+    },
+    {
+      "team_id": "ncaa:609584",
+      "team": "Kentucky",
+      "conference": "SEC",
+      "published_elo": 1706.8747,
+      "matched_players": 9,
+      "matched_previous_minutes": 6952.431,
+      "components": {
+        "shooting": 4.0896,
+        "playmaking": 17.066,
+        "defense": -0.104
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 21.0516,
+      "challenger_elo": 1727.9263
+    },
+    {
+      "team_id": "ncaa:609593",
+      "team": "Louisville",
+      "conference": "ACC",
+      "published_elo": 1697.4683,
+      "matched_players": 10,
+      "matched_previous_minutes": 6794.459,
+      "components": {
+        "shooting": 5.2724,
+        "playmaking": 15.3583,
+        "defense": 7.9966
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.6273,
+      "challenger_elo": 1726.0956
+    },
+    {
+      "team_id": "ncaa:609489",
+      "team": "Texas A&M",
+      "conference": "SEC",
+      "published_elo": 1694.6914,
+      "matched_players": 12,
+      "matched_previous_minutes": 6436.618,
+      "components": {
+        "shooting": 0.3227,
+        "playmaking": 31.292,
+        "defense": -0.6524
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 30.9623,
+      "challenger_elo": 1725.6537
+    },
+    {
+      "team_id": "ncaa:609666",
+      "team": "Miami (OH)",
+      "conference": "MAC",
+      "published_elo": 1683.9583,
+      "matched_players": 12,
+      "matched_previous_minutes": 5380.483,
+      "components": {
+        "shooting": 3.8266,
+        "playmaking": 34.002,
+        "defense": 2.5316
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 40.3602,
+      "challenger_elo": 1724.3185
+    },
+    {
+      "team_id": "ncaa:609617",
+      "team": "Alabama",
+      "conference": "SEC",
+      "published_elo": 1692.4253,
+      "matched_players": 8,
+      "matched_previous_minutes": 4331.105,
+      "components": {
+        "shooting": 4.296,
+        "playmaking": 21.165,
+        "defense": 3.2204
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.6814,
+      "challenger_elo": 1721.1067
+    },
+    {
+      "team_id": "ncaa:609555",
+      "team": "New Mexico",
+      "conference": "MWC",
+      "published_elo": 1662.4664,
+      "matched_players": 6,
+      "matched_previous_minutes": 4163.635,
+      "components": {
+        "shooting": 2.9884,
+        "playmaking": 53.0323,
+        "defense": 1.5994
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 57.6201,
+      "challenger_elo": 1720.0865
+    },
+    {
+      "team_id": "ncaa:609682",
+      "team": "North Carolina",
+      "conference": "ACC",
+      "published_elo": 1723.8698,
+      "matched_players": 9,
+      "matched_previous_minutes": 4620.199,
+      "components": {
+        "shooting": 3.2995,
+        "playmaking": -19.1693,
+        "defense": 4.2713
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -11.5985,
+      "challenger_elo": 1712.2713
+    },
+    {
+      "team_id": "ncaa:609508",
+      "team": "Vanderbilt",
+      "conference": "SEC",
+      "published_elo": 1645.936,
+      "matched_players": 7,
+      "matched_previous_minutes": 5249.72,
+      "components": {
+        "shooting": 3.5282,
+        "playmaking": 45.0252,
+        "defense": 9.2358
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 57.7892,
+      "challenger_elo": 1703.7252
+    },
+    {
+      "team_id": "ncaa:609540",
+      "team": "Grand Canyon",
+      "conference": "MWC",
+      "published_elo": 1696.9909,
+      "matched_players": 12,
+      "matched_previous_minutes": 9020.64,
+      "components": {
+        "shooting": 2.9277,
+        "playmaking": 1.5111,
+        "defense": -0.0465
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 4.3923,
+      "challenger_elo": 1701.3832
+    },
+    {
+      "team_id": "ncaa:609490",
+      "team": "TCU",
+      "conference": "Big 12",
+      "published_elo": 1670.7807,
+      "matched_players": 8,
+      "matched_previous_minutes": 5436.487,
+      "components": {
+        "shooting": 0.5062,
+        "playmaking": 23.061,
+        "defense": 1.9579
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 25.5251,
+      "challenger_elo": 1696.3058
+    },
+    {
+      "team_id": "ncaa:609836",
+      "team": "Purdue",
+      "conference": "Big Ten",
+      "published_elo": 1677.3215,
+      "matched_players": 7,
+      "matched_previous_minutes": 3202.105,
+      "components": {
+        "shooting": 0.7921,
+        "playmaking": 18.3063,
+        "defense": -1.5855
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 17.5129,
+      "challenger_elo": 1694.8344
+    },
+    {
+      "team_id": "ncaa:609556",
+      "team": "NC State",
+      "conference": "ACC",
+      "published_elo": 1694.3334,
+      "matched_players": 8,
+      "matched_previous_minutes": 6586.838,
+      "components": {
+        "shooting": 3.5246,
+        "playmaking": -3.4458,
+        "defense": -0.771
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -0.6922,
+      "challenger_elo": 1693.6412
+    },
+    {
+      "team_id": "ncaa:609803",
+      "team": "Ohio St.",
+      "conference": "Big Ten",
+      "published_elo": 1658.5717,
+      "matched_players": 6,
+      "matched_previous_minutes": 3784.287,
+      "components": {
+        "shooting": 0.6674,
+        "playmaking": 24.9362,
+        "defense": 4.2462
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 29.8498,
+      "challenger_elo": 1688.4215
+    },
+    {
+      "team_id": "ncaa:609543",
+      "team": "Auburn",
+      "conference": "SEC",
+      "published_elo": 1672.3284,
+      "matched_players": 10,
+      "matched_previous_minutes": 6570.891,
+      "components": {
+        "shooting": 0.9683,
+        "playmaking": 9.2446,
+        "defense": 3.149
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 13.3619,
+      "challenger_elo": 1685.6903
+    },
+    {
+      "team_id": "ncaa:609702",
+      "team": "Clemson",
+      "conference": "ACC",
+      "published_elo": 1692.6773,
+      "matched_players": 10,
+      "matched_previous_minutes": 5114.492,
+      "components": {
+        "shooting": 3.4761,
+        "playmaking": -9.4455,
+        "defense": -1.8727
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -7.8421,
+      "challenger_elo": 1684.8352
+    },
+    {
+      "team_id": "ncaa:609541",
+      "team": "Akron",
+      "conference": "MAC",
+      "published_elo": 1629.3566,
+      "matched_players": 8,
+      "matched_previous_minutes": 4688.235,
+      "components": {
+        "shooting": 3.1893,
+        "playmaking": 51.965,
+        "defense": -0.4251
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 54.7292,
+      "challenger_elo": 1684.0858
+    },
+    {
+      "team_id": "ncaa:609522",
+      "team": "Wichita St.",
+      "conference": "AAC",
+      "published_elo": 1646.6873,
+      "matched_players": 9,
+      "matched_previous_minutes": 4552.062,
+      "components": {
+        "shooting": 4.7337,
+        "playmaking": 35.2031,
+        "defense": -4.7958
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 35.141,
+      "challenger_elo": 1681.8283
+    },
+    {
+      "team_id": "ncaa:609808",
+      "team": "Oklahoma",
+      "conference": "SEC",
+      "published_elo": 1641.3424,
+      "matched_players": 10,
+      "matched_previous_minutes": 7213.298,
+      "components": {
+        "shooting": 3.9004,
+        "playmaking": 33.2821,
+        "defense": 0.2936
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 37.4761,
+      "challenger_elo": 1678.8185
+    },
+    {
+      "team_id": "ncaa:609494",
+      "team": "Texas",
+      "conference": "SEC",
+      "published_elo": 1680.0591,
+      "matched_players": 7,
+      "matched_previous_minutes": 5358.596,
+      "components": {
+        "shooting": 4.392,
+        "playmaking": -11.0517,
+        "defense": 5.2111
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.4486,
+      "challenger_elo": 1678.6105
+    },
+    {
+      "team_id": "ncaa:609743",
+      "team": "Georgia",
+      "conference": "SEC",
+      "published_elo": 1643.3762,
+      "matched_players": 9,
+      "matched_previous_minutes": 5404.857,
+      "components": {
+        "shooting": 2.656,
+        "playmaking": 22.9742,
+        "defense": 5.7205
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 31.3507,
+      "challenger_elo": 1674.7269
+    },
+    {
+      "team_id": "ncaa:609539",
+      "team": "Col. of Charleston",
+      "conference": "CAA",
+      "published_elo": 1651.0001,
+      "matched_players": 11,
+      "matched_previous_minutes": 4947.301,
+      "components": {
+        "shooting": 0.7617,
+        "playmaking": 19.692,
+        "defense": -2.3182
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.1355,
+      "challenger_elo": 1669.1356
+    },
+    {
+      "team_id": "ncaa:609668",
+      "team": "Michigan St.",
+      "conference": "Big Ten",
+      "published_elo": 1697.0794,
+      "matched_players": 7,
+      "matched_previous_minutes": 3467.979,
+      "components": {
+        "shooting": 1.8518,
+        "playmaking": -33.0875,
+        "defense": 0.7748
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -30.4609,
+      "challenger_elo": 1666.6185
+    },
+    {
+      "team_id": "ncaa:609567",
+      "team": "Yale",
+      "conference": "Ivy League",
+      "published_elo": 1622.0217,
+      "matched_players": 9,
+      "matched_previous_minutes": 2295.367,
+      "components": {
+        "shooting": -1.1124,
+        "playmaking": 50.0411,
+        "defense": -4.5767
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 44.352,
+      "challenger_elo": 1666.3737
+    },
+    {
+      "team_id": "ncaa:609477",
+      "team": "Texas St.",
+      "conference": "Pac-12",
+      "published_elo": 1682.3439,
+      "matched_players": 11,
+      "matched_previous_minutes": 7129.893,
+      "components": {
+        "shooting": 3.4074,
+        "playmaking": -25.3743,
+        "defense": 3.4387
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -18.5282,
+      "challenger_elo": 1663.8157
+    },
+    {
+      "team_id": "ncaa:609870",
+      "team": "San Diego St.",
+      "conference": "Pac-12",
+      "published_elo": 1640.1652,
+      "matched_players": 7,
+      "matched_previous_minutes": 3898.536,
+      "components": {
+        "shooting": 1.8705,
+        "playmaking": 15.9421,
+        "defense": -4.1479
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 13.6647,
+      "challenger_elo": 1653.8299
+    },
+    {
+      "team_id": "ncaa:609526",
+      "team": "Wisconsin",
+      "conference": "Big Ten",
+      "published_elo": 1647.0393,
+      "matched_players": 10,
+      "matched_previous_minutes": 5786.971,
+      "components": {
+        "shooting": 1.7454,
+        "playmaking": 3.4926,
+        "defense": 1.1736
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 6.4116,
+      "challenger_elo": 1653.4509
+    },
+    {
+      "team_id": "ncaa:609571",
+      "team": "Queens (NC)",
+      "conference": "ASUN",
+      "published_elo": 1599.99,
+      "matched_players": 8,
+      "matched_previous_minutes": 3158.664,
+      "components": {
+        "shooting": 9.6003,
+        "playmaking": 40.6175,
+        "defense": 0.9714
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 51.1892,
+      "challenger_elo": 1651.1792
+    },
+    {
+      "team_id": "ncaa:609805",
+      "team": "Ohio",
+      "conference": "MAC",
+      "published_elo": 1585.135,
+      "matched_players": 6,
+      "matched_previous_minutes": 4453.217,
+      "components": {
+        "shooting": 4.3698,
+        "playmaking": 64.0907,
+        "defense": -2.6672
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 65.7933,
+      "challenger_elo": 1650.9283
+    },
+    {
+      "team_id": "ncaa:609807",
+      "team": "Oklahoma St.",
+      "conference": "Big 12",
+      "published_elo": 1625.4267,
+      "matched_players": 11,
+      "matched_previous_minutes": 7051.024,
+      "components": {
+        "shooting": 1.7797,
+        "playmaking": 22.3257,
+        "defense": 0.1286
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 24.234,
+      "challenger_elo": 1649.6607
+    },
+    {
+      "team_id": "ncaa:609469",
+      "team": "Southern California",
+      "conference": "Big Ten",
+      "published_elo": 1619.2539,
+      "matched_players": 10,
+      "matched_previous_minutes": 6914.501,
+      "components": {
+        "shooting": 3.8395,
+        "playmaking": 21.5129,
+        "defense": 5.0214
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 30.3738,
+      "challenger_elo": 1649.6277
+    },
+    {
+      "team_id": "ncaa:609591",
+      "team": "LSU",
+      "conference": "SEC",
+      "published_elo": 1489.0116,
+      "matched_players": 4,
+      "matched_previous_minutes": 2919.315,
+      "components": {
+        "shooting": -3.938,
+        "playmaking": 159.2335,
+        "defense": 0.2046
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 155.5001,
+      "challenger_elo": 1644.5117
+    },
+    {
+      "team_id": "ncaa:609512",
+      "team": "Virginia Tech",
+      "conference": "ACC",
+      "published_elo": 1618.2591,
+      "matched_players": 11,
+      "matched_previous_minutes": 7081.702,
+      "components": {
+        "shooting": 1.2504,
+        "playmaking": 22.402,
+        "defense": 2.336
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 25.9884,
+      "challenger_elo": 1644.2475
+    },
+    {
+      "team_id": "ncaa:609891",
+      "team": "Santa Clara",
+      "conference": "WCC",
+      "published_elo": 1614.6426,
+      "matched_players": 8,
+      "matched_previous_minutes": 4284.514,
+      "components": {
+        "shooting": -2.362,
+        "playmaking": 35.7411,
+        "defense": -4.0176
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 29.3615,
+      "challenger_elo": 1644.0041
+    },
+    {
+      "team_id": "ncaa:609713",
+      "team": "Dayton",
+      "conference": "Atlantic 10",
+      "published_elo": 1624.0216,
+      "matched_players": 11,
+      "matched_previous_minutes": 4010.669,
+      "components": {
+        "shooting": -0.2917,
+        "playmaking": 15.2392,
+        "defense": 4.5869
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 19.5344,
+      "challenger_elo": 1643.556
+    },
+    {
+      "team_id": "ncaa:609559",
+      "team": "Saint Mary's (CA)",
+      "conference": "WCC",
+      "published_elo": 1618.9381,
+      "matched_players": 9,
+      "matched_previous_minutes": 3520.53,
+      "components": {
+        "shooting": 1.5378,
+        "playmaking": 23.5753,
+        "defense": -0.6121
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 24.501,
+      "challenger_elo": 1643.4391
+    },
+    {
+      "team_id": "ncaa:609710",
+      "team": "Creighton",
+      "conference": "Big East",
+      "published_elo": 1613.9602,
+      "matched_players": 12,
+      "matched_previous_minutes": 7328.993,
+      "components": {
+        "shooting": 2.1841,
+        "playmaking": 23.8257,
+        "defense": 2.2581
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.2679,
+      "challenger_elo": 1642.2281
+    },
+    {
+      "team_id": "ncaa:609685",
+      "team": "UNCW",
+      "conference": "CAA",
+      "published_elo": 1631.3414,
+      "matched_players": 8,
+      "matched_previous_minutes": 3607.233,
+      "components": {
+        "shooting": 0.6721,
+        "playmaking": 8.5372,
+        "defense": -0.9399
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.2694,
+      "challenger_elo": 1639.6108
+    },
+    {
+      "team_id": "ncaa:609697",
+      "team": "UCF",
+      "conference": "Big 12",
+      "published_elo": 1658.0966,
+      "matched_players": 10,
+      "matched_previous_minutes": 5367.326,
+      "components": {
+        "shooting": 7.924,
+        "playmaking": -30.7953,
+        "defense": 4.3094
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -18.5619,
+      "challenger_elo": 1639.5347
+    },
+    {
+      "team_id": "ncaa:609692",
+      "team": "UCLA",
+      "conference": "Big Ten",
+      "published_elo": 1614.325,
+      "matched_players": 8,
+      "matched_previous_minutes": 4818.176,
+      "components": {
+        "shooting": 2.3631,
+        "playmaking": 18.8089,
+        "defense": -2.4398
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.7322,
+      "challenger_elo": 1633.0572
+    },
+    {
+      "team_id": "ncaa:609479",
+      "team": "Stanford",
+      "conference": "ACC",
+      "published_elo": 1575.7293,
+      "matched_players": 9,
+      "matched_previous_minutes": 3956.23,
+      "components": {
+        "shooting": 3.3815,
+        "playmaking": 49.9219,
+        "defense": 3.4441
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 56.7475,
+      "challenger_elo": 1632.4768
+    },
+    {
+      "team_id": "ncaa:609834",
+      "team": "Providence",
+      "conference": "Big East",
+      "published_elo": 1591.2425,
+      "matched_players": 9,
+      "matched_previous_minutes": 6938.252,
+      "components": {
+        "shooting": 1.0308,
+        "playmaking": 35.4006,
+        "defense": 4.384
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 40.8154,
+      "challenger_elo": 1632.0579
+    },
+    {
+      "team_id": "ncaa:609622",
+      "team": "Arizona St.",
+      "conference": "Big 12",
+      "published_elo": 1592.4713,
+      "matched_players": 7,
+      "matched_previous_minutes": 5714.13,
+      "components": {
+        "shooting": 2.9916,
+        "playmaking": 35.1199,
+        "defense": -0.2615
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 37.85,
+      "challenger_elo": 1630.3213
+    },
+    {
+      "team_id": "ncaa:609607",
+      "team": "Belmont",
+      "conference": "MVC",
+      "published_elo": 1621.6842,
+      "matched_players": 10,
+      "matched_previous_minutes": 3058.211,
+      "components": {
+        "shooting": 2.3414,
+        "playmaking": 4.8656,
+        "defense": 0.4818
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 7.6888,
+      "challenger_elo": 1629.373
+    },
+    {
+      "team_id": "ncaa:609658",
+      "team": "Marquette",
+      "conference": "Big East",
+      "published_elo": 1594.5053,
+      "matched_players": 8,
+      "matched_previous_minutes": 5526.232,
+      "components": {
+        "shooting": 4.481,
+        "playmaking": 22.2366,
+        "defense": 4.7651
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 31.4827,
+      "challenger_elo": 1625.988
+    },
+    {
+      "team_id": "ncaa:609627",
+      "team": "Austin Peay",
+      "conference": "UAC",
+      "published_elo": 1591.6776,
+      "matched_players": 3,
+      "matched_previous_minutes": 2133.589,
+      "components": {
+        "shooting": 8.1968,
+        "playmaking": 18.0069,
+        "defense": 6.6239
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 32.8276,
+      "challenger_elo": 1624.5052
+    },
+    {
+      "team_id": "ncaa:609545",
+      "team": "McNeese",
+      "conference": "Southland",
+      "published_elo": 1627.9761,
+      "matched_players": 9,
+      "matched_previous_minutes": 2854.415,
+      "components": {
+        "shooting": 3.9243,
+        "playmaking": -21.8869,
+        "defense": 9.8285
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -8.1341,
+      "challenger_elo": 1619.842
+    },
+    {
+      "team_id": "ncaa:609532",
+      "team": "Central Ark.",
+      "conference": "UAC",
+      "published_elo": 1568.6554,
+      "matched_players": 5,
+      "matched_previous_minutes": 3610.182,
+      "components": {
+        "shooting": 0.0767,
+        "playmaking": 44.7177,
+        "defense": 5.9943
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 50.7887,
+      "challenger_elo": 1619.4441
+    },
+    {
+      "team_id": "ncaa:609709",
+      "team": "Cornell",
+      "conference": "Ivy League",
+      "published_elo": 1508.2643,
+      "matched_players": 10,
+      "matched_previous_minutes": 2407.127,
+      "components": {
+        "shooting": 3.5207,
+        "playmaking": 109.3593,
+        "defense": -1.7051
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 111.1749,
+      "challenger_elo": 1619.4392
+    },
+    {
+      "team_id": "ncaa:609737",
+      "team": "George Mason",
+      "conference": "Atlantic 10",
+      "published_elo": 1603.8818,
+      "matched_players": 11,
+      "matched_previous_minutes": 4989.654,
+      "components": {
+        "shooting": 1.3495,
+        "playmaking": 15.9629,
+        "defense": -2.7666
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 14.5458,
+      "challenger_elo": 1618.4276
+    },
+    {
+      "team_id": "ncaa:609589",
+      "team": "Liberty",
+      "conference": "C-USA",
+      "published_elo": 1556.7185,
+      "matched_players": 7,
+      "matched_previous_minutes": 2634.487,
+      "components": {
+        "shooting": -1.1639,
+        "playmaking": 63.6626,
+        "defense": -1.1209
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 61.3778,
+      "challenger_elo": 1618.0963
+    },
+    {
+      "team_id": "ncaa:609518",
+      "team": "West Virginia",
+      "conference": "Big 12",
+      "published_elo": 1609.4442,
+      "matched_players": 8,
+      "matched_previous_minutes": 6287.926,
+      "components": {
+        "shooting": -1.5116,
+        "playmaking": 6.6173,
+        "defense": -0.2869
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 4.8188,
+      "challenger_elo": 1614.263
+    },
+    {
+      "team_id": "ncaa:609758",
+      "team": "Illinois St.",
+      "conference": "MVC",
+      "published_elo": 1595.4476,
+      "matched_players": 9,
+      "matched_previous_minutes": 6159.886,
+      "components": {
+        "shooting": -0.9842,
+        "playmaking": 22.1523,
+        "defense": -2.8489
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.3192,
+      "challenger_elo": 1613.7668
+    },
+    {
+      "team_id": "ncaa:609893",
+      "team": "Seton Hall",
+      "conference": "Big East",
+      "published_elo": 1629.7397,
+      "matched_players": 9,
+      "matched_previous_minutes": 5636.385,
+      "components": {
+        "shooting": 0.8595,
+        "playmaking": -24.7573,
+        "defense": 6.4292
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.4686,
+      "challenger_elo": 1612.2711
+    },
+    {
+      "team_id": "ncaa:609851",
+      "team": "Rutgers",
+      "conference": "Big Ten",
+      "published_elo": 1571.6751,
+      "matched_players": 8,
+      "matched_previous_minutes": 4866.281,
+      "components": {
+        "shooting": -1.2236,
+        "playmaking": 41.3749,
+        "defense": -0.2213
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 39.93,
+      "challenger_elo": 1611.6051
+    },
+    {
+      "team_id": "ncaa:609630",
+      "team": "Baylor",
+      "conference": "Big 12",
+      "published_elo": 1550.5157,
+      "matched_players": 6,
+      "matched_previous_minutes": 3667.783,
+      "components": {
+        "shooting": 5.772,
+        "playmaking": 53.1979,
+        "defense": 2.0288
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 60.9987,
+      "challenger_elo": 1611.5144
+    },
+    {
+      "team_id": "ncaa:609553",
+      "team": "Howard",
+      "conference": "MEAC",
+      "published_elo": 1568.2957,
+      "matched_players": 9,
+      "matched_previous_minutes": 3469.739,
+      "components": {
+        "shooting": 1.1585,
+        "playmaking": 38.0806,
+        "defense": 3.212
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 42.4511,
+      "challenger_elo": 1610.7468
+    },
+    {
+      "team_id": "ncaa:609689",
+      "team": "Nevada",
+      "conference": "MWC",
+      "published_elo": 1597.4131,
+      "matched_players": 8,
+      "matched_previous_minutes": 5141.349,
+      "components": {
+        "shooting": 2.7631,
+        "playmaking": 6.6027,
+        "defense": 3.7443
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 13.1101,
+      "challenger_elo": 1610.5232
+    },
+    {
+      "team_id": "ncaa:609530",
+      "team": "Xavier",
+      "conference": "Big East",
+      "published_elo": 1565.7855,
+      "matched_players": 8,
+      "matched_previous_minutes": 4640.147,
+      "components": {
+        "shooting": -0.0231,
+        "playmaking": 41.6111,
+        "defense": 0.9287
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 42.5167,
+      "challenger_elo": 1608.3022
+    },
+    {
+      "team_id": "ncaa:609779",
+      "team": "North Dakota St.",
+      "conference": "Summit League",
+      "published_elo": 1561.0996,
+      "matched_players": 5,
+      "matched_previous_minutes": 2271.972,
+      "components": {
+        "shooting": -0.8307,
+        "playmaking": 47.1884,
+        "defense": -1.3736
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 44.9841,
+      "challenger_elo": 1606.0837
+    },
+    {
+      "team_id": "ncaa:609821",
+      "team": "Penn",
+      "conference": "Ivy League",
+      "published_elo": 1592.9058,
+      "matched_players": 10,
+      "matched_previous_minutes": 4732.499,
+      "components": {
+        "shooting": -0.3185,
+        "playmaking": 10.8818,
+        "defense": -0.0252
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 10.5381,
+      "challenger_elo": 1603.4439
+    },
+    {
+      "team_id": "ncaa:609633",
+      "team": "Boise St.",
+      "conference": "Pac-12",
+      "published_elo": 1596.1628,
+      "matched_players": 12,
+      "matched_previous_minutes": 5406.081,
+      "components": {
+        "shooting": -0.0249,
+        "playmaking": 5.6905,
+        "defense": 1.503
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 7.1686,
+      "challenger_elo": 1603.3314
+    },
+    {
+      "team_id": "ncaa:609501",
+      "team": "Tulsa",
+      "conference": "AAC",
+      "published_elo": 1632.4604,
+      "matched_players": 9,
+      "matched_previous_minutes": 5548.677,
+      "components": {
+        "shooting": -0.4816,
+        "playmaking": -31.0681,
+        "defense": -0.6855
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -32.2352,
+      "challenger_elo": 1600.2252
+    },
+    {
+      "team_id": "ncaa:609583",
+      "team": "Kent St.",
+      "conference": "MAC",
+      "published_elo": 1569.2956,
+      "matched_players": 10,
+      "matched_previous_minutes": 3290.068,
+      "components": {
+        "shooting": 0.5937,
+        "playmaking": 24.6445,
+        "defense": 2.7664
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.0046,
+      "challenger_elo": 1597.3002
+    },
+    {
+      "team_id": "ncaa:609688",
+      "team": "UNLV",
+      "conference": "MWC",
+      "published_elo": 1620.1345,
+      "matched_players": 11,
+      "matched_previous_minutes": 5816.175,
+      "components": {
+        "shooting": 0.2743,
+        "playmaking": -32.3404,
+        "defense": 8.7711
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -23.295,
+      "challenger_elo": 1596.8395
+    },
+    {
+      "team_id": "ncaa:609742",
+      "team": "Georgia Tech",
+      "conference": "ACC",
+      "published_elo": 1545.7807,
+      "matched_players": 7,
+      "matched_previous_minutes": 4453.41,
+      "components": {
+        "shooting": 1.755,
+        "playmaking": 52.4384,
+        "defense": -3.5345
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 50.6589,
+      "challenger_elo": 1596.4396
+    },
+    {
+      "team_id": "ncaa:609864",
+      "team": "Saint Joseph's",
+      "conference": "Atlantic 10",
+      "published_elo": 1593.0976,
+      "matched_players": 8,
+      "matched_previous_minutes": 3848.167,
+      "components": {
+        "shooting": -2.9237,
+        "playmaking": -0.2024,
+        "defense": 6.3726
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 3.2465,
+      "challenger_elo": 1596.3441
+    },
+    {
+      "team_id": "ncaa:609705",
+      "team": "Colorado St.",
+      "conference": "Pac-12",
+      "published_elo": 1582.3807,
+      "matched_players": 8,
+      "matched_previous_minutes": 4708.746,
+      "components": {
+        "shooting": 3.9202,
+        "playmaking": 12.3984,
+        "defense": -3.9471
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 12.3715,
+      "challenger_elo": 1594.7522
+    },
+    {
+      "team_id": "ncaa:609499",
+      "team": "Troy",
+      "conference": "Sun Belt",
+      "published_elo": 1594.5056,
+      "matched_players": 8,
+      "matched_previous_minutes": 3553.852,
+      "components": {
+        "shooting": 2.5326,
+        "playmaking": -8.4347,
+        "defense": 5.4083
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -0.4938,
+      "challenger_elo": 1594.0118
+    },
+    {
+      "team_id": "ncaa:609612",
+      "team": "Utah Valley",
+      "conference": "Big West",
+      "published_elo": 1583.9665,
+      "matched_players": 8,
+      "matched_previous_minutes": 3263.518,
+      "components": {
+        "shooting": 5.9399,
+        "playmaking": -6.7205,
+        "defense": 10.1548
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 9.3742,
+      "challenger_elo": 1593.3407
+    },
+    {
+      "team_id": "ncaa:609472",
+      "team": "SMU",
+      "conference": "ACC",
+      "published_elo": 1578.5217,
+      "matched_players": 8,
+      "matched_previous_minutes": 4582.408,
+      "components": {
+        "shooting": 2.5842,
+        "playmaking": 11.6927,
+        "defense": -0.0873
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 14.1896,
+      "challenger_elo": 1592.7113
+    },
+    {
+      "team_id": "ncaa:609577",
+      "team": "Iowa",
+      "conference": "Big Ten",
+      "published_elo": 1578.9225,
+      "matched_players": 10,
+      "matched_previous_minutes": 5719.235,
+      "components": {
+        "shooting": 3.2335,
+        "playmaking": 11.4811,
+        "defense": -1.3577
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 13.3569,
+      "challenger_elo": 1592.2794
+    },
+    {
+      "team_id": "ncaa:609691",
+      "team": "UC Irvine",
+      "conference": "Big West",
+      "published_elo": 1559.2189,
+      "matched_players": 7,
+      "matched_previous_minutes": 3035.188,
+      "components": {
+        "shooting": 3.6004,
+        "playmaking": 23.5711,
+        "defense": 5.332
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 32.5035,
+      "challenger_elo": 1591.7224
+    },
+    {
+      "team_id": "ncaa:609813",
+      "team": "Oregon St.",
+      "conference": "Pac-12",
+      "published_elo": 1592.1494,
+      "matched_players": 9,
+      "matched_previous_minutes": 4311.552,
+      "components": {
+        "shooting": 1.9613,
+        "playmaking": -1.7142,
+        "defense": -1.3348
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.0877,
+      "challenger_elo": 1591.0617
+    },
+    {
+      "team_id": "ncaa:609793",
+      "team": "UNI",
+      "conference": "MVC",
+      "published_elo": 1606.2207,
+      "matched_players": 7,
+      "matched_previous_minutes": 4250.147,
+      "components": {
+        "shooting": 1.4946,
+        "playmaking": -18.9145,
+        "defense": 0.2782
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.1417,
+      "challenger_elo": 1589.079
+    },
+    {
+      "team_id": "ncaa:609883",
+      "team": "UC San Diego",
+      "conference": "Big West",
+      "published_elo": 1573.6352,
+      "matched_players": 13,
+      "matched_previous_minutes": 9139.222,
+      "components": {
+        "shooting": -2.5014,
+        "playmaking": 19.5225,
+        "defense": -2.3577
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 14.6634,
+      "challenger_elo": 1588.2986
+    },
+    {
+      "team_id": "ncaa:609638",
+      "team": "BYU",
+      "conference": "Big 12",
+      "published_elo": 1606.5541,
+      "matched_players": 7,
+      "matched_previous_minutes": 3859.985,
+      "components": {
+        "shooting": -0.4025,
+        "playmaking": -17.4887,
+        "defense": -1.203
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -19.0942,
+      "challenger_elo": 1587.4599
+    },
+    {
+      "team_id": "ncaa:609706",
+      "team": "Colorado",
+      "conference": "Big 12",
+      "published_elo": 1555.6317,
+      "matched_players": 9,
+      "matched_previous_minutes": 4889.433,
+      "components": {
+        "shooting": 5.4536,
+        "playmaking": 26.6187,
+        "defense": -0.9403
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 31.132,
+      "challenger_elo": 1586.7637
+    },
+    {
+      "team_id": "ncaa:609759",
+      "team": "UIC",
+      "conference": "MVC",
+      "published_elo": 1560.7457,
+      "matched_players": 7,
+      "matched_previous_minutes": 5205.548,
+      "components": {
+        "shooting": -0.0146,
+        "playmaking": 23.7186,
+        "defense": 1.6882
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 25.3922,
+      "challenger_elo": 1586.1379
+    },
+    {
+      "team_id": "ncaa:609712",
+      "team": "Davidson",
+      "conference": "Atlantic 10",
+      "published_elo": 1551.2307,
+      "matched_players": 8,
+      "matched_previous_minutes": 4019.062,
+      "components": {
+        "shooting": 1.2074,
+        "playmaking": 37.8663,
+        "defense": -4.2002
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 34.8735,
+      "challenger_elo": 1586.1042
+    },
+    {
+      "team_id": "ncaa:609482",
+      "team": "Syracuse",
+      "conference": "ACC",
+      "published_elo": 1556.5707,
+      "matched_players": 9,
+      "matched_previous_minutes": 6302.215,
+      "components": {
+        "shooting": 4.4692,
+        "playmaking": 20.3679,
+        "defense": 3.2231
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.0602,
+      "challenger_elo": 1584.6309
+    },
+    {
+      "team_id": "ncaa:609664",
+      "team": "Memphis",
+      "conference": "AAC",
+      "published_elo": 1588.0804,
+      "matched_players": 11,
+      "matched_previous_minutes": 6639.86,
+      "components": {
+        "shooting": 2.7443,
+        "playmaking": -6.452,
+        "defense": -0.3329
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -4.0406,
+      "challenger_elo": 1584.0398
+    },
+    {
+      "team_id": "ncaa:609850",
+      "team": "Robert Morris",
+      "conference": "Horizon",
+      "published_elo": 1556.7382,
+      "matched_players": 6,
+      "matched_previous_minutes": 3990.359,
+      "components": {
+        "shooting": 1.8095,
+        "playmaking": 21.1778,
+        "defense": 4.0284
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 27.0157,
+      "challenger_elo": 1583.7539
+    },
+    {
+      "team_id": "ncaa:609551",
+      "team": "Duquesne",
+      "conference": "Atlantic 10",
+      "published_elo": 1530.9026,
+      "matched_players": 9,
+      "matched_previous_minutes": 3543.383,
+      "components": {
+        "shooting": -0.464,
+        "playmaking": 52.5245,
+        "defense": 0.5782
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 52.6387,
+      "challenger_elo": 1583.5413
+    },
+    {
+      "team_id": "ncaa:609574",
+      "team": "Indiana",
+      "conference": "Big Ten",
+      "published_elo": 1576.3673,
+      "matched_players": 11,
+      "matched_previous_minutes": 5934.436,
+      "components": {
+        "shooting": 3.0776,
+        "playmaking": 1.3188,
+        "defense": 1.2001
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 5.5965,
+      "challenger_elo": 1581.9638
+    },
+    {
+      "team_id": "ncaa:609624",
+      "team": "Arkansas St.",
+      "conference": "Sun Belt",
+      "published_elo": 1535.0577,
+      "matched_players": 4,
+      "matched_previous_minutes": 2177.752,
+      "components": {
+        "shooting": 1.1118,
+        "playmaking": 41.8532,
+        "defense": 2.3888
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 45.3538,
+      "challenger_elo": 1580.4115
+    },
+    {
+      "team_id": "ncaa:609516",
+      "team": "Washington",
+      "conference": "Big Ten",
+      "published_elo": 1560.6344,
+      "matched_players": 9,
+      "matched_previous_minutes": 5317.719,
+      "components": {
+        "shooting": -2.5457,
+        "playmaking": 24.9752,
+        "defense": -3.677
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.7525,
+      "challenger_elo": 1579.3869
+    },
+    {
+      "team_id": "ncaa:609799",
+      "team": "Northwestern",
+      "conference": "Big Ten",
+      "published_elo": 1569.9852,
+      "matched_players": 10,
+      "matched_previous_minutes": 5542.947,
+      "components": {
+        "shooting": 5.5787,
+        "playmaking": 1.8711,
+        "defense": -2.1987
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 5.2511,
+      "challenger_elo": 1575.2363
+    },
+    {
+      "team_id": "ncaa:609880",
+      "team": "Merrimack",
+      "conference": "Metro",
+      "published_elo": 1541.234,
+      "matched_players": 4,
+      "matched_previous_minutes": 3363.466,
+      "components": {
+        "shooting": -4.6592,
+        "playmaking": 33.3729,
+        "defense": 4.8223
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 33.536,
+      "challenger_elo": 1574.77
+    },
+    {
+      "team_id": "ncaa:609747",
+      "team": "Hawaii",
+      "conference": "MWC",
+      "published_elo": 1589.8273,
+      "matched_players": 7,
+      "matched_previous_minutes": 3613.117,
+      "components": {
+        "shooting": 2.1093,
+        "playmaking": -17.3651,
+        "defense": 0.0993
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -15.1565,
+      "challenger_elo": 1574.6708
+    },
+    {
+      "team_id": "ncaa:609480",
+      "team": "SFA",
+      "conference": "Southland",
+      "published_elo": 1610.6492,
+      "matched_players": 10,
+      "matched_previous_minutes": 3597.287,
+      "components": {
+        "shooting": -1.3702,
+        "playmaking": -40.3926,
+        "defense": 4.9026
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -36.8602,
+      "challenger_elo": 1573.789
+    },
+    {
+      "team_id": "ncaa:609676",
+      "team": "Monmouth",
+      "conference": "CAA",
+      "published_elo": 1529.9064,
+      "matched_players": 12,
+      "matched_previous_minutes": 4578.265,
+      "components": {
+        "shooting": -1.7686,
+        "playmaking": 47.0802,
+        "defense": -2.2621
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 43.0495,
+      "challenger_elo": 1572.9559
+    },
+    {
+      "team_id": "ncaa:609731",
+      "team": "Fla. Atlantic",
+      "conference": "AAC",
+      "published_elo": 1576.1114,
+      "matched_players": 8,
+      "matched_previous_minutes": 4483.648,
+      "components": {
+        "shooting": 1.6107,
+        "playmaking": -5.4884,
+        "defense": 0.581
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -3.2967,
+      "challenger_elo": 1572.8147
+    },
+    {
+      "team_id": "ncaa:609529",
+      "team": "Wyoming",
+      "conference": "MWC",
+      "published_elo": 1556.5453,
+      "matched_players": 8,
+      "matched_previous_minutes": 4558.266,
+      "components": {
+        "shooting": 0.3976,
+        "playmaking": 15.5431,
+        "defense": -2.444
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 13.4967,
+      "challenger_elo": 1570.042
+    },
+    {
+      "team_id": "ncaa:609889",
+      "team": "St. Thomas (MN)",
+      "conference": "Summit League",
+      "published_elo": 1523.8346,
+      "matched_players": 9,
+      "matched_previous_minutes": 2741.533,
+      "components": {
+        "shooting": 0.8476,
+        "playmaking": 43.4438,
+        "defense": 0.0228
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 44.3142,
+      "challenger_elo": 1568.1488
+    },
+    {
+      "team_id": "ncaa:609497",
+      "team": "Toledo",
+      "conference": "MAC",
+      "published_elo": 1565.5666,
+      "matched_players": 6,
+      "matched_previous_minutes": 2283.483,
+      "components": {
+        "shooting": 4.3345,
+        "playmaking": -9.5285,
+        "defense": 7.6658
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 2.4718,
+      "challenger_elo": 1568.0384
+    },
+    {
+      "team_id": "ncaa:609504",
+      "team": "Navy",
+      "conference": "Patriot",
+      "published_elo": 1552.8603,
+      "matched_players": 9,
+      "matched_previous_minutes": 2749.593,
+      "components": {
+        "shooting": -2.097,
+        "playmaking": 20.5956,
+        "defense": -3.6815
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 14.8171,
+      "challenger_elo": 1567.6774
+    },
+    {
+      "team_id": "ncaa:609878",
+      "team": "California Baptist",
+      "conference": "Big West",
+      "published_elo": 1574.131,
+      "matched_players": 5,
+      "matched_previous_minutes": 1722.77,
+      "components": {
+        "shooting": -3.4156,
+        "playmaking": 0.0,
+        "defense": -3.2427
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -6.6583,
+      "challenger_elo": 1567.4727
+    },
+    {
+      "team_id": "ncaa:609484",
+      "team": "Tennessee St.",
+      "conference": "OVC",
+      "published_elo": 1594.801,
+      "matched_players": 8,
+      "matched_previous_minutes": 2762.635,
+      "components": {
+        "shooting": -0.9358,
+        "playmaking": -36.7156,
+        "defense": 8.122
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -29.5294,
+      "challenger_elo": 1565.2716
+    },
+    {
+      "team_id": "ncaa:609651",
+      "team": "California",
+      "conference": "ACC",
+      "published_elo": 1556.2835,
+      "matched_players": 10,
+      "matched_previous_minutes": 2708.42,
+      "components": {
+        "shooting": 0.5618,
+        "playmaking": 6.7733,
+        "defense": 1.5341
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.8692,
+      "challenger_elo": 1565.1527
+    },
+    {
+      "team_id": "ncaa:609566",
+      "team": "Western Ky.",
+      "conference": "C-USA",
+      "published_elo": 1562.7529,
+      "matched_players": 8,
+      "matched_previous_minutes": 4973.804,
+      "components": {
+        "shooting": -0.3424,
+        "playmaking": -3.0885,
+        "defense": 1.0087
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -2.4222,
+      "challenger_elo": 1560.3307
+    },
+    {
+      "team_id": "ncaa:609547",
+      "team": "Morehead St.",
+      "conference": "OVC",
+      "published_elo": 1497.3451,
+      "matched_players": 3,
+      "matched_previous_minutes": 1190.552,
+      "components": {
+        "shooting": -3.5508,
+        "playmaking": 75.128,
+        "defense": -8.651
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 62.9262,
+      "challenger_elo": 1560.2713
+    },
+    {
+      "team_id": "ncaa:609528",
+      "team": "Wright St.",
+      "conference": "Horizon",
+      "published_elo": 1569.0164,
+      "matched_players": 8,
+      "matched_previous_minutes": 4467.799,
+      "components": {
+        "shooting": 5.7194,
+        "playmaking": -18.8782,
+        "defense": 3.1544
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -10.0044,
+      "challenger_elo": 1559.012
+    },
+    {
+      "team_id": "ncaa:609726",
+      "team": "Eastern Wash.",
+      "conference": "Big Sky",
+      "published_elo": 1529.5299,
+      "matched_players": 5,
+      "matched_previous_minutes": 1437.152,
+      "components": {
+        "shooting": -1.8842,
+        "playmaking": 31.4945,
+        "defense": -0.4393
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 29.171,
+      "challenger_elo": 1558.7009
+    },
+    {
+      "team_id": "ncaa:609801",
+      "team": "Notre Dame",
+      "conference": "ACC",
+      "published_elo": 1529.1779,
+      "matched_players": 8,
+      "matched_previous_minutes": 5016.513,
+      "components": {
+        "shooting": 1.3114,
+        "playmaking": 29.379,
+        "defense": -1.5441
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 29.1463,
+      "challenger_elo": 1558.3242
+    },
+    {
+      "team_id": "ncaa:609514",
+      "team": "Wake Forest",
+      "conference": "ACC",
+      "published_elo": 1548.2629,
+      "matched_players": 10,
+      "matched_previous_minutes": 5073.219,
+      "components": {
+        "shooting": 2.2466,
+        "playmaking": 4.6094,
+        "defense": 2.9807
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 9.8367,
+      "challenger_elo": 1558.0996
+    },
+    {
+      "team_id": "ncaa:609610",
+      "team": "Lipscomb",
+      "conference": "ASUN",
+      "published_elo": 1472.8368,
+      "matched_players": 6,
+      "matched_previous_minutes": 4267.165,
+      "components": {
+        "shooting": -0.36,
+        "playmaking": 88.5164,
+        "defense": -3.8675
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 84.2889,
+      "challenger_elo": 1557.1257
+    },
+    {
+      "team_id": "ncaa:609542",
+      "team": "UAB",
+      "conference": "AAC",
+      "published_elo": 1589.858,
+      "matched_players": 6,
+      "matched_previous_minutes": 4253.072,
+      "components": {
+        "shooting": -0.8416,
+        "playmaking": -34.045,
+        "defense": 0.9911
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -33.8955,
+      "challenger_elo": 1555.9625
+    },
+    {
+      "team_id": "ncaa:609735",
+      "team": "Fordham",
+      "conference": "Atlantic 10",
+      "published_elo": 1553.9947,
+      "matched_players": 9,
+      "matched_previous_minutes": 4384.021,
+      "components": {
+        "shooting": 1.214,
+        "playmaking": 2.5893,
+        "defense": -1.886
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 1.9173,
+      "challenger_elo": 1555.912
+    },
+    {
+      "team_id": "ncaa:609599",
+      "team": "Seattle U",
+      "conference": "WCC",
+      "published_elo": 1531.2356,
+      "matched_players": 8,
+      "matched_previous_minutes": 4889.489,
+      "components": {
+        "shooting": -1.1858,
+        "playmaking": 18.9793,
+        "defense": 5.6109
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 23.4044,
+      "challenger_elo": 1554.64
+    },
+    {
+      "team_id": "ncaa:609824",
+      "team": "Pittsburgh",
+      "conference": "ACC",
+      "published_elo": 1550.8911,
+      "matched_players": 10,
+      "matched_previous_minutes": 6444.407,
+      "components": {
+        "shooting": 1.7673,
+        "playmaking": -0.3338,
+        "defense": 2.0806
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 3.5141,
+      "challenger_elo": 1554.4052
+    },
+    {
+      "team_id": "ncaa:609895",
+      "team": "Siena",
+      "conference": "Metro",
+      "published_elo": 1536.6747,
+      "matched_players": 5,
+      "matched_previous_minutes": 2460.179,
+      "components": {
+        "shooting": -6.019,
+        "playmaking": 28.8076,
+        "defense": -6.1503
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 16.6383,
+      "challenger_elo": 1553.313
+    },
+    {
+      "team_id": "pending-ncaa-id:west-florida",
+      "team": "West Florida",
+      "conference": "ASUN",
+      "published_elo": 1500,
+      "matched_players": 2,
+      "matched_previous_minutes": 1105.967,
+      "components": {
+        "shooting": -0.7737,
+        "playmaking": 54.8497,
+        "defense": -1.2522
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 52.8238,
+      "challenger_elo": 1552.8238
+    },
+    {
+      "team_id": "ncaa:609733",
+      "team": "Florida St.",
+      "conference": "ACC",
+      "published_elo": 1571.4049,
+      "matched_players": 5,
+      "matched_previous_minutes": 2295.78,
+      "components": {
+        "shooting": -1.3325,
+        "playmaking": -22.2795,
+        "defense": 3.3219
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -20.2901,
+      "challenger_elo": 1551.1148
+    },
+    {
+      "team_id": "ncaa:609523",
+      "team": "William & Mary",
+      "conference": "CAA",
+      "published_elo": 1502.3475,
+      "matched_players": 5,
+      "matched_previous_minutes": 1360.765,
+      "components": {
+        "shooting": -0.7601,
+        "playmaking": 51.5912,
+        "defense": -2.2504
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 48.5807,
+      "challenger_elo": 1550.9282
+    },
+    {
+      "team_id": "ncaa:609714",
+      "team": "DePaul",
+      "conference": "Big East",
+      "published_elo": 1549.3782,
+      "matched_players": 10,
+      "matched_previous_minutes": 6719.361,
+      "components": {
+        "shooting": 0.2408,
+        "playmaking": -7.6299,
+        "defense": 7.0888
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -0.3003,
+      "challenger_elo": 1549.0779
+    },
+    {
+      "team_id": "ncaa:609868",
+      "team": "Sam Houston",
+      "conference": "C-USA",
+      "published_elo": 1541.6468,
+      "matched_players": 5,
+      "matched_previous_minutes": 2161.716,
+      "components": {
+        "shooting": 1.8131,
+        "playmaking": 0.1342,
+        "defense": 3.2593
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 5.2066,
+      "challenger_elo": 1546.8534
+    },
+    {
+      "team_id": "ncaa:609838",
+      "team": "Quinnipiac",
+      "conference": "Metro",
+      "published_elo": 1475.9493,
+      "matched_players": 9,
+      "matched_previous_minutes": 3207.483,
+      "components": {
+        "shooting": -0.7263,
+        "playmaking": 66.1016,
+        "defense": 4.763
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 70.1383,
+      "challenger_elo": 1546.0876
+    },
+    {
+      "team_id": "ncaa:609525",
+      "team": "Green Bay",
+      "conference": "Horizon",
+      "published_elo": 1539.1327,
+      "matched_players": 9,
+      "matched_previous_minutes": 4348.782,
+      "components": {
+        "shooting": 2.4939,
+        "playmaking": 7.6063,
+        "defense": -3.6134
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 6.4868,
+      "challenger_elo": 1545.6195
+    },
+    {
+      "team_id": "ncaa:609506",
+      "team": "Utah",
+      "conference": "Big 12",
+      "published_elo": 1478.4552,
+      "matched_players": 8,
+      "matched_previous_minutes": 4768.212,
+      "components": {
+        "shooting": 1.379,
+        "playmaking": 57.1564,
+        "defense": 8.5765
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 67.1119,
+      "challenger_elo": 1545.5671
+    },
+    {
+      "team_id": "ncaa:609643",
+      "team": "Butler",
+      "conference": "Big East",
+      "published_elo": 1542.222,
+      "matched_players": 8,
+      "matched_previous_minutes": 3660.916,
+      "components": {
+        "shooting": 2.5998,
+        "playmaking": -3.897,
+        "defense": 0.0647
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.2325,
+      "challenger_elo": 1540.9895
+    },
+    {
+      "team_id": "ncaa:609680",
+      "team": "Murray St.",
+      "conference": "MVC",
+      "published_elo": 1532.7773,
+      "matched_players": 6,
+      "matched_previous_minutes": 3424.268,
+      "components": {
+        "shooting": 4.5387,
+        "playmaking": 2.596,
+        "defense": -0.1036
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 7.0311,
+      "challenger_elo": 1539.8084
+    },
+    {
+      "team_id": "ncaa:609748",
+      "team": "Hofstra",
+      "conference": "CAA",
+      "published_elo": 1568.6557,
+      "matched_players": 5,
+      "matched_previous_minutes": 3183.532,
+      "components": {
+        "shooting": -1.7353,
+        "playmaking": -30.9614,
+        "defense": 3.606
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -29.0907,
+      "challenger_elo": 1539.565
+    },
+    {
+      "team_id": "ncaa:609524",
+      "team": "Winthrop",
+      "conference": "Big South",
+      "published_elo": 1571.0936,
+      "matched_players": 8,
+      "matched_previous_minutes": 3161.699,
+      "components": {
+        "shooting": -1.8962,
+        "playmaking": -28.3588,
+        "defense": -1.3668
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -31.6218,
+      "challenger_elo": 1539.4718
+    },
+    {
+      "team_id": "ncaa:609660",
+      "team": "UMBC",
+      "conference": "America East",
+      "published_elo": 1564.8265,
+      "matched_players": 4,
+      "matched_previous_minutes": 1971.361,
+      "components": {
+        "shooting": -4.8129,
+        "playmaking": -19.2819,
+        "defense": -1.2765
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -25.3713,
+      "challenger_elo": 1539.4552
+    },
+    {
+      "team_id": "ncaa:609674",
+      "team": "Ole Miss",
+      "conference": "SEC",
+      "published_elo": 1531.6351,
+      "matched_players": 11,
+      "matched_previous_minutes": 8098.865,
+      "components": {
+        "shooting": 0.8329,
+        "playmaking": 1.2491,
+        "defense": 5.0788
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 7.1608,
+      "challenger_elo": 1538.7959
+    },
+    {
+      "team_id": "ncaa:609507",
+      "team": "Valparaiso",
+      "conference": "MVC",
+      "published_elo": 1534.6773,
+      "matched_players": 9,
+      "matched_previous_minutes": 4097.451,
+      "components": {
+        "shooting": -2.6058,
+        "playmaking": 2.6823,
+        "defense": 0.7029
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 0.7794,
+      "challenger_elo": 1535.4567
+    },
+    {
+      "team_id": "ncaa:609722",
+      "team": "ETSU",
+      "conference": "SoCon",
+      "published_elo": 1533.7625,
+      "matched_players": 8,
+      "matched_previous_minutes": 5065.983,
+      "components": {
+        "shooting": -1.1747,
+        "playmaking": 2.6075,
+        "defense": -0.2641
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 1.1687,
+      "challenger_elo": 1534.9312
+    },
+    {
+      "team_id": "ncaa:609500",
+      "team": "Tulane",
+      "conference": "AAC",
+      "published_elo": 1545.8162,
+      "matched_players": 10,
+      "matched_previous_minutes": 5174.77,
+      "components": {
+        "shooting": -0.8906,
+        "playmaking": -10.4602,
+        "defense": 0.1687
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -11.1821,
+      "challenger_elo": 1534.6341
+    },
+    {
+      "team_id": "ncaa:609815",
+      "team": "Pacific",
+      "conference": "WCC",
+      "published_elo": 1471.5127,
+      "matched_players": 10,
+      "matched_previous_minutes": 3998.799,
+      "components": {
+        "shooting": -0.2172,
+        "playmaking": 62.5871,
+        "defense": 0.4094
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 62.7793,
+      "challenger_elo": 1534.292
+    },
+    {
+      "team_id": "ncaa:609746",
+      "team": "Harvard",
+      "conference": "Ivy League",
+      "published_elo": 1534.8612,
+      "matched_players": 13,
+      "matched_previous_minutes": 3919.616,
+      "components": {
+        "shooting": 1.609,
+        "playmaking": -2.8212,
+        "defense": 0.2047
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.0075,
+      "challenger_elo": 1533.8537
+    },
+    {
+      "team_id": "ncaa:609675",
+      "team": "Missouri",
+      "conference": "SEC",
+      "published_elo": 1568.4119,
+      "matched_players": 10,
+      "matched_previous_minutes": 5572.301,
+      "components": {
+        "shooting": -0.8375,
+        "playmaking": -31.7986,
+        "defense": -2.4934
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -35.1295,
+      "challenger_elo": 1533.2824
+    },
+    {
+      "team_id": "ncaa:609636",
+      "team": "Bowling Green",
+      "conference": "MAC",
+      "published_elo": 1552.3984,
+      "matched_players": 9,
+      "matched_previous_minutes": 2500.476,
+      "components": {
+        "shooting": 0.4763,
+        "playmaking": -23.5533,
+        "defense": -0.7961
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -23.8731,
+      "challenger_elo": 1528.5253
+    },
+    {
+      "team_id": "ncaa:609830",
+      "team": "Prairie View",
+      "conference": "SWAC",
+      "published_elo": 1541.1364,
+      "matched_players": 14,
+      "matched_previous_minutes": 7301.678,
+      "components": {
+        "shooting": 0.6101,
+        "playmaking": -20.3138,
+        "defense": 5.6135
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.0902,
+      "challenger_elo": 1527.0462
+    },
+    {
+      "team_id": "ncaa:609634",
+      "team": "Boston College",
+      "conference": "ACC",
+      "published_elo": 1540.1348,
+      "matched_players": 9,
+      "matched_previous_minutes": 5744.468,
+      "components": {
+        "shooting": 1.2641,
+        "playmaking": -13.2538,
+        "defense": -2.1729
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.1626,
+      "challenger_elo": 1525.9722
+    },
+    {
+      "team_id": "ncaa:609546",
+      "team": "Montana St.",
+      "conference": "Big Sky",
+      "published_elo": 1531.0141,
+      "matched_players": 11,
+      "matched_previous_minutes": 4514.478,
+      "components": {
+        "shooting": 0.9077,
+        "playmaking": -7.4787,
+        "defense": 1.3042
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -5.2668,
+      "challenger_elo": 1525.7473
+    },
+    {
+      "team_id": "ncaa:609648",
+      "team": "CSUN",
+      "conference": "Big West",
+      "published_elo": 1517.7986,
+      "matched_players": 9,
+      "matched_previous_minutes": 4676.129,
+      "components": {
+        "shooting": -0.9874,
+        "playmaking": 9.1282,
+        "defense": -1.5332
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 6.6076,
+      "challenger_elo": 1524.4062
+    },
+    {
+      "team_id": "ncaa:609647",
+      "team": "Cal St. Fullerton",
+      "conference": "Big West",
+      "published_elo": 1503.1346,
+      "matched_players": 6,
+      "matched_previous_minutes": 2290.018,
+      "components": {
+        "shooting": -1.4496,
+        "playmaking": 14.8845,
+        "defense": 4.894
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.3289,
+      "challenger_elo": 1521.4635
+    },
+    {
+      "team_id": "ncaa:609470",
+      "team": "Southern Ill.",
+      "conference": "MVC",
+      "published_elo": 1492.4875,
+      "matched_players": 4,
+      "matched_previous_minutes": 1153.679,
+      "components": {
+        "shooting": -1.0176,
+        "playmaking": 17.2624,
+        "defense": 10.4037
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 26.6485,
+      "challenger_elo": 1519.136
+    },
+    {
+      "team_id": "ncaa:609473",
+      "team": "Southern Miss.",
+      "conference": "Sun Belt",
+      "published_elo": 1549.6102,
+      "matched_players": 6,
+      "matched_previous_minutes": 3004.881,
+      "components": {
+        "shooting": 0.8439,
+        "playmaking": -32.5363,
+        "defense": -0.4622
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -32.1546,
+      "challenger_elo": 1517.4556
+    },
+    {
+      "team_id": "ncaa:609558",
+      "team": "Oregon",
+      "conference": "Big Ten",
+      "published_elo": 1516.9235,
+      "matched_players": 9,
+      "matched_previous_minutes": 5254.198,
+      "components": {
+        "shooting": 0.1179,
+        "playmaking": 1.1268,
+        "defense": -1.8794
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -0.6347,
+      "challenger_elo": 1516.2888
+    },
+    {
+      "team_id": "ncaa:609783",
+      "team": "North Texas",
+      "conference": "AAC",
+      "published_elo": 1540.0386,
+      "matched_players": 6,
+      "matched_previous_minutes": 3395.016,
+      "components": {
+        "shooting": -0.7083,
+        "playmaking": -31.9808,
+        "defense": 7.673
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -25.0161,
+      "challenger_elo": 1515.0225
+    },
+    {
+      "team_id": "ncaa:609736",
+      "team": "Furman",
+      "conference": "SoCon",
+      "published_elo": 1544.1855,
+      "matched_players": 11,
+      "matched_previous_minutes": 4580.499,
+      "components": {
+        "shooting": -0.7171,
+        "playmaking": -25.4374,
+        "defense": -3.1127
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -29.2672,
+      "challenger_elo": 1514.9183
+    },
+    {
+      "team_id": "ncaa:609728",
+      "team": "Fairfield",
+      "conference": "Metro",
+      "published_elo": 1516.2586,
+      "matched_players": 10,
+      "matched_previous_minutes": 4637.251,
+      "components": {
+        "shooting": -0.7472,
+        "playmaking": -7.5666,
+        "defense": 6.9332
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.3806,
+      "challenger_elo": 1514.878
+    },
+    {
+      "team_id": "ncaa:609819",
+      "team": "Penn St.",
+      "conference": "Big Ten",
+      "published_elo": 1487.073,
+      "matched_players": 6,
+      "matched_previous_minutes": 5231.822,
+      "components": {
+        "shooting": 3.0642,
+        "playmaking": 28.6163,
+        "defense": -4.1681
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 27.5124,
+      "challenger_elo": 1514.5854
+    },
+    {
+      "team_id": "ncaa:609631",
+      "team": "Bethune-Cookman",
+      "conference": "SWAC",
+      "published_elo": 1529.8945,
+      "matched_players": 9,
+      "matched_previous_minutes": 5808.833,
+      "components": {
+        "shooting": -0.4787,
+        "playmaking": -19.1293,
+        "defense": 3.2249
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.3831,
+      "challenger_elo": 1513.5114
+    },
+    {
+      "team_id": "ncaa:609659",
+      "team": "Marshall",
+      "conference": "Sun Belt",
+      "published_elo": 1493.0443,
+      "matched_players": 10,
+      "matched_previous_minutes": 3171.122,
+      "components": {
+        "shooting": -0.2504,
+        "playmaking": 16.7928,
+        "defense": 3.0848
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 19.6272,
+      "challenger_elo": 1512.6715
+    },
+    {
+      "team_id": "ncaa:609841",
+      "team": "Rhode Island",
+      "conference": "Atlantic 10",
+      "published_elo": 1531.1983,
+      "matched_players": 7,
+      "matched_previous_minutes": 4083.516,
+      "components": {
+        "shooting": -4.6956,
+        "playmaking": -11.442,
+        "defense": -3.2949
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -19.4325,
+      "challenger_elo": 1511.7658
+    },
+    {
+      "team_id": "ncaa:609637",
+      "team": "Bradley",
+      "conference": "MVC",
+      "published_elo": 1530.0887,
+      "matched_players": 6,
+      "matched_previous_minutes": 2403.983,
+      "components": {
+        "shooting": 1.3914,
+        "playmaking": -18.2078,
+        "defense": -1.8434
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -18.6598,
+      "challenger_elo": 1511.4289
+    },
+    {
+      "team_id": "ncaa:609740",
+      "team": "Ga. Southern",
+      "conference": "Sun Belt",
+      "published_elo": 1528.8152,
+      "matched_players": 2,
+      "matched_previous_minutes": 977.199,
+      "components": {
+        "shooting": -7.4562,
+        "playmaking": -4.3449,
+        "defense": -5.6671
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.4682,
+      "challenger_elo": 1511.347
+    },
+    {
+      "team_id": "ncaa:609885",
+      "team": "Utah Tech",
+      "conference": "Big Sky",
+      "published_elo": 1498.3703,
+      "matched_players": 7,
+      "matched_previous_minutes": 2842.251,
+      "components": {
+        "shooting": 2.8224,
+        "playmaking": 7.3402,
+        "defense": 1.2603
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 11.4229,
+      "challenger_elo": 1509.7932
+    },
+    {
+      "team_id": "ncaa:609739",
+      "team": "Georgetown",
+      "conference": "Big East",
+      "published_elo": 1529.2216,
+      "matched_players": 9,
+      "matched_previous_minutes": 3464.847,
+      "components": {
+        "shooting": 1.8523,
+        "playmaking": -30.6968,
+        "defense": 8.144
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -20.7005,
+      "challenger_elo": 1508.5211
+    },
+    {
+      "team_id": "ncaa:609826",
+      "team": "Portland St.",
+      "conference": "Big Sky",
+      "published_elo": 1503.9959,
+      "matched_players": 6,
+      "matched_previous_minutes": 792.185,
+      "components": {
+        "shooting": -0.3115,
+        "playmaking": 1.1102,
+        "defense": 3.7101
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 4.5088,
+      "challenger_elo": 1508.5047
+    },
+    {
+      "team_id": "ncaa:609590",
+      "team": "LIU",
+      "conference": "NEC",
+      "published_elo": 1524.6036,
+      "matched_players": 8,
+      "matched_previous_minutes": 1789.949,
+      "components": {
+        "shooting": -5.2896,
+        "playmaking": -4.5175,
+        "defense": -7.7039
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.511,
+      "challenger_elo": 1507.0926
+    },
+    {
+      "team_id": "ncaa:609564",
+      "team": "Vermont",
+      "conference": "America East",
+      "published_elo": 1515.7626,
+      "matched_players": 8,
+      "matched_previous_minutes": 4022.978,
+      "components": {
+        "shooting": 1.3333,
+        "playmaking": -8.6184,
+        "defense": -1.9119
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -9.197,
+      "challenger_elo": 1506.5656
+    },
+    {
+      "team_id": "ncaa:609732",
+      "team": "FIU",
+      "conference": "C-USA",
+      "published_elo": 1461.8726,
+      "matched_players": 6,
+      "matched_previous_minutes": 2849.137,
+      "components": {
+        "shooting": -3.5114,
+        "playmaking": 39.3003,
+        "defense": 7.985
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 43.7739,
+      "challenger_elo": 1505.6465
+    },
+    {
+      "team_id": "ncaa:609907",
+      "team": "Southeast Mo. St.",
+      "conference": "OVC",
+      "published_elo": 1513.7822,
+      "matched_players": 5,
+      "matched_previous_minutes": 2103.236,
+      "components": {
+        "shooting": 4.0843,
+        "playmaking": -18.8233,
+        "defense": 6.0719
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -8.6671,
+      "challenger_elo": 1505.1151
+    },
+    {
+      "team_id": "ncaa:609519",
+      "team": "Western Caro.",
+      "conference": "SoCon",
+      "published_elo": 1502.9008,
+      "matched_players": 9,
+      "matched_previous_minutes": 3719.651,
+      "components": {
+        "shooting": 1.2351,
+        "playmaking": 0.7478,
+        "defense": 0.0797
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 2.0626,
+      "challenger_elo": 1504.9634
+    },
+    {
+      "team_id": "ncaa:609561",
+      "team": "Samford",
+      "conference": "SoCon",
+      "published_elo": 1518.9564,
+      "matched_players": 13,
+      "matched_previous_minutes": 5736.479,
+      "components": {
+        "shooting": -0.1149,
+        "playmaking": -7.0844,
+        "defense": -7.0612
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.2605,
+      "challenger_elo": 1504.6959
+    },
+    {
+      "team_id": "ncaa:609790",
+      "team": "Northern Colo.",
+      "conference": "Big Sky",
+      "published_elo": 1495.9803,
+      "matched_players": 9,
+      "matched_previous_minutes": 3644.063,
+      "components": {
+        "shooting": 1.7724,
+        "playmaking": 12.7263,
+        "defense": -5.9912
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.5075,
+      "challenger_elo": 1504.4878
+    },
+    {
+      "team_id": "ncaa:609694",
+      "team": "Campbell",
+      "conference": "CAA",
+      "published_elo": 1505.9114,
+      "matched_players": 2,
+      "matched_previous_minutes": 1206.681,
+      "components": {
+        "shooting": -3.0141,
+        "playmaking": 6.6894,
+        "defense": -7.506
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -3.8307,
+      "challenger_elo": 1502.0807
+    },
+    {
+      "team_id": "ncaa:609538",
+      "team": "Longwood",
+      "conference": "Big South",
+      "published_elo": 1478.6989,
+      "matched_players": 9,
+      "matched_previous_minutes": 3051.348,
+      "components": {
+        "shooting": -2.3846,
+        "playmaking": 22.6195,
+        "defense": 2.928
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 23.1629,
+      "challenger_elo": 1501.8618
+    },
+    {
+      "team_id": "ncaa:609717",
+      "team": "Denver",
+      "conference": "WCC",
+      "published_elo": 1491.8879,
+      "matched_players": 7,
+      "matched_previous_minutes": 3825.683,
+      "components": {
+        "shooting": 2.1463,
+        "playmaking": 11.8918,
+        "defense": -5.4848
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.5533,
+      "challenger_elo": 1500.4412
+    },
+    {
+      "team_id": "ncaa:609718",
+      "team": "Detroit Mercy",
+      "conference": "Horizon",
+      "published_elo": 1530.8643,
+      "matched_players": 6,
+      "matched_previous_minutes": 2451.778,
+      "components": {
+        "shooting": -1.3981,
+        "playmaking": -23.4709,
+        "defense": -5.6351
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -30.5041,
+      "challenger_elo": 1500.3602
+    },
+    {
+      "team_id": "ncaa:609657",
+      "team": "Marist",
+      "conference": "Metro",
+      "published_elo": 1507.25,
+      "matched_players": 5,
+      "matched_previous_minutes": 2512.463,
+      "components": {
+        "shooting": -1.2577,
+        "playmaking": -6.2295,
+        "defense": 0.1937
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -7.2935,
+      "challenger_elo": 1499.9565
+    },
+    {
+      "team_id": "ncaa:609597",
+      "team": "Kennesaw St.",
+      "conference": "C-USA",
+      "published_elo": 1524.5025,
+      "matched_players": 7,
+      "matched_previous_minutes": 3511.931,
+      "components": {
+        "shooting": 1.4123,
+        "playmaking": -31.8384,
+        "defense": 3.3883
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -27.0378,
+      "challenger_elo": 1497.4647
+    },
+    {
+      "team_id": "ncaa:609650",
+      "team": "UC Santa Barbara",
+      "conference": "Big West",
+      "published_elo": 1481.8597,
+      "matched_players": 12,
+      "matched_previous_minutes": 5346.159,
+      "components": {
+        "shooting": 0.4812,
+        "playmaking": 13.8273,
+        "defense": 0.8632
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 15.1717,
+      "challenger_elo": 1497.0314
+    },
+    {
+      "team_id": "ncaa:609592",
+      "team": "Louisiana Tech",
+      "conference": "Sun Belt",
+      "published_elo": 1497.0132,
+      "matched_players": 1,
+      "matched_previous_minutes": 688.669,
+      "components": {
+        "shooting": 0.0,
+        "playmaking": 0.0,
+        "defense": 0.0
+      },
+      "feature_status": "MISSING_SOURCE_NO_EXTRA_VALUE",
+      "multistat_delta": 0.0,
+      "challenger_elo": 1497.0132
+    },
+    {
+      "team_id": "ncaa:609845",
+      "team": "Richmond",
+      "conference": "Atlantic 10",
+      "published_elo": 1469.0195,
+      "matched_players": 7,
+      "matched_previous_minutes": 3805.88,
+      "components": {
+        "shooting": -0.7756,
+        "playmaking": 27.9088,
+        "defense": 0.6683
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 27.8015,
+      "challenger_elo": 1496.821
+    },
+    {
+      "team_id": "ncaa:609670",
+      "team": "Middle Tenn.",
+      "conference": "C-USA",
+      "published_elo": 1496.52,
+      "matched_players": 6,
+      "matched_previous_minutes": 3807.05,
+      "components": {
+        "shooting": -0.8083,
+        "playmaking": 0.0946,
+        "defense": 0.7637
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 0.05,
+      "challenger_elo": 1496.57
+    },
+    {
+      "team_id": "ncaa:609817",
+      "team": "UTRGV",
+      "conference": "Southland",
+      "published_elo": 1503.522,
+      "matched_players": 5,
+      "matched_previous_minutes": 1261.396,
+      "components": {
+        "shooting": -3.2791,
+        "playmaking": 0.2626,
+        "defense": -4.3201
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -7.3366,
+      "challenger_elo": 1496.1854
+    },
+    {
+      "team_id": "ncaa:609874",
+      "team": "San Francisco",
+      "conference": "WCC",
+      "published_elo": 1477.1018,
+      "matched_players": 3,
+      "matched_previous_minutes": 1121.634,
+      "components": {
+        "shooting": 0.4399,
+        "playmaking": 12.9971,
+        "defense": 4.3535
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 17.7905,
+      "challenger_elo": 1494.8923
+    },
+    {
+      "team_id": "ncaa:609661",
+      "team": "Maryland",
+      "conference": "Big Ten",
+      "published_elo": 1479.9776,
+      "matched_players": 7,
+      "matched_previous_minutes": 4643.967,
+      "components": {
+        "shooting": 1.5859,
+        "playmaking": 12.511,
+        "defense": 0.6633
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 14.7602,
+      "challenger_elo": 1494.7378
+    },
+    {
+      "team_id": "ncaa:609620",
+      "team": "American",
+      "conference": "Patriot",
+      "published_elo": 1494.2676,
+      "matched_players": 11,
+      "matched_previous_minutes": 5410.969,
+      "components": {
+        "shooting": 0.9821,
+        "playmaking": -1.2423,
+        "defense": -0.5837
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -0.8439,
+      "challenger_elo": 1493.4237
+    },
+    {
+      "team_id": "ncaa:609730",
+      "team": "Florida A&M",
+      "conference": "SWAC",
+      "published_elo": 1455.5535,
+      "matched_players": 4,
+      "matched_previous_minutes": 1711.097,
+      "components": {
+        "shooting": -4.3353,
+        "playmaking": 40.2072,
+        "defense": 0.6971
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 36.569,
+      "challenger_elo": 1492.1225
+    },
+    {
+      "team_id": "ncaa:609483",
+      "team": "Temple",
+      "conference": "AAC",
+      "published_elo": 1508.3851,
+      "matched_players": 9,
+      "matched_previous_minutes": 5101.521,
+      "components": {
+        "shooting": -1.1823,
+        "playmaking": -20.3811,
+        "defense": 4.4491
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.1143,
+      "challenger_elo": 1491.2708
+    },
+    {
+      "team_id": "ncaa:609609",
+      "team": "A&M-Corpus Christi",
+      "conference": "Southland",
+      "published_elo": 1478.5781,
+      "matched_players": 7,
+      "matched_previous_minutes": 3396.15,
+      "components": {
+        "shooting": -1.7697,
+        "playmaking": 8.3457,
+        "defense": 4.4823
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 11.0583,
+      "challenger_elo": 1489.6364
+    },
+    {
+      "team_id": "ncaa:609690",
+      "team": "UC Davis",
+      "conference": "MWC",
+      "published_elo": 1507.5867,
+      "matched_players": 10,
+      "matched_previous_minutes": 4344.629,
+      "components": {
+        "shooting": -1.3211,
+        "playmaking": -15.2848,
+        "defense": -2.0888
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -18.6947,
+      "challenger_elo": 1488.892
+    },
+    {
+      "team_id": "ncaa:609581",
+      "team": "Kansas St.",
+      "conference": "Big 12",
+      "published_elo": 1466.5755,
+      "matched_players": 8,
+      "matched_previous_minutes": 4295.496,
+      "components": {
+        "shooting": -1.3656,
+        "playmaking": 24.4684,
+        "defense": -1.5394
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 21.5634,
+      "challenger_elo": 1488.1389
+    },
+    {
+      "team_id": "ncaa:609573",
+      "team": "Indiana St.",
+      "conference": "MVC",
+      "published_elo": 1463.2369,
+      "matched_players": 6,
+      "matched_previous_minutes": 3192.168,
+      "components": {
+        "shooting": -3.3527,
+        "playmaking": 21.6997,
+        "defense": 5.3592
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 23.7062,
+      "challenger_elo": 1486.9431
+    },
+    {
+      "team_id": "ncaa:609644",
+      "team": "Cal Poly",
+      "conference": "Big West",
+      "published_elo": 1551.2446,
+      "matched_players": 10,
+      "matched_previous_minutes": 4643.065,
+      "components": {
+        "shooting": 0.8909,
+        "playmaking": -62.5609,
+        "defense": -2.9072
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -64.5772,
+      "challenger_elo": 1486.6674
+    },
+    {
+      "team_id": "ncaa:609672",
+      "team": "Mississippi St.",
+      "conference": "SEC",
+      "published_elo": 1520.6764,
+      "matched_players": 7,
+      "matched_previous_minutes": 4432.37,
+      "components": {
+        "shooting": 0.3867,
+        "playmaking": -40.3424,
+        "defense": 2.8938
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -37.0619,
+      "challenger_elo": 1483.6145
+    },
+    {
+      "team_id": "ncaa:609745",
+      "team": "Hampton",
+      "conference": "CAA",
+      "published_elo": 1480.9441,
+      "matched_players": 7,
+      "matched_previous_minutes": 2427.531,
+      "components": {
+        "shooting": 1.9378,
+        "playmaking": -9.7521,
+        "defense": 9.2809
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 1.4666,
+      "challenger_elo": 1482.4107
+    },
+    {
+      "team_id": "ncaa:609897",
+      "team": "South Alabama",
+      "conference": "Sun Belt",
+      "published_elo": 1500.6777,
+      "matched_players": 2,
+      "matched_previous_minutes": 773.499,
+      "components": {
+        "shooting": 14.5396,
+        "playmaking": -38.4329,
+        "defense": 5.2494
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -18.6439,
+      "challenger_elo": 1482.0338
+    },
+    {
+      "team_id": "ncaa:609707",
+      "team": "Columbia",
+      "conference": "Ivy League",
+      "published_elo": 1474.4531,
+      "matched_players": 9,
+      "matched_previous_minutes": 3432.565,
+      "components": {
+        "shooting": 0.9727,
+        "playmaking": 7.9633,
+        "defense": -1.6102
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 7.3258,
+      "challenger_elo": 1481.7789
+    },
+    {
+      "team_id": "ncaa:609575",
+      "team": "Purdue Fort Wayne",
+      "conference": "Horizon",
+      "published_elo": 1451.5958,
+      "matched_players": 3,
+      "matched_previous_minutes": 1081.016,
+      "components": {
+        "shooting": -4.6848,
+        "playmaking": 35.6407,
+        "defense": -0.8495
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 30.1064,
+      "challenger_elo": 1481.7022
+    },
+    {
+      "team_id": "ncaa:609560",
+      "team": "Saint Peter's",
+      "conference": "Metro",
+      "published_elo": 1489.4155,
+      "matched_players": 9,
+      "matched_previous_minutes": 2548.3,
+      "components": {
+        "shooting": -3.5811,
+        "playmaking": -4.903,
+        "defense": 0.3824
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -8.1017,
+      "challenger_elo": 1481.3138
+    },
+    {
+      "team_id": "ncaa:609615",
+      "team": "Alabama A&M",
+      "conference": "SWAC",
+      "published_elo": 1444.8019,
+      "matched_players": 7,
+      "matched_previous_minutes": 3482.562,
+      "components": {
+        "shooting": -3.8926,
+        "playmaking": 43.2008,
+        "defense": -3.5179
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 35.7903,
+      "challenger_elo": 1480.5922
+    },
+    {
+      "team_id": "ncaa:609796",
+      "team": "Northern Ky.",
+      "conference": "Horizon",
+      "published_elo": 1445.8189,
+      "matched_players": 8,
+      "matched_previous_minutes": 3766.608,
+      "components": {
+        "shooting": 1.3701,
+        "playmaking": 31.2431,
+        "defense": 0.153
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 32.7662,
+      "challenger_elo": 1478.5851
+    },
+    {
+      "team_id": "ncaa:609537",
+      "team": "James Madison",
+      "conference": "Sun Belt",
+      "published_elo": 1512.4751,
+      "matched_players": 9,
+      "matched_previous_minutes": 4819.497,
+      "components": {
+        "shooting": -1.4844,
+        "playmaking": -32.0079,
+        "defense": -1.163
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -34.6553,
+      "challenger_elo": 1477.8198
+    },
+    {
+      "team_id": "ncaa:609721",
+      "team": "East Carolina",
+      "conference": "AAC",
+      "published_elo": 1472.4464,
+      "matched_players": 7,
+      "matched_previous_minutes": 4046.38,
+      "components": {
+        "shooting": -3.6714,
+        "playmaking": 8.1938,
+        "defense": 0.3755
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 4.8979,
+      "challenger_elo": 1477.3443
+    },
+    {
+      "team_id": "ncaa:609663",
+      "team": "Massachusetts",
+      "conference": "MAC",
+      "published_elo": 1419.6006,
+      "matched_players": 8,
+      "matched_previous_minutes": 3830.941,
+      "components": {
+        "shooting": 0.4272,
+        "playmaking": 56.7937,
+        "defense": 0.1386
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 57.3595,
+      "challenger_elo": 1476.9601
+    },
+    {
+      "team_id": "ncaa:609671",
+      "team": "Minnesota",
+      "conference": "Big Ten",
+      "published_elo": 1433.2296,
+      "matched_players": 10,
+      "matched_previous_minutes": 5441.3,
+      "components": {
+        "shooting": -2.7378,
+        "playmaking": 47.0407,
+        "defense": -0.6846
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 43.6183,
+      "challenger_elo": 1476.8479
+    },
+    {
+      "team_id": "ncaa:609548",
+      "team": "Colgate",
+      "conference": "Patriot",
+      "published_elo": 1492.1043,
+      "matched_players": 8,
+      "matched_previous_minutes": 3558.809,
+      "components": {
+        "shooting": 3.3666,
+        "playmaking": -19.5396,
+        "defense": -0.2644
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.4374,
+      "challenger_elo": 1475.6669
+    },
+    {
+      "team_id": "ncaa:609568",
+      "team": "Mercyhurst",
+      "conference": "NEC",
+      "published_elo": 1473.5518,
+      "matched_players": 6,
+      "matched_previous_minutes": 2887.821,
+      "components": {
+        "shooting": -1.6283,
+        "playmaking": 6.0687,
+        "defense": -2.3957
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 2.0447,
+      "challenger_elo": 1475.5965
+    },
+    {
+      "team_id": "ncaa:609628",
+      "team": "Ball St.",
+      "conference": "MAC",
+      "published_elo": 1442.6597,
+      "matched_players": 10,
+      "matched_previous_minutes": 5720.755,
+      "components": {
+        "shooting": 0.1136,
+        "playmaking": 32.8708,
+        "defense": -0.5528
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 32.4316,
+      "challenger_elo": 1475.0913
+    },
+    {
+      "team_id": "ncaa:609527",
+      "team": "Milwaukee",
+      "conference": "Horizon",
+      "published_elo": 1399.2116,
+      "matched_players": 6,
+      "matched_previous_minutes": 1593.949,
+      "components": {
+        "shooting": 0.8494,
+        "playmaking": 75.1396,
+        "defense": -1.2671
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 74.7219,
+      "challenger_elo": 1473.9335
+    },
+    {
+      "team_id": "ncaa:609756",
+      "team": "Idaho",
+      "conference": "Big Sky",
+      "published_elo": 1496.7799,
+      "matched_players": 6,
+      "matched_previous_minutes": 1417.615,
+      "components": {
+        "shooting": -0.3209,
+        "playmaking": -26.2388,
+        "defense": 0.9014
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -25.6583,
+      "challenger_elo": 1471.1216
+    },
+    {
+      "team_id": "ncaa:609704",
+      "team": "Coastal Carolina",
+      "conference": "Sun Belt",
+      "published_elo": 1486.0936,
+      "matched_players": 8,
+      "matched_previous_minutes": 2834.705,
+      "components": {
+        "shooting": 0.8397,
+        "playmaking": -16.7225,
+        "defense": -1.4095
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.2923,
+      "challenger_elo": 1468.8013
+    },
+    {
+      "team_id": "ncaa:609604",
+      "team": "UIW",
+      "conference": "Southland",
+      "published_elo": 1389.942,
+      "matched_players": 7,
+      "matched_previous_minutes": 2309.8,
+      "components": {
+        "shooting": -6.9877,
+        "playmaking": 91.7776,
+        "defense": -6.0016
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 78.7883,
+      "challenger_elo": 1468.7303
+    },
+    {
+      "team_id": "ncaa:609649",
+      "team": "Sacramento St.",
+      "conference": "Big West",
+      "published_elo": 1446.2603,
+      "matched_players": 9,
+      "matched_previous_minutes": 4873.88,
+      "components": {
+        "shooting": -0.1551,
+        "playmaking": 22.9604,
+        "defense": -1.1212
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 21.6841,
+      "challenger_elo": 1467.9444
+    },
+    {
+      "team_id": "ncaa:609882",
+      "team": "Bellarmine",
+      "conference": "ASUN",
+      "published_elo": 1417.453,
+      "matched_players": 8,
+      "matched_previous_minutes": 3351.625,
+      "components": {
+        "shooting": 3.7218,
+        "playmaking": 51.5427,
+        "defense": -5.3429
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 49.9216,
+      "challenger_elo": 1467.3746
+    },
+    {
+      "team_id": "ncaa:609471",
+      "team": "SIUE",
+      "conference": "OVC",
+      "published_elo": 1481.0696,
+      "matched_players": 9,
+      "matched_previous_minutes": 3879.289,
+      "components": {
+        "shooting": -0.3941,
+        "playmaking": -12.1906,
+        "defense": -1.5885
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.1732,
+      "challenger_elo": 1466.8964
+    },
+    {
+      "team_id": "ncaa:609765",
+      "team": "New Mexico St.",
+      "conference": "C-USA",
+      "published_elo": 1486.8527,
+      "matched_players": 7,
+      "matched_previous_minutes": 5704.155,
+      "components": {
+        "shooting": 0.6871,
+        "playmaking": -16.7894,
+        "defense": -4.0859
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -20.1882,
+      "challenger_elo": 1466.6645
+    },
+    {
+      "team_id": "ncaa:609771",
+      "team": "Nicholls",
+      "conference": "Southland",
+      "published_elo": 1441.1374,
+      "matched_players": 7,
+      "matched_previous_minutes": 1309.998,
+      "components": {
+        "shooting": -8.5201,
+        "playmaking": 27.7365,
+        "defense": 6.047
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 25.2634,
+      "challenger_elo": 1466.4008
+    },
+    {
+      "team_id": "ncaa:609738",
+      "team": "George Washington",
+      "conference": "Atlantic 10",
+      "published_elo": 1483.463,
+      "matched_players": 11,
+      "matched_previous_minutes": 6022.94,
+      "components": {
+        "shooting": 0.0568,
+        "playmaking": -20.8122,
+        "defense": 3.4067
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.3487,
+      "challenger_elo": 1466.1143
+    },
+    {
+      "team_id": "ncaa:609642",
+      "team": "Buffalo",
+      "conference": "MAC",
+      "published_elo": 1460.5884,
+      "matched_players": 8,
+      "matched_previous_minutes": 4544.612,
+      "components": {
+        "shooting": -3.0583,
+        "playmaking": 10.194,
+        "defense": -1.6309
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 5.5048,
+      "challenger_elo": 1466.0932
+    },
+    {
+      "team_id": "ncaa:609683",
+      "team": "Charlotte",
+      "conference": "AAC",
+      "published_elo": 1499.9796,
+      "matched_players": 7,
+      "matched_previous_minutes": 3775.815,
+      "components": {
+        "shooting": 0.0962,
+        "playmaking": -34.2971,
+        "defense": -1.0174
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -35.2183,
+      "challenger_elo": 1464.7613
+    },
+    {
+      "team_id": "ncaa:609485",
+      "team": "Tennessee Tech",
+      "conference": "SoCon",
+      "published_elo": 1460.9069,
+      "matched_players": 8,
+      "matched_previous_minutes": 4705.535,
+      "components": {
+        "shooting": -2.1028,
+        "playmaking": 5.8112,
+        "defense": -0.6563
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 3.0521,
+      "challenger_elo": 1463.959
+    },
+    {
+      "team_id": "ncaa:609488",
+      "team": "UT Martin",
+      "conference": "OVC",
+      "published_elo": 1461.1768,
+      "matched_players": 3,
+      "matched_previous_minutes": 1322.55,
+      "components": {
+        "shooting": -4.3599,
+        "playmaking": 0.5384,
+        "defense": 5.8121
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 1.9906,
+      "challenger_elo": 1463.1674
+    },
+    {
+      "team_id": "ncaa:609621",
+      "team": "App State",
+      "conference": "Sun Belt",
+      "published_elo": 1484.9365,
+      "matched_players": 8,
+      "matched_previous_minutes": 2612.066,
+      "components": {
+        "shooting": -3.1715,
+        "playmaking": -11.8147,
+        "defense": -7.3233
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -22.3095,
+      "challenger_elo": 1462.627
+    },
+    {
+      "team_id": "ncaa:609677",
+      "team": "Montana",
+      "conference": "Big Sky",
+      "published_elo": 1465.0191,
+      "matched_players": 5,
+      "matched_previous_minutes": 2701.931,
+      "components": {
+        "shooting": 1.6609,
+        "playmaking": -0.8236,
+        "defense": -3.4166
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -2.5793,
+      "challenger_elo": 1462.4398
+    },
+    {
+      "team_id": "ncaa:609562",
+      "team": "South Dakota St.",
+      "conference": "Summit League",
+      "published_elo": 1456.6741,
+      "matched_players": 9,
+      "matched_previous_minutes": 3750.85,
+      "components": {
+        "shooting": -0.7553,
+        "playmaking": 12.6817,
+        "defense": -8.2051
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 3.7213,
+      "challenger_elo": 1460.3954
+    },
+    {
+      "team_id": "ncaa:609854",
+      "team": "Sacred Heart",
+      "conference": "Metro",
+      "published_elo": 1451.0016,
+      "matched_players": 7,
+      "matched_previous_minutes": 2149.765,
+      "components": {
+        "shooting": -2.0402,
+        "playmaking": 15.7325,
+        "defense": -4.8768
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.8155,
+      "challenger_elo": 1459.8171
+    },
+    {
+      "team_id": "ncaa:609588",
+      "team": "Lehigh",
+      "conference": "Patriot",
+      "published_elo": 1458.4329,
+      "matched_players": 9,
+      "matched_previous_minutes": 5806.607,
+      "components": {
+        "shooting": 0.556,
+        "playmaking": -3.4026,
+        "defense": 1.6381
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.2085,
+      "challenger_elo": 1457.2244
+    },
+    {
+      "team_id": "ncaa:609598",
+      "team": "Presbyterian",
+      "conference": "Big South",
+      "published_elo": 1456.099,
+      "matched_players": 10,
+      "matched_previous_minutes": 4692.365,
+      "components": {
+        "shooting": 2.1358,
+        "playmaking": -3.3811,
+        "defense": 2.1085
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 0.8632,
+      "challenger_elo": 1456.9622
+    },
+    {
+      "team_id": "ncaa:609521",
+      "team": "Western Mich.",
+      "conference": "MAC",
+      "published_elo": 1473.1377,
+      "matched_players": 8,
+      "matched_previous_minutes": 5427.698,
+      "components": {
+        "shooting": 1.496,
+        "playmaking": -12.4105,
+        "defense": -6.5412
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.4557,
+      "challenger_elo": 1455.682
+    },
+    {
+      "team_id": "ncaa:609495",
+      "team": "UTEP",
+      "conference": "MWC",
+      "published_elo": 1431.0778,
+      "matched_players": 6,
+      "matched_previous_minutes": 3351.866,
+      "components": {
+        "shooting": 0.6442,
+        "playmaking": 21.8222,
+        "defense": 0.5283
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 22.9947,
+      "challenger_elo": 1454.0725
+    },
+    {
+      "team_id": "ncaa:609687",
+      "team": "Omaha",
+      "conference": "Summit League",
+      "published_elo": 1448.646,
+      "matched_players": 7,
+      "matched_previous_minutes": 2276.982,
+      "components": {
+        "shooting": 1.2583,
+        "playmaking": 1.4589,
+        "defense": -0.7337
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 1.9835,
+      "challenger_elo": 1450.6295
+    },
+    {
+      "team_id": "ncaa:609595",
+      "team": "Elon",
+      "conference": "CAA",
+      "published_elo": 1432.4606,
+      "matched_players": 7,
+      "matched_previous_minutes": 2544.737,
+      "components": {
+        "shooting": -2.1456,
+        "playmaking": 23.6683,
+        "defense": -3.9891
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 17.5336,
+      "challenger_elo": 1449.9942
+    },
+    {
+      "team_id": "ncaa:609557",
+      "team": "Oakland",
+      "conference": "Horizon",
+      "published_elo": 1492.5503,
+      "matched_players": 5,
+      "matched_previous_minutes": 2254.763,
+      "components": {
+        "shooting": -3.6534,
+        "playmaking": -38.7458,
+        "defense": -0.5567
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -42.9559,
+      "challenger_elo": 1449.5944
+    },
+    {
+      "team_id": "ncaa:609605",
+      "team": "Wofford",
+      "conference": "SoCon",
+      "published_elo": 1465.9906,
+      "matched_players": 7,
+      "matched_previous_minutes": 2607.495,
+      "components": {
+        "shooting": -0.7525,
+        "playmaking": -12.5826,
+        "defense": -3.4551
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.7902,
+      "challenger_elo": 1449.2004
+    },
+    {
+      "team_id": "ncaa:609550",
+      "team": "Drake",
+      "conference": "MVC",
+      "published_elo": 1426.4394,
+      "matched_players": 7,
+      "matched_previous_minutes": 5358.368,
+      "components": {
+        "shooting": 2.7387,
+        "playmaking": 20.3159,
+        "defense": -3.719
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 19.3356,
+      "challenger_elo": 1445.775
+    },
+    {
+      "team_id": "ncaa:609840",
+      "team": "Radford",
+      "conference": "Big South",
+      "published_elo": 1448.1538,
+      "matched_players": 8,
+      "matched_previous_minutes": 2499.183,
+      "components": {
+        "shooting": 2.3496,
+        "playmaking": -10.2668,
+        "defense": 3.6915
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -4.2257,
+      "challenger_elo": 1443.9281
+    },
+    {
+      "team_id": "ncaa:609611",
+      "team": "FGCU",
+      "conference": "ASUN",
+      "published_elo": 1443.7116,
+      "matched_players": 5,
+      "matched_previous_minutes": 1519.952,
+      "components": {
+        "shooting": -2.7523,
+        "playmaking": -1.7642,
+        "defense": 2.8825
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -1.634,
+      "challenger_elo": 1442.0776
+    },
+    {
+      "team_id": "ncaa:609498",
+      "team": "Towson",
+      "conference": "CAA",
+      "published_elo": 1501.3918,
+      "matched_players": 7,
+      "matched_previous_minutes": 2394.138,
+      "components": {
+        "shooting": -3.683,
+        "playmaking": -58.9037,
+        "defense": 1.9335
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -60.6532,
+      "challenger_elo": 1440.7386
+    },
+    {
+      "team_id": "ncaa:609665",
+      "team": "Mercer",
+      "conference": "SoCon",
+      "published_elo": 1485.7988,
+      "matched_players": 3,
+      "matched_previous_minutes": 1665.998,
+      "components": {
+        "shooting": 2.9954,
+        "playmaking": -56.349,
+        "defense": 5.6236
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -47.73,
+      "challenger_elo": 1438.0688
+    },
+    {
+      "team_id": "ncaa:609775",
+      "team": "N.C. A&T",
+      "conference": "CAA",
+      "published_elo": 1423.9288,
+      "matched_players": 4,
+      "matched_previous_minutes": 2545.543,
+      "components": {
+        "shooting": -0.9512,
+        "playmaking": 13.055,
+        "defense": -0.355
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 11.7488,
+      "challenger_elo": 1435.6776
+    },
+    {
+      "team_id": "ncaa:609576",
+      "team": "Iona",
+      "conference": "Metro",
+      "published_elo": 1461.8689,
+      "matched_players": 8,
+      "matched_previous_minutes": 4909.047,
+      "components": {
+        "shooting": -0.9182,
+        "playmaking": -24.321,
+        "defense": -1.2471
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -26.4863,
+      "challenger_elo": 1435.3826
+    },
+    {
+      "team_id": "ncaa:609719",
+      "team": "Drexel",
+      "conference": "CAA",
+      "published_elo": 1480.5941,
+      "matched_players": 6,
+      "matched_previous_minutes": 1658.579,
+      "components": {
+        "shooting": -0.6216,
+        "playmaking": -48.9707,
+        "defense": 4.3363
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -45.256,
+      "challenger_elo": 1435.3381
+    },
+    {
+      "team_id": "ncaa:609476",
+      "team": "Missouri St.",
+      "conference": "C-USA",
+      "published_elo": 1451.6069,
+      "matched_players": 2,
+      "matched_previous_minutes": 474.063,
+      "components": {
+        "shooting": 2.2205,
+        "playmaking": -27.7025,
+        "defense": 8.9794
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.5026,
+      "challenger_elo": 1435.1043
+    },
+    {
+      "team_id": "ncaa:609654",
+      "team": "Loyola Chicago",
+      "conference": "Atlantic 10",
+      "published_elo": 1454.6358,
+      "matched_players": 7,
+      "matched_previous_minutes": 2891.398,
+      "components": {
+        "shooting": 1.1986,
+        "playmaking": -24.1142,
+        "defense": 1.0545
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -21.8611,
+      "challenger_elo": 1432.7747
+    },
+    {
+      "team_id": "ncaa:609767",
+      "team": "New Orleans",
+      "conference": "Southland",
+      "published_elo": 1470.7314,
+      "matched_players": 6,
+      "matched_previous_minutes": 3433.16,
+      "components": {
+        "shooting": -1.5525,
+        "playmaking": -33.1421,
+        "defense": -4.536
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -39.2306,
+      "challenger_elo": 1431.5008
+    },
+    {
+      "team_id": "ncaa:609856",
+      "team": "St. Bonaventure",
+      "conference": "Atlantic 10",
+      "published_elo": 1459.4695,
+      "matched_players": 6,
+      "matched_previous_minutes": 2225.018,
+      "components": {
+        "shooting": 1.0302,
+        "playmaking": -34.2305,
+        "defense": 4.716
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -28.4843,
+      "challenger_elo": 1430.9852
+    },
+    {
+      "team_id": "ncaa:609572",
+      "team": "Lindenwood",
+      "conference": "OVC",
+      "published_elo": 1441.7086,
+      "matched_players": 4,
+      "matched_previous_minutes": 1618.264,
+      "components": {
+        "shooting": -0.9037,
+        "playmaking": -13.5979,
+        "defense": 3.7177
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -10.7839,
+      "challenger_elo": 1430.9247
+    },
+    {
+      "team_id": "ncaa:609478",
+      "team": "Louisiana",
+      "conference": "Sun Belt",
+      "published_elo": 1421.184,
+      "matched_players": 6,
+      "matched_previous_minutes": 2875.3,
+      "components": {
+        "shooting": -2.6094,
+        "playmaking": 9.824,
+        "defense": 2.3731
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 9.5877,
+      "challenger_elo": 1430.7717
+    },
+    {
+      "team_id": "ncaa:609481",
+      "team": "Stony Brook",
+      "conference": "CAA",
+      "published_elo": 1450.5492,
+      "matched_players": 10,
+      "matched_previous_minutes": 3641.697,
+      "components": {
+        "shooting": -1.6853,
+        "playmaking": -19.1556,
+        "defense": -0.4721
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -21.313,
+      "challenger_elo": 1429.2362
+    },
+    {
+      "team_id": "ncaa:609725",
+      "team": "Eastern Mich.",
+      "conference": "MAC",
+      "published_elo": 1428.1947,
+      "matched_players": 6,
+      "matched_previous_minutes": 4765.199,
+      "components": {
+        "shooting": -1.1839,
+        "playmaking": -1.5756,
+        "defense": 3.4103
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 0.6508,
+      "challenger_elo": 1428.8455
+    },
+    {
+      "team_id": "ncaa:609828",
+      "team": "Portland",
+      "conference": "WCC",
+      "published_elo": 1462.3182,
+      "matched_players": 8,
+      "matched_previous_minutes": 4145.305,
+      "components": {
+        "shooting": 2.1257,
+        "playmaking": -34.7104,
+        "defense": -2.4073
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -34.992,
+      "challenger_elo": 1427.3262
+    },
+    {
+      "team_id": "ncaa:609653",
+      "team": "LMU (CA)",
+      "conference": "WCC",
+      "published_elo": 1451.4052,
+      "matched_players": 11,
+      "matched_previous_minutes": 5423.417,
+      "components": {
+        "shooting": 1.6012,
+        "playmaking": -26.1721,
+        "defense": -1.2657
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -25.8366,
+      "challenger_elo": 1425.5686
+    },
+    {
+      "team_id": "ncaa:609901",
+      "team": "South Carolina",
+      "conference": "SEC",
+      "published_elo": 1439.5076,
+      "matched_players": 10,
+      "matched_previous_minutes": 5367.493,
+      "components": {
+        "shooting": -0.612,
+        "playmaking": -11.4658,
+        "defense": -2.594
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.6718,
+      "challenger_elo": 1424.8358
+    },
+    {
+      "team_id": "ncaa:609684",
+      "team": "UNC Greensboro",
+      "conference": "SoCon",
+      "published_elo": 1462.3747,
+      "matched_players": 6,
+      "matched_previous_minutes": 1896.699,
+      "components": {
+        "shooting": -1.0827,
+        "playmaking": -36.4545,
+        "defense": -0.1837
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -37.7209,
+      "challenger_elo": 1424.6538
+    },
+    {
+      "team_id": "ncaa:609781",
+      "team": "North Dakota",
+      "conference": "Summit League",
+      "published_elo": 1457.5803,
+      "matched_players": 5,
+      "matched_previous_minutes": 2063.12,
+      "components": {
+        "shooting": -2.1799,
+        "playmaking": -27.7025,
+        "defense": -4.6703
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -34.5527,
+      "challenger_elo": 1423.0276
+    },
+    {
+      "team_id": "ncaa:609531",
+      "team": "Youngstown St.",
+      "conference": "Horizon",
+      "published_elo": 1435.9823,
+      "matched_players": 7,
+      "matched_previous_minutes": 2608.994,
+      "components": {
+        "shooting": -4.0257,
+        "playmaking": -7.8193,
+        "defense": -1.6887
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -13.5337,
+      "challenger_elo": 1422.4486
+    },
+    {
+      "team_id": "ncaa:609679",
+      "team": "Mount St. Mary's",
+      "conference": "Metro",
+      "published_elo": 1466.9881,
+      "matched_players": 6,
+      "matched_previous_minutes": 1548.1,
+      "components": {
+        "shooting": -3.0877,
+        "playmaking": -39.7657,
+        "defense": -1.9973
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -44.8507,
+      "challenger_elo": 1422.1374
+    },
+    {
+      "team_id": "ncaa:609614",
+      "team": "Abilene Christian",
+      "conference": "UAC",
+      "published_elo": 1431.2564,
+      "matched_players": 6,
+      "matched_previous_minutes": 2667.253,
+      "components": {
+        "shooting": -4.5028,
+        "playmaking": -8.2536,
+        "defense": 2.8593
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -9.8971,
+      "challenger_elo": 1421.3593
+    },
+    {
+      "team_id": "ncaa:609871",
+      "team": "San Diego",
+      "conference": "WCC",
+      "published_elo": 1444.7106,
+      "matched_players": 9,
+      "matched_previous_minutes": 4379.38,
+      "components": {
+        "shooting": 1.1561,
+        "playmaking": -28.6501,
+        "defense": 4.0363
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -23.4577,
+      "challenger_elo": 1421.2529
+    },
+    {
+      "team_id": "ncaa:609832",
+      "team": "Princeton",
+      "conference": "Ivy League",
+      "published_elo": 1429.109,
+      "matched_players": 15,
+      "matched_previous_minutes": 5832.249,
+      "components": {
+        "shooting": -0.9707,
+        "playmaking": -3.8652,
+        "defense": -5.4656
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -10.3015,
+      "challenger_elo": 1418.8075
+    },
+    {
+      "team_id": "ncaa:609486",
+      "team": "Chattanooga",
+      "conference": "SoCon",
+      "published_elo": 1408.019,
+      "matched_players": 6,
+      "matched_previous_minutes": 2983.08,
+      "components": {
+        "shooting": 1.5195,
+        "playmaking": 11.9461,
+        "defense": -3.3045
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 10.1611,
+      "challenger_elo": 1418.1801
+    },
+    {
+      "team_id": "ncaa:609515",
+      "team": "Washington St.",
+      "conference": "Pac-12",
+      "published_elo": 1447.7809,
+      "matched_players": 9,
+      "matched_previous_minutes": 3275.228,
+      "components": {
+        "shooting": -1.2063,
+        "playmaking": -28.9696,
+        "defense": -0.7892
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -30.9651,
+      "challenger_elo": 1416.8158
+    },
+    {
+      "team_id": "ncaa:609822",
+      "team": "Pepperdine",
+      "conference": "WCC",
+      "published_elo": 1430.6671,
+      "matched_players": 8,
+      "matched_previous_minutes": 4129.692,
+      "components": {
+        "shooting": 0.8111,
+        "playmaking": -16.6484,
+        "defense": 1.5794
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.2579,
+      "challenger_elo": 1416.4092
+    },
+    {
+      "team_id": "ncaa:609579",
+      "team": "Jacksonville St.",
+      "conference": "C-USA",
+      "published_elo": 1454.5001,
+      "matched_players": 7,
+      "matched_previous_minutes": 1950.148,
+      "components": {
+        "shooting": -2.0562,
+        "playmaking": -35.1506,
+        "defense": -1.4828
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -38.6896,
+      "challenger_elo": 1415.8105
+    },
+    {
+      "team_id": "ncaa:609635",
+      "team": "Boston U.",
+      "conference": "Patriot",
+      "published_elo": 1456.8455,
+      "matched_players": 7,
+      "matched_previous_minutes": 2372.465,
+      "components": {
+        "shooting": -2.2614,
+        "playmaking": -32.0756,
+        "defense": -6.9877
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -41.3247,
+      "challenger_elo": 1415.5208
+    },
+    {
+      "team_id": "ncaa:609594",
+      "team": "UMass Lowell",
+      "conference": "America East",
+      "published_elo": 1451.6869,
+      "matched_players": 5,
+      "matched_previous_minutes": 2621.043,
+      "components": {
+        "shooting": -6.3432,
+        "playmaking": -30.8692,
+        "defense": 0.0
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -37.2124,
+      "challenger_elo": 1414.4745
+    },
+    {
+      "team_id": "ncaa:609646",
+      "team": "Fresno St.",
+      "conference": "Pac-12",
+      "published_elo": 1445.6713,
+      "matched_players": 5,
+      "matched_previous_minutes": 1849.099,
+      "components": {
+        "shooting": 0.7728,
+        "playmaking": -29.9468,
+        "defense": -3.6726
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -32.8466,
+      "challenger_elo": 1412.8247
+    },
+    {
+      "team_id": "ncaa:609626",
+      "team": "Little Rock",
+      "conference": "UAC",
+      "published_elo": 1466.7079,
+      "matched_players": 9,
+      "matched_previous_minutes": 4780.51,
+      "components": {
+        "shooting": -0.4215,
+        "playmaking": -55.0479,
+        "defense": 1.2405
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -54.2289,
+      "challenger_elo": 1412.479
+    },
+    {
+      "team_id": "ncaa:609475",
+      "team": "Southern Utah",
+      "conference": "Big Sky",
+      "published_elo": 1440.8776,
+      "matched_players": 6,
+      "matched_previous_minutes": 3281.237,
+      "components": {
+        "shooting": 4.6226,
+        "playmaking": -37.1882,
+        "defense": 3.2946
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -29.271,
+      "challenger_elo": 1411.6066
+    },
+    {
+      "team_id": "ncaa:610406",
+      "team": "New Haven",
+      "conference": "NEC",
+      "published_elo": 1419.1144,
+      "matched_players": 9,
+      "matched_previous_minutes": 1483.673,
+      "components": {
+        "shooting": -0.2067,
+        "playmaking": -9.5212,
+        "defense": 2.1096
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -7.6183,
+      "challenger_elo": 1411.4961
+    },
+    {
+      "team_id": "ncaa:609533",
+      "team": "East Texas A&M",
+      "conference": "Southland",
+      "published_elo": 1373.9667,
+      "matched_players": 3,
+      "matched_previous_minutes": 1618.3,
+      "components": {
+        "shooting": -0.4344,
+        "playmaking": 38.9724,
+        "defense": -1.0524
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 37.4856,
+      "challenger_elo": 1411.4523
+    },
+    {
+      "team_id": "ncaa:609517",
+      "team": "Weber St.",
+      "conference": "Big Sky",
+      "published_elo": 1449.0213,
+      "matched_players": 4,
+      "matched_previous_minutes": 1035.484,
+      "components": {
+        "shooting": 3.4862,
+        "playmaking": -47.7414,
+        "defense": 5.8988
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -38.3564,
+      "challenger_elo": 1410.6649
+    },
+    {
+      "team_id": "ncaa:609696",
+      "team": "Central Conn. St.",
+      "conference": "NEC",
+      "published_elo": 1427.2912,
+      "matched_players": 5,
+      "matched_previous_minutes": 1775.095,
+      "components": {
+        "shooting": -2.7423,
+        "playmaking": -16.013,
+        "defense": 1.5197
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.2356,
+      "challenger_elo": 1410.0556
+    },
+    {
+      "team_id": "ncaa:609678",
+      "team": "Morgan St.",
+      "conference": "MEAC",
+      "published_elo": 1457.138,
+      "matched_players": 8,
+      "matched_previous_minutes": 1945.55,
+      "components": {
+        "shooting": -5.1866,
+        "playmaking": -38.3678,
+        "defense": -3.6241
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -47.1785,
+      "challenger_elo": 1409.9595
+    },
+    {
+      "team_id": "ncaa:609639",
+      "team": "Brown",
+      "conference": "Ivy League",
+      "published_elo": 1393.329,
+      "matched_players": 11,
+      "matched_previous_minutes": 4788.415,
+      "components": {
+        "shooting": -2.097,
+        "playmaking": 14.7646,
+        "defense": 3.7867
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 16.4543,
+      "challenger_elo": 1409.7833
+    },
+    {
+      "team_id": "ncaa:609565",
+      "team": "Wagner",
+      "conference": "NEC",
+      "published_elo": 1425.498,
+      "matched_players": 5,
+      "matched_previous_minutes": 801.949,
+      "components": {
+        "shooting": -6.5259,
+        "playmaking": -12.1778,
+        "defense": 1.031
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -17.6727,
+      "challenger_elo": 1407.8253
+    },
+    {
+      "team_id": "ncaa:609698",
+      "team": "Central Mich.",
+      "conference": "MAC",
+      "published_elo": 1404.8989,
+      "matched_players": 5,
+      "matched_previous_minutes": 3410.582,
+      "components": {
+        "shooting": -1.0517,
+        "playmaking": 3.9343,
+        "defense": -1.2738
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 1.6088,
+      "challenger_elo": 1406.5077
+    },
+    {
+      "team_id": "ncaa:609563",
+      "team": "Stetson",
+      "conference": "ASUN",
+      "published_elo": 1420.6614,
+      "matched_players": 11,
+      "matched_previous_minutes": 4016.069,
+      "components": {
+        "shooting": 2.4206,
+        "playmaking": -20.9857,
+        "defense": 1.8648
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.7003,
+      "challenger_elo": 1403.9611
+    },
+    {
+      "team_id": "ncaa:609580",
+      "team": "Jacksonville",
+      "conference": "ASUN",
+      "published_elo": 1407.7072,
+      "matched_players": 10,
+      "matched_previous_minutes": 2801.001,
+      "components": {
+        "shooting": 0.9698,
+        "playmaking": -6.2191,
+        "defense": -0.5125
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -5.7618,
+      "challenger_elo": 1401.9454
+    },
+    {
+      "team_id": "ncaa:609741",
+      "team": "Georgia St.",
+      "conference": "Sun Belt",
+      "published_elo": 1409.4176,
+      "matched_players": 8,
+      "matched_previous_minutes": 4559.875,
+      "components": {
+        "shooting": -4.0291,
+        "playmaking": -5.4047,
+        "defense": 1.3589
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -8.0749,
+      "challenger_elo": 1401.3427
+    },
+    {
+      "team_id": "ncaa:609503",
+      "team": "Army West Point",
+      "conference": "Patriot",
+      "published_elo": 1363.5049,
+      "matched_players": 10,
+      "matched_previous_minutes": 3664.763,
+      "components": {
+        "shooting": -1.822,
+        "playmaking": 41.9405,
+        "defense": -5.1152
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 35.0033,
+      "challenger_elo": 1398.5082
+    },
+    {
+      "team_id": "ncaa:609903",
+      "team": "South Dakota",
+      "conference": "Summit League",
+      "published_elo": 1418.0768,
+      "matched_players": 10,
+      "matched_previous_minutes": 3752.766,
+      "components": {
+        "shooting": -0.417,
+        "playmaking": -17.7498,
+        "defense": -4.5082
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -22.675,
+      "challenger_elo": 1395.4018
+    },
+    {
+      "team_id": "ncaa:609578",
+      "team": "Jackson St.",
+      "conference": "SWAC",
+      "published_elo": 1432.3697,
+      "matched_players": 10,
+      "matched_previous_minutes": 3978.976,
+      "components": {
+        "shooting": -3.3101,
+        "playmaking": -33.4389,
+        "defense": -0.3683
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -37.1173,
+      "challenger_elo": 1395.2524
+    },
+    {
+      "team_id": "ncaa:609786",
+      "team": "Northeastern",
+      "conference": "CAA",
+      "published_elo": 1362.0928,
+      "matched_players": 8,
+      "matched_previous_minutes": 3088.964,
+      "components": {
+        "shooting": 1.3271,
+        "playmaking": 32.0829,
+        "defense": -1.5833
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 31.8267,
+      "challenger_elo": 1393.9195
+    },
+    {
+      "team_id": "ncaa:609843",
+      "team": "Rice",
+      "conference": "AAC",
+      "published_elo": 1435.617,
+      "matched_players": 9,
+      "matched_previous_minutes": 3405.499,
+      "components": {
+        "shooting": -4.5672,
+        "playmaking": -35.0142,
+        "defense": -2.381
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -41.9624,
+      "challenger_elo": 1393.6546
+    },
+    {
+      "team_id": "ncaa:609474",
+      "team": "Southern U.",
+      "conference": "SWAC",
+      "published_elo": 1447.4033,
+      "matched_players": 7,
+      "matched_previous_minutes": 2429.343,
+      "components": {
+        "shooting": 0.4526,
+        "playmaking": -56.7433,
+        "defense": 2.1111
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -54.1796,
+      "challenger_elo": 1393.2237
+    },
+    {
+      "team_id": "ncaa:609788",
+      "team": "Northern Ariz.",
+      "conference": "Big Sky",
+      "published_elo": 1335.986,
+      "matched_players": 7,
+      "matched_previous_minutes": 2691.586,
+      "components": {
+        "shooting": -1.8408,
+        "playmaking": 57.8697,
+        "defense": -0.2033
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 55.8256,
+      "challenger_elo": 1391.8116
+    },
+    {
+      "team_id": "ncaa:609632",
+      "team": "Binghamton",
+      "conference": "America East",
+      "published_elo": 1360.871,
+      "matched_players": 9,
+      "matched_previous_minutes": 3198.367,
+      "components": {
+        "shooting": 1.3851,
+        "playmaking": 34.5793,
+        "defense": -7.1162
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 28.8482,
+      "challenger_elo": 1389.7192
+    },
+    {
+      "team_id": "ncaa:609585",
+      "team": "La Salle",
+      "conference": "Atlantic 10",
+      "published_elo": 1413.0347,
+      "matched_players": 11,
+      "matched_previous_minutes": 4391.033,
+      "components": {
+        "shooting": -1.9276,
+        "playmaking": -20.1416,
+        "defense": -2.0886
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -24.1578,
+      "challenger_elo": 1388.8769
+    },
+    {
+      "team_id": "ncaa:609848",
+      "team": "Rider",
+      "conference": "Metro",
+      "published_elo": 1308.1581,
+      "matched_players": 5,
+      "matched_previous_minutes": 1757.067,
+      "components": {
+        "shooting": -2.7476,
+        "playmaking": 86.8492,
+        "defense": -4.8623
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 79.2393,
+      "challenger_elo": 1387.3974
+    },
+    {
+      "team_id": "ncaa:609887",
+      "team": "Tarleton St.",
+      "conference": "UAC",
+      "published_elo": 1399.7258,
+      "matched_players": 9,
+      "matched_previous_minutes": 4268.001,
+      "components": {
+        "shooting": 0.2482,
+        "playmaking": -14.5757,
+        "defense": 1.9169
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -12.4106,
+      "challenger_elo": 1387.3152
+    },
+    {
+      "team_id": "ncaa:609601",
+      "team": "IU Indy",
+      "conference": "Horizon",
+      "published_elo": 1361.0116,
+      "matched_players": 4,
+      "matched_previous_minutes": 2004.768,
+      "components": {
+        "shooting": -4.9322,
+        "playmaking": 32.3294,
+        "defense": -1.5668
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 25.8304,
+      "challenger_elo": 1386.842
+    },
+    {
+      "team_id": "ncaa:609876",
+      "team": "San Jose St.",
+      "conference": "MWC",
+      "published_elo": 1411.0055,
+      "matched_players": 7,
+      "matched_previous_minutes": 2312.529,
+      "components": {
+        "shooting": 0.0,
+        "playmaking": -25.9079,
+        "defense": 1.4935
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -24.4144,
+      "challenger_elo": 1386.5911
+    },
+    {
+      "team_id": "ncaa:609629",
+      "team": "Charleston So.",
+      "conference": "Big South",
+      "published_elo": 1427.0888,
+      "matched_players": 6,
+      "matched_previous_minutes": 1377.867,
+      "components": {
+        "shooting": 3.858,
+        "playmaking": -59.3274,
+        "defense": 12.6707
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -42.7987,
+      "challenger_elo": 1384.2901
+    },
+    {
+      "team_id": "ncaa:609750",
+      "team": "Houston Christian",
+      "conference": "Southland",
+      "published_elo": 1367.6695,
+      "matched_players": 7,
+      "matched_previous_minutes": 3682.239,
+      "components": {
+        "shooting": -4.5569,
+        "playmaking": 14.5612,
+        "defense": 5.511
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 15.5153,
+      "challenger_elo": 1383.1848
+    },
+    {
+      "team_id": "ncaa:609810",
+      "team": "Old Dominion",
+      "conference": "Sun Belt",
+      "published_elo": 1401.7479,
+      "matched_players": 10,
+      "matched_previous_minutes": 4049.783,
+      "components": {
+        "shooting": -2.2609,
+        "playmaking": -23.6035,
+        "defense": 1.5983
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -24.2661,
+      "challenger_elo": 1377.4818
+    },
+    {
+      "team_id": "ncaa:609764",
+      "team": "NJIT",
+      "conference": "America East",
+      "published_elo": 1409.6863,
+      "matched_players": 7,
+      "matched_previous_minutes": 3357.878,
+      "components": {
+        "shooting": -5.7998,
+        "playmaking": -27.7025,
+        "defense": 0.0342
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -33.4681,
+      "challenger_elo": 1376.2182
+    },
+    {
+      "team_id": "ncaa:609723",
+      "team": "Eastern Ill.",
+      "conference": "OVC",
+      "published_elo": 1396.6713,
+      "matched_players": 3,
+      "matched_previous_minutes": 663.765,
+      "components": {
+        "shooting": -5.4828,
+        "playmaking": -12.0719,
+        "defense": -3.0014
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -20.5561,
+      "challenger_elo": 1376.1152
+    },
+    {
+      "team_id": "ncaa:609569",
+      "team": "West Ga.",
+      "conference": "UAC",
+      "published_elo": 1420.8167,
+      "matched_players": 9,
+      "matched_previous_minutes": 1978.786,
+      "components": {
+        "shooting": -0.7286,
+        "playmaking": -52.8694,
+        "defense": 8.41
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -45.188,
+      "challenger_elo": 1375.6287
+    },
+    {
+      "team_id": "ncaa:609695",
+      "team": "Canisius",
+      "conference": "Metro",
+      "published_elo": 1382.6778,
+      "matched_players": 6,
+      "matched_previous_minutes": 1934.931,
+      "components": {
+        "shooting": -1.6573,
+        "playmaking": 2.3244,
+        "defense": -7.9295
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -7.2624,
+      "challenger_elo": 1375.4154
+    },
+    {
+      "team_id": "ncaa:609652",
+      "team": "Loyola Maryland",
+      "conference": "Patriot",
+      "published_elo": 1383.5514,
+      "matched_players": 7,
+      "matched_previous_minutes": 1806.135,
+      "components": {
+        "shooting": -4.4949,
+        "playmaking": -3.5764,
+        "defense": -2.8878
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -10.9591,
+      "challenger_elo": 1372.5923
+    },
+    {
+      "team_id": "ncaa:609656",
+      "team": "Manhattan",
+      "conference": "Metro",
+      "published_elo": 1388.2372,
+      "matched_players": 8,
+      "matched_previous_minutes": 2872.954,
+      "components": {
+        "shooting": 3.1584,
+        "playmaking": -19.0354,
+        "defense": -0.6994
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.5764,
+      "challenger_elo": 1371.6608
+    },
+    {
+      "team_id": "ncaa:609570",
+      "team": "Le Moyne",
+      "conference": "NEC",
+      "published_elo": 1405.8493,
+      "matched_players": 10,
+      "matched_previous_minutes": 2747.751,
+      "components": {
+        "shooting": -6.7284,
+        "playmaking": -29.2128,
+        "defense": -0.1601
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -36.1013,
+      "challenger_elo": 1369.748
+    },
+    {
+      "team_id": "ncaa:609587",
+      "team": "Lamar University",
+      "conference": "Southland",
+      "published_elo": 1351.678,
+      "matched_players": 4,
+      "matched_previous_minutes": 2141.24,
+      "components": {
+        "shooting": -2.1125,
+        "playmaking": 20.7508,
+        "defense": -1.7576
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 16.8807,
+      "challenger_elo": 1368.5587
+    },
+    {
+      "team_id": "ncaa:609493",
+      "team": "UT Arlington",
+      "conference": "UAC",
+      "published_elo": 1493.7079,
+      "matched_players": 6,
+      "matched_previous_minutes": 1378.398,
+      "components": {
+        "shooting": 3.903,
+        "playmaking": -142.1107,
+        "defense": 11.2587
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -126.949,
+      "challenger_elo": 1366.7589
+    },
+    {
+      "team_id": "ncaa:609703",
+      "team": "Cleveland St.",
+      "conference": "Horizon",
+      "published_elo": 1374.6574,
+      "matched_players": 4,
+      "matched_previous_minutes": 1527.468,
+      "components": {
+        "shooting": 0.0847,
+        "playmaking": -5.9672,
+        "defense": -2.5297
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -8.4122,
+      "challenger_elo": 1366.2452
+    },
+    {
+      "team_id": "ncaa:609769",
+      "team": "Niagara",
+      "conference": "Metro",
+      "published_elo": 1347.7039,
+      "matched_players": 5,
+      "matched_previous_minutes": 2578.835,
+      "components": {
+        "shooting": -3.0081,
+        "playmaking": 27.8168,
+        "defense": -6.7278
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 18.0809,
+      "challenger_elo": 1365.7848
+    },
+    {
+      "team_id": "ncaa:609711",
+      "team": "Dartmouth",
+      "conference": "Ivy League",
+      "published_elo": 1405.1407,
+      "matched_players": 6,
+      "matched_previous_minutes": 1433.761,
+      "components": {
+        "shooting": -0.5235,
+        "playmaking": -42.1749,
+        "defense": 1.7573
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -40.9411,
+      "challenger_elo": 1364.1996
+    },
+    {
+      "team_id": "ncaa:609618",
+      "team": "UAlbany",
+      "conference": "America East",
+      "published_elo": 1376.7564,
+      "matched_players": 5,
+      "matched_previous_minutes": 1660.381,
+      "components": {
+        "shooting": -4.7356,
+        "playmaking": -12.7059,
+        "defense": 3.3815
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -14.06,
+      "challenger_elo": 1362.6964
+    },
+    {
+      "team_id": "ncaa:609727",
+      "team": "Evansville",
+      "conference": "MVC",
+      "published_elo": 1392.2716,
+      "matched_players": 5,
+      "matched_previous_minutes": 2841.9,
+      "components": {
+        "shooting": 3.6242,
+        "playmaking": -36.4642,
+        "defense": 0.1764
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -32.6636,
+      "challenger_elo": 1359.608
+    },
+    {
+      "team_id": "ncaa:609716",
+      "team": "Delaware",
+      "conference": "C-USA",
+      "published_elo": 1396.8525,
+      "matched_players": 11,
+      "matched_previous_minutes": 4291.106,
+      "components": {
+        "shooting": -0.0411,
+        "playmaking": -37.8572,
+        "defense": -1.8816
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -39.7799,
+      "challenger_elo": 1357.0726
+    },
+    {
+      "team_id": "ncaa:609641",
+      "team": "Bucknell",
+      "conference": "Patriot",
+      "published_elo": 1347.8492,
+      "matched_players": 6,
+      "matched_previous_minutes": 1700.584,
+      "components": {
+        "shooting": -4.7793,
+        "playmaking": 15.0034,
+        "defense": -1.6794
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.5447,
+      "challenger_elo": 1356.3939
+    },
+    {
+      "team_id": "ncaa:609693",
+      "team": "UC Riverside",
+      "conference": "Big West",
+      "published_elo": 1407.3194,
+      "matched_players": 5,
+      "matched_previous_minutes": 1218.132,
+      "components": {
+        "shooting": -2.8179,
+        "playmaking": -56.6608,
+        "defense": 7.9133
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -51.5654,
+      "challenger_elo": 1355.754
+    },
+    {
+      "team_id": "ncaa:609812",
+      "team": "Oral Roberts",
+      "conference": "Summit League",
+      "published_elo": 1361.8706,
+      "matched_players": 7,
+      "matched_previous_minutes": 4088.21,
+      "components": {
+        "shooting": -1.593,
+        "playmaking": -6.8926,
+        "defense": -2.3686
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -10.8542,
+      "challenger_elo": 1351.0164
+    },
+    {
+      "team_id": "ncaa:609773",
+      "team": "Norfolk St.",
+      "conference": "MEAC",
+      "published_elo": 1402.8494,
+      "matched_players": 6,
+      "matched_previous_minutes": 1998.445,
+      "components": {
+        "shooting": -0.3605,
+        "playmaking": -55.7368,
+        "defense": 3.8947
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -52.2026,
+      "challenger_elo": 1350.6468
+    },
+    {
+      "team_id": "ncaa:609600",
+      "team": "Ark.-Pine Bluff",
+      "conference": "SWAC",
+      "published_elo": 1394.7695,
+      "matched_players": 4,
+      "matched_previous_minutes": 757.951,
+      "components": {
+        "shooting": -4.3077,
+        "playmaking": -35.9154,
+        "defense": -4.443
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -44.6661,
+      "challenger_elo": 1350.1034
+    },
+    {
+      "team_id": "ncaa:609544",
+      "team": "Long Beach St.",
+      "conference": "Big West",
+      "published_elo": 1380.9762,
+      "matched_players": 6,
+      "matched_previous_minutes": 1998.2,
+      "components": {
+        "shooting": -0.3923,
+        "playmaking": -29.7793,
+        "defense": -2.8625
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -33.0341,
+      "challenger_elo": 1347.9421
+    },
+    {
+      "team_id": "ncaa:609535",
+      "team": "Stonehill",
+      "conference": "NEC",
+      "published_elo": 1358.0927,
+      "matched_players": 10,
+      "matched_previous_minutes": 2073.431,
+      "components": {
+        "shooting": -6.466,
+        "playmaking": -0.682,
+        "defense": -4.3678
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -11.5158,
+      "challenger_elo": 1346.5769
+    },
+    {
+      "team_id": "ncaa:609724",
+      "team": "Eastern Ky.",
+      "conference": "UAC",
+      "published_elo": 1372.992,
+      "matched_players": 7,
+      "matched_previous_minutes": 2917.467,
+      "components": {
+        "shooting": -0.3407,
+        "playmaking": -31.2586,
+        "defense": 2.4654
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -29.1339,
+      "challenger_elo": 1343.8581
+    },
+    {
+      "team_id": "ncaa:609681",
+      "team": "UNC Asheville",
+      "conference": "Big South",
+      "published_elo": 1400.6661,
+      "matched_players": 9,
+      "matched_previous_minutes": 3236.935,
+      "components": {
+        "shooting": 0.5432,
+        "playmaking": -55.9082,
+        "defense": -1.6504
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -57.0154,
+      "challenger_elo": 1343.6507
+    },
+    {
+      "team_id": "ncaa:609792",
+      "team": "NIU",
+      "conference": "Horizon",
+      "published_elo": 1334.6994,
+      "matched_players": 5,
+      "matched_previous_minutes": 3330.452,
+      "components": {
+        "shooting": -2.685,
+        "playmaking": 14.6641,
+        "defense": -3.4039
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 8.5752,
+      "challenger_elo": 1343.2746
+    },
+    {
+      "team_id": "ncaa:609701",
+      "team": "The Citadel",
+      "conference": "SoCon",
+      "published_elo": 1365.4804,
+      "matched_players": 13,
+      "matched_previous_minutes": 3764.472,
+      "components": {
+        "shooting": -3.0004,
+        "playmaking": -20.5368,
+        "defense": -0.9641
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -24.5013,
+      "challenger_elo": 1340.9791
+    },
+    {
+      "team_id": "ncaa:609640",
+      "team": "Bryant",
+      "conference": "America East",
+      "published_elo": 1359.1649,
+      "matched_players": 6,
+      "matched_previous_minutes": 2646.42,
+      "components": {
+        "shooting": -1.9898,
+        "playmaking": -19.8617,
+        "defense": -1.346
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -23.1975,
+      "challenger_elo": 1335.9674
+    },
+    {
+      "team_id": "ncaa:609491",
+      "team": "Texas Southern",
+      "conference": "SWAC",
+      "published_elo": 1381.7458,
+      "matched_players": 7,
+      "matched_previous_minutes": 1612.733,
+      "components": {
+        "shooting": -1.6175,
+        "playmaking": -50.8619,
+        "defense": 2.5981
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -49.8813,
+      "challenger_elo": 1331.8645
+    },
+    {
+      "team_id": "ncaa:609586",
+      "team": "Lafayette",
+      "conference": "Patriot",
+      "published_elo": 1387.4735,
+      "matched_players": 9,
+      "matched_previous_minutes": 1777.89,
+      "components": {
+        "shooting": 0.5387,
+        "playmaking": -61.5488,
+        "defense": 2.3562
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -58.6539,
+      "challenger_elo": 1328.8196
+    },
+    {
+      "team_id": "ncaa:609603",
+      "team": "North Florida",
+      "conference": "ASUN",
+      "published_elo": 1353.186,
+      "matched_players": 5,
+      "matched_previous_minutes": 3508.564,
+      "components": {
+        "shooting": -2.8622,
+        "playmaking": -15.8743,
+        "defense": -6.8204
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -25.5569,
+      "challenger_elo": 1327.6291
+    },
+    {
+      "team_id": "ncaa:609797",
+      "team": "Northwestern St.",
+      "conference": "Southland",
+      "published_elo": 1381.8644,
+      "matched_players": 5,
+      "matched_previous_minutes": 2536.17,
+      "components": {
+        "shooting": -0.211,
+        "playmaking": -51.4292,
+        "defense": -2.722
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -54.3622,
+      "challenger_elo": 1327.5022
+    },
+    {
+      "team_id": "ncaa:609606",
+      "team": "USC Upstate",
+      "conference": "Big South",
+      "published_elo": 1385.9145,
+      "matched_players": 5,
+      "matched_previous_minutes": 1216.685,
+      "components": {
+        "shooting": 1.8062,
+        "playmaking": -65.2225,
+        "defense": 4.1385
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -59.2778,
+      "challenger_elo": 1326.6367
+    },
+    {
+      "team_id": "ncaa:609496",
+      "team": "UTSA",
+      "conference": "AAC",
+      "published_elo": 1335.0689,
+      "matched_players": 10,
+      "matched_previous_minutes": 5434.969,
+      "components": {
+        "shooting": -0.0529,
+        "playmaking": -8.6131,
+        "defense": -0.0956
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -8.7616,
+      "challenger_elo": 1326.3073
+    },
+    {
+      "team_id": "ncaa:609753",
+      "team": "Idaho St.",
+      "conference": "Big Sky",
+      "published_elo": 1383.8631,
+      "matched_players": 3,
+      "matched_previous_minutes": 249.403,
+      "components": {
+        "shooting": -3.5348,
+        "playmaking": -44.3422,
+        "defense": -10.963
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -58.84,
+      "challenger_elo": 1325.0231
+    },
+    {
+      "team_id": "ncaa:609909",
+      "team": "Southeastern La.",
+      "conference": "Southland",
+      "published_elo": 1359.0825,
+      "matched_players": 10,
+      "matched_previous_minutes": 3536.666,
+      "components": {
+        "shooting": -3.0797,
+        "playmaking": -34.743,
+        "defense": -0.6946
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -38.5173,
+      "challenger_elo": 1320.5652
+    },
+    {
+      "team_id": "ncaa:609616",
+      "team": "Alabama St.",
+      "conference": "SWAC",
+      "published_elo": 1375.3074,
+      "matched_players": 6,
+      "matched_previous_minutes": 1327.651,
+      "components": {
+        "shooting": -3.9093,
+        "playmaking": -60.5236,
+        "defense": -0.3866
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -64.8195,
+      "challenger_elo": 1310.4879
+    },
+    {
+      "team_id": "ncaa:609520",
+      "team": "Western Ill.",
+      "conference": "OVC",
+      "published_elo": 1273.871,
+      "matched_players": 2,
+      "matched_previous_minutes": 1033.101,
+      "components": {
+        "shooting": -7.1056,
+        "playmaking": 42.5956,
+        "defense": 0.7255
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 36.2155,
+      "challenger_elo": 1310.0865
+    },
+    {
+      "team_id": "ncaa:609645",
+      "team": "CSU Bakersfield",
+      "conference": "Big West",
+      "published_elo": 1351.8768,
+      "matched_players": 5,
+      "matched_previous_minutes": 1658.819,
+      "components": {
+        "shooting": 2.0872,
+        "playmaking": -43.964,
+        "defense": -0.7855
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -42.6623,
+      "challenger_elo": 1309.2145
+    },
+    {
+      "team_id": "ncaa:609729",
+      "team": "FDU",
+      "conference": "NEC",
+      "published_elo": 1334.5155,
+      "matched_players": 8,
+      "matched_previous_minutes": 2495.512,
+      "components": {
+        "shooting": -2.4161,
+        "playmaking": -26.0395,
+        "defense": -0.4512
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -28.9068,
+      "challenger_elo": 1305.6087
+    },
+    {
+      "team_id": "ncaa:609511",
+      "team": "VMI",
+      "conference": "SoCon",
+      "published_elo": 1321.4923,
+      "matched_players": 7,
+      "matched_previous_minutes": 3119.4,
+      "components": {
+        "shooting": -2.974,
+        "playmaking": -12.4031,
+        "defense": -1.3792
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -16.7563,
+      "challenger_elo": 1304.736
+    },
+    {
+      "team_id": "ncaa:609602",
+      "team": "Kansas City",
+      "conference": "Summit League",
+      "published_elo": 1276.0983,
+      "matched_players": 4,
+      "matched_previous_minutes": 1989.702,
+      "components": {
+        "shooting": -3.4209,
+        "playmaking": 32.784,
+        "defense": -1.4371
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 27.926,
+      "challenger_elo": 1304.0243
+    },
+    {
+      "team_id": "ncaa:609613",
+      "team": "North Ala.",
+      "conference": "UAC",
+      "published_elo": 1334.6574,
+      "matched_players": 7,
+      "matched_previous_minutes": 2944.636,
+      "components": {
+        "shooting": -1.0133,
+        "playmaking": -31.9305,
+        "defense": 1.6148
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -31.329,
+      "challenger_elo": 1303.3284
+    },
+    {
+      "team_id": "ncaa:609777",
+      "team": "N.C. Central",
+      "conference": "MEAC",
+      "published_elo": 1373.8936,
+      "matched_players": 5,
+      "matched_previous_minutes": 1860.416,
+      "components": {
+        "shooting": 1.014,
+        "playmaking": -68.9701,
+        "defense": -3.1417
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -71.0978,
+      "challenger_elo": 1302.7958
+    },
+    {
+      "team_id": "ncaa:609762",
+      "team": "New Hampshire",
+      "conference": "America East",
+      "published_elo": 1296.443,
+      "matched_players": 9,
+      "matched_previous_minutes": 3627.288,
+      "components": {
+        "shooting": -2.4298,
+        "playmaking": 8.9089,
+        "defense": -1.6765
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": 4.8026,
+      "challenger_elo": 1301.2456
+    },
+    {
+      "team_id": "ncaa:609534",
+      "team": "Southern Ind.",
+      "conference": "OVC",
+      "published_elo": 1335.4709,
+      "matched_players": 10,
+      "matched_previous_minutes": 3343.738,
+      "components": {
+        "shooting": -5.7541,
+        "playmaking": -37.0109,
+        "defense": 2.7681
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -39.9969,
+      "challenger_elo": 1295.474
+    },
+    {
+      "team_id": "ncaa:609715",
+      "team": "Delaware St.",
+      "conference": "MEAC",
+      "published_elo": 1321.7911,
+      "matched_players": 6,
+      "matched_previous_minutes": 2217.406,
+      "components": {
+        "shooting": -5.4204,
+        "playmaking": -20.2163,
+        "defense": -1.8175
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -27.4542,
+      "challenger_elo": 1294.3369
+    },
+    {
+      "team_id": "ncaa:609655",
+      "team": "Maine",
+      "conference": "America East",
+      "published_elo": 1306.3404,
+      "matched_players": 9,
+      "matched_previous_minutes": 3234.267,
+      "components": {
+        "shooting": -3.2923,
+        "playmaking": -10.3802,
+        "defense": 1.4662
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -12.2063,
+      "challenger_elo": 1294.1341
+    },
+    {
+      "team_id": "ncaa:609699",
+      "team": "Chicago St.",
+      "conference": "NEC",
+      "published_elo": 1339.8334,
+      "matched_players": 7,
+      "matched_previous_minutes": 3115.516,
+      "components": {
+        "shooting": -6.3714,
+        "playmaking": -40.3569,
+        "defense": 0.8722
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -45.8561,
+      "challenger_elo": 1293.9773
+    },
+    {
+      "team_id": "ncaa:609749",
+      "team": "Holy Cross",
+      "conference": "Patriot",
+      "published_elo": 1348.6227,
+      "matched_players": 8,
+      "matched_previous_minutes": 2082.011,
+      "components": {
+        "shooting": -2.7563,
+        "playmaking": -48.6318,
+        "defense": -4.4269
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -55.815,
+      "challenger_elo": 1292.8077
+    },
+    {
+      "team_id": "ncaa:609596",
+      "team": "Gardner-Webb",
+      "conference": "Big South",
+      "published_elo": 1313.841,
+      "matched_players": 4,
+      "matched_previous_minutes": 2373.317,
+      "components": {
+        "shooting": -3.22,
+        "playmaking": -30.3254,
+        "defense": 0.0005
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -33.5449,
+      "challenger_elo": 1280.2961
+    },
+    {
+      "team_id": "ncaa:609552",
+      "team": "Grambling",
+      "conference": "SWAC",
+      "published_elo": 1350.1511,
+      "matched_players": 6,
+      "matched_previous_minutes": 2232.319,
+      "components": {
+        "shooting": -1.3219,
+        "playmaking": -74.1788,
+        "defense": -2.1031
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -77.6038,
+      "challenger_elo": 1272.5473
+    },
+    {
+      "team_id": "ncaa:609708",
+      "team": "Coppin St.",
+      "conference": "MEAC",
+      "published_elo": 1340.8261,
+      "matched_players": 12,
+      "matched_previous_minutes": 3448.254,
+      "components": {
+        "shooting": -3.1917,
+        "playmaking": -68.02,
+        "defense": 1.7816
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -69.4301,
+      "challenger_elo": 1271.396
+    },
+    {
+      "team_id": "ncaa:609899",
+      "team": "South Carolina St.",
+      "conference": "MEAC",
+      "published_elo": 1376.1015,
+      "matched_players": 2,
+      "matched_previous_minutes": 925.91,
+      "components": {
+        "shooting": -5.685,
+        "playmaking": -97.1747,
+        "defense": -6.1956
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -109.0553,
+      "challenger_elo": 1267.0462
+    },
+    {
+      "team_id": "ncaa:609673",
+      "team": "Mississippi Val.",
+      "conference": "SWAC",
+      "published_elo": 1257.0148,
+      "matched_players": 1,
+      "matched_previous_minutes": 437.818,
+      "components": {
+        "shooting": 0.0,
+        "playmaking": 0.0,
+        "defense": 0.0
+      },
+      "feature_status": "MISSING_SOURCE_NO_EXTRA_VALUE",
+      "multistat_delta": 0.0,
+      "challenger_elo": 1257.0148
+    },
+    {
+      "team_id": "ncaa:609785",
+      "team": "ULM",
+      "conference": "Sun Belt",
+      "published_elo": 1310.6911,
+      "matched_players": 6,
+      "matched_previous_minutes": 1217.199,
+      "components": {
+        "shooting": -9.3717,
+        "playmaking": -48.1593,
+        "defense": -0.9443
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -58.4753,
+      "challenger_elo": 1252.2158
+    },
+    {
+      "team_id": "ncaa:609502",
+      "team": "Air Force",
+      "conference": "MWC",
+      "published_elo": 1298.5179,
+      "matched_players": 13,
+      "matched_previous_minutes": 6270.7,
+      "components": {
+        "shooting": -1.7918,
+        "playmaking": -44.5786,
+        "defense": -3.1906
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -49.561,
+      "challenger_elo": 1248.9569
+    },
+    {
+      "team_id": "ncaa:609619",
+      "team": "Alcorn",
+      "conference": "SWAC",
+      "published_elo": 1350.2075,
+      "matched_players": 6,
+      "matched_previous_minutes": 1113.932,
+      "components": {
+        "shooting": 4.4674,
+        "playmaking": -115.2527,
+        "defense": 3.127
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -107.6583,
+      "challenger_elo": 1242.5492
+    },
+    {
+      "team_id": "ncaa:609662",
+      "team": "UMES",
+      "conference": "MEAC",
+      "published_elo": 1313.8809,
+      "matched_players": 3,
+      "matched_previous_minutes": 1444.536,
+      "components": {
+        "shooting": -5.1097,
+        "playmaking": -70.7959,
+        "defense": -4.5402
+      },
+      "feature_status": "VERIFIED_UNIQUE_PRIOR_SCHOOL_BOX_LINK_CANDIDATE",
+      "multistat_delta": -80.4458,
+      "challenger_elo": 1233.4351
+    }
+  ]
+}
