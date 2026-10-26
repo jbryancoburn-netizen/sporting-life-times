@@ -4,9 +4,11 @@ const svgSafe=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const profile=(cohort,id)=>'college-soccer-team.html?team='+encodeURIComponent(cohort+':'+id);
 function crest(name,id,cohort,branding){
  const info=branding?.teams?.[cohort+':'+id]||{};
- const mark=node('span','soccer-school-mark slt-mark slt-mark--medium slt-mark--verified');\n if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))mark.style.setProperty('--slt-mark-ring',info.primary);
+ const mark=node('span','soccer-school-mark slt-mark slt-mark--medium slt-mark--verified');
+ if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))mark.style.setProperty('--slt-mark-ring',info.primary);
  const initials=String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC';
- const fallback=node('span','soccer-school-fallback slt-mark-initial',initials);\n mark.classList.add('slt-mark--missing');
+ const fallback=node('span','soccer-school-fallback slt-mark-initial',initials);
+ mark.classList.add('slt-mark--missing');
  if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))fallback.style.color=info.primary;
  mark.append(fallback);
  if(info.logo_url){
