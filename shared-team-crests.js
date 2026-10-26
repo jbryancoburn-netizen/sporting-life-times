@@ -106,7 +106,7 @@ function classify(img){
  if(NOT_LOGO.test(String(img.className||''))||NOT_LOGO.test(String(img.parentElement?.className||'')))return false;
  const src=img.getAttribute('src')||'';
  return LOGOS.test(src)||CLASS.test(String(img.className||''))||
- (/\b(?:team-link|club-link|cs-team|el-club|nba-brand|nba-team-tile|score-team|slt-scorebug-identity|team-name|soccer-team|club-identity)\b/i.test(String(img.parentElement?.className||''))&&/logo|crest|badge|icon/i.test(src));
+ (/\b(?:team-link|club-link|cs-team|el-club|nba-brand|nba-team-tile|score-team|cfb-standing-team|school-line|slt-scorebug-identity|team-name|soccer-team|club-identity)\b/i.test(String(img.parentElement?.className||''))&&/logo|crest|badge|icon/i.test(src));
 }
 function size(img){
  const numbers=[img.getAttribute('width'),img.style.width,img.getAttribute('height')].map(x=>parseFloat(x)).filter(Number.isFinite);
