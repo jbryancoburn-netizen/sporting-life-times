@@ -10,7 +10,6 @@ function register(label,id){if(!label||!id)return;const key=norm(label);if(!alia
 function resolve(label){const ids=aliases.get(norm(label));return ids&&ids.size===1?[...ids][0]:null}
 function name(id){return names.get(String(id))||String(id)}
 async function download(url){const r=await fetch(url,{cache:"force-cache"});if(!r.ok)throw Error("HTTP "+r.status+" for "+url);return r.text()}
- const logoFor=(id,year)=>{const entries=eraLogos[id]||[];const found=entries.find(x=>year>=x.start&&year<=x.end&&x.url);return {historical:found?found.url:null,current:logos.get(id)||null,verified:!!found};};
  const applyTheme=(elem,id)=>{const colors=teamColors.get(id)||["#293F5F","#D6AF69"];elem.style.setProperty("--club",colors[0]);elem.style.setProperty("--club-secondary",colors[1])};
 async function start(){
 
@@ -34,8 +33,6 @@ async function start(){
    if(id&&Number(t.espn_id)>0&&t.match_method!=="exact-team-name-fallback")logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
- try{const resp=await fetch("data/ncaam-rivalry-era-logos.json?v=3",{cache:"no-cache"});if(resp.ok)eraLogos=await resp.json()}catch(e){}
- try{const resp=await fetch("data/ncaam-rivalry-logo-timelines.json",{cache:"force-cache"});if(resp.ok)logoTimelines=(await resp.json()).teams||{}}catch(e){}
 
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
@@ -73,7 +70,7 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  $("home").value=resolve("Indiana")||options[0];$("away").value=resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+"; vintage logo periods: "+Object.values(eraLogos).reduce((n,v)=>n+(Array.isArray(v)?v.length:0),0)+".";
+ $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
 function show(){
@@ -106,7 +103,7 @@ function show(){
  const filter=$("filter").value;const scope=$("tournament-filter").value;const eligible=arr.filter(g=>scope==="all"|| (scope==="other"?!["Regular season","NCAA Tournament","NIT","Competition not verified"].includes(g.tournament):g.tournament===scope));const list=filter==="ten"?eligible.slice(0,10):filter==="five"?eligible.slice(0,5):eligible;
  const cards=$("games");cards.replaceChildren();
  if(!list.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="No recorded meetings in this archive.";cards.append(empty)}
- for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament;label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo,Number(g.date.slice(0,4))||g.season);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);const refsYear=Number(g.date.slice(0,4))||g.season;const eraCount=[g.a,g.b].filter(id=>(eraLogos[id]||[]).some(v=>refsYear>=v.start&&refsYear<=v.end&&v.url)).length;if(eraCount===0){const note=document.createElement("small");note.className="modern-fallback";note.textContent="Current team marks shown · historical primary artwork not yet verified";card.append(note)}cards.append(card)}
+ for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament;label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
 }
 
 $("show").addEventListener("click",show);$("filter").addEventListener("change",show);$("tournament-filter").addEventListener("change",show);start().catch(e=>{$("status").textContent="Historical archive retrieval failed: "+e.message});
