@@ -1,0 +1,80 @@
+{
+  "title": "RETRO 100 versus 65 Elo: historical stability audit",
+  "status": "historical comparison, not independent new holdout",
+  "seasons": [
+    {
+      "season": "2022-23",
+      "games": 5732,
+      "home_games": 4968,
+      "neutral_games": 764,
+      "brier_100": 0.19322684743952884,
+      "brier_65": 0.19504368602770886,
+      "logloss_100": 0.5688328446276755,
+      "logloss_65": 0.5728362995987828,
+      "home_brier_100": 0.18946018232341313,
+      "home_brier_65": 0.1916583574779482,
+      "neutral_brier_100": 0.2177200310741669,
+      "neutral_brier_65": 0.21705718371777005
+    },
+    {
+      "season": "2023-24",
+      "games": 5739,
+      "home_games": 5002,
+      "neutral_games": 737,
+      "brier_100": 0.19428511208968874,
+      "brier_65": 0.19590070702224746,
+      "logloss_100": 0.5695910238071069,
+      "logloss_65": 0.5731685677500133,
+      "home_brier_100": 0.18905549597299617,
+      "home_brier_65": 0.19096381262896128,
+      "neutral_brier_100": 0.2297783818531856,
+      "neutral_brier_65": 0.22940728199540372
+    },
+    {
+      "season": "2024-25",
+      "games": 5806,
+      "home_games": 5070,
+      "neutral_games": 736,
+      "brier_100": 0.18950245212996894,
+      "brier_65": 0.1908628090709841,
+      "logloss_100": 0.5586438212360347,
+      "logloss_65": 0.5617345868821696,
+      "home_brier_100": 0.18538481479612218,
+      "home_brier_65": 0.1869969057714875,
+      "neutral_brier_100": 0.2178671549595902,
+      "neutral_brier_65": 0.21749342011507333
+    },
+    {
+      "season": "2025-26",
+      "games": 5784,
+      "home_games": 5091,
+      "neutral_games": 693,
+      "brier_100": 0.19212546896621,
+      "brier_65": 0.1929862221254285,
+      "logloss_100": 0.5653859522116639,
+      "logloss_65": 0.566918427169003,
+      "home_brier_100": 0.18795460007483134,
+      "home_brier_65": 0.18900013469781854,
+      "neutral_brier_100": 0.22276600796478066,
+      "neutral_brier_65": 0.2222692972970885
+    }
+  ],
+  "combined": {
+    "games": 23061,
+    "brier_100": 0.19227628885882056,
+    "brier_65": 0.19368831985391427,
+    "logloss_100": 0.5655917403722086,
+    "logloss_65": 0.5686396632323377
+  },
+  "interpretation": [
+    "100 Elo has lower Brier and log loss than 65 in each of four historical evaluation seasons.",
+    "Because 100 was chosen after examining these seasons, this does not establish independent validation for adopting 100.",
+    "Neutral-site games receive zero explicit game-level home edge, but their predicted ratings depend on the training edge; neutral-site Brier worsened at 100 in all four seasons.",
+    "Keep live model unchanged pending independent prospective testing and venue validation."
+  ],
+  "next_tests": [
+    "Run prospective 2026-27 predictions with 65 and 100 before results are known.",
+    "Validate source neutral/home flags and conference/postseason metadata before subgroup claims.",
+    "Compare paired game-level prediction losses with uncertainty intervals rather than relying only on aggregate seasonal scores."
+  ]
+}
