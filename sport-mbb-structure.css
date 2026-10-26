@@ -1,0 +1,61 @@
+/* Sporting Life & Times — MBB STRUCTURE SYSTEM, 2026-10-26.
+   Shared layout, independent league palettes, preserved data sources. */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap');
+body.slt-mbb-structure{--slt-paper:#f5f2ea;--slt-ink:#152a30;--slt-muted:#647479;--slt-line:#d3d9d6;--slt-accent:#087e83;--slt-gold:#f4c35d;--slt-deep:#12343b;background:var(--slt-paper)!important;color:var(--slt-ink)!important}
+body.slt-mbb-structure[data-league="nfl"],body.slt-mbb-structure[data-league="cfl"],body.slt-mbb-structure[data-league="college-football"],body.slt-mbb-structure[data-league="fcs-football"],body.slt-mbb-structure[data-league="d2-football"],body.slt-mbb-structure[data-league="d3-football"]{--slt-accent:#b64b31;--slt-deep:#182e4a;--slt-gold:#f2b85c}
+body.slt-mbb-structure[data-league="mlb"],body.slt-mbb-structure[data-league="npb"],body.slt-mbb-structure[data-league="kbo"],body.slt-mbb-structure[data-league="college-baseball"]{--slt-accent:#b4484f;--slt-deep:#24334b;--slt-gold:#f0bf79}
+body.slt-mbb-structure[data-league="nhl"],body.slt-mbb-structure[data-league="ahl"],body.slt-mbb-structure[data-league="echl"],body.slt-mbb-structure[data-league="college-hockey"]{--slt-accent:#1876a4;--slt-deep:#182c43;--slt-gold:#8dd8e8}
+body.slt-mbb-structure[data-league="nbl"],body.slt-mbb-structure[data-league="euroleague"],body.slt-mbb-structure[data-league="bbl"],body.slt-mbb-structure[data-league="wnba"]{--slt-accent:#d26135;--slt-deep:#27223d;--slt-gold:#eac77f}
+body.slt-mbb-structure[data-league="college-soccer"],body.slt-mbb-structure[data-league="premier-league"]{--slt-accent:#09889b;--slt-deep:#083449;--slt-gold:#f1bc59}
+body.slt-mbb-structure[data-league="epl"]{--slt-accent:#bb5d82;--slt-deep:#251c43;--slt-gold:#b4e3bc}
+body.slt-mbb-structure :is(.topline,nav.site-nav){font-family:'DM Sans',Arial,sans-serif!important}
+body.slt-mbb-structure .topline{border-bottom:1px solid var(--slt-line)!important;color:var(--slt-muted)!important;letter-spacing:.13em!important;text-transform:uppercase!important;font-size:10px!important}
+body.slt-mbb-structure header.masthead .newspaper-wordmark-main{font:400 clamp(29px,5vw,64px)/1.08 'Libre Caslon Display',Georgia,serif!important;color:var(--slt-ink)!important;letter-spacing:-.04em!important}
+body.slt-mbb-structure nav.site-nav{display:flex;overflow-x:auto;white-space:nowrap;gap:22px;border-top:3px solid var(--slt-ink)!important;border-bottom:1px solid var(--slt-ink)!important;padding:12px!important;scrollbar-width:thin;max-width:1420px!important}
+body.slt-mbb-structure nav.site-nav a{font:700 12px/1.4 'DM Sans',Arial,sans-serif!important;text-transform:none!important;letter-spacing:0!important;flex:none}
+body.slt-mbb-structure main.hub{max-width:1460px!important;width:100%!important;margin:auto!important;padding:18px clamp(14px,2.5vw,30px) 60px!important;overflow:visible}
+body.slt-mbb-structure main.hub>.hub-nav{display:flex;flex-wrap:wrap;gap:9px 18px;padding:4px 0 12px;margin:0}
+body.slt-mbb-structure main.hub>.hub-nav a{font:700 11px 'DM Sans',Arial,sans-serif!important;color:var(--slt-muted)!important}
+body.slt-mbb-structure .slt-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,.75fr);gap:26px;align-items:stretch;background:var(--slt-deep)!important;color:#fff!important;margin:10px 0 25px;padding:29px 32px;overflow:hidden;position:relative;isolation:isolate}
+body.slt-mbb-structure .slt-hero .hub-kicker{font:700 10px 'DM Sans',Arial,sans-serif!important;color:var(--slt-gold)!important;letter-spacing:.14em!important;margin:0 0 14px!important;text-transform:uppercase!important}
+body.slt-mbb-structure main.hub .slt-hero h1{font:700 clamp(45px,5.8vw,85px)/.93 'Barlow Condensed','Arial Narrow',Impact,sans-serif!important;text-transform:none!important;letter-spacing:-.025em!important;color:#fff!important;margin:0 0 17px!important;max-width:850px!important}
+body.slt-mbb-structure .slt-hero .hub-intro{font:400 14px/1.7 'DM Sans',Arial,sans-serif!important;color:#c9dadd!important;margin:0!important;max-width:66ch!important}
+body.slt-mbb-structure .slt-hero-aside{border:1px solid #ffffff3b;min-height:166px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:19px;background:radial-gradient(ellipse at top right,#ffffff1f,transparent 66%);position:relative}
+body.slt-mbb-structure .slt-hero-aside:after{content:'';position:absolute;width:240px;height:240px;right:-89px;bottom:-115px;border:2px solid #ffffff29;border-radius:50%;box-shadow:0 0 0 27px #ffffff08;pointer-events:none}
+body.slt-mbb-structure .slt-hero-aside small{font:700 10px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:.12em;color:var(--slt-gold);text-transform:uppercase}
+body.slt-mbb-structure .slt-hero-aside strong{font:700 clamp(41px,4vw,65px)/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:-.025em;overflow-wrap:anywhere}
+body.slt-mbb-structure .slt-hero-aside span{font:500 11px/1.5 'DM Sans',Arial,sans-serif;color:#e5eded}
+body.slt-mbb-structure .slt-hero-aside .slt-hero-logos{display:flex;gap:11px;flex-wrap:wrap;align-items:center;position:relative;z-index:1}
+body.slt-mbb-structure .slt-hero-logos img{width:48px;height:48px;padding:6px;background:#fffefaf2;border-radius:50%;object-fit:contain}
+body.slt-mbb-structure .slt-score-rail{border-top:3px solid var(--slt-accent);padding-top:12px;margin:13px 0 24px;min-width:0}
+body.slt-mbb-structure .slt-score-rail>.slt-section-label{font:700 11px 'DM Sans',Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase;color:var(--slt-accent);margin-bottom:12px}
+body.slt-mbb-structure .slt-score-rail .hub-feature{margin:0!important;border:0!important;padding:0!important}
+body.slt-mbb-structure .slt-score-rail :is(.league-score-item,.league-game,.el-live-game,.league-line){background:#fffefa;border:1px solid var(--slt-line);padding:12px}
+body.slt-mbb-structure .slt-columns{display:grid!important;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,.9fr)!important;gap:26px!important;align-items:start;max-width:100%}
+body.slt-mbb-structure .slt-column{min-width:0;overflow-wrap:anywhere}
+body.slt-mbb-structure .slt-column>:is(section,.hub-feature){display:block!important;grid-column:auto!important;grid-row:auto!important;border-right:0!important;box-shadow:none!important;padding:13px 0 0!important;margin:0 0 28px!important;border:0!important;border-top:3px solid var(--slt-accent)!important;background:none!important;max-width:100%!important}
+body.slt-mbb-structure .slt-column:nth-child(2)>section{border-top-color:var(--slt-deep)!important}
+body.slt-mbb-structure .slt-column:nth-child(3)>section{border-top-color:var(--slt-gold)!important}
+body.slt-mbb-structure main.hub .slt-column section>h2{font:400 clamp(24px,2.7vw,37px)/1.1 'Libre Caslon Display',Georgia,serif!important;letter-spacing:-.01em!important;color:var(--slt-ink)!important;margin:0 0 13px!important;text-transform:none!important}
+body.slt-mbb-structure main.hub .slt-column section>h3{font:400 23px 'Libre Caslon Display',Georgia,serif!important}
+body.slt-mbb-structure main.hub .nba-news-item{border:0!important;border-bottom:1px solid var(--slt-line)!important;box-shadow:none!important;background:none!important;padding:12px 0!important}
+body.slt-mbb-structure main.hub .nba-news-item h3{font:400 clamp(18px,2vw,27px)/1.17 'Libre Caslon Display',Georgia,serif!important;letter-spacing:-.01em!important}
+body.slt-mbb-structure main.hub .nba-news-item .nba-news-source{color:var(--slt-accent)!important;font:700 10px 'DM Sans',Arial,sans-serif!important;letter-spacing:.06em!important}
+body.slt-mbb-structure main.hub .league-line{padding:10px 0!important;font:600 12px 'DM Sans',Arial,sans-serif!important}
+body.slt-mbb-structure main.hub .league-line img{width:29px!important;height:29px!important;max-width:29px!important;object-fit:contain!important}
+body.slt-mbb-structure main.hub .league-line strong{font:700 19px 'Barlow Condensed',Impact,sans-serif!important}
+body.slt-mbb-structure .slt-column #league-result-ledger,body.slt-mbb-structure .slt-column #league-upcoming-games{display:grid!important;grid-template-columns:1fr!important}
+body.slt-mbb-structure .slt-column .nba-news-grid{display:grid;grid-template-columns:minmax(0,1fr)!important}
+body.slt-mbb-structure .slt-column .league-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--slt-line);background:#fffefa}
+body.slt-mbb-structure .slt-column .league-stats strong{font:700 25px 'Barlow Condensed',Impact,sans-serif!important}
+body.slt-mbb-structure .slt-column :is(table,.table-wrap,.nba-mini-table){width:100%;max-width:100%;font-variant-numeric:tabular-nums}
+body.slt-mbb-structure .slt-column :is(th,td){padding:9px 5px!important;border-bottom:1px solid var(--slt-line)!important;font-family:'DM Sans',Arial,sans-serif!important}
+body.slt-mbb-structure .slt-column th{font:700 10px 'DM Sans',Arial,sans-serif!important;color:var(--slt-muted)!important}
+body.slt-mbb-structure .slt-column .league-source-link,body.slt-mbb-structure .slt-column .league-official-link{font:600 12px 'DM Sans',Arial,sans-serif;padding:9px 0}
+body.slt-mbb-structure .slt-score-rail #league-upcoming-games{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:12px}
+body.slt-mbb-structure .slt-score-rail #league-upcoming-games>.league-score-item{background:#fffefa;border:1px solid var(--slt-line);padding:13px}
+body.slt-mbb-structure .slt-score-rail :is(h2,h3){font:400 25px 'Libre Caslon Display',Georgia,serif!important;color:var(--slt-ink)!important}
+body.slt-mbb-structure .slt-columns + .hub-feature{margin-top:28px}
+body.slt-mbb-structure a:focus-visible,body.slt-mbb-structure button:focus-visible,body.slt-mbb-structure input:focus-visible{outline:3px solid var(--slt-accent)!important;outline-offset:3px}
+@media(max-width:1030px){body.slt-mbb-structure .slt-columns{grid-template-columns:repeat(2,minmax(0,1fr))!important}body.slt-mbb-structure .slt-column:first-child{grid-column:1/-1}body.slt-mbb-structure .slt-hero{grid-template-columns:1.3fr 1fr}}
+@media(max-width:680px){body.slt-mbb-structure .slt-columns{display:block!important}body.slt-mbb-structure .slt-column{margin-bottom:18px}body.slt-mbb-structure .slt-hero{grid-template-columns:1fr;gap:13px;padding:23px 20px}body.slt-mbb-structure main.hub .slt-hero h1{font-size:clamp(44px,10vw,63px)!important}body.slt-mbb-structure .slt-hero-aside{min-height:115px;padding:15px}body.slt-mbb-structure .slt-hero-aside strong{font-size:39px}body.slt-mbb-structure .slt-score-rail #league-upcoming-games{grid-template-columns:1fr}body.slt-mbb-structure main.hub{padding-inline:14px!important}}
