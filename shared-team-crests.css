@@ -14,7 +14,7 @@
   min-height:var(--slt-mark-size)!important;max-height:var(--slt-mark-size)!important;
   aspect-ratio:1!important;flex:0 0 var(--slt-mark-size)!important;
   position:relative;overflow:hidden;
-  border:1.5px solid var(--slt-mark-ring);border-radius:50%;
+  border:3px solid var(--slt-mark-ring)!important;border-radius:50%;
   background:#fff;box-shadow:0 1px 2px #101d251c;color:var(--slt-mark-ring);
   isolation:isolate;line-height:1;align-self:center;
 }
@@ -30,7 +30,7 @@
 .slt-mark>.slt-mark-initial {
   display:none;align-items:center;justify-content:center;position:absolute;inset:0;
   text-transform:uppercase;font:800 10px/1 Arial,Helvetica,sans-serif;
-  letter-spacing:-.04em;color:inherit;background:#f3f8f7;text-align:center;
+  letter-spacing:-.04em;color:inherit;background:color-mix(in srgb,var(--slt-mark-ring) 13%,white);text-align:center;
 }
 .slt-mark.slt-mark--missing>img{display:none!important}
 .slt-mark.slt-mark--missing>.slt-mark-initial{display:flex}
@@ -48,7 +48,7 @@
    Keep its existing image-load fallback and team-color logic intact. */
 .cs-mark,.cs-showcase-logo,.soccer-crest,.soccer-monogram{
   box-sizing:border-box;flex-shrink:0;align-items:center;justify-content:center;
-  border:1.5px solid var(--cs-color,var(--school-color,var(--club-color,#adc5c6)));
+  border:3px solid var(--slt-mark-ring,var(--cs-color,var(--school-color,var(--club-color,#adc5c6))))!important;
   border-radius:50%;overflow:hidden;
 }
 .cs-mark.cs-has-logo,.cs-showcase-logo:has(img),.soccer-crest{background:#fff}

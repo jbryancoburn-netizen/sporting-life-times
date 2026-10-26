@@ -11,8 +11,8 @@ import re
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
-CSS='<link rel="stylesheet" href="shared-team-crests.css?v=20261026a">'
-JS='<script src="shared-team-crests.js?v=20261026a" defer></script>'
+CSS='<link rel="stylesheet" href="shared-team-crests.css?v=20261026teamring1">'
+JS='<script src="shared-team-crests.js?v=20261026teamring1" defer></script>'
 TAG=CSS+JS
 CHECK='--check' in sys.argv
 assert (ROOT/"shared-team-crests.css").is_file(), "Team crest stylesheet missing"

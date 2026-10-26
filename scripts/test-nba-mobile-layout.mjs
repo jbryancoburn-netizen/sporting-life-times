@@ -18,6 +18,17 @@ try{
   await page.waitForSelector('.slt-mark',{timeout:15000});
   const crestGeometry=await page.evaluate(()=>[...document.querySelectorAll('.slt-mark')].slice(0,15).map(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height,hasImg:!!el.querySelector('img')})));
   if(!crestGeometry.length||crestGeometry.some(x=>x.width>90||x.width<15||x.height!==x.width||!x.hasImg))throw Error('Shared college soccer crest sizing is broken: '+JSON.stringify(crestGeometry));
+  const ringAudit=await page.evaluate(()=>{
+    const marks=[...document.querySelectorAll('.slt-mark')],results=[];
+    for(const el of marks){
+      const img=el.querySelector('img'),source=img?.getAttribute('src')||'';
+      const match=/\/nba\/(?:\d+\/)?(bos|lal|chi|ny|nyk|gs|gsw)\.(?:png|svg|webp)/i.exec(source);
+      if(match)results.push({team:match[1],color:getComputedStyle(el).borderTopColor,width:getComputedStyle(el).borderTopWidth,source:el.dataset.sltColorSource});
+    }
+    return results;
+  });
+  if(ringAudit.some(x=>x.width!=='3px'||x.source!=='brand'))throw Error('Known NBA crests do not carry their actual 3px team-color ring: '+JSON.stringify(ringAudit));
+
 
   // A long headline must wrap properly even if the live news feed is unavailable.
   await page.evaluate(()=>{
