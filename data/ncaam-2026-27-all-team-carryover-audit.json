@@ -1,10 +1,10 @@
 {
   "model": "ncaam-2026-27-all-365-carryover-audit",
-  "status": "FAILED_CARRYOVER_PARITY",
+  "status": "PASSED_CARRYOVER_PARITY_REPLAY_NOT_RECONCILED",
   "team_count": 365,
   "unique_teams": 365,
-  "carryover_failures": 1,
-  "largest_abs_carryover_error": 975,
+  "carryover_failures": 0,
+  "largest_abs_carryover_error": 0.0001,
   "target_independent_replay": {
     "indiana": {
       "bootstrap_final": 1545.5371,
@@ -24,7 +24,7 @@
     "data/ncaam-2026-27-preseason-player-quality-live.json",
     "data/ncaam-indiana-high-point-baseline-audit.json"
   ],
-  "note": "Carryover parity is tested across 365 teams. Independent game-history replay differs from historical bootstrap for target teams and is a separate unresolved audit.",
+  "note": "Carryover parity is tested across 365 teams. Independent game-history replay differs from historical bootstrap for target teams and is a separate unresolved audit. West Florida is a new project placeholder team and correctly uses the 1500 default when no historical rating exists.",
   "teams": [
     {
       "team_id": "ncaa:609669",
@@ -1669,9 +1669,10 @@
       "team": "West Florida",
       "published_preseason_base": 1500,
       "bootstrap_previous_season": null,
-      "expected_65pct_carryover": 525,
-      "carryover_error": 975,
-      "official_preseason_elo": 1500
+      "expected_65pct_carryover": 1500,
+      "carryover_error": 0,
+      "official_preseason_elo": 1500,
+      "fallback": "NEW_TEAM_NO_PRIOR_SEASON_ELO"
     },
     {
       "team_id": "ncaa:609683",
