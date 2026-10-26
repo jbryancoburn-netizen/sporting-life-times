@@ -57,3 +57,18 @@ body.league-edition[data-league="euroleague"] #el-standings .el-club-code{displa
  body.league-edition[data-league="euroleague"] #el-standings .el-club-code{display:inline;font-weight:600;}
 }
 @media(max-width:360px){body.league-edition[data-league="euroleague"] #el-standings .nba-current-table{font-size:10px;}body.league-edition[data-league="euroleague"] #el-standings th,body.league-edition[data-league="euroleague"] #el-standings td{padding-inline:2px;}}
+
+/* EuroLeague crest parity: small club-color rings in every desk component. */
+body.league-edition[data-league="euroleague"] .el-club .slt-mark{--slt-mark-size:28px}
+body.league-edition[data-league="euroleague"] #el-standings .el-club .slt-mark{--slt-mark-size:25px}
+body.league-edition[data-league="euroleague"] .el-match .slt-mark{--slt-mark-size:30px}
+body.league-edition[data-league="euroleague"] .el-live-team .slt-mark{--slt-mark-size:24px}
+body.league-edition[data-league="euroleague"] .el-result-row .slt-mark{--slt-mark-size:24px}
+body.league-edition[data-league="euroleague"] .el-club{gap:8px}
+body.league-edition[data-league="euroleague"] .el-live-team{grid-template-columns:24px minmax(0,1fr) auto}
+body.league-edition[data-league="euroleague"] .el-result-row>span{display:inline-flex;gap:7px;align-items:center}
+body.league-edition[data-league="euroleague"] .el-match>div{min-width:0}
+@media(max-width:600px){
+ body.league-edition[data-league="euroleague"] #el-standings .el-club .slt-mark{--slt-mark-size:21px}
+ body.league-edition[data-league="euroleague"] .el-match .slt-mark{--slt-mark-size:26px}
+}

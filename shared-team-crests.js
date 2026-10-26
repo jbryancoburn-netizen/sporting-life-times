@@ -31,6 +31,8 @@ const CLUB={
 'baskonia':'#c8102e','virtus bologna':'#111111','bayern munich':'#dc052d','olimpia milano':'#d0021b',
 'zalgiris':'#007236','hapoel tel aviv':'#ce1126','paris basketball':'#e30613','asvel':'#111111'};
 // Verified franchise primary colors also cover NFL, MLB and NHL score rails.
+// Explicit club-code palette: EuroLeague uses hash-only CDN assets without club hints in the URL.
+const EUROLEAGUE={OLY:'#cf102d',ULK:'#f2c500',MAD:'#00529f',PAM:'#f36f21',PAN:'#007a3d',HTA:'#c8102e',DUB:'#bc9a57',BAR:'#a50044',RED:'#d31127',ZAL:'#007a33',PAR:'#171717',BES:'#111111',IST:'#006ab3',MUN:'#dc052d',VIR:'#191919',TEL:'#fcd116',PRS:'#171717',MIL:'#d0021b',BAS:'#d4202f',ASV:'#202020'};
 const MAJOR_LEAGUE={
 nfl:{ari:'#97233f',atl:'#a71930',bal:'#241773',buf:'#00338d',car:'#0085ca',chi:'#0b162a',cin:'#fb4f14',cle:'#311d00',dal:'#003594',den:'#fb4f14',det:'#0076b6',gb:'#203731',hou:'#03202f',ind:'#002c5f',jax:'#006778',kc:'#e31837',lv:'#000000',lac:'#0080c6',lar:'#003594',mia:'#008e97',min:'#4f2683',ne:'#002244',no:'#d3bc8d',nyg:'#0b2265',nyj:'#125740',phi:'#004c54',pit:'#ffb612',sf:'#aa0000',sea:'#002244',tb:'#d50a0a',ten:'#0c2340',wsh:'#5a1414'},
 mlb:{ari:'#a71930',atl:'#ce1141',bal:'#df4601',bos:'#bd3039',chc:'#0e3386',chw:'#27251f',cin:'#c6011f',cle:'#e31937',col:'#333366',det:'#0c2340',hou:'#002d62',kc:'#004687',la:'#005a9c',lad:'#005a9c',laa:'#ba0021',mia:'#00a3e0',mil:'#12284b',min:'#002b5c',nym:'#002d72',nyy:'#003087',oak:'#003831',phi:'#e81828',pit:'#fdb827',sd:'#2f241d',sf:'#fd5a1e',sea:'#0c2c56',stl:'#c41e3a',tb:'#092c5c',tex:'#003278',tor:'#134a8e',wsh:'#ab0003'},
@@ -77,6 +79,8 @@ function specificVariable(img){
 }
 function colorFor(img){
  if(!img)return '';
+ const euroCode=String(img.dataset.euroleagueCode||'').trim().toUpperCase();
+ if(euroCode&&EUROLEAGUE[euroCode])return EUROLEAGUE[euroCode];
  const {src,word}=candidates(img);
  const nba=/\/nba\/(?:\d+\/)?([a-z0-9_-]+)\.(?:png|svg|webp)/i.exec(src);
  if(nba&&NBA[nba[1].toLowerCase()])return NBA[nba[1].toLowerCase()];
@@ -97,6 +101,7 @@ function initials(img){
  return words.length>1?(words[0][0]+words.at(-1)[0]).toUpperCase():(words[0]||'TM').slice(0,2).toUpperCase();
 }
 function classify(img){
+ if(img.dataset.euroleagueCode&&document.body.dataset.league==='euroleague'&&!img.dataset.sltMarkState)return true;
  if(img.dataset.sltMarkState||img.closest(ORIGINAL)||img.matches(COVER)||img.closest(COVER))return false;
  if(NOT_LOGO.test(String(img.className||''))||NOT_LOGO.test(String(img.parentElement?.className||'')))return false;
  const src=img.getAttribute('src')||'';

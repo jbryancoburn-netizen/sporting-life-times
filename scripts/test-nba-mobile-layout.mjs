@@ -152,6 +152,37 @@ try{
   if(playerPos.items.some(x=>Math.abs(x.center-x.row)>5))throw Error('NBA player names are not vertically centered at '+width+'px');
  }
 
+
+ // EUROLEAGUE: real hashed CDN logos must be detected by data-euroleague-code,
+ // and each team must have a visible, correct primary-color ring in every desk.
+ for(const width of [390,1280]){
+  await page.setViewportSize({width,height:844});
+  await page.goto('http://127.0.0.1:8765/euroleague.html',{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('#el-elo-table .el-club .slt-mark',{timeout:15000});
+  await page.waitForSelector('#el-standings .el-club .slt-mark',{timeout:15000});
+  const euro=await page.evaluate(()=>{
+   const arr=sel=>[...document.querySelectorAll(sel)].map(el=>{
+    const mark=el.closest('.slt-mark');
+    const rect=mark?.getBoundingClientRect();
+    return {code:el.dataset.euroleagueCode,marked:!!mark,source:mark?.dataset.sltColorSource,
+      color:mark?getComputedStyle(mark).borderTopColor:'',weight:mark?getComputedStyle(mark).borderTopWidth:'',
+      width:rect?.width,height:rect?.height};
+   });
+   return {rankings:arr('#el-elo-table img[data-euroleague-code]'),
+    standings:arr('#el-standings img[data-euroleague-code]'),
+    results:arr('#el-recent-results-list img[data-euroleague-code]'),
+    fixtures:arr('#el-forecasts img[data-euroleague-code]'),
+    live:arr('#el-live-scorebugs img[data-euroleague-code]')};
+  });
+  if(euro.rankings.length!==20||euro.standings.length!==20)throw Error('EuroLeague missing 20 real club crest wrappers at '+width+': '+JSON.stringify(euro));
+  const all=Object.values(euro).flat();
+  if(all.some(x=>!x.marked||x.source!=='brand'||x.weight!=='3px'||!x.code||!x.width||Math.abs(x.width-x.height)>1))
+   throw Error('EuroLeague color crest failure at '+width+': '+JSON.stringify(euro));
+  const expected={OLY:'rgb(207, 16, 45)',PAN:'rgb(0, 122, 61)',MAD:'rgb(0, 82, 159)'};
+  for(const [code,color] of Object.entries(expected))
+   if(euro.rankings.find(x=>x.code===code)?.color!==color)throw Error('EuroLeague '+code+' has incorrect primary color at '+width+': '+JSON.stringify(euro.rankings));
+  await page.screenshot({path:'test-artifacts/euroleague-crests-'+width+'.png',fullPage:false});
+ }
  await page.close();
  console.log('PASS: NBA phone/tablet/desktop newspaper, permanent navigation, 30-team Elo, team deep links and player search');
 }finally{if(browser)await browser.close();server.kill();}
