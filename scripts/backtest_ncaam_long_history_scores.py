@@ -71,7 +71,7 @@ def main():
  "methodology":"Kaggle MRegularSeasonCompactResults-style regular-season scores; matched-date simultaneous updates; season-open carryover",
  "cautions":["Historical dataset may be a partial snapshot; no source independently certifies complete seasons",
  "Regular-season scores only: postseason excluded","Historical championship game and venue effects are not included",
- "Outcomes for pre-1985 seasons must be independently acquired","No roster/player/transfer data included in this test",
+ "Outcomes for pre-1985 seasons and post-source-end seasons must be independently acquired","No roster/player/transfer data included in this test",
  "Source contains winner and loser rather than scheduled home/away; evaluated pregame winner probability"],
  "seasons":report}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(out,indent=2)+"\n")
