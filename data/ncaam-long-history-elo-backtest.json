@@ -1,0 +1,1114 @@
+{
+  "model": "SLAT NCAA long-history Elo score-only v1",
+  "status": "PARTIAL_HISTORICAL_REPLAY_NO_PLAYER_COMPARISON",
+  "source": "https://raw.githubusercontent.com/zachmayer/kaggleNCAA/master/inst/kaggle_data/RegularSeasonCompactResults.csv",
+  "sha256": "24fe27492605f536c9bb055cd1e5a08ae95ea4d50935cf583cfc2fd621ae6ceb",
+  "coverage": {
+    "earliest": 1985,
+    "latest": 2019,
+    "seasons": 35,
+    "games": 161552
+  },
+  "parameters": {
+    "elo_K": 24,
+    "mov_multiplier": 0.55,
+    "season_carryover": 0.65,
+    "venue_adjustment": "none"
+  },
+  "methodology": "Kaggle MRegularSeasonCompactResults-style regular-season scores; matched-date simultaneous updates; season-open carryover",
+  "cautions": [
+    "Historical dataset may be a partial snapshot; no source independently certifies complete seasons",
+    "Regular-season scores only: postseason excluded",
+    "Historical championship game and venue effects are not included",
+    "Outcomes for pre-1985 seasons must be independently acquired",
+    "No roster/player/transfer data included in this test",
+    "Source contains winner and loser rather than scheduled home/away; evaluated pregame winner probability"
+  ],
+  "seasons": [
+    {
+      "season": 1985,
+      "games": 3737,
+      "teams": 282,
+      "log_loss": 0.618248,
+      "brier": 0.214447,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1207",
+          "elo": 1830.87
+        },
+        {
+          "team_id": "1276",
+          "elo": 1796.65
+        },
+        {
+          "team_id": "1385",
+          "elo": 1782.33
+        },
+        {
+          "team_id": "1328",
+          "elo": 1764.7
+        },
+        {
+          "team_id": "1256",
+          "elo": 1753.06
+        }
+      ]
+    },
+    {
+      "season": 1986,
+      "games": 3783,
+      "teams": 283,
+      "log_loss": 0.577196,
+      "brier": 0.196826,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 1915.57
+        },
+        {
+          "team_id": "1242",
+          "elo": 1885.04
+        },
+        {
+          "team_id": "1385",
+          "elo": 1863.61
+        },
+        {
+          "team_id": "1246",
+          "elo": 1836.37
+        },
+        {
+          "team_id": "1276",
+          "elo": 1823.44
+        }
+      ]
+    },
+    {
+      "season": 1987,
+      "games": 3915,
+      "teams": 290,
+      "log_loss": 0.584471,
+      "brier": 0.200216,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1424",
+          "elo": 1911.46
+        },
+        {
+          "team_id": "1314",
+          "elo": 1907.35
+        },
+        {
+          "team_id": "1207",
+          "elo": 1861.56
+        },
+        {
+          "team_id": "1396",
+          "elo": 1845.19
+        },
+        {
+          "team_id": "1104",
+          "elo": 1841.57
+        }
+      ]
+    },
+    {
+      "season": 1988,
+      "games": 3955,
+      "teams": 290,
+      "log_loss": 0.571652,
+      "brier": 0.194162,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1396",
+          "elo": 1907.35
+        },
+        {
+          "team_id": "1328",
+          "elo": 1873.21
+        },
+        {
+          "team_id": "1345",
+          "elo": 1870.76
+        },
+        {
+          "team_id": "1112",
+          "elo": 1867.29
+        },
+        {
+          "team_id": "1393",
+          "elo": 1840.83
+        }
+      ]
+    },
+    {
+      "season": 1989,
+      "games": 4037,
+      "teams": 293,
+      "log_loss": 0.574818,
+      "brier": 0.195776,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1112",
+          "elo": 1928.87
+        },
+        {
+          "team_id": "1228",
+          "elo": 1872.1
+        },
+        {
+          "team_id": "1328",
+          "elo": 1869.3
+        },
+        {
+          "team_id": "1207",
+          "elo": 1861.09
+        },
+        {
+          "team_id": "1314",
+          "elo": 1853.23
+        }
+      ]
+    },
+    {
+      "season": 1990,
+      "games": 4045,
+      "teams": 292,
+      "log_loss": 0.56773,
+      "brier": 0.192701,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1328",
+          "elo": 1892.79
+        },
+        {
+          "team_id": "1424",
+          "elo": 1879.87
+        },
+        {
+          "team_id": "1112",
+          "elo": 1876.8
+        },
+        {
+          "team_id": "1247",
+          "elo": 1852.16
+        },
+        {
+          "team_id": "1277",
+          "elo": 1845.88
+        }
+      ]
+    },
+    {
+      "season": 1991,
+      "games": 4123,
+      "teams": 295,
+      "log_loss": 0.571784,
+      "brier": 0.194904,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1424",
+          "elo": 1957.12
+        },
+        {
+          "team_id": "1116",
+          "elo": 1885.66
+        },
+        {
+          "team_id": "1231",
+          "elo": 1865.69
+        },
+        {
+          "team_id": "1314",
+          "elo": 1865.13
+        },
+        {
+          "team_id": "1181",
+          "elo": 1837.68
+        }
+      ]
+    },
+    {
+      "season": 1992,
+      "games": 4127,
+      "teams": 298,
+      "log_loss": 0.564213,
+      "brier": 0.191117,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 1932.29
+        },
+        {
+          "team_id": "1424",
+          "elo": 1901.18
+        },
+        {
+          "team_id": "1242",
+          "elo": 1878.59
+        },
+        {
+          "team_id": "1326",
+          "elo": 1839.03
+        },
+        {
+          "team_id": "1231",
+          "elo": 1828.56
+        }
+      ]
+    },
+    {
+      "season": 1993,
+      "games": 3982,
+      "teams": 298,
+      "log_loss": 0.56713,
+      "brier": 0.192545,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1231",
+          "elo": 1921.33
+        },
+        {
+          "team_id": "1314",
+          "elo": 1906.78
+        },
+        {
+          "team_id": "1246",
+          "elo": 1885.93
+        },
+        {
+          "team_id": "1276",
+          "elo": 1883.7
+        },
+        {
+          "team_id": "1112",
+          "elo": 1875.14
+        }
+      ]
+    },
+    {
+      "season": 1994,
+      "games": 4060,
+      "teams": 301,
+      "log_loss": 0.570388,
+      "brier": 0.193785,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1314",
+          "elo": 1874.91
+        },
+        {
+          "team_id": "1345",
+          "elo": 1859.61
+        },
+        {
+          "team_id": "1246",
+          "elo": 1859.3
+        },
+        {
+          "team_id": "1112",
+          "elo": 1848.74
+        },
+        {
+          "team_id": "1281",
+          "elo": 1845.71
+        }
+      ]
+    },
+    {
+      "season": 1995,
+      "games": 4077,
+      "teams": 302,
+      "log_loss": 0.572397,
+      "brier": 0.194922,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1246",
+          "elo": 1894.58
+        },
+        {
+          "team_id": "1417",
+          "elo": 1874.69
+        },
+        {
+          "team_id": "1448",
+          "elo": 1869.47
+        },
+        {
+          "team_id": "1269",
+          "elo": 1866.93
+        },
+        {
+          "team_id": "1314",
+          "elo": 1848.73
+        }
+      ]
+    },
+    {
+      "season": 1996,
+      "games": 4122,
+      "teams": 305,
+      "log_loss": 0.571905,
+      "brier": 0.194914,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1269",
+          "elo": 1943.23
+        },
+        {
+          "team_id": "1246",
+          "elo": 1931.51
+        },
+        {
+          "team_id": "1163",
+          "elo": 1925.81
+        },
+        {
+          "team_id": "1242",
+          "elo": 1858.86
+        },
+        {
+          "team_id": "1345",
+          "elo": 1858.48
+        }
+      ]
+    },
+    {
+      "season": 1997,
+      "games": 4155,
+      "teams": 305,
+      "log_loss": 0.58182,
+      "brier": 0.19894,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1242",
+          "elo": 1965.45
+        },
+        {
+          "team_id": "1246",
+          "elo": 1931.37
+        },
+        {
+          "team_id": "1314",
+          "elo": 1873.64
+        },
+        {
+          "team_id": "1428",
+          "elo": 1865.47
+        },
+        {
+          "team_id": "1278",
+          "elo": 1850.68
+        }
+      ]
+    },
+    {
+      "season": 1998,
+      "games": 4167,
+      "teams": 306,
+      "log_loss": 0.565795,
+      "brier": 0.191991,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1242",
+          "elo": 1958.24
+        },
+        {
+          "team_id": "1314",
+          "elo": 1944.18
+        },
+        {
+          "team_id": "1246",
+          "elo": 1929.06
+        },
+        {
+          "team_id": "1181",
+          "elo": 1907.66
+        },
+        {
+          "team_id": "1112",
+          "elo": 1892.21
+        }
+      ]
+    },
+    {
+      "season": 1999,
+      "games": 4222,
+      "teams": 310,
+      "log_loss": 0.580824,
+      "brier": 0.198336,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 2017.49
+        },
+        {
+          "team_id": "1163",
+          "elo": 1928.01
+        },
+        {
+          "team_id": "1277",
+          "elo": 1920.49
+        },
+        {
+          "team_id": "1428",
+          "elo": 1855.25
+        },
+        {
+          "team_id": "1268",
+          "elo": 1849.24
+        }
+      ]
+    },
+    {
+      "season": 2000,
+      "games": 4519,
+      "teams": 318,
+      "log_loss": 0.56891,
+      "brier": 0.193158,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 1932.54
+        },
+        {
+          "team_id": "1153",
+          "elo": 1886.24
+        },
+        {
+          "team_id": "1277",
+          "elo": 1881.73
+        },
+        {
+          "team_id": "1390",
+          "elo": 1867.56
+        },
+        {
+          "team_id": "1396",
+          "elo": 1858.05
+        }
+      ]
+    },
+    {
+      "season": 2001,
+      "games": 4467,
+      "teams": 318,
+      "log_loss": 0.579189,
+      "brier": 0.197738,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 1933.48
+        },
+        {
+          "team_id": "1390",
+          "elo": 1908.93
+        },
+        {
+          "team_id": "1277",
+          "elo": 1865.59
+        },
+        {
+          "team_id": "1112",
+          "elo": 1847.71
+        },
+        {
+          "team_id": "1196",
+          "elo": 1840.2
+        }
+      ]
+    },
+    {
+      "season": 2002,
+      "games": 4555,
+      "teams": 321,
+      "log_loss": 0.580014,
+      "brier": 0.198112,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 1933.82
+        },
+        {
+          "team_id": "1242",
+          "elo": 1894.61
+        },
+        {
+          "team_id": "1153",
+          "elo": 1890.25
+        },
+        {
+          "team_id": "1328",
+          "elo": 1885.73
+        },
+        {
+          "team_id": "1268",
+          "elo": 1874.3
+        }
+      ]
+    },
+    {
+      "season": 2003,
+      "games": 4616,
+      "teams": 327,
+      "log_loss": 0.58026,
+      "brier": 0.198023,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1246",
+          "elo": 1941.78
+        },
+        {
+          "team_id": "1112",
+          "elo": 1878.74
+        },
+        {
+          "team_id": "1338",
+          "elo": 1862.83
+        },
+        {
+          "team_id": "1328",
+          "elo": 1855.71
+        },
+        {
+          "team_id": "1242",
+          "elo": 1848.93
+        }
+      ]
+    },
+    {
+      "season": 2004,
+      "games": 4571,
+      "teams": 326,
+      "log_loss": 0.56644,
+      "brier": 0.19224,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1246",
+          "elo": 1920.76
+        },
+        {
+          "team_id": "1390",
+          "elo": 1890.17
+        },
+        {
+          "team_id": "1329",
+          "elo": 1882.22
+        },
+        {
+          "team_id": "1338",
+          "elo": 1876.81
+        },
+        {
+          "team_id": "1181",
+          "elo": 1862.11
+        }
+      ]
+    },
+    {
+      "season": 2005,
+      "games": 4675,
+      "teams": 330,
+      "log_loss": 0.575531,
+      "brier": 0.196164,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1228",
+          "elo": 1946.75
+        },
+        {
+          "team_id": "1314",
+          "elo": 1874.16
+        },
+        {
+          "team_id": "1181",
+          "elo": 1871.49
+        },
+        {
+          "team_id": "1257",
+          "elo": 1868.49
+        },
+        {
+          "team_id": "1246",
+          "elo": 1859.4
+        }
+      ]
+    },
+    {
+      "season": 2006,
+      "games": 4757,
+      "teams": 334,
+      "log_loss": 0.571758,
+      "brier": 0.194648,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1181",
+          "elo": 1920.95
+        },
+        {
+          "team_id": "1163",
+          "elo": 1902.61
+        },
+        {
+          "team_id": "1437",
+          "elo": 1870.4
+        },
+        {
+          "team_id": "1272",
+          "elo": 1861.97
+        },
+        {
+          "team_id": "1211",
+          "elo": 1859.67
+        }
+      ]
+    },
+    {
+      "season": 2007,
+      "games": 5043,
+      "teams": 336,
+      "log_loss": 0.573572,
+      "brier": 0.195542,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1326",
+          "elo": 1928.52
+        },
+        {
+          "team_id": "1242",
+          "elo": 1914.32
+        },
+        {
+          "team_id": "1272",
+          "elo": 1886.31
+        },
+        {
+          "team_id": "1207",
+          "elo": 1884.83
+        },
+        {
+          "team_id": "1314",
+          "elo": 1880.37
+        }
+      ]
+    },
+    {
+      "season": 2008,
+      "games": 5163,
+      "teams": 342,
+      "log_loss": 0.570989,
+      "brier": 0.194403,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1314",
+          "elo": 1969.45
+        },
+        {
+          "team_id": "1272",
+          "elo": 1945.67
+        },
+        {
+          "team_id": "1242",
+          "elo": 1934.4
+        },
+        {
+          "team_id": "1417",
+          "elo": 1926.53
+        },
+        {
+          "team_id": "1458",
+          "elo": 1891.03
+        }
+      ]
+    },
+    {
+      "season": 2009,
+      "games": 5249,
+      "teams": 347,
+      "log_loss": 0.568921,
+      "brier": 0.193549,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1272",
+          "elo": 1944.29
+        },
+        {
+          "team_id": "1314",
+          "elo": 1923.5
+        },
+        {
+          "team_id": "1257",
+          "elo": 1913.96
+        },
+        {
+          "team_id": "1338",
+          "elo": 1890.64
+        },
+        {
+          "team_id": "1181",
+          "elo": 1885.75
+        }
+      ]
+    },
+    {
+      "season": 2010,
+      "games": 5263,
+      "teams": 347,
+      "log_loss": 0.557791,
+      "brier": 0.188615,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1242",
+          "elo": 1969.14
+        },
+        {
+          "team_id": "1181",
+          "elo": 1909.06
+        },
+        {
+          "team_id": "1246",
+          "elo": 1907.23
+        },
+        {
+          "team_id": "1452",
+          "elo": 1868.67
+        },
+        {
+          "team_id": "1393",
+          "elo": 1865.78
+        }
+      ]
+    },
+    {
+      "season": 2011,
+      "games": 5246,
+      "teams": 345,
+      "log_loss": 0.561957,
+      "brier": 0.190485,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1242",
+          "elo": 1969.28
+        },
+        {
+          "team_id": "1326",
+          "elo": 1934.25
+        },
+        {
+          "team_id": "1181",
+          "elo": 1920.27
+        },
+        {
+          "team_id": "1361",
+          "elo": 1906.22
+        },
+        {
+          "team_id": "1140",
+          "elo": 1860.02
+        }
+      ]
+    },
+    {
+      "season": 2012,
+      "games": 5253,
+      "teams": 345,
+      "log_loss": 0.556346,
+      "brier": 0.187892,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1246",
+          "elo": 1948.04
+        },
+        {
+          "team_id": "1393",
+          "elo": 1926.71
+        },
+        {
+          "team_id": "1242",
+          "elo": 1902.77
+        },
+        {
+          "team_id": "1314",
+          "elo": 1889.12
+        },
+        {
+          "team_id": "1281",
+          "elo": 1885.35
+        }
+      ]
+    },
+    {
+      "season": 2013,
+      "games": 5320,
+      "teams": 347,
+      "log_loss": 0.567268,
+      "brier": 0.192712,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1257",
+          "elo": 1926.9
+        },
+        {
+          "team_id": "1211",
+          "elo": 1902.34
+        },
+        {
+          "team_id": "1242",
+          "elo": 1892.1
+        },
+        {
+          "team_id": "1272",
+          "elo": 1880.72
+        },
+        {
+          "team_id": "1326",
+          "elo": 1880.7
+        }
+      ]
+    },
+    {
+      "season": 2014,
+      "games": 5362,
+      "teams": 351,
+      "log_loss": 0.565921,
+      "brier": 0.191919,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1196",
+          "elo": 1959.16
+        },
+        {
+          "team_id": "1455",
+          "elo": 1904.43
+        },
+        {
+          "team_id": "1257",
+          "elo": 1902.29
+        },
+        {
+          "team_id": "1438",
+          "elo": 1879.9
+        },
+        {
+          "team_id": "1112",
+          "elo": 1869.51
+        }
+      ]
+    },
+    {
+      "season": 2015,
+      "games": 5354,
+      "teams": 351,
+      "log_loss": 0.570034,
+      "brier": 0.193862,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1246",
+          "elo": 1992.53
+        },
+        {
+          "team_id": "1437",
+          "elo": 1953.76
+        },
+        {
+          "team_id": "1112",
+          "elo": 1950.72
+        },
+        {
+          "team_id": "1458",
+          "elo": 1936.48
+        },
+        {
+          "team_id": "1181",
+          "elo": 1911.68
+        }
+      ]
+    },
+    {
+      "season": 2016,
+      "games": 5369,
+      "teams": 351,
+      "log_loss": 0.570952,
+      "brier": 0.194196,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1242",
+          "elo": 1945.49
+        },
+        {
+          "team_id": "1277",
+          "elo": 1903.22
+        },
+        {
+          "team_id": "1437",
+          "elo": 1900.34
+        },
+        {
+          "team_id": "1314",
+          "elo": 1894.22
+        },
+        {
+          "team_id": "1438",
+          "elo": 1885.1
+        }
+      ]
+    },
+    {
+      "season": 2017,
+      "games": 5395,
+      "teams": 351,
+      "log_loss": 0.567951,
+      "brier": 0.192858,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1437",
+          "elo": 1944.37
+        },
+        {
+          "team_id": "1112",
+          "elo": 1920.67
+        },
+        {
+          "team_id": "1246",
+          "elo": 1920.5
+        },
+        {
+          "team_id": "1242",
+          "elo": 1916.73
+        },
+        {
+          "team_id": "1211",
+          "elo": 1910.67
+        }
+      ]
+    },
+    {
+      "season": 2018,
+      "games": 5405,
+      "teams": 351,
+      "log_loss": 0.574068,
+      "brier": 0.195675,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1438",
+          "elo": 1964.24
+        },
+        {
+          "team_id": "1437",
+          "elo": 1927.67
+        },
+        {
+          "team_id": "1153",
+          "elo": 1889.96
+        },
+        {
+          "team_id": "1211",
+          "elo": 1885.43
+        },
+        {
+          "team_id": "1242",
+          "elo": 1872.92
+        }
+      ]
+    },
+    {
+      "season": 2019,
+      "games": 5463,
+      "teams": 353,
+      "log_loss": 0.56929,
+      "brier": 0.19382,
+      "covered_by_source": true,
+      "eligible_for_player_challenger": false,
+      "highest_elo": [
+        {
+          "team_id": "1438",
+          "elo": 1946.32
+        },
+        {
+          "team_id": "1181",
+          "elo": 1922.71
+        },
+        {
+          "team_id": "1314",
+          "elo": 1919.94
+        },
+        {
+          "team_id": "1277",
+          "elo": 1905.78
+        },
+        {
+          "team_id": "1211",
+          "elo": 1893.31
+        }
+      ]
+    }
+  ]
+}
