@@ -44,6 +44,8 @@ jobs:
           years={s['season'] for s in d['seasons']}
           assert years==set(range(1985,2027)),sorted(years)
           assert all(s['games']>=1000 for s in d['seasons']),[(s['season'],s['games']) for s in d['seasons'] if s['games']<1000]
+          assert next(s for s in d['seasons'] if s['season']==2020)['games']>4000
+          assert next(s for s in d['seasons'] if s['season']==2026)['games']>4500, '2026 snapshot may be incomplete; do not publish it as full-season history'
           assert all(s['covered_by_source'] for s in d['seasons'])
           print('REPLAY PASSED: 42 seasons and complete expected season identifiers',c)
           PY
