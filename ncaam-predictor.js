@@ -24,7 +24,9 @@ for(const select of [$("team-a"),$("team-b")]){
 $("team-a").value=map.has(params.get("a"))?params.get("a"):(teams.find(t=>t.team==="Indiana")||teams[0]).team_id;
 $("team-b").value=map.has(params.get("b"))?params.get("b"):(teams.find(t=>t.team==="Purdue")||teams[1]).team_id;
 const calibrated=window.NCAAMScores.configure(calibration);
-$("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(calibrated?"historically tested score model":"historical scoring calibration pending");
+const scoringProfiles=await get("data/ncaam-team-scoring-profiles.json");
+const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);
+$("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(profilesLoaded?"historical team scoring profiles loaded":"historical scoring profiles pending")+" · "+(calibrated?"calibrated point margin":"score calibration pending");
 $("model-grade").textContent=calibrated?"Historical scoring test passed":"Preliminary scoring estimates";
 $("caveat").textContent=calibrated?
  "Historical scores passed a holdout comparison; current forecast remains venue-neutral and cannot account for current injuries, pace or lineups.":
