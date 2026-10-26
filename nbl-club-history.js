@@ -1,0 +1,14 @@
+(()=>{'use strict';const node=document.getElementById('nbl-club-history');if(!node)return;
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const name=new URLSearchParams(location.search).get('team')||'Sydney Kings';
+const fetcher=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error('Missing source');return r.json()};
+Promise.all([fetcher('data/nbl-research-baseline.json'),fetcher('data/nbl-standings.json'),fetcher('data/nbl-research-current-ledger.json'),fetcher('data/nbl-elo-research.json')]).then(([baseline,season,ledger,elo])=>{
+const team=season.rows.find(r=>r.team===name),current=elo.ratings.find(r=>r.team===name),prior=baseline.ratings_end_2025_26?.[name];if(!team||!current||!Number.isFinite(prior))throw Error('Team season record incomplete');
+const games=ledger.games.filter(g=>g.home===name||g.away===name).sort((a,b)=>String(b.played_at).localeCompare(String(a.played_at)));
+const wins=games.filter(g=>g.home===name?g.home_score>g.away_score:g.away_score>g.home_score).length;
+const home=games.filter(g=>g.home===name),away=games.filter(g=>g.away===name);
+const record=group=>{const w=group.filter(g=>g.home===name?g.home_score>g.away_score:g.away_score>g.home_score).length;return w+'–'+(group.length-w)};
+const opponents=new Map;for(const g of games){const o=g.home===name?g.away:g.home;const old=opponents.get(o)||{w:0,l:0};const won=g.home===name?g.home_score>g.away_score:g.away_score>g.home_score;old[won?'w':'l']++;opponents.set(o,old)}
+node.innerHTML='<section class="nbl-club-history"><div class="nbl-depth-eyebrow">CLUB FILE · 2026–27</div><h2>Inside the season</h2><div class="nbl-club-history-grid"><div><b>'+team.wins+'–'+team.losses+'</b><small>SEASON RECORD</small></div><div><b>'+record(home)+'</b><small>HOME COURT</small></div><div><b>'+record(away)+'</b><small>ON THE ROAD</small></div><div><b>'+ (team.points_for/team.played).toFixed(1)+'</b><small>POINTS PER GAME</small></div><div><b>'+(team.points_against/team.played).toFixed(1)+'</b><small>OPPONENT PPG</small></div><div><b>'+current.rank+'</b><small>USRS POWER RANK</small></div></div><h3>Historical rating comparison</h3><div class="nbl-club-elo-history"><div><span>2025–26 closing Elo</span><b>'+prior.toFixed(1)+'</b></div><div><span>2026–27 current Elo</span><b>'+Number(current.elo).toFixed(1)+'</b></div></div><small>Offseason regression and subsequent games affect the current rating; the difference is not a single-season performance score.</small><h3>Season series</h3><div class="nbl-club-opponents">'+[...opponents].sort((a,b)=>a[0].localeCompare(b[0])).map(([opp,v])=>'<a href="nbl-matchups.html">'+esc(opp)+'<strong>'+v.w+'–'+v.l+'</strong></a>').join('')+'</div><p><a href="nbl-matchups.html">Explore all NBL head-to-head matchups →</a></p></section>';
+}).catch(()=>{node.textContent='Club history is unavailable in this snapshot.'});
+})();
