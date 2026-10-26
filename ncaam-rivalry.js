@@ -31,7 +31,7 @@ async function start(){
   if(r.ok){const cross=await r.json();for(const t of cross.teams||[]){
    const candidates=[t.name,t.espn_name,String(t.name||"").replace(/\s+(Wildcats|Blue Devils|Tar Heels|Hoosiers|Boilermakers|Bulldogs|Spartans|Jayhawks|Huskies|Bruins|Cardinals|Orange|Cougars|Tigers|Gators|Volunteers|Aggies)$/i,"")];
    const id=candidates.map(resolve).find(Boolean) || (t.name==="UConn"?resolve("Connecticut"):null) || (t.name==="NC State"?resolve("North Carolina St"):null);
-   if(id&&Number(t.espn_id)>0)logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
+   if(id&&Number(t.espn_id)>0&&t.match_method!=="exact-team-name-fallback")logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
  try{const resp=await fetch("data/ncaam-rivalry-era-logos.json",{cache:"force-cache"});if(resp.ok)eraLogos=await resp.json()}catch(e){}
@@ -64,7 +64,7 @@ async function start(){
     const winner=hs>as?h:a,loser=hs>as?a:h,ws=Math.max(hs,as),ls=Math.min(hs,as);
     const key=[year,winner,loser,ws,ls].join("|");
     const confirmed=verified2021.get(key);
-    const tournament=confirmed||(year===2020?"Regular season":"Competition not verified");
+    const tournament=confirmed||(year===2020?"Competition not verified":"Competition not verified");
     if(confirmed)classified++;
     matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament,source:confirmed?"2021 verified postseason results":"NCAA schedules"});recent++}
   }catch(e){failed.push(year)}
@@ -97,7 +97,7 @@ function show(){
  const sortedMargins=arr.map(g=>({game:g,margin:Math.abs(g.as-g.bs)})).sort((x,y)=>y.margin-x.margin);
  $("blowout").textContent=sortedMargins.length?sortedMargins[0].margin+" points":"—";
  $("closest").textContent=arr.length?Math.min(...arr.map(g=>Math.abs(g.as-g.bs)))+" points":"—";
- const counts=new Map();for(const g of arr){const decade=Math.floor(Number(g.season)/10)*10;const d=counts.get(decade)||{w:0,l:0};d[won(g)?"w":"l"]++;counts.set(decade,d)}
+ const counts=new Map();for(const g of arr){const decade=Math.floor(Number(g.date.slice(0,4))/10)*10;const d=counts.get(decade)||{w:0,l:0};d[won(g)?"w":"l"]++;counts.set(decade,d)}
  const decades=$("decades");decades.replaceChildren();for(const [decade,record] of [...counts].sort((x,y)=>x[0]-y[0])){const wrapper=document.createElement("div");wrapper.className="decade-row";const label=document.createElement("span");label.textContent=decade+"s";const bar=document.createElement("div");bar.className="decade-bar";const left=document.createElement("span");left.className="decade-left";left.style.width=(100*record.w/(record.w+record.l))+"%";const right=document.createElement("span");right.className="decade-right";right.style.width=(100*record.l/(record.w+record.l))+"%";bar.append(left,right);const value=document.createElement("b");value.textContent=record.w+"–"+record.l;wrapper.append(label,bar,value);decades.append(wrapper)}
  const filter=$("filter").value;const scope=$("tournament-filter").value;const eligible=arr.filter(g=>scope==="all"|| (scope==="other"?!["Regular season","NCAA Tournament","NIT","Competition not verified"].includes(g.tournament):g.tournament===scope));const list=filter==="ten"?eligible.slice(0,10):filter==="five"?eligible.slice(0,5):eligible;
  const cards=$("games");cards.replaceChildren();
