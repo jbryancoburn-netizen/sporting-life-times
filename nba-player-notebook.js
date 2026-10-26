@@ -25,7 +25,8 @@ try{
  ];
  el.innerHTML='<div class="nba-early-leader-grid">'+categories.map(([title,unit,metric,valid])=>{
   const leaders=all.filter(valid).map(p=>({...p,v:metric(p)})).filter(p=>Number.isFinite(p.v)).sort((a,b)=>b.v-a.v||a.name.localeCompare(b.name)).slice(0,5);
-  return '<div class="nba-early-leader"><h3>'+esc(title)+'</h3><table class="nba-mini-table"><thead><tr><th>Player</th><th>GP</th><th>'+unit+'</th></tr></thead><tbody>'+(leaders.length?leaders.map(p=>'<tr><th>'+esc(p.name)+' <small>'+esc(p.team)+'</small></th><td>'+p.gp+'</td><td>'+p.v.toFixed(unit==='TS%'?1:unit==='AST/TO'?2:0)+'</td></tr>').join(''):'<tr><td colspan="3">Insufficient verified observations</td></tr>')+'</tbody></table></div>';
+  const top=leaders[0]?.v||1;
+  return '<div class="nba-early-leader nba-notebook-visual"><h3>'+esc(title)+' <small>'+unit+'</small></h3>'+(leaders.length?leaders.map((p,i)=>'<div class="nba-player-viz-row"><span class="nba-player-viz-position">'+(i+1)+'</span><span class="nba-player-viz-name">'+esc(p.name)+'<small>'+esc(p.team)+' · '+p.gp+' GP</small><span class="nba-player-viz-track"><span style="width:'+(100*p.v/top).toFixed(1)+'%"></span></span></span><strong>'+p.v.toFixed(unit==='TS%'?1:unit==='AST/TO'?2:0)+'</strong></div>').join(''):'<p>Insufficient verified observations</p>')+'</div>';
  }).join('')+'</div>';
  status.textContent=games.length+' captured final box scores · '+all.length+' players · Incomplete sample; not official season leaders';
 }catch(e){status.textContent='Player-stat source unavailable';el.textContent='Individual player metrics unavailable; no estimated values displayed.';}
