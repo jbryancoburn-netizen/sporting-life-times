@@ -3,3 +3,7 @@
 
 /* Keep the center circle visible: label sits below the midfield mark. */
 .pitch{isolation:isolate}.pitch span{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(9,43,38,.88);border:1px solid #b5dfc7;border-radius:6px;padding:8px 20px;white-space:nowrap;line-height:1.1;box-shadow:0 4px 18px #001b1838}.pitch span b{font-size:25px}.pitch-circle{z-index:0}.pitch-mid{z-index:0}@media(max-width:850px){.pitch span{bottom:15px;padding:6px 14px}.pitch span b{font-size:22px}}
+
+/* Transparent midfield label: retain original centered text and unobstructed pitch lines. */
+.soccer-hero .pitch span{position:relative!important;left:auto!important;bottom:auto!important;transform:none!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;white-space:normal!important;text-shadow:0 2px 8px #082a26,0 0 16px #082a26;font-size:15px!important;line-height:1.35!important}
+.soccer-hero .pitch span b{font-size:36px!important}
