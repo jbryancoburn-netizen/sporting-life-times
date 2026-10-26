@@ -70,7 +70,7 @@ async function render(){
  const projectedTable=projections.conferences?.[key];
  const projectionUsable=projectedTable?.rows?.length===baseTable.rows?.length&&projectedTable.rows.every(r=>Number.isFinite(r.conference_points))&&String(projectedTable.snapshot_checked_date||'')>=String(baseTable.snapshot_checked_date||'');
  const table=projectionUsable?projectedTable:baseTable;
- const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated]);
+ const signal=JSON.stringify([table.checked_at_utc||table.snapshot_checked_date,table.tournament_bracket,table.tournament_seeds,elo.as_of,elo.applied_finals_since_baseline,rules.updated,branding?.teams]);
  if(signal===previous)return;
  const member=directory.conferences?.[key]?.teams,rule=rules.conferences?.[key],rated=elo.cohorts?.[cfg.cohort];
  if(!member||!rule||!rated||!Array.isArray(table.rows))throw Error('One or more required verified feeds unavailable');
