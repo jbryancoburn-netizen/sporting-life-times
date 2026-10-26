@@ -89,8 +89,10 @@ function stories(t){
 }
 function rankRows(list){return list.map(t=>'<div class="rank-row"><span class="rank">'+rank(t)+'</span>'+team(t)+'<span class="rank-score">'+fmt(rates[t],1)+'<small>'+rec(t)+' · '+esc(meta[t][1])+'</small></span></div>').join('')}
 function leaders(stat,count=4){
- let items=(data.leaders?.rows||[]).filter(x=>x.stat===stat&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,count);
- return items.map((x,i)=>'<div class="nba-leader"><div><small>'+esc(stat.toUpperCase())+' · '+esc(x.gp)+' captured games</small><b>'+esc(x.player)+'</b><small>'+team(x.team)+'</small></div><div style="text-align:right"><strong>'+fmt(x.value,1)+'</strong></div></div>').join('')||blank('Captured-game leader data unavailable.');}
+ const items=(data.leaders?.rows||[]).filter(x=>x.stat===stat&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,count);
+ const max=items[0]?.value||1;
+ return '<div class="nba-leaderboard">'+items.map((x,i)=>'<div class="nba-leader nba-leader-compact" style="--leader-team:'+((meta[x.team]||[])[3]||'#245b79')+'"><span class="nba-leader-place">'+String(i+1).padStart(2,'0')+'</span><div class="nba-leader-identity"><b>'+esc(x.player)+'</b><span class="nba-leader-club">'+team(x.team)+'</span><span class="nba-leader-sample">'+esc(x.gp)+' games recorded</span></div><div class="nba-leader-output"><strong>'+fmt(x.value,1)+'</strong><span>PTS / GAME</span></div><div class="nba-leader-meter"><span style="width:'+Math.max(0,Math.min(100,x.value/max*100)).toFixed(1)+'%"></span></div></div>').join('')+'</div>' || blank('Captured-game leader data unavailable.');
+}
 const searchLinks=()=>'<div class="nba-section-links"><a href="nba-standings.html">Standings</a><a href="nba-rankings.html">USRS Elo</a><a href="nba-players.html">Player Leaders</a><a href="nba-playoffs.html">Playoff Picture</a><a href="nba-matchups.html">Matchup Lab</a><a href="nba-game-center.html">Game Center</a></div>';
 function directory(){
  let entries=codes.filter(t=>name(t).toLowerCase().includes(filter)||t.toLowerCase().includes(filter)).sort((a,b)=>name(a).localeCompare(name(b)));
