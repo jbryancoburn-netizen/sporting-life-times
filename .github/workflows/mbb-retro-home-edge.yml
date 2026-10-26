@@ -1,0 +1,26 @@
+name: RETRO Basketball Home Court Calibration
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/mbb-retro-home-edge-backtest.js
+      - .github/workflows/mbb-retro-home-edge.yml
+permissions:
+  contents: write
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: RETRO rolling-date home-court holdout study
+        run: node scripts/mbb-retro-home-edge-backtest.js
+      - name: Publish RETRO holdout metrics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-retro-home-edge-2022-2026.json
+          git diff --cached --quiet || (git commit -m "Publish RETRO home court calibration results" && git pull --rebase origin main && git push origin main)
