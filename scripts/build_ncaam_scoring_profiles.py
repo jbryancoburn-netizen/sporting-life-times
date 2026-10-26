@@ -23,7 +23,7 @@ def main():
   stats[a]["for"].append(aws);stats[a]["against"].append(hs)
  total=[(g["home_score"]+g["away_score"])/2 for g in games]
  mean=statistics.mean(total)
- elo=json.loads(a.elo.read_text())
+ elo=json.loads(Path(a.elo).read_text())
  profiles=[]
  for team in elo["rankings"]:
   src=stats.get(school_key(team["team"]))
