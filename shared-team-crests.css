@@ -8,7 +8,12 @@
   box-sizing:border-box;display:inline-grid;place-items:center;vertical-align:middle;
   inline-size:var(--slt-mark-size);block-size:var(--slt-mark-size);
   min-inline-size:var(--slt-mark-size);min-block-size:var(--slt-mark-size);
-  flex:0 0 var(--slt-mark-size);position:relative;overflow:hidden;
+  /* Explicit physical sizing defeats older desk flex/grid width rules. */
+  width:var(--slt-mark-size)!important;height:var(--slt-mark-size)!important;
+  min-width:var(--slt-mark-size)!important;max-width:var(--slt-mark-size)!important;
+  min-height:var(--slt-mark-size)!important;max-height:var(--slt-mark-size)!important;
+  aspect-ratio:1!important;flex:0 0 var(--slt-mark-size)!important;
+  position:relative;overflow:hidden;
   border:1.5px solid var(--slt-mark-ring);border-radius:50%;
   background:#fff;box-shadow:0 1px 2px #101d251c;color:var(--slt-mark-ring);
   isolation:isolate;line-height:1;align-self:center;
