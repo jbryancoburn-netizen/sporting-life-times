@@ -39,3 +39,14 @@
 .ncaa-round-one .ncaa-school-row,.ncaa-round-two .ncaa-school-row{background:#fff;margin:0 5px;border:1px solid #e5e1da;padding:7px}
 .ncaa-round-two .ncaa-bracket-advance{margin:4px 5px}
 @media(max-width:750px){.ncaa-bracket-pod{grid-template-columns:1fr;gap:20px}.ncaa-round-one:after{top:auto;bottom:-12px;left:24px;width:2px;height:12px;border-top:0;border-left:2px solid #a99d80}.ncaa-round-two{margin-left:25px}.ncaa-round-two:before{left:-23px;top:20px;width:22px}}
+
+.ncaa-selection-comparison{border-top:5px solid #b49b62;border-bottom:2px solid #111;padding:20px 0;margin:20px 0 24px}
+.ncaa-selection-comparison h2{font:700 23px Georgia,serif;letter-spacing:.03em;margin:0 0 12px}
+.ncaa-selection-compare-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.ncaa-selection-compare-metric{padding:16px;background:#151515;color:#fff}
+.ncaa-selection-compare-metric strong{display:block;font:700 30px Georgia,serif;color:#cfb77c}
+.ncaa-selection-compare-metric span{font:700 10px Arial,sans-serif;letter-spacing:.07em}
+.ncaa-selection-compare-lists{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.ncaa-selection-compare-lists h3{font:700 13px Arial,sans-serif;letter-spacing:.08em}
+.ncaa-compare-team{border-bottom:1px solid #dedede}
+@media(max-width:560px){.ncaa-selection-compare-lists{grid-template-columns:1fr}}
