@@ -29,6 +29,10 @@ for offset in range(0,9):
   try:
    tip=datetime.fromisoformat(str(e["date"]).replace("Z","+00:00"))
    if tip.tzinfo is None or tip<=datetime.now(timezone.utc):continue
+   # ESPN uses 23:59 Eastern as a placeholder for unannounced tipoffs.
+   from zoneinfo import ZoneInfo
+   local=tip.astimezone(ZoneInfo("America/New_York"))
+   if local.hour==23 and local.minute==59:continue
   except (KeyError,ValueError,TypeError):continue
   if (e.get("status") or {}).get("type",{}).get("completed") is True:continue
   verified[key]={"tipoff_at":tip.isoformat(),"site":"neutral" if comp["neutralSite"] else "home"}
