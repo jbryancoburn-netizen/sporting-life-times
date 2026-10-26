@@ -22,13 +22,23 @@ try{
  nba.on('pageerror',e=>functionalErrors.push(e.message));
  try{
   await nba.goto(new URL('nba.html',root).href,{waitUntil:'domcontentloaded',timeout:35000});
-  await nba.locator('#nba-page-turner a[href="#page-3"]').click();
-  await nba.waitForTimeout(300);
-  const page3=await nba.locator('#nba-page-turner .edition-page-count').innerText();
-  const visibleStandings=await nba.locator('#nba-conference-standings').isVisible();
-  if(!page3.includes('PAGE 3')||!visibleStandings)throw Error('NBA page-3 navigation did not reveal standings');
-  await nba.locator('#nba-page-turner a[href="#page-2"]').click();
-  if(!await nba.locator('#nba-boxscores').isVisible())throw Error('NBA page-2 navigation did not reveal box scores');
+  if(!await nba.locator('.nav a[href="nba-standings.html"]').count())throw Error('NBA standing desk navigation missing');
+  if(await nba.locator('#nba-page-turner').count())throw Error('Obsolete NBA page turner is still loaded');
+  await nba.goto(new URL('nba-standings.html',root).href,{waitUntil:'domcontentloaded',timeout:35000});
+  await nba.waitForSelector('#app .nba-table tbody tr',{timeout:18000});
+  if(await nba.locator('#app .nba-table tbody tr').count()<15)throw Error('NBA standings have no club rows');
+  await nba.goto(new URL('nba-team-desk.html?team=IND',root).href,{waitUntil:'domcontentloaded',timeout:35000});
+  await nba.waitForSelector('.depth-club-hero',{timeout:18000});
+  if(!(await nba.locator('.depth-club-hero').innerText()).includes('Indiana Pacers'))throw Error('NBA club profile unavailable');
+  await nba.goto(new URL('nba-players.html',root).href,{waitUntil:'domcontentloaded',timeout:35000});
+  await nba.waitForSelector('[data-stat="apg"]',{timeout:18000});
+  await nba.locator('[data-stat="apg"]').click();
+  if(await nba.locator('[data-stat="apg"]').getAttribute('aria-pressed')!=='true')throw Error('NBA leaderboard tabs not interactive');
+  await nba.goto(new URL('nba-matchups.html',root).href,{waitUntil:'domcontentloaded',timeout:35000});
+  await nba.waitForSelector('#depth-away',{timeout:18000});
+  await nba.selectOption('#depth-away','IND');
+  await nba.selectOption('#depth-home','BOS');
+  if(!(await nba.locator('#depth-scout-preview').innerText()).includes('win probability'))throw Error('NBA scouting comparison does not update');
   const gc=await browser.newPage({viewport:{width:390,height:844}});
   try{
    const response=await gc.goto(new URL('nba-game-center.html',root).href,{waitUntil:'domcontentloaded',timeout:35000});
@@ -36,7 +46,7 @@ try{
    const count=await gc.locator('#games option').count();
    const detail=await gc.locator('#game').innerText();
    if(response.status()!==200||!count||!detail.includes('Complete Player Box Score'))throw Error('Game Center archive could not render a game and box score');
-   console.log(JSON.stringify({functional:'NBA page controls and archived Game Center',gamesAvailable:count,result:'PASS'}));
+   console.log(JSON.stringify({functional:'NBA newspaper desks and archived Game Center',gamesAvailable:count,result:'PASS'}));
   }finally{await gc.close()}
   if(functionalErrors.length)throw Error('NBA functional JS errors: '+functionalErrors.join('; '));
  }catch(e){failed++;console.error(JSON.stringify({functional:'NBA page controls and archived Game Center',result:'FAIL',reason:e.message}))}
