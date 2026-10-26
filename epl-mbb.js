@@ -18,8 +18,10 @@ async function updateLive(){
   const events=d.events.filter(e=>Array.isArray(e.competitions?.[0]?.competitors)&&e.competitions[0].competitors.length>=2);
   const container=document.querySelector('#epl-score-rail .epl-score-rail');if(!container||!events.length)return;
   container.querySelectorAll('[data-epl-today]').forEach(n=>n.remove());
+  const existingIds=new Set([...container.querySelectorAll('a.epl-score-tile[href]')].map(a=>{try{return new URL(a.href).searchParams.get('game')}catch{return null}}).filter(Boolean));
   for(const e of events.slice(0,8)){
-   const c=e.competitions[0].competitors;
+   if(existingIds.has(String(e.id)))continue;
+   const c=[...e.competitions[0].competitors].sort((a,b)=>Number(a.homeAway==='home')-Number(b.homeAway==='home'));
    const row=document.createElement('div');row.className='epl-score-tile slt-live-score';row.dataset.eplToday=e.id||'today';
    const status=String(e.status?.type?.shortDetail||e.status?.type?.description||'Scheduled');
    const state=e.status?.type?.state;
