@@ -3,7 +3,7 @@ const root=document.getElementById('elo-list');if(!root)return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ratings=new Map(),seen=new Set(),history=new Map(),counts=new Map(),errors=[];const opponents=new Map();const records=new Map();
 const initial=1500,K=28,homeEdge=65;const winProbability=(own,opp,edge=0)=>1/(1+Math.pow(10,(opp-own-edge)/400));
-const weeks=Array.from({length:18},(_,i)=>i);
+const weeks=Array.from({length:18},(_,i)=>i); // Week 0 through Week 17, full replay from 1500
 const fetchWeek=async week=>{const u='https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=2026&seasontype=2&week='+week+'&groups=80&limit=400';const r=await fetch(u,{signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('HTTP '+r.status);return (await r.json()).events||[]};
 const complete=e=>e.status?.type?.completed===true;
 const all=[];
@@ -29,6 +29,7 @@ const recordTail=(probabilities,wins)=>{let dp=[1];for(const p of probabilities)
 const scheduleMetrics=new Map();
 for(const [id,fixtures] of opponents){const record=records.get(id)||{wins:0,losses:0,ties:0};const sos=fixtures.reduce((sum,g)=>sum+g.elo,0)/fixtures.length;const referenceWins=fixtures.map(g=>winProbability(initial,g.elo,g.homeEdge));const expectedWins=referenceWins.reduce((a,b)=>a+b,0);const tail=recordTail(referenceWins,record.wins);scheduleMetrics.set(id,{sos,sor:-Math.log10(Math.max(tail,1e-12)),sorTailProbability:tail,referenceExpectedWins:expectedWins,...record});}
 const ranked=[...ratings].sort((a,b)=>b[1].elo-a[1].elo);
+window.CFB_ELO_REPLAY={season:2026,baseline:1500,fromWeek:0,completedGames:seen.size,failedWeeks:[...errors],earliestGame:events[0]?.date||null,latestGame:events.at(-1)?.date||null,certified:errors.length===0};
 window.CFB_RATINGS=Object.fromEntries(ranked.map(([id,t])=>[id,{...t,games:counts.get(id),history:history.get(id)||[],...scheduleMetrics.get(id),model:'2026-results-only-provisional',rosterAdjusted:false}]));
 document.dispatchEvent(new Event('cfb-ratings-ready'));
 const note='<p class="data-note">2026 provisional results-based Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · 2026 ratings use game results only; no roster or external rankings. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'Weekly score feeds loaded. Ratings refresh on page reload.')+'</p>';
