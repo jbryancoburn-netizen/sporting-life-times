@@ -2,6 +2,9 @@
 const $=id=>document.getElementById(id);
 const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/master/inst/kaggle_data/";
 const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),aliases=new Map(),known=new Set();
+const gameKey=g=>g.date+"|"+[g.a,g.b].sort().join("|")+"|"+[[g.a,g.as],[g.b,g.bs]].sort((x,y)=>x[0].localeCompare(y[0])).map(x=>x[1]).join("|");
+const isValidGame=g=>/^20\d{2}-\d{2}-\d{2}$/.test(g.date)||/^19\d{2}-\d{2}-\d{2}$/.test(g.date);
+const priority=g=>g.tournament==="Competition not verified"?0:g.tournament==="Regular season"?1:2;
 const logos=new Map(),teamColors=new Map();let selectedGames=[];
 const norm=s=>String(s||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
 const dateAdd=(base,days)=>{const d=new Date(base+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+Number(days));return d.toISOString().slice(0,10)};
@@ -74,11 +77,11 @@ async function start(){
  show();
 }
 function show(){
- const a=$("home").value,b=$("away").value;if(!a||!b)return;
+ const a=$("home").value,b=$("away").value;if(!a||!b)return;if(a===b){$("output").hidden=true;$("status").textContent="Choose two different schools to see their head-to-head history.";selectedGames=[];return}
  $("output").hidden=false;const seen=new Set(),arr=[];
  for(const g of matches){if(!((g.a===a&&g.b===b)||(g.a===b&&g.b===a)))continue;
- const key=g.date+"|"+[g.a,g.b].sort().join("|")+"|"+[g.as,g.bs].sort((x,y)=>x-y).join("|");
- if(seen.has(key))continue;seen.add(key);arr.push(g)}
+ const key=gameKey(g);if(!isValidGame(g))continue;
+ if(seen.has(key)){const idx=arr.findIndex(x=>gameKey(x)===key);if(idx>=0&&priority(g)>priority(arr[idx]))arr[idx]=g;continue}seen.add(key);arr.push(g)}
  arr.sort((x,y)=>y.date.localeCompare(x.date));
  const won=g=>((g.a===a?g.as:g.bs)>(g.a===a?g.bs:g.as));
  selectedGames=arr;const wins=arr.filter(won).length,losses=arr.length-wins,last10=arr.slice(0,10),lastWins=last10.filter(won).length;
@@ -87,6 +90,7 @@ function show(){
  $("first-meeting").textContent=arr.length?arr[arr.length-1].date:"—";$("post-meetings").textContent=arr.filter(g=>g.tournament!=="Regular season"&&g.tournament!=="Competition not verified").length;
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
  const mklogo=(team,element)=>{element.replaceChildren();const url=logos.get(team);const fallback=()=>{element.replaceChildren();element.textContent=name(team).slice(0,2).toUpperCase();element.title="Team logo unavailable"};if(!url){fallback();return}const img=document.createElement("img");img.src=url;img.alt=name(team)+" logo";img.loading="lazy";img.onerror=fallback;element.append(img);element.title=name(team)+" logo"};
+ $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+". Recent unclassified competition types remain explicitly marked."; 
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
