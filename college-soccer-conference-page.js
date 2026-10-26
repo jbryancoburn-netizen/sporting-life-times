@@ -92,26 +92,32 @@ async function render(){
  teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');row.append(E('td',i+1));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;
- // Standings must render school identity independently of optional bracket scripts.
+ // Render school crests without depending on the optional tournament renderer or legacy crest CSS.
  for(let i=0;i<teams.length;i++){
   const team=teams[i],link=tb.rows[i]?.cells[1]?.querySelector('a');
   if(!link)continue;
-  link.classList.add('cs-cup-table-school');
+  link.style.display='inline-flex';link.style.alignItems='center';link.style.gap='10px';
   const brand=branding?.teams?.[cfg.cohort+':'+team.id]||{};
-  const ring=E('span',null,'slt-mark slt-mark--medium slt-mark--verified cs-standings-identity');
-  const color=brand.primary;
-  if(/^#[0-9a-fA-F]{6}$/.test(color||''))ring.style.setProperty('--slt-mark-ring',color);
-  const fallback=E('span',brand.badge_text||team.name.split(/\\s+/).map(x=>x[0]).join('').slice(0,3),'slt-mark-initial');
+  const ring=document.createElement('span');
+  ring.className='slt-mark slt-mark--medium slt-mark--verified';
+  const color=/^#[0-9a-fA-F]{6}$/.test(brand.primary||'')?brand.primary:'#54718a';
+  ring.style.setProperty('--slt-mark-ring',color);
+  ring.style.cssText+=';display:inline-flex!important;align-items:center!important;justify-content:center!important;position:relative!important;box-sizing:border-box!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;flex:0 0 44px!important;border:3px solid '+color+'!important;border-radius:50%!important;overflow:hidden!important;background:white!important;';
+  const fallback=document.createElement('span');
+  fallback.textContent=brand.badge_text||team.name.split(/\s+/).map(x=>x[0]).join('').slice(0,3);
+  fallback.style.cssText='display:flex;align-items:center;justify-content:center;position:absolute;inset:0;font:800 11px Arial,sans-serif;color:'+color+';background:white;';
   ring.append(fallback);
   if(brand.logo_url){
-   const img=E('img');img.alt=team.name+' logo';img.loading='eager';img.decoding='async';
-   img.onload=()=>{if(img.naturalWidth>0)ring.classList.remove('slt-mark--missing');else img.hidden=true;};
-   img.onerror=()=>{img.hidden=true;ring.classList.add('slt-mark--missing');};
-   ring.classList.add('slt-mark--missing');ring.prepend(img);img.src=brand.logo_url;
-  }else ring.classList.add('slt-mark--missing');
+   const img=document.createElement('img');
+   img.alt=team.name+' logo';img.loading='eager';img.decoding='async';
+   img.style.cssText='display:none!important;position:relative!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;padding:4px!important;box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;background:transparent!important;border:0!important;border-radius:0!important;clip-path:none!important;mask:none!important;opacity:1!important;';
+   img.onload=()=>{if(img.naturalWidth>0){img.style.setProperty('display','block','important');fallback.style.setProperty('display','none','important')}};
+   img.onerror=()=>{img.remove()};
+   ring.append(img);img.src=brand.logo_url;
+  }
   link.prepend(ring);
  }
- 
+
  modelSection.append(E('h2','USRS ELO · PREDICTED TITLE ODDS'));
  const field=Number(rule.tournament?.field)||0;
  const snapshot=table.checked_at_utc||table.snapshot_checked_date;
