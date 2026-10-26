@@ -21,13 +21,17 @@ for a in soup.select('a[href*="/players/"]'):
   slug=re.sub(r'-[0-9a-f]{8}-[0-9a-f-]{27,}$','',m.group(1))
   links[norm(slug)]=u
 print('NBL profiles indexed:',len(links),flush=True)
-# Include profile routes published in the official site sitemap.
+# Include official sitemap profile links where exposed.
 try:
  sitemap,_=get('https://www.nbl.com.au/sitemap.xml')
- for u in re.findall(r'https?://[^<\s]+/players/[^<\s]+',sitemap.decode('utf-8','replace')):
+ for u in re.findall(r'https?://[^<\\s]+/players/[^<\\s]+',sitemap.decode('utf-8','replace')):
   m=re.search(r'/players/([^/?]+)',u)
   if m:
-   slug=re.sub(r'-[0-9a-f]{8}-[0-9a-f-]{27,}
+   slug=re.sub(r'-[0-9a-f]{8}-[0-9a-f-]{27,}$','',m.group(1))
+   links[norm(slug)]=u
+ print('Sitemap profiles indexed:',len(links),flush=True)
+except Exception as e:
+ print('Sitemap unavailable:',str(e)[:90],flush=True)
 def work(item):
  pid,name=item
  u=links.get(norm(name))
