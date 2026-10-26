@@ -14,7 +14,7 @@ test('NCAA page keeps scoring-quality research unapproved and a validated baseli
  assert.match(page,/preseason_asof_certified!==false/);
  assert.match(page,/SHADOW_ONLY_DO_NOT_PROMOTE/);
  assert.match(page,/const available=\{baseline\}/);
- assert.match(page,/if\(current\?\.games_played>0\)available\.current=current/);
+ assert.match(page,/if\(current\?\.games_played>0 && current\.preseason_seed===/);
 });
 test('NCAA page communicates uncertain roster timing and experimental status',()=>{
  const html=fs.readFileSync('ncaam-elo.html','utf8');
