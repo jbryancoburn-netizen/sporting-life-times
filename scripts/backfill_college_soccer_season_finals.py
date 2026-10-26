@@ -13,29 +13,38 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--start",default="2026-08-01")
     p.add_argument("--end",default=dt.date.today().isoformat())
+    p.add_argument("--max-new-days",type=int,default=12,help="Bound historical requests per run; resume on next run")
+    p.add_argument("--refresh-recent-days",type=int,default=3,help="Recheck recent dates for corrected scores")
     a=p.parse_args()
     start,end=dt.date.fromisoformat(a.start),dt.date.fromisoformat(a.end)
     if end<start or (end-start).days>150: raise ValueError("invalid backfill interval")
+    if not 1<=a.max_new_days<=150 or not 0<=a.refresh_recent_days<=30: raise ValueError("invalid request limits")
     previous=json.loads(OUT.read_text()) if OUT.exists() else {"results":[],"checked_dates":[]}
     games={g["match_id"]:g for g in previous.get("results",[])}
     dates=set(previous.get("checked_dates",[]))
     checked=0
+    corrections=[]
     day=start
     while day<=end:
-        if day.isoformat() not in dates:
+        recent=day> end-dt.timedelta(days=a.refresh_recent_days)
+        if day.isoformat() not in dates or recent:
             url=f"{API}/soccer-men/d1/{day:%Y/%m/%d}/all-conf"
             payload=scoreboard(url)
             for raw in payload["games"]:
                 g=normalized_final(raw,"men",day)
                 if not g:continue
                 prior=games.get(g["match_id"])
-                if prior is not None and prior!=g:raise ValueError("conflicting game ID "+g["match_id"])
+                if prior is not None and prior!=g:
+                    corrections.append({"match_id":g["match_id"],"stored":prior,"observed":g})
+                    continue  # Never silently mutate historical results
                 games[g["match_id"]]=g
             dates.add(day.isoformat());checked+=1
+            if checked>=a.max_new_days: break
         day+=dt.timedelta(days=1)
     payload={"schema_version":1,"season":2026,"source":"NCAA scoreboard by date, all conferences, Division I men",
              "checked_dates":sorted(dates),"results":sorted(games.values(),key=lambda g:(g["date"],g["match_id"])),
+             "unresolved_corrections":corrections,"checked_this_run":checked,
              "coverage_complete_for_requested_range":all((start+dt.timedelta(days=i)).isoformat() in dates for i in range((end-start).days+1))}
     OUT.write_text(json.dumps(payload,sort_keys=True,separators=(",",":"))+"\n")
-    print("Historical dates checked:",checked,"total finals:",len(games),"range complete:",payload["coverage_complete_for_requested_range"])
+    print("Historical dates checked:",checked,"total finals:",len(games),"range complete:",payload["coverage_complete_for_requested_range"],"conflicts:",len(corrections))
 if __name__=="__main__":main()
