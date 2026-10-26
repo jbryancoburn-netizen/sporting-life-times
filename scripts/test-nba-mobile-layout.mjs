@@ -28,6 +28,35 @@ try{
     return results;
   });
   if(ringAudit.some(x=>x.width!=='3px'||x.source!=='brand'))throw Error('Known NBA crests do not carry their actual 3px team-color ring: '+JSON.stringify(ringAudit));
+  // Assert actual primary colors, not neutral framing, across distinct sports.
+  await page.evaluate(()=>{
+    const host=document.createElement('div');host.id='brand-test';document.body.append(host);
+    const logos=[
+      ['Boston Celtics','https://a.espncdn.com/i/teamlogos/nba/500/bos.png'],
+      ['Buffalo Bills','https://a.espncdn.com/i/teamlogos/nfl/500/buf.png'],
+      ['Boston Red Sox','https://a.espncdn.com/i/teamlogos/mlb/500/bos.png'],
+      ['Toronto Maple Leafs','https://a.espncdn.com/i/teamlogos/nhl/500/tor.png'],
+      ['Arsenal','/assets/does-not-exist-arsenal.svg']
+    ];
+    for(const [label,src] of logos){
+      const link=document.createElement('a');link.className='team-link';link.dataset.brand=label;
+      const image=document.createElement('img');image.className='team-logo';image.src=src;
+      const name=document.createElement('span');name.textContent=label;
+      link.append(image,name);host.append(link);
+    }
+  });
+  await page.waitForFunction(()=>document.querySelectorAll('#brand-test .slt-mark').length===5,{timeout:6000});
+  const colors=await page.evaluate(()=>Object.fromEntries([...document.querySelectorAll('#brand-test a')].map(a=>[a.dataset.brand,{
+    border:getComputedStyle(a.querySelector('.slt-mark')).borderTopColor,
+    source:a.querySelector('.slt-mark').dataset.sltColorSource,
+    weight:getComputedStyle(a.querySelector('.slt-mark')).borderTopWidth
+  }])));
+  const expected={'Boston Celtics':'rgb(0, 122, 51)','Buffalo Bills':'rgb(0, 51, 141)','Boston Red Sox':'rgb(189, 48, 57)','Toronto Maple Leafs':'rgb(0, 32, 91)','Arsenal':'rgb(239, 1, 7)'};
+  for(const [club,color] of Object.entries(expected)){
+    if(colors[club]?.border!==color||colors[club]?.source!=='brand'||colors[club]?.weight!=='3px')throw Error('Cross-sport logo ring has wrong team-primary color for '+club+': '+JSON.stringify(colors[club]));
+  }
+  await page.evaluate(()=>document.querySelector('#brand-test')?.remove());
+
 
 
   // A long headline must wrap properly even if the live news feed is unavailable.
