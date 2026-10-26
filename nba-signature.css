@@ -27,3 +27,18 @@
 .nba-secondary-data{margin-top:12px}
 @media(max-width:850px){.nba-signature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nba-signature-spotlight{grid-template-columns:1fr}}
 @media(max-width:480px){.nba-signature-head{padding:16px}.nba-signature-tile{padding:10px}.nba-signature-tile strong{font-size:23px}}
+
+/* Graphical division standings: logo + record + Elo relative to division */
+.nba-visual-division{background:#fff;border:1px solid #e1e5ed;border-radius:12px;overflow:hidden;margin:8px 0 14px;box-shadow:0 3px 12px #122c4610}
+.nba-visual-division h3{margin:0!important;padding:10px 13px;background:#132a42;color:white!important;letter-spacing:.08em;font:800 12px Arial,sans-serif!important}
+.nba-visual-row{display:grid;grid-template-columns:20px 29px minmax(72px,1.35fr) 53px minmax(64px,1fr) 46px;align-items:center;gap:7px;padding:9px 10px;border-top:1px solid #eef0f5;text-decoration:none!important;color:#203047!important;font:700 11px Arial,sans-serif;min-width:0}
+.nba-visual-row:hover{background:#f3f8fc}
+.nba-standing-rank{color:#788796;text-align:center}
+.nba-standing-logo{width:28px;height:28px;object-fit:contain}
+.nba-standing-team{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nba-visual-row small{font:10px Arial,sans-serif;color:#65758a;display:block;margin-top:3px}
+.nba-standing-record{text-align:center;font-size:13px}
+.nba-standing-strength-track{height:7px;background:#e6edf3;border-radius:8px;display:block;overflow:hidden}
+.nba-standing-strength-track>span{display:block;height:100%;background:linear-gradient(90deg,#087dad,#12c5ac);border-radius:8px}
+.nba-standing-trend{text-align:right;color:#315a70;font-size:10px}
+@media(max-width:490px){.nba-visual-row{grid-template-columns:14px 24px minmax(60px,1.2fr) 39px minmax(42px,1fr) 36px;gap:4px;padding:8px 5px;font-size:10px}.nba-standing-logo{width:23px;height:23px}.nba-standing-trend{font-size:9px}}
