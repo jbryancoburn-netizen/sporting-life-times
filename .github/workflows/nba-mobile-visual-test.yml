@@ -37,7 +37,13 @@ jobs:
       - name: Install browser test dependencies
         run: |
           npm install --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "PLAYWRIGHT_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+            echo "Using preinstalled runner Google Chrome"
+          else
+            echo "No runner Chrome found; installing Chromium"
+            npx playwright install chromium
+          fi
       - name: Check NBA comparison metrics
         run: node scripts/test-nba-comparison.mjs
       - name: Check scorebug ordering and state rules

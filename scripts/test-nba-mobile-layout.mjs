@@ -8,7 +8,7 @@ try{
  let ready=false;
  for(let i=0;i<30;i++){try{if((await fetch('http://127.0.0.1:8765/nba.html')).ok){ready=true;break;}}catch{}await delay(350);}
  if(!ready)throw Error('NBA test server did not start');
- browser=await chromium.launch({headless:true});
+ browser=await chromium.launch({headless:true,channel:process.env.PLAYWRIGHT_CHROME_CHANNEL||undefined});
  mkdirSync('test-artifacts',{recursive:true});
  for(const width of [375,390,430,768,1280]){
   const page=await browser.newPage({viewport:{width,height:844},deviceScaleFactor:1,isMobile:width<500,hasTouch:width<500});

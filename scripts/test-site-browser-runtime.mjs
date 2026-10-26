@@ -1,7 +1,7 @@
 import {chromium} from 'playwright';
 const root=process.env.SITE_URL||'https://jbryancoburn-netizen.github.io/sporting-life-times/';
 const pages=['index.html','sports.html','nba.html','nba-game-center.html','nba-players.html','epl.html','epl-club.html','match-center.html','forecast-desk.html','nbl.html'];
-const browser=await chromium.launch({headless:true});
+const browser=await chromium.launch({headless:true,channel:process.env.PLAYWRIGHT_CHROME_CHANNEL||undefined});
 let failed=0;
 try{
  for(const path of pages){
