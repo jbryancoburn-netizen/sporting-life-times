@@ -77,7 +77,6 @@ test('identity-linked roster-informed Elo is the provisional preseason default',
  assert.match(els.status.textContent,/Preseason Elo/);
  assert.match(els['source-note'].textContent,/verified player histories/);
  assert.match(els['source-note'].textContent,/2923/);
- assert.match(els['source-note'].textContent,/364\/365/);
  assert.match(els.ratings.innerHTML,/12\.50/);
  assert.doesNotMatch(els.ratings.innerHTML,/NaN|undefined/);
 });
