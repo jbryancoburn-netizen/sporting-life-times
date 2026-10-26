@@ -27,6 +27,8 @@ if(!window.NCAAMScores||typeof window.NCAAMScores.predict!=="function"){window.N
 const calibrated=window.NCAAMScores.configure(calibration);
 const scoringProfiles=await get("data/ncaam-team-scoring-profiles.json");
 const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);
+const volatility=await get("data/ncaam-2026-27-preseason-uncertainty-features.json");
+const volatilityMap=new Map((volatility?.teams||[]).map(x=>[x.team_id,x]));
 const modelPartsMissing=[!scoringProfiles?"historical team scoring profiles":null,!calibration?"historical margin calibration":null].filter(Boolean);
 $("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(profilesLoaded?"historical team scoring profiles loaded":"historical scoring profiles pending")+" · "+(calibrated?"calibrated point margin":"score calibration pending")+(modelPartsMissing.length?" · Missing: "+modelPartsMissing.join(", "):"");
 $("model-grade").textContent=calibrated?"Historical scoring test passed":"Preliminary scoring estimates";
@@ -66,6 +68,14 @@ function render(){
 
  $("roster-name-a").textContent=a.team;$("roster-name-b").textContent=b.team;
  $("roster-a").innerHTML=impact(a);$("roster-b").innerHTML=impact(b);
+ const teamVol=t=>{
+   const v=volatilityMap.get(t.team_id);
+   if(!v)return '<div class="mini"><h3>'+safe(t.team)+'</h3><p class="fine">No verified roster continuity record.</p></div>';
+   const pct=x=>Number.isFinite(Number(x))?(Number(x)*100).toFixed(1)+'%':'Unavailable';
+   return '<div class="mini"><h3>'+safe(t.team)+'</h3><div class="impact"><span>Returning prior minutes</span><strong>'+pct(v.observed_roster_churn_share===null?null:1-v.observed_roster_churn_share)+'</strong></div><div class="impact"><span>Observed roster turnover</span><strong>'+pct(v.observed_roster_churn_share)+'</strong></div><div class="impact"><span>Verified prior players</span><strong>'+Number(v.verified_prior_player_count||0)+'</strong></div><div class="impact"><span>Linked transfers with source Elo</span><strong>'+Number(v.linked_transfers_with_source_elo||0)+'</strong></div></div>';
+ };
+ $("roster-volatility").innerHTML=teamVol(a)+teamVol(b);
+
  const delta=Math.abs(a.elo-b.elo);
  const favQuality=Number(fav.quality_component)||0,undQuality=Number(und.quality_component)||0;
  const lines=[
@@ -81,7 +91,7 @@ function render(){
  const url=new URL(location.href);url.searchParams.set("a",a.team_id);url.searchParams.set("b",b.team_id);
  history.replaceState(null,"",url);
 }
-for(const x of [$("team-a"),$("team-b")])x.addEventListener("change",render);
+for(const x of [$("team-a"),$("team-b")])x.addEventListener("change",()=>{try{render()}catch(err){console.error(err);$("state").textContent="Prediction error: "+String(err.message||err)}});
 $("copy-link").addEventListener("click",()=>{const url=location.href;if(navigator.clipboard?.writeText)navigator.clipboard.writeText(url).then(()=>{$("copy-link").textContent="Copied matchup link"}).catch(()=>{prompt("Copy matchup URL",url)});else prompt("Copy matchup URL",url)});
 try{render()}catch(err){console.error(err);$("state").textContent="Matchup render error: "+String(err.message||err);$("model-grade").textContent="Rendering error"}
 })();
