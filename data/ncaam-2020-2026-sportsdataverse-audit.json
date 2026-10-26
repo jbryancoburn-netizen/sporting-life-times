@@ -1,0 +1,86 @@
+{
+  "status": "ALL_SEVEN_SEASONS_IMPORTED_SCORE_RESULTS_TEAM_ID_JOIN_PENDING",
+  "source": "sportsdataverse/ncaa-mbb-hoops-data",
+  "seasons": [
+    {
+      "season": 2020,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2020.parquet",
+      "source_sha256": "414ccb75465adb504286ce07d4afe37e9c33b8f927621ab6f5c66dcbd2f4620c",
+      "games": 5781,
+      "school_labels": 673,
+      "invalid_or_unfinished_rows": 1,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2020-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    },
+    {
+      "season": 2021,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2021.parquet",
+      "source_sha256": "c9616d358b1592026e645999cea3ebdefc72e285ab961bc80673438cf1a0975d",
+      "games": 4269,
+      "school_labels": 492,
+      "invalid_or_unfinished_rows": 0,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2021-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    },
+    {
+      "season": 2022,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2022.parquet",
+      "source_sha256": "5ab19e348335849f7ffd6e6dbeb5526d1702a8605b252c1233b9710216b1d555",
+      "games": 5969,
+      "school_labels": 684,
+      "invalid_or_unfinished_rows": 1,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2022-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    },
+    {
+      "season": 2023,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2023.parquet",
+      "source_sha256": "fe76fee868e449b19abd44ed114f89e59a30108c52e55dad02b21b63b093a28e",
+      "games": 6221,
+      "school_labels": 706,
+      "invalid_or_unfinished_rows": 0,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2023-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    },
+    {
+      "season": 2024,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2024.parquet",
+      "source_sha256": "3ec03f2d3ee43412bac3a78b14b35afed3f40bbc657996516deb76098b607fd4",
+      "games": 6243,
+      "school_labels": 718,
+      "invalid_or_unfinished_rows": 0,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2024-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    },
+    {
+      "season": 2025,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2025.parquet",
+      "source_sha256": "11ac314e48af5dba9b29a667a88709136df5c8dbefac747b9e132955e4bb65d6",
+      "games": 6293,
+      "school_labels": 701,
+      "invalid_or_unfinished_rows": 0,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2025-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    },
+    {
+      "season": 2026,
+      "source_url": "https://raw.githubusercontent.com/sportsdataverse/ncaa-mbb-hoops-data/main/mbb/schedule/parquet/ncaa_mbb_schedule_2026.parquet",
+      "source_sha256": "20aaac6a39e7b4b48d2e1f866f0421fd03f96a1ea4c585c04eefb4fe52022d0b",
+      "games": 6297,
+      "school_labels": 726,
+      "invalid_or_unfinished_rows": 0,
+      "csv_file": "historical-normalized/sportsdataverse/ncaa-2026-verified-results.csv",
+      "historical_kaggle_team_ids_reconciled": false,
+      "dataset_completeness_uncertified": true
+    }
+  ],
+  "games": 41073,
+  "historical_1985_2019_replay_preserved": true,
+  "cross_era_elo_certified": false
+}
