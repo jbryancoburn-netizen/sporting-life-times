@@ -89,6 +89,24 @@ jobs:
             git pull --rebase
             git push
           fi
+      - name: Write acquisition result marker
+        if: always()
+        env:
+          PRE1985_JOB_STATUS: ${{ job.status }}
+          PRE1985_RUN_ID: ${{ github.run_id }}
+        run: |
+          mkdir -p historical-report
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          result=Path('data/ncaam-pre1985-unc-duke-replay.json')
+          d={'workflow_status':os.getenv('PRE1985_JOB_STATUS'),'run_id':os.getenv('PRE1985_RUN_ID'),'replay_published_candidate':result.exists()}
+          if result.exists():
+            report=json.loads(result.read_text())
+            d.update({'verified_imported_rows':report['verified_imported_rows'],'seasons_present':report['seasons_present'],'observed_date_range':report['observed_date_range']})
+          Path('historical-report/ncaam-pre1985-run-status.json').write_text(json.dumps(d,indent=2)+'\\n')
+          print(json.dumps(d,indent=2))
+          PY
       - name: Diagnose failed historical acquisition
         if: failure()
         run: |
@@ -101,4 +119,5 @@ jobs:
           path: |
             historical-normalized/unc-duke-historical-fixtures.csv
             data/ncaam-pre1985-unc-duke-replay.json
+            historical-report/ncaam-pre1985-run-status.json
           if-no-files-found: warn
