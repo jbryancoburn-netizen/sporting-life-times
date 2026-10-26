@@ -28,10 +28,13 @@ def work(item):
  try:
   raw,_=get(u)
   doc=BeautifulSoup(raw,'html.parser')
-  for im in doc.find_all('img'):
+  headings=[h for h in doc.find_all(['h1','h2']) if norm(h.get_text(' ',strip=True))==norm(name)]
+  candidates=[h.find_next('img') for h in headings]
+  candidates += [im for im in doc.find_all('img') if norm(name) in norm(im.get('alt',''))]
+  for im in candidates:
+   if im is None:continue
    src=im.get('src','') or im.get('data-src','')
    if not src.startswith('https://cdn.prod.website-files.com/'):continue
-   if norm(name) not in norm(im.get('alt','')):continue
    data,ct=get(src.split('?')[0])
    if not ct.startswith('image/') or len(data)<4000:continue
    ext='.webp' if 'webp' in ct else '.png' if 'png' in ct else '.jpg'
