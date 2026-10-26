@@ -23,10 +23,12 @@ jobs:
           python-version: '3.12'
       - name: Collect 2023-2025 men's D-I soccer finals
         run: python scripts/collect_college_soccer_history.py --years 2023 2024 2025 --max-days-per-year 35
-      - name: Commit verified historical results
+      - name: Commit collected historical results
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ ! -d data/college-soccer-history ]; then exit 0; fi
           git add data/college-soccer-history/
           if ! git diff --cached --quiet; then
             git commit -m "Collect historical men's soccer finals for Elo backtest"
