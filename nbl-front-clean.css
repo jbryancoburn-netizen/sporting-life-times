@@ -1,0 +1,20 @@
+/* NBL front-page editorial hierarchy: one purpose per section.
+   Preserve source-backed DOM anchors so existing refresh scripts can run. */
+body[data-league="nbl"] .nbl-edition-data,
+body[data-league="nbl"] #league-lastnight,
+body[data-league="nbl"] #nbl-featured-finals,
+body[data-league="nbl"] #league-result-ledger,
+body[data-league="nbl"] #nbl-power-index,
+body[data-league="nbl"] #nbl-compare-desk,
+body[data-league="nbl"] #league-data-links,
+body[data-league="nbl"] .league-numbers {display:none!important}
+body[data-league="nbl"] #league-news {grid-column:1/-1}
+body[data-league="nbl"] #league-news .nba-news-grid {gap:14px}
+body[data-league="nbl"] #league-boxscores {grid-column:auto;min-width:0}
+body[data-league="nbl"] #league-official-standings {min-width:0}
+body[data-league="nbl"] #league-upcoming {min-width:0}
+body[data-league="nbl"] #league-boxscores .hub-small:first-of-type {display:none}
+body[data-league="nbl"] #league-results-status {display:none}
+body[data-league="nbl"] .nbl-front-feature-links {display:flex;flex-wrap:wrap;gap:9px;margin:11px 0 20px}
+body[data-league="nbl"] .nbl-front-feature-links a {padding:10px 14px;background:#fffdf8;border:1px solid #ced8d5;color:#17383d;font:700 11px 'DM Sans',Arial,sans-serif;text-decoration:none}
+body[data-league="nbl"] .nbl-front-feature-links a:hover {border-color:#087e83;color:#087e83}
