@@ -25,13 +25,13 @@ for year in (2024,2025):
     frames[year]=df
     manifest["sources"].append({"year":year,"url":url,"rows":len(df),"sha256":hashlib.sha256(response.content).hexdigest()})
 a,b=frames[2024],frames[2025]
-a_ids=set(a.player_id.dropna().astype(str))
+a_ids=set(a.player_id.dropna().astype(str))\nif a.player_id.duplicated().any() or b.player_id.duplicated().any():\n    raise RuntimeError("Duplicate player IDs detected: resolve before roster matching")
 b=b.copy()
 b["returning_2024_roster"]=b.player_id.astype(str).isin(a_ids)
 b["matched_2024_team"]=b.player_id.astype(str).map(dict(zip(a.player_id.astype(str),a.team_id.astype(str))))
 b["transferred_from_2024"]=b.returning_2024_roster & (b.team_id.astype(str)!=b.matched_2024_team)
 b.to_csv(OUT/"2025-roster-matches.csv",index=False)
 manifest["counts"]={"players_2025":len(b),"matched_2024":int(b.returning_2024_roster.sum()),"transferred":int(b.transferred_from_2024.sum()),"unmatched":int((~b.returning_2024_roster).sum())}
-manifest["warning"]="Roster assets may reflect later-season edits; cutoff provenance is not established. Do not certify preseason ratings from these files alone."
+manifest["warning"]="Roster assets may reflect later-season edits; cutoff provenance is not established. Do not certify preseason ratings from these files alone. Prior-year production and historical backtesting are still required."
 (OUT/"manifest.json").write_text(json.dumps(manifest,indent=2))
 print(json.dumps(manifest["counts"],indent=2))
