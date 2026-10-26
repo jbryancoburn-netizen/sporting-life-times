@@ -24,7 +24,18 @@ const CLUB={
 'adelaide 36ers':'#c8102e','brisbane bullets':'#0055a4','cairns taipans':'#f36c21',
 'illawarra hawks':'#c8102e','melbourne united':'#1b1b1b','new zealand breakers':'#007da8',
 'perth wildcats':'#db0027','south east melbourne phoenix':'#00715c','sydney kings':'#f2aa00',
-'tasmania jackjumpers':'#377b6d'};
+'tasmania jackjumpers':'#377b6d',
+'anadolu efes':'#005baa','as monaco basketball':'#d42133','fc barcelona basketball':'#a50044','real madrid basketball':'#00529f',
+'olympiacos':'#ce1126','panathinaikos':'#006c35','fenerbahce':'#ffed00','maccabi tel aviv':'#fcd116',
+'partizan':'#161616','crvena zvezda':'#cc102d','red star belgrade':'#cc102d','valencia basket':'#ef6b23',
+'baskonia':'#c8102e','virtus bologna':'#111111','bayern munich':'#dc052d','olimpia milano':'#d0021b',
+'zalgiris':'#007236','hapoel tel aviv':'#ce1126','paris basketball':'#e30613','asvel':'#111111'};
+// Verified franchise primary colors also cover NFL, MLB and NHL score rails.
+const MAJOR_LEAGUE={
+nfl:{ari:'#97233f',atl:'#a71930',bal:'#241773',buf:'#00338d',car:'#0085ca',chi:'#0b162a',cin:'#fb4f14',cle:'#311d00',dal:'#003594',den:'#fb4f14',det:'#0076b6',gb:'#203731',hou:'#03202f',ind:'#002c5f',jax:'#006778',kc:'#e31837',lv:'#000000',lac:'#0080c6',lar:'#003594',mia:'#008e97',min:'#4f2683',ne:'#002244',no:'#d3bc8d',nyg:'#0b2265',nyj:'#125740',phi:'#004c54',pit:'#ffb612',sf:'#aa0000',sea:'#002244',tb:'#d50a0a',ten:'#0c2340',wsh:'#5a1414'},
+mlb:{ari:'#a71930',atl:'#ce1141',bal:'#df4601',bos:'#bd3039',chc:'#0e3386',chw:'#27251f',cin:'#c6011f',cle:'#e31937',col:'#333366',det:'#0c2340',hou:'#002d62',kc:'#004687',la:'#005a9c',lad:'#005a9c',laa:'#ba0021',mia:'#00a3e0',mil:'#12284b',min:'#002b5c',nym:'#002d72',nyy:'#003087',oak:'#003831',phi:'#e81828',pit:'#fdb827',sd:'#2f241d',sf:'#fd5a1e',sea:'#0c2c56',stl:'#c41e3a',tb:'#092c5c',tex:'#003278',tor:'#134a8e',wsh:'#ab0003'},
+nhl:{ana:'#b9975b',ari:'#8c2633',bos:'#ffb81c',buf:'#003087',car:'#cc0000',cbj:'#002654',cgy:'#c8102e',chi:'#cf0a2c',col:'#6f263d',dal:'#006847',det:'#ce1126',edm:'#041e42',fla:'#c8102e',la:'#111111',lak:'#111111',min:'#154734',mtl:'#af1e2d',nj:'#ce1126',nsh:'#ffb81c',nyi:'#00539b',nyr:'#0038a8',ott:'#c52032',phi:'#f74902',pit:'#ffb81c',sea:'#001628',sj:'#006d75',sjs:'#006d75',stl:'#002f87',tb:'#002868',tor:'#00205b',utah:'#6bace4',van:'#00205b',vgk:'#b4975a',wpg:'#041e42',wsh:'#c8102e'}
+};
 const clean=s=>String(s||'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 const valid=x=>{const c=String(x||'').trim();return /^(?:#[0-9a-f]{3,8}|rgba?\([^)]+\)|hsla?\([^)]+\))$/i.test(c)?c:''};
 const colorByCollegeId=new Map(),collegeNames=new Map();
@@ -69,6 +80,10 @@ function colorFor(img){
  const {src,word}=candidates(img);
  const nba=/\/nba\/(?:\d+\/)?([a-z0-9_-]+)\.(?:png|svg|webp)/i.exec(src);
  if(nba&&NBA[nba[1].toLowerCase()])return NBA[nba[1].toLowerCase()];
+ const other=/\/(nfl|nhl|mlb)\/(?:\d+\/)?([a-z0-9_-]+)\.(?:png|svg|webp)/i.exec(src);
+ if(other&&MAJOR_LEAGUE[other[1].toLowerCase()]?.[other[2].toLowerCase()])
+  return MAJOR_LEAGUE[other[1].toLowerCase()][other[2].toLowerCase()];
+
  const college=/\/ncaa\/(?:\d+\/)?([0-9]+)\.(?:png|svg|webp)/i.exec(src);
  if(college&&colorByCollegeId.has(college[1]))return colorByCollegeId.get(college[1]);
  for(const [team,c] of Object.entries(CLUB))if(word.includes(team)||clean(src).includes(team.replace(/\s/g,'')))return c;
