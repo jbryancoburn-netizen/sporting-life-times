@@ -25,7 +25,8 @@ $("team-a").value=map.has(params.get("a"))?params.get("a"):(teams.find(t=>t.team
 $("team-b").value=map.has(params.get("b"))?params.get("b"):(teams.find(t=>t.team==="Purdue")||teams[1]).team_id;
 const calibrated=window.NCAAMScores.configure(calibration);
 const scoringProfiles=await get("data/ncaam-team-scoring-profiles.json");
-const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);\nconst modelPartsMissing=[!scoringProfiles?"historical team scoring profiles":null,!calibration?"historical margin calibration":null].filter(Boolean);
+const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);
+const modelPartsMissing=[!scoringProfiles?"historical team scoring profiles":null,!calibration?"historical margin calibration":null].filter(Boolean);
 $("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(profilesLoaded?"historical team scoring profiles loaded":"historical scoring profiles pending")+" · "+(calibrated?"calibrated point margin":"score calibration pending")+(modelPartsMissing.length?" · Missing: "+modelPartsMissing.join(", "):"");
 $("model-grade").textContent=calibrated?"Historical scoring test passed":"Preliminary scoring estimates";
 $("caveat").textContent=calibrated?
