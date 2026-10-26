@@ -2,7 +2,7 @@ name: Publish NBL player box scores
 on:
   workflow_dispatch:
   schedule:
-    - cron: '46 */6 * * *'
+    - cron: '46 */3 * * *'
   push:
     paths:
       - scripts/publish_nbl_player_stats.py
