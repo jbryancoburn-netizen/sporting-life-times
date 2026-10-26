@@ -12,7 +12,7 @@ function crest(name,id,cohort,branding){
  if(info.logo_url){
   const img=node('img','soccer-school-image');
   img.alt=name+' logo';img.loading='eager';img.decoding='async';
-  img.addEventListener('load',()=>{if(img.naturalWidth>0){img.style.display='block';fallback.style.display='none';}else img.remove()});
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){mark.classList.add('logo-ready');}else img.remove()});
   img.addEventListener('error',()=>img.remove());
   mark.append(img);img.src=info.logo_url;
  }
