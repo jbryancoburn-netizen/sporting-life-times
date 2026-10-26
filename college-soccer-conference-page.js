@@ -15,6 +15,7 @@ const key=host.dataset.conference;const config={
 const [cohortCode,conferenceSlug]=String(key||'').split(':');
 const cfg=config[key]||{name:String(conferenceSlug||'Conference').replaceAll('-',' ').toUpperCase(),gender:cohortCode?.startsWith('women-')?'WOMEN':'MEN',cohort:cohortCode,standings:null};
 if(!cohortCode||!conferenceSlug||!/^(men|women)-d[123]$/.test(cohortCode)){root.textContent='This NCAA conference desk has no verified identity.';return;}
+const conferenceIdentity={"big-ten":{"file":"Big Ten Conference logo.svg","color":"#005a9c"},"acc":{"file":"Atlantic Coast Conference logo.svg","color":"#013b70"},"america-east":{"file":"America East Conference logo 2024.svg","color":"#163f6a"},"american":{"file":"American Athletic Conference logo.svg","color":"#12376b"},"asun":{"file":"Atlantic Sun Conference logo.svg","color":"#203b78"},"atlantic-10":{"file":"Atlantic 10 Conference textless logo.svg","color":"#8c172c"},"big-east":{"file":"Big East Conference logo stacked.svg","color":"#17416a"},"big-south":{"file":"Big South Conference icon.svg","color":"#185d86"},"big-west":{"file":"Big West Conference logo 2021.svg","color":"#17456b"},"caa":{"file":"Coastal Athletic Association logo.svg","color":"#153b67"},"horizon":{"file":"Horizon League logo.svg","color":"#24334e"},"ivy":{"file":"Ivy league simple logo.png","color":"#16543b"},"maac":{"file":"Metro Atlantic Athletic Conference logo.svg","color":"#17679b"},"mvc":{"file":"Missouri Valley Conference logo.svg","color":"#135e80"},"mountain-west":{"file":"Mountain West Conference logo.svg","color":"#382e7d"},"nec":{"file":"Northeast Conference logo.svg","color":"#24457b"},"ovc":{"file":"Ohio Valley Conference logo.svg","color":"#174c78"},"pac-12":{"file":"Pac 12 Horizontal.png","color":"#164c78"},"patriot":{"file":"Patriot League logo.png","color":"#143c65"},"socon":{"file":"Southern Conference logo.svg","color":"#284d70"},"summit":{"file":"Summit League logo.svg","color":"#17485d"},"sun-belt":{"file":"Sun Belt Conference 2020 logo and name.svg","color":"#153f79"},"wcc":{"file":"West Coast Conference logo 2019 with name.svg","color":"#163d6a"}};
 const E=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==null&&text!==undefined)x.textContent=String(text);if(cls)x.className=cls;return x};
 const A=(label,href)=>{const a=E('a',label);a.href=href;if(/^https:/.test(href)){a.rel='noopener noreferrer';a.target='_blank'}return a};
 const get=async p=>{const r=await fetch(p+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Missing '+p);return r.json()};
@@ -79,11 +80,11 @@ async function render(){
  const teams=table.rows.map(record=>{const id=record.team_id;return {id,name:ratings.get(id)?.team||knownName[id]||id.replaceAll('-',' '),elo:ratings.has(id)?Number(ratings.get(id).elo):null,...record};});
  
  root.replaceChildren();
- const hero=E('header',null,'cs-conference-hero');
+ const hero=E('header',null,'cs-conference-hero');const identity=conferenceIdentity[conferenceSlug];if(identity){host.style.setProperty('--conference-primary',identity.color);const emblem=E('div',null,'cs-conf-header-emblem');const logo=E('img');logo.alt=cfg.name+' conference logo';logo.loading='eager';logo.src='https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(identity.file);logo.onerror=()=>{logo.remove();emblem.textContent=cfg.name};emblem.append(logo);hero.append(emblem)}
  const kicker=E('span',cfg.gender+' · NCAA DIVISION '+(cfg.cohort.endsWith('d1')?'I':cfg.cohort.endsWith('d2')?'II':'III')+' · 2026','cs-conference-kicker');
  hero.append(kicker,E('h1',cfg.name+' SOCCER','cs-conference-title'),E('p','The conference race, independent Elo ratings and the road to the NCAA championship.','cs-conference-deck'));root.append(hero);
  const nav=E('nav',null,'cs-conference-nav');nav.append(A('STANDINGS','#conference-table'),A('PROJECTED BRACKET','#conference-bracket'),A('TITLE FORECAST','#conference-odds'),A('OFFICIAL RULES','#conference-rules'));if(cfg.other)nav.append(A('OTHER GENDER DESK',cfg.other));root.append(nav);
- const info=E('div',null,'cs-conference-stamp');info.append(E('span','Official standings snapshot: '+(table.checked_at_utc||table.snapshot_checked_date||'date unavailable')),E('span','Independent Elo edition: '+String(elo.as_of||'unknown')));root.append(info);
+ 
  const columns=E('div',null,'cs-conference-columns'),standSection=E('section',null,'cs-conf-standings'),modelSection=E('aside',null,'cs-conf-model');standSection.id='conference-table';modelSection.id='conference-odds';columns.append(standSection,modelSection);root.append(columns);
  standSection.append(E('h2','CONFERENCE STANDINGS · PROVISIONAL PROJECTED SEEDS'));
  if(table.unresolved_tie_groups?.length)standSection.append(E('p','cs-conf-caption','TIEBREAKERS UNRESOLVED: '+table.unresolved_tie_groups.map(g=>g.teams.join(' / ')).join('; ')+'. Bracket seeding withheld where tie affects qualifiers.'));
@@ -91,7 +92,7 @@ async function render(){
  teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');row.append(E('td',i+1));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
  const cup=window.CollegeSoccerCupUI;if(cup)cup.decorateTable(t,teams,cfg.cohort,branding);
- standSection.append(E('p','Numbers identify published table position, not tournament seed. Any qualification line marks the current table cutoff only. Official results and tiebreakers determine actual seeds; Elo has no role in qualification.','cs-conf-caption'));
+ 
  modelSection.append(E('h2','USRS ELO · PREDICTED TITLE ODDS'));
  const field=Number(rule.tournament?.field)||0;
  const snapshot=table.checked_at_utc||table.snapshot_checked_date;
@@ -188,12 +189,12 @@ async function render(){
   }
   bracket.append(note);
  }root.append(bracket);
- const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','TOURNAMENT RULES & SOURCES'));
+ const rulesSection=E('section',null,'cs-conference-rules');rulesSection.id='conference-rules';rulesSection.append(E('h2','CHAMPIONSHIP FORMAT'));
  rulesSection.append(E('p','Field: '+(rule.tournament?.field||'unverified')+' provisional entrants. '+(rule.tournament?.status||'')+' '+(rule.projection_warning||'')));
  if(rule.tournament?.automatic_qualifier)rulesSection.append(E('p',rule.tournament.automatic_qualifier));
  if(table.source_url)rulesSection.append(A('Official conference standings ↗',table.source_url));
  for(const url of rule.tournament?.sources||[])rulesSection.append(A('Official championship source ↗',url));
- rulesSection.append(E('p','Source-of-truth policy: actual scores, standings, tiebreakers, eligibility, tournament entrants, seeds and brackets must come from competition authorities. Elo is limited to forecasts and must never replace an official competition fact.','cs-conf-caption'));
+ 
  root.append(rulesSection);previous=signal;
  }catch(err){if(!previous){root.replaceChildren(E('p','Conference data could not be reconciled; the previous figures have not been replaced with estimates.','cs-conf-caption'));root.append(A('Return to NCAA Soccer','college-soccer.html'))}console.error('Conference desk',key,err)}
 }
