@@ -8,7 +8,16 @@
   "at_large_bids": 25,
   "seeded_teams": 24,
   "first_round_byes": 16,
-  "status": "experimental_proxy_not_selection_criteria_certified",
+  "status": "usrs_hypothetical_ncaa_committee_provisional",
+  "selection_policy": {
+    "field": "23 conference automatic qualifiers plus 25 at-large",
+    "usrs_role": "Independent Elo is the hypothetical NCAA committee's evaluation and seed-order metric",
+    "at_large_record_gate": "provisional DI .500 proxy from 2025-26 manual; DI-only records pending verification",
+    "seeds": "Top 24 selected participants by Elo",
+    "byes": "Top 16 selected participants by Elo",
+    "early_round_conference_separation": "placement constraint pending implementation",
+    "host_sites_and_geography": "not verified; do not invent"
+  },
   "methodology": {
     "automatic_bids": "Illustrative conference champion picked by Elo among available provisional tournament entrants; not official AQs or title probabilities.",
     "at_large": "Top 25 remaining teams by independently maintained Elo, used ONLY as an explicit interim proxy, not actual NCAA RPI or committee selection criteria.",
@@ -391,19 +400,13 @@
       "conference": "men-d1:american"
     },
     {
-      "team_id": "north-carolina-st",
-      "team": "NC State",
-      "elo": 1576.139,
-      "conference": "men-d1:acc"
-    }
-  ],
-  "first_four_out_proxy": [
-    {
       "team_id": "michigan-st",
       "team": "Michigan St.",
       "elo": 1574.138,
       "conference": "men-d1:big-ten"
-    },
+    }
+  ],
+  "first_four_out_proxy": [
     {
       "team_id": "wisconsin",
       "team": "Wisconsin",
@@ -421,6 +424,12 @@
       "team": "Dayton",
       "elo": 1571.043,
       "conference": "men-d1:atlantic-10"
+    },
+    {
+      "team_id": "unc-wilmington",
+      "team": "UNCW",
+      "elo": 1570.77,
+      "conference": "men-d1:caa"
     }
   ],
   "field": [
@@ -898,10 +907,10 @@
       "seeded_24_candidate": false
     },
     {
-      "team_id": "north-carolina-st",
-      "team": "NC State",
-      "conference": "men-d1:acc",
-      "elo": 1576.139,
+      "team_id": "michigan-st",
+      "team": "Michigan St.",
+      "conference": "men-d1:big-ten",
+      "elo": 1574.138,
       "bid_type": "proxy_at_large",
       "experimental_strength_order": 44,
       "ncaa_seed": null,
