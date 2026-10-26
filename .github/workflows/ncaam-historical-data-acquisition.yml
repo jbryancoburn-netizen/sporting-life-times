@@ -182,6 +182,20 @@ jobs:
           assert d['validation']['date_disjoint']
           assert d['validation']['holdout_games']>=3000
           PY
+      - name: Regression-check scoring profile variable isolation
+        run: |
+          python - <<'PY'
+          import ast
+          src=open('scripts/build_ncaam_scoring_profiles.py').read()
+          tree=ast.parse(src)
+          body=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='main')
+          for n in ast.walk(body):
+            if isinstance(n,ast.Assign):
+              for target in n.targets:
+                if isinstance(target,ast.Tuple):
+                  assert not any(isinstance(t,ast.Name) and t.id=='a' for t in target.elts), 'Argument namespace must not be shadowed by game teams'
+          print('PASS: command line argument namespace is not overwritten by game matchup variables')
+          PY
       - name: Build evidence-based NCAA team offense and defense scoring profiles
         run: |
           python scripts/build_ncaam_scoring_profiles.py --source historical-normalized --out historical-report/ncaam-team-scoring-profiles.json
