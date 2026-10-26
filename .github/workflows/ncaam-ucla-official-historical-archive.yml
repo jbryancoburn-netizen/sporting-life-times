@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/ncaam-ucla-official-historical-archive.yml'
       - 'scripts/acquire_ncaam_ucla_historical_archive.py'
+      - 'scripts/test_ncaam_ucla_archive.py'
 permissions:
   contents: write
 concurrency:
@@ -19,6 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Verify original source archive season selection
+        run: python scripts/test_ncaam_ucla_archive.py
       - name: Discover original UCLA source documents without an API key
         run: |
           python scripts/acquire_ncaam_ucla_historical_archive.py --max-downloads 12
