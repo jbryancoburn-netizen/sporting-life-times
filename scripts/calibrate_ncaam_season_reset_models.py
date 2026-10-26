@@ -9,9 +9,9 @@ from itertools import groupby,product
 from pathlib import Path
 from backtest_ncaam_quality_retrospective import read_gz,extract_games,school_key,preseason_features,update_date_batch,logistic,unadjusted_end
 YEARS=(2023,2024,2025,2026)
-BETA_RET=(0.,120.,240.)
-BETA_TRANSFER=(0.,160.,320.)
-BETA_QUALITY=(0.,200.,400.,800.)
+BETA_RET=(0.,120.,240.,480.)
+BETA_TRANSFER=(0.,160.,320.,640.)
+BETA_QUALITY=(0.,200.,400.,800.,1600.)
 MODES=("carryover","reset","continuity")
 def measure(games,previous,features,mode,br,bt,bq):
  years={}
