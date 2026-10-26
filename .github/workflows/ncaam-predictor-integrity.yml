@@ -23,6 +23,26 @@ jobs:
           node --check ncaam-predictor.js
           node --check ncaam-conferences.js
           node --check ncaam-desk.js
+      - name: Run the score model in Node and verify real predictions
+        run: |
+          node - <<'JS'
+          const fs=require('fs'),vm=require('vm'),assert=require('assert');
+          const ctx={window:{},Math,Map,Number};
+          vm.runInNewContext(fs.readFileSync('ncaam-score-model.js','utf8'),ctx);
+          const model=ctx.window.NCAAMScores;
+          assert(model&&typeof model.predict==='function');
+          assert.strictEqual(model.configure(null),false);
+          assert.strictEqual(model.configureProfiles(null),false);
+          const a={team_id:'a',elo:1600},b={team_id:'b',elo:1600};
+          const even=model.predict(a,b);
+          assert(Number.isFinite(even.homeScore)&&Number.isFinite(even.awayScore));
+          assert.notStrictEqual(even.homeScore,even.awayScore);
+          assert.strictEqual(even.homeProbability,0.5);
+          const strong=model.predict({...a,elo:1850},b);
+          assert(strong.homeProbability>0.5);
+          assert(Number.isFinite(strong.expectedTotal));
+          assert.strictEqual(strong.teamScoringProfilesAvailable,false);
+          JS
       - name: Check published HTML has score model and controller
         run: |
           grep -q 'src="ncaam-score-model.js"' ncaam-predictor.html
