@@ -11,6 +11,7 @@ on:
       - '.github/workflows/nba-top-stories.yml'
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: nba-top-stories-main
   cancel-in-progress: false
@@ -46,7 +47,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nba-top-stories.json
-          if git diff --cached --quiet; then exit 0; fi
+          if git diff --cached --quiet; then echo 'NEWS_CHANGED=false' >> "$GITHUB_ENV"; exit 0; fi
+          echo 'NEWS_CHANGED=true' >> "$GITHUB_ENV"
           git commit -m "Refresh attributed NBA top stories"
           for attempt in 1 2 3; do
             if git push; then exit 0; fi
@@ -55,3 +57,11 @@ jobs:
             sleep 2
           done
           exit 1
+      - name: Trigger newspaper publishing immediately after new news
+        if: env.NEWS_CHANGED == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # workflow_dispatch is allowed from GITHUB_TOKEN (push alone is not).
+          gh workflow run publish-pages.yml --ref main
+          echo 'Requested Pages deployment for the refreshed NBA news feed.'
