@@ -37,7 +37,7 @@ test('mastheads have one valid home link on each primary page',()=>{
  for(const name of ['nba.html','forecast-desk.html','sports.html','epl.html','match-center.html']){
   const page=fs.readFileSync(name,'utf8');
   assert.doesNotMatch(page,/<a\b[^>]*>\s*<a\b/i,name+' has invalid nested anchors');
-  const rx=name==='nba.html'?/<a href="index.html" class="nba-publication-title">/:name==='epl.html'?/<div class="slt-masthead"><a href="index.html">The Sporting Life &amp; Times<\/a>/:/<a class="newspaper-wordmark" href="index.html"/;
+  const rx=name==='nba.html'?/<div class="masthead"><a href="index.html">The Sporting Life &amp; Times<\/a>/:name==='epl.html'?/<div class="slt-masthead"><a href="index.html">The Sporting Life &amp; Times<\/a>/:/<a class="newspaper-wordmark" href="index.html"/;
   assert.match(page,rx,name+' missing home link');
  }
 });
@@ -45,6 +45,7 @@ test('primary newspaper pages keep edition identity and navigation',()=>{
  const targets=['digital-edition.html','epl-club.html','epl-elo.html','epl.html','forecast-desk.html','match-center.html','nba.html','sports.html','team.html'];
  for(const name of targets){
   const page=fs.readFileSync(name,'utf8');
+  if(name==='nba.html'){assert.match(page,/<body class="nba-newspaper"/);assert.match(page,/mbb-newspaper\.css/);assert.match(page,/nba-newspaper\.css/);assert.match(page,/aria-label="NBA newspaper navigation"/);continue;}
   assert.match(page,/<body class="edition-interior(?: [^"]+)?">/,name+' missing shared edition scope');
   assert.match(page,/edition-design\.css\?v=[a-z0-9-]+/,name+' missing newspaper style');
   const title=name==='nba.html'?/class="nba-publication-title">The Sporting Life &amp; Times/:name==='epl.html'?/class="slt-masthead"><a href="index.html">The Sporting Life &amp; Times<\/a>/:/The Sporting Life <span class="newspaper-wordmark-amp">&amp;<\/span> Times/;

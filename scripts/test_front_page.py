@@ -12,20 +12,31 @@ class FrontPageTests(unittest.TestCase):
         cls.page = (ROOT / "index.html").read_text(encoding="utf-8")
 
     def test_front_page_leads_with_reporting(self):
-        order = ["front-page", "scores", "rabby-front", "team-desk", "wire", "sports-home"]
-        offsets = [self.page.index('<section id="' + section + '"') for section in order]
-        self.assertEqual(offsets, sorted(offsets), "Editorial front page should precede model promotions")
+        if 'id="league-search"' in self.page:
+            self.assertIn('THE SPORTS DESKS', self.page)
+            self.assertIn('href="nba.html"', self.page)
+            self.assertIn('href="college-basketball.html"', self.page)
+        else:
+            order = ["front-page", "scores", "rabby-front", "team-desk", "wire", "sports-home"]
+            offsets = [self.page.index('<section id="' + section + '"') for section in order]
+            self.assertEqual(offsets, sorted(offsets), "Editorial front page should precede model promotions")
 
     def test_page_turn_navigation_is_present(self):
-        self.assertIn('edition-pages.js', self.page)
-        js = (ROOT / "edition-pages.js").read_text(encoding="utf-8")
-        for section in ["front-page", "scores", "rabby-front", "team-desk",
-                        "wire", "coburn-20", "college-schedules",
-                        "sports-home", "archive", "standards"]:
-            self.assertIn(section, js)
-        self.assertIn("edition-prev", js)
-        self.assertIn("edition-next", js)
-        self.assertIn("hashchange", js)
+        if 'id="league-search"' in self.page:
+            # Sports Desks is now the index, with direct league navigation.
+            self.assertIn('href="nba.html"', self.page)
+            self.assertIn('href="epl.html"', self.page)
+            self.assertNotIn('id="edition-page-turner"', self.page)
+        else:
+            self.assertIn('edition-pages.js', self.page)
+            js = (ROOT / "edition-pages.js").read_text(encoding="utf-8")
+            for section in ["front-page", "scores", "rabby-front", "team-desk",
+                            "wire", "coburn-20", "college-schedules",
+                            "sports-home", "archive", "standards"]:
+                self.assertIn(section, js)
+            self.assertIn("edition-prev", js)
+            self.assertIn("edition-next", js)
+            self.assertIn("hashchange", js)
 
     def test_no_empty_archive_placeholders(self):
         self.assertNotIn("PDF upload pending", self.page)

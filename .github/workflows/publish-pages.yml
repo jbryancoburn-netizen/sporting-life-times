@@ -49,111 +49,33 @@ jobs:
           python3 scripts/check_inline_javascript.py
       - name: Verify newspaper structural regressions
         run: node --test tests/newspaper-structure.test.cjs
-      - name: Check the exact published files and individual leaders
+      - name: Check new NBA edition, active links and data integrity
         run: |
-          test -s nba.html
-          test -s nba-players.html
-          test -s nba-intelligence.js
-          grep -q 'NBA · Individual Player Leaders' nba-players.html
-          grep -q 'Anthony Edwards' nba-players.html
-          grep -q 'id="nba-individual-player-leaders"' nba.html
-          grep -q 'NBA EDITION · SIGNATURE R4' nba.html
-          grep -q 'nba-analysis-result' nba.html
-          grep -q 'nba-boxscore-match' nba.html
-          grep -q 'nba-forecast-match' nba.html
-          grep -q 'nba-analysis-match' nba.html
-          test -s nba-team-desk.html
-          test -s nba-live-feed.js
-          test -s nba-live-game.html
-          grep -q 'Accessible newspaper links' nba.html
-          grep -q 'edition-design.css?v=nba-contrast4' nba.html
-          grep -q 'NBA contrast contract' nba.html
-          grep -q 'NBA masthead/nav match actual white surface' nba.html
-          grep -q 'class="nba-publication-title"' nba.html
-          grep -q 'class="nba-publication-navigation"' nba.html
-          grep -q 'Isolated NBA masthead' nba.html
-          grep -q 'body.edition-interior.nba-edition nav.site-nav{background:#262b32!important' edition-design.css
-          grep -q 'class="edition-interior nba-edition"' nba.html
-          if grep -q 'body.edition-interior .site-nav a:hover,body.edition-interior .site-nav a:focus-visible{color:#242420' edition-design.css; then echo 'FAIL: shared stylesheet forces dark NBA navigation links' >&2; exit 1; fi
-          grep -q 'Explicit contrast for every interactive region' nba-live-game.html
-          test -s nba-live-game.js
-          grep -q 'nba-live-game.js?v=4' nba-live-game.html
-          grep -q 'nba-live-game.html?game=' nba-live-feed.js
-          grep -q 'fallbackRecords' nba-live-feed.js
-          grep -q 'recordsByEvent' nba-intelligence.js
-          grep -q 'slt-scorebug-record' nba-scorebug.js
+          set -euo pipefail
+          node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
+          python3 - <<'PY'
+          from pathlib import Path
+          pages=['nba.html','nba-standings.html','nba-conference.html','nba-playoffs.html','nba-rankings.html','nba-players.html','nba-matchups.html','nba-team-desk.html']
+          for path in pages:
+              html=Path(path).read_text()
+              assert 'mbb-newspaper.css' in html and 'nba-newspaper.css' in html
+              assert 'nba-newspaper.js' in html
+              assert 'class="nba-newspaper"' in html
+              assert 'nba-page-turner.js' not in html
+              assert '<nav class="nav" aria-label="NBA newspaper navigation">' in html
+          for path in ['nba-game-center.html','nba-live-game.html']:
+              html=Path(path).read_text()
+              assert 'nba-detail-nav.js' in html and 'nba-newspaper.css' in html
+          js=Path('nba-newspaper.js').read_text()
+          for key in ['data/nba-2026-27-current-provisional.json','data/nba-game-center.json','data/nba-player-leaders.json','data/nba-top-stories.json','data/nba-upcoming-schedule.json']:
+              assert key in js
+          print('NBA main pages, permanent navigation, detail-page shell, and source feeds verified.')
+          PY
+          node --check nba-newspaper.js
+          node --check nba-detail-nav.js
+          node --check nba-game-center.js
           node --check nba-live-game.js
-          grep -q 'id="live-leaders"' nba-live-game.html
-          grep -q 'leadersPanel' nba-live-game.js
-          grep -q 'function comparison(' nba-live-game.js
-          grep -q 'comparison-bars' nba-live-game.html
-          grep -q 'NBA LIVE' nba.html
-          test -s nba-elo-live-status.js
-          node --check nba-elo-live-status.js
-          grep -q 'nba-elo-update-state' nba.html
-          grep -q 'href="#page-2">SCORES</a>' nba.html
-          grep -q 'staticLinks' nba-page-turner.js
-          python - <<'PY'
-          from pathlib import Path
-          h=Path('nba.html').read_text()
-          assert h.index('<h1>THE NBA DESK</h1>') < h.index('class="nba-quick-desk-nav"') < h.index('id="nba-page-turner"') < h.index('id="nba-live-games"') < h.index('id="nba-news"') < h.index('id="nba-rabby-today"')
-          print('PASS NBA page hierarchy: desk, navigation, live scores, news, then forecast')
-          PY
-          python - <<'PY'
-          from pathlib import Path
-          html=Path('nba.html').read_text()
-          live=html.index('id="nba-live-games"')
-          collapsed=html.index('<details class="nba-secondary-data">')
-          assert live < collapsed, 'Live games must not sit inside collapsed secondary data'
-          assert html.index('class="edition-page-turner"') < live, 'NBA newspaper page controls must be above live scores'
-          assert "'nba-live-games'" not in Path('nba-page-turner.js').read_text(), 'Live scoreboard must never be hidden by page turning'
-          assert 'nba-live-game.html?game=' in Path('nba-live-feed.js').read_text()
-          print('Live scoreboard exposed, linked to game details')
-          PY
-          test "$(grep -o 'id="nba-live-games"' nba.html | wc -l)" -eq 1
-          grep -q 'nba-page-turner.js?v=9' nba.html
-          grep -q 'nba-live-feed.js?v=8' nba.html
-          node --check nba-live-feed.js
-          test -s nba-team-desk.js
-          grep -q 'nba-team-desk.js?v=4' nba-team-desk.html
-          grep -q 'AROUND THE CLUB' nba-team-desk.html
-          grep -q 'THE SCOREBOOK' nba-team-desk.html
-          grep -q 'LATEST GAME' nba-team-desk.html
-          grep -q 'TEAM LEADERS' nba-team-desk.html
-          grep -q 'nba-scorebug.js' nba-team-desk.html
-          grep -q 'Editorial architecture' nba-team-desk.html
-          grep -q 'recent team-specific articles' nba-team-desk.js
-          grep -q 'TEAM DESKS' nba.html
-          node --check nba-team-desk.js
-          test -s nba-game-center.html
-          test -s nba-game-center.js
-          grep -q 'nba-game-center.js?v=7' nba-game-center.html
-          grep -q "esc(record)" nba-game-center.js
-          grep -q 'Quarter by Quarter' nba-game-center.js
-          grep -q 'Team Comparison' nba-game-center.js
-          test -s nba-game-comparison.js
-          grep -q 'nba-game-comparison.js?v=3' nba-game-center.html
-          node --check nba-game-comparison.js
           node scripts/test-nba-comparison.mjs
-          python - <<'PY'
-          import json
-          games=json.load(open('data/nba-game-center.json'))['games']
-          assert any(g.get('period_scores') and g.get('team_comparison') for g in games), 'No enriched game statistics in archive'
-          print('Game details present:',sum(bool(g.get('period_scores')) for g in games),'quarter-scoring entries')
-          PY
-          grep -q 'nba-analysis-team' nba-home.js
-          test -s data/nba-top-stories.json
-          node --check nba-home.js
-          node --check nba-intelligence.js
-          python - <<'PY'
-          import json
-          news=json.load(open('data/nba-top-stories.json'))
-          headlines=news.get('articles',[])
-          assert len(headlines)>=3, 'NBA Top Stories source is empty'
-          assert all(a.get('title') and a.get('url','').startswith('https://') and a.get('category')=='NBA' for a in headlines)
-          assert 'data/nba-top-stories.json' in open('nba-home.js').read(), 'NBA page does not load its own news feed'
-          print('PASS: NBA Top Stories contains',len(headlines),'attributed stories')
-          PY
       - name: Refuse NBA newspaper deployment when completed scores and Elo disagree
         run: |
           node scripts/audit-nba-elo.mjs
