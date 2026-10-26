@@ -1,0 +1,80 @@
+{
+  "decision": "MAINTAIN_PUBLISHED_PLAYER_QUALITY_ELO",
+  "status": "BASELINE_SELECTED_SHADOW_CHALLENGER_NOT_HOLDOUT_CERTIFIED",
+  "as_of": "2026-10-26",
+  "baseline_model": "65 percent previous season carryover + independently linked roster and scoring quality",
+  "historical_experiment": {
+    "training_seasons": [
+      2024,
+      2025
+    ],
+    "diagnostic_season": 2026,
+    "diagnostic_games": 1831,
+    "results": [
+      {
+        "mode": "carryover",
+        "log_loss": 0.5177791929881513,
+        "brier": 0.17382872355474283,
+        "coefficients": {
+          "returning": 240,
+          "transfer": 320,
+          "quality": 1600
+        }
+      },
+      {
+        "mode": "reset",
+        "log_loss": 0.5681651182865437,
+        "brier": 0.1925993303319315,
+        "coefficients": {
+          "returning": 240,
+          "transfer": 320,
+          "quality": 1600
+        }
+      },
+      {
+        "mode": "continuity",
+        "log_loss": 0.5374350823765816,
+        "brier": 0.1802750881795338,
+        "coefficients": {
+          "returning": 240,
+          "transfer": 320,
+          "quality": 1600
+        }
+      }
+    ],
+    "winner": "carryover",
+    "limitations": [
+      "Archived roster membership may reflect end-of-season players instead of actual pre-opening-day rosters",
+      "2026 was inspected in earlier experiments, so not pristine prospective validation",
+      "Grid is bounded; optimum may lie beyond candidate coefficients",
+      "No verified coaching change, recruit projection or true game venue"
+    ]
+  },
+  "published_outputs": {
+    "multistat_teams": 365,
+    "covered_teams": 363,
+    "matched_players": 2803,
+    "offense_defense_scoring_profile_teams": 365,
+    "verified_prior_season_games": 5750,
+    "score_fit_holdout_games": 5750
+  },
+  "release_checks": {
+    "multistat_id_coverage": "PASS_365_UNIQUE",
+    "multistat_arithmetic": "PASS",
+    "scoring_profile_identity": "PASS_365",
+    "scoring_profile_finite_means": "PASS",
+    "historical_workflow_end_to_end": "NOT_PASSED_LATEST_JOB_CANCELLED",
+    "full_challenger_holdout": "NOT_PERFORMED",
+    "verified_preopening_rosters": "NOT_AVAILABLE"
+  },
+  "model_risks": [
+    "Expanded all-coefficient winner hits quality grid ceiling at 1600",
+    "Shooting effect can double-count existing scoring quality",
+    "Current source team rosters lack opening-day historical timestamp verification",
+    "Defense approximated by steals and blocks; missing validated rebounding and possession data",
+    "Historical venues not independently verified",
+    "Current year outcomes unavailable"
+  ],
+  "official_elo_mutated": false,
+  "conclusion": "Selected baseline is best of the three retrospective tests on identical games. Challenger files are available and pass identity/arithmetic checks but cannot be promoted without full comparable historical validation."
+}
