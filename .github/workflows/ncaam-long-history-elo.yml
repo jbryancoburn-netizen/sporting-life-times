@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'scripts/backtest_ncaam_long_history_scores.py'
+      - 'scripts/test_ncaam_long_history_scores.py'
       - '.github/workflows/ncaam-long-history-elo.yml'
 permissions:
   contents: write
@@ -21,6 +22,7 @@ jobs:
           python-version: '3.11'
       - name: Download, replay, and audit verified available season range
         run: |
+          python scripts/test_ncaam_long_history_scores.py
           python scripts/backtest_ncaam_long_history_scores.py --output data/ncaam-long-history-elo-backtest.json
           python - <<'PY'
           import json
@@ -29,6 +31,9 @@ jobs:
           cov=d['coverage']
           assert cov['earliest']<=1985, cov
           assert cov['seasons']>=15, cov
+          assert cov['latest']>=cov['earliest']+14, cov
+          print('OBSERVED HISTORICAL COVERAGE',cov)
+          print('WARNING: SOURCE DOES NOT REACH 2026' if cov['latest']<2026 else 'SOURCE REACHES 2026')
           assert cov['games']>=30000, cov
           assert all(s['games']>0 for s in d['seasons'])
           assert d['status']=='PARTIAL_HISTORICAL_REPLAY_NO_PLAYER_COMPARISON'
