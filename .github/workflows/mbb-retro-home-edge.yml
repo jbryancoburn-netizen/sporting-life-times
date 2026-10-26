@@ -10,6 +10,9 @@ permissions:
 jobs:
   calibrate:
     runs-on: ubuntu-latest
+    concurrency:
+      group: mbb-retro-home-edge-publish
+      cancel-in-progress: false
     timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
