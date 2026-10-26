@@ -42,6 +42,10 @@ jobs:
           assert(strong.homeProbability>0.5);
           assert(Number.isFinite(strong.expectedTotal));
           assert.strictEqual(strong.teamScoringProfilesAvailable,false);
+          assert(strong.homeWinBy[10]>=strong.homeWinBy[20]&&strong.homeWinBy[20]>=strong.homeWinBy[30]);
+          assert(strong.homeWinBy[30]>0);
+          assert(Math.abs(model.predict({...a,elo:3500},b).expectedMargin-76)<0.001);
+          assert(Math.abs(even.homeWinBy[10]-even.awayWinBy[10])<1e-9);
           JS
       - name: Check published HTML has score model and controller
         run: |
