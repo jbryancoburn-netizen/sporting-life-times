@@ -11,7 +11,8 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: newspaper-pages-deploy
+  # Serialize this fast publisher with publish-pages.yml; Pages rejects concurrent deployments.
+  group: github-pages
   cancel-in-progress: false
 jobs:
   deploy:
