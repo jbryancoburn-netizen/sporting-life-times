@@ -78,6 +78,7 @@ jobs:
           d=json.load(open('data/ncaam-pre1985-national-coverage.json'))
           assert d['games_verified']>=1800,d['games_verified']
           assert d['seasons_targeted']==35
+          assert d['seasons'][0]['season']==1950 and d['seasons'][-1]['season']==1984
           assert all(not s['eligible_full_national_elo'] for s in d['seasons'])
           PY
       - name: Validate and replay pre-1985 school fixture evidence
@@ -87,7 +88,9 @@ jobs:
           import json
           d=json.load(open('data/ncaam-pre1985-unc-duke-replay.json'))
           assert d['verified_imported_rows']>=500
-          assert d['seasons_present']>=30\n          assert d['season_coverage'][0]['season']==1950\n          assert d['season_coverage'][-1]['season']==1984
+          assert d['seasons_present']>=30
+          assert d['season_coverage'][0]['season']==1950
+          assert d['season_coverage'][-1]['season']==1984
           assert d['seasons_present']==35
           assert d['verified_imported_rows']>=1800
           assert d['not_a_national_rankings_history']
