@@ -98,7 +98,7 @@ function leaders(stat=leaderCategory,count=5){
  const ids=new Map((data.leaders?.season_totals||[]).map(x=>[x.player+'|'+x.team,String(x.id||'')]));
  return '<div class="nba-leaderboard">'+items.map((x,i)=>{
  const id=ids.get(x.player+'|'+x.team)||'';
- const photo=/^\\d{3,9}$/.test(id)?'<img loading="lazy" src="https://a.espncdn.com/i/headshots/nba/players/full/'+id+'.png" alt="" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'no-photo\')">':'';
+ const photo=/^\d{3,9}$/.test(id)?'<img loading="lazy" src="https://a.espncdn.com/i/headshots/nba/players/full/'+id+'.png" alt="" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'no-photo\')">':'';
  return '<div class="nba-leader nba-leader-compact" style="--leader-team:'+((meta[x.team]||[])[3]||'#245b79')+'"><span class="nba-leader-place">'+String(i+1).padStart(2,'0')+'</span><span class="nba-leader-photo">'+photo+'</span><div class="nba-leader-identity"><b>'+esc(x.player)+'</b><span class="nba-leader-club">'+team(x.team)+'</span><span class="nba-leader-sample">'+esc(x.gp)+' games recorded</span></div><div class="nba-leader-output"><strong>'+fmt(x.value,1)+'</strong><span>'+unit+'</span></div><div class="nba-leader-meter"><span style="width:'+Math.max(0,Math.min(100,x.value/max*100)).toFixed(1)+'%"></span></div></div>';
  }).join('')+'</div>';
 }
