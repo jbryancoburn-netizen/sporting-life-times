@@ -55,6 +55,15 @@ function render(){
  for(const n of [10,20,30])$("blowout-"+n).textContent=tail?num(100*tail[n])+"%":"Not modeled";
  $("wintext").textContent=a.team+" "+num(p.homeProbability*100)+"% · "+b.team+" "+num(p.awayProbability*100)+"% (neutral-site estimate)";
  $("probbar").style.width=num(p.homeProbability*100)+"%";
+ const noQualityA={...a,elo:a.elo-(Number(a.quality_component)||0)};
+ const noQualityB={...b,elo:b.elo-(Number(b.quality_component)||0)};
+ const without=window.NCAAMScores.predict(noQualityA,noQualityB);
+ const noRosterA={...a,elo:a.elo-(Number(a.offseason_adjustment)||0)};
+ const noRosterB={...b,elo:b.elo-(Number(b.offseason_adjustment)||0)};
+ const baseline=window.NCAAMScores.predict(noRosterA,noRosterB);
+ const scenarios=[["Published player-quality Elo",p],["Without scoring-quality adjustments",without],["Previous team-strength baseline",baseline]];
+ $("sensitivity").innerHTML=scenarios.map(([name,r])=>'<div class="factor"><strong>'+safe(name)+'</strong> · '+safe(a.team)+' '+num(r.homeProbability*100)+'% / '+safe(b.team)+' '+num(r.awayProbability*100)+'% · expected margin '+num(r.expectedMargin)+' points</div>').join("");
+
  $("roster-name-a").textContent=a.team;$("roster-name-b").textContent=b.team;
  $("roster-a").innerHTML=impact(a);$("roster-b").innerHTML=impact(b);
  const delta=Math.abs(a.elo-b.elo);
