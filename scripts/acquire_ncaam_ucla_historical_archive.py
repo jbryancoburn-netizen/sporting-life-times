@@ -18,7 +18,10 @@ class Anchors(html.parser.HTMLParser):
    if m:self.current_season=int(m.group(1))+1
  def handle_endtag(self,t):
   if t=="a" and self.href:
-   self.links.append((self.href," ".join(" ".join(self.label).split()),self.current_season))
+   label=" ".join(" ".join(self.label).split())
+   m=re.search(r"(19\d{2})\s*[-–]\s*(\d{2})\s+Season",label,re.I)
+   if m:self.current_season=int(m.group(1))+1
+   self.links.append((self.href,label,self.current_season))
    self.href=None;self.label=[]
 def get(url,limit=12_000_000):
  req=urllib.request.Request(url,headers={"User-Agent":"SLAT-Historical-Source-Audit/1.0 (public research; one request per season)"})
