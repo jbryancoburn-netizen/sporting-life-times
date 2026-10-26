@@ -58,3 +58,30 @@ body[data-league=nbl] .nbl-stand-pct,.nbl-stand-elo{font:700 12px Arial,sans-ser
 body[data-league=nbl] .nbl-showcase-unavailable{padding:30px;color:#333;background:#eee}
 @media(max-width:970px){body[data-league=nbl] .nbl-showcase-top{grid-template-columns:1fr}body[data-league=nbl] .nbl-power-graphic{grid-template-columns:1fr}}
 @media(max-width:650px){body[data-league=nbl] .nbl-showcase-hero{padding:17px;min-height:0}body[data-league=nbl] .nbl-showcase-leading{gap:10px;margin-top:18px}body[data-league=nbl] .nbl-showcase-emblem.huge{width:105px;height:105px}body[data-league=nbl] .nbl-showcase-hero h2{font-size:23px}body[data-league=nbl] .nbl-showcase-big-number{font-size:42px}body[data-league=nbl] .nbl-showcase-heading>span{display:none}body[data-league=nbl] .nbl-showcase-scoregrid{grid-template-columns:1fr}body[data-league=nbl] .nbl-showcase-stand-row{grid-template-columns:23px 35px minmax(0,1fr) 55px 55px;gap:6px;padding:8px 6px}body[data-league=nbl] .nbl-stand-club{font-size:11px}body[data-league=nbl] .nbl-stand-elo{display:none}body[data-league=nbl] .nbl-stand-record{font-size:13px}body[data-league=nbl] .nbl-power-track{grid-template-columns:20px 32px minmax(0,1fr) minmax(28px,.7fr) 40px;gap:6px;padding:8px 5px}body[data-league=nbl] .nbl-power-name{font-size:11px}}
+
+/* Breakers crest readability: preserve the authentic logo on contrasting paper. */
+body[data-league="nbl"] .nbl-showcase-emblem:has(img[src*="newzealandbreakers"]),
+body[data-league="nbl"] .nbl-tile-mark:has(img[src*="newzealandbreakers"]){
+ background:#fff !important;
+ border:1px solid #d5dce2;
+ border-radius:12px;
+ padding:5px;
+ box-sizing:border-box;
+ box-shadow:0 2px 10px rgba(0,0,0,.18);
+}
+body[data-league="nbl"] .nbl-showcase-emblem:has(img[src*="newzealandbreakers"]) img,
+body[data-league="nbl"] .nbl-tile-mark:has(img[src*="newzealandbreakers"]) img{
+ filter:none;
+ width:100%;
+ height:100%;
+ object-fit:contain;
+}
+body[data-league="nbl"] .nbl-elo-club img[src*="newzealandbreakers"],
+body[data-league="nbl"] .nbl-result-row img[src*="newzealandbreakers"],
+body[data-league="nbl"] .nbl-team-summary-head img[src*="newzealandbreakers"]{
+ background:#fff;
+ border:1px solid #d5dce2;
+ border-radius:8px;
+ padding:3px;
+ box-sizing:border-box;
+}
