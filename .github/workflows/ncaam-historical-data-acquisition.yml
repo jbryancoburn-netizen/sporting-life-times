@@ -136,7 +136,8 @@ jobs:
           import json
           d=json.load(open('data/ncaam-2026-27-reset-continuity-calibration.json'))
           assert set(x['mode'] for x in d['modes'])=={'carryover','reset','continuity'}
-          assert all(x['grid_size']==80 for x in d['modes'])
+          assert all(x['grid_size']==4*4*5 for x in d['modes'])
+          assert all(x['selected']['diagnostic_2026']['games']>1000 for x in d['modes'])
           assert d['automatic_promotion'] is False
           assert len({x['selected']['diagnostic_2026']['games'] for x in d['modes']})==1
           PY
