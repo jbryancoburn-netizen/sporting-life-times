@@ -139,12 +139,12 @@ def main():
     articles.sort(key=lambda a: a.get("published_at",""), reverse=True)
     nba_count=sum(a.get("category")=="NBA" or "NBA" in a.get("source","") for a in articles)
     if nba_count==0: print("WARNING: zero NBA articles collected; source health must be reviewed")
-    nbl_terms=re.compile(r'\\b(?:NBL|Breakers|Wildcats|JackJumpers|Taipans|36ers|Illawarra Hawks|Adelaide|Melbourne United|Sydney Kings|Brisbane Bullets|South East Melbourne|SEM Phoenix|Perth Wildcats)\\b',re.I)
-    nbl_exclude=re.compile(r'\\b(?:betting|bet tips?|best bets?|sportsbook|wager|punting|parlay|odds|NBA betting|NBA picks)\\b',re.I)
+    nbl_terms=re.compile(r'\b(?:NBL|Breakers|Wildcats|JackJumpers|Taipans|36ers|Illawarra Hawks|Adelaide|Melbourne United|Sydney Kings|Brisbane Bullets|South East Melbourne|SEM Phoenix|Perth Wildcats)\b',re.I)
+    nbl_exclude=re.compile(r'\b(?:betting|bet tips?|best bets?|sportsbook|wager|punting|parlay|odds|NBA betting|NBA picks)\b',re.I)
     nbl_articles=[a for a in articles if a.get("category")=="Australian NBL"
                   and nbl_terms.search(a.get("title",""))
                   and not nbl_exclude.search(a.get("title",""))
-                  and not re.search(r'\\bNBA\\b',a.get("title",""),re.I)]
+                  and not re.search(r'\bNBA\b',a.get("title",""),re.I)]
     nbl_dest=ROOT/"nbl-articles.json"
     nbl_dest.write_text(json.dumps({"updated_at":now.isoformat(),"articles":nbl_articles[:300],"feed_status":[v for v in status if "NBL" in v.get("source","") or "Breakers" in v.get("source","") or "Wildcats" in v.get("source","") or "Kings" in v.get("source","") or "Melbourne United" in v.get("source","")]},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("NBL wire:",len(nbl_articles),"attributed headlines",flush=True)
