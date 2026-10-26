@@ -1,0 +1,31 @@
+name: NCAA Predictor JavaScript Integrity
+on:
+  push:
+    paths:
+      - 'ncaam-predictor.js'
+      - 'ncaam-score-model.js'
+      - 'ncaam-conferences.js'
+      - 'ncaam-desk.js'
+      - 'ncaam-predictor.html'
+      - '.github/workflows/ncaam-predictor-integrity.yml'
+  workflow_dispatch:
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check syntax of every NCAA predictor dependency
+        run: |
+          node --check ncaam-score-model.js
+          node --check ncaam-predictor.js
+          node --check ncaam-conferences.js
+          node --check ncaam-desk.js
+      - name: Check published HTML has score model and controller
+        run: |
+          grep -q 'src="ncaam-score-model.js"' ncaam-predictor.html
+          grep -q 'src="ncaam-predictor.js"' ncaam-predictor.html
+          test -s data/ncaam-2026-27-preseason-player-quality-live.json
+          test -s data/ncaam-2026-27-espn-team-crosswalk.json
