@@ -4,11 +4,13 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const ratings=new Map(),seen=new Set(),history=new Map(),counts=new Map(),errors=[];const opponents=new Map();const records=new Map();
 const initial=1500,K=28,homeEdge=65;const winProbability=(own,opp,edge=0)=>1/(1+Math.pow(10,(opp-own-edge)/400));
 const weeks=Array.from({length:18},(_,i)=>i); // Week 0 through Week 17, full replay from 1500
+const openingDates=['20260829','20260830','20260831'];
 const fetchWeek=async week=>{const u='https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=2026&seasontype=2&week='+week+'&groups=80&limit=400';const r=await fetch(u,{signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('HTTP '+r.status);return (await r.json()).events||[]};
 const complete=e=>e.status?.type?.completed===true;
+const fetchDate=async date=>{const u='https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=400';const r=await fetch(u,{signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('HTTP '+r.status);return (await r.json()).events||[]};
 const all=[];const duplicateConflicts=[];
-Promise.allSettled(weeks.map(fetchWeek)).then(results=>{
-results.forEach((r,i)=>{if(r.status==='fulfilled')all.push(...r.value);else errors.push(weeks[i])});
+Promise.allSettled([...weeks.map(fetchWeek),...openingDates.map(fetchDate)]).then(results=>{
+results.forEach((r,i)=>{if(r.status==='fulfilled')all.push(...r.value);else errors.push(i<weeks.length?'week '+weeks[i]:'date '+openingDates[i-weeks.length])});
 const byId=new Map();for(const e of all.filter(complete)){const id=String(e.id);if(byId.has(id)){const prior=byId.get(id);const signature=x=>(x.competitions?.[0]?.competitors||[]).map(t=>String(t.team?.id)+':'+String(t.score)).sort().join('|');if(signature(prior)!==signature(e))duplicateConflicts.push(id);}byId.set(id,e);}const events=[...byId.values()].sort((a,b)=>new Date(a.date)-new Date(b.date)||String(a.id).localeCompare(String(b.id)));
 for(const e of events){if(seen.has(e.id))continue;const c=e.competitions?.[0],s=c?.competitors||[];if(s.length!==2)continue;
 const a=s[0],b=s[1],ia=String(a.team?.id||''),ib=String(b.team?.id||''),sa=Number(a.score),sb=Number(b.score);
