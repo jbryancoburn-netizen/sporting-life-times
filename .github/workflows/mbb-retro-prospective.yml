@@ -1,4 +1,4 @@
-name: MBB RETRO prospective 65 vs 100 capture
+name: MBB RETRO single-model 100 forecast capture
 on:
   workflow_dispatch:
   schedule:
@@ -22,18 +22,15 @@ jobs:
           python-version: '3.12'
       - name: Verify upcoming venues and UTC tipoffs
         run: python scripts/mbb-retro-verified-feed.py
-      - name: Capture both RETRO model predictions before tipoff
+      - name: Capture RETRO 100 forecasts before tipoff
         run: node scripts/mbb-retro-capture-prospective.js
       - name: Build completed-game results from validated team IDs
         run: node scripts/mbb-retro-build-results.js
-      - name: Score prospective forecasts against completed games
-        run: node scripts/mbb-retro-prospective-score.js
       - name: Commit immutable forecast archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/mbb-retro-verified-upcoming-2026-27.json data/mbb-2026-2027-results.json
-          if [ -f data/mbb-retro-prospective-score-2026-27.json ]; then git add data/mbb-retro-prospective-score-2026-27.json; fi
           if [ -f data/mbb-retro-prospective-predictions-2026-27.json ]; then git add data/mbb-retro-prospective-predictions-2026-27.json; fi
           if ! git diff --cached --quiet; then
             git commit -m "Capture verified prospective RETRO predictions"
