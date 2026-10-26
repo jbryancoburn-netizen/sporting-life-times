@@ -1,7 +1,7 @@
 /* Basketball RETRO: all-games network rating, independent of game order. */
 (function(root){'use strict';
 function retro(games,opts={}){
- const base=opts.baseline??1500,edge=opts.homeEdge??65,passes=opts.passes??160;
+ const base=opts.baseline??1500,edge=opts.homeEdge??100,passes=opts.passes??160;
  const events=[],counts=new Map(),ratings=new Map();
  for(const g of games){
   const a=String(g.home_id??g.home??''),b=String(g.away_id??g.away??'');
