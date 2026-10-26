@@ -1,7 +1,8 @@
 name: Publish The Sporting Life & Times (main)
 on:
-  push:
-    branches: [main]
+  # Immediate push-based site releases run in publish-newspaper.yml. This
+  # richer NBA-certified publisher stays scheduled and collector-triggered.
+  # The independent NBA integrity gate must not block HTML/CSS-only pushes.
   # The built-in GITHUB_TOKEN pushes made by collector workflows do not
   # trigger another push workflow. Deploy independently of those commits.
   schedule:
