@@ -17,16 +17,16 @@ def main():
   path=dest/f"men-d1-{year}.json"
   old=json.loads(path.read_text()) if path.exists() else {}
   records={r["game_id"]:r for r in old.get("games",[])}
-  errors=[];dates=0;valid=0
+  errors=[];dates=0;valid=0;checked=set(old.get('checked_dates',[]))
   for month in [8,9,10,11,12]:
    start=dt.date(year,month,1)
    end=dt.date(year+1,1,1) if month==12 else dt.date(year,month+1,1)
    day=start
    while day<end:
     stamp=day.isoformat()
-    url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
+    if stamp in checked:\n     day+=dt.timedelta(days=1)\n     continue\n    url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
     try:
-     data=scoreboard(url);dates+=1
+     data=scoreboard(url);dates+=1;checked.add(stamp)
      if data is not None:
       for item in data.get("games",[]):
        result=parse(item,day)
@@ -41,7 +41,7 @@ def main():
     day+=dt.timedelta(days=1)
     time.sleep(.38)
   games=sorted(records.values(),key=lambda x:(x["date"],x["game_id"]))
-  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"finals_seen":valid,"unique_finals":len(games),"errors":errors,"games":games}
+  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"checked_dates":sorted(checked),"finals_seen":valid,"unique_finals":len(games),"errors":errors,"games":games}
   path.write_text(json.dumps(output,indent=2)+"\n")
   print(year,"days",dates,"games",len(games),"errors",len(errors),flush=True)
   if len(games)<100 or errors:raise SystemExit(f"Historical coverage not certified for {year}: {len(games)} finals, {len(errors)} source errors")
