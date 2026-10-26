@@ -334,6 +334,11 @@ def main():
         # the next invocation replays and repairs the two outputs.
         atomic_json(OUTPUT, model)
         atomic_json(LEDGER, next_ledger)
+    # Source verification is independent of an Elo rating change. Record
+    # corrected scores, quarantine totals and completed checks on EVERY run.
+    # Otherwise a previously conflicted audit can persist after resolution,
+    # or a newly discovered conflict can remain invisible.
+    if not AUDIT.is_file() or read_json(AUDIT) != audit:
         atomic_json(AUDIT, audit)
     print(json.dumps({"changed":changed, **audit}, sort_keys=True))
 
