@@ -1,0 +1,53 @@
+name: Replay continuous NCAA 1985–2026 team-ID Elo
+on:
+  push:
+    paths:
+      - 'scripts/replay_ncaam_continuous_1985_2026.py'
+      - '.github/workflows/ncaam-continuous-1985-2026.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-continuous-1985-2026
+  cancel-in-progress: false
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Replay complete historical IDs and seven imported score seasons
+        run: python scripts/replay_ncaam_continuous_1985_2026.py
+      - name: Audit 42 seasons and reject failed cross-era carryover
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-continuous-elo-1985-2026.json'))
+          assert d['coverage']['seasons']==42
+          assert [s['season'] for s in d['seasons']]==list(range(1985,2027))
+          assert d['coverage']['later_matched_games']>=20000,d['coverage']
+          assert len(d['end_2026_all_ratings'])>=300
+          print('Continuous rating audit:',d['coverage'])
+          print('Excluded game reasons:',d['excluded_later_reasons'])
+          PY
+      - name: Publish verified joined and audited score replay
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-continuous-elo-1985-2026.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: publish audited 1985–2026 NCAA continuous historical Elo'
+            git pull --rebase
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-continuous-1985-2026-rating-audit
+          path: data/ncaam-continuous-elo-1985-2026.json
+          if-no-files-found: warn
