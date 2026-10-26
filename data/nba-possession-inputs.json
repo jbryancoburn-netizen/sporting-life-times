@@ -1,9 +1,59 @@
 {
   "source_type": "attributed_nba_boxscores",
   "source_url": "Attribution retained per game",
-  "updated_at": "2026-10-26T01:28:27.375792+00:00",
+  "updated_at": "2026-10-26T06:50:26.001828+00:00",
   "coverage": "captured completed games, not necessarily full NBA season",
   "games": [
+    {
+      "id": "espn-nba-401909867",
+      "date": "2026-10-26T01:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909867",
+      "home": {
+        "code": "SAC",
+        "points": 112,
+        "fga": 94,
+        "oreb": 16,
+        "tov": 14,
+        "fta": 22
+      },
+      "away": {
+        "code": "MEM",
+        "points": 123,
+        "fga": 95,
+        "oreb": 18,
+        "tov": 13,
+        "fta": 27
+      }
+    },
+    {
+      "id": "espn-nba-401909866",
+      "date": "2026-10-25T23:30Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909866",
+      "home": {
+        "code": "PHI",
+        "points": 93,
+        "fga": 90,
+        "oreb": 9,
+        "tov": 11,
+        "fta": 23
+      },
+      "away": {
+        "code": "DET",
+        "points": 106,
+        "fga": 87,
+        "oreb": 15,
+        "tov": 17,
+        "fta": 25
+      }
+    },
     {
       "id": "espn-nba-401909865",
       "date": "2026-10-25T23:00Z",
@@ -27,6 +77,56 @@
         "oreb": 8,
         "tov": 26,
         "fta": 15
+      }
+    },
+    {
+      "id": "espn-nba-401909864",
+      "date": "2026-10-25T23:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909864",
+      "home": {
+        "code": "MIN",
+        "points": 117,
+        "fga": 77,
+        "oreb": 9,
+        "tov": 24,
+        "fta": 25
+      },
+      "away": {
+        "code": "TOR",
+        "points": 94,
+        "fga": 91,
+        "oreb": 14,
+        "tov": 17,
+        "fta": 21
+      }
+    },
+    {
+      "id": "espn-nba-401909863",
+      "date": "2026-10-25T23:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909863",
+      "home": {
+        "code": "NYK",
+        "points": 102,
+        "fga": 93,
+        "oreb": 12,
+        "tov": 16,
+        "fta": 24
+      },
+      "away": {
+        "code": "ORL",
+        "points": 111,
+        "fga": 88,
+        "oreb": 10,
+        "tov": 16,
+        "fta": 21
       }
     },
     {
