@@ -255,3 +255,14 @@ body.nba-newspaper .nba-seed img{width:37px;height:37px;object-fit:contain}
 body.nba-newspaper .nba-live-team img{width:33px;height:33px;object-fit:contain}
 body.nba-newspaper .slt-scorebug-identity img{width:43px;height:43px;object-fit:contain}
 body.nba-newspaper[data-page="rankings"] table.nba-power-table td:nth-child(2) .team-link img{width:34px;height:34px;max-width:34px}
+
+/* October 26 crest scale-up: larger actual artwork in newspaper cards and tables. */
+body.nba-newspaper .team-link img{width:44px;height:44px;max-width:44px;object-fit:contain}
+body.nba-newspaper .nba-team-tile img{width:88px;height:88px;max-width:100%;object-fit:contain}
+body.nba-newspaper .nba-seed img{width:48px;height:48px;object-fit:contain}
+body.nba-newspaper .nba-live-team img{width:40px;height:40px;object-fit:contain}
+body.nba-newspaper .slt-scorebug-identity img{width:50px;height:50px;object-fit:contain}
+body.nba-newspaper .nba-brand img{width:58px;height:58px;object-fit:contain}
+body.nba-newspaper .nba-team-identity img{width:125px;height:125px;object-fit:contain}
+body.nba-newspaper[data-page="rankings"] table.nba-power-table td:nth-child(2) .team-link img{width:42px;height:42px;max-width:42px}
+@media(max-width:600px){body.nba-newspaper .team-link img{width:38px;height:38px;max-width:38px}body.nba-newspaper .nba-team-tile img{width:72px;height:72px}body.nba-newspaper[data-page="rankings"] table.nba-power-table td:nth-child(2) .team-link img{width:38px;height:38px;max-width:38px}}
