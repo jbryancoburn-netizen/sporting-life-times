@@ -6,7 +6,7 @@ const server=spawn('python3',['-m','http.server','8765','--bind','127.0.0.1'],{s
 let browser;
 try{
  let ready=false;
- for(let attempt=0;attempt<30;attempt++){try{const r=await fetch('http://127.0.0.1:8765/nba.html');if(r.ok){ready=true;break}}catch{}await delay(350)}
+ for(let i=0;i<30;i++){try{if((await fetch('http://127.0.0.1:8765/nba.html')).ok){ready=true;break;}}catch{}await delay(350);}
  if(!ready)throw Error('NBA test server did not start');
  browser=await chromium.launch({headless:true});
  mkdirSync('test-artifacts',{recursive:true});
@@ -14,45 +14,54 @@ try{
   const page=await browser.newPage({viewport:{width,height:844},deviceScaleFactor:1,isMobile:width<500,hasTouch:width<500});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8765/nba.html',{waitUntil:'domcontentloaded'});
-  await page.waitForTimeout(2000);
-  // Always exercise the exact failure users saw: a long article headline.
-  // An unavailable news feed must never let the visual regression pass vacuously.
+  await page.waitForSelector('#app h1',{timeout:15000});
+  // A long headline must wrap properly even if the live news feed is unavailable.
   await page.evaluate(()=>{
-    const grid=document.querySelector('#nba-news-grid');
-    if(!grid)throw Error('NBA news grid missing');
-    if(!grid.querySelector('.nba-news-item')){
-      grid.insertAdjacentHTML('beforeend','<article class="nba-news-item nba-news-lead"><p class="nba-news-source">LIVE FEED FALLBACK TEST</p><h3><a href="#">US Bet-MGM bonus code CBS-SPORTS to get a long basketball headline wrapping naturally at phone width</a></h3><p class="nba-news-summary">An attributed source summary with enough words to exercise a realistic news card.</p></article>');
-    }
+   const panel=document.querySelector('#app .column .panel.orange');
+   if(!panel)throw Error('NBA editorial news column missing');
+   if(!panel.querySelector('.nba-story'))panel.insertAdjacentHTML('beforeend','<article class="nba-story lead"><div class="byline">WRAPPING TEST</div><h3><a href="#">NBA trade deadline market moves and a remarkably long basketball headline that should naturally wrap across a small mobile screen</a></h3><p>Realistic feature text tests mobile line wrapping.</p></article>');
   });
   const info=await page.evaluate(()=>{
-   const grid=document.querySelector('#nba-news-grid'),root=document.documentElement;
-   const el=document.querySelector('.nba-paper-layout');
-   const news=document.querySelector('#nba-news-grid .nba-news-item');
-   const headline=news?.querySelector('h3');
-   const headlineBox=headline?.getBoundingClientRect();
-   return {
-    viewport:window.innerWidth,scrollWidth:root.scrollWidth,
-    newspaperWidth:el?.getBoundingClientRect().width,
-    newsWidth:grid?.getBoundingClientRect().width,
-    articleWidth:news?.getBoundingClientRect().width,
-    articleCount:grid?.querySelectorAll('.nba-news-item').length||0,
-    headlineWidth:headlineBox?.width||0,
-    headlineHeight:headlineBox?.height||0,
-    headlineFont:headline?parseFloat(getComputedStyle(headline).fontSize):0,
-    bodyScrollWidth:document.body.scrollWidth
+   const root=document.documentElement;
+   const layout=document.querySelector('#app .grid');
+   const story=document.querySelector('#app .column .nba-story');
+   const news=document.querySelector('#app .column .panel.orange');
+   const title=story?.querySelector('h3');
+   const hero=document.querySelector('#app .hero');
+   return {viewport:innerWidth,scrollWidth:root.scrollWidth,bodyScrollWidth:document.body.scrollWidth,
+    layoutWidth:layout?.getBoundingClientRect().width||0,newsWidth:news?.getBoundingClientRect().width||0,
+    storyWidth:story?.getBoundingClientRect().width||0,
+    headingWidth:title?.getBoundingClientRect().width||0,
+    headingHeight:title?.getBoundingClientRect().height||0,
+    headingFont:title?parseFloat(getComputedStyle(title).fontSize):0,
+    heroWidth:hero?.getBoundingClientRect().width||0,
+    navPresent:!!document.querySelector('.nav[aria-label="NBA newspaper navigation"]'),
+    pageTurner:!!document.querySelector('#nba-page-turner,.edition-page-turner')
    };
   });
   await page.screenshot({path:'test-artifacts/nba-'+width+'.png',fullPage:false});
   console.log(width,JSON.stringify(info),errors.slice(0,3));
-  if(info.scrollWidth>width+3||info.bodyScrollWidth>width+3)throw Error('Horizontal overflow at '+width+' px');
-  if(!info.newspaperWidth||info.newspaperWidth<width*.72)throw Error('Newspaper layout collapsed at '+width+' px');
-  if(width<500&&info.newsWidth<width*.7)throw Error('News rail collapsed at '+width+' px');
-  if(!info.articleCount)throw Error('No article exercised at '+width+' px');
-  if(width<500&&info.articleWidth<width*.7)throw Error('One-character-width news columns at '+width+' px');
-  if(width<500&&info.headlineWidth<width*.65)throw Error('Headline crushed to a narrow mobile column at '+width+' px');
-  if(info.headlineHeight>info.headlineFont*20)throw Error('Headline appears to wrap a character per line at '+width+' px');
-  if(errors.some(e=>/SyntaxError|ReferenceError/.test(e)))throw Error('JavaScript runtime errors: '+errors.join('; '));
+  if(info.scrollWidth>width+3||info.bodyScrollWidth>width+3)throw Error('Horizontal overflow at '+width+'px');
+  if(!info.layoutWidth||info.layoutWidth<width*.72)throw Error('Editorial grid collapsed at '+width+'px');
+  if(!info.heroWidth||info.heroWidth<width*.72)throw Error('NBA hero collapsed at '+width+'px');
+  if(width<500&&info.newsWidth<width*.7)throw Error('News panel crushed at '+width+'px');
+  if(width<500&&info.storyWidth<width*.7)throw Error('One-character-width article at '+width+'px');
+  if(width<500&&info.headingWidth<width*.65)throw Error('Narrow news headline at '+width+'px');
+  if(info.headingHeight>info.headingFont*20)throw Error('News headline wraps one character per line');
+  if(info.pageTurner||!info.navPresent)throw Error('NBA must have permanent navigation with no page turner');
+  if(errors.some(e=>/SyntaxError|ReferenceError|TypeError/.test(e)))throw Error('NBA browser error: '+errors.join('; '));
   await page.close();
  }
- console.log('PASS: NBA mobile and desktop layout widths');
+ const page=await browser.newPage();
+ await page.goto('http://127.0.0.1:8765/nba-team-desk.html?team=IND');
+ await page.waitForSelector('.nba-team-identity h1',{timeout:15000});
+ if(!(await page.locator('.nba-team-identity h1').innerText()).includes('Indiana Pacers'))throw Error('Indiana team deep-link missing');
+ await page.goto('http://127.0.0.1:8765/nba-players.html');
+ await page.waitForSelector('#app h1',{timeout:15000});
+ if(!await page.locator('#nba-player-search').count())throw Error('Player search missing');
+ await page.goto('http://127.0.0.1:8765/nba-rankings.html');
+ await page.waitForSelector('#app .nba-table tbody tr',{timeout:15000});
+ if(await page.locator('#app .nba-table tbody tr').count()<30)throw Error('Thirty-team Elo rankings missing');
+ await page.close();
+ console.log('PASS: NBA phone/tablet/desktop newspaper, permanent navigation, 30-team Elo, team deep links and player search');
 }finally{if(browser)await browser.close();server.kill();}

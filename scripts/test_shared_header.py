@@ -37,7 +37,7 @@ class SharedHeaderTests(unittest.TestCase):
                     expected = ['nba.html','nba-standings.html','nba-rankings.html','nba-players.html','sports.html']
                 elif page == 'epl.html':
                     start = content.find('aria-label="Premier League navigation"')
-                    expected = ['index.html','sports.html','epl.html']
+                    expected = ['sports.html','epl.html']
                 else:
                     start = content.find('<nav class="site-nav"')
                     expected = LINKS
