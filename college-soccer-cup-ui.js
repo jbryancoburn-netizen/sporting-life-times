@@ -6,8 +6,8 @@ function crest(name,id,cohort,branding){
  const mark=node('span','cs-cup-crest',String(name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()||'SC');
  const info=branding?.teams?.[cohort+':'+id]||{};
  if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))mark.style.setProperty('--club',info.primary);
- const src=info.logo_url||(svgSafe.test(String(id))?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null);
- if(src){const img=node('img');img.alt='';img.loading='lazy';img.decoding='async';img.src=src;img.addEventListener('load',()=>mark.classList.add('has-image'));img.addEventListener('error',()=>img.remove());mark.append(img);}
+ const src=info.logo_url||null;
+ if(src){const img=node('img');img.alt='';img.loading='lazy';img.decoding='async';img.src=src;img.addEventListener('load',()=>mark.classList.add('has-image'));img.addEventListener('error',()=>{img.remove();mark.classList.remove('has-image')});mark.append(img);}
  return mark;
 }
 function school(name,id,cohort,branding,seed){
