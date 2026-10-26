@@ -1,0 +1,42 @@
+name: Discover no-key official historical basketball archives
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ncaam-ucla-official-historical-archive.yml'
+      - 'scripts/acquire_ncaam_ucla_historical_archive.py'
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-ucla-historical-sources
+  cancel-in-progress: false
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Discover original UCLA source documents without an API key
+        run: |
+          python scripts/acquire_ncaam_ucla_historical_archive.py --max-downloads 12
+      - name: Publish source provenance and coverage metadata only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-ucla-official-archive-manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: record official UCLA historical document checksums and source coverage'
+            git pull --rebase
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaa-ucla-original-history-sources
+          path: |
+            data/ncaam-ucla-official-archive-manifest.json
+            historical-normalized/ucla-pdf/*.pdf
+          if-no-files-found: warn
