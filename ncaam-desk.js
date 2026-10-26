@@ -125,7 +125,7 @@ function forecast(g){
  if(!h||!a)return "";
  const p=1/(1+10**(-(h.elo-a.elo)/400));
  const d=Math.max(-28,Math.min(28,(h.elo-a.elo)/25));
- const hs=Math.round(72+d/2),as=Math.round(72-d/2);
+ let hs=Math.round(72+d/2),as=Math.round(72-d/2);\n if(hs===as){if(h.elo>=a.elo)hs+=1;else as+=1;}
  return '<div class="cbb-game"><small>'+safe(g.date)+' · PROJECTED, NOT ACTUAL</small><div class="cbb-versus"><strong>'+safe(a.team)+'</strong><span>'+((a.wins||0)+'-'+(a.losses||0))+'</span></div><div class="cbb-versus"><strong>'+safe(h.team)+'</strong><span>'+((h.wins||0)+'-'+(h.losses||0))+'</span></div><div><strong>Projected score: '+safe(a.team)+' '+as+' — '+hs+' '+safe(h.team)+'</strong></div><div class="cbb-probability"><span>'+safe(h.team)+' '+(100*p).toFixed(1)+'%</span><span>'+safe(a.team)+' '+(100*(1-p)).toFixed(1)+'%</span></div><div class="cbb-probability-track" aria-hidden="true"><span style="width:'+(100*p).toFixed(1)+'%"></span></div></div>';
 }
 const future=Array.isArray(upcoming?.games)?upcoming.games.filter(g=>g.date>=new Date().toISOString().slice(0,10)):[];
