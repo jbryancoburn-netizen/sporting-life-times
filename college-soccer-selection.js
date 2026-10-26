@@ -21,16 +21,33 @@ function draw(data,metrics){
  }
  const entries=mode==='usrs'?data.field:(Array.isArray(metrics.field)?metrics.field:[]);
  host.append(el('h2',mode==='usrs'?'NCAA FORMAT + YOUR USRS ELO · INITIAL PROXY':'COMMITTEE-CRITERIA FIELD'));
- host.append(el('p',mode==='usrs'?'This is currently the USRS baseline model. It uses Elo for illustrative conference winners and remaining at-large selections; the NCAA résumé factors must still be added before it qualifies as the full hybrid model.':'Selection based on verified NCAA résumé metrics.','cs-selection-warning'));
+ host.append(el('p',mode==='usrs'?'Your independent USRS ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Selection based on verified NCAA résumé metrics.','cs-selection-warning'));
  const bracket=el('section',null,'ncaa-bracket');
  bracket.append(el('h2',mode==='usrs'?'USRS PROJECTED NCAA BRACKET':'NCAA COMMITTEE BRACKET'));
- bracket.append(el('p',mode==='usrs'?'Experimental true-strength bracket. Team selection and pairing are USRS proxies, not NCAA committee decisions. Geography and conference separation remain unmodeled.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
+ bracket.append(el('p',mode==='usrs'?'USRS acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
  const entrants=mode==='usrs'?data.field:[];
  const byRank=n=>entrants[n-1]||null;
  const label=n=>byRank(n)?'#'+n+' '+byRank(n).team:'Unassigned slot '+n;
  const win=(a,b)=>a&&b?(a.elo>=b.elo?a:b):null;
  const order=[1,16,8,9,4,13,5,12,2,15,7,10,3,14,6,11];
- const pods=order.map((seed,i)=>{const x=17+i,y=48-i,opening=win(byRank(x),byRank(y));return {seed,x,y,opening,advance:win(byRank(seed),opening)}});
+ // Assign all 32 first-round competitors; 17-24 are seeded, 25-48 unseeded.
+ // For each opening game, preserve the seeded team and swap only unseeded
+ // opponents to avoid a same-conference first-round pairing where feasible.
+ const opponents=Array.from({length:16},(_,i)=>48-i);
+ const conference=n=>byRank(n)?.conference||null;
+ const conflicts=(seed,opponent)=>conference(seed)&&conference(seed)===conference(opponent);
+ for(let i=0;i<16;i++){
+   const home=17+i;
+   if(!conflicts(home,opponents[i]))continue;
+   let swap=-1;
+   for(let j=i+1;j<16;j++){
+     if(!conflicts(home,opponents[j])&&!conflicts(17+j,opponents[i])){swap=j;break}
+   }
+   if(swap>=0)[opponents[i],opponents[swap]]=[opponents[swap],opponents[i]];
+ }
+ const unresolvedOpening=opponents.reduce((n,op,i)=>n+(conflicts(17+i,op)?1:0),0);
+ if(mode==='usrs'&&unresolvedOpening)bracket.append(el('p',unresolvedOpening+' first-round conference conflicts remain; bracket placement is not NCAA compliant.','cs-selection-warning'));
+ const pods=order.map((seed,i)=>{const x=17+i,y=opponents[i],opening=win(byRank(x),byRank(y));return {seed,x,y,opening,advance:win(byRank(seed),opening)}});
  const quarters=[];
  for(let q=0;q<4;q++){
   const quadrant=el('section',null,'ncaa-bracket-quadrant');quadrant.append(el('h3','REGION '+(q+1)));
