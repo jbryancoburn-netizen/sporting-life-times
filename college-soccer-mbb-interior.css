@@ -29,3 +29,9 @@ body.edition-interior .cs-conf-page .cs-cup-table-school{display:inline-flex!imp
 
 body.edition-interior .cs-conf-page .soccer-school-mark.logo-ready img.soccer-school-image{display:block!important}
 body.edition-interior .cs-conf-page .soccer-school-mark.logo-ready .soccer-school-fallback{display:none!important}
+
+/* Conference table identity: full artwork, no circular framing, no inherited icon masks. */
+body.edition-interior .cs-conf-page .cs-conference-table .soccer-school-mark{width:58px!important;height:48px!important;min-width:58px!important;flex:0 0 58px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:none!important;border-radius:0!important;background:none!important;overflow:visible!important;clip-path:none!important;mask:none!important;box-shadow:none!important}
+body.edition-interior .cs-conf-page .cs-conference-table .soccer-school-mark img.soccer-school-image,body.edition-interior .cs-conf-page .cs-conference-table .soccer-school-mark.logo-ready img.soccer-school-image{width:58px!important;height:46px!important;max-width:58px!important;max-height:46px!important;min-width:0!important;object-fit:contain!important;object-position:center!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;clip-path:none!important;mask:none!important;box-shadow:none!important;filter:none!important;transform:none!important}
+body.edition-interior .cs-conf-page .cs-conference-table .soccer-school-fallback{width:50px!important;height:40px!important;border:0!important;border-radius:4px!important;background:#f0f3f5!important}
+body.edition-interior .cs-conf-page .cs-conference-table .cs-cup-table-school{gap:10px!important;min-height:50px!important}
