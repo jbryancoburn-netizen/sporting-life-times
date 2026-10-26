@@ -6,6 +6,8 @@ on:
       - '.github/workflows/ncaam-pre1985-backfill.yml'
       - 'scripts/import_ncaam_pre1985_unc_duke.py'
       - 'scripts/test_ncaam_pre1985_import.py'
+      - 'scripts/seed_ncaam_approved_history.py'
+      - 'scripts/reconcile_ncaam_authorized_historical_sources.py'
 permissions:
   contents: write
 concurrency:
@@ -81,6 +83,21 @@ jobs:
           assert d['seasons'][0]['season']==1950 and d['seasons'][-1]['season']==1984
           assert all(not s['eligible_full_national_elo'] for s in d['seasons'])
           PY
+      - name: Seed CC0 historical fixture data into national source reconciliation
+        run: |
+          python scripts/seed_ncaam_approved_history.py
+          python scripts/reconcile_ncaam_authorized_historical_sources.py \
+            --manifest historical-report/ncaam-approved-source-manifest.json \
+            --output-dir historical-normalized/pre1985-approved \
+            --report data/ncaam-pre1985-approved-national-inventory.json
+          python - <<'PY'
+          import json
+          d=json.load(open('data/ncaam-pre1985-approved-national-inventory.json'))
+          assert d['games_accepted']>=1800
+          assert d['national_completeness_certified'] is False
+          assert d['production_elo_promotion'] is False
+          assert d['source_reports'][0]['new_unique_games']>=1800
+          PY
       - name: Validate and replay pre-1985 school fixture evidence
         run: |
           python scripts/import_ncaam_pre1985_unc_duke.py --input historical-normalized/unc-duke-historical-fixtures.csv
@@ -100,7 +117,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ncaam-pre1985-unc-duke-replay.json data/ncaam-pre1985-national-coverage.json
+          git add data/ncaam-pre1985-unc-duke-replay.json data/ncaam-pre1985-national-coverage.json data/ncaam-pre1985-approved-national-inventory.json
           if ! git diff --cached --quiet; then
             git commit -m 'data: document and replay 1949-1984 partial historical game evidence'
             git pull --rebase
@@ -137,6 +154,8 @@ jobs:
             historical-normalized/unc-duke-historical-fixtures.csv
             data/ncaam-pre1985-unc-duke-replay.json
             data/ncaam-pre1985-national-coverage.json
+            data/ncaam-pre1985-approved-national-inventory.json
+            historical-normalized/pre1985-approved/verified-national-fixtures.csv
             historical-normalized/ncaam-pre1985-national-verified.csv
             historical-report/ncaam-pre1985-run-status.json
           if-no-files-found: warn
