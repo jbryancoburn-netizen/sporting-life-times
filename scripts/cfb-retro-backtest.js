@@ -4,7 +4,7 @@
 const fs=require('node:fs');
 const payload=JSON.parse(fs.readFileSync('data/cfb-2026-results.json','utf8'));
 const games=payload.games.filter(g=>g.teams?.length===2&&g.teams.every(t=>Number.isFinite(Number(t.score)))).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)||String(a.id).localeCompare(String(b.id)));
-const p=(a,b,e=0)=>1/(1+10**((b+e-a)/400));
+const p=(a,b,e=0)=>1/(1+10**((b-a-e)/400));
 const edge=g=>g.neutral?0:g.teams[0].homeAway==='home'?65:g.teams[1].homeAway==='home'?-65:0;
 const mov=g=>Math.min(2.5,1+Math.log1p(Math.abs(g.teams[0].score-g.teams[1].score))/3);
 const actual=g=>g.teams[0].score>g.teams[1].score?1:g.teams[0].score<g.teams[1].score?0:0.5;
