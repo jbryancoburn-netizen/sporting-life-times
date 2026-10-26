@@ -2,12 +2,23 @@
 const host=document.getElementById('ncaa-selection-forecast');if(!host)return;
 const el=(tag,txt,cls)=>{const x=document.createElement(tag);if(txt!==undefined&&txt!==null)x.textContent=String(txt);if(cls)x.className=cls;return x};
 const file=async path=>{const r=await fetch(path+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' unavailable');return r.json()};
-let mode='ncaa';
-function draw(data,metrics){
+let mode='usrs';
+const brandFor=(entry,branding)=>branding?.teams?.['men-d1:'+entry?.team_id]||{};
+function schoolRow(entry,branding,kind=''){
+ const line=el('div',null,'ncaa-school-row '+kind);
+ if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
+ const crest=el('span',null,'ncaa-school-crest'),brand=brandFor(entry,branding);
+ const name=entry.team||entry.team_id,src=brand.logo_url||('https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+entry.team_id+'.svg');
+ crest.textContent=name.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+ const img=el('img');img.alt='';img.loading='lazy';img.src=src;img.onerror=()=>img.remove();crest.append(img);
+ const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'AUTO BID':'AT-LARGE')));
+ line.append(crest,meta);return line;
+}
+function draw(data,metrics,branding){
  host.replaceChildren();
  const nav=el('div',null,'cs-selection-modes');
  for(const [value,label] of [['ncaa','NCAA COMMITTEE FORECAST'],['usrs','NCAA CRITERIA + USRS ELO']]){
-  const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics)};nav.append(b)
+  const b=el('button',label);b.type='button';b.className=mode===value?'active':'';b.setAttribute('aria-pressed',String(mode===value));b.onclick=()=>{mode=value;draw(data,metrics,branding)};nav.append(b)
  }host.append(nav);
  const summary=el('div',null,'cs-selection-summary');
  for(const [value,label] of [[48,'FIELD'],[23,'AUTOMATIC'],[25,'AT-LARGE'],[24,'SEEDED'],[16,'BYE TEAMS']]){const x=el('div',null,'cs-selection-metric');x.append(el('strong',value),el('span',label));summary.append(x)}host.append(summary);
@@ -60,10 +71,10 @@ function draw(data,metrics){
   for(let i=q*4;i<q*4+4;i++){
    const p=pods[i],card=el('article',null,'ncaa-bracket-pod');
    card.append(el('strong','FIRST ROUND · '+p.x+' vs '+p.y));
-   card.append(el('div',label(p.x),'ncaa-bracket-team'),el('div',label(p.y),'ncaa-bracket-team'));
+   card.append(schoolRow(byRank(p.x),branding,'ncaa-bracket-team'),schoolRow(byRank(p.y),branding,'ncaa-bracket-team'));
    card.append(el('strong','SECOND ROUND · #'+p.seed+' BYE'));
-   card.append(el('div',label(p.seed),'ncaa-bracket-team'),el('div',p.opening?'vs '+p.opening.team+' (USRS pick)':'vs first-round winner','ncaa-bracket-team'));
-   if(p.advance)card.append(el('small','Advances: '+p.advance.team,'ncaa-bracket-advance'));
+   card.append(schoolRow(byRank(p.seed),branding,'ncaa-bracket-team'));card.append(p.opening?schoolRow(p.opening,branding,'ncaa-bracket-team'):el('div','First-round winner','ncaa-bracket-team'))
+   if(p.advance)card.append(el('small','USRS ADVANCES · '+p.advance.team,'ncaa-bracket-advance'));
    podGrid.append(card);
   }
   quadrant.append(podGrid);
