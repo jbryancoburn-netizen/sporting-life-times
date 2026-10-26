@@ -10,6 +10,7 @@ on:
     paths:
       - 'scripts/acquire_ncaam_ncaa_2020_2026.py'
       - 'scripts/test_ncaam_ncaa_2020_2026.py'
+      - 'scripts/audit_ncaam_2020_2026_import_readiness.py'
       - '.github/workflows/ncaam-ncaa-scores-2020-2026.yml'
 permissions:
   contents: write
@@ -49,6 +50,9 @@ jobs:
               sleep $((n*3))
             done
           fi
+      - name: Audit published season inventory against source game counts
+        run: |
+          python scripts/audit_ncaam_2020_2026_import_readiness.py
       - name: Preserve complete scored fixture archives
         uses: actions/upload-artifact@v4
         if: always()
