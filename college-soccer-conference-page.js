@@ -91,7 +91,26 @@ async function render(){
  const t=E('table',null,'cs-conference-table');const hd=E('thead'),hr=E('tr');for(const name of ['#','School','Conf. W–L–D','Overall','Pts'])hr.append(E('th',name));hd.append(hr);const tb=E('tbody');
  teams.forEach((team,i)=>{const row=E('tr');const field=Number(rule.tournament?.field)||0;if(field&&i===field-1)row.classList.add('cutoff');row.append(E('td',i+1));const school=E('td');school.append(A(team.name,'college-soccer-team.html?team='+encodeURIComponent(cfg.cohort+':'+team.id)));row.append(school,E('td',team.conference_record||'—'),E('td',team.overall_record||'—'),E('td',team.conference_points??'—'));tb.append(row)});
  t.append(hd,tb);standSection.append(t);
- const cup=window.CollegeSoccerCupUI;if(cup)cup.decorateTable(t,teams,cfg.cohort,branding);
+ const cup=window.CollegeSoccerCupUI;
+ // Standings must render school identity independently of optional bracket scripts.
+ for(let i=0;i<teams.length;i++){
+  const team=teams[i],link=tb.rows[i]?.cells[1]?.querySelector('a');
+  if(!link)continue;
+  link.classList.add('cs-cup-table-school');
+  const brand=branding?.teams?.[cfg.cohort+':'+team.id]||{};
+  const ring=E('span',null,'slt-mark slt-mark--medium slt-mark--verified cs-standings-identity');
+  const color=brand.primary;
+  if(/^#[0-9a-fA-F]{6}$/.test(color||''))ring.style.setProperty('--slt-mark-ring',color);
+  const fallback=E('span',brand.badge_text||team.name.split(/\\s+/).map(x=>x[0]).join('').slice(0,3),'slt-mark-initial');
+  ring.append(fallback);
+  if(brand.logo_url){
+   const img=E('img');img.alt=team.name+' logo';img.loading='eager';img.decoding='async';
+   img.onload=()=>{if(img.naturalWidth>0)ring.classList.remove('slt-mark--missing');else img.hidden=true;};
+   img.onerror=()=>{img.hidden=true;ring.classList.add('slt-mark--missing');};
+   ring.classList.add('slt-mark--missing');ring.prepend(img);img.src=brand.logo_url;
+  }else ring.classList.add('slt-mark--missing');
+  link.prepend(ring);
+ }
  
  modelSection.append(E('h2','USRS ELO · PREDICTED TITLE ODDS'));
  const field=Number(rule.tournament?.field)||0;
