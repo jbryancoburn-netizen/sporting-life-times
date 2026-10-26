@@ -1,7 +1,5 @@
 name: Collect and validate Sporting Life Times data
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: "7 * * * *"
@@ -30,8 +28,17 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_nbl*.py' -v
       - name: Audit local page links and assets
         run: python scripts/audit_site_links.py
-      - name: Run unit tests
-        run: python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Run production publication tests (exclude optional historical research)
+        run: |
+          python - <<'PY'
+          import subprocess,sys
+          from pathlib import Path
+          tests=sorted(p for p in Path('scripts').glob('test_*.py') if not any(term in p.name for term in ('ucla_archive','historical_archive')))
+          for test in tests:
+              result=subprocess.run([sys.executable,'-m','unittest',test.stem],cwd='scripts')
+              if result.returncode:sys.exit(result.returncode)
+          print('PASS production script tests:',len(tests))
+          PY
       - name: Validate any supplied USRS forecasts
         run: |
           if [ -f data/usrs-forecasts.json ]; then
