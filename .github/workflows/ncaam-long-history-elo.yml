@@ -1,0 +1,50 @@
+name: NCAA long-history score Elo replay
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/backtest_ncaam_long_history_scores.py'
+      - '.github/workflows/ncaam-long-history-elo.yml'
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-century-history
+  cancel-in-progress: false
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download, replay, and audit verified available season range
+        run: |
+          python scripts/backtest_ncaam_long_history_scores.py --output data/ncaam-long-history-elo-backtest.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/ncaam-long-history-elo-backtest.json').read_text())
+          cov=d['coverage']
+          assert cov['earliest']<=1985, cov
+          assert cov['seasons']>=15, cov
+          assert cov['games']>=30000, cov
+          assert all(s['games']>0 for s in d['seasons'])
+          assert d['status']=='PARTIAL_HISTORICAL_REPLAY_NO_PLAYER_COMPARISON'
+          PY
+      - name: Publish verified research snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-long-history-elo-backtest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: publish independently replayed NCAA historical score Elo and season coverage'
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-long-history-elo
+          path: data/ncaam-long-history-elo-backtest.json
+          if-no-files-found: warn
