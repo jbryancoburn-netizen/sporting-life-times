@@ -122,6 +122,7 @@ const finals=ledger?.season==="2026-27"&&Array.isArray(ledger.games)?ledger.game
 byId("results").innerHTML=finals.length?finals.slice(-12).reverse().map(result).join(""):'<p class="cbb-muted">No confirmed 2026–27 finals have entered the independent Elo ledger yet.</p>';
 const scoreFit=await get("data/ncaam-score-calibration.json");
 window.NCAAMScores.configure(scoreFit);
+window.NCAAMScores.configureProfiles(await get("data/ncaam-team-scoring-profiles.json"));
 function forecast(g){
  const h=lookup.get(g.home_id),a=lookup.get(g.away_id);
  if(!h||!a)return "";
