@@ -14,7 +14,7 @@ class Anchors(html.parser.HTMLParser):
  def handle_data(self,s):
   if self.href is not None:self.label.append(s)
   else:
-   m=re.search(r"(19\\d{2})\\s*[-–]\\s*(\\d{2})\\s+Season",s,re.I)
+   m=re.search(r"(19\d{2})\s*[-–]\s*(\d{2})\s+Season",s,re.I)
    if m:self.current_season=int(m.group(1))+1
  def handle_endtag(self,t):
   if t=="a" and self.href:
