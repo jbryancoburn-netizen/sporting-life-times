@@ -3,7 +3,7 @@
 const fs=require('node:fs');
 require('../mbb-retro.js');
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
-const schedule=read('data/ncaam-2026-27-upcoming-forecasts.json');
+const schedule=read('data/mbb-retro-verified-upcoming-2026-27.json');
 const dest='data/mbb-retro-prospective-predictions-2026-27.json';
 const archive=fs.existsSync(dest)?read(dest):{season:'2026-27',predictions:[]};
 const now=new Date(),seen=new Set(archive.predictions.map(x=>String(x.game_id)));
