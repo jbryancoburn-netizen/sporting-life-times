@@ -148,7 +148,7 @@ function decorateTable(table,teams,cohort,branding){
  for(let i=0;i<Math.min(rows.length,teams.length);i++){
   const team=teams[i],id=team.id||team.team_id,name=team.name||team.team?.team||team.team;
   const link=rows[i].querySelector('td:nth-child(2) a');
-  if(!link||link.querySelector('.cs-cup-crest'))continue;
+  if(!link||link.querySelector('.slt-mark'))continue;
   link.classList.add('cs-cup-table-school');
   link.prepend(crest(name,id,cohort,branding));
  }
