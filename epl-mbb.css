@@ -1,0 +1,106 @@
+/* The Premier League Edition — MBB front-page STRUCTURE, Premier League identity */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap');
+:root{--ep-paper:#f5f2ea;--ep-ink:#182a34;--ep-muted:#61717a;--ep-line:#cbd5d5;--ep-teal:#1393a1;--ep-pink:#bc597b;--ep-gold:#b4e3c4;--ep-deep:#241c40;--ep-card:#fffefa}
+*{box-sizing:border-box}
+body.slt-epl-mbb{margin:0;background:var(--ep-paper)!important;color:var(--ep-ink)!important;font:14px/1.5 'DM Sans',Arial,sans-serif!important;overflow-x:hidden}
+body.slt-epl-mbb a{color:inherit;text-decoration:none}
+body.slt-epl-mbb a:hover{text-decoration:underline;text-underline-offset:3px}
+body.slt-epl-mbb button,body.slt-epl-mbb select{font:inherit}
+body.slt-epl-mbb :is(button,select,a,input,summary):focus-visible{outline:3px solid var(--ep-pink)!important;outline-offset:3px}
+body.slt-epl-mbb .slt-wrap{max-width:1500px;margin:0 auto;padding:0 28px}
+body.slt-epl-mbb .slt-topline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--ep-ink);font:700 10px 'DM Sans',Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#4d6370}
+body.slt-epl-mbb .slt-masthead{font:400 clamp(29px,5vw,65px)/1.13 'Libre Caslon Display',Georgia,serif;letter-spacing:-.04em;text-align:center;margin:14px 0 7px}
+body.slt-epl-mbb .slt-edition-line{text-align:center;font:700 10px 'DM Sans',Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#60747a;margin:0 0 18px}
+body.slt-epl-mbb .slt-nav{display:flex;gap:24px;align-items:center;overflow-x:auto;white-space:nowrap;border-top:3px solid var(--ep-ink);border-bottom:1px solid var(--ep-ink);padding:13px 0;font:700 12px 'DM Sans',Arial,sans-serif;scrollbar-width:thin}
+body.slt-epl-mbb .slt-nav a{flex:none}
+body.slt-epl-mbb .slt-nav a[aria-current=page]{color:var(--ep-pink)}
+body.slt-epl-mbb .slt-stamp{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:10px 0 12px;color:var(--ep-muted);font:600 11px 'DM Sans',Arial,sans-serif}
+body.slt-epl-mbb .slt-pulse{width:7px;height:7px;display:inline-block;border-radius:50%;background:var(--ep-teal);margin-right:7px}
+body.slt-epl-mbb main.slt-main{max-width:none!important;width:100%;margin:0;padding:0 0 35px!important;background:transparent}
+body.slt-epl-mbb .slt-eyebrow{font:700 10px 'DM Sans',Arial,sans-serif;text-transform:uppercase;letter-spacing:.16em;color:var(--ep-teal)}
+body.slt-epl-mbb .slt-hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:30px;background:var(--ep-deep);color:#fff;margin:10px 0 25px;padding:32px;position:relative;overflow:hidden}
+body.slt-epl-mbb .slt-hero .slt-eyebrow{color:var(--ep-gold)}
+body.slt-epl-mbb .slt-hero h1{font:700 clamp(45px,5.4vw,83px)/.95 'Barlow Condensed','Arial Narrow',Impact,sans-serif!important;color:#fff!important;letter-spacing:-.02em;margin:11px 0 15px;max-width:none}
+body.slt-epl-mbb .slt-hero p{font:400 14px/1.7 'DM Sans',Arial,sans-serif;color:#d5dae8;max-width:65ch;margin:0 0 18px}
+body.slt-epl-mbb .slt-cta{display:inline-block;padding:11px 17px;background:var(--ep-gold);color:#16253b!important;font:700 11px 'DM Sans',Arial,sans-serif;letter-spacing:.03em}
+body.slt-epl-mbb .slt-hero-art{display:flex;flex-direction:column;justify-content:center;position:relative;border:1px solid #ffffff37;background:radial-gradient(circle at center,#463968,var(--ep-deep) 72%);padding:34px 15px 16px;min-width:0}
+body.slt-epl-mbb .slt-hero-art:before{content:'USRS · THE POWER FOUR';position:absolute;top:12px;left:0;right:0;text-align:center;color:var(--ep-gold);font:700 10px 'DM Sans',Arial,sans-serif;letter-spacing:.15em}
+body.slt-epl-mbb .slt-hero-clubs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+body.slt-epl-mbb .slt-hero-club{text-align:center;display:block;min-width:0}
+body.slt-epl-mbb .slt-hero-club img{width:clamp(40px,4.7vw,75px);height:clamp(40px,4.7vw,75px);background:#fff;border-radius:50%;padding:7px;object-fit:contain}
+body.slt-epl-mbb .slt-hero-club strong{display:block;color:#fff;font:700 clamp(22px,2.6vw,37px) 'Barlow Condensed',Impact,sans-serif;letter-spacing:-.02em;margin:8px 0 0}
+body.slt-epl-mbb .slt-hero-club small{display:block;color:#d4d2e7;font:600 10px/1.3 'DM Sans',Arial,sans-serif;overflow-wrap:anywhere}
+body.slt-epl-mbb .slt-hero-art-note{margin:15px 0 0;text-align:center;color:#dedbec;font:500 10px/1.4 'DM Sans',Arial,sans-serif}
+body.slt-epl-mbb .slt-score-wrap{margin:0 0 24px}
+body.slt-epl-mbb .slt-score-wrap .slt-eyebrow{margin-bottom:7px}
+body.slt-epl-mbb .slt-score-wrap .slt-score-note{font:500 11px 'DM Sans',Arial,sans-serif;color:var(--ep-muted);margin:0 0 10px}
+body.slt-epl-mbb #epl-score-rail .epl-score-rail{display:flex!important;gap:0;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--ep-line);background:var(--ep-card);scrollbar-width:thin;scroll-snap-type:x proximity}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile{display:block;min-width:233px;max-width:295px;flex:1;padding:12px 15px!important;border:0;border-right:1px solid var(--ep-line)!important;scroll-snap-align:start;background:none}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile:last-child{border-right:0!important}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile>div{display:flex;justify-content:space-between;gap:6px;align-items:center;padding:3px 0}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile>div b{font:700 24px 'Barlow Condensed',Impact,sans-serif}
+body.slt-epl-mbb #epl-score-rail .epl-score-date{font:700 9px 'DM Sans',Arial,sans-serif;color:var(--ep-pink)!important;letter-spacing:.09em;text-transform:uppercase}
+body.slt-epl-mbb #epl-score-rail .epl-crest{width:29px;height:29px}
+body.slt-epl-mbb #epl-score-rail .epl-team{gap:7px;display:inline-flex;min-width:0}
+body.slt-epl-mbb #epl-score-rail .epl-team>span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:125px}
+body.slt-epl-mbb .slt-columns{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr) minmax(0,.90fr);gap:27px;align-items:start;margin-top:17px}
+body.slt-epl-mbb .slt-column{min-width:0}
+body.slt-epl-mbb .slt-panel{border:0!important;border-top:3px solid var(--ep-ink)!important;margin:0 0 29px!important;padding:13px 0 0!important;background:none!important;min-width:0;max-width:none}
+body.slt-epl-mbb .slt-panel.pink{border-top-color:var(--ep-pink)!important}
+body.slt-epl-mbb .slt-panel.teal{border-top-color:var(--ep-teal)!important}
+body.slt-epl-mbb .slt-panel h2{font:400 clamp(25px,2.7vw,37px)/1.11 'Libre Caslon Display',Georgia,serif!important;text-transform:none!important;letter-spacing:-.01em!important;color:var(--ep-ink)!important;margin:3px 0 12px!important}
+body.slt-epl-mbb .slt-panel h3{font-family:'Libre Caslon Display',Georgia,serif!important;color:var(--ep-ink)!important}
+body.slt-epl-mbb .slt-panel .slt-sub{color:var(--ep-muted);font:500 11px/1.5 'DM Sans',Arial,sans-serif;margin-bottom:14px}
+body.slt-epl-mbb #epl-independent-news{display:block!important}
+body.slt-epl-mbb .epl-news-article{grid-column:auto!important;border-bottom:1px solid var(--ep-line);padding:16px 0}
+body.slt-epl-mbb .epl-news-article:first-child{padding-top:3px}
+body.slt-epl-mbb .epl-news-article h3{font:400 24px/1.14 'Libre Caslon Display',Georgia,serif!important;letter-spacing:-.015em;margin:5px 0 9px}
+body.slt-epl-mbb .epl-news-article:first-child h3{font-size:clamp(28px,3vw,39px)!important}
+body.slt-epl-mbb .epl-news-article p{font:400 12px/1.55 'DM Sans',Arial,sans-serif;color:var(--ep-muted)}
+body.slt-epl-mbb .epl-news-byline{font:700 10px 'DM Sans',Arial,sans-serif!important;color:var(--ep-teal)!important;letter-spacing:.05em}
+body.slt-epl-mbb .epl-data-section{margin:0!important;min-width:0}
+body.slt-epl-mbb .epl-data-section .epl-section-label{border:0;padding:0 0 10px}
+body.slt-epl-mbb .epl-data-section .epl-section-label h2{font:400 clamp(25px,2.5vw,35px)/1.1 'Libre Caslon Display',Georgia,serif!important;letter-spacing:0!important;margin:0!important}
+body.slt-epl-mbb .epl-data-section .epl-section-label>span{font:700 9px 'DM Sans',Arial,sans-serif;letter-spacing:.06em;color:var(--ep-muted)}
+body.slt-epl-mbb .epl-power-row{gap:7px;padding:10px 0;border-bottom:1px solid var(--ep-line)}
+body.slt-epl-mbb .epl-power-row .epl-crest,body.slt-epl-mbb .epl-standings .epl-crest{height:27px;width:27px}
+body.slt-epl-mbb .epl-power-row strong{font:700 19px 'Barlow Condensed',Impact,sans-serif;color:var(--ep-ink)}
+body.slt-epl-mbb .epl-power-track{background:#d7e4df;height:6px}
+body.slt-epl-mbb .epl-table-scroll{max-width:100%;overflow:auto}
+body.slt-epl-mbb .epl-standings{font:600 11px 'DM Sans',Arial,sans-serif}
+body.slt-epl-mbb .epl-standings th{border-bottom:2px solid var(--ep-ink)!important;padding:9px 4px!important;font:700 9px 'DM Sans',Arial,sans-serif!important}
+body.slt-epl-mbb .epl-standings td{border-bottom:1px solid var(--ep-line)!important;padding:7px 3px!important;font-variant-numeric:tabular-nums}
+body.slt-epl-mbb .epl-standings .epl-pts{font:700 19px 'Barlow Condensed',Impact,sans-serif}
+body.slt-epl-mbb .epl-standings .epl-team{font:600 11px 'DM Sans',Arial,sans-serif!important}
+body.slt-epl-mbb .slt-compact-table .epl-standings th,body.slt-epl-mbb .slt-compact-table .epl-standings td{white-space:nowrap}
+body.slt-epl-mbb .slt-compact-table .epl-standings td:nth-child(2){min-width:0}
+body.slt-epl-mbb .slt-full-table summary{font:700 11px 'DM Sans',Arial,sans-serif;color:var(--ep-teal);cursor:pointer;padding:14px 2px}
+body.slt-epl-mbb #epl-attack-board .epl-leader-row,body.slt-epl-mbb #epl-defense-board .epl-leader-row{border-bottom:1px solid var(--ep-line);padding:10px 0}
+body.slt-epl-mbb #epl-race-watch{border:none!important;padding:0!important;margin:0}
+body.slt-epl-mbb #epl-race-watch .epl-race-grid{grid-template-columns:1fr!important;gap:14px}
+body.slt-epl-mbb #epl-race-watch .epl-race-grid section{border-top:1px solid var(--ep-line);padding-top:10px}
+body.slt-epl-mbb #epl-race-watch h2,body.slt-epl-mbb #epl-player-leaders h2{font-size:30px!important}
+body.slt-epl-mbb #epl-player-leaders{border:0!important;margin:0!important;padding:0!important}
+body.slt-epl-mbb #epl-player-leaders .epl-player-columns{grid-template-columns:1fr;gap:19px}
+body.slt-epl-mbb #epl-player-leaders .epl-player-board h3{font:400 21px 'Libre Caslon Display',Georgia,serif!important;margin-bottom:10px}
+body.slt-epl-mbb .slt-forecast-highlight{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+body.slt-epl-mbb #epl-featured .hub-match,body.slt-epl-mbb #forecast-grid .hub-match{background:var(--ep-card);border:1px solid var(--ep-line);padding:14px;min-width:0}
+body.slt-epl-mbb #epl-featured .hub-match-teams,body.slt-epl-mbb #forecast-grid .hub-match-teams{display:grid;grid-template-columns:1fr 90px 1fr;gap:7px;align-items:center;text-align:center}
+body.slt-epl-mbb #epl-featured .hub-club-link img,body.slt-epl-mbb #forecast-grid .hub-club-link img{width:55px!important;height:55px!important;object-fit:contain}
+body.slt-epl-mbb #epl-featured .hub-score,body.slt-epl-mbb #forecast-grid .hub-score{font:700 clamp(24px,2.2vw,36px) 'Barlow Condensed',Impact,sans-serif}
+body.slt-epl-mbb #epl-featured .hub-score small,body.slt-epl-mbb #forecast-grid .hub-score small{display:block;font:700 9px 'DM Sans',Arial,sans-serif;color:var(--ep-muted)}
+body.slt-epl-mbb .slt-more{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:24px}
+body.slt-epl-mbb #forecast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+body.slt-epl-mbb .slt-deep-dive{margin:14px 0 28px;border-top:3px solid var(--ep-ink);padding-top:11px}
+body.slt-epl-mbb .slt-deep-dive summary{font:700 14px 'DM Sans',Arial,sans-serif;cursor:pointer;padding:10px 0}
+body.slt-epl-mbb #epl-elo-history{margin:0!important;border:0!important;padding:0!important}
+body.slt-epl-mbb #epl-season-archive{display:block!important;visibility:visible!important}
+body.slt-epl-mbb #elo-command{display:block!important;margin-top:12px;border:0!important}
+body.slt-epl-mbb #elo-command .elo-headline,body.slt-epl-mbb #elo-command .elo-panel.elo-all,body.slt-epl-mbb #elo-command .elo-two>.elo-panel:first-child,body.slt-epl-mbb #elo-command>.elo-disclosure{display:none!important}
+body.slt-epl-mbb #elo-command .elo-two{display:block!important}
+body.slt-epl-mbb #elo-command .elo-two>.elo-panel{display:block!important}
+body.slt-epl-mbb .slt-method{border-top:1px solid var(--ep-line);font:400 12px/1.65 'DM Sans',Arial,sans-serif;color:var(--ep-muted);padding:13px 0}
+body.slt-epl-mbb .slt-footer{margin:27px 0 34px;padding:16px 0;border-top:3px solid var(--ep-ink);font:500 11px 'DM Sans',Arial,sans-serif;color:var(--ep-muted)}
+body.slt-epl-mbb #epl-feed-health{display:block!important;max-width:none!important;width:auto;margin:3px 0 0!important;padding:0!important;border:0!important;background:transparent!important;color:var(--ep-muted)!important;font:500 10px/1.5 'DM Sans',Arial,sans-serif!important}
+@media(max-width:1100px){body.slt-epl-mbb .slt-columns{grid-template-columns:repeat(2,minmax(0,1fr))}body.slt-epl-mbb .slt-column:first-child{grid-column:1/-1}body.slt-epl-mbb #epl-independent-news{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}body.slt-epl-mbb .slt-hero{grid-template-columns:1.12fr 1fr}}
+@media(max-width:720px){body.slt-epl-mbb .slt-wrap{padding:0 14px}body.slt-epl-mbb .slt-topline{font-size:8px;letter-spacing:.03em}body.slt-epl-mbb .slt-masthead{font-size:clamp(26px,7.5vw,44px)}body.slt-epl-mbb .slt-edition-line{letter-spacing:.12em}body.slt-epl-mbb .slt-nav{gap:18px;font-size:11px}body.slt-epl-mbb .slt-hero{grid-template-columns:1fr;padding:22px;gap:18px}body.slt-epl-mbb .slt-hero h1{font-size:clamp(43px,11vw,61px)!important}body.slt-epl-mbb .slt-hero-art{padding:34px 13px 13px}body.slt-epl-mbb .slt-hero-club img{width:52px;height:52px}body.slt-epl-mbb .slt-hero-club strong{font-size:26px}body.slt-epl-mbb .slt-columns,body.slt-epl-mbb .slt-more{display:block}body.slt-epl-mbb .slt-forecast-highlight{grid-template-columns:1fr}body.slt-epl-mbb #epl-independent-news{display:block!important}body.slt-epl-mbb #forecast-grid{grid-template-columns:1fr}body.slt-epl-mbb .slt-panel{margin-bottom:26px!important}body.slt-epl-mbb #epl-score-rail .epl-score-tile{min-width:226px}}
