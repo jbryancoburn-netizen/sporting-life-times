@@ -1,6 +1,7 @@
 (()=>{'use strict';
-const root=document.getElementById('nba-live-feed');if(!root)return;
-const status=document.getElementById('nba-live-status');
+const root={set innerHTML(value){const el=document.getElementById('nba-live-feed');if(el)el.innerHTML=value;}};
+const status={set textContent(value){const el=document.getElementById('nba-live-status');if(el)el.textContent=value;}};
+if(!document.getElementById('nba-live-feed'))return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const logo=c=>'https://a.espncdn.com/i/teamlogos/nba/500/'+({NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'}[c]||c.toLowerCase())+'.png';
 let lastOK=0;let fallbackRecords={};
