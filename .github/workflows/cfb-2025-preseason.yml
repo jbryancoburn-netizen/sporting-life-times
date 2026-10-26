@@ -1,0 +1,35 @@
+name: CFB 2025 preseason roster audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/fetch-cfb-2025-preseason.py'
+      - '.github/workflows/cfb-2025-preseason.yml'
+permissions:
+  contents: write
+jobs:
+  roster-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pandas pyarrow requests
+      - name: Retrieve and reconcile historical rosters
+        run: python scripts/fetch-cfb-2025-preseason.py
+      - name: Upload audit output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfb-2025-preseason-audit
+          path: data/cfb/preseason-2025/
+          if-no-files-found: warn
+      - name: Commit validated roster audit artifacts
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cfb/preseason-2025/manifest.json data/cfb/preseason-2025/2025-roster-matches.csv
+          git diff --cached --quiet || (git commit -m 'Record 2025 CFB roster reconciliation audit' && git push)
