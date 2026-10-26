@@ -2,7 +2,7 @@
 const $=id=>document.getElementById(id);
 const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/master/inst/kaggle_data/";
 const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),aliases=new Map(),known=new Set();
-const logos=new Map(),teamColors=new Map();let eraLogos={};
+const logos=new Map(),teamColors=new Map();let eraLogos={},logoTimelines={};
 const norm=s=>String(s||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
 const dateAdd=(base,days)=>{const d=new Date(base+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+Number(days));return d.toISOString().slice(0,10)};
 function parseCSV(raw){const lines=raw.replace(/^\uFEFF/,"").trim().split(/\r?\n/);const cols=lines.shift().split(",");return lines.filter(Boolean).map(line=>{const v=line.split(",");const x={};cols.forEach((c,i)=>x[c]=v[i]);return x})}
@@ -30,6 +30,7 @@ async function start(){
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
  try{const resp=await fetch("data/ncaam-rivalry-era-logos.json",{cache:"force-cache"});if(resp.ok)eraLogos=await resp.json()}catch(e){}
+ try{const resp=await fetch("data/ncaam-rivalry-logo-timelines.json",{cache:"force-cache"});if(resp.ok)logoTimelines=(await resp.json()).teams||{}}catch(e){}
 
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
@@ -79,7 +80,7 @@ function show(){
  const filter=$("filter").value;const list=filter==="ten"?arr.slice(0,10):filter==="five"?arr.slice(0,5):arr;
  const cards=$("games");cards.replaceChildren();
  if(!list.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="No recorded meetings in this archive.";cards.append(empty)}
- for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+g.season;const label=document.createElement("span");label.textContent=g.historical?"Historical archive":"NCAA score archive";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo,g.season);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
+ for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+g.season;const label=document.createElement("span");label.textContent=g.historical?"Historical archive":"NCAA score archive";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo,g.season);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);const references=document.createElement("div");references.className="era-references";for(const team of [g.a,g.b]){const entry=(logoTimelines[team]||[]).find(x=>g.season>=x.start&&g.season<=x.end);if(entry){const a=document.createElement("a");a.href=entry.source_url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=name(team)+" · "+entry.label+" (historical logo reference)";references.append(a)}}if(references.childElementCount)card.append(references);cards.append(card)}
 }
 
 $("show").addEventListener("click",show);$("filter").addEventListener("change",show);start().catch(e=>{$("status").textContent="Historical archive retrieval failed: "+e.message});
