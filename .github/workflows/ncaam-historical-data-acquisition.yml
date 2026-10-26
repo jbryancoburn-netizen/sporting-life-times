@@ -542,6 +542,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
+          if [ -f data/ncaam-indiana-high-point-baseline-audit.json ]; then git add data/ncaam-indiana-high-point-baseline-audit.json; fi
           if [ -f data/ncaam-score-calibration.json ]; then git add data/ncaam-score-calibration.json; fi
           if [ -f data/ncaam-team-scoring-profiles.json ]; then git add data/ncaam-team-scoring-profiles.json; fi
           if [ -f data/ncaam-2026-27-multistat-challenger.json ]; then git add data/ncaam-2026-27-multistat-challenger.json; fi
