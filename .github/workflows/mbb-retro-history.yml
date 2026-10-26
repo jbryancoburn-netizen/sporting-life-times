@@ -1,0 +1,34 @@
+name: Historical Basketball RETRO Backtests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/mbb-retro-history.yml
+permissions:
+  contents: write
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Import historical seasons
+        run: |
+          python scripts/fetch-mbb-retro-history.py 2025
+          python scripts/fetch-mbb-retro-history.py 2026
+      - name: Backtest both seasons
+        run: |
+          node scripts/mbb-retro-backtest.js 2025 | tee data/mbb-retro-backtest-2025.txt
+          node scripts/mbb-retro-backtest.js 2026 | tee data/mbb-retro-backtest-2026.txt
+      - name: Commit verified datasets and results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-2024-2025-results.json data/mbb-2025-2026-results.json data/mbb-retro-backtest-2025.txt data/mbb-retro-backtest-2026.txt
+          git diff --cached --quiet || (git commit -m "Publish 2024-25 and 2025-26 basketball RETRO backtests" && git push)
