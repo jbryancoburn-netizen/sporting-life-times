@@ -25,6 +25,7 @@ selector.value=conf;selector.addEventListener("change",()=>{location.href="ncaam
 const teamName=t=>{let id=badges.get(t.team_id);return '<span class="team">'+(id?'<img loading="lazy" alt="" src="https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(id)+'.png">':"")+esc(t.team)+"</span>"};
 const fitted=await get("data/ncaam-score-calibration.json");
 window.NCAAMScores.configure(fitted);
+window.NCAAMScores.configureProfiles(await get("data/ncaam-team-scoring-profiles.json"));
 const scores=(a,b)=>{let p=window.NCAAMScores.predict(a,b);return [p.homeScore,p.awayScore]};
 const prob=(a,b)=>window.NCAAMScores.predict(a,b).homeProbability;
 const played=ledger?.games||[];
