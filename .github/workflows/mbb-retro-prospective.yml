@@ -1,0 +1,37 @@
+name: MBB RETRO prospective 65 vs 100 capture
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 12 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: mbb-retro-prospective
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify upcoming venues and UTC tipoffs
+        run: python scripts/mbb-retro-verified-feed.py
+      - name: Capture both RETRO model predictions before tipoff
+        run: node scripts/mbb-retro-capture-prospective.js
+      - name: Commit immutable forecast archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-retro-verified-upcoming-2026-27.json
+          if [ -f data/mbb-retro-prospective-predictions-2026-27.json ]; then git add data/mbb-retro-prospective-predictions-2026-27.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Capture verified prospective RETRO predictions"
+            git pull --rebase origin main
+            git push origin main
+          fi
