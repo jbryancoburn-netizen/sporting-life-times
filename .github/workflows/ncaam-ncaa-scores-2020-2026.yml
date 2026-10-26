@@ -9,6 +9,7 @@ on:
   push:
     paths:
       - 'scripts/acquire_ncaam_ncaa_2020_2026.py'
+      - 'scripts/test_ncaam_ncaa_2020_2026.py'
       - '.github/workflows/ncaam-ncaa-scores-2020-2026.yml'
 permissions:
   contents: write
@@ -25,9 +26,13 @@ jobs:
         season: [2020,2021,2022,2023,2024,2025,2026]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Validate NCAA final-score parser
+        run: python scripts/test_ncaam_ncaa_2020_2026.py
       - name: Pull genuine NCAA results by day
         run: |
           python scripts/acquire_ncaam_ncaa_2020_2026.py --season ${{ matrix.season }} --sleep 0.4
