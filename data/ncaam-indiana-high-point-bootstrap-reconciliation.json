@@ -1,0 +1,55 @@
+{
+  "model": "NCAA historical-bootstrap-vs-multiyear-replay evidence audit",
+  "status": "BASELINE_RECONCILIATION_OPEN",
+  "based_on": "Independent NCAA verified game-by-game replay of 2023-2026 versus October 22 published one-season bootstrap",
+  "historical_years_replayed": [
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "source_replay_game_counts": {
+    "2023": 5593,
+    "2024": 5611,
+    "2025": 5674,
+    "2026": 5750
+  },
+  "carryover_verification": "PASS_365_TEAMS",
+  "conclusions": [
+    "65 percent carryover calculation is correct across all 365 published preseason baselines",
+    "Bootstrap final Elo differs from multiyear replay final Elo for both target teams",
+    "2026 replay strength of schedule is stronger for Indiana despite High Point higher final Elo",
+    "Cannot attribute rating difference to a specific missed game, K parameter or year initialization until original bootstrap game ledger is compared",
+    "Do not replace published Elo without a same-data same-formula reconciliation"
+  ],
+  "teams": [
+    {
+      "team": "Indiana",
+      "verified_2026_replay_games": 32,
+      "verified_2026_replay_wins": 17,
+      "opponent_mean_pregame_elo": 1621.09,
+      "replay_start_elo": 1603.313,
+      "replay_last_season_elo": 1612.9003,
+      "bootstrap_last_season_elo": 1545.5371,
+      "last_season_discrepancy": 67.3632,
+      "replay_projected_preseason_elo": 1573.3852,
+      "published_preseason_elo": 1529.5991,
+      "preseason_discrepancy": 43.7861,
+      "matches_published_bootstrap": false
+    },
+    {
+      "team": "High Point",
+      "verified_2026_replay_games": 33,
+      "verified_2026_replay_wins": 28,
+      "opponent_mean_pregame_elo": 1445.7,
+      "replay_start_elo": 1622.5661,
+      "replay_last_season_elo": 1738.9736,
+      "bootstrap_last_season_elo": 1719.9926,
+      "last_season_discrepancy": 18.981,
+      "replay_projected_preseason_elo": 1655.3328,
+      "published_preseason_elo": 1642.9952,
+      "preseason_discrepancy": 12.3376,
+      "matches_published_bootstrap": false
+    }
+  ]
+}
