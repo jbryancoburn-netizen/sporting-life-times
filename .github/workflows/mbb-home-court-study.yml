@@ -1,0 +1,25 @@
+name: MBB Five-Season Home Court Study
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/mbb-home-court-study.js
+      - .github/workflows/mbb-home-court-study.yml
+permissions:
+  contents: write
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Analyze home-court advantage and holdout predictions
+        run: node scripts/mbb-home-court-study.js
+      - name: Publish home-court study
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-home-court-study-2022-2026.json
+          git diff --cached --quiet || (git commit -m "Publish five-season MBB home court findings" && git pull --rebase origin main && git push origin main)
