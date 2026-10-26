@@ -5,7 +5,7 @@
 */
 const fs=require('node:fs');
 require('../mbb-retro.js');
-const years=[2022,2023,2024,2025,2026],edges=[0,75,90,105,120];
+const years=[2022,2023,2024,2025,2026],edges=[0,65,75,80,85,90,95,100,105,110,115,120];
 const prob=(a,b,e)=>1/(1+10**((b-a-e)/400));
 const loaded=years.map(year=>{
  const d=JSON.parse(fs.readFileSync('data/mbb-'+(year-1)+'-'+year+'-results.json','utf8'));
@@ -55,9 +55,9 @@ for(let i=1;i<reports.length;i++){
   return {edge,brier};
  }).sort((a,b)=>a.brier-b.brier||a.edge-b.edge);
  const selected=ranked[0].edge;
- holdouts.push({season:reports[i].season,selected_edge:selected,training_scores:ranked,holdout:reports[i].candidates[selected],zero_edge:reports[i].candidates[0],prior_65_not_tested:true});
+ holdouts.push({season:reports[i].season,selected_edge:selected,training_scores:ranked,holdout:reports[i].candidates[selected],zero_edge:reports[i].candidates[0],original_65_edge:reports[i].candidates[65]});
 }
 const combine=key=>{let n=0,sum=0;for(const h of holdouts){const x=h[key];n+=x.n;sum+=x.brier*x.n;}return sum/n;};
-const out={model:'RETRO rolling-date network ratings',seasons:years,edges,method:'All games on earlier calendar dates are used to recompute RETRO for each edge; 1500 fresh each season; no same-day or future results; candidate selected only on earlier seasons by weighted Brier; tested on subsequent season.',limitations:['Source home/neutral venue flags are not independently venue-audited','Zero edge is the comparison; original 65 Elo baseline not in this grid','Early games lacking prior team ratings are excluded equally for all edges','This evaluates home-court adjustment for RETRO, not travel, conference effects, or roster priors'],season_reports:reports,holdout_reports:holdouts,holdout_combined:{games:holdouts.reduce((n,h)=>n+h.holdout.n,0),calibrated_brier:combine('holdout'),zero_edge_brier:combine('zero_edge')}};
+const out={model:'RETRO rolling-date network ratings',seasons:years,edges,method:'All games on earlier calendar dates are used to recompute RETRO for each edge; 1500 fresh each season; no same-day or future results; candidate selected only on earlier seasons by weighted Brier; tested on subsequent season.',limitations:['Source home/neutral venue flags are not independently venue-audited','Zero edge and original 65 Elo settings are included as baselines','Early games lacking prior team ratings are excluded equally for all edges','This evaluates home-court adjustment for RETRO, not travel, conference effects, or roster priors'],season_reports:reports,holdout_reports:holdouts,holdout_combined:{games:holdouts.reduce((n,h)=>n+h.holdout.n,0),calibrated_brier:combine('holdout'),zero_edge_brier:combine('zero_edge')}};
 fs.writeFileSync('data/mbb-retro-home-edge-2022-2026.json',JSON.stringify(out,null,2)+'\n');
 console.log('HOLDOUT',JSON.stringify(out.holdout_combined));
