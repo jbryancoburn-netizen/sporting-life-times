@@ -46,29 +46,22 @@ async function start(){
  const rating=eloOk?elo.ratings.find(r=>r.team===selected):null;
  const logos=scrapeLogos(scores);
  try{const manifest=await get('assets/nbl-logos/manifest.json');for(const [team,url] of Object.entries(manifest.teams||{}))logos.set(normalize(team),url)}catch{}
- try{
-   const resp=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/teams?limit=100',{cache:'no-store'});
-   if(resp.ok){const directory=await resp.json();
-     for(const item of directory?.sports?.[0]?.leagues?.[0]?.teams||[]){
-       const t=item.team||item,u=valid(t.logos?.[0]?.href||t.logo);
-       if(u)for(const name of [t.displayName,t.name,t.shortDisplayName])if(name&&!logos.has(normalize(name)))logos.set(normalize(name),u);
-     }
-   }
- }catch{ /* retain sourced score-feed logo or textual team name */ }
 
+ const palette={'Adelaide 36ers':'#bb253f','Brisbane Bullets':'#12649c','Cairns Taipans':'#dc6922','Illawarra Hawks':'#c6323b','Melbourne United':'#34404c','New Zealand Breakers':'#126678','Perth Wildcats':'#c62636','South East Melbourne Phoenix':'#17664e','Sydney Kings':'#6543a2','Tasmania JackJumpers':'#34765e'};
+ document.documentElement.style.setProperty('--club',palette[selected]||'#164e63');
  const image=logos.get(normalize(selected));
  document.title=selected+' | NBL Club Desk | The Sporting Life & Times';
  $('nbl-club-heading').innerHTML='<div class="nbl-team-summary-head">'+(image?'<img class="nbl-team-crest" src="'+esc(image)+'" alt="" loading="lazy">': '<span class="nbl-brand-initial" aria-hidden="true">'+esc(selected.split(' ').map(x=>x[0]).slice(0,2).join(''))+'</span>')+'<h1 class="nbl-edition-title">'+esc(selected)+'</h1></div>';
- fill('nbl-club-description',row?'The 2026–27 club report. Completed-season records and independently calculated Elo, updated through '+pretty(stand.updated_at)+'.':'Club report: waiting for a complete current-season source snapshot.');
+ fill('nbl-club-description',row?'Your courtside edition. Games, player leaders, season stories and USRS Elo. Updated '+pretty(stand.updated_at)+'.':'Club report: waiting for a complete current-season source snapshot.');
  const metrics=[
-  ['Regular-season record',row?row.wins+'–'+row.losses:'Unavailable','ESPN-derived league table'],
-  ['Season standing',row?(stand.rows.indexOf(row)+1)+' of 10':'Unavailable','Sorted by NBL published table convention'],
-  ['Independent research Elo',rating?Number(rating.elo).toFixed(1):'Unavailable','Experimental · forecasting not certified'],
-  ['Power Index place',rating?'No. '+rating.rank:'Unavailable','Game-based 10-club Elo ranking']
+  ['Regular-season record',row?row.wins+'–'+row.losses:'Unavailable','2026–27 record'],
+  ['Season standing',row?(stand.rows.indexOf(row)+1)+' of 10':'Unavailable','League table position'],
+  ['USRS Elo rating',rating?Number(rating.elo).toFixed(1):'Unavailable','Independent team rating'],
+  ['USRS power rank',rating?'No. '+rating.rank:'Unavailable','League-wide Elo position']
  ];
  $('nbl-club-summary').innerHTML=metrics.map(([label,value,sub])=>'<div class="nbl-edition-cell"><small>'+esc(label)+'</small><strong>'+esc(value)+'</strong><span>'+esc(sub)+'</span></div>').join('');
  const completed=ledgerOk?ledger.games.filter(g=>(g.home===selected||g.away===selected)&&g.home_score!==g.away_score).sort((a,b)=>String(b.played_at).localeCompare(String(a.played_at))):[];
- fill('nbl-club-results-count',completed.length?completed.length+' completed regular-season games in the audited research result ledger':'Completed-game archive temporarily unavailable');
+ fill('nbl-club-results-count',completed.length?completed.length+' games this season':'Completed-game archive temporarily unavailable');
  $('nbl-club-completed').innerHTML=completed.length?completed.map(g=>gameCard(g,selected,logos)).join(''):'<p class="nbl-scoreboard-empty">No complete, sourced club results are available in this snapshot.</p>';
  let upcoming=[];
  if(scores)for(const group of scores.leagues||[])if(group.league==='Australian NBL')
