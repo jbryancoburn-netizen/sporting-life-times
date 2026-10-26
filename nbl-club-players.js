@@ -7,11 +7,12 @@ const face=p=>{const initials=esc(p.name.split(' ').map(x=>x[0]).slice(0,2).join
 const number=(n)=>Number(n).toFixed(1);
 Promise.all([fetch('data/nbl-player-boxscores.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Player archive unavailable');return r.json()}),fetch('assets/nbl-player-photos/manifest.json',{cache:'no-store'}).then(r=>r.ok?r.json():{players:{}}).catch(()=>({players:{}}))]).then(([data,photoIndex])=>{
 const games=data.games.filter(g=>g.home===selected||g.away===selected),players=new Map();
+const photoPath=id=>{const src=photoIndex.portrait_field_verified?photoIndex.players?.[id]?.path:null;return src?src+'?v='+encodeURIComponent(photoIndex.updated_at||'portraits2'):null};
 for(const game of games){const team=game.teams.find(t=>t.team===selected);if(!team)continue;for(const athlete of team.players){
  const key=athlete.id||athlete.name;const stats=athlete.stats||{};const pts=Number(stats.points),reb=Number(stats.rebounds),ast=Number(stats.assists),stl=Number(stats.steals),blk=Number(stats.blocks),mins=Number(stats.minutes);
  if(![pts,reb,ast].every(Number.isFinite))continue;
- const p=players.get(key)||{id:athlete.id,name:athlete.name,headshot:(photoIndex.portrait_field_verified?photoIndex.players?.[athlete.id]?.path:null)||null,gp:0,pts:0,reb:0,ast:0,stl:0,blk:0,min:0};
- if(photoIndex.portrait_field_verified&&photoIndex.players?.[athlete.id]?.path)p.headshot=photoIndex.players[athlete.id].path;p.gp++;p.pts+=pts;p.reb+=reb;p.ast+=ast;p.stl+=Number.isFinite(stl)?stl:0;p.blk+=Number.isFinite(blk)?blk:0;p.min+=Number.isFinite(mins)?mins:0;players.set(key,p);
+ const p=players.get(key)||{id:athlete.id,name:athlete.name,headshot:photoPath(athlete.id)||null,gp:0,pts:0,reb:0,ast:0,stl:0,blk:0,min:0};
+ if(photoPath(athlete.id))p.headshot=photoPath(athlete.id);p.gp++;p.pts+=pts;p.reb+=reb;p.ast+=ast;p.stl+=Number.isFinite(stl)?stl:0;p.blk+=Number.isFinite(blk)?blk:0;p.min+=Number.isFinite(mins)?mins:0;players.set(key,p);
 }}
 const eligible=[...players.values()].filter(p=>p.gp>=Math.max(2,Math.floor(games.length*.35)));
 if(!eligible.length){root.textContent='Player statistics are awaiting sufficient games.';return}
