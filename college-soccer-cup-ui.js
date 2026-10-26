@@ -5,7 +5,7 @@ const profile=(cohort,id)=>'college-soccer-team.html?team='+encodeURIComponent(c
 function crest(name,id,cohort,branding){
  const info=branding?.teams?.[cohort+':'+id]||{};
  const mark=node('span','soccer-school-mark');
- const initials=String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC';
+ const initials=String(info.badge_text||name||id).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'SC';
  const fallback=node('span','soccer-school-fallback',initials);
  if(/^#[0-9a-fA-F]{6}$/.test(info.primary||''))fallback.style.color=info.primary;
  mark.append(fallback);
