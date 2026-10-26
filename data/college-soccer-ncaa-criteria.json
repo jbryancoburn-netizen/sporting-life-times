@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "season": 2026,
+  "status": "awaiting_verified_full_season_resume_dataset",
+  "ncaa_rpi_verified": false,
+  "field": null,
+  "criteria": [
+    {
+      "id": "adjusted_rpi",
+      "label": "Adjusted NCAA RPI",
+      "weight": "committee_does_not_publish_fixed_weight"
+    },
+    {
+      "id": "strength_of_schedule",
+      "label": "Strength of schedule"
+    },
+    {
+      "id": "won_lost_record",
+      "label": "Division I won-lost-tied record"
+    },
+    {
+      "id": "head_to_head",
+      "label": "Head-to-head competition"
+    },
+    {
+      "id": "common_opponents",
+      "label": "Results against common opponents"
+    },
+    {
+      "id": "nonconference",
+      "label": "Nonconference strength and results"
+    },
+    {
+      "id": "selected_opponents",
+      "label": "Results against selected teams and top-75 RPI automatic qualifiers"
+    },
+    {
+      "id": "last_eight",
+      "label": "Strength/results in final eight contests"
+    },
+    {
+      "id": "conference",
+      "label": "Conference regular-season/postseason results"
+    },
+    {
+      "id": "eligibility",
+      "label": "Eligibility and student-athlete availability"
+    }
+  ],
+  "sources": [
+    "https://www.ncaa.org/championship/division-i/mens-soccer/",
+    "https://ncaaorg.s3.amazonaws.com/championships/sports/soccer/d1/men/2024-25D1MSO_PreChampsManual.pdf"
+  ],
+  "models": {
+    "committee": {
+      "uses_elo": false,
+      "requires_verified_rpi": true
+    },
+    "hybrid": {
+      "uses_elo": true,
+      "method": "Use identical NCAA résumé dimensions plus an independently fitted USRS Elo term, trained and backtested on previous selection years",
+      "provisional_proxy_only": true
+    }
+  },
+  "note": "Never label Elo proxy as committee RPI, NCAA seed, or selection probability."
+}
