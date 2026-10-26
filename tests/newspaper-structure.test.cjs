@@ -15,7 +15,7 @@ test('edition registry is consistent with the active newspaper home page',()=>{
  assert.ok(ids.length>=14,'expected full newspaper edition registry');
  assert.equal(new Set(ids).size,ids.length,'duplicate edition section');
  if(sportsFront){
-  assert.match(html,/class="league-hub"/);
+  assert.match(html,/class="hub league-hub"/);
   assert.match(html,/id="league-search"/);
   assert.ok((html.match(/class="league-directory-section"/g)||[]).length>=10,'sport categories missing');
   assert.ok((html.match(/class="league-directory-link"/g)||[]).length>=35,'league desks missing');
