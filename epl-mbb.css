@@ -121,3 +121,7 @@ body.slt-epl-mbb .slt-live-score{border-top:3px solid var(--ep-pink)!important}
 @media(max-width:1000px){body.slt-epl-mbb .slt-club-directory{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){body.slt-epl-mbb .slt-club-directory{grid-template-columns:repeat(2,minmax(0,1fr))}body.slt-epl-mbb .slt-club-link{padding:10px 8px;grid-template-columns:32px minmax(0,1fr);column-gap:8px}body.slt-epl-mbb .slt-club-link .epl-crest{height:32px;width:32px}body.slt-epl-mbb .slt-club-link>span:not(.epl-fallback){font-size:11px}body.slt-epl-mbb .slt-club-link small{font-size:9px}}
 @media(max-width:380px){body.slt-epl-mbb .slt-club-directory{grid-template-columns:1fr}}
+
+/* Editorial lead imagery only when the source feed provides a real image. */
+body.slt-epl-mbb .epl-news-article .epl-news-photo{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;margin:10px 0 13px;background:#e3e8e9}
+body.slt-epl-mbb #epl-featured.slt-forecast-highlight{grid-template-columns:minmax(0,1fr)!important}
