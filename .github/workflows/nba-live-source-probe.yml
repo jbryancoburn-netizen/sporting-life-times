@@ -25,12 +25,12 @@ jobs:
             echo "$provider HTTP $code"
             if [[ "$code" == 200 ]]; then
               PROVIDER="$provider" python3 - <<'PY'
-import json,os
-try:
-  data=json.load(open('/tmp/nba-live-response.json'))
-  games=(data.get('scoreboard',{}).get('games',[]) if os.environ['PROVIDER']=='NBA' else data.get('events',[]))
-  print(os.environ['PROVIDER'],'games',len(games),'IDs',[g.get('gameId',g.get('id')) for g in games][:3])
-except Exception as e: print(os.environ['PROVIDER'],'invalid JSON:',str(e));raise
-PY
+          import json,os
+          try:
+            data=json.load(open('/tmp/nba-live-response.json'))
+            games=(data.get('scoreboard',{}).get('games',[]) if os.environ['PROVIDER']=='NBA' else data.get('events',[]))
+            print(os.environ['PROVIDER'],'games',len(games),'IDs',[g.get('gameId',g.get('id')) for g in games][:3])
+          except Exception as e: print(os.environ['PROVIDER'],'invalid JSON:',str(e));raise
+          PY
             fi
           done
