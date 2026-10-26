@@ -1,0 +1,28 @@
+(()=>{'use strict';
+const el=document.getElementById('nbl-depth');if(!el)return;
+const page=document.body.dataset.depth;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]/g,'');
+const logo=t=>'<img class="nbl-depth-logo" alt="" src="assets/nbl-logos/'+slug(t)+'.png" loading="lazy">';
+const link=t=>'nbl-team.html?team='+encodeURIComponent(t);
+const fmt=n=>Number(n).toFixed(1);
+const load=async f=>{const r=await fetch(f,{cache:'no-store'});if(!r.ok)throw Error('Unavailable dataset');return r.json()};
+const panel=(eyebrow,title,body)=>'<section class="nbl-depth-panel"><div class="nbl-depth-eyebrow">'+eyebrow+'</div><h2>'+title+'</h2>'+body+'</section>';
+Promise.all([load('data/nbl-standings.json'),load('data/nbl-elo-research.json'),load('data/nbl-research-current-ledger.json')]).then(([s,e,l])=>{
+if(s.rows?.length!==10||e.ratings?.length!==10||!Array.isArray(l.games)||s.games_replayed!==e.current_regular_season_games)throw Error('Edition data do not agree');
+const ratings=new Map(e.ratings.map(x=>[x.team,x]));const rows=s.rows;
+const rank=(arr,metric,reverse=true)=>[...arr].sort((a,b)=>reverse?b[metric]-a[metric]:a[metric]-b[metric]);
+const board=(items,value)=>'<div class="nbl-depth-leaderboard">'+items.map((r,i)=>'<a href="'+esc(link(r.team))+'" class="nbl-depth-item"><span class="nbl-depth-number">'+(i+1)+'</span>'+logo(r.team)+'<strong>'+esc(r.team)+'</strong><b>'+esc(value(r))+'</b></a>').join('')+'</div>';
+const record=panel('LEAGUE TABLE','The complete standings',board(rows,r=>r.wins+'–'+r.losses+' · '+Math.round(100*r.win_pct)+'%'));
+const topRated=panel('OUR OWN NUMBERS','USRS Elo rankings',board(e.ratings,r=>fmt(r.elo)+' Elo')+'<p class="nbl-depth-note">Elo scores are independently calculated from completed results. Forecasting performance remains under evaluation.</p>');
+const scoring=panel('OFFENSE','Points scored per game',board(rank(rows,'points_for').sort((a,b)=>b.points_for/b.played-a.points_for/a.played),r=>fmt(r.points_for/r.played)+' PPG'));
+const defending=panel('DEFENSE','Fewest points allowed per game',board([...rows].sort((a,b)=>a.points_against/a.played-b.points_against/b.played),r=>fmt(r.points_against/r.played)+' OPP PPG'));
+const diff=panel('EFFICIENCY','Average scoring margin',board([...rows].sort((a,b)=>(b.points_for-b.points_against)/b.played-(a.points_for-a.points_against)/a.played),r=>(r.points_for>=r.points_against?'+':'')+fmt((r.points_for-r.points_against)/r.played)+' PER GAME'));
+const games=[...l.games].sort((a,b)=>String(b.played_at).localeCompare(String(a.played_at)));
+const results=panel('GAME ARCHIVE','Every completed game','<div class="nbl-depth-results">'+games.map(g=>'<div class="nbl-depth-result"><small>'+esc(new Date(g.played_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}))+'</small><div>'+logo(g.away)+'<a href="'+esc(link(g.away))+'">'+esc(g.away)+'</a><b>'+esc(g.away_score)+'</b></div><div>'+logo(g.home)+'<a href="'+esc(link(g.home))+'">'+esc(g.home)+'</a><b>'+esc(g.home_score)+'</b></div>'+(g.source_url?'<a class="nbl-depth-source" target="_blank" rel="noopener noreferrer" href="'+esc(g.source_url)+'">Game report ↗</a>':'')+'</div>').join('')+'</div>');
+const method=panel('HOW THIS WORKS','Sources and methodology','<p>The standings and team statistics are reconstructed from reported completed games and have not yet been reconciled game by game against the NBL’s official results archive. USRS Elo ratings are independently calculated, and predictive probabilities are not certified. No player-level stats are published without a matching verified feed.</p><p>Latest publication: '+esc(new Date(s.updated_at).toLocaleString())+'. Games processed: '+s.games_replayed+'.</p>');
+const view={standings:record+topRated,rankings:topRated+record,stats:scoring+defending+diff,results:results,method:method};
+el.innerHTML=view[page]||'<p>Unknown desk.</p>';
+const stamp=document.getElementById('nbl-depth-stamp');if(stamp)stamp.textContent='Data updated '+new Date(s.updated_at).toLocaleString();
+}).catch(err=>{el.textContent='This edition is temporarily unavailable: '+err.message});
+})();
