@@ -2,3 +2,29 @@
 .cs-selection-modes{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}.cs-selection-modes button{font:700 12px sans-serif;letter-spacing:.04em;background:#fff;border:1px solid #555;padding:13px;cursor:pointer}.cs-selection-modes button.active{background:#1c1c1c;color:#fff}
 
 .ncaa-bracket{margin-top:24px}.ncaa-bracket h2{font:700 23px Georgia,serif;border-bottom:3px solid #111;padding-bottom:8px}.ncaa-bracket-quadrant{margin:26px 0;padding:12px;border-top:3px double #333}.ncaa-bracket-quadrant h3,.ncaa-bracket-finish h3{font:700 16px Georgia,serif;letter-spacing:.06em}.ncaa-bracket-pods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ncaa-bracket-pod{border:1px solid #aaa;padding:12px;background:#fcfcfa;display:flex;flex-direction:column;gap:6px;min-width:0}.ncaa-bracket-pod strong{font:700 10px sans-serif;letter-spacing:.06em;margin-top:7px;color:#444}.ncaa-bracket-team{font:14px Georgia,serif;border-bottom:1px solid #ddd;padding:4px 0;overflow-wrap:anywhere}.ncaa-bracket-advance{font:700 11px sans-serif;background:#eee;padding:7px}.ncaa-bracket-path{border-left:3px solid #333;padding:10px 16px;margin-top:13px;display:grid;grid-template-columns:1fr 1fr;gap:5px 12px}.ncaa-bracket-path strong{grid-column:1/-1;font:700 12px sans-serif}.ncaa-bracket-path p{margin:0;font:13px Georgia,serif}.ncaa-bracket-finish{border:3px double #222;padding:16px;text-align:center;margin:25px 0;background:#f8f8f5}@media(max-width:620px){.ncaa-bracket-pods{grid-template-columns:1fr}.ncaa-bracket-quadrant{padding:6px}.ncaa-bracket-team{font-size:13px}}
+
+/* NCAA selection showcase: club crests and compact editorial bracket cards */
+.cs-selection-summary{grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+.cs-selection-metric{background:#111;color:#fff;border:0;border-top:4px solid #b39a5d;padding:15px 8px;text-align:center}
+.cs-selection-metric strong{font-size:clamp(19px,3vw,34px);font-variant-numeric:tabular-nums}
+.cs-selection-metric span{color:#dadada}
+.cs-selection-modes{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;background:#111;border:1px solid #111}
+.cs-selection-modes button{border:0;background:#f2f0eb;font-size:clamp(10px,1.3vw,13px);line-height:1.35;min-height:51px}
+.cs-selection-modes button.active{background:#b39a5d;color:#111}
+.ncaa-bracket-quadrant{background:linear-gradient(180deg,#f9f7f2,#fff 70%);border:1px solid #dad6ca;border-top:5px solid #111;padding:17px;margin:21px 0}
+.ncaa-bracket-pods{gap:15px}
+.ncaa-bracket-pod{background:#fff;border:1px solid #dedbd3;border-radius:4px;box-shadow:0 4px 15px rgba(0,0,0,.07);padding:13px}
+.ncaa-bracket-pod>strong{color:#686451;border-bottom:1px solid #dedbd3;padding-bottom:7px;letter-spacing:.09em}
+.ncaa-school-row{display:flex;align-items:center;gap:11px;min-height:48px;padding:7px 4px}
+.ncaa-school-row.ncaa-bracket-team{font:inherit}
+.ncaa-school-crest{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border:1px solid #e6e3da;border-radius:50%;background:#f5f5f1;color:#777;font:700 12px Arial,sans-serif;position:relative;overflow:hidden}
+.ncaa-school-crest img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain;background:#f5f5f1}
+.ncaa-school-meta{display:flex;flex:1;flex-direction:column;gap:3px;min-width:0}
+.ncaa-school-meta strong{font:700 14px Georgia,serif;overflow-wrap:anywhere;line-height:1.1}
+.ncaa-school-meta small{font:700 9px Arial,sans-serif;color:#777;letter-spacing:.04em}
+.ncaa-bracket-advance{background:#171717;color:#fafafa;font-size:10px;padding:9px;letter-spacing:.04em}
+.ncaa-bracket-path{background:#f0ede5;border-left:4px solid #b39a5d}
+.ncaa-bracket-finish{background:#151515;color:#fff;border:5px double #b39a5d;padding:27px 15px}
+.ncaa-bracket-finish h3{color:#d5bd80}
+@media(max-width:780px){.cs-selection-summary{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.cs-selection-summary{grid-template-columns:repeat(2,1fr)}.ncaa-bracket-pods{grid-template-columns:1fr}.ncaa-bracket-quadrant{padding:11px}.ncaa-school-crest{width:33px;height:33px;flex-basis:33px}}
