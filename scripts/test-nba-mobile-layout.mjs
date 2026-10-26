@@ -15,6 +15,10 @@ try{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8765/nba.html',{waitUntil:'domcontentloaded'});
   await page.waitForSelector('#app h1',{timeout:15000});
+  await page.waitForSelector('.slt-mark',{timeout:15000});
+  const crestGeometry=await page.evaluate(()=>[...document.querySelectorAll('.slt-mark')].slice(0,15).map(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height,hasImg:!!el.querySelector('img')})));
+  if(!crestGeometry.length||crestGeometry.some(x=>x.width>90||x.width<15||x.height!==x.width||!x.hasImg))throw Error('Shared college soccer crest sizing is broken: '+JSON.stringify(crestGeometry));
+
   // A long headline must wrap properly even if the live news feed is unavailable.
   await page.evaluate(()=>{
    const panel=document.querySelector('#app .column .panel.orange');

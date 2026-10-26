@@ -152,6 +152,12 @@ jobs:
           assert not missing, f'Pages without reader timestamp: {missing}'
           print(f'PASS: all {len(pages)} newspaper pages display access clock')
           PY
+      - name: Apply shared college soccer crest treatment to every sport page
+        run: |
+          python3 scripts/inject-team-crests.py
+          python3 scripts/inject-team-crests.py --check
+          node --check shared-team-crests.js
+          test -s shared-team-crests.css
       - name: Upload entire newspaper
         uses: actions/upload-pages-artifact@v3
         with:

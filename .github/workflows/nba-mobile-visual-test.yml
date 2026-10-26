@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - nba.html
+      - shared-team-crests.css
+      - shared-team-crests.js
+      - scripts/inject-team-crests.py
       - nba-newspaper.js
       - nba-newspaper.css
       - nba-depth.css
@@ -58,6 +61,8 @@ jobs:
         run: node scripts/test-nba-comparison.mjs
       - name: Check scorebug ordering and state rules
         run: node scripts/test-nba-scorebug.mjs
+      - name: Instrument every page with shared team crests
+        run: python3 scripts/inject-team-crests.py && python3 scripts/inject-team-crests.py --check
       - name: Assert iPhone-sized layouts and capture images
         run: node scripts/test-nba-mobile-layout.mjs
       - name: Upload screenshots even when layout fails

@@ -46,6 +46,12 @@ jobs:
           else
             echo "::warning::NBA source collection failed; retaining last-attributed feed with its original timestamp"
           fi
+      - name: Apply shared college soccer crest treatment to every sport page
+        run: |
+          python3 scripts/inject-team-crests.py
+          python3 scripts/inject-team-crests.py --check
+          node --check shared-team-crests.js
+          test -s shared-team-crests.css
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
