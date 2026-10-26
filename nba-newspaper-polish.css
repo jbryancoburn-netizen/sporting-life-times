@@ -51,3 +51,20 @@ body.edition-interior .nba-paper-layout .nba-current-table-wrap{max-width:100%;o
  body.edition-interior #nba-news-grid .nba-news-item h3{font-size:17px!important}
  body.edition-interior #nba-rabby-today{max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
 }
+
+
+/* Compact editorial leaderboard: ranked, information-dense, no tall empty cards. */
+.nba-leaderboard{display:grid;gap:0;border-top:1px solid #d9d7d0}
+.nba-leaderboard .nba-leader-compact{display:grid!important;grid-template-columns:32px minmax(0,1fr) 76px;gap:8px 10px;align-items:center;padding:12px 8px 10px!important;margin:0!important;min-height:0!important;border:0!important;border-bottom:1px solid #dedbd3!important;border-left:3px solid var(--leader-team)!important;background:transparent!important;box-shadow:none!important}
+.nba-leader-compact .nba-leader-place{font:700 19px Georgia,serif;color:#8d938f;text-align:center}
+.nba-leader-compact .nba-leader-identity{min-width:0;display:flex;flex-direction:column;gap:2px}
+.nba-leader-compact .nba-leader-identity>b{font-size:15px;line-height:1.2}
+.nba-leader-compact .nba-leader-club{font-size:11px;line-height:1.2}
+.nba-leader-compact .nba-leader-club img{width:22px!important;height:22px!important;object-fit:contain}
+.nba-leader-compact .nba-leader-sample{font-size:10px;color:#697984}
+.nba-leader-compact .nba-leader-output{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.nba-leader-compact .nba-leader-output strong{font:700 29px/1 Georgia,serif;color:#092b3c}
+.nba-leader-compact .nba-leader-output span{font:700 9px/1.5 Arial,sans-serif;letter-spacing:.06em;color:#60727a}
+.nba-leader-compact .nba-leader-meter{grid-column:2/4;height:4px;background:#e7e5df;border-radius:4px;overflow:hidden}
+.nba-leader-compact .nba-leader-meter span{display:block;height:100%;background:var(--leader-team);border-radius:4px}
+@media(max-width:420px){.nba-leaderboard .nba-leader-compact{grid-template-columns:25px minmax(0,1fr) 66px;gap:7px}.nba-leader-compact .nba-leader-output strong{font-size:25px}}
