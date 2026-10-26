@@ -1,0 +1,65 @@
+name: MBB newspaper refresh and publish
+on:
+  push:
+    branches: [main]
+    paths: ['mbb-*.js', 'mbb-*.css', 'ncaam*.html', 'college-basketball.html', 'scripts/*mbb_newspaper.py', 'scripts/mbb_player_boxscores.py', '.github/workflows/mbb-newspaper.yml']
+  workflow_dispatch:
+  schedule:
+    - cron: '3,18,33,48 * * * *'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: mbb-newspaper-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify bracket integrity
+        run: |
+          node tests/mbb-engine.test.cjs
+          python -m unittest discover -s tests -p test_mbb_ingestion.py -v
+      - name: Build historical player and game archive
+        run: python scripts/build_mbb_newspaper.py
+      - name: Refresh independent MBB news and score snapshot
+        run: python scripts/refresh_mbb_newspaper.py
+      - name: Commit refreshed datasets
+        run: |
+          git config user.name sporting-life-times-bot
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/mbb-newspaper-archive.json data/mbb-live.json data/mbb-current-player-stats.json
+          if test -f data/mbb-branding.json; then git add data/mbb-branding.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh MBB newspaper data"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    concurrency:
+      group: newspaper-pages-deploy
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+      - id: deploy
+        uses: actions/deploy-pages@v4

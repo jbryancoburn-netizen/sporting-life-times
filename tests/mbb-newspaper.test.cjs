@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {chromium}=require('playwright'),{spawn}=require('node:child_process');
+(async()=>{const server=spawn('python',['-m','http.server','8765','--directory',path.resolve(__dirname,'..')],{stdio:'ignore'});let b;
+try{await new Promise(r=>setTimeout(r,500));b=await chromium.launch({headless:true,executablePath:process.env.MBB_CHROMIUM_PATH||undefined,args:['--no-sandbox','--disable-dev-shm-usage','--no-zygote']});const p=await b.newPage({viewport:{width:1440,height:1000}});await p.route('https://**/*',r=>r.abort());const errors=[];p.on('pageerror',e=>errors.push(e.message));
+const go=async x=>{await p.goto('http://127.0.0.1:8765/'+x);await p.waitForSelector('#app h1');assert.equal(await p.locator('body').evaluate(e=>e.scrollWidth>innerWidth),false,x+' viewport overflow');};
+await go('ncaam.html');assert.equal(await p.locator('#team-directory>a').count(),24);await p.fill('#team-search','Indiana');assert((await p.locator('#team-directory').innerText()).includes('Indiana'));await p.selectOption('#conf-pick','SEC');assert((await p.locator('#conf-table').innerText()).includes('Florida'));await p.click('[data-poll=coaches]');
+await go('ncaam-conference.html');assert.equal(await p.locator('.conf-card').count(),32);
+await go('ncaam-conference.html?conference=Big%20Ten');assert((await p.locator('#app').innerText()).includes('Indiana'));
+await go('ncaam-team.html?team=ncaa%3A609574');assert((await p.locator('#app').innerText()).includes('Indiana'));assert(await p.locator('table tbody tr').count()>10);await p.selectOption('#opponent',{index:5});assert((await p.locator('#series').innerText()).includes('verified meetings'));
+await go('ncaam-tournament.html');assert.equal(await p.locator('.region').count(),4);assert.equal(await p.locator('.region .match').count(),32);assert.equal(await p.locator('.opening-grid .match').count(),12);
+await go('ncaam-players.html');assert.equal(await p.locator('#player-table tbody tr').count(),100);await p.click('[data-stat=ast]');await p.fill('#player-search','Indiana');assert(await p.locator('#player-table tbody tr').count()>0);await p.selectOption('#stat-season','current');assert((await p.locator('#stat-note').innerText()).includes('2026–27'));
+await p.setViewportSize({width:390,height:844});for(const x of ['ncaam.html','ncaam-tournament.html','ncaam-team.html?team=ncaa%3A609574','ncaam-players.html'])await go(x);
+assert.deepEqual(errors,[]);console.log('PASS: desktop/mobile rendering, 32 conference links, directory paging/search, standings, polls, team series, all bracket slots, player filters and no JavaScript errors.');
+}finally{if(b)await b.close();server.kill()}})().catch(e=>{console.error(e);process.exitCode=1});
