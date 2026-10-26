@@ -1,0 +1,925 @@
+{
+  "model": "ncaam-2026-baseline-elo-audit-v1",
+  "status": "REPLAY_VERIFIED_ONLY_IF_SOURCE_VALIDATED",
+  "venue_adjustment_used": false,
+  "source": "NCAA historical game schedules verified against NCAA player box contest/team identifiers",
+  "parameters": {
+    "k": 24.0,
+    "margin_weight": 0.55,
+    "carryover": 0.65
+  },
+  "years": {
+    "2023": {
+      "games_replayed": 5593,
+      "excluded": {
+        "outside_roster_teams": 538,
+        "no_ncaa_game_identifiers": 90
+      },
+      "teams": {
+        "high point": {
+          "start_elo": 1500.0,
+          "final_elo": 1390.3522,
+          "games": 29,
+          "wins": 11,
+          "opponent_pregame_mean_elo": 1466.77,
+          "victories_over_1600_opponents": 0,
+          "net_elo_change": -109.647,
+          "match_ledger": []
+        },
+        "indiana": {
+          "start_elo": 1500.0,
+          "final_elo": 1657.7826,
+          "games": 35,
+          "wins": 23,
+          "opponent_pregame_mean_elo": 1577.02,
+          "victories_over_1600_opponents": 7,
+          "net_elo_change": 157.78,
+          "match_ledger": []
+        }
+      }
+    },
+    "2024": {
+      "games_replayed": 5611,
+      "excluded": {
+        "no_ncaa_game_identifiers": 85,
+        "outside_roster_teams": 547
+      },
+      "teams": {
+        "high point": {
+          "start_elo": 1428.7289,
+          "final_elo": 1589.7952,
+          "games": 34,
+          "wins": 24,
+          "opponent_pregame_mean_elo": 1454.72,
+          "victories_over_1600_opponents": 1,
+          "net_elo_change": 161.064,
+          "match_ledger": []
+        },
+        "indiana": {
+          "start_elo": 1602.5587,
+          "final_elo": 1611.0773,
+          "games": 33,
+          "wins": 17,
+          "opponent_pregame_mean_elo": 1606.28,
+          "victories_over_1600_opponents": 7,
+          "net_elo_change": 8.522,
+          "match_ledger": []
+        }
+      }
+    },
+    "2025": {
+      "games_replayed": 5674,
+      "excluded": {
+        "outside_roster_teams": 560,
+        "no_ncaa_game_identifiers": 59
+      },
+      "teams": {
+        "high point": {
+          "start_elo": 1558.3669,
+          "final_elo": 1688.5632,
+          "games": 33,
+          "wins": 26,
+          "opponent_pregame_mean_elo": 1456.64,
+          "victories_over_1600_opponents": 3,
+          "net_elo_change": 130.197,
+          "match_ledger": []
+        },
+        "indiana": {
+          "start_elo": 1572.2002,
+          "final_elo": 1658.9431,
+          "games": 32,
+          "wins": 19,
+          "opponent_pregame_mean_elo": 1623.55,
+          "victories_over_1600_opponents": 7,
+          "net_elo_change": 86.742,
+          "match_ledger": []
+        }
+      }
+    },
+    "2026": {
+      "games_replayed": 5750,
+      "excluded": {
+        "outside_roster_teams": 547
+      },
+      "teams": {
+        "high point": {
+          "start_elo": 1622.5661,
+          "final_elo": 1738.9736,
+          "games": 33,
+          "wins": 28,
+          "opponent_pregame_mean_elo": 1445.7,
+          "victories_over_1600_opponents": 2,
+          "net_elo_change": 116.405,
+          "match_ledger": [
+            {
+              "date": "2025-11-03",
+              "opponent": "furman",
+              "opponent_pregame_elo": 1550.72,
+              "team_pregame_elo": 1622.57,
+              "venue": "home",
+              "score": "97-71",
+              "win": true,
+              "expected_win_probability": 0.6019,
+              "elo_change": 17.074,
+              "margin": 26.0
+            },
+            {
+              "date": "2025-11-11",
+              "opponent": "jacksonville",
+              "opponent_pregame_elo": 1451.72,
+              "team_pregame_elo": 1639.64,
+              "venue": "home",
+              "score": "85-64",
+              "win": true,
+              "expected_win_probability": 0.7468,
+              "elo_change": 10.562,
+              "margin": 21.0
+            },
+            {
+              "date": "2025-11-14",
+              "opponent": "uab",
+              "opponent_pregame_elo": 1574.67,
+              "team_pregame_elo": 1650.2,
+              "venue": "away",
+              "score": "74-91",
+              "win": false,
+              "expected_win_probability": 0.607,
+              "elo_change": -24.627,
+              "margin": -17.0
+            },
+            {
+              "date": "2025-11-17",
+              "opponent": "canisius",
+              "opponent_pregame_elo": 1318.31,
+              "team_pregame_elo": 1625.58,
+              "venue": "home",
+              "score": "93-50",
+              "win": true,
+              "expected_win_probability": 0.8543,
+              "elo_change": 6.657,
+              "margin": 43.0
+            },
+            {
+              "date": "2025-11-20",
+              "opponent": "uic",
+              "opponent_pregame_elo": 1500.43,
+              "team_pregame_elo": 1632.23,
+              "venue": "away",
+              "score": "90-80",
+              "win": true,
+              "expected_win_probability": 0.6811,
+              "elo_change": 12.038,
+              "margin": 10.0
+            },
+            {
+              "date": "2025-11-22",
+              "opponent": "uiw",
+              "opponent_pregame_elo": 1431.73,
+              "team_pregame_elo": 1644.27,
+              "venue": "home",
+              "score": "91-80",
+              "win": true,
+              "expected_win_probability": 0.7727,
+              "elo_change": 8.694,
+              "margin": 11.0
+            },
+            {
+              "date": "2025-11-29",
+              "opponent": "western caro.",
+              "opponent_pregame_elo": 1385.62,
+              "team_pregame_elo": 1652.97,
+              "venue": "home",
+              "score": "93-73",
+              "win": true,
+              "expected_win_probability": 0.8233,
+              "elo_change": 7.324,
+              "margin": 20.0
+            },
+            {
+              "date": "2025-12-03",
+              "opponent": "southern ill.",
+              "opponent_pregame_elo": 1495.22,
+              "team_pregame_elo": 1660.29,
+              "venue": "home",
+              "score": "84-86",
+              "win": false,
+              "expected_win_probability": 0.7212,
+              "elo_change": -21.85,
+              "margin": -2.0
+            },
+            {
+              "date": "2025-12-05",
+              "opponent": "njit",
+              "opponent_pregame_elo": 1321.74,
+              "team_pregame_elo": 1638.44,
+              "venue": "home",
+              "score": "89-72",
+              "win": true,
+              "expected_win_probability": 0.8609,
+              "elo_change": 5.642,
+              "margin": 17.0
+            },
+            {
+              "date": "2025-12-14",
+              "opponent": "app state",
+              "opponent_pregame_elo": 1465.92,
+              "team_pregame_elo": 1644.08,
+              "venue": "away",
+              "score": "78-86",
+              "win": false,
+              "expected_win_probability": 0.7361,
+              "elo_change": -26.937,
+              "margin": -8.0
+            },
+            {
+              "date": "2025-12-19",
+              "opponent": "la salle",
+              "opponent_pregame_elo": 1374.17,
+              "team_pregame_elo": 1617.14,
+              "venue": "home",
+              "score": "84-72",
+              "win": true,
+              "expected_win_probability": 0.802,
+              "elo_change": 7.665,
+              "margin": 12.0
+            },
+            {
+              "date": "2025-12-22",
+              "opponent": "bryant",
+              "opponent_pregame_elo": 1422.65,
+              "team_pregame_elo": 1624.81,
+              "venue": "home",
+              "score": "93-47",
+              "win": true,
+              "expected_win_probability": 0.762,
+              "elo_change": 10.965,
+              "margin": 46.0
+            },
+            {
+              "date": "2025-12-31",
+              "opponent": "unc asheville",
+              "opponent_pregame_elo": 1437.1,
+              "team_pregame_elo": 1635.77,
+              "venue": "away",
+              "score": "87-69",
+              "win": true,
+              "expected_win_probability": 0.7584,
+              "elo_change": 9.878,
+              "margin": 18.0
+            },
+            {
+              "date": "2026-01-03",
+              "opponent": "longwood",
+              "opponent_pregame_elo": 1459.67,
+              "team_pregame_elo": 1645.65,
+              "venue": "home",
+              "score": "80-67",
+              "win": true,
+              "expected_win_probability": 0.7447,
+              "elo_change": 9.989,
+              "margin": 13.0
+            },
+            {
+              "date": "2026-01-07",
+              "opponent": "gardner-webb",
+              "opponent_pregame_elo": 1284.32,
+              "team_pregame_elo": 1655.64,
+              "venue": "home",
+              "score": "104-49",
+              "win": true,
+              "expected_win_probability": 0.8945,
+              "elo_change": 4.967,
+              "margin": 55.0
+            },
+            {
+              "date": "2026-01-10",
+              "opponent": "charleston so.",
+              "opponent_pregame_elo": 1427.0,
+              "team_pregame_elo": 1660.61,
+              "venue": "away",
+              "score": "84-82",
+              "win": true,
+              "expected_win_probability": 0.7933,
+              "elo_change": 6.263,
+              "margin": 2.0
+            },
+            {
+              "date": "2026-01-14",
+              "opponent": "winthrop",
+              "opponent_pregame_elo": 1510.01,
+              "team_pregame_elo": 1666.87,
+              "venue": "away",
+              "score": "75-92",
+              "win": false,
+              "expected_win_probability": 0.7116,
+              "elo_change": -28.868,
+              "margin": -17.0
+            },
+            {
+              "date": "2026-01-17",
+              "opponent": "usc upstate",
+              "opponent_pregame_elo": 1326.71,
+              "team_pregame_elo": 1638.0,
+              "venue": "home",
+              "score": "89-69",
+              "win": true,
+              "expected_win_probability": 0.8572,
+              "elo_change": 5.921,
+              "margin": 20.0
+            },
+            {
+              "date": "2026-01-23",
+              "opponent": "radford",
+              "opponent_pregame_elo": 1457.34,
+              "team_pregame_elo": 1643.93,
+              "venue": "away",
+              "score": "93-83",
+              "win": true,
+              "expected_win_probability": 0.7454,
+              "elo_change": 9.611,
+              "margin": 10.0
+            },
+            {
+              "date": "2026-01-29",
+              "opponent": "presbyterian",
+              "opponent_pregame_elo": 1387.72,
+              "team_pregame_elo": 1653.54,
+              "venue": "home",
+              "score": "84-81",
+              "win": true,
+              "expected_win_probability": 0.822,
+              "elo_change": 5.686,
+              "margin": 3.0
+            },
+            {
+              "date": "2026-01-31",
+              "opponent": "longwood",
+              "opponent_pregame_elo": 1428.05,
+              "team_pregame_elo": 1659.22,
+              "venue": "away",
+              "score": "71-59",
+              "win": true,
+              "expected_win_probability": 0.791,
+              "elo_change": 8.091,
+              "margin": 12.0
+            },
+            {
+              "date": "2026-02-04",
+              "opponent": "charleston so.",
+              "opponent_pregame_elo": 1353.63,
+              "team_pregame_elo": 1667.31,
+              "venue": "home",
+              "score": "80-55",
+              "win": true,
+              "expected_win_probability": 0.8588,
+              "elo_change": 6.024,
+              "margin": 25.0
+            },
+            {
+              "date": "2026-02-07",
+              "opponent": "radford",
+              "opponent_pregame_elo": 1465.92,
+              "team_pregame_elo": 1673.34,
+              "venue": "home",
+              "score": "86-77",
+              "win": true,
+              "expected_win_probability": 0.7675,
+              "elo_change": 8.651,
+              "margin": 9.0
+            },
+            {
+              "date": "2026-02-12",
+              "opponent": "usc upstate",
+              "opponent_pregame_elo": 1321.18,
+              "team_pregame_elo": 1681.99,
+              "venue": "away",
+              "score": "95-70",
+              "win": true,
+              "expected_win_probability": 0.8886,
+              "elo_change": 4.752,
+              "margin": 25.0
+            },
+            {
+              "date": "2026-02-14",
+              "opponent": "gardner-webb",
+              "opponent_pregame_elo": 1221.28,
+              "team_pregame_elo": 1686.74,
+              "venue": "away",
+              "score": "112-87",
+              "win": true,
+              "expected_win_probability": 0.9358,
+              "elo_change": 2.74,
+              "margin": 25.0
+            },
+            {
+              "date": "2026-02-19",
+              "opponent": "unc asheville",
+              "opponent_pregame_elo": 1447.26,
+              "team_pregame_elo": 1689.48,
+              "venue": "home",
+              "score": "74-48",
+              "win": true,
+              "expected_win_probability": 0.8013,
+              "elo_change": 8.524,
+              "margin": 26.0
+            },
+            {
+              "date": "2026-02-21",
+              "opponent": "winthrop",
+              "opponent_pregame_elo": 1613.4,
+              "team_pregame_elo": 1698.0,
+              "venue": "home",
+              "score": "89-87",
+              "win": true,
+              "expected_win_probability": 0.6194,
+              "elo_change": 11.531,
+              "margin": 2.0
+            },
+            {
+              "date": "2026-02-26",
+              "opponent": "presbyterian",
+              "opponent_pregame_elo": 1374.97,
+              "team_pregame_elo": 1709.54,
+              "venue": "away",
+              "score": "79-73",
+              "win": true,
+              "expected_win_probability": 0.8728,
+              "elo_change": 4.472,
+              "margin": 6.0
+            },
+            {
+              "date": "2026-03-06",
+              "opponent": "gardner-webb",
+              "opponent_pregame_elo": 1198.93,
+              "team_pregame_elo": 1714.01,
+              "venue": "home",
+              "score": "81-59",
+              "win": true,
+              "expected_win_probability": 0.951,
+              "elo_change": 2.058,
+              "margin": 22.0
+            },
+            {
+              "date": "2026-03-07",
+              "opponent": "unc asheville",
+              "opponent_pregame_elo": 1450.93,
+              "team_pregame_elo": 1716.07,
+              "venue": "home",
+              "score": "75-71",
+              "win": true,
+              "expected_win_probability": 0.8215,
+              "elo_change": 5.932,
+              "margin": 4.0
+            },
+            {
+              "date": "2026-03-08",
+              "opponent": "winthrop",
+              "opponent_pregame_elo": 1599.92,
+              "team_pregame_elo": 1722.0,
+              "venue": "home",
+              "score": "91-76",
+              "win": true,
+              "expected_win_probability": 0.6688,
+              "elo_change": 13.213,
+              "margin": 15.0
+            },
+            {
+              "date": "2026-03-19",
+              "opponent": "wisconsin",
+              "opponent_pregame_elo": 1805.85,
+              "team_pregame_elo": 1735.21,
+              "venue": "away",
+              "score": "83-82",
+              "win": true,
+              "expected_win_probability": 0.3997,
+              "elo_change": 16.792,
+              "margin": 1.0
+            },
+            {
+              "date": "2026-03-21",
+              "opponent": "arkansas",
+              "opponent_pregame_elo": 1843.99,
+              "team_pregame_elo": 1752.0,
+              "venue": "away",
+              "score": "88-94",
+              "win": false,
+              "expected_win_probability": 0.3706,
+              "elo_change": -13.029,
+              "margin": -6.0
+            }
+          ]
+        },
+        "indiana": {
+          "start_elo": 1603.313,
+          "final_elo": 1612.9003,
+          "games": 32,
+          "wins": 17,
+          "opponent_pregame_mean_elo": 1621.09,
+          "victories_over_1600_opponents": 6,
+          "net_elo_change": 9.585,
+          "match_ledger": [
+            {
+              "date": "2025-11-05",
+              "opponent": "alabama a&m",
+              "opponent_pregame_elo": 1318.83,
+              "team_pregame_elo": 1603.31,
+              "venue": "home",
+              "score": "98-51",
+              "win": true,
+              "expected_win_probability": 0.8372,
+              "elo_change": 7.52,
+              "margin": 47.0
+            },
+            {
+              "date": "2025-11-09",
+              "opponent": "marquette",
+              "opponent_pregame_elo": 1653.23,
+              "team_pregame_elo": 1610.83,
+              "venue": "away",
+              "score": "77-100",
+              "win": false,
+              "expected_win_probability": 0.4393,
+              "elo_change": -18.546,
+              "margin": -23.0
+            },
+            {
+              "date": "2025-11-12",
+              "opponent": "milwaukee",
+              "opponent_pregame_elo": 1554.73,
+              "team_pregame_elo": 1592.29,
+              "venue": "home",
+              "score": "101-70",
+              "win": true,
+              "expected_win_probability": 0.5538,
+              "elo_change": 19.572,
+              "margin": 31.0
+            },
+            {
+              "date": "2025-11-16",
+              "opponent": "uiw",
+              "opponent_pregame_elo": 1429.55,
+              "team_pregame_elo": 1611.86,
+              "venue": "home",
+              "score": "69-61",
+              "win": true,
+              "expected_win_probability": 0.7407,
+              "elo_change": 9.49,
+              "margin": 8.0
+            },
+            {
+              "date": "2025-11-20",
+              "opponent": "lindenwood",
+              "opponent_pregame_elo": 1383.63,
+              "team_pregame_elo": 1621.35,
+              "venue": "home",
+              "score": "73-53",
+              "win": true,
+              "expected_win_probability": 0.7971,
+              "elo_change": 8.41,
+              "margin": 20.0
+            },
+            {
+              "date": "2025-11-25",
+              "opponent": "kansas st.",
+              "opponent_pregame_elo": 1619.29,
+              "team_pregame_elo": 1629.76,
+              "venue": "home",
+              "score": "86-69",
+              "win": true,
+              "expected_win_probability": 0.5151,
+              "elo_change": 19.674,
+              "margin": 17.0
+            },
+            {
+              "date": "2025-11-29",
+              "opponent": "bethune-cookman",
+              "opponent_pregame_elo": 1407.73,
+              "team_pregame_elo": 1649.43,
+              "venue": "home",
+              "score": "100-56",
+              "win": true,
+              "expected_win_probability": 0.8008,
+              "elo_change": 9.128,
+              "margin": 44.0
+            },
+            {
+              "date": "2025-12-03",
+              "opponent": "minnesota",
+              "opponent_pregame_elo": 1511.13,
+              "team_pregame_elo": 1658.56,
+              "venue": "away",
+              "score": "64-73",
+              "win": false,
+              "expected_win_probability": 0.7003,
+              "elo_change": -26.051,
+              "margin": -9.0
+            },
+            {
+              "date": "2025-12-06",
+              "opponent": "louisville",
+              "opponent_pregame_elo": 1719.24,
+              "team_pregame_elo": 1632.51,
+              "venue": "away",
+              "score": "78-87",
+              "win": false,
+              "expected_win_probability": 0.3777,
+              "elo_change": -14.051,
+              "margin": -9.0
+            },
+            {
+              "date": "2025-12-09",
+              "opponent": "penn st.",
+              "opponent_pregame_elo": 1624.6,
+              "team_pregame_elo": 1618.46,
+              "venue": "home",
+              "score": "113-72",
+              "win": true,
+              "expected_win_probability": 0.4912,
+              "elo_change": 23.115,
+              "margin": 41.0
+            },
+            {
+              "date": "2025-12-13",
+              "opponent": "kentucky",
+              "opponent_pregame_elo": 1650.26,
+              "team_pregame_elo": 1641.57,
+              "venue": "away",
+              "score": "60-72",
+              "win": false,
+              "expected_win_probability": 0.4875,
+              "elo_change": -18.869,
+              "margin": -12.0
+            },
+            {
+              "date": "2025-12-20",
+              "opponent": "chicago st.",
+              "opponent_pregame_elo": 1267.84,
+              "team_pregame_elo": 1622.71,
+              "venue": "home",
+              "score": "78-58",
+              "win": true,
+              "expected_win_probability": 0.8852,
+              "elo_change": 4.758,
+              "margin": 20.0
+            },
+            {
+              "date": "2025-12-22",
+              "opponent": "siena",
+              "opponent_pregame_elo": 1484.9,
+              "team_pregame_elo": 1627.46,
+              "venue": "home",
+              "score": "81-60",
+              "win": true,
+              "expected_win_probability": 0.6944,
+              "elo_change": 12.751,
+              "margin": 21.0
+            },
+            {
+              "date": "2026-01-04",
+              "opponent": "washington",
+              "opponent_pregame_elo": 1551.21,
+              "team_pregame_elo": 1640.21,
+              "venue": "home",
+              "score": "90-80",
+              "win": true,
+              "expected_win_probability": 0.6254,
+              "elo_change": 14.141,
+              "margin": 10.0
+            },
+            {
+              "date": "2026-01-07",
+              "opponent": "maryland",
+              "opponent_pregame_elo": 1619.55,
+              "team_pregame_elo": 1654.36,
+              "venue": "away",
+              "score": "84-66",
+              "win": true,
+              "expected_win_probability": 0.5499,
+              "elo_change": 18.399,
+              "margin": 18.0
+            },
+            {
+              "date": "2026-01-10",
+              "opponent": "nebraska",
+              "opponent_pregame_elo": 1787.75,
+              "team_pregame_elo": 1672.75,
+              "venue": "home",
+              "score": "77-83",
+              "win": false,
+              "expected_win_probability": 0.3403,
+              "elo_change": -11.963,
+              "margin": -6.0
+            },
+            {
+              "date": "2026-01-13",
+              "opponent": "michigan st.",
+              "opponent_pregame_elo": 1825.04,
+              "team_pregame_elo": 1660.79,
+              "venue": "away",
+              "score": "60-81",
+              "win": false,
+              "expected_win_probability": 0.2798,
+              "elo_change": -11.673,
+              "margin": -21.0
+            },
+            {
+              "date": "2026-01-17",
+              "opponent": "iowa",
+              "opponent_pregame_elo": 1640.48,
+              "team_pregame_elo": 1649.12,
+              "venue": "home",
+              "score": "57-74",
+              "win": false,
+              "expected_win_probability": 0.5124,
+              "elo_change": -20.789,
+              "margin": -17.0
+            },
+            {
+              "date": "2026-01-20",
+              "opponent": "michigan",
+              "opponent_pregame_elo": 1855.41,
+              "team_pregame_elo": 1628.33,
+              "venue": "away",
+              "score": "72-86",
+              "win": false,
+              "expected_win_probability": 0.213,
+              "elo_change": -8.417,
+              "margin": -14.0
+            },
+            {
+              "date": "2026-01-23",
+              "opponent": "rutgers",
+              "opponent_pregame_elo": 1546.65,
+              "team_pregame_elo": 1619.91,
+              "venue": "away",
+              "score": "82-59",
+              "win": true,
+              "expected_win_probability": 0.6039,
+              "elo_change": 16.723,
+              "margin": 23.0
+            },
+            {
+              "date": "2026-01-27",
+              "opponent": "purdue",
+              "opponent_pregame_elo": 1819.42,
+              "team_pregame_elo": 1636.64,
+              "venue": "home",
+              "score": "72-67",
+              "win": true,
+              "expected_win_probability": 0.2588,
+              "elo_change": 25.402,
+              "margin": 5.0
+            },
+            {
+              "date": "2026-01-31",
+              "opponent": "ucla",
+              "opponent_pregame_elo": 1709.06,
+              "team_pregame_elo": 1662.04,
+              "venue": "away",
+              "score": "98-97",
+              "win": true,
+              "expected_win_probability": 0.4327,
+              "elo_change": 15.868,
+              "margin": 1.0
+            },
+            {
+              "date": "2026-02-03",
+              "opponent": "southern california",
+              "opponent_pregame_elo": 1660.71,
+              "team_pregame_elo": 1677.91,
+              "venue": "away",
+              "score": "75-81",
+              "win": false,
+              "expected_win_probability": 0.5247,
+              "elo_change": -18.447,
+              "margin": -6.0
+            },
+            {
+              "date": "2026-02-07",
+              "opponent": "wisconsin",
+              "opponent_pregame_elo": 1769.03,
+              "team_pregame_elo": 1659.46,
+              "venue": "home",
+              "score": "78-77",
+              "win": true,
+              "expected_win_probability": 0.3473,
+              "elo_change": 18.257,
+              "margin": 1.0
+            },
+            {
+              "date": "2026-02-09",
+              "opponent": "oregon",
+              "opponent_pregame_elo": 1558.13,
+              "team_pregame_elo": 1677.72,
+              "venue": "home",
+              "score": "92-74",
+              "win": true,
+              "expected_win_probability": 0.6656,
+              "elo_change": 13.67,
+              "margin": 18.0
+            },
+            {
+              "date": "2026-02-15",
+              "opponent": "illinois",
+              "opponent_pregame_elo": 1829.29,
+              "team_pregame_elo": 1691.39,
+              "venue": "away",
+              "score": "51-71",
+              "win": false,
+              "expected_win_probability": 0.3113,
+              "elo_change": -12.906,
+              "margin": -20.0
+            },
+            {
+              "date": "2026-02-20",
+              "opponent": "purdue",
+              "opponent_pregame_elo": 1825.47,
+              "team_pregame_elo": 1678.48,
+              "venue": "away",
+              "score": "64-93",
+              "win": false,
+              "expected_win_probability": 0.3002,
+              "elo_change": -13.06,
+              "margin": -29.0
+            },
+            {
+              "date": "2026-02-24",
+              "opponent": "northwestern",
+              "opponent_pregame_elo": 1540.26,
+              "team_pregame_elo": 1665.42,
+              "venue": "home",
+              "score": "68-72",
+              "win": false,
+              "expected_win_probability": 0.6727,
+              "elo_change": -22.352,
+              "margin": -4.0
+            },
+            {
+              "date": "2026-03-01",
+              "opponent": "michigan st.",
+              "opponent_pregame_elo": 1853.98,
+              "team_pregame_elo": 1643.07,
+              "venue": "home",
+              "score": "64-77",
+              "win": false,
+              "expected_win_probability": 0.229,
+              "elo_change": -8.96,
+              "margin": -13.0
+            },
+            {
+              "date": "2026-03-04",
+              "opponent": "minnesota",
+              "opponent_pregame_elo": 1581.96,
+              "team_pregame_elo": 1634.11,
+              "venue": "home",
+              "score": "77-47",
+              "win": true,
+              "expected_win_probability": 0.5745,
+              "elo_change": 18.589,
+              "margin": 30.0
+            },
+            {
+              "date": "2026-03-07",
+              "opponent": "ohio st.",
+              "opponent_pregame_elo": 1706.58,
+              "team_pregame_elo": 1652.7,
+              "venue": "away",
+              "score": "78-91",
+              "win": false,
+              "expected_win_probability": 0.4231,
+              "elo_change": -16.555,
+              "margin": -13.0
+            },
+            {
+              "date": "2026-03-11",
+              "opponent": "northwestern",
+              "opponent_pregame_elo": 1570.04,
+              "team_pregame_elo": 1636.14,
+              "venue": "home",
+              "score": "61-74",
+              "win": false,
+              "expected_win_probability": 0.594,
+              "elo_change": -23.243,
+              "margin": -13.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "published_baseline_comparison": {
+    "high point": {
+      "published_2026_27_base_elo": 1642.9952,
+      "independent_2026_final_elo": 1738.9736,
+      "difference": 95.9784,
+      "parity_within_0_01": false
+    },
+    "indiana": {
+      "published_2026_27_base_elo": 1529.5991,
+      "independent_2026_final_elo": 1612.9003,
+      "difference": 83.3012,
+      "parity_within_0_01": false
+    }
+  },
+  "warning": "Published preseason base Elo may use different priors, season coverage or identity mapping; differences are diagnostics, not automatic corrections."
+}

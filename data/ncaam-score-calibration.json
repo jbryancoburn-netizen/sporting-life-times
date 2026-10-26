@@ -1,0 +1,37 @@
+{
+  "model": "ncaam-venue-neutral-historical-score-v1",
+  "status": "HISTORICAL_HOLDOUT_VALIDATED",
+  "parameters": {
+    "mean_team_points": 72.74794,
+    "elo_margin_slope": 0.05681226,
+    "margin_cap": 28,
+    "minimum_winner_margin": 1
+  },
+  "training_seasons": [
+    2024,
+    2025
+  ],
+  "holdout_season": 2026,
+  "validation": {
+    "training_games": 11285,
+    "holdout_games": 5750,
+    "date_disjoint": true,
+    "score_mae_delta": 0.152806170745297,
+    "margin_mae_delta": 0.13837387291207826
+  },
+  "holdout_baseline": {
+    "games": 5750,
+    "team_score_mae": 9.553270944818305,
+    "margin_mae": 10.458087028586919
+  },
+  "holdout_challenger": {
+    "games": 5750,
+    "team_score_mae": 9.400464774073008,
+    "margin_mae": 10.31971315567484
+  },
+  "known_limits": [
+    "Current preseason Elo is player-quality-adjusted, while historical pregame ratings use a simpler replay",
+    "No verified court venue, possession totals, player availability, or overtime probabilities",
+    "Model predicts mean scores; final rounded scores are illustrative rather than certainty intervals"
+  ]
+}
