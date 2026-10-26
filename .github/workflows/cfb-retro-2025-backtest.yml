@@ -1,0 +1,30 @@
+name: Backtest 2025 CFB RETRO
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  historical-backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Import 2025 results
+        run: |
+          sed -e 's/2026/2025/g' -e 's/range(18)/range(19)/g' scripts/fetch_cfb_2026.py > /tmp/fetch_cfb_2025.py
+          python /tmp/fetch_cfb_2025.py
+      - name: Evaluate previous season
+        run: |
+          sed 's/cfb-2026-results.json/cfb-2025-results.json/g' scripts/cfb-retro-backtest.js > /tmp/cfb-retro-2025.js
+          node /tmp/cfb-retro-2025.js | tee data/cfb-2025-backtest.txt
+      - name: Commit historical results and scores
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cfb-2025-results.json data/cfb-2025-backtest.txt
+          git diff --cached --quiet || (git commit -m "Backtest RETRO on 2025 college football" && git push)
