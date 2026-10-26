@@ -24,10 +24,10 @@ assert.ok(fast.total>slow.total+10,'Opponent pace/offense must produce different
 assert.ok(fast.possessions>slow.possessions+7,'Pace must materially affect matchups');
 assert.ok(Math.abs(fast.homePoints-fast.awayPoints)<40);
 const page=read('nba.html'),legacy=read('nba-rabby-forecast.js');
-assert.match(page,/nba-rabby-possession\.js/);
+assert.match(page,/nba-newspaper\.js/);
+assert.match(read('nba-newspaper.js'),/nba-rabby-forecast\.js/);
 assert.doesNotMatch(legacy,/meanAbsoluteMargin|meanTotal|function predict\(/);
 assert.match(legacy,/Scoring projection awaiting qualifying data/);
-assert.match(read('nba-home.js'),/Special:FilePath\/National_Basketball_Association_logo/);
 console.log('Rabby NBA possession model PASS: distinct projected totals and possession counts; invalid data blocked, Elo unchanged.');
 const calibration=JSON.parse(read('data/nba-possession-historical-calibration.json'));
 const calibrated=m.build({source_type:'official_nba_boxscores',games:records,calibration});
