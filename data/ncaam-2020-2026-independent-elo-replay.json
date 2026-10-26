@@ -1,0 +1,368 @@
+{
+  "model": "SLAT NCAA 2020–2026 independently replayed score Elo",
+  "status": "REPLAY_CALCULATED_NOT_YET_CONNECTED_TO_1985_2019_IDS",
+  "coverage": {
+    "earliest": 2020,
+    "latest": 2026,
+    "seasons": 7,
+    "games": 41073
+  },
+  "source": "SportsDataverse NCAA schedule final-score files committed in repository",
+  "parameters": {
+    "elo_K": 24,
+    "mov_multiplier": 0.55,
+    "season_carryover": 0.65,
+    "venue_adjustment": "none"
+  },
+  "limitations": [
+    "2020 reset to 1500 because 2019 numeric-team-ID crosswalk is not verified",
+    "Includes games involving non-Division I opponents where present in SportsDataverse feeds",
+    "Some playoff games may be included; regular-season-only correspondence with 1985–2019 is not independently reconciled",
+    "School-name changes and aliases may split ratings; crosswalk must be verified before blending history"
+  ],
+  "seasons": [
+    {
+      "season": 2020,
+      "games": 5781,
+      "teams": 673,
+      "log_loss": 0.634507,
+      "brier": 0.22227,
+      "highest_elo": [
+        {
+          "team": "Gonzaga",
+          "elo": 1863.22
+        },
+        {
+          "team": "Kansas",
+          "elo": 1834.61
+        },
+        {
+          "team": "Dayton",
+          "elo": 1830.85
+        },
+        {
+          "team": "San Diego St.",
+          "elo": 1803.67
+        },
+        {
+          "team": "ETSU",
+          "elo": 1787.85
+        },
+        {
+          "team": "SFA",
+          "elo": 1765.37
+        },
+        {
+          "team": "Kentucky",
+          "elo": 1758.89
+        },
+        {
+          "team": "Florida St.",
+          "elo": 1751.18
+        },
+        {
+          "team": "Baylor",
+          "elo": 1739.61
+        },
+        {
+          "team": "Richmond",
+          "elo": 1735.24
+        }
+      ]
+    },
+    {
+      "season": 2021,
+      "games": 4269,
+      "teams": 492,
+      "log_loss": 0.598698,
+      "brier": 0.205977,
+      "highest_elo": [
+        {
+          "team": "Gonzaga",
+          "elo": 1964.64
+        },
+        {
+          "team": "Baylor",
+          "elo": 1923.06
+        },
+        {
+          "team": "Houston",
+          "elo": 1840.63
+        },
+        {
+          "team": "Loyola Chicago",
+          "elo": 1815.54
+        },
+        {
+          "team": "San Diego St.",
+          "elo": 1812.66
+        },
+        {
+          "team": "Illinois",
+          "elo": 1804.59
+        },
+        {
+          "team": "Alabama",
+          "elo": 1800.91
+        },
+        {
+          "team": "Michigan",
+          "elo": 1796.28
+        },
+        {
+          "team": "Arkansas",
+          "elo": 1782.36
+        },
+        {
+          "team": "Southern California",
+          "elo": 1777.48
+        }
+      ]
+    },
+    {
+      "season": 2022,
+      "games": 5969,
+      "teams": 684,
+      "log_loss": 0.590093,
+      "brier": 0.202238,
+      "highest_elo": [
+        {
+          "team": "Kansas",
+          "elo": 1943.78
+        },
+        {
+          "team": "Gonzaga",
+          "elo": 1927.13
+        },
+        {
+          "team": "Houston",
+          "elo": 1904.87
+        },
+        {
+          "team": "Arizona",
+          "elo": 1902.86
+        },
+        {
+          "team": "Villanova",
+          "elo": 1858.18
+        },
+        {
+          "team": "UCLA",
+          "elo": 1847.16
+        },
+        {
+          "team": "Tennessee",
+          "elo": 1841.45
+        },
+        {
+          "team": "Duke",
+          "elo": 1840.52
+        },
+        {
+          "team": "North Carolina",
+          "elo": 1829.85
+        },
+        {
+          "team": "Arkansas",
+          "elo": 1829.12
+        }
+      ]
+    },
+    {
+      "season": 2023,
+      "games": 6221,
+      "teams": 706,
+      "log_loss": 0.601021,
+      "brier": 0.207315,
+      "highest_elo": [
+        {
+          "team": "UConn",
+          "elo": 1929.76
+        },
+        {
+          "team": "Gonzaga",
+          "elo": 1929.38
+        },
+        {
+          "team": "Houston",
+          "elo": 1920.86
+        },
+        {
+          "team": "UCLA",
+          "elo": 1917.53
+        },
+        {
+          "team": "San Diego St.",
+          "elo": 1904.93
+        },
+        {
+          "team": "Fla. Atlantic",
+          "elo": 1891.55
+        },
+        {
+          "team": "Alabama",
+          "elo": 1889.33
+        },
+        {
+          "team": "North Texas",
+          "elo": 1867.92
+        },
+        {
+          "team": "Texas",
+          "elo": 1862.3
+        },
+        {
+          "team": "Miami (FL)",
+          "elo": 1852.96
+        }
+      ]
+    },
+    {
+      "season": 2024,
+      "games": 6243,
+      "teams": 718,
+      "log_loss": 0.599878,
+      "brier": 0.206819,
+      "highest_elo": [
+        {
+          "team": "UConn",
+          "elo": 2004.13
+        },
+        {
+          "team": "Purdue",
+          "elo": 1955.69
+        },
+        {
+          "team": "Houston",
+          "elo": 1942.52
+        },
+        {
+          "team": "Iowa St.",
+          "elo": 1884.96
+        },
+        {
+          "team": "Gonzaga",
+          "elo": 1870.72
+        },
+        {
+          "team": "Illinois",
+          "elo": 1861.98
+        },
+        {
+          "team": "Tennessee",
+          "elo": 1858.86
+        },
+        {
+          "team": "Saint Mary's (CA)",
+          "elo": 1856.88
+        },
+        {
+          "team": "Auburn",
+          "elo": 1851.36
+        },
+        {
+          "team": "North Carolina",
+          "elo": 1847.95
+        }
+      ]
+    },
+    {
+      "season": 2025,
+      "games": 6293,
+      "teams": 701,
+      "log_loss": 0.587392,
+      "brier": 0.201215,
+      "highest_elo": [
+        {
+          "team": "Houston",
+          "elo": 2040.12
+        },
+        {
+          "team": "Florida",
+          "elo": 2026.34
+        },
+        {
+          "team": "Duke",
+          "elo": 1992.85
+        },
+        {
+          "team": "Auburn",
+          "elo": 1952.55
+        },
+        {
+          "team": "Alabama",
+          "elo": 1915.3
+        },
+        {
+          "team": "Michigan St.",
+          "elo": 1906.05
+        },
+        {
+          "team": "St. John's (NY)",
+          "elo": 1904.09
+        },
+        {
+          "team": "Tennessee",
+          "elo": 1901.16
+        },
+        {
+          "team": "Gonzaga",
+          "elo": 1883.47
+        },
+        {
+          "team": "Drake",
+          "elo": 1879.66
+        }
+      ]
+    },
+    {
+      "season": 2026,
+      "games": 6297,
+      "teams": 726,
+      "log_loss": 0.589599,
+      "brier": 0.202267,
+      "highest_elo": [
+        {
+          "team": "Michigan",
+          "elo": 2069.09
+        },
+        {
+          "team": "Duke",
+          "elo": 2040.48
+        },
+        {
+          "team": "Arizona",
+          "elo": 2039.45
+        },
+        {
+          "team": "St. John's (NY)",
+          "elo": 1937.95
+        },
+        {
+          "team": "Florida",
+          "elo": 1932.43
+        },
+        {
+          "team": "Houston",
+          "elo": 1931.51
+        },
+        {
+          "team": "UConn",
+          "elo": 1921.68
+        },
+        {
+          "team": "Purdue",
+          "elo": 1910.69
+        },
+        {
+          "team": "Illinois",
+          "elo": 1903.26
+        },
+        {
+          "team": "Gonzaga",
+          "elo": 1889.85
+        }
+      ]
+    }
+  ]
+}
