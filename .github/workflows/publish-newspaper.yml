@@ -52,6 +52,15 @@ jobs:
           python3 scripts/inject-team-crests.py --check
           node --check shared-team-crests.js
           test -s shared-team-crests.css
+      - name: Validate college football JavaScript before publication
+        run: |
+          set -euo pipefail
+          node --check cfb-newspaper.js
+          node --check cfb-directory.js
+          node --check cfb-elo.js
+          node --check cfb-team.js
+          grep -q 'cfb-directory.js' college-football.html
+          grep -q 'cfb-newspaper.js' college-football.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
