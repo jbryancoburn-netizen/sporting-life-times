@@ -1,0 +1,76 @@
+{
+  "model": "ncaam-expanded-multistat-fixed-coefficients-head-to-head",
+  "status": "RETROSPECTIVE_SAME_GAME_COMPARISON_NOT_CERTIFIED_PRESEASON",
+  "training_seasons": [
+    2024,
+    2025
+  ],
+  "previously_inspected_diagnostic_season": 2026,
+  "expanded_coefficients": {
+    "shooting": 126.5625,
+    "playmaking": 2075.0,
+    "defense": 385.9375
+  },
+  "identical_games": true,
+  "fixed_coefficients_before_2026_replay": true,
+  "data_timestamp_preopening_verified": false,
+  "automatic_promotion": false,
+  "model_comparison_note": "Incumbent is the common fixed historical roster-and-quality model without additional shooting/playmaking/defense. It is not an exact replay of the production 2026-27 roster identity system.",
+  "years": {
+    "2024": {
+      "same_games": true,
+      "games": 5611,
+      "incumbent": {
+        "games": 5611,
+        "log_loss": 0.5893176701522554,
+        "brier": 0.20265002174718802
+      },
+      "expanded": {
+        "games": 5611,
+        "log_loss": 0.5875431067686154,
+        "brier": 0.20201576921424697
+      },
+      "log_loss_improvement": 0.0017745633836400154,
+      "brier_improvement": 0.0006342525329410542
+    },
+    "2025": {
+      "same_games": true,
+      "games": 5674,
+      "incumbent": {
+        "games": 5674,
+        "log_loss": 0.5688360923297561,
+        "brier": 0.19449994654535305
+      },
+      "expanded": {
+        "games": 5674,
+        "log_loss": 0.5649147373198922,
+        "brier": 0.19318488500505074
+      },
+      "log_loss_improvement": 0.003921355009863903,
+      "brier_improvement": 0.0013150615403023092
+    },
+    "2026": {
+      "same_games": true,
+      "games": 5750,
+      "incumbent": {
+        "games": 5750,
+        "log_loss": 0.5691101007102444,
+        "brier": 0.19514634776861728
+      },
+      "expanded": {
+        "games": 5750,
+        "log_loss": 0.5671573610424833,
+        "brier": 0.19466453411530996
+      },
+      "log_loss_improvement": 0.0019527396677611053,
+      "brier_improvement": 0.0004818136533073225
+    }
+  },
+  "expanded_wins_2026_both": true,
+  "limitations": [
+    "Archive rosters are not certified preopening as-of",
+    "2026 diagnostic has already been inspected",
+    "Potential overlap between shooting and existing scoring quality",
+    "No true venue or possessions verification"
+  ]
+}
