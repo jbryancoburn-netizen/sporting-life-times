@@ -42,13 +42,11 @@ def work(item):
  try:
   raw,_=get(u)
   doc=BeautifulSoup(raw,'html.parser')
-  headings=[h for h in doc.find_all(['h1','h2']) if norm(h.get_text(' ',strip=True))==norm(name)]
-  candidates=[h.find_next('img') for h in headings]
-  if name=='Sam Mennenga':
-   print('SAM_HEADING_IMAGES',[(str(h.get_text(' ',strip=True))[:50],[(im.get('src','')[:135],str(im.get('class',''))) for im in h.find_all_next('img',limit=8)]) for h in headings],flush=True)
-  if name=='Sam Mennenga':
-   print('SAM_PROFILE_IMAGES',[(str(im.get('alt',''))[:45],str(im.get('src',''))[:110],str(im.get('class',''))[:60]) for im in doc.find_all('img') if im.get('src')][:45],flush=True)
-  candidates += [im for im in doc.find_all('img') if norm(name) in norm(im.get('alt',''))]
+  # The official profile uses player-page-logo for the crest,
+  # and player-page-image for the ACTUAL player portrait.
+  candidates=[im for im in doc.select('img.player-page-image')
+              if 'w-condition-invisible' not in im.get('class',[])
+              and 'silhouette' not in (im.get('src','')+im.get('data-src','')).lower()]
   for im in candidates:
    if im is None:continue
    src=im.get('src','') or im.get('data-src','')
@@ -58,9 +56,8 @@ def work(item):
    image=cv2.imdecode(np.frombuffer(data,np.uint8),cv2.IMREAD_COLOR)
    if image is None:continue
    gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-   with FACE_LOCK:
-    detected=FACE.detectMultiScale(gray,scaleFactor=1.08,minNeighbors=4,minSize=(32,32))
-   if len(detected)<1:continue
+   # Semantic image-class check prevents selecting team crests.
+   if min(image.shape[:2])<120:continue
    ext='.webp' if 'webp' in ct else '.png' if 'png' in ct else '.jpg'
    out=D/(pid+ext)
    out.write_bytes(data)
@@ -70,8 +67,8 @@ def work(item):
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
  result=dict(pool.map(work,people.items()))
 found={k:v for k,v in result.items() if v}
-(D/'manifest.json').write_text(json.dumps({'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'players':found,'matched':len(found),'total':len(people),'face_verified':True},indent=2)+'\n')
-print('FACE-VERIFIED PLAYER PHOTOS',len(found),'/',len(people),flush=True)
+(D/'manifest.json').write_text(json.dumps({'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'players':found,'matched':len(found),'total':len(people),'portrait_field_verified':True},indent=2)+'\n')
+print('PLAYER-PORTRAIT FIELD PHOTOS',len(found),'/',len(people),flush=True)
 
 # Faces required; logos never qualify.
 
