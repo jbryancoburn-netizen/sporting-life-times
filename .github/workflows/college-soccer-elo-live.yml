@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/college-soccer-elo-live.yml'
       - 'scripts/update_college_soccer_elo.py'
+      - 'scripts/audit_college_soccer_elo_parameters.py'
       - 'scripts/build_college_soccer_conference_projections.py'
       - 'scripts/build_college_soccer_ncaa_selection.py'
       - 'scripts/test_update_college_soccer_elo.py'
@@ -60,6 +61,8 @@ jobs:
         run: python scripts/build_college_soccer_conference_projections.py
       - name: Update experimental NCAA selection forecast
         run: python scripts/build_college_soccer_ncaa_selection.py
+      - name: Rebuild Elo parameter sensitivity audit
+        run: python scripts/audit_college_soccer_elo_parameters.py
       - name: Lock new matchup-specific forecasts before kickoff
         run: python scripts/publish_college_soccer_dynamic.py
       - name: Score matchup-model forecasts against verified finals
@@ -100,7 +103,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/college-soccer-ncaa-selection-forecast.json data/college-soccer-projected-standings.json data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
+          git add data/college-soccer-elo-parameter-audit-latest.json data/college-soccer-ncaa-selection-forecast.json data/college-soccer-projected-standings.json data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
           if git diff --cached --quiet; then
             echo "No new verified NCAA finals or repairs. Published ratings unchanged."
             exit 0
