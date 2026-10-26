@@ -21,7 +21,8 @@ def game_fields(record,date):
  home=g.get("home",{});away=g.get("away",{})
  if not isinstance(home,dict) or not isinstance(away,dict):return None,"team_missing"
  def team(t):
-  return str(t.get("names",{}).get("short") if isinstance(t.get("names"),dict) else "" or t.get("name") or t.get("short") or t.get("seo") or "").strip()
+  names=t.get("names") if isinstance(t.get("names"),dict) else {}
+  return str(names.get("short") or names.get("full") or t.get("name") or t.get("short") or t.get("seo") or "").strip()
  def points(t):
   v=t.get("score")
   if isinstance(v,dict):v=v.get("score") or v.get("total")
