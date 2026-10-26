@@ -12,6 +12,7 @@ on:
       - 'scripts/backtest_ncaam_combined_elo.py'
       - 'scripts/backtest_ncaam_exact_challenger_v3.py'
       - 'scripts/calibrate_ncaam_score_model.py'
+      - 'scripts/build_ncaam_scoring_profiles.py'
       - 'scripts/audit_ncaam_historical_transfer_origin.py'
       - 'scripts/audit_ncaam_historical_multistat_coverage.py'
       - 'scripts/build_ncaam_historical_multistat_features.py'
@@ -144,6 +145,16 @@ jobs:
           d=json.load(open('historical-report/ncaam-score-calibration.json'))
           assert d['validation']['date_disjoint']
           assert d['validation']['holdout_games']>=3000
+          PY
+      - name: Build evidence-based NCAA team offense and defense scoring profiles
+        run: |
+          python scripts/build_ncaam_scoring_profiles.py --source historical-normalized --out historical-report/ncaam-team-scoring-profiles.json
+          python - <<'PY'
+          import json
+          d=json.load(open('historical-report/ncaam-team-scoring-profiles.json'))
+          assert d['team_count']==365
+          assert d['previous_season_games']>3000
+          assert all(t['tempo_possessions'] is None for t in d['teams'])
           PY
       - name: Calibrate current game Elo K and margin multipliers on untouched 2026 holdout
         run: |
@@ -453,6 +464,9 @@ jobs:
           if [ -s historical-report/ncaam-exact-challenger-v3-head-to-head.json ]; then
             cp historical-report/ncaam-exact-challenger-v3-head-to-head.json data/ncaam-exact-challenger-v3-head-to-head.json
           fi
+          if [ -s historical-report/ncaam-team-scoring-profiles.json ]; then
+            cp historical-report/ncaam-team-scoring-profiles.json data/ncaam-team-scoring-profiles.json
+          fi
           if [ -s historical-report/ncaam-score-calibration.json ]; then
             cp historical-report/ncaam-score-calibration.json data/ncaam-score-calibration.json
           fi
@@ -501,8 +515,9 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/ncaam-historical-acquisition-status.json data/ncaam-player-quality-retrospective-backtest.json
           if [ -f data/ncaam-score-calibration.json ]; then git add data/ncaam-score-calibration.json; fi
+          if [ -f data/ncaam-team-scoring-profiles.json ]; then git add data/ncaam-team-scoring-profiles.json; fi
           if [ -f data/ncaam-exact-challenger-v3-head-to-head.json ]; then git add data/ncaam-exact-challenger-v3-head-to-head.json; fi
-          for file in data/ncaam-score-calibration.json data/ncaam-exact-challenger-v3-head-to-head.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json data/ncaam-coverage-shrinkage.json data/ncaam-player-reconciliation.json data/ncaam-multiyear-identity-audit.json data/ncaam-two-year-stat-recovery-backtest.json; do
+          for file in data/ncaam-team-scoring-profiles.json data/ncaam-score-calibration.json data/ncaam-exact-challenger-v3-head-to-head.json data/ncaam-quality-earlyseason-asof-backtest.json data/ncaam-2026-27-scoring-quality-shadow.json data/ncaam-2026-27-id-history-recoveries.json data/ncaam-2026-27-four-player-source-replay.json data/ncaam-elo-k-mov-historical-calibration.json data/ncaam-elo-centered-margin-validation.json data/ncaam-turnover-update-speed-retrospective.json data/ncaam-combined-elo-research.json data/ncaam-historical-transfer-origin-evidence.json data/ncaam-historical-multistat-coverage.json data/ncaam-independent-stat-weights.json data/ncaam-stat-coefficient-impact.json data/ncaam-continuous-stat-optimizer.json data/ncaam-continuous-impact-audit.json data/ncaam-continuous-size-buckets.json data/ncaam-stat-adjustment-coverage-timing.json data/ncaam-stat-player-match-audit.json data/ncaam-coverage-shrinkage.json data/ncaam-player-reconciliation.json data/ncaam-multiyear-identity-audit.json data/ncaam-two-year-stat-recovery-backtest.json; do
             if [ -f "$file" ]; then git add "$file"; fi
           done
           git commit -m 'Record NCAA historical data acquisition result' || exit 0
@@ -520,6 +535,7 @@ jobs:
             git add data/ncaam-historical-acquisition-status.json
             if [ -f data/ncaam-exact-challenger-v3-head-to-head.json ]; then git add data/ncaam-exact-challenger-v3-head-to-head.json; fi
             if [ -f data/ncaam-score-calibration.json ]; then git add data/ncaam-score-calibration.json; fi
+            if [ -f data/ncaam-team-scoring-profiles.json ]; then git add data/ncaam-team-scoring-profiles.json; fi
             if [ -f data/ncaam-elo-k-mov-historical-calibration.json ]; then git add data/ncaam-elo-k-mov-historical-calibration.json; fi
             if [ -f data/ncaam-elo-centered-margin-validation.json ]; then git add data/ncaam-elo-centered-margin-validation.json; fi
             if [ -f data/ncaam-turnover-update-speed-retrospective.json ]; then git add data/ncaam-turnover-update-speed-retrospective.json; fi
