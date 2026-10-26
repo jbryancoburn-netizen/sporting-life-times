@@ -65,3 +65,5 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
 found={k:v for k,v in result.items() if v}
 (D/'manifest.json').write_text(json.dumps({'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'players':found,'matched':len(found),'total':len(people)},indent=2)+'\n')
 print('FACE-VERIFIED PLAYER PHOTOS',len(found),'/',len(people),flush=True)
+
+# Faces required; logos never qualify.
