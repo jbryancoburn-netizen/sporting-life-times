@@ -2,8 +2,25 @@
 const id=new URLSearchParams(location.search).get('game'),target=document.getElementById('report-content'),title=document.getElementById('match-title');
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const name=x=>String(x).replace('Tottenham Hotspur','Tottenham').replace('Newcastle United','Newcastle').replace('Nottingham Forest',"Nott'm Forest");
-const colors={'Chelsea':'#034694','Tottenham':'#132257','Arsenal':'#ef0107','Everton':'#003399','Liverpool':'#c8102e','Manchester City':'#6cabdd','Manchester United':'#da291c','Aston Villa':'#670e36','Sunderland':'#eb172b','Newcastle':'#242424','Crystal Palace':'#1b458f','Brighton':'#0057b8'};
-const ids={'Chelsea':363,'Tottenham':367,'Arsenal':359,'Everton':368,'Liverpool':364,'Manchester City':382,'Manchester United':360,'Aston Villa':362,'Newcastle':361,'Crystal Palace':384};
+const colors={
+'Arsenal':'#ef0107','Aston Villa':'#670e36','Bournemouth':'#d71920','AFC Bournemouth':'#d71920',
+'Brentford':'#e30613','Brighton':'#0057b8','Brighton & Hove Albion':'#0057b8',
+'Chelsea':'#034694','Coventry':'#77c8e8','Coventry City':'#77c8e8',
+'Crystal Palace':'#1b458f','Everton':'#003399','Fulham':'#242424',
+'Hull':'#f18a00','Hull City':'#f18a00','Ipswich':'#0044a9','Ipswich Town':'#0044a9',
+'Leeds United':'#ffcd00','Liverpool':'#c8102e','Manchester City':'#6cabdd','Manchester United':'#da291c',
+'Newcastle':'#242424','Newcastle United':'#242424',"Nott'm Forest":'#dd0000','Nottingham Forest':'#dd0000',
+'Sunderland':'#eb172b','Tottenham':'#132257','Tottenham Hotspur':'#132257'
+};
+const ids={
+'Arsenal':359,'Aston Villa':362,'Bournemouth':349,'AFC Bournemouth':349,
+'Brentford':337,'Brighton':331,'Brighton & Hove Albion':331,
+'Chelsea':363,'Coventry':388,'Coventry City':388,'Crystal Palace':384,
+'Everton':368,'Fulham':370,'Hull':306,'Hull City':306,
+'Ipswich':373,'Ipswich Town':373,'Leeds United':357,'Liverpool':364,
+'Manchester City':382,'Manchester United':360,'Newcastle':361,'Newcastle United':361,
+"Nott'm Forest":393,'Nottingham Forest':393,'Sunderland':366,'Tottenham':367,'Tottenham Hotspur':367
+};
 const crest=x=>'<span class="match-crest-badge" style="display:grid;place-items:center;background:#fffdf5;border:3px solid #eee7d8;border-radius:50%;width:clamp(80px,12vw,146px);height:clamp(80px,12vw,146px);padding:13px;box-sizing:border-box;box-shadow:0 6px 20px #0006;isolation:isolate" aria-label="'+esc(name(x))+' crest">'+(ids[name(x)]?'<img src="https://a.espncdn.com/i/teamlogos/soccer/500/'+ids[name(x)]+'.png" alt="" loading="eager" style="display:block;width:100%;height:100%;object-fit:contain;filter:none;mix-blend-mode:normal" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'grid\'"><span class="match-crest-fallback" style="display:none">'+esc(name(x).slice(0,3).toUpperCase())+'</span>':'<span class="match-crest-fallback">'+esc(name(x).slice(0,3).toUpperCase())+'</span>')+'</span>';
 if(!id||!/^\d+$/.test(id)){title.textContent='Invalid match';target.textContent='Match ID unavailable';return;}
 Promise.all([fetch('data/epl-match-reports.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Report feed');return r.json()}),fetch('data/epl-ratings.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Results feed');return r.json()})]).then(([d,ratings])=>{
