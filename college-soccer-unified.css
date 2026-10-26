@@ -1,0 +1,16 @@
+/* Unified 2026 NCAA Soccer visual desk: entire page, including lower modules */
+body[data-league="college-soccer"] .hub-nav{background:#0b3044;border-radius:7px;padding:9px 12px;display:flex;flex-wrap:wrap;gap:8px}
+body[data-league="college-soccer"] .hub-nav a{color:#fff!important;border:1px solid #ffffff35;border-radius:5px;padding:9px 12px!important;text-decoration:none!important;font:800 11px Arial,sans-serif;letter-spacing:.04em}
+body[data-league="college-soccer"] .hub-nav a:hover{background:#0d789a}
+body[data-league="college-soccer"] #college-soccer-visual-desk,body[data-league="college-soccer"] #college-soccer-conference-index,body[data-league="college-soccer"] #college-soccer-editorial,body[data-league="college-soccer"] #college-team-finder{border:0;border-top:6px solid #0d718b!important;background:#f8fbfc!important;border-radius:9px!important;box-shadow:0 10px 27px #10344c1a!important;padding:clamp(13px,2vw,25px)!important;margin:17px 0!important}
+body[data-league="college-soccer"] #college-soccer-conference-index{border-top-color:#cb9340!important;background:linear-gradient(160deg,#fffaf0,#f6f9fb 45%)!important}
+body[data-league="college-soccer"] #college-soccer-editorial{border-top-color:#944a82!important;background:linear-gradient(160deg,#fff9fc,#f8fbfc 40%)!important}
+body[data-league="college-soccer"] #college-team-finder{border-top-color:#427c5f!important}
+body[data-league="college-soccer"] .cs-main-heading,body[data-league="college-soccer"] .cs-section-title,body[data-league="college-soccer"] .cs-conf-directory-heading,body[data-league="college-soccer"] .cs-edit-heading{border-top:0!important;border-bottom:3px solid #d5e0e6!important;padding:8px 0 15px!important;margin-bottom:13px!important;align-items:center}
+body[data-league="college-soccer"] .cs-conf-directory-heading h2,body[data-league="college-soccer"] .cs-edit-heading h2{font:900 clamp(20px,2.7vw,31px)/1.03 Arial,sans-serif!important;letter-spacing:-.04em!important;text-transform:uppercase;color:#103247!important}
+body[data-league="college-soccer"] .cs-main-heading strong,body[data-league="college-soccer"] .cs-section-title strong{font:900 clamp(17px,2.4vw,27px)/1.05 Arial,sans-serif!important;color:#103247}
+body[data-league="college-soccer"] .cs-conf-directory-rail a,body[data-league="college-soccer"] .cs-conf-directory-rail button{border-radius:6px!important}
+body[data-league="college-soccer"] .cs-ed-card,body[data-league="college-soccer"] .cs-conf-directory-card,body[data-league="college-soccer"] .cs-game-card{border-radius:9px!important;box-shadow:0 3px 14px #15374a12!important;transition:transform .15s ease,box-shadow .15s ease}
+body[data-league="college-soccer"] .cs-ed-card:hover,body[data-league="college-soccer"] .cs-conf-directory-card:hover,body[data-league="college-soccer"] .cs-game-card:hover{transform:translateY(-2px);box-shadow:0 7px 23px #15374a28!important}
+body[data-league="college-soccer"] .college-search-spotlight h2{font:900 clamp(20px,2.8vw,30px) Arial,sans-serif!important;letter-spacing:-.03em!important}
+@media(prefers-reduced-motion:reduce){body[data-league="college-soccer"] .cs-ed-card,body[data-league="college-soccer"] .cs-conf-directory-card,body[data-league="college-soccer"] .cs-game-card{transition:none!important;transform:none!important}}
