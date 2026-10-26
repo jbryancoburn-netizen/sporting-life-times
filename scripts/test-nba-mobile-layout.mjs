@@ -175,6 +175,16 @@ try{
     live:arr('#el-live-scorebugs img[data-euroleague-code]')};
   });
   if(euro.rankings.length!==20||euro.standings.length!==20)throw Error('EuroLeague missing 20 real club crest wrappers at '+width+': '+JSON.stringify(euro));
+
+  await page.waitForFunction(()=>{
+   const imgs=[...document.querySelectorAll('#el-elo-table img[data-euroleague-code]')];
+   return imgs.length===20&&imgs.every(im=>im.complete&&im.naturalWidth>=100&&!im.hidden);
+  },{timeout:15000});
+  const images=await page.evaluate(()=>{
+   const imgs=[...document.querySelectorAll('#el-recent-results-list img[data-euroleague-code]')];
+   return {count:imgs.length,real:imgs.filter(im=>im.complete&&im.naturalWidth>=100&&!im.hidden).length,local:imgs.every(im=>im.getAttribute('src').startsWith('assets/euroleague-logos/'))};
+  });
+  if(images.count<16||images.real!==images.count||!images.local)throw Error('EuroLeague final cards show fallback initials instead of original club art: '+JSON.stringify(images));
   const all=Object.values(euro).flat();
   if(all.some(x=>!x.marked||x.source!=='brand'||x.weight!=='3px'||!x.code||!x.width||Math.abs(x.width-x.height)>1))
    throw Error('EuroLeague color crest failure at '+width+': '+JSON.stringify(euro));

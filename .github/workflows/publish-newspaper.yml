@@ -6,6 +6,10 @@ on:
       - '**'
       - '!README.md'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['EuroLeague Official Crest Cache']
+    types: [completed]
+    branches: [main]
   schedule:
     - cron: '4,19,34,49 * * * *'
 permissions:
@@ -46,6 +50,17 @@ jobs:
           else
             echo "::warning::NBA source collection failed; retaining last-attributed feed with its original timestamp"
           fi
+      - name: Check installed authentic EuroLeague team marks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('assets/euroleague-logos')
+          files=list(p.glob('*.png')) if p.exists() else []
+          if files:
+            assert len(files)==20,f'Expected 20 genuine EuroLeague logos, got {len(files)}'
+            print('Official self-hosted EuroLeague logos:',len(files))
+          else: print('One-time official crest caching job has not completed yet')
+          PY
       - name: Apply shared college soccer crest treatment to every sport page
         run: |
           python3 scripts/inject-team-crests.py
