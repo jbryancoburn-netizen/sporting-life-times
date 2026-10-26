@@ -25,8 +25,8 @@ $("team-a").value=map.has(params.get("a"))?params.get("a"):(teams.find(t=>t.team
 $("team-b").value=map.has(params.get("b"))?params.get("b"):(teams.find(t=>t.team==="Purdue")||teams[1]).team_id;
 const calibrated=window.NCAAMScores.configure(calibration);
 const scoringProfiles=await get("data/ncaam-team-scoring-profiles.json");
-const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);
-$("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(profilesLoaded?"historical team scoring profiles loaded":"historical scoring profiles pending")+" · "+(calibrated?"calibrated point margin":"score calibration pending");
+const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);\nconst modelPartsMissing=[!scoringProfiles?"historical team scoring profiles":null,!calibration?"historical margin calibration":null].filter(Boolean);
+$("state").textContent=(isLive?currentRatings.games_played+" verified results incorporated":"2026–27 preseason")+" · "+(profilesLoaded?"historical team scoring profiles loaded":"historical scoring profiles pending")+" · "+(calibrated?"calibrated point margin":"score calibration pending")+(modelPartsMissing.length?" · Missing: "+modelPartsMissing.join(", "):"");
 $("model-grade").textContent=calibrated?"Historical scoring test passed":"Preliminary scoring estimates";
 $("caveat").textContent=calibrated?
  "Historical scores passed a holdout comparison; current forecast remains venue-neutral and cannot account for current injuries, pace or lineups.":
@@ -60,7 +60,7 @@ function render(){
  $("key-factors").innerHTML=lines.map(s=>'<div class="factor">'+s+'</div>').join("");
  const counts=[a,b].map(t=>Number(t.verified_player_count??t.evidence_player_count??0));
  const cov=[a,b].filter(t=>t.roster_coverage!=="source-confirmed-prior-minutes").map(t=>t.team);
- $("uncertainty").textContent="Verified historical-minute evidence: "+a.team+" "+counts[0]+" players; "+b.team+" "+counts[1]+" players. "+(cov.length?"Incomplete roster evidence for "+cov.join(" and ")+". ":"")+
+ $("uncertainty").textContent=(modelPartsMissing.length?"Model data publication incomplete: "+modelPartsMissing.join(", ")+". The displayed score is a fallback estimate. ":"")+"Verified historical-minute evidence: "+a.team+" "+counts[0]+" players; "+b.team+" "+counts[1]+" players. "+(cov.length?"Incomplete roster evidence for "+cov.join(" and ")+". ":"")+
  "Evidence counts are not a calibrated probability-confidence score. Venue, injuries, lineup availability and team-specific pace are currently unmodeled.";
  const url=new URL(location.href);url.searchParams.set("a",a.team_id);url.searchParams.set("b",b.team_id);
  history.replaceState(null,"",url);
