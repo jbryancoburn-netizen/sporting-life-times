@@ -133,3 +133,19 @@ body.nba-newspaper .hero-art::before{content:'NBA USRS · THE POWER FOUR'}
 .nba-newspaper .slt-scorebug-identity b{font-size:14px;display:block}
 .nba-newspaper .slt-scorebug-identity small{font-size:10px;color:var(--muted);display:block}
 .nba-newspaper .slt-scorebug-number{font:700 32px/1 'Barlow Condensed',Arial,sans-serif}
+
+/* Power Rankings: uniform crest lane, left-aligned name lane, vertically centered. */
+body.nba-newspaper[data-page="rankings"] .nba-table th:nth-child(2),
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2){text-align:left;min-width:230px}
+body.nba-newspaper[data-page="rankings"] .nba-table th:nth-child(2){padding-left:56px}
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link{display:grid;grid-template-columns:36px minmax(0,1fr);align-items:center;justify-content:start;gap:12px;width:100%;min-height:40px;white-space:normal;text-align:left}
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link img{display:block;grid-column:1;grid-row:1;width:36px;height:36px;max-width:36px;object-fit:contain}
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link img[hidden]{display:none}
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link span{display:block;grid-column:2;grid-row:1;min-width:0;text-align:left;font-weight:700;line-height:1.3}
+@media(max-width:620px){
+body.nba-newspaper[data-page="rankings"] .nba-table th:nth-child(2),
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2){min-width:198px}
+body.nba-newspaper[data-page="rankings"] .nba-table th:nth-child(2){padding-left:49px}
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link{grid-template-columns:32px minmax(0,1fr);gap:9px}
+body.nba-newspaper[data-page="rankings"] .nba-table td:nth-child(2) .team-link img{width:32px;height:32px;max-width:32px}
+}

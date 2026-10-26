@@ -138,3 +138,19 @@
 .nba-newspaper .score-card .score-team strong{flex:none;font:700 23px 'Barlow Condensed',sans-serif;white-space:nowrap}
 .nba-newspaper .score-card>a{display:block;text-decoration:none;min-width:0}
 .nba-newspaper .score-card small{font-size:10px;color:var(--muted)}
+
+/* Player stat atlas: identical 4-column tracks for heading and ranking rows. */
+body.nba-newspaper[data-page="players"] .depth-bars-guide,
+body.nba-newspaper[data-page="players"] .depth-bar-row{grid-template-columns:26px minmax(140px,1fr) minmax(60px,1.3fr) 60px;column-gap:10px;align-items:center}
+body.nba-newspaper[data-page="players"] .depth-bars-guide>span:first-child{text-align:center}
+body.nba-newspaper[data-page="players"] .depth-bars-guide>span:nth-child(2),
+body.nba-newspaper[data-page="players"] .depth-bars-guide>span:nth-child(3){text-align:left}
+body.nba-newspaper[data-page="players"] .depth-bars-guide>span:last-child{text-align:right}
+body.nba-newspaper[data-page="players"] .depth-bar-row>a{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;align-self:stretch;min-height:38px;text-align:left;min-width:0}
+body.nba-newspaper[data-page="players"] .depth-bar-row>a b,
+body.nba-newspaper[data-page="players"] .depth-bar-row>a small{display:block;width:100%;min-width:0;overflow-wrap:break-word;text-align:left;line-height:1.3}
+body.nba-newspaper[data-page="players"] .depth-bar-row .depth-index{text-align:center}
+@media(max-width:720px){
+body.nba-newspaper[data-page="players"] .depth-bars-guide,
+body.nba-newspaper[data-page="players"] .depth-bar-row{grid-template-columns:20px minmax(90px,.9fr) minmax(40px,1fr) 42px;column-gap:6px}
+}

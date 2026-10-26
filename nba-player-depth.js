@@ -13,7 +13,7 @@ function card(c,key,title,unit){
 }
 function bars(c,key){
  const arr=rows(c,key).slice(0,12),max=Math.max(1,...arr.map(x=>x.value)),unit=cats.find(x=>x[0]===key)?.[2]||key;
- return arr.length?'<div class="depth-bars-guide"><span>PLAYER / CAPTURED GP</span><span>STATISTIC SCALE · ZERO BASELINE</span><span>'+e(unit)+'</span></div>'+arr.map((x,i)=>'<div class="depth-bar-row" style="--depth-club:'+c.meta[x.team][3]+'"><span class="depth-index">'+(i+1)+'</span><a href="'+link(x.team)+'"><b>'+e(x.player)+'</b><small>'+e(x.team)+' · '+x.gp+' GP</small></a><div class="depth-bar-track"><span style="width:'+Math.max(0,Math.min(100,x.value/max*100)).toFixed(2)+'%"></span></div><strong>'+n(x.value)+'</strong></div>').join(''):'<p class="depth-muted">Current captured-game category has no reported leaders.</p>';
+ return arr.length?'<div class="depth-bars-guide"><span>#</span><span>PLAYER / CAPTURED GP</span><span>STATISTIC SCALE · ZERO BASELINE</span><span>'+e(unit)+'</span></div>'+arr.map((x,i)=>'<div class="depth-bar-row" style="--depth-club:'+c.meta[x.team][3]+'"><span class="depth-index">'+(i+1)+'</span><a href="'+link(x.team)+'"><b>'+e(x.player)+'</b><small>'+e(x.team)+' · '+x.gp+' GP</small></a><div class="depth-bar-track"><span style="width:'+Math.max(0,Math.min(100,x.value/max*100)).toFixed(2)+'%"></span></div><strong>'+n(x.value)+'</strong></div>').join(''):'<p class="depth-muted">Current captured-game category has no reported leaders.</p>';
 }
 function render(c){
  const app=document.getElementById('app'),old=app?.querySelector('.nba-mini-grid');

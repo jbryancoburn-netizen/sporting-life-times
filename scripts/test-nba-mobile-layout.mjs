@@ -89,6 +89,21 @@ try{
  await page.goto('http://127.0.0.1:8765/nba-rankings.html');
  await page.waitForSelector('#app .nba-table tbody tr',{timeout:15000});
  if(await page.locator('#app .nba-table tbody tr').count()<30)throw Error('Thirty-team Elo rankings missing');
+ for(const width of [390,1280]){
+  await page.setViewportSize({width,height:844});
+  await page.goto('http://127.0.0.1:8765/nba-rankings.html');
+  await page.waitForSelector('.nba-table tbody tr:nth-child(10) td:nth-child(2) .team-link span',{timeout:15000});
+  const clubPos=await page.evaluate(()=>[...document.querySelectorAll('.nba-table tbody tr td:nth-child(2) .team-link span')].slice(0,15).map(el=>({x:el.getBoundingClientRect().x,center:el.getBoundingClientRect().y+el.getBoundingClientRect().height/2,row:el.closest('tr').getBoundingClientRect().y+el.closest('tr').getBoundingClientRect().height/2})));
+  if(Math.max(...clubPos.map(x=>x.x))-Math.min(...clubPos.map(x=>x.x))>1.5)throw Error('NBA power ranking names are horizontally misaligned at '+width+'px: '+JSON.stringify(clubPos));
+  if(clubPos.some(p=>Math.abs(p.center-p.row)>5))throw Error('NBA power ranking names are not vertically centered at '+width+'px');
+  await page.goto('http://127.0.0.1:8765/nba-players.html');
+  await page.waitForSelector('.depth-bar-row',{timeout:15000});
+  const playerPos=await page.evaluate(()=>({header:document.querySelector('.depth-bars-guide>span:nth-child(2)')?.getBoundingClientRect().x,items:[...document.querySelectorAll('.depth-bar-row>a')].slice(0,10).map(el=>({x:el.getBoundingClientRect().x,center:el.getBoundingClientRect().y+el.getBoundingClientRect().height/2,row:el.closest('.depth-bar-row').getBoundingClientRect().y+el.closest('.depth-bar-row').getBoundingClientRect().height/2}))}));
+  if(!playerPos.header||playerPos.items.length<8)throw Error('NBA player stat chart incomplete at '+width+'px');
+  if(Math.max(...playerPos.items.map(x=>x.x))-Math.min(...playerPos.items.map(x=>x.x))>1.5||playerPos.items.some(x=>Math.abs(x.x-playerPos.header)>1.5))throw Error('NBA player names are misaligned with their column header at '+width+'px: '+JSON.stringify(playerPos));
+  if(playerPos.items.some(x=>Math.abs(x.center-x.row)>5))throw Error('NBA player names are not vertically centered at '+width+'px');
+ }
+
  await page.close();
  console.log('PASS: NBA phone/tablet/desktop newspaper, permanent navigation, 30-team Elo, team deep links and player search');
 }finally{if(browser)await browser.close();server.kill();}
