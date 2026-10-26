@@ -21,6 +21,44 @@ for a in soup.select('a[href*="/players/"]'):
   slug=re.sub(r'-[0-9a-f]{8}-[0-9a-f-]{27,}$','',m.group(1))
   links[norm(slug)]=u
 print('NBL profiles indexed:',len(links),flush=True)
+# Include profile routes published in the official site sitemap.
+try:
+ sitemap,_=get('https://www.nbl.com.au/sitemap.xml')
+ for u in re.findall(r'https?://[^<\s]+/players/[^<\s]+',sitemap.decode('utf-8','replace')):
+  m=re.search(r'/players/([^/?]+)',u)
+  if m:
+   slug=re.sub(r'-[0-9a-f]{8}-[0-9a-f-]{27,}
+def work(item):
+ pid,name=item
+ u=links.get(norm(name))
+ if not u:return pid,None
+ try:
+  raw,_=get(u)
+  doc=BeautifulSoup(raw,'html.parser')
+  headings=[h for h in doc.find_all(['h1','h2']) if norm(h.get_text(' ',strip=True))==norm(name)]
+  candidates=[h.find_next('img') for h in headings]
+  candidates += [im for im in doc.find_all('img') if norm(name) in norm(im.get('alt',''))]
+  for im in candidates:
+   if im is None:continue
+   src=im.get('src','') or im.get('data-src','')
+   if not src.startswith('https://cdn.prod.website-files.com/'):continue
+   data,ct=get(src.split('?')[0])
+   if not ct.startswith('image/') or len(data)<4000:continue
+   ext='.webp' if 'webp' in ct else '.png' if 'png' in ct else '.jpg'
+   out=D/(pid+ext)
+   out.write_bytes(data)
+   return pid,{'name':name,'path':'assets/nbl-player-photos/'+out.name,'profile':u}
+ except Exception as e:print(name,str(e)[:70],flush=True)
+ return pid,None
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+ result=dict(pool.map(work,people.items()))
+found={k:v for k,v in result.items() if v}
+(D/'manifest.json').write_text(json.dumps({'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'players':found,'matched':len(found),'total':len(people)},indent=2)+'\n')
+print('PLAYER PHOTOS',len(found),'/',len(people),flush=True)
+,'',m.group(1))
+   links[norm(slug)]=u
+ print('After official sitemap:',len(links),flush=True)
+except Exception as e:print('Sitemap unavailable:',str(e)[:90],flush=True)
 def work(item):
  pid,name=item
  u=links.get(norm(name))
