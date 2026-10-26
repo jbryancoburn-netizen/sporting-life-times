@@ -23,6 +23,7 @@ for(const select of [$("team-a"),$("team-b")]){
 }
 $("team-a").value=map.has(params.get("a"))?params.get("a"):(teams.find(t=>t.team==="Indiana")||teams[0]).team_id;
 $("team-b").value=map.has(params.get("b"))?params.get("b"):(teams.find(t=>t.team==="Purdue")||teams[1]).team_id;
+if(!window.NCAAMScores||typeof window.NCAAMScores.predict!=="function"){window.NCAAMScores={configure:()=>false,configureProfiles:()=>false,predict:(a,b)=>{const d=a.elo-b.elo,p=1/(1+Math.pow(10,-d/400)),m=Math.max(-28,Math.min(28,d/25));let h=Math.round(72+m/2),v=Math.round(72-m/2);if(h===v){if(d>=0)h++;else v++}return {homeScore:h,awayScore:v,homeProbability:p,awayProbability:1-p,expectedMargin:m,expectedTotal:144,scoringStatus:"FALLBACK"}}}}
 const calibrated=window.NCAAMScores.configure(calibration);
 const scoringProfiles=await get("data/ncaam-team-scoring-profiles.json");
 const profilesLoaded=window.NCAAMScores.configureProfiles(scoringProfiles);
@@ -68,5 +69,5 @@ function render(){
 }
 for(const x of [$("team-a"),$("team-b")])x.addEventListener("change",render);
 $("copy-link").addEventListener("click",()=>{const url=location.href;if(navigator.clipboard?.writeText)navigator.clipboard.writeText(url).then(()=>{$("copy-link").textContent="Copied matchup link"}).catch(()=>{prompt("Copy matchup URL",url)});else prompt("Copy matchup URL",url)});
-render();
+try{render()}catch(err){console.error(err);$("state").textContent="Matchup render error: "+String(err.message||err);$("model-grade").textContent="Rendering error"}
 })();
