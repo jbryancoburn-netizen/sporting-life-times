@@ -24,7 +24,10 @@ def main():
    day=start
    while day<end:
     stamp=day.isoformat()
-    if stamp in checked:\n     day+=dt.timedelta(days=1)\n     continue\n    url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
+    if stamp in checked:
+     day+=dt.timedelta(days=1)
+     continue
+    url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
     try:
      data=scoreboard(url);dates+=1;checked.add(stamp)
      if data is not None:
