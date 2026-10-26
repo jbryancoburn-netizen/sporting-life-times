@@ -1,7 +1,6 @@
 (()=>{'use strict';
 const urls=['data/epl-ratings.json','data/epl-match-center.json','multi_scoreboards.json'];
-const node=document.createElement('div');node.id='epl-feed-health';node.setAttribute('role','status');node.style.cssText='padding:9px 15px;margin:10px auto;max-width:1120px;border:1px solid #b7aa91;background:#f5f1e8;color:#222;font:12px Arial,sans-serif;line-height:1.5';
-document.querySelector('main')?.prepend(node);
+const existing=document.getElementById('epl-feed-health');const node=existing||document.createElement('div');node.id='epl-feed-health';node.setAttribute('role','status');if(!existing){node.style.cssText='padding:9px 15px;margin:10px auto;max-width:1120px;border:1px solid #b7aa91;background:#f5f1e8;color:#222;font:12px Arial,sans-serif;line-height:1.5';(document.querySelector('.slt-stamp')||document.querySelector('main'))?.appendChild(node);}
 let previous=null;let first=true;
 const extract=d=>[d.as_of_date,d.completed_matches,d.issued_at_utc,d.updated_at,d.provenance?.source_sha256];
 async function check(){try{
