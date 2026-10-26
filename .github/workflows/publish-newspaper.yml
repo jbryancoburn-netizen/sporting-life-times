@@ -6,12 +6,8 @@ on:
       - '**'
       - '!README.md'
   workflow_dispatch:
-  workflow_run:
-    workflows: ['EuroLeague Official Crest Cache']
-    types: [completed]
-    branches: [main]
   schedule:
-    - cron: '4,19,34,49 * * * *'
+    - cron: '4,14,24,34,44,54 * * * *'
 permissions:
   contents: read
   pages: write
