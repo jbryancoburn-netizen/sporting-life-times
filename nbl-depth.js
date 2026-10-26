@@ -13,7 +13,7 @@ if(s.rows?.length!==10||e.ratings?.length!==10||!Array.isArray(l.games)||s.games
 const ratings=new Map(e.ratings.map(x=>[x.team,x]));const rows=s.rows;
 const rank=(arr,metric,reverse=true)=>[...arr].sort((a,b)=>reverse?b[metric]-a[metric]:a[metric]-b[metric]);
 const board=(items,value)=>'<div class="nbl-depth-leaderboard">'+items.map((r,i)=>'<a href="'+esc(link(r.team))+'" class="nbl-depth-item"><span class="nbl-depth-number">'+(i+1)+'</span>'+logo(r.team)+'<strong>'+esc(r.team)+'</strong><b>'+esc(value(r))+'</b></a>').join('')+'</div>';
-const record=panel('LEAGUE TABLE','The complete standings',board(rows,r=>r.wins+'–'+r.losses+' · '+Math.round(100*r.win_pct)+'%'));
+const record=panel('LEAGUE TABLE','The complete standings',board(rows,r=>r.wins+'–'+r.losses+' · '+Number(r.win_pct).toFixed(3).replace(/^0/,'')));
 const topRated=panel('OUR OWN NUMBERS','USRS Elo rankings',board(e.ratings,r=>fmt(r.elo)+' Elo')+'<p class="nbl-depth-note">Elo scores are independently calculated from completed results. Forecasting performance remains under evaluation.</p>');
 const scoring=panel('OFFENSE','Points scored per game',board(rank(rows,'points_for').sort((a,b)=>b.points_for/b.played-a.points_for/a.played),r=>fmt(r.points_for/r.played)+' PPG'));
 const defending=panel('DEFENSE','Fewest points allowed per game',board([...rows].sort((a,b)=>a.points_against/a.played-b.points_against/b.played),r=>fmt(r.points_against/r.played)+' OPP PPG'));
