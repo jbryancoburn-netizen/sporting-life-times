@@ -1,8 +1,5 @@
 name: MBB RETRO prospective 65 vs 100 capture
 on:
-  push:
-    paths:
-      - .github/workflows/mbb-retro-prospective.yml
   workflow_dispatch:
   schedule:
     - cron: '15 12 * * *'
