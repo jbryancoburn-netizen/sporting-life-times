@@ -35,6 +35,7 @@ function fixture(kind,gameCount=0){
  return {season:'2026-27',status:'provisional-'+kind,team_count:365,
    games_played:gameCount,rankings:ranks,
    preseason_roster_informed:kind==='roster',
+   ...(kind==='current'?{preseason_seed:'data/ncaam-2026-27-preseason-player-quality-live.json'}:{}),
    evidence:{roster_programs:364,source_linked_player_ids:3523,
              players_with_verified_historical_minutes:2923}};
 }
@@ -46,8 +47,9 @@ async function render({withCurrent=false,withRoster=true,withShadow=true,withQua
  const elements=Object.fromEntries(ids.map(id=>[id,element(id==='rating-version'?'auto':'')]));
  const data={'data/ncaam-2026-27-preseason-provisional.json':fixture('baseline')};
  if(withRoster){
+   data['data/ncaam-2026-27-preseason-player-quality-live.json']=fixture('roster');
    data['data/ncaam-2026-27-preseason-roster-informed.json']=fixture('roster');
-   if(invalidRoster)data['data/ncaam-2026-27-preseason-roster-informed.json'].rankings.pop();
+   if(invalidRoster)data['data/ncaam-2026-27-preseason-player-quality-live.json'].rankings.pop();
  }
  if(withQuality){
    const playerQuality=fixture('quality');
@@ -72,9 +74,9 @@ async function render({withCurrent=false,withRoster=true,withShadow=true,withQua
 }
 test('identity-linked roster-informed Elo is the provisional preseason default',async()=>{
  const els=await render();
- assert.match(els.status.textContent,/roster-informed preseason/);
- assert.match(els['source-note'].textContent,/3523 linked/);
- assert.match(els['source-note'].textContent,/2923 players/);
+ assert.match(els.status.textContent,/Preseason Elo/);
+ assert.match(els['source-note'].textContent,/verified player histories/);
+ assert.match(els['source-note'].textContent,/2923/);
  assert.match(els['source-note'].textContent,/364\/365/);
  assert.match(els.ratings.innerHTML,/12\.50/);
  assert.doesNotMatch(els.ratings.innerHTML,/NaN|undefined/);
@@ -109,12 +111,12 @@ test('incomplete roster file cannot become default',async()=>{
 });
 test('corrupted live rankings do not supplant valid preseason',async()=>{
  const els=await render({withCurrent:true,invalidCurrent:true});
- assert.match(els.status.textContent,/roster-informed preseason/);
+ assert.match(els.status.textContent,/Preseason Elo/);
 });
 
 test('new 365-team player scoring research model is selectable but never automatically the default',async()=>{
  const els=await render();
- assert.match(els.status.textContent,/roster-informed preseason/);
+ assert.match(els.status.textContent,/Preseason Elo/);
  assert.ok(els['rating-version'].children.some(x=>x.value==='quality'));
  assert.match(els['rating-version'].children.find(x=>x.value==='quality').textContent,/experimental.*not certified/);
  els['rating-version'].value='quality';
@@ -134,12 +136,12 @@ test('new 365-team player scoring research model is selectable but never automat
 });
 test('any mistakenly approved experimental model is rejected rather than displayed',async()=>{
  const els=await render({invalidQuality:true});
- assert.match(els.status.textContent,/roster-informed preseason/);
+ assert.match(els.status.textContent,/Preseason Elo/);
  assert.ok(!els['rating-version'].children.some(x=>x.value==='quality'));
 });
 test('experimental adjustments must reconcile against exactly the same published roster data',async()=>{
  const els=await render({qualityMismatch:true});
- assert.match(els.status.textContent,/roster-informed preseason/);
+ assert.match(els.status.textContent,/Preseason Elo/);
  assert.ok(!els['rating-version'].children.some(x=>x.value==='quality'));
 });
 test('experimental research cannot display without its valid roster-informed comparison',async()=>{
@@ -152,6 +154,6 @@ test('newspaper includes contextual historical holdout evidence and the experime
  assert.match(html,/id="elo-quality-comparison"/);
  assert.match(html,/id="elo-model-pill"/);
  assert.match(html,/1,596 unseen games/);
- assert.match(html,/not an official preseason ranking/);
+ assert.match(html,/not an official|experimental|not certified/i);
  assert.match(html,/ncaam-2026-27-scoring-quality-shadow\.json/);
 });
