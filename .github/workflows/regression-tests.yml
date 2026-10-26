@@ -10,8 +10,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
       - name: Validate JavaScript syntax
         run: |
+          for script in *.js; do node --check "$script"; done
+          python3 scripts/check_inline_javascript.py
           node --check editorial-policy.js
           node --check department-stories.js
           node --check edition-pages.js
