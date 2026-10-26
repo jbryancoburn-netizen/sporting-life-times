@@ -1,0 +1,65 @@
+name: Import real NCAA 2020–2026 SportsDataverse final scores
+on:
+  push:
+    paths:
+      - 'scripts/import_ncaam_sportsdataverse_2020_2026.py'
+      - '.github/workflows/ncaam-import-sportsdataverse-2020-2026.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ncaam-sdv-score-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install open-source parquet reader
+        run: python -m pip install --quiet pyarrow
+      - name: Retrieve seven real 2020–2026 NCAA basketball seasons
+        run: python scripts/import_ncaam_sportsdataverse_2020_2026.py
+      - name: Audit all seven acquired seasons before committing
+        run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          d=json.loads(Path("data/ncaam-2020-2026-sportsdataverse-audit.json").read_text())
+          assert len(d['seasons'])==7
+          assert [x['season'] for x in d['seasons']]==list(range(2020,2027))
+          for season in d['seasons']:
+            path=Path(season['csv_file'])
+            with path.open(newline="") as f:
+              rows=list(csv.DictReader(f))
+            assert len(rows)==season['games']
+            assert len(rows)>=1000
+          assert not d['cross_era_elo_certified']
+          print('REAL IMPORTED FINAL SCORES:',d['games'])
+          PY
+      - name: Commit actual imported scores and their provenance
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ncaam-2020-2026-sportsdataverse-audit.json historical-normalized/sportsdataverse/*-verified-results.csv
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: import 2020–2026 NCAA final-score archives'
+            for n in 1 2 3 4 5; do
+              git pull --rebase && git push && exit 0
+              sleep $((n*2))
+            done
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ncaam-sdv-2020-2026-results
+          path: |
+            data/ncaam-2020-2026-sportsdataverse-audit.json
+            historical-normalized/sportsdataverse/*-verified-results.csv
+          if-no-files-found: warn
