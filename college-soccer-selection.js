@@ -9,7 +9,7 @@ function schoolRow(entry,branding,kind=''){
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const crest=el('span',null,'ncaa-school-crest'),brand=brandFor(entry,branding);
  const name=entry.team||entry.team_id,src=brand.logo_url||('https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+entry.team_id+'.svg');
- crest.textContent=name.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+ crest.textContent=name.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
  const img=el('img');img.alt='';img.loading='lazy';img.src=src;img.onerror=()=>img.remove();crest.append(img);
  const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'AUTO BID':'AT-LARGE')));
  line.append(crest,meta);return line;
@@ -93,6 +93,6 @@ function draw(data,metrics,branding){
   section.append(table);host.append(section);
  }
 }
-async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-criteria.json').catch(()=>({status:'not_ready'}));draw(data,metrics)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
+async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-criteria.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));draw(data,metrics,branding)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
 show();setInterval(show,60000);
 })();
