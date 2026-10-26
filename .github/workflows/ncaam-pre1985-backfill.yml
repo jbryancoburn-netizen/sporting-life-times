@@ -26,7 +26,18 @@ jobs:
       - name: Verify historical fixture importer before any source downloads
         run: python scripts/test_ncaam_pre1985_import.py
       - name: Install published historical schedules
-        run: Rscript -e "install.packages('uncmbb', repos='https://cloud.r-project.org')"
+        run: |
+          Rscript - <<'RS'
+          options(repos=c("https://cloud.r-project.org","https://joongsup.r-universe.dev"))
+          if (!requireNamespace("uncmbb",quietly=TRUE)) {
+            try(install.packages("uncmbb", repos="https://cloud.r-project.org"),silent=TRUE)
+          }
+          if (!requireNamespace("uncmbb",quietly=TRUE)) {
+            install.packages("uncmbb", repos=c("https://joongsup.r-universe.dev","https://cloud.r-project.org"))
+          }
+          stopifnot(requireNamespace("uncmbb",quietly=TRUE))
+          cat("INSTALLED HISTORICAL SOURCE VERSION",as.character(packageVersion("uncmbb")),"\\n")
+          RS
       - name: Export documented historical school fixture data
         run: |
           mkdir -p historical-normalized
@@ -46,6 +57,7 @@ jobs:
             rows[[length(rows)+1]] <- v[,c(required,'Source_Team')]
           }
           if (length(rows)!=2) stop(sprintf('Expected both UNC and Duke datasets, got %d', length(rows)))
+          stopifnot(all(vapply(rows,nrow,integer(1))>=800))
           cat('Historical source row counts:', vapply(rows,nrow,integer(1)), '\\n')
           write.csv(do.call(rbind,rows),'historical-normalized/unc-duke-historical-fixtures.csv',row.names=FALSE,na='')
           RS
@@ -70,6 +82,11 @@ jobs:
             git pull --rebase
             git push
           fi
+      - name: Diagnose failed historical acquisition
+        if: failure()
+        run: |
+          echo 'Pre-1985 acquisition did not pass. Check installation, source object counts and importer test.'
+          ls -lah historical-normalized/ data/ncaam-pre1985-unc-duke-replay.json || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
