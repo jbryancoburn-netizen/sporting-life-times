@@ -25,18 +25,18 @@ function draw(data,metrics,branding){
  if(mode==='ncaa'){
   host.append(el('h2','NCAA CRITERIA FORECAST'));
   host.append(el('p','The NCAA view is built around adjusted RPI, strength of schedule, record, nonconference results, head-to-head, common opponents, selected-opponent results and the final eight matches. It does NOT use USRS Elo.','cs-selection-warning'));
-  if(metrics?.status!=='verified_complete'){
-   host.append(el('h3','NCAA FIELD NOT YET CERTIFIED'));
-   host.append(el('p','A complete 2026 NCAA RPI/résumé dataset is not available in the project. Rather than falsely label Elo selections as an NCAA-style field, this view remains pending until the verified selection metrics are loaded. The at-large bubble and seeds are not calculated from absent data.','cs-selection-warning'));
+  if(!Array.isArray(metrics?.field)||metrics.field.length!==48){
+   host.append(el('h3','NCAA RPI FORECAST SOURCE NOT AVAILABLE'));
+   host.append(el('p','The full NCAA résumé data is not available. A provisional NCAA RPI forecast is displayed when the ranking snapshot loads.','cs-selection-warning'));
   }
  }
- const entries=mode==='usrs'?data.field:(Array.isArray(metrics.field)?metrics.field:[]);
- host.append(el('h2',mode==='usrs'?'NCAA FORMAT + YOUR USRS ELO · INITIAL PROXY':'COMMITTEE-CRITERIA FIELD'));
- host.append(el('p',mode==='usrs'?'Your independent USRS ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Selection based on verified NCAA résumé metrics.','cs-selection-warning'));
+ const entries=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
+ host.append(el('h2',mode==='usrs'?'USRS SELECTION COMMITTEE · 48-TEAM PROJECTION':'NCAA RPI COMMITTEE FORECAST · 48-TEAM PROJECTION'));
+ host.append(el('p',mode==='usrs'?'Your independent USRS ratings replace the committee evaluation tool within the NCAA selection framework. NCAA field sizes, bid allocations, eligibility screening and seed structure remain in force. NCAA hosting/geography rules are not yet fully modeled.':'Projected NCAA committee field from the October 23 RPI table, conference qualification projections and provisional at-large eligibility. It is a forecast, not the official selection committee field.','cs-selection-warning'));
  const bracket=el('section',null,'ncaa-bracket');
- bracket.append(el('h2',mode==='usrs'?'USRS PROJECTED NCAA BRACKET':'NCAA COMMITTEE BRACKET'));
+ bracket.append(el('h2',mode==='usrs'?'USRS PROJECTED NCAA BRACKET':'NCAA RPI PROJECTED BRACKET'));
  bracket.append(el('p',mode==='usrs'?'USRS acts as the hypothetical selection committee: 23 projected automatic bids, 25 eligible at-large picks, 24 seeded teams and 16 byes. The model avoids same-conference first-round matches where feasible; hosting and geography are not yet resolved.':'NCAA résumé metrics are still incomplete. These are 48 structural slots, not invented committee selections.','cs-selection-warning'));
- const entrants=mode==='usrs'?data.field:[];
+ const entrants=mode==='usrs'?data.field:(Array.isArray(metrics?.field)?metrics.field:[]);
  const byRank=n=>entrants[n-1]||null;
  const label=n=>byRank(n)?'#'+n+' '+byRank(n).team:'Unassigned slot '+n;
  const win=(a,b)=>a&&b?(a.elo>=b.elo?a:b):null;
@@ -62,7 +62,7 @@ function draw(data,metrics,branding){
  }
  if(entrantsPool.length)throw Error('Unassigned tournament entrants');
  const unresolvedOpening=pairings.filter(([x,y])=>conflict(x,y)).length;
- if(mode==='usrs'&&unresolvedOpening)bracket.append(el('p',unresolvedOpening+' same-conference opening-round pairing(s) remain; placement needs review.','cs-selection-warning'));
+ if(unresolvedOpening)bracket.append(el('p',unresolvedOpening+' same-conference opening-round pairing(s) remain; placement needs review.','cs-selection-warning'));
  const pods=order.map((seed,i)=>{const [x,y]=pairings[i],opening=win(byRank(x),byRank(y));return {seed,x,y,opening,advance:win(byRank(seed),opening)}});
  const quarters=[];
  for(let q=0;q<4;q++){
@@ -88,7 +88,7 @@ function draw(data,metrics,branding){
  }
  const semiA=win(quarters[0],quarters[1]),semiB=win(quarters[2],quarters[3]),champ=win(semiA,semiB);
  const finish=el('section',null,'ncaa-bracket-finish');finish.append(el('h3','COLLEGE CUP SEMIFINALS'),el('p',semiA?semiA.team:'Semifinal winner TBD'),el('p',semiB?semiB.team:'Semifinal winner TBD'),el('h3','NATIONAL CHAMPIONSHIP'),el('p',champ?'USRS pick: '+champ.team:'Champion TBD'));bracket.append(finish);host.append(bracket);
- const groups=[['FIRST 24 · EXPERIMENTAL ORDER',entries.slice(0,24)],['REMAINING FIELD',entries.slice(24)],['BUBBLE / NEXT FOUR',mode==='usrs'?data.first_four_out_proxy:metrics.first_four_out||[]]];
+ const groups=[['FIRST 24 · PROJECTED ORDER',entries.slice(0,24)],['REMAINING FIELD',entries.slice(24)],['BUBBLE / NEXT FOUR',mode==='usrs'?data.first_four_out_proxy:metrics.first_four_out||[]]];
  for(const [name,rows] of groups){
   const section=el('section',null,'cs-selection-group');section.append(el('h2',name));
   const table=el('table',null,'cs-selection-table');const head=el('tr');
@@ -97,6 +97,6 @@ function draw(data,metrics,branding){
   section.append(table);host.append(section);
  }
 }
-async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-criteria.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));draw(data,metrics,branding)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
+async function show(){try{const data=await file('data/college-soccer-ncaa-selection-forecast.json');if(data.field?.length!==48)throw Error('Invalid field');const metrics=await file('data/college-soccer-ncaa-rpi-forecast-2026.json').catch(()=>({status:'not_ready'}));const branding=await file('data/college-soccer-team-branding.json').catch(()=>({teams:{}}));draw(data,metrics,branding)}catch(e){host.replaceChildren(el('p','Selection forecast unavailable: '+e.message))}}
 show();setInterval(show,60000);
 })();
