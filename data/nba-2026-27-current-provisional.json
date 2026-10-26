@@ -2,13 +2,13 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 37,
+  "games_played": 39,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
     {
       "team": "OKC",
-      "elo": 1688.235
+      "elo": 1694.549
     },
     {
       "team": "NYK",
@@ -68,7 +68,7 @@
     },
     {
       "team": "LAC",
-      "elo": 1525.215
+      "elo": 1518.901
     },
     {
       "team": "ORL",
@@ -95,6 +95,10 @@
       "elo": 1397.824
     },
     {
+      "team": "IND",
+      "elo": 1397.091
+    },
+    {
       "team": "CHI",
       "elo": 1389.629
     },
@@ -111,10 +115,6 @@
       "elo": 1382.177
     },
     {
-      "team": "IND",
-      "elo": 1380.916
-    },
-    {
       "team": "UTA",
       "elo": 1349.084
     },
@@ -124,7 +124,7 @@
     },
     {
       "team": "BKN",
-      "elo": 1344.424
+      "elo": 1328.249
     }
   ],
   "events": [
@@ -460,12 +460,30 @@
       "away_score": 132,
       "date": "2026-10-25T21:00:00.000Z",
       "home_elo_change": -7.218069
+    },
+    {
+      "id": "espn-nba-401909862",
+      "home": "BKN",
+      "away": "IND",
+      "home_score": 109,
+      "away_score": 136,
+      "date": "2026-10-25T22:00:00.000Z",
+      "home_elo_change": -16.175207
+    },
+    {
+      "id": "espn-nba-401909865",
+      "home": "OKC",
+      "away": "LAC",
+      "home_score": 108,
+      "away_score": 101,
+      "date": "2026-10-25T23:00:00.000Z",
+      "home_elo_change": 6.314178
     }
   ],
   "movement": {
     "as_of_eastern_date": "2026-10-25",
     "daily_change": {
-      "OKC": 0,
+      "OKC": 6.314178,
       "NYK": 0,
       "SAS": 0,
       "DET": 0,
@@ -480,21 +498,21 @@
       "CLE": 0,
       "TOR": 0,
       "POR": 0,
-      "LAC": 0,
+      "LAC": -6.314178,
       "ORL": 0,
       "PHX": 0,
       "MIA": 0,
       "GSW": 0,
       "DAL": 0,
       "NOP": 0,
+      "IND": 16.175207,
       "CHI": 0,
       "MEM": 0,
       "SAC": 0,
       "MIL": 0,
-      "IND": 0,
       "UTA": -7.218069,
       "WAS": 0,
-      "BKN": 0
+      "BKN": -16.175207
     },
     "last_week_eastern_date": "2026-10-18",
     "last_week_elo": {
@@ -520,11 +538,11 @@
       "GSW": 1441.84,
       "DAL": 1405.301,
       "NOP": 1431.708,
+      "IND": 1382.048,
       "CHI": 1399.976,
       "MEM": 1357.696,
       "SAC": 1402.359,
       "MIL": 1421.261,
-      "IND": 1382.048,
       "UTA": 1357.55,
       "WAS": 1320.49,
       "BKN": 1356.983
