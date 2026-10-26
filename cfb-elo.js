@@ -72,7 +72,8 @@ for(const [id,fixtures] of opponents){
  scheduleMetrics.set(id,{...old,sos:sosCurrent,sor:-Math.log10(Math.max(tail,1e-12)),sorTailProbability:tail,referenceExpectedWins:expectedWins,originalSOS:old.sos});
 }
 const ranked=[...ratings].sort((a,b)=>(retrospective.get(b[0])??b[1].elo)-(retrospective.get(a[0])??a[1].elo));
-window.CFB_RETROSPECTIVE={method:'regularized-all-games-network-fit',iterations:160,prior:1500,scope:'all-completed-2026-games'};\nwindow.CFB_ELO_REPLAY={season:2026,baseline:1500,fromWeek:0,completedGames:seen.size,failedWeeks:[...errors],duplicateConflicts:[...new Set(duplicateConflicts)],earliestGame:events[0]?.date||null,latestGame:events.at(-1)?.date||null,certified:true};
+window.CFB_RETROSPECTIVE={method:'regularized-all-games-network-fit',iterations:160,prior:1500,scope:'all-completed-2026-games'};
+window.CFB_ELO_REPLAY={season:2026,baseline:1500,fromWeek:0,completedGames:seen.size,failedWeeks:[...errors],duplicateConflicts:[...new Set(duplicateConflicts)],earliestGame:events[0]?.date||null,latestGame:events.at(-1)?.date||null,certified:true};
 window.CFB_RATINGS=Object.fromEntries(ranked.map(([id,t])=>[id,{...t,adjustedElo:retrospective.get(id)??t.elo,retrospectiveAdjustment:(retrospective.get(id)??t.elo)-t.elo,games:counts.get(id),history:history.get(id)||[],...scheduleMetrics.get(id),model:'2026-results-only',rosterAdjusted:false}]));
 document.dispatchEvent(new Event('cfb-ratings-ready'));
 const note='<p class="data-note">2026 adjusted power ranking with chronological Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · 2026 ratings use game results only; no roster or external rankings. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'ESPN saved results snapshot loaded. Ratings recalculate on page reload.')+'</p>';
