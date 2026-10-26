@@ -1,0 +1,35 @@
+/* 2026 soccer broadcast redesign: compact modular editorial dashboard */
+body[data-league="college-soccer"]{background:#e8edf0}
+body[data-league="college-soccer"] .league-hub{max-width:1520px;padding:14px clamp(12px,2.3vw,38px)}
+body[data-league="college-soccer"] .hub-kicker{display:inline-flex;align-items:center;background:#debc6b;color:#0e2739;font:800 10px Arial,sans-serif;letter-spacing:.17em;padding:7px 11px;margin-top:16px}
+body[data-league="college-soccer"] .league-hub>h1{font:900 clamp(31px,4.5vw,66px)/.97 Arial,Helvetica,sans-serif!important;letter-spacing:-.055em;text-transform:uppercase;color:#112e40;margin:12px 0 6px}
+body[data-league="college-soccer"] .hub-intro{font:500 15px/1.4 Arial,sans-serif;color:#536674;max-width:820px}
+.cs-showcase{background:#0b2333;padding:clamp(12px,2vw,27px);border:0;border-top:8px solid #daba64;border-radius:9px;box-shadow:0 15px 40px #07253630;margin:15px 0 22px;position:relative;overflow:hidden}
+.cs-showcase:before{content:"";position:absolute;pointer-events:none;inset:-25% -20% auto 35%;height:210px;background:radial-gradient(ellipse,#1d64866b,transparent 70%);transform:rotate(-10deg)}
+.cs-showcase-metrics{position:relative;gap:7px;margin-bottom:8px}
+.cs-showcase-metric{border:0;background:#153b51;border-radius:5px;min-height:104px;display:flex;justify-content:center;box-shadow:inset 0 3px #37acd4;padding:11px}
+.cs-showcase-metric:nth-child(2){background:#5d2242;box-shadow:inset 0 3px #f069a9}
+.cs-showcase-metric:nth-child(3){background:#244a3c;box-shadow:inset 0 3px #68dba4}
+.cs-showcase-metric:nth-child(4){background:#624920;box-shadow:inset 0 3px #eac16e}
+.cs-showcase-metric>strong{font:900 clamp(25px,4vw,49px)/1 Arial,sans-serif;letter-spacing:-.06em}
+.cs-showcase-metric>span{font-weight:900}
+.cs-showcase-grid{position:relative;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:8px}
+.cs-showcase-panel{border-radius:7px;padding:clamp(13px,2.2vw,26px);background:#f7fafb;box-shadow:none}
+.cs-showcase-panel h2{font:900 clamp(22px,2.5vw,35px)/1.05 Arial,sans-serif!important;letter-spacing:-.045em!important;text-transform:uppercase!important}
+.cs-showcase-kicker{color:#bc4c55}
+.cs-showcase-rank{display:grid;grid-template-columns:27px minmax(0,1fr) 42px;position:relative;gap:8px;min-height:57px;padding:7px 7px 10px;border-bottom:1px solid #d7e1e5}
+.cs-showcase-rank>b{font:900 22px Arial,sans-serif;color:#80939e}
+.cs-showcase-rank:nth-of-type(1)>b{color:#b48318}
+.cs-showcase-score{font:900 16px Arial,sans-serif;color:#113d50;text-align:right}
+.cs-showcase-strength{position:absolute;left:45px;right:7px;bottom:2px;height:3px;border-radius:3px;overflow:hidden;background:#e3edf0}
+.cs-showcase-strength span{height:100%;display:block;border-radius:3px;background:linear-gradient(90deg,#13a6c5,#3b7dcb)}
+.cs-showcase-selection{background:linear-gradient(146deg,#fcf9f2,#f5e6d5)}
+.cs-showcase-picks{gap:7px}
+.cs-showcase-picks .cs-showcase-school{background:#fff;border-radius:4px;min-height:53px;box-shadow:0 2px 7px #142c3710}
+.cs-showcase-go{background:#132e41;color:#fff!important;border-radius:5px;font-weight:900}
+.cs-showcase-go:hover{background:#145575}
+.cs-showcase-fresh{color:#c7dae4}
+body[data-league="college-soccer"] #college-soccer-visual-desk{background:#fff;border:1px solid #d6e0e4;border-radius:8px;padding:clamp(10px,2vw,22px);box-shadow:0 9px 26px #173b4a13}
+body[data-league="college-soccer"] #college-soccer-conference-index,body[data-league="college-soccer"] #college-soccer-editorial{background:#fff;border:1px solid #dbe2e7;border-radius:7px;padding:clamp(10px,2vw,20px);margin:14px 0}
+@media(max-width:870px){.cs-showcase-grid{grid-template-columns:1fr}.cs-showcase-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.cs-showcase-metric{min-height:83px}.cs-showcase{padding:10px;border-radius:5px}.cs-showcase-rank{min-height:51px}}
