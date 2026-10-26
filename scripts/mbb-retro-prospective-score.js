@@ -18,6 +18,9 @@ for(const p of pred.predictions){
  if(!g)continue;
  const recorded=Date.parse(p.recorded_at),tip=p.tipoff_at?Date.parse(p.tipoff_at):NaN;
  if(!Number.isFinite(recorded)||!Number.isFinite(tip)||recorded>=tip)throw Error('Missing or late forecast '+id);
+ // Exclude ESPN's 11:59 PM Eastern placeholder tipoffs, including archived captures.
+ const eastern=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(tip));
+ if(eastern==='23:59')continue;
  if(!Number.isFinite(Number(g.home_score))||!Number.isFinite(Number(g.away_score))||g.home_score===''||g.away_score==='')continue;
  if(String(p.home_id)!==String(g.home_id)||String(p.away_id)!==String(g.away_id))throw Error('Team mismatch '+id);
  const y=Number(g.home_score)>Number(g.away_score)?1:0;
