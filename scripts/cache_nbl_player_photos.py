@@ -2,8 +2,9 @@
 import json,re,urllib.request,urllib.parse,concurrent.futures,datetime
 from pathlib import Path
 from bs4 import BeautifulSoup
-import cv2,numpy as np
+import cv2,numpy as np,threading
 FACE=cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
+FACE_LOCK=threading.Lock()
 R=Path(__file__).resolve().parents[1]
 D=R/'assets/nbl-player-photos'
 D.mkdir(parents=True,exist_ok=True)
@@ -53,7 +54,9 @@ def work(item):
    image=cv2.imdecode(np.frombuffer(data,np.uint8),cv2.IMREAD_COLOR)
    if image is None:continue
    gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-   if len(FACE.detectMultiScale(gray,scaleFactor=1.08,minNeighbors=4,minSize=(32,32)))<1:continue
+   with FACE_LOCK:
+    detected=FACE.detectMultiScale(gray,scaleFactor=1.08,minNeighbors=4,minSize=(32,32))
+   if len(detected)<1:continue
    ext='.webp' if 'webp' in ct else '.png' if 'png' in ct else '.jpg'
    out=D/(pid+ext)
    out.write_bytes(data)
