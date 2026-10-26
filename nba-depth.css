@@ -129,3 +129,12 @@
  .nba-newspaper[data-page="team"] .depth-chart-top{flex-wrap:wrap}
  .nba-newspaper[data-page="team"] .depth-person-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Matchup score cards also render inside club desks, outside the home score rail. */
+.nba-newspaper .score-card{max-width:100%;min-width:0;background:#fffefa;border:1px solid var(--line);padding:10px;border-top:3px solid var(--teal)}
+.nba-newspaper .score-card .score-team{display:flex;align-items:center;gap:8px;justify-content:space-between;min-width:0;padding:4px 0}
+.nba-newspaper .score-card .score-team img{width:28px;height:28px;max-width:28px;max-height:28px;flex:0 0 28px;object-fit:contain}
+.nba-newspaper .score-card .score-team span{min-width:0;flex:1;white-space:normal;overflow-wrap:anywhere;font-size:12px}
+.nba-newspaper .score-card .score-team strong{flex:none;font:700 23px 'Barlow Condensed',sans-serif;white-space:nowrap}
+.nba-newspaper .score-card>a{display:block;text-decoration:none;min-width:0}
+.nba-newspaper .score-card small{font-size:10px;color:var(--muted)}
