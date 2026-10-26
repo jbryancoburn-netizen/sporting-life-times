@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+/* Scores only predictions saved BEFORE a game's date. No retroactive forecasts. */
+const fs=require('node:fs');
+const predictionPath='data/mbb-retro-prospective-predictions-2026-27.json';
+const resultsPath='data/mbb-2026-2027-results.json';
+if(!fs.existsSync(predictionPath))throw Error('No timestamped prospective predictions yet; refusing to backfill.');
+if(!fs.existsSync(resultsPath))throw Error('No 2026-27 completed-game feed yet.');
+const pred=JSON.parse(fs.readFileSync(predictionPath,'utf8'));
+const result=JSON.parse(fs.readFileSync(resultsPath,'utf8'));
+if(!Array.isArray(pred.predictions)||!Array.isArray(result.games))throw Error('Malformed predictions/results');
+const games=new Map(result.games.map(g=>[String(g.id),g]));
+const sums={65:{n:0,brier:0,logloss:0},100:{n:0,brier:0,logloss:0}};
+const seen=new Set();
+for(const p of pred.predictions){
+ const id=String(p.game_id),g=games.get(id);
+ if(seen.has(id))throw Error('Duplicate forecast '+id);
+ seen.add(id);
+ if(!g)continue;
+ const recorded=Date.parse(p.recorded_at),tip=Date.parse(p.tipoff_at);
+ if(!Number.isFinite(recorded)||!Number.isFinite(tip)||recorded>=tip)throw Error('Missing or late forecast '+id);
+ if(String(p.home_id)!==String(g.home_id)||String(p.away_id)!==String(g.away_id))throw Error('Team mismatch '+id);
+ const y=Number(g.home_score)>Number(g.away_score)?1:0;
+ for(const edge of [65,100]){
+  const probability=Number(p['p_home_'+edge]);
+  if(!(probability>0&&probability<1))throw Error('Invalid probability '+id+' edge '+edge);
+  const s=sums[edge];s.n++;s.brier+=(probability-y)**2;s.logloss+=-(y*Math.log(probability)+(1-y)*Math.log(1-probability));
+ }
+}
+const out={season:'2026-27',method:'Only forecasts timestamped before tipoff, paired by game id; same games for 65 and 100',evaluated_at:new Date().toISOString(),models:Object.fromEntries(Object.entries(sums).map(([edge,s])=>[edge,{games:s.n,brier:s.n?s.brier/s.n:null,logloss:s.n?s.logloss/s.n:null}]))};
+fs.writeFileSync('data/mbb-retro-prospective-score-2026-27.json',JSON.stringify(out,null,2)+'\n');
+console.log(JSON.stringify(out));
