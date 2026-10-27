@@ -43,3 +43,10 @@
 #full-season-schedule .sched-elo{font-weight:700}
 @media(max-width:680px){#full-season-schedule .mbb-schedule-table td{padding:12px 10px}}
 
+
+/* Tighter player roster editorial spacing */
+.panel:has(.roster-table-wrap) .panel-head{margin-bottom:5px}
+.panel:has(.roster-table-wrap) .panel-head h2{margin:2px 0 7px}
+.panel:has(.roster-table-wrap) .roster-note{padding:0;margin:0 0 11px;line-height:1.35}
+.panel:has(.roster-table-wrap) .roster-table-wrap{margin-top:0}
+.panel:has(.roster-table-wrap) .roster-table-wrap th{padding-top:9px;padding-bottom:8px}
