@@ -154,3 +154,16 @@ body.nba-newspaper[data-page="players"] .depth-bar-row .depth-index{text-align:c
 body.nba-newspaper[data-page="players"] .depth-bars-guide,
 body.nba-newspaper[data-page="players"] .depth-bar-row{grid-template-columns:20px minmax(90px,.9fr) minmax(40px,1fr) 42px;column-gap:6px}
 }
+
+/* NBA results form: readable date, home/away venue and exact team-side Elo shift. */
+body.nba-newspaper[data-page="team"] .depth-form-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+body.nba-newspaper[data-page="team"] .depth-form-result{min-width:0;padding:11px 7px 12px;gap:6px;text-align:center}
+body.nba-newspaper[data-page="team"] .depth-form-result>span.depth-form-outcome{font:800 26px/1 'Barlow Condensed',Arial,sans-serif}
+body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-date{font:700 10px/1.2 Arial,sans-serif;color:#415c6b}
+body.nba-newspaper[data-page="team"] .depth-form-result>img{box-sizing:border-box!important;display:block!important;width:48px!important;height:48px!important;min-width:48px!important;max-width:48px!important;min-height:48px!important;max-height:48px!important;border:3px solid var(--depth-opponent-color)!important;border-radius:50%!important;padding:3px!important;margin:2px 0!important;object-fit:contain!important;background:#fff!important;transform:none!important}
+body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-venue{font:700 9px/1.25 Arial,sans-serif;color:#536d78;overflow-wrap:anywhere;min-height:25px}
+body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-elo{box-sizing:border-box;display:block;align-self:stretch;padding:6px 2px;margin-top:auto;background:#edf0f3;border-radius:3px;font:800 13px/1.2 Arial,sans-serif;color:#516372}
+body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-elo.pos{background:#e0f4eb;color:#137d53}
+body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-elo.neg{background:#fae9e6;color:#b13f38}
+@media(max-width:800px){body.nba-newspaper[data-page="team"] .depth-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:410px){body.nba-newspaper[data-page="team"] .depth-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}}
