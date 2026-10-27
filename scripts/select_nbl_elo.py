@@ -7,7 +7,7 @@ import argparse,json,math,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.nbl_three_season_eval import games,evaluate
-GRID={"k":[12,20,32],"home_advantage_elo":[25,65,90],"regression":[.15,.35,.55]}
+GRID={"k":[12,20,32],"home_advantage_elo":[25,65,90],"regression":[1.0]}
 def loss(predictions,season):
     return predictions[season]["log_loss"]
 def select(data):
@@ -22,7 +22,7 @@ def select(data):
     rows.sort(key=lambda x:(x["validation_log_loss"],x["k"],x["home_advantage_elo"],x["regression"]))
     selected=rows[0]
     fixed=evaluate(seasons,selected["k"],selected["home_advantage_elo"],selected["regression"])
-    incumbent=evaluate(seasons,20.,65.,.25)
+    incumbent=evaluate(seasons,20.,65.,1.0)
     out={"status":"RESEARCH_UNCERTIFIED","production_approved":False,
          "selection":"2025-26 validation log loss; 2026-27 not used to choose hyperparameters",
          "grid":GRID,"searched_models":len(rows),
