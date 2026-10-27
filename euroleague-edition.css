@@ -410,3 +410,5 @@ body[data-league="euroleague"] #el-club-spotlight .el-bracket-record{display:blo
 body[data-league="euroleague"] #el-club-spotlight .el-bracket-team{padding:16px!important}
 body[data-league="euroleague"] #el-club-spotlight .el-playin-tree .el-bracket-team{min-height:140px!important}
 @media(max-width:600px){body[data-league="euroleague"] #el-live-scorebugs .el-live-team{grid-template-columns:44px minmax(0,1fr) 32px!important}}
+
+.el-quarter-table{font:600 12px system-ui;margin:10px 0}.el-quarter-head,.el-quarter-row{display:flex;align-items:center;justify-content:space-between;gap:4px;border-bottom:1px solid #ddd;padding:7px 0}.el-quarter-head>* ,.el-quarter-row>*{flex:1;text-align:center;min-width:0}.el-quarter-head>*:first-child,.el-quarter-row>*:first-child{text-align:left}.el-quarter-head{font-size:10px;color:#52606a}.el-quarter-row strong{font-size:15px}.el-live-pregame{margin:12px 0;padding-top:8px;border-top:1px solid #ddd}.el-live-pregame summary{cursor:pointer;font-weight:700}
