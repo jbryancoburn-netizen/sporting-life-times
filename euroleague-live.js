@@ -55,7 +55,9 @@ try{
  return '<article class="el-live-card el-live-card--enhanced"><div class="el-live-meta"><span class="'+(freshLive?'el-live-now':'')+'">'+esc(label)+'</span><small>'+esc(et(g.date))+'</small></div>'+team(g.away)+team(g.home)+(detail?'<div class="el-live-clock">'+esc(detail)+'</div>':'')+stats+'<details class="el-live-expand" data-game-id="'+esc(g.id)+'"><summary>Game center <span>Quarter scores · Elo · more</span></summary>'+info+'</details><div class="el-live-foot">Official score feed · '+(scoreFresh?'Updated '+esc(et(g.score_updated_at)):'Refresh every 60 sec')+'</div></article>';
  }).join('')||'<p class="hub-small">No games in this scorebug window.</p>';
  host.querySelectorAll('details[data-game-id]').forEach(el=>{if(expanded.has(el.dataset.gameId))el.open=true});
- status.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Automatically checks for updates every 60 seconds';
+ const officialLive=Number(d.header_responses)||0;
+ const providerNote=officialLive===0?' · Official live-stat provider unavailable; showing verified published scores only':'';
+ status.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote;
  lastGood=d;
 }catch(e){
  status.textContent=lastGood?'Live feed temporarily unavailable · Keeping last verified snapshot':'Live feed is awaiting its first published snapshot. Scores are not estimated.';
