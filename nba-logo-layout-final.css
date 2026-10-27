@@ -13,3 +13,25 @@ body.nba-newspaper[data-page="rankings"] img.nba-team-logo,body.nba-newspaper[da
 body.nba-newspaper[data-page="rankings"] .nba-brand-link>img.nba-team-logo{flex:0 0 46px!important}
 body.nba-newspaper[data-page="rankings"] .nba-team-tile>img.nba-team-logo{width:76px!important;height:76px!important;max-width:76px!important;max-height:76px!important}
 body.nba-newspaper[data-page="home"] .nba-live-team>img,body.nba-newspaper[data-page="home"] .score-team>img{box-sizing:border-box!important;display:block!important;flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;min-height:42px!important;max-height:42px!important;border:3px solid var(--team-color,#344a58)!important;border-radius:50%!important;padding:2px!important;background:white!important;object-fit:contain!important;object-position:center!important;margin:0!important;transform:none!important}
+
+/* NBA standings: six divisions come first, fit fully inside each card without horizontal scrolling. */
+body.nba-newspaper[data-page="standings"] .nba-divisions-top{margin:20px 0 28px}
+body.nba-newspaper[data-page="standings"] .nba-divisions-top>h2{margin:0 0 14px}
+body.nba-newspaper[data-page="standings"] .nba-division-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;align-items:stretch}
+body.nba-newspaper[data-page="standings"] .nba-division-compact{min-width:0!important;width:100%;box-sizing:border-box;padding:13px 12px!important;overflow:hidden}
+body.nba-newspaper[data-page="standings"] .nba-division-compact h3{margin:0 0 12px}
+body.nba-newspaper[data-page="standings"] .nba-div-head,
+body.nba-newspaper[data-page="standings"] .nba-div-row{display:grid;grid-template-columns:minmax(0,1fr) 42px 43px 43px;gap:5px;align-items:center;width:100%;box-sizing:border-box}
+body.nba-newspaper[data-page="standings"] .nba-div-head{padding:5px 3px;border-bottom:2px solid #cdd9dc;font:700 10px/1.2 Arial,sans-serif;letter-spacing:.04em;color:#586b74}
+body.nba-newspaper[data-page="standings"] .nba-div-head>span:not(:first-child){text-align:right}
+body.nba-newspaper[data-page="standings"] .nba-div-row{padding:8px 3px;border-bottom:1px solid #e1e6e5;font:600 12px/1.25 Arial,sans-serif;font-variant-numeric:tabular-nums}
+body.nba-newspaper[data-page="standings"] .nba-div-row:last-child{border-bottom:0}
+body.nba-newspaper[data-page="standings"] .nba-div-team{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden;text-decoration:none;color:inherit!important}
+body.nba-newspaper[data-page="standings"] .nba-div-team>img{box-sizing:border-box;display:block!important;flex:0 0 30px!important;width:30px!important;height:30px!important;min-width:30px!important;max-width:30px!important;min-height:30px!important;max-height:30px!important;border:2px solid var(--nba-club-color)!important;border-radius:50%!important;padding:1px!important;background:#fff!important;object-fit:contain!important;transform:none!important}
+body.nba-newspaper[data-page="standings"] .nba-div-team>img[hidden]{display:none!important}
+body.nba-newspaper[data-page="standings"] .nba-div-team>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.nba-newspaper[data-page="standings"] .nba-div-record,
+body.nba-newspaper[data-page="standings"] .nba-div-elo,
+body.nba-newspaper[data-page="standings"] .nba-div-change{text-align:right;white-space:nowrap;font-size:11px}
+@media(max-width:900px){body.nba-newspaper[data-page="standings"] .nba-division-grid{grid-template-columns:1fr}}
+@media(max-width:380px){body.nba-newspaper[data-page="standings"] .nba-div-head,body.nba-newspaper[data-page="standings"] .nba-div-row{grid-template-columns:minmax(0,1fr) 36px 39px 36px;gap:3px}body.nba-newspaper[data-page="standings"] .nba-div-team>img{flex-basis:25px!important;width:25px!important;height:25px!important;min-width:25px!important;max-width:25px!important;min-height:25px!important;max-height:25px!important}}
