@@ -136,11 +136,11 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
   calendarHost.innerHTML='<section class="panel" id="full-season-schedule"><h2>2026–27 Full Season Schedule</h2><p class="note">Loading the published calendar…</p></section>';
   calendarPromise.then(html=>{calendarHost.innerHTML=html;}).catch(err=>{console.error('MBB schedule',err);calendarHost.innerHTML='<section class="panel"><h2>Team Calendar Unavailable</h2><p>Published schedule could not be displayed.</p></section>';});
  }
- const [a,rosterFeed]=await Promise.all([loadArchive(),get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(ids.get(t.team_id)||'')+'/roster?season=2027')]);
+ const [a,rosterFeed,officialRoster]=await Promise.all([loadArchive(),get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(ids.get(t.team_id)||'')+'/roster?season=2027'),ids.get(t.team_id)?get('data/mbb-rosters-2026-27/'+encodeURIComponent(ids.get(t.team_id))+'.json'):Promise.resolve(null)]);
  const roster=a?.roster?.filter(p=>p.team_id===t.team_id)||[],stats=a?.players?.filter(p=>p.team_id===t.team_id)||[];
  const athletes=(rosterFeed?.athletes||[]).flatMap(x=>Array.isArray(x?.items)?x.items:[x]).filter(p=>p?.displayName);
- const officialRoster=ids.get(t.team_id)?await get('data/mbb-rosters-2026-27/'+encodeURIComponent(ids.get(t.team_id))+'.json'):null;
- const headshots=new Map(athletes.map(p=>[p.displayName.toLowerCase(),p.headshot?.href||'']));
+
+ const headshots=new Map(athletes.map(p=>[p.displayName.toLowerCase(),p.headshot?.href?.replace(/\/i\/headshots\/.*?\/\d+\/\d+\//,'/i/headshots/ncaa/players/full/')||p.headshot?.href||'']));
  const previous=new Map((a?.players||[]).map(p=>[String(p.name||p.player||'').toLowerCase(),p]));
  const rosterRows=officialRoster?.players?.length?officialRoster.players.map(p=>({name:p.name,role:p.position||'',image:p.headshot_url||headshots.get(p.name.toLowerCase())||'',prior:previous.get(p.name.toLowerCase())})):athletes.length?athletes.map(p=>({name:p.displayName,role:p.position?.abbreviation||'',image:p.headshot?.href||'',prior:previous.get(p.displayName.toLowerCase())})):roster.map(p=>({name:p.player,role:p.role||'',image:'',prior:previous.get(String(p.player||'').toLowerCase())}));
  const portrait=p=>{const initials=esc((p.name||'?').split(' ').map(x=>x[0]).slice(0,2).join(''));return '<span class="mbb-player-image-wrap">'+(p.image&&url(p.image)?'<img class="mbb-player-photo" loading="lazy" decoding="async" src="'+url(p.image)+'" alt="'+esc(p.name)+' headshot" onerror="this.remove()">':'')+'<span class="mbb-photo-missing" aria-hidden="true">'+initials+'</span></span>';};
