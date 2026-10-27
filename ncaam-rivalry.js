@@ -89,6 +89,18 @@ async function start(){
    }
   }catch(e){console.warn("NCAA bracket classification unavailable for "+season,e)}
  }
+ // Historical bracket CSVs omit First Four; load the twelve cross-reconciled matches.
+ try{
+  const response=await fetch("data/ncaam-postseason-first-four-2022-2024.json",{cache:"no-cache"});
+  if(response.ok){
+   const data=await response.json();
+   for(const g of data.games||[]){
+    const winner=resolve(g.winner),loser=resolve(g.loser),ws=Number(g.ws),ls=Number(g.ls);
+    if(!winner||!loser||winner===loser||!Number.isFinite(ws)||!Number.isFinite(ls)||ws<=ls)continue;
+    verifiedNCAA.set([Number(g.season),winner,loser,ws,ls].join("|"),{tournament:"NCAA Tournament",round:"First Four",source:"2022–2024 verified First Four score archive"});
+   }
+  }
+ }catch(error){console.warn("First Four classifications unavailable",error)}
  // Locally archived 2025 tournament results: match only exact season, team IDs and scores.
  try{
   const response=await fetch("data/ncaam-postseason-2025-ncaa.json",{cache:"no-cache"});
