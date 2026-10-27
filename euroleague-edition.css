@@ -375,3 +375,12 @@ body[data-league="euroleague"] #el-club-spotlight .el-playin-final:before{conten
 body[data-league="euroleague"] #el-club-spotlight .el-playin-final:after{content:"";position:absolute;top:-32px;left:25%;width:50%;border-top:3px solid #b99758}
 body[data-league="euroleague"] #el-club-spotlight .el-match-pair:before,body[data-league="euroleague"] #el-club-spotlight .el-match-pair:after{display:none!important}
 @media(max-width:850px){body[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{grid-template-columns:1fr!important}body[data-league="euroleague"] #el-club-spotlight .el-playin-opening{grid-template-columns:1fr}}
+
+
+/* Compact ranking graphics: team names are primary; crests are supporting identifiers. */
+body[data-league="euroleague"] .el-chart-row{grid-template-columns:17px minmax(0,1fr) minmax(36px,.55fr) 57px!important;gap:7px!important;min-height:48px!important}
+body[data-league="euroleague"] .el-chart-club{display:grid!important;grid-template-columns:30px minmax(0,1fr)!important;align-items:center!important;gap:8px!important;min-width:0!important;font:600 12px/1.2 Georgia,serif!important}
+body[data-league="euroleague"] .el-chart-club .slt-mark{--slt-mark-size:30px}
+body[data-league="euroleague"] .el-chart-club>span:not(.slt-mark){display:block!important;min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+body[data-league="euroleague"] .el-chart-row>b{font-size:12px!important;white-space:nowrap!important}
+@media(max-width:430px){body[data-league="euroleague"] .el-chart-row{grid-template-columns:15px minmax(0,1fr) 38px 55px!important;gap:5px!important}body[data-league="euroleague"] .el-chart-club{grid-template-columns:27px minmax(0,1fr)!important;gap:6px!important}body[data-league="euroleague"] .el-chart-club .slt-mark{--slt-mark-size:27px}}
