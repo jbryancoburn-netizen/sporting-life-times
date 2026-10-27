@@ -50,7 +50,7 @@ async function news(){
 async function desk(){
  try{
  const [elo,gameCenter]=await Promise.all([
-  fetchJSON('data/nba-2026-27-current-provisional.json'),
+  fetchJSON('data/nba-elo-shadow-2026-27.json'),
   fetchJSON('data/nba-game-center.json')
  ]);
  let schedule;
