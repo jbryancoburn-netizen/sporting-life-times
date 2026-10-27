@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Preliminary 2023/24 validation and untouched 2025 holdout, 336 configurations."""
+"""2023 warmup, 2024 validation, 2025 holdout; full-season integrity checks."""
 import json, math, pathlib
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 H=ROOT/'data'/'college-soccer-history'
 years={}
 for year in (2023,2024,2025):
  d=json.loads((H/f'men-d1-{year}.json').read_text())
- if d.get('errors') or len(d['games'])<100 or len(set(g['game_id'] for g in d['games']))!=len(d['games']):
+ if not d.get('coverage_complete') or len(d.get('checked_dates',[]))!=153 or d.get('errors') or len(d['games'])<100 or len(set(g['game_id'] for g in d['games']))!=len(d['games']):
   raise ValueError(f'Invalid {year} history')
  years[year]=sorted(d['games'],key=lambda g:(g['date'],g['game_id']))
 def run(k,home,retention,margin):
@@ -32,6 +32,6 @@ for k in (8,12,20,28,36,48,64):
     configs.append(dict(k=k,h=home,reg=retention,margin=margin,validation=result[2024],holdout=result[2025]))
 configs.sort(key=lambda c:(c['validation'],c['k'],c['h'],c['reg'],c['margin']))
 best=configs[0]
-result=dict(status='preliminary',method='2023 rating warmup; 2024 model selection; 2025 holdout',games_by_year={str(y):len(g) for y,g in years.items()},candidates_tested=len(configs),selected=best,holdout_comparators=dict(neutral_50_50=run(0,0,1,False)[2025],listed_home_only=run(0,best['h'],1,False)[2025]),top_validation_candidates=configs[:10],limitations=['Partial early-season coverage','All-conf may include non-D1 opponents','Actual venues unverified','Draws scored as half-results, not three-way forecasts'],live_elo_modified=False)
-(H/'elo-backtest-expanded-preliminary.json').write_text(json.dumps(result,indent=2)+'\n')
+result=dict(status='complete',method='2023 rating warmup; 2024 model selection; 2025 holdout',games_by_year={str(y):len(g) for y,g in years.items()},candidates_tested=len(configs),selected=best,holdout_comparators=dict(neutral_50_50=run(0,0,1,False)[2025],listed_home_only=run(0,best['h'],1,False)[2025]),top_validation_candidates=configs[:10],limitations=['Full August-December date coverage; team cohort may include non-D1 opponents','All-conf may include non-D1 opponents','Actual venues unverified','Draws scored as half-results, not three-way forecasts'],live_elo_modified=False)
+(H/'elo-backtest-expanded.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result,indent=2))
