@@ -243,7 +243,23 @@ def main():
             ap=0.5*(ast["for"]/ast["played"]+hst["against"]/hst["played"])
             projected_home=0.7*hp+0.3*avg_for+(1.5 if not g["neutral"] else 0)
             projected_away=0.7*ap+0.3*avg_for-(1.5 if not g["neutral"] else 0)
-            projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
+            # Blend scoring differential with Elo's game-specific win probability. Preserve
+            # the scoring-model total while making the predicted winner coherent with Elo.
+            # This is an experimental point-margin mapping, not historically calibrated.
+            projected_total=projected_home+projected_away
+            scoring_margin=projected_home-projected_away
+            elo_margin=12.0*(2.0*probability-1.0)
+            margin=0.45*scoring_margin+0.55*elo_margin
+            # Elo is the selected winner model; a displayed final cannot be tied.
+            margin=(1 if probability>=0.5 else -1)*max(1.0,abs(margin))
+            projected_home=(projected_total+margin)/2
+            projected_away=(projected_total-margin)/2
+            home_score=round(projected_home)
+            away_score=round(projected_away)
+            if home_score==away_score:
+                if probability>=0.5:home_score+=1
+                else:away_score+=1
+            projection={"home":home_score,"away":away_score,"spread_home":away_score-home_score,"total":home_score+away_score,"status":"experimental_elo_scoring_blend_no_ties"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
     payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":calibrated,"opening_elo":1500,"opening_policy":"all_clubs_equal_2026_27"},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
