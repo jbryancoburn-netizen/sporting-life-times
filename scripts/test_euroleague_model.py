@@ -130,6 +130,27 @@ class TestModel(unittest.TestCase):
         self.assertEqual(result["holdout_season"],"E2026")
         self.assertEqual(result["selected_holdout"]["n"],3)
         self.assertEqual(result["baseline_holdout"]["n"],3)
+    def test_current_season_ignores_historical_seasons_and_seeds(self):
+        teams=["T"+str(i).zfill(2) for i in range(18)]
+        calls=[]
+        def season_games(season):
+            calls.append(season)
+            self.assertEqual(season,"E2026")
+            return [{"id":str(i+1),"season":season,"date":"2026-10-01T19:00:00Z",
+                "home":{"code":teams[2*i],"name":teams[2*i],"logo":None,"score":81},
+                "away":{"code":teams[2*i+1],"name":teams[2*i+1],"logo":None,"score":75},
+                "completed":True,"neutral":False} for i in range(9)]
+        with tempfile.TemporaryDirectory() as tmp:
+            out=pathlib.Path(tmp)/"model.json"
+            with patch.object(el,"fetch_season",side_effect=season_games),patch.object(el,"OUT",out):
+                el.main()
+                import json
+                model=json.loads(out.read_text())
+        self.assertEqual(calls,["E2026"])
+        self.assertEqual(model["settings"]["opening_elo"],1500)
+        self.assertEqual(model["settings"]["season_carry"],0)
+        self.assertEqual(sum(t["elo"] for t in model["rankings"]),18*1500)
+
     def test_publish_full_model_from_mocked_seasons(self):
         teams=["T"+str(i).zfill(2) for i in range(18)]
         def season_games(season):
