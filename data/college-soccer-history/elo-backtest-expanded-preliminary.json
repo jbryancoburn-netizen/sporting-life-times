@@ -1,141 +1,111 @@
 {
   "status": "preliminary",
-  "method": "2023 rating warmup, 2024 chronological validation selection, 2025 untouched holdout; annual rating regression applied before each new season",
+  "method": "2023 rating warmup; 2024 model selection; 2025 holdout",
   "games_by_year": {
-    "2023": 360,
-    "2024": 366,
-    "2025": 394
-  },
-  "grid": {
-    "k": [
-      8,
-      12,
-      20,
-      28,
-      36,
-      48,
-      64
-    ],
-    "listed_home_advantage": [
-      0,
-      35,
-      55,
-      75,
-      100,
-      125
-    ],
-    "season_retention": [
-      0,
-      0.5,
-      0.75,
-      1
-    ],
-    "margin_multiplier": [
-      false,
-      true
-    ]
+    "2023": 1935,
+    "2024": 1971,
+    "2025": 1951
   },
   "candidates_tested": 336,
   "selected": {
-    "k": 48,
-    "h": 100,
+    "k": 36,
+    "h": 55,
     "reg": 1,
     "margin": true,
-    "validation": 0.16438236090597141,
-    "holdout": 0.16336695254598338
+    "validation": 0.16709255901044703,
+    "holdout": 0.15676002984121032
   },
   "holdout_comparators": {
-    "neutral_50_50": 0.19543147208121828,
-    "listed_home_only": 0.17736721437509803
+    "neutral_50_50": 0.19425935417734494,
+    "listed_home_only": 0.18464932243562257
   },
   "top_validation_candidates": [
     {
-      "k": 48,
-      "h": 100,
+      "k": 36,
+      "h": 55,
       "reg": 1,
       "margin": true,
-      "validation": 0.16438236090597141,
-      "holdout": 0.16336695254598338
+      "validation": 0.16709255901044703,
+      "holdout": 0.15676002984121032
     },
     {
-      "k": 64,
-      "h": 100,
-      "reg": 1,
-      "margin": false,
-      "validation": 0.16439286058720862,
-      "holdout": 0.1652172722838915
-    },
-    {
-      "k": 48,
-      "h": 100,
-      "reg": 1,
-      "margin": false,
-      "validation": 0.1644602896324823,
-      "holdout": 0.16518032148453476
-    },
-    {
-      "k": 64,
-      "h": 100,
-      "reg": 0.75,
-      "margin": true,
-      "validation": 0.16456499964776303,
-      "holdout": 0.16316300493617752
-    },
-    {
-      "k": 64,
-      "h": 100,
-      "reg": 0.75,
-      "margin": false,
-      "validation": 0.16464893307084,
-      "holdout": 0.16527965826243401
-    },
-    {
-      "k": 48,
-      "h": 100,
-      "reg": 0.75,
-      "margin": true,
-      "validation": 0.1647590274048096,
-      "holdout": 0.16391646844559798
-    },
-    {
-      "k": 64,
-      "h": 100,
+      "k": 28,
+      "h": 55,
       "reg": 1,
       "margin": true,
-      "validation": 0.1648351399581916,
-      "holdout": 0.16376382077162294
+      "validation": 0.16728834346017843,
+      "holdout": 0.15758948904276185
     },
     {
       "k": 36,
-      "h": 100,
+      "h": 75,
       "reg": 1,
       "margin": true,
-      "validation": 0.1648649280321969,
-      "holdout": 0.16406570134954324
+      "validation": 0.16733780365798104,
+      "holdout": 0.15701193555070075
     },
     {
-      "k": 48,
-      "h": 100,
-      "reg": 0.75,
-      "margin": false,
-      "validation": 0.16516087293375348,
-      "holdout": 0.1661305146191393
+      "k": 28,
+      "h": 75,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.1675822735519839,
+      "holdout": 0.15790064116894756
     },
     {
       "k": 36,
-      "h": 100,
+      "h": 55,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16760176174369323,
+      "holdout": 0.15649006616091332
+    },
+    {
+      "k": 48,
+      "h": 55,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.167778476977219,
+      "holdout": 0.15579750645420912
+    },
+    {
+      "k": 48,
+      "h": 55,
       "reg": 1,
-      "margin": false,
-      "validation": 0.16523001858332861,
-      "holdout": 0.16602670040817058
+      "margin": true,
+      "validation": 0.16785617639487738,
+      "holdout": 0.1565677422901578
+    },
+    {
+      "k": 36,
+      "h": 75,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16790289054849442,
+      "holdout": 0.15678448118906976
+    },
+    {
+      "k": 48,
+      "h": 75,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16801513823905964,
+      "holdout": 0.15599707327824416
+    },
+    {
+      "k": 48,
+      "h": 75,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16802537887665103,
+      "holdout": 0.15671392267952589
     }
   ],
   "limitations": [
-    "Only August 1 through September 4 dates currently collected",
-    "NCAA all-conf scoreboards may include non-Division-I opponents",
-    "Actual home and neutral venues unverified",
-    "Draws represented as half-results; not calibrated three-way soccer forecasts",
-    "Selection is a single 2024 validation slice; uncertainty intervals not calculated"
+    "Partial early-season coverage",
+    "All-conf may include non-D1 opponents",
+    "Actual venues unverified",
+    "Draws scored as half-results, not three-way forecasts"
   ],
   "live_elo_modified": false
 }

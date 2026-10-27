@@ -1,178 +1,22 @@
 {
   "status": "preliminary",
-  "data_scope": "August 1 through September 4 only; NCAA scoreboard all-conf may include non-D1 opponents; no venue verification",
   "training_years": [
     2023
   ],
   "validation_year": 2024,
   "holdout_year": 2025,
-  "selected": {
-    "k": 36,
-    "listed_home_elo": 100
-  },
-  "validation": {
-    "k": 36,
-    "h": 100,
-    "n": 366,
-    "brier": 0.164865,
-    "mae": 0.364155
-  },
+  "selected_k": 36,
+  "selected_listed_home_elo": 55,
   "holdout": {
-    "n": 394,
-    "brier": 0.164066,
-    "mae": 0.361828
+    "games": 1951,
+    "brier": 0.15676,
+    "mae": 0.345472
   },
   "baseline_holdout": {
-    "n": 394,
-    "brier": 0.195431,
-    "mae": 0.390863
+    "games": 1951,
+    "brier": 0.194259,
+    "mae": 0.388519
   },
-  "candidates": [
-    {
-      "k": 36,
-      "h": 100,
-      "n": 366,
-      "brier": 0.164865,
-      "mae": 0.364155
-    },
-    {
-      "k": 28,
-      "h": 100,
-      "n": 366,
-      "brier": 0.165689,
-      "mae": 0.366965
-    },
-    {
-      "k": 36,
-      "h": 75,
-      "n": 366,
-      "brier": 0.165979,
-      "mae": 0.366832
-    },
-    {
-      "k": 28,
-      "h": 75,
-      "n": 366,
-      "brier": 0.166932,
-      "mae": 0.369592
-    },
-    {
-      "k": 20,
-      "h": 100,
-      "n": 366,
-      "brier": 0.167,
-      "mae": 0.370348
-    },
-    {
-      "k": 20,
-      "h": 75,
-      "n": 366,
-      "brier": 0.168437,
-      "mae": 0.373061
-    },
-    {
-      "k": 36,
-      "h": 55,
-      "n": 366,
-      "brier": 0.168508,
-      "mae": 0.369469
-    },
-    {
-      "k": 12,
-      "h": 100,
-      "n": 366,
-      "brier": 0.168886,
-      "mae": 0.374057
-    },
-    {
-      "k": 28,
-      "h": 55,
-      "n": 366,
-      "brier": 0.169594,
-      "mae": 0.372112
-    },
-    {
-      "k": 12,
-      "h": 75,
-      "n": 366,
-      "brier": 0.170593,
-      "mae": 0.377072
-    },
-    {
-      "k": 20,
-      "h": 55,
-      "n": 366,
-      "brier": 0.171282,
-      "mae": 0.375421
-    },
-    {
-      "k": 36,
-      "h": 35,
-      "n": 366,
-      "brier": 0.17258,
-      "mae": 0.373577
-    },
-    {
-      "k": 12,
-      "h": 55,
-      "n": 366,
-      "brier": 0.173683,
-      "mae": 0.379585
-    },
-    {
-      "k": 28,
-      "h": 35,
-      "n": 366,
-      "brier": 0.173829,
-      "mae": 0.375593
-    },
-    {
-      "k": 20,
-      "h": 35,
-      "n": 366,
-      "brier": 0.175727,
-      "mae": 0.378358
-    },
-    {
-      "k": 12,
-      "h": 35,
-      "n": 366,
-      "brier": 0.178398,
-      "mae": 0.382188
-    },
-    {
-      "k": 36,
-      "h": 0,
-      "n": 366,
-      "brier": 0.183532,
-      "mae": 0.38527
-    },
-    {
-      "k": 28,
-      "h": 0,
-      "n": 366,
-      "brier": 0.185139,
-      "mae": 0.386951
-    },
-    {
-      "k": 20,
-      "h": 0,
-      "n": 366,
-      "brier": 0.187474,
-      "mae": 0.388879
-    },
-    {
-      "k": 12,
-      "h": 0,
-      "n": 366,
-      "brier": 0.190673,
-      "mae": 0.391065
-    }
-  ],
-  "source_game_counts": {
-    "2023": 360,
-    "2024": 366,
-    "2025": 394
-  },
-  "notes": "Partial early-season sample. Draws treated as 0.5; not a three-way probability model. Same-day games sorted by ID. No rating change recommended."
+  "warning": "Draws scored as half-outcomes; this is not a calibrated three-way win/draw/loss or goal-score forecast. Neutral venue remains unverified.",
+  "limitations": "Partial season coverage; listed-home venue unverified; all-conf may include non-D1 opponents."
 }
