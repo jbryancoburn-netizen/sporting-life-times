@@ -9,7 +9,7 @@ fetch('data/nbl-elo-research.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw E
  const status=$('nbl-elo-status');
  if(!table||!status)return;
  status.textContent='USRS POWER INDEX · '+d.current_regular_season_games+' completed regular-season games';
- table.innerHTML='<p class="hub-small">Independently calculated Elo ratings, updated as completed games enter the season archive. <a href=\"nbl-methodology.html\">How the ratings work</a>.</p>'+
+ table.innerHTML='<p class="hub-small">Independent RETRO ratings, refitted to the completed current-season game network; all clubs start each season at 1500. <a href=\"nbl-methodology.html\">How the ratings work</a>.</p>'+
   '<div class="nba-current-table-wrap"><table class="nba-mini-table"><thead><tr><th>Rank</th><th>Club</th><th>W–L</th><th>Elo</th></tr></thead><tbody>'+
   d.ratings.map(r=>'<tr><td>'+esc(r.rank)+'</td><th>'+esc(r.team)+'</th><td>'+esc(r.wins)+'–'+esc(r.losses)+'</td><td>'+esc(Number(r.elo).toFixed(1))+'</td></tr>').join('')+
   '</tbody></table></div>';
