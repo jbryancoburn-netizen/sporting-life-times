@@ -56,7 +56,7 @@ async function start(){
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
 
  // Tournament-source aliases are registered only when the canonical NCAA school exists.
- for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"],[ "St. John\'s (NY)","St John\'s"],["Saint Francis","St Francis PA"],["Mount St. Mary\'s","Mt St Mary\'s"],["Miami (Ohio)","Miami OH"],["Prairie View A&M","Prairie View"],["Ohio State","Ohio St"],["California Baptist","Cal Baptist"],["Saint Joseph\'s","St Joseph\'s PA"],["Illinois-Chicago","IL Chicago"],["Stephen F. Austin","Stephen F Austin"],["Loyola (IL)","Loyola Chicago"],["Middle Tennessee State","Middle Tenn"],["Cal State Northridge","CSUN"],["Arkansas State","Arkansas St"]]){const id=resolve(canonical);if(id)register(external,id)}
+ for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"],[ "St. John\'s (NY)","St John\'s"],["Saint Francis","St Francis PA"],["Mount St. Mary\'s","Mt St Mary\'s"],["Miami (Ohio)","Miami OH"],["Prairie View A&M","Prairie View"],["Ohio State","Ohio St"],["California Baptist","Cal Baptist"],["Saint Joseph\'s","St Joseph\'s PA"],["Illinois-Chicago","IL Chicago"],["Stephen F. Austin","Stephen F Austin"],["Loyola (IL)","Loyola Chicago"],["Middle Tennessee State","Middle Tenn"],["Cal State Northridge","CSUN"],["Arkansas State","Arkansas St"],["Appalachian State","Appalachian St"]]){const id=resolve(canonical);if(id)register(external,id)}
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
   const base=zero.get(row.Season);if(!base||!names.has(row.WTeamID)||!names.has(row.LTeamID))continue;
@@ -117,7 +117,7 @@ async function start(){
  }catch(error){console.warn("2026 NCAA classifications unavailable",error)}
  // Exact date, participant identities and final scores are required for NIT verification.
  const verifiedSecondary=new Map();
- for(const season of [2025,2026]){
+ for(const season of [2024,2025,2026]){
   try{
    const response=await fetch("data/ncaam-postseason-"+season+"-nit.json",{cache:"no-cache"});
    if(!response.ok)throw Error("HTTP "+response.status);
