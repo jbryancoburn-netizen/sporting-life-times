@@ -228,14 +228,15 @@ const franchiseLeaderStats=[['ppg','PTS','PPG'],['rpg','REB','RPG'],['apg','AST'
 function franchiseLeaders(t,stat='ppg'){
  const list=(data.leaders?.season_totals||[]).filter(p=>p.team===t&&Number(p.gp)>0);
  const k=franchiseLeaderStats.some(x=>x[0]===stat)?stat:'ppg',percent=k.endsWith('_pct'),totals={efg_pct:['fgm','fg3m','fga'],fg3_pct:['fg3m','fg3a'],fg_pct:['fgm','fga'],ft_pct:['ftm','fta'],ts_pct:['pts','fga','fta']};
- const rows=list.filter(p=>Number.isFinite(Number(p[k]))&&(!percent||(k==='fg3_pct'?Number(p.fg3a)>=1:k==='ft_pct'?Number(p.fta)>=1:k==='efg_pct'||k==='fg_pct'?Number(p.fga)>=1:Number(p.fga)>=1))).sort((a,b)=>Number(b[k])-Number(a[k])||Number(b.gp)-Number(a.gp)).slice(0,8);
+ const value=p=>k==='spg'?Number(p.stl)/Number(p.gp):k==='bpg'?Number(p.blk)/Number(p.gp):Number(p[k]);
+ const rows=list.filter(p=>Number.isFinite(value(p))&&(!percent||(k==='fg3_pct'?Number(p.fg3a)>=1:k==='ft_pct'?Number(p.fta)>=1:k==='efg_pct'||k==='fg_pct'?Number(p.fga)>=1:Number(p.fga)>=1))).sort((a,b)=>value(b)-value(a)||Number(b.gp)-Number(a.gp)).slice(0,8);
  const label=franchiseLeaderStats.find(x=>x[0]===k)[2];
  if(!rows.length)return '<p class="nba-note">No captured player data in this category.</p>';
  return '<div class="nba-franchise-leader-list">'+rows.map((p,i)=>{
   const id=String(p.id||''),src=/^\d{2,10}$/.test(id)?'https://a.espncdn.com/i/headshots/nba/players/full/'+id+'.png':'';
   const attempts=k==='fg3_pct'?p.fg3m+' / '+p.fg3a+' 3PT':k==='fg_pct'?p.fgm+' / '+p.fga+' FG':k==='ft_pct'?p.ftm+' / '+p.fta+' FT':k==='efg_pct'?p.fgm+' FGM · '+p.fg3m+' 3PM · '+p.fga+' FGA':k==='ts_pct'?'TS · '+p.fga+' FGA · '+p.fta+' FTA':'';
-  const note=p.gp+' captured GP'+(attempts?' · '+attempts:' · '+Number(p.ppg).toFixed(1)+' PPG');
-  return '<div class="nba-franchise-leader-row"><span class="nba-franchise-leader-rank">'+(i+1)+'</span><span class="nba-franchise-player-portrait">'+(src?'<img src="'+src+'" alt="" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'no-photo\')">':'<span class="nba-franchise-player-fallback">NBA</span>')+'</span><span class="nba-franchise-player-detail"><b>'+esc(p.player)+'</b><small>'+esc(note)+'</small></span><span class="nba-franchise-player-stat"><strong>'+fmt(p[k],1)+(percent?'%':'')+'</strong><small>'+label+'</small></span></div>';
+  const note=p.gp+' captured GP'+(attempts?' · '+attempts :k==='spg'?' · '+p.stl+' total steals':k==='bpg'?' · '+p.blk+' total blocks':' · '+Number(p.ppg).toFixed(1)+' PPG');
+  return '<div class="nba-franchise-leader-row"><span class="nba-franchise-leader-rank">'+(i+1)+'</span><span class="nba-franchise-player-portrait">'+(src?'<img src="'+src+'" alt="" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'no-photo\')">':'<span class="nba-franchise-player-fallback">NBA</span>')+'</span><span class="nba-franchise-player-detail"><b>'+esc(p.player)+'</b><small>'+esc(note)+'</small></span><span class="nba-franchise-player-stat"><strong>'+fmt(value(p),1)+(percent?'%':'')+'</strong><small>'+label+'</small></span></div>';
  }).join('')+'</div>';
 }
 function franchiseLeaderWidget(t){
