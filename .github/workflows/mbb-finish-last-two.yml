@@ -1,0 +1,53 @@
+name: Finish last two MBB school schedules
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/finish_last_two_mbb_schedules.py'
+      - '.github/workflows/mbb-finish-last-two.yml'
+permissions:
+  contents: write
+jobs:
+  final-schools:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install beautifulsoup4
+      - name: Import Southern Indiana official and CCSU transparently sourced calendars
+        run: python scripts/finish_last_two_mbb_schedules.py
+      - name: Upload calendars to newspaper repository
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p /tmp/mbb-final
+          cp data/mbb-schedules-2026-27/final-two-import-status.json /tmp/mbb-final/
+          for id in 2115 0; do
+            if [ -f "data/mbb-schedules-2026-27/${id}.json" ]; then
+              cp "data/mbb-schedules-2026-27/${id}.json" /tmp/mbb-final/
+            fi
+          done
+          python - <<'PY'
+          import json,pathlib,shutil
+          cross=json.loads(pathlib.Path('data/ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams']
+          for name in ('Southern Ind.','Central Conn. St.'):
+              x=next((t for t in cross if t['name']==name),None)
+              if x:
+                  p=pathlib.Path('data/mbb-schedules-2026-27')/(str(x['espn_id'])+'.json')
+                  if p.exists():shutil.copy2(p,pathlib.Path('/tmp/mbb-final')/p.name)
+          PY
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp -f /tmp/mbb-final/*.json data/mbb-schedules-2026-27/
+            git add data/mbb-schedules-2026-27/
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Finish 365 team basketball schedules with source disclosure"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
