@@ -1,0 +1,30 @@
+name: Public soccer rating engine integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public_ratings/soccer_goal_model.py'
+      - 'tests/test_public_soccer_goal_model.py'
+      - '.github/workflows/public-soccer-rating-engine.yml'
+  pull_request:
+    paths:
+      - 'public_ratings/soccer_goal_model.py'
+      - 'tests/test_public_soccer_goal_model.py'
+      - '.github/workflows/public-soccer-rating-engine.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: public-soccer-rating-engine-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify public soccer probability engine with synthetic data
+        run: python -m unittest discover -s tests -p test_public_soccer_goal_model.py -v
