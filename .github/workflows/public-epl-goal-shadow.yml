@@ -6,6 +6,8 @@ on:
       - 'public_ratings/epl_shadow.py'
       - 'public_ratings/soccer_goal_model.py'
       - 'tests/test_public_epl_shadow.py'
+      - 'tests/test_public_epl_grade.py'
+      - 'public_ratings/epl_grade.py'
       - '.github/workflows/public-epl-goal-shadow.yml'
   workflow_dispatch:
 permissions:
@@ -24,12 +26,18 @@ jobs:
           python-version: '3.12'
       - name: Validate public research-only comparison logic
         run: python -m unittest discover -s tests -p test_public_epl_shadow.py -v
+      - name: Verify pregame locking and verified-result grading on synthetic fixtures
+        run: python -m unittest discover -s tests -p test_public_epl_grade.py -v
+      - name: Dry-run live EPL lock and grader without writing to newspaper
+        run: python -m public_ratings.epl_grade --feed data/epl-match-center.json --ledger /tmp/epl-research-grading-sample.json
       - name: Calculate independent Poisson shadow with published EPL inputs
         run: python -m public_ratings.epl_shadow --input data/epl-match-center.json --output /tmp/epl-public-goal-shadow.json
       - name: Archive shadow results without modifying live newspaper
         uses: actions/upload-artifact@v4
         with:
           name: epl-public-goal-shadow
-          path: /tmp/epl-public-goal-shadow.json
+          path: |
+            /tmp/epl-public-goal-shadow.json
+            /tmp/epl-research-grading-sample.json
           retention-days: 7
           if-no-files-found: error
