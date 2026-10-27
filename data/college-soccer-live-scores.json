@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-10-27T18:58:58.766185+00:00",
+  "checked_at_utc": "2026-10-27T22:54:19.764794+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -13,13 +13,76 @@
       "source_url": "https://www.ncaa.com/game/6615674"
     },
     {
-      "match_id": "men-6616701",
+      "match_id": "men-6616482",
       "cohort": "men-d1",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
+      "away_score": 0,
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6616482"
+    },
+    {
+      "match_id": "men-6616701",
+      "cohort": "men-d1",
+      "status": "final",
+      "home_score": 2,
       "away_score": 1,
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6616701"
+    },
+    {
+      "match_id": "men-6616790",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 3,
+      "away_score": 0,
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6616790"
+    },
+    {
+      "match_id": "men-6616964",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6616964"
+    },
+    {
+      "match_id": "men-6617304",
+      "cohort": "men-d2",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6617304"
+    },
+    {
+      "match_id": "men-6617376",
+      "cohort": "men-d2",
+      "status": "final",
+      "home_score": 3,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6617376"
+    },
+    {
+      "match_id": "men-6617627",
+      "cohort": "men-d2",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 2,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6617627"
+    },
+    {
+      "match_id": "men-6617863",
+      "cohort": "men-d2",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6617863"
     },
     {
       "match_id": "men-6617885",
@@ -29,6 +92,15 @@
       "away_score": 1,
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6617885"
+    },
+    {
+      "match_id": "men-6618344",
+      "cohort": "men-d2",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6618344"
     },
     {
       "match_id": "men-6618359",
@@ -49,12 +121,21 @@
       "source_url": "https://www.ncaa.com/game/6618399"
     },
     {
-      "match_id": "men-6618751",
+      "match_id": "men-6618731",
       "cohort": "men-d2",
       "status": "live",
-      "home_score": 0,
-      "away_score": 1,
+      "home_score": 1,
+      "away_score": 0,
       "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6618731"
+    },
+    {
+      "match_id": "men-6618751",
+      "cohort": "men-d2",
+      "status": "final",
+      "home_score": 3,
+      "away_score": 1,
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6618751"
     },
     {
@@ -67,22 +148,148 @@
       "source_url": "https://www.ncaa.com/game/6618780"
     },
     {
+      "match_id": "men-6619339",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6619339"
+    },
+    {
       "match_id": "men-6619425",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 2,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6619425"
+    },
+    {
+      "match_id": "men-6619782",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 3,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6619782"
+    },
+    {
+      "match_id": "men-6620169",
       "cohort": "men-d3",
       "status": "live",
       "home_score": 0,
       "away_score": 0,
       "period": "HALF",
-      "source_url": "https://www.ncaa.com/game/6619425"
+      "source_url": "https://www.ncaa.com/game/6620169"
+    },
+    {
+      "match_id": "men-6620197",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 6,
+      "away_score": 0,
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6620197"
+    },
+    {
+      "match_id": "men-6620249",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6620249"
+    },
+    {
+      "match_id": "men-6620380",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 4,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6620380"
+    },
+    {
+      "match_id": "men-6620590",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 3,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6620590"
+    },
+    {
+      "match_id": "men-6620705",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6620705"
+    },
+    {
+      "match_id": "men-6620840",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6620840"
+    },
+    {
+      "match_id": "men-6620954",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 6,
+      "away_score": 4,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6620954"
+    },
+    {
+      "match_id": "men-6621001",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6621001"
     },
     {
       "match_id": "men-6621135",
       "cohort": "men-d3",
-      "status": "live",
-      "home_score": 1,
+      "status": "final",
+      "home_score": 2,
       "away_score": 1,
-      "period": "1ST HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6621135"
+    },
+    {
+      "match_id": "men-6621407",
+      "cohort": "men-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6621407"
+    },
+    {
+      "match_id": "men-6621466",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 3,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6621466"
+    },
+    {
+      "match_id": "men-6621606",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 4,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6621606"
     },
     {
       "match_id": "men-6621952",
@@ -112,6 +319,33 @@
       "source_url": "https://www.ncaa.com/game/6622060"
     },
     {
+      "match_id": "men-6638343",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 2,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6638343"
+    },
+    {
+      "match_id": "men-6639000",
+      "cohort": "men-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 4,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6639000"
+    },
+    {
+      "match_id": "men-6662649",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6662649"
+    },
+    {
       "match_id": "men-6663198",
       "cohort": "men-d2",
       "status": "final",
@@ -132,10 +366,10 @@
     {
       "match_id": "women-6610379",
       "cohort": "women-d2",
-      "status": "live",
-      "home_score": 1,
+      "status": "final",
+      "home_score": 4,
       "away_score": 0,
-      "period": "HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6610379"
     },
     {
@@ -148,6 +382,15 @@
       "source_url": "https://www.ncaa.com/game/6610398"
     },
     {
+      "match_id": "women-6610729",
+      "cohort": "women-d2",
+      "status": "live",
+      "home_score": 1,
+      "away_score": 2,
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6610729"
+    },
+    {
       "match_id": "women-6610858",
       "cohort": "women-d2",
       "status": "final",
@@ -155,6 +398,51 @@
       "away_score": 1,
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6610858"
+    },
+    {
+      "match_id": "women-6611344",
+      "cohort": "women-d2",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 2,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6611344"
+    },
+    {
+      "match_id": "women-6611382",
+      "cohort": "women-d2",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6611382"
+    },
+    {
+      "match_id": "women-6611559",
+      "cohort": "women-d2",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6611559"
+    },
+    {
+      "match_id": "women-6611607",
+      "cohort": "women-d2",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6611607"
+    },
+    {
+      "match_id": "women-6611744",
+      "cohort": "women-d2",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6611744"
     },
     {
       "match_id": "women-6611935",
@@ -166,6 +454,42 @@
       "source_url": "https://www.ncaa.com/game/6611935"
     },
     {
+      "match_id": "women-6611968",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 8,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6611968"
+    },
+    {
+      "match_id": "women-6612182",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 2,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6612182"
+    },
+    {
+      "match_id": "women-6612557",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6612557"
+    },
+    {
+      "match_id": "women-6612976",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6612976"
+    },
+    {
       "match_id": "women-6613062",
       "cohort": "women-d3",
       "status": "final",
@@ -173,6 +497,51 @@
       "away_score": 13,
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6613062"
+    },
+    {
+      "match_id": "women-6613295",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 2,
+      "period": "2ND HALF",
+      "source_url": "https://www.ncaa.com/game/6613295"
+    },
+    {
+      "match_id": "women-6613324",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6613324"
+    },
+    {
+      "match_id": "women-6613350",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6613350"
+    },
+    {
+      "match_id": "women-6613685",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6613685"
+    },
+    {
+      "match_id": "women-6613749",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 3,
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6613749"
     },
     {
       "match_id": "women-6613774",
@@ -184,6 +553,24 @@
       "source_url": "https://www.ncaa.com/game/6613774"
     },
     {
+      "match_id": "women-6613847",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6613847"
+    },
+    {
+      "match_id": "women-6614028",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6614028"
+    },
+    {
       "match_id": "women-6614113",
       "cohort": "women-d3",
       "status": "final",
@@ -193,12 +580,75 @@
       "source_url": "https://www.ncaa.com/game/6614113"
     },
     {
+      "match_id": "women-6614239",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6614239"
+    },
+    {
+      "match_id": "women-6614301",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 4,
+      "away_score": 2,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6614301"
+    },
+    {
+      "match_id": "women-6614571",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 4,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6614571"
+    },
+    {
+      "match_id": "women-6614767",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 4,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6614767"
+    },
+    {
+      "match_id": "women-6615244",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 9,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6615244"
+    },
+    {
+      "match_id": "women-6615406",
+      "cohort": "women-d3",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6615406"
+    },
+    {
+      "match_id": "women-6615435",
+      "cohort": "women-d3",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 2,
+      "period": "HALF",
+      "source_url": "https://www.ncaa.com/game/6615435"
+    },
+    {
       "match_id": "women-6615491",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6615491"
     },
     {
@@ -213,11 +663,20 @@
     {
       "match_id": "women-6637249",
       "cohort": "women-d3",
+      "status": "final",
+      "home_score": 3,
+      "away_score": 0,
+      "period": "FINAL",
+      "source_url": "https://www.ncaa.com/game/6637249"
+    },
+    {
+      "match_id": "women-6638105",
+      "cohort": "women-d2",
       "status": "live",
-      "home_score": 2,
+      "home_score": 0,
       "away_score": 0,
       "period": "HALF",
-      "source_url": "https://www.ncaa.com/game/6637249"
+      "source_url": "https://www.ncaa.com/game/6638105"
     },
     {
       "match_id": "women-6662045",
