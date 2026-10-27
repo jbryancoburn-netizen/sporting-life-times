@@ -7,7 +7,7 @@ await go('ncaam.html');assert.equal(await p.locator('#team-directory>a').count()
 await go('ncaam-conference.html');assert.equal(await p.locator('.conf-card').count(),32);
 await go('ncaam-conference.html?conference=Big%20Ten');assert((await p.locator('#app').innerText()).includes('Indiana'));
 await go('ncaam-team.html?team=ncaa%3A609574');assert((await p.locator('#app').innerText()).includes('Indiana'));assert(await p.locator('table tbody tr').count()>10);await p.selectOption('#opponent',{index:5});assert((await p.locator('#series').innerText()).includes('verified meetings'));
-await go('ncaam-tournament.html');assert.equal(await p.locator('.region').count(),4);assert.equal(await p.locator('.region .match').count(),32);assert.equal(await p.locator('.opening-grid .match').count(),12);
+await go('ncaam-tournament.html');assert.equal(await p.locator('.region').count(),8);assert.equal(await p.locator('.region .match').count(),32);assert.equal(await p.locator('.opening-grid .match').count(),12);
 await go('ncaam-players.html');assert.equal(await p.locator('#player-table tbody tr').count(),100);await p.click('[data-stat=ast]');await p.fill('#player-search','Indiana');assert(await p.locator('#player-table tbody tr').count()>0);await p.selectOption('#stat-season','current');assert((await p.locator('#stat-note').innerText()).includes('2026–27'));
 await p.setViewportSize({width:390,height:844});for(const x of ['ncaam.html','ncaam-tournament.html','ncaam-team.html?team=ncaa%3A609574','ncaam-players.html'])await go(x);
 assert.deepEqual(errors,[]);console.log('PASS: desktop/mobile rendering, 32 conference links, directory paging/search, standings, polls, team series, all bracket slots, player filters and no JavaScript errors.');
