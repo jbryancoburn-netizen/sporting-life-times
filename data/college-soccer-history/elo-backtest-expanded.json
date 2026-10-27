@@ -112,6 +112,9 @@
     "method": "current D-I teams plus historical Saint Francis PA; provisional comparison, not a historically certified membership list",
     "validation_brier": 0.165146470099267,
     "holdout_brier": 0.15622141208630497,
-    "full_sample_holdout_brier": 0.15676002984121032
+    "full_sample_holdout_brier": 0.15676002984121032,
+    "validation_games": 1882,
+    "holdout_games": 1874,
+    "comparison_warning": "Different evaluation samples; Brier scores are not directly comparable. Re-evaluate both models on the same held-out games before selecting parameters."
   }
 }
