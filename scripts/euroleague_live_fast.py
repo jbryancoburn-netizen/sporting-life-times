@@ -76,6 +76,28 @@ def build(model, previous, now=None, get_header=None):
         g["home"]["score"],g["away"]["score"]=official["score"]
         g["score_updated_at"]=g.get("score_updated_at") or now.isoformat()
         g["final_source"]=official["source"]
+    # EuroLeague Header publishes cumulative scores at each quarter boundary.
+    # Convert those to per-quarter points only when every boundary is present
+    # and the totals are monotonic. Never invent missing quarters.
+    def quarter_breakdown(raw,home_score,away_score):
+        totals=[]
+        for q in range(1,5):
+            a=raw.get(f"ScoreQuarter{q}A",raw.get(f"scoreQuarter{q}A"))
+            b=raw.get(f"ScoreQuarter{q}B",raw.get(f"scoreQuarter{q}B"))
+            if a is None or b is None:break
+            try:
+                h=int(a);w=int(b)
+            except (ValueError,TypeError):break
+            if min(h,w)<0 or h>250 or w>250:break
+            if totals and (h<totals[-1][0] or w<totals[-1][1]):break
+            totals.append((h,w))
+        out=[]
+        prev_h=prev_w=0
+        for i,(h,w) in enumerate(totals):
+            if h>home_score or w>away_score:break
+            out.append({"period":i+1,"home":h-prev_h,"away":w-prev_w})
+            prev_h,prev_w=h,w
+        return out
     responses=0
     refreshed=0
     header_errors=0
@@ -90,6 +112,8 @@ def build(model, previous, now=None, get_header=None):
             if not isinstance(raw,dict):
                 continue
             responses+=1
+            if valid_score(g["home"].get("score"),g["away"].get("score")):
+                g["period_scores"]=quarter_breakdown(raw,g["home"]["score"],g["away"]["score"])
             finished=header.completed_score(raw,g["home"]["code"],g["away"]["code"],hours*60)
             if finished:
                 g["status"]="final"
@@ -107,6 +131,7 @@ def build(model, previous, now=None, get_header=None):
                 g["home"]["score"]=outcome["home"]
                 g["away"]["score"]=outcome["away"]
                 g["score_updated_at"]=now.isoformat()
+                g["period_scores"]=quarter_breakdown(raw,outcome["home"],outcome["away"])
                 refreshed+=1
             elif raw.get("Live",raw.get("live")) is False and g["status"] in ("live","awaiting_final"):
                 home=str(raw.get("CodeTeamA",raw.get("codeTeamA",""))).strip().upper()
