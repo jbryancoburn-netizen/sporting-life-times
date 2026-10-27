@@ -33,6 +33,21 @@ jobs:
         if: always()
         run: |
           python scripts/backtest_college_soccer_elo.py || echo 'Full-season certification pending; preliminary results retained.'
+      - name: Report historical collection progress
+        if: always()
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          for year in (2023,2024,2025):
+              p=pathlib.Path(f'data/college-soccer-history/men-d1-{year}.json')
+              if not p.exists():
+                  print(f'::error::{year}: historical file missing')
+                  continue
+              d=json.loads(p.read_text())
+              n=len(d.get('checked_dates',[]))
+              print(f'{year}: {n}/153 dates; {len(d.get("games",[]))} games; {len(d.get("errors",[]))} errors')
+              if n<153: print(f'::warning::{year}: {153-n} historical dates remain')
+          PY
       - name: Commit collected historical results
         if: always()
         run: |
@@ -42,5 +57,10 @@ jobs:
           git add data/college-soccer-history/
           if ! git diff --cached --quiet; then
             git commit -m "Collect historical men's soccer finals for Elo backtest"
-            git push
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
+              sleep $((attempt * 3))
+            done
+            echo "::error::Historical results could not be pushed after five attempts"
+            exit 1
           fi
