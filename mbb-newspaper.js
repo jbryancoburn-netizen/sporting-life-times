@@ -122,6 +122,8 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
  document.title=t.team+' Basketball | The Sporting Life & Times';
  // Start calendar loading independently; roster/news requests must never block the schedule.
  const calendarPromise=fullTeamSchedule(t);
+ $('#app').innerHTML='<div class="eyebrow">'+esc(t.team)+' · 2026–27</div><section class="panel" id="full-season-schedule"><h2>Full Season Schedule</h2><p class="note">Loading the published team calendar…</p></section>';
+ calendarPromise.then(html=>{const el=$('#full-season-schedule');if(el)el.outerHTML=html;}).catch(()=>{});
  const [a,rosterFeed]=await Promise.all([loadArchive(),get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(ids.get(t.team_id)||'')+'/roster?season=2027')]);
  const roster=a?.roster?.filter(p=>p.team_id===t.team_id)||[],stats=a?.players?.filter(p=>p.team_id===t.team_id)||[];
  const athletes=(rosterFeed?.athletes||[]).flatMap(x=>Array.isArray(x?.items)?x.items:[x]).filter(p=>p?.displayName);
