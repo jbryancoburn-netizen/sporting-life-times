@@ -84,7 +84,7 @@ def ccsu():
   items.append({'date':d.isoformat(),'opponent':' '.join(opp.stripped_strings),'time':val('game_time'),'site':site,'venue':val('arena')})
  if len(items)<20:
   target=out/(cross['Central Conn. St.']+'.json')
-  previous=json.loads(target.read_text())
+  previous=json.JSONDecoder().raw_decode(target.read_text())[0]
   if len(previous.get('events',[]))<25:raise ValueError('CCSU calendar has insufficient games')
   previous['source_name']='Provisional 2026-27 Central Connecticut calendar — university-source verification pending'
   previous['source_url']='https://www.sports-reference.com/cbb/schools/central-connecticut-state/men/2027-schedule.html'
