@@ -56,7 +56,8 @@ try{
  }).join('')||'<p class="hub-small">No games in this scorebug window.</p>';
  host.querySelectorAll('details[data-game-id]').forEach(el=>{if(expanded.has(el.dataset.gameId))el.open=true});
  const officialLive=Number(d.header_responses)||0;
- const providerNote=officialLive===0?' · Official live-stat provider unavailable; showing verified published scores only':'';
+ const activeWindow=d.games.some(g=>['live','awaiting_final'].includes(g.status)||(g.status==='scheduled'&&Date.parse(g.date)<=Date.now()&&Date.now()-Date.parse(g.date)<5*3600000));
+ const providerNote=d.provider_degraded?' · Official live-stat provider degraded; displaying last verified scores':officialLive===0&&activeWindow?' · Official in-game updates not confirmed; showing published scores only':'';
  status.textContent=(stale?'Score feed delayed · Last checked ':'Score feed checked ')+et(d.checked_at||d.updated_at)+' ET · Checks every 60 seconds'+providerNote;
  lastGood=d;
 }catch(e){
