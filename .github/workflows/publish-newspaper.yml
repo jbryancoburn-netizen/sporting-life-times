@@ -36,6 +36,10 @@ jobs:
           python3 scripts/check_inline_javascript.py
           node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
           node --test tests/ncaam-rivalry-archive.test.cjs
+      - name: Install browser dependencies for newspaper regression tests
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
       - name: Block publication when core newspaper regression tests fail
         run: |
           node --test tests/*.test.cjs
