@@ -56,3 +56,8 @@
 .roster-table-wrap .mbb-photo-missing{display:inline-flex;width:58px;height:68px;min-width:58px;align-items:center;justify-content:center;vertical-align:middle;margin-right:12px;background:#e4e9e8;border-radius:6px;font-size:12px;font-weight:700;color:#50676e}
 .roster-table-wrap tbody td:first-child{white-space:nowrap;text-align:left}
 .roster-table-wrap tbody td{vertical-align:middle}
+
+/* Official school roster portraits, uniform high-resolution display box. */
+.roster-table-wrap .mbb-player-image-wrap{position:relative;display:inline-flex;width:64px;height:72px;min-width:64px;vertical-align:middle;margin-right:12px;align-items:center;justify-content:center;background:#e8ecea;overflow:hidden;border-radius:4px}
+.roster-table-wrap .mbb-player-image-wrap .mbb-player-photo{position:absolute;z-index:1;inset:0;display:block;width:100%;height:100%;min-width:0;object-fit:contain;object-position:center bottom;margin:0;background:#f0f1ee;border-radius:0;image-rendering:auto}
+.roster-table-wrap .mbb-player-image-wrap .mbb-photo-missing{display:flex;position:absolute;inset:0;width:100%;height:100%;margin:0;border-radius:0;align-items:center;justify-content:center}
