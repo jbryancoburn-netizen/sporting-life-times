@@ -4,8 +4,8 @@
   "cohort": "men-d1",
   "source": "NCAA.com via ncaa-api compatibility transport",
   "venue_note": "Listed home/away is not proof of actual venue; neutral_venue unknown.",
-  "collection_date_utc": "2026-10-27T00:26:40.681469+00:00",
-  "dates_queried": 117,
+  "collection_date_utc": "2026-10-27T01:00:14.073276+00:00",
+  "dates_queried": 1,
   "checked_dates": [
     "2024-08-01",
     "2024-08-02",
@@ -115,6 +115,7 @@
     "2024-11-14",
     "2024-11-15",
     "2024-11-16",
+    "2024-11-17",
     "2024-11-18",
     "2024-11-19",
     "2024-11-20",
@@ -160,16 +161,11 @@
     "2024-12-30",
     "2024-12-31"
   ],
-  "finals_seen": 1594,
-  "unique_finals": 1960,
-  "coverage_complete": false,
+  "finals_seen": 11,
+  "unique_finals": 1971,
+  "coverage_complete": true,
   "dates_expected": 153,
-  "errors": [
-    {
-      "date": "2024-11-17",
-      "error": "HTTP Error 502: Bad Gateway"
-    }
-  ],
+  "errors": [],
   "games": [
     {
       "game_id": "men-6309502",
@@ -21179,6 +21175,127 @@
       "away_goals": 2,
       "neutral_venue": null,
       "source_url": "https://www.ncaa.com/game/6381935",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381222",
+      "date": "2024-11-17",
+      "home": "clemson",
+      "away": "wake-forest",
+      "home_goals": 1,
+      "away_goals": 1,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381222",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381236",
+      "date": "2024-11-17",
+      "home": "ohio-st",
+      "away": "michigan",
+      "home_goals": 1,
+      "away_goals": 0,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381236",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381297",
+      "date": "2024-11-17",
+      "home": "fdu",
+      "away": "long-island",
+      "home_goals": 0,
+      "away_goals": 0,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381297",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381481",
+      "date": "2024-11-17",
+      "home": "charlotte",
+      "away": "fiu",
+      "home_goals": 2,
+      "away_goals": 1,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381481",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381486",
+      "date": "2024-11-17",
+      "home": "dayton",
+      "away": "saint-louis",
+      "home_goals": 3,
+      "away_goals": 0,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381486",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381493",
+      "date": "2024-11-17",
+      "home": "east-tenn-st",
+      "away": "furman",
+      "home_goals": 0,
+      "away_goals": 2,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381493",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381501",
+      "date": "2024-11-17",
+      "home": "providence",
+      "away": "georgetown",
+      "home_goals": 1,
+      "away_goals": 2,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381501",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381512",
+      "date": "2024-11-17",
+      "home": "vermont",
+      "away": "bryant",
+      "home_goals": 2,
+      "away_goals": 1,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381512",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381536",
+      "date": "2024-11-17",
+      "home": "west-virginia",
+      "away": "marshall",
+      "home_goals": 0,
+      "away_goals": 0,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381536",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381543",
+      "date": "2024-11-17",
+      "home": "iona",
+      "away": "rider",
+      "home_goals": 1,
+      "away_goals": 0,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381543",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6381932",
+      "date": "2024-11-17",
+      "home": "penn",
+      "away": "princeton",
+      "home_goals": 1,
+      "away_goals": 3,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6381932",
       "status": "final"
     },
     {
