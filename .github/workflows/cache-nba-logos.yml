@@ -1,0 +1,40 @@
+name: Cache and validate all 30 NBA primary logos
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/cache-nba-logos.py'
+      - '.github/workflows/cache-nba-logos.yml'
+permissions:
+  contents: write
+concurrency:
+  group: nba-local-logo-cache
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install SVG renderer
+        run: pip install pillow cairosvg
+      - name: Download, crop transparent padding and validate all 30 NBA logo images
+        run: python scripts/cache-nba-logos.py
+      - name: Commit local primary logos and manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/nba-logos
+          if git diff --cached --quiet; then echo "No logo changes"; exit 0; fi
+          git commit -m "Cache 30 validated NBA primary logo PNGs locally"
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || exit 1
+          done
+          exit 1
