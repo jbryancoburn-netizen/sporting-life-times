@@ -29,7 +29,8 @@ class NBLResearchRatingsTests(unittest.TestCase):
         baseline["ratings_end_2025_26"]["Sydney Kings"]=1900
         baseline["ratings_end_2025_26"]["Perth Wildcats"]=1100
         result=calculate(baseline,self.ledger([self.game("one")]))
-        self.assertAlmostEqual(result["chronological_comparator"]["Sydney Kings"],1500+20*(1-1/(1+10**(-65/400))),places=2)\n        self.assertEqual(result["rating_method"],"RETRO completed-game network refit")
+        self.assertAlmostEqual(result["chronological_comparator"]["Sydney Kings"],1500+20*(1-1/(1+10**(-65/400))),places=2)
+        self.assertEqual(result["rating_method"],"RETRO completed-game network refit")
         self.assertEqual(result["season_start_elo"],1500)
         self.assertTrue(result["reset_every_season"])
     def test_replaying_same_result_is_blocked(self):
