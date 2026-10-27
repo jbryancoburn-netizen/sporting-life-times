@@ -190,9 +190,13 @@ def main():
         validation_path=pathlib.Path("data/euroleague-validation.json")
         try:
             validation=json.loads(validation_path.read_text())
-            selected=validation["heldout_evaluation"]["selected_parameters"]
+            evaluation=validation["heldout_evaluation"]
+            selected=evaluation["selected_parameters"]
+            selected_loss=evaluation["selected_holdout"]["log_loss"]
+            baseline_loss=evaluation["baseline_holdout"]["log_loss"]
             if (validation.get("status")=="reset_1500_calibration" and
                 selected.get("season_carry")==0 and
+                selected_loss < baseline_loss and
                 selected.get("k") in (12.,18.,22.,28.,36.) and
                 selected.get("home_elo") in (0.,35.,65.,90.,120.)):
                 K=float(selected["k"])
