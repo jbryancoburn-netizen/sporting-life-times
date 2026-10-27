@@ -24,6 +24,12 @@ jobs:
           python-version: '3.12'
       - name: Rebuild verified EPL snapshot
         run: python scripts/update_epl_live.py
+      # Research-only recorder. Never blocks verified live ratings publication.
+      # Uses the same already-public fixture feed and existing 15-minute job.
+      - name: Lock pregame EPL model comparisons and grade newly verified finals
+        continue-on-error: true
+        run: |
+          python -m public_ratings.epl_grade --feed data/epl-match-center.json --ledger data/research/epl-shadow-locked.json
       - name: Record scheduler heartbeat
         if: always()
         env:
@@ -37,6 +43,7 @@ jobs:
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/epl-ratings.json data/epl-match-center.json multi_scoreboards.json data/epl-pipeline-status.json
+          if [ -f data/research/epl-shadow-locked.json ]; then git add data/research/epl-shadow-locked.json; fi
           if ! git diff --cached --quiet; then
             git commit -m "Update EPL verified finals, standings, Elo and forecasts"
             git pull --rebase origin main
