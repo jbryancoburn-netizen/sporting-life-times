@@ -354,3 +354,24 @@ body[data-league="euroleague"] #el-club-spotlight .el-bracket-name h3{font-size:
 body[data-league="euroleague"] .el-playin-tree .el-match-pair{position:relative}
 body[data-league="euroleague"] .el-playin-tree .el-match-pair:after{content:"";position:absolute;right:-10px;top:25%;height:50%;border-right:3px solid #b99758}
 body[data-league="euroleague"] .el-playin-tree .el-match-pair:before{content:"";position:absolute;right:-24px;top:50%;width:14px;border-top:3px solid #b99758}
+
+
+/* Newspaper layout: logos are the shared marks; containers never compress them. */
+body[data-league="euroleague"] #el-live-scorebugs .el-live-team{display:grid!important;grid-template-columns:60px minmax(0,1fr) auto!important;align-items:center!important;column-gap:14px!important;min-height:76px!important}
+body[data-league="euroleague"] #el-live-scorebugs .el-live-team .slt-mark{--slt-mark-size:60px}
+body[data-league="euroleague"] #el-live-scorebugs .el-live-team>span:not(.slt-mark){min-width:0;font-size:15px!important;line-height:1.25!important}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:auto!important;gap:14px!important}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity{display:grid!important;grid-template-columns:30px 60px minmax(0,1fr)!important;align-items:center!important;gap:12px!important}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity .slt-mark{--slt-mark-size:60px}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-name{min-width:0}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-name h3{font-size:18px!important;line-height:1.2!important;min-height:0!important;overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important;margin:0 0 8px!important}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-team{min-height:160px!important}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-tree{display:block!important}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-opening{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-match{min-width:0}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-connector{display:none!important}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-final{position:relative;max-width:520px;margin:32px auto 0!important;padding:22px 0 0!important}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-final:before{content:"";position:absolute;left:50%;top:-32px;height:54px;border-left:3px solid #b99758}
+body[data-league="euroleague"] #el-club-spotlight .el-playin-final:after{content:"";position:absolute;top:-32px;left:25%;width:50%;border-top:3px solid #b99758}
+body[data-league="euroleague"] #el-club-spotlight .el-match-pair:before,body[data-league="euroleague"] #el-club-spotlight .el-match-pair:after{display:none!important}
+@media(max-width:850px){body[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{grid-template-columns:1fr!important}body[data-league="euroleague"] #el-club-spotlight .el-playin-opening{grid-template-columns:1fr}}
