@@ -15,8 +15,8 @@ out.mkdir(exist_ok=True)
 by_espn={str(x['espn_id']):x for x in cross}
 names={}
 def norm(s):
- s=re.sub(r'\\([^)]*\\)','',s or '')
- s=re.sub(r'\\b(university|college|the|of)\\b','',s,flags=re.I)
+ s=re.sub(r'\([^)]*\)','',s or '')
+ s=re.sub(r'\b(university|college|the|of)\b','',s,flags=re.I)
  return re.sub('[^a-z0-9]','',s.casefold())
 for t in cross:
  for n in [t['name'],t.get('espn_name','')]:
@@ -52,10 +52,10 @@ def fetch(school):
 def convert(school,entry,idx):
  name=entry.get('opponent','').strip()
  if not name:return None
- if re.search(r'\\b(exhibition|\\(ex\\)|if qualified|semifinal|placement game|tournament|final four|championship|opening round|regional|quarterfinal|first round|second round|third round)\\b',name,re.I):return None
- if '/' in name or re.search(r'\\b(TBD|TBA|winner of|to be determined)\\b',name,re.I):return None
+ if re.search(r'\b(exhibition|\(ex\)|if qualified|semifinal|placement game|tournament|final four|championship|opening round|regional|quarterfinal|first round|second round|third round)\b',name,re.I):return None
+ if '/' in name or re.search(r'\b(TBD|TBA|winner of|to be determined)\b',name,re.I):return None
  date=entry.get('date','')
- m=re.search(r'\\b(Jan|Feb|Mar|Apr|Oct|Nov|Dec)[a-z]*\\s+(\\d{1,2})\\b',date,re.I)
+ m=re.search(r'\b(Jan|Feb|Mar|Apr|Oct|Nov|Dec)[a-z]*\s+(\d{1,2})\b',date,re.I)
  if not m:return None
  month={'jan':1,'feb':2,'mar':3,'apr':4,'oct':10,'nov':11,'dec':12}[m.group(1).lower()]
  year=2026 if month>=10 else 2027
