@@ -30,8 +30,8 @@ TOR:['Toronto Raptors','East','Atlantic','#ce1141'],UTA:['Utah Jazz','West','Nor
 };
 const codes=Object.keys(meta),aliases={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'};
 const nbaIds={ATL:1610612737,BOS:1610612738,BKN:1610612751,CHA:1610612766,CHI:1610612741,CLE:1610612739,DAL:1610612742,DEN:1610612743,DET:1610612765,GSW:1610612744,HOU:1610612745,IND:1610612754,LAC:1610612746,LAL:1610612747,MEM:1610612763,MIA:1610612748,MIL:1610612749,MIN:1610612750,NOP:1610612740,NYK:1610612752,OKC:1610612760,ORL:1610612753,PHI:1610612755,PHX:1610612756,POR:1610612757,SAC:1610612758,SAS:1610612759,TOR:1610612761,UTA:1610612762,WAS:1610612764};
-const logo=t=>'https://cdn.nba.com/logos/nba/'+nbaIds[t]+'/primary/L/logo.svg';
-const logoFallback=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(aliases[t]||String(t||'').toLowerCase())+'.png';
+const logo=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(aliases[t]||String(t||'').toLowerCase())+'.png';
+const logoFallback=t=>'https://cdn.nba.com/logos/nba/'+nbaIds[t]+'/primary/L/logo.svg';
 const logoImg=(t,kind='')=>'<img class="nba-team-logo'+(kind?' '+kind:'')+'" loading="lazy" alt="'+esc(name(t))+' logo" decoding="async" src="'+logo(t)+'" onerror="if(!this.dataset.logoFallback){this.dataset.logoFallback=1;this.src=\''+logoFallback(t)+'\';}else{this.hidden=true;}">';
 const name=t=>meta[t]?.[0]||t,tl=t=>'nba-team-desk.html?team='+encodeURIComponent(t);
 const team=(t,variant='')=>'<a class="team-link'+(variant==='power'?' nba-power-team-link':'')+'" href="'+tl(t)+'">'+logoImg(t,variant==='power'?'nba-power-logo':'')+'<span>'+esc(name(t))+'</span></a>';
@@ -130,7 +130,7 @@ const standingHeads=[['#','num'],['Club'],['W','num'],['L','num'],['PCT','num'],
 function standings(){
  const blocs=['East','West'].map(c=>'<section class="panel">'+section('Standings desk',c+'ern Conference','nba-conference.html?conference='+c,'Conference desk →')+table(standingHeads,standingRows(stand(c)))+'</section>').join('');
  const divs=['Atlantic','Central','Southeast','Northwest','Pacific','Southwest'].map(d=>'<div class="nba-division-card"><h3>'+d+'</h3>'+table([['Club'],['W–L','num'],['Elo','num'],['Daily Δ','num']],codes.filter(t=>meta[t][2]===d).sort((a,b)=>stand(meta[a][1]).indexOf(a)-stand(meta[b][1]).indexOf(b)).map(t=>'<tr><td>'+team(t)+'</td><td class="num">'+rec(t)+'</td><td class="num">'+fmt(rates[t],0)+'</td><td class="num">'+dailyElo(t)+'</td></tr>'))+'</div>').join('');
- return '<div class="eyebrow">2026–27 · NBA</div><h1>STANDINGS DESK</h1><p class="nba-note">Win–loss records are reconstructed from the independent verified-finals ledger. Equal-record ordering here uses Elo, not the NBA’s full official multi-team tiebreaker procedure.</p><div class="nba-mini-grid">'+blocs+'</div><h2>Six Divisions</h2><div class="nba-mini-grid">'+divs+'</div>'+directory();}
+ return '<div class="eyebrow">2026–27 · NBA</div><h1>STANDINGS DESK</h1><p class="nba-note">Win–loss records are reconstructed from the independent verified-finals ledger. Equal-record ordering here uses Elo, not the NBA’s full official multi-team tiebreaker procedure.</p><div class="nba-standings-conferences">'+blocs+'</div><h2>Six Divisions</h2><div class="nba-mini-grid">'+divs+'</div>'+directory();}
 function powerLog(t){
  return (data.current?.events||[]).filter(g=>(g.home===t||g.away===t)&&Number.isFinite(+g.home_score)&&Number.isFinite(+g.away_score)&&+g.home_score!==+g.away_score)
  .slice().sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)||String(a.id).localeCompare(String(b.id)))
