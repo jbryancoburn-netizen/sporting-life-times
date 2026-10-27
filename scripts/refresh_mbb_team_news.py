@@ -36,7 +36,7 @@ def fetch(team):
             if timestamp>now+timedelta(hours=2) or now-timestamp>max_age: continue
             if not title or not link or link in seen: continue
             # Google News RSS titles often have suffix " - Publisher".
-            clean=re.sub(r"\\s+-\\s+"+re.escape(src)+r"$","",title,flags=re.I).strip()
+            clean=re.sub(r"\s+-\s+"+re.escape(src)+r"$","",title,flags=re.I).strip()
             if not re.search(r"basketball|hoosiers|wildcats|tournament|coach|roster|guard|forward|center|hoops",clean,re.I): continue
             entries.append({"title":clean,"url":link,"source":src,"published_at":timestamp.isoformat(),"summary":""})
             seen.add(link)
