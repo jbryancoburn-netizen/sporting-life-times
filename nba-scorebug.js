@@ -8,9 +8,9 @@ function team(t,opts={}){
  const score=opts.score;
  const normalized=String(t.code||'').toUpperCase();
  const espnCodes={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'};
- const logoUrl=opts.logo||(colors[normalized]?'https://a.espncdn.com/i/teamlogos/nba/500/'+(espnCodes[normalized]||normalized.toLowerCase())+'.png':'');
+ const logoUrl=opts.logo||(colors[normalized]?logo(normalized):'');
 const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":1610612766,"CHI":1610612741,"CLE":1610612739,"DAL":1610612742,"DEN":1610612743,"DET":1610612765,"GSW":1610612744,"HOU":1610612745,"IND":1610612754,"LAC":1610612746,"LAL":1610612747,"MEM":1610612763,"MIA":1610612748,"MIL":1610612749,"MIN":1610612750,"NOP":1610612740,"NYK":1610612752,"OKC":1610612760,"ORL":1610612753,"PHI":1610612755,"PHX":1610612756,"POR":1610612757,"SAC":1610612758,"SAS":1610612759,"TOR":1610612761,"UTA":1610612762,"WAS":1610612764};
-const logo=c=>'https://cdn.nba.com/logos/nba/'+(nbaPrimaryIds[String(c||'').toUpperCase()]||1610612737)+'/primary/L/logo.svg';
+const logo=c=>'assets/nba-logos/'+String(c||'').toUpperCase()+'.png';
  return '<div class="slt-scorebug-team '+(opts.winner?'is-winner':'')+'" style="--team-color:'+color(t)+'"><span class="slt-scorebug-identity">'+logo+'<span><b>'+esc(t.code)+'</b><small>'+esc(t.name||t.code)+'</small>'+(t.record?'<small class="slt-scorebug-record">'+esc(t.record)+'</small>':'')+'</span></span><span class="slt-scorebug-number">'+(score===undefined||score===null?'—':esc(score))+'</span></div>';
 }
 function render(args){
