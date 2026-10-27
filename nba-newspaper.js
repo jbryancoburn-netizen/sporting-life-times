@@ -54,7 +54,7 @@ const stand=(conference)=>codes.filter(t=>meta[t][1]===conference).sort((a,b)=>{
  let x=records[a],y=records[b],px=(x.w+x.l)?x.w/(x.w+x.l):0,py=(y.w+y.l)?y.w/(y.w+y.l):0;
  return py-px||y.w-x.w||((rates[b]||0)-(rates[a]||0))||name(a).localeCompare(name(b));});
 function stamp(){if(!$('#data-stamp'))return;
- const captured=data.archive?.games?.length||0;$('#data-stamp').innerHTML='<span class="pulse"></span>'+esc(data.current?.games_played??'—')+' scored finals · '+captured+' archived box scores · Feed '+date(data.schedule?.updated_at);
+ const captured=data.archive?.games?.length||0;const newsTime=data.news?.updated_at?date(data.news.updated_at):'unavailable';$('#data-stamp').innerHTML='<span class="pulse"></span>'+esc(data.earned?.games_played??'—')+' Elo finals · '+captured+' archived box scores · News published '+newsTime+' · Scores '+date(data.schedule?.updated_at);
  $('#access-stamp').textContent='Viewed '+date(new Date().toISOString());}
 function card(g){
  const ts=g.teams||[],a=ts.find(t=>t.home_away==='away')||ts[0],h=ts.find(t=>t.home_away==='home')||ts[1];if(!a||!h||!meta[a.code]||!meta[h.code])return '';
@@ -208,8 +208,7 @@ function render(){stamp();const app=$('#app');if(!app)return;
  const nav=$('.nav');if(nav){[...nav.querySelectorAll('a')].forEach(a=>{a.removeAttribute('aria-current');if(new URL(a.href).pathname===location.pathname&&!(page==='home'&&a.hash))a.setAttribute('aria-current','page')});}
 }
 await fetchAll();
-if(ordered.length!==30){$('#app').innerHTML='<div class="nba-empty">The published 30-team ratings could not be loaded. Refresh the NBA desk when the data feed is available. <a href="nba-game-center.html">Existing Game Center →</a></div>';return;}
-render();
+if(ordered.length!==30){$('#app').innerHTML='<div class="nba-empty">The published 30-team Elo ratings could not be loaded. The NBA desk will retry automatically. <a href="nba-game-center.html">Existing Game Center →</a></div>';}else render();
 document.addEventListener('click',e=>{const tab=e.target.closest('[data-leader-stat]');if(!tab)return;const next=tab.getAttribute('data-leader-stat');if(!leaderCategories.some(x=>x[0]===next))return;leaderCategory=next;const content=$('#nba-leader-content');if(content)content.innerHTML=leaders(next,5);document.querySelectorAll('.nba-leader-tab').forEach(b=>{const active=b.getAttribute('data-leader-stat')===next;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});});
 document.addEventListener('input',e=>{
  if(e.target.id==='nba-team-search'){filter=e.target.value.trim().toLowerCase();const el=$('#nba-team-results');if(el){const entries=codes.filter(t=>name(t).toLowerCase().includes(filter)||t.toLowerCase().includes(filter)).sort((a,b)=>name(a).localeCompare(name(b)));el.innerHTML=entries.map(t=>'<a href="'+tl(t)+'" class="nba-team-tile" style="--team-color:'+meta[t][3]+'">'+image(t)+'<b>'+esc(name(t))+'</b><small>'+rec(t)+' · #'+rank(t)+' Elo</small></a>').join('')||blank('No teams match your search.');}}
@@ -218,10 +217,10 @@ document.addEventListener('input',e=>{
 document.addEventListener('change',e=>{if(e.target.id==='nba-team-select')location.href=tl(e.target.value);});
 setInterval(async()=>{
  if(document.hidden)return;
- try{const old=data,prev=JSON.stringify({r:data.current?.games_played,e:data.earned?.games_played,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
+ try{const old=data,prev=JSON.stringify({r:data.current?.games_played,e:data.earned?.games_played,el:data.earned?.events?.at(-1)?.id,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
  await fetchAll();
- const next=JSON.stringify({r:data.current?.games_played,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
- if(prev!==next&&ordered.length===30){const pos=window.scrollY;render();window.scrollTo(0,pos);}else stamp();
+ const next=JSON.stringify({r:data.current?.games_played,e:data.earned?.games_played,el:data.earned?.events?.at(-1)?.id,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
+ if((prev!==next||!$('#app h1'))&&ordered.length===30){const pos=window.scrollY;render();window.scrollTo(0,pos);}else stamp();
  }catch(err){console.warn('NBA refresh skipped:',err);}
 },60000);
 })();
