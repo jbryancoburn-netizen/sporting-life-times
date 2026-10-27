@@ -122,6 +122,9 @@ async function fullTeamSchedule(t){
 }
 async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=>t.team===params.get('team'));if(!t){$('#app').innerHTML=empty('Choose a team from the directory.')+'<div class="directory">'+directory()+'</div>';return;}
  document.title=t.team+' Basketball | The Sporting Life & Times';
+ // Browser-tab icon follows the selected team's real logo (not a letter badge).
+ const faviconId=ids.get(t.team_id);
+ if(faviconId){let fav=document.querySelector('link[rel="icon"]');if(!fav){fav=document.createElement('link');fav.rel='icon';document.head.appendChild(fav);}fav.type='image/png';fav.href='https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(faviconId)+'.png';}
  // Start calendar loading independently; roster/news requests must never block the schedule.
  const calendarPromise=fullTeamSchedule(t);
  // Keep the calendar outside the replaceable team page DOM; other datasets cannot erase it.
