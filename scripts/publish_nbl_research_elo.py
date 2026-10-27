@@ -76,7 +76,9 @@ def calculate(baseline,ledger):
                        "away_score":aws,"elo_delta_home":round(delta,3),"source_url":g["source_url"]})
     if abs(sum(ratings.values())-start_total)>1e-6:
         raise ValueError("Elo rating conservation failure")
-    chronological=ratings.copy()\n    ratings=retro_ratings(games,old,home_edge)\n    ordered=sorted(ratings,key=lambda t:(-ratings[t],t))
+    chronological=ratings.copy()
+    ratings=retro_ratings(games,old,home_edge)
+    ordered=sorted(ratings,key=lambda t:(-ratings[t],t))
     return {"status":"RESEARCH_ONLY_UNCERTIFIED","production_approved":False,
          "model":"nbl-retro-season-network-v1","season":"2026-27",
          "calculated_at":datetime.now(timezone.utc).isoformat(),
