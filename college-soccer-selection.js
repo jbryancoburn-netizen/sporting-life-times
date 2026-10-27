@@ -8,9 +8,15 @@ function schoolRow(entry,branding,kind=''){
  const line=el('div',null,'ncaa-school-row '+kind);
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const crest=el('span',null,'ncaa-school-crest'),brand=brandFor(entry,branding);
- const name=entry.team||entry.team_id,src=brand.logo_url||('https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+entry.team_id+'.svg');
- crest.textContent=name.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
- const img=el('img');img.alt='';img.loading='lazy';img.src=src;img.onerror=()=>img.remove();crest.append(img);
+ const name=entry.team||entry.team_id,src=brand.logo_url;
+ const fallback=el('span',name.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'ncaa-school-initials');
+ crest.append(fallback);
+ if(src){
+  const img=el('img');img.alt=name+' crest';img.loading='lazy';
+  img.onload=()=>{fallback.style.display='none'};
+  img.onerror=()=>{img.remove();fallback.style.display=''};
+  img.src=src;crest.append(img);
+ }
  const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'AUTO BID':'AT-LARGE')));
  line.append(crest,meta);return line;
 }
