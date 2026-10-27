@@ -1,0 +1,141 @@
+{
+  "status": "preliminary",
+  "method": "2023 rating warmup, 2024 chronological validation selection, 2025 untouched holdout; annual rating regression applied before each new season",
+  "games_by_year": {
+    "2023": 360,
+    "2024": 366,
+    "2025": 394
+  },
+  "grid": {
+    "k": [
+      8,
+      12,
+      20,
+      28,
+      36,
+      48,
+      64
+    ],
+    "listed_home_advantage": [
+      0,
+      35,
+      55,
+      75,
+      100,
+      125
+    ],
+    "season_retention": [
+      0,
+      0.5,
+      0.75,
+      1
+    ],
+    "margin_multiplier": [
+      false,
+      true
+    ]
+  },
+  "candidates_tested": 336,
+  "selected": {
+    "k": 48,
+    "h": 100,
+    "reg": 1,
+    "margin": true,
+    "validation": 0.16438236090597141,
+    "holdout": 0.16336695254598338
+  },
+  "holdout_comparators": {
+    "neutral_50_50": 0.19543147208121828,
+    "listed_home_only": 0.17736721437509803
+  },
+  "top_validation_candidates": [
+    {
+      "k": 48,
+      "h": 100,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16438236090597141,
+      "holdout": 0.16336695254598338
+    },
+    {
+      "k": 64,
+      "h": 100,
+      "reg": 1,
+      "margin": false,
+      "validation": 0.16439286058720862,
+      "holdout": 0.1652172722838915
+    },
+    {
+      "k": 48,
+      "h": 100,
+      "reg": 1,
+      "margin": false,
+      "validation": 0.1644602896324823,
+      "holdout": 0.16518032148453476
+    },
+    {
+      "k": 64,
+      "h": 100,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16456499964776303,
+      "holdout": 0.16316300493617752
+    },
+    {
+      "k": 64,
+      "h": 100,
+      "reg": 0.75,
+      "margin": false,
+      "validation": 0.16464893307084,
+      "holdout": 0.16527965826243401
+    },
+    {
+      "k": 48,
+      "h": 100,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.1647590274048096,
+      "holdout": 0.16391646844559798
+    },
+    {
+      "k": 64,
+      "h": 100,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.1648351399581916,
+      "holdout": 0.16376382077162294
+    },
+    {
+      "k": 36,
+      "h": 100,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.1648649280321969,
+      "holdout": 0.16406570134954324
+    },
+    {
+      "k": 48,
+      "h": 100,
+      "reg": 0.75,
+      "margin": false,
+      "validation": 0.16516087293375348,
+      "holdout": 0.1661305146191393
+    },
+    {
+      "k": 36,
+      "h": 100,
+      "reg": 1,
+      "margin": false,
+      "validation": 0.16523001858332861,
+      "holdout": 0.16602670040817058
+    }
+  ],
+  "limitations": [
+    "Only August 1 through September 4 dates currently collected",
+    "NCAA all-conf scoreboards may include non-Division-I opponents",
+    "Actual home and neutral venues unverified",
+    "Draws represented as half-results; not calibrated three-way soccer forecasts",
+    "Selection is a single 2024 validation slice; uncertainty intervals not calculated"
+  ],
+  "live_elo_modified": false
+}
