@@ -119,12 +119,12 @@ jobs:
           assert(!html.includes('college-soccer-predictions.js'));
           assert(fs.readFileSync('college-soccer-visual-desk.js','utf8').includes('www.ncaa.com/sites/default/files/images/logos/schools/bgl/'));
           assert(fs.readFileSync('college-soccer-visual-desk.js','utf8').includes('cs-score-tile'));
-          assert(/college-soccer-visual-desk\\.js\\?v=[^"']+/.test(html));
+          assert(html.includes('college-soccer-visual-desk.js?v='));
           assert(html.includes('college-soccer-visual-desk.css?v=reconcile1'));
           const matchPage=fs.readFileSync('college-soccer-match.html','utf8');
           const deskJs=fs.readFileSync('college-soccer-visual-desk.js','utf8');
           assert(matchPage.includes('id="cs-match-view"'));
-          assert(/college-soccer-match\\.js\\?v=[^"']+/.test(matchPage));
+          assert(matchPage.includes('college-soccer-match.js?v='));
           assert(deskJs.includes("college-soccer-match.html?game="),'Result rail and forecasts must link to match center');
           assert(deskJs.includes("tile.href='college-soccer-match.html?game="),'Recent finals must open details');
           const matchJs=fs.readFileSync('college-soccer-match.js','utf8');
