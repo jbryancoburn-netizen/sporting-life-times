@@ -56,6 +56,41 @@ def fetch(school):
    if len(cols)<5:continue
    entry={key:cols[i] for key,i in order.items() if i<len(cols)}
    if entry.get('opponent'):candidates.append(entry)
+ # Official Sidearm schedule text usually uses tables; modern NextGen cards use game rows.
+ if not candidates:
+  cards=soup.select('[class*="schedule-game"],[class*="schedule__game"],[class*="schedule-event"],[class*="schedule__event"],[data-testid*="schedule-game"],[data-testid*="schedule-event"],article[class*="schedule"]')
+  for card in cards:
+   def pick(selectors):
+    el=card.select_one(selectors)
+    return ' '.join(el.stripped_strings) if el else ''
+   opponent=pick('[class*="opponent-name"],[class*="opponent__name"],[class*="opponentName"],[class*="team-name"],[class*="opponent"] a')
+   date=pick('time,[class*="game-date"],[class*="schedule-date"],[class*="gameDate"],[class*="date"]')
+   tip=pick('[class*="game-time"],[class*="gameTime"],[class*="time"]')
+   location=pick('[class*="venue"],[class*="location"],[class*="site"]')
+   if opponent and date and len(opponent)<100:candidates.append({'opponent':opponent,'date':date,'time':tip,'location':location,'at':'neutral'})
+ # School-owned JSON-LD sports events provide a more reliable semantic fallback.
+ if not candidates:
+  for script in soup.select('script[type="application/ld+json"]'):
+   try:data=json.loads(script.string or script.get_text())
+   except (ValueError,TypeError):continue
+   def walk(obj):
+    if isinstance(obj,list):
+     for x in obj:yield from walk(x)
+    elif isinstance(obj,dict):
+     if str(obj.get('@type','')).lower() in ('sportsevent','event'):yield obj
+     for x in obj.values():
+      if isinstance(x,(dict,list)):yield from walk(x)
+   for event in walk(data):
+    dt=str(event.get('startDate',''))
+    comps=event.get('competitor') or event.get('performer') or []
+    if not isinstance(comps,list):comps=[comps]
+    own=norm(school['team'])
+    opponents=[x.get('name','') for x in comps if isinstance(x,dict) and norm(x.get('name',''))!=own]
+    if len(opponents)!=1:continue
+    try: date=datetime.date.fromisoformat(dt[:10]).strftime('%b %-d')
+    except (ValueError,TypeError):continue
+    venue=event.get('location') or {}
+    candidates.append({'opponent':opponents[0],'date':date,'time':dt,'location':venue.get('name','') if isinstance(venue,dict) else '', 'at':'neutral'})
  return candidates
 
 def convert(school,entry,idx):
