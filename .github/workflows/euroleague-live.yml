@@ -60,7 +60,6 @@ jobs:
           fi
       - name: Rebuild Elo and standings after a newly confirmed final
         if: steps.finals.outputs.new_finals == 'true'
-        continue-on-error: true
         run: |
           python scripts/euroleague_model.py
           python scripts/euroleague_release_gate.py
