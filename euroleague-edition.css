@@ -319,3 +319,28 @@ body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-c
 @media(max-width:1200px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:440px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:1fr}}
+
+
+/* EuroLeague playoff bracket: six direct qualifiers and 7–10 play-in path */
+body.league-edition[data-league="euroleague"] #el-club-spotlight{display:block!important}
+body.league-edition[data-league="euroleague"] .el-bracket-section{margin:0 0 22px}
+body.league-edition[data-league="euroleague"] .el-bracket-section>header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 12px;border-bottom:2px solid #2e3337;padding-bottom:8px}
+body.league-edition[data-league="euroleague"] .el-bracket-section>header h3{font:800 17px Georgia,serif;margin:0}
+body.league-edition[data-league="euroleague"] .el-bracket-section>header p{font:11px Georgia,serif;margin:0;color:#6d6862}
+body.league-edition[data-league="euroleague"] .el-bracket-direct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+body.league-edition[data-league="euroleague"] .el-bracket-playin{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+body.league-edition[data-league="euroleague"] .el-bracket-round{border-left:3px solid #d4c8b5;padding-left:12px;display:flex;flex-direction:column;gap:9px}
+body.league-edition[data-league="euroleague"] .el-bracket-round h4{font:800 12px/1.35 Georgia,serif;margin:0 0 4px;min-height:32px}
+body.league-edition[data-league="euroleague"] .el-bracket-slot{min-width:0}
+body.league-edition[data-league="euroleague"] .el-bracket-team{padding:12px!important;min-height:0!important}
+body.league-edition[data-league="euroleague"] .el-bracket-identity{display:flex;gap:9px;align-items:center;min-width:0}
+body.league-edition[data-league="euroleague"] .el-bracket-identity .slt-mark{flex-shrink:0;--slt-mark-size:37px}
+body.league-edition[data-league="euroleague"] .el-bracket-name{min-width:0;flex:1}
+body.league-edition[data-league="euroleague"] .el-bracket-name h3{font:700 15px/1.2 Georgia,serif;margin:0 0 5px}
+body.league-edition[data-league="euroleague"] .el-bracket-record{font:900 23px/1.1 Georgia,serif;color:#fff}
+body.league-edition[data-league="euroleague"] .el-bracket-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:12px;border-top:1px solid #ffffff55;padding-top:9px}
+body.league-edition[data-league="euroleague"] .el-bracket-metrics b{display:block;font:800 17px Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-bracket-metrics small{display:block;font:8px/1.4 system-ui,sans-serif;letter-spacing:.02em;color:#fff}
+body.league-edition[data-league="euroleague"] .el-bracket-placeholder{display:flex;justify-content:center;flex-direction:column;min-height:130px;border:2px dashed #9c988f;border-radius:6px;padding:14px;font:13px/1.7 Georgia,serif;background:#f4f1eb}
+@media(max-width:1050px){body.league-edition[data-league="euroleague"] .el-bracket-direct{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-bracket-playin{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-bracket-outcomes{grid-column:1/-1}}
+@media(max-width:620px){body.league-edition[data-league="euroleague"] .el-bracket-direct,body.league-edition[data-league="euroleague"] .el-bracket-playin{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-bracket-outcomes{grid-column:auto}body.league-edition[data-league="euroleague"] .el-bracket-section>header{display:block}}
