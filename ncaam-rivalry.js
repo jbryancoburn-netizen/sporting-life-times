@@ -1,6 +1,6 @@
 (()=>{"use strict";
 const $=id=>document.getElementById(id);
-const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/master/inst/kaggle_data/";
+const SOURCE="https://raw.githubusercontent.com/zachmayer/kaggleNCAA/main/inst/kaggle_data/";
 const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),aliases=new Map(),known=new Set();
 const gameKey=g=>g.date+"|"+[g.a,g.b].sort().join("|")+"|"+[[g.a,g.as],[g.b,g.bs]].sort((x,y)=>x[0].localeCompare(y[0])).map(x=>x[1]).join("|");
 const isValidGame=g=>/^20\d{2}-\d{2}-\d{2}$/.test(g.date)||/^19\d{2}-\d{2}-\d{2}$/.test(g.date);
@@ -17,7 +17,7 @@ async function download(url){const r=await fetch(url,{cache:"force-cache"});if(!
 async function start(){
 
 
- $("status").textContent="Loading 1985–2019 historical results and modern game records…";
+ $("status").textContent="Loading 1985–2019 historical records and recent game results…";
  const sources=["teams.csv","TeamSpellings.csv","seasons.csv","RegularSeasonCompactResults.csv","NCAATourneyCompactResults.csv","SecondaryTourneyCompactResults.csv"];
  const responses=await Promise.allSettled(sources.map(n=>download(SOURCE+n)));
  const [teamText,spellingText,seasonText,resultsText,ncaaText,secondaryText]=responses.map(x=>x.status==="fulfilled"?x.value:"");
@@ -119,7 +119,7 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
+ $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2018), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
 function show(){
@@ -136,7 +136,7 @@ function show(){
  $("first-meeting").textContent=arr.length?arr[arr.length-1].date:"—";$("post-meetings").textContent=arr.filter(g=>g.tournament!=="Regular season"&&g.tournament!=="Competition not verified").length;
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
  const mklogo=(team,element)=>{element.replaceChildren();const url=logos.get(team);const fallback=()=>{element.replaceChildren();element.textContent=name(team).slice(0,2).toUpperCase();element.title="Team logo unavailable"};if(!url){fallback();return}const img=document.createElement("img");img.src=url;img.alt=name(team)+" logo";img.loading="lazy";img.onerror=fallback;element.append(img);element.title=name(team)+" logo"};
- $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+". Recent unclassified competition types remain explicitly marked."; 
+ $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications."; 
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);
  $("meetings").textContent=arr.length;$("record").textContent=wins+"–"+losses;$("recent").textContent=arr.length?arr[0].date:"None";
