@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'scripts/euroleague_model.py'
+      - 'data/euroleague-preseason-seed.json'
       - 'scripts/euroleague_diagnose.py'
       - 'scripts/test_euroleague_model.py'
       - 'scripts/test_euroleague_final_checks.py'
@@ -53,6 +54,9 @@ jobs:
           assert sum(t["wins"] for t in standings)==finals
           assert sum(t["losses"] for t in standings)==finals
           assert all(isinstance(t["elo"],(int,float)) for t in teams)
+          assert data["settings"]["opening_elo"]==1500
+          assert data["settings"]["season_carry"]==0
+          assert all(v==1500 for v in json.loads(pathlib.Path("data/euroleague-preseason-seed.json").read_text())["ratings"].values())
           print("Validated EuroLeague publication:",len(teams),"teams,",finals,"finals")
           PY
       - name: Release gate — Elo, standings, forecasts, live scoreboard
