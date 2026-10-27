@@ -101,6 +101,35 @@ jobs:
           d=json.loads(Path('data/euroleague-live.json').read_text())
           print('Deployed EuroLeague scoreboard:',d.get('checked_at'),d.get('live_scores_refreshed'),'live score checks')
           PY
+      - name: Update EuroLeague Elo, standings and projections for completed game windows
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import datetime,json,pathlib,subprocess
+          root=pathlib.Path('data')
+          live=json.loads((root/'euroleague-live.json').read_text())
+          model=json.loads((root/'euroleague-model.json').read_text())
+          known={str(g['id']) for g in model.get('recent_results',[])}
+          now=datetime.datetime.now(datetime.timezone.utc)
+          candidates=[]
+          for game in live.get('games',[]):
+              if str(game.get('id')) in known:continue
+              if game.get('status')=='final':
+                  candidates.append(str(game['id']))
+                  continue
+              try:
+                  tip=datetime.datetime.fromisoformat(game['date'].replace('Z','+00:00'))
+              except (KeyError,ValueError,TypeError):continue
+              if game.get('status') in ('live','awaiting_final') and 90<=(now-tip).total_seconds()/60<=480:
+                  candidates.append(str(game['id']))
+          if candidates:
+              print('Rechecking official finals for Elo:',', '.join(candidates),flush=True)
+              subprocess.run(['python3','scripts/euroleague_model.py'],check=True)
+              subprocess.run(['python3','scripts/euroleague_release_gate.py'],check=True)
+              subprocess.run(['python3','scripts/euroleague_live_fast.py'],check=True)
+          else:
+              print('EuroLeague: no newly finished game windows; keeping verified ratings.',flush=True)
+          PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
