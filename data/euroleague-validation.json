@@ -1,24 +1,24 @@
 {
   "heldout_evaluation": {
-    "method": "train candidates on 2025-26; evaluate unseen 2026-27 chronologically",
+    "method": "train equal-start candidates on 2025-26; evaluate unseen 2026-27 chronologically",
     "training_season": "E2025",
     "holdout_season": "E2026",
     "selected_parameters": {
-      "k": 12.0,
+      "k": 18.0,
       "home_elo": 90.0,
-      "season_carry": 0.85
+      "season_carry": 0.0
     },
     "selected_holdout": {
       "n": 70,
-      "log_loss": 0.646985,
-      "brier": 0.228959,
-      "accuracy": 0.6
+      "log_loss": 0.699672,
+      "brier": 0.253191,
+      "accuracy": 0.5286
     },
     "baseline_holdout": {
       "n": 70,
-      "log_loss": 0.637771,
-      "brier": 0.223596,
-      "accuracy": 0.6286
+      "log_loss": 0.685433,
+      "brier": 0.246281,
+      "accuracy": 0.5286
     },
     "note": "True season holdout; selections are not retrained on holdout games."
   },
@@ -36,165 +36,165 @@
     "beats_zero_margin_baseline": true,
     "method": "strict pregame expanding-window; current published scoring formula"
   },
-  "status": "holdout_measured_baseline_not_replaced",
+  "status": "reset_1500_calibration",
   "evaluated_seasons": [
     "E2025",
     "E2026"
   ],
   "method": "chronological expanding-window (but candidate selection occurs on evaluation seasons)",
-  "caution": "2026-27 is held out from candidate selection; sample is early season. Published Elo still uses provisional baseline settings until a release decision.",
+  "caution": "2026-27 is held out from candidate selection; sample is early season. Calibration must be completed before applying new parameters.",
   "best_in_sample": {
-    "k": 12.0,
+    "k": 18.0,
     "home_elo": 90.0,
-    "season_carry": 0.85,
-    "brier": 0.22057,
-    "log_loss": 0.630791,
-    "accuracy": 0.6462,
+    "season_carry": 0.0,
+    "brier": 0.227275,
+    "log_loss": 0.645554,
+    "accuracy": 0.6335,
     "n": 472
   },
   "baseline": {
     "k": 22,
     "home_elo": 65,
-    "season_carry": 0.67,
-    "brier": 0.223145,
-    "log_loss": 0.635939,
+    "season_carry": 0.0,
+    "brier": 0.228363,
+    "log_loss": 0.647732,
     "n": 472
   },
-  "tested": 75,
+  "tested": 25,
   "leaderboard": [
     {
-      "k": 12.0,
-      "home_elo": 90.0,
-      "season_carry": 0.85,
-      "brier": 0.22057,
-      "log_loss": 0.630791,
-      "accuracy": 0.6462,
-      "n": 472
-    },
-    {
       "k": 18.0,
       "home_elo": 90.0,
-      "season_carry": 0.85,
-      "brier": 0.220861,
-      "log_loss": 0.630885,
-      "accuracy": 0.6462,
-      "n": 472
-    },
-    {
-      "k": 18.0,
-      "home_elo": 90.0,
-      "season_carry": 0.67,
-      "brier": 0.221406,
-      "log_loss": 0.632284,
-      "accuracy": 0.6441,
+      "season_carry": 0.0,
+      "brier": 0.227275,
+      "log_loss": 0.645554,
+      "accuracy": 0.6335,
       "n": 472
     },
     {
       "k": 22.0,
       "home_elo": 90.0,
-      "season_carry": 0.85,
-      "brier": 0.221709,
-      "log_loss": 0.632572,
+      "season_carry": 0.0,
+      "brier": 0.227385,
+      "log_loss": 0.64559,
+      "accuracy": 0.6292,
+      "n": 472
+    },
+    {
+      "k": 28.0,
+      "home_elo": 90.0,
+      "season_carry": 0.0,
+      "brier": 0.228052,
+      "log_loss": 0.646829,
+      "accuracy": 0.6165,
+      "n": 472
+    },
+    {
+      "k": 12.0,
+      "home_elo": 90.0,
+      "season_carry": 0.0,
+      "brier": 0.227917,
+      "log_loss": 0.647284,
+      "accuracy": 0.6314,
+      "n": 472
+    },
+    {
+      "k": 18.0,
+      "home_elo": 65.0,
+      "season_carry": 0.0,
+      "brier": 0.228142,
+      "log_loss": 0.647546,
+      "accuracy": 0.6208,
+      "n": 472
+    },
+    {
+      "k": 22.0,
+      "home_elo": 65.0,
+      "season_carry": 0.0,
+      "brier": 0.228363,
+      "log_loss": 0.647732,
+      "accuracy": 0.6144,
+      "n": 472
+    },
+    {
+      "k": 12.0,
+      "home_elo": 65.0,
+      "season_carry": 0.0,
+      "brier": 0.228636,
+      "log_loss": 0.649058,
+      "accuracy": 0.6335,
+      "n": 472
+    },
+    {
+      "k": 28.0,
+      "home_elo": 65.0,
+      "season_carry": 0.0,
+      "brier": 0.2292,
+      "log_loss": 0.649194,
+      "accuracy": 0.6144,
+      "n": 472
+    },
+    {
+      "k": 22.0,
+      "home_elo": 120.0,
+      "season_carry": 0.0,
+      "brier": 0.22912,
+      "log_loss": 0.649557,
       "accuracy": 0.6377,
       "n": 472
     },
     {
-      "k": 12.0,
-      "home_elo": 65.0,
-      "season_carry": 0.85,
-      "brier": 0.221376,
-      "log_loss": 0.632925,
-      "accuracy": 0.6483,
+      "k": 18.0,
+      "home_elo": 120.0,
+      "season_carry": 0.0,
+      "brier": 0.229178,
+      "log_loss": 0.649675,
+      "accuracy": 0.6335,
       "n": 472
     },
     {
-      "k": 12.0,
+      "k": 36.0,
       "home_elo": 90.0,
-      "season_carry": 0.67,
-      "brier": 0.221533,
-      "log_loss": 0.633097,
-      "accuracy": 0.6419,
+      "season_carry": 0.0,
+      "brier": 0.229529,
+      "log_loss": 0.649984,
+      "accuracy": 0.6165,
       "n": 472
     },
     {
-      "k": 18.0,
-      "home_elo": 65.0,
-      "season_carry": 0.85,
-      "brier": 0.221919,
-      "log_loss": 0.633362,
-      "accuracy": 0.6208,
-      "n": 472
-    },
-    {
-      "k": 22.0,
-      "home_elo": 90.0,
-      "season_carry": 0.67,
-      "brier": 0.222015,
-      "log_loss": 0.633386,
-      "accuracy": 0.6441,
-      "n": 472
-    },
-    {
-      "k": 18.0,
+      "k": 28.0,
       "home_elo": 120.0,
-      "season_carry": 0.85,
-      "brier": 0.222323,
-      "log_loss": 0.634149,
-      "accuracy": 0.6462,
+      "season_carry": 0.0,
+      "brier": 0.229528,
+      "log_loss": 0.650569,
+      "accuracy": 0.6356,
       "n": 472
     },
     {
       "k": 12.0,
       "home_elo": 120.0,
-      "season_carry": 0.85,
-      "brier": 0.222454,
-      "log_loss": 0.634488,
-      "accuracy": 0.6398,
+      "season_carry": 0.0,
+      "brier": 0.230043,
+      "log_loss": 0.651634,
+      "accuracy": 0.6229,
       "n": 472
     },
     {
-      "k": 18.0,
+      "k": 36.0,
       "home_elo": 65.0,
-      "season_carry": 0.67,
-      "brier": 0.222394,
-      "log_loss": 0.634658,
-      "accuracy": 0.6208,
+      "season_carry": 0.0,
+      "brier": 0.230903,
+      "log_loss": 0.652648,
+      "accuracy": 0.6123,
       "n": 472
     },
     {
-      "k": 12.0,
-      "home_elo": 65.0,
-      "season_carry": 0.67,
-      "brier": 0.222288,
-      "log_loss": 0.635146,
-      "accuracy": 0.6441,
-      "n": 472
-    },
-    {
-      "k": 22.0,
-      "home_elo": 65.0,
-      "season_carry": 0.85,
-      "brier": 0.22291,
-      "log_loss": 0.635227,
-      "accuracy": 0.6208,
-      "n": 472
-    },
-    {
-      "k": 22.0,
+      "k": 36.0,
       "home_elo": 120.0,
-      "season_carry": 0.85,
-      "brier": 0.222934,
-      "log_loss": 0.63563,
-      "accuracy": 0.6483,
-      "n": 472
-    },
-    {
-      "k": 18.0,
-      "home_elo": 120.0,
-      "season_carry": 0.67,
-      "brier": 0.223017,
-      "log_loss": 0.635722,
-      "accuracy": 0.6398,
+      "season_carry": 0.0,
+      "brier": 0.230665,
+      "log_loss": 0.653434,
+      "accuracy": 0.6208,
       "n": 472
     }
   ]
