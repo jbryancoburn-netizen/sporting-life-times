@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Import historical NCAA men's game scores into 1985-onwards school head-to-head pages.
 Uses publicly accessible compact results; never mark coverage complete without validation.
+Retry with corrected historical source date and encoding parsers.
 """
 import csv,io,json,re,pathlib,urllib.request,datetime,collections,difflib
 root=pathlib.Path(__file__).resolve().parents[1]
