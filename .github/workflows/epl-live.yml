@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'scripts/update_epl_live.py'
+      - 'public_ratings/epl_grade.py'
+      - 'public_ratings/epl_shadow.py'
+      - 'public_ratings/soccer_goal_model.py'
+      - 'tests/test_public_epl_grade.py'
       - '.github/workflows/epl-live.yml'
   workflow_dispatch:
   schedule:
@@ -29,7 +33,8 @@ jobs:
       - name: Lock pregame EPL model comparisons and grade newly verified finals
         continue-on-error: true
         run: |
-          python -m public_ratings.epl_grade --feed data/epl-match-center.json --ledger data/research/epl-shadow-locked.json
+          python -m unittest discover -s tests -p test_public_epl_grade.py -q
+          python -m public_ratings.epl_grade --feed data/epl-match-center.json --ratings data/epl-ratings.json --ledger data/research/epl-shadow-locked.json
       - name: Record scheduler heartbeat
         if: always()
         env:
