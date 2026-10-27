@@ -6,6 +6,8 @@ on:
   push:
     paths:
       - 'scripts/collect_college_soccer_history.py'
+      - 'scripts/backtest_college_soccer_elo.py'
+      - 'scripts/backtest_college_soccer_expanded.py'
       - '.github/workflows/college-soccer-backtest-history.yml'
 permissions:
   contents: write
@@ -16,51 +18,78 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        year: [2023, 2024, 2025]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Collect 2023-2025 men's D-I soccer finals
-        run: python scripts/collect_college_soccer_history.py --years 2023 2024 2025 --max-days-per-year 153
-      - name: Run preliminary historical Elo holdout backtest
-        if: always()
-        run: python scripts/backtest_college_soccer_elo.py --preliminary
-      - name: Run expanded 336-configuration validation and holdout
-        if: always()
-        run: python scripts/backtest_college_soccer_expanded.py
-      - name: Run certified historical Elo holdout backtest when complete
-        if: always()
-        run: |
-          python scripts/backtest_college_soccer_elo.py || echo 'Full-season certification pending; preliminary results retained.'
-      - name: Report historical collection progress
+      - name: Collect remaining finals for selected year
+        run: python scripts/collect_college_soccer_history.py --years ${{ matrix.year }} --max-days-per-year 153
+      - name: Report progress
         if: always()
         run: |
           python - <<'PY'
           import json,pathlib
-          for year in (2023,2024,2025):
-              p=pathlib.Path(f'data/college-soccer-history/men-d1-{year}.json')
-              if not p.exists():
-                  print(f'::error::{year}: historical file missing')
-                  continue
-              d=json.loads(p.read_text())
-              n=len(d.get('checked_dates',[]))
-              print(f'{year}: {n}/153 dates; {len(d.get("games",[]))} games; {len(d.get("errors",[]))} errors')
-              if n<153: print(f'::warning::{year}: {153-n} historical dates remain')
+          year=${{ matrix.year }}
+          p=pathlib.Path(f'data/college-soccer-history/men-d1-{year}.json')
+          if not p.exists(): raise SystemExit(f'Missing {p}')
+          d=json.loads(p.read_text())
+          n=len(d.get('checked_dates',[]))
+          print(f'{year}: {n}/153 dates, {len(d.get("games",[]))} games, {len(d.get("errors",[]))} errors')
+          if n<153: print(f'::warning::{year}: {153-n} dates remaining')
           PY
-      - name: Commit collected historical results
+      - name: Publish this season immediately
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ ! -d data/college-soccer-history ]; then exit 0; fi
-          git add data/college-soccer-history/
-          if ! git diff --cached --quiet; then
-            git commit -m "Collect historical men's soccer finals for Elo backtest"
-            for attempt in 1 2 3 4 5; do
-              git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin HEAD:"${GITHUB_REF_NAME}" && exit 0
-              sleep $((attempt * 3))
-            done
-            echo "::error::Historical results could not be pushed after five attempts"
-            exit 1
-          fi
+          git add "data/college-soccer-history/men-d1-${{ matrix.year }}.json"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Backfill ${{ matrix.year }} NCAA men's soccer historical finals"
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}" || exit 1
+            if git push origin HEAD:"${GITHUB_REF_NAME}"; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          echo "::error::Could not publish ${{ matrix.year }} history"
+          exit 1
+  backtest:
+    needs: collect
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch newest published historical data
+        run: git pull --ff-only origin "${GITHUB_REF_NAME}"
+      - name: Generate preliminary backtests
+        run: |
+          python scripts/backtest_college_soccer_elo.py --preliminary
+          python scripts/backtest_college_soccer_expanded.py
+      - name: Generate certified backtest only if complete
+        run: |
+          python scripts/backtest_college_soccer_elo.py || echo 'Full-season certification pending'
+      - name: Publish regenerated backtests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/college-soccer-history/elo-backtest*.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh soccer Elo holdouts from collected historical finals"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}" || exit 1
+            if git push origin HEAD:"${GITHUB_REF_NAME}"; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          exit 1
