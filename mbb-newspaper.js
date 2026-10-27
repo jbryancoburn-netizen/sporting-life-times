@@ -95,9 +95,11 @@ async function fullTeamSchedule(t){
   'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400',
   'https://site.web.api.espn.com/apis/common/v3/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400'
  ]:[];
- const pages=await Promise.all(endpoints.map(get));
- const localEvents=pages[0]?.events||[];
- const events=localEvents.length>=25?localEvents:pages.flatMap(d=>Array.isArray(d)?d:(d?.events||d?.team?.events||[]));
+ const local=await get(endpoints[0]);
+ const localEvents=local?.events||[];
+ // Verified complete calendars display immediately; don't wait for slow ESPN endpoints.
+ const remote=localEvents.length>=25?[]:await Promise.all(endpoints.slice(1).map(get));
+ const events=localEvents.length>=25?localEvents:[...localEvents,...remote.flatMap(d=>d?.events||d?.team?.events||[])];
  const matches=[...new Map(events.filter(e=>e?.id&&e.date&&/^(2026|2027)-/.test(e.date)).map(e=>[String(e.id),e])).values()]
   .filter(e=>{const date=e.date.slice(0,10);return date>='2026-10-01'&&date<='2027-05-01';})
   .sort((a,b)=>a.date.localeCompare(b.date));
@@ -134,7 +136,7 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
  const headshots=new Map(athletes.map(p=>[p.displayName.toLowerCase(),p.headshot?.href||'']));
  const previous=new Map((a?.players||[]).map(p=>[String(p.name||p.player||'').toLowerCase(),p]));
  const rosterRows=officialRoster?.players?.length?officialRoster.players.map(p=>({name:p.name,role:p.position||'',image:p.headshot_url||headshots.get(p.name.toLowerCase())||'',prior:previous.get(p.name.toLowerCase())})):athletes.length?athletes.map(p=>({name:p.displayName,role:p.position?.abbreviation||'',image:p.headshot?.href||'',prior:previous.get(p.displayName.toLowerCase())})):roster.map(p=>({name:p.player,role:p.role||'',image:'',prior:previous.get(String(p.player||'').toLowerCase())}));
- const portrait=p=>p.image&&url(p.image)?'<img class="mbb-player-photo" loading="lazy" decoding="async" src="'+url(p.image)+'" alt="'+esc(p.name)+' headshot" onerror="this.hidden=true">':'<span class="mbb-photo-missing" aria-hidden="true">'+esc((p.name||'?').split(' ').map(x=>x[0]).slice(0,2).join(''))+'</span>';
+ const portrait=p=>{const initials=esc((p.name||'?').split(' ').map(x=>x[0]).slice(0,2).join(''));return '<span class="mbb-player-image-wrap">'+(p.image&&url(p.image)?'<img class="mbb-player-photo" loading="lazy" decoding="async" src="'+url(p.image)+'" alt="'+esc(p.name)+' headshot" onerror="this.remove()">':'')+'<span class="mbb-photo-missing" aria-hidden="true">'+initials+'</span></span>';};
  const scheduleHTML='<section class="panel" id="full-season-schedule">'+header('2026–27 · Full season','Complete Published Schedule')+'<p class="note">Loading published games, tipoff times and TV networks…</p></section>';const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()&&gid(g).includes(t.team_id));const history=[...(a?.games||[]),...games].filter(g=>gid(g).includes(t.team_id)).sort((a,b)=>b.date.localeCompare(a.date));
  const trend=history.filter(g=>Number.isFinite(g.home_after)&&Number.isFinite(g.away_after)).slice(0,40).reverse().map(g=>gid(g)[0]===t.team_id?g.home_after:g.away_after);const lo=Math.min(...trend)-20,hi=Math.max(...trend)+20;const trendSvg=trend.length>1?'<svg class="team-trend" viewBox="0 0 400 150" role="img" aria-label="Historical Elo over the last '+trend.length+' archived games"><polyline fill="none" stroke="#087e83" stroke-width="3" points="'+trend.map((v,i)=>(15+i*370/(trend.length-1))+','+(125-(v-lo)*100/(hi-lo))).join(' ')+'"/><text x="15" y="145" font-size="10">'+Math.round(trend[0])+' Elo</text><text x="330" y="145" font-size="10">'+Math.round(trend.at(-1))+' Elo</text></svg>':'';
 const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json');const color=branding?.teams?.[ids.get(t.team_id)]?.color;if(/^[a-f0-9]{6}$/i.test(color||''))document.documentElement.style.setProperty('--team','#'+color);
