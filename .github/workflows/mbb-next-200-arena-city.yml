@@ -1,0 +1,31 @@
+name: MBB next 200 arena city normalization
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-next-200-arena-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-next-200-arena-city
+  cancel-in-progress: false
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Normalize 200 school calendars
+        run: python scripts/mbb_next_200_arena_city_20261027.py
+      - name: Publish schedule updates and audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-next-200-arena-city-normalization-20261027.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Normalize arena and city information for 200 MBB school schedules"
+            git push
+          fi
