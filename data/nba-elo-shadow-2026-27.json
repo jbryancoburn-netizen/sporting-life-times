@@ -4,7 +4,7 @@
   "status": "shadow_not_published",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 47,
+  "games_played": 49,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -22,6 +22,14 @@
       "difference_from_live": -42.814
     },
     {
+      "team": "OKC",
+      "elo": 1543.659,
+      "games": 4,
+      "forecast_prior": 1704.7305,
+      "live_elo": 1700.18,
+      "difference_from_live": -156.521
+    },
+    {
       "team": "DET",
       "elo": 1540.961,
       "games": 3,
@@ -36,14 +44,6 @@
       "forecast_prior": 1582.4835,
       "live_elo": 1592.226,
       "difference_from_live": -55.446
-    },
-    {
-      "team": "OKC",
-      "elo": 1534.112,
-      "games": 3,
-      "forecast_prior": 1704.7305,
-      "live_elo": 1694.549,
-      "difference_from_live": -160.437
     },
     {
       "team": "MEM",
@@ -102,20 +102,20 @@
       "difference_from_live": -36.706
     },
     {
-      "team": "IND",
-      "elo": 1511.05,
-      "games": 3,
-      "forecast_prior": 1352.5605,
-      "live_elo": 1397.091,
-      "difference_from_live": 113.959
-    },
-    {
       "team": "CLE",
       "elo": 1503.129,
       "games": 3,
       "forecast_prior": 1575.834,
       "live_elo": 1565.234,
       "difference_from_live": -62.105
+    },
+    {
+      "team": "IND",
+      "elo": 1500.199,
+      "games": 4,
+      "forecast_prior": 1352.5605,
+      "live_elo": 1384.467,
+      "difference_from_live": 115.732
     },
     {
       "team": "LAC",
@@ -166,14 +166,6 @@
       "difference_from_live": 70.641
     },
     {
-      "team": "PHX",
-      "elo": 1488.534,
-      "games": 2,
-      "forecast_prior": 1498.8225,
-      "live_elo": 1495.07,
-      "difference_from_live": -6.536
-    },
-    {
       "team": "ORL",
       "elo": 1483.704,
       "games": 3,
@@ -188,6 +180,22 @@
       "forecast_prior": 1414.635,
       "live_elo": 1397.824,
       "difference_from_live": 83.169
+    },
+    {
+      "team": "PHX",
+      "elo": 1478.987,
+      "games": 3,
+      "forecast_prior": 1498.8225,
+      "live_elo": 1489.439,
+      "difference_from_live": -10.452
+    },
+    {
+      "team": "MIL",
+      "elo": 1478.08,
+      "games": 4,
+      "forecast_prior": 1401.576,
+      "live_elo": 1394.801,
+      "difference_from_live": 83.279
     },
     {
       "team": "UTA",
@@ -212,14 +220,6 @@
       "forecast_prior": 1427.2995,
       "live_elo": 1407.653,
       "difference_from_live": 59.794
-    },
-    {
-      "team": "MIL",
-      "elo": 1467.229,
-      "games": 3,
-      "forecast_prior": 1401.576,
-      "live_elo": 1382.177,
-      "difference_from_live": 85.052
     },
     {
       "team": "CHI",
@@ -316,7 +316,7 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
-      "forecast_home_win_probability": 0.556708405014304,
+      "forecast_home_win_probability": 0.5567084050143039,
       "forecast_prior_weight_home": 0.75,
       "forecast_prior_weight_away": 0.75,
       "home_elo_change": -11.190728790991413,
@@ -945,7 +945,7 @@
       "home_before": 1525.7465519054049,
       "away_before": 1507.2642612881452,
       "home_win_probability": 0.5833768128514305,
-      "forecast_home_win_probability": 0.7077294569495596,
+      "forecast_home_win_probability": 0.7077294569495597,
       "forecast_prior_weight_home": 0.625,
       "forecast_prior_weight_away": 0.625,
       "home_elo_change": 8.365727203546399,
@@ -1053,6 +1053,40 @@
       "home_elo_change": -7.811781300843484,
       "home_after": 1447.9244067247475,
       "away_after": 1493.367778427785
+    },
+    {
+      "id": "espn-nba-401909872",
+      "date": "2026-10-27T00:00:00.000Z",
+      "home": "MIL",
+      "away": "IND",
+      "home_score": 110,
+      "away_score": 102,
+      "home_before": 1467.2292413412167,
+      "away_before": 1511.050055730825,
+      "home_win_probability": 0.49450162774213663,
+      "forecast_home_win_probability": 0.5710945745166307,
+      "forecast_prior_weight_home": 0.5769230769230769,
+      "forecast_prior_weight_away": 0.5769230769230769,
+      "home_elo_change": 10.851155739687135,
+      "home_after": 1478.0803970809038,
+      "away_after": 1500.198899991138
+    },
+    {
+      "id": "espn-nba-401909873",
+      "date": "2026-10-27T00:00:00.000Z",
+      "home": "OKC",
+      "away": "PHX",
+      "home_score": 125,
+      "away_score": 114,
+      "home_before": 1534.1122791089513,
+      "away_before": 1488.5342022281254,
+      "home_win_probability": 0.6207250932758928,
+      "forecast_home_win_probability": 0.7354089222879218,
+      "forecast_prior_weight_home": 0.5769230769230769,
+      "forecast_prior_weight_away": 0.625,
+      "home_elo_change": 9.546885073467664,
+      "home_after": 1543.6591641824189,
+      "away_after": 1478.9873171546578
     }
   ]
 }
