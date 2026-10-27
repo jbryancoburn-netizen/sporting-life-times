@@ -232,10 +232,10 @@ function franchiseLeaders(t,stat='ppg'){
  const label=franchiseLeaderStats.find(x=>x[0]===k)[2];
  if(!rows.length)return '<p class="nba-note">No captured player data in this category.</p>';
  return '<div class="nba-franchise-leader-list">'+rows.map((p,i)=>{
-  const id=String(p.id||''),src=/^\\d{2,10}$/.test(id)?'https://a.espncdn.com/i/headshots/nba/players/full/'+id+'.png':'';
+  const id=String(p.id||''),src=/^\d{2,10}$/.test(id)?'https://a.espncdn.com/i/headshots/nba/players/full/'+id+'.png':'';
   const attempts=k==='fg3_pct'?p.fg3m+' / '+p.fg3a+' 3PT':k==='fg_pct'?p.fgm+' / '+p.fga+' FG':k==='ft_pct'?p.ftm+' / '+p.fta+' FT':k==='efg_pct'?p.fgm+' FGM · '+p.fg3m+' 3PM · '+p.fga+' FGA':k==='ts_pct'?'TS · '+p.fga+' FGA · '+p.fta+' FTA':'';
   const note=p.gp+' captured GP'+(attempts?' · '+attempts:' · '+Number(p.ppg).toFixed(1)+' PPG');
-  return '<div class="nba-franchise-leader-row"><span class="nba-franchise-leader-rank">'+(i+1)+'</span><span class="nba-franchise-player-portrait">'+(src?'<img src="'+src+'" alt="" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\\'no-photo\\')">':'<span class="nba-franchise-player-fallback">NBA</span>')+'</span><span class="nba-franchise-player-detail"><b>'+esc(p.player)+'</b><small>'+esc(note)+'</small></span><span class="nba-franchise-player-stat"><strong>'+fmt(p[k],1)+(percent?'%':'')+'</strong><small>'+label+'</small></span></div>';
+  return '<div class="nba-franchise-leader-row"><span class="nba-franchise-leader-rank">'+(i+1)+'</span><span class="nba-franchise-player-portrait">'+(src?'<img src="'+src+'" alt="" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'no-photo\')">':'<span class="nba-franchise-player-fallback">NBA</span>')+'</span><span class="nba-franchise-player-detail"><b>'+esc(p.player)+'</b><small>'+esc(note)+'</small></span><span class="nba-franchise-player-stat"><strong>'+fmt(p[k],1)+(percent?'%':'')+'</strong><small>'+label+'</small></span></div>';
  }).join('')+'</div>';
 }
 function franchiseLeaderWidget(t){
