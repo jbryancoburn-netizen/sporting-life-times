@@ -187,6 +187,10 @@ function playoff(){
  '<div class="nba-race-conferences">'+conference('East')+conference('West')+'</div>'+
  '<section class="panel nba-race-explainer"><div class="eyebrow">The Rules, Simplified</div><h2>How the Play-In Works</h2><div class="nba-race-steps"><div><b>01</b><strong>No. 7 hosts No. 8</strong><p>Winner claims the seventh playoff seed.</p></div><div><b>02</b><strong>No. 9 hosts No. 10</strong><p>Loser is eliminated.</p></div><div><b>03</b><strong>One final game</strong><p>7–8 loser hosts 9–10 winner. Winner earns the eighth seed.</p></div></div><p class="nba-note">This page automatically reorders teams as verified finals enter the newspaper. The actual NBA uses additional tiebreakers and determines official seeds at season’s end.</p></section>';
 }
+function compactPlayerTeam(t){
+ if(!meta[t])return '<span class="nba-player-club-text">'+esc(t||'—')+'</span>';
+ return '<a class="nba-player-club" href="'+tl(t)+'" style="--nba-club-color:'+meta[t][3]+'" aria-label="'+esc(name(t))+'"><img src="'+logo(t)+'" loading="lazy" alt="" width="23" height="23" onerror="this.hidden=true"><span>'+esc(t)+'</span></a>';
+}
 function players(){
  const cats=[['Scoring','ppg','PPG'],['Rebounds','rpg','RPG'],['Assists','apg','APG'],['Steals','spg','SPG'],['Blocks','bpg','BPG'],['FG Percentage','fg_pct','FG%'],['3PT Percentage','fg3_pct','3PT%'],['Free Throws','ft_pct','FT%']];
  const panels=cats.map(([heading,stat,label])=>'<section class="panel"><h2>'+heading+'</h2>'+table([['Player'],['Team'],['GP','num'],[label,'num']],(data.leaders?.rows||[]).filter(x=>x.stat===stat&&Number.isFinite(x.value)).sort((a,b)=>b.value-a.value).slice(0,10).map(x=>'<tr><td>'+esc(x.player)+'</td><td>'+team(x.team)+'</td><td class="num">'+esc(x.gp)+'</td><td class="num"><strong>'+fmt(x.value,1)+'</strong></td></tr>'))+'</section>').join('');
