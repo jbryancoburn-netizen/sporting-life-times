@@ -2,9 +2,15 @@ name: Publish newspaper to GitHub Pages
 on:
   push:
     branches: [main]
+    # Publish site presentation changes immediately. Data collectors are covered
+    # by the ten-minute schedule and can explicitly dispatch this workflow.
+    # Avoid a full Pages deployment for unrelated research, tests, or metadata.
     paths:
-      - '**'
-      - '!README.md'
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.css'
+      - 'assets/**'
+      - '.github/workflows/publish-newspaper.yml'
   workflow_dispatch:
   schedule:
     - cron: '4,14,24,34,44,54 * * * *'
