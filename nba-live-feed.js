@@ -4,7 +4,8 @@ const status={set textContent(value){const el=document.getElementById('nba-live-
 if(!document.getElementById('nba-live-feed'))return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":1610612766,"CHI":1610612741,"CLE":1610612739,"DAL":1610612742,"DEN":1610612743,"DET":1610612765,"GSW":1610612744,"HOU":1610612745,"IND":1610612754,"LAC":1610612746,"LAL":1610612747,"MEM":1610612763,"MIA":1610612748,"MIL":1610612749,"MIN":1610612750,"NOP":1610612740,"NYK":1610612752,"OKC":1610612760,"ORL":1610612753,"PHI":1610612755,"PHX":1610612756,"POR":1610612757,"SAC":1610612758,"SAS":1610612759,"TOR":1610612761,"UTA":1610612762,"WAS":1610612764};
-const logo=c=>'assets/nba-logos/'+String(c||'').toUpperCase()+'.png';
+const canonicalCode=c=>({NY:'NYK',SA:'SAS',GS:'GSW',NO:'NOP',WSH:'WAS',UTAH:'UTA'}[String(c||'').toUpperCase()]||String(c||'').toUpperCase());
+const logo=c=>'assets/nba-logos/'+canonicalCode(c)+'.png';
 let lastOK=0;let fallbackRecords={};
 async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
 function render(payload){
@@ -15,7 +16,7 @@ function render(payload){
   const away=cs.find(c=>c.homeAway==='away'),home=cs.find(c=>c.homeAway==='home');
   const st=e.status?.type||{},state=st.state||'pre',label=st.shortDetail||st.description||'Scheduled';
   if(!away||!home)return null;
-  const team=c=>({name:c.team?.displayName||c.team?.name||'',code:c.team?.abbreviation||'',score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[c.team?.abbreviation]||''});
+  const team=c=>({name:c.team?.displayName||c.team?.name||'',code:canonicalCode(c.team?.abbreviation),score:c.score??'',record:c.records?.find(r=>r.type==='total')?.summary||fallbackRecords[canonicalCode(c.team?.abbreviation)]||''});
   return {away:team(away),home:team(home),state,label,date:e.date,id:e.id};
  }).filter(g=>g&&/^[0-9]{7,12}$/.test(String(g.id)));
  if(!mapped.length){root.innerHTML='<p class="hub-small">No game details with valid provider IDs are available. <a href="nba-game-center.html">Verified archive</a>.</p>';return;}
@@ -65,8 +66,8 @@ async function update(){
     const when=Date.parse(event.date||'');
     if(!Number.isFinite(when)||gameDay(when)!==today)continue;
     const teams=event.competitions?.[0]?.competitors||[];
-    const away=teams.find(x=>x.homeAway==='away')?.team?.abbreviation||'';
-    const home=teams.find(x=>x.homeAway==='home')?.team?.abbreviation||'';
+    const away=canonicalCode(teams.find(x=>x.homeAway==='away')?.team?.abbreviation);
+    const home=canonicalCode(teams.find(x=>x.homeAway==='home')?.team?.abbreviation);
     const gameKey=away&&home?away+'-'+home+'-'+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(when)):id;
     if(!merged.has(gameKey))merged.set(gameKey,event);
    }
