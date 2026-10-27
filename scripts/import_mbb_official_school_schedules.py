@@ -81,6 +81,12 @@ def collect(school):
   entries=fetch(school)
   events=[x for i,e in enumerate(entries) if (x:=convert(school,e,i))]
   current=out/(str(school['espn_id'])+'.json')
+  if current.exists():
+   try:
+    previous=json.loads(current.read_text())
+    if previous.get('source_name')=='Indiana University Athletics official 2026-27 schedule' and len(previous.get('events',[]))>=len(events):
+     return {'team':school['team'],'status':'official-preserved','confirmed_games':len(previous['events']),'url':school['url']}
+   except (OSError,ValueError):pass
   if len(events)<20:
    return {'team':school['team'],'status':'unverified-too-few-games','parsed_rows':len(entries),'confirmed_games':len(events),'url':school['url']}
   payload={'season':'2026-27','team_id':by_espn[str(school['espn_id'])]['id'],
