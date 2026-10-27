@@ -85,6 +85,16 @@ const brandMark=(team,cohort,branding)=>{
    comparison.append($('p','Season rates are calculated directly from verified published goals and games played. They are not match-specific statistics.','cs-match-note'));
   }
  }else comparison.append($('p','Comparable published Elo ratings could not be resolved for both programs.','cs-match-note'));
+ if(pre&&cohort==='men-d1'&&!finished&&Date.parse(pre.kickoff_utc)>Date.now()&&Number.isFinite(Number(home.elo))&&Number.isFinite(Number(away.elo))){
+  const diff=Number(home.elo)+55-Number(away.elo);
+  const draw=Math.min(.8,Math.max(.005,.25*Math.exp(-Math.abs(diff)/650)));
+  const win=1/(1+Math.pow(10,-diff/400));
+  const three=[(1-draw)*win,draw,(1-draw)*(1-win)];
+  const panel=$('section',null,'cs-match-panel cs-pregame');panel.append($('h2','New three-way Elo forecast'));
+  const bar=$('div',null,'cs-match-prob');for(const [v,kind] of [[three[0],'home'],[three[1],'draw'],[three[2],'away']]){const n=$('i',null,'cs-match-prob-'+kind);n.style.width=(v*100)+'%';bar.append(n);}panel.append(bar);
+  const labels=$('div',null,'cs-match-prob-labels');labels.append(field(home.team,pct(three[0])),field('Draw',pct(three[1])),field(away.team,pct(three[2])));panel.append(labels);
+  panel.append($('p','2025 holdout-tested three-way Elo (K 36 · listed-home 55 · draw base 25% · decay 650). Calculated from current published ratings, not a locked kickoff-time forecast. Actual venue unverified.','cs-match-note'));root.append(panel);
+ }
  if(pre){
   const pred=$('section',null,'cs-match-panel cs-pregame');root.append(pred);
   pred.append($('h2','The pregame probability file'));
