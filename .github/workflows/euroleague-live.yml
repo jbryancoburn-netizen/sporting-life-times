@@ -42,8 +42,18 @@ jobs:
           from pathlib import Path
           model=json.loads(Path("data/euroleague-model.json").read_text())
           live=json.loads(Path("data/euroleague-live.json").read_text())
+          from datetime import datetime
           counted={str(g["id"]) for g in model.get("recent_results",[])}
-          pending=[str(g["id"]) for g in live.get("games",[]) if g.get("status")=="final" and str(g["id"]) not in counted]
+          watermark=datetime.fromisoformat(model["last_completed_game_at"].replace("Z","+00:00"))
+          if watermark.tzinfo is None:
+              raise ValueError("EuroLeague final watermark lacks timezone")
+          pending=[]
+          for g in live.get("games",[]):
+              if g.get("status")!="final" or str(g["id"]) in counted:
+                  continue
+              game_date=datetime.fromisoformat(g["date"].replace("Z","+00:00"))
+              if game_date>=watermark:
+                  pending.append(str(g["id"]))
           with open(os.environ["GITHUB_OUTPUT"],"a") as output:
               output.write("new_finals="+("true" if pending else "false")+"\n")
           print("New officially verified finals awaiting Elo:",", ".join(pending) if pending else "none")
