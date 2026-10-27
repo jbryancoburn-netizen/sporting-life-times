@@ -22,8 +22,8 @@ def flatten(item):
     club=val(item,"club","team","Team") or val(player,"team","Team") or {}
     stats=val(item,"statistics","stats","Statistics") or {}
     if not isinstance(stats,dict):stats={}
-    if not isinstance(player,dict):player={}
-    if not isinstance(club,dict):club={}
+    if not isinstance(player,dict):player={}\n    if isinstance(player.get("player"),dict):player=player["player"]
+    if not isinstance(club,dict):club={}\n    if not club and isinstance(player.get("team"),dict):club=player["team"]
     name=val(item,"playerName","player_name","Name","name","fullName") or val(player,"name","Name","fullName","displayName")
     code=val(item,"clubCode","teamCode","player_team_code","playerTeamCode") or val(player,"teamCode","TeamCode") or val(club,"code","Code","clubCode","tvCode","TvCode")
     played=number(val(item,"gamesPlayed","games_played","GamesPlayed","games","played") or val(stats,"gamesPlayed","GamesPlayed","games","played"))
