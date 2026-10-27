@@ -23,6 +23,8 @@ jobs:
           python-version: '3.12'
       - name: Collect 2023-2025 men's D-I soccer finals
         run: python scripts/collect_college_soccer_history.py --years 2023 2024 2025 --max-days-per-year 153
+      - name: Run certified historical Elo holdout backtest
+        run: python scripts/backtest_college_soccer_elo.py
       - name: Commit collected historical results
         if: always()
         run: |
