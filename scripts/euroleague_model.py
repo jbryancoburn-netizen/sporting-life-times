@@ -182,6 +182,24 @@ def recover_recent_header_finals(games, now=None):
     return recovered
 
 def main():
+    global K, HOME_ELO
+    calibrated=False
+    # Apply the historical equal-start fit only after the backtest publishes it.
+    # Redirected test outputs stay deterministic and use the provisional constants.
+    if OUT==pathlib.Path("data/euroleague-model.json"):
+        validation_path=pathlib.Path("data/euroleague-validation.json")
+        try:
+            validation=json.loads(validation_path.read_text())
+            selected=validation["heldout_evaluation"]["selected_parameters"]
+            if (validation.get("status")=="reset_1500_calibration" and
+                selected.get("season_carry")==0 and
+                selected.get("k") in (12.,18.,22.,28.,36.) and
+                selected.get("home_elo") in (0.,35.,65.,90.,120.)):
+                K=float(selected["k"])
+                HOME_ELO=float(selected["home_elo"])
+                calibrated=True
+        except (OSError,ValueError,KeyError,TypeError):
+            pass
     # Historical games calibrate the model offline, never seed current-season clubs.
     saved_seed=load_preseason()
     all_games=fetch_season("E2026")
@@ -242,7 +260,7 @@ def main():
             projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
-    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False,"opening_elo":1500,"opening_policy":"all_clubs_equal_2026_27"},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":calibrated,"opening_elo":1500,"opening_policy":"all_clubs_equal_2026_27"},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
