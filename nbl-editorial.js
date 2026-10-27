@@ -47,9 +47,12 @@ function sources(s){
 function editorialScore(g,logos){
  const h=g.home,a=g.away,hs=g.home_score,as=g.away_score;
  const winner=hs>as?'home':'away',u=validURL(g.source_url);
- const box='<article class="nbl-result-card"><p class="nbl-result-meta">Final · '+esc(stamp(g.played_at))+'</p>'+
-  '<div class="nbl-result-row '+(winner==='away'?'winner':'')+'"><span class="club">'+logo(a,logos)+esc(short[a]||a)+'</span><b>'+esc(as)+'</b></div>'+
-  '<div class="nbl-result-row '+(winner==='home'?'winner':'')+'"><span class="club">'+logo(h,logos)+esc(short[h]||h)+'</span><b>'+esc(hs)+'</b></div></article>';
+ const gameLogo=team=>{
+  const local='assets/nbl-logos/'+team.toLowerCase().replace(/[^a-z0-9]/g,'')+'.png';
+  return '<span class="nbl-game-crest"><img src="'+esc(local)+'" alt="" loading="lazy" onerror="this.hidden=true"></span>';
+ };
+ const side=(team,score,win)=>'<div class="nbl-result-row '+(win?'winner':'')+'"><span class="club">'+gameLogo(team)+'<span class="nbl-game-team-name">'+esc(short[team]||team)+'</span></span><b>'+esc(score)+'</b></div>';
+ const box='<article class="nbl-result-card"><p class="nbl-result-meta">Final · '+esc(stamp(g.played_at))+'</p>'+side(a,as,winner==='away')+side(h,hs,winner==='home')+'</article>';
  return u?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer" aria-label="Source for '+esc(a)+' at '+esc(h)+'">'+box+'</a>':box;
 }
 function updateScoreboard(d,logos){
