@@ -68,6 +68,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # workflow_dispatch is allowed from GITHUB_TOKEN (push alone is not).
-          gh workflow run publish-pages.yml --ref main
+          # Dispatch the actual active Pages publisher, not the retired publish-pages.yml.
+          gh workflow run publish-newspaper.yml --ref main
           echo 'Requested Pages deployment for the refreshed NBA news feed.'
