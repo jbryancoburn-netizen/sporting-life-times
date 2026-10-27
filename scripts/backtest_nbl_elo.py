@@ -8,7 +8,7 @@ TEAMS=("Adelaide 36ers","Brisbane Bullets","Cairns Taipans","Illawarra Hawks",
 "Melbourne United","New Zealand Breakers","Perth Wildcats","South East Melbourne Phoenix",
 "Sydney Kings","Tasmania JackJumpers")
 
-def replay(training,heldout,k=20.0,home=65.0,regression=.25):
+def replay(training,heldout,k=20.0,home=65.0,regression=1.0):
     ratings={t:1500.0 for t in TEAMS}
     def update(g,score=True):
         h,a=g["home"],g["away"]
@@ -18,7 +18,7 @@ def replay(training,heldout,k=20.0,home=65.0,regression=.25):
             delta=k*(y-p);ratings[h]+=delta;ratings[a]-=delta
         return p,y
     for g in training:update(g)
-    ratings={t:1500+(r-1500)*(1-regression) for t,r in ratings.items()}
+    ratings={t:1500.0 for t in TEAMS}
     predictions=[]
     for g in heldout:
         p,y=update(g)
@@ -71,7 +71,7 @@ def main():
             "regular_season_start_sources":["https://www.nbl.com.au/news/nbl26-schedule-the-burning-questions","https://league.nbl.com.au/news/how-to-watch-saturday-nights-nbl27-season-openers"],
             "train_end":train[-1]["played_at"],"holdout_start":test[0]["played_at"],
             "source_sha256":{"past":hashlib.sha256(past_bytes).hexdigest(),"current":hashlib.sha256(current_bytes).hexdigest()},
-            "existing_model":{"k":20,"home_advantage_elo":65,"offseason_regression":.25,"holdout":observed},
+            "existing_model":{"k":20,"home_advantage_elo":65,"offseason_regression":1.0,"holdout":observed},
             "same_elo_without_home_advantage":{"holdout":neutral},
             "coin_flip_baseline":naive,
             "improves_over_coin_flip_log_loss":observed["log_loss"]<naive["log_loss"],
