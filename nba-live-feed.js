@@ -26,7 +26,7 @@ function render(payload){
  mapped.sort((a,b)=>priority(a)-priority(b)||((priority(a)===2?-1:1)*(Date.parse(a.date)-Date.parse(b.date)))||String(a.id).localeCompare(String(b.id)));
  root.innerHTML=mapped.map(g=>{
   const playing=g.state==='in';const final=g.state==='post';const state=playing?'LIVE · '+g.label:final?'FINAL':new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
-  const team=t=>'<div class="nba-live-team"><img src="'+logo(esc(t.code))+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
+  const team=t=>'<div class="nba-live-team" style="--team-color:'+({ATL:'#E03A3E',BOS:'#007A33',BKN:'#242424',CHA:'#1D1160',CHI:'#CE1141',CLE:'#860038',DAL:'#00538C',DEN:'#0E2240',DET:'#C8102E',GSW:'#1D428A',HOU:'#CE1141',IND:'#002D62',LAC:'#C8102E',LAL:'#552583',MEM:'#5D76A9',MIA:'#98002E',MIL:'#00471B',MIN:'#0C2340',NOP:'#0C2340',NYK:'#006BB6',OKC:'#007AC1',ORL:'#0077C0',PHI:'#006BB6',PHX:'#1D1160',POR:'#E03A3E',SAC:'#5A2D81',SAS:'#000000',TOR:'#CE1141',UTA:'#002B5C',WAS:'#002B5C'}[canonicalCode(t.code)]||'#344a58')+'"><img src="'+logo(t.code)+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
   return '<a class="nba-live-match'+(playing?' playing':'')+'" href="nba-live-game.html?game='+encodeURIComponent(g.id)+'" aria-label="View live stats for '+esc(g.away.name)+' versus '+esc(g.home.name)+'"><div class="nba-live-match-head"><b>'+esc(state)+'</b><span>'+ (playing?'IN PROGRESS':final?'FEED FINAL':'TODAY')+'</span></div>'+team(g.away)+team(g.home)+'</a>'
  }).join('');
 }
