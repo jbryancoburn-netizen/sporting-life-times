@@ -50,3 +50,9 @@
 .panel:has(.roster-table-wrap) .roster-note{padding:0;margin:0 0 11px;line-height:1.35}
 .panel:has(.roster-table-wrap) .roster-table-wrap{margin-top:0}
 .panel:has(.roster-table-wrap) .roster-table-wrap th{padding-top:9px;padding-bottom:8px}
+
+/* Official athletics portrait images: no tiny thumbnail stretching or circular face-crops. */
+.roster-table-wrap .mbb-player-photo{display:inline-block;width:58px;height:68px;min-width:58px;object-fit:contain;object-position:center bottom;vertical-align:middle;margin-right:12px;border:0;border-radius:0;background:transparent;image-rendering:auto}
+.roster-table-wrap .mbb-photo-missing{display:inline-flex;width:58px;height:68px;min-width:58px;align-items:center;justify-content:center;vertical-align:middle;margin-right:12px;background:#e4e9e8;border-radius:6px;font-size:12px;font-weight:700;color:#50676e}
+.roster-table-wrap tbody td:first-child{white-space:nowrap;text-align:left}
+.roster-table-wrap tbody td{vertical-align:middle}
