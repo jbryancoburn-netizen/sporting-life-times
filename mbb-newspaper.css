@@ -42,3 +42,7 @@
 #full-season-schedule .sched-date,#full-season-schedule .sched-nowrap,#full-season-schedule .sched-network,#full-season-schedule .sched-elo{white-space:nowrap;font-variant-numeric:tabular-nums}
 #full-season-schedule .sched-elo{font-weight:700}
 @media(max-width:680px){#full-season-schedule .mbb-schedule-table td{padding:12px 10px}}
+
+/* Native circular artwork already includes a ring. Do not draw a second concentric ring. */
+#full-season-schedule .sched-logo.sched-art-roundel{border:0!important;background:transparent!important;overflow:visible!important}
+#full-season-schedule .sched-logo.sched-art-roundel>img.sched-logo-image{width:46px!important;height:46px!important;min-width:46px!important;max-width:46px!important;min-height:46px!important;max-height:46px!important;object-fit:contain!important}
