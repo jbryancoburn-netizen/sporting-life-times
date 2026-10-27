@@ -36,11 +36,11 @@ function projectNumbers(g){
  const awayElo=eloRatings[g.away.code],homeElo=eloRatings[g.home.code];
  if(!Number.isFinite(awayElo)||!Number.isFinite(homeElo)||!resultGames)return null;
  const edge=homeElo+40-awayElo,homeWin=1/(1+Math.pow(10,-edge/400));
- // Eight-game pseudo-sample limits four-game offensive/defensive noise.
+ // Twenty-game pseudo-sample selected from early sequential box-score validation; provisional.
  const adjusted=t=>{const z=effTeams[t],n=z?.gp||0;
-  return {pace:((z?.poss||0)+8*leaguePace)/(n+8),
-   offense:100*((z?.attackPts||0)+8*leaguePace*leagueEfficiency/100)/((z?.poss||0)+8*leaguePace),
-   defense:100*((z?.defensePts||0)+8*leaguePace*leagueEfficiency/100)/((z?.opponentPoss||0)+8*leaguePace)};};
+  return {pace:((z?.poss||0)+20*leaguePace)/(n+20),
+   offense:100*((z?.attackPts||0)+20*leaguePace*leagueEfficiency/100)/((z?.poss||0)+20*leaguePace),
+   defense:100*((z?.defensePts||0)+20*leaguePace*leagueEfficiency/100)/((z?.opponentPoss||0)+20*leaguePace)};};
  const away=adjusted(g.away.code),home=adjusted(g.home.code);
  const pace=Math.max(90,Math.min(107,(away.pace+home.pace)/2));
  // Opposing defensive efficiency directly controls each offense's projection.
