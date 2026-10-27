@@ -31,6 +31,8 @@ jobs:
           test -f sports.html
       - name: Validate locally cached NBA crests for all thirty teams
         run: python3 scripts/check-nba-local-logos.py
+      - name: Enforce locked NBA single-ring logo contract
+        run: python3 scripts/check-nba-logo-contract.py
       - name: Validate all browser JavaScript before deployment
         run: |
           set -euo pipefail
