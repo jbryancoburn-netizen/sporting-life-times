@@ -91,6 +91,16 @@ jobs:
           node --check cfb-team.js
           grep -q 'cfb-directory.js' college-football.html
           grep -q 'cfb-newspaper.js' college-football.html
+      - name: Refresh EuroLeague live scores in the Pages artifact
+        continue-on-error: true
+        run: |
+          python3 scripts/euroleague_live_fast.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/euroleague-live.json').read_text())
+          print('Deployed EuroLeague scoreboard:',d.get('checked_at'),d.get('live_scores_refreshed'),'live score checks')
+          PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
