@@ -2,13 +2,13 @@
   "status": "RESEARCH_ONLY_UNCERTIFIED",
   "model": "nbl-game-elo-research-v1",
   "as_of": "2026-04-05",
-  "prior": "1500 for all 10 teams in 2024-25",
+  "prior": "1500 for every team at the start of EVERY season; no carryover",
   "season_to_publish": "2026-27",
   "training_games": 337,
   "parameters": {
     "k": 20,
     "home_advantage_elo": 65,
-    "offseason_regression": 0.25
+    "offseason_regression": 1
   },
   "sources": {
     "archive_run": "https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/40121790921",
@@ -27,5 +27,5 @@
     "Sydney Kings": 1636.81825386,
     "Tasmania JackJumpers": 1448.80821872
   },
-  "warning": "Research Elo ratings are independently calculated and descriptive, not validated forecast probabilities. Current-season forecasts are withheld."
+  "warning": "Research Elo ratings are independently calculated and descriptive, not validated forecast probabilities. Current-season forecasts are withheld. Annual 1500 reset is required."
 }
