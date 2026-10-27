@@ -1,0 +1,111 @@
+{
+  "status": "complete",
+  "method": "2023 rating warmup; 2024 model selection; 2025 holdout",
+  "games_by_year": {
+    "2023": 1935,
+    "2024": 1971,
+    "2025": 1951
+  },
+  "candidates_tested": 336,
+  "selected": {
+    "k": 36,
+    "h": 55,
+    "reg": 1,
+    "margin": true,
+    "validation": 0.16709255901044703,
+    "holdout": 0.15676002984121032
+  },
+  "holdout_comparators": {
+    "neutral_50_50": 0.19425935417734494,
+    "listed_home_only": 0.18464932243562257
+  },
+  "top_validation_candidates": [
+    {
+      "k": 36,
+      "h": 55,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16709255901044703,
+      "holdout": 0.15676002984121032
+    },
+    {
+      "k": 28,
+      "h": 55,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16728834346017843,
+      "holdout": 0.15758948904276185
+    },
+    {
+      "k": 36,
+      "h": 75,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16733780365798104,
+      "holdout": 0.15701193555070075
+    },
+    {
+      "k": 28,
+      "h": 75,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.1675822735519839,
+      "holdout": 0.15790064116894756
+    },
+    {
+      "k": 36,
+      "h": 55,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16760176174369323,
+      "holdout": 0.15649006616091332
+    },
+    {
+      "k": 48,
+      "h": 55,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.167778476977219,
+      "holdout": 0.15579750645420912
+    },
+    {
+      "k": 48,
+      "h": 55,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16785617639487738,
+      "holdout": 0.1565677422901578
+    },
+    {
+      "k": 36,
+      "h": 75,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16790289054849442,
+      "holdout": 0.15678448118906976
+    },
+    {
+      "k": 48,
+      "h": 75,
+      "reg": 0.75,
+      "margin": true,
+      "validation": 0.16801513823905964,
+      "holdout": 0.15599707327824416
+    },
+    {
+      "k": 48,
+      "h": 75,
+      "reg": 1,
+      "margin": true,
+      "validation": 0.16802537887665103,
+      "holdout": 0.15671392267952589
+    }
+  ],
+  "limitations": [
+    "Full August-December date coverage; team cohort may include non-D1 opponents",
+    "All-conf may include non-D1 opponents",
+    "Actual venues unverified",
+    "Draws scored as half-results, not three-way forecasts"
+  ],
+  "live_elo_modified": false
+}
