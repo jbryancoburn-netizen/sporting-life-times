@@ -21,13 +21,14 @@ try{
   const c=e.competitions[0],contestants=c.competitors||[];
   const self=contestants.find(x=>String(x.team?.id)===String(team.espn_id));
   const opponent=contestants.find(x=>x!==self)||{};
-  const logo=opponent.team?.logo;
+  const opponentId=String(opponent.team?.id||'').trim();
+  const logo=opponent.team?.logo||(/^[0-9]+$/.test(opponentId)?'https://a.espncdn.com/i/teamlogos/ncaa/500/'+opponentId+'.png':'');
   const emblem=logo&&/^https:\/\//.test(logo)?'<img class="sched-logo-image" src="'+escape(logo)+'" alt="" loading="lazy">':'';
   const date=new Date(e.date);
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const confirmed=e.official_time&&!/TBA/i.test(e.official_time);
-  const tip=confirmed?e.official_time:(e.official_time_tba?'TBA':Number.isFinite(+date)?date.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}):'TBA');
-  const vs=self?.homeAway==='away'?'@':self?.homeAway==='home'?'vs':'N';
+  const tip=confirmed?e.official_time:'TBA'; // Imported event dates may contain placeholder noon times.
+  const vs=self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':e.site_verified===true&&e.neutralSite===true?'NEUTRAL':'SITE TBA';
   const network=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>[...(x.names||[]),x.name,x.media?.shortName].filter(Boolean)).join(' / ')||'TBA';
   return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup"><span class="sched-logo">'+emblem+'</span><span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td>'+escape(c.venue?.fullName||'TBA')+'</td><td>'+escape(tip)+'</td><td>'+escape(network)+'</td></tr>';
  }).join('');
