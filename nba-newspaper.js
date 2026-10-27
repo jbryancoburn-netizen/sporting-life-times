@@ -126,11 +126,8 @@ function home(){
 function table(headers,rows){return '<div class="nba-table-wrap"><table class="nba-table"><thead><tr>'+headers.map(h=>'<th class="'+(h[1]||'')+'">'+h[0]+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';}
 function dailyElo(t){const events=data.earned?.events||[];const latest=events.length?nyday(events.at(-1).date):null;const v=latest?events.filter(g=>nyday(g.date)===latest).reduce((sum,g)=>sum+(g.home===t?g.home_elo_change:g.away===t?-g.home_elo_change:0),0):null;if(!Number.isFinite(v))return '<span class="nba-power-change">—</span>';return '<span class="nba-power-change '+(v<0?'neg':'pos')+'">'+(v>0?'▲ +':v<0?'▼ -':'— ')+fmt(Math.abs(v),3)+'</span>';}
 function standingTeam(t){
- // Standings identity is deliberately independent of all shared .team-link styling.
- const initials=t;
- return '<a class="nba-standings-identity" href="'+tl(t)+'" aria-label="'+esc(name(t))+' team page"><span class="nba-standings-logo" aria-hidden="true">'+
- '<img src="'+logo(t)+'" width="38" height="38" loading="lazy" alt="" onerror="if(!this.dataset.fallback){this.dataset.fallback=1;this.src=\\''+logoFallback(t)+'\\';}else{this.hidden=true;}">'+
- '</span><strong class="nba-standings-name">'+esc(name(t))+'</strong></a>';
+ // Keep full team names in their own element, not in an image/placeholder.
+ return '<a class="nba-standings-identity" href="'+tl(t)+'" aria-label="'+esc(name(t))+' team page"><span class="nba-standings-logo" aria-hidden="true">'+logoImg(t)+'</span><strong class="nba-standings-name">'+esc(name(t))+'</strong></a>';
 }
 function standingRows(list){return list.map((t,i)=>{let r=records[t],pct=r.w+r.l?r.w/(r.w+r.l):0;return '<tr><td class="num">'+(i+1)+'</td><td class="nba-standings-club-cell">'+standingTeam(t)+'</td><td class="num">'+r.w+'</td><td class="num">'+r.l+'</td><td class="num">'+fmt(pct,3)+'</td><td class="num">'+rank(t)+'</td><td class="num">'+fmt(rates[t],1)+'</td><td class="num">'+dailyElo(t)+'</td></tr>';});}
 const standingHeads=[['#','num'],['Club'],['W','num'],['L','num'],['PCT','num'],['Elo #','num'],['USRS Elo','num'],['Daily Δ','num']];
