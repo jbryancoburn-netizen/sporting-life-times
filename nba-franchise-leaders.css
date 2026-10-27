@@ -18,3 +18,10 @@ body.nba-newspaper[data-page="team"] .nba-franchise-player-stat>strong{display:b
 body.nba-newspaper[data-page="team"] .nba-franchise-player-stat>small{font:700 9px Arial,sans-serif;color:#697d84}
 body.nba-newspaper[data-page="team"] .nba-franchise-leader-note{font:10px/1.45 Arial,sans-serif;color:#60727a;margin:12px 0 0}
 @media(max-width:390px){body.nba-newspaper[data-page="team"] .nba-franchise-leader-row{grid-template-columns:17px 44px minmax(0,1fr) 61px;gap:5px}body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait{width:44px;height:49px}body.nba-newspaper[data-page="team"] .nba-franchise-player-stat>strong{font-size:21px}}
+
+/* Player portrait upgrade: more native image area, full figure, less aggressive cropping. */
+body.nba-newspaper[data-page="team"] .nba-franchise-leader-row{grid-template-columns:22px 76px minmax(0,1fr) 75px!important;gap:11px!important;padding:11px 4px!important;min-height:91px!important}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait{width:76px!important;height:79px!important;border-radius:7px!important;background:linear-gradient(155deg,#f0f4f5,#c9dbe0)!important;isolation:isolate}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait>img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center bottom!important;image-rendering:auto!important;filter:none!important}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-detail>b{font-size:14px!important}
+@media(max-width:430px){body.nba-newspaper[data-page="team"] .nba-franchise-leader-row{grid-template-columns:18px 62px minmax(0,1fr) 65px!important;gap:7px!important}body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait{width:62px!important;height:68px!important}}
