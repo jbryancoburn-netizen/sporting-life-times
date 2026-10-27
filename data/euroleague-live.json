@@ -1,30 +1,31 @@
 {
   "season": "2026-27",
-  "updated_at": "2026-10-23T23:35:23.146Z",
-  "checked_at": "2026-10-27T13:14:05.781876+00:00",
+  "updated_at": "2026-10-27T16:17:05.846766+00:00",
+  "checked_at": "2026-10-27T16:17:05.846766+00:00",
   "source": "EuroLeague per-game Header plus verified Sporting Life & Times model finals",
   "refresh_target_seconds": 300,
-  "header_responses": 0,
-  "live_scores_refreshed": 0,
+  "header_responses": 1,
+  "live_scores_refreshed": 1,
   "provider_degraded": false,
   "games": [
     {
       "id": "72",
       "date": "2026-10-27T16:00:00Z",
-      "status": "scheduled",
-      "status_detail": "Scheduled",
+      "status": "live",
+      "status_detail": "1 · 02:17",
       "home": {
         "code": "DUB",
         "name": "Dubai Basketball",
         "logo": "https://media-cdn.incrowdsports.com/1efae090-16e2-4963-ae47-4b94f249c244.png",
-        "score": null
+        "score": 25
       },
       "away": {
         "code": "PRS",
         "name": "Paris Basketball",
         "logo": "https://media-cdn.incrowdsports.com/a033e5b3-0de7-48a3-98d9-d9a4b9df1f39.png",
-        "score": null
-      }
+        "score": 16
+      },
+      "score_updated_at": "2026-10-27T16:17:05.846766+00:00"
     },
     {
       "id": "71",
@@ -239,6 +240,24 @@
         "code": "ULK",
         "name": "Fenerbahce Tarfin Istanbul",
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
+        "score": null
+      }
+    },
+    {
+      "id": "84",
+      "date": "2026-10-30T16:00:00Z",
+      "status": "scheduled",
+      "status_detail": "Scheduled",
+      "home": {
+        "code": "DUB",
+        "name": "Dubai Basketball",
+        "logo": "https://media-cdn.incrowdsports.com/1efae090-16e2-4963-ae47-4b94f249c244.png",
+        "score": null
+      },
+      "away": {
+        "code": "HTA",
+        "name": "Hapoel IBI Tel Aviv",
+        "logo": "https://media-cdn.incrowdsports.com/cbb1c3ad-03d5-426a-b5ef-2832a4eee484.png",
         "score": null
       }
     }
