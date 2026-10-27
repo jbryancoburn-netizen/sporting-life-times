@@ -1,9 +1,13 @@
 {
   "league": "NBA",
   "season": "2026-27",
-  "primary_model": "current_season_elo",
-  "primary_rankings_path": "data/nba-2026-27-current-provisional.json",
+  "primary_model": "current_season_elo_reset1500_v2",
+  "primary_rankings_path": "data/nba-elo-shadow-2026-27.json",
   "comparison_models": [
+    {
+      "id": "previous_production_elo",
+      "path": "data/nba-2026-27-current-provisional.json"
+    },
     {
       "id": "preseason_elo",
       "path": "data/nba-2026-27-preseason-provisional.json"
@@ -13,8 +17,8 @@
       "path": "data/nba-2025-26-final.json"
     }
   ],
-  "publication_status": "provisional_traditional_elo",
-  "description": "The current-season Elo is the sole NBA power-ranking authority; the other two snapshots are comparisons, not independent ranking defaults.",
-  "prediction_status": "not_validated",
+  "publication_status": "season_earned_elo_v2_historical_backtested",
+  "description": "All 30 NBA teams begin at 1500 each season; K24, home +40, square-root MOV. Historical strength affects forecasts only. Previous production Elo remains available for comparison.",
+  "prediction_status": "historical_backtested_early_season_monitoring",
   "roster_adjusted_status": "not_validated"
 }
