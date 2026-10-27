@@ -21,6 +21,28 @@ def timestamp(value):
     return result.astimezone(timezone.utc)
 
 
+
+def merge_verified_results(feed, ratings):
+    """Use the complete published EPL season archive, rejecting conflicting finals."""
+    if ratings.get("completed_matches") != len(ratings.get("season_results", [])):
+        raise ValueError("Verified season results count does not reconcile")
+    if ratings.get("as_of_date") is None:
+        raise ValueError("Verified season results lack an as-of date")
+    by_id = {}
+    for final in list(ratings["season_results"]) + list(feed.get("recent_results", [])):
+        ident = str(final["fixture_id"])
+        if ident in by_id:
+            if by_id[ident] != final:
+                raise ValueError("Conflicting verified result for fixture " + ident)
+        else:
+            by_id[ident] = final
+    if len(by_id) != len(ratings["season_results"]):
+        raise ValueError("Recent final not present in published season archive")
+    result = dict(feed)
+    result["recent_results"] = list(by_id.values())
+    return result
+
+
 def advance(feed, ledger, now):
     now = timestamp(now) if isinstance(now, str) else now.astimezone(timezone.utc)
     if feed.get("competition") != "EPL" or feed.get("schema_version") != 1:
@@ -113,8 +135,11 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--feed", default="data/epl-match-center.json")
     p.add_argument("--ledger", default="data/research/epl-shadow-locked.json")
+    p.add_argument("--ratings", default="data/epl-ratings.json")
     args = p.parse_args()
     source = json.loads(Path(args.feed).read_text())
+    ratings = json.loads(Path(args.ratings).read_text())
+    source = merge_verified_results(source, ratings)
     path = Path(args.ledger)
     ledger = json.loads(path.read_text()) if path.exists() else {}
     updated = advance(source, ledger, datetime.now(timezone.utc))
