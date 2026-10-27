@@ -22,7 +22,7 @@ def scoring(events):
             "brier":round(sum((p-y)**2 for p,y in events)/n,6),
             "accuracy":round(sum((p>=.5)==y for p,y in events)/n,6)}
 
-def evaluate(seasons,k=20.,home=65.,regression=.25):
+def evaluate(seasons,k=20.,home=65.,regression=1.0):
     ratings={t:1500. for t in TEAMS}
     reports={}
     previous_end=None
@@ -30,7 +30,7 @@ def evaluate(seasons,k=20.,home=65.,regression=.25):
         if previous_end and not ledger[0]["played_at"]>previous_end:raise ValueError("Season overlap")
         previous_end=ledger[-1]["played_at"]
         if reports:
-            ratings={t:1500+(r-1500)*(1-regression) for t,r in ratings.items()}
+            ratings={t:1500. for t in TEAMS}
         obs=[]
         for g in ledger:
             h,a=g["home"],g["away"]
@@ -66,7 +66,7 @@ def main():
     lagged_baseline=lagged_home_baseline(seasons)
     baseline={"log_loss":round(math.log(2),6),"brier":.25}
     outcome={"status":"RESEARCH_UNCERTIFIED","publication_approved":False,
-             "parameters":{"k":20,"home_advantage_elo":65,"regression":.25},
+             "parameters":{"k":20,"home_advantage_elo":65,"regression":1.0},
              "opening_prior":"equal 1500; assumption only",
              "nonleague_games_excluded":excluded,
              "known_standalone_cup_final_exclusion":{"2025-26":["401858632"]},
