@@ -46,7 +46,7 @@ async function start(){
    const newer=new Set(["Bellarmine","East Texas A&M","Le Moyne","Lindenwood","Mercyhurst","Merrimack","New Haven",
      "Queens (NC)","Southern Ind.","St. Thomas (MN)","Stonehill","Tarleton St.","UC San Diego",
      "Utah Tech","West Florida","West Ga."]);
-   if(!id&&newer.has(t.name)&&/^ncaa:\\d+$/.test(String(t.id))&&t.match_method==="verified-NCAA-origin-2026-ID-pair"){
+   if(!id&&newer.has(t.name)&&/^ncaa:\d+$/.test(String(t.id))&&t.match_method==="verified-NCAA-origin-2026-ID-pair"){
     id=String(t.id);names.set(id,t.name);register(t.name,id);
    }
    // Explicitly register modern source names to the resolved canonical program.
