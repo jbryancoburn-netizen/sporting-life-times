@@ -1,0 +1,27 @@
+name: MBB first 100 arena recovery
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-first-100-arena-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/mbb_first_100_arena_city_recovery_20261027.py
+      - name: Commit normalized files and audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-first-100-arena-city-recovery-20261027.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Recover first 100 MBB arena city normalization and audit"
+            git push
+          fi
