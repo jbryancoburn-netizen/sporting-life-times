@@ -68,3 +68,8 @@
 /* ESPN college crest artwork already has a circular school-color boundary. Avoid a second outer ring and inset shrink. */
 #full-season-schedule .sched-logo{border:0!important;padding:0!important;background:transparent!important;overflow:visible!important}
 #full-season-schedule .sched-logo>img.sched-logo-image{width:46px!important;height:46px!important;max-width:46px!important;max-height:46px!important;min-width:46px!important;min-height:46px!important;object-fit:contain!important;object-position:center!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important}
+
+/* MBB schedule roundels: logo centered, safely contained, initials only as fallback. */
+#full-season-schedule .sched-logo{position:relative!important;overflow:hidden!important;isolation:isolate}
+#full-season-schedule .sched-logo-fallback{font:700 12px/1 Arial,sans-serif;color:var(--logo-ring,#193f52);letter-spacing:-.02em;position:absolute;inset:0;display:grid;place-items:center}
+#full-season-schedule .sched-logo>img.sched-logo-image{position:relative;z-index:1;background:#fff!important;width:100%!important;height:100%!important;object-fit:contain!important}
