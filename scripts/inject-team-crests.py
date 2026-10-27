@@ -12,7 +12,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 CSS='<link rel="stylesheet" href="shared-team-crests.css?v=20261026cfb4">'
-JS='<script src="shared-team-crests.js?v=20261026cfb4" defer></script>'
+JS='<script src="shared-team-crests.js?v=20261027nbaexclusion14" defer></script>'
 TAG=CSS+JS
 CHECK='--check' in sys.argv
 assert (ROOT/"shared-team-crests.css").is_file(), "Team crest stylesheet missing"
