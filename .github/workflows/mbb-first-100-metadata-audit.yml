@@ -1,0 +1,27 @@
+name: MBB first 100 school metadata audit
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-first-100-metadata-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/mbb_metadata_audit_first_100.py
+      - name: Commit audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-first-100-metadata-audit-20261027.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish MBB first 100 school schedule metadata audit"
+            git push
+          fi
