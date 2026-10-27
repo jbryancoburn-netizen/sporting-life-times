@@ -1,0 +1,34 @@
+name: MBB final 105-school schedule cleanup
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-final-105-schedule-cleanup.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-final-105-schedule-cleanup
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    if: github.repository == 'jbryancoburn-netizen/sporting-life-times'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Process final 105 school files
+        run: python scripts/mbb_schedule_final_105_20261027.py
+      - name: Commit output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-final-105-schedule-audit-20261027.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Clean final 105 Division I basketball schedules"
+            git push
+          fi
