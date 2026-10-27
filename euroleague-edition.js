@@ -2,7 +2,7 @@
 if(document.body.dataset.league!=='euroleague')return;
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const logo=t=>{const code=String(t?.code||'').trim().toUpperCase();const url=String(t?.logo||'');const valid=/^https:\/\//.test(url);return valid?'<img class="el-official-logo" data-euroleague-code="'+esc(code)+'" loading="lazy" alt="" src="'+esc(url)+'" onerror="this.onerror=null;this.src=\'assets/euroleague-logos/'+esc(code)+'.png\'">':(/^[A-Z]{3}$/.test(code)?'<img class="el-official-logo" data-euroleague-code="'+esc(code)+'" loading="lazy" alt="" src="assets/euroleague-logos/'+esc(code)+'.png" onerror="this.hidden=true">':'');};
+const logo=t=>{const code=String(t?.code||'').trim().toUpperCase(),url=String(t?.logo||'');return /^https:\/\//.test(url)?'<img class="el-official-logo" src="'+esc(url)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';};
 const date=v=>{const x=new Date(v);return Number.isFinite(x.getTime())?x.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric'}):'Date unavailable'};
 let lastEditionStamp=null;
 async function refreshEdition(){
