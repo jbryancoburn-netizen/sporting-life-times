@@ -26,7 +26,13 @@ function render(c){
  const selected=games(c).filter(g=>g.home===t||g.away===t),last=selected.slice(-8).reverse(),r=c.records[t]||{w:0,l:0,pf:0,pa:0},gp=r.w+r.l;
  const brand=c.meta[t][3],name=c.meta[t][0];
  const top='<section class="depth-club-hero" style="--depth-club:'+brand+'"><div class="depth-club-title"><div class="depth-crest"><img src="'+logo(t)+'" alt=""></div><div><small>THE '+t+' FRANCHISE · 2026–27</small><h2>'+e(name)+'</h2><p>'+e(c.meta[t][2])+' Division · '+e(c.meta[t][1])+'ern Conference</p></div></div><div class="depth-club-numbers"><div><small>VERIFIED W–L</small><b>'+r.w+'–'+r.l+'</b></div><div><small>ELO POSITION</small><b>#'+(c.ordered.indexOf(t)+1)+'</b></div><div><small>POINTS / GAME</small><b>'+(gp?num(r.pf/gp):'—')+'</b></div><div><small>ALLOWED / GAME</small><b>'+(gp?num(r.pa/gp):'—')+'</b></div></div></section>';
- const form=last.map(g=>{const o=foe(g,t),w=won(g,t),a=g.home===t?g.home_score:g.away_score,b=g.home===t?g.away_score:g.home_score;return '<a class="depth-form-result '+(w?'win':'loss')+'" href="nba-game-center.html?game='+encodeURIComponent(g.id)+'"><span>'+ (w?'W':'L')+'</span><img src="'+logo(o)+'" alt=""><b>'+e(o)+'</b><small>'+e(a)+'–'+e(b)+'</small></a>'}).join('');
+ const form=last.map(g=>{
+  const o=foe(g,t),w=won(g,t),a=g.home===t?g.home_score:g.away_score,b=g.home===t?g.away_score:g.home_score;
+  const home=g.home===t,place=home?'HOME · '+name:'AWAY · '+(c.meta[o]?.[0]||o);
+  const movement=Number(g.home_elo_change),elo=Number.isFinite(movement)?(home?movement:-movement):null;
+  const delta=elo===null?'Elo Δ unavailable':(elo>0?'+':'')+elo.toFixed(1)+' Elo';
+  return '<a class="depth-form-result '+(w?'win':'loss')+'" href="nba-game-center.html?game='+encodeURIComponent(g.id)+'" title="'+e(place)+'"><span class="depth-form-outcome">'+(w?'W':'L')+'</span><time class="depth-form-date" datetime="'+e(g.date)+'">'+date(g.date)+'</time><img src="'+logo(o)+'" alt="" style="--depth-opponent-color:'+(c.meta[o]?.[3]||'#294653')+'"><b>'+e(home?'vs '+o:'@ '+o)+'</b><small>'+e(a)+'–'+e(b)+'</small><span class="depth-form-venue">'+e(place)+'</span><strong class="depth-form-elo '+(elo!==null&&elo>=0?'pos':'neg')+'">'+e(delta)+'</strong></a>';
+ }).join('');
  const series=new Map();for(const g of selected){const o=foe(g,t),r=series.get(o)||{w:0,l:0,last:''};won(g,t)?r.w++:r.l++;r.last=g.date;series.set(o,r)}
  const seriesCards=[...series.entries()].sort((a,b)=>b[1].w+b[1].l-a[1].w-a[1].l).map(([o,x])=>'<a class="depth-series-item" href="'+href(o)+'"><img src="'+logo(o)+'" alt=""><span>'+e(c.meta[o]?.[0]||o)+'</span><strong>'+x.w+'–'+x.l+'</strong><small>Last: '+date(x.last)+'</small></a>').join('');
  const element=document.querySelector('#app .nba-team-identity');if(!element)return;
