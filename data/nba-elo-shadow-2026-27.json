@@ -10,13 +10,14 @@
     "home_elo": 40,
     "k": 24,
     "mov": "sqrt(max(1,abs(margin))/10)",
-    "historical_prediction_prior": "not applied; shadow earned Elo only"
+    "historical_prediction_prior": "2025-26 final team Elo, regression .75; prediction blend weight .75*10/(10+team_games), never applied to earned Elo"
   },
   "rankings": [
     {
       "team": "MIN",
       "elo": 1549.591,
       "games": 4,
+      "forecast_prior": 1579.08,
       "live_elo": 1592.405,
       "difference_from_live": -42.814
     },
@@ -24,6 +25,7 @@
       "team": "DET",
       "elo": 1540.961,
       "games": 3,
+      "forecast_prior": 1609.7759999999998,
       "live_elo": 1626.535,
       "difference_from_live": -85.574
     },
@@ -31,6 +33,7 @@
       "team": "LAL",
       "elo": 1536.78,
       "games": 3,
+      "forecast_prior": 1582.4835,
       "live_elo": 1592.226,
       "difference_from_live": -55.446
     },
@@ -38,6 +41,7 @@
       "team": "OKC",
       "elo": 1534.112,
       "games": 3,
+      "forecast_prior": 1704.7305,
       "live_elo": 1694.549,
       "difference_from_live": -160.437
     },
@@ -45,6 +49,7 @@
       "team": "MEM",
       "elo": 1534.019,
       "games": 3,
+      "forecast_prior": 1322.1195,
       "live_elo": 1403.148,
       "difference_from_live": 130.871
     },
@@ -52,6 +57,7 @@
       "team": "HOU",
       "elo": 1533.789,
       "games": 3,
+      "forecast_prior": 1567.86825,
       "live_elo": 1593.796,
       "difference_from_live": -60.007
     },
@@ -59,6 +65,7 @@
       "team": "POR",
       "elo": 1532.298,
       "games": 2,
+      "forecast_prior": 1520.0812500000002,
       "live_elo": 1539.93,
       "difference_from_live": -7.632
     },
@@ -66,6 +73,7 @@
       "team": "ATL",
       "elo": 1528.485,
       "games": 3,
+      "forecast_prior": 1545.8452499999999,
       "live_elo": 1556.976,
       "difference_from_live": -28.491
     },
@@ -73,6 +81,7 @@
       "team": "TOR",
       "elo": 1519.16,
       "games": 3,
+      "forecast_prior": 1529.99775,
       "live_elo": 1530.158,
       "difference_from_live": -10.998
     },
@@ -80,6 +89,7 @@
       "team": "BOS",
       "elo": 1516.06,
       "games": 3,
+      "forecast_prior": 1607.2514999999999,
       "live_elo": 1594.303,
       "difference_from_live": -78.243
     },
@@ -87,6 +97,7 @@
       "team": "PHI",
       "elo": 1513.804,
       "games": 4,
+      "forecast_prior": 1532.3115,
       "live_elo": 1550.51,
       "difference_from_live": -36.706
     },
@@ -94,6 +105,7 @@
       "team": "IND",
       "elo": 1511.05,
       "games": 3,
+      "forecast_prior": 1352.5605,
       "live_elo": 1397.091,
       "difference_from_live": 113.959
     },
@@ -101,6 +113,7 @@
       "team": "CLE",
       "elo": 1503.129,
       "games": 3,
+      "forecast_prior": 1575.834,
       "live_elo": 1565.234,
       "difference_from_live": -62.105
     },
@@ -108,6 +121,7 @@
       "team": "LAC",
       "elo": 1498.899,
       "games": 3,
+      "forecast_prior": 1534.00725,
       "live_elo": 1518.901,
       "difference_from_live": -20.002
     },
@@ -115,6 +129,7 @@
       "team": "CHA",
       "elo": 1498.636,
       "games": 4,
+      "forecast_prior": 1587.2549999999999,
       "live_elo": 1570.722,
       "difference_from_live": -72.086
     },
@@ -122,6 +137,7 @@
       "team": "WAS",
       "elo": 1497.485,
       "games": 4,
+      "forecast_prior": 1275.612,
       "live_elo": 1341.147,
       "difference_from_live": 156.338
     },
@@ -129,6 +145,7 @@
       "team": "DEN",
       "elo": 1497.144,
       "games": 2,
+      "forecast_prior": 1599.018,
       "live_elo": 1576.584,
       "difference_from_live": -79.44
     },
@@ -136,6 +153,7 @@
       "team": "SAS",
       "elo": 1495.547,
       "games": 3,
+      "forecast_prior": 1686.2685,
       "live_elo": 1624.985,
       "difference_from_live": -129.438
     },
@@ -143,6 +161,7 @@
       "team": "DAL",
       "elo": 1493.368,
       "games": 4,
+      "forecast_prior": 1381.6267500000001,
       "live_elo": 1422.727,
       "difference_from_live": 70.641
     },
@@ -150,6 +169,7 @@
       "team": "PHX",
       "elo": 1488.534,
       "games": 2,
+      "forecast_prior": 1498.8225,
       "live_elo": 1495.07,
       "difference_from_live": -6.536
     },
@@ -157,6 +177,7 @@
       "team": "ORL",
       "elo": 1483.704,
       "games": 3,
+      "forecast_prior": 1545.279,
       "live_elo": 1526.579,
       "difference_from_live": -42.875
     },
@@ -164,6 +185,7 @@
       "team": "NOP",
       "elo": 1480.993,
       "games": 3,
+      "forecast_prior": 1414.635,
       "live_elo": 1397.824,
       "difference_from_live": 83.169
     },
@@ -171,6 +193,7 @@
       "team": "UTA",
       "elo": 1476.931,
       "games": 3,
+      "forecast_prior": 1321.938,
       "live_elo": 1349.084,
       "difference_from_live": 127.847
     },
@@ -178,6 +201,7 @@
       "team": "NYK",
       "elo": 1469.853,
       "games": 3,
+      "forecast_prior": 1716.1215,
       "live_elo": 1618.152,
       "difference_from_live": -148.299
     },
@@ -185,6 +209,7 @@
       "team": "GSW",
       "elo": 1467.447,
       "games": 3,
+      "forecast_prior": 1427.2995,
       "live_elo": 1407.653,
       "difference_from_live": 59.794
     },
@@ -192,6 +217,7 @@
       "team": "MIL",
       "elo": 1467.229,
       "games": 3,
+      "forecast_prior": 1401.576,
       "live_elo": 1382.177,
       "difference_from_live": 85.052
     },
@@ -199,6 +225,7 @@
       "team": "CHI",
       "elo": 1462.331,
       "games": 4,
+      "forecast_prior": 1374.9705000000001,
       "live_elo": 1383.211,
       "difference_from_live": 79.12
     },
@@ -206,6 +233,7 @@
       "team": "BKN",
       "elo": 1460.567,
       "games": 3,
+      "forecast_prior": 1321.2285,
       "live_elo": 1328.249,
       "difference_from_live": 132.318
     },
@@ -213,6 +241,7 @@
       "team": "SAC",
       "elo": 1460.169,
       "games": 3,
+      "forecast_prior": 1377.94875,
       "live_elo": 1367.5,
       "difference_from_live": 92.669
     },
@@ -220,6 +249,7 @@
       "team": "MIA",
       "elo": 1447.924,
       "games": 4,
+      "forecast_prior": 1506.4537500000001,
       "live_elo": 1452.573,
       "difference_from_live": -4.649
     }
@@ -235,6 +265,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.5599989146344811,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 9.502860285656029,
       "home_after": 1509.502860285656,
       "away_after": 1490.497139714344
@@ -249,6 +282,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.735717979034594,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": -10.360601645803234,
       "home_after": 1489.6393983541968,
       "away_after": 1510.3606016458032
@@ -263,6 +299,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.537566981671911,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": -14.652103361839941,
       "home_after": 1485.3478966381601,
       "away_after": 1514.6521033618399
@@ -277,6 +316,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.556708405014304,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": -11.190728790991413,
       "home_after": 1488.8092712090086,
       "away_after": 1511.1907287909914
@@ -291,6 +333,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.42224314464701823,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 11.63857939840803,
       "home_after": 1511.638579398408,
       "away_after": 1488.361420601592
@@ -305,6 +350,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.47918847679941406,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": -21.148489550381278,
       "home_after": 1478.8515104496187,
       "away_after": 1521.1484895503813
@@ -319,6 +367,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.28531048087416155,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": -11.190728790991413,
       "home_after": 1488.8092712090086,
       "away_after": 1511.1907287909914
@@ -333,6 +384,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.710860091441811,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 22.031475226292827,
       "home_after": 1522.0314752262927,
       "away_after": 1477.9685247737073
@@ -347,6 +401,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.5575049508671212,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 15.025341394515682,
       "home_after": 1515.0253413945156,
       "away_after": 1484.9746586054844
@@ -361,6 +418,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.6220493193960891,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": -7.326051680919971,
       "home_after": 1492.67394831908,
       "away_after": 1507.32605168092
@@ -375,6 +435,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.7377540500384708,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 14.25429042848404,
       "home_after": 1514.254290428484,
       "away_after": 1485.745709571516
@@ -389,6 +452,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.7109991682443536,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 15.75871100134529,
       "home_after": 1515.7587110013453,
       "away_after": 1484.2412889986547
@@ -403,6 +469,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.5798213134592747,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 21.513014950131467,
       "home_after": 1521.5130149501315,
       "away_after": 1478.4869850498685
@@ -417,6 +486,9 @@
       "home_before": 1500,
       "away_before": 1500,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.7117743411944838,
+      "forecast_prior_weight_home": 0.75,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 16.798842371639275,
       "home_after": 1516.7988423716392,
       "away_after": 1483.2011576283608
@@ -431,6 +503,9 @@
       "home_before": 1510.3606016458032,
       "away_before": 1500,
       "home_win_probability": 0.5719713882998072,
+      "forecast_home_win_probability": 0.5121604650476227,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 9.188170291934332,
       "home_after": 1519.5487719377375,
       "away_after": 1490.8118297080657
@@ -445,6 +520,9 @@
       "home_before": 1514.6521033618399,
       "away_before": 1500,
       "home_win_probability": 0.5780083520561858,
+      "forecast_home_win_probability": 0.6532008805406586,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.75,
       "home_elo_change": 11.094448543565067,
       "home_after": 1525.7465519054049,
       "away_after": 1488.905551456435
@@ -459,6 +537,9 @@
       "home_before": 1488.361420601592,
       "away_before": 1477.9685247737073,
       "home_win_probability": 0.5720168998135096,
+      "forecast_home_win_probability": 0.5875186612272939,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -11.486008189821852,
       "home_after": 1476.8754124117702,
       "away_after": 1489.4545329635291
@@ -473,6 +554,9 @@
       "home_before": 1490.497139714344,
       "away_before": 1489.6393983541968,
       "home_win_probability": 0.558529457700113,
+      "forecast_home_win_probability": 0.4512874886286833,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": 6.70105168097929,
       "home_after": 1497.1981913953234,
       "away_after": 1482.9383466732174
@@ -487,6 +571,9 @@
       "home_before": 1511.1907287909914,
       "away_before": 1511.1907287909914,
       "home_win_probability": 0.5573116337622928,
+      "forecast_home_win_probability": 0.5969531966471031,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -28.997347935520963,
       "home_after": 1482.1933808554704,
       "away_after": 1540.1880767265125
@@ -501,6 +588,9 @@
       "home_before": 1507.32605168092,
       "away_before": 1485.745709571516,
       "home_win_probability": 0.5877047420946437,
+      "forecast_home_win_probability": 0.5388475755311166,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -17.841461536328744,
       "home_after": 1489.4845901445913,
       "away_after": 1503.5871711078448
@@ -515,6 +605,9 @@
       "home_before": 1488.8092712090086,
       "away_before": 1521.1484895503813,
       "home_win_probability": 0.5110229647041479,
+      "forecast_home_win_probability": 0.509589252641048,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -18.191269141008203,
       "home_after": 1470.6180020680004,
       "away_after": 1539.3397586913895
@@ -529,6 +622,9 @@
       "home_before": 1511.638579398408,
       "away_before": 1522.0314752262927,
       "home_win_probability": 0.5425052098513423,
+      "forecast_home_win_probability": 0.31276894556360824,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -13.020125036432216,
       "home_after": 1498.6184543619756,
       "away_after": 1535.051600262725
@@ -543,6 +639,9 @@
       "home_before": 1478.8515104496187,
       "away_before": 1509.502860285656,
       "home_win_probability": 0.5134505430796182,
+      "forecast_home_win_probability": 0.4424047824247757,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -16.066982473906815,
       "home_after": 1462.7845279757119,
       "away_after": 1525.5698427595628
@@ -557,6 +656,9 @@
       "home_before": 1485.3478966381601,
       "away_before": 1514.254290428484,
       "home_win_probability": 0.5159595593363774,
+      "forecast_home_win_probability": 0.6552094953846584,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -7.831715462590788,
       "home_after": 1477.5161811755693,
       "away_after": 1522.0860058910748
@@ -571,6 +673,9 @@
       "home_before": 1484.9746586054844,
       "away_before": 1492.67394831908,
       "home_win_probability": 0.5463509950240115,
+      "forecast_home_win_probability": 0.46315034583550635,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": 3.4429538735836376,
       "home_after": 1488.417612479068,
       "away_after": 1489.2309944454962
@@ -585,6 +690,9 @@
       "home_before": 1484.2412889986547,
       "away_before": 1515.0253413945156,
       "home_win_probability": 0.5132597049951345,
+      "forecast_home_win_probability": 0.6426056073406772,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -6.7469740388227715,
       "home_after": 1477.4943149598319,
       "away_after": 1521.7723154333385
@@ -599,6 +707,9 @@
       "home_before": 1515.7587110013453,
       "away_before": 1516.7988423716392,
       "home_win_probability": 0.5558339283400747,
+      "forecast_home_win_probability": 0.6031520099471779,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": 9.534581083494103,
       "home_after": 1525.2932920848393,
       "away_after": 1507.2642612881452
@@ -613,6 +724,9 @@
       "home_before": 1483.2011576283608,
       "away_before": 1521.5130149501315,
       "home_win_probability": 0.5024294134852892,
+      "forecast_home_win_probability": 0.4018497158167856,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": -10.78527669550518,
       "home_after": 1472.4158809328555,
       "away_after": 1532.2982916456367
@@ -627,6 +741,9 @@
       "home_before": 1482.1933808554704,
       "away_before": 1462.7845279757119,
       "home_win_probability": 0.5846725854301293,
+      "forecast_home_win_probability": 0.6371144354145136,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": 7.04833995012077,
       "home_after": 1489.2417208055913,
       "away_after": 1455.736188025591
@@ -641,6 +758,9 @@
       "home_before": 1490.8118297080657,
       "away_before": 1488.8092712090086,
       "home_win_probability": 0.5601537739186595,
+      "forecast_home_win_probability": 0.7743812306275605,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.6818181818181818,
       "home_elo_change": 6.676396294302688,
       "home_after": 1497.4882260023685,
       "away_after": 1482.1328749147058
@@ -655,6 +775,9 @@
       "home_before": 1519.5487719377375,
       "away_before": 1476.8754124117702,
       "home_win_probability": 0.6167806981151697,
+      "forecast_home_win_probability": 0.6884183144701441,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": 9.646171070553564,
       "home_after": 1529.194943008291,
       "away_after": 1467.2292413412167
@@ -669,6 +792,9 @@
       "home_before": 1489.4545329635291,
       "away_before": 1498.6184543619756,
       "home_win_probability": 0.5442605295415218,
+      "forecast_home_win_probability": 0.638289444528691,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -8.26129398662672,
       "home_after": 1481.1932389769024,
       "away_after": 1506.8797483486023
@@ -683,6 +809,9 @@
       "home_before": 1503.5871711078448,
       "away_before": 1477.5161811755693,
       "home_win_probability": 0.593953944441872,
+      "forecast_home_win_probability": 0.3079971519298231,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -18.031173980903255,
       "home_after": 1485.5559971269415,
       "away_after": 1495.5473551564726
@@ -697,6 +826,9 @@
       "home_before": 1540.1880767265125,
       "away_before": 1522.0860058910748,
       "home_win_probability": 0.5828447510338862,
+      "forecast_home_win_probability": 0.5473826064812084,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -11.70342971676619,
       "home_after": 1528.4846470097464,
       "away_after": 1533.789435607841
@@ -711,6 +843,9 @@
       "home_before": 1488.905551456435,
       "away_before": 1489.2309944454962,
       "home_win_probability": 0.5568493875725331,
+      "forecast_home_win_probability": 0.716860554905861,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": 8.238311720607346,
       "home_after": 1497.1438631770422,
       "away_after": 1480.992682724889
@@ -725,6 +860,9 @@
       "home_before": 1478.4869850498685,
       "away_before": 1477.4943149598319,
       "home_win_probability": 0.5587209662546935,
+      "forecast_home_win_probability": 0.6216075851237153,
+      "forecast_prior_weight_home": 0.6818181818181818,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": 10.047217178256991,
       "home_after": 1488.5342022281254,
       "away_after": 1467.447097781575
@@ -739,6 +877,9 @@
       "home_before": 1488.417612479068,
       "away_before": 1525.2932920848393,
       "home_win_probability": 0.5044961372851617,
+      "forecast_home_win_probability": 0.31287083886987294,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -11.486569424962367,
       "home_after": 1476.9310430541057,
       "away_after": 1536.7798615098018
@@ -753,6 +894,9 @@
       "home_before": 1482.1328749147058,
       "away_before": 1489.4845901445913,
       "home_win_probability": 0.5468468502167438,
+      "forecast_home_win_probability": 0.525393788956744,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -21.56546558623388,
       "home_after": 1460.567409328472,
       "away_after": 1511.050055730825
@@ -767,6 +911,9 @@
       "home_before": 1482.9383466732174,
       "away_before": 1470.6180020680004,
       "home_win_probability": 0.5747309800809333,
+      "forecast_home_win_probability": 0.705059678507889,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -13.085704360199612,
       "home_after": 1469.852642313018,
       "away_after": 1483.7037064282
@@ -781,6 +928,9 @@
       "home_before": 1539.3397586913895,
       "away_before": 1535.051600262725,
       "home_win_probability": 0.5633927982103164,
+      "forecast_home_win_probability": 0.6025503168987515,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": 15.89154253990585,
       "home_after": 1555.2313012312954,
       "away_after": 1519.1600577228191
@@ -795,6 +945,9 @@
       "home_before": 1525.7465519054049,
       "away_before": 1507.2642612881452,
       "home_win_probability": 0.5833768128514305,
+      "forecast_home_win_probability": 0.7077294569495596,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": 8.365727203546399,
       "home_after": 1534.1122791089513,
       "away_after": 1498.8985340845989
@@ -809,6 +962,9 @@
       "home_before": 1529.194943008291,
       "away_before": 1525.5698427595628,
       "home_win_probability": 0.5624536933485845,
+      "forecast_home_win_probability": 0.4896316012207428,
+      "forecast_prior_weight_home": 0.5769230769230769,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -15.391101093895262,
       "home_after": 1513.8038419143957,
       "away_after": 1540.960943853458
@@ -823,6 +979,9 @@
       "home_before": 1472.4158809328555,
       "away_before": 1521.7723154333385,
       "home_win_probability": 0.4865382624733015,
+      "forecast_home_win_probability": 0.5804390406084815,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.625,
       "home_elo_change": -12.246855231727926,
       "home_after": 1460.1690257011276,
       "away_after": 1534.0191706650664
@@ -837,6 +996,9 @@
       "home_before": 1489.2417208055913,
       "away_before": 1506.8797483486023,
       "home_win_probability": 0.532137100609342,
+      "forecast_home_win_probability": 0.7724645506150304,
+      "forecast_prior_weight_home": 0.5769230769230769,
+      "forecast_prior_weight_away": 0.5769230769230769,
       "home_elo_change": 9.394612459643938,
       "home_after": 1498.6363332652352,
       "away_after": 1497.4851358889584
@@ -851,6 +1013,9 @@
       "home_before": 1497.4882260023685,
       "away_before": 1555.2313012312954,
       "home_win_probability": 0.4744878369717139,
+      "forecast_home_win_probability": 0.5251118131469257,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.5769230769230769,
       "home_elo_change": 5.640388413764157,
       "home_after": 1503.1286144161327,
       "away_after": 1549.5909128175313
@@ -865,6 +1030,9 @@
       "home_before": 1497.1981913953234,
       "away_before": 1481.1932389769024,
       "home_win_probability": 0.5799067054481843,
+      "forecast_home_win_probability": 0.7448076814292723,
+      "forecast_prior_weight_home": 0.625,
+      "forecast_prior_weight_away": 0.5769230769230769,
       "home_elo_change": 18.862142144328025,
       "home_after": 1516.0603335396515,
       "away_after": 1462.3310968325743
@@ -879,6 +1047,9 @@
       "home_before": 1455.736188025591,
       "away_before": 1485.5559971269415,
       "home_win_probability": 0.514646281120384,
+      "forecast_home_win_probability": 0.639268246303748,
+      "forecast_prior_weight_home": 0.5769230769230769,
+      "forecast_prior_weight_away": 0.5769230769230769,
       "home_elo_change": -7.811781300843484,
       "home_after": 1447.9244067247475,
       "away_after": 1493.367778427785
