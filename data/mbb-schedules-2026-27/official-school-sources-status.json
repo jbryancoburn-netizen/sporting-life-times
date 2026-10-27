@@ -1,5 +1,5 @@
 {
-  "attempted_at": "2026-10-27T20:51:33.655008+00:00",
+  "attempted_at": "2026-10-27T20:54:56.112211+00:00",
   "results": [
     {
       "team": "Michigan St.",
@@ -60,7 +60,7 @@
     {
       "team": "UCLA",
       "status": "unverified-too-few-games",
-      "parsed_rows": 0,
+      "parsed_rows": 4,
       "confirmed_games": 0,
       "url": "https://uclabruins.com/sports/mens-basketball/schedule"
     },
@@ -1433,7 +1433,7 @@
       "team": "Central Conn. St.",
       "status": "error",
       "error": "No accessible schedule route on official athletics host",
-      "url": "https://ccsubluedevils.com/sports/mens-basketball/schedule/text/2026-27"
+      "url": "https://ccsubluedevils.com/sports/mbkb/2026-27/schedule"
     },
     {
       "team": "Central Mich.",
@@ -2023,8 +2023,8 @@
     {
       "team": "Seattle U",
       "status": "unverified-too-few-games",
-      "parsed_rows": 12,
-      "confirmed_games": 12,
+      "parsed_rows": 0,
+      "confirmed_games": 0,
       "url": "https://goseattleu.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -2126,8 +2126,9 @@
     },
     {
       "team": "Texas Southern",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
+      "status": "verified-official",
+      "parsed_rows": 201,
+      "confirmed_games": 195,
       "url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -2447,10 +2448,10 @@
     },
     {
       "team": "Southern Ind.",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 16,
-      "confirmed_games": 8,
-      "url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027"
+      "status": "verified-official",
+      "parsed_rows": 35,
+      "confirmed_games": 33,
+      "url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
     },
     {
       "team": "Southern U.",
@@ -2544,5 +2545,5 @@
       "url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ],
-  "official_verified": 326
+  "official_verified": 328
 }
