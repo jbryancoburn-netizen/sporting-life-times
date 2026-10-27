@@ -56,7 +56,7 @@ async function start(){
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
 
  // Tournament-source aliases are registered only when the canonical NCAA school exists.
- for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"],[ "St. John\'s (NY)","St John\'s"],["Saint Francis","St Francis PA"],["Mount St. Mary\'s","Mt St Mary\'s"],["Miami (Ohio)","Miami OH"],["Prairie View A&M","Prairie View"],["Ohio State","Ohio St"],["California Baptist","Cal Baptist"],["Saint Joseph\'s","St Joseph\'s PA"],["Illinois-Chicago","IL Chicago"],["Stephen F. Austin","Stephen F Austin"]]){const id=resolve(canonical);if(id)register(external,id)}
+ for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"],[ "St. John\'s (NY)","St John\'s"],["Saint Francis","St Francis PA"],["Mount St. Mary\'s","Mt St Mary\'s"],["Miami (Ohio)","Miami OH"],["Prairie View A&M","Prairie View"],["Ohio State","Ohio St"],["California Baptist","Cal Baptist"],["Saint Joseph\'s","St Joseph\'s PA"],["Illinois-Chicago","IL Chicago"],["Stephen F. Austin","Stephen F Austin"],["Loyola (IL)","Loyola Chicago"],["Middle Tennessee State","Middle Tenn"],["Cal State Northridge","CSUN"],["Arkansas State","Arkansas St"]]){const id=resolve(canonical);if(id)register(external,id)}
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
   const base=zero.get(row.Season);if(!base||!names.has(row.WTeamID)||!names.has(row.LTeamID))continue;
@@ -115,19 +115,21 @@ async function start(){
    }
   }
  }catch(error){console.warn("2026 NCAA classifications unavailable",error)}
- // Explicit, date-specific 2026 NIT bracket results; never infer tournament type by date alone.
+ // Exact date, participant identities and final scores are required for NIT verification.
  const verifiedSecondary=new Map();
- try{
-  const response=await fetch("data/ncaam-postseason-2026-nit.json",{cache:"no-cache"});
-  if(response.ok){const document=await response.json();
+ for(const season of [2025,2026]){
+  try{
+   const response=await fetch("data/ncaam-postseason-"+season+"-nit.json",{cache:"no-cache"});
+   if(!response.ok)throw Error("HTTP "+response.status);
+   const document=await response.json();
    for(const g of document.games||[]){
     const winner=resolve(g.winner),loser=resolve(g.loser),ws=Number(g.ws),ls=Number(g.ls);
-    if(!winner||!loser||winner===loser||!Number.isFinite(ws)||!Number.isFinite(ls)||ws<=ls)continue;
-    const key=[Number(g.season),winner,loser,ws,ls,g.date].join("|");
-    verifiedSecondary.set(key,{tournament:"NIT",round:g.round,source:"2026 NIT verified bracket"});
+    if(!winner||!loser||winner===loser||!g.date||!Number.isFinite(ws)||!Number.isFinite(ls)||ws<=ls)continue;
+    const key=[season,winner,loser,ws,ls,g.date].join("|");
+    verifiedSecondary.set(key,{tournament:"NIT",round:g.round,source:season+" NIT verified bracket"});
    }
-  }
- }catch(error){console.warn("2026 NIT classification unavailable",error)}
+  }catch(error){console.warn(season+" NIT classification unavailable",error)}
+ }
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  const recentDownloads=await Promise.allSettled(years.map(year=>download("historical-normalized/sportsdataverse/ncaa-"+year+"-verified-results.csv")));
