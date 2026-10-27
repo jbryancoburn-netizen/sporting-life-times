@@ -17,3 +17,48 @@ body[data-league="nbl"] #league-results-status {display:none}
 body[data-league="nbl"] .nbl-front-feature-links {display:flex;flex-wrap:wrap;gap:9px;margin:11px 0 20px}
 body[data-league="nbl"] .nbl-front-feature-links a {padding:10px 14px;background:#fffdf8;border:1px solid #ced8d5;color:#17383d;font:700 11px 'DM Sans',Arial,sans-serif;text-decoration:none}
 body[data-league="nbl"] .nbl-front-feature-links a:hover {border-color:#087e83;color:#087e83}
+
+/* Canonical NBL crest dimensions. Last loaded CSS file, no transforms. */
+body[data-league="nbl"] .nbl-showcase-stand-row {
+ grid-template-columns:24px 49px minmax(0,1fr) 48px 46px !important;
+ gap:7px !important; min-height:74px !important;
+}
+body[data-league="nbl"] .nbl-showcase-stand-row .nbl-showcase-emblem {
+ box-sizing:border-box !important; width:47px !important; height:47px !important;
+ min-width:0 !important; max-width:47px !important; max-height:47px !important;
+ overflow:hidden !important; transform:none !important;
+}
+body[data-league="nbl"] .nbl-showcase-stand-row .nbl-showcase-emblem img {
+ box-sizing:border-box !important; width:100% !important; height:100% !important;
+ max-width:100% !important; max-height:100% !important;
+ object-fit:contain !important; transform:none !important; scale:none !important;
+}
+body[data-league="nbl"] .nbl-club-tile {display:flex !important; gap:10px !important;align-items:center !important;}
+body[data-league="nbl"] .nbl-club-tile .nbl-tile-mark {
+ box-sizing:border-box !important; display:grid !important; place-items:center !important;
+ flex:0 0 48px !important; width:48px !important;height:48px !important;
+ max-width:48px !important;max-height:48px !important;
+ overflow:hidden !important; transform:none !important;
+}
+body[data-league="nbl"] .nbl-club-tile .nbl-tile-mark img {
+ box-sizing:border-box !important; width:100% !important;height:100% !important;
+ max-width:100% !important;max-height:100% !important;
+ object-fit:contain !important;transform:none !important;scale:none !important;
+}
+body[data-league="nbl"] .nbl-tile-name {min-width:0 !important;overflow-wrap:break-word !important;}
+body[data-league="nbl"] .nbl-result-row .club img {
+ box-sizing:border-box !important;flex:0 0 37px !important;
+ width:37px !important;height:37px !important;
+ max-width:37px !important;max-height:37px !important;
+ object-fit:contain !important;transform:none !important;scale:none !important;
+}
+@media(max-width:650px){
+ body[data-league="nbl"] .nbl-showcase-stand-row {
+  grid-template-columns:22px 48px minmax(0,1fr) 43px 43px !important;
+  gap:6px !important;padding:8px 6px !important;
+ }
+ body[data-league="nbl"] .nbl-club-tile .nbl-tile-mark {
+  flex-basis:46px !important;width:46px !important;height:46px !important;
+  max-width:46px !important;max-height:46px !important;
+ }
+}
