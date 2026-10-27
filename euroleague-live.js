@@ -34,7 +34,10 @@ try{
  const latestStat=latest?'<div class="el-live-stat"><small>Q'+latest.period+' scoring</small><strong>'+latest.away+'–'+latest.home+'</strong></div>':'';
  const pregame=odds!==null?'<div class="el-live-stat"><small>Pregame Elo · '+esc(g.home.code)+'</small><strong>'+odds+'%</strong></div>':'';
  const forecast=pred?.projection?'<div class="el-live-stat"><small>Pregame projected total</small><strong>'+Number(pred.projection.total)+'</strong></div>':'';
- const stats='<div class="el-live-quickstats">'+latestStat+pregame+forecast+'</div>';
+ const leader=scored?(h>a?g.home.name:a>h?g.away.name:'Tied'):'Not yet available';
+ const leadStat=scored?'<div class="el-live-stat"><small>Currently leading</small><strong>'+esc(leader)+'</strong></div>':'';
+ const combined=scored?'<div class="el-live-stat"><small>Points scored</small><strong>'+esc(a+h)+'</strong></div>':'';
+ const stats='<div class="el-live-quickstats">'+leadStat+combined+latestStat+pregame+forecast+'</div>';
  const extra=pred?.projection?'<div class="el-live-projection">PREGAME MODEL · '+esc(pred.away?.name||g.away.name)+' '+pred.projection.away+' – '+pred.projection.home+' '+esc(pred.home?.name||g.home.name)+'</div>':'';
  const margin=scored?'<div class="el-live-stat"><small>Current margin</small><strong>'+Math.abs(a-h)+' pts</strong></div>':'';
  const info='<div class="el-live-detail-inner"><h4>GAME BREAKDOWN</h4>'+quarters+'<div class="el-live-detail-stats">'+margin+(scored?'<div class="el-live-stat"><small>Combined points</small><strong>'+(a+h)+'</strong></div>':'')+'</div>'+extra+'<p class="el-live-unavailable">Live rebounds, assists, shooting and player leaders will appear only when an official statistics feed is verified.</p></div>';
