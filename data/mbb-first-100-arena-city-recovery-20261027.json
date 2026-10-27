@@ -1,0 +1,775 @@
+{
+  "schools_processed": 100,
+  "files_missing": 0,
+  "files_modified": 98,
+  "totals": {
+    "city_state_added": 1479,
+    "arena_name_added": 959,
+    "city_only_no_arena": 1153,
+    "missing_venue": 387,
+    "removed_filter_text": 5
+  },
+  "method": "Parse only explicit locations from existing source strings; not external source verification.",
+  "schools": [
+    {
+      "team": "A&M-Corpus Christi",
+      "id": "357",
+      "games": 32,
+      "city_state_added": 32,
+      "city_only_no_arena": 32
+    },
+    {
+      "team": "Abilene Christian",
+      "id": "2000",
+      "games": 32,
+      "arena_name_added": 18,
+      "city_state_added": 7,
+      "city_only_no_arena": 7
+    },
+    {
+      "team": "Air Force",
+      "id": "2005",
+      "games": 32,
+      "city_state_added": 32,
+      "city_only_no_arena": 15,
+      "arena_name_added": 17
+    },
+    {
+      "team": "Akron",
+      "id": "2006",
+      "games": 32,
+      "city_state_added": 29,
+      "city_only_no_arena": 13,
+      "arena_name_added": 16
+    },
+    {
+      "team": "Alabama",
+      "id": "333",
+      "games": 33,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Alabama A&M",
+      "id": "2010",
+      "games": 46,
+      "city_state_added": 35,
+      "city_only_no_arena": 35
+    },
+    {
+      "team": "Alabama St.",
+      "id": "2011",
+      "games": 34,
+      "city_state_added": 34,
+      "city_only_no_arena": 34
+    },
+    {
+      "team": "Alcorn",
+      "id": "2016",
+      "games": 33,
+      "city_state_added": 22,
+      "city_only_no_arena": 22
+    },
+    {
+      "team": "American",
+      "id": "44",
+      "games": 39,
+      "city_state_added": 10,
+      "city_only_no_arena": 10
+    },
+    {
+      "team": "App State",
+      "id": "2026",
+      "games": 34,
+      "city_state_added": 8,
+      "city_only_no_arena": 8
+    },
+    {
+      "team": "Arizona",
+      "id": "12",
+      "games": 34,
+      "arena_name_added": 24,
+      "city_state_added": 7,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Arizona St.",
+      "id": "9",
+      "games": 28,
+      "missing_venue": 6,
+      "city_state_added": 8,
+      "city_only_no_arena": 2,
+      "arena_name_added": 15
+    },
+    {
+      "team": "Ark.-Pine Bluff",
+      "id": "2029",
+      "games": 30,
+      "city_state_added": 27,
+      "city_only_no_arena": 27
+    },
+    {
+      "team": "Arkansas",
+      "id": "8",
+      "games": 22,
+      "missing_venue": 6,
+      "arena_name_added": 6,
+      "city_state_added": 5,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "Arkansas St.",
+      "id": "2032",
+      "games": 32,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Army West Point",
+      "id": "349",
+      "games": 34,
+      "arena_name_added": 29,
+      "city_state_added": 7,
+      "city_only_no_arena": 1,
+      "missing_venue": 2
+    },
+    {
+      "team": "Auburn",
+      "id": "2",
+      "games": 35
+    },
+    {
+      "team": "Austin Peay",
+      "id": "2046",
+      "games": 38,
+      "city_state_added": 17,
+      "city_only_no_arena": 17
+    },
+    {
+      "team": "Ball St.",
+      "id": "2050",
+      "games": 33,
+      "arena_name_added": 17,
+      "city_state_added": 8,
+      "city_only_no_arena": 8
+    },
+    {
+      "team": "Baylor",
+      "id": "239",
+      "games": 32,
+      "city_state_added": 22,
+      "arena_name_added": 32
+    },
+    {
+      "team": "Bellarmine",
+      "id": "91",
+      "games": 34,
+      "city_state_added": 34,
+      "city_only_no_arena": 34
+    },
+    {
+      "team": "Belmont",
+      "id": "2057",
+      "games": 33,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Bethune-Cookman",
+      "id": "2065",
+      "games": 135,
+      "removed_filter_text": 1,
+      "missing_venue": 66,
+      "city_state_added": 14,
+      "city_only_no_arena": 14
+    },
+    {
+      "team": "Binghamton",
+      "id": "2066",
+      "games": 139,
+      "removed_filter_text": 1,
+      "city_state_added": 64,
+      "city_only_no_arena": 64,
+      "missing_venue": 74
+    },
+    {
+      "team": "Boise St.",
+      "id": "68",
+      "games": 32,
+      "city_state_added": 16,
+      "arena_name_added": 17
+    },
+    {
+      "team": "Boston College",
+      "id": "103",
+      "games": 33,
+      "arena_name_added": 19,
+      "city_state_added": 10,
+      "city_only_no_arena": 10
+    },
+    {
+      "team": "Boston U.",
+      "id": "104",
+      "games": 31,
+      "city_state_added": 29,
+      "city_only_no_arena": 29
+    },
+    {
+      "team": "Bowling Green",
+      "id": "189",
+      "games": 33,
+      "city_state_added": 26,
+      "arena_name_added": 31,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "Bradley",
+      "id": "71",
+      "games": 30,
+      "missing_venue": 21,
+      "arena_name_added": 6,
+      "city_state_added": 6,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "Brown",
+      "id": "225",
+      "games": 30,
+      "arena_name_added": 28,
+      "city_state_added": 4,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "Bryant",
+      "id": "2803",
+      "games": 32,
+      "city_state_added": 16,
+      "city_only_no_arena": 16
+    },
+    {
+      "team": "Bucknell",
+      "id": "2083",
+      "games": 34,
+      "city_state_added": 24,
+      "city_only_no_arena": 9,
+      "arena_name_added": 15
+    },
+    {
+      "team": "Buffalo",
+      "id": "2084",
+      "games": 34,
+      "city_state_added": 10,
+      "city_only_no_arena": 10,
+      "arena_name_added": 16
+    },
+    {
+      "team": "Butler",
+      "id": "2086",
+      "games": 33,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "BYU",
+      "id": "252",
+      "games": 25,
+      "city_state_added": 17,
+      "city_only_no_arena": 6,
+      "arena_name_added": 14,
+      "missing_venue": 2
+    },
+    {
+      "team": "Cal Poly",
+      "id": "13",
+      "games": 31,
+      "city_state_added": 30,
+      "arena_name_added": 15,
+      "city_only_no_arena": 15
+    },
+    {
+      "team": "Cal St. Fullerton",
+      "id": "2239",
+      "games": 34,
+      "city_state_added": 34,
+      "city_only_no_arena": 34
+    },
+    {
+      "team": "California",
+      "id": "25",
+      "games": 34,
+      "arena_name_added": 30,
+      "city_state_added": 4,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "California Baptist",
+      "id": "2856",
+      "games": 33,
+      "city_state_added": 18,
+      "arena_name_added": 18,
+      "city_only_no_arena": 15
+    },
+    {
+      "team": "Campbell",
+      "id": "2097",
+      "games": 34,
+      "city_state_added": 22,
+      "city_only_no_arena": 22
+    },
+    {
+      "team": "Canisius",
+      "id": "2099",
+      "games": 37,
+      "city_state_added": 37,
+      "city_only_no_arena": 37
+    },
+    {
+      "team": "Central Ark.",
+      "id": "2110",
+      "games": 32,
+      "city_state_added": 14,
+      "city_only_no_arena": 14
+    },
+    {
+      "team": "Central Conn. St.",
+      "id": "2115",
+      "games": 30
+    },
+    {
+      "team": "Central Mich.",
+      "id": "2117",
+      "games": 33,
+      "arena_name_added": 16,
+      "city_state_added": 10,
+      "city_only_no_arena": 10
+    },
+    {
+      "team": "Charleston So.",
+      "id": "2127",
+      "games": 32,
+      "city_state_added": 18,
+      "city_only_no_arena": 17,
+      "arena_name_added": 15
+    },
+    {
+      "team": "Charlotte",
+      "id": "2429",
+      "games": 33,
+      "arena_name_added": 8,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "Chattanooga",
+      "id": "236",
+      "games": 34,
+      "arena_name_added": 32,
+      "city_state_added": 4,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "Chicago St.",
+      "id": "2130",
+      "games": 32,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "Cincinnati",
+      "id": "2132",
+      "games": 32,
+      "city_state_added": 15,
+      "city_only_no_arena": 6,
+      "missing_venue": 8,
+      "arena_name_added": 14
+    },
+    {
+      "team": "Clemson",
+      "id": "228",
+      "games": 23,
+      "missing_venue": 6,
+      "city_state_added": 8,
+      "city_only_no_arena": 1,
+      "arena_name_added": 12
+    },
+    {
+      "team": "Cleveland St.",
+      "id": "325",
+      "games": 127,
+      "removed_filter_text": 1,
+      "city_state_added": 46,
+      "city_only_no_arena": 46,
+      "missing_venue": 62
+    },
+    {
+      "team": "Coastal Carolina",
+      "id": "324",
+      "games": 33,
+      "arena_name_added": 17,
+      "city_state_added": 5,
+      "city_only_no_arena": 5,
+      "missing_venue": 1
+    },
+    {
+      "team": "Col. of Charleston",
+      "id": "232",
+      "games": 33,
+      "arena_name_added": 18,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Colgate",
+      "id": "2142",
+      "games": 195,
+      "removed_filter_text": 1,
+      "missing_venue": 34,
+      "city_state_added": 18,
+      "city_only_no_arena": 18
+    },
+    {
+      "team": "Colorado",
+      "id": "38",
+      "games": 32,
+      "arena_name_added": 18,
+      "city_state_added": 4,
+      "city_only_no_arena": 4
+    },
+    {
+      "team": "Colorado St.",
+      "id": "36",
+      "games": 32,
+      "city_state_added": 32,
+      "arena_name_added": 18,
+      "city_only_no_arena": 14
+    },
+    {
+      "team": "Columbia",
+      "id": "171",
+      "games": 30,
+      "arena_name_added": 16,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "Coppin St.",
+      "id": "2154",
+      "games": 131,
+      "removed_filter_text": 1,
+      "city_state_added": 64,
+      "city_only_no_arena": 64,
+      "missing_venue": 64
+    },
+    {
+      "team": "Cornell",
+      "id": "172",
+      "games": 27,
+      "city_state_added": 4,
+      "arena_name_added": 10,
+      "missing_venue": 12
+    },
+    {
+      "team": "Creighton",
+      "id": "156",
+      "games": 33,
+      "city_state_added": 4,
+      "city_only_no_arena": 4,
+      "arena_name_added": 18
+    },
+    {
+      "team": "CSU Bakersfield",
+      "id": "2934",
+      "games": 21,
+      "city_state_added": 20,
+      "city_only_no_arena": 20
+    },
+    {
+      "team": "CSUN",
+      "id": "2463",
+      "games": 32,
+      "arena_name_added": 30,
+      "city_state_added": 2
+    },
+    {
+      "team": "Dartmouth",
+      "id": "159",
+      "games": 28,
+      "arena_name_added": 14,
+      "city_state_added": 2,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "Davidson",
+      "id": "2166",
+      "games": 33,
+      "city_state_added": 13,
+      "arena_name_added": 23,
+      "city_only_no_arena": 10
+    },
+    {
+      "team": "Dayton",
+      "id": "2168",
+      "games": 36,
+      "city_state_added": 27,
+      "city_only_no_arena": 27
+    },
+    {
+      "team": "Delaware",
+      "id": "48",
+      "games": 33,
+      "arena_name_added": 18,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "Delaware St.",
+      "id": "2169",
+      "games": 14,
+      "city_state_added": 14,
+      "city_only_no_arena": 14
+    },
+    {
+      "team": "Denver",
+      "id": "2172",
+      "games": 32,
+      "arena_name_added": 12,
+      "city_state_added": 4,
+      "city_only_no_arena": 4
+    },
+    {
+      "team": "DePaul",
+      "id": "305",
+      "games": 34,
+      "arena_name_added": 19,
+      "city_state_added": 4,
+      "city_only_no_arena": 4
+    },
+    {
+      "team": "Detroit Mercy",
+      "id": "2174",
+      "games": 31,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "Drake",
+      "id": "2181",
+      "games": 32,
+      "city_state_added": 23,
+      "city_only_no_arena": 23
+    },
+    {
+      "team": "Drexel",
+      "id": "2182",
+      "games": 32,
+      "city_state_added": 24,
+      "city_only_no_arena": 9,
+      "arena_name_added": 15
+    },
+    {
+      "team": "Duke",
+      "id": "150",
+      "games": 36,
+      "arena_name_added": 33,
+      "city_state_added": 9
+    },
+    {
+      "team": "Duquesne",
+      "id": "2184",
+      "games": 32,
+      "city_state_added": 25,
+      "city_only_no_arena": 25
+    },
+    {
+      "team": "East Carolina",
+      "id": "151",
+      "games": 30,
+      "arena_name_added": 29,
+      "city_state_added": 4
+    },
+    {
+      "team": "East Texas A&M",
+      "id": "2837",
+      "games": 33,
+      "city_state_added": 4,
+      "city_only_no_arena": 4
+    },
+    {
+      "team": "Eastern Ill.",
+      "id": "2197",
+      "games": 32,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "Eastern Ky.",
+      "id": "2198",
+      "games": 36,
+      "city_state_added": 25,
+      "city_only_no_arena": 25
+    },
+    {
+      "team": "Eastern Mich.",
+      "id": "2199",
+      "games": 32,
+      "city_state_added": 8,
+      "city_only_no_arena": 8,
+      "arena_name_added": 16
+    },
+    {
+      "team": "Eastern Wash.",
+      "id": "331",
+      "games": 34,
+      "city_state_added": 16,
+      "city_only_no_arena": 16
+    },
+    {
+      "team": "Elon",
+      "id": "2210",
+      "games": 32,
+      "city_state_added": 31,
+      "city_only_no_arena": 31
+    },
+    {
+      "team": "ETSU",
+      "id": "2193",
+      "games": 33,
+      "city_state_added": 2,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "Evansville",
+      "id": "339",
+      "games": 35,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Fairfield",
+      "id": "2217",
+      "games": 24,
+      "city_state_added": 1,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "FDU",
+      "id": "161",
+      "games": 32,
+      "city_state_added": 4,
+      "city_only_no_arena": 4
+    },
+    {
+      "team": "FGCU",
+      "id": "526",
+      "games": 42,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "FIU",
+      "id": "2229",
+      "games": 36,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "Fla. Atlantic",
+      "id": "2226",
+      "games": 33,
+      "arena_name_added": 32,
+      "city_state_added": 7,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "Florida",
+      "id": "57",
+      "games": 30,
+      "city_state_added": 30,
+      "city_only_no_arena": 14,
+      "arena_name_added": 16
+    },
+    {
+      "team": "Florida A&M",
+      "id": "50",
+      "games": 35,
+      "city_state_added": 9,
+      "city_only_no_arena": 9
+    },
+    {
+      "team": "Florida St.",
+      "id": "52",
+      "games": 35,
+      "arena_name_added": 35,
+      "city_state_added": 2
+    },
+    {
+      "team": "Fordham",
+      "id": "2230",
+      "games": 32,
+      "city_state_added": 11,
+      "city_only_no_arena": 11
+    },
+    {
+      "team": "Fresno St.",
+      "id": "278",
+      "games": 32,
+      "city_state_added": 32,
+      "arena_name_added": 18,
+      "city_only_no_arena": 14
+    },
+    {
+      "team": "Furman",
+      "id": "231",
+      "games": 35,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "Ga. Southern",
+      "id": "290",
+      "games": 32,
+      "city_state_added": 16,
+      "city_only_no_arena": 16,
+      "missing_venue": 1
+    },
+    {
+      "team": "Gardner-Webb",
+      "id": "2241",
+      "games": 31,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "George Mason",
+      "id": "2244",
+      "games": 28,
+      "missing_venue": 22,
+      "city_state_added": 5,
+      "city_only_no_arena": 3,
+      "arena_name_added": 3
+    },
+    {
+      "team": "George Washington",
+      "id": "45",
+      "games": 33,
+      "city_state_added": 33,
+      "arena_name_added": 19,
+      "city_only_no_arena": 14
+    },
+    {
+      "team": "Georgetown",
+      "id": "46",
+      "games": 34,
+      "city_state_added": 2,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "Georgia",
+      "id": "61",
+      "games": 36,
+      "city_state_added": 23,
+      "arena_name_added": 32,
+      "city_only_no_arena": 1
+    }
+  ]
+}
