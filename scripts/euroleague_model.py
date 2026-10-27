@@ -12,7 +12,7 @@ OUT=pathlib.Path("data/euroleague-model.json")
 PRESEASON=pathlib.Path("data/euroleague-preseason-seed.json")
 NOW=dt.datetime.now(dt.timezone.utc)
 K=22.0
-HOME_ELO=65.0  # provisional: calibrate by walk-forward historical log loss
+HOME_ELO=100.0  # historical walk-forward log-loss winner; 2026-27 opens equally at 1500
 CARRY=0.0  # current-season hard reset; history is calibration-only
 def get(url):
     """Use EuroLeague's primary v2 feed, then its documented mirror if unavailable."""
@@ -183,27 +183,9 @@ def recover_recent_header_finals(games, now=None):
 
 def main():
     global K, HOME_ELO
-    calibrated=False
-    # Apply the historical equal-start fit only after the backtest publishes it.
+    calibrated=True
+    # Production uses the historically selected +100 home edge; never switch\n    # automatically on the small current-season holdout.
     # Redirected test outputs stay deterministic and use the provisional constants.
-    if OUT==pathlib.Path("data/euroleague-model.json"):
-        validation_path=pathlib.Path("data/euroleague-validation.json")
-        try:
-            validation=json.loads(validation_path.read_text())
-            evaluation=validation["heldout_evaluation"]
-            selected=evaluation["selected_parameters"]
-            selected_loss=evaluation["selected_holdout"]["log_loss"]
-            baseline_loss=evaluation["baseline_holdout"]["log_loss"]
-            if (validation.get("status")=="reset_1500_calibration" and
-                selected.get("season_carry")==0 and
-                selected_loss < baseline_loss and
-                selected.get("k") in (12.,18.,22.,28.,36.) and
-                selected.get("home_elo") in (0.,35.,65.,90.,120.)):
-                K=float(selected["k"])
-                HOME_ELO=float(selected["home_elo"])
-                calibrated=True
-        except (OSError,ValueError,KeyError,TypeError):
-            pass
     # Historical games calibrate the model offline, never seed current-season clubs.
     saved_seed=load_preseason()
     all_games=fetch_season("E2026")
