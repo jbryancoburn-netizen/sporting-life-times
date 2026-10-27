@@ -23,9 +23,13 @@ for(const page of found){
   for(const id of ['college-soccer-elo-table','college-soccer-predictions-list','league-news-grid'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
   for(const id of ['league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(!html.includes('id="'+id+'"'),'legacy soccer panel remains: '+id);
   for(const loader of ['league-desks.js','college-soccer-elo.js','college-soccer-predictions.js'])assert(html.includes(loader),'soccer loader missing: '+loader);
- }else if(!['nba.html','epl.html'].includes(page)){
+ }else if(!['nba.html','epl.html','euroleague.html'].includes(page)){
   for(const id of ['league-news-grid','league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
   assert(html.includes('league-desks.js'),'shared data loader missing: '+page);
+ }
+ if(page==='euroleague.html'){
+  assert(html.includes('euroleague-edition.js'),'EuroLeague edition loader missing');
+  assert(html.includes('standings-panel'),'EuroLeague standings panel missing');
  }
 }
 for(const page of ['euroleague.html','nbl.html','college-basketball.html','nfl.html','mlb.html','nhl.html','champions-league.html'])assert(found.includes(page),'important league absent: '+page);
