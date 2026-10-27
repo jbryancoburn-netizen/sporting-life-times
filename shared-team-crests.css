@@ -67,3 +67,8 @@
   .slt-mark--small{--slt-mark-size:26px}
 }
 @media(prefers-reduced-motion:reduce){.slt-mark{transition:none!important}}
+
+
+/* Single site-wide logo geometry. Containers cannot stretch the crest into an oval. */
+.slt-mark{display:inline-grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;place-items:center!important;aspect-ratio:1/1!important;inline-size:var(--slt-mark-size)!important;block-size:var(--slt-mark-size)!important;min-inline-size:var(--slt-mark-size)!important;max-inline-size:var(--slt-mark-size)!important;min-block-size:var(--slt-mark-size)!important;max-block-size:var(--slt-mark-size)!important;border-radius:50%!important;overflow:hidden!important;flex-grow:0!important;flex-shrink:0!important}
+.slt-mark>img{grid-area:1/1;box-sizing:border-box!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;border:0!important;border-radius:0!important;padding:2px!important;transform:none!important}
