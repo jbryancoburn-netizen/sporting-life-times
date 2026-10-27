@@ -22,6 +22,23 @@ try{
  ['TOP DEFENSE',defense.name,(defense.against/defense.played).toFixed(1)+' points allowed']
  ];
  $('el-front-strip').innerHTML=tiles.map(([title,value,sub])=>'<div class="el-front-number"><small>'+esc(title)+'</small><strong>'+esc(value)+'</strong><span>'+esc(sub)+'</span></div>').join('');
+
+ const insight=$('el-insights-grid');
+ if(insight){
+  const sample=table.filter(t=>t.played>0);
+  const leader=(arr,fn)=>[...arr].sort(fn).slice(0,6);
+  const charts=[
+   {heading:'ELO POWER INDEX',unit:'Elo',rows:leader(teams,(a,b)=>b.elo-a.elo),value:t=>Number(t.elo),label:t=>Number(t.elo).toFixed(1),baseline:1450},
+   {heading:'POINTS PER GAME',unit:'PPG',rows:leader(sample,(a,b)=>b.for/b.played-a.for/a.played),value:t=>t.for/t.played,label:t=>(t.for/t.played).toFixed(1),baseline:0},
+   {heading:'DEFENSIVE WALL',unit:'Opponent PPG',rows:leader(sample,(a,b)=>a.against/a.played-b.against/b.played),value:t=>110-t.against/t.played,label:t=>(t.against/t.played).toFixed(1)+' allowed',baseline:0},
+   {heading:'POINT DIFFERENTIAL',unit:'Per game',rows:leader(sample,(a,b)=>(b.for-b.against)/b.played-(a.for-a.against)/a.played),value:t=>(t.for-t.against)/t.played,label:t=>((t.for-t.against)/t.played>0?'+':'')+((t.for-t.against)/t.played).toFixed(1),baseline:0}
+  ];
+  insight.innerHTML=charts.map(ch=>{
+   const vals=ch.rows.map(ch.value),hi=Math.max(...vals,1),lo=Math.min(ch.baseline,...vals);
+   return '<article class="el-chart"><header><h3>'+esc(ch.heading)+'</h3><small>'+esc(ch.unit)+' · verified season games</small></header>'+
+   ch.rows.map((t,i)=>'<div class="el-chart-row"><span class="el-chart-rank">'+(i+1)+'</span><span class="el-chart-club">'+logo(t)+'<span title="'+esc(t.name)+'">'+esc(t.name)+'</span></span><div class="el-chart-track"><i style="width:'+Math.max(3,Math.min(100,100*(ch.value(t)-lo)/(hi-lo||1))).toFixed(1)+'%"></i></div><b>'+esc(ch.label(t))+'</b></div>').join('')+'</article>';
+  }).join('');
+ }
  const byCode=new Map(teams.map(t=>[t.code,t]));
  $('el-recent-results-list').innerHTML=results.length?results.slice(0,10).map(g=>{
  const away=byCode.get(g.away)||{code:g.away},home=byCode.get(g.home)||{code:g.home};
