@@ -51,7 +51,7 @@ def usi():
   # Validate the existing calendar against all 31 dates read from the official grid.
   official_dates='11-02 11-04 11-07 11-11 11-15 11-18 11-22 11-24 11-28 12-01 12-06 12-16 12-18 12-21 12-28 12-31 01-02 01-07 01-09 01-13 01-21 01-23 01-28 01-30 02-04 02-06 02-13 02-18 02-20 02-25 02-27'.split()
   target=out/(cross['Southern Ind.']+'.json')
-  prior=json.loads(target.read_text())
+  prior=json.JSONDecoder().raw_decode(target.read_text())[0]
   events=prior.get('events',[])
   dated={}
   for e in events:
