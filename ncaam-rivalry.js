@@ -99,8 +99,9 @@ async function start(){
  }catch(error){console.warn("2026 NCAA classifications unavailable",error)}
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
- for(const year of years){
-  try{const rows=parseCSV(await download("historical-normalized/sportsdataverse/ncaa-"+year+"-verified-results.csv"));
+ const recentDownloads=await Promise.allSettled(years.map(year=>download("historical-normalized/sportsdataverse/ncaa-"+year+"-verified-results.csv")));
+ for(let index=0;index<years.length;index++){
+  const year=years[index];try{if(recentDownloads[index].status!=="fulfilled")throw recentDownloads[index].reason;const rows=parseCSV(recentDownloads[index].value);
    for(const g of rows){const h=resolve(g.homeTeam),a=resolve(g.awayTeam);
     if(!h||!a||h===a){for(const n of [g.homeTeam,g.awayTeam])if(!resolve(n))unmatched.set(n,(unmatched.get(n)||0)+1);continue}
     const hs=Number(g.homePoints),as=Number(g.awayPoints);
