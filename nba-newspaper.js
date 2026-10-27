@@ -49,6 +49,18 @@ async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],a
  prior=Object.fromEntries((data.old?.rankings||[]).map(x=>[x.team,x.elo]));
  records=Object.fromEntries(codes.map(t=>[t,{w:0,l:0,pf:0,pa:0}]));
  const seen=new Set();
+ // Completed box scores are a second verified source for franchise results.
+ // Some Pages loads receive an empty/unavailable current ledger even while Elo loads.
+ const resultEvents=new Map();
+ const ingest=e=>{if(!e?.id||!meta[e.home]||!meta[e.away]||!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))return;resultEvents.set(String(e.id),e)};
+ for(const game of data.archive?.games||[]){
+  if(game.state!=='post')continue;
+  const away=game.teams?.find(x=>x.home_away==='away'),home=game.teams?.find(x=>x.home_away==='home');
+  if(!away||!home)continue;
+  ingest({id:game.id,home:home.code,away:away.code,home_score:home.score,away_score:away.score,date:game.date});
+ }
+ for(const g of data.current?.events||[])ingest(g);
+ data.current={...(data.current||{}),events:[...resultEvents.values()].sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))};
  (data.current?.events||[]).forEach(g=>{if(!meta[g.home]||!meta[g.away]||!Number.isFinite(+g.home_score)||!Number.isFinite(+g.away_score)||seen.has(g.id))return;
  seen.add(g.id);let h=records[g.home],a=records[g.away];h.pf+=+g.home_score;h.pa+=+g.away_score;a.pf+=+g.away_score;a.pa+=+g.home_score;if(+g.home_score>+g.away_score){h.w++;a.l++}else if(+g.away_score>+g.home_score){a.w++;h.l++}});
  ordered=codes.filter(t=>Number.isFinite(rates[t])).sort((a,b)=>rates[b]-rates[a]||name(a).localeCompare(name(b)));
