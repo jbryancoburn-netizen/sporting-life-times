@@ -111,8 +111,29 @@ async function update(){
   if(diff>30*3600000){dedup.set(pair+'-'+event.id,event);continue;}
   if(priority(event)>priority(current))dedup.set(pair,event);
  }
- if(dedup.size){
-  render({events:[...dedup.values()]});lastOK=Date.now();
+ // A club cannot appear in overlapping NBA games. A live/final provider game
+ // takes precedence over an unverified scheduled snapshot for that same slot.
+ const gameTeams=e=>(e.competitions?.[0]?.competitors||[]).map(c=>canonical(c.team?.abbreviation||'')).filter(Boolean);
+ const gameTime=e=>Date.parse(e.date||'');
+ const active=[...dedup.values()].filter(e=>e.status?.type?.state==='in');
+ const filtered=[...dedup.values()].filter(e=>{
+  if(e.status?.type?.state!=='pre')return true;
+  const teams=gameTeams(e),time=gameTime(e);
+  return !active.some(live=>Math.abs(gameTime(live)-time)<18*3600000&&teams.some(t=>gameTeams(live).includes(t)));
+ });
+ // When two future fixtures still conflict, retain the one corroborated by the
+ // live scoreboard first, then the earliest published entry; never display both.
+ const verified=new Map();
+ const clean=[];
+ for(const e of filtered.sort((a,b)=>({in:0,post:1,pre:2}[a.status?.type?.state]??3)-({in:0,post:1,pre:2}[b.status?.type?.state]??3)||gameTime(a)-gameTime(b))){
+  const stamp=gameTime(e),teams=gameTeams(e);
+  const collision=teams.some(t=>(verified.get(t)||[]).some(v=>Math.abs(v-stamp)<5*3600000));
+  if(collision)continue;
+  clean.push(e);
+  for(const t of teams){const a=verified.get(t)||[];a.push(stamp);verified.set(t,a)}
+ }
+ if(clean.length){
+  render({events:clean});lastOK=Date.now();
   status.textContent=(successful.length?'LIVE SOURCES · '+successful.join(' + '):'Live feeds unavailable · published snapshot')+' · checked '+new Date(lastOK).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET · refreshes every minute';
   return;
  }
