@@ -25,6 +25,13 @@ def collect(team):
                 raise ValueError("Unexpected schedule payload")
             # Never overwrite a previously populated calendar with a transient empty feed.
             target = destination / f"{ident}.json"
+            if target.exists():
+                try:
+                    existing = json.loads(target.read_text())
+                    if existing.get("source_name") == "Indiana University Athletics official 2026-27 schedule" and len(existing.get("events", [])) >= len(events):
+                        return ident, "preserved", len(existing["events"])
+                except (OSError, ValueError):
+                    pass
             if not events and target.exists():
                 return ident, "preserved", 0
             content = {"season": "2026-27", "espn_team_id": ident,
