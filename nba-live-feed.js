@@ -3,7 +3,8 @@ const root={set innerHTML(value){const el=document.getElementById('nba-live-feed
 const status={set textContent(value){const el=document.getElementById('nba-live-status');if(el)el.textContent=value;}};
 if(!document.getElementById('nba-live-feed'))return;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const logo=c=>'https://a.espncdn.com/i/teamlogos/nba/500/'+({NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'}[c]||c.toLowerCase())+'.png';
+const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":1610612766,"CHI":1610612741,"CLE":1610612739,"DAL":1610612742,"DEN":1610612743,"DET":1610612765,"GSW":1610612744,"HOU":1610612745,"IND":1610612754,"LAC":1610612746,"LAL":1610612747,"MEM":1610612763,"MIA":1610612748,"MIL":1610612749,"MIN":1610612750,"NOP":1610612740,"NYK":1610612752,"OKC":1610612760,"ORL":1610612753,"PHI":1610612755,"PHX":1610612756,"POR":1610612757,"SAC":1610612758,"SAS":1610612759,"TOR":1610612761,"UTA":1610612762,"WAS":1610612764};
+const logo=c=>'https://cdn.nba.com/logos/nba/'+(nbaPrimaryIds[String(c||'').toUpperCase()]||1610612737)+'/primary/L/logo.svg';
 let lastOK=0;let fallbackRecords={};
 async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
 function render(payload){
