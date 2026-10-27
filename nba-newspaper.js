@@ -34,7 +34,7 @@ const logo=t=>'https://cdn.nba.com/logos/nba/'+nbaIds[t]+'/primary/L/logo.svg';
 const logoFallback=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(aliases[t]||String(t||'').toLowerCase())+'.png';
 const logoImg=(t,kind='')=>'<img class="nba-team-logo'+(kind?' '+kind:'')+'" loading="lazy" alt="" decoding="async" src="'+logo(t)+'" onerror="if(!this.dataset.logoFallback){this.dataset.logoFallback=1;this.src=\''+logoFallback(t)+'\';}else{this.hidden=true;}">';
 const name=t=>meta[t]?.[0]||t,tl=t=>'nba-team-desk.html?team='+encodeURIComponent(t);
-const team=(t,variant='')=>'<a class="team-link'+(variant==='power'?' nba-power-team-link':'')+'" href="'+tl(t)+'">'+logoImg(t,variant==='power'?'nba-power-logo':'')+'<span>'+esc(name(t))+'</span></a>';
+const team=(t,variant='')=>'<a style="--nba-club-color:'+meta[t][3]+'" class="team-link nba-brand-link'+(variant==='power'?' nba-power-team-link':'')+'" href="'+tl(t)+'">'+logoImg(t,variant==='power'?'nba-power-logo':'')+'<span>'+esc(name(t))+'</span></a>';
 const image=t=>logoImg(t);
 
 const section=(k,h,path,label)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div>'+(path?'<a href="'+path+'">'+(label||'Explore →')+'</a>':'')+'</div>';
@@ -173,7 +173,7 @@ function rankings(){
 }
 
 function playoff(){
- const seedRow=(t,i)=>'<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'"><span class="nba-race-seed">'+(i+1)+'</span><span class="nba-race-crest"><img class="badge nba-playoff-badge" style="--logo-ring:'+meta[t][3]+'" src="'+logoFallback(t)+'" alt="" loading="lazy" onerror="this.onerror=null;this.src=\''+logo(t)+'\';"></span><span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · Elo #'+rank(t)+'</small></span><span class="nba-race-record">'+rec(t)+'</span></a>';
+ const seedRow=(t,i)=>'<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'"><span class="nba-race-seed">'+(i+1)+'</span><span class="nba-race-crest nba-brand-badge" style="--nba-club-color:'+meta[t][3]+'">'+logoImg(t)+'</span><span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · Elo #'+rank(t)+'</small></span><span class="nba-race-record">'+rec(t)+'</span></a>';
  const group=(rows,heading,subtitle,kind,offset)=>'<section class="nba-race-group '+kind+'"><div class="nba-race-group-head"><div><h3>'+heading+'</h3><p>'+subtitle+'</p></div><b>'+rows.length+' teams</b></div><div class="nba-race-list">'+rows.map((t,i)=>seedRow(t,i+offset)).join('')+'</div></section>';
  const conference=c=>{const teams=stand(c);
  return '<section class="nba-race-conference" id="'+c.toLowerCase()+'"><div class="nba-race-conference-head"><div class="eyebrow">2026–27 · '+c+'ern Conference</div><h2>'+c+'ern Conference</h2><p>Ordered by reconstructed win percentage, then independent Elo when tied.</p></div><a href="nba-conference.html?conference='+c+'">Full conference standings ↗</a></div>'+
