@@ -2,7 +2,7 @@
 import copy
 import unittest
 
-from public_ratings.epl_grade import advance
+from public_ratings.epl_grade import advance, merge_verified_results
 
 
 def fixture(fid="123", kickoff="2026-10-31T15:00:00+00:00"):
@@ -63,6 +63,29 @@ class EplGradeTests(unittest.TestCase):
                  "home_score": 1, "away_score": 0, "kickoff_utc": "2026-10-25T15:00:00+00:00"}
         result = advance(feed(recent=[final]), {}, "2026-10-27T15:05:00+00:00")
         self.assertEqual(result["summary"]["graded_count"], 0)
+
+
+    def test_merge_archive_includes_old_verified_finals(self):
+        old = {"fixture_id": "123", "home": "Alpha", "away": "Beta", "home_score": 2,
+               "away_score": 0, "kickoff_utc": "2026-10-31T15:00:00+00:00"}
+        ratings = {"completed_matches": 1, "as_of_date": "2026-10-31", "season_results": [old]}
+        merged = merge_verified_results(feed("2026-10-31T18:00:00+00:00", [fixture("other", "2026-11-01T15:00:00+00:00")], []), ratings)
+        self.assertEqual(merged["recent_results"], [old])
+        prior = advance(feed(), {}, "2026-10-27T15:05:00+00:00")
+        graded = advance(merged, prior, "2026-10-31T18:05:00+00:00")
+        self.assertEqual(graded["summary"]["graded_count"], 1)
+
+    def test_conflicting_recent_and_archive_results_are_rejected(self):
+        result = {"fixture_id": "123", "home": "Alpha", "away": "Beta",
+                  "home_score": 2, "away_score": 0, "kickoff_utc": "2026-10-31T15:00:00+00:00"}
+        different = {**result, "away_score": 1}
+        ratings = {"completed_matches": 1, "as_of_date": "2026-10-31", "season_results": [result]}
+        with self.assertRaisesRegex(ValueError, "Conflicting verified"):
+            merge_verified_results(feed(recent=[different]), ratings)
+
+    def test_incomplete_verified_archive_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "does not reconcile"):
+            merge_verified_results(feed(), {"completed_matches": 2, "as_of_date": "2026-10-31", "season_results": []})
 
 
 if __name__ == "__main__":
