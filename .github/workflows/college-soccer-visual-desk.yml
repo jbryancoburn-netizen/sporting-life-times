@@ -106,7 +106,7 @@ jobs:
           assert(html.includes('id="college-team-search"'));
           assert(html.includes('college-soccer-search.css?v=restore1'));
           assert.equal((html.match(/id="college-team-search"/g)||[]).length,1,'Exactly one school search input');
-          assert(html.indexOf('id="college-team-finder"') < html.indexOf('class="hub-nav"'),'School finder must be above newspaper section navigation');
+          assert(html.indexOf('id="college-team-finder"') < html.indexOf('id="college-soccer-conference-index"'),'School finder must precede conference directory');
           assert(html.includes('class="college-search-field"'));
           assert(fs.readFileSync('college-soccer-search.css','utf8').includes('visibility:visible!important'));
           assert(fs.readFileSync('college-soccer-teams.js','utf8').includes("search.addEventListener('input',render)"));
