@@ -10,7 +10,7 @@ const norm=s=>String(s||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]
 const dateAdd=(base,days)=>{const d=new Date(base+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+Number(days));return d.toISOString().slice(0,10)};
 function parseCSV(raw){const lines=raw.replace(/^\uFEFF/,"").trim().split(/\r?\n/);const cols=lines.shift().split(",");return lines.filter(Boolean).map(line=>{const v=line.split(",");const x={};cols.forEach((c,i)=>x[c]=v[i]);return x})}
 function register(label,id){if(!label||!id)return;const key=norm(label);if(!aliases.has(key))aliases.set(key,new Set());aliases.get(key).add(String(id))}
-function resolve(label){const ids=aliases.get(norm(label));return ids&&ids.size===1?[...ids][0]:null}
+function resolve(label){const key=norm(label);const ids=aliases.get(key);if(ids&&ids.size===1)return [...ids][0];const candidates=[String(label||"").replace(/\bState\b/gi,"St"),String(label||"").replace(/\bSt\.?\b/gi,"State"),String(label||"").replace(/\bUniversity\b/gi,""),String(label||"").replace(/\bSaint\b/gi,"St")];for(const item of candidates){const found=aliases.get(norm(item));if(found&&found.size===1)return [...found][0]}return null}
 function name(id){return names.get(String(id))||String(id)}
 async function download(url){const r=await fetch(url,{cache:"force-cache"});if(!r.ok)throw Error("HTTP "+r.status+" for "+url);return r.text()}
  const applyTheme=(elem,id)=>{const colors=teamColors.get(id)||["#293F5F","#D6AF69"];elem.style.setProperty("--club",colors[0]);elem.style.setProperty("--club-secondary",colors[1])};
@@ -37,6 +37,8 @@ async function start(){
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
 
+ // Tournament-source aliases are registered only when the canonical NCAA school exists.
+ for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"]]){const id=resolve(canonical);if(id)register(external,id)}
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
   const base=zero.get(row.Season);if(!base||!names.has(row.WTeamID)||!names.has(row.LTeamID))continue;
