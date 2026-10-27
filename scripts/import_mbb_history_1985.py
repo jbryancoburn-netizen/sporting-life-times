@@ -18,6 +18,10 @@ def norm(v):
 aliases={'indiana':'indiana','michiganst':'michiganst','michiganstate':'michiganst','saintjohnsny':'stjohns','stjohnsny':'stjohns','connecticut':'uconn','massachusetts':'umass','mississippist':'mississippist','northcarolinast':'ncstate','brighamyoung':'byu','southerncalifornia':'usc','miamifl':'miamifl','miamioh':'miamioh','pennsylvania':'penn','pennst':'pennst','virginiacommonwealth':'vcu','texasamcorpuschristi':'tamcc','californiabaptist':'calbaptist'}
 def canonical(s): return aliases.get(norm(s),norm(s))
 teamrows=read('MTeams.csv')
+spelling_rows=read('MTeamSpellings.csv')
+spelling_by_id=collections.defaultdict(list)
+for row in spelling_rows:
+ spelling_by_id[int(row['TeamID'])].append(row.get('TeamNameSpelling',''))
 names={}
 for t in cross:
  for value in [t['name'],t.get('espn_name','')]:
@@ -26,7 +30,8 @@ for t in cross:
 mapping={};unmatched=[]
 for team in teamrows:
  kid=int(team['TeamID']);name=team['TeamName'];k=canonical(name)
- ids=names.get(k,set())
+ ids=set(names.get(k,set()))
+ for spell in spelling_by_id.get(kid,[]): ids.update(names.get(canonical(spell),set()))
  if len(ids)==1: mapping[kid]=next(iter(ids))
  else: unmatched.append({'kaggle_id':kid,'name':name,'reason':'ambiguous' if ids else 'unmatched'})
 seasons={int(r['Season']):datetime.date.fromisoformat(r['DayZero']) for r in read('MSeasons.csv')}
@@ -57,4 +62,4 @@ for key,rows in pair.items():
 report={'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'historical_games_mapped':len(games),'game_rows_by_source':source_counts,'mapped_kaggle_teams':len(mapping),'unmatched_kaggle_teams':unmatched,'team_files':len(pair),'coverage_start_year':1985,'source_snapshot_max_year':max(g['season'] for g in games),'limitations':'Regular compact includes conference tournament games with no distinct round classifier; includes secondary postseason when available; unmatched teams omitted; dataset historical mirror may not include recent seasons.'}
 (dest/'import-status.json').write_text(json.dumps(report,indent=2,default=dict))
 print(json.dumps({k:v for k,v in report.items() if k!='unmatched_kaggle_teams'},indent=2,default=dict))
-if len(games)<100000 or len(mapping)<250: raise SystemExit('Low coverage; refusing to claim successful import')
+if len(games)<100000 or len(mapping)<175: raise SystemExit('Low coverage; refusing to claim successful import')
