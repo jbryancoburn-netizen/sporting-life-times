@@ -29,10 +29,14 @@ POR:['Portland Trail Blazers','West','Northwest','#e03a3e'],SAC:['Sacramento Kin
 TOR:['Toronto Raptors','East','Atlantic','#ce1141'],UTA:['Utah Jazz','West','Northwest','#002b5c'],WAS:['Washington Wizards','East','Southeast','#002b5c']
 };
 const codes=Object.keys(meta),aliases={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'};
-const logo=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(aliases[t]||String(t||'').toLowerCase())+'.png';
+const nbaIds={ATL:1610612737,BOS:1610612738,BKN:1610612751,CHA:1610612766,CHI:1610612741,CLE:1610612739,DAL:1610612742,DEN:1610612743,DET:1610612765,GSW:1610612744,HOU:1610612745,IND:1610612754,LAC:1610612746,LAL:1610612747,MEM:1610612763,MIA:1610612748,MIL:1610612749,MIN:1610612750,NOP:1610612740,NYK:1610612752,OKC:1610612760,ORL:1610612753,PHI:1610612755,PHX:1610612756,POR:1610612757,SAC:1610612758,SAS:1610612759,TOR:1610612761,UTA:1610612762,WAS:1610612764};
+const logo=t=>'https://cdn.nba.com/logos/nba/'+nbaIds[t]+'/primary/L/logo.svg';
+const logoFallback=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(aliases[t]||String(t||'').toLowerCase())+'.png';
+const logoImg=(t,kind='')=>'<img class="nba-team-logo'+(kind?' '+kind:'')+'" loading="lazy" alt="'+esc(name(t))+' logo" decoding="async" src="'+logo(t)+'" onerror="if(!this.dataset.logoFallback){this.dataset.logoFallback=1;this.src=\''+logoFallback(t)+'\';}else{this.hidden=true;}">';
 const name=t=>meta[t]?.[0]||t,tl=t=>'nba-team-desk.html?team='+encodeURIComponent(t);
-const team=(t,variant='')=>'<a class="team-link'+(variant==='power'?' nba-power-team-link':'')+'" href="'+tl(t)+'"><img class="nba-team-logo'+(variant==='power'?' nba-power-logo':'')+'" loading="lazy" alt="" width="38" height="38" src="'+logo(t)+'" onerror="this.hidden=true"><span>'+esc(name(t))+'</span></a>';
-const image=t=>'<img loading="lazy" alt="" src="'+logo(t)+'" onerror="this.hidden=true">';
+const team=(t,variant='')=>'<a class="team-link'+(variant==='power'?' nba-power-team-link':'')+'" href="'+tl(t)+'">'+logoImg(t,variant==='power'?'nba-power-logo':'')+'<span>'+esc(name(t))+'</span></a>';
+const image=t=>logoImg(t);
+
 const section=(k,h,path,label)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div>'+(path?'<a href="'+path+'">'+(label||'Explore →')+'</a>':'')+'</div>';
 const blank=t=>'<div class="nba-empty">'+esc(t)+'</div>';
 let data={},rates={},seed={},prior={},records={},ordered=[],lastState='',filter='',playerFilter='';
