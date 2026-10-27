@@ -19,3 +19,8 @@
 .cs-official-match-names{display:flex;flex-direction:column;gap:.4rem}
 .cs-official-team{min-width:0}
 .cs-official-result,.cs-official-kickoff{display:block;margin:.55rem 0 0;font:700 .72rem Arial,sans-serif;color:#35556c}
+
+/* Larger, more legible soccer crests without inflating surrounding cards. */
+.cs-conf-page .cs-cup-school img,.cs-conf-page .cs-official-team img,.cs-conf-page .cs-conference-table img{width:40px!important;height:40px!important;max-width:none;object-fit:contain;flex:0 0 40px}
+.cs-conf-page .cs-conf-qualifier .cs-cup-school img{width:46px!important;height:46px!important;flex-basis:46px}
+@media(max-width:520px){.cs-conf-page .cs-conference-table img{width:32px!important;height:32px!important;flex-basis:32px}}
