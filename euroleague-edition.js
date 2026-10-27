@@ -43,16 +43,18 @@ try{
  const spot=$('el-club-spotlight');
  if(spot){
   const byStanding=new Map(table.map(t=>[t.code,t]));
+  const colors={OLY:'#cf102d',ULK:'#f2c500',MAD:'#00529f',PAM:'#f36f21',PAN:'#007a3d',HTA:'#c8102e',DUB:'#bc9a57',BAR:'#a50044',RED:'#d31127',ZAL:'#007a33',PAR:'#171717',BES:'#111111',IST:'#006ab3',MUN:'#dc052d',VIR:'#191919',TEL:'#fcd116',PRS:'#171717',MIL:'#d0021b',BAS:'#d4202f',ASV:'#202020'};
   const ranked=table.slice(0,10).map(s=>({...s,...(teams.find(t=>t.code===s.code)||{})}));
-  const clubTiles=ranked.map((t,i)=>{
-   const s=byStanding.get(t.code)||t,played=s.played||0,ppg=played?s.for/played:0,opp=played?s.against/played:0;
-   const net=ppg-opp;
-   const pct=played?s.wins/played:0;
-   const clubColors={OLY:'#cf102d',ULK:'#f2c500',MAD:'#00529f',PAM:'#f36f21',PAN:'#007a3d',HTA:'#c8102e',DUB:'#bc9a57',BAR:'#a50044',RED:'#d31127',ZAL:'#007a33',PAR:'#171717',BES:'#111111',IST:'#006ab3',MUN:'#dc052d',VIR:'#191919',TEL:'#fcd116',PRS:'#171717',MIL:'#d0021b',BAS:'#d4202f',ASV:'#202020'};
-   const color=clubColors[t.code]||'#263b4d',seed=i<6?'DIRECT PLAYOFF':'PLAY-IN POSITION';
-   return '<article class="el-club-tile" style="--el-team-primary:'+color+'"><div class="el-club-seed">'+seed+'</div><div class="el-club-tile-top"><span class="el-club-rank">#'+(i+1)+'</span>'+logo(t)+'<div><h3>'+esc(t.name)+'</h3><small>'+esc(t.code)+' · '+esc(s.wins)+'–'+esc(s.losses)+'</small></div></div><div class="el-club-elo">'+Number(t.elo).toFixed(1)+' <span>ELO</span></div><div class="el-club-statgrid"><div><b>'+(pct*100).toFixed(0)+'%</b><small>WIN RATE</small></div><div><b>'+ppg.toFixed(1)+'</b><small>POINTS / G</small></div><div><b>'+opp.toFixed(1)+'</b><small>ALLOWED / G</small></div><div><b>'+(net>0?'+':'')+net.toFixed(1)+'</b><small>NET / G</small></div></div><div class="el-club-winbar" aria-label="'+(pct*100).toFixed(0)+' percent wins"><i style="width:'+(pct*100).toFixed(1)+'%"></i></div></article>';
-  });
-  spot.innerHTML=clubTiles.join('');
+  const tile=(t,i)=>{
+   const s=byStanding.get(t.code)||t,played=s.played||0,pct=played?s.wins/played:0;
+   const ppg=played?s.for/played:0,opp=played?s.against/played:0,net=ppg-opp;
+   const color=colors[t.code]||'#263b4d';
+   return '<article class="el-club-tile el-bracket-team" style="--el-team-primary:'+color+'"><div class="el-bracket-identity"><span class="el-club-rank">#'+(i+1)+'</span>'+logo(t)+'<div class="el-bracket-name"><h3>'+esc(t.name)+'</h3><strong class="el-bracket-record">'+esc(s.wins)+'–'+esc(s.losses)+'</strong></div></div><div class="el-bracket-metrics"><div><b>'+pct.toFixed(3).replace(/^0/,'')+'</b><small>WIN PERCENTAGE</small></div><div><b>'+Number(t.elo).toFixed(1)+'</b><small>ELO</small></div><div><b>'+(net>=0?'+':'')+net.toFixed(1)+'</b><small>NET / G</small></div></div></article>';
+  };
+  const slot=(t,i)=>'<div class="el-bracket-slot">'+tile(t,i)+'</div>';
+  const direct='<section class="el-bracket-section"><header><h3>DIRECT PLAYOFF BERTHS</h3><p>Seeds 1–6 · automatic quarterfinal positions</p></header><div class="el-bracket-direct">'+ranked.slice(0,6).map(slot).join('')+'</div></section>';
+  const playin='<section class="el-bracket-section"><header><h3>PLAY-IN TOURNAMENT</h3><p>Current seeds · provisional pairings</p></header><div class="el-bracket-playin"><div class="el-bracket-round"><h4>7 vs 8 · winner advances as No. 7</h4>'+slot(ranked[6],6)+slot(ranked[7],7)+'</div><div class="el-bracket-round"><h4>9 vs 10 · loser eliminated</h4>'+slot(ranked[8],8)+slot(ranked[9],9)+'</div><div class="el-bracket-round el-bracket-outcomes"><h4>FINAL PLAY-IN BERTH</h4><div class="el-bracket-placeholder">Loser of 7/8 vs winner of 9/10<br><strong>Winner becomes No. 8 seed</strong></div></div></div></section>';
+  spot.innerHTML=direct+playin;
  }
  const byCode=new Map(teams.map(t=>[t.code,t]));
  $('el-recent-results-list').innerHTML=results.length?results.slice(0,10).map(g=>{
