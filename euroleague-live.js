@@ -22,7 +22,13 @@ try{
  const stamp=Date.parse(d.updated_at);
  if(!Number.isFinite(stamp)||!Array.isArray(d.games))throw Error('Bad feed');
  const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-(Number.isFinite(checked)?checked:stamp)>15*60*1000;
- const games=d.games.filter(g=>['live','scheduled','final','awaiting_final'].includes(g.status)).slice(0,18);
+ const priority={live:0,awaiting_final:1,final:2,scheduled:3};
+ const games=d.games.filter(g=>Object.hasOwn(priority,g.status)).sort((a,b)=>{
+   const group=priority[a.status]-priority[b.status];
+   if(group)return group;
+   const ad=Date.parse(a.date)||0,bd=Date.parse(b.date)||0;
+   return a.status==='final'?bd-ad:ad-bd;
+ }).slice(0,24);
  const logo=t=>/^[A-Z]{3}$/.test(String(t?.code||'').toUpperCase())?'<img class="el-official-logo club-logo" data-euroleague-code="'+esc(String(t.code).toUpperCase())+'" alt="'+esc(t.name||t.code)+' crest" src="assets/euroleague-logos/'+esc(String(t.code).toUpperCase())+'.png">':'';
  const team=t=>'<div class="el-live-team">'+logo(t)+'<span>'+esc(t.name||t.code)+'</span><b>'+esc(t.score??'—')+'</b></div>';
  const forecast=await fetch('data/euroleague-model.json?live='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
