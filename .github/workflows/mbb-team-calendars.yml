@@ -1,0 +1,29 @@
+name: MBB 2026-27 full team calendars
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7,19 * * *"
+permissions:
+  contents: write
+concurrency:
+  group: mbb-full-calendars
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch all 365 full team calendars
+        run: python scripts/refresh_mbb_calendars.py
+      - name: Publish updated calendars
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/
+          if ! git diff --cached --quiet; then
+            git commit -m "Update 2026-27 MBB team calendars"
+            git push
+          fi
