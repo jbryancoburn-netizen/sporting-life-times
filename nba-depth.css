@@ -167,3 +167,25 @@ body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-elo.pos{back
 body.nba-newspaper[data-page="team"] .depth-form-result>.depth-form-elo.neg{background:#fae9e6;color:#b13f38}
 @media(max-width:800px){body.nba-newspaper[data-page="team"] .depth-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:410px){body.nba-newspaper[data-page="team"] .depth-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}}
+
+/* 2026 NBA crest containment: never allow artwork beyond the circular badge. */
+body.nba-newspaper[data-page="team"] .depth-club-hero .depth-crest{
+ box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ width:113px!important;height:113px!important;min-width:113px!important;min-height:113px!important;
+ border:3px solid var(--depth-club,#24485a)!important;border-radius:50%!important;
+ overflow:hidden!important;padding:10px!important;background:#fff!important;flex:0 0 113px!important;
+}
+body.nba-newspaper[data-page="team"] .depth-club-hero .depth-crest>img{
+ box-sizing:border-box!important;display:block!important;position:static!important;
+ flex:0 0 auto!important;width:100%!important;height:100%!important;
+ min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;
+ object-fit:contain!important;object-position:center center!important;
+ border:0!important;border-radius:0!important;background:transparent!important;
+ padding:0!important;margin:0!important;transform:none!important;
+}
+@media(max-width:720px){
+ body.nba-newspaper[data-page="team"] .depth-club-hero .depth-crest{
+ width:72px!important;height:72px!important;min-width:72px!important;min-height:72px!important;
+ flex:0 0 72px!important;padding:7px!important;
+ }
+}
