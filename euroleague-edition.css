@@ -153,3 +153,23 @@ body.league-edition[data-league="euroleague"] .el-club-winbar{height:6px;backgro
 body.league-edition[data-league="euroleague"] .el-club-winbar i{display:block;height:100%;background:#e5b86a}
 @media(max-width:1100px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){body.league-edition[data-league="euroleague"] #el-club-spotlight{grid-template-columns:1fr}}
+
+/* Player leaders — official statistics only; photo container never shares crest ring. */
+body.league-edition[data-league="euroleague"] .el-player-desk{margin:25px 0;border-top:5px solid #c54b2d;padding-top:17px}
+body.league-edition[data-league="euroleague"] #el-player-leaders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+body.league-edition[data-league="euroleague"] .el-player-category{background:#faf8f3;border:1px solid #d5c9bc;padding:15px;min-width:0}
+body.league-edition[data-league="euroleague"] .el-player-category header{display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:3px solid #2c2a27;padding-bottom:10px}
+body.league-edition[data-league="euroleague"] .el-player-category h3{font:700 21px Georgia,serif;margin:0}
+body.league-edition[data-league="euroleague"] .el-player-category header small{font:10px Georgia,serif;color:#6e6257}
+body.league-edition[data-league="euroleague"] .el-player-row{display:grid;grid-template-columns:24px 54px minmax(0,1fr) 62px;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e2d7cb;min-width:0}
+body.league-edition[data-league="euroleague"] .el-player-row:last-child{border:0}
+body.league-edition[data-league="euroleague"] .el-player-rank{font:700 24px Georgia,serif;color:#ba4a30}
+body.league-edition[data-league="euroleague"] .el-player-avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(145deg,#273c4e,#637e90);display:grid;place-items:center;overflow:hidden;position:relative}
+body.league-edition[data-league="euroleague"] .el-player-avatar span{color:#e2e7e9;font-size:34px}
+body.league-edition[data-league="euroleague"] .el-player-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1}
+body.league-edition[data-league="euroleague"] .el-player-name{min-width:0}
+body.league-edition[data-league="euroleague"] .el-player-name strong{display:block;font:700 14px/1.25 Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-player-name small{display:block;font:11px Georgia,serif;color:#74685e;margin-top:4px}
+body.league-edition[data-league="euroleague"] .el-player-value{text-align:right;font:700 25px Georgia,serif}
+@media(max-width:800px){body.league-edition[data-league="euroleague"] #el-player-leaders{grid-template-columns:1fr}}
+@media(max-width:410px){body.league-edition[data-league="euroleague"] .el-player-row{grid-template-columns:20px 43px minmax(0,1fr) 52px;gap:6px}body.league-edition[data-league="euroleague"] .el-player-avatar{width:43px;height:43px}body.league-edition[data-league="euroleague"] .el-player-name strong{font-size:12px}body.league-edition[data-league="euroleague"] .el-player-value{font-size:20px}}
