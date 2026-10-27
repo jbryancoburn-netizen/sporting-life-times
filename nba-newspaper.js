@@ -173,7 +173,7 @@ function rankings(){
 }
 
 function playoff(){
- const seedRow=(t,i)=>'<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'"><span class="nba-race-seed">'+(i+1)+'</span><span class="nba-race-crest">'+image(t)+'</span><span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · Elo #'+rank(t)+'</small></span><span class="nba-race-record">'+rec(t)+'</span></a>';
+ const seedRow=(t,i)=>'<a href="'+tl(t)+'" class="nba-race-team" style="--race-color:'+meta[t][3]+'"><span class="nba-race-seed">'+(i+1)+'</span><span class="nba-race-crest"><img class="badge nba-playoff-badge" style="--logo-ring:'+meta[t][3]+'" src="'+logoFallback(t)+'" alt="" loading="lazy" onerror="this.onerror=null;this.src=\''+logo(t)+'\';"></span><span class="nba-race-identity"><strong>'+esc(name(t))+'</strong><small>'+esc(meta[t][2])+' · Elo #'+rank(t)+'</small></span><span class="nba-race-record">'+rec(t)+'</span></a>';
  const group=(rows,heading,subtitle,kind,offset)=>'<section class="nba-race-group '+kind+'"><div class="nba-race-group-head"><div><h3>'+heading+'</h3><p>'+subtitle+'</p></div><b>'+rows.length+' teams</b></div><div class="nba-race-list">'+rows.map((t,i)=>seedRow(t,i+offset)).join('')+'</div></section>';
  const conference=c=>{const teams=stand(c);
  return '<section class="nba-race-conference" id="'+c.toLowerCase()+'"><div class="nba-race-conference-head"><div class="eyebrow">2026–27 · '+c+'ern Conference</div><h2>'+c+'ern Conference</h2><p>Ordered by reconstructed win percentage, then independent Elo when tied.</p></div><a href="nba-conference.html?conference='+c+'">Full conference standings ↗</a></div>'+
