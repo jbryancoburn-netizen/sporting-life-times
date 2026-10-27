@@ -18,19 +18,19 @@ def number(x):
         return f if 0<=f<1000 else None
     except (TypeError,ValueError):return None
 def flatten(item):
-    player=val(item,"player","person") or {}
-    club=val(item,"club","team") or {}
-    stats=val(item,"statistics","stats") or {}
+    player=val(item,"player","person","Player") or {}
+    club=val(item,"club","team","Team") or val(player,"team","Team") or {}
+    stats=val(item,"statistics","stats","Statistics") or {}
     if not isinstance(stats,dict):stats={}
     if not isinstance(player,dict):player={}
     if not isinstance(club,dict):club={}
-    name=val(item,"playerName","name","fullName") or val(player,"name","fullName","displayName")
-    code=val(item,"clubCode","teamCode") or val(club,"code","clubCode")
-    played=number(val(item,"gamesPlayed","games","played") or val(stats,"gamesPlayed","games","played"))
-    photo=val(item,"imageUrl","playerImageUrl","photoUrl") or val(player,"imageUrl","photoUrl","image")
+    name=val(item,"playerName","player_name","Name","name","fullName") or val(player,"name","Name","fullName","displayName")
+    code=val(item,"clubCode","teamCode","player_team_code","playerTeamCode") or val(player,"teamCode","TeamCode") or val(club,"code","Code","clubCode","tvCode","TvCode")
+    played=number(val(item,"gamesPlayed","games_played","GamesPlayed","games","played") or val(stats,"gamesPlayed","GamesPlayed","games","played"))
+    photo=val(item,"imageUrl","player_image_url","playerImageUrl","photoUrl") or val(player,"imageUrl","ImageUrl","photoUrl","image")
     if not isinstance(photo,str) or not photo.startswith("https://"):photo=None
     values={}
-    for key,aliases in {"points":("points","pts","pointsPerGame"),"rebounds":("totalRebounds","rebounds","reb","reboundsPerGame"),"assists":("assists","ast","assistsPerGame"),"pir":("valuation","pir","performanceIndexRating")}.items():
+    for key,aliases in {"points":("points","Points","points_scored","pointsScored","PointsScored","pts","pointsPerGame"),"rebounds":("totalRebounds","TotalRebounds","total_rebounds","rebounds","Rebounds","reb","reboundsPerGame"),"assists":("assists","Assists","ast","assistsPerGame"),"pir":("valuation","Valuation","pir","PIR","performanceIndexRating")}.items():
         raw=val(item,*aliases)
         if raw is None:raw=val(stats,*aliases)
         values[key]=number(raw)
@@ -40,7 +40,7 @@ def main():
     rows=[];total=None
     for offset in range(0,1200,100):
         data=get(offset)
-        items=data if isinstance(data,list) else val(data,"data","items","players","results")
+        items=data if isinstance(data,list) else val(data,"data","items","players","Players","results")
         if not isinstance(items,list):raise ValueError("Unknown EuroLeague player-statistics envelope")
         if isinstance(data,dict) and isinstance(data.get("total"),int):total=data["total"]
         if offset==0 and items:\n            print("EUROLEAGUE_SCHEMA_DIAGNOSTIC",json.dumps({"envelope":list(data) if isinstance(data,dict) else "list","first_row":items[0]},ensure_ascii=False)[:5500],flush=True)\n        rows.extend(items)
