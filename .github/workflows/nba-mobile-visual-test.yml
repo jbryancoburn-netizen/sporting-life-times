@@ -1,43 +1,17 @@
 name: NBA mobile visual regression
 on:
-  push:
-    branches: [main]
-    paths:
-      - nba.html
-      - shared-team-crests.css
-      - shared-team-crests.js
-      - euroleague.html
-      - euroleague-edition.css
-      - euroleague-model-desk.js
-      - euroleague-edition.js
-      - euroleague-live.js
-      - scripts/inject-team-crests.py
-      - nba-newspaper.js
-      - nba-newspaper.css
-      - nba-depth.css
-      - nba-team-depth.js
-      - nba-player-depth.js
-      - nba-matchup-depth.js
-      - nba-team-desk.html
-      - nba-players.html
-      - nba-rankings.html
-      - nba-matchups.html
-      - nba-home.js
-      - nba-scorebug.js
-      - nba-game-comparison.js
-      - nba-game-center.js
-      - nba-game-center.html
-      - scripts/test-nba-comparison.mjs
-      - nba-intelligence.js
-      - nba-rabby-forecast.js
-      - scripts/test-nba-scorebug.mjs
-      - nba-paper-layout.css
-      - nba-newspaper-polish.css
-      - nba-editorial.css
-      - compact-edition.css
-      - scripts/test-nba-mobile-layout.mjs
-      - .github/workflows/nba-mobile-visual-test.yml
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'nba*.js'
+      - 'nba*.css'
+      - 'nba*.html'
+      - 'shared-team-crests.*'
+      - 'scripts/test-nba-mobile-layout.mjs'
+      - '.github/workflows/nba-mobile-visual-test.yml'
+concurrency:
+  group: nba-mobile-visual-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
