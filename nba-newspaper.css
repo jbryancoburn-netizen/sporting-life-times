@@ -279,3 +279,19 @@ body.nba-newspaper[data-page="conference"] .nba-table .team-link img{grid-column
 body.nba-newspaper[data-page="standings"] .nba-table .team-link span,
 body.nba-newspaper[data-page="conference"] .nba-table .team-link span{grid-column:2;grid-row:1;display:block;text-align:left;min-width:0}
 @media(max-width:600px){body.nba-newspaper[data-page="standings"] .nba-table .team-link,body.nba-newspaper[data-page="conference"] .nba-table .team-link{grid-template-columns:42px minmax(0,1fr);gap:8px;min-width:200px}body.nba-newspaper[data-page="standings"] .nba-table .team-link img,body.nba-newspaper[data-page="conference"] .nba-table .team-link img{width:42px;height:42px;max-width:42px}}
+
+/* NBA POWER TABLE: isolate official team marks from broad/shared crest rules. */
+body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club a.nba-power-team-link{
+ display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:10px;min-height:44px;max-width:100%;text-decoration:none;
+}
+body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club img.nba-power-logo{
+ box-sizing:border-box;display:block!important;flex:none;grid-column:1;grid-row:1;
+ width:38px!important;height:38px!important;min-width:38px;min-height:38px;max-width:38px!important;max-height:38px;
+ margin:0!important;padding:2px!important;border-radius:50%;border:2px solid #d5ddd9;
+ background:#fff;object-fit:contain!important;object-position:center!important;aspect-ratio:1 / 1;
+ box-shadow:none;transform:none!important;filter:none!important;
+}
+body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club img.nba-power-logo[hidden]{display:none!important;}
+body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club a.nba-power-team-link>span{
+ display:block;grid-column:2;min-width:0;font-size:12px;line-height:1.2;overflow-wrap:break-word;
+}
