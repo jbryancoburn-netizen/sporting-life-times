@@ -10,7 +10,7 @@ cross=json.loads((root/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text(
 base='https://huggingface.co/Jensen-holm/Nigl/resolve/main/data/'
 def read(name):
  req=urllib.request.Request(base+name,headers={'User-Agent':'Mozilla/5.0 SportingLifeTimes archive importer'})
- with urllib.request.urlopen(req,timeout=90) as r: raw=r.read().decode('utf-8-sig')
+ with urllib.request.urlopen(req,timeout=90) as r: raw=r.read().decode('utf-8-sig',errors='replace')
  return list(csv.DictReader(io.StringIO(raw)))
 def norm(v):
  v=re.sub(r'&',' and ',str(v).casefold())
@@ -34,7 +34,7 @@ for team in teamrows:
  for spell in spelling_by_id.get(kid,[]): ids.update(names.get(canonical(spell),set()))
  if len(ids)==1: mapping[kid]=next(iter(ids))
  else: unmatched.append({'kaggle_id':kid,'name':name,'reason':'ambiguous' if ids else 'unmatched'})
-seasons={int(r['Season']):datetime.date.fromisoformat(r['DayZero']) for r in read('MSeasons.csv')}
+seasons={int(r['Season']):datetime.datetime.strptime(r['DayZero'],'%m/%d/%Y').date() if '/' in r['DayZero'] else datetime.date.fromisoformat(r['DayZero']) for r in read('MSeasons.csv')}
 games=[];counts=collections.Counter();source_counts=collections.Counter()
 for filename,category in [('MRegularSeasonCompactResults.csv','Regular season / conference tournament'),('MNCAATourneyCompactResults.csv','NCAA Tournament'),('MSecondaryTourneyCompactResults.csv','Secondary postseason tournament')]:
  for row in read(filename):
