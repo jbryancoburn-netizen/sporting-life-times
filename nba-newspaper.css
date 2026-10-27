@@ -381,3 +381,12 @@ body.nba-newspaper[data-page="standings"] .nba-division-card td:first-child > a.
  transform:none!important;float:none!important;text-indent:0!important;white-space:normal!important;
  overflow:visible!important;font-size:12px!important;line-height:1.3!important;z-index:auto!important;
 }
+
+/* Standings identities are isolated: never use shared team-link, logo badge, or fallback initials CSS. */
+body.nba-newspaper .nba-standings-identity{display:flex!important;flex-direction:row!important;align-items:center!important;gap:12px!important;justify-content:flex-start!important;min-width:200px!important;width:max-content!important;max-width:none!important;text-align:left!important;text-decoration:none!important;white-space:nowrap!important;color:#142b37!important;background:transparent!important;position:static!important}
+body.nba-newspaper .nba-standings-identity .nba-standings-logo{display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 42px!important;box-sizing:border-box!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;overflow:hidden!important;position:static!important;background:#fff!important;border:1px solid #d8ded9!important;border-radius:50%!important;margin:0!important;padding:1px!important}
+body.nba-newspaper .nba-standings-identity .nba-standings-logo img{display:block!important;flex:0 0 38px!important;width:38px!important;height:38px!important;min-width:38px!important;max-width:38px!important;object-fit:contain!important;border:0!important;background:transparent!important;margin:0!important;padding:0!important;position:static!important;transform:none!important}
+body.nba-newspaper .nba-standings-identity .nba-standings-logo img[hidden]{display:none!important}
+body.nba-newspaper .nba-standings-identity strong.nba-standings-name{display:block!important;flex:0 0 auto!important;color:#142b37!important;font:700 13px/1.3 Arial,sans-serif!important;white-space:nowrap!important;position:static!important;min-width:0!important;max-width:none!important;opacity:1!important;visibility:visible!important;background:transparent!important;margin:0!important;padding:0!important;text-indent:0!important}
+body.nba-newspaper[data-page="standings"] .nba-table td.nba-standings-club-cell,
+body.nba-newspaper[data-page="conference"] .nba-table td.nba-standings-club-cell{min-width:260px!important;width:260px!important;white-space:nowrap!important;overflow:visible!important}
