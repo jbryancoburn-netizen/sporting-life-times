@@ -18,6 +18,26 @@ def validate(model, live):
         errors.append("Standings wins/losses do not reconcile to finals")
     if sum(t.get("played",0) for t in standings)!=2*games:
         errors.append("Standings appearances do not reconcile")
+    ledger=model.get("completed_game_ledger")
+    if not isinstance(ledger,list) or len(ledger)!=games:
+        errors.append("Full completed-game ledger missing or count differs from Elo finals")
+    else:
+        ids=[str(g.get("id")) for g in ledger]
+        if len(ids)!=len(set(ids)) or any(x in ("None","") for x in ids):
+            errors.append("Missing or duplicate game IDs in complete Elo ledger")
+        ledger_wins={code:0 for code in codes}
+        ledger_losses={code:0 for code in codes}
+        for g in ledger:
+            h,a=g.get("home"),g.get("away")
+            score=g.get("score")
+            if h not in ledger_wins or a not in ledger_wins or h==a or not isinstance(score,list) or len(score)!=2 or any(type(x) not in (int,float) for x in score) or score[0]==score[1]:
+                errors.append("Invalid completed Elo ledger game "+str(g.get("id")))
+                continue
+            winner,loser=(h,a) if score[0]>score[1] else (a,h)
+            ledger_wins[winner]+=1
+            ledger_losses[loser]+=1
+        if any(ledger_wins[t.get("code")]!=t.get("wins") or ledger_losses[t.get("code")]!=t.get("losses") for t in standings if t.get("code") in ledger_wins):
+            errors.append("Elo ledger records do not reconcile to standings")
     results=model.get("recent_results",[])
     if len({str(g.get("id")) for g in results})!=len(results):
         errors.append("Duplicate final identifiers")
