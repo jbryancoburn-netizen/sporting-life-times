@@ -1,0 +1,35 @@
+name: Public EPL goal-model shadow comparison
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public_ratings/epl_shadow.py'
+      - 'public_ratings/soccer_goal_model.py'
+      - 'tests/test_public_epl_shadow.py'
+      - '.github/workflows/public-epl-goal-shadow.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: public-epl-goal-shadow-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate public research-only comparison logic
+        run: python -m unittest discover -s tests -p test_public_epl_shadow.py -v
+      - name: Calculate independent Poisson shadow with published EPL inputs
+        run: python -m public_ratings.epl_shadow --input data/epl-match-center.json --output /tmp/epl-public-goal-shadow.json
+      - name: Archive shadow results without modifying live newspaper
+        uses: actions/upload-artifact@v4
+        with:
+          name: epl-public-goal-shadow
+          path: /tmp/epl-public-goal-shadow.json
+          retention-days: 7
+          if-no-files-found: error
