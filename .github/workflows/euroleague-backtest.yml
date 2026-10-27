@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/euroleague_model.py'
       - 'scripts/euroleague_backtest.py'
+      - 'scripts/test_euroleague_model.py'
       - '.github/workflows/euroleague-backtest.yml'
   schedule:
     - cron: '37 4 * * *'
@@ -24,7 +25,19 @@ jobs:
       - name: Run deterministic ingestion tests
         run: python -m unittest discover -s scripts -p 'test_euroleague_model.py' -v
       - name: Score historical forecasts and parameter candidates
-        run: python scripts/euroleague_backtest.py
+        timeout-minutes: 12
+        run: |
+          python -u scripts/euroleague_backtest.py
+          python - <<'PY'
+          import json
+          p='data/euroleague-validation.json'
+          d=json.load(open(p))
+          assert d['heldout_evaluation']['training_season']=='E2021-E2025', 'Stale historical evaluation'
+          assert d['heldout_evaluation']['selected_holdout']['n']>0, 'Empty holdout'
+          print('VERIFIED historical seasons:', d['heldout_evaluation']['training_season'])
+          print('VERIFIED selected:', d['heldout_evaluation']['selected_parameters'])
+          print('VERIFIED holdout:', d['heldout_evaluation']['selected_holdout'])
+          PY
       - name: Commit validation results
         run: |
           if [ -n "$(git status --porcelain -- data/euroleague-validation.json)" ]; then
@@ -32,6 +45,6 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add data/euroleague-validation.json
             git commit -m "Evaluate historical EuroLeague model performance"
-            git pull --rebase
-            git push
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
