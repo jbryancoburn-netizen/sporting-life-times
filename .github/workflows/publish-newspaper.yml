@@ -36,15 +36,8 @@ jobs:
           python3 scripts/check_inline_javascript.py
           node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
           node --test tests/ncaam-rivalry-archive.test.cjs
-      - name: Install browser dependencies for newspaper regression tests
-        run: |
-          npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
-      - name: Run comprehensive newspaper regression tests (report without blocking fresh news)
-        continue-on-error: true
-        run: |
-          node --test tests/*.test.cjs
-          python3 -m unittest discover -s scripts -p 'test_publish_usrs.py' -v
+      # The dedicated newspaper regression workflow runs full Playwright tests.
+      # Keep routine publication fast and independent of browser installation.
       - name: Refresh NBA headlines inside the deployable Pages artifact
         run: |
           set -euo pipefail
