@@ -35,6 +35,7 @@ jobs:
           for script in *.js; do node --check "$script"; done
           python3 scripts/check_inline_javascript.py
           node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
+          node --test tests/ncaam-rivalry-archive.test.cjs
       - name: Refresh NBA headlines inside the deployable Pages artifact
         run: |
           set -euo pipefail
