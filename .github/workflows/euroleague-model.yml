@@ -16,7 +16,7 @@ on:
       - 'scripts/euroleague_release_gate.py'
       - '.github/workflows/euroleague-model.yml'
   schedule:
-    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
+    - cron: '17 * * * *'
 permissions:
   contents: write
 concurrency:
