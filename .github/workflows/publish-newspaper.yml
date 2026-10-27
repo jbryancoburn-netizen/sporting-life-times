@@ -36,6 +36,10 @@ jobs:
           python3 scripts/check_inline_javascript.py
           node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
           node --test tests/ncaam-rivalry-archive.test.cjs
+      - name: Block publication when core newspaper regression tests fail
+        run: |
+          node --test tests/*.test.cjs
+          python3 -m unittest discover -s scripts -p 'test_publish_usrs.py' -v
       - name: Refresh NBA headlines inside the deployable Pages artifact
         run: |
           set -euo pipefail
