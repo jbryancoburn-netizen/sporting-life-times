@@ -198,3 +198,27 @@ body.league-edition[data-league="euroleague"] .el-editorial-main .el-player-cate
 @media(max-width:1120px){body.league-edition[data-league="euroleague"] .el-editorial-top,body.league-edition[data-league="euroleague"] .el-secondary-desks{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:760px){body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:1fr}}
+
+/* Full-page editorial audit: carry the same visual language below the fold. */
+body.league-edition[data-league="euroleague"] .el-editorial-news{margin:22px 0;padding:18px 0;border-top:5px solid #bd4d32;border-bottom:1px solid #d8cfc4}
+body.league-edition[data-league="euroleague"] .el-editorial-news h2{font:700 clamp(26px,3.2vw,42px)/1.05 Georgia,serif;letter-spacing:-.03em;margin:5px 0 9px}
+body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 19px}
+body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-item{padding:13px 0;border-bottom:1px solid #d8cfc4;min-width:0}
+body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-lead{grid-column:span 2;grid-row:span 2;border-right:1px solid #d8cfc4;padding:17px 18px 17px 0}
+body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-lead h3{font:700 clamp(23px,2.5vw,34px)/1.13 Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-item:not(.nba-news-lead) h3{font:700 16px/1.25 Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-item:nth-child(n+9){display:none}
+body.league-edition[data-league="euroleague"] .el-lower-news-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:24px;margin:20px 0;align-items:start}
+body.league-edition[data-league="euroleague"] .el-lower-news-grid .hub-feature{margin:0;min-width:0}
+body.league-edition[data-league="euroleague"] .el-lower-news-grid #league-boxscores{border-top:5px solid #253d50;padding-top:16px}
+body.league-edition[data-league="euroleague"] .el-lower-news-grid #league-data-links{border-top:5px solid #bd4d32;padding-top:16px}
+body.league-edition[data-league="euroleague"] #league-result-ledger{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 16px}
+body.league-edition[data-league="euroleague"] #league-result-ledger .league-score-item{margin:0;padding:12px;background:#f8f5ee;border:1px solid #e0d7ca;min-width:0}
+body.league-edition[data-league="euroleague"] #el-predictions{border-top:5px solid #253d50;margin-top:25px;padding-top:17px}
+body.league-edition[data-league="euroleague"] #el-forecasts{gap:10px 18px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-forecast{padding:13px;background:#f8f5ee;border:1px solid #ded5c9}
+body.league-edition[data-league="euroleague"] .el-source-coverage{border-top:1px solid #d9cfc1;padding-top:10px;margin-top:20px}
+body.league-edition[data-league="euroleague"] .el-source-coverage h2{font-size:17px}
+@media(max-width:960px){body.league-edition[data-league="euroleague"] .el-lower-news-grid{grid-template-columns:1fr}}
+@media(max-width:740px){body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-lead{grid-column:span 2;grid-row:auto;border-right:0;border-bottom:3px solid #bd4d32}}
+@media(max-width:520px){body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-grid,body.league-edition[data-league="euroleague"] #league-result-ledger{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-editorial-news .nba-news-lead{grid-column:auto}}
