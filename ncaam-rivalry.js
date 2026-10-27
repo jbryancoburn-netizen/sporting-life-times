@@ -69,6 +69,19 @@ async function start(){
    }
   }catch(e){console.warn("NCAA bracket classification unavailable for "+season,e)}
  }
+ // Locally archived 2025 tournament results: match only exact season, team IDs and scores.
+ try{
+  const response=await fetch("data/ncaam-postseason-2025-ncaa.json",{cache:"no-cache"});
+  if(response.ok){
+   const document=await response.json();
+   for(const g of document.games||[]){
+    const winner=resolve(g.winner),loser=resolve(g.loser);
+    if(!winner||!loser||winner===loser)continue;
+    const key=[2025,winner,loser,Number(g.ws),Number(g.ls)].join("|");
+    verifiedNCAA.set(key,{tournament:"NCAA Tournament",round:g.round,source:"2025 NCAA tournament results archive"});
+   }
+  }
+ }catch(error){console.warn("2025 NCAA classifications unavailable",error)}
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  for(const year of years){
@@ -89,7 +102,7 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed 2021 postseason games."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
+ $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed postseason classifications from 2021–2025."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
 function show(){
@@ -127,7 +140,7 @@ function show(){
  const filter=$("filter").value;const scope=$("tournament-filter").value;const eligible=arr.filter(g=>scope==="all"|| (scope==="other"?!["Regular season","NCAA Tournament","NIT","Competition not verified"].includes(g.tournament):g.tournament===scope));const list=filter==="ten"?eligible.slice(0,10):filter==="five"?eligible.slice(0,5):eligible;
  const cards=$("games");cards.replaceChildren();
  if(!list.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="No recorded meetings in this archive.";cards.append(empty)}
- for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament+(g.round?" · Round of "+g.round:"");label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
+ for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament+(g.round?" · "+(String(g.round).match(/^\d+$/)?"Round of "+g.round:g.round):"");label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
 }
 
 $("swap").addEventListener("click",()=>{const a=$("home").value;$("home").value=$("away").value;$("away").value=a;show()});
