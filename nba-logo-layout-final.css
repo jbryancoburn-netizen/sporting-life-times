@@ -21,7 +21,7 @@ body.nba-newspaper[data-page="standings"] .nba-division-grid{display:grid;grid-t
 body.nba-newspaper[data-page="standings"] .nba-division-compact{min-width:0!important;width:100%;box-sizing:border-box;padding:13px 12px!important;overflow:hidden}
 body.nba-newspaper[data-page="standings"] .nba-division-compact h3{margin:0 0 12px}
 body.nba-newspaper[data-page="standings"] .nba-div-head,
-body.nba-newspaper[data-page="standings"] .nba-div-row{display:grid;grid-template-columns:minmax(0,1fr) 42px 43px 43px;gap:5px;align-items:center;width:100%;box-sizing:border-box}
+body.nba-newspaper[data-page="standings"] .nba-div-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(42px,.34fr) minmax(46px,.38fr) minmax(43px,.34fr) minmax(39px,.31fr);gap:10px;align-items:center;width:100%;box-sizing:border-box}
 body.nba-newspaper[data-page="standings"] .nba-div-head{padding:5px 3px;border-bottom:2px solid #cdd9dc;font:700 10px/1.2 Arial,sans-serif;letter-spacing:.04em;color:#586b74}
 body.nba-newspaper[data-page="standings"] .nba-div-head>span:not(:first-child){text-align:right}
 body.nba-newspaper[data-page="standings"] .nba-div-row{padding:8px 3px;border-bottom:1px solid #e1e6e5;font:600 12px/1.25 Arial,sans-serif;font-variant-numeric:tabular-nums}
@@ -31,7 +31,13 @@ body.nba-newspaper[data-page="standings"] .nba-div-team>img{box-sizing:border-bo
 body.nba-newspaper[data-page="standings"] .nba-div-team>img[hidden]{display:none!important}
 body.nba-newspaper[data-page="standings"] .nba-div-team>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 body.nba-newspaper[data-page="standings"] .nba-div-record,
+body.nba-newspaper[data-page="standings"] .nba-div-pct,
 body.nba-newspaper[data-page="standings"] .nba-div-elo,
 body.nba-newspaper[data-page="standings"] .nba-div-change{text-align:right;white-space:nowrap;font-size:11px}
 @media(max-width:900px){body.nba-newspaper[data-page="standings"] .nba-division-grid{grid-template-columns:1fr}}
-@media(max-width:380px){body.nba-newspaper[data-page="standings"] .nba-div-head,body.nba-newspaper[data-page="standings"] .nba-div-row{grid-template-columns:minmax(0,1fr) 36px 39px 36px;gap:3px}body.nba-newspaper[data-page="standings"] .nba-div-team>img{flex-basis:25px!important;width:25px!important;height:25px!important;min-width:25px!important;max-width:25px!important;min-height:25px!important;max-height:25px!important}}
+@media(max-width:380px){body.nba-newspaper[data-page="standings"] .nba-div-head,body.nba-newspaper[data-page="standings"] .nba-div-row{grid-template-columns:minmax(0,1fr) 39px 42px 41px 33px;gap:4px}body.nba-newspaper[data-page="standings"] .nba-div-team>img{flex-basis:25px!important;width:25px!important;height:25px!important;min-width:25px!important;max-width:25px!important;min-height:25px!important;max-height:25px!important}}
+
+/* Distribute W-L, PCT, Elo and movement across the full division-card width. */
+body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-row,body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-head{justify-content:stretch!important}
+body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-head>span:not(:first-child),body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-row>.nba-div-record,body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-row>.nba-div-pct,body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-row>.nba-div-elo,body.nba-newspaper[data-page="standings"] .nba-division-compact .nba-div-row>.nba-div-change{text-align:center!important}
+@media(max-width:540px){body.nba-newspaper[data-page="standings"] .nba-div-head,body.nba-newspaper[data-page="standings"] .nba-div-row{grid-template-columns:minmax(0,1fr) 43px 45px 44px 36px;gap:5px}body.nba-newspaper[data-page="standings"] .nba-division-compact{padding:11px 9px!important}}
