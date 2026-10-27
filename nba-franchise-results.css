@@ -1,0 +1,18 @@
+/* All 30 NBA franchise recent-finals cards. One ring per crest, no shared DOM wrapper. */
+body.nba-newspaper[data-page="team"] .nba-franchise-result{--match-club:#163e58;display:block;box-sizing:border-box;width:100%;margin:0 0 10px;padding:12px 13px 10px;border:1px solid #d6e1e3;border-left:4px solid var(--match-club);border-radius:7px;background:#fff;color:#122b38;text-decoration:none;box-shadow:0 2px 4px #09293710;transition:background .15s,border-color .15s,transform .15s}
+body.nba-newspaper[data-page="team"] .nba-franchise-result:hover,body.nba-newspaper[data-page="team"] .nba-franchise-result:focus-visible{background:#f3f9fa;border-color:var(--match-club);transform:translateY(-1px)}
+body.nba-newspaper[data-page="team"] .nba-result-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;font:700 10px/1.2 Arial,sans-serif;color:#536974}
+body.nba-newspaper[data-page="team"] .nba-result-pill{display:inline-flex;align-items:center;justify-content:center;min-width:43px;padding:5px 8px;border-radius:3px;background:#eee;color:#445}
+body.nba-newspaper[data-page="team"] .nba-result-pill.win{background:#ddf3e6;color:#11613d}
+body.nba-newspaper[data-page="team"] .nba-result-pill.loss{background:#fde9e6;color:#a1322b}
+body.nba-newspaper[data-page="team"] .nba-result-match{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);align-items:center;gap:7px;min-width:0}
+body.nba-newspaper[data-page="team"] .nba-result-side{display:flex;align-items:center;gap:6px;min-width:0}
+body.nba-newspaper[data-page="team"] .nba-result-side:nth-child(3){justify-content:flex-end}
+body.nba-newspaper[data-page="team"] .nba-result-side>img{box-sizing:border-box!important;display:block!important;flex:0 0 38px!important;width:38px!important;height:38px!important;min-width:38px!important;max-width:38px!important;min-height:38px!important;max-height:38px!important;padding:2px!important;border:3px solid var(--result-ring,#194653)!important;border-radius:50%!important;background:white!important;object-fit:contain!important;object-position:center!important;transform:none!important;box-shadow:none!important}
+body.nba-newspaper[data-page="team"] .nba-result-side>img[hidden]{display:none!important}
+body.nba-newspaper[data-page="team"] .nba-result-side>b{font:700 11px/1.2 Arial,sans-serif;white-space:nowrap}
+body.nba-newspaper[data-page="team"] .nba-result-side>strong{font:800 24px/1 'Barlow Condensed',Arial,sans-serif;white-space:nowrap;color:#738590}
+body.nba-newspaper[data-page="team"] .nba-result-side.winner>strong{color:#102e42}
+body.nba-newspaper[data-page="team"] .nba-result-divider{text-align:center;color:#9aabb1;font-size:12px}
+body.nba-newspaper[data-page="team"] .nba-result-action{display:flex;align-items:center;justify-content:flex-end;gap:5px;padding-top:9px;margin-top:9px;border-top:1px solid #e7ebec;font:700 10px/1.2 Arial,sans-serif;color:#24748e}
+@media(max-width:500px){body.nba-newspaper[data-page="team"] .nba-franchise-result{padding:10px 8px}body.nba-newspaper[data-page="team"] .nba-result-side{gap:4px}body.nba-newspaper[data-page="team"] .nba-result-side>img{flex-basis:31px!important;width:31px!important;height:31px!important;min-width:31px!important;max-width:31px!important;min-height:31px!important;max-height:31px!important}body.nba-newspaper[data-page="team"] .nba-result-side>strong{font-size:21px}}
