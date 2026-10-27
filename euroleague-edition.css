@@ -271,3 +271,21 @@ body.league-edition[data-league="euroleague"] #el-forecasts .el-metrics{grid-tem
 body.league-edition[data-league="euroleague"] #el-forecasts .el-metrics b{font-size:15px}
 @media(max-width:920px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] #el-forecasts{grid-template-columns:1fr}}
 @media(max-width:540px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:1fr}}
+
+
+/* Verified EuroLeague live match center cards */
+body[data-league="euroleague"] .el-live-card--enhanced{min-width:0;padding:15px;border:1px solid #d7d0c4;border-top:4px solid #283e58;border-radius:10px;background:linear-gradient(145deg,#fff,#f4f2ed);box-shadow:0 3px 12px #1d2b3910}
+body[data-league="euroleague"] .el-live-card--enhanced .el-live-team{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:9px;margin:9px 0}
+body[data-league="euroleague"] .el-live-card--enhanced .el-live-team>b{font:800 27px/1.1 system-ui,sans-serif;font-variant-numeric:tabular-nums}
+body[data-league="euroleague"] .el-live-card--enhanced .el-live-team>span{min-width:0;overflow-wrap:anywhere}
+body[data-league="euroleague"] .el-live-flow{margin-top:12px;padding:10px;background:#eef0f1;border-radius:7px}
+body[data-league="euroleague"] .el-live-flow-label,body[data-league="euroleague"] .el-live-flow-legend{display:flex;justify-content:space-between;gap:8px;align-items:center;font:11px system-ui,sans-serif}
+body[data-league="euroleague"] .el-live-flow-label strong{font-size:12px}
+body[data-league="euroleague"] .el-live-flow-bar{height:12px;margin:8px 0 5px;background:#c36a3b;border-radius:99px;overflow:hidden}
+body[data-league="euroleague"] .el-live-flow-bar i{display:block;height:100%;background:#2c5578;transition:width .4s ease}
+body[data-league="euroleague"] .el-live-clock{font:700 12px system-ui,sans-serif;color:#8b2e23}
+body[data-league="euroleague"] .el-live-periods{display:grid;grid-template-columns:minmax(55px,1fr) repeat(4,minmax(23px,1fr));gap:4px;text-align:center;margin:12px 0;font:11px system-ui,sans-serif}
+body[data-league="euroleague"] .el-live-periods>*{padding:4px 1px;background:#e9e6e0;border-radius:3px}
+body[data-league="euroleague"] .el-live-periods>b:first-of-type,body[data-league="euroleague"] .el-live-periods>b:nth-of-type(6){text-align:left;padding-left:6px}
+body[data-league="euroleague"] .el-live-projection{padding:8px 0;font:600 11px/1.5 system-ui,sans-serif;color:#324f65}
+body[data-league="euroleague"] .el-live-foot{border-top:1px solid #dedbd4;padding-top:7px;margin-top:9px;color:#696c70;font:10px system-ui,sans-serif}
