@@ -1,0 +1,20 @@
+/* NBA franchise player leaderboards: player photography is NOT a team crest. */
+body.nba-newspaper[data-page="team"] .nba-franchise-leader-widget{min-width:0}
+body.nba-newspaper[data-page="team"] .nba-franchise-stat-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 15px}
+body.nba-newspaper[data-page="team"] .nba-franchise-stat-tabs button{cursor:pointer;border:1px solid #cbd7da;border-radius:5px;background:#f2f6f6;padding:8px 10px;color:#183443;font:700 11px/1.2 Arial,sans-serif}
+body.nba-newspaper[data-page="team"] .nba-franchise-stat-tabs button[aria-pressed="true"]{background:var(--franchise-accent);color:#fff;border-color:var(--franchise-accent)}
+body.nba-newspaper[data-page="team"] .nba-franchise-stat-tabs button:focus-visible{outline:2px solid #d87b2b;outline-offset:2px}
+body.nba-newspaper[data-page="team"] .nba-franchise-leader-row{display:grid;grid-template-columns:20px 53px minmax(0,1fr) 72px;align-items:center;gap:9px;padding:10px 3px;border-bottom:1px solid #e4e8e7;min-width:0}
+body.nba-newspaper[data-page="team"] .nba-franchise-leader-row:last-child{border:0}
+body.nba-newspaper[data-page="team"] .nba-franchise-leader-rank{font:800 17px/1 Georgia,serif;color:#899ba3;text-align:center}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait{position:relative;display:flex;align-items:center;justify-content:center;width:53px;height:56px;overflow:hidden;border-radius:6px;background:linear-gradient(145deg,#eff4f4,#c6d4d9);border-bottom:3px solid var(--franchise-accent)}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait>img{display:block;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important;background:none!important;border:none!important;border-radius:0!important;padding:0!important;margin:0!important;transform:none!important}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-fallback,body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait.no-photo:after{content:"NBA";font:700 11px Arial,sans-serif;color:#6a818a}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-detail{min-width:0}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-detail>b{display:block;font:700 13px/1.25 Arial,sans-serif;color:#182f3c;overflow-wrap:break-word}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-detail>small{display:block;margin-top:4px;font:10px/1.35 Arial,sans-serif;color:#667d87;overflow-wrap:break-word}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-stat{text-align:right}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-stat>strong{display:block;font:800 25px/1 'Barlow Condensed',Arial,sans-serif;color:#102c3b;white-space:nowrap}
+body.nba-newspaper[data-page="team"] .nba-franchise-player-stat>small{font:700 9px Arial,sans-serif;color:#697d84}
+body.nba-newspaper[data-page="team"] .nba-franchise-leader-note{font:10px/1.45 Arial,sans-serif;color:#60727a;margin:12px 0 0}
+@media(max-width:390px){body.nba-newspaper[data-page="team"] .nba-franchise-leader-row{grid-template-columns:17px 44px minmax(0,1fr) 61px;gap:5px}body.nba-newspaper[data-page="team"] .nba-franchise-player-portrait{width:44px;height:49px}body.nba-newspaper[data-page="team"] .nba-franchise-player-stat>strong{font-size:21px}}
