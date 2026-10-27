@@ -19,7 +19,11 @@ if(!retroValid&&!valid(pre)){ $('#app').innerHTML='<div class="error">2026–27 
 const retroPreseason=retroValid&&retroPublication.games_played===0&&retroPublication.rankings.every(t=>t.elo===1500);
 const retroInSeason=retroValid&&retroPublication.games_played>0&&retroPublication.starting_elo===1500&&retroPublication.status!=='preseason-all-tied';
 let live=Boolean(retroInSeason);
-let data=(retroPreseason||retroInSeason)?retroPublication:pre,teams=data.rankings;
+let data=(retroPreseason||retroInSeason)?retroPublication:pre;
+const referenceById=new Map((valid(pre)?pre.rankings:valid(current)?current.rankings:[]).map(t=>[t.team_id,t]));
+const enrichRankings=rankings=>rankings.map(t=>({...referenceById.get(t.team_id),...t,wins:t.wins??0,losses:t.losses??0,conference_wins:t.conference_wins??0,conference_losses:t.conference_losses??0}));
+let teams=enrichRankings(data.rankings);
+if(!teams.every(t=>t.conference)){console.warn('MBB: conference reference is missing for some teams');}
 const ratingMethod=(retroPreseason||retroInSeason)?'RETRO · 1500 clean slate':'Legacy Elo fallback — RETRO feed unavailable';
 const teamMap=new Map(teams.map(t=>[t.team_id,t])),ids=new Map((cross?.teams||[]).map(t=>[t.id,t.espn_id]));
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort();
@@ -128,11 +132,11 @@ document.querySelectorAll('.nav a').forEach(a=>{if(a.pathname===location.pathnam
 async function refreshRatings(){
  const [next,log,up]=await Promise.all([get('data/ncaam-2026-27-retro-primary.json'),get(files[3]),get(files[4])]);
  const approved=next?.season==='2026-27'&&next.model==='retro-clean-slate'&&next.starting_elo===1500&&next.rankings?.length===365&&next.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo))&&next.games_played>=0;
- const changed=approved&&JSON.stringify(next.rankings)!==JSON.stringify(teams);
+ const changed=approved&&JSON.stringify(next.rankings.map(t=>[t.team_id,t.elo,t.games_played]))!==JSON.stringify(teams.map(t=>[t.team_id,t.elo,t.games_played]));
  const scheduleChanged=up&&JSON.stringify(up.games)!==JSON.stringify(schedule?.games);
  if(up)schedule=up;
  if(!changed&&!scheduleChanged)return;
- if(changed){current=next;data=next;teams=next.rankings;live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')games=log.games||[];projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
+ if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')games=log.games||[];projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
  const scroll=window.scrollY,query=$('#team-search')?.value,opponent=$('#opponent')?.value,conf=$('#conf-pick')?.value;
  if(page==='home')home();else if(page==='conference')conference();else if(page==='team')await teamPage();else if(page==='tournament')tournament();
  if(query&&$('#team-search')){$('#team-search').value=query;$('#team-directory').innerHTML=directory(query)}
