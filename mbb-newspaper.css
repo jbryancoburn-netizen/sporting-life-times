@@ -8,3 +8,5 @@
 .score-card .badge{width:36px;height:36px;border-width:3px}
 .team-hero .badge{border-radius:50%;border:5px solid var(--logo-ring,#193f52);padding:8px}
 @media(max-width:680px){.hero-team img.badge{width:55px;height:55px;padding:4px}.score-card .badge{width:34px;height:34px}}
+
+.badge-fallback{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;color:var(--logo-ring,#193f52);font:700 10px/1 Arial,sans-serif;letter-spacing:-.5px;flex-shrink:0}.hero-team .badge-fallback{width:70px;height:70px;font-size:18px}.team-hero .badge-fallback{width:110px;height:110px;font-size:22px}@media(max-width:1000px){.hero-team .badge-fallback{width:53px;height:53px}}@media(max-width:680px){.hero-team .badge-fallback{width:55px;height:55px}.team-hero .badge-fallback{width:70px;height:70px}}
