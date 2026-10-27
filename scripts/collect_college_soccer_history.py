@@ -2,7 +2,7 @@
 """Collect dated NCAA men's D-I soccer final scores for leakage-free USRS backtests.
 Never manufacture scores, dates, venues, or team identities.
 """
-import argparse, datetime as dt, json, pathlib, time
+import argparse, datetime as dt, json, pathlib, time, random
 from update_college_soccer_elo import API, scoreboard, normalized_final
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BASE=API+"/soccer-men/d1"
@@ -34,7 +34,19 @@ def main():
     if dates>=args.max_days_per_year:break
     url=f"{BASE}/{day:%Y/%m/%d}/all-conf"
     try:
-     data=scoreboard(url);dates+=1
+     # Retry a whole missing date after transport failures, not merely one HTTP request.
+     # This specifically addresses intermittent NCAA proxy HTTP 502 responses.
+     last_error=None
+     for attempt in range(8):
+      try:
+       data=scoreboard(url,retries=2)
+       last_error=None
+       break
+      except Exception as exc:
+       last_error=exc
+       if attempt<7:time.sleep(min(45,3*(attempt+1))+random.uniform(0,1))
+     if last_error is not None:raise last_error
+     dates+=1
      if not isinstance(data,dict) or not isinstance(data.get('games'),list):raise ValueError('invalid scoreboard response')
      checked.add(stamp)
      if data is not None:
