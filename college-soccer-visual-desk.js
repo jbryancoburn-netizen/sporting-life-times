@@ -81,6 +81,15 @@ function render(){
  const prob=E('div',null,'cs-prob');for(const [val,kind] of [[g.p_away,'away'],[g.p_draw,'draw'],[g.p_home,'home']]){const bar=E('i',null,'cs-prob-'+kind);bar.style.width=Math.max(0,Math.min(100,100*Number(val)))+'%';prob.append(bar);}item.append(prob);
  const labels=E('div',null,'cs-prob-labels');labels.append(E('span',pct(g.p_away)+' away'),E('span',pct(g.p_draw)+' draw'),E('span',pct(g.p_home)+' home'));item.append(labels);
  }
+ if(cohort==='men-d1'&&!show&&Date.parse(g.kickoff_utc)>Date.now()){
+  const h=teams.find(t=>t.team_id===g.home_team),v=teams.find(t=>t.team_id===g.away_team);
+  if(h&&v&&Number.isFinite(Number(h.elo))&&Number.isFinite(Number(v.elo))){
+   const diff=Number(h.elo)+55-Number(v.elo),draw=Math.min(.8,Math.max(.005,.25*Math.exp(-Math.abs(diff)/650))),win=1/(1+Math.pow(10,-diff/400));
+   const vals=[(1-draw)*(1-win),draw,(1-draw)*win];
+   const line=E('div',null,'cs-prob-labels');line.append(E('span',pct(vals[0])+' away'),E('span',pct(vals[1])+' draw'),E('span',pct(vals[2])+' home'));
+   item.append(E('small','NEW · 2025-TESTED THREE-WAY ELO · CURRENT RATINGS'),line);
+  }
+ }
  const detail=E('a','OPEN MATCH CENTER ↗','cs-game-link');detail.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);item.append(detail);
  cards.append(item);
  }
