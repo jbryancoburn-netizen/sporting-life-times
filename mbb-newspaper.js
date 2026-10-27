@@ -112,7 +112,7 @@ async function fullTeamSchedule(t){
   const broadcasts=[...(c.broadcasts||[]),...(e.broadcasts||[])];
   const network=[...new Set(broadcasts.flatMap(b=>[...(b.names||[]),b.name,b.media?.shortName,b.media?.name].filter(Boolean)))].join(' / ');
   const completed=e.status?.type?.completed===true;
-  const scheduledTime=e.official_time_tba?'TBA · '+(e.time_options_et||[]).join(' / '):whenTip(e.date);
+  const scheduledTime=e.official_time?String(e.official_time):e.official_time_tba?'TBA · '+(e.time_options_et||[]).join(' / '):whenTip(e.date);
   return {date:e.date,opponent:opp?.team?.displayName||opp?.team?.name||'Opponent TBA',opponentLogo:opp?.team?.logo||'',venue:c.venue?.fullName||'Venue TBA',location:[c.venue?.address?.city,c.venue?.address?.state].filter(Boolean).join(', '),site:c.neutralSite?'Neutral':self?.homeAway==='home'?'vs':'@',network:network||'TBA',result:completed?String(self?.score??'')+'–'+String(opp?.score??''):'—',time:completed?'Final':scheduledTime};
  }):fallback.map(g=>({date:g.date,opponent:teamMap.get(gid(g).find(id=>id!==t.team_id))?.team||'Opponent TBA',site:gid(g)[0]===t.team_id?'vs':'@',network:'TBA',venue:'Venue TBA',location:'',opponentLogo:'',result:'—',time:'TBA'}));
  const logoForOpponent=g=>g.opponentLogo&&url(g.opponentLogo)?'<img class="sched-logo-image" alt="" loading="lazy" src="'+url(g.opponentLogo)+'">':'';
