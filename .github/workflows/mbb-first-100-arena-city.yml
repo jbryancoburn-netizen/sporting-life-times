@@ -1,0 +1,31 @@
+name: MBB first 100 arena city normalization
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-first-100-arena-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-first-100-arena-city
+  cancel-in-progress: false
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Normalize source-backed arenas and cities
+        run: python scripts/mbb_first_100_arena_city_20261027.py
+      - name: Publish 100-school data and audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-first-100-arena-city-normalization-20261027.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Normalize MBB arena and city data for first 100 schools"
+            git push
+          fi
