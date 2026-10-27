@@ -468,3 +468,9 @@ body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:r
 body.nba-newspaper[data-page="players"] .depth-star-top{min-width:0}
 body.nba-newspaper[data-page="players"] .depth-star-top img{flex:0 0 78px;width:78px;height:78px}
 @media(max-width:880px){body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:1fr}body.nba-newspaper[data-page="players"] .depth-star-top img{flex:0 0 86px;width:86px;height:86px}}
+
+/* Front-page player leaders have dedicated compact team marks. */
+body.nba-newspaper[data-page="home"] .nba-leader-club .nba-leader-team{display:flex!important;align-items:center!important;gap:6px!important;min-width:0!important;text-decoration:none!important;white-space:normal!important}
+body.nba-newspaper[data-page="home"] .nba-leader-club .nba-leader-team>img{box-sizing:border-box!important;display:block!important;flex:0 0 24px!important;width:24px!important;height:24px!important;min-width:24px!important;max-width:24px!important;min-height:24px!important;max-height:24px!important;border:2px solid var(--leader-ring)!important;border-radius:50%!important;padding:1px!important;background:white!important;object-fit:contain!important;position:static!important;transform:none!important}
+body.nba-newspaper[data-page="home"] .nba-leader-club .nba-leader-team>img[hidden]{display:none!important}
+body.nba-newspaper[data-page="home"] .nba-leader-club .nba-leader-team>span{display:block!important;min-width:0!important;white-space:normal!important;font:600 10px/1.3 Arial,sans-serif!important}
