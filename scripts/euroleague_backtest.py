@@ -31,42 +31,66 @@ def score(games,k,home,carry):
         "accuracy":sum((p>=.5)==bool(y) for p,y in preds)/n,
         "predictions":details}
 def score_forecast_evaluation(games):
-    """Evaluate the published scoring formula before each final, without future leakage."""
-    stats={}; evaluated=0; abs_home=abs_away=abs_total=abs_margin=0.0; baseline_total_error=0.0; baseline_margin_error=0.0
-    current=sorted((g for g in games if g["season"]=="E2026" and g["completed"]),key=lambda g:(el.clock(g["date"]),g["id"]))
-    for g in current:
-        h,a=g["home"]["code"],g["away"]["code"]
-        hst,ast=stats.get(h),stats.get(a)
-        total_games=sum(t["played"] for t in stats.values())
-        average=sum(t["for"] for t in stats.values())/total_games if total_games else None
-        if hst and ast and hst["played"]>=5 and ast["played"]>=5 and average is not None:
-            hp=.5*(hst["for"]/hst["played"]+ast["against"]/ast["played"])
-            ap=.5*(ast["for"]/ast["played"]+hst["against"]/hst["played"])
-            edge=1.5 if not g["neutral"] else 0
-            pred_h=.7*hp+.3*average+edge
-            pred_a=.7*ap+.3*average-edge
+    """Pregame-only scoring backtest; evaluate the exact live forecast function."""
+    seasons=("E2022","E2023","E2024","E2025","E2026")
+    by_season={}
+    for g in games:
+        if g["season"] in seasons and g["completed"]:
+            by_season.setdefault(g["season"],[]).append(g)
+    results={}
+    for season,rows in by_season.items():
+        stats={};ratings={};n=0
+        errors={"home":0.0,"away":0.0,"total":0.0,"margin":0.0,
+                "baseline_total":0.0,"baseline_margin":0.0}
+        correct=0
+        for g in sorted(rows,key=lambda x:(el.clock(x["date"]),x["id"])):
+            h,a=g["home"]["code"],g["away"]["code"]
+            ratings.setdefault(h,1500.0);ratings.setdefault(a,1500.0)
+            p=el.expected(ratings[h]-ratings[a]+(0 if g["neutral"] else el.HOME_ELO))
+            hs,as_=stats.get(h),stats.get(a)
+            played=sum(t["played"] for t in stats.values())
+            avg=sum(t["for"] for t in stats.values())/played if played else None
             actual_h,actual_a=g["home"]["score"],g["away"]["score"]
-            evaluated+=1
-            abs_home+=abs(pred_h-actual_h)
-            abs_away+=abs(pred_a-actual_a)
-            abs_total+=abs(pred_h+pred_a-actual_h-actual_a)
-            abs_margin+=abs((pred_h-pred_a)-(actual_h-actual_a))
-            baseline_total_error+=abs(2*average-actual_h-actual_a)
-            baseline_margin_error+=abs(actual_h-actual_a)
-        for code,points,against in ((h,g["home"]["score"],g["away"]["score"]),(a,g["away"]["score"],g["home"]["score"])):
-            st=stats.setdefault(code,{"played":0,"for":0,"against":0})
-            st["played"]+=1;st["for"]+=points;st["against"]+=against
-    return {"games_evaluated":evaluated,"minimum_prior_games_per_team":5,
-            "status":"measured" if evaluated else "insufficient_eligible_games",
-            "home_score_mae":round(abs_home/evaluated,2) if evaluated else None,
-            "away_score_mae":round(abs_away/evaluated,2) if evaluated else None,
-            "total_mae":round(abs_total/evaluated,2) if evaluated else None,
-            "margin_mae":round(abs_margin/evaluated,2) if evaluated else None,
-            "league_average_total_mae":round(baseline_total_error/evaluated,2) if evaluated else None,
-            "zero_margin_baseline_mae":round(baseline_margin_error/evaluated,2) if evaluated else None,
-            "beats_simple_total_baseline":abs_total<baseline_total_error if evaluated else None,
-            "beats_zero_margin_baseline":abs_margin<baseline_margin_error if evaluated else None,
-            "method":"strict pregame expanding-window; current published scoring formula"}
+            if hs and as_ and hs["played"]>=5 and as_["played"]>=5 and avg is not None:
+                hp=.5*(hs["for"]/hs["played"]+as_["against"]/as_["played"])
+                ap=.5*(as_["for"]/as_["played"]+hs["against"]/hs["played"])
+                edge=1.5 if not g["neutral"] else 0
+                pred=el.forecast_score(.7*hp+.3*avg+edge,.7*ap+.3*avg-edge,p)
+                n+=1
+                errors["home"]+=abs(pred["home"]-actual_h)
+                errors["away"]+=abs(pred["away"]-actual_a)
+                errors["total"]+=abs(pred["total"]-actual_h-actual_a)
+                errors["margin"]+=abs((pred["home"]-pred["away"])-(actual_h-actual_a))
+                errors["baseline_total"]+=abs(2*avg-actual_h-actual_a)
+                errors["baseline_margin"]+=abs(actual_h-actual_a)
+                correct+=int((pred["home"]>pred["away"])==(actual_h>actual_a))
+            winner=int(actual_h>actual_a)
+            margin=abs(actual_h-actual_a)
+            change=el.K*min(1.65,.8+.22*math.log1p(margin))*(winner-p)
+            ratings[h]+=change;ratings[a]-=change
+            for code,pts,against in ((h,actual_h,actual_a),(a,actual_a,actual_h)):
+                st=stats.setdefault(code,{"played":0,"for":0,"against":0})
+                st["played"]+=1;st["for"]+=pts;st["against"]+=against
+        results[season]={"games_evaluated":n,"home_score_mae":round(errors["home"]/n,2) if n else None,
+            "away_score_mae":round(errors["away"]/n,2) if n else None,
+            "total_mae":round(errors["total"]/n,2) if n else None,
+            "margin_mae":round(errors["margin"]/n,2) if n else None,
+            "league_average_total_mae":round(errors["baseline_total"]/n,2) if n else None,
+            "zero_margin_baseline_mae":round(errors["baseline_margin"]/n,2) if n else None,
+            "winner_accuracy":round(correct/n,4) if n else None}
+    eligible=[v for v in results.values() if v["games_evaluated"]]
+    total=sum(v["games_evaluated"] for v in eligible)
+    def weighted(key):
+        return round(sum(v[key]*v["games_evaluated"] for v in eligible)/total,2) if total else None
+    return {"games_evaluated":total,"minimum_prior_games_per_team":5,
+        "status":"measured" if total else "insufficient_eligible_games",
+        "home_score_mae":weighted("home_score_mae"),"away_score_mae":weighted("away_score_mae"),
+        "total_mae":weighted("total_mae"),"margin_mae":weighted("margin_mae"),
+        "league_average_total_mae":weighted("league_average_total_mae"),
+        "zero_margin_baseline_mae":weighted("zero_margin_baseline_mae"),
+        "winner_accuracy":round(sum(v["winner_accuracy"]*v["games_evaluated"] for v in eligible)/total,4) if total else None,
+        "by_season":results,
+        "method":"strict pregame expanding-window; shared published forecast function; 1500 Elo reset each season"}
 
 def heldout_evaluation(games):
     """Select settings on 2025-26; report untouched 2026-27 pregame predictions."""
