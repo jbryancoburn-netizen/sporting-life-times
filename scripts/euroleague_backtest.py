@@ -5,7 +5,7 @@ import json, math, pathlib
 import euroleague_model as el
 
 OUT=pathlib.Path("data/euroleague-validation.json")
-PARAMS=[(k,h,c) for k in (12.,18.,22.,28.,36.) for h in (0.,35.,65.,90.,120.) for c in (0.,)]
+PARAMS=[(k,h,c) for k in (12.,18.,22.,28.,36.) for h in range(50,101,5) for c in (0.,)]
 def score(games,k,home,carry):
     ratings={}; prior=None; preds=[]; details=[]
     for g in sorted(games,key=lambda x:(x["season"],el.clock(x["date"]),x["id"])):
@@ -75,9 +75,14 @@ def heldout_evaluation(games):
     if not test:
         raise ValueError("No held-out 2026-27 games")
     candidates=[]
+    folds=("E2023","E2024","E2025")
     for k,home,carry in PARAMS:
         r=score(train,k,home,carry)
-        candidates.append((r["log_loss"],r["brier"],k,home,carry))
+        predictions=[p for p in r["predictions"] if p["season"] in folds]
+        if not predictions: raise ValueError("Missing walk-forward historical holdout predictions")
+        loss=-sum(p["actual"]*math.log(p["pred"])+(1-p["actual"])*math.log1p(-p["pred"]) for p in predictions)/len(predictions)
+        brier=sum((p["pred"]-p["actual"])**2 for p in predictions)/len(predictions)
+        candidates.append((loss,brier,k,home,carry))
     candidates.sort()
     _,_,k,home,carry=candidates[0]
     full=score(games,k,home,carry)
@@ -90,8 +95,8 @@ def heldout_evaluation(games):
         return {"n":n,"log_loss":round(-sum(r["actual"]*math.log(max(1e-6,min(1-1e-6,r["pred"])))+(1-r["actual"])*math.log1p(-max(1e-6,min(1-1e-6,r["pred"]))) for r in rows)/n,6),
                 "brier":round(sum((r["pred"]-r["actual"])**2 for r in rows)/n,6),
                 "accuracy":round(sum((r["pred"]>=.5)==bool(r["actual"]) for r in rows)/n,4)}
-    return {"method":"train equal-start candidates on 2021-22 through 2025-26; evaluate unseen 2026-27 chronologically",
-            "training_season":"E2021-E2025","holdout_season":"E2026",
+    return {"method":"walk-forward selection on historical 2023-24 through 2025-26 seasons; evaluate unseen 2026-27 chronologically",
+            "training_season":"E2021-E2025","historical_validation_seasons":list(folds),"holdout_season":"E2026",
             "selected_parameters":{"k":k,"home_elo":home,"season_carry":carry},
             "selected_holdout":metrics(hold),"baseline_holdout":metrics(basehold),
             "note":"True season holdout; selections are not retrained on holdout games."}
