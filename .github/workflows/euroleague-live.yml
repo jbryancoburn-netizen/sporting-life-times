@@ -43,7 +43,7 @@ jobs:
           model=json.loads(Path("data/euroleague-model.json").read_text())
           live=json.loads(Path("data/euroleague-live.json").read_text())
           from datetime import datetime
-          counted={str(g["id"]) for g in model.get("recent_results",[])}
+          counted={str(g["id"]) for g in model.get("completed_game_ledger",model.get("recent_results",[]))}
           watermark=datetime.fromisoformat(model["last_completed_game_at"].replace("Z","+00:00"))
           if watermark.tzinfo is None:
               raise ValueError("EuroLeague final watermark lacks timezone")
