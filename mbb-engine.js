@@ -69,11 +69,30 @@ function field(teams,games=[]){
  const pods=[];for(const region of regions)for(const seeds of [[1,16,8,9],[4,13,5,12],[3,14,6,11],[2,15,7,10]])pods.push({region,seeds,slots:seeds.map(s=>bracket[region][s])});
  pods.sort((a,b)=>a.slots[0].trueSeed-b.slots[0].trueSeed);
  const preferences={East:['Pittsburgh','Charlotte','Louisville','Minneapolis','Omaha','Fort Worth','Spokane','Sacramento'],West:['Spokane','Sacramento','Omaha','Fort Worth','Minneapolis','Louisville','Charlotte','Pittsburgh'],South:['Fort Worth','Charlotte','Louisville','Omaha','Pittsburgh','Minneapolis','Sacramento','Spokane'],Midwest:['Minneapolis','Omaha','Louisville','Pittsburgh','Fort Worth','Charlotte','Spokane','Sacramento']};
- for(const pod of pods){
-  const names=pod.slots.flatMap(s=>s.teams.map(t=>t.team));const noSunday=names.some(n=>/Brigham Young|^BYU$/.test(n));
-  const choice=preferences[pod.region].map(c=>sites.find(s=>s.city===c)).find(s=>usage.get(s.city)<2&&(!noSunday||!s.fri)&&!(s.city==='Omaha'&&names.includes('Creighton'))&&!(s.city==='Louisville'&&names.includes('Louisville')));
-  if(!choice){violations.push('A pod requires manual site assignment.');continue}usage.set(choice.city,usage.get(choice.city)+1);pod.slots.forEach(s=>s.site=choice);
- }
+ const options=pod=>{
+  const names=pod.slots.flatMap(slot=>slot.teams.map(t=>t.team));
+  const noSunday=names.some(n=>/Brigham Young|^BYU$/.test(n));
+  return preferences[pod.region].map(city=>sites.find(s=>s.city===city)).filter(site=>
+   (!noSunday||!site.fri)&&!(site.city==='Omaha'&&names.includes('Creighton'))&&!(site.city==='Louisville'&&names.includes('Louisville')));
+ };
+ // Assign restrictive pods first; backtrack when a preferred venue would strand another pod.
+ const work=pods.map((pod,index)=>({pod,index,options:options(pod)})).sort((a,b)=>a.options.length-b.options.length||a.index-b.index);
+ const assignments=new Map();
+ const assign=i=>{
+  if(i===work.length)return true;
+  const item=work[i];
+  for(const venue of item.options){
+   if(usage.get(venue.city)>=2)continue;
+   usage.set(venue.city,usage.get(venue.city)+1);
+   assignments.set(item.index,venue);
+   if(assign(i+1))return true;
+   assignments.delete(item.index);
+   usage.set(venue.city,usage.get(venue.city)-1);
+  }
+  return false;
+ };
+ if(!assign(0))violations.push('Site assignment impossible under the currently modeled pod restrictions.');
+ pods.forEach((pod,i)=>{const site=assignments.get(i);if(site)pod.slots.forEach(slot=>slot.site=site);});
  opening.forEach((o,i)=>{const target=Object.values(bracket).flatMap(r=>Object.values(r)).find(s=>s.teams[0].team_id===o.teams[0].team_id);Object.assign(o,{seed:target.seed,region:regions.find(r=>Object.values(bracket[r]).includes(target)),site:target.site,openingSite:i%2?'Wichita':'Dayton',openingDate:target.site?.fri?'March 17':'March 16'});});
  return {selected,auto,at,bubble:ranked.filter(t=>!selectedMap.has(t.team_id)).slice(0,8),bracket,opening,violations,mode:games.length?'Experimental résumé forecast':'Preseason Elo field',regions,pairs,regionSites};
 }
