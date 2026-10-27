@@ -1,0 +1,35 @@
+name: EuroLeague verified player leaders
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/euroleague_player_leaders.py'
+      - '.github/workflows/euroleague-player-leaders.yml'
+  schedule:
+    - cron: '16,46 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: euroleague-player-leaders
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch and validate real player statistics
+        run: python scripts/euroleague_player_leaders.py
+      - name: Publish only complete validated player leaders
+        run: |
+          if ! git diff --quiet -- data/euroleague-player-leaders.json || [ -n "$(git ls-files --others --exclude-standard data/euroleague-player-leaders.json)" ]; then
+            git config user.name "sporting-life-times-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/euroleague-player-leaders.json
+            git commit -m "Refresh verified EuroLeague player leaderboards"
+            git pull --rebase
+            git push
+          fi
