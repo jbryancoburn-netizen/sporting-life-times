@@ -112,3 +112,24 @@ body.league-edition[data-league="euroleague"] .el-result-row>b{font-size:18px;fo
 @media(max-width:1000px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:430px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:1fr}}
+
+/* 2026 editorial analytics: four compact, visual, non-duplicative league lenses. */
+body.league-edition[data-league="euroleague"] .el-insights{border-top:5px solid #ad462f;padding-top:18px;margin:20px 0 28px}
+body.league-edition[data-league="euroleague"] #el-insights-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+body.league-edition[data-league="euroleague"] .el-chart{min-width:0;background:#f9f7f0;border:1px solid #d7cabc;padding:17px;box-shadow:0 3px 0 #d7cabc}
+body.league-edition[data-league="euroleague"] .el-chart header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:2px solid #292722;padding-bottom:10px;margin-bottom:10px}
+body.league-edition[data-league="euroleague"] .el-chart h3{font:700 19px/1.1 Georgia,serif;margin:0}
+body.league-edition[data-league="euroleague"] .el-chart header small{font:10px Georgia,serif;color:#766a60;text-align:right}
+body.league-edition[data-league="euroleague"] .el-chart-row{display:grid;grid-template-columns:17px minmax(115px,1.2fr) minmax(42px,1fr) 75px;gap:8px;align-items:center;min-height:45px;border-bottom:1px solid #e0d8cc}
+body.league-edition[data-league="euroleague"] .el-chart-row:last-child{border-bottom:0}
+body.league-edition[data-league="euroleague"] .el-chart-rank{font:700 17px Georgia,serif;color:#a64c32}
+body.league-edition[data-league="euroleague"] .el-chart-club{display:flex;align-items:center;gap:8px;min-width:0;font:600 11px/1.2 Georgia,serif}
+body.league-edition[data-league="euroleague"] .el-chart-club>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.league-edition[data-league="euroleague"] .el-chart-club .slt-mark{--slt-mark-size:32px}
+body.league-edition[data-league="euroleague"] .el-chart-track{height:9px;background:#e5dfd6;border-radius:10px;overflow:hidden}
+body.league-edition[data-league="euroleague"] .el-chart-track i{display:block;height:100%;background:linear-gradient(90deg,#b84b2e,#e0a34b);border-radius:10px}
+body.league-edition[data-league="euroleague"] .el-chart-row>b{text-align:right;font:700 13px Georgia,serif;font-variant-numeric:tabular-nums}
+/* Keep exactly one existing club-color ring; enlarge only the image inside it slightly. */
+body.league-edition[data-league="euroleague"] .slt-mark>img{padding:1px!important}
+@media(max-width:850px){body.league-edition[data-league="euroleague"] #el-insights-grid{grid-template-columns:1fr}}
+@media(max-width:430px){body.league-edition[data-league="euroleague"] .el-chart{padding:10px}body.league-edition[data-league="euroleague"] .el-chart-row{grid-template-columns:14px minmax(88px,1fr) minmax(35px,.6fr) 67px;gap:5px}body.league-edition[data-league="euroleague"] .el-chart-club .slt-mark{--slt-mark-size:27px}}
