@@ -4,8 +4,8 @@
   "cohort": "men-d1",
   "source": "NCAA.com via ncaa-api compatibility transport",
   "venue_note": "Listed home/away is not proof of actual venue; neutral_venue unknown.",
-  "collection_date_utc": "2026-10-27T00:26:37.366031+00:00",
-  "dates_queried": 117,
+  "collection_date_utc": "2026-10-27T01:00:14.067629+00:00",
+  "dates_queried": 1,
   "checked_dates": [
     "2023-08-01",
     "2023-08-02",
@@ -55,6 +55,7 @@
     "2023-09-15",
     "2023-09-16",
     "2023-09-17",
+    "2023-09-18",
     "2023-09-19",
     "2023-09-20",
     "2023-09-21",
@@ -160,16 +161,11 @@
     "2023-12-30",
     "2023-12-31"
   ],
-  "finals_seen": 1571,
-  "unique_finals": 1931,
-  "coverage_complete": false,
+  "finals_seen": 4,
+  "unique_finals": 1935,
+  "coverage_complete": true,
   "dates_expected": 153,
-  "errors": [
-    {
-      "date": "2023-09-18",
-      "error": "HTTP Error 502: Bad Gateway"
-    }
-  ],
+  "errors": [],
   "games": [
     {
       "game_id": "men-6166739",
@@ -7616,6 +7612,50 @@
       "away_goals": 1,
       "neutral_venue": null,
       "source_url": "https://www.ncaa.com/game/6169025",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6167477",
+      "date": "2023-09-18",
+      "home": "seattle",
+      "away": "denver",
+      "home_goals": 2,
+      "away_goals": 2,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6167477",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6167478",
+      "date": "2023-09-18",
+      "home": "pittsburgh",
+      "away": "fdu",
+      "home_goals": 5,
+      "away_goals": 1,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6167478",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6167479",
+      "date": "2023-09-18",
+      "home": "trinity-tx",
+      "away": "uiw",
+      "home_goals": 1,
+      "away_goals": 1,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6167479",
+      "status": "final"
+    },
+    {
+      "game_id": "men-6167480",
+      "date": "2023-09-18",
+      "home": "san-diego-st",
+      "away": "life-pacific",
+      "home_goals": 12,
+      "away_goals": 0,
+      "neutral_venue": null,
+      "source_url": "https://www.ncaa.com/game/6167480",
       "status": "final"
     },
     {
