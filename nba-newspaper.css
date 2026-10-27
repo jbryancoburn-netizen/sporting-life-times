@@ -455,3 +455,16 @@ body.nba-newspaper .nba-brand-link>span{display:block!important;position:static!
 body.nba-newspaper[data-page="rankings"] table.nba-power-table td.nba-power-club .nba-brand-link{display:flex!important;grid-template-columns:none!important}
 body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-crest.nba-brand-badge{box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 52px!important;width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important;max-width:52px!important;max-height:52px!important;border:3px solid var(--nba-club-color)!important;border-radius:50%!important;padding:3px!important;background:white!important;overflow:hidden!important}
 body.nba-newspaper[data-page="playoffs"] .nba-race-team .nba-race-crest.nba-brand-badge>img.nba-team-logo{box-sizing:border-box!important;display:block!important;position:static!important;grid-area:auto!important;flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;min-height:42px!important;max-height:42px!important;border:0!important;border-radius:0!important;padding:0!important;margin:0!important;background:transparent!important;object-fit:contain!important;transform:none!important}
+
+/* Player stats: compact team marks never inherit huge newspaper crest dimensions. */
+body.nba-newspaper[data-page="players"] .nba-player-club{display:inline-flex!important;align-items:center!important;gap:6px!important;min-width:0;white-space:nowrap;text-decoration:none;font:700 11px/1.2 Arial,sans-serif}
+body.nba-newspaper[data-page="players"] .nba-player-club>img{box-sizing:border-box!important;width:25px!important;height:25px!important;min-width:25px!important;max-width:25px!important;min-height:25px!important;max-height:25px!important;object-fit:contain!important;border:2px solid var(--nba-club-color)!important;border-radius:50%!important;background:white!important;padding:1px!important;display:block!important;flex:0 0 25px!important;transform:none!important}
+body.nba-newspaper[data-page="players"] .nba-player-club>img[hidden]{display:none!important}
+body.nba-newspaper[data-page="players"] #nba-player-results{overflow-x:auto;max-width:100%}
+body.nba-newspaper[data-page="players"] #nba-player-results .nba-table{min-width:630px;width:100%;font-variant-numeric:tabular-nums}
+body.nba-newspaper[data-page="players"] #nba-player-results .nba-table th,body.nba-newspaper[data-page="players"] #nba-player-results .nba-table td{padding:8px 9px;white-space:nowrap}
+body.nba-newspaper[data-page="players"] #nba-player-results .nba-table th:first-child,body.nba-newspaper[data-page="players"] #nba-player-results .nba-table td:first-child{text-align:left;min-width:155px;font-weight:700}
+body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+body.nba-newspaper[data-page="players"] .depth-star-top{min-width:0}
+body.nba-newspaper[data-page="players"] .depth-star-top img{flex:0 0 78px;width:78px;height:78px}
+@media(max-width:880px){body.nba-newspaper[data-page="players"] .depth-star-grid{grid-template-columns:1fr}body.nba-newspaper[data-page="players"] .depth-star-top img{flex:0 0 86px;width:86px;height:86px}}
