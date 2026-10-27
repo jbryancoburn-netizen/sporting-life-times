@@ -1,0 +1,38 @@
+name: MBB national scoreboard schedule backfill
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/backfill_mbb_calendars_scoreboard.py'
+      - '.github/workflows/mbb-scoreboard-schedule-backfill.yml'
+permissions:
+  contents: write
+concurrency:
+  group: mbb-scoreboard-schedule-backfill
+  cancel-in-progress: false
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Read every game date in national scoreboard and build school schedules
+        run: python scripts/backfill_mbb_calendars_scoreboard.py
+      - name: Publish team calendars and collection audit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/
+          if ! git diff --cached --quiet; then
+            git commit -m "Backfill MBB school calendars from verified national games"
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 2))
+            done
+            exit 1
+          fi
