@@ -151,14 +151,15 @@ const r=resumes.get(t.team_id);const branding=await get('data/mbb-branding.json'
  const known=history.map(g=>gid(g).find(id=>id!==t.team_id)).find(id=>teamMap.has(id));if(known)$('#opponent').value=known;
  const series=async()=>{const opp=teamMap.get($('#opponent').value);if(!opp)return;const node=$('#series');const choice=opp.team_id;node.innerHTML='<p class="note">Checking historical game archive…</p>';
  const teamArchiveId=t.team_id.replace(':','-');
- const archive=await get('data/mbb-head-to-head-1985/'+teamArchiveId+'.json');
+ let archive=null;
+ try{const response=await fetch('data/mbb-head-to-head-1985/'+teamArchiveId+'.json',{cache:'force-cache',signal:AbortSignal.timeout(45000)});if(response.ok)archive=await response.json();else throw Error('Historical archive HTTP '+response.status);}catch(err){console.error('MBB historical archive',err);}
  if($('#opponent').value!==choice)return;
  const historical=Array.isArray(archive?.games)?archive.games.filter(g=>gid(g).includes(choice)):[];
  const sample=history.filter(g=>gid(g).includes(choice));
  const dedup=new Map([...historical,...sample].map(g=>[[g.date,...gid(g).slice().sort()].join('|'),g]));
  const rows=[...dedup.values()].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
  const wins=rows.filter(g=>{const h=gid(g)[0]===t.team_id;return (h?g.home_score:g.away_score)>(h?g.away_score:g.home_score)}).length;
- const label=historical.length?'Historical results since 1985 · regular season / conference tournament / NCAA Tournament (secondary postseason pending)':'Partial verified archive · full 1985–present backfill pending';
+ const label=historical.length?'Historical results since 1985 · regular season, conference tournaments and postseason (archive through 2024)':'Partial verified archive · historical source currently unavailable';
  const gamesHTML=rows.length?rows.map(g=>gameCard(g,true)).join(''):empty('No verified games loaded for this matchup; this is not an all-time record.');
  node.innerHTML='<div class="vs-panel"><div class="big-result"><div>'+logo(t)+'<br><b>'+wins+'</b><br>'+esc(t.team)+'</div><span>WINS</span><div>'+logo(opp)+'<br><b>'+(rows.length-wins)+'</b><br>'+esc(opp.team)+'</div></div><p class="muted">'+rows.length+' games shown · '+label+'</p></div>'+gamesHTML;
  };const teamStats=$('#app .metrics');if(teamStats)teamStats.after(calendarHost);
