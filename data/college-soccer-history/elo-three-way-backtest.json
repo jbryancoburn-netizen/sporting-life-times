@@ -1,0 +1,51 @@
+{
+  "status": "evaluated_not_deployed",
+  "method": "Pre-game sequential Elo; tune three-way draw shape on 2024 only; untouched 2025 holdout",
+  "games_by_year": {
+    "2023": 1935,
+    "2024": 1971,
+    "2025": 1951
+  },
+  "elo_parameters": {
+    "k": 36,
+    "listed_home_elo": 55,
+    "offseason_retention": 1
+  },
+  "selected": {
+    "draw_base": 0.25,
+    "draw_decay_elo": 650,
+    "validation": {
+      "games": 1971,
+      "multiclass_brier": 0.19393964101893973,
+      "log_loss": 0.9789247117513706
+    }
+  },
+  "holdout": {
+    "games": 1951,
+    "multiclass_brier": 0.19141633096926902,
+    "log_loss": 0.9690275990243719
+  },
+  "holdout_baseline_2024_outcome_frequencies": {
+    "games": 1951,
+    "multiclass_brier": 0.20953151375072465,
+    "log_loss": 1.0437503262931977
+  },
+  "holdout_constant_draw_elo": {
+    "games": 1951,
+    "multiclass_brier": 0.1921134554459117,
+    "log_loss": 0.9717665821929662
+  },
+  "validation_outcome_frequencies": {
+    "home": 0.495687468290208,
+    "draw": 0.2070015220700152,
+    "away": 0.29731100963977675
+  },
+  "candidates_tested": 56,
+  "limitations": [
+    "Listed home is not verified actual home venue",
+    "Historical cohort includes unverified non-D1 opponents",
+    "Predictions are three-way probabilities, not calibrated goal-score forecasts",
+    "2025 holdout is not used for selection"
+  ],
+  "live_elo_modified": false
+}
