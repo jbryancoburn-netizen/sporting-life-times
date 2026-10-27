@@ -53,7 +53,8 @@ try{
   };
   const slot=(t,i)=>'<div class="el-bracket-slot">'+tile(t,i)+'</div>';
   const direct='<section class="el-bracket-section"><header><h3>DIRECT PLAYOFF BERTHS</h3><p>Seeds 1–6 · automatic quarterfinal positions</p></header><div class="el-bracket-direct">'+ranked.slice(0,6).map(slot).join('')+'</div></section>';
-  const playin='<section class="el-bracket-section"><header><h3>PLAY-IN TOURNAMENT</h3><p>Current seeds · provisional pairings</p></header><div class="el-bracket-playin"><div class="el-bracket-round"><h4>7 vs 8 · winner advances as No. 7</h4>'+slot(ranked[6],6)+slot(ranked[7],7)+'</div><div class="el-bracket-round"><h4>9 vs 10 · loser eliminated</h4>'+slot(ranked[8],8)+slot(ranked[9],9)+'</div><div class="el-bracket-round el-bracket-outcomes"><h4>FINAL PLAY-IN BERTH</h4><div class="el-bracket-placeholder">Loser of 7/8 vs winner of 9/10<br><strong>Winner becomes No. 8 seed</strong></div></div></div></section>';
+  const matchup=(a,ai,b,bi,title)=>'<div class="el-playin-match"><h4>'+title+'</h4><div class="el-match-pair">'+slot(a,ai)+slot(b,bi)+'</div></div>';
+  const playin='<section class="el-bracket-section"><header><h3>PLAY-IN BRACKET</h3><p>Provisional matchups · current standings</p></header><div class="el-playin-tree"><div class="el-playin-opening">'+matchup(ranked[6],6,ranked[7],7,'7 vs 8 · winner takes No. 7')+matchup(ranked[8],8,ranked[9],9,'9 vs 10 · loser eliminated')+'</div><div class="el-playin-connector" aria-hidden="true"></div><div class="el-playin-final"><h4>FINAL PLAY-IN GAME</h4><div class="el-bracket-placeholder"><strong>Loser of 7 vs 8</strong><span>VS</span><strong>Winner of 9 vs 10</strong><small>Winner advances as No. 8 seed</small></div></div></div></section>';
   spot.innerHTML=direct+playin;
  }
  const byCode=new Map(teams.map(t=>[t.code,t]));
