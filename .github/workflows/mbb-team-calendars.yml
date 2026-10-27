@@ -1,5 +1,9 @@
 name: MBB 2026-27 full team calendars
 on:
+  push:
+    paths:
+      - 'scripts/refresh_mbb_calendars.py'
+      - '.github/workflows/mbb-team-calendars.yml'
   workflow_dispatch:
   schedule:
     - cron: "17 7,19 * * *"
