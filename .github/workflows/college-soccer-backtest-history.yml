@@ -26,6 +26,9 @@ jobs:
       - name: Run preliminary historical Elo holdout backtest
         if: always()
         run: python scripts/backtest_college_soccer_elo.py --preliminary
+      - name: Run expanded 336-configuration validation and holdout
+        if: always()
+        run: python scripts/backtest_college_soccer_expanded.py
       - name: Run certified historical Elo holdout backtest when complete
         if: always()
         run: |
