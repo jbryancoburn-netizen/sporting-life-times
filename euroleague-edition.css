@@ -394,3 +394,18 @@ body[data-league="euroleague"] .el-chart-club>span:not(.slt-mark){white-space:no
 body[data-league="euroleague"] .el-chart-track{grid-area:bar;margin-left:38px}
 body[data-league="euroleague"] .el-chart-row>b{grid-area:value;align-self:center;white-space:normal!important;overflow-wrap:normal!important;line-height:1.15!important}
 @media(max-width:430px){body[data-league="euroleague"] .el-chart-row{grid-template-columns:15px minmax(0,1fr) 54px!important}body[data-league="euroleague"] .el-chart-track{margin-left:33px}}
+
+
+/* Team-first layout: readable full names and larger authentic shared crests. */
+body[data-league="euroleague"] #el-standings .nba-current-table{table-layout:auto!important}
+body[data-league="euroleague"] #el-standings th:first-child,body[data-league="euroleague"] #el-standings td:first-child{width:auto!important;min-width:215px!important}
+body[data-league="euroleague"] #el-standings .el-club-name{display:inline!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.2}
+body[data-league="euroleague"] #el-standings .el-club-code{display:none!important}
+body[data-league="euroleague"] #el-standings .el-club .slt-mark{--slt-mark-size:34px}
+body[data-league="euroleague"] #el-standings .nba-current-table-wrap{overflow-x:auto!important}
+body[data-league="euroleague"] .el-chart-club{grid-template-columns:38px minmax(0,1fr)!important}
+body[data-league="euroleague"] .el-chart-club .slt-mark{--slt-mark-size:38px}
+body[data-league="euroleague"] .el-chart-track{margin-left:46px!important}
+body[data-league="euroleague"] .el-result-row img{width:34px!important;height:34px!important}
+body[data-league="euroleague"] #el-forecasts .el-match .slt-mark{--slt-mark-size:38px}
+body[data-league="euroleague"] #el-live-scorebugs .el-live-team .slt-mark{--slt-mark-size:60px}
