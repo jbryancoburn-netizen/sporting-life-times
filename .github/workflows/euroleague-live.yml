@@ -20,7 +20,7 @@ concurrency:
 jobs:
   scoreboard:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -34,13 +34,17 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_euroleague_live_fast.py' -v
       - name: Retrieve active-game scores without full-season download
         run: python scripts/euroleague_live_fast.py
-      - name: Publish verified scoreboard
+      - name: Rebuild Elo and standings immediately after an official final
         run: |
-          if [ -n "$(git status --porcelain -- data/euroleague-live.json)" ]; then
+          python scripts/euroleague_model.py
+          python scripts/euroleague_release_gate.py
+      - name: Publish verified scoreboard and recalculated model
+        run: |
+          if [ -n "$(git status --porcelain -- data/euroleague-live.json data/euroleague-model.json)" ]; then
             git config user.name "sporting-life-times-bot"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/euroleague-live.json
-            git commit -m "Refresh EuroLeague live scorebugs"
+            git add data/euroleague-live.json data/euroleague-model.json
+            git commit -m "Refresh EuroLeague live scores, Elo, standings and projections"
             git pull --rebase
             git push
           fi
