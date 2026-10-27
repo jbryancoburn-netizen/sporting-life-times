@@ -76,7 +76,7 @@ function card(g){
  const ts=g.teams||[],a=ts.find(t=>t.home_away==='away')||ts[0],h=ts.find(t=>t.home_away==='home')||ts[1];if(!a||!h||!meta[a.code]||!meta[h.code])return '';
  const state=g.state==='post'?'FINAL':g.state==='in'?'LIVE':date(g.date),gameId=g.id;
  const dest=g.state==='post'?'nba-game-center.html?game='+encodeURIComponent(gameId):'nba-live-game.html?game='+encodeURIComponent(gameId);
- const side=t=>'<div class="score-team">'+image(t.code)+'<span>'+esc(name(t.code))+'</span><strong>'+(g.state==='pre'?'<em>'+rec(t.code)+'</em>':esc(t.score??'—'))+'</strong></div>';
+ const side=t=>'<div class="score-team" style="--nba-club-color:'+meta[t.code][3]+'">'+logoImg(t.code,'nba-game-row-crest')+'<span>'+esc(name(t.code))+'</span><strong>'+(g.state==='pre'?'<em>'+rec(t.code)+'</em>':esc(t.score??'—'))+'</strong></div>';
  return '<div class="score-card '+(g.state==='in'?'is-live':'')+'"><small>'+esc(state)+'</small><a href="'+dest+'">'+side(a)+side(h)+'</a><a class="score-link" href="'+dest+'">'+(g.state==='post'?'Box score & game analysis':'Live matchup & game center')+' ↗</a></div>';
 }
 function gamesFor(days=1,limit=12){const games=[...(data.schedule?.games||[])];
