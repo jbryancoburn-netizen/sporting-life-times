@@ -10,3 +10,31 @@
 @media(max-width:680px){.hero-team img.badge{width:55px;height:55px;padding:4px}.score-card .badge{width:34px;height:34px}}
 
 .badge-fallback{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;color:var(--logo-ring,#193f52);font:700 10px/1 Arial,sans-serif;letter-spacing:-.5px;flex-shrink:0}.hero-team .badge-fallback{width:70px;height:70px;font-size:18px}.team-hero .badge-fallback{width:110px;height:110px;font-size:22px}@media(max-width:1000px){.hero-team .badge-fallback{width:53px;height:53px}}@media(max-width:680px){.hero-team .badge-fallback{width:55px;height:55px}.team-hero .badge-fallback{width:70px;height:70px}}
+
+
+/* Full-width team fixture desk: do not squeeze seven schedule columns into a half-width card. */
+#full-season-schedule{width:100%;margin:22px 0 28px}
+#full-season-schedule .table-wrap{overflow-x:auto;max-width:100%}
+.mbb-schedule-table{width:100%;min-width:960px;border-collapse:collapse;table-layout:fixed;font-size:13px}
+.mbb-schedule-table th{font-size:10px;letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:13px 12px;white-space:nowrap}
+.mbb-schedule-table td{padding:14px 12px;vertical-align:middle;line-height:1.35;border-bottom:1px solid var(--line)}
+.mbb-schedule-table th:nth-child(1){width:100px}
+.mbb-schedule-table th:nth-child(2){width:230px}
+.mbb-schedule-table th:nth-child(3){width:230px}
+.mbb-schedule-table th:nth-child(4){width:115px}
+.mbb-schedule-table th:nth-child(5){width:125px}
+.mbb-schedule-table th:nth-child(6){width:100px}
+.mbb-schedule-table th:nth-child(7){width:75px}
+.mbb-schedule-table .sched-matchup{display:flex;align-items:center;gap:13px;min-width:0}
+.mbb-schedule-table .sched-logo{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center}
+.mbb-schedule-table .sched-logo img.badge{display:block;width:42px!important;height:42px!important;margin:0!important;flex:none;max-width:none}
+.mbb-schedule-table .sched-opponent{display:flex;flex-direction:column;gap:5px;min-width:0}
+.mbb-schedule-table .sched-opponent strong{font-size:13px;line-height:1.25;overflow-wrap:normal}
+.mbb-schedule-table .sched-opponent small{font-size:10px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.mbb-schedule-table .sched-venue{display:flex;flex-direction:column;gap:5px}
+.mbb-schedule-table .sched-venue strong{font-size:12px;font-weight:650}
+.mbb-schedule-table .sched-venue small{font-size:11px;color:var(--muted)}
+.mbb-schedule-table .sched-date,.mbb-schedule-table .sched-nowrap,.mbb-schedule-table .sched-network,.mbb-schedule-table .sched-elo{white-space:nowrap;font-variant-numeric:tabular-nums}
+.mbb-schedule-table .sched-elo{font-weight:700}
+.mbb-schedule-table tbody tr:hover{background:rgba(20,75,75,.05)}
+@media(max-width:680px){#full-season-schedule .table-wrap{font-size:12px}.mbb-schedule-table td{padding:12px 10px}}
