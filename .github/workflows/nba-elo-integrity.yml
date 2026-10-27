@@ -10,6 +10,8 @@ on:
       - 'scripts/audit-nba-boxscore-elo.mjs'
       - 'data/nba-game-center.json'
       - 'scripts/update-nba-elo.mjs'
+      - 'scripts/build-nba-elo-shadow.mjs'
+      - 'data/nba-elo-shadow-2026-27.json'
       - 'scripts/audit-nba-page.mjs'
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
@@ -74,6 +76,10 @@ jobs:
         run: node scripts/test-nba-rabby-possession.mjs
       - name: Test chronological NBA live-to-final transitions, duplicates and score conflicts
         run: python scripts/test_nba_final_transitions.py
+      - name: Verify isolated 1500-reset NBA shadow replay
+        run: |
+          node scripts/build-nba-elo-shadow.mjs --write
+          git diff --exit-code -- data/nba-elo-shadow-2026-27.json
       - name: Verify archived and current NBA Elo consistency
         run: |
           node scripts/audit-nba-elo.mjs
