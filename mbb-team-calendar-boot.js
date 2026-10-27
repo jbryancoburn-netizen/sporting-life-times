@@ -42,8 +42,10 @@ try{
   const address=c.venue?.address||{};
   const venueCity=[address.city,address.state].filter(Boolean).join(', ');
   const cityOnly=/^[A-Za-z .'-]+,\s*[A-Z]{2}(?:\s.*)?$/.test(cleanVenue)||/^[A-Za-z .'-]+,\s*(?:Ohio|Florida|California|Texas|New York|Pennsylvania|Virginia|Georgia|Indiana|Kentucky|Tennessee|Illinois|Michigan|Wisconsin|Alabama|Arkansas|Missouri|Oklahoma|Iowa|Utah|Colorado|Arizona|Nevada|Oregon|Washington|Louisiana|Mississippi|Idaho|Kansas|Nebraska|Minnesota|Maryland|Connecticut|Montana|Maine|Vermont|Hawaii|Alaska|Wyoming|Delaware|Carolina|Dakota|Jersey|Mexico)(?:\s.*)?$/i.test(cleanVenue);
-  const arena=c.venue?.arenaName||(cityOnly?'Arena TBA':cleanVenue||'Arena TBA');
-  const city=venueCity||(cityOnly?cleanVenue:'City TBA');
+  const embedded=cleanVenue.match(/^(.+?)\s*\(([^()]+)\)\s*$/);
+  const embeddedArena=embedded&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(embedded[2])?embedded[2].trim():'';
+  const arena=c.venue?.arenaName||embeddedArena||(cityOnly||/^.+?,\s*[A-Z]{2}$/i.test(cleanVenue)?'Arena TBA':cleanVenue||'Arena TBA');
+  const city=venueCity||(embedded&&embeddedArena?embedded[1].trim():(cityOnly?cleanVenue:'City TBA'));
   return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup"><span class="sched-logo" style="--logo-ring:'+ring+'">'+emblem+'</span><span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+escape(network)+'</td></tr>';
  }).join('');
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
