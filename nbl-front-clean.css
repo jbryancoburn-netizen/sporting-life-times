@@ -62,3 +62,11 @@ body[data-league="nbl"] .nbl-result-row .club img {
   max-width:46px !important;max-height:46px !important;
  }
 }
+
+/* Dedicated Game Center badges: sized by wrapper, immune to global crest overrides. */
+body[data-league="nbl"] #nbl-featured-finals .nbl-result-row .club{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+body[data-league="nbl"] #nbl-featured-finals .nbl-game-crest{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;min-width:40px;max-width:40px;overflow:hidden}
+body[data-league="nbl"] #nbl-featured-finals .nbl-game-crest img{display:block;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform:none!important;scale:none!important;flex:none!important}
+body[data-league="nbl"] #nbl-featured-finals .nbl-game-team-name{min-width:0;overflow-wrap:normal;word-break:normal}
+body[data-league="nbl"] #nbl-featured-finals .nbl-result-row{min-height:50px;gap:10px}
+@media(max-width:650px){body[data-league="nbl"] #nbl-featured-finals .nbl-game-crest{flex-basis:38px;width:38px;height:38px;min-width:38px;max-width:38px}}
