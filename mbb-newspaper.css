@@ -32,6 +32,9 @@
 #full-season-schedule .mbb-schedule-table tbody tr:hover{background:#e9efed}
 #full-season-schedule .sched-matchup{display:grid;grid-template-columns:46px minmax(0,1fr);align-items:center;column-gap:12px;text-align:left}
 #full-season-schedule .sched-logo{box-sizing:border-box!important;display:grid!important;place-items:center!important;flex:0 0 48px!important;width:48px!important;height:48px!important;min-width:48px!important;max-width:48px!important;border:3px solid var(--logo-ring,#193f52)!important;border-radius:50%!important;background:#fff!important;padding:5px!important;overflow:visible!important;outline:0!important;box-shadow:none!important}
+#full-season-schedule .sched-logo{overflow:hidden!important;padding:3px!important}
+#full-season-schedule .sched-logo>img.sched-logo-image{object-fit:contain!important;object-position:center!important}
+#full-season-schedule .mbb-schedule-table td:nth-child(3) small{display:block;margin-top:4px;color:var(--muted,#586772);font-size:11px}
 #full-season-schedule .sched-logo::after{content:none!important}
 #full-season-schedule .sched-logo>img.sched-logo-image{box-sizing:border-box!important;display:block!important;width:100%!important;height:100%!important;max-width:100%!important;min-width:0!important;max-height:100%!important;min-height:0!important;border:0!important;border-radius:0!important;object-fit:contain!important;object-position:center!important;background:transparent!important;padding:0!important;margin:0!important;transform:none!important;box-shadow:none!important}
 #full-season-schedule .sched-opponent,#full-season-schedule .sched-venue{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left}
