@@ -95,7 +95,12 @@ async function fullTeamSchedule(t){
   'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400',
   'https://site.web.api.espn.com/apis/common/v3/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(eid)+'/schedule?season=2027&limit=400'
  ]:[];
- const local=await get(endpoints[0]);
+ let local=null;
+ if(endpoints[0])try{
+  const response=await fetch(endpoints[0],{cache:'no-cache',signal:AbortSignal.timeout(45000)});
+  if(!response.ok)throw Error('Schedule HTTP '+response.status);
+  local=await response.json();
+ }catch(error){console.error('School calendar file failed to load',t.team_id,endpoints[0],error);}
  const localEvents=local?.events||[];
  const official=local?.verified_from_school&&local?.source_url?local.source_url:officialFallback;
  // Verified complete calendars display immediately; don't wait for slow ESPN endpoints.
@@ -132,10 +137,12 @@ async function teamPage(){const t=teamMap.get(params.get('team'))||teams.find(t=
  let calendarHost=document.getElementById('mbb-calendar-host');
  if(!calendarHost){calendarHost=document.createElement('div');calendarHost.id='mbb-calendar-host';$('#app').parentNode.insertBefore(calendarHost,$('#app'));}
  const staticIndiana=calendarHost.dataset.staticIndiana==='true'&&t.team_id==='ncaa:609574';
+ // Static Indiana markup must not linger when viewing another school.
+ if(!staticIndiana)calendarHost.removeAttribute('data-static-indiana');
  calendarHost.hidden=false;
  if(!staticIndiana&&calendarHost.dataset.scheduleLoaded!==t.team_id){
   calendarHost.innerHTML='<section class="panel" id="full-season-schedule"><h2>2026–27 Full Season Schedule</h2><p class="note">Loading the published calendar…</p></section>';
-  calendarPromise.then(html=>{if(calendarHost.dataset.scheduleLoaded!==t.team_id)calendarHost.innerHTML=html;}).catch(err=>{console.error('MBB schedule',err);if(calendarHost.dataset.scheduleLoaded!==t.team_id)calendarHost.innerHTML='<section class="panel"><h2>Team Calendar Unavailable</h2><p>Published schedule could not be displayed.</p></section>';});
+  calendarPromise.then(html=>{calendarHost.innerHTML=html;calendarHost.dataset.scheduleLoaded=t.team_id;}).catch(err=>{console.error('MBB schedule',err);if(calendarHost.dataset.scheduleLoaded!==t.team_id)calendarHost.innerHTML='<section class="panel"><h2>Team Calendar Unavailable</h2><p>Published schedule could not be displayed.</p></section>';});
  }
  const [a,rosterFeed,officialRoster]=await Promise.all([loadArchive(),get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/'+encodeURIComponent(ids.get(t.team_id)||'')+'/roster?season=2027'),ids.get(t.team_id)?get('data/mbb-rosters-2026-27/'+encodeURIComponent(ids.get(t.team_id))+'.json'):Promise.resolve(null)]);
  const roster=a?.roster?.filter(p=>p.team_id===t.team_id)||[],stats=a?.players?.filter(p=>p.team_id===t.team_id)||[];
