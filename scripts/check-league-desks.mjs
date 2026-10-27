@@ -22,7 +22,7 @@ for(const page of found){
  if(page==='college-soccer.html'){
   assert(html.includes('college-soccer-visual-desk.css'),'Soccer visual edition stylesheet missing');
   assert(html.includes('college-soccer-unified.css'),'Soccer unified layout missing');
-  assert(html.includes('college-soccer-men.html'),'Soccer men's edition navigation missing');
+  assert(html.includes('college-soccer-men.html'),"Soccer men's edition navigation missing");
  }else if(!['nba.html','epl.html','euroleague.html','college-basketball.html','college-football.html'].includes(page)){
   for(const id of ['league-news-grid','league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
   assert(html.includes('league-desks.js'),'shared data loader missing: '+page);
