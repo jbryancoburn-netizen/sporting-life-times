@@ -50,3 +50,6 @@
 .ncaa-selection-compare-lists h3{font:700 13px Arial,sans-serif;letter-spacing:.08em}
 .ncaa-compare-team{border-bottom:1px solid #dedede}
 @media(max-width:560px){.ncaa-selection-compare-lists{grid-template-columns:1fr}}
+
+/* Prevent logo and fallback initials from overlapping on mobile. */
+.ncaa-school-crest img{inset:0!important;top:0!important;left:0!important;width:100%!important;height:100%!important;margin:0!important;padding:3px!important;box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;transform:none!important;display:block!important}
