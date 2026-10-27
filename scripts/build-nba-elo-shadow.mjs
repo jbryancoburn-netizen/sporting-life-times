@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 const read=p=>JSON.parse(readFileSync(new URL('../data/'+p,import.meta.url),'utf8'));
 const live=read('nba-2026-27-current-provisional.json');
 const active=read('nba-elo-active.json');
-assert.equal(active.primary_rankings_path,'data/nba-2026-27-current-provisional.json','Production path changed; review before shadow run');
+assert.equal(active.primary_rankings_path,'data/nba-elo-shadow-2026-27.json','Active NBA ratings must be the 1500-reset model');
 assert.equal(live.season,'2026-27');
 const teams=live.rankings.map(r=>r.team).sort();
 assert.equal(teams.length,30);
