@@ -47,14 +47,14 @@ for filename,category in [('MRegularSeasonCompactResults.csv','Regular season / 
   games.append(g);source_counts[category]+=1
 pair=collections.defaultdict(list)
 for g in games:
- key='_'.join(sorted([g['home_id'],g['away_id']])).replace(':','-')
- pair[key].append(g)
+ pair[g['home_id'].replace(':','-')].append(g)
+ pair[g['away_id'].replace(':','-')].append(g)
 for key,rows in pair.items():
  rows.sort(key=lambda g:g['date'],reverse=True)
  end=max(g['season'] for g in rows)
  payload={'coverage_start_year':1985,'coverage_end_year':end,'validated':False,'source':'Kaggle compact historical results mirrored in Jensen-holm/Nigl','games':rows}
  (dest/(key+'.json')).write_text(json.dumps(payload,separators=(',',':'),ensure_ascii=False))
-report={'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'historical_games_mapped':len(games),'game_rows_by_source':source_counts,'mapped_kaggle_teams':len(mapping),'unmatched_kaggle_teams':unmatched,'pair_files':len(pair),'coverage_start_year':1985,'source_snapshot_max_year':max(g['season'] for g in games),'limitations':'Regular compact includes conference tournament games with no distinct round classifier; excludes NIT and other secondary tournaments; unmatched teams omitted; dataset historical mirror may not include recent seasons.'}
+report={'generated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'historical_games_mapped':len(games),'game_rows_by_source':source_counts,'mapped_kaggle_teams':len(mapping),'unmatched_kaggle_teams':unmatched,'team_files':len(pair),'coverage_start_year':1985,'source_snapshot_max_year':max(g['season'] for g in games),'limitations':'Regular compact includes conference tournament games with no distinct round classifier; excludes NIT and other secondary tournaments; unmatched teams omitted; dataset historical mirror may not include recent seasons.'}
 (dest/'import-status.json').write_text(json.dumps(report,indent=2,default=dict))
 print(json.dumps({k:v for k,v in report.items() if k!='unmatched_kaggle_teams'},indent=2,default=dict))
 if len(games)<100000 or len(mapping)<250: raise SystemExit('Low coverage; refusing to claim successful import')
