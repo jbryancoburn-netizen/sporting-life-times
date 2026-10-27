@@ -1,0 +1,52 @@
+name: Reconcile MBB calendars against university opponents
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/reconcile_mbb_schedules_from_opponents.py'
+      - '.github/workflows/mbb-opponent-calendar-reconcile.yml'
+permissions:
+  contents: write
+jobs:
+  cross-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare 2026–27 school schedules and backfill opponent-confirmed games
+        run: python scripts/reconcile_mbb_schedules_from_opponents.py
+      - name: Publish cross-confirmed game schedules and coverage report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p /tmp/reconciled
+          cp -a data/mbb-schedules-2026-27/. /tmp/reconciled/
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python - <<'PY'
+          import pathlib,shutil,json
+          folder=pathlib.Path('data/mbb-schedules-2026-27')
+          for source in pathlib.Path('/tmp/reconciled').glob('*.json'):
+              if source.name=='opponent-confirmation-status.json':
+                  shutil.copy2(source,folder/source.name);continue
+              if not source.stem.isdecimal():continue
+              data=json.loads(source.read_text())
+              if not data.get('verified_by_opponents'):continue
+              target=folder/source.name
+              if target.exists():
+                  current=json.loads(target.read_text())
+                  if current.get('verified_from_school') or current.get('source_name')=='Indiana University Athletics official 2026-27 schedule':
+                      continue
+              shutil.copy2(source,target)
+          PY
+            git add data/mbb-schedules-2026-27
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Backfill school schedules from opponents university athletics"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
