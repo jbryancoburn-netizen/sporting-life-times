@@ -88,6 +88,7 @@ def score_forecast_evaluation(games):
         "total_mae":weighted("total_mae"),"margin_mae":weighted("margin_mae"),
         "league_average_total_mae":weighted("league_average_total_mae"),
         "zero_margin_baseline_mae":weighted("zero_margin_baseline_mae"),
+        "beats_simple_total_baseline":(weighted("total_mae") < weighted("league_average_total_mae")) if total else False,
         "winner_accuracy":round(sum(v["winner_accuracy"]*v["games_evaluated"] for v in eligible)/total,4) if total else None,
         "by_season":results,
         "method":"strict pregame expanding-window; shared published forecast function; 1500 Elo reset each season"}
