@@ -30,8 +30,8 @@ OUTPUT = HERE / "data/college-soccer-elo.json"
 AUDIT = HERE / "data/college-soccer-elo-live-audit.json"
 API = "https://ncaa-api.henrygd.me/scoreboard"
 USER_AGENT = "SportingLifeTimes-CollegeSoccer-USRS-compatible/1.0"
-K = 28.0
-HOME_ADVANTAGE = 75.0
+K = 36.0
+HOME_ADVANTAGE = 55.0
 COHORTS = [f"{gender}-d{d}" for gender in ("men", "women") for d in (1, 2, 3)]
 
 
@@ -195,7 +195,7 @@ def replay(baseline: dict, ledger: dict) -> tuple[dict, dict]:
         hg, ag = g["home_goals"], g["away_goals"]
         outcome = 1. if hg > ag else .5 if hg == ag else 0.
         margin = abs(hg - ag)
-        multiplier = min(1.75, 1. + .15 * (margin - 1)) if margin > 1 else 1.
+        multiplier = max(1., math.log1p(margin))
         delta = K * multiplier * (outcome - expected)
         # Retain full precision *during* replay, rounding only for publication.
         h["elo"] = float(h["elo"]) + delta
@@ -253,7 +253,7 @@ def replay(baseline: dict, ledger: dict) -> tuple[dict, dict]:
         "excluded_finals": excluded,
         "last_game_date": max([baseline["as_of"]] + [g["date"] for g in ledger["results"]]),
         "status": "provisional",
-        "model": "USRS mirror, 1500 baseline, K=28, home=75, differential multiplier capped 1.75",
+        "model": "USRS mirror, pinned baseline, 2024-selected K=36, listed-home=55, log goal-margin adjustment",
     }
     if not ledger["results"]:
         # Preserve the exact original published model before the first final.
