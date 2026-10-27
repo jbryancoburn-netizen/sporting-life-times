@@ -344,3 +344,20 @@ body.league-edition[data-league="euroleague"] .el-bracket-metrics small{display:
 body.league-edition[data-league="euroleague"] .el-bracket-placeholder{display:flex;justify-content:center;flex-direction:column;min-height:130px;border:2px dashed #9c988f;border-radius:6px;padding:14px;font:13px/1.7 Georgia,serif;background:#f4f1eb}
 @media(max-width:1050px){body.league-edition[data-league="euroleague"] .el-bracket-direct{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-bracket-playin{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] .el-bracket-outcomes{grid-column:1/-1}}
 @media(max-width:620px){body.league-edition[data-league="euroleague"] .el-bracket-direct,body.league-edition[data-league="euroleague"] .el-bracket-playin{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-bracket-outcomes{grid-column:auto}body.league-edition[data-league="euroleague"] .el-bracket-section>header{display:block}}
+
+
+/* 2026-10-27 playoff layout repair: uniform rows, readable records, restrained logos */
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch;grid-auto-rows:1fr}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-slot{display:flex;min-width:0;align-self:stretch}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-team{width:100%;min-width:0;min-height:184px!important;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity{display:grid;grid-template-columns:25px 42px minmax(0,1fr);gap:9px;align-items:start}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity .el-club-rank{font-size:17px;line-height:42px}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-identity .slt-mark{width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;box-sizing:border-box}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-name h3{font:700 15px/1.2 Georgia,serif;min-height:38px;margin:0 0 6px;overflow-wrap:break-word}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-record{display:block;font:900 27px/1.05 Georgia,serif;color:#fff}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-metrics{margin-top:auto;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-metrics b{font-size:16px;white-space:nowrap}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-playin{align-items:stretch}
+body[data-league="euroleague"] #el-club-spotlight .el-bracket-round .el-bracket-slot{height:auto}
+@media(max-width:1050px){body[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){body[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{grid-template-columns:1fr}}
