@@ -111,8 +111,8 @@ function classify(img){
 function size(img){
  const numbers=[img.getAttribute('width'),img.style.width,img.getAttribute('height')].map(x=>parseFloat(x)).filter(Number.isFinite);
  const w=numbers[0]||img.getBoundingClientRect().width||img.width||32;
- if(img.closest('.el-live-team'))return 'large';
- if(img.closest('.el-bracket-identity'))return 'large';
+ if(img.closest('.el-live-team'))return 'medium';
+ if(img.closest('.el-bracket-identity'))return 'medium';
  if(img.closest('.el-chart-club,.el-forecast,.el-match,.el-result-row,.el-club'))return 'medium';
  // Semantic logo placements share sizes across leagues; no edition-specific ring rules.
  if(img.closest('.el-bracket-identity,.playoff-team,.bracket-team,.tournament-team'))return 'medium';
