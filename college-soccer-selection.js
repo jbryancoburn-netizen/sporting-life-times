@@ -9,7 +9,7 @@ function schoolRow(entry,branding,kind=''){
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const crest=el('span',null,'ncaa-school-crest'),brand=brandFor(entry,branding);
  const name=entry.team||entry.team_id,src=brand.logo_url;
- const fallback=el('span',name.split(/\\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'ncaa-school-initials');
+ const fallback=el('span',name.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'ncaa-school-initials');
  crest.append(fallback);
  if(src){
   const img=el('img');img.alt=name+' crest';img.loading='lazy';
