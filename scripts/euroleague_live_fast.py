@@ -78,6 +78,7 @@ def build(model, previous, now=None, get_header=None):
         g["final_source"]=official["source"]
     responses=0
     refreshed=0
+    header_errors=0
     for g in games.values():
         if g["status"]=="final":continue
         time=stamp(g["date"])
@@ -114,7 +115,10 @@ def build(model, previous, now=None, get_header=None):
                     g["status"]="awaiting_final"
                     g["status_detail"]="Awaiting official final result"
         except (OSError,TimeoutError,ValueError) as exc:
+            header_errors+=1
             print("Header check failed for "+str(g["id"])+": "+str(exc),file=sys.stderr)
+    if header_errors and responses==0:
+        raise RuntimeError("EuroLeague Header unavailable for all attempted active games; refusing silent successful refresh")
     for item in games.values():
         if item["status"]=="scheduled":
             item["home"]["score"]=None
