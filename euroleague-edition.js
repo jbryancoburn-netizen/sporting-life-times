@@ -2,7 +2,7 @@
 if(document.body.dataset.league!=='euroleague')return;
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const logo=t=>/^https:\/\//.test(t?.logo||'')?'<img data-euroleague-code="'+esc(t.code||'')+'" loading="lazy" alt="" src="'+esc('assets/euroleague-logos/'+t.code+'.png')+'">':'';
+const logo=t=>{const code=String(t?.code||'').trim().toUpperCase();return /^[A-Z]{3}$/.test(code)?'<img data-euroleague-code="'+esc(code)+'" loading="lazy" alt="" src="'+esc('assets/euroleague-logos/'+code+'.png')+'" onerror="this.hidden=true">':'';};
 const date=v=>{const x=new Date(v);return Number.isFinite(x.getTime())?x.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric'}):'Date unavailable'};
 let lastEditionStamp=null;
 async function refreshEdition(){
