@@ -107,5 +107,11 @@
     "Actual venues unverified",
     "Draws scored as half-results, not three-way forecasts"
   ],
-  "live_elo_modified": false
+  "live_elo_modified": false,
+  "cohort_sensitivity": {
+    "method": "current D-I teams plus historical Saint Francis PA; provisional comparison, not a historically certified membership list",
+    "validation_brier": 0.165146470099267,
+    "holdout_brier": 0.15622141208630497,
+    "full_sample_holdout_brier": 0.15676002984121032
+  }
 }
