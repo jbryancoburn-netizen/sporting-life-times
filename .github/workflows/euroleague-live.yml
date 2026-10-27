@@ -42,20 +42,25 @@ jobs:
           from pathlib import Path
           model=json.loads(Path("data/euroleague-model.json").read_text())
           live=json.loads(Path("data/euroleague-live.json").read_text())
-          from datetime import datetime
-          counted={str(g["id"]) for g in model.get("completed_game_ledger",model.get("recent_results",[]))}
-          watermark=datetime.fromisoformat(model["last_completed_game_at"].replace("Z","+00:00"))
-          if watermark.tzinfo is None:
-              raise ValueError("EuroLeague final watermark lacks timezone")
+          ledger=model.get("completed_game_ledger",[])
+          counted={str(g["id"]):g for g in ledger}
           pending=[]
+          corrected=[]
           for g in live.get("games",[]):
-              if g.get("status")!="final" or str(g["id"]) in counted:
+              if g.get("status")!="final":
                   continue
-              game_date=datetime.fromisoformat(g["date"].replace("Z","+00:00"))
-              if game_date>=watermark:
-                  pending.append(str(g["id"]))
+              gid=str(g["id"])
+              previous=counted.get(gid)
+              if previous is None:
+                  pending.append(gid)
+              elif (previous.get("home")!=g.get("home",{}).get("code")
+                    or previous.get("away")!=g.get("away",{}).get("code")
+                    or previous.get("score")!=[g.get("home",{}).get("score"),g.get("away",{}).get("score")]):
+                  corrected.append(gid)
+          if corrected:
+              raise ValueError("Published EuroLeague finals conflict with live source; manual verification required: "+", ".join(corrected))
           with open(os.environ["GITHUB_OUTPUT"],"a") as output:
-              output.write("new_finals="+("true" if pending or len(model.get("completed_game_ledger",[]))!=model.get("games_completed") else "false")+"\n")
+              output.write("new_finals="+("true" if pending or len(ledger)!=model.get("games_completed") else "false")+"\n")
           print("New officially verified finals awaiting Elo:",", ".join(pending) if pending else "none")
           PY
       - name: Publish live scores independently of Elo computation
