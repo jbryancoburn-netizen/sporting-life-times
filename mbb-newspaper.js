@@ -11,15 +11,15 @@ const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam
 let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers]=await Promise.all(files.map(get));
 const valid=d=>d?.season==='2026-27'&&d.rankings?.length===365&&new Set(d.rankings.map(t=>t.team_id)).size===365&&d.rankings.every(t=>Number.isFinite(t.elo));
 if(!valid(pre)){ $('#app').innerHTML='<div class="error">The verified basketball ratings could not be loaded. <button onclick="location.reload()">Try again</button></div>';return; }
-let live=valid(current)&&current.games_played>0&&current.preseason_seed==='data/ncaam-2026-27-preseason-player-quality-live.json';
-let data=live?current:pre,teams=data.rankings;
-// RETRO is the primary strength model once a verified, roster-adjusted
-// 2026-27 RETRO preseason publication exists. Until then, never relabel
-// the older player-quality ratings as retrospective results.
+// The 2026-27 MBB RETRO season is a clean slate: all 365 schools start at 1500.
+// No 2025-26 Elo, transfer, roster or historical strengths may seed this season.
 const retroPublication=await get('data/ncaam-2026-27-retro-primary.json');
-const retroValid=retroPublication?.season==='2026-27'&&retroPublication?.model==='retro-roster-adjusted'&&retroPublication?.rankings?.length===365&&retroPublication.rankings.every(t=>Number.isFinite(t.elo));
-if(retroValid&&!live){data=retroPublication;teams=retroPublication.rankings;}
-const ratingMethod=retroValid&&!live?'RETRO':'Provisional player-quality Elo';
+const retroValid=retroPublication?.season==='2026-27'&&retroPublication?.model==='retro-clean-slate'&&retroPublication?.rankings?.length===365&&new Set(retroPublication.rankings.map(t=>t.team_id)).size===365&&retroPublication.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
+const retroPreseason=retroValid&&retroPublication.games_played===0&&retroPublication.rankings.every(t=>t.elo===1500);
+const retroInSeason=retroValid&&retroPublication.games_played>0&&retroPublication.starting_elo===1500&&retroPublication.status!=='preseason-all-tied';
+let live=Boolean(retroInSeason);
+let data=(retroPreseason||retroInSeason)?retroPublication:pre,teams=data.rankings;
+const ratingMethod=(retroPreseason||retroInSeason)?'RETRO · 1500 clean slate':'Legacy Elo fallback — RETRO feed unavailable';
 const teamMap=new Map(teams.map(t=>[t.team_id,t])),ids=new Map((cross?.teams||[]).map(t=>[t.id,t.espn_id]));
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort();
 let games=ledger?.season==='2026-27'?(ledger.games||[]):[];
@@ -94,11 +94,11 @@ async function playersPage(){const a=await loadArchive();$('#app').innerHTML='<d
 if(page==='home')await refreshLiveScores();
 try{if(page==='home')home();else if(page==='conference')conference();else if(page==='team')await teamPage();else if(page==='players')await playersPage();else if(page==='tournament')tournament();}catch(e){console.error(e);$('#app').innerHTML=empty('This desk could not render its latest dataset. Please reload.');}
 document.querySelectorAll('.nav a').forEach(a=>{if(a.pathname===location.pathname)a.setAttribute('aria-current','page')});
-document.addEventListener('error',e=>{if(e.target.tagName==='IMG'){e.target.style.visibility='hidden';e.target.setAttribute('aria-hidden','true')}},true);
+
 
 async function refreshRatings(){
- const [next,log,up]=await Promise.all([get(files[1]),get(files[3]),get(files[4])]);
- const approved=valid(next)&&next.games_played>0&&next.preseason_seed===files[0];
+ const [next,log,up]=await Promise.all([get('data/ncaam-2026-27-retro-primary.json'),get(files[3]),get(files[4])]);
+ const approved=next?.season==='2026-27'&&next.model==='retro-clean-slate'&&next.starting_elo===1500&&next.rankings?.length===365&&next.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo))&&next.games_played>=0;
  const changed=approved&&JSON.stringify(next.rankings)!==JSON.stringify(teams);
  const scheduleChanged=up&&JSON.stringify(up.games)!==JSON.stringify(schedule?.games);
  if(up)schedule=up;
