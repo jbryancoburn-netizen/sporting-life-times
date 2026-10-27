@@ -13,7 +13,7 @@ PRESEASON=pathlib.Path("data/euroleague-preseason-seed.json")
 NOW=dt.datetime.now(dt.timezone.utc)
 K=22.0
 HOME_ELO=65.0  # provisional: calibrate by walk-forward historical log loss
-CARRY=0.67
+CARRY=0.0  # current-season hard reset; history is calibration-only
 def get(url):
     """Use EuroLeague's primary v2 feed, then its documented mirror if unavailable."""
     primary="https://api-live.euroleague.net"
@@ -145,23 +145,18 @@ def order_standings(rows, results):
     return ordered
 
 def load_preseason():
-    """Restore the same historical Elo starting point instead of re-fetching
-    two full prior seasons on every five-minute model publication.
-    Tests with redirected OUT paths always reconstruct from source.
-    """
+    """All clubs begin E2026 at 1500; reject legacy historical-strength seeds."""
     if OUT!=pathlib.Path("data/euroleague-model.json") or not PRESEASON.exists():
         return None
     try:
         data=json.loads(PRESEASON.read_text())
-        if (data.get("season")!="E2026" or
-            data.get("settings")!={"K":K,"home_elo":HOME_ELO,"carry":CARRY}):
-            return None
         values=data.get("ratings")
-        if not isinstance(values,dict) or len(values)<18 or not all(
-            isinstance(v,(float,int)) and not isinstance(v,bool) and 1200<v<1900
-            for v in values.values()):
+        if (data.get("season")!="E2026" or
+            data.get("settings")!={"K":K,"home_elo":HOME_ELO,"carry":0.0} or
+            not isinstance(values,dict) or len(values)<18 or
+            any(type(v) not in (int,float) or v!=1500 for v in values.values())):
             return None
-        return {str(code):float(rating) for code,rating in values.items()}
+        return {str(code):1500.0 for code in values}
     except (OSError,ValueError,TypeError):
         return None
 
@@ -187,31 +182,11 @@ def recover_recent_header_finals(games, now=None):
     return recovered
 
 def main():
+    # Historical games calibrate the model offline, never seed current-season clubs.
     saved_seed=load_preseason()
-    all_games=[]
-    for year in ((2026,) if saved_seed is not None else (2024,2025,2026)):
-        s="E"+str(year)
-        all_games+=fetch_season(s)
-    # Reconstruct season chronologically; previous season used solely for initial strength.
-    all_games.sort(key=lambda g:(g["season"],clock(g["date"]),g["id"]))
-    ratings=dict(saved_seed) if saved_seed is not None else {}; stats={}; history=[]; season_seen=None
-    team_info={}
-    for game in ([] if saved_seed is not None else all_games):
-        h,a=game["home"],game["away"]
-        for t in (h,a):team_info[t["code"]]={"code":t["code"],"name":t["name"],"logo":t["logo"]}
-        if season_seen!=game["season"]:
-            season_seen=game["season"]
-            ratings={k:1500+(v-1500)*CARRY for k,v in ratings.items()}
-        for t in (h,a):ratings.setdefault(t["code"],1500.0)
-        if game["season"]=="E2026":break
-        if not game["completed"]:continue
-        diff=ratings[h["code"]]-ratings[a["code"]]+(0 if game["neutral"] else HOME_ELO)
-        p=expected(diff);out=1 if h["score"]>a["score"] else 0
-        margin=abs(h["score"]-a["score"])
-        factor=min(1.65,0.80+0.22*math.log1p(margin))
-        delta=K*factor*(out-p)
-        ratings[h["code"]]+=delta;ratings[a["code"]]-=delta
-    # First E2026 record already triggered the rollover in the chronological loop.
+    all_games=fetch_season("E2026")
+    ratings=dict(saved_seed) if saved_seed is not None else {}
+    stats={}; history=[]; team_info={}
     current=[g for g in all_games if g["season"]=="E2026"]
     current.sort(key=lambda g:(clock(g["date"]),g["id"]))
     verified_applied=verified.apply(current,verified.load(),require_all=(OUT==pathlib.Path("data/euroleague-model.json")))
@@ -267,7 +242,7 @@ def main():
             projection={"home":round(projected_home,1),"away":round(projected_away,1),"spread_home":round(projected_away-projected_home,1),"total":round(projected_home+projected_away,1),"status":"experimental_uncalibrated"}
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
-    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":False,"opening_elo":1500,"opening_policy":"all_clubs_equal_2026_27"},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
@@ -285,7 +260,7 @@ def main():
     temp=OUT.with_suffix(".tmp");temp.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n");temp.replace(OUT)
     if saved_seed is None and OUT==pathlib.Path("data/euroleague-model.json"):
         seed={"season":"E2026","settings":{"K":K,"home_elo":HOME_ELO,"carry":CARRY},
-              "ratings":preseason_ratings,"source":"Independent replay of 2024-25 and 2025-26 EuroLeague finals"}
+              "ratings":preseason_ratings,"source":"Equal 1500 opening for every 2026-27 participant; history for offline calibration only"}
         PRESEASON.parent.mkdir(parents=True,exist_ok=True)
         tempseed=PRESEASON.with_suffix(".tmp")
         tempseed.write_text(json.dumps(seed,ensure_ascii=False,indent=2)+"\n")
