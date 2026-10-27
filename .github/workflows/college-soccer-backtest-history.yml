@@ -76,6 +76,8 @@ jobs:
         run: |
           python scripts/backtest_college_soccer_elo.py --preliminary
           python scripts/backtest_college_soccer_expanded.py
+      - name: Audit historical opponent cohorts and draw rates
+        run: python scripts/audit_college_soccer_history.py
       - name: Generate certified backtest only if complete
         run: |
           python scripts/backtest_college_soccer_elo.py || echo 'Full-season certification pending'
