@@ -7,9 +7,19 @@ const et=d=>new Date(d).toLocaleString('en-US',{timeZone:'America/New_York',mont
 let lastGood=null;
 async function refresh(){
 try{
- const r=await fetch('data/euroleague-live.json?cb='+Date.now(),{cache:'no-store'});
- if(!r.ok)throw Error('Live feed not published');
- const d=await r.json(),stamp=Date.parse(d.updated_at);
+ const sources=['https://raw.githubusercontent.com/jbryancoburn-netizen/sporting-life-times/main/data/euroleague-live.json','data/euroleague-live.json'];
+ const feeds=await Promise.all(sources.map(async src=>{
+   try{
+     const response=await fetch(src+'?cb='+Date.now(),{cache:'no-store'});
+     if(!response.ok)return null;
+     const data=await response.json();
+     if(!Array.isArray(data.games)||!Number.isFinite(Date.parse(data.checked_at||data.updated_at)))return null;
+     return data;
+   }catch(_error){return null;}
+ }));
+ const d=feeds.filter(Boolean).sort((a,b)=>Date.parse(b.checked_at||b.updated_at)-Date.parse(a.checked_at||a.updated_at))[0];
+ if(!d)throw Error('Neither live-score publication is available');
+ const stamp=Date.parse(d.updated_at);
  if(!Number.isFinite(stamp)||!Array.isArray(d.games))throw Error('Bad feed');
  const checked=Date.parse(d.checked_at||d.updated_at),stale=Date.now()-(Number.isFinite(checked)?checked:stamp)>15*60*1000;
  const games=d.games.filter(g=>['live','scheduled','final','awaiting_final'].includes(g.status)).slice(0,18);
