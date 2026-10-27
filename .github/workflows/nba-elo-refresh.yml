@@ -9,10 +9,6 @@ on:
       - 'scripts/audit-nba-boxscore-elo.mjs'
   schedule:
     - cron: '*/5 * * * *'
-  workflow_run:
-    workflows: ['Official NBA game-center refresh']
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,7 +17,6 @@ concurrency:
   cancel-in-progress: false
 jobs:
   refresh:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
