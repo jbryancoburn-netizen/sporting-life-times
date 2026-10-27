@@ -18,7 +18,10 @@ function render(payload){
   return {away:team(away),home:team(home),state,label,date:e.date,id:e.id};
  }).filter(g=>g&&/^[0-9]{7,12}$/.test(String(g.id)));
  if(!mapped.length){root.innerHTML='<p class="hub-small">No game details with valid provider IDs are available. <a href="nba-game-center.html">Verified archive</a>.</p>';return;}
- mapped.sort((a,b)=>({in:0,pre:1,post:2}[a.state]??3)-({in:0,pre:1,post:2}[b.state]??3));
+ // Keep live games first, followed by upcoming tipoffs in chronological order;
+ // completed games follow in reverse tipoff order. Never rely on feed insertion order.
+ const priority=g=>({in:0,pre:1,post:2}[g.state]??3);
+ mapped.sort((a,b)=>priority(a)-priority(b)||((priority(a)===2?-1:1)*(Date.parse(a.date)-Date.parse(b.date)))||String(a.id).localeCompare(String(b.id)));
  root.innerHTML=mapped.map(g=>{
   const playing=g.state==='in';const final=g.state==='post';const state=playing?'LIVE · '+g.label:final?'FINAL':new Date(g.date).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
   const team=t=>'<div class="nba-live-team"><img src="'+logo(esc(t.code))+'" alt="" loading="lazy"><span><b>'+esc(t.code)+'</b><small>'+esc(t.record)+'</small></span><strong>'+((playing||final)?esc(t.score):'–')+'</strong></div>';
