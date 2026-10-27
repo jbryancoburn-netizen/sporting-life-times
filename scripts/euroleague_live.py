@@ -49,9 +49,17 @@ def build():
         # Scheduled placeholders (0-0) are NEVER displayed as real game scores.
         detail=str(model.field(record,"gameStatus","status") or "")
         elapsed=(now-model.clock(g["date"])).total_seconds()/3600
+        periods=[]
         if -1 <= elapsed <= 5 and status!="final":
             try:
-                live=header.details(header.get_header(g["id"]),h["code"],a["code"],status)
+                raw_header=header.get_header(g["id"])
+                live=header.details(raw_header,h["code"],a["code"],status)
+                if live and isinstance(raw_header,dict):
+                    for quarter in range(1,5):
+                        hs=raw_header.get(f"ScoreQuarter{quarter}A")
+                        aws=raw_header.get(f"ScoreQuarter{quarter}B")
+                        if all(isinstance(v,(int,str)) and str(v).strip().isdigit() for v in (hs,aws)):
+                            periods.append({"period":quarter,"home":int(hs),"away":int(aws)})
                 if live:
                     status=live["state"]
                     h["score"],a["score"]=live["home"],live["away"]
@@ -61,7 +69,7 @@ def build():
                 print("EuroLeague header unavailable:",g["id"],str(error),file=sys.stderr)
         score_allowed=scores_ready and status in ("live","final")
         entries.append({"id":g["id"],"date":g["date"],"status":status,
-                        "status_detail":detail,
+                        "status_detail":detail,"period_scores":periods,
                         "home":{"code":h["code"],"name":h["name"],"logo":h["logo"],"score":h["score"] if score_allowed else None},
                         "away":{"code":a["code"],"name":a["name"],"logo":a["logo"],"score":a["score"] if score_allowed else None}})
     entries.sort(key=lambda e:(0 if e["status"]=="live" else 1 if e["status"]=="scheduled" else 2,e["date"],e["id"]))
