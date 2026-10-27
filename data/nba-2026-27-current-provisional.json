@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 49,
+  "games_played": 52,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -23,12 +23,12 @@
       "elo": 1618.152
     },
     {
-      "team": "BOS",
-      "elo": 1594.303
+      "team": "HOU",
+      "elo": 1604.686
     },
     {
-      "team": "HOU",
-      "elo": 1593.796
+      "team": "BOS",
+      "elo": 1594.303
     },
     {
       "team": "MIN",
@@ -39,10 +39,6 @@
       "elo": 1592.226
     },
     {
-      "team": "DEN",
-      "elo": 1576.584
-    },
-    {
       "team": "CHA",
       "elo": 1570.722
     },
@@ -51,12 +47,16 @@
       "elo": 1565.234
     },
     {
-      "team": "ATL",
-      "elo": 1556.976
+      "team": "DEN",
+      "elo": 1552.915
     },
     {
       "team": "PHI",
       "elo": 1550.51
+    },
+    {
+      "team": "ATL",
+      "elo": 1546.086
     },
     {
       "team": "POR",
@@ -83,16 +83,16 @@
       "elo": 1452.573
     },
     {
+      "team": "GSW",
+      "elo": 1431.323
+    },
+    {
       "team": "DAL",
       "elo": 1422.727
     },
     {
-      "team": "GSW",
-      "elo": 1407.653
-    },
-    {
       "team": "MEM",
-      "elo": 1403.148
+      "elo": 1415.919
     },
     {
       "team": "NOP",
@@ -115,12 +115,12 @@
       "elo": 1367.5
     },
     {
-      "team": "UTA",
-      "elo": 1349.084
-    },
-    {
       "team": "WAS",
       "elo": 1341.147
+    },
+    {
+      "team": "UTA",
+      "elo": 1336.313
     },
     {
       "team": "BKN",
@@ -568,6 +568,33 @@
       "away_score": 114,
       "date": "2026-10-27T00:00:00.000Z",
       "home_elo_change": 5.630905
+    },
+    {
+      "id": "espn-nba-401909874",
+      "home": "HOU",
+      "away": "ATL",
+      "home_score": 120,
+      "away_score": 110,
+      "date": "2026-10-27T00:30:00.000Z",
+      "home_elo_change": 10.88998
+    },
+    {
+      "id": "espn-nba-401909875",
+      "home": "UTA",
+      "away": "MEM",
+      "home_score": 105,
+      "away_score": 110,
+      "date": "2026-10-27T01:00:00.000Z",
+      "home_elo_change": -12.770596
+    },
+    {
+      "id": "espn-nba-401909876",
+      "home": "DEN",
+      "away": "GSW",
+      "home_score": 114,
+      "away_score": 134,
+      "date": "2026-10-27T02:00:00.000Z",
+      "home_elo_change": -23.669576
     }
   ],
   "movement": {
@@ -577,31 +604,31 @@
       "DET": 0,
       "SAS": 0,
       "NYK": 0,
+      "HOU": 10.88998,
       "BOS": 6.417708,
-      "HOU": 0,
       "MIN": -12.12879,
       "LAL": 0,
-      "DEN": 0,
       "CHA": 4.867608,
       "CLE": 12.12879,
-      "ATL": 0,
+      "DEN": -23.669576,
       "PHI": 0,
+      "ATL": -10.88998,
       "POR": 0,
       "TOR": 0,
       "ORL": 0,
       "LAC": 0,
       "PHX": -5.630905,
       "MIA": -16.655395,
+      "GSW": 23.669576,
       "DAL": 16.655395,
-      "GSW": 0,
-      "MEM": 0,
+      "MEM": 12.770596,
       "NOP": 0,
       "MIL": 12.623459,
       "IND": -12.623459,
       "CHI": -6.417708,
       "SAC": 0,
-      "UTA": 0,
       "WAS": -4.867608,
+      "UTA": -12.770596,
       "BKN": 0
     },
     "last_week_eastern_date": "2026-10-19",
@@ -610,31 +637,31 @@
       "DET": 1587.821,
       "SAS": 1649.015,
       "NYK": 1672.897,
-      "BOS": 1585.801,
       "HOU": 1554.295,
+      "BOS": 1585.801,
       "MIN": 1563.264,
       "LAL": 1565.987,
-      "DEN": 1579.214,
       "CHA": 1569.804,
       "CLE": 1560.667,
-      "ATL": 1536.676,
+      "DEN": 1579.214,
       "PHI": 1525.849,
+      "ATL": 1536.676,
       "POR": 1516.065,
       "TOR": 1523.998,
       "ORL": 1536.223,
       "LAC": 1527.206,
       "PHX": 1499.058,
       "MIA": 1505.163,
-      "DAL": 1405.301,
       "GSW": 1441.84,
+      "DAL": 1405.301,
       "MEM": 1357.696,
       "NOP": 1431.708,
       "MIL": 1421.261,
       "IND": 1382.048,
       "CHI": 1399.976,
       "SAC": 1402.359,
-      "UTA": 1357.55,
       "WAS": 1320.49,
+      "UTA": 1357.55,
       "BKN": 1356.983
     }
   }
