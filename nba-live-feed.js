@@ -42,6 +42,9 @@ function fromArchive(p){return {events:(p.games||[]).map(g=>({id:g.id?.replace(/
 async function update(){
  const easternKey=offset=>{const q=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(Date.now()+offset)).map(x=>[x.type,x.value]));return q.year+q.month+q.day};
  const today=easternKey(0),yesterday=easternKey(-24*3600000);
+ // The front-page rail is for today's Eastern-date games only. Tomorrow's
+ // fixtures belong on the upcoming schedule, not beneath a TODAY label.
+ const gameDay=stamp=>{const d=new Date(stamp);if(!Number.isFinite(+d))return '';const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).map(x=>[x.type,x.value]));return p.year+p.month+p.day;};
  const sources=[
   ['ESPN today','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+today+'&_='+Date.now(),x=>x],
   ['ESPN previous day','https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates='+yesterday+'&_='+Date.now(),x=>x],
@@ -59,7 +62,7 @@ async function update(){
    for(const event of data.events){
     const id=String(event.id||'');if(!id||merged.has(id))continue;
     const when=Date.parse(event.date||'');
-    if(!Number.isFinite(when)||when<Date.now()-36*3600000||when>Date.now()+24*3600000)continue;
+    if(!Number.isFinite(when)||gameDay(when)!==today)continue;
     const teams=event.competitions?.[0]?.competitors||[];
     const away=teams.find(x=>x.homeAway==='away')?.team?.abbreviation||'';
     const home=teams.find(x=>x.homeAway==='home')?.team?.abbreviation||'';
@@ -78,7 +81,7 @@ async function update(){
   const stale=!Number.isFinite(publishedAt)||Date.now()-publishedAt>30*60000;
   for(const event of fromArchive(snapshot).events){
    const when=Date.parse(event.date||'');
-   if(!Number.isFinite(when)||when<Date.now()-48*3600000||when>Date.now()+24*3600000)continue;
+   if(!Number.isFinite(when)||gameDay(when)!==today)continue;
    const teams=event.competitions?.[0]?.competitors||[];
    const away=teams.find(x=>x.homeAway==='away')?.team?.abbreviation||'';
    const home=teams.find(x=>x.homeAway==='home')?.team?.abbreviation||'';
