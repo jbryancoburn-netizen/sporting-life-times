@@ -15,7 +15,12 @@ try{
  const path='data/mbb-schedules-2026-27/'+encodeURIComponent(team.espn_id)+'.json';
  host.hidden=false;
  host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
- const data=await load(path),games=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2).sort((a,b)=>a.date.localeCompare(b.date));
+ const data=await load(path);
+ const valid=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2);
+ const quality=e=>{const c=e.competitions[0],v=c.venue?.fullName||'';return (/Choose A Location|All Games Home|Select Location/i.test(v)?0:v?4:0)+(e.official_time?2:0)+(c.broadcasts?.length?1:0);};
+ const distinct=new Map();
+ for(const e of valid){const opponent=e.competitions[0].competitors.find(p=>String(p.team?.id)!==String(team.espn_id));const key=e.date.slice(0,10)+'|'+String(opponent?.team?.id||opponent?.team?.displayName||e.name||'').toLowerCase().trim();const old=distinct.get(key);if(!old||quality(e)>quality(old))distinct.set(key,e);}
+ const games=[...distinct.values()].sort((a,b)=>a.date.localeCompare(b.date));
  if(!games.length)throw Error('No games in '+path);
  const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
@@ -30,7 +35,7 @@ try{
   const tip=confirmed?e.official_time:'TBA'; // Imported event dates may contain placeholder noon times.
   const vs=self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':e.site_verified===true&&e.neutralSite===true?'NEUTRAL':'SITE TBA';
   const network=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>[...(x.names||[]),x.name,x.media?.shortName].filter(Boolean)).join(' / ')||'TBA';
-  return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup"><span class="sched-logo">'+emblem+'</span><span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td>'+escape(c.venue?.fullName||'TBA')+'</td><td>'+escape(tip)+'</td><td>'+escape(network)+'</td></tr>';
+  return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup"><span class="sched-logo">'+emblem+'</span><span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td>'+escape(/Choose A Location|All Games Home|Select Location/i.test(c.venue?.fullName||'')?'TBA':(c.venue?.fullName||'TBA'))+'</td><td>'+escape(tip)+'</td><td>'+escape(network)+'</td></tr>';
  }).join('');
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
  const source=data.verified_from_school&&data.source_url?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
