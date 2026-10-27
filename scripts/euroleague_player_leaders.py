@@ -43,7 +43,7 @@ def main():
         items=data if isinstance(data,list) else val(data,"data","items","players","results")
         if not isinstance(items,list):raise ValueError("Unknown EuroLeague player-statistics envelope")
         if isinstance(data,dict) and isinstance(data.get("total"),int):total=data["total"]
-        rows.extend(items)
+        if offset==0 and items:\n            print("EUROLEAGUE_SCHEMA_DIAGNOSTIC",json.dumps({"envelope":list(data) if isinstance(data,dict) else "list","first_row":items[0]},ensure_ascii=False)[:5500],flush=True)\n        rows.extend(items)
         if len(items)<100 or total is not None and len(rows)>=total:break
     if len(rows)<100:raise ValueError("Incomplete player statistics: "+str(len(rows)))
     parsed=[flatten(row) for row in rows]
