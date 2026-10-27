@@ -57,24 +57,33 @@ function render(){
  const item=E('article',null,'cs-fixture cs-matchday-rich');
  const time=new Date(g.kickoff_utc).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
  const score=liveScores.games?.find(x=>x.match_id===g.match_id&&x.cohort===cohort);
+ const verified=(model.latest_finals||[]).find(x=>x.match_id===g.match_id&&x.cohort===cohort);
  const stamp=liveScores.checked_at_utc?Date.parse(liveScores.checked_at_utc):NaN;
  const fresh=Number.isFinite(stamp)&&Date.now()-stamp<20*60*1000;
- const show=score&&(score.status==='final'||(score.status==='live'&&fresh));
- item.append(E('small',time+' ET · '+(show?(score.status==='final'?'FINAL':'LIVE'+(score.period?' · '+score.period:'')):(finalIds.has(g.match_id)?'VERIFIED FINAL':'RESULT NOT VERIFIED'))));
- if(show){const line=E('div',null,'cs-live-score-line');line.append(E('strong',(g.away_name||g.away_team)+' '+score.away_score+' — '+score.home_score+' '+(g.home_name||g.home_team)));item.append(line);if(score.status==='live')item.classList.add('cs-game-is-live');}
- const teamsLine=E('div',null,'cs-fixture-teams');
- teamsLine.append(club(g.away_name||g.away_team,cohort,g.away_team),E('span','AT'),club(g.home_name||g.home_team,cohort,g.home_team));item.append(teamsLine);
- if([g.p_home,g.p_draw,g.p_away].every(v=>Number.isFinite(Number(v)))){
- const prob=E('div',null,'cs-prob');for(const [val,kind] of [[g.p_away,'away'],[g.p_draw,'draw'],[g.p_home,'home']]){const bar=E('i',null,'cs-prob-'+kind);bar.style.width=Math.max(0,Math.min(100,100*Number(val)))+'%';prob.append(bar);}item.append(prob);
- const labels=E('div',null,'cs-prob-labels');labels.append(E('span',pct(g.p_away)+' away'),E('span',pct(g.p_draw)+' draw'),E('span',pct(g.p_home)+' home'));item.append(labels);
+ const isFinal=!!verified||score?.status==='final';
+ const isLive=!isFinal&&score?.status==='live'&&fresh;
+ item.append(E('small',time+' ET · '+(isFinal?'FINAL':isLive?'LIVE'+(score.period?' · '+score.period:''):'SCHEDULED · RESULT NOT VERIFIED')));
+ if(isFinal||isLive){
+  let awayScore=score?.away_score,homeScore=score?.home_score;
+  if(verified){const parsed=String(verified.score||'').match(/^(\\d+)\\s*[-–]\\s*(\\d+)$/);if(parsed){homeScore=parsed[1];awayScore=parsed[2];}}
+  if(awayScore!=null&&homeScore!=null){const line=E('div',null,'cs-live-score-line');line.append(E('strong',(g.away_name||g.away_team)+' '+awayScore+' — '+homeScore+' '+(g.home_name||g.home_team)));item.append(line);}
+  if(isLive)item.classList.add('cs-game-is-live');
  }
- if(cohort==='men-d1'&&!show&&Date.parse(g.kickoff_utc)>Date.now()){
-  const h=teams.find(t=>t.team_id===g.home_team),v=teams.find(t=>t.team_id===g.away_team);
-  if(h&&v&&Number.isFinite(Number(h.elo))&&Number.isFinite(Number(v.elo))){
-   const diff=Number(h.elo)+55-Number(v.elo),draw=Math.min(.8,Math.max(.005,.25*Math.exp(-Math.abs(diff)/650))),win=1/(1+Math.pow(10,-diff/400));
-   const vals=[(1-draw)*(1-win),draw,(1-draw)*win];
-   const line=E('div',null,'cs-prob-labels');line.append(E('span',pct(vals[0])+' away'),E('span',pct(vals[1])+' draw'),E('span',pct(vals[2])+' home'));
-   item.append(E('small','NEW · 2025-TESTED THREE-WAY ELO · CURRENT RATINGS'),line);
+ const teamsLine=E('div',null,'cs-fixture-teams');
+ teamsLine.append(club(g.away_name||g.away_team,cohort,g.away_team),E('span',isFinal?'FINAL':isLive?'LIVE':'AT'),club(g.home_name||g.home_team,cohort,g.home_team));item.append(teamsLine);
+ if(!isFinal&&!isLive&&Date.parse(g.kickoff_utc)>Date.now()){
+  if([g.p_home,g.p_draw,g.p_away].every(v=>Number.isFinite(Number(v)))){
+   const prob=E('div',null,'cs-prob');for(const [val,kind] of [[g.p_away,'away'],[g.p_draw,'draw'],[g.p_home,'home']]){const bar=E('i',null,'cs-prob-'+kind);bar.style.width=Math.max(0,Math.min(100,100*Number(val)))+'%';prob.append(bar);}item.append(prob);
+   const labels=E('div',null,'cs-prob-labels');labels.append(E('span',pct(g.p_away)+' away'),E('span',pct(g.p_draw)+' draw'),E('span',pct(g.p_home)+' home'));item.append(labels);
+  }
+  if(cohort==='men-d1'){
+   const h=teams.find(x=>x.team_id===g.home_team),v=teams.find(x=>x.team_id===g.away_team);
+   if(h&&v&&Number.isFinite(Number(h.elo))&&Number.isFinite(Number(v.elo))){
+    const diff=Number(h.elo)+55-Number(v.elo),draw=Math.min(.8,Math.max(.005,.25*Math.exp(-Math.abs(diff)/650))),win=1/(1+Math.pow(10,-diff/400));
+    const vals=[(1-draw)*(1-win),draw,(1-draw)*win];
+    const line=E('div',null,'cs-prob-labels');line.append(E('span',pct(vals[0])+' away'),E('span',pct(vals[1])+' draw'),E('span',pct(vals[2])+' home'));
+    item.append(E('small','THREE-WAY ELO · CURRENT RATINGS'),line);
+   }
   }
  }
  const detail=E('a','OPEN MATCH CENTER ↗','cs-game-link');detail.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);item.append(detail);
