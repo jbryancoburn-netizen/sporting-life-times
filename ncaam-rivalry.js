@@ -38,7 +38,7 @@ async function start(){
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
 
  // Tournament-source aliases are registered only when the canonical NCAA school exists.
- for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"]]){const id=resolve(canonical);if(id)register(external,id)}
+ for(const [external,canonical] of [["Connecticut","UConn"],["North Carolina State","North Carolina St"],["San Diego State","San Diego St"],["Iowa State","Iowa St"],["Saint Mary's","St Mary's CA"],["Brigham Young","BYU"],["Central Florida","UCF"],["Miami (FL)","Miami FL"],["Miami (OH)","Miami OH"],["Long Island","LIU Brooklyn"],["Northern Iowa","Northern Iowa"],["Saint John's","St John's"],["Michigan State","Michigan St"],["Wichita State","Wichita St"],["Morehead State","Morehead St"],["Montana State","Montana St"],["South Dakota State","S Dakota St"],["North Dakota State","N Dakota St"],["Florida Atlantic","FL Atlantic"],["Texas A&M","Texas A&M"],["Southern Illinois Edwardsville","SIUE"],[ "St. John\'s (NY)","St John\'s"],["Saint Francis","St Francis PA"],["Mount St. Mary\'s","Mt St Mary\'s"],["Miami (Ohio)","Miami OH"],["Prairie View A&M","Prairie View"],["Ohio State","Ohio St"],["California Baptist","Cal Baptist"]]){const id=resolve(canonical);if(id)register(external,id)}
  const zero=new Map(parseCSV(seasonText).map(row=>{const [m,d,y]=row.DayZero.split("/");return [row.Season,y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")]}));
  let historical=0;for(const row of parseCSV(resultsText)){
   const base=zero.get(row.Season);if(!base||!names.has(row.WTeamID)||!names.has(row.LTeamID))continue;
@@ -84,6 +84,19 @@ async function start(){
    }
   }
  }catch(error){console.warn("2025 NCAA classifications unavailable",error)}
+ // Local verified 2026 bracket: 63 main games and four First Four results.
+ try{
+  const response=await fetch("data/ncaam-postseason-2026-ncaa.json",{cache:"no-cache"});
+  if(response.ok){const document=await response.json();
+   for(const g of document.games||[]){
+    const winner=resolve(g.winner),loser=resolve(g.loser);
+    if(!winner||!loser||winner===loser)continue;
+    const ws=Number(g.ws),ls=Number(g.ls);
+    if(!Number.isFinite(ws)||!Number.isFinite(ls)||ws<=ls)continue;
+    verifiedNCAA.set([2026,winner,loser,ws,ls].join("|"),{tournament:"NCAA Tournament",round:g.round,source:"2026 scored NCAA tournament bracket"});
+   }
+  }
+ }catch(error){console.warn("2026 NCAA classifications unavailable",error)}
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  for(const year of years){
@@ -94,7 +107,8 @@ async function start(){
     if(!Number.isFinite(hs)||!Number.isFinite(as)||hs===as)continue;
     const winner=hs>as?h:a,loser=hs>as?a:h,ws=Math.max(hs,as),ls=Math.min(hs,as);
     const key=[year,winner,loser,ws,ls].join("|");
-    const bracket=verifiedNCAA.get(key),confirmed=verified2021.get(key)||bracket?.tournament;
+    const gameDate=String(g.date||"");const inPostseasonWindow=gameDate>=(year+"-03-14")&&gameDate<=(year+"-04-12");
+    const bracket=inPostseasonWindow?verifiedNCAA.get(key):null,confirmed=inPostseasonWindow?(verified2021.get(key)||bracket?.tournament):null;
     const tournament=confirmed||"Competition not verified";
     if(confirmed)classified++;
     matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament,round:bracket?.round||null,source:confirmed?(bracket?.source||"2021 verified postseason results"):"NCAA schedules"});recent++}
@@ -104,7 +118,7 @@ async function start(){
  const options=[...known].sort((a,b)=>name(a).localeCompare(name(b)));
  for(const element of [$("home"),$("away")]){element.replaceChildren();for(const id of options){const o=document.createElement("option");o.value=id;o.textContent=name(id);element.appendChild(o)}}
  const qs=new URLSearchParams(location.search);const valid=new Set(options);$("home").value=valid.has(qs.get("a"))?qs.get("a"):resolve("Indiana")||options[0];$("away").value=valid.has(qs.get("b"))?qs.get("b"):resolve("Purdue")||options[1];
- $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" confirmed postseason classifications from 2021–2025."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
+ $("status").textContent="Archive loaded. "+historical.toLocaleString()+" regular-season historical games plus "+postCount.toLocaleString()+" documented postseason games (1985–2019), and "+recent.toLocaleString()+" identity-matched recent games (2020–2026), including "+classified+" verified postseason classifications from 2021–2026."+(unmatched.size?" Some recent school-name aliases are unmatched and excluded.":"")+(failed.length?" Unavailable recent files: "+failed.join(", "):"")+(failedHistorical.length?" Unavailable historical files: "+failedHistorical.join(", "):"")+" Current team logos mapped: "+logos.size+".";
  show();
 }
 function show(){
