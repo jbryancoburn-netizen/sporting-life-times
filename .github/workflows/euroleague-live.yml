@@ -34,6 +34,20 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_euroleague_live_fast.py' -v
       - name: Retrieve active-game scores without full-season download
         run: python scripts/euroleague_live_fast.py
+      - name: Detect newly verified finals requiring an Elo rebuild
+        id: finals
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          model=json.loads(Path("data/euroleague-model.json").read_text())
+          live=json.loads(Path("data/euroleague-live.json").read_text())
+          counted={str(g["id"]) for g in model.get("recent_results",[])}
+          pending=[str(g["id"]) for g in live.get("games",[]) if g.get("status")=="final" and str(g["id"]) not in counted]
+          with open(os.environ["GITHUB_OUTPUT"],"a") as output:
+              output.write("new_finals="+("true" if pending else "false")+"\n")
+          print("New officially verified finals awaiting Elo:",", ".join(pending) if pending else "none")
+          PY
       - name: Publish live scores independently of Elo computation
         run: |
           if [ -n "$(git status --porcelain -- data/euroleague-live.json)" ]; then
@@ -44,7 +58,8 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
-      - name: Rebuild Elo and standings after scoreboard is safely published
+      - name: Rebuild Elo and standings after a newly confirmed final
+        if: steps.finals.outputs.new_finals == 'true'
         continue-on-error: true
         run: |
           python scripts/euroleague_model.py
