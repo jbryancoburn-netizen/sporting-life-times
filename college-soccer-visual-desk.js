@@ -40,19 +40,6 @@ function render(){
  const cohort=gender+'-d'+division,teams=model.cohorts[cohort];if(!Array.isArray(teams)||!teams.length)return;
  host.replaceChildren();
  const header=E('div',null,'cs-main-heading');header.append(E('strong','THE COLLEGE SOCCER MATCHDAY FILE'),E('span','INDEPENDENT USRS · '+date(model.as_of)));host.append(header);
- const fresh=E('div',null,'cs-data-freshness');
- const listed=model.applied_finals_since_baseline;
- const ledgerCount=audit?.ledger_finals;
- const indexCount=index?.verified_final_count;
- const asOf=String(model.as_of||'unknown');
- const reconciled=Number.isInteger(listed)&&Number.isInteger(ledgerCount)&&Number.isInteger(indexCount)&&listed===ledgerCount&&listed===indexCount;
- const heartbeat=typeof audit?.checked_through==='string'?audit.checked_through:null;
- const caption=reconciled?'DATA COUNTS RECONCILED · '+listed+' FINALS':'DATA RECONCILIATION PENDING';
- fresh.append(E('strong',caption));
- fresh.append(E('span','Ratings as of '+asOf+' · last scoreboard check '+(heartbeat||'unavailable')));
- const explanation=E('small',reconciled?'Ledger, ratings and team match index agree on final count. This does not certify GitHub Pages deployment or that all NCAA matches have been captured.':'At least one required final-count feed is missing or disagrees. Do not infer fresh results from this page.');
- fresh.append(explanation);fresh.classList.add(reconciled?'cs-fresh-ok':'cs-fresh-warn');
- host.append(fresh);
  const controls=E('div',null,'cs-controls');
  for(const [label,g,d] of [["Men's",'men',null],["Women's",'women',null],['DI',null,1],['DII',null,2],['DIII',null,3]]){
  const b=E('button',label,'cs-choice'+((g?gender===g:division===d)?' active':''));b.type='button';b.setAttribute('aria-pressed',String(g?gender===g:division===d));
