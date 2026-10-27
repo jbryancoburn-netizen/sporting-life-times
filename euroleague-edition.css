@@ -252,3 +252,22 @@ body.league-edition[data-league="euroleague"] .el-odds-bar i{display:block;heigh
 @media(max-width:1080px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(3,minmax(0,1fr))}body.league-edition[data-league="euroleague"] #el-forecasts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] #el-forecasts{grid-template-columns:1fr}}
 @media(max-width:430px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:1fr}}
+
+/* Final scorecard correction: team names must never be ellipsized or crushed. */
+body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+body.league-edition[data-league="euroleague"] .el-result-card{padding:10px 12px}
+body.league-edition[data-league="euroleague"] .el-result-row{grid-template-columns:minmax(0,1fr) 36px;gap:8px;min-height:36px;font-size:13px}
+body.league-edition[data-league="euroleague"] .el-result-row>span{min-width:0;display:flex;align-items:center;gap:8px}
+body.league-edition[data-league="euroleague"] .el-result-row .el-result-name{white-space:normal!important;text-overflow:clip!important;overflow:visible!important;display:block!important;line-height:1.2;overflow-wrap:normal;word-break:normal}
+body.league-edition[data-league="euroleague"] .el-result-row b{text-align:right}
+body.league-edition[data-league="euroleague"] .el-result-row img.el-official-logo{width:32px;height:32px;object-fit:contain}
+body.league-edition[data-league="euroleague"] #el-forecasts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-forecast{padding:12px 14px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:8px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match>div{font-size:13px;gap:8px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match>div span{-webkit-line-clamp:3}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-match img.el-official-logo{width:36px;height:36px}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+body.league-edition[data-league="euroleague"] #el-forecasts .el-metrics b{font-size:15px}
+@media(max-width:920px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}body.league-edition[data-league="euroleague"] #el-forecasts{grid-template-columns:1fr}}
+@media(max-width:540px){body.league-edition[data-league="euroleague"] .el-results-list{grid-template-columns:1fr}}
