@@ -270,14 +270,14 @@ def main():
             projection=forecast_score(projected_home,projected_away,probability)
         fixtures.append({"id":g["id"],"date":g["date"],"home":g["home"],"away":g["away"],"home_win_probability":round(probability,4),"projection":projection})
     source_latest=max(clock(g["date"]) for g in current if g["completed"])
-    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":calibrated,"opening_elo":1500,"opening_policy":"all_clubs_equal_2026_27"},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
+    payload={"header_recovered_finals":header_recovered,"club_verified_finals":verified_applied,"verified_final_sources":[{"id":v["id"],"source":v["source"]} for v in verified.load()["games"]], "last_completed_game_at":source_latest.isoformat(),"model":"Sporting Life & Times independent EuroLeague Elo v0.1","season":"2026-27","updated_at":NOW.isoformat(),"source":"EuroLeague public v2 games endpoint","settings":{"K":K,"home_elo":HOME_ELO,"season_carry":CARRY,"calibrated":calibrated,"opening_elo":1500,"opening_policy":"all_clubs_equal_2026_27"},"games_ingested":len(current),"games_completed":len(history),"rankings":ranked,"standings":standings,"standings_order":"EuroLeague Article 19 provisional: victories, fewer games, score difference/points; complete head-to-head after both meetings; overtime adjustment unavailable","fixtures":fixtures,"completed_game_ledger":history,"recent_results":history[-15:][::-1],"coverage":"Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if OUT.exists():
         previous=json.loads(OUT.read_text())
         if previous.get("season")==payload["season"]:
             if previous.get("games_completed",0)>payload["games_completed"]:
                 raise ValueError("Source regression: fewer finals than previously published; refusing overwrite")
-            old_results={str(g["id"]):(g["home"],g["away"],tuple(g["score"])) for g in previous.get("recent_results",[])}
+            old_results={str(g["id"]):(g["home"],g["away"],tuple(g["score"])) for g in previous.get("completed_game_ledger",previous.get("recent_results",[]))}
             new_results={str(g["id"]):(g["home"],g["away"],tuple(g["score"])) for g in history}
             missing=set(old_results)-set(new_results)
             if missing:
