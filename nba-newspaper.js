@@ -31,7 +31,7 @@ TOR:['Toronto Raptors','East','Atlantic','#ce1141'],UTA:['Utah Jazz','West','Nor
 const codes=Object.keys(meta),aliases={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'};
 const logo=t=>'https://a.espncdn.com/i/teamlogos/nba/500/'+(aliases[t]||String(t||'').toLowerCase())+'.png';
 const name=t=>meta[t]?.[0]||t,tl=t=>'nba-team-desk.html?team='+encodeURIComponent(t);
-const team=t=>'<a class="team-link" href="'+tl(t)+'"><img loading="lazy" alt="" src="'+logo(t)+'" onerror="this.hidden=true"><span>'+esc(name(t))+'</span></a>';
+const team=(t,variant='')=>'<a class="team-link'+(variant==='power'?' nba-power-team-link':'')+'" href="'+tl(t)+'"><img class="nba-team-logo'+(variant==='power'?' nba-power-logo':'')+'" loading="lazy" alt="" width="38" height="38" src="'+logo(t)+'" onerror="this.hidden=true"><span>'+esc(name(t))+'</span></a>';
 const image=t=>'<img loading="lazy" alt="" src="'+logo(t)+'" onerror="this.hidden=true">';
 const section=(k,h,path,label)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div>'+(path?'<a href="'+path+'">'+(label||'Explore →')+'</a>':'')+'</div>';
 const blank=t=>'<div class="nba-empty">'+esc(t)+'</div>';
@@ -147,7 +147,7 @@ function rankings(){
  const row=(t,i)=>{
   const f=forms[t],delta=Number.isFinite(seed[t])?rates[t]-seed[t]:null,negative=delta!==null&&delta<0;
   const form=f.last.length?'<span class="nba-power-recent">'+f.last.map(x=>'<i class="'+(x.won?'win':'loss')+'" aria-label="'+(x.won?'win':'loss')+'">'+(x.won?'W':'L')+'</i>').join('')+'</span><small>'+f.wins+'–'+(f.last.length-f.wins)+'</small>':'<span class="nba-power-empty">—</span>';
-  return '<tr><td class="num nba-power-rank">'+(i+1)+'</td><td class="nba-power-club">'+team(t)+'</td>'+
+  return '<tr><td class="num nba-power-rank">'+(i+1)+'</td><td class="nba-power-club">'+team(t,'power')+'</td>'+
   '<td class="nba-power-conf">'+esc(meta[t][1])+'</td><td class="num nba-power-record">'+rec(t)+'</td>'+
   '<td class="nba-power-form" aria-label="Last '+f.last.length+' games: '+f.wins+' wins">'+form+'</td>'+
   '<td class="num"><span class="nba-power-streak '+(f.streak.startsWith('W')?'win':f.streak.startsWith('L')?'loss':'')+'">'+esc(f.streak)+'</span></td>'+
