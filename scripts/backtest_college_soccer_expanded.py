@@ -11,18 +11,20 @@ for year in (2023,2024,2025):
  years[year]=sorted(d['games'],key=lambda g:(g['date'],g['game_id']))
 current_d1={t['team_id'] for t in json.loads((ROOT/'data'/'college-soccer-elo.json').read_text())['cohorts']['men-d1']}
 historical_d1={'st-francis-pa'} # Verified historical D-I; other unmatched schools stay excluded from sensitivity-only comparison.
-def run(k,home,retention,margin,eligible_only=False):
+def eligible(g):
+ return (g['home'] in current_d1 or g['home'] in historical_d1) and (g['away'] in current_d1 or g['away'] in historical_d1)
+def run(k,home,retention,margin,eligible_only=False,score_eligible_only=False):
  ratings={};scores={};counts={}
  for year in (2023,2024,2025):
   if year>2023:ratings={team:1500+(rating-1500)*retention for team,rating in ratings.items()}
   errors=[]
   for g in years[year]:
-   if eligible_only and not (g['home'] in current_d1 and g['away'] in current_d1 or (g['home'] in historical_d1 and g['away'] in current_d1) or (g['away'] in historical_d1 and g['home'] in current_d1)):
+   if eligible_only and not eligible(g):
     continue
    a,b=g['home'],g['away'];ra=ratings.get(a,1500);rb=ratings.get(b,1500)
    p=1/(1+10**(-(ra+home-rb)/400))
    outcome=1 if g['home_goals']>g['away_goals'] else 0 if g['home_goals']<g['away_goals'] else .5
-   errors.append((p-outcome)**2)
+   if not score_eligible_only or eligible(g):errors.append((p-outcome)**2)
    delta=k*(outcome-p)*(max(1,math.log1p(abs(g['home_goals']-g['away_goals']))) if margin else 1)
    ratings[a]=ra+delta;ratings[b]=rb-delta
   scores[year]=sum(errors)/len(errors)
@@ -38,6 +40,8 @@ for k in (8,12,20,28,36,48,64):
 configs.sort(key=lambda c:(c['validation'],c['k'],c['h'],c['reg'],c['margin']))
 best=configs[0]
 sensitivity,sensitivity_counts=run(best['k'],best['h'],best['reg'],best['margin'],eligible_only=True)
-result=dict(status='complete',method='2023 rating warmup; 2024 model selection; 2025 holdout',games_by_year={str(y):len(g) for y,g in years.items()},candidates_tested=len(configs),selected=best,holdout_comparators=dict(neutral_50_50=run(0,0,1,False)[0][2025],listed_home_only=run(0,best['h'],1,False)[0][2025]),top_validation_candidates=configs[:10],limitations=['Full August-December date coverage; team cohort may include non-D1 opponents','All-conf may include non-D1 opponents','Actual venues unverified','Draws scored as half-results, not three-way forecasts'],live_elo_modified=False,cohort_sensitivity={'method':'current D-I teams plus historical Saint Francis PA; provisional comparison, not a historically certified membership list','validation_brier':sensitivity[2024],'holdout_brier':sensitivity[2025],'full_sample_holdout_brier':best['holdout'],'validation_games':sensitivity_counts[2024],'holdout_games':sensitivity_counts[2025],'comparison_warning':'Different evaluation samples; Brier scores are not directly comparable. Re-evaluate both models on the same held-out games before selecting parameters.'})
+matched_full,matched_counts=run(best['k'],best['h'],best['reg'],best['margin'],score_eligible_only=True)
+assert matched_counts==sensitivity_counts, 'Matched holdout samples differ'
+result=dict(status='complete',method='2023 rating warmup; 2024 model selection; 2025 holdout',games_by_year={str(y):len(g) for y,g in years.items()},candidates_tested=len(configs),selected=best,holdout_comparators=dict(neutral_50_50=run(0,0,1,False)[0][2025],listed_home_only=run(0,best['h'],1,False)[0][2025]),top_validation_candidates=configs[:10],limitations=['Full August-December date coverage; team cohort may include non-D1 opponents','All-conf may include non-D1 opponents','Actual venues unverified','Draws scored as half-results, not three-way forecasts'],live_elo_modified=False,cohort_sensitivity={'method':'current D-I teams plus historical Saint Francis PA; provisional comparison, not a historically certified membership list','validation_brier':sensitivity[2024],'holdout_brier':sensitivity[2025],'full_sample_holdout_brier':best['holdout'],'validation_games':sensitivity_counts[2024],'holdout_games':sensitivity_counts[2025],'same_games_full_training_holdout_brier':matched_full[2025],'same_games_restricted_training_holdout_brier':sensitivity[2025],'same_games_full_training_validation_brier':matched_full[2024],'same_games_restricted_training_validation_brier':sensitivity[2024],'comparison_warning':'Different evaluation samples; Brier scores are not directly comparable. Re-evaluate both models on the same held-out games before selecting parameters.'})
 (H/'elo-backtest-expanded.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result,indent=2))
