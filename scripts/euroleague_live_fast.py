@@ -117,8 +117,7 @@ def build(model, previous, now=None, get_header=None):
         except (OSError,TimeoutError,ValueError) as exc:
             header_errors+=1
             print("Header check failed for "+str(g["id"])+": "+str(exc),file=sys.stderr)
-    if header_errors and responses==0:
-        raise RuntimeError("EuroLeague Header unavailable for all attempted active games; refusing silent successful refresh")
+    provider_degraded=bool(header_errors and responses==0)
     for item in games.values():
         if item["status"]=="scheduled":
             item["home"]["score"]=None
@@ -130,12 +129,14 @@ def build(model, previous, now=None, get_header=None):
     return {"season":"2026-27","updated_at":latest,"checked_at":now.isoformat(),
         "source":"EuroLeague per-game Header plus verified Sporting Life & Times model finals",
         "refresh_target_seconds":300,"header_responses":responses,
-        "live_scores_refreshed":refreshed,"games":entries}
+        "live_scores_refreshed":refreshed,"provider_degraded":provider_degraded,"games":entries}
 
 def main():
     model=json.loads(MODEL.read_text())
     previous=json.loads(LIVE.read_text()) if LIVE.exists() else {}
     result=build(model,previous)
+    if result["provider_degraded"]:
+        raise RuntimeError("All attempted EuroLeague Header requests failed; retaining last published scoreboard")
     LIVE.parent.mkdir(parents=True,exist_ok=True)
     temp=LIVE.with_suffix(".json.tmp")
     temp.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
