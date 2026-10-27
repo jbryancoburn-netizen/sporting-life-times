@@ -1,5 +1,5 @@
 {
-  "attempted_at": "2026-10-27T20:40:52.508111+00:00",
+  "attempted_at": "2026-10-27T20:51:33.655008+00:00",
   "results": [
     {
       "team": "Michigan St.",
@@ -2126,9 +2126,8 @@
     },
     {
       "team": "Texas Southern",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
+      "status": "error",
+      "error": "No accessible schedule route on official athletics host",
       "url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -2448,9 +2447,10 @@
     },
     {
       "team": "Southern Ind.",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://usieagles.com/sports/mens-basketball/schedule/text/2026-27"
+      "status": "unverified-too-few-games",
+      "parsed_rows": 16,
+      "confirmed_games": 8,
+      "url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027"
     },
     {
       "team": "Southern U.",
@@ -2544,5 +2544,5 @@
       "url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ],
-  "official_verified": 327
+  "official_verified": 326
 }
