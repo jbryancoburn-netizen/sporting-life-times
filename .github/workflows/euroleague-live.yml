@@ -55,7 +55,7 @@ jobs:
               if game_date>=watermark:
                   pending.append(str(g["id"]))
           with open(os.environ["GITHUB_OUTPUT"],"a") as output:
-              output.write("new_finals="+("true" if pending else "false")+"\n")
+              output.write("new_finals="+("true" if pending or len(model.get("completed_game_ledger",[]))!=model.get("games_completed") else "false")+"\n")
           print("New officially verified finals awaiting Elo:",", ".join(pending) if pending else "none")
           PY
       - name: Publish live scores independently of Elo computation
