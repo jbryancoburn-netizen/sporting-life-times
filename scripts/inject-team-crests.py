@@ -26,6 +26,11 @@ for path in files:
     if not re.search(r"</head\s*>",source,re.IGNORECASE):
         continue
     eligible+=1
+    # NBA provides its own single-ring logo system. Never inject the global DOM wrapper.
+    if re.match(r"nba(?:[-.]|$)", path.name, re.IGNORECASE):
+        if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
+            missing.append(path.name + " must not load shared-team-crests")
+        continue
     if "shared-team-crests.css" in source and "shared-team-crests.js" in source:
         continue
     if CHECK:
