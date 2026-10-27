@@ -22,8 +22,7 @@ def calculate(baseline,ledger):
         raise ValueError("No NBL regular-season results to replay")
     k=float(baseline["parameters"]["k"])
     home_edge=float(baseline["parameters"]["home_advantage_elo"])
-    regression=float(baseline["parameters"]["offseason_regression"])
-    ratings={team:1500+(value-1500)*(1-regression) for team,value in old.items()}
+    ratings={team:1500.0 for team in old}
     start_total=sum(ratings.values())
     seen=set();previous="";updates=[];records={t:{"wins":0,"losses":0} for t in old}
     for g in games:
@@ -57,7 +56,7 @@ def calculate(baseline,ledger):
          "model":"nbl-game-elo-research-v1","season":"2026-27",
          "calculated_at":datetime.now(timezone.utc).isoformat(),
          "historical_training_games":337,"current_regular_season_games":len(updates),
-         "parameters":baseline["parameters"],"historical_sources":baseline["sources"],
+         "parameters":{**baseline["parameters"],"offseason_regression":1.0},"season_start_elo":1500,"reset_every_season":True,"historical_sources":baseline["sources"],
          "ratings":[{"rank":i,"team":t,"elo":round(ratings[t],2),
                      "wins":records[t]["wins"],"losses":records[t]["losses"]}
                     for i,t in enumerate(ordered,1)],
