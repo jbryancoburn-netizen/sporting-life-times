@@ -39,6 +39,18 @@ try{
    ch.rows.map((t,i)=>'<div class="el-chart-row"><span class="el-chart-rank">'+(i+1)+'</span><span class="el-chart-club">'+logo(t)+'<span title="'+esc(t.name)+'">'+esc(t.name)+'</span></span><div class="el-chart-track"><i style="width:'+Math.max(3,Math.min(100,100*(ch.value(t)-lo)/(hi-lo||1))).toFixed(1)+'%"></i></div><b>'+esc(ch.label(t))+'</b></div>').join('')+'</article>';
   }).join('');
  }
+
+ const spot=$('el-club-spotlight');
+ if(spot){
+  const byStanding=new Map(table.map(t=>[t.code,t]));
+  const clubTiles=teams.slice(0,8).map((t,i)=>{
+   const s=byStanding.get(t.code)||t,played=s.played||0,ppg=played?s.for/played:0,opp=played?s.against/played:0;
+   const net=ppg-opp;
+   const pct=played?s.wins/played:0;
+   return '<article class="el-club-tile"><div class="el-club-tile-top"><span class="el-club-rank">#'+(i+1)+'</span>'+logo(t)+'<div><h3>'+esc(t.name)+'</h3><small>'+esc(t.code)+' · '+esc(s.wins)+'–'+esc(s.losses)+'</small></div></div><div class="el-club-elo">'+Number(t.elo).toFixed(1)+' <span>ELO</span></div><div class="el-club-statgrid"><div><b>'+(pct*100).toFixed(0)+'%</b><small>WIN RATE</small></div><div><b>'+ppg.toFixed(1)+'</b><small>POINTS / G</small></div><div><b>'+opp.toFixed(1)+'</b><small>ALLOWED / G</small></div><div><b>'+(net>0?'+':'')+net.toFixed(1)+'</b><small>NET / G</small></div></div><div class="el-club-winbar" aria-label="'+(pct*100).toFixed(0)+' percent wins"><i style="width:'+(pct*100).toFixed(1)+'%"></i></div></article>';
+  });
+  spot.innerHTML=clubTiles.join('');
+ }
  const byCode=new Map(teams.map(t=>[t.code,t]));
  $('el-recent-results-list').innerHTML=results.length?results.slice(0,10).map(g=>{
  const away=byCode.get(g.away)||{code:g.away},home=byCode.get(g.home)||{code:g.home};
