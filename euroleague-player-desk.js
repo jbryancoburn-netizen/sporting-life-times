@@ -14,7 +14,7 @@ async function render(){
   $('el-player-leaders').innerHTML=categories.map(([key,title,unit])=>'<article class="el-player-category"><header><h3>'+title+'</h3><small>'+unit+' · season average</small></header>'+
     d.leaders[key].slice(0,5).map((p,i)=>{
       const photo=typeof p.photo==='string'&&p.photo.startsWith('https://')?'<img class="el-player-photo" src="'+esc(p.photo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
-      return '<div class="el-player-row"><b class="el-player-rank">'+(i+1)+'</b><div class="el-player-avatar">'+photo+'<span aria-hidden="true">♟</span></div><div class="el-player-name"><strong>'+esc(p.name)+'</strong><small>'+esc(p.club)+' · '+(p.games===null?'Games unreported':p.games+' GP')+'</small></div><strong class="el-player-value">'+Number(p[key]).toFixed(1)+'</strong></div>';
+      return '<div class="el-player-row"><b class="el-player-rank">'+(i+1)+'</b><div class="el-player-avatar">'+photo+'<span aria-hidden="true">●</span></div><div class="el-player-name"><strong>'+esc(p.name)+'</strong><small>'+esc(p.club)+' · '+(p.games===null?'Games unreported':p.games+' GP')+'</small></div><strong class="el-player-value">'+Number(p[key]).toFixed(1)+'</strong></div>';
     }).join('')+'</article>').join('');
   $('el-player-status').textContent='Official EuroLeague season statistics · '+d.players_parsed+' player records · Updated '+new Date(d.updated_at).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET';
   last=d.updated_at;
