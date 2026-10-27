@@ -33,8 +33,17 @@ def getteam(label):
 
 def fetch(school):
  url=school['url']
- req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (compatible; SportingLifeTimes/1.0; school schedule indexing)','Accept':'text/html'})
- with urllib.request.urlopen(req,timeout=30) as r:raw=r.read()
+ candidates_urls=[url]
+ if '/schedule/text/2026-27' in url:
+  candidates_urls.extend([url.replace('/schedule/text/2026-27','/schedule/2026-27'),url.replace('/schedule/text/2026-27','/schedule/text'),url.replace('/schedule/text/2026-27','/schedule')])
+ raw=None
+ for candidate in candidates_urls:
+  try:
+   req=urllib.request.Request(candidate,headers={'User-Agent':'Mozilla/5.0 (compatible; SportingLifeTimes/1.0; school schedule indexing)','Accept':'text/html'})
+   with urllib.request.urlopen(req,timeout=12) as r:raw=r.read()
+   if raw:break
+  except Exception:continue
+ if raw is None:raise ValueError('No accessible schedule route on official athletics host')
  soup=BeautifulSoup(raw,'html.parser')
  candidates=[]
  for table in soup.select('table'):
@@ -97,7 +106,7 @@ def collect(school):
   return {'team':school['team'],'status':'verified-official','parsed_rows':len(entries),'confirmed_games':len(events),'url':school['url']}
  except Exception as e:
   return {'team':school['team'],'status':'error','error':str(e)[:250],'url':school['url']}
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:results=list(pool.map(collect,src['teams']))
+with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:results=list(pool.map(collect,src['teams']))
 report={'attempted_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'results':results,
  'official_verified':sum(x['status']=='verified-official' for x in results)}
 (out/'official-school-sources-status.json').write_text(json.dumps(report,indent=2)+'\n')
