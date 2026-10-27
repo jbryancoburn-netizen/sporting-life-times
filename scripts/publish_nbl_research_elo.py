@@ -9,6 +9,31 @@ import argparse,json,math
 from pathlib import Path
 from datetime import datetime, timezone
 
+def retro_ratings(games,teams,home_advantage=65.0):
+    """CFB-style retrospective same-season network ratings, neutral prior 1500.
+    Each published snapshot refits only completed games (never future games).
+    """
+    ratings={team:1500.0 for team in teams}
+    counts={team:0 for team in teams}
+    for g in games:
+        counts[g["home"]]+=1
+        counts[g["away"]]+=1
+    for _ in range(160):
+        grad={team:0.0 for team in teams}
+        for g in games:
+            home,away=g["home"],g["away"]
+            p=1/(1+10**((ratings[away]-ratings[home]-home_advantage)/400))
+            residual=int(g["home_score"]>g["away_score"])-p
+            grad[home]+=residual
+            grad[away]-=residual
+        max_change=0.0
+        for team in teams:
+            previous=ratings[team]
+            ratings[team]=max(1100.0,min(1900.0,previous+18*(grad[team]-.006*(previous-1500))/(3+counts[team])))
+            max_change=max(max_change,abs(ratings[team]-previous))
+        if max_change<.0001:break
+    return ratings
+
 def calculate(baseline,ledger):
     if baseline.get("status")!="RESEARCH_ONLY_UNCERTIFIED" or baseline.get("training_games")!=337:
         raise ValueError("Historical NBL research baseline missing or altered")
@@ -51,12 +76,12 @@ def calculate(baseline,ledger):
                        "away_score":aws,"elo_delta_home":round(delta,3),"source_url":g["source_url"]})
     if abs(sum(ratings.values())-start_total)>1e-6:
         raise ValueError("Elo rating conservation failure")
-    ordered=sorted(ratings,key=lambda t:(-ratings[t],t))
+    chronological=ratings.copy()\n    ratings=retro_ratings(games,old,home_edge)\n    ordered=sorted(ratings,key=lambda t:(-ratings[t],t))
     return {"status":"RESEARCH_ONLY_UNCERTIFIED","production_approved":False,
-         "model":"nbl-game-elo-research-v1","season":"2026-27",
+         "model":"nbl-retro-season-network-v1","season":"2026-27",
          "calculated_at":datetime.now(timezone.utc).isoformat(),
          "historical_training_games":337,"current_regular_season_games":len(updates),
-         "parameters":{**baseline["parameters"],"offseason_regression":1.0},"season_start_elo":1500,"reset_every_season":True,"historical_sources":baseline["sources"],
+         "parameters":{**baseline["parameters"],"offseason_regression":1.0},"rating_method":"RETRO completed-game network refit","retro_iterations_max":160,"chronological_comparator":{t:round(v,2) for t,v in chronological.items()},"season_start_elo":1500,"reset_every_season":True,"historical_sources":baseline["sources"],
          "ratings":[{"rank":i,"team":t,"elo":round(ratings[t],2),
                      "wins":records[t]["wins"],"losses":records[t]["losses"]}
                     for i,t in enumerate(ordered,1)],
