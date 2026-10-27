@@ -43,11 +43,14 @@ try{
  const spot=$('el-club-spotlight');
  if(spot){
   const byStanding=new Map(table.map(t=>[t.code,t]));
-  const clubTiles=teams.slice(0,8).map((t,i)=>{
+  const ranked=table.slice(0,10).map(s=>({...s,...(teams.find(t=>t.code===s.code)||{})}));
+  const clubTiles=ranked.map((t,i)=>{
    const s=byStanding.get(t.code)||t,played=s.played||0,ppg=played?s.for/played:0,opp=played?s.against/played:0;
    const net=ppg-opp;
    const pct=played?s.wins/played:0;
-   return '<article class="el-club-tile"><div class="el-club-tile-top"><span class="el-club-rank">#'+(i+1)+'</span>'+logo(t)+'<div><h3>'+esc(t.name)+'</h3><small>'+esc(t.code)+' · '+esc(s.wins)+'–'+esc(s.losses)+'</small></div></div><div class="el-club-elo">'+Number(t.elo).toFixed(1)+' <span>ELO</span></div><div class="el-club-statgrid"><div><b>'+(pct*100).toFixed(0)+'%</b><small>WIN RATE</small></div><div><b>'+ppg.toFixed(1)+'</b><small>POINTS / G</small></div><div><b>'+opp.toFixed(1)+'</b><small>ALLOWED / G</small></div><div><b>'+(net>0?'+':'')+net.toFixed(1)+'</b><small>NET / G</small></div></div><div class="el-club-winbar" aria-label="'+(pct*100).toFixed(0)+' percent wins"><i style="width:'+(pct*100).toFixed(1)+'%"></i></div></article>';
+   const clubColors={OLY:'#cf102d',ULK:'#f2c500',MAD:'#00529f',PAM:'#f36f21',PAN:'#007a3d',HTA:'#c8102e',DUB:'#bc9a57',BAR:'#a50044',RED:'#d31127',ZAL:'#007a33',PAR:'#171717',BES:'#111111',IST:'#006ab3',MUN:'#dc052d',VIR:'#191919',TEL:'#fcd116',PRS:'#171717',MIL:'#d0021b',BAS:'#d4202f',ASV:'#202020'};
+   const color=clubColors[t.code]||'#263b4d',seed=i<6?'DIRECT PLAYOFF':'PLAY-IN POSITION';
+   return '<article class="el-club-tile" style="--el-team-primary:'+color+'"><div class="el-club-seed">'+seed+'</div><div class="el-club-tile-top"><span class="el-club-rank">#'+(i+1)+'</span>'+logo(t)+'<div><h3>'+esc(t.name)+'</h3><small>'+esc(t.code)+' · '+esc(s.wins)+'–'+esc(s.losses)+'</small></div></div><div class="el-club-elo">'+Number(t.elo).toFixed(1)+' <span>ELO</span></div><div class="el-club-statgrid"><div><b>'+(pct*100).toFixed(0)+'%</b><small>WIN RATE</small></div><div><b>'+ppg.toFixed(1)+'</b><small>POINTS / G</small></div><div><b>'+opp.toFixed(1)+'</b><small>ALLOWED / G</small></div><div><b>'+(net>0?'+':'')+net.toFixed(1)+'</b><small>NET / G</small></div></div><div class="el-club-winbar" aria-label="'+(pct*100).toFixed(0)+' percent wins"><i style="width:'+(pct*100).toFixed(1)+'%"></i></div></article>';
   });
   spot.innerHTML=clubTiles.join('');
  }
