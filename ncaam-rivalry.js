@@ -26,13 +26,31 @@ async function start(){
  for(const row of parseCSV(teamText)){names.set(row.TeamID,row.TeamName);register(row.TeamName,row.TeamID)}
  if(spellingText)for(const row of parseCSV(spellingText))register(row.TeamNameSpelling,row.TeamID);
  for(const [alias,canonical] of [["UConn","Connecticut"],["NC State","North Carolina St"],["Michigan State","Michigan St"],["Ohio State","Ohio St"],["Kansas State","Kansas St"],["Penn State","Penn St"],["Purdue Fort Wayne","IPFW"]]){const id=resolve(canonical);if(id)register(alias,id)}
+ // Current institutional names mapped to historical NCAA team IDs when the program is continuous.
+ for(const [modern,historical] of [
+  ["App State","Appalachian St"],["FDU","Fairleigh Dickinson"],["Houston Christian","Houston Baptist"],
+  ["IU Indy","IUPUI"],["Kansas City","UMKC"],["LMU (CA)","Loyola Marymount"],
+  ["NIU","Northern Illinois"],["Sam Houston","Sam Houston St"],
+  ["UAlbany","Albany NY"],["UIW","Incarnate Word"],["LIU","LIU Brooklyn"],
+  ["St. John's (NY)","St John's"],["UNC","North Carolina"],["UNI","Northern Iowa"]
+ ]){const id=resolve(historical);if(id)register(modern,id)}
  const palette={"Indiana":["#990000","#EEEDEB"],"Purdue":["#CEB888","#000000"],"Duke":["#003087","#FFFFFF"],"North Carolina":["#7BAFD4","#FFFFFF"],"Kansas":["#0051BA","#E8000D"],"Kentucky":["#0033A0","#FFFFFF"],"Louisville":["#AD0000","#000000"],"UConn":["#000E2F","#FFFFFF"],"UCLA":["#2D68C4","#F2A900"],"Michigan":["#00274C","#FFCB05"],"Michigan St":["#18453B","#FFFFFF"],"Michigan State":["#18453B","#FFFFFF"],"Syracuse":["#F76900","#FFFFFF"],"Gonzaga":["#002967","#C8102E"],"Kansas St":["#512888","#FFFFFF"],"Pittsburgh":["#003594","#FFB81C"],"Ohio St":["#BB0000","#666666"],"North Carolina St":["#CC0000","#FFFFFF"],"Florida":["#0021A5","#FA4616"],"Arizona":["#AB0520","#0C234B"],"Villanova":["#00205B","#13B5EA"],"Purdue Fort Wayne":["#003F87","#FFFFFF"],"Wisconsin":["#C5050C","#FFFFFF"],"Illinois":["#13294B","#E84A27"],"Tennessee":["#FF8200","#FFFFFF"],"Texas":["#BF5700","#FFFFFF"],"Auburn":["#0C2340","#E87722"],"Alabama":["#9E1B32","#FFFFFF"]};
  for(const [school,colors] of Object.entries(palette)){const id=resolve(school);if(id)teamColors.set(id,colors)}
  try{
   const r=await fetch("data/ncaam-2026-27-espn-team-crosswalk.json",{cache:"force-cache"});
   if(r.ok){const cross=await r.json();for(const t of cross.teams||[]){
    const candidates=[t.name,t.espn_name,String(t.name||"").replace(/\s+(Wildcats|Blue Devils|Tar Heels|Hoosiers|Boilermakers|Bulldogs|Spartans|Jayhawks|Huskies|Bruins|Cardinals|Orange|Cougars|Tigers|Gators|Volunteers|Aggies)$/i,"")];
-   const id=candidates.map(resolve).find(Boolean) || (t.name==="UConn"?resolve("Connecticut"):null) || (t.name==="NC State"?resolve("North Carolina St"):null);
+   let id=candidates.map(resolve).find(Boolean) || (t.name==="UConn"?resolve("Connecticut"):null) || (t.name==="NC State"?resolve("North Carolina St"):null);
+   // A verified NCAA-origin identity is safe for entrants absent from the frozen 2019 directory.
+   // Do not invent synthetic identities for renamed legacy schools.
+   const newer=new Set(["Bellarmine","East Texas A&M","Le Moyne","Lindenwood","Mercyhurst","Merrimack","New Haven",
+     "Queens (NC)","Southern Ind.","St. Thomas (MN)","Stonehill","Tarleton St.","UC San Diego",
+     "Utah Tech","West Florida","West Ga."]);
+   if(!id&&newer.has(t.name)&&/^ncaa:\\d+$/.test(String(t.id))&&t.match_method==="verified-NCAA-origin-2026-ID-pair"){
+    id=String(t.id);names.set(id,t.name);register(t.name,id);
+   }
+   // Explicitly register modern source names to the resolved canonical program.
+   if(id&&t.name)register(t.name,id);
    if(id&&Number(t.espn_id)>0&&t.match_method!=="exact-team-name-fallback")logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
