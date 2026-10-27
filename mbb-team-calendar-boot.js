@@ -22,15 +22,23 @@ try{
  for(const e of valid){const opponent=e.competitions[0].competitors.find(p=>String(p.team?.id)!==String(team.espn_id));const key=e.date.slice(0,10)+'|'+String(opponent?.team?.id||opponent?.team?.displayName||e.name||'').toLowerCase().trim();const old=distinct.get(key);if(!old||quality(e)>quality(old))distinct.set(key,e);}
  const games=[...distinct.values()].sort((a,b)=>a.date.localeCompare(b.date));
  if(!games.length)throw Error('No games in '+path);
+ const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+ const matches=new Map();
+ for(const entry of cross.teams||[]){for(const n of [entry.name,entry.espn_name]){const k=norm(n);if(!k)continue;if(!matches.has(k))matches.set(k,new Set());matches.get(k).add(String(entry.espn_id));}}
+ const exactId=n=>{const ids=matches.get(norm(n));return ids?.size===1?[...ids][0]:'';};
  const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
   const self=contestants.find(x=>String(x.team?.id)===String(team.espn_id));
   const opponent=contestants.find(x=>x!==self)||{};
-  const opponentId=String(opponent.team?.id||'').trim();
-  const logo=opponent.team?.logo||(/^[0-9]+$/.test(opponentId)?'https://a.espncdn.com/i/teamlogos/ncaa/500/'+opponentId+'.png':'');
+  const opponentName=opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD';
+  const knownId=String(opponent.team?.id||'').trim();
+  const opponentId=knownId||exactId(opponentName);
+  const primaryLogo=opponentId&&/^[0-9]+$/.test(opponentId)?'https://a.espncdn.com/i/teamlogos/ncaa/500/'+opponentId+'.png':'';
+  const logo=primaryLogo||opponent.team?.logo||'';
   const color=branding?.teams?.[opponentId]?.color||'193f52';
   const ring=/^[0-9a-f]{6}$/i.test(color)?'#'+color:'#193f52';
-  const emblem=logo&&/^https:\/\//.test(logo)?'<img class="sched-logo-image" src="'+escape(logo)+'" alt="" loading="lazy" onerror="this.hidden=true">':'';
+  const initials=opponentName.split(/\\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
+  const emblem='<span class="sched-logo-fallback" aria-hidden="true">'+escape(initials)+'</span>'+(logo&&/^https:\\/\\//.test(logo)?'<img class="sched-logo-image" src="'+escape(logo)+'" alt="" loading="lazy" onerror="this.remove()">':'');
   const date=new Date(e.date);
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const confirmed=e.official_time&&!/TBA/i.test(e.official_time);
