@@ -43,7 +43,7 @@ assert.equal(replay.length,live.games_played,'Published finals count mismatch');
 assert.ok(Math.abs(Object.values(earned).reduce((s,x)=>s+x,0)-45000)<1e-7,'Zero-sum invariant failed');
 const ratings=teams.map(team=>({team,elo:Number(earned[team].toFixed(3)),games:games.filter(g=>g.home===team||g.away===team).length})).sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
 const liveMap=Object.fromEntries(live.rankings.map(r=>[r.team,r.elo]));
-const result={league:'NBA',season:'2026-27',status:'shadow_not_published',model:'team_only_reset1500_home40_k24_sqrt_mov',source:'data/nba-2026-27-current-provisional.json',games_played:replay.length,parameters:{season_start_elo:1500,home_elo:40,k:24,mov:'sqrt(max(1,abs(margin))/10)',historical_prediction_prior:'2025-26 final team Elo, regression .75; prediction blend weight .75*10/(10+team_games), never applied to earned Elo'},rankings:ratings.map(x=>({...x,forecast_prior:forecastPrior[x.team],live_elo:liveMap[x.team],difference_from_live:Number((x.elo-liveMap[x.team]).toFixed(3))})),events:replay};
+const result={league:'NBA',season:'2026-27',status:'primary_live_earned_elo',model:'team_only_reset1500_home40_k24_sqrt_mov',source:'data/nba-2026-27-current-provisional.json',games_played:replay.length,parameters:{season_start_elo:1500,home_elo:40,k:24,mov:'sqrt(max(1,abs(margin))/10)',historical_prediction_prior:'2025-26 final team Elo, regression .75; prediction blend weight .75*10/(10+team_games), never applied to earned Elo'},rankings:ratings.map(x=>({...x,forecast_prior:forecastPrior[x.team],live_elo:liveMap[x.team],difference_from_live:Number((x.elo-liveMap[x.team]).toFixed(3))})),events:replay};
 if(!process.argv.includes('--write')){
  const saved=read('nba-elo-shadow-2026-27.json');
  assert.equal(saved.games_played,result.games_played,'Shadow snapshot stale: game count');
@@ -58,4 +58,4 @@ if(!process.argv.includes('--write')){
  for(const row of result.rankings)assert.ok(Math.abs(savedMap[row.team]?.elo-row.elo)<.001,'Shadow Elo mismatch '+row.team);
 }
 if(process.argv.includes('--write')){writeFileSync(new URL('../data/nba-elo-shadow-2026-27.json',import.meta.url),JSON.stringify(result,null,2)+'\n');}
-console.log(JSON.stringify({status:'PASS',mode:'shadow_only',games:replay.length,teams:ratings.length,elo_sum:Object.values(earned).reduce((s,x)=>s+x,0),leader:ratings[0],production_unchanged:true},null,2));
+console.log(JSON.stringify({status:'PASS',mode:'primary_earned_elo',games:replay.length,teams:ratings.length,elo_sum:Object.values(earned).reduce((s,x)=>s+x,0),leader:ratings[0],previous_elo_unchanged:true},null,2));
