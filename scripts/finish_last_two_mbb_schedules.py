@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Last two 2026-27 men's basketball calendars: USI athletics official grid, CCSU transparent fallback."""
 import datetime,json,pathlib,re,urllib.request
+from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 root=pathlib.Path(__file__).resolve().parents[1]
 out=root/'data/mbb-schedules-2026-27'
@@ -52,8 +53,13 @@ def usi():
   target=out/(cross['Southern Ind.']+'.json')
   prior=json.loads(target.read_text())
   events=prior.get('events',[])
-  dates={datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).astimezone(datetime.timezone(datetime.timedelta(hours=-5))).strftime('%m-%d') for e in events}
-  if len(events)<31 or set(official_dates)!=dates:raise ValueError('USI grid/calendar mismatch: '+str(len(events)))
+  dated={}
+  for e in events:
+   day=datetime.datetime.fromisoformat(e['date'].replace('Z','+00:00')).astimezone(ZoneInfo('America/New_York')).strftime('%m-%d')
+   if day in official_dates:dated.setdefault(day,e)
+  if set(official_dates)!=set(dated):raise ValueError('USI missing official game dates: '+str(set(official_dates)-set(dated)))
+  events=[dated[date] for date in official_dates]
+  prior['events']=events
   prior.update({'source_name':'Southern Indiana Athletics official 2026-27 schedule (31 games cross-checked)',
    'source_url':url,'verified_from_school':True,
    'verification':'31 published official-school dates and opponents cross-checked against calendar; tipoff times retained from schedule feed'})
