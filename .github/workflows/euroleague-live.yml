@@ -11,7 +11,7 @@ on:
       - 'scripts/test_euroleague_live.py'
       - '.github/workflows/euroleague-live.yml'
   schedule:
-    - cron: '3,8,13,18,23,28,33,38,43,48,53,58 * * * *'
+    - cron: '*/5 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -34,17 +34,24 @@ jobs:
         run: python -m unittest discover -s scripts -p 'test_euroleague_live_fast.py' -v
       - name: Retrieve active-game scores without full-season download
         run: python scripts/euroleague_live_fast.py
-      - name: Rebuild Elo and standings immediately after an official final
+      - name: Publish live scores independently of Elo computation
+        run: |
+          if [ -n "$(git status --porcelain -- data/euroleague-live.json)" ]; then
+            git config user.name "sporting-life-times-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/euroleague-live.json
+            git commit -m "Refresh EuroLeague live scoreboard"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Rebuild Elo and standings after scoreboard is safely published
+        continue-on-error: true
         run: |
           python scripts/euroleague_model.py
           python scripts/euroleague_release_gate.py
-      - name: Publish verified scoreboard and recalculated model
-        run: |
-          if [ -n "$(git status --porcelain -- data/euroleague-live.json data/euroleague-model.json)" ]; then
-            git config user.name "sporting-life-times-bot"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/euroleague-live.json data/euroleague-model.json
-            git commit -m "Refresh EuroLeague live scores, Elo, standings and projections"
-            git pull --rebase
-            git push
+          if [ -n "$(git status --porcelain -- data/euroleague-model.json)" ]; then
+            git add data/euroleague-model.json
+            git commit -m "Refresh EuroLeague Elo and standings"
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
