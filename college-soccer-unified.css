@@ -14,3 +14,17 @@ body[data-league="college-soccer"] .cs-ed-card,body[data-league="college-soccer"
 body[data-league="college-soccer"] .cs-ed-card:hover,body[data-league="college-soccer"] .cs-conf-directory-card:hover,body[data-league="college-soccer"] .cs-game-card:hover{transform:translateY(-2px);box-shadow:0 7px 23px #15374a28!important}
 body[data-league="college-soccer"] .college-search-spotlight h2{font:900 clamp(20px,2.8vw,30px) Arial,sans-serif!important;letter-spacing:-.03em!important}
 @media(prefers-reduced-motion:reduce){body[data-league="college-soccer"] .cs-ed-card,body[data-league="college-soccer"] .cs-conf-directory-card,body[data-league="college-soccer"] .cs-game-card{transition:none!important;transform:none!important}}
+
+/* Mobile legibility: larger crests and result/standings rows, without clipping columns. */
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-mark{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;object-fit:contain!important}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side{min-height:57px!important;gap:9px!important;padding-top:5px!important;padding-bottom:5px!important}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-team{font-size:clamp(14px,2.1vw,18px)!important;line-height:1.2!important}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-table .cs-mark{width:38px!important;height:38px!important;min-width:38px!important;object-fit:contain!important}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-table td{padding-top:10px!important;padding-bottom:10px!important;font-size:clamp(13px,1.7vw,16px)!important}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-table .cs-team{gap:9px!important;align-items:center!important}
+@media(max-width:560px){
+ body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-mark{width:40px!important;height:40px!important;min-width:40px!important;flex-basis:40px!important}
+ body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-team{font-size:14px!important}
+ body[data-league="college-soccer"] #college-soccer-visual-desk .cs-table .cs-mark{width:34px!important;height:34px!important;min-width:34px!important}
+ body[data-league="college-soccer"] #college-soccer-visual-desk .cs-table td{font-size:13px!important}
+}
