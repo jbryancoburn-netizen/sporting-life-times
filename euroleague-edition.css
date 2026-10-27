@@ -173,3 +173,28 @@ body.league-edition[data-league="euroleague"] .el-player-name small{display:bloc
 body.league-edition[data-league="euroleague"] .el-player-value{text-align:right;font:700 25px Georgia,serif}
 @media(max-width:800px){body.league-edition[data-league="euroleague"] #el-player-leaders{grid-template-columns:1fr}}
 @media(max-width:410px){body.league-edition[data-league="euroleague"] .el-player-row{grid-template-columns:20px 43px minmax(0,1fr) 52px;gap:6px}body.league-edition[data-league="euroleague"] .el-player-avatar{width:43px;height:43px}body.league-edition[data-league="euroleague"] .el-player-name strong{font-size:12px}body.league-edition[data-league="euroleague"] .el-player-value{font-size:20px}}
+
+/* Editorial hierarchy: a real newspaper, not a wall of independent widgets. */
+body.league-edition[data-league="euroleague"] .league-hub>h1{font-size:clamp(2.4rem,5.8vw,5.1rem);letter-spacing:-.045em;line-height:.99;margin:9px 0 12px}
+body.league-edition[data-league="euroleague"] .league-hub>h1 em{font-weight:400;color:#bd4d32}
+body.league-edition[data-league="euroleague"] .league-hub>.hub-intro{font-size:clamp(15px,1.7vw,19px);line-height:1.4;max-width:850px}
+body.league-edition[data-league="euroleague"] .el-editorial-top{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(280px,.8fr);gap:24px;margin:24px 0;align-items:start}
+body.league-edition[data-league="euroleague"] .el-editorial-main,body.league-edition[data-league="euroleague"] .el-editorial-sidebar{min-width:0}
+body.league-edition[data-league="euroleague"] .el-editorial-top .el-player-desk{margin:0 0 18px}
+body.league-edition[data-league="euroleague"] .el-editorial-top .el-club-spotlight{margin:0}
+body.league-edition[data-league="euroleague"] .el-editorial-sidebar #el-ratings{margin:0}
+body.league-edition[data-league="euroleague"] .el-secondary-desks{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:24px;align-items:start;margin:20px 0}
+body.league-edition[data-league="euroleague"] .el-secondary-desks #el-insights,body.league-edition[data-league="euroleague"] .el-secondary-desks #el-standings-panel{margin:0}
+body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-club-tile{padding:10px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-club-elo{font-size:26px;margin:10px 0}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-club-statgrid b{font-size:17px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-club-tile h3{font-size:11px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-club-tile .slt-mark{--slt-mark-size:34px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-club-tile-top{flex-wrap:wrap}
+body.league-edition[data-league="euroleague"] .el-editorial-main #el-player-leaders{gap:10px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-player-category{padding:10px}
+body.league-edition[data-league="euroleague"] .el-editorial-main .el-player-category h3{font-size:17px}
+@media(max-width:1120px){body.league-edition[data-league="euroleague"] .el-editorial-top,body.league-edition[data-league="euroleague"] .el-secondary-desks{grid-template-columns:1fr}body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:760px){body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:530px){body.league-edition[data-league="euroleague"] .el-editorial-main #el-club-spotlight{grid-template-columns:1fr}}
