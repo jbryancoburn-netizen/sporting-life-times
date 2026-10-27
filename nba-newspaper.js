@@ -36,11 +36,11 @@ const image=t=>'<img loading="lazy" alt="" src="'+logo(t)+'" onerror="this.hidde
 const section=(k,h,path,label)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div>'+(path?'<a href="'+path+'">'+(label||'Explore →')+'</a>':'')+'</div>';
 const blank=t=>'<div class="nba-empty">'+esc(t)+'</div>';
 let data={},rates={},seed={},prior={},records={},ordered=[],lastState='',filter='',playerFilter='';
-const gets=[['current','data/nba-2026-27-current-provisional.json'],['pre','data/nba-2026-27-preseason-provisional.json'],['old','data/nba-2025-26-final.json'],['schedule','data/nba-upcoming-schedule.json'],['archive','data/nba-game-center.json'],['leaders','data/nba-player-leaders.json'],['news','data/nba-top-stories.json'],['wire','data/nba-roster-wire-snapshot.json']];
+const gets=[['current','data/nba-2026-27-current-provisional.json'],['earned','data/nba-elo-shadow-2026-27.json'],['pre','data/nba-2026-27-preseason-provisional.json'],['old','data/nba-2025-26-final.json'],['schedule','data/nba-upcoming-schedule.json'],['archive','data/nba-game-center.json'],['leaders','data/nba-player-leaders.json'],['news','data/nba-top-stories.json'],['wire','data/nba-roster-wire-snapshot.json']];
 async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],await load(x[1])]));
  // Keep the last successfully read news and data if a single refresh request fails.
  data=Object.fromEntries(result.map(([key,value])=>[key,value??data[key]??null]));
- rates=Object.fromEntries((data.current?.rankings||[]).filter(x=>meta[x.team]&&Number.isFinite(x.elo)).map(x=>[x.team,x.elo]));
+ rates=Object.fromEntries((data.earned?.rankings||[]).filter(x=>meta[x.team]&&Number.isFinite(x.elo)).map(x=>[x.team,x.elo]));
  seed=Object.fromEntries((data.pre?.rankings||[]).map(x=>[x.team,x.elo]));
  prior=Object.fromEntries((data.old?.rankings||[]).map(x=>[x.team,x.elo]));
  records=Object.fromEntries(codes.map(t=>[t,{w:0,l:0,pf:0,pa:0}]));
@@ -218,7 +218,7 @@ document.addEventListener('input',e=>{
 document.addEventListener('change',e=>{if(e.target.id==='nba-team-select')location.href=tl(e.target.value);});
 setInterval(async()=>{
  if(document.hidden)return;
- try{const old=data,prev=JSON.stringify({r:data.current?.games_played,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
+ try{const old=data,prev=JSON.stringify({r:data.current?.games_played,e:data.earned?.games_played,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
  await fetchAll();
  const next=JSON.stringify({r:data.current?.games_played,s:data.schedule?.updated_at,n:data.news?.updated_at,p:data.leaders?.updated_at});
  if(prev!==next&&ordered.length===30){const pos=window.scrollY;render();window.scrollTo(0,pos);}else stamp();
