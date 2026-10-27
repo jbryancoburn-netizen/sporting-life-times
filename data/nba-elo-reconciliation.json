@@ -2,10 +2,47 @@
   "league": "NBA",
   "season": "2026-27",
   "eastern_date": "2026-10-26",
-  "verified_finals_total": 43,
-  "verified_finals_today": 0,
-  "verified_finals_today_games": [],
-  "scoreboard_dates_checked": 7,
+  "verified_finals_total": 47,
+  "verified_finals_today": 4,
+  "verified_finals_today_games": [
+    {
+      "id": "espn-nba-401909868",
+      "away": "WAS",
+      "away_score": 103,
+      "home": "CHA",
+      "home_score": 110,
+      "date": "2026-10-26T23:00:00.000Z",
+      "home_elo_change": 4.867608
+    },
+    {
+      "id": "espn-nba-401909869",
+      "away": "MIN",
+      "away_score": 125,
+      "home": "CLE",
+      "home_score": 127,
+      "date": "2026-10-26T23:00:00.000Z",
+      "home_elo_change": 12.12879
+    },
+    {
+      "id": "espn-nba-401909870",
+      "away": "CHI",
+      "away_score": 99,
+      "home": "BOS",
+      "home_score": 134,
+      "date": "2026-10-26T23:30:00.000Z",
+      "home_elo_change": 6.417708
+    },
+    {
+      "id": "espn-nba-401909871",
+      "away": "DAL",
+      "away_score": 113,
+      "home": "MIA",
+      "home_score": 109,
+      "date": "2026-10-26T23:30:00.000Z",
+      "home_elo_change": -16.655395
+    }
+  ],
+  "scoreboard_dates_checked": 8,
   "scoreboard_dates_unavailable": [],
   "complete_source_reconciliation": true,
   "note": "All requested ESPN scoreboards retrieved; completed regular-season results processed once."

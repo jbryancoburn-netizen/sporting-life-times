@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 43,
+  "games_played": 47,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -23,20 +23,20 @@
       "elo": 1618.152
     },
     {
-      "team": "MIN",
-      "elo": 1604.534
+      "team": "BOS",
+      "elo": 1594.303
     },
     {
       "team": "HOU",
       "elo": 1593.796
     },
     {
-      "team": "LAL",
-      "elo": 1592.226
+      "team": "MIN",
+      "elo": 1592.405
     },
     {
-      "team": "BOS",
-      "elo": 1587.885
+      "team": "LAL",
+      "elo": 1592.226
     },
     {
       "team": "DEN",
@@ -44,15 +44,15 @@
     },
     {
       "team": "CHA",
-      "elo": 1565.854
+      "elo": 1570.722
+    },
+    {
+      "team": "CLE",
+      "elo": 1565.234
     },
     {
       "team": "ATL",
       "elo": 1556.976
-    },
-    {
-      "team": "CLE",
-      "elo": 1553.105
     },
     {
       "team": "PHI",
@@ -80,15 +80,15 @@
     },
     {
       "team": "MIA",
-      "elo": 1469.229
+      "elo": 1452.573
+    },
+    {
+      "team": "DAL",
+      "elo": 1422.727
     },
     {
       "team": "GSW",
       "elo": 1407.653
-    },
-    {
-      "team": "DAL",
-      "elo": 1406.071
     },
     {
       "team": "MEM",
@@ -104,7 +104,7 @@
     },
     {
       "team": "CHI",
-      "elo": 1389.629
+      "elo": 1383.211
     },
     {
       "team": "MIL",
@@ -120,7 +120,7 @@
     },
     {
       "team": "WAS",
-      "elo": 1346.014
+      "elo": 1341.147
     },
     {
       "team": "BKN",
@@ -514,56 +514,92 @@
       "away_score": 123,
       "date": "2026-10-26T01:00:00.000Z",
       "home_elo_change": -16.013821
+    },
+    {
+      "id": "espn-nba-401909868",
+      "home": "CHA",
+      "away": "WAS",
+      "home_score": 110,
+      "away_score": 103,
+      "date": "2026-10-26T23:00:00.000Z",
+      "home_elo_change": 4.867608
+    },
+    {
+      "id": "espn-nba-401909869",
+      "home": "CLE",
+      "away": "MIN",
+      "home_score": 127,
+      "away_score": 125,
+      "date": "2026-10-26T23:00:00.000Z",
+      "home_elo_change": 12.12879
+    },
+    {
+      "id": "espn-nba-401909870",
+      "home": "BOS",
+      "away": "CHI",
+      "home_score": 134,
+      "away_score": 99,
+      "date": "2026-10-26T23:30:00.000Z",
+      "home_elo_change": 6.417708
+    },
+    {
+      "id": "espn-nba-401909871",
+      "home": "MIA",
+      "away": "DAL",
+      "home_score": 109,
+      "away_score": 113,
+      "date": "2026-10-26T23:30:00.000Z",
+      "home_elo_change": -16.655395
     }
   ],
   "movement": {
-    "as_of_eastern_date": "2026-10-25",
+    "as_of_eastern_date": "2026-10-26",
     "daily_change": {
-      "OKC": 6.314178,
-      "DET": 14.499446,
+      "OKC": 0,
+      "DET": 0,
       "SAS": 0,
-      "NYK": -20.597298,
-      "MIN": 11.30663,
+      "NYK": 0,
+      "BOS": 6.417708,
       "HOU": 0,
-      "LAL": 7.218069,
-      "BOS": 0,
+      "MIN": -12.12879,
+      "LAL": 0,
       "DEN": 0,
-      "CHA": 0,
+      "CHA": 4.867608,
+      "CLE": 12.12879,
       "ATL": 0,
-      "CLE": 0,
-      "PHI": -14.499446,
+      "PHI": 0,
       "POR": 0,
-      "TOR": -11.30663,
-      "ORL": 20.597298,
-      "LAC": -6.314178,
+      "TOR": 0,
+      "ORL": 0,
+      "LAC": 0,
       "PHX": 0,
-      "MIA": 0,
+      "MIA": -16.655395,
+      "DAL": 16.655395,
       "GSW": 0,
-      "DAL": 0,
-      "MEM": 16.013821,
+      "MEM": 0,
       "NOP": 0,
-      "IND": 16.175207,
-      "CHI": 0,
+      "IND": 0,
+      "CHI": -6.417708,
       "MIL": 0,
-      "SAC": -16.013821,
-      "UTA": -7.218069,
-      "WAS": 0,
-      "BKN": -16.175207
+      "SAC": 0,
+      "UTA": 0,
+      "WAS": -4.867608,
+      "BKN": 0
     },
-    "last_week_eastern_date": "2026-10-18",
+    "last_week_eastern_date": "2026-10-19",
     "last_week_elo": {
       "OKC": 1663.784,
       "DET": 1587.821,
       "SAS": 1649.015,
       "NYK": 1672.897,
-      "MIN": 1563.264,
-      "HOU": 1554.295,
-      "LAL": 1565.987,
       "BOS": 1585.801,
+      "HOU": 1554.295,
+      "MIN": 1563.264,
+      "LAL": 1565.987,
       "DEN": 1579.214,
       "CHA": 1569.804,
-      "ATL": 1536.676,
       "CLE": 1560.667,
+      "ATL": 1536.676,
       "PHI": 1525.849,
       "POR": 1516.065,
       "TOR": 1523.998,
@@ -571,8 +607,8 @@
       "LAC": 1527.206,
       "PHX": 1499.058,
       "MIA": 1505.163,
-      "GSW": 1441.84,
       "DAL": 1405.301,
+      "GSW": 1441.84,
       "MEM": 1357.696,
       "NOP": 1431.708,
       "IND": 1382.048,
