@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'scripts/euroleague_model.py'
+      - 'scripts/euroleague_backtest.py'
       - 'data/euroleague-preseason-seed.json'
       - 'data/euroleague-validation.json'
       - 'scripts/euroleague_diagnose.py'
