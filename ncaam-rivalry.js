@@ -117,7 +117,7 @@ async function start(){
  }catch(error){console.warn("2026 NCAA classifications unavailable",error)}
  // Exact date, participant identities and final scores are required for NIT verification.
  const verifiedSecondary=new Map();
- for(const season of [2024,2025,2026]){
+ for(const season of [2022,2023,2024,2025,2026]){
   try{
    const response=await fetch("data/ncaam-postseason-"+season+"-nit.json",{cache:"no-cache"});
    if(!response.ok)throw Error("HTTP "+response.status);
@@ -137,7 +137,10 @@ async function start(){
   const year=years[index];try{if(recentDownloads[index].status!=="fulfilled")throw recentDownloads[index].reason;const rows=parseCSV(recentDownloads[index].value);
    for(const g of rows){const h=resolve(g.homeTeam),a=resolve(g.awayTeam);
     if(!h||!a||h===a){for(const n of [g.homeTeam,g.awayTeam])if(!resolve(n))unmatched.set(n,(unmatched.get(n)||0)+1);continue}
-    const hs=Number(g.homePoints),as=Number(g.awayPoints);
+    let hs=Number(g.homePoints),as=Number(g.awayPoints);
+    // Official Virginia and Mississippi State records confirm UVA 60-57 on March 16, 2022.
+    // The scored fixture import reverses these values; correct only this exact known row.
+    if(year===2022&&g.date==="2022-03-16"&&norm(g.homeTeam)==="virginia"&&norm(g.awayTeam)==="mississippist"&&hs===57&&as===60){hs=60;as=57}
     if(!Number.isFinite(hs)||!Number.isFinite(as)||hs===as)continue;
     const winner=hs>as?h:a,loser=hs>as?a:h,ws=Math.max(hs,as),ls=Math.min(hs,as);
     const key=[year,winner,loser,ws,ls].join("|");
