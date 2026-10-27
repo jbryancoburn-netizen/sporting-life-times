@@ -140,7 +140,7 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add data/euroleague-live.json data/euroleague-model.json
             git commit -m "Persist verified EuroLeague scoreboard and Elo from Pages publication"
-            git pull --rebase origin main
+            git -c rebase.autoStash=true pull --rebase origin main
             git push origin HEAD:main
           else
             echo "EuroLeague snapshot already saved in main"
