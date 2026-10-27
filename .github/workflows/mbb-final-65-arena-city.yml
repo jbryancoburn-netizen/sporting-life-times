@@ -1,0 +1,31 @@
+name: MBB final 65 arena city normalization
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-final-65-arena-city.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-final-65-arena-city
+  cancel-in-progress: false
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Normalize final 65 school calendars
+        run: python scripts/mbb_final_65_arena_city_20261027.py
+      - name: Publish results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-final-65-arena-city-normalization-20261027.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Normalize arena and city data for final 65 MBB schools"
+            git push
+          fi
