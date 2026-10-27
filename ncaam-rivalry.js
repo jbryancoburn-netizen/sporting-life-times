@@ -53,6 +53,22 @@ async function start(){
   }
  }
  let verified2021=new Map();try{const response=await fetch("data/ncaam-postseason-2021-verified.json",{cache:"force-cache"});if(response.ok){const dataset=await response.json();for(const g of dataset.games||[]){const key=[g.season,g.winner,g.loser,g.ws,g.ls].join("|");verified2021.set(key,g.tournament)}}}catch(e){console.warn("2021 tournament classification unavailable",e)}
+ // A separate score-and-identity match to published NCAA bracket results classifies 2022–2024.
+ // No date inference: only exact season, winner, loser and both final scores qualifies.
+ const verifiedNCAA=new Map();
+ for(const season of [2022,2023,2024]){
+  try{
+   const csv=await download("https://raw.githubusercontent.com/shoenot/march-madness-games-csv/main/csv/"+season+".csv");
+   for(const g of parseCSV(csv)){
+    const winner=resolve(g.winning_team_name),loser=resolve(g.losing_team_name);
+    if(!winner||!loser||winner===loser)continue;
+    const ws=Number(g.winning_team_score),ls=Number(g.losing_team_score);
+    if(!Number.isFinite(ws)||!Number.isFinite(ls)||ws<=ls)continue;
+    const key=[season,winner,loser,ws,ls].join("|");
+    if(!verifiedNCAA.has(key))verifiedNCAA.set(key,{tournament:"NCAA Tournament",round:g.round_of,source:"March Madness historical brackets"});
+   }
+  }catch(e){console.warn("NCAA bracket classification unavailable for "+season,e)}
+ }
  let classified=0;
  let recent=0,unmatched=new Map(),failed=[];
  for(const year of years){
@@ -63,10 +79,10 @@ async function start(){
     if(!Number.isFinite(hs)||!Number.isFinite(as)||hs===as)continue;
     const winner=hs>as?h:a,loser=hs>as?a:h,ws=Math.max(hs,as),ls=Math.min(hs,as);
     const key=[year,winner,loser,ws,ls].join("|");
-    const confirmed=verified2021.get(key);
-    const tournament=confirmed||(year===2020?"Competition not verified":"Competition not verified");
+    const bracket=verifiedNCAA.get(key),confirmed=verified2021.get(key)||bracket?.tournament;
+    const tournament=confirmed||"Competition not verified";
     if(confirmed)classified++;
-    matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament,source:confirmed?"2021 verified postseason results":"NCAA schedules"});recent++}
+    matches.push({date:g.date,season:year,a:h,b:a,as:hs,bs:as,historical:false,tournament,round:bracket?.round||null,source:confirmed?(bracket?.source||"2021 verified postseason results"):"NCAA schedules"});recent++}
   }catch(e){failed.push(year)}
  }
  for(const game of matches){known.add(game.a);known.add(game.b)}
@@ -111,7 +127,7 @@ function show(){
  const filter=$("filter").value;const scope=$("tournament-filter").value;const eligible=arr.filter(g=>scope==="all"|| (scope==="other"?!["Regular season","NCAA Tournament","NIT","Competition not verified"].includes(g.tournament):g.tournament===scope));const list=filter==="ten"?eligible.slice(0,10):filter==="five"?eligible.slice(0,5):eligible;
  const cards=$("games");cards.replaceChildren();
  if(!list.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="No recorded meetings in this archive.";cards.append(empty)}
- for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament;label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
+ for(const g of list){const card=document.createElement("article");card.className="meeting-card";card.style.setProperty("--winner-color",(teamColors.get(g.as>g.bs?g.a:g.b)||["#7A5544"])[0]);const top=document.createElement("div");top.className="meeting-top";const date=document.createElement("span");date.textContent=g.date+" · "+(Number(g.season)-1)+"–"+String(g.season).slice(-2)+" season";const label=document.createElement("span");label.textContent=g.tournament+(g.round?" · Round of "+g.round:"");label.className=g.tournament==="Competition not verified"?"competition-unverified":"competition-label";top.append(date,label);const row=document.createElement("div");row.className="meeting-teams";for(const [team,score] of [[g.a,g.as],[g.b,g.bs]]){const block=document.createElement("div");block.className="meeting-team"+(score> (team===g.a?g.bs:g.as)?" winning":"");const logo=document.createElement("span");logo.className="small-logo";mklogo(team,logo);const t=document.createElement("span");t.textContent=name(team);const n=document.createElement("strong");n.textContent=score;block.append(logo,t,n);row.append(block)}card.append(top,row);cards.append(card)}
 }
 
 $("swap").addEventListener("click",()=>{const a=$("home").value;$("home").value=$("away").value;$("away").value=a;show()});
