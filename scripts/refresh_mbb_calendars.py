@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Refresh published 2026-27 NCAA men's basketball team calendars. Preserve last good files."""
+# 365-school backfill; publish workflow retries when another desk commits concurrently.
 import concurrent.futures
 import json
 import pathlib
