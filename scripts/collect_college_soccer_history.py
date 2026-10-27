@@ -11,13 +11,17 @@ def parse(raw,day):
  if not g:return None
  return {"game_id":g["match_id"],"date":g["date"],"home":g["home_team"],"away":g["away_team"],"home_goals":g["home_goals"],"away_goals":g["away_goals"],"neutral_venue":None,"source_url":g["source_game"],"status":"final"}
 def main():
- ap=argparse.ArgumentParser();ap.add_argument("--years",nargs="+",type=int,default=[2023,2024,2025]);ap.add_argument('--max-days-per-year',type=int,default=35);args=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument("--years",nargs="+",type=int,default=[2023,2024,2025]);ap.add_argument('--max-days-per-year',type=int,default=153);args=ap.parse_args()
  dest=ROOT/"data"/"college-soccer-history";dest.mkdir(parents=True,exist_ok=True)
  for year in args.years:
   path=dest/f"men-d1-{year}.json"
   old=json.loads(path.read_text()) if path.exists() else {}
   records={r["game_id"]:r for r in old.get("games",[])}
   errors=[];dates=0;valid=0;checked=set(old.get('checked_dates',[]))
+  def save_checkpoint():
+   games=sorted(records.values(),key=lambda x:(x['date'],x['game_id']))
+   output={'schema_version':1,'season':year,'cohort':'men-d1','source':'NCAA.com via ncaa-api compatibility transport','venue_note':'Listed home/away is not proof of actual venue; neutral_venue unknown.','collection_date_utc':dt.datetime.now(dt.timezone.utc).isoformat(),'dates_queried':dates,'checked_dates':sorted(checked),'finals_seen':valid,'unique_finals':len(games),'coverage_complete':len(checked)==153 and len(games)>=100 and not errors,'dates_expected':153,'errors':errors,'games':games}
+   path.write_text(json.dumps(output,indent=2)+'\n')
   for month in [8,9,10,11,12]:
    start=dt.date(year,month,1)
    end=dt.date(year+1,1,1) if month==12 else dt.date(year,month+1,1)
@@ -44,12 +48,12 @@ def main():
          continue
         records[result["game_id"]]=result
     except Exception as e:errors.append({"date":stamp,"error":str(e)[:180]})
+    if dates and dates%20==0:save_checkpoint()
     day+=dt.timedelta(days=1)
     time.sleep(.38)
    if dates>=args.max_days_per_year:break
-  games=sorted(records.values(),key=lambda x:(x["date"],x["game_id"]))
-  output={"schema_version":1,"season":year,"cohort":"men-d1","source":"NCAA.com via ncaa-api compatibility transport","venue_note":"Listed home/away is not proof of actual venue; neutral_venue unknown.","collection_date_utc":dt.datetime.now(dt.timezone.utc).isoformat(),"dates_queried":dates,"checked_dates":sorted(checked),"finals_seen":valid,"unique_finals":len(games),"coverage_complete":len(checked)==153 and len(games)>=100 and not errors,"dates_expected":153,"errors":errors,"games":games}
-  path.write_text(json.dumps(output,indent=2)+"\n")
+  save_checkpoint()
+  games=sorted(records.values(),key=lambda x:(x['date'],x['game_id']))
   print(year,"days",dates,"games",len(games),"errors",len(errors),flush=True)
   if errors:print(f"Collection incomplete for {year}: {len(errors)} source errors; retry next run",flush=True)
 if __name__=="__main__":main()
