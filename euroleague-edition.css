@@ -289,3 +289,17 @@ body[data-league="euroleague"] .el-live-periods>*{padding:4px 1px;background:#e9
 body[data-league="euroleague"] .el-live-periods>b:first-of-type,body[data-league="euroleague"] .el-live-periods>b:nth-of-type(6){text-align:left;padding-left:6px}
 body[data-league="euroleague"] .el-live-projection{padding:8px 0;font:600 11px/1.5 system-ui,sans-serif;color:#324f65}
 body[data-league="euroleague"] .el-live-foot{border-top:1px solid #dedbd4;padding-top:7px;margin-top:9px;color:#696c70;font:10px system-ui,sans-serif}
+
+
+body[data-league="euroleague"] .el-live-quickstats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+body[data-league="euroleague"] .el-live-stat{min-width:0;background:#eff0ef;padding:9px;border-radius:6px;display:flex;flex-direction:column;gap:4px}
+body[data-league="euroleague"] .el-live-stat small{font:10px/1.3 system-ui,sans-serif;letter-spacing:.02em;color:#505b65}
+body[data-league="euroleague"] .el-live-stat strong{font:800 18px/1.2 system-ui,sans-serif;color:#243b52}
+body[data-league="euroleague"] .el-live-expand{margin-top:8px;border-top:1px solid #d8d5cf}
+body[data-league="euroleague"] .el-live-expand summary{cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:12px 0;font:800 12px system-ui,sans-serif;color:#254f71}
+body[data-league="euroleague"] .el-live-expand summary span{font-weight:400;font-size:10px;color:#586573}
+body[data-league="euroleague"] .el-live-expand[open] summary{border-bottom:1px solid #d8d5cf}
+body[data-league="euroleague"] .el-live-detail-inner{padding:10px 0}
+body[data-league="euroleague"] .el-live-detail-inner h4{font:800 11px system-ui,sans-serif;letter-spacing:.08em}
+body[data-league="euroleague"] .el-live-detail-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+body[data-league="euroleague"] .el-live-unavailable{font:11px/1.5 system-ui,sans-serif;color:#68727b;margin:8px 0}
