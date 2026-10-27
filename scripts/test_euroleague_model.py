@@ -126,7 +126,7 @@ class TestModel(unittest.TestCase):
                 g["date"]=f"{season[1:]}-10-{i+1:02d}T19:00:00Z"
                 games.append(g)
         result=bt.heldout_evaluation(games)
-        self.assertEqual(result["training_season"],"E2025")
+        self.assertEqual(result["training_season"],"E2021-E2025")
         self.assertEqual(result["holdout_season"],"E2026")
         self.assertEqual(result["selected_holdout"]["n"],3)
         self.assertEqual(result["baseline_holdout"]["n"],3)
