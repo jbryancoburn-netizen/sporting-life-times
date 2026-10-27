@@ -159,6 +159,9 @@ function sampleColor(slot,img){
  job.then(c=>{if(c&&slot.isConnected&&slot.dataset.sltColorSource!=='brand')slot.style.setProperty('--slt-mark-ring',c)});
 }
 function enhance(img){
+ // NBA editions own their branded crest containers. Never wrap them with an extra slt-mark ring.
+ // The shared site-wide enhancer runs after NBA CSS and was producing double rings and huge logos.
+ if(/^nba(?:[-.]|$)/i.test(location.pathname.split('/').pop()||''))return;
  if(!classify(img)||!img.parentNode)return;
  const slot=document.createElement('span');slot.className='slt-mark';slot.setAttribute('aria-hidden','true');
  const scale=size(img);if(scale)slot.classList.add('slt-mark--'+scale);
