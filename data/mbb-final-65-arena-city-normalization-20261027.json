@@ -1,0 +1,502 @@
+{
+  "schools_processed": 65,
+  "files_missing": 0,
+  "files_modified": 63,
+  "totals": {
+    "city_state_added": 1046,
+    "arena_name_added": 594,
+    "city_only_no_arena": 769,
+    "missing_venue": 77,
+    "removed_filter_text": 0
+  },
+  "method": "Parse only explicit locations from existing source strings; not external source verification.",
+  "schools": [
+    {
+      "team": "Towson",
+      "id": "119",
+      "games": 33,
+      "city_state_added": 25,
+      "city_only_no_arena": 25
+    },
+    {
+      "team": "Troy",
+      "id": "2653",
+      "games": 33,
+      "arena_name_added": 32,
+      "city_state_added": 4,
+      "missing_venue": 1
+    },
+    {
+      "team": "Tulane",
+      "id": "2655",
+      "games": 33,
+      "arena_name_added": 31,
+      "city_state_added": 15,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "Tulsa",
+      "id": "202",
+      "games": 33,
+      "city_state_added": 13,
+      "city_only_no_arena": 13,
+      "arena_name_added": 17
+    },
+    {
+      "team": "UAB",
+      "id": "5",
+      "games": 34,
+      "arena_name_added": 17,
+      "city_state_added": 2,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "UAlbany",
+      "id": "399",
+      "games": 34,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "UC Davis",
+      "id": "302",
+      "games": 10
+    },
+    {
+      "team": "UC Irvine",
+      "id": "300",
+      "games": 36,
+      "arena_name_added": 19,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "UC Riverside",
+      "id": "27",
+      "games": 32,
+      "missing_venue": 28,
+      "city_state_added": 2,
+      "city_only_no_arena": 2,
+      "arena_name_added": 1
+    },
+    {
+      "team": "UC San Diego",
+      "id": "28",
+      "games": 25,
+      "city_state_added": 4,
+      "city_only_no_arena": 3,
+      "missing_venue": 13,
+      "arena_name_added": 5
+    },
+    {
+      "team": "UC Santa Barbara",
+      "id": "2540",
+      "games": 34,
+      "city_state_added": 1,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "UCF",
+      "id": "2116",
+      "games": 27,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "UCLA",
+      "id": "26",
+      "games": 24,
+      "missing_venue": 2,
+      "city_state_added": 8,
+      "arena_name_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "UConn",
+      "id": "41",
+      "games": 35,
+      "arena_name_added": 31,
+      "city_state_added": 11,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "UIC",
+      "id": "82",
+      "games": 34,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "UIW",
+      "id": "2916",
+      "games": 34,
+      "city_state_added": 33,
+      "city_only_no_arena": 33
+    },
+    {
+      "team": "ULM",
+      "id": "2433",
+      "games": 32,
+      "city_state_added": 23,
+      "city_only_no_arena": 23
+    },
+    {
+      "team": "UMass Lowell",
+      "id": "2349",
+      "games": 34,
+      "city_state_added": 13,
+      "city_only_no_arena": 1,
+      "arena_name_added": 18,
+      "missing_venue": 2
+    },
+    {
+      "team": "UMBC",
+      "id": "2378",
+      "games": 31,
+      "city_state_added": 27,
+      "city_only_no_arena": 27
+    },
+    {
+      "team": "UMES",
+      "id": "2379",
+      "games": 31,
+      "city_state_added": 31,
+      "city_only_no_arena": 31
+    },
+    {
+      "team": "UNC Asheville",
+      "id": "2427",
+      "games": 32,
+      "city_state_added": 32,
+      "city_only_no_arena": 17,
+      "arena_name_added": 15
+    },
+    {
+      "team": "UNC Greensboro",
+      "id": "2430",
+      "games": 32,
+      "city_state_added": 2,
+      "city_only_no_arena": 2
+    },
+    {
+      "team": "UNCW",
+      "id": "350",
+      "games": 39,
+      "city_state_added": 39,
+      "city_only_no_arena": 39
+    },
+    {
+      "team": "UNI",
+      "id": "2460",
+      "games": 33,
+      "city_state_added": 18,
+      "arena_name_added": 32
+    },
+    {
+      "team": "UNLV",
+      "id": "2439",
+      "games": 31,
+      "city_state_added": 13,
+      "city_only_no_arena": 13
+    },
+    {
+      "team": "USC Upstate",
+      "id": "2908",
+      "games": 32,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "UT Arlington",
+      "id": "250",
+      "games": 33,
+      "city_state_added": 24,
+      "arena_name_added": 32,
+      "city_only_no_arena": 1
+    },
+    {
+      "team": "UT Martin",
+      "id": "2630",
+      "games": 32,
+      "city_state_added": 10,
+      "city_only_no_arena": 10,
+      "arena_name_added": 14
+    },
+    {
+      "team": "Utah",
+      "id": "254",
+      "games": 37,
+      "city_state_added": 37,
+      "city_only_no_arena": 15,
+      "arena_name_added": 22
+    },
+    {
+      "team": "Utah St.",
+      "id": "328",
+      "games": 26,
+      "city_state_added": 16,
+      "arena_name_added": 9,
+      "missing_venue": 7,
+      "city_only_no_arena": 9
+    },
+    {
+      "team": "Utah Tech",
+      "id": "3101",
+      "games": 33,
+      "city_state_added": 5,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Utah Valley",
+      "id": "3084",
+      "games": 31,
+      "city_state_added": 29,
+      "city_only_no_arena": 29
+    },
+    {
+      "team": "UTEP",
+      "id": "2638",
+      "games": 16,
+      "city_state_added": 10,
+      "city_only_no_arena": 10
+    },
+    {
+      "team": "UTRGV",
+      "id": "292",
+      "games": 36,
+      "city_state_added": 34,
+      "city_only_no_arena": 34
+    },
+    {
+      "team": "UTSA",
+      "id": "2636",
+      "games": 29,
+      "missing_venue": 6,
+      "city_state_added": 16,
+      "city_only_no_arena": 6,
+      "arena_name_added": 14
+    },
+    {
+      "team": "Valparaiso",
+      "id": "2674",
+      "games": 31,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "Vanderbilt",
+      "id": "238",
+      "games": 22,
+      "missing_venue": 7,
+      "city_state_added": 7,
+      "arena_name_added": 6,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "VCU",
+      "id": "2670",
+      "games": 32,
+      "city_state_added": 28,
+      "city_only_no_arena": 26,
+      "arena_name_added": 4
+    },
+    {
+      "team": "Vermont",
+      "id": "261",
+      "games": 32,
+      "city_state_added": 32,
+      "city_only_no_arena": 32
+    },
+    {
+      "team": "Villanova",
+      "id": "222",
+      "games": 35,
+      "city_state_added": 24,
+      "city_only_no_arena": 24
+    },
+    {
+      "team": "Virginia",
+      "id": "258",
+      "games": 23,
+      "missing_venue": 4,
+      "city_state_added": 10,
+      "city_only_no_arena": 6,
+      "arena_name_added": 8
+    },
+    {
+      "team": "Virginia Tech",
+      "id": "259",
+      "games": 32
+    },
+    {
+      "team": "VMI",
+      "id": "2678",
+      "games": 32,
+      "city_state_added": 31,
+      "city_only_no_arena": 31
+    },
+    {
+      "team": "Wagner",
+      "id": "2681",
+      "games": 32,
+      "city_state_added": 29,
+      "city_only_no_arena": 29
+    },
+    {
+      "team": "Wake Forest",
+      "id": "154",
+      "games": 34,
+      "arena_name_added": 34,
+      "city_state_added": 3
+    },
+    {
+      "team": "Washington",
+      "id": "264",
+      "games": 31,
+      "city_state_added": 4,
+      "city_only_no_arena": 4,
+      "arena_name_added": 18
+    },
+    {
+      "team": "Washington St.",
+      "id": "265",
+      "games": 26,
+      "arena_name_added": 11,
+      "city_state_added": 13,
+      "missing_venue": 7,
+      "city_only_no_arena": 5
+    },
+    {
+      "team": "Weber St.",
+      "id": "2692",
+      "games": 32,
+      "city_state_added": 17,
+      "city_only_no_arena": 17,
+      "arena_name_added": 15
+    },
+    {
+      "team": "West Florida",
+      "id": "2697",
+      "games": 32,
+      "city_state_added": 3,
+      "city_only_no_arena": 3
+    },
+    {
+      "team": "West Ga.",
+      "id": "2698",
+      "games": 33,
+      "city_state_added": 31,
+      "city_only_no_arena": 31
+    },
+    {
+      "team": "West Virginia",
+      "id": "277",
+      "games": 32,
+      "arena_name_added": 32,
+      "city_state_added": 7
+    },
+    {
+      "team": "Western Caro.",
+      "id": "2717",
+      "games": 33,
+      "city_state_added": 30,
+      "city_only_no_arena": 30
+    },
+    {
+      "team": "Western Ill.",
+      "id": "2710",
+      "games": 32,
+      "city_state_added": 30,
+      "city_only_no_arena": 30
+    },
+    {
+      "team": "Western Ky.",
+      "id": "98",
+      "games": 34,
+      "city_state_added": 21,
+      "arena_name_added": 18,
+      "city_only_no_arena": 4
+    },
+    {
+      "team": "Western Mich.",
+      "id": "2711",
+      "games": 31,
+      "city_state_added": 8,
+      "city_only_no_arena": 8
+    },
+    {
+      "team": "Wichita St.",
+      "id": "2724",
+      "games": 33,
+      "city_state_added": 6,
+      "city_only_no_arena": 6
+    },
+    {
+      "team": "William & Mary",
+      "id": "2729",
+      "games": 32,
+      "city_state_added": 21,
+      "arena_name_added": 31
+    },
+    {
+      "team": "Winthrop",
+      "id": "2737",
+      "games": 32,
+      "city_state_added": 16,
+      "city_only_no_arena": 16
+    },
+    {
+      "team": "Wisconsin",
+      "id": "275",
+      "games": 34,
+      "city_state_added": 33,
+      "arena_name_added": 20,
+      "city_only_no_arena": 13
+    },
+    {
+      "team": "Wofford",
+      "id": "2747",
+      "games": 34,
+      "city_state_added": 15,
+      "city_only_no_arena": 15
+    },
+    {
+      "team": "Wright St.",
+      "id": "2750",
+      "games": 33,
+      "city_state_added": 33,
+      "arena_name_added": 16,
+      "city_only_no_arena": 17
+    },
+    {
+      "team": "Wyoming",
+      "id": "2751",
+      "games": 35,
+      "city_state_added": 14,
+      "city_only_no_arena": 14,
+      "arena_name_added": 17
+    },
+    {
+      "team": "Xavier",
+      "id": "2752",
+      "games": 35,
+      "city_state_added": 22,
+      "arena_name_added": 33
+    },
+    {
+      "team": "Yale",
+      "id": "43",
+      "games": 29,
+      "city_state_added": 7,
+      "city_only_no_arena": 7
+    },
+    {
+      "team": "Youngstown St.",
+      "id": "2754",
+      "games": 34,
+      "city_state_added": 29,
+      "city_only_no_arena": 13,
+      "arena_name_added": 16
+    }
+  ]
+}
