@@ -406,3 +406,22 @@ body.nba-newspaper[data-page="conference"] .nba-standings-identity .nba-standing
 }
 body.nba-newspaper[data-page="standings"] .nba-standings-identity strong.nba-standings-name,
 body.nba-newspaper[data-page="conference"] .nba-standings-identity strong.nba-standings-name{font-size:14px!important;letter-spacing:0!important;}
+
+/* Correct standings badge: true team-color border with full-size contained artwork. */
+body.nba-newspaper[data-page="standings"] a.nba-standings-identity .nba-standings-logo,
+body.nba-newspaper[data-page="conference"] a.nba-standings-identity .nba-standings-logo{
+ box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 52px!important;width:52px!important;min-width:52px!important;max-width:52px!important;
+ height:52px!important;min-height:52px!important;max-height:52px!important;
+ padding:2px!important;border:3px solid var(--nba-club-color,#1f6171)!important;border-radius:50%!important;
+ background:#fff!important;overflow:hidden!important;
+}
+body.nba-newspaper[data-page="standings"] a.nba-standings-identity .nba-standings-logo>img,
+body.nba-newspaper[data-page="conference"] a.nba-standings-identity .nba-standings-logo>img{
+ box-sizing:border-box!important;display:block!important;flex:0 0 44px!important;
+ width:44px!important;min-width:44px!important;max-width:44px!important;
+ height:44px!important;min-height:44px!important;max-height:44px!important;
+ padding:0!important;margin:0!important;border:0!important;border-radius:0!important;
+ object-fit:contain!important;object-position:center!important;background:transparent!important;
+}
+body.nba-newspaper a.nba-standings-identity .nba-standings-logo>img[hidden]{display:none!important}
