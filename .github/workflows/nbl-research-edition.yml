@@ -8,6 +8,7 @@ on:
       - 'scripts/publish_nbl_standings.py'
       - 'scripts/publish_nbl_player_stats.py'
       - 'scripts/publish_nbl_research_elo.py'
+      - 'tests/test_nbl_research_ratings.py'
       - 'scripts/check_nbl_edition_consistency.py'
       - '.github/workflows/nbl-research-edition.yml'
 permissions:
