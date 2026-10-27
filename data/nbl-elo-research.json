@@ -1,15 +1,29 @@
 {
   "status": "RESEARCH_ONLY_UNCERTIFIED",
   "production_approved": false,
-  "model": "nbl-game-elo-research-v1",
+  "model": "nbl-retro-season-network-v1",
   "season": "2026-27",
-  "calculated_at": "2026-10-27T14:44:00.463034+00:00",
+  "calculated_at": "2026-10-27T14:53:21.860751+00:00",
   "historical_training_games": 337,
   "current_regular_season_games": 43,
   "parameters": {
     "k": 20,
     "home_advantage_elo": 65,
     "offseason_regression": 1.0
+  },
+  "rating_method": "RETRO completed-game network refit",
+  "retro_iterations_max": 160,
+  "chronological_comparator": {
+    "Adelaide 36ers": 1495.17,
+    "Brisbane Bullets": 1499.51,
+    "Cairns Taipans": 1514.03,
+    "Illawarra Hawks": 1447.49,
+    "Melbourne United": 1492.56,
+    "New Zealand Breakers": 1499.28,
+    "Perth Wildcats": 1519.86,
+    "South East Melbourne Phoenix": 1489.97,
+    "Sydney Kings": 1509.09,
+    "Tasmania JackJumpers": 1533.04
   },
   "season_start_elo": 1500,
   "reset_every_season": true,
@@ -22,70 +36,70 @@
     {
       "rank": 1,
       "team": "Tasmania JackJumpers",
-      "elo": 1533.04,
+      "elo": 1595.16,
       "wins": 6,
       "losses": 2
     },
     {
       "rank": 2,
       "team": "Perth Wildcats",
-      "elo": 1519.86,
+      "elo": 1562.97,
       "wins": 5,
       "losses": 2
     },
     {
       "rank": 3,
       "team": "Cairns Taipans",
-      "elo": 1514.03,
+      "elo": 1535.88,
       "wins": 5,
       "losses": 4
     },
     {
       "rank": 4,
       "team": "Sydney Kings",
-      "elo": 1509.09,
+      "elo": 1521.05,
       "wins": 5,
       "losses": 3
     },
     {
       "rank": 5,
-      "team": "Brisbane Bullets",
-      "elo": 1499.51,
-      "wins": 4,
-      "losses": 4
-    },
-    {
-      "rank": 6,
       "team": "New Zealand Breakers",
-      "elo": 1499.28,
+      "elo": 1509.77,
       "wins": 4,
       "losses": 5
     },
     {
+      "rank": 6,
+      "team": "Brisbane Bullets",
+      "elo": 1495.87,
+      "wins": 4,
+      "losses": 4
+    },
+    {
       "rank": 7,
       "team": "Adelaide 36ers",
-      "elo": 1495.17,
+      "elo": 1487.56,
       "wins": 4,
       "losses": 5
     },
     {
       "rank": 8,
       "team": "Melbourne United",
-      "elo": 1492.56,
+      "elo": 1477.37,
       "wins": 4,
       "losses": 5
     },
     {
       "rank": 9,
       "team": "South East Melbourne Phoenix",
-      "elo": 1489.97,
+      "elo": 1471.21,
       "wins": 4,
       "losses": 5
     },
     {
       "rank": 10,
       "team": "Illawarra Hawks",
-      "elo": 1447.49,
+      "elo": 1353.65,
       "wins": 2,
       "losses": 8
     }
