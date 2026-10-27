@@ -11,14 +11,14 @@ TEAMS = ("Adelaide 36ers","Brisbane Bullets","Cairns Taipans","Illawarra Hawks",
          "South East Melbourne Phoenix","Sydney Kings","Tasmania JackJumpers")
 K = 20.0
 HOME = 65.0
-REGRESSION = 0.25
+REGRESSION = 1.0
 
 def model(baseline, games):
     if not baseline.get("certified") or set(baseline.get("ratings", {})) != set(TEAMS):
         raise ValueError("Full certified 10-team preseason baseline required")
     if not all(isinstance(v, (int, float)) and math.isfinite(v) for v in baseline["ratings"].values()):
         raise ValueError("Baseline ratings must be finite numbers")
-    ratings = {k: 1500 + (float(v)-1500)*(1-REGRESSION) for k,v in baseline["ratings"].items()}
+    ratings = {k: 1500.0 for k in TEAMS}
     seen=set()
     ledger=[]
     prev=""
