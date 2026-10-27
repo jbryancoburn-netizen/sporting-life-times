@@ -63,7 +63,7 @@ def usi():
   prior.update({'source_name':'Southern Indiana Athletics official 2026-27 schedule (31 games cross-checked)',
    'source_url':url,'verified_from_school':True,
    'verification':'31 published official-school dates and opponents cross-checked against calendar; tipoff times retained from schedule feed'})
-  target.write_text(json.dumps(prior,ensure_ascii=False,separators=(',',':'))+'\\n')
+  target.write_text(json.dumps(prior,ensure_ascii=False,separators=(',',':'))+'\n')
   return len(events)
  return make('s_usi',items,'Official Southern Indiana Athletics 2026-27 calendar',url,True)
 def ccsu():
@@ -90,7 +90,7 @@ def ccsu():
   previous['source_url']='https://www.sports-reference.com/cbb/schools/central-connecticut-state/men/2027-schedule.html'
   previous['verified_from_school']=False
   previous['coverage']='30 scheduled games in prior calendar feed; secondary source incomplete; not official-school-verified'
-  target.write_text(json.dumps(previous,ensure_ascii=False,separators=(',',':'))+'\\n')
+  target.write_text(json.dumps(previous,ensure_ascii=False,separators=(',',':'))+'\n')
   return len(previous['events'])
  return make('s_ccsu',items,'Sports-Reference 2026-27 CCSU schedule (secondary source)',url,False)
 cross={t['name']:str(t['espn_id']) for t in teams}
