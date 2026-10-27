@@ -1,5 +1,9 @@
 name: MBB team news
 on:
+  push:
+    paths:
+      - 'scripts/refresh_mbb_team_news.py'
+      - '.github/workflows/mbb-team-news.yml'
   workflow_dispatch:
   schedule:
     - cron: "13 */3 * * *"
