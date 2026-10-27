@@ -8,6 +8,7 @@ on:
       - 'scripts/collect_college_soccer_history.py'
       - 'scripts/backtest_college_soccer_elo.py'
       - 'scripts/backtest_college_soccer_expanded.py'
+      - 'scripts/audit_college_soccer_history.py'
       - '.github/workflows/college-soccer-backtest-history.yml'
 permissions:
   contents: write
@@ -85,7 +86,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/college-soccer-history/elo-backtest*.json
+          git add data/college-soccer-history/elo-backtest*.json data/college-soccer-history/elo-cohort-audit.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh soccer Elo holdouts from collected historical finals"
           for attempt in 1 2 3 4 5; do
