@@ -15,7 +15,7 @@ try{
  const path='data/mbb-schedules-2026-27/'+encodeURIComponent(team.espn_id)+'.json';
  host.hidden=false;
  host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
- const [data,branding]=await Promise.all([load(path),load('data/mbb-branding.json').catch(()=>({teams:{}}))]);
+ const [data,branding,logos,arenas]=await Promise.all([load(path),load('data/mbb-branding.json').catch(()=>({teams:{}})),load('data/mbb-logo-registry.json').catch(()=>({teams:{}})),load('data/mbb-arena-registry.json').catch(()=>({teams:{}}))]);
  const valid=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2);
  const quality=e=>{const c=e.competitions[0],v=c.venue?.fullName||'';return (/Choose A Location|All Games Home|Select Location/i.test(v)?0:v?4:0)+(e.official_time?2:0)+(c.broadcasts?.length?1:0);};
  const distinct=new Map();
@@ -33,9 +33,10 @@ try{
   const opponentName=opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD';
   const knownId=String(opponent.team?.id||'').trim();
   const opponentId=knownId||exactId(opponentName);
-  const primaryLogo=opponentId&&/^[0-9]+$/.test(opponentId)?'https://a.espncdn.com/i/teamlogos/ncaa/500/'+opponentId+'.png':'';
+  const registered=logos?.teams?.[opponentId]||{};
+  const primaryLogo=registered.official_logo_url||registered.logo_url||(opponentId&&/^[0-9]+$/.test(opponentId)?'https://a.espncdn.com/i/teamlogos/ncaa/500/'+opponentId+'.png':'');
   const logo=primaryLogo||opponent.team?.logo||'';
-  const color=branding?.teams?.[opponentId]?.color||'193f52';
+  const color=registered.primary_color||branding?.teams?.[opponentId]?.color||'193f52';
   const ring=/^[0-9a-f]{6}$/i.test(color)?'#'+color:'#193f52';
   const initials=opponentName.trim().split(' ').filter(Boolean).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
   const alternate=opponent.team?.logo&&opponent.team.logo!==logo&&opponent.team.logo.startsWith('https://')?opponent.team.logo:'';
@@ -55,7 +56,13 @@ try{
   const embedded=cleanVenue.match(/^(.+?)\s*\(([^()]+)\)\s*$/);
   const embeddedArena=embedded&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(embedded[2])?embedded[2].trim():'';
   const locationLabel=/^[A-Za-z .'-]+,\s*(?:[A-Z]{2}|Fla\.|Calif\.|N\.Y\.|N\.C\.|S\.C\.|Ga\.|Tenn\.|Tex\.|Pa\.|Ill\.|Mich\.|Mass\.|Ariz\.|Nev\.|Ore\.|Wash\.)\s*$/i.test(cleanVenue);
-  const arena=c.venue?.arenaName||embeddedArena||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
+  const officialLocation=(c.venue?.official_school_location||'').trim();
+  const verifiedSide=e.site_verified===true?self?.homeAway:null;
+  const hostId=verifiedSide==='home'?String(team.espn_id):verifiedSide==='away'?opponentId:'';
+  const candidate=hostId?arenas?.teams?.[hostId]:null;
+  const officialFacility=officialLocation.match(/\(([^()]+)\)/);
+  const officialArena=officialFacility&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(officialFacility[1])?officialFacility[1].trim():'';
+  const arena=c.venue?.arenaName||officialArena||embeddedArena||(candidate?.home_arena&&verifiedSide!=='neutral'&&!/arena|center|centre|coliseum|pavilion|gym|fieldhouse|stadium|dome/i.test(cleanVenue)?candidate.home_arena:'')||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
   const city=venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
   return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup"><span class="sched-logo" style="--logo-ring:'+ring+'">'+emblem+'</span><span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+escape(network)+'</td></tr>';
  }).join('');
