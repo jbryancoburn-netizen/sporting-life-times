@@ -64,6 +64,14 @@ def process(t):
   rows=parse(response.text)
  except Exception as e:out.update(status="parse_failed",error=str(e)[:150]);return out
  out["extracted"]=len(rows);out["status"]="parsed" if rows else "no_joint_card_jsonld_matches"
+ # One-to-one safety: a single official game may certify at most one newspaper event.
+ event_keys=collections.Counter()
+ for e in d.get("events",[]):
+  ps=(e.get("competitions") or [{}])[0].get("competitors") or []
+  op=next((z for z in ps if str((z.get("team") or {}).get("id"))!=tid),{})
+  oppid=str((op.get("team") or {}).get("id") or (op.get("team") or {}).get("displayName") or e.get("name"))
+  event_keys[(str(e.get("date"))[:10],oppid)]+=1
+ used_official_ids=set()
  for event in d.get("events",[]):
   if event.get("site_verified") is True:continue
   dt=str(event.get("date",""))[:10];ps=(event.get("competitions") or [{}])[0].get("competitors") or []
@@ -74,7 +82,10 @@ def process(t):
   matches=[row for row in rows if row["date"]==dt and len(norm(row["opponent"]))>=4 and (norm(row["opponent"]) in name or name in norm(row["opponent"]))]
   if len(matches)>1:out["ambiguous"]+=1
   if len(matches)!=1:continue
+  opponent_id=str((other.get("team") or {}).get("id") or (other.get("team") or {}).get("displayName") or event.get("name"))
+  if event_keys[(dt,opponent_id)]!=1:continue
   x=matches[0]
+  if not x.get("game_id") or x["game_id"] in used_official_ids:continue
   # vs by itself is NOT proof of home game if game location is unrecognized.
   # Use game cards only where specific venue explicitly matches known own/host arena.
   if x["site"]=="home":
@@ -89,6 +100,7 @@ def process(t):
   event["site_verified_via"]="official_sidearm_card_jsonld_and_venue"
   event["site_source_url"]=response.url
   event["source_game_id"]=x["game_id"]
+  used_official_ids.add(x["game_id"])
   out["corrected"]+=1
  if out["corrected"] and os.getenv("APPLY")=="1":path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
  return out
