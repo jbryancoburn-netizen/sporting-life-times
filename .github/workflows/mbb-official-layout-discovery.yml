@@ -1,0 +1,31 @@
+name: MBB alternate official schedule layout discovery
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-official-layout-discovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - name: Inspect first 100 unresolved official school layouts
+        run: START=0 END=100 BATCH=first-100 python scripts/mbb_official_layout_discovery.py
+      - name: Publish extraction audit without modifying games
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-official-layout-first-100.json
+          git commit -m "Publish official schedule layout extraction audit" || exit 0
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 4
+          done
+          exit 1
