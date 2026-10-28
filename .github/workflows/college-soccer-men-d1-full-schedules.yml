@@ -41,11 +41,13 @@ jobs:
               assert all(g['source_url'].startswith('https://www.ncaa.com/game/') for g in team['games'])
           print('D-I men's teams:',len(p['teams']),'games:',p['unique_games'],'coverage:',p['coverage'])
           PY
-      - name: Publish Division I men's fixture dataset only
+      - name: Update newspaper team schedule index
+        run: python scripts/build_college_soccer_team_game_index.py
+      - name: Publish Division I men's fixture dataset and team index
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/college-soccer-men-d1-schedules-2026.json
+          git add data/college-soccer-men-d1-schedules-2026.json data/college-soccer-team-game-index.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update 2026 NCAA D-I mens soccer official schedules'
             git pull --rebase origin main
