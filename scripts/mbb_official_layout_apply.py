@@ -1,7 +1,23 @@
 #!/usr/bin/env python3
 """Apply only unambiguous official card date/opponent matches."""
 import json,os,pathlib
-from mbb_official_layout_discovery import extract,clean
+import re,datetime
+from bs4 import BeautifulSoup
+def clean(v):return re.sub(r"[^a-z0-9]","",str(v or "").lower())
+def extract(html):
+ soup=BeautifulSoup(html,"html.parser");out=[]
+ for card in soup.select(".sidearm-schedule-game,.sidearm-schedule-game-row,[class*='schedule-game'],[class*='schedule_game']"):
+  node=card.select_one("time[datetime],[class*='date'],[data-date]")
+  dt=(card.get("data-date") or (node.get("datetime") or node.get("data-date") or node.get_text(" ",strip=True) if node else ""))
+  m=re.search(r"202[67]-[0-9]{2}-[0-9]{2}",dt)
+  if not m:continue
+  opponent=card.select_one("[class*='opponent-name'],[class*='opponent_name'],[class*='opponent-title']")
+  site=card.select_one("[class*='home-away'],[class*='home_away'],[class*='location-type']")
+  if not opponent or not site:continue
+  value=site.get_text(" ",strip=True).lower()
+  place="neutral" if "neutral" in value else "home" if value in ("home","vs","vs.") else "away" if value in ("away","at","@") else ""
+  if place:out.append(dict(date=m.group(),opponent=opponent.get_text(" ",strip=True),site=place,method="official_schedule_card"))
+ return out
 import requests
 base=pathlib.Path(__file__).resolve().parents[1]/"data"
 teams=json.loads((base/"ncaam-2026-27-espn-team-crosswalk.json").read_text())["teams"]
