@@ -89,8 +89,8 @@ def process(t):
   competition=(event.get("competitions") or [{}])[0]
   venue=competition.setdefault("venue",{})
   source_arena=str(x.get("location") or "").strip()
-  generic_city=bool(re.search(r"\\b[A-Z]{2}\\b|,\\s*[A-Z]{2}\\b",source_arena)) and not re.search(r"Arena|Coliseum|Center|Centre|Gym|Fieldhouse|Pavilion|Field House|Forum|Dome|Auditorium|Convocation",source_arena,re.I)
-  if source_arena and not generic_city and not venue.get("arenaName"):
+  known_facility=bool(re.search(r"Arena|Coliseum|Center|Centre|Gym|Fieldhouse|Pavilion|Field House|Forum|Dome|Auditorium|Convocation|Stadium|Fieldhouse",source_arena,re.I))
+  if source_arena and known_facility and not venue.get("arenaName"):
    venue["arenaName"]=source_arena
    venue["arena_source_url"]=response.url
    venue["arena_source_type"]="official_sidearm_event_location"
