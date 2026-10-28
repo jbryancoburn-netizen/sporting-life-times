@@ -1,0 +1,53 @@
+name: NCAA D-I men's soccer full-season schedule scan
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 10 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_college_soccer_men_d1_2026_schedules.py'
+      - '.github/workflows/college-soccer-men-d1-full-schedules.yml'
+permissions:
+  contents: write
+concurrency:
+  group: college-soccer-men-d1-schedules
+  cancel-in-progress: false
+jobs:
+  full-season-schedules:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Read 2026 men's Division I official scoreboard schedule
+        run: python scripts/build_college_soccer_men_d1_2026_schedules.py
+      - name: Validate schedule shape and coverage reporting
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('data/college-soccer-men-d1-schedules-2026.json'))
+          e=json.load(open('data/college-soccer-elo.json'))
+          known={x['team_id'] for x in e['cohorts']['men-d1']}
+          assert set(p['teams'])=={'men-d1:'+x for x in known}
+          assert len(p['teams'])==213
+          assert p['successful_dates']+len(p['failed_dates'])==p['requested_dates']
+          assert p['coverage'] in ('complete_date_scan','incomplete_source_scan')
+          for key,team in p['teams'].items():
+              ids=[g['match_id'] for g in team['games']]
+              assert len(ids)==len(set(ids)),key
+              assert all(g['source_url'].startswith('https://www.ncaa.com/game/') for g in team['games'])
+          print('D-I men's teams:',len(p['teams']),'games:',p['unique_games'],'coverage:',p['coverage'])
+          PY
+      - name: Publish Division I men's fixture dataset only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/college-soccer-men-d1-schedules-2026.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update 2026 NCAA D-I mens soccer official schedules'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
