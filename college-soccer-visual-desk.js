@@ -48,7 +48,7 @@ function render(){
  const todayGames=section(host,'TODAY’S GAMES','SCHOOL CRESTS · PREDICTIONS · MATCH CENTER');
  const dayNY=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(value).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return parts.year+'-'+parts.month+'-'+parts.day;};
  const today=dayNY(new Date());
- const finalIds=new Set((model.latest_finals||[]).map(f=>f.match_id));
+ 
  const matchday=(forecast.forecasts||[]).filter(g=>g.cohort===cohort&&g.kickoff_utc&&Number.isFinite(Date.parse(g.kickoff_utc))&&dayNY(new Date(g.kickoff_utc))===today);
  matchday.sort((a,b)=>a.kickoff_utc.localeCompare(b.kickoff_utc));
  if(!matchday.length)todayGames.append(E('p','No fixtures for today in the available published feed. This does not mean no NCAA games are scheduled.','cs-note'));
@@ -60,7 +60,7 @@ function render(){
  const verified=(model.latest_finals||[]).find(x=>x.match_id===g.match_id&&x.cohort===cohort);
  const stamp=liveScores.checked_at_utc?Date.parse(liveScores.checked_at_utc):NaN;
  const fresh=Number.isFinite(stamp)&&Date.now()-stamp<20*60*1000;
- const isFinal=!!verified||score?.status==='final';
+ const isFinal=!!verified||(score?.status==='final'&&fresh);
  const isLive=!isFinal&&score?.status==='live'&&fresh;
  item.append(E('small',time+' ET · '+(isFinal?'FINAL':isLive?'LIVE'+(score.period?' · '+score.period:''):'SCHEDULED · RESULT NOT VERIFIED')));
  if(isFinal||isLive){
@@ -151,5 +151,5 @@ function render(){
  for(const t of def)row(defenses,t.team,(t.ga/t.gp).toFixed(2)+' GA/GP',URL_TEAM(cohort,t.team_id));
  const foot=E('p','Source cutoffs: USRS '+String(model.as_of||'unknown')+' · forecasts '+String(forecast.published_at||'unknown')+'. Elo movement needs prior certified rating snapshots; it is deliberately not inferred from ranks or scores.','cs-note');host.append(foot);
 }
-(async()=>{try{const [a,b,c,d,e]=await Promise.allSettled([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json'),load('data/college-soccer-team-branding.json'),load('data/college-soccer-elo-live-audit.json'),load('data/college-soccer-team-game-index.json')]);if(a.status!=='fulfilled'||b.status!=='fulfilled')throw Error('Required ratings or forecast feed missing');model=a.value;forecast=b.value;if(c.status==='fulfilled')brand=c.value;if(d.status==='fulfilled')audit=d.value;if(e.status==='fulfilled')index=e.value;if(!model?.cohorts||!Array.isArray(forecast?.forecasts))throw Error('Invalid schema');render();refreshLiveScores();setInterval(()=>{if(document.visibilityState==='visible')refreshLiveScores()},60000);}catch(e){host.replaceChildren(E('p','NCAA visual dashboard unavailable: required published ratings or forecasts could not be loaded.','cs-note'));console.error('College soccer visual desk',e);}})();
+(async()=>{try{const [a,b,c,d,e]=await Promise.allSettled([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json'),load('data/college-soccer-team-branding.json'),load('data/college-soccer-elo-live-audit.json'),load('data/college-soccer-team-game-index.json')]);if(a.status!=='fulfilled'||b.status!=='fulfilled')throw Error('Required ratings or forecast feed missing');model=a.value;forecast=b.value;if(c.status==='fulfilled')brand=c.value;if(d.status==='fulfilled')audit=d.value;if(e.status==='fulfilled')index=e.value;if(!model?.cohorts||!Array.isArray(forecast?.forecasts))throw Error('Invalid schema');render();refreshLiveScores();setInterval(()=>{if(document.visibilityState==='visible')refreshLiveScores()},60000);setInterval(async()=>{if(document.visibilityState!=='visible')return;try{const [ratings,projections]=await Promise.all([load('data/college-soccer-elo.json'),load('data/college-soccer-prospective-v2.json')]);if(!ratings?.cohorts||!Array.isArray(projections?.forecasts))throw Error('Invalid refreshed soccer data');model=ratings;forecast=projections;render();}catch(err){console.warn('Soccer ratings/forecast refresh failed; retaining last valid snapshot',err);}},300000);}catch(e){host.replaceChildren(E('p','NCAA visual dashboard unavailable: required published ratings or forecasts could not be loaded.','cs-note'));console.error('College soccer visual desk',e);}})();
 })();
