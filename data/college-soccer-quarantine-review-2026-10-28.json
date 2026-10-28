@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-28",
+  "policy": "Source identity and membership review only; no adjustments to source scores, Elo ledger or forecasts without verified roster/eligibility rules",
+  "ncaa_final_quarantines": [
+    {
+      "match_id": "men-6638167",
+      "program": "Shawnee State",
+      "opponent": "West Virginia Wesleyan",
+      "result": "0-1",
+      "date": "2026-10-25",
+      "status": "provisional_NCAA_DII_member_identified_missing_source_slug",
+      "evidence": "https://web3.ncaa.org/directory/orgDetail?id=30284",
+      "action": "Retain quarantine until identity resolver maps NCAA org 30284 and eligibility rule for provisional members is explicit"
+    },
+    {
+      "match_id": "women-6639073",
+      "program": "Shawnee State",
+      "opponent": "West Virginia Wesleyan",
+      "result": "0-0",
+      "date": "2026-10-25",
+      "status": "provisional_NCAA_DII_member_identified_missing_source_slug",
+      "evidence": "https://www.ncaa.org/news/media-center-shawnee-state-accepted-into-dii-expedited-membership-process/",
+      "action": "Retain quarantine until canonical women's program membership is mapped and verified"
+    },
+    {
+      "match_id": "men-6639018",
+      "program": "Monroe University - New Rochelle",
+      "opponent": "Dominican (NY)",
+      "result": "1-0",
+      "date": "2026-10-27",
+      "status": "NCAA_DII_application_pending_not_verified_as_member",
+      "evidence": "https://www.monroeumustangs.com/sports/2026/5/26/monroe-university-new-rochelle-announces-pursuit-of-ncaa-division-ii-membership.aspx",
+      "action": "Keep excluded from NCAA DII Elo pending official membership confirmation"
+    },
+    {
+      "match_id": "women-6637371",
+      "program": "Lackawanna College",
+      "opponent": "Mansfield",
+      "result": "0-2",
+      "date": "2026-10-28",
+      "status": "NCAA_DII_transition_applicant_not_verified_as_member",
+      "evidence": "https://lackawannafalcons.com/sports/2026/6/30/transition-faq.aspx",
+      "action": "Keep excluded from NCAA DII Elo pending official membership confirmation"
+    }
+  ],
+  "forecast_quarantines": [
+    {
+      "match_id": "women-6615244",
+      "reason": "scheduled date conflicts with recorded final date",
+      "action": "Do not score until authoritative kickoff timezone and date are reconciled"
+    },
+    {
+      "match_id": "women-6663375",
+      "reason": "home/away reversal between forecast and final",
+      "action": "Do not flip predictions retrospectively; verify official venue before any correction"
+    },
+    {
+      "match_id": "men-6622011",
+      "reason": "scheduled date conflicts with recorded final date",
+      "action": "Do not score until authoritative kickoff timezone and date are reconciled"
+    }
+  ]
+}
