@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""One-off batch: 100 official school schedules; add only individually evidenced fields.
+No paid API, no recurring workflow, no invented TV/time/arena. Existing verified data preserved.
+"""
+import json,re,pathlib,collections,concurrent.futures,os
+from urllib.parse import urlparse
+import requests
+from bs4 import BeautifulSoup
+ROOT=pathlib.Path(__file__).resolve().parents[1]/"data"
+teams=json.loads((ROOT/"ncaam-2026-27-espn-team-crosswalk.json").read_text())["teams"]
+def norm(s):
+ s=str(s or "").lower()
+ s=re.sub(r"\b(university|college|univ|the|men's|mens)\b","",s)
+ return re.sub(r"[^a-z0-9]","",s)
+def extract(html):
+ soup=BeautifulSoup(html,"html.parser")
+ rows=[]
+ for el in soup.select(".sidearm-schedule-game[data-game-id]"):
+  opp=el.select_one(".sidearm-schedule-game-opponent-text")
+  dat=el.select_one(".sidearm-schedule-game-opponent-date")
+  if not opp or not dat:continue
+  om=re.match(r"^\s*(at|vs\.?|@)\s+(.+?)\s*$",opp.get_text(" ",strip=True),re.I)
+  dm=re.search(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})",dat.get_text(" ",strip=True),re.I)
+  if not om or not dm:continue
+  month="jan feb mar apr may jun jul aug sep oct nov dec".split().index(dm[1][:3].lower())+1
+  dt=f"{2026 if month>=7 else 2027}-{month:02d}-{int(dm[2]):02d}"
+  game_id=el.get("data-game-id")
+  site="away" if om[1].lower() in ("at","@") else "home"
+  if el.select_one(".sidearm-schedule-game-neutral,[class*='neutral-site']"):site="neutral"
+  locationnode=el.select_one(".sidearm-schedule-game-location")
+  loc=locationnode.get_text(" ",strip=True) if locationnode else ""
+  # Extract official local tipoff only when explicitly displayed, not a guessed timezone.
+  tip=""
+  times=dat.get_text(" ",strip=True)
+  tm=re.search(r"\b(\d{1,2}(?::\d\d)?\s*(?:a\.?m\.?|p\.?m\.?))\b",times,re.I)
+  if tm:tip=tm.group(1)
+  # Broadcast only from an explicit network label near the game card.
+  networks=[]
+  for n in el.select("[class*='tv-network'],[class*='television'],[class*='broadcast-network'],[class*='game-network']"):
+   t=n.get_text(" ",strip=True)
+   if t and len(t)<=45 and t not in networks:networks.append(t)
+  rows.append(dict(date=dt,opponent=re.sub(r"\s*\((exh\.?|exhibition)\)$","",om[2],flags=re.I),game_id=game_id,site=site,location=loc,tipoff=tip,networks=networks))
+ return rows
+def run(team):
+ tid=str(team.get("espn_id") or ""); p=ROOT/"mbb-schedules-2026-27"/(tid+".json")
+ out=dict(school=team["name"],id=tid,status="missing_file",cards=0,venues=0,times=0,broadcasts=0,sites=0,ambiguous=0)
+ if not p.exists():return out
+ d=json.loads(p.read_text());source=d.get("source_url") or ""
+ if not source.startswith("https://"):out["status"]="missing_official_url";return out
+ page=source.replace("/schedule/text/","/schedule/")
+ if any(b in urlparse(page).hostname for b in ("espn.com","realgm.com","wikipedia.org")):out["status"]="nonofficial_url";return out
+ try:
+  res=requests.get(page,timeout=12,headers={"User-Agent":"Mozilla/5.0"})
+  if not res.ok or urlparse(res.url).hostname!=urlparse(page).hostname:out["status"]="fetch_failed";return out
+  cards=extract(res.text)
+ except Exception as ex:out.update(status="fetch_or_parse_failed",error=str(ex)[:120]);return out
+ out["cards"]=len(cards);out["status"]="read" if cards else "unsupported_layout"
+ if not cards:return out
+ # One-to-one: only one school event and one official card per exact day/opponent key.
+ lookup=collections.defaultdict(list)
+ for card in cards:lookup[(card["date"],norm(card["opponent"]))].append(card)
+ eventmap=collections.defaultdict(list)
+ for e in d.get("events",[]):
+  comps=(e.get("competitions") or [{}])[0];ps=comps.get("competitors") or []
+  other=next((x for x in ps if str((x.get("team") or {}).get("id"))!=tid),{})
+  eventmap[(str(e.get("date") or "")[:10],norm((other.get("team") or {}).get("displayName") or e.get("name")))].append(e)
+ changed=False
+ for key,events in eventmap.items():
+  date,name=key
+  possible=[card for (dt,opp),group in lookup.items() if dt==date and len(opp)>=5 and len(name)>=5 and (opp in name or name in opp) for card in group]
+  if len(events)!=1 or len(possible)!=1:out["ambiguous"]+=int(bool(possible));continue
+  e=events[0];card=possible[0]
+  c=(e.get("competitions") or [{}])[0];v=c.setdefault("venue",{})
+  loc=card["location"]
+  # Only explicit facility names; generic cities and tournament labels are not arenas.
+  if not v.get("arenaName") and re.search(r"\b(Arena|Coliseum|Center|Centre|Gymnasium|Fieldhouse|Pavilion|Field House|Convocation Center|Auditorium)\b",loc,re.I):
+   v["arenaName"]=loc;v["arena_source_url"]=res.url
+   v["arena_source_type"]="official_university_game_card";out["venues"]+=1;changed=True
+  if card["tipoff"] and not e.get("official_school_time"):
+   e["official_school_time"]=card["tipoff"];e["official_school_time_source"]=res.url;out["times"]+=1;changed=True
+  if card["networks"] and not c.get("broadcasts"):
+   c["broadcasts"]=[{"names":card["networks"],"source_url":res.url}];out["broadcasts"]+=1;changed=True
+  # NEVER use 'vs' alone to certify home; arena should match known home venue.
+  if not e.get("site_verified") and card["site"]=="away" and not re.search("neutral",loc,re.I):
+   own=next((x for x in c.get("competitors",[]) if str((x.get("team") or {}).get("id"))==tid),None)
+   other=next((x for x in c.get("competitors",[]) if x is not own),None)
+   if own and other:
+    own["homeAway"]="away";other["homeAway"]="home";e["neutralSite"]=False;e["site_verified"]=True
+    e["site_source_url"]=res.url;e["source_game_id"]=card["game_id"]
+    e["site_verified_via"]="official_school_card_unique_away";out["sites"]+=1;changed=True
+ if changed:p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+ return out
+# Take 100 PROGRAMS requiring work, not 100 arbitrary cached files.
+selected=[]
+for team in teams:
+ tid=str(team.get("espn_id") or "")
+ p=ROOT/"mbb-schedules-2026-27"/(tid+".json")
+ if not p.exists():continue
+ d=json.loads(p.read_text())
+ if any(not e.get("site_verified") or not ((e.get("competitions") or [{}])[0].get("venue") or {}).get("arenaName") or not ((e.get("competitions") or [{}])[0].get("broadcasts")) for e in d.get("events",[])):
+  selected.append(team)
+ if len(selected)==100:break
+assert len(selected)==100
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool: results=list(pool.map(run,selected))
+summary={"schools_targeted":100,"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
+(ROOT/"mbb-official-100-field-recovery.json").write_text(json.dumps({"summary":summary,"schools":results},indent=2)+"\n")
+print(json.dumps(summary,indent=2))
