@@ -20,6 +20,7 @@ const maxEnd=new Date('2027-06-30T00:00:00Z');
 assert.ok(end>=start,'season has not started');
 assert.ok(end<maxEnd,'season window expired: update season configuration');
 const dateId=d=>d.toISOString().slice(0,10).replaceAll('-','');
+// Always recheck the current and preceding UTC days: late NBA finals can land across midnight.
 const collected=new Map();
 // Each complete, independently attributed box score is a valid result input.
 // The official game-center job may finish before the Elo workflow's ESPN
@@ -75,7 +76,7 @@ async function fetchDate(date) {
    if(!complete)continue;
    const seasonType=event.season?.type??competition?.type?.type;
    // NBA regular-season is ESPN type 2. Omit preseason and postseason.
-   if(Number(seasonType)!==2)continue;
+   if(seasonType!==undefined && seasonType!==null && Number(seasonType)!==2)continue;
    if(event.season?.year && Number(event.season.year)!==2027)throw Error('Unexpected ESPN NBA season year '+event.season.year);
    if(!Array.isArray(competition?.competitors)||competition.competitors.length!==2)throw Error('Incomplete competitors '+event.id);
    const home=competition.competitors.find(x=>x.homeAway==='home');
