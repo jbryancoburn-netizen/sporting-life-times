@@ -1,0 +1,29 @@
+name: MBB import 100 sourced arena references
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-100-arena-references.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4 rapidfuzz
+      - run: python scripts/mbb_100_arena_references.py
+      - name: Publish sourced candidates and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-arena-registry.json data/mbb-100-arena-reference-import.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Add 100 sourced 2026 MBB arena reference candidates for official verification"
+            git pull --rebase origin main
+            git push
+          fi
