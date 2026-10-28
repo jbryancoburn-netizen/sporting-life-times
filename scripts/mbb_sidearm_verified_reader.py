@@ -53,7 +53,7 @@ def parse(html):
  return rows
 def process(t):
  tid=str(t.get("espn_id") or "");path=ROOT/"mbb-schedules-2026-27"/(tid+".json")
- out=dict(school=t["name"],id=tid,status="no_source",extracted=0,corrected=0,ambiguous=0)
+ out=dict(school=t["name"],id=tid,status="no_source",extracted=0,corrected=0,venues_added=0,ambiguous=0)
  if not path.exists():return out
  d=json.loads(path.read_text());url=d.get("source_url","")
  if not url.startswith("https://"):return out
@@ -73,7 +73,6 @@ def process(t):
   event_keys[(str(e.get("date"))[:10],oppid)]+=1
  used_official_ids=set()
  for event in d.get("events",[]):
-  if event.get("site_verified") is True:continue
   dt=str(event.get("date",""))[:10];ps=(event.get("competitions") or [{}])[0].get("competitors") or []
   own=next((p for p in ps if str((p.get("team") or {}).get("id"))==tid),None)
   other=next((p for p in ps if p is not own),None)
@@ -86,6 +85,19 @@ def process(t):
   if event_keys[(dt,opponent_id)]!=1:continue
   x=matches[0]
   if not x.get("game_id") or x["game_id"] in used_official_ids:continue
+  # Recover official game-specific venue even on previously verified records.
+  competition=(event.get("competitions") or [{}])[0]
+  venue=competition.setdefault("venue",{})
+  source_arena=str(x.get("location") or "").strip()
+  generic_city=bool(re.search(r"\\b[A-Z]{2}\\b|,\\s*[A-Z]{2}\\b",source_arena)) and not re.search(r"Arena|Coliseum|Center|Centre|Gym|Fieldhouse|Pavilion|Field House|Forum|Dome|Auditorium|Convocation",source_arena,re.I)
+  if source_arena and not generic_city and not venue.get("arenaName"):
+   venue["arenaName"]=source_arena
+   venue["arena_source_url"]=response.url
+   venue["arena_source_type"]="official_sidearm_event_location"
+   out["venues_added"]+=1
+  if event.get("site_verified") is True:
+   used_official_ids.add(x["game_id"])
+   continue
   # vs by itself is NOT proof of home game if game location is unrecognized.
   # Use game cards only where specific venue explicitly matches known own/host arena.
   if x["site"]=="home":
@@ -102,13 +114,13 @@ def process(t):
   event["source_game_id"]=x["game_id"]
   used_official_ids.add(x["game_id"])
   out["corrected"]+=1
- if out["corrected"] and os.getenv("APPLY")=="1":path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+ if (out["corrected"] or out["venues_added"]) and os.getenv("APPLY")=="1":path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
  return out
 ARENAS=json.loads((ROOT/"mbb-arena-registry.json").read_text())["teams"]
 start=int(os.getenv("START","0"));end=int(os.getenv("END","3"))
 selection=TEAMS[start:end] if os.getenv("FULL")=="1" else [t for t in TEAMS if str(t.get("espn_id")) in ("2010","2026","357")]
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool: results=list(pool.map(process,selection))
-summary=dict(schools_checked=len(results),games_extracted=sum(x["extracted"] for x in results),games_corrected=sum(x["corrected"] for x in results),status=dict(collections.Counter(x["status"] for x in results)))
+summary=dict(schools_checked=len(results),games_extracted=sum(x["extracted"] for x in results),games_corrected=sum(x["corrected"] for x in results),venues_added=sum(x["venues_added"] for x in results),status=dict(collections.Counter(x["status"] for x in results)))
 out=dict(summary=summary,schools=results)
 fname=os.getenv("REPORT","sidearm-pilot")
 (ROOT/("mbb-"+fname+".json")).write_text(json.dumps(out,indent=2)+"\n")
