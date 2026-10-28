@@ -1,0 +1,30 @@
+name: MBB Sidearm schema forensic test
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-sidearm-schema-test.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_sidearm_schema_test.py
+      - name: Publish source structure
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-sidearm-schema-test.json
+          git commit -m "Publish Sidearm SportsEvent schema samples" || exit 0
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 3
+          done
+          exit 1
