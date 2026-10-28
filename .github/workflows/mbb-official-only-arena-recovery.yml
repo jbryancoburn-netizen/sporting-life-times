@@ -1,0 +1,29 @@
+name: MBB official school arena recovery only
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-official-only-arena-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_official_only_arena_recovery.py
+      - name: Publish verified official school arenas and failures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-arena-registry.json data/mbb-official-only-arena-report.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Recover arenas exclusively from official school basketball schedules"
+            git pull --rebase origin main
+            git push
+          fi
