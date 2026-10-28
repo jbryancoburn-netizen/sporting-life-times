@@ -61,6 +61,22 @@ for row in elo['cohorts']['men-d1']:
     # Make every Division I men's program discoverable without inventing games.
     teams.setdefault('men-d1:'+row['team_id'], {})
 
+# Overlay the independent official Division I men's full-season schedule scan.
+# Never erase a verified final with an older/unverified fixture report.
+season_path=root/'data/college-soccer-men-d1-schedules-2026.json'
+if season_path.exists():
+    season=json.loads(season_path.read_text())
+    if season.get('cohort')!='men-d1' or season.get('season')!=2026:
+        raise ValueError('Wrong season or division in official schedule source')
+    for key,entry in season['teams'].items():
+        if not key.startswith('men-d1:'):raise ValueError('Other division in D-I-only feed: '+key)
+        for fixture in entry.get('games',[]):
+            mid=fixture['match_id']
+            existing=teams[key].get(mid)
+            if existing and existing.get('status')=='final':
+                continue
+            teams[key][mid]=fixture.copy()
+
 payload={
  'schema_version':1,
  'source_elo_as_of':elo.get('as_of'),
