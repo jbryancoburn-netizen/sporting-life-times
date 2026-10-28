@@ -32,7 +32,7 @@ for path in files:
         if CHECK:
             missing.append(path.name + ' missing contextual browser icon')
         else:
-            source=re.sub(r'</head\\s*>',lambda match:FAVICON+match.group(),source,count=1,flags=re.I)
+            source=re.sub(r'</head\s*>',lambda match:FAVICON+match.group(),source,count=1,flags=re.I)
             path.write_text(source,encoding='utf-8')
             changed+=1
     # NBA provides its own single-ring logo system. Never inject the global DOM wrapper.
