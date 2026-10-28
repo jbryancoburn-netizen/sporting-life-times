@@ -1,0 +1,959 @@
+{
+  "schools_targeted": 100,
+  "schools_checked": 100,
+  "totals": {
+    "matched": 570,
+    "site_corrected": 570,
+    "location_corrected": 570
+  },
+  "status_counts": {
+    "source_fetch_failed": 42,
+    "verified_matches": 46,
+    "no_official_source": 12
+  },
+  "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
+  "schools": [
+    {
+      "team": "North Ala.",
+      "id": "2453",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "North Carolina",
+      "id": "153",
+      "status": "verified_matches",
+      "matched": 13,
+      "site_corrected": 13,
+      "location_corrected": 13,
+      "school_rows": 36
+    },
+    {
+      "team": "North Dakota",
+      "id": "155",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "North Dakota St.",
+      "id": "2449",
+      "status": "verified_matches",
+      "matched": 9,
+      "site_corrected": 9,
+      "location_corrected": 9,
+      "school_rows": 34
+    },
+    {
+      "team": "North Florida",
+      "id": "2454",
+      "status": "verified_matches",
+      "matched": 18,
+      "site_corrected": 18,
+      "location_corrected": 18,
+      "school_rows": 37
+    },
+    {
+      "team": "North Texas",
+      "id": "249",
+      "status": "verified_matches",
+      "matched": 11,
+      "site_corrected": 11,
+      "location_corrected": 11,
+      "school_rows": 34
+    },
+    {
+      "team": "Northeastern",
+      "id": "111",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Northern Ariz.",
+      "id": "2464",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Northern Colo.",
+      "id": "2458",
+      "status": "verified_matches",
+      "matched": 11,
+      "site_corrected": 11,
+      "location_corrected": 11,
+      "school_rows": 33
+    },
+    {
+      "team": "Northern Ky.",
+      "id": "94",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Northwestern",
+      "id": "77",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Northwestern St.",
+      "id": "2466",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Notre Dame",
+      "id": "87",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Oakland",
+      "id": "2473",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Ohio",
+      "id": "195",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Ohio St.",
+      "id": "194",
+      "status": "verified_matches",
+      "matched": 7,
+      "site_corrected": 7,
+      "location_corrected": 7,
+      "school_rows": 35
+    },
+    {
+      "team": "Oklahoma",
+      "id": "201",
+      "status": "verified_matches",
+      "matched": 16,
+      "site_corrected": 16,
+      "location_corrected": 16,
+      "school_rows": 32
+    },
+    {
+      "team": "Oklahoma St.",
+      "id": "197",
+      "status": "verified_matches",
+      "matched": 18,
+      "site_corrected": 18,
+      "location_corrected": 18,
+      "school_rows": 50
+    },
+    {
+      "team": "Old Dominion",
+      "id": "295",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Ole Miss",
+      "id": "145",
+      "status": "verified_matches",
+      "matched": 16,
+      "site_corrected": 16,
+      "location_corrected": 16,
+      "school_rows": 34
+    },
+    {
+      "team": "Omaha",
+      "id": "2437",
+      "status": "verified_matches",
+      "matched": 12,
+      "site_corrected": 12,
+      "location_corrected": 12,
+      "school_rows": 33
+    },
+    {
+      "team": "Oral Roberts",
+      "id": "198",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Oregon",
+      "id": "2483",
+      "status": "verified_matches",
+      "matched": 9,
+      "site_corrected": 9,
+      "location_corrected": 9,
+      "school_rows": 36
+    },
+    {
+      "team": "Oregon St.",
+      "id": "204",
+      "status": "verified_matches",
+      "matched": 21,
+      "site_corrected": 21,
+      "location_corrected": 21,
+      "school_rows": 35
+    },
+    {
+      "team": "Pacific",
+      "id": "279",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Penn",
+      "id": "219",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Penn St.",
+      "id": "213",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Pepperdine",
+      "id": "2492",
+      "status": "verified_matches",
+      "matched": 10,
+      "site_corrected": 10,
+      "location_corrected": 10,
+      "school_rows": 33
+    },
+    {
+      "team": "Pittsburgh",
+      "id": "221",
+      "status": "verified_matches",
+      "matched": 9,
+      "site_corrected": 9,
+      "location_corrected": 9,
+      "school_rows": 33
+    },
+    {
+      "team": "Portland",
+      "id": "2501",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Portland St.",
+      "id": "2502",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Prairie View",
+      "id": "2504",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Presbyterian",
+      "id": "2506",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Princeton",
+      "id": "163",
+      "status": "verified_matches",
+      "matched": 12,
+      "site_corrected": 12,
+      "location_corrected": 12,
+      "school_rows": 29
+    },
+    {
+      "team": "Providence",
+      "id": "2507",
+      "status": "verified_matches",
+      "matched": 11,
+      "site_corrected": 11,
+      "location_corrected": 11,
+      "school_rows": 34
+    },
+    {
+      "team": "Purdue",
+      "id": "2509",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Purdue Fort Wayne",
+      "id": "2870",
+      "status": "verified_matches",
+      "matched": 11,
+      "site_corrected": 11,
+      "location_corrected": 11,
+      "school_rows": 34
+    },
+    {
+      "team": "Queens (NC)",
+      "id": "2511",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Quinnipiac",
+      "id": "2514",
+      "status": "verified_matches",
+      "matched": 8,
+      "site_corrected": 8,
+      "location_corrected": 8,
+      "school_rows": 31
+    },
+    {
+      "team": "Radford",
+      "id": "2515",
+      "status": "verified_matches",
+      "matched": 13,
+      "site_corrected": 13,
+      "location_corrected": 13,
+      "school_rows": 34
+    },
+    {
+      "team": "Rhode Island",
+      "id": "227",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Rice",
+      "id": "242",
+      "status": "verified_matches",
+      "matched": 8,
+      "site_corrected": 8,
+      "location_corrected": 8,
+      "school_rows": 37
+    },
+    {
+      "team": "Richmond",
+      "id": "257",
+      "status": "verified_matches",
+      "matched": 12,
+      "site_corrected": 12,
+      "location_corrected": 12,
+      "school_rows": 34
+    },
+    {
+      "team": "Rider",
+      "id": "2520",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Robert Morris",
+      "id": "2523",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Rutgers",
+      "id": "164",
+      "status": "verified_matches",
+      "matched": 9,
+      "site_corrected": 9,
+      "location_corrected": 9,
+      "school_rows": 34
+    },
+    {
+      "team": "Sacramento St.",
+      "id": "16",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Sacred Heart",
+      "id": "2529",
+      "status": "verified_matches",
+      "matched": 5,
+      "site_corrected": 5,
+      "location_corrected": 5,
+      "school_rows": 33
+    },
+    {
+      "team": "Saint Joseph's",
+      "id": "2603",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Saint Louis",
+      "id": "139",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Saint Mary's (CA)",
+      "id": "2608",
+      "status": "verified_matches",
+      "matched": 9,
+      "site_corrected": 9,
+      "location_corrected": 9,
+      "school_rows": 34
+    },
+    {
+      "team": "Saint Peter's",
+      "id": "2612",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Sam Houston",
+      "id": "2534",
+      "status": "verified_matches",
+      "matched": 14,
+      "site_corrected": 14,
+      "location_corrected": 14,
+      "school_rows": 32
+    },
+    {
+      "team": "Samford",
+      "id": "2535",
+      "status": "verified_matches",
+      "matched": 15,
+      "site_corrected": 15,
+      "location_corrected": 15,
+      "school_rows": 35
+    },
+    {
+      "team": "San Diego",
+      "id": "301",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "San Diego St.",
+      "id": "21",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "San Francisco",
+      "id": "2539",
+      "status": "verified_matches",
+      "matched": 10,
+      "site_corrected": 10,
+      "location_corrected": 10,
+      "school_rows": 35
+    },
+    {
+      "team": "San Jose St.",
+      "id": "23",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Santa Clara",
+      "id": "2541",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Seattle U",
+      "id": "2547",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Seton Hall",
+      "id": "2550",
+      "status": "verified_matches",
+      "matched": 11,
+      "site_corrected": 11,
+      "location_corrected": 11,
+      "school_rows": 37
+    },
+    {
+      "team": "SFA",
+      "id": "2617",
+      "status": "verified_matches",
+      "matched": 18,
+      "site_corrected": 18,
+      "location_corrected": 18,
+      "school_rows": 33
+    },
+    {
+      "team": "Siena",
+      "id": "2561",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "SIUE",
+      "id": "2565",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "SMU",
+      "id": "2567",
+      "status": "verified_matches",
+      "matched": 14,
+      "site_corrected": 14,
+      "location_corrected": 14,
+      "school_rows": 38
+    },
+    {
+      "team": "South Alabama",
+      "id": "6",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "South Carolina",
+      "id": "2579",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "South Carolina St.",
+      "id": "2569",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "South Dakota",
+      "id": "233",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "South Dakota St.",
+      "id": "2571",
+      "status": "verified_matches",
+      "matched": 10,
+      "site_corrected": 10,
+      "location_corrected": 10,
+      "school_rows": 31
+    },
+    {
+      "team": "South Fla.",
+      "id": "58",
+      "status": "verified_matches",
+      "matched": 9,
+      "site_corrected": 9,
+      "location_corrected": 9,
+      "school_rows": 34
+    },
+    {
+      "team": "Southeast Mo. St.",
+      "id": "2546",
+      "status": "verified_matches",
+      "matched": 16,
+      "site_corrected": 16,
+      "location_corrected": 16,
+      "school_rows": 35
+    },
+    {
+      "team": "Southeastern La.",
+      "id": "2545",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Southern California",
+      "id": "30",
+      "status": "verified_matches",
+      "matched": 7,
+      "site_corrected": 7,
+      "location_corrected": 7,
+      "school_rows": 36
+    },
+    {
+      "team": "Southern Ill.",
+      "id": "79",
+      "status": "verified_matches",
+      "matched": 8,
+      "site_corrected": 8,
+      "location_corrected": 8,
+      "school_rows": 32
+    },
+    {
+      "team": "Southern Ind.",
+      "id": "88",
+      "status": "verified_matches",
+      "matched": 18,
+      "site_corrected": 18,
+      "location_corrected": 18,
+      "school_rows": 35
+    },
+    {
+      "team": "Southern Miss.",
+      "id": "2572",
+      "status": "verified_matches",
+      "matched": 11,
+      "site_corrected": 11,
+      "location_corrected": 11,
+      "school_rows": 35
+    },
+    {
+      "team": "Southern U.",
+      "id": "2582",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Southern Utah",
+      "id": "253",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "St. Bonaventure",
+      "id": "179",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "St. John's (NY)",
+      "id": "2599",
+      "status": "verified_matches",
+      "matched": 13,
+      "site_corrected": 13,
+      "location_corrected": 13,
+      "school_rows": 37
+    },
+    {
+      "team": "St. Thomas (MN)",
+      "id": "2900",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Stanford",
+      "id": "24",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Stetson",
+      "id": "56",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Stonehill",
+      "id": "284",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Stony Brook",
+      "id": "2619",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Syracuse",
+      "id": "183",
+      "status": "verified_matches",
+      "matched": 10,
+      "site_corrected": 10,
+      "location_corrected": 10,
+      "school_rows": 35
+    },
+    {
+      "team": "Tarleton St.",
+      "id": "2627",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "TCU",
+      "id": "2628",
+      "status": "verified_matches",
+      "matched": 16,
+      "site_corrected": 16,
+      "location_corrected": 16,
+      "school_rows": 36
+    },
+    {
+      "team": "Temple",
+      "id": "218",
+      "status": "verified_matches",
+      "matched": 10,
+      "site_corrected": 10,
+      "location_corrected": 10,
+      "school_rows": 33
+    },
+    {
+      "team": "Tennessee",
+      "id": "2633",
+      "status": "verified_matches",
+      "matched": 16,
+      "site_corrected": 16,
+      "location_corrected": 16,
+      "school_rows": 34
+    },
+    {
+      "team": "Tennessee St.",
+      "id": "2634",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Tennessee Tech",
+      "id": "2635",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Texas",
+      "id": "251",
+      "status": "verified_matches",
+      "matched": 21,
+      "site_corrected": 21,
+      "location_corrected": 21,
+      "school_rows": 33
+    },
+    {
+      "team": "Texas A&M",
+      "id": "245",
+      "status": "no_official_source",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0
+    },
+    {
+      "team": "Texas Southern",
+      "id": "2640",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Texas St.",
+      "id": "326",
+      "status": "source_fetch_failed",
+      "matched": 0,
+      "site_corrected": 0,
+      "location_corrected": 0,
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
+    },
+    {
+      "team": "Texas Tech",
+      "id": "2641",
+      "status": "verified_matches",
+      "matched": 18,
+      "site_corrected": 18,
+      "location_corrected": 18,
+      "school_rows": 38
+    },
+    {
+      "team": "The Citadel",
+      "id": "2643",
+      "status": "verified_matches",
+      "matched": 12,
+      "site_corrected": 12,
+      "location_corrected": 12,
+      "school_rows": 34
+    },
+    {
+      "team": "Toledo",
+      "id": "2649",
+      "status": "verified_matches",
+      "matched": 15,
+      "site_corrected": 15,
+      "location_corrected": 15,
+      "school_rows": 35
+    }
+  ]
+}
