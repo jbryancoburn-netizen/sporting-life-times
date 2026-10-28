@@ -1,0 +1,30 @@
+name: MBB all 365 school final metadata reconciliation
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-final-365-reconcile.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-final-365-reconcile
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/mbb_full_schedule_reconcile.py
+      - name: Publish files and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-365-final-schedule-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Reconcile all 365 MBB school schedule opponent identifiers"
+            git push
+          fi
