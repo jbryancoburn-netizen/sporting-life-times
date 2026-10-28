@@ -12,7 +12,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 65
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,7 +35,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-schedules-2026-27/ data/mbb-official-recheck-shard-*-verification.json data/mbb-live-quality-audit-2026-27.json
+          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json
+          find data -maxdepth 1 -name 'mbb-official-recheck-shard-*-verification.json' -exec git add {} +
           git commit -m "Publish 365-school official recheck and fresh MBB quality totals" || exit 0
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main && git push && exit 0
