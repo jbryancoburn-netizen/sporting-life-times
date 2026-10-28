@@ -122,6 +122,7 @@ def fetch_finals(start: dt.date, end: dt.date, getter=scoreboard):
     incoming = {}
     checked = 0
     quarantined = 0
+    quarantined_details = []
     day = start
     while day <= end:
         for gender in ("men", "women"):
@@ -134,6 +135,8 @@ def fetch_finals(start: dt.date, end: dt.date, getter=scoreboard):
                     if result is None:
                         if (g.get("game") or {}).get("gameState") == "final":
                             quarantined += 1
+                            raw_game = g.get('game') or {}
+                            quarantined_details.append({'requested_date': day.isoformat(), 'gender':gender, 'division':d, 'game_id':raw_game.get('gameID'), 'start_date':raw_game.get('startDate'), 'home':(raw_game.get('home') or {}).get('names'), 'away':(raw_game.get('away') or {}).get('names'), 'home_score':(raw_game.get('home') or {}).get('score'), 'away_score':(raw_game.get('away') or {}).get('score'), 'reason':'incomplete_final_identity_score_or_date'})
                         continue
                     key = result["match_id"]
                     if key in incoming and incoming[key] != result:
@@ -142,7 +145,8 @@ def fetch_finals(start: dt.date, end: dt.date, getter=scoreboard):
         day += dt.timedelta(days=1)
     return sorted(incoming.values(), key=lambda g: (g["date"], g["match_id"])), {
         "scoreboards": checked, "fetched_finals": len(incoming),
-        "quarantined_final_rows": quarantined
+        "quarantined_final_rows": quarantined,
+        "quarantined_final_details": quarantined_details
     }
 
 
@@ -321,11 +325,12 @@ def main():
     if not args.offline:
         incoming, probe = fetch_finals(start, today)
     else:
-        incoming, probe = [], {"scoreboards": 0, "fetched_finals": 0, "quarantined_final_rows": 0}
+        incoming, probe = [], {"scoreboards": 0, "fetched_finals": 0, "quarantined_final_rows": 0, "quarantined_final_details": []}
     next_ledger, model, audit = update(base, ledger, incoming)
     audit.update({"checked_through":today.isoformat(),"scoreboard_checks":probe["scoreboards"],
                   "source_finals_in_window":probe["fetched_finals"],
                   "quarantined_final_rows":probe["quarantined_final_rows"],
+                  "quarantined_final_details":probe.get("quarantined_final_details", []),
                   "source":"NCAA.com scoreboards through ncaa-api compatibility transport"})
     # An offline deterministic replay has NO authority to clear live-source conflicts.
     # Preserve the last real source-check results until an online fetch verifies them.
@@ -333,6 +338,7 @@ def main():
         previous_audit = read_json(AUDIT)
         for field in ("status", "unresolved_source_corrections",
                       "unresolved_source_correction_count", "quarantined_final_rows",
+                      "quarantined_final_details",
                       "source_finals_in_window", "scoreboard_checks", "checked_through"):
             if field in previous_audit:
                 audit[field] = previous_audit[field]
