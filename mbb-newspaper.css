@@ -73,3 +73,25 @@
 #full-season-schedule .sched-logo{position:relative!important;overflow:hidden!important;isolation:isolate}
 #full-season-schedule .sched-logo-fallback{font:700 12px/1 Arial,sans-serif;color:var(--logo-ring,#193f52);letter-spacing:-.02em;position:absolute;inset:0;display:grid;place-items:center}
 #full-season-schedule .sched-logo>img.sched-logo-image{position:relative;z-index:1;background:#fff!important;width:100%!important;height:100%!important;object-fit:contain!important}
+
+/* Responsive schedule cards: expose all five data fields instead of a clipped 1020px table. */
+@media(max-width:700px){
+ #full-season-schedule .table-wrap{overflow:visible!important;width:100%!important}
+ #full-season-schedule .mbb-schedule-table{display:block!important;min-width:0!important;width:100%!important;table-layout:auto!important}
+ #full-season-schedule .mbb-schedule-table thead{display:none!important}
+ #full-season-schedule .mbb-schedule-table tbody{display:grid!important;gap:10px!important}
+ #full-season-schedule .mbb-schedule-table tbody tr{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px 12px!important;padding:12px!important;border:1px solid var(--line,#ddd)!important;border-radius:12px!important;background:rgba(255,255,255,.55)!important}
+ #full-season-schedule .mbb-schedule-table tbody td{display:block!important;border:0!important;padding:0!important;width:auto!important;min-width:0!important;overflow-wrap:anywhere}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(1){grid-column:1/-1!important;font-size:12px!important;color:var(--muted,#64737b)!important;font-weight:700!important}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(2){grid-column:1/-1!important}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(3){grid-column:1/-1!important;font-size:13px!important}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(4){grid-column:1!important;font-size:12px!important}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(5){grid-column:2!important;font-size:12px!important;text-align:right!important}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(4):before{content:'TIPOFF · ';font-weight:700;color:var(--muted,#64737b)}
+ #full-season-schedule .mbb-schedule-table tbody td:nth-child(5):before{content:'TV · ';font-weight:700;color:var(--muted,#64737b)}
+ #full-season-schedule .sched-matchup{display:flex!important;align-items:center!important;gap:10px!important}
+ #full-season-schedule .sched-opponent{min-width:0!important}
+ #full-season-schedule .sched-logo{flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important}
+ #full-season-schedule .panel-head{display:block!important}
+ #full-season-schedule .panel-head h2{font-size:clamp(24px,7vw,34px)!important}
+}
