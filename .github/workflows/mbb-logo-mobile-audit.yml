@@ -1,0 +1,64 @@
+name: MBB logo and mobile visual audit
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-logo-mobile-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests playwright
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/mbb_logo_http_audit.py
+      - name: Mobile browser rendering checks
+        run: |
+          python - <<'PY'
+          import json
+          from playwright.sync_api import sync_playwright
+          examples=['609554','609574','609758']
+          results=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch()
+            for tid in examples:
+              page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1)
+              page.goto('https://jbryancoburn-netizen.github.io/sporting-life-times/ncaam-team.html?team=ncaa%3A'+tid,wait_until='domcontentloaded',timeout=45000)
+              try:page.wait_for_selector('#full-season-schedule tbody tr',timeout=18000)
+              except Exception:pass
+              info=page.evaluate("""() => {
+                const schedule=document.querySelector('#full-season-schedule');
+                const rows=[...document.querySelectorAll('#full-season-schedule tbody tr')];
+                const overlaps=rows.filter(row=>{
+                  const cells=[...row.querySelectorAll('td')].filter(c=>getComputedStyle(c).display!=='none');
+                  return cells.some((a,i)=>cells.slice(i+1).some(b=>{
+                    const x=a.getBoundingClientRect(),y=b.getBoundingClientRect();
+                    return x.width>0&&y.width>0&&Math.min(x.right,y.right)-Math.max(x.left,y.left)>3&&Math.min(x.bottom,y.bottom)-Math.max(x.top,y.top)>3;
+                  }));
+                }).length;
+                const overflow=!!schedule && schedule.getBoundingClientRect().right>innerWidth+2;
+                const broken=[...document.querySelectorAll('#full-season-schedule img')].filter(i=>!i.complete||i.naturalWidth===0).length;
+                return {rows:rows.length,overlaps,overflow,broken};
+              }""")
+              results.append({'team_id':tid,**info})
+              page.close()
+            browser.close()
+          open('data/mbb-mobile-render-audit.json','w').write(json.dumps({'pages':results},indent=2))
+          print(json.dumps(results,indent=2))
+          PY
+      - name: Commit audits
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-logo-http-audit.json data/mbb-mobile-render-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish MBB image and mobile visual QA results"
+            git pull --rebase origin main
+            git push
+          fi
