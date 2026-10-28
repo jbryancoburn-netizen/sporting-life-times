@@ -1,11 +1,11 @@
 (()=>{'use strict';
 const root=document.getElementById('elo-list');if(!root)return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ratings=new Map(),seen=new Set(),history=new Map(),counts=new Map(),errors=[];const opponents=new Map();const records=new Map();
+const run=()=>{const ratings=new Map(),seen=new Set(),history=new Map(),counts=new Map(),errors=[];const opponents=new Map();const records=new Map();
 const initial=1500,K=28,homeEdge=65;const winProbability=(own,opp,edge=0)=>1/(1+Math.pow(10,(opp-own-edge)/400));
 
 const all=[];const duplicateConflicts=[];
-fetch('data/cfb-2026-results.json',{cache:'no-store',signal:AbortSignal.timeout(15000)}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(payload=>{
+fetch('data/cfb-2026-results.json?updated='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(15000)}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(payload=>{
 if(payload.audit?.season!==2026||payload.audit?.baseline!==1500||payload.audit?.complete!==true||payload.audit?.errors?.length)throw Error('Unverified ESPN results snapshot');
 const byId=new Map();for(const game of payload.games||[]){if(!game.id||!game.date||game.teams?.length!==2)continue;const id=String(game.id);const prior=byId.get(id);if(prior&&JSON.stringify(prior)!==JSON.stringify(game))duplicateConflicts.push(id);byId.set(id,game);}
 if(byId.size!==payload.audit.games||duplicateConflicts.length)throw Error('Results count or duplicate conflict');
@@ -72,11 +72,12 @@ for(const [id,fixtures] of opponents){
  scheduleMetrics.set(id,{...old,sos:sosCurrent,sor:-Math.log10(Math.max(tail,1e-12)),sorTailProbability:tail,referenceExpectedWins:expectedWins,originalSOS:old.sos});
 }
 const ranked=[...ratings].sort((a,b)=>(retrospective.get(b[0])??b[1].elo)-(retrospective.get(a[0])??a[1].elo));
-window.CFB_RETROSPECTIVE={method:'regularized-all-games-network-fit',iterations:160,prior:1500,scope:'all-completed-2026-games'};
-window.CFB_ELO_REPLAY={season:2026,baseline:1500,fromWeek:0,completedGames:seen.size,failedWeeks:[...errors],duplicateConflicts:[...new Set(duplicateConflicts)],earliestGame:events[0]?.date||null,latestGame:events.at(-1)?.date||null,certified:true};
+window.CFB_RETROSPECTIVE={method:'regularized-all-games-network-fit',iterations:160,prior:1500,scope:'all-completed-2026-games',sourceUpdatedAt:payload.audit.generated_at,computedAt:new Date().toISOString(),completedGames:seen.size,homeEdgePoints:homeEdge};
+window.CFB_ELO_REPLAY={season:2026,baseline:1500,fromWeek:0,completedGames:seen.size,failedWeeks:[...errors],duplicateConflicts:[...new Set(duplicateConflicts)],earliestGame:events[0]?.date||null,latestGame:events.at(-1)?.date||null,certified:true,sourceUpdatedAt:payload.audit.generated_at};
 window.CFB_RATINGS=Object.fromEntries(ranked.map(([id,t])=>[id,{...t,adjustedElo:retrospective.get(id)??t.elo,retrospectiveAdjustment:(retrospective.get(id)??t.elo)-t.elo,games:counts.get(id),history:history.get(id)||[],...scheduleMetrics.get(id),model:'2026-results-only',rosterAdjusted:false}]));
 document.dispatchEvent(new Event('cfb-ratings-ready'));
-const note='<p class="data-note">2026 adjusted power ranking with chronological Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · 2026 ratings use game results only; no roster or external rankings. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'ESPN saved results snapshot loaded. Ratings recalculate on page reload.')+'</p>';
+const note='<p class="data-note">2026 adjusted power ranking with chronological Elo · '+seen.size+' completed games processed chronologically · starting rating 1500 · SOS = average opponent pregame Elo · SOR = rarity of record versus a 1500-rated reference team (higher is stronger) · 2026 ratings use game results only; no roster or external rankings. '+(errors.length?'Unavailable weekly feeds: '+errors.length+'. Ratings may be incomplete.':'Verified results published '+new Date(payload.audit.generated_at).toLocaleString()+'; RETRO refreshes every five minutes.')+'</p>';
 root.innerHTML=seen.size?'<p class="data-note"><strong>All '+ranked.length+' teams ranked</strong> · adjusted Elo · change from original · SOS · SOR</p>'+note+ranked.map(([id,t],i)=>'<a class="school-line" href="cfb-team.html?team='+encodeURIComponent(id)+'"><strong style="min-width:25px">'+(i+1)+'</strong><img loading="lazy" alt="" src="'+esc(t.logo)+'"><span style="flex:1">'+esc(t.name)+'</span><small>'+Math.round(retrospective.get(id)??t.elo)+' RETRO ('+(((retrospective.get(id)??t.elo)-t.elo)>=0?'+':'')+((retrospective.get(id)??t.elo)-t.elo).toFixed(1)+') · '+Math.round(t.elo)+' original · SOS '+Math.round(scheduleMetrics.get(id)?.sos||1500)+' · SOR '+(scheduleMetrics.get(id)?.sor||0).toFixed(2)+' · '+counts.get(id)+' GP</small></a>').join(''):'<p class="data-note">No completed 2026 games could be verified from the weekly score feeds.</p>';
-}).catch(err=>{root.textContent='2026 ratings could not load: '+String(err?.message||err)+'. Check the results feed and reload.';console.error('CFB ratings',err);});
+}).catch(err=>{if(!window.CFB_RATINGS){root.textContent='2026 ratings could not load: '+String(err?.message||err)+'. Check the results feed and reload.';}console.error('CFB ratings',err);});
+};run();setInterval(run,300000);
 })();
