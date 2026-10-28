@@ -9,13 +9,13 @@ from bs4 import BeautifulSoup
 root=pathlib.Path(__file__).resolve().parents[1]/"data"
 teams=json.loads((root/"ncaam-2026-27-espn-team-crosswalk.json").read_text())["teams"]
 def norm(v):
- s=str(v or "").lower();s=re.sub(r"\\b(university|college|state|the|of|at)\\b"," ",s)
+ s=str(v or "").lower();s=re.sub(r"\b(university|college|state|the|of|at)\b"," ",s)
  return re.sub(r"[^a-z0-9]","",s)
 def parse_date(x):
  t=str(x or "")
- m=re.search(r"202[67]-\\d{2}-\\d{2}",t)
+ m=re.search(r"202[67]-\d{2}-\d{2}",t)
  if m:return m.group()
- m=re.search(r"\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\.?\\s+(\\d{1,2})\\b",t,re.I)
+ m=re.search(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b",t,re.I)
  if not m:return None
  months="jan feb mar apr may jun jul aug sep oct nov dec".split()
  month=months.index(m[1][:3].lower())+1
@@ -39,8 +39,8 @@ def parse(page):
    # University cards often render 'at' or 'vs' in an immediate sibling to the opponent.
    parent=op.parent
    prefix=parent.get_text(" ",strip=True) if parent else ""
-   if re.match(r"^at\\s",prefix,re.I):site="away"
-   elif re.match(r"^vs\\.?\\s",prefix,re.I):site="home"
+   if re.match(r"^at\s",prefix,re.I):site="away"
+   elif re.match(r"^vs\.?\s",prefix,re.I):site="home"
   if site:out.append({"day":day,"opponent":name,"site":site})
  return out
 def school(t):
@@ -78,12 +78,12 @@ def school(t):
   event["neutralSite"]=val=="neutral";event["site_verified"]=True
   event["site_source_url"]=resp.url;event["site_verified_via"]="official_schedule_card_date_opponent"
   result["corrections"]+=1
- if result["corrections"]:path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n")
+ if result["corrections"]:path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n")
  result["status"]="corrected" if result["corrections"] else "no_new_unique_matches"
  return result
 start=int(os.getenv("START","0"));end=int(os.getenv("END","365"))
 with concurrent.futures.ThreadPoolExecutor(max_workers=10) as ex:results=list(ex.map(school,teams[start:end]))
 stat=collections.Counter(x["status"] for x in results)
 out={"requested":end-start,"total_corrected":sum(x["corrections"] for x in results),"status":dict(stat),"schools":results}
-(root/("mbb-official-card-apply-"+os.getenv("BATCH","365")+".json")).write_text(json.dumps(out,indent=2)+"\\n")
+(root/("mbb-official-card-apply-"+os.getenv("BATCH","365")+".json")).write_text(json.dumps(out,indent=2)+"\n")
 print(json.dumps({k:v for k,v in out.items() if k!="schools"},indent=2))
