@@ -61,11 +61,15 @@ class ForecastScoringTests(unittest.TestCase):
             self.f['forecasts'][0]['p_home'] = p
             with self.assertRaises(ValueError): self.score()
 
-    def test_identity_and_schedule_mismatch_rejected(self):
-        for field, value in [('home_team', 'wrong'), ('gender', 'women')]:
+    def test_identity_mismatch_quarantined_without_scoring(self):
+        for field, value in [('home_team', 'wrong'), ('gender', 'women'), ('source_game', 'https://www.ncaa.com/game/different')]:
             original = self.l['results'][0][field]
             self.l['results'][0][field] = value
-            with self.assertRaises(ValueError): self.score()
+            result = self.score()
+            self.assertEqual(result['quarantined_count'], 1)
+            self.assertEqual(result['overall']['scored'], 0)
+            self.assertEqual(result['awaiting_final'], 0)
+            self.assertEqual(result['quarantined'][0]['reason'], 'forecast/final identity mismatch')
             self.l['results'][0][field] = original
 
     def test_future_final_rejected(self):
