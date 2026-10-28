@@ -36,4 +36,5 @@ for t in teams:
 summary['schools_scanned']=len(teams)
 out={'generated_by':'scripts/mbb_quality_gate.py','summary':dict(summary),'game_issues':issues,'scope':'File-data quality only; image HTTP and browser layout require a separate live browser check'}
 dest=root/'data/mbb-quality-gate-2026-27.json';dest.write_text(json.dumps(out,indent=2)+'\n')
+(root/'data/mbb-quality-summary-2026-27.json').write_text(json.dumps({'schools_scanned':len(teams),'issue_rows':len(issues),'summary':dict(summary)},indent=2)+'\n')
 print(json.dumps({'summary':dict(summary),'issue_rows':len(issues)},indent=2))
