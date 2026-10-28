@@ -30,6 +30,7 @@ on:
       - 'data/college-soccer-prospective.json'
       - 'data/college-soccer-elo-baseline.json'
       - 'data/college-soccer-elo-final-ledger.json'
+      - 'scripts/build_college_soccer_team_game_index.py'
 
 permissions:
   contents: write
@@ -59,6 +60,8 @@ jobs:
         run: python -m unittest discover -s scripts -p test_publish_college_soccer_dynamic.py -v
       - name: Check new NCAA men's and women's final scores in all divisions
         run: python scripts/update_college_soccer_elo.py --lookback 4
+      - name: Rebuild Division I men's team game index without altering other divisions
+        run: python scripts/build_college_soccer_team_game_index.py
       - name: Update provisional conference standings and postseason seeds
         run: python scripts/build_college_soccer_conference_projections.py
       - name: Update experimental NCAA selection forecast
@@ -109,7 +112,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/college-soccer-score-correction-status.json data/college-soccer-elo-parameter-audit-latest.json data/college-soccer-ncaa-selection-forecast.json data/college-soccer-projected-standings.json data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
+          git add data/college-soccer-team-game-index.json data/college-soccer-score-correction-status.json data/college-soccer-elo-parameter-audit-latest.json data/college-soccer-ncaa-selection-forecast.json data/college-soccer-projected-standings.json data/college-soccer-elo-final-ledger.json data/college-soccer-elo.json data/college-soccer-elo-live-audit.json data/college-soccer-forecast-scores.json data/college-soccer-prospective-v2.json data/college-soccer-forecast-scores-v2.json data/college-soccer-forecast-source-audit.json
           if git diff --cached --quiet; then
             echo "No new verified NCAA finals or repairs. Published ratings unchanged."
             exit 0
@@ -142,7 +145,7 @@ jobs:
           from pathlib import Path
           import hashlib, os, urllib.request
           root='https://jbryancoburn-netizen.github.io/sporting-life-times'
-          paths=['data/college-soccer-elo-live-audit.json','data/college-soccer-elo-final-ledger.json','data/college-soccer-projected-standings.json','data/college-soccer-ncaa-selection-forecast.json','data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json','college-soccer-predictions.js','forecast-design.css','data/college-soccer-prospective-v2.json','data/college-soccer-forecast-scores-v2.json']
+          paths=['data/college-soccer-team-game-index.json','data/college-soccer-elo-live-audit.json','data/college-soccer-elo-final-ledger.json','data/college-soccer-projected-standings.json','data/college-soccer-ncaa-selection-forecast.json','data/college-soccer-elo.json','college-soccer-elo.js','college-soccer-elo.css','college-soccer.html','data/college-soccer-prospective.json','data/college-soccer-forecast-scores.json','college-soccer-predictions.js','forecast-design.css','data/college-soccer-prospective-v2.json','data/college-soccer-forecast-scores-v2.json']
           differences=[]
           for path in paths:
               expected=hashlib.sha256(Path(path).read_bytes()).hexdigest()
