@@ -1,0 +1,29 @@
+name: Recover MBB official site schedule checks
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-official-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_official_recovery.py
+      - name: Publish recovery
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-official-recovery-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Recover failed official school basketball schedule lookups"
+            git pull --rebase origin main
+            git push
+          fi
