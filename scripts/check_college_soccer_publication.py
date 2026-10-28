@@ -14,6 +14,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FILES = [
     "data/college-soccer-elo.json",
+    "data/college-soccer-elo-live-audit.json",
+    "data/college-soccer-elo-final-ledger.json",
+    "data/college-soccer-projected-standings.json",
+    "data/college-soccer-ncaa-selection-forecast.json",
     "college-soccer-visual-desk.js",
     "college-soccer.html",
     "college-soccer-visual-desk.css",
