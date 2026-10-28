@@ -40,6 +40,7 @@ function render(){
  const cohort=gender+'-d'+division,teams=model.cohorts[cohort];if(!Array.isArray(teams)||!teams.length)return;
  host.replaceChildren();
  const header=E('div',null,'cs-main-heading');header.append(E('strong','THE COLLEGE SOCCER MATCHDAY FILE'),E('span','INDEPENDENT USRS · '+date(model.as_of)));host.append(header);
+ if(audit?.replay_required||audit?.certified===false){const notice=E('p','RATINGS PROVISIONAL · Corrected NCAA finals are awaiting full Elo replay. Published rankings, records and projections may be outdated until the reconciliation completes.','cs-note');notice.setAttribute('role','status');host.append(notice);}
  const controls=E('div',null,'cs-controls');
  for(const [label,g,d] of [["Men's",'men',null],["Women's",'women',null],['DI',null,1],['DII',null,2],['DIII',null,3]]){
  const b=E('button',label,'cs-choice'+((g?gender===g:division===d)?' active':''));b.type='button';b.setAttribute('aria-pressed',String(g?gender===g:division===d));
