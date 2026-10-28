@@ -11,6 +11,7 @@ on:
       - '**/*.css'
       - 'assets/**'
       - '.github/workflows/publish-newspaper.yml'
+      - 'scripts/inject-team-crests.py'
       - 'data/nba-*.json'
   workflow_dispatch:
   workflow_run:
