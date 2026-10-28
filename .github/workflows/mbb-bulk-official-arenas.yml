@@ -1,0 +1,29 @@
+name: MBB bulk 2026 official arena verification
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-bulk-official-arenas.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_bulk_official_arenas.py
+      - name: Publish arenas and audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-arena-registry.json data/mbb-bulk-official-arena-report.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Expand official NCAA home arenas by bulk schedule verification"
+            git pull --rebase origin main
+            git push
+          fi
