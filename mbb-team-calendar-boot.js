@@ -38,7 +38,9 @@ try{
   const color=branding?.teams?.[opponentId]?.color||'193f52';
   const ring=/^[0-9a-f]{6}$/i.test(color)?'#'+color:'#193f52';
   const initials=opponentName.trim().split(' ').filter(Boolean).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
-  const emblem='<span class="sched-logo-fallback" aria-hidden="true">'+escape(initials)+'</span>'+(logo.startsWith('https://')?'<img class="sched-logo-image" src="'+escape(logo)+'" alt="" loading="lazy" onerror="this.remove()">':'');
+  const alternate=opponent.team?.logo&&opponent.team.logo!==logo&&opponent.team.logo.startsWith('https://')?opponent.team.logo:'';
+  const safeLogo=logo.startsWith('https://')?logo:'';
+  const emblem='<span class="sched-logo-fallback" aria-hidden="true">'+escape(initials)+'</span>'+(safeLogo?'<img class="sched-logo-image" src="'+escape(safeLogo)+'" alt="" loading="lazy" data-alternate="'+escape(alternate)+'" onerror="if(this.dataset.alternate){this.src=this.dataset.alternate;this.dataset.alternate=\'\'}else{this.remove()}">':'');
   const date=new Date(e.date);
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const confirmed=e.official_time&&!/TBA/i.test(e.official_time);
