@@ -1,0 +1,29 @@
+name: MBB verify final 65 official school schedules
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-verify-final-65-official.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_official_final_65_verification.py
+      - name: Publish corrections and audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-official-final-65-verification.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Verify final 65 MBB schedules from university athletics sources"
+            git pull --rebase origin main
+            git push
+          fi
