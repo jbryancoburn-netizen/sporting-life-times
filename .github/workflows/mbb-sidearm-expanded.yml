@@ -22,11 +22,12 @@ jobs:
       - name: Apply tested Sidearm reader across all schools with official source URLs
         run: FULL=1 START=0 END=365 REPORT=sidearm-expanded APPLY=1 python scripts/mbb_sidearm_verified_reader.py
       - run: python scripts/mbb_live_quality_audit.py
+      - run: python scripts/mbb_build_university_master.py
       - name: Publish corrected schedules and independent audit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-schedules-2026-27/ data/mbb-sidearm-expanded.json data/mbb-live-quality-audit-2026-27.json
+          git add data/mbb-schedules-2026-27/ data/mbb-sidearm-expanded.json data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json
           git commit -m "Apply verified Sidearm reader to 365 teams and publish audit" || exit 0
           for attempt in 1 2 3 4 5; do
             git pull --rebase origin main && git push && exit 0
