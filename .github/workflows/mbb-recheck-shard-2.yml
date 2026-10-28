@@ -1,0 +1,33 @@
+name: MBB official recheck shard 2 (100-200)
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-recheck-shard-2.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    env:
+      BATCH_START: '100'
+      BATCH_END: '200'
+      BATCH_NAME: 'shard-2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_official_recheck_sharded.py
+      - name: Commit official corrections and results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-official-recheck-shard-2-verification.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Verify official MBB schedule shard 2"
+            git pull --rebase origin main
+            git push
+          fi
