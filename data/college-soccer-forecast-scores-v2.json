@@ -3,16 +3,16 @@
   "brier_definition": "Sum of squared errors across away/draw/home; range 0 to 2.",
   "cohorts": {
     "men-d1": {
-      "mean_brier_score": 0.61115094,
-      "mean_log_loss": 1.01904133,
-      "pick_accuracy": 0.49275362,
+      "mean_brier_score": 0.5995627,
+      "mean_log_loss": 1.00011453,
+      "pick_accuracy": 0.50724638,
       "scored": 69,
       "unambiguous_picks": 69
     },
     "men-d2": {
-      "mean_brier_score": 0.51255361,
-      "mean_log_loss": 0.87614818,
-      "pick_accuracy": 0.60526316,
+      "mean_brier_score": 0.50808874,
+      "mean_log_loss": 0.86955364,
+      "pick_accuracy": 0.61842105,
       "scored": 76,
       "unambiguous_picks": 76
     },
@@ -31,16 +31,16 @@
       "unambiguous_picks": 128
     },
     "women-d2": {
-      "mean_brier_score": 0.51839386,
-      "mean_log_loss": 0.88463779,
-      "pick_accuracy": 0.59375,
+      "mean_brier_score": 0.49708978,
+      "mean_log_loss": 0.85461602,
+      "pick_accuracy": 0.61458333,
       "scored": 96,
       "unambiguous_picks": 96
     },
     "women-d3": {
-      "mean_brier_score": 0.42319598,
-      "mean_log_loss": 0.74568232,
-      "pick_accuracy": 0.70625,
+      "mean_brier_score": 0.41507256,
+      "mean_log_loss": 0.73330097,
+      "pick_accuracy": 0.7125,
       "scored": 160,
       "unambiguous_picks": 160
     }
@@ -49,9 +49,9 @@
   "model_archive": "data/college-soccer-prospective-v2.json",
   "note": "Only exact match IDs and matching teams from verified final ledger are scored. Historical matches cannot count toward prospective validation.",
   "overall": {
-    "mean_brier_score": 0.51174805,
-    "mean_log_loss": 0.87483756,
-    "pick_accuracy": 0.60818713,
+    "mean_brier_score": 0.5051927,
+    "mean_log_loss": 0.86508575,
+    "pick_accuracy": 0.61549708,
     "scored": 684,
     "unambiguous_picks": 684
   },
@@ -575,12 +575,12 @@
       "source_game": "https://www.ncaa.com/game/6616180"
     },
     {
-      "brier_score": 0.89095037,
+      "brier_score": 0.63272743,
       "cohort": "men-d1",
       "correct_pick": false,
-      "log_loss": 1.47013438,
+      "log_loss": 1.02441601,
       "match_id": "men-6616202",
-      "outcome": "draw",
+      "outcome": "away",
       "pick": "home",
       "source_game": "https://www.ncaa.com/game/6616202"
     },
@@ -855,22 +855,22 @@
       "source_game": "https://www.ncaa.com/game/6617084"
     },
     {
-      "brier_score": 0.86384444,
+      "brier_score": 0.48172802,
       "cohort": "men-d1",
-      "correct_pick": false,
-      "log_loss": 1.4106491,
+      "correct_pick": true,
+      "log_loss": 0.83231024,
       "match_id": "men-6617093",
-      "outcome": "draw",
+      "outcome": "home",
       "pick": "home",
       "source_game": "https://www.ncaa.com/game/6617093"
     },
     {
-      "brier_score": 0.86186895,
+      "brier_score": 0.70261977,
       "cohort": "men-d1",
       "correct_pick": false,
-      "log_loss": 1.40845654,
+      "log_loss": 1.12656436,
       "match_id": "men-6617098",
-      "outcome": "draw",
+      "outcome": "away",
       "pick": "home",
       "source_game": "https://www.ncaa.com/game/6617098"
     },
@@ -1325,12 +1325,12 @@
       "source_game": "https://www.ncaa.com/game/6618057"
     },
     {
-      "brier_score": 0.8271226,
+      "brier_score": 0.48779214,
       "cohort": "men-d2",
-      "correct_pick": false,
-      "log_loss": 1.34418459,
+      "correct_pick": true,
+      "log_loss": 0.84299968,
       "match_id": "men-6618072",
-      "outcome": "draw",
+      "outcome": "home",
       "pick": "home",
       "source_game": "https://www.ncaa.com/game/6618072"
     },
@@ -4925,12 +4925,12 @@
       "source_game": "https://www.ncaa.com/game/6610931"
     },
     {
-      "brier_score": 1.01398806,
+      "brier_score": 0.24852992,
       "cohort": "women-d2",
-      "correct_pick": false,
-      "log_loss": 1.55921634,
+      "correct_pick": true,
+      "log_loss": 0.52251049,
       "match_id": "women-6610944",
-      "outcome": "draw",
+      "outcome": "away",
       "pick": "away",
       "source_game": "https://www.ncaa.com/game/6610944"
     },
@@ -5265,12 +5265,12 @@
       "source_game": "https://www.ncaa.com/game/6611663"
     },
     {
-      "brier_score": 1.36620192,
+      "brier_score": 0.08646856,
       "cohort": "women-d2",
-      "correct_pick": false,
-      "log_loss": 2.11994592,
+      "correct_pick": true,
+      "log_loss": 0.27456212,
       "match_id": "women-6611673",
-      "outcome": "home",
+      "outcome": "away",
       "pick": "away",
       "source_game": "https://www.ncaa.com/game/6611673"
     },
@@ -5835,12 +5835,12 @@
       "source_game": "https://www.ncaa.com/game/6613001"
     },
     {
-      "brier_score": 1.39135945,
+      "brier_score": 0.09161325,
       "cohort": "women-d3",
-      "correct_pick": false,
-      "log_loss": 2.26357575,
+      "correct_pick": true,
+      "log_loss": 0.28256038,
       "match_id": "women-6613013",
-      "outcome": "draw",
+      "outcome": "home",
       "pick": "home",
       "source_game": "https://www.ncaa.com/game/6613013"
     },
