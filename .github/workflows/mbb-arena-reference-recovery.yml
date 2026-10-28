@@ -1,0 +1,29 @@
+name: MBB arena references diagnostic recovery
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-arena-reference-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_100_arena_references.py
+      - name: Publish report and candidates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-arena-registry.json data/mbb-100-arena-reference-import.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish diagnosed MBB arena directory import"
+            git pull --rebase origin main
+            git push
+          fi
