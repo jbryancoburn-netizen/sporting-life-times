@@ -74,5 +74,13 @@ payload={
           for key,records in sorted(teams.items())}
 }
 out=root/'data/college-soccer-team-game-index.json'
+# This newspaper certification pass changes only Division I men's records.
+# Preserve all other cohorts verbatim from the previously published index.
+if out.exists():
+    previous=json.loads(out.read_text())
+    for key, entry in previous.get('teams', {}).items():
+        if not key.startswith('men-d1:'):
+            payload['teams'][key]=entry
+    payload['teams']=dict(sorted(payload['teams'].items()))
 out.write_text(json.dumps(payload,indent=2,ensure_ascii=False)+'\n')
 print('Team game index:',len(teams),'teams,',len(by_match),'finals,',len(unresolved),'unresolved identities')
