@@ -57,6 +57,10 @@ for forecast in archive['forecasts']:
             'source_url':forecast.get('source_game'),
             'source_type':'timestamped_pregame_forecast'
         }
+for row in elo['cohorts']['men-d1']:
+    # Make every Division I men's program discoverable without inventing games.
+    teams.setdefault('men-d1:'+row['team_id'], {})
+
 payload={
  'schema_version':1,
  'source_elo_as_of':elo.get('as_of'),
