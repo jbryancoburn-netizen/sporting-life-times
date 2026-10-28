@@ -11,7 +11,14 @@ on:
       - '**/*.css'
       - 'assets/**'
       - '.github/workflows/publish-newspaper.yml'
+      - 'data/nba-*.json'
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - NBA Elo verified final-game refresh
+      - Official NBA game-center refresh
+    types: [completed]
+    branches: [main]
   schedule:
     - cron: '4,14,24,34,44,54 * * * *'
 permissions:
