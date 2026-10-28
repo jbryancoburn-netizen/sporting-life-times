@@ -1,0 +1,33 @@
+name: MBB four-school duplicate cleanup and verified rematch
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-four-school-dedup.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  dedup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/mbb_four_school_duplicate_cleanup.py
+      - name: Rematch official Sidearm games once per canonical schedule row
+        run: FULL=1 START=0 END=365 REPORT=sidearm-after-dedup APPLY=1 python scripts/mbb_sidearm_verified_reader.py
+      - run: python scripts/mbb_live_quality_audit.py
+      - name: Publish clean schedule and verification report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-four-school-duplicate-cleanup.json data/mbb-sidearm-after-dedup.json data/mbb-live-quality-audit-2026-27.json
+          git commit -m "Remove proven repeated schedule rows and recertify unique official Sidearm games" || exit 0
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 4
+          done
+          exit 1
