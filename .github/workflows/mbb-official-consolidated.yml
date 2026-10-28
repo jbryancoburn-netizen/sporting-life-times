@@ -1,0 +1,44 @@
+name: MBB official source verification consolidated
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-official-consolidated.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-official-consolidated
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - name: Verify four bounded groups
+        shell: bash
+        run: |
+          for i in 1 2 3 4; do
+            start=$(( (i-1)*100 ))
+            end=$(( i*100 ))
+            if [ "$end" -gt 365 ]; then end=365; fi
+            BATCH_START="$start" BATCH_END="$end" BATCH_NAME="shard-$i" python scripts/mbb_official_recheck_reliable.py || echo "Verification shard $i FAILED" >> data/mbb-shard-failures.txt
+          done
+      - name: Produce post-run quality audit
+        run: python scripts/mbb_live_quality_audit.py
+      - name: Publish reports and schedule changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-official-recheck-shard-*-verification.json data/mbb-live-quality-audit-2026-27.json
+          git commit -m "Publish 365-school official recheck and fresh MBB quality totals" || exit 0
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 4
+          done
+          exit 1
