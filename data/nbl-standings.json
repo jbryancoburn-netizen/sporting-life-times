@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-10-28T05:53:16.483974+00:00",
-  "games_replayed": 43,
+  "updated_at": "2026-10-28T13:09:18.901178+00:00",
+  "games_replayed": 44,
   "teams": 10,
   "rows": [
     {
@@ -21,24 +21,24 @@
       "points_pct": 105.61
     },
     {
-      "team": "Perth Wildcats",
-      "wins": 5,
-      "losses": 2,
-      "played": 7,
-      "win_pct": 0.714,
-      "points_for": 650,
-      "points_against": 666,
-      "points_pct": 97.6
+      "team": "Sydney Kings",
+      "wins": 6,
+      "losses": 3,
+      "played": 9,
+      "win_pct": 0.667,
+      "points_for": 908,
+      "points_against": 813,
+      "points_pct": 111.69
     },
     {
-      "team": "Sydney Kings",
+      "team": "Perth Wildcats",
       "wins": 5,
       "losses": 3,
       "played": 8,
       "win_pct": 0.625,
-      "points_for": 809,
-      "points_against": 722,
-      "points_pct": 112.05
+      "points_for": 741,
+      "points_against": 765,
+      "points_pct": 96.86
     },
     {
       "team": "Cairns Taipans",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875292",
+      "played_at": "2026-10-28T10:30Z",
+      "home": "Perth Wildcats",
+      "away": "Sydney Kings",
+      "home_score": 91,
+      "away_score": 99,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875292/kings-wildcats",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875284",
       "played_at": "2026-10-25T06:00Z",
@@ -216,18 +228,6 @@
       "home_score": 98,
       "away_score": 92,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875281/breakers-jackjumpers",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875271",
-      "played_at": "2026-10-17T08:30Z",
-      "home": "Sydney Kings",
-      "away": "Perth Wildcats",
-      "home_score": 102,
-      "away_score": 81,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875271/wildcats-kings",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
