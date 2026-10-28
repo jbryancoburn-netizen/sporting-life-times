@@ -12,6 +12,9 @@ def build():
     directory=read("data/college-soccer-conferences.json")["conferences"]
     projections=read("data/college-soccer-projected-standings.json")["conferences"]
     elo=read("data/college-soccer-elo.json")
+    audit=read("data/college-soccer-elo-live-audit.json")
+    if audit.get("published_as_of")!=elo.get("as_of") or audit.get("applied_finals")!=elo.get("applied_finals_since_baseline"):
+        raise ValueError("Elo audit and ratings do not agree; refuse to publish mismatched tournament projections")
     rules=read("data/college-soccer-postseason-rules.json")
     ratings={r["team_id"]:r for r in elo["cohorts"]["men-d1"]}
     conferences={k:v for k,v in directory.items() if k.startswith("men-d1:")}
@@ -60,6 +63,7 @@ def build():
       "selection_date":"2026-11-16","field_size":48,"automatic_bids":23,"at_large_bids":25,
       "seeded_teams":24,"first_round_byes":16,
       "status":"usrs_hypothetical_ncaa_committee_provisional",
+      "elo_reconciliation":{"audit_status":audit.get("status"),"source_certified":audit.get("certified") is True,"excluded_finals":audit.get("excluded_finals",0),"quarantined_source_rows":audit.get("quarantined_final_rows",0),"source_checked_through":audit.get("checked_through"),"warning":"Selection forecast is provisional until source quarantines and excluded games have been reconciled"},
       "selection_policy":{"field":"23 conference automatic qualifiers plus 25 at-large",
        "usrs_role":"Independent Elo is the hypothetical NCAA committee's evaluation and seed-order metric",
        "at_large_record_gate":"provisional DI .500 proxy from 2025-26 manual; DI-only records pending verification",
