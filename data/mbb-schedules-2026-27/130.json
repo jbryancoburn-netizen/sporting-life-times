@@ -940,12 +940,12 @@
       "official_time": "7:00 PM",
       "name": "Illinois",
       "school_source_url": "https://mgoblue.com/sports/mens-basketball/schedule/text",
-      "neutralSite": true,
+      "neutralSite": false,
       "competitions": [
         {
           "competitors": [
             {
-              "homeAway": "neutral",
+              "homeAway": "home",
               "team": {
                 "id": "130",
                 "displayName": "Michigan Wolverines",
@@ -953,7 +953,7 @@
               }
             },
             {
-              "homeAway": "neutral",
+              "homeAway": "away",
               "team": {
                 "id": "356",
                 "displayName": "Illinois Fighting Illini",
@@ -967,7 +967,10 @@
           "broadcasts": []
         }
       ],
-      "official_source": true
+      "official_source": true,
+      "site_verified": true,
+      "site_source_url": "https://fightingillini.com/sports/mens-basketball/schedule/text/2026-27",
+      "site_verified_via": "reciprocal_official_opponent_schedule"
     },
     {
       "id": "school-130-2027-02-13-29",

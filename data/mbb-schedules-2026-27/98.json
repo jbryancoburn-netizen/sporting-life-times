@@ -367,12 +367,12 @@
       "official_time": "5:00 PM",
       "name": "Illinois",
       "school_source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27",
-      "neutralSite": true,
+      "neutralSite": false,
       "competitions": [
         {
           "competitors": [
             {
-              "homeAway": "neutral",
+              "homeAway": "away",
               "team": {
                 "id": "98",
                 "displayName": "Western Kentucky Hilltoppers",
@@ -380,7 +380,7 @@
               }
             },
             {
-              "homeAway": "neutral",
+              "homeAway": "home",
               "team": {
                 "id": "356",
                 "displayName": "Illinois Fighting Illini",
@@ -394,7 +394,10 @@
           "broadcasts": []
         }
       ],
-      "official_source": true
+      "official_source": true,
+      "site_verified": true,
+      "site_source_url": "https://fightingillini.com/sports/mens-basketball/schedule/text/2026-27",
+      "site_verified_via": "reciprocal_official_opponent_schedule"
     },
     {
       "id": "school-98-2026-12-01-10",
