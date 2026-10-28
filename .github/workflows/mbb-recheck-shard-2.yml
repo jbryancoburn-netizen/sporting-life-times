@@ -4,6 +4,9 @@ on:
     paths:
       - '.github/workflows/mbb-recheck-shard-2.yml'
   workflow_dispatch:
+concurrency:
+  group: mbb-official-shard-serialized-publisher
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -28,6 +31,9 @@ jobs:
           git add data/mbb-schedules-2026-27/ data/mbb-official-recheck-shard-2-verification.json
           if ! git diff --cached --quiet; then
             git commit -m "Verify official MBB schedule shard 2"
-            git pull --rebase origin main
-            git push
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep 3
+            done
+            exit 1
           fi
