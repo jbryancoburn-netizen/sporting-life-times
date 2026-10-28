@@ -24,3 +24,10 @@
 #bowl-content #cfp-predictor .bowl-team small{font-size:12px!important}
 #bowl-content .bowl-match{gap:8px}
 }
+
+/* Inside the navy feature, nested WHITE projection cards must retain dark ink. */
+#bowl-content .bowl-feature .bowl-card .bowl-team,
+#bowl-content .bowl-feature .bowl-card .bowl-team strong,
+#bowl-content .bowl-feature .bowl-card .bowl-match>strong{color:#142338!important}
+#bowl-content .bowl-feature .bowl-card .bowl-team small{color:#3d4c62!important}
+#bowl-content .bowl-feature .bowl-card .bowl-meta{color:#3d4c62!important}
