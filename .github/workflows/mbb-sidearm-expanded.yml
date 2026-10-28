@@ -1,0 +1,35 @@
+name: MBB expanded verified Sidearm correction
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-sidearm-expanded.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mbb-sidearm-expanded-publisher
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - name: Apply tested Sidearm reader across all schools with official source URLs
+        run: FULL=1 START=0 END=365 REPORT=sidearm-expanded APPLY=1 python scripts/mbb_sidearm_verified_reader.py
+      - run: python scripts/mbb_live_quality_audit.py
+      - name: Publish corrected schedules and independent audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-sidearm-expanded.json data/mbb-live-quality-audit-2026-27.json
+          git commit -m "Apply verified Sidearm reader to 365 teams and publish audit" || exit 0
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 4
+          done
+          exit 1
