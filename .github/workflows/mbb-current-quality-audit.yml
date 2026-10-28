@@ -4,6 +4,7 @@ on:
     paths:
       - '.github/workflows/mbb-current-quality-audit.yml'
       - 'scripts/mbb_live_quality_audit.py'
+      - 'data/mbb-arena-registry.json'
   workflow_dispatch:
 permissions:
   contents: write
