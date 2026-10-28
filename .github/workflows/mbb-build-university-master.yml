@@ -1,0 +1,32 @@
+name: Generate university MBB master document (on-demand)
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-build-university-master.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build CSV and JSON manifest from existing school records
+        run: python scripts/mbb_build_university_master.py
+      - name: Verify output
+        run: |
+          test -s data/mbb-university-master-2026-27.csv
+          test -s data/mbb-university-master-2026-27.json
+          python -c "import json;d=json.load(open('data/mbb-university-master-2026-27.json'));assert d['summary']['schools']==365"
+      - name: Publish static site data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json
+          git commit -m "Publish 365-school master schedule CSV and JSON manifest" || exit 0
+          git pull --rebase origin main
+          git push
