@@ -1,0 +1,30 @@
+name: MBB quarantine duplicate Sidearm matches and re-audit
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-sidearm-quarantine.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  quarantine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/mbb_sidearm_quarantine.py
+      - run: python scripts/mbb_live_quality_audit.py
+      - name: Publish quarantine and defensible audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-sidearm-quarantine-report.json data/mbb-live-quality-audit-2026-27.json
+          git commit -m "Quarantine ambiguous Sidearm matches and recalculate verified sites" || exit 0
+          for n in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 3
+          done
+          exit 1
