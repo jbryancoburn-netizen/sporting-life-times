@@ -54,7 +54,8 @@ def score_forecasts(archive, ledger, now):
         if g is None:
             continue
         if any(g[k] != f[k] for k in ('home_team', 'away_team')) or g['gender'] != gender or g['source_game'] != f['source_game']:
-            raise ValueError('forecast/final identity mismatch')
+            quarantined.append({'match_id': gid, 'reason': 'forecast/final identity mismatch', 'forecast_home': f['home_team'], 'forecast_away': f['away_team'], 'final_home': g['home_team'], 'final_away': g['away_team'], 'forecast_source': f['source_game'], 'final_source': g['source_game']})
+            continue
         if kickoff > now or g['date'] != kickoff.astimezone(ZoneInfo('America/New_York')).date().isoformat():
             quarantined.append({'match_id': gid, 'reason': 'final contradicts locked kickoff time or date; review schedule', 'kickoff_utc': f['kickoff_utc'], 'final_date': g['date']})
             continue
