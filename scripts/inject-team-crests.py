@@ -14,6 +14,8 @@ ROOT=Path(__file__).resolve().parents[1]
 CSS='<link rel="stylesheet" href="shared-team-crests.css?v=20261026cfb4">'
 JS='<script src="shared-team-crests.js?v=20261027nbaexclusion14" defer></script>'
 TAG=CSS+JS
+FAVICON='<script src="site-tab-icons.js?v=20261028allpapers1" defer></script>'
+assert (ROOT/'site-tab-icons.js').is_file(), 'Universal browser tab icon controller missing'
 CHECK='--check' in sys.argv
 assert (ROOT/"shared-team-crests.css").is_file(), "Team crest stylesheet missing"
 assert (ROOT/"shared-team-crests.js").is_file(), "Team crest runtime missing"
@@ -26,6 +28,13 @@ for path in files:
     if not re.search(r"</head\s*>",source,re.IGNORECASE):
         continue
     eligible+=1
+    if 'site-tab-icons.js' not in source:
+        if CHECK:
+            missing.append(path.name + ' missing contextual browser icon')
+        else:
+            source=re.sub(r'</head\\s*>',lambda match:FAVICON+match.group(),source,count=1,flags=re.I)
+            path.write_text(source,encoding='utf-8')
+            changed+=1
     # NBA provides its own single-ring logo system. Never inject the global DOM wrapper.
     if re.match(r"nba(?:[-.]|$)", path.name, re.IGNORECASE):
         if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
