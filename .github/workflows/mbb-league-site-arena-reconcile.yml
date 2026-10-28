@@ -1,0 +1,28 @@
+name: MBB reconcile verified home away and arena across all schools
+on:
+  push:
+    paths:
+      - '.github/workflows/mbb-league-site-arena-reconcile.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/mbb_league_site_arena_reconcile.py
+      - name: Publish normalized schedules and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/mbb-schedules-2026-27/ data/mbb-league-site-arena-reconciliation.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Reconcile verified MBB home away and venue defaults across 365 schools"
+            git pull --rebase origin main
+            git push
+          fi
