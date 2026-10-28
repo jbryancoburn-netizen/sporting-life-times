@@ -1,0 +1,2575 @@
+{
+  "created_utc": "2026-10-28T14:38:44.887788+00:00",
+  "method": "Read all 365 files; delete only exact JSON duplicate game objects. Preserve conflicting matchups and unverified facts for source review.",
+  "summary": {
+    "site_unverified": 10205,
+    "arena_unverified": 8917,
+    "tipoff_missing": 5239,
+    "network_missing": 12097,
+    "opponent_id_missing": 1525,
+    "logo_missing": 1528,
+    "schools_scanned": 365,
+    "games_after_exact_dedupe": 12147,
+    "city_unverified": 5353,
+    "possible_duplicate_matchup": 162,
+    "opponent_outside_d1": 3,
+    "schools_targeted": 365
+  },
+  "schools": [
+    {
+      "school": "A&M-Corpus Christi",
+      "espn_id": "357",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Abilene Christian",
+      "espn_id": "2000",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Air Force",
+      "espn_id": "2005",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Akron",
+      "espn_id": "2006",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Alabama",
+      "espn_id": "333",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Alabama A&M",
+      "espn_id": "2010",
+      "games": 46,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Alabama St.",
+      "espn_id": "2011",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Alcorn",
+      "espn_id": "2016",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "American",
+      "espn_id": "44",
+      "games": 39,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "App State",
+      "espn_id": "2026",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Arizona",
+      "espn_id": "12",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Arizona St.",
+      "espn_id": "9",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Ark.-Pine Bluff",
+      "espn_id": "2029",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Arkansas",
+      "espn_id": "8",
+      "games": 22,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Arkansas St.",
+      "espn_id": "2032",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Army West Point",
+      "espn_id": "349",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Auburn",
+      "espn_id": "2",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Austin Peay",
+      "espn_id": "2046",
+      "games": 38,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Ball St.",
+      "espn_id": "2050",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Baylor",
+      "espn_id": "239",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Bellarmine",
+      "espn_id": "91",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Belmont",
+      "espn_id": "2057",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Bethune-Cookman",
+      "espn_id": "2065",
+      "games": 135,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Binghamton",
+      "espn_id": "2066",
+      "games": 139,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Boise St.",
+      "espn_id": "68",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Boston College",
+      "espn_id": "103",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Boston U.",
+      "espn_id": "104",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Bowling Green",
+      "espn_id": "189",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Bradley",
+      "espn_id": "71",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Brown",
+      "espn_id": "225",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Bryant",
+      "espn_id": "2803",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Bucknell",
+      "espn_id": "2083",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Buffalo",
+      "espn_id": "2084",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Butler",
+      "espn_id": "2086",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "BYU",
+      "espn_id": "252",
+      "games": 25,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Cal Poly",
+      "espn_id": "13",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Cal St. Fullerton",
+      "espn_id": "2239",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "California",
+      "espn_id": "25",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "California Baptist",
+      "espn_id": "2856",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Campbell",
+      "espn_id": "2097",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Canisius",
+      "espn_id": "2099",
+      "games": 37,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Central Ark.",
+      "espn_id": "2110",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Central Conn. St.",
+      "espn_id": "2115",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Central Mich.",
+      "espn_id": "2117",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Charleston So.",
+      "espn_id": "2127",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Charlotte",
+      "espn_id": "2429",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Chattanooga",
+      "espn_id": "236",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Chicago St.",
+      "espn_id": "2130",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Cincinnati",
+      "espn_id": "2132",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Clemson",
+      "espn_id": "228",
+      "games": 23,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Cleveland St.",
+      "espn_id": "325",
+      "games": 127,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Coastal Carolina",
+      "espn_id": "324",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Col. of Charleston",
+      "espn_id": "232",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Colgate",
+      "espn_id": "2142",
+      "games": 195,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Colorado",
+      "espn_id": "38",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Colorado St.",
+      "espn_id": "36",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Columbia",
+      "espn_id": "171",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Coppin St.",
+      "espn_id": "2154",
+      "games": 131,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Cornell",
+      "espn_id": "172",
+      "games": 27,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Creighton",
+      "espn_id": "156",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "CSU Bakersfield",
+      "espn_id": "2934",
+      "games": 21,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "CSUN",
+      "espn_id": "2463",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Dartmouth",
+      "espn_id": "159",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Davidson",
+      "espn_id": "2166",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Dayton",
+      "espn_id": "2168",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Delaware",
+      "espn_id": "48",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Delaware St.",
+      "espn_id": "2169",
+      "games": 14,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Denver",
+      "espn_id": "2172",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "DePaul",
+      "espn_id": "305",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Detroit Mercy",
+      "espn_id": "2174",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Drake",
+      "espn_id": "2181",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Drexel",
+      "espn_id": "2182",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Duke",
+      "espn_id": "150",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Duquesne",
+      "espn_id": "2184",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "East Carolina",
+      "espn_id": "151",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "East Texas A&M",
+      "espn_id": "2837",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Eastern Ill.",
+      "espn_id": "2197",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Eastern Ky.",
+      "espn_id": "2198",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Eastern Mich.",
+      "espn_id": "2199",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Eastern Wash.",
+      "espn_id": "331",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Elon",
+      "espn_id": "2210",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "ETSU",
+      "espn_id": "2193",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Evansville",
+      "espn_id": "339",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Fairfield",
+      "espn_id": "2217",
+      "games": 24,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "FDU",
+      "espn_id": "161",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "FGCU",
+      "espn_id": "526",
+      "games": 42,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "FIU",
+      "espn_id": "2229",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Fla. Atlantic",
+      "espn_id": "2226",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Florida",
+      "espn_id": "57",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Florida A&M",
+      "espn_id": "50",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Florida St.",
+      "espn_id": "52",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Fordham",
+      "espn_id": "2230",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Fresno St.",
+      "espn_id": "278",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Furman",
+      "espn_id": "231",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Ga. Southern",
+      "espn_id": "290",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Gardner-Webb",
+      "espn_id": "2241",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "George Mason",
+      "espn_id": "2244",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "George Washington",
+      "espn_id": "45",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Georgetown",
+      "espn_id": "46",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Georgia",
+      "espn_id": "61",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Georgia St.",
+      "espn_id": "2247",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Georgia Tech",
+      "espn_id": "59",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Gonzaga",
+      "espn_id": "2250",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Grambling",
+      "espn_id": "2755",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Grand Canyon",
+      "espn_id": "2253",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Green Bay",
+      "espn_id": "2739",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Hampton",
+      "espn_id": "2261",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Harvard",
+      "espn_id": "108",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Hawaii",
+      "espn_id": "62",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "High Point",
+      "espn_id": "2272",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Hofstra",
+      "espn_id": "2275",
+      "games": 37,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Holy Cross",
+      "espn_id": "107",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Houston",
+      "espn_id": "248",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Houston Christian",
+      "espn_id": "2277",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Howard",
+      "espn_id": "47",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Idaho",
+      "espn_id": "70",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Idaho St.",
+      "espn_id": "304",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Illinois",
+      "espn_id": "356",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Illinois St.",
+      "espn_id": "2287",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Indiana",
+      "espn_id": "84",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Indiana St.",
+      "espn_id": "282",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Iona",
+      "espn_id": "314",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Iowa",
+      "espn_id": "2294",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Iowa St.",
+      "espn_id": "66",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "IU Indy",
+      "espn_id": "85",
+      "games": 37,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Jackson St.",
+      "espn_id": "2296",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Jacksonville",
+      "espn_id": "294",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Jacksonville St.",
+      "espn_id": "55",
+      "games": 23,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "James Madison",
+      "espn_id": "256",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Kansas",
+      "espn_id": "2305",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Kansas City",
+      "espn_id": "140",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Kansas St.",
+      "espn_id": "2306",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Kennesaw St.",
+      "espn_id": "338",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Kent St.",
+      "espn_id": "2309",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Kentucky",
+      "espn_id": "96",
+      "games": 24,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "La Salle",
+      "espn_id": "2325",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Lafayette",
+      "espn_id": "322",
+      "games": 22,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Lamar University",
+      "espn_id": "2320",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Le Moyne",
+      "espn_id": "2330",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Lehigh",
+      "espn_id": "2329",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Liberty",
+      "espn_id": "2335",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Lindenwood",
+      "espn_id": "2815",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Lipscomb",
+      "espn_id": "288",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Little Rock",
+      "espn_id": "2031",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "LIU",
+      "espn_id": "112358",
+      "games": 24,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "LMU (CA)",
+      "espn_id": "2351",
+      "games": 39,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Long Beach St.",
+      "espn_id": "299",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Longwood",
+      "espn_id": "2344",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Louisiana",
+      "espn_id": "309",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Louisiana Tech",
+      "espn_id": "2348",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Louisville",
+      "espn_id": "97",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Loyola Chicago",
+      "espn_id": "2350",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Loyola Maryland",
+      "espn_id": "2352",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "LSU",
+      "espn_id": "99",
+      "games": 24,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Maine",
+      "espn_id": "311",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Manhattan",
+      "espn_id": "2363",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Marist",
+      "espn_id": "2368",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Marquette",
+      "espn_id": "269",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Marshall",
+      "espn_id": "276",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Maryland",
+      "espn_id": "120",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Massachusetts",
+      "espn_id": "113",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "McNeese",
+      "espn_id": "2377",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Memphis",
+      "espn_id": "235",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Mercer",
+      "espn_id": "2382",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Mercyhurst",
+      "espn_id": "2385",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Merrimack",
+      "espn_id": "2771",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Miami (FL)",
+      "espn_id": "2390",
+      "games": 9,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Miami (OH)",
+      "espn_id": "193",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Michigan",
+      "espn_id": "130",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Michigan St.",
+      "espn_id": "127",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Middle Tenn.",
+      "espn_id": "2393",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Milwaukee",
+      "espn_id": "270",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Minnesota",
+      "espn_id": "135",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Mississippi St.",
+      "espn_id": "344",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Mississippi Val.",
+      "espn_id": "2400",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Missouri",
+      "espn_id": "142",
+      "games": 46,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Missouri St.",
+      "espn_id": "2623",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Monmouth",
+      "espn_id": "2405",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Montana",
+      "espn_id": "149",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Montana St.",
+      "espn_id": "147",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Morehead St.",
+      "espn_id": "2413",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Morgan St.",
+      "espn_id": "2415",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Mount St. Mary's",
+      "espn_id": "116",
+      "games": 37,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Murray St.",
+      "espn_id": "93",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "N.C. A&T",
+      "espn_id": "2448",
+      "games": 18,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "N.C. Central",
+      "espn_id": "2428",
+      "games": 24,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Navy",
+      "espn_id": "2426",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "NC State",
+      "espn_id": "152",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Nebraska",
+      "espn_id": "158",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Nevada",
+      "espn_id": "2440",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "New Hampshire",
+      "espn_id": "160",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "New Haven",
+      "espn_id": "2441",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "New Mexico",
+      "espn_id": "167",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "New Mexico St.",
+      "espn_id": "166",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "New Orleans",
+      "espn_id": "2443",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Niagara",
+      "espn_id": "315",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Nicholls",
+      "espn_id": "2447",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "NIU",
+      "espn_id": "2459",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "NJIT",
+      "espn_id": "2885",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Norfolk St.",
+      "espn_id": "2450",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "North Ala.",
+      "espn_id": "2453",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "North Carolina",
+      "espn_id": "153",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "North Dakota",
+      "espn_id": "155",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "North Dakota St.",
+      "espn_id": "2449",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "North Florida",
+      "espn_id": "2454",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "North Texas",
+      "espn_id": "249",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Northeastern",
+      "espn_id": "111",
+      "games": 5,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Northern Ariz.",
+      "espn_id": "2464",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Northern Colo.",
+      "espn_id": "2458",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Northern Ky.",
+      "espn_id": "94",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Northwestern",
+      "espn_id": "77",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Northwestern St.",
+      "espn_id": "2466",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Notre Dame",
+      "espn_id": "87",
+      "games": 26,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Oakland",
+      "espn_id": "2473",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Ohio",
+      "espn_id": "195",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Ohio St.",
+      "espn_id": "194",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Oklahoma",
+      "espn_id": "201",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Oklahoma St.",
+      "espn_id": "197",
+      "games": 39,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Old Dominion",
+      "espn_id": "295",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Ole Miss",
+      "espn_id": "145",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Omaha",
+      "espn_id": "2437",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Oral Roberts",
+      "espn_id": "198",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Oregon",
+      "espn_id": "2483",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Oregon St.",
+      "espn_id": "204",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Pacific",
+      "espn_id": "279",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Penn",
+      "espn_id": "219",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Penn St.",
+      "espn_id": "213",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Pepperdine",
+      "espn_id": "2492",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Pittsburgh",
+      "espn_id": "221",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Portland",
+      "espn_id": "2501",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Portland St.",
+      "espn_id": "2502",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Prairie View",
+      "espn_id": "2504",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Presbyterian",
+      "espn_id": "2506",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Princeton",
+      "espn_id": "163",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Providence",
+      "espn_id": "2507",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Purdue",
+      "espn_id": "2509",
+      "games": 25,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Purdue Fort Wayne",
+      "espn_id": "2870",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Queens (NC)",
+      "espn_id": "2511",
+      "games": 38,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Quinnipiac",
+      "espn_id": "2514",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Radford",
+      "espn_id": "2515",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Rhode Island",
+      "espn_id": "227",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Rice",
+      "espn_id": "242",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Richmond",
+      "espn_id": "257",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Rider",
+      "espn_id": "2520",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Robert Morris",
+      "espn_id": "2523",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Rutgers",
+      "espn_id": "164",
+      "games": 27,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Sacramento St.",
+      "espn_id": "16",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Sacred Heart",
+      "espn_id": "2529",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Saint Joseph's",
+      "espn_id": "2603",
+      "games": 25,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Saint Louis",
+      "espn_id": "139",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Saint Mary's (CA)",
+      "espn_id": "2608",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Saint Peter's",
+      "espn_id": "2612",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Sam Houston",
+      "espn_id": "2534",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Samford",
+      "espn_id": "2535",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "San Diego",
+      "espn_id": "301",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "San Diego St.",
+      "espn_id": "21",
+      "games": 22,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "San Francisco",
+      "espn_id": "2539",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "San Jose St.",
+      "espn_id": "23",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Santa Clara",
+      "espn_id": "2541",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Seattle U",
+      "espn_id": "2547",
+      "games": 26,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Seton Hall",
+      "espn_id": "2550",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "SFA",
+      "espn_id": "2617",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Siena",
+      "espn_id": "2561",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "SIUE",
+      "espn_id": "2565",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "SMU",
+      "espn_id": "2567",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "South Alabama",
+      "espn_id": "6",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "South Carolina",
+      "espn_id": "2579",
+      "games": 26,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "South Carolina St.",
+      "espn_id": "2569",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "South Dakota",
+      "espn_id": "233",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "South Dakota St.",
+      "espn_id": "2571",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "South Fla.",
+      "espn_id": "58",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southeast Mo. St.",
+      "espn_id": "2546",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southeastern La.",
+      "espn_id": "2545",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southern California",
+      "espn_id": "30",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southern Ill.",
+      "espn_id": "79",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southern Ind.",
+      "espn_id": "88",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southern Miss.",
+      "espn_id": "2572",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southern U.",
+      "espn_id": "2582",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Southern Utah",
+      "espn_id": "253",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "St. Bonaventure",
+      "espn_id": "179",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "St. John's (NY)",
+      "espn_id": "2599",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "St. Thomas (MN)",
+      "espn_id": "2900",
+      "games": 28,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Stanford",
+      "espn_id": "24",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Stetson",
+      "espn_id": "56",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Stonehill",
+      "espn_id": "284",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Stony Brook",
+      "espn_id": "2619",
+      "games": 22,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Syracuse",
+      "espn_id": "183",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Tarleton St.",
+      "espn_id": "2627",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "TCU",
+      "espn_id": "2628",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Temple",
+      "espn_id": "218",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Tennessee",
+      "espn_id": "2633",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Tennessee St.",
+      "espn_id": "2634",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Tennessee Tech",
+      "espn_id": "2635",
+      "games": 30,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Texas",
+      "espn_id": "251",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Texas A&M",
+      "espn_id": "245",
+      "games": 25,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Texas Southern",
+      "espn_id": "2640",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Texas St.",
+      "espn_id": "326",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Texas Tech",
+      "espn_id": "2641",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "The Citadel",
+      "espn_id": "2643",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Toledo",
+      "espn_id": "2649",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Towson",
+      "espn_id": "119",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Troy",
+      "espn_id": "2653",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Tulane",
+      "espn_id": "2655",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Tulsa",
+      "espn_id": "202",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UAB",
+      "espn_id": "5",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UAlbany",
+      "espn_id": "399",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UC Davis",
+      "espn_id": "302",
+      "games": 10,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UC Irvine",
+      "espn_id": "300",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UC Riverside",
+      "espn_id": "27",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UC San Diego",
+      "espn_id": "28",
+      "games": 25,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UC Santa Barbara",
+      "espn_id": "2540",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UCF",
+      "espn_id": "2116",
+      "games": 27,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UCLA",
+      "espn_id": "26",
+      "games": 24,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UConn",
+      "espn_id": "41",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UIC",
+      "espn_id": "82",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UIW",
+      "espn_id": "2916",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "ULM",
+      "espn_id": "2433",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UMass Lowell",
+      "espn_id": "2349",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UMBC",
+      "espn_id": "2378",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UMES",
+      "espn_id": "2379",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UNC Asheville",
+      "espn_id": "2427",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UNC Greensboro",
+      "espn_id": "2430",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UNCW",
+      "espn_id": "350",
+      "games": 39,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UNI",
+      "espn_id": "2460",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UNLV",
+      "espn_id": "2439",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "USC Upstate",
+      "espn_id": "2908",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UT Arlington",
+      "espn_id": "250",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UT Martin",
+      "espn_id": "2630",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Utah",
+      "espn_id": "254",
+      "games": 37,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Utah St.",
+      "espn_id": "328",
+      "games": 26,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Utah Tech",
+      "espn_id": "3101",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Utah Valley",
+      "espn_id": "3084",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UTEP",
+      "espn_id": "2638",
+      "games": 16,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UTRGV",
+      "espn_id": "292",
+      "games": 36,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "UTSA",
+      "espn_id": "2636",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Valparaiso",
+      "espn_id": "2674",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Vanderbilt",
+      "espn_id": "238",
+      "games": 22,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "VCU",
+      "espn_id": "2670",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Vermont",
+      "espn_id": "261",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Villanova",
+      "espn_id": "222",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Virginia",
+      "espn_id": "258",
+      "games": 23,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Virginia Tech",
+      "espn_id": "259",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "VMI",
+      "espn_id": "2678",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wagner",
+      "espn_id": "2681",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wake Forest",
+      "espn_id": "154",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Washington",
+      "espn_id": "264",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Washington St.",
+      "espn_id": "265",
+      "games": 26,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Weber St.",
+      "espn_id": "2692",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "West Florida",
+      "espn_id": "2697",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "West Ga.",
+      "espn_id": "2698",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "West Virginia",
+      "espn_id": "277",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Western Caro.",
+      "espn_id": "2717",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Western Ill.",
+      "espn_id": "2710",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Western Ky.",
+      "espn_id": "98",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Western Mich.",
+      "espn_id": "2711",
+      "games": 31,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wichita St.",
+      "espn_id": "2724",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "William & Mary",
+      "espn_id": "2729",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Winthrop",
+      "espn_id": "2737",
+      "games": 32,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wisconsin",
+      "espn_id": "275",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wofford",
+      "espn_id": "2747",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wright St.",
+      "espn_id": "2750",
+      "games": 33,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Wyoming",
+      "espn_id": "2751",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Xavier",
+      "espn_id": "2752",
+      "games": 35,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Yale",
+      "espn_id": "43",
+      "games": 29,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    },
+    {
+      "school": "Youngstown St.",
+      "espn_id": "2754",
+      "games": 34,
+      "exact_duplicates_removed": 0,
+      "problems": {}
+    }
+  ]
+}
