@@ -1,0 +1,21 @@
+/* One College Basketball Edition: a compact men's / women's switch. */
+.cbb-gender-bar{display:flex;align-items:center;justify-content:center;gap:0;margin:-4px 0 14px;font:700 12px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.3px}
+.cbb-gender-label{font-size:10px;letter-spacing:1.6px;color:var(--muted,#647479);margin-right:15px}
+.cbb-gender-option{display:inline-block;padding:9px 21px;border:1px solid var(--ink,#152a30);text-decoration:none!important;background:transparent;color:var(--ink,#152a30)!important;text-transform:uppercase;letter-spacing:1px}
+.cbb-gender-option+.cbb-gender-option{border-left:0}
+.cbb-gender-option.is-active,.cbb-gender-option[aria-current=page]{background:var(--ink,#152a30);color:#fff!important}
+.cbb-gender-option:hover:not(.is-active){background:#e0e8e4}
+.wbb-hero{grid-template-columns:minmax(0,1fr) minmax(210px,.6fr)}
+.wbb-hero-identity{align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;border:1px solid #ffffff4a;background:#ffffff0a;text-align:center;padding:20px}
+.wbb-hero-identity span{font-size:10px;letter-spacing:1.2px;color:#f4c35d}.wbb-hero-identity strong{font:clamp(46px,6vw,96px)/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:2px}.wbb-hero-identity small{font-size:11px;color:#c6d8d9}
+.wbb-score-card{min-width:min(280px,85vw)}.wbb-score-card .score-team{gap:10px}
+.wbb-team-name{min-width:0;max-width:220px;text-align:left}.wbb-team-name>span:last-child{min-width:0;overflow-wrap:anywhere}
+.wbb-logo{display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:41px;height:41px;border-radius:50%;border:3px solid var(--wbb-team,#0b686d);box-shadow:inset 0 0 0 2px #d79937;background:#f4f5f0;overflow:hidden}
+.wbb-logo img{width:83%;height:83%;object-fit:contain;display:block}.wbb-logo-fallback{font-size:15px;color:var(--wbb-team,#0b686d)}
+.wbb-game-detail{font-size:10px;color:var(--muted,#647479);margin-top:3px}.wbb-game-source{font-size:10px;text-decoration:underline;display:inline-block;margin-top:7px}
+.wbb-feed-disclosure{border-top:1px solid var(--line,#d3d9d6);padding:18px 0}
+@media(max-width:700px){.cbb-gender-bar{margin:0 0 12px;flex-wrap:wrap}.cbb-gender-label{flex-basis:100%;text-align:center;margin:0 0 7px}.cbb-gender-option{padding:9px 24px}.wbb-hero{grid-template-columns:1fr}.wbb-hero-identity{min-height:115px}.wbb-hero-identity strong{font-size:53px}}
+body:not([data-page]) .cbb-gender-option:not(.is-active){color:var(--ink,#152a30)}
+body:not([data-page]) .cbb-gender-bar{margin:12px 0}
+body:not([data-page]) .cbb-gender-label{color:inherit}
+@media(prefers-reduced-motion:reduce){.cbb-gender-option{transition:none}}
