@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/mbb-retro-primary.yml
       - scripts/publish-mbb-retro-primary.js
+      - scripts/collect-mbb-retro-finals.py
       - mbb-retro.js
   schedule:
     # Small calculation job, not a costly full-site deployment: game nights only.
@@ -31,6 +32,10 @@ jobs:
         run: |
           node --check scripts/publish-mbb-retro-primary.js
           node --check mbb-retro.js
+      - name: Collect newly completed NCAA D-I final scores (three-day rolling window)
+        run: |
+          python3 -m py_compile scripts/collect-mbb-retro-finals.py
+          python3 scripts/collect-mbb-retro-finals.py
       - name: Recalculate clean-slate RETRO from real final scores
         run: node scripts/publish-mbb-retro-primary.js
       - name: Validate all 365 published ratings and 1500 reset
@@ -48,7 +53,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaam-2026-27-retro-primary.json
+          git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json
           if git diff --cached --quiet; then echo "No new verified finals; no commit"; exit 0; fi
           git commit -m "Update 365-school MBB RETRO after verified finals"
           for attempt in 1 2 3 4; do
