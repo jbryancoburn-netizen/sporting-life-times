@@ -21,12 +21,17 @@ for (day,pair),matches in index.items():
  counts['reciprocal_pairs']+=1
  verified=[m for m in matches if m[1].get('site_verified') is True and m[2].get('homeAway') in ('home','away','neutral')]
  if not verified:continue
- if len(verified)==2 and verified[0][2]['homeAway']==verified[1][2]['homeAway'] and verified[0][2]['homeAway']!='neutral':
-  conflicts.append({'date':day,'teams':pair,'reason':'both source records claim same non-neutral site'});continue
- if len(verified)==2:continue
+ if len(verified)==2:
+  left,right=verified
+  a,b=left[2]['homeAway'],right[2]['homeAway']
+  expected='away' if a=='home' else 'home' if a=='away' else 'neutral'
+  if b!=expected:conflicts.append({'date':day,'teams':pair,'claimed':[a,b],'reason':'official opponent schedules contradict on home-away-neutral'})
+  continue
  source=verified[0];dest=matches[0] if matches[1] is source else matches[1]
  side=source[2]['homeAway'];new='away' if side=='home' else 'home' if side=='away' else 'neutral'
- event=dest[1];event['site_verified']=True;event['site_source_url']=source[1].get('site_source_url') or source[1].get('school_source_url')
+ origin=source[1].get('site_source_url') or source[1].get('school_source_url') or records[source[0]][1].get('source_url')
+ if not origin or not origin.startswith('https://'):continue
+ event=dest[1];event['site_verified']=True;event['site_source_url']=origin
  event['site_verified_via']='reciprocal_official_opponent_schedule'
  dest[2]['homeAway']=new;dest[3]['homeAway']=side
  event['neutralSite']=new=='neutral'
