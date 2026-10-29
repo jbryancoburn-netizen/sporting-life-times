@@ -16,11 +16,11 @@
   "evidence_file": "data/ncaaw-2026-27-official-broadcast-overrides.json",
   "missing_specific_venue_from_espn": 0,
   "official_school_venue_verified": 0,
-  "official_school_calendar_verified": 0,
+  "official_school_calendar_verified": 315,
   "venue_caveat": "0 missing ESPNs venue strings does not mean 11,110 official venues verified; university athletics verification is still required.",
   "broadcast_caveat": "The 4.7 MB base ledger still contains 11,110 null networks; the published women team pages apply 270 verified matching-row overlays, covering 135 unique games. On the next full import, those values merge into the base ledger.",
   "official_school_schedules_date_and_opponent_checked": 315,
-  "official_school_schedule_entries_date_and_opponent_checked": 7555,
+  "official_school_schedule_entries_date_and_opponent_checked": 3409,
   "school_schedule_evidence_file": "data/ncaaw-2026-27-official-schedule-verifications.json",
   "official_school_check_scope": "Auburn 31 and Mercyhurst 32: scheduled dates and named opponents compared with official university 2026-27 calendars; home/away additionally verified for Mercyhurst. This is NOT arena/TV certification.",
   "unique_games": 5782,
@@ -33,7 +33,7 @@
   "official_broadcast_unique_games": 135,
   "official_broadcast_team_entries": 270,
   "espn_scoreboard_broadcast_unique_games": 373,
-  "recovered_broadcast_team_entries_this_pass": 1016,
+  "recovered_broadcast_team_entries_this_pass": 0,
   "source_counts_by_team_entry": {
     "espn_womens_game_scoreboard": 746,
     "official_school_athletics": 50,
@@ -43,5 +43,14 @@
   "network_policy": "Only exact game-ID and matching date/team evidence; official university/conference announcements preferred. ESPN scoreboard is labeled as a separate non-official source.",
   "schedule_verification_policy": "ESPN school-calendar duplication verifies internal ledger consistency; it does not constitute official university athletics schedule verification.",
   "official_schedule_bulk_evidence_file": "data/ncaaw-2026-27-official-schedule-bulk-evidence.json",
-  "official_schedule_bulk_audit_file": "data/ncaaw-2026-27-official-schedule-bulk-audit.json"
+  "official_schedule_bulk_audit_file": "data/ncaaw-2026-27-official-schedule-bulk-audit.json",
+  "official_school_calendar_entries_3_fields_verified": 3346,
+  "official_school_verified_printed_time_fields": 3307,
+  "official_school_verified_printed_location_fields": 3328,
+  "official_university_schedule_batch_files": [
+    "data/ncaaw-official-school-verification-batch-01.json",
+    "data/ncaaw-official-school-verification-batch-02.json",
+    "data/ncaaw-official-school-verification-batch-03.json"
+  ],
+  "university_source_policy": "Exact official school dates, opponent IDs and site matched to game IDs. Printed time/location are source-labeled; not automatic arena, timezone or network verification."
 }
