@@ -39,6 +39,11 @@ def extract(html,base_url):
   for n in el.select("[class*='tv-network'],[class*='television'],[class*='broadcast-network'],[class*='game-network']"):
    t=n.get_text(" ",strip=True)
    if t and len(t)<=45 and t not in networks:networks.append(t)
+  # SIDEARM's authoritative game-local TV coverage field, separate from radio.
+  for coverage in el.select(".sidearm-schedule-game-coverage-tv-content,[class*='coverage-tv-content']"):
+   label=coverage.get_text(" ",strip=True)
+   if label and len(label)<65 and not re.search(r"^(?:TBA|TBD|None|N/A|TV:?)$",label,re.I):
+    if label not in networks:networks.append(label)
   # Broadcast and stream metadata are GAME-LOCAL, not page-wide navigation links.
   known=re.compile(r"\b(?:ESPN\+|ESPN2?|ESPNU|ACC Network|SEC Network|Big Ten Network|BTN|CBS Sports Network|CBSSN|FS1|FS2|FOX|Peacock|FloSports|SWAC TV|HBCU GO|NBC Sports|TNT|truTV|YouTube TV|Mountain West Network)\b",re.I)
   for mark in el.select("img[alt],img[title],[class*='broadcast'],[class*='television'],[class*='tv-logo'],[class*='tv_network']"):
@@ -68,15 +73,15 @@ def run(team):
   cache_dir=ROOT/"mbb-official-source-cache";cache_dir.mkdir(exist_ok=True)
   cache=cache_dir/(tid+".json")
   cached=json.loads(cache.read_text()) if cache.exists() else None
-  if cached and cached.get("url")==page and cached.get("parser_version")==2 and not os.getenv("REFRESH_SOURCES"):
+  if cached and cached.get("url")==page and cached.get("parser_version")==3 and not os.getenv("REFRESH_SOURCES"):
    cards=cached.get("cards",[])
    res=type("Cached",(),{"url":page,"ok":True})()
   else:
    res=requests.get(page,timeout=12,headers={"User-Agent":"Mozilla/5.0"})
   if not res.ok or urlparse(res.url).hostname!=urlparse(page).hostname:out["status"]="fetch_failed";return out
-  if not cached or cached.get("url")!=page or cached.get("parser_version")!=2 or os.getenv("REFRESH_SOURCES"):
+  if not cached or cached.get("url")!=page or cached.get("parser_version")!=3 or os.getenv("REFRESH_SOURCES"):
    cards=extract(res.text,page)
-   cache.write_text(json.dumps({"url":page,"parser_version":2,"fetched_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"cards":cards},ensure_ascii=False)+"\n")
+   cache.write_text(json.dumps({"url":page,"parser_version":3,"fetched_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"cards":cards},ensure_ascii=False)+"\n")
  except Exception as ex:out.update(status="fetch_or_parse_failed",error=str(ex)[:120]);return out
  out["cards"]=len(cards);out["status"]="read" if cards else "unsupported_layout"
  if not cards:return out
@@ -128,7 +133,11 @@ for team in teams:
  d=json.loads(p.read_text())
  if any(not e.get("site_verified") or not ((e.get("competitions") or [{}])[0].get("venue") or {}).get("arenaName") or not ((e.get("competitions") or [{}])[0].get("broadcasts")) for e in d.get("events",[])):
   selected.append(team)
-if os.getenv("BATCH_NAME")=="all-365":
+if os.getenv("BATCH_NAME")=="sidearm-tv":
+ previous=json.loads((ROOT/"mbb-official-field-recovery-all-365.json").read_text())
+ supported={x["id"] for x in previous["schools"] if x["status"]=="read"}
+ selected=[t for t in teams if str(t.get("espn_id")) in supported]
+elif os.getenv("BATCH_NAME")=="all-365":
  selected=teams
 elif os.getenv("BATCH_NAME")=="final-100":
  final=selected[300:]
@@ -143,7 +152,7 @@ elif os.getenv("BATCH_NAME")=="final-100":
  selected=final+revisit
 else:
  selected=selected[int(os.getenv("BATCH_START","0")):int(os.getenv("BATCH_END","100"))]
-assert len(selected)==(365 if os.getenv("BATCH_NAME")=="all-365" else 100), f"Expected expected batch; found {len(selected)}"
+assert len(selected)==(len(supported) if os.getenv("BATCH_NAME")=="sidearm-tv" else (365 if os.getenv("BATCH_NAME")=="all-365" else 100)), f"Wrong school count: {len(selected)}"
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool: results=list(pool.map(run,selected))
 summary={"schools_targeted":len(selected),"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"watch_links_added":sum(x["watch_links"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["watch_links"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
 (ROOT/("mbb-official-field-recovery-"+os.getenv("BATCH_NAME","second-100")+".json")).write_text(json.dumps({"summary":summary,"schools":results},indent=2)+"\n")
