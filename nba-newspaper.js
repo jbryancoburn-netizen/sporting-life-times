@@ -4,6 +4,8 @@
  */
 (async()=>{
 'use strict';
+// Keep the NBA renderer isolated when the professional basketball switcher opens a different league.
+if(/\/nba\.html$/.test(location.pathname)&&['euroleague','nbl'].includes(new URLSearchParams(location.search).get('league')))return;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const href=s=>{try{const u=new URL(s);return ['http:','https:'].includes(u.protocol)?esc(u.href):''}catch{return ''}};
