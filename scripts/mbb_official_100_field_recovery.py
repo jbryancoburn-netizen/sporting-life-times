@@ -12,7 +12,7 @@ def norm(s):
  s=str(s or "").lower()
  s=re.sub(r"\b(university|college|univ|the|men's|mens)\b","",s)
  return re.sub(r"[^a-z0-9]","",s)
-def extract(html):
+def extract(html,base_url):
  soup=BeautifulSoup(html,"html.parser")
  rows=[]
  for el in soup.select(".sidearm-schedule-game[data-game-id]"):
@@ -51,7 +51,7 @@ def extract(html):
    label=a.get_text(" ",strip=True)
    href=a.get("href") or ""
    if re.search(r"\b(?:Watch Live|Live Video|Live Stream|Watch Game)\b",label,re.I) or (re.search(r"(?:watch|video|stream)",str(a.get("aria-label") or ""),re.I) and href):
-    full=urljoin("https://"+(os.getenv("OFFICIAL_HOST") or "school.example"),href)
+    full=urljoin(base_url,href)
     if full.startswith("https://") and not re.search(r"(?:javascript:|mailto:)",full,re.I):
      watch_url=full;break
   rows.append(dict(date=dt,opponent=re.sub(r"\s*\((exh\.?|exhibition)\)$","",om[2],flags=re.I),game_id=game_id,site=site,location=loc,tipoff=tip,networks=networks,watch_url=watch_url))
@@ -75,8 +75,7 @@ def run(team):
    res=requests.get(page,timeout=12,headers={"User-Agent":"Mozilla/5.0"})
   if not res.ok or urlparse(res.url).hostname!=urlparse(page).hostname:out["status"]="fetch_failed";return out
   if not cached or cached.get("url")!=page or cached.get("parser_version")!=2 or os.getenv("REFRESH_SOURCES"):
-   os.environ['OFFICIAL_HOST']=urlparse(page).hostname or ''
-   cards=extract(res.text)
+   cards=extract(res.text,page)
    cache.write_text(json.dumps({"url":page,"parser_version":2,"fetched_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"cards":cards},ensure_ascii=False)+"\n")
  except Exception as ex:out.update(status="fetch_or_parse_failed",error=str(ex)[:120]);return out
  out["cards"]=len(cards);out["status"]="read" if cards else "unsupported_layout"
