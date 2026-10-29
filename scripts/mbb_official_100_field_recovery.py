@@ -3,7 +3,7 @@
 No paid API, no recurring workflow, no invented TV/time/arena. Existing verified data preserved.
 """
 import json,re,pathlib,collections,concurrent.futures,os,datetime
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 import requests
 from bs4 import BeautifulSoup
 ROOT=pathlib.Path(__file__).resolve().parents[1]/"data"
@@ -39,11 +39,26 @@ def extract(html):
   for n in el.select("[class*='tv-network'],[class*='television'],[class*='broadcast-network'],[class*='game-network']"):
    t=n.get_text(" ",strip=True)
    if t and len(t)<=45 and t not in networks:networks.append(t)
-  rows.append(dict(date=dt,opponent=re.sub(r"\s*\((exh\.?|exhibition)\)$","",om[2],flags=re.I),game_id=game_id,site=site,location=loc,tipoff=tip,networks=networks))
+  # Broadcast and stream metadata are GAME-LOCAL, not page-wide navigation links.
+  known=re.compile(r"\b(?:ESPN\+|ESPN2?|ESPNU|ACC Network|SEC Network|Big Ten Network|BTN|CBS Sports Network|CBSSN|FS1|FS2|FOX|Peacock|FloSports|SWAC TV|HBCU GO|NBC Sports|TNT|truTV|YouTube TV|Mountain West Network)\b",re.I)
+  for mark in el.select("img[alt],img[title],[class*='broadcast'],[class*='television'],[class*='tv-logo'],[class*='tv_network']"):
+   label=mark.get("alt") or mark.get("title") or mark.get_text(" ",strip=True)
+   if label and len(label)<70 and known.search(label):
+    network=known.search(label).group()
+    if network not in networks:networks.append(network)
+  watch_url=""
+  for a in el.select("a[href]"):
+   label=a.get_text(" ",strip=True)
+   href=a.get("href") or ""
+   if re.search(r"\b(?:Watch Live|Live Video|Live Stream|Watch Game)\b",label,re.I) or (re.search(r"(?:watch|video|stream)",str(a.get("aria-label") or ""),re.I) and href):
+    full=urljoin("https://"+(os.getenv("OFFICIAL_HOST") or "school.example"),href)
+    if full.startswith("https://") and not re.search(r"(?:javascript:|mailto:)",full,re.I):
+     watch_url=full;break
+  rows.append(dict(date=dt,opponent=re.sub(r"\s*\((exh\.?|exhibition)\)$","",om[2],flags=re.I),game_id=game_id,site=site,location=loc,tipoff=tip,networks=networks,watch_url=watch_url))
  return rows
 def run(team):
  tid=str(team.get("espn_id") or ""); p=ROOT/"mbb-schedules-2026-27"/(tid+".json")
- out=dict(school=team["name"],id=tid,status="missing_file",cards=0,venues=0,times=0,broadcasts=0,sites=0,ambiguous=0)
+ out=dict(school=team["name"],id=tid,status="missing_file",cards=0,venues=0,times=0,broadcasts=0,watch_links=0,sites=0,ambiguous=0)
  if not p.exists():return out
  d=json.loads(p.read_text());source=d.get("source_url") or ""
  if not source.startswith("https://"):out["status"]="missing_official_url";return out
@@ -53,15 +68,16 @@ def run(team):
   cache_dir=ROOT/"mbb-official-source-cache";cache_dir.mkdir(exist_ok=True)
   cache=cache_dir/(tid+".json")
   cached=json.loads(cache.read_text()) if cache.exists() else None
-  if cached and cached.get("url")==page and not os.getenv("REFRESH_SOURCES"):
+  if cached and cached.get("url")==page and cached.get("parser_version")==2 and not os.getenv("REFRESH_SOURCES"):
    cards=cached.get("cards",[])
    res=type("Cached",(),{"url":page,"ok":True})()
   else:
    res=requests.get(page,timeout=12,headers={"User-Agent":"Mozilla/5.0"})
   if not res.ok or urlparse(res.url).hostname!=urlparse(page).hostname:out["status"]="fetch_failed";return out
-  if not cached or cached.get("url")!=page or os.getenv("REFRESH_SOURCES"):
+  if not cached or cached.get("url")!=page or cached.get("parser_version")!=2 or os.getenv("REFRESH_SOURCES"):
+   os.environ['OFFICIAL_HOST']=urlparse(page).hostname or ''
    cards=extract(res.text)
-   cache.write_text(json.dumps({"url":page,"fetched_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"cards":cards},ensure_ascii=False)+"\n")
+   cache.write_text(json.dumps({"url":page,"parser_version":2,"fetched_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"cards":cards},ensure_ascii=False)+"\n")
  except Exception as ex:out.update(status="fetch_or_parse_failed",error=str(ex)[:120]);return out
  out["cards"]=len(cards);out["status"]="read" if cards else "unsupported_layout"
  if not cards:return out
@@ -87,6 +103,11 @@ def run(team):
    v["arena_source_type"]="official_university_game_card";out["venues"]+=1;changed=True
   if card["tipoff"] and not e.get("official_school_time"):
    e["official_school_time"]=card["tipoff"];e["official_school_time_source"]=res.url;out["times"]+=1;changed=True
+  watch=card.get("watch_url") or ""
+  if watch and not e.get("official_watch_url"):
+   e["official_watch_url"]=watch
+   e["official_watch_source"]=res.url
+   out["watch_links"]+=1;changed=True
   if card["networks"] and not c.get("broadcasts"):
    c["broadcasts"]=[{"names":card["networks"],"source_url":res.url}];out["broadcasts"]+=1;changed=True
   # NEVER use 'vs' alone to certify home; arena should match known home venue.
@@ -108,7 +129,9 @@ for team in teams:
  d=json.loads(p.read_text())
  if any(not e.get("site_verified") or not ((e.get("competitions") or [{}])[0].get("venue") or {}).get("arenaName") or not ((e.get("competitions") or [{}])[0].get("broadcasts")) for e in d.get("events",[])):
   selected.append(team)
-if os.getenv("BATCH_NAME")=="final-100":
+if os.getenv("BATCH_NAME")=="all-365":
+ selected=selected
+elif os.getenv("BATCH_NAME")=="final-100":
  final=selected[300:]
  earlier=[]
  for filename in ("mbb-official-100-field-recovery.json","mbb-official-field-recovery-second-100.json","mbb-official-field-recovery-third-100.json"):
@@ -121,8 +144,8 @@ if os.getenv("BATCH_NAME")=="final-100":
  selected=final+revisit
 else:
  selected=selected[int(os.getenv("BATCH_START","0")):int(os.getenv("BATCH_END","100"))]
-assert len(selected)==100, f"Expected 100 schools; found {len(selected)}"
+assert len(selected)==(365 if os.getenv("BATCH_NAME")=="all-365" else 100), f"Expected expected batch; found {len(selected)}"
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool: results=list(pool.map(run,selected))
-summary={"schools_targeted":len(selected),"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
+summary={"schools_targeted":len(selected),"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"watch_links_added":sum(x["watch_links"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["watch_links"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
 (ROOT/("mbb-official-field-recovery-"+os.getenv("BATCH_NAME","second-100")+".json")).write_text(json.dumps({"summary":summary,"schools":results},indent=2)+"\n")
 print(json.dumps(summary,indent=2))
