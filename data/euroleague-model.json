@@ -11,10 +11,10 @@
       "source": "https://www.olympiacosbc.gr/en/component/basketmanager/game/17686.html"
     }
   ],
-  "last_completed_game_at": "2026-10-29T19:05:00+00:00",
+  "last_completed_game_at": "2026-10-29T19:45:00+00:00",
   "model": "Sporting Life & Times independent EuroLeague Elo v0.1",
   "season": "2026-27",
-  "updated_at": "2026-10-29T21:23:27.215549+00:00",
+  "updated_at": "2026-10-29T21:58:27.027684+00:00",
   "source": "EuroLeague public v2 games endpoint",
   "settings": {
     "K": 22.0,
@@ -25,7 +25,7 @@
     "opening_policy": "all_clubs_equal_2026_27"
   },
   "games_ingested": 380,
-  "games_completed": 82,
+  "games_completed": 83,
   "rankings": [
     {
       "code": "OLY",
@@ -37,6 +37,17 @@
       "losses": 2,
       "for": 731,
       "against": 676
+    },
+    {
+      "code": "MAD",
+      "name": "Real Madrid",
+      "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
+      "elo": 1560.6,
+      "played": 9,
+      "wins": 6,
+      "losses": 3,
+      "for": 866,
+      "against": 792
     },
     {
       "code": "PAN",
@@ -61,28 +72,6 @@
       "against": 689
     },
     {
-      "code": "MAD",
-      "name": "Real Madrid",
-      "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
-      "elo": 1549.1,
-      "played": 8,
-      "wins": 5,
-      "losses": 3,
-      "for": 771,
-      "against": 716
-    },
-    {
-      "code": "ULK",
-      "name": "Fenerbahce Tarfin Istanbul",
-      "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
-      "elo": 1547.4,
-      "played": 8,
-      "wins": 6,
-      "losses": 2,
-      "for": 643,
-      "against": 594
-    },
-    {
       "code": "PAM",
       "name": "Valencia Basket",
       "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHL/bc3e00b2-fea4-40be-a7ec-1e633129bde3.png",
@@ -92,6 +81,17 @@
       "losses": 2,
       "for": 780,
       "against": 720
+    },
+    {
+      "code": "ULK",
+      "name": "Fenerbahce Tarfin Istanbul",
+      "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
+      "elo": 1535.9,
+      "played": 9,
+      "wins": 6,
+      "losses": 3,
+      "for": 719,
+      "against": 689
     },
     {
       "code": "RED",
@@ -302,19 +302,6 @@
       "tiebreak_basis": "phase_point_difference"
     },
     {
-      "code": "ULK",
-      "name": "Fenerbahce Tarfin Istanbul",
-      "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
-      "played": 8,
-      "wins": 6,
-      "losses": 2,
-      "for": 643,
-      "against": 594,
-      "win_pct": 0.75,
-      "point_diff": 49,
-      "tiebreak_basis": "phase_point_difference"
-    },
-    {
       "code": "RED",
       "name": "Crvena Zvezda Meridianbet Belgrade",
       "logo": "https://media-cdn.incrowdsports.com/d2eef4a8-62df-4fdd-9076-276004268515.png",
@@ -331,13 +318,26 @@
       "code": "MAD",
       "name": "Real Madrid",
       "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
-      "played": 8,
-      "wins": 5,
+      "played": 9,
+      "wins": 6,
       "losses": 3,
-      "for": 771,
-      "against": 716,
-      "win_pct": 0.625,
-      "point_diff": 55,
+      "for": 866,
+      "against": 792,
+      "win_pct": 0.667,
+      "point_diff": 74,
+      "tiebreak_basis": "phase_point_difference"
+    },
+    {
+      "code": "ULK",
+      "name": "Fenerbahce Tarfin Istanbul",
+      "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
+      "played": 9,
+      "wins": 6,
+      "losses": 3,
+      "for": 719,
+      "against": 689,
+      "win_pct": 0.667,
+      "point_diff": 30,
       "tiebreak_basis": "phase_point_difference"
     },
     {
@@ -695,12 +695,12 @@
         "logo": "https://media-cdn.incrowdsports.com/e3dff28a-9ec6-4faf-9d96-ecbc68f75780.png",
         "score": 0
       },
-      "home_win_probability": 0.6318,
+      "home_win_probability": 0.647,
       "projection": {
         "home": 88,
-        "away": 86,
-        "spread_home": -2,
-        "total": 174,
+        "away": 85,
+        "spread_home": -3,
+        "total": 173,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -743,12 +743,12 @@
         "logo": "https://media-cdn.cortextech.io/cbc49cb0-99ce-4462-bdb7-56983ee03cf4.png",
         "score": 0
       },
-      "home_win_probability": 0.7923,
+      "home_win_probability": 0.7812,
       "projection": {
         "home": 88,
-        "away": 80,
-        "spread_home": -8,
-        "total": 168,
+        "away": 81,
+        "spread_home": -7,
+        "total": 169,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -889,10 +889,10 @@
       },
       "home_win_probability": 0.615,
       "projection": {
-        "home": 88,
+        "home": 87,
         "away": 85,
-        "spread_home": -3,
-        "total": 173,
+        "spread_home": -2,
+        "total": 172,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -935,12 +935,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5268,
+      "home_win_probability": 0.5432,
       "projection": {
-        "home": 85,
-        "away": 84,
+        "home": 86,
+        "away": 85,
         "spread_home": -1,
-        "total": 169,
+        "total": 171,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -1079,7 +1079,7 @@
         "logo": "https://media-cdn.incrowdsports.com/d2eef4a8-62df-4fdd-9076-276004268515.png",
         "score": 0
       },
-      "home_win_probability": 0.6607,
+      "home_win_probability": 0.6753,
       "projection": {
         "home": 89,
         "away": 85,
@@ -1247,7 +1247,7 @@
         "logo": "https://media-cdn.incrowdsports.com/e33c6d1a-95ca-4dbc-b8cb-0201812104cc.png",
         "score": 0
       },
-      "home_win_probability": 0.7345,
+      "home_win_probability": 0.7214,
       "projection": {
         "home": 88,
         "away": 82,
@@ -1391,7 +1391,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.5376,
+      "home_win_probability": 0.5211,
       "projection": {
         "home": 90,
         "away": 89,
@@ -1487,7 +1487,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.4589,
+      "home_win_probability": 0.4754,
       "projection": {
         "home": 83,
         "away": 84,
@@ -1583,7 +1583,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.6637,
+      "home_win_probability": 0.6488,
       "projection": {
         "home": 91,
         "away": 88,
@@ -1775,12 +1775,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.6086,
+      "home_win_probability": 0.6242,
       "projection": {
-        "home": 85,
+        "home": 86,
         "away": 83,
-        "spread_home": -2,
-        "total": 168,
+        "spread_home": -3,
+        "total": 169,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -1871,7 +1871,7 @@
         "logo": "https://media-cdn.incrowdsports.com/0aa09358-3847-4c4e-b228-3582ee4e536d.png",
         "score": 0
       },
-      "home_win_probability": 0.6886,
+      "home_win_probability": 0.7026,
       "projection": {
         "home": 91,
         "away": 86,
@@ -1919,12 +1919,12 @@
         "logo": "https://media-cdn.incrowdsports.com/d2eef4a8-62df-4fdd-9076-276004268515.png",
         "score": 0
       },
-      "home_win_probability": 0.6584,
+      "home_win_probability": 0.6434,
       "projection": {
         "home": 83,
-        "away": 80,
-        "spread_home": -3,
-        "total": 163,
+        "away": 81,
+        "spread_home": -2,
+        "total": 164,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -1991,12 +1991,12 @@
         "logo": "https://media-cdn.incrowdsports.com/35dfa503-e417-481f-963a-bdf6f013763e.png",
         "score": 0
       },
-      "home_win_probability": 0.6726,
+      "home_win_probability": 0.6869,
       "projection": {
         "home": 92,
-        "away": 88,
-        "spread_home": -4,
-        "total": 180,
+        "away": 87,
+        "spread_home": -5,
+        "total": 179,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2135,12 +2135,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCxM/a844756c-a58d-4666-93b8-48f7337bc79d.png",
         "score": 0
       },
-      "home_win_probability": 0.7198,
+      "home_win_probability": 0.7063,
       "projection": {
         "home": 86,
-        "away": 80,
-        "spread_home": -6,
-        "total": 166,
+        "away": 81,
+        "spread_home": -5,
+        "total": 167,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2255,7 +2255,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.5243,
+      "home_win_probability": 0.5078,
       "projection": {
         "home": 91,
         "away": 90,
@@ -2399,12 +2399,12 @@
         "logo": "https://media-cdn.incrowdsports.com/cbb1c3ad-03d5-426a-b5ef-2832a4eee484.png",
         "score": 0
       },
-      "home_win_probability": 0.6353,
+      "home_win_probability": 0.6199,
       "projection": {
         "home": 86,
-        "away": 83,
-        "spread_home": -3,
-        "total": 169,
+        "away": 84,
+        "spread_home": -2,
+        "total": 170,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2495,7 +2495,7 @@
         "logo": "https://media-cdn.incrowdsports.com/817b0e58-d595-4b09-ab0b-1e7cc26249ff.png",
         "score": 0
       },
-      "home_win_probability": 0.7718,
+      "home_win_probability": 0.7832,
       "projection": {
         "home": 94,
         "away": 86,
@@ -2615,12 +2615,12 @@
         "logo": "https://media-cdn.cortextech.io/1b533342-78f5-4932-b714-a7d80b5826b5.png",
         "score": 0
       },
-      "home_win_probability": 0.7704,
+      "home_win_probability": 0.7585,
       "projection": {
-        "home": 88,
-        "away": 81,
+        "home": 89,
+        "away": 82,
         "spread_home": -7,
-        "total": 169,
+        "total": 171,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2687,12 +2687,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHL/bc3e00b2-fea4-40be-a7ec-1e633129bde3.png",
         "score": 0
       },
-      "home_win_probability": 0.646,
+      "home_win_probability": 0.6609,
       "projection": {
         "home": 93,
-        "away": 90,
-        "spread_home": -3,
-        "total": 183,
+        "away": 89,
+        "spread_home": -4,
+        "total": 182,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2855,7 +2855,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5401,
+      "home_win_probability": 0.5565,
       "projection": {
         "home": 85,
         "away": 84,
@@ -2951,7 +2951,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.5696,
+      "home_win_probability": 0.5533,
       "projection": {
         "home": 89,
         "away": 88,
@@ -3095,12 +3095,12 @@
         "logo": "https://media-cdn.incrowdsports.com/e3dff28a-9ec6-4faf-9d96-ecbc68f75780.png",
         "score": 0
       },
-      "home_win_probability": 0.6295,
+      "home_win_probability": 0.6139,
       "projection": {
         "home": 82,
-        "away": 80,
-        "spread_home": -2,
-        "total": 162,
+        "away": 81,
+        "spread_home": -1,
+        "total": 163,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -3191,7 +3191,7 @@
         "logo": "https://media-cdn.incrowdsports.com/1efae090-16e2-4963-ae47-4b94f249c244.png",
         "score": 0
       },
-      "home_win_probability": 0.6822,
+      "home_win_probability": 0.6964,
       "projection": {
         "home": 91,
         "away": 86,
@@ -3383,7 +3383,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5518,
+      "home_win_probability": 0.5681,
       "projection": {
         "home": 84,
         "away": 83,
@@ -3479,12 +3479,12 @@
         "logo": "https://media-cdn.incrowdsports.com/789423ac-3cdf-4b89-b11c-b458aa5f59a6.png",
         "score": 0
       },
-      "home_win_probability": 0.6157,
+      "home_win_probability": 0.6312,
       "projection": {
         "home": 91,
-        "away": 88,
-        "spread_home": -3,
-        "total": 179,
+        "away": 87,
+        "spread_home": -4,
+        "total": 178,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -3575,12 +3575,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5981,
+      "home_win_probability": 0.6138,
       "projection": {
-        "home": 84,
+        "home": 85,
         "away": 82,
-        "spread_home": -2,
-        "total": 166,
+        "spread_home": -3,
+        "total": 167,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -3623,12 +3623,12 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.6189,
+      "home_win_probability": 0.6032,
       "projection": {
-        "home": 89,
-        "away": 86,
+        "home": 88,
+        "away": 85,
         "spread_home": -3,
-        "total": 175,
+        "total": 173,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -3911,12 +3911,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCgOCxM/a844756c-a58d-4666-93b8-48f7337bc79d.png",
         "score": 0
       },
-      "home_win_probability": 0.7218,
+      "home_win_probability": 0.7349,
       "projection": {
         "home": 92,
-        "away": 86,
-        "spread_home": -6,
-        "total": 178,
+        "away": 85,
+        "spread_home": -7,
+        "total": 177,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4031,12 +4031,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5733,
+      "home_win_probability": 0.5894,
       "projection": {
-        "home": 81,
+        "home": 82,
         "away": 80,
-        "spread_home": -1,
-        "total": 161,
+        "spread_home": -2,
+        "total": 162,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4079,7 +4079,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/b05e3c54-e672-4b31-9f86-c91e9de7715c.png",
         "score": 0
       },
-      "home_win_probability": 0.7292,
+      "home_win_probability": 0.716,
       "projection": {
         "home": 87,
         "away": 82,
@@ -4199,12 +4199,12 @@
         "logo": "https://media-cdn.cortextech.io/1b533342-78f5-4932-b714-a7d80b5826b5.png",
         "score": 0
       },
-      "home_win_probability": 0.7721,
+      "home_win_probability": 0.7836,
       "projection": {
         "home": 94,
-        "away": 87,
-        "spread_home": -7,
-        "total": 181,
+        "away": 86,
+        "spread_home": -8,
+        "total": 180,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4415,12 +4415,12 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.6378,
+      "home_win_probability": 0.6067,
       "projection": {
         "home": 87,
-        "away": 84,
-        "spread_home": -3,
-        "total": 171,
+        "away": 85,
+        "spread_home": -2,
+        "total": 172,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4607,12 +4607,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.4532,
+      "home_win_probability": 0.4697,
       "projection": {
-        "home": 83,
+        "home": 84,
         "away": 85,
-        "spread_home": 2,
-        "total": 168,
+        "spread_home": 1,
+        "total": 169,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4655,12 +4655,12 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.5708,
+      "home_win_probability": 0.5546,
       "projection": {
-        "home": 87,
-        "away": 86,
+        "home": 86,
+        "away": 85,
         "spread_home": -1,
-        "total": 173,
+        "total": 171,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4847,12 +4847,12 @@
         "logo": "https://media-cdn.incrowdsports.com/a033e5b3-0de7-48a3-98d9-d9a4b9df1f39.png",
         "score": 0
       },
-      "home_win_probability": 0.7416,
+      "home_win_probability": 0.754,
       "projection": {
-        "home": 94,
+        "home": 93,
         "away": 87,
-        "spread_home": -7,
-        "total": 181,
+        "spread_home": -6,
+        "total": 180,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -4895,12 +4895,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5334,
+      "home_win_probability": 0.5498,
       "projection": {
-        "home": 85,
-        "away": 84,
+        "home": 86,
+        "away": 85,
         "spread_home": -1,
-        "total": 169,
+        "total": 171,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5183,7 +5183,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/5c2f0ab6-f86a-4df0-b2f3-f9ab92f7267b.png",
         "score": 0
       },
-      "home_win_probability": 0.7885,
+      "home_win_probability": 0.7773,
       "projection": {
         "home": 87,
         "away": 80,
@@ -5207,7 +5207,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.5885,
+      "home_win_probability": 0.5724,
       "projection": {
         "home": 89,
         "away": 88,
@@ -5399,12 +5399,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.6213,
+      "home_win_probability": 0.6367,
       "projection": {
-        "home": 83,
+        "home": 84,
         "away": 80,
-        "spread_home": -3,
-        "total": 163,
+        "spread_home": -4,
+        "total": 164,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5471,12 +5471,12 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.6062,
+      "home_win_probability": 0.5903,
       "projection": {
-        "home": 91,
+        "home": 90,
         "away": 89,
-        "spread_home": -2,
-        "total": 180,
+        "spread_home": -1,
+        "total": 179,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5615,7 +5615,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.5721,
+      "home_win_probability": 0.5882,
       "projection": {
         "home": 84,
         "away": 83,
@@ -5663,12 +5663,12 @@
         "logo": "https://media-cdn.incrowdsports.com/cbb1c3ad-03d5-426a-b5ef-2832a4eee484.png",
         "score": 0
       },
-      "home_win_probability": 0.6376,
+      "home_win_probability": 0.6528,
       "projection": {
         "home": 92,
-        "away": 89,
-        "spread_home": -3,
-        "total": 181,
+        "away": 88,
+        "spread_home": -4,
+        "total": 180,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5831,12 +5831,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezvk/a92d4c3b-9f9c-4163-8a10-bcf8fc15893e.png",
         "score": 0
       },
-      "home_win_probability": 0.705,
+      "home_win_probability": 0.7185,
       "projection": {
-        "home": 92,
+        "home": 91,
         "away": 86,
-        "spread_home": -6,
-        "total": 178,
+        "spread_home": -5,
+        "total": 177,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5855,12 +5855,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHL/bc3e00b2-fea4-40be-a7ec-1e633129bde3.png",
         "score": 0
       },
-      "home_win_probability": 0.6437,
+      "home_win_probability": 0.6284,
       "projection": {
         "home": 88,
-        "away": 84,
-        "spread_home": -4,
-        "total": 172,
+        "away": 85,
+        "spread_home": -3,
+        "total": 173,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5975,7 +5975,7 @@
         "logo": "https://media-cdn.incrowdsports.com/a033e5b3-0de7-48a3-98d9-d9a4b9df1f39.png",
         "score": 0
       },
-      "home_win_probability": 0.7397,
+      "home_win_probability": 0.7267,
       "projection": {
         "home": 88,
         "away": 82,
@@ -6071,12 +6071,12 @@
         "logo": "https://media-cdn.cortextech.io/cbc49cb0-99ce-4462-bdb7-56983ee03cf4.png",
         "score": 0
       },
-      "home_win_probability": 0.7939,
+      "home_win_probability": 0.8045,
       "projection": {
         "home": 94,
-        "away": 86,
-        "spread_home": -8,
-        "total": 180,
+        "away": 85,
+        "spread_home": -9,
+        "total": 179,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -6263,12 +6263,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.6448,
+      "home_win_probability": 0.6598,
       "projection": {
-        "home": 86,
+        "home": 87,
         "away": 83,
-        "spread_home": -3,
-        "total": 169,
+        "spread_home": -4,
+        "total": 170,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -6313,10 +6313,10 @@
       },
       "home_win_probability": 0.7,
       "projection": {
-        "home": 91,
+        "home": 90,
         "away": 86,
-        "spread_home": -5,
-        "total": 177,
+        "spread_home": -4,
+        "total": 176,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -6383,7 +6383,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.4832,
+      "home_win_probability": 0.4667,
       "projection": {
         "home": 89,
         "away": 91,
@@ -6551,12 +6551,12 @@
         "logo": "https://media-cdn.incrowdsports.com/35dfa503-e417-481f-963a-bdf6f013763e.png",
         "score": 0
       },
-      "home_win_probability": 0.6704,
+      "home_win_probability": 0.6556,
       "projection": {
         "home": 86,
-        "away": 82,
-        "spread_home": -4,
-        "total": 168,
+        "away": 83,
+        "spread_home": -3,
+        "total": 169,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -6671,7 +6671,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/b05e3c54-e672-4b31-9f86-c91e9de7715c.png",
         "score": 0
       },
-      "home_win_probability": 0.7312,
+      "home_win_probability": 0.744,
       "projection": {
         "home": 93,
         "away": 87,
@@ -6767,12 +6767,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.4852,
+      "home_win_probability": 0.5017,
       "projection": {
-        "home": 84,
+        "home": 86,
         "away": 85,
-        "spread_home": 1,
-        "total": 169,
+        "spread_home": -1,
+        "total": 171,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -6815,7 +6815,7 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.6341,
+      "home_win_probability": 0.6186,
       "projection": {
         "home": 93,
         "away": 90,
@@ -6959,7 +6959,7 @@
         "logo": "https://media-cdn.incrowdsports.com/789423ac-3cdf-4b89-b11c-b458aa5f59a6.png",
         "score": 0
       },
-      "home_win_probability": 0.6133,
+      "home_win_probability": 0.5975,
       "projection": {
         "home": 85,
         "away": 83,
@@ -7103,7 +7103,7 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHH/5c2f0ab6-f86a-4df0-b2f3-f9ab92f7267b.png",
         "score": 0
       },
-      "home_win_probability": 0.7902,
+      "home_win_probability": 0.8009,
       "projection": {
         "home": 93,
         "away": 85,
@@ -7199,12 +7199,12 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.5309,
+      "home_win_probability": 0.5144,
       "projection": {
-        "home": 91,
-        "away": 90,
+        "home": 90,
+        "away": 89,
         "spread_home": -1,
-        "total": 181,
+        "total": 179,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -7223,11 +7223,11 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.4857,
+      "home_win_probability": 0.5022,
       "projection": {
-        "home": 84,
-        "away": 85,
-        "spread_home": 1,
+        "home": 85,
+        "away": 84,
+        "spread_home": -1,
         "total": 169,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
@@ -7415,12 +7415,12 @@
         "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezrk/aa39750a-6203-49ee-a87d-edd0c6f0397d.png",
         "score": 0
       },
-      "home_win_probability": 0.591,
+      "home_win_probability": 0.6068,
       "projection": {
-        "home": 84,
+        "home": 85,
         "away": 82,
-        "spread_home": -2,
-        "total": 166,
+        "spread_home": -3,
+        "total": 167,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -7511,12 +7511,12 @@
         "logo": "https://media-cdn.incrowdsports.com/371b0d9b-9250-4c09-bda7-0686cf024657.png",
         "score": 0
       },
-      "home_win_probability": 0.6482,
+      "home_win_probability": 0.633,
       "projection": {
-        "home": 89,
+        "home": 88,
         "away": 85,
-        "spread_home": -4,
-        "total": 174,
+        "spread_home": -3,
+        "total": 173,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -8543,9 +8543,31 @@
         99
       ],
       "pregame_home_probability": 0.64679
+    },
+    {
+      "id": "83",
+      "date": "2026-10-29T19:45:00Z",
+      "home": "MAD",
+      "away": "ULK",
+      "score": [
+        95,
+        76
+      ],
+      "pregame_home_probability": 0.64237
     }
   ],
   "recent_results": [
+    {
+      "id": "83",
+      "date": "2026-10-29T19:45:00Z",
+      "home": "MAD",
+      "away": "ULK",
+      "score": [
+        95,
+        76
+      ],
+      "pregame_home_probability": 0.64237
+    },
     {
       "id": "82",
       "date": "2026-10-29T19:05:00Z",
@@ -8699,17 +8721,6 @@
         64
       ],
       "pregame_home_probability": 0.67349
-    },
-    {
-      "id": "68",
-      "date": "2026-10-23T17:00:00Z",
-      "home": "ZAL",
-      "away": "ASV",
-      "score": [
-        105,
-        85
-      ],
-      "pregame_home_probability": 0.65144
     }
   ],
   "coverage": "Games and ratings verified from source payload; forecast scoring experimental; no injuries or transfers"
