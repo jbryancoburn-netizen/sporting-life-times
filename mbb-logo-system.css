@@ -34,25 +34,32 @@
  padding:0!important;margin:0!important;background:transparent!important;
  border-radius:0!important;clip-path:none!important;
 }
-/* Artwork containing an existing roundel is the finished badge. No outer border.
-   The unverified category is also art-first; never assume it needs another ring. */
-.mbb-mark--art-embedded_roundel,.mbb-mark--art-unverified{border:0!important}
-.mbb-mark--art-embedded_roundel::before,.mbb-mark--art-unverified::before{content:none!important}
-/* For an independently verified FLAT school mark, use exactly two thin strokes.
-   Primary outer, secondary inner, and a large centered authentic logo. */
-.mbb-mark--art-flat{
+/* The outer circle always returns; do not erase the team's badge identity.
+   Artwork known to contain a full roundel gets ONE thin outer primary stroke;
+   its own original circle supplies the inner ring instead of stacking extras. */
+.mbb-mark--art-embedded_roundel{
  border:2px solid var(--mbb-primary,#385866)!important;
  background:#fff!important;
 }
-.mbb-mark--art-flat::before{
+.mbb-mark--art-embedded_roundel::before{content:none!important}
+.mbb-mark--art-embedded_roundel>img.mbb-mark__img{
+ width:88%!important;height:88%!important;max-width:88%!important;max-height:88%!important;
+}
+/* Non-roundel and not-yet-classified artwork use the two team-colored
+   strokes without shadows or white spacers. No extra global wrapper. */
+.mbb-mark--art-flat,.mbb-mark--art-unverified{
+ border:2px solid var(--mbb-primary,#385866)!important;
+ background:#fff!important;
+}
+.mbb-mark--art-flat::before,.mbb-mark--art-unverified::before{
  content:""!important;position:absolute!important;display:block!important;
  inset:2px!important;border:2px solid var(--mbb-secondary,#5e7680)!important;
  border-radius:50%!important;background:transparent!important;
  box-shadow:none!important;pointer-events:none!important;z-index:3!important;
 }
-.mbb-mark--art-flat>img.mbb-mark__img{
- width:76%!important;height:76%!important;
- max-width:76%!important;max-height:76%!important;
+.mbb-mark--art-flat>img.mbb-mark__img,.mbb-mark--art-unverified>img.mbb-mark__img{
+ width:78%!important;height:78%!important;
+ max-width:78%!important;max-height:78%!important;
  clip-path:circle(50% at 50%)!important;
 }
 .mbb-mark__initials{
