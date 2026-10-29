@@ -1,0 +1,81 @@
+{
+  "status": "historical-calibration-complete",
+  "sport": "NCAA Division I women's basketball",
+  "source": "five independently verified women's D-I game seasons",
+  "season_starts_at": 1500,
+  "training_seasons": [
+    "2021-22",
+    "2022-23",
+    "2023-24",
+    "2024-25"
+  ],
+  "untouched_holdout_season": "2025-26",
+  "parameters": {
+    "home_edge": 75,
+    "benchmark_chronological_k": 40,
+    "retro_optimizer_gradient_step": 18
+  },
+  "train": {
+    "games": 21623,
+    "brier": 0.18112530467179733,
+    "log_loss": 0.5393247445797467
+  },
+  "holdout": {
+    "games": 5565,
+    "brier": 0.17848483986712094,
+    "log_loss": 0.532161153638029
+  },
+  "baseline_holdout": {
+    "games": 5565,
+    "brier": 0.18990480505510157,
+    "log_loss": 0.5625968292629185
+  },
+  "search_grid": {
+    "home_edges": [
+      0,
+      25,
+      50,
+      75,
+      100,
+      125
+    ],
+    "chronological_k": [
+      12,
+      18,
+      24,
+      30,
+      40
+    ]
+  },
+  "top_three_train": [
+    {
+      "home_edge": 75,
+      "chronological_k": 40,
+      "train": {
+        "games": 21623,
+        "brier": 0.18112530467179733,
+        "log_loss": 0.5393247445797467
+      }
+    },
+    {
+      "home_edge": 50,
+      "chronological_k": 40,
+      "train": {
+        "games": 21623,
+        "brier": 0.18162439846227424,
+        "log_loss": 0.5407588535025714
+      }
+    },
+    {
+      "home_edge": 100,
+      "chronological_k": 40,
+      "train": {
+        "games": 21623,
+        "brier": 0.18238851955281984,
+        "log_loss": 0.5418286760299856
+      }
+    }
+  ],
+  "methodology": "Pre-game chronological Elo/log-loss K-and-home benchmark. Each season independently starts 1500; day-batched updates avoid same-day leakage. Historical team IDs are restricted to current D-I roster; coverage limitations are recorded in each import.",
+  "retro_qualification": "Home edge is transferred to the independent all-games RETRO publisher as a historically tested starting estimate. The chronological K is NOT the RETRO gradient step and is NOT claimed to have optimized RETRO. Further RETRO-specific rolling-date validation is required before treating it as final."
+}
