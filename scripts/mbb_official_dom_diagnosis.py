@@ -39,6 +39,10 @@ for school,url in SOURCES.items():
      result["date_nodes"].append({"sample":str(el).strip()[:150],"ancestors":ancestors[:4],"html":str(parent.parent or parent)[:1600]})
    if len(result["date_nodes"])>=4:break
   result["schedule_elements"]=[{"tag":el.name,"class":el.get("class"),"id":el.get("id"),"text":el.get_text(" ",strip=True)[:300],"html":str(el)[:1200]} for el in soup.select("[class*='schedule'],[class*='event'],[class*='fixture'],[data-event-id]") if len(el.get_text(" ",strip=True))>15][:6]
+  tests=collections.Counter(el.get("data-test-id") or "" for el in soup.select("[data-test-id]") if re.search(r"schedule|event|game|opponent|broadcast|coverage|venue|location|date",el.get("data-test-id") or "",re.I))
+  result["test_id_counts"]=tests.most_common(45)
+  result["event_test_nodes"]=[{"test_id":el.get("data-test-id"),"tag":el.name,"class":el.get("class",[]),"html":str(el)[:2400]} for el in soup.select("[data-test-id]") if re.search(r"schedule.*(?:game|event)|(?:event|game).*(?:row|card|item)",el.get("data-test-id") or "",re.I)][:4]
+  result["kentucky_cards"]=[{"class":el.get("class"),"html":str(el)[:1500]} for el in soup.select('[class*="schedule__game"],[class*="schedule__event"],[class*="schedule-game"],[class*="schedule__item"]')[:3]]
   result["table_headers"]=[[x.get_text(" ",strip=True)[:80] for x in table.select("tr th")[:10]] for table in soup.select("table")[:3]]
   result["jsonld_preview"]=[(z.string or z.get_text())[:320] for z in soup.select('script[type="application/ld+json"]')[:1]]
   for term in ["Oakwood","DePaul","Auburn","North Texas","Merrimack"]:
