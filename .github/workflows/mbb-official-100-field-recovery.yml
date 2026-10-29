@@ -1,4 +1,4 @@
-name: MBB official school 100-field recovery (one time)
+name: MBB official 365-school source and broadcast recovery (one time)
 on:
   push:
     paths:
@@ -9,21 +9,21 @@ permissions:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: pip install requests beautifulsoup4
-      - run: BATCH_START=300 BATCH_END=365 BATCH_NAME=final-100 python scripts/mbb_official_100_field_recovery.py
+      - run: BATCH_START=0 BATCH_END=365 BATCH_NAME=all-365 python scripts/mbb_official_100_field_recovery.py
       - run: python scripts/mbb_live_quality_audit.py
       - run: python scripts/mbb_build_university_master.py
       - name: Publish school-sourced corrections and site master files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-schedules-2026-27/ data/mbb-official-field-recovery-final-100.json data/mbb-official-source-cache/ data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json
+          git add data/mbb-schedules-2026-27/ data/mbb-official-field-recovery-all-365.json data/mbb-official-source-cache/ data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json
           git commit -m "Publish final 100 schools official venue time broadcast recovery and rebuilt master" || exit 0
           for n in 1 2 3 4; do
             git pull --rebase origin main && git push && exit 0
