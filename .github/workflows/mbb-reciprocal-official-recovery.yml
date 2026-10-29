@@ -16,13 +16,20 @@ jobs:
         with:
           python-version: '3.11'
       - run: python scripts/mbb_reciprocal_official_recovery.py
+      - name: Publish post-reciprocal quality audit
+        run: python scripts/mbb_live_quality_audit.py
+      - name: Rebuild unified school schedule master
+        run: python scripts/mbb_build_university_master.py
       - name: Publish official reciprocal corrections
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-schedules-2026-27/ data/mbb-reciprocal-official-recovery.json
+          git add data/mbb-schedules-2026-27/ data/mbb-reciprocal-official-recovery.json data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.json data/mbb-university-master-2026-27.csv
           if ! git diff --cached --quiet; then
             git commit -m "Recover sites from matching verified opponent university schedules"
-            git pull --rebase origin main
-            git push
+            for n in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep 3
+            done
+            exit 1
           fi
