@@ -2,7 +2,7 @@
 """One-off batch: 100 official school schedules; add only individually evidenced fields.
 No paid API, no recurring workflow, no invented TV/time/arena. Existing verified data preserved.
 """
-import json,re,pathlib,collections,concurrent.futures,os
+import json,re,pathlib,collections,concurrent.futures,os,datetime
 from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
@@ -50,9 +50,18 @@ def run(team):
  page=source.replace("/schedule/text/","/schedule/")
  if any(b in urlparse(page).hostname for b in ("espn.com","realgm.com","wikipedia.org")):out["status"]="nonofficial_url";return out
  try:
-  res=requests.get(page,timeout=12,headers={"User-Agent":"Mozilla/5.0"})
+  cache_dir=ROOT/"mbb-official-source-cache";cache_dir.mkdir(exist_ok=True)
+  cache=cache_dir/(tid+".json")
+  cached=json.loads(cache.read_text()) if cache.exists() else None
+  if cached and cached.get("url")==page and not os.getenv("REFRESH_SOURCES"):
+   cards=cached.get("cards",[])
+   res=type("Cached",(),{"url":page,"ok":True})()
+  else:
+   res=requests.get(page,timeout=12,headers={"User-Agent":"Mozilla/5.0"})
   if not res.ok or urlparse(res.url).hostname!=urlparse(page).hostname:out["status"]="fetch_failed";return out
-  cards=extract(res.text)
+  if not cached or cached.get("url")!=page or os.getenv("REFRESH_SOURCES"):
+   cards=extract(res.text)
+   cache.write_text(json.dumps({"url":page,"fetched_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"cards":cards},ensure_ascii=False)+"\n")
  except Exception as ex:out.update(status="fetch_or_parse_failed",error=str(ex)[:120]);return out
  out["cards"]=len(cards);out["status"]="read" if cards else "unsupported_layout"
  if not cards:return out
@@ -99,9 +108,10 @@ for team in teams:
  d=json.loads(p.read_text())
  if any(not e.get("site_verified") or not ((e.get("competitions") or [{}])[0].get("venue") or {}).get("arenaName") or not ((e.get("competitions") or [{}])[0].get("broadcasts")) for e in d.get("events",[])):
   selected.append(team)
- if len(selected)==100:break
+ if len(selected)==int(os.getenv("BATCH_END","200")):break
+selected=selected[int(os.getenv("BATCH_START","100")):int(os.getenv("BATCH_END","200"))]
 assert len(selected)==100
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool: results=list(pool.map(run,selected))
-summary={"schools_targeted":100,"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
-(ROOT/"mbb-official-100-field-recovery.json").write_text(json.dumps({"summary":summary,"schools":results},indent=2)+"\n")
+summary={"schools_targeted":len(selected),"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
+(ROOT/("mbb-official-field-recovery-"+os.getenv("BATCH_NAME","second-100")+".json")).write_text(json.dumps({"summary":summary,"schools":results},indent=2)+"\n")
 print(json.dumps(summary,indent=2))
