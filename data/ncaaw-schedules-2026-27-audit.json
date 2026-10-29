@@ -6,7 +6,7 @@
   "total_team_game_entries": 11110,
   "zero_game_teams": 0,
   "missing_specific_venue": 0,
-  "missing_broadcast": 11110,
+  "missing_broadcast": 10094,
   "under_20_games": [],
   "policy": "School-specific women ESPN calendars are NOT yet university-verified. Missing fields never fabricated.",
   "missing_broadcast_in_base_schedule": 11110,
@@ -22,5 +22,24 @@
   "official_school_schedules_date_and_opponent_checked": 2,
   "official_school_schedule_entries_date_and_opponent_checked": 63,
   "school_schedule_evidence_file": "data/ncaaw-2026-27-official-schedule-verifications.json",
-  "official_school_check_scope": "Auburn 31 and Mercyhurst 32: scheduled dates and named opponents compared with official university 2026-27 calendars; home/away additionally verified for Mercyhurst. This is NOT arena/TV certification."
+  "official_school_check_scope": "Auburn 31 and Mercyhurst 32: scheduled dates and named opponents compared with official university 2026-27 calendars; home/away additionally verified for Mercyhurst. This is NOT arena/TV certification.",
+  "unique_games": 5782,
+  "cross_school_matched_game_ids": 5328,
+  "cross_school_date_venue_identity_conflicts": 0,
+  "espn_scoreboard_identity_time_conflicts": 0,
+  "espn_scoreboard_matched_unique_games": 506,
+  "published_broadcast_unique_games": 508,
+  "published_broadcast_team_entries": 1016,
+  "official_broadcast_unique_games": 135,
+  "official_broadcast_team_entries": 270,
+  "espn_scoreboard_broadcast_unique_games": 373,
+  "recovered_broadcast_team_entries_this_pass": 1016,
+  "source_counts_by_team_entry": {
+    "espn_womens_game_scoreboard": 746,
+    "official_school_athletics": 50,
+    "official_conference_television_schedule": 220
+  },
+  "broadcast_source_conflicts": [],
+  "network_policy": "Only exact game-ID and matching date/team evidence; official university/conference announcements preferred. ESPN scoreboard is labeled as a separate non-official source.",
+  "schedule_verification_policy": "ESPN school-calendar duplication verifies internal ledger consistency; it does not constitute official university athletics schedule verification."
 }
