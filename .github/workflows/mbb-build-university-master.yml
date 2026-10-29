@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/mbb-build-university-master.yml'
+      - 'data/mbb-arena-registry.json'
   workflow_dispatch:
 permissions:
   contents: write
