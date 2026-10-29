@@ -1,0 +1,28 @@
+/* College basketball: full-program, NBA-quality roster desk. */
+.mbb-roster-live{--roster-ink:#102e3c;overflow:hidden;border:1px solid #bdd5d9;background:linear-gradient(160deg,#f6fcfd,#fff 45%,#f4f9fb);box-shadow:0 12px 36px rgba(7,54,69,.08)}
+.mbb-roster-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:15px}
+.mbb-roster-header h2{font-family:Georgia,serif;font-size:clamp(1.4rem,2.5vw,2rem);margin:2px 0 5px;line-height:1.05;color:var(--roster-ink)}
+.mbb-roster-header .note{margin:4px 0 0;color:#496670}
+.mbb-roster-header>a{padding:8px 12px;border-radius:30px;text-decoration:none;border:1px solid #6aa6ad;color:#0a5965;font-weight:bold;font-size:.82rem}
+.mbb-roster-count{display:inline-flex;align-items:center;justify-content:center;min-width:1.8em;height:1.8em;padding:0 8px;border-radius:50px;background:#087e83;color:white;font:800 .45em system-ui;vertical-align:middle}
+.mbb-roster-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.mbb-roster-controls label{flex:2 1 140px;display:flex;flex-direction:column;gap:5px;font:700 .77rem system-ui;color:#254f5b}
+.mbb-roster-controls label:not(:first-child){flex:1 1 110px}
+.mbb-roster-controls select,.mbb-roster-controls input{font:400 .92rem system-ui;background:white;color:#183b48;border:1px solid #afc7ce;border-radius:7px;padding:9px 11px;min-height:40px;width:100%;box-sizing:border-box}
+.mbb-roster-controls :focus-visible{outline:3px solid #68bed3;outline-offset:2px}
+.mbb-roster-table-scroll{overflow:auto;max-width:100%;border:1px solid #d4e2e6;border-radius:10px}
+.mbb-roster-table{width:100%;border-collapse:collapse;min-width:420px;font:500 .9rem system-ui}
+.mbb-roster-table thead th{background:#103a4e;color:#fff;text-align:left;padding:11px 13px;white-space:nowrap;font-size:.7rem;letter-spacing:.055em;text-transform:uppercase}
+.mbb-roster-table tbody tr{border-bottom:1px solid #dbe7ea}
+.mbb-roster-table tbody tr:last-child{border:0}
+.mbb-roster-table tbody tr:nth-child(even){background:#eaf5f7}
+.mbb-roster-table tbody tr:hover{background:#d9eff2}
+.mbb-roster-table tbody tr[hidden]{display:none!important}
+.mbb-roster-table td{padding:7px 13px;vertical-align:middle;color:#244656;white-space:nowrap}
+.mbb-roster-person{display:flex;align-items:center;gap:11px;min-width:165px}
+.mbb-roster-person strong{font-weight:750;color:#152f3d}
+.mbb-roster-portrait{width:48px;height:48px;flex:0 0 48px;border:2px solid #a0cbd4;border-radius:50%;background:#d9e8eb;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.mbb-roster-portrait img{width:100%;height:100%;object-fit:cover;z-index:2}
+.mbb-roster-portrait i{position:absolute;font:700 .82rem system-ui;color:#496774;font-style:normal}
+.mbb-roster-live>.note:last-child{margin:12px 0 0;font-size:.78rem;color:#536d78}
+@media(max-width:540px){.mbb-roster-live{padding:12px}.mbb-roster-person{min-width:150px}.mbb-roster-portrait{width:40px;height:40px;flex-basis:40px}.mbb-roster-table td{padding:7px 8px}}
