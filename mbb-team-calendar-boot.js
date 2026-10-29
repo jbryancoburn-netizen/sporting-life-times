@@ -5,7 +5,7 @@
 const host=document.getElementById('mbb-calendar-host');
 if(!host)return;
 const selected=new URLSearchParams(location.search).get('team');
-if(!selected||selected==='ncaa:609574')return;
+if(!selected)return;
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 await window.MBBLogos.ready;
 const load=async url=>{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error(url+' HTTP '+r.status);return r.json();};
@@ -63,7 +63,7 @@ try{
   const candidate=hostId?arenas?.teams?.[hostId]:null;
   const officialFacility=officialLocation.match(/\(([^()]+)\)/);
   const officialArena=officialFacility&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(officialFacility[1])?officialFacility[1].trim():'';
-  const arena=c.venue?.arenaName||officialArena||embeddedArena||(candidate?.home_arena&&verifiedSide!=='neutral'&&!/arena|center|centre|coliseum|pavilion|gym|fieldhouse|stadium|dome/i.test(cleanVenue)?candidate.home_arena:'')||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
+  const arena=c.venue?.arenaName||officialArena||embeddedArena||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
   const city=venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
   const completed=e.status?.type?.completed===true||e.status?.type?.state==='post';
   const result=completed&&self?.score!=null&&opponent?.score!=null?(Number(self.score)>Number(opponent.score)?'W ':'L ')+escape(self.score)+'–'+escape(opponent.score):'—';
