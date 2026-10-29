@@ -71,7 +71,7 @@ try{
   return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup"><span class="sched-logo" style="--logo-ring:'+ring+'">'+emblem+'</span><span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td></tr>';
  }).join('');
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
- const source=data.verified_from_school&&data.source_url?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
+ const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
  host.innerHTML='<section class="panel" id="full-season-schedule"><div class="panel-head"><div class="eyebrow">'+escape(team.name)+' · 2026–27</div><h2>Full Season Schedule — '+games.length+' Games</h2></div><p class="note">'+escape(method)+' · Tipoff times as listed by the university (local time unless specified). '+source+'</p><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>ET</th><th>TV / Stream</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
  host.dataset.scheduleLoaded=selected;
 }catch(err){
