@@ -18,7 +18,13 @@ jobs:
           python-version: '3.11'
       - name: Audit current school schedule records
         run: python scripts/mbb_live_quality_audit.py
-      - name: Build CSV and JSON manifest from existing school records
+      - name: Install open-source parsers
+        run: pip install requests beautifulsoup4
+      - name: Recover official 2026-27 broadcast announcements from universities
+        run: python scripts/mbb_official_news_broadcast_recovery.py
+      - name: Recount all published basketball schedules
+        run: python scripts/mbb_live_quality_audit.py
+      - name: Build CSV and JSON manifest from source-verified university schedules
         run: python scripts/mbb_build_university_master.py
       - name: Verify output
         run: |
@@ -29,7 +35,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json data/mbb-live-quality-audit-2026-27.json
+          git add data/mbb-schedules-2026-27/ data/mbb-official-news-broadcast-recovery.json data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json data/mbb-live-quality-audit-2026-27.json
           git commit -m "Publish 365-school master schedule CSV and JSON manifest" || exit 0
           git pull --rebase origin main
           git push
