@@ -94,7 +94,7 @@
     const details=document.getElementById('wbb-team-detail');
     const rows=data?.rankings;
     const valid=data?.season==='2026-27'&&data?.gender==='women'&&data?.model==='retro-clean-slate'&&data?.starting_elo===1500&&
-      Array.isArray(rows)&&rows.length>=355&&rows.length<=375&&new Set(rows.map(t=>String(t.team_id))).size===rows.length&&
+      Array.isArray(rows)&&rows.length===363&&new Set(rows.map(t=>String(t.team_id))).size===rows.length&&
       rows.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
     if(!valid){
       board.innerHTML=blank('Independent women’s ratings have not passed the publication checks yet.');
@@ -120,7 +120,7 @@
     if(confNames.length<20){conf.innerHTML=blank('Conference affiliations are still being verified; a provisional table would mislead readers.');}
     else{
       const selected=new URLSearchParams(location.search).get('conference')||confNames[0];
-      conf.innerHTML='<p class="note">Provisional conference records from verified Division I vs Division I games. Official tiebreakers and non-D-I games are not included.</p>'+
+      conf.innerHTML='<p class="note">Provisional conference records from verified Division I vs Division I games. Institutional conference assignments still require women-specific verification; official tiebreakers and non-D-I games are not included.</p>'+
         '<label class="wbb-team-search">Conference <select id="wbb-conference-select">'+confNames.map(c=>'<option value="'+esc(c)+'" '+(c===selected?'selected':'')+'>'+esc(c)+'</option>').join('')+'</select></label>'+
         '<div id="wbb-conference-list"></div>';
       const select=document.getElementById('wbb-conference-select');
