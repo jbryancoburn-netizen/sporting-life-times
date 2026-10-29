@@ -19,3 +19,8 @@ body:not([data-page]) .cbb-gender-option:not(.is-active){color:var(--ink,#152a30
 body:not([data-page]) .cbb-gender-bar{margin:12px 0}
 body:not([data-page]) .cbb-gender-label{color:inherit}
 @media(prefers-reduced-motion:reduce){.cbb-gender-option{transition:none}}
+
+/* The archived labs use a dark color scheme unlike the main paper. */
+body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option{border-color:#9cabb3;color:#eef2f2!important;background:#172631}
+body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option.is-active{background:#f4c35d;color:#14232c!important;border-color:#f4c35d}
+body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option:hover:not(.is-active){background:#28444c}
