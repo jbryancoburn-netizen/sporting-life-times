@@ -15,7 +15,9 @@ const ids=new Set(teams.map(x=>x.team_id));
 if(ids.size!==365)throw Error('Duplicate D-I team identities');
 const dataSets=[
   ['NCAA verified final-game ledger',read('ncaam-2026-27-game-ledger.json').games||[]],
-  ['verified MBB season results',read('mbb-2026-2027-results.json').games||[]]
+  ['verified MBB season results',read('mbb-2026-2027-results.json').games||[]],
+  ['rolling official-scoreboard completed finals',
+   fs.existsSync(path+'mbb-retro-live-finals.json')?read('mbb-retro-live-finals.json').games||[]:[]]
 ];
 const finals=new Map();
 const issue=[];
@@ -40,7 +42,17 @@ for(const [source,rows] of dataSets){
   else finals.set(id,result);
  }
 }
-const games=[...finals.values()].sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
+// Two attributed feeds can identify the same contest differently.
+const byFixture=new Map();
+for(const f of finals.values()){
+ const key=[f.date,f.home_id,f.away_id].join('|');
+ const previous=byFixture.get(key);
+ if(previous){
+  if(previous.home_score!==f.home_score||previous.away_score!==f.away_score)throw Error('Conflicting independent final-score sources: '+key);
+  if(f.site_verified&&!previous.site_verified)byFixture.set(key,f);
+ }else byFixture.set(key,f);
+}
+const games=[...byFixture.values()].sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
 const calculated=globalThis.MBB_RETRO.calculate(games,{baseline:1500,homeEdge:100,passes:160});
 if(calculated.games!==games.length)throw Error('RETRO game coverage regression');
 const rating=calculated.ratings;
