@@ -128,7 +128,7 @@ const gameCard=g=>{
 const gameRail=arr=>arr.length?'<div class="nba-score-rail pb-game-rail" id="pb-game-list">'+arr.map(gameCard).join('')+'</div>':empty('No games in the published source window.');
 const gameToolbar=()=>'<div class="pb-game-toolbar"><label>Status <select id="pb-game-status"><option value="all">All games</option><option value="live">Live</option><option value="upcoming">Upcoming</option><option value="final">Final</option></select></label><label>Team <input type="search" id="pb-game-team-filter" placeholder="Find a club"></label><b id="pb-game-count"></b></div>';
 const applyFilters=()=>{const status=document.getElementById('pb-game-status'),search=document.getElementById('pb-game-team-filter');
- if(!status||!search)return;
+ if(!status||!search||typeof document.querySelectorAll!=='function')return;
  let count=0;document.querySelectorAll('#pb-game-list [data-pb-id]').forEach(card=>{card.hidden=!(status.value==='all'||status.value===card.dataset.pbStatus)||!card.dataset.pbClubs.includes(search.value.trim().toLowerCase());if(!card.hidden)count++;});
  const el=document.getElementById('pb-game-count');if(el)el.textContent=count+' games';
 };
@@ -169,8 +169,10 @@ else if(view==='teams'){
 }
 el.innerHTML=body;
 if(view==='games'){
- document.getElementById('pb-game-status')?.addEventListener('change',applyFilters);
- document.getElementById('pb-game-team-filter')?.addEventListener('input',applyFilters);applyFilters();
+ const statusNode=document.getElementById('pb-game-status'),teamNode=document.getElementById('pb-game-team-filter');
+ if(typeof statusNode?.addEventListener==='function')statusNode.addEventListener('change',applyFilters);
+ if(typeof teamNode?.addEventListener==='function')teamNode.addEventListener('input',applyFilters);
+ applyFilters();
 }
 }
 Promise.all(isEuro?[
