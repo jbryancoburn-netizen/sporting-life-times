@@ -56,6 +56,7 @@ jobs:
           node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
           node --test tests/ncaam-rivalry-archive.test.cjs
           node scripts/audit-dual-ring-colors.cjs
+          node scripts/audit-mbb-logo-system.cjs
       # The dedicated newspaper regression workflow runs full Playwright tests.
       # Keep routine publication fast and independent of browser installation.
       - name: Refresh NBA headlines inside the deployable Pages artifact
@@ -322,9 +323,12 @@ jobs:
           assert 'window.MBBLogos.fail(this)' in logo
           assert 'object-fit:contain!important' in css
           assert 'border-radius:50%!important' in css
+          assert '.mbb-mark--art-embedded_roundel' in css and '.mbb-mark--art-flat' in css, 'Artwork-aware MBB renderer not published'
           for page in ('ncaam-elo.html','ncaam-team.html','ncaam-conference.html','ncaam-predictor.html','ncaam-rivalry.html'):
               html=read(page)
               assert 'mbb-logo-system.css' in html, page
+              assert 'slt-dual-ring.js' not in html and 'slt-dual-ring.css' not in html, f'{page}: redundant dual-ring system still published'
+              assert 'shared-team-crests.js' not in html and 'shared-team-crests.css' not in html, f'{page}: global crest wrapper still published'
               loc=html.index('mbb-logo-system.js')
               assert loc>=0
               for consumer in ('mbb-elo-primary.js','mbb-newspaper.js','mbb-team-calendar-boot.js','ncaam-predictor.js','ncaam-rivalry.js'):
