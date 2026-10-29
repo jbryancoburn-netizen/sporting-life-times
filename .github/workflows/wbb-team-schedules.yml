@@ -29,6 +29,8 @@ jobs:
         run: python scripts/wbb-conferences.py || echo 'Women-specific conference audit unavailable; publish schedules with provisional labels'
       - name: Retrieve all 363 women's basketball team calendars
         run: python scripts/wbb-team-schedules.py
+      - name: Merge and audit uniquely matched broadcast evidence
+        run: python scripts/wbb-reconcile-schedule-evidence.py
       - name: Publish calendars and source gaps
         run: |
           git config user.name "github-actions[bot]"
