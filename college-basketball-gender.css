@@ -51,3 +51,16 @@ body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option:hover:not(.is-activ
   .wbb-team-search{align-items:stretch;flex-direction:column;gap:5px}
   .wbb-team-summary{gap:9px}
 }
+
+
+/* Full-season women's team calendars; preserve table readability on phones. */
+#wbb-team-games .wbb-full-schedule{grid-column:1/-1;overflow-x:auto;width:100%;border:1px solid var(--line,#d3d9d6)}
+#wbb-team-games .wbb-full-schedule table{width:100%;min-width:720px;border-collapse:collapse;font-size:12px}
+#wbb-team-games .wbb-full-schedule th{background:#dfeae5;color:#173237;text-align:left;font-size:10px;letter-spacing:.3px;padding:11px 9px;border-bottom:2px solid #617f7a}
+#wbb-team-games .wbb-full-schedule td{padding:10px 9px;border-bottom:1px solid #cedbd5;vertical-align:middle}
+#wbb-team-games .wbb-full-schedule tr:nth-child(even){background:#f7faf8}
+#wbb-team-games .wbb-full-schedule .wbb-logo{width:30px;height:30px;border-width:2px}
+#wbb-team-games .wbb-full-schedule .team-name{font-size:12px}
+#wbb-team-games .wbb-full-schedule td:first-child{white-space:nowrap}
+#wbb-team-games .wbb-calendar-disclosure{grid-column:1/-1;margin:0 0 9px;padding:6px 0}
+#wbb-team-games>a{grid-column:1/-1;margin-top:5px;font-size:12px}
