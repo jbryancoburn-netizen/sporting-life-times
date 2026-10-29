@@ -92,9 +92,17 @@ def game(event):
     if not hid or not aid or hid==aid or len(date)<10:
         return None
     done=bool(event.get("status",{}).get("type",{}).get("completed"))
+    networks=[]
+    for b in c.get("broadcasts",[]) or []:
+        names=b.get("names") or b.get("shortName") or ""
+        networks.extend(names if isinstance(names,list) else [names] if names else [])
+    for b in c.get("geoBroadcasts",[]) or []:
+        name=(b.get("media") or {}).get("shortName")
+        if name:networks.append(name)
     out={"id":str(event.get("id") or ""),"date":date,"home_id":hid,"away_id":aid,
          "neutral":bool(c.get("neutralSite")),"site_verified":True,
          "venue":(c.get("venue") or {}).get("fullName"),
+         "broadcast":", ".join(dict.fromkeys(str(n) for n in networks if n)) or None,
          "status":"final" if done else "scheduled"}
     if done:
         try:
