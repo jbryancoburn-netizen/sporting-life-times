@@ -1,0 +1,24 @@
+/* Sourced 2026–27 NBA roster desk */
+#nba-team-roster{margin:1.25rem 0 1.5rem;padding:1.1rem 1.2rem;border-radius:14px;border:1px solid rgba(120,144,161,.34);background:linear-gradient(125deg,rgba(16,34,48,.96),rgba(17,44,56,.96));color:#eff6fa;box-shadow:0 12px 28px rgba(0,0,0,.15)}
+#nba-team-roster .nba-roster-heading{display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:.95rem}
+#nba-team-roster h2{margin:.2rem 0;font-size:clamp(1.35rem,2.8vw,2rem);color:#fff}
+#nba-team-roster h2 span{display:inline-flex;align-items:center;justify-content:center;background:#0f859e;color:white;border-radius:30px;min-width:2rem;padding:.2rem .5rem;font:700 .85rem system-ui}
+#nba-team-roster .nba-roster-heading p,#nba-team-roster .nba-roster-caption{color:#acc6d2;font:.83rem/1.5 system-ui,sans-serif;margin:.3rem 0}
+#nba-team-roster .nba-roster-heading>a{border:1px solid #628a9b;color:#c8f1ff;border-radius:18px;padding:.5rem .8rem;text-decoration:none;font:700 .8rem system-ui}
+#nba-team-roster .nba-roster-controls{display:flex;flex-wrap:wrap;gap:.8rem;margin:.7rem 0 1.05rem}
+#nba-team-roster .nba-roster-controls label{display:flex;flex-direction:column;gap:.4rem;flex:1 1 190px;font:700 .78rem system-ui;color:#c6e0ed}
+#nba-team-roster .nba-roster-controls input,#nba-team-roster .nba-roster-controls select{background:#fff;color:#172a32;border:1px solid #cbdce4;border-radius:8px;padding:.65rem .75rem;font:400 .9rem system-ui;max-width:100%}
+#nba-team-roster .nba-roster-scroll{overflow-x:auto;border-radius:9px;border:1px solid #345768}
+#nba-team-roster table{border-collapse:collapse;width:100%;font:500 .86rem/1.4 system-ui;min-width:650px}
+#nba-team-roster thead th{position:sticky;top:0;background:#153b4e;color:#eaf7fd;text-align:left;padding:.75rem .7rem;white-space:nowrap;letter-spacing:.025em;font-size:.72rem;text-transform:uppercase}
+#nba-team-roster tbody td{padding:.55rem .7rem;border-top:1px solid rgba(193,225,242,.14);white-space:nowrap}
+#nba-team-roster tbody tr:nth-child(even){background:rgba(255,255,255,.045)}
+#nba-team-roster tbody tr:hover{background:rgba(0,170,211,.14)}
+#nba-team-roster tbody tr[hidden]{display:none!important}
+#nba-team-roster .nba-roster-name{display:flex;align-items:center;gap:.65rem;min-width:170px}
+#nba-team-roster .nba-roster-name strong{font-size:.9rem;color:#fff}
+#nba-team-roster .nba-roster-photo{width:42px;height:42px;flex:0 0 42px;border-radius:50%;overflow:hidden;background:#315568;display:inline-flex;align-items:center;justify-content:center}
+#nba-team-roster .nba-roster-photo img{width:100%;height:100%;object-fit:cover}
+#nba-team-roster td small{display:block;color:#f8c98c;font-size:.7rem}
+#nba-team-roster .nba-roster-alert{border-left:3px solid #ffc56d;padding:.7rem;background:rgba(255,185,90,.1);color:#ffdfaa;font:.88rem system-ui}
+@media(max-width:620px){#nba-team-roster{padding:.8rem;margin-inline:0}#nba-team-roster .nba-roster-heading{align-items:flex-start}}
