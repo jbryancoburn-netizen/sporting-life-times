@@ -1,0 +1,58 @@
+name: NBA full 30-team roster refresh
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect-nba-team-rosters.py'
+      - '.github/workflows/nba-full-rosters.yml'
+permissions:
+  contents: write
+concurrency:
+  group: nba-full-rosters-main
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate roster collector
+        run: python -m py_compile scripts/collect-nba-team-rosters.py
+      - name: Retrieve all 30 current NBA team rosters
+        run: python scripts/collect-nba-team-rosters.py
+      - name: Check 30-team roster coverage and duplicate player IDs
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/nba-team-rosters-2026-27.json'))
+          assert len(d['teams'])==30 and not d['missing_teams']
+          for team,roster in d['teams'].items():
+              players=roster['players']
+              assert 10<=len(players)<=35, (team,len(players))
+              ids=[p['id'] for p in players]
+              assert len(ids)==len(set(ids)), team
+              assert roster.get('updated_at') and roster.get('source')
+          print('PASS 30 NBA rosters; current source timestamps and player IDs verified')
+          PY
+      - name: Publish changed roster snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nba-team-rosters-2026-27.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh all 30 NBA team rosters from current roster feeds"
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
