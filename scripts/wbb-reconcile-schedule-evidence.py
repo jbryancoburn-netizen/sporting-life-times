@@ -333,7 +333,15 @@ def main():
         "network_policy":"Only exact game-ID and matching date/team evidence; official university/conference announcements preferred. ESPN scoreboard is labeled as a separate non-official source.",
         "schedule_verification_policy":"ESPN school-calendar duplication verifies internal ledger consistency; it does not constitute official university athletics schedule verification."
     })
-    cal["note"]="Women's source calendars with exact-match official broadcast citations and separately attributed ESPN women-only scoreboard TV fields; school-calendar games are not yet all university-verified."
+    # Retire pre-reconciliation coverage notes so the public audit never says
+    # the base file still has 11,110 blank networks after publication.
+    audit["missing_broadcast_in_base_schedule"]=missing
+    audit["effective_missing_network_after_verified_overlay"]=missing
+    audit["broadcast_caveat"]="Populated networks are game-specific and labeled by official source or women-specific scoreboard; the remaining "+str(missing)+" team-game rows have no confirmed listing."
+    audit["official_schools_with_at_least_one_verified_game"]=len(official_school_ids)
+    audit["official_school_check_scope"]=str(len(official_school_ids))+" university programs have at least one source-matched game; not every game or whole school schedule is fully certified."
+    audit["venue_caveat"]=str(official_venue_rows)+" individual school-game venue rows are independently named by a university source; all other ESPN venue strings remain unverified until school-level confirmation."
+    cal["note"]="Women's source calendars with exact-match official broadcast citations, ESPN women's scoreboard TV evidence, and game-specific university schedule provenance. Unverified school records and unknown networks remain explicitly identified."
     for path,payload in ((CAL,cal),(AUDIT,audit)):
         body=json.dumps(payload,ensure_ascii=False,indent=2)+"\n"
         if not path.exists() or path.read_text(encoding="utf-8")!=body:
