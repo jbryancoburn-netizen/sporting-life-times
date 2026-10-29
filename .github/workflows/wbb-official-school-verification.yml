@@ -1,0 +1,43 @@
+name: Women's 363 University Calendar Verification
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wbb-official-school-verification.yml'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-official-school-verification
+  cancel-in-progress: false
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install official-page readers
+        run: python -m pip install -q requests beautifulsoup4
+      - name: Validate women's schedule verifier
+        run: python -m py_compile scripts/wbb-verify-official-schools.py
+      - name: Crosscheck every D-I women's university athletics calendar
+        run: python -u scripts/wbb-verify-official-schools.py
+      - name: Publish exact-match official evidence and coverage
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
+          git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Publish official athletics checks for 363 women's programs"
+          for n in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
