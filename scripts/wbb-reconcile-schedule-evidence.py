@@ -11,6 +11,7 @@ import datetime
 import json
 import pathlib
 import re
+import re
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]/"data"
 CAL=ROOT/"ncaaw-schedules-2026-27.json"
@@ -218,6 +219,75 @@ def main():
             match["official_schedule_source_url"]=row["source_url"]
             match["official_schedule_source_type"]=row.get("source_type","official_school_schedule")
             legacy_count+=1
+    # Preserve the larger direct-university source pass across weekly ESPN
+    # refreshes, including date+opponent evidence where site was disputed.
+    bulk_path=ROOT/"ncaaw-2026-27-official-schedule-bulk-evidence.json"
+    bulk_added=0
+    bulk_date_conflicts=0
+    if bulk_path.exists():
+        bulk=load(bulk_path)
+        if bulk.get("gender")!="women" or bulk.get("season")!="2026-27":
+            raise RuntimeError("Wrong bulk university schedule source")
+        for row in bulk.get("rows",[]):
+            tid,gid=text(row.get("team_id")),text(row.get("game_id"))
+            match=next((g for t,g in by_game.get(gid,[]) if t==tid),None)
+            if not match or not text(row.get("source_url")).startswith("https://"):
+                continue
+            local=datetime.datetime.fromisoformat(match["date"].replace("Z","+00:00")).astimezone(
+                ZoneInfo("America/New_York")).date().isoformat()
+            if text(row.get("verified_date"))!=local:
+                bulk_date_conflicts+=1
+                continue
+            if match.get("official_schedule_source_url"):
+                continue
+            fields=[x for x in row.get("verified_fields",[]) if x in (
+                "scheduled_date","opponent","home_away","local_game_date","opponent_id","home_away_or_neutral")]
+            if "scheduled_date" not in fields and "local_game_date" not in fields:
+                continue
+            match["official_schedule_verified_fields"]=fields
+            match["official_schedule_source_url"]=row["source_url"]
+            match["official_schedule_source_type"]=row.get("source_type","official_university_schedule")
+            bulk_added+=1
+    # These separate field crosschecks confirm individual named ARENAS or
+    # tipoffs; printed city or unsuffixed local time is not certification.
+    extra_path=ROOT/"ncaaw-2026-27-official-field-crosschecks.json"
+    official_venue_rows=0
+    official_tipoff_rows=0
+    venue_conflict_count=0
+    printed_time_disagreements=0
+    if extra_path.exists():
+        additional=load(extra_path)
+        if additional.get("season")!="2026-27" or additional.get("gender")!="women":
+            raise RuntimeError("Wrong-season official field crosschecks")
+        printed_time_disagreements=len(additional.get("official_tipoff_discrepancies_for_review",[]))
+        for row in additional.get("university_venue_confirmation_rows",[]):
+            match=next((g for tid,g in by_game.get(text(row.get("game_id")),[])
+                        if tid==text(row.get("team_id"))),None)
+            if not match or not match.get("official_schedule_source_url"):
+                continue
+            v=text(row.get("verified_venue"))
+            if not v or not text(row.get("source_url")).startswith("https://"):
+                continue
+            if text(match.get("venue")) and re.sub(r"[^a-z0-9]","",text(match["venue"]).lower()) != re.sub(r"[^a-z0-9]","",v.lower()):
+                venue_conflict_count+=1
+                continue
+            match["official_venue_verified"]=True
+            match["official_venue_name"]=v
+            match["official_venue_source_url"]=row["source_url"]
+            official_venue_rows+=1
+        for row in additional.get("explicitly_timezone_confirmed_tipoff_rows",[]):
+            match=next((g for tid,g in by_game.get(text(row.get("game_id")),[])
+                        if tid==text(row.get("team_id"))),None)
+            if not match or not match.get("official_schedule_source_url"):
+                continue
+            if text(row.get("calendar_utc"))!=text(match.get("date")):
+                continue
+            if not text(row.get("source_url")).startswith("https://"):
+                continue
+            match["official_tipoff_verified"]=True
+            match["official_tipoff_as_printed"]=row["official_time"]
+            match["official_tipoff_source_url"]=row["source_url"]
+            official_tipoff_rows+=1
     official_school_ids={
         tid for tid,t in cal["teams"].items()
         if any(g.get("official_schedule_source_url") for g in t.get("games",[]))
@@ -228,8 +298,16 @@ def main():
     audit.update({
         "official_school_calendar_verified":len(official_school_ids),
         "official_school_schedules_date_and_opponent_checked":len(official_school_ids),
-        "official_school_schedule_entries_date_and_opponent_checked":len(university_index)+legacy_count,
+        "official_school_schedule_entries_date_and_opponent_checked":sum(
+            bool(g.get("official_schedule_source_url"))
+            for t in cal["teams"].values() for g in t.get("games",[])),
         "official_school_calendar_entries_3_fields_verified":len(university_index),
+        "additional_bulk_official_school_entries_kept":bulk_added,
+        "bulk_university_date_conflicts_quarantined":bulk_date_conflicts,
+        "official_school_venue_verified":official_venue_rows,
+        "official_school_tipoff_verified":official_tipoff_rows,
+        "official_school_venue_confirmation_discrepancies":venue_conflict_count,
+        "official_tipoff_discrepancies_for_review":printed_time_disagreements,
         "official_school_verified_printed_time_fields":university_time_count,
         "official_school_verified_printed_location_fields":university_location_count,
         "official_school_venue_verified":0,
