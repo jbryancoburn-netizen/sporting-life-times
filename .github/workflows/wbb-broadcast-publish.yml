@@ -1,0 +1,57 @@
+name: Women's NCAA Broadcast Evidence Publish
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wbb-broadcast-publish.yml'
+      - 'scripts/wbb-reconcile-schedule-evidence.py'
+      - 'data/ncaaw-2026-27-official-broadcast-overrides.json'
+      - 'data/ncaaw-2026-27-games.json'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-published-broadcasts
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify the reconciliation script
+        run: python -m py_compile scripts/wbb-reconcile-schedule-evidence.py
+      - name: Reconcile all 363 school calendars without re-fetching 363 schedules
+        run: python scripts/wbb-reconcile-schedule-evidence.py
+      - name: Validate published women game provenance and coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          audit=json.loads(Path('data/ncaaw-schedules-2026-27-audit.json').read_text())
+          assert audit['programs']==363 and audit['unique_games']>=5700
+          assert audit['published_broadcast_team_entries']>=900
+          assert audit['cross_school_date_venue_identity_conflicts']==0
+          print('Women schedules:',audit['total_team_game_entries'])
+          print('Network entries:',audit['published_broadcast_team_entries'])
+          print('Officially cited unique games:',audit['official_broadcast_unique_games'])
+          print('Remaining broadcasts missing:',audit['missing_broadcast'])
+          PY
+      - name: Publish evidence-backed school calendars
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
+          if git diff --cached --quiet; then echo "Data already current"; exit 0; fi
+          git commit -m "Publish evidence-backed women basketball broadcast entries to all 363 schedules"
+          for n in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
