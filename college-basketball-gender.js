@@ -8,7 +8,7 @@
   const menURL='ncaam.html';
   const womenURL='ncaam.html?gender=women';
   if(women&&!isFront){location.replace(womenURL);return;}
-  const nav=document.querySelector('header .nav')||document.querySelector('main .nav');
+  const nav=document.querySelector('header .nav')||document.querySelector('main .nav')||document.querySelector('nav')||document.querySelector('main');
   const edition=document.querySelector('header .edition-line');
   if(!nav)return;
   const toggle=document.createElement('div');
