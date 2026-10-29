@@ -1,4 +1,5 @@
 (async()=>{
+if(new URLSearchParams(location.search).get('gender')==='women')return;
 'use strict';
 await window.MBBLogos.ready;
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
