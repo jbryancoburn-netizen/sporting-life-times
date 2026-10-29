@@ -55,6 +55,7 @@ jobs:
           python3 scripts/check_inline_javascript.py
           node --test tests/nba-edition.test.cjs tests/newspaper-structure.test.cjs
           node --test tests/ncaam-rivalry-archive.test.cjs
+          node scripts/audit-dual-ring-colors.cjs
       # The dedicated newspaper regression workflow runs full Playwright tests.
       # Keep routine publication fast and independent of browser installation.
       - name: Refresh NBA headlines inside the deployable Pages artifact
