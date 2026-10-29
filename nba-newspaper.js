@@ -69,7 +69,7 @@ const stand=(conference)=>codes.filter(t=>meta[t][1]===conference).sort((a,b)=>{
  let x=records[a],y=records[b],px=(x.w+x.l)?x.w/(x.w+x.l):0,py=(y.w+y.l)?y.w/(y.w+y.l):0;
  return py-px||y.w-x.w||((rates[b]||0)-(rates[a]||0))||name(a).localeCompare(name(b));});
 function stamp(){if(!$('#data-stamp'))return;
- const captured=data.archive?.games?.length||0;const newsTime=data.news?.updated_at?date(data.news.updated_at):'unavailable';$('#data-stamp').innerHTML='<span class="pulse"></span>'+esc(data.earned?.games_played??'—')+' Elo finals · '+captured+' archived box scores · News published '+newsTime+' · Scores '+date(data.schedule?.updated_at);
+ const captured=data.archive?.games?.length||0;const newsTime=data.news?.updated_at?date(data.news.updated_at):'unavailable';$('#data-stamp').innerHTML='<span class="pulse"></span>'+esc(data.earned?.games_played??'—')+' Elo finals (through '+(data.earned?.events?.length?date(data.earned.events.at(-1).date):'unavailable')+') · '+captured+' archived box scores · News published '+newsTime+' · Scores '+date(data.schedule?.updated_at);
  $('#access-stamp').textContent='Viewed '+date(new Date().toISOString());}
 function card(g){
  const ts=g.teams||[],a=ts.find(t=>t.home_away==='away')||ts[0],h=ts.find(t=>t.home_away==='home')||ts[1];if(!a||!h||!meta[a.code]||!meta[h.code])return '';
@@ -182,7 +182,7 @@ function rankings(){
  };
  const header=[['#','num'],['Team',''],['Conf.',''],['W–L','num'],['Last 5',''],['Streak','num'],['PF/G','num'],['PA/G','num'],['Margin','num'],['USRS Elo','num'],['Δ Elo','num']];
  const tableHtml='<div class="nba-table-wrap nba-power-table-wrap" role="region" tabindex="0" aria-label="NBA power rankings, horizontally scrollable on smaller screens"><table class="nba-table nba-power-table"><thead><tr>'+header.map(([label,cls])=>'<th scope="col" class="'+cls+'">'+label+'</th>').join('')+'</tr></thead><tbody>'+ordered.map(row).join('')+'</tbody></table></div>';
- return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. All 30 teams start each season at 1500 Elo. Ratings update after verified final scores. No previous-season ratings are carried into the new season.</p>'+
+ return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note"><strong>Latest verified final: '+(data.earned?.events?.length?date(data.earned.events.at(-1).date)+' ET':'unavailable')+' · '+esc(data.earned?.games_played??'—')+' games · 1500 season starting rating.</strong></p><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. All 30 teams start each season at 1500 Elo. Ratings update after verified final scores. No previous-season ratings are carried into the new season.</p>'+
  '<div class="nba-power-table-intro"><div><div class="eyebrow">The complete USRS 30</div><h2>Power Table</h2></div><small>PF/G = points scored · PA/G = points allowed · Margin = point differential per game · Δ Elo = movement from opening rating</small></div>'+
  tableHtml+'<p class="nba-power-footnote">Last 5 and streak use completed games only. Early-season averages are sensitive to small samples; Elo figures update with verified finals.</p>';
 }
