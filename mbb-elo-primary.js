@@ -5,6 +5,7 @@ await window.MBBLogos.ready;
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const intl=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});
+const format=value=>Number.isFinite(Number(value))?Number(value).toFixed(1):'—';
 const load=async p=>{const url=p+'?edition='+Math.floor(Date.now()/60000);const r=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error(p+' HTTP '+r.status);return r.json();};
 let retro=null,cross=null,filter='',conference='',a='',b='',venue='neutral';
 const logo=t=>window.MBBLogos.byNCAA(t.team_id,'power',t.team);
