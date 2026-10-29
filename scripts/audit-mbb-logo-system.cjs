@@ -42,9 +42,18 @@ async function run(){
   assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(item.logo_url),'Schedule crest '+t.name);
   assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(item.logo_url),'Score crest '+t.name);
  }
+ const corrected=Object.entries(registry.teams).filter(([id,t])=>t.ring_override==='two');
+ assert.equal(corrected.length,18,'Exactly the 18 affected single-ring schools must be corrected');
+ assert(corrected.every(([id,t])=>t.artwork_type==='embedded_roundel'),'Unrelated school style was changed');
+ for(const [id,record] of corrected){
+  const out=ctx.window.MBBLogos.byNCAA(record.canonical_id,'score',record.school);
+  assert(out.includes('mbb-mark--corrected-two-rings'),'Single-ring school still missing secondary stroke: '+record.school);
+ }
+ assert(cross.teams.filter(t=>!registry.teams[t.espn_id]?.ring_override).every(t=>!ctx.window.MBBLogos.byNCAA(t.id,'score',t.name).includes('mbb-mark--corrected-two-rings')),'Unchanged schools gained extra rings');
  assert(kinds.embedded_roundel>=10,'Screenshot-observed embedded roundels not classified');
  assert(kinds.embedded_roundel+kinds.flat+kinds.unverified===365);
  const css=read('mbb-logo-system.css');
+ assert(css.includes('.mbb-mark--art-embedded_roundel.mbb-mark--corrected-two-rings::before'),'Targeted second color ring CSS missing');
  for(const must of ['.mbb-mark--art-embedded_roundel','.mbb-mark--art-unverified','.mbb-mark--art-flat','object-fit:contain!important','transform:translate(-50%,-50%)!important'])assert(css.includes(must),'Missing MBB artwork CSS: '+must);
  assert(css.includes('.mbb-mark--art-embedded_roundel::before{content:none!important}'),'Embedded roundels must not gain a second site ring');
  assert(css.includes('.mbb-mark--art-embedded_roundel{'),'Embedded roundels must retain a visible primary-color circle');
