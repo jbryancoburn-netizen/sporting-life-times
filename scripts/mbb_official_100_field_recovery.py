@@ -108,9 +108,20 @@ for team in teams:
  d=json.loads(p.read_text())
  if any(not e.get("site_verified") or not ((e.get("competitions") or [{}])[0].get("venue") or {}).get("arenaName") or not ((e.get("competitions") or [{}])[0].get("broadcasts")) for e in d.get("events",[])):
   selected.append(team)
- if len(selected)==int(os.getenv("BATCH_END","200")):break
-selected=selected[int(os.getenv("BATCH_START","100")):int(os.getenv("BATCH_END","200"))]
-assert len(selected)==100
+if os.getenv("BATCH_NAME")=="final-100":
+ final=selected[300:]
+ earlier=[]
+ for filename in ("mbb-official-100-field-recovery.json","mbb-official-field-recovery-second-100.json","mbb-official-field-recovery-third-100.json"):
+  p=ROOT/filename
+  if p.exists():
+   previous=json.loads(p.read_text())
+   earlier.extend(x["id"] for x in previous.get("schools",[]) if x.get("status") in ("unsupported_layout","missing_official_url","fetch_failed"))
+ earlier=set(earlier)
+ revisit=[t for t in selected[:300] if str(t.get("espn_id")) in earlier][:100-len(final)]
+ selected=final+revisit
+else:
+ selected=selected[int(os.getenv("BATCH_START","0")):int(os.getenv("BATCH_END","100"))]
+assert len(selected)==100, f"Expected 100 schools; found {len(selected)}"
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool: results=list(pool.map(run,selected))
 summary={"schools_targeted":len(selected),"schools_checked":len(results),"official_cards":sum(x["cards"] for x in results),"venues_added":sum(x["venues"] for x in results),"tipoffs_added":sum(x["times"] for x in results),"broadcasts_added":sum(x["broadcasts"] for x in results),"sites_verified":sum(x["sites"] for x in results),"schools_changed":sum(bool(x["venues"]+x["times"]+x["broadcasts"]+x["sites"]) for x in results),"statuses":dict(collections.Counter(x["status"] for x in results))}
 (ROOT/("mbb-official-field-recovery-"+os.getenv("BATCH_NAME","second-100")+".json")).write_text(json.dumps({"summary":summary,"schools":results},indent=2)+"\n")
