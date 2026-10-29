@@ -136,3 +136,139 @@ body.nbl-interior-parity .foot,body.nbl-interior-parity .footer{border-top:2px s
  body.nba-parity-paper[data-league="euroleague"] .el-results-strip .el-results-list{grid-template-columns:repeat(2,minmax(0,1fr))}
  body.nba-parity-paper .slt-paper-header .stamp{flex-wrap:wrap}
 }
+
+/* EuroLeague layout repair: the old full-width components must NOT be moved
+   into the narrow newspaper rail. Prevent cutoff brackets and crushed names. */
+body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns{
+ grid-template-columns:minmax(0,1.25fr) minmax(0,.93fr) minmax(0,1.03fr);
+ align-items:start;gap:20px;margin-top:12px;
+}
+body.nba-parity-paper[data-league="euroleague"].slt-reflowed .el-editorial-top{
+ display:block!important;width:100%;margin:22px 0!important;min-width:0;
+}
+body.nba-parity-paper[data-league="euroleague"].slt-reflowed .el-editorial-main{
+ display:grid!important;grid-template-columns:minmax(0,1fr);gap:18px;min-width:0;
+}
+body.nba-parity-paper[data-league="euroleague"].slt-reflowed .el-editorial-sidebar{
+ display:none!important;
+}
+body.nba-parity-paper[data-league="euroleague"].slt-reflowed .el-secondary-desks{
+ display:block!important;width:100%;min-width:0;margin:20px 0;
+}
+body.nba-parity-paper[data-league="euroleague"].slt-reflowed .el-lower-news-grid{
+ display:grid!important;grid-template-columns:minmax(0,1.4fr) minmax(260px,.7fr);gap:20px;
+}
+body.nba-parity-paper[data-league="euroleague"] .el-editorial-main>.hub-feature,
+body.nba-parity-paper[data-league="euroleague"] .el-secondary-desks>.hub-feature,
+body.nba-parity-paper[data-league="euroleague"] .el-lower-news-grid>.hub-feature{
+ box-sizing:border-box;min-width:0;width:100%;max-width:100%;
+ border-top:2px solid #152a30!important;padding-top:12px!important;
+}
+body.nba-parity-paper[data-league="euroleague"] .el-editorial-main #el-club-spotlight,
+body.nba-parity-paper[data-league="euroleague"] .el-editorial-main #el-player-leaders,
+body.nba-parity-paper[data-league="euroleague"] #el-insights-grid{
+ max-width:100%;min-width:0;
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-euroleague-columns .nba-current-table-wrap{
+ max-width:100%;min-width:0;overflow-x:auto!important;-webkit-overflow-scrolling:touch;
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-euroleague-columns .nba-current-table{
+ width:100%;table-layout:auto;
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-euroleague-columns .el-club{
+ display:inline-flex;align-items:center;gap:7px;min-width:0;
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-euroleague-columns .el-club img{
+ width:25px;height:25px;flex:0 0 25px;object-fit:contain;
+}
+body.nba-parity-paper[data-league="euroleague"] .el-editorial-main .el-club-spotlight{
+ display:block;min-width:0;
+}
+body.nba-parity-paper[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+body.nba-parity-paper[data-league="euroleague"] #el-club-spotlight .el-playin-opening{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+body.nba-parity-paper[data-league="euroleague"] #el-predictions{
+ margin:18px 0!important;padding:14px 0!important;border-top:3px double #152a30!important;
+}
+body.nba-parity-paper[data-league="euroleague"] #el-forecasts{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0 20px;
+}
+body.nba-parity-paper[data-league="euroleague"] #el-recent-results .el-results-list{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-paper-header .masthead{
+ background:transparent!important;
+ background-image:none!important;
+ border:0!important;box-shadow:none!important;
+ padding:0!important;
+ margin:16px 0 8px!important;min-height:0!important;
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-paper-header .masthead::before,
+body.nba-parity-paper[data-league="euroleague"] .slt-paper-header .masthead::after{
+ content:none!important;display:none!important;
+}
+body.nba-parity-paper[data-league="euroleague"] .slt-paper-header .nav{
+ background:transparent!important;border-top:3px solid #152a30!important;
+ border-bottom:1px solid #152a30!important;
+}
+body.nba-parity-paper[data-league="euroleague"] .el-live-card{
+ min-width:0!important;overflow:visible;
+}
+body.nba-parity-paper[data-league="euroleague"] .el-live-team>span:not(.slt-mark){
+ min-width:0!important;overflow-wrap:break-word!important;
+}
+@media(max-width:1150px){
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns>.slt-paper-column:first-child{
+  grid-column:1/-1;
+ }
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns #league-news .nba-news-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0 16px!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns #league-news .nba-news-grid>*:first-child{
+  grid-column:1/-1!important;
+ }
+}
+@media(max-width:830px){
+ body.nba-parity-paper[data-league="euroleague"] #el-club-spotlight .el-bracket-direct{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] .el-lower-news-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] #el-recent-results .el-results-list{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+}
+@media(max-width:760px){
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns>.slt-paper-column{
+  grid-column:auto!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns #league-news .nba-news-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] .slt-paper-columns.slt-euroleague-columns #league-news .nba-news-grid>*:first-child{
+  grid-column:1!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] #el-forecasts{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+}
+@media(max-width:620px){
+ body.nba-parity-paper[data-league="euroleague"] #el-club-spotlight .el-bracket-direct,
+ body.nba-parity-paper[data-league="euroleague"] #el-club-spotlight .el-playin-opening{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ body.nba-parity-paper[data-league="euroleague"] #el-insights-grid,
+ body.nba-parity-paper[data-league="euroleague"] #el-player-leaders{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+}
