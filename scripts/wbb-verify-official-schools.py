@@ -81,7 +81,22 @@ def official_urls(tid):
     if str(row.get("espn_id"))==str(tid):
      sources.append(row.get("url") or "")
      break
- out=[]
+ # Direct school athletics pages confirmed for the 2026-27 women's season.
+ # Keep these separate from any inferred men's URL pattern.
+ exact={
+  "8":"https://arkansasrazorbacks.com/sport/w-baskbl/schedule/",
+  "55":"https://jaxstatesports.com/sports/womens-basketball/schedule",
+  "59":"https://ramblinwreck.com/sports/w-baskbl/schedule",
+  "87":"https://fightingirish.com/sports/wbball/schedule",
+  "99":"https://lsusports.net/sports/wbball/schedule/season/2026-27",
+  "195":"https://ohiobobcats.com/sports/wbball/schedule",
+  "213":"https://gopsusports.com/sports/womens-basketball/schedule",
+  "21":"https://goaztecs.com/sports/womens-basketball/schedule",
+  "245":"https://12thman.com/sports/womens-basketball/schedule",
+  "2900":"https://tommiesports.com/sports/wbball/schedule",
+  "112358":"https://www.liuathletics.com/sports/womens-basketball/schedule/2026-27"
+ }
+ out=[exact[str(tid)]] if str(tid) in exact else []
  for u in sources:
   if not u.startswith("https://"):continue
   for old,new in (("mens-basketball","womens-basketball"),

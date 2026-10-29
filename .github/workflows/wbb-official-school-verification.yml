@@ -40,7 +40,7 @@ jobs:
               urls=m.official_urls(tid)
               if not urls:
                   missing.append(tid)
-              if any("mens-basketball" in u or "/mbkb/" in u for u in urls):
+              if any("/sports/mens-basketball/" in u or "/sports/mbkb/" in u for u in urls):
                   raise RuntimeError("Men's schedule candidate rejected for "+tid)
           if missing:
               raise RuntimeError("Still missing official women's URL candidates: "+str(missing))
