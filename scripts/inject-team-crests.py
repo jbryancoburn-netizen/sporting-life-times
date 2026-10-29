@@ -35,10 +35,17 @@ for path in files:
             source=re.sub(r'</head\s*>',lambda match:FAVICON+match.group(),source,count=1,flags=re.I)
             path.write_text(source,encoding='utf-8')
             changed+=1
-    # NBA provides its own single-ring logo system. Never inject the global DOM wrapper.
-    if re.match(r"nba(?:[-.]|$)", path.name, re.IGNORECASE):
+    # Both NBA and men's D-I basketball own their complete crest components.
+    # Installing the generic global IMG wrapper here stacks extra circular borders.
+    if re.match(r"nba(?:[-.]|$)|ncaam(?:[-.]|$)|college-basketball\\.html$", path.name, re.IGNORECASE):
         if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
             missing.append(path.name + " must not load shared-team-crests")
+        elif not CHECK:
+            clean=re.sub(r'<link\\b[^>]+href="shared-team-crests\\.css[^"]*"[^>]*>',"",source,flags=re.I)
+            clean=re.sub(r'<script\\b[^>]+src="shared-team-crests\\.js[^"]*"[^>]*>\\s*</script>',"",clean,flags=re.I)
+            if clean!=source:
+                path.write_text(clean,encoding="utf-8")
+                changed+=1
         continue
     if "shared-team-crests.css" in source and "shared-team-crests.js" in source:
         continue
