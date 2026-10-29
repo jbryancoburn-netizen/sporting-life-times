@@ -39,6 +39,8 @@ jobs:
         run: node scripts/audit-mbb-logo-system.cjs
       - name: Verify 365 NCAA power ranking rows actually render
         run: node tests/mbb-rankings-runtime.test.cjs
+      - name: Validate 25 AP and Coaches poll logo matches
+        run: node tests/mbb-poll-logos.test.cjs
       - name: JavaScript syntax in public assets
         shell: bash
         run: |
