@@ -6,24 +6,38 @@
  background:#fff!important;overflow:hidden!important;padding:0!important;
  aspect-ratio:1 / 1!important;box-shadow:0 1px 3px rgba(0,0,0,.12)!important;
 }
+/* Both color rings must be ABOVE the artwork; the ring overlay must not
+   paint a square white background over the original EuroLeague crests. */
 .slt-dual-shell::before{
  content:""!important;position:absolute!important;display:block!important;
  inset:3px!important;border:2.5px solid var(--slt-dual-secondary,#a0aab5)!important;
- border-radius:50%!important;background:#fff!important;box-shadow:0 0 0 .7px rgba(0,0,0,.12)!important;
- pointer-events:none!important;z-index:1!important;
+ border-radius:50%!important;background:transparent!important;
+ box-shadow:0 0 0 .7px rgba(0,0,0,.12)!important;
+ pointer-events:none!important;z-index:3!important;
 }
+/* Absolute 50/50 alignment avoids the grid/inline layout disagreement that
+   shifted ALL college basketball team artwork toward one side. The circular
+   clipping prevents square white PNG backgrounds from blocking either ring. */
 .slt-dual-shell>img:not(.player-photo):not(.player-portrait):not(.team-hero-logo-bg){
- box-sizing:border-box!important;position:relative!important;z-index:2!important;
- width:71%!important;height:71%!important;min-width:0!important;min-height:0!important;
- max-width:71%!important;max-height:71%!important;
- object-fit:contain!important;object-position:center!important;
- border:0!important;border-radius:0!important;background:transparent!important;
- margin:0 auto!important;padding:0!important;box-shadow:none!important;transform:none!important;
+ box-sizing:border-box!important;display:block!important;position:absolute!important;
+ top:50%!important;left:50%!important;right:auto!important;bottom:auto!important;
+ transform:translate(-50%,-50%)!important;z-index:2!important;
+ width:62%!important;height:62%!important;min-width:0!important;min-height:0!important;
+ max-width:62%!important;max-height:62%!important;
+ object-fit:contain!important;object-position:center center!important;
+ border:0!important;border-radius:50%!important;
+ clip-path:circle(50% at 50%)!important;background:transparent!important;
+ margin:0!important;padding:0!important;box-shadow:none!important;
 }
+/* Explicit MBB override wins against prior absolute inset/width declarations,
+   regardless of stylesheet loading order or the original CSS grid. */
 .mbb-mark.slt-dual-shell>img.mbb-mark__img{
- position:absolute!important;top:17%!important;left:17%!important;
- width:66%!important;height:66%!important;max-width:66%!important;max-height:66%!important;
- object-fit:contain!important;z-index:2!important;background:transparent!important;
+ position:absolute!important;top:50%!important;left:50%!important;right:auto!important;bottom:auto!important;
+ transform:translate(-50%,-50%)!important;
+ width:62%!important;height:62%!important;max-width:62%!important;max-height:62%!important;
+ margin:0!important;padding:0!important;object-fit:contain!important;
+ border-radius:50%!important;clip-path:circle(50% at 50%)!important;
+ z-index:2!important;background:transparent!important;
 }
 .mbb-mark.slt-dual-shell>.mbb-mark__initials{z-index:2!important}
 .slt-dual-image{border-radius:50%!important;object-fit:contain!important;aspect-ratio:1 / 1!important}
