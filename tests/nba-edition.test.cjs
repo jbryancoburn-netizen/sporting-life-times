@@ -20,8 +20,10 @@ test('all new NBA navigation destinations resolve locally',()=>{
 });
 test('NBA editions retain the verified scores, news, players, Elo and archival data feeds',()=>{
  const s=read('nba-newspaper.js');
- for(const f of ['nba-2026-27-current-provisional.json','nba-2026-27-preseason-provisional.json','nba-2025-26-final.json','nba-game-center.json','nba-upcoming-schedule.json','nba-player-leaders.json','nba-top-stories.json'])assert.ok(s.includes(f),f);
- const elo=JSON.parse(read('data/nba-2026-27-current-provisional.json'));
+ for(const f of ['nba-2026-27-current-provisional.json','nba-elo-shadow-2026-27.json','nba-game-center.json','nba-upcoming-schedule.json','nba-player-leaders.json','nba-top-stories.json'])assert.ok(s.includes(f),f);
+ const elo=JSON.parse(read('data/nba-elo-shadow-2026-27.json'));
+ assert.equal(elo.parameters.season_start_elo,1500,'all teams must start the NBA season at 1500');
+ assert.equal(JSON.parse(read('data/nba-elo-active.json')).public_rankings_models,1,'the NBA newspaper must publish exactly one Elo model');
  assert.equal(new Set(elo.rankings.map(x=>x.team)).size,30);
  assert.equal(elo.games_played,elo.events.length);
  assert.equal(new Set(elo.events.map(x=>x.id)).size,elo.events.length);
@@ -62,12 +64,13 @@ test('ratings and simulated standings are identified distinctly from official NB
 
 test('NBA power table uses eleven sourced and compact analytical columns',()=>{
  const js=read('nba-newspaper.js'),css=read('nba-newspaper.css');
- for(const key of ['function powerLog(','function powerForm(','nba-power-table','Last 5','Streak','PF/G','PA/G','Margin','Δ Elo','nba-power-history'])assert.ok(js.includes(key),'missing '+key);
+ for(const key of ['function powerLog(','function powerForm(','nba-power-table','Last 5','Streak','PF/G','PA/G','Margin' ,'Δ Elo'])assert.ok(js.includes(key),'missing '+key);
  assert.ok(js.includes('g.home_score')&&js.includes('g.away_score'),'power form must use final scores');
  assert.ok(js.includes('records[t].pf/gp')&&js.includes('records[t].pa/gp'),'per-game stats use actual finals');
  assert.ok(js.includes("all.slice(-5)"),'last-five record must be actual trailing finals');
  assert.ok(css.includes('table-layout:fixed')&&css.includes('height:48px'));
- assert.match(read('nba-rankings.html'),/nba-newspaper\.js\?v=20261027[a-z0-9]+/);
+ assert.match(read('nba-rankings.html'),/nba-newspaper\.js\?v=20261028singleelo1500/);
+ assert.doesNotMatch(js,/nba-power-history|Compare historical rating baselines/,'do not display alternative historical Elo rankings');
  assert.doesNotMatch(js,/nba-power-spotlights|nba-power-spotlight-team/,'oversized featured NBA logo cards must not reappear');
  assert.doesNotMatch(css,/nba-power-spotlights|nba-power-spotlight-team/,'unused oversized featured panel styling should not return');
 });
