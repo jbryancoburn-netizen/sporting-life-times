@@ -11,7 +11,6 @@ import datetime
 import json
 import pathlib
 import re
-import re
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]/"data"
 CAL=ROOT/"ncaaw-schedules-2026-27.json"
@@ -310,7 +309,6 @@ def main():
         "official_tipoff_discrepancies_for_review":printed_time_disagreements,
         "official_school_verified_printed_time_fields":university_time_count,
         "official_school_verified_printed_location_fields":university_location_count,
-        "official_school_venue_verified":0,
         "official_university_schedule_batch_files":[
             "data/ncaaw-official-school-verification-batch-"+x+".json"
             for x in ("01","02","03") if (ROOT/("ncaaw-official-school-verification-batch-"+x+".json")).exists()
