@@ -1,4 +1,4 @@
-name: MBB official 365-school source and broadcast recovery (one time)
+name: MBB official text schedule recovery for non-Sidearm schools (one time)
 on:
   push:
     paths:
@@ -9,7 +9,7 @@ permissions:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +24,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/mbb-schedules-2026-27/ data/mbb-official-text-unread-365.json data/mbb-official-source-cache/ data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json
-          git commit -m "Publish final 100 schools official venue time broadcast recovery and rebuilt master" || exit 0
+          git commit -m "Publish verified non-Sidearm university basketball schedule records" || exit 0
           for n in 1 2 3 4; do
             git pull --rebase origin main && git push && exit 0
             sleep 3
