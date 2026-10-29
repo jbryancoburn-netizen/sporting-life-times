@@ -57,6 +57,7 @@ jobs:
           node --test tests/ncaam-rivalry-archive.test.cjs
           node scripts/audit-dual-ring-colors.cjs
           node scripts/audit-mbb-logo-system.cjs
+          node tests/mbb-rankings-runtime.test.cjs
       # The dedicated newspaper regression workflow runs full Playwright tests.
       # Keep routine publication fast and independent of browser installation.
       - name: Refresh NBA headlines inside the deployable Pages artifact
