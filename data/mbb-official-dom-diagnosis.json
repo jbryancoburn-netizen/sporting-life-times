@@ -1,148 +1,438 @@
 {
   "results": [
     {
-      "school": "Alabama A&M",
-      "url": "https://aamusports.com/sports/mens-basketball/schedule/2026-27",
+      "school": "Alabama",
+      "url": "https://rolltide.com/sports/mens-basketball/schedule/2026-27",
       "status": 200,
-      "bytes": 1185929,
+      "bytes": 1166077,
       "selectors": {
-        ".sidearm-schedule-game": 35,
-        ".sidearm-schedule-game-row": 70,
-        "[class*='schedule-game']": 1377,
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
         "[class*='schedule_game']": 0,
-        "[data-game-id]": 35,
+        "[data-game-id]": 0,
         "li": 287,
-        "time": 2,
-        "script[type='application/ld+json']": 1
+        "time": 0,
+        "script[type='application/ld+json']": 0
       },
+      "sample_cards": [],
+      "table_headers": [],
+      "jsonld_preview": [],
       "examples": {
-        "Oakwood": [
+        "Auburn": [
           [
             {
-              "tag": "script",
-              "class": [],
-              "attrs": {},
-              "text": "[{\"@context\":\"https://schema.org/\",\"name\":\"Alabama A&M University Vs Samford\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Alabama A&M University\"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Samford\"},\"startDate\":\"2026-10-13T19:00:00\",\"endDate\":\"2026-10-13T19:00:00\",\"eventStatus\":null,\"location\":{\"sameAs\":null,\"imag",
-              "length": 28665
-            },
-            {
-              "tag": "head",
-              "class": [],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - Alabama A&M Athletics",
-              "length": 57
-            },
-            {
-              "tag": "html",
+              "tag": "a",
               "class": [
-                "wide",
-                "schedules-page",
-                "sidearm-schedule-template-1",
-                "wide",
-                "sport",
-                "mbball"
+                "text-theme-safe",
+                "s-text-paragraph-bold",
+                "block"
               ],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - Alabama A&M Athletics Skip To Main Content Pause All Rotators Alabama A&M Athletics The Official Website for the Alabama A&M Bulldogs Alabama A&M Bulldogs Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball : Facebook Basketball",
-              "length": 15587
-            },
-            {
-              "tag": "[document]",
-              "class": [],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - Alabama A&M Athletics Skip To Main Content Pause All Rotators Alabama A&M Athletics The Official Website for the Alabama A&M Bulldogs Alabama A&M Bulldogs Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball : Facebook Basketball",
-              "length": 15587
-            }
-          ],
-          [
-            {
-              "tag": "script",
-              "class": [],
-              "attrs": {},
-              "text": "var obj = {\"start\":0,\"count\":1,\"name\":\"default\",\"sport_id\":null,\"count_breakpoints\":null,\"css_class\":\"\",\"pinned_id\":\"\",\"extra\":{\"countdown_enabled\":\"true\"},\"context\":null,\"dummy\":false,\"type\":\"events\",\"id\":\"5e4e122d-3616-4c15-8622-99debdfb0fcd\",\"data\":[{\"id\":8928,\"game_pregame_story_id\":null,\"game_postgame_story_id\":null,\"date\":\"2026-11-02T19:30:00",
-              "length": 3456
+              "attrs": {
+                "data-s-nav-link": "",
+                "data-test-id": "s-game-card-standard__header-team-opponent-link",
+                "data-v-ad85b2e4": ""
+              },
+              "text": "Auburn",
+              "length": 6
             },
             {
               "tag": "div",
               "class": [
-                "schedule-view-container"
+                "flex",
+                "items-center",
+                "gap-4",
+                "justify-center",
+                "@[704px]/s-game-card-standard:justify-start"
               ],
-              "attrs": {},
-              "text": "Choose A Location: All Games Home Away Neutral Conference Non-Conference Go Season 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11 2009-10 2008-09 2007-08 2006-07 2005-06 2004-05 2003-04 1999-00 Go Print Grid Text Season Records Overall 0-0 Overall PCT Conf 0-0 ",
-              "length": 8284
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "Auburn",
+              "length": 6
             },
             {
-              "tag": "article",
+              "tag": "div",
               "class": [
-                "sidearm-schedule-template-1",
-                "sidearm-schedule",
-                "sidearm-common"
+                "s-game-card__header__team-event-info",
+                "w-full",
+                "text-center",
+                "@[704px]/s-game-card-standard:w-auto",
+                "@[704px]/s-game-card-standard:text-left"
               ],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule Choose A Location: All Games Home Away Neutral Conference Non-Conference Go Season 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11 2009-10 2008-09 2007-08 2006-07 2005-06 2004-05 2003-04 1999-00 Go Print Grid Text Season Records",
-              "length": 8318
+              "attrs": {
+                "data-test-id": "s-game-card-standard__header-team-event-info",
+                "data-v-ad85b2e4": ""
+              },
+              "text": "Auburn Birmingham, Ala. TV: YouTube",
+              "length": 35
             },
             {
-              "tag": "main",
+              "tag": "div",
               "class": [
-                "main-content-placeholder"
+                "s-game-card__header__team",
+                "flex",
+                "items-center",
+                "@[704px]/s-game-card-standard:mb-0",
+                "@[704px]/s-game-card-standard:w-auto",
+                "@[704px]/s-game-card-standard:flex-nowrap",
+                "@[704px]/s-game-card-standard:justify-start",
+                "mb-[16px]",
+                "w-full",
+                "flex-wrap",
+                "justify-center",
+                "@[1024px]/s-game-card-standard:mr-[16px]"
               ],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule Choose A Location: All Games Home Away Neutral Conference Non-Conference Go Season 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11 2009-10 2008-09 2007-08 2006-07 2005-06 2004-05 2003-04 1999-00 Go Print Grid Text Season Records",
-              "length": 8318
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "vs Auburn Birmingham, Ala. TV: YouTube",
+              "length": 38
             },
             {
-              "tag": "form",
-              "class": [],
-              "attrs": {},
-              "text": "Alabama A&M Athletics The Official Website for the Alabama A&M Bulldogs Alabama A&M Bulldogs Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball : Facebook Basketball : X Basketball : Instagram Basketball : Tickets Basketball : Schedule Basketball : Roster Basketb",
-              "length": 15155
+              "tag": "div",
+              "class": [
+                "s-game-card__header-inner-top-inner",
+                "flex",
+                "w-full",
+                "flex-row",
+                "items-center",
+                "border-primary",
+                "@[1024px]/s-game-card-standard:flex-nowrap",
+                "flex-wrap",
+                "@[704px]/s-game-card-standard:justify-start",
+                "@[704px]/s-game-card-standard:border-t-0",
+                "@[704px]/s-game-card-standard:border-l-[10px]",
+                "@[704px]/s-game-card-standard:p-[32px]",
+                "justify-center",
+                "border-t-[10px]",
+                "px-[16px]",
+                "py-[32px]"
+              ],
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "vs Auburn Birmingham, Ala. TV: YouTube The Feud W, 87-85 Oct 22 (Thu) 7 p.m. CT Game Center Box Score Recap Photos Box Score (PDF)",
+              "length": 130
             },
             {
-              "tag": "body",
-              "class": [],
-              "attrs": {},
-              "text": "Skip To Main Content Pause All Rotators Alabama A&M Athletics The Official Website for the Alabama A&M Bulldogs Alabama A&M Bulldogs Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball : Facebook Basketball : X Basketball : Instagram Basketball : Tickets Basketbal",
-              "length": 15529
+              "tag": "div",
+              "class": [
+                "s-game-card__header-inner-top",
+                "flex",
+                "w-full",
+                "flex-row"
+              ],
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "vs Auburn Birmingham, Ala. TV: YouTube The Feud W, 87-85 Oct 22 (Thu) 7 p.m. CT Game Center Box Score Recap Photos Box Score (PDF)",
+              "length": 130
+            }
+          ],
+          [
+            {
+              "tag": "a",
+              "class": [
+                "text-theme-safe",
+                "s-text-paragraph-bold",
+                "block"
+              ],
+              "attrs": {
+                "data-s-nav-link": "",
+                "data-test-id": "s-game-card-standard__header-team-opponent-link",
+                "data-v-ad85b2e4": ""
+              },
+              "text": "Auburn",
+              "length": 6
+            },
+            {
+              "tag": "div",
+              "class": [
+                "flex",
+                "items-center",
+                "gap-4",
+                "justify-center",
+                "@[704px]/s-game-card-standard:justify-start"
+              ],
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "Auburn",
+              "length": 6
+            },
+            {
+              "tag": "div",
+              "class": [
+                "s-game-card__header__team-event-info",
+                "w-full",
+                "text-center",
+                "@[704px]/s-game-card-standard:w-auto",
+                "@[704px]/s-game-card-standard:text-left"
+              ],
+              "attrs": {
+                "data-test-id": "s-game-card-standard__header-team-event-info",
+                "data-v-ad85b2e4": ""
+              },
+              "text": "Auburn Tuscaloosa, Ala. TV: ESPN/2",
+              "length": 34
+            },
+            {
+              "tag": "div",
+              "class": [
+                "s-game-card__header__team",
+                "flex",
+                "items-center",
+                "@[704px]/s-game-card-standard:mb-0",
+                "@[704px]/s-game-card-standard:w-auto",
+                "@[704px]/s-game-card-standard:flex-nowrap",
+                "@[704px]/s-game-card-standard:justify-start",
+                "mb-[16px]",
+                "w-full",
+                "flex-wrap",
+                "justify-center",
+                "@[1024px]/s-game-card-standard:mr-[16px]"
+              ],
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "vs Auburn Tuscaloosa, Ala. TV: ESPN/2",
+              "length": 37
+            },
+            {
+              "tag": "div",
+              "class": [
+                "s-game-card__header-inner-top-inner",
+                "flex",
+                "w-full",
+                "flex-row",
+                "items-center",
+                "border-theme-muted-dark",
+                "@[1024px]/s-game-card-standard:flex-nowrap",
+                "flex-wrap",
+                "@[704px]/s-game-card-standard:justify-start",
+                "@[704px]/s-game-card-standard:border-t-0",
+                "@[704px]/s-game-card-standard:border-l-[10px]",
+                "@[704px]/s-game-card-standard:p-[32px]",
+                "justify-center",
+                "border-t-[10px]",
+                "px-[16px]",
+                "py-[32px]"
+              ],
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "vs Auburn Tuscaloosa, Ala. TV: ESPN/2 Jan 30 (Sat) 5/5:30 p.m. CT Game Center Live stats",
+              "length": 88
+            },
+            {
+              "tag": "div",
+              "class": [
+                "s-game-card__header-inner-top",
+                "flex",
+                "w-full",
+                "flex-row"
+              ],
+              "attrs": {
+                "data-v-ad85b2e4": ""
+              },
+              "text": "vs Auburn Tuscaloosa, Ala. TV: ESPN/2 Jan 30 (Sat) 5/5:30 p.m. CT Game Center Live stats",
+              "length": 88
             }
           ]
+        ]
+      }
+    },
+    {
+      "school": "North Carolina",
+      "url": "https://goheels.com/sports/mens-basketball/schedule/2026-27",
+      "status": 200,
+      "bytes": 1220037,
+      "selectors": {
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 0,
+        "li": 221,
+        "time": 0,
+        "script[type='application/ld+json']": 0
+      },
+      "sample_cards": [],
+      "table_headers": [],
+      "jsonld_preview": []
+    },
+    {
+      "school": "Akron",
+      "url": "https://gozips.com/sports/mens-basketball/schedule/2026-27",
+      "status": 200,
+      "bytes": 737180,
+      "selectors": {
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 0,
+        "li": 128,
+        "time": 0,
+        "script[type='application/ld+json']": 0
+      },
+      "sample_cards": [],
+      "table_headers": [],
+      "jsonld_preview": []
+    },
+    {
+      "school": "UC Riverside",
+      "url": "https://gohighlanders.com/sports/mens-basketball/schedule",
+      "status": 200,
+      "bytes": 873192,
+      "selectors": {
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 0,
+        "li": 187,
+        "time": 0,
+        "script[type='application/ld+json']": 0
+      },
+      "sample_cards": [],
+      "table_headers": [],
+      "jsonld_preview": []
+    },
+    {
+      "school": "Indiana",
+      "url": "https://iuhoosiers.com/sports/mens-basketball/schedule",
+      "status": 200,
+      "bytes": 998153,
+      "selectors": {
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 0,
+        "li": 269,
+        "time": 0,
+        "script[type='application/ld+json']": 0
+      },
+      "sample_cards": [],
+      "table_headers": [],
+      "jsonld_preview": []
+    },
+    {
+      "school": "Villanova",
+      "url": "https://villanova.com/sports/mens-basketball/schedule/2026-27",
+      "status": 200,
+      "bytes": 801440,
+      "selectors": {
+        ".sidearm-schedule-game": 36,
+        ".sidearm-schedule-game-row": 36,
+        "[class*='schedule-game']": 944,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 36,
+        "li": 222,
+        "time": 2,
+        "script[type='application/ld+json']": 1
+      },
+      "sample_cards": [
+        {
+          "tag": "li",
+          "class": [
+            "sidearm-schedule-game",
+            "sidearm-schedule-away-game",
+            "upcoming-game",
+            "W",
+            "sidearm-schedule-game-completed"
+          ],
+          "data_game_id": "17861",
+          "text": "Oct 11 (Sun) 1 p.m. Big 10 + Villanova Sports Radio Network at Rutgers University (Exh.) Box Score Recap Piscataway, NJ Jersey Mike's Arena TV: Big 10 + Radio: Villanova Sports Radio Network W, 77-75 Box Score Recap Hide/Show Additional Information For Rutgers University (Exh.) - October 11, 2026",
+          "opp": "Oct 11 (Sun) 1 p.m. Big 10 + Villanova Sports Radio Network at Rutgers University (Exh.) Box Score Recap",
+          "network_markup": [
+            {
+              "class": [
+                "sidearm-schedule-game-coverage-tv-label"
+              ],
+              "text": "TV:"
+            },
+            {
+              "class": [
+                "sidearm-schedule-game-coverage-tv-content"
+              ],
+              "text": "Big 10 +"
+            }
+          ]
+        },
+        {
+          "tag": "li",
+          "class": [
+            "sidearm-schedule-game",
+            "sidearm-schedule-home-game",
+            "upcoming-game",
+            "W",
+            "sidearm-schedule-game-completed"
+          ],
+          "data_game_id": "17862",
+          "text": "Oct 17 (Sat) 1 p.m. Villanova Sports Radio Network vs George Mason University (Exh.) Box Score Recap Gallery Villanova, Pa. Finneran Pavilion Radio: Villanova Sports Radio Network W, 84-67 Box Score Recap Gallery Hide/Show Additional Information For George Mason University (Exh.) - October 17, 2026",
+          "opp": "Oct 17 (Sat) 1 p.m. Villanova Sports Radio Network vs George Mason University (Exh.) Box Score Recap Gallery",
+          "network_markup": []
+        }
+      ],
+      "table_headers": [
+        [
+          "Team",
+          "Period",
+          "F",
+          "Winner:",
+          "Winner:"
         ],
+        [
+          "Team",
+          "Period",
+          "F",
+          "Winner:",
+          "Winner:"
+        ]
+      ],
+      "jsonld_preview": [
+        "[{\"@context\":\"https://schema.org/\",\"name\":\"Villanova University  At Rutgers University (Exh.)\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Villanova University \"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Rutgers University (Exh.)\"},\"startDate\":\"2026-10-11T13:00:00\",\"endDate\":\"2026-10"
+      ],
+      "examples": {
         "DePaul": [
           [
             {
               "tag": "script",
               "class": [],
               "attrs": {},
-              "text": "[{\"@context\":\"https://schema.org/\",\"name\":\"Alabama A&M University Vs Samford\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Alabama A&M University\"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Samford\"},\"startDate\":\"2026-10-13T19:00:00\",\"endDate\":\"2026-10-13T19:00:00\",\"eventStatus\":null,\"location\":{\"sameAs\":null,\"imag",
-              "length": 28665
+              "text": "[{\"@context\":\"https://schema.org/\",\"name\":\"Villanova University  At Rutgers University (Exh.)\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Villanova University \"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Rutgers University (Exh.)\"},\"startDate\":\"2026-10-11T13:00:00\",\"endDate\":\"2026-10-11T13:00:00\",\"eventStatus\":nu",
+              "length": 30074
             },
             {
               "tag": "head",
               "class": [],
               "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - Alabama A&M Athletics",
-              "length": 57
+              "text": "2026-27 Men's Basketball Schedule - Villanova University",
+              "length": 56
             },
             {
               "tag": "html",
               "class": [
                 "wide",
                 "schedules-page",
-                "sidearm-schedule-template-1",
+                "sidearm-schedule-template-default",
                 "wide",
                 "sport",
                 "mbball"
               ],
               "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - Alabama A&M Athletics Skip To Main Content Pause All Rotators Alabama A&M Athletics The Official Website for the Alabama A&M Bulldogs Alabama A&M Bulldogs Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball : Facebook Basketball",
-              "length": 15587
+              "text": "2026-27 Men's Basketball Schedule - Villanova University Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Villanova Univeristy Athletics #GONOVA Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: F",
+              "length": 15351
             },
             {
               "tag": "[document]",
               "class": [],
               "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - Alabama A&M Athletics Skip To Main Content Pause All Rotators Alabama A&M Athletics The Official Website for the Alabama A&M Bulldogs Alabama A&M Bulldogs Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball : Facebook Basketball",
-              "length": 15587
+              "text": "2026-27 Men's Basketball Schedule - Villanova University Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Villanova Univeristy Athletics #GONOVA Main Baseball Baseball: Facebook Baseball: X Baseball: Instagram Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: F",
+              "length": 15351
             }
           ],
           [
@@ -150,17 +440,17 @@
               "tag": "a",
               "class": [],
               "attrs": {},
-              "text": "DePaul",
-              "length": 6
+              "text": "DePaul University",
+              "length": 17
             },
             {
-              "tag": "span",
+              "tag": "div",
               "class": [
                 "sidearm-schedule-game-opponent-name"
               ],
               "attrs": {},
-              "text": "DePaul",
-              "length": 6
+              "text": "DePaul University",
+              "length": 17
             },
             {
               "tag": "div",
@@ -168,59 +458,171 @@
                 "sidearm-schedule-game-opponent-text"
               ],
               "attrs": {},
-              "text": "at DePaul",
-              "length": 9
+              "text": "at DePaul University",
+              "length": 20
+            },
+            {
+              "tag": "div",
+              "class": [
+                "sidearm-schedule-game-opponent-details",
+                "flex-item-1"
+              ],
+              "attrs": {},
+              "text": "Jan 22 (Fri) 7 p.m. FS1 Villanova Sports Radio Network at DePaul University Listen Live",
+              "length": 87
             },
             {
               "tag": "div",
               "class": [
                 "sidearm-schedule-game-opponent",
                 "flex",
-                "flex-align-center"
+                "flex-align-center",
+                "x-large-5",
+                "medium-8",
+                "x-small-12",
+                "full",
+                "columns"
               ],
               "attrs": {},
-              "text": "at DePaul",
-              "length": 9
-            },
-            {
-              "tag": "div",
-              "class": [
-                "sidearm-schedule-game-row-mobile-left"
-              ],
-              "attrs": {},
-              "text": "Nov 9 (Mon) / 8 p.m. Chicago, IL at DePaul",
-              "length": 42
+              "text": "Jan 22 (Fri) 7 p.m. FS1 Villanova Sports Radio Network at DePaul University Listen Live",
+              "length": 87
             },
             {
               "tag": "div",
               "class": [
                 "sidearm-schedule-game-row",
-                "sidearm-schedule-game-row-mobile",
+                "flex",
+                "flex-wrap",
+                "flex-align-center",
                 "row"
               ],
               "attrs": {},
-              "text": "Nov 9 (Mon) / 8 p.m. Chicago, IL at DePaul Watch Live History",
-              "length": 61
+              "text": "Jan 22 (Fri) 7 p.m. FS1 Villanova Sports Radio Network at DePaul University Listen Live Chicago, Ill. Wintrust Arena TV: FS1 Radio: Villanova Sports Radio Network Chicago, Ill. Wintrust Arena Listen Live",
+              "length": 203
             }
           ]
         ]
       }
     },
     {
-      "school": "App State",
-      "url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
+      "school": "Howard",
+      "url": "https://hubison.com/sports/mens-basketball/schedule/2026-27",
       "status": 200,
-      "bytes": 873877,
+      "bytes": 688567,
       "selectors": {
-        ".sidearm-schedule-game": 34,
-        ".sidearm-schedule-game-row": 34,
-        "[class*='schedule-game']": 703,
+        ".sidearm-schedule-game": 38,
+        ".sidearm-schedule-game-row": 38,
+        "[class*='schedule-game']": 776,
         "[class*='schedule_game']": 0,
-        "[data-game-id]": 34,
-        "li": 104,
+        "[data-game-id]": 38,
+        "li": 141,
         "time": 2,
         "script[type='application/ld+json']": 1
       },
+      "sample_cards": [
+        {
+          "tag": "li",
+          "class": [
+            "sidearm-schedule-game",
+            "sidearm-schedule-home-game",
+            "upcoming-game",
+            "W",
+            "sidearm-schedule-game-completed"
+          ],
+          "data_game_id": "12735",
+          "text": "Oct 17 (Sat) 11 A.M. vs William & Mary (Exhibition) Washington, D.C. Burr Gymnasium W, 86-79 History",
+          "opp": "Oct 17 (Sat) 11 A.M. vs William & Mary (Exhibition)",
+          "network_markup": []
+        },
+        {
+          "tag": "li",
+          "class": [
+            "sidearm-schedule-game",
+            "sidearm-schedule-away-game",
+            "upcoming-game",
+            "W",
+            "sidearm-schedule-game-completed"
+          ],
+          "data_game_id": "12736",
+          "text": "Oct 25 (Sun) 1 P.M. at American (Exhibition) Washington, D.C. W, 86-75 History",
+          "opp": "Oct 25 (Sun) 1 P.M. at American (Exhibition)",
+          "network_markup": []
+        }
+      ],
+      "table_headers": [
+        [
+          "Team",
+          "Period",
+          "F",
+          "Winner:",
+          "Winner:"
+        ],
+        [
+          "Team",
+          "Period",
+          "F",
+          "Winner:",
+          "Winner:"
+        ]
+      ],
+      "jsonld_preview": [
+        "[{\"@context\":\"https://schema.org/\",\"name\":\"Howard University Vs William & Mary (Exhibition)\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Howard University\"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"William & Mary (Exhibition)\"},\"startDate\":\"2026-10-17T11:00:00\",\"endDate\":\"2026-10-17T"
+      ]
+    },
+    {
+      "school": "UCLA",
+      "url": "https://uclabruins.com/sports/mens-basketball/schedule/season/2026-27",
+      "status": 200,
+      "bytes": 736742,
+      "selectors": {
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 0,
+        "li": 373,
+        "time": 240,
+        "script[type='application/ld+json']": 1
+      },
+      "sample_cards": [],
+      "table_headers": [
+        [
+          "Date",
+          "Teams",
+          "Location",
+          "Time/Results",
+          "Links",
+          "Wed Oct 21 7:00 PM PDT",
+          "Tue Oct 27 7:00 PM PDT",
+          "Mon Nov 2 7:00 PM PST",
+          "Fri Nov 6 7:30 PM PST",
+          "Wed Nov 11 6:00 PM PST"
+        ]
+      ],
+      "jsonld_preview": [
+        "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@id\":\"https://uclabruins.com/#website\",\"@type\":\"WebSite\",\"description\":\"The official athletic website of the UCLA Bruins.\",\"name\":\"UCLA Bruins\",\"url\":\"/\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":[{\"@type\":\"EntryPoint\",\"urlTemplate\":\"/search?s={search_term_string}\""
+      ]
+    },
+    {
+      "school": "Kentucky",
+      "url": "https://ukathletics.com/sports/mbball/schedule/season/2026-27/",
+      "status": 200,
+      "bytes": 320142,
+      "selectors": {
+        ".sidearm-schedule-game": 0,
+        ".sidearm-schedule-game-row": 0,
+        "[class*='schedule-game']": 0,
+        "[class*='schedule_game']": 0,
+        "[data-game-id]": 0,
+        "li": 334,
+        "time": 36,
+        "script[type='application/ld+json']": 37
+      },
+      "sample_cards": [],
+      "table_headers": [],
+      "jsonld_preview": [
+        "\n        {\n          \"@context\": \"http://schema.org\",\n          \"@type\": \"WebSite\",\n          \"url\": \"https://ukathletics.com/\",\n          \"potentialAction\": {\n            \"@type\": \"SearchAction\",\n            \"target\": \"https://ukathletics.com/?s={search_term_string}\",\n            \"query-input\": \"required name=search_t"
+      ],
       "examples": {
         "Auburn": [
           [
@@ -228,277 +630,88 @@
               "tag": "script",
               "class": [],
               "attrs": {},
-              "text": "[{\"@context\":\"https://schema.org/\",\"name\":\"Appalachian State University At Louisiana Tech\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Appalachian State University\"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Louisiana Tech\"},\"startDate\":\"2026-12-19T16:00:00\",\"endDate\":\"2026-12-19T16:00:00\",\"eventStatus\":null,\"loca",
-              "length": 28442
+              "text": "{\"@context\":\"http:\\/\\/schema.org\",\"@type\":\"Event\",\"startDate\":\"2027-02-27T16:00\",\"location\":{\"@type\":\"Place\",\"name\":\"Rupp Arena at Central Bank Center | Lexington, Ky. \",\"address\":{\"@type\":\"PostalAddress\",\"name\":\"Rupp Arena at Central Bank Center | Lexington, Ky. \"}},\"url\":\"https:\\/\\/ukathletics.com\\/https:\\/\\/ukathletics.com\\/sports\\/mbball\\/sched",
+              "length": 538
             },
             {
               "tag": "head",
               "class": [],
               "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics",
-              "length": 55
+              "text": "Men\u2019s Basketball Schedule 2026-27 \u2013 UK Athletics",
+              "length": 48
             },
             {
               "tag": "html",
-              "class": [
-                "wide",
-                "schedules-page",
-                "sidearm-schedule-template-default",
-                "wide",
-                "sport",
-                "mbball"
-              ],
+              "class": [],
               "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Co",
-              "length": 10535
+              "text": "Men\u2019s Basketball Schedule 2026-27 \u2013 UK Athletics Open menu (opens in a new tab) Teams Men's Sports Baseball Schedule Roster News (opens in a new tab) icon-facebook (opens in a new tab) icon-twitter (opens in a new tab) icon-instagram Basketball Schedule Roster News (opens in a new tab) icon-facebook (opens in a new tab) icon-twitter (opens in a new",
+              "length": 9209
             },
             {
               "tag": "[document]",
               "class": [],
               "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Co",
-              "length": 10535
+              "text": "Men\u2019s Basketball Schedule 2026-27 \u2013 UK Athletics Open menu (opens in a new tab) Teams Men's Sports Baseball Schedule Roster News (opens in a new tab) icon-facebook (opens in a new tab) icon-twitter (opens in a new tab) icon-instagram Basketball Schedule Roster News (opens in a new tab) icon-facebook (opens in a new tab) icon-twitter (opens in a new",
+              "length": 9209
             }
           ],
           [
             {
-              "tag": "script",
+              "tag": "h3",
               "class": [],
               "attrs": {},
-              "text": "var obj = {\"start\":0,\"count\":24,\"name\":\"header-scoreboard\",\"sport_id\":null,\"count_breakpoints\":null,\"css_class\":\"\",\"pinned_id\":\"\",\"extra\":{\"school_name\":\"Appalachian State University\"},\"context\":null,\"dummy\":false,\"type\":\"events\",\"id\":\"3f839f48-6180-422e-84c9-a5ba5a79330c\",\"data\":[{\"id\":10217,\"game_pregame_story_id\":null,\"game_postgame_story_id\":nu",
-              "length": 64909
+              "text": "Auburn",
+              "length": 6
             },
             {
               "tag": "div",
               "class": [
-                "hide-on-medium-down"
+                "schedule-item__team"
               ],
               "attrs": {},
-              "text": "",
-              "length": 0
+              "text": "Auburn Rupp Arena at Central Bank Center | Lexington, Ky.",
+              "length": 57
             },
             {
               "tag": "div",
               "class": [
-                "row"
+                "schedule-item__info"
               ],
               "attrs": {},
-              "text": "",
-              "length": 0
-            },
-            {
-              "tag": "section",
-              "class": [],
-              "attrs": {},
-              "text": "Scoreboard",
-              "length": 10
-            },
-            {
-              "tag": "form",
-              "class": [],
-              "attrs": {},
-              "text": "Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Country Cross Country: Schedule Cross Country: Roster Cross Country: News Football Football: Sched",
-              "length": 10105
-            },
-            {
-              "tag": "body",
-              "class": [],
-              "attrs": {},
-              "text": "Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Country Cross Country: Schedule Cross Country: Roster Cros",
-              "length": 10479
-            }
-          ]
-        ],
-        "North Texas": [
-          [
-            {
-              "tag": "script",
-              "class": [],
-              "attrs": {},
-              "text": "[{\"@context\":\"https://schema.org/\",\"name\":\"Appalachian State University At Louisiana Tech\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Appalachian State University\"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Louisiana Tech\"},\"startDate\":\"2026-12-19T16:00:00\",\"endDate\":\"2026-12-19T16:00:00\",\"eventStatus\":null,\"loca",
-              "length": 28442
-            },
-            {
-              "tag": "head",
-              "class": [],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics",
-              "length": 55
-            },
-            {
-              "tag": "html",
-              "class": [
-                "wide",
-                "schedules-page",
-                "sidearm-schedule-template-default",
-                "wide",
-                "sport",
-                "mbball"
-              ],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Co",
-              "length": 10535
-            },
-            {
-              "tag": "[document]",
-              "class": [],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Co",
-              "length": 10535
-            }
-          ],
-          [
-            {
-              "tag": "script",
-              "class": [],
-              "attrs": {},
-              "text": "var obj = {\"start\":0,\"count\":24,\"name\":\"header-scoreboard\",\"sport_id\":null,\"count_breakpoints\":null,\"css_class\":\"\",\"pinned_id\":\"\",\"extra\":{\"school_name\":\"Appalachian State University\"},\"context\":null,\"dummy\":false,\"type\":\"events\",\"id\":\"3f839f48-6180-422e-84c9-a5ba5a79330c\",\"data\":[{\"id\":10217,\"game_pregame_story_id\":null,\"game_postgame_story_id\":nu",
-              "length": 64909
+              "text": "vs. Auburn Rupp Arena at Central Bank Center | Lexington, Ky.",
+              "length": 61
             },
             {
               "tag": "div",
               "class": [
-                "hide-on-medium-down"
+                "schedule-item__body"
               ],
               "attrs": {},
-              "text": "",
-              "length": 0
+              "text": "vs. Auburn Rupp Arena at Central Bank Center | Lexington, Ky. 4:00 pm",
+              "length": 69
             },
             {
               "tag": "div",
               "class": [
-                "row"
+                "schedule-item__top"
               ],
               "attrs": {},
-              "text": "",
-              "length": 0
-            },
-            {
-              "tag": "section",
-              "class": [],
-              "attrs": {},
-              "text": "Scoreboard",
-              "length": 10
-            },
-            {
-              "tag": "form",
-              "class": [],
-              "attrs": {},
-              "text": "Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Country Cross Country: Schedule Cross Country: Roster Cross Country: News Football Football: Sched",
-              "length": 10105
-            },
-            {
-              "tag": "body",
-              "class": [],
-              "attrs": {},
-              "text": "Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Country Cross Country: Schedule Cross Country: Roster Cros",
-              "length": 10479
-            }
-          ]
-        ],
-        "Merrimack": [
-          [
-            {
-              "tag": "script",
-              "class": [],
-              "attrs": {},
-              "text": "[{\"@context\":\"https://schema.org/\",\"name\":\"Appalachian State University At Louisiana Tech\",\"url\":null,\"homeTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Appalachian State University\"},\"awayTeam\":{\"@type\":\"SportsTeam\",\"sameAs\":null,\"name\":\"Louisiana Tech\"},\"startDate\":\"2026-12-19T16:00:00\",\"endDate\":\"2026-12-19T16:00:00\",\"eventStatus\":null,\"loca",
-              "length": 28442
-            },
-            {
-              "tag": "head",
-              "class": [],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics",
-              "length": 55
-            },
-            {
-              "tag": "html",
-              "class": [
-                "wide",
-                "schedules-page",
-                "sidearm-schedule-template-default",
-                "wide",
-                "sport",
-                "mbball"
-              ],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Co",
-              "length": 10535
-            },
-            {
-              "tag": "[document]",
-              "class": [],
-              "attrs": {},
-              "text": "2026-27 Men's Basketball Schedule - App State Athletics Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Co",
-              "length": 10535
-            }
-          ],
-          [
-            {
-              "tag": "script",
-              "class": [],
-              "attrs": {},
-              "text": "var obj = {\"start\":0,\"count\":24,\"name\":\"header-scoreboard\",\"sport_id\":null,\"count_breakpoints\":null,\"css_class\":\"\",\"pinned_id\":\"\",\"extra\":{\"school_name\":\"Appalachian State University\"},\"context\":null,\"dummy\":false,\"type\":\"events\",\"id\":\"3f839f48-6180-422e-84c9-a5ba5a79330c\",\"data\":[{\"id\":10217,\"game_pregame_story_id\":null,\"game_postgame_story_id\":nu",
-              "length": 64909
+              "text": "Sat. Feb 27 vs. Auburn Rupp Arena at Central Bank Center | Lexington, Ky. 4:00 pm",
+              "length": 81
             },
             {
               "tag": "div",
               "class": [
-                "hide-on-medium-down"
+                "schedule__item",
+                "schedule-item",
+                "home"
               ],
               "attrs": {},
-              "text": "",
-              "length": 0
-            },
-            {
-              "tag": "div",
-              "class": [
-                "row"
-              ],
-              "attrs": {},
-              "text": "",
-              "length": 0
-            },
-            {
-              "tag": "section",
-              "class": [],
-              "attrs": {},
-              "text": "Scoreboard",
-              "length": 10
-            },
-            {
-              "tag": "form",
-              "class": [],
-              "attrs": {},
-              "text": "Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Country Cross Country: Schedule Cross Country: Roster Cross Country: News Football Football: Sched",
-              "length": 10105
-            },
-            {
-              "tag": "body",
-              "class": [],
-              "attrs": {},
-              "text": "Skip To Main Content Pause All Rotators Please ensure Javascript is enabled for purposes of website accessibility Search Search Composite Schedule Scoreboard Baseball Baseball: Schedule Baseball: Roster Baseball: News Basketball Basketball: Schedule Basketball: Roster Basketball: News Cross Country Cross Country: Schedule Cross Country: Roster Cros",
-              "length": 10479
+              "text": "Sat. Feb 27 vs. Auburn Rupp Arena at Central Bank Center | Lexington, Ky. 4:00 pm 4 or 4:30 p.m.",
+              "length": 96
             }
           ]
         ]
-      }
-    },
-    {
-      "school": "A&M-Corpus Christi",
-      "url": "https://goislanders.com/sports/mens-basketball/schedule/2026-27",
-      "status": 200,
-      "bytes": 779744,
-      "selectors": {
-        ".sidearm-schedule-game": 33,
-        ".sidearm-schedule-game-row": 33,
-        "[class*='schedule-game']": 765,
-        "[class*='schedule_game']": 0,
-        "[data-game-id]": 33,
-        "li": 180,
-        "time": 2,
-        "script[type='application/ld+json']": 1
       }
     }
   ],
