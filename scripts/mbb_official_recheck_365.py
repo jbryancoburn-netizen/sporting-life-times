@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Verify first 100 NCAA MBB team schedules from the school athletics websites.
+"""Verify all 365 NCAA MBB team schedules from the school athletics websites.
 Only exact date + opponent matches may modify existing records.
 """
 import json, re, pathlib, datetime, collections, time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 from bs4 import BeautifulSoup
 root=pathlib.Path(__file__).resolve().parents[1]
 teams=[t for t in json.loads((root/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams'] if t.get('espn_id')][:]
 assert len(teams)==365
-client=requests.Session();client.headers.update({'User-Agent':'Mozilla/5.0 (compatible; SportingLifeTimesScheduleVerifier/1.0)'})
+USER_AGENT='Mozilla/5.0 (compatible; SportingLifeTimesScheduleVerifier/1.0)'
 def norm(s):return re.sub('[^a-z0-9]','',str(s or '').lower())
 def datekey(raw):
  m=re.search(r'\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b',raw,re.I)
@@ -38,10 +39,10 @@ def opponent_variants(x):
  x=re.sub(r'\b(university|college|wildcats|bulldogs|tigers|eagles|bears|panthers|knights|crimson tide|zips|raiders|cardinals|cowboys|aggies|hawks|lions|rams|falcons|spartans|cougars|rebels|broncos|pirates|huskies|warriors)\b','',x)
  return norm(x)
 results=[];totals=collections.Counter()
-for team in teams:
+def verify_team(team):
  tid=str(team['espn_id']);path=root/'data/mbb-schedules-2026-27'/(tid+'.json')
  item={'team':team['name'],'id':tid,'status':'unavailable','matched':0,'site_corrected':0,'location_corrected':0,'school_rows':0}
- if not path.exists():item['status']='missing_file';results.append(item);continue
+ if not path.exists():item['status']='missing_file';return item
  d=json.loads(path.read_text());original=json.loads(json.dumps(d));url=d.get('source_url','')
  if not url or not url.startswith('https://'):item['status']='no_official_source';results.append(item);continue
  try:
@@ -54,7 +55,7 @@ for team in teams:
   school=[]
   for candidate in dict.fromkeys(candidates):
    try:
-    response=client.get(candidate,timeout=10);response.raise_for_status()
+    response=requests.get(candidate,timeout=(4,6),headers={'User-Agent':USER_AGENT});response.raise_for_status()
     school=rows_from_school(response.text)
     if school:
      url=candidate
@@ -103,8 +104,14 @@ for team in teams:
   item['status']='verified_changes'
  elif item['matched']:item['status']='already_matched'
  else:item['status']='no_safe_matches'
- totals.update({k:item.get(k,0) for k in ('matched','site_corrected','location_corrected','broadcast_added')})
- results.append(item)
+ return item
+with ThreadPoolExecutor(max_workers=12) as pool:
+ futures=[pool.submit(verify_team,t) for t in teams]
+ for future in as_completed(futures):
+  item=future.result()
+  results.append(item)
+  totals.update({k:item.get(k,0) for k in ('matched','site_corrected','location_corrected','broadcast_added')})
+results.sort(key=lambda x:x['team'])
 report={'schools_targeted':365,'schools_checked':len(results),'totals':dict(totals),'status_counts':dict(collections.Counter(x['status'] for x in results)),'method':'Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone','schools':results}
 (root/'data/mbb-official-recheck-365-verification.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='schools'},indent=2))
