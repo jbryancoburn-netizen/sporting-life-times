@@ -88,7 +88,7 @@ function flush(){queued=false;for(const el of queue)if(el.isConnected)visit(el);
 function schedule(el){if(el?.nodeType!==1)return;queue.add(el);if(!queued){queued=true;requestAnimationFrame(flush)}}
 async function init(){
  try{
-  const res=await fetch('data/dual-ring-team-palette.json?v=20261029two',{cache:'force-cache'});
+  const res=await fetch('data/dual-ring-team-palette.json?v=nonwhite-rings-20261029',{cache:'force-cache'});
   if(!res.ok)throw Error('Palette download HTTP '+res.status);
   prepare(await res.json());schedule(document.body);
   new MutationObserver(items=>{for(const m of items)for(const n of m.addedNodes)if(n.nodeType===1)schedule(n)}).observe(document.body,{childList:true,subtree:true});
