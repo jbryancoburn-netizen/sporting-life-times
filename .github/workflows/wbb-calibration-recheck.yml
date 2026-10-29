@@ -1,0 +1,41 @@
+name: Women's NCAA K-Factor Out-of-Sample Recheck
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wbb-calibration-recheck.yml'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-parameter-recheck
+  cancel-in-progress: false
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recheck expanded home edge and K-factor grid using five published women's historical seasons
+        run: python scripts/wbb-calibration.py
+      - name: Apply validated home edge to independent women's 1500-start RETRO
+        run: node scripts/publish-wbb-retro.js
+      - name: Publish research and independent women Elo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaaw-retro-parameters.json data/ncaaw-2026-27-retro-primary.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Expand women’s K-factor screen and calibrate 2026-27 home edge"
+          for n in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
