@@ -81,7 +81,7 @@
       (g.broadcast?'<div class="wbb-game-detail">'+esc(g.broadcast)+'</div>':'')+
       (link?'<a class="wbb-game-source" href="'+link+'" target="_blank" rel="noopener noreferrer">Game details ↗</a>':'')+'</div>';
   }
-  let published=[],wbbLookup=new Map(),fullCalendars=null,calendarsLoaded=false;
+  let published=[],wbbLookup=new Map(),fullCalendars=null,calendarsLoaded=false,officialBroadcasts=new Map();
   const teamLink=t=>'ncaam.html?gender=women&team='+encodeURIComponent(t.team_id);
   const record=t=>(t.wins||0)+'–'+(t.losses||0);
   const boardRow=(t,ranked)=>'<div class="rank-row">'+(ranked?'<span class="rank">'+esc(t.rank??'—')+'</span>':'')+
@@ -175,21 +175,35 @@
     const selectedId=new URLSearchParams(location.search).get('team');
     const teamGames=document.getElementById('wbb-team-games');
     if(teamGames&&selectedId){
-      if(!calendarsLoaded){calendarsLoaded=true;fullCalendars=await get('data/ncaaw-schedules-2026-27.json');}
+      if(!calendarsLoaded){
+        calendarsLoaded=true;
+        const [schedules,evidence]=await Promise.all([
+          get('data/ncaaw-schedules-2026-27.json'),
+          get('data/ncaaw-2026-27-official-broadcast-overrides.json')
+        ]);
+        fullCalendars=schedules;
+        if(evidence?.season==='2026-27'&&evidence?.gender==='women'&&Array.isArray(evidence.rows)){
+          officialBroadcasts=new Map(evidence.rows.filter(x=>x.game_id&&x.broadcast&&x.source_url).map(x=>[String(x.game_id),x]));
+        }
+      }
       const calendar=fullCalendars?.season==='2026-27'&&fullCalendars?.gender==='women'?
         fullCalendars.teams?.[selectedId]:null;
       const entries=calendar?.games||[];
       if(entries.length){
         teamGames.innerHTML='<h3>2026–27 Women’s Team Schedule · '+entries.length+' listed games</h3>'+
-          '<p class="note wbb-calendar-disclosure">Source: women-specific school schedule feed. University athletics verification and missing broadcasts or arenas are still being audited.</p>'+
+          '<p class="note wbb-calendar-disclosure">Source: women-specific team schedules. Broadcasts linked to official school or conference announcements are verified; unlisted networks remain TBA. Full university schedule verification is ongoing.</p>'+
           '<div class="wbb-full-schedule"><table><thead><tr><th>Tipoff (ET)</th><th>Location</th><th>Opponent</th><th>Arena</th><th>Network</th><th>Result</th></tr></thead><tbody>'+
           entries.map(g=>{
             const t=wbbLookup.get(String(g.opponent_id));
+            const official=officialBroadcasts.get(String(g.id));
+            const tv=official?.broadcast||g.broadcast;
+            const tvSource=official?.source_url||g.broadcast_source_url;
+            const television=tv?(tvSource?'<a href="'+safeURL(tvSource)+'" target="_blank" rel="noopener noreferrer" title="Official broadcast source">'+esc(tv)+' ↗</a>':esc(tv)):'TBA';
             const opponent=t?team({name:t.team,logo:t.logo,color:t.color}):esc(g.opponent||'Opponent TBA');
             const score=g.completed&&g.home_score!=null&&g.away_score!=null?
               esc(g.site==='away'?g.away_score+'–'+g.home_score:g.home_score+'–'+g.away_score):'—';
             return '<tr><td>'+time(g.date)+'</td><td>'+esc(g.site||'TBA')+'</td><td>'+opponent+'</td><td>'+esc(g.venue||'TBA')+
-              '</td><td>'+esc(g.broadcast||'TBA')+'</td><td>'+score+'</td></tr>';
+              '</td><td>'+television+'</td><td>'+score+'</td></tr>';
           }).join('')+'</tbody></table></div>'+
           '<a href="'+safeURL(calendar.source_url)+'" target="_blank" rel="noopener noreferrer">Season schedule source ↗</a>';
       }else{
