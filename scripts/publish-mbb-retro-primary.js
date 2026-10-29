@@ -44,6 +44,9 @@ const games=[...finals.values()].sort((a,b)=>a.date.localeCompare(b.date)||a.id.
 const calculated=globalThis.MBB_RETRO.calculate(games,{baseline:1500,homeEdge:100,passes:160});
 if(calculated.games!==games.length)throw Error('RETRO game coverage regression');
 const rating=calculated.ratings;
+const lastDate=games.at(-1)?.date||null;
+const previousGames=lastDate?games.filter(g=>g.date<lastDate):[];
+const previous=lastDate?globalThis.MBB_RETRO.calculate(previousGames,{baseline:1500,homeEdge:100,passes:160}).ratings:{};
 const record=new Map(teams.map(x=>[x.team_id,{wins:0,losses:0,conference_wins:0,conference_losses:0,games_played:0}]));
 const byId=new Map(teams.map(x=>[x.team_id,x]));
 for(const game of games){
@@ -58,6 +61,7 @@ for(const game of games){
 const ranks=teams.map(t=>{
  const r=record.get(t.team_id);
  return {...t,base_elo:1500,elo:Number((rating[t.team_id]??1500).toFixed(3)),
+  daily_change:lastDate?Number(((rating[t.team_id]??1500)-(previous[t.team_id]??1500)).toFixed(3)):0,
   ...r,retro_coverage:games.length?'completed_verified_2026_27_games':'clean-slate'};
 }).sort((a,b)=>b.elo-a.elo||a.team.localeCompare(b.team));
 let lastElo=null;
