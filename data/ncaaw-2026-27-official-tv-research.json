@@ -100,6 +100,37 @@
           "network_options": "ESPN or ESPN2"
         }
       ]
+    },
+    {
+      "source_id": 5,
+      "title": "2026-27 Atlantic 10 women's basketball conference linear television selections",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://admin.atlantic10.com/news/2026/10/6/atlantic-10-announces-2026-27-womens-basketball-conference-schedule.aspx",
+      "uncertain_networks_skipped": [
+        {
+          "date": "2027-01-31",
+          "teams": [
+            "2166",
+            "257"
+          ],
+          "reason": "ESPN network not yet assigned"
+        },
+        {
+          "date": "2027-02-07",
+          "teams": [
+            "2244",
+            "45"
+          ],
+          "reason": "ESPN network not yet assigned"
+        }
+      ]
+    },
+    {
+      "source_id": 6,
+      "title": "2026-27 Atlantic 10 women's basketball every other conference game ESPN+ commitment",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://admin.atlantic10.com/news/2026/10/6/atlantic-10-announces-2026-27-womens-basketball-conference-schedule.aspx",
+      "policy": "League explicitly states all 126 conference games not televised on linear channels stream exclusively on ESPN+. This applies ONLY to identified games between the league's 14 women-specific verified 2026-27 member teams, excluding all 12 announced linear games and two ESPN-network-TBA games. Fail closed unless exactly 126 unique regular-season conference matchups can be matched."
     }
   ],
   "rows": [
@@ -2197,6 +2228,119 @@
       "home_id": "2",
       "broadcast": "SEC Network",
       "source_id": 4
+    },
+    {
+      "date": "2027-01-03",
+      "away_id": "45",
+      "home_id": "2603",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-03",
+      "away_id": "2166",
+      "home_id": "2168",
+      "broadcast": "USA Network",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-10",
+      "away_id": "2166",
+      "home_id": "45",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-10",
+      "away_id": "2603",
+      "home_id": "257",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-17",
+      "away_id": "2166",
+      "home_id": "2603",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-17",
+      "away_id": "45",
+      "home_id": "227",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-24",
+      "away_id": "179",
+      "home_id": "2184",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-01-31",
+      "away_id": "2244",
+      "home_id": "227",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-02-07",
+      "away_id": "139",
+      "home_id": "2166",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-02-14",
+      "away_id": "2244",
+      "home_id": "2166",
+      "broadcast": "CBSSN",
+      "source_id": 5
+    },
+    {
+      "date": "2027-02-14",
+      "away_id": "257",
+      "home_id": "2670",
+      "broadcast": "USA Network",
+      "source_id": 5
+    },
+    {
+      "date": "2027-02-21",
+      "away_id": "2603",
+      "home_id": "257",
+      "broadcast": "USA Network",
+      "source_id": 5
+    }
+  ],
+  "conference_media_rules": [
+    {
+      "source_id": 6,
+      "conference": "Atlantic 10 Conference",
+      "start": "2026-12-02",
+      "end": "2027-02-28",
+      "expected_distinct_conference_games": 126,
+      "mandatory_network": "ESPN+",
+      "exclusions": [
+        {
+          "date": "2027-01-31",
+          "teams": [
+            "2166",
+            "257"
+          ],
+          "reason": "ESPN network not yet assigned"
+        },
+        {
+          "date": "2027-02-07",
+          "teams": [
+            "2244",
+            "45"
+          ],
+          "reason": "ESPN network not yet assigned"
+        }
+      ],
+      "method": "Match exact women-specific Division I conference team memberships, locally dated NCAA schedule game IDs and all 126 conference contests; exclude documented linear/unknown network games."
     }
   ]
 }

@@ -58,9 +58,57 @@ def main():
         if key in prior and r["broadcast"] != prior[key]["broadcast"]:
             raise RuntimeError("Conflicting prior official broadcast " + key)
         prior[key] = r
+    # Rules are narrowly allowed only for a conference's *explicit*
+    # game-coverage promise, and only after all regular-season matchups
+    # are accounted for in a women-specific conference registry.
+    researched_rows = list(catalog["rows"])
+    media_rule_counts = {}
+    for rule in catalog.get("conference_media_rules", []):
+        league = read(ROOT / "ncaaw-2026-27-conferences.json")
+        if (league.get("gender") != "women" or league.get("season") != "2026-27"
+                or int(league.get("verified_team_count",0)) != 363):
+            raise RuntimeError("Women's conference registry incomplete")
+        league_ids = {str(tid) for tid, info in league["teams"].items()
+                      if info.get("conference") == rule["conference"]}
+        if rule["conference"] == "Atlantic 10 Conference" and len(league_ids) != 14:
+            raise RuntimeError("Expected 14 independently registered Atlantic 10 women's teams")
+        conference_games = []
+        for gid, entries in by_id.items():
+            g = entries[0][1]
+            d = day(g["date"])
+            if (rule["start"] <= d <= rule["end"] and
+                    str(g["home_id"]) in league_ids and str(g["away_id"]) in league_ids):
+                conference_games.append((gid, d, str(g["away_id"]), str(g["home_id"])))
+        expected = int(rule["expected_distinct_conference_games"])
+        if len(conference_games) != expected:
+            raise RuntimeError("Conference media rule needs "+str(expected)+
+                               " unique games, found "+str(len(conference_games))+
+                               "; no conference-wide network inference allowed")
+        explicitly_scheduled = {(row["date"],frozenset((str(row["away_id"]),str(row["home_id"]))))
+                                for row in researched_rows}
+        excluded = {(row["date"],frozenset(map(str,row["teams"]))) for row in rule["exclusions"]}
+        if not all(key in {(d, frozenset((a,h))) for _,d,a,h in conference_games} for key in excluded):
+            raise RuntimeError("Excluded national-TV game is not in official conference schedule")
+        generated = 0
+        for gid, d, away, home in conference_games:
+            key = (d,frozenset((away,home)))
+            if key in excluded or key in explicitly_scheduled:
+                continue
+            # Do not silently override a separately confirmed network.
+            if gid in prior and prior[gid]["broadcast"] != rule["mandatory_network"]:
+                continue
+            researched_rows.append({"date":d,"away_id":away,"home_id":home,
+                                    "broadcast":rule["mandatory_network"],
+                                    "source_id":rule["source_id"]})
+            generated += 1
+        media_rule_counts[rule["conference"]] = {
+            "conference_games_validated":len(conference_games),
+            "streaming_games_generated":generated,
+            "linear_or_unresolved_exclusions":len(conference_games)-generated
+        }
     added, same, skipped = [], [], []
     seen = set()
-    for row in catalog["rows"]:
+    for row in researched_rows:
         source = srcs.get(row.get("source_id"))
         aid, hid = str(row["away_id"]), str(row["home_id"])
         key = (row["date"], frozenset((aid, hid)))
@@ -103,7 +151,8 @@ def main():
     # official designation with an assumed single network.
     old["rows"] = list(prior.values())
     old["sources"] = list(dict.fromkeys(list(old.get("sources",[])) + [s["source_url"] for s in srcs.values()]))
-    report = {"season":"2026-27","gender":"women","research_rows":len(catalog["rows"]),
+    report = {"season":"2026-27","gender":"women","research_rows":len(researched_rows),"published_source_research_rows":len(catalog["rows"]),
+              "conference_media_rule_audit":media_rule_counts,
               "matched_new_official_game_ids":len(added),"previously_official_game_ids":len(same),
               "unmatched_or_disputed":len(skipped),"new_game_ids":sorted(added),
               "skipped_details":skipped,"official_unique_games":len(prior),
