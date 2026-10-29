@@ -1,57 +1,77 @@
 #!/usr/bin/env node
-/* Exhaustive MBB visual identity contract: all 365 schools + 7 newspaper editions. */
 'use strict';
+/* MBB visual ownership: exactly one renderer, 365 image identities, 11 page templates.
+   The original provider art may already contain circular artwork. */
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const read=p=>fs.readFileSync(p,'utf8');
 const registry=JSON.parse(read('data/mbb-logo-registry.json'));
 const cross=JSON.parse(read('data/ncaam-2026-27-espn-team-crosswalk.json'));
+const allColors=JSON.parse(read('data/dual-ring-team-palette.json'));
+const colors=allColors.mbb;
 async function run(){
  assert.equal(Object.keys(registry.teams).length,365);
  assert.equal(cross.teams.length,365);
- const ids=new Set();
+ assert.equal(Object.keys(colors).length,365);
+ const seen=new Set(),kinds={embedded_roundel:0,flat:0,unverified:0};
  for(const t of cross.teams){
-  const id=String(t.espn_id),item=registry.teams[id];
-  assert(!ids.has(id),'Duplicate ESPNs '+id);
-  ids.add(id);
-  assert(item&&item.canonical_id===t.id,'Incorrect NCAA-to-ESPN crest: '+t.name);
-  assert.equal(item.espn_id,id,'Wrong registered source ID: '+t.name);
-  assert.equal(item.logo_url_verified,true,'Crest not verified: '+t.name);
-  assert.equal(item.logo_url,'https://a.espncdn.com/i/teamlogos/ncaa/500/'+id+'.png','Image is not matching school provider ID: '+t.name);
+  const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
+  assert(!seen.has(id),'Duplicate provider identity '+id);seen.add(id);
+  assert.equal(item?.canonical_id,t.id,'Wrong NCAA identity '+t.name);
+  assert.equal(String(item?.espn_id),id,'Wrong ESPN identity '+t.name);
+  assert.equal(item?.logo_url_verified,true,'Unverified crest URL '+t.name);
+  assert.equal(item.logo_url,'https://a.espncdn.com/i/teamlogos/ncaa/500/'+id+'.png','Mismatched crest source '+t.name);
+  assert(Object.hasOwn(kinds,item.artwork_type),'Missing roundel-aware flag '+t.name);
+  assert(brand?.primary&&brand?.secondary&&brand.primary!==brand.secondary,'Missing two-color team palette '+t.name);
+  kinds[item.artwork_type]++;
  }
- const ctx={window:{},document:{querySelectorAll:()=>[]},
- URL,console,fetch:async url=>({ok:true,json:async()=>url.includes('logo-registry')?registry:cross})};
+ const doc={readyState:'loading',addEventListener(){},querySelectorAll(){return[]}};
+ const ctx={window:{},document:doc,URL,console,
+  fetch:async url=>({ok:true,json:async()=>url.includes('logo-registry')?registry:url.includes('dual-ring-team-palette')?allColors:cross})};
  vm.runInNewContext(read('mbb-logo-system.js'),ctx,{filename:'mbb-logo-system.js'});
- assert.equal(await ctx.window.MBBLogos.ready,true,'Shared logo loader must resolve all 365 schools');
+ assert.equal(await ctx.window.MBBLogos.ready,true,'Single MBB renderer could not initialize');
  for(const t of cross.teams){
+  const id=String(t.espn_id),item=registry.teams[id],brand=colors[id];
   const crest=ctx.window.MBBLogos.byNCAA(t.id,'hero',t.name);
-  const expected=registry.teams[t.espn_id];
-  assert(crest.includes('data-espn-id="'+t.espn_id+'"'),'NCAA team mismapped: '+t.name);
-  assert(crest.includes(expected.logo_url),'Missing correct crest: '+t.name);
-  assert(crest.includes('mbb-mark--hero'),'Hero markup differs: '+t.name);
-  assert(!crest.includes('mbb-mark--missing'),'Unnecessary initials fallback: '+t.name);
-  assert(ctx.window.MBBLogos.byESPN(t.espn_id,'schedule',t.espn_name).includes(expected.logo_url),'Opponent crest mismatch: '+t.name);
-  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(expected.logo_url),'Power ranking crest mismatch: '+t.name);
+  assert(crest.includes('data-espn-id="'+id+'"'),'Wrong MBB logo identity '+t.name);
+  assert(crest.includes('data-artwork="'+item.artwork_type+'"'),'Wrong artwork flag '+t.name);
+  assert(crest.includes(item.logo_url),'Wrong logo URL '+t.name);
+  assert(crest.includes('--mbb-primary:'+brand.primary),'Wrong primary team color '+t.name);
+  assert(crest.includes('--mbb-secondary:'+brand.secondary),'Wrong secondary team color '+t.name);
+  assert(!crest.includes('slt-mark')&&!crest.includes('slt-dual-shell'),'Nested generic ring on '+t.name);
+  assert(ctx.window.MBBLogos.byNCAA(t.id,'power',t.name).includes(item.logo_url),'Ranking crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'schedule',t.espn_name).includes(item.logo_url),'Schedule crest '+t.name);
+  assert(ctx.window.MBBLogos.byESPN(id,'score',t.espn_name).includes(item.logo_url),'Score crest '+t.name);
  }
+ assert(kinds.embedded_roundel>=10,'Screenshot-observed embedded roundels not classified');
+ assert(kinds.embedded_roundel+kinds.flat+kinds.unverified===365);
  const css=read('mbb-logo-system.css');
- for(const clause of ['object-fit:contain!important','border-radius:50%!important','.mbb-mark--schedule','.mbb-mark--power','.mbb-mark--hero','.mbb-mark--score'])assert(css.includes(clause),'Missing shared logo CSS: '+clause);
- for(const page of ['ncaam-team.html','ncaam-elo.html','ncaam.html','college-basketball.html','ncaam-conference.html','ncaam-tournament.html','ncaam-players.html','ncaam-predictor.html','ncaam-rivalry.html']){
+ for(const must of ['.mbb-mark--art-embedded_roundel','.mbb-mark--art-unverified','.mbb-mark--art-flat','object-fit:contain!important','transform:translate(-50%,-50%)!important'])assert(css.includes(must),'Missing MBB artwork CSS: '+must);
+ assert(css.includes('.mbb-mark--art-embedded_roundel::before{content:none!important}'),'Embedded roundel gains extra inner ring');
+ assert(css.includes('.mbb-mark--art-flat::before'),'Flat artwork has no distinct second ring');
+ const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(/^(ncaam(?:[-.]|$))/.test(p)||p==='college-basketball.html'));
+ assert.equal(pages.length,11,'Expected every MBB page type');
+ for(const page of pages){
   const html=read(page);
-  assert(html.includes('mbb-logo-system.js'),'No shared logo JS on '+page);
-  assert(html.includes('mbb-logo-system.css'),'No shared logo CSS on '+page);
-  const loader=html.indexOf('mbb-logo-system.js');
-  for(const consumer of ['mbb-newspaper.js','mbb-elo-primary.js','mbb-team-calendar-boot.js','ncaam-predictor.js','ncaam-rivalry.js']) {
-   const at=html.indexOf(consumer);
-   if(at!==-1)assert(loader<at,'Shared crest library must load before '+consumer+' in '+page);
+  assert(html.includes('mbb-logo-system.js?v=roundel-one-owner-20261029'),page+' old/missing renderer');
+  assert(html.includes('mbb-logo-system.css?v=roundel-one-owner-20261029'),page+' old/missing geometry');
+  for(const extra of ['shared-team-crests.js','shared-team-crests.css','slt-dual-ring.js','slt-dual-ring.css']){
+   assert(!html.includes(extra),page+' still loads conflicting crest owner '+extra);
   }
-
+  const loader=html.indexOf('mbb-logo-system.js');
+  for(const consumer of ['mbb-newspaper.js','mbb-elo-primary.js','mbb-team-calendar-boot.js','ncaam-predictor.js','ncaam-rivalry.js']){
+   const i=html.indexOf(consumer);if(i!==-1)assert(loader<i,'MBB logo module loads after '+consumer+' on '+page);
+  }
  }
- for(const file of ['mbb-newspaper.js','mbb-team-calendar-boot.js','mbb-elo-primary.js','ncaam-predictor.js','ncaam-rivalry.js']){
-  const src=read(file);
-  assert(src.includes('MBBLogos.'),'Inconsistent logo renderer '+file);
-  if(file.startsWith('mbb-'))assert(!src.includes('schoolColor('),'Guessed-color legacy renderer still active '+file);
-  assert(!src.includes('class="badge"'),'Standalone badge still active '+file);
+ const injection=read('scripts/inject-team-crests.py');
+ assert(injection.includes('ncaam(?:[-.]|$)'),'Publisher injection must exempt basketball');
+ const shared=read('shared-team-crests.js');
+ assert(shared.includes('ncaam(?:[-.]|$)'),'Old shared enhancer must exempt basketball');
+ const dual=read('slt-dual-ring.js');
+ assert(dual.includes("if(league==='mbb')return;"),'MBB is still decorated by generic dual ring script');
+ for(const file of ['mbb-newspaper.js','mbb-elo-primary.js','mbb-team-calendar-boot.js','ncaam-rivalry.js','ncaam-predictor.js']){
+  const src=read(file);assert(src.includes('MBBLogos.'),'Old page-specific crest renderer '+file);
   new Function(src);
  }
- console.log('PASS 365 unique team identities; 365 correct verified crest URLs; power/team/schedule/predictor/rivalry all share one circle and color; 9 editions linked.');
+ console.log('PASS 365 verified NCAA logos; '+JSON.stringify(kinds)+' artwork flags; 11/11 MBB pages have one owner; no stacked ring imports');
 }
 run().catch(e=>{console.error(e);process.exitCode=1});
