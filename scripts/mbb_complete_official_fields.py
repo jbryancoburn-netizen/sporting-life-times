@@ -12,6 +12,29 @@ TEAMS=json.loads((DATA/'ncaam-2026-27-espn-team-crosswalk.json').read_text())['t
 def clean_school_label(s):
  return re.sub(r'^(?:(?:RV|NR)|(?:No\.?\s*|#\s*)\d+)(?:\s*/\s*(?:#?\d+|RV|NR))?\s+','',str(s or '').strip(),flags=re.I)
 def norm(s):return re.sub('[^a-z0-9]','',clean_school_label(s).lower())
+PROMOTIONAL_LABEL=re.compile(r'presented by|homecoming|toy drive|home opener|winter wonderland|salute to|camp reunion|coaches vs\.? cancer|scouting america|appreciation|white out night|senior day|organization day|mardi gras day|family 4-pack|Dunesday',re.I)
+NETWORK=re.compile(r'ESPN(?:\+|2|3|U|NEWS)?|ABC|CBS|CBS Sports Network|CBSSN|FOX|FS[12]|BTN\+?|B1G\+|Big Ten (?:Network|Plus)|Peacock(?: Premium)?|NBC|ACC Network(?: Extra)?|ACCNX?|SECN\+?|SEC Network(?: ?Plus|\+)?|FloSports|FloHoops|FloCollege|The CW|CW|TNT|truTV|HBO Max|Max|MWN|MW Network|Mountain West Network|NEC Front Row|NECfrontrow|PSN|BallerTV|SLC\+|WAC International|Midco Sports|Midco Sports Plus|Midco\+|NESN\+?|SNY|YES|Stadium|HBCU ?GO|SWAC ?TV|Tubi|Facebook Live|YouTube',re.I)
+def network_label(label):
+ parts=re.split(r'\s*(?:/|\||,|\bor\b|\band\b)\s*',label,flags=re.I)
+ expanded=[]
+ for p in parts:
+  if p in ('2','3','U') and expanded and expanded[0].upper().startswith('ESPN'):p='ESPN'+p
+  expanded.append(p)
+ return bool(expanded) and all(NETWORK.fullmatch(p) for p in expanded)
+
+LOGO_NETWORKS=['ESPN','ESPN2','ESPN3','ESPNU','ESPNNEWS','ESPN+','ABC','CBS','CBS Sports Network','FOX','FS1','FS2','BTN','B1G+','Big Ten Network','Peacock','NBC','ACC Network','ACC Network Extra','ACCN','ACCNX','SEC Network','SEC Network+','SECN','SECN+','FloSports','FloHoops','FloCollege','The CW','CW','TNT','truTV','HBO Max','NEC Front Row','NESN','NESN+','Stadium','HBCU GO','SWAC TV','Midco Sports','Mountain West Network']
+def image_network_label(img):
+ def key(s):return re.sub(r'[^a-z0-9+]','',s.lower())
+ lookup={key(s):s for s in LOGO_NETWORKS}
+ lookup.update({'espnplus':'ESPN+','bigtenplus':'B1G+','secnetworkplus':'SEC Network+','foxsports1':'FS1','foxsports2':'FS2'})
+ for raw in [img.get('alt',''),img.get('title','')]:
+  raw=re.sub(r'\.(?:svg|png|jpe?g|webp)$','',raw,flags=re.I)
+  raw=re.sub(r'logo.*$','',raw,flags=re.I)
+  raw=re.sub(r'\b(?:white|black|primary|horizontal|vertical|transparent|color|dark|light)\b',' ',raw.replace('_',' ').replace('-',' '),flags=re.I)
+  raw=re.sub(r'\b(?:19|20)\d{2}\b','',raw)
+  if key(raw) in lookup:return lookup[key(raw)]
+ return ''
+
 FACILITY=re.compile(r'\b(?:Arena|Center|Centre|Coliseum|Gymnasium|Gym|Fieldhouse|Field House|Pavilion|Forum|Dome|Auditorium|Events Complex|Stadium|The Pit)\b',re.I)
 def split_location(text):
  text=re.sub(r'\s+',' ',str(text or '')).strip()
@@ -31,7 +54,7 @@ def split_location(text):
 def parse(html, own_names=()):
  soup=BeautifulSoup(html,'html.parser')
  title=soup.title.get_text() if soup.title else ''
- if not re.search(r'2026\s*[-–/]\s*(?:20)?27',title) or not re.search('basketball',title,re.I):return []
+ if not re.search(r'2026\s*[-–/]\s*(?:20)?27',title) or not re.search('basketball',title,re.I) or re.search(r'\bwomen',title,re.I):return []
  rows=[]
  # Nuxt's reference-indexed payload contains explicit H/A/N classifications.
  semantic={}
@@ -81,7 +104,7 @@ def parse(html, own_names=()):
    n=card.select_one(selector)
    return n.get_text(' ',strip=True) if n else ''
   candidates=[]
-  for node in card.select('.schedule-event-item__opponent-name, .schedule-item-team__heading, .schedule-default-event__name'):
+  for node in card.select('.schedule-event-item__opponent-name, .schedule-item-team__heading, .schedule-default-event__name, .schedule-default-event__title'):
    label=re.sub(r'^(?:vs\.?|at)\s+','',node.get_text(' ',strip=True),flags=re.I)
    label=re.sub(r'^(?:No\.?\s*|#)\d+\s+','',label,flags=re.I)
    if norm(label) not in {norm(x) for x in own_names} and label not in candidates:candidates.append(label)
@@ -112,9 +135,9 @@ def parse(html, own_names=()):
   for link in card.select('a.schedule-event-links__link, a.schedule-event-item-links__link'):
    labelnode=link.select_one('.schedule-event-item-links__title')
    image=link.select_one('img[alt]')
-   label=labelnode.get_text(' ',strip=True) if labelnode else image.get('alt','') if image else ''
+   label=labelnode.get_text(' ',strip=True) if labelnode else image_network_label(image) if image else ''
    label=re.sub(r'^(?:Watch|TV):\s*','',label,flags=re.I).strip()
-   if re.fullmatch(r'ESPN(?:\+|2|U|NEWS)?|ABC|CBS|CBS Sports Network|CBSSN|FOX|FS[12]|BTN|B1G\+|Big Ten Network|Peacock|NBC|ACC Network(?: Extra)?|ACCN|SECN|SEC Network(?:\+)?|FloSports|FloHoops|The CW|CW|TNT|truTV|MWN|Mountain West Network',label,re.I) and label not in networks:networks.append(label)
+   if network_label(label) and label not in networks:networks.append(label)
   rows.append(dict(date=date,opponent=opponent,time=time,arena=arena.strip(),city=city.strip(),tv=' / '.join(networks),site=side,site_explicit=bool(side),exhibition=bool(card.select_one('.schedule-event-exhibition'))))
  if rows:return rows
  for table in soup.select('table'):
@@ -156,7 +179,9 @@ def parse(html, own_names=()):
   classes=set(card.get('class',[]))
   site=next((side for side in ['neutral','away','home'] if 'sidearm-schedule-'+side+'-game' in classes),'')
   tv=pick('.sidearm-schedule-game-coverage-tv-content')
-  rows.append(dict(date=date,opponent=opponent,time=time,arena=arena,city=city,tv=tv,site=site,site_explicit=bool(site),exhibition=bool(re.search(r'\bexhibition\b',card.get_text(' ',strip=True),re.I))))
+  if not tv:
+   tv=' / '.join(dict.fromkeys(label for image in card.select('[class*=coverage-tv] img') if (label:=image_network_label(image))))
+  rows.append(dict(date=date,opponent=opponent,time=time,arena=arena,city=city,tv=tv,site=site,site_explicit=bool(site),exhibition=bool(re.search(r'\b(?:EXH|exhibition)\b',card.get_text(' ',strip=True),re.I))))
  if rows:return rows
  for card in soup.select('[data-test-id="s-game-card-standard__root"]'):
   def pick(key):
@@ -176,7 +201,7 @@ def parse(html, own_names=()):
   tvnode=card.select_one('.s-game-card__header__tv')
   tv=re.sub(r'^TV:\s*','',tvnode.get_text(' ',strip=True)) if tvnode else ''
   stamp=pick('s-stamp__root').lower()
-  rows.append(dict(date=date,opponent=opponent,time=time,arena=arena,city=city,tv=tv,site=semantic.get((date,norm(opponent)),'away' if stamp=='at' else ''),site_explicit=(date,norm(opponent)) in semantic,exhibition=bool(re.search(r'\bexhibition\b',card.get_text(' ',strip=True),re.I))))
+  rows.append(dict(date=date,opponent=opponent,time=time,arena=arena,city=city,tv=tv,site=semantic.get((date,norm(opponent)),'away' if stamp=='at' else ''),site_explicit=(date,norm(opponent)) in semantic,exhibition=bool(re.search(r'\b(?:EXH|exhibition)\b',card.get_text(' ',strip=True),re.I))))
  return rows
 
 def add_missing_games(document,team,rows,source):
@@ -188,8 +213,10 @@ def add_missing_games(document,team,rows,source):
  for row in rows:
   name=row['opponent'].strip();date=row['date']
   if date in days or byday[date]!=1 or row.get('exhibition'):continue
+  if re.search(r'\s+vs\.?\s+',name,re.I):continue
+  if PROMOTIONAL_LABEL.search(name):continue
   if not re.fullmatch(r'2026-(?:10|11|12)-\d\d|2027-0[1-4]-\d\d',date):continue
-  if re.search(r'\b(?:TBA|TBD|exhibition|winner|loser|tournament|championship|semifinal|quarterfinal|round|regional|final|finals|NCAA|NIT|CBI|scrimmage|practice|alumni)\b',name,re.I) or '/' in name:continue
+  if re.search(r'\b(?:TBA|TBD|exhibition|winner|loser|tournaments?|championships?|semifinals?|quarterfinals?|rounds?|regionals?|sweet 16|elite eight|final|finals|NCAA|NIT|CBI|scrimmage|practice|alumni)\b',name,re.I) or '/' in name:continue
   options=[t for t in TEAMS if norm(name) in {norm(t.get('name')),norm(t.get('espn_name'))}]
   opponent=options[0] if len(options)==1 else None
   if opponent and str(opponent['espn_id'])==tid:continue
@@ -208,10 +235,11 @@ def add_missing_games(document,team,rows,source):
  document['events'].sort(key=lambda x:x.get('date',''))
  return count
 
-def run(team):
+def run(team, captured_html=None, captured_url=None):
  tid=str(team['espn_id']);p=DATA/'mbb-schedules-2026-27'/(tid+'.json')
  d=json.loads(p.read_text());url=d.get('source_url','')
  original_url=url
+ if captured_url:url=captured_url
  overrides={'99':'https://lsusports.net/sports/mb/schedule/','258':'https://virginiasports.com/sports/mbball/schedule','238':'https://vucommodores.com/sports/mbball/schedule','2579':'https://gamecocksonline.com/sports/mbball/schedule/'}
  if os.getenv('REMAINING_PASS') and tid in overrides:url=overrides[tid]
  if not url or 'sports-reference.com' in url:
@@ -228,7 +256,11 @@ def run(team):
  result=dict(id=tid,school=team['name'],rows=0,matched=0,fields=0,status='unsupported')
  if not url.startswith('https://') or any(x in (urlparse(url).hostname or '') for x in ['espn.com','realgm.com','wikipedia.org','sports-reference.com']):return result
  try:
-  r=requests.get(url,timeout=18,headers={'User-Agent':'Mozilla/5.0'})
+  if captured_html is not None:
+   if not captured_url:raise ValueError('Captured school HTML requires its source URL')
+   from types import SimpleNamespace
+   r=SimpleNamespace(ok=True,url=captured_url,text=captured_html)
+  else:r=requests.get(url,timeout=18,headers={'User-Agent':'Mozilla/5.0'})
   if not r.ok or urlparse(r.url).hostname!=urlparse(url).hostname:return result
   rows=parse(r.text,(team['name'],team.get('espn_name','')));result['rows']=len(rows)
  except Exception as ex:result.update(status='fetch_failed',error=str(ex)[:100]);return result
@@ -241,7 +273,7 @@ def run(team):
  result['status']='parsed'
  evidence=DATA/'mbb-official-game-evidence';evidence.mkdir(exist_ok=True)
  (evidence/(tid+'.json')).write_text(json.dumps({'source_url':r.url,'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rows':rows},ensure_ascii=False,separators=(',',':'))+'\n')
- if not original_url or 'sports-reference.com' in original_url or (os.getenv('REMAINING_PASS') and tid in overrides):
+ if d.get('source_url')!=r.url:
   d['source_url']=r.url;result['fields']+=1
  for e in d.get('events',[]):
   c=e['competitions'][0];ps=c['competitors'];own=next((x for x in ps if str(x.get('team',{}).get('id'))==tid),None)

@@ -3,9 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'scripts/import_mbb_official_school_schedules.py'
       - 'data/mbb-official-school-schedule-sources.json'
-      - '.github/workflows/mbb-official-school-calendars.yml'
 permissions:
   contents: write
 jobs:
@@ -17,43 +15,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install beautifulsoup4
+      - run: python -m pip install beautifulsoup4 requests
       - name: Import verified school athletics schedules
         run: python scripts/import_mbb_official_school_schedules.py
-      - name: Publish official school calendars
-        if: always()
+      - name: Reconcile and validate recovered calendars
+        run: |
+          python scripts/mbb_reciprocal_official_recovery.py
+          python scripts/mbb_reciprocal_game_fields.py
+          python scripts/mbb_schedule_completion_audit.py
+          python scripts/mbb_live_quality_audit.py
+      - name: Publish verified schedule changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p /tmp/official-mbb
-          cp -a data/mbb-schedules-2026-27/. /tmp/official-mbb/
-          for attempt in 1 2 3 4 5; do
-            git fetch origin main
-            git reset --hard origin/main
-            python - <<'PY'
-          import json,pathlib,shutil
-          source=pathlib.Path('/tmp/official-mbb')
-          target=pathlib.Path('data/mbb-schedules-2026-27')
-          for file in source.glob('*.json'):
-              if file.name=='official-school-sources-status.json':
-                  shutil.copy2(file,target/file.name)
-                  continue
-              try:
-                  candidate=json.loads(file.read_text())
-                  if candidate.get('verified_from_school') or candidate.get('source_name')=='Official university athletics 2026-27 schedule':
-                      destination=target/file.name
-                      if destination.exists():
-                          current=json.loads(destination.read_text())
-                          if current.get('source_name')=='Indiana University Athletics official 2026-27 schedule':
-                              continue
-                      shutil.copy2(file,destination)
-              except (ValueError,OSError):
-                  continue
-          PY
-            git add data/mbb-schedules-2026-27/
-            if git diff --cached --quiet; then exit 0; fi
-            git commit -m "Import school-athletics official MBB schedules"
+          git add data/mbb-schedules-2026-27/ data/mbb-official-game-evidence/ data/mbb-reciprocal-official-recovery.json data/mbb-reciprocal-game-fields.json data/mbb-schedule-completion-audit.json data/mbb-live-quality-audit-2026-27.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Enrich official MBB calendars without replacing verified game records"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main || exit 1
             if git push origin HEAD:main; then exit 0; fi
-            sleep $((attempt * 2))
           done
           exit 1
