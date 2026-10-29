@@ -8,6 +8,7 @@ on:
       - '**.css'
       - '**.json'
       - 'scripts/audit_site.py'
+      - 'scripts/audit-dual-ring-colors.cjs'
   push:
     branches: [main]
     paths:
@@ -16,6 +17,7 @@ on:
       - '**.css'
       - '**.json'
       - 'scripts/audit_site.py'
+      - 'scripts/audit-dual-ring-colors.cjs'
       - '.github/workflows/site-audit.yml'
 permissions:
   contents: read
@@ -29,6 +31,8 @@ jobs:
           python-version: '3.12'
       - name: Static assets and data integrity
         run: python scripts/audit_site.py
+      - name: Protect 628 nonwhite two-color team crests and 51 editions
+        run: node scripts/audit-dual-ring-colors.cjs
       - name: JavaScript syntax in public assets
         shell: bash
         run: |
