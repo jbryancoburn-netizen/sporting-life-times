@@ -2,24 +2,59 @@ name: Publish MBB RETRO Primary
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - .github/workflows/mbb-retro-primary.yml
       - scripts/publish-mbb-retro-primary.js
+      - mbb-retro.js
+  schedule:
+    # Small calculation job, not a costly full-site deployment: game nights only.
+    - cron: '6,26,46 0-7 * 11,12,1,2,3,4'
+    - cron: '16 12 * * *'
 permissions:
   contents: write
+concurrency:
+  group: mbb-retro-primary-publication
+  cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Calculate RETRO baseline and preseason
+      - name: Validate RETRO replay script
+        run: |
+          node --check scripts/publish-mbb-retro-primary.js
+          node --check mbb-retro.js
+      - name: Recalculate clean-slate RETRO from real final scores
         run: node scripts/publish-mbb-retro-primary.js
-      - name: Publish verified RETRO primary ratings
+      - name: Validate all 365 published ratings and 1500 reset
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('data/ncaam-2026-27-retro-primary.json'));
+          if(d.model!=='retro-clean-slate'||d.starting_elo!==1500||d.rankings.length!==365||d.events.length!==d.games_played)throw Error('Invalid primary RETRO publication');
+          const ids=new Set(d.rankings.map(t=>t.team_id));
+          if(ids.size!==365||!d.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo)))throw Error('Wrong teams or Elo baseline');
+          if(d.games_played===0&&!d.rankings.every(t=>t.elo===1500))throw Error('Preseason ratings must all equal 1500');
+          console.log('PASS: '+d.games_played+' finals, '+ids.size+' teams; all season starts at 1500');
+          NODE
+      - name: Publish changed verified RETRO ratings
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ncaam-2026-27-retro-primary.json
-          git diff --cached --quiet || (git commit -m "Publish MBB RETRO primary preseason ratings" && git push)
+          if git diff --cached --quiet; then echo "No new verified finals; no commit"; exit 0; fi
+          git commit -m "Update 365-school MBB RETRO after verified finals"
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
