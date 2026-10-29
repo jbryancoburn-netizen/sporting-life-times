@@ -225,3 +225,40 @@ jobs:
           echo "::error::NBA public feed is stale or differs from the published artifact"
           exit 1
 
+      - name: Verify published NBA 30-team rosters and sole 1500-start Elo
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${PAGE_URL%/}"
+          for attempt in 1 2 3 4 5 6; do
+            if curl -fsSL --max-time 25 "$ROOT/data/nba-team-rosters-2026-27.json?roster_release=${GITHUB_RUN_ID}-${attempt}" -o /tmp/public-nba-rosters.json &&
+               curl -fsSL --max-time 25 "$ROOT/data/nba-elo-shadow-2026-27.json?elo_release=${GITHUB_RUN_ID}-${attempt}" -o /tmp/public-nba-elo.json &&
+               curl -fsSL --max-time 25 "$ROOT/nba-team-desk.html?roster_release=${GITHUB_RUN_ID}-${attempt}" -o /tmp/public-nba-team.html &&
+               curl -fsSL --max-time 25 "$ROOT/nba-team-roster.js?roster_release=${GITHUB_RUN_ID}-${attempt}" -o /tmp/public-nba-roster.js; then
+              if python3 - <<'PY'
+          import json
+          from pathlib import Path
+          local_roster=json.loads(Path('data/nba-team-rosters-2026-27.json').read_text())
+          public_roster=json.loads(Path('/tmp/public-nba-rosters.json').read_text())
+          local_elo=json.loads(Path('data/nba-elo-shadow-2026-27.json').read_text())
+          public_elo=json.loads(Path('/tmp/public-nba-elo.json').read_text())
+          assert len(public_roster['teams'])==30, 'Not all NBA teams have published rosters'
+          assert public_roster['updated_at']==local_roster['updated_at'], 'Public NBA rosters lag deployment'
+          for code,team in public_roster['teams'].items():
+              assert 10<=len(team['players'])<=35, f'{code} incomplete roster'
+          assert public_elo['games_played']==local_elo['games_played'], 'Public NBA Elo game count is stale'
+          assert public_elo['rankings']==local_elo['rankings'], 'Public NBA Elo rankings differ from deployment'
+          assert public_elo['parameters']['season_start_elo']==1500, 'NBA published model must reset to 1500'
+          assert len(public_elo['rankings'])==30
+          assert 'nba-team-roster.js' in Path('/tmp/public-nba-team.html').read_text(), 'Team pages lack sourced roster renderer'
+          assert 'Current Team Roster' in Path('/tmp/public-nba-roster.js').read_text(), 'Roster UI not present'
+          print('PASS public NBA: 30 current rosters and same 1500-reset power rankings as deployed artifact')
+          PY
+              then exit 0; fi
+            fi
+            sleep 7
+          done
+          echo "::error::Public NBA rosters or 1500-start Elo do not match newly published edition"
+          exit 1
