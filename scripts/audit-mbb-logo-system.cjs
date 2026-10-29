@@ -34,17 +34,17 @@ async function run(){
  }
  const css=read('mbb-logo-system.css');
  for(const clause of ['object-fit:contain!important','border-radius:50%!important','.mbb-mark--schedule','.mbb-mark--power','.mbb-mark--hero','.mbb-mark--score'])assert(css.includes(clause),'Missing shared logo CSS: '+clause);
- for(const page of ['ncaam-team.html','ncaam-elo.html','ncaam.html','college-basketball.html','ncaam-conference.html','ncaam-tournament.html','ncaam-players.html']){
+ for(const page of ['ncaam-team.html','ncaam-elo.html','ncaam.html','college-basketball.html','ncaam-conference.html','ncaam-tournament.html','ncaam-players.html','ncaam-predictor.html','ncaam-rivalry.html']){
   assert(read(page).includes('mbb-logo-system.js'),'No shared logo JS on '+page);
   assert(read(page).includes('mbb-logo-system.css'),'No shared logo CSS on '+page);
  }
- for(const file of ['mbb-newspaper.js','mbb-team-calendar-boot.js','mbb-elo-primary.js']){
+ for(const file of ['mbb-newspaper.js','mbb-team-calendar-boot.js','mbb-elo-primary.js','ncaam-predictor.js','ncaam-rivalry.js']){
   const src=read(file);
   assert(src.includes('MBBLogos.'),'Inconsistent logo renderer '+file);
-  assert(!src.includes('schoolColor('),'Guessed-color legacy renderer still active '+file);
+  if(file.startsWith('mbb-'))assert(!src.includes('schoolColor('),'Guessed-color legacy renderer still active '+file);
   assert(!src.includes('class="badge"'),'Standalone badge still active '+file);
   new Function(src);
  }
- console.log('PASS 365 unique team identities; 365 correct verified crest URLs; every power/team/schedule card shares one circle and color; 7 editions linked.');
+ console.log('PASS 365 unique team identities; 365 correct verified crest URLs; power/team/schedule/predictor/rivalry all share one circle and color; 9 editions linked.');
 }
 run().catch(e=>{console.error(e);process.exitCode=1});

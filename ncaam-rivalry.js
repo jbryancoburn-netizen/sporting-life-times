@@ -5,7 +5,7 @@ const years=[2020,2021,2022,2023,2024,2025,2026],matches=[],names=new Map(),alia
 const gameKey=g=>g.date+"|"+[g.a,g.b].sort().join("|")+"|"+[[g.a,g.as],[g.b,g.bs]].sort((x,y)=>x[0].localeCompare(y[0])).map(x=>x[1]).join("|");
 const isValidGame=g=>/^20\d{2}-\d{2}-\d{2}$/.test(g.date)||/^19\d{2}-\d{2}-\d{2}$/.test(g.date);
 const priority=g=>g.tournament==="Competition not verified"?0:g.tournament==="Regular season"?1:2;
-const logos=new Map(),teamColors=new Map();let selectedGames=[];
+const logos=new Map(),teamColors=new Map(),currentNcaa=new Map();let selectedGames=[];
 const norm=s=>String(s||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
 const dateAdd=(base,days)=>{const d=new Date(base+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+Number(days));return d.toISOString().slice(0,10)};
 function parseCSV(raw){const lines=raw.replace(/^\uFEFF/,"").trim().split(/\r?\n/);const cols=lines.shift().split(",");return lines.filter(Boolean).map(line=>{const v=line.split(",");const x={};cols.forEach((c,i)=>x[c]=v[i]);return x})}
@@ -15,6 +15,7 @@ function name(id){return names.get(String(id))||String(id)}
 async function download(url){const r=await fetch(url,{cache:"force-cache"});if(!r.ok)throw Error("HTTP "+r.status+" for "+url);return r.text()}
  const applyTheme=(elem,id)=>{const colors=teamColors.get(id)||["#293F5F","#D6AF69"];elem.style.setProperty("--club",colors[0]);elem.style.setProperty("--club-secondary",colors[1])};
 async function start(){
+ await window.MBBLogos.ready;
 
 
  $("status").textContent="Loading 1985–2019 historical records and recent game results…";
@@ -51,7 +52,7 @@ async function start(){
    }
    // Explicitly register modern source names to the resolved canonical program.
    if(id&&t.name)register(t.name,id);
-   if(id&&Number(t.espn_id)>0&&t.match_method!=="exact-team-name-fallback")logos.set(id,"https://a.espncdn.com/i/teamlogos/ncaa/500/"+Number(t.espn_id)+".png");
+   if(id&&Number(t.espn_id)>0&&t.match_method!=="exact-team-name-fallback")currentNcaa.set(String(id),t.id);
   }}
  }catch(e){console.warn("Logo crosswalk unavailable",e)}
 
@@ -185,7 +186,7 @@ function show(){
  $("avg-total").textContent=avg(arr.map(g=>g.as+g.bs));$("avg-margin").textContent=avg(arr.map(g=>Math.abs(g.as-g.bs)));
  $("first-meeting").textContent=arr.length?arr[arr.length-1].date:"—";$("post-meetings").textContent=arr.filter(g=>g.tournament!=="Regular season"&&g.tournament!=="Competition not verified").length;
  const url=new URL(location.href);url.searchParams.set("a",a);url.searchParams.set("b",b);history.replaceState(null,"",url);
- const mklogo=(team,element)=>{element.replaceChildren();const url=logos.get(team);const fallback=()=>{element.replaceChildren();element.textContent=name(team).slice(0,2).toUpperCase();element.title="Team logo unavailable"};if(!url){fallback();return}const img=document.createElement("img");img.src=url;img.alt=name(team)+" logo";img.loading="lazy";img.onerror=fallback;element.append(img);element.title=name(team)+" logo"};
+ const mklogo=(team,element)=>{const id=currentNcaa.get(String(team));element.innerHTML=id?window.MBBLogos.byNCAA(id,'hero',name(team)):window.MBBLogos.byName(name(team),'hero');element.title=name(team)+" logo"};
  $("status").textContent="Showing "+arr.length+" unique recorded games for "+name(a)+" and "+name(b)+"; "+arr.filter(g=>g.tournament==="Competition not verified").length+" lack verified competition classifications."; 
  $("matchup").textContent=name(a)+" vs. "+name(b);$("team-a-name").textContent=name(a);$("team-b-name").textContent=name(b);mklogo(a,$("team-a-logo"));mklogo(b,$("team-b-logo"));
  applyTheme($("hero-a"),a);applyTheme($("hero-b"),b);

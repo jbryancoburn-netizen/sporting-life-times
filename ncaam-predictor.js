@@ -1,5 +1,6 @@
 (async()=>{"use strict";
 const $=id=>document.getElementById(id);
+await window.MBBLogos.ready;
 const get=async path=>{try{const r=await fetch(path,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}};
 const [pre,retro,calibration,crosswalk]=await Promise.all([
  get("data/ncaam-2026-27-preseason-player-quality-live.json"),
@@ -41,15 +42,11 @@ const impact=(t)=>[['Returning minutes',t.retention_component],['Transfer minute
  '<div class="impact"><span>'+title+'</span><strong>'+ (Number.isFinite(Number(v))?signed(v):"Not available")+' Elo</strong></div>').join("");
 const schoolColors={"Indiana":"#990000","Purdue":"#CEB888","Duke":"#003087","North Carolina":"#7BAFD4","Michigan":"#00274C","Kentucky":"#0033A0","Kansas":"#0051BA","UConn":"#000E2F","Gonzaga":"#002967","Michigan State":"#18453B","UCLA":"#2774AE","Florida":"#0021A5","Houston":"#C8102E","Arizona":"#AB0520","Illinois":"#E84A27","Tennessee":"#FF8200"};
 function image(team,key){
- const id=logoIds.get(team.team_id),el=$("logo-"+key),fallback=$("logo-fallback-"+key),side=$("logo-shell-"+key).closest(".team-side");
- const short=team.team.split(/\s+/).map(x=>x[0]).slice(0,3).join("").toUpperCase();
+ const shell=$("logo-shell-"+key),side=shell.closest(".team-side");
  const color=schoolColors[team.team]||"#466580";
  side.style.setProperty("--side-color",color);
  document.querySelector(".hero").style.setProperty("--team-"+key+"-color",color);
- fallback.textContent=short;
- function failed(){el.hidden=true;fallback.hidden=false}
- if(id&&/^\d+$/.test(id)){el.onload=()=>{fallback.hidden=true;el.hidden=false};el.onerror=failed;fallback.hidden=false;el.hidden=true;el.src="https://a.espncdn.com/i/teamlogos/ncaa/500/"+id+".png"}
- else{el.removeAttribute("src");failed()}
+ shell.innerHTML=window.MBBLogos.byNCAA(team.team_id,'hero',team.team);
 }
 function render(){
  const a=map.get($("team-a").value),b=map.get($("team-b").value);
