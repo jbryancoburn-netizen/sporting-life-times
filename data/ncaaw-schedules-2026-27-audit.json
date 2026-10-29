@@ -15,12 +15,12 @@
   "effective_missing_network_after_verified_overlay": 10094,
   "evidence_file": "data/ncaaw-2026-27-official-broadcast-overrides.json",
   "missing_specific_venue_from_espn": 0,
-  "official_school_venue_verified": 1710,
-  "official_school_calendar_verified": 0,
+  "official_school_venue_verified": 0,
+  "official_school_calendar_verified": 315,
   "venue_caveat": "All 11,110 school-game entries have ESPN venue strings, but only 1,710 school-game venue entries (1,605 distinct games) have been independently exact-name corroborated on university schedules.",
   "broadcast_caveat": "1,016 of 11,110 school-game entries now have an attributed broadcast: 270 from official university/conference announcements, 746 from the ESPN women's scoreboard. The remaining 10,094 are unconfirmed, not assumed unavailable.",
   "official_school_schedules_date_and_opponent_checked": 315,
-  "official_school_schedule_entries_date_and_opponent_checked": 3409,
+  "official_school_schedule_entries_date_and_opponent_checked": 7892,
   "school_schedule_evidence_file": "data/ncaaw-2026-27-official-schedule-verifications.json",
   "official_school_check_scope": "3,346 strict university-date/opponent/site matches from 148 readable 2026-27 women's school schedules. This does not certify every scheduled game, arena or broadcast.",
   "unique_games": 5782,
@@ -62,5 +62,10 @@
   "university_confirmed_explicit_timezone_tipoffs": 307,
   "university_tipoffs_disagreeing_review_only": 61,
   "university_sites_disagreeing_review_only": 11,
-  "official_field_evidence_file": "data/ncaaw-2026-27-official-field-crosschecks.json"
+  "official_field_evidence_file": "data/ncaaw-2026-27-official-field-crosschecks.json",
+  "additional_bulk_official_school_entries_kept": 0,
+  "bulk_university_date_conflicts_quarantined": 36,
+  "official_school_tipoff_verified": 307,
+  "official_school_venue_confirmation_discrepancies": 0,
+  "official_tipoff_discrepancies_for_review": 61
 }
