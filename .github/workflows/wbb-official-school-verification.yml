@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - '.github/workflows/wbb-official-school-verification.yml'
+      - 'scripts/wbb-verify-official-schools.py'
+      - 'data/mbb-official-school-schedule-sources.json'
 permissions:
   contents: write
 concurrency:
@@ -24,6 +26,26 @@ jobs:
         run: python -m pip install -q requests beautifulsoup4
       - name: Validate women's schedule verifier
         run: python -m py_compile scripts/wbb-verify-official-schools.py
+      - name: Check women-only URL fallback before any network fetch
+        run: |
+          python - <<'PY'
+          import importlib.util
+          p="scripts/wbb-verify-official-schools.py"
+          spec=importlib.util.spec_from_file_location("wbb_verify",p)
+          m=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(m)
+          ids=("8","2115","59","55","112358","99","87","195","213","21","2900","2635","245")
+          missing=[]
+          for tid in ids:
+              urls=m.official_urls(tid)
+              if not urls:
+                  missing.append(tid)
+              if any("mens-basketball" in u or "/mbkb/" in u for u in urls):
+                  raise RuntimeError("Men's schedule candidate rejected for "+tid)
+          if missing:
+              raise RuntimeError("Still missing official women's URL candidates: "+str(missing))
+          print("Recovered women-specific official schedule URL candidates for",len(ids),"programs")
+          PY
       - name: Crosscheck every D-I women's university athletics calendar
         run: python -u scripts/wbb-verify-official-schools.py
       - name: Publish exact-match official evidence and coverage
