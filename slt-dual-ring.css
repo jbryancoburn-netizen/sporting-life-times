@@ -1,0 +1,29 @@
+/* SPORTING LIFE & TIMES • two-color club crest geometry.
+   Primary-color outer circle. Distinct secondary-color inner circle. */
+.slt-dual-shell{
+ position:relative!important;isolation:isolate!important;box-sizing:border-box!important;
+ border:3px solid var(--slt-dual-primary,#385866)!important;border-radius:50%!important;
+ background:#fff!important;overflow:hidden!important;padding:0!important;
+ aspect-ratio:1 / 1!important;box-shadow:0 1px 3px rgba(0,0,0,.12)!important;
+}
+.slt-dual-shell::before{
+ content:""!important;position:absolute!important;display:block!important;
+ inset:3px!important;border:2.5px solid var(--slt-dual-secondary,#a0aab5)!important;
+ border-radius:50%!important;background:#fff!important;box-shadow:0 0 0 .7px rgba(0,0,0,.12)!important;
+ pointer-events:none!important;z-index:1!important;
+}
+.slt-dual-shell>img:not(.player-photo):not(.player-portrait):not(.team-hero-logo-bg){
+ box-sizing:border-box!important;position:relative!important;z-index:2!important;
+ width:71%!important;height:71%!important;min-width:0!important;min-height:0!important;
+ max-width:71%!important;max-height:71%!important;
+ object-fit:contain!important;object-position:center!important;
+ border:0!important;border-radius:0!important;background:transparent!important;
+ margin:0 auto!important;padding:0!important;box-shadow:none!important;transform:none!important;
+}
+.mbb-mark.slt-dual-shell>img.mbb-mark__img{
+ position:absolute!important;top:17%!important;left:17%!important;
+ width:66%!important;height:66%!important;max-width:66%!important;max-height:66%!important;
+ object-fit:contain!important;z-index:2!important;background:transparent!important;
+}
+.mbb-mark.slt-dual-shell>.mbb-mark__initials{z-index:2!important}
+.slt-dual-image{border-radius:50%!important;object-fit:contain!important;aspect-ratio:1 / 1!important}
