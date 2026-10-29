@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/mbb-official-recheck-365.yml'
+      - 'scripts/mbb_official_recheck_365.py'
   workflow_dispatch:
 permissions:
   contents: write
