@@ -35,8 +35,9 @@ async function run(){
  const css=read('mbb-logo-system.css');
  for(const clause of ['object-fit:contain!important','border-radius:50%!important','.mbb-mark--schedule','.mbb-mark--power','.mbb-mark--hero','.mbb-mark--score'])assert(css.includes(clause),'Missing shared logo CSS: '+clause);
  for(const page of ['ncaam-team.html','ncaam-elo.html','ncaam.html','college-basketball.html','ncaam-conference.html','ncaam-tournament.html','ncaam-players.html','ncaam-predictor.html','ncaam-rivalry.html']){
-  assert(read(page).includes('mbb-logo-system.js'),'No shared logo JS on '+page);
-  assert(read(page).includes('mbb-logo-system.css'),'No shared logo CSS on '+page);
+  const html=read(page);
+  assert(html.includes('mbb-logo-system.js'),'No shared logo JS on '+page);
+  assert(html.includes('mbb-logo-system.css'),'No shared logo CSS on '+page);
   const loader=html.indexOf('mbb-logo-system.js');
   for(const consumer of ['mbb-newspaper.js','mbb-elo-primary.js','mbb-team-calendar-boot.js','ncaam-predictor.js','ncaam-rivalry.js']) {
    const at=html.indexOf(consumer);
