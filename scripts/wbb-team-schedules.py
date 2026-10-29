@@ -77,6 +77,41 @@ def main():
                 r=old[ident].copy()
                 r['status']='previously_retrieved; live source failed'
             result[ident]=r
+    # Merge only game-ID-matched official school or conference TV announcements.
+    # Both school copies of a matchup must receive identical evidence.
+    evidence_path=DATA/'ncaaw-2026-27-official-broadcast-overrides.json'
+    verified_games=0
+    recovered_team_entries=0
+    if evidence_path.exists():
+        evidence=json.loads(evidence_path.read_text())
+        if evidence.get('season')!='2026-27' or evidence.get('gender')!='women':
+            raise RuntimeError('Wrong-season women TV evidence')
+        source_index={}
+        for row in evidence.get('rows',[]):
+            gid=str(row.get('game_id') or '')
+            if not gid or not row.get('broadcast') or not row.get('source_url'):
+                raise RuntimeError('Incomplete women's TV evidence')
+            if gid in source_index and source_index[gid]['broadcast']!=row['broadcast']:
+                raise RuntimeError('Conflicting TV evidence for '+gid)
+            source_index[gid]=row
+        matches=set()
+        for school_data in result.values():
+            for g in school_data['games']:
+                row=source_index.get(str(g['id']))
+                if not row:continue
+                if g.get('broadcast') and g['broadcast']!=row['broadcast']:
+                    raise RuntimeError('ESPN vs official TV conflict for '+str(g['id'])+
+                                       ': '+str(g['broadcast'])+' vs '+str(row['broadcast']))
+                if not g.get('broadcast'):recovered_team_entries+=1
+                g['broadcast']=row['broadcast']
+                g['broadcast_source_url']=row['source_url']
+                g['broadcast_source_type']=row['source_type']
+                g['broadcast_verified']=True
+                matches.add(str(g['id']))
+        verified_games=len(matches)
+        if len(matches)!=len(source_index):
+            raise RuntimeError('Official TV evidence no longer matches game ledger: '+str(
+                               sorted(set(source_index)-matches)[:12]))
     counts=[r['game_count'] for r in result.values()]
     audit={'season':'2026-27','programs':len(result),
       'teams_with_20plus_games':sum(n>=20 for n in counts),
@@ -85,6 +120,12 @@ def main():
       'zero_game_teams':sum(n==0 for n in counts),
       'missing_specific_venue':sum(g['venue'] is None for r in result.values() for g in r['games']),
       'missing_broadcast':sum(g['broadcast'] is None for r in result.values() for g in r['games']),
+      'official_verified_broadcast_unique_games':verified_games,
+      'official_verified_broadcast_team_entries':sum(g.get('broadcast_verified') is True for r in result.values() for g in r['games']),
+      'recovered_broadcast_team_entries_this_pass':recovered_team_entries,
+      'official_venue_verified_game_entries':sum(g.get('venue_verified') is True for r in result.values() for g in r['games']),
+      'venue_note':'Venue values come from ESPN. Non-null does NOT establish official school verification.',
+      'broadcast_evidence_file':'data/ncaaw-2026-27-official-broadcast-overrides.json',
       'under_20_games':[{'team_id':i,'team':r['team'],'games':r['game_count'],
           'status':r['status'],'error':r.get('error')} for i,r in result.items() if r['game_count']<20],
       'policy':'School-specific women ESPN calendars are NOT yet university-verified. Missing fields never fabricated.'}
