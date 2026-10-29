@@ -30,7 +30,7 @@ for(const page of pages){
 const css=read('slt-dual-ring.css');
 assert(css.includes('background:transparent!important'),'Colored ring mask must have no white fill');
 assert(css.includes('transform:translate(-50%,-50%)!important'),'Non-MBB image centering missing');
-const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\\.html$)/.test(p));
+const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\.html$)/.test(p));
 assert.equal(mbbPages.length,11,'Expected 11 basketball page templates');
 for(const page of mbbPages){
  const html=read(page);
