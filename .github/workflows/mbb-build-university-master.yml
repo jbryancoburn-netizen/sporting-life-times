@@ -21,7 +21,7 @@ jobs:
           python - <<'PY'
           import json,pathlib
           folder=pathlib.Path("data/mbb-schedules-2026-27")
-          expected={"9":32,"59":33,"8":34,"167":35,"2509":35}
+          expected={"9":32,"59":33,"8":34,"167":35,"2509":35,"84":35,"96":35,"26":34}
           for school,count in expected.items():
               d=json.loads((folder/(school+".json")).read_text())
               assert len(d["events"])==count, (school,len(d["events"]),count)
@@ -31,7 +31,7 @@ jobs:
                   opp=next((str(x["team"].get("id") or x["team"].get("displayName")) for x in comps if str(x["team"].get("id"))!=school),"")
                   pairs.append((e["date"][:10],opp))
               assert len(pairs)==len(set(pairs)),school
-          print("Five official school schedules certified: 169 game records")
+          print("Eight official school schedules certified: 273 game records")
           PY
       - name: Audit current school schedule records
         run: python scripts/mbb_live_quality_audit.py
