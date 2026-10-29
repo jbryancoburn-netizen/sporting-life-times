@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "source_elo_as_of": "2026-10-28",
-  "source_forecasts_published_at": "2026-10-28T19:07:01.958419+00:00",
+  "source_forecasts_published_at": "2026-10-28T21:48:59.901397+00:00",
   "coverage": "partial_verified_finals_plus_locked_forecasts",
   "notice": "Partial schedule index only: official final ledger begins after the pinned baseline; pending fixtures are unverified until official finals arrive. A scheduled game may have already started.",
-  "verified_final_count": 1121,
-  "locked_forecast_count": 1288,
+  "verified_final_count": 1308,
+  "locked_forecast_count": 1296,
   "unresolved": [
     {
       "match_id": "men-6618510",
@@ -23,8 +23,23 @@
       "reason": "ambiguous_or_missing_division"
     },
     {
+      "match_id": "men-6660491",
+      "team_id": "maharishi-intl",
+      "reason": "ambiguous_or_missing_division"
+    },
+    {
+      "match_id": "men-6662967",
+      "team_id": "trinity-fl",
+      "reason": "ambiguous_or_missing_division"
+    },
+    {
       "match_id": "women-6610763",
       "team_id": "uc-clermont",
+      "reason": "ambiguous_or_missing_division"
+    },
+    {
+      "match_id": "women-6637155",
+      "team_id": "piedmont-intl",
       "reason": "ambiguous_or_missing_division"
     }
   ],
@@ -185,6 +200,18 @@
           "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6617084",
           "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6616503",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T20:30:00+00:00",
+          "opponent": "Vermont",
+          "venue": "away",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6616503",
+          "source_type": "timestamped_pregame_forecast"
         }
       ]
     },
@@ -240,6 +267,17 @@
           "goals_for": 2,
           "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6615919",
+          "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6615752",
+          "date": "2026-10-28",
+          "opponent": "wilmington-oh",
+          "venue": "home",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 1,
+          "source_url": "https://www.ncaa.com/game/6615752",
           "source_type": "verified_official_final"
         }
       ]
@@ -600,6 +638,18 @@
           "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6615703",
           "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6615812",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T21:00:00+00:00",
+          "opponent": "Mercer",
+          "venue": "away",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6615812",
+          "source_type": "timestamped_pregame_forecast"
         }
       ]
     },
@@ -862,14 +912,13 @@
         {
           "match_id": "men-6617207",
           "date": "2026-10-28",
-          "kickoff_utc": "2026-10-28T23:00:00+00:00",
-          "opponent": "Penn St.",
+          "opponent": "penn-st",
           "venue": "away",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 1,
+          "goals_against": 3,
           "source_url": "https://www.ncaa.com/game/6617207",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -1045,14 +1094,13 @@
         {
           "match_id": "men-6616659",
           "date": "2026-10-28",
-          "kickoff_utc": "2026-10-28T23:00:00+00:00",
-          "opponent": "South Fla.",
+          "opponent": "south-fla",
           "venue": "home",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 3,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6616659",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -1781,14 +1829,13 @@
         {
           "match_id": "men-6616050",
           "date": "2026-10-28",
-          "kickoff_utc": "2026-10-28T22:00:00+00:00",
-          "opponent": "Sacred Heart",
+          "opponent": "sacred-heart",
           "venue": "home",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 3,
           "source_url": "https://www.ncaa.com/game/6616050",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -1917,6 +1964,18 @@
           "goals_against": 4,
           "source_url": "https://www.ncaa.com/game/6616346",
           "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6615812",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T21:00:00+00:00",
+          "opponent": "Col. of Charleston",
+          "venue": "home",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6615812",
+          "source_type": "timestamped_pregame_forecast"
         }
       ]
     },
@@ -2484,14 +2543,13 @@
         {
           "match_id": "men-6617207",
           "date": "2026-10-28",
-          "kickoff_utc": "2026-10-28T23:00:00+00:00",
-          "opponent": "Duquesne",
+          "opponent": "duquesne",
           "venue": "home",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 3,
+          "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6617207",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -2728,14 +2786,13 @@
         {
           "match_id": "men-6616050",
           "date": "2026-10-28",
-          "kickoff_utc": "2026-10-28T22:00:00+00:00",
-          "opponent": "Manhattan",
+          "opponent": "manhattan",
           "venue": "away",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 3,
+          "goals_against": 0,
           "source_url": "https://www.ncaa.com/game/6616050",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -3007,14 +3064,13 @@
         {
           "match_id": "men-6616659",
           "date": "2026-10-28",
-          "kickoff_utc": "2026-10-28T23:00:00+00:00",
-          "opponent": "Fla. Atlantic",
+          "opponent": "fla-atlantic",
           "venue": "away",
-          "status": "unverified",
-          "goals_for": null,
-          "goals_against": null,
+          "status": "final",
+          "goals_for": 0,
+          "goals_against": 3,
           "source_url": "https://www.ncaa.com/game/6616659",
-          "source_type": "timestamped_pregame_forecast"
+          "source_type": "verified_official_final"
         }
       ]
     },
@@ -3204,6 +3260,18 @@
           "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6617215",
           "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6617142",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T21:00:00+00:00",
+          "opponent": "Virginia Tech",
+          "venue": "away",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6617142",
+          "source_type": "timestamped_pregame_forecast"
         }
       ]
     },
@@ -3708,6 +3776,18 @@
           "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6616501",
           "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6616503",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T20:30:00+00:00",
+          "opponent": "Binghamton",
+          "venue": "home",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6616503",
+          "source_type": "timestamped_pregame_forecast"
         }
       ]
     },
@@ -3764,6 +3844,18 @@
           "goals_against": 2,
           "source_url": "https://www.ncaa.com/game/6615591",
           "source_type": "verified_official_final"
+        },
+        {
+          "match_id": "men-6617142",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T21:00:00+00:00",
+          "opponent": "Syracuse",
+          "venue": "home",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6617142",
+          "source_type": "timestamped_pregame_forecast"
         }
       ]
     },
@@ -7900,6 +7992,22 @@
           "goals_for": null,
           "goals_against": null,
           "source_url": "https://www.ncaa.com/game/6619781",
+          "source_type": "timestamped_pregame_forecast"
+        }
+      ]
+    },
+    "men-d3:berry": {
+      "games": [
+        {
+          "match_id": "men-6620184",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T21:00:00+00:00",
+          "opponent": "Sewanee",
+          "venue": "home",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6620184",
           "source_type": "timestamped_pregame_forecast"
         }
       ]
@@ -15641,6 +15749,22 @@
         }
       ]
     },
+    "women-d1:grambling": {
+      "games": [
+        {
+          "match_id": "women-6609624",
+          "date": "2026-10-30",
+          "kickoff_utc": "2026-10-30T21:00:00+00:00",
+          "opponent": "Ark.-Pine Bluff",
+          "venue": "home",
+          "status": "unverified",
+          "goals_for": null,
+          "goals_against": null,
+          "source_url": "https://www.ncaa.com/game/6609624",
+          "source_type": "timestamped_pregame_forecast"
+        }
+      ]
+    },
     "women-d1:grand-canyon": {
       "games": [
         {
@@ -17994,6 +18118,21 @@
           "goals_for": 2,
           "goals_against": 1,
           "source_url": "https://www.ncaa.com/game/6607986",
+          "source_type": "verified_official_final"
+        }
+      ]
+    },
+    "women-d1:south-carolina-st": {
+      "games": [
+        {
+          "match_id": "women-6644523",
+          "date": "2026-10-28",
+          "opponent": "allen",
+          "venue": "home",
+          "status": "final",
+          "goals_for": 2,
+          "goals_against": 0,
+          "source_url": "https://www.ncaa.com/game/6644523",
           "source_type": "verified_official_final"
         }
       ]
