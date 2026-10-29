@@ -3,11 +3,11 @@
 import json,requests,re,collections
 from bs4 import BeautifulSoup
 SOURCES={
- "Alabama":"https://rolltide.com/sports/mens-basketball/schedule/2026-27",
- "North Carolina":"https://goheels.com/sports/mens-basketball/schedule/2026-27",
- "Akron":"https://gozips.com/sports/mens-basketball/schedule/2026-27",
- "UC Riverside":"https://gohighlanders.com/sports/mens-basketball/schedule",
- "Indiana":"https://iuhoosiers.com/sports/mens-basketball/schedule",
+ "Alabama":"https://rolltide.com/sports/mens-basketball/schedule/text/2026-27",
+ "North Carolina":"https://goheels.com/sports/mens-basketball/schedule/text/2026-27",
+ "Akron":"https://gozips.com/sports/mens-basketball/schedule/text/2026-27",
+ "UC Riverside":"https://gohighlanders.com/sports/mens-basketball/schedule/text/2026-27",
+ "Indiana":"https://iuhoosiers.com/sports/mens-basketball/schedule/text/2026-27",
  "Villanova":"https://villanova.com/sports/mens-basketball/schedule/2026-27",
  "Howard":"https://hubison.com/sports/mens-basketball/schedule/2026-27",
  "UCLA":"https://uclabruins.com/sports/mens-basketball/schedule/season/2026-27",
