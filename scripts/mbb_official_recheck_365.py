@@ -24,13 +24,14 @@ def rows_from_school(html):
   head=[x.get_text(' ',strip=True).lower() for x in tr[0].find_all(['th','td'])]
   def col(term):return next((i for i,h in enumerate(head) if h==term),-1)
   datei,timei,ati,oppi,loci=[col(x) for x in ('date','time','at','opponent','location')]
+  tv_col=next((i for i,h in enumerate(head) if h in ('tv','broadcast','network','tv/stream','tv / stream')), -1)
   if min(datei,ati,oppi,loci)<0:continue
   for row in tr[1:]:
    values=[x.get_text(' ',strip=True) for x in row.find_all(['td','th'])]
    if max(datei,ati,oppi,loci)>=len(values):continue
    date=datekey(values[datei]);site=values[ati].strip().lower()
    if date and site in ('home','away','neutral') and values[oppi]:
-    out.append({'date':date,'site':site,'opponent':values[oppi],'location':values[loci],'time':values[timei] if timei>=0 and timei<len(values) else ''})
+    out.append({'date':date,'site':site,'opponent':values[oppi],'location':values[loci],'time':values[timei] if timei>=0 and timei<len(values) else '', 'broadcast':values[tv_col] if tv_col>=0 and tv_col<len(values) else ''})
  return out
 def opponent_variants(x):
  x=str(x or '').lower()
@@ -41,7 +42,7 @@ for team in teams:
  tid=str(team['espn_id']);path=root/'data/mbb-schedules-2026-27'/(tid+'.json')
  item={'team':team['name'],'id':tid,'status':'unavailable','matched':0,'site_corrected':0,'location_corrected':0,'school_rows':0}
  if not path.exists():item['status']='missing_file';results.append(item);continue
- d=json.loads(path.read_text());url=d.get('source_url','')
+ d=json.loads(path.read_text());original=json.loads(json.dumps(d));url=d.get('source_url','')
  if not url or not url.startswith('https://'):item['status']='no_official_source';results.append(item);continue
  try:
   candidates=[url]
@@ -92,6 +93,24 @@ for team in teams:
    paren=re.search(r'\(([^()]+)\)',loc)
    if paren and re.search(r'Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium',paren.group(1),re.I):
     venue['arenaName']=paren.group(1).strip()
+  # Add TV only when an official table explicitly names a channel; never infer from league packages.
+  broadcast=row.get('broadcast','').strip()
+  if broadcast and not re.search(r'^(?:tba|tbd|--|—|none|watch|live stats)
+  if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
+   event['official_school_time']=row['time'];event['official_school_time_source']=url
+ if item['matched'] and d != original:
+  path.write(json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n')
+  item['status']='verified_changes'
+ elif item['matched']:item['status']='already_matched'
+ else:item['status']='no_safe_matches'
+ totals.update({k:item.get(k,0) for k in ('matched','site_corrected','location_corrected','broadcast_added')})
+ results.append(item)
+report={'schools_targeted':365,'schools_checked':len(results),'totals':dict(totals),'status_counts':dict(collections.Counter(x['status'] for x in results)),'method':'Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone','schools':results}
+(root/'data/mbb-official-recheck-365-verification.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({k:v for k,v in report.items() if k!='schools'},indent=2))
+,broadcast,re.I) and not (comp.get('broadcasts') or event.get('broadcasts')):
+   comp['broadcasts']=[{'names':[broadcast],'source_url':url}]
+   item['broadcast_added']=item.get('broadcast_added',0)+1
   # School local tipoff stored separately; do not mislabel CT as ET.
   if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
    event['official_school_time']=row['time'];event['official_school_time_source']=url
