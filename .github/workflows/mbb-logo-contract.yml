@@ -16,6 +16,7 @@ on:
       - 'data/ncaam-2026-27-espn-team-crosswalk.json'
       - 'scripts/audit-mbb-logo-system.cjs'
       - 'tests/mbb-rankings-runtime.test.cjs'
+      - 'tests/mbb-poll-logos.test.cjs'
       - '.github/workflows/mbb-logo-contract.yml'
 permissions:
   contents: read
@@ -32,3 +33,5 @@ jobs:
         run: node scripts/audit-mbb-logo-system.cjs
       - name: Validate 365 NCAA power ranking rows render in DOM
         run: node tests/mbb-rankings-runtime.test.cjs
+      - name: Match AP and Coaches Top 25 identities to registered school logos
+        run: node tests/mbb-poll-logos.test.cjs
