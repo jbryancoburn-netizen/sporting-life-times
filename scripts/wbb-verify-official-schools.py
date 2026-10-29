@@ -62,16 +62,41 @@ def read_source(html):
    rows.append(dict(date=dt,opponent=opponent,site=site,origin="official_university_schedule_table"))
  return rows
 def official_urls(tid):
+ """Find women's university schedules even if the men's per-team cache is absent.
+
+ Men's-source records supply athletics HOSTS AND URL PATTERNS only. No men's
+ game data is treated as women-specific official evidence.
+ """
  p=MBB/(tid+".json")
- if not p.exists():return []
- try:u=json.loads(p.read_text()).get("source_url") or ""
- except Exception:return []
- if not u.startswith("https://"):return []
+ sources=[]
+ if p.exists():
+  try:sources.append(json.loads(p.read_text()).get("source_url") or "")
+  except (OSError,ValueError):pass
+ # The central school registry contains athletic URLs for the programs
+ # missing from the per-team men's cache. Read it only when needed.
+ if not any(any(mark in u for mark in ("mens-basketball","mbball","mbasketball","/mbkb/")) for u in sources):
+  registry=ROOT/"mbb-official-school-schedule-sources.json"
+  if registry.exists():
+   for row in json.loads(registry.read_text()).get("teams",[]):
+    if str(row.get("espn_id"))==str(tid):
+     sources.append(row.get("url") or "")
+     break
  out=[]
- for a,b in (("mens-basketball","womens-basketball"),("mbball","wbball"),("mbasketball","wbasketball")):
-  if a in u:
-   candidate=u.replace(a,b)
-   out += [candidate.replace("/schedule/text/","/schedule/"),candidate]
+ for u in sources:
+  if not u.startswith("https://"):continue
+  for old,new in (("mens-basketball","womens-basketball"),
+                  ("mbball","wbball"),("mbasketball","wbasketball"),
+                  ("/mbkb/","/wbkb/")):
+   if old not in u:continue
+   candidate=u.replace(old,new)
+   out.append(candidate)
+   if "/schedule/text/" in candidate:
+    out.append(candidate.replace("/schedule/text/","/schedule/"))
+   elif candidate.endswith("/schedule/text"):
+    out.append(candidate[:-5])
+   elif "/schedule/" in candidate and "/schedule/text/" not in candidate:
+    out.append(candidate.replace("/schedule/","/schedule/text/",1))
+   break
  return list(dict.fromkeys(out))
 def school(tid,school_data):
  result={"team_id":tid,"school":school_data["team"],"status":"no_official_url","source":None,
