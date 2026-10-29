@@ -45,10 +45,13 @@ try{
   const date=new Date(e.date);
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
   const verifiedTip=e.official_school_time||e.official_time||'';
-  const confirmed=verifiedTip&&!/TBA|TBD|^12:00(?:\s|$)/i.test(verifiedTip);
+  const confirmed=verifiedTip&&!/TBA|TBD/i.test(verifiedTip);
   const tip=confirmed?verifiedTip:'TBA'; // Never present placeholder imported noon as an official tip.
   const vs=e.site_verified===true?(self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':e.neutralSite===true?'NEUTRAL':'SITE TBA'):'SITE UNVERIFIED';
-  const network=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>[...(x.names||[]),x.name,x.media?.shortName].filter(Boolean)).join(' / ')||'TBA';
+  const namedNetwork=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>[...(x.names||[]),x.name,x.media?.shortName].filter(Boolean)).join(' / ');
+  const watchURL=/^https:\/\/[^\s"'<>]+$/i.test(e.official_watch_url||'')?e.official_watch_url:'';
+  const watchLink=watchURL?'<a href="'+escape(watchURL)+'" target="_blank" rel="noopener noreferrer">Watch live ↗</a>':'';
+  const network=(namedNetwork?escape(namedNetwork):'Network TBA')+(watchLink?' · '+watchLink:'');
   const rawVenue=(c.venue?.fullName||'').trim();
   const cleanVenue=/Choose A Location|All Games Home|Select Location/i.test(rawVenue)?'':rawVenue;
   const address=c.venue?.address||{};
