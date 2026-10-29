@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/wbb-official-school-verification.yml'
+      - 'scripts/wbb-preserve-university-evidence.py'
       - 'scripts/wbb-verify-official-schools.py'
       - 'data/mbb-official-school-schedule-sources.json'
 permissions:
@@ -48,12 +49,32 @@ jobs:
           PY
       - name: Crosscheck every D-I women's university athletics calendar
         run: python -u scripts/wbb-verify-official-schools.py
+      - name: Recover older university evidence lost to transient website parsing
+        run: |
+          git fetch --no-tags --depth=1 origin 23da984d8aabe8210dfec44b910b2e17ba43b621
+          python scripts/wbb-preserve-university-evidence.py
+      - name: Reconcile preserved school evidence and source metadata
+        run: python scripts/wbb-reconcile-schedule-evidence.py
+      - name: Enforce source-verification preservation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("data/ncaaw-2026-27-official-schedule-bulk-audit.json").read_text())
+          b=json.loads(Path("data/ncaaw-2026-27-preserved-university-evidence-audit.json").read_text())
+          assert b["baseline_team_game_rows"]>=7500
+          assert b["merged_verified_team_game_rows"]>=b["fresh_scan_team_game_rows"]
+          assert a["verified_team_game_rows_including_prior"]==b["merged_verified_team_game_rows"]
+          assert a["verified_school_count_including_prior"]==b["merged_verified_schools"]
+          print("Safely recovered official women's evidence:",b["safely_recovered_team_game_rows"])
+          PY
       - name: Publish exact-match official evidence and coverage
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
           git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
+          git add data/ncaaw-2026-27-preserved-university-evidence-audit.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Publish official athletics checks for 363 women's programs"
           for n in 1 2 3; do
