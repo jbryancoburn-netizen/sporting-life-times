@@ -14,7 +14,7 @@
   "last_completed_game_at": "2026-10-28T19:30:00+00:00",
   "model": "Sporting Life & Times independent EuroLeague Elo v0.1",
   "season": "2026-27",
-  "updated_at": "2026-10-29T13:00:31.395942+00:00",
+  "updated_at": "2026-10-29T18:57:32.042504+00:00",
   "source": "EuroLeague public v2 games endpoint",
   "settings": {
     "K": 22.0,
@@ -826,7 +826,7 @@
     },
     {
       "id": "93",
-      "date": "2026-11-05T18:00:00Z",
+      "date": "2026-11-05T18:45:00Z",
       "home": {
         "code": "HTA",
         "name": "Hapoel IBI Tel Aviv",
@@ -2002,7 +2002,7 @@
     },
     {
       "id": "141",
-      "date": "2026-12-03T18:00:00Z",
+      "date": "2026-12-03T18:45:00Z",
       "home": {
         "code": "HTA",
         "name": "Hapoel IBI Tel Aviv",
@@ -2069,6 +2069,30 @@
         "away": 88,
         "spread_home": -4,
         "total": 180,
+        "status": "experimental_elo_scoring_blend_no_ties"
+      }
+    },
+    {
+      "id": "149",
+      "date": "2026-12-03T20:00:00Z",
+      "home": {
+        "code": "VIR",
+        "name": "Virtus Bologna",
+        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezvk/a92d4c3b-9f9c-4163-8a10-bcf8fc15893e.png",
+        "score": 0
+      },
+      "away": {
+        "code": "PAR",
+        "name": "Partizan Mozzart Bet Belgrade",
+        "logo": "https://media-cdn.incrowdsports.com/2681304e-77dd-4331-88b1-683078c0fb49.png",
+        "score": 0
+      },
+      "home_win_probability": 0.6389,
+      "projection": {
+        "home": 85,
+        "away": 82,
+        "spread_home": -3,
+        "total": 167,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2165,30 +2189,6 @@
         "away": 88,
         "spread_home": -2,
         "total": 178,
-        "status": "experimental_elo_scoring_blend_no_ties"
-      }
-    },
-    {
-      "id": "149",
-      "date": "2026-12-04T19:30:00Z",
-      "home": {
-        "code": "VIR",
-        "name": "Virtus Bologna",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjCiezvk/a92d4c3b-9f9c-4163-8a10-bcf8fc15893e.png",
-        "score": 0
-      },
-      "away": {
-        "code": "PAR",
-        "name": "Partizan Mozzart Bet Belgrade",
-        "logo": "https://media-cdn.incrowdsports.com/2681304e-77dd-4331-88b1-683078c0fb49.png",
-        "score": 0
-      },
-      "home_win_probability": 0.6389,
-      "projection": {
-        "home": 85,
-        "away": 82,
-        "spread_home": -3,
-        "total": 167,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -2938,7 +2938,7 @@
     },
     {
       "id": "182",
-      "date": "2026-12-22T18:00:00Z",
+      "date": "2026-12-22T18:45:00Z",
       "home": {
         "code": "HTA",
         "name": "Hapoel IBI Tel Aviv",
@@ -3873,30 +3873,6 @@
       }
     },
     {
-      "id": "221",
-      "date": "2027-01-14T18:00:00Z",
-      "home": {
-        "code": "HTA",
-        "name": "Hapoel IBI Tel Aviv",
-        "logo": "https://media-cdn.incrowdsports.com/cbb1c3ad-03d5-426a-b5ef-2832a4eee484.png",
-        "score": 0
-      },
-      "away": {
-        "code": "PAM",
-        "name": "Valencia Basket",
-        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHL/bc3e00b2-fea4-40be-a7ec-1e633129bde3.png",
-        "score": 0
-      },
-      "home_win_probability": 0.6484,
-      "projection": {
-        "home": 92,
-        "away": 89,
-        "spread_home": -3,
-        "total": 181,
-        "status": "experimental_elo_scoring_blend_no_ties"
-      }
-    },
-    {
       "id": "222",
       "date": "2027-01-14T18:00:00Z",
       "home": {
@@ -3917,6 +3893,30 @@
         "away": 83,
         "spread_home": -2,
         "total": 168,
+        "status": "experimental_elo_scoring_blend_no_ties"
+      }
+    },
+    {
+      "id": "221",
+      "date": "2027-01-14T18:45:00Z",
+      "home": {
+        "code": "HTA",
+        "name": "Hapoel IBI Tel Aviv",
+        "logo": "https://media-cdn.incrowdsports.com/cbb1c3ad-03d5-426a-b5ef-2832a4eee484.png",
+        "score": 0
+      },
+      "away": {
+        "code": "PAM",
+        "name": "Valencia Basket",
+        "logo": "https://media-cdn.cortextech.io/1dU3kpCqReRp93/1BSdBWIjChWbHL/bc3e00b2-fea4-40be-a7ec-1e633129bde3.png",
+        "score": 0
+      },
+      "home_win_probability": 0.6484,
+      "projection": {
+        "home": 92,
+        "away": 89,
+        "spread_home": -3,
+        "total": 181,
         "status": "experimental_elo_scoring_blend_no_ties"
       }
     },
@@ -5074,7 +5074,7 @@
     },
     {
       "id": "271",
-      "date": "2027-02-10T18:00:00Z",
+      "date": "2027-02-10T18:45:00Z",
       "home": {
         "code": "HTA",
         "name": "Hapoel IBI Tel Aviv",
