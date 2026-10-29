@@ -30,5 +30,15 @@ jobs:
             echo "All artwork already normalized"
           else
             git commit -m "Generate 30 transparent pro basketball crest assets"
-            git push origin HEAD:main
+            for attempt in 1 2 3 4 5 6 7 8; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo "All 30 transparent assets committed"
+                exit 0
+              fi
+              sleep 2
+            done
+            echo "::error::Could not publish normalized artwork"
+            exit 1
           fi
