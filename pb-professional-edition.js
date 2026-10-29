@@ -75,7 +75,7 @@ const boxTotals=players=>{
 const gameCard=g=>{
  const x=dataGame(g),away=teamMap.get(x.away)||{code:x.away,name:x.away,team:x.away},
  home=teamMap.get(x.home)||{code:x.home,name:x.home,team:x.home};
- const score=present(x.as)&&present(x.hs),isLive=g.status==='live',age=Date.now()-Date.parse(g.score_updated_at||'');
+ const score=g.status!=='scheduled'&&present(x.as)&&present(x.hs),isLive=g.status==='live',age=Date.now()-Date.parse(g.score_updated_at||'');
  const fresh=isLive&&Number.isFinite(age)&&age<900000;
  const status=isLive?(fresh?'LIVE':'LAST REPORTED'):g.status==='scheduled'?(Date.parse(x.date)<Date.now()?'STATUS PENDING':'UPCOMING'):g.status==='awaiting_final'?'AWAITING FINAL':'FINAL';
  const periods=Array.isArray(g.period_scores)?g.period_scores.filter(p=>present(p.away)&&present(p.home)):[];
