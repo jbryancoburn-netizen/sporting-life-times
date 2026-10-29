@@ -81,7 +81,7 @@
       (g.broadcast?'<div class="wbb-game-detail">'+esc(g.broadcast)+'</div>':'')+
       (link?'<a class="wbb-game-source" href="'+link+'" target="_blank" rel="noopener noreferrer">Game details ↗</a>':'')+'</div>';
   }
-  let published=[],wbbLookup=new Map();
+  let published=[],wbbLookup=new Map(),fullCalendars=null,calendarsLoaded=false;
   const teamLink=t=>'ncaam.html?gender=women&team='+encodeURIComponent(t.team_id);
   const record=t=>(t.wins||0)+'–'+(t.losses||0);
   const boardRow=(t,ranked)=>'<div class="rank-row">'+(ranked?'<span class="rank">'+esc(t.rank??'—')+'</span>':'')+
@@ -120,7 +120,7 @@
     if(confNames.length<20){conf.innerHTML=blank('Conference affiliations are still being verified; a provisional table would mislead readers.');}
     else{
       const selected=new URLSearchParams(location.search).get('conference')||confNames[0];
-      conf.innerHTML='<p class="note">Provisional conference records from verified Division I vs Division I games. Institutional conference assignments still require women-specific verification; official tiebreakers and non-D-I games are not included.</p>'+
+      conf.innerHTML='<p class="note">Provisional conference records from verified Division I vs Division I games (currently preseason; all teams tied). Institutional conference assignments still require women-specific verification; official tiebreakers and non-D-I games are not included.</p>'+
         '<label class="wbb-team-search">Conference <select id="wbb-conference-select">'+confNames.map(c=>'<option value="'+esc(c)+'" '+(c===selected?'selected':'')+'>'+esc(c)+'</option>').join('')+'</select></label>'+
         '<div id="wbb-conference-list"></div>';
       const select=document.getElementById('wbb-conference-select');
@@ -150,7 +150,7 @@
     const away=wbbLookup.get(String(g.away_id)),home=wbbLookup.get(String(g.home_id));
     if(!away||!home)return null;
     return {id:g.id,date:g.date,state:g.status==='final'?'post':'pre',status:g.status==='final'?'Final':'Scheduled',
-      venue:g.venue,broadcast:g.broadcast,
+      venue:g.venue,broadcast:g.broadcast,url:g.source_url,
       teams:[{...away,name:away.team,home_away:'away',score:g.away_score},{...home,name:home.team,home_away:'home',score:g.home_score}]};
   }
   async function refresh(){
@@ -175,8 +175,30 @@
     const selectedId=new URLSearchParams(location.search).get('team');
     const teamGames=document.getElementById('wbb-team-games');
     if(teamGames&&selectedId){
-      const all=published.filter(g=>(g.teams||[]).some(t=>String(t.team_id||t.id)===selectedId));
-      teamGames.innerHTML='<h3>Recent and upcoming game window</h3>'+all.sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).map(card).join('')||blank('No games for this team in the current source window.');
+      if(!calendarsLoaded){calendarsLoaded=true;fullCalendars=await get('data/ncaaw-schedules-2026-27.json');}
+      const calendar=fullCalendars?.season==='2026-27'&&fullCalendars?.gender==='women'?
+        fullCalendars.teams?.[selectedId]:null;
+      const entries=calendar?.games||[];
+      if(entries.length){
+        teamGames.innerHTML='<h3>2026–27 Women’s Team Schedule · '+entries.length+' listed games</h3>'+
+          '<p class="note wbb-calendar-disclosure">Source: women-specific school schedule feed. University athletics verification and missing broadcasts or arenas are still being audited.</p>'+
+          '<div class="wbb-full-schedule"><table><thead><tr><th>Tipoff (ET)</th><th>Location</th><th>Opponent</th><th>Arena</th><th>Network</th><th>Result</th></tr></thead><tbody>'+
+          entries.map(g=>{
+            const t=wbbLookup.get(String(g.opponent_id));
+            const opponent=t?team({name:t.team,logo:t.logo,color:t.color}):esc(g.opponent||'Opponent TBA');
+            const score=g.completed&&g.home_score!=null&&g.away_score!=null?
+              esc(g.site==='away'?g.away_score+'–'+g.home_score:g.home_score+'–'+g.away_score):'—';
+            return '<tr><td>'+time(g.date)+'</td><td>'+esc(g.site||'TBA')+'</td><td>'+opponent+'</td><td>'+esc(g.venue||'TBA')+
+              '</td><td>'+esc(g.broadcast||'TBA')+'</td><td>'+score+'</td></tr>';
+          }).join('')+'</tbody></table></div>'+
+          '<a href="'+safeURL(calendar.source_url)+'" target="_blank" rel="noopener noreferrer">Season schedule source ↗</a>';
+      }else{
+        const all=published.filter(g=>(g.teams||[]).some(t=>String(t.team_id||t.id)===selectedId));
+        teamGames.innerHTML='<h3>Recent and upcoming games</h3>'+
+          (all.sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).map(card).join('')||
+            blank(calendar?.status==='source_error'?'University schedule retrieval is pending source recovery.':
+              'No verified games are available for this team in the current feed window.'));
+      }
     }
     const stories=(news?.articles||[]).filter(a=>/women.s (college |ncaa |division i )?basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category].join(' ')))
       .filter(a=>a.title&&safeURL(a.url)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0));
