@@ -86,3 +86,18 @@
  .hero-team .mbb-mark{--mbb-size:54px}
  .cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:40px}
 }
+
+/* Surgical school-specific correction: only the 18 provider IDs explicitly
+   marked ring_override=two receive the missing secondary stroke. The other
+   347 team badge styles remain byte-for-byte unchanged. */
+.mbb-mark--art-embedded_roundel.mbb-mark--corrected-two-rings::before{
+ content:""!important;display:block!important;position:absolute!important;
+ inset:2px!important;border:2px solid var(--mbb-secondary,#5e7680)!important;
+ border-radius:50%!important;background:transparent!important;
+ box-shadow:none!important;pointer-events:none!important;z-index:3!important;
+}
+.mbb-mark--art-embedded_roundel.mbb-mark--corrected-two-rings>img.mbb-mark__img{
+ width:78%!important;height:78%!important;
+ max-width:78%!important;max-height:78%!important;
+ object-fit:contain!important;object-position:center center!important;
+}
