@@ -2,18 +2,36 @@
 """Refresh all school calendars, including SIDEARM NextGen semantic game cards.
 Only unique date/opponent matches may enrich records. Never infer home from vs.
 """
-import json,re,pathlib,datetime,concurrent.futures,collections,os
+import json,re,pathlib,datetime,concurrent.futures,collections,os,base64
 from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DATA=ROOT/'data'
 TEAMS=json.loads((DATA/'ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams']
-def norm(s):return re.sub('[^a-z0-9]','',str(s or '').lower())
+def clean_school_label(s):
+ return re.sub(r'^(?:(?:RV|NR)|(?:No\.?\s*|#\s*)\d+)(?:\s*/\s*(?:#?\d+|RV|NR))?\s+','',str(s or '').strip(),flags=re.I)
+def norm(s):return re.sub('[^a-z0-9]','',clean_school_label(s).lower())
+FACILITY=re.compile(r'\b(?:Arena|Center|Centre|Coliseum|Gymnasium|Gym|Fieldhouse|Field House|Pavilion|Forum|Dome|Auditorium|Events Complex|Stadium|The Pit)\b',re.I)
+def split_location(text):
+ text=re.sub(r'\s+',' ',str(text or '')).strip()
+ if not text:return '',''
+ match=re.search(r'\(([^()]+)\)',text)
+ if match and FACILITY.search(match[1]):return match[1].strip(),text[:match.start()].strip(' /,')
+ if match and FACILITY.search(text[:match.start()]):return text[:match.start()].strip(' /,'),match[1].strip()
+ parts=re.split(r'\s*[|]\s*|\s+/\s+',text)
+ if len(parts)==2:
+  if FACILITY.search(parts[0]) and not FACILITY.search(parts[1]):return parts[0].strip(),parts[1].strip()
+  if FACILITY.search(parts[1]) and not FACILITY.search(parts[0]):return parts[1].strip(),parts[0].strip()
+ match=re.match(r'^([A-Z][A-Z .-]+)\s+([A-Z][a-z].*)$',text)
+ if match and FACILITY.search(match[2]):return match[2].strip(),match[1].strip()
+ if FACILITY.search(text) and ',' not in text:return text,''
+ return '',text
+
 def parse(html, own_names=()):
  soup=BeautifulSoup(html,'html.parser')
  title=soup.title.get_text() if soup.title else ''
- if not re.search(r'2026\s*[-–/]\s*(?:20)?27',title):return []
+ if not re.search(r'2026\s*[-–/]\s*(?:20)?27',title) or not re.search('basketball',title,re.I):return []
  rows=[]
  # Nuxt's reference-indexed payload contains explicit H/A/N classifications.
  semantic={}
@@ -29,8 +47,35 @@ def parse(html, own_names=()):
     name=deref(op.get('title'));side={'H':'home','A':'away','N':'neutral'}.get(side,'')
     if name and side:semantic[(date[:10],norm(name))]=side
   except (ValueError,TypeError,IndexError):pass
+ # Older WMT/WordPress pages use game-local network logos and explicit classes.
+ for card in soup.select('.schedule-item, .schedule-list.active .event.schedule-table_row'):
+  def pick(selector):
+   n=card.select_one(selector)
+   return n.get_text(' ',strip=True) if n else ''
+  opponent=pick('.schedule-item__team h3, .schedule-list__opponent > strong')
+  date=pick('.schedule-item__date, .schedule-list__top > time');match=re.search(r'\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})',date,re.I)
+  if not opponent or not match:continue
+  month='jan feb mar apr may jun jul aug sep oct nov dec'.split().index(match[1].lower())+1
+  date=f'{2026 if month>=7 else 2027}-{month:02d}-{int(match[2]):02d}'
+  classes=set(card.get('class',[]));site=next((x for x in ['neutral','away','home'] if x in classes),'')
+  loc=pick('.schedule-item__team p, .schedule-list__location > strong');arena,city=split_location(loc)
+  time=pick('.schedule-item__result, .schedule-list__top > time > span')
+  if not re.fullmatch(r'(?:\d{1,2}(?::\d{2})?\s*[AP]\.?M\.?|Noon|Midnight|TBA|TBD)(?:\s+[A-Z]{2,4})?',time,re.I):time=''
+  networks=[]
+  for img in card.select('.schedule-item__bottom img, .schedule-list__bottom img'):
+   label=' '.join([img.get('alt',''),img.get('title',''),img.get('src','')])
+   # imgproxy embeds the official network-logo filename in a base64 URL.
+   for token in re.findall(r'[A-Za-z0-9_-]{35,}',img.get('src','')):
+    try:label+=' '+base64.urlsafe_b64decode(token+'='*((-len(token))%4)).decode('utf-8')
+    except (ValueError,UnicodeDecodeError):pass
+   for pattern,network in [(r'sec[-_ ]?network[-_ ](?:plus|\+)','SEC Network+'),(r'sec[-_ ]?network','SEC Network'),(r'espn[-_ ]?(?:plus|\+)','ESPN+'),(r'espn2','ESPN2'),(r'espnu','ESPNU'),(r'espn[-_ ]?(?:logo|\.png)','ESPN'),(r'acc[-_ ]network[-_ ]extra','ACC Network Extra'),(r'acc[-_ ]network','ACC Network'),(r'cbssn|cbs[-_ ]sports[-_ ]network','CBS Sports Network'),(r'(?:^|[ /_-])fs1(?:[ ._-]|$)','FS1'),(r'peacock','Peacock')]:
+    if re.search(pattern,label,re.I):
+     if network not in networks:networks.append(network)
+     break
+  rows.append(dict(date=date,opponent=re.sub(r'\s*\((?:EXH|exhibition)\)\s*','',opponent,flags=re.I),time=time,arena=arena,city=city,tv=' / '.join(networks),site=site,site_explicit=bool(site),exhibition=bool(re.search(r'\b(?:EXH|exhibition)\b',card.get_text(' ',strip=True),re.I))))
+ if rows:return rows
  # WMT Digital schedules expose semantic event containers and venue classes.
- cards=soup.select('.schedule-table-item') or soup.select('.schedule-event-item')
+ cards=soup.select('.schedule-table-item') or soup.select('.schedule-event-item, .schedule-item-block')
  for card in cards:
   def pick(selector):
    n=card.select_one(selector)
@@ -42,6 +87,12 @@ def parse(html, own_names=()):
    if norm(label) not in {norm(x) for x in own_names} and label not in candidates:candidates.append(label)
   opponent=candidates[0] if len(candidates)==1 else ''
   dn=card.select_one('time[datetime]');dt=dn.get('datetime','') if dn else ''
+  if not dt:
+   label=pick('.schedule-event-date__month-day, .schedule-event-date__day')
+   match=re.search(r'\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})',label,re.I)
+   if match:
+    month='jan feb mar apr may jun jul aug sep oct nov dec'.split().index(match[1].lower())+1
+    dt=f'{2026 if month>=7 else 2027}-{month:02d}-{int(match[2]):02d}'
   if not opponent or not re.match(r'202[67]-\d\d-\d\d',dt):continue
   date=dt[:10]
   classes=' '.join(c for n in card.select('.schedule-event-date') for c in n.get('class',[]))
@@ -49,6 +100,8 @@ def parse(html, own_names=()):
   time=pick('.schedule-event-date__clock') or pick('.schedule-event-item-result__label')
   if not re.fullmatch(r'(?:\d{1,2}(?::\d{2})?\s*[AP]\.?M\.?|Noon|Midnight|TBA|TBD)(?:\s+\(?[A-Z]{2,4}\)?)?',time,re.I):time=''
   arena=pick('.schedule-event-item__location-venue, .schedule-event-item__venue')
+  if arena.lower() in ('home','away','neutral'):
+   side=arena.lower();arena=''
   city=pick('.schedule-event-item__location-place')
   loc=pick('.schedule-event-location')
   if not arena and not city and loc:
@@ -159,6 +212,8 @@ def run(team):
  tid=str(team['espn_id']);p=DATA/'mbb-schedules-2026-27'/(tid+'.json')
  d=json.loads(p.read_text());url=d.get('source_url','')
  original_url=url
+ overrides={'99':'https://lsusports.net/sports/mb/schedule/','258':'https://virginiasports.com/sports/mbball/schedule','238':'https://vucommodores.com/sports/mbball/schedule','2579':'https://gamecocksonline.com/sports/mbball/schedule/'}
+ if os.getenv('REMAINING_PASS') and tid in overrides:url=overrides[tid]
  if not url or 'sports-reference.com' in url:
   source_list=json.loads((DATA/'mbb-official-school-schedule-sources.json').read_text())['teams']
   url=next((x['url'] for x in source_list if str(x.get('espn_id'))==tid),'')
@@ -178,10 +233,15 @@ def run(team):
   rows=parse(r.text,(team['name'],team.get('espn_name','')));result['rows']=len(rows)
  except Exception as ex:result.update(status='fetch_failed',error=str(ex)[:100]);return result
  if not rows:return result
+ for row in rows:
+  facility,city=split_location(row['city'])
+  if facility:
+   if not row['arena']:row['arena']=facility
+   row['city']=city
  result['status']='parsed'
  evidence=DATA/'mbb-official-game-evidence';evidence.mkdir(exist_ok=True)
  (evidence/(tid+'.json')).write_text(json.dumps({'source_url':r.url,'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rows':rows},ensure_ascii=False,separators=(',',':'))+'\n')
- if not original_url or 'sports-reference.com' in original_url:
+ if not original_url or 'sports-reference.com' in original_url or (os.getenv('REMAINING_PASS') and tid in overrides):
   d['source_url']=r.url;result['fields']+=1
  for e in d.get('events',[]):
   c=e['competitions'][0];ps=c['competitors'];own=next((x for x in ps if str(x.get('team',{}).get('id'))==tid),None)

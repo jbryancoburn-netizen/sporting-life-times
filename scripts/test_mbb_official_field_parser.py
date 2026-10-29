@@ -14,4 +14,18 @@ class OfficialSchedules(unittest.TestCase):
   team=m.TEAMS[0];base=dict(time='7 PM',arena='Sample Arena',city='Town',tv='',site='neutral',site_explicit=True,exhibition=False)
   rows=[dict(base,date='2026-11-03',opponent='Example College'),dict(base,date='2026-11-04',opponent='NCAA Final Four'),dict(base,date='2026-11-05',opponent=team['name']),dict(base,date='2026-10-20',opponent='Other College',exhibition=True)]
   doc={'events':[]};self.assertEqual(m.add_missing_games(doc,team,rows,'https://official.example/schedule'),1);self.assertEqual(m.add_missing_games(doc,team,rows,'https://official.example/schedule'),0)
+ def test_published_network_logo_filename(self):
+  import base64
+  asset=base64.urlsafe_b64encode(b'https://storage.googleapis.com/school/2026/secnetwork-plus.png').decode().rstrip('=')
+  html='<title>Basketball Schedule 2026-27</title><div class="schedule-item home"><div class="schedule-item__date">Nov 3</div><div class="schedule-item__team"><h3>Example College</h3><p>Sample Arena | Town, KY</p></div><span class="schedule-item__result">7:00 pm</span><div class="schedule-item__bottom"><img alt="Link Image" src="https://official.example/imgproxy/fit/100/'+asset+'.png"></div></div>'
+  row=m.parse(html)[0];self.assertEqual(row['tv'],'SEC Network+');self.assertEqual(row['arena'],'Sample Arena');self.assertEqual(row['city'],'Town, KY')
+ def test_site_label_is_not_a_facility(self):
+  html='<title>Basketball Schedule 2026-27</title><div class="schedule-event-item"><div class="schedule-event-date"><time class="schedule-event-date__month-day">Nov 3</time></div><strong class="schedule-default-event__name">Example College</strong><span class="schedule-event-location">Charlottesville, Va.</span><span class="schedule-event-item__venue">home</span></div>'
+  row=m.parse(html)[0];self.assertEqual(row['site'],'home');self.assertEqual(row['arena'],'');self.assertEqual(row['city'],'Charlottesville, Va.')
+ def test_combined_official_locations(self):
+  self.assertEqual(m.split_location('Greenville, SC / Timmons Arena'),('Timmons Arena','Greenville, SC'))
+  self.assertEqual(m.split_location('Colonial Life Arena (Columbia, S.C.)'),('Colonial Life Arena','Columbia, S.C.'))
+  self.assertEqual(m.split_location('Farris Center'),('Farris Center',''))
+ def test_rank_prefix_is_not_part_of_school_identity(self):
+  for label in ['#24 Purdue','RV/#24 Purdue','No. 4 Purdue','RV Purdue']:self.assertEqual(m.norm(label),'purdue')
 if __name__=='__main__':unittest.main()

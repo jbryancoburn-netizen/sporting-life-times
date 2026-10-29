@@ -25,4 +25,5 @@ for team in m.TEAMS:
  p.write_text(json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n')
  changes.append({'school':team['name'],'id':tid,'removed':removed,'named_fixtures_added':added,'source_url':facts['source_url']})
 report={'schools':changes,'summary':{'schools_repaired':len(changes),'malformed_records_removed':sum(len(x['removed']) for x in changes),'official_named_games_added':sum(x['named_fixtures_added'] for x in changes)}}
-(m.DATA/'mbb-placeholder-fixture-repair.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report['summary']))
+if changes:(m.DATA/'mbb-placeholder-fixture-repair.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps(report['summary']))
