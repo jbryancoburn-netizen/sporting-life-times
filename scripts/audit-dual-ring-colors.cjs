@@ -21,18 +21,24 @@ for(const [kind,expected] of Object.entries({nba:30,euroleague:20,mbb:365,soccer
 const version='two-clean-rings-20261029';
 const files=fs.readdirSync('.').filter(p=>p.endsWith('.html'));
 const pages=files.filter(p=>read(p).includes('data-slt-league='));
-assert.equal(pages.length,51,'Expected 51 four-league pages to use the shared double-ring component');
+assert.equal(pages.length,40,'Only NBA (10), EuroLeague (1) and Division I soccer (29) use the generic two-ring component');
 for(const page of pages){
  const html=read(page);
  assert(html.includes('slt-dual-ring.css?v='+version),'Stale double-ring geometry on '+page);
  assert(html.includes('slt-dual-ring.js?v='+version),'Stale color lookup on '+page);
 }
 const css=read('slt-dual-ring.css');
-assert(css.includes('.mbb-mark.slt-dual-shell::before'),'MBB double-ring override missing');
-assert(css.includes('inset:1px!important;'),'MBB rings improperly separated');
-assert(css.includes('border-width:2px!important;'),'MBB rings unnecessarily thick');
 assert(css.includes('background:transparent!important'),'Colored ring mask must have no white fill');
-assert(css.includes('transform:translate(-50%,-50%)!important'),'CBB logo centering missing');
+assert(css.includes('transform:translate(-50%,-50%)!important'),'Non-MBB image centering missing');
+const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\\.html$)/.test(p));
+assert.equal(mbbPages.length,11,'Expected 11 basketball page templates');
+for(const page of mbbPages){
+ const html=read(page);
+ assert(html.includes('mbb-logo-system.css?v=roundel-one-owner-20261029'),page+' missing sole MBB stylesheet');
+ assert(html.includes('mbb-logo-system.js?v=roundel-one-owner-20261029'),page+' missing sole MBB renderer');
+ assert(!html.includes('slt-dual-ring.js')&&!html.includes('slt-dual-ring.css'),page+' has stacked dual ring library');
+ assert(!html.includes('shared-team-crests.js')&&!html.includes('shared-team-crests.css'),page+' has shared wrapper');
+}
 const js=read('slt-dual-ring.js');
 assert(js.includes('nonwhite-rings-20261029'),'Stale cached ring palette');
-console.log('PASS '+count+' nonwhite, distinct team palettes; '+pages.length+' pages use clean two-color rings');
+console.log('PASS '+count+' distinct nonwhite team palettes; 40 generic two-ring pages plus 11 single-owner roundel-aware MBB pages');
