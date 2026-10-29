@@ -1,0 +1,72 @@
+{
+  "model": "independent-women-season-reset-elo",
+  "source": "Kaggle March Machine Learning Mania women's compact results, historic snapshot mirrored from zachmayer/kaggleNCAA",
+  "source_uri": "https://github.com/zachmayer/kaggleNCAA/tree/master/inst/kaggle_data",
+  "calibration_years": "1998–2018",
+  "exclusion": "2019 held outside calibration because NCAA tournament results are unavailable in mirrored source",
+  "source_rows": {
+    "regular": 107133,
+    "ncaa": 1323,
+    "regular_seasons": "1998-2019",
+    "ncaa_seasons": "1998-2018"
+  },
+  "training": {
+    "seasons": "1998-2014",
+    "games": 82121,
+    "log_loss": 0.547191471846133,
+    "brier": 0.18505038203798235
+  },
+  "holdout": {
+    "seasons": "2015-2018",
+    "games": 21095,
+    "log_loss": 0.5356180054346791,
+    "brier": 0.18011507940215238
+  },
+  "parameters": {
+    "starting_elo": 1500,
+    "k_factor": 96,
+    "home_elo": 80,
+    "neutral_elo": 0,
+    "logistic_scale": 400,
+    "no_season_carryover": true,
+    "margin_of_victory_multiplier": false
+  },
+  "selection_policy": "Minimize pregame log loss on 1998–2014 training seasons. Hold out 2015–2018 for validation; no parameter picked based on holdout.",
+  "grid": {
+    "k": [
+      16,
+      24,
+      32,
+      40,
+      48,
+      56,
+      64,
+      72,
+      80,
+      88,
+      96,
+      104,
+      112,
+      120,
+      128,
+      144,
+      160
+    ],
+    "home": [
+      0,
+      20,
+      40,
+      60,
+      80,
+      100,
+      120,
+      140,
+      160
+    ]
+  },
+  "comparators": {
+    "constant_1500_holdout_log_loss": 0.6931471805600877,
+    "baseline_k24_h0_holdout_log_loss": 0.606294086060202
+  },
+  "note": "This calibration is based on a historical mirror through 2018; expand 2019–2026 before re-certifying performance. Within-day event order follows source order because exact tipoff times are absent."
+}
