@@ -18,6 +18,7 @@ on:
     workflows:
       - NBA Elo verified final-game refresh
       - Official NBA game-center refresh
+      - NBA full 30-team roster refresh
     types: [completed]
     branches: [main]
   schedule:
@@ -152,6 +153,20 @@ jobs:
             git push origin HEAD:main
           else
             echo "EuroLeague snapshot already saved in main"
+          fi
+      - name: Reconcile NBA finals and rebuild 1500-start power rankings inside the published edition
+        run: |
+          set -euo pipefail
+          if node scripts/update-nba-elo.mjs; then
+            node scripts/build-nba-elo-shadow.mjs --write
+            node scripts/build-nba-elo-shadow.mjs
+            node scripts/audit-nba-elo.mjs
+            node scripts/audit-nba-boxscore-elo.mjs
+            echo "NBA published Elo model: 30 teams, season starts at 1500"
+          else
+            echo "::warning::NBA scoreboard unavailable; publishing only the previously verified 1500-start Elo snapshot"
+            git restore -- data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json
+            node scripts/build-nba-elo-shadow.mjs
           fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
