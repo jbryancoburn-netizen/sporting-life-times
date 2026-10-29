@@ -3,9 +3,15 @@
 import json,requests,re,collections
 from bs4 import BeautifulSoup
 SOURCES={
- "Alabama A&M":"https://aamusports.com/sports/mens-basketball/schedule/2026-27",
- "App State":"https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
- "A&M-Corpus Christi":"https://goislanders.com/sports/mens-basketball/schedule/2026-27",
+ "Alabama":"https://rolltide.com/sports/mens-basketball/schedule/2026-27",
+ "North Carolina":"https://goheels.com/sports/mens-basketball/schedule/2026-27",
+ "Akron":"https://gozips.com/sports/mens-basketball/schedule/2026-27",
+ "UC Riverside":"https://gohighlanders.com/sports/mens-basketball/schedule",
+ "Indiana":"https://iuhoosiers.com/sports/mens-basketball/schedule",
+ "Villanova":"https://villanova.com/sports/mens-basketball/schedule/2026-27",
+ "Howard":"https://hubison.com/sports/mens-basketball/schedule/2026-27",
+ "UCLA":"https://uclabruins.com/sports/mens-basketball/schedule/season/2026-27",
+ "Kentucky":"https://ukathletics.com/sports/mbball/schedule/season/2026-27/"
 }
 def walk_parents(n):
  out=[]
@@ -21,6 +27,9 @@ for school,url in SOURCES.items():
   r=requests.get(url,timeout=20,headers={"User-Agent":"Mozilla/5.0"});result["status"]=r.status_code;result["bytes"]=len(r.content)
   soup=BeautifulSoup(r.text,"html.parser")
   result["selectors"]={sel:len(soup.select(sel)) for sel in [".sidearm-schedule-game",".sidearm-schedule-game-row","[class*='schedule-game']","[class*='schedule_game']","[data-game-id]","li","time","script[type='application/ld+json']"]}
+  result["sample_cards"]=[{"tag":n.name,"class":n.get("class",[]),"data_game_id":n.get("data-game-id"),"text":n.get_text(" ",strip=True)[:330],"opp":(n.select_one("[class*='opponent']") or n).get_text(" ",strip=True)[:180],"network_markup":[{"class":z.get("class"),"text":z.get_text(" ",strip=True)[:100]} for z in n.select("[class*='tv'],[class*='broadcast'],[class*='network']")[:8]]} for n in soup.select(".sidearm-schedule-game,[data-game-id]")[:2]]
+  result["table_headers"]=[[x.get_text(" ",strip=True)[:80] for x in table.select("tr th")[:10]] for table in soup.select("table")[:3]]
+  result["jsonld_preview"]=[(z.string or z.get_text())[:320] for z in soup.select('script[type="application/ld+json"]')[:1]]
   for term in ["Oakwood","DePaul","Auburn","North Texas","Merrimack"]:
    found=soup.find_all(string=lambda s: bool(s and term.lower() in s.lower()))
    if found:result.setdefault("examples",{})[term]=[walk_parents(n) for n in found[:2]]
