@@ -133,3 +133,17 @@ body.nba-newspaper[data-pro-league="euroleague"] #app .pb-shared-hero .hero-art:
 body.nba-newspaper[data-pro-league="nbl"] #app .pb-shared-hero .hero-art::before{
   content:'NBL USRS · THE POWER FOUR';
 }
+
+/* Normalized source artwork has transparent corners and consistent scale.
+   Fill the inner circle without using white image paddings or extra outlines. */
+body.nba-newspaper[data-pro-league] .pb-club-crest>img{
+ width:88%!important;height:88%!important;
+ max-width:88%!important;max-height:88%!important;
+ min-width:0!important;min-height:0!important;
+ object-fit:contain!important;object-position:center!important;
+ background:transparent!important;
+}
+body.nba-newspaper[data-pro-league] .pb-club-crest.pb-no-logo>em{
+ display:block!important;position:relative;z-index:4;
+ font:900 11px/1 Arial,sans-serif;
+}
