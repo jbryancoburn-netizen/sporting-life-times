@@ -37,6 +37,8 @@ jobs:
         run: node scripts/audit-dual-ring-colors.cjs
       - name: Enforce 365 school roundel-aware logo contracts
         run: node scripts/audit-mbb-logo-system.cjs
+      - name: Verify 365 NCAA power ranking rows actually render
+        run: node tests/mbb-rankings-runtime.test.cjs
       - name: JavaScript syntax in public assets
         shell: bash
         run: |
