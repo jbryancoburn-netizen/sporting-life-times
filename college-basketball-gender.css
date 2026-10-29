@@ -24,3 +24,30 @@ body:not([data-page]) .cbb-gender-label{color:inherit}
 body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option{border-color:#9cabb3;color:#eef2f2!important;background:#172631}
 body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option.is-active{background:#f4c35d;color:#14232c!important;border-color:#f4c35d}
 body:not([data-page]):not(.mbb-newspaper) .cbb-gender-option:hover:not(.is-active){background:#28444c}
+
+
+/* Women’s NCAA edition: compact full-program board and conference records. */
+.wbb-board .rank-row,.wbb-team-directory .rank-row,#wbb-directory-list .rank-row{display:flex;align-items:center;gap:12px;min-width:0}
+#wbb-directory-list{max-height:530px;overflow:auto;overscroll-behavior:contain;border-top:1px solid var(--line,#d3d9d6)}
+#wbb-directory-list .rank-row{border-bottom:1px solid var(--line,#d3d9d6);padding:6px 4px}
+.wbb-team-link,.wbb-conf-row a{flex:1;min-width:0;text-decoration:none;color:inherit}
+.wbb-team-link:hover,.wbb-conf-row a:hover{text-decoration:underline}
+.wbb-team-search{display:flex;align-items:center;gap:12px;font-weight:700;font-size:12px;margin:12px 0}
+.wbb-team-search input,.wbb-team-search select{min-width:0;flex:1;border:1px solid #8faaa6;background:#fff;color:#10282c;padding:10px 12px;font:inherit}
+.wbb-preseason{border:1px solid #bbc7c4;padding:20px 12px;text-align:center;font-family:'Barlow Condensed',Impact,sans-serif;letter-spacing:.9px;font-size:24px}
+.wbb-conference-table{overflow:auto}
+.wbb-conference-heading{font-size:10px;font-weight:700;color:var(--muted,#647479);display:flex;justify-content:space-between;padding:8px 0;border-bottom:2px solid #4b6769}
+.wbb-conf-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line,#d3d9d6);padding:8px 0}
+.wbb-conf-row>span{font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.wbb-conf-row .wbb-logo{height:32px;width:32px;border-width:2px}
+.wbb-conf-row .wbb-team-name{max-width:none}
+.wbb-team-summary{display:flex;align-items:center;flex-wrap:wrap;gap:16px;padding:14px;background:#eff4f0}
+.wbb-team-summary strong{font-size:20px;letter-spacing:.2px}
+.wbb-team-summary>span:not(.team-name){font-size:12px}
+#wbb-team-games{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:16px 0}
+#wbb-team-games>h3{grid-column:1/-1}
+@media(max-width:680px){
+  .wbb-conf-row{flex-wrap:wrap}.wbb-conf-row>span{margin-left:42px}
+  .wbb-team-search{align-items:stretch;flex-direction:column;gap:5px}
+  .wbb-team-summary{gap:9px}
+}
