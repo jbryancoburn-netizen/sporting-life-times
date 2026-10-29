@@ -61,10 +61,10 @@ try{
   const officialFacility=officialLocation.match(/\(([^()]+)\)/);
   const officialArena=officialFacility&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(officialFacility[1])?officialFacility[1].trim():'';
   const arena=c.venue?.arenaName||officialArena||embeddedArena||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
-  const city=venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
+  const city=c.venue?.official_school_city||venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
   const completed=e.status?.type?.completed===true||e.status?.type?.state==='post';
   const result=completed&&self?.score!=null&&opponent?.score!=null?(Number(self.score)>Number(opponent.score)?'W ':'L ')+escape(self.score)+'–'+escape(opponent.score):'—';
-  return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td></tr>';
+  return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td><td>'+escape(opponentElo(opponentId))+'</td><td>'+result+'</td></tr>';
  }).join('');
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
  const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';

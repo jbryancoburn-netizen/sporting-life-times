@@ -25,7 +25,13 @@ for (day,pair),matches in index.items():
   left,right=verified
   a,b=left[2]['homeAway'],right[2]['homeAway']
   expected='away' if a=='home' else 'home' if a=='away' else 'neutral'
-  if b!=expected:conflicts.append({'date':day,'teams':pair,'claimed':[a,b],'reason':'official opponent schedules contradict on home-away-neutral'})
+  if b!=expected:
+   conflict={'date':day,'teams':pair,'claimed':[a,b],'reason':'official opponent schedules contradict on home-away-neutral'}
+   conflicts.append(conflict)
+   for tid,event,own,op in verified:
+    event['site_verified']=False
+    event['site_conflict']=conflict
+    counts['schools_updated_'+tid]+=1
   continue
  source=verified[0];dest=matches[0] if matches[1] is source else matches[1]
  side=source[2]['homeAway'];new='away' if side=='home' else 'home' if side=='away' else 'neutral'
