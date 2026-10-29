@@ -30,5 +30,12 @@ jobs:
           git add data/mbb-rosters-2026-27/
           if ! git diff --cached --quiet; then
             git commit -m "Refresh current college basketball rosters"
-            git push
+            for attempt in 1 2 3 4; do
+              if git push origin HEAD:main; then exit 0; fi
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort || true; exit 1; }
+              sleep $((attempt * 2))
+            done
+            echo "MBB roster publication could not synchronize after four attempts" >&2
+            exit 1
           fi
