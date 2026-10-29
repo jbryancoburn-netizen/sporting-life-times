@@ -2,16 +2,16 @@
   "season": "2026-27",
   "gender": "women",
   "schools_attempted": 363,
-  "schools_with_readable_official_calendar": 311,
-  "schools_with_matched_official_calendar": 311,
-  "verified_school_count_including_prior": 312,
-  "verified_team_game_rows_including_prior": 7479,
-  "verified_unique_game_ids": 5000,
-  "official_home_away_matched": 7409,
-  "official_home_away_conflicts": 32,
+  "schools_with_readable_official_calendar": 313,
+  "schools_with_matched_official_calendar": 313,
+  "verified_school_count_including_prior": 316,
+  "verified_team_game_rows_including_prior": 7577,
+  "verified_unique_game_ids": 5019,
+  "official_home_away_matched": 7455,
+  "official_home_away_conflicts": 31,
   "status_counts": {
-    "matched_university_games": 311,
-    "unreadable_university_schedule": 52
+    "matched_university_games": 313,
+    "unreadable_university_schedule": 50
   },
   "school_results": [
     {
@@ -327,11 +327,11 @@
     {
       "team_id": "2084",
       "school": "Buffalo Bulls",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
-      "site_matched": 0,
+      "status": "matched_university_games",
+      "source": "https://ubbulls.com/sports/womens-basketball/schedule/text/2026-27",
+      "source_rows": 34,
+      "matched": 29,
+      "site_matched": 29,
       "site_conflicts": 0
     },
     {
@@ -627,11 +627,11 @@
     {
       "team_id": "159",
       "school": "Dartmouth Big Green",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
-      "site_matched": 0,
+      "status": "matched_university_games",
+      "source": "https://dartmouthsports.com/sports/womens-basketball/schedule/text/2026-27",
+      "source_rows": 28,
+      "matched": 20,
+      "site_matched": 20,
       "site_conflicts": 0
     },
     {
@@ -837,12 +837,12 @@
     {
       "team_id": "2217",
       "school": "Fairfield Stags",
-      "status": "matched_university_games",
-      "source": "https://fairfieldstags.com/sports/womens-basketball/schedule/2026-27",
-      "source_rows": 34,
-      "matched": 29,
-      "site_matched": 27,
-      "site_conflicts": 2
+      "status": "unreadable_university_schedule",
+      "source": null,
+      "source_rows": 0,
+      "matched": 0,
+      "site_matched": 0,
+      "site_conflicts": 0
     },
     {
       "team_id": "161",
@@ -1147,11 +1147,11 @@
     {
       "team_id": "47",
       "school": "Howard Bison",
-      "status": "matched_university_games",
-      "source": "https://hubison.com/sports/womens-basketball/schedule/2026-27",
-      "source_rows": 28,
-      "matched": 24,
-      "site_matched": 24,
+      "status": "unreadable_university_schedule",
+      "source": null,
+      "source_rows": 0,
+      "matched": 0,
+      "site_matched": 0,
       "site_conflicts": 0
     },
     {
@@ -1687,11 +1687,11 @@
     {
       "team_id": "2771",
       "school": "Merrimack Warriors",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
-      "site_matched": 0,
+      "status": "matched_university_games",
+      "source": "https://merrimackathletics.com/sports/womens-basketball/schedule/2026-27",
+      "source_rows": 30,
+      "matched": 25,
+      "site_matched": 25,
       "site_conflicts": 0
     },
     {
@@ -2247,12 +2247,12 @@
     {
       "team_id": "198",
       "school": "Oral Roberts Golden Eagles",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0
+      "status": "matched_university_games",
+      "source": "https://oruathletics.com/sports/womens-basketball/schedule/2026-27",
+      "source_rows": 30,
+      "matched": 24,
+      "site_matched": 23,
+      "site_conflicts": 1
     },
     {
       "team_id": "2483",
@@ -3645,5 +3645,9 @@
       "site_conflicts": 0
     }
   ],
-  "policy": "Exact calendar date + unique opponent from official women's university schedule. No official arena, tipoff or TV claimed unless separately verified."
+  "policy": "Exact calendar date + unique opponent from official women's university schedule. No official arena, tipoff or TV claimed unless separately verified.",
+  "prior_certified_evidence_recovered": 53,
+  "previously_certified_evidence_quarantined": {},
+  "current_scan_verified_school_count": 313,
+  "retention_policy": "Preserve dated official women's source evidence across temporary site failures only when current unique game ID, local date and opponent still match; old site claims are not carried forward."
 }
