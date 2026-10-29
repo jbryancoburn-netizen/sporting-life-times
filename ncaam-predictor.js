@@ -1,15 +1,15 @@
 (async()=>{"use strict";
 const $=id=>document.getElementById(id);
 const get=async path=>{try{const r=await fetch(path,{cache:"no-store"});return r.ok?await r.json():null}catch{return null}};
-const [pre,current,calibration,crosswalk]=await Promise.all([
+const [pre,retro,calibration,crosswalk]=await Promise.all([
  get("data/ncaam-2026-27-preseason-player-quality-live.json"),
- get("data/ncaam-2026-27-current-provisional.json"),
+ get("data/ncaam-2026-27-retro-primary.json"),
  get("data/ncaam-score-calibration.json"),
  get("data/ncaam-2026-27-espn-team-crosswalk.json")]);
 const verified=x=>x?.rankings?.length===365&&new Set(x.rankings.map(t=>t.team_id)).size===365;
-if(!verified(pre)){$("state").textContent="Verified 365-team Elo data unavailable.";return}
-const isLive=verified(current)&&current.games_played>0&&current.preseason_seed==="data/ncaam-2026-27-preseason-player-quality-live.json";
-const currentRatings=isLive?current:pre;
+if(!verified(pre)||!verified(retro)||retro.model!=="retro-clean-slate"||retro.starting_elo!==1500||retro.rankings.some(x=>x.base_elo!==1500)){$("state").textContent="Verified 365-team 1500-start RETRO data unavailable.";return}
+const isLive=retro.games_played>0;
+const currentRatings=retro;
 const original=new Map(pre.rankings.map(t=>[t.team_id,t]));
 const teams=currentRatings.rankings.map(t=>({...original.get(t.team_id),...t})).sort((a,b)=>a.team.localeCompare(b.team));
 const map=new Map(teams.map(t=>[t.team_id,t]));
@@ -70,13 +70,7 @@ function render(){
  for(const n of [10,20,30])$("blowout-"+n).textContent=tail?num(100*tail[n])+"%":"Not modeled";
  $("wintext").textContent=a.team+" "+num(p.homeProbability*100)+"% · "+b.team+" "+num(p.awayProbability*100)+"% (neutral-site estimate)";
  $("probbar").style.width=num(p.homeProbability*100)+"%";
- const noQualityA={...a,elo:a.elo-(Number(a.quality_component)||0)};
- const noQualityB={...b,elo:b.elo-(Number(b.quality_component)||0)};
- const without=window.NCAAMScores.predict(noQualityA,noQualityB);
- const noRosterA={...a,elo:a.elo-(Number(a.offseason_adjustment)||0)};
- const noRosterB={...b,elo:b.elo-(Number(b.offseason_adjustment)||0)};
- const baseline=window.NCAAMScores.predict(noRosterA,noRosterB);
- const scenarios=[["Published player-quality Elo",p],["Without scoring-quality adjustments",without],["Previous team-strength baseline",baseline]];
+ const scenarios=[["Published 1500-start RETRO Elo",p]];
  $("sensitivity").innerHTML=scenarios.map(([name,r])=>'<div class="factor"><strong>'+safe(name)+'</strong> · '+safe(a.team)+' '+num(r.homeProbability*100)+'% / '+safe(b.team)+' '+num(r.awayProbability*100)+'% · expected margin '+num(r.expectedMargin)+' points</div>').join("");
 
  $("roster-name-a").textContent=a.team;$("roster-name-b").textContent=b.team;
@@ -84,13 +78,13 @@ function render(){
  const statA=multistatMap?.get(a.team_id),statB=multistatMap?.get(b.team_id);
  if(statA&&statB){
   const candidate=window.NCAAMScores.predict({...a,elo:statA.challenger_elo},{...b,elo:statB.challenger_elo});
-  $("multistat-comparison").innerHTML='<div class="factor"><strong>Official player-quality Elo</strong> · '+safe(a.team)+' '+num(p.homeProbability*100)+'% · '+safe(b.team)+' '+num(p.awayProbability*100)+'%</div>'+
+  $("multistat-comparison").innerHTML='<div class="factor"><strong>Published 1500-start RETRO Elo</strong> · '+safe(a.team)+' '+num(p.homeProbability*100)+'% · '+safe(b.team)+' '+num(p.awayProbability*100)+'%</div>'+
    '<div class="factor"><strong>Experimental three-stat challenger</strong> · '+safe(a.team)+' '+num(candidate.homeProbability*100)+'% · '+safe(b.team)+' '+num(candidate.awayProbability*100)+'%</div>'+
    '<div class="factor">'+safe(a.team)+': shooting '+signed(statA.components.shooting)+' · playmaking '+signed(statA.components.playmaking)+' · defensive box '+signed(statA.components.defense)+' Elo<br>'+
    safe(b.team)+': shooting '+signed(statB.components.shooting)+' · playmaking '+signed(statB.components.playmaking)+' · defensive box '+signed(statB.components.defense)+' Elo</div>'+
    '<p class="fine">Matched prior-season players: '+statA.matched_players+' / '+statB.matched_players+'. This comparison has not passed a full-model prospective validation.</p>';
  }else{
-  $("multistat-comparison").textContent="Research model awaiting verified data publication. Official Elo remains active.";
+  $("multistat-comparison").textContent="Experimental research data not published; 1500-start RETRO remains the primary model.";
  }
 
  const teamVol=t=>{
@@ -104,8 +98,8 @@ function render(){
  const delta=Math.abs(a.elo-b.elo);
  const favQuality=Number(fav.quality_component)||0,undQuality=Number(und.quality_component)||0;
  const lines=[
- "The model gives "+safe(fav.team)+" a "+num(Math.max(p.homeProbability,p.awayProbability)*100)+"% win probability because its current Elo exceeds "+safe(und.team)+" by "+num(delta)+" points.",
- "Of "+safe(fav.team)+"'s original preseason adjustment, "+signed(favQuality)+" Elo came from verified player scoring quality versus "+signed(undQuality)+" for "+safe(und.team)+". This is already included in the current rating.",
+ "1500-start RETRO gives "+safe(fav.team)+" a "+num(Math.max(p.homeProbability,p.awayProbability)*100)+"% neutral-site win probability based on a "+num(delta)+"-point earned Elo gap.",
+ "Both teams began at 1500; previous-season Elo and roster research do not change either published RETRO rating.",
  "The projected "+num(Math.abs(p.expectedMargin))+"-point margin is "+(calibrated?"derived from a historical scoring fit.":"a preliminary Elo-to-points estimate; it has not passed a historical score calibration.")
  ];
  $("key-factors").innerHTML=lines.map(s=>'<div class="factor">'+s+'</div>').join("");
