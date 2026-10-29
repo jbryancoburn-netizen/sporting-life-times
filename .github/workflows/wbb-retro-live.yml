@@ -1,0 +1,50 @@
+name: Women's College Basketball Independent RETRO
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wbb-retro-live.yml'
+      - 'scripts/wbb-season.py'
+      - 'scripts/publish-wbb-retro.js'
+  schedule:
+    # Evening college games only; limit runner usage outside game windows.
+    - cron: '7,22,37,52 0-6,22-23 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-retro-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate women-only pipeline before fetching
+        run: |
+          python -m py_compile scripts/wbb-season.py
+          node --check scripts/publish-wbb-retro.js
+      - name: Fetch women's Division I roster and independently verified games
+        run: python scripts/wbb-season.py live
+      - name: Recalculate 1500-start women-only RETRO
+        run: node scripts/publish-wbb-retro.js
+      - name: Save published women's results without touching men's data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ncaaw-2026-27-teams.json data/ncaaw-2026-27-verified-games.json data/ncaaw-2026-27-games.json data/ncaaw-2026-27-retro-primary.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish verified women's NCAA basketball games and RETRO"
+          for n in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep 2
+          done
+          exit 1
