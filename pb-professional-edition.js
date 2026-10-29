@@ -92,15 +92,16 @@ if(isEuro){
  const [model,feed,raw]=d;
  if(!model||!Array.isArray(model.rankings)||model.rankings.length<18||!Array.isArray(model.standings))throw Error('EuroLeague source publication not available');
  ranks=model.rankings;standing=model.standings;fixtures=model.fixtures||[];metadata=model;approved=true;
- clubMap=new Map(ranks.map(r=>[r.code,r]));rateMap=new Map(ranks.map(r=>[r.code,r]));
+ teamMap=new Map(ranks.map(r=>[r.code,r]));rateMap=new Map(ranks.map(r=>[r.code,r]));
  games=(feed?.games||[]).filter(g=>['live','scheduled','final','awaiting_final'].includes(g.status)).map(g=>({...g})).sort((a,b)=>a.status==='live'?-1:b.status==='live'?1:(a.status==='scheduled'?0:1)-(b.status==='scheduled'?0:1)||Date.parse(a.date)-Date.parse(b.date));
  if(!games.length)games=(model.recent_results||[]).map(g=>({...g,status:'final'}));
  articles=(raw?.articles||[]).filter(a=>/euroleague/i.test([a.category,a.title,a.summary].join(' ')));
+ // The public news wire can have no EuroLeague-specific headlines; retain direct league source navigation without inventing stories.
 }else{
  const [stand,model,ledger,news]=d;
  if(!stand||stand.rows?.length!==10||!model||model.ratings?.length!==10)throw Error('NBL current-season datasets not available');
  ranks=model.ratings;standing=stand.rows;metadata=stand;approved=Boolean(model.production_approved);
- rateMap=new Map(ranks.map(r=>[r.team,r]));clubMap=new Map(standing.map(r=>[r.team,r]));
+ rateMap=new Map(ranks.map(r=>[r.team,r]));teamMap=new Map(standing.map(r=>[r.team,r]));
  games=[...(stand.recent_finals||ledger?.games||[])].sort((a,b)=>Date.parse(b.played_at)-Date.parse(a.played_at));
  articles=(news?.articles||[]).filter(x=>!/(?:betting tips|same game multi|sportsbook|odds|best bets|predictions|fre[e]?tips)/i.test(x.title||''));
 }
