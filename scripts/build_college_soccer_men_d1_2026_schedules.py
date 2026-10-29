@@ -24,11 +24,17 @@ def fetch(day):
     for n in range(3):
         try:
             req=urllib.request.Request(url,headers={'User-Agent':'SportingLifeTimes-D1Men-ScheduleAudit/1.0','Accept':'application/json'})
-            with urllib.request.urlopen(req,timeout=25) as response:
+            with urllib.request.urlopen(req,timeout=12) as response:
                 body=json.load(response)
             if not isinstance(body.get('games'),list):
                 raise ValueError('response lacks games array')
             return day.isoformat(),body['games'],None
+        except urllib.error.HTTPError as exc:
+            if exc.code==404:
+                return day.isoformat(),[],{'date':day.isoformat(),'error':'NCAA scoreboard returned HTTP 404','url':url}
+            if n==2:
+                return day.isoformat(),[],{'date':day.isoformat(),'error':str(exc)[:300],'url':url}
+            time.sleep(n+1)
         except Exception as exc:
             if n==2:
                 return day.isoformat(),[],{'date':day.isoformat(),'error':str(exc)[:300],'url':url}
@@ -104,7 +110,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--start',default='2026-08-01')
     p.add_argument('--end',default='2026-12-15')
-    p.add_argument('--max-workers',type=int,default=4)
+    p.add_argument('--max-workers',type=int,default=6)
     args=p.parse_args()
     start=dt.date.fromisoformat(args.start);end=dt.date.fromisoformat(args.end)
     assert start.year==2026 and end.year==2026 and end>=start and (end-start).days<=160
