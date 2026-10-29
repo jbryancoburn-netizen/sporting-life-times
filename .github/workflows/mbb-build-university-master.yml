@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Audit current school schedule records
+        run: python scripts/mbb_live_quality_audit.py
       - name: Build CSV and JSON manifest from existing school records
         run: python scripts/mbb_build_university_master.py
       - name: Verify output
@@ -27,7 +29,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json
+          git add data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json data/mbb-live-quality-audit-2026-27.json
           git commit -m "Publish 365-school master schedule CSV and JSON manifest" || exit 0
           git pull --rebase origin main
           git push
