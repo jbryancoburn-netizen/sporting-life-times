@@ -35,8 +35,34 @@ def team_registry():
         logo=next((v.get("href") for v in t.get("logos",[]) if v.get("href")),None)
         teams[tid]={"team_id":tid,"team":t.get("displayName") or t.get("name") or tid,
                     "conference":conf,"logo":logo,"color":t.get("color") or ""}
-    if not 355<=len(teams)<=375:
-        raise RuntimeError("Incomplete D-I women's team registry: "+str(len(teams)))
+    # ESPN's women's team index omits Mercyhurst (ESPN team 2385).
+    # Independently verified against Mercyhurst's official 2026-27 women's
+    # basketball schedule and NCAA's projected 363 women D-I programs.
+    if "2385" not in teams:
+        teams["2385"]={"team_id":"2385","team":"Mercyhurst Lakers",
+            "conference":"NEC","logo":"https://a.espncdn.com/i/teamlogos/ncaa/500/2385.png",
+            "color":"000000","identity_source":"https://hurstathletics.com/sports/womens-basketball/schedule/2026-27"}
+    # Institutional conference affiliations can provisionally fill missing
+    # women's ESPN conference fields. They are NOT certified gender-specific
+    # league tables, and they NEVER supply men's scores or Elo ratings.
+    cross=ROOT/"ncaam-2026-27-espn-team-crosswalk.json"
+    master=ROOT/"ncaam-2026-27-team-registry.json"
+    if cross.exists() and master.exists():
+        try:
+            links=json.loads(cross.read_text(encoding="utf-8")).get("teams",[])
+            institutions=json.loads(master.read_text(encoding="utf-8")).get("teams",[])
+            conf_by_ncaa={str(x["id"]):x.get("conference","") for x in institutions}
+            institution_conf={str(x["espn_id"]):conf_by_ncaa.get(str(x["id"]),"") for x in links}
+            for tid,t in teams.items():
+                if not t["conference"] and institution_conf.get(tid):
+                    t["conference"]=institution_conf[tid]
+                    t["conference_source"]="2026-27 institutional affiliation proxy, women's membership unverified"
+                else:
+                    t["conference_source"]="ESPN women's group or official school evidence"
+        except (ValueError,KeyError,TypeError) as err:
+            print("Conference proxy unavailable; leaving unknown affiliations:",err)
+    if len(teams)!=363:
+        raise RuntimeError("2026-27 NCAA projects 363 D-I women's programs; verified directory contains "+str(len(teams)))
     return sorted(teams.values(),key=lambda x:x["team"].casefold())
 
 def daily(day):
