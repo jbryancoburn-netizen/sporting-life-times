@@ -35,11 +35,13 @@ for path in files:
             source=re.sub(r'</head\s*>',lambda match:FAVICON+match.group(),source,count=1,flags=re.I)
             path.write_text(source,encoding='utf-8')
             changed+=1
-    # Both NBA and men's D-I basketball own their complete crest components.
-    # Installing the generic global IMG wrapper here stacks extra circular borders.
+    # NBA owns its logos. Never inject the generic shared crest wrapper.
     if re.match(r"nba(?:[-.]|$)", path.name, re.IGNORECASE):
-        pass # NBA is also covered by the combined guard immediately below.
-    if re.match(r"nba(?:[-.]|$)", path.name, re.IGNORECASE) or re.match(r"ncaam(?:[-.]|$)|college-basketball\.html$", path.name, re.IGNORECASE):
+        if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
+            missing.append(path.name + " must not load shared-team-crests")
+        continue
+    # Every D-I men's college basketball page has one roundel-aware renderer.
+    if re.match(r"ncaam(?:[-.]|$)|college-basketball\.html$", path.name, re.IGNORECASE):
         if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
             missing.append(path.name + " must not load shared-team-crests")
         elif not CHECK:
