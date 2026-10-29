@@ -40,13 +40,12 @@ const image=t=>logoImg(t);
 const section=(k,h,path,label)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div>'+(path?'<a href="'+path+'">'+(label||'Explore →')+'</a>':'')+'</div>';
 const blank=t=>'<div class="nba-empty">'+esc(t)+'</div>';
 let data={},rates={},seed={},prior={},records={},ordered=[],lastState='',filter='',playerFilter='';
-const gets=[['current','data/nba-2026-27-current-provisional.json'],['earned','data/nba-elo-shadow-2026-27.json'],['pre','data/nba-2026-27-preseason-provisional.json'],['old','data/nba-2025-26-final.json'],['schedule','data/nba-upcoming-schedule.json'],['archive','data/nba-game-center.json'],['leaders','data/nba-player-leaders.json'],['news','data/nba-top-stories.json'],['wire','data/nba-roster-wire-snapshot.json']];
+const gets=[['current','data/nba-2026-27-current-provisional.json'],['earned','data/nba-elo-shadow-2026-27.json'],['schedule','data/nba-upcoming-schedule.json'],['archive','data/nba-game-center.json'],['leaders','data/nba-player-leaders.json'],['news','data/nba-top-stories.json'],['wire','data/nba-roster-wire-snapshot.json']];
 async function fetchAll(){let result=await Promise.all(gets.map(async x=>[x[0],await load(x[1])]));
  // Keep the last successfully read news and data if a single refresh request fails.
  data=Object.fromEntries(result.map(([key,value])=>[key,value??data[key]??null]));
  rates=Object.fromEntries((data.earned?.rankings||[]).filter(x=>meta[x.team]&&Number.isFinite(x.elo)).map(x=>[x.team,x.elo]));
  seed=Object.fromEntries(codes.map(t=>[t,1500]));
- prior=Object.fromEntries((data.old?.rankings||[]).map(x=>[x.team,x.elo]));
  records=Object.fromEntries(codes.map(t=>[t,{w:0,l:0,pf:0,pa:0}]));
  const seen=new Set();
  // Completed box scores are a second verified source for franchise results.
@@ -183,10 +182,9 @@ function rankings(){
  };
  const header=[['#','num'],['Team',''],['Conf.',''],['W–L','num'],['Last 5',''],['Streak','num'],['PF/G','num'],['PA/G','num'],['Margin','num'],['USRS Elo','num'],['Δ Elo','num']];
  const tableHtml='<div class="nba-table-wrap nba-power-table-wrap" role="region" tabindex="0" aria-label="NBA power rankings, horizontally scrollable on smaller screens"><table class="nba-table nba-power-table"><thead><tr>'+header.map(([label,cls])=>'<th scope="col" class="'+cls+'">'+label+'</th>').join('')+'</tr></thead><tbody>'+ordered.map(row).join('')+'</tbody></table></div>';
- const baseline='<details class="nba-power-history"><summary>Compare historical rating baselines</summary><p class="nba-note">Every team began 2026–27 at 1500. The prior-season ratings are historical reference only and never affect earned Elo.</p><div class="nba-table-wrap"><table class="nba-table nba-power-baseline"><thead><tr><th>Team</th><th class="num">2025–26 Final</th><th class="num">2026–27 Opening</th><th class="num">Current Elo</th></tr></thead><tbody>'+ordered.map(t=>'<tr><td>'+team(t)+'</td><td class="num">'+fmt(prior[t],1)+'</td><td class="num">'+fmt(seed[t],1)+'</td><td class="num">'+fmt(rates[t],1)+'</td></tr>').join('')+'</tbody></table></div></details>';
- return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. Ranked by independent Elo, not NBA conference standings.</p>'+
+ return '<div class="eyebrow">USRS · Independent basketball ratings</div><h1>NBA POWER RANKINGS</h1><p class="nba-note">Ratings and team statistics are calculated from completed games in our verified 2026–27 final-score ledger. All 30 teams start each season at 1500 Elo. Ratings update after verified final scores. No previous-season ratings are carried into the new season.</p>'+
  '<div class="nba-power-table-intro"><div><div class="eyebrow">The complete USRS 30</div><h2>Power Table</h2></div><small>PF/G = points scored · PA/G = points allowed · Margin = point differential per game · Δ Elo = movement from opening rating</small></div>'+
- tableHtml+'<p class="nba-power-footnote">Last 5 and streak use completed games only. Early-season averages are sensitive to small samples; figures update with verified finals.</p>'+baseline;
+ tableHtml+'<p class="nba-power-footnote">Last 5 and streak use completed games only. Early-season averages are sensitive to small samples; Elo figures update with verified finals.</p>';
 }
 
 function playoff(){
