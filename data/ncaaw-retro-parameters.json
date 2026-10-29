@@ -12,18 +12,18 @@
   "untouched_holdout_season": "2025-26",
   "parameters": {
     "home_edge": 75,
-    "benchmark_chronological_k": 40,
+    "benchmark_chronological_k": 60,
     "retro_optimizer_gradient_step": 18
   },
   "train": {
     "games": 21623,
-    "brier": 0.18112530467179733,
-    "log_loss": 0.5393247445797467
+    "brier": 0.17966303251269805,
+    "log_loss": 0.5348417576745901
   },
   "holdout": {
     "games": 5565,
-    "brier": 0.17848483986712094,
-    "log_loss": 0.532161153638029
+    "brier": 0.17707469089847785,
+    "log_loss": 0.5273640830093226
   },
   "baseline_holdout": {
     "games": 5565,
@@ -44,35 +44,38 @@
       18,
       24,
       30,
-      40
+      40,
+      50,
+      60,
+      80
     ]
   },
   "top_three_train": [
     {
       "home_edge": 75,
-      "chronological_k": 40,
+      "chronological_k": 60,
       "train": {
         "games": 21623,
-        "brier": 0.18112530467179733,
-        "log_loss": 0.5393247445797467
+        "brier": 0.17966303251269805,
+        "log_loss": 0.5348417576745901
+      }
+    },
+    {
+      "home_edge": 75,
+      "chronological_k": 50,
+      "train": {
+        "games": 21623,
+        "brier": 0.17980116821475,
+        "log_loss": 0.5354293218285842
       }
     },
     {
       "home_edge": 50,
-      "chronological_k": 40,
+      "chronological_k": 60,
       "train": {
         "games": 21623,
-        "brier": 0.18162439846227424,
-        "log_loss": 0.5407588535025714
-      }
-    },
-    {
-      "home_edge": 100,
-      "chronological_k": 40,
-      "train": {
-        "games": 21623,
-        "brier": 0.18238851955281984,
-        "log_loss": 0.5418286760299856
+        "brier": 0.18047696788365516,
+        "log_loss": 0.5365710602456483
       }
     }
   ],
