@@ -32,6 +32,10 @@ def fetch(team):
     try:
      prior=json.loads(target.read_text())
      if len(prior.get('players',[]))>len(players): return ident,'larger-existing-preserved',len(prior['players'])
+     # Preserve unchanged player lists without committing 364 duplicate files
+     # daily. Only actual roster/portrait/jersey changes trigger file writes.
+     if prior.get('players')==players and prior.get('source')==url:
+      return ident,'unchanged',len(players)
     except (OSError,ValueError): pass
    target.write_text(json.dumps(content,ensure_ascii=False,separators=(',',':'))+'\n')
    return ident,'fallback-updated',len(players)
@@ -39,6 +43,6 @@ def fetch(team):
    if attempt: return ident,'error: '+str(e)[:90],0
    time.sleep(1)
 with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex: result=list(ex.map(fetch,teams))
-summary={'attempted_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'teams':len(teams),'official_preserved':sum(r[1]=='official-preserved' for r in result),'fallback_updated':sum(r[1]=='fallback-updated' for r in result),'errors':[{'id':r[0],'message':r[1]} for r in result if r[1].startswith('error')],'no_source':sum(r[1]=='no-source' for r in result)}
+summary={'attempted_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'teams':len(teams),'official_preserved':sum(r[1]=='official-preserved' for r in result),'fallback_updated':sum(r[1]=='fallback-updated' for r in result),'unchanged':sum(r[1]=='unchanged' for r in result),'errors':[{'id':r[0],'message':r[1]} for r in result if r[1].startswith('error')],'no_source':sum(r[1]=='no-source' for r in result)}
 (dest/'refresh-status.json').write_text(json.dumps(summary,indent=2)+'\n')
 print(json.dumps({k:len(v) if k=='errors' else v for k,v in summary.items()}))
