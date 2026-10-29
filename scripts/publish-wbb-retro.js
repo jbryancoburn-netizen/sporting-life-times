@@ -9,7 +9,7 @@ const ledger=load('ncaaw-2026-27-verified-games.json');
 if(registry.season!=='2026-27'||registry.teams.length<355||registry.teams.length>375)throw Error('Women-only roster incomplete');
 const teams=registry.teams;
 const teamMap=new Map(teams.map(t=>[String(t.team_id),t]));
-if(teamMap.size!==teams.length)throw Error('Duplicate women's team IDs');
+if(teamMap.size!==teams.length)throw Error('Duplicate women team IDs');
 const events=[],unique=new Map();
 for(const g of ledger.games||[]){
   const id=String(g.id||''),h=String(g.home_id||''),a=String(g.away_id||''),date=String(g.date||'').slice(0,10);
