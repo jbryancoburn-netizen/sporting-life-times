@@ -36,3 +36,52 @@ body.nba-newspaper[data-pro-league] .pb-editorial-grid .nba-team-grid{grid-templ
 @media(max-width:1100px){body.nba-newspaper[data-pro-league] .pb-editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body.nba-newspaper[data-pro-league] .pb-editorial-grid>.column:last-child{grid-column:1/-1}}
 @media(max-width:720px){body.nba-newspaper[data-pro-league] .pb-shared-hero{grid-template-columns:1fr}body.nba-newspaper[data-pro-league] .pb-editorial-grid{grid-template-columns:1fr}body.nba-newspaper[data-pro-league] .pb-editorial-grid>.column:last-child{grid-column:auto}body.nba-newspaper[data-pro-league] .pb-game-rail{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){body.nba-newspaper[data-pro-league] .pb-game-rail{grid-template-columns:1fr}body.nba-newspaper[data-pro-league] .pb-fixture>div{flex-wrap:wrap}body.nba-newspaper[data-pro-league] .pb-club-profile{align-items:flex-start;flex-direction:column}}
+
+
+/* One universal basketball game center: safe two-ring logos, full-width labels and rich box scores */
+body.nba-newspaper[data-pro-league] .pb-game-rail{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(310px,1fr))!important;gap:15px;align-items:start}
+body.nba-newspaper[data-pro-league] .pb-expanded-game{padding:0!important;min-width:0;overflow:hidden;background:#fffdfa;border:1px solid #c6d0cd;border-top:4px solid #194c58}
+body.nba-newspaper[data-pro-league] .pb-expanded-game.pb-is-live{border-top-color:#c74e2b}
+body.nba-newspaper[data-pro-league] .pb-expanded-game[hidden]{display:none!important}
+body.nba-newspaper[data-pro-league] .pb-club-crest{display:inline-flex;align-items:center;justify-content:center;flex:none;border:3px solid var(--pb-outer,#18495d)!important;box-shadow:inset 0 0 0 2px var(--pb-inner,#bc9039)!important;background:#f7f7f5!important;border-radius:50%!important;padding:5px!important;overflow:hidden;box-sizing:border-box}
+body.nba-newspaper[data-pro-league] .pb-club-crest img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;min-width:0!important;min-height:0!important;object-fit:contain!important;object-position:center!important;position:static!important;transform:none!important;border:0!important;border-radius:0!important;filter:none!important;box-shadow:none!important;padding:0!important;margin:0!important}
+body.nba-newspaper[data-pro-league] .pb-club-crest img[hidden]{display:none!important}
+body.nba-newspaper[data-pro-league] .pb-club-crest em{display:none;font:800 10px Arial,sans-serif;font-style:normal;color:#153a49}
+body.nba-newspaper[data-pro-league] .pb-club-crest.pb-no-logo em{display:block}
+body.nba-newspaper[data-pro-league] .pb-game-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;background:#e8eeea;border-bottom:1px solid #c9d6d1;padding:10px 13px;font:800 10px/1.3 'DM Sans',Arial,sans-serif}
+body.nba-newspaper[data-pro-league] .pb-game-kicker time{margin-left:auto;font-weight:600}
+body.nba-newspaper[data-pro-league] .pb-game-kicker>span{width:100%;color:#a9432b;font-weight:900}
+body.nba-newspaper[data-pro-league] .pb-game-team{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 13px;min-height:68px}
+body.nba-newspaper[data-pro-league] .pb-game-team+.pb-game-team{border-top:1px solid #dfe6e2}
+body.nba-newspaper[data-pro-league] .pb-game-team .pb-club-crest{width:49px!important;height:49px!important;min-width:49px!important}
+body.nba-newspaper[data-pro-league] .pb-game-club{min-width:0}
+body.nba-newspaper[data-pro-league] .pb-game-club a{display:block;font:700 13px/1.25 Georgia,serif;color:#153b4c;text-decoration:none;overflow-wrap:break-word}
+body.nba-newspaper[data-pro-league] .pb-game-club small{display:block;font:600 10px/1.3 'DM Sans',Arial,sans-serif;color:#617379!important;margin-top:4px}
+body.nba-newspaper[data-pro-league] .pb-game-points{font:900 30px/1 'Barlow Condensed',Arial,sans-serif;text-align:right;white-space:nowrap;color:#164b5c;font-variant-numeric:tabular-nums}
+body.nba-newspaper[data-pro-league] .pb-period-line{display:flex;flex-wrap:wrap;gap:6px;padding:8px 13px;border-top:1px solid #dce4df;font:700 10px Arial,sans-serif}
+body.nba-newspaper[data-pro-league] .pb-period-line span{padding:5px 7px;background:#eaf0ea}
+body.nba-newspaper[data-pro-league] .pb-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:11px 13px}
+body.nba-newspaper[data-pro-league] .pb-quick-grid>div{min-width:0;padding:9px;background:#ecf1ec}
+body.nba-newspaper[data-pro-league] .pb-quick-grid small{display:block;color:#566c71!important;font:600 10px/1.3 'DM Sans',Arial,sans-serif;overflow-wrap:break-word}
+body.nba-newspaper[data-pro-league] .pb-quick-grid b{display:block;margin-top:5px;font:800 16px/1.2 'Barlow Condensed',Arial,sans-serif;color:#194354;overflow-wrap:break-word}
+body.nba-newspaper[data-pro-league] .pb-game-detail{border-top:1px solid #bacbc7}
+body.nba-newspaper[data-pro-league] .pb-game-detail summary{padding:12px 13px;color:#0b5d70;font:800 11px/1.4 'DM Sans',Arial,sans-serif;cursor:pointer;list-style:none}
+body.nba-newspaper[data-pro-league] .pb-game-detail summary::-webkit-details-marker{display:none}
+body.nba-newspaper[data-pro-league] .pb-game-detail[open] summary{background:#e9f1ed}
+body.nba-newspaper[data-pro-league] .pb-game-detail-body{padding:10px 13px 16px;min-width:0}
+body.nba-newspaper[data-pro-league] .pb-stat-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.7fr);gap:7px;border-bottom:1px solid #dde6df;padding:7px 2px;font:11px/1.3 'DM Sans',Arial,sans-serif}
+body.nba-newspaper[data-pro-league] .pb-stat-row b{text-align:right;overflow-wrap:break-word;font-variant-numeric:tabular-nums}
+body.nba-newspaper[data-pro-league] .pb-stat-heading{font-weight:900;background:#e8f0e9}
+body.nba-newspaper[data-pro-league] .pb-game-detail-body h4{margin:16px 0 7px;font:900 11px 'DM Sans',Arial,sans-serif;color:#20586b;text-transform:uppercase}
+body.nba-newspaper[data-pro-league] .pb-game-leader{display:flex;gap:9px;justify-content:space-between;padding:9px 0;border-bottom:1px solid #dce5df;font:11px/1.3 'DM Sans',Arial,sans-serif}
+body.nba-newspaper[data-pro-league] .pb-game-leader>b{flex:1}
+body.nba-newspaper[data-pro-league] .pb-game-leader small{max-width:65%;text-align:right;color:#5b7079}
+body.nba-newspaper[data-pro-league] .pb-game-disclosure{font:11px/1.5 'DM Sans',Arial,sans-serif;color:#526e76}
+body.nba-newspaper[data-pro-league] .pb-game-external{display:inline-block;margin:9px 0;font:700 11px 'DM Sans',Arial,sans-serif;color:#087189}
+body.nba-newspaper[data-pro-league] .pb-game-foot{padding:9px 13px;margin:0;background:#f1f5f0;font:10px/1.3 'DM Sans',Arial,sans-serif;color:#60737c}
+body.nba-newspaper[data-pro-league] .pb-game-toolbar{display:flex;flex-wrap:wrap;align-items:end;gap:14px;margin:13px 0}
+body.nba-newspaper[data-pro-league] .pb-game-toolbar label{display:grid;gap:4px;font:700 11px 'DM Sans',Arial,sans-serif}
+body.nba-newspaper[data-pro-league] .pb-game-toolbar input,body.nba-newspaper[data-pro-league] .pb-game-toolbar select{min-width:160px;max-width:100%}
+body.nba-newspaper[data-pro-league] #pb-game-count{padding-bottom:10px;font:700 11px 'DM Sans',Arial,sans-serif;color:#4d6973}
+@media(max-width:740px){body.nba-newspaper[data-pro-league] .pb-game-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:680px){body.nba-newspaper[data-pro-league] .pb-game-rail{grid-template-columns:1fr!important}}
