@@ -7,9 +7,6 @@ on:
       - 'scripts/publish-mbb-retro-primary.js'
       - 'scripts/collect-mbb-retro-finals.py'
       - 'mbb-retro.js'
-  schedule:
-    - cron: '6,26,46 0-7 * 11,12,1,2,3,4'
-    - cron: '16 12 * * *'
 permissions:
   contents: write
 jobs:
