@@ -1,17 +1,13 @@
 /* Sole public 365-team RETRO power ranking: all season openings at 1500. */
 (async()=>{
 'use strict';
+await window.MBBLogos.ready;
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const intl=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});
 const load=async p=>{const url=p+'?edition='+Math.floor(Date.now()/60000);const r=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error(p+' HTTP '+r.status);return r.json();};
 let retro=null,cross=null,filter='',conference='',a='',b='',venue='neutral';
-const ids=()=>new Map((cross?.teams||[]).map(x=>[x.id,String(x.espn_id)]));
-const format=n=>Number.isFinite(Number(n))?Number(n).toFixed(1):'—';
-const logo=(t)=>{
- const id=ids().get(t.team_id),ini=esc(t.team.split(' ').slice(0,2).map(x=>x[0]).join('').toUpperCase());
- return '<span class="cbb-elo-crest" style="--school-color:#176b7d"><i>'+ini+'</i>'+(id?'<img alt="" loading="lazy" decoding="async" src="https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(id)+'.png" onerror="this.remove()">':'')+'</span>';
-};
+const logo=t=>window.MBBLogos.byNCAA(t.team_id,'power',t.team);
 const link=t=>'ncaam-team.html?team='+encodeURIComponent(t.team_id);
 const ranked=()=>retro?.rankings||[];
 const rankTag=t=>retro.games_played?(t.rank?'#'+t.rank:'—'):'T–1';
