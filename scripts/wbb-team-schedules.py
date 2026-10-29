@@ -112,6 +112,47 @@ def main():
         if len(matches)!=len(source_index):
             raise RuntimeError('Official TV evidence no longer matches game ledger: '+str(
                                sorted(set(source_index)-matches)[:12]))
+    # University date/opponent/site audits are narrower than full venue/TV validation.
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    school_file=DATA/'ncaaw-2026-27-official-schedule-verifications.json'
+    school_count=school_entries=0
+    school_issues=[]
+    if school_file.exists():
+        source=json.loads(school_file.read_text())
+        if source.get('season')!='2026-27' or source.get('gender')!='women':
+            raise RuntimeError('Invalid women university schedule evidence')
+        grouped={}
+        for row in source.get('rows',[]):grouped.setdefault(str(row['team_id']),[]).append(row)
+        for tid,checks in grouped.items():
+            team_data=result.get(tid)
+            if not team_data or team_data['game_count']!=len(checks):
+                school_issues.append({'team_id':tid,'reason':'game-count discrepancy'})
+                continue
+            bygame={str(g['id']):g for g in team_data['games']}
+            failed=[]
+            for row in checks:
+                g=bygame.get(str(row['game_id']))
+                if not g:
+                    failed.append(str(row['game_id'])+':not in school schedule')
+                    continue
+                try:
+                    day=datetime.fromisoformat(g['date'].replace('Z','+00:00')).astimezone(ZoneInfo('America/New_York')).strftime('%m-%d')
+                except ValueError:day='invalid'
+                if day!=row['verified_date'] or g.get('opponent')!=row['verified_opponent'] or (
+                        row.get('verified_site') and g['site']!=row['verified_site']):
+                    failed.append(str(row['game_id'])+':date/opponent/site mismatch')
+            if failed:
+                school_issues.append({'team_id':tid,'issues':failed[:12]})
+                continue
+            for row in checks:
+                g=bygame[str(row['game_id'])]
+                g['official_school_schedule_verified_fields']=row['verified_fields']
+                g['official_school_schedule_source_url']=row['source_url']
+            team_data['official_school_schedule_checked']=True
+            team_data['official_school_schedule_source_url']=checks[0]['source_url']
+            school_count+=1
+            school_entries+=len(checks)
     counts=[r['game_count'] for r in result.values()]
     audit={'season':'2026-27','programs':len(result),
       'teams_with_20plus_games':sum(n>=20 for n in counts),
@@ -126,6 +167,10 @@ def main():
       'official_venue_verified_game_entries':sum(g.get('venue_verified') is True for r in result.values() for g in r['games']),
       'venue_note':'Venue values come from ESPN. Non-null does NOT establish official school verification.',
       'broadcast_evidence_file':'data/ncaaw-2026-27-official-broadcast-overrides.json',
+      'official_school_schedules_verified_date_opponent':school_count,
+      'official_school_schedule_entries_verified_date_opponent':school_entries,
+      'official_school_schedule_checks_pending':school_issues,
+      'official_school_schedule_evidence_file':'data/ncaaw-2026-27-official-schedule-verifications.json',
       'under_20_games':[{'team_id':i,'team':r['team'],'games':r['game_count'],
           'status':r['status'],'error':r.get('error')} for i,r in result.items() if r['game_count']<20],
       'policy':'School-specific women ESPN calendars are NOT yet university-verified. Missing fields never fabricated.'}
