@@ -8,7 +8,7 @@ root=pathlib.Path(__file__).resolve().parents[1]
 data=root/"data"
 cross=json.loads((data/"ncaam-2026-27-espn-team-crosswalk.json").read_text())["teams"]
 registry=json.loads((data/"mbb-arena-registry.json").read_text())["teams"]
-columns=["school","school_id","ncaa_id","date","opponent","opponent_id","home_away_neutral","site_verified","site_review_status","arena","location","registered_home_arena","official_tipoff","broadcast","official_school_source","official_game_id"]
+columns=["school","school_id","ncaa_id","date","opponent","opponent_id","home_away_neutral","site_verified","site_review_status","arena","location","registered_home_arena","official_tipoff","broadcast","official_watch_url","official_school_source","official_game_id"]
 results=[];schools=[];summary=collections.Counter()
 for team in cross:
  sid=str(team.get("espn_id") or "")
@@ -53,11 +53,14 @@ for team in cross:
    "registered_home_arena":home_arena,
    "official_tipoff":event.get("official_school_time") or "",
    "broadcast":"; ".join(str(x) for x in networks),
+   "official_watch_url":event.get("official_watch_url") or "",
    "official_school_source":event.get("site_source_url") or event.get("school_source_url") or source,
    "official_game_id":event.get("source_game_id") or ""}
   results.append(row);summary["games"]+=1
   if not row["arena"]:summary["missing_specific_arenas"]+=1
   if not row["broadcast"]:summary["missing_broadcasts"]+=1
+  if row["official_watch_url"]:summary["official_watch_links"]+=1
+  if row["official_tipoff"]:summary["school_confirmed_tipoffs"]+=1
 assert summary["schools"]==365, f"Expected 365 team files, found {summary['schools']}"
 assert summary["games"]==summary["site_verified"]+summary["site_unverified"]
 with (data/"mbb-university-master-2026-27.csv").open("w",newline="",encoding="utf-8") as fp:
