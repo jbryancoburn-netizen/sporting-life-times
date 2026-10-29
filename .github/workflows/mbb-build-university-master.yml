@@ -35,10 +35,9 @@ jobs:
           PY
       - name: Audit current school schedule records
         run: python scripts/mbb_live_quality_audit.py
-      - name: Install open-source parsers
-        run: pip install requests beautifulsoup4
-      - name: Recover official 2026-27 broadcast announcements from universities
-        run: python scripts/mbb_official_news_broadcast_recovery.py
+      - name: Validate completed Alabama and UCLA university schedules
+        run: |
+          python -c "import json; from pathlib import Path; d=Path('data/mbb-schedules-2026-27'); u=json.loads((d/'26.json').read_text()); a=json.loads((d/'333.json').read_text()); assert len(u['events'])==34; assert len(a['events'])==35; assert sum(bool(x.get('site_verified')) for x in a['events'])==35; print('UCLA:',len(u['events']),'Alabama:',len(a['events']))"
       - name: Recount all published basketball schedules
         run: python scripts/mbb_live_quality_audit.py
       - name: Build CSV and JSON manifest from source-verified university schedules
@@ -52,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/mbb-schedules-2026-27/ data/mbb-official-news-broadcast-recovery.json data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json data/mbb-live-quality-audit-2026-27.json
+          git add data/mbb-live-quality-audit-2026-27.json data/mbb-university-master-2026-27.csv data/mbb-university-master-2026-27.json data/mbb-live-quality-audit-2026-27.json
           git commit -m "Publish 365-school master schedule CSV and JSON manifest" || exit 0
           git pull --rebase origin main
           git push
