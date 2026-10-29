@@ -177,28 +177,31 @@
     if(teamGames&&selectedId){
       if(!calendarsLoaded){
         calendarsLoaded=true;
-        const [schedules,evidence]=await Promise.all([
+        const [schedules,evidence,scoreboardTV]=await Promise.all([
           get('data/ncaaw-schedules-2026-27.json'),
-          get('data/ncaaw-2026-27-official-broadcast-overrides.json')
+          get('data/ncaaw-2026-27-official-broadcast-overrides.json'),
+          get('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json')
         ]);
         fullCalendars=schedules;
-        if(evidence?.season==='2026-27'&&evidence?.gender==='women'&&Array.isArray(evidence.rows)){
-          officialBroadcasts=new Map(evidence.rows.filter(x=>x.game_id&&x.broadcast&&x.source_url).map(x=>[String(x.game_id),x]));
-        }
+        const broadcastRows=[
+          ...(scoreboardTV?.season==='2026-27'&&scoreboardTV?.gender==='women'&&Array.isArray(scoreboardTV.rows)?scoreboardTV.rows:[]),
+          ...(evidence?.season==='2026-27'&&evidence?.gender==='women'&&Array.isArray(evidence.rows)?evidence.rows:[])
+        ];
+        officialBroadcasts=new Map(broadcastRows.filter(x=>x.game_id&&x.broadcast&&x.source_url).map(x=>[String(x.game_id),x]));
       }
       const calendar=fullCalendars?.season==='2026-27'&&fullCalendars?.gender==='women'?
         fullCalendars.teams?.[selectedId]:null;
       const entries=calendar?.games||[];
       if(entries.length){
         teamGames.innerHTML='<h3>2026–27 Women’s Team Schedule · '+entries.length+' listed games</h3>'+
-          '<p class="note wbb-calendar-disclosure">Source: women-specific team schedules. Broadcasts linked to official school or conference announcements are verified; unlisted networks remain TBA. Full university schedule verification is ongoing.</p>'+
+          '<p class="note wbb-calendar-disclosure">Source: women-specific team schedules. Official university/conference broadcasts are separately cited; other TV listings come from exact-matched ESPN women’s game feeds. Unlisted networks remain TBA. Full university schedule verification is ongoing.</p>'+
           '<div class="wbb-full-schedule"><table><thead><tr><th>Tipoff (ET)</th><th>Location</th><th>Opponent</th><th>Arena</th><th>Network</th><th>Result</th></tr></thead><tbody>'+
           entries.map(g=>{
             const t=wbbLookup.get(String(g.opponent_id));
             const official=officialBroadcasts.get(String(g.id));
             const tv=official?.broadcast||g.broadcast;
             const tvSource=official?.source_url||g.broadcast_source_url;
-            const television=tv?(tvSource?'<a href="'+safeURL(tvSource)+'" target="_blank" rel="noopener noreferrer" title="Official broadcast source">'+esc(tv)+' ↗</a>':esc(tv)):'TBA';
+            const television=tv?(tvSource?'<a href="'+safeURL(tvSource)+'" target="_blank" rel="noopener noreferrer" title="Attributed TV schedule source">'+esc(tv)+' ↗</a>':esc(tv)):'TBA';
             const opponent=t?team({name:t.team,logo:t.logo,color:t.color}):esc(g.opponent||'Opponent TBA');
             const score=g.completed&&g.home_score!=null&&g.away_score!=null?
               esc(g.site==='away'?g.away_score+'–'+g.home_score:g.home_score+'–'+g.away_score):'—';
