@@ -85,3 +85,51 @@ body.nba-newspaper[data-pro-league] .pb-game-toolbar input,body.nba-newspaper[da
 body.nba-newspaper[data-pro-league] #pb-game-count{padding-bottom:10px;font:700 11px 'DM Sans',Arial,sans-serif;color:#4d6973}
 @media(max-width:740px){body.nba-newspaper[data-pro-league] .pb-game-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:680px){body.nba-newspaper[data-pro-league] .pb-game-rail{grid-template-columns:1fr!important}}
+
+
+/* 2026-10-29: one badge owns BOTH club-color rings; no other image decorations. */
+body.nba-newspaper[data-pro-league] .pb-club-crest{
+  border:2px solid var(--pb-outer,#174c60)!important;
+  box-shadow:none!important;
+  isolation:isolate;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  padding:0!important;
+  aspect-ratio:1/1;
+  background:#f6f7f4!important;
+}
+body.nba-newspaper[data-pro-league] .pb-club-crest::before{
+  content:'';position:absolute;inset:1px;
+  display:block;
+  border:2px solid var(--pb-inner,#b88e3a);
+  border-radius:50%;
+  background:transparent;
+  box-shadow:none;
+  pointer-events:none;
+  z-index:3;
+}
+body.nba-newspaper[data-pro-league] .pb-club-crest>img{
+  position:absolute!important;top:50%!important;left:50%!important;
+  width:79%!important;height:79%!important;
+  max-width:79%!important;max-height:79%!important;
+  min-width:0!important;min-height:0!important;
+  object-fit:contain!important;object-position:center!important;
+  transform:translate(-50%,-50%)!important;
+  z-index:2!important;
+  clip-path:none!important;
+  background:transparent!important;
+  border:0!important;border-radius:0!important;
+  box-shadow:none!important;outline:0!important;
+  margin:0!important;padding:0!important;
+}
+body.nba-newspaper[data-pro-league] .pb-club-crest>img[hidden]{display:none!important}
+body.nba-newspaper[data-pro-league] .pb-club-crest>em{
+  position:relative;z-index:2;letter-spacing:0;
+}
+body.nba-newspaper[data-pro-league="euroleague"] #app .pb-shared-hero .hero-art::before{
+  content:'EUROLEAGUE USRS · THE POWER FOUR';
+}
+body.nba-newspaper[data-pro-league="nbl"] #app .pb-shared-hero .hero-art::before{
+  content:'NBL USRS · THE POWER FOUR';
+}

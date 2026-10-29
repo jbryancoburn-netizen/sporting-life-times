@@ -57,6 +57,9 @@ function paint(el,entry){
 const hostSelector='.mbb-mark,.slt-mark,.cs-mark,.cs-showcase-logo,.soccer-crest,.soccer-monogram,.team-monogram,.team-logo-shell';
 function apply(img){
  if(!img.isConnected||!img.getAttribute('src'))return;
+ // The unified NBA/EuroLeague/NBL paper owns its crest badge.
+ // Applying this site's generic two-ring treatment here caused FOUR overlapping rings.
+ if(img.closest('.pb-club-crest'))return;
  if(img.closest('.team-hero-logo-bg,.story-img,.news-photo,.hero-watermark,.player-photo,.player-portrait,.player-headshot'))return;
  const entry=identity(img);if(!entry)return;
  const host=img.closest(hostSelector);
