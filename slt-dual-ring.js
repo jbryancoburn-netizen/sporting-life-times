@@ -3,6 +3,8 @@
 'use strict';
 const league=document.currentScript?.dataset?.sltLeague;
 if(!['nba','euroleague','mbb','soccer'].includes(league))return;
+// Men's D-I basketball has its own roundel-aware renderer. Never decorate it twice.
+if(league==='mbb')return;
 let colors={};let socByESPN=new Map(),socByURL=new Map(),eurByURL=new Map(),nbaByID=new Map();
 const hex=v=>/^#[a-f0-9]{6}$/i.test(v||'');
 const pathname=v=>{try{return new URL(v,location.href).pathname.toLowerCase()}catch{return ''}};
