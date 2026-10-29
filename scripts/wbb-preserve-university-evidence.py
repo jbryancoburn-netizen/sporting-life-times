@@ -30,8 +30,8 @@ def load(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 def identity_text(v):
-    s = re.sub(r"^\\s*(?:No\\.\\s*)?#?\\d{1,2}\\s+", "", str(v or ""), flags=re.I)
-    s = re.sub(r"\\b(the|university|college|women's|womens)\\b", "", s, flags=re.I)
+    s = re.sub(r"^\s*(?:No\.\s*)?#?\d{1,2}\s+", "", str(v or ""), flags=re.I)
+    s = re.sub(r"\b(the|university|college|women's|womens)\b", "", s, flags=re.I)
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 def opponent_matches(a, b):
@@ -121,7 +121,7 @@ def run():
         "removed_old_site_verification_on_recovered_rows":True
     }
     for p, payload in ((EVIDENCE,fresh),(SCHEDULE,calendar),(AUDIT,meta),(REVIEW,review)):
-        content=json.dumps(payload,indent=2,ensure_ascii=False)+"\\n"
+        content=json.dumps(payload,indent=2,ensure_ascii=False)+"\n"
         if not p.exists() or p.read_text(encoding="utf-8") != content:
             p.write_text(content,encoding="utf-8")
     print("WBB UNIVERSITY HISTORICAL SOURCE RETENTION:",json.dumps(review))
