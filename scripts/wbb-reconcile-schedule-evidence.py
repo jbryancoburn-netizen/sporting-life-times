@@ -156,7 +156,89 @@ def main():
     total=sum(len(r.get("games",[])) for r in cal["teams"].values())
     broadcast_total=sum(bool(g.get("broadcast")) for t in cal["teams"].values() for g in t.get("games",[]))
     missing=total-broadcast_total
+    # Integrate university calendars only after exact date, opponent ID and
+    # home/away/site confirmation; this is distinct from ESPN self-consistency.
+    import datetime
+    from zoneinfo import ZoneInfo
+    university_index={}
+    quarantine=[]
+    for suffix in ("01","02","03"):
+        p=ROOT/("ncaaw-official-school-verification-batch-"+suffix+".json")
+        if not p.exists():
+            continue
+        blob=load(p)
+        if blob.get("season")!="2026-27" or blob.get("gender")!="women":
+            raise RuntimeError("Wrong women university official verification batch: "+suffix)
+        for row in blob.get("rows",[]):
+            ident=(text(row.get("team_id")),text(row.get("game_id")))
+            match=next((g for tid,g in by_game.get(ident[1],[]) if tid==ident[0]),None)
+            if not match:
+                quarantine.append({"game_id":ident[1],"team_id":ident[0],"reason":"no_game_id_match"})
+                continue
+            local=datetime.datetime.fromisoformat(match["date"].replace("Z","+00:00")).astimezone(
+                ZoneInfo("America/New_York")).date().isoformat()
+            if (text(row.get("date"))!=local
+                or text(row.get("opponent_id"))!=text(match.get("opponent_id"))
+                or text(row.get("site"))!=text(match.get("site"))):
+                quarantine.append({"game_id":ident[1],"team_id":ident[0],"reason":"official_identity_date_site_conflict"})
+                continue
+            if not text(row.get("source_url")).startswith("https://"):
+                quarantine.append({"game_id":ident[1],"team_id":ident[0],"reason":"missing_provenance"})
+                continue
+            previous=university_index.get(ident)
+            if previous and previous["source_url"]!=row["source_url"]:
+                quarantine.append({"game_id":ident[1],"team_id":ident[0],"reason":"duplicate_official_source"})
+                continue
+            university_index[ident]=row
+    if quarantine:
+        raise RuntimeError("Official university source records require review: "+str(quarantine[:5]))
+    for (tid,gid),row in university_index.items():
+        g=next(g for school,g in by_game[gid] if school==tid)
+        g["official_schedule_verified_fields"]=["local_game_date","opponent_id","home_away_or_neutral"]
+        g["official_schedule_source_url"]=row["source_url"]
+        g["official_schedule_source_type"]=row.get("source_type","official_university_2026_27_womens_schedule")
+        if row.get("source_time_as_printed"):
+            g["official_time_as_printed"]=row["source_time_as_printed"]
+            g["official_time_source_url"]=row["source_url"]
+        if row.get("source_location_as_printed"):
+            g["official_location_as_printed"]=row["source_location_as_printed"]
+            g["official_location_source_url"]=row["source_url"]
+    legacy_source=ROOT/"ncaaw-2026-27-official-schedule-verifications.json"
+    legacy_count=0
+    if legacy_source.exists():
+        legacy=load(legacy_source)
+        for row in legacy.get("rows",[]):
+            ident=(text(row.get("team_id")),text(row.get("game_id")))
+            if ident in university_index:
+                continue
+            match=next((g for tid,g in by_game.get(ident[1],[]) if tid==ident[0]),None)
+            if not match or not text(row.get("source_url")).startswith("https://"):
+                continue
+            match["official_schedule_verified_fields"]=row.get("verified_fields",["scheduled_date","opponent"])
+            match["official_schedule_source_url"]=row["source_url"]
+            match["official_schedule_source_type"]=row.get("source_type","official_school_schedule")
+            legacy_count+=1
+    official_school_ids={
+        tid for tid,t in cal["teams"].items()
+        if any(g.get("official_schedule_source_url") for g in t.get("games",[]))
+    }
+    university_time_count=sum(bool(r.get("source_time_as_printed")) for r in university_index.values())
+    university_location_count=sum(bool(r.get("source_location_as_printed")) for r in university_index.values())
     audit=load(AUDIT)
+    audit.update({
+        "official_school_calendar_verified":len(official_school_ids),
+        "official_school_schedules_date_and_opponent_checked":len(official_school_ids),
+        "official_school_schedule_entries_date_and_opponent_checked":len(university_index)+legacy_count,
+        "official_school_calendar_entries_3_fields_verified":len(university_index),
+        "official_school_verified_printed_time_fields":university_time_count,
+        "official_school_verified_printed_location_fields":university_location_count,
+        "official_school_venue_verified":0,
+        "official_university_schedule_batch_files":[
+            "data/ncaaw-official-school-verification-batch-"+x+".json"
+            for x in ("01","02","03") if (ROOT/("ncaaw-official-school-verification-batch-"+x+".json")).exists()
+        ],
+        "university_source_policy":"Exact official school dates, opponent IDs and site matched to game IDs. Printed time/location are source-labeled; not automatic arena, timezone or network verification."
+    })
     audit.update({
         "unique_games":len(by_game),
         "cross_school_matched_game_ids":sum(len(rows)==2 for rows in by_game.values()),
