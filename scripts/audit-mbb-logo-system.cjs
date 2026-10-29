@@ -46,8 +46,9 @@ async function run(){
  assert(kinds.embedded_roundel+kinds.flat+kinds.unverified===365);
  const css=read('mbb-logo-system.css');
  for(const must of ['.mbb-mark--art-embedded_roundel','.mbb-mark--art-unverified','.mbb-mark--art-flat','object-fit:contain!important','transform:translate(-50%,-50%)!important'])assert(css.includes(must),'Missing MBB artwork CSS: '+must);
- assert(css.includes('.mbb-mark--art-embedded_roundel::before,.mbb-mark--art-unverified::before{content:none!important}'),'Embedded/unverified roundels must not gain extra inner rings');
- assert(css.includes('.mbb-mark--art-flat::before'),'Flat artwork has no distinct second ring');
+ assert(css.includes('.mbb-mark--art-embedded_roundel::before{content:none!important}'),'Embedded roundels must not gain a second site ring');
+ assert(css.includes('.mbb-mark--art-embedded_roundel{'),'Embedded roundels must retain a visible primary-color circle');
+ assert(css.includes('.mbb-mark--art-flat::before,.mbb-mark--art-unverified::before'),'Other school marks must have two distinct thin team-color circles');
  const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(/^(ncaam(?:[-.]|$))/.test(p)||p==='college-basketball.html'));
  assert.equal(pages.length,11,'Expected every MBB page type');
  for(const page of pages){
