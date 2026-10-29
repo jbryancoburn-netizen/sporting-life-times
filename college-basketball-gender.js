@@ -52,12 +52,14 @@
     '<div id="wbb-stories">'+blank('Reading the women’s news desk…')+'</div></section>'+
     '<section class="panel orange" id="wbb-finals">'+head('The game book','Recent Finals')+'<div id="wbb-recent">'+blank('Checking results…')+'</div></section></div>'+
     '<div class="column"><section class="panel teal" id="wbb-rankings">'+head('Independent strength ratings','USRS Women’s Power Board')+
-    '<p class="note">A verified women’s RETRO Elo publication has not been connected yet. We will not substitute the men’s ratings or publish untested projections.</p></section>'+
+    '<div id="wbb-powerboard" class="wbb-board"><p class="note">Checking the independent women’s RETRO publication…</p></div></section>'+
     '<section class="panel" id="wbb-standings">'+head('The conference races','Women’s Standings')+
-    '<p class="note">A verified, complete Division I women’s conference-standings feed has not yet been connected. No estimated table is shown.</p></section>'+
+    '<div id="wbb-conferences"><p class="note">Checking women’s conference records…</p></div></section>'+
     '<section class="panel">'+head('The next games','Upcoming Women’s Matchups')+
     '<div id="wbb-upcoming">'+blank('Checking fixtures…')+'</div></section></div></div>'+
-    '<p class="note wbb-feed-disclosure">The schedule panels display the verified games currently in the published source window, not a complete 2026–27 schedule. Missing games are not treated as cancellations.</p>';
+    '<section class="panel" id="wbb-teams">'+head('All Division I programs','Find Your Women’s Team')+'<div id="wbb-team-directory">Loading the verified team registry…</div></section>'+
+    '<section class="panel" id="wbb-team-detail" hidden></section>'+
+    '<p class="note wbb-feed-disclosure">The game panels show only the current verified source window, not complete school-by-school schedules. Missing games are not cancellations; full team calendars require a separate official-school audit.</p>';
   const stamp=document.getElementById('data-stamp');
   const access=document.getElementById('access-stamp');
   if(access)access.textContent='Viewed '+time(new Date().toISOString());
@@ -79,20 +81,103 @@
       (g.broadcast?'<div class="wbb-game-detail">'+esc(g.broadcast)+'</div>':'')+
       (link?'<a class="wbb-game-source" href="'+link+'" target="_blank" rel="noopener noreferrer">Game details ↗</a>':'')+'</div>';
   }
-  let published=[];
+  let published=[],wbbLookup=new Map();
+  const teamLink=t=>'ncaam.html?gender=women&team='+encodeURIComponent(t.team_id);
+  const record=t=>(t.wins||0)+'–'+(t.losses||0);
+  const boardRow=(t,ranked)=>'<div class="rank-row">'+(ranked?'<span class="rank">'+esc(t.rank??'—')+'</span>':'')+
+    '<a class="wbb-team-link" href="'+teamLink(t)+'">'+team({name:t.team,logo:t.logo,color:t.color})+'</a>'+
+    '<span class="rank-score">'+Number(t.elo).toFixed(1)+'<small>'+record(t)+'</small></span></div>';
+  function renderRatings(data){
+    const board=document.getElementById('wbb-powerboard');
+    const conf=document.getElementById('wbb-conferences');
+    const directory=document.getElementById('wbb-team-directory');
+    const details=document.getElementById('wbb-team-detail');
+    const rows=data?.rankings;
+    const valid=data?.season==='2026-27'&&data?.gender==='women'&&data?.model==='retro-clean-slate'&&data?.starting_elo===1500&&
+      Array.isArray(rows)&&rows.length>=355&&rows.length<=375&&new Set(rows.map(t=>String(t.team_id))).size===rows.length&&
+      rows.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
+    if(!valid){
+      board.innerHTML=blank('Independent women’s ratings have not passed the publication checks yet.');
+      conf.innerHTML=blank('Women’s conference records are awaiting a verified team registry and game ledger.');
+      directory.innerHTML=blank('The verified women’s Division I directory is not available yet.');
+      details.hidden=true;
+      return;
+    }
+    wbbLookup=new Map(rows.map(t=>[String(t.team_id),t]));
+    const played=Number(data.games_played)||0;
+    board.innerHTML='<p class="note">'+(played?'RETRO ratings through '+esc(data.as_of)+' · '+played+' Division I finals':
+      'Preseason: every women’s Division I program is tied at 1500. No artificial power ranking.')+
+      ' · No men’s ratings or previous-season carryover.</p>'+(played?rows.slice(0,25).map(t=>boardRow(t,true)).join(''):
+      '<div class="wbb-preseason">ALL '+rows.length+' TEAMS · ELO 1500 · NO RANKING UNTIL THE GAMES BEGIN</div>');
+    directory.innerHTML='<label class="wbb-team-search">Search '+rows.length+' women’s teams <input id="wbb-team-search" type="search" placeholder="School or conference" autocomplete="off"></label>'+
+      '<div id="wbb-directory-list">'+rows.map(t=>boardRow(t,played>0)).join('')+'</div>';
+    const search=document.getElementById('wbb-team-search');
+    search.addEventListener('input',()=>{
+      const q=search.value.trim().toLowerCase();
+      document.getElementById('wbb-directory-list').innerHTML=rows.filter(t=>(t.team+' '+(t.conference||'')).toLowerCase().includes(q)).map(t=>boardRow(t,played>0)).join('')||blank('No matching school.');
+    });
+    const confNames=[...new Set(rows.map(t=>t.conference).filter(Boolean))].sort();
+    if(confNames.length<20){conf.innerHTML=blank('Conference affiliations are still being verified; a provisional table would mislead readers.');}
+    else{
+      const selected=new URLSearchParams(location.search).get('conference')||confNames[0];
+      conf.innerHTML='<p class="note">Provisional conference records from verified Division I vs Division I games. Official tiebreakers and non-D-I games are not included.</p>'+
+        '<label class="wbb-team-search">Conference <select id="wbb-conference-select">'+confNames.map(c=>'<option value="'+esc(c)+'" '+(c===selected?'selected':'')+'>'+esc(c)+'</option>').join('')+'</select></label>'+
+        '<div id="wbb-conference-list"></div>';
+      const select=document.getElementById('wbb-conference-select');
+      function showConf(){
+        const list=rows.filter(t=>t.conference===select.value).sort((a,b)=>{
+          const pct=t=>(t.conference_wins||0)/Math.max(1,(t.conference_wins||0)+(t.conference_losses||0));
+          return pct(b)-pct(a)||b.conference_wins-a.conference_wins||a.team.localeCompare(b.team);
+        });
+        document.getElementById('wbb-conference-list').innerHTML='<div class="wbb-conference-table"><div class="wbb-conference-heading">TEAM <span>CONFERENCE · OVERALL · ELO</span></div>'+
+          list.map(t=>'<div class="wbb-conf-row"><a href="'+teamLink(t)+'">'+team({name:t.team,logo:t.logo,color:t.color})+'</a><span>'+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' · '+record(t)+' · '+t.elo.toFixed(0)+'</span></div>').join('')+'</div>';
+      }
+      select.addEventListener('change',showConf);showConf();
+    }
+    const selectedId=new URLSearchParams(location.search).get('team');
+    const selectedTeam=wbbLookup.get(selectedId);
+    details.hidden=!selectedTeam;
+    if(selectedTeam){
+      const t=selectedTeam;
+      details.innerHTML=head('Women’s team desk','<span>'+esc(t.team)+'</span>')+
+        '<div class="wbb-team-summary">'+team({name:t.team,logo:t.logo,color:t.color})+
+        '<strong>'+Number(t.elo).toFixed(1)+' ELO</strong><span>'+record(t)+' overall</span><span>'+esc(t.conference||'Conference pending verification')+'</span></div>'+
+        '<p class="note">Teams start the 2026–27 season at 1500. This page currently covers the verified rolling scoreboard window, not the full university schedule.</p>'+
+        '<div id="wbb-team-games"></div><a href="ncaam.html?gender=women#'+'wbb-teams'+'">← All Women’s Teams</a>';
+    }
+  }
+  function fromVerified(g){
+    const away=wbbLookup.get(String(g.away_id)),home=wbbLookup.get(String(g.home_id));
+    if(!away||!home)return null;
+    return {id:g.id,date:g.date,state:g.status==='final'?'post':'pre',status:g.status==='final'?'Final':'Scheduled',
+      venue:g.venue,broadcast:g.broadcast,
+      teams:[{...away,name:away.team,home_away:'away',score:g.away_score},{...home,name:home.team,home_away:'home',score:g.home_score}]};
+  }
   async function refresh(){
-    const [scores,news]=await Promise.all([get('multi_scoreboards.json'),get('articles.json')]);
+    const [scores,news,verified,ratings]=await Promise.all([get('multi_scoreboards.json'),get('articles.json'),
+      get('data/ncaaw-2026-27-games.json'),get('data/ncaaw-2026-27-retro-primary.json')]);
+    renderRatings(ratings);
     const entry=scores?.leagues?.find(x=>x.league==="Women's College Basketball");
-    published=Array.isArray(entry?.games)?entry.games:[];
-    const updated=scores?.updated_at;
-    if(stamp)stamp.innerHTML='<span class="pulse"></span>Women’s game feed: '+esc(updated?time(updated):'date unavailable')+' · Verified-source edition';
-    document.getElementById('wbb-score-stamp').textContent=updated?'Published game-feed snapshot: '+time(updated):'Published game-feed timestamp unavailable';
+    published=verified?.season==='2026-27'&&ratings?.gender==='women'&&wbbLookup.size?
+      [...(verified.finals||[]),...(verified.upcoming||[])].map(fromVerified).filter(Boolean):
+      Array.isArray(entry?.games)?entry.games:[];
+    const updated=verified?.season==='2026-27'?'2026-27 women-only source feed':scores?.updated_at;
+    if(stamp)stamp.innerHTML='<span class="pulse"></span>Women’s game feed: '+esc(verified?.season==='2026-27'?'women-only verified ledger':updated?time(updated):'date unavailable')+' · Verified-source edition';
+    document.getElementById('wbb-score-stamp').textContent=verified?.season==='2026-27'?
+      'Verified women’s Division I scoreboard · current rolling window (not all school schedules)':
+      updated?'Published game-feed snapshot: '+time(updated):'Published game-feed timestamp unavailable';
     const current=published.filter(g=>{const today=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});return String(g.date||'').slice(0,10)===today;});
     const future=published.filter(g=>g.state!=='post'&&!/final/i.test(g.status||'')).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
     const finals=published.filter(g=>g.state==='post'||/final/i.test(g.status||'')).sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
     document.getElementById('wbb-score-rail').innerHTML=(current.length?current:future.slice(0,6)).map(card).join('')||blank(entry?'No upcoming games in the current published window.':'A verified women’s game feed is not available.');
     document.getElementById('wbb-upcoming').innerHTML=future.slice(0,8).map(card).join('')||blank('No upcoming fixtures in the published window.');
     document.getElementById('wbb-recent').innerHTML=finals.slice(0,6).map(card).join('')||blank('No verified women’s finals in the current feed window.');
+    const selectedId=new URLSearchParams(location.search).get('team');
+    const teamGames=document.getElementById('wbb-team-games');
+    if(teamGames&&selectedId){
+      const all=published.filter(g=>(g.teams||[]).some(t=>String(t.team_id||t.id)===selectedId));
+      teamGames.innerHTML='<h3>Recent and upcoming game window</h3>'+all.sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).map(card).join('')||blank('No games for this team in the current source window.');
+    }
     const stories=(news?.articles||[]).filter(a=>/women.s (college |ncaa |division i )?basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category].join(' ')))
       .filter(a=>a.title&&safeURL(a.url)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0));
     const seen=new Set();
