@@ -44,7 +44,7 @@ def verify_team(team):
  item={'team':team['name'],'id':tid,'status':'unavailable','matched':0,'site_corrected':0,'location_corrected':0,'school_rows':0}
  if not path.exists():item['status']='missing_file';return item
  d=json.loads(path.read_text());original=json.loads(json.dumps(d));url=d.get('source_url','')
- if not url or not url.startswith('https://'):item['status']='no_official_source';results.append(item);continue
+ if not url or not url.startswith('https://'):item['status']='no_official_source';return item
  try:
   candidates=[url]
   if '/schedule/text/' in url:
@@ -63,9 +63,9 @@ def verify_team(team):
    except requests.RequestException:continue
   if not school:raise ValueError('No readable official schedule table at available source URLs')
  except Exception as exc:
-  item['status']='source_fetch_failed';item['detail']=str(exc)[:120];results.append(item);continue
+  item['status']='source_fetch_failed';item['detail']=str(exc)[:120];return item
  item['school_rows']=len(school)
- if not school:item['status']='source_table_unreadable';results.append(item);continue
+ if not school:item['status']='source_table_unreadable';return item
  lookup=collections.defaultdict(list)
  for row in school:
   lookup[row['date']].append(row)
@@ -96,11 +96,13 @@ def verify_team(team):
     venue['arenaName']=paren.group(1).strip()
   # Add TV only when an official table explicitly names a channel; never infer from league packages.
   broadcast=row.get('broadcast','').strip()
-  if broadcast and not re.search(r'^(?:tba|tbd|--|—|none|watch|live stats)
+  if broadcast and broadcast.lower() not in ('tba','tbd','none','watch','live stats','--') and not (comp.get('broadcasts') or event.get('broadcasts')):
+   comp['broadcasts']=[{'names':[broadcast],'source_url':url}]
+   item['broadcast_added']=item.get('broadcast_added',0)+1
   if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
    event['official_school_time']=row['time'];event['official_school_time_source']=url
  if item['matched'] and d != original:
-  path.write(json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n')
+  path.write_text(json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n')
   item['status']='verified_changes'
  elif item['matched']:item['status']='already_matched'
  else:item['status']='no_safe_matches'
@@ -112,21 +114,6 @@ with ThreadPoolExecutor(max_workers=12) as pool:
   results.append(item)
   totals.update({k:item.get(k,0) for k in ('matched','site_corrected','location_corrected','broadcast_added')})
 results.sort(key=lambda x:x['team'])
-report={'schools_targeted':365,'schools_checked':len(results),'totals':dict(totals),'status_counts':dict(collections.Counter(x['status'] for x in results)),'method':'Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone','schools':results}
-(root/'data/mbb-official-recheck-365-verification.json').write_text(json.dumps(report,indent=2)+'\n')
-print(json.dumps({k:v for k,v in report.items() if k!='schools'},indent=2))
-,broadcast,re.I) and not (comp.get('broadcasts') or event.get('broadcasts')):
-   comp['broadcasts']=[{'names':[broadcast],'source_url':url}]
-   item['broadcast_added']=item.get('broadcast_added',0)+1
-  # School local tipoff stored separately; do not mislabel CT as ET.
-  if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
-   event['official_school_time']=row['time'];event['official_school_time_source']=url
- if item['matched']:
-  path.write_text(json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n')
-  item['status']='verified_matches'
- else:item['status']='no_safe_matches'
- totals.update({k:item[k] for k in ('matched','site_corrected','location_corrected')})
- results.append(item)
-report={'schools_targeted':365,'schools_checked':len(results),'totals':dict(totals),'status_counts':dict(collections.Counter(x['status'] for x in results)),'method':'Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone','schools':results}
+report={'schools_targeted':365,'schools_checked':len(results),'totals':dict(totals),'status_counts':dict(collections.Counter(x['status'] for x in results)),'schools':results}
 (root/'data/mbb-official-recheck-365-verification.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='schools'},indent=2))
