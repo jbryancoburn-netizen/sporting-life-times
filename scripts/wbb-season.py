@@ -61,6 +61,16 @@ def team_registry():
                     t["conference_source"]="ESPN women's group or official school evidence"
         except (ValueError,KeyError,TypeError) as err:
             print("Conference proxy unavailable; leaving unknown affiliations:",err)
+    # Prefer women's sport-specific conference memberships over provisional
+    # institutional proxy data, but only after the registry passes coverage checks.
+    official=ROOT/"ncaaw-2026-27-conferences.json"
+    if official.exists():
+        evidence=json.loads(official.read_text(encoding="utf-8"))
+        if evidence.get("season")=="2026-27" and evidence.get("gender")=="women" and evidence.get("verified_team_count",0)>=350:
+            for tid,info in evidence.get("teams",{}).items():
+                if tid in teams and info.get("conference"):
+                    teams[tid]["conference"]=info["conference"]
+                    teams[tid]["conference_source"]=info.get("source","ESPN women-specific 2026-27 membership")
     if len(teams)!=363:
         raise RuntimeError("2026-27 NCAA projects 363 D-I women's programs; verified directory contains "+str(len(teams)))
     return sorted(teams.values(),key=lambda x:x["team"].casefold())
