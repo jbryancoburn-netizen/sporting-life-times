@@ -54,7 +54,7 @@ async function run(){
  for(const page of pages){
   const html=read(page);
   assert(html.includes('mbb-logo-system.js?v=roundel-one-owner-20261029'),page+' old/missing renderer');
-  assert(html.includes('mbb-logo-system.css?v=roundel-one-owner-20261029'),page+' old/missing geometry');
+  assert(html.includes('mbb-logo-system.css?v=restore-colors-20261029e'),page+' old/missing geometry');
   for(const extra of ['shared-team-crests.js','shared-team-crests.css','slt-dual-ring.js','slt-dual-ring.css']){
    assert(!html.includes(extra),page+' still loads conflicting crest owner '+extra);
   }
