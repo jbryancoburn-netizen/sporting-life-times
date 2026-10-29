@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/mbb-dom-diagnosis.yml'
+      - 'scripts/mbb_official_dom_diagnosis.py'
   workflow_dispatch:
 permissions:
   contents: write
