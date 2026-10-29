@@ -9,6 +9,7 @@ on:
       - '**.json'
       - 'scripts/audit_site.py'
       - 'scripts/audit-dual-ring-colors.cjs'
+      - 'scripts/audit-mbb-logo-system.cjs'
   push:
     branches: [main]
     paths:
@@ -18,6 +19,7 @@ on:
       - '**.json'
       - 'scripts/audit_site.py'
       - 'scripts/audit-dual-ring-colors.cjs'
+      - 'scripts/audit-mbb-logo-system.cjs'
       - '.github/workflows/site-audit.yml'
 permissions:
   contents: read
@@ -33,6 +35,8 @@ jobs:
         run: python scripts/audit_site.py
       - name: Protect 628 nonwhite two-color team crests and 51 editions
         run: node scripts/audit-dual-ring-colors.cjs
+      - name: Enforce 365 school roundel-aware logo contracts
+        run: node scripts/audit-mbb-logo-system.cjs
       - name: JavaScript syntax in public assets
         shell: bash
         run: |
