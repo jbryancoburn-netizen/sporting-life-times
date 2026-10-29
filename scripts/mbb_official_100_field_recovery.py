@@ -129,7 +129,7 @@ for team in teams:
  if any(not e.get("site_verified") or not ((e.get("competitions") or [{}])[0].get("venue") or {}).get("arenaName") or not ((e.get("competitions") or [{}])[0].get("broadcasts")) for e in d.get("events",[])):
   selected.append(team)
 if os.getenv("BATCH_NAME")=="all-365":
- selected=selected
+ selected=teams
 elif os.getenv("BATCH_NAME")=="final-100":
  final=selected[300:]
  earlier=[]
