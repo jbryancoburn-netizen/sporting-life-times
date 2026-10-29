@@ -11,7 +11,7 @@ import pathlib
 ROOT=pathlib.Path("data")
 YEARS=(2022,2023,2024,2025,2026)
 EDGES=(0,25,50,75,100,125)
-KS=(12,18,24,30,40)
+KS=(12,18,24,30,40,50,60,80)
 BASELINE=1500
 
 def read(year):
