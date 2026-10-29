@@ -41,3 +41,34 @@
 }
 .mbb-mark.slt-dual-shell>.mbb-mark__initials{z-index:2!important}
 .slt-dual-image{border-radius:50%!important;object-fit:contain!important;aspect-ratio:1 / 1!important}
+
+/* NCAA basketball edition: stop stacking large circular outlines over
+   already-ringed school crest artwork. Keep exactly TWO thin, touching
+   institutional-color strokes. No white spacer and no third shadow ring. */
+.mbb-mark.slt-dual-shell{
+ border-width:2px!important;
+ box-shadow:0 1px 2px rgba(0,0,0,.10)!important;
+ background:#fff!important;
+}
+.mbb-mark.slt-dual-shell::before{
+ inset:1px!important;
+ border-width:2px!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ z-index:3!important;
+}
+.mbb-mark.slt-dual-shell>img.mbb-mark__img{
+ top:50%!important;left:50%!important;
+ width:72%!important;height:72%!important;max-width:72%!important;max-height:72%!important;
+ object-fit:contain!important;object-position:center center!important;
+ transform:translate(-50%,-50%)!important;clip-path:circle(50% at 50%)!important;
+ margin:0!important;padding:0!important;border:0!important;
+}
+/* Historic college scorerails have stray ring/shadow decoration; use the
+   one shared badge shell for home/away, schedules and directory cards. */
+body[data-page] .mbb-mark.slt-dual-shell,
+body .cbb-elo-school .mbb-mark.slt-dual-shell,
+body .cbb-elo-power .mbb-mark.slt-dual-shell{
+ outline:0!important;
+ outline-offset:0!important;
+}
