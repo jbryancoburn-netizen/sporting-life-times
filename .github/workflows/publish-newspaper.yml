@@ -262,3 +262,39 @@ jobs:
           done
           echo "::error::Public NBA rosters or 1500-start Elo do not match newly published edition"
           exit 1
+
+      - name: Verify published 365-school MBB RETRO rankings and team rosters
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${PAGE_URL%/}"
+          for retry in 1 2 3 4 5; do
+            if curl -fsSL --max-time 20 "$ROOT/data/ncaam-2026-27-retro-primary.json?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-retro.json &&
+               curl -fsSL --max-time 20 "$ROOT/ncaam-elo.html?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-rankings.html &&
+               curl -fsSL --max-time 20 "$ROOT/ncaam-team.html?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-team.html &&
+               curl -fsSL --max-time 20 "$ROOT/mbb-current-roster.js?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-roster.js &&
+               curl -fsSL --max-time 20 "$ROOT/data/mbb-rosters-2026-27/84.json?rev=${GITHUB_RUN_ID}-$retry" -o /tmp/public-mbb-indiana-roster.json; then
+              if python3 - <<'PY'
+          import json
+          from pathlib import Path
+          local=json.loads(Path('data/ncaam-2026-27-retro-primary.json').read_text())
+          public=json.loads(Path('/tmp/public-mbb-retro.json').read_text())
+          assert len(public['rankings'])==365, 'MBB missing Division I ratings'
+          assert public['starting_elo']==1500 and all(x['base_elo']==1500 for x in public['rankings'])
+          assert public['games_played']==len(public['events'])
+          assert public['rankings']==local['rankings'], 'Public MBB RETRO does not match deployable data'
+          assert 'mbb-elo-primary.js' in Path('/tmp/public-mbb-rankings.html').read_text(), 'Legacy MBB Elo page served'
+          assert 'mbb-current-roster.js' in Path('/tmp/public-mbb-team.html').read_text(), 'Current team roster not linked'
+          assert 'data/mbb-rosters-2026-27/' in Path('/tmp/public-mbb-roster.js').read_text(), 'Team roster data lookup absent'
+          roster=json.loads(Path('/tmp/public-mbb-indiana-roster.json').read_text())
+          assert roster['team_id']=='ncaa:609574' and len(roster['players'])>=10
+          print('PASS: public Pages serves 365 clean-slate RETRO ratings and searchable current rosters')
+          PY
+              then exit 0; fi
+            fi
+            sleep 6
+          done
+          echo "::error::The public MBB rankings or roster pages do not match this Pages deployment" >&2
+          exit 1
