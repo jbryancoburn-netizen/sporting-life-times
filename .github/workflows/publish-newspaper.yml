@@ -298,3 +298,42 @@ jobs:
           done
           echo "::error::The public MBB rankings or roster pages do not match this Pages deployment" >&2
           exit 1
+
+      - name: Verify published shared college basketball logo system
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${PAGE_URL%/}"
+          for i in 1 2 3 4 5; do
+            ok=1
+            for file in mbb-logo-system.js mbb-logo-system.css ncaam-elo.html ncaam-team.html ncaam-conference.html ncaam-predictor.html ncaam-rivalry.html; do
+              curl -fsSL --max-time 20 "$ROOT/$file?crest_release=${GITHUB_RUN_ID}-$i" -o "/tmp/cbb-crest-${file//\//_}" || ok=0
+            done
+            if [[ "$ok" == 1 ]]; then
+              if python3 - <<'PY'
+          from pathlib import Path
+          read=lambda p: Path('/tmp/cbb-crest-'+p).read_text()
+          logo=read('mbb-logo-system.js')
+          css=read('mbb-logo-system.css')
+          assert 'data/mbb-logo-registry.json' in logo
+          assert 'window.MBBLogos.fail(this)' in logo
+          assert 'object-fit:contain!important' in css
+          assert 'border-radius:50%!important' in css
+          for page in ('ncaam-elo.html','ncaam-team.html','ncaam-conference.html','ncaam-predictor.html','ncaam-rivalry.html'):
+              html=read(page)
+              assert 'mbb-logo-system.css' in html, page
+              loc=html.index('mbb-logo-system.js')
+              assert loc>=0
+              for consumer in ('mbb-elo-primary.js','mbb-newspaper.js','mbb-team-calendar-boot.js','ncaam-predictor.js','ncaam-rivalry.js'):
+                  n=html.find(consumer)
+                  assert n<0 or loc<n, f'{page}: logo renderer not loaded before {consumer}'
+          print('PASS public Pages: shared 365-team logo renderer, circular layout, proper script order across five key editions')
+          PY
+              then exit 0; fi
+            fi
+            sleep 6
+          done
+          echo "::error::Public college basketball shared logo system missing or out-of-order" >&2
+          exit 1

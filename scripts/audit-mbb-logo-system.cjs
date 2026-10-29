@@ -37,6 +37,12 @@ async function run(){
  for(const page of ['ncaam-team.html','ncaam-elo.html','ncaam.html','college-basketball.html','ncaam-conference.html','ncaam-tournament.html','ncaam-players.html','ncaam-predictor.html','ncaam-rivalry.html']){
   assert(read(page).includes('mbb-logo-system.js'),'No shared logo JS on '+page);
   assert(read(page).includes('mbb-logo-system.css'),'No shared logo CSS on '+page);
+  const loader=html.indexOf('mbb-logo-system.js');
+  for(const consumer of ['mbb-newspaper.js','mbb-elo-primary.js','mbb-team-calendar-boot.js','ncaam-predictor.js','ncaam-rivalry.js']) {
+   const at=html.indexOf(consumer);
+   if(at!==-1)assert(loader<at,'Shared crest library must load before '+consumer+' in '+page);
+  }
+
  }
  for(const file of ['mbb-newspaper.js','mbb-team-calendar-boot.js','mbb-elo-primary.js','ncaam-predictor.js','ncaam-rivalry.js']){
   const src=read(file);
