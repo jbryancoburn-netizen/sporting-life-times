@@ -32,11 +32,14 @@ const loading='<p class="nba-empty">Reading '+leagueName+' verified sources…</
 const isEuro=league==='euroleague';
 const nblPal={'Adelaide 36ers':['#c8102e','#112d52'],'Brisbane Bullets':['#0e5d9d','#d68b30'],'Cairns Taipans':['#e66d2b','#224e62'],'Illawarra Hawks':['#dc292c','#1e2430'],'Melbourne United':['#232935','#2371a0'],'New Zealand Breakers':['#0c8e9b','#262c35'],'Perth Wildcats':['#d02030','#161616'],'South East Melbourne Phoenix':['#0a7754','#172e34'],'Sydney Kings':['#5c2693','#d7a926'],'Tasmania JackJumpers':['#34714c','#c39332']};
 let pal={},boxes=new Map(),forecasts=new Map();
-const crest=t=>{const key=isEuro?String(t?.code||t||'').toUpperCase():String(t?.team||t?.name||t||'');
- const path=(isEuro?'assets/euroleague-logos/':'assets/nbl-logos/')+(isEuro?key:abbr(key))+'.png';
+const crest=t=>{
+ const key=isEuro?String(t?.code||t||'').toUpperCase():String(t?.team||t?.name||t||'');
+ const filename=(isEuro?key:abbr(key))+'.png';
+ const source=(isEuro?'assets/pro-basketball-logos/euroleague/':'assets/pro-basketball-logos/nbl/')+filename;
+ const fallback=(isEuro?'assets/euroleague-logos/':'assets/nbl-logos/')+filename;
  const rings=isEuro?[pal?.euroleague?.[key]?.primary||'#153a57',pal?.euroleague?.[key]?.secondary||'#c39432']:(nblPal[key]||['#153a57','#c39432']);
  const short=isEuro?key:key.split(/\s+/).map(x=>x[0]).join('').slice(0,3);
- return '<span class="pb-club-crest" style="--pb-outer:'+rings[0]+';--pb-inner:'+rings[1]+'"><img src="'+esc(path)+'" loading="lazy" alt="" onerror="this.hidden=true;this.parentElement.classList.add('+"'"+'pb-no-logo'+"'"+')"><em>'+esc(short)+'</em></span>';
+ return '<span class="pb-club-crest" style="--pb-outer:'+rings[0]+';--pb-inner:'+rings[1]+'"><img src="'+esc(source)+'" data-original="'+esc(fallback)+'" alt="" loading="lazy" onerror="if(this.dataset.pbRetried){this.hidden=true;this.parentElement.classList.add(\'pb-no-logo\')}else{this.dataset.pbRetried=\'1\';this.src=this.dataset.original}"><em>'+esc(short)+'</em></span>';
 };
 let ranks=[],standing=[],games=[],fixtures=[],articles=[],teamMap=new Map(),rateMap=new Map(),metadata={},approved=false;
 const name=t=>isEuro?String(t?.name||teamMap.get(String(t?.code||t))?.name||t?.code||t||'Unknown'):String(t?.team||t?.name||t||'Unknown');
