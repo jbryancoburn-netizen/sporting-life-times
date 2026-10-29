@@ -1,47 +1,81 @@
-/* One circle, one team-color ring, one centered image, zero clipping. */
+/* One owner for all 365 men's Division I basketball team logos.
+   ESPN's circular artwork ALREADY CONTAINS RINGS. Do not stack site rings on
+   embedded/unverified artwork. Verified flat artwork alone gets two colors. */
 .mbb-mark{
- --mbb-size:32px;--mbb-inset:8%;display:inline-grid!important;place-items:center!important;
- box-sizing:border-box!important;position:relative!important;isolation:isolate!important;
+ --mbb-size:36px;
+ display:inline-grid!important;place-items:center!important;
+ position:relative!important;isolation:isolate!important;box-sizing:border-box!important;
  flex:0 0 var(--mbb-size)!important;width:var(--mbb-size)!important;height:var(--mbb-size)!important;
  min-width:var(--mbb-size)!important;max-width:var(--mbb-size)!important;
  min-height:var(--mbb-size)!important;max-height:var(--mbb-size)!important;
- aspect-ratio:1/1!important;vertical-align:middle!important;overflow:hidden!important;
- border-radius:50%!important;border:3px solid var(--mbb-ring,#385866)!important;
- background:white!important;padding:0!important;margin:0!important;box-shadow:0 1px 3px #0002!important;
- transform:none!important;
+ aspect-ratio:1/1!important;border-radius:50%!important;
+ border:0!important;outline:0!important;outline-offset:0!important;
+ box-shadow:none!important;padding:0!important;margin:0!important;
+ background:transparent!important;overflow:hidden!important;transform:none!important;
 }
-.mbb-mark--small{--mbb-size:30px}
-.mbb-mark--score{--mbb-size:36px}
-.mbb-mark--power{--mbb-size:42px}
+.mbb-mark::after{content:none!important}
+.mbb-mark::before{content:none!important}
+.mbb-mark--small{--mbb-size:36px}
+.mbb-mark--score{--mbb-size:40px}
+.mbb-mark--power{--mbb-size:44px}
 .mbb-mark--schedule{--mbb-size:48px}
 .mbb-mark--featured{--mbb-size:72px}
 .mbb-mark--hero{--mbb-size:112px}
 .mbb-mark--history{--mbb-size:66px}
 .mbb-mark>img.mbb-mark__img{
- position:absolute!important;z-index:2!important;top:var(--mbb-inset)!important;left:var(--mbb-inset)!important;
- display:block!important;box-sizing:border-box!important;
- width:calc(100% - 2 * var(--mbb-inset))!important;height:calc(100% - 2 * var(--mbb-inset))!important;
- min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;
- aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;
- border:0!important;outline:0!important;border-radius:0!important;box-shadow:none!important;
- padding:0!important;margin:0!important;background:transparent!important;transform:none!important;
+ display:block!important;position:absolute!important;inset:auto!important;
+ top:50%!important;left:50%!important;
+ transform:translate(-50%,-50%)!important;z-index:2!important;
+ width:96%!important;height:96%!important;
+ min-width:0!important;min-height:0!important;
+ max-width:96%!important;max-height:96%!important;
+ object-fit:contain!important;object-position:center center!important;
+ border:0!important;outline:0!important;box-shadow:none!important;
+ padding:0!important;margin:0!important;background:transparent!important;
+ border-radius:0!important;clip-path:none!important;
 }
-.mbb-mark__initials{display:none!important;position:absolute;inset:0;align-items:center;justify-content:center;
- color:var(--mbb-ring,#385866)!important;font:700 calc(var(--mbb-size) * .25)/1 Arial,sans-serif!important;
- letter-spacing:-.02em!important;white-space:nowrap!important;user-select:none!important;z-index:1}
+/* Artwork containing an existing roundel is the finished badge. No outer border.
+   The unverified category is also art-first; never assume it needs another ring. */
+.mbb-mark--art-embedded_roundel,.mbb-mark--art-unverified{border:0!important}
+.mbb-mark--art-embedded_roundel::before,.mbb-mark--art-unverified::before{content:none!important}
+/* For an independently verified FLAT school mark, use exactly two thin strokes.
+   Primary outer, secondary inner, and a large centered authentic logo. */
+.mbb-mark--art-flat{
+ border:2px solid var(--mbb-primary,#385866)!important;
+ background:#fff!important;
+}
+.mbb-mark--art-flat::before{
+ content:""!important;position:absolute!important;display:block!important;
+ inset:2px!important;border:2px solid var(--mbb-secondary,#5e7680)!important;
+ border-radius:50%!important;background:transparent!important;
+ box-shadow:none!important;pointer-events:none!important;z-index:3!important;
+}
+.mbb-mark--art-flat>img.mbb-mark__img{
+ width:76%!important;height:76%!important;
+ max-width:76%!important;max-height:76%!important;
+ clip-path:circle(50% at 50%)!important;
+}
+.mbb-mark__initials{
+ display:none!important;position:absolute!important;inset:0!important;z-index:2!important;
+ align-items:center!important;justify-content:center!important;
+ font:700 calc(var(--mbb-size) * .25)/1 Arial,sans-serif!important;
+ color:var(--mbb-primary,#385866)!important;background:transparent!important;
+ font-style:normal!important;user-select:none!important;
+}
 .mbb-mark--missing>.mbb-mark__initials{display:flex!important}
 .mbb-mark--missing>img.mbb-mark__img{display:none!important}
+/* Exact badge geometry regardless of the page's old logo selectors. */
 #full-season-schedule .sched-matchup{grid-template-columns:48px minmax(0,1fr)!important}
 #full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:48px}
 .team-hero .mbb-mark{--mbb-size:112px}
 .hero-team .mbb-mark{--mbb-size:72px;margin:auto!important}
-.score-card .mbb-mark{--mbb-size:36px}
-.conf-card .mbb-mark{--mbb-size:30px}
+.score-card .mbb-mark{--mbb-size:40px}
+.conf-card .mbb-mark{--mbb-size:36px}
 .big-result .mbb-mark{--mbb-size:66px}
-.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:42px}
-.cbb-elo-power .mbb-mark{--mbb-size:46px}
+.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:44px}
+.cbb-elo-power .mbb-mark{--mbb-size:48px}
 @media(max-width:680px){
  .team-hero .mbb-mark{--mbb-size:76px}
  .hero-team .mbb-mark{--mbb-size:54px}
- .cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:38px}
+ .cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:40px}
 }
