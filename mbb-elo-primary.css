@@ -1,0 +1,46 @@
+/* One-model MBB power desk - matching the NBA newspaper visual system */
+.cbb-elo-wrap{max-width:1350px;margin:auto;padding:28px clamp(12px,3vw,38px) 60px}
+.cbb-elo-title{font-family:Georgia,serif;font-size:clamp(2rem,5vw,4.6rem);line-height:1;letter-spacing:-.045em;color:#1b3340;margin:.2em 0}
+.cbb-elo-intro{color:#455968;max-width:850px;line-height:1.55}
+.cbb-elo-metrics{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:15px;margin:18px 0;border:1px solid #abc9d0;background:#eff8f9}
+.cbb-elo-metrics strong{padding:8px 12px;background:#124a5b;color:white;border-radius:5px;font:700 .8rem system-ui;letter-spacing:.06em}
+.cbb-elo-metrics span{font:500 .87rem system-ui;color:#3c5a64}
+.cbb-elo-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;margin:24px 0}
+.cbb-elo-card{padding:19px;border:1px solid #c5d6da;background:white;box-shadow:0 10px 26px rgba(12,60,72,.05)}
+.cbb-elo-card h2{font:700 1.5rem Georgia,serif;margin:0 0 16px;color:#193747}
+.cbb-elo-power{display:flex;gap:10px;align-items:center;border-bottom:1px solid #e0ebed;padding:8px 4px;text-decoration:none;color:#173b49;min-height:56px}
+.cbb-elo-power:hover{background:#edf9fa}
+.cbb-elo-power .cbb-elo-power-name{flex:1;display:flex;flex-direction:column;gap:2px;font:500 .87rem system-ui}
+.cbb-elo-power .cbb-elo-power-name small{font-size:.7rem;color:#657a82}
+.cbb-elo-power>b{font:750 .95rem system-ui}
+.cbb-elo-rank{font:800 .83rem system-ui;white-space:nowrap;color:#11687c}
+.cbb-elo-crest{display:inline-grid;place-items:center;position:relative;width:38px;height:38px;min-width:38px;border-radius:50%;border:2px solid var(--school-color,#19798a);background:#fff;overflow:hidden}
+.cbb-elo-crest img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain;z-index:2}
+.cbb-elo-crest i{font:700 .7rem system-ui;color:#4d6c77;font-style:normal}
+.cbb-elo-preseason{padding:24px 10px;color:#244451;font-family:Georgia,serif;font-size:1.2rem;line-height:1.4}
+.cbb-elo-preseason p{font:500 .91rem/1.65 system-ui;color:#596971;margin:12px 0}
+.cbb-elo-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:16px 0}
+.cbb-elo-controls label,.cbb-matchup-form label{display:flex;flex-direction:column;gap:5px;color:#365968;font:700 .75rem system-ui}
+.cbb-elo-controls input,.cbb-elo-controls select,.cbb-matchup-form select{background:white;border:1px solid #b5cfd6;color:#1a3b48;border-radius:6px;padding:10px 12px;font:.91rem system-ui;min-height:43px;max-width:100%}
+.cbb-elo-controls label:first-child{flex:2 1 260px}
+.cbb-elo-controls label:nth-child(2){flex:1 1 190px}
+.cbb-elo-scroller{border:1px solid #c2d6da;overflow-x:auto;border-radius:8px}
+.cbb-elo-table{width:100%;border-collapse:collapse;min-width:690px}
+.cbb-elo-table th{background:#163e52;color:white;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:12px 11px;font:.7rem system-ui}
+.cbb-elo-table th.num,.cbb-elo-table td.num{text-align:right}
+.cbb-elo-table td{padding:8px 11px;border-bottom:1px solid #dfebed;font:.82rem system-ui}
+.cbb-elo-table tbody tr:nth-child(even){background:#f3f9fa}
+.cbb-elo-table tbody tr:hover{background:#e1f4f6}
+.cbb-elo-school{display:flex;align-items:center;gap:10px;color:#163c4c;text-decoration:none;font-weight:750}
+.cbb-elo-school:hover{text-decoration:underline}
+.cbb-elo-pos{color:#127e64;font-weight:bold}
+.cbb-elo-neg{color:#b44a4a;font-weight:bold}
+.cbb-elo-flat{color:#87949c}
+.cbb-matchup-form{display:flex;flex-direction:column;gap:10px}
+.cbb-matchup-meter{height:13px;overflow:hidden;border-radius:20px;background:#e58d74;margin:12px 0}
+.cbb-matchup-meter span{display:block;background:#2489a5;height:100%}
+.cbb-matchup-sides{display:flex;justify-content:space-between;align-items:center;gap:7px;flex-wrap:wrap;font:.75rem system-ui}
+.cbb-matchup-sides b{font-size:1.1rem;color:#124557}
+.cbb-matchup-result p{font:.72rem/1.6 system-ui;color:#576e77}
+.cbb-elo-count{font:.8rem system-ui;color:#59707a;margin:12px 0}
+@media(max-width:870px){.cbb-elo-grid{grid-template-columns:1fr}.cbb-elo-wrap{padding-top:15px}.cbb-elo-card{padding:13px}}
