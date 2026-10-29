@@ -6,7 +6,7 @@ require('../mbb-retro.js');
 const load=f=>JSON.parse(fs.readFileSync('data/'+f,'utf8'));
 const registry=load('ncaaw-2026-27-teams.json');
 const ledger=load('ncaaw-2026-27-verified-games.json');
-if(registry.season!=='2026-27'||registry.teams.length<355||registry.teams.length>375)throw Error('Women-only roster incomplete');
+if(registry.season!=='2026-27'||registry.teams.length!==363)throw Error('Women-only roster incomplete');
 const teams=registry.teams;
 const teamMap=new Map(teams.map(t=>[String(t.team_id),t]));
 if(teamMap.size!==teams.length)throw Error('Duplicate women team IDs');
