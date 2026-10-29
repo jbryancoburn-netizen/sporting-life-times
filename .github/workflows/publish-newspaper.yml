@@ -13,6 +13,7 @@ on:
       - '.github/workflows/publish-newspaper.yml'
       - 'scripts/inject-team-crests.py'
       - 'data/nba-*.json'
+      - 'data/mbb-schedules-2026-27/*.json'
   workflow_dispatch:
   workflow_run:
     workflows:
