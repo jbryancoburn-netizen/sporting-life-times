@@ -1,0 +1,47 @@
+/* One circle, one team-color ring, one centered image, zero clipping. */
+.mbb-mark{
+ --mbb-size:32px;--mbb-inset:8%;display:inline-grid!important;place-items:center!important;
+ box-sizing:border-box!important;position:relative!important;isolation:isolate!important;
+ flex:0 0 var(--mbb-size)!important;width:var(--mbb-size)!important;height:var(--mbb-size)!important;
+ min-width:var(--mbb-size)!important;max-width:var(--mbb-size)!important;
+ min-height:var(--mbb-size)!important;max-height:var(--mbb-size)!important;
+ aspect-ratio:1/1!important;vertical-align:middle!important;overflow:hidden!important;
+ border-radius:50%!important;border:3px solid var(--mbb-ring,#385866)!important;
+ background:white!important;padding:0!important;margin:0!important;box-shadow:0 1px 3px #0002!important;
+ transform:none!important;
+}
+.mbb-mark--small{--mbb-size:30px}
+.mbb-mark--score{--mbb-size:36px}
+.mbb-mark--power{--mbb-size:42px}
+.mbb-mark--schedule{--mbb-size:48px}
+.mbb-mark--featured{--mbb-size:72px}
+.mbb-mark--hero{--mbb-size:112px}
+.mbb-mark--history{--mbb-size:66px}
+.mbb-mark>img.mbb-mark__img{
+ position:absolute!important;z-index:2!important;top:var(--mbb-inset)!important;left:var(--mbb-inset)!important;
+ display:block!important;box-sizing:border-box!important;
+ width:calc(100% - 2 * var(--mbb-inset))!important;height:calc(100% - 2 * var(--mbb-inset))!important;
+ min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;
+ aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;
+ border:0!important;outline:0!important;border-radius:0!important;box-shadow:none!important;
+ padding:0!important;margin:0!important;background:transparent!important;transform:none!important;
+}
+.mbb-mark__initials{display:none!important;position:absolute;inset:0;align-items:center;justify-content:center;
+ color:var(--mbb-ring,#385866)!important;font:700 calc(var(--mbb-size) * .25)/1 Arial,sans-serif!important;
+ letter-spacing:-.02em!important;white-space:nowrap!important;user-select:none!important;z-index:1}
+.mbb-mark--missing>.mbb-mark__initials{display:flex!important}
+.mbb-mark--missing>img.mbb-mark__img{display:none!important}
+#full-season-schedule .sched-matchup{grid-template-columns:48px minmax(0,1fr)!important}
+#full-season-schedule .sched-matchup>.mbb-mark{--mbb-size:48px}
+.team-hero .mbb-mark{--mbb-size:112px}
+.hero-team .mbb-mark{--mbb-size:72px;margin:auto!important}
+.score-card .mbb-mark{--mbb-size:36px}
+.conf-card .mbb-mark{--mbb-size:30px}
+.big-result .mbb-mark{--mbb-size:66px}
+.cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:42px}
+.cbb-elo-power .mbb-mark{--mbb-size:46px}
+@media(max-width:680px){
+ .team-hero .mbb-mark{--mbb-size:76px}
+ .hero-team .mbb-mark{--mbb-size:54px}
+ .cbb-elo-school .mbb-mark,.cbb-elo-power .mbb-mark{--mbb-size:38px}
+}
