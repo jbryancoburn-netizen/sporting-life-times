@@ -1,0 +1,25 @@
+name: MBB 365-team shared crest contract
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mbb-logo-system.js'
+      - 'mbb-logo-system.css'
+      - 'mbb-elo-primary.js'
+      - 'mbb-newspaper.js'
+      - 'mbb-team-calendar-boot.js'
+      - 'scripts/audit-mbb-logo-system.cjs'
+      - '.github/workflows/mbb-logo-contract.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate all 365 shared college basketball team crests
+        run: node scripts/audit-mbb-logo-system.cjs
