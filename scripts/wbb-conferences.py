@@ -19,7 +19,11 @@ def main():
     known={str(t["team_id"]) for t in old}
     if len(known)!=363:raise RuntimeError("363 women teams needed")
     names={}
-    raw=read(SITE)
+    try:
+        raw=read(SITE)
+    except Exception as exc:
+        print("Optional women's conference-label endpoint unavailable:",exc)
+        raw={}
     for c in raw.get("conferences",[]):
         cid=str(c.get("groupId") or c.get("group_id") or c.get("id") or "")
         names[cid]=c.get("shortName") or c.get("name") or cid
