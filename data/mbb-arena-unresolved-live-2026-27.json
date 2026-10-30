@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 171,
+  "schools_scanned": 188,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1201,6 +1201,125 @@
       "source_sha": "5010984b4659c2b37697a452d668251de31b8705",
       "game_count": 30,
       "missing_arena_fields": 2
+    },
+    {
+      "school_id": "270",
+      "school": "Milwaukee",
+      "source_sha": "789f7abf19fc233f13e013623cf226bc1de84408",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "135",
+      "school": "Minnesota",
+      "source_sha": "150f92a1953e9a0f6bfe9bfe83593bafd4242346",
+      "game_count": 34,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "344",
+      "school": "Mississippi St.",
+      "source_sha": "257d30cfcf69da59df17d84f489c9c087115f60a",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2400",
+      "school": "Mississippi Val.",
+      "source_sha": "dda74266cb92fb5e9411cc0d0952e1993fdd3d84",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "142",
+      "school": "Missouri",
+      "source_sha": "f2ac3e26b020afa9a36bdd788f5e1a293d0595fb",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2623",
+      "school": "Missouri St.",
+      "source_sha": "40d49c81db5a6ff5867f12a5daafbb05714e450a",
+      "game_count": 30,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2405",
+      "school": "Monmouth",
+      "source_sha": "c69e12731c04a42aeb2b3adeeb894b34837dee76",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "149",
+      "school": "Montana",
+      "source_sha": "a2af6ab5bf5d5e6153c4ce3b3f4762a3cbb8ed20",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "147",
+      "school": "Montana St.",
+      "source_sha": "6c9dc23a2c6278cd16885e7615083c2f3c50d3b0",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2413",
+      "school": "Morehead St.",
+      "source_sha": "86d583221fca8a91526f11ada23dcaabe1cbed22",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2415",
+      "school": "Morgan St.",
+      "source_sha": "f6823120ad02dcf857c5008e80affd302442d08e",
+      "game_count": 29,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "116",
+      "school": "Mount St. Mary's",
+      "source_sha": "0222804cfc78fc47f406d97c40537f0392a954b3",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "93",
+      "school": "Murray St.",
+      "source_sha": "753f6a2e0bbda12e912fc3c9c5e277ef3817e860",
+      "game_count": 35,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2448",
+      "school": "N.C. A&T",
+      "source_sha": "766627e73895e0925350045b221a8c073648355a",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2428",
+      "school": "N.C. Central",
+      "source_sha": "b08aa20adfb58558dfd4ad474e4c6d44af9d8559",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2426",
+      "school": "Navy",
+      "source_sha": "4f81c5b1b5f5dc8a70f77899aa0da4f72c6041c8",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "152",
+      "school": "NC State",
+      "source_sha": "277fbdcf94fae7b0308f6ac0c575b6e68bad8d93",
+      "game_count": 34,
+      "missing_arena_fields": 3
     }
   ],
   "records": [
@@ -5115,6 +5234,333 @@
       "home_away": "away",
       "location": "Jacksonville, AL",
       "source_url": "https://goblueraiders.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "270",
+      "school": "Milwaukee",
+      "event_id": "school-270-2026-12-30-63",
+      "date": "2026-12-30",
+      "opponent_ids": [
+        "270",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich. Calihan Hall",
+      "source_url": "https://mkepanthers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "135",
+      "school": "Minnesota",
+      "event_id": "school-135-2027-02-06-25",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "135"
+      ],
+      "game": "USC",
+      "home_away": "away",
+      "location": "Los Angeles, CA",
+      "source_url": "https://gophersports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "344",
+      "school": "Mississippi St.",
+      "event_id": "school-344-2026-10-23-1",
+      "date": "2026-10-23",
+      "opponent_ids": [
+        "344",
+        "235"
+      ],
+      "game": "Memphis (Exh.)",
+      "home_away": "home",
+      "location": "Starkville",
+      "source_url": "https://hailstate.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2400",
+      "school": "Mississippi Val.",
+      "event_id": "school-2400-2026-12-08-51",
+      "date": "2026-12-08",
+      "opponent_ids": [
+        "2400"
+      ],
+      "game": "Connecticut",
+      "home_away": "away",
+      "location": "Storrs, Connecticut",
+      "source_url": "https://mvsusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2400",
+      "school": "Mississippi Val.",
+      "event_id": "school-2400-2027-02-06-141",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2400",
+        "2296"
+      ],
+      "game": "Jackson State University",
+      "home_away": "away",
+      "location": "Jackson, MS",
+      "source_url": "https://mvsusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2400",
+      "school": "Mississippi Val.",
+      "event_id": "school-2400-2027-02-18-165",
+      "date": "2027-02-18",
+      "opponent_ids": [
+        "2400",
+        "2504"
+      ],
+      "game": "Prairie View A&M University",
+      "home_away": "away",
+      "location": "Prairie View, TX",
+      "source_url": "https://mvsusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2623",
+      "school": "Missouri St.",
+      "event_id": "school-2623-2026-12-18-10",
+      "date": "2026-12-18",
+      "opponent_ids": [
+        "2623",
+        "66"
+      ],
+      "game": "Iowa State",
+      "home_away": "neutral",
+      "location": "Kansas City, Mo.",
+      "source_url": "https://missouristatebears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2623",
+      "school": "Missouri St.",
+      "event_id": "school-2623-2027-02-27-27",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2623",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://missouristatebears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "149",
+      "school": "Montana",
+      "event_id": "school-149-2027-02-11-26",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "149",
+        "331"
+      ],
+      "game": "Eastern Washington",
+      "home_away": "away",
+      "location": "Cheney, Wash.",
+      "source_url": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "149",
+      "school": "Montana",
+      "event_id": "school-149-2027-03-05-33",
+      "date": "2027-03-05",
+      "opponent_ids": [
+        "149"
+      ],
+      "game": "Big Sky Conference Play-In",
+      "home_away": "neutral",
+      "location": "Boise, Idaho",
+      "source_url": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2413",
+      "school": "Morehead St.",
+      "event_id": "school-2413-2026-11-18-31",
+      "date": "2026-11-18",
+      "opponent_ids": [
+        "2413",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "away",
+      "location": "Athens, OH",
+      "source_url": "https://msueagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2413",
+      "school": "Morehead St.",
+      "event_id": "school-2413-2026-11-29-43",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "2413",
+        "2193"
+      ],
+      "game": "East Tennessee",
+      "home_away": "away",
+      "location": "Johnson City, TN",
+      "source_url": "https://msueagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2413",
+      "school": "Morehead St.",
+      "event_id": "school-2413-2027-02-13-123",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2413",
+        "2710"
+      ],
+      "game": "Western Illinois",
+      "home_away": "away",
+      "location": "Macomb, IL",
+      "source_url": "https://msueagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2415",
+      "school": "Morgan St.",
+      "event_id": "school-2415-2026-11-18-23",
+      "date": "2026-11-18",
+      "opponent_ids": [
+        "2415"
+      ],
+      "game": "North Carolina A&T State University",
+      "home_away": "away",
+      "location": "Greensboro, NC",
+      "source_url": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2415",
+      "school": "Morgan St.",
+      "event_id": "school-2415-2026-12-22-55",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "2415"
+      ],
+      "game": "Virginia Commonwealth University",
+      "home_away": "away",
+      "location": "Richmond, VA",
+      "source_url": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "93",
+      "school": "Murray St.",
+      "event_id": "school-93-2026-10-17-1",
+      "date": "2026-10-17",
+      "opponent_ids": [
+        "93",
+        "2916"
+      ],
+      "game": "UIW (Closed Scrimmage)",
+      "home_away": "away",
+      "location": "San Antonio, Tex.",
+      "source_url": "https://goracers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "93",
+      "school": "Murray St.",
+      "event_id": "school-93-2027-03-03-35",
+      "date": "2027-03-03",
+      "opponent_ids": [
+        "93"
+      ],
+      "game": "Arch Madness",
+      "home_away": "neutral",
+      "location": "St. Louis, Mo.",
+      "source_url": "https://goracers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2428",
+      "school": "N.C. Central",
+      "event_id": "school-2428-2026-11-11-0",
+      "date": "2026-11-11",
+      "opponent_ids": [
+        "2428",
+        "2678"
+      ],
+      "game": "VMI",
+      "home_away": "away",
+      "location": "Lexington, Va. Cameron Hall",
+      "source_url": "https://nccueaglepride.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2426",
+      "school": "Navy",
+      "event_id": "school-2426-2026-11-28-55",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2426"
+      ],
+      "game": "CCSU",
+      "home_away": "neutral",
+      "location": "Fairfield, Conn.",
+      "source_url": "https://navysports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2426",
+      "school": "Navy",
+      "event_id": "school-2426-2027-01-30-111",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "2426",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, N.Y.",
+      "source_url": "https://navysports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2426",
+      "school": "Navy",
+      "event_id": "school-2426-2027-02-10-123",
+      "date": "2027-02-10",
+      "opponent_ids": [
+        "2426",
+        "2352"
+      ],
+      "game": "Loyola, Maryland",
+      "home_away": "away",
+      "location": "Baltimore, Md.",
+      "source_url": "https://navysports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "152",
+      "school": "NC State",
+      "event_id": "school-152-2026-11-20-7",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "152"
+      ],
+      "game": "Seton Hall or Wisconsin",
+      "home_away": "neutral",
+      "location": "Nassau, Bahamas",
+      "source_url": "https://gopack.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "152",
+      "school": "NC State",
+      "event_id": "school-152-2026-12-29-16",
+      "date": "2026-12-29",
+      "opponent_ids": [
+        "152",
+        "2390"
+      ],
+      "game": "Miami",
+      "home_away": "away",
+      "location": "Coral Gables, FL",
+      "source_url": "https://gopack.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "152",
+      "school": "NC State",
+      "event_id": "school-152-2027-01-27-23",
+      "date": "2027-01-27",
+      "opponent_ids": [
+        "152"
+      ],
+      "game": "Cal",
+      "home_away": "away",
+      "location": "Berkeley, CA",
+      "source_url": "https://gopack.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
