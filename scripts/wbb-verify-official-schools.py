@@ -58,7 +58,7 @@ def read_source(html):
    # Handle official tables that present a Home/Away column AND an
    # opponent like "vs. Texas". The prefix must always be removed
    # before independent date-and-opponent verification.
-   m=re.match(r"^\\s*(vs\\.?|at|@)\\s+(.+)$",opponent,re.I)
+   m=re.match(r"^\s*(vs\.?|at|@)\s+(.+)$",opponent,re.I)
    if m:
     if site not in ("home","away","neutral"):
      site="away" if m[1].lower() in ("at","@") else "home"
