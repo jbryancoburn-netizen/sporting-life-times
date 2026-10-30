@@ -207,7 +207,6 @@ jobs:
       - id: deploy
         uses: actions/deploy-pages@v4
       - name: Verify women's team pages and links on actual public Pages
-        continue-on-error: true
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
         shell: bash
@@ -218,6 +217,8 @@ jobs:
             if curl -fsSL --max-time 25 "$ROOT/ncaaw-team.html?team=84&release=${GITHUB_SHA}-$attempt" -o /tmp/public-ncaaw-team.html \
               && curl -fsSL --max-time 25 "$ROOT/college-basketball-gender.js?release=${GITHUB_SHA}-$attempt" -o /tmp/public-wbb-gender.js \
               && curl -fsSL --max-time 25 "$ROOT/ncaam.html?gender=women&release=${GITHUB_SHA}-$attempt" -o /tmp/public-wbb-front.html \
+              && cmp -s ncaaw-team.html /tmp/public-ncaaw-team.html \
+              && grep -q 'mbb-logo-system.js' /tmp/public-ncaaw-team.html \
               && grep -q 'data/ncaaw-schedules-2026-27.json' /tmp/public-ncaaw-team.html \
               && grep -q "ncaaw-team.html?team=" /tmp/public-wbb-gender.js \
               && grep -q 'college-basketball-gender.js' /tmp/public-wbb-front.html; then
