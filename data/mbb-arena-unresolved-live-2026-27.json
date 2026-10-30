@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 307,
+  "schools_scanned": 324,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -2153,6 +2153,125 @@
       "source_sha": "b7ebde8b6d3d236e2fa9b2f6769ddf6f028ba72f",
       "game_count": 32,
       "missing_arena_fields": 4
+    },
+    {
+      "school_id": "300",
+      "school": "UC Irvine",
+      "source_sha": "3946912f908b319c263bd801d39ee7366ce3d70c",
+      "game_count": 36,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "27",
+      "school": "UC Riverside",
+      "source_sha": "ccab0f0cd279f09d047a2121dd1176b0b83fa75d",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "28",
+      "school": "UC San Diego",
+      "source_sha": "fbbb6905578430df63674381ad3e17ed33f68037",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2540",
+      "school": "UC Santa Barbara",
+      "source_sha": "571483d84935bdffa0e0076c1bb6d90f6a7a812c",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2116",
+      "school": "UCF",
+      "source_sha": "d5ff66333f5555408de5a312755057e868f0f2b1",
+      "game_count": 27,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "26",
+      "school": "UCLA",
+      "source_sha": "6aacc6b58675634bc5e6e88b27779e7545ab2f51",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "41",
+      "school": "UConn",
+      "source_sha": "b923ccc20e3b09d075a79108f4f37a9f69532982",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "82",
+      "school": "UIC",
+      "source_sha": "bd49adbb7b4d37e401f639b8a72cf3ab8d574dcd",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2916",
+      "school": "UIW",
+      "source_sha": "86083d3c11b2122f9d0708ca7f87dbf2c600bc0b",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2433",
+      "school": "ULM",
+      "source_sha": "bdac3e67da2d251bd1c882438f94d3a8fd01aa51",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2349",
+      "school": "UMass Lowell",
+      "source_sha": "4074faab73f46a51cea25b36ff0e671bc75daf98",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2378",
+      "school": "UMBC",
+      "source_sha": "f8072bc3f89272d2c94d3378bffe073420a69bc2",
+      "game_count": 31,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2379",
+      "school": "UMES",
+      "source_sha": "cc40342541173ce5553926a917d4b60fd272155f",
+      "game_count": 31,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2427",
+      "school": "UNC Asheville",
+      "source_sha": "f213f3e8c4e06faf1261245f15e057198f7eadc4",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2430",
+      "school": "UNC Greensboro",
+      "source_sha": "33e4b79f33ebf0b17986c693bd9d7d5b26bc493b",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "350",
+      "school": "UNCW",
+      "source_sha": "4a5bf1bed7d1316d6cfa070b371b507983641b88",
+      "game_count": 35,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2460",
+      "school": "UNI",
+      "source_sha": "ae18fd9f238d924bc0da57f412f63f4f49f32038",
+      "game_count": 33,
+      "missing_arena_fields": 0
     }
   ],
   "records": [
@@ -9298,6 +9417,335 @@
       "home_away": "away",
       "location": "Fargo, N.D.",
       "source_url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "300",
+      "school": "UC Irvine",
+      "event_id": "school-300-2026-10-10-8",
+      "date": "2026-10-10",
+      "opponent_ids": [
+        "300"
+      ],
+      "game": "Université du Québec à Montréal",
+      "home_away": "away",
+      "location": "Montréal, Quebec",
+      "source_url": "https://ucirvinesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "28",
+      "school": "UC San Diego",
+      "event_id": "official-28-2026-12-15-stthomas",
+      "date": "2026-12-15",
+      "opponent_ids": [
+        "28",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, Minn.",
+      "source_url": "https://ucsdtritons.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "2116",
+      "school": "UCF",
+      "event_id": "school-2116-2026-11-26-24",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "2116",
+        "103"
+      ],
+      "game": "Boston College",
+      "home_away": "neutral",
+      "location": "Kissimmee, Fla. / ESPN Wide World of Sports",
+      "source_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "82",
+      "school": "UIC",
+      "event_id": "school-82-2026-11-22-39",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "82",
+        "193"
+      ],
+      "game": "Miami (Ohio)",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla. The Reef (Florida State College at Jacksonville)",
+      "source_url": "https://uicflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "82",
+      "school": "UIC",
+      "event_id": "school-82-2026-11-24-45",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "82",
+        "242"
+      ],
+      "game": "Rice",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla. The Reef (Florida State College at Jacksonville)",
+      "source_url": "https://uicflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2916",
+      "school": "UIW",
+      "event_id": "school-2916-2026-11-08-15",
+      "date": "2026-11-08",
+      "opponent_ids": [
+        "2916"
+      ],
+      "game": "University of Texas at El Paso",
+      "home_away": "away",
+      "location": "El Paso, TX",
+      "source_url": "https://uiwcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2916",
+      "school": "UIW",
+      "event_id": "school-2916-2026-12-05-39",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "2916"
+      ],
+      "game": "Southeastern Louisiana University",
+      "home_away": "away",
+      "location": "Hammond, LA",
+      "source_url": "https://uiwcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2916",
+      "school": "UIW",
+      "event_id": "school-2916-2027-01-26-95",
+      "date": "2027-01-26",
+      "opponent_ids": [
+        "2916"
+      ],
+      "game": "The University of Texas Rio Grande Valley",
+      "home_away": "away",
+      "location": "Edinburg, TX",
+      "source_url": "https://uiwcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2433",
+      "school": "ULM",
+      "event_id": "school-2433-2026-12-16-59",
+      "date": "2026-12-16",
+      "opponent_ids": [
+        "2433"
+      ],
+      "game": "Ragin' Cajuns",
+      "home_away": "away",
+      "location": "Lafayette, La.",
+      "source_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2433",
+      "school": "ULM",
+      "event_id": "school-2433-2026-12-31-67",
+      "date": "2026-12-31",
+      "opponent_ids": [
+        "2433",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, Va.",
+      "source_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2378",
+      "school": "UMBC",
+      "event_id": "school-2378-2026-11-02-15",
+      "date": "2026-11-02",
+      "opponent_ids": [
+        "2378",
+        "2244"
+      ],
+      "game": "George Mason University",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2378",
+      "school": "UMBC",
+      "event_id": "school-2378-2026-12-05-59",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "2378",
+        "2169"
+      ],
+      "game": "Delaware State University",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2378",
+      "school": "UMBC",
+      "event_id": "school-2378-2027-02-06-115",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2378"
+      ],
+      "game": "University at Albany",
+      "home_away": "away",
+      "location": "Albany, NY",
+      "source_url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2378",
+      "school": "UMBC",
+      "event_id": "school-2378-2027-02-20-131",
+      "date": "2027-02-20",
+      "opponent_ids": [
+        "2378"
+      ],
+      "game": "University of Massachusetts Lowell",
+      "home_away": "away",
+      "location": "Lowell, MA",
+      "source_url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2379",
+      "school": "UMES",
+      "event_id": "school-2379-2026-11-04-7",
+      "date": "2026-11-04",
+      "opponent_ids": [
+        "2379",
+        "2272"
+      ],
+      "game": "High Point University",
+      "home_away": "neutral",
+      "location": "High Point, NC",
+      "source_url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2379",
+      "school": "UMES",
+      "event_id": "school-2379-2026-11-22-31",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "2379",
+        "85"
+      ],
+      "game": "IU Indy",
+      "home_away": "neutral",
+      "location": "Youngstown, OH",
+      "source_url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2379",
+      "school": "UMES",
+      "event_id": "school-2379-2027-02-27-115",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2379",
+        "2569"
+      ],
+      "game": "South Carolina State University",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC",
+      "source_url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2427",
+      "school": "UNC Asheville",
+      "event_id": "school-2427-2026-12-10-11",
+      "date": "2026-12-10",
+      "opponent_ids": [
+        "2427",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, MN",
+      "source_url": "https://uncabulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2427",
+      "school": "UNC Asheville",
+      "event_id": "school-2427-2027-01-16-20",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2427",
+        "2241"
+      ],
+      "game": "Gardner-Webb",
+      "home_away": "away",
+      "location": "Boiling Springs, NC",
+      "source_url": "https://uncabulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2430",
+      "school": "UNC Greensboro",
+      "event_id": "school-2430-2026-12-01-43",
+      "date": "2026-12-01",
+      "opponent_ids": [
+        "2430",
+        "2678"
+      ],
+      "game": "VMI",
+      "home_away": "away",
+      "location": "Lexington, Va. / Cameron Hall",
+      "source_url": "https://uncgspartans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2430",
+      "school": "UNC Greensboro",
+      "event_id": "school-2430-2026-12-19-59",
+      "date": "2026-12-19",
+      "opponent_ids": [
+        "2430",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, Tenn. Freedom Hall",
+      "source_url": "https://uncgspartans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "350",
+      "school": "UNCW",
+      "event_id": "school-350-2026-11-18-31",
+      "date": "2026-11-18",
+      "opponent_ids": [
+        "350",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "away",
+      "location": "Brooklyn, NY",
+      "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "350",
+      "school": "UNCW",
+      "event_id": "school-350-2027-01-07-91",
+      "date": "2027-01-07",
+      "opponent_ids": [
+        "350",
+        "2448"
+      ],
+      "game": "North Carolina A&T",
+      "home_away": "away",
+      "location": "Greensboro, NC",
+      "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "350",
+      "school": "UNCW",
+      "event_id": "school-350-2027-01-21-107",
+      "date": "2027-01-21",
+      "opponent_ids": [
+        "350",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, NJ",
+      "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
