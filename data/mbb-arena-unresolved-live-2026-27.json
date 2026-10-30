@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 120,
+  "schools_scanned": 137,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -844,6 +844,125 @@
       "source_sha": "537e181f6cdb12c602af5bef5d028a88411c1fd8",
       "game_count": 35,
       "missing_arena_fields": 1
+    },
+    {
+      "school_id": "282",
+      "school": "Indiana St.",
+      "source_sha": "3f06a23d4a9dc9157bd4590104c57ffe17a57677",
+      "game_count": 35,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "314",
+      "school": "Iona",
+      "source_sha": "66888ed702e3a891a064edba7cb6bce488c1286d",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2294",
+      "school": "Iowa",
+      "source_sha": "f016fd5381ba185a8bc2f5b97552f9b6797f1429",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "66",
+      "school": "Iowa St.",
+      "source_sha": "62c662725a25286fa5907891dda2f1e0bce8bae2",
+      "game_count": 32,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "85",
+      "school": "IU Indy",
+      "source_sha": "99e799ee86757a414b52814403b63e1a430975e1",
+      "game_count": 36,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2296",
+      "school": "Jackson St.",
+      "source_sha": "8b24ace8fee1f3d24118264fadd928c0a10b5cf8",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "294",
+      "school": "Jacksonville",
+      "source_sha": "4a605ed9245f58fc8b9ba4ec9de60af572083ddc",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "55",
+      "school": "Jacksonville St.",
+      "source_sha": "dafc643218b37d03e6514c49eadd9aadfb828a03",
+      "game_count": 23,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "256",
+      "school": "James Madison",
+      "source_sha": "a7000fac177b49499631a4089da62a7ce4e75295",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2305",
+      "school": "Kansas",
+      "source_sha": "7d050d7e071e561b4c46e346f0eceef214c192f2",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "140",
+      "school": "Kansas City",
+      "source_sha": "0ee50fefcff24fa5c7ab7f594d0c96bac6269622",
+      "game_count": 33,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2306",
+      "school": "Kansas St.",
+      "source_sha": "ef340ed7b886356139ea4960e13b25ce08f3bb17",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "338",
+      "school": "Kennesaw St.",
+      "source_sha": "d58d0ebb837a4068594bcd73ae51fbc1f2702695",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2309",
+      "school": "Kent St.",
+      "source_sha": "1a0b96f0cf2e662f941a7e425d43394a55ccdb90",
+      "game_count": 30,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "96",
+      "school": "Kentucky",
+      "source_sha": "eca0053fabe32b3cf8161e14d3ed0966f04e66ef",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2325",
+      "school": "La Salle",
+      "source_sha": "5d89ea3583058b3f2c38c69bbcbea732409f0dae",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "322",
+      "school": "Lafayette",
+      "source_sha": "f2e4cf82d4559ceca204c0280593c6670ccf7a0b",
+      "game_count": 29,
+      "missing_arena_fields": 2
     }
   ],
   "records": [
@@ -3523,6 +3642,514 @@
       "home_away": "neutral",
       "location": "",
       "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+    },
+    {
+      "school_id": "282",
+      "school": "Indiana St.",
+      "event_id": "school-282-2026-11-20-39",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "282",
+        "2617"
+      ],
+      "game": "Stephen F. Austin",
+      "home_away": "neutral",
+      "location": "St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://gosycamores.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "282",
+      "school": "Indiana St.",
+      "event_id": "school-282-2026-11-21-45",
+      "date": "2026-11-21",
+      "opponent_ids": [
+        "282"
+      ],
+      "game": "Paradise Jam Game No. 2",
+      "home_away": "neutral",
+      "location": "St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://gosycamores.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "282",
+      "school": "Indiana St.",
+      "event_id": "school-282-2026-11-23-51",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "282"
+      ],
+      "game": "Paradise Jam Game No. 3",
+      "home_away": "neutral",
+      "location": "St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://gosycamores.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "282",
+      "school": "Indiana St.",
+      "event_id": "school-282-2027-03-03-207",
+      "date": "2027-03-03",
+      "opponent_ids": [
+        "282"
+      ],
+      "game": "ArchMadness",
+      "home_away": "neutral",
+      "location": "St. Louis, Mo.",
+      "source_url": "https://gosycamores.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2294",
+      "school": "Iowa",
+      "event_id": "cross-school-2294-2026-11-10_259",
+      "date": "2026-11-10",
+      "opponent_ids": [
+        "259",
+        "2294"
+      ],
+      "game": "Iowa",
+      "home_away": "neutral",
+      "location": "Tue Nov 10",
+      "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2294",
+      "school": "Iowa",
+      "event_id": "cross-school-2294-2026-11-15_156",
+      "date": "2026-11-15",
+      "opponent_ids": [
+        "156",
+        "2294"
+      ],
+      "game": "Iowa",
+      "home_away": "neutral",
+      "location": "Des Moines, Iowa",
+      "source_url": "https://gocreighton.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "66",
+      "school": "Iowa St.",
+      "event_id": "school-66-2026-11-24-6",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "66",
+        "21"
+      ],
+      "game": "San Diego State",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "66",
+      "school": "Iowa St.",
+      "event_id": "school-66-2026-11-26-7",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "66"
+      ],
+      "game": "Tennessee or Maryland",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "66",
+      "school": "Iowa St.",
+      "event_id": "school-66-2026-11-27-8",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "66"
+      ],
+      "game": "Louisville, Texas Tech, St. John's or Oregon",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "66",
+      "school": "Iowa St.",
+      "event_id": "school-66-2026-12-18-14",
+      "date": "2026-12-18",
+      "opponent_ids": [
+        "66",
+        "2623"
+      ],
+      "game": "Missouri State",
+      "home_away": "neutral",
+      "location": "Kansas City, Mo.",
+      "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "66",
+      "school": "Iowa St.",
+      "event_id": "school-66-2027-01-23-23",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "66",
+        "2116"
+      ],
+      "game": "UCF",
+      "home_away": "away",
+      "location": "Orlando, Fla.",
+      "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "85",
+      "school": "IU Indy",
+      "event_id": "school-85-2026-11-14-19",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "85",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, Ky.",
+      "source_url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "85",
+      "school": "IU Indy",
+      "event_id": "school-85-2026-11-22-27",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "85",
+        "2379"
+      ],
+      "game": "UMES",
+      "home_away": "neutral",
+      "location": "Youngstown, Ohio",
+      "source_url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "85",
+      "school": "IU Indy",
+      "event_id": "school-85-2027-01-30-99",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "85",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich.",
+      "source_url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "85",
+      "school": "IU Indy",
+      "event_id": "school-85-2027-02-11-111",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "85",
+        "2473"
+      ],
+      "game": "Oakland",
+      "home_away": "away",
+      "location": "Rochester, Mich.",
+      "source_url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2296",
+      "school": "Jackson St.",
+      "event_id": "school-2296-2027-01-16-105",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2296",
+        "2504"
+      ],
+      "game": "Prairie View A&M",
+      "home_away": "away",
+      "location": "Prairie View, Texas",
+      "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2296",
+      "school": "Jackson St.",
+      "event_id": "school-2296-2027-01-30-129",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "2296"
+      ],
+      "game": "Grambling State",
+      "home_away": "away",
+      "location": "Grambling, La.",
+      "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "294",
+      "school": "Jacksonville",
+      "event_id": "school-294-2026-12-19-55",
+      "date": "2026-12-19",
+      "opponent_ids": [
+        "294"
+      ],
+      "game": "#21 USC",
+      "home_away": "away",
+      "location": "Los Angeles, CA",
+      "source_url": "https://judolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "294",
+      "school": "Jacksonville",
+      "event_id": "school-294-2027-03-04-127",
+      "date": "2027-03-04",
+      "opponent_ids": [
+        "294"
+      ],
+      "game": "Atlantic Sun Conference",
+      "home_away": "neutral",
+      "location": "",
+      "source_url": "https://judolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "55",
+      "school": "Jacksonville St.",
+      "event_id": "cross-school-55-2026-11-25_279",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "279",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://pacifictigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "55",
+      "school": "Jacksonville St.",
+      "event_id": "cross-school-55-2026-11-26_302",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "302",
+        "55"
+      ],
+      "game": "Jacksonville State University",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "55",
+      "school": "Jacksonville St.",
+      "event_id": "cross-school-55-2026-11-27_2437",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2437",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "neutral",
+      "location": "Las Vegas, NV",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "256",
+      "school": "James Madison",
+      "event_id": "school-256-2027-02-06-27",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "256"
+      ],
+      "game": "MAC-SBC Challenge",
+      "home_away": "away",
+      "location": "TBD",
+      "source_url": "https://jmusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "256",
+      "school": "James Madison",
+      "event_id": "school-256-2027-02-17-30",
+      "date": "2027-02-17",
+      "opponent_ids": [
+        "256",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, Va.",
+      "source_url": "https://jmusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "140",
+      "school": "Kansas City",
+      "event_id": "school-140-2026-11-12-5",
+      "date": "2026-11-12",
+      "opponent_ids": [
+        "140",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "neutral",
+      "location": "St. Petersburg, FL",
+      "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "140",
+      "school": "Kansas City",
+      "event_id": "school-140-2026-12-12-15",
+      "date": "2026-12-12",
+      "opponent_ids": [
+        "140"
+      ],
+      "game": "SEMO",
+      "home_away": "away",
+      "location": "Cape Girardeau, MO",
+      "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "140",
+      "school": "Kansas City",
+      "event_id": "school-140-2027-01-14-22",
+      "date": "2027-01-14",
+      "opponent_ids": [
+        "140",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, ND",
+      "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "140",
+      "school": "Kansas City",
+      "event_id": "school-140-2027-02-18-31",
+      "date": "2027-02-18",
+      "opponent_ids": [
+        "140",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, MN",
+      "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "338",
+      "school": "Kennesaw St.",
+      "event_id": "school-338-2026-11-24-51",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "338",
+        "2199"
+      ],
+      "game": "Eastern Michigan",
+      "home_away": "neutral",
+      "location": "Cancun, Mexico",
+      "source_url": "https://ksuowls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "338",
+      "school": "Kennesaw St.",
+      "event_id": "school-338-2027-02-06-141",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "338",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://ksuowls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2309",
+      "school": "Kent St.",
+      "event_id": "school-2309-2026-11-24-6",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2309",
+        "2751"
+      ],
+      "game": "Wyoming",
+      "home_away": "neutral",
+      "location": "Daytona Beach, Fla.",
+      "source_url": "https://kentstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2309",
+      "school": "Kent St.",
+      "event_id": "school-2309-2027-02-23-29",
+      "date": "2027-02-23",
+      "opponent_ids": [
+        "2309",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "away",
+      "location": "Athens, Ohio",
+      "source_url": "https://kentstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2325",
+      "school": "La Salle",
+      "event_id": "school-2325-2026-11-27-35",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2325",
+        "2083"
+      ],
+      "game": "Bucknell",
+      "home_away": "neutral",
+      "location": "Philadelphia, Pa. The Palestra",
+      "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2325",
+      "school": "La Salle",
+      "event_id": "school-2325-2026-12-08-47",
+      "date": "2026-12-08",
+      "opponent_ids": [
+        "2325",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, N.J.",
+      "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2325",
+      "school": "La Salle",
+      "event_id": "school-2325-2027-02-17-111",
+      "date": "2027-02-17",
+      "opponent_ids": [
+        "2325",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, Va.",
+      "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "322",
+      "school": "Lafayette",
+      "event_id": "school-322-2027-01-20-40",
+      "date": "2027-01-20",
+      "opponent_ids": [
+        "322",
+        "2352"
+      ],
+      "game": "Loyola",
+      "home_away": "away",
+      "location": "Baltimore, Md.",
+      "source_url": "https://goleopards.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "322",
+      "school": "Lafayette",
+      "event_id": "school-322-2027-02-06-60",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "322",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, N.Y.",
+      "source_url": "https://goleopards.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
