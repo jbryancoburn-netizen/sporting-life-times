@@ -84,8 +84,7 @@ def main():
     for start,end in MONTHS:
         try:raw.extend(get(start,end))
         except Exception as exc:failures.append({"start":start,"end":end,"error":str(exc)})
-    if not raw:
-        raise SystemExit("No ESPN events fetched. Preserving existing published ledger instead of overwriting it.")
+    # Secondary fixture retrieval must still run when ESPN is unavailable.
     by_id={str(g.get("id")):g for g in raw if g.get("id")}
     games=sorted([transform(g) for g in by_id.values()],key=lambda g:g.get("date_utc") or "")
     secondary_error=None
@@ -106,13 +105,14 @@ def main():
         games.sort(key=lambda g:g.get("date_utc") or "")
     except Exception as exc:
         secondary_error=str(exc)
+    if len(games)<46:
+        raise SystemExit("Fewer than 46 game candidates recovered; retaining the existing ledger.")
     counts=Counter(n for g in games for n in (g["home"],g["away"]) if n)
     invalid=[g["id"] for g in games if not g["id"] or g["home"] not in TEAMS or g["away"] not in TEAMS or g["home"]==g["away"] or not g["date_utc"]]
     duplicate_keys=[list(key) for key,num in Counter((g["date_utc"],g["home"],g["away"]) for g in games).items() if num>1]
     completed=[g for g in games if g["state"]=="post"]
     bad_scores=[g["id"] for g in completed if g["home_score"] is None or g["away_score"] is None]
-    if len(games)<46:
-        raise SystemExit("Fetched fewer games than the existing 46 completed records; refusing destructive overwrite.")
+    # Refuse to publish a shrinking or partial ledger after all retrieval paths.
     # ESPN scoreboard may include additional competition types; do not certify
     # 165 based only on total event count without NBL round classification.
     report={"generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"expected_regular_season_games":165,
