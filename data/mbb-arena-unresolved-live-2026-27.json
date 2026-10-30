@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 341,
+  "schools_scanned": 358,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -2391,6 +2391,125 @@
       "source_sha": "ad311ed659a9ea96ae441b91f3bd6a2d78ab1739",
       "game_count": 32,
       "missing_arena_fields": 2
+    },
+    {
+      "school_id": "259",
+      "school": "Virginia Tech",
+      "source_sha": "f6a7d695ef535827cb59a7106f21de5cb225c809",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2678",
+      "school": "VMI",
+      "source_sha": "c7868663336686598a40e751dbc8acd1871b02ae",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2681",
+      "school": "Wagner",
+      "source_sha": "7dcb4ca282876acebfd7d313f4b58da2260a5fc8",
+      "game_count": 30,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "154",
+      "school": "Wake Forest",
+      "source_sha": "7e5fcc7523b254eade8dae2938c06a271212ea16",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "264",
+      "school": "Washington",
+      "source_sha": "b7c246e6aef6a802d69b05c78bcbcdc75ba41351",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "265",
+      "school": "Washington St.",
+      "source_sha": "1e7f3eaae54d6df2617167678e3c38364edaa20b",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2692",
+      "school": "Weber St.",
+      "source_sha": "dd104d5969aad1f59142348b81c39aca917c2cab",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2697",
+      "school": "West Florida",
+      "source_sha": "4aeeb037c24ac5ade9cc3d18936d41653077673b",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2698",
+      "school": "West Ga.",
+      "source_sha": "955d086463d37dd800ba9ef3bd1bcf1049cfef4a",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "277",
+      "school": "West Virginia",
+      "source_sha": "fd72c7fd032195b2d424a77e8bff757638e23a19",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2717",
+      "school": "Western Caro.",
+      "source_sha": "10597aa78c297e895ea8bf5957518b6f70e2832b",
+      "game_count": 34,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "source_sha": "43abe49bebc77f0aa7a222ef4d2a07f241881c39",
+      "game_count": 32,
+      "missing_arena_fields": 6
+    },
+    {
+      "school_id": "98",
+      "school": "Western Ky.",
+      "source_sha": "8a051cdf60785de60a6c7e90ee146df698539303",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2711",
+      "school": "Western Mich.",
+      "source_sha": "c38ba8b51508412e74ce67a09ff8fb35a04aab04",
+      "game_count": 31,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2724",
+      "school": "Wichita St.",
+      "source_sha": "14a3d723a318b6a42e72eb1c48dcdf2d9f8e97d2",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2729",
+      "school": "William & Mary",
+      "source_sha": "db2b4d622835d5408eb9f547703621a1c4790945",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2737",
+      "school": "Winthrop",
+      "source_sha": "0343f0ca9b21850f5b2f6a41d192c0c1ed88199d",
+      "game_count": 33,
+      "missing_arena_fields": 1
     }
   ],
   "records": [
@@ -10182,6 +10301,416 @@
       "home_away": "away",
       "location": "Coral Gables, Fla.",
       "source_url": "https://virginiasports.com/sports/mbball/schedule"
+    },
+    {
+      "school_id": "259",
+      "school": "Virginia Tech",
+      "event_id": "school-259-2026-11-10-12",
+      "date": "2026-11-10",
+      "opponent_ids": [
+        "259",
+        "2294"
+      ],
+      "game": "Iowa",
+      "home_away": "neutral",
+      "location": "Tue Nov 10",
+      "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "259",
+      "school": "Virginia Tech",
+      "event_id": "school-259-2027-02-02-89",
+      "date": "2027-02-02",
+      "opponent_ids": [
+        "259",
+        "228"
+      ],
+      "game": "Clemson",
+      "home_away": "neutral",
+      "location": "Tue Feb 2",
+      "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "259",
+      "school": "Virginia Tech",
+      "event_id": "school-259-2027-02-10-92",
+      "date": "2027-02-10",
+      "opponent_ids": [
+        "259"
+      ],
+      "game": "Cal",
+      "home_away": "neutral",
+      "location": "Wed Feb 10",
+      "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2678",
+      "school": "VMI",
+      "event_id": "school-2678-2027-01-02-63",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "2678",
+        "2717"
+      ],
+      "game": "Western Carolina",
+      "home_away": "away",
+      "location": "Cullowhee, NC",
+      "source_url": "https://vmikeydets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2678",
+      "school": "VMI",
+      "event_id": "school-2678-2027-01-07-67",
+      "date": "2027-01-07",
+      "opponent_ids": [
+        "2678",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Cookeville, Tenn.",
+      "source_url": "https://vmikeydets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2678",
+      "school": "VMI",
+      "event_id": "school-2678-2027-02-03-99",
+      "date": "2027-02-03",
+      "opponent_ids": [
+        "2678",
+        "2747"
+      ],
+      "game": "Wofford",
+      "home_away": "away",
+      "location": "Spartanburg, SC",
+      "source_url": "https://vmikeydets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2678",
+      "school": "VMI",
+      "event_id": "school-2678-2027-02-06-103",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2678",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, TN",
+      "source_url": "https://vmikeydets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2681",
+      "school": "Wagner",
+      "event_id": "school-2681-2026-10-24-1",
+      "date": "2026-10-24",
+      "opponent_ids": [
+        "2681"
+      ],
+      "game": "Staten Island",
+      "home_away": "away",
+      "location": "Staten Island, NY The Tank Exhibition",
+      "source_url": "https://wagnerathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "264",
+      "school": "Washington",
+      "event_id": "school-264-2026-12-02-10",
+      "date": "2026-12-02",
+      "opponent_ids": [
+        "264"
+      ],
+      "game": "USC",
+      "home_away": "away",
+      "location": "Los Angeles, Calif.",
+      "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "265",
+      "school": "Washington St.",
+      "event_id": "cross-school-265-2026-11-18_62",
+      "date": "2026-11-18",
+      "opponent_ids": [
+        "62",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "neutral",
+      "location": "Everett, Wash.",
+      "source_url": "https://hawaiiathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "265",
+      "school": "Washington St.",
+      "event_id": "official-265-2027-03-09-pac12playingame",
+      "date": "2027-03-09",
+      "opponent_ids": [
+        "265"
+      ],
+      "game": "Pac-12 Play-In Game",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://wsucougars.com/sports/mens-basketball/schedule/season/2026-27"
+    },
+    {
+      "school_id": "2692",
+      "school": "Weber St.",
+      "event_id": "school-2692-2027-01-25-23",
+      "date": "2027-01-25",
+      "opponent_ids": [
+        "2692",
+        "331"
+      ],
+      "game": "Eastern Washington",
+      "home_away": "away",
+      "location": "Cheney, WA",
+      "source_url": "https://weberstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2698",
+      "school": "West Ga.",
+      "event_id": "school-2698-2026-11-24-31",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2698",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Cookeville, Tenn.",
+      "source_url": "https://uwgathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2717",
+      "school": "Western Caro.",
+      "event_id": "school-2717-2026-10-20-1",
+      "date": "2026-10-20",
+      "opponent_ids": [
+        "2717"
+      ],
+      "game": "Appalachian State",
+      "home_away": "away",
+      "location": "Boone, NC",
+      "source_url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2717",
+      "school": "Western Caro.",
+      "event_id": "school-2717-2027-01-09-67",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2717",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, TN",
+      "source_url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2717",
+      "school": "Western Caro.",
+      "event_id": "school-2717-2027-01-21-83",
+      "date": "2027-01-21",
+      "opponent_ids": [
+        "2717",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Cookeville, TN",
+      "source_url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2717",
+      "school": "Western Caro.",
+      "event_id": "school-2717-2027-02-27-119",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2717",
+        "2678"
+      ],
+      "game": "VMI",
+      "home_away": "away",
+      "location": "Lexington, VA",
+      "source_url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "event_id": "school-2710-2026-11-07-7",
+      "date": "2026-11-07",
+      "opponent_ids": [
+        "2710",
+        "2277"
+      ],
+      "game": "Houston Christian University",
+      "home_away": "neutral",
+      "location": "Canton, IL",
+      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "event_id": "school-2710-2026-11-20-23",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "2710"
+      ],
+      "game": "University at Albany",
+      "home_away": "neutral",
+      "location": "Buffalo, NY",
+      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "event_id": "school-2710-2026-11-21-27",
+      "date": "2026-11-21",
+      "opponent_ids": [
+        "2710",
+        "2385"
+      ],
+      "game": "Mercyhurst University",
+      "home_away": "neutral",
+      "location": "Buffalo, NY",
+      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "event_id": "school-2710-2027-01-09-75",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2710"
+      ],
+      "game": "SEMO",
+      "home_away": "away",
+      "location": "Cape Girardeau, MO",
+      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "event_id": "school-2710-2027-01-21-87",
+      "date": "2027-01-21",
+      "opponent_ids": [
+        "2710",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, KY",
+      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2710",
+      "school": "Western Ill.",
+      "event_id": "school-2710-2027-03-03-127",
+      "date": "2027-03-03",
+      "opponent_ids": [
+        "2710"
+      ],
+      "game": "Ohio Valley Conference",
+      "home_away": "neutral",
+      "location": "Evansville, IN",
+      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "98",
+      "school": "Western Ky.",
+      "event_id": "school-98-2026-11-08-4",
+      "date": "2026-11-08",
+      "opponent_ids": [
+        "98",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Cookeville, Tenn.",
+      "source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "98",
+      "school": "Western Ky.",
+      "event_id": "school-98-2026-12-22-14",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "98",
+        "2655"
+      ],
+      "game": "Tulane",
+      "home_away": "neutral",
+      "location": "Ft. Lauderdale, Fla.",
+      "source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "98",
+      "school": "Western Ky.",
+      "event_id": "school-98-2027-01-02-17",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "98"
+      ],
+      "game": "Jax State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2711",
+      "school": "Western Mich.",
+      "event_id": "school-2711-2026-11-02-1",
+      "date": "2026-11-02",
+      "opponent_ids": [
+        "2711",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, Va. MAC-Sun Belt Challenge",
+      "source_url": "https://wmubroncos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2711",
+      "school": "Western Mich.",
+      "event_id": "school-2711-2026-12-22-75",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "2711"
+      ],
+      "game": "USC",
+      "home_away": "away",
+      "location": "Los Angeles, Calif.",
+      "source_url": "https://wmubroncos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2711",
+      "school": "Western Mich.",
+      "event_id": "school-2711-2027-01-19-111",
+      "date": "2027-01-19",
+      "opponent_ids": [
+        "2711",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "away",
+      "location": "Athens, Ohio",
+      "source_url": "https://wmubroncos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2737",
+      "school": "Winthrop",
+      "event_id": "school-2737-2026-12-02-35",
+      "date": "2026-12-02",
+      "opponent_ids": [
+        "2737",
+        "2569"
+      ],
+      "game": "South Carolina St.",
+      "home_away": "away",
+      "location": "Orangeburg, SC",
+      "source_url": "https://winthropeagles.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
