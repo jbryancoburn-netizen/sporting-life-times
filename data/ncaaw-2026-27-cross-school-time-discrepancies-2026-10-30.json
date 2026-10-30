@@ -1,0 +1,59 @@
+{
+  "season": "2026-27",
+  "verification_date": "2026-10-30",
+  "finding": "Independent opponent-source check uncovered conflicting published tipoffs; no canonical time overwritten",
+  "games": [
+    {
+      "game_id": "401906067",
+      "date": "2026-11-20",
+      "teams": [
+        "California",
+        "Hawaii"
+      ],
+      "california_printed": "6:00 PM PT",
+      "california_utc": "2026-11-21T02:00:00Z",
+      "hawaii_printed": "2:00 PM HT",
+      "hawaii_utc": "2026-11-21T00:00:00Z",
+      "existing_calendar_utc": "2026-11-21T01:00:00Z",
+      "outcome": "THREE-WAY DISCREPANCY; university calendars disagree by 2h; published ledger is between; do not set preferred time before event-organizer confirmation",
+      "sources": [
+        "https://calbears.com/sports/wbball/schedule/text",
+        "https://hawaiiathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+      ]
+    },
+    {
+      "game_id": "401928314",
+      "date": "2026-12-18",
+      "teams": [
+        "Oregon State",
+        "Idaho State"
+      ],
+      "oregon_state_printed": "8 PM PT",
+      "oregon_state_utc": "2026-12-19T04:00:00Z",
+      "existing_calendar_utc": "2026-12-19T01:00:00Z",
+      "outcome": "Official Oregon State schedule differs 3 hours from ledger. Opponent/organizer confirmation outstanding.",
+      "sources": [
+        "https://osubeavers.com/sports/womens-basketball/schedule/text",
+        "https://osubeavers.com/game-center/22885"
+      ]
+    },
+    {
+      "game_id": "401928315",
+      "date": "2026-12-19",
+      "teams": [
+        "Oregon State",
+        "Ball State"
+      ],
+      "oregon_state_printed": "8 PM PT",
+      "oregon_state_utc": "2026-12-20T04:00:00Z",
+      "existing_calendar_utc": "2026-12-20T01:00:00Z",
+      "outcome": "Official Oregon State schedule differs 3 hours from ledger. Opponent/organizer confirmation outstanding.",
+      "sources": [
+        "https://osubeavers.com/sports/womens-basketball/schedule/text",
+        "https://osubeavers.com/game-center/22886"
+      ]
+    }
+  ],
+  "correction_to_previous_evidence": "An earlier evidence record identified California's 6 PM PT as an official alternative but did not inspect Hawaii's official schedule. Hawaii lists 2 PM HT, which does not match California; neither should be automatically promoted to canonical.",
+  "schedule_rows_changed": 0
+}
