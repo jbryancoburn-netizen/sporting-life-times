@@ -46,6 +46,37 @@ def transform(event):
             "round":event.get("week",{}).get("number"),
             "season_type":event.get("season",{}).get("type"),
             "source":"ESPN","official_nbl_verified":False}
+
+def get_fixture_candidates():
+    """Independent fixture cross-check; does not confer official-NBL status."""
+    url="https://fixturedownload.azurewebsites.net/feed/json/nbl-2026"
+    req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; SportingLifeTimes/1.0)"})
+    with urllib.request.urlopen(req,timeout=45) as response: payload=json.load(response)
+    if isinstance(payload,list): return payload
+    if isinstance(payload,dict):
+        for key in ("fixtures","Fixtures","games","Games","matches","Matches","data","Data"):
+            if isinstance(payload.get(key),list): return payload[key]
+    raise ValueError("Unrecognized secondary fixture schema")
+
+def as_fixture(row):
+    def grab(*names):
+        for name in names:
+            if row.get(name) is not None:return row[name]
+        return None
+    home=grab("HomeTeam","homeTeam","home_team","home","Home","Home Team")
+    away=grab("AwayTeam","awayTeam","away_team","away","Away","Away Team")
+    date=grab("DateUtc","dateUtc","date_utc","Date","date","StartDate","start")
+    if isinstance(home,dict):home=home.get("name") or home.get("displayName")
+    if isinstance(away,dict):away=away.get("name") or away.get("displayName")
+    if not home or not away or not date:return None
+    if not isinstance(date,str):date=str(date)
+    if "36ers" in home:home="Adelaide 36ers"
+    if "36ers" in away:away="Adelaide 36ers"
+    return {"id":None,"date_utc":date,"home":home,"away":away,"home_score":None,
+       "away_score":None,"state":"pre","venue":grab("Location","location","Venue","venue"),
+       "broadcasts":[],"round":None,"season_type":2,"source":"FixtureDownload secondary",
+       "official_nbl_verified":False}
+
 def main():
     raw=[];failures=[]
     for start,end in MONTHS:
@@ -55,6 +86,18 @@ def main():
         raise SystemExit("No ESPN events fetched. Preserving existing published ledger instead of overwriting it.")
     by_id={str(g.get("id")):g for g in raw if g.get("id")}
     games=sorted([transform(g) for g in by_id.values()],key=lambda g:g.get("date_utc") or "")
+    secondary_error=None
+    try:
+        secondary=[g for row in get_fixture_candidates() if (g:=as_fixture(row))]
+        known={(g["home"],g["away"],str(g["date_utc"])[:10]) for g in games}
+        for g in secondary:
+            key=(g["home"],g["away"],str(g["date_utc"])[:10])
+            if key not in known and g["home"] in TEAMS and g["away"] in TEAMS:
+                games.append(g)
+                known.add(key)
+        games.sort(key=lambda g:g.get("date_utc") or "")
+    except Exception as exc:
+        secondary_error=str(exc)
     counts=Counter(n for g in games for n in (g["home"],g["away"]) if n)
     invalid=[g["id"] for g in games if not g["id"] or g["home"] not in TEAMS or g["away"] not in TEAMS or g["home"]==g["away"] or not g["date_utc"]]
     duplicate_keys=[list(key) for key,num in Counter((g["date_utc"],g["home"],g["away"]) for g in games).items() if num>1]
@@ -67,7 +110,7 @@ def main():
     report={"generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"expected_regular_season_games":165,
             "expected_team_appearances":330,"source_event_count":len(raw),"unique_candidate_games":len(games),
             "candidate_team_appearances":sum(counts.values()),"per_team":dict(sorted(counts.items())),
-            "source_month_failures":failures,"invalid_games":invalid,"duplicate_matchups":duplicate_keys,
+            "source_month_failures":failures,"secondary_fixture_error":secondary_error,"invalid_games":invalid,"duplicate_matchups":duplicate_keys,
             "completed_games":len(completed),"completed_without_scores":bad_scores,
             "official_game_reconciliation":"NOT_COMPLETED",
             "certified_regular_season_complete":False,
