@@ -46,13 +46,13 @@ try:
   resp.raise_for_status()
   page=BeautifulSoup(resp.text,'html.parser')
   whole=page.get_text(' ',strip=True)
-  if not re.search(r'2026\\s*[-–/]\\s*27|2026-27',whole,re.I):raise ValueError('official NCAA page does not establish 2026–27 season')
+  if not re.search(r'2026\s*[-–/]\s*27|2026-27',whole,re.I):raise ValueError('official NCAA page does not establish 2026–27 season')
   rows=[]
   for tr in page.select('table tr'):
    cells=tr.find_all(['th','td'],recursive=False)
    if len(cells)<2:continue
    rank_text=cells[0].get_text(' ',strip=True)
-   if not re.fullmatch(r'\\d{1,3}',rank_text):continue
+   if not re.fullmatch(r'\d{1,3}',rank_text):continue
    rank=int(rank_text)
    if rank>25:continue
    school=cells[1].get_text(' ',strip=True)
