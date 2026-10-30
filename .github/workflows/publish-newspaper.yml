@@ -67,6 +67,7 @@ jobs:
       # The dedicated newspaper regression workflow runs full Playwright tests.
       # Keep routine publication fast and independent of browser installation.
       - name: Refresh NBA headlines inside the deployable Pages artifact
+        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
         continue-on-error: true
         run: |
           set -euo pipefail
@@ -114,6 +115,7 @@ jobs:
           grep -q 'cfb-directory.js' college-football.html
           grep -q 'cfb-newspaper.js' college-football.html
       - name: Refresh EuroLeague live scores in the Pages artifact
+        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
         continue-on-error: true
         run: |
           python3 scripts/euroleague_live_fast.py
@@ -124,6 +126,7 @@ jobs:
           print('Deployed EuroLeague scoreboard:',d.get('checked_at'),d.get('live_scores_refreshed'),'live score checks')
           PY
       - name: Update EuroLeague Elo, standings and projections for completed game windows
+        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
         continue-on-error: true
         run: |
           python3 - <<'PY'
@@ -153,6 +156,7 @@ jobs:
               print('EuroLeague: no newly finished game windows; keeping verified ratings.',flush=True)
           PY
       - name: Persist validated EuroLeague scores and model back to main
+        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
         continue-on-error: true
         run: |
           set -euo pipefail
@@ -168,6 +172,7 @@ jobs:
             echo "EuroLeague snapshot already saved in main"
           fi
       - name: Reconcile NBA finals and rebuild 1500-start power rankings inside the published edition
+        if: ${{ false }} # Dedicated league workflows own data collection; never block Pages publishing.
         continue-on-error: true
         run: |
           set -euo pipefail
