@@ -61,10 +61,51 @@ def main():
             key=d+":"+ "|".join(ids) if d and len(ids)==2 else team+":"+str(e.get("id") or d)
             entries.append(dict(key=key,date=d,team=team,path=path,event=e,venue=v,
                                 ids=ids,teams=pair))
+    # Identity checks are independent of the arena workflow.
+    # Use canonical ESPN IDs and counterpart schedule records; never rewrite an
+    # opponent merely because a name resembles another university.
+    identity_issues=[]
+    def issue(r, reason, **detail):
+        identity_issues.append(dict(team=r["team"], event_id=r["event"].get("id"),
+                                    date=r["date"], reason=reason, **detail))
+    for r in entries:
+        e=r["event"]
+        try: raw=e["competitions"][0]["competitors"]
+        except (KeyError,IndexError,TypeError): raw=[]
+        if not raw:
+            issue(r,"missing competitors")
+            continue
+        ids=[str(x.get("team",{}).get("id","")) for x in raw]
+        if r["team"] not in ids:
+            issue(r,"schedule owner absent from competitors",competitor_ids=ids)
+        if len(ids)!=2 or len(set(ids))!=2 or not all(ids):
+            issue(r,"invalid or unidentified opponent ids",competitor_ids=ids)
+        for x in raw:
+            t=x.get("team",{})
+            tid=str(t.get("id") or "")
+            logo=t.get("logo") or ""
+            match=re.search(r"/ncaa/(?:500|600|dark|scoreboard)/([0-9]+)\\.(?:png|svg|webp)",logo,re.I)
+            if match and match.group(1)!=tid:
+                issue(r,"logo id contradicts opponent id",team_id=tid,logo=logo)
+            if tid and tid!=r["team"] and not t.get("displayName"):
+                issue(r,"opponent display name missing",opponent_id=tid)
+        # Explicit high-risk collision: Kentucky and Western Kentucky are separate.
+        # Retain a generic alias-collision rule for event descriptions naming
+        # one college while the encoded competitor points to another.
+        label=norm(e.get("name",""))
+        if "western kentucky" in label and "98" not in ids:
+            issue(r,"event names Western Kentucky but competitor id is not 98",competitor_ids=ids)
+        if "western illinois" in label and "2710" not in ids:
+            issue(r,"event names Western Illinois but competitor id is not 2710",competitor_ids=ids)
     groups=defaultdict(list)
     for r in entries: groups[r["key"]].append(r)
     fixes=[]
     conflicts=[]
+    for key, rows in groups.items():
+        # A reciprocal pair must identify precisely the same two programs.
+        for r in rows:
+            if len(r["ids"])==2 and r["team"] not in r["ids"]:
+                issue(r,"owner not represented in paired game",competitor_ids=r["ids"])
     for key, rows in groups.items():
         # Non-two-team groups are quarantined; avoid matching by date alone.
         if len(rows[0]["ids"])!=2: continue
@@ -117,7 +158,7 @@ def main():
                  unique_unresolved_groups=len(unique),grouped_duplicate_records=len(records)-len(unique),
                  paired_missing_records=sum(len(g["events"]) for g in unique if len(g["events"])>1),
                  groups_with_unidentified_opponents=sum(len(g["opponent_ids"])<2 for g in unique),
-                 verified_reciprocal_arena_repairs=len(fixes),conflicting_games=len(conflicts))
+                 verified_reciprocal_arena_repairs=len(fixes),conflicting_games=len(conflicts),identity_issues=len(identity_issues))
     audit=dict(title="Independent 365-schedule MBB arena audit",school_count_total=365,
                schools_scanned=365,scan_status="full_365_file_rescan",
                match_method="same date + exactly two known team IDs; incomplete IDs remain separate",
@@ -137,7 +178,7 @@ def main():
                 put(path,data)
         put(AUDIT,audit)
         put(LEDGER,dict(summary=summary,games=ledger))
-        put(EXCEPTIONS,dict(conflicts=conflicts,unresolved_groups=unique))
+        put(EXCEPTIONS,dict(conflicts=conflicts,identity_issues=identity_issues,unresolved_groups=unique))
     print(json.dumps(summary,indent=2))
     if not args.write: print("DRY RUN: use --write to publish locally")
 if __name__=="__main__": main()
