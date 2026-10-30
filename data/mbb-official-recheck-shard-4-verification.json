@@ -2,14 +2,13 @@
   "schools_targeted": 65,
   "schools_checked": 65,
   "totals": {
-    "matched": 292,
-    "site_corrected": 0,
+    "matched": 266,
+    "site_corrected": 1,
     "location_corrected": 0
   },
   "status_counts": {
-    "source_fetch_failed": 33,
-    "verified_matches": 25,
-    "no_official_source": 7
+    "source_fetch_failed": 41,
+    "verified_matches": 24
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
   "schools": [
@@ -36,7 +35,7 @@
       "team": "Tulane",
       "id": "2655",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -54,7 +53,7 @@
       "team": "UAB",
       "id": "5",
       "status": "verified_matches",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -100,11 +99,12 @@
     {
       "team": "UC San Diego",
       "id": "28",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "UC Santa Barbara",
@@ -129,11 +129,12 @@
     {
       "team": "UCLA",
       "id": "26",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "UConn",
@@ -178,7 +179,7 @@
       "team": "UMass Lowell",
       "id": "2349",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -206,11 +207,12 @@
     {
       "team": "UNC Asheville",
       "id": "2427",
-      "status": "verified_matches",
-      "matched": 11,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "UNC Greensboro",
@@ -254,7 +256,7 @@
       "team": "USC Upstate",
       "id": "2908",
       "status": "verified_matches",
-      "matched": 17,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -272,7 +274,7 @@
       "team": "UT Martin",
       "id": "2630",
       "status": "verified_matches",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -281,7 +283,7 @@
       "team": "Utah",
       "id": "254",
       "status": "verified_matches",
-      "matched": 22,
+      "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 40
@@ -289,11 +291,12 @@
     {
       "team": "Utah St.",
       "id": "328",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Utah Tech",
@@ -338,11 +341,12 @@
     {
       "team": "UTSA",
       "id": "2636",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Valparaiso",
@@ -357,11 +361,12 @@
     {
       "team": "Vanderbilt",
       "id": "238",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "VCU",
@@ -396,11 +401,12 @@
     {
       "team": "Virginia",
       "id": "258",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Virginia Tech",
@@ -436,7 +442,7 @@
       "team": "Wake Forest",
       "id": "154",
       "status": "verified_matches",
-      "matched": 13,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -446,24 +452,25 @@
       "id": "264",
       "status": "verified_matches",
       "matched": 8,
-      "site_corrected": 0,
+      "site_corrected": 1,
       "location_corrected": 0,
       "school_rows": 33
     },
     {
       "team": "Washington St.",
       "id": "265",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Weber St.",
       "id": "2692",
       "status": "verified_matches",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -492,7 +499,7 @@
       "team": "West Virginia",
       "id": "277",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -626,7 +633,7 @@
       "team": "Youngstown St.",
       "id": "2754",
       "status": "verified_matches",
-      "matched": 12,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 38

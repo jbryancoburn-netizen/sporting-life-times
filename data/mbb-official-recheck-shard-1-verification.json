@@ -2,14 +2,13 @@
   "schools_targeted": 100,
   "schools_checked": 100,
   "totals": {
-    "matched": 615,
+    "matched": 567,
     "site_corrected": 0,
     "location_corrected": 0
   },
   "status_counts": {
-    "source_fetch_failed": 46,
-    "verified_matches": 46,
-    "no_official_source": 8
+    "source_fetch_failed": 54,
+    "verified_matches": 46
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
   "schools": [
@@ -36,7 +35,7 @@
       "team": "Air Force",
       "id": "2005",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -45,7 +44,7 @@
       "team": "Akron",
       "id": "2006",
       "status": "verified_matches",
-      "matched": 16,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -54,7 +53,7 @@
       "team": "Alabama",
       "id": "333",
       "status": "verified_matches",
-      "matched": 17,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -121,11 +120,12 @@
     {
       "team": "Arizona St.",
       "id": "9",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Ark.-Pine Bluff",
@@ -140,11 +140,12 @@
     {
       "team": "Arkansas",
       "id": "8",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Arkansas St.",
@@ -160,7 +161,7 @@
       "team": "Army West Point",
       "id": "349",
       "status": "verified_matches",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -189,7 +190,7 @@
       "team": "Ball St.",
       "id": "2050",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -198,7 +199,7 @@
       "team": "Baylor",
       "id": "239",
       "status": "verified_matches",
-      "matched": 17,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -282,11 +283,12 @@
     {
       "team": "Bradley",
       "id": "71",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Brown",
@@ -311,7 +313,7 @@
       "team": "Bucknell",
       "id": "2083",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -320,7 +322,7 @@
       "team": "Buffalo",
       "id": "2084",
       "status": "verified_matches",
-      "matched": 20,
+      "matched": 18,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -338,11 +340,12 @@
     {
       "team": "BYU",
       "id": "252",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Cal Poly",
@@ -367,7 +370,7 @@
       "team": "California",
       "id": "25",
       "status": "verified_matches",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -425,7 +428,7 @@
       "team": "Central Mich.",
       "id": "2117",
       "status": "verified_matches",
-      "matched": 18,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 38
@@ -443,7 +446,7 @@
       "team": "Charlotte",
       "id": "2429",
       "status": "verified_matches",
-      "matched": 13,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -452,7 +455,7 @@
       "team": "Chattanooga",
       "id": "236",
       "status": "verified_matches",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -470,20 +473,22 @@
     {
       "team": "Cincinnati",
       "id": "2132",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Clemson",
       "id": "228",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Cleveland St.",
@@ -499,7 +504,7 @@
       "team": "Coastal Carolina",
       "id": "324",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -536,7 +541,7 @@
       "team": "Colorado St.",
       "id": "36",
       "status": "verified_matches",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -545,7 +550,7 @@
       "team": "Columbia",
       "id": "171",
       "status": "verified_matches",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 31
@@ -563,11 +568,12 @@
     {
       "team": "Cornell",
       "id": "172",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Creighton",
@@ -610,7 +616,7 @@
       "team": "Davidson",
       "id": "2166",
       "status": "verified_matches",
-      "matched": 12,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -629,7 +635,7 @@
       "team": "Delaware",
       "id": "48",
       "status": "verified_matches",
-      "matched": 13,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -648,7 +654,7 @@
       "team": "Denver",
       "id": "2172",
       "status": "verified_matches",
-      "matched": 10,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -657,7 +663,7 @@
       "team": "DePaul",
       "id": "305",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -695,7 +701,7 @@
       "team": "Duke",
       "id": "150",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -753,7 +759,7 @@
       "team": "Eastern Mich.",
       "id": "2199",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -851,7 +857,7 @@
       "team": "Florida",
       "id": "57",
       "status": "verified_matches",
-      "matched": 13,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -870,7 +876,7 @@
       "team": "Florida St.",
       "id": "52",
       "status": "verified_matches",
-      "matched": 16,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -889,7 +895,7 @@
       "team": "Fresno St.",
       "id": "278",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -917,7 +923,7 @@
       "team": "Gardner-Webb",
       "id": "2241",
       "status": "verified_matches",
-      "matched": 16,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 31
@@ -925,11 +931,12 @@
     {
       "team": "George Mason",
       "id": "2244",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "George Washington",

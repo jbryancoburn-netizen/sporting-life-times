@@ -2,14 +2,14 @@
   "schools_targeted": 100,
   "schools_checked": 100,
   "totals": {
-    "matched": 569,
-    "site_corrected": 0,
-    "location_corrected": 1
+    "matched": 541,
+    "site_corrected": 1,
+    "location_corrected": 2
   },
   "status_counts": {
-    "source_fetch_failed": 42,
+    "source_fetch_failed": 48,
     "verified_matches": 46,
-    "no_official_source": 12
+    "no_official_source": 6
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
   "schools": [
@@ -27,7 +27,7 @@
       "team": "North Carolina",
       "id": "153",
       "status": "verified_matches",
-      "matched": 13,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -55,10 +55,10 @@
       "team": "North Florida",
       "id": "2454",
       "status": "verified_matches",
-      "matched": 18,
+      "matched": 17,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 36
     },
     {
       "team": "North Texas",
@@ -93,7 +93,7 @@
       "team": "Northern Colo.",
       "id": "2458",
       "status": "verified_matches",
-      "matched": 11,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -131,11 +131,12 @@
     {
       "team": "Notre Dame",
       "id": "87",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Oakland",
@@ -169,7 +170,7 @@
       "team": "Oklahoma",
       "id": "201",
       "status": "verified_matches",
-      "matched": 16,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -178,7 +179,7 @@
       "team": "Oklahoma St.",
       "id": "197",
       "status": "verified_matches",
-      "matched": 18,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 50
@@ -186,11 +187,12 @@
     {
       "team": "Old Dominion",
       "id": "295",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Ole Miss",
@@ -224,7 +226,7 @@
       "team": "Oregon",
       "id": "2483",
       "status": "verified_matches",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -233,7 +235,7 @@
       "team": "Oregon St.",
       "id": "204",
       "status": "verified_matches",
-      "matched": 21,
+      "matched": 20,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -346,11 +348,12 @@
     {
       "team": "Purdue",
       "id": "2509",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Purdue Fort Wayne",
@@ -441,7 +444,7 @@
       "team": "Rutgers",
       "id": "164",
       "status": "verified_matches",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -468,11 +471,12 @@
     {
       "team": "Saint Joseph's",
       "id": "2603",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Saint Louis",
@@ -507,16 +511,16 @@
       "team": "Sam Houston",
       "id": "2534",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 1,
+      "location_corrected": 0,
       "school_rows": 32
     },
     {
       "team": "Samford",
       "id": "2535",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -572,11 +576,12 @@
     {
       "team": "Seattle U",
       "id": "2547",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Seton Hall",
@@ -591,7 +596,7 @@
       "team": "SFA",
       "id": "2617",
       "status": "verified_matches",
-      "matched": 18,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -620,7 +625,7 @@
       "team": "SMU",
       "id": "2567",
       "status": "verified_matches",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 38
@@ -638,11 +643,12 @@
     {
       "team": "South Carolina",
       "id": "2579",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "South Carolina St.",
@@ -677,7 +683,7 @@
       "team": "South Fla.",
       "id": "58",
       "status": "verified_matches",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -725,7 +731,7 @@
       "status": "verified_matches",
       "matched": 18,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 35
     },
     {
@@ -772,7 +778,7 @@
       "id": "2599",
       "status": "verified_matches",
       "matched": 13,
-      "site_corrected": 0,
+      "site_corrected": 1,
       "location_corrected": 0,
       "school_rows": 37
     },
@@ -829,7 +835,7 @@
       "team": "Syracuse",
       "id": "183",
       "status": "verified_matches",
-      "matched": 10,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -848,7 +854,7 @@
       "team": "TCU",
       "id": "2628",
       "status": "verified_matches",
-      "matched": 16,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -894,7 +900,7 @@
       "team": "Texas",
       "id": "251",
       "status": "verified_matches",
-      "matched": 21,
+      "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -941,7 +947,7 @@
       "team": "The Citadel",
       "id": "2643",
       "status": "verified_matches",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -950,7 +956,7 @@
       "team": "Toledo",
       "id": "2649",
       "status": "verified_matches",
-      "matched": 15,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
