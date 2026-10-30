@@ -1,22 +1,55 @@
 {
+  "generated_at": "2026-10-30T17:56:44.761524+00:00",
   "expected_regular_season_games": 165,
   "expected_team_appearances": 330,
-  "known_completed_candidates": 46,
-  "known_team_appearances": 92,
+  "source_event_count": 0,
+  "unique_candidate_games": 165,
+  "candidate_team_appearances": 330,
   "per_team": {
-    "Melbourne United": 9,
-    "Adelaide 36ers": 10,
-    "Perth Wildcats": 8,
-    "South East Melbourne Phoenix": 9,
-    "New Zealand Breakers": 10,
-    "Illawarra Hawks": 10,
-    "Sydney Kings": 9,
-    "Cairns Taipans": 10,
-    "Tasmania JackJumpers": 8,
-    "Brisbane Bullets": 9
+    "Adelaide 36ers": 33,
+    "Brisbane Bullets": 33,
+    "Cairns Taipans": 33,
+    "Illawarra Hawks": 33,
+    "Melbourne United": 33,
+    "New Zealand Breakers": 33,
+    "Perth Wildcats": 33,
+    "South East Melbourne Phoenix": 33,
+    "Sydney Kings": 33,
+    "Tasmania JackJumpers": 33
   },
+  "source_month_failures": [
+    {
+      "start": "20260919",
+      "end": "20261031",
+      "error": "ESPN source fetch failed for 20260919-20261031: HTTP Error 400: Bad Request"
+    },
+    {
+      "start": "20261101",
+      "end": "20261130",
+      "error": "ESPN source fetch failed for 20261101-20261130: HTTP Error 400: Bad Request"
+    },
+    {
+      "start": "20261201",
+      "end": "20261231",
+      "error": "ESPN source fetch failed for 20261201-20261231: HTTP Error 400: Bad Request"
+    },
+    {
+      "start": "20270101",
+      "end": "20270131",
+      "error": "ESPN source fetch failed for 20270101-20270131: HTTP Error 400: Bad Request"
+    },
+    {
+      "start": "20270201",
+      "end": "20270228",
+      "error": "ESPN source fetch failed for 20270201-20270228: HTTP Error 400: Bad Request"
+    }
+  ],
+  "secondary_fixture_error": null,
+  "invalid_games": [],
+  "duplicate_matchups": [],
+  "completed_games": 0,
+  "completed_without_scores": [],
   "official_game_reconciliation": "NOT_COMPLETED",
   "certified_regular_season_complete": false,
-  "source_month_failures": [],
-  "reason": "Seed ledger is limited to the existing completed-game archive; scheduled fixtures still require source retrieval."
+  "reason": "ESPN events are not independently cross-matched to all 165 official NBL round fixtures."
 }
