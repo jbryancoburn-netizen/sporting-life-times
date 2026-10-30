@@ -33,7 +33,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const load=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Error(p+' HTTP '+r.status);return r.json()};
 if(!id||!/^[0-9]+$/.test(id)){host.innerHTML='<div class="wbb-panel"><h2>Choose a team</h2><a href="ncaam.html?gender=women#wbb-teams">Women’s team directory →</a></div>';return}
 try{
-const [registry,master,ratings,officialTV,scoreboardTV]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null)]);
+const [registry,master,ratings,officialTV,scoreboardTV,palette]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null)]);
 const teams=registry.teams||[],lookup=new Map(teams.map(t=>[String(t.team_id),t]));
 const t=lookup.get(id),entry=master.teams?.[id];
 if(!t||!entry)throw Error('No published women’s schedule found for team '+id);
@@ -56,7 +56,7 @@ const record=rating?String(rating.wins||0)+'–'+String(rating.losses||0):'—';
 const logo=/^https:\/\//.test(t.logo||'')?'<img alt="" src="'+esc(t.logo)+'">':'';
 const rows=sorted.map(g=>{
   const opp=lookup.get(String(g.opponent_id||''));
-  const oppColor=/^[0-9a-f]{6}$/i.test(opp?.color||'')?'#'+opp.color:'#334b64';const badge=opp?.logo?'<span class="wbb-double-ring" style="--wbb-ring-one:'+oppColor+';--wbb-ring-two:'+oppColor+'" aria-hidden="true"><span class="wbb-double-ring-inner"><img class="wbb-game-logo" src="'+esc(opp.logo)+'" loading="lazy" alt=""></span></span>':'';const opponent=opp?'<a class="wbb-opponent wbb-team-opp" href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+badge+'<span class="wbb-opponent-label">'+esc(g.opponent||opp.team)+'</span></a>':esc(g.opponent||'Opponent TBA');
+  const brand=palette?.mbb?.[String(opp?.team_id||'')]||{};const primary=/^#[0-9a-f]{6}$/i.test(brand.primary||'')?brand.primary:(/^[0-9a-f]{6}$/i.test(opp?.color||'')?'#'+opp.color:'#334b64');const secondary=/^#[0-9a-f]{6}$/i.test(brand.secondary||'')&&brand.secondary.toLowerCase()!==primary.toLowerCase()?brand.secondary:'#75848f';const badge=opp?.logo?'<span class="wbb-double-ring" style="--wbb-ring-one:'+primary+';--wbb-ring-two:'+secondary+'" aria-hidden="true"><span class="wbb-double-ring-inner"><img class="wbb-game-logo" src="'+esc(opp.logo)+'" loading="lazy" alt=""></span></span>':'';const opponent=opp?'<a class="wbb-opponent wbb-team-opp" href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+badge+'<span class="wbb-opponent-label">'+esc(g.opponent||opp.team)+'</span></a>':esc(g.opponent||'Opponent TBA');
   const d=new Date(g.date);
   const date=Number.isNaN(d.getTime())?esc(g.date||'TBA'):esc(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}));
   const other=rmap.get(String(g.opponent_id||''));
