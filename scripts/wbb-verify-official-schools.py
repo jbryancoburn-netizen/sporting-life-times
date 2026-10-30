@@ -329,7 +329,7 @@ def main():
  with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
   results=list(pool.map(lambda p:school(*p,safe_stems),work))
  fresh_schools=sum(bool(r["matched"]) for r in results)
- if previous_schools>=300 and fresh_schools<previous_schools-5:
+ if previous_schools>=300 and fresh_schools<previous_schools-2:
   raise RuntimeError("Official university site retrieval outage: "+
                      str(fresh_schools)+" fresh schools vs "+
                      str(previous_schools)+" previously verified; refusing to publish a regression")

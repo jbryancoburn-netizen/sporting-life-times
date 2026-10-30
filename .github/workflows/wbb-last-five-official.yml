@@ -1,0 +1,53 @@
+name: WBB Last Five Cited Official Schedule Evidence
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wbb-last-five-official.yml'
+      - 'scripts/wbb-apply-final-five-official-evidence.py'
+      - 'data/ncaaw-2026-27-final-five-official-evidence.json'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-last-five-official
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile official-source importer
+        run: python -m py_compile scripts/wbb-apply-final-five-official-evidence.py
+      - name: Match dated official university and conference games without external requests
+        run: python scripts/wbb-apply-final-five-official-evidence.py
+      - name: Assert non-regression
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('data/ncaaw-2026-27-final-five-official-evidence-audit.json'))
+          assert a['overall_verified_schools']>=357
+          assert a['overall_verified_rows']>=8931
+          assert a['source_printed_rows']>=140
+          print('Additional official game matches:',a['new_official_team_game_rows'])
+          print('Overall verified programs:',a['overall_verified_schools'])
+          PY
+      - name: Publish game-specific official-source evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for n in 1 2 3; do
+            git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
+            git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
+            git add data/ncaaw-2026-27-final-five-official-evidence-audit.json
+            if git diff --cached --quiet; then echo 'Already published'; exit 0; fi
+            git commit -m "Publish cited official women's last-five schedule verification"
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/wbb-apply-final-five-official-evidence.py
+          done
+          exit 1
