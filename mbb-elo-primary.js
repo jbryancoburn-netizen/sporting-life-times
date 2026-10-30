@@ -3,16 +3,6 @@
 'use strict';
 await window.MBBLogos.ready;
 const $=id=>document.getElementById(id);
-const sources={net:{title:'NCAA NET Rankings',url:'https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings',message:'The NCAA NET is its official evaluation tool. The 2026–27 rankings have not yet been verified as published in our data feed; the latest prior-season NET must not be shown as current.'},kenpom:{title:'KenPom · Pomeroy Ratings',url:'https://kenpom.com/',message:'KenPom is an independent efficiency rating system, separate from RETRO. Its 2026–27 rankings require an authorized data source; this newspaper does not copy or invent subscription rankings.'}};
-function selectRating(kind){
- const retro=kind==='retro',entry=sources[kind];
- $('cbb-retro-content').hidden=!retro;$('cbb-external-content').hidden=retro;
- document.querySelectorAll('[data-rating]').forEach(b=>{const active=b.dataset.rating===kind;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));});
- $('cbb-rating-source').textContent=retro?'Independent RETRO Elo · all 365 teams begin at 1500':entry.title+' · source-specific ranking';
- if(!retro){$('cbb-external-title').textContent=entry.title;$('cbb-external-message').textContent=entry.message;$('cbb-external-link').href=entry.url;}
-}
-document.querySelectorAll('[data-rating]').forEach(b=>b.addEventListener('click',()=>selectRating(b.dataset.rating)));
-selectRating('retro');
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const intl=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'});
 const format=value=>Number.isFinite(Number(value))?Number(value).toFixed(1):'—';
