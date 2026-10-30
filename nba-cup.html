@@ -50,7 +50,7 @@ function project(){
  const east=seeds.E,west=seeds.W;
  const champ=(s)=>{const q1=winGame(s[3],s[0]),q2=winGame(s[2],s[1]);return winGame(q1===s[0]?q2:q1,q1===s[0]?q1:q2)};
  const finalE=champ(east), finalW=champ(west);
- const final=winGame(finalE,finalW); titles[final]++;
+ const final=Math.random()<1/(1+Math.pow(10,-((ratings[finalW]??1500)-(ratings[finalE]??1500))/400))?finalW:finalE; titles[final]++;
  return {seeds,score};
  }
  let sample;
@@ -61,7 +61,7 @@ function project(){
  const t=sample.seeds[conference];
  return '<div><b>'+({E:'Eastern',W:'Western'}[conference])+' Conference · Illustrative Bracket</b><p class="cup-note">Simulation sample, not an official NBA seed assignment</p>'+[[t[3],t[0]],[t[2],t[1]]].map(pair=>'<p>'+club(pair[0])+' <b>at</b> '+club(pair[1])+'</p>').join('')+'</div>';
  };
- document.getElementById('cup-bracket').innerHTML=seedHTML('E')+seedHTML('W')+'<div><b>Championship Probability</b>'+teams.slice().sort((a,b)=>titles[b]-titles[a]).slice(0,8).map(t=>'<p>'+club(t)+' <strong>'+(100*titles[t]/simulations).toFixed(1)+'%</strong></p>').join('')+'<small>Simulated outcomes · Includes home advantage · Championship neutral</small></div>';
+ document.getElementById('cup-bracket').innerHTML=seedHTML('E')+seedHTML('W')+'<div><b>Championship Probability</b>'+teams.slice().sort((a,b)=>titles[b]-titles[a]).slice(0,8).map(t=>'<p>'+club(t)+' <strong>'+(100*titles[t]/simulations).toFixed(1)+'%</strong></p>').join('')+'<small>Simulated outcomes · Includes home advantage · Championship neutral-site</small></div>';
 }
 
 async function refresh(){try{const q='?v='+Math.floor(Date.now()/60000);const [a,b,elo,cup]=await Promise.all(['data/nba-upcoming-schedule.json','data/nba-game-center.json','data/nba-elo-shadow-2026-27.json','data/nba-cup-2026.json'].map(p=>fetch(p+q,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}))); ledger=cup;ratings=Object.fromEntries((elo.rankings||[]).map(x=>[x.team,Number(x.elo)]));const map=new Map();for(const raw of [...(a.games||[]),...(b.games||[])]){const g=decode(raw);if(!g||!g.id)continue;const old=map.get(g.id);if(!old||({post:3,in:2,pre:1}[g.state]||0)>({post:3,in:2,pre:1}[old.state]||0))map.set(g.id,g)}last=[...map.values()];document.getElementById('status').textContent='Feed updated '+format(a.updated_at||new Date())+' · Auto-refresh every 5 minutes.'}catch(e){document.getElementById('status').textContent='Score feed temporarily unavailable; official group assignments remain visible.'}draw();project()}draw();refresh();setInterval(refresh,300000);
