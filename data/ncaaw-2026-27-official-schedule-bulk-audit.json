@@ -3,16 +3,16 @@
   "gender": "women",
   "schools_attempted": 363,
   "schools_with_readable_official_calendar": 352,
-  "schools_with_matched_official_calendar": 342,
-  "verified_school_count_including_prior": 342,
-  "verified_team_game_rows_including_prior": 8417,
-  "verified_unique_game_ids": 5291,
-  "official_home_away_matched": 8296,
-  "official_home_away_conflicts": 66,
+  "schools_with_matched_official_calendar": 351,
+  "verified_school_count_including_prior": 351,
+  "verified_team_game_rows_including_prior": 8622,
+  "verified_unique_game_ids": 5349,
+  "official_home_away_matched": 8480,
+  "official_home_away_conflicts": 83,
   "status_counts": {
-    "matched_university_games": 342,
+    "matched_university_games": 351,
     "unreadable_university_schedule": 11,
-    "zero_safe_matches": 10
+    "zero_safe_matches": 1
   },
   "school_results": [
     {
@@ -191,8 +191,8 @@
       "status": "matched_university_games",
       "source": "https://ballstatesports.com/sports/womens-basketball/schedule/text/2026-27",
       "source_rows": 32,
-      "matched": 15,
-      "site_matched": 15,
+      "matched": 16,
+      "site_matched": 16,
       "site_conflicts": 0
     },
     {
@@ -518,49 +518,12 @@
     {
       "team_id": "2132",
       "school": "Cincinnati Bearcats",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://gobearcats.com/sports/womens-basketball/schedule",
       "source_rows": 33,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-10-28",
-          "opponent": "Cincinnati vs. Georgetown College Exhibition",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-04",
-          "opponent": "Cincinnati vs. East Texas A&M",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-07",
-          "opponent": "Cincinnati vs. Penn State",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-04T23:30Z",
-          "opponent": "East Texas A&M Lions",
-          "opponent_id": "2837"
-        },
-        {
-          "date": "2026-11-07T19:00Z",
-          "opponent": "Penn State Lady Lions",
-          "opponent_id": "213"
-        },
-        {
-          "date": "2026-11-11T23:30Z",
-          "opponent": "Saint Joseph's Hawks",
-          "opponent_id": "2603"
-        }
-      ]
+      "matched": 23,
+      "site_matched": 21,
+      "site_conflicts": 2
     },
     {
       "team_id": "228",
@@ -1055,49 +1018,12 @@
     {
       "team_id": "59",
       "school": "Georgia Tech Yellow Jackets",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://ramblinwreck.com/sports/w-baskbl/schedule",
       "source_rows": 31,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-11-02",
-          "opponent": "Georgia Tech Yellow Jackets vs. Hofstra Hofstra Pride",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-05",
-          "opponent": "Georgia Tech Yellow Jackets vs. Samford Samford Bulldogs",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-08",
-          "opponent": "Georgia Tech Yellow Jackets vs. #24/24 West Virginia #24/24 West Virginia Mountaineers",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-02T15:30Z",
-          "opponent": "Hofstra Pride",
-          "opponent_id": "2275"
-        },
-        {
-          "date": "2026-11-06T00:00Z",
-          "opponent": "Samford Bulldogs",
-          "opponent_id": "2535"
-        },
-        {
-          "date": "2026-11-08T19:00Z",
-          "opponent": "West Virginia Mountaineers",
-          "opponent_id": "277"
-        }
-      ]
+      "matched": 21,
+      "site_matched": 21,
+      "site_conflicts": 0
     },
     {
       "team_id": "2250",
@@ -1632,49 +1558,12 @@
     {
       "team_id": "99",
       "school": "LSU Tigers",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://lsusports.net/sports/wbball/schedule/season/2026-27",
       "source_rows": 35,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-10-22",
-          "opponent": "#9 vs. Thu Oct 22 vs. UNT Dallas Exhibition Baton Rouge, La. (Maravich Center)",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-10-29",
-          "opponent": "#9 vs. Thu Oct 29 vs. Loyola (N.O.) Exhibition Baton Rouge, La. (Maravich Center)",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-02",
-          "opponent": "#9 vs. Mon Nov 2 vs. Southeastern Louisiana Baton Rouge, La. (Maravich Center)",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-03T00:00Z",
-          "opponent": "SE Louisiana Lady Lions",
-          "opponent_id": "2545"
-        },
-        {
-          "date": "2026-11-06T01:00Z",
-          "opponent": "Texas Southern Tigers",
-          "opponent_id": "2640"
-        },
-        {
-          "date": "2026-11-11T01:00Z",
-          "opponent": "McNeese Cowgirls",
-          "opponent_id": "2377"
-        }
-      ]
+      "matched": 13,
+      "site_matched": 11,
+      "site_conflicts": 2
     },
     {
       "team_id": "311",
@@ -1822,9 +1711,9 @@
       "status": "matched_university_games",
       "source": "https://miamihurricanes.com/sports/wbball/schedule",
       "source_rows": 37,
-      "matched": 9,
-      "site_matched": 9,
-      "site_conflicts": 0
+      "matched": 11,
+      "site_matched": 10,
+      "site_conflicts": 1
     },
     {
       "team_id": "127",
@@ -2189,8 +2078,8 @@
       "status": "matched_university_games",
       "source": "https://fightinghawks.com/sports/womens-basketball/schedule",
       "source_rows": 25,
-      "matched": 22,
-      "site_matched": 22,
+      "matched": 18,
+      "site_matched": 18,
       "site_conflicts": 0
     },
     {
@@ -2366,49 +2255,12 @@
     {
       "team_id": "295",
       "school": "Old Dominion Monarchs",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://odusports.com/sports/womens-basketball/schedule",
       "source_rows": 34,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-10-27",
-          "opponent": "Tue Oct 27 vs. Chris. Newport Exhibition",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-02",
-          "opponent": "Mon Nov 2 at Central Michigan",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-05",
-          "opponent": "Thu Nov 5 vs. Virginia State",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-02T16:00Z",
-          "opponent": "Central Michigan Chippewas",
-          "opponent_id": "2117"
-        },
-        {
-          "date": "2026-11-05T23:30Z",
-          "opponent": "Virginia State Trojans",
-          "opponent_id": "330"
-        },
-        {
-          "date": "2026-11-08T19:00Z",
-          "opponent": "Tennessee State Lady Tigers",
-          "opponent_id": "2634"
-        }
-      ]
+      "matched": 29,
+      "site_matched": 27,
+      "site_conflicts": 2
     },
     {
       "team_id": "145",
@@ -2766,8 +2618,8 @@
       "status": "matched_university_games",
       "source": "https://goaztecs.com/sports/womens-basketball/schedule",
       "source_rows": 31,
-      "matched": 20,
-      "site_matched": 17,
+      "matched": 28,
+      "site_matched": 25,
       "site_conflicts": 3
     },
     {
@@ -2823,49 +2675,12 @@
     {
       "team_id": "2547",
       "school": "Seattle U Redhawks",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://goseattleu.com/sports/womens-basketball/schedule",
       "source_rows": 32,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-10-24",
-          "opponent": "Seattle U vs. CSU Dominguez Hills Exhibition",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-02",
-          "opponent": "Seattle U at New Mexico",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-06",
-          "opponent": "Seattle U vs. UC Riverside",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-02T18:00Z",
-          "opponent": "New Mexico Lobos",
-          "opponent_id": "167"
-        },
-        {
-          "date": "2026-11-06T05:00Z",
-          "opponent": "UC Riverside Highlanders",
-          "opponent_id": "27"
-        },
-        {
-          "date": "2026-11-10T02:00Z",
-          "opponent": "UC Santa Barbara Gauchos",
-          "opponent_id": "2540"
-        }
-      ]
+      "matched": 28,
+      "site_matched": 27,
+      "site_conflicts": 1
     },
     {
       "team_id": "2550",
@@ -2951,11 +2766,11 @@
       "team_id": "233",
       "school": "South Dakota Coyotes",
       "status": "matched_university_games",
-      "source": "https://goyotes.com/sports/womens-basketball/schedule",
-      "source_rows": 30,
+      "source": "https://goyotes.com/sports/womens-basketball/schedule?print=true",
+      "source_rows": 31,
       "matched": 27,
-      "site_matched": 25,
-      "site_conflicts": 2
+      "site_matched": 27,
+      "site_conflicts": 0
     },
     {
       "team_id": "2571",
@@ -3070,49 +2885,12 @@
     {
       "team_id": "24",
       "school": "Stanford Cardinal",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://gostanford.com/sports/womens-basketball/schedule?print=true",
       "source_rows": 34,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-10-24",
-          "opponent": "vs. Pacific Exhibition Stanford, CA / Maples Pavilion",
-          "site": "home",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-10-28",
-          "opponent": "vs. UC Santa Barbara Exhibition Stanford, CA / Maples Pavilion",
-          "site": "home",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-02",
-          "opponent": "vs. Arizona Las Vegas, NV / T-Mobile Arena",
-          "site": "home",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-02T18:30Z",
-          "opponent": "Arizona Wildcats",
-          "opponent_id": "12"
-        },
-        {
-          "date": "2026-11-05T03:00Z",
-          "opponent": "Saint Mary's Gaels",
-          "opponent_id": "2608"
-        },
-        {
-          "date": "2026-11-08T22:00Z",
-          "opponent": "UC Davis Aggies",
-          "opponent_id": "302"
-        }
-      ]
+      "matched": 14,
+      "site_matched": 13,
+      "site_conflicts": 1
     },
     {
       "team_id": "2617",
@@ -3227,49 +3005,12 @@
     {
       "team_id": "245",
       "school": "Texas A&M Aggies",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://12thman.com/sports/womens-basketball/schedule",
       "source_rows": 35,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-11-02",
-          "opponent": "Texas A&M UAPB Reed Arena College Station",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-05",
-          "opponent": "Texas A&M Louisiana Reed Arena College Station",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-07",
-          "opponent": "Texas A&M LSU New Orleans Reed Arena College Station",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-03T01:00Z",
-          "opponent": "Arkansas-Pine Bluff Golden Lions",
-          "opponent_id": "2029"
-        },
-        {
-          "date": "2026-11-06T02:00Z",
-          "opponent": "Louisiana Ragin' Cajuns",
-          "opponent_id": "309"
-        },
-        {
-          "date": "2026-11-07T17:00Z",
-          "opponent": "LSU New Orleans Privateers",
-          "opponent_id": "2443"
-        }
-      ]
+      "matched": 6,
+      "site_matched": 4,
+      "site_conflicts": 2
     },
     {
       "team_id": "357",
@@ -3457,9 +3198,9 @@
       "status": "matched_university_games",
       "source": "https://uclabruins.com/sports/womens-basketball/schedule",
       "source_rows": 33,
-      "matched": 19,
-      "site_matched": 18,
-      "site_conflicts": 1
+      "matched": 24,
+      "site_matched": 21,
+      "site_conflicts": 3
     },
     {
       "team_id": "41",
@@ -3644,49 +3385,12 @@
     {
       "team_id": "2636",
       "school": "UTSA Roadrunners",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://goutsa.com/sports/womens-basketball/schedule",
       "source_rows": 30,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-11-06",
-          "opponent": "UTSA at UNLV",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-08",
-          "opponent": "UTSA at San Diego State",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-11",
-          "opponent": "UTSA vs. UIW",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-07T02:30Z",
-          "opponent": "UNLV Lady Rebels",
-          "opponent_id": "2439"
-        },
-        {
-          "date": "2026-11-08T21:00Z",
-          "opponent": "San Diego State Aztecs",
-          "opponent_id": "21"
-        },
-        {
-          "date": "2026-11-11T17:00Z",
-          "opponent": "Incarnate Word Cardinals",
-          "opponent_id": "2916"
-        }
-      ]
+      "matched": 22,
+      "site_matched": 20,
+      "site_conflicts": 2
     },
     {
       "team_id": "2674",
@@ -3704,9 +3408,9 @@
       "status": "matched_university_games",
       "source": "https://vucommodores.com/sports/wbball/schedule/season/2026-27",
       "source_rows": 31,
-      "matched": 17,
-      "site_matched": 15,
-      "site_conflicts": 2
+      "matched": 27,
+      "site_matched": 24,
+      "site_conflicts": 3
     },
     {
       "team_id": "2670",
@@ -3754,9 +3458,9 @@
       "status": "matched_university_games",
       "source": "https://hokiesports.com/sports/womens-basketball/schedule?print=true",
       "source_rows": 33,
-      "matched": 11,
-      "site_matched": 10,
-      "site_conflicts": 1
+      "matched": 9,
+      "site_matched": 9,
+      "site_conflicts": 0
     },
     {
       "team_id": "2681",
@@ -3791,49 +3495,12 @@
     {
       "team_id": "265",
       "school": "Washington State Cougars",
-      "status": "zero_safe_matches",
+      "status": "matched_university_games",
       "source": "https://wsucougars.com/sports/womens-basketball/schedule/season/2026-27",
       "source_rows": 37,
-      "matched": 0,
-      "site_matched": 0,
-      "site_conflicts": 0,
-      "source_row_examples": [
-        {
-          "date": "2026-10-25",
-          "opponent": "Sun Oct 25 vs. Westmont (Exhibition) Exhibition",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-02",
-          "opponent": "Mon Nov 2 at California",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        },
-        {
-          "date": "2026-11-06",
-          "opponent": "Fri Nov 6 at Oregon",
-          "site": "",
-          "origin": "official_university_schedule_table"
-        }
-      ],
-      "calendar_row_examples": [
-        {
-          "date": "2026-11-03T03:00Z",
-          "opponent": "California Golden Bears",
-          "opponent_id": "25"
-        },
-        {
-          "date": "2026-11-07T03:00Z",
-          "opponent": "Oregon Ducks",
-          "opponent_id": "2483"
-        },
-        {
-          "date": "2026-11-09T19:00Z",
-          "opponent": "Idaho Vandals",
-          "opponent_id": "70"
-        }
-      ]
+      "matched": 25,
+      "site_matched": 21,
+      "site_conflicts": 4
     },
     {
       "team_id": "2692",
@@ -4017,8 +3684,8 @@
     }
   ],
   "policy": "Exact calendar date + unique opponent from official women's university schedule. No official arena, tipoff or TV claimed unless separately verified.",
-  "prior_certified_evidence_recovered": 1,
+  "prior_certified_evidence_recovered": 5,
   "previously_certified_evidence_quarantined": {},
-  "current_scan_verified_school_count": 342,
+  "current_scan_verified_school_count": 351,
   "retention_policy": "Preserve dated official women's source evidence across temporary site failures only when current unique game ID, local date and opponent still match; old site claims are not carried forward."
 }
