@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 273,
+  "schools_scanned": 290,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1915,6 +1915,125 @@
       "source_sha": "6c8bedb2309686fbb2adfa5ba3761491c0ebf6ff",
       "game_count": 33,
       "missing_arena_fields": 5
+    },
+    {
+      "school_id": "30",
+      "school": "Southern California",
+      "source_sha": "8333b4b3b7bd147a53f37a46bfdefc8ae37d731b",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "79",
+      "school": "Southern Ill.",
+      "source_sha": "a7f06295fda3399218c230210e835f557f4ff32f",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "88",
+      "school": "Southern Ind.",
+      "source_sha": "88aaf588a80024c1213289be03c45ab7fb38cc73",
+      "game_count": 31,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2572",
+      "school": "Southern Miss.",
+      "source_sha": "489066a2aef3960d3c35ca69e6428a68ae61fe98",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2582",
+      "school": "Southern U.",
+      "source_sha": "926d694c08b21785b8dd409cd7a83da0e953a74e",
+      "game_count": 34,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "253",
+      "school": "Southern Utah",
+      "source_sha": "d2d64eda4c416ef564751d520fe6c9aaa72d5592",
+      "game_count": 31,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "179",
+      "school": "St. Bonaventure",
+      "source_sha": "4e642fa3f537d05215c0977fdda6c6728cd7878a",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2599",
+      "school": "St. John's (NY)",
+      "source_sha": "1eea99516873d38638f25addd4fff9e8f35dcf7e",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2900",
+      "school": "St. Thomas (MN)",
+      "source_sha": "dc1884010e0cddd69f4fe7df54ffe5c913b3ecba",
+      "game_count": 28,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "24",
+      "school": "Stanford",
+      "source_sha": "859fb8cf5b6f69d75ecacbe17a4e3e0c5e375e9d",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "56",
+      "school": "Stetson",
+      "source_sha": "d6686d53267ef565d7d83597abba17a79668b661",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "284",
+      "school": "Stonehill",
+      "source_sha": "44804bb6f5249c37192f2aff2f447f4d18335e50",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2619",
+      "school": "Stony Brook",
+      "source_sha": "5d1d091b7efac841cc398de98a1f4f137b429b6f",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "183",
+      "school": "Syracuse",
+      "source_sha": "4034d56561ffe4d41765b91511da45f3238c13f6",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2627",
+      "school": "Tarleton St.",
+      "source_sha": "64231ac5989204dae8c77e4d62d070b16ddcd9d3",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2628",
+      "school": "TCU",
+      "source_sha": "cf536ab9e66295edf8f27a9739a3bede97604391",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "218",
+      "school": "Temple",
+      "source_sha": "39c717e38b46382912b44d3ceedbf001865248ea",
+      "game_count": 30,
+      "missing_arena_fields": 1
     }
   ],
   "records": [
@@ -8343,6 +8462,309 @@
       "home_away": "neutral",
       "location": "Lake Charles, LA",
       "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "79",
+      "school": "Southern Ill.",
+      "event_id": "school-79-2026-11-17-5",
+      "date": "2026-11-17",
+      "opponent_ids": [
+        "79",
+        "2335"
+      ],
+      "game": "Liberty",
+      "home_away": "neutral",
+      "location": "Charlotte, NC",
+      "source_url": "https://siusalukis.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "79",
+      "school": "Southern Ill.",
+      "event_id": "school-79-2026-11-20-6",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "79",
+        "2630"
+      ],
+      "game": "UT Martin",
+      "home_away": "neutral",
+      "location": "U.S. Virgin Islands",
+      "source_url": "https://siusalukis.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "88",
+      "school": "Southern Ind.",
+      "event_id": "school-88-2026-11-24-7",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "88"
+      ],
+      "game": "Virginia Military Institute",
+      "home_away": "away",
+      "location": "Lexington, VA",
+      "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+    },
+    {
+      "school_id": "88",
+      "school": "Southern Ind.",
+      "event_id": "school-88-2027-01-13-19",
+      "date": "2027-01-13",
+      "opponent_ids": [
+        "88",
+        "2413"
+      ],
+      "game": "Morehead State University * *",
+      "home_away": "away",
+      "location": "Morehead, KY",
+      "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+    },
+    {
+      "school_id": "88",
+      "school": "Southern Ind.",
+      "event_id": "school-88-2027-02-25-29",
+      "date": "2027-02-25",
+      "opponent_ids": [
+        "88",
+        "2710"
+      ],
+      "game": "Western Illinois University * *",
+      "home_away": "away",
+      "location": "Macomb, IL",
+      "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+    },
+    {
+      "school_id": "2572",
+      "school": "Southern Miss.",
+      "event_id": "school-2572-2026-11-19-7",
+      "date": "2026-11-19",
+      "opponent_ids": [
+        "2572"
+      ],
+      "game": "Grambling State",
+      "home_away": "away",
+      "location": "Grambling, La.",
+      "source_url": "https://southernmiss.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2582",
+      "school": "Southern U.",
+      "event_id": "school-2582-2027-01-04-99",
+      "date": "2027-01-04",
+      "opponent_ids": [
+        "2582",
+        "2504"
+      ],
+      "game": "Prairie View A&M University",
+      "home_away": "away",
+      "location": "Prairie View, TX William J. Nicks Building",
+      "source_url": "https://gojagsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "253",
+      "school": "Southern Utah",
+      "event_id": "school-253-2026-12-31-93",
+      "date": "2026-12-31",
+      "opponent_ids": [
+        "253",
+        "331"
+      ],
+      "game": "Eastern Washington University",
+      "home_away": "away",
+      "location": "Cheney, WA",
+      "source_url": "https://suutbirds.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "253",
+      "school": "Southern Utah",
+      "event_id": "school-253-2027-03-05-201",
+      "date": "2027-03-05",
+      "opponent_ids": [
+        "253"
+      ],
+      "game": "Starch Madness",
+      "home_away": "neutral",
+      "location": "Boise, ID",
+      "source_url": "https://suutbirds.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "179",
+      "school": "St. Bonaventure",
+      "event_id": "school-179-2026-11-23-31",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "179"
+      ],
+      "game": "Appalachian State",
+      "home_away": "neutral",
+      "location": "Kissimmee, Fla.",
+      "source_url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "179",
+      "school": "St. Bonaventure",
+      "event_id": "school-179-2026-11-24-35",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "179",
+        "2750"
+      ],
+      "game": "Wright State",
+      "home_away": "neutral",
+      "location": "Kissimmee, Fla.",
+      "source_url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "179",
+      "school": "St. Bonaventure",
+      "event_id": "school-179-2027-01-13-83",
+      "date": "2027-01-13",
+      "opponent_ids": [
+        "179",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2900",
+      "school": "St. Thomas (MN)",
+      "event_id": "cross-school-2900-2026-11-27_2335",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2335",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "Wilmington, N.C.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2900",
+      "school": "St. Thomas (MN)",
+      "event_id": "cross-school-2900-2026-11-28_163",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "163",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "Wilmington, N.C.",
+      "source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2900",
+      "school": "St. Thomas (MN)",
+      "event_id": "cross-school-2900-2026-12-22_24",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "24",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "home",
+      "source_url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2900",
+      "school": "St. Thomas (MN)",
+      "event_id": "cross-school-2900-2027-01-16_2437",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2437",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "St. Paul, MN",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2900",
+      "school": "St. Thomas (MN)",
+      "event_id": "cross-school-2900-2027-02-06_2449",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2449",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "Fargo, N.D.",
+      "source_url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "24",
+      "school": "Stanford",
+      "event_id": "school-24-2026-11-24-26",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "24",
+        "38"
+      ],
+      "game": "Colorado",
+      "home_away": "neutral",
+      "location": "neutral",
+      "source_url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "24",
+      "school": "Stanford",
+      "event_id": "school-24-2026-12-18-52",
+      "date": "2026-12-18",
+      "opponent_ids": [
+        "24"
+      ],
+      "game": "San Jose State",
+      "home_away": "neutral",
+      "location": "home",
+      "source_url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "24",
+      "school": "Stanford",
+      "event_id": "school-24-2026-12-22-54",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "24",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "home",
+      "source_url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2619",
+      "school": "Stony Brook",
+      "event_id": "school-2619-2027-02-27-87",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2619",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, N.J.",
+      "source_url": "https://stonybrookathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "218",
+      "school": "Temple",
+      "event_id": "school-218-2026-11-20-4",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "218",
+        "2393"
+      ],
+      "game": "Middle Tennessee",
+      "home_away": "neutral",
+      "location": "St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://owlsports.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
