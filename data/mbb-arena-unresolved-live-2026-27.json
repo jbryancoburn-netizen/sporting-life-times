@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 86,
+  "schools_scanned": 103,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -606,6 +606,125 @@
       "source_sha": "0aca2d43a79527ffcb0312daff3d878faa218638",
       "game_count": 32,
       "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2229",
+      "school": "FIU",
+      "source_sha": "734dd62826ee9040e997ec226e1a59666a0316cb",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2226",
+      "school": "Fla. Atlantic",
+      "source_sha": "33850fcdd9af123c67968a6f8534dec6415e7a34",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "57",
+      "school": "Florida",
+      "source_sha": "d7664c9b1a76b45c8df780d5dbd0127374933ddc",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "50",
+      "school": "Florida A&M",
+      "source_sha": "a606bd4224b69f472683a7594f5c8ec578371806",
+      "game_count": 35,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "52",
+      "school": "Florida St.",
+      "source_sha": "c0817a6453f8e077cf3dd7e37a4480af065a2a63",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2230",
+      "school": "Fordham",
+      "source_sha": "f492e6c4450c380a0cebebd8c768c452306215bf",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "278",
+      "school": "Fresno St.",
+      "source_sha": "ee3dbdce5a89ea7e136e2e433669fb72363c1195",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "231",
+      "school": "Furman",
+      "source_sha": "23c3bf8a8b90a326ce7490a30dc418d6545f5f2a",
+      "game_count": 35,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "290",
+      "school": "Ga. Southern",
+      "source_sha": "e294993567ae2370e6cd46d06db1b174504c9409",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2241",
+      "school": "Gardner-Webb",
+      "source_sha": "451a15dd6f1f1bb94e49e234ad94ff732b7ce604",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2244",
+      "school": "George Mason",
+      "source_sha": "a726737c203c18a48d6a61cbdb9b85680ba89121",
+      "game_count": 28,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "45",
+      "school": "George Washington",
+      "source_sha": "e7f22f44bbce128a069d4c98bfb0f23647a0c1da",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "46",
+      "school": "Georgetown",
+      "source_sha": "1e5902c6c2801c6fd703f016f0cac1ad0f8de34a",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "61",
+      "school": "Georgia",
+      "source_sha": "ff0eb34ea5346cdc2851af9eab00d6a5223398b1",
+      "game_count": 36,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2247",
+      "school": "Georgia St.",
+      "source_sha": "b461c8ec3239f9d3d25a146efb23679061c316bd",
+      "game_count": 34,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "59",
+      "school": "Georgia Tech",
+      "source_sha": "9a53a86fb7a66dc388ea7944bedb0faa47e2bed4",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2250",
+      "school": "Gonzaga",
+      "source_sha": "8ac92ff78a015bc36c7cc48ac53f9e5667e018bb",
+      "game_count": 32,
+      "missing_arena_fields": 1
     }
   ],
   "records": [
@@ -2514,6 +2633,335 @@
       "home_away": "away",
       "location": "Brooklyn, N.Y.",
       "source_url": "https://fairfieldstags.com/sports/mens-basketball/schedule/2026-27"
+    },
+    {
+      "school_id": "2229",
+      "school": "FIU",
+      "event_id": "school-2229-2027-02-25-131",
+      "date": "2027-02-25",
+      "opponent_ids": [
+        "2229"
+      ],
+      "game": "Jax State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://fiusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "50",
+      "school": "Florida A&M",
+      "event_id": "school-50-2027-01-11-111",
+      "date": "2027-01-11",
+      "opponent_ids": [
+        "50"
+      ],
+      "game": "Grambling State",
+      "home_away": "away",
+      "location": "Grambling, La.",
+      "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "50",
+      "school": "Florida A&M",
+      "event_id": "school-50-2027-01-25-135",
+      "date": "2027-01-25",
+      "opponent_ids": [
+        "50",
+        "2296"
+      ],
+      "game": "Jackson State",
+      "home_away": "away",
+      "location": "Jackson, Miss.",
+      "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "50",
+      "school": "Florida A&M",
+      "event_id": "school-50-2027-02-08-159",
+      "date": "2027-02-08",
+      "opponent_ids": [
+        "50",
+        "2504"
+      ],
+      "game": "Prairie View A&M",
+      "home_away": "away",
+      "location": "Prairie View, Texas",
+      "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2230",
+      "school": "Fordham",
+      "event_id": "school-2230-2027-01-06-75",
+      "date": "2027-01-06",
+      "opponent_ids": [
+        "2230",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://fordhamsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "278",
+      "school": "Fresno St.",
+      "event_id": "school-278-2026-11-27-7",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "278",
+        "6"
+      ],
+      "game": "South Alabama",
+      "home_away": "neutral",
+      "location": "New Orleans, LA",
+      "source_url": "https://gobulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "278",
+      "school": "Fresno St.",
+      "event_id": "school-278-2026-11-29-8",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "278",
+        "2571"
+      ],
+      "game": "South Dakota State",
+      "home_away": "neutral",
+      "location": "New Orleans, LA",
+      "source_url": "https://gobulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "278",
+      "school": "Fresno St.",
+      "event_id": "school-278-2027-01-30-23",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "278",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "away",
+      "location": "Pullman, WA",
+      "source_url": "https://gobulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "231",
+      "school": "Furman",
+      "event_id": "school-231-2026-11-02-15",
+      "date": "2026-11-02",
+      "opponent_ids": [
+        "231",
+        "2065"
+      ],
+      "game": "Bethune-Cookman",
+      "home_away": "neutral",
+      "location": "Rock Hill, S.C.",
+      "source_url": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "290",
+      "school": "Ga. Southern",
+      "event_id": "school-290-2026-11-24-9",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "290",
+        "91"
+      ],
+      "game": "Bellarmine",
+      "home_away": "neutral",
+      "location": "Highland Heights, KY",
+      "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "290",
+      "school": "Ga. Southern",
+      "event_id": "school-290-2027-02-06-28",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "290"
+      ],
+      "game": "Mid-American Conference",
+      "home_away": "away",
+      "location": "",
+      "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "290",
+      "school": "Ga. Southern",
+      "event_id": "school-290-2027-02-11-29",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "290",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, VA",
+      "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "290",
+      "school": "Ga. Southern",
+      "event_id": "school-290-2027-02-13-30",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "290"
+      ],
+      "game": "Appalachian State",
+      "home_away": "away",
+      "location": "Boone, NC",
+      "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2241",
+      "school": "Gardner-Webb",
+      "event_id": "school-2241-2026-11-21-5",
+      "date": "2026-11-21",
+      "opponent_ids": [
+        "2241",
+        "2678"
+      ],
+      "game": "VMI",
+      "home_away": "away",
+      "location": "Lexington, Va.",
+      "source_url": "https://gwusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2244",
+      "school": "George Mason",
+      "event_id": "cross-school-2244-2026-11-12_140",
+      "date": "2026-11-12",
+      "opponent_ids": [
+        "140",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "neutral",
+      "location": "St. Petersburg, FL",
+      "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "45",
+      "school": "George Washington",
+      "event_id": "school-45-2026-11-20-6",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "45",
+        "5"
+      ],
+      "game": "UAB",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, WV",
+      "source_url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "45",
+      "school": "George Washington",
+      "event_id": "school-45-2026-12-21-14",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "45",
+        "328"
+      ],
+      "game": "Utah State",
+      "home_away": "neutral",
+      "location": "Frisco, TX",
+      "source_url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "45",
+      "school": "George Washington",
+      "event_id": "school-45-2027-02-06-25",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "45",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "61",
+      "school": "Georgia",
+      "event_id": "school-61-2026-10-23-2",
+      "date": "2026-10-23",
+      "opponent_ids": [
+        "61"
+      ],
+      "game": "Preseason - Clemson",
+      "home_away": "away",
+      "location": "Clemson, SC",
+      "source_url": "https://georgiadogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2247",
+      "school": "Georgia St.",
+      "event_id": "school-2247-2026-11-20-45",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "2247",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2247",
+      "school": "Georgia St.",
+      "event_id": "school-2247-2027-01-16-135",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2247"
+      ],
+      "game": "Appalachian State",
+      "home_away": "away",
+      "location": "Boone, N.C.",
+      "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2247",
+      "school": "Georgia St.",
+      "event_id": "school-2247-2027-02-03-165",
+      "date": "2027-02-03",
+      "opponent_ids": [
+        "2247",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, Va.",
+      "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2247",
+      "school": "Georgia St.",
+      "event_id": "school-2247-2027-02-06-171",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2247"
+      ],
+      "game": "SBC-MAC Challenge",
+      "home_away": "away",
+      "location": "TBA",
+      "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2250",
+      "school": "Gonzaga",
+      "event_id": "school-2250-2027-01-06-16",
+      "date": "2027-01-06",
+      "opponent_ids": [
+        "2250",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "away",
+      "location": "Pullman, WA",
+      "source_url": "https://gozags.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
