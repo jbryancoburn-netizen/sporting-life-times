@@ -2,7 +2,7 @@
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
   "schools_scanned": 365,
-  "scan_status": "complete",
+  "scan_status": "delta_refreshed_pending_full_365_file_rescan",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
     {
@@ -31,7 +31,7 @@
       "school": "Akron",
       "source_sha": "ace91a80cbc3eaf693524d4a6b68fba56b71a561",
       "game_count": 32,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "333",
@@ -45,35 +45,35 @@
       "school": "Alabama A&M",
       "source_sha": "ea4658639c3e623b4285b998622a692455e135de",
       "game_count": 38,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2011",
       "school": "Alabama St.",
       "source_sha": "b113e49f3cc73010ea2d5166bad4a28e9fc5b46a",
       "game_count": 34,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2016",
       "school": "Alcorn",
       "source_sha": "6ae84326ffb28300dc0debda019c79c503f63fee",
       "game_count": 33,
-      "missing_arena_fields": 5
+      "missing_arena_fields": 4
     },
     {
       "school_id": "44",
       "school": "American",
       "source_sha": "bb36c3660112cb58604922cade9aff9beb630329",
       "game_count": 34,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "2026",
       "school": "App State",
       "source_sha": "b9c4418a9295b6a2e2242103c482ce96c23e67ea",
       "game_count": 34,
-      "missing_arena_fields": 7
+      "missing_arena_fields": 6
     },
     {
       "school_id": "12",
@@ -150,7 +150,7 @@
       "school": "Bellarmine",
       "source_sha": "84d327f8d6fa8c90e17214152a37348161871392",
       "game_count": 33,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2057",
@@ -164,7 +164,7 @@
       "school": "Bethune-Cookman",
       "source_sha": "158c68322c74cf3ac58f38dc309953f92df23c05",
       "game_count": 33,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2066",
@@ -220,7 +220,7 @@
       "school": "Bryant",
       "source_sha": "5673ddf5a1e938bb9ae3b9ec3d662fdacf4b33c7",
       "game_count": 32,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2083",
@@ -283,7 +283,7 @@
       "school": "Campbell",
       "source_sha": "d6c154be896eea45789112c97fc793b13bdf3921",
       "game_count": 34,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2099",
@@ -318,7 +318,7 @@
       "school": "Charleston So.",
       "source_sha": "51fa45984a3f0158953f97855a76267f78a531d9",
       "game_count": 32,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2429",
@@ -367,14 +367,14 @@
       "school": "Coastal Carolina",
       "source_sha": "321307fc27a7a27ce8d045a74b451e76ca892625",
       "game_count": 33,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "232",
       "school": "Col. of Charleston",
       "source_sha": "8c691f5b148fd4d4e63383e7e28ade98fc1e5b9c",
       "game_count": 33,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2142",
@@ -409,7 +409,7 @@
       "school": "Coppin St.",
       "source_sha": "334e02a80b06f112ff4105f5ad90d98553ca4a01",
       "game_count": 32,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "172",
@@ -507,7 +507,7 @@
       "school": "Drexel",
       "source_sha": "097cf4bb2672f56aaa78206ff702ba02a04f9e90",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 0
     },
     {
       "school_id": "150",
@@ -542,7 +542,7 @@
       "school": "Eastern Ill.",
       "source_sha": "6e844aefde22e32c6f7afc87f0fb5af1d70c86a4",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2198",
@@ -633,7 +633,7 @@
       "school": "Florida A&M",
       "source_sha": "a606bd4224b69f472683a7594f5c8ec578371806",
       "game_count": 35,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "52",
@@ -647,7 +647,7 @@
       "school": "Fordham",
       "source_sha": "f492e6c4450c380a0cebebd8c768c452306215bf",
       "game_count": 32,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "278",
@@ -668,7 +668,7 @@
       "school": "Ga. Southern",
       "source_sha": "e294993567ae2370e6cd46d06db1b174504c9409",
       "game_count": 32,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2241",
@@ -689,7 +689,7 @@
       "school": "George Washington",
       "source_sha": "e7f22f44bbce128a069d4c98bfb0f23647a0c1da",
       "game_count": 33,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "46",
@@ -710,7 +710,7 @@
       "school": "Georgia St.",
       "source_sha": "b461c8ec3239f9d3d25a146efb23679061c316bd",
       "game_count": 34,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "59",
@@ -780,7 +780,7 @@
       "school": "Hofstra",
       "source_sha": "37150859d0916029f027726adaeb44790db505b9",
       "game_count": 32,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "107",
@@ -878,14 +878,14 @@
       "school": "IU Indy",
       "source_sha": "99e799ee86757a414b52814403b63e1a430975e1",
       "game_count": 36,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2296",
       "school": "Jackson St.",
       "source_sha": "8b24ace8fee1f3d24118264fadd928c0a10b5cf8",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "294",
@@ -906,7 +906,7 @@
       "school": "James Madison",
       "source_sha": "a7000fac177b49499631a4089da62a7ce4e75295",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2305",
@@ -955,7 +955,7 @@
       "school": "La Salle",
       "source_sha": "5d89ea3583058b3f2c38c69bbcbea732409f0dae",
       "game_count": 32,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 1
     },
     {
       "school_id": "322",
@@ -1067,7 +1067,7 @@
       "school": "Loyola Chicago",
       "source_sha": "b145a07d5fb3f92d6482721046a904f7ec2626f1",
       "game_count": 32,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "2352",
@@ -1102,7 +1102,7 @@
       "school": "Marist",
       "source_sha": "8a75ba0345cc8717a2029e773f1a95d573a6ff94",
       "game_count": 30,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "269",
@@ -1116,7 +1116,7 @@
       "school": "Marshall",
       "source_sha": "04b3c98001a67ba759f92f8780623e8ac3bd9e3a",
       "game_count": 30,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "120",
@@ -1410,7 +1410,7 @@
       "school": "North Ala.",
       "source_sha": "6fcae545ecc360c1e353dc15a4f1921c565881bf",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "153",
@@ -1452,7 +1452,7 @@
       "school": "Northeastern",
       "source_sha": "725b3340df91590311be0b338c199b6df6b9790a",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2464",
@@ -1536,7 +1536,7 @@
       "school": "Old Dominion",
       "source_sha": "67ca6f9fa76f3acd75c4a4a10486e000fe3a94d5",
       "game_count": 33,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "145",
@@ -1627,14 +1627,14 @@
       "school": "Prairie View",
       "source_sha": "3f9ec58e7130b28b8118a425b3d7549f308083cf",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2506",
       "school": "Presbyterian",
       "source_sha": "a40013a5e0265be14e556bc221ad624975aedfbd",
       "game_count": 32,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "163",
@@ -1704,7 +1704,7 @@
       "school": "Richmond",
       "source_sha": "918b9f59b28da9dd85fe037ed4abc257241e26a8",
       "game_count": 32,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2520",
@@ -1746,7 +1746,7 @@
       "school": "Saint Joseph's",
       "source_sha": "78c92822033abbb6cc599852859f73c5499c32cc",
       "game_count": 31,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "139",
@@ -1844,14 +1844,14 @@
       "school": "Siena",
       "source_sha": "552e00568684a16e253a0cd05bf6a3001f9dbb6f",
       "game_count": 33,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "2565",
       "school": "SIUE",
       "source_sha": "d4d312a433c40bd1d27cd606e6c7fe98315ac209",
       "game_count": 34,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2567",
@@ -1907,7 +1907,7 @@
       "school": "Southeast Mo. St.",
       "source_sha": "56e4d2de377a2f4b17a544b37c5e8b80c2cd374b",
       "game_count": 31,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2545",
@@ -1935,14 +1935,14 @@
       "school": "Southern Ind.",
       "source_sha": "88aaf588a80024c1213289be03c45ab7fb38cc73",
       "game_count": 31,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2572",
       "school": "Southern Miss.",
       "source_sha": "489066a2aef3960d3c35ca69e6428a68ae61fe98",
       "game_count": 32,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "2582",
@@ -1963,7 +1963,7 @@
       "school": "St. Bonaventure",
       "source_sha": "4e642fa3f537d05215c0977fdda6c6728cd7878a",
       "game_count": 34,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2599",
@@ -2005,7 +2005,7 @@
       "school": "Stony Brook",
       "source_sha": "5d1d091b7efac841cc398de98a1f4f137b429b6f",
       "game_count": 32,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "183",
@@ -2047,7 +2047,7 @@
       "school": "Tennessee St.",
       "source_sha": "086988a4d06b4c467026cbcd543bca7729d1fdcd",
       "game_count": 29,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2635",
@@ -2075,7 +2075,7 @@
       "school": "Texas Southern",
       "source_sha": "27f4db64afd8548c4289c887d89c07c19fe5050a",
       "game_count": 32,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "326",
@@ -2110,7 +2110,7 @@
       "school": "Towson",
       "source_sha": "6c77db8e6a90623512dc73b588e78746a86ec38a",
       "game_count": 33,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2653",
@@ -2222,7 +2222,7 @@
       "school": "ULM",
       "source_sha": "bdac3e67da2d251bd1c882438f94d3a8fd01aa51",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 1
     },
     {
       "school_id": "2349",
@@ -2236,7 +2236,7 @@
       "school": "UMBC",
       "source_sha": "f8072bc3f89272d2c94d3378bffe073420a69bc2",
       "game_count": 31,
-      "missing_arena_fields": 4
+      "missing_arena_fields": 3
     },
     {
       "school_id": "2379",
@@ -2264,7 +2264,7 @@
       "school": "UNCW",
       "source_sha": "4a5bf1bed7d1316d6cfa070b371b507983641b88",
       "game_count": 35,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2460",
@@ -2299,7 +2299,7 @@
       "school": "UT Martin",
       "source_sha": "338e15c5e95b86a2eafe0e20462be0a1f8994773",
       "game_count": 32,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "254",
@@ -2320,7 +2320,7 @@
       "school": "Utah Tech",
       "source_sha": "a8a53c7d426b38784fa6230d5eca109bc76d5d98",
       "game_count": 32,
-      "missing_arena_fields": 1
+      "missing_arena_fields": 0
     },
     {
       "school_id": "3084",
@@ -2369,7 +2369,7 @@
       "school": "VCU",
       "source_sha": "329803275b66e9168a24ea28d79208041d78a3d5",
       "game_count": 32,
-      "missing_arena_fields": 2
+      "missing_arena_fields": 0
     },
     {
       "school_id": "261",
@@ -2474,7 +2474,7 @@
       "school": "Western Ill.",
       "source_sha": "43abe49bebc77f0aa7a222ef4d2a07f241881c39",
       "game_count": 32,
-      "missing_arena_fields": 6
+      "missing_arena_fields": 5
     },
     {
       "school_id": "98",
@@ -2488,7 +2488,7 @@
       "school": "Western Mich.",
       "source_sha": "c38ba8b51508412e74ce67a09ff8fb35a04aab04",
       "game_count": 31,
-      "missing_arena_fields": 3
+      "missing_arena_fields": 2
     },
     {
       "school_id": "2724",
@@ -2618,20 +2618,6 @@
       "source_url": "https://gozips.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2006",
-      "school": "Akron",
-      "event_id": "school-2006-2027-01-05-15",
-      "date": "2027-01-05",
-      "opponent_ids": [
-        "2006",
-        "195"
-      ],
-      "game": "Ohio",
-      "home_away": "away",
-      "location": "Athens, OH",
-      "source_url": "https://gozips.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "333",
       "school": "Alabama",
       "event_id": "school-333-2026-10-15-1",
@@ -2700,19 +2686,6 @@
       "source_url": "https://aamusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2010",
-      "school": "Alabama A&M",
-      "event_id": "school-2010-2027-03-02-212",
-      "date": "2027-03-02",
-      "opponent_ids": [
-        "2010"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, LA",
-      "source_url": "https://aamusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2011",
       "school": "Alabama St.",
       "event_id": "school-2011-2026-11-23-39",
@@ -2737,19 +2710,6 @@
       "game": "Jackson State",
       "home_away": "away",
       "location": "Jackson, MS",
-      "source_url": "https://bamastatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2011",
-      "school": "Alabama St.",
-      "event_id": "school-2011-2027-03-04-195",
-      "date": "2027-03-04",
-      "opponent_ids": [
-        "2011"
-      ],
-      "game": "Grambling State University",
-      "home_away": "away",
-      "location": "Grambling, LA",
       "source_url": "https://bamastatesports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -2795,19 +2755,6 @@
     {
       "school_id": "2016",
       "school": "Alcorn",
-      "event_id": "school-2016-2027-02-01-135",
-      "date": "2027-02-01",
-      "opponent_ids": [
-        "2016"
-      ],
-      "game": "Grambling State University",
-      "home_away": "away",
-      "location": "Grambling, LA",
-      "source_url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2016",
-      "school": "Alcorn",
       "event_id": "school-2016-2027-03-09-195",
       "date": "2027-03-09",
       "opponent_ids": [
@@ -2817,20 +2764,6 @@
       "home_away": "neutral",
       "location": "Atlanta, GA",
       "source_url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "44",
-      "school": "American",
-      "event_id": "school-44-2027-01-06-87",
-      "date": "2027-01-06",
-      "opponent_ids": [
-        "44",
-        "2142"
-      ],
-      "game": "Colgate",
-      "home_away": "away",
-      "location": "Hamilton, N.Y. Cotterell Court",
-      "source_url": "https://aueagles.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "2026",
@@ -2900,19 +2833,6 @@
       "game": "Akron",
       "home_away": "neutral",
       "location": "Kissimmee, Fla .",
-      "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2026",
-      "school": "App State",
-      "event_id": "school-2026-2026-12-21-63",
-      "date": "2026-12-21",
-      "opponent_ids": [
-        "2026"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, LA",
       "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -3068,20 +2988,6 @@
       "source_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "91",
-      "school": "Bellarmine",
-      "event_id": "school-91-2026-12-02-47",
-      "date": "2026-12-02",
-      "opponent_ids": [
-        "91",
-        "2413"
-      ],
-      "game": "Morehead State University",
-      "home_away": "away",
-      "location": "Morehead, KY",
-      "source_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2065",
       "school": "Bethune-Cookman",
       "event_id": "school-2065-2026-11-02-0",
@@ -3093,19 +2999,6 @@
       "game": "Furman",
       "home_away": "neutral",
       "location": "Rock Hill, S.C.",
-      "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2065",
-      "school": "Bethune-Cookman",
-      "event_id": "school-2065-2027-01-09-63",
-      "date": "2027-01-09",
-      "opponent_ids": [
-        "2065"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, La.",
       "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -3316,20 +3209,6 @@
     {
       "school_id": "2803",
       "school": "Bryant",
-      "event_id": "school-2803-2026-12-22-59",
-      "date": "2026-12-22",
-      "opponent_ids": [
-        "2803",
-        "2244"
-      ],
-      "game": "George Mason University",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2803",
-      "school": "Bryant",
       "event_id": "school-2803-2027-01-07-71",
       "date": "2027-01-07",
       "opponent_ids": [
@@ -3505,20 +3384,6 @@
       "source_url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2097",
-      "school": "Campbell",
-      "event_id": "school-2097-2027-02-04-107",
-      "date": "2027-02-04",
-      "opponent_ids": [
-        "2097",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, NJ",
-      "source_url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2110",
       "school": "Central Ark.",
       "event_id": "school-2110-2026-11-06-7",
@@ -3585,20 +3450,6 @@
       "game": "South Carolina State",
       "home_away": "away",
       "location": "Orangeburg, SC",
-      "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2127",
-      "school": "Charleston So.",
-      "event_id": "school-2127-2026-12-28-15",
-      "date": "2026-12-28",
-      "opponent_ids": [
-        "2127",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, VA",
       "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -3768,20 +3619,6 @@
       "source_url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "324",
-      "school": "Coastal Carolina",
-      "event_id": "school-324-2027-02-26-32",
-      "date": "2027-02-26",
-      "opponent_ids": [
-        "324",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, VA",
-      "source_url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "232",
       "school": "Col. of Charleston",
       "event_id": "school-232-2026-11-24-7",
@@ -3806,20 +3643,6 @@
       "game": "Eastern Michigan or Kennesaw State",
       "home_away": "neutral",
       "location": "Hard Rock Riviera Maya",
-      "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "232",
-      "school": "Col. of Charleston",
-      "event_id": "school-232-2027-01-09-19",
-      "date": "2027-01-09",
-      "opponent_ids": [
-        "232",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, N.J.",
       "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -3904,20 +3727,6 @@
       "home_away": "away",
       "location": "Pullman, WA",
       "source_url": "https://csurams.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2154",
-      "school": "Coppin St.",
-      "event_id": "school-2154-2026-11-06-7",
-      "date": "2026-11-06",
-      "opponent_ids": [
-        "2154",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "2154",
@@ -4261,34 +4070,6 @@
       "source_url": "https://godrakebulldogs.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2182",
-      "school": "Drexel",
-      "event_id": "school-2182-2026-12-01-10",
-      "date": "2026-12-01",
-      "opponent_ids": [
-        "2182",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, Va.",
-      "source_url": "https://drexeldragons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2182",
-      "school": "Drexel",
-      "event_id": "school-2182-2027-01-16-21",
-      "date": "2027-01-16",
-      "opponent_ids": [
-        "2182",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, N.J.",
-      "source_url": "https://drexeldragons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2184",
       "school": "Duquesne",
       "event_id": "school-2184-2026-11-22-23",
@@ -4315,20 +4096,6 @@
       "home_away": "neutral",
       "location": "Saint Thomas, USVI",
       "source_url": "https://ecupirates.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2197",
-      "school": "Eastern Ill.",
-      "event_id": "school-2197-2027-01-07-71",
-      "date": "2027-01-07",
-      "opponent_ids": [
-        "2197",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
-      "source_url": "https://eiupanthers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "2197",
@@ -4484,19 +4251,6 @@
     {
       "school_id": "50",
       "school": "Florida A&M",
-      "event_id": "school-50-2027-01-11-111",
-      "date": "2027-01-11",
-      "opponent_ids": [
-        "50"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, La.",
-      "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "50",
-      "school": "Florida A&M",
       "event_id": "school-50-2027-01-25-135",
       "date": "2027-01-25",
       "opponent_ids": [
@@ -4521,20 +4275,6 @@
       "home_away": "away",
       "location": "Prairie View, Texas",
       "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2230",
-      "school": "Fordham",
-      "event_id": "school-2230-2027-01-06-75",
-      "date": "2027-01-06",
-      "opponent_ids": [
-        "2230",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://fordhamsports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "278",
@@ -4622,20 +4362,6 @@
     {
       "school_id": "290",
       "school": "Ga. Southern",
-      "event_id": "school-290-2027-02-11-29",
-      "date": "2027-02-11",
-      "opponent_ids": [
-        "290",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, VA",
-      "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "290",
-      "school": "Ga. Southern",
       "event_id": "school-290-2027-02-13-30",
       "date": "2027-02-13",
       "opponent_ids": [
@@ -4703,20 +4429,6 @@
       "source_url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "45",
-      "school": "George Washington",
-      "event_id": "school-45-2027-02-06-25",
-      "date": "2027-02-06",
-      "opponent_ids": [
-        "45",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "61",
       "school": "Georgia",
       "event_id": "school-61-2026-10-23-2",
@@ -4754,20 +4466,6 @@
       "game": "Appalachian State",
       "home_away": "away",
       "location": "Boone, N.C.",
-      "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2247",
-      "school": "Georgia St.",
-      "event_id": "school-2247-2027-02-03-165",
-      "date": "2027-02-03",
-      "opponent_ids": [
-        "2247",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, Va.",
       "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -4962,20 +4660,6 @@
       "home_away": "away",
       "location": "Boiling Springs, N.C.",
       "source_url": "https://highpointpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2275",
-      "school": "Hofstra",
-      "event_id": "school-2275-2027-02-15-183",
-      "date": "2027-02-15",
-      "opponent_ids": [
-        "2275",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, NJ",
-      "source_url": "https://gohofstra.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "107",
@@ -5391,20 +5075,6 @@
     {
       "school_id": "85",
       "school": "IU Indy",
-      "event_id": "school-85-2026-11-14-19",
-      "date": "2026-11-14",
-      "opponent_ids": [
-        "85",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
-      "source_url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "85",
-      "school": "IU Indy",
       "event_id": "school-85-2026-11-22-27",
       "date": "2026-11-22",
       "opponent_ids": [
@@ -5456,19 +5126,6 @@
       "game": "Prairie View A&M",
       "home_away": "away",
       "location": "Prairie View, Texas",
-      "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2296",
-      "school": "Jackson St.",
-      "event_id": "school-2296-2027-01-30-129",
-      "date": "2027-01-30",
-      "opponent_ids": [
-        "2296"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, La.",
       "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -5550,20 +5207,6 @@
       "game": "MAC-SBC Challenge",
       "home_away": "away",
       "location": "TBD",
-      "source_url": "https://jmusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "256",
-      "school": "James Madison",
-      "event_id": "school-256-2027-02-17-30",
-      "date": "2027-02-17",
-      "opponent_ids": [
-        "256",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, Va.",
       "source_url": "https://jmusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -5689,34 +5332,6 @@
       "game": "Bucknell",
       "home_away": "neutral",
       "location": "Philadelphia, Pa. The Palestra",
-      "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2325",
-      "school": "La Salle",
-      "event_id": "school-2325-2026-12-08-47",
-      "date": "2026-12-08",
-      "opponent_ids": [
-        "2325",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, N.J.",
-      "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2325",
-      "school": "La Salle",
-      "event_id": "school-2325-2027-02-17-111",
-      "date": "2027-02-17",
-      "opponent_ids": [
-        "2325",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, Va.",
       "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -6176,20 +5791,6 @@
       "source_url": "https://gocards.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2350",
-      "school": "Loyola Chicago",
-      "event_id": "school-2350-2027-01-23-87",
-      "date": "2027-01-23",
-      "opponent_ids": [
-        "2350",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, Va.",
-      "source_url": "https://loyolaramblers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2352",
       "school": "Loyola Maryland",
       "event_id": "school-2352-2026-11-14-27",
@@ -6245,20 +5846,6 @@
       "source_url": "https://goblackbears.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2368",
-      "school": "Marist",
-      "event_id": "school-2368-2026-11-28-27",
-      "date": "2026-11-28",
-      "opponent_ids": [
-        "2368",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://goredfoxes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "269",
       "school": "Marquette",
       "event_id": "school-269-2026-11-25-7",
@@ -6284,20 +5871,6 @@
       "home_away": "neutral",
       "location": "New York, NY",
       "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "276",
-      "school": "Marshall",
-      "event_id": "school-276-2027-02-20-31",
-      "date": "2027-02-20",
-      "opponent_ids": [
-        "276",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, Va.",
-      "source_url": "https://herdzone.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "235",
@@ -7131,20 +6704,6 @@
       "source_url": "https://roarlions.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2453",
-      "school": "North Ala.",
-      "event_id": "school-2453-2026-12-15-47",
-      "date": "2026-12-15",
-      "opponent_ids": [
-        "2453",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
-      "source_url": "https://roarlions.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "155",
       "school": "North Dakota",
       "event_id": "school-155-2026-11-24-27",
@@ -7295,20 +6854,6 @@
       "game": "Charleston",
       "home_away": "away",
       "location": "Charleston, S.C.",
-      "source_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
-    },
-    {
-      "school_id": "111",
-      "school": "Northeastern",
-      "event_id": "official-111-2027-02-25-monmouth",
-      "date": "2027-02-25",
-      "opponent_ids": [
-        "111",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, N.J.",
       "source_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
     },
     {
@@ -7529,20 +7074,6 @@
       "home_away": "away",
       "location": "Los Angeles, Calif.",
       "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "295",
-      "school": "Old Dominion",
-      "event_id": "official-295-2026-12-12-georgemason",
-      "date": "2026-12-12",
-      "opponent_ids": [
-        "295",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, Va.",
-      "source_url": "https://odusports.com/sports/mens-basketball/schedule"
     },
     {
       "school_id": "295",
@@ -7903,19 +7434,6 @@
       "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2504",
-      "school": "Prairie View",
-      "event_id": "school-2504-2027-02-15-107",
-      "date": "2027-02-15",
-      "opponent_ids": [
-        "2504"
-      ],
-      "game": "Grambling State University",
-      "home_away": "away",
-      "location": "Grambling, Louisiana Willis Reed Court at the Frederick C. Hobdy",
-      "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2506",
       "school": "Presbyterian",
       "event_id": "school-2506-2026-11-21-27",
@@ -7927,20 +7445,6 @@
       "game": "Tennessee Tech",
       "home_away": "away",
       "location": "Cookeville, Tenn.",
-      "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2506",
-      "school": "Presbyterian",
-      "event_id": "school-2506-2026-12-05-43",
-      "date": "2026-12-05",
-      "opponent_ids": [
-        "2506",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, KY",
       "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -8166,34 +7670,6 @@
       "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "257",
-      "school": "Richmond",
-      "event_id": "school-257-2026-12-05-12",
-      "date": "2026-12-05",
-      "opponent_ids": [
-        "257",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, VA",
-      "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "257",
-      "school": "Richmond",
-      "event_id": "school-257-2026-12-30-16",
-      "date": "2026-12-30",
-      "opponent_ids": [
-        "257",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2520",
       "school": "Rider",
       "event_id": "school-2520-2026-11-11-19",
@@ -8327,20 +7803,6 @@
       "game": "Penn State",
       "home_away": "neutral",
       "location": "Hershey, Pa.",
-      "source_url": "https://sjuhawks.com/sports/mens-basketball/schedule"
-    },
-    {
-      "school_id": "2603",
-      "school": "Saint Joseph's",
-      "event_id": "official-2603-2027-01-30-georgemason",
-      "date": "2027-01-30",
-      "opponent_ids": [
-        "2603",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, Va.",
       "source_url": "https://sjuhawks.com/sports/mens-basketball/schedule"
     },
     {
@@ -8523,20 +7985,6 @@
       "source_url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2561",
-      "school": "Siena",
-      "event_id": "school-2561-2026-12-20-59",
-      "date": "2026-12-20",
-      "opponent_ids": [
-        "2561",
-        "2142"
-      ],
-      "game": "Colgate",
-      "home_away": "away",
-      "location": "Hamilton, NY / Cotterell Court",
-      "source_url": "https://sienasaints.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2565",
       "school": "SIUE",
       "event_id": "school-2565-2027-01-02-75",
@@ -8548,20 +7996,6 @@
       "game": "Western Illinois",
       "home_away": "away",
       "location": "Macomb, Ill.",
-      "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2565",
-      "school": "SIUE",
-      "event_id": "school-2565-2027-01-23-95",
-      "date": "2027-01-23",
-      "opponent_ids": [
-        "2565",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
       "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -8895,20 +8329,6 @@
     {
       "school_id": "2546",
       "school": "Southeast Mo. St.",
-      "event_id": "school-2546-2027-02-04-24",
-      "date": "2027-02-04",
-      "opponent_ids": [
-        "2546",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
-      "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2546",
-      "school": "Southeast Mo. St.",
       "event_id": "school-2546-2027-02-27-30",
       "date": "2027-02-27",
       "opponent_ids": [
@@ -9032,20 +8452,6 @@
     {
       "school_id": "88",
       "school": "Southern Ind.",
-      "event_id": "school-88-2027-01-13-19",
-      "date": "2027-01-13",
-      "opponent_ids": [
-        "88",
-        "2413"
-      ],
-      "game": "Morehead State University * *",
-      "home_away": "away",
-      "location": "Morehead, KY",
-      "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-    },
-    {
-      "school_id": "88",
-      "school": "Southern Ind.",
       "event_id": "school-88-2027-02-25-29",
       "date": "2027-02-25",
       "opponent_ids": [
@@ -9056,19 +8462,6 @@
       "home_away": "away",
       "location": "Macomb, IL",
       "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-    },
-    {
-      "school_id": "2572",
-      "school": "Southern Miss.",
-      "event_id": "school-2572-2026-11-19-7",
-      "date": "2026-11-19",
-      "opponent_ids": [
-        "2572"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, La.",
-      "source_url": "https://southernmiss.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "2582",
@@ -9136,20 +8529,6 @@
       "game": "Wright State",
       "home_away": "neutral",
       "location": "Kissimmee, Fla.",
-      "source_url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "179",
-      "school": "St. Bonaventure",
-      "event_id": "school-179-2027-01-13-83",
-      "date": "2027-01-13",
-      "opponent_ids": [
-        "179",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
       "source_url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -9264,20 +8643,6 @@
       "source_url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2619",
-      "school": "Stony Brook",
-      "event_id": "school-2619-2027-02-27-87",
-      "date": "2027-02-27",
-      "opponent_ids": [
-        "2619",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, N.J.",
-      "source_url": "https://stonybrookathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "218",
       "school": "Temple",
       "event_id": "school-218-2026-11-20-4",
@@ -9316,20 +8681,6 @@
       "game": "SEMO",
       "home_away": "away",
       "location": "Cape Girardeau, Mo.",
-      "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2634",
-      "school": "Tennessee St.",
-      "event_id": "school-2634-2027-02-06-135",
-      "date": "2027-02-06",
-      "opponent_ids": [
-        "2634",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
       "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -9386,19 +8737,6 @@
       "home_away": "neutral",
       "location": "San Diego, California",
       "source_url": "https://texaslonghorns.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2640",
-      "school": "Texas Southern",
-      "event_id": "school-2640-2027-02-13-153",
-      "date": "2027-02-13",
-      "opponent_ids": [
-        "2640"
-      ],
-      "game": "Grambling State",
-      "home_away": "away",
-      "location": "Grambling, La.",
-      "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "2640",
@@ -9509,20 +8847,6 @@
       "game": "Buffalo",
       "home_away": "neutral",
       "location": "Philadelphia, Penn.",
-      "source_url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "119",
-      "school": "Towson",
-      "event_id": "school-119-2027-02-11-107",
-      "date": "2027-02-11",
-      "opponent_ids": [
-        "119",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, NJ",
       "source_url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
@@ -9827,34 +9151,6 @@
       "source_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2433",
-      "school": "ULM",
-      "event_id": "school-2433-2026-12-31-67",
-      "date": "2026-12-31",
-      "opponent_ids": [
-        "2433",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, Va.",
-      "source_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2378",
-      "school": "UMBC",
-      "event_id": "school-2378-2026-11-02-15",
-      "date": "2026-11-02",
-      "opponent_ids": [
-        "2378",
-        "2244"
-      ],
-      "game": "George Mason University",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2378",
       "school": "UMBC",
       "event_id": "school-2378-2026-12-05-59",
@@ -10021,20 +9317,6 @@
       "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "350",
-      "school": "UNCW",
-      "event_id": "school-350-2027-01-21-107",
-      "date": "2027-01-21",
-      "opponent_ids": [
-        "350",
-        "2405"
-      ],
-      "game": "Monmouth",
-      "home_away": "away",
-      "location": "West Long Branch, NJ",
-      "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "2439",
       "school": "UNLV",
       "event_id": "school-2439-2027-02-27-33",
@@ -10104,20 +9386,6 @@
       "source_url": "https://utmsports.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
-      "school_id": "2630",
-      "school": "UT Martin",
-      "event_id": "school-2630-2027-02-20-32",
-      "date": "2027-02-20",
-      "opponent_ids": [
-        "2630",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, Ky.",
-      "source_url": "https://utmsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
       "school_id": "328",
       "school": "Utah St.",
       "event_id": "cross-school-328-2026-12-19_202",
@@ -10158,20 +9426,6 @@
       "home_away": "away",
       "location": "Pullman, Wash.",
       "source_url": "https://utahstateaggies.com/news/2026/10/14/mens-basketball-aggies-announce-23-nationally-televised-games-for-2026-27.aspx"
-    },
-    {
-      "school_id": "3101",
-      "school": "Utah Tech",
-      "event_id": "school-3101-2027-01-02-71",
-      "date": "2027-01-02",
-      "opponent_ids": [
-        "3101",
-        "331"
-      ],
-      "game": "Eastern Washington",
-      "home_away": "away",
-      "location": "Cheney, Wash. Reese Court",
-      "source_url": "https://utahtechtrailblazers.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "3084",
@@ -10294,34 +9548,6 @@
       "home_away": "away",
       "location": "Friday Oct 23 6:00 PM EDT",
       "source_url": "https://miamihurricanes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2670",
-      "school": "VCU",
-      "event_id": "school-2670-2026-10-17-7",
-      "date": "2026-10-17",
-      "opponent_ids": [
-        "2670",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, VA",
-      "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2670",
-      "school": "VCU",
-      "event_id": "school-2670-2027-02-26-127",
-      "date": "2027-02-26",
-      "opponent_ids": [
-        "2670",
-        "2244"
-      ],
-      "game": "George Mason",
-      "home_away": "away",
-      "location": "Fairfax, VA",
-      "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "258",
@@ -10641,20 +9867,6 @@
     {
       "school_id": "2710",
       "school": "Western Ill.",
-      "event_id": "school-2710-2027-01-21-87",
-      "date": "2027-01-21",
-      "opponent_ids": [
-        "2710",
-        "2413"
-      ],
-      "game": "Morehead State",
-      "home_away": "away",
-      "location": "Morehead, KY",
-      "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2710",
-      "school": "Western Ill.",
       "event_id": "school-2710-2027-03-03-127",
       "date": "2027-03-03",
       "opponent_ids": [
@@ -10705,20 +9917,6 @@
       "home_away": "away",
       "location": "Jacksonville, Ala.",
       "source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "school_id": "2711",
-      "school": "Western Mich.",
-      "event_id": "school-2711-2026-11-02-1",
-      "date": "2026-11-02",
-      "opponent_ids": [
-        "2711",
-        "295"
-      ],
-      "game": "Old Dominion",
-      "home_away": "away",
-      "location": "Norfolk, Va. MAC-Sun Belt Challenge",
-      "source_url": "https://wmubroncos.com/sports/mens-basketball/schedule/text/2026-27"
     },
     {
       "school_id": "2711",
@@ -11065,12 +10263,12 @@
   "summary": {
     "schools_scanned": 365,
     "total_game_records": 11807,
-    "missing_arena_fields": 619,
-    "schools_with_missing_arenas": 252,
-    "unique_unresolved_groups": 524,
+    "missing_arena_fields": 561,
+    "schools_with_missing_arenas": 240,
+    "unique_unresolved_groups": 466,
     "grouped_duplicate_records": 95,
-    "paired_missing_records": 95,
-    "groups_with_unidentified_opponents": 167
+    "paired_missing_records": 190,
+    "groups_with_unidentified_opponents": 157
   },
   "unique_games": [
     {
@@ -11175,28 +10373,6 @@
           "home_away": "neutral",
           "location": "Kissimmee, Fla .",
           "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-05:195|2006",
-      "date": "2027-01-05",
-      "opponent_ids": [
-        "2006",
-        "195"
-      ],
-      "school_ids": [
-        "2006"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Akron",
-          "school_id": "2006",
-          "event_id": "school-2006-2027-01-05-15",
-          "home_away": "away",
-          "location": "Athens, OH",
-          "source_url": "https://gozips.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -11327,27 +10503,6 @@
       ]
     },
     {
-      "key": "2010:school-2010-2027-03-02-212",
-      "date": "2027-03-02",
-      "opponent_ids": [
-        "2010"
-      ],
-      "school_ids": [
-        "2010"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Alabama A&M",
-          "school_id": "2010",
-          "event_id": "school-2010-2027-03-02-212",
-          "home_away": "away",
-          "location": "Grambling, LA",
-          "source_url": "https://aamusports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2011:school-2011-2026-11-23-39",
       "date": "2026-11-23",
       "opponent_ids": [
@@ -11386,27 +10541,6 @@
           "event_id": "school-2011-2027-01-09-105",
           "home_away": "away",
           "location": "Jackson, MS",
-          "source_url": "https://bamastatesports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2011:school-2011-2027-03-04-195",
-      "date": "2027-03-04",
-      "opponent_ids": [
-        "2011"
-      ],
-      "school_ids": [
-        "2011"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Alabama St.",
-          "school_id": "2011",
-          "event_id": "school-2011-2027-03-04-195",
-          "home_away": "away",
-          "location": "Grambling, LA",
           "source_url": "https://bamastatesports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -11485,27 +10619,6 @@
       ]
     },
     {
-      "key": "2016:school-2016-2027-02-01-135",
-      "date": "2027-02-01",
-      "opponent_ids": [
-        "2016"
-      ],
-      "school_ids": [
-        "2016"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Alcorn",
-          "school_id": "2016",
-          "event_id": "school-2016-2027-02-01-135",
-          "home_away": "away",
-          "location": "Grambling, LA",
-          "source_url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2016:school-2016-2027-03-09-195",
       "date": "2027-03-09",
       "opponent_ids": [
@@ -11523,28 +10636,6 @@
           "home_away": "neutral",
           "location": "Atlanta, GA",
           "source_url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-06:2142|44",
-      "date": "2027-01-06",
-      "opponent_ids": [
-        "44",
-        "2142"
-      ],
-      "school_ids": [
-        "44"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "American",
-          "school_id": "44",
-          "event_id": "school-44-2027-01-06-87",
-          "home_away": "away",
-          "location": "Hamilton, N.Y. Cotterell Court",
-          "source_url": "https://aueagles.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -11632,27 +10723,6 @@
           "event_id": "school-2026-2026-11-24-35",
           "home_away": "neutral",
           "location": "Kissimmee, Fla.",
-          "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026:school-2026-2026-12-21-63",
-      "date": "2026-12-21",
-      "opponent_ids": [
-        "2026"
-      ],
-      "school_ids": [
-        "2026"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "App State",
-          "school_id": "2026",
-          "event_id": "school-2026-2026-12-21-63",
-          "home_away": "away",
-          "location": "Grambling, LA",
           "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -11916,28 +10986,6 @@
       ]
     },
     {
-      "key": "2026-12-02:2413|91",
-      "date": "2026-12-02",
-      "opponent_ids": [
-        "91",
-        "2413"
-      ],
-      "school_ids": [
-        "91"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Bellarmine",
-          "school_id": "91",
-          "event_id": "school-91-2026-12-02-47",
-          "home_away": "away",
-          "location": "Morehead, KY",
-          "source_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-11-02:2065|231",
       "date": "2026-11-02",
       "opponent_ids": [
@@ -11965,27 +11013,6 @@
           "home_away": "neutral",
           "location": "Rock Hill, S.C.",
           "source_url": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2065:school-2065-2027-01-09-63",
-      "date": "2027-01-09",
-      "opponent_ids": [
-        "2065"
-      ],
-      "school_ids": [
-        "2065"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Bethune-Cookman",
-          "school_id": "2065",
-          "event_id": "school-2065-2027-01-09-63",
-          "home_away": "away",
-          "location": "Grambling, La.",
-          "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -12360,28 +11387,6 @@
       ]
     },
     {
-      "key": "2026-12-22:2244|2803",
-      "date": "2026-12-22",
-      "opponent_ids": [
-        "2803",
-        "2244"
-      ],
-      "school_ids": [
-        "2803"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Bryant",
-          "school_id": "2803",
-          "event_id": "school-2803-2026-12-22-59",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2803:school-2803-2027-01-07-71",
       "date": "2027-01-07",
       "opponent_ids": [
@@ -12681,28 +11686,6 @@
       ]
     },
     {
-      "key": "2027-02-04:2097|2405",
-      "date": "2027-02-04",
-      "opponent_ids": [
-        "2097",
-        "2405"
-      ],
-      "school_ids": [
-        "2097"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Campbell",
-          "school_id": "2097",
-          "event_id": "school-2097-2027-02-04-107",
-          "home_away": "away",
-          "location": "West Long Branch, NJ",
-          "source_url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2110:school-2110-2026-11-06-7",
       "date": "2026-11-06",
       "opponent_ids": [
@@ -12807,28 +11790,6 @@
           "event_id": "school-2127-2026-12-05-10",
           "home_away": "away",
           "location": "Orangeburg, SC",
-          "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-12-28:2127|295",
-      "date": "2026-12-28",
-      "opponent_ids": [
-        "2127",
-        "295"
-      ],
-      "school_ids": [
-        "2127"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Charleston So.",
-          "school_id": "2127",
-          "event_id": "school-2127-2026-12-28-15",
-          "home_away": "away",
-          "location": "Norfolk, VA",
           "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -13079,28 +12040,6 @@
       ]
     },
     {
-      "key": "2027-02-26:295|324",
-      "date": "2027-02-26",
-      "opponent_ids": [
-        "324",
-        "295"
-      ],
-      "school_ids": [
-        "324"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Coastal Carolina",
-          "school_id": "324",
-          "event_id": "school-324-2027-02-26-32",
-          "home_away": "away",
-          "location": "Norfolk, VA",
-          "source_url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-11-24:232|2638",
       "date": "2026-11-24",
       "opponent_ids": [
@@ -13148,28 +12087,6 @@
           "event_id": "school-232-2026-11-25-8",
           "home_away": "neutral",
           "location": "Hard Rock Riviera Maya",
-          "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-09:232|2405",
-      "date": "2027-01-09",
-      "opponent_ids": [
-        "232",
-        "2405"
-      ],
-      "school_ids": [
-        "232"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Col. of Charleston",
-          "school_id": "232",
-          "event_id": "school-232-2027-01-09-19",
-          "home_away": "away",
-          "location": "West Long Branch, N.J.",
           "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -13320,28 +12237,6 @@
           "home_away": "away",
           "location": "Pullman, WA",
           "source_url": "https://csurams.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-11-06:2154|2244",
-      "date": "2026-11-06",
-      "opponent_ids": [
-        "2154",
-        "2244"
-      ],
-      "school_ids": [
-        "2154"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Coppin St.",
-          "school_id": "2154",
-          "event_id": "school-2154-2026-11-06-7",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -13932,50 +12827,6 @@
       ]
     },
     {
-      "key": "2026-12-01:2182|295",
-      "date": "2026-12-01",
-      "opponent_ids": [
-        "2182",
-        "295"
-      ],
-      "school_ids": [
-        "2182"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Drexel",
-          "school_id": "2182",
-          "event_id": "school-2182-2026-12-01-10",
-          "home_away": "away",
-          "location": "Norfolk, Va.",
-          "source_url": "https://drexeldragons.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-16:2182|2405",
-      "date": "2027-01-16",
-      "opponent_ids": [
-        "2182",
-        "2405"
-      ],
-      "school_ids": [
-        "2182"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Drexel",
-          "school_id": "2182",
-          "event_id": "school-2182-2027-01-16-21",
-          "home_away": "away",
-          "location": "West Long Branch, N.J.",
-          "source_url": "https://drexeldragons.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-11-22:2184|2751",
       "date": "2026-11-22",
       "opponent_ids": [
@@ -14034,28 +12885,6 @@
           "home_away": "neutral",
           "location": "St. Thomas",
           "source_url": "https://gouvu.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-07:2197|2413",
-      "date": "2027-01-07",
-      "opponent_ids": [
-        "2197",
-        "2413"
-      ],
-      "school_ids": [
-        "2197"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Eastern Ill.",
-          "school_id": "2197",
-          "event_id": "school-2197-2027-01-07-71",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
-          "source_url": "https://eiupanthers.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -14308,27 +13137,6 @@
       ]
     },
     {
-      "key": "50:school-50-2027-01-11-111",
-      "date": "2027-01-11",
-      "opponent_ids": [
-        "50"
-      ],
-      "school_ids": [
-        "50"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Florida A&M",
-          "school_id": "50",
-          "event_id": "school-50-2027-01-11-111",
-          "home_away": "away",
-          "location": "Grambling, La.",
-          "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2027-01-25:2296|50",
       "date": "2027-01-25",
       "opponent_ids": [
@@ -14369,28 +13177,6 @@
           "home_away": "away",
           "location": "Prairie View, Texas",
           "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-06:2230|2244",
-      "date": "2027-01-06",
-      "opponent_ids": [
-        "2230",
-        "2244"
-      ],
-      "school_ids": [
-        "2230"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Fordham",
-          "school_id": "2230",
-          "event_id": "school-2230-2027-01-06-75",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://fordhamsports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -14495,28 +13281,6 @@
           "event_id": "school-290-2027-02-06-28",
           "home_away": "away",
           "location": "",
-          "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-11:290|295",
-      "date": "2027-02-11",
-      "opponent_ids": [
-        "290",
-        "295"
-      ],
-      "school_ids": [
-        "290"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Ga. Southern",
-          "school_id": "290",
-          "event_id": "school-290-2027-02-11-29",
-          "home_away": "away",
-          "location": "Norfolk, VA",
           "source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -14658,28 +13422,6 @@
       ]
     },
     {
-      "key": "2027-02-06:2244|45",
-      "date": "2027-02-06",
-      "opponent_ids": [
-        "45",
-        "2244"
-      ],
-      "school_ids": [
-        "45"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "George Washington",
-          "school_id": "45",
-          "event_id": "school-45-2027-02-06-25",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "61:school-61-2026-10-23-2",
       "date": "2026-10-23",
       "opponent_ids": [
@@ -14739,28 +13481,6 @@
           "event_id": "school-2247-2027-01-16-135",
           "home_away": "away",
           "location": "Boone, N.C.",
-          "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-03:2247|295",
-      "date": "2027-02-03",
-      "opponent_ids": [
-        "2247",
-        "295"
-      ],
-      "school_ids": [
-        "2247"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Georgia St.",
-          "school_id": "2247",
-          "event_id": "school-2247-2027-02-03-165",
-          "home_away": "away",
-          "location": "Norfolk, Va.",
           "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -15076,28 +13796,6 @@
           "home_away": "away",
           "location": "Boiling Springs, N.C.",
           "source_url": "https://highpointpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-15:2275|2405",
-      "date": "2027-02-15",
-      "opponent_ids": [
-        "2275",
-        "2405"
-      ],
-      "school_ids": [
-        "2275"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Hofstra",
-          "school_id": "2275",
-          "event_id": "school-2275-2027-02-15-183",
-          "home_away": "away",
-          "location": "West Long Branch, NJ",
-          "source_url": "https://gohofstra.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -15803,28 +14501,6 @@
       ]
     },
     {
-      "key": "2026-11-14:2413|85",
-      "date": "2026-11-14",
-      "opponent_ids": [
-        "85",
-        "2413"
-      ],
-      "school_ids": [
-        "85"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "IU Indy",
-          "school_id": "85",
-          "event_id": "school-85-2026-11-14-19",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
-          "source_url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-11-22:2379|85",
       "date": "2026-11-22",
       "opponent_ids": [
@@ -15917,27 +14593,6 @@
           "event_id": "school-2296-2027-01-16-105",
           "home_away": "away",
           "location": "Prairie View, Texas",
-          "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2296:school-2296-2027-01-30-129",
-      "date": "2027-01-30",
-      "opponent_ids": [
-        "2296"
-      ],
-      "school_ids": [
-        "2296"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Jackson St.",
-          "school_id": "2296",
-          "event_id": "school-2296-2027-01-30-129",
-          "home_away": "away",
-          "location": "Grambling, La.",
           "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -16099,28 +14754,6 @@
       ]
     },
     {
-      "key": "2027-02-17:256|295",
-      "date": "2027-02-17",
-      "opponent_ids": [
-        "256",
-        "295"
-      ],
-      "school_ids": [
-        "256"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "James Madison",
-          "school_id": "256",
-          "event_id": "school-256-2027-02-17-30",
-          "home_away": "away",
-          "location": "Norfolk, Va.",
-          "source_url": "https://jmusports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "140:school-140-2026-12-12-15",
       "date": "2026-12-12",
       "opponent_ids": [
@@ -16257,50 +14890,6 @@
           "home_away": "away",
           "location": "Athens, Ohio",
           "source_url": "https://kentstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-12-08:2325|2405",
-      "date": "2026-12-08",
-      "opponent_ids": [
-        "2325",
-        "2405"
-      ],
-      "school_ids": [
-        "2325"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "La Salle",
-          "school_id": "2325",
-          "event_id": "school-2325-2026-12-08-47",
-          "home_away": "away",
-          "location": "West Long Branch, N.J.",
-          "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-17:2244|2325",
-      "date": "2027-02-17",
-      "opponent_ids": [
-        "2325",
-        "2244"
-      ],
-      "school_ids": [
-        "2325"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "La Salle",
-          "school_id": "2325",
-          "event_id": "school-2325-2027-02-17-111",
-          "home_away": "away",
-          "location": "Fairfax, Va.",
-          "source_url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -17103,28 +15692,6 @@
       ]
     },
     {
-      "key": "2027-01-23:2244|2350",
-      "date": "2027-01-23",
-      "opponent_ids": [
-        "2350",
-        "2244"
-      ],
-      "school_ids": [
-        "2350"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Loyola Chicago",
-          "school_id": "2350",
-          "event_id": "school-2350-2027-01-23-87",
-          "home_away": "away",
-          "location": "Fairfax, Va.",
-          "source_url": "https://loyolaramblers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2352:school-2352-2026-11-14-27",
       "date": "2026-11-14",
       "opponent_ids": [
@@ -17199,28 +15766,6 @@
       ]
     },
     {
-      "key": "2026-11-28:2244|2368",
-      "date": "2026-11-28",
-      "opponent_ids": [
-        "2368",
-        "2244"
-      ],
-      "school_ids": [
-        "2368"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Marist",
-          "school_id": "2368",
-          "event_id": "school-2368-2026-11-28-27",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://goredfoxes.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-11-25:258|269",
       "date": "2026-11-25",
       "opponent_ids": [
@@ -17269,28 +15814,6 @@
           "home_away": "neutral",
           "location": "New York, NY",
           "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-20:276|295",
-      "date": "2027-02-20",
-      "opponent_ids": [
-        "276",
-        "295"
-      ],
-      "school_ids": [
-        "276"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Marshall",
-          "school_id": "276",
-          "event_id": "school-276-2027-02-20-31",
-          "home_away": "away",
-          "location": "Norfolk, Va.",
-          "source_url": "https://herdzone.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -18554,28 +17077,6 @@
       ]
     },
     {
-      "key": "2026-12-15:2413|2453",
-      "date": "2026-12-15",
-      "opponent_ids": [
-        "2453",
-        "2413"
-      ],
-      "school_ids": [
-        "2453"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "North Ala.",
-          "school_id": "2453",
-          "event_id": "school-2453-2026-12-15-47",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
-          "source_url": "https://roarlions.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-12-05:155|2638",
       "date": "2026-12-05",
       "opponent_ids": [
@@ -18733,28 +17234,6 @@
           "event_id": "official-111-2026-12-31-charleston",
           "home_away": "away",
           "location": "Charleston, S.C.",
-          "source_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-25:111|2405",
-      "date": "2027-02-25",
-      "opponent_ids": [
-        "111",
-        "2405"
-      ],
-      "school_ids": [
-        "111"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Northeastern",
-          "school_id": "111",
-          "event_id": "official-111-2027-02-25-monmouth",
-          "home_away": "away",
-          "location": "West Long Branch, N.J.",
           "source_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
         }
       ]
@@ -19077,28 +17556,6 @@
           "home_away": "away",
           "location": "Los Angeles, Calif.",
           "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-12-12:2244|295",
-      "date": "2026-12-12",
-      "opponent_ids": [
-        "295",
-        "2244"
-      ],
-      "school_ids": [
-        "295"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Old Dominion",
-          "school_id": "295",
-          "event_id": "official-295-2026-12-12-georgemason",
-          "home_away": "away",
-          "location": "Fairfax, Va.",
-          "source_url": "https://odusports.com/sports/mens-basketball/schedule"
         }
       ]
     },
@@ -19547,27 +18004,6 @@
       ]
     },
     {
-      "key": "2504:school-2504-2027-02-15-107",
-      "date": "2027-02-15",
-      "opponent_ids": [
-        "2504"
-      ],
-      "school_ids": [
-        "2504"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Prairie View",
-          "school_id": "2504",
-          "event_id": "school-2504-2027-02-15-107",
-          "home_away": "away",
-          "location": "Grambling, Louisiana Willis Reed Court at the Frederick C. Hobdy",
-          "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-11-21:2506|2635",
       "date": "2026-11-21",
       "opponent_ids": [
@@ -19585,28 +18021,6 @@
           "event_id": "school-2506-2026-11-21-27",
           "home_away": "away",
           "location": "Cookeville, Tenn.",
-          "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-12-05:2413|2506",
-      "date": "2026-12-05",
-      "opponent_ids": [
-        "2506",
-        "2413"
-      ],
-      "school_ids": [
-        "2506"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Presbyterian",
-          "school_id": "2506",
-          "event_id": "school-2506-2026-12-05-43",
-          "home_away": "away",
-          "location": "Morehead, KY",
           "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -19857,50 +18271,6 @@
       ]
     },
     {
-      "key": "2026-12-05:257|295",
-      "date": "2026-12-05",
-      "opponent_ids": [
-        "257",
-        "295"
-      ],
-      "school_ids": [
-        "257"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Richmond",
-          "school_id": "257",
-          "event_id": "school-257-2026-12-05-12",
-          "home_away": "away",
-          "location": "Norfolk, VA",
-          "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-12-30:2244|257",
-      "date": "2026-12-30",
-      "opponent_ids": [
-        "257",
-        "2244"
-      ],
-      "school_ids": [
-        "257"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Richmond",
-          "school_id": "257",
-          "event_id": "school-257-2026-12-30-16",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2520:school-2520-2026-11-11-19",
       "date": "2026-11-11",
       "opponent_ids": [
@@ -20073,28 +18443,6 @@
       ]
     },
     {
-      "key": "2027-01-30:2244|2603",
-      "date": "2027-01-30",
-      "opponent_ids": [
-        "2603",
-        "2244"
-      ],
-      "school_ids": [
-        "2603"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Saint Joseph's",
-          "school_id": "2603",
-          "event_id": "official-2603-2027-01-30-georgemason",
-          "home_away": "away",
-          "location": "Fairfax, Va.",
-          "source_url": "https://sjuhawks.com/sports/mens-basketball/schedule"
-        }
-      ]
-    },
-    {
       "key": "2026-11-19:2550|275",
       "date": "2026-11-19",
       "opponent_ids": [
@@ -20189,28 +18537,6 @@
       ]
     },
     {
-      "key": "2026-12-20:2142|2561",
-      "date": "2026-12-20",
-      "opponent_ids": [
-        "2561",
-        "2142"
-      ],
-      "school_ids": [
-        "2561"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Siena",
-          "school_id": "2561",
-          "event_id": "school-2561-2026-12-20-59",
-          "home_away": "away",
-          "location": "Hamilton, NY / Cotterell Court",
-          "source_url": "https://sienasaints.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2027-01-02:2565|2710",
       "date": "2027-01-02",
       "opponent_ids": [
@@ -20228,28 +18554,6 @@
           "event_id": "school-2565-2027-01-02-75",
           "home_away": "away",
           "location": "Macomb, Ill.",
-          "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-23:2413|2565",
-      "date": "2027-01-23",
-      "opponent_ids": [
-        "2565",
-        "2413"
-      ],
-      "school_ids": [
-        "2565"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "SIUE",
-          "school_id": "2565",
-          "event_id": "school-2565-2027-01-23-95",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
           "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -20683,28 +18987,6 @@
       ]
     },
     {
-      "key": "2027-02-04:2413|2546",
-      "date": "2027-02-04",
-      "opponent_ids": [
-        "2546",
-        "2413"
-      ],
-      "school_ids": [
-        "2546"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Southeast Mo. St.",
-          "school_id": "2546",
-          "event_id": "school-2546-2027-02-04-24",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
-          "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2027-02-27:2546|2634",
       "date": "2027-02-27",
       "opponent_ids": [
@@ -20887,28 +19169,6 @@
       ]
     },
     {
-      "key": "2027-01-13:2413|88",
-      "date": "2027-01-13",
-      "opponent_ids": [
-        "88",
-        "2413"
-      ],
-      "school_ids": [
-        "88"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Southern Ind.",
-          "school_id": "88",
-          "event_id": "school-88-2027-01-13-19",
-          "home_away": "away",
-          "location": "Morehead, KY",
-          "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-        }
-      ]
-    },
-    {
       "key": "2027-02-25:2710|88",
       "date": "2027-02-25",
       "opponent_ids": [
@@ -20927,27 +19187,6 @@
           "home_away": "away",
           "location": "Macomb, IL",
           "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-        }
-      ]
-    },
-    {
-      "key": "2572:school-2572-2026-11-19-7",
-      "date": "2026-11-19",
-      "opponent_ids": [
-        "2572"
-      ],
-      "school_ids": [
-        "2572"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Southern Miss.",
-          "school_id": "2572",
-          "event_id": "school-2572-2026-11-19-7",
-          "home_away": "away",
-          "location": "Grambling, La.",
-          "source_url": "https://southernmiss.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -21069,28 +19308,6 @@
       ]
     },
     {
-      "key": "2027-01-13:179|2244",
-      "date": "2027-01-13",
-      "opponent_ids": [
-        "179",
-        "2244"
-      ],
-      "school_ids": [
-        "179"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "St. Bonaventure",
-          "school_id": "179",
-          "event_id": "school-179-2027-01-13-83",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-12-22:24|2900",
       "date": "2026-12-22",
       "opponent_ids": [
@@ -21165,28 +19382,6 @@
       ]
     },
     {
-      "key": "2027-02-27:2405|2619",
-      "date": "2027-02-27",
-      "opponent_ids": [
-        "2619",
-        "2405"
-      ],
-      "school_ids": [
-        "2619"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Stony Brook",
-          "school_id": "2619",
-          "event_id": "school-2619-2027-02-27-87",
-          "home_away": "away",
-          "location": "West Long Branch, N.J.",
-          "source_url": "https://stonybrookathletics.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-12-11:2634|2710",
       "date": "2026-12-11",
       "opponent_ids": [
@@ -21225,28 +19420,6 @@
           "event_id": "school-2634-2027-01-23-111",
           "home_away": "away",
           "location": "Cape Girardeau, Mo.",
-          "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-06:2413|2634",
-      "date": "2027-02-06",
-      "opponent_ids": [
-        "2634",
-        "2413"
-      ],
-      "school_ids": [
-        "2634"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Tennessee St.",
-          "school_id": "2634",
-          "event_id": "school-2634-2027-02-06-135",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
           "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
@@ -21335,27 +19508,6 @@
           "home_away": "neutral",
           "location": "San Diego, California",
           "source_url": "https://texaslonghorns.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2640:school-2640-2027-02-13-153",
-      "date": "2027-02-13",
-      "opponent_ids": [
-        "2640"
-      ],
-      "school_ids": [
-        "2640"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Texas Southern",
-          "school_id": "2640",
-          "event_id": "school-2640-2027-02-13-153",
-          "home_away": "away",
-          "location": "Grambling, La.",
-          "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -21487,28 +19639,6 @@
           "home_away": "away",
           "location": "Johnson City, Tenn. / Freedom Hall",
           "source_url": "https://citadelsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-11:119|2405",
-      "date": "2027-02-11",
-      "opponent_ids": [
-        "119",
-        "2405"
-      ],
-      "school_ids": [
-        "119"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Towson",
-          "school_id": "119",
-          "event_id": "school-119-2027-02-11-107",
-          "home_away": "away",
-          "location": "West Long Branch, NJ",
-          "source_url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -21788,50 +19918,6 @@
       ]
     },
     {
-      "key": "2026-12-31:2433|295",
-      "date": "2026-12-31",
-      "opponent_ids": [
-        "2433",
-        "295"
-      ],
-      "school_ids": [
-        "2433"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "ULM",
-          "school_id": "2433",
-          "event_id": "school-2433-2026-12-31-67",
-          "home_away": "away",
-          "location": "Norfolk, Va.",
-          "source_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-11-02:2244|2378",
-      "date": "2026-11-02",
-      "opponent_ids": [
-        "2378",
-        "2244"
-      ],
-      "school_ids": [
-        "2378"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "UMBC",
-          "school_id": "2378",
-          "event_id": "school-2378-2026-11-02-15",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2026-12-05:2169|2378",
       "date": "2026-12-05",
       "opponent_ids": [
@@ -22028,28 +20114,6 @@
       ]
     },
     {
-      "key": "2027-01-21:2405|350",
-      "date": "2027-01-21",
-      "opponent_ids": [
-        "350",
-        "2405"
-      ],
-      "school_ids": [
-        "350"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "UNCW",
-          "school_id": "350",
-          "event_id": "school-350-2027-01-21-107",
-          "home_away": "away",
-          "location": "West Long Branch, NJ",
-          "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2439:school-2439-2027-02-27-33",
       "date": "2027-02-27",
       "opponent_ids": [
@@ -22137,28 +20201,6 @@
       ]
     },
     {
-      "key": "2027-02-20:2413|2630",
-      "date": "2027-02-20",
-      "opponent_ids": [
-        "2630",
-        "2413"
-      ],
-      "school_ids": [
-        "2630"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "UT Martin",
-          "school_id": "2630",
-          "event_id": "school-2630-2027-02-20-32",
-          "home_away": "away",
-          "location": "Morehead, Ky.",
-          "source_url": "https://utmsports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2027-03-06:265|328",
       "date": "2027-03-06",
       "opponent_ids": [
@@ -22177,28 +20219,6 @@
           "home_away": "away",
           "location": "Pullman, Wash.",
           "source_url": "https://utahstateaggies.com/news/2026/10/14/mens-basketball-aggies-announce-23-nationally-televised-games-for-2026-27.aspx"
-        }
-      ]
-    },
-    {
-      "key": "2027-01-02:3101|331",
-      "date": "2027-01-02",
-      "opponent_ids": [
-        "3101",
-        "331"
-      ],
-      "school_ids": [
-        "3101"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Utah Tech",
-          "school_id": "3101",
-          "event_id": "school-3101-2027-01-02-71",
-          "home_away": "away",
-          "location": "Cheney, Wash. Reese Court",
-          "source_url": "https://utahtechtrailblazers.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -22349,50 +20369,6 @@
           "home_away": "away",
           "location": "Friday Oct 23 6:00 PM EDT",
           "source_url": "https://miamihurricanes.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-10-17:2670|295",
-      "date": "2026-10-17",
-      "opponent_ids": [
-        "2670",
-        "295"
-      ],
-      "school_ids": [
-        "2670"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "VCU",
-          "school_id": "2670",
-          "event_id": "school-2670-2026-10-17-7",
-          "home_away": "away",
-          "location": "Norfolk, VA",
-          "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2027-02-26:2244|2670",
-      "date": "2027-02-26",
-      "opponent_ids": [
-        "2670",
-        "2244"
-      ],
-      "school_ids": [
-        "2670"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "VCU",
-          "school_id": "2670",
-          "event_id": "school-2670-2027-02-26-127",
-          "home_away": "away",
-          "location": "Fairfax, VA",
-          "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -22764,28 +20740,6 @@
       ]
     },
     {
-      "key": "2027-01-21:2413|2710",
-      "date": "2027-01-21",
-      "opponent_ids": [
-        "2710",
-        "2413"
-      ],
-      "school_ids": [
-        "2710"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Western Ill.",
-          "school_id": "2710",
-          "event_id": "school-2710-2027-01-21-87",
-          "home_away": "away",
-          "location": "Morehead, KY",
-          "source_url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
       "key": "2710:school-2710-2027-03-03-127",
       "date": "2027-03-03",
       "opponent_ids": [
@@ -22846,28 +20800,6 @@
           "home_away": "away",
           "location": "Jacksonville, Ala.",
           "source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27"
-        }
-      ]
-    },
-    {
-      "key": "2026-11-02:2711|295",
-      "date": "2026-11-02",
-      "opponent_ids": [
-        "2711",
-        "295"
-      ],
-      "school_ids": [
-        "2711"
-      ],
-      "missing_record_count": 1,
-      "events": [
-        {
-          "school": "Western Mich.",
-          "school_id": "2711",
-          "event_id": "school-2711-2026-11-02-1",
-          "home_away": "away",
-          "location": "Norfolk, Va. MAC-Sun Belt Challenge",
-          "source_url": "https://wmubroncos.com/sports/mens-basketball/schedule/text/2026-27"
         }
       ]
     },
@@ -23289,5 +21221,21 @@
         }
       ]
     }
-  ]
+  ],
+  "reconciliation": {
+    "method": "delta reconciliation of last 58 resolved missing-arena records against prior 365-team snapshot; not a full 365-file rescan",
+    "prior_groups": 524,
+    "applied_record_corrections": 58,
+    "pending_full_scan": true,
+    "verified_host_batches": [
+      "George Mason",
+      "Old Dominion",
+      "Morehead State",
+      "Monmouth",
+      "Grambling State",
+      "Colgate",
+      "Ohio",
+      "Eastern Washington"
+    ]
+  }
 }
