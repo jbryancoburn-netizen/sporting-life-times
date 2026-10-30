@@ -44,3 +44,17 @@ body[data-league="college-soccer"] .cs-conf-directory-link:hover{background:#eef
 body[data-league="college-soccer"] .cs-matchday-rich{background:#f8faf8;border-color:#d0ddd4;border-left-color:#227361}
 @media(max-width:1020px){body[data-league="college-soccer"] .cs-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-league="college-soccer"] .cs-columns{grid-template-columns:1fr}}
 @media(max-width:650px){body[data-league="college-soccer"] .soccer-visual-edition{grid-template-columns:1fr;gap:10px}body[data-league="college-soccer"] .cs-hero-aside{border-left:0;border-top:1px solid #62877b;padding:16px 0 0}body[data-league="college-soccer"] .cs-hero-aside strong{font-size:52px}body[data-league="college-soccer"] .cs-score-rail{grid-template-columns:1fr 1fr}body[data-league="college-soccer"] .cs-score-tile{padding:9px 6px}body[data-league="college-soccer"] .cs-hero-copy h2{font-size:37px}}
+
+/* Logo-only repair: same geometry in power rankings, results, stories, team cards and conference pages.
+   The shared dual-ring renderer owns team colors; do not paint extra circles or image borders. */
+body[data-league="college-soccer"] :is(.cs-mark,.cs-showcase-logo,.cs-edit-school-mark,.soccer-crest,.soccer-monogram,.team-monogram,.team-logo-shell,.cs-cup-school,.cs-official-team){box-sizing:border-box;aspect-ratio:1/1;flex-shrink:0;min-width:0;min-height:0;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;isolation:isolate}
+body[data-league="college-soccer"] :is(.cs-mark,.cs-showcase-logo,.cs-edit-school-mark,.soccer-crest,.soccer-monogram,.team-monogram,.team-logo-shell,.cs-cup-school,.cs-official-team)>img{position:static!important;display:block!important;box-sizing:border-box!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;aspect-ratio:1/1;object-fit:contain!important;object-position:center!important;margin:0!important;padding:9%!important;border:0!important;box-shadow:none!important;transform:none!important}
+body[data-league="college-soccer"] :is(.cs-mark,.cs-edit-school-mark,.cs-showcase-logo).slt-dual-shell>img{padding:10%!important}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-mark{width:32px;height:32px;flex-basis:32px}
+body[data-league="college-soccer"] #college-soccer-visual-desk .cs-table .cs-mark{width:27px;height:27px;flex-basis:27px}
+body[data-league="college-soccer"] #college-soccer-editorial .cs-edit-school-mark{width:29px;height:29px;flex-basis:29px}
+body[data-league="college-soccer"] #college-soccer-editorial .cs-edit-lead-school .cs-edit-school-mark{width:46px;height:46px;flex-basis:46px}
+body[data-league="college-soccer"] .cs-conf-page .cs-conference-table img{object-fit:contain!important;object-position:center!important;box-sizing:border-box!important}
+body[data-league="college-soccer"] #college-team-profile .team-monogram:has(img){background:transparent}
+body[data-league="college-soccer"] #college-team-profile .team-match-logo{object-fit:contain!important;object-position:center!important;aspect-ratio:1/1;max-width:100%}
+@media(max-width:560px){body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-mark{width:28px;height:28px;flex-basis:28px}body[data-league="college-soccer"] #college-soccer-editorial .cs-edit-school-mark{width:25px;height:25px;flex-basis:25px}}
