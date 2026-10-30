@@ -3,15 +3,16 @@
   "gender": "women",
   "schools_attempted": 363,
   "schools_with_readable_official_calendar": 357,
-  "schools_with_matched_official_calendar": 357,
-  "verified_school_count_including_prior": 357,
-  "verified_team_game_rows_including_prior": 8931,
-  "verified_unique_game_ids": 5409,
-  "official_home_away_matched": 8773,
+  "schools_with_matched_official_calendar": 362,
+  "verified_school_count_including_prior": 362,
+  "verified_team_game_rows_including_prior": 9072,
+  "verified_unique_game_ids": 5436,
+  "official_home_away_matched": 8857,
   "official_home_away_conflicts": 90,
   "status_counts": {
-    "matched_university_games": 357,
-    "unreadable_university_schedule": 6
+    "matched_university_games": 361,
+    "unreadable_university_schedule": 1,
+    "matched_conference_games": 1
   },
   "school_results": [
     {
@@ -127,10 +128,10 @@
     {
       "team_id": "8",
       "school": "Arkansas Razorbacks",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
+      "status": "matched_university_games",
+      "source": "https://arkansasrazorbacks.com/sport/w-baskbl/schedule/",
+      "source_rows": 29,
+      "matched": 29,
       "site_matched": 0,
       "site_conflicts": 0
     },
@@ -1287,10 +1288,10 @@
     {
       "team_id": "55",
       "school": "Jacksonville State Gamecocks",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
+      "status": "matched_university_games",
+      "source": "https://jaxstatesports.com/sports/womens-basketball/schedule/text",
+      "source_rows": 30,
+      "matched": 28,
       "site_matched": 0,
       "site_conflicts": 0
     },
@@ -1357,10 +1358,10 @@
     {
       "team_id": "96",
       "school": "Kentucky Wildcats",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
+      "status": "matched_university_games",
+      "source": "https://ukathletics.com/sports/wbball/schedule/",
+      "source_rows": 30,
+      "matched": 30,
       "site_matched": 0,
       "site_conflicts": 0
     },
@@ -2157,10 +2158,10 @@
     {
       "team_id": "87",
       "school": "Notre Dame Fighting Irish",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
+      "status": "matched_university_games",
+      "source": "https://fightingirish.com/news/2026/10/6/tip-times-tv-schedule-womens-basketball-notre-dame",
+      "source_rows": 30,
+      "matched": 27,
       "site_matched": 0,
       "site_conflicts": 0
     },
@@ -2957,10 +2958,10 @@
     {
       "team_id": "2635",
       "school": "Tennessee Tech Golden Eagles",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
+      "status": "matched_conference_games",
+      "source": "https://soconsports.com/schedule.aspx?schedule=9206",
+      "source_rows": 28,
+      "matched": 27,
       "site_matched": 0,
       "site_conflicts": 0
     },
@@ -3649,5 +3650,8 @@
   "prior_certified_evidence_recovered": 7,
   "previously_certified_evidence_quarantined": {},
   "current_scan_verified_school_count": 357,
-  "retention_policy": "Preserve dated official women's source evidence across temporary site failures only when current unique game ID, local date and opponent still match; old site claims are not carried forward."
+  "retention_policy": "Preserve dated official women's source evidence across temporary site failures only when current unique game ID, local date and opponent still match; old site claims are not carried forward.",
+  "official_university_schools_with_matches": 361,
+  "official_conference_schools_with_matches": 1,
+  "offline_official_transcription_source_file": "data/ncaaw-2026-27-final-five-official-evidence.json"
 }
