@@ -1,0 +1,51 @@
+{
+  "season": "2026-27",
+  "purpose": "Independently reopened official team pages and verified three existing tipoff discrepancies",
+  "verified": 3,
+  "auto_published_schedule_changes": 0,
+  "policy": "Do not overwrite source ledger until reciprocal opponent or organizer confirms; keep evidence authoritative and traceable.",
+  "rows": [
+    {
+      "game_id": "401906067",
+      "team_id": "25",
+      "school": "California",
+      "opponent": "Hawaii",
+      "date_local": "2026-11-20",
+      "official_printed_time": "6:00 PM PT",
+      "official_utc_if_time_is_PST": "2026-11-21T02:00:00Z",
+      "existing_calendar_utc": "2026-11-21T01:00Z",
+      "difference_minutes": 60,
+      "source": "https://calbears.com/sports/womens-basketball/schedule/text/2026-27",
+      "status": "verified_official_display_conflicts_with_calendar",
+      "note": "Nov 20 in Pacific standard time UTC-8. Official page prints PT; schedule is a neutral-site game in Hawaii, so source time basis must be respected."
+    },
+    {
+      "game_id": "401928314",
+      "team_id": "204",
+      "school": "Oregon State",
+      "opponent": "Idaho State",
+      "date_local": "2026-12-18",
+      "official_printed_time": "8 PM PT",
+      "official_utc_if_time_is_PST": "2026-12-19T04:00:00Z",
+      "existing_calendar_utc": "2026-12-19T01:00Z",
+      "difference_minutes": 180,
+      "source": "https://osubeavers.com/sports/womens-basketball/schedule/text/2026-27",
+      "status": "verified_official_display_conflicts_with_calendar",
+      "note": "Neutral-site Maui Classic listed as 8 PM PT; verify opponent reciprocal schedule before updating canonical tipoff."
+    },
+    {
+      "game_id": "401928315",
+      "team_id": "204",
+      "school": "Oregon State",
+      "opponent": "Ball State",
+      "date_local": "2026-12-19",
+      "official_printed_time": "8 PM PT",
+      "official_utc_if_time_is_PST": "2026-12-20T04:00:00Z",
+      "existing_calendar_utc": "2026-12-20T01:00Z",
+      "difference_minutes": 180,
+      "source": "https://osubeavers.com/sports/womens-basketball/schedule/text/2026-27",
+      "status": "verified_official_display_conflicts_with_calendar",
+      "note": "Neutral-site Maui Classic; verify reciprocal source before changing ledger."
+    }
+  ]
+}
