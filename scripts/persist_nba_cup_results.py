@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Persist NBA Cup finals from the published NBA game-center ledger. Safe to rerun."""
 import json, pathlib, datetime
+from zoneinfo import ZoneInfo
 root=pathlib.Path(__file__).resolve().parents[1]
 cup=root/"data/nba-cup-2026.json"; source=root/"data/nba-game-center.json"
 doc=json.loads(cup.read_text()); feed=json.loads(source.read_text())
@@ -11,7 +12,7 @@ for game in feed.get("games",[]):
     a,h=sides.get("away"),sides.get("home")
     if not a or not h or not game.get("date"):continue
     try:
-        day=datetime.datetime.fromisoformat(game["date"].replace("Z","+00:00")).astimezone(datetime.timezone(datetime.timedelta(hours=-4))).date().isoformat()
+        day=datetime.datetime.fromisoformat(game["date"].replace("Z","+00:00")).astimezone(ZoneInfo('America/New_York')).date().isoformat()
         key=f'{day}|{a["code"]}|{h["code"]}'
         ass,hss=int(a["score"]),int(h["score"])
         if ass!=hss:matches[key]={"away_score":ass,"home_score":hss,"game_id":game.get("id"),"source":"data/nba-game-center.json","source_date":game.get("date")}
