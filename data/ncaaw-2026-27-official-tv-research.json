@@ -194,6 +194,27 @@
       "source_type": "official_conference_television_schedule",
       "source_url": "https://theamerican.org/news/2026/10/26/american-conference-releases-2026-27-womens-basketball-linear-television-assignments.aspx",
       "policy": "Official conference 13 team, 18-game season has 117 unique conference games. Exclude specifically announced Jan 30 ESPNU and Jan 24 unresolved ESPN2/ESPNU; assign ESPN+ to all remaining distinct American Conference matchups ONLY after complete 117-game ledger proof."
+    },
+    {
+      "source_id": 16,
+      "title": "2026-27 Big West women's basketball nine named Spectrum SportsNet live broadcasts",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://bigwest.org/news/2026/10/19/the-big-west-to-deliver-record-basketball-coverage-in-2026-27.aspx",
+      "policy": "Exact nine women's contests, distinct from ten men's games; source includes date, away/home schools, tip time, and Spectrum SportsNet channel."
+    },
+    {
+      "source_id": 17,
+      "title": "2026-27 Big West women's basketball ESPN+ conference home-game coverage",
+      "source_type": "official_school_athletics_and_conference_coverage",
+      "source_url": "https://gorunners.com/news/2026/10/19/mens-basketball-big-west-announces-spectrum-sportsnet-tv-slate.aspx",
+      "policy": "Official Bakersfield women's and men's conference coverage release states all 2026-27 Big West league games also appear on ESPN+. Validate exactly 12 schools playing 22 games each, unique 132 D-I matchups, and retain nine Spectrum linear designations as primary channel."
+    },
+    {
+      "source_id": 18,
+      "title": "2026-27 Coastal Athletic Association women's basketball 117 FloCollege conference matchups",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://caasports.com/news/2026/7/15/caa-announces-2026-27-womens-basketball-conference-schedule.aspx",
+      "policy": "Official CAA calendar confirms 13 teams, each 18 league games, all 117 unique conference matchups available on FloCollege. Strict calendar-team and local-date match, retain separately verified linear TV exceptions as primary network."
     }
   ],
   "rows": [
@@ -3050,6 +3071,69 @@
       "home_id": "202",
       "broadcast": "ESPNU",
       "source_id": 14
+    },
+    {
+      "date": "2027-01-09",
+      "away_id": "2934",
+      "home_id": "2856",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-01-16",
+      "away_id": "16",
+      "home_id": "2540",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-01-23",
+      "away_id": "13",
+      "home_id": "2463",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-01-30",
+      "away_id": "2540",
+      "home_id": "300",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-02-06",
+      "away_id": "299",
+      "home_id": "13",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-02-13",
+      "away_id": "3084",
+      "home_id": "28",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-02-20",
+      "away_id": "28",
+      "home_id": "300",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-02-27",
+      "away_id": "2856",
+      "home_id": "2463",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
+    },
+    {
+      "date": "2027-03-06",
+      "away_id": "2239",
+      "home_id": "27",
+      "broadcast": "Spectrum SportsNet",
+      "source_id": 16
     }
   ],
   "conference_media_rules": [
@@ -3098,6 +3182,26 @@
         }
       ],
       "method": "Both teams must be 2026-27 verified American women's basketball members, in the published Dec 30-March regular season. Exact expected count is 13 x 18 / 2 = 117, exclude both known national TV game records and undecided ESPN2/ESPNU game."
+    },
+    {
+      "source_id": 17,
+      "conference": "Big West Conference",
+      "start": "2026-12-03",
+      "end": "2027-03-06",
+      "expected_distinct_conference_games": 132,
+      "mandatory_network": "ESPN+",
+      "exclusions": [],
+      "method": "12 women-specific teams; round-robin 22 conference games per team = 132 unique matchups, all conference games on ESPN+, retain 9 Spectrum SportsNet linear designations."
+    },
+    {
+      "source_id": 18,
+      "conference": "Coastal Athletic Association",
+      "start": "2027-01-01",
+      "end": "2027-03-06",
+      "expected_distinct_conference_games": 117,
+      "mandatory_network": "FloCollege",
+      "exclusions": [],
+      "method": "13 women-specific CAA member teams, each 18 official 2026-27 league games, 117 distinct games all nationally available FloCollege; linear network exceptions retained."
     }
   ]
 }

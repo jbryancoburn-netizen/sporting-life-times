@@ -48,6 +48,15 @@ jobs:
           assert american.get("national_linear_tv_games")==1
           assert american.get("unresolved_network_exclusions")==1
           assert american.get("conflicting_prior_games")==0
+          bw=b["conference_media_rule_audit"].get("Big West Conference",{})
+          assert bw.get("conference_games_validated")==132
+          assert bw.get("national_linear_tv_games")==9
+          assert bw.get("streaming_games_covered")==123
+          assert bw.get("conflicting_prior_games")==0
+          caa=b["conference_media_rule_audit"].get("Coastal Athletic Association",{})
+          assert caa.get("conference_games_validated")==117
+          assert caa.get("streaming_games_covered")==117
+          assert caa.get("conflicting_prior_games")==0
           assert a["cross_school_date_venue_identity_conflicts"]==0
           print("Officially broadcast unique games:",a["official_broadcast_unique_games"])
           print("Newly official source-matched games:",b["matched_new_official_game_ids"])
