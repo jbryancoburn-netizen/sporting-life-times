@@ -23,6 +23,8 @@ jobs:
         run: |
           python scripts/mbb_reconcile_saved_official_evidence.py
           python scripts/mbb_reciprocal_official_recovery.py
+          python scripts/mbb_reciprocal_game_fields.py
+          python scripts/mbb_league_site_arena_reconcile.py
       - name: Verify four bounded groups
         shell: bash
         run: |
@@ -34,10 +36,35 @@ jobs:
             BATCH_START="$start" BATCH_END="$end" BATCH_NAME="shard-$i" python scripts/mbb_official_recheck_reliable.py || { echo "Verification shard $i FAILED" >> data/mbb-shard-failures.txt; failed=1; }
           done
           if [ "$failed" -ne 0 ]; then cat data/mbb-shard-failures.txt; exit 1; fi
+      - name: Reconcile newly verified game fields before final audit
+        run: |
+          python scripts/mbb_reciprocal_official_recovery.py
+          python scripts/mbb_reciprocal_game_fields.py
+          python scripts/mbb_league_site_arena_reconcile.py
       - name: Produce post-run quality audits
         run: |
           python scripts/mbb_live_quality_audit.py
           python scripts/mbb_schedule_completion_audit.py
+      - name: Certify team page files and document remaining gaps
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          root=pathlib.Path('data')
+          teams=json.loads((root/'ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams']
+          for t in teams:
+            path=root/'mbb-schedules-2026-27'/(str(t['espn_id'])+'.json')
+            d=json.loads(path.read_text())
+            assert isinstance(d.get('events'),list) and d['events'],f'Missing schedule: {t["name"]}'
+            for e in d['events']:
+              assert e.get('date') and e.get('competitions'),f'Invalid dated game: {t["name"]}'
+          html=pathlib.Path('ncaam-team.html').read_text()
+          js=pathlib.Path('mbb-team-calendar-boot.js').read_text()
+          assert 'mbb-team-calendar-boot.js' in html and 'mbb-calendar-host' in html
+          assert 'team.espn_id' in js and 'document.title=team.name' in js
+          report=json.loads((root/'mbb-schedule-completion-audit.json').read_text())
+          print('PASS: 365 readable team schedules with page identity/navigation wiring')
+          print('UNRESOLVED REQUIRED FIELDS:',report['summary'])
+          PY
       - name: Confirm site-verification totals and remaining conflicts
         run: |
           python - <<'PY'
@@ -54,7 +81,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json data/mbb-saved-evidence-reconciliation.json data/mbb-reciprocal-official-recovery.json data/mbb-schedule-completion-audit.json
+          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json data/mbb-saved-evidence-reconciliation.json data/mbb-reciprocal-official-recovery.json data/mbb-schedule-completion-audit.json data/mbb-reciprocal-game-fields.json data/mbb-league-site-arena-reconciliation.json
           find data -maxdepth 1 -name 'mbb-official-recheck-shard-*-verification.json' -exec git add {} +
           git commit -m "Publish 365-school official recheck and fresh MBB quality totals" || exit 0
           for attempt in 1 2 3 4 5; do
