@@ -10,6 +10,7 @@ import mbb_reconcile_saved_official_evidence as identities
 
 DATA = pathlib.Path(__file__).resolve().parents[1] / 'data'
 EVIDENCE = DATA / 'mbb-official-conference-game-evidence.json'
+REPORT = DATA / 'mbb-conference-schedule-recovery.json'
 ALIASES = {'connecticut':'41', 'detroit':'2174', 'md-easternshore':'2379',
            'westga.':'2698', 'niu':'2459', 'purdue-fortwayne':'2870',
            'ut-chattanooga':'236', 'bostonu.':'104', 'southernu.':'2582',
@@ -132,7 +133,7 @@ def recover(facts):
             time = row['time']
             old = e.get('official_school_time') or e.get('official_time') or ''
             if re.fullmatch(r'(?:\d{1,2}(?::\d{2})?\s*[ap]\.?m\.?|Noon)',time,re.I) and (not old or re.search('TBA|TBD',old,re.I)):
-                e['official_school_time'] = time + ' ET'
+                e['official_school_time'] = time + ' ' + row.get('timezone','ET')
                 e['official_school_time_source'] = url; counts['tipoffs_added'] += 1
             if row['relation'] == 'at':
                 if not e.get('site_verified'):
@@ -150,7 +151,7 @@ def recover(facts):
         (DATA/'mbb-schedules-2026-27'/f'{owner}.json').write_text(json.dumps(documents[owner],ensure_ascii=False,separators=(',',':'))+'\n')
     summary = {'schools_updated':len(changed),'source_rows':len(facts['rows']),**total}
     result = {'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'summary':summary,'changes':report,'unresolved_rows':unresolved}
-    (DATA/'mbb-conference-schedule-recovery.json').write_text(json.dumps(result,indent=2)+'\n')
+    REPORT.write_text(json.dumps(result,indent=2)+'\n')
     EVIDENCE.write_text(json.dumps(facts,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(summary)); print('Unresolved:', sorted({(r['visitor'],r['host']) for r in unresolved}))
 

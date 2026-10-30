@@ -37,7 +37,7 @@ Nov. 2 Ohio State vs. BYU 9 p.m. FS1   Jan. 23 Kansas at Kansas State Noon/8 p.m
             (folder/'41.json').write_text(json.dumps(doc))
             row = dict(date='2026-11-02',visitor='Connecticut',host='Michigan',relation='vs.',time='7 p.m.',tv='TNT',city='',source_url='official')
             wrong = dict(row,host='Michigan State',tv='FOX')
-            with patch.object(m,'DATA',root),patch.object(m,'EVIDENCE',root/'evidence.json'):
+            with patch.object(m,'DATA',root),patch.object(m,'EVIDENCE',root/'evidence.json'),patch.object(m,'REPORT',root/'report.json'):
                 m.recover({'rows':[wrong,row]})
             result=json.loads((folder/'41.json').read_text())['events'][0]
             self.assertEqual(result['official_school_time'],'8 p.m. ET')
