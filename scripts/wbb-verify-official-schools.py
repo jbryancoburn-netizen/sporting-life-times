@@ -320,8 +320,19 @@ def main():
  stems={tid:normalize(" ".join(t["team"].split()[:-1])) for tid,t in d["teams"].items()}
  safe_stems={tid:stem for tid,stem in stems.items()
              if len(stem)>=6 and sum(other.startswith(stem) for other in stems.values())==1}
+ # A widespread university-site outage must never overwrite the prior
+ # source-verified audit with an older historical snapshot. The source ledger
+ # is kept intact and a failed retrieval remains a failed run.
+ previous_path=ROOT/"ncaaw-2026-27-official-schedule-bulk-audit.json"
+ previous=json.loads(previous_path.read_text()) if previous_path.exists() else {}
+ previous_schools=int(previous.get("verified_school_count_including_prior") or 0)
  with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
   results=list(pool.map(lambda p:school(*p,safe_stems),work))
+ fresh_schools=sum(bool(r["matched"]) for r in results)
+ if previous_schools>=300 and fresh_schools<previous_schools-5:
+  raise RuntimeError("Official university site retrieval outage: "+
+                     str(fresh_schools)+" fresh schools vs "+
+                     str(previous_schools)+" previously verified; refusing to publish a regression")
  evidence=[]
  for r in results:evidence.extend(r.pop("evidence"))
  oldpath=ROOT/"ncaaw-2026-27-official-schedule-verifications.json"
