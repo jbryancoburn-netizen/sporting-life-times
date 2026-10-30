@@ -55,6 +55,23 @@ jobs:
           python scripts/wbb-preserve-university-evidence.py
       - name: Reconcile preserved school evidence and source metadata
         run: python scripts/wbb-reconcile-schedule-evidence.py
+      - name: Recalculate all 363 schedule coverage and game-ID integrity
+        run: python scripts/audit_ncaaw_schedule_completeness.py
+      - name: Verify diagnostic coverage for five largest source gaps
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path("data/ncaaw-2026-27-official-schedule-bulk-audit.json").read_text())
+          indexed={str(row["team_id"]):row for row in report["school_results"]}
+          for tid in ("158","259","2115","2579","99"):
+              row=indexed[tid]
+              if row.get("status")=="unreadable_university_schedule":
+                  print(tid, "unreadable university page; no invented verification")
+                  continue
+              assert "unmatched_official_rows" in row and "unmatched_master_games" in row, tid
+              print(tid, "matched",row["matched"],"unmatched source rows",len(row["unmatched_official_rows"]),"unmatched master rows",len(row["unmatched_master_games"]))
+          PY
       - name: Enforce source-verification preservation
         run: |
           python - <<'PY'
@@ -74,7 +91,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
           git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
-          git add data/ncaaw-2026-27-preserved-university-evidence-audit.json
+          git add data/ncaaw-2026-27-preserved-university-evidence-audit.json data/ncaaw-schedule-completeness-deep-audit.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Publish official athletics checks for 363 women's programs"
           # These are generated JSON outputs. If another publisher updates
