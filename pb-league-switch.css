@@ -2,14 +2,17 @@
 .pb-league-toggle{box-sizing:border-box;display:flex!important;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;width:max-content;max-width:100%;margin:8px auto 16px!important;padding:10px 12px!important;background:transparent!important;border-top:1px solid #c3d0cd;border-bottom:1px solid #c3d0cd;color:#152a30;position:relative;z-index:3}
 .pb-league-toggle *{box-sizing:border-box}
 .pb-league-toggle-caption{font:800 10px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:1.3px;margin-right:9px;color:#596c70}
-.pb-league-toggle .pb-league-option{width:116px;height:55px;display:flex!important;align-items:center;justify-content:center;overflow:hidden;padding:7px 12px!important;background:#fffefa!important;border:1px solid #c6d0cf;border-radius:4px;text-decoration:none!important;box-shadow:none!important;position:relative;transition:background .15s,transform .15s}
+.pb-league-toggle .pb-league-option{width:116px;height:55px;display:flex!important;align-items:center;justify-content:center;overflow:hidden;padding:7px 12px!important;background:var(--league-bg)!important;border:1px solid var(--league-color);border-radius:4px;text-decoration:none!important;box-shadow:inset 0 -3px 0 var(--league-accent)!important;position:relative;transition:background .15s,transform .15s}
+.pb-league-toggle .pb-league-option[title="NBA"]{--league-color:#17408b;--league-accent:#c9082a;--league-bg:#e8eef9;--league-selected:#d8e4f7;--league-halo:#17408b40}
+.pb-league-toggle .pb-league-option[title="EuroLeague"]{--league-color:#d94b08;--league-accent:#f65b0b;--league-bg:#fff0e4;--league-selected:#ffdfc6;--league-halo:#f65b0b40}
+.pb-league-toggle .pb-league-option[title="Australian NBL"]{--league-color:#202020;--league-accent:#f58220;--league-bg:#ffead5;--league-selected:#ffd4aa;--league-halo:#f5822050}
 .pb-league-toggle .pb-league-option img{object-fit:contain!important;object-position:center!important;display:block;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;position:static!important;transform:none!important;filter:none!important;border:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important}
 .pb-league-toggle .pb-league-option[title="Australian NBL"] img{max-width:63%!important}
 .pb-league-toggle .pb-league-option img[hidden]{display:none!important}
-.pb-league-toggle .pb-league-option.is-active{border:2px solid #087e83!important;background:#eaf4f1!important;box-shadow:0 0 0 2px #087e8340!important}
-.pb-league-toggle .pb-league-option.is-active:after{content:"";position:absolute;bottom:0;left:9px;right:9px;height:3px;background:#087e83}
-.pb-league-toggle .pb-league-option:hover{background:#f0f6f3!important;transform:translateY(-1px)}
-.pb-league-toggle .pb-league-option:focus-visible{outline:3px solid #087e83;outline-offset:3px}
+.pb-league-toggle .pb-league-option.is-active{border:2px solid var(--league-color)!important;background:var(--league-selected)!important;box-shadow:0 0 0 2px var(--league-halo)!important}
+.pb-league-toggle .pb-league-option.is-active:after{content:"";position:absolute;bottom:0;left:9px;right:9px;height:3px;background:var(--league-accent)}
+.pb-league-toggle .pb-league-option:hover{background:var(--league-selected)!important;transform:translateY(-1px)}
+.pb-league-toggle .pb-league-option:focus-visible{outline:3px solid var(--league-color);outline-offset:3px}
 .pb-league-toggle .pb-logo-fallback{display:none;font:900 18px/1 Arial,sans-serif;color:#1b4047}
 .pb-league-toggle .pb-logo-failed .pb-logo-fallback{display:block}
 @media(max-width:600px){.pb-league-toggle{width:100%;gap:6px!important;padding:9px 3px!important}.pb-league-toggle-caption{width:100%;text-align:center;margin:0 0 4px}.pb-league-toggle .pb-league-option{width:min(30%,110px);height:49px;padding:6px 8px!important}}
