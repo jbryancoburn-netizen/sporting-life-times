@@ -13,6 +13,11 @@ try{
  const cross=await load('data/ncaam-2026-27-espn-team-crosswalk.json');
  const team=(cross.teams||[]).find(t=>t.id===selected||String(t.espn_id)===selected);
  if(!team)throw Error('Unknown basketball team '+selected);
+ // Shared page identity must follow the selected program, never a fixed school.
+ document.title=team.name+' Basketball | The Sporting Life & Times';
+ const icon=document.querySelector('link[rel="icon"]')||document.createElement('link');
+ icon.rel='icon';icon.type='image/png';icon.href='https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(team.espn_id)+'.png';
+ if(!icon.parentNode)document.head.appendChild(icon);
  const path='data/mbb-schedules-2026-27/'+encodeURIComponent(team.espn_id)+'.json';
  host.hidden=false;
  host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
