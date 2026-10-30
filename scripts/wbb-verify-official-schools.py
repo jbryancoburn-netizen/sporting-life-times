@@ -27,6 +27,45 @@ def matching(a,b):
  if x==y:return True
  if len(x)<5 or len(y)<5:return False
  return x.startswith(y) or y.startswith(x)
+
+# School pages sometimes put the home team, opponent, date and arena into a
+# single 'Teams' cell. Extract the LAST explicit vs./at marker where present;
+# otherwise require a unique school stem/curated abbreviation in the row.
+# No venue or site is inferred from this textual opponent extraction.
+OFFICIAL_NAME_ALIASES={
+ "2545":("southeastern louisiana",),
+ "2029":("uapb","arkansas pine bluff","arkansas-pine bluff"),
+ "2916":("uiw","incarnate word"),
+ "12":("arizona",),
+ "25":("california",),
+ "309":("louisiana",)
+}
+def official_opponent_matches(source,game,safe_stems):
+ raw=str(source or "")
+ segments=re.split(r"\b(?:vs\.?|at|@)\s+",raw,flags=re.I)
+ tail=segments[-1] if len(segments)>1 else raw
+ text=normalize(tail)
+ full=normalize(raw)
+ oppid=str(game.get("opponent_id") or "")
+ if matching(tail,game.get("opponent")):
+  return True
+ stem=safe_stems.get(oppid,"")
+ if stem and (text.startswith(stem) or (len(segments)==1 and stem in full)):
+  return True
+ aliases=OFFICIAL_NAME_ALIASES.get(oppid,())
+ for alias in aliases:
+  key=normalize(alias)
+  if not (text.startswith(key) or (len(segments)==1 and key in full)):
+   continue
+  if oppid=="12" and text.startswith("arizonastate"):
+   continue
+  if oppid=="25" and text.startswith("californiabaptist"):
+   continue
+  if oppid=="309" and any(p in full for p in ("louisianatech","southeasternlouisiana","louisianamonroe")):
+   continue
+  return True
+ return False
+
 def read_source(html):
  soup=BeautifulSoup(html,"html.parser");rows=[]
  for card in soup.select(".sidearm-schedule-game[data-game-id]"):
@@ -175,9 +214,7 @@ def school(tid,school_data,safe_stems):
   # Only accept a school-name prefix when that prefix is unique across the
   # entire women's D-I registry (e.g. Virginia is NOT unique vs Virginia Tech).
   candidates=[g for g in bydate[r["date"]]
-              if matching(r["opponent"],g["opponent"]) or
-              (safe_stems.get(str(g.get("opponent_id"))) and
-               normalize(r["opponent"]).startswith(safe_stems[str(g["opponent_id"])]))]
+              if official_opponent_matches(r["opponent"],g,safe_stems)]
   if len(candidates)!=1:continue
   g=candidates[0]
   if g["id"] in seen:continue
