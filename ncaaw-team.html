@@ -33,7 +33,12 @@
  border:0!important;outline:0!important;box-shadow:none!important;
  width:42px;height:42px;max-width:42px;max-height:42px;padding:0!important
 }
-.wbb-desk .wbb-team-opp{grid-template-columns:54px minmax(0,1fr)}.wbb-desk .wbb-team-opp .mbb-mark{justify-self:center;align-self:center;--mbb-size:48px}.wbb-desk .wbb-double-ring,.wbb-desk .wbb-double-ring-inner{display:none!important}</style></head><body><div class="wrap"><header><div class="topline"><a href="index.html">Independent sports journalism &amp; data</a><span>College basketball · 2026–27</span></div><div class="masthead"><a href="index.html">The Sporting Life &amp; Times</a></div><div class="edition-line">The Women’s College Basketball Edition</div><nav class="nav" aria-label="Women’s college basketball navigation"><a href="ncaam.html?gender=women">Front Page</a><a href="ncaam.html?gender=women#wbb-standings">Conferences</a><a href="ncaam.html?gender=women#wbb-rankings">USRS Rankings</a><a href="ncaam.html?gender=women#wbb-teams">Team Directory</a><a href="ncaam.html">Men's Edition</a></nav></header>
+.wbb-desk .wbb-team-opp{grid-template-columns:54px minmax(0,1fr)}.wbb-desk .wbb-team-opp .mbb-mark{justify-self:center;align-self:center;--mbb-size:48px}.wbb-desk .wbb-double-ring,.wbb-desk .wbb-double-ring-inner{display:none!important}/* Logo identity parity with men's team pages: let MBBLogos own every ring.
+   No women's page image border or nested legacy badge rules may modify it. */
+.wbb-desk .wbb-identity .mbb-mark{--mbb-size:112px;flex:0 0 112px}
+.wbb-desk .wbb-identity .mbb-mark__img{border:0!important;outline:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;background:transparent!important;height:96%!important;width:96%!important}
+.wbb-desk .wbb-team-opp .mbb-mark{--mbb-size:48px;flex:0 0 48px}
+</style></head><body><div class="wrap"><header><div class="topline"><a href="index.html">Independent sports journalism &amp; data</a><span>College basketball · 2026–27</span></div><div class="masthead"><a href="index.html">The Sporting Life &amp; Times</a></div><div class="edition-line">The Women’s College Basketball Edition</div><nav class="nav" aria-label="Women’s college basketball navigation"><a href="ncaam.html?gender=women">Front Page</a><a href="ncaam.html?gender=women#wbb-standings">Conferences</a><a href="ncaam.html?gender=women#wbb-rankings">USRS Rankings</a><a href="ncaam.html?gender=women#wbb-teams">Team Directory</a><a href="ncaam.html">Men's Edition</a></nav></header>
 <main class="wbb-desk" id="desk"><section class="wbb-mast"><h1>Loading women’s team desk…</h1></section></main><footer class="footer">The Sporting Life &amp; Times · Independent women’s Division I basketball edition.</footer></div>
 <script>
 (async function(){
@@ -65,7 +70,7 @@ const color=/^[0-9a-fA-F]{6}$/.test(t.color||'')?'#'+t.color:'#7b2429';
 host.style.setProperty('--accent',color);
 document.title=t.team+' · Women’s Basketball | The Sporting Life & Times';
 const record=rating?String(rating.wins||0)+'–'+String(rating.losses||0):'—';
-const logo=/^https:\/\//.test(t.logo||'')?'<img alt="" src="'+esc(t.logo)+'">':'';
+const logo=window.MBBLogos.byESPN(id,'hero',t.team);
 const rows=sorted.map(g=>{
   const opp=lookup.get(String(g.opponent_id||''));
   const badge=opp?window.MBBLogos.byESPN(String(opp.team_id),'schedule',opp.team):'';const opponent=opp?'<a class="wbb-opponent wbb-team-opp" href="ncaaw-team.html?team='+encodeURIComponent(opp.team_id)+'">'+badge+'<span class="wbb-opponent-label">'+esc(g.opponent||opp.team)+'</span></a>':esc(g.opponent||'Opponent TBA');
