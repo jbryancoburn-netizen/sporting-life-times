@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 137,
+  "schools_scanned": 154,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -963,6 +963,125 @@
       "source_sha": "f2e4cf82d4559ceca204c0280593c6670ccf7a0b",
       "game_count": 29,
       "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2320",
+      "school": "Lamar University",
+      "source_sha": "d440e71f40189af4b55aba1178c1e526a1bb7fc9",
+      "game_count": 33,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2330",
+      "school": "Le Moyne",
+      "source_sha": "ea083745bcd09fb45024571157c94ff584146819",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2329",
+      "school": "Lehigh",
+      "source_sha": "a04b96187dafc799363f0ddf54a69c4aeb3bfe6c",
+      "game_count": 31,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "source_sha": "a55346a8ecbcb726c08c5888228fbcb97b6c958a",
+      "game_count": 32,
+      "missing_arena_fields": 6
+    },
+    {
+      "school_id": "2815",
+      "school": "Lindenwood",
+      "source_sha": "1343ba3367cc5f4f6b334c5a36ecabdf007dd944",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "288",
+      "school": "Lipscomb",
+      "source_sha": "a39be027864f62e2275c907e2785f80a720505d7",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2031",
+      "school": "Little Rock",
+      "source_sha": "1962a3cbacd2fe6b7606557547a15db6a88c6b0f",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "112358",
+      "school": "LIU",
+      "source_sha": "dabe6eca572844298ba2c9d78edf03cd4c30bf71",
+      "game_count": 24,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "2351",
+      "school": "LMU (CA)",
+      "source_sha": "0307df3f831c1fdc3dc64f7e0aba801bf3cc7c72",
+      "game_count": 34,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "299",
+      "school": "Long Beach St.",
+      "source_sha": "e45b4302133cd9f45a7ed183f929e84d29bf7889",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2344",
+      "school": "Longwood",
+      "source_sha": "08bbaffedf1a3d8ddb5c98e551f025cb1c38ace4",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "309",
+      "school": "Louisiana",
+      "source_sha": "f51b8d64ba850c3ca10b83e0e68ce87ce530fa6a",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2348",
+      "school": "Louisiana Tech",
+      "source_sha": "7508ef4d4642b6bbde1cb40470f76f626822b9d3",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "97",
+      "school": "Louisville",
+      "source_sha": "9b96e47095b89994a48c69b70c874ddf21442061",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2350",
+      "school": "Loyola Chicago",
+      "source_sha": "b145a07d5fb3f92d6482721046a904f7ec2626f1",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2352",
+      "school": "Loyola Maryland",
+      "source_sha": "0171bc8717da7fce2572a59988a8d92fd2e88036",
+      "game_count": 31,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "99",
+      "school": "LSU",
+      "source_sha": "18df966f57dd3740626f8cad31f1bb8f914525d6",
+      "game_count": 35,
+      "missing_arena_fields": 0
     }
   ],
   "records": [
@@ -4150,6 +4269,475 @@
       "home_away": "away",
       "location": "Hamilton, N.Y.",
       "source_url": "https://goleopards.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2320",
+      "school": "Lamar University",
+      "event_id": "school-2320-2026-11-22-19",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "2320",
+        "242"
+      ],
+      "game": "Rice",
+      "home_away": "neutral",
+      "location": "Jacksonville, FL",
+      "source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2320",
+      "school": "Lamar University",
+      "event_id": "school-2320-2026-11-24-23",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2320",
+        "2523"
+      ],
+      "game": "Robert Morris",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2320",
+      "school": "Lamar University",
+      "event_id": "school-2320-2027-01-23-83",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2320"
+      ],
+      "game": "Southeastern Louisiana",
+      "home_away": "away",
+      "location": "Hammond, LA",
+      "source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2320",
+      "school": "Lamar University",
+      "event_id": "school-2320-2027-03-07-131",
+      "date": "2027-03-07",
+      "opponent_ids": [
+        "2320"
+      ],
+      "game": "Southland Conference",
+      "home_away": "neutral",
+      "location": "Lake Charles, La.",
+      "source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2330",
+      "school": "Le Moyne",
+      "event_id": "school-2330-2026-11-27-31",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2330",
+        "311"
+      ],
+      "game": "University of Maine",
+      "home_away": "neutral",
+      "location": "Easton, Pa.",
+      "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2330",
+      "school": "Le Moyne",
+      "event_id": "school-2330-2026-11-28-35",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2330",
+        "315"
+      ],
+      "game": "Niagara University",
+      "home_away": "neutral",
+      "location": "Easton, Pa.",
+      "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2330",
+      "school": "Le Moyne",
+      "event_id": "school-2330-2027-01-02-67",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "2330",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "away",
+      "location": "Brooklyn, N.Y.",
+      "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2330",
+      "school": "Le Moyne",
+      "event_id": "school-2330-2027-02-11-107",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "2330"
+      ],
+      "game": "Central Connecticut State University",
+      "home_away": "away",
+      "location": "New Britain, Conn.",
+      "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2329",
+      "school": "Lehigh",
+      "event_id": "school-2329-2026-11-28-8",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2329",
+        "2492"
+      ],
+      "game": "Pepperdine",
+      "home_away": "neutral",
+      "location": "Thousand Oaks, Calif.",
+      "source_url": "https://lehighsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2329",
+      "school": "Lehigh",
+      "event_id": "school-2329-2027-01-23-20",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2329",
+        "2352"
+      ],
+      "game": "Loyola",
+      "home_away": "away",
+      "location": "Baltimore, Md.",
+      "source_url": "https://lehighsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2329",
+      "school": "Lehigh",
+      "event_id": "school-2329-2027-02-24-29",
+      "date": "2027-02-24",
+      "opponent_ids": [
+        "2329",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, N.Y.",
+      "source_url": "https://lehighsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "event_id": "school-2335-2026-11-17-3",
+      "date": "2026-11-17",
+      "opponent_ids": [
+        "2335",
+        "79"
+      ],
+      "game": "Southern Illinois",
+      "home_away": "neutral",
+      "location": "Charlotte, N.C.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "event_id": "school-2335-2026-11-20-4",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "2335",
+        "227"
+      ],
+      "game": "Rhode Island",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, W.Va.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "event_id": "school-2335-2026-11-22-5",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "2335",
+        "257"
+      ],
+      "game": "Richmond",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, W.Va.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "event_id": "school-2335-2026-11-25-6",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "2335",
+        "163"
+      ],
+      "game": "Princeton",
+      "home_away": "neutral",
+      "location": "Wilmington, N.C.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "event_id": "school-2335-2026-11-27-7",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2335",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "Wilmington, N.C.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2335",
+      "school": "Liberty",
+      "event_id": "school-2335-2027-01-21-19",
+      "date": "2027-01-21",
+      "opponent_ids": [
+        "2335",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2815",
+      "school": "Lindenwood",
+      "event_id": "school-2815-2026-11-02-7",
+      "date": "2026-11-02",
+      "opponent_ids": [
+        "2815"
+      ],
+      "game": "Texas Christian University",
+      "home_away": "away",
+      "location": "Fort Worth, TX",
+      "source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2815",
+      "school": "Lindenwood",
+      "event_id": "school-2815-2026-11-13-23",
+      "date": "2026-11-13",
+      "opponent_ids": [
+        "2815"
+      ],
+      "game": "University of Nebraska at Omaha",
+      "home_away": "away",
+      "location": "Omaha, NE",
+      "source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2815",
+      "school": "Lindenwood",
+      "event_id": "school-2815-2026-11-24-31",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2815",
+        "2441"
+      ],
+      "game": "University of New Haven",
+      "home_away": "neutral",
+      "location": "Stony Brook, N.Y.",
+      "source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "288",
+      "school": "Lipscomb",
+      "event_id": "school-288-2026-11-14-4",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "288",
+        "2717"
+      ],
+      "game": "Western Carolina",
+      "home_away": "away",
+      "location": "Cullowhee, N.C.",
+      "source_url": "https://lipscombsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "112358",
+      "school": "LIU",
+      "event_id": "cross-school-112358-2026-11-18_350",
+      "date": "2026-11-18",
+      "opponent_ids": [
+        "350",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "home",
+      "location": "Brooklyn, NY",
+      "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "112358",
+      "school": "LIU",
+      "event_id": "cross-school-112358-2026-12-12_163",
+      "date": "2026-12-12",
+      "opponent_ids": [
+        "163",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "home",
+      "location": "Brooklyn, N.Y.",
+      "source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "112358",
+      "school": "LIU",
+      "event_id": "cross-school-112358-2027-01-02_2330",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "2330",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "home",
+      "location": "Brooklyn, N.Y.",
+      "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "112358",
+      "school": "LIU",
+      "event_id": "cross-school-112358-2027-01-23_2441",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2441",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "home",
+      "location": "Brooklyn, NY",
+      "source_url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "112358",
+      "school": "LIU",
+      "event_id": "cross-school-112358-2027-02-11_2130",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "2130",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "neutral",
+      "location": "",
+      "source_url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2351",
+      "school": "LMU (CA)",
+      "event_id": "school-2351-2026-11-12-33",
+      "date": "2026-11-12",
+      "opponent_ids": [
+        "2351",
+        "6"
+      ],
+      "game": "South Alabama",
+      "home_away": "neutral",
+      "location": "Pensacola, FL",
+      "source_url": "https://lmulions.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "299",
+      "school": "Long Beach St.",
+      "event_id": "school-299-2026-11-24-6",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "299",
+        "2032"
+      ],
+      "game": "Arkansas State",
+      "home_away": "neutral",
+      "location": "Miami, Fla.",
+      "source_url": "https://longbeachstate.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "299",
+      "school": "Long Beach St.",
+      "event_id": "school-299-2026-11-25-7",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "299",
+        "253"
+      ],
+      "game": "Southern Utah",
+      "home_away": "neutral",
+      "location": "Miami, Fla.",
+      "source_url": "https://longbeachstate.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "309",
+      "school": "Louisiana",
+      "event_id": "school-309-2027-02-06-24",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "309"
+      ],
+      "game": "MAC-SBC Challenge",
+      "home_away": "away",
+      "location": "TBD",
+      "source_url": "https://ragincajuns.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "97",
+      "school": "Louisville",
+      "event_id": "school-97-2026-10-21-1",
+      "date": "2026-10-21",
+      "opponent_ids": [
+        "97",
+        "2305"
+      ],
+      "game": "Kansas (EXH)",
+      "home_away": "neutral",
+      "location": "Lawrence, Kan.",
+      "source_url": "https://gocards.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2350",
+      "school": "Loyola Chicago",
+      "event_id": "school-2350-2027-01-23-87",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2350",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, Va.",
+      "source_url": "https://loyolaramblers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2352",
+      "school": "Loyola Maryland",
+      "event_id": "school-2352-2026-11-14-27",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "2352"
+      ],
+      "game": "Morgan State or UMBC",
+      "home_away": "neutral",
+      "location": "Towson, Md.",
+      "source_url": "https://loyolagreyhounds.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2352",
+      "school": "Loyola Maryland",
+      "event_id": "school-2352-2027-02-27-183",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2352",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, N.Y.",
+      "source_url": "https://loyolagreyhounds.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
