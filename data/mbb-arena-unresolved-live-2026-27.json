@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 103,
+  "schools_scanned": 120,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -724,6 +724,125 @@
       "school": "Gonzaga",
       "source_sha": "8ac92ff78a015bc36c7cc48ac53f9e5667e018bb",
       "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "source_sha": "b95dce0bf5497eeb6dc43870b1863b2b229c8712",
+      "game_count": 33,
+      "missing_arena_fields": 6
+    },
+    {
+      "school_id": "2253",
+      "school": "Grand Canyon",
+      "source_sha": "6817018e2d1d3138e2749a456178136b91a556bb",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2739",
+      "school": "Green Bay",
+      "source_sha": "5b18e46363815dc4beabf5dc0bd14b0aeb0d1ed8",
+      "game_count": 35,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2261",
+      "school": "Hampton",
+      "source_sha": "59f442834b220ea38dbe51e59fd8ab99a15b403e",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "108",
+      "school": "Harvard",
+      "source_sha": "3bab9450a1e94a07804395f894e4785b40849478",
+      "game_count": 30,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "62",
+      "school": "Hawaii",
+      "source_sha": "081ced5a39c358aa841b59f5e4bf964986c36c89",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2272",
+      "school": "High Point",
+      "source_sha": "3b36c630e167c3baf50d177ecd2d64b49e560048",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2275",
+      "school": "Hofstra",
+      "source_sha": "37150859d0916029f027726adaeb44790db505b9",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "107",
+      "school": "Holy Cross",
+      "source_sha": "6769e02fdab971261878ab924a24a23645d42709",
+      "game_count": 34,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "248",
+      "school": "Houston",
+      "source_sha": "b2f8197a54aa7e3bb5e1397d4ad754022a47c143",
+      "game_count": 30,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2277",
+      "school": "Houston Christian",
+      "source_sha": "8ecedfa2fedad0e677cf2db6c861104fed4ba48d",
+      "game_count": 35,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "47",
+      "school": "Howard",
+      "source_sha": "26b4df846ce12c76bdd9834fea9b6e4d793a7a7f",
+      "game_count": 35,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "70",
+      "school": "Idaho",
+      "source_sha": "d2c5c9802d947e845fedc8b7368f9efea47d0311",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "304",
+      "school": "Idaho St.",
+      "source_sha": "c2dcd11915d4ee81936decf7ff13caa0c41a6790",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "356",
+      "school": "Illinois",
+      "source_sha": "16b67b67fac7e3dddf96ef51b145f18c84c2ef2f",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2287",
+      "school": "Illinois St.",
+      "source_sha": "2eccd9055e9ba7035b11d8e45d870f0412060c74",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "84",
+      "school": "Indiana",
+      "source_sha": "537e181f6cdb12c602af5bef5d028a88411c1fd8",
+      "game_count": 35,
       "missing_arena_fields": 1
     }
   ],
@@ -2962,6 +3081,448 @@
       "home_away": "away",
       "location": "Pullman, WA",
       "source_url": "https://gozags.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "event_id": "school-2755-2026-11-25-39",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "2755",
+        "2443"
+      ],
+      "game": "New Orleans",
+      "home_away": "away",
+      "location": "New Orleans, LA",
+      "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "event_id": "school-2755-2026-11-29-45",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "2755"
+      ],
+      "game": "University of Southern Mississippi",
+      "home_away": "away",
+      "location": "Hattiesburg, MS",
+      "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "event_id": "school-2755-2026-12-04-57",
+      "date": "2026-12-04",
+      "opponent_ids": [
+        "2755",
+        "2634"
+      ],
+      "game": "Tennessee State University",
+      "home_away": "neutral",
+      "location": "Washongton, D.C.",
+      "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "event_id": "school-2755-2027-01-02-87",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "2755",
+        "2504"
+      ],
+      "game": "Prairie View A&M University",
+      "home_away": "away",
+      "location": "Prairie View, TX",
+      "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "event_id": "school-2755-2027-01-04-93",
+      "date": "2027-01-04",
+      "opponent_ids": [
+        "2755",
+        "2640"
+      ],
+      "game": "Texas Southern University",
+      "home_away": "away",
+      "location": "Houston, TX",
+      "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2755",
+      "school": "Grambling",
+      "event_id": "school-2755-2027-01-16-111",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2755"
+      ],
+      "game": "Southern University",
+      "home_away": "away",
+      "location": "Baton Rouge, LA",
+      "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2739",
+      "school": "Green Bay",
+      "event_id": "school-2739-2026-12-30-71",
+      "date": "2026-12-30",
+      "opponent_ids": [
+        "2739",
+        "2473"
+      ],
+      "game": "Oakland",
+      "home_away": "away",
+      "location": "Rochester, Mich. O'Rena",
+      "source_url": "https://greenbayphoenix.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2739",
+      "school": "Green Bay",
+      "event_id": "school-2739-2027-01-03-75",
+      "date": "2027-01-03",
+      "opponent_ids": [
+        "2739",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich. Calihan Hall",
+      "source_url": "https://greenbayphoenix.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "108",
+      "school": "Harvard",
+      "event_id": "school-108-2026-11-08-15",
+      "date": "2026-11-08",
+      "opponent_ids": [
+        "108",
+        "2130"
+      ],
+      "game": "University of Chicago",
+      "home_away": "away",
+      "location": "Chicago, IL",
+      "source_url": "https://gocrimson.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "62",
+      "school": "Hawaii",
+      "event_id": "school-62-2026-11-18-35",
+      "date": "2026-11-18",
+      "opponent_ids": [
+        "62",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "neutral",
+      "location": "Everett, Wash.",
+      "source_url": "https://hawaiiathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2272",
+      "school": "High Point",
+      "event_id": "school-2272-2026-10-25-9",
+      "date": "2026-10-25",
+      "opponent_ids": [
+        "2272",
+        "2193"
+      ],
+      "game": "East Tennessee State",
+      "home_away": "away",
+      "location": "Johnson City, Tenn.",
+      "source_url": "https://highpointpanthers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2272",
+      "school": "High Point",
+      "event_id": "school-2272-2027-02-13-177",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2272",
+        "2241"
+      ],
+      "game": "Gardner-Webb",
+      "home_away": "away",
+      "location": "Boiling Springs, N.C.",
+      "source_url": "https://highpointpanthers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2275",
+      "school": "Hofstra",
+      "event_id": "school-2275-2027-02-15-183",
+      "date": "2027-02-15",
+      "opponent_ids": [
+        "2275",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, NJ",
+      "source_url": "https://gohofstra.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "107",
+      "school": "Holy Cross",
+      "event_id": "school-107-2026-10-17-1",
+      "date": "2026-10-17",
+      "opponent_ids": [
+        "107",
+        "261"
+      ],
+      "game": "Vermont",
+      "home_away": "away",
+      "location": "Burlington, Vt.",
+      "source_url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "107",
+      "school": "Holy Cross",
+      "event_id": "school-107-2026-12-19-63",
+      "date": "2026-12-19",
+      "opponent_ids": [
+        "107"
+      ],
+      "game": "Texas Christian",
+      "home_away": "away",
+      "location": "Fort Worth, Texas",
+      "source_url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "107",
+      "school": "Holy Cross",
+      "event_id": "school-107-2027-01-09-79",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "107",
+        "2352"
+      ],
+      "game": "Loyola (Md.)",
+      "home_away": "away",
+      "location": "Baltimore, Md.",
+      "source_url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "107",
+      "school": "Holy Cross",
+      "event_id": "school-107-2027-02-17-123",
+      "date": "2027-02-17",
+      "opponent_ids": [
+        "107",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, N.Y.",
+      "source_url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "248",
+      "school": "Houston",
+      "event_id": "school-248-2027-02-10-26",
+      "date": "2027-02-10",
+      "opponent_ids": [
+        "248",
+        "2116"
+      ],
+      "game": "UCF",
+      "home_away": "away",
+      "location": "Orlando, Fla.",
+      "source_url": "https://uhcougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2277",
+      "school": "Houston Christian",
+      "event_id": "school-2277-2026-11-07-19",
+      "date": "2026-11-07",
+      "opponent_ids": [
+        "2277",
+        "2710"
+      ],
+      "game": "Western Illinois",
+      "home_away": "neutral",
+      "location": "Canton, IL",
+      "source_url": "https://hcuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2277",
+      "school": "Houston Christian",
+      "event_id": "school-2277-2026-11-24-35",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2277"
+      ],
+      "game": "Louisiana-Monroe",
+      "home_away": "away",
+      "location": "Monroe, LA",
+      "source_url": "https://hcuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2277",
+      "school": "Houston Christian",
+      "event_id": "school-2277-2026-12-07-51",
+      "date": "2026-12-07",
+      "opponent_ids": [
+        "2277"
+      ],
+      "game": "Southeastern Louisiana",
+      "home_away": "away",
+      "location": "Hammond, LA",
+      "source_url": "https://hcuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2277",
+      "school": "Houston Christian",
+      "event_id": "school-2277-2026-12-22-63",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "2277"
+      ],
+      "game": "Texas Christian",
+      "home_away": "away",
+      "location": "Fort Worth, TX",
+      "source_url": "https://hcuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "47",
+      "school": "Howard",
+      "event_id": "cross-school-47-2026-11-09_219",
+      "date": "2026-11-09",
+      "opponent_ids": [
+        "219",
+        "47"
+      ],
+      "game": "Howard",
+      "home_away": "away",
+      "location": "Philadelphia, PA",
+      "source_url": "https://pennathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "47",
+      "school": "Howard",
+      "event_id": "official-47-2027-01-11-delawarestate",
+      "date": "2027-01-11",
+      "opponent_ids": [
+        "47",
+        "2169"
+      ],
+      "game": "Delaware State",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://hubison.com/sports/mens-basketball/schedule/2026-27"
+    },
+    {
+      "school_id": "47",
+      "school": "Howard",
+      "event_id": "cross-school-47-2027-02-06_2569",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2569",
+        "47"
+      ],
+      "game": "Howard",
+      "home_away": "away",
+      "location": "Orangeburg, SC",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "70",
+      "school": "Idaho",
+      "event_id": "school-70-2026-11-27-28",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "70",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "away",
+      "location": "Pullman, Wash.",
+      "source_url": "https://govandals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "70",
+      "school": "Idaho",
+      "event_id": "school-70-2027-02-27-120",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "70",
+        "331"
+      ],
+      "game": "Eastern Washington",
+      "home_away": "away",
+      "location": "Cheney, Wash.",
+      "source_url": "https://govandals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "304",
+      "school": "Idaho St.",
+      "event_id": "school-304-2026-12-20-55",
+      "date": "2026-12-20",
+      "opponent_ids": [
+        "304",
+        "2449"
+      ],
+      "game": "North Dakota State University",
+      "home_away": "away",
+      "location": "Fargo, ND",
+      "source_url": "https://isubengals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "304",
+      "school": "Idaho St.",
+      "event_id": "school-304-2027-01-18-83",
+      "date": "2027-01-18",
+      "opponent_ids": [
+        "304",
+        "331"
+      ],
+      "game": "Eastern Washington University",
+      "home_away": "away",
+      "location": "Cheney, WA",
+      "source_url": "https://isubengals.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2287",
+      "school": "Illinois St.",
+      "event_id": "school-2287-2026-11-23-51",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "2287",
+        "2541"
+      ],
+      "game": "Santa Clara",
+      "home_away": "neutral",
+      "location": "Palm Springs, Calif.",
+      "source_url": "https://goredbirds.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2287",
+      "school": "Illinois St.",
+      "event_id": "school-2287-2026-11-24-57",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2287",
+        "202"
+      ],
+      "game": "Tulsa",
+      "home_away": "neutral",
+      "location": "Palm Springs, Calif.",
+      "source_url": "https://goredbirds.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "84",
+      "school": "Indiana",
+      "event_id": "official-indiana-2026-10-25-96",
+      "date": "2026-10-25",
+      "opponent_ids": [
+        "84",
+        "96"
+      ],
+      "game": "Western Kentucky",
+      "home_away": "neutral",
+      "location": "",
+      "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print"
     }
   ]
 }
