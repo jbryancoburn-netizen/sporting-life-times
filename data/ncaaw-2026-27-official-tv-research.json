@@ -264,6 +264,35 @@
       "source_type": "official_conference_television_schedule",
       "source_url": "https://thesummitleague.org/news/2026/10/21/mens-basketball-summit-league-sets-2026-27-national-basketball-television-schedule-on-cbs-sports-network.aspx",
       "policy": "2026-27 league network release explicitly includes one nonconference and one conference women's basketball game; match both exact local dates and school IDs."
+    },
+    {
+      "source_id": 26,
+      "title": "2026-27 Patriot League women's basketball three CBS Sports Network regular-season games",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://admin.patriotleague.org/news/2026/10/15/mens-basketball-patriot-league-announces-cbs-sports-network-basketball-schedule-for-2026-27-season.aspx",
+      "policy": "Three individual 2026-27 Patriot women's CBS Sports Network assignments printed in official Oct 15 conference TV schedule; exclude women's tournament Championship because not identifiable to schools in advance."
+    },
+    {
+      "source_id": 27,
+      "title": "2026-27 Patriot League women's basketball home conference games on ESPN+ per official September and March announcements",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://admin.patriotleague.org/news/2026/9/23/mens-basketball-patriot-league-partners-with-the-field-of-68-for-basketball-media-day-on-oct-5.aspx",
+      "secondary_source_url": "https://admin.patriotleague.org/news/2026/3/17/general-patriot-league-and-espn-reach-multi-year-extension-to-continue-live-game-coverage.aspx",
+      "policy": "All 10 verified Patriot women teams play 18 conference games, every Patriot home women's basketball game available on ESPN+ except separately televised CBS Sports Network games; strictly require 90 unique conference matchups and 3 named linear exclusions."
+    },
+    {
+      "source_id": 28,
+      "title": "2026-27 America East women's basketball 72 league games ESPN+ conference announcement",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://americaeast.com/news/2026/8/14/2026-27-conference-schedule.aspx",
+      "policy": "9 verified women-specific America East programs play 16 double round robin games each, 72 unique contests. Conference explicitly confirms every game on ESPN+."
+    },
+    {
+      "source_id": 29,
+      "title": "2026-27 Mid-American Conference four selected women's basketball CBS Sports Network games",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://getsomemaction.com/news/2026/10/14/mac-announces-2026-27-womens-basketball-national-television-schedule.aspx",
+      "policy": "Only four individually identified 2026-27 CBS Sports Network women's games. No inference of ESPN+ for unselected MAC games; 21-day wildcard remains unknown."
     }
   ],
   "rows": [
@@ -3387,6 +3416,55 @@
       "home_id": "2900",
       "broadcast": "CBS Sports Network",
       "source_id": 25
+    },
+    {
+      "date": "2027-01-23",
+      "away_id": "2426",
+      "home_id": "349",
+      "broadcast": "CBSSN",
+      "source_id": 26
+    },
+    {
+      "date": "2027-02-08",
+      "away_id": "2329",
+      "home_id": "44",
+      "broadcast": "CBSSN",
+      "source_id": 26
+    },
+    {
+      "date": "2027-02-20",
+      "away_id": "349",
+      "home_id": "2426",
+      "broadcast": "CBSSN",
+      "source_id": 26
+    },
+    {
+      "date": "2026-11-12",
+      "away_id": "97",
+      "home_id": "2050",
+      "broadcast": "CBSSN",
+      "source_id": 29
+    },
+    {
+      "date": "2026-11-16",
+      "away_id": "130",
+      "home_id": "2117",
+      "broadcast": "CBSSN",
+      "source_id": 29
+    },
+    {
+      "date": "2027-01-03",
+      "away_id": "2309",
+      "home_id": "2649",
+      "broadcast": "CBSSN",
+      "source_id": 29
+    },
+    {
+      "date": "2027-01-31",
+      "away_id": "2050",
+      "home_id": "193",
+      "broadcast": "CBSSN",
+      "source_id": 29
     }
   ],
   "conference_media_rules": [
@@ -3495,6 +3573,26 @@
       "mandatory_network": "Summit League Network",
       "exclusions": [],
       "method": "Eight independently confirmed women's teams, each 14 conference games, 56 distinct contests. One official CBSSN league exception retained as linear primary; remaining stream via Summit League Network/Midco."
+    },
+    {
+      "source_id": 27,
+      "conference": "Patriot League",
+      "start": "2026-12-30",
+      "end": "2027-02-26",
+      "expected_distinct_conference_games": 90,
+      "mandatory_network": "ESPN+",
+      "exclusions": [],
+      "method": "10 women's Patriot teams × 18 games / 2 = 90; three explicitly CBS Sports Network games on Jan 23, Feb 8, Feb 20. Network choice supported by September 2026 Patriot release and March ESPN extension; preserve all linear exceptions."
+    },
+    {
+      "source_id": 28,
+      "conference": "America East Conference",
+      "start": "2026-12-31",
+      "end": "2027-02-27",
+      "expected_distinct_conference_games": 72,
+      "mandatory_network": "ESPN+",
+      "exclusions": [],
+      "method": "9 women's America East teams × 16 / 2 = 72; official Aug 2026 league article says all conference games air ESPN+. Strict women-specific dated game IDs required."
     }
   ]
 }

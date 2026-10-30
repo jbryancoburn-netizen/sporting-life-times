@@ -76,6 +76,15 @@ jobs:
           assert summit.get("national_linear_tv_games")==1
           assert summit.get("streaming_games_covered")==55
           assert summit.get("conflicting_prior_games")==0
+          patriot=b["conference_media_rule_audit"].get("Patriot League",{})
+          assert patriot.get("conference_games_validated")==90
+          assert patriot.get("national_linear_tv_games")==3
+          assert patriot.get("streaming_games_covered")==87
+          assert patriot.get("conflicting_prior_games")==0
+          ae=b["conference_media_rule_audit"].get("America East Conference",{})
+          assert ae.get("conference_games_validated")==72
+          assert ae.get("streaming_games_covered")==72
+          assert ae.get("conflicting_prior_games")==0
           assert a["cross_school_date_venue_identity_conflicts"]==0
           print("Officially broadcast unique games:",a["official_broadcast_unique_games"])
           print("Newly official source-matched games:",b["matched_new_official_game_ids"])
