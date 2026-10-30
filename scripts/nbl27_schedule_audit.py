@@ -7,6 +7,7 @@ import datetime as dt
 import json
 import pathlib
 import urllib.request
+import time
 from collections import Counter
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DATA=ROOT/"data"
@@ -16,7 +17,18 @@ TEAMS={"Adelaide 36ers","Brisbane Bullets","Cairns Taipans","Illawarra Hawks","M
 def get(a,b):
     url=f"{ENDPOINT}?dates={a}-{b}&limit=300"
     req=urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimes-NBL-Audit/1.0"})
-    with urllib.request.urlopen(req,timeout=30) as response: return json.load(response).get("events",[])
+    last_error=None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req,timeout=45) as response:
+                payload=json.load(response)
+            if not isinstance(payload.get("events"),list):
+                raise ValueError("No events array returned")
+            return payload["events"]
+        except Exception as exc:
+            last_error=exc
+            if attempt<2: time.sleep(2**attempt)
+    raise RuntimeError(f"ESPN source fetch failed for {a}-{b}: {last_error}")
 def transform(event):
     comp=(event.get("competitions") or [{}])[0]
     cs=comp.get("competitors") or []
@@ -39,6 +51,8 @@ def main():
     for start,end in MONTHS:
         try:raw.extend(get(start,end))
         except Exception as exc:failures.append({"start":start,"end":end,"error":str(exc)})
+    if not raw:
+        raise SystemExit("No ESPN events fetched. Preserving existing published ledger instead of overwriting it.")
     by_id={str(g.get("id")):g for g in raw if g.get("id")}
     games=sorted([transform(g) for g in by_id.values()],key=lambda g:g.get("date_utc") or "")
     counts=Counter(n for g in games for n in (g["home"],g["away"]) if n)
@@ -46,6 +60,8 @@ def main():
     duplicate_keys=[list(key) for key,num in Counter((g["date_utc"],g["home"],g["away"]) for g in games).items() if num>1]
     completed=[g for g in games if g["state"]=="post"]
     bad_scores=[g["id"] for g in completed if g["home_score"] is None or g["away_score"] is None]
+    if len(games)<46:
+        raise SystemExit("Fetched fewer games than the existing 46 completed records; refusing destructive overwrite.")
     # ESPN scoreboard may include additional competition types; do not certify
     # 165 based only on total event count without NBL round classification.
     report={"generated_at":dt.datetime.now(dt.timezone.utc).isoformat(),"expected_regular_season_games":165,
@@ -61,4 +77,5 @@ def main():
     (DATA/"nbl27-schedule-audit.json").write_text(json.dumps(report,indent=2)+"\n")
     print(json.dumps(report,indent=2))
     if failures or invalid or duplicate_keys or bad_scores:raise SystemExit("NBL source/identity/score audit failed; see JSON report")
+    if len(games)<165:raise SystemExit("NBL fixture feed has fewer than 165 candidates; schedule remains incomplete")
 if __name__=="__main__":main()
