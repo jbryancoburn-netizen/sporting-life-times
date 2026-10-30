@@ -18,12 +18,12 @@ def normalize(x):
 def datekey(x):
  s=str(x or "");i=re.search(r"202[67]-\d\d-\d\d",s)
  if i:return i.group()
- slash=re.search(r"\\b(\\d{1,2})/(\\d{1,2})/(202[67])\\b",s)
+ slash=re.search(r"\b(\d{1,2})/(\d{1,2})/(202[67])\b",s)
  if slash:
   mo,dy,yr=map(int,slash.groups())
   try:return datetime.date(yr,mo,dy).isoformat()
   except ValueError:return None
- m=re.search(r"\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\.?\\s+(\\d{1,2})",s,re.I)
+ m=re.search(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})",s,re.I)
  if not m:return None
  mo=MONTHS[m.group(1)[:3].lower()]
  return f"{2026 if mo>=7 else 2027}-{mo:02}-{int(m.group(2)):02}"
