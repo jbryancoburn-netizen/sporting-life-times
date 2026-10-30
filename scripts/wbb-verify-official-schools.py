@@ -46,7 +46,7 @@ def read_source(html):
   if not trs:continue
   h=[re.sub(r"[^a-z]","",x.get_text(" ",strip=True).lower()) for x in trs[0].find_all(["th","td"])]
   def col(*a):return next((i for i,v in enumerate(h) if v in a),-1)
-  di,oi,si=col("date","gamedate"),col("opponent","opponentteam"),col("at","site","homeaway")
+  di,oi,si=col("date","gamedate"),col("opponent","opponentteam","teams","team"),col("at","site","homeaway")
   if min(di,oi)<0:continue
   for row in trs[1:]:
    v=[x.get_text(" ",strip=True) for x in row.find_all(["th","td"])]
@@ -56,9 +56,9 @@ def read_source(html):
    site=v[si].lower().strip() if si>=0 and si<len(v) else ""
    opponent=v[oi]
    if site not in ("home","away","neutral"):
-    m=re.match(r"^(at|vs\.?|@)\s+(.+)$",opponent,re.I)
-    site=("away" if m[1].lower() in ("at","@") else "home") if m else ""
-    if m:opponent=m[2]
+    m=re.match(r"^(at\s+|at(?=[A-Z])|vs\.?\s*|@\s*)(.+)$",opponent)
+    site=("away" if m[1].strip().lower() in ("at","@") else "home") if m else ""
+    if m:opponent=m[2].strip()
    rows.append(dict(date=dt,opponent=opponent,site=site,origin="official_university_schedule_table"))
  return rows
 def official_urls(tid):
@@ -94,7 +94,27 @@ def official_urls(tid):
   "21":"https://goaztecs.com/sports/womens-basketball/schedule",
   "245":"https://12thman.com/sports/womens-basketball/schedule",
   "2900":"https://tommiesports.com/sports/wbball/schedule",
-  "112358":"https://www.liuathletics.com/sports/womens-basketball/schedule/2026-27"
+  "112358":"https://www.liuathletics.com/sports/womens-basketball/schedule/2026-27",
+  "9":"https://thesundevils.com/sports/womens-basketball/schedule?print=true",
+  "228":"https://clemsontigers.com/sports/w-basketball/schedule",
+  "252":"https://byucougars.com/sports/womens-basketball/schedule",
+  "96":"https://ukathletics.com/sports/wbball/schedule/",
+  "238":"https://vucommodores.com/sports/wbball/schedule/season/2026-27",
+  "2294":"https://hawkeyesports.com/sports/wbball/schedule",
+  "24":"https://gostanford.com/sports/womens-basketball/schedule?print=true",
+  "26":"https://uclabruins.com/sports/womens-basketball/schedule",
+  "259":"https://hokiesports.com/sports/womens-basketball/schedule?print=true",
+  "2390":"https://miamihurricanes.com/sports/wbball/schedule",
+  "142":"https://mutigers.com/sports/womens-basketball/schedule?print=true",
+  "258":"https://virginiasports.com/sports/wbball/schedule",
+  "2132":"https://gobearcats.com/sports/womens-basketball/schedule",
+  "2509":"https://purduesports.com/sports/womens-basketball/schedule",
+  "2116":"https://ucfknights.com/sports/womens-basketball/schedule",
+  "2306":"https://www.kstatesports.com/sports/womens-basketball/schedule/",
+  "158":"https://huskers.com/sports/womens-basketball/schedule",
+  "21":"https://goaztecs.com/sports/womens-basketball/schedule",
+  "59":"https://ramblinwreck.com/sports/w-baskbl/schedule",
+  "8":"https://arkansasrazorbacks.com/sport/w-baskbl/schedule/"
  }
  out=[exact[str(tid)]] if str(tid) in exact else []
  for u in sources:
@@ -105,12 +125,11 @@ def official_urls(tid):
    if old not in u:continue
    candidate=u.replace(old,new)
    out.append(candidate)
-   if "/schedule/text/" in candidate:
-    out.append(candidate.replace("/schedule/text/","/schedule/"))
-   elif candidate.endswith("/schedule/text"):
-    out.append(candidate[:-5])
-   elif "/schedule/" in candidate and "/schedule/text/" not in candidate:
-    out.append(candidate.replace("/schedule/","/schedule/text/",1))
+   if "/schedule" in candidate:
+    base=candidate.split("/schedule",1)[0]+"/schedule"
+    # Modern sites often no longer expose /text/2026-27 paths.
+    out.extend([base,base+"?print=true",base+"/text",
+                base+"/2026-27",base+"/text/2026-27"])
    break
  return list(dict.fromkeys(out))
 def school(tid,school_data):
@@ -119,10 +138,10 @@ def school(tid,school_data):
  urls=official_urls(tid)
  if not urls:return result
  rows=[];url=None
- for candidate in urls[:3]:
+ for candidate in urls[:8]:
   if "/mens-basketball/" in candidate:continue
   try:
-   response=requests.get(candidate,timeout=(5,10),headers={"User-Agent":"SportingLifeTimesWBB/1.0"})
+   response=requests.get(candidate,timeout=(5,10),headers={"User-Agent":"Mozilla/5.0 (compatible; SportingLifeTimesWBB/1.0)"})
    if not response.ok:continue
    if urlparse(response.url).hostname!=urlparse(candidate).hostname:continue
    if "/mens-basketball/" in response.url:continue
