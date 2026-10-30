@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 222,
+  "schools_scanned": 239,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1558,6 +1558,125 @@
       "source_sha": "58a959b52bec97e93a35eef567fd2b00bb7ae60e",
       "game_count": 30,
       "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2483",
+      "school": "Oregon",
+      "source_sha": "7623e0e68f84231fe1beb111ab6b09eed6a4469f",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "204",
+      "school": "Oregon St.",
+      "source_sha": "11230efc32cce332a815c9739de7e572a4f86a61",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "279",
+      "school": "Pacific",
+      "source_sha": "6da033c8e5a7a712ee8bfd907b9afb5d16deaa74",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "219",
+      "school": "Penn",
+      "source_sha": "73c737e1007c9a108cf11402cb30157afdfbf2bf",
+      "game_count": 29,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "213",
+      "school": "Penn St.",
+      "source_sha": "a0bae647c3324258c53f73cb38fcf230690a9977",
+      "game_count": 28,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2492",
+      "school": "Pepperdine",
+      "source_sha": "25cb6ad60983a6a0c9c3c292dfdc37b240d91879",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "221",
+      "school": "Pittsburgh",
+      "source_sha": "54592bd1e0d968d77c5fdcddc4af2d6bff3078a0",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2501",
+      "school": "Portland",
+      "source_sha": "5daf6c7e2f168d7868a730336f48c59e988b4c2e",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2502",
+      "school": "Portland St.",
+      "source_sha": "b197ed36f15b8708e12a1faacce9b9bea2f40ca7",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2504",
+      "school": "Prairie View",
+      "source_sha": "3f9ec58e7130b28b8118a425b3d7549f308083cf",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2506",
+      "school": "Presbyterian",
+      "source_sha": "a40013a5e0265be14e556bc221ad624975aedfbd",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "163",
+      "school": "Princeton",
+      "source_sha": "0593f16f2aba3063e95ede5806f43eda4b7e7ca4",
+      "game_count": 29,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2507",
+      "school": "Providence",
+      "source_sha": "ab32fc493c3fe0ffd473005f009815b6144496e8",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2509",
+      "school": "Purdue",
+      "source_sha": "7a4ccf2ae836dd90fa084b5651cf1ac6ffbd9324",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2870",
+      "school": "Purdue Fort Wayne",
+      "source_sha": "405d45f087794d79f285011d374c437978ac70ef",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2511",
+      "school": "Queens (NC)",
+      "source_sha": "daf1c346ef25773e1f729bdb913d6daf861d7b7c",
+      "game_count": 38,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2514",
+      "school": "Quinnipiac",
+      "source_sha": "a83f43e1290ad5c3d7e0de31ea0199c86a9bc7c1",
+      "game_count": 31,
+      "missing_arena_fields": 1
     }
   ],
   "records": [
@@ -6693,6 +6812,378 @@
       "home_away": "away",
       "location": "St. Paul, MN",
       "source_url": "https://oruathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2483",
+      "school": "Oregon",
+      "event_id": "school-2483-2027-02-27-32",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2483"
+      ],
+      "game": "USC",
+      "home_away": "away",
+      "location": "Los Angeles, CA",
+      "source_url": "https://goducks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "204",
+      "school": "Oregon St.",
+      "event_id": "school-204-2026-11-23-8",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "204",
+        "202"
+      ],
+      "game": "Tulsa",
+      "home_away": "neutral",
+      "location": "Palm Springs, Calif.",
+      "source_url": "https://osubeavers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "204",
+      "school": "Oregon St.",
+      "event_id": "school-204-2026-12-21-15",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "204",
+        "167"
+      ],
+      "game": "University of New Mexico",
+      "home_away": "neutral",
+      "location": "San Juan Capistrano, Calif.",
+      "source_url": "https://osubeavers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "204",
+      "school": "Oregon St.",
+      "event_id": "school-204-2026-12-23-16",
+      "date": "2026-12-23",
+      "opponent_ids": [
+        "204",
+        "2541"
+      ],
+      "game": "Santa Clara",
+      "home_away": "neutral",
+      "location": "San Juan Capistrano, Calif.",
+      "source_url": "https://osubeavers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "204",
+      "school": "Oregon St.",
+      "event_id": "school-204-2027-01-27-23",
+      "date": "2027-01-27",
+      "opponent_ids": [
+        "204",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "away",
+      "location": "Pullman, WA",
+      "source_url": "https://osubeavers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "279",
+      "school": "Pacific",
+      "event_id": "school-279-2026-11-25-27",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "279",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev. Resorts World",
+      "source_url": "https://pacifictigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "279",
+      "school": "Pacific",
+      "event_id": "school-279-2026-11-26-31",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "279",
+        "2437"
+      ],
+      "game": "Omaha",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev. Resorts World",
+      "source_url": "https://pacifictigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "279",
+      "school": "Pacific",
+      "event_id": "school-279-2026-11-27-35",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "279",
+        "302"
+      ],
+      "game": "UC Davis",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev. Resorts World",
+      "source_url": "https://pacifictigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "219",
+      "school": "Penn",
+      "event_id": "school-219-2026-11-09-11",
+      "date": "2026-11-09",
+      "opponent_ids": [
+        "219",
+        "47"
+      ],
+      "game": "Howard",
+      "home_away": "neutral",
+      "location": "Buy Tickets The Palestra",
+      "source_url": "https://pennathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "213",
+      "school": "Penn St.",
+      "event_id": "cross-school-213-2026-11-25_235",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "235",
+        "213"
+      ],
+      "game": "Penn State",
+      "home_away": "neutral",
+      "location": "Atlantis Paradise Island, Bahamas",
+      "source_url": "https://gotigersgo.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2492",
+      "school": "Pepperdine",
+      "event_id": "school-2492-2026-11-28-8",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2492",
+        "2329"
+      ],
+      "game": "Lehigh",
+      "home_away": "neutral",
+      "location": "Thousand Oaks, Calif.",
+      "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "221",
+      "school": "Pittsburgh",
+      "event_id": "school-221-2027-02-27-30",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "221"
+      ],
+      "game": "Miami",
+      "home_away": "away",
+      "location": "Coral Gables, Fla.",
+      "source_url": "https://pittsburghpanthers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2502",
+      "school": "Portland St.",
+      "event_id": "school-2502-2026-10-25-1",
+      "date": "2026-10-25",
+      "opponent_ids": [
+        "2502",
+        "2440"
+      ],
+      "game": "(RV) Nevada",
+      "home_away": "away",
+      "location": "Reno, Nev.",
+      "source_url": "https://goviks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2502",
+      "school": "Portland St.",
+      "event_id": "school-2502-2027-01-30-99",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "2502",
+        "331"
+      ],
+      "game": "Eastern Washington",
+      "home_away": "away",
+      "location": "Cheney, Wash.",
+      "source_url": "https://goviks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2504",
+      "school": "Prairie View",
+      "event_id": "school-2504-2027-02-13-103",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2504"
+      ],
+      "game": "Southern University",
+      "home_away": "away",
+      "location": "Baton Rouge, Louisiana",
+      "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2504",
+      "school": "Prairie View",
+      "event_id": "school-2504-2027-02-15-107",
+      "date": "2027-02-15",
+      "opponent_ids": [
+        "2504"
+      ],
+      "game": "Grambling State University",
+      "home_away": "away",
+      "location": "Grambling, Louisiana Willis Reed Court at the Frederick C. Hobdy",
+      "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2506",
+      "school": "Presbyterian",
+      "event_id": "school-2506-2026-11-21-27",
+      "date": "2026-11-21",
+      "opponent_ids": [
+        "2506",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Cookeville, Tenn.",
+      "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2506",
+      "school": "Presbyterian",
+      "event_id": "school-2506-2026-12-05-43",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "2506",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, KY",
+      "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2506",
+      "school": "Presbyterian",
+      "event_id": "school-2506-2026-12-08-47",
+      "date": "2026-12-08",
+      "opponent_ids": [
+        "2506",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, TN",
+      "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2506",
+      "school": "Presbyterian",
+      "event_id": "school-2506-2027-01-09-83",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2506",
+        "2241"
+      ],
+      "game": "Gardner-Webb",
+      "home_away": "away",
+      "location": "Boiling Springs, NC",
+      "source_url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "163",
+      "school": "Princeton",
+      "event_id": "school-163-2026-11-25-6",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "163",
+        "2335"
+      ],
+      "game": "Liberty",
+      "home_away": "neutral",
+      "location": "Wilmington, N.C.",
+      "source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "163",
+      "school": "Princeton",
+      "event_id": "school-163-2026-11-28-8",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "163",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "Wilmington, N.C.",
+      "source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "163",
+      "school": "Princeton",
+      "event_id": "school-163-2026-12-12-12",
+      "date": "2026-12-12",
+      "opponent_ids": [
+        "163",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "away",
+      "location": "Brooklyn, N.Y.",
+      "source_url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2870",
+      "school": "Purdue Fort Wayne",
+      "event_id": "school-2870-2027-02-17-30",
+      "date": "2027-02-17",
+      "opponent_ids": [
+        "2870",
+        "2473"
+      ],
+      "game": "Oakland",
+      "home_away": "away",
+      "location": "Rochester, Mich.",
+      "source_url": "https://gomastodons.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2870",
+      "school": "Purdue Fort Wayne",
+      "event_id": "school-2870-2027-02-24-32",
+      "date": "2027-02-24",
+      "opponent_ids": [
+        "2870",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich.",
+      "source_url": "https://gomastodons.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2511",
+      "school": "Queens (NC)",
+      "event_id": "school-2511-2027-03-04-139",
+      "date": "2027-03-04",
+      "opponent_ids": [
+        "2511"
+      ],
+      "game": "Atlantic Sun Conference",
+      "home_away": "neutral",
+      "location": "TBD",
+      "source_url": "https://queensathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2514",
+      "school": "Quinnipiac",
+      "event_id": "school-2514-2026-11-15-4",
+      "date": "2026-11-15",
+      "opponent_ids": [
+        "2514"
+      ],
+      "game": "CCSU",
+      "home_away": "away",
+      "location": "New Britain, CT",
+      "source_url": "https://gobobcats.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
