@@ -1,0 +1,59 @@
+name: MBB full schedule arena audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 10 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: mbb-arena-full-audit
+  cancel-in-progress: false
+jobs:
+  full-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read all 365 schedules and repair reciprocal sourced venues
+        run: python scripts/mbb_full_arena_audit.py --write
+      - name: Validate JSON outputs and school count
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          folder=pathlib.Path('data/mbb-schedules-2026-27')
+          files=list(folder.glob('*.json'))
+          assert len(files)==365, f'Expected 365 schools, found {len(files)}'
+          for f in files: json.loads(f.read_text())
+          audit=json.loads(pathlib.Path('data/mbb-arena-unresolved-live-2026-27.json').read_text())
+          ledger=json.loads(pathlib.Path('data/mbb-arena-game-ledger-2026-27.json').read_text())
+          assert audit['scan_status']=='full_365_file_rescan'
+          assert audit['summary']['missing_arena_fields']==len(audit['records'])
+          assert audit['summary']['unique_unresolved_groups']==len(audit['unique_games'])
+          assert len(ledger['games'])>4000
+          print(audit['summary'])
+          PY
+      - name: Commit all verified schedule and audit changes together
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/mbb-schedules-2026-27 data/mbb-arena-unresolved-live-2026-27.json data/mbb-arena-game-ledger-2026-27.json data/mbb-arena-exceptions-2026-27.json
+          if ! git diff --cached --quiet; then
+            git commit -m "MBB full 365-school scan and sourced arena reconciliation"
+            git push
+          fi
+      - name: Publish scan summary
+        if: always()
+        run: |
+          if [ -f data/mbb-arena-unresolved-live-2026-27.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          a=json.load(open('data/mbb-arena-unresolved-live-2026-27.json'))
+          print('## MBB arena audit')
+          print('Scan status:',a.get('scan_status'))
+          for k,v in a['summary'].items(): print(f'- {k}: {v}')
+          PY
+          fi
