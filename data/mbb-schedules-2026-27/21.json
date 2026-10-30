@@ -252,12 +252,12 @@
       "official_time": "",
       "name": "San Diego State",
       "school_source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27",
-      "neutralSite": false,
+      "neutralSite": true,
       "competitions": [
         {
           "competitors": [
             {
-              "homeAway": "away",
+              "homeAway": "neutral",
               "team": {
                 "id": "166",
                 "displayName": "New Mexico State Aggies",
@@ -265,7 +265,7 @@
               }
             },
             {
-              "homeAway": "home",
+              "homeAway": "neutral",
               "team": {
                 "id": "21",
                 "displayName": "San Diego State Aztecs",
@@ -296,8 +296,8 @@
       "broadcast_source_url": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx",
       "official_school_time": "12:30 p.m. PT",
       "official_school_time_source": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx",
-      "site_verified": false,
-      "site_source_url": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx",
+      "site_verified": true,
+      "site_source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27",
       "site_conflict": {
         "date": "2026-11-15",
         "teams": [
@@ -309,7 +309,8 @@
           "home"
         ],
         "reason": "official opponent schedules contradict on home-away-neutral"
-      }
+      },
+      "site_verified_via": "reciprocal_official_opponent_schedule"
     },
     {
       "id": "cross-school-21-2026-11-18_2640",

@@ -2,13 +2,13 @@
   "schools_targeted": 65,
   "schools_checked": 65,
   "totals": {
-    "matched": 266,
+    "matched": 277,
     "site_corrected": 1,
     "location_corrected": 0
   },
   "status_counts": {
-    "source_fetch_failed": 41,
-    "verified_matches": 24
+    "source_fetch_failed": 40,
+    "verified_matches": 25
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
   "schools": [
@@ -207,12 +207,11 @@
     {
       "team": "UNC Asheville",
       "id": "2427",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_matches",
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 32
     },
     {
       "team": "UNC Greensboro",

@@ -2,13 +2,13 @@
   "schools_targeted": 100,
   "schools_checked": 100,
   "totals": {
-    "matched": 443,
-    "site_corrected": 1,
+    "matched": 432,
+    "site_corrected": 2,
     "location_corrected": 0
   },
   "status_counts": {
-    "source_fetch_failed": 60,
-    "verified_matches": 38,
+    "source_fetch_failed": 61,
+    "verified_matches": 37,
     "no_official_source": 2
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
@@ -619,11 +619,12 @@
     {
       "team": "Mercer",
       "id": "2382",
-      "status": "verified_matches",
-      "matched": 11,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Mercyhurst",
@@ -669,7 +670,7 @@
       "id": "130",
       "status": "verified_matches",
       "matched": 9,
-      "site_corrected": 0,
+      "site_corrected": 1,
       "location_corrected": 0,
       "school_rows": 42
     },

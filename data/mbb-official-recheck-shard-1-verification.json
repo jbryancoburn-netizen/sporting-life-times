@@ -2,13 +2,13 @@
   "schools_targeted": 100,
   "schools_checked": 100,
   "totals": {
-    "matched": 567,
-    "site_corrected": 0,
+    "matched": 554,
+    "site_corrected": 1,
     "location_corrected": 0
   },
   "status_counts": {
-    "source_fetch_failed": 54,
-    "verified_matches": 46
+    "source_fetch_failed": 55,
+    "verified_matches": 45
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
   "schools": [
@@ -200,7 +200,7 @@
       "id": "239",
       "status": "verified_matches",
       "matched": 16,
-      "site_corrected": 0,
+      "site_corrected": 1,
       "location_corrected": 0,
       "school_rows": 36
     },
@@ -449,7 +449,7 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 32
     },
     {
       "team": "Chattanooga",
@@ -913,11 +913,12 @@
     {
       "team": "Ga. Southern",
       "id": "290",
-      "status": "verified_matches",
-      "matched": 13,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Gardner-Webb",

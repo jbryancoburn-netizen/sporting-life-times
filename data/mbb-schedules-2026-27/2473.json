@@ -775,7 +775,7 @@
             {
               "homeAway": "home",
               "team": {
-                "id": "",
+                "id": "8",
                 "displayName": "#12 Arkansas",
                 "logo": ""
               }
@@ -784,9 +784,19 @@
           "venue": {
             "fullName": "Fayetteville, Ark.",
             "official_school_city": "Fayetteville, Ark.",
-            "city_source_url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Bud Walton Arena",
+            "arena_source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/",
+            "arenaName_verified_via": "reciprocal_official_game"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "SEC Network"
+              ],
+              "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -795,7 +805,9 @@
       "site_verified": true,
       "site_source_url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "13533",
-      "site_verified_via": "official_school_card_unique_away"
+      "site_verified_via": "official_school_card_unique_away",
+      "official_opponent_identity_source": "https://goldengrizzlies.com/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
     },
     {
       "id": "school-2473-2026-12-16-63",
