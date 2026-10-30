@@ -1,0 +1,10 @@
+name: NCAAW Schedule Corrections
+on:
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/apply_ncaaw_maui_tipoff_corrections.py
+      - run: python scripts/audit_ncaaw_schedule_completeness.py
