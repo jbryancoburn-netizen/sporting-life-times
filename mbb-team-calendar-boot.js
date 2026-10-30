@@ -38,6 +38,8 @@ try{
   const opponentName=opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD';
   const knownId=String(opponent.team?.id||'').trim();
   const opponentId=knownId||exactId(opponentName);
+  // Recover exact Division I identities when an imported opponent has no ID.
+  // Non-Division I opponents retain initials instead of a guessed crest.
   const emblem=window.MBBLogos.byESPN(opponentId,'schedule',opponentName);
   const date=new Date(e.date);
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
@@ -60,7 +62,8 @@ try{
   const officialLocation=(c.venue?.official_school_location||'').trim();
   const officialFacility=officialLocation.match(/\(([^()]+)\)/);
   const officialArena=officialFacility&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(officialFacility[1])?officialFacility[1].trim():'';
-  const arena=c.venue?.arenaName||officialArena||embeddedArena||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
+  const arenaFromOfficialLine=cleanVenue.match(/(?:^|\s)((?:[A-Za-z0-9'.&-]+\s+){0,6}(?:Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation Center|Indoor Stadium|Dome|Auditorium))\s*$/i)?.[1]||'';
+  const arena=c.venue?.arenaName||officialArena||embeddedArena||arenaFromOfficialLine||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
   const city=c.venue?.official_school_city||venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
   const completed=e.status?.type?.completed===true||e.status?.type?.state==='post';
   const result=completed&&self?.score!=null&&opponent?.score!=null?(Number(self.score)>Number(opponent.score)?'W ':'L ')+escape(self.score)+'–'+escape(opponent.score):'—';
