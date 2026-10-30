@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 290,
+  "schools_scanned": 307,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -2034,6 +2034,125 @@
       "source_sha": "39c717e38b46382912b44d3ceedbf001865248ea",
       "game_count": 30,
       "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2633",
+      "school": "Tennessee",
+      "source_sha": "6d14005f2b14c504753aa43a9c138f84dbe67bb3",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2634",
+      "school": "Tennessee St.",
+      "source_sha": "086988a4d06b4c467026cbcd543bca7729d1fdcd",
+      "game_count": 29,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2635",
+      "school": "Tennessee Tech",
+      "source_sha": "e43a2b6ae376a0c2ed0f7de30a26fa62b4fa8732",
+      "game_count": 30,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "251",
+      "school": "Texas",
+      "source_sha": "1ba83f3ad96a02bd23e636baab19b1d2452fc881",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "245",
+      "school": "Texas A&M",
+      "source_sha": "40ef5988366f025d9ac298e104fef35a200b0552",
+      "game_count": 25,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2640",
+      "school": "Texas Southern",
+      "source_sha": "27f4db64afd8548c4289c887d89c07c19fe5050a",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "326",
+      "school": "Texas St.",
+      "source_sha": "febc9582878ca14adb31adc3ecbffd46520e3c50",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2641",
+      "school": "Texas Tech",
+      "source_sha": "f185e6285e62a3945c7c6e3931f750f86b771c14",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2643",
+      "school": "The Citadel",
+      "source_sha": "6fad2d2a60c2526fe86eae7882ac0d720b7423a0",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2649",
+      "school": "Toledo",
+      "source_sha": "903b0b3c0d6917dd76f7255680856c4cc185bf71",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "119",
+      "school": "Towson",
+      "source_sha": "6c77db8e6a90623512dc73b588e78746a86ec38a",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2653",
+      "school": "Troy",
+      "source_sha": "ae78aaa12056f45280d7fa4ebfccc685ce318a35",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2655",
+      "school": "Tulane",
+      "source_sha": "3c3d25694fbddbda5db029fc5d0bf2820e6429cf",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "202",
+      "school": "Tulsa",
+      "source_sha": "f6ba4f2963f72bc88b32f6f0340f6edb0feec927",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "5",
+      "school": "UAB",
+      "source_sha": "8cb3800339689aed3c5c3a9b9b35f64542ddc972",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "399",
+      "school": "UAlbany",
+      "source_sha": "00c7932b1defac55415b8e2991b5e3e91db37767",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "302",
+      "school": "UC Davis",
+      "source_sha": "b7ebde8b6d3d236e2fa9b2f6769ddf6f028ba72f",
+      "game_count": 32,
+      "missing_arena_fields": 4
     }
   ],
   "records": [
@@ -8765,6 +8884,420 @@
       "home_away": "neutral",
       "location": "St. Thomas, U.S. Virgin Islands",
       "source_url": "https://owlsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2634",
+      "school": "Tennessee St.",
+      "event_id": "school-2634-2026-12-11-63",
+      "date": "2026-12-11",
+      "opponent_ids": [
+        "2634",
+        "2710"
+      ],
+      "game": "Western Illinois",
+      "home_away": "away",
+      "location": "Macomb, Ill.",
+      "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2634",
+      "school": "Tennessee St.",
+      "event_id": "school-2634-2027-01-23-111",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2634"
+      ],
+      "game": "SEMO",
+      "home_away": "away",
+      "location": "Cape Girardeau, Mo.",
+      "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2634",
+      "school": "Tennessee St.",
+      "event_id": "school-2634-2027-02-06-135",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2634",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, Ky.",
+      "source_url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2635",
+      "school": "Tennessee Tech",
+      "event_id": "cross-school-2635-2027-01-13_2193",
+      "date": "2027-01-13",
+      "opponent_ids": [
+        "2193",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Johnson City, Tenn.",
+      "source_url": "https://etsubucs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2635",
+      "school": "Tennessee Tech",
+      "event_id": "cross-school-2635-2027-01-30_2678",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "2678",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Lexington, VA",
+      "source_url": "https://vmikeydets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2635",
+      "school": "Tennessee Tech",
+      "event_id": "cross-school-2635-2027-02-03_2717",
+      "date": "2027-02-03",
+      "opponent_ids": [
+        "2717",
+        "2635"
+      ],
+      "game": "Tennessee Tech",
+      "home_away": "away",
+      "location": "Cullowhee, NC",
+      "source_url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "251",
+      "school": "Texas",
+      "event_id": "school-251-2026-11-27-8",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "251"
+      ],
+      "game": "Saint Mary's OR UCLA",
+      "home_away": "neutral",
+      "location": "San Diego, California",
+      "source_url": "https://texaslonghorns.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2640",
+      "school": "Texas Southern",
+      "event_id": "school-2640-2027-02-13-153",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2640"
+      ],
+      "game": "Grambling State",
+      "home_away": "away",
+      "location": "Grambling, La.",
+      "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2640",
+      "school": "Texas Southern",
+      "event_id": "school-2640-2027-02-27-183",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2640",
+        "2296"
+      ],
+      "game": "Jackson State",
+      "home_away": "away",
+      "location": "Jackson, Miss.",
+      "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2640",
+      "school": "Texas Southern",
+      "event_id": "school-2640-2027-03-04-189",
+      "date": "2027-03-04",
+      "opponent_ids": [
+        "2640",
+        "2504"
+      ],
+      "game": "Prairie View A&M",
+      "home_away": "away",
+      "location": "Prairie View, Texas",
+      "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "326",
+      "school": "Texas St.",
+      "event_id": "school-326-2026-11-10-15",
+      "date": "2026-11-10",
+      "opponent_ids": [
+        "326"
+      ],
+      "game": "The University of Texas Rio Grande Valley",
+      "home_away": "away",
+      "location": "Edinburg, TX",
+      "source_url": "https://txst.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "326",
+      "school": "Texas St.",
+      "event_id": "school-326-2026-11-25-45",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "326",
+        "2016"
+      ],
+      "game": "Alcorn State University",
+      "home_away": "neutral",
+      "location": "Ruston, La.",
+      "source_url": "https://txst.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "326",
+      "school": "Texas St.",
+      "event_id": "school-326-2027-02-06-147",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "326",
+        "265"
+      ],
+      "game": "Washington State University",
+      "home_away": "away",
+      "location": "Pullman, WA",
+      "source_url": "https://txst.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2643",
+      "school": "The Citadel",
+      "event_id": "school-2643-2027-01-16-20",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2643",
+        "2678"
+      ],
+      "game": "VMI",
+      "home_away": "away",
+      "location": "Lexington, Va. / Cameron Hall",
+      "source_url": "https://citadelsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2643",
+      "school": "The Citadel",
+      "event_id": "school-2643-2027-02-24-31",
+      "date": "2027-02-24",
+      "opponent_ids": [
+        "2643",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, Tenn. / Freedom Hall",
+      "source_url": "https://citadelsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "119",
+      "school": "Towson",
+      "event_id": "school-119-2026-11-28-39",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "119",
+        "2084"
+      ],
+      "game": "Buffalo",
+      "home_away": "neutral",
+      "location": "Philadelphia, Penn.",
+      "source_url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "119",
+      "school": "Towson",
+      "event_id": "school-119-2027-02-11-107",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "119",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, NJ",
+      "source_url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "119",
+      "school": "Towson",
+      "event_id": "school-119-2027-03-05-135",
+      "date": "2027-03-05",
+      "opponent_ids": [
+        "119"
+      ],
+      "game": "Coastal Athletic Association",
+      "home_away": "neutral",
+      "location": "Washington, D.C.",
+      "source_url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2653",
+      "school": "Troy",
+      "event_id": "school-2653-2027-02-06-26",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2653"
+      ],
+      "game": "MAC-SBC Challenge",
+      "home_away": "away",
+      "location": "",
+      "source_url": "https://troytrojans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2655",
+      "school": "Tulane",
+      "event_id": "school-2655-2026-12-22-14",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "2655",
+        "98"
+      ],
+      "game": "Western Kentucky",
+      "home_away": "neutral",
+      "location": "Fort Lauderdale, FL",
+      "source_url": "https://tulanegreenwave.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "202",
+      "school": "Tulsa",
+      "event_id": "school-202-2026-11-23-6",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "202",
+        "204"
+      ],
+      "game": "Oregon State",
+      "home_away": "neutral",
+      "location": "Palm Desert, Calif.",
+      "source_url": "https://tulsahurricane.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "202",
+      "school": "Tulsa",
+      "event_id": "school-202-2026-11-24-7",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "202",
+        "2287"
+      ],
+      "game": "Illinois State",
+      "home_away": "neutral",
+      "location": "Palm Desert, Calif.",
+      "source_url": "https://tulsahurricane.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "202",
+      "school": "Tulsa",
+      "event_id": "school-202-2026-12-19-13",
+      "date": "2026-12-19",
+      "opponent_ids": [
+        "202",
+        "328"
+      ],
+      "game": "Utah State",
+      "home_away": "neutral",
+      "location": "Frisco, Texas",
+      "source_url": "https://tulsahurricane.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "5",
+      "school": "UAB",
+      "event_id": "school-5-2026-11-14-5",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "5",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://uabsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "5",
+      "school": "UAB",
+      "event_id": "school-5-2026-11-20-7",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "5",
+        "45"
+      ],
+      "game": "George Washington",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, W.V.",
+      "source_url": "https://uabsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "5",
+      "school": "UAB",
+      "event_id": "school-5-2026-11-22-8",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "5",
+        "227"
+      ],
+      "game": "Rhode Island",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, W.V.",
+      "source_url": "https://uabsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "302",
+      "school": "UC Davis",
+      "event_id": "school-302-2026-11-25-4",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "302",
+        "2437"
+      ],
+      "game": "Omaha",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "302",
+      "school": "UC Davis",
+      "event_id": "school-302-2026-11-26-8",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "302",
+        "55"
+      ],
+      "game": "Jacksonville State University",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "302",
+      "school": "UC Davis",
+      "event_id": "school-302-2026-11-27-12",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "302",
+        "279"
+      ],
+      "game": "Pacific",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "302",
+      "school": "UC Davis",
+      "event_id": "school-302-2026-12-03-16",
+      "date": "2026-12-03",
+      "opponent_ids": [
+        "302",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, N.D.",
+      "source_url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
