@@ -79,7 +79,7 @@ function rankingTop25(which){
  if(which==='net'||which==='kenpom'){
   const info=externalTop25?.[which],label=which==='net'?'NCAA NET':'KenPom',source=which==='net'?'https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings':'https://kenpom.com/index.php?y=2027';
   const records=info?.season==='2026-27'&&info?.status==='published'&&Array.isArray(info.rankings)&&info.rankings.length===25?info.rankings:[];
-  const cite='<p class="note">'+esc(label)+' · '+(records.length?'Source checked '+esc((info.retrieved_at||'').slice(0,10)):'2026–27 rankings not yet available in verified feed')+' · <a href="'+source+'" target="_blank" rel="noopener noreferrer">Source ↗</a></p>';
+  const cite='<p class="note">'+esc(label)+' · '+(records.length?'Source checked '+esc(info.source_date||(info.retrieved_at||'').slice(0,10)):'2026–27 rankings not yet available in verified feed')+' · <a href="'+source+'" target="_blank" rel="noopener noreferrer">Source ↗</a></p>';
   if(!records.length)return cite+'<p>'+ (which==='net'?'The NCAA has not released the 2026–27 NET rankings yet.':'KenPom is awaiting a successful verified daily source refresh.')+'</p>';
   const normalize=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
   return cite+records.map(x=>{const q=normalize(x.team);const t=teams.find(t=>normalize(t.team)===q)||teams.find(t=>{const c=(cross?.teams||[]).find(z=>z.id===t.team_id);return c&&(normalize(c.name)===q||normalize(c.espn_name).startsWith(q));});return '<div class="rank-row"><span class="rank">'+x.rank+'</span>'+(t?name(t):'<strong>'+esc(x.team)+'</strong>')+'<span></span></div>';}).join('');
