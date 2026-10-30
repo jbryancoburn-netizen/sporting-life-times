@@ -11,7 +11,9 @@ const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',yea
 const page=document.body.dataset.page,params=new URLSearchParams(location.search);
 const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','articles.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json'];
 let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers]=await Promise.all(files.map(get));
-let teamNews=page==='team'?await get('data/mbb-team-news/'+encodeURIComponent((cross?.teams||[]).find(x=>x.id===params.get('team'))?.espn_id||'')+'.json'):null;
+const selectedTeam=(cross?.teams||[]).find(x=>x.id===params.get('team')||String(x.espn_id)===params.get('team'));
+if(page==='team'&&selectedTeam)params.set('team',selectedTeam.id);
+let teamNews=page==='team'?await get('data/mbb-team-news/'+encodeURIComponent(selectedTeam?.espn_id||'')+'.json'):null;
 const valid=d=>d?.season==='2026-27'&&d.rankings?.length===365&&new Set(d.rankings.map(t=>t.team_id)).size===365&&d.rankings.every(t=>Number.isFinite(t.elo));
 
 // The 2026-27 MBB RETRO season is a clean slate: all 365 schools start at 1500.
