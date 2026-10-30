@@ -39,7 +39,10 @@ for key,items in pairs.items():
   sid,se,sc=source;tid,te,tc=target;sv=sc.get('venue',{});tv=tc.setdefault('venue',{})
   for field,src in [('arenaName','arena_source_url'),('official_school_city','city_source_url')]:
    origin=sv.get(src,'')
-   if not origin.startswith('https://') or 'default_not_game_specific' in sv.get('arena_source_type',''):continue
+   if field=='arenaName' and not origin and se.get('site_verified') is True and se.get('official_source') is True:
+    # The opponent's exact dated official school game card is game-specific evidence.
+    origin=se.get('school_source_url') or docs[sid][1].get('source_url') or ''
+   if not str(origin).startswith('https://') or 'default_not_game_specific' in sv.get('arena_source_type',''):continue
    if sv.get(field) and not tv.get(field):
     tv[field]=sv[field];tv[src]=origin;tv[field+'_verified_via']='reciprocal_official_game';counts[field]+=1;changed.add(tid)
   broadcasts=sc.get('broadcasts',[])
