@@ -9,6 +9,8 @@ import pathlib
 import urllib.request
 import time
 from collections import Counter
+from zoneinfo import ZoneInfo
+import hashlib
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DATA=ROOT/"data"
 ENDPOINT="https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/scoreboard"
@@ -72,7 +74,7 @@ def as_fixture(row):
     if not isinstance(date,str):date=str(date)
     if "36ers" in home:home="Adelaide 36ers"
     if "36ers" in away:away="Adelaide 36ers"
-    return {"id":None,"date_utc":date,"home":home,"away":away,"home_score":None,
+    return {"id":"secondary-"+hashlib.sha1((str(date)+"|"+str(home)+"|"+str(away)).encode()).hexdigest()[:16],"date_utc":date,"home":home,"away":away,"home_score":None,
        "away_score":None,"state":"pre","venue":grab("Location","location","Venue","venue"),
        "broadcasts":[],"round":None,"season_type":2,"source":"FixtureDownload secondary",
        "official_nbl_verified":False}
@@ -89,9 +91,15 @@ def main():
     secondary_error=None
     try:
         secondary=[g for row in get_fixture_candidates() if (g:=as_fixture(row))]
-        known={(g["home"],g["away"],str(g["date_utc"])[:10]) for g in games}
+        def local_date(iso):
+            try:
+                parsed=dt.datetime.fromisoformat(str(iso).replace("Z","+00:00"))
+                if parsed.tzinfo:return parsed.astimezone(ZoneInfo("Australia/Sydney")).date().isoformat()
+            except ValueError:pass
+            return str(iso)[:10]
+        known={(g["home"],g["away"],local_date(g["date_utc"])) for g in games}
         for g in secondary:
-            key=(g["home"],g["away"],str(g["date_utc"])[:10])
+            key=(g["home"],g["away"],local_date(g["date_utc"]))
             if key not in known and g["home"] in TEAMS and g["away"] in TEAMS:
                 games.append(g)
                 known.add(key)
