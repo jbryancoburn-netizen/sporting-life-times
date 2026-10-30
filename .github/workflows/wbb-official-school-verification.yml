@@ -106,9 +106,10 @@ jobs:
             git fetch --no-tags --depth=1 origin 23da984d8aabe8210dfec44b910b2e17ba43b621
             python scripts/wbb-preserve-university-evidence.py
             python scripts/wbb-reconcile-schedule-evidence.py
+            python scripts/audit_ncaaw_schedule_completeness.py
             git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
             git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
-            git add data/ncaaw-2026-27-preserved-university-evidence-audit.json
+            git add data/ncaaw-2026-27-preserved-university-evidence-audit.json data/ncaaw-schedule-completeness-deep-audit.json
             if git diff --cached --quiet; then echo "Current source checks already published"; exit 0; fi
             git commit -m "Publish refreshed official women's schedule verification after concurrent update"
             sleep 2
