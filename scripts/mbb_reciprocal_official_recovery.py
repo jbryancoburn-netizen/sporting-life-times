@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Propagate already source-verified game sites across reciprocal Division I schedules."""
 import json,pathlib,collections
+from mbb_event_evidence_recovery import apply_saved
+apply_saved(sites_only=True)
 base=pathlib.Path(__file__).resolve().parents[1]/'data'
 teams=[t for t in json.loads((base/'ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams'] if t.get('espn_id')]
 records={};index=collections.defaultdict(list);counts=collections.Counter();conflicts=[]
