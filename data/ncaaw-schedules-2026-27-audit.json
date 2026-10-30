@@ -15,12 +15,12 @@
   "effective_missing_network_after_verified_overlay": 7330,
   "evidence_file": "data/ncaaw-2026-27-official-broadcast-overrides.json",
   "missing_specific_venue_from_espn": 0,
-  "official_school_venue_verified": 1710,
+  "official_school_venue_verified": 1739,
   "official_school_calendar_verified": 316,
-  "venue_caveat": "1710 individual school-game venue rows are independently named by a university source; all other ESPN venue strings remain unverified until school-level confirmation.",
+  "venue_caveat": "1739 individual school-game venue rows are independently named by a university source; all other ESPN venue strings remain unverified until school-level confirmation.",
   "broadcast_caveat": "Populated networks are game-specific and labeled by official source or women-specific scoreboard; the remaining 7330 team-game rows have no confirmed listing.",
   "official_school_schedules_date_and_opponent_checked": 316,
-  "official_school_schedule_entries_date_and_opponent_checked": 7914,
+  "official_school_schedule_entries_date_and_opponent_checked": 7918,
   "school_schedule_evidence_file": "data/ncaaw-2026-27-official-schedule-verifications.json",
   "official_school_check_scope": "316 university programs have at least one source-matched game; not every game or whole school schedule is fully certified.",
   "unique_games": 5782,
@@ -33,7 +33,7 @@
   "official_broadcast_unique_games": 1547,
   "official_broadcast_team_entries": 3094,
   "espn_scoreboard_broadcast_unique_games": 343,
-  "recovered_broadcast_team_entries_this_pass": 116,
+  "recovered_broadcast_team_entries_this_pass": 0,
   "source_counts_by_team_entry": {
     "espn_womens_game_scoreboard": 686,
     "official_school_athletics": 604,
@@ -89,8 +89,18 @@
   "official_field_evidence_file": "data/ncaaw-2026-27-official-field-crosschecks.json",
   "additional_bulk_official_school_entries_kept": 0,
   "bulk_university_date_conflicts_quarantined": 36,
-  "official_school_tipoff_verified": 307,
+  "official_school_tipoff_verified": 336,
   "official_school_venue_confirmation_discrepancies": 0,
   "official_tipoff_discrepancies_for_review": 61,
-  "official_schools_with_at_least_one_verified_game": 316
+  "official_schools_with_at_least_one_verified_game": 316,
+  "research_home_venue_added_this_pass": 29,
+  "research_explicit_timezone_tipoffs_added_this_pass": 29,
+  "research_venue_tipoff_candidates": 30,
+  "research_venue_tipoff_quarantined": [
+    {
+      "team_id": "2377",
+      "date": "2026-11-05",
+      "reason": "missing_or_nonunique_exact_womens_game"
+    }
+  ]
 }
