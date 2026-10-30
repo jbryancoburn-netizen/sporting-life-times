@@ -16,7 +16,10 @@ def normalize(x):
  x=re.sub(r"\b(the|university|college|women's|womens)\b","",x,flags=re.I)
  return re.sub(r"[^a-z0-9]","",x.lower())
 def datekey(x):
- s=str(x or "");i=re.search(r"202[67]-\d\d-\d\d",s)
+ s=str(x or "")
+ # Official athletics cards frequently join the weekday and month (FridayOct 2).
+ s=re.sub(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)(?=(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b)", "", s, flags=re.I)
+ i=re.search(r"202[67]-\d\d-\d\d",s)
  if i:return i.group()
  slash=re.search(r"\b(\d{1,2})/(\d{1,2})/(202[67])\b",s)
  if slash:
