@@ -71,13 +71,19 @@
       (img?'<img src="'+img+'" alt="" loading="lazy">':'<span class="wbb-logo-fallback">●</span>')+
       '</span><span>'+esc(t.name||'Team')+'</span></span>';
   }
+  function linkedTeam(t){
+    const id=String(t.team_id||t.id||'');
+    const identity=wbbLookup.get(id);
+    const label=team(t);
+    return identity?'<a class="wbb-team-link" href="'+teamLink(identity)+'">'+label+'</a>':label;
+  }
   function card(g){
     const sorted=(g.teams||[]).slice().sort((a,b)=>(a.home_away==='away'?-1:1)-(b.home_away==='away'?-1:1));
     const final=g.state==='post'||/final/i.test(g.status||'');
     const live=g.state==='in'||g.state==='live';
     const link=safeURL(g.url);
     return '<div class="score-card wbb-score-card"><small>'+esc(g.status|| (final?'Final':live?'Live':'Scheduled'))+' · '+time(g.date)+'</small>'+
-      sorted.map(t=>'<div class="score-team">'+team(t)+'<b>'+(final||live?esc(t.score??'—'):'')+'</b></div>').join('')+
+      sorted.map(t=>'<div class="score-team">'+linkedTeam(t)+'<b>'+(final||live?esc(t.score??'—'):'')+'</b></div>').join('')+
       (g.venue?'<div class="wbb-game-detail">'+esc(g.venue)+'</div>':'')+
       (g.broadcast?'<div class="wbb-game-detail">'+esc(g.broadcast)+'</div>':'')+
       (link?'<a class="wbb-game-source" href="'+link+'" target="_blank" rel="noopener noreferrer">Game details ↗</a>':'')+'</div>';
@@ -203,7 +209,7 @@
             const tv=official?.broadcast||g.broadcast;
             const tvSource=official?.source_url||g.broadcast_source_url;
             const television=tv?(tvSource?'<a href="'+safeURL(tvSource)+'" target="_blank" rel="noopener noreferrer" title="Attributed TV schedule source">'+esc(tv)+' ↗</a>':esc(tv)):'TBA';
-            const opponent=t?team({name:t.team,logo:t.logo,color:t.color}):esc(g.opponent||'Opponent TBA');
+            const opponent=t?linkedTeam({...t,name:t.team}):esc(g.opponent||'Opponent TBA');
             const score=g.completed&&g.home_score!=null&&g.away_score!=null?
               esc(g.site==='away'?g.away_score+'–'+g.home_score:g.home_score+'–'+g.away_score):'—';
             return '<tr><td>'+time(g.date)+'</td><td>'+esc(g.site||'TBA')+'</td><td>'+opponent+'</td><td>'+esc(g.venue||'TBA')+
