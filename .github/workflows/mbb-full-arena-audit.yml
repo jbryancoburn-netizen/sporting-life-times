@@ -1,5 +1,9 @@
 name: MBB full schedule arena audit
 on:
+  push:
+    paths:
+      - 'scripts/mbb_full_arena_audit.py'
+      - '.github/workflows/mbb-full-arena-audit.yml'
   workflow_dispatch:
   schedule:
     - cron: '17 10 * * 1'
