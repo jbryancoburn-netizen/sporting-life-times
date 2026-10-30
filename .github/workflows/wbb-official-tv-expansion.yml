@@ -57,6 +57,16 @@ jobs:
           assert caa.get("conference_games_validated")==117
           assert caa.get("streaming_games_covered")==117
           assert caa.get("conflicting_prior_games")==0
+          pac=b["conference_media_rule_audit"].get("Pac-12 Conference",{})
+          assert pac.get("conference_games_validated")==72
+          assert pac.get("streaming_games_expected")>=45
+          assert pac.get("streaming_games_covered")==pac["streaming_games_expected"]
+          assert pac.get("national_linear_tv_games")>=18
+          assert pac.get("conflicting_prior_games")==0
+          wcc=b["conference_media_rule_audit"].get("West Coast Conference",{})
+          assert wcc.get("conference_games_validated")==90
+          assert wcc.get("streaming_games_covered")==wcc["streaming_games_expected"]
+          assert wcc.get("conflicting_prior_games")==0
           assert a["cross_school_date_venue_identity_conflicts"]==0
           print("Officially broadcast unique games:",a["official_broadcast_unique_games"])
           print("Newly official source-matched games:",b["matched_new_official_game_ids"])
