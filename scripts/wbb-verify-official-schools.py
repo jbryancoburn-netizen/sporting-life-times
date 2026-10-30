@@ -89,11 +89,14 @@ def official_urls(tid):
   "59":"https://ramblinwreck.com/sports/w-baskbl/schedule",
   "87":"https://fightingirish.com/sports/wbball/schedule",
   "99":"https://lsusports.net/sports/wbball/schedule/season/2026-27",
-  "195":"https://ohiobobcats.com/sports/wbball/schedule",
+  "195":"https://ohiobobcats.com/sports/wbball/schedule/text",
   "213":"https://gopsusports.com/sports/womens-basketball/schedule",
   "21":"https://goaztecs.com/sports/womens-basketball/schedule",
+  "2569":"https://www.scsuathletics.com/sports/womens-basketball/schedule",
+  "2130":"https://www.gocsucougars.com/sports/womens-basketball/schedule",
+  "2306":"https://www.kstatesports.com/sports/womens-basketball/schedule/text",
   "245":"https://12thman.com/sports/womens-basketball/schedule",
-  "2900":"https://tommiesports.com/sports/wbball/schedule",
+  "2900":"https://tommiesports.com/sports/wbball/schedule/text",
   "112358":"https://www.liuathletics.com/sports/womens-basketball/schedule/2026-27",
   "9":"https://thesundevils.com/sports/womens-basketball/schedule?print=true",
   "228":"https://clemsontigers.com/sports/w-basketball/schedule",
@@ -132,7 +135,7 @@ def official_urls(tid):
                 base+"/2026-27",base+"/text/2026-27"])
    break
  return list(dict.fromkeys(out))
-def school(tid,school_data):
+def school(tid,school_data,safe_stems):
  result={"team_id":tid,"school":school_data["team"],"status":"no_official_url","source":None,
          "source_rows":0,"matched":0,"site_matched":0,"site_conflicts":0,"evidence":[]}
  urls=official_urls(tid)
@@ -156,7 +159,13 @@ def school(tid,school_data):
   bydate[dt].append(g)
  seen=set()
  for r in rows:
-  candidates=[g for g in bydate[r["date"]] if matching(r["opponent"],g["opponent"])]
+  # Contemporary sites sometimes append arena names inside their Teams cell.
+  # Only accept a school-name prefix when that prefix is unique across the
+  # entire women's D-I registry (e.g. Virginia is NOT unique vs Virginia Tech).
+  candidates=[g for g in bydate[r["date"]]
+              if matching(r["opponent"],g["opponent"]) or
+              (safe_stems.get(str(g.get("opponent_id"))) and
+               normalize(r["opponent"]).startswith(safe_stems[str(g["opponent_id"])]))]
   if len(candidates)!=1:continue
   g=candidates[0]
   if g["id"] in seen:continue
@@ -170,13 +179,23 @@ def school(tid,school_data):
       "verified_fields":fields,"source_url":url,"source_type":r["origin"]})
  result["matched"]=len(result["evidence"])
  result["status"]="matched_university_games" if result["matched"] else "zero_safe_matches"
+ if not result["matched"]:
+  # Read-only diagnostics; no uncertain games promoted from these snippets.
+  result["source_row_examples"]=rows[:3]
+  result["calendar_row_examples"]=[{"date":g["date"],"opponent":g["opponent"],
+                                   "opponent_id":g.get("opponent_id")} for g in school_data["games"][:3]]
  return result
 def main():
  d=json.loads(CAL.read_text())
  if d.get("gender")!="women" or len(d["teams"])!=363:raise RuntimeError("Women registry guard failed")
  work=list(d["teams"].items())
+ # Drop each mascot, then accept a school stem only if it cannot refer
+ # to another of the 363 women's D-I programs.
+ stems={tid:normalize(" ".join(t["team"].split()[:-1])) for tid,t in d["teams"].items()}
+ safe_stems={tid:stem for tid,stem in stems.items()
+             if len(stem)>=6 and sum(other.startswith(stem) for other in stems.values())==1}
  with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-  results=list(pool.map(lambda p:school(*p),work))
+  results=list(pool.map(lambda p:school(*p,safe_stems),work))
  evidence=[]
  for r in results:evidence.extend(r.pop("evidence"))
  oldpath=ROOT/"ncaaw-2026-27-official-schedule-verifications.json"
