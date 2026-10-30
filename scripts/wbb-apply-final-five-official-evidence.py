@@ -105,11 +105,12 @@ def run():
  for item in b.get("school_results",[]):
   tid=str(item["team_id"])
   if source_count[tid]:
-   if item.get("status") not in ("matched_university_games","matched_conference_games"):
-    item["status"]="matched_university_games" if tid!="2635" else "matched_conference_games"
+   if item.get("status") not in ("matched_university_games","matched_conference_games","matched_reciprocal_opponent_games"):
+    item["status"]=("matched_reciprocal_opponent_games" if tid=="2115" else
+                    "matched_conference_games" if tid=="2635" else "matched_university_games")
    item["matched"]+=source_count[tid]
    item["source"]=next(x["source_url"] for x in m["sources"] if str(x["team_id"])==tid)
-   item["source_rows"]+=len(next(x["rows"] for x in m["sources"] if str(x["team_id"])==tid))
+   item["source_rows"]+=sum(len(x["rows"]) for x in m["sources"] if str(x["team_id"])==tid)
  b["verified_school_count_including_prior"]=len(evidence_schools)
  b["verified_team_game_rows_including_prior"]=len(ev["rows"])
  b["verified_unique_game_ids"]=len({str(x["game_id"]) for x in ev["rows"]})
@@ -118,19 +119,22 @@ def run():
  b["schools_with_matched_official_calendar"]=sum(x["matched"]>0 for x in b["school_results"])
  b["official_university_schools_with_matches"]=sum(x["matched"]>0 and x["status"]=="matched_university_games" for x in b["school_results"])
  b["official_conference_schools_with_matches"]=sum(x["matched"]>0 and x["status"]=="matched_conference_games" for x in b["school_results"])
+ b["official_reciprocal_opponent_schools_with_matches"]=sum(x["matched"]>0 and x["status"]=="matched_reciprocal_opponent_games" for x in b["school_results"])
  b["offline_official_transcription_source_file"]=str(M)
  a["official_school_schedules_date_and_opponent_checked"]=len(evidence_schools)
  a["official_school_schedule_entries_date_and_opponent_checked"]=len(ev["rows"])
  a["offline_official_source_rows_newly_matched"]=len(found)
  a["offline_official_source_date_opponent_site_policy"]="Preserve existing evidence. Unique women's team+local date+source opponent required. No fabricated venue, tipoff or TV."
- report={"season":"2026-27","gender":"women","source_team_count":len(m["sources"]),
+ report={"season":"2026-27","gender":"women","source_team_count":len({str(x["team_id"]) for x in m["sources"]}),
+         "source_documents_count":len(m["sources"]),
          "source_printed_rows":sum(len(s["rows"]) for s in m["sources"]),
          "new_official_team_game_rows":len(found),"new_rows_by_team":dict(source_count),
          "skipped_count":len(skipped),"skipped":skipped,
          "overall_verified_schools":len(evidence_schools),"overall_verified_rows":len(ev["rows"]),
          "school_verified_count":b["official_university_schools_with_matches"],
          "conference_source_schools":b["official_conference_schools_with_matches"],
-         "policy":"Only independently printed 2026-27 women-specific games with unique date+opponent match. No broadcast/time/venue guesses."}
+         "reciprocal_opponent_source_schools":b["official_reciprocal_opponent_schools_with_matches"],
+         "policy":"Only independently printed 2026-27 women-specific games with unique date+opponent match. CCSU is reciprocal opponent-only, Tennessee Tech is conference-only. No broadcast/time/venue guesses."}
  for p,v in ((CAL,cal),(EVID,ev),(BULK,b),(AUDIT,a),(REPORT,report)):
   new=json.dumps(v,indent=2,ensure_ascii=False)+"\n"
   if not p.exists() or p.read_text(encoding="utf-8")!=new:p.write_text(new,encoding="utf-8")
