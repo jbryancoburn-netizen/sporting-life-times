@@ -107,7 +107,7 @@ for team in teams:
    item['broadcast_corrected']+=1
   # School local tipoff stored separately; do not mislabel CT as ET.
   if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
-   if event.get('official_school_time')!=row['time']:
+   if not (event.get('official_school_time') or event.get('official_time')):
     event['official_school_time']=row['time'];event['official_school_time_source']=url
     item.setdefault('tipoffs_corrected',0);item['tipoffs_corrected']+=1
  if item['matched']:
