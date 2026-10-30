@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 35,
+  "schools_scanned": 52,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -249,6 +249,125 @@
       "source_sha": "33be7a5bf6173d37d18712038bc77efb1324f714",
       "game_count": 31,
       "missing_arena_fields": 0
+    },
+    {
+      "school_id": "13",
+      "school": "Cal Poly",
+      "source_sha": "da417e65ba837e93280d7b1933e40264113a57ad",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2239",
+      "school": "Cal St. Fullerton",
+      "source_sha": "2b90fdd44fc4168936f805020c6563fe5ffa3579",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "25",
+      "school": "California",
+      "source_sha": "11a20935aa588169eec95df599deb5566f458057",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2856",
+      "school": "California Baptist",
+      "source_sha": "df3941bccc82fa724d5cc3371c17743ba4f436b2",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2097",
+      "school": "Campbell",
+      "source_sha": "d6c154be896eea45789112c97fc793b13bdf3921",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2099",
+      "school": "Canisius",
+      "source_sha": "d19d07d09504382369450952667ec123c9e79716",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2110",
+      "school": "Central Ark.",
+      "source_sha": "8839539897770dac0deb8fd3d083fbd5278d0b6c",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2115",
+      "school": "Central Conn. St.",
+      "source_sha": "cb6b8f98bfdbe27c70e8a83f376bff5625d0c1d9",
+      "game_count": 30,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2117",
+      "school": "Central Mich.",
+      "source_sha": "a85fd24343ca6df1efecfde9111cfc56f80829d6",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2127",
+      "school": "Charleston So.",
+      "source_sha": "51fa45984a3f0158953f97855a76267f78a531d9",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2429",
+      "school": "Charlotte",
+      "source_sha": "aeca1896b503e8e3e8b187616a4a5a6517e3a181",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "236",
+      "school": "Chattanooga",
+      "source_sha": "8145256c5db422ff5f42e9fa97cdf10ff1b0b131",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2130",
+      "school": "Chicago St.",
+      "source_sha": "57bf44b25721e87b90d21c16083fecf2e93ab5c1",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2132",
+      "school": "Cincinnati",
+      "source_sha": "c6727af85d014438356ef2552139f57a4d33144c",
+      "game_count": 35,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "228",
+      "school": "Clemson",
+      "source_sha": "14e7d67926aee4795fe69e3c6813d2fc9a7833fd",
+      "game_count": 23,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "325",
+      "school": "Cleveland St.",
+      "source_sha": "d10981734796b1ca0e129f0dce8b334f14d2a044",
+      "game_count": 31,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "324",
+      "school": "Coastal Carolina",
+      "source_sha": "321307fc27a7a27ce8d045a74b451e76ca892625",
+      "game_count": 33,
+      "missing_arena_fields": 2
     }
   ],
   "records": [
@@ -1125,6 +1244,351 @@
       "home_away": "away",
       "location": "Athens, Ohio",
       "source_url": "https://ubbulls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2239",
+      "school": "Cal St. Fullerton",
+      "event_id": "school-2239-2027-01-30-91",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "2239"
+      ],
+      "game": "Cal Baptist",
+      "home_away": "away",
+      "location": "Riverside, CA",
+      "source_url": "https://fullertontitans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2239",
+      "school": "Cal St. Fullerton",
+      "event_id": "school-2239-2027-03-10-135",
+      "date": "2027-03-10",
+      "opponent_ids": [
+        "2239"
+      ],
+      "game": "Big West Conference",
+      "home_away": "neutral",
+      "location": "Henderson, NV",
+      "source_url": "https://fullertontitans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2856",
+      "school": "California Baptist",
+      "event_id": "school-2856-2026-12-14-11",
+      "date": "2026-12-14",
+      "opponent_ids": [
+        "2856",
+        "302"
+      ],
+      "game": "UC Davis",
+      "home_away": "away",
+      "location": "Davis, CA",
+      "source_url": "https://cbulancers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2097",
+      "school": "Campbell",
+      "event_id": "school-2097-2026-11-11-19",
+      "date": "2026-11-11",
+      "opponent_ids": [
+        "2097",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, TN",
+      "source_url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2097",
+      "school": "Campbell",
+      "event_id": "school-2097-2026-12-12-51",
+      "date": "2026-12-12",
+      "opponent_ids": [
+        "2097",
+        "2241"
+      ],
+      "game": "Gardner-Webb",
+      "home_away": "away",
+      "location": "Boiling Springs, NC",
+      "source_url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2097",
+      "school": "Campbell",
+      "event_id": "school-2097-2027-02-04-107",
+      "date": "2027-02-04",
+      "opponent_ids": [
+        "2097",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, NJ",
+      "source_url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2110",
+      "school": "Central Ark.",
+      "event_id": "school-2110-2026-11-06-7",
+      "date": "2026-11-06",
+      "opponent_ids": [
+        "2110"
+      ],
+      "game": "University of Mississippi",
+      "home_away": "away",
+      "location": "Oxford, Miss",
+      "source_url": "https://ucasports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2115",
+      "school": "Central Conn. St.",
+      "event_id": "401911207",
+      "date": "2026-12-20",
+      "opponent_ids": [
+        "2230",
+        "2115"
+      ],
+      "game": "Central Connecticut Blue Devils at Fordham Rams",
+      "home_away": "away",
+      "location": "Rose Hill Gym",
+      "source_url": "https://www.sports-reference.com/cbb/schools/central-connecticut-state/men/2027-schedule.html"
+    },
+    {
+      "school_id": "2115",
+      "school": "Central Conn. St.",
+      "event_id": "401919598",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2330",
+        "2115"
+      ],
+      "game": "Central Connecticut Blue Devils at Le Moyne Dolphins",
+      "home_away": "away",
+      "location": "Ted Grant Court",
+      "source_url": "https://www.sports-reference.com/cbb/schools/central-connecticut-state/men/2027-schedule.html"
+    },
+    {
+      "school_id": "2127",
+      "school": "Charleston So.",
+      "event_id": "school-2127-2026-11-27-7",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2127",
+        "2193"
+      ],
+      "game": "East Tennessee State",
+      "home_away": "away",
+      "location": "Johnson City, TN",
+      "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2127",
+      "school": "Charleston So.",
+      "event_id": "school-2127-2026-12-05-10",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "2127",
+        "2569"
+      ],
+      "game": "South Carolina State",
+      "home_away": "away",
+      "location": "Orangeburg, SC",
+      "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2127",
+      "school": "Charleston So.",
+      "event_id": "school-2127-2026-12-28-15",
+      "date": "2026-12-28",
+      "opponent_ids": [
+        "2127",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, VA",
+      "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2127",
+      "school": "Charleston So.",
+      "event_id": "school-2127-2027-02-03-25",
+      "date": "2027-02-03",
+      "opponent_ids": [
+        "2127",
+        "2241"
+      ],
+      "game": "Gardner-Webb",
+      "home_away": "away",
+      "location": "Boiling Springs, NC",
+      "source_url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "236",
+      "school": "Chattanooga",
+      "event_id": "school-236-2027-01-21-21",
+      "date": "2027-01-21",
+      "opponent_ids": [
+        "236",
+        "2193"
+      ],
+      "game": "ETSU",
+      "home_away": "away",
+      "location": "Johnson City, Tenn. (Freedom Hall)",
+      "source_url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "236",
+      "school": "Chattanooga",
+      "event_id": "school-236-2027-01-28-23",
+      "date": "2027-01-28",
+      "opponent_ids": [
+        "236",
+        "2678"
+      ],
+      "game": "VMI",
+      "home_away": "away",
+      "location": "Lexington, Va. (Cameron Hall)",
+      "source_url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2130",
+      "school": "Chicago St.",
+      "event_id": "school-2130-2026-11-28-63",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2130",
+        "71"
+      ],
+      "game": "Bradley University",
+      "home_away": "neutral",
+      "location": "Peoria, Ill.",
+      "source_url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2130",
+      "school": "Chicago St.",
+      "event_id": "school-2130-2027-02-11-171",
+      "date": "2027-02-11",
+      "opponent_ids": [
+        "2130",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "neutral",
+      "location": "Brooklyn, N.Y.",
+      "source_url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2130",
+      "school": "Chicago St.",
+      "event_id": "school-2130-2027-02-24-195",
+      "date": "2027-02-24",
+      "opponent_ids": [
+        "2130"
+      ],
+      "game": "Central Connecticut State University",
+      "home_away": "neutral",
+      "location": "New Britain, Conn.",
+      "source_url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2132",
+      "school": "Cincinnati",
+      "event_id": "cross-school-2132-2026-10-07_194",
+      "date": "2026-10-07",
+      "opponent_ids": [
+        "194",
+        "2132"
+      ],
+      "game": "Cincinnati (Exh.)",
+      "home_away": "neutral",
+      "location": "Mason, Ohio",
+      "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2132",
+      "school": "Cincinnati",
+      "event_id": "cross-school-2132-2026-11-27_103",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "103",
+        "2132"
+      ],
+      "game": "Cincinnati",
+      "home_away": "neutral",
+      "location": "Kissimmee, Fla.",
+      "source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2132",
+      "school": "Cincinnati",
+      "event_id": "official-2132-2026-12-19-clemson",
+      "date": "2026-12-19",
+      "opponent_ids": [
+        "2132",
+        "228"
+      ],
+      "game": "Clemson",
+      "home_away": "neutral",
+      "location": "Cincinnati, Ohio",
+      "source_url": "https://gobearcats.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "228",
+      "school": "Clemson",
+      "event_id": "cross-school-228-2027-02-02_259",
+      "date": "2027-02-02",
+      "opponent_ids": [
+        "259",
+        "228"
+      ],
+      "game": "Clemson",
+      "home_away": "neutral",
+      "location": "Tue Feb 2",
+      "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "325",
+      "school": "Cleveland St.",
+      "event_id": "school-325-2027-01-23-83",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "325",
+        "2473"
+      ],
+      "game": "Oakland",
+      "home_away": "away",
+      "location": "Rochester, Mich.",
+      "source_url": "https://csuvikings.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "324",
+      "school": "Coastal Carolina",
+      "event_id": "school-324-2027-02-06-26",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "324"
+      ],
+      "game": "MAC-SBC Challenge",
+      "home_away": "away",
+      "location": "",
+      "source_url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "324",
+      "school": "Coastal Carolina",
+      "event_id": "school-324-2027-02-26-32",
+      "date": "2027-02-26",
+      "opponent_ids": [
+        "324",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, VA",
+      "source_url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
