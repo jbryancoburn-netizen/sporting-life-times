@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 154,
+  "schools_scanned": 171,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1082,6 +1082,125 @@
       "source_sha": "18df966f57dd3740626f8cad31f1bb8f914525d6",
       "game_count": 35,
       "missing_arena_fields": 0
+    },
+    {
+      "school_id": "311",
+      "school": "Maine",
+      "source_sha": "057e4b767029a54ab50b69e1f06bed0341e7de4c",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2363",
+      "school": "Manhattan",
+      "source_sha": "8bbe95ba45d0c480b9cdfe8b9893ea5413d04333",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2368",
+      "school": "Marist",
+      "source_sha": "8a75ba0345cc8717a2029e773f1a95d573a6ff94",
+      "game_count": 30,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "269",
+      "school": "Marquette",
+      "source_sha": "7be1f28ec13c532d716d842f5dd2046e0a4489c1",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "276",
+      "school": "Marshall",
+      "source_sha": "04b3c98001a67ba759f92f8780623e8ac3bd9e3a",
+      "game_count": 30,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "120",
+      "school": "Maryland",
+      "source_sha": "f110cb420f8b89e63ca7a7979f5500e7f3503f90",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "113",
+      "school": "Massachusetts",
+      "source_sha": "d6d086a4df8327bc3b5bb3df9dec40547ad0d5e5",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2377",
+      "school": "McNeese",
+      "source_sha": "0687aadebbd28a56ae9666ab2b615bc7a03d5462",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "235",
+      "school": "Memphis",
+      "source_sha": "df50c5bab75dad3a9e33032549db99f6fe90335c",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2382",
+      "school": "Mercer",
+      "source_sha": "48a43871b94042b5eefcc19d4c7d562bcb57064c",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2385",
+      "school": "Mercyhurst",
+      "source_sha": "0a69cc6b3fc8ef237d788d32d48b4dfce5e6caeb",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2771",
+      "school": "Merrimack",
+      "source_sha": "3f6f1d0d1554bf8c930e38c930d6f94916f00f02",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2390",
+      "school": "Miami (FL)",
+      "source_sha": "3fa2acd388ca9b23c6abc8bf3fdce467ae807502",
+      "game_count": 33,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "193",
+      "school": "Miami (OH)",
+      "source_sha": "b2f86b81bff410434fc4faabbfaf952864a956df",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "130",
+      "school": "Michigan",
+      "source_sha": "00681f2ddb17cc1cfa3f2db2d613eaf391dbeb2d",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "127",
+      "school": "Michigan St.",
+      "source_sha": "37ca5317239a4ea009dba70adde2f371f2a4c52e",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2393",
+      "school": "Middle Tenn.",
+      "source_sha": "5010984b4659c2b37697a452d668251de31b8705",
+      "game_count": 30,
+      "missing_arena_fields": 2
     }
   ],
   "records": [
@@ -4738,6 +4857,264 @@
       "home_away": "away",
       "location": "Hamilton, N.Y.",
       "source_url": "https://loyolagreyhounds.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "311",
+      "school": "Maine",
+      "event_id": "school-311-2026-11-27-8",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "311",
+        "2330"
+      ],
+      "game": "Le Moyne College",
+      "home_away": "neutral",
+      "location": "Easton, Pa.",
+      "source_url": "https://goblackbears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "311",
+      "school": "Maine",
+      "event_id": "school-311-2026-11-29-10",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "311",
+        "315"
+      ],
+      "game": "Niagara University",
+      "home_away": "neutral",
+      "location": "Easton, Pa.",
+      "source_url": "https://goblackbears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2368",
+      "school": "Marist",
+      "event_id": "school-2368-2026-11-28-27",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2368",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://goredfoxes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "269",
+      "school": "Marquette",
+      "event_id": "school-269-2026-11-25-7",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "269",
+        "258"
+      ],
+      "game": "Virginia",
+      "home_away": "neutral",
+      "location": "Paradise Island, Bahamas",
+      "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "269",
+      "school": "Marquette",
+      "event_id": "school-269-2027-03-13-36",
+      "date": "2027-03-13",
+      "opponent_ids": [
+        "269"
+      ],
+      "game": "Final",
+      "home_away": "neutral",
+      "location": "New York, NY",
+      "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "276",
+      "school": "Marshall",
+      "event_id": "school-276-2027-02-20-31",
+      "date": "2027-02-20",
+      "opponent_ids": [
+        "276",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, Va.",
+      "source_url": "https://herdzone.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "235",
+      "school": "Memphis",
+      "event_id": "school-235-2026-11-25-7",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "235",
+        "213"
+      ],
+      "game": "Penn State",
+      "home_away": "neutral",
+      "location": "Atlantis Paradise Island, Bahamas",
+      "source_url": "https://gotigersgo.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "235",
+      "school": "Memphis",
+      "event_id": "school-235-2027-03-10-33",
+      "date": "2027-03-10",
+      "opponent_ids": [
+        "235"
+      ],
+      "game": "American Conference",
+      "home_away": "neutral",
+      "location": "Tampa, Fla.",
+      "source_url": "https://gotigersgo.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2385",
+      "school": "Mercyhurst",
+      "event_id": "school-2385-2026-11-21-31",
+      "date": "2026-11-21",
+      "opponent_ids": [
+        "2385",
+        "2710"
+      ],
+      "game": "Western Illinois University",
+      "home_away": "neutral",
+      "location": "Buffalo, NY",
+      "source_url": "https://hurstathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2385",
+      "school": "Mercyhurst",
+      "event_id": "school-2385-2026-11-22-35",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "2385"
+      ],
+      "game": "University at Albany",
+      "home_away": "neutral",
+      "location": "Buffalo, NY",
+      "source_url": "https://hurstathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2390",
+      "school": "Miami (FL)",
+      "event_id": "official-2390-2026-11-26-michiganorcreighton",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "2390"
+      ],
+      "game": "Michigan or Creighton",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
+    },
+    {
+      "school_id": "2390",
+      "school": "Miami (FL)",
+      "event_id": "official-2390-2027-01-02-pitt",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "2390"
+      ],
+      "game": "Pitt",
+      "home_away": "away",
+      "location": "Pittsburgh, Pa.",
+      "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
+    },
+    {
+      "school_id": "2390",
+      "school": "Miami (FL)",
+      "event_id": "official-2390-2027-02-13-cal",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2390"
+      ],
+      "game": "Cal",
+      "home_away": "away",
+      "location": "Berkeley, Calif.",
+      "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
+    },
+    {
+      "school_id": "2390",
+      "school": "Miami (FL)",
+      "event_id": "school-2390-2027-03-18-35",
+      "date": "2027-03-18",
+      "opponent_ids": [
+        "2390"
+      ],
+      "game": "NCAA First and Second Rounds",
+      "home_away": "neutral",
+      "location": "neutral",
+      "source_url": "https://miamihurricanes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "193",
+      "school": "Miami (OH)",
+      "event_id": "school-193-2026-11-22-5",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "193",
+        "82"
+      ],
+      "game": "UIC",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://miamiredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "193",
+      "school": "Miami (OH)",
+      "event_id": "school-193-2027-01-29-22",
+      "date": "2027-01-29",
+      "opponent_ids": [
+        "193",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "away",
+      "location": "Athens, Ohio",
+      "source_url": "https://miamiredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "130",
+      "school": "Michigan",
+      "event_id": "school-130-2027-01-23-24",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "130"
+      ],
+      "game": "USC",
+      "home_away": "away",
+      "location": "Los Angeles, Calif.",
+      "source_url": "https://mgoblue.com/sports/mens-basketball/schedule/text"
+    },
+    {
+      "school_id": "2393",
+      "school": "Middle Tenn.",
+      "event_id": "school-2393-2026-11-20-5",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "2393",
+        "218"
+      ],
+      "game": "Temple",
+      "home_away": "neutral",
+      "location": "St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://goblueraiders.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2393",
+      "school": "Middle Tenn.",
+      "event_id": "school-2393-2026-12-31-14",
+      "date": "2026-12-31",
+      "opponent_ids": [
+        "2393",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, AL",
+      "source_url": "https://goblueraiders.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
