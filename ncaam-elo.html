@@ -3,8 +3,8 @@
 <title>College Basketball Power Rankings | The Sporting Life &amp; Times</title>
 <meta name="description" content="Independent 2026–27 NCAA Division I men's basketball power rankings. All 365 programs start at 1500 Elo; verified final games update RETRO ratings.">
 <link rel="stylesheet" href="mbb-newspaper.css?v=20261029cbb">
-<link rel="stylesheet" href="mbb-elo-primary.css?v=20261029cbb">
-<script defer src="mbb-logo-system.js?v=selective-18-20261029"></script><script defer src="mbb-elo-primary.js?v=verified-365-render-20261029e"></script><link rel="stylesheet" href="mbb-logo-system.css?v=selective-18-20261029"><link rel="stylesheet" href="college-basketball-gender.css?v=wbb-20261029b"><script defer src="college-basketball-gender.js?v=wbb-20261029b"></script></head>
+<link rel="stylesheet" href="mbb-elo-primary.css?v=ranking-tabs-20261030">
+<script defer src="mbb-logo-system.js?v=selective-18-20261029"></script><script defer src="mbb-elo-primary.js?v=ranking-tabs-20261030"></script><link rel="stylesheet" href="mbb-logo-system.css?v=selective-18-20261029"><link rel="stylesheet" href="college-basketball-gender.css?v=wbb-20261029b"><script defer src="college-basketball-gender.js?v=wbb-20261029b"></script></head>
 <body class="mbb-newspaper"><div class="wrap"><header>
 <div class="topline"><a href="index.html">Independent sports journalism &amp; data</a><span>Men's Division I · 2026–27</span></div>
 <div class="masthead"><a href="index.html">The Sporting Life &amp; Times</a></div>
@@ -18,7 +18,8 @@
 <div class="eyebrow">USRS · Independent college basketball ratings</div>
 <h1 class="cbb-elo-title">College Basketball<br>Power Rankings</h1>
 <p class="cbb-elo-intro">All 365 Division I men's programs begin 2026–27 at exactly <strong>1500 Elo</strong>. The sole published USRS ranking is our independent RETRO model, rebuilt from verified final results. Historical strength and last-season player ratings do not carry over.</p>
-<div class="cbb-elo-metrics"><strong id="cbb-elo-model">RETRO · 1500 START</strong><span id="cbb-elo-meta">Connecting to verified rankings…</span></div>
+<div class="cbb-rating-tabs" role="tablist" aria-label="Ranking source"><button type="button" class="active" role="tab" aria-selected="true" data-rating="retro">RETRO Elo</button><button type="button" role="tab" aria-selected="false" data-rating="net">NCAA NET</button><button type="button" role="tab" aria-selected="false" data-rating="kenpom">KenPom</button></div><div id="cbb-rating-source" class="cbb-rating-source" aria-live="polite"></div>
+<div id="cbb-retro-content"><div class="cbb-elo-metrics"><strong id="cbb-elo-model">RETRO · 1500 START</strong><span id="cbb-elo-meta">Connecting to verified rankings…</span></div>
 <div class="cbb-elo-grid">
 <section class="cbb-elo-card" aria-label="Top ten power rankings"><h2>The USRS Power 10</h2><div id="cbb-top-ten">Reading the ratings ledger…</div></section>
 <aside class="cbb-elo-card"><h2>Matchup Calculator</h2>
@@ -37,6 +38,6 @@
 <p id="cbb-elo-fresh" class="cbb-elo-count">Checking published results…</p>
 <p class="note">Records and rankings are reconstructed from the verified RETRO game ledger. Preseason has no artificial hierarchy: all schools are tied at 1500 until results arrive. The table refreshes automatically while open. For detailed schedules, sourced rosters, news, opponent logos, and head-to-head records, select a school.</p>
 </section>
-</main>
+</div><section id="cbb-external-content" class="cbb-elo-card" hidden><h2 id="cbb-external-title"></h2><p id="cbb-external-message"></p><p><a id="cbb-external-link" target="_blank" rel="noopener noreferrer">Open official rankings ↗</a></p><p class="note">Only source-published rankings are displayed. No invented ratings or substitutions from RETRO.</p></section></main>
 <footer class="footer">The Sporting Life &amp; Times · One 1500-start RETRO ranking for men's Division I basketball. Venue classifications and broadcast fields are labeled unverified when not confirmed.</footer>
 </div><script defer src="site-access-clock.js?v=2"></script></body></html>
