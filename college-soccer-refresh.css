@@ -58,3 +58,8 @@ body[data-league="college-soccer"] .cs-conf-page .cs-conference-table img{object
 body[data-league="college-soccer"] #college-team-profile .team-monogram:has(img){background:transparent}
 body[data-league="college-soccer"] #college-team-profile .team-match-logo{object-fit:contain!important;object-position:center!important;aspect-ratio:1/1;max-width:100%}
 @media(max-width:560px){body[data-league="college-soccer"] #college-soccer-visual-desk .cs-score-side .cs-mark{width:28px;height:28px;flex-basis:28px}body[data-league="college-soccer"] #college-soccer-editorial .cs-edit-school-mark{width:25px;height:25px;flex-basis:25px}}
+
+/* When the shared palette has resolved a badge, use ONE authoritative pair of rings. */
+body[data-league="college-soccer"] .slt-dual-shell{border:2px solid var(--slt-dual-primary,#325e53)!important;background:transparent!important;box-shadow:none!important;outline:none!important}
+body[data-league="college-soccer"] .slt-dual-shell::before{inset:1px!important;border:2px solid var(--slt-dual-secondary,#9aafaa)!important;box-shadow:none!important;background:transparent!important}
+body[data-league="college-soccer"] .slt-dual-shell>img{position:absolute!important;top:50%!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important;width:76%!important;height:76%!important;max-width:76%!important;max-height:76%!important;padding:0!important;clip-path:none!important;border-radius:0!important;object-fit:contain!important}
