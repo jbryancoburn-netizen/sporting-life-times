@@ -8,6 +8,7 @@
   const menURL='ncaam.html';
   const womenURL='ncaam.html?gender=women';
   if(women&&!isFront){location.replace(womenURL);return;}
+  if(women&&params.has('team')){location.replace('ncaaw-team.html?team='+encodeURIComponent(params.get('team')));return;}
   const nav=document.querySelector('header .nav')||document.querySelector('main .nav')||document.querySelector('nav')||document.querySelector('main');
   const edition=document.querySelector('header .edition-line');
   if(!nav)return;
@@ -82,7 +83,7 @@
       (link?'<a class="wbb-game-source" href="'+link+'" target="_blank" rel="noopener noreferrer">Game details ↗</a>':'')+'</div>';
   }
   let published=[],wbbLookup=new Map(),fullCalendars=null,calendarsLoaded=false,officialBroadcasts=new Map();
-  const teamLink=t=>'ncaam.html?gender=women&team='+encodeURIComponent(t.team_id);
+  const teamLink=t=>'ncaaw-team.html?team='+encodeURIComponent(t.team_id);
   const record=t=>(t.wins||0)+'–'+(t.losses||0);
   const boardRow=(t,ranked)=>'<div class="rank-row">'+(ranked?'<span class="rank">'+esc(t.rank??'—')+'</span>':'')+
     '<a class="wbb-team-link" href="'+teamLink(t)+'">'+team({name:t.team,logo:t.logo,color:t.color})+'</a>'+
