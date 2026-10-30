@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/mbb-official-consolidated.yml'
+      - 'scripts/mbb_official_recheck_reliable.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -25,6 +26,8 @@ jobs:
           python scripts/mbb_reciprocal_official_recovery.py
           python scripts/mbb_reciprocal_game_fields.py
           python scripts/mbb_league_site_arena_reconcile.py
+      - name: Validate university schedule parser
+        run: python -m py_compile scripts/mbb_official_recheck_reliable.py
       - name: Verify four bounded groups
         shell: bash
         run: |
