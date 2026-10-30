@@ -17,7 +17,7 @@ VALID_PROVENANCE = {"official_host_2026_27_home_schedule", "official_2026_27_hos
  "reciprocal_official_game", "official_venue_game_specific", "official_school_game_specific"}
 BAD = {"", "tba", "tbd", "unknown", "n/a", "none", "-"}
 def norm(v):
-    return re.sub(r"\\s+", " ", str(v or "").strip()).casefold()
+    return re.sub(r"\s+", " ", str(v or "").strip()).casefold()
 def arena(v):
     s = str(v.get("arenaName") or "").strip()
     return s if norm(s) not in BAD else ""
@@ -130,7 +130,7 @@ def main():
             for k,rs in sorted(groups.items())]
     def put(p,v):
         p.parent.mkdir(parents=True,exist_ok=True)
-        p.write_text(json.dumps(v,indent=2,ensure_ascii=False)+"\\n",encoding="utf-8")
+        p.write_text(json.dumps(v,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     if args.write:
         for path,data in schedules.items():
             if any(f["team"]==str(data.get("espn_team_id") or path.stem) for f in fixes):
