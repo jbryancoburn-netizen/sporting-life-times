@@ -88,8 +88,18 @@ def main():
                 conference_games.append((gid, d, str(g["away_id"]), str(g["home_id"])))
         expected = int(rule["expected_distinct_conference_games"])
         if len(conference_games) != expected:
+            team_counts = collections.Counter()
+            for _, _, away_id, home_id in conference_games:
+                team_counts[away_id] += 1
+                team_counts[home_id] += 1
+            expected_per_team = expected * 2 // len(league_ids)
+            missing_by_team = {tid: expected_per_team - team_counts[tid]
+                               for tid in sorted(league_ids, key=lambda v: int(v))
+                               if team_counts[tid] != expected_per_team}
             raise RuntimeError("Conference media rule needs "+str(expected)+
                                " unique games, found "+str(len(conference_games))+
+                               "; team counts differ from "+str(expected_per_team)+
+                               ": "+str(missing_by_team)+
                                "; no conference-wide network inference allowed")
         explicitly_scheduled = {(row["date"],frozenset((str(row["away_id"]),str(row["home_id"]))))
                                 for row in researched_rows}
