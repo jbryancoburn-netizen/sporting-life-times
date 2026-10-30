@@ -18,7 +18,12 @@ def normalize(x):
 def datekey(x):
  s=str(x or "");i=re.search(r"202[67]-\d\d-\d\d",s)
  if i:return i.group()
- m=re.search(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})",s,re.I)
+ slash=re.search(r"\\b(\\d{1,2})/(\\d{1,2})/(202[67])\\b",s)
+ if slash:
+  mo,dy,yr=map(int,slash.groups())
+  try:return datetime.date(yr,mo,dy).isoformat()
+  except ValueError:return None
+ m=re.search(r"\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\.?\\s+(\\d{1,2})",s,re.I)
  if not m:return None
  mo=MONTHS[m.group(1)[:3].lower()]
  return f"{2026 if mo>=7 else 2027}-{mo:02}-{int(m.group(2)):02}"
@@ -38,7 +43,12 @@ OFFICIAL_NAME_ALIASES={
  "2916":("uiw","incarnate word"),
  "12":("arizona",),
  "25":("california",),
- "309":("louisiana",)
+ "309":("louisiana",),
+ "94":("nku",),
+ "41":("uconn",),
+ "221":("pitt",),
+ "30":("southern cal","usc"),
+ "25":("cal", "california"),
 }
 def official_opponent_matches(source,game,safe_stems):
  raw=str(source or "")
@@ -93,6 +103,7 @@ def read_source(html):
    dt=datekey(v[di])
    if not dt or not v[oi]:continue
    site=v[si].lower().strip() if si>=0 and si<len(v) else ""
+   site={"h":"home","a":"away","n":"neutral"}.get(site,site)
    opponent=v[oi].strip()
    # Handle official tables that present a Home/Away column AND an
    # opponent like "vs. Texas". The prefix must always be removed
@@ -136,9 +147,9 @@ def official_urls(tid):
  # Keep these separate from any inferred men's URL pattern.
  exact={
   "8":"https://arkansasrazorbacks.com/sport/w-baskbl/schedule/",
-  "55":"https://jaxstatesports.com/sports/womens-basketball/schedule",
+  "55":"https://jaxstatesports.com/sports/womens-basketball/schedule/text",
   "59":"https://ramblinwreck.com/sports/w-baskbl/schedule",
-  "87":"https://fightingirish.com/sports/wbball/schedule",
+  "87":"https://fightingirish.com/news/2026/10/6/tip-times-tv-schedule-womens-basketball-notre-dame",
   "99":"https://lsusports.net/sports/wbball/schedule/season/2026-27",
   "195":"https://ohiobobcats.com/sports/wbball/schedule/text",
   "213":"https://gopsusports.com/sports/womens-basketball/schedule",
@@ -169,6 +180,7 @@ def official_urls(tid):
   "2443":"https://privateersports.com/sports/womens-basketball/schedule/2026-27?grid=true",
   "2379":"https://umeshawksports.com/sports/womens-basketball/schedule",
   "2437":"https://omahamavs.com/sports/womens-basketball/schedule/text",
+  "2635":"https://soconsports.com/schedule.aspx?schedule=9206",
   "158":"https://huskers.com/sports/womens-basketball/schedule",
   "21":"https://goaztecs.com/sports/womens-basketball/schedule",
   "59":"https://ramblinwreck.com/sports/w-baskbl/schedule",
@@ -190,6 +202,65 @@ def official_urls(tid):
                 base+"/2026-27",base+"/text/2026-27"])
    break
  return list(dict.fromkeys(out))
+
+def official_visible_rows(html,tid,school_data,safe_stems):
+ """Strict fallback for the cited official 2026-27 *women's* releases.
+
+ Match only an explicitly printed date AND a uniquely identifiable opponent.
+ Never derive times, venues, game sites, or television assignments here.
+ An unmatched or ambiguous listing stays unverified.
+ """
+ soup=BeautifulSoup(html,"html.parser")
+ visible=" ".join(soup.stripped_strings)
+ if not re.search(r"2026\s*[-–]\s*27",visible[:8000],re.I):
+  return []
+ if not re.search(r"women.s basketball",visible[:8000],re.I):
+  return []
+ games=collections.defaultdict(list)
+ for g in school_data.get("games",[]):
+  date=datetime.datetime.fromisoformat(g["date"].replace("Z","+00:00")).astimezone(
+   ZoneInfo("America/New_York")).date().isoformat()
+  games[date].append(g)
+ output=[]
+ def accept(day,description):
+  # The source text, not the ESPN calendar, must explicitly identify opponent.
+  eligible=[g for g in games.get(day,[]) if official_opponent_matches(description,g,safe_stems)]
+  if len(eligible)!=1:return
+  output.append(dict(date=day,opponent=description[:240],site="",
+                     origin="official_womens_dated_schedule_extract"))
+ if tid in ("8","96"):
+  # WMT schedule cards: "Home Mon. Nov. 2 ... New Orleans" (Arkansas)
+  # or "Mon. Nov 2 vs. Morehead State ..." (Kentucky).
+  anchor=re.search(r"2026\s*[-–]\s*27\s+Women.s Basketball Schedule",visible,re.I)
+  if not anchor:return []
+  segment=visible[anchor.end():]
+  # Prevent unrelated footer/news material from becoming a schedule entry.
+  for tail in ("Powered By","Related Stories","Related Articles"):
+   i=segment.find(tail)
+   if i>=0:segment=segment[:i]
+  marker=list(re.finditer(
+   r"\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}\b",
+   segment,re.I))
+  for i,m in enumerate(marker):
+   day=datekey(m.group())
+   if day is None:continue
+   text=segment[m.end():marker[i+1].start() if i+1<len(marker) else len(segment)]
+   accept(day,text[:290])
+ elif tid=="87":
+  # Notre Dame's October 6 official per-game TV announcement prints one
+  # dated matchup per list row, although the interactive calendar is JS-only.
+  anchor=visible.find("Full TV Schedule Announced For Notre Dame Women's Basketball")
+  if anchor<0:return []
+  segment=visible[anchor:]
+  for m in re.finditer(
+   r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.?\s+(\d{1,2})\s+(?:vs\.?|at)\s+(.{2,120}?)(?=\s+[—–-]\s+|(?=\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.?\s+\d{1,2}\s+(?:vs\.?|at))|$)",
+   segment,re.I):
+   day=datekey(m.group(1)+" "+m.group(2))
+   if day:accept(day,m.group(3).strip())
+ # Avoid multiple matches for one scheduled game and exclude all disputes.
+ matches=collections.Counter(r["date"] for r in output)
+ return [r for r in output if matches[r["date"]]==1]
+
 def school(tid,school_data,safe_stems):
  result={"team_id":tid,"school":school_data["team"],"status":"no_official_url","source":None,
          "source_rows":0,"matched":0,"site_matched":0,"site_conflicts":0,"evidence":[]}
@@ -204,6 +275,8 @@ def school(tid,school_data,safe_stems):
    if urlparse(response.url).hostname!=urlparse(candidate).hostname:continue
    if "/mens-basketball/" in response.url:continue
    rows=read_source(response.text)
+   if len(rows)<5 and tid in ("8","96","87"):
+    rows=official_visible_rows(response.text,tid,school_data,safe_stems)
    if len(rows)>=5:url=response.url;break
   except requests.RequestException:pass
  if not url:result["status"]="unreadable_university_schedule";return result
