@@ -2,16 +2,16 @@
   "season": "2026-27",
   "gender": "women",
   "schools_attempted": 363,
-  "schools_with_readable_official_calendar": 356,
-  "schools_with_matched_official_calendar": 356,
-  "verified_school_count_including_prior": 356,
-  "verified_team_game_rows_including_prior": 8904,
-  "verified_unique_game_ids": 5404,
-  "official_home_away_matched": 8747,
+  "schools_with_readable_official_calendar": 357,
+  "schools_with_matched_official_calendar": 357,
+  "verified_school_count_including_prior": 357,
+  "verified_team_game_rows_including_prior": 8931,
+  "verified_unique_game_ids": 5409,
+  "official_home_away_matched": 8773,
   "official_home_away_conflicts": 90,
   "status_counts": {
-    "matched_university_games": 356,
-    "unreadable_university_schedule": 7
+    "matched_university_games": 357,
+    "unreadable_university_schedule": 6
   },
   "school_results": [
     {
@@ -2040,8 +2040,8 @@
       "status": "matched_university_games",
       "source": "https://fightinghawks.com/sports/womens-basketball/schedule",
       "source_rows": 25,
-      "matched": 17,
-      "site_matched": 17,
+      "matched": 16,
+      "site_matched": 16,
       "site_conflicts": 0
     },
     {
@@ -2237,11 +2237,11 @@
     {
       "team_id": "2437",
       "school": "Omaha Mavericks",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
-      "site_matched": 0,
+      "status": "matched_university_games",
+      "source": "https://omahamavs.com/sports/womens-basketball/schedule/text",
+      "source_rows": 33,
+      "matched": 27,
+      "site_matched": 27,
       "site_conflicts": 0
     },
     {
@@ -3646,8 +3646,8 @@
     }
   ],
   "policy": "Exact calendar date + unique opponent from official women's university schedule. No official arena, tipoff or TV claimed unless separately verified.",
-  "prior_certified_evidence_recovered": 6,
+  "prior_certified_evidence_recovered": 7,
   "previously_certified_evidence_quarantined": {},
-  "current_scan_verified_school_count": 356,
+  "current_scan_verified_school_count": 357,
   "retention_policy": "Preserve dated official women's source evidence across temporary site failures only when current unique game ID, local date and opponent still match; old site claims are not carried forward."
 }
