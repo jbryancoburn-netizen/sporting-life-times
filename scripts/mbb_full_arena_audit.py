@@ -99,6 +99,22 @@ def main():
             issue(r,"event names Western Illinois but competitor id is not 2710",competitor_ids=ids)
     groups=defaultdict(list)
     for r in entries: groups[r["key"]].append(r)
+    # Detect wrong IDs that break reciprocal pairing, even when each row
+    # individually has two plausible team IDs. These are review-only findings.
+    by_date_owner=defaultdict(list)
+    for r in entries:
+        by_date_owner[(r["date"],r["team"])].append(r)
+    for r in entries:
+        if len(r["ids"])!=2 or r["team"] not in r["ids"]: continue
+        opponent=next((t for t in r["ids"] if t!=r["team"]),None)
+        if opponent is None or opponent not in {str(s.get("espn_team_id") or p.stem)
+                                                for p,s in schedules.items()}:
+            continue
+        others=by_date_owner.get((r["date"],opponent),[])
+        if others and not any(set(o["ids"])==set(r["ids"]) for o in others):
+            issue(r,"opponent's same-date schedule contradicts matchup identity",
+                  opponent_id=opponent,
+                  opponent_event_ids=[o["event"].get("id") for o in others])
     fixes=[]
     conflicts=[]
     for key, rows in groups.items():
