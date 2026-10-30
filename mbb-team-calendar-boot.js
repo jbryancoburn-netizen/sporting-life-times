@@ -11,7 +11,7 @@ await window.MBBLogos.ready;
 const load=async url=>{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error(url+' HTTP '+r.status);return r.json();};
 try{
  const cross=await load('data/ncaam-2026-27-espn-team-crosswalk.json');
- const team=(cross.teams||[]).find(t=>t.id===selected);
+ const team=(cross.teams||[]).find(t=>t.id===selected||String(t.espn_id)===selected);
  if(!team)throw Error('Unknown basketball team '+selected);
  const path='data/mbb-schedules-2026-27/'+encodeURIComponent(team.espn_id)+'.json';
  host.hidden=false;
