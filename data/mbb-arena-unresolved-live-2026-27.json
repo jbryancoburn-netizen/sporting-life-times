@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 18,
+  "schools_scanned": 35,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -129,6 +129,125 @@
       "school": "Austin Peay",
       "source_sha": "47eef87e077b804e5553bbdf7406189a6bbc05f8",
       "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2050",
+      "school": "Ball St.",
+      "source_sha": "ce8f05249bf26eb30edf4bb865848b1adfcfb246",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "239",
+      "school": "Baylor",
+      "source_sha": "5f1b12963d3941dc1ffb722800d01cf0cbf83239",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "91",
+      "school": "Bellarmine",
+      "source_sha": "84d327f8d6fa8c90e17214152a37348161871392",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2057",
+      "school": "Belmont",
+      "source_sha": "be64098d44a3e6d55d862c5c81f1edb50aa5224d",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2065",
+      "school": "Bethune-Cookman",
+      "source_sha": "158c68322c74cf3ac58f38dc309953f92df23c05",
+      "game_count": 33,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "source_sha": "dc9568e94290934219c916be7660b20cce57d6d1",
+      "game_count": 32,
+      "missing_arena_fields": 6
+    },
+    {
+      "school_id": "68",
+      "school": "Boise St.",
+      "source_sha": "26173794b2023326c00f41760826005fa3aa9920",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "103",
+      "school": "Boston College",
+      "source_sha": "8a06cb7f8a9ff740515f1093c7c6501088b40ba5",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "104",
+      "school": "Boston U.",
+      "source_sha": "9bdb9bacf67e5d5f89fe93bccc5ed6d1733bc2f8",
+      "game_count": 31,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "189",
+      "school": "Bowling Green",
+      "source_sha": "4181242e9605a865b9876113be700cae9288c174",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "71",
+      "school": "Bradley",
+      "source_sha": "a2f7b746acf3611c489a1798cf5ca7a976601389",
+      "game_count": 30,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "225",
+      "school": "Brown",
+      "source_sha": "4caefeb839003f3c4adf0e43eb982879a32b523b",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2803",
+      "school": "Bryant",
+      "source_sha": "5673ddf5a1e938bb9ae3b9ec3d662fdacf4b33c7",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2083",
+      "school": "Bucknell",
+      "source_sha": "c4a34d6a55971cfa058a9ee6b62b8bb8a93134ae",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2084",
+      "school": "Buffalo",
+      "source_sha": "ad34b96138f6665d2e7496108adaca99b54f8823",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2086",
+      "school": "Butler",
+      "source_sha": "95ffa7e4c56ad7b77c2ddaa103c7efb190da1020",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "252",
+      "school": "BYU",
+      "source_sha": "33be7a5bf6173d37d18712038bc77efb1324f714",
+      "game_count": 31,
       "missing_arena_fields": 0
     }
   ],
@@ -609,6 +728,403 @@
       "home_away": "away",
       "location": "TBD",
       "source_url": "https://astateredwolves.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2050",
+      "school": "Ball St.",
+      "event_id": "school-2050-2027-02-20-29",
+      "date": "2027-02-20",
+      "opponent_ids": [
+        "2050",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "away",
+      "location": "Athens, Ohio",
+      "source_url": "https://ballstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "91",
+      "school": "Bellarmine",
+      "event_id": "school-91-2026-11-24-35",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "91",
+        "290"
+      ],
+      "game": "Georgia Southern University",
+      "home_away": "neutral",
+      "location": "Highland Heights, KY",
+      "source_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "91",
+      "school": "Bellarmine",
+      "event_id": "school-91-2026-12-02-47",
+      "date": "2026-12-02",
+      "opponent_ids": [
+        "91",
+        "2413"
+      ],
+      "game": "Morehead State University",
+      "home_away": "away",
+      "location": "Morehead, KY",
+      "source_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2065",
+      "school": "Bethune-Cookman",
+      "event_id": "school-2065-2026-11-02-0",
+      "date": "2026-11-02",
+      "opponent_ids": [
+        "2065",
+        "231"
+      ],
+      "game": "Furman",
+      "home_away": "neutral",
+      "location": "Rock Hill, S.C.",
+      "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2065",
+      "school": "Bethune-Cookman",
+      "event_id": "school-2065-2027-01-09-63",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2065"
+      ],
+      "game": "Grambling State",
+      "home_away": "away",
+      "location": "Grambling, La.",
+      "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2065",
+      "school": "Bethune-Cookman",
+      "event_id": "school-2065-2027-01-23-79",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2065",
+        "2296"
+      ],
+      "game": "Jackson State",
+      "home_away": "away",
+      "location": "Jackson, Miss.",
+      "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2065",
+      "school": "Bethune-Cookman",
+      "event_id": "school-2065-2027-02-06-95",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2065",
+        "2504"
+      ],
+      "game": "Prairie View A&M",
+      "home_away": "away",
+      "location": "Prairie View, Tex.",
+      "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "event_id": "school-2066-2026-11-11-15",
+      "date": "2026-11-11",
+      "opponent_ids": [
+        "2066"
+      ],
+      "game": "Misericordia University",
+      "home_away": "neutral",
+      "location": "Dallas, PA",
+      "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "event_id": "school-2066-2026-12-08-47",
+      "date": "2026-12-08",
+      "opponent_ids": [
+        "2066",
+        "2169"
+      ],
+      "game": "Delaware State University",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "event_id": "school-2066-2027-01-09-67",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2066"
+      ],
+      "game": "University at Albany",
+      "home_away": "neutral",
+      "location": "Albany, NY",
+      "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "event_id": "school-2066-2027-01-14-71",
+      "date": "2027-01-14",
+      "opponent_ids": [
+        "2066"
+      ],
+      "game": "University of Massachusetts Lowell",
+      "home_away": "neutral",
+      "location": "Lowell, MA",
+      "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "event_id": "school-2066-2027-01-18-75",
+      "date": "2027-01-18",
+      "opponent_ids": [
+        "2066"
+      ],
+      "game": "New Jersey Institute of Technology",
+      "home_away": "neutral",
+      "location": "Newark, NJ",
+      "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2066",
+      "school": "Binghamton",
+      "event_id": "school-2066-2027-03-13-135",
+      "date": "2027-03-13",
+      "opponent_ids": [
+        "2066"
+      ],
+      "game": "America East Final",
+      "home_away": "neutral",
+      "location": "",
+      "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "68",
+      "school": "Boise St.",
+      "event_id": "school-68-2026-12-21-15",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "68",
+        "2541"
+      ],
+      "game": "Santa Clara",
+      "home_away": "neutral",
+      "location": "JSerra Catholic High School (San Juan Capistrano, Calif.)",
+      "source_url": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "68",
+      "school": "Boise St.",
+      "event_id": "school-68-2026-12-23-16",
+      "date": "2026-12-23",
+      "opponent_ids": [
+        "68",
+        "167"
+      ],
+      "game": "New Mexico",
+      "home_away": "neutral",
+      "location": "JSerra Catholic High School (San Juan Capistrano, Calif.)",
+      "source_url": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "103",
+      "school": "Boston College",
+      "event_id": "school-103-2026-11-26-7",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "103",
+        "2116"
+      ],
+      "game": "UCF",
+      "home_away": "neutral",
+      "location": "Kissimmee, Fla.",
+      "source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "103",
+      "school": "Boston College",
+      "event_id": "school-103-2026-11-27-8",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "103",
+        "2132"
+      ],
+      "game": "Cincinnati",
+      "home_away": "neutral",
+      "location": "Kissimmee, Fla.",
+      "source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "104",
+      "school": "Boston U.",
+      "event_id": "school-104-2026-12-30-13",
+      "date": "2026-12-30",
+      "opponent_ids": [
+        "104",
+        "2352"
+      ],
+      "game": "Loyola Maryland",
+      "home_away": "away",
+      "location": "Baltimore, MD",
+      "source_url": "https://goterriers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "104",
+      "school": "Boston U.",
+      "event_id": "school-104-2027-01-18-19",
+      "date": "2027-01-18",
+      "opponent_ids": [
+        "104",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, NY",
+      "source_url": "https://goterriers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "71",
+      "school": "Bradley",
+      "event_id": "cross-school-71-2026-11-28_2130",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2130",
+        "71"
+      ],
+      "game": "Bradley University",
+      "home_away": "neutral",
+      "location": "",
+      "source_url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2803",
+      "school": "Bryant",
+      "event_id": "school-2803-2026-12-22-59",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "2803",
+        "2244"
+      ],
+      "game": "George Mason University",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2803",
+      "school": "Bryant",
+      "event_id": "school-2803-2027-01-07-71",
+      "date": "2027-01-07",
+      "opponent_ids": [
+        "2803"
+      ],
+      "game": "University at Albany",
+      "home_away": "away",
+      "location": "Albany, NY",
+      "source_url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2803",
+      "school": "Bryant",
+      "event_id": "school-2803-2027-01-09-75",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "2803"
+      ],
+      "game": "University of Massachusetts Lowell",
+      "home_away": "away",
+      "location": "Lowell, MA",
+      "source_url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2803",
+      "school": "Bryant",
+      "event_id": "school-2803-2027-02-27-123",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2803"
+      ],
+      "game": "New Jersey Institute of Technology",
+      "home_away": "away",
+      "location": "Newark, NJ",
+      "source_url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2083",
+      "school": "Bucknell",
+      "event_id": "school-2083-2026-11-27-8",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2083",
+        "2325"
+      ],
+      "game": "La Salle",
+      "home_away": "neutral",
+      "location": "Philadelphia, Pa. (The Palestra)",
+      "source_url": "https://bucknellbison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2083",
+      "school": "Bucknell",
+      "event_id": "school-2083-2027-01-23-22",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2083",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, N.Y.",
+      "source_url": "https://bucknellbison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2083",
+      "school": "Bucknell",
+      "event_id": "school-2083-2027-02-21-30",
+      "date": "2027-02-21",
+      "opponent_ids": [
+        "2083",
+        "2352"
+      ],
+      "game": "Loyola",
+      "home_away": "away",
+      "location": "Baltimore, Md,",
+      "source_url": "https://bucknellbison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2084",
+      "school": "Buffalo",
+      "event_id": "school-2084-2026-11-28-7",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2084",
+        "119"
+      ],
+      "game": "Towson",
+      "home_away": "neutral",
+      "location": "Philadelphia, Pa. / The Palestra",
+      "source_url": "https://ubbulls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2084",
+      "school": "Buffalo",
+      "event_id": "school-2084-2026-12-19-12",
+      "date": "2026-12-19",
+      "opponent_ids": [
+        "2084",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "away",
+      "location": "Athens, Ohio",
+      "source_url": "https://ubbulls.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
