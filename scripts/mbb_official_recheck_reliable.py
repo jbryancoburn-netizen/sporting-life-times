@@ -22,15 +22,16 @@ def rows_from_school(html):
   tr=table.find_all('tr')
   if not tr:continue
   head=[x.get_text(' ',strip=True).lower() for x in tr[0].find_all(['th','td'])]
-  def col(term):return next((i for i,h in enumerate(head) if h==term),-1)
-  datei,timei,ati,oppi,loci=[col(x) for x in ('date','time','at','opponent','location')]
-  if min(datei,ati,oppi,loci)<0:continue
+  def col(*terms):return next((i for i,h in enumerate(head) if h in terms),-1)
+  datei=col('date','game date');timei=col('time','tipoff','start time');ati=col('at','site','home/away','location type');oppi=col('opponent','team','opponent / event');loci=col('location','venue','arena','site location');tvi=col('tv','television','broadcast','network')
+  if min(datei,ati,oppi)<0:continue
   for row in tr[1:]:
    values=[x.get_text(' ',strip=True) for x in row.find_all(['td','th'])]
-   if max(datei,ati,oppi,loci)>=len(values):continue
+   if max(datei,ati,oppi)>=len(values):continue
    date=datekey(values[datei]);site=values[ati].strip().lower()
+   site={'h':'home','a':'away','n':'neutral','vs':'home','vs.':'home','@':'away','at':'away'}.get(site,site)
    if date and site in ('home','away','neutral') and values[oppi]:
-    out.append({'date':date,'site':site,'opponent':values[oppi],'location':values[loci],'time':values[timei] if timei>=0 and timei<len(values) else ''})
+    out.append({'date':date,'site':site,'opponent':values[oppi],'location':values[loci] if 0<=loci<len(values) else '', 'time':values[timei] if 0<=timei<len(values) else '', 'broadcast':values[tvi] if 0<=tvi<len(values) else ''})
  return out
 def opponent_variants(x):
  x=str(x or '').lower()
@@ -92,6 +93,13 @@ for team in teams:
    paren=re.search(r'\(([^()]+)\)',loc)
    if paren and re.search(r'Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium',paren.group(1),re.I):
     venue['arenaName']=paren.group(1).strip()
+  # Broadcast recovered only from the uniquely matched official dated game row.
+  channel=re.sub(r'\\s+',' ',row.get('broadcast','')).strip()
+  if channel and not re.fullmatch(r'(?:TBA|TBD|None|--|—|N/A)',channel,re.I) and len(channel)<100 and not comp.get('broadcasts'):
+   comp['broadcasts']=[{'name':channel,'source_url':url}]
+   event['broadcast_source_url']=url
+   item.setdefault('broadcast_corrected',0)
+   item['broadcast_corrected']+=1
   # School local tipoff stored separately; do not mislabel CT as ET.
   if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
    event['official_school_time']=row['time'];event['official_school_time_source']=url
