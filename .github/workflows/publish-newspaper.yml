@@ -196,6 +196,27 @@ jobs:
           path: '.'
       - id: deploy
         uses: actions/deploy-pages@v4
+      - name: Verify women's team pages and links on actual public Pages
+        env:
+          PAGE_URL: ${{ steps.deploy.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${PAGE_URL%/}"
+          for attempt in 1 2 3 4 5 6; do
+            if curl -fsSL --max-time 25 "$ROOT/ncaaw-team.html?team=84&release=${GITHUB_SHA}-$attempt" -o /tmp/public-ncaaw-team.html \
+              && curl -fsSL --max-time 25 "$ROOT/college-basketball-gender.js?release=${GITHUB_SHA}-$attempt" -o /tmp/public-wbb-gender.js \
+              && curl -fsSL --max-time 25 "$ROOT/ncaam.html?gender=women&release=${GITHUB_SHA}-$attempt" -o /tmp/public-wbb-front.html \
+              && grep -q 'data/ncaaw-schedules-2026-27.json' /tmp/public-ncaaw-team.html \
+              && grep -q "ncaaw-team.html?team=" /tmp/public-wbb-gender.js \
+              && grep -q 'college-basketball-gender.js' /tmp/public-wbb-front.html; then
+              echo "PASS: public Indiana women's team page, team links, and front page"
+              exit 0
+            fi
+            sleep 12
+          done
+          echo "::error::Women's basketball team pages or links absent from public Pages"
+          exit 1
       - name: Verify college football newspaper on public Pages
         env:
           PAGE_URL: ${{ steps.deploy.outputs.page_url }}
