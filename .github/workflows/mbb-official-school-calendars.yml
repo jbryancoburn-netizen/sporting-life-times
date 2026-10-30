@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'data/mbb-official-school-schedule-sources.json'
+      - 'scripts/mbb_reciprocal_game_fields.py'
 permissions:
   contents: write
 jobs:
