@@ -289,15 +289,20 @@ def school(tid,school_data,safe_stems):
   dt=datetime.datetime.fromisoformat(g["date"].replace("Z","+00:00")).astimezone(ZoneInfo("America/New_York")).date().isoformat()
   bydate[dt].append(g)
  seen=set()
+ unmatched=[]
  for r in rows:
   # Contemporary sites sometimes append arena names inside their Teams cell.
   # Only accept a school-name prefix when that prefix is unique across the
   # entire women's D-I registry (e.g. Virginia is NOT unique vs Virginia Tech).
   candidates=[g for g in bydate[r["date"]]
               if official_opponent_matches(r["opponent"],g,safe_stems)]
-  if len(candidates)!=1:continue
+  if len(candidates)!=1:
+   unmatched.append({"date":r["date"],"opponent":r["opponent"],"source_site":r.get("site",""),"reason":"no_unique_existing_game_match","candidate_game_ids":[str(g["id"]) for g in candidates]})
+   continue
   g=candidates[0]
-  if g["id"] in seen:continue
+  if g["id"] in seen:
+   unmatched.append({"date":r["date"],"opponent":r["opponent"],"source_site":r.get("site",""),"reason":"duplicate_official_source_row","candidate_game_ids":[str(g["id"])]})
+   continue
   seen.add(g["id"])
   fields=["scheduled_date","opponent"]
   if r["site"]:
@@ -306,6 +311,9 @@ def school(tid,school_data,safe_stems):
   result["evidence"].append({"team_id":tid,"game_id":g["id"],
       "verified_date":r["date"],"verified_opponent":r["opponent"],
       "verified_fields":fields,"source_url":url,"source_type":r["origin"]})
+ if tid in ("158","259","2115","2579","99"):
+  result["unmatched_official_rows"]=unmatched
+  result["unmatched_master_games"]=[{"game_id":str(g["id"]),"date":datetime.datetime.fromisoformat(g["date"].replace("Z","+00:00")).astimezone(ZoneInfo("America/New_York")).date().isoformat(),"opponent":g.get("opponent"),"opponent_id":g.get("opponent_id")} for g in school_data["games"] if g["id"] not in seen]
  result["matched"]=len(result["evidence"])
  result["status"]="matched_university_games" if result["matched"] else "zero_safe_matches"
  if not result["matched"]:
