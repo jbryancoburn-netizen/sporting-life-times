@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 52,
+  "schools_scanned": 69,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -368,6 +368,125 @@
       "source_sha": "321307fc27a7a27ce8d045a74b451e76ca892625",
       "game_count": 33,
       "missing_arena_fields": 2
+    },
+    {
+      "school_id": "232",
+      "school": "Col. of Charleston",
+      "source_sha": "8c691f5b148fd4d4e63383e7e28ade98fc1e5b9c",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2142",
+      "school": "Colgate",
+      "source_sha": "dedf39f9da7c9c9a138e8645532ee80cd0e659b1",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "38",
+      "school": "Colorado",
+      "source_sha": "63b0b28c94459b155851f427229e640e65ebbd5f",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "36",
+      "school": "Colorado St.",
+      "source_sha": "1bab4f9359dd56c6035a4cca71b0b1d2567c49d4",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "171",
+      "school": "Columbia",
+      "source_sha": "b50b0aeff178d5540d1b098b80fca9a12a44f929",
+      "game_count": 29,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2154",
+      "school": "Coppin St.",
+      "source_sha": "334e02a80b06f112ff4105f5ad90d98553ca4a01",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "172",
+      "school": "Cornell",
+      "source_sha": "4875814fda6bdffe34ddc4461063964f7865e07c",
+      "game_count": 30,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "156",
+      "school": "Creighton",
+      "source_sha": "f348392affcb830671a0beafed289ea9893dfaa9",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2934",
+      "school": "CSU Bakersfield",
+      "source_sha": "68f3e6b6e0c107184100c25148c851f725292622",
+      "game_count": 35,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2463",
+      "school": "CSUN",
+      "source_sha": "94ca5067ac2e8f8d0b4ccd50309e0a359d9b413f",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "159",
+      "school": "Dartmouth",
+      "source_sha": "1ab4c3c73e77ba1bf167f91ee27b4a3230582f04",
+      "game_count": 28,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2166",
+      "school": "Davidson",
+      "source_sha": "c636b43c474c9a02a94665d2c4ea16cc3b46b312",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2168",
+      "school": "Dayton",
+      "source_sha": "e5d6c003dc825dd11c58465e70feeb83bcd9a229",
+      "game_count": 36,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "48",
+      "school": "Delaware",
+      "source_sha": "0dc47922b42345a90f00499d8498df9ee08544a5",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2169",
+      "school": "Delaware St.",
+      "source_sha": "5b2eaeb9d5074a6a75d3c8db8c4e7d63fd1f9940",
+      "game_count": 29,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2172",
+      "school": "Denver",
+      "source_sha": "38617781f33b8ca585daccc99f6ffbb42e54c5dc",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "305",
+      "school": "DePaul",
+      "source_sha": "f73bf4b470d4cfc09394f1f6b6894e8c2df9a6d5",
+      "game_count": 34,
+      "missing_arena_fields": 0
     }
   ],
   "records": [
@@ -1589,6 +1708,416 @@
       "home_away": "away",
       "location": "Norfolk, VA",
       "source_url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "232",
+      "school": "Col. of Charleston",
+      "event_id": "school-232-2026-11-24-7",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "232",
+        "2638"
+      ],
+      "game": "UTEP",
+      "home_away": "neutral",
+      "location": "Hard Rock Riviera Maya",
+      "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "232",
+      "school": "Col. of Charleston",
+      "event_id": "school-232-2026-11-25-8",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "232"
+      ],
+      "game": "Eastern Michigan or Kennesaw State",
+      "home_away": "neutral",
+      "location": "Hard Rock Riviera Maya",
+      "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "232",
+      "school": "Col. of Charleston",
+      "event_id": "school-232-2027-01-09-19",
+      "date": "2027-01-09",
+      "opponent_ids": [
+        "232",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, N.J.",
+      "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2142",
+      "school": "Colgate",
+      "event_id": "school-2142-2027-02-03-147",
+      "date": "2027-02-03",
+      "opponent_ids": [
+        "2142",
+        "2352"
+      ],
+      "game": "Loyola",
+      "home_away": "away",
+      "location": "Baltimore, Md.",
+      "source_url": "https://colgateathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "38",
+      "school": "Colorado",
+      "event_id": "school-38-2026-10-18-0",
+      "date": "2026-10-18",
+      "opponent_ids": [
+        "38",
+        "249"
+      ],
+      "game": "North Texas",
+      "home_away": "neutral",
+      "location": "Denver, Colo.",
+      "source_url": "https://cubuffs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "38",
+      "school": "Colorado",
+      "event_id": "school-38-2026-11-07-2",
+      "date": "2026-11-07",
+      "opponent_ids": [
+        "38",
+        "21"
+      ],
+      "game": "San Diego State",
+      "home_away": "neutral",
+      "location": "San Diego, Calif.",
+      "source_url": "https://cubuffs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "38",
+      "school": "Colorado",
+      "event_id": "school-38-2026-11-24-6",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "38",
+        "24"
+      ],
+      "game": "Stanford",
+      "home_away": "neutral",
+      "location": "Palm Desert, Calif.",
+      "source_url": "https://cubuffs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "36",
+      "school": "Colorado St.",
+      "event_id": "school-36-2026-11-24-8",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "36"
+      ],
+      "game": "Providence or VCU",
+      "home_away": "neutral",
+      "location": "Lahaina, HI",
+      "source_url": "https://csurams.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "36",
+      "school": "Colorado St.",
+      "event_id": "school-36-2027-02-13-28",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "36",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "away",
+      "location": "Pullman, WA",
+      "source_url": "https://csurams.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2154",
+      "school": "Coppin St.",
+      "event_id": "school-2154-2026-11-06-7",
+      "date": "2026-11-06",
+      "opponent_ids": [
+        "2154",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2154",
+      "school": "Coppin St.",
+      "event_id": "school-2154-2026-11-14-19",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "2154"
+      ],
+      "game": "USF",
+      "home_away": "away",
+      "location": "Tampa, FL",
+      "source_url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2154",
+      "school": "Coppin St.",
+      "event_id": "school-2154-2027-01-11-79",
+      "date": "2027-01-11",
+      "opponent_ids": [
+        "2154",
+        "2569"
+      ],
+      "game": "South Carolina State",
+      "home_away": "away",
+      "location": "Orangeburg, SC",
+      "source_url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2154",
+      "school": "Coppin St.",
+      "event_id": "school-2154-2027-02-06-103",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2154",
+        "2169"
+      ],
+      "game": "Delaware State",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "172",
+      "school": "Cornell",
+      "event_id": "official-172-2026-12-02-liu",
+      "date": "2026-12-02",
+      "opponent_ids": [
+        "172",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "away",
+      "location": "Brooklyn, NY",
+      "source_url": "https://cornellbigred.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "172",
+      "school": "Cornell",
+      "event_id": "cross-school-172-2026-12-05_2142",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "2142",
+        "172"
+      ],
+      "game": "Cornell",
+      "home_away": "away",
+      "location": "Hamilton, NY",
+      "source_url": "https://colgateathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "172",
+      "school": "Cornell",
+      "event_id": "cross-school-172-2026-12-21_2405",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "2405",
+        "172"
+      ],
+      "game": "Cornell",
+      "home_away": "away",
+      "location": "West Long Branch, NJ",
+      "source_url": "https://monmouthhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "156",
+      "school": "Creighton",
+      "event_id": "school-156-2026-11-15-5",
+      "date": "2026-11-15",
+      "opponent_ids": [
+        "156",
+        "2294"
+      ],
+      "game": "Iowa",
+      "home_away": "neutral",
+      "location": "Des Moines, Iowa",
+      "source_url": "https://gocreighton.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "156",
+      "school": "Creighton",
+      "event_id": "school-156-2026-11-26-8",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "156"
+      ],
+      "game": "TCU or Miami (Fla.)",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://gocreighton.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "156",
+      "school": "Creighton",
+      "event_id": "school-156-2027-02-07-27",
+      "date": "2027-02-07",
+      "opponent_ids": [
+        "156"
+      ],
+      "game": "Connecticut",
+      "home_away": "away",
+      "location": "Hartford, Conn.",
+      "source_url": "https://gocreighton.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2934",
+      "school": "CSU Bakersfield",
+      "event_id": "school-2934-2026-10-18-1",
+      "date": "2026-10-18",
+      "opponent_ids": [
+        "2934",
+        "331"
+      ],
+      "game": "Eastern Washington (Exhib.)",
+      "home_away": "away",
+      "location": "Cheney, WA",
+      "source_url": "https://gorunners.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2934",
+      "school": "CSU Bakersfield",
+      "event_id": "school-2934-2026-11-12-15",
+      "date": "2026-11-12",
+      "opponent_ids": [
+        "2934",
+        "2710"
+      ],
+      "game": "Western Illinois",
+      "home_away": "away",
+      "location": "Macomb, IL",
+      "source_url": "https://gorunners.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2934",
+      "school": "CSU Bakersfield",
+      "event_id": "school-2934-2026-11-15-19",
+      "date": "2026-11-15",
+      "opponent_ids": [
+        "2934",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, ND",
+      "source_url": "https://gorunners.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "159",
+      "school": "Dartmouth",
+      "event_id": "school-159-2026-11-11-3",
+      "date": "2026-11-11",
+      "opponent_ids": [
+        "159"
+      ],
+      "game": "Albany",
+      "home_away": "away",
+      "location": "Albany, N.Y.",
+      "source_url": "https://dartmouthsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "159",
+      "school": "Dartmouth",
+      "event_id": "school-159-2026-11-29-7",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "159"
+      ],
+      "game": "Appalachian State",
+      "home_away": "away",
+      "location": "Boone, N.C.",
+      "source_url": "https://dartmouthsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "48",
+      "school": "Delaware",
+      "event_id": "school-48-2027-01-23-21",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "48",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://bluehens.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2169",
+      "school": "Delaware St.",
+      "event_id": "school-2169-2026-11-24-19",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2169"
+      ],
+      "game": "University of Tennessee at Chattanooga",
+      "home_away": "away",
+      "location": "Chattanooga, TN",
+      "source_url": "https://dsuhornets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2169",
+      "school": "Delaware St.",
+      "event_id": "school-2169-2026-11-28-23",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2169"
+      ],
+      "game": "North Carolina A&T State University",
+      "home_away": "away",
+      "location": "Greensboro, NC",
+      "source_url": "https://dsuhornets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2169",
+      "school": "Delaware St.",
+      "event_id": "school-2169-2026-12-15-27",
+      "date": "2026-12-15",
+      "opponent_ids": [
+        "2169"
+      ],
+      "game": "University of Connecticut",
+      "home_away": "away",
+      "location": "Storrs, CT",
+      "source_url": "https://dsuhornets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2169",
+      "school": "Delaware St.",
+      "event_id": "school-2169-2027-03-01-59",
+      "date": "2027-03-01",
+      "opponent_ids": [
+        "2169",
+        "2569"
+      ],
+      "game": "South Carolina State University",
+      "home_away": "away",
+      "location": "Orangeburg, SC",
+      "source_url": "https://dsuhornets.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2172",
+      "school": "Denver",
+      "event_id": "school-2172-2026-12-09-10",
+      "date": "2026-12-09",
+      "opponent_ids": [
+        "2172",
+        "2534"
+      ],
+      "game": "Sam Houston State",
+      "home_away": "neutral",
+      "location": "Kansas City, Mo.",
+      "source_url": "https://denverpioneers.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
