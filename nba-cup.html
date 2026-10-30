@@ -12,36 +12,56 @@ let last=[],ratings={},ledger=null;
 function draw(){const games=last.filter(g=>fixtureKeys.has(officialKey(date(g.date),g.a,g.h)));const scores=Object.fromEntries(Object.values(groups).flat().map(t=>[t,{w:0,l:0,d:0}]));for(const g of games){if(g.state!=='post'||!Number.isFinite(g.as)||!Number.isFinite(g.hs)||g.as===g.hs)continue;const a=scores[g.a],h=scores[g.h];a.d+=g.as-g.hs;h.d+=g.hs-g.as;if(g.as>g.hs){a.w++;h.l++}else{h.w++;a.l++}}document.getElementById('tables').innerHTML=Object.entries(groups).map(([key,teams])=>'<div class="cup-card"><h3>'+({'W':'West','E':'East'}[key[0]])+' Group '+key[1]+'</h3><div class="cup-row"><b style="text-align:left">TEAM</b><b>W</b><b>L</b><b>DIFF</b></div>'+teams.slice().sort((a,b)=>scores[b].w-scores[a].w||scores[b].d-scores[a].d||a.localeCompare(b)).map(t=>'<div class="cup-row">'+club(t)+'<span>'+scores[t].w+'</span><span>'+scores[t].l+'</span><span>'+(scores[t].d>0?'+':'')+scores[t].d+'</span></div>').join('')+'</div>').join('');document.getElementById('fixtures').innerHTML=officialFixtures.length?(ledger?.fixtures||officialFixtures.map(([d,a,h])=>({date:d,away:a,home:h,time_et:null,broadcast:'TBA'}))).map(f=>{let g=games.find(x=>date(x.date)===f.date&&x.a===f.away&&x.h===f.home);return {...(g||{date:f.date+'T12:00:00-05:00',a:f.away,h:f.home,state:'pre',id:null}),cupTime:f.time_et,cupBroadcast:f.broadcast,cupVenue:f.venue}}).sort((a,b)=>a.date.localeCompare(b.date)).map(g=>'<article class="cup-game"><small>'+member[g.a]+' · '+(g.state==='post'?'FINAL':g.state==='in'?'LIVE':(g.cupTime?new Date(g.date.slice(0,10)+'T'+g.cupTime+':00-04:00').toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'Time TBA'))+'</small><div class="cup-game-line">'+club(g.a)+(g.state==='pre'?'':'<strong>'+g.as+'</strong>')+'</div><div class="cup-game-line">'+club(g.h)+(g.state==='pre'?'':'<strong>'+g.hs+'</strong>')+'</div><a href="nba-game-center.html?game='+encodeURIComponent(g.id)+'">Game Center →</a></article>').join(''):'<p class="cup-note">No Cup fixtures yet in the published rolling feed.</p>'}
 
 function project(){
-const finished=new Map(last.filter(g=>g.state==='post'&&fixtureKeys.has(officialKey(date(g.date),g.a,g.h))&&Number.isFinite(g.as)&&Number.isFinite(g.hs)).map(g=>[officialKey(date(g.date),g.a,g.h),g]));
-const counts=Object.fromEntries(Object.values(groups).flat().map(t=>[t,0])),wins=Object.fromEntries(Object.values(groups).flat().map(t=>[t,0]));
-const scoresOf=()=>Object.fromEntries(Object.values(groups).flat().map(t=>[t,{w:0,d:0}]));
-let topField=null;
-for(let run=0;run<2000;run++){
- const score=scoresOf();
+ const played=new Map(last.filter(g=>g.state==='post'&&fixtureKeys.has(officialKey(date(g.date),g.a,g.h))&&Number.isFinite(g.as)&&Number.isFinite(g.hs)).map(g=>[officialKey(date(g.date),g.a,g.h),g]));
+ const teams=Object.values(groups).flat(), counts=Object.fromEntries(teams.map(t=>[t,0])),wins=Object.fromEntries(teams.map(t=>[t,0])),titles=Object.fromEntries(teams.map(t=>[t,0]));
+ const outcomes=new Map(), seedCounts={};
+ function calc(){
+ const score=Object.fromEntries(teams.map(t=>[t,{w:0,l:0,d:0,pf:0}]));
+ const head=new Map();
  for(const [d,a,h] of officialFixtures){
- const actual=finished.get(officialKey(d,a,h));
- let diff;
- if(actual){diff=actual.hs-actual.as}
- else{const advantage=(ratings[h]??1500)-(ratings[a]??1500)+40;const p=1/(1+Math.pow(10,-advantage/400));const winner=Math.random()<p?1:-1;diff=winner*(1+Math.floor(Math.random()*18));}
- if(diff>0)score[h].w++;else score[a].w++;
- score[h].d+=diff;score[a].d-=diff;
+  let actual=played.get(officialKey(d,a,h)),margin;
+  if(actual){margin=actual.hs-actual.as}
+  else{const delta=(ratings[h]??1500)-(ratings[a]??1500)+40,prob=1/(1+Math.pow(10,-delta/400)); const u=Math.random(); const win=u<prob?1:-1; const abs=Math.max(1,Math.round(Math.exp(2.12+0.54*Math.sqrt(-2*Math.log(Math.max(.000001,Math.random())))*Math.cos(2*Math.PI*Math.random()))));margin=win*Math.min(50,abs)}
+  let scA=actual?actual.as:Math.max(70,Math.round(113-margin/2)),scH=actual?actual.hs:scA+margin;
+  let adjMargin=margin;
+  // Overtime scores cannot be reconstructed reliably from a final score alone.
+  // Do not assert official point-differential standing when the required regulation data is missing.
+  if(actual && actual.overtime){adjMargin=0;}
+  score[a].d-=adjMargin;score[h].d+=adjMargin;score[a].pf+=scA;score[h].pf+=scH;
+  if(margin>0){score[h].w++;score[a].l++;head.set(a+'|'+h,h);head.set(h+'|'+a,h)}
+  else{score[a].w++;score[h].l++;head.set(a+'|'+h,a);head.set(h+'|'+a,a)}
  }
- const compare=(a,b)=>score[b].w-score[a].w||score[b].d-score[a].d||(ratings[b]||1500)-(ratings[a]||1500);
- const qualifiers=[];
+ const compare=(a,b,sameGroup=false)=>{
+  const x=score[a],y=score[b];
+  if(x.w!==y.w)return y.w-x.w;
+  if(sameGroup && head.has(a+'|'+b))return head.get(a+'|'+b)===a?-1:1;
+  return y.d-x.d||y.pf-x.pf||(ratings[b]??1500)-(ratings[a]??1500)||a.localeCompare(b);
+ };
+ const seeds={};
  for(const conference of ['E','W']){
- const winners=['A','B','C'].map(k=>groups[conference+k].slice().sort(compare)[0]);
- const nonwinners=Object.values(groups).filter((v,i)=>Object.keys(groups)[i].startsWith(conference)).flat().filter(t=>!winners.includes(t));
- const wildcard=nonwinners.sort(compare)[0];
- winners.forEach(t=>wins[t]++);
- qualifiers.push(...winners,wildcard);
+  const leaders=['A','B','C'].map(k=>groups[conference+k].slice().sort((a,b)=>compare(a,b,true))[0]);
+  const second=['A','B','C'].map(k=>groups[conference+k].slice().sort((a,b)=>compare(a,b,true))[1]);
+  const wildcard=second.sort((a,b)=>compare(a,b,false))[0];
+  const field=[...leaders,wildcard].sort((a,b)=>compare(a,b,false));
+  seeds[conference]=field; leaders.forEach(t=>wins[t]++);field.forEach(t=>counts[t]++);
  }
- qualifiers.forEach(t=>counts[t]++);
- if(run===0)topField=qualifiers;
-}
-document.getElementById('probabilities').innerHTML=Object.entries(groups).map(([key,teams])=>'<div class="cup-card"><h3>'+({E:'East',W:'West'}[key[0]])+' Group '+key[1]+'</h3>'+teams.slice().sort((a,b)=>counts[b]-counts[a]).map(t=>'<div class="cup-prob">'+club(t)+'<b>'+(wins[t]/20).toFixed(1)+'% win</b><small>'+(counts[t]/20).toFixed(1)+'% advance</small><div class="cup-progress"><span style="width:'+(counts[t]/20).toFixed(1)+'%"></span></div></div>').join('')+'</div>').join('');
-const ranked=conference=>Object.values(groups).filter((v,i)=>Object.keys(groups)[i].startsWith(conference)).flat().slice().sort((a,b)=>counts[b]-counts[a]).slice(0,4);
-const E=ranked('E'),W=ranked('W');
-document.getElementById('cup-bracket').innerHTML=['East','West'].map((c,i)=>{const t=i?W:E;return '<div><b>'+c+' · Projected Quarterfinalists</b><p class="cup-note">Most likely to advance (not official seeding)</p>'+t.map(x=>'<p>'+club(x)+' <small>'+(counts[x]/20).toFixed(1)+'%</small></p>').join('')+'</div>'}).join('')+'<div><b>Semifinals / Championship</b><p>Dec. 8–9: TBD</p><p>Dec. 11: Championship · Indianapolis</p><p class="cup-note">Verified qualifiers and pairings appear after group play.</p></div>';
+ const winGame=(a,h)=>Math.random()<1/(1+Math.pow(10,-((ratings[h]??1500)-(ratings[a]??1500)+40)/400))?h:a;
+ // In each conference, 1 hosts wildcard and 2 hosts 3.
+ const east=seeds.E,west=seeds.W;
+ const champ=(s)=>{const q1=winGame(s[3],s[0]),q2=winGame(s[2],s[1]);return winGame(q1===s[0]?q2:q1,q1===s[0]?q1:q2)};
+ const finalE=champ(east), finalW=champ(west);
+ const final=winGame(finalE,finalW); titles[final]++;
+ return {seeds,score};
+ }
+ let sample;
+ const simulations=3000;
+ for(let n=0;n<simulations;n++){const result=calc();if(n===0)sample=result;}
+ document.getElementById('probabilities').innerHTML=Object.entries(groups).map(([key,list])=>'<div class="cup-card"><h3>'+({E:'East',W:'West'}[key[0]])+' Group '+key[1]+'</h3>'+list.slice().sort((a,b)=>counts[b]-counts[a]).map(t=>'<div class="cup-prob">'+club(t)+'<b>'+(100*wins[t]/simulations).toFixed(1)+'% win</b><small>'+(100*counts[t]/simulations).toFixed(1)+'% advance</small><div class="cup-progress"><span style="width:'+(100*counts[t]/simulations).toFixed(1)+'%"></span></div></div>').join('')+'</div>').join('');
+ const seedHTML=conference=>{
+ const t=sample.seeds[conference];
+ return '<div><b>'+({E:'Eastern',W:'Western'}[conference])+' Conference · Illustrative Bracket</b><p class="cup-note">Simulation sample, not an official NBA seed assignment</p>'+[[t[3],t[0]],[t[2],t[1]]].map(pair=>'<p>'+club(pair[0])+' <b>at</b> '+club(pair[1])+'</p>').join('')+'</div>';
+ };
+ document.getElementById('cup-bracket').innerHTML=seedHTML('E')+seedHTML('W')+'<div><b>Championship Probability</b>'+teams.slice().sort((a,b)=>titles[b]-titles[a]).slice(0,8).map(t=>'<p>'+club(t)+' <strong>'+(100*titles[t]/simulations).toFixed(1)+'%</strong></p>').join('')+'<small>Simulated outcomes · Includes home advantage · Championship neutral</small></div>';
 }
 
 async function refresh(){try{const q='?v='+Math.floor(Date.now()/60000);const [a,b,elo,cup]=await Promise.all(['data/nba-upcoming-schedule.json','data/nba-game-center.json','data/nba-elo-shadow-2026-27.json','data/nba-cup-2026.json'].map(p=>fetch(p+q,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}))); ledger=cup;ratings=Object.fromEntries((elo.rankings||[]).map(x=>[x.team,Number(x.elo)]));const map=new Map();for(const raw of [...(a.games||[]),...(b.games||[])]){const g=decode(raw);if(!g||!g.id)continue;const old=map.get(g.id);if(!old||({post:3,in:2,pre:1}[g.state]||0)>({post:3,in:2,pre:1}[old.state]||0))map.set(g.id,g)}last=[...map.values()];document.getElementById('status').textContent='Feed updated '+format(a.updated_at||new Date())+' · Auto-refresh every 5 minutes.'}catch(e){document.getElementById('status').textContent='Score feed temporarily unavailable; official group assignments remain visible.'}draw();project()}draw();refresh();setInterval(refresh,300000);
