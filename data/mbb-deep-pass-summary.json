@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-10-30T02:32:11.055274+00:00",
+  "baseline_commit": "83d5afaaa1326876b1ab4bc9d5a495421f49a8c4",
+  "schools_checked": 365,
+  "calendars_changed": 120,
+  "baseline": {
+    "schools": 365,
+    "schools_with_all_fields_present": 12,
+    "games": 11763,
+    "missing_broadcast": 5646,
+    "missing_arena": 2708,
+    "missing_site": 312,
+    "missing_tipoff": 845,
+    "missing_city": 261
+  },
+  "after": {
+    "schools": 365,
+    "schools_with_all_fields_present": 12,
+    "games": 11763,
+    "missing_broadcast": 5434,
+    "missing_arena": 2696,
+    "missing_site": 310,
+    "missing_tipoff": 888,
+    "missing_city": 258
+  },
+  "tipoff_repairs": {
+    "schools_changed": 52,
+    "corrected_tipoffs": 1231,
+    "invalid_values_removed_unresolved": 80,
+    "cached_evidence_rows_repaired": 1487,
+    "invalid_values_removed_existing_alternate_time": 124,
+    "actual_clocks_recovered": 1150,
+    "official_TBA_recovered": 81
+  },
+  "tests_passed": 37,
+  "validation": {
+    "all_11763_game_ids_dates_and_opponent_ids_preserved": true,
+    "known_non_time_labels_remaining": 0
+  },
+  "source_conflicts_quarantined": [
+    {
+      "date": "2026-10-24",
+      "teams": [
+        "2010",
+        "2174"
+      ],
+      "claimed": [
+        "away",
+        "neutral"
+      ],
+      "reason": "official opponent schedules contradict on home-away-neutral"
+    },
+    {
+      "date": "2026-11-29",
+      "teams": [
+        "2261",
+        "44"
+      ],
+      "claimed": [
+        "home",
+        "neutral"
+      ],
+      "reason": "official opponent schedules contradict on home-away-neutral"
+    },
+    {
+      "date": "2027-02-27",
+      "teams": [
+        "2029",
+        "2400"
+      ],
+      "claimed": [
+        "home",
+        "home"
+      ],
+      "reason": "official opponent schedules contradict on home-away-neutral"
+    },
+    {
+      "date": "2026-12-05",
+      "teams": [
+        "140",
+        "2184"
+      ],
+      "claimed": [
+        "neutral",
+        "away"
+      ],
+      "reason": "official opponent schedules contradict on home-away-neutral"
+    },
+    {
+      "date": "2026-11-29",
+      "teams": [
+        "2697",
+        "52"
+      ],
+      "claimed": [
+        "neutral",
+        "away"
+      ],
+      "reason": "official opponent schedules contradict on home-away-neutral"
+    },
+    {
+      "date": "2026-12-21",
+      "teams": [
+        "2571",
+        "2739"
+      ],
+      "claimed": [
+        "away",
+        "neutral"
+      ],
+      "reason": "official opponent schedules contradict on home-away-neutral"
+    }
+  ],
+  "note": "Field presence is not full schedule certification. Six conflicting official site claims remain explicitly unverified; missing broadcasters and facilities are not inferred."
+}

@@ -169,7 +169,19 @@ def parse(html, own_names=()):
   mo='jan feb mar apr may jun jul aug sep oct nov dec'.split().index(m[1].lower())+1
   date=f'{2026 if mo>=7 else 2027}-{mo:02d}-{int(m[2]):02d}'
   spans=card.select('.sidearm-schedule-game-opponent-date > span')
-  time=spans[-1].get_text(' ',strip=True) if len(spans)>1 else ''
+  # Mobile-only siblings also contain TV/radio labels. Select an actual
+  # clock value, never the last span indiscriminately.
+  clocks=[n.get_text(' ',strip=True) for n in spans[1:]
+          if re.fullmatch(r'(?:\d{1,2}(?::\d{2})?\s*[AP]\.?M\.?|Noon|Midnight|TBA|TBD)(?:\s*\(?(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)\)?)?', n.get_text(' ',strip=True),re.I)]
+  time=clocks[0] if len(set(clocks))==1 else ''
+  if not time:
+   # Compact SIDEARM layouts omit the visible clock but retain it in the
+   # game-local opponent link's accessible label: '<team> on November 2 7 PM'.
+   accessible=[]
+   for link in card.select('.sidearm-schedule-game-opponent-name a[aria-label]'):
+    match=re.search(r'\bon [A-Za-z]+ \d{1,2}\s+(.+)$',link.get('aria-label',''))
+    if match and re.fullmatch(r'(?:\d{1,2}(?::\d{2})?\s*[AP]\.?M\.?|Noon|Midnight|TBA|TBD)(?:\s*\(?(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)\)?)?',match[1],re.I):accessible.append(match[1])
+   if len(set(accessible))==1:time=accessible[0]
   location=card.select_one('.sidearm-schedule-game-location')
   parts=[x.get_text(' ',strip=True) for x in location.find_all('span',recursive=False)] if location else []
   city=parts[0] if parts else ''
@@ -292,7 +304,10 @@ def run(team, captured_html=None, captured_url=None):
   v=c.setdefault('venue',{})
   put(v,'arenaName',row['arena'],'arena_source_url')
   put(v,'official_school_city',row['city'],'city_source_url')
-  if row['time']:put(e,'official_school_time',row['time'],'official_school_time_source')
+  # A generic TBA from the school must not replace an already announced clock.
+  existing_time=e.get('official_school_time') or e.get('official_time') or ''
+  if row['time'] and not (row['time'].upper() in ('TBA','TBD') and existing_time and existing_time.upper() not in ('TBA','TBD')):
+   put(e,'official_school_time',row['time'],'official_school_time_source')
   if row['tv']:
    old=[n for b in c.get('broadcasts',[]) for n in b.get('names',[])]
    if old!=[row['tv']]:c['broadcasts']=[{'names':[row['tv']],'source_url':r.url}];result['fields']+=1
