@@ -51,6 +51,26 @@ OFFICIAL_NAME_ALIASES={
  "41":("uconn",),
  "221":("pitt",),
  "30":("southern cal","usc"),
+ "2653":("troy",),
+ "161":("fdu","fairleigh dickinson",),
+ "153":("north carolina","unc"),
+ "2466":("northwestern state",),
+ "248":("houston",),
+ "2016":("alcorn state",),
+ "2428":("nc central","north carolina central"),
+ "48":("delaware",),
+ "2670":("vcu",),
+ "2430":("uncg","unc greensboro"),
+ "2633":("tennessee",),
+ "2305":("kansas",),
+ "2437":("omaha",),
+ "2294":("iowa",),
+ "155":("north dakota",),
+ "245":("texas a&m",),
+ "120":("maryland",),
+ "526":("fgcu","florida gulf coast",),
+ "150":("duke",),
+ "26":("ucla",),
  "25":("cal", "california"),
 }
 def official_opponent_matches(source,game,safe_stems):
@@ -68,7 +88,10 @@ def official_opponent_matches(source,game,safe_stems):
  aliases=OFFICIAL_NAME_ALIASES.get(oppid,())
  for alias in aliases:
   key=normalize(alias)
-  if not (text.startswith(key) or (len(segments)==1 and key in full)):
+  # Require a visible word boundary after an alias: Texas must not match
+  # Texas A&M, nor North Carolina accidentally match North Carolina State.
+  display=re.sub(r"^\s*(?:vs\.?|at|@)\s+","",tail,flags=re.I).strip()
+  if not re.match(r"^"+re.escape(alias)+r"(?=$|[\s,.(\-])",display,re.I):
    continue
   if oppid=="12" and text.startswith("arizonastate"):
    continue
