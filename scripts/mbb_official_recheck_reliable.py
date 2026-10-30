@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify first 100 NCAA MBB team schedules from the school athletics websites.
+"""Verify a selected NCAA MBB schedule batch from official school athletics websites.
 Only exact date + opponent matches may modify existing records.
 """
 import json, re, pathlib, datetime, collections, time, os
@@ -51,10 +51,15 @@ for team in teams:
    candidates.append(url.replace('/schedule/text/','/schedule/').replace('/2026-27','/2026'))
   if '/schedule/' in url and '/schedule/text/' not in url:
    candidates.append(url.replace('/schedule/','/schedule/text/'))
+  # Calendar URLs vary across Sidearm installations and school-specific paths.
+  if '/schedule/2026-27' in url:
+   candidates.append(url.replace('/schedule/2026-27','/schedule/2026'))
+  if '/schedule/text' in url and '/2026-27' not in url:
+   candidates.append(url.rstrip('/')+'/2026-27')
   school=[]
-  for candidate in list(dict.fromkeys(candidates))[:2]:
+  for candidate in list(dict.fromkeys(candidates))[:4]:
    try:
-    response=client.get(candidate,timeout=4);response.raise_for_status()
+    response=client.get(candidate,timeout=10);response.raise_for_status()
     school=rows_from_school(response.text)
     if school:
      url=candidate
@@ -102,12 +107,14 @@ for team in teams:
    item['broadcast_corrected']+=1
   # School local tipoff stored separately; do not mislabel CT as ET.
   if row['time'] and 'TBD' not in row['time'].upper() and 'TBA' not in row['time'].upper():
-   event['official_school_time']=row['time'];event['official_school_time_source']=url
+   if event.get('official_school_time')!=row['time']:
+    event['official_school_time']=row['time'];event['official_school_time_source']=url
+    item.setdefault('tipoffs_corrected',0);item['tipoffs_corrected']+=1
  if item['matched']:
   path.write_text(json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n')
   item['status']='verified_matches'
  else:item['status']='no_safe_matches'
- totals.update({k:item[k] for k in ('matched','site_corrected','location_corrected')})
+ totals.update({k:item.get(k,0) for k in ('matched','site_corrected','location_corrected','broadcast_corrected','tipoffs_corrected')})
  results.append(item)
 report={'schools_targeted':len(teams),'schools_checked':len(results),'totals':dict(totals),'status_counts':dict(collections.Counter(x['status'] for x in results)),'method':'Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone','schools':results}
 (root/('data/mbb-official-recheck-'+os.getenv('BATCH_NAME','365')+'-verification.json')).write_text(json.dumps(report,indent=2)+'\n')
