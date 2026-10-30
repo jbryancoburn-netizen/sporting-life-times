@@ -1,0 +1,20 @@
+/* NBL club box-score derived statistics. Coverage explicit; no estimated values. */
+(()=>{'use strict';const mount=document.getElementById('nbl-club-box-statistics');if(!mount)return;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const numeric=(p,k)=>{const x=p.stats?.[k];return x===undefined||x===null||x===''?null:Number.isFinite(Number(x))?Number(x):null;};
+const pair=(p,k)=>{const v=p.stats?.[k];if(!v||!/\d+\s*-\s*\d+/.test(String(v)))return [null,null];return String(v).split('-').map(Number)};
+const fmt=(n,d=1)=>Number.isFinite(n)?n.toFixed(d):'—';
+const rowsFor=(box,selected)=>box.games.filter(g=>g.teams?.some(t=>t.team===selected)).map(g=>({game:g,team:g.teams.find(t=>t.team===selected)}));
+function update(box){const selected=new URLSearchParams(location.search).get('team')||document.getElementById('nbl-club-picker')?.value||'';
+const rows=rowsFor(box,selected);if(!selected||!rows.length){mount.innerHTML='<h2>Player and team performance</h2><p>No box-score lines available for this club in the current archive.</p>';return;}
+const players=new Map();let totals={pts:0,opp:0,reb:0,ast:0,stl:0,blk:0,tov:0,fgm:0,fga:0,tpm:0,tpa:0,ftm:0,fta:0};
+for(const {game:g,team:t} of rows){totals.pts+=Number(g.home===selected?g.home_score:g.away_score)||0;totals.opp+=Number(g.home===selected?g.away_score:g.home_score)||0;
+for(const p of t.players||[]){const key=p.id||p.name;let a=players.get(key)||{name:p.name,gp:0,pts:0,reb:0,ast:0,stl:0,blk:0,fgm:0,fga:0,tpm:0,tpa:0};a.gp++;
+for(const [target,source] of [['pts','points'],['reb','rebounds'],['ast','assists'],['stl','steals'],['blk','blocks']]){const n=numeric(p,source);if(n!==null){a[target]+=n;totals[target]+=n;}}
+const f=pair(p,'fieldGoalsMade-fieldGoalsAttempted'),t3=pair(p,'threePointFieldGoalsMade-threePointFieldGoalsAttempted'),ft=pair(p,'freeThrowsMade-freeThrowsAttempted');for(const [target,v] of [['fgm',f[0]],['fga',f[1]],['tpm',t3[0]],['tpa',t3[1]],['ftm',ft[0]],['fta',ft[1]]])if(v!==null){a[target]=(a[target]||0)+v;totals[target]+=v;}
+totals.tov+=numeric(p,'turnovers')||0;players.set(key,a);}}
+const gp=rows.length,percent=(a,b)=>b?fmt(100*a/b,1)+'%':'—';const athletes=[...players.values()].sort((a,b)=>b.pts/b.gp-a.pts/a.gp);const cards=[['Points per game',fmt(totals.pts/gp)],['Opp. points per game',fmt(totals.opp/gp)],['Rebounds per game',fmt(totals.reb/gp)],['Assists per game',fmt(totals.ast/gp)],['Steals per game',fmt(totals.stl/gp)],['Blocks per game',fmt(totals.blk/gp)],['Turnovers per game',fmt(totals.tov/gp)],['FG%',percent(totals.fgm,totals.fga)],['3PT%',percent(totals.tpm,totals.tpa)],['FT%',percent(totals.ftm,totals.fta)]];
+mount.innerHTML='<h2>Club performance · '+esc(selected)+'</h2><p>Calculated from '+gp+' archived game box scores. Team shooting figures sum available player shooting lines, and are not separately officially reconciled.</p><div class="nbl-stat-grid">'+cards.map(([k,v])=>'<div><small>'+esc(k)+'</small><strong>'+v+'</strong></div>').join('')+'</div><h3>Player production</h3><div style="overflow-x:auto"><table class="nbl-club-stat-table"><thead><tr><th>Player</th><th>GP</th><th>PPG</th><th>RPG</th><th>APG</th><th>SPG</th><th>BPG</th><th>FG%</th></tr></thead><tbody>'+athletes.map(a=>'<tr><th>'+esc(a.name)+'</th><td>'+a.gp+'</td><td>'+fmt(a.pts/a.gp)+'</td><td>'+fmt(a.reb/a.gp)+'</td><td>'+fmt(a.ast/a.gp)+'</td><td>'+fmt(a.stl/a.gp)+'</td><td>'+fmt(a.blk/a.gp)+'</td><td>'+percent(a.fgm,a.fga)+'</td></tr>').join('')+'</tbody></table></div>';
+}
+fetch('data/nbl-player-boxscores.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(box=>{update(box);document.getElementById('nbl-club-picker')?.addEventListener('change',()=>setTimeout(()=>update(box),0));}).catch(()=>{mount.innerHTML='<p>Archived player statistics are currently unavailable.</p>';});
+})();
