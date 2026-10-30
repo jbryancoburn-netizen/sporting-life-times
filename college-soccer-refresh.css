@@ -1,0 +1,46 @@
+/* October 2026 NCAA soccer editorial redesign. Overrides only; data renderers unchanged. */
+body[data-league="college-soccer"]{--cs-ink:#172b32;--cs-green:#14584d;--cs-accent:#bf8d38;--cs-paper:#faf9f5;background:#faf9f5;color:#172b32}
+body[data-league="college-soccer"] .league-hub{max-width:1400px;margin:auto;padding:clamp(14px,2vw,30px);background:#fff}
+body[data-league="college-soccer"] .hub-kicker{font:800 10px/1.3 Arial,sans-serif;letter-spacing:.22em;color:#277061;margin:12px 0 6px}
+body[data-league="college-soccer"] .league-hub>h1{font:800 clamp(32px,5.2vw,66px)/.96 Georgia,serif;letter-spacing:-.055em;color:#142c2b;margin:4px 0 9px}
+body[data-league="college-soccer"] .hub-intro{max-width:840px;font:15px/1.55 Georgia,serif;color:#536460;margin:0 0 18px}
+body[data-league="college-soccer"] .hub-nav{display:flex;flex-wrap:wrap;gap:6px;border-block:1px solid #d8dfda;padding:9px 0}
+body[data-league="college-soccer"] .hub-nav a{font:700 10px Arial,sans-serif;letter-spacing:.035em;padding:7px 10px;color:#204a45;text-decoration:none;background:#f3f6f2}
+body[data-league="college-soccer"] .soccer-visual-edition{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,260px);background:#113d37;color:#fff;padding:clamp(20px,3vw,38px);margin:18px 0 12px;border-top:5px solid #c7a15a;gap:24px;align-items:stretch}
+body[data-league="college-soccer"] .cs-hero-eyebrow{font:800 10px/1.4 Arial,sans-serif;letter-spacing:.19em;color:#c9dcd3}
+body[data-league="college-soccer"] .cs-hero-eyebrow span{color:#d7aa57;padding:0 8px}
+body[data-league="college-soccer"] .cs-hero-copy h2{font:700 clamp(32px,5vw,64px)/1.02 Georgia,serif;letter-spacing:-.045em;color:#fff;margin:16px 0 13px;max-width:720px}
+body[data-league="college-soccer"] .cs-hero-copy p{font:15px/1.5 Georgia,serif;color:#dceae2;margin:0 0 23px;max-width:640px}
+body[data-league="college-soccer"] .cs-hero-links{display:flex;flex-wrap:wrap;gap:10px}
+body[data-league="college-soccer"] .cs-hero-links a{font:800 10px Arial,sans-serif;letter-spacing:.06em;color:#fff;text-decoration:none;border-bottom:1px solid #a6c4b5;padding-bottom:5px}
+body[data-league="college-soccer"] .cs-hero-aside{border-left:1px solid #62877b;padding:10px 0 8px 25px;display:flex;flex-direction:column;gap:7px}
+body[data-league="college-soccer"] .cs-hero-aside>span{color:#d6bd83;font:800 10px Arial,sans-serif;letter-spacing:.12em}
+body[data-league="college-soccer"] .cs-hero-aside strong{font:700 clamp(60px,7vw,100px)/1 Georgia,serif;letter-spacing:-.075em}
+body[data-league="college-soccer"] .cs-hero-aside small{font:700 10px Arial,sans-serif;letter-spacing:.1em;color:#d7e6dc}
+body[data-league="college-soccer"] .cs-hero-aside a{background:#edeee6;color:#163e36;text-align:center;padding:13px 10px;margin-top:auto;font:800 10px Arial,sans-serif;letter-spacing:.04em;text-decoration:none}
+body[data-league="college-soccer"] :is(#college-soccer-visual-desk,#college-soccer-editorial,#college-soccer-conference-index,#cs-showcase){margin-block:13px 24px}
+body[data-league="college-soccer"] :is(.cs-main-heading,.cs-section-title,.cs-edit-heading,.cs-conf-directory-heading){border-top:3px solid #19574b;padding:11px 0 8px}
+body[data-league="college-soccer"] :is(.cs-section-title h3,.cs-edit-heading h2,.cs-conf-directory-heading h2){font:700 clamp(17px,1.7vw,23px) Georgia,serif;color:#173b34}
+body[data-league="college-soccer"] .cs-score-rail{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;background:#fff;border:1px solid #d5ded9}
+body[data-league="college-soccer"] .cs-score-tile{padding:13px 12px;transition:background .15s}
+body[data-league="college-soccer"] .cs-score-tile:hover{background:#f0f5f0}
+body[data-league="college-soccer"] .cs-score-side{border-radius:0}
+body[data-league="college-soccer"] .cs-columns{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px}
+body[data-league="college-soccer"] .cs-choice{border:1px solid #bacdc5;border-radius:0;background:#f4f7f4;color:#1e4c42;padding:8px 12px}
+body[data-league="college-soccer"] .cs-choice.active{background:#14584d;color:white;border-color:#14584d}
+body[data-league="college-soccer"] .cs-table-scroll{border:1px solid #dbe3df;max-height:620px}
+body[data-league="college-soccer"] .cs-table th{background:#eaf0ec;color:#284e44;letter-spacing:.05em;padding:10px 7px}
+body[data-league="college-soccer"] .cs-table td{padding:9px 7px;border-bottom:1px solid #e6ebe7}
+body[data-league="college-soccer"] .cs-table tbody tr:nth-child(even){background:#f8faf8}
+body[data-league="college-soccer"] .cs-table tbody tr:hover{background:#eaf3ed}
+body[data-league="college-soccer"] .cs-power-track{height:6px;background:#dbe7df}
+body[data-league="college-soccer"] .cs-power-track i{background:#287561}
+body[data-league="college-soccer"] .cs-mark{background:#e8eee9;color:#184d40}
+body[data-league="college-soccer"] .cs-mark img{object-fit:contain!important;background:transparent!important;padding:2px}
+body[data-league="college-soccer"] .cs-data-freshness{background:#edf3ee;border-color:#cadad0}
+body[data-league="college-soccer"] #college-team-finder[data-cs-search]{background:#f5f7f3!important;border:1px solid #d3e0d6!important;border-top:3px solid #19574b!important;padding:16px!important}
+body[data-league="college-soccer"] .cs-conf-cohort-tile{background:#f4f7f3;border-top-color:#247060}
+body[data-league="college-soccer"] .cs-conf-directory-link:hover{background:#eef6f0}
+body[data-league="college-soccer"] .cs-matchday-rich{background:#f8faf8;border-color:#d0ddd4;border-left-color:#227361}
+@media(max-width:1020px){body[data-league="college-soccer"] .cs-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-league="college-soccer"] .cs-columns{grid-template-columns:1fr}}
+@media(max-width:650px){body[data-league="college-soccer"] .soccer-visual-edition{grid-template-columns:1fr;gap:10px}body[data-league="college-soccer"] .cs-hero-aside{border-left:0;border-top:1px solid #62877b;padding:16px 0 0}body[data-league="college-soccer"] .cs-hero-aside strong{font-size:52px}body[data-league="college-soccer"] .cs-score-rail{grid-template-columns:1fr 1fr}body[data-league="college-soccer"] .cs-score-tile{padding:9px 6px}body[data-league="college-soccer"] .cs-hero-copy h2{font-size:37px}}
