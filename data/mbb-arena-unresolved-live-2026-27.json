@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 188,
+  "schools_scanned": 205,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1320,6 +1320,125 @@
       "source_sha": "277fbdcf94fae7b0308f6ac0c575b6e68bad8d93",
       "game_count": 34,
       "missing_arena_fields": 3
+    },
+    {
+      "school_id": "158",
+      "school": "Nebraska",
+      "source_sha": "e4ee4415b2ea97aa1fddcdd946af8aefddf50354",
+      "game_count": 36,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2440",
+      "school": "Nevada",
+      "source_sha": "b2802fa5d75b0fc05ecc798a5f9b10cce1975823",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "160",
+      "school": "New Hampshire",
+      "source_sha": "a2dead58d687afdf23f8d756024f315be6e3c109",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2441",
+      "school": "New Haven",
+      "source_sha": "d7236a94fa807613e2999b91b3443df0ab6d0291",
+      "game_count": 31,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "167",
+      "school": "New Mexico",
+      "source_sha": "6a4c33721e71b65e10ac599d8817e975ff8fda18",
+      "game_count": 35,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "166",
+      "school": "New Mexico St.",
+      "source_sha": "b84b81a474396754c4ab44f48701e44badbb677b",
+      "game_count": 31,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "2443",
+      "school": "New Orleans",
+      "source_sha": "1afe339581b9a4b1744ed64a391cb21b977c7f9a",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "315",
+      "school": "Niagara",
+      "source_sha": "d9a4183e5f2a5d805463e1fc4d1c0c16d3fab612",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2447",
+      "school": "Nicholls",
+      "source_sha": "5986d3b9727bf85839e7a8c79f40f6ec4aa0c1a3",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2459",
+      "school": "NIU",
+      "source_sha": "677f1bc2e66cf05038ee5e397c20e63dba78abf8",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2885",
+      "school": "NJIT",
+      "source_sha": "fbbe910e03d55ef0e4be640e5196c444c9f5f80f",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2450",
+      "school": "Norfolk St.",
+      "source_sha": "4a45dd7fc6e4b178753573da5aabae7a98a16b6c",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2453",
+      "school": "North Ala.",
+      "source_sha": "6fcae545ecc360c1e353dc15a4f1921c565881bf",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "153",
+      "school": "North Carolina",
+      "source_sha": "e837da078305d9cf509de7f413f195a5883e5f7e",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "155",
+      "school": "North Dakota",
+      "source_sha": "7f238f7707ba476bd749fcfb697941b7b2f96990",
+      "game_count": 31,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2449",
+      "school": "North Dakota St.",
+      "source_sha": "c5a2b39d1b17a671add59a1154ac6224748fef68",
+      "game_count": 33,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2454",
+      "school": "North Florida",
+      "source_sha": "b4d9e72fbfa21ec56d7d6ebb826e12cfcac8e671",
+      "game_count": 33,
+      "missing_arena_fields": 0
     }
   ],
   "records": [
@@ -5561,6 +5680,461 @@
       "home_away": "away",
       "location": "Berkeley, CA",
       "source_url": "https://gopack.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "158",
+      "school": "Nebraska",
+      "event_id": "school-158-2026-10-02-0",
+      "date": "2026-10-02",
+      "opponent_ids": [
+        "158"
+      ],
+      "game": "Opening Night Presented by SCHEELS",
+      "home_away": "neutral",
+      "location": "Home",
+      "source_url": "https://huskers.com/sports/mens-basketball/schedule?print=true"
+    },
+    {
+      "school_id": "158",
+      "school": "Nebraska",
+      "event_id": "school-158-2026-10-26-10",
+      "date": "2026-10-26",
+      "opponent_ids": [
+        "158",
+        "2306"
+      ],
+      "game": "Kansas St. (Exh.)",
+      "home_away": "neutral",
+      "location": "Neutral",
+      "source_url": "https://huskers.com/sports/mens-basketball/schedule?print=true"
+    },
+    {
+      "school_id": "158",
+      "school": "Nebraska",
+      "event_id": "school-158-2027-02-23-68",
+      "date": "2027-02-23",
+      "opponent_ids": [
+        "158"
+      ],
+      "game": "USC",
+      "home_away": "neutral",
+      "location": "Home",
+      "source_url": "https://huskers.com/sports/mens-basketball/schedule?print=true"
+    },
+    {
+      "school_id": "2440",
+      "school": "Nevada",
+      "event_id": "school-2440-2026-11-11-19",
+      "date": "2026-11-11",
+      "opponent_ids": [
+        "2440"
+      ],
+      "game": "UCSB",
+      "home_away": "away",
+      "location": "Santa Barbara, Calif.",
+      "source_url": "https://nevadawolfpack.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2441",
+      "school": "New Haven",
+      "event_id": "school-2441-2026-11-24-27",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2441",
+        "2815"
+      ],
+      "game": "Lindenwood",
+      "home_away": "neutral",
+      "location": "TBD",
+      "source_url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2441",
+      "school": "New Haven",
+      "event_id": "school-2441-2026-12-01-35",
+      "date": "2026-12-01",
+      "opponent_ids": [
+        "2441",
+        "2169"
+      ],
+      "game": "Delaware State University",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2441",
+      "school": "New Haven",
+      "event_id": "school-2441-2027-01-14-75",
+      "date": "2027-01-14",
+      "opponent_ids": [
+        "2441"
+      ],
+      "game": "Central Connecticut State University",
+      "home_away": "away",
+      "location": "New Britain, Conn.",
+      "source_url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2441",
+      "school": "New Haven",
+      "event_id": "school-2441-2027-01-23-87",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2441",
+        "112358"
+      ],
+      "game": "LIU",
+      "home_away": "away",
+      "location": "Brooklyn, NY",
+      "source_url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "167",
+      "school": "New Mexico",
+      "event_id": "cross-school-167-2026-12-21_204",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "204",
+        "167"
+      ],
+      "game": "University of New Mexico",
+      "home_away": "neutral",
+      "location": "San Juan Capistrano, Calif.",
+      "source_url": "https://osubeavers.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "167",
+      "school": "New Mexico",
+      "event_id": "cross-school-167-2026-12-23_68",
+      "date": "2026-12-23",
+      "opponent_ids": [
+        "68",
+        "167"
+      ],
+      "game": "New Mexico",
+      "home_away": "neutral",
+      "location": "JSerra Catholic High School (San Juan Capistrano, Calif.)",
+      "source_url": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "166",
+      "school": "New Mexico St.",
+      "event_id": "school-166-2026-11-12-11",
+      "date": "2026-11-12",
+      "opponent_ids": [
+        "166",
+        "2638"
+      ],
+      "game": "UTEP",
+      "home_away": "away",
+      "location": "El Paso, Texas",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "166",
+      "school": "New Mexico St.",
+      "event_id": "school-166-2026-11-15-15",
+      "date": "2026-11-15",
+      "opponent_ids": [
+        "166",
+        "21"
+      ],
+      "game": "San Diego State",
+      "home_away": "neutral",
+      "location": "Oceanside, Calif.",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "166",
+      "school": "New Mexico St.",
+      "event_id": "school-166-2026-11-22-23",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "166",
+        "2523"
+      ],
+      "game": "Robert Morris",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "166",
+      "school": "New Mexico St.",
+      "event_id": "school-166-2026-11-24-27",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "166",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "166",
+      "school": "New Mexico St.",
+      "event_id": "school-166-2027-02-13-103",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "166"
+      ],
+      "game": "Jax State",
+      "home_away": "away",
+      "location": "Jacksonville, Ala.",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "315",
+      "school": "Niagara",
+      "event_id": "school-315-2026-11-20-23",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "315",
+        "2169"
+      ],
+      "game": "Delaware State",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://purpleeagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "315",
+      "school": "Niagara",
+      "event_id": "school-315-2026-11-28-31",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "315",
+        "2330"
+      ],
+      "game": "Le Moyne",
+      "home_away": "neutral",
+      "location": "Easton, PA",
+      "source_url": "https://purpleeagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "315",
+      "school": "Niagara",
+      "event_id": "school-315-2026-11-29-35",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "315",
+        "311"
+      ],
+      "game": "Maine",
+      "home_away": "neutral",
+      "location": "Easton, PA",
+      "source_url": "https://purpleeagles.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2459",
+      "school": "NIU",
+      "event_id": "school-2459-2027-01-14-83",
+      "date": "2027-01-14",
+      "opponent_ids": [
+        "2459",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich.",
+      "source_url": "https://niuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2450",
+      "school": "Norfolk St.",
+      "event_id": "school-2450-2026-11-29-69",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "2450"
+      ],
+      "game": "Univ. of Washington",
+      "home_away": "away",
+      "location": "Seattle, WA",
+      "source_url": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2450",
+      "school": "Norfolk St.",
+      "event_id": "school-2450-2026-12-01-75",
+      "date": "2026-12-01",
+      "opponent_ids": [
+        "2450"
+      ],
+      "game": "Univ. of Seattle",
+      "home_away": "away",
+      "location": "Seattle, WA",
+      "source_url": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2450",
+      "school": "Norfolk St.",
+      "event_id": "school-2450-2027-02-13-177",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2450",
+        "2169"
+      ],
+      "game": "Delaware State *",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2450",
+      "school": "Norfolk St.",
+      "event_id": "school-2450-2027-02-20-189",
+      "date": "2027-02-20",
+      "opponent_ids": [
+        "2450",
+        "2569"
+      ],
+      "game": "South Carolina State *",
+      "home_away": "away",
+      "location": "Orangeburg, SC",
+      "source_url": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2453",
+      "school": "North Ala.",
+      "event_id": "school-2453-2026-11-13-15",
+      "date": "2026-11-13",
+      "opponent_ids": [
+        "2453",
+        "2390"
+      ],
+      "game": "Miami (FL)",
+      "home_away": "away",
+      "location": "Coral Gables, Fla.",
+      "source_url": "https://roarlions.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2453",
+      "school": "North Ala.",
+      "event_id": "school-2453-2026-12-15-47",
+      "date": "2026-12-15",
+      "opponent_ids": [
+        "2453",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, Ky.",
+      "source_url": "https://roarlions.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "155",
+      "school": "North Dakota",
+      "event_id": "school-155-2026-11-24-27",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "155",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "neutral",
+      "location": "Riviera Maya, Cancun, Mexico",
+      "source_url": "https://fightinghawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "155",
+      "school": "North Dakota",
+      "event_id": "school-155-2026-12-05-43",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "155",
+        "2638"
+      ],
+      "game": "UTEP",
+      "home_away": "away",
+      "location": "El Paso, Texas",
+      "source_url": "https://fightinghawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "155",
+      "school": "North Dakota",
+      "event_id": "school-155-2027-01-10-79",
+      "date": "2027-01-10",
+      "opponent_ids": [
+        "155",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, Minn.",
+      "source_url": "https://fightinghawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "155",
+      "school": "North Dakota",
+      "event_id": "school-155-2027-02-27-127",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "155",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, N.D.",
+      "source_url": "https://fightinghawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2449",
+      "school": "North Dakota St.",
+      "event_id": "school-2449-2026-11-27-9",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2449",
+        "249"
+      ],
+      "game": "North Texas",
+      "home_away": "neutral",
+      "location": "Idaho Falls, Idaho",
+      "source_url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2449",
+      "school": "North Dakota St.",
+      "event_id": "school-2449-2026-11-28-10",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2449",
+        "2181"
+      ],
+      "game": "Drake",
+      "home_away": "neutral",
+      "location": "Idaho Falls, Idaho",
+      "source_url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2449",
+      "school": "North Dakota St.",
+      "event_id": "school-2449-2026-12-06-13",
+      "date": "2026-12-06",
+      "opponent_ids": [
+        "2449",
+        "265"
+      ],
+      "game": "Washington State",
+      "home_away": "away",
+      "location": "Pullman, Wash.",
+      "source_url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2449",
+      "school": "North Dakota St.",
+      "event_id": "school-2449-2027-01-07-19",
+      "date": "2027-01-07",
+      "opponent_ids": [
+        "2449",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, Minn.",
+      "source_url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
