@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 205,
+  "schools_scanned": 222,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1439,6 +1439,125 @@
       "source_sha": "b4d9e72fbfa21ec56d7d6ebb826e12cfcac8e671",
       "game_count": 33,
       "missing_arena_fields": 0
+    },
+    {
+      "school_id": "249",
+      "school": "North Texas",
+      "source_sha": "65c0232aec74223438bafd5e80722f01570600dc",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "111",
+      "school": "Northeastern",
+      "source_sha": "725b3340df91590311be0b338c199b6df6b9790a",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2464",
+      "school": "Northern Ariz.",
+      "source_sha": "37e9761de57323d21dc7576bec7a9a0467d380ec",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2458",
+      "school": "Northern Colo.",
+      "source_sha": "7d5ecee18780d518ad14bee153a2c1b468e07e40",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "94",
+      "school": "Northern Ky.",
+      "source_sha": "ada2eabb4de1190986f1042045c021ebec3dec12",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "77",
+      "school": "Northwestern",
+      "source_sha": "138057f885fe409abddb6b96ce3ac7f8fa197a7a",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2466",
+      "school": "Northwestern St.",
+      "source_sha": "c3115c7dc56c3478b6d2e9ebd92f8119e206c1ad",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "87",
+      "school": "Notre Dame",
+      "source_sha": "ef3ecec83f9b70b9d0d4179f60c7795367652532",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2473",
+      "school": "Oakland",
+      "source_sha": "5e8ef186753c328d17061fcee3d337ad8c779ef7",
+      "game_count": 35,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "195",
+      "school": "Ohio",
+      "source_sha": "151e5d553198ef0a684138d102ea4a5939d47c66",
+      "game_count": 28,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "194",
+      "school": "Ohio St.",
+      "source_sha": "52ceae61371b545cb9deca7f2b46a8df68d12993",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "201",
+      "school": "Oklahoma",
+      "source_sha": "9b0e35d9c1de43cd409ca2af8565804b4dbaa65a",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "197",
+      "school": "Oklahoma St.",
+      "source_sha": "93c04f4007f0e2e838886ce028f03ee28bad54f4",
+      "game_count": 35,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "295",
+      "school": "Old Dominion",
+      "source_sha": "67ca6f9fa76f3acd75c4a4a10486e000fe3a94d5",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "145",
+      "school": "Ole Miss",
+      "source_sha": "07554903220e9c1d252ab3b806fbf978839ac867",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2437",
+      "school": "Omaha",
+      "source_sha": "114fc157cf3fb2dac930141bde473af167c5f876",
+      "game_count": 31,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "198",
+      "school": "Oral Roberts",
+      "source_sha": "58a959b52bec97e93a35eef567fd2b00bb7ae60e",
+      "game_count": 30,
+      "missing_arena_fields": 2
     }
   ],
   "records": [
@@ -6135,6 +6254,445 @@
       "home_away": "away",
       "location": "St. Paul, Minn.",
       "source_url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "249",
+      "school": "North Texas",
+      "event_id": "school-249-2026-11-27-7",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "249",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "neutral",
+      "location": "Idaho Falls, ID",
+      "source_url": "https://meangreensports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "249",
+      "school": "North Texas",
+      "event_id": "school-249-2026-11-29-9",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "249",
+        "2181"
+      ],
+      "game": "Drake",
+      "home_away": "neutral",
+      "location": "Idaho Falls, ID",
+      "source_url": "https://meangreensports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "111",
+      "school": "Northeastern",
+      "event_id": "official-111-2026-12-31-charleston",
+      "date": "2026-12-31",
+      "opponent_ids": [
+        "111"
+      ],
+      "game": "Charleston",
+      "home_away": "away",
+      "location": "Charleston, S.C.",
+      "source_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
+    },
+    {
+      "school_id": "111",
+      "school": "Northeastern",
+      "event_id": "official-111-2027-02-25-monmouth",
+      "date": "2027-02-25",
+      "opponent_ids": [
+        "111",
+        "2405"
+      ],
+      "game": "Monmouth",
+      "home_away": "away",
+      "location": "West Long Branch, N.J.",
+      "source_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
+    },
+    {
+      "school_id": "2464",
+      "school": "Northern Ariz.",
+      "event_id": "school-2464-2027-01-07-67",
+      "date": "2027-01-07",
+      "opponent_ids": [
+        "2464",
+        "331"
+      ],
+      "game": "Eastern Washington",
+      "home_away": "away",
+      "location": "Cheney, Wash.",
+      "source_url": "https://nauathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2458",
+      "school": "Northern Colo.",
+      "event_id": "school-2458-2026-11-14-3",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "2458",
+        "2571"
+      ],
+      "game": "South Dakota State",
+      "home_away": "neutral",
+      "location": "Rapid City, SD",
+      "source_url": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2458",
+      "school": "Northern Colo.",
+      "event_id": "school-2458-2026-11-24-6",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2458"
+      ],
+      "game": "Southeastern Louisiana",
+      "home_away": "neutral",
+      "location": "Cancun, Mexico",
+      "source_url": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2458",
+      "school": "Northern Colo.",
+      "event_id": "school-2458-2027-01-28-22",
+      "date": "2027-01-28",
+      "opponent_ids": [
+        "2458",
+        "331"
+      ],
+      "game": "Eastern Washington",
+      "home_away": "away",
+      "location": "Cheney, WA",
+      "source_url": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2458",
+      "school": "Northern Colo.",
+      "event_id": "school-2458-2027-03-05-32",
+      "date": "2027-03-05",
+      "opponent_ids": [
+        "2458"
+      ],
+      "game": "Starch Madness",
+      "home_away": "neutral",
+      "location": "Boise, ID",
+      "source_url": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "94",
+      "school": "Northern Ky.",
+      "event_id": "school-94-2026-12-02-39",
+      "date": "2026-12-02",
+      "opponent_ids": [
+        "94",
+        "2473"
+      ],
+      "game": "Oakland",
+      "home_away": "away",
+      "location": "Rochester, Mich.",
+      "source_url": "https://nkunorse.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "94",
+      "school": "Northern Ky.",
+      "event_id": "school-94-2026-12-05-43",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "94",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich.",
+      "source_url": "https://nkunorse.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "94",
+      "school": "Northern Ky.",
+      "event_id": "school-94-2026-12-15-55",
+      "date": "2026-12-15",
+      "opponent_ids": [
+        "94",
+        "2193"
+      ],
+      "game": "East Tennessee State",
+      "home_away": "away",
+      "location": "Johnson City, Tenn.",
+      "source_url": "https://nkunorse.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2466",
+      "school": "Northwestern St.",
+      "event_id": "school-2466-2026-10-26-1",
+      "date": "2026-10-26",
+      "opponent_ids": [
+        "2466",
+        "249"
+      ],
+      "game": "North Texas",
+      "home_away": "away",
+      "location": "Denton, TX",
+      "source_url": "https://nsudemons.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2466",
+      "school": "Northwestern St.",
+      "event_id": "school-2466-2027-02-13-111",
+      "date": "2027-02-13",
+      "opponent_ids": [
+        "2466"
+      ],
+      "game": "Southeastern Louisiana",
+      "home_away": "away",
+      "location": "Hammond, LA",
+      "source_url": "https://nsudemons.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2473",
+      "school": "Oakland",
+      "event_id": "school-2473-2027-02-21-131",
+      "date": "2027-02-21",
+      "opponent_ids": [
+        "2473",
+        "2174"
+      ],
+      "game": "Detroit Mercy",
+      "home_away": "away",
+      "location": "Detroit, Mich.",
+      "source_url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "195",
+      "school": "Ohio",
+      "event_id": "cross-school-195-2026-11-24_166",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "166",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "195",
+      "school": "Ohio",
+      "event_id": "cross-school-195-2026-11-25_242",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "242",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "neutral",
+      "location": "Jacksonville, FL",
+      "source_url": "https://riceowls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "194",
+      "school": "Ohio St.",
+      "event_id": "school-194-2026-10-07-0",
+      "date": "2026-10-07",
+      "opponent_ids": [
+        "194",
+        "2132"
+      ],
+      "game": "Cincinnati (Exh.)",
+      "home_away": "neutral",
+      "location": "Mason, Ohio",
+      "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "194",
+      "school": "Ohio St.",
+      "event_id": "school-194-2026-11-13-5",
+      "date": "2026-11-13",
+      "opponent_ids": [
+        "194"
+      ],
+      "game": "Connecticut",
+      "home_away": "away",
+      "location": "Storrs, Conn.",
+      "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "194",
+      "school": "Ohio St.",
+      "event_id": "school-194-2027-02-20-29",
+      "date": "2027-02-20",
+      "opponent_ids": [
+        "194"
+      ],
+      "game": "USC",
+      "home_away": "away",
+      "location": "Los Angeles, Calif.",
+      "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "295",
+      "school": "Old Dominion",
+      "event_id": "official-295-2026-12-12-georgemason",
+      "date": "2026-12-12",
+      "opponent_ids": [
+        "295",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, Va.",
+      "source_url": "https://odusports.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "295",
+      "school": "Old Dominion",
+      "event_id": "official-295-2027-02-06-macschool",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "295"
+      ],
+      "game": "MAC School",
+      "home_away": "away",
+      "location": "TBD",
+      "source_url": "https://odusports.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "145",
+      "school": "Ole Miss",
+      "event_id": "school-145-2026-10-15-0",
+      "date": "2026-10-15",
+      "opponent_ids": [
+        "145",
+        "333"
+      ],
+      "game": "Alabama (Exh.)",
+      "home_away": "neutral",
+      "location": "Birmingham, AL",
+      "source_url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "145",
+      "school": "Ole Miss",
+      "event_id": "school-145-2026-11-24-7",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "145"
+      ],
+      "game": "BYU or Washington",
+      "home_away": "neutral",
+      "location": "Maui, HI",
+      "source_url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "145",
+      "school": "Ole Miss",
+      "event_id": "school-145-2027-02-06-25",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "145"
+      ],
+      "game": "Louisiana State",
+      "home_away": "away",
+      "location": "Baton Rouge, LA",
+      "source_url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2437",
+      "school": "Omaha",
+      "event_id": "school-2437-2026-11-25-7",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "2437",
+        "302"
+      ],
+      "game": "UC Davis",
+      "home_away": "neutral",
+      "location": "Las Vegas, NV",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2437",
+      "school": "Omaha",
+      "event_id": "school-2437-2026-11-26-8",
+      "date": "2026-11-26",
+      "opponent_ids": [
+        "2437",
+        "279"
+      ],
+      "game": "Pacific",
+      "home_away": "neutral",
+      "location": "Las Vegas, NV",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2437",
+      "school": "Omaha",
+      "event_id": "school-2437-2026-11-27-9",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "2437",
+        "55"
+      ],
+      "game": "Jacksonville State",
+      "home_away": "neutral",
+      "location": "Las Vegas, NV",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2437",
+      "school": "Omaha",
+      "event_id": "school-2437-2026-12-20-14",
+      "date": "2026-12-20",
+      "opponent_ids": [
+        "2437",
+        "2309"
+      ],
+      "game": "Kent State University",
+      "home_away": "neutral",
+      "location": "El Paso, TX",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2437",
+      "school": "Omaha",
+      "event_id": "school-2437-2027-01-16-20",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "2437",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "neutral",
+      "location": "St. Paul, MN",
+      "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "198",
+      "school": "Oral Roberts",
+      "event_id": "school-198-2027-01-16-79",
+      "date": "2027-01-16",
+      "opponent_ids": [
+        "198",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, ND",
+      "source_url": "https://oruathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "198",
+      "school": "Oral Roberts",
+      "event_id": "school-198-2027-02-21-115",
+      "date": "2027-02-21",
+      "opponent_ids": [
+        "198",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, MN",
+      "source_url": "https://oruathletics.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
