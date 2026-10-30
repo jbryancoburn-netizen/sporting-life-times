@@ -67,6 +67,15 @@ jobs:
           assert wcc.get("conference_games_validated")==90
           assert wcc.get("streaming_games_covered")==wcc["streaming_games_expected"]
           assert wcc.get("conflicting_prior_games")==0
+          sky=b["conference_media_rule_audit"].get("Big Sky Conference",{})
+          assert sky.get("conference_games_validated")==110
+          assert sky.get("streaming_games_covered")==110
+          assert sky.get("conflicting_prior_games")==0
+          summit=b["conference_media_rule_audit"].get("Summit League",{})
+          assert summit.get("conference_games_validated")==56
+          assert summit.get("national_linear_tv_games")==1
+          assert summit.get("streaming_games_covered")==55
+          assert summit.get("conflicting_prior_games")==0
           assert a["cross_school_date_venue_identity_conflicts"]==0
           print("Officially broadcast unique games:",a["official_broadcast_unique_games"])
           print("Newly official source-matched games:",b["matched_new_official_game_ids"])

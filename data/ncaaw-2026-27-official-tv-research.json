@@ -243,6 +243,27 @@
       "source_type": "official_conference_television_schedule",
       "source_url": "https://wccsports.com/news/2023/8/14/general-west-coast-conference-expands-espn-relationship-with-multi-year-digital-media-rights-agreement.aspx",
       "policy": "WCC multi-year ESPN+ agreement and ESPN rights contract run through 2026-27; conference-owned games not on national ESPN/CBS televised are on ESPN+. Verify 10 members, 18 league games each, unique 90 game ledger, and respect previously established network assignments."
+    },
+    {
+      "source_id": 23,
+      "title": "2026-27 Big Sky women's basketball full 20-game home-and-away ESPN+ league coverage",
+      "source_type": "official_school_athletics",
+      "source_url": "https://isubengals.com/news/2026/8/19/idaho-state-womens-basketball-unveils-2026-27-schedule.aspx",
+      "policy": "Idaho State's 2026-27 women's schedule explicitly says all Big Sky conference games stream live on ESPN+; Big Sky confirms 11-team double round-robin with 110 unique matchups."
+    },
+    {
+      "source_id": 24,
+      "title": "2026-27 Summit League women's basketball network distribution for 14-game conference calendar",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://thesummitleague.org/news/2026/7/7/mens-basketball-summit-league-basketball-schedules-set-for-2026-27-season.aspx",
+      "policy": "Summit League official 8-team 14-game schedule and Midco network agreement; all non-linear league home games stream via Summit League Network, with named CBS Sports Network games excluded."
+    },
+    {
+      "source_id": 25,
+      "title": "2026-27 Summit League women's exact national CBS Sports Network regular-season selections",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://thesummitleague.org/news/2026/10/21/mens-basketball-summit-league-sets-2026-27-national-basketball-television-schedule-on-cbs-sports-network.aspx",
+      "policy": "2026-27 league network release explicitly includes one nonconference and one conference women's basketball game; match both exact local dates and school IDs."
     }
   ],
   "rows": [
@@ -3352,6 +3373,20 @@
       "broadcast": "CBS Sports Network",
       "source_id": 20,
       "site": "neutral"
+    },
+    {
+      "date": "2026-11-15",
+      "away_id": "197",
+      "home_id": "2571",
+      "broadcast": "CBS Sports Network",
+      "source_id": 25
+    },
+    {
+      "date": "2027-02-07",
+      "away_id": "2449",
+      "home_id": "2900",
+      "broadcast": "CBS Sports Network",
+      "source_id": 25
     }
   ],
   "conference_media_rules": [
@@ -3440,6 +3475,26 @@
       "mandatory_network": "ESPN+",
       "exclusions": [],
       "method": "10 current women's WCC teams, 18 league games each: 90 unique conference-owned matchups, multi-year ESPN+ rights deal applies through 2026-27 except separately named linear TV games."
+    },
+    {
+      "source_id": 23,
+      "conference": "Big Sky Conference",
+      "start": "2026-12-03",
+      "end": "2027-03-01",
+      "expected_distinct_conference_games": 110,
+      "mandatory_network": "ESPN+",
+      "exclusions": [],
+      "method": "Exactly 11 women's schools, each 20 conference games, 110 independently identified matchups; explicit 2026-27 women's athletics statement all Big Sky league games stream ESPN+."
+    },
+    {
+      "source_id": 24,
+      "conference": "Summit League",
+      "start": "2027-01-07",
+      "end": "2027-02-27",
+      "expected_distinct_conference_games": 56,
+      "mandatory_network": "Summit League Network",
+      "exclusions": [],
+      "method": "Eight independently confirmed women's teams, each 14 conference games, 56 distinct contests. One official CBSSN league exception retained as linear primary; remaining stream via Summit League Network/Midco."
     }
   ]
 }

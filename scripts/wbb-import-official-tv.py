@@ -72,7 +72,8 @@ def main():
                       if info.get("conference") == rule["conference"]}
         expected_sizes = {"Atlantic 10 Conference": 14, "American Conference": 13,
                           "Big West Conference": 12, "Coastal Athletic Association": 13,
-                          "Pac-12 Conference": 9, "West Coast Conference": 10}
+                          "Pac-12 Conference": 9, "West Coast Conference": 10,
+                          "Big Sky Conference": 11, "Summit League": 8}
         required_size = expected_sizes.get(rule["conference"])
         if required_size is None or len(league_ids) != required_size:
             raise RuntimeError("Unverified women's conference team membership for "+rule["conference"]+
