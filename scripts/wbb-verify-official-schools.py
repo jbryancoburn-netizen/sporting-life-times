@@ -54,11 +54,15 @@ def read_source(html):
    dt=datekey(v[di])
    if not dt or not v[oi]:continue
    site=v[si].lower().strip() if si>=0 and si<len(v) else ""
-   opponent=v[oi]
-   if site not in ("home","away","neutral"):
-    m=re.match(r"^(at\s+|at(?=[A-Z])|vs\.?\s*|@\s*)(.+)$",opponent)
-    site=("away" if m[1].strip().lower() in ("at","@") else "home") if m else ""
-    if m:opponent=m[2].strip()
+   opponent=v[oi].strip()
+   # Handle official tables that present a Home/Away column AND an
+   # opponent like "vs. Texas". The prefix must always be removed
+   # before independent date-and-opponent verification.
+   m=re.match(r"^\\s*(vs\\.?|at|@)\\s+(.+)$",opponent,re.I)
+   if m:
+    if site not in ("home","away","neutral"):
+     site="away" if m[1].lower() in ("at","@") else "home"
+    opponent=m[2].strip()
    rows.append(dict(date=dt,opponent=opponent,site=site,origin="official_university_schedule_table"))
  return rows
 def official_urls(tid):
