@@ -1,2549 +1,3269 @@
 {
-  "attempted_at": "2026-10-27T20:54:56.112211+00:00",
+  "attempted_at": "2026-10-30T14:00:42.341565+00:00",
+  "method": "Enrich exact official date/opponent matches; preserve existing records and all unannounced fields. No complete-calendar certification implied.",
+  "summary": {
+    "schools_checked": 365,
+    "schools_with_readable_official_rows": 329,
+    "schools_changed": 317,
+    "fields_updated": 2837,
+    "games_added": 43,
+    "statuses": {
+      "parsed": 329,
+      "unsupported": 34,
+      "fetch_failed": 2
+    }
+  },
   "results": [
     {
-      "team": "Michigan St.",
-      "status": "verified-official",
-      "parsed_rows": 54,
-      "confirmed_games": 32,
-      "url": "https://msuspartans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Michigan",
-      "status": "verified-official",
-      "parsed_rows": 42,
-      "confirmed_games": 33,
-      "url": "https://mgoblue.com/sports/mens-basketball/schedule/text"
-    },
-    {
-      "team": "Ohio St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Nebraska",
-      "status": "verified-official",
-      "parsed_rows": 80,
-      "confirmed_games": 80,
-      "url": "https://huskers.com/sports/mens-basketball/schedule?print=true"
-    },
-    {
-      "team": "Penn St.",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://gopsusports.com/sports/mens-basketball/schedule"
-    },
-    {
-      "team": "Wisconsin",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 34,
-      "url": "https://uwbadgers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Minnesota",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 34,
-      "url": "https://gophersports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Rutgers",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 27,
-      "url": "https://scarletknights.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UCLA",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 4,
-      "confirmed_games": 0,
-      "url": "https://uclabruins.com/sports/mens-basketball/schedule"
-    },
-    {
-      "team": "Southern California",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 32,
-      "url": "https://usctrojans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Indiana",
-      "status": "official-preserved",
-      "confirmed_games": 32,
-      "url": "https://iuhoosiers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Purdue",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://purduesports.com/sports/mens-basketball/schedule"
-    },
-    {
-      "team": "Illinois",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 35,
-      "url": "https://fightingillini.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Iowa",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://hawkeyesports.com/sports/mbball/schedule"
-    },
-    {
-      "team": "Maryland",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://umterps.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Northwestern",
-      "status": "verified-official",
-      "parsed_rows": 91,
-      "confirmed_games": 71,
-      "url": "https://nusports.com/sports/mens-basketball/schedule"
-    },
-    {
-      "team": "Oregon",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 33,
-      "url": "https://goducks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Washington",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 31,
-      "url": "https://gohuskies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Alabama",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 33,
-      "url": "https://rolltide.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Auburn",
-      "status": "verified-official",
-      "parsed_rows": 119,
-      "confirmed_games": 113,
-      "url": "https://auburntigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Arkansas",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://arkansasrazorbacks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Florida",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 30,
-      "url": "https://floridagators.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Georgia",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 36,
-      "url": "https://georgiadogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Kentucky",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://ukathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "LSU",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://lsusports.net/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Mississippi St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 33,
-      "url": "https://hailstate.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Missouri",
-      "status": "verified-official",
-      "parsed_rows": 110,
-      "confirmed_games": 110,
-      "url": "https://mutigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Ole Miss",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "South Carolina",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://gamecocksonline.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Tennessee",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://utsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Texas A&M",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://12thman.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Texas",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://texaslonghorns.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Vanderbilt",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://vucommodores.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Oklahoma",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://soonersports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Duke",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 36,
-      "url": "https://goduke.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "North Carolina",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 35,
-      "url": "https://goheels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "NC State",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://gopack.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Wake Forest",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://godeacs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Clemson",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://clemsontigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Florida St.",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 35,
-      "url": "https://seminoles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Virginia",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://virginiasports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Virginia Tech",
-      "status": "verified-official",
-      "parsed_rows": 122,
-      "confirmed_games": 88,
-      "url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Louisville",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://gocards.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Syracuse",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Pittsburgh",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://pittsburghpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Boston College",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Georgia Tech",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://ramblinwreck.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Notre Dame",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://fightingirish.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "SMU",
-      "status": "verified-official",
-      "parsed_rows": 38,
-      "confirmed_games": 34,
-      "url": "https://smumustangs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "California",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 34,
-      "url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Stanford",
-      "status": "verified-official",
-      "parsed_rows": 96,
-      "confirmed_games": 94,
-      "url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Baylor",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 32,
-      "url": "https://baylorbears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Kansas",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 30,
-      "url": "https://kuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Kansas St.",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://kstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Iowa St.",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 32,
-      "url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Oklahoma St.",
-      "status": "verified-official",
-      "parsed_rows": 50,
-      "confirmed_games": 39,
-      "url": "https://okstate.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Texas Tech",
-      "status": "verified-official",
-      "parsed_rows": 38,
-      "confirmed_games": 32,
-      "url": "https://texastech.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "TCU",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 31,
-      "url": "https://gofrogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Houston",
-      "status": "verified-official",
-      "parsed_rows": 51,
-      "confirmed_games": 30,
-      "url": "https://uhcougars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Cincinnati",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://gobearcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UCF",
-      "status": "verified-official",
-      "parsed_rows": 93,
-      "confirmed_games": 75,
-      "url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "West Virginia",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 32,
-      "url": "https://wvusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Arizona",
-      "status": "verified-official",
-      "parsed_rows": 40,
-      "confirmed_games": 34,
-      "url": "https://arizonawildcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Arizona St.",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://thesundevils.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Colorado",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://cubuffs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Utah",
-      "status": "verified-official",
-      "parsed_rows": 40,
-      "confirmed_games": 37,
-      "url": "https://utahutes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "BYU",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 92,
-      "confirmed_games": 0,
-      "url": "https://byucougars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UConn",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 35,
-      "url": "https://uconnhuskies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Villanova",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 143,
-      "url": "https://villanova.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Georgetown",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://guhoyas.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Marquette",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 35,
-      "url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Creighton",
-      "status": "verified-official",
-      "parsed_rows": 39,
-      "confirmed_games": 33,
-      "url": "https://gocreighton.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Butler",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 132,
-      "url": "https://butlersports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Xavier",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 35,
-      "url": "https://goxavier.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Providence",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 30,
-      "url": "https://friars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Seton Hall",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 32,
-      "url": "https://shupirates.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "DePaul",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 34,
-      "url": "https://depaulbluedemons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Gonzaga",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 31,
-      "url": "https://gozags.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "San Francisco",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://usfdons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Santa Clara",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://santaclarabroncos.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Pepperdine",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "San Diego",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 120,
-      "url": "https://usdtoreros.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Oregon St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://osubeavers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Washington St.",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://wsucougars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Boise St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://broncosports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Colorado St.",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://csurams.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "San Diego St.",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://goaztecs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Utah St.",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://utahstateaggies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "New Mexico",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://golobos.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UNLV",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 31,
-      "url": "https://unlvrebels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Nevada",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 128,
-      "url": "https://nevadawolfpack.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Fresno St.",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://gobulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Wyoming",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 35,
-      "url": "https://gowyo.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Air Force",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://goairforcefalcons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Grand Canyon",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://gculopes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Memphis",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://gotigersgo.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Tulane",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://tulanegreenwave.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Wichita St.",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 135,
-      "url": "https://goshockers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Temple",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 30,
-      "url": "https://owlsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "East Carolina",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 30,
-      "url": "https://ecupirates.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Charlotte",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://charlotte49ers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "North Texas",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://meangreensports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Rice",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 32,
-      "url": "https://riceowls.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UAB",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://uabsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Tulsa",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://tulsahurricane.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "VCU",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 131,
-      "url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Dayton",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 147,
-      "url": "https://daytonflyers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Saint Louis",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://slubillikens.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Richmond",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "George Mason",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://gomason.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Princeton",
-      "status": "verified-official",
-      "parsed_rows": 29,
-      "confirmed_games": 29,
-      "url": "https://goprincetontigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Yale",
-      "status": "verified-official",
-      "parsed_rows": 123,
-      "confirmed_games": 119,
-      "url": "https://yalebulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Harvard",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 123,
-      "url": "https://gocrimson.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Columbia",
-      "status": "verified-official",
-      "parsed_rows": 31,
-      "confirmed_games": 30,
-      "url": "https://gocolumbialions.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Cornell",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 4,
-      "confirmed_games": 0,
-      "url": "https://cornellbigred.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Brown",
-      "status": "verified-official",
-      "parsed_rows": 30,
-      "confirmed_games": 30,
-      "url": "https://brownbears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Dartmouth",
-      "status": "verified-official",
-      "parsed_rows": 28,
-      "confirmed_games": 28,
-      "url": "https://dartmouthsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Penn",
-      "status": "verified-official",
-      "parsed_rows": 123,
-      "confirmed_games": 119,
-      "url": "https://pennathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Navy",
-      "status": "verified-official",
-      "parsed_rows": 171,
-      "confirmed_games": 132,
-      "url": "https://navysports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Bucknell",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 34,
-      "url": "https://bucknellbison.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Colgate",
-      "status": "verified-official",
-      "parsed_rows": 219,
-      "confirmed_games": 195,
-      "url": "https://colgateathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Lehigh",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 31,
-      "url": "https://lehighsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Lafayette",
-      "status": "verified-official",
-      "parsed_rows": 104,
-      "confirmed_games": 88,
-      "url": "https://goleopards.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Holy Cross",
-      "status": "verified-official",
-      "parsed_rows": 155,
-      "confirmed_games": 147,
-      "url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "American",
-      "status": "verified-official",
-      "parsed_rows": 167,
-      "confirmed_games": 159,
-      "url": "https://aueagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Boston U.",
-      "status": "verified-official",
-      "parsed_rows": 31,
-      "confirmed_games": 31,
-      "url": "https://goterriers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Loyola Maryland",
-      "status": "verified-official",
-      "parsed_rows": 213,
-      "confirmed_games": 201,
-      "url": "https://loyolagreyhounds.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Vermont",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 128,
-      "url": "https://uvmathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Binghamton",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Maine",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://goblackbears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "New Hampshire",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://unhwildcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UMBC",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 124,
-      "url": "https://umbcretrievers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UMass Lowell",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Bryant",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://bryantbulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "NJIT",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://njithighlanders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Coastal Carolina",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://goccusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "App State",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "James Madison",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://jmusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Old Dominion",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://odusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Marshall",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 30,
-      "url": "https://herdzone.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Troy",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://troytrojans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "South Alabama",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 207,
-      "url": "https://usajaguars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Louisiana",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 31,
-      "url": "https://ragincajuns.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "ULM",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Sam Houston",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://gobearkats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Liberty",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 32,
-      "url": "https://libertyflames.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Louisiana Tech",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 31,
-      "url": "https://latechsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UTEP",
-      "status": "verified-official",
-      "parsed_rows": 71,
-      "confirmed_games": 67,
-      "url": "https://utepminers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "FIU",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 147,
-      "url": "https://fiusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Delaware",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://bluehens.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "William & Mary",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://tribeathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Towson",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 132,
-      "url": "https://towsontigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Drexel",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 32,
-      "url": "https://drexeldragons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Elon",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://elonphoenix.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Northeastern",
-      "status": "verified-official",
-      "parsed_rows": 23,
-      "confirmed_games": 23,
-      "url": "https://nuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Hofstra",
-      "status": "verified-official",
-      "parsed_rows": 243,
-      "confirmed_games": 225,
-      "url": "https://gohofstra.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Monmouth",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://monmouthhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Stony Brook",
-      "status": "verified-official",
-      "parsed_rows": 91,
-      "confirmed_games": 91,
-      "url": "https://stonybrookathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Campbell",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://gocamels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Hampton",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://hamptonpirates.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Chattanooga",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 34,
-      "url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Furman",
-      "status": "verified-official",
-      "parsed_rows": 159,
-      "confirmed_games": 143,
-      "url": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Samford",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 35,
-      "url": "https://samfordsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Mercer",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://mercerbears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Wofford",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 207,
-      "url": "https://woffordterriers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "The Citadel",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://citadelsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UNC Greensboro",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 128,
-      "url": "https://uncgspartans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Akron",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://gozips.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Kent St.",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 30,
-      "url": "https://kentstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Ohio",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://ohiobobcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Bowling Green",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://bgsufalcons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Toledo",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://utrockets.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Ball St.",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://ballstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Buffalo",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 34,
-      "url": "https://ubbulls.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Belmont",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 132,
-      "url": "https://belmontbruins.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Bradley",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://bradleybraves.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Drake",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://godrakebulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Indiana St.",
-      "status": "verified-official",
-      "parsed_rows": 213,
-      "confirmed_games": 213,
-      "url": "https://gosycamores.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Illinois St.",
-      "status": "verified-official",
-      "parsed_rows": 231,
-      "confirmed_games": 213,
-      "url": "https://goredbirds.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Murray St.",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 35,
-      "url": "https://goracers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Evansville",
-      "status": "verified-official",
-      "parsed_rows": 155,
-      "confirmed_games": 143,
-      "url": "https://gopurpleaces.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Missouri St.",
-      "status": "verified-official",
-      "parsed_rows": 31,
-      "confirmed_games": 30,
-      "url": "https://missouristatebears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UIC",
-      "status": "verified-official",
-      "parsed_rows": 225,
-      "confirmed_games": 204,
-      "url": "https://uicflames.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Valparaiso",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 127,
-      "url": "https://valpoathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Lipscomb",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://lipscombsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "North Florida",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 33,
-      "url": "https://unfospreys.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Jacksonville",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://judolphins.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Stetson",
-      "status": "verified-official",
-      "parsed_rows": 151,
-      "confirmed_games": 143,
-      "url": "https://gohatters.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "FGCU",
-      "status": "verified-official",
-      "parsed_rows": 229,
-      "confirmed_games": 205,
-      "url": "https://fgcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "A&M-Corpus Christi",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://goislanders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Abilene Christian",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://acusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Alabama A&M",
-      "status": "verified-official",
-      "parsed_rows": 224,
-      "confirmed_games": 224,
-      "url": "https://aamusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Alabama St.",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 207,
-      "url": "https://bamastatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Alcorn",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 201,
-      "url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Ark.-Pine Bluff",
-      "status": "verified-official",
-      "parsed_rows": 183,
-      "confirmed_games": 183,
-      "url": "https://uapblionsroar.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Arkansas St.",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
-      "url": "https://astateredwolves.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Army West Point",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 34,
-      "url": "https://goarmywestpoint.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Austin Peay",
-      "status": "verified-official",
-      "parsed_rows": 273,
-      "confirmed_games": 231,
-      "url": "https://letsgopeay.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Bellarmine",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Bethune-Cookman",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Cal Poly",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 31,
-      "url": "https://gopoly.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Cal St. Fullerton",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://fullertontitans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "California Baptist",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://cbulancers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Canisius",
-      "status": "verified-official",
-      "parsed_rows": 171,
-      "confirmed_games": 151,
-      "url": "https://gogriffs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Central Ark.",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://ucasports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Central Conn. St.",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://ccsubluedevils.com/sports/mbkb/2026-27/schedule"
-    },
-    {
-      "team": "Central Mich.",
-      "status": "verified-official",
-      "parsed_rows": 38,
-      "confirmed_games": 33,
-      "url": "https://cmuchippewas.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Charleston So.",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://csusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Chicago St.",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 192,
-      "url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Cleveland St.",
-      "status": "verified-official",
-      "parsed_rows": 127,
-      "confirmed_games": 127,
-      "url": "https://csuvikings.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Col. of Charleston",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Coppin St.",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 131,
-      "url": "https://coppinstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "CSU Bakersfield",
-      "status": "verified-official",
-      "parsed_rows": 87,
-      "confirmed_games": 87,
-      "url": "https://gorunners.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "CSUN",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://gomatadors.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Delaware St.",
-      "status": "verified-official",
-      "parsed_rows": 67,
-      "confirmed_games": 56,
-      "url": "https://dsuhornets.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Denver",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 32,
-      "url": "https://denverpioneers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Detroit Mercy",
-      "status": "verified-official",
-      "parsed_rows": 195,
-      "confirmed_games": 189,
-      "url": "https://detroittitans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Duquesne",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://goduquesne.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "East Texas A&M",
-      "status": "verified-official",
-      "parsed_rows": 231,
-      "confirmed_games": 201,
-      "url": "https://lionathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Eastern Ill.",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://eiupanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Eastern Ky.",
-      "status": "verified-official",
-      "parsed_rows": 151,
-      "confirmed_games": 147,
-      "url": "https://ekusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Eastern Mich.",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 32,
-      "url": "https://emueagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Eastern Wash.",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://goeags.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "ETSU",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://etsubucs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Fairfield",
-      "status": "verified-official",
-      "parsed_rows": 107,
-      "confirmed_games": 96,
-      "url": "https://fairfieldstags.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "FDU",
-      "status": "verified-official",
-      "parsed_rows": 213,
-      "confirmed_games": 195,
-      "url": "https://fduknights.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Fla. Atlantic",
-      "status": "verified-official",
-      "parsed_rows": 36,
-      "confirmed_games": 33,
-      "url": "https://fausports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Florida A&M",
-      "status": "verified-official",
-      "parsed_rows": 213,
-      "confirmed_games": 213,
-      "url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Fordham",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 128,
-      "url": "https://fordhamsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Ga. Southern",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 32,
-      "url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Gardner-Webb",
-      "status": "verified-official",
-      "parsed_rows": 31,
-      "confirmed_games": 31,
-      "url": "https://gwusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "George Washington",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://gwsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Georgia St.",
-      "status": "verified-official",
-      "parsed_rows": 213,
-      "confirmed_games": 207,
-      "url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Grambling",
-      "status": "verified-official",
-      "parsed_rows": 195,
-      "confirmed_games": 195,
-      "url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Green Bay",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 143,
-      "url": "https://greenbayphoenix.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Hawaii",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 132,
-      "url": "https://hawaiiathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "High Point",
-      "status": "verified-official",
-      "parsed_rows": 213,
-      "confirmed_games": 207,
-      "url": "https://highpointpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Houston Christian",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 143,
-      "url": "https://hcuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Howard",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://hubison.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Idaho",
-      "status": "verified-official",
-      "parsed_rows": 132,
-      "confirmed_games": 128,
-      "url": "https://govandals.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Idaho St.",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 128,
-      "url": "https://isubengals.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Iona",
-      "status": "verified-official",
-      "parsed_rows": 151,
-      "confirmed_games": 131,
-      "url": "https://ionagaels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "IU Indy",
-      "status": "verified-official",
-      "parsed_rows": 155,
-      "confirmed_games": 151,
-      "url": "https://iuindyjags.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Jackson St.",
-      "status": "verified-official",
-      "parsed_rows": 195,
-      "confirmed_games": 195,
-      "url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Jacksonville St.",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://jaxstateathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Kansas City",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 34,
-      "url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Kennesaw St.",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
-      "url": "https://ksuowls.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "La Salle",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 128,
-      "url": "https://goexplorers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Lamar University",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://lamarcardinals.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Le Moyne",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Lindenwood",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Little Rock",
-      "status": "verified-official",
-      "parsed_rows": 84,
-      "confirmed_games": 78,
-      "url": "https://lrtrojans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "LIU",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://liubk.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Long Beach St.",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://longbeachstate.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Longwood",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 131,
-      "url": "https://longwoodlancers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Loyola Chicago",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://loyolaramblers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Manhattan",
-      "status": "verified-official",
-      "parsed_rows": 225,
-      "confirmed_games": 195,
-      "url": "https://gojaspers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Marist",
-      "status": "verified-official",
-      "parsed_rows": 127,
-      "confirmed_games": 123,
-      "url": "https://goredfoxes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "McNeese",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 207,
-      "url": "https://mcneesesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Mercyhurst",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 135,
-      "url": "https://hurstathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Merrimack",
-      "status": "verified-official",
-      "parsed_rows": 127,
-      "confirmed_games": 127,
-      "url": "https://merrimackathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Miami (OH)",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 32,
-      "url": "https://miamiredhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Morehead St.",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://msueagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Morgan St.",
-      "status": "verified-official",
-      "parsed_rows": 123,
-      "confirmed_games": 119,
-      "url": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Mount St. Mary's",
-      "status": "verified-official",
-      "parsed_rows": 225,
-      "confirmed_games": 225,
-      "url": "https://mountathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "N.C. A&T",
-      "status": "verified-official",
-      "parsed_rows": 72,
-      "confirmed_games": 72,
-      "url": "https://ncataggies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "N.C. Central",
-      "status": "verified-official",
-      "parsed_rows": 100,
-      "confirmed_games": 96,
-      "url": "https://nccueaglepride.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "New Mexico St.",
-      "status": "verified-official",
-      "parsed_rows": 127,
-      "confirmed_games": 127,
-      "url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Nicholls",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://geauxcolonels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Norfolk St.",
-      "status": "verified-official",
-      "parsed_rows": 231,
-      "confirmed_games": 192,
-      "url": "https://nsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "North Dakota",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 127,
-      "url": "https://fightinghawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "North Dakota St.",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://gobison.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Northwestern St.",
-      "status": "verified-official",
-      "parsed_rows": 151,
-      "confirmed_games": 143,
-      "url": "https://nsudemons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Oakland",
-      "status": "verified-official",
-      "parsed_rows": 147,
-      "confirmed_games": 143,
-      "url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Omaha",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 31,
-      "url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Oral Roberts",
-      "status": "verified-official",
-      "parsed_rows": 123,
-      "confirmed_games": 123,
-      "url": "https://oruathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Pacific",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://pacifictigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Portland",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
-      "url": "https://portlandpilots.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Portland St.",
-      "status": "verified-official",
-      "parsed_rows": 159,
-      "confirmed_games": 143,
-      "url": "https://goviks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Presbyterian",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 131,
-      "url": "https://gobluehose.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Queens (NC)",
-      "status": "verified-official",
-      "parsed_rows": 155,
-      "confirmed_games": 155,
-      "url": "https://queensathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Quinnipiac",
-      "status": "verified-official",
-      "parsed_rows": 31,
-      "confirmed_games": 31,
-      "url": "https://gobobcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Radford",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://radfordathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Rider",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://gobroncs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Robert Morris",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 201,
-      "url": "https://rmucolonials.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Sacramento St.",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 127,
-      "url": "https://hornetsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Sacred Heart",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://sacredheartpioneers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Saint Joseph's",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 16,
-      "confirmed_games": 12,
-      "url": "https://sjuhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Saint Peter's",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 183,
-      "url": "https://saintpeterspeacocks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "San Jose St.",
-      "status": "verified-official",
-      "parsed_rows": 83,
-      "confirmed_games": 81,
-      "url": "https://sjsuspartans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Seattle U",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://goseattleu.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Siena",
-      "status": "verified-official",
-      "parsed_rows": 155,
-      "confirmed_games": 147,
-      "url": "https://sienasaints.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "South Carolina St.",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "South Dakota",
-      "status": "verified-official",
-      "parsed_rows": 195,
-      "confirmed_games": 195,
-      "url": "https://goyotes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "South Dakota St.",
-      "status": "verified-official",
-      "parsed_rows": 31,
-      "confirmed_games": 31,
-      "url": "https://gojacks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Southern Ill.",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://siusalukis.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Southern Miss.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://southernmiss.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Southern Utah",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 189,
-      "url": "https://suutbirds.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "St. Bonaventure",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://gobonnies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "St. John's (NY)",
-      "status": "verified-official",
-      "parsed_rows": 37,
-      "confirmed_games": 30,
-      "url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "St. Thomas (MN)",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 0,
-      "confirmed_games": 0,
-      "url": "https://tommiesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Stonehill",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://stonehillskyhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Tarleton St.",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://tarletonsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Tennessee St.",
-      "status": "verified-official",
-      "parsed_rows": 177,
-      "confirmed_games": 177,
-      "url": "https://tsutigers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Tennessee Tech",
-      "status": "error",
-      "error": "No accessible schedule route on official athletics host",
-      "url": "https://ttusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Texas Southern",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
-      "url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Texas St.",
-      "status": "verified-official",
-      "parsed_rows": 195,
-      "confirmed_games": 195,
-      "url": "https://txst.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UC Davis",
-      "status": "verified-official",
-      "parsed_rows": 40,
-      "confirmed_games": 40,
-      "url": "https://ucdavisaggies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UC Irvine",
-      "status": "verified-official",
-      "parsed_rows": 47,
-      "confirmed_games": 36,
-      "url": "https://ucirvinesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UC Riverside",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://gohighlanders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UC San Diego",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 36,
-      "confirmed_games": 16,
-      "url": "https://ucsdtritons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UMES",
-      "status": "verified-official",
-      "parsed_rows": 127,
-      "confirmed_games": 127,
-      "url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UNC Asheville",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://uncabulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UT Arlington",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://utamavs.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UT Martin",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://utmsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UTSA",
-      "status": "unverified-too-few-games",
-      "parsed_rows": 14,
-      "confirmed_games": 14,
-      "url": "https://goutsa.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "VMI",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://vmikeydets.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Wagner",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
-      "url": "https://wagnerathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Weber St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 32,
-      "url": "https://weberstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Western Ill.",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://goleathernecks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Western Ky.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Western Mich.",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 189,
-      "url": "https://wmubroncos.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Winthrop",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://winthropeagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Wright St.",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 33,
-      "url": "https://wsuraiders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Youngstown St.",
-      "status": "verified-official",
-      "parsed_rows": 38,
-      "confirmed_games": 34,
-      "url": "https://ysusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Davidson",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://davidsonwildcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "LMU (CA)",
-      "status": "verified-official",
-      "parsed_rows": 212,
-      "confirmed_games": 212,
-      "url": "https://lmulions.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Massachusetts",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 35,
-      "url": "https://umassathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Miami (FL)",
-      "status": "verified-official",
-      "parsed_rows": 43,
-      "confirmed_games": 39,
-      "url": "https://miamihurricanes.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Middle Tenn.",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 30,
-      "url": "https://goblueraiders.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Milwaukee",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://mkepanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Mississippi Val.",
-      "status": "verified-official",
-      "parsed_rows": 201,
-      "confirmed_games": 195,
-      "url": "https://mvsusports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Montana",
-      "status": "verified-official",
-      "parsed_rows": 39,
-      "confirmed_games": 34,
-      "url": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Montana St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 34,
-      "url": "https://msubobcats.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "New Haven",
-      "status": "verified-official",
-      "parsed_rows": 127,
-      "confirmed_games": 127,
-      "url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "New Orleans",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 135,
-      "url": "https://unoprivateers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Niagara",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://purpleeagles.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "NIU",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 128,
-      "url": "https://niuhuskies.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "North Ala.",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 131,
-      "url": "https://roarlions.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Northern Ariz.",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://nauathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Northern Colo.",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Northern Ky.",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://nkunorse.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Prairie View",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Purdue Fort Wayne",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 34,
-      "url": "https://gomastodons.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Rhode Island",
-      "status": "verified-official",
-      "parsed_rows": 155,
-      "confirmed_games": 135,
-      "url": "https://gorhody.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Saint Mary's (CA)",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://smcgaels.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "SFA",
-      "status": "verified-official",
-      "parsed_rows": 33,
-      "confirmed_games": 32,
-      "url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "SIUE",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "South Fla.",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://gousfbulls.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Southeast Mo. St.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 31,
-      "url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Southeastern La.",
-      "status": "verified-official",
-      "parsed_rows": 135,
-      "confirmed_games": 135,
-      "url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Southern Ind.",
-      "status": "verified-official",
-      "parsed_rows": 35,
-      "confirmed_games": 33,
-      "url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-    },
-    {
-      "team": "Southern U.",
-      "status": "verified-official",
-      "parsed_rows": 207,
-      "confirmed_games": 207,
-      "url": "https://gojagsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UAlbany",
-      "status": "verified-official",
-      "parsed_rows": 143,
-      "confirmed_games": 139,
-      "url": "https://ualbanysports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UC Santa Barbara",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://ucsbgauchos.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UIW",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 139,
-      "url": "https://uiwcardinals.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UNCW",
-      "status": "verified-official",
-      "parsed_rows": 159,
-      "confirmed_games": 159,
-      "url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UNI",
-      "status": "verified-official",
-      "parsed_rows": 34,
-      "confirmed_games": 33,
-      "url": "https://unipanthers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "USC Upstate",
-      "status": "verified-official",
-      "parsed_rows": 32,
-      "confirmed_games": 32,
-      "url": "https://upstatespartans.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Utah Tech",
-      "status": "verified-official",
-      "parsed_rows": 175,
-      "confirmed_games": 132,
-      "url": "https://utahtechtrailblazers.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Utah Valley",
-      "status": "verified-official",
-      "parsed_rows": 195,
-      "confirmed_games": 189,
-      "url": "https://gouvu.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "UTRGV",
-      "status": "verified-official",
-      "parsed_rows": 175,
-      "confirmed_games": 147,
-      "url": "https://goutrgv.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "West Florida",
-      "status": "verified-official",
-      "parsed_rows": 131,
-      "confirmed_games": 131,
-      "url": "https://goargos.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "West Ga.",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 135,
-      "url": "https://uwgathletics.com/sports/mens-basketball/schedule/text/2026-27"
-    },
-    {
-      "team": "Western Caro.",
-      "status": "verified-official",
-      "parsed_rows": 139,
-      "confirmed_games": 135,
-      "url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27"
+      "id": "357",
+      "school": "A&M-Corpus Christi",
+      "rows": 33,
+      "matched": 32,
+      "fields": 63,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2000",
+      "school": "Abilene Christian",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2005",
+      "school": "Air Force",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2006",
+      "school": "Akron",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "333",
+      "school": "Alabama",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2010",
+      "school": "Alabama A&M",
+      "rows": 35,
+      "matched": 34,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2011",
+      "school": "Alabama St.",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2016",
+      "school": "Alcorn",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "44",
+      "school": "American",
+      "rows": 41,
+      "matched": 34,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2026",
+      "school": "App State",
+      "rows": 34,
+      "matched": 34,
+      "fields": 60,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "12",
+      "school": "Arizona",
+      "rows": 35,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "9",
+      "school": "Arizona St.",
+      "rows": 34,
+      "matched": 24,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2029",
+      "school": "Ark.-Pine Bluff",
+      "rows": 30,
+      "matched": 30,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "8",
+      "school": "Arkansas",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2032",
+      "school": "Arkansas St.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "349",
+      "school": "Army West Point",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2",
+      "school": "Auburn",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2046",
+      "school": "Austin Peay",
+      "rows": 45,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2050",
+      "school": "Ball St.",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "239",
+      "school": "Baylor",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "91",
+      "school": "Bellarmine",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2057",
+      "school": "Belmont",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2065",
+      "school": "Bethune-Cookman",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2066",
+      "school": "Binghamton",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "68",
+      "school": "Boise St.",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "103",
+      "school": "Boston College",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "104",
+      "school": "Boston U.",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "189",
+      "school": "Bowling Green",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "71",
+      "school": "Bradley",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "225",
+      "school": "Brown",
+      "rows": 30,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2803",
+      "school": "Bryant",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2083",
+      "school": "Bucknell",
+      "rows": 37,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2084",
+      "school": "Buffalo",
+      "rows": 37,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2086",
+      "school": "Butler",
+      "rows": 36,
+      "matched": 33,
+      "fields": 19,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "252",
+      "school": "BYU",
+      "rows": 34,
+      "matched": 23,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "13",
+      "school": "Cal Poly",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2239",
+      "school": "Cal St. Fullerton",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "25",
+      "school": "California",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2856",
+      "school": "California Baptist",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2097",
+      "school": "Campbell",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2099",
+      "school": "Canisius",
+      "rows": 42,
+      "matched": 34,
+      "fields": 57,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2110",
+      "school": "Central Ark.",
+      "rows": 32,
+      "matched": 32,
+      "fields": 15,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2115",
+      "school": "Central Conn. St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2117",
+      "school": "Central Mich.",
+      "rows": 38,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2127",
+      "school": "Charleston So.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2429",
+      "school": "Charlotte",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "236",
+      "school": "Chattanooga",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2130",
+      "school": "Chicago St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2132",
+      "school": "Cincinnati",
+      "rows": 35,
+      "matched": 26,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 3
+    },
+    {
+      "id": "228",
+      "school": "Clemson",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "325",
+      "school": "Cleveland St.",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "324",
+      "school": "Coastal Carolina",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "232",
+      "school": "Col. of Charleston",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2142",
+      "school": "Colgate",
+      "rows": 36,
+      "matched": 32,
+      "fields": 49,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "38",
+      "school": "Colorado",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "36",
+      "school": "Colorado St.",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "171",
+      "school": "Columbia",
+      "rows": 31,
+      "matched": 29,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2154",
+      "school": "Coppin St.",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "172",
+      "school": "Cornell",
+      "rows": 30,
+      "matched": 4,
+      "fields": 4,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "156",
+      "school": "Creighton",
+      "rows": 39,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2934",
+      "school": "CSU Bakersfield",
+      "rows": 35,
+      "matched": 35,
+      "fields": 15,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2463",
+      "school": "CSUN",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "159",
+      "school": "Dartmouth",
+      "rows": 28,
+      "matched": 28,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2166",
+      "school": "Davidson",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2168",
+      "school": "Dayton",
+      "rows": 36,
+      "matched": 36,
+      "fields": 78,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "48",
+      "school": "Delaware",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2169",
+      "school": "Delaware St.",
+      "rows": 31,
+      "matched": 29,
+      "fields": 16,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2172",
+      "school": "Denver",
+      "rows": 36,
+      "matched": 32,
+      "fields": 12,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "305",
+      "school": "DePaul",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2174",
+      "school": "Detroit Mercy",
+      "rows": 32,
+      "matched": 31,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2181",
+      "school": "Drake",
+      "rows": 32,
+      "matched": 32,
+      "fields": 27,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2182",
+      "school": "Drexel",
+      "rows": 36,
+      "matched": 32,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "150",
+      "school": "Duke",
+      "rows": 37,
+      "matched": 36,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2184",
+      "school": "Duquesne",
+      "rows": 33,
+      "matched": 32,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "151",
+      "school": "East Carolina",
+      "rows": 31,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2837",
+      "school": "East Texas A&M",
+      "rows": 38,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2197",
+      "school": "Eastern Ill.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2198",
+      "school": "Eastern Ky.",
+      "rows": 37,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2199",
+      "school": "Eastern Mich.",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "331",
+      "school": "Eastern Wash.",
+      "rows": 36,
+      "matched": 35,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2210",
+      "school": "Elon",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2193",
+      "school": "ETSU",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "339",
+      "school": "Evansville",
+      "rows": 38,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2217",
+      "school": "Fairfield",
+      "rows": 34,
+      "matched": 32,
+      "fields": 9,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "161",
+      "school": "FDU",
+      "rows": 35,
+      "matched": 32,
+      "fields": 53,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "526",
+      "school": "FGCU",
+      "rows": 36,
+      "matched": 32,
+      "fields": 53,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2229",
+      "school": "FIU",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2226",
+      "school": "Fla. Atlantic",
+      "rows": 36,
+      "matched": 33,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "57",
+      "school": "Florida",
+      "rows": 33,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "50",
+      "school": "Florida A&M",
+      "rows": 35,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "52",
+      "school": "Florida St.",
+      "rows": 36,
+      "matched": 35,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2230",
+      "school": "Fordham",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "278",
+      "school": "Fresno St.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "231",
+      "school": "Furman",
+      "rows": 39,
+      "matched": 35,
+      "fields": 39,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "290",
+      "school": "Ga. Southern",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2241",
+      "school": "Gardner-Webb",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2244",
+      "school": "George Mason",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "45",
+      "school": "George Washington",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "46",
+      "school": "Georgetown",
+      "rows": 34,
+      "matched": 34,
+      "fields": 82,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "61",
+      "school": "Georgia",
+      "rows": 36,
+      "matched": 36,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2247",
+      "school": "Georgia St.",
+      "rows": 35,
+      "matched": 34,
+      "fields": 56,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "59",
+      "school": "Georgia Tech",
+      "rows": 35,
+      "matched": 26,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2250",
+      "school": "Gonzaga",
+      "rows": 35,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2755",
+      "school": "Grambling",
+      "rows": 32,
+      "matched": 31,
+      "fields": 20,
+      "status": "parsed",
+      "games_added": 1
+    },
+    {
+      "id": "2253",
+      "school": "Grand Canyon",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2739",
+      "school": "Green Bay",
+      "rows": 35,
+      "matched": 35,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2261",
+      "school": "Hampton",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "108",
+      "school": "Harvard",
+      "rows": 33,
+      "matched": 30,
+      "fields": 33,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "62",
+      "school": "Hawaii",
+      "rows": 34,
+      "matched": 32,
+      "fields": 42,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2272",
+      "school": "High Point",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2275",
+      "school": "Hofstra",
+      "rows": 40,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "107",
+      "school": "Holy Cross",
+      "rows": 38,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "248",
+      "school": "Houston",
+      "rows": 51,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2277",
+      "school": "Houston Christian",
+      "rows": 36,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "47",
+      "school": "Howard",
+      "rows": 38,
+      "matched": 8,
+      "fields": 27,
+      "status": "parsed",
+      "games_added": 7
+    },
+    {
+      "id": "70",
+      "school": "Idaho",
+      "rows": 34,
+      "matched": 32,
+      "fields": 41,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "304",
+      "school": "Idaho St.",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "356",
+      "school": "Illinois",
+      "rows": 37,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2287",
+      "school": "Illinois St.",
+      "rows": 38,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "84",
+      "school": "Indiana",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "282",
+      "school": "Indiana St.",
+      "rows": 35,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "314",
+      "school": "Iona",
+      "rows": 37,
+      "matched": 32,
+      "fields": 49,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2294",
+      "school": "Iowa",
+      "rows": 33,
+      "matched": 24,
+      "fields": 11,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "66",
+      "school": "Iowa St.",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "85",
+      "school": "IU Indy",
+      "rows": 38,
+      "matched": 36,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2296",
+      "school": "Jackson St.",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "294",
+      "school": "Jacksonville",
+      "rows": 32,
+      "matched": 32,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "55",
+      "school": "Jacksonville St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "fetch_failed",
+      "error": "HTTPSConnectionPool(host='jaxstateathletics.com', port=443): Max retries exceeded with url: /sports/"
+    },
+    {
+      "id": "256",
+      "school": "James Madison",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2305",
+      "school": "Kansas",
+      "rows": 34,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "140",
+      "school": "Kansas City",
+      "rows": 33,
+      "matched": 33,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2306",
+      "school": "Kansas St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "338",
+      "school": "Kennesaw St.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 52,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2309",
+      "school": "Kent St.",
+      "rows": 32,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "96",
+      "school": "Kentucky",
+      "rows": 36,
+      "matched": 30,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2325",
+      "school": "La Salle",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "322",
+      "school": "Lafayette",
+      "rows": 39,
+      "matched": 29,
+      "fields": 8,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2320",
+      "school": "Lamar University",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2330",
+      "school": "Le Moyne",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2329",
+      "school": "Lehigh",
+      "rows": 35,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2335",
+      "school": "Liberty",
+      "rows": 37,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2815",
+      "school": "Lindenwood",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "288",
+      "school": "Lipscomb",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2031",
+      "school": "Little Rock",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "112358",
+      "school": "LIU",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "fetch_failed",
+      "error": "HTTPSConnectionPool(host='liubk.com', port=443): Max retries exceeded with url: /sports/mens-basketb"
+    },
+    {
+      "id": "2351",
+      "school": "LMU (CA)",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "299",
+      "school": "Long Beach St.",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2344",
+      "school": "Longwood",
+      "rows": 36,
+      "matched": 32,
+      "fields": 54,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "309",
+      "school": "Louisiana",
+      "rows": 32,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2348",
+      "school": "Louisiana Tech",
+      "rows": 33,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "97",
+      "school": "Louisville",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2350",
+      "school": "Loyola Chicago",
+      "rows": 33,
+      "matched": 32,
+      "fields": 52,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2352",
+      "school": "Loyola Maryland",
+      "rows": 35,
+      "matched": 31,
+      "fields": 31,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "99",
+      "school": "LSU",
+      "rows": 37,
+      "matched": 30,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "311",
+      "school": "Maine",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2363",
+      "school": "Manhattan",
+      "rows": 37,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2368",
+      "school": "Marist",
+      "rows": 31,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "269",
+      "school": "Marquette",
+      "rows": 36,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "276",
+      "school": "Marshall",
+      "rows": 32,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "120",
+      "school": "Maryland",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "113",
+      "school": "Massachusetts",
+      "rows": 35,
+      "matched": 35,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2377",
+      "school": "McNeese",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "235",
+      "school": "Memphis",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2382",
+      "school": "Mercer",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2385",
+      "school": "Mercyhurst",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2771",
+      "school": "Merrimack",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2390",
+      "school": "Miami (FL)",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "193",
+      "school": "Miami (OH)",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "130",
+      "school": "Michigan",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "127",
+      "school": "Michigan St.",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2393",
+      "school": "Middle Tenn.",
+      "rows": 30,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "270",
+      "school": "Milwaukee",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "135",
+      "school": "Minnesota",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "344",
+      "school": "Mississippi St.",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2400",
+      "school": "Mississippi Val.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "142",
+      "school": "Missouri",
+      "rows": 46,
+      "matched": 32,
+      "fields": 7,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2623",
+      "school": "Missouri St.",
+      "rows": 31,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2405",
+      "school": "Monmouth",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "149",
+      "school": "Montana",
+      "rows": 39,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "147",
+      "school": "Montana St.",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2413",
+      "school": "Morehead St.",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2415",
+      "school": "Morgan St.",
+      "rows": 30,
+      "matched": 29,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "116",
+      "school": "Mount St. Mary's",
+      "rows": 37,
+      "matched": 32,
+      "fields": 33,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "93",
+      "school": "Murray St.",
+      "rows": 36,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2448",
+      "school": "N.C. A&T",
+      "rows": 31,
+      "matched": 31,
+      "fields": 13,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2428",
+      "school": "N.C. Central",
+      "rows": 31,
+      "matched": 30,
+      "fields": 7,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2426",
+      "school": "Navy",
+      "rows": 42,
+      "matched": 33,
+      "fields": 51,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "152",
+      "school": "NC State",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "158",
+      "school": "Nebraska",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2440",
+      "school": "Nevada",
+      "rows": 34,
+      "matched": 32,
+      "fields": 48,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "160",
+      "school": "New Hampshire",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2441",
+      "school": "New Haven",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "167",
+      "school": "New Mexico",
+      "rows": 36,
+      "matched": 26,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "166",
+      "school": "New Mexico St.",
+      "rows": 31,
+      "matched": 31,
+      "fields": 45,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2443",
+      "school": "New Orleans",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "315",
+      "school": "Niagara",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2447",
+      "school": "Nicholls",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2459",
+      "school": "NIU",
+      "rows": 34,
+      "matched": 32,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2885",
+      "school": "NJIT",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2450",
+      "school": "Norfolk St.",
+      "rows": 38,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2453",
+      "school": "North Ala.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "153",
+      "school": "North Carolina",
+      "rows": 36,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "155",
+      "school": "North Dakota",
+      "rows": 32,
+      "matched": 31,
+      "fields": 53,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2449",
+      "school": "North Dakota St.",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2454",
+      "school": "North Florida",
+      "rows": 35,
+      "matched": 31,
+      "fields": 4,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "249",
+      "school": "North Texas",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "111",
+      "school": "Northeastern",
+      "rows": 32,
+      "matched": 5,
+      "fields": 36,
+      "status": "parsed",
+      "games_added": 26
+    },
+    {
+      "id": "2464",
+      "school": "Northern Ariz.",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2458",
+      "school": "Northern Colo.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 13,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "94",
+      "school": "Northern Ky.",
+      "rows": 33,
+      "matched": 33,
+      "fields": 44,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "77",
+      "school": "Northwestern",
+      "rows": 35,
+      "matched": 32,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2466",
+      "school": "Northwestern St.",
+      "rows": 37,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "87",
+      "school": "Notre Dame",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2473",
+      "school": "Oakland",
+      "rows": 36,
+      "matched": 35,
+      "fields": 49,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "195",
+      "school": "Ohio",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "194",
+      "school": "Ohio St.",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "201",
+      "school": "Oklahoma",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "197",
+      "school": "Oklahoma St.",
+      "rows": 50,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "295",
+      "school": "Old Dominion",
+      "rows": 35,
+      "matched": 24,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "145",
+      "school": "Ole Miss",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2437",
+      "school": "Omaha",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "198",
+      "school": "Oral Roberts",
+      "rows": 30,
+      "matched": 30,
+      "fields": 59,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2483",
+      "school": "Oregon",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "204",
+      "school": "Oregon St.",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "279",
+      "school": "Pacific",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "219",
+      "school": "Penn",
+      "rows": 30,
+      "matched": 29,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "213",
+      "school": "Penn St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2492",
+      "school": "Pepperdine",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "221",
+      "school": "Pittsburgh",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2501",
+      "school": "Portland",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2502",
+      "school": "Portland St.",
+      "rows": 39,
+      "matched": 33,
+      "fields": 6,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2504",
+      "school": "Prairie View",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2506",
+      "school": "Presbyterian",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "163",
+      "school": "Princeton",
+      "rows": 28,
+      "matched": 28,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2507",
+      "school": "Providence",
+      "rows": 34,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2509",
+      "school": "Purdue",
+      "rows": 41,
+      "matched": 29,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2870",
+      "school": "Purdue Fort Wayne",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2511",
+      "school": "Queens (NC)",
+      "rows": 38,
+      "matched": 38,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2514",
+      "school": "Quinnipiac",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2515",
+      "school": "Radford",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "227",
+      "school": "Rhode Island",
+      "rows": 38,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "242",
+      "school": "Rice",
+      "rows": 37,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "257",
+      "school": "Richmond",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2520",
+      "school": "Rider",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2523",
+      "school": "Robert Morris",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "164",
+      "school": "Rutgers",
+      "rows": 32,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "16",
+      "school": "Sacramento St.",
+      "rows": 32,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2529",
+      "school": "Sacred Heart",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2603",
+      "school": "Saint Joseph's",
+      "rows": 32,
+      "matched": 28,
+      "fields": 11,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "139",
+      "school": "Saint Louis",
+      "rows": 34,
+      "matched": 34,
+      "fields": 11,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2608",
+      "school": "Saint Mary's (CA)",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2612",
+      "school": "Saint Peter's",
+      "rows": 34,
+      "matched": 30,
+      "fields": 50,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2534",
+      "school": "Sam Houston",
+      "rows": 32,
+      "matched": 32,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2535",
+      "school": "Samford",
+      "rows": 35,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "301",
+      "school": "San Diego",
+      "rows": 33,
+      "matched": 30,
+      "fields": 52,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "21",
+      "school": "San Diego St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2539",
+      "school": "San Francisco",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "23",
+      "school": "San Jose St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2541",
+      "school": "Santa Clara",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2547",
+      "school": "Seattle U",
+      "rows": 33,
+      "matched": 22,
+      "fields": 24,
+      "status": "parsed",
+      "games_added": 5
+    },
+    {
+      "id": "2550",
+      "school": "Seton Hall",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2617",
+      "school": "SFA",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2561",
+      "school": "Siena",
+      "rows": 38,
+      "matched": 33,
+      "fields": 17,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2565",
+      "school": "SIUE",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2567",
+      "school": "SMU",
+      "rows": 38,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "6",
+      "school": "South Alabama",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2579",
+      "school": "South Carolina",
+      "rows": 35,
+      "matched": 28,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2569",
+      "school": "South Carolina St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "233",
+      "school": "South Dakota",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2571",
+      "school": "South Dakota St.",
+      "rows": 31,
+      "matched": 31,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "58",
+      "school": "South Fla.",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2546",
+      "school": "Southeast Mo. St.",
+      "rows": 35,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2545",
+      "school": "Southeastern La.",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "30",
+      "school": "Southern California",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "79",
+      "school": "Southern Ill.",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "88",
+      "school": "Southern Ind.",
+      "rows": 35,
+      "matched": 31,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2572",
+      "school": "Southern Miss.",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2582",
+      "school": "Southern U.",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "253",
+      "school": "Southern Utah",
+      "rows": 34,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "179",
+      "school": "St. Bonaventure",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2599",
+      "school": "St. John's (NY)",
+      "rows": 34,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2900",
+      "school": "St. Thomas (MN)",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "24",
+      "school": "Stanford",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "56",
+      "school": "Stetson",
+      "rows": 37,
+      "matched": 34,
+      "fields": 58,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "284",
+      "school": "Stonehill",
+      "rows": 34,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2619",
+      "school": "Stony Brook",
+      "rows": 34,
+      "matched": 32,
+      "fields": 11,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "183",
+      "school": "Syracuse",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2627",
+      "school": "Tarleton St.",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2628",
+      "school": "TCU",
+      "rows": 31,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "218",
+      "school": "Temple",
+      "rows": 33,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2633",
+      "school": "Tennessee",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2634",
+      "school": "Tennessee St.",
+      "rows": 29,
+      "matched": 29,
+      "fields": 35,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2635",
+      "school": "Tennessee Tech",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "251",
+      "school": "Texas",
+      "rows": 32,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "245",
+      "school": "Texas A&M",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2640",
+      "school": "Texas Southern",
+      "rows": 33,
+      "matched": 32,
+      "fields": 61,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "326",
+      "school": "Texas St.",
+      "rows": 32,
+      "matched": 32,
+      "fields": 57,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2641",
+      "school": "Texas Tech",
+      "rows": 38,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2643",
+      "school": "The Citadel",
+      "rows": 34,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2649",
+      "school": "Toledo",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "119",
+      "school": "Towson",
+      "rows": 34,
+      "matched": 33,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2653",
+      "school": "Troy",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2655",
+      "school": "Tulane",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "202",
+      "school": "Tulsa",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "5",
+      "school": "UAB",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "399",
+      "school": "UAlbany",
+      "rows": 35,
+      "matched": 32,
+      "fields": 8,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "302",
+      "school": "UC Davis",
+      "rows": 32,
+      "matched": 32,
+      "fields": 23,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "300",
+      "school": "UC Irvine",
+      "rows": 47,
+      "matched": 36,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "27",
+      "school": "UC Riverside",
+      "rows": 32,
+      "matched": 32,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "28",
+      "school": "UC San Diego",
+      "rows": 37,
+      "matched": 21,
+      "fields": 18,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2540",
+      "school": "UC Santa Barbara",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2116",
+      "school": "UCF",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "26",
+      "school": "UCLA",
+      "rows": 40,
+      "matched": 24,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "41",
+      "school": "UConn",
+      "rows": 35,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "82",
+      "school": "UIC",
+      "rows": 37,
+      "matched": 32,
+      "fields": 39,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2916",
+      "school": "UIW",
+      "rows": 34,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2433",
+      "school": "ULM",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2349",
+      "school": "UMass Lowell",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2378",
+      "school": "UMBC",
+      "rows": 35,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2379",
+      "school": "UMES",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2427",
+      "school": "UNC Asheville",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2430",
+      "school": "UNC Greensboro",
+      "rows": 34,
+      "matched": 32,
+      "fields": 7,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "350",
+      "school": "UNCW",
+      "rows": 39,
+      "matched": 35,
+      "fields": 68,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2460",
+      "school": "UNI",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2439",
+      "school": "UNLV",
+      "rows": 34,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2908",
+      "school": "USC Upstate",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "250",
+      "school": "UT Arlington",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2630",
+      "school": "UT Martin",
+      "rows": 35,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "254",
+      "school": "Utah",
+      "rows": 40,
+      "matched": 35,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "328",
+      "school": "Utah St.",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "3101",
+      "school": "Utah Tech",
+      "rows": 43,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "3084",
+      "school": "Utah Valley",
+      "rows": 32,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2638",
+      "school": "UTEP",
+      "rows": 34,
+      "matched": 29,
+      "fields": 3,
+      "status": "parsed",
+      "games_added": 1
+    },
+    {
+      "id": "292",
+      "school": "UTRGV",
+      "rows": 43,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2636",
+      "school": "UTSA",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2674",
+      "school": "Valparaiso",
+      "rows": 36,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "238",
+      "school": "Vanderbilt",
+      "rows": 32,
+      "matched": 25,
+      "fields": 0,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2670",
+      "school": "VCU",
+      "rows": 35,
+      "matched": 32,
+      "fields": 62,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "261",
+      "school": "Vermont",
+      "rows": 35,
+      "matched": 32,
+      "fields": 66,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "222",
+      "school": "Villanova",
+      "rows": 36,
+      "matched": 35,
+      "fields": 62,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "258",
+      "school": "Virginia",
+      "rows": 39,
+      "matched": 16,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "259",
+      "school": "Virginia Tech",
+      "rows": 0,
+      "matched": 0,
+      "fields": 0,
+      "status": "unsupported"
+    },
+    {
+      "id": "2678",
+      "school": "VMI",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2681",
+      "school": "Wagner",
+      "rows": 33,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "154",
+      "school": "Wake Forest",
+      "rows": 34,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "264",
+      "school": "Washington",
+      "rows": 33,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "265",
+      "school": "Washington St.",
+      "rows": 40,
+      "matched": 19,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2692",
+      "school": "Weber St.",
+      "rows": 35,
+      "matched": 31,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2697",
+      "school": "West Florida",
+      "rows": 32,
+      "matched": 32,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2698",
+      "school": "West Ga.",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "277",
+      "school": "West Virginia",
+      "rows": 34,
+      "matched": 30,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2717",
+      "school": "Western Caro.",
+      "rows": 37,
+      "matched": 34,
+      "fields": 5,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2710",
+      "school": "Western Ill.",
+      "rows": 32,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "98",
+      "school": "Western Ky.",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2711",
+      "school": "Western Mich.",
+      "rows": 33,
+      "matched": 31,
+      "fields": 46,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2724",
+      "school": "Wichita St.",
+      "rows": 34,
+      "matched": 33,
+      "fields": 46,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2729",
+      "school": "William & Mary",
+      "rows": 33,
+      "matched": 32,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2737",
+      "school": "Winthrop",
+      "rows": 34,
+      "matched": 33,
+      "fields": 2,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "275",
+      "school": "Wisconsin",
+      "rows": 35,
+      "matched": 34,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2747",
+      "school": "Wofford",
+      "rows": 34,
+      "matched": 34,
+      "fields": 64,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2750",
+      "school": "Wright St.",
+      "rows": 33,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2751",
+      "school": "Wyoming",
+      "rows": 35,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2752",
+      "school": "Xavier",
+      "rows": 36,
+      "matched": 35,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "43",
+      "school": "Yale",
+      "rows": 30,
+      "matched": 29,
+      "fields": 60,
+      "status": "parsed",
+      "games_added": 0
+    },
+    {
+      "id": "2754",
+      "school": "Youngstown St.",
+      "rows": 38,
+      "matched": 33,
+      "fields": 1,
+      "status": "parsed",
+      "games_added": 0
     }
-  ],
-  "official_verified": 328
+  ]
 }
