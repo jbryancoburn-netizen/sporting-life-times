@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 256,
+  "schools_scanned": 273,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1796,6 +1796,125 @@
       "source_sha": "9bb4292c57c0dcb84839f85299d7cd1cd3725be0",
       "game_count": 22,
       "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2539",
+      "school": "San Francisco",
+      "source_sha": "fd699ebd82ae6106291caf4d4abf53dff10979a3",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "23",
+      "school": "San Jose St.",
+      "source_sha": "dc4dbac45f37d79144c5d0eda01e00ce3373ee50",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2541",
+      "school": "Santa Clara",
+      "source_sha": "d4cb0902494efe1d6813a3c5ac00286c6949bc2b",
+      "game_count": 34,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2547",
+      "school": "Seattle U",
+      "source_sha": "960d6f95652dd9251a7dc927dc169c532ba9cce2",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2550",
+      "school": "Seton Hall",
+      "source_sha": "e1a2b68e63acc42302096414be84022115eedbe6",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2617",
+      "school": "SFA",
+      "source_sha": "a485c29386fcfe8394a9368142635e29c6145dc5",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2561",
+      "school": "Siena",
+      "source_sha": "552e00568684a16e253a0cd05bf6a3001f9dbb6f",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2565",
+      "school": "SIUE",
+      "source_sha": "d4d312a433c40bd1d27cd606e6c7fe98315ac209",
+      "game_count": 34,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2567",
+      "school": "SMU",
+      "source_sha": "f400b3221a616439b9d9678619550bcdecd42c1b",
+      "game_count": 34,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "6",
+      "school": "South Alabama",
+      "source_sha": "549d656e81df23fcaebeaa6e4c0755025ee5890a",
+      "game_count": 34,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "2579",
+      "school": "South Carolina",
+      "source_sha": "5861db73c00eaca505cc638e1b407d07ba8e689f",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "source_sha": "5f8dc1d74ae3b45fb27f25195f3eee968fb49314",
+      "game_count": 32,
+      "missing_arena_fields": 9
+    },
+    {
+      "school_id": "233",
+      "school": "South Dakota",
+      "source_sha": "b907dfd1db8a89d4849b2b29183ca37eabfec79a",
+      "game_count": 32,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "2571",
+      "school": "South Dakota St.",
+      "source_sha": "4f670c4c53873e2320c5ab1b6031b9745f67567c",
+      "game_count": 31,
+      "missing_arena_fields": 5
+    },
+    {
+      "school_id": "58",
+      "school": "South Fla.",
+      "source_sha": "4b4ac64542db4bc2f4c15b48ceebfc7dfe1566a6",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2546",
+      "school": "Southeast Mo. St.",
+      "source_sha": "56e4d2de377a2f4b17a544b37c5e8b80c2cd374b",
+      "game_count": 31,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2545",
+      "school": "Southeastern La.",
+      "source_sha": "6c8bedb2309686fbb2adfa5ba3761491c0ebf6ff",
+      "game_count": 33,
+      "missing_arena_fields": 5
     }
   ],
   "records": [
@@ -7649,6 +7768,581 @@
       "home_away": "neutral",
       "location": "Las Vegas, Nev.",
       "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2541",
+      "school": "Santa Clara",
+      "event_id": "school-2541-2026-11-23-35",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "2541",
+        "2287"
+      ],
+      "game": "Illinois State",
+      "home_away": "neutral",
+      "location": "Palm Desert, Calif.",
+      "source_url": "https://santaclarabroncos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2541",
+      "school": "Santa Clara",
+      "event_id": "school-2541-2026-12-21-63",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "2541",
+        "68"
+      ],
+      "game": "Boise State",
+      "home_away": "neutral",
+      "location": "San Juan Capistrano, Calif.",
+      "source_url": "https://santaclarabroncos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2541",
+      "school": "Santa Clara",
+      "event_id": "school-2541-2026-12-23-67",
+      "date": "2026-12-23",
+      "opponent_ids": [
+        "2541",
+        "204"
+      ],
+      "game": "Oregon State",
+      "home_away": "neutral",
+      "location": "San Juan Capistrano, Calif.",
+      "source_url": "https://santaclarabroncos.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2550",
+      "school": "Seton Hall",
+      "event_id": "school-2550-2026-11-19-5",
+      "date": "2026-11-19",
+      "opponent_ids": [
+        "2550",
+        "275"
+      ],
+      "game": "Wisconsin",
+      "home_away": "neutral",
+      "location": "Nassau, Bahamas",
+      "source_url": "https://shupirates.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2617",
+      "school": "SFA",
+      "event_id": "school-2617-2026-11-20-5",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "2617",
+        "282"
+      ],
+      "game": "Indiana State",
+      "home_away": "neutral",
+      "location": "Charlotte Amalie, St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2617",
+      "school": "SFA",
+      "event_id": "school-2617-2026-11-23-7",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "2617"
+      ],
+      "game": "Paradise Jam",
+      "home_away": "neutral",
+      "location": "Charlotte Amalie, St. Thomas, U.S. Virgin Islands",
+      "source_url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2617",
+      "school": "SFA",
+      "event_id": "school-2617-2026-12-01-8",
+      "date": "2026-12-01",
+      "opponent_ids": [
+        "2617"
+      ],
+      "game": "Southern Methodist",
+      "home_away": "away",
+      "location": "Dallas, Texas",
+      "source_url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2617",
+      "school": "SFA",
+      "event_id": "school-2617-2027-01-26-22",
+      "date": "2027-01-26",
+      "opponent_ids": [
+        "2617"
+      ],
+      "game": "Southeastern Louisiana",
+      "home_away": "away",
+      "location": "Hammond, La.",
+      "source_url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2561",
+      "school": "Siena",
+      "event_id": "school-2561-2026-12-20-59",
+      "date": "2026-12-20",
+      "opponent_ids": [
+        "2561",
+        "2142"
+      ],
+      "game": "Colgate",
+      "home_away": "away",
+      "location": "Hamilton, NY / Cotterell Court",
+      "source_url": "https://sienasaints.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2565",
+      "school": "SIUE",
+      "event_id": "school-2565-2027-01-02-75",
+      "date": "2027-01-02",
+      "opponent_ids": [
+        "2565",
+        "2710"
+      ],
+      "game": "Western Illinois",
+      "home_away": "away",
+      "location": "Macomb, Ill.",
+      "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2565",
+      "school": "SIUE",
+      "event_id": "school-2565-2027-01-23-95",
+      "date": "2027-01-23",
+      "opponent_ids": [
+        "2565",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, Ky.",
+      "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2567",
+      "school": "SMU",
+      "event_id": "school-2567-2027-03-02-31",
+      "date": "2027-03-02",
+      "opponent_ids": [
+        "2567",
+        "2390"
+      ],
+      "game": "Miami",
+      "home_away": "away",
+      "location": "Coral Gables, FL",
+      "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "6",
+      "school": "South Alabama",
+      "event_id": "school-6-2026-11-12-27",
+      "date": "2026-11-12",
+      "opponent_ids": [
+        "6",
+        "2351"
+      ],
+      "game": "LMU",
+      "home_away": "neutral",
+      "location": "Pensacola, Fla.",
+      "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "6",
+      "school": "South Alabama",
+      "event_id": "school-6-2026-11-27-63",
+      "date": "2026-11-27",
+      "opponent_ids": [
+        "6",
+        "278"
+      ],
+      "game": "Fresno State",
+      "home_away": "neutral",
+      "location": "New Orleans, LA",
+      "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "6",
+      "school": "South Alabama",
+      "event_id": "school-6-2026-11-28-69",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "6",
+        "2571"
+      ],
+      "game": "South Dakota State",
+      "home_away": "neutral",
+      "location": "New Orleans, LA",
+      "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "6",
+      "school": "South Alabama",
+      "event_id": "school-6-2027-02-06-168",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "6"
+      ],
+      "game": "MAC-SBC Challenge",
+      "home_away": "away",
+      "location": "at",
+      "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "6",
+      "school": "South Alabama",
+      "event_id": "school-6-2027-03-02-201",
+      "date": "2027-03-02",
+      "opponent_ids": [
+        "6"
+      ],
+      "game": "Sun Belt Conference",
+      "home_away": "neutral",
+      "location": "Pensacola, Fla.",
+      "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2026-10-30-1",
+      "date": "2026-10-30",
+      "opponent_ids": [
+        "2569"
+      ],
+      "game": "Allen",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC Smith-Hammond-Middleton",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2026-11-02-7",
+      "date": "2026-11-02",
+      "opponent_ids": [
+        "2569"
+      ],
+      "game": "Morris College",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC Smith-Hammond-Middleton",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2026-11-06-11",
+      "date": "2026-11-06",
+      "opponent_ids": [
+        "2569",
+        "2908"
+      ],
+      "game": "University of South Carolina - Upstate",
+      "home_away": "neutral",
+      "location": "Spartanburg, SC",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2026-11-23-31",
+      "date": "2026-11-23",
+      "opponent_ids": [
+        "2569"
+      ],
+      "game": "North Carolina A&T State",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC Smith-Hammond-Middleton",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2026-12-16-51",
+      "date": "2026-12-16",
+      "opponent_ids": [
+        "2569"
+      ],
+      "game": "University of Tennessee at Chattanooga",
+      "home_away": "neutral",
+      "location": "Chattanooga, TN",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2027-01-05-71",
+      "date": "2027-01-05",
+      "opponent_ids": [
+        "2569"
+      ],
+      "game": "Brewton-Parker College",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC Smith-Hammond-Middleton",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2027-01-19-87",
+      "date": "2027-01-19",
+      "opponent_ids": [
+        "2569"
+      ],
+      "game": "Mid-Atlantic Christian University",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC Smith-Hammond-Middleton",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2027-01-25-95",
+      "date": "2027-01-25",
+      "opponent_ids": [
+        "2569",
+        "2169"
+      ],
+      "game": "Delaware State University",
+      "home_away": "away",
+      "location": "Dover, DE",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2569",
+      "school": "South Carolina St.",
+      "event_id": "school-2569-2027-02-27-119",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2569",
+        "2379"
+      ],
+      "game": "University of Maryland Eastern Shore",
+      "home_away": "neutral",
+      "location": "Orangeburg, SC Smith-Hammond-Middleton",
+      "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "233",
+      "school": "South Dakota",
+      "event_id": "school-233-2027-01-30-147",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "233",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, Minn.",
+      "source_url": "https://goyotes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "233",
+      "school": "South Dakota",
+      "event_id": "school-233-2027-02-18-171",
+      "date": "2027-02-18",
+      "opponent_ids": [
+        "233",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, N.D.",
+      "source_url": "https://goyotes.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2571",
+      "school": "South Dakota St.",
+      "event_id": "school-2571-2026-11-14-3",
+      "date": "2026-11-14",
+      "opponent_ids": [
+        "2571",
+        "2458"
+      ],
+      "game": "Northern Colorado",
+      "home_away": "neutral",
+      "location": "Rapid City, S.D. (The Monument)",
+      "source_url": "https://gojacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2571",
+      "school": "South Dakota St.",
+      "event_id": "school-2571-2026-11-28-7",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2571",
+        "6"
+      ],
+      "game": "South Alabama",
+      "home_away": "neutral",
+      "location": "New Orleans, La.",
+      "source_url": "https://gojacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2571",
+      "school": "South Dakota St.",
+      "event_id": "school-2571-2026-11-29-8",
+      "date": "2026-11-29",
+      "opponent_ids": [
+        "2571",
+        "278"
+      ],
+      "game": "Fresno State",
+      "home_away": "neutral",
+      "location": "New Orleans, La.",
+      "source_url": "https://gojacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2571",
+      "school": "South Dakota St.",
+      "event_id": "school-2571-2027-01-28-22",
+      "date": "2027-01-28",
+      "opponent_ids": [
+        "2571",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, Minn.",
+      "source_url": "https://gojacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2571",
+      "school": "South Dakota St.",
+      "event_id": "school-2571-2027-02-20-28",
+      "date": "2027-02-20",
+      "opponent_ids": [
+        "2571",
+        "2449"
+      ],
+      "game": "North Dakota State",
+      "home_away": "away",
+      "location": "Fargo, N.D.",
+      "source_url": "https://gojacks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2546",
+      "school": "Southeast Mo. St.",
+      "event_id": "school-2546-2026-11-19-5",
+      "date": "2026-11-19",
+      "opponent_ids": [
+        "2546",
+        "2900"
+      ],
+      "game": "St. Thomas",
+      "home_away": "away",
+      "location": "St. Paul, Minn.",
+      "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2546",
+      "school": "Southeast Mo. St.",
+      "event_id": "school-2546-2027-01-28-23",
+      "date": "2027-01-28",
+      "opponent_ids": [
+        "2546",
+        "2710"
+      ],
+      "game": "Western Illinois",
+      "home_away": "away",
+      "location": "Macomb, Ill.",
+      "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2546",
+      "school": "Southeast Mo. St.",
+      "event_id": "school-2546-2027-02-04-24",
+      "date": "2027-02-04",
+      "opponent_ids": [
+        "2546",
+        "2413"
+      ],
+      "game": "Morehead State",
+      "home_away": "away",
+      "location": "Morehead, Ky.",
+      "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2546",
+      "school": "Southeast Mo. St.",
+      "event_id": "school-2546-2027-02-27-30",
+      "date": "2027-02-27",
+      "opponent_ids": [
+        "2546",
+        "2634"
+      ],
+      "game": "Tennessee State",
+      "home_away": "away",
+      "location": "Nashville, Tenn.",
+      "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2545",
+      "school": "Southeastern La.",
+      "event_id": "school-2545-2026-11-24-23",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2545",
+        "2458"
+      ],
+      "game": "Northern Colorado",
+      "home_away": "neutral",
+      "location": "Cancun, Mexico",
+      "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2545",
+      "school": "Southeastern La.",
+      "event_id": "school-2545-2026-12-21-51",
+      "date": "2026-12-21",
+      "opponent_ids": [
+        "2545",
+        "2466"
+      ],
+      "game": "Northwestern State",
+      "home_away": "away",
+      "location": "Natchitoches, LA",
+      "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2545",
+      "school": "Southeastern La.",
+      "event_id": "school-2545-2027-02-06-99",
+      "date": "2027-02-06",
+      "opponent_ids": [
+        "2545"
+      ],
+      "game": "HCU",
+      "home_away": "away",
+      "location": "Houston, TX",
+      "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2545",
+      "school": "Southeastern La.",
+      "event_id": "school-2545-2027-02-08-103",
+      "date": "2027-02-08",
+      "opponent_ids": [
+        "2545",
+        "2916"
+      ],
+      "game": "UIW",
+      "home_away": "away",
+      "location": "San Antonio, TX",
+      "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2545",
+      "school": "Southeastern La.",
+      "event_id": "school-2545-2027-03-07-131",
+      "date": "2027-03-07",
+      "opponent_ids": [
+        "2545"
+      ],
+      "game": "Southland Conference",
+      "home_away": "neutral",
+      "location": "Lake Charles, LA",
+      "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
