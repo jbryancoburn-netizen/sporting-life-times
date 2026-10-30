@@ -44,3 +44,13 @@
 .cbb-matchup-result p{font:.72rem/1.6 system-ui;color:#576e77}
 .cbb-elo-count{font:.8rem system-ui;color:#59707a;margin:12px 0}
 @media(max-width:870px){.cbb-elo-grid{grid-template-columns:1fr}.cbb-elo-wrap{padding-top:15px}.cbb-elo-card{padding:13px}}
+
+/* Editorial ranking-source switcher */
+.cbb-rating-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 8px;border-bottom:2px solid #c5d6da;padding-bottom:9px}
+.cbb-rating-tabs button{font:700 .9rem system-ui;border:1px solid #9ab7c1;border-radius:5px;background:#f2f7f8;color:#214353;padding:11px 19px;cursor:pointer}
+.cbb-rating-tabs button.active,.cbb-rating-tabs button[aria-selected="true"]{background:#163e52;color:#fff;border-color:#163e52}
+.cbb-rating-tabs button:focus-visible{outline:3px solid #d29a20;outline-offset:2px}
+.cbb-rating-source{color:#4a6370;font:600 .83rem system-ui;margin-bottom:18px}
+#cbb-retro-content[hidden],#cbb-external-content[hidden]{display:none!important}
+#cbb-external-content{margin-top:20px;min-height:210px}
+#cbb-external-content a{font-weight:700;color:#096584}
