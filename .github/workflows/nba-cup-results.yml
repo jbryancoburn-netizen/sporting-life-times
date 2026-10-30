@@ -1,0 +1,26 @@
+name: Persist NBA Cup results
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: nba-cup-results
+  cancel-in-progress: false
+jobs:
+  persist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Persist finals without overwriting other NBA data
+        run: python3 scripts/persist_nba_cup_results.py
+      - name: Commit changed Cup ledger
+        run: |
+          if git diff --quiet -- data/nba-cup-2026.json; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nba-cup-2026.json
+          git commit -m "Persist finished NBA Cup games"
+          git pull --rebase origin main
+          git push origin HEAD:main
