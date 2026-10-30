@@ -34,8 +34,10 @@ jobs:
             BATCH_START="$start" BATCH_END="$end" BATCH_NAME="shard-$i" python scripts/mbb_official_recheck_reliable.py || { echo "Verification shard $i FAILED" >> data/mbb-shard-failures.txt; failed=1; }
           done
           if [ "$failed" -ne 0 ]; then cat data/mbb-shard-failures.txt; exit 1; fi
-      - name: Produce post-run quality audit
-        run: python scripts/mbb_live_quality_audit.py
+      - name: Produce post-run quality audits
+        run: |
+          python scripts/mbb_live_quality_audit.py
+          python scripts/mbb_schedule_completion_audit.py
       - name: Confirm site-verification totals and remaining conflicts
         run: |
           python - <<'PY'
@@ -52,7 +54,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json data/mbb-saved-evidence-reconciliation.json data/mbb-reciprocal-official-recovery.json
+          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json data/mbb-saved-evidence-reconciliation.json data/mbb-reciprocal-official-recovery.json data/mbb-schedule-completion-audit.json
           find data -maxdepth 1 -name 'mbb-official-recheck-shard-*-verification.json' -exec git add {} +
           git commit -m "Publish 365-school official recheck and fresh MBB quality totals" || exit 0
           for attempt in 1 2 3 4 5; do
