@@ -1,8 +1,8 @@
 {
   "season": "2026-27",
   "gender": "women",
-  "research_rows": 1424,
-  "published_source_research_rows": 512,
+  "research_rows": 1431,
+  "published_source_research_rows": 519,
   "conference_media_rule_audit": {
     "Atlantic 10 Conference": {
       "conference_games_validated": 126,
@@ -115,10 +115,17 @@
       "linear_or_unresolved_exclusions": 0
     }
   },
-  "matched_new_official_game_ids": 0,
+  "matched_new_official_game_ids": 6,
   "previously_official_game_ids": 1420,
-  "unmatched_or_disputed": 4,
-  "new_game_ids": [],
+  "unmatched_or_disputed": 5,
+  "new_game_ids": [
+    "401905532",
+    "401913936",
+    "401913942",
+    "401919913",
+    "401928938",
+    "401928951"
+  ],
   "skipped_details": [
     {
       "game_id": "401912888",
@@ -149,9 +156,18 @@
       "network": "ESPN+",
       "reason": "official_vs_calendar_home_away_conflict",
       "source_url": "https://mcneesesports.com/sports/womens-basketball/schedule/2026-2027?grid=true"
+    },
+    {
+      "date": "2027-02-01",
+      "away_id": "277",
+      "home_id": "9",
+      "network": "ESPNU",
+      "reason": "missing_or_nonunique_team_date",
+      "candidate_count": 0,
+      "source_url": "https://espnpressroom.com/press-release/espns-industry-leading-coverage-of-womens-college-basketball-tips-off-with-more-than-games/"
     }
   ],
-  "official_unique_games": 1547,
+  "official_unique_games": 1553,
   "source_urls": [
     "https://admin.big12sports.com/news/2026/10/12/monster-energy-big-12-womens-basketball-linear-tv-coverage-reaches-eight-year-high-features-three-national-broadcast-partners-for-first-time.aspx",
     "https://fausports.com/news/2026/10/26/womens-basketball-womens-basketball-tip-times-and-tv-designations-announced",
@@ -185,7 +201,8 @@
     "https://brownbears.com/sports/womens-basketball/schedule/ivyleague.com",
     "https://mcneesesports.com/sports/womens-basketball/schedule/2026-2027?grid=true",
     "https://okstate.com/news/2026/10/13/cowgirl-basketball-announces-tip-times-tv-selections",
-    "https://fgcuathletics.com/sports/womens-basketball/schedule"
+    "https://fgcuathletics.com/sports/womens-basketball/schedule",
+    "https://espnpressroom.com/press-release/espns-industry-leading-coverage-of-womens-college-basketball-tips-off-with-more-than-games/"
   ],
   "policy": "No broadcast inferred from conference rights; only cited game-by-game assignments with uniquely matching school IDs and local date."
 }
