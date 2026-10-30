@@ -3,7 +3,7 @@
   "purpose": "Independently reopened official team pages and verified three existing tipoff discrepancies",
   "verified": 3,
   "auto_published_schedule_changes": 0,
-  "policy": "Do not overwrite source ledger until reciprocal opponent or organizer confirms; keep evidence authoritative and traceable.",
+  "policy": "Organizer-confirmed values for two Maui Classic games; master schedule requires separate exact game ID/time update. California-Hawaii remains disputed.",
   "rows": [
     {
       "game_id": "401906067",
@@ -30,8 +30,11 @@
       "existing_calendar_utc": "2026-12-19T01:00Z",
       "difference_minutes": 180,
       "source": "https://osubeavers.com/sports/womens-basketball/schedule/text/2026-27",
-      "status": "verified_official_display_conflicts_with_calendar",
-      "note": "Neutral-site Maui Classic listed as 8 PM PT; verify opponent reciprocal schedule before updating canonical tipoff."
+      "status": "confirmed_by_tournament_organizer_pending_master_schedule_update",
+      "note": "Organizer prints 5 PM Maui local time (HST UTC-10). Prior 8 PM PT university listing converts to 4 PM HST and differs by one hour from organizer.",
+      "organizer_confirmed_local": "5:00 PM HST",
+      "organizer_confirmed_utc": "2026-12-19T03:00:00Z",
+      "organizer_source": "https://verticalsportsmaui.com/maui-classic/"
     },
     {
       "game_id": "401928315",
@@ -44,8 +47,12 @@
       "existing_calendar_utc": "2026-12-20T01:00Z",
       "difference_minutes": 180,
       "source": "https://osubeavers.com/sports/womens-basketball/schedule/text/2026-27",
-      "status": "verified_official_display_conflicts_with_calendar",
-      "note": "Neutral-site Maui Classic; verify reciprocal source before changing ledger."
+      "status": "confirmed_by_tournament_organizer_pending_master_schedule_update",
+      "note": "Organizer prints 5 PM Maui local time (HST UTC-10). Prior 8 PM PT university listing converts to 4 PM HST and differs by one hour from organizer.",
+      "organizer_confirmed_local": "5:00 PM HST",
+      "organizer_confirmed_utc": "2026-12-20T03:00:00Z",
+      "organizer_source": "https://verticalsportsmaui.com/maui-classic/"
     }
-  ]
+  ],
+  "organizer_verified_games": 2
 }
