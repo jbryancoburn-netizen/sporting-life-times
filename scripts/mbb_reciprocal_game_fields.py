@@ -13,7 +13,7 @@ for t in teams:
   if len(ids)==2 and all(ids) and tid in ids:pairs[(e['date'][:10],tuple(sorted(ids)))].append((tid,e,c))
 # Extract facilities only from explicit, game-specific official location text.
 # This recovers named arenas that the schedule renderer can see but the data field lacks.
-FACILITY=re.compile(r"\\b(?:[A-Z][A-Za-z0-9'.&-]*\\s+){1,7}(?:Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Stadium|Dome|Auditorium)\\b",re.I)
+FACILITY=re.compile(r"\b(?:[A-Z][A-Za-z0-9'.&-]*\s+){1,7}(?:Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Stadium|Dome|Auditorium)\b",re.I)
 for tid,(path,doc) in docs.items():
  for event in doc.get('events',[]):
   comp=(event.get('competitions') or [{}])[0]
