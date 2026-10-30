@@ -11,6 +11,28 @@ for t in teams:
  for e in d.get('events',[]):
   c=e['competitions'][0];ids=[str(x.get('team',{}).get('id','')) for x in c['competitors']]
   if len(ids)==2 and all(ids) and tid in ids:pairs[(e['date'][:10],tuple(sorted(ids)))].append((tid,e,c))
+# Extract facilities only from explicit, game-specific official location text.
+# This recovers named arenas that the schedule renderer can see but the data field lacks.
+FACILITY=re.compile(r"\\b(?:[A-Z][A-Za-z0-9'.&-]*\\s+){1,7}(?:Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Stadium|Dome|Auditorium)\\b",re.I)
+for tid,(path,doc) in docs.items():
+ for event in doc.get('events',[]):
+  comp=(event.get('competitions') or [{}])[0]
+  venue=comp.setdefault('venue',{})
+  if venue.get('arenaName') or not event.get('official_source'):continue
+  source=event.get('school_source_url') or doc.get('source_url') or ''
+  if not str(source).startswith('https://'):continue
+  raw=(venue.get('official_school_location') or venue.get('fullName') or '').strip()
+  if not raw or re.search(r'Choose A Location|All Games Home|Select Location|TBA|TBD',raw,re.I):continue
+  found=FACILITY.findall(raw)
+  if len(found)!=1:continue
+  candidate=found[0].strip()
+  # Reject date/event marketing text; only explicit facility labels qualify.
+  if len(candidate)>85:continue
+  venue['arenaName']=candidate
+  venue['arena_source_url']=source
+  venue['arena_source_type']='explicit_official_game_location_text'
+  counts['official_facility_names_extracted']+=1
+  changed.add(tid)
 for key,items in pairs.items():
  if len(items)!=2 or items[0][0]==items[1][0]:continue
  for source,target in [items,items[::-1]]:
