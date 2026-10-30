@@ -58,11 +58,19 @@ def read_source(html):
    # Handle official tables that present a Home/Away column AND an
    # opponent like "vs. Texas". The prefix must always be removed
    # before independent date-and-opponent verification.
-   m=re.match(r"^\s*(vs\.?|at|@)\s+(.+)$",opponent,re.I)
-   if m:
-    if site not in ("home","away","neutral"):
-     site="away" if m[1].lower() in ("at","@") else "home"
-    opponent=m[2].strip()
+   markers=list(re.finditer(r"(?<![A-Za-z])(?:vs\.?|at|@)(?=\s|[A-Z])",opponent))
+   if markers:
+    marker=markers[-1]
+    following=opponent[marker.end():].strip()
+    if following:
+     if site not in ("home","away","neutral"):
+      site="away" if marker.group().lower() in ("at","@") else "home"
+     opponent=following
+   # Some school tables repeat the institution before its mascot:
+   # "Hofstra Hofstra Pride" should match the unique Hofstra opponent.
+   words=opponent.split()
+   if len(words)>1 and words[0].casefold()==words[1].casefold():
+    opponent=" ".join(words[1:])
    rows.append(dict(date=dt,opponent=opponent,site=site,origin="official_university_schedule_table"))
  return rows
 def official_urls(tid):
