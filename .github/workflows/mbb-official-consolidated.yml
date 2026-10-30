@@ -19,23 +19,40 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests beautifulsoup4
+      - name: Reconcile existing official game evidence and reciprocal opponents
+        run: |
+          python scripts/mbb_reconcile_saved_official_evidence.py
+          python scripts/mbb_reciprocal_official_recovery.py
       - name: Verify four bounded groups
         shell: bash
         run: |
+          failed=0
           for i in 1 2 3 4; do
             start=$(( (i-1)*100 ))
             end=$(( i*100 ))
             if [ "$end" -gt 365 ]; then end=365; fi
-            BATCH_START="$start" BATCH_END="$end" BATCH_NAME="shard-$i" python scripts/mbb_official_recheck_reliable.py || echo "Verification shard $i FAILED" >> data/mbb-shard-failures.txt
+            BATCH_START="$start" BATCH_END="$end" BATCH_NAME="shard-$i" python scripts/mbb_official_recheck_reliable.py || { echo "Verification shard $i FAILED" >> data/mbb-shard-failures.txt; failed=1; }
           done
+          if [ "$failed" -ne 0 ]; then cat data/mbb-shard-failures.txt; exit 1; fi
       - name: Produce post-run quality audit
         run: python scripts/mbb_live_quality_audit.py
+      - name: Confirm site-verification totals and remaining conflicts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("data")
+          audit=json.loads((root/"mbb-live-quality-audit-2026-27.json").read_text())
+          print("MBB remaining unverified sites:",audit["summary"].get("unverified_site"))
+          report=json.loads((root/"mbb-reciprocal-official-recovery.json").read_text())
+          print("MBB official reciprocal conflicts:",report["summary"].get("conflicts"))
+          PY
       - name: Publish reports and schedule changes
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json
+          git add -A data/mbb-schedules-2026-27/ data/mbb-live-quality-audit-2026-27.json data/mbb-saved-evidence-reconciliation.json data/mbb-reciprocal-official-recovery.json
           find data -maxdepth 1 -name 'mbb-official-recheck-shard-*-verification.json' -exec git add {} +
           git commit -m "Publish 365-school official recheck and fresh MBB quality totals" || exit 0
           for attempt in 1 2 3 4 5; do
