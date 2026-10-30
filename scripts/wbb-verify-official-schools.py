@@ -168,7 +168,7 @@ def official_urls(tid):
   "2066":"https://binghamtonbearcats.com/sports/womens-basketball/schedule/2026-27?grid=true",
   "2443":"https://privateersports.com/sports/womens-basketball/schedule/2026-27?grid=true",
   "2379":"https://umeshawksports.com/sports/womens-basketball/schedule",
-  "2437":"https://omahamavs.com/sports/womens-basketball/schedule/2026-27",
+  "2437":"https://omahamavs.com/sports/womens-basketball/schedule/text",
   "158":"https://huskers.com/sports/womens-basketball/schedule",
   "21":"https://goaztecs.com/sports/womens-basketball/schedule",
   "59":"https://ramblinwreck.com/sports/w-baskbl/schedule",
