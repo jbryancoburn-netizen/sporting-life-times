@@ -92,21 +92,43 @@ def main():
         excluded = {(row["date"],frozenset(map(str,row["teams"]))) for row in rule["exclusions"]}
         if not all(key in {(d, frozenset((a,h))) for _,d,a,h in conference_games} for key in excluded):
             raise RuntimeError("Excluded national-TV game is not in official conference schedule")
-        generated = 0
+        explicit_by_match = {(row["date"], frozenset((str(row["away_id"]), str(row["home_id"])))): row
+                             for row in researched_rows}
+        generated = explicitly_streamed = explicitly_other = prior_conflicts = 0
         for gid, d, away, home in conference_games:
             key = (d,frozenset((away,home)))
-            if key in excluded or key in explicitly_scheduled:
+            if key in excluded:
+                continue
+            if key in explicitly_scheduled:
+                existing = explicit_by_match[key]
+                if existing["broadcast"] == rule["mandatory_network"]:
+                    explicitly_streamed += 1
+                else:
+                    explicitly_other += 1
                 continue
             # Do not silently override a separately confirmed network.
             if gid in prior and prior[gid]["broadcast"] != rule["mandatory_network"]:
+                prior_conflicts += 1
                 continue
             researched_rows.append({"date":d,"away_id":away,"home_id":home,
                                     "broadcast":rule["mandatory_network"],
                                     "source_id":rule["source_id"]})
             generated += 1
+        streaming_covered = generated + explicitly_streamed
+        expected_streaming = expected - len(excluded) - explicitly_other
+        if prior_conflicts or streaming_covered != expected_streaming:
+            raise RuntimeError("Incomplete independently verified streaming coverage for "+
+                               rule["conference"]+": "+str(streaming_covered)+"/"+
+                               str(expected_streaming)+", prior conflicts "+str(prior_conflicts))
         media_rule_counts[rule["conference"]] = {
             "conference_games_validated":len(conference_games),
             "streaming_games_generated":generated,
+            "streaming_games_previously_explicit":explicitly_streamed,
+            "streaming_games_covered":streaming_covered,
+            "streaming_games_expected":expected_streaming,
+            "national_linear_tv_games":explicitly_other,
+            "unresolved_network_exclusions":len(excluded),
+            "conflicting_prior_games":prior_conflicts,
             "linear_or_unresolved_exclusions":len(conference_games)-generated
         }
     added, same, skipped = [], [], []

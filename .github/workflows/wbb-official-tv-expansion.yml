@@ -42,7 +42,12 @@ jobs:
           assert rule.get("streaming_games_generated",0)>=90
           american=b["conference_media_rule_audit"].get("American Conference",{})
           assert american.get("conference_games_validated")==117
-          assert american.get("streaming_games_generated")==115
+          assert american.get("streaming_games_covered")==115
+          assert american.get("streaming_games_previously_explicit")==18
+          assert american.get("streaming_games_generated")==97
+          assert american.get("national_linear_tv_games")==1
+          assert american.get("unresolved_network_exclusions")==1
+          assert american.get("conflicting_prior_games")==0
           assert a["cross_school_date_venue_identity_conflicts"]==0
           print("Officially broadcast unique games:",a["official_broadcast_unique_games"])
           print("Newly official source-matched games:",b["matched_new_official_game_ids"])
