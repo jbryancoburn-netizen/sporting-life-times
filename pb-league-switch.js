@@ -1,5 +1,9 @@
 /* The Sporting Life & Times · shared, logo-based NBA/EuroLeague/NBL switcher. */
 (()=>{'use strict';
+// Idempotent across shared newspaper scripts: keep exactly one league switcher.
+const existing=document.querySelectorAll('.pb-league-toggle');
+if(existing.length){existing.forEach((node,index)=>{if(index>0)node.remove()});return;}
+
 const qs=new URLSearchParams(location.search),file=location.pathname.split('/').pop()||'nba.html';
 const names={nba:'NBA',euroleague:'EuroLeague',nbl:'Australian NBL'};
 const active=file==='nba.html'&&['euroleague','nbl'].includes(qs.get('league'))?qs.get('league'):file==='euroleague.html'?'euroleague':file.startsWith('nbl')?'nbl':'nba';
