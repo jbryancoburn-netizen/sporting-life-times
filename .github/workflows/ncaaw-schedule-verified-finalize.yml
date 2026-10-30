@@ -1,6 +1,9 @@
 name: NCAAW Schedule Corrections
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/ncaaw-schedule-verified-finalize.yml
 permissions:
   contents: write
 jobs:
