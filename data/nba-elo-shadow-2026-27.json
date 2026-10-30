@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 70,
+  "games_played": 71,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -22,20 +22,12 @@
       "difference_from_live": -49.57
     },
     {
-      "team": "POR",
-      "elo": 1543.617,
-      "games": 3,
-      "forecast_prior": 1520.0812500000002,
-      "live_elo": 1557.257,
-      "difference_from_live": -13.64
-    },
-    {
       "team": "MEM",
-      "elo": 1542.087,
-      "games": 4,
+      "elo": 1561.546,
+      "games": 5,
       "forecast_prior": 1322.1195,
-      "live_elo": 1415.919,
-      "difference_from_live": 126.168
+      "live_elo": 1438.823,
+      "difference_from_live": 122.723
     },
     {
       "team": "LAL",
@@ -76,6 +68,14 @@
       "forecast_prior": 1704.7305,
       "live_elo": 1675.477,
       "difference_from_live": -150.959
+    },
+    {
+      "team": "POR",
+      "elo": 1524.158,
+      "games": 4,
+      "forecast_prior": 1520.0812500000002,
+      "live_elo": 1534.353,
+      "difference_from_live": -10.195
     },
     {
       "team": "PHI",
@@ -1444,6 +1444,23 @@
       "home_elo_change": 10.863855942248032,
       "home_after": 1476.4439774974085,
       "away_after": 1433.799223197406
+    },
+    {
+      "id": "espn-nba-401909895",
+      "date": "2026-10-30T02:00:00.000Z",
+      "home": "POR",
+      "away": "MEM",
+      "home_score": 103,
+      "away_score": 124,
+      "home_before": 1543.6166280708208,
+      "away_before": 1542.0874516731626,
+      "home_win_probability": 0.5594822730276748,
+      "forecast_home_win_probability": 0.6983052815562846,
+      "forecast_prior_weight_home": 0.5769230769230769,
+      "forecast_prior_weight_away": 0.5357142857142857,
+      "home_elo_change": -19.458404163020298,
+      "home_after": 1524.1582239078004,
+      "away_after": 1561.545855836183
     }
   ]
 }
