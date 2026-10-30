@@ -1,9 +1,34 @@
 {
   "source_type": "attributed_nba_boxscores",
   "source_url": "Attribution retained per game",
-  "updated_at": "2026-10-30T02:38:01.910090+00:00",
+  "updated_at": "2026-10-30T09:00:16.706278+00:00",
   "coverage": "captured completed games, not necessarily full NBA season",
   "games": [
+    {
+      "id": "espn-nba-401909895",
+      "date": "2026-10-30T02:00Z",
+      "minutes": 48,
+      "final": true,
+      "regular_season": true,
+      "source": "ESPN completed-game team box score",
+      "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=401909895",
+      "home": {
+        "code": "POR",
+        "points": 103,
+        "fga": 91,
+        "oreb": 13,
+        "tov": 16,
+        "fta": 26
+      },
+      "away": {
+        "code": "MEM",
+        "points": 124,
+        "fga": 102,
+        "oreb": 15,
+        "tov": 11,
+        "fta": 12
+      }
+    },
     {
       "id": "espn-nba-401909894",
       "date": "2026-10-30T00:00Z",
