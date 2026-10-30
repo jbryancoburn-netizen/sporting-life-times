@@ -3,15 +3,15 @@
   "gender": "women",
   "schools_attempted": 363,
   "schools_with_readable_official_calendar": 357,
-  "schools_with_matched_official_calendar": 362,
-  "verified_school_count_including_prior": 362,
-  "verified_team_game_rows_including_prior": 9072,
-  "verified_unique_game_ids": 5436,
-  "official_home_away_matched": 8857,
+  "schools_with_matched_official_calendar": 363,
+  "verified_school_count_including_prior": 363,
+  "verified_team_game_rows_including_prior": 9084,
+  "verified_unique_game_ids": 5446,
+  "official_home_away_matched": 8869,
   "official_home_away_conflicts": 90,
   "status_counts": {
     "matched_university_games": 361,
-    "unreadable_university_schedule": 1,
+    "matched_reciprocal_opponent_games": 1,
     "matched_conference_games": 1
   },
   "school_results": [
@@ -448,10 +448,10 @@
     {
       "team_id": "2115",
       "school": "Central Connecticut Blue Devils",
-      "status": "unreadable_university_schedule",
-      "source": null,
-      "source_rows": 0,
-      "matched": 0,
+      "status": "matched_reciprocal_opponent_games",
+      "source": "https://lemoynedolphins.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_rows": 12,
+      "matched": 12,
       "site_matched": 0,
       "site_conflicts": 0
     },
@@ -3653,5 +3653,6 @@
   "retention_policy": "Preserve dated official women's source evidence across temporary site failures only when current unique game ID, local date and opponent still match; old site claims are not carried forward.",
   "official_university_schools_with_matches": 361,
   "official_conference_schools_with_matches": 1,
-  "offline_official_transcription_source_file": "data/ncaaw-2026-27-final-five-official-evidence.json"
+  "offline_official_transcription_source_file": "data/ncaaw-2026-27-final-five-official-evidence.json",
+  "official_reciprocal_opponent_schools_with_matches": 1
 }
