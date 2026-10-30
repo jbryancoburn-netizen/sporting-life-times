@@ -6,6 +6,8 @@ on:
       - '.github/workflows/wbb-official-tv-expansion.yml'
       - 'scripts/wbb-import-official-tv.py'
       - 'data/ncaaw-2026-27-official-tv-research.json'
+      - 'data/ncaaw-2026-27-university-tipoff-venue-research.json'
+      - 'scripts/wbb-reconcile-schedule-evidence.py'
 permissions:
   contents: write
 concurrency:
@@ -85,6 +87,9 @@ jobs:
           assert ae.get("conference_games_validated")==72
           assert ae.get("streaming_games_covered")==72
           assert ae.get("conflicting_prior_games")==0
+          assert a["research_venue_tipoff_candidates"]==30
+          assert a["official_school_venue_verified"]>=1710
+          assert a["official_school_tipoff_verified"]>=307
           assert a["cross_school_date_venue_identity_conflicts"]==0
           print("Officially broadcast unique games:",a["official_broadcast_unique_games"])
           print("Newly official source-matched games:",b["matched_new_official_game_ids"])

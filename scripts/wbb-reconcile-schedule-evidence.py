@@ -287,6 +287,74 @@ def main():
             match["official_tipoff_as_printed"]=row["official_time"]
             match["official_tipoff_source_url"]=row["source_url"]
             official_tipoff_rows+=1
+    # Independent 2026-27 women-only university home-game confirmations.
+    # Exact identifiers, current game date, named venue and UTC conversion are
+    # required; printed sites and times never replace an ESPN game field.
+    venue_research_path=ROOT/"ncaaw-2026-27-university-tipoff-venue-research.json"
+    research_venue_added=0
+    research_time_added=0
+    research_quarantine=[]
+    if venue_research_path.exists():
+        manifest=load(venue_research_path)
+        if manifest.get("season")!="2026-27" or manifest.get("gender")!="women":
+            raise RuntimeError("Wrong season/gender in women's venue and tipoff research")
+        from zoneinfo import ZoneInfo
+        for row in manifest.get("records",[]):
+            tid=text(row.get("team_id"))
+            aid=text(row.get("away_id"))
+            hid=text(row.get("home_id"))
+            day=text(row.get("date"))
+            matches=[
+                g for g in cal["teams"].get(tid,{}).get("games",[])
+                if text(g.get("away_id"))==aid and text(g.get("home_id"))==hid
+                and datetime.datetime.fromisoformat(text(g["date"]).replace("Z","+00:00"))
+                    .astimezone(ZoneInfo("America/New_York")).date().isoformat()==day
+            ]
+            if len(matches)!=1 or not text(row.get("source_url")).startswith("https://"):
+                research_quarantine.append({"team_id":tid,"date":day,"reason":"missing_or_nonunique_exact_womens_game"})
+                continue
+            g=matches[0]
+            source_url=row["source_url"]
+            # This exact date+opponent source independently confirms the
+            # university game even when a broader school parser is unreadable.
+            if not g.get("official_schedule_source_url"):
+                g["official_schedule_source_url"]=source_url
+                g["official_schedule_source_type"]="official_womens_university_home_game_table"
+                g["official_schedule_verified_fields"]=["scheduled_date","opponent","home_away"]
+            norm=lambda v: re.sub(r"[^a-z0-9]","",text(v).lower())
+            venue=text(row.get("verified_venue"))
+            if venue and norm(g.get("venue"))==norm(venue):
+                if not g.get("official_venue_verified"):
+                    research_venue_added+=1
+                    official_venue_rows+=1
+                g["official_venue_verified"]=True
+                g["official_venue_name"]=venue
+                g["official_venue_source_url"]=source_url
+            else:
+                research_quarantine.append({"team_id":tid,"date":day,
+                                             "reason":"university_venue_differs_from_current_game",
+                                             "university_venue":venue,"calendar_venue":g.get("venue")})
+            local=text(row.get("local_24h"))
+            try:
+                moment=datetime.datetime.fromisoformat(day+"T"+local).replace(
+                    tzinfo=ZoneInfo(row["time_zone"]))
+                got=moment.astimezone(datetime.timezone.utc)
+                have=datetime.datetime.fromisoformat(text(g["date"]).replace("Z","+00:00"))
+                time_matches=got==have
+            except (ValueError,KeyError):
+                time_matches=False
+            if time_matches:
+                if not g.get("official_tipoff_verified"):
+                    research_time_added+=1
+                    official_tipoff_rows+=1
+                g["official_tipoff_verified"]=True
+                g["official_tipoff_as_printed"]=local+" "+row["time_zone"]
+                g["official_tipoff_source_url"]=source_url
+            else:
+                research_quarantine.append({"team_id":tid,"date":day,
+                                             "reason":"university_tipoff_differs_from_current_utc",
+                                             "official_time":local+" "+text(row.get("time_zone")),
+                                             "current_utc":g.get("date")})
     official_school_ids={
         tid for tid,t in cal["teams"].items()
         if any(g.get("official_schedule_source_url") for g in t.get("games",[]))
@@ -305,6 +373,10 @@ def main():
         "bulk_university_date_conflicts_quarantined":bulk_date_conflicts,
         "official_school_venue_verified":official_venue_rows,
         "official_school_tipoff_verified":official_tipoff_rows,
+        "research_home_venue_added_this_pass":research_venue_added,
+        "research_explicit_timezone_tipoffs_added_this_pass":research_time_added,
+        "research_venue_tipoff_candidates":len(manifest.get("records",[])) if venue_research_path.exists() else 0,
+        "research_venue_tipoff_quarantined":research_quarantine,
         "official_school_venue_confirmation_discrepancies":venue_conflict_count,
         "official_tipoff_discrepancies_for_review":printed_time_disagreements,
         "official_school_verified_printed_time_fields":university_time_count,
