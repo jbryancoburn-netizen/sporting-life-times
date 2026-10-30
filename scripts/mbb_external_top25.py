@@ -36,3 +36,34 @@ try:
  print('Published KenPom 2026-27 Top 25:',len(unique))
 except Exception as exc:
  print('::warning::KenPom source unavailable or validation failed; preserving last verified snapshot:',str(exc))
+
+# NET is not published until the NCAA releases current-season results.
+# Only accept an explicitly season-labeled official NCAA ranking table.
+try:
+ if datetime.datetime.now(datetime.timezone.utc).month in (12,1,2,3,4):
+  net_url='https://www.ncaa.com/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings'
+  resp=requests.get(net_url,headers={'User-Agent':'Mozilla/5.0'},timeout=25)
+  resp.raise_for_status()
+  page=BeautifulSoup(resp.text,'html.parser')
+  whole=page.get_text(' ',strip=True)
+  if not re.search(r'2026\\s*[-–/]\\s*27|2026-27',whole,re.I):raise ValueError('official NCAA page does not establish 2026–27 season')
+  rows=[]
+  for tr in page.select('table tr'):
+   cells=tr.find_all(['th','td'],recursive=False)
+   if len(cells)<2:continue
+   rank_text=cells[0].get_text(' ',strip=True)
+   if not re.fullmatch(r'\\d{1,3}',rank_text):continue
+   rank=int(rank_text)
+   if rank>25:continue
+   school=cells[1].get_text(' ',strip=True)
+   if not school or len(school)>85:continue
+   rows.append({'rank':rank,'team':school})
+  found={r['rank']:r for r in rows}
+  if len(found)!=25 or sorted(found)!=list(range(1,26)):raise ValueError('official NET top 25 incomplete or unknown table layout')
+  data=json.loads(DEST.read_text())
+  data['net']={'status':'published','rankings':[found[i] for i in range(1,26)],'source_url':net_url,'season':'2026-27','retrieved_at':today}
+  DEST.write_text(json.dumps(data,indent=2)+'\n')
+  print('Published official 2026-27 NET Top 25')
+except Exception as exc:
+ print('::warning::Official NET unavailable/unverified; preserving existing feed:',str(exc))
+
