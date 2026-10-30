@@ -27,7 +27,10 @@ function render(options={}){
 const name=String(options.name||'Team'),ncaa=String(options.ncaaId||''),given=String(options.espnId||'');
 const resolved=byNcaa.get(ncaa)||'',byTitle=byName.get(norm(name))||'';
 let id=resolved||given||byTitle;
-if((resolved&&given&&resolved!==given)||(byTitle&&id!==byTitle)||!registry[id]||(ncaa&&registry[id].canonical_id!==ncaa))id='';
+// When a dated school calendar has a stale ESPN opponent ID, an unambiguous
+// official crosswalk name takes priority. Never substitute a fuzzy match.
+if(!ncaa&&byTitle&&given&&byTitle!==given)id=byTitle;
+if((resolved&&given&&resolved!==given)||!registry[id]||(ncaa&&registry[id].canonical_id!==ncaa))id='';
 const school=registry[id],brand=palette[id],art=school?.artwork_type||'unverified';
 const corrected=school?.ring_override==='two'&&art==='embedded_roundel';
 const primary=school?.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):'';
