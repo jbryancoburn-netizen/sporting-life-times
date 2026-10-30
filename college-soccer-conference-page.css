@@ -24,3 +24,11 @@
 .cs-conf-page .cs-cup-school img,.cs-conf-page .cs-official-team img,.cs-conf-page .cs-conference-table img{width:40px!important;height:40px!important;max-width:none;object-fit:contain;flex:0 0 40px}
 .cs-conf-page .cs-conf-qualifier .cs-cup-school img{width:46px!important;height:46px!important;flex-basis:46px}
 @media(max-width:520px){.cs-conf-page .cs-conference-table img{width:32px!important;height:32px!important;flex-basis:32px}}
+
+/* Conference logo repair: normalize image containers, not the school's artwork. */
+.cs-conf-page :is(.cs-cup-school,.cs-official-team,.cs-conference-table) img:not(.team-hero-logo-bg){width:36px!important;height:36px!important;max-width:36px!important;max-height:36px!important;aspect-ratio:1/1!important;object-fit:contain!important;object-position:center!important;vertical-align:middle;flex:0 0 36px;margin:0!important;padding:3px!important;box-sizing:border-box!important;border-radius:50%!important;clip-path:none!important}
+.cs-conf-page .cs-conf-qualifier .cs-cup-school img{width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;flex-basis:42px}
+.cs-conf-page .slt-dual-shell{border-width:2px!important;background:transparent!important;box-shadow:none!important}
+.cs-conf-page .slt-dual-shell::before{inset:1px!important;border-width:2px!important;box-shadow:none!important}
+.cs-conf-page .slt-dual-shell>img{position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;width:76%!important;height:76%!important;max-width:76%!important;max-height:76%!important;padding:0!important;clip-path:none!important;border-radius:0!important}
+@media(max-width:520px){.cs-conf-page .cs-conference-table img{width:30px!important;height:30px!important;max-width:30px!important;max-height:30px!important;flex-basis:30px}}
