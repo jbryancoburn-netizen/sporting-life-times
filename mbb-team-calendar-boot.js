@@ -66,7 +66,7 @@ try{
   const arena=c.venue?.arenaName||officialArena||embeddedArena||arenaFromOfficialLine||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
   const rawCity=c.venue?.official_school_city||venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
   const cityState=(address.state||'').trim();
-  const city=cityState&&rawCity!=='City TBA'&&!new RegExp('(?:,\\s*|\\s+)'+cityState+'
+   const city=cityState&&rawCity!=='City TBA'&&!rawCity.trim().toLowerCase().endsWith(', '+cityState.toLowerCase())?rawCity+', '+cityState:rawCity;
   const completed=e.status?.type?.completed===true||e.status?.type?.state==='post';
   const result=completed&&self?.score!=null&&opponent?.score!=null?(Number(self.score)>Number(opponent.score)?'W ':'L ')+escape(self.score)+'–'+escape(opponent.score):'—';
   return '<tr><td>'+escape(day)+'</td><td><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+escape(opponent.team?.displayName||opponent.team?.name||e.name||'Opponent TBD')+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td><td>'+escape(opponentElo(opponentId))+'</td><td>'+result+'</td></tr>';
