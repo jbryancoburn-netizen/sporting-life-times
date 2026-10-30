@@ -1,6 +1,11 @@
 name: NBL27 schedule ledger audit
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/nbl27_schedule_audit.py'
+      - '.github/workflows/nbl27-schedule-ledger.yml'
   schedule:
     - cron: '17 */4 * * *'
 permissions:
