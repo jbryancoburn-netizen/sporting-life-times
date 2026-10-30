@@ -1,7 +1,7 @@
 {
   "title": "Live men's D1 basketball missing-arena inventory",
   "school_count_total": 365,
-  "schools_scanned": 239,
+  "schools_scanned": 256,
   "scan_status": "in_progress",
   "matchup_dedup_method": "exact date + sorted 2 valid competitor IDs; missing opponent IDs remain separate pending identity verification",
   "schools": [
@@ -1677,6 +1677,125 @@
       "source_sha": "a83f43e1290ad5c3d7e0de31ea0199c86a9bc7c1",
       "game_count": 31,
       "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2515",
+      "school": "Radford",
+      "source_sha": "5f2d0b1adffa84ae5df5dd8c5aa7be96e018b13c",
+      "game_count": 33,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "227",
+      "school": "Rhode Island",
+      "source_sha": "363519079426fabf4307b2643999035ea307b4e8",
+      "game_count": 33,
+      "missing_arena_fields": 2
+    },
+    {
+      "school_id": "242",
+      "school": "Rice",
+      "source_sha": "a70ce19178b5d94c57555d3b6607cefd0f524062",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "257",
+      "school": "Richmond",
+      "source_sha": "918b9f59b28da9dd85fe037ed4abc257241e26a8",
+      "game_count": 32,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "2520",
+      "school": "Rider",
+      "source_sha": "f6f7a4b09fe21125516958ce017533bbe77fa5ac",
+      "game_count": 32,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "2523",
+      "school": "Robert Morris",
+      "source_sha": "2f8b3606a1b28529324078740aa9a5ee30c9d215",
+      "game_count": 33,
+      "missing_arena_fields": 3
+    },
+    {
+      "school_id": "164",
+      "school": "Rutgers",
+      "source_sha": "206c0c232c5608f265c47b7c190ea59a10018e13",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "16",
+      "school": "Sacramento St.",
+      "source_sha": "815f359edf59772ff5f878d92b58016f67a770d4",
+      "game_count": 31,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2529",
+      "school": "Sacred Heart",
+      "source_sha": "3be48abe43f4432fef037f21d106dcdfc9b7572c",
+      "game_count": 32,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2603",
+      "school": "Saint Joseph's",
+      "source_sha": "78c92822033abbb6cc599852859f73c5499c32cc",
+      "game_count": 31,
+      "missing_arena_fields": 4
+    },
+    {
+      "school_id": "139",
+      "school": "Saint Louis",
+      "source_sha": "ab75084499000d0110905f1a54b6bd991796b576",
+      "game_count": 34,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2608",
+      "school": "Saint Mary's (CA)",
+      "source_sha": "f0df116127585ee99d3cf8921c289e19feff2fd7",
+      "game_count": 33,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2612",
+      "school": "Saint Peter's",
+      "source_sha": "6529b1c569814e42599ab72ddbd74454b56d8ee5",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "2534",
+      "school": "Sam Houston",
+      "source_sha": "71988fc7fabde6e8d2a5632ddcb56bac09375fd5",
+      "game_count": 32,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "2535",
+      "school": "Samford",
+      "source_sha": "3fad01d6ee817f2c187f1f98f68221e32a3bf4ce",
+      "game_count": 35,
+      "missing_arena_fields": 1
+    },
+    {
+      "school_id": "301",
+      "school": "San Diego",
+      "source_sha": "7ef0b42d401869fbc6d45664c124848151617688",
+      "game_count": 30,
+      "missing_arena_fields": 0
+    },
+    {
+      "school_id": "21",
+      "school": "San Diego St.",
+      "source_sha": "9bb4292c57c0dcb84839f85299d7cd1cd3725be0",
+      "game_count": 22,
+      "missing_arena_fields": 3
     }
   ],
   "records": [
@@ -7184,6 +7303,352 @@
       "home_away": "away",
       "location": "New Britain, CT",
       "source_url": "https://gobobcats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2515",
+      "school": "Radford",
+      "event_id": "school-2515-2027-01-28-24",
+      "date": "2027-01-28",
+      "opponent_ids": [
+        "2515",
+        "2241"
+      ],
+      "game": "Gardner-Webb",
+      "home_away": "away",
+      "location": "Boiling Springs, NC",
+      "source_url": "https://radfordathletics.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "227",
+      "school": "Rhode Island",
+      "event_id": "school-227-2026-11-20-31",
+      "date": "2026-11-20",
+      "opponent_ids": [
+        "227",
+        "2335"
+      ],
+      "game": "Liberty",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, WV",
+      "source_url": "https://gorhody.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "227",
+      "school": "Rhode Island",
+      "event_id": "school-227-2026-11-22-35",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "227",
+        "5"
+      ],
+      "game": "UAB",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, WV",
+      "source_url": "https://gorhody.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "242",
+      "school": "Rice",
+      "event_id": "school-242-2026-11-22-5",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "242",
+        "2320"
+      ],
+      "game": "Lamar",
+      "home_away": "neutral",
+      "location": "Jacksonville, FL",
+      "source_url": "https://riceowls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "242",
+      "school": "Rice",
+      "event_id": "school-242-2026-11-24-6",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "242",
+        "82"
+      ],
+      "game": "UIC",
+      "home_away": "neutral",
+      "location": "Jacksonville, FL",
+      "source_url": "https://riceowls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "242",
+      "school": "Rice",
+      "event_id": "school-242-2026-11-25-7",
+      "date": "2026-11-25",
+      "opponent_ids": [
+        "242",
+        "195"
+      ],
+      "game": "Ohio",
+      "home_away": "neutral",
+      "location": "Jacksonville, FL",
+      "source_url": "https://riceowls.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "257",
+      "school": "Richmond",
+      "event_id": "school-257-2026-11-22-8",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "257",
+        "2335"
+      ],
+      "game": "Liberty",
+      "home_away": "neutral",
+      "location": "White Sulphur Springs, WV",
+      "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "257",
+      "school": "Richmond",
+      "event_id": "school-257-2026-12-05-12",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "257",
+        "295"
+      ],
+      "game": "Old Dominion",
+      "home_away": "away",
+      "location": "Norfolk, VA",
+      "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "257",
+      "school": "Richmond",
+      "event_id": "school-257-2026-12-30-16",
+      "date": "2026-12-30",
+      "opponent_ids": [
+        "257",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, VA",
+      "source_url": "https://richmondspiders.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2520",
+      "school": "Rider",
+      "event_id": "school-2520-2026-11-11-19",
+      "date": "2026-11-11",
+      "opponent_ids": [
+        "2520"
+      ],
+      "game": "William Paterson",
+      "home_away": "home",
+      "location": "",
+      "source_url": "https://gobroncs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2520",
+      "school": "Rider",
+      "event_id": "school-2520-2026-11-17-27",
+      "date": "2026-11-17",
+      "opponent_ids": [
+        "2520",
+        "2390"
+      ],
+      "game": "Miami (FL)",
+      "home_away": "away",
+      "location": "Coral Gables, FL",
+      "source_url": "https://gobroncs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2520",
+      "school": "Rider",
+      "event_id": "school-2520-2026-11-24-35",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2520",
+        "2352"
+      ],
+      "game": "Loyola (MD)",
+      "home_away": "away",
+      "location": "Baltimore, MD",
+      "source_url": "https://gobroncs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2520",
+      "school": "Rider",
+      "event_id": "school-2520-2026-11-30-43",
+      "date": "2026-11-30",
+      "opponent_ids": [
+        "2520"
+      ],
+      "game": "Connecticut",
+      "home_away": "away",
+      "location": "Storrs, CT",
+      "source_url": "https://gobroncs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2523",
+      "school": "Robert Morris",
+      "event_id": "school-2523-2026-11-06-15",
+      "date": "2026-11-06",
+      "opponent_ids": [
+        "2523"
+      ],
+      "game": "University of Illinois Chicago",
+      "home_away": "away",
+      "location": "Chicago, Ill.",
+      "source_url": "https://rmucolonials.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2523",
+      "school": "Robert Morris",
+      "event_id": "school-2523-2026-11-22-39",
+      "date": "2026-11-22",
+      "opponent_ids": [
+        "2523",
+        "166"
+      ],
+      "game": "New Mexico State",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://rmucolonials.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2523",
+      "school": "Robert Morris",
+      "event_id": "school-2523-2026-11-24-45",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "2523",
+        "2320"
+      ],
+      "game": "Lamar",
+      "home_away": "neutral",
+      "location": "Jacksonville, Fla.",
+      "source_url": "https://rmucolonials.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2603",
+      "school": "Saint Joseph's",
+      "event_id": "cross-school-2603-2026-11-28_2405",
+      "date": "2026-11-28",
+      "opponent_ids": [
+        "2405",
+        "2603"
+      ],
+      "game": "Saint Joseph's",
+      "home_away": "away",
+      "location": "West Long Branch, N.J.",
+      "source_url": "https://monmouthhawks.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2603",
+      "school": "Saint Joseph's",
+      "event_id": "official-2603-2026-12-05-big5classic",
+      "date": "2026-12-05",
+      "opponent_ids": [
+        "2603"
+      ],
+      "game": "Big 5 Classic",
+      "home_away": "neutral",
+      "location": "Philadelphia, Pa.",
+      "source_url": "https://sjuhawks.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "2603",
+      "school": "Saint Joseph's",
+      "event_id": "official-2603-2026-12-22-pennstate",
+      "date": "2026-12-22",
+      "opponent_ids": [
+        "2603",
+        "213"
+      ],
+      "game": "Penn State",
+      "home_away": "neutral",
+      "location": "Hershey, Pa.",
+      "source_url": "https://sjuhawks.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "2603",
+      "school": "Saint Joseph's",
+      "event_id": "official-2603-2027-01-30-georgemason",
+      "date": "2027-01-30",
+      "opponent_ids": [
+        "2603",
+        "2244"
+      ],
+      "game": "George Mason",
+      "home_away": "away",
+      "location": "Fairfax, Va.",
+      "source_url": "https://sjuhawks.com/sports/mens-basketball/schedule"
+    },
+    {
+      "school_id": "2534",
+      "school": "Sam Houston",
+      "event_id": "school-2534-2026-12-09-9",
+      "date": "2026-12-09",
+      "opponent_ids": [
+        "2534",
+        "2172"
+      ],
+      "game": "Denver",
+      "home_away": "neutral",
+      "location": "Kansas City, Mo.",
+      "source_url": "https://gobearkats.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "2535",
+      "school": "Samford",
+      "event_id": "school-2535-2026-10-13-0",
+      "date": "2026-10-13",
+      "opponent_ids": [
+        "2535",
+        "2010"
+      ],
+      "game": "Alabama A&M",
+      "home_away": "neutral",
+      "location": "BIrmingham, Ala.",
+      "source_url": "https://samfordsports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "21",
+      "school": "San Diego St.",
+      "event_id": "cross-school-21-2026-11-07_38",
+      "date": "2026-11-07",
+      "opponent_ids": [
+        "38",
+        "21"
+      ],
+      "game": "San Diego State",
+      "home_away": "neutral",
+      "location": "San Diego, Calif.",
+      "source_url": "https://cubuffs.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "21",
+      "school": "San Diego St.",
+      "event_id": "cross-school-21-2026-11-15_166",
+      "date": "2026-11-15",
+      "opponent_ids": [
+        "166",
+        "21"
+      ],
+      "game": "San Diego State",
+      "home_away": "neutral",
+      "location": "Oceanside, Calif.",
+      "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+    },
+    {
+      "school_id": "21",
+      "school": "San Diego St.",
+      "event_id": "cross-school-21-2026-11-24_66",
+      "date": "2026-11-24",
+      "opponent_ids": [
+        "66",
+        "21"
+      ],
+      "game": "San Diego State",
+      "home_away": "neutral",
+      "location": "Las Vegas, Nev.",
+      "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27"
     }
   ]
 }
