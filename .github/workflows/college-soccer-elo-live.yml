@@ -59,7 +59,7 @@ jobs:
       - name: Verify matchup draw probabilities and prior-day data isolation
         run: python -m unittest discover -s scripts -p test_publish_college_soccer_dynamic.py -v
       - name: Check new NCAA men's and women's final scores in all divisions
-        run: python scripts/update_college_soccer_elo.py --lookback 4
+        run: python scripts/update_college_soccer_elo.py --lookback 7
       - name: Rebuild Division I men's team game index without altering other divisions
         run: python scripts/build_college_soccer_team_game_index.py
       - name: Update provisional conference standings and postseason seeds
@@ -104,7 +104,9 @@ jobs:
       - name: Verify deterministic replay leaves no ratings drift
         run: |
           before="$(sha256sum data/college-soccer-elo.json | cut -d' ' -f1)"
+          cp data/college-soccer-elo-live-audit.json /tmp/college-soccer-online-source-audit.json
           python scripts/update_college_soccer_elo.py --offline
+          cp /tmp/college-soccer-online-source-audit.json data/college-soccer-elo-live-audit.json
           after="$(sha256sum data/college-soccer-elo.json | cut -d' ' -f1)"
           test "$before" = "$after"
           echo "PASS: replayed stored NCAA finals without changing Elo output"
