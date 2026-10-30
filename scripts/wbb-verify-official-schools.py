@@ -311,9 +311,10 @@ def school(tid,school_data,safe_stems):
   result["evidence"].append({"team_id":tid,"game_id":g["id"],
       "verified_date":r["date"],"verified_opponent":r["opponent"],
       "verified_fields":fields,"source_url":url,"source_type":r["origin"]})
- if tid in ("158","259","2115","2579","99"):
-  result["unmatched_official_rows"]=unmatched
-  result["unmatched_master_games"]=[{"game_id":str(g["id"]),"date":datetime.datetime.fromisoformat(g["date"].replace("Z","+00:00")).astimezone(ZoneInfo("America/New_York")).date().isoformat(),"opponent":g.get("opponent"),"opponent_id":g.get("opponent_id")} for g in school_data["games"] if g["id"] not in seen]
+ # Capture exact unmatched game IDs for every program, not just a shortlist.
+ # These are diagnostic records; they are never imported as new games.
+ result["unmatched_official_rows"]=unmatched
+ result["unmatched_master_games"]=[{"game_id":str(g["id"]),"date":datetime.datetime.fromisoformat(g["date"].replace("Z","+00:00")).astimezone(ZoneInfo("America/New_York")).date().isoformat(),"opponent":g.get("opponent"),"opponent_id":g.get("opponent_id")} for g in school_data["games"] if g["id"] not in seen]
  result["matched"]=len(result["evidence"])
  result["status"]="matched_university_games" if result["matched"] else "zero_safe_matches"
  if not result["matched"]:
