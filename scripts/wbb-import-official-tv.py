@@ -202,7 +202,9 @@ def main():
         if not path.exists() or path.read_text(encoding="utf-8") != body:
             path.write_text(body,encoding="utf-8")
     print("WBB OFFICIAL TV:",json.dumps({k:v for k,v in report.items() if k not in ("skipped_details","new_game_ids")}))
-    if len(added) < 12:
-        raise RuntimeError("Too few newly source-matched games; inspect research audit")
+    # Source catalog and venue research are independently triggered.
+    # A venue-only pass can preserve broadcasts without adding new ones.
+    if len(prior) < 1547:
+        raise RuntimeError("Published 2026-27 official women's broadcasts regressed below certified baseline")
 if __name__ == "__main__":
     main()

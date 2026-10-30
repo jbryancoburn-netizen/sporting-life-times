@@ -38,7 +38,7 @@ jobs:
           assert a["programs"]==363
           assert a["official_broadcast_unique_games"]>=135
           assert a["official_broadcast_unique_games"]==b["official_unique_games"]
-          assert b["matched_new_official_game_ids"]>=12
+          assert b["official_unique_games"]>=1547
           rule=b["conference_media_rule_audit"].get("Atlantic 10 Conference",{})
           assert rule.get("conference_games_validated")==126
           assert rule.get("streaming_games_generated",0)>=90
