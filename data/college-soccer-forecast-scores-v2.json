@@ -38,9 +38,9 @@
       "unambiguous_picks": 157
     },
     "women-d3": {
-      "mean_brier_score": 0.42020607,
-      "mean_log_loss": 0.74184555,
-      "pick_accuracy": 0.7032967,
+      "mean_brier_score": 0.41621727,
+      "mean_log_loss": 0.73558413,
+      "pick_accuracy": 0.70695971,
       "scored": 273,
       "unambiguous_picks": 273
     }
@@ -49,9 +49,9 @@
   "model_archive": "data/college-soccer-prospective-v2.json",
   "note": "Only exact match IDs and matching teams from verified final ledger are scored. Historical matches cannot count toward prospective validation.",
   "overall": {
-    "mean_brier_score": 0.49203769,
-    "mean_log_loss": 0.84761274,
-    "pick_accuracy": 0.6254902,
+    "mean_brier_score": 0.4909701,
+    "mean_log_loss": 0.84593688,
+    "pick_accuracy": 0.62647059,
     "scored": 1020,
     "unambiguous_picks": 1020
   },
@@ -9105,12 +9105,12 @@
       "source_game": "https://www.ncaa.com/game/6614047"
     },
     {
-      "brier_score": 1.26197123,
+      "brier_score": 0.17302845,
       "cohort": "women-d3",
-      "correct_pick": false,
-      "log_loss": 2.11766242,
+      "correct_pick": true,
+      "log_loss": 0.40829321,
       "match_id": "women-6614069",
-      "outcome": "draw",
+      "outcome": "home",
       "pick": "home",
       "source_game": "https://www.ncaa.com/game/6614069"
     },
