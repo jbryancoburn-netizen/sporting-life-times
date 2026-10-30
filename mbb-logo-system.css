@@ -51,13 +51,16 @@
  border:2px solid var(--mbb-primary,#385866)!important;
  background:#fff!important;
 }
-.mbb-mark--art-flat::before,.mbb-mark--art-unverified::before{
+/* Unverified ESPN artwork frequently includes its own printed roundel.
+   Add ONE external stroke, not two: this prevents a third visible circle. */
+.mbb-mark--art-unverified::before{content:none!important}
+.mbb-mark--art-flat::before{
  content:""!important;position:absolute!important;display:block!important;
  inset:2px!important;border:2px solid var(--mbb-secondary,#5e7680)!important;
  border-radius:50%!important;background:transparent!important;
  box-shadow:none!important;pointer-events:none!important;z-index:3!important;
 }
-.mbb-mark--art-flat>img.mbb-mark__img,.mbb-mark--art-unverified>img.mbb-mark__img{
+.mbb-mark--art-flat>img.mbb-mark__img{
  width:78%!important;height:78%!important;
  max-width:78%!important;max-height:78%!important;
  clip-path:circle(50% at 50%)!important;
