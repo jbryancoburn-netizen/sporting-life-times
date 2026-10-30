@@ -2,13 +2,15 @@
   "schools_targeted": 100,
   "schools_checked": 100,
   "totals": {
-    "matched": 554,
+    "matched": 567,
     "site_corrected": 1,
-    "location_corrected": 0
+    "location_corrected": 0,
+    "broadcast_corrected": 0,
+    "tipoffs_corrected": 0
   },
   "status_counts": {
-    "source_fetch_failed": 55,
-    "verified_matches": 45
+    "source_fetch_failed": 54,
+    "verified_matches": 46
   },
   "method": "Fetched official university athletics schedule text pages; applied only unique date + opponent matches; never guessed arena, broadcast, or timezone",
   "schools": [
@@ -913,12 +915,11 @@
     {
       "team": "Ga. Southern",
       "id": "290",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_matches",
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 34
     },
     {
       "team": "Gardner-Webb",
