@@ -180,6 +180,20 @@
       "source_type": "official_school_athletics",
       "source_url": "https://uclabruins.com/news/2026/10/06/big-ten-announces-womens-basketball-tip-times-tv-assignments",
       "policy": "Each game assigned only when printed in the cited women-specific official game listing. Broadcast names are the documented primary platform; no conference-wide inference."
+    },
+    {
+      "source_id": 14,
+      "title": "2026-27 American Conference women's basketball linear network selections",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://theamerican.org/news/2026/10/26/american-conference-releases-2026-27-womens-basketball-linear-television-assignments.aspx",
+      "policy": "Use exact dated competition-specific ESPN linear television listings. Undecided ESPN2/ESPNU split is excluded."
+    },
+    {
+      "source_id": 15,
+      "title": "2026-27 American Conference women's basketball all remaining conference-controlled games on ESPN+",
+      "source_type": "official_conference_television_schedule",
+      "source_url": "https://theamerican.org/news/2026/10/26/american-conference-releases-2026-27-womens-basketball-linear-television-assignments.aspx",
+      "policy": "Official conference 13 team, 18-game season has 117 unique conference games. Exclude specifically announced Jan 30 ESPNU and Jan 24 unresolved ESPN2/ESPNU; assign ESPN+ to all remaining distinct American Conference matchups ONLY after complete 117-game ledger proof."
     }
   ],
   "rows": [
@@ -3015,6 +3029,27 @@
       "home_id": "26",
       "broadcast": "FOX",
       "source_id": 13
+    },
+    {
+      "date": "2026-11-12",
+      "away_id": "197",
+      "home_id": "202",
+      "broadcast": "ESPNU",
+      "source_id": 14
+    },
+    {
+      "date": "2026-12-05",
+      "away_id": "163",
+      "home_id": "242",
+      "broadcast": "ESPNU",
+      "source_id": 14
+    },
+    {
+      "date": "2027-01-30",
+      "away_id": "58",
+      "home_id": "202",
+      "broadcast": "ESPNU",
+      "source_id": 14
     }
   ],
   "conference_media_rules": [
@@ -3044,6 +3079,25 @@
         }
       ],
       "method": "Match exact women-specific Division I conference team memberships, locally dated NCAA schedule game IDs and all 126 conference contests; exclude documented linear/unknown network games."
+    },
+    {
+      "source_id": 15,
+      "conference": "American Conference",
+      "start": "2026-12-30",
+      "end": "2027-03-08",
+      "expected_distinct_conference_games": 117,
+      "mandatory_network": "ESPN+",
+      "exclusions": [
+        {
+          "date": "2027-01-24",
+          "teams": [
+            "202",
+            "242"
+          ],
+          "reason": "Officially assigned ESPN2 or ESPNU; exact channel unresolved."
+        }
+      ],
+      "method": "Both teams must be 2026-27 verified American women's basketball members, in the published Dec 30-March regular season. Exact expected count is 13 x 18 / 2 = 117, exclude both known national TV game records and undecided ESPN2/ESPNU game."
     }
   ]
 }

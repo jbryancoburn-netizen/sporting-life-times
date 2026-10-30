@@ -70,8 +70,11 @@ def main():
             raise RuntimeError("Women's conference registry incomplete")
         league_ids = {str(tid) for tid, info in league["teams"].items()
                       if info.get("conference") == rule["conference"]}
-        if rule["conference"] == "Atlantic 10 Conference" and len(league_ids) != 14:
-            raise RuntimeError("Expected 14 independently registered Atlantic 10 women's teams")
+        expected_sizes = {"Atlantic 10 Conference": 14, "American Conference": 13}
+        required_size = expected_sizes.get(rule["conference"])
+        if required_size is None or len(league_ids) != required_size:
+            raise RuntimeError("Unverified women's conference team membership for "+rule["conference"]+
+                               ": expected "+str(required_size)+", found "+str(len(league_ids)))
         conference_games = []
         for gid, entries in by_id.items():
             g = entries[0][1]
