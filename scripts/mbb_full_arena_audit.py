@@ -41,7 +41,10 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--write",action="store_true",help="write verified repairs, ledger, and audit")
     args=ap.parse_args()
-    files=sorted(ROOT.glob("*.json"))
+    crosswalk=json.loads((ROOT.parent/"ncaam-2026-27-espn-team-crosswalk.json").read_text())
+    team_ids={str(t["espn_id"]) for t in crosswalk["teams"]}
+    assert len(team_ids)==365, "expected 365 distinct crosswalk team IDs"
+    files=sorted(ROOT/(tid+".json") for tid in team_ids)
     assert len(files)==365, f"expected 365 schedule files; found {len(files)}"
     schedules={}
     entries=[]
@@ -55,7 +58,7 @@ def main():
             v=venue(e)
             if v is None: continue
             pair=competitors(e)
-            ids=sorted(set(t for t,_ in pair))
+            ids=sorted(set(t for t,_ in pair if t))
             d=date(e)
             # Records missing an opponent are not combined speculatively.
             key=d+":"+ "|".join(ids) if d and len(ids)==2 else team+":"+str(e.get("id") or d)
@@ -84,7 +87,7 @@ def main():
             t=x.get("team",{})
             tid=str(t.get("id") or "")
             logo=t.get("logo") or ""
-            match=re.search(r"/ncaa/(?:500|600|dark|scoreboard)/([0-9]+)\\.(?:png|svg|webp)",logo,re.I)
+            match=re.search(r"/ncaa/(?:500|600|dark|scoreboard)/([0-9]+)\.(?:png|svg|webp)",logo,re.I)
             if match and match.group(1)!=tid:
                 issue(r,"logo id contradicts opponent id",team_id=tid,logo=logo)
             if tid and tid!=r["team"] and not t.get("displayName"):
@@ -179,7 +182,7 @@ def main():
                schools_scanned=365,scan_status="full_365_file_rescan",
                match_method="same date + exactly two known team IDs; incomplete IDs remain separate",
                generated_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
-               schools=schools,records=records,summary=summary,unique_games=unique)
+               schools=schools,records=records,summary=summary,unique_games=unique,repairs=fixes)
     ledger=[dict(key=k,date=rs[0]["date"],competitor_ids=rs[0]["ids"],
                  records=[dict(team=r["team"],event_id=r["event"].get("id"),
                                arena=arena(r["venue"]),source_url=r["venue"].get("arena_source_url",""),
