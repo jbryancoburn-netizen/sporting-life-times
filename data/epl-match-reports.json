@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 87,
+    "matches_covered": 88,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -29,6 +29,11 @@
         "count": 5
       },
       {
+        "player": "Nicolas Jackson",
+        "team": "Aston Villa",
+        "count": 5
+      },
+      {
         "player": "Bryan Mbeumo",
         "team": "Manchester United",
         "count": 4
@@ -36,11 +41,6 @@
       {
         "player": "Evanilson",
         "team": "Bournemouth",
-        "count": 4
-      },
-      {
-        "player": "Nicolas Jackson",
-        "team": "Aston Villa",
         "count": 4
       },
       {
@@ -711,6 +711,11 @@
         "count": 3
       },
       {
+        "player": "Johan Manzambi",
+        "team": "Aston Villa",
+        "count": 3
+      },
+      {
         "player": "John McGinn",
         "team": "Aston Villa",
         "count": 3
@@ -798,11 +803,6 @@
       {
         "player": "Jaidon Anthony",
         "team": "Brentford",
-        "count": 2
-      },
-      {
-        "player": "Johan Manzambi",
-        "team": "Aston Villa",
         "count": 2
       },
       {
@@ -1226,10 +1226,10 @@
         "count": 1
       }
     ],
-    "own_goals_not_counted": 11,
+    "own_goals_not_counted": 12,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-10-31T21:33:05.862061+00:00",
+  "updated_at": "2026-10-31T21:59:22.360512+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -41494,13 +41494,454 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401878761"
+    },
+    "401879250": {
+      "home": "Aston Villa",
+      "away": "Fulham",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_utc": "2026-10-31T20:00:00+00:00",
+      "teams": [
+        {
+          "team": "Aston Villa",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "7",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "7",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "4",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "45",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "16",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "3",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.2",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "1",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "373",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "434",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "6",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "17",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.4",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "38",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "21",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.6",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "6",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "8",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "17",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.5",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "5",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "15",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "15",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Fulham",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "12",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "3",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "4",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "7",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "2",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "55",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "14",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "5",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.4",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "474",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "536",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "5",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "17",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "41",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "27",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.7",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "8",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "15",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.5",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "14",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "27",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "27",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "13'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "14'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "16'",
+          "text": "Penalty missed! Still Aston Villa 0, Fulham 0. John McGinn (Aston Villa) hits the bar with a left footed shot.",
+          "type": "Penalty - Missed",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "30'",
+          "text": "David Affengruber (Fulham) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Fulham"
+        },
+        {
+          "clock": "39'",
+          "text": "Goal! Aston Villa 1, Fulham 0. Nicolas Jackson (Aston Villa) right footed shot from the centre of the box to the bottom right corner. Assisted by Johan Manzambi.",
+          "type": "Goal",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "45'+4'",
+          "text": "Calvin Bassey (Fulham) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Fulham"
+        },
+        {
+          "clock": "45'+4'",
+          "text": "First Half ends, Aston Villa 1, Fulham 0.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "64'",
+          "text": "Own Goal by Zion Suzuki, Aston Villa. Aston Villa 1, Fulham 1.",
+          "type": "Own Goal",
+          "team": "Fulham"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Aston Villa. Ibrahim Mbaye replaces Leon Goretzka.",
+          "type": "Substitution",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Aston Villa. Emiliano Buendía replaces Alysson.",
+          "type": "Substitution",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Aston Villa. João Gomes replaces Johan Manzambi.",
+          "type": "Substitution",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "75'",
+          "text": "Substitution, Fulham. Tom Cairney replaces Alex Iwobi.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "76'",
+          "text": "Matty Cash (Aston Villa) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "77'",
+          "text": "Tom Cairney (Fulham) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Fulham"
+        },
+        {
+          "clock": "79'",
+          "text": "Substitution, Fulham. Kenny Tete replaces Oscar Bobb.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "79'",
+          "text": "Substitution, Fulham. César Palacios replaces Josh King.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "79'",
+          "text": "Substitution, Aston Villa. Ross Barkley replaces Boubacar Kamara.",
+          "type": "Substitution",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Fulham. Rodrigo Muniz replaces Gonzalo García.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Fulham. Hugo Larsson replaces Timothy Castagne.",
+          "type": "Substitution",
+          "team": "Fulham"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Aston Villa. Alejandro Garnacho replaces John McGinn.",
+          "type": "Substitution",
+          "team": "Aston Villa"
+        },
+        {
+          "clock": "90'+6'",
+          "text": null,
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879250"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 87,
-    "detailed_reports": 87
+    "attempted": 1,
+    "season_finals": 88,
+    "detailed_reports": 88
   }
 }
