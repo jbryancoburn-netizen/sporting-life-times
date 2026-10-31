@@ -13,6 +13,9 @@ on:
       - 'scripts/build-nba-elo-shadow.mjs'
       - 'data/nba-elo-shadow-2026-27.json'
       - 'scripts/audit-nba-page.mjs'
+      - 'nba-live-game.js'
+      - 'nba-live-game.html'
+      - 'scripts/test-nba-live-logos.mjs'
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
       - 'nba.html'
@@ -37,6 +40,9 @@ on:
       - 'data/nba-game-center.json'
       - 'scripts/update-nba-elo.mjs'
       - 'scripts/audit-nba-page.mjs'
+      - 'nba-live-game.js'
+      - 'nba-live-game.html'
+      - 'scripts/test-nba-live-logos.mjs'
       - 'nba-elo-model.js'
       - 'nba-elo-page.js'
       - 'nba.html'
@@ -66,6 +72,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify NBA live game logo alias resolution
+        run: node scripts/test-nba-live-logos.mjs
       - name: Verify NBA page and source ownership
         run: node scripts/audit-nba-page.mjs
       - name: Validate dated daily Elo changes and website arrows

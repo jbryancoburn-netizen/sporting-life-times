@@ -3,7 +3,33 @@ const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,
 const id=new URLSearchParams(location.search).get('game');if(!id||!/^[0-9]{7,12}$/.test(id)){$('score').textContent='Choose a game from the NBA live scoreboard.';return}
 let lastGood=0;
 const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":1610612766,"CHI":1610612741,"CLE":1610612739,"DAL":1610612742,"DEN":1610612743,"DET":1610612765,"GSW":1610612744,"HOU":1610612745,"IND":1610612754,"LAC":1610612746,"LAL":1610612747,"MEM":1610612763,"MIA":1610612748,"MIL":1610612749,"MIN":1610612750,"NOP":1610612740,"NYK":1610612752,"OKC":1610612760,"ORL":1610612753,"PHI":1610612755,"PHX":1610612756,"POR":1610612757,"SAC":1610612758,"SAS":1610612759,"TOR":1610612761,"UTA":1610612762,"WAS":1610612764};
-const logo=c=>'assets/nba-logos/'+String(c||'').toUpperCase()+'.png';
+// ESPN uses UTAH rather than the NBA's UTA. Canonicalize all cached logo paths.
+const codeAliases={NY:'NYK',GS:'GSW',SA:'SAS',NO:'NOP',UT:'UTA',UTAH:'UTA',WSH:'WAS'};
+const teamCode=value=>{
+ const code=String(value||'').trim().toUpperCase();
+ return codeAliases[code]||code;
+};
+const logo=code=>'assets/nba-logos/'+teamCode(code)+'.png';
+const logoImg=code=>'<img src="'+logo(code)+'" data-nba-logo="'+teamCode(code)+'" alt="" decoding="async">';
+// Centralized fallback on all live-game images: official NBA SVG, then ESPN PNG.
+// Capture errors on dynamically rendered images without inline event handlers.
+document.addEventListener('error',event=>{
+ const img=event.target;
+ if(!img||img.tagName!=='IMG'||!img.hasAttribute('data-nba-logo'))return;
+ const code=img.getAttribute('data-nba-logo');
+ const alias={NYK:'ny',UTA:'utah',WAS:'wsh',NOP:'no',GSW:'gs',SAS:'sa'}[code]||String(code||'').toLowerCase();
+ const sources=[
+  nbaPrimaryIds[code]?'https://cdn.nba.com/logos/nba/'+nbaPrimaryIds[code]+'/primary/L/logo.svg':null,
+  'https://a.espncdn.com/i/teamlogos/nba/500/'+alias+'.png'
+ ].filter(Boolean);
+ const attempt=Number(img.dataset.nbaLogoTry||0);
+ if(attempt<sources.length){
+  img.dataset.nbaLogoTry=String(attempt+1);
+  img.src=sources[attempt];
+ }else{
+  img.hidden=true;
+ }
+},true);
 function leadersPanel(rows){
  const el=$('live-leaders');if(!el)return;
  const cols=[['PTS','pts'],['REB','reb'],['AST','ast']];
@@ -24,13 +50,13 @@ function render(x){
  const event=x.header?.competitions?.[0]||{},teams=event.competitors||[],away=teams.find(z=>z.homeAway==='away'),home=teams.find(z=>z.homeAway==='home');
  const state=x.header?.competitions?.[0]?.status||x.header?.status||{},detail=state.type?.shortDetail||state.type?.description||state.displayClock||'Game';
  if(!away||!home)throw Error('Score details are unavailable');
- const team=z=>{const c=z.team||{};return '<div class="team" style="--team-color:'+esc(c.color?'#'+c.color:'#293448')+'"><img src="'+logo(c.abbreviation)+'" alt=""><span class="name">'+esc(c.displayName||c.name)+'</span><b>'+esc(z.score??'—')+'</b></div>'};
+ const team=z=>{const c=z.team||{};return '<div class="team" style="--team-color:'+esc(c.color?'#'+c.color:'#293448')+'">'+logoImg(c.abbreviation)+'<span class="name">'+esc(c.displayName||c.name)+'</span><b>'+esc(z.score??'—')+'</b></div>'};
  $('score').innerHTML='<div class="game-state">'+esc(detail)+'</div><div class="teams">'+team(away)+team(home)+'</div>';
  const periods=Math.max(...teams.map(z=>(z.linescores||[]).length),4),cols=Array.from({length:periods},(_,i)=>i<4?'Q'+(i+1):'OT'+(i-3));
- $('quarters').innerHTML='<table><thead><tr><th>TEAM</th>'+cols.map(c=>'<th>'+c+'</th>').join('')+'<th>TTL</th></tr></thead><tbody>'+[away,home].map(z=>'<tr><td>'+esc(z.team?.abbreviation)+'</td>'+cols.map((_,i)=>'<td>'+esc(z.linescores?.[i]?.displayValue??z.linescores?.[i]?.value??'–')+'</td>').join('')+'<td><b>'+esc(z.score)+'</b></td></tr>').join('')+'</tbody></table>';
+ $('quarters').innerHTML='<table><thead><tr><th>TEAM</th>'+cols.map(c=>'<th>'+c+'</th>').join('')+'<th>TTL</th></tr></thead><tbody>'+[away,home].map(z=>'<tr><td>'+esc(teamCode(z.team?.abbreviation))+'</td>'+cols.map((_,i)=>'<td>'+esc(z.linescores?.[i]?.displayValue??z.linescores?.[i]?.value??'–')+'</td>').join('')+'<td><b>'+esc(z.score)+'</b></td></tr>').join('')+'</tbody></table>';
  const pair=x.boxscore?.teams||[];
- const stats=new Map();for(const side of pair){const code=side.team?.abbreviation;for(const v of side.statistics||[]){const k=v.label||v.name||v.abbreviation;if(!stats.has(k))stats.set(k,{});stats.get(k)[code]=v.displayValue??v.value??''}}
- const ac=away.team?.abbreviation,hc=home.team?.abbreviation;
+ const stats=new Map();for(const side of pair){const code=teamCode(side.team?.abbreviation);for(const v of side.statistics||[]){const k=v.label||v.name||v.abbreviation;if(!stats.has(k))stats.set(k,{});stats.get(k)[code]=v.displayValue??v.value??''}}
+ const ac=teamCode(away.team?.abbreviation),hc=teamCode(home.team?.abbreviation);
  const selected=[['Rebounds',['rebounds','total rebounds']],['Assists',['assists']],['Turnovers',['turnovers']],['Steals',['steals']],['Blocks',['blocks']],['Fast-break points',['fast break points','fastbreak points']],['Paint points',['points in the paint','points in paint']]];
  const rows=selected.map(([label,aliases])=>{const found=[...stats].find(([key])=>aliases.includes(String(key).toLowerCase().replace(/[-–]/g,' ').trim()));return found?[label,found[1][ac],found[1][hc]]:null}).filter(Boolean);
  $('team-stats').innerHTML=comparison(ac,hc,rows)+(stats.size?'<details class="more-stats"><summary>Full team statistics</summary><div class="scroll"><table><thead><tr><th>STAT</th><th>'+esc(ac)+'</th><th>'+esc(hc)+'</th></tr></thead><tbody>'+[...stats].map(([n,v])=>'<tr><td>'+esc(n)+'</td><td>'+esc(v[ac]??'—')+'</td><td>'+esc(v[hc]??'—')+'</td></tr>').join('')+'</tbody></table></div></details>':'');
@@ -38,7 +64,7 @@ function render(x){
  for(const group of x.boxscore?.players||[]){
   const st=group.statistics?.[0];const labels=st?.labels||[];
   const idx=k=>labels.findIndex(z=>String(z).toUpperCase()===k);
-  for(const p of st?.athletes||[]){const v=k=>{const i=idx(k);return i>=0?Number(p.stats?.[i]):NaN};leaderRows.push({name:p.athlete?.displayName,team:group.team?.abbreviation||'',pts:v('PTS'),reb:v('REB'),ast:v('AST')})}
+  for(const p of st?.athletes||[]){const v=k=>{const i=idx(k);return i>=0?Number(p.stats?.[i]):NaN};leaderRows.push({name:p.athlete?.displayName,team:teamCode(group.team?.abbreviation)||'',pts:v('PTS'),reb:v('REB'),ast:v('AST')})}
  }
  leadersPanel(leaderRows);
  const groups=x.boxscore?.players||[];
@@ -49,7 +75,7 @@ function render(x){
 function renderNba(payload){
  const g=payload.game||payload;if(!g.homeTeam||!g.awayTeam)throw Error('NBA box score incomplete');
  const teams=[g.awayTeam,g.homeTeam];
- const team=t=>'<div class="team" style="--team-color:#293448"><img src="'+logo(t.teamTricode)+'" alt=""><span class="name">'+esc(((t.teamCity||'')+' '+(t.teamName||'')).trim()||t.teamTricode)+'</span><b>'+esc(t.score??'—')+'</b></div>';
+ const team=t=>'<div class="team" style="--team-color:#293448">'+logoImg(t.teamTricode)+'<span class="name">'+esc(((t.teamCity||'')+' '+(t.teamName||'')).trim()||t.teamTricode)+'</span><b>'+esc(t.score??'—')+'</b></div>';
  $('score').innerHTML='<div class="game-state">'+esc(g.gameStatusText||'NBA LIVE')+'</div><div class="teams">'+teams.map(team).join('')+'</div>';
  const max=Math.max(4,...teams.map(t=>(t.periods||[]).length));
  $('quarters').innerHTML='<table><thead><tr><th>TEAM</th>'+Array.from({length:max},(_,i)=>'<th>'+(i<4?'Q'+(i+1):'OT'+(i-3))+'</th>').join('')+'<th>TTL</th></tr></thead><tbody>'+teams.map(t=>'<tr><td>'+esc(t.teamTricode)+'</td>'+Array.from({length:max},(_,i)=>'<td>'+esc(t.periods?.[i]?.score??'–')+'</td>').join('')+'<td>'+esc(t.score)+'</td></tr>').join('')+'</tbody></table>';
