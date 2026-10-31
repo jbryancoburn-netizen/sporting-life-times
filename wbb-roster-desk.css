@@ -1,0 +1,22 @@
+/* Women's college basketball: full-width editorial roster desk */
+.wbb-roster-full{margin-top:15px}
+.wbb-roster-intro{display:flex;align-items:center;gap:13px;flex-wrap:wrap;padding:0 0 15px;font-size:.83rem;color:#536068}
+.wbb-roster-count{font-size:.92rem;color:#161d20;font-weight:800}
+.wbb-roster-intro a{text-decoration:underline;margin-left:auto}
+.wbb-roster-controls{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 19px}
+.wbb-roster-controls label{font-size:.71rem;letter-spacing:.07em;font-weight:800;text-transform:uppercase;display:grid;gap:5px}
+.wbb-roster-controls input,.wbb-roster-controls select{border:1px solid #bbc1c2;background:#fff;padding:10px 12px;font:400 14px Arial,sans-serif;min-width:190px;max-width:100%;color:#212c30}
+.wbb-roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wbb-player-card{display:flex;align-items:flex-start;gap:12px;min-width:0;border:1px solid #d4d7d3;border-top:3px solid var(--accent,#8b2328);background:#fffefa;padding:12px}
+.wbb-player-avatar{display:grid;place-items:center;flex:0 0 52px;width:52px;height:52px;border:1px solid var(--accent,#8b2328);border-radius:5px;background:#f3f1ed;color:var(--accent,#8b2328);font:bold 15px Georgia,serif}
+.wbb-player-body{display:flex;flex-direction:column;gap:3px;min-width:0;line-height:1.28}
+.wbb-player-number{font-size:.72rem;font-weight:800;color:var(--accent,#8b2328)}
+.wbb-desk .wbb-player-name{font:700 1rem Georgia,serif;text-decoration:none;color:#19262c}
+.wbb-desk .wbb-player-name:hover{text-decoration:underline}
+.wbb-player-meta,.wbb-player-hometown{font-size:.78rem;color:#556168}
+.wbb-roster-source{font-size:.75rem;line-height:1.5;color:#627079;margin:16px 0}
+.wbb-leaders-note{padding:13px 17px;background:#f0f3f2;border-left:4px solid var(--accent,#8b2328);font-size:.84rem}
+.wbb-leaders-note p{margin:6px 0 0}
+.wbb-roster-empty{background:#fff8e9;border:1px solid #e9dbba;padding:13px;font-size:.85rem}
+@media(max-width:950px){.wbb-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.wbb-roster-grid{grid-template-columns:1fr}.wbb-roster-intro a{margin-left:0}.wbb-roster-controls label{width:100%}.wbb-roster-controls input,.wbb-roster-controls select{width:100%}}
