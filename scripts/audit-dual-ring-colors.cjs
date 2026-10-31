@@ -34,8 +34,10 @@ const mbbPages=files.filter(p=>/^(?:ncaam(?:[-.]|$)|college-basketball\.html$)/.
 assert.equal(mbbPages.length,11,'Expected 11 basketball page templates');
 for(const page of mbbPages){
  const html=read(page);
- assert(html.includes('mbb-logo-system.css?v=selective-18-20261029'),page+' missing sole MBB stylesheet');
- assert(html.includes('mbb-logo-system.js?v=selective-18-20261029'),page+' missing sole MBB renderer');
+ const styles=html.match(/mbb-logo-system\.css\?v=[a-zA-Z0-9._-]+/g)||[];
+ const renderers=html.match(/mbb-logo-system\.js\?v=[a-zA-Z0-9._-]+/g)||[];
+ assert.equal(styles.length,1,page+' must load one versioned shared MBB stylesheet');
+ assert.equal(renderers.length,1,page+' must load one versioned shared MBB renderer');
  assert(!html.includes('slt-dual-ring.js')&&!html.includes('slt-dual-ring.css'),page+' has stacked dual ring library');
  assert(!html.includes('shared-team-crests.js')&&!html.includes('shared-team-crests.css'),page+' has shared wrapper');
 }
