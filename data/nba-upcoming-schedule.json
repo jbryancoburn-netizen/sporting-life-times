@@ -1,19 +1,13 @@
 {
-  "updated_at": "2026-10-31T02:44:45.900798+00:00",
+  "updated_at": "2026-10-31T02:45:52.464215+00:00",
   "source": "ESPN NBA dated scoreboards",
   "dates_checked": [
     "20261028",
     "20261029",
     "20261030",
-    "20261031",
-    "20261101",
-    "20261102",
-    "20261103",
-    "20261104",
-    "20261105",
-    "20261106"
+    "20261031"
   ],
-  "refresh_mode": "full",
+  "refresh_mode": "fast",
   "games": [
     {
       "id": "espn-nba-401909881",
@@ -480,8 +474,8 @@
     {
       "id": "espn-nba-401909283",
       "date": "2026-10-31T00:00Z",
-      "state": "in",
-      "status": "In Progress",
+      "state": "post",
+      "status": "Final",
       "teams": [
         {
           "name": "Houston Rockets",
@@ -493,7 +487,7 @@
           "name": "Dallas Mavericks",
           "code": "DAL",
           "home_away": "home",
-          "score": 114
+          "score": 116
         }
       ],
       "url": "https://www.espn.com/nba/game/_/gameId/401909283",
@@ -553,7 +547,7 @@
           "name": "Denver Nuggets",
           "code": "DEN",
           "home_away": "away",
-          "score": 38
+          "score": 43
         },
         {
           "name": "Phoenix Suns",

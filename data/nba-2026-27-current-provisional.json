@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 78,
+  "games_played": 79,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -23,12 +23,12 @@
       "elo": 1623.285
     },
     {
-      "team": "HOU",
-      "elo": 1613.657
-    },
-    {
       "team": "BOS",
       "elo": 1602.745
+    },
+    {
+      "team": "HOU",
+      "elo": 1596.146
     },
     {
       "team": "LAL",
@@ -83,12 +83,12 @@
       "elo": 1481.881
     },
     {
-      "team": "GSW",
-      "elo": 1451.414
+      "team": "DAL",
+      "elo": 1464.94
     },
     {
-      "team": "DAL",
-      "elo": 1447.43
+      "team": "GSW",
+      "elo": 1451.414
     },
     {
       "team": "MEM",
@@ -822,6 +822,15 @@
       "home_elo_change": 9.375375
     },
     {
+      "id": "espn-nba-401909283",
+      "home": "DAL",
+      "away": "HOU",
+      "home_score": 116,
+      "away_score": 111,
+      "date": "2026-10-31T00:00:00.000Z",
+      "home_elo_change": 17.510798
+    },
+    {
       "id": "espn-nba-401909284",
       "home": "MIN",
       "away": "LAC",
@@ -838,8 +847,8 @@
       "SAS": 0,
       "DET": 5.621768,
       "NYK": -14.370217,
-      "HOU": 0,
       "BOS": 5.238285,
+      "HOU": -17.510798,
       "LAL": 0,
       "MIN": 10.789536,
       "PHI": 14.370217,
@@ -853,8 +862,8 @@
       "LAC": -10.789536,
       "PHX": 0,
       "MIA": 9.375375,
+      "DAL": 17.510798,
       "GSW": 0,
-      "DAL": 0,
       "MEM": 0,
       "NOP": 0,
       "MIL": 0,
@@ -871,8 +880,8 @@
       "SAS": 1616.37,
       "DET": 1612.036,
       "NYK": 1638.75,
-      "HOU": 1578.685,
       "BOS": 1587.885,
+      "HOU": 1578.685,
       "LAL": 1585.008,
       "MIN": 1593.227,
       "PHI": 1558.57,
@@ -886,8 +895,8 @@
       "LAC": 1525.215,
       "PHX": 1485.478,
       "MIA": 1477.837,
+      "DAL": 1414.685,
       "GSW": 1417.246,
-      "DAL": 1414.686,
       "MEM": 1387.135,
       "NOP": 1403.935,
       "MIL": 1388.617,
