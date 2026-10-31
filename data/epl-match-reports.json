@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 86,
+    "matches_covered": 87,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -154,6 +154,11 @@
         "count": 2
       },
       {
+        "player": "Jan Paul van Hecke",
+        "team": "Tottenham Hotspur",
+        "count": 2
+      },
+      {
         "player": "Jayden Bogle",
         "team": "Leeds United",
         "count": 2
@@ -271,6 +276,11 @@
       {
         "player": "Anan Khalaili",
         "team": "Crystal Palace",
+        "count": 1
+      },
+      {
+        "player": "Archie Gray",
+        "team": "Tottenham Hotspur",
         "count": 1
       },
       {
@@ -421,11 +431,6 @@
       {
         "player": "James Tarkowski",
         "team": "Everton",
-        "count": 1
-      },
-      {
-        "player": "Jan Paul van Hecke",
-        "team": "Tottenham Hotspur",
         "count": 1
       },
       {
@@ -726,6 +731,11 @@
         "count": 3
       },
       {
+        "player": "Mohammed Kudus",
+        "team": "Tottenham Hotspur",
+        "count": 3
+      },
+      {
         "player": "Abdoul Ouattara",
         "team": "Ipswich Town",
         "count": 2
@@ -818,11 +828,6 @@
       {
         "player": "Mohamed Belloumi",
         "team": "Hull City",
-        "count": 2
-      },
-      {
-        "player": "Mohammed Kudus",
-        "team": "Tottenham Hotspur",
         "count": 2
       },
       {
@@ -1224,7 +1229,7 @@
     "own_goals_not_counted": 11,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-10-31T18:56:04.940270+00:00",
+  "updated_at": "2026-10-31T19:57:10.563636+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -41060,13 +41065,442 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879247"
+    },
+    "401878761": {
+      "home": "Tottenham",
+      "away": "Crystal Palace",
+      "home_score": 2,
+      "away_score": 0,
+      "kickoff_utc": "2026-10-31T17:30:00+00:00",
+      "teams": [
+        {
+          "team": "Tottenham Hotspur",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "8",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "19",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "1",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "79.4",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "34",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "9",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "759",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "816",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "10",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "39",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.3",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "18",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "12",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.7",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "13",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "13",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "17",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.8",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "8",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "5",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "5",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Crystal Palace",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "10",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "1",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "1",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "0",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "7",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "20.6",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "2",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "1",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.5",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "150",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "220",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.7",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "0",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "2",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.0",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "51",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "17",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.3",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "1",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "18",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "30",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.6",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "13",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "46",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "46",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "12'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "13'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "13'",
+          "text": "Jean-Philippe Mateta (Crystal Palace) is shown the red card.",
+          "type": "Red Card",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "15'",
+          "text": "Archie Gray (Tottenham Hotspur) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "25'",
+          "text": "Goal! Tottenham Hotspur 1, Crystal Palace 0. Archie Gray (Tottenham Hotspur) header from the left side of the six yard box to the bottom right corner. Assisted by Mohammed Kudus with a cross following a corner.",
+          "type": "Goal - Header",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "45'+2'",
+          "text": "First Half ends, Tottenham Hotspur 1, Crystal Palace 0.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": "Substitution, Tottenham Hotspur. Pedro Porro replaces Archie Gray.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "53'",
+          "text": "Óscar Mingueza (Crystal Palace) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "60'",
+          "text": "Substitution, Crystal Palace. Eddie Nketiah replaces Yéremy Pino.",
+          "type": "Substitution",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "60'",
+          "text": "Substitution, Crystal Palace. Anan Khalaili replaces Óscar Mingueza.",
+          "type": "Substitution",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Tottenham Hotspur. Conor Gallagher replaces Dominic Solanke.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "73'",
+          "text": "Goal! Tottenham Hotspur 2, Crystal Palace 0. Jan Paul van Hecke (Tottenham Hotspur) header from very close range to the centre of the goal following a corner.",
+          "type": "Goal - Header",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "77'",
+          "text": "Substitution, Tottenham Hotspur. Destiny Udogie replaces Andy Robertson.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "77'",
+          "text": "Substitution, Tottenham Hotspur. Dejan Kulusevski replaces Omar Marmoush.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "77'",
+          "text": "Substitution, Crystal Palace. Darío Osorio replaces Dwight McNeil.",
+          "type": "Substitution",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "88'",
+          "text": "Substitution, Tottenham Hotspur. Luca Williams-Barnett replaces Mathys Tel.",
+          "type": "Substitution",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "clock": "88'",
+          "text": "Substitution, Crystal Palace. Will Hughes replaces Daichi Kamada.",
+          "type": "Substitution",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "88'",
+          "text": "Substitution, Crystal Palace. Jefferson Lerma replaces Adam Wharton.",
+          "type": "Substitution",
+          "team": "Crystal Palace"
+        },
+        {
+          "clock": "90'+3'",
+          "text": null,
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401878761"
     }
   },
   "fetch_status": {
-    "successful": 5,
+    "successful": 1,
     "failed": {},
-    "attempted": 5,
-    "season_finals": 86,
-    "detailed_reports": 86
+    "attempted": 1,
+    "season_finals": 87,
+    "detailed_reports": 87
   }
 }
