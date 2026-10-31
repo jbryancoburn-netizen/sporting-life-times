@@ -140,3 +140,23 @@ body.slt-epl-mbb #epl-score-rail .epl-score-tile:hover{background:#f4eeee!import
 body.slt-epl-mbb #epl-score-rail .epl-score-tile:focus-visible{outline-offset:-4px!important}
 body.slt-epl-mbb #epl-score-rail .slt-next-score .epl-crest{width:29px;height:29px}
 @media(max-width:720px){body.slt-epl-mbb .slt-pulse-stats{grid-template-columns:repeat(2,minmax(0,1fr))}body.slt-epl-mbb .slt-pulse-stats .slt-metric{padding:12px}body.slt-epl-mbb .slt-pulse-stats .slt-metric:nth-child(2){border-right:0}body.slt-epl-mbb .slt-pulse-stats .slt-metric:nth-child(-n+2){border-bottom:1px solid var(--ep-line)}body.slt-epl-mbb .slt-pulse-stats .slt-metric>b{font-size:clamp(23px,6vw,34px)}}
+
+/* Front-page visual audit: compact lead, readable tables and predictable score tiles. */
+body.slt-epl-mbb .slt-hero{padding:24px;gap:24px;margin-bottom:18px}
+body.slt-epl-mbb .slt-hero h1{font-size:clamp(38px,4vw,60px)!important}
+body.slt-epl-mbb .slt-pulse-stats .slt-metric{padding:13px 14px}
+body.slt-epl-mbb .slt-pulse-stats .slt-metric>b{font-size:clamp(22px,2vw,30px)}
+body.slt-epl-mbb .epl-news-article:first-child h3{font-size:clamp(26px,2.4vw,32px)!important}
+body.slt-epl-mbb .epl-section-label{flex-wrap:wrap;gap:4px}
+body.slt-epl-mbb .epl-section-label>span{text-align:left}
+body.slt-epl-mbb .slt-compact-table{max-width:100%;overflow-x:auto}
+body.slt-epl-mbb .slt-compact-table .epl-standings th,body.slt-epl-mbb .slt-compact-table .epl-standings td{display:table-cell!important}
+body.slt-epl-mbb .epl-power-row .epl-team{min-width:0;max-width:none}
+body.slt-epl-mbb .epl-power-track{flex:0 1 45px}
+body.slt-epl-mbb .epl-elo-delta{min-width:44px}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile{flex:0 0 250px;max-width:none}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile>div{display:grid;grid-template-columns:minmax(0,1fr) 26px}
+body.slt-epl-mbb #epl-score-rail .epl-score-tile>div>b{text-align:right}
+body.slt-epl-mbb #epl-score-rail .epl-team>span:last-child{max-width:none}
+body.slt-epl-mbb #epl-feed-health[data-stale=true]{color:#9a3f20!important}
+@media(max-width:420px){body.slt-epl-mbb .slt-hero{padding:18px}body.slt-epl-mbb .slt-hero-club img{width:44px;height:44px}body.slt-epl-mbb .epl-power-track{display:none}body.slt-epl-mbb #epl-featured .hub-match-teams,body.slt-epl-mbb #forecast-grid .hub-match-teams{grid-template-columns:minmax(0,1fr) 65px minmax(0,1fr)}}

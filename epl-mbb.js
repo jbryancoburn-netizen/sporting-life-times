@@ -18,14 +18,12 @@ async function updateLive(){
   const events=d.events.filter(e=>Array.isArray(e.competitions?.[0]?.competitors)&&e.competitions[0].competitors.length>=2);
   const container=document.querySelector('#epl-score-rail .epl-score-rail');if(!container||!events.length)return;
   container.querySelectorAll('[data-epl-today]').forEach(n=>n.remove());
-  const existingIds=new Set([...container.querySelectorAll('a.epl-score-tile[href]')].map(a=>{try{return new URL(a.href).searchParams.get('game')}catch{return null}}).filter(Boolean));
   for(const e of events.slice(0,8)){
-   if(existingIds.has(String(e.id)))continue;
    // A live match replaces its scheduled tile instead of appearing twice.
    const scheduled=[...container.querySelectorAll('[data-epl-fixture]')].find(tile=>tile.dataset.eplFixture===String(e.id));
    if(scheduled)scheduled.remove();
    const c=[...e.competitions[0].competitors].sort((a,b)=>Number(a.homeAway==='home')-Number(b.homeAway==='home'));
-   const row=document.createElement('div');row.className='epl-score-tile slt-live-score';row.dataset.eplToday=e.id||'today';
+   const row=document.createElement('a');row.href='match-center.html?league=Premier%20League&game='+encodeURIComponent(e.id);row.className='epl-score-tile slt-live-score';row.dataset.eplToday=e.id||'today';
    const status=String(e.status?.type?.shortDetail||e.status?.type?.description||'Scheduled');
    const state=e.status?.type?.state;
    const head=document.createElement('span');head.className='epl-score-date';head.textContent=(state==='in'?'LIVE · ':state==='post'?'FINAL · ':'TODAY · ')+status;
@@ -34,7 +32,7 @@ async function updateLive(){
     const line=document.createElement('div');const left=document.createElement('span');left.className='epl-team';
     const imgUrl=htmlUrl(t.team?.logo||t.team?.logos?.[0]?.href);
     if(imgUrl){const img=document.createElement('img');img.className='epl-crest';img.alt='';img.loading='lazy';img.src=imgUrl;left.append(img);}
-    const name=document.createElement('span');name.textContent=t.team?.shortDisplayName||t.team?.displayName||'Club';left.appendChild(name);
+    const name=document.createElement('span');name.textContent=t.team?.displayName||t.team?.shortDisplayName||'Club';left.appendChild(name);
     const value=document.createElement('b');value.textContent=state==='pre'?'':String(t.score??'');
     line.append(left,value);row.appendChild(line);
    }

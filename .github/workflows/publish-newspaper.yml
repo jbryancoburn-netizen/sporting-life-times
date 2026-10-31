@@ -13,11 +13,13 @@ on:
       - '.github/workflows/publish-newspaper.yml'
       - 'scripts/inject-team-crests.py'
       - 'data/nba-*.json'
+      - 'data/epl-*.json'
       - 'data/mbb-schedules-2026-27/*.json'
       - 'data/mbb-external-top25.json'
   workflow_dispatch:
   workflow_run:
     workflows:
+      - EPL verified results and independent Elo
       - NBA Elo verified final-game refresh
       - Official NBA game-center refresh
       - NBA full 30-team roster refresh
