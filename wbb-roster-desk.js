@@ -4,8 +4,8 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safe=v=>{try{const u=new URL(String(v));return u.protocol==='https:'?u.href:''}catch{return ''}};
 const nameInitials=n=>String(n||'').trim().split(/\s+/).map(p=>p[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
-const prettyClass=v=>({'Fr.':'Freshman','So.':'Sophomore','Jr.':'Junior','Sr.':'Senior','Gr.':'Graduate'}[v]||v||'Year TBA');
-const prettyPos=v=>({'GUARD':'Guard','FORWARD':'Forward','CENTER':'Center','G':'Guard','F':'Forward','C':'Center'}[v]||v||'Position TBA');
+const prettyClass=v=>({'Fr.':'Freshman','Fy':'First-year','1st':'First-year','So.':'Sophomore','2nd':'Sophomore','Jr.':'Junior','3rd':'Junior','Sr.':'Senior','4th':'Senior','Gr.':'Graduate','5th':'Fifth-year','R-So.':'Redshirt Sophomore','R-Sr.':'Redshirt Senior'}[v]||v||'Year TBA');
+const prettyPos=v=>({'GUARD':'Guard','FORWARD':'Forward','CENTER':'Center','G':'Guard','F':'Forward','C':'Center','G/F':'Guard / Forward','F/G':'Forward / Guard','F/C':'Forward / Center'}[v]||v||'Position TBA');
 async function render(teamId){
  const host=document.getElementById('wbb-roster-host');if(!host)return;
  host.innerHTML='<p class="wbb-muted">Loading 2026–27 women’s roster…</p>';
@@ -14,17 +14,19 @@ async function render(teamId){
   if(!res.ok)throw Error('Roster file unavailable ('+res.status+')');
   const data=await res.json();
   if(data.gender!=='women'||data.season!=='2026-27')throw Error('Women’s season validation failed');
-  const group=data.teams?.[String(teamId)];
+  const supplement=await fetch('data/ncaaw-rosters-official-supplement-2026-27.json',{cache:'no-cache'}).then(x=>x.ok?x.json():null).catch(()=>null);
+  const official=supplement?.gender==='women'&&supplement?.season==='2026-27'?supplement?.teams?.[String(teamId)]:null;
+  const group=official||data.teams?.[String(teamId)];
   if(!group?.players?.length){
    host.innerHTML='<p class="wbb-roster-empty">This school’s 2026–27 women’s roster is not yet present in the published verified-source dataset. We will not display an earlier season or the men’s roster in its place.</p>';
    return;
   }
   const players=group.players.filter(p=>p.name&&safe(p.profile_url));
   if(!players.length)throw Error('No school-linked roster profiles');
-  const source=safe(data.source_url);
-  host.innerHTML='<div class="wbb-roster-intro"><span class="wbb-roster-count">'+players.length+' players</span><span>2026–27 women’s basketball</span><a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Roster data &amp; attribution ↗</a></div>'+
+  const source=safe(group.source_url||data.source_url);
+  host.innerHTML='<div class="wbb-roster-intro"><span class="wbb-roster-count">'+players.length+' players</span><span>2026–27 women’s basketball</span><a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">'+(official?'Official university roster ↗':'Roster data &amp; attribution ↗')+'</a></div>'+
    '<div class="wbb-roster-controls"><label>Find a player<input id="wbb-roster-search" type="search" placeholder="Search by name or hometown" autocomplete="off"></label><label>Position<select id="wbb-roster-filter"><option value="">All positions</option><option value="Guard">Guards</option><option value="Forward">Forwards</option><option value="Center">Centers</option></select></label></div>'+
-   '<div id="wbb-roster-grid" class="wbb-roster-grid"></div><p class="wbb-roster-source">Names and details come from the 2026–27 school-site roster compilation by the University of Maryland’s Sports Roster Data project. Click a player for their university profile. School rosters may change; independent school-by-school certification is ongoing.</p>'+
+   '<div id="wbb-roster-grid" class="wbb-roster-grid"></div><p class="wbb-roster-source">'+(official?'Names and details were checked against the university’s published 2026–27 women’s roster. Player links open its official roster page.':'Names and details come from the 2026–27 school-site roster compilation by the University of Maryland’s Sports Roster Data project. Player links open school profiles. Independent school-by-school certification is ongoing.')+' Rosters may change during the season.</p>'+
    '<div class="wbb-leaders-note"><strong>2026–27 Player Leaders</strong><p>Points, rebounds, assists and shooting leaders will appear when verified women’s season statistics are published. No men’s or prior-season numbers are substituted.</p></div>';
   const grid=host.querySelector('#wbb-roster-grid');
   const draw=()=>{
