@@ -23,6 +23,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+      - name: Check out latest published main before computing
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -67,10 +71,21 @@ jobs:
           git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
           git commit -m "Update independent provisional NBA Elo with verified final scores"
           for attempt in 1 2 3; do
-            if git push; then echo "NBA Elo published successfully"; exit 0; fi
+            if git push; then echo "NBA Elo and scoreboard published successfully"; exit 0; fi
+            # Other score, news and game-center workflows also publish to main.
+            # Recompute over latest verified finals, never rebase conflicting JSON.
             git fetch origin main
-            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            git reset --hard origin/main
+            python scripts/collect-nba-schedule.py --fast || echo "Schedule endpoint unavailable on retry; using last verified schedule."
+            node scripts/update-nba-elo.mjs
+            node scripts/build-nba-elo-shadow.mjs --write
+            node scripts/reconcile-nba-schedule.mjs
             node scripts/audit-nba-elo.mjs
+            node scripts/audit-nba-boxscore-elo.mjs
+            node scripts/reconcile-nba-schedule.mjs --check
+            git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
+            if git diff --cached --quiet; then echo "Remote NBA data already up-to-date"; exit 0; fi
+            git commit -m "Reconcile verified NBA finals and current scoreboard"
             sleep 2
           done
           echo "NBA Elo publication failed after three attempts" >&2
