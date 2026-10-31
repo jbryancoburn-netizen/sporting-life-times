@@ -1,6 +1,23 @@
 {
   "competition": "EPL",
-  "graded": {},
+  "graded": {
+    "401879248": {
+      "away": "Manchester United",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.38647786237995807,
+        "log_loss": 0.7084139119525277
+      },
+      "fixture_id": "401879248",
+      "home": "Chelsea",
+      "home_score": 2,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4206046097434223,
+        "log_loss": 0.7535663251575123
+      }
+    }
+  },
   "locked": {
     "401878757": {
       "away": "Manchester City",
@@ -346,19 +363,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 0,
+    "graded_count": 1,
     "locked_count": 20,
-    "new_grades": 0,
-    "new_locks": 20,
+    "new_grades": 1,
+    "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": null,
-        "log_loss": null
+        "brier": 0.386478,
+        "log_loss": 0.708414
       },
       "research": {
-        "brier": null,
-        "log_loss": null
+        "brier": 0.420605,
+        "log_loss": 0.753566
       }
     }
   }
