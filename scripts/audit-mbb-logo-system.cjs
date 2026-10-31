@@ -57,13 +57,14 @@ async function run(){
  for(const must of ['.mbb-mark--art-embedded_roundel','.mbb-mark--art-unverified','.mbb-mark--art-flat','object-fit:contain!important','transform:translate(-50%,-50%)!important'])assert(css.includes(must),'Missing MBB artwork CSS: '+must);
  assert(css.includes('.mbb-mark--art-embedded_roundel::before{content:none!important}'),'Embedded roundels must not gain a second site ring');
  assert(css.includes('.mbb-mark--art-embedded_roundel{'),'Embedded roundels must retain a visible primary-color circle');
- assert(css.includes('.mbb-mark--art-flat::before,.mbb-mark--art-unverified::before'),'Other school marks must have two distinct thin team-color circles');
+ assert(css.includes('.mbb-mark--art-flat::before{'),'Verified flat logos must receive secondary-color ring');
+ assert(css.includes('.mbb-mark--art-unverified::before{content:none!important}'),'Unverified circular artwork must not receive a third ring');
  const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(/^(ncaam(?:[-.]|$))/.test(p)||p==='college-basketball.html'));
  assert.equal(pages.length,11,'Expected every MBB page type');
  for(const page of pages){
   const html=read(page);
-  assert(html.includes('mbb-logo-system.js?v=selective-18-20261029'),page+' old/missing renderer');
-  assert(html.includes('mbb-logo-system.css?v=selective-18-20261029'),page+' old/missing geometry');
+  assert.equal((html.match(/mbb-logo-system\.js\?v=[a-zA-Z0-9._-]+/g)||[]).length,1,page+' must have exactly one shared logo renderer');
+  assert.equal((html.match(/mbb-logo-system\.css\?v=[a-zA-Z0-9._-]+/g)||[]).length,1,page+' must have exactly one shared logo stylesheet');
   for(const extra of ['shared-team-crests.js','shared-team-crests.css','slt-dual-ring.js','slt-dual-ring.css']){
    assert(!html.includes(extra),page+' still loads conflicting crest owner '+extra);
   }
