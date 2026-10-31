@@ -4,7 +4,7 @@
   "status": "primary_live_earned_elo",
   "model": "team_only_reset1500_home40_k24_sqrt_mov",
   "source": "data/nba-2026-27-current-provisional.json",
-  "games_played": 77,
+  "games_played": 78,
   "parameters": {
     "season_start_elo": 1500,
     "home_elo": 40,
@@ -150,20 +150,20 @@
       "difference_from_live": -70.8
     },
     {
-      "team": "IND",
-      "elo": 1491.07,
-      "games": 5,
-      "forecast_prior": 1352.5605,
-      "live_elo": 1375.747,
-      "difference_from_live": 115.323
-    },
-    {
       "team": "NYK",
       "elo": 1488.22,
       "games": 6,
       "forecast_prior": 1716.1215,
       "live_elo": 1623.285,
       "difference_from_live": -135.065
+    },
+    {
+      "team": "MIA",
+      "elo": 1481.387,
+      "games": 6,
+      "forecast_prior": 1506.4537500000001,
+      "live_elo": 1481.881,
+      "difference_from_live": -0.494
     },
     {
       "team": "ORL",
@@ -198,20 +198,20 @@
       "difference_from_live": -61.939
     },
     {
+      "team": "IND",
+      "elo": 1474.785,
+      "games": 6,
+      "forecast_prior": 1352.5605,
+      "live_elo": 1366.372,
+      "difference_from_live": 108.413
+    },
+    {
       "team": "LAC",
       "elo": 1468.975,
       "games": 5,
       "forecast_prior": 1534.00725,
       "live_elo": 1493.662,
       "difference_from_live": -24.687
-    },
-    {
-      "team": "MIA",
-      "elo": 1465.102,
-      "games": 5,
-      "forecast_prior": 1506.4537500000001,
-      "live_elo": 1472.505,
-      "difference_from_live": -7.403
     },
     {
       "team": "UTA",
@@ -1546,6 +1546,23 @@
       "home_elo_change": -13.067632571459336,
       "home_after": 1522.4326736592834,
       "away_after": 1480.4310904917356
+    },
+    {
+      "id": "espn-nba-401909282",
+      "date": "2026-10-31T00:00:00.000Z",
+      "home": "MIA",
+      "away": "IND",
+      "home_score": 145,
+      "away_score": 125,
+      "home_before": 1465.1019153739924,
+      "away_before": 1491.0702199307302,
+      "home_win_probability": 0.5201822612951771,
+      "forecast_home_win_probability": 0.645303006811614,
+      "forecast_prior_weight_home": 0.5,
+      "forecast_prior_weight_away": 0.5,
+      "home_elo_change": 16.285554085045213,
+      "home_after": 1481.3874694590377,
+      "away_after": 1474.784665845685
     },
     {
       "id": "espn-nba-401909284",

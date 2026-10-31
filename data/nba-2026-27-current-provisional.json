@@ -2,7 +2,7 @@
   "league": "NBA",
   "season": "2026-27",
   "status": "provisional_live_from_historical_baseline",
-  "games_played": 77,
+  "games_played": 78,
   "preseason_status": "provisional_historical_regression_only",
   "source": "ESPN FINAL NBA regular-season scores; Sporting Life & Times independent Elo",
   "rankings": [
@@ -80,7 +80,7 @@
     },
     {
       "team": "MIA",
-      "elo": 1472.505
+      "elo": 1481.881
     },
     {
       "team": "GSW",
@@ -103,12 +103,12 @@
       "elo": 1385.83
     },
     {
-      "team": "IND",
-      "elo": 1375.747
-    },
-    {
       "team": "CHI",
       "elo": 1371.631
+    },
+    {
+      "team": "IND",
+      "elo": 1366.372
     },
     {
       "team": "WAS",
@@ -813,6 +813,15 @@
       "home_elo_change": -16.546182
     },
     {
+      "id": "espn-nba-401909282",
+      "home": "MIA",
+      "away": "IND",
+      "home_score": 145,
+      "away_score": 125,
+      "date": "2026-10-31T00:00:00.000Z",
+      "home_elo_change": 9.375375
+    },
+    {
       "id": "espn-nba-401909284",
       "home": "MIN",
       "away": "LAC",
@@ -843,14 +852,14 @@
       "TOR": -16.546182,
       "LAC": -10.789536,
       "PHX": 0,
-      "MIA": 0,
+      "MIA": 9.375375,
       "GSW": 0,
       "DAL": 0,
       "MEM": 0,
       "NOP": 0,
       "MIL": 0,
-      "IND": 0,
       "CHI": -5.238285,
+      "IND": -9.375375,
       "WAS": 21.999115,
       "SAC": 0,
       "UTA": 0,
@@ -882,8 +891,8 @@
       "MEM": 1387.135,
       "NOP": 1403.935,
       "MIL": 1388.617,
-      "IND": 1380.916,
       "CHI": 1406.772,
+      "IND": 1380.916,
       "WAS": 1328.872,
       "SAC": 1383.514,
       "UTA": 1356.302,
