@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 80,
+    "matches_covered": 81,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -24,13 +24,13 @@
         "count": 5
       },
       {
-        "player": "Bryan Mbeumo",
-        "team": "Manchester United",
-        "count": 4
-      },
-      {
         "player": "Morgan Rogers",
         "team": "Chelsea",
+        "count": 5
+      },
+      {
+        "player": "Bryan Mbeumo",
+        "team": "Manchester United",
         "count": 4
       },
       {
@@ -61,6 +61,11 @@
       {
         "player": "Charalampos Kostoulas",
         "team": "Brighton and Hove Albion",
+        "count": 3
+      },
+      {
+        "player": "Cole Palmer",
+        "team": "Chelsea",
         "count": 3
       },
       {
@@ -111,11 +116,6 @@
       {
         "player": "Bruno Guimarães",
         "team": "Arsenal",
-        "count": 2
-      },
-      {
-        "player": "Cole Palmer",
-        "team": "Chelsea",
         "count": 2
       },
       {
@@ -1111,6 +1111,11 @@
         "count": 1
       },
       {
+        "player": "Roméo Lavia",
+        "team": "Chelsea",
+        "count": 1
+      },
+      {
         "player": "Ryan Giles",
         "team": "Hull City",
         "count": 1
@@ -1179,7 +1184,7 @@
     "own_goals_not_counted": 10,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-10-31T13:39:05.094756+00:00",
+  "updated_at": "2026-10-31T17:56:26.835385+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -38321,13 +38326,508 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401878764"
+    },
+    "401879248": {
+      "home": "Chelsea",
+      "away": "Manchester United",
+      "home_score": 2,
+      "away_score": 0,
+      "kickoff_utc": "2026-10-31T12:30:00+00:00",
+      "teams": [
+        {
+          "team": "Chelsea",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "8",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "1",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "3",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "8",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "3",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "58.7",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "18",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "9",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.5",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "1",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "479",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "542",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.9",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "5",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "14",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.4",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "38",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "16",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.4",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "15",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "21",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "16",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "11",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "11",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Manchester United",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "20",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "4",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "1",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "7",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "7",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "41.3",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "12",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "5",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.4",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "293",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "379",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "3",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "13",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "44",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "13",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.3",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "15",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "22",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "14",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "19",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "19",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "34'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "35'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "45'+2'",
+          "text": "First Half ends, Chelsea 0, Manchester United 0.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "50'",
+          "text": "Goal! Chelsea 1, Manchester United 0. Morgan Rogers (Chelsea) left footed shot from the centre of the box to the centre of the goal. Assisted by Roméo Lavia.",
+          "type": "Goal",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "58'",
+          "text": "Substitution, Manchester United. Kobbie Mainoo replaces Carlos Baleba.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "59'",
+          "text": "Lisandro Martínez (Manchester United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "60'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "63'",
+          "text": "Second yellow card to Lisandro Martínez (Manchester United) for a bad foul.",
+          "type": "Red Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "63'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "64'",
+          "text": "Goal! Chelsea 2, Manchester United 0. Cole Palmer (Chelsea) converts the penalty with a left footed shot to the bottom right corner.",
+          "type": "Penalty - Scored",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "65'",
+          "text": "Harry Maguire (Manchester United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Manchester United. Mason Mount replaces Matheus Cunha.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "66'",
+          "text": "Substitution, Manchester United. Ayden Heaven replaces Andrey Santos.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "70'",
+          "text": "Kobbie Mainoo (Manchester United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "71'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "73'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "74'",
+          "text": "Substitution, Chelsea. Pep Chavarría replaces Marco Palestra.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "75'",
+          "text": "Delay in match because of an injury Amad Diallo (Manchester United).",
+          "type": "Start Delay",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "75'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "76'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "76'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "77'",
+          "text": "Substitution, Manchester United. Joshua Zirkzee replaces Amad Diallo because of an injury.",
+          "type": "Substitution",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "81'",
+          "text": "Bryan Mbeumo (Manchester United) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "86'",
+          "text": "Joshua Zirkzee (Manchester United) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Manchester United"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Chelsea. Danny Welbeck replaces Moisés Caicedo.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Chelsea. Valentín Barco replaces Pedro Neto.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "87'",
+          "text": "Substitution, Chelsea. Malo Gusto replaces Estêvão.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "Mike Penders (Chelsea) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "90'+7'",
+          "text": "Substitution, Chelsea. Geovany Quenda replaces Cole Palmer.",
+          "type": "Substitution",
+          "team": "Chelsea"
+        },
+        {
+          "clock": "90'+11'",
+          "text": "Second Half ends, Chelsea 2, Manchester United 0.",
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879248"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 80,
-    "detailed_reports": 80
+    "attempted": 1,
+    "season_finals": 81,
+    "detailed_reports": 81
   }
 }
