@@ -6,6 +6,7 @@ Schedules and live scores are attributed to ESPN, never invented. Completed game
 remain in the separate final-score Elo and player-box repositories.
 """
 import json
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -64,8 +65,27 @@ def main():
     from zoneinfo import ZoneInfo
     now = datetime.now(timezone.utc)
     eastern_today = now.astimezone(ZoneInfo("America/New_York")).date()
-    dates = [(eastern_today + timedelta(days=i)).strftime("%Y%m%d") for i in range(-2, 8)]
+    fast = "--fast" in sys.argv
+    # Lightweight fetches keep live scores current without repeating the
+    # full ten-day fixture download every five minutes.
+    dates = [(eastern_today + timedelta(days=i)).strftime("%Y%m%d")
+             for i in range(-2, 2 if fast else 8)]
     data = {}
+    if fast and OUT.exists():
+        try:
+            earlier = json.loads(OUT.read_text(encoding="utf-8"))
+            low = eastern_today - timedelta(days=2)
+            high = eastern_today + timedelta(days=7)
+            for game in earlier.get("games", []):
+                stamp = game.get("date")
+                if not game.get("id") or not stamp:
+                    continue
+                day = datetime.fromisoformat(stamp.replace("Z", "+00:00")).astimezone(
+                    ZoneInfo("America/New_York")).date()
+                if low <= day <= high:
+                    data[game["id"]] = game
+        except (OSError, ValueError, TypeError, KeyError):
+            data = {}
     failed_dates = []
     with ThreadPoolExecutor(max_workers=4) as pool:
         for date, result in zip(dates, pool.map(collect, dates)):
@@ -87,9 +107,10 @@ def main():
         "updated_at":now.isoformat(),
         "source":"ESPN NBA dated scoreboards",
         "dates_checked":dates,
+        "refresh_mode":"fast" if fast else "full",
         "games":games,
     },indent=2,ensure_ascii=False)+"\n")
-    print("Verified NBA schedule:",len(games),"games across",len(dates),"days")
+    print("Verified NBA schedule:",len(games),"games across",len(dates),"checked days; mode", "fast" if fast else "full")
 
 def collect(date):
     try:

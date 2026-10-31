@@ -35,10 +35,22 @@ jobs:
         run: node scripts/audit-nba-elo.mjs
       - name: Validate NBA Elo replay script before network access
         run: node --check scripts/update-nba-elo.mjs
+      - name: Test schedule-to-Elo sync offline
+        run: |
+          python -m py_compile scripts/collect-nba-schedule.py
+          node --check scripts/reconcile-nba-schedule.mjs
+          node scripts/test-nba-schedule-sync.mjs
+      - name: Refresh current NBA scoreboard and nearby dates
+        run: |
+          python scripts/collect-nba-schedule.py --fast || echo "NBA scoreboard fetch unavailable; preserve prior snapshot and synchronize confirmed Elo finals."
       - name: Replay verified 2026-27 regular-season finals
         run: node scripts/update-nba-elo.mjs
       - name: Build isolated shadow Elo and historical-prior forecasts
         run: node scripts/build-nba-elo-shadow.mjs --write
+      - name: Reconcile verified NBA finals into schedule scorecards
+        run: |
+          node scripts/reconcile-nba-schedule.mjs
+          node scripts/reconcile-nba-schedule.mjs --check
       - name: Verify all rankings, Elo deltas and dated finals before publication
         run: |
           node scripts/audit-nba-elo.mjs
@@ -46,13 +58,13 @@ jobs:
           node scripts/audit-nba-page.mjs
       - name: Publish new verified game results, if any
         run: |
-          if git diff --quiet -- data/nba-2026-27-current-provisional.json && git diff --quiet -- data/nba-elo-reconciliation.json && git diff --quiet -- data/nba-elo-shadow-2026-27.json && test -f data/nba-elo-reconciliation.json; then
+          if git diff --quiet -- data/nba-2026-27-current-provisional.json && git diff --quiet -- data/nba-elo-reconciliation.json && git diff --quiet -- data/nba-elo-shadow-2026-27.json && git diff --quiet -- data/nba-upcoming-schedule.json && test -f data/nba-elo-reconciliation.json; then
             echo "No new completed games; no commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json
+          git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
           git commit -m "Update independent provisional NBA Elo with verified final scores"
           for attempt in 1 2 3; do
             if git push; then echo "NBA Elo published successfully"; exit 0; fi
