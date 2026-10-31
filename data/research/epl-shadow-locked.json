@@ -97,6 +97,22 @@
         "log_loss": 0.7418251203528302
       }
     },
+    "401879250": {
+      "away": "Fulham",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.867230349382704,
+        "log_loss": 1.3862943611198906
+      },
+      "fixture_id": "401879250",
+      "home": "Aston Villa",
+      "home_score": 1,
+      "outcome": "draw",
+      "research": {
+        "brier": 0.8561277792401467,
+        "log_loss": 1.3779200598948678
+      }
+    },
     "401879251": {
       "away": "Leeds United",
       "away_score": 0,
@@ -459,19 +475,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 7,
+    "graded_count": 8,
     "locked_count": 20,
-    "new_grades": 6,
+    "new_grades": 1,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.542154,
-        "log_loss": 0.924991
+        "brier": 0.582789,
+        "log_loss": 0.982654
       },
       "research": {
-        "brier": 0.547015,
-        "log_loss": 0.930409
+        "brier": 0.585654,
+        "log_loss": 0.986348
       }
     }
   }
