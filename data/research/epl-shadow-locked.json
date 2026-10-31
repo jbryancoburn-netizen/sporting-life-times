@@ -1,6 +1,70 @@
 {
   "competition": "EPL",
   "graded": {
+    "401878761": {
+      "away": "Crystal Palace",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.40292818156192267,
+        "log_loss": 0.7301809265385525
+      },
+      "fixture_id": "401878761",
+      "home": "Tottenham",
+      "home_score": 2,
+      "outcome": "home",
+      "research": {
+        "brier": 0.42865673479164373,
+        "log_loss": 0.7642063218596366
+      }
+    },
+    "401878763": {
+      "away": "Ipswich",
+      "away_score": 2,
+      "baseline": {
+        "brier": 0.8592059263349207,
+        "log_loss": 1.3862943611198906
+      },
+      "fixture_id": "401878763",
+      "home": "Hull",
+      "home_score": 2,
+      "outcome": "draw",
+      "research": {
+        "brier": 0.8504776700365279,
+        "log_loss": 1.3734857910951361
+      }
+    },
+    "401879245": {
+      "away": "Brighton",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.8433650333889027,
+        "log_loss": 1.3364200365310275
+      },
+      "fixture_id": "401879245",
+      "home": "Manchester City",
+      "home_score": 0,
+      "outcome": "away",
+      "research": {
+        "brier": 0.8012343045264981,
+        "log_loss": 1.273345377182424
+      }
+    },
+    "401879247": {
+      "away": "Sunderland",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.4504539316422419,
+        "log_loss": 0.7925640076570878
+      },
+      "fixture_id": "401879247",
+      "home": "Coventry",
+      "home_score": 3,
+      "outcome": "home",
+      "research": {
+        "brier": 0.45082475664393196,
+        "log_loss": 0.7934787225496694
+      }
+    },
     "401879248": {
       "away": "Manchester United",
       "away_score": 0,
@@ -15,6 +79,38 @@
       "research": {
         "brier": 0.4206046097434223,
         "log_loss": 0.7535663251575123
+      }
+    },
+    "401879249": {
+      "away": "Nott'm Forest",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.3688640704425301,
+        "log_loss": 0.6849544779017187
+      },
+      "fixture_id": "401879249",
+      "home": "Brentford",
+      "home_score": 2,
+      "outcome": "home",
+      "research": {
+        "brier": 0.4117249357477124,
+        "log_loss": 0.7418251203528302
+      }
+    },
+    "401879251": {
+      "away": "Leeds United",
+      "away_score": 0,
+      "baseline": {
+        "brier": 0.4837847429514991,
+        "log_loss": 0.8361119846883998
+      },
+      "fixture_id": "401879251",
+      "home": "Bournemouth",
+      "home_score": 2,
+      "outcome": "home",
+      "research": {
+        "brier": 0.46557874317409,
+        "log_loss": 0.8129571387121312
       }
     }
   },
@@ -363,19 +459,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 1,
+    "graded_count": 7,
     "locked_count": 20,
-    "new_grades": 1,
+    "new_grades": 6,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.386478,
-        "log_loss": 0.708414
+        "brier": 0.542154,
+        "log_loss": 0.924991
       },
       "research": {
-        "brier": 0.420605,
-        "log_loss": 0.753566
+        "brier": 0.547015,
+        "log_loss": 0.930409
       }
     }
   }
