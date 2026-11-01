@@ -63,8 +63,16 @@ def audit():
             sh=host(src)
             represented=school_hosts.get(sh,set())
             if represented and represented.isdisjoint(pair):
-                stats['arena_cited_from_unrelated_school']+=1
-                reasons.append('unrelated_university_arena_source')
+                if 'organizer_venue_verified' in source_kind.lower():
+                    # A third school's official tournament announcement can
+                    # legitimately verify a shared neutral-site facility.
+                    # Count separately, retain the date-specific source,
+                    # and require organizer review before promoting it.
+                    stats['neutral_event_third_party_venue_evidence']+=1
+                    reasons.append('neutral_event_third_party_source_needs_review')
+                else:
+                    stats['arena_cited_from_unrelated_school']+=1
+                    reasons.append('unrelated_university_arena_source')
             if re.fullmatch(r'(?i)(?:arena|center|centre|gym|gymnasium|fieldhouse|court|stadium|tbd|tba|unknown|select location)',arena):
                 stats['generic_arena_label']+=1
                 reasons.append('generic_arena_label')
