@@ -12,7 +12,7 @@ const brand=fs.readFileSync(path.join(root,'slt-courtside-network.js'),'utf8');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,n),'utf8'));
 assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'));
 assert(shell.includes('slt-courtside-network.js'));
-assert(brand.includes('hardwood-wordmark.svg'),'basketball directory uses original Hardwood wordmark');
+assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-title'),'Hardwood uses text-only editorial branding');
 function load(gender){
   const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink};\n})();');
   assert(patch.includes('globalThis.SLTTest'),'test harness injection');
@@ -47,16 +47,12 @@ assert(!men.scorebug(live).includes('data-cbb-open'),'game cards never append an
 assert(js.includes('isGamefile')&&js.includes('data-gamefile-panel'),'Gamefile has its own tabbed route');
 assert(!js.includes('data-cbb-close'),'scoreboard no longer creates inline box score');
 assert(fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8').includes('cbb-gamefile-root'),'dedicated Gamefile HTML exists');
-assert(brand.includes('slt-network-wordmark')&&brand.includes('slt-league-image'),'Hardwood wordmark and league marks are distinct');
-assert(!brand.includes('slt-hardwood-crest.svg'),'the rejected generic shield is retired from the navigation');
-const wordmark=fs.readFileSync(path.join(root,'assets/hardwood-wordmark.svg'),'utf8');
-const glyph=fs.readFileSync(path.join(root,'assets/hardwood-h.svg'),'utf8');
-assert(wordmark.includes('<svg')&&wordmark.includes('ARDWOOD')&&wordmark.includes('Midcourt target'),'custom newspaper wordmark includes court-line H');
-assert(glyph.includes('<svg')&&glyph.includes('midcourt circle'),'small favicon is a matching custom H');
+assert(brand.includes('slt-league-image'),'league navigation retains real league marks');
+assert(!brand.includes('hardwood-wordmark.svg')&&!brand.includes('slt-hardwood-crest.svg'),'rejected brand graphics are absent');
 assert(brand.includes('logo-nba.svg')&&brand.includes('NCAA_logo.svg')&&brand.includes('EuroLeague_logo.svg')&&brand.includes('NBL_Logo.png'),'league logos are used, not fake icons');
 assert(brand.split('NCAA_logo.svg').length===3,'men and women use the same authentic NCAA mark');
 const brandCSS=fs.readFileSync(path.join(root,'slt-courtside-network.css'),'utf8');
-assert(brandCSS.includes('.slt-network-wordmark')&&brandCSS.includes('.slt-league-image'),'new wordmark and league logos have responsive styling');
+assert(brandCSS.includes('.slt-network-title')&&brandCSS.includes('.slt-league-image'),'typographic masthead and league logos are responsive');
 assert(brandCSS.includes('.cbb-gender-bar'),'redundant gender toggle hidden only when Hardwood is available');
 assert(!brandCSS.includes('.mbb-mark'),'Hardwood does not add a third ring to team logos');
 const snapshot=men.normalizeSnapshot({id:'401920982',date:'2026-11-01T14:30Z',state:'in',status:'Halftime',teams:[
@@ -94,4 +90,5 @@ assert(!women.usrsLine(wEvent).includes('pregame</strong>'),'women cannot inheri
 assert(!css.includes('.cbb-team-identity .mbb-mark::after'),'no extra logo bands');
 for(const page of ['nba.html','ncaam.html','college-basketball.html','euroleague.html','nbl.html'])
  assert(fs.readFileSync(path.join(root,page),'utf8').includes('slt-courtside-network.js'),page+' Courtside network install');
+assert(!brandCSS.includes('slt-network-wordmark'),'rejected generated logo CSS removed');
 console.log('PASS Courtside: live/snapshot separation, away/home, verified notes, gender-isolated Elo, neutral/site/stale model checks, navigation, no logo overlay.');
