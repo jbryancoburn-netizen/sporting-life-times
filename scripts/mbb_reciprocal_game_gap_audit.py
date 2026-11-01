@@ -74,8 +74,8 @@ def run():
         collision=[]
         for e in docs[target].get('events',[]):
             c=(e.get('competitions') or [{}])[0]
-            p=c.get('competitors') or []
-            opp=next((p for p in p if str((p.get('team') or {}).get('id') or '')==owner),None)
+            roster=c.get('competitors') or []
+            opp=next((person for person in roster if str((person.get('team') or {}).get('id') or '')==owner),None)
             if not opp:continue
             date=str(e.get('date') or '')[:10]
             try:distance=abs((datetime.date.fromisoformat(date)-datetime.date.fromisoformat(day)).days)
