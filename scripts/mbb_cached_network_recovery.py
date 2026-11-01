@@ -59,11 +59,11 @@ def clock_with_zone(row, default_zone):
 
 def normalized_clock(clock):
     """Compare differing printed forms without treating 7 PM and 7:00 p.m. as conflicts."""
-    raw = re.sub(r"[.\\s]+", " ", str(clock or "").strip().upper()).replace("A M", "AM").replace("P M", "PM")
-    raw = re.sub(r"\\s+", " ", raw).strip()
-    m = re.fullmatch(r"(\\d{1,2})(?::(\\d{2}))?\\s*(AM|PM)\\s+(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)", raw)
+    raw = re.sub(r"[.\s]+", " ", str(clock or "").strip().upper()).replace("A M", "AM").replace("P M", "PM")
+    raw = re.sub(r"\s+", " ", raw).strip()
+    m = re.fullmatch(r"(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\s+(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)", raw)
     if not m:
-        special = re.fullmatch(r"(NOON|MIDNIGHT)\\s+(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)", raw)
+        special = re.fullmatch(r"(NOON|MIDNIGHT)\s+(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)", raw)
         if special:
             return ("12:00 PM" if special.group(1) == "NOON" else "12:00 AM", special.group(2)[:1])
         return raw
