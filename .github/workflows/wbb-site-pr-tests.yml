@@ -1,0 +1,38 @@
+name: WBB University Venue Evidence PR Checks
+on:
+  pull_request:
+    paths:
+      - 'scripts/wbb-verify-official-schools.py'
+      - 'wbb-site-integrity.js'
+      - 'wbb-team-live.js'
+      - 'ncaaw-team.html'
+      - 'college-basketball-gender.js'
+      - 'tests/wbb-site-integrity.test.cjs'
+      - 'tests/test_wbb_site_claims.py'
+      - '.github/workflows/wbb-site-pr-tests.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install site-text parser only
+        run: python -m pip install -q requests beautifulsoup4
+      - name: Test university source inference, game IDs, neutral-site logic
+        run: |
+          python -m py_compile scripts/wbb-verify-official-schools.py
+          python -m unittest discover -s tests -p 'test_wbb_site_claims.py' -v
+      - name: Test women-only frontend venue quarantine and protected finals
+        run: |
+          node --check wbb-site-integrity.js
+          node --check wbb-team-live.js
+          node --check college-basketball-gender.js
+          node --test tests/wbb-site-integrity.test.cjs tests/wbb-team-neutral.test.cjs tests/wbb-tipoff-integrity.test.cjs

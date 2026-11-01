@@ -1,11 +1,17 @@
 name: Women's 363 University Calendar Verification
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/wbb-official-school-verification.yml'
+      - 'scripts/wbb-verify-official-schools.py'
+      - 'tests/test_wbb_site_claims.py'
   push:
     paths:
       - '.github/workflows/wbb-official-school-verification.yml'
       - 'scripts/wbb-preserve-university-evidence.py'
       - 'scripts/wbb-verify-official-schools.py'
+      - 'tests/test_wbb_site_claims.py'
       - 'data/mbb-official-school-schedule-sources.json'
 permissions:
   contents: write
@@ -13,7 +19,24 @@ concurrency:
   group: wbb-official-school-verification
   cancel-in-progress: false
 jobs:
+  validate:
+    if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install site parser dependencies
+        run: python -m pip install -q requests beautifulsoup4
+      - name: Test women-only university site evidence classification
+        run: |
+          python -m py_compile scripts/wbb-verify-official-schools.py
+          python -m unittest discover -s tests -p 'test_wbb_site_claims.py' -v
   certify:
+    # Never let feature-branch pushes or PRs push unmerged source evidence to main.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
@@ -90,7 +113,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
-          git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
+          git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json data/ncaaw-2026-27-official-site-conflicts.json
           git add data/ncaaw-2026-27-preserved-university-evidence-audit.json data/ncaaw-schedule-completeness-deep-audit.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Publish official athletics checks for 363 women's programs"
@@ -108,7 +131,7 @@ jobs:
             python scripts/wbb-reconcile-schedule-evidence.py
             python scripts/audit_ncaaw_schedule_completeness.py
             git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
-            git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json
+            git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json data/ncaaw-2026-27-official-site-conflicts.json
             git add data/ncaaw-2026-27-preserved-university-evidence-audit.json data/ncaaw-schedule-completeness-deep-audit.json
             if git diff --cached --quiet; then echo "Current source checks already published"; exit 0; fi
             git commit -m "Publish refreshed official women's schedule verification after concurrent update"

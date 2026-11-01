@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-01T22:27:27.404584+00:00",
+  "checked_at_utc": "2026-11-01T22:38:03.608286+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -333,7 +333,7 @@
       "cohort": "men-d1",
       "status": "live",
       "home_score": 1,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Southern Ind.",
       "away_name": "Western Ill.",
       "home_id": "southern-ind",
@@ -1880,19 +1880,19 @@
       "cohort": "men-d2",
       "status": "live",
       "home_score": 1,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Cal St. San Marcos",
       "away_name": "Cal Poly Pomona",
       "home_id": "cal-st-san-marcos",
       "away_id": "cal-poly-pomona",
-      "period": "2ND HALF",
+      "period": "OT",
       "source_url": "https://www.ncaa.com/game/6663244"
     },
     {
       "match_id": "men-6663245",
       "cohort": "men-d2",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "CSUSB",
       "away_name": "UC Merced",
@@ -3504,7 +3504,7 @@
       "match_id": "women-6607784",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Portland",
       "away_name": "LMU (CA)",
@@ -3750,14 +3750,14 @@
     {
       "match_id": "women-6608289",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "Idaho St.",
       "away_name": "Northern Colo.",
       "home_id": "idaho-st",
       "away_id": "northern-colo",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6608289"
     },
     {
@@ -4101,14 +4101,14 @@
     {
       "match_id": "women-6608786",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Vermont",
       "away_name": "Binghamton",
       "home_id": "vermont",
       "away_id": "binghamton",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6608786"
     },
     {
@@ -4336,8 +4336,8 @@
       "match_id": "women-6609158",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 1,
-      "away_score": 1,
+      "home_score": 2,
+      "away_score": 2,
       "home_name": "UC Davis",
       "away_name": "UTEP",
       "home_id": "uc-davis",
@@ -5096,7 +5096,7 @@
       "away_name": "Lewis & Clark",
       "home_id": "pacific-lutheran",
       "away_id": "lewis-clark",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6612512"
     },
     {
@@ -5304,7 +5304,7 @@
       "away_name": "Linfield",
       "home_id": "puget-sound",
       "away_id": "linfield",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6613046"
     },
     {
@@ -5876,7 +5876,7 @@
       "away_name": "Whitman",
       "home_id": "willamette",
       "away_id": "whitman",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6615201"
     },
     {
@@ -6214,7 +6214,7 @@
       "away_name": "UAH",
       "home_id": "union-tn",
       "away_id": "ala-huntsville",
-      "period": "2OT",
+      "period": "3OT",
       "source_url": "https://www.ncaa.com/game/6663612"
     },
     {
@@ -6740,14 +6740,14 @@
     {
       "match_id": "women-6664823",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 3,
       "away_score": 0,
       "home_name": "Sarah Lawrence",
       "away_name": "Mt. St. Mary (NY)",
       "home_id": "sarah-lawrence",
       "away_id": "mt-st-mary-ny",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6664823"
     },
     {
@@ -6760,7 +6760,7 @@
       "away_name": "Fort Lewis",
       "home_id": "colorado-mesa",
       "away_id": "fort-lewis",
-      "period": "FINAL (2OT)",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6664831"
     },
     {
@@ -7158,7 +7158,7 @@
       "cohort": "women-d2",
       "status": "live",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Glenville St.",
       "away_name": "Point Park",
       "home_id": "glenville-st",
