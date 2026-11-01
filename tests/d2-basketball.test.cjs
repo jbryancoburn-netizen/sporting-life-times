@@ -89,3 +89,25 @@ test('DII game cards publish source-grounded provisional Elo chances and game mo
   assert.ok(d.games.some(g=>g.neutral&&g.status==='final'&&g.pred_home_pct!==undefined));
  }
 });
+
+test('official December holiday tournament fixtures are included in DII women only',()=>{
+ const src=JSON.parse(fs.readFileSync('data/d2-verified-holiday-2026-27.json','utf8'));
+ const w=JSON.parse(fs.readFileSync('data/d2-women-2026-27.json','utf8'));
+ const m=JSON.parse(fs.readFileSync('data/d2-men-2026-27.json','utf8'));
+ const holiday=w.games.filter(g=>g.id.startsWith('d2holiday-2026-'));
+ assert.equal(src.games.length,8);assert.equal(holiday.length,8);
+ assert.equal(m.games.filter(g=>g.id.startsWith('d2holiday-2026-')).length,0);
+ assert.ok(holiday.every(g=>g.verified&&g.elo_eligible&&g.neutral));
+ assert.ok(holiday.every(g=>g.status==='scheduled'&&g.away_score===null&&g.home_score===null));
+ assert.ok(holiday.every(g=>g.date==='2026-12-18'||g.date==='2026-12-19'));
+ assert.ok(holiday.every(g=>g.source_url.startsWith('https://collegetournamentshawaii.com/game/')));
+ assert.ok(holiday.every(g=>w.teams.some(t=>t.id===g.away)&&w.teams.some(t=>t.id===g.home)));
+ assert.equal(new Set(w.games.map(g=>g.id)).size,w.games.length);
+});
+test('DII newspaper provides date navigation, winner markings and exact official sources',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const css=fs.readFileSync('d2-basketball.css','utf8');
+ assert.match(js,/game-day-navigation/);assert.match(js,/OFFICIAL SOURCE/);
+ assert.match(js,/winA\?'winner'/);assert.match(js,/WOMEN’S/);
+ assert.match(css,/game-day-navigation/);assert.match(js,/forecast-strip/);
+});

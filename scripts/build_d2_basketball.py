@@ -325,6 +325,20 @@ def update(gender, bootstrap=False):
         if old_game and old_game.get("status")=="final" and fixture["status"]!="final":
             continue
         games[fixture["id"]]={**fixture,"elo_eligible":True,"verified":True}
+    # Official 2026 Hoops in Hawaii Holiday Classic: DII women's fixtures.
+    # December DIII showcases excluded; tournament home/away designation
+    # remains neutral until host-school records clarify it.
+    holiday_path=DATA/"d2-verified-holiday-2026-27.json"
+    holiday=json.loads(holiday_path.read_text()) if holiday_path.exists() else {}
+    holiday_source=holiday.get("source_url","")
+    if gender=="women":
+        for fixture in holiday.get("games",[]):
+            if fixture["away"] not in teams or fixture["home"] not in teams:
+                raise RuntimeError(f"Verified holiday game references unknown DII program: {fixture['id']}")
+            old=games.get(fixture["id"],{})
+            if old.get("status")=="final" and fixture.get("status")!="final":
+                continue
+            games[fixture["id"]]={**fixture,"verified":True,"elo_eligible":True}
     today=dt.datetime.now(dt.timezone.utc).date()
     start=dt.date(2026,10,15) if bootstrap else max(dt.date(2026,10,15),today-dt.timedelta(days=12))
     end=dt.date(2027,4,12) if bootstrap else min(dt.date(2027,4,12),today+dt.timedelta(days=30))
@@ -400,6 +414,8 @@ def update(gender, bootstrap=False):
         "verified_tournament_games":sum(1 for g in allgames if g.get("source")=="official tournament organizer"),
         "verified_tournament_source":tournament_source,
         "verified_other_openers":sum(1 for g in allgames if str(g.get("id","")).startswith("d2opening-2026-")),
+        "verified_holiday_fixtures":sum(1 for g in allgames if str(g.get("id","")).startswith("d2holiday-2026-")),
+        "verified_holiday_source":holiday_source,
         "other_openers_provenance":"Official university athletics results, game-by-game source URLs",
         "directory_source":directory_source,"directory_error":directory_error,
         "official_logo_index":logo_quality,
