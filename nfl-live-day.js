@@ -230,29 +230,41 @@ async function waitForPage(){
  }
  return false;
 }
-async function initialize(){
- if(mounted||!await waitForPage())return;mounted=true;
- const root=document.getElementById("nfl-app");
+function mountContent(){
+ const root=document.getElementById("nfl-app");if(!root)return;
  if(page==="game"){
+  if(root.querySelector("#nfl-live-game-data"))return;
   const box=root.querySelector(".nfl-team-head");
   if(!box)return;
   const section=document.createElement("section");section.id="nfl-live-game-data";section.className="nfl-live-details";
   section.innerHTML='<h2>LIVE GAME-DAY TRACKER</h2><p>Loading in-game statistics…</p>';
   box.insertAdjacentElement("afterend",section);gameDetails();
-  setInterval(gameDetails,25000);
   return;
  }
+ if(root.querySelector("#nfl-live-stage"))return;
  const section=newStage();
  if(page==="games"){
-  // The live stage owns date navigation and the visible scoreboard.
+  // A rerender must not restore competing date navigation and stale cards.
   const duplicate=root.querySelector(".nfl-slate");if(duplicate)duplicate.hidden=true;
   const oldNav=root.querySelector(".nfl-day-nav");if(oldNav)oldNav.hidden=true;
  }
  const title=root.querySelector(".nfl-title");
  if(title)title.insertAdjacentElement("afterend",section);
  else root.prepend(section);
- update();setInterval(update,25000);
- document.addEventListener("visibilitychange",()=>{if(!document.hidden)update();});
+ update();
+}
+async function initialize(){
+ if(mounted||!await waitForPage())return;mounted=true;
+ mountContent();
+ const root=document.getElementById("nfl-app");
+ // The main NFL ledger redraws root.innerHTML whenever the saved score feed changes.
+ // Remount the independent live stage without creating extra polling intervals.
+ const observer=new MutationObserver(()=>{
+  if(page==="game"?!root.querySelector("#nfl-live-game-data"):!root.querySelector("#nfl-live-stage"))mountContent();
+ });
+ observer.observe(root,{childList:true});
+ setInterval(page==="game"?gameDetails:update,25000);
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden)(page==="game"?gameDetails():update());});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initialize,{once:true});else initialize();
 })();
