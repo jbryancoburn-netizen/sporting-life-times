@@ -83,10 +83,97 @@ function makeDistrictCard(r){
  const footer=newEl("div",null,"bottom");
  footer.append(newEl("span",r.official_2026_candidate_snapshot?"Candidates source-checked":"2026 candidate slate pending"));
  footer.append(newEl("span","Explore →"));
- link.append(top,status,sub,footer);
+ const flags=newEl("div",null,"evidence-flags");
+  flags.append(newEl("span",r.official_2026_candidate_snapshot?"Candidate list ✓":"Candidate list unverified",r.official_2026_candidate_snapshot?"verified":"unverified"));
+  const orig=r.district_specific_2026_polls?.some(p=>p.source_tier==="original_release_checked");
+  const compilation=r.district_specific_2026_polls?.some(p=>p.source_tier==="public_compilation_not_original_checked");
+  flags.append(newEl("span",orig?"Original poll ✓":compilation?"Compiled poll":"No sourced poll",orig?"verified":"unverified"));
+  const prior=r["2024_house_result_on_prior_boundaries"];
+  flags.append(newEl("span",prior?(prior.same_2026_geography?"2024 comparable":"2024 old lines"):"2024 result missing",prior?.same_2026_geography?"verified":"unverified"));
+  link.append(top,status,sub,flags,footer);
  link.title=r.id+": "+info.source+". "+info.text;
  return link;
 }
+/* Transparent, identical source-coverage criteria for every 2026 House seat. */
+function coverageCell(label,value,note,status){
+ const cell=newEl("article",null,"coverage-cell "+status);
+ cell.append(newEl("span",label,"coverage-label"),newEl("strong",String(value)),newEl("span",note,"coverage-note"));
+ return cell;
+}
+function showCoverage(rows,mode){
+ const target=$("coverage-board");if(!target)return;
+ target.replaceChildren();
+ const n=rows.length;
+ const official=rows.filter(r=>!!r.official_2026_candidate_snapshot).length;
+ const anyPoll=rows.filter(r=>r.district_specific_2026_polls?.length).length;
+ const primary=rows.filter(r=>r.district_specific_2026_polls?.some(p=>p.source_tier==="original_release_checked")).length;
+ const secondary=rows.filter(r=>r.district_specific_2026_polls?.some(p=>p.source_tier==="public_compilation_not_original_checked")).length;
+ const old=rows.filter(r=>!!r["2024_house_result_on_prior_boundaries"]).length;
+ const comparable=rows.filter(r=>r["2024_house_result_on_prior_boundaries"]?.same_2026_geography).length;
+ const fec=rows.filter(r=>r.registered_fec_filings_2026>0).length;
+ const changed=rows.filter(r=>r["2026_boundaries_revised"]).length;
+ const suffix=mode==="district"?"":(" / "+n);
+ target.append(
+   coverageCell("State-source candidate snapshots",official+suffix,official===n?"Government-source candidate lists present.":"Other seats await independently reviewed general-election candidate lists.",official===n?"ok":"limited"),
+   coverageCell("2026 district polls published",anyPoll+suffix,primary+" seat(s) with directly checked originals; "+secondary+" with secondary compiled entries.",anyPoll===n?"ok":anyPoll?"limited":"absent"),
+   coverageCell("2024 House returns recorded",old+suffix,comparable+" on unchanged 2026 boundaries; "+changed+" districts have revised maps.",old===n&&changed===0?"ok":"limited"),
+   coverageCell("FEC registration records",fec+suffix,"Official candidate registrations; not November ballot qualification.",fec===n?"ok":"limited"),
+   coverageCell("Census demographic context",n+suffix,changed?"ACS 2020–2024 district profiles use old boundaries in "+changed+" seat(s).":"Historical ACS 2020–2024; not a current population count.",changed?"limited":"ok"),
+   coverageCell("Certified 2026 district forecasts","0"+suffix,"Our independent probabilities are not yet certified; never fill missing odds.", "absent")
+ );
+ if(mode==="district"){
+   // Avoid showing a '0 / 1' boilerplate where an explicit check is clearer.
+   const cells=[...target.querySelectorAll(".coverage-cell")];
+   const yes=cell=>cell.querySelector("strong").textContent==="1";
+   cells[0].querySelector("strong").textContent=official?"Available":"Not verified";
+   cells[1].querySelector("strong").textContent=primary?"Original checked":secondary?"Compiled only":anyPoll?"Poll recorded":"No reviewed poll";
+   cells[2].querySelector("strong").textContent=old?(comparable?"Comparable 2024":"Old boundaries"):"Not in archive";
+   cells[3].querySelector("strong").textContent=fec?"FEC records":"None indexed";
+   cells[4].querySelector("strong").textContent=changed?"Historical lines":"Historical ACS";
+   cells[5].querySelector("strong").textContent="Not certified";
+   cells[2].classList.toggle("limited",!comparable);
+   if(comparable){cells[2].classList.remove("limited");cells[2].classList.add("ok");}
+ }
+}
+const FEC_PARTY_CODES={
+ "DEM":"Democratic","REP":"Republican","IND":"Independent","LIB":"Libertarian",
+ "GRE":"Green","N":"Unspecified N","NON":"Nonpartisan/unspecified",
+ "UN":"Unspecified","W":"Other/W","OTH":"Other","NNE":"Unspecified NNE"
+};
+async function renderFEC(r){
+ const box=$("fec-panel");if(!box)return;
+ try{
+  const response=await fetch("politics-fec-race-index.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("FEC indexed file unavailable");
+  const data=await response.json();
+  if(data.status!=="ok"||data.cycle!==2026||data.house_district_inventory!==435||
+      !Array.isArray(data.house)||data.house.length!==435)
+    throw Error("FEC source contract failed");
+  const entry=data.house.find(x=>x.id===r.id);
+  if(!entry||entry.registered_filings!==r.registered_fec_filings_2026)
+    throw Error("FEC district count conflicts with 435-seat research atlas");
+  const total=Object.values(entry.parties||{}).reduce((a,b)=>a+b,0);
+  if(total!==entry.registered_filings)throw Error("Party-code total does not match original filings");
+  box.replaceChildren();
+  box.append(newEl("p",entry.registered_filings+" candidate records indexed in the official 2026 FEC candidate master. These include primaries, withdrawn or unsuccessful filings and possibly multiple records; they do not identify the certified November ballot.","fec-rule"));
+  box.append(newEl("p","FEC party-code breakdown · registration records, not general-election candidates","eyebrow"));
+  const tags=newEl("div",null,"fec-tags");
+  Object.entries(entry.parties).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).forEach(([code,n])=>{
+    tags.append(newEl("span",(FEC_PARTY_CODES[code]||"FEC code "+code)+" ("+code+"): "+n));
+  });
+  box.append(tags);
+  box.append(newEl("p",entry.finance_records+" FEC candidate financial-record matches in the indexed dataset. This is a record-coverage count, not the amount raised or spent.","footnote"));
+  box.append(newEl("p",entry.incumbent_filing_ids?.length?
+     entry.incumbent_filing_ids.length+" filing ID(s) flagged as incumbent in the FEC index; this flag is not an independently verified current officeholder or candidate qualification.":
+     "No incumbent-flagged filing IDs in this source snapshot.","footnote"));
+  const link=addLink(box,"FEC candidate-master file and field definitions ↗",data.source_url,"src");
+  link.target="_blank";link.rel="noopener noreferrer";
+ }catch(e){
+  box.replaceChildren(newEl("p","The 2026 FEC party breakdown is temporarily unavailable or inconsistent with the House ledger; no counts have been inferred.","fec-rule"));
+  console.error("FEC House record",e);
+ }
+}
+
 function insertMetric(container,values){
  const cells=container.querySelectorAll(".metric b");
  values.forEach((v,i)=>{if(cells[i])cells[i].textContent=String(v)});
@@ -96,6 +183,7 @@ function err(message){const area=$("view-content")||$("state-cards")||$("distric
 function renderNational(a){
  title("All 435 U.S. House districts");
  insertMetric($("metrics"),["435","50",fmt(a["2026_official_ballot_offices"]),a["2026_polled_districts"]]);
+  showCoverage(a.districts,"national");
  const board=$("state-tiles"),list=$("state-list");
  a.states.forEach(s=>list.append(makeStateLink(s)));
   if(window.HouseGeo){window.HouseGeo.evidenceColor=color;window.HouseGeo.national(a,board);}
@@ -119,7 +207,8 @@ function renderState(a){
  $("state-history").textContent="2024 statewide presidential vote: "+(pres.winner_party==="D"?"Democratic":"Republican")+" +"+one(Math.abs(pres.dem_margin_pp))+" percentage points (historical, not 2026 district polling).";
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"],state["2026_congressional_map_changed"]?"REVISED":"UNCHANGED"]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
- let grid=$("district-cards"),select=$("district-filter");
+ showCoverage(rows,"state");
+  let grid=$("district-cards"),select=$("district-filter");
  function paint(){
   let filter=select.value,shown=rows.filter(x=>filter==="all"||(filter==="poll"&&x.district_specific_2026_polls.length)||
     (filter==="ballot"&&x.official_2026_candidate_snapshot)||(filter==="historical"&&x["2024_house_result_on_prior_boundaries"]?.same_2026_geography));
@@ -213,6 +302,8 @@ function renderDistrict(a){
  const r=a.districts.find(x=>x.id===id);
  if(!r){err("District not found. The House atlas covers 435 voting House seats, including at-large seats such as AK-00. Return to the national atlas.");return;}
  const state=a.states.find(s=>s.code===r.state);
+  showCoverage([r],"district");
+  renderFEC(r);
  title(r.id+" — House district election profile");
  const titleNode=$("district-title");titleNode.textContent=r.at_large?state.name+" at-large House seat":state.name+"'s "+parseInt(r.district,10)+(Number(r.district)%10===1&&r.district!=="11"?"st":Number(r.district)%10===2&&r.district!=="12"?"nd":Number(r.district)%10===3&&r.district!=="13"?"rd":"th")+" Congressional District";
  $("district-subtitle").textContent=r.id+" · November 3, 2026 · race data & original sources";
