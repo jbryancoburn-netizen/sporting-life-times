@@ -55,6 +55,12 @@ def api_request(state: str) -> tuple[str, dict]:
                 data = json.load(reply)
             if data.get("error"):
                 raise ValueError("Census server error: " + str(data["error"]))
+            # Census emits CD=ZZ for unassigned water / similar areas, not an elected seat.
+            # Keep only the valid district features and still require every actual district.
+            data["features"] = [
+                feature for feature in data.get("features", [])
+                if feature.get("properties", {}).get(field) != "ZZ"
+            ]
             data["meta"] = {
                 "state": state,
                 "source_url": source,
