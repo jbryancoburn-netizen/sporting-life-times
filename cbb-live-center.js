@@ -176,7 +176,7 @@
     if(mounted)return true;
     const old=isStandalone?root:q(women?'#wbb-score-rail':'#score-rail');
     if(!old)return false;
-    const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk';
+    const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk'+(women?' cbb-women':'');
     host.innerHTML='<div class="cbb-desk-header"><div><div class="cbb-kicker">THE SPORTING LIFE & TIMES · '+tag.toUpperCase()+'’S DIVISION I</div>'+
       '<h2>Game Center <span class="cbb-desk-sub">Scorebugs · Live Scores · Box Scores</span></h2></div>'+
       '<a class="cbb-center-link" href="'+centerURL()+'">FULL GAME CENTER ↗</a></div>'+
@@ -240,9 +240,11 @@
       const num=document.getElementById('cbb-count-'+k);if(num)num.textContent=String(n);
     }
     document.querySelectorAll('#cbb-live-desk [data-cbb-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cbbFilter===state.filter)));
-    const visible=state.filter==='all'?state.games:state.games.filter(g=>g.phase===state.filter);
+    const matching=state.filter==='all'?state.games:state.games.filter(g=>g.phase===state.filter);
+    const visible=isStandalone?matching:matching.slice(0,6);
     const result=q('#cbb-cards');
-    if(result)result.innerHTML=visible.length?visible.map(scorebug).join(''):
+    if(result)result.innerHTML=visible.length?visible.map(scorebug).join('')+
+      (!isStandalone&&matching.length>6?'<a class="cbb-more-games" href="'+centerURL()+'">VIEW ALL '+matching.length+' GAMES <span aria-hidden="true">↗</span></a>':''):
       '<p class="cbb-empty">'+(all?'No '+state.filter+' games on '+dateLabel(state.day)+'. Choose another filter.':
       'No '+tag.toLowerCase()+'’s Division I games listed for '+dateLabel(state.day)+'. Try another date.')+'</p>';
   }
@@ -256,7 +258,9 @@
     let games=Array.isArray(data?.events)?data.events.map(normalizeEvent).filter(Boolean):null;
     if(games?.length){state.source='ESPN current scoreboard';state.fallback=false;}
     else{games=await fallback();state.source='Local published scoreboard snapshot · not confirmed live';state.fallback=true;}
-    if(!mounted||state.day!==day){state.pending=false;return;}
+    if(!mounted){state.pending=false;return;}
+    // Avoid race conditions when the reader changes dates while a prior fetch is still in flight.
+    if(state.day!==day){state.pending=false;return;}
     state.games=games.sort((a,b)=>{
       const order={live:0,upcoming:1,final:2};
       return order[a.phase]-order[b.phase]||Date.parse(a.date)-Date.parse(b.date);
