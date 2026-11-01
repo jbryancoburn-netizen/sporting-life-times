@@ -227,6 +227,7 @@ def aggregate_leaders(boxes):
                     continue
                 p["stats"][name]=round(p["stats"].get(name,0)+val,2)
     boards={}
+    team_boards={str(team_id):{category:[] for category in CATEGORIES} for team_id in META}
     for label,(cat,description,key) in CATEGORIES.items():
         rows=[]
         for (pid,category),p in players.items():
@@ -236,7 +237,11 @@ def aggregate_leaders(boxes):
             rows.append({**p,"value":val})
         rows.sort(key=lambda r:(-r["value"],r["name"]))
         boards[label]=rows[:30]
-    return boards
+        for p in rows:
+            group=team_boards.get(p["team_id"])
+            if group is not None and len(group[label])<5:
+                group[label].append(p)
+    return boards,team_boards
 
 def collect_roster(team_id):
     raw=request(API+"teams/"+str(team_id)+"/roster?season="+str(SEASON))
@@ -359,7 +364,7 @@ def run(fast):
     for t in teams:
         t["team_stats"]=team_stats[t["id"]]
         t["roster_count"]=len(rosters.get(t["id"],[]))
-    leaders=aggregate_leaders(boxes)
+    leaders,team_leaders=aggregate_leaders(boxes)
     data={"season":SEASON,"updated_at":now.isoformat(),"source":"ESPN NFL scoreboard and game summaries; independent USRS model",
       "data_policy":"ESPN sourced factual results; unofficial derived ratings and forecasts, not official NFL standings/tiebreakers",
       "model":{"baseline":1500,"home_advantage_elo":home_adv,"k_base":k_base,
@@ -375,7 +380,7 @@ def run(fast):
         "future_or_live":len(games)-len(finals),"boxscores":len(boxes),
         "boxscore_complete":len(boxes)==len(finals),"rosters":len(rosters),
         "weeks_fetched":weeks,"mode":"fast" if fast else "full"},
-      "teams":teams,"games":games,"leaders":leaders}
+      "teams":teams,"games":games,"leaders":leaders,"team_leaders":team_leaders}
     # Stage and validate data in memory before overwriting any existing publication.
     assert all(t["played"]==t["w"]+t["l"]+t["t"] for t in teams)
     assert sum(t["played"] for t in teams)==2*len(finals)

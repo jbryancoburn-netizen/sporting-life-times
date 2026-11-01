@@ -55,7 +55,8 @@ function leaderRow(p,i,category,max,compact=false){
  '<div class="nfl-leader-value"><b>'+format(p.value,category==="sacks"?1:0)+'</b><small>'+escapeHtml(leaderLabels[category].unit)+'</small></div></div>';
 }
 function listLeaders(category,limit,teamFilter){
- const rows=((feed.leaders||{})[category]||[]).filter(p=>!teamFilter||p.team_id===teamFilter).slice(0,limit),max=rows.length?rows[0].value:1;
+ const src=teamFilter?(((feed.team_leaders||{})[teamFilter]||{})[category]||((feed.leaders||{})[category]||[]).filter(p=>p.team_id===teamFilter)):((feed.leaders||{})[category]||[]);
+ const rows=src.slice(0,limit),max=rows.length?rows[0].value:1;
  return rows.map((p,i)=>leaderRow(p,i,category,max,true)).join("")||'<p class="nfl-small">Verified player figures pending.</p>';
 }
 function featurePlayer(p,i,category){

@@ -65,6 +65,8 @@ jobs:
           assert len(set(g['id'] for g in f['games']))==len(f['games'])
           assert f['coverage']['finals']==sum(g['state']=='post' for g in f['games'])
           assert sum(t['played'] for t in f['teams'])==2*f['coverage']['finals']
+          assert len(f.get('team_leaders',{}))==32
+          assert all(len(f['team_leaders'][t['id']])==6 for t in f['teams'])
           assert abs(sum(t['elo'] for t in f['teams'])-48000)<2
           assert sum(t['w'] for t in f['teams'])==sum(t['l'] for t in f['teams'])
           print('NFL publication integrity PASSED:',f['coverage'])

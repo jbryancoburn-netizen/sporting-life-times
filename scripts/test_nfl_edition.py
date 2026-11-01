@@ -56,6 +56,21 @@ class EloTests(unittest.TestCase):
         self.assertGreater(next(t for t in rb if t["id"]=="1")["elo"],next(t for t in ra if t["id"]=="1")["elo"])
         self.assertAlmostEqual(sum(t["elo"] for t in rb),48000,delta=1.0)
 
+    def test_team_statistical_leaders_not_restricted_to_league_top_30(self):
+        boxes={}
+        for i in range(40):
+            ident=str(i+1000)
+            tid="1" if i>=30 else "2"
+            boxes[ident]={"players":[{"id":ident,"name":"Athlete "+str(i),"team_id":tid,
+              "category":"passing","stats":{"YDS":(1000-i)*4,"TD":1},
+              "headshot":"https://example.invalid/headshot.png"}]}
+        league,clubs=nfl.aggregate_leaders(boxes)
+        self.assertEqual(len(league["passing"]),30)
+        self.assertEqual(len(clubs["1"]["passing"]),5)
+        self.assertEqual(clubs["1"]["passing"][0]["name"],"Athlete 30")
+        self.assertEqual(len(clubs["2"]["passing"]),5)
+        self.assertEqual(clubs["1"]["rushing"],[])
+
     def test_no_historical_seed(self):
         self.assertEqual(nfl.SEASON,2026)
         self.assertEqual(nfl.probability(1500,1500),1/(1+10**(-55/400)))
