@@ -1,0 +1,18 @@
+@import url('d2-basketball.css?v=7');
+:root{--ink:#1b2838;--teal:#286a76;--rust:#b94b2e}
+.lead{background:linear-gradient(125deg,#13223a 0%,#213f55 60%,#516c78 100%)}
+.lead .eyebrow{color:#c6dce8}.lead p{color:#e5edf4}
+.d3-rule{border-top:5px solid #23394e;border-bottom:2px solid #23394e;margin:0 0 14px;height:10px}
+.d3-ticker{padding:9px 12px;background:#e5ebef;display:flex;gap:18px;flex-wrap:wrap;font-weight:700;font-size:10px;letter-spacing:.06em}
+.d3-ticker b{color:#b94b2e}.d3-nav{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}
+.d3-nav a{background:#fffefa;border:1px solid #b6c5cb;text-decoration:none;padding:9px 12px;font-weight:700;font-size:11px}
+.game-day-navigation{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:10px 0}
+.game-day-navigation button{border:1px solid #1b2838;background:#1b2838;color:white;padding:8px;font-weight:700;cursor:pointer}
+.game-day-navigation button:disabled{opacity:.3;cursor:not-allowed}
+.game-day-navigation button:last-child{justify-self:end}
+#game-pos{text-align:center;font-size:10px;font-weight:700}
+[hidden]{display:none!important}
+.logo-shell.unbranded{border:2px solid #a5b1b7;box-shadow:none}
+.logo-shell.unbranded .logo-initials{color:#23394e}
+.game-card{border-top-color:#23394e}
+@media(max-width:550px){.d3-ticker{gap:5px;flex-direction:column}.lead h1{font-size:50px}.game-row{font-size:12px}.d3-nav a{flex:1;text-align:center}}
