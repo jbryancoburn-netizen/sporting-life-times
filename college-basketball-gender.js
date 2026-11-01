@@ -26,7 +26,7 @@
   document.title='Women’s College Basketball | The Sporting Life & Times';
   const top=document.querySelector('header .topline span');
   if(top)top.textContent='Women’s Division I · 2026–27';
-  nav.innerHTML='<a href="'+womenURL+'" aria-current="page">Front Page</a><a href="#wbb-games">Game Center</a><a href="#wbb-news">Top Stories</a><a href="#wbb-standings">Conference Standings</a><a href="#wbb-rankings">USRS Rankings</a><a href="#wbb-teams">All 363 Teams</a><a href="sports.html">All Sports</a>';
+  nav.innerHTML='<a href="'+womenURL+'" aria-current="page">Front Page</a><a href="#wbb-games">Daily Schedule</a><a href="cbb-game-center.html?gender=women">Live Game Center</a><a href="#wbb-news">Top Stories</a><a href="#wbb-standings">Conference Standings</a><a href="#wbb-rankings">USRS Rankings</a><a href="#wbb-teams">All 363 Teams</a><a href="sports.html">All Sports</a>';
   const footer=document.querySelector('.footer');if(footer)footer.textContent='The Sporting Life & Times · Women’s Division I basketball · Independent 1500-start ratings and sourced women’s results.';
   const app=document.getElementById('app');if(!app)return;
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -64,11 +64,16 @@
   function card(g){
     const h=teams.get(String(g.home_id)),a=teams.get(String(g.away_id));
     const row=(id,name,n)=>'<div class="score-team">'+(teams.has(String(id))?teamName(id):'<span>'+esc(name||'Opponent TBA')+'</span>')+'<b>'+(score(g)?esc(n??'—'):'')+'</b></div>';
+    const eventId=String(g.espn_id||g.id||'');
+    const day=localDay(g.date);
+    const gamefile=/^\\d+$/.test(eventId)&&/^\\d{4}-\\d{2}-\\d{2}$/.test(day)?
+      'cbb-gamefile.html?gender=women&day='+encodeURIComponent(day)+'&game='+encodeURIComponent(eventId):'';
     let forecast='';
     if(!score(g)&&h&&a){const edge=g.neutral?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
     const status=g.status==='review'?'Source conflict · score withheld':g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
     return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+esc(gameWhen(g))+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
        (g.tipoff_disputed?'<div class="wbb-game-detail wbb-tipoff-dispute">University or organizer tipoff disagreement; start time is not confirmed.</div>':'')+(g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
+       (gamefile?'<a class="wbb-gamecast-link" href="'+esc(gamefile)+'">Gamecast &amp; box score →</a>':'')+
        '<a class="wbb-game-source" href="'+safe(/^\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
   }
   function allGames(){const result=new Map(games);for(const [id,g] of live){const prior=result.get(id);result.set(id,{...prior,...g,broadcast:prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast)});}return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
