@@ -249,3 +249,52 @@ body.nfl-paper{margin:0;color:#211f1b;background:#f6f3eb;font:14px/1.43 Georgia,
  .nfl-rank-card-rating strong{font-size:15px}
  .nfl-rank-card-identity>strong{font-size:12px}
 }
+
+/* NFL CREST: EXACTLY TWO TEAM-COLORED RINGS, ONE ELEMENT, ZERO PSEUDO-RINGS.
+   Outer ring = primary border. Inner ring = secondary radial band.
+   The remaining white area is a filled center behind the team emblem. */
+.nfl-paper .nfl-crest {
+  --nfl-inner-ring:4px;
+  border-style:solid!important;
+  border-color:var(--primary)!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle closest-side,
+    #fff 0 calc(100% - var(--nfl-inner-ring)),
+    var(--secondary) calc(100% - var(--nfl-inner-ring)) 100%)!important;
+  padding:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  overflow:hidden!important;
+}
+.nfl-paper .nfl-crest::before,
+.nfl-paper .nfl-crest::after {
+  content:none!important;
+  display:none!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.nfl-paper .nfl-crest img {
+  position:relative;
+  z-index:1;
+  width:82%!important;
+  height:82%!important;
+  max-width:82%!important;
+  max-height:82%!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  outline:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  object-fit:contain!important;
+}
+.nfl-paper .nfl-crest.sm{--nfl-inner-ring:3px}
+.nfl-paper .nfl-crest.lg{--nfl-inner-ring:6px}
+.nfl-paper .nfl-crest.head{--nfl-inner-ring:5px}
+.nfl-paper .nfl-leader-club .nfl-crest.sm{--nfl-inner-ring:2px}
+.nfl-paper .nfl-elo-podium-card .nfl-crest.lg{--nfl-inner-ring:5px}
+@media(max-width:600px){
+ .nfl-paper .nfl-elo-podium-card .nfl-crest.lg{--nfl-inner-ring:4px}
+}
