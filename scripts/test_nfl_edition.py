@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v=20261101-premium-final1" if name=="nfl.html" else "nfl-edition-v3.js?v=20261101-live-desk",page)
+                self.assertIn("nfl-edition-v3.js?v=20261101-broadcast2" if name=="nfl.html" else "nfl-edition-v3.js?v=20261101-live-desk",page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -58,6 +58,11 @@ class EloTests(unittest.TestCase):
         front=(root/"nfl.html").read_text(encoding="utf-8")
         self.assertIn('nfl-front-premium.css',front)
         self.assertNotIn('nfl-live-day.js',front)
+        self.assertIn('nfl-mobile-broadcast.css?v=20261101-broadcast2',front)
+        self.assertIn('nfl-p26-score-stage',page)
+        self.assertIn('nfl-p26-period-rail',page)
+        self.assertNotIn("'LIVE · '+status(g)",page)
+
 
     def test_live_game_center_date_filter_and_logo_fallback(self):
         root=Path(__file__).resolve().parents[1]
