@@ -140,10 +140,10 @@ function draw(c){
     '<span>HOME · '+esc(name(g.home))+'</span></div>'+
     (flow?flow:
       (!validation.ok&&validation.sequence.length>=3?'<div class="slc-data-conflict" role="status"><strong>GAME FLOW UNAVAILABLE</strong><span>'+esc(validation.reason)+'. The verified score above remains authoritative.</span></div>':
-      '<div class="slc-floor">'+lines+
+      (shotPlays.length?'<div class="slc-floor">'+lines+
       shotPlays.map(p=>{const xy=location(p);return '<span class="slc-shot'+(p.scoring?' slc-shot-made':'')+(selected?.id===p.id?' slc-shot-current':'')+'" style="--x:'+xy.x+'%;--y:'+xy.y+'%" title="'+esc(p.text)+'" aria-hidden="true"></span>';}).join('')+
-      (!shotPlays.length?'<div class="slc-court-empty"><strong>NO VERIFIED SHOT LOCATIONS</strong><span>Follow the live events below. Positions are never estimated.</span></div>':'')+
-      '<span class="slc-court-label">'+(shotPlays.length?'SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT':'NO SIMULATED BALL TRACKING')+'</span></div>'))+
+      '<span class="slc-court-label">SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT</span></div>':
+      '<div class="slc-standby"><strong>COURT VIEW NOT AVAILABLE</strong><span>No certified shot coordinates or complete score progression are available. Recorded plays remain listed at right.</span></div>')))+
     '<div class="slc-now" aria-live="polite">'+
     (selected?'<small>'+esc(selected.clock||'TIME NOT LISTED')+
       (selected.period?' · PERIOD '+esc(selected.period):'')+'</small><strong>'+esc(selected.text)+'</strong>':
