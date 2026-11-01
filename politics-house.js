@@ -206,9 +206,91 @@ function renderDistrictGraphic(r){
  block.append(source,newEl("p",data.caveat,"infographic-caveat"));
  return block;
 }
+/* Editorial, transparent early outlook. Direction is a qualitative evidence read,
+   never a calibrated 2026 win probability or certified forecast. */
+function preliminaryRaceRead(r){
+ const graphic=districtGraphicData(r);
+ const h=r["2024_house_result_on_prior_boundaries"];
+ const validHistory=!!(h?.same_2026_geography&&h.both_major_parties&&Number.isFinite(h.dem_two_party_margin_pp));
+ const oldMargin=validHistory?h.dem_two_party_margin_pp:null;
+ const poll=(r.district_specific_2026_polls||[]).find(p=>p.question_type==="named_house"&&
+   p.candidates?.filter(c=>c.party==="D").length===1&&p.candidates?.filter(c=>c.party==="R").length===1&&
+   p.candidates?.every(c=>Number.isFinite(c.pct)&&c.pct>=0&&c.pct<=100)&&
+   p.candidates.reduce((sum,c)=>sum+c.pct,0)<=100.01);
+ const pollValid=graphic.type==="poll"&&!!poll;
+ const pMargin=pollValid?graphic.dem-graphic.rep:null;
+ const sourceChecked=!!(poll&&poll.source_tier==="original_release_checked"&&poll.source_verified===true&&
+   Number.isFinite(poll.sample_size)&&poll.sample_size>=250);
+ const winner=v=>v>0?"Democratic":v<0?"Republican":"Neither";
+ const side=v=>v>0?"D":v<0?"R":null;
+ const small=pMargin!=null&&Math.abs(pMargin)<3;
+ const historyClose=oldMargin!=null&&Math.abs(oldMargin)<5;
+ const split=pMargin!=null&&oldMargin!=null&&Math.abs(pMargin)>=3&&Math.abs(oldMargin)>=3&&Math.sign(pMargin)!==Math.sign(oldMargin);
+ const aligned=pMargin!=null&&oldMargin!=null&&!small&&!historyClose&&Math.sign(pMargin)===Math.sign(oldMargin);
+ let label="Evidence incomplete",kind="INSUFFICIENT INPUTS",sub="The desk cannot yet identify a defensible edge.",tag="Needs research",watch=false;
+ if(r["2026_boundaries_revised"]&&!pollValid){
+  label="New map, open race";kind="NO COMPARABLE BASELINE";sub="2024 House results do not follow these 2026 district lines.";tag="New boundaries";
+ }else if(pollValid&&split){
+  label="Signals disagree";kind="EARLY RACE READ · NOT ODDS";sub="The 2026 poll and comparable 2024 House result point in different directions.";tag="Race to watch";watch=true;
+ }else if(pollValid&&small){
+  label="Close in the polling";kind=sourceChecked?"ORIGINAL 2026 POLL":"REPORTED 2026 POLL";
+  sub="The named-party polling difference is under three points; one poll cannot settle the race.";tag="Race to watch";watch=true;
+ }else if(pollValid&&sourceChecked&&aligned){
+  label="Early "+winner(pMargin)+" edge";kind="EARLY READ · TWO ALIGNED SIGNALS";
+  sub="A verified 2026 poll and comparable 2024 House votes point the same way; not calibrated odds.";
+  tag=Math.abs(pMargin)<=6?"Race to watch":"Polling + history";watch=Math.abs(pMargin)<=6;
+ }else if(pollValid){
+  label=(sourceChecked?"Polling edge: ":"Reported poll: ")+winner(pMargin);
+  kind=sourceChecked?"ORIGINAL 2026 POLL":"SECONDARY POLL · PRELIMINARY";
+  sub=sourceChecked?"One original survey shows this direction; historic context may differ.":"A public compilation reports this lead; original survey details are not fully verified.";
+  tag=sourceChecked?"Poll signal":"Limited-source signal";watch=Math.abs(pMargin)<=6;
+ }else if(validHistory&&historyClose){
+  label="Close in 2024";kind="HISTORICAL BASELINE · NOT FORECAST";
+  sub="The last comparable House election was decided by fewer than five points.";tag="Race to watch";watch=true;
+ }else if(validHistory){
+  label="History favors "+winner(oldMargin);kind="2024 ACTUAL HOUSE RESULT";
+  sub="This is the prior-election baseline, not a 2026 winner prediction.";tag="Historical only";
+ }else if(h&&h.same_2026_geography){
+  label="No two-party baseline";kind="2024 HISTORY · INCOMPLETE";
+  sub="The earlier contest lacks a measured two-party margin.";tag="Needs research";
+ }
+ const reasons=[];
+ if(pollValid)reasons.push({head:"2026 POLL",value:(pMargin>0?"D":pMargin<0?"R":"TIED")+(pMargin===0?"":" +"+one(Math.abs(pMargin)))+" pts",note:sourceChecked?"Original checked":"Secondary compilation"});
+ else reasons.push({head:"2026 POLL",value:"Not verified",note:"No eligible named poll"});
+ if(validHistory)reasons.push({head:"2024 HOUSE",value:(oldMargin>0?"D":"R")+" +"+one(Math.abs(oldMargin))+" pts",note:"Comparable boundary"});
+ else reasons.push({head:"2024 HOUSE",value:r["2026_boundaries_revised"]?"Old map":"No D/R margin",note:r["2026_boundaries_revised"]?"Cannot compare":"Not eligible"});
+ reasons.push({head:"CANDIDATE FILE",value:r.official_2026_candidate_snapshot?"Source-checked":"Not confirmed",note:r.official_2026_candidate_snapshot?"State election office":"FEC filing ≠ ballot"});
+ return {label,kind,sub,tag,watch,reasons,source:graphic.type,signalParty:pMargin!=null?side(pMargin):oldMargin!=null?side(oldMargin):null};
+}
+function raceReadPanel(r){
+ const read=preliminaryRaceRead(r);
+ const block=newEl("section",null,"early-race-read "+(read.watch?"watch-race-read":""));
+ block.setAttribute("aria-label","Preliminary evidence read, not a certified election forecast");
+ const head=newEl("div",null,"read-heading");
+ head.append(newEl("span","THE EARLY READ","read-eyebrow"),newEl("span",read.kind,"read-status"));
+ block.append(head);
+ const line=newEl("div",null,"read-main");
+ line.append(newEl("strong",read.label,"read-outlook"),newEl("span",read.tag,"read-tag"));
+ block.append(line,newEl("p",read.sub,"read-context"));
+ return block;
+}
+function raceReasonPanel(r){
+ const read=preliminaryRaceRead(r);
+ const block=newEl("div",null,"race-fast-facts");
+ block.append(newEl("span","WHY THIS READ?","fast-facts-head"));
+ const grid=newEl("div",null,"fast-facts-grid");
+ for(const fact of read.reasons){
+  const item=newEl("span",null,"fast-fact");
+  item.append(newEl("small",fact.head),newEl("strong",fact.value),newEl("em",fact.note));
+  grid.append(item);
+ }
+ block.append(grid);
+ return block;
+}
 function makeDistrictCard(r){
  const info=districtEvidence(r),paint=color(info.party,info.margin);
- const link=newEl("a",null,"district-card district-card-infographic");link.href=urlForDistrict(r.id);
+ const read=preliminaryRaceRead(r);
+ const link=newEl("a",null,"district-card district-card-infographic"+(read.watch?" race-watch-card":""));link.href=urlForDistrict(r.id);
  link.setAttribute("aria-label",r.id+": "+info.text+". Open the source-linked district report.");
  const top=newEl("div",null,"top");
  const mark=newEl("span",info.party||"—","marker");
@@ -219,10 +301,9 @@ function makeDistrictCard(r){
  const titleWrap=newEl("div",null,"card-district-title");
  titleWrap.append(newEl("span","CONGRESSIONAL DISTRICT","district-kicker"),newEl("strong",r.at_large?r.state+" At-Large":r.id));
  top.append(titleWrap,actions);
- const lead=newEl("div",null,"district-graphic-lead");
- lead.append(newEl("span",info.poll?"PUBLISHED 2026 POLL":info.dated==="2024"?"PREVIOUS ELECTION":"RESEARCH STATUS","lead-kicker"),
-   newEl("strong",info.text,"status"));
+ const early=raceReadPanel(r);
  const evidence=renderDistrictGraphic(r);
+ const reasons=raceReasonPanel(r);
  const ballot=r.official_2026_candidate_snapshot;
  let field=null;
  if(ballot?.candidates?.length){
@@ -251,7 +332,7 @@ function makeDistrictCard(r){
  const foot=newEl("div",null,"bottom infographic-bottom");
  const sourceBadge=newEl("span",ballot?"CANDIDATES VERIFIED ✓":"BALLOT SOURCE PENDING","source-chip "+(ballot?"source-chip-ok":"source-chip-pending"));
  foot.append(sourceBadge,newEl("span","VIEW RACE FILE →","infographic-cta"));
- link.append(top,lead,evidence,field,foot);
+ link.append(top,early,field,evidence,reasons,foot);
  link.title=r.id+": "+info.source+". "+info.text+". Data is not a forecast.";
  return link;
 }
@@ -378,11 +459,14 @@ function renderState(a){
   let filter=select.value,shown=rows.filter(x=>filter==="all"||(filter==="poll"&&x.district_specific_2026_polls.length)||
     (filter==="ballot"&&x.official_2026_candidate_snapshot)||(filter==="historical"&&x["2024_house_result_on_prior_boundaries"]?.same_2026_geography)||
      (filter==="missing-ballot"&&!x.official_2026_candidate_snapshot)||(filter==="missing-poll"&&!x.district_specific_2026_polls.length)||
-     (filter==="redrawn"&&x["2026_boundaries_revised"]));
+     (filter==="redrawn"&&x["2026_boundaries_revised"])||
+     (filter==="watch"&&preliminaryRaceRead(x).watch));
   grid.replaceChildren();shown.forEach(r=>grid.append(makeDistrictCard(r)));
   if(!shown.length)grid.append(newEl("div","No district records in this filter. An empty filter does not mean there is no election.","callout"));
   $("district-count").textContent=shown.length+" / "+rows.length+" House districts";
  }
+ const watchNode=$("state-watch-count");
+ if(watchNode)watchNode.textContent=rows.filter(x=>preliminaryRaceRead(x).watch).length+" races to watch · early data signals";
  select.addEventListener("change",paint);paint();
  if(state["2026_congressional_map_changed"]){
   let callout=$("boundary-caution");
