@@ -43,15 +43,28 @@ function ringArtwork(primary,secondary){
   return '<svg class="cfb-ring-art" viewBox="0 0 100 100" focusable="false" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="'+primary+'" stroke-width="8"/><circle cx="50" cy="50" r="38" fill="none" stroke="'+secondary+'" stroke-width="8"/></svg>';
 }
 function logoInitials(t){const abbr=String(t?.abbreviation||t?.abbr||'').trim();if(abbr)return abbr.slice(0,4).toUpperCase();const name=String(t?.name||t?.shortDisplayName||t?.full||t?.displayName||'TEAM').trim().replace(/\([^)]*\)/g,'');return (name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('')||'T').toUpperCase()}
+/* ID-verified independent image backups. One small same-origin manifest,
+   loaded in parallel with the scores; never substitute a guessed team mark. */
+let mirrorLogos=Object.create(null);
+const mirrorsReady=fetch('data/cfb-logo-mirrors.json?v=20261101-verified',{cache:'force-cache'})
+ .then(r=>{if(!r.ok)throw Error('FBS logo mirror manifest '+r.status);return r.json()})
+ .then(d=>{if(d.primary_identity==='ESPN school ID matched to existing verified NCAA Division I registry'&&d.logos)mirrorLogos=d.logos})
+ .catch(()=>{mirrorLogos=Object.create(null)});
 function safeLogoURL(raw){try{let s=String(raw||'').trim();if(s.startsWith('http://'))s='https://'+s.slice(7);const u=new URL(s,location.href);return u.protocol==='https:'?u.href:''}catch{return ''}}
 function logoCandidates(url,t){
-  const id=String(t?.id||'').trim(),valid=/^\d+$/.test(id);
-  const names=valid?[
-    'https://a.espncdn.com/i/teamlogos/ncaa/500/'+id+'.png',
-    safeLogoURL(url),
-    'https://a.espncdn.com/i/teamlogos/ncaa/500-dark/'+id+'.png'
-  ]:[safeLogoURL(url)];
-  return [...new Set(names.filter(Boolean))];
+ const id=String(t?.id||'').trim(),valid=/^\d+$/.test(id);
+ const mirror=valid?safeLogoURL(mirrorLogos[id]):'';
+ const commit='8af32666c5d64009b34046e53d361af761713a5f';
+ const original='https://raw.githubusercontent.com/Lou34964/FBS-Logo-Library/'+commit+'/';
+ const jsdelivr=mirror&&mirror.startsWith(original)?
+   'https://cdn.jsdelivr.net/gh/Lou34964/FBS-Logo-Library@'+commit+'/'+mirror.slice(original.length):'';
+ const names=valid?[
+   'https://a.espncdn.com/i/teamlogos/ncaa/500/'+id+'.png',
+   mirror,jsdelivr,
+   safeLogoURL(url),
+   'https://a.espncdn.com/i/teamlogos/ncaa/500-dark/'+id+'.png'
+ ]:[safeLogoURL(url)];
+ return [...new Set(names.filter(Boolean))];
 }
 function logoLoaded(img){
  if(!img?.naturalWidth){logoFailed(img);return;}
@@ -72,14 +85,13 @@ function imageMarkup(url,t){
  const urls=logoCandidates(url,t),fallback='<span class="cfb-logo-fallback'+(urls.length?' is-hidden':'')+'" aria-hidden="true">'+esc(logoInitials(t))+'</span>';
  if(!urls.length)return fallback;
  return fallback+'<img class="cfb-logo-image" data-cfb-logo="1" data-cfb-attempt="0"'+
-   (urls[1]?' data-cfb-backup1="'+esc(urls[1])+'"':'')+
-   (urls[2]?' data-cfb-backup2="'+esc(urls[2])+'"':'')+
+   urls.slice(1,4).map((u,i)=>' data-cfb-backup'+(i+1)+'="'+esc(u)+'"').join('')+
    ' loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="" src="'+esc(urls[0])+'" onload="window.CFB_DESK.logoLoaded(this)" onerror="window.CFB_DESK.logoFailed(this)">';
 }
 function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'" data-ring-count="2">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'',t)+'</span>'}
 const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
 const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
 const ranked=a=>[...a].filter(t=>Number.isFinite(rating(t))).sort((a,b)=>rating(b)-rating(a)||a.id.localeCompare(b.id));
-let lastLoad=Date.now(),promise=load();
-window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked,logoLoaded,logoFailed};
+let lastLoad=Date.now(),promise=Promise.all([load(),mirrorsReady]).then(([d])=>d);
+window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=Promise.all([load(),mirrorsReady]).then(([d])=>d)}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked,logoLoaded,logoFailed};
 })();
