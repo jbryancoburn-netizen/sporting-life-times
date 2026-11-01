@@ -26,7 +26,19 @@ def normalize(entry,gender,division):
         except (ValueError,TypeError):return None
     h,a=score(home),score(away)
     if h is None or a is None:return None
-    return {"match_id":f"{gender}-{gid}","cohort":f"{gender}-d{division}","status":"final" if state=="final" else "live","home_score":h,"away_score":a,"period":str(g.get("currentPeriod") or g.get("contestClock") or ""), "source_url":f"https://www.ncaa.com/game/{gid}"}
+    def identity(team):
+        names=team.get("names") or {}
+        name=next((str(names[k]).strip() for k in ("short","full","name","seo") if names.get(k)), "")
+        slug=str(names.get("seo") or "").strip()
+        return name,slug
+    home_name,home_id=identity(home)
+    away_name,away_id=identity(away)
+    return {"match_id":f"{gender}-{gid}","cohort":f"{gender}-d{division}",
+            "status":"final" if state=="final" else "live",
+            "home_score":h,"away_score":a,"home_name":home_name,"away_name":away_name,
+            "home_id":home_id,"away_id":away_id,
+            "period":str(g.get("currentPeriod") or g.get("contestClock") or ""),
+            "source_url":f"https://www.ncaa.com/game/{gid}"}
 def collect(today=None,get=None):
     today=today or dt.datetime.now(ZoneInfo('America/New_York')).date()
     if get is None:
