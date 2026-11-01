@@ -35,6 +35,7 @@ HOUSE_CLERK="https://history.house.gov/Institution/Election-Statistics/Election-
 HOUSE_HISTORIAN="https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
 # Census Bureau's 2010/2020 allocations: exactly 435 voting House seats
 # across the 50 states. DC and territorial delegates do NOT count toward 435.
+VERIFIED_UNOPPOSED_WINNERS={"2018":{"FL-10":["VAL DEMINGS","D","https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20181106-GEN"],"FL-14":["KATHY CASTOR","D","https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20181106-GEN"],"FL-21":["LOIS FRANKEL","D","https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20181106-GEN"],"FL-24":["FREDERICA WILSON","D","https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20181106-GEN"]},"2020":{"FL-25":["MARIO DIAZ-BALART","R","https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20201103-GEN"]},"2022":{"FL-05":["JOHN H RUTHERFORD","R","https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20221108-GEN"],"LA-04":["MIKE JOHNSON","R","https://www.fec.gov/documents/5675/federalelections2022.pdf"]},"2024":{"FL-20":["SHEILA CHERFILUS-MCCORMICK","D","https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=84533"],"OK-03":["FRANK D. LUCAS","R","https://oklahoma.gov/elections/elections-results/election-results/2024-election-results.html"]}}
 APPORTIONMENT_SOURCE="https://www.census.gov/data/tables/time-series/dec/apportionment-data-text.html"
 APPORTIONMENT={2010:{"AL":7,"AK":1,"AZ":9,"AR":4,"CA":53,"CO":7,"CT":5,"DE":1,"FL":27,"GA":14,"HI":2,"ID":2,"IL":18,"IN":9,"IA":4,"KS":4,"KY":6,"LA":6,"ME":2,"MD":8,"MA":9,"MI":14,"MN":8,"MS":4,"MO":8,"MT":1,"NE":3,"NV":4,"NH":2,"NJ":12,"NM":3,"NY":27,"NC":13,"ND":1,"OH":16,"OK":5,"OR":5,"PA":18,"RI":2,"SC":7,"SD":1,"TN":9,"TX":36,"UT":4,"VT":1,"VA":11,"WA":10,"WV":3,"WI":8,"WY":1},2020:{"AL":7,"AK":1,"AZ":9,"AR":4,"CA":52,"CO":8,"CT":5,"DE":1,"FL":28,"GA":14,"HI":2,"ID":2,"IL":17,"IN":9,"IA":4,"KS":4,"KY":6,"LA":6,"ME":2,"MD":8,"MA":9,"MI":13,"MN":8,"MS":4,"MO":8,"MT":2,"NE":3,"NV":4,"NH":2,"NJ":12,"NM":3,"NY":26,"NC":14,"ND":1,"OH":15,"OK":5,"OR":6,"PA":17,"RI":2,"SC":7,"SD":1,"TN":9,"TX":38,"UT":4,"VT":1,"VA":11,"WA":10,"WV":2,"WI":8,"WY":1}}
 
@@ -200,17 +201,45 @@ def apportionment_audit(rows,year):
         "note":"Only the 435 voting-seat districts are eligible for national House seat sums, not DC or territorial delegates."
     }
 
+def verified_winner_only_overlay(year,excluded):
+    "Return official winner identities for unopposed races without fabricating votes."
+    expected=VERIFIED_UNOPPOSED_WINNERS.get(str(year),{})
+    result=[]
+    for item in excluded:
+        if item.get("reason")!="missing_numeric_votes":continue
+        row=expected.get(item["id"])
+        if not row:continue
+        name,party,url=row
+        candidates={str(c).upper().strip() for c in item.get("ballot_candidates",[])}
+        if name not in candidates:
+            raise ValueError(f"Unopposed identity mismatch for {year} {item['id']}: {name} vs {sorted(candidates)}")
+        result.append({"id":item["id"],"candidate":name,"party":party,
+                       "numeric_votes":None,"reason":"official_winner_no_reported_vote_total",
+                       "source_url":url})
+    return result
+
 def reconcile_house_year(contests,year,quality):
     official=OFFICIAL_HOUSE[year]
     raw=collections.Counter(c["party_winner"] for c in contests)
     extracted={"dem":raw["D"],"rep":raw["R"],"other":raw["O"],"total":len(contests)}
     differences={"dem":official["dem"]-extracted["dem"],"rep":official["rep"]-extracted["rep"]}
+    overlays=verified_winner_only_overlay(year,quality.get("excluded_contests",[]))
+    supplemented={"dem":extracted["dem"]+sum(x["party"]=="D" for x in overlays),
+                  "rep":extracted["rep"]+sum(x["party"]=="R" for x in overlays)}
+    supplemented_ok=(supplemented=={"dem":official["dem"],"rep":official["rep"]} and
+                     len(contests)+len(overlays)+official["unresolved"]==435 and extracted["other"]==0)
+
     return {
       "year":year,"official":{"dem_wins":official["dem"],"rep_wins":official["rep"],
                               "unresolved_seats":official["unresolved"],"total_seats":435,
                               "context":official["context"]},
       "reconstructed":extracted,"difference_official_minus_reconstructed":differences,
       "excluded_contests":quality.get("excluded_contests",[]),
+      "official_unopposed_winner_only":overlays,
+      "verified_winner_counts_with_no_vote_overlays":supplemented,
+      "winner_party_totals_reconciled":bool(supplemented_ok),
+      "candidate_vote_totals_complete":len(overlays)==0 and not quality.get("excluded_contests"),
+
       "other_winners":quality.get("other_winners",[]),
       "apportionment_audit":quality.get("apportionment"),
       "status":"matched" if differences=={"dem":0,"rep":0} and extracted["other"]==0 and
@@ -330,6 +359,7 @@ def build(loader=load_year,now=None):
     ]
     output["official_house_history"]={str(y):OFFICIAL_HOUSE[y] for y in YEARS}
     output["reconciliation_complete"]=all(r["status"]=="matched" for r in output["house_reconciliation"])
+    output["winner_party_totals_reconciled"]=all(r["winner_party_totals_reconciled"] for r in output["house_reconciliation"])
     output["data_quality_status"]="reconstruction_pending" if not output["reconciliation_complete"] else "reconciled"
     output["forecast_2026_certified"]=False
     output["status"]="ok"
