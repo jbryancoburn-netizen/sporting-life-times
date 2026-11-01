@@ -1,0 +1,130 @@
+{
+  "schema": "rabby-nba-prospective-v1",
+  "season": "2026-27",
+  "created_at": "2026-11-01T19:25:57.157Z",
+  "updated_at": "2026-11-01T19:25:57.157Z",
+  "method": "First qualifying early (>2h) or near-tipoff (10-120m) snapshot is final. Never create a retrospective forecast.",
+  "forecasts": [
+    {
+      "id": "espn-nba-401909903",
+      "date": "2026-11-01T20:30Z",
+      "away": "BOS",
+      "home": "ORL",
+      "phase": "near_tipoff",
+      "captured_at": "2026-11-01T19:25:57.157Z",
+      "away_score": 116,
+      "home_score": 110,
+      "total": 225.596,
+      "margin": -5.956,
+      "pace": 102.535,
+      "home_win_prob": 0.487924,
+      "league_total_baseline": 226.633,
+      "source_games": 88,
+      "away_games": 5,
+      "home_games": 5,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "7e6a3f49aab8464b70aa1116d6d167b12011224b50f01e3524bae490b2a992e1",
+        "boxscores_sha256": "bf189826ee4cee865921ce8a5f9a0c31e682ccd8aa8e42e57965c7d9c194172d",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "ff0083e8daca02dbcf0ae3c634d46ed76494d44f07e72b0b6af9514635bbac3d"
+      }
+    },
+    {
+      "id": "espn-nba-401909904",
+      "date": "2026-11-01T22:00Z",
+      "away": "BKN",
+      "home": "IND",
+      "phase": "early",
+      "captured_at": "2026-11-01T19:25:57.157Z",
+      "away_score": 111,
+      "home_score": 115,
+      "total": 226.108,
+      "margin": 4.811,
+      "pace": 103.681,
+      "home_win_prob": 0.600211,
+      "league_total_baseline": 226.633,
+      "source_games": 88,
+      "away_games": 5,
+      "home_games": 6,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "7e6a3f49aab8464b70aa1116d6d167b12011224b50f01e3524bae490b2a992e1",
+        "boxscores_sha256": "bf189826ee4cee865921ce8a5f9a0c31e682ccd8aa8e42e57965c7d9c194172d",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "ff0083e8daca02dbcf0ae3c634d46ed76494d44f07e72b0b6af9514635bbac3d"
+      }
+    },
+    {
+      "id": "espn-nba-401909905",
+      "date": "2026-11-02T01:30Z",
+      "away": "LAC",
+      "home": "GSW",
+      "phase": "early",
+      "captured_at": "2026-11-01T19:25:57.157Z",
+      "away_score": 111,
+      "home_score": 114,
+      "total": 225.166,
+      "margin": 3.409,
+      "pace": 102.427,
+      "home_win_prob": 0.620573,
+      "league_total_baseline": 226.633,
+      "source_games": 88,
+      "away_games": 5,
+      "home_games": 6,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "7e6a3f49aab8464b70aa1116d6d167b12011224b50f01e3524bae490b2a992e1",
+        "boxscores_sha256": "bf189826ee4cee865921ce8a5f9a0c31e682ccd8aa8e42e57965c7d9c194172d",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "ff0083e8daca02dbcf0ae3c634d46ed76494d44f07e72b0b6af9514635bbac3d"
+      }
+    },
+    {
+      "id": "espn-nba-401909906",
+      "date": "2026-11-02T02:00Z",
+      "away": "TOR",
+      "home": "LAL",
+      "phase": "early",
+      "captured_at": "2026-11-01T19:25:57.157Z",
+      "away_score": 113,
+      "home_score": 114,
+      "total": 226.324,
+      "margin": 0.031,
+      "pace": 102.944,
+      "home_win_prob": 0.561615,
+      "league_total_baseline": 226.633,
+      "source_games": 88,
+      "away_games": 5,
+      "home_games": 6,
+      "model_version": "6c0d5fb8196929fa50c7",
+      "inputs": {
+        "earned_sha256": "7e6a3f49aab8464b70aa1116d6d167b12011224b50f01e3524bae490b2a992e1",
+        "boxscores_sha256": "bf189826ee4cee865921ce8a5f9a0c31e682ccd8aa8e42e57965c7d9c194172d",
+        "priors_sha256": "72ed5520e97b68f34939875034990d4ddcc7f3ddf16efd56d54c918a9359c635",
+        "schedule_sha256": "ff0083e8daca02dbcf0ae3c634d46ed76494d44f07e72b0b6af9514635bbac3d"
+      }
+    }
+  ],
+  "results": {},
+  "metrics": {
+    "early": {
+      "sample": 0,
+      "team_score_mae": null,
+      "total_mae": null,
+      "margin_mae": null,
+      "league_total_baseline_mae": null,
+      "elo_brier": null,
+      "elo_winner_accuracy": null
+    },
+    "near_tipoff": {
+      "sample": 0,
+      "team_score_mae": null,
+      "total_mae": null,
+      "margin_mae": null,
+      "league_total_baseline_mae": null,
+      "elo_brier": null,
+      "elo_winner_accuracy": null
+    }
+  }
+}
