@@ -166,6 +166,11 @@ function sampleColor(slot,img){
  job.then(c=>{if(c&&slot.isConnected&&slot.dataset.sltColorSource!=='brand')slot.style.setProperty('--slt-mark-ring',c)});
 }
 function enhance(img){
+ // NFL badges already paint both team-color rings. A site-wide slt-mark
+ // wrapper introduces the unwanted third ring; never enhance an NFL page
+ // or any image inside the NFL-owned badge.
+ if(/^nfl(?:[-.]|$)/i.test(location.pathname.split('/').pop()||''))return;
+ if(img.closest('.nfl-badge,.nfl-badge-core'))return;
  // NBA editions own their branded crest containers. Never wrap them with an extra slt-mark ring.
  // The shared site-wide enhancer runs after NBA CSS and was producing double rings and huge logos.
  if(/^nba(?:[-.]|$)/i.test(location.pathname.split('/').pop()||''))return;
