@@ -20,6 +20,7 @@ function matchup(g,model,ratings,calendar=[]){
   away:{code:a,name:names.away},home:{code:h,name:names.home},
   awayScore:p.awayScore,homeScore:p.homeScore,footer:''});
  const edge=p.margin>=0?h:a;
+ const spreadText=Math.abs(p.margin)<0.5?'EVEN':edge+' −'+Math.abs(p.margin).toFixed(1);
  const homeWidth=(100*p.homeWin).toFixed(1);
  const aRest=window.RabbyPossessionModel.scheduleContext(a,g.date,calendar);
  const hRest=window.RabbyPossessionModel.scheduleContext(h,g.date,calendar);
@@ -28,7 +29,7 @@ function matchup(g,model,ratings,calendar=[]){
  const link=g.id?'<a class="rabby-v2-game-link" href="nba-live-game.html?game='+encodeURIComponent(String(g.id).replace(/^espn-nba-/,''))+'">Game details ↗</a>':'';
  return '<article class="rabby-game rabby-v2-game">'+scorebug+
   '<div class="rabby-v2-odds"><div><strong>'+esc(a)+' '+(100*(1-p.homeWin)).toFixed(1)+'%</strong><small>USRS Elo win chances</small><strong>'+esc(h)+' '+(100*p.homeWin).toFixed(1)+'%</strong></div><div class="rabby-v2-prob-bar"><span style="width:'+homeWidth+'%"></span></div></div>'+
-  '<div class="rabby-v2-mainstats"><div><small>PROJECTED MARGIN</small><b>'+esc(edge)+' −'+Math.abs(p.margin).toFixed(1)+'</b></div><div><small>PROJECTED TOTAL</small><b>'+p.total.toFixed(1)+'</b></div><div><small>ESTIMATED PACE</small><b>'+p.possessions.toFixed(1)+'</b></div></div>'+
+  '<div class="rabby-v2-mainstats"><div><small>EXPECTED MARGIN</small><b>'+esc(spreadText)+'</b></div><div><small>PROJECTED TOTAL</small><b>'+p.total.toFixed(1)+'</b></div><div><small>ESTIMATED PACE</small><b>'+p.possessions.toFixed(1)+'</b></div></div>'+
   restPanel+
   '<div class="rabby-v2-label">OFFENSE MATCHED AGAINST OPPONENT DEFENSE</div>'+
   '<div class="rabby-v2-breakdown"><div><small>'+esc(a)+' offensive efficiency</small><b>'+p.awayOffense.toFixed(1)+'</b><small>'+esc(h)+' defensive allowance</small><b>'+p.homeDefense.toFixed(1)+'</b><strong>Matchup: '+p.awayEfficiency.toFixed(1)+'</strong></div>'+
