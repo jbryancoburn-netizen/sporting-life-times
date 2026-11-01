@@ -67,7 +67,9 @@ test('Rechecks truth of all source identities, no empty Elo or missing possessio
  const wrongElo=clone(fixture);wrongElo.earned.status='provisional_live_from_historical_baseline';
  assert.throws(()=>updateLedger(null,wrongElo,now),/earned USRS Elo/);
  const wrongTeam=clone(fixture);
- wrongTeam.earned.events.pop();wrongTeam.earned.games_played--;
+ const omitted=wrongTeam.stats.games[0].id;
+ wrongTeam.earned.events=wrongTeam.earned.events.filter(g=>g.id!==omitted);
+ wrongTeam.earned.games_played=wrongTeam.earned.events.length;
  assert.throws(()=>updateLedger(null,wrongTeam,now),/reconcilable/);
  const wrongCal=clone(fixture);delete wrongCal.stats.calibration;
  assert.throws(()=>updateLedger(null,wrongCal,now),/Missing team possession coverage/);
