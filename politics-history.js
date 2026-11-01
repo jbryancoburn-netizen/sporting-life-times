@@ -63,6 +63,30 @@ function render(data){
  });bench.append(groups);
  const explanation=el("p","fine","This is a simple historical same-district-ID benchmark, NOT a calibrated statistical model. Redistricting, uncontested races, and candidate changes are not fully adjusted; a same-numbered district may have different boundaries. No 2026 win probabilities are generated from these comparisons.");
  bench.append(explanation);root.append(bench);
+
+ const model=data.experimental_holdout;
+ if(model&&model.status==="experimental_holdout_only"){
+  const panel=el("section","historical-holdout");
+  panel.append(el("p","eyebrow","EXPERIMENTAL STATISTICAL VALIDATION · NOT A 2026 FORECAST"));
+  panel.append(el("h3",null,"An actual out-of-sample probability test."));
+  panel.append(el("p","fine","We trained a basic historical margin-to-win-probability logistic model exclusively on 2018→2020 outcomes, then evaluated it on 2022→2024 results. This is a diagnostic exercise—not a deployable 2026 forecast. District maps and correlated election errors still need verification."));
+  const stats=el("div","holdout-metrics");
+  [[String(model.holdout_brier_score.toFixed(3)),"Holdout Brier score · lower is better"],
+    [String(model.unconditional_baseline_brier_score.toFixed(3)),"Uninformed baseline Brier"],
+    [number(model.test_samples),"House races in separate 2024 test set"]].forEach(([val,label])=>{
+    const box=el("div","holdout-stat");box.append(el("strong",null,val),el("span",null,label));stats.append(box);
+  });panel.append(stats);
+  const heading=el("h4",null,"How historical forecast probabilities matched observed outcomes");
+  panel.append(heading);
+  const table=el("div","holdout-bins");
+  (model.calibration_bins||[]).forEach(bin=>{
+    const row=el("div","holdout-bin");row.append(el("b",null,bin.from+"–"+bin.to+"%"));
+    const bar=el("div","holdout-bin-track");const shade=el("span","");shade.style.width=(bin.realized_win_rate===null?0:bin.realized_win_rate*100)+"%";bar.append(shade);row.append(bar);
+    row.append(el("span",null,bin.count?Math.round(100*bin.realized_win_rate)+"% actual D wins · "+bin.count+" races":"No races"));table.append(row);
+  });panel.append(table);
+  panel.append(el("p","fine","These bins summarize the held-out 2024 test set, not a forecast for 2026. They are not proof of accuracy under new district boundaries or a changing national environment. The Brier score measures average squared probability error."));
+  root.append(panel);
+ }
  const status=el("p","history-flag","MODEL STATUS · 2026 PROBABILITY FORECAST NOT CERTIFIED");
  root.append(status);
 }
