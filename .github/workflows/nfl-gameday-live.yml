@@ -1,0 +1,58 @@
+name: NFL live game-day scoreboard and in-game stats
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_nfl_live.py'
+      - '.github/workflows/nfl-gameday-live.yml'
+permissions:
+  contents: write
+concurrency:
+  group: nfl-gameday-live
+  cancel-in-progress: false
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch independently sourced current NFL scoreboard and live statistics
+        run: python scripts/update_nfl_live.py
+      - name: Validate live feed without changing historical Elo
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/nfl-live.json').read_text())
+          assert d['season']==2026 and d['games'] and d['coverage']['games']==len(d['games'])
+          assert len({g['id'] for g in d['games']})==len(d['games'])
+          assert all(g['away']['id']!=g['home']['id'] for g in d['games'])
+          assert d['coverage']['active']==sum(g['state']=='in' for g in d['games'])
+          print('NFL live scoreboard integrity PASSED')
+          PY
+      - name: Publish lightweight NFL live JSON without forcing main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nfl-live.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh sourced NFL in-game scoreboard and stats"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/update_nfl_live.py
+            git add data/nfl-live.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Refresh reconciled NFL live scoreboard"
+            sleep 2
+          done
+          exit 1
