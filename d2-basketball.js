@@ -7,6 +7,9 @@ const path=gender==='women'?'d2-womens-basketball.html':'d2-mens-basketball.html
 const state={data:null,teams:new Map()};
 const link=t=>'d2-team.html?gender='+encodeURIComponent(gender)+'&team='+encodeURIComponent(t.id);
 const name=t=>esc(t?.name||t?.id||'Unknown school');
+const gameLink=g=>'d2-game.html?gender='+encodeURIComponent(gender)+'&game='+encodeURIComponent(g.id);
+const tipMinute=v=>{const m=/^(1[0-2]|0?[1-9]):([0-5][0-9])\s*(AM|PM)\s*ET$/i.exec(String(v||'').trim());return m?(Number(m[1])%12)*60+Number(m[2])+(m[3].toUpperCase()==='PM'?720:0):1440;};
+const chronological=(a,b)=>String(a.date).localeCompare(String(b.date))||tipMinute(a.start_time)-tipMinute(b.start_time)||String(a.id).localeCompare(String(b.id));
 const pct=t=>((t.w||0)+(t.l||0))?((t.w||0)/((t.w||0)+(t.l||0))):0;
 const label=t=>t?.conference||'Conference unverified';
 const memberBadge=t=>t?.not_eligible_for_dii_elo?'<small class="member-tag" title="'+esc(t.membership_note||'DII membership pending')+'">2026–27 NCAA DII MEMBERSHIP PENDING</small>':'';
@@ -23,7 +26,7 @@ function logo(t){
 }
 function school(id){return state.teams.get(String(id))||{id:String(id),name:id,slug:''}}
 function row(t,i,withRank=true){return '<div class="board-row"><span>'+(withRank?i+1:'')+'</span>'+logo(t)+'<a class="school-link" href="'+link(t)+'">'+name(t)+memberBadge(t)+'</a><span>'+(t.w||0)+'–'+(t.l||0)+'</span><span>'+Math.round(pct(t)*1000)/10+'%</span><span class="elo">'+Number(t.elo||1500).toFixed(0)+'</span></div>'}
-function game(g){
+function game(g,includeLink=true){
  const away=school(g.away),home=school(g.home),final=g.status==='final';
  const time=g.start_time||'Tipoff not announced';
  const broadcast=g.network?(g.stream_url&&/^https:\/\//.test(g.stream_url)?'<a target="_blank" rel="noopener noreferrer" href="'+esc(g.stream_url)+'">'+esc(g.network)+' ↗</a>':esc(g.network)):'TV / STREAM UNCONFIRMED';
@@ -48,7 +51,8 @@ function game(g){
  (final||g.status==='live'?esc(g.home_score??'—'):'')+'</b></div>'+odds+
  '<div class="game-footer">'+esc(g.venue||(g.venue_city?g.venue_city+' · Arena not confirmed':'Venue awaiting official confirmation'))+
  (g.tournament?' · '+esc(g.tournament):'')+
- (g.source_url?' · <a target="_blank" rel="noopener noreferrer" href="'+esc(g.source_url)+'">OFFICIAL SOURCE ↗</a>':'')+
+ (g.source_url?' · <a target="_blank" rel="noopener noreferrer" href="'+esc(g.source_url)+'">SOURCE ↗</a>':'')+
+ (includeLink?' · <a class="gamefile-link" href="'+gameLink(g)+'">OPEN GAMEFILE ↗</a>':'')+
  '</div></article>';
 }
 function renderHome(d){const teams=(d.teams||[]).slice().sort((a,b)=>Number(!!a.not_eligible_for_dii_elo)-Number(!!b.not_eligible_for_dii_elo)||a.name.localeCompare(b.name));const games=d.games||[];const finals=games.filter(g=>g.status==='final'&&g.elo_eligible);
@@ -56,9 +60,10 @@ $('teams-covered').textContent=teams.length;$('finals-covered').textContent=fina
 const transitionCount=teams.filter(t=>t.not_eligible_for_dii_elo).length;
 $('directory-count').textContent=teams.length+' preliminary programs · '+transitionCount+' documented future or conference-transition entries excluded from DII Elo';
 const gameDates=[...new Set(games.map(g=>g.date))].sort();
-const today=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'}),date=$('game-date');
+const dateParts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+const today=dateParts.year+'-'+dateParts.month+'-'+dateParts.day,date=$('game-date');
 date.value=gameDates.find(v=>v>=today)||gameDates.at(-1)||today;
-function showDate(){const selected=games.filter(g=>g.date===date.value);$('game-grid').innerHTML=selected.length?selected.sort((a,b)=>String(a.start_time||'').localeCompare(String(b.start_time||''))).map(game).join(''):'<div class="note">No verified NCAA Division II games published for this date.</div>'}
+function showDate(){const selected=games.filter(g=>g.date===date.value);$('game-grid').innerHTML=selected.length?selected.sort(chronological).map(game).join(''):'<div class="note">No verified NCAA Division II games published for this date.</div>'}
 date.addEventListener('change',showDate);showDate();
 const nav=document.createElement('div');nav.className='game-day-navigation';
 nav.innerHTML='<button type="button" data-step="-1" aria-label="Previous game date">‹ PREVIOUS</button><span aria-live="polite"></span><button type="button" data-step="1" aria-label="Next game date">NEXT ›</button>';
@@ -80,7 +85,7 @@ const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort();cons
 sel.innerHTML='<option value="">Select a verified conference</option>'+confs.map(c=>'<option>'+esc(c)+'</option>').join('');
 function conference(){const list=teams.filter(t=>t.conference&&t.conference===sel.value).sort((a,b)=>pct(b)-pct(a)||b.elo-a.elo);$('conference-board').innerHTML=list.length?'<p class="muted">Overall records only until official conference games/tiebreakers are verified.</p>'+list.map((t,i)=>row(t,i)).join(''):'<div class="note">Conference memberships and official standings are not yet verified for this edition.</div>'}
 sel.addEventListener('change',conference);conference();
-$('coverage').innerHTML='Directory-only edition: <b>'+teams.length+'</b> listed programs, including <b>'+transitionCount+'</b> documented future or conference-transition entries not counted as certified DII opponents. NCAA membership has not yet been fully reconciled. This desk currently lists <b>'+teams.length+'</b> identified programs and <b>'+games.length+'</b> published fixtures or finals.<br>Institutional primary and secondary colors are taken from matched provider records where available. Any generated second-ring tonal accent is a visual treatment, <b>not</b> a verified school secondary color. School-specific conference, venue, television and roster fields appear only when the sources support them. A discovered team is not automatically a certified 2026–27 member.<br><b>Feed:</b> '+esc(d.source||'NCAA')+'<br><b>Quality:</b> '+esc(d.quality?.status||'Refresh pending')+'<br><b>Important:</b> Independent Elo changes require confirmed Division II opponents; exhibitions and cross-division games are excluded.';
+$('coverage').innerHTML='Preliminary Division II edition: <b>'+teams.length+'</b> listed programs, including <b>'+transitionCount+'</b> documented future or conference-transition entries not counted as certified DII opponents. NCAA membership has not yet been fully reconciled. This desk currently lists <b>'+teams.length+'</b> identified programs and <b>'+games.length+'</b> published fixtures or finals.<br>Institutional primary and secondary colors are taken from matched provider records where available. Any generated second-ring tonal accent is a visual treatment, <b>not</b> a verified school secondary color. School-specific conference, venue, television and roster fields appear only when the sources support them. A discovered team is not automatically a certified 2026–27 member.<br><b>Feed:</b> '+esc(d.source||'NCAA')+'<br><b>Quality:</b> '+esc(d.quality?.status||'Refresh pending')+'<br><b>Important:</b> Independent Elo changes require confirmed Division II opponents; exhibitions and cross-division games are excluded.';
 
 const coverageStats=d.quality?.field_coverage;
 if(coverageStats){
@@ -103,7 +108,40 @@ const back=$('back-link');if(back)back.textContent='← BACK TO '+(gender==='wom
 for(const a of document.querySelectorAll('.switches a'))a.classList.toggle('selected',gender==='women'?a.href.includes('womens'):a.href.includes('mens'));
 if(!t){el.innerHTML='<div class="note">School not found in the verified team index. <a href="'+path+'">Browse the newspaper</a>.</div>';return}
 const membership=t.membership_status?'<div class="note member-alert"><b>MEMBERSHIP:</b> '+esc(t.membership_status)+'. '+esc(t.membership_note||'')+(t.membership_source?' <a href="'+esc(t.membership_source)+'" target="_blank" rel="noopener noreferrer">OFFICIAL SOURCE ↗</a>':'')+'</div>':'';
-const gs=(d.games||[]).filter(g=>g.away===t.id||g.home===t.id).sort((a,b)=>a.date.localeCompare(b.date));el.innerHTML=membership+'<div class="team-hero">'+logo(t)+'<div><span class="eyebrow">DII '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+name(t)+'</h1><p>'+esc(label(t))+' · '+esc(t.city||'Location not yet verified')+'</p></div></div><div class="team-stats"><div class="team-stat"><strong>'+(t.w||0)+'–'+(t.l||0)+'</strong><span>VERIFIED DII RECORD</span></div><div class="team-stat"><strong>'+Number(t.elo||1500).toFixed(0)+'</strong><span>INDEPENDENT ELO</span></div><div class="team-stat"><strong>'+gs.length+'</strong><span>PUBLISHED SCHEDULE ENTRIES</span></div></div><div class="section-head"><h2>COMPLETE AVAILABLE SCHEDULE</h2><span>AWAY FIRST · HOME SECOND</span></div><div class="team-schedule">'+(gs.length?gs.map(game).join(''):'<div class="note">The NCAA feed has not published verified games for this school yet.</div>')+'</div><p class="note">Team-page fields will expand as official rosters, venues, broadcasts, and conference classifications are verified. No placeholders are presented as facts.</p>'}
-async function init(){try{const res=await fetch('data/d2-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('Published data unavailable');const d=await res.json();if(d.gender!==gender||d.season!=='2026-27'||d.starting_elo!==1500||d.team_target!==298)throw Error('Failed women/men data-isolation contract');state.data=d;state.teams=new Map((d.teams||[]).map(t=>[String(t.id),t]));$('status').textContent='NCAA scoreboard / published program directory · '+(d.as_of?new Date(d.as_of).toLocaleString():'Awaiting verified first refresh')+' · '+(d.quality?.status||'provisional coverage');if(document.body.dataset.page==='team')renderTeam(d);else renderHome(d)}catch(e){$('status').textContent='Source feed unavailable; existing standings were not replaced with invented values.';const target=$('team-profile')||$('game-grid');if(target)target.innerHTML='<div class="note">'+esc(e.message)+'</div>';}}
+const gs=(d.games||[]).filter(g=>g.away===t.id||g.home===t.id).sort(chronological);el.innerHTML=membership+'<div class="team-hero">'+logo(t)+'<div><span class="eyebrow">DII '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+name(t)+'</h1><p>'+esc(label(t))+' · '+esc(t.city||'Location not yet verified')+'</p></div></div><div class="team-stats"><div class="team-stat"><strong>'+(t.w||0)+'–'+(t.l||0)+'</strong><span>VERIFIED DII RECORD</span></div><div class="team-stat"><strong>'+Number(t.elo||1500).toFixed(0)+'</strong><span>INDEPENDENT ELO</span></div><div class="team-stat"><strong>'+gs.length+'</strong><span>PUBLISHED SCHEDULE ENTRIES</span></div></div><div class="section-head"><h2>COMPLETE AVAILABLE SCHEDULE</h2><span>AWAY FIRST · HOME SECOND</span></div><div class="team-schedule">'+(gs.length?gs.map(game).join(''):'<div class="note">The NCAA feed has not published verified games for this school yet.</div>')+'</div><p class="note">Team-page fields will expand as official rosters, venues, broadcasts, and conference classifications are verified. No placeholders are presented as facts.</p>'}
+function renderGame(d){
+ const id=new URLSearchParams(location.search).get('game');
+ const g=(d.games||[]).find(x=>String(x.id)===id);
+ const el=$('gamefile-profile'),back=$('back-link');
+ back.href=path;back.textContent='← BACK TO '+(gender==='women'?'WOMEN’S':'MEN’S')+' DII NEWSPAPER';
+ for(const a of document.querySelectorAll('.switches a'))a.classList.toggle('selected',gender==='women'?a.href.includes('womens'):a.href.includes('mens'));
+ if(!g){el.innerHTML='<div class="note">Game not found in published '+esc(gender)+' Division II records. <a href="'+path+'">Back to the newspaper</a>.</div>';return;}
+ const away=school(g.away),home=school(g.home);
+ const src=[],seen=new Set();
+ function add(url,txt){if(!/^https:\/\//.test(String(url||''))||seen.has(url))return;seen.add(url);src.push('<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(txt)+' ↗</a>');}
+ add(g.source_url,'Game result or fixture source');
+ for(const u of (Array.isArray(g.official_schedule_sources)?g.official_schedule_sources:[]))add(u,'University or conference schedule');
+ add(g.tipoff_source_url,'Tipoff verification');add(g.venue_source_url,'Venue verification');
+ add(g.broadcast_source_url,'Broadcast verification');add(g.stream_url,'Watch stream');
+ const fmt=v=>typeof v==='number'&&Number.isFinite(v)?v.toFixed(1):'Not available';
+ const live=g.status==='live',final=g.status==='final';
+ const pregame=(typeof g.pred_home_pct==='number'&&Number.isFinite(g.pred_home_pct));
+ el.innerHTML='<div class="gamefile-title"><span>DII '+esc(gender.toUpperCase())+' · '+esc(g.date)+' · '+esc(final?'FINAL':live?'LIVE (published feed)':'SCHEDULED')+'</span><h1>'+name(away)+' <em>AT</em> '+name(home)+'</h1><p>'+esc(g.neutral?'Neutral site: team order is the published designation, not home court.':'Away first · home second')+'</p></div>'+
+ '<div class="gamefile-score">'+game(g,false)+'</div><div class="gamefile-grid">'+
+ '<section class="gamefile-box"><h2>THE USRS MODEL</h2><div class="gamefile-facts"><div><small>AWAY PREGAME ELO</small><strong>'+esc(fmt(g.pregame_elo_away))+'</strong></div><div><small>HOME PREGAME ELO</small><strong>'+esc(fmt(g.pregame_elo_home))+'</strong></div></div>'+
+ '<p>'+(pregame?'Pre-game win chances: <b>'+esc((100-g.pred_home_pct).toFixed(1))+'%</b> '+name(away)+'; <b>'+esc(g.pred_home_pct.toFixed(1))+'%</b> '+name(home)+'.':'No evidence-backed win estimate.')+'</p>'+
+ '<p class="muted">Independent 1500-start Elo. Home edge: '+esc(g.neutral?'none (neutral site)':d.model?.home_elo_edge??'unavailable')+' · K: '+esc(d.model?.k??'unavailable')+'. <b>Division II parameters are provisional, not historically calibrated.</b></p></section>'+
+ '<section class="gamefile-box"><h2>GAME INTELLIGENCE</h2><p><b>Tipoff:</b> '+esc(g.start_time||'Unconfirmed')+'<br><b>Arena:</b> '+esc(g.venue||'Unconfirmed')+
+ (g.venue_city?'<br><b>Published location:</b> '+esc(g.venue_city):'')+
+ '<br><b>Network / stream:</b> '+esc(g.network||'Not verified')+
+ (g.tournament?'<br><b>Tournament:</b> '+esc(g.tournament):'')+'</p><p class="muted">Player-by-player box scores are not included until verified player data exists. No statistics are invented.</p></section></div>'+
+ '<section class="gamefile-box gamefile-source-box"><h2>VERIFY THE REPORTING</h2><div class="gamefile-source-links">'+(src.length?src.join(''):'<span class="muted">No game-specific source link is currently stored.</span>')+'</div>'+
+ '<p class="muted">Published ledger updated '+esc(d.as_of?new Date(d.as_of).toLocaleString():'at an unknown time')+'. Refresh to check for newly published results. This page does not represent real-time play-by-play.</p></section>';
+}
+async function init(){try{const res=await fetch('data/d2-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('Published data unavailable');const d=await res.json();if(d.gender!==gender||d.season!=='2026-27'||d.starting_elo!==1500||d.team_target!==298)throw Error('Failed women/men data-isolation contract');state.data=d;state.teams=new Map((d.teams||[]).map(t=>[String(t.id),t]));$('status').textContent='NCAA scoreboard / published program directory · '+(d.as_of?new Date(d.as_of).toLocaleString():'Awaiting verified first refresh')+' · '+(d.quality?.status||'provisional coverage');if(document.body.dataset.page==='team')renderTeam(d);else if(document.body.dataset.page==='game')renderGame(d);else renderHome(d)}catch(e){$('status').textContent='Source feed unavailable; existing standings were not replaced with invented values.';const target=$('team-profile')||$('gamefile-profile')||$('game-grid');if(target)target.innerHTML='<div class="note">'+esc(e.message)+'</div>';}}
 init();
+if(document.body.dataset.page==='game'){
+ $('gamefile-refresh').addEventListener('click',init);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)init();});
+}
 })();
