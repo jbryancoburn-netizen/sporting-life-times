@@ -1,0 +1,80 @@
+/* Premier League content in the NBA newspaper's shared editorial shell. */
+body.epl-newspaper{--ep-line:var(--line);--ep-muted:var(--muted)}
+.epl-newspaper .hero-art{display:flex;flex-direction:column;justify-content:center;border-radius:100px;position:relative;padding:42px 18px 24px;min-width:0}
+body.epl-newspaper .hero-art:before{content:'PREMIER LEAGUE USRS · THE POWER FOUR';position:absolute;top:15px;left:12px;right:12px;text-align:center;color:var(--gold);font:700 9px 'DM Sans',Arial,sans-serif;letter-spacing:1px}
+.epl-newspaper .epl-power-four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%}
+.epl-newspaper .slt-hero-club{display:block;text-align:center;min-width:0;padding:12px 0}
+.epl-newspaper .slt-hero-club img{width:70px;height:70px;object-fit:contain;background:#fffefa;border-radius:50%;padding:9px}
+.epl-newspaper .slt-hero-club strong{display:block;font:33px 'Barlow Condensed',sans-serif;color:white}
+.epl-newspaper .slt-hero-club small{display:block;color:#e0eded;font-size:10px;overflow-wrap:anywhere}
+.epl-newspaper .slt-hero-art-note{font-size:10px;color:#c6d8d9;text-align:center;margin-top:6px}
+.epl-newspaper .metric b{overflow-wrap:anywhere;font-size:30px}
+.epl-newspaper #epl-feed-health{flex-basis:100%;font-size:10px;line-height:1.5}
+.epl-newspaper #epl-feed-health[data-stale=true]{color:#9a3f20}
+.epl-newspaper .stamp{flex-wrap:wrap;row-gap:3px}
+.epl-newspaper .slt-main{padding:0;margin:0;max-width:none;width:100%}
+.epl-newspaper .slt-score-note,.epl-newspaper .slt-sub,.epl-newspaper .epl-data-note{font:11px/1.55 'DM Sans',Arial,sans-serif;color:var(--muted)}
+.epl-newspaper #epl-visual-desk{margin:0 0 12px}
+.epl-newspaper #epl-score-rail .epl-score-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border:0;margin:14px 0 12px}
+.epl-newspaper #epl-score-rail .epl-score-tile{display:block;min-width:0;padding:12px;border:1px solid var(--line);border-top:4px solid var(--nba);background:var(--white);border-radius:0}
+.epl-newspaper #epl-score-rail .slt-live-score{border-top-color:var(--orange)}
+.epl-newspaper #epl-score-rail .epl-score-tile>div{display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:7px;align-items:center;margin:8px 0;min-height:31px}
+.epl-newspaper #epl-score-rail .epl-team{font:700 11px/1.3 'DM Sans',Arial,sans-serif;gap:7px}
+.epl-newspaper #epl-score-rail .epl-team>span:last-child{white-space:normal;overflow-wrap:break-word}
+.epl-newspaper #epl-score-rail .epl-score-tile b{font:700 25px/1 'Barlow Condensed',sans-serif;text-align:right}
+.epl-newspaper .epl-score-date{font:700 9px/1.5 'DM Sans',Arial,sans-serif;color:var(--teal);letter-spacing:.6px}
+.epl-newspaper .epl-crest{height:29px;width:29px;object-fit:contain;flex:none}
+.epl-newspaper .epl-team{font:600 11px/1.3 'DM Sans',Arial,sans-serif}
+.epl-newspaper .epl-data-section{margin-top:0}
+.epl-newspaper .epl-section-label{border:0;display:block;padding:0 0 12px}
+.epl-newspaper .epl-section-label h2{font:32px/1.1 'Libre Caslon Display',Georgia,serif!important;color:var(--ink);margin:5px 0 8px!important}
+.epl-newspaper .epl-section-label>span{display:block;font:700 9px 'DM Sans',Arial,sans-serif;color:var(--muted);letter-spacing:.7px;text-align:left}
+.epl-newspaper .epl-power-row{gap:9px;padding:10px 0;border-color:var(--line)}
+.epl-newspaper .epl-power-row .epl-rank{font:25px 'Barlow Condensed',sans-serif;color:var(--orange);width:23px}
+.epl-newspaper .epl-power-row .epl-team{flex:1;min-width:0;max-width:none}
+.epl-newspaper .epl-power-row strong{font:25px 'Barlow Condensed',sans-serif;white-space:nowrap}
+.epl-newspaper .epl-power-track{display:none}
+.epl-newspaper .epl-elo-delta{font:700 10px 'DM Sans',Arial,sans-serif;min-width:46px}
+.epl-newspaper .epl-table-scroll,.epl-newspaper .slt-compact-table{max-width:100%;overflow-x:auto}
+.epl-newspaper .epl-standings{font:11px 'DM Sans',Arial,sans-serif}
+.epl-newspaper .epl-standings th{border-bottom:2px solid var(--ink);font:700 9px 'DM Sans',Arial,sans-serif}
+.epl-newspaper .epl-standings td{padding:9px 3px;border-color:var(--line)}
+.epl-newspaper .slt-compact-table .epl-standings th,.epl-newspaper .slt-compact-table .epl-standings td{display:table-cell!important;white-space:nowrap}
+.epl-newspaper .epl-standings .epl-pts{font:23px 'Barlow Condensed',sans-serif}
+.epl-newspaper .slt-full-table summary,.epl-newspaper .slt-deep-dive summary{cursor:pointer;font:700 12px 'DM Sans',Arial,sans-serif;color:var(--teal);padding:14px 0}
+.epl-newspaper #epl-independent-news{display:block}
+.epl-newspaper .epl-news-article{border-top:1px solid var(--line);padding:16px 0}
+.epl-newspaper .epl-news-article:first-child{border:0;padding-top:3px}
+.epl-newspaper .epl-news-article h3{font:22px/1.12 'Libre Caslon Display',Georgia,serif;margin:7px 0 8px}
+.epl-newspaper .epl-news-article:first-child h3{font-size:clamp(25px,3vw,40px)}
+.epl-newspaper .epl-news-article p{font:12px/1.55 'DM Sans',Arial,sans-serif;color:var(--muted);margin-bottom:8px}
+.epl-newspaper .epl-news-article .epl-news-byline{font-size:10px;color:#54747c}
+.epl-newspaper .epl-news-photo{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:14px}
+.epl-newspaper #epl-race-watch,.epl-newspaper #epl-player-leaders,.epl-newspaper #epl-elo-history{border:0;margin:0;padding:0}
+.epl-newspaper .epl-race-grid,.epl-newspaper .epl-player-columns{grid-template-columns:1fr}
+.epl-newspaper .slt-club-directory{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.epl-newspaper .slt-club-link{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border:1px solid var(--line);border-top:4px solid var(--teal);background:var(--white);text-align:center;min-width:0}
+.epl-newspaper .slt-club-link img{height:60px;width:60px}
+.epl-newspaper .slt-club-link>span{font-size:12px;font-weight:700}
+.epl-newspaper .slt-club-link small{font-size:10px;color:var(--muted)}
+.epl-newspaper .slt-club-link[hidden]{display:none}
+.epl-newspaper #forecast-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.epl-newspaper .hub-match{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--nba);padding:16px;min-width:0;margin-bottom:12px}
+.epl-newspaper .hub-match-teams{display:grid;grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);gap:9px;align-items:center;text-align:center}
+.epl-newspaper .hub-club-link{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px}
+.epl-newspaper .hub-club-link img{width:55px;height:55px;object-fit:contain}
+.epl-newspaper .hub-score{font:32px 'Barlow Condensed',sans-serif;white-space:nowrap}
+.epl-newspaper .hub-score small{display:block;white-space:normal;font:700 8px 'DM Sans',Arial,sans-serif;color:var(--muted)}
+.epl-newspaper .hub-small{font:11px/1.5 'DM Sans',Arial,sans-serif;color:var(--muted)}
+.epl-newspaper .hub-prob{display:flex;height:9px;margin:14px 0 7px;background:#ddd;border-radius:9px;overflow:hidden}
+.epl-newspaper .hub-prob span{background:var(--teal)}
+.epl-newspaper .hub-prob span:nth-child(2){background:#b6bbb5}
+.epl-newspaper .hub-prob span:last-child{background:var(--orange)}
+.epl-newspaper .hub-prob-labels{display:flex;justify-content:space-between;gap:5px;font:700 9px 'DM Sans',Arial,sans-serif}
+.epl-newspaper .slt-more{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.epl-newspaper .slt-method{border-top:1px solid var(--line);padding:14px 0;font-size:12px;color:var(--muted)}
+.epl-newspaper .slt-deep-dive{border-top:1px solid var(--line)}
+@media(max-width:1100px){.epl-newspaper #epl-score-rail .epl-score-rail{grid-template-columns:repeat(3,minmax(0,1fr))}.epl-newspaper .slt-club-directory{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.epl-newspaper .hero{grid-template-columns:1fr}.epl-newspaper .hero-art{border-radius:50px}.epl-newspaper #forecast-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper .slt-club-directory{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.epl-newspaper .grid,.epl-newspaper .slt-more{display:block}.epl-newspaper #epl-score-rail .epl-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper .hero{padding:22px}.epl-newspaper .slt-hero-club img{width:45px;height:45px;padding:5px}.epl-newspaper .hero-art{padding:34px 12px 16px}.epl-newspaper .epl-power-four{gap:7px}.epl-newspaper .slt-hero-club strong{font-size:27px}.epl-newspaper .slt-club-directory{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper #forecast-grid{grid-template-columns:1fr}.epl-newspaper .metric b{font-size:25px}.epl-newspaper .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper .metric:nth-child(2){border-right:0}}
+@media(max-width:380px){.epl-newspaper #epl-score-rail .epl-score-rail{grid-template-columns:1fr}body.epl-newspaper .hero-art:before{font-size:8px}.epl-newspaper .slt-hero-club small{font-size:9px}}
