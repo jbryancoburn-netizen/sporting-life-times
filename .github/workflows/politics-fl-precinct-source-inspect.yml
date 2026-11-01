@@ -71,11 +71,11 @@ jobs:
           precinct_sets=collections.defaultdict(set)
           with zipfile.ZipFile(io.BytesIO(blob)) as z:
               for item in z.infolist():
-                  if item.is_dir() or not re.fullmatch(r"[A-Z]{3}_PctResults20241105\\.txt",item.filename):
+                  if item.is_dir() or not re.fullmatch(r"[A-Z]{3}_PctResults20241105\.txt",item.filename):
                       continue
                   counties.add(item.filename[:3])
                   with z.open(item) as stream:
-                      reader=csv.reader(io.TextIOWrapper(stream,encoding="utf-8-sig",errors="replace"),delimiter="\\t")
+                      reader=csv.reader(io.TextIOWrapper(stream,encoding="utf-8-sig",errors="replace"),delimiter="\t")
                       for row in reader:
                           if not row:continue
                           rows+=1
