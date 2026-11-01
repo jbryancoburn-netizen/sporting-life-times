@@ -187,6 +187,18 @@ function home(){
    if(!g)return '<div class="nfl-p26-feature"><div class="nfl-p26-feature-top"><b>GAME OF THE MOMENT</b></div><p>Verified game details are temporarily unavailable.</p></div>';
    const a=team(g.away.id),h=team(g.home.id),pre=g.state==='pre',elo=g.elo||{},homePct=elo.home_win_probability;
    const short=t=>t.name.split(' ').slice(-1)[0];
+   // When orange is the brighter club color (e.g., Denver), put the darker
+   // official alternate behind the score and retain orange as the accent.
+   // Badges intentionally keep their original two club-color rings.
+   const paint=t=>{
+      const primary=String(t.color||'#23344a'),alternate=String(t.secondary_color||'#d2a14c');
+      const rgb=s=>/^#[0-9a-f]{6}$/i.test(s)?[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)):[0,0,0];
+      const p=rgb(primary),isOrange=p[0]>180&&p[1]>45&&p[1]<155&&p[2]<90&&p[0]>p[1]*1.5;
+      const dark=rgb(alternate).reduce((sum,x)=>sum+x,0)<175;
+      return isOrange&&dark?{base:alternate,accent:primary}:{base:primary,accent:alternate};
+   };
+   const pa=paint(a),ph=paint(h);
+
    const stateLabel=g.state==='in'?(g.period>4?'OVERTIME':'QUARTER '+(g.period||'?')):g.state==='post'?'FINAL':'UP NEXT';
    const detail=g.state==='in'?((g.period>4?'OT':'Q'+(g.period||'?'))+' · '+(g.clock||'IN PROGRESS')):g.state==='post'?'FINAL':date(g.date);
    const clockLabel=g.state==='in'?'LIVE · '+detail:g.state==='post'?'FINAL':'KICKOFF · '+date(g.date);
@@ -194,15 +206,15 @@ function home(){
      '<div class="nfl-p26-feature-top"><span class="nfl-p26-hero-identity">FEATURED MATCHUP <small>· WEEK '+escapeHtml(g.week)+'</small></span>'+
      '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
      (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
-     '<div class="nfl-p26-score-stage nfl-p26-box-score" style="--nfl-away-color:'+escapeHtml(a.color||'#22344b')+';--nfl-away-accent:'+escapeHtml(a.secondary_color||'#d6ad4b')+';--nfl-home-color:'+escapeHtml(h.color||'#22344b')+';--nfl-home-accent:'+escapeHtml(h.secondary_color||'#d6ad4b')+'">'+
-       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(a.color||'#14283a')+';--nfl-box-alt:'+escapeHtml(a.secondary_color||'#d1ad4b')+'">'+
+     '<div class="nfl-p26-score-stage nfl-p26-box-score" style="--nfl-away-color:'+escapeHtml(pa.base)+';--nfl-away-accent:'+escapeHtml(pa.accent)+';--nfl-home-color:'+escapeHtml(ph.base)+';--nfl-home-accent:'+escapeHtml(ph.accent)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+'">'+
          '<div class="nfl-p26-box-row">'+crest(a,'lg')+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(a.name)+' score">'+(pre?'—':format(g.away.score))+'</strong></div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(a))+'</b>'+
            '<small>'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+
            (g.state==='in'&&g.possession===a.id?' · BALL':'')+'</small></div></div>'+
        '<span class="nfl-p26-box-seam" aria-hidden="true"></span>'+
-       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(h.color||'#14283a')+';--nfl-box-alt:'+escapeHtml(h.secondary_color||'#d1ad4b')+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+'">'+
          '<div class="nfl-p26-box-row">'+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(h.name)+' score">'+(pre?'—':format(g.home.score))+'</strong>'+crest(h,'lg')+'</div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(h))+'</b>'+
