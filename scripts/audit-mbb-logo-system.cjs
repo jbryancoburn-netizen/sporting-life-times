@@ -70,8 +70,10 @@ async function run(){
  }
  const injection=read('scripts/inject-team-crests.py');
  assert(injection.includes('ncaam(?:[-.]|$)'),'Publisher injection must exempt basketball');
+ assert(injection.includes('\"mbb-logo-system.js\" in source'),'Publisher must exempt women’s pages by their shared logo owner');
  const shared=read('shared-team-crests.js');
- assert(shared.includes('ncaam(?:[-.]|$)'),'Old shared enhancer must exempt basketball');
+ assert(shared.includes('img.closest(\".mbb-mark\")'),'Generic decorator must never wrap a dedicated NCAA logo');
+ assert(shared.includes('ncaa[mw](?:[-.]|$)'),'Old shared enhancer must exempt basketball');
  const dual=read('slt-dual-ring.js');
  assert(dual.includes("if(league==='mbb')return;"),'MBB is still decorated by generic dual ring script');
  for(const file of ['mbb-newspaper.js','mbb-elo-primary.js','mbb-team-calendar-boot.js','ncaam-rivalry.js','ncaam-predictor.js']){

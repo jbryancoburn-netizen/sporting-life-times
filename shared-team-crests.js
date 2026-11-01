@@ -101,6 +101,8 @@ function initials(img){
  return words.length>1?(words[0][0]+words.at(-1)[0]).toUpperCase():(words[0]||'TM').slice(0,2).toUpperCase();
 }
 function classify(img){
+ // A dedicated NCAA badge owns its artwork and both rings on every page.
+ if(img.closest(".mbb-mark"))return false;
  if(img.dataset.euroleagueCode&&document.body.dataset.league==='euroleague'&&!img.dataset.sltMarkState)return true;
  if(img.dataset.sltMarkState||img.closest(ORIGINAL)||img.matches(COVER)||img.closest(COVER))return false;
  if(NOT_LOGO.test(String(img.className||''))||NOT_LOGO.test(String(img.parentElement?.className||'')))return false;
@@ -167,7 +169,7 @@ function enhance(img){
  // NBA editions own their branded crest containers. Never wrap them with an extra slt-mark ring.
  // The shared site-wide enhancer runs after NBA CSS and was producing double rings and huge logos.
  if(/^nba(?:[-.]|$)/i.test(location.pathname.split('/').pop()||''))return;
- if(/^ncaam(?:[-.]|$)|^college-basketball\.html$/i.test(location.pathname.split('/').pop()||''))return;
+ if(/^ncaa[mw](?:[-.]|$)|^college-basketball\.html$/i.test(location.pathname.split('/').pop()||''))return;
  if(!classify(img)||!img.parentNode)return;
  const slot=document.createElement('span');slot.className='slt-mark';slot.setAttribute('aria-hidden','true');
  const scale=size(img);if(scale)slot.classList.add('slt-mark--'+scale);

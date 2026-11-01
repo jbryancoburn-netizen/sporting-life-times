@@ -41,7 +41,7 @@ for path in files:
             missing.append(path.name + " must not load shared-team-crests")
         continue
     # Every D-I men's college basketball page has one roundel-aware renderer.
-    if re.match(r"ncaam(?:[-.]|$)|college-basketball\.html$", path.name, re.IGNORECASE):
+    if "mbb-logo-system.js" in source or re.match(r"ncaam(?:[-.]|$)|college-basketball\.html$", path.name, re.IGNORECASE):
         if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
             missing.append(path.name + " must not load shared-team-crests")
         elif not CHECK:

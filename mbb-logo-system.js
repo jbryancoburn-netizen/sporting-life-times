@@ -46,6 +46,25 @@ const alt=safeURL(img.dataset.logoAlternate);
 if(alt&&img.src!==alt){img.dataset.logoAlternate='';img.src=alt;return;}
 img.closest('.mbb-mark')?.classList.add('mbb-mark--missing');img.remove();
 }
+// Repair wrappers left by an older cached publisher decorator. The marker
+// prevents that old script from wrapping the same artwork a second time.
+function stripLegacyRings(root=document){
+ const badges=new Set();
+ if(root.matches?.('.mbb-mark'))badges.add(root);
+ const owner=root.closest?.('.mbb-mark');if(owner)badges.add(owner);
+ root.querySelectorAll?.('.mbb-mark').forEach(b=>badges.add(b));
+ for(const badge of badges){
+  badge.classList.remove('slt-dual-shell');
+  for(const wrapper of badge.querySelectorAll('.slt-mark')){
+   const img=wrapper.querySelector('img.mbb-mark__img');
+   if(img){img.dataset.sltMarkState='1';wrapper.replaceWith(img);}
+  }
+  for(const img of badge.querySelectorAll('img.mbb-mark__img')){
+   img.classList.remove('slt-dual-image');
+   for(const prop of ['border','outline','box-shadow','padding','border-radius','background'])img.style.removeProperty(prop);
+  }
+ }
+}
 function upgradeLegacyCalendar(){
 for(let node of document.querySelectorAll('#mbb-calendar-host .sched-logo:not(.mbb-mark)')){
 const src=node.querySelector('img')?.getAttribute('src')||'';
@@ -68,11 +87,11 @@ function upgradeBareLogos(root=document){
   img.replaceWith(temp.firstElementChild);
  }
 }
-w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&&registry[String(id)]?String(id):'',name:name||registry[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||''};
+w.MBBLogos={ready,render,byNCAA:(id,size,name)=>render({ncaaId:id,name,size}),byESPN:(id,size,name)=>render({espnId:id&&registry[String(id)]?String(id):'',name:name||registry[String(id)]?.school,size}),byName:(name,size)=>render({name,size}),fail,stripLegacyRings,upgradeLegacyCalendar,upgradeBareLogos,logoURL:id=>registry[byNcaa.get(id)]?.logo_url||''};
 ready.then(ok=>{
  if(!ok)return;
- const run=()=>{upgradeLegacyCalendar();upgradeBareLogos(document)};
+ const run=()=>{stripLegacyRings(document);upgradeLegacyCalendar();upgradeBareLogos(document)};
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
- if(document.documentElement)new MutationObserver(changes=>{for(const change of changes)for(const node of change.addedNodes)if(node.nodeType===1)upgradeBareLogos(node)}).observe(document.documentElement,{subtree:true,childList:true});
+ if(document.documentElement)new MutationObserver(changes=>{for(const change of changes)for(const node of change.addedNodes)if(node.nodeType===1){upgradeBareLogos(node);stripLegacyRings(node)}}).observe(document.documentElement,{subtree:true,childList:true});
 });
 })(window);
