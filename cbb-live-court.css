@@ -112,3 +112,15 @@
  .slc-flow-heading span{font-size:8px}
  .slc-flow svg{max-height:220px}
 }
+
+/* Fail closed: no oversized theatrical court when position data are missing. */
+.slc-standby,.slc-data-conflict{display:flex;flex-direction:column;gap:10px;
+  justify-content:center;min-height:135px;padding:22px 20px;background:#f2f5f3;
+  border:1px solid #c8d5ce;color:#38555c}
+.slc-standby strong,.slc-data-conflict strong{font:800 12px Arial,sans-serif;letter-spacing:.9px}
+.slc-standby span,.slc-data-conflict span{font:400 12px/1.55 Arial,sans-serif;max-width:500px;color:#647579}
+.slc-data-conflict{border-left:4px solid #a4603f;background:#faf5ed}
+.slc-data-conflict strong{color:#915338}
+.slc-warning{padding:9px 14px;margin:0;border-bottom:1px solid #dfb796;
+ background:#fff3e6;color:#8b542d;font:600 11px/1.45 Arial,sans-serif}
+@media(max-width:740px){.slc-standby,.slc-data-conflict{min-height:90px;padding:15px 12px}}
