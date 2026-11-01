@@ -23,9 +23,11 @@ function analysis(c,a,h,g){
   ['Season head-to-head',hist.length?h+' has won '+hw+' of '+hist.length+' completed meetings against '+a+' ('+h+' '+hw+'–'+aw+').':'No completed 2026–27 head-to-head game is present in the verified ledger.'],
   ['Scoring context',a+' averages '+(ag?n(rA.pf/ag):'—')+' scored / '+(ag?n(rA.pa/ag):'—')+' allowed; '+h+' averages '+(hg?n(rH.pf/hg):'—')+' scored / '+(hg?n(rH.pa/hg):'—')+' allowed in verified finals.']
  ];
+ const projected=w.NBARabbyForecastState?.project(h,a);
+ const scorePanel=projected?'<div class="depth-rabby-preview"><small>RABBY POSSESSION SCORE · NOT LIVE</small><strong>'+e(a)+' '+projected.awayScore+' — '+projected.homeScore+' '+e(h)+'</strong><span>Tempo '+projected.possessions.toFixed(1)+' possessions · Total '+projected.total.toFixed(1)+' · '+e(a)+' vs defense '+projected.awayEfficiency.toFixed(1)+' · '+e(h)+' vs defense '+projected.homeEfficiency.toFixed(1)+' pts/100</span></div>':'';
  const side=t=>'<div class="depth-scout-side"><img src="'+logo(t)+'" alt=""><b>'+e(name(c,t))+'</b><small>'+rec(c,t)+' · Elo #'+(c.ordered.indexOf(t)+1)+'</small></div>';
  const label=g?'Scheduled NBA game':'Hypothetical pairing';
- return '<article class="depth-scout-card" style="--away:'+c.meta[a][3]+';--home:'+c.meta[h][3]+'"><div class="depth-scout-top"><span>'+label+'</span><span>'+(g?e(stamp(g)):'Current USRS ratings')+'</span></div><div class="depth-scout-teams">'+side(a)+'<span>AT</span>'+side(h)+'</div><div class="depth-scout-prob"><b>'+a+' · '+n(100*(1-prob))+'%</b><small>Independent Elo win probability</small><b>'+h+' · '+n(100*prob)+'%</b></div><div class="depth-scout-bar"><i style="width:'+(100*(1-prob)).toFixed(2)+'%"></i></div><div class="depth-scout-form"><div><small>'+a+' · LAST FIVE</small><div>'+form(c,a)+'</div></div><div><small>'+h+' · LAST FIVE</small><div>'+form(c,h)+'</div></div></div><div class="depth-scout-factors">'+factors.map(([k,v])=>'<div><small>'+e(k)+'</small><p>'+e(v)+'</p></div>').join('')+'</div>'+(g?.id?'<a class="depth-scout-link" href="nba-live-game.html?game='+encodeURIComponent(String(g.id).replace(/^espn-nba-/,''))+'">Game Center ↗</a>':'')+'</article>';
+ return '<article class="depth-scout-card" style="--away:'+c.meta[a][3]+';--home:'+c.meta[h][3]+'"><div class="depth-scout-top"><span>'+label+'</span><span>'+(g?e(stamp(g)):'Current USRS ratings')+'</span></div><div class="depth-scout-teams">'+side(a)+'<span>AT</span>'+side(h)+'</div><div class="depth-scout-prob"><b>'+a+' · '+n(100*(1-prob))+'%</b><small>Independent Elo win probability</small><b>'+h+' · '+n(100*prob)+'%</b></div><div class="depth-scout-bar"><i style="width:'+(100*(1-prob)).toFixed(2)+'%"></i></div>'+scorePanel+'<div class="depth-scout-form"><div><small>'+a+' · LAST FIVE</small><div>'+form(c,a)+'</div></div><div><small>'+h+' · LAST FIVE</small><div>'+form(c,h)+'</div></div></div><div class="depth-scout-factors">'+factors.map(([k,v])=>'<div><small>'+e(k)+'</small><p>'+e(v)+'</p></div>').join('')+'</div>'+(g?.id?'<a class="depth-scout-link" href="nba-live-game.html?game='+encodeURIComponent(String(g.id).replace(/^espn-nba-/,''))+'">Game Center ↗</a>':'')+'</article>';
 }
 function render(c){
  const app=document.getElementById('app');if(!app)return;
@@ -36,13 +38,13 @@ function render(c){
  room.innerHTML='<div class="depth-label">The scouting room</div><h2>Build a matchup</h2><p class="depth-muted">Set any two clubs for a current Elo win-probability comparison, recent form, scoring performance and actual season meetings. These are scenario estimates—not retroactive pregame forecasts.</p><div class="depth-selectors"><label>Away<select id="depth-away">'+options(a)+'</select></label><b>AT</b><label>Home<select id="depth-home">'+options(h)+'</select></label></div><div id="depth-scout-preview">'+analysis(c,a,h,null)+'</div>';
  const intro=app.querySelector('.nba-note');if(intro)intro.insertAdjacentElement('afterend',room);else app.prepend(room);
  function redraw(){room.querySelector('#depth-scout-preview').innerHTML=analysis(c,room.querySelector('#depth-away').value,room.querySelector('#depth-home').value,null)}
- room.querySelector('#depth-away').addEventListener('change',redraw);room.querySelector('#depth-home').addEventListener('change',redraw);
+ room.querySelector('#depth-away').addEventListener('change',redraw);room.querySelector('#depth-home').addEventListener('change',redraw);document.addEventListener('nba:forecast-ready',redraw);
  const title=[...app.querySelectorAll('h2')].find(x=>x.textContent.trim()==='Coming Up After Today');
  const list=title?.nextElementSibling;
  if(list){
  const day=d=>new Date(d).toLocaleDateString('en-US',{timeZone:'America/New_York'});
  const future=upcoming.filter(g=>day(g.date)!==day(new Date())).slice(0,8);
- list.classList.add('depth-matchup-list');list.innerHTML=future.map(g=>{const a=g.teams.find(x=>x.home_away==='away')?.code,h=g.teams.find(x=>x.home_away==='home')?.code;return c.meta[a]&&c.meta[h]?analysis(c,a,h,g):''}).join('')||'<p class="depth-muted">No scheduled games after today in the current published schedule window.</p>';
+ const redrawFuture=()=>{if(!list.isConnected)return;list.classList.add('depth-matchup-list');list.innerHTML=future.map(g=>{const a=g.teams.find(x=>x.home_away==='away')?.code,h=g.teams.find(x=>x.home_away==='home')?.code;return c.meta[a]&&c.meta[h]?analysis(c,a,h,g):''}).join('')||'<p class="depth-muted">No scheduled games after today in the current published schedule window.</p>';};redrawFuture();document.addEventListener('nba:forecast-ready',redrawFuture);
  }
 }
 w.NBAMatchupDepth=render;
