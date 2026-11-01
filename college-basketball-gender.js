@@ -58,7 +58,7 @@
     const status=g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
     return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+fmt(g.date)+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
        (g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
-       '<a class="wbb-game-source" href="'+safe(/^\\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
+       '<a class="wbb-game-source" href="'+safe(/^\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
   }
   function allGames(){const result=new Map(games);for(const [id,g] of live){const prior=result.get(id);result.set(id,{...prior,...g,broadcast:prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast)});}return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
   function drawGames(){
