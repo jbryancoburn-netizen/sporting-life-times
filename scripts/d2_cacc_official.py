@@ -171,7 +171,7 @@ def reconcile_cacc(records,games,teams,today):
   elif len(times)>1:
    host_evidence=HOST_VERIFIED.get((date,away,home))
    host_row=next((row for row in rows if row["source_team"]==home),None)
-   if host_evidence and host_row and host_row["tipoff"]==host_evidence[0]:
+   if host_evidence and host_row and host_evidence[2].startswith("https://"):
     time,venue,source=host_evidence
     game["start_time"]=time
     game["venue"]=venue
