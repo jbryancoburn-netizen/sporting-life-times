@@ -284,7 +284,8 @@
     const target=document.getElementById('cbb-preview-'+g.id);
     if(!target)return;
     const result=summaryStats(g);
-    if(result)target.innerHTML=result;
+    if(result){target.innerHTML=result;target.classList.remove('cbb-preview-empty');}
+    else{target.innerHTML='';target.classList.add('cbb-preview-empty');}
 
   }
   async function preloadVisibleStats(games,generation,day){
