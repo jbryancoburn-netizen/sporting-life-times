@@ -11,8 +11,9 @@ const emblem=t=>{
  const secondary=/^#[0-9a-f]{6}$/i.test(t.secondary||'')?t.secondary:'';
  const verified=!!(primary&&secondary&&primary!==secondary&&t.color_source);
  const initials=String(t.name||'?').replace(/\b(university|college|the|of|at)\b/gi,'').trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
+ const imgSrc=slug?'https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg':/^https:\/\/a\.espncdn\.com\/i\/teamlogos\//.test(t.logo_url||'')?t.logo_url:'';
  return '<span class="logo-shell '+(verified?'branded':'unbranded')+'" title="'+esc(title)+'" '+(verified?'style="--c1:'+primary+';--c2:'+secondary+'"':'')+'>'+
-   (slug?'<img loading="lazy" alt="" src="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" onerror="this.remove()">':'')+
+   (imgSrc?'<img loading="lazy" alt="" src="'+esc(imgSrc)+'" onerror="this.remove()">':'')+
    '<small class="logo-initials">'+esc(initials)+'</small></span>';
 };
 const team=id=>state.teams.get(id)||{id,name:id};
@@ -69,7 +70,7 @@ function renderHome(d){
  $('coverage').innerHTML='<b>'+games.length+'</b> published games, <b>'+d.coverage.eligible_finals+'</b> Elo-eligible finals, and <b>'+d.coverage.scanned_days+'</b> recently checked NCAA dates.<br>'+
  '<b>'+d.coverage.confirmed_d3_teams+'</b> team identities have explicit DIII labels in game evidence. Source-discovered schools are <b>not a certified all-program directory</b>.<br>'+
  '<b>'+d.coverage.failed_days.length+'</b> checked dates failed their primary and fallback reads; prior published games were retained.<br>'+
- 'Full school schedules, official conference standings, venue details, player statistics and historical K/home-edge calibration are <b>not yet certified</b>.';
+ '<b>Program directory:</b> '+esc(d.coverage.directory_status||'Published NCAA-scoreboard identities only')+'<br>Full school schedules, official conference standings, venue details, player statistics and historical K/home-edge calibration are <b>not yet certified</b>.';
 }
 async function start(){
  try{
