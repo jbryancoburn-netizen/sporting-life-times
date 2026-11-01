@@ -1,0 +1,23 @@
+/* Two real concentric borders. The inner artwork never supplies a third ring. */
+.epl-badge{--epl-badge-size:32px;box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;position:relative!important;vertical-align:middle!important;flex:0 0 var(--epl-badge-size)!important;width:var(--epl-badge-size)!important;height:var(--epl-badge-size)!important;min-width:var(--epl-badge-size)!important;max-width:var(--epl-badge-size)!important;min-height:var(--epl-badge-size)!important;max-height:var(--epl-badge-size)!important;aspect-ratio:1!important;border:3px solid var(--epl-ring-primary)!important;border-radius:50%!important;background:#fffefa!important;padding:5px!important;box-shadow:none!important;overflow:hidden!important;isolation:isolate!important}
+.epl-badge:before{content:''!important;position:absolute!important;inset:0!important;border:2px solid var(--epl-ring-secondary)!important;border-radius:50%!important;pointer-events:none!important;z-index:2!important;box-sizing:border-box!important}
+.epl-badge:after{display:none!important;content:none!important}
+.epl-badge>img[data-epl-badge-image]{display:block!important;box-sizing:border-box!important;position:static!important;flex:none!important;float:none!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;border:0!important;border-radius:0!important;box-shadow:none!important;outline:0!important;background:transparent!important;padding:0!important;margin:0!important;filter:none!important;transform:none!important;opacity:1!important}
+.epl-badge-fallback{display:none!important;font:700 10px Arial,sans-serif!important;color:var(--epl-ring-primary)!important}
+.epl-badge-missing>img{visibility:hidden!important}
+.epl-badge-missing>.epl-badge-fallback{display:grid!important;place-items:center!important;position:absolute!important;inset:5px!important}
+.epl-badge .epl-player-crest-fallback{display:none!important}
+.slt-hero-club>.epl-badge{--epl-badge-size:74px;padding:9px!important;margin:0 auto 8px!important}
+.slt-club-link>.epl-badge{--epl-badge-size:62px;margin:0 auto!important}
+.hub-club-link>.epl-badge{--epl-badge-size:56px;padding:7px!important}
+.epl-score-tile .epl-badge{--epl-badge-size:34px}
+.epl-standings .epl-badge{--epl-badge-size:28px;border-width:2px!important;padding:4px!important}
+.epl-standings .epl-badge:before{border-width:2px!important}
+.epl-power-row .epl-badge{--epl-badge-size:32px}
+.epl-player-crest.epl-badge{--epl-badge-size:32px}
+.epl-history-club>.epl-badge{--epl-badge-size:52px}
+.club-hero>.epl-badge{--epl-badge-size:110px;padding:12px!important}
+.match-crest-badge.epl-badge{--epl-badge-size:120px;padding:14px!important}
+@media(max-width:650px){.slt-hero-club>.epl-badge{--epl-badge-size:52px;padding:6px!important}.club-hero>.epl-badge{--epl-badge-size:80px}.match-crest-badge.epl-badge{--epl-badge-size:76px;padding:9px!important}}
+.report .match-hero .match-club .match-crest-badge.epl-badge{width:var(--epl-badge-size)!important;height:var(--epl-badge-size)!important;border:3px solid var(--epl-ring-primary)!important;box-shadow:none!important;padding:14px!important;background:#fffefa!important}
+.report .match-hero .match-club .match-crest-badge.epl-badge>img{width:100%!important;height:100%!important;max-height:100%!important}
