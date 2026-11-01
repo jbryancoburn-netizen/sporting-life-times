@@ -1081,6 +1081,12 @@ def update(gender, bootstrap=False, live=False):
     rmac_quality=previous_quality.get("official_rmac_schedule_reconciliation")
     if not rapid or not rmac_quality:
         rmac_quality=enrich_rmac(gender,games,teams,today)
+    # NSIC: sixteen independently identified 2026-27 school calendars per
+    # gender, explicit H/A role and two-school agreement. Daily only.
+    from d2_nsic_official import enrich_nsic
+    nsic_quality=previous_quality.get("official_nsic_schedule_reconciliation")
+    if not rapid or not nsic_quality:
+        nsic_quality=enrich_nsic(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1170,7 +1176,8 @@ def update(gender, bootstrap=False, live=False):
         "official_psac_temporary_home_venues":psac_venue_quality,
         "official_gliac_schedule_reconciliation":gliac_quality,
         "official_gliac_university_venue_evidence":gliac_venue_quality,
-        "official_rmac_schedule_reconciliation":rmac_quality}
+        "official_rmac_schedule_reconciliation":rmac_quality,
+        "official_nsic_schedule_reconciliation":nsic_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
