@@ -114,12 +114,20 @@ function rating(teams,games){
 // It does not certify NCAA membership; only NCAA game evidence can upgrade that flag.
 async function provisionalDirectory(gender){
   const sport=gender==='men'?'mens-college-basketball':'womens-college-basketball';
-  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/teams?group=52&limit=1000';
+  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/teams?groups=52&limit=1000';
   try{
     const raw=await jsonAt(url), leagues=raw.sports?.flatMap(x=>x.leagues||[])||[];
     const entries=leagues.flatMap(x=>x.teams||[]).concat(raw.teams||[])
       .map(x=>x.team||x).filter(x=>x&&typeof x==='object');
     if(entries.length<200||entries.length>550)throw Error('Provider index has '+entries.length+' entries; unsafe to label DIII');
+    const institutions=entries.map(x=>String(x.location||x.shortDisplayName||'').trim().toLowerCase());
+    const d1Exclusions=['abilene christian','air force','akron','duke','florida state','indiana','kentucky','kansas','ucla','houston','baylor'];
+    const d3Anchors=['trine','babson','calvin','hope','johns hopkins','swarthmore','williams','amherst','emory'];
+    const d1Hits=d1Exclusions.filter(x=>institutions.includes(x));
+    const d3Hits=d3Anchors.filter(x=>institutions.includes(x));
+    if(d1Hits.length>0||d3Hits.length<3)
+      throw Error('Division identity guard failed: DI='+d1Hits.join(',')+'; DIII anchors='+d3Hits.join(','));
+
     const colors=x=>/^#[0-9a-f]{6}$/i.test(x||'')&&
       ![0,2,4].every(i=>parseInt(x.slice(i+1,i+3),16)>230);
     const teams=new Map();
@@ -143,7 +151,7 @@ async function provisionalDirectory(gender){
 }
 
 function rebuild(gender,previous,results,additionalTeams=[]){
-  const teams=new Map((previous.teams||[]).map(x=>[x.id,{...x}]));
+  const teams=new Map((previous.teams||[]).filter(x=>x.d3_confirmed||!/ESPN Division III basketball group 52/.test(x.identity_source||'')).map(x=>[x.id,{...x}]));
   // Do not overwrite previously NCAA-confirmed identities with provisional source labels.
   for(const t of additionalTeams){
     const old=teams.get(t.id);
