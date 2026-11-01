@@ -8,7 +8,7 @@ const overrides=JSON.parse(fs.readFileSync('data/college-soccer-crest-overrides.
 const brand=JSON.parse(fs.readFileSync('data/college-soccer-team-branding.json','utf8'));
 const shared=fs.readFileSync('slt-dual-ring.js','utf8');
 const css=fs.readFileSync('college-soccer-pitch.css','utf8');
-assert(shared.includes("if(league==='soccer'&&img.closest('.cs-pitch-badge'))return;"),'Legacy decorator must not paint pitch badges');
+assert(shared.includes(".cs-pitch-badge,.cs-match-badge"),'Legacy decorator must leave pitch and match-center badges untouched');
 assert(css.includes('.cs-pitch-badge.has-school-colors::before'),'Only one secondary ring pseudo-element may be used');
 assert(css.includes('.cs-pitch-badge.has-image .cs-pitch-initials{display:none!important}'),'Loaded crest must hide fallback initials');
 assert(!source.includes("make('span','cs-mark'"),'Pitch badge must not inherit legacy mark ring stack');
