@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "updated_at": "2026-11-01T15:48:29+00:00",
+  "updated_at": "2026-11-01T15:58:59+00:00",
   "attribution": "MIT Election Data and Science Lab (MEDSL), via electiondata.dev",
   "data_license": "CC0 1.0",
   "sources": {
@@ -33,6 +33,37 @@
           "ambiguous_candidates": 0,
           "missing_party": 1
         },
+        "excluded_contests": [
+          {
+            "id": "FL-10",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "VAL DEMINGS"
+            ]
+          },
+          {
+            "id": "FL-14",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "KATHY CASTOR"
+            ]
+          },
+          {
+            "id": "FL-21",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "LOIS FRANKEL"
+            ]
+          },
+          {
+            "id": "FL-24",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "FREDERICA WILSON"
+            ]
+          }
+        ],
+        "other_winners": [],
         "valid_contests": 431,
         "two_party_contests": 393
       }
@@ -56,6 +87,16 @@
           "ambiguous_candidates": 0,
           "missing_party": 83
         },
+        "excluded_contests": [
+          {
+            "id": "FL-25",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "MARIO DIAZ-BALART"
+            ]
+          }
+        ],
+        "other_winners": [],
         "valid_contests": 435,
         "two_party_contests": 407
       }
@@ -79,6 +120,29 @@
           "ambiguous_candidates": 0,
           "missing_party": 184
         },
+        "excluded_contests": [
+          {
+            "id": "FL-05",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "JOHN H RUTHERFORD"
+            ]
+          },
+          {
+            "id": "LA-04",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "MIKE JOHNSON"
+            ]
+          }
+        ],
+        "other_winners": [
+          {
+            "id": "ME-02",
+            "winner": "EXHAUSTED BALLOT",
+            "other_votes": 344433
+          }
+        ],
         "valid_contests": 433,
         "two_party_contests": 403
       }
@@ -102,6 +166,23 @@
           "ambiguous_candidates": 0,
           "missing_party": 180
         },
+        "excluded_contests": [
+          {
+            "id": "FL-20",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "SHEILA CHERFILUS-MCCORMICK"
+            ]
+          },
+          {
+            "id": "OK-03",
+            "reason": "missing_numeric_votes",
+            "ballot_candidates": [
+              "FRANK D. LUCAS"
+            ]
+          }
+        ],
+        "other_winners": [],
         "valid_contests": 434,
         "two_party_contests": 397
       }
@@ -127,6 +208,19 @@
           "ambiguous_candidates": 0,
           "missing_party": 0
         },
+        "excluded_contests": [],
+        "other_winners": [
+          {
+            "id": "ME",
+            "winner": "ANGUS S. KING, JR.",
+            "other_votes": 344639
+          },
+          {
+            "id": "VT",
+            "winner": "BERNIE SANDERS",
+            "other_votes": 197667
+          }
+        ],
         "valid_contests": 33,
         "two_party_contests": 31
       }
@@ -150,6 +244,14 @@
           "ambiguous_candidates": 0,
           "missing_party": 0
         },
+        "excluded_contests": [],
+        "other_winners": [
+          {
+            "id": "WY",
+            "winner": "CYNTHIA M. LUMMIS",
+            "other_votes": 277432
+          }
+        ],
         "valid_contests": 33,
         "two_party_contests": 31
       }
@@ -173,6 +275,24 @@
           "ambiguous_candidates": 0,
           "missing_party": 0
         },
+        "excluded_contests": [],
+        "other_winners": [
+          {
+            "id": "AK",
+            "winner": "MURKOWSKI, LISA",
+            "other_votes": 263526
+          },
+          {
+            "id": "IL",
+            "winner": "TAMMY DUCKWORTH",
+            "other_votes": 2397841
+          },
+          {
+            "id": "MD",
+            "winner": "CHRIS VAN HOLLEN",
+            "other_votes": 1320043
+          }
+        ],
         "valid_contests": 33,
         "two_party_contests": 29
       }
@@ -196,6 +316,19 @@
           "ambiguous_candidates": 0,
           "missing_party": 0
         },
+        "excluded_contests": [],
+        "other_winners": [
+          {
+            "id": "ME",
+            "winner": "ANGUS S. KING JR.",
+            "other_votes": 469138
+          },
+          {
+            "id": "VT",
+            "winner": "BERNIE SANDERS",
+            "other_votes": 256373
+          }
+        ],
         "valid_contests": 33,
         "two_party_contests": 31
       }
@@ -349,6 +482,193 @@
       "2024_winner_name": "EUGENE S. VINDMAN"
     }
   ],
+  "house_reconciliation": [
+    {
+      "year": 2018,
+      "official": {
+        "dem_wins": 235,
+        "rep_wins": 199,
+        "unresolved_seats": 1,
+        "total_seats": 435,
+        "context": "NC-09 lacked an election certificate"
+      },
+      "reconstructed": {
+        "dem": 231,
+        "rep": 200,
+        "other": 0,
+        "total": 431
+      },
+      "difference_official_minus_reconstructed": {
+        "dem": 4,
+        "rep": -1
+      },
+      "excluded_contests": [
+        {
+          "id": "FL-10",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "VAL DEMINGS"
+          ]
+        },
+        {
+          "id": "FL-14",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "KATHY CASTOR"
+          ]
+        },
+        {
+          "id": "FL-21",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "LOIS FRANKEL"
+          ]
+        },
+        {
+          "id": "FL-24",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "FREDERICA WILSON"
+          ]
+        }
+      ],
+      "other_winners": [],
+      "status": "requires_district_reconciliation",
+      "official_sources": [
+        "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+        "https://history.house.gov/Institution/Election-Statistics/Election-Statistics/"
+      ],
+      "note": "Official winners are independently sourced, not imputed into MIT candidate-vote rows. Unreconciled districts are excluded from model certification."
+    },
+    {
+      "year": 2020,
+      "official": {
+        "dem_wins": 222,
+        "rep_wins": 213,
+        "unresolved_seats": 0,
+        "total_seats": 435,
+        "context": "2020 general-election outcome including resolved NY-22"
+      },
+      "reconstructed": {
+        "dem": 223,
+        "rep": 212,
+        "other": 0,
+        "total": 435
+      },
+      "difference_official_minus_reconstructed": {
+        "dem": -1,
+        "rep": 1
+      },
+      "excluded_contests": [
+        {
+          "id": "FL-25",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "MARIO DIAZ-BALART"
+          ]
+        }
+      ],
+      "other_winners": [],
+      "status": "requires_district_reconciliation",
+      "official_sources": [
+        "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+        "https://history.house.gov/Institution/Election-Statistics/Election-Statistics/"
+      ],
+      "note": "Official winners are independently sourced, not imputed into MIT candidate-vote rows. Unreconciled districts are excluded from model certification."
+    },
+    {
+      "year": 2022,
+      "official": {
+        "dem_wins": 213,
+        "rep_wins": 222,
+        "unresolved_seats": 0,
+        "total_seats": 435,
+        "context": "118th Congress election outcome"
+      },
+      "reconstructed": {
+        "dem": 212,
+        "rep": 220,
+        "other": 1,
+        "total": 433
+      },
+      "difference_official_minus_reconstructed": {
+        "dem": 1,
+        "rep": 2
+      },
+      "excluded_contests": [
+        {
+          "id": "FL-05",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "JOHN H RUTHERFORD"
+          ]
+        },
+        {
+          "id": "LA-04",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "MIKE JOHNSON"
+          ]
+        }
+      ],
+      "other_winners": [
+        {
+          "id": "ME-02",
+          "winner": "EXHAUSTED BALLOT",
+          "other_votes": 344433
+        }
+      ],
+      "status": "requires_district_reconciliation",
+      "official_sources": [
+        "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+        "https://history.house.gov/Institution/Election-Statistics/Election-Statistics/"
+      ],
+      "note": "Official winners are independently sourced, not imputed into MIT candidate-vote rows. Unreconciled districts are excluded from model certification."
+    },
+    {
+      "year": 2024,
+      "official": {
+        "dem_wins": 215,
+        "rep_wins": 220,
+        "unresolved_seats": 0,
+        "total_seats": 435,
+        "context": "119th Congress election outcome"
+      },
+      "reconstructed": {
+        "dem": 215,
+        "rep": 219,
+        "other": 0,
+        "total": 434
+      },
+      "difference_official_minus_reconstructed": {
+        "dem": 0,
+        "rep": 1
+      },
+      "excluded_contests": [
+        {
+          "id": "FL-20",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "SHEILA CHERFILUS-MCCORMICK"
+          ]
+        },
+        {
+          "id": "OK-03",
+          "reason": "missing_numeric_votes",
+          "ballot_candidates": [
+            "FRANK D. LUCAS"
+          ]
+        }
+      ],
+      "other_winners": [],
+      "status": "requires_district_reconciliation",
+      "official_sources": [
+        "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+        "https://history.house.gov/Institution/Election-Statistics/Election-Statistics/"
+      ],
+      "note": "Official winners are independently sourced, not imputed into MIT candidate-vote rows. Unreconciled districts are excluded from model certification."
+    }
+  ],
   "coverage": {
     "house": {
       "2018": 431,
@@ -365,7 +685,7 @@
   },
   "warnings": [
     "These are HISTORICAL election returns, not 2026 forecasts or 2026 district ratings.",
-    "National vote share is a derived two-party tally of MEDSL candidate votes; races with unreported votes are omitted, not guessed.",
+    "Two-party shares computed from MEDSL candidate votes omit unavailable races; do not describe them as complete certified national totals.",
     "MEDSL candidate labels and fusion votes are normalized; any unverified races, districts and sources remain disclosed in data_quality.",
     "The 2018→2020 and 2022→2024 same-ID margin baselines have NOT been certified for boundary changes or uncontested races. Do not use them as predictive calibration."
   ],
@@ -429,5 +749,33 @@
     ],
     "forecast_2026_certified": false,
     "backtest_certified": false
-  }
+  },
+  "official_house_history": {
+    "2018": {
+      "dem": 235,
+      "rep": 199,
+      "unresolved": 1,
+      "context": "NC-09 lacked an election certificate"
+    },
+    "2020": {
+      "dem": 222,
+      "rep": 213,
+      "unresolved": 0,
+      "context": "2020 general-election outcome including resolved NY-22"
+    },
+    "2022": {
+      "dem": 213,
+      "rep": 222,
+      "unresolved": 0,
+      "context": "118th Congress election outcome"
+    },
+    "2024": {
+      "dem": 215,
+      "rep": 220,
+      "unresolved": 0,
+      "context": "119th Congress election outcome"
+    }
+  },
+  "reconciliation_complete": false,
+  "data_quality_status": "reconstruction_pending"
 }
