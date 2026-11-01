@@ -156,3 +156,25 @@ test('Every model revision is evaluated separately and cannot inherit the older 
  assert.equal(result.ledger.metrics.by_model_version['rabby-test-version'].early.sample,1);
  assert.equal(result.ledger.metrics.by_model_version['brand-new-model-sha'].near_tipoff.sample,1);
 });
+
+test('A final-score correction cannot silently rewrite a previously graded archived outcome',()=>{
+ const before=updateLedger(null,fixture,now);
+ const first=before.ledger.forecasts.find(x=>x.phase==='near_tipoff');
+ const verified=clone(fixture);
+ verified.earned.events.push({id:first.id,date:first.date,away:first.away,home:first.home,away_score:109,home_score:119});
+ verified.earned.games_played++;
+ const graded=updateLedger(before.ledger,verified,'2099-11-01T22:10:00Z');
+ assert.equal(graded.graded,1);
+ const corrected=clone(verified);
+ corrected.earned.events[corrected.earned.events.length-1].away_score=110;
+ assert.throws(()=>updateLedger(graded.ledger,corrected,'2099-11-01T22:11:00Z'),/Previously published NBA final changed/);
+});
+test('Conflicting duplicate provider IDs never create invented game forecasts',()=>{
+ const raw=clone(fixture);
+ raw.schedule.games.push({...raw.schedule.games[0],
+  date:'2099-11-01T23:00:00Z',
+  teams:[{home_away:'away',code:'CHI'},{home_away:'home',code:'MIA'}]});
+ const result=updateLedger(null,raw,now);
+ assert.equal(result.added,3,'Only three unambiguous schedule records may enter the forecast archive');
+ assert(!result.ledger.forecasts.some(x=>x.id==='synthetic-bos-orl'));
+});
