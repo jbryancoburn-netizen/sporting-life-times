@@ -1,0 +1,48 @@
+name: DII NCAA logo artwork palette audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/d2-artwork-palette-audit.yml'
+permissions:
+  contents: read
+concurrency:
+  group: d2-artwork-palette-audit-once
+  cancel-in-progress: false
+jobs:
+  source-palette-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate paint extraction and distinguish artwork from official school colors
+        run: |
+          python -m unittest discover -s tests -p 'test_d2_svg_palette.py' -v
+          python -m py_compile scripts/audit_d2_svg_palette.py
+      - name: Audit NCAA SVG logos for distinctive two-color artwork palettes
+        run: python scripts/audit_d2_svg_palette.py
+      - name: Verify evidence report provenance and unique school slugs
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('data/d2-ncaa-logo-artwork-palette-audit.json'))
+          assert p['kind'].startswith('candidates only')
+          assert len(p['entries'])==p['unique_slug_count']
+          assert p['unique_slug_count']>=250
+          for slug,item in p['entries'].items():
+              assert item['source_url'].endswith('/'+slug+'.svg')
+              if 'primary' in item:
+                  assert item['primary']!=item['secondary']
+                  assert item['method'].endswith('not institutional brand codes')
+          print(p['candidate_count'],'candidate palettes from',p['unique_slug_count'],'official NCAA school logo files')
+          PY
+      - name: Store evidence without altering published school colors
+        uses: actions/upload-artifact@v4
+        with:
+          name: dii-ncaa-school-logo-artwork-color-candidates
+          path: data/d2-ncaa-logo-artwork-palette-audit.json
+          retention-days: 14
