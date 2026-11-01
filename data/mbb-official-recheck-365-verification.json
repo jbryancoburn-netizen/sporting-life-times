@@ -2,7 +2,7 @@
   "schools_targeted": 365,
   "schools_checked": 365,
   "totals": {
-    "matched": 6699,
+    "matched": 6801,
     "site_corrected": 0,
     "site_conflicts": 5,
     "location_corrected": 0,
@@ -11,13 +11,13 @@
     "tipoff_added": 0
   },
   "status_counts": {
-    "already_matched": 321,
-    "source_fetch_failed": 44
+    "already_matched": 326,
+    "source_fetch_failed": 39
   },
   "source_method_counts": {
-    "sidearm_card": 163,
-    "table": 157,
-    "unreadable": 44,
+    "sidearm_card": 166,
+    "table": 159,
+    "unreadable": 39,
     "official_conference": 1
   },
   "schools": [
@@ -144,12 +144,12 @@
     {
       "team": "Ark.-Pine Bluff",
       "id": "2029",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 30,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Arkansas",
@@ -384,12 +384,12 @@
     {
       "team": "CSUN",
       "id": "2463",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 5,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Cal Poly",
@@ -724,12 +724,12 @@
     {
       "team": "Drake",
       "id": "2181",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Drexel",
@@ -874,12 +874,12 @@
     {
       "team": "FIU",
       "id": "2229",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 32,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Fairfield",
@@ -1715,12 +1715,12 @@
     {
       "team": "Michigan St.",
       "id": "127",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 6,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 54,
+      "source_method": "table"
     },
     {
       "team": "Middle Tenn.",
@@ -2095,12 +2095,12 @@
     {
       "team": "Northern Ariz.",
       "id": "2464",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 32,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Northern Colo.",
@@ -2496,12 +2496,12 @@
     {
       "team": "SIUE",
       "id": "2565",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 27,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "SMU",
@@ -7039,152 +7039,449 @@
     "season": "2026-27",
     "summary": {
       "schools_scanned": 365,
-      "schools_changed": 0,
-      "game_records_changed": 0,
-      "exact_matching_entries": 2743,
-      "time_conflicts": 383,
-      "network_conflicts": 54,
-      "evidence_game_keys": 1421,
+      "schools_changed": 20,
+      "game_records_changed": 51,
+      "exact_matching_entries": 4391,
+      "time_conflicts": 44,
+      "tipoffs_added": 45,
+      "networks_added": 6,
+      "network_conflicts": 2,
+      "evidence_game_keys": 2266,
       "evidence_skipped": {
-        "no_safe_fields": 56,
-        "unresolved_teams_or_date": 40
+        "no_safe_fields": 131,
+        "unresolved_teams_or_date": 98
       },
       "final_field_audit": {
         "game_entries": 11807,
-        "missing_broadcast": 4986,
-        "missing_tipoff": 983,
+        "missing_broadcast": 4980,
+        "missing_tipoff": 938,
         "site_unverified": 55
       }
     },
     "policy": "Exact date/two-team-ID matching; verified official sources only; no replacement of existing network or tipoff; disagreements logged.",
-    "changes": [],
+    "changes": [
+      {
+        "school_id": "251",
+        "event_id": "school-251-2026-12-01-9",
+        "date": "2026-12-01",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "251",
+        "event_id": "school-251-2027-01-05-16",
+        "date": "2027-01-05",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "251",
+        "event_id": "school-251-2027-01-27-22",
+        "date": "2027-01-27",
+        "field": "tipoff",
+        "value": "8:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "251",
+        "event_id": "school-251-2027-02-06-24",
+        "date": "2027-02-06",
+        "field": "tipoff",
+        "value": "12:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "2253",
+        "event_id": "school-2253-2026-12-11-11",
+        "date": "2026-12-11",
+        "field": "tipoff",
+        "value": "8 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      },
+      {
+        "school_id": "2253",
+        "event_id": "school-2253-2026-12-18-12",
+        "date": "2026-12-18",
+        "field": "tipoff",
+        "value": "6:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "24",
+        "event_id": "school-24-2026-11-09-18",
+        "date": "2026-11-09",
+        "field": "tipoff",
+        "value": "10 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      },
+      {
+        "school_id": "98",
+        "event_id": "school-98-2027-01-02-17",
+        "date": "2027-01-02",
+        "field": "network",
+        "value": [
+          "ESPN+"
+        ],
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "98",
+        "event_id": "school-98-2027-03-04-32",
+        "date": "2027-03-04",
+        "field": "network",
+        "value": [
+          "ESPN+"
+        ],
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2636",
+        "event_id": "cross-school-2636-2026-11-02_23",
+        "date": "2026-11-02",
+        "field": "tipoff",
+        "value": "3 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      },
+      {
+        "school_id": "2116",
+        "event_id": "school-2116-2026-11-27-30",
+        "date": "2026-11-27",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2026-11-13-6",
+        "date": "2026-11-13",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2026-11-16-7",
+        "date": "2026-11-16",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2026-11-27-10",
+        "date": "2026-11-27",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2026-12-01-11",
+        "date": "2026-12-01",
+        "field": "tipoff",
+        "value": "5:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2026-12-08-12",
+        "date": "2026-12-08",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2026-12-16-14",
+        "date": "2026-12-16",
+        "field": "tipoff",
+        "value": "6:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-01-02-17",
+        "date": "2027-01-02",
+        "field": "tipoff",
+        "value": "1:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-01-05-18",
+        "date": "2027-01-05",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-01-12-20",
+        "date": "2027-01-12",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-01-23-23",
+        "date": "2027-01-23",
+        "field": "tipoff",
+        "value": "4:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-02-03-25",
+        "date": "2027-02-03",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-02-24-31",
+        "date": "2027-02-24",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "61",
+        "event_id": "school-61-2027-03-06-34",
+        "date": "2027-03-06",
+        "field": "tipoff",
+        "value": "12:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "2229",
+        "event_id": "school-2229-2027-01-28-103",
+        "date": "2027-01-28",
+        "field": "network",
+        "value": [
+          "ESPN+"
+        ],
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2229",
+        "event_id": "school-2229-2027-02-25-131",
+        "date": "2027-02-25",
+        "field": "network",
+        "value": [
+          "ESPN+"
+        ],
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2335",
+        "event_id": "school-2335-2027-01-09-16",
+        "date": "2027-01-09",
+        "field": "tipoff",
+        "value": "3:00 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2335",
+        "event_id": "school-2335-2027-01-21-19",
+        "date": "2027-01-21",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2335",
+        "event_id": "school-2335-2027-02-11-25",
+        "date": "2027-02-11",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2335",
+        "event_id": "school-2335-2027-02-13-26",
+        "date": "2027-02-13",
+        "field": "tipoff",
+        "value": "4:00 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2335",
+        "event_id": "school-2335-2027-02-27-30",
+        "date": "2027-02-27",
+        "field": "tipoff",
+        "value": "4:00 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "245",
+        "event_id": "cross-school-245-2027-01-23_145",
+        "date": "2027-01-23",
+        "field": "tipoff",
+        "value": "6:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "282",
+        "event_id": "school-282-2027-01-02-105",
+        "date": "2027-01-02",
+        "field": "tipoff",
+        "value": "4 p.m. CT",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/mvc.sidearmsports.com/documents/2026/10/19/2026_27_MVC_Mens_Basketball_Productions_on_ESPN_Platforms.pdf"
+      },
+      {
+        "school_id": "2534",
+        "event_id": "school-2534-2027-01-16-19",
+        "date": "2027-01-16",
+        "field": "network",
+        "value": [
+          "ESPN+"
+        ],
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2534",
+        "event_id": "school-2534-2027-02-11-25",
+        "date": "2027-02-11",
+        "field": "network",
+        "value": [
+          "ESPN+"
+        ],
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "2492",
+        "event_id": "school-2492-2026-11-11-3",
+        "date": "2026-11-11",
+        "field": "tipoff",
+        "value": "7:30 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "50",
+        "event_id": "school-50-2026-11-09-27",
+        "date": "2026-11-09",
+        "field": "tipoff",
+        "value": "7:30 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      },
+      {
+        "school_id": "50",
+        "event_id": "school-50-2026-11-18-45",
+        "date": "2026-11-18",
+        "field": "tipoff",
+        "value": "8 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      },
+      {
+        "school_id": "50",
+        "event_id": "school-50-2026-12-12-75",
+        "date": "2026-12-12",
+        "field": "tipoff",
+        "value": "3 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      },
+      {
+        "school_id": "2166",
+        "event_id": "school-2166-2026-12-18-13",
+        "date": "2026-12-18",
+        "field": "tipoff",
+        "value": "7:00 pm ET",
+        "source_url": "https://s3.amazonaws.com/atlantic10.com/documents/2026/10/21/2627_MBB_Composite_TV_times.pdf"
+      },
+      {
+        "school_id": "2166",
+        "event_id": "school-2166-2027-01-16-19",
+        "date": "2027-01-16",
+        "field": "tipoff",
+        "value": "2:30 pm ET",
+        "source_url": "https://s3.amazonaws.com/atlantic10.com/documents/2026/10/21/2627_MBB_Composite_TV_times.pdf"
+      },
+      {
+        "school_id": "2166",
+        "event_id": "school-2166-2027-02-16-28",
+        "date": "2027-02-16",
+        "field": "tipoff",
+        "value": "7:00 pm ET",
+        "source_url": "https://s3.amazonaws.com/atlantic10.com/documents/2026/10/21/2627_MBB_Composite_TV_times.pdf"
+      },
+      {
+        "school_id": "265",
+        "event_id": "cross-school-265-2027-02-10_204",
+        "date": "2027-02-10",
+        "field": "tipoff",
+        "value": "8 p.m. PT",
+        "source_url": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx"
+      },
+      {
+        "school_id": "145",
+        "event_id": "school-145-2026-12-19-13",
+        "date": "2026-12-19",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "145",
+        "event_id": "school-145-2027-01-23-21",
+        "date": "2027-01-23",
+        "field": "tipoff",
+        "value": "6:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "145",
+        "event_id": "school-145-2027-02-17-28",
+        "date": "2027-02-17",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "145",
+        "event_id": "school-145-2027-02-24-30",
+        "date": "2027-02-24",
+        "field": "tipoff",
+        "value": "9:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "145",
+        "event_id": "school-145-2027-03-06-33",
+        "date": "2027-03-06",
+        "field": "tipoff",
+        "value": "4:00 PM ET",
+        "source_url": "https://www.secsports.com/schedule/basketball-m"
+      },
+      {
+        "school_id": "55",
+        "event_id": "cross-school-55-2027-01-21_2335",
+        "date": "2027-01-21",
+        "field": "tipoff",
+        "value": "7:00 PM ET",
+        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
+      },
+      {
+        "school_id": "204",
+        "event_id": "school-204-2027-02-10-27",
+        "date": "2027-02-10",
+        "field": "tipoff",
+        "value": "8 p.m. PT",
+        "source_url": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx"
+      },
+      {
+        "school_id": "23",
+        "event_id": "school-23-2026-11-02-8",
+        "date": "2026-11-02",
+        "field": "tipoff",
+        "value": "3 p.m. ET",
+        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
+      }
+    ],
     "conflicts": [
-      {
-        "school_id": "254",
-        "event_id": "school-254-2027-02-13-28",
-        "date": "2027-02-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "254",
-        "event_id": "school-254-2027-03-02-33",
-        "date": "2027-03-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "38",
-        "event_id": "school-38-2027-01-13-18",
-        "date": "2027-01-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "38",
-        "event_id": "school-38-2027-01-16-19",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "248",
-        "event_id": "school-248-2027-01-10-18",
-        "date": "2027-01-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "248",
-        "event_id": "school-248-2027-01-16-20",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "248",
-        "event_id": "school-248-2027-01-19-21",
-        "date": "2027-01-19",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2/U"
-          ],
-          [
-            "ESPN/ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "248",
-        "event_id": "school-248-2027-01-30-23",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "248",
-        "event_id": "school-248-2027-02-13-27",
-        "date": "2027-02-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
       {
         "school_id": "333",
         "event_id": "school-333-2026-11-24-8",
@@ -7196,538 +7493,6 @@
           ],
           [
             "ESPN"
-          ]
-        ]
-      },
-      {
-        "school_id": "333",
-        "event_id": "school-333-2027-02-27-32",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2132",
-        "event_id": "cross-school-2132-2027-02-27_2641",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2026-12-20-18",
-        "date": "2026-12-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-01-16-24",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-02-10-30",
-        "date": "2027-02-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-02-16-32",
-        "date": "2027-02-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-03-02-36",
-        "date": "2027-03-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-01-13-20",
-        "date": "2027-01-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-02-13-28",
-        "date": "2027-02-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-02-24-31",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2/U"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-02-27-32",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "252",
-        "event_id": "cross-school-252-2027-01-27_2628",
-        "date": "2027-01-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "252",
-        "event_id": "cross-school-252-2027-01-30_248",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "252",
-        "event_id": "cross-school-252-2027-03-02_197",
-        "date": "2027-03-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "277",
-        "event_id": "school-277-2027-01-30-25",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "277",
-        "event_id": "school-277-2027-02-20-30",
-        "date": "2027-02-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2628",
-        "event_id": "school-2628-2027-01-27-25",
-        "date": "2027-01-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2628",
-        "event_id": "school-2628-2027-02-24-32",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2/U"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-01-16-19",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-01-19-20",
-        "date": "2027-01-19",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2/U"
-          ],
-          [
-            "ESPN/ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-01-30-23",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-02-20-28",
-        "date": "2027-02-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-02-24-29",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-02-27-30",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2641",
-        "event_id": "school-2641-2027-03-02-31",
-        "date": "2027-03-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "238",
-        "event_id": "cross-school-238-2027-02-27_333",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "9",
-        "event_id": "cross-school-9-2027-01-16_12",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "12",
-        "event_id": "school-12-2027-01-16-25",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "12",
-        "event_id": "school-12-2027-01-30-28",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "12",
-        "event_id": "school-12-2027-02-16-33",
-        "date": "2027-02-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-01-16-21",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-02-10-27",
-        "date": "2027-02-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-02-13-28",
-        "date": "2027-02-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-02-23-31",
-        "date": "2027-02-23",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "77",
-        "event_id": "school-77-2026-12-20-41",
-        "date": "2026-12-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2306",
-        "event_id": "school-2306-2027-01-02-16",
-        "date": "2027-01-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2306",
-        "event_id": "school-2306-2027-02-24-30",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "2306",
-        "event_id": "school-2306-2027-02-27-31",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7744,83 +7509,13 @@
             "ESPN"
           ]
         ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-01-02-16",
-        "date": "2027-01-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-01-10-18",
-        "date": "2027-01-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-01-16-20",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-02-20-30",
-        "date": "2027-02-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/ESPNU"
-          ],
-          [
-            "ESPN2/U"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-02-23-31",
-        "date": "2027-02-23",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
       }
     ]
   },
   "final_field_audit": {
     "game_entries": 11807,
-    "missing_broadcast": 4986,
-    "missing_tipoff": 983,
+    "missing_broadcast": 4980,
+    "missing_tipoff": 938,
     "site_unverified": 55
   },
   "reviewed_official_announcements": {
@@ -7830,8 +7525,8 @@
       "reviewed_unique_games": 14,
       "post_announcement_field_audit": {
         "game_entries": 11807,
-        "missing_broadcast": 4986,
-        "missing_tipoff": 983,
+        "missing_broadcast": 4980,
+        "missing_tipoff": 938,
         "site_unverified": 55
       }
     },
@@ -9579,7 +9274,7 @@
         "opponent_game_id": "school-98-2027-01-02-17",
         "official_source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27",
         "venue": null,
-        "source_has_tv": false,
+        "source_has_tv": true,
         "source_has_clock": true
       },
       {
@@ -9769,7 +9464,7 @@
         "opponent_game_id": "school-2534-2027-01-16-19",
         "official_source_url": "https://gobearkats.com/sports/mens-basketball/schedule/text/2026-27",
         "venue": "Bernard G. Johnson Coliseum",
-        "source_has_tv": false,
+        "source_has_tv": true,
         "source_has_clock": true
       },
       {
@@ -9929,7 +9624,7 @@
         "opponent_game_id": "school-2229-2027-01-28-103",
         "official_source_url": "https://fiusports.com/sports/mens-basketball/schedule/text/2026-27",
         "venue": "Ocean Bank Convocation Center",
-        "source_has_tv": false,
+        "source_has_tv": true,
         "source_has_clock": true
       },
       {
@@ -10129,7 +9824,7 @@
         "opponent_game_id": "school-2534-2027-02-11-25",
         "official_source_url": "https://gobearkats.com/sports/mens-basketball/schedule/text/2026-27",
         "venue": "Pete Matthews Coliseum",
-        "source_has_tv": false,
+        "source_has_tv": true,
         "source_has_clock": true
       },
       {
@@ -10389,7 +10084,7 @@
         "opponent_game_id": "school-2229-2027-02-25-131",
         "official_source_url": "https://fiusports.com/sports/mens-basketball/schedule/text/2026-27",
         "venue": null,
-        "source_has_tv": false,
+        "source_has_tv": true,
         "source_has_clock": true
       },
       {
@@ -10609,7 +10304,7 @@
         "opponent_game_id": "school-98-2027-03-04-32",
         "official_source_url": "https://wkusports.com/sports/mens-basketball/schedule/text/2026-27",
         "venue": "E.A. Diddle Arena",
-        "source_has_tv": false,
+        "source_has_tv": true,
         "source_has_clock": true
       },
       {
