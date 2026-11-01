@@ -1090,6 +1090,13 @@ def update(gender, bootstrap=False, live=False):
     nsic_quality=previous_quality.get("official_nsic_schedule_reconciliation")
     if not rapid or not nsic_quality:
         nsic_quality=enrich_nsic(gender,games,teams,today)
+    # Thirty-two official Carolinas school calendars, two independent
+    # institutional witnesses for any new conference game (one per team).
+    from d2_carolinas_official import enrich_carolinas
+    carolinas_quality=previous_quality.get("official_carolinas_schedule_reconciliation")
+    if (not rapid or not carolinas_quality or
+        carolinas_quality.get("status")!="Carolinas two-school official fixtures verified"):
+        carolinas_quality=enrich_carolinas(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1180,7 +1187,8 @@ def update(gender, bootstrap=False, live=False):
         "official_gliac_schedule_reconciliation":gliac_quality,
         "official_gliac_university_venue_evidence":gliac_venue_quality,
         "official_rmac_schedule_reconciliation":rmac_quality,
-        "official_nsic_schedule_reconciliation":nsic_quality}
+        "official_nsic_schedule_reconciliation":nsic_quality,
+        "official_carolinas_schedule_reconciliation":carolinas_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
