@@ -7,55 +7,42 @@ const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":16
 const canonicalCode=c=>({NY:'NYK',SA:'SAS',GS:'GSW',NO:'NOP',WSH:'WAS',UTAH:'UTA'}[String(c||'').toUpperCase()]||String(c||'').toUpperCase());
 const logo=c=>'assets/nba-logos/'+canonicalCode(c)+'.png';
 let lastOK=0;let fallbackRecords={};
-let eloRatings={},effTeams={},leaguePace=99,leagueEfficiency=113,resultGames=0;
-const possessions=x=>Number(x.fga)-Number(x.oreb)+Number(x.tov)+.44*Number(x.fta);
+let eloRatings={},forecastModel=null;
 async function loadPregameElo(){
  try{
-  const [er,gr]=await Promise.all([fetch('data/nba-elo-shadow-2026-27.json',{cache:'no-store'}),fetch('data/nba-game-center.json',{cache:'no-store'})]);
-  if(!er.ok||!gr.ok)throw Error('ratings or box scores missing');
-  const [elo,archive]=await Promise.all([er.json(),gr.json()]);
-  const ratings=Object.fromEntries((elo.rankings||[]).filter(x=>nbaPrimaryIds[x.team]&&Number.isFinite(Number(x.elo))).map(x=>[x.team,Number(x.elo)]));
-  if(Object.keys(ratings).length!==30)throw Error('incomplete ratings');
-  const stats={},seen=new Set();let totalP=0,totalPoints=0,count=0;
-  for(const game of archive.games||[]){
-   if(game.state!=='post'||seen.has(game.id))continue;
-   const p=game.possession_stats,h=p?.home,a=p?.away;
-   if(!h||!a||p.regular_season===false)continue;
-   const hc=canonicalCode(h.code),ac=canonicalCode(a.code),hp=possessions(h),ap=possessions(a);
-   if(!nbaPrimaryIds[hc]||!nbaPrimaryIds[ac]||![hp,ap,h.points,a.points].every(x=>Number.isFinite(Number(x)))||hp<70||ap<70||hp>130||ap>130)continue;
-   seen.add(game.id);count++;totalP+=(hp+ap)/2;totalPoints+=Number(h.points)+Number(a.points);
-   for(const t of [hc,ac])stats[t]??={gp:0,poss:0,attackPts:0,defensePts:0,opponentPoss:0};
-   stats[hc].gp++;stats[hc].poss+=hp;stats[hc].attackPts+=Number(h.points);stats[hc].defensePts+=Number(a.points);stats[hc].opponentPoss+=ap;
-   stats[ac].gp++;stats[ac].poss+=ap;stats[ac].attackPts+=Number(a.points);stats[ac].defensePts+=Number(h.points);stats[ac].opponentPoss+=hp;
-  }
-  if(count<10)throw Error('insufficient verified possession data');
-  eloRatings=ratings;effTeams=stats;resultGames=count;leaguePace=totalP/count;leagueEfficiency=100*totalPoints/(2*totalP);
- }catch(e){console.warn('NBA efficiency forecast retains last complete snapshot',e.message)}
+  const [eloResponse,statResponse]=await Promise.all([
+   fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'}),
+   fetch('data/nba-possession-inputs.json',{cache:'no-store'})
+  ]);
+  if(!eloResponse.ok||!statResponse.ok)throw Error('earned Elo or verified possessions unavailable');
+  if(!window.RabbyPossessionModel)throw Error('Rabby possession engine not loaded');
+  const [elo,stats]=await Promise.all([eloResponse.json(),statResponse.json()]);
+  const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>nbaPrimaryIds[r.team]&&Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
+  const model=window.RabbyPossessionModel.build(stats,4);
+  if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('NBA 30-team scoring coverage incomplete');
+  eloRatings=ratings;forecastModel=model;
+ }catch(error){console.warn('NBA pregame forecast retains last verified snapshot:',error.message);}
 }
 function projectNumbers(g){
- const awayElo=eloRatings[g.away.code],homeElo=eloRatings[g.home.code];
- if(!Number.isFinite(awayElo)||!Number.isFinite(homeElo)||!resultGames)return null;
- const edge=homeElo+40-awayElo,homeWin=1/(1+Math.pow(10,-edge/400));
- // Twenty-game pseudo-sample selected from early sequential box-score validation; provisional.
- const adjusted=t=>{const z=effTeams[t],n=z?.gp||0;
-  return {pace:((z?.poss||0)+20*leaguePace)/(n+20),
-   offense:100*((z?.attackPts||0)+20*leaguePace*leagueEfficiency/100)/((z?.poss||0)+20*leaguePace),
-   defense:100*((z?.defensePts||0)+20*leaguePace*leagueEfficiency/100)/((z?.opponentPoss||0)+20*leaguePace)};};
- const away=adjusted(g.away.code),home=adjusted(g.home.code);
- const pace=Math.max(90,Math.min(107,(away.pace+home.pace)/2));
- // Opposing defensive efficiency directly controls each offense's projection.
- const awayEff=leagueEfficiency+(away.offense-leagueEfficiency)+(home.defense-leagueEfficiency);
- const homeEff=leagueEfficiency+(home.offense-leagueEfficiency)+(away.defense-leagueEfficiency);
- const awayRaw=pace*awayEff/100,homeRaw=pace*homeEff/100;
- // Small Elo adjustment; win-probabilities retain independently calibrated Elo formula.
- const ratingMargin=Math.max(-17,Math.min(17,edge/35));
- const baselineMargin=homeRaw-awayRaw,delta=Math.max(-5,Math.min(5,(ratingMargin-baselineMargin)*.25));
- let h=Math.round(homeRaw+delta/2),a=Math.round(awayRaw-delta/2);
- if(h===a){if(homeWin>=.5)h++;else a++;}
- return {awayElo,homeElo,homeWin,awayScore:a,homeScore:h,games:resultGames,pace};
+ if(!forecastModel||!window.RabbyPossessionModel)return null;
+ const hc=canonicalCode(g.home.code),ac=canonicalCode(g.away.code);
+ const result=window.RabbyPossessionModel.project(hc,ac,forecastModel,eloRatings);
+ return result?{...result,awayElo:eloRatings[ac],homeElo:eloRatings[hc]}:null;
 }
-function projected(g){const x=projectNumbers(g);if(!x)return '';
- return '<div class="nba-pregame"><div class="nba-pregame-label">USRS PREGAME ESTIMATE · NOT LIVE</div><div class="nba-pregame-ratings">'+g.away.code+' Elo '+Math.round(x.awayElo)+' · '+g.home.code+' Elo '+Math.round(x.homeElo)+'</div><div class="nba-pregame-score">'+g.away.code+' '+x.awayScore+' – '+x.homeScore+' '+g.home.code+'</div><div class="nba-pregame-prob">Win chance: '+g.away.code+' '+Math.round((1-x.homeWin)*100)+'% · '+g.home.code+' '+Math.round(x.homeWin*100)+'%</div></div>';}
+function projected(g){
+ const x=projectNumbers(g);if(!x)return '';
+ const away=g.away.code,home=g.home.code,spread=x.margin>=0?home:away;
+ const d=Date.parse(x.coverage.updatedAt||'');
+ const asOf=Number.isFinite(d)?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(d))+' ET':'latest verified box scores';
+ return '<div class="nba-pregame">'+
+  '<div class="nba-pregame-label">RABBY · POSSESSION-BASED SCORE FORECAST · NOT LIVE</div>'+
+  '<div class="nba-pregame-score">'+esc(away)+' '+x.awayScore+' – '+x.homeScore+' '+esc(home)+'</div>'+
+  '<div class="nba-pregame-prob">Independent Elo: '+esc(away)+' '+Math.round((1-x.homeWin)*100)+'% · '+esc(home)+' '+Math.round(x.homeWin*100)+'%</div>'+
+  '<div class="nba-pregame-breakdown"><span>Projected total <b>'+x.total.toFixed(1)+'</b></span><span>Margin <b>'+esc(spread)+' '+Math.abs(x.margin).toFixed(1)+'</b></span><span>Tempo <b>'+x.possessions.toFixed(1)+' poss.</b></span></div>'+
+  '<div class="nba-pregame-ratings">Offense vs opponent defense · '+esc(away)+' '+x.awayEfficiency.toFixed(1)+' · '+esc(home)+' '+x.homeEfficiency.toFixed(1)+' pts/100</div>'+
+  '<div class="nba-pregame-source">'+x.coverage.games+' verified box scores · '+esc(away)+' '+x.awayGames+' GP / '+esc(home)+' '+x.homeGames+' GP · updated '+esc(asOf)+'</div>'+
+  '</div>';
+}
 async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
 function render(payload){
  const events=Array.isArray(payload.events)?payload.events:[];
