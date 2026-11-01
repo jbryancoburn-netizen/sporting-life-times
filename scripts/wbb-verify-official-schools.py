@@ -293,7 +293,7 @@ def official_visible_rows(html,tid,school_data,safe_stems):
 
 def school(tid,school_data,safe_stems):
  result={"team_id":tid,"school":school_data["team"],"status":"no_official_url","source":None,
-         "source_rows":0,"matched":0,"site_matched":0,"site_conflicts":0,"site_conflict_cases":[],"evidence":[]}
+         "source_rows":0,"matched":0,"site_matched":0,"site_inferred_matches":0,"site_conflicts":0,"site_conflict_cases":[],"evidence":[]}
  urls=official_urls(tid)
  if not urls:return result
  rows=[];url=None
@@ -333,7 +333,12 @@ def school(tid,school_data,safe_stems):
   seen.add(g["id"])
   fields=["scheduled_date","opponent"]
   if r["site"]:
-   if r["site"]==g["site"]:fields.append("home_away");result["site_matched"]+=1
+   if r["site"]==g["site"]:
+    if r.get("site_evidence") in ("explicit_site_column","neutral_markup","away_prefix"):
+     fields.append("home_away");result["site_matched"]+=1
+    else:
+     # A "vs." prefix alone does not independently certify a home venue.
+     result["site_inferred_matches"]+=1
    else:
     result["site_conflicts"]+=1
     result["site_conflict_cases"].append({
@@ -341,6 +346,12 @@ def school(tid,school_data,safe_stems):
      "opponent_id":str(g.get("opponent_id") or ""),"opponent":str(g.get("opponent") or ""),
      "date":r["date"],"published_site":g["site"],"university_listed_site":r["site"],
      "site_evidence":r.get("site_evidence","unknown_source_markup"),
+     "review_classification":("ambiguous_vs_at_neutral_site" if
+        g["site"]=="neutral" and r["site"]=="home" and
+        r.get("site_evidence")=="vs_prefix" else
+        "explicit_site_claim_disagreement" if
+        r.get("site_evidence") in ("neutral_markup","explicit_site_column") else
+        "prefix_inferred_site_disagreement"),
      "source_url":url,"source_type":r["origin"]
     })
   result["evidence"].append({"team_id":tid,"game_id":g["id"],
@@ -415,6 +426,9 @@ def main():
    "official_home_away_conflicts":sum(x["site_conflicts"] for x in results),
    "official_site_conflict_unique_games":len({x["game_id"] for x in conflict_cases}),
    "official_site_conflict_team_claims":len(conflict_cases),
+   "site_matches_inferred_from_university_vs_prefix":sum(x["site_inferred_matches"] for x in results),
+   "site_conflicts_ambiguous_vs_at_neutral":sum(x["review_classification"]=="ambiguous_vs_at_neutral_site" for x in conflict_cases),
+   "site_conflicts_explicit_university_claims":sum(x["review_classification"]=="explicit_site_claim_disagreement" for x in conflict_cases),
    "status_counts":dict(collections.Counter(x["status"] for x in results)),
    "school_results":results,
    "policy":"Exact calendar date + unique opponent from official women's university schedule. No official arena, tipoff or TV claimed unless separately verified."
@@ -433,6 +447,8 @@ def main():
       "season":"2026-27","gender":"women","status":"unresolved_university_site_claims",
       "policy":"A university 'vs.' prefix is not proof of an on-campus game. Preserve existing ESPN event identities, avoid home-edge forecasts pending independent venue confirmation.",
       "school_game_claims":len(conflict_cases),
+      "ambiguous_vs_at_neutral":sum(x["review_classification"]=="ambiguous_vs_at_neutral_site" for x in conflict_cases),
+      "explicit_university_site_disagreements":sum(x["review_classification"]=="explicit_site_claim_disagreement" for x in conflict_cases),
       "unique_game_ids":len({x["game_id"] for x in conflict_cases}),
       "games":sorted(conflict_cases,key=lambda x:(x["game_id"],x["team_id"]))
                   })]:
