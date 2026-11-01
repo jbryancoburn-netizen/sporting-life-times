@@ -26,7 +26,7 @@
       "publication_date": null,
       "reviewed_at": "2026-11-01",
       "source_type": "official_qualified_candidate_listing",
-      "scope": "27_2026_house_districts_listed_plus_senate;_FL-10_not_on_source_listing",
+      "scope": "27_qualified_ballot_house_contests_plus_senate;_FL-10_unopposed_official_detail_source",
       "transcription_status": "reviewed_partial"
     },
     {
@@ -60,6 +60,17 @@
       "reviewed_at": "2026-11-01",
       "source_type": "official_general_election_candidate_list",
       "scope": "full_federal_house_and_senate_snapshot",
+      "transcription_status": "reviewed"
+    },
+    {
+      "id": "FL_DOE_2026_UNOPPOSED",
+      "state": "FL",
+      "publisher": "Florida Division of Elections",
+      "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89909",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_candidate_detail_qualified_unopposed",
+      "scope": "official_unopposed_no_general_ballot_appearance",
       "transcription_status": "reviewed"
     }
   ],
@@ -261,6 +272,22 @@
         },
         {
           "name": "Darren Soto",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-10",
+      "state": "FL",
+      "office": "H",
+      "district": "10",
+      "source_id": "FL_DOE_2026_UNOPPOSED",
+      "contest_status": "unopposed_no_general_ballot",
+      "candidates": [
+        {
+          "name": "Maxwell Alejandro Frost",
           "party": "DEM"
         }
       ],
