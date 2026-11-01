@@ -154,5 +154,5 @@ body.nfl-paper[data-page="front"] .nfl-mast a{letter-spacing:-.055em}
  .nfl-p26 .nfl-p26-hero-club .nfl-badge.lg{width:63px;height:63px;flex:0 0 63px;--nfl-outer:5px;--nfl-inner:4px}
  .nfl-p26 .nfl-p26-hero-teamname{font-size:16px}
  .nfl-p26 .nfl-p26-hero-score{font-size:37px}
- .nfl-p26 .nfl-p26-score-grid{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
