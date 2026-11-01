@@ -433,10 +433,31 @@ def seed_published_dii_palettes(gender,teams):
         matched+=1
     return {"matched":matched,"tonal_accents":tonal,"source":"school-specific documented colors"}
 
+def apply_membership_notes(gender,teams):
+    """Never upgrade prospective conference members into certified DII schools."""
+    path=DATA/"d2-membership-notes-2026-27.json"
+    if not path.exists():return {"annotated":0,"excluded_from_dii_elo":0}
+    notes=json.loads(path.read_text()).get(gender,{})
+    annotated=0;excluded=0
+    for ident,record in notes.items():
+        t=teams.get(ident)
+        if t is None:continue
+        t["membership_status"]=record["status"]
+        t["membership_source"]=record["source"]
+        t["membership_note"]=record["note"]
+        t["not_eligible_for_dii_elo"]=bool(record.get("not_eligible_for_dii_elo",False))
+        if t["not_eligible_for_dii_elo"]:
+            t["d2_confirmed"]=False
+            excluded+=1
+        annotated+=1
+    return {"annotated":annotated,"excluded_from_dii_elo":excluded,
+            "membership_source":"Official athletics, conference and NCAA announcements"}
+
 def build_dii_team_lookup(teams):
     """Build a unique, conservative identity map for official NCAA contests."""
     by_slug={};by_name={}
     for ident,t in teams.items():
+        if t.get("not_eligible_for_dii_elo"):continue
         slug_value=t.get("slug")
         if slug_value:by_slug.setdefault(slug_value,set()).add(ident)
         names=[t.get("name",""),ident]
@@ -512,6 +533,7 @@ def update(gender, bootstrap=False):
         if "site.api.espn.com" in team.get("color_source","") and "group=51" in team.get("color_source",""):
             for field in ("primary","secondary","color_source","color_provenance","espn_id"):
                 team.pop(field,None)
+    membership_quality=apply_membership_notes(gender,teams)
     color_quality=seed_espn_dii_branding(gender,teams)
     logo_quality=seed_official_logos(teams)
     paired_quality=seed_cross_gender_logos(gender,teams)
@@ -597,7 +619,7 @@ def update(gender, bootstrap=False):
     finals=0
     for game in sorted(games.values(),key=lambda v:(v["date"],str(v.get("start_time") or ""),str(v["id"]))):
         a,h=game["away"],game["home"]
-        if a not in rating or h not in rating or not game.get("elo_eligible"):
+        if a not in rating or h not in rating or not game.get("elo_eligible") or teams[a].get("not_eligible_for_dii_elo") or teams[h].get("not_eligible_for_dii_elo"):
             # Cross-division opponents and uncertain memberships must not
             # receive bogus win probabilities.
             for field in ("pregame_elo_away","pregame_elo_home","pred_home_pct",
@@ -643,7 +665,8 @@ def update(gender, bootstrap=False):
         "directory_source":directory_source,"directory_error":directory_error,
         "official_logo_index":logo_quality,
         "school_color_coverage":color_quality,
-        "membership_certified":False}
+        "membership_certified":False,
+        "membership_review":membership_quality}
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
         "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,"status":"provisional coefficients; historical calibration not completed"},
