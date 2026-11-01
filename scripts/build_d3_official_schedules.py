@@ -55,7 +55,14 @@ ALIASES = {
     "hardin simmons": 271,
     "trinity college conn": 713, "trinity college ct": 713,
     "trinity university tx": 715, "trinity university texas": 715,
-    "olivet": 461, # validated against actual directory ID when resolving
+    "olivet": 525, "the university of olivet": 525,
+    "lasell": 8486, "oswego state": 530, "wpi": 808, "umass dartmouth": 656,
+    "anderson ind": 939, "anderson in": 939, "redlands": 567,
+    "brandeis": 73, "coast guard": 722, "franklin": 2694,
+    "saint johns": 602, "st johns": 602,
+    "saint johns minnesota": 602, "st johns minnesota": 602,
+    "johnson and wales university": 22626, "uw eau claire": 793,
+    "uw oshkosh": 798, "uw stevens point": 802,
 }
 DATE = re.compile(
     r"^([A-Za-z]+)\s+(\d{1,2}),?\s+(2026|2027)(?:\s+\([^)]+\))?$")
