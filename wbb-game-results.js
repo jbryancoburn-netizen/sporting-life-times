@@ -27,7 +27,7 @@ function merge(schedule,ledger,teamId){
     const current=String(teamId);
     const opponent=String(g.opponent_id??'');
     const rightTeam=(String(f.home_id)===current||String(f.away_id)===current)&&
-      (!opponent||opponent===String(f.home_id===current?f.away_id:f.home_id));
+      (!opponent||opponent===String(String(f.home_id)===current?f.away_id:f.home_id));
     const when=Date.parse(g.date),finalWhen=Date.parse(f.date);
     const dateOK=Number.isFinite(when)&&Number.isFinite(finalWhen)&&Math.abs(when-finalWhen)<=48*60*60*1000;
     const scoresOK=finiteScore(f.home_score)&&finiteScore(f.away_score)&&
