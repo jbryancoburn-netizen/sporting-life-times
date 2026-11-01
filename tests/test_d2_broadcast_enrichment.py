@@ -89,6 +89,7 @@ class D2BroadcastEnrichmentTests(unittest.TestCase):
         self.assertEqual(old["id"],"ncaa-6656777")
         self.assertEqual(old["source_url"],"https://www.ncaa.com/game/6656777")
         self.assertEqual(old["network"],"GNAC Network")
+        self.assertTrue(old["neutral"],"Neutral Nampa tournament must not get a home Elo edge")
         self.assertEqual(old["start_time"],"7:15 PM ET")
         self.assertEqual(len(games),10)
         result2=builder.apply_verified_schedule_broadcasts("women",games,teams,dt.date(2026,11,1))
