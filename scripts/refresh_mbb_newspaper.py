@@ -574,6 +574,22 @@ def main():
                 audited['accepted']+=1
             else:
                 audited['rejected_or_unavailable']+=1
+                # Schema-only diagnostics, never publish raw unverified stats.
+                root=data.get('data',data) if isinstance(data,dict) else {}
+                raw=root.get('boxscore',root) if isinstance(root,dict) else {}
+                blocks=raw.get('teamBoxscore',[]) if isinstance(raw,dict) else []
+                if not isinstance(blocks,list):blocks=[]
+                info={'ncaa_id':gid,'top_keys':list(data)[:8] if isinstance(data,dict) else [],
+                      'box_keys':list(raw)[:12] if isinstance(raw,dict) else [],
+                      'ncaa_team_ids':[str(x.get('teamId','')) for x in blocks[:2]
+                                       if isinstance(x,dict)],
+                      'expected_team_ids':expected,
+                      'player_counts':[len(x.get('playerStats',[])) for x in blocks[:2]
+                         if isinstance(x,dict) and isinstance(x.get('playerStats'),list)],
+                      'team_info':[(str(x.get('teamId','')),x.get('isHome')) for x in
+                         ((raw.get('teams') or []) if isinstance(raw,dict) else [])[:2]
+                         if isinstance(x,dict)]}
+                audited.setdefault('rejection_shapes',[]).append(info)
         except Exception as exc:
             audited['rejected_or_unavailable']+=1
             audited.setdefault('errors',{}).setdefault(type(exc).__name__,0)
