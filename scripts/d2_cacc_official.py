@@ -44,14 +44,14 @@ def clean(text):
 
 def opponent_id(name):
  value=clean(name).lower()
- value=re.sub(r"^(at|vs\\.?|versus)\\s+","",value)
+ value=re.sub(r"^(at|vs\.?|versus)\s+","",value)
  value=re.sub(r"[^a-z0-9 ]"," ",value)
  return ALIASES.get(" ".join(value.split()))
 
 def eastern_time(value):
  """No ET suffix on CACC pages; all 11 campuses operate on Eastern time."""
  text=clean(value).upper()
- result=re.fullmatch(r"(1[0-2]|0?[1-9]):([0-5]\\d)\\s*([AP])\\.?M\\.?",text)
+ result=re.fullmatch(r"(1[0-2]|0?[1-9]):([0-5]\d)\s*([AP])\.?M\.?",text)
  if not result:return None
  h=int(result[1])%12+(12 if result[3]=="P" else 0)
  return f"{h%12 or 12}:{result[2]} {'AM' if h<12 else 'PM'} ET"
@@ -77,7 +77,7 @@ def parse_cacc_school(html,identity,schedule_id):
    fields=[clean(td.get_text(" ",strip=True)) for td in tr.find_all(["td","th"],recursive=False)]
    if len(fields)<6:continue
    rawdate,rawtime,opponent,location,result,event=fields[:6]
-   if not re.fullmatch(r"\\d{1,2}/\\d{1,2}/202[67]",rawdate):continue
+   if not re.fullmatch(r"\d{1,2}/\d{1,2}/202[67]",rawdate):continue
    date=dt.datetime.strptime(rawdate,"%m/%d/%Y").date()
    if not(dt.date(2026,11,1)<=date<=dt.date(2027,2,28)):continue
    low=opponent.lower().strip()
