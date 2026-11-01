@@ -97,7 +97,8 @@ function renderNational(a){
  title("All 435 U.S. House districts");
  insertMetric($("metrics"),["435","50",fmt(a["2026_official_ballot_offices"]),a["2026_polled_districts"]]);
  const board=$("state-tiles"),list=$("state-list");
- a.states.forEach(s=>{board.append(makeStateTile(s));list.append(makeStateLink(s))});
+ a.states.forEach(s=>list.append(makeStateLink(s)));
+  if(window.HouseGeo){window.HouseGeo.evidenceColor=color;window.HouseGeo.national(a,board);}
  const input=$("state-search");input.addEventListener("input",()=>{
    let term=input.value.trim().toLocaleLowerCase();
    list.replaceChildren();
@@ -127,6 +128,7 @@ function renderState(a){
   $("district-count").textContent=shown.length+" / "+rows.length+" House districts";
  }
  select.addEventListener("change",paint);paint();
+  if(window.HouseGeo)window.HouseGeo.state(state,rows,districtEvidence,color,urlForDistrict);
  if(state["2026_congressional_map_changed"]){
   let callout=$("boundary-caution");
   callout.hidden=false;
