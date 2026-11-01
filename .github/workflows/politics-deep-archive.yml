@@ -1,0 +1,74 @@
+name: Original MIT 2000–2010 election history archive
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_deep_archive.py'
+      - 'test_politics_deep_archive.py'
+      - '.github/workflows/politics-deep-archive.yml'
+  schedule:
+    - cron: '13 13 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: politics-deep-history-archive
+  cancel-in-progress: false
+jobs:
+  original-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test 2000–2010 original return ingestion and vintage safeguards
+        run: |
+          python -m py_compile scripts/politics_deep_archive.py
+          python -m unittest -v test_politics_deep_archive
+      - name: Collect only 2000–2010 House and Senate general elections
+        id: gather
+        continue-on-error: true
+        run: python scripts/politics_deep_archive.py
+      - name: Reject incomplete source and prohibit live forecast use
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('politics-deep-history.json'))
+          s=json.load(open('politics-deep-history-status.json'))
+          if s["status"]=="success":
+              assert a["status"]=="ok"
+              assert a["years"]==[2000,2002,2004,2006,2008,2010]
+              assert len(a["house"])>=2460 and len(a["senate"])>=144
+              assert a["district_vintage_reconciled_to_2026"] is False
+              assert a["forecast_2026_eligible"] is False
+              assert a["house_winner_party_totals_certified"] is False
+          print('Historical archive status:',s)
+          PY
+      - name: Recompute source-readiness ledger without approving simulations
+        run: |
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          s=json.load(open('politics-sim-readiness.json'))
+          assert s['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert s['certified_original_probability_count']==0
+          print('Forecast readiness remains:',s['counts'])
+          PY
+      - name: Publish evidence independently of all sports jobs
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-deep-history.json politics-deep-history-status.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh real MEDSL 2000–2010 elections (research archive only)"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              echo "Concurrent update: retry $attempt"
+              sleep 3
+            done
+            exit 1
+          fi
