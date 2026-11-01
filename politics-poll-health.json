@@ -1,14 +1,19 @@
 {
-  "checked_at": null,
-  "status": "not_yet_audited",
+  "checked_at": "2026-11-01T15:57:52+00:00",
   "source": "VoteHub polling API",
   "source_url": "https://votehub.com/polls/api/",
-  "raw_poll_records": null,
-  "eligible_polls": null,
-  "unique_pollsters": null,
+  "status": "insufficient_polling",
+  "raw_poll_records": 3,
+  "eligible_polls": 2,
+  "unique_pollsters": 2,
   "minimum_pollsters": 3,
   "window_days": 35,
-  "exclusions": {},
-  "latest_eligible_poll_end_date": null,
-  "message": "The independently calculated average publishes only when three or more polling firms have valid records."
+  "exclusions": {
+    "missing_fields": 1,
+    "outside_window": 0,
+    "partisan": 0,
+    "duplicate": 0
+  },
+  "latest_eligible_poll_end_date": "2026-10-04",
+  "message": "Insufficient eligible polling organizations; no independent average is certified."
 }
