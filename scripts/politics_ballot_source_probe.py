@@ -12,6 +12,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "politics-ballot-source-health.json"
 SOURCE = ROOT / "politics-official-ballots.json"
 LIMIT = 9_000_000
+CALIFORNIA_CERTIFIED_PDF = "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
+CALIFORNIA_PDF_LIMIT = 18_000_000
 
 def load_json(path):
     try:
@@ -26,8 +28,9 @@ def read(url):
         "Cache-Control": "no-cache",
     })
     with urllib.request.urlopen(req, timeout=25) as response:
-        blob = response.read(LIMIT + 1)
-        if not blob or len(blob) > LIMIT:
+        allowed_bytes = CALIFORNIA_PDF_LIMIT if url == CALIFORNIA_CERTIFIED_PDF else LIMIT
+        blob = response.read(allowed_bytes + 1)
+        if not blob or len(blob) > allowed_bytes:
             raise ValueError("Empty or oversized official source response")
         return {
             "http_status": response.status,
@@ -51,7 +54,7 @@ def collect(ledger, previous=None, fetch=read, now=None):
         entry = {
             "id": sid, "state": source["state"], "url": source["url"],
             "checked_at": now.isoformat(timespec="seconds"),
-            "source_transcription_reviewed_at": ledger["reviewed_at"],
+            "source_transcription_reviewed_at": source.get("reviewed_at") or ledger["reviewed_at"],
             "candidate_rows_automatically_updated": False
         }
         try:

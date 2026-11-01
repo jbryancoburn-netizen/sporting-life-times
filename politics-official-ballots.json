@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Government candidate-list snapshots only; Maryland's 2026 House entries include three active qualified write-in candidates but exclude withdrawn candidates, failed petitions, and other non-active filings. Florida FL-10 is separately sourced as an unopposed office without general-election ballot appearance. WRI entries are write-in qualifications, not printed candidate names. The nationwide roster is incomplete and no 2026 probability forecast is certified.",
+  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -37,8 +37,9 @@
       "publication_date": "2026-08-27",
       "reviewed_at": "2026-11-01",
       "source_type": "official_certified_candidate_list",
-      "scope": "source_link_only",
-      "transcription_status": "not_transcribed"
+      "scope": "full_52_california_house_districts_from_august_27_certified_general_list",
+      "transcription_status": "reviewed",
+      "source_sha256": "0e514ae7b14378b1837bcea99c07e6a05ce35baa9db4c3d3a2297704dc7e6017"
     },
     {
       "id": "NV_SOS_2026_GENERAL",
@@ -87,6 +88,994 @@
     }
   ],
   "races": [
+    {
+      "id": "CA-01",
+      "state": "CA",
+      "office": "H",
+      "district": "01",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mike McGuire",
+          "party": "DEM"
+        },
+        {
+          "name": "James Gallagher",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-02",
+      "state": "CA",
+      "office": "H",
+      "district": "02",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jared Huffman",
+          "party": "DEM"
+        },
+        {
+          "name": "Robin Littau",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-03",
+      "state": "CA",
+      "office": "H",
+      "district": "03",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ami Bera",
+          "party": "DEM"
+        },
+        {
+          "name": "Robb Tucker",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-04",
+      "state": "CA",
+      "office": "H",
+      "district": "04",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Eric Jones",
+          "party": "DEM"
+        },
+        {
+          "name": "Mike Thompson",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-05",
+      "state": "CA",
+      "office": "H",
+      "district": "05",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Michael Masuda",
+          "party": "DEM"
+        },
+        {
+          "name": "Tom McClintock",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-06",
+      "state": "CA",
+      "office": "H",
+      "district": "06",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Richard Pan",
+          "party": "DEM"
+        },
+        {
+          "name": "Kevin Kiley",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-07",
+      "state": "CA",
+      "office": "H",
+      "district": "07",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Doris Matsui",
+          "party": "DEM"
+        },
+        {
+          "name": "Mai Vang",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-08",
+      "state": "CA",
+      "office": "H",
+      "district": "08",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "John Garamendi",
+          "party": "DEM"
+        },
+        {
+          "name": "Rudy Recile",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-09",
+      "state": "CA",
+      "office": "H",
+      "district": "09",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Josh Harder",
+          "party": "DEM"
+        },
+        {
+          "name": "John McBride",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-10",
+      "state": "CA",
+      "office": "H",
+      "district": "10",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mark DeSaulnier",
+          "party": "DEM"
+        },
+        {
+          "name": "Jeff Frese",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-11",
+      "state": "CA",
+      "office": "H",
+      "district": "11",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Connie Chan",
+          "party": "DEM"
+        },
+        {
+          "name": "Scott Wiener",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-12",
+      "state": "CA",
+      "office": "H",
+      "district": "12",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jamie Joyce",
+          "party": "DEM"
+        },
+        {
+          "name": "Lateefah Simon",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-13",
+      "state": "CA",
+      "office": "H",
+      "district": "13",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Adam Gray",
+          "party": "DEM"
+        },
+        {
+          "name": "Kevin Lincoln",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-14",
+      "state": "CA",
+      "office": "H",
+      "district": "14",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Melissa Hernandez",
+          "party": "DEM"
+        },
+        {
+          "name": "Aisha Wahab",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-15",
+      "state": "CA",
+      "office": "H",
+      "district": "15",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Kevin Mullin",
+          "party": "DEM"
+        },
+        {
+          "name": "Charles Hoelter",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-16",
+      "state": "CA",
+      "office": "H",
+      "district": "16",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Sam Liccardo",
+          "party": "DEM"
+        },
+        {
+          "name": "Peter Sundin Soulé",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-17",
+      "state": "CA",
+      "office": "H",
+      "district": "17",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ro Khanna",
+          "party": "DEM"
+        },
+        {
+          "name": "Ritesh Tandon",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-18",
+      "state": "CA",
+      "office": "H",
+      "district": "18",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Zoe Lofgren",
+          "party": "DEM"
+        },
+        {
+          "name": "Shane Lewis",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-19",
+      "state": "CA",
+      "office": "H",
+      "district": "19",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jimmy Panetta",
+          "party": "DEM"
+        },
+        {
+          "name": "Peter Coe Verbica",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-20",
+      "state": "CA",
+      "office": "H",
+      "district": "20",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Sandra Van Scotter",
+          "party": "DEM"
+        },
+        {
+          "name": "Vince Fong",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-21",
+      "state": "CA",
+      "office": "H",
+      "district": "21",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jim Costa",
+          "party": "DEM"
+        },
+        {
+          "name": "Kyle Kirkland",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-22",
+      "state": "CA",
+      "office": "H",
+      "district": "22",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Randy Villegas",
+          "party": "DEM"
+        },
+        {
+          "name": "David G. Valadao",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-23",
+      "state": "CA",
+      "office": "H",
+      "district": "23",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Tessa Lynn Hodge",
+          "party": "DEM"
+        },
+        {
+          "name": "Jay Obernolte",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-24",
+      "state": "CA",
+      "office": "H",
+      "district": "24",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Salud Carbajal",
+          "party": "DEM"
+        },
+        {
+          "name": "Bob Smith",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-25",
+      "state": "CA",
+      "office": "H",
+      "district": "25",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Raul Ruiz",
+          "party": "DEM"
+        },
+        {
+          "name": "Joe Males",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-26",
+      "state": "CA",
+      "office": "H",
+      "district": "26",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jacqui Irwin",
+          "party": "DEM"
+        },
+        {
+          "name": "Sam Gallucci",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-27",
+      "state": "CA",
+      "office": "H",
+      "district": "27",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "George Whitesides",
+          "party": "DEM"
+        },
+        {
+          "name": "Jason Gibbs",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-28",
+      "state": "CA",
+      "office": "H",
+      "district": "28",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Judy Chu",
+          "party": "DEM"
+        },
+        {
+          "name": "April A. Verlato",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-29",
+      "state": "CA",
+      "office": "H",
+      "district": "29",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Angélica María Dueñas",
+          "party": "DEM"
+        },
+        {
+          "name": "Luz Maria Rivas",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-30",
+      "state": "CA",
+      "office": "H",
+      "district": "30",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Laura Friedman",
+          "party": "DEM"
+        },
+        {
+          "name": "Scott Alan Meyers",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-31",
+      "state": "CA",
+      "office": "H",
+      "district": "31",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Gil Cisneros",
+          "party": "DEM"
+        },
+        {
+          "name": "Eric Ching",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-32",
+      "state": "CA",
+      "office": "H",
+      "district": "32",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Brad Sherman",
+          "party": "DEM"
+        },
+        {
+          "name": "Larry Thompson",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-33",
+      "state": "CA",
+      "office": "H",
+      "district": "33",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Pete Aguilar",
+          "party": "DEM"
+        },
+        {
+          "name": "Stephanie M. Vargas",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-34",
+      "state": "CA",
+      "office": "H",
+      "district": "34",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jimmy Gomez",
+          "party": "DEM"
+        },
+        {
+          "name": "Angela Gonzales-Torres",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-35",
+      "state": "CA",
+      "office": "H",
+      "district": "35",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Norma J. Torres",
+          "party": "DEM"
+        },
+        {
+          "name": "Mike Cargile",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-36",
+      "state": "CA",
+      "office": "H",
+      "district": "36",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ted W. Lieu",
+          "party": "DEM"
+        },
+        {
+          "name": "Houston Brignano",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-37",
+      "state": "CA",
+      "office": "H",
+      "district": "37",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Sydney Kamlager-Dove",
+          "party": "DEM"
+        },
+        {
+          "name": "Samantha Mota",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-38",
+      "state": "CA",
+      "office": "H",
+      "district": "38",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Hilda Solis",
+          "party": "DEM"
+        },
+        {
+          "name": "Pedro Antonio Casas",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-39",
+      "state": "CA",
+      "office": "H",
+      "district": "39",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mark Takano",
+          "party": "DEM"
+        },
+        {
+          "name": "Steve Manos",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-40",
+      "state": "CA",
+      "office": "H",
+      "district": "40",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ken Calvert",
+          "party": "REP"
+        },
+        {
+          "name": "Young Kim",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-41",
+      "state": "CA",
+      "office": "H",
+      "district": "41",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Linda Sánchez",
+          "party": "DEM"
+        },
+        {
+          "name": "Mitch Clemmons",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-42",
+      "state": "CA",
+      "office": "H",
+      "district": "42",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Robert Garcia",
+          "party": "DEM"
+        },
+        {
+          "name": "Brian Burley",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-43",
+      "state": "CA",
+      "office": "H",
+      "district": "43",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Maxine Waters",
+          "party": "DEM"
+        },
+        {
+          "name": "Cristian Morales",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-44",
+      "state": "CA",
+      "office": "H",
+      "district": "44",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Nanette Diaz Barragan",
+          "party": "DEM"
+        },
+        {
+          "name": "Genevieve Angel",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-45",
+      "state": "CA",
+      "office": "H",
+      "district": "45",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Derek Tran",
+          "party": "DEM"
+        },
+        {
+          "name": "Chuong V. Vo",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-46",
+      "state": "CA",
+      "office": "H",
+      "district": "46",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Lou Correa",
+          "party": "DEM"
+        },
+        {
+          "name": "David Pan",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-47",
+      "state": "CA",
+      "office": "H",
+      "district": "47",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Dave Min",
+          "party": "DEM"
+        },
+        {
+          "name": "Jenny Rae Le Roux",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-48",
+      "state": "CA",
+      "office": "H",
+      "district": "48",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Marni von Wilpert",
+          "party": "DEM"
+        },
+        {
+          "name": "Jim Desmond",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-49",
+      "state": "CA",
+      "office": "H",
+      "district": "49",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mike Levin",
+          "party": "DEM"
+        },
+        {
+          "name": "Armen Kurdian",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-50",
+      "state": "CA",
+      "office": "H",
+      "district": "50",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Scott Peters",
+          "party": "DEM"
+        },
+        {
+          "name": "Steve Cohen",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-51",
+      "state": "CA",
+      "office": "H",
+      "district": "51",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Sara Jacobs",
+          "party": "DEM"
+        },
+        {
+          "name": "Ricardo Cabrera",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "CA-52",
+      "state": "CA",
+      "office": "H",
+      "district": "52",
+      "source_id": "CA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Juan Vargas",
+          "party": "DEM"
+        },
+        {
+          "name": "Jeff Belle",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
     {
       "id": "FL-01",
       "state": "FL",

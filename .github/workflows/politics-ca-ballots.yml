@@ -1,0 +1,81 @@
+name: Politics original California certified federal candidate import
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_ca_certified_ballots.py'
+      - 'test_politics_ca_certified_ballots.py'
+      - 'scripts/politics_ballot_audit.py'
+      - 'scripts/politics_ballot_source_probe.py'
+      - '.github/workflows/politics-ca-ballots.yml'
+  push:
+    branches: [main, politics-ca-official-ballot-2026]
+    paths:
+      - 'scripts/politics_ca_certified_ballots.py'
+      - 'test_politics_ca_certified_ballots.py'
+      - '.github/workflows/politics-ca-ballots.yml'
+  schedule:
+    - cron: '13 10 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-ca-original-certified-ballot
+  cancel-in-progress: false
+jobs:
+  original-52-house-districts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF parser for public government-source text
+        run: python -m pip install -q pypdf==6.0.0
+      - name: Test parsing and independent ballot source safeguards
+        run: |
+          python -m py_compile scripts/politics_ca_certified_ballots.py
+          python -m unittest -v test_politics_ca_certified_ballots test_politics_ballot_audit test_politics_ballot_source_probe
+      - name: Read verified original California Secretary of State candidate PDF
+        run: python -m scripts.politics_ca_certified_ballots
+      - name: Recheck official state source coverage, never approve 2026 forecasts
+        run: |
+          python scripts/politics_ballot_audit.py
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          b=json.load(open('politics-official-ballots.json'))
+          a=json.load(open('politics-ballot-audit.json'))
+          s=json.load(open('politics-ca-certified-ballot-status.json'))
+          m=json.load(open('politics-sim-readiness.json'))
+          assert s['status']=='CERTIFIED_CALIFORNIA_HOUSE_SOURCE_PARSED'
+          assert s['house_districts']==52 and s['source_candidate_entries']==104
+          assert len([r for r in b['races'] if r['state']=='CA' and r['office']=='H'])==52
+          assert sum(len(r['candidates']) for r in b['races'] if r['state']=='CA')==104
+          assert a['house_contests_transcribed']>=95 and a['senate_contests_transcribed']>=3
+          assert b['model_eligible'] is False and a['certified_2026_probability_count']==0
+          assert m['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert m['certified_original_probability_count']==0
+          assert all(r.get('fec_identity_match_certified') is False for r in b['races'] if r['state']=='CA')
+          print('Original candidate slate: CA 52 House districts, 104 candidates; all forecast gates remain closed')
+          PY
+      - name: Persist source-linked California candidate records, not predictions
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-official-ballots.json politics-ca-certified-ballot-status.json politics-ballot-audit.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh original California-certified 2026 House ballot roster"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi

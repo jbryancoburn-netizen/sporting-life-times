@@ -23,7 +23,7 @@ ALLOWED_SOURCES = {
     "MD_SBE_2026_HOUSE_GENERAL": ("MD", "elections.maryland.gov", "/elections/2026/general_candidates/2026_GG_statewide_candidatelist.html"),
 }
 HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8}
-PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "OTH"}
+PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "NPP", "AIP", "PAF", "OTH"}
 
 def validate(data):
     if data.get("schema_version") != 1 or data.get("election_date") != "2026-11-03":
@@ -109,6 +109,28 @@ def validate(data):
             c = coverage.get(src["state"], {})
             if src["state"] != "MD" or c.get("house") != HOUSE_SEATS["MD"] or c.get("senate") != 0:
                 raise ValueError("Maryland full House / no Senate 2026 classification is incomplete")
+    # California's certified August 27 general-election source covers all 52
+    # House districts but has no federal Senate election on this ballot.
+    california=sources.get("CA_SOS_2026_GENERAL")
+    if california and california.get("transcription_status")=="reviewed":
+        ca_counts=coverage.get("CA",{})
+        if ca_counts.get("house")!=52 or ca_counts.get("senate",0)!=0:
+            raise ValueError("California certified House source must include exactly 52 districts and no Senate")
+    # California statewide top-two general list has exactly 52 House seats
+    # and no statewide Senate general contest in 2026. Party code is a
+    # candidate preference, NOT a state party nomination.
+    for src in sources.values():
+        if src["scope"] == "full_52_house_district_certified_general_election_snapshot":
+            c = coverage.get(src["state"], {})
+            if src["state"] != "CA" or c.get("house") != 52 or c.get("senate") != 0:
+                raise ValueError("California House top-two source must contain 52 districts and no Senate entry")
+            ca = [r for r in data["races"] if r["state"] == "CA"]
+            if len(ca) != 52 or any(r["office"] != "H" or len(r["candidates"]) != 2 or r["source_id"] != src["id"] for r in ca):
+                raise ValueError("California top-two source must contain exactly two qualified candidates per House seat")
+            if src.get("source_pdf_sha256") != "0e514ae7b14378b1837bcea99c07e6a05ce35baa9db4c3d3a2297704dc7e6017":
+                raise ValueError("California official candidate roster must have a verified immutable PDF fingerprint")
+            if "party preference" not in src.get("party_code_context",""):
+                raise ValueError("California party-preference disclosure missing")
     house = sum(x["house"] for x in coverage.values())
     senate = sum(x["senate"] for x in coverage.values())
     # Florida 10 is absent from the linked qualified-candidate search page.
