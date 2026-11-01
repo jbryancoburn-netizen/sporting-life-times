@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-31",
+  "as_of": "2026-11-01",
   "matched_source_games": 329,
   "completed_unique_games": 0,
   "upcoming_or_unconfirmed_games": 329,
@@ -15,10 +15,10 @@
     "crosswalk_unmatched_programs": [],
     "fetch_start": "2026-11-01",
     "fetch_through": "2026-11-08",
-    "provider_events_seen": 473,
+    "provider_events_seen": 472,
     "provider_events_accepted": 328,
     "provider_events_excluded": {
-      "unmatched_espn_program": 145
+      "unmatched_espn_program": 144
     },
     "corrected_final_scores": 0,
     "cached_event_count": 329
@@ -26,7 +26,12 @@
   "independent_reconciliation": {
     "provider": "NCAA.com independent scoreboard",
     "available_days": [],
-    "unavailable_days": [],
+    "unavailable_days": [
+      {
+        "day": "2026-11-01",
+        "reason": "HTTP Error 404: Not Found"
+      }
+    ],
     "official_days_checked": 0,
     "conflict_count": 0,
     "conflicts": [],
