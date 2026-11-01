@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-01T16:24:17+00:00",
+  "checked_at": "2026-11-01T16:26:33+00:00",
   "overall": "partial",
   "failed_sources": [
     {
       "source": "census",
-      "error": "Census API did not return JSON; first bytes: b'<html style=\"font-size: 14px;\">\\n\\n<head>\\n    <title>Missing Key</title>\\n    <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\">\\n    <link rel=\"stylesheet\" type=\"tex"
+      "error": "Census Bureau now requires a free CENSUS_API_KEY; none is configured in this GitHub Actions run"
     }
   ]
 }
