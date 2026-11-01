@@ -33,3 +33,13 @@ body.nba-newspaper[data-page="home"] .nba-pregame-source{
  body.nba-newspaper[data-page="home"] .nba-pregame-breakdown{gap:4px}
  body.nba-newspaper[data-page="home"] .nba-pregame-breakdown b{font-size:13px}
 }
+
+
+/* League rest context is observational, never an untested forecast adjustment. */
+body.nba-newspaper[data-page="home"] .nba-pregame-rest{
+ font:600 9px/1.45 'DM Sans',Arial,sans-serif;color:#285766;
+ padding-top:7px;margin-top:7px;border-top:1px solid #cddad5;
+}
+body.nba-newspaper[data-page="home"] .nba-pregame-rest small{
+ display:block;font:500 9px/1.4 'DM Sans',Arial,sans-serif;color:#748283;
+}
