@@ -794,6 +794,69 @@ def apply_official_tipoff_streams(gender, games, teams, as_of_date):
     return stats
 
 
+def apply_verified_schedule_broadcasts(gender, games, teams, today):
+    """Attach school-documented WATCH URLs to exact DII matchups only.
+
+    The official school schedule confirms the date, both teams, stream host
+    and venue. Existing NCAA game IDs, results and source provenance survive.
+    """
+    path=DATA/"d2-verified-broadcast-fixtures-2026-27.json"
+    stats={"matched":0,"created":0,"skipped":0}
+    if not path.exists():
+        return stats
+    registry=json.loads(path.read_text())
+    seen=set()
+    for fixture in registry.get("fixtures",[]):
+        if fixture.get("gender")!=gender:
+            continue
+        a,h=fixture["away"],fixture["home"]
+        key=(fixture["date"],frozenset((a,h)))
+        if key in seen:
+            raise RuntimeError("Duplicated school broadcast evidence: "+str(key))
+        seen.add(key)
+        if len(key[1])!=2 or any(v not in teams or teams[v].get("not_eligible_for_dii_elo") for v in (a,h)):
+            raise RuntimeError("Broadcast fixture has invalid DII team identity: "+str(key))
+        if not str(fixture.get("source_url","")).startswith("https://") or not str(fixture.get("stream_url","")).startswith("https://www.gnacnetwork.com/"):
+            raise RuntimeError("Broadcast fixture lacks auditable official source or GNAC WATCH URL")
+        local=dt.datetime.fromisoformat(fixture["date"]+"T"+fixture["local"])
+        if local.hour>23 or local.minute>59:
+            raise RuntimeError("Invalid local tipoff in official broadcast source")
+        tz=ZoneInfo(registry["timezone"])
+        exact_tipoff=local.replace(tzinfo=tz).astimezone(ZoneInfo("America/New_York")).strftime("%I:%M %p").lstrip("0")+" ET"
+        match=[g for g in games.values() if
+               g.get("date")==fixture["date"] and
+               frozenset((g.get("away"),g.get("home")))==key[1]]
+        if len(match)>1:
+            raise RuntimeError("Multiple game IDs for one verified school broadcast: "+str(key))
+        if match:
+            game=match[0]
+            stats["matched"]+=1
+            if game.get("network") and game["network"]!=fixture["network"]:
+                raise RuntimeError("Conflicting broadcast providers for "+str(key))
+        elif fixture["date"]>=today.isoformat():
+            ident="d2official-"+gender+"-"+fixture["date"]+"-"+a+"-"+h
+            if ident in games:
+                raise RuntimeError("Official fixture ID collision: "+ident)
+            game={"id":ident,"date":fixture["date"],"away":a,"home":h,
+                  "status":"scheduled","away_score":None,"home_score":None,
+                  "neutral":bool(fixture["neutral"]),"verified":True,
+                  "elo_eligible":True,"source_url":fixture["source_url"],
+                  "source":"Official university athletics schedule"}
+            games[ident]=game
+            stats["created"]+=1
+        else:
+            stats["skipped"]+=1
+            continue
+        game["start_time"]=exact_tipoff
+        game["network"]=fixture["network"]
+        game["broadcast_type"]=fixture.get("broadcast_type","Streaming")
+        game["stream_url"]=fixture["stream_url"]
+        game["broadcast_source_url"]=fixture["source_url"]
+        if fixture.get("venue") and not game.get("venue"):
+            game["venue"]=fixture["venue"]
+    return stats
+
+
 def update(gender, bootstrap=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
@@ -895,6 +958,7 @@ def update(gender, bootstrap=False):
     if successful<max(1,len(days)//2):
         raise RuntimeError(f"{gender}: {successful}/{len(days)} NCAA date requests succeeded. Refusing to publish suspect empty/partial feed. Errors: {errors[:3]}")
     official_broadcasts=apply_official_tipoff_streams(gender,games,teams,today)
+    extra_broadcasts=apply_verified_schedule_broadcasts(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -951,7 +1015,8 @@ def update(gender, bootstrap=False):
         "school_color_coverage":color_quality,
         "membership_certified":False,
         "membership_review":membership_quality,
-        "official_cwu_tipoff_broadcasts":official_broadcasts}
+        "official_cwu_tipoff_broadcasts":official_broadcasts,
+        "official_other_schedule_broadcasts":extra_broadcasts}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
