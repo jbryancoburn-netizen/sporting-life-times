@@ -30,6 +30,8 @@ jobs:
       - name: Read current government primary data
         id: collect
         continue-on-error: true
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
         run: python scripts/politics_real_inputs.py
       - name: Verify provenance and update publication status
         run: |
