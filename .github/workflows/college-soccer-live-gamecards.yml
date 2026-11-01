@@ -1,6 +1,11 @@
 name: NCAA soccer live game-card scores
 on:
   workflow_dispatch:
+  # GitHub cron can be delayed under heavy repository activity.
+  # Follow every Elo refresh with an independent scoreboard source check.
+  workflow_run:
+    workflows: ["NCAA college soccer Elo final-score newspaper refresh"]
+    types: [completed]
   push:
     branches: [main]
     paths:
