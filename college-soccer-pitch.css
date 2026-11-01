@@ -139,3 +139,46 @@ body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside-foot a{backgrou
  body[data-league="college-soccer"] .cs-hero-aside-foot span{font-size:9px!important}
  body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside-foot a{display:inline-block!important;grid-column:auto!important;grid-row:auto!important;flex:0 0 auto!important;max-width:145px!important;font-size:9px!important;padding:8px!important}
 }
+
+
+/* Two rings, one emblem: never display initials through a loaded logo.
+   This isolated component is not registered with the legacy slt-dual-ring decorator. */
+body[data-league="college-soccer"] .cs-pitch-crest{display:inline-flex!important;position:relative!important;align-items:center!important;justify-content:center!important;flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;overflow:visible!important}
+body[data-league="college-soccer"] .cs-pitch-badge{
+ --crest-primary:#293b36;--crest-secondary:#bdc8bc;
+ position:relative!important;isolation:isolate!important;box-sizing:border-box!important;display:flex!important;
+ align-items:center!important;justify-content:center!important;
+ flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;
+ border-radius:50%!important;overflow:hidden!important;border:0!important;outline:0!important;box-shadow:none!important;
+ background:#fff!important;color:#2c4e42!important;
+}
+body[data-league="college-soccer"] .cs-pitch-badge.has-school-colors{border:2px solid var(--crest-primary)!important}
+body[data-league="college-soccer"] .cs-pitch-badge.has-school-colors::before{
+ content:"";position:absolute;inset:1px;z-index:1;pointer-events:none;
+ box-sizing:border-box;border-radius:50%;border:2px solid var(--crest-secondary);
+ background:transparent;box-shadow:none;outline:none
+}
+body[data-league="college-soccer"] .cs-pitch-badge.is-unverified-color{border:0!important;background:#f0f2ef!important}
+body[data-league="college-soccer"] .cs-pitch-badge.is-unverified-color::before{content:none!important}
+body[data-league="college-soccer"] .cs-pitch-initials{
+ position:relative;z-index:2;display:grid;place-items:center;text-align:center;
+ font:800 12px/1 Arial,sans-serif!important;letter-spacing:-.035em!important;color:var(--crest-primary,#2c4e42)!important
+}
+body[data-league="college-soccer"] .cs-pitch-badge.has-image .cs-pitch-initials{display:none!important}
+body[data-league="college-soccer"] .cs-pitch-badge>img.cs-pitch-badge-logo{
+ display:block!important;visibility:hidden!important;position:absolute!important;z-index:2!important;
+ top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;
+ width:70%!important;height:70%!important;max-width:70%!important;max-height:70%!important;
+ padding:0!important;margin:0!important;border:0!important;border-radius:0!important;
+ box-shadow:none!important;outline:0!important;background:transparent!important;
+ object-fit:contain!important;object-position:center!important;clip-path:none!important
+}
+body[data-league="college-soccer"] .cs-pitch-badge.has-image>img.cs-pitch-badge-logo{visibility:visible!important}
+body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-crest,
+body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-badge{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;flex:0 0 42px!important}
+@media(max-width:700px){
+ body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-crest,
+ body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-badge{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;flex:0 0 38px!important}
+ body[data-league="college-soccer"] .cs-pitch-crest,
+ body[data-league="college-soccer"] .cs-pitch-badge{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;flex:0 0 42px!important}
+}
