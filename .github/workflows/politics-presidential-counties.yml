@@ -45,11 +45,21 @@ jobs:
               assert d["certified_for_2026_house_forecast"] is False
           print('President county source:',s,'published:',d['status'])
           PY
+      - name: Re-evaluate model readiness against new original county evidence
+        run: |
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['certified_original_probability_count']==0
+          assert not d['house_forecast_ready']
+          print('Original evidence checks',d['counts'])
+          PY
       - name: Commit verified observations without touching sports workflows
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-2024-county-presidential.json politics-presidential-source-status.json
+          git add politics-2024-county-presidential.json politics-presidential-source-status.json politics-sim-readiness.json
           if ! git diff --cached --quiet; then
             git commit -m "Update attributed 2024 county presidential returns"
             for attempt in $(seq 1 12); do
