@@ -1,0 +1,58 @@
+name: Politics official candidate source monitor
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_ballot_source_probe.py'
+      - 'test_politics_ballot_source_probe.py'
+      - '.github/workflows/politics-ballot-source-probe.yml'
+  schedule:
+    - cron: '18 14 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-ballot-source-probe
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate government-source boundaries without a network
+        run: |
+          python -m py_compile scripts/politics_ballot_audit.py scripts/politics_ballot_source_probe.py
+          python -m unittest -v test_politics_ballot_audit test_politics_ballot_source_probe
+      - name: Probe official source availability and document fingerprints
+        run: |
+          python scripts/politics_ballot_source_probe.py
+      - name: Check source status without ever certifying candidates or odds
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-ballot-source-health.json'))
+          assert len(d['sources'])==5
+          assert d['forecast_eligible'] is False
+          assert all(x['candidate_rows_automatically_updated'] is False for x in d['sources'])
+          assert d['sources_accessible']+d['sources_unavailable']==5
+          print('Source refresh status:',d['status'],'changed:',d['sources_changed_since_last_probe'])
+          PY
+      - name: Publish source health without modifying any source transcriptions
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-ballot-source-health.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh official ballot source health; require review on changed files"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
