@@ -37,7 +37,10 @@ def read(url):
         }
 
 def collect(ledger, previous=None, fetch=read, now=None):
-    from scripts.politics_ballot_audit import validate
+    try:
+        from scripts.politics_ballot_audit import validate
+    except ImportError:
+        from politics_ballot_audit import validate
     validate(ledger)  # never probe unapproved URLs
     old = {x["id"]: x for x in (previous or {}).get("sources", [])}
     now = now or dt.datetime.now(dt.timezone.utc)
