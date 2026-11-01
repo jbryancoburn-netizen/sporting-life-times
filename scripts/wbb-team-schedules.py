@@ -130,6 +130,8 @@ def validate_reciprocal_games(calendars):
     for gid,records in by_game.items():
         if len(records)>2:
             raise RuntimeError('Duplicate global women game ID '+gid)
+        if len(records)==1 and str(records[0][1].get('opponent_id')) in calendars:
+            raise RuntimeError('Missing reciprocal Division I women game '+gid)
         if len(records)==2:
             (t1,a),(t2,b)=records
             if str(a.get('opponent_id'))!=t2 or str(b.get('opponent_id'))!=t1:
