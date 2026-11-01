@@ -93,5 +93,5 @@ const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComp
 const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
 const ranked=a=>[...a].filter(t=>Number.isFinite(rating(t))).sort((a,b)=>rating(b)-rating(a)||a.id.localeCompare(b.id));
 let lastLoad=Date.now(),promise=Promise.all([load(),mirrorsReady]).then(([d])=>d);
-window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=Promise.all([load(),mirrorsReady]).then(([d])=>d)}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked,logoLoaded,logoFailed};
+window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=Promise.all([load(),mirrorsReady]).then(([d])=>d)}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked,logoLoaded,logoFailed,logosReady:mirrorsReady};
 })();
