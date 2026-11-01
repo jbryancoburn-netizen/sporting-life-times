@@ -218,6 +218,9 @@ def aggregate_leaders(boxes):
                 "headshot":line.get("headshot"),"category":line["category"],"games":0,"stats":{}})
             p["games"]+=1
             for name,val in line["stats"].items():
+                # Only additive season counting stats may be accumulated.
+                if name in ("AVG","LONG","QBR","RTG","PCT","CMP%","Y/A","Y/C","YDS/ATT"):
+                    continue
                 p["stats"][name]=round(p["stats"].get(name,0)+val,2)
     boards={}
     for label,(cat,description,key) in CATEGORIES.items():
@@ -256,6 +259,7 @@ def load(path,default):
 def run(fast):
     now=dt.datetime.now(dt.timezone.utc)
     old=load(EDITION,{})
+    old_snapshot=json.loads(json.dumps(old))
     oldgames={g["id"]:g for g in old.get("games",[]) if g.get("id")}
     weeks=list(range(1,19))
     if fast and len(oldgames)>=200:
@@ -302,8 +306,12 @@ def run(fast):
         for tid,stats in b.get("teams",{}).items():
             if tid not in team_stats:continue
             for k,v in stats.items():
+                # Per-game averages and efficiencies are rates, never season sums.
+                if k in ("yardsPerPlay","yardsPerPass","yardsPerRushAttempt","yardsPerCompletion","yardsPerPenalty","thirdDownEff","fourthDownEff"):
+                    continue
                 team_stats[tid][k]=round(team_stats[tid].get(k,0)+v,2)
     roster_data=load(ROSTERS,{})
+    prior_rosters=json.loads(json.dumps(roster_data.get("teams") or {}))
     roster_last=roster_data.get("updated_at")
     stale=True
     if roster_last:
@@ -338,6 +346,24 @@ def run(fast):
     assert all(t["played"]==t["w"]+t["l"]+t["t"] for t in teams)
     assert sum(t["played"] for t in teams)==2*len(finals)
     assert abs(sum(t["elo"] for t in teams)-48000)<2.0
+    # Do not republish three large JSON files every 15 minutes when no
+    # substantive data has changed. Refresh the timestamp every eight hours.
+    def comparable(obj):
+        obj=json.loads(json.dumps(obj))
+        obj.pop("updated_at",None)
+        cov=obj.get("coverage",{})
+        cov.pop("weeks_fetched",None)
+        cov.pop("mode",None)
+        return obj
+    unchanged=bool(old_snapshot) and comparable(old_snapshot)==comparable(data) and prior_rosters==rosters
+    if unchanged:
+        try:
+            prior_time=dt.datetime.fromisoformat(old_snapshot["updated_at"])
+            if now-prior_time<dt.timedelta(hours=8):
+                print("NFL scores, stats, rosters and Elo unchanged; keep last verified publication")
+                return
+        except (KeyError,ValueError,TypeError):
+            pass
     for path,obj in ((EDITION,data),(BOXES,{"season":SEASON,"updated_at":now.isoformat(),"games":boxes}),
                      (ROSTERS,{"season":SEASON,"updated_at":roster_stamp,"teams":rosters})):
         path.parent.mkdir(parents=True,exist_ok=True)
