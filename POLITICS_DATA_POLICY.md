@@ -115,3 +115,12 @@ We separately collect two original government datasets at zero subscription cost
 * `politics-census-inputs.json`: U.S. Census Bureau 2020–2024 ACS 5-year profile for the **119th Congress's 435 voting House districts**, recording population, median household income and the age-25+ bachelor's-degree share. These are sampling-based estimates, **not voting results**. The geography must be matched to actual 2026 district boundaries before usage. Source: https://www.census.gov/data/developers/data-sets/acs-5year.html.
 
 The reproducible `politics-sim-readiness.json` ledger lists 13 validation inputs and marks all 2026 House, Senate and governor original win probabilities unavailable until the official candidate ballot, redistricting, 2024 presidential district baselines, quality-checked polling, Senate/governor training data and held-out correlated-error calibration are complete. Other organizations' predictions are never used as training features. Automated source failure preserves the last validated data, with timestamps and explicit provider-health information.
+
+
+## Census API security and no-cost access (November 2026)
+
+As of **May 12, 2026**, the Census Bureau requires a **free API key for every Census Data API request**. The original Census collector received HTML labelled "Missing Key" instead of the 435-district ACS JSON response; it was correctly refused and no fake demographics were published.
+
+The pipeline now reads an optional protected GitHub Actions secret named `CENSUS_API_KEY`; it never writes the credential to JSON, JavaScript, logs or the public repository. Until that secret is configured (or a verified direct Census bulk file is used), `politics-census-inputs.json` remains clearly marked awaiting ingestion. Official key registration (no fee): https://api.census.gov/data/key_signup.html. Documentation: https://www.census.gov/data/developers/guidance/api-user-guide.API_Key.html.
+
+FEC master files also include filings for nonexisting congressional districts; the raw filing is retained but flagged `district_within_2020_apportionment=false`. That candidate must NOT be interpreted as an eligible ballot contender for the 435-seat simulation.
