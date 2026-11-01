@@ -112,6 +112,35 @@ def rows_from_sidearm_cards(html):
   found.append({'date':day,'site':site,'site_certified':bool(certified),'opponent':opponent,'opponent_host':opponent_host,'location':location,'time':clock,'broadcast':broadcast})
  return found
 
+
+def rows_from_verified_conference_table(html):
+ """Use explicit official conference calendar fields, never inferred TV."""
+ soup=BeautifulSoup(html,'html.parser')
+ out=[]
+ for table in soup.select('table'):
+  trs=table.select('tr')
+  if not trs:continue
+  heads=[x.get_text(' ',strip=True).lower() for x in trs[0].find_all(['th','td'],recursive=False)]
+  needed=['date','team','home/away','result/time','location']
+  if any(h not in heads for h in needed):continue
+  positions=[heads.index(h) for h in needed]
+  for tr in trs[1:]:
+   cells=[x.get_text(' ',strip=True) for x in tr.find_all(['td','th'],recursive=False)]
+   if len(cells)<=max(positions):continue
+   date,opponent,site,time,location=[cells[i] for i in positions]
+   if not re.fullmatch(r'\d{1,2}/\d{1,2}/202[67]',date):continue
+   try:
+    mo,day,year=map(int,date.split('/'))
+    iso=datetime.date(year,mo,day).isoformat()
+   except ValueError:continue
+   side={'h':'home','a':'away','n':'neutral'}.get(site.lower().strip())
+   if not side or not opponent.strip():continue
+   # The conference may label an unannounced time TBA; do not promote it.
+   clock=time.strip() if re.fullmatch(r'(?i)\d{1,2}(?::[0-5]\d)?\s*[ap]\.?m\.?',time.strip()) else ''
+   out.append({'date':iso,'opponent':opponent.strip(),'site':side,'site_certified':True,
+               'time':clock,'location':location.strip(),'broadcast':''})
+ return out
+
 def opponent_variants(x):
  x=str(x or '').lower()
  x=re.sub(r'\b(university|college|wildcats|bulldogs|tigers|eagles|bears|panthers|knights|crimson tide|zips|raiders|cardinals|cowboys|aggies|hawks|lions|rams|falcons|spartans|cougars|rebels|broncos|pirates|huskies|warriors)\b','',x)
@@ -121,7 +150,7 @@ def verify_team(team):
  tid=str(team['espn_id']);path=root/'data/mbb-schedules-2026-27'/(tid+'.json')
  item={'team':team['name'],'id':tid,'status':'unavailable','matched':0,'site_corrected':0,'location_corrected':0,'school_rows':0}
  if not path.exists():item['status']='missing_file';return item
- d=json.loads(path.read_text());original=json.loads(json.dumps(d));url=d.get('source_url','')
+ d=json.loads(path.read_text());original=json.loads(json.dumps(d));url=d.get('source_url') or d.get('official_conference_schedule_url','')
  if not url or not url.startswith('https://'):item['status']='no_official_source';return item
  try:
   candidates=[url]
@@ -136,6 +165,9 @@ def verify_team(team):
     response=requests.get(candidate,timeout=(4,6),headers={'User-Agent':USER_AGENT});response.raise_for_status()
     school=rows_from_school(response.text)
     method='table'
+    if not school and candidate==d.get('official_conference_schedule_url'):
+     school=rows_from_verified_conference_table(response.text)
+     method='official_conference'
     if not school:
      school=rows_from_sidearm_cards(response.text)
      method='sidearm_card'
