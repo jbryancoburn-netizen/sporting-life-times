@@ -38,6 +38,74 @@ def parse_scores(data):
         out.append({'id':event['id'],'date':event.get('date'),'state':status.get('state'),'status':status.get('shortDetail'),'teams':[{'id':t.get('team',{}).get('id'),'name':t.get('team',{}).get('displayName'),'logo':t.get('team',{}).get('logo'),'score':t.get('score')} for t in competitors]})
     return out
 
+def parse_ncaa_crosscheck(payload, espn_events, crosswalk, day):
+    """Admit only uniquely identified NCAA D-I fixtures. No inferred times or scores.
+
+    The official NCAA entry supplies authoritative status/scores. ESPN is used
+    solely to attach an existing event ID and tipoff time when the verified
+    teams match. Unmatched schools remain audit counts, not fabricated games.
+    """
+    from update_ncaam_season import school_key, numeric_score
+    if not isinstance(payload, dict) or not isinstance(payload.get('games'), list):
+        raise ValueError('NCAA scoreboard lacks a games list')
+    index = {}
+    for school in crosswalk.get('teams', []):
+        if not school.get('espn_id') or not school.get('id'):
+            continue
+        for label in (school.get('name'), school.get('espn_name')):
+            if label:
+                index.setdefault(school_key(label), set()).add(str(school['espn_id']))
+    schools = {str(t['espn_id']): t for t in crosswalk.get('teams', []) if t.get('espn_id')}
+    events = {}
+    for event in espn_events:
+        comp = (event.get('competitions') or [{}])[0]
+        sides = comp.get('competitors') or []
+        a = next((x for x in sides if x.get('homeAway') == 'away'), {})
+        h = next((x for x in sides if x.get('homeAway') == 'home'), {})
+        aid, hid = str((a.get('team') or {}).get('id') or ''), str((h.get('team') or {}).get('id') or '')
+        if aid and hid and aid != hid:
+            events.setdefault((aid, hid), []).append(event)
+    rows = []; seen = set(); unresolved = 0
+    for wrapper in payload['games']:
+        game = wrapper.get('game', wrapper)
+        if not isinstance(game, dict):
+            unresolved += 1
+            continue
+        gid = str(game.get('gameID') or game.get('gameId') or '')
+        away, home = game.get('away') or {}, game.get('home') or {}
+        def find_team(item):
+            labels = item.get('names') or {}
+            candidates = [item.get('name'), labels.get('short'), labels.get('full'),
+                          labels.get('seo'), labels.get('char6')]
+            ids = set()
+            for label in candidates:
+                if label:
+                    ids.update(index.get(school_key(label), set()))
+            return next(iter(ids)) if len(ids) == 1 else None
+        aid, hid = find_team(away), find_team(home)
+        if not gid.isdigit() or not aid or not hid or aid == hid or gid in seen:
+            unresolved += 1
+            continue
+        seen.add(gid)
+        matched = events.get((aid, hid), [])
+        # A duplicate ESPN pairing is ambiguous and cannot be joined silently.
+        event = matched[0] if len(matched) == 1 else None
+        status = str(game.get('gameState') or game.get('gameStatus') or game.get('status') or '').lower()
+        phase = 'final' if status.startswith('final') or status in ('post','completed','official') else (
+            'live' if any(s in status for s in ('live','progress','half','period')) else 'upcoming')
+        hs, aws = numeric_score(home.get('score')), numeric_score(away.get('score'))
+        if phase == 'final' and (hs is None or aws is None or hs == aws):
+            phase = 'unconfirmed'
+        rows.append({'id':'ncaa:'+gid,'ncaa_id':gid,'espn_id':str(event['id']) if event else None,
+                     'day':day,'date':event.get('date') if event else None,
+                     'away_id':aid,'home_id':hid,
+                     'away_name':schools[aid].get('name'),'home_name':schools[hid].get('name'),
+                     'away_score':aws if phase in ('live','final') else None,
+                     'home_score':hs if phase in ('live','final') else None,
+                     'phase':phase,'source':'NCAA.com official scoreboard'})
+    return rows, unresolved
+
+
 def main():
     now=dt.datetime.now(dt.timezone.utc).isoformat();old=json.loads(OUT.read_text()) if OUT.exists() else {}
     out={**old,'attempted_at':now,'sources':[]}; articles=[]
@@ -61,6 +129,25 @@ def main():
         out['games']=parse_scores(result);out['scores_updated_at']=now
         out['sources'].append({'source':'ESPN scores','url':score_url,'ok':True})
     except Exception as e:out['sources'].append({'source':'ESPN scores','url':score_url,'ok':False,'error':type(e).__name__})
+    # Official NCAA is the independent first-party ledger; ESPN supplements it.
+    # The existing newspaper workflow commits this inside mbb-live.json.
+    ncaa_url='https://data.ncaa.com/casablanca/scoreboard/basketball-men/d1/'+dt.datetime.now(ZoneInfo('America/New_York')).strftime('%Y/%m/%d')+'/scoreboard.json'
+    try:
+        ncaa_payload=json.loads(fetch(ncaa_url))
+        crosswalk=json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
+        official_rows,unresolved=parse_ncaa_crosscheck(ncaa_payload,result.get('events',[]) if 'result' in locals() else [],crosswalk,
+            dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat())
+        out['ncaa_crosscheck']={'day':dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
+            'checked_at':now,'source_url':ncaa_url,'games':official_rows,
+            'total_source_games':len(ncaa_payload['games']),'unresolved_games':unresolved,
+            'scope':'Verified D-I identities only; NCAA scores and status authoritative; ESPN IDs/tipoffs secondary'}
+        out['sources'].append({'source':'NCAA.com official scoreboard','url':ncaa_url,'ok':True,
+                               'resolved':len(official_rows),'unresolved':unresolved})
+    except Exception as e:
+        # Preserve previously published evidence with its original timestamp.
+        # The reader refuses stale crosschecks; an outage is never agreement.
+        out['sources'].append({'source':'NCAA.com official scoreboard','url':ncaa_url,
+                               'ok':False,'error':type(e).__name__})
     # Completed regular-season games only; keyed storage makes repeated ingestion idempotent.
     statpath=ROOT/'data/mbb-current-player-stats.json'
     playerdata=json.loads(statpath.read_text()) if statpath.exists() else {'season':'2026-27','games':{},'players':[]}
