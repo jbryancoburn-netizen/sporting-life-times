@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "policy": "Only exact game, gender, teams, date and both source score variants may receive a published-data exception. Keep original ledger and cite independent primary reporting; every other discrepancy remains fail-closed.",
+  "exceptions": [
+    {
+      "match_id": "women-6664706",
+      "gender": "women",
+      "date": "2026-10-31",
+      "home_team": "gwynedd-mercy",
+      "away_team": "centenary-nj",
+      "ledger_score": [
+        1,
+        0
+      ],
+      "reported_feed_score": [
+        3,
+        1
+      ],
+      "source_game": "https://www.ncaa.com/game/6664706",
+      "independent_source": "https://gwyneddathletics.com/news/2026/10/31/womens-soccer-wincos-last-second-goal-leads-griffins-to-aec-semifinals.aspx",
+      "reviewed_on": "2026-11-01",
+      "explanation": "Home institution's women's soccer game report explicitly documents a 1-0 final and winning goal with 1.7 seconds left. University's separate men's soccer report documents a 3-1 final on the same date against the same opponent. Do not overwrite the independently supported women's 1-0 Elo result with a potentially cross-feed or stale scoreboard score."
+    }
+  ]
+}
