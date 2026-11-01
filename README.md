@@ -5,6 +5,7 @@
 - [Newspaper homepage](https://jbryancoburn-netizen.github.io/sporting-life-times/)
 - [NBA ratings desk](https://jbryancoburn-netizen.github.io/sporting-life-times/nba.html)
 - [Premier League desk](https://jbryancoburn-netizen.github.io/sporting-life-times/epl.html)
+- [Politics newspaper](https://jbryancoburn-netizen.github.io/sporting-life-times/politics.html)
 - [All sports desks](https://jbryancoburn-netizen.github.io/sporting-life-times/sports.html)
 
 ## Important distinction
