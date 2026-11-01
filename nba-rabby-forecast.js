@@ -1,64 +1,65 @@
-// Rabby NBA pregame forecasts: independently owned Elo +45 home advantage.
-// Experimental scores use qualifying possession data or the early-season model.
-// Live games require an archived pregame forecast, never a fresh pregame calculation.
+/* NBA Rabby Forecast Desk: one verified possession engine on every NBA page.
+ * Predictions exist only for scheduled pregame matchups; earned Elo and score
+ * estimates are separate forecasts, never retrospective "pregame" claims.
+ */
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const aliases={NY:'NYK',GS:'GSW',SA:'SAS',NO:'NOP',WSH:'WAS',UTAH:'UTA'};
-const norm=s=>aliases[s]||s;
-const today=()=>{
- const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
- const get=k=>parts.find(x=>x.type===k)?.value;
- return get('year')+'-'+get('month')+'-'+get('day');
-};
-const day=s=>{
- const date=new Date(s);if(!Number.isFinite(date.getTime()))return null;
- const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
- const get=k=>parts.find(x=>x.type===k)?.value;return get('year')+'-'+get('month')+'-'+get('day');
-};
-const fmt=s=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'}).format(new Date(s))+' ET';
-async function get(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error(path+' is not published');return r.json();}
+const canonical=c=>aliases[String(c||'').toUpperCase()]||String(c||'').toUpperCase();
+const fmt=d=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(d))+' ET';
+async function get(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('Unable to load '+path);return r.json();}
+function matchup(g,model,ratings){
+ const home=g.teams?.find(t=>t.home_away==='home'),away=g.teams?.find(t=>t.home_away==='away');
+ const h=canonical(home?.code),a=canonical(away?.code);
+ const p=window.RabbyPossessionModel.project(h,a,model,ratings);
+ if(!p)return '';
+ const names={home:home?.name||h,away:away?.name||a};
+ const favorite=p.homeWin>=0.5?h:a,scoreFavorite=p.homeScore>p.awayScore?h:a;
+ const scorebug=window.SLTScorebug.render({mode:'upcoming',projected:true,subtitle:fmt(g.date),
+  away:{code:a,name:names.away},home:{code:h,name:names.home},
+  awayScore:p.awayScore,homeScore:p.homeScore,footer:''});
+ const edge=p.margin>=0?h:a;
+ const homeWidth=(100*p.homeWin).toFixed(1);
+ const warning=favorite!==scoreFavorite?'<p class="rabby-v2-disagreement">Elo and the possession score favor different teams; neither is a certainty.</p>':'';
+ const link=g.id?'<a class="rabby-v2-game-link" href="nba-live-game.html?game='+encodeURIComponent(String(g.id).replace(/^espn-nba-/,''))+'">Game details ↗</a>':'';
+ return '<article class="rabby-game rabby-v2-game">'+scorebug+
+  '<div class="rabby-v2-odds"><div><strong>'+esc(a)+' '+(100*(1-p.homeWin)).toFixed(1)+'%</strong><small>USRS Elo win chances</small><strong>'+esc(h)+' '+(100*p.homeWin).toFixed(1)+'%</strong></div><div class="rabby-v2-prob-bar"><span style="width:'+homeWidth+'%"></span></div></div>'+
+  '<div class="rabby-v2-mainstats"><div><small>PROJECTED MARGIN</small><b>'+esc(edge)+' −'+Math.abs(p.margin).toFixed(1)+'</b></div><div><small>PROJECTED TOTAL</small><b>'+p.total.toFixed(1)+'</b></div><div><small>ESTIMATED PACE</small><b>'+p.possessions.toFixed(1)+'</b></div></div>'+
+  '<div class="rabby-v2-label">OFFENSE MATCHED AGAINST OPPONENT DEFENSE</div>'+
+  '<div class="rabby-v2-breakdown"><div><small>'+esc(a)+' offensive efficiency</small><b>'+p.awayOffense.toFixed(1)+'</b><small>'+esc(h)+' defensive allowance</small><b>'+p.homeDefense.toFixed(1)+'</b><strong>Matchup: '+p.awayEfficiency.toFixed(1)+'</strong></div>'+
+   '<div><small>'+esc(h)+' offensive efficiency</small><b>'+p.homeOffense.toFixed(1)+'</b><small>'+esc(a)+' defensive allowance</small><b>'+p.awayDefense.toFixed(1)+'</b><strong>Matchup: '+p.homeEfficiency.toFixed(1)+'</strong></div></div>'+
+  '<p class="rabby-v2-provenance">Points per 100 possessions · '+esc(a)+' '+p.awayGames+' games, '+esc(h)+' '+p.homeGames+' games · 12-game league shrinkage · 2025–26 frozen score calibration</p>'+warning+link+'</article>';
+}
 async function show(){
- const elo=await get('data/nba-2026-27-current-provisional.json');
- let official;
- try{official=await get('data/nba-upcoming-schedule.json');}
- catch(error){
-  // The archived game-center file contains completed games, not the full
-  // upcoming schedule. Use static backup only on its exact stamped day.
-  const fallback=await get('data/nba-official-schedule-snapshot.json');
-  if(fallback.date!==today()||!Array.isArray(fallback.games))
-   throw Error('Dated NBA schedule unavailable; awaiting verified collector');
-  official=fallback;
- }
- const ratings=Object.fromEntries(elo.rankings.map(r=>[r.team,r.elo]));
- const played=elo.events||[];
- let possession=null;
- try{possession=window.RabbyPossessionModel.build(await get('data/nba-possession-inputs.json'));}catch(_e){}
- const early=window.RabbyEarlyScore?window.RabbyEarlyScore.build(played):null;
- if(Object.keys(ratings).length!==30||played.length<5)throw Error('Not enough verified NBA Elo data for provisional forecasts');
- const date=today();
- const games=(official.games||[]).filter(g=>day(g.date)===date&&g.state==='pre'&&Date.parse(g.date)>Date.now()).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
- const entries=games.map(g=>{
-   const h=g.teams?.find(t=>t.home_away==='home'),a=g.teams?.find(t=>t.home_away==='away');
-   const hc=norm(h?.code),ac=norm(a?.code);if(!Number.isFinite(ratings[hc])||!Number.isFinite(ratings[ac]))return '';
-   const hp=1/(1+Math.pow(10,-(ratings[hc]+45-ratings[ac])/400));
-   const possessionScore=possession?window.RabbyPossessionModel.project(hc,ac,possession,ratings):null;
-   const p=possessionScore||(early?window.RabbyEarlyScore.project(hc,ac,early,ratings):null);
-   const scoringLabel=possessionScore?'Experimental possession model':'Experimental early-season Elo model';
-   const favorite=hp>=.5?hc:ac;
-   const names={home:h?.name||hc,away:a?.name||ac};
-   const bug=window.SLTScorebug.render({mode:'upcoming',projected:Boolean(p),subtitle:fmt(g.date),away:{code:ac,name:names.away},home:{code:hc,name:names.home},awayScore:p?Math.round(p.awayPoints):undefined,homeScore:p?Math.round(p.homePoints):undefined,footer:''});
-   return '<article class="rabby-game">'+bug+'<div class="rabby-model"><span><strong>Elo favorite</strong> '+esc(favorite===hc?names.home:names.away)+'</span><span><strong>Win probability</strong> '+(100*Math.max(hp,1-hp)).toFixed(1)+'%</span>'+(p?'<span><strong>Scoring model</strong> '+scoringLabel+'</span><span><strong>Experimental model spread</strong> '+esc(p.margin>=0?hc:ac)+' -'+Math.abs(p.margin).toFixed(1)+'</span><span><strong>Projected total</strong> '+p.total.toFixed(1)+'</span>':'<span>Scoring projection awaiting qualifying data</span>')+'</div></article>';
-
- }).filter(Boolean);
- $('nba-rabby-games').innerHTML=entries.length?entries.join(''):'<p class="hub-small">No upcoming NBA games in today’s published schedule. <a href="nba-game-center.html">Live games and finals ↗</a></p>';
- $('nba-rabby-status').textContent=date+' · '+entries.length+' upcoming games · Current Elo: '+elo.games_played+' completed games · Official NBA schedule · '+'Scores remain experimental; model shown with each matchup';
+ if(!window.RabbyPossessionModel||!window.SLTScorebug)throw Error('Shared scoring and scorebug libraries are missing');
+ const [elo,stats,schedule]=await Promise.all([
+  get('data/nba-2026-27-current-provisional.json'),
+  get('data/nba-possession-inputs.json'),
+  get('data/nba-upcoming-schedule.json')
+ ]);
+ const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
+ const model=window.RabbyPossessionModel.build(stats,4);
+ if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('All 30 teams require verified NBA scoring and Elo data');
+ window.NBARabbyForecastState={ratings,model,project:(home,away)=>window.RabbyPossessionModel.project(home,away,model,ratings)};
+ document.dispatchEvent(new Event('nba:forecast-ready'));
+ const now=Date.now(),limit=now+72*3600000;
+ const games=(schedule.games||[]).filter(g=>g.state==='pre'&&Date.parse(g.date)>now&&Date.parse(g.date)<=limit)
+  .sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).slice(0,18);
+ const cards=games.map(g=>matchup(g,model,ratings)).filter(Boolean);
+ const target=$('nba-rabby-games'),status=$('nba-rabby-status');
+ if(target)target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';
+ const cal=model.calibration;
+ const holdout=cal&&Number.isFinite(cal.marginMAE)&&Number.isFinite(cal.totalMAE)?' · 2025–26 holdout: '+cal.testGames+' games, margin MAE '+cal.marginMAE.toFixed(1)+', total MAE '+cal.totalMAE.toFixed(1)+' points':'';
+ if(status)status.textContent=model.coverage.games+' attributed, completed team box scores · '+model.coverage.teams+' NBA teams · '+cards.length+' upcoming forecasts'+holdout+' · Early-season 2026–27 scoring accuracy not yet established.';
 }
 function unavailable(e){
- $('nba-rabby-status').textContent='Official NBA schedule or model unavailable: '+e.message;
- $('nba-rabby-games').innerHTML='<p class="hub-small">Current forecasts unavailable. <a href="nba-game-center.html">Open the Game Center ↗</a></p>';
+ const status=$('nba-rabby-status'),target=$('nba-rabby-games');
+ if(status)status.textContent='Verified NBA scoring inputs unavailable: '+e.message;
+ if(target)target.innerHTML='<p class="nba-empty">Do not substitute a generic league-average score. Waiting for qualified box scores. <a href="nba-game-center.html">Open Game Center ↗</a></p>';
 }
-async function refresh(){try{await show();}catch(e){unavailable(e);}}
+async function refresh(){try{await show();}catch(e){console.warn('NBA Rabby forecast:',e);unavailable(e);}}
 refresh();
-setInterval(()=>{if(!document.hidden)return refresh();},60*1000);
+setInterval(()=>{if(!document.hidden)refresh();},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();
