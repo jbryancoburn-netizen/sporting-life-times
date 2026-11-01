@@ -1,10 +1,34 @@
 {
-  "status": "NOT_RUN",
-  "checked_at": null,
+  "status": "ENGINE_BUILT_INPUTS_NOT_CERTIFIED",
+  "checked_at": "2026-11-01T16:44:14+00:00",
   "engine_version": "1.0",
-  "calibration_status": "NOT_CERTIFIED",
-  "unmet_source_gates": [],
+  "available_components": [
+    "reproducibly seeded Monte Carlo draws",
+    "common national voting error",
+    "state-correlated voting error",
+    "race-specific voting error",
+    "two-party margin-to-winner sampling",
+    "House majority threshold with 435-source-record requirement",
+    "hard input-provenance and out-of-sample calibration gate"
+  ],
+  "country_scope": "50 U.S. states",
+  "office_scope": "U.S. House model mechanics only; Senate and governors require separate control/contest models",
+  "national_sigma_pp": null,
+  "state_sigma_pp": null,
+  "race_sigma_pp": null,
+  "calibration_status": "NOT YET MEASURED FROM A VALID 2026-BOUNDARY OUT-OF-SAMPLE RESEARCH DESIGN",
+  "unmet_source_gates": [
+    "official_2026_ballot_candidates_verified",
+    "2024_presidential_vote_retabulated_on_2026_districts",
+    "2026_district_boundaries_verified",
+    "individual_race_polls_quality_audited",
+    "historical_out_of_sample_calibration_passed",
+    "national_state_local_residual_scales_empirically_calibrated",
+    "all_435_house_races_covered",
+    "independent source-readiness audit has not certified House predictions"
+  ],
   "forecast_2026_certified": false,
   "certified_2026_probability_count": 0,
-  "published_real_seat_simulations": 0
+  "published_real_seat_simulations": 0,
+  "warning": "The Monte Carlo algorithm is implemented and unit-tested, but its error scales and real 2026 candidate/vote inputs are not calibrated or certified. No demo or synthetic odds are published as predictions."
 }
