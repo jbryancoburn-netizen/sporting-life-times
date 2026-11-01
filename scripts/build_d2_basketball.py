@@ -20,6 +20,11 @@ from zoneinfo import ZoneInfo
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/"data"
 HASH="7287cda610a9326931931080cb3a604828febe6fe3c9016a7e4a36db99efdb7c"
+try:
+    from scripts.d2_elo_chronology import game_sort_key
+except ModuleNotFoundError:  # direct python scripts/<name>.py invocation
+    from d2_elo_chronology import game_sort_key
+
 SEASON="2026-27"
 USER_AGENT="SportingLifeTimes/1.0 (+https://github.com/jbryancoburn-netizen/sporting-life-times)"
 def get_json(url):
@@ -975,7 +980,7 @@ def update(gender, bootstrap=False):
     # Initial explicit uncalibrated settings: no fictitious back-tested coefficients.
     k=20.0;home_edge=65.0
     finals=0
-    for game in sorted(games.values(),key=lambda v:(v["date"],str(v.get("start_time") or ""),str(v["id"]))):
+    for game in sorted(games.values(),key=game_sort_key):
         a,h=game["away"],game["home"]
         if a not in rating or h not in rating or not game.get("elo_eligible") or teams[a].get("not_eligible_for_dii_elo") or teams[h].get("not_eligible_for_dii_elo"):
             # Cross-division opponents and uncertain memberships must not
