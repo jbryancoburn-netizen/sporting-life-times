@@ -109,6 +109,99 @@ def fetch_ncaa_scoreboard(sport, day, fetcher=fetch):
                      ','.join(x['provider']+'='+x['error'] for x in attempted))
 
 
+def parse_ncaa_player_boxscore(payload, contest, expected_ncaa_ids=None):
+    """Safely normalize NCAA-origin player totals; never infer team membership.
+
+    Team side is established only from the game's verified NCAA team IDs or
+    an explicit isHome marker in its game boxscore. Per-team player points
+    must reconcile exactly to the independently reported NCAA final score.
+    An incomplete or partially typed response yields no publishable stats.
+    """
+    if not isinstance(payload, dict) or contest.get('phase') != 'final':
+        return None
+    data = payload.get('data') if isinstance(payload.get('data'), dict) else payload
+    box = data.get('boxscore', data) if isinstance(data, dict) else {}
+    if not isinstance(box, dict) or not isinstance(box.get('teamBoxscore'), list):
+        return None
+    boxes = box['teamBoxscore']
+    if len(boxes) != 2:
+        return None
+    sides = {}
+    for t in box.get('teams') or []:
+        if not isinstance(t, dict) or not isinstance(t.get('isHome'), bool):
+            continue
+        tid = str(t.get('teamId') or '')
+        if tid.isdigit() and tid not in sides:
+            sides[tid] = 'home' if t['isHome'] else 'away'
+    expected_ncaa_ids = expected_ncaa_ids or {}
+    for side,tid in expected_ncaa_ids.items():
+        if side in ('home','away') and str(tid).isdigit():
+            if tid in sides and sides[tid] != side:
+                return None
+            sides[str(tid)] = side
+    def stat_int(value):
+        if isinstance(value, bool) or value is None:
+            return None
+        text = str(value).strip()
+        if not text.isdigit():
+            return None
+        n = int(text)
+        return n if n <= 250 else None
+    outcomes = {}
+    for block in boxes:
+        if not isinstance(block, dict):
+            return None
+        tid = str(block.get('teamId') or '')
+        side = sides.get(tid)
+        if side not in ('home','away') or side in outcomes:
+            return None
+        expected = stat_int(contest.get(side+'_score'))
+        players = block.get('playerStats')
+        if expected is None or expected > 200 or not isinstance(players,list):
+            return None
+        total = 0; normalized = []; seen = set()
+        for p in players:
+            if not isinstance(p, dict):
+                return None
+            name = str(p.get('fullName') or '').strip()
+            if not name:
+                name = ' '.join(str(p.get(k) or '').strip() for k in ('firstName','lastName')).strip()
+            # Only stat-complete rows are displayed; DNP records without
+            # points may be omitted but cannot contribute invented values.
+            pts = stat_int(p.get('points'))
+            if pts is None:
+                continue
+            if not name or len(name) > 90:
+                return None
+            pid = str(p.get('id') or name)
+            if pid in seen:
+                return None
+            seen.add(pid)
+            fields = {}
+            for key,origin in (('reb','totalRebounds'),('ast','assists'),
+                               ('stl','steals'),('blk','blockedShots'),
+                               ('fgm','fieldGoalsMade'),('fga','fieldGoalsAttempted'),
+                               ('ftm','freeThrowsMade'),('fta','freeThrowsAttempted'),
+                               ('tpm','threePointsMade'),('tpa','threePointsAttempted'),
+                               ('tov','turnovers')):
+                fields[key] = stat_int(p.get(origin))
+            for made,attempted in (('fgm','fga'),('ftm','fta'),('tpm','tpa')):
+                if fields[made] is not None and fields[attempted] is not None and fields[made] > fields[attempted]:
+                    return None
+            total += pts
+            normalized.append({'id':pid,'name':name,'pts':pts,**fields})
+        if not normalized or total != expected:
+            return None
+        outcomes[side] = {'ncaa_team_id':tid,'score':expected,'players':normalized}
+    if set(outcomes) != {'away','home'}:
+        return None
+    return {'ncaa_id':str(contest['ncaa_id']),'espn_id':contest.get('espn_id'),
+            'day':contest.get('day'),'gender':contest.get('gender','men'),
+            'source':'NCAA-origin player box score via third-party relay',
+            'source_url':'https://ncaa-api.henrygd.me/game/'+str(contest['ncaa_id'])+'/boxscore',
+            'away':outcomes['away'],'home':outcomes['home']}
+
+
 def parse_ncaa_crosscheck(payload, espn_events, crosswalk, day):
     """Admit only uniquely identified NCAA D-I fixtures. No inferred times or scores.
 
@@ -442,6 +535,58 @@ def main():
     except Exception as exc:
         out['sources'].append({'source':'NCAA-origin women scoreboard','url':women_url,
                                'ok':False,'error':type(exc).__name__})
+    # Verify individual player totals against NCAA-origin FINAL scores. These
+    # records remain separate from ESPN player aggregates and RETRO Elo.
+    # Limit network calls and retain certified previous games by NCAA ID.
+    existing=out.get('ncaa_player_boxscores') or {}
+    safe_games={gid:record for gid,record in (existing.get('games') or {}).items()
+                if isinstance(record,dict) and str(gid).isdigit()}
+    audited={'eligible':0,'accepted':0,'rejected_or_unavailable':0,'requests':0}
+    xref_by_espn={str(t['espn_id']):t for t in
+                  (json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
+                   .get('teams') or []) if t.get('espn_id')}
+    qualified=[]
+    for gender,key in (('men','ncaa_crosscheck'),('women','ncaa_women_crosscheck')):
+        source=out.get(key) or {}
+        if source.get('day') != ncaa_day or source.get('checked_at') != now:
+            continue
+        for game in source.get('games') or []:
+            if game.get('phase') == 'final' and str(game.get('ncaa_id') or '').isdigit():
+                qualified.append((gender,game))
+    for gender,game in qualified[:8]:
+        gid=str(game['ncaa_id'])
+        audited['eligible']+=1
+        if gid in safe_games:continue
+        expected={}
+        if gender=='men':
+            for side in ('away','home'):
+                team=xref_by_espn.get(str(game.get(side+'_id')))
+                tid=str((team or {}).get('id') or '').removeprefix('ncaa:')
+                if tid.isdigit():expected[side]=tid
+        url='https://ncaa-api.henrygd.me/game/'+gid+'/boxscore'
+        audited['requests']+=1
+        try:
+            data=json.loads(fetch(url))
+            candidate=parse_ncaa_player_boxscore(data,{**game,'gender':gender},expected)
+            if candidate:
+                candidate['checked_at']=now
+                safe_games[gid]=candidate
+                audited['accepted']+=1
+            else:
+                audited['rejected_or_unavailable']+=1
+        except Exception as exc:
+            audited['rejected_or_unavailable']+=1
+            audited.setdefault('errors',{}).setdefault(type(exc).__name__,0)
+            audited['errors'][type(exc).__name__]+=1
+    out['ncaa_player_boxscores']={'checked_at':now,'day':ncaa_day,
+        'provenance':'NCAA.com data delivered by third-party relay; not independent second publisher',
+        'scope':'Only verified final games with exact player-to-final point reconciliation',
+        'games':dict(list(safe_games.items())[-180:]),'audit':audited}
+    out['sources'].append({'source':'NCAA-origin verified player boxscores',
+        'ok':bool(audited['accepted'] or safe_games),
+        'accepted_new':audited['accepted'],'requests':audited['requests'],
+        'rejected_or_unavailable':audited['rejected_or_unavailable'],
+        'certified_total':len(safe_games)})
     # Completed regular-season games only; keyed storage makes repeated ingestion idempotent.
     statpath=ROOT/'data/mbb-current-player-stats.json'
     playerdata=json.loads(statpath.read_text()) if statpath.exists() else {'season':'2026-27','games':{},'players':[]}
