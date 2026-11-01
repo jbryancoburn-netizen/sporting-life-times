@@ -19,6 +19,7 @@ def build(data):
     polling=data.get("polling",{})
     poll_audit=data.get("poll_audit",{})
     presidential=data.get("presidential",{})
+    archive=data.get("archive",{})
     fec_index=data.get("fec_index",{})
     house=row.get("house",[]) if row.get("status")=="ok" else []
     senate=row.get("senate",[]) if row.get("status")=="ok" else []
@@ -31,6 +32,10 @@ def build(data):
       stage("historical_house_vote_records","partial" if len(house)>=1700 else "missing",
         f"{len(house)} persistently stored candidate-vote contest summaries from 2018–2024",
         "MIT Election Data and Science Lab (MEDSL)","Missing/uncontested votes, RCV methodology, data lineage, and redistricting compatibility remain incomplete.",len(house)),
+      stage("2012_2016_historical_source_archive","partial" if archive.get("status")=="ok" and len(archive.get("house",[]))>=1230 and len(archive.get("senate",[]))>=72 else "missing",
+        f"{len(archive.get('house',[]))} House and {len(archive.get('senate',[]))} Senate historical contests from 2012–2016",
+        "MIT Election Data and Science Lab (MEDSL), original general election returns",
+        "Winner-party totals are not yet independently reconciled and district boundaries require mapping before use in 2026 training.",len(archive.get("house",[]))+len(archive.get("senate",[]))),
       stage("historical_senate_vote_records","partial" if len(senate)>=120 else "missing",
         f"{len(senate)} persistently stored Senate contests, 2018–2024",
         "MIT Election Data and Science Lab (MEDSL)","Needs special-election and governor treatment plus state-level fundamentals and presidential baseline.",len(senate)),
@@ -82,7 +87,7 @@ def build(data):
       "status":"NOT_READY_FOR_PUBLIC_PREDICTIONS",
       "evaluated_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
       "method":"Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
-      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
+      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
       "checks":metrics,"counts":{"verified":sum(x["state"]=="verified" for x in metrics),"partial":sum(x["state"]=="partial" for x in metrics),"missing":sum(x["state"]=="missing" for x in metrics)},
       "house_forecast_ready":forecast_ready,"senate_forecast_ready":forecast_ready,"governor_forecast_ready":forecast_ready,
       "certified_original_probability_count":0,
@@ -98,7 +103,7 @@ def build(data):
 def main():
     d=build({"history":load("politics-history.json"),"row":load("politics-historical-contests.json"),
              "fec":load("politics-fec-inputs.json"),"fec_index":load("politics-fec-race-index.json"),
-             "presidential":load("politics-2024-county-presidential.json"),"census":load("politics-census-inputs.json"),
+             "presidential":load("politics-2024-county-presidential.json"),"archive":load("politics-historical-archive.json"),"census":load("politics-census-inputs.json"),
              "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json")})
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
