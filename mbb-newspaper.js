@@ -73,7 +73,7 @@ let externalTop25=null;
 get('data/mbb-external-top25.json').then(d=>{if(d&&d.season==='2026-27'){externalTop25=d;const active=document.querySelector('[data-poll].active');if(active&&['net','kenpom'].includes(active.dataset.poll)&&$('#poll-table'))$('#poll-table').innerHTML=rankingTop25(active.dataset.poll);}});
 function rankingTop25(which){
  if(which==='retro'){
-  if(!live)return '<p class="note">RETRO · all 365 teams start at 1500 · no pregame strength rankings</p>'+preseasonPowerboard();
+  if(!live)return '<p class="note">RETRO · '+(retroPreseason?'all 365 teams start at 1500 · no pregame strength rankings':'verified rating feed unavailable')+'</p>'+preseasonPowerboard();
   const ordered=[...teams].sort((a,b)=>Number(b.elo)-Number(a.elo)||a.team.localeCompare(b.team)).slice(0,25);
   return '<p class="note">RETRO · independent 1500-start Elo · verified games only</p>'+ordered.map(t=>'<div class="rank-row"><span class="rank">'+(t.rank??'—')+'</span>'+name(t)+'<span class="rank-score">'+number(t.elo,0)+'</span></div>').join('');
  }
@@ -89,6 +89,7 @@ function rankingTop25(which){
 }
 function poll(which='ap'){const rows=polls?.polls?.[which]?.rankings||[];return rows.length?'<div class="note">Poll dated '+esc(polls.as_of)+' · <a href="'+url(polls.polls[which].source_url)+'">Source ↗</a></div>'+rows.map(x=>{const normalize=s=>String(s??'').toLowerCase().replace(/[^a-z0-9]/g,'');const pollAlias={'michiganstate':'michiganst','iowastate':'iowast','stjohns':'stjohnsny','usc':'southerncalifornia','connecticut':'uconn','brighamyoung':'byu','miamifl':'miamifl','olemiss':'mississippi','pitt':'pittsburgh'};const q=normalize(x.team);const target=pollAlias[q]||q;const t=teams.find(t=>normalize(t.team)===q)||teams.find(t=>normalize(t.team)===target)||teams.find(t=>{const c=(cross?.teams||[]).find(z=>z.id===t.team_id);return c&&(normalize(c.name)===q||normalize(c.name)===target||normalize(c.espn_name).startsWith(q)||normalize(c.espn_name).startsWith(target));});return '<div class="rank-row"><span class="rank">'+x.rank+'</span>'+(t?name(t):'<strong>'+esc(x.team)+'</strong>')+'<span></span></div>';}).join(''):empty('This poll is not available.');}
 function featuredRatings(){
+ if(!live&&!retroPreseason)return '<div class="hero-slate"><div class="hero-slate-dash">USRS / SOURCE CHECK</div><p>The clean-slate RETRO rating feed is not currently verified. No power order is displayed.</p><small>Historical records are not a substitute for current ratings.</small></div>';
  if(!live)return '<div class="hero-slate"><div class="hero-slate-dash">USRS / SEASON ZERO</div>'+
   '<div class="hero-slate-number"><strong>365</strong><span>PROGRAMS</span><strong>1500</strong><span>STARTING ELO</span></div>'+
   '<p>Every program starts level. No preseason strength rankings, carryover ratings or alphabetical leaders.</p>'+
@@ -98,14 +99,15 @@ function featuredRatings(){
   leaders.map(t=>'<a class="hero-team" href="'+teamURL(t)+'">'+logo(t,'featured')+
    '<strong>'+number(t.elo,0)+'</strong><small>'+(t.rank==null?'ELO':('#'+t.rank))+' '+esc(t.team)+'</small></a>').join('');
 }
-function preseasonPowerboard(){return '<div class="mbb-clean-slate"><span>ALL 365 TEAMS TIED</span>'+
+function preseasonPowerboard(){if(!retroPreseason)return '<div class="mbb-clean-slate"><span>RATING DATA NOT VERIFIED</span><p>The clean-slate RETRO feed is unavailable. Power rankings are withheld until verification.</p></div>';
+ return '<div class="mbb-clean-slate"><span>ALL 365 TEAMS TIED</span>'+
  '<strong>1500</strong><p>Ratings begin equal. The first power rankings will follow verified final scores.</p>'+
  '<a href="ncaam-elo.html">Explore methodology and all schools →</a></div>';}
 function conferenceLeaderText(members){
  if(!members.length)return 'No member schools verified';
  const ordered=[...members].sort((a,b)=>Number(b.elo)-Number(a.elo)||a.team.localeCompare(b.team));
  const best=ordered[0],n=ordered.filter(t=>Number(t.elo)===Number(best.elo)).length;
- if(!live)return 'Every team begins at 1500 Elo';
+ if(!live)return retroPreseason?'Every team begins at 1500 Elo':'RETRO power order not verified';
  if(n>1)return n+' schools tied for the Elo lead at '+number(best.elo,0);
  return 'USRS Elo leader: '+best.team+' ('+number(best.elo,0)+')';
 }
