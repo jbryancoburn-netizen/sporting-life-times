@@ -2,24 +2,24 @@
   "schools_targeted": 365,
   "schools_checked": 365,
   "totals": {
-    "matched": 6650,
-    "site_corrected": 0,
+    "matched": 6716,
+    "site_corrected": 4,
     "site_conflicts": 5,
-    "location_corrected": 0,
+    "location_corrected": 92,
     "arena_added": 0,
-    "broadcast_added": 3,
-    "tipoff_added": 0
+    "broadcast_added": 0,
+    "tipoff_added": 10
   },
   "status_counts": {
-    "already_matched": 317,
-    "source_fetch_failed": 38,
-    "verified_changes": 2,
-    "no_official_source": 8
+    "already_matched": 282,
+    "source_fetch_failed": 42,
+    "verified_changes": 41
   },
   "source_method_counts": {
-    "sidearm_card": 164,
-    "table": 155,
-    "unreadable": 46
+    "sidearm_card": 163,
+    "table": 159,
+    "unreadable": 42,
+    "official_conference": 1
   },
   "schools": [
     {
@@ -95,12 +95,12 @@
     {
       "team": "Alcorn",
       "id": "2016",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 29,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "American",
@@ -165,10 +165,10 @@
     {
       "team": "Arkansas St.",
       "id": "2032",
-      "status": "already_matched",
-      "matched": 29,
+      "status": "verified_changes",
+      "matched": 30,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -255,23 +255,22 @@
     {
       "team": "Bethune-Cookman",
       "id": "2065",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 31,
       "source_method": "sidearm_card"
     },
     {
       "team": "Binghamton",
       "id": "2066",
-      "status": "verified_changes",
+      "status": "already_matched",
       "matched": 31,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 31,
-      "source_method": "sidearm_card",
-      "broadcast_added": 2
+      "source_method": "sidearm_card"
     },
     {
       "team": "Boise St.",
@@ -406,10 +405,10 @@
     {
       "team": "Cal St. Fullerton",
       "id": "2239",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -446,10 +445,10 @@
     {
       "team": "Canisius",
       "id": "2099",
-      "status": "already_matched",
-      "matched": 33,
+      "status": "verified_changes",
+      "matched": 34,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 39,
       "source_method": "sidearm_card"
     },
@@ -516,10 +515,10 @@
     {
       "team": "Chicago St.",
       "id": "2130",
-      "status": "already_matched",
-      "matched": 28,
-      "site_corrected": 0,
-      "location_corrected": 0,
+      "status": "verified_changes",
+      "matched": 30,
+      "site_corrected": 2,
+      "location_corrected": 2,
       "school_rows": 34,
       "source_method": "sidearm_card"
     },
@@ -546,12 +545,12 @@
     {
       "team": "Cleveland St.",
       "id": "325",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 30,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Coastal Carolina",
@@ -626,10 +625,10 @@
     {
       "team": "Cornell",
       "id": "172",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "verified_changes",
+      "matched": 28,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 29,
       "source_method": "sidearm_card"
     },
@@ -766,10 +765,10 @@
     {
       "team": "ETSU",
       "id": "2193",
-      "status": "already_matched",
-      "matched": 28,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -856,12 +855,12 @@
     {
       "team": "FDU",
       "id": "161",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "FGCU",
@@ -886,10 +885,10 @@
     {
       "team": "Fairfield",
       "id": "2217",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -936,10 +935,10 @@
     {
       "team": "Fordham",
       "id": "2230",
-      "status": "already_matched",
-      "matched": 28,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
@@ -1026,10 +1025,10 @@
     {
       "team": "Georgia St.",
       "id": "2247",
-      "status": "already_matched",
-      "matched": 31,
+      "status": "verified_changes",
+      "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
@@ -1076,10 +1075,10 @@
     {
       "team": "Green Bay",
       "id": "2739",
-      "status": "already_matched",
-      "matched": 31,
+      "status": "verified_changes",
+      "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 35,
       "source_method": "sidearm_card"
     },
@@ -1177,10 +1176,10 @@
     {
       "team": "IU Indy",
       "id": "85",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 36,
       "source_method": "sidearm_card"
     },
@@ -1297,11 +1296,13 @@
     {
       "team": "Jacksonville St.",
       "id": "55",
-      "status": "no_official_source",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0
+      "location_corrected": 8,
+      "school_rows": 33,
+      "source_method": "table",
+      "tipoff_added": 2
     },
     {
       "team": "James Madison",
@@ -1346,10 +1347,10 @@
     {
       "team": "Kennesaw St.",
       "id": "338",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
@@ -1376,11 +1377,13 @@
     {
       "team": "LIU",
       "id": "112358",
-      "status": "no_official_source",
-      "matched": 0,
-      "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0
+      "status": "verified_changes",
+      "matched": 7,
+      "site_corrected": 2,
+      "location_corrected": 7,
+      "school_rows": 32,
+      "source_method": "table",
+      "tipoff_added": 1
     },
     {
       "team": "LMU (CA)",
@@ -1405,20 +1408,20 @@
     {
       "team": "La Salle",
       "id": "2325",
-      "status": "already_matched",
-      "matched": 28,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 34,
       "source_method": "sidearm_card"
     },
     {
       "team": "Lafayette",
       "id": "322",
-      "status": "already_matched",
-      "matched": 28,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
@@ -1435,12 +1438,12 @@
     {
       "team": "Le Moyne",
       "id": "2330",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 28,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 2,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Lehigh",
@@ -1555,12 +1558,12 @@
     {
       "team": "Loyola Maryland",
       "id": "2352",
-      "status": "already_matched",
-      "matched": 29,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 30,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Maine",
@@ -1665,10 +1668,10 @@
     {
       "team": "Mercyhurst",
       "id": "2385",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "verified_changes",
+      "matched": 30,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 3,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -1735,10 +1738,10 @@
     {
       "team": "Milwaukee",
       "id": "270",
-      "status": "already_matched",
-      "matched": 31,
+      "status": "verified_changes",
+      "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -1865,10 +1868,10 @@
     {
       "team": "N.C. A&T",
       "id": "2448",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 31,
       "source_method": "sidearm_card"
     },
@@ -1955,10 +1958,10 @@
     {
       "team": "New Haven",
       "id": "2441",
-      "status": "already_matched",
-      "matched": 28,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 3,
       "school_rows": 31,
       "source_method": "sidearm_card"
     },
@@ -2005,13 +2008,12 @@
     {
       "team": "Nicholls",
       "id": "2447",
-      "status": "verified_changes",
+      "status": "already_matched",
       "matched": 27,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 30,
-      "source_method": "sidearm_card",
-      "broadcast_added": 1
+      "source_method": "sidearm_card"
     },
     {
       "team": "Norfolk St.",
@@ -2046,10 +2048,10 @@
     {
       "team": "North Dakota",
       "id": "155",
-      "status": "already_matched",
-      "matched": 26,
+      "status": "verified_changes",
+      "matched": 28,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -2116,10 +2118,10 @@
     {
       "team": "Northern Ky.",
       "id": "94",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -2167,11 +2169,13 @@
     {
       "team": "Ohio",
       "id": "195",
-      "status": "no_official_source",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0
+      "location_corrected": 12,
+      "school_rows": 33,
+      "source_method": "table",
+      "tipoff_added": 3
     },
     {
       "team": "Ohio St.",
@@ -2236,10 +2240,10 @@
     {
       "team": "Oral Roberts",
       "id": "198",
-      "status": "already_matched",
-      "matched": 24,
+      "status": "verified_changes",
+      "matched": 26,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -2286,11 +2290,12 @@
     {
       "team": "Penn St.",
       "id": "213",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Pepperdine",
@@ -2345,10 +2350,10 @@
     {
       "team": "Presbyterian",
       "id": "2506",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 33,
       "source_method": "sidearm_card"
     },
@@ -2465,10 +2470,10 @@
     {
       "team": "Robert Morris",
       "id": "2523",
-      "status": "already_matched",
-      "matched": 29,
+      "status": "verified_changes",
+      "matched": 30,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -2605,11 +2610,12 @@
     {
       "team": "San Diego St.",
       "id": "21",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "San Francisco",
@@ -2674,10 +2680,10 @@
     {
       "team": "South Alabama",
       "id": "6",
-      "status": "already_matched",
-      "matched": 32,
+      "status": "verified_changes",
+      "matched": 34,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 34,
       "source_method": "sidearm_card"
     },
@@ -2704,10 +2710,10 @@
     {
       "team": "South Dakota",
       "id": "233",
-      "status": "already_matched",
-      "matched": 29,
+      "status": "verified_changes",
+      "matched": 31,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 31,
       "source_method": "sidearm_card"
     },
@@ -2834,11 +2840,13 @@
     {
       "team": "St. Thomas (MN)",
       "id": "2900",
-      "status": "no_official_source",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 3,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0
+      "location_corrected": 3,
+      "school_rows": 33,
+      "source_method": "table",
+      "tipoff_added": 1
     },
     {
       "team": "Stanford",
@@ -2863,10 +2871,10 @@
     {
       "team": "Stonehill",
       "id": "284",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 34,
       "source_method": "sidearm_card"
     },
@@ -2903,12 +2911,12 @@
     {
       "team": "Tarleton St.",
       "id": "2627",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 32,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Temple",
@@ -2943,11 +2951,13 @@
     {
       "team": "Tennessee Tech",
       "id": "2635",
-      "status": "no_official_source",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0
+      "location_corrected": 10,
+      "school_rows": 31,
+      "source_method": "official_conference",
+      "tipoff_added": 3
     },
     {
       "team": "Texas",
@@ -2962,29 +2972,30 @@
     {
       "team": "Texas A&M",
       "id": "245",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Texas Southern",
       "id": "2640",
-      "status": "already_matched",
-      "matched": 29,
+      "status": "verified_changes",
+      "matched": 30,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
     {
       "team": "Texas St.",
       "id": "326",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -3021,10 +3032,10 @@
     {
       "team": "Towson",
       "id": "119",
-      "status": "already_matched",
-      "matched": 26,
+      "status": "verified_changes",
+      "matched": 27,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 31,
       "source_method": "sidearm_card"
     },
@@ -3071,10 +3082,10 @@
     {
       "team": "UAlbany",
       "id": "399",
-      "status": "already_matched",
-      "matched": 29,
+      "status": "verified_changes",
+      "matched": 30,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -3231,20 +3242,20 @@
     {
       "team": "UNC Greensboro",
       "id": "2430",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "UNCW",
       "id": "350",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "verified_changes",
+      "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 38,
       "source_method": "sidearm_card",
       "site_conflicts": 1
@@ -3454,10 +3465,10 @@
     {
       "team": "Wagner",
       "id": "2681",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 30,
       "source_method": "sidearm_card"
     },
@@ -3564,20 +3575,20 @@
     {
       "team": "Western Mich.",
       "id": "2711",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "verified_changes",
+      "matched": 29,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 2,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
     {
       "team": "Wichita St.",
       "id": "2724",
-      "status": "already_matched",
-      "matched": 31,
+      "status": "verified_changes",
+      "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 32,
       "source_method": "sidearm_card"
     },
@@ -3675,21 +3686,19 @@
   "reciprocal_pass": {
     "summary": {
       "ambiguous_or_nonreciprocal_groups": 311,
-      "unique_verified_reciprocal_games": 5325,
+      "unique_verified_reciprocal_games": 5327,
       "conflicts_broadcast_disagreement": 388,
       "conflicts_arena_disagreement": 668,
-      "conflicts_site_mismatch_or_unverified": 22,
-      "game_records_repaired": 2,
-      "broadcast": 2,
+      "conflicts_site_mismatch_or_unverified": 20,
       "conflicts_time_disagreement": 54,
       "schools_scanned": 365,
-      "schools_changed": 2,
+      "schools_changed": 0,
       "all_game_entries": 11807,
       "remaining_missing_broadcast": 4994,
-      "remaining_missing_tipoff": 999,
+      "remaining_missing_tipoff": 989,
       "remaining_missing_valid_arena": 725,
       "remaining_missing_city": 88,
-      "remaining_unverified_site": 59
+      "remaining_unverified_site": 55
     },
     "policy": "Source links and unique exact-day D-I opponent ID pairs; never overwrite an announced clock/channel; valid arena excludes date labels; conflicts quarantined; no generic TV assignments.",
     "conflicts": [
@@ -7030,28 +7039,7 @@
         }
       }
     ],
-    "changes": [
-      {
-        "school_id": "2520",
-        "opponent_id": "2066",
-        "date": "2026-11-08",
-        "event_id": "school-2520-2026-11-08-15",
-        "fields": [
-          "broadcast"
-        ],
-        "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "349",
-        "opponent_id": "2066",
-        "date": "2026-11-21",
-        "event_id": "school-349-2026-11-21-5",
-        "fields": [
-          "broadcast"
-        ],
-        "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/2026-27"
-      }
-    ]
+    "changes": []
   },
   "saved_broadcast_recovery": {
     "season": "2026-27",
@@ -7069,168 +7057,14 @@
       },
       "final_field_audit": {
         "game_entries": 11807,
-        "missing_tipoff": 999,
         "missing_broadcast": 4994,
-        "site_unverified": 59
+        "missing_tipoff": 989,
+        "site_unverified": 55
       }
     },
     "policy": "Exact date/two-team-ID matching; verified official sources only; no replacement of existing network or tipoff; disagreements logged.",
     "changes": [],
     "conflicts": [
-      {
-        "school_id": "77",
-        "event_id": "school-77-2026-12-20-41",
-        "date": "2026-12-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "2306",
-        "event_id": "school-2306-2027-01-02-16",
-        "date": "2027-01-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2306",
-        "event_id": "school-2306-2027-02-24-30",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "2306",
-        "event_id": "school-2306-2027-02-27-31",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2026-12-20-18",
-        "date": "2026-12-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-01-16-24",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-02-10-30",
-        "date": "2027-02-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-02-16-32",
-        "date": "2027-02-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "197",
-        "event_id": "school-197-2027-03-02-36",
-        "date": "2027-03-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2628",
-        "event_id": "school-2628-2027-01-27-25",
-        "date": "2027-01-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "2628",
-        "event_id": "school-2628-2027-02-24-32",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2/U"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
       {
         "school_id": "12",
         "event_id": "school-12-2027-01-16-25",
@@ -7238,10 +7072,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7252,10 +7086,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7266,10 +7100,38 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "238",
+        "event_id": "cross-school-238-2027-02-27_333",
+        "date": "2027-02-27",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "9",
+        "event_id": "cross-school-9-2027-01-16_12",
+        "date": "2027-01-16",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
             "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7294,108 +7156,24 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
-          ],
-          [
             "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2026-11-24-7",
-        "date": "2026-11-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN"
           ],
-          [
-            "ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-01-02-16",
-        "date": "2027-01-02",
-        "issue": "conflicting_network_sources",
-        "values": [
           [
             "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
           ]
         ]
       },
       {
-        "school_id": "239",
-        "event_id": "school-239-2027-01-10-18",
-        "date": "2027-01-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2"
-          ],
-          [
-            "ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-01-16-20",
-        "date": "2027-01-16",
+        "school_id": "77",
+        "event_id": "school-77-2026-12-20-41",
+        "date": "2026-12-20",
         "issue": "conflicting_network_sources",
         "values": [
           [
             "ESPN2/U"
           ],
           [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-02-20-30",
-        "date": "2027-02-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "239",
-        "event_id": "school-239-2027-02-23-31",
-        "date": "2027-02-23",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2132",
-        "event_id": "cross-school-2132-2027-02-27_2641",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
+            "ESPNU"
           ]
         ]
       },
@@ -7406,10 +7184,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7434,10 +7212,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7448,10 +7226,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN2/U"
+            "ESPN2/ESPNU"
           ],
           [
-            "ESPN2/ESPNU"
+            "ESPN2/U"
           ]
         ]
       },
@@ -7462,10 +7240,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN2/U"
+            "ESPN2/ESPNU"
           ],
           [
-            "ESPN2/ESPNU"
+            "ESPN2/U"
           ]
         ]
       },
@@ -7476,10 +7254,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7490,24 +7268,234 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
       {
-        "school_id": "9",
-        "event_id": "cross-school-9-2027-01-16_12",
+        "school_id": "197",
+        "event_id": "school-197-2026-12-20-18",
+        "date": "2026-12-20",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/U"
+          ],
+          [
+            "ESPNU"
+          ]
+        ]
+      },
+      {
+        "school_id": "197",
+        "event_id": "school-197-2027-01-16-24",
         "date": "2027-01-16",
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN2/ESPNU"
           ],
           [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "197",
+        "event_id": "school-197-2027-02-10-30",
+        "date": "2027-02-10",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "197",
+        "event_id": "school-197-2027-02-16-32",
+        "date": "2027-02-16",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
             "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "197",
+        "event_id": "school-197-2027-03-02-36",
+        "date": "2027-03-02",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "66",
+        "event_id": "school-66-2027-01-16-21",
+        "date": "2027-01-16",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "66",
+        "event_id": "school-66-2027-02-10-27",
+        "date": "2027-02-10",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "66",
+        "event_id": "school-66-2027-02-13-28",
+        "date": "2027-02-13",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "66",
+        "event_id": "school-66-2027-02-23-31",
+        "date": "2027-02-23",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "252",
+        "event_id": "cross-school-252-2027-01-27_2628",
+        "date": "2027-01-27",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "252",
+        "event_id": "cross-school-252-2027-01-30_248",
+        "date": "2027-01-30",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "252",
+        "event_id": "cross-school-252-2027-03-02_197",
+        "date": "2027-03-02",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "2132",
+        "event_id": "cross-school-2132-2027-02-27_2641",
+        "date": "2027-02-27",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "2306",
+        "event_id": "school-2306-2027-01-02-16",
+        "date": "2027-01-02",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "2306",
+        "event_id": "school-2306-2027-02-24-30",
+        "date": "2027-02-24",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "2306",
+        "event_id": "school-2306-2027-02-27-31",
+        "date": "2027-02-27",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7540,6 +7528,230 @@
         ]
       },
       {
+        "school_id": "38",
+        "event_id": "school-38-2027-01-13-18",
+        "date": "2027-01-13",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "38",
+        "event_id": "school-38-2027-01-16-19",
+        "date": "2027-01-16",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "2628",
+        "event_id": "school-2628-2027-01-27-25",
+        "date": "2027-01-27",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "2628",
+        "event_id": "school-2628-2027-02-24-32",
+        "date": "2027-02-24",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/ESPN2"
+          ],
+          [
+            "ESPN/2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2026-11-24-7",
+        "date": "2026-11-24",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN"
+          ],
+          [
+            "ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2027-01-02-16",
+        "date": "2027-01-02",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2027-01-10-18",
+        "date": "2027-01-10",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2027-01-16-20",
+        "date": "2027-01-16",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2027-02-20-30",
+        "date": "2027-02-20",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2027-02-23-31",
+        "date": "2027-02-23",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "2305",
+        "event_id": "school-2305-2027-01-13-20",
+        "date": "2027-01-13",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "2305",
+        "event_id": "school-2305-2027-02-13-28",
+        "date": "2027-02-13",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "2305",
+        "event_id": "school-2305-2027-02-24-31",
+        "date": "2027-02-24",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/ESPN2"
+          ],
+          [
+            "ESPN/2/U"
+          ]
+        ]
+      },
+      {
+        "school_id": "2305",
+        "event_id": "school-2305-2027-02-27-32",
+        "date": "2027-02-27",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "277",
+        "event_id": "school-277-2027-01-30-25",
+        "date": "2027-01-30",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN/2"
+          ],
+          [
+            "ESPN/ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "277",
+        "event_id": "school-277-2027-02-20-30",
+        "date": "2027-02-20",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
+            "ESPN2/ESPNU"
+          ],
+          [
+            "ESPN2/U"
+          ]
+        ]
+      },
+      {
         "school_id": "248",
         "event_id": "school-248-2027-01-10-18",
         "date": "2027-01-10",
@@ -7560,10 +7772,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7588,10 +7800,10 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN/ESPN2"
+            "ESPN/2"
           ],
           [
-            "ESPN/2"
+            "ESPN/ESPN2"
           ]
         ]
       },
@@ -7608,237 +7820,13 @@
             "ESPN2"
           ]
         ]
-      },
-      {
-        "school_id": "252",
-        "event_id": "cross-school-252-2027-01-27_2628",
-        "date": "2027-01-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "252",
-        "event_id": "cross-school-252-2027-01-30_248",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "252",
-        "event_id": "cross-school-252-2027-03-02_197",
-        "date": "2027-03-02",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "38",
-        "event_id": "school-38-2027-01-13-18",
-        "date": "2027-01-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "38",
-        "event_id": "school-38-2027-01-16-19",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-01-13-20",
-        "date": "2027-01-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-02-13-28",
-        "date": "2027-02-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-02-24-31",
-        "date": "2027-02-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/2/U"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
-      },
-      {
-        "school_id": "2305",
-        "event_id": "school-2305-2027-02-27-32",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-01-16-21",
-        "date": "2027-01-16",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-02-10-27",
-        "date": "2027-02-10",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-02-13-28",
-        "date": "2027-02-13",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "66",
-        "event_id": "school-66-2027-02-23-31",
-        "date": "2027-02-23",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "277",
-        "event_id": "school-277-2027-01-30-25",
-        "date": "2027-01-30",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN/ESPN2"
-          ],
-          [
-            "ESPN/2"
-          ]
-        ]
-      },
-      {
-        "school_id": "277",
-        "event_id": "school-277-2027-02-20-30",
-        "date": "2027-02-20",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2/U"
-          ],
-          [
-            "ESPN2/ESPNU"
-          ]
-        ]
-      },
-      {
-        "school_id": "238",
-        "event_id": "cross-school-238-2027-02-27_333",
-        "date": "2027-02-27",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN"
-          ],
-          [
-            "ESPN/ESPN2"
-          ]
-        ]
       }
     ]
   },
   "final_field_audit": {
     "game_entries": 11807,
-    "missing_tipoff": 999,
     "missing_broadcast": 4994,
-    "site_unverified": 59
+    "missing_tipoff": 989,
+    "site_unverified": 55
   }
 }
