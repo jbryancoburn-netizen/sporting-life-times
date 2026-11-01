@@ -449,6 +449,8 @@ from mbb_reciprocal_game_gap_audit import run as audit_reciprocal_game_gaps
 coverage = audit_reciprocal_game_gaps()
 print(json.dumps({'reciprocal_fixture_coverage':coverage['summary']}, indent=2))
 
+# The arena report now publishes all unrelated-school citations, even if later
+# than the first 350 flagged entries; resolve each against official game centers.
 # Read-only verification of every arena citation. This checks all 365 teams
 # for borrowed home-arena defaults and sources owned by unrelated schools.
 from mbb_venue_provenance_audit import audit as audit_venue_citations
