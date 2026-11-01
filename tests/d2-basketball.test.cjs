@@ -136,3 +136,33 @@ test('DII membership and color provenance are labeled honestly',()=>{
    if(t.secondary)assert.match(t.secondary,/^#[0-9a-f]{6}$/i);
  }
 });
+
+test('DII Gamefile is gender-isolated and preserves the existing newspaper layout',()=>{
+ const html=fs.readFileSync('d2-game.html','utf8');
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const css=fs.readFileSync('d2-basketball.css','utf8');
+ const vm=require('node:vm');
+ assert.doesNotThrow(()=>new vm.Script(js));
+ assert.match(html,/data-page="game"/);
+ assert.match(html,/id="gamefile-profile"/);
+ assert.match(html,/id="gamefile-refresh"/);
+ assert.match(js,/d2-game\.html\?gender=/);
+ assert.match(js,/encodeURIComponent\(g\.id\)/);
+ assert.match(js,/function renderGame\(d\)/);
+ assert.match(js,/page==='game'\)renderGame\(d\)/);
+ assert.match(js,/game\(g,false\)/);
+ assert.match(css,/\.gamefile-grid/);
+ assert.match(js,/Player-by-player box scores are not included until verified player data exists/);
+ assert.match(js,/This page does not represent real-time play-by-play/);
+});
+test('DII scoreboard and both Elo builders order Eastern tipoffs by meridiem, never text order',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ assert.match(js,/tipMinute/);
+ assert.match(js,/selected\.sort\(chronological\)/);
+ assert.match(js,/sort\(chronological\);el\.innerHTML/);
+ for(const filename of ['scripts/build_d2_basketball.py','scripts/merge_d2_season_audit.py']){
+  const py=fs.readFileSync(filename,'utf8');
+  assert.match(py,/from (?:scripts\.)?d2_elo_chronology import game_sort_key/);
+  assert.match(py,/key=game_sort_key/);
+ }
+});
