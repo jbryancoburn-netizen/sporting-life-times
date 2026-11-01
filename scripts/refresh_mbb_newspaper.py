@@ -681,7 +681,7 @@ def main():
             audited.setdefault('errors',{}).setdefault(type(exc).__name__,0)
             audited['errors'][type(exc).__name__]+=1
     out['ncaa_team_boxscores']={'checked_at':now,'day':ncaa_day,
-        'provenance':'NCAA.com data via third-party relay; independently verified against NCAA game final totals',
+        'provenance':'NCAA.com data via third-party relay; reconciled with NCAA-origin final, not a second independent source',
         'games':dict(list(verified_teams.items())[-180:]),'audit':team_audit}
     out['sources'].append({'source':'NCAA-origin verified team boxscores',
         'ok':bool(verified_teams),'accepted_new':team_audit['accepted'],
