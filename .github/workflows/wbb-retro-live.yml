@@ -12,6 +12,9 @@ on:
       - '.github/workflows/wbb-retro-live.yml'
       - 'scripts/wbb-season.py'
       - 'scripts/publish-wbb-retro.js'
+      # Trigger the women-only publisher when the NCAA-origin relay snapshot is refreshed.
+      # This closes gaps when GitHub's best-effort cron jobs are delayed/dropped.
+      - 'data/mbb-live.json'
   schedule:
     # Primary game windows: every 15 minutes from early afternoon to late night
     # across daylight-saving changes (UTC 17:00-06:59).
