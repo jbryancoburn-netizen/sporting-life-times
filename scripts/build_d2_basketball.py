@@ -89,10 +89,62 @@ def game_record(c,away,home,date,status,away_score,home_score,away_win,home_win,
         "network":c.get("broadcasterName") or c.get("network") or "",
         "source_url":url,"venue":"","elo_eligible":eligible}
     return game,away,home
+
+def seed_directory(gender):
+    """Public 2026-27 name/conference facts, independent of NCAA scoreboard game availability.
+    The NCAA sport-by-sport directory remains the certification authority.
+    """
+    from bs4 import BeautifulSoup
+    urls={
+        "men":"https://en.wikipedia.org/wiki/List_of_NCAA_Division_II_men%27s_basketball_programs",
+        "women":"https://www.ncaawomensbasketball.com/blog/d2-womens-basketball-schools-by-state",
+    }
+    url=urls[gender]
+    req=urllib.request.Request(url,headers={"User-Agent":USER_AGENT,"Accept":"text/html"})
+    with urllib.request.urlopen(req,timeout=24) as response:
+        soup=BeautifulSoup(response.read(),"html.parser")
+    entries=[]
+    for table in soup.select("table"):
+        headings=" ".join(t.get_text(" ",strip=True) for t in table.select("tr:first-child th")).lower()
+        if gender=="men":
+            if not ("team" in headings and "conference" in headings and "city" in headings):
+                continue
+        else:
+            if not ("school" in headings and "conference" in headings and "city" in headings):
+                continue
+        for tr in table.select("tr"):
+            cells=tr.find_all(["th","td"],recursive=False)
+            if len(cells)<4 or cells[0].name!="td":continue
+            values=[c.get_text(" ",strip=True) for c in cells[:4]]
+            if gender=="men":
+                name,city,conference=values[0],values[1],values[3]
+            else:
+                name,city,conference=values[1],values[2],values[3]
+            if not name or name.lower() in ("school","team"):continue
+            # The membership is a preliminary published roster, not confirmation
+            # that all programs are championship eligible.
+            entries.append({"id":slug(name),"slug":"","name":name,"city":city,
+                            "conference":conference,"d2_confirmed":True,
+                            "source":url})
+    unique={e["id"]:e for e in entries}
+    if len(unique)<250 or len(unique)>310:
+        raise RuntimeError(f"Unsafe {gender} directory extraction: {len(unique)} programs from {url}")
+    return unique, url
+
 def update(gender, bootstrap=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
     teams={t["id"]:t for t in prior.get("teams",[])}
+    directory_source=None
+    directory_error=None
+    try:
+        discovered,directory_source=seed_directory(gender)
+        # Do not throw away previously confirmed school-specific details.
+        for ident,found in discovered.items():
+            teams[ident]={**found,**teams.get(ident,{})}
+    except Exception as exc:
+        directory_error=str(exc)
+        print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
     games={str(g["id"]):g for g in prior.get("games",[])}
     today=dt.datetime.now(dt.timezone.utc).date()
     start=dt.date(2026,10,15) if bootstrap else max(dt.date(2026,10,15),today-dt.timedelta(days=12))
@@ -135,9 +187,13 @@ def update(gender, bootstrap=False):
         t["elo"]=round(rating[key],1);t["w"]=wins[key];t["l"]=losses[key]
     ordered=sorted(teams.values(),key=lambda v:v["name"].lower())
     allgames=sorted(games.values(),key=lambda v:(v["date"],v["id"]))
-    quality={"status":"PARTIAL — membership/season schedule still require 298-team reconciliation" if len(ordered)!=298 or errors else "Feed fetched; individual 298-school certification still required",
+    quality={"status":("DIRECTORY ONLY — NCAA game feed is empty; schedules, records and Elo changes pending" if not allgames
+                       else "PARTIAL — 2026-27 DII membership, dates and schedules require school-level verification"),
         "dates_requested":len(days),"dates_fetched":successful,"dates_failed":len(errors),
-        "sample_errors":errors[:5],"verified_dii_finals":finals,"programs_found":len(ordered)}
+        "sample_errors":errors[:5],"verified_dii_finals":finals,"programs_found":len(ordered),
+        "official_contests_available":len(allgames)>0,
+        "directory_source":directory_source,"directory_error":directory_error,
+        "membership_certified":False}
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
         "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,"status":"provisional coefficients; historical calibration not completed"},
