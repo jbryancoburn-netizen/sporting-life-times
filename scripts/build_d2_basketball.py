@@ -12,6 +12,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+import unicodedata
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -131,6 +132,60 @@ def seed_directory(gender):
         raise RuntimeError(f"Unsafe {gender} directory extraction: {len(unique)} programs from {url}")
     return unique, url
 
+
+def normalize_school_name(value):
+    """Conservative NCAA school-index match: never choose a fuzzy nearest neighbor."""
+    value=unicodedata.normalize("NFKD",str(value or "")).encode("ascii","ignore").decode("ascii").lower()
+    value=value.replace("&"," and ")
+    value=re.sub(r"\b(university|college|of|at|the)\b"," ",value)
+    return re.sub(r"[^a-z0-9]","",value)
+
+def seed_official_logos(teams):
+    """Match NCAA's authoritative school names to its own SVG logo slugs.
+
+    Ambiguous or absent names remain initials, NEVER another program's logo.
+    Both men's and women's editions use the same NCAA school slug for the same
+    institution, rather than maintaining different team-specific images.
+    """
+    sources=["https://www.ncaa.com/json/schools","https://ncaa-api.henrygd.me/schools-index"]
+    schools=None;used=None;errors=[]
+    for url in sources:
+        try:
+            candidate=get_json(url)
+            if isinstance(candidate,dict):
+                candidate=candidate.get("schools") or candidate.get("data")
+            if not isinstance(candidate,list) or len(candidate)<800:
+                raise ValueError("NCAA school index incomplete or wrong schema")
+            schools=candidate;used=url;break
+        except Exception as exc:
+            errors.append(str(exc)[:180])
+    if schools is None:
+        return {"matched":sum(bool(t.get("slug")) for t in teams.values()),
+                "index_source":None,"error":"NCAA school index unavailable; existing images preserved"}
+    by_name={}
+    for item in schools:
+        slug_value=item.get("slug")
+        if not isinstance(slug_value,str) or not re.fullmatch(r"[a-z0-9-]+",slug_value):
+            continue
+        for label in (item.get("name"),item.get("long_name"),item.get("long")):
+            name=normalize_school_name(label)
+            if name and len(name)>=5:
+                by_name.setdefault(name,set()).add(slug_value)
+    matched=0;ambiguous=0
+    for t in teams.values():
+        if t.get("slug") and t.get("logo_source")=="NCAA schools index":
+            matched+=1;continue
+        identity=normalize_school_name(t.get("name",""))
+        slugs=by_name.get(identity,set())
+        if len(slugs)==1:
+            t["slug"]=next(iter(slugs))
+            t["logo_source"]="NCAA schools index"
+            matched+=1
+        elif len(slugs)>1:
+            ambiguous+=1
+    return {"matched":matched,"unmatched":len(teams)-matched,
+            "ambiguous":ambiguous,"index_source":used}
+
 def update(gender, bootstrap=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
@@ -145,6 +200,7 @@ def update(gender, bootstrap=False):
     except Exception as exc:
         directory_error=str(exc)
         print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
+    logo_quality=seed_official_logos(teams)
     games={str(g["id"]):g for g in prior.get("games",[])}
     # CCA-sanctioned Hawaii October tournament games were independently
     # verified against the tournament organizer's published score bracket.
@@ -213,6 +269,7 @@ def update(gender, bootstrap=False):
         "verified_tournament_games":sum(1 for g in allgames if g.get("source")=="official tournament organizer"),
         "verified_tournament_source":tournament_source,
         "directory_source":directory_source,"directory_error":directory_error,
+        "official_logo_index":logo_quality,
         "membership_certified":False}
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
