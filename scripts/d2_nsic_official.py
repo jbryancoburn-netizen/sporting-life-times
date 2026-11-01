@@ -15,7 +15,6 @@ LABELS=("Augustana","Bemidji State","Concordia-St. Paul","Jamestown","Mary",
         "Minnesota Crookston","Minnesota Duluth","Minnesota State",
         "MSU Moorhead","Minot State","Northern State","Sioux Falls",
         "Southwest Minnesota State","St. Cloud State","Wayne State","Winona State")
-SOURCES={"men":dict(zip(range(4243,4262),LABELS[:1])), "women":{}}
 # Some SIDEARM identifiers precede later-numbered sport inserts; use checked
 # exact 2026-27 school IDs, never infer from offsets at runtime.
 MEN=(4243,4247,4248,4249,4250,4251,4252,4253,4254,4255,4256,4257,4258,4259,4260,4261)
