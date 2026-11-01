@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f0e8">
+<meta name="description" content="Officially sourced November 3, 2026 U.S. House and Senate ballot candidates, with visible source coverage and missing-data disclosure.">
+<title>Official Ballot Ledger | The Political Life &amp; Times</title>
+<style>
+:root{--paper:#f4f0e8;--ink:#232621;--muted:#596058;--gold:#916b3f;--rule:#cbc5b8;--panel:#fffdf9;--blue:#254b59}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Georgia,serif}
+a{color:inherit}button,input,select{font:inherit}.wrap{max-width:1200px;margin:auto;padding:0 25px}
+.top{background:var(--ink);color:#ede7de;font:700 11px/1.4 system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;padding:12px 0}
+.top .wrap{display:flex;justify-content:space-between;gap:10px}.mast{padding:30px 0 23px;border-bottom:4px double var(--ink);text-align:center}
+.mast .folio{font:700 11px system-ui,sans-serif;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted)}
+.mast h1{font-size:clamp(32px,5vw,64px);line-height:1.03;letter-spacing:-2px;margin:12px auto 7px}
+.mast h1 em{font-weight:normal}.mast p{margin:0;color:var(--muted)}
+nav{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--ink);padding:12px 0;font:700 12px system-ui,sans-serif;letter-spacing:.7px;text-transform:uppercase}
+nav a{text-decoration:none;padding:7px 17px 7px 0;margin-right:14px;border-right:1px solid var(--rule)}
+nav a:hover{color:#925d2c}
+.hero{display:grid;grid-template-columns:1.8fr 1fr;gap:35px;padding:38px 0 28px;border-bottom:1px solid var(--rule)}
+.eyebrow{font:750 11px system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+.hero h2{font-size:clamp(34px,4.5vw,55px);line-height:1.06;margin:0 0 18px;letter-spacing:-1.3px}
+.hero p{font-size:17px;max-width:680px;margin:0 0 15px}.notice{background:#e7e2d8;border-left:4px solid var(--ink);padding:18px 20px;align-self:start}
+.notice strong{font:800 13px system-ui,sans-serif;letter-spacing:.9px;display:block;margin-bottom:10px}.notice p{font-size:14px;line-height:1.55}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--ink);margin-top:7px}
+.metric{padding:22px 16px 21px;border-right:1px solid var(--rule)}.metric:last-child{border-right:0}
+.metric strong{display:block;font-size:38px;line-height:1.1}.metric span{font:700 10px system-ui,sans-serif;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted)}
+section{padding:30px 0}.section-top{display:flex;gap:16px;justify-content:space-between;align-items:end;border-bottom:2px solid var(--ink);padding:0 0 12px}
+section h3{font-size:29px;line-height:1.1;margin:0}.status{font:650 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:12px;padding:18px 0}
+.controls label{display:flex;flex-direction:column;gap:5px;font:700 11px system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase}
+.controls select,.controls input{background:#fffefa;border:1px solid #aaa396;border-radius:0;color:var(--ink);padding:11px 12px;min-width:165px}
+.controls input{min-width:min(320px,85vw)}
+#race-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.race{background:var(--panel);border:1px solid var(--rule);padding:18px 19px;min-height:202px}
+.race-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:13px;border-bottom:1px solid var(--rule)}
+.race-head strong{font:800 18px system-ui,sans-serif;letter-spacing:-.4px}
+.tag{font:750 10px system-ui,sans-serif;letter-spacing:.7px;color:#3f4d4e;text-transform:uppercase}
+.candidate{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #ece7de;padding:9px 0;align-items:center}
+.candidate .name{font-size:15px}.candidate .party{font:700 10px system-ui,sans-serif;color:var(--muted);padding:3px 5px;border:1px solid var(--rule);white-space:nowrap}
+.source{font:600 11px system-ui,sans-serif;color:var(--muted);margin-top:14px}.source a{color:var(--blue)}
+.source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:20px}
+.source-card{border-top:2px solid var(--ink);padding:13px 15px;background:var(--panel)}
+.source-card p{margin:7px 0;font-size:14px}.source-card strong{font-size:17px}.source-card .label{font:700 10px system-ui,sans-serif;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.source-card a{font:700 12px system-ui,sans-serif;color:var(--blue)}
+.empty{grid-column:1/-1;padding:20px;background:#eae5dc;color:var(--muted)}
+footer{padding:29px 0 40px;border-top:2px solid var(--ink);color:var(--muted);font:12px system-ui,sans-serif}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}#race-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){#race-grid,.source-grid{grid-template-columns:1fr}.mast h1{letter-spacing:-1px}.metric strong{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><span>THE SPORTING LIFE &amp; TIMES / CIVIC AFFAIRS</span><span>ORIGINAL RECORDS · SOURCES VISIBLE</span></div></div>
+<div class="wrap">
+<header class="mast"><div class="folio">THE POLITICAL LIFE &amp; TIMES · ELECTION DESK</div><h1>Official <em>Ballot</em> Ledger</h1><p>The November 3, 2026 federal election • Government records, not a forecast</p></header>
+<nav aria-label="Edition navigation"><a href="politics.html">← Political Front Page</a><a href="#races">Verified Candidate Records</a><a href="#sources">Government Sources</a><a href="POLITICS_DATA_POLICY.md">Methodology</a><a href="index.html">Sports Edition ↗</a></nav>
+<div class="hero"><div><p class="eyebrow">THE ELECTION IN BLACK AND WHITE</p><h2>Who's actually on the ballot?</h2><p>We are checking each House and Senate race against state election officials—not assuming that federal campaign registration means a candidate made the November ballot.</p><p>Every published name links back to the original state-government candidate list. Unreviewed contests remain unlisted. The official snapshots may be updated by their states after our last review.</p></div>
+<aside class="notice"><strong>THE DATA STANDARD</strong><p><b>This is a partial ledger.</b> The dates shown describe when we reviewed the government sources, not a live connection to every election office.</p><p>No candidate probabilities, projected vote totals, or independent seat forecasts are inferred from these lists. We have not certified a nationwide ballot roster.</p></aside></div>
+<div class="metrics" id="metrics" aria-live="polite"><div class="metric"><strong>—</strong><span>House contests reviewed</span></div><div class="metric"><strong>—</strong><span>Senate contests reviewed</span></div><div class="metric"><strong>—</strong><span>Candidate entries reviewed</span></div><div class="metric"><strong>—</strong><span>House contests outstanding</span></div></div>
+<section id="races"><div class="section-top"><div><p class="eyebrow">STATE-GOVERNMENT RECORDS</p><h3>Verified-source race cards</h3></div><span class="status" id="audit-time">Source coverage loading</span></div>
+<div class="controls"><label>State<select id="state-filter"><option value="ALL">All reviewed states</option></select></label><label>Office<select id="office-filter"><option value="ALL">House and Senate</option><option value="H">House only</option><option value="S">Senate only</option></select></label><label>Find a candidate or district<input id="race-search" type="search" placeholder="Name, party, NC-01, FL-22…"></label></div>
+<div id="race-grid" aria-live="polite"><div class="empty">Loading original state-government ballot observations…</div></div></section>
+<section id="sources"><div class="section-top"><div><p class="eyebrow">PRIMARY DOCUMENTS</p><h3>The government sources</h3></div><span class="status">A source link is not the same as completed verification</span></div>
+<div id="source-grid" class="source-grid"></div>
+<p style="font-size:13px;color:var(--muted)">Full coverage in one state refers only to the dated document we reviewed; it does not certify that every candidate remains unchanged through Election Day. Redistricting, FEC identity matching, district-level voting baselines, and polling require separate verification.</p></section>
+<footer>The Political Life &amp; Times · No endorsements · Public official source documents · Original 2026 probabilities: <b>not certified</b></footer>
+</div>
+<script>
+"use strict";
+const node=id=>document.getElementById(id);
+const el=(tag,content,cls)=>{const x=document.createElement(tag);if(content!=null)x.textContent=content;if(cls)x.className=cls;return x};
+const officeText=o=>o==="S"?"U.S. Senate":"U.S. House";
+async function render(){
+ try{
+ const [bRes,aRes]=await Promise.all([
+ fetch("politics-official-ballots.json?t="+Date.now(),{cache:"no-store"}),
+ fetch("politics-ballot-audit.json?t="+Date.now(),{cache:"no-store"})
+ ]);
+ if(!bRes.ok||!aRes.ok)throw Error("Government ballot audit unavailable");
+ const b=await bRes.json(),a=await aRes.json();
+ if(b.status!=="PARTIAL_OFFICIAL_GENERAL_BALLOT_RECORDS"||a.status!=="PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED"||a["2026_independent_forecast_certified"]!==false)throw Error("Unapproved candidate ledger");
+ const cells=node("metrics").querySelectorAll(".metric strong");
+ [a.house_contests_transcribed,a.senate_contests_transcribed,a.candidate_ballot_entries,a.house_contests_unverified].forEach((v,i)=>cells[i].textContent=v.toLocaleString());
+ node("audit-time").textContent="STATE SOURCE REVIEWED "+b.reviewed_at+" · "+b.races.length+" RACES";
+ const sourceMap=Object.fromEntries(b.sources.map(s=>[s.id,s]));
+ const sel=node("state-filter");[...new Set(b.races.map(r=>r.state))].sort().forEach(v=>{const op=el("option",v);op.value=v;sel.append(op)});
+ function paint(){
+ const state=sel.value,office=node("office-filter").value,q=node("race-search").value.trim().toLowerCase();
+ const filtered=b.races.filter(r=>(state==="ALL"||r.state===state)&&(office==="ALL"||r.office===office)&&(r.id.toLowerCase().includes(q)||r.candidates.some(c=>(c.name+" "+c.party).toLowerCase().includes(q))));
+ const target=node("race-grid");target.replaceChildren();
+ if(!filtered.length){target.append(el("div","No reviewed candidate records match. This does not mean the race is uncontested or absent.","empty"));return;}
+ for(const r of filtered){
+ const card=el("article",null,"race"),head=el("div",null,"race-head");
+ head.append(el("strong",r.office==="H"?r.id:r.state+" SENATE"),el("span",officeText(r.office),"tag"));card.append(head);
+ for(const c of r.candidates){const row=el("div",null,"candidate");row.append(el("span",c.name,"name"),el("span",c.party,"party"));card.append(row)}
+ const source=el("div",null,"source");source.append(el("span","GOVERNMENT LIST · "));
+ const link=el("a","View original source ↗");link.href=sourceMap[r.source_id].url;link.target="_blank";link.rel="noopener noreferrer";source.append(link);card.append(source);target.append(card);
+ }
+ }
+ sel.addEventListener("change",paint);node("office-filter").addEventListener("change",paint);node("race-search").addEventListener("input",paint);paint();
+ const section=node("source-grid");
+ for(const s of b.sources){const box=el("article",null,"source-card");box.append(el("div",s.state+" / "+(s.transcription_status==="not_transcribed"?"SOURCE LOCATED — NOT YET TRANSCRIBED":s.transcription_status==="reviewed_partial"?"PARTIAL REVIEW":"FEDERAL SOURCE TRANSCRIBED"),"label"));box.append(el("strong",s.publisher));box.append(el("p",s.scope.replaceAll("_"," ")));const link=el("a","Open official candidate listing ↗");link.href=s.url;link.target="_blank";link.rel="noopener noreferrer";box.append(link);section.append(box);}
+ }catch(e){node("race-grid").replaceChildren(el("div","Current official-ballot records could not be validated. No substitute or guessed candidates will be displayed.","empty"));node("audit-time").textContent="AUDIT UNAVAILABLE";} }
+render();
+</script>
+</body></html>
