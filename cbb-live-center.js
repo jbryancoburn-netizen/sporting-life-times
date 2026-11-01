@@ -260,7 +260,7 @@
     else{games=await fallback();state.source='Local published scoreboard snapshot · not confirmed live';state.fallback=true;}
     if(!mounted){state.pending=false;return;}
     // Avoid race conditions when the reader changes dates while a prior fetch is still in flight.
-    if(state.day!==day){state.pending=false;return;}
+    if(state.day!==day){state.pending=false;queueMicrotask(refresh);return;}
     state.games=games.sort((a,b)=>{
       const order={live:0,upcoming:1,final:2};
       return order[a.phase]-order[b.phase]||Date.parse(a.date)-Date.parse(b.date);
