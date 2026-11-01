@@ -51,7 +51,7 @@ function renderHome(d){
  ' points. Parameters are provisional, not historically calibrated. Cross-division games and unverified results are excluded.';
  const ranked=teams.filter(t=>t.d3_confirmed&&t.games_rated>0).sort((a,b)=>b.elo-a.elo||a.name.localeCompare(b.name));
  $('elo-board').innerHTML=ranked.length?'<div class="board-row board-header"><span>#</span><span></span><span>PROGRAM</span><span>W–L</span><span>PCT</span><span>ELO</span></div>'+ranked.slice(0,35).map((t,i)=>row(t,i)).join(''):'<p class="note">No eligible finals are published yet. Rankings will begin only after confirmed DIII results.</p>';
- const dates=[...new Set(games.map(g=>g.date))].sort(),today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const dates=[...new Set(games.map(g=>g.date))].sort(),parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value])),today=parts.year+'-'+parts.month+'-'+parts.day;
  const input=$('game-date');input.value=dates.find(x=>x>=today)||dates.at(-1)||today;
  function draw(){const selected=games.filter(g=>g.date===input.value);
  $('game-grid').innerHTML=selected.length?selected.map(card).join(''):'<p class="note">No NCAA DIII games available for this date in the published feed window.</p>';
@@ -78,7 +78,9 @@ async function start(){
   const d=await r.json();
   if(d.gender!==gender||d.division!=='d3'||d.season!=='2026-27'||d.starting_elo!==1500||!Array.isArray(d.games)||!Array.isArray(d.teams))
     throw Error('Wrong division, gender, or Elo dataset refused.');
+  if(state.data && state.data.as_of===d.as_of)return;
   state.data=d;state.teams=new Map(d.teams.map(t=>[t.id,t]));
+  for(const id of ['game-date','prev-date','next-date','team-search','conference-select']){const node=$(id);if(node)node.replaceWith(node.cloneNode(true));}
   $('status').textContent='NCAA DIII game-source edition · '+(d.as_of?new Date(d.as_of).toLocaleString():'Source refresh pending');
   if(new URLSearchParams(location.search).has('team')){
    $('home-content').hidden=true;$('team-detail').hidden=false;renderTeam(d);
