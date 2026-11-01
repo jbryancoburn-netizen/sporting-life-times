@@ -57,7 +57,7 @@ def official_venue_identity(value):
     city=clean(parts[1]).casefold()
     known_arenas={"du student center":"davenport student center"}
     arena=known_arenas.get(arena,arena)
-    city=re.sub(r"\b(?:michigan|mich\.|mi)\b", "mi", city)
+    city=re.sub(r"\b(?:michigan|mich\.?|mi)\b", "mi", city)
     city=re.sub(r"[^a-z0-9 ]+"," ",city)
     return (arena," ".join(city.split()))
 
