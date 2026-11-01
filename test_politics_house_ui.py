@@ -47,7 +47,7 @@ class HouseUI(unittest.TestCase):
     def test_every_page_has_critical_referenced_nodes(self):
         cases={
             "politics-house.html":["view-content","metrics","state-tiles","state-list","state-search","atlas-updated"],
-            "politics-house-state.html":["view-content","state-title","state-desc","state-history","metrics","district-cards","district-filter","district-count","boundary-caution"],
+            "politics-house-state.html":["view-content","state-title","state-desc","state-history","metrics","district-cards","district-filter","district-count","boundary-caution","district-geo-map","geometry-hover","geometry-vintage","geo-zoom-in","geo-zoom-out","geo-zoom-reset"],
             "politics-house-district.html":["view-content","district-title","district-subtitle","metrics","candidate-panel","poll-panel","result-panel","map-warning","prev-district","next-district","leader-badge","district-updated","state-link"]
         }
         for p,ids in cases.items():
@@ -57,6 +57,16 @@ class HouseUI(unittest.TestCase):
                 html=(ROOT/p).read_text()
                 self.assertIn('politics-house.js?',html)
                 self.assertIn('politics-house.css?',html)
+
+    def test_census_map_scripts_linked_on_state_pages(self):
+        html=(ROOT/"politics-house-state.html").read_text(encoding="utf-8")
+        self.assertIn('politics-house-geomap.js?',html)
+        js=(ROOT/"politics-house.js").read_text(encoding="utf-8")
+        self.assertIn("PoliticalHouseGeoMap.render",js)
+        svg=(ROOT/"politics-house-geomap.js").read_text(encoding="utf-8")
+        self.assertIn("district-geo-map",svg)
+        self.assertIn("MISSOURI",svg.upper())
+        self.assertIn("politics-house-district.html?district=",svg)
 
     def test_election_home_navigation_wired(self):
         dom=read_html("politics.html")
