@@ -7,7 +7,7 @@ const games=c=>Array.isArray(c.data.current?.events)?c.data.current.events.filte
 const won=(g,t)=>(g.home_score>g.away_score?g.home:g.away)===t;
 const own=(c,t)=>games(c).filter(g=>g.home===t||g.away===t);
 const rec=(c,t)=>(c.records[t]?.w||0)+'–'+(c.records[t]?.l||0);
-const winProb=(c,a,h)=>1/(1+10**(-(c.rates[h]+45-c.rates[a])/400));
+const winProb=(c,a,h)=>1/(1+10**(-(c.rates[h]+40-c.rates[a])/400));
 const name=(c,t)=>c.meta[t]?.[0]||t;
 const form=(c,t)=>{const arr=own(c,t).slice(-5).reverse();return arr.length?arr.map(g=>'<span class="'+(won(g,t)?'win':'loss')+'" title="'+e(name(c,g.home===t?g.away:g.home))+'">'+(won(g,t)?'W':'L')+'</span>').join(''):'<small>No completed finals</small>'};
 const stamp=g=>{const d=new Date(g.date);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET':'Tipoff time unavailable'};
