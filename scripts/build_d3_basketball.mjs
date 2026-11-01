@@ -150,6 +150,37 @@ async function provisionalDirectory(gender){
   }catch(e){return {teams:[],source:url,error:String(e.message||e).slice(0,180)};}
 }
 
+/**
+ * Discover school identities from archived NCAA DIII results, not ESPN's
+ * group 52 teams index (which has been observed returning DI programs).
+ * Historical membership is never promoted into 2026–27 Elo eligibility.
+ */
+async function historicalDirectory(gender){
+  const dates=['2025-11-08','2025-11-15','2025-11-22','2025-12-06',
+    '2026-01-10','2026-01-17','2026-01-24','2026-01-31',
+    '2026-02-07','2026-02-14','2026-02-21','2026-02-28'];
+  const teams=new Map(),errors=[],sources=new Set();
+  for(let i=0;i<dates.length;i+=3){
+    const batch=await Promise.all(dates.slice(i,i+3).map(d=>fetchDay(gender,d)));
+    for(const result of batch){
+      if(result.error){errors.push(result.date);continue;}
+      for(const item of result.items){
+        for(const t of item.teams){
+          if(!t.d3_confirmed)continue;
+          const old=teams.get(t.id);
+          teams.set(t.id,{...old,...t,d3_confirmed:false,historical_d3_confirmed:true,
+            identity_source:'NCAA 2025–26 Division III result; current membership pending',
+            conference_historical:true});
+          sources.add(result.source);
+        }
+      }
+    }
+    await new Promise(resolve=>setTimeout(resolve,400));
+  }
+  return {teams:[...teams.values()],errors,sources:[...sources],
+    description:'Archived NCAA 2025–26 DIII game identities: not certified 2026–27 membership'};
+}
+
 function rebuild(gender,previous,results,additionalTeams=[]){
   const teams=new Map((previous.teams||[]).filter(x=>x.d3_confirmed||!/ESPN Division III basketball group 52/.test(x.identity_source||'')).map(x=>[x.id,{...x}]));
   // Do not overwrite previously NCAA-confirmed identities with provisional source labels.
@@ -205,10 +236,17 @@ async function run(gender,deep=false){
   }
   const successful=results.filter(r=>!r.error).length;
   if(!successful)throw Error('All NCAA DIII '+gender+' scoreboards failed: retaining previous publication');
-  const directory=await provisionalDirectory(gender);
-  const next=rebuild(gender,previous,results,directory.teams);
-  next.coverage.directory_source=directory.source;
-  next.coverage.directory_status=directory.error?'Provider directory unavailable: '+directory.error:'ESPN group 52 provisional, not NCAA-certified';
+  const mustProbe=deep||!previous.coverage?.historical_probed;
+  const archive=mustProbe?await historicalDirectory(gender):null;
+  const next=rebuild(gender,previous,results,archive?.teams||[]);
+  next.coverage.historical_probed=true;
+  next.coverage.historical_school_count=next.teams.filter(t=>t.historical_d3_confirmed).length;
+  next.coverage.directory_source='NCAA 2025–26 DIII game scoreboard archive';
+  next.coverage.directory_status=archive
+    ?archive.description+'; '+archive.teams.length+' unique archived DIII schools from '+archive.sources.join(', ')+
+      '; '+archive.errors.length+' unavailable archive dates'
+    :(previous.coverage?.directory_status?.startsWith('Archived NCAA')
+      ?previous.coverage.directory_status:'Archived NCAA school identities preserved; 2026–27 membership not certified');
   fs.writeFileSync(file,JSON.stringify(next,null,2)+'\n');
   console.log(gender+': '+next.teams.length+' discovered; '+next.games.length+' fixtures; '+next.coverage.eligible_finals+
     ' Elo finals; '+successful+'/'+dates.length+' days read; '+next.coverage.failed_days.length+' failed days');
