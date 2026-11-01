@@ -360,3 +360,54 @@
 .cbb-radar-metrics:has(>div:nth-child(5)){grid-template-columns:repeat(5,minmax(0,1fr))}
 @media(max-width:900px){.cbb-radar-metrics:has(>div:nth-child(5)){grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:580px){.cbb-radar-metrics:has(>div:nth-child(5)){grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* GAMEFILE 2026 — full statistical reporting lives on its own page, never below cards. */
+.cbb-gamefile-page{max-width:1100px}
+.cbb-gamefile-page #cbb-gamefile-root{margin:18px 0 28px}
+.cbb-gamefile-back{border-bottom:3px double #143b4b;padding:12px 4px 14px;margin-bottom:20px}
+.cbb-gamefile-back a{font:900 11px Arial,sans-serif;letter-spacing:1.4px;text-decoration:none;color:#164455}
+.cbb-gamefile-detail{background:#fff;border:1px solid #cfdbde;box-shadow:0 6px 22px #081f2b0c;min-width:0}
+.cbb-gamefile-hero{padding:24px clamp(16px,3.4vw,38px) 20px;background:linear-gradient(125deg,#082839,#0c3346);border-top:5px solid #c9a466;color:#f8faf7}
+.cbb-gamefile-eyebrow{font:900 10px Arial,sans-serif;letter-spacing:1.8px;color:#e4c68b}
+.cbb-gamefile-hero h1{font:700 clamp(27px,4.2vw,47px)/1.12 Georgia,'Times New Roman',serif;margin:13px 0 12px;color:#fff;letter-spacing:-1.1px;overflow-wrap:anywhere}
+.cbb-gamefile-hero h1 em{font-size:.7em;color:#e5c48a}
+.cbb-gamefile-status{font-size:12px;color:#b4d5df;margin:0 0 14px}
+.cbb-gamefile-status .cbb-live-pill{vertical-align:middle}
+.cbb-gamefile-score{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#0b2230;border:1px solid #356174}
+.cbb-gamefile-score .cbb-scorebug-row{border-bottom:0;min-width:0;background:transparent!important;box-shadow:none!important;min-height:80px}
+.cbb-gamefile-score .cbb-scorebug-row:first-child{border-right:1px solid #396272}
+.cbb-gamefile-score .cbb-name b{font-size:19px}
+.cbb-gamefile-score .cbb-points{font-size:39px;color:#fff}
+.cbb-gamefile-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#f0f2ed;border-bottom:2px solid #b6c9ce;gap:0}
+.cbb-gamefile-tabs button{background:transparent;border:0;border-right:1px solid #d0d9d7;cursor:pointer;
+ padding:18px 10px 15px;min-height:52px;text-align:center;color:#45606b;font:900 11px Arial,sans-serif;letter-spacing:.6px}
+.cbb-gamefile-tabs button[aria-selected="true"]{background:#fff;color:#0b3c50;box-shadow:inset 0 -4px 0 #b99251}
+.cbb-gamefile-tabs button:focus-visible{outline:3px solid #c79d5e;outline-offset:-3px}
+.cbb-gamefile-detail [data-gamefile-panel]{padding:22px clamp(14px,3vw,30px) 12px}
+.cbb-gamefile-detail [data-gamefile-panel][hidden]{display:none!important}
+.cbb-gamefile-note{border-left:4px solid #b99251;padding:10px 16px;background:#f5f3ec;margin:0 0 22px}
+.cbb-gamefile-note span{font:900 10px Arial,sans-serif;color:#956f34;letter-spacing:1.2px}
+.cbb-gamefile-note p{font:400 16px/1.5 Georgia,serif;color:#1d4655;margin:7px 0 0}
+.cbb-gamefile-detail .cbb-box-section{background:#fff;padding:10px 0 16px;border:0}
+.cbb-gamefile-detail .cbb-box-section h4{font-size:22px;padding:4px 0 11px}
+.cbb-gamefile-detail .cbb-box-table{font-size:12px}
+.cbb-gamefile-detail .cbb-box-table th,.cbb-gamefile-detail .cbb-box-table td{padding:11px 10px}
+.cbb-gamefile-detail .cbb-provider-link{border-top:1px solid #d9e3e4;padding:14px clamp(14px,3vw,30px);margin:0;background:#f8faf9}
+.cbb-gamefile-detail .cbb-usrs-module{background:#edf5f4;color:#244956;margin:14px 0}
+.cbb-gamefile-detail .cbb-usrs-module .cbb-usrs-title b,.cbb-gamefile-detail .cbb-usrs-module .cbb-usrs-values strong{color:#16455a}
+.cbb-gamefile-detail .cbb-usrs-module .cbb-usrs-title span,.cbb-gamefile-detail .cbb-usrs-module .cbb-usrs-values span,.cbb-gamefile-detail .cbb-usrs-module .cbb-usrs-odds small{color:#3d6572}
+.cbb-gamefile-detail .cbb-usrs-module .cbb-usrs-values i{color:#477f83}
+.cbb-gamefile-page .cbb-gamefile-detail .cbb-empty{background:#f8faf9}
+@media(max-width:720px){
+ .cbb-gamefile-page{padding:12px}
+ .cbb-gamefile-hero{padding:20px 13px}
+ .cbb-gamefile-hero h1{font-size:28px}
+ .cbb-gamefile-score{grid-template-columns:1fr}
+ .cbb-gamefile-score .cbb-scorebug-row:first-child{border-right:0;border-bottom:1px solid #396272}
+ .cbb-gamefile-tabs button{padding:13px 5px;font-size:10px;min-height:47px;letter-spacing:0}
+ .cbb-gamefile-detail [data-gamefile-panel]{padding:14px 12px 10px}
+ .cbb-gamefile-detail .cbb-box-section h4{font-size:20px}
+ .cbb-gamefile-detail .cbb-box-table{font-size:11px}
+ .cbb-gamefile-detail .cbb-box-table th,.cbb-gamefile-detail .cbb-box-table td{padding:9px 8px}
+}
