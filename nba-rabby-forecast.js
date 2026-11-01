@@ -9,7 +9,7 @@ const aliases={NY:'NYK',GS:'GSW',SA:'SAS',NO:'NOP',WSH:'WAS',UTAH:'UTA'};
 const canonical=c=>aliases[String(c||'').toUpperCase()]||String(c||'').toUpperCase();
 const fmt=d=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(d))+' ET';
 async function get(path){const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('Unable to load '+path);return r.json();}
-function matchup(g,model,ratings){
+function matchup(g,model,ratings,calendar=[]){
  const home=g.teams?.find(t=>t.home_away==='home'),away=g.teams?.find(t=>t.home_away==='away');
  const h=canonical(home?.code),a=canonical(away?.code);
  const p=window.RabbyPossessionModel.project(h,a,model,ratings);
@@ -21,11 +21,15 @@ function matchup(g,model,ratings){
   awayScore:p.awayScore,homeScore:p.homeScore,footer:''});
  const edge=p.margin>=0?h:a;
  const homeWidth=(100*p.homeWin).toFixed(1);
+ const aRest=window.RabbyPossessionModel.scheduleContext(a,g.date,calendar);
+ const hRest=window.RabbyPossessionModel.scheduleContext(h,g.date,calendar);
+ const restPanel='<div class="rabby-rest-context"><small>GAME-DAY REST · COMPLETED + PUBLISHED FIXTURES</small><span>'+esc(a)+': '+esc(window.RabbyPossessionModel.restDisplay(aRest))+'</span><span>'+esc(h)+': '+esc(window.RabbyPossessionModel.restDisplay(hRest))+'</span><small>Schedule information only; fatigue is not assigned untested point deductions.</small></div>';
  const warning=favorite!==scoreFavorite?'<p class="rabby-v2-disagreement">Elo and the possession score favor different teams; neither is a certainty.</p>':'';
  const link=g.id?'<a class="rabby-v2-game-link" href="nba-live-game.html?game='+encodeURIComponent(String(g.id).replace(/^espn-nba-/,''))+'">Game details ↗</a>':'';
  return '<article class="rabby-game rabby-v2-game">'+scorebug+
   '<div class="rabby-v2-odds"><div><strong>'+esc(a)+' '+(100*(1-p.homeWin)).toFixed(1)+'%</strong><small>USRS Elo win chances</small><strong>'+esc(h)+' '+(100*p.homeWin).toFixed(1)+'%</strong></div><div class="rabby-v2-prob-bar"><span style="width:'+homeWidth+'%"></span></div></div>'+
   '<div class="rabby-v2-mainstats"><div><small>PROJECTED MARGIN</small><b>'+esc(edge)+' −'+Math.abs(p.margin).toFixed(1)+'</b></div><div><small>PROJECTED TOTAL</small><b>'+p.total.toFixed(1)+'</b></div><div><small>ESTIMATED PACE</small><b>'+p.possessions.toFixed(1)+'</b></div></div>'+
+  restPanel+
   '<div class="rabby-v2-label">OFFENSE MATCHED AGAINST OPPONENT DEFENSE</div>'+
   '<div class="rabby-v2-breakdown"><div><small>'+esc(a)+' offensive efficiency</small><b>'+p.awayOffense.toFixed(1)+'</b><small>'+esc(h)+' defensive allowance</small><b>'+p.homeDefense.toFixed(1)+'</b><strong>Matchup: '+p.awayEfficiency.toFixed(1)+'</strong></div>'+
    '<div><small>'+esc(h)+' offensive efficiency</small><b>'+p.homeOffense.toFixed(1)+'</b><small>'+esc(a)+' defensive allowance</small><b>'+p.awayDefense.toFixed(1)+'</b><strong>Matchup: '+p.homeEfficiency.toFixed(1)+'</strong></div></div>'+
@@ -48,7 +52,8 @@ async function show(){
  const now=Date.now(),limit=now+72*3600000;
  const games=(schedule.games||[]).filter(g=>g.state==='pre'&&Date.parse(g.date)>now&&Date.parse(g.date)<=limit)
   .sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)).slice(0,18);
- const cards=games.map(g=>matchup(g,model,ratings)).filter(Boolean);
+ const calendar=[...(elo.events||[]),...(schedule.games||[])];
+ const cards=games.map(g=>matchup(g,model,ratings,calendar)).filter(Boolean);
  const target=$('nba-rabby-games'),status=$('nba-rabby-status');
  if(target)target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';
  const cal=model.calibration;
