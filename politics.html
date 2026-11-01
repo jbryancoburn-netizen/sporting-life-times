@@ -10,6 +10,7 @@
 <script src="politics.js?v=20261101" defer></script>
 <script src="politics-sources.js?v=20261101" defer></script>
 <script src="politics-history.js?v=20261101" defer></script>
+<script src="politics-readiness.js?v=20261101" defer></script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to the newspaper</a>
@@ -21,7 +22,7 @@
     <p class="deck">A newspaper about power, policy and the people who decide both</p>
   </header>
   <nav class="main-nav" aria-label="Politics edition">
-    <a href="#content">Front Page</a><a href="#forecast">Forecast</a><a href="#polls">Polling</a><a href="#history">Historical Data</a><a href="#map">Election Map</a><a href="#races">Battlegrounds</a><a href="#scenarios">Scenario Lab</a><a href="#briefing">The Briefing</a><a href="#method">Sources &amp; Methods</a><a href="index.html">Sports Edition ↗</a>
+    <a href="#content">Front Page</a><a href="#forecast">Forecast</a><a href="#polls">Polling</a><a href="#history">Historical Data</a><a href="#readiness">Model Readiness</a><a href="#map">Election Map</a><a href="#races">Battlegrounds</a><a href="#scenarios">Scenario Lab</a><a href="#briefing">The Briefing</a><a href="#method">Sources &amp; Methods</a><a href="index.html">Sports Edition ↗</a>
   </nav>
   <div class="newsline"><strong>THE MIDTERMS</strong><span>Election Day: Tuesday, November 3, 2026</span><span class="newsline-divider">•</span><span>All 435 House seats · 35 Senate races · 36 governorships</span><span class="newsline-date">FORECAST SNAPSHOT: OCT. 31</span></div>
   <main id="content">
@@ -57,6 +58,11 @@
         <article class="poll-card"><div class="poll-top"><span>PRESIDENTIAL JOB APPROVAL</span><strong>−21.1 NET</strong></div><p>President Donald Trump · weighted national average</p><div class="poll-row"><span>Approve</span><div class="poll-track"><b class="blue neutral-blue" style="width:37.9%"></b></div><strong>37.9%</strong></div><div class="poll-row"><span>Disapprove</span><div class="poll-track"><b class="red neutral-red" style="width:59%"></b></div><strong>59.0%</strong></div><p class="swing">Opinion polling is a snapshot, not an election prediction. Net approval is approval minus disapproval.</p><a target="_blank" rel="noopener" href="https://www.onpointpolitics.us/polls">Explore the full polling tracker ↗</a></article>
       </div>
       <div class="original-lab"><div class="lab-top"><span>INDEPENDENT RESEARCH DESK · USRS POLLING LAB</span><a href="#method">Methodology ↓</a></div><div id="original-polling" aria-live="polite"><p class="fine">Connecting to the open polling-data source…</p></div></div>
+    </section>
+    <section class="sim-status-section" id="readiness">
+      <div class="section-heading"><div><p class="eyebrow">THE ORIGINAL FORECASTING LAB · AUDITED SOURCES ONLY</p><h2>What evidence is actually in our model?</h2></div><p>Source-readiness ledger · updated from independent primary-source files</p></div>
+      <div id="politics-sim-readiness" aria-live="polite"><p class="fine">Checking official election data, FEC filings, Census records and independent survey coverage…</p></div>
+      <p class="fine"><strong>Source rule:</strong> Independent projections are never used as training inputs. Candidate filings are not the same as certified general-election nominees. A historical model diagnostic is not a 2026 election forecast.</p>
     </section>
     <section class="history-section" id="history" aria-labelledby="history-heading">
       <div class="section-heading"><div><p class="eyebrow">THE ORIGINAL DATA DESK · ELECTION LAB</p><h2 id="history-heading">How America voted, not how it will vote.</h2></div><p>Historic MEDSL House and Senate returns, 2018–2024 · Data through 2024, not a 2026 forecast</p></div>
