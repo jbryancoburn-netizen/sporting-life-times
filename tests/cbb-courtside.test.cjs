@@ -176,6 +176,22 @@ assert(!fakeNode.innerHTML.includes('slc-ball'), 'no fictitious basketball marke
 assert.match(fakeNode.innerHTML,/Notre Dame Radio Network/);
 assert.match(fakeNode.innerHTML,/thevarsitynetwork.com/);
 assert(!fakeNode.innerHTML.includes('<audio'), 'do not rebroadcast rights-held radio');
+
+const realScorePlays=[
+ {id:'a',text:'Away jumper',awayScore:2,homeScore:0,period:{number:1}},
+ {id:'b',text:'Home made three',awayScore:2,homeScore:3,period:{number:1}},
+ {id:'c',text:'Away dunk',awayScore:4,homeScore:3,period:{number:1}}
+];
+const flowPlays=court.parsePlays({plays:realScorePlays});
+assert.match(court.gameFlow(flowPlays),/GAME FLOW/,'source score progression renders live visual');
+assert.match(court.gameFlow(flowPlays),/AWAY 4/,'curve uses actual final play scores');
+assert.match(court.gameFlow(flowPlays),/HOME 3/,'does not invent score');
+assert.equal(court.gameFlow(court.parsePlays({plays:[{text:'Rebound'},{text:'Substitution'}]})),'','no fabricated scoring flow');
+const flowNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
+court.mount(flowNode,{...fakeGame,id:'score-flow'}, {plays:realScorePlays});
+assert.match(flowNode.innerHTML,/GAME FLOW/,'fallback replaces empty court when source score data exists');
+assert(!flowNode.innerHTML.includes('slc-ball'),'flow visualization cannot show a fake ball');
+
 assert.match(fakeNode.innerHTML,/Villanova turnover/);
 assert(!fakeNode.innerHTML.includes('actual ball position'));
 const missingNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
