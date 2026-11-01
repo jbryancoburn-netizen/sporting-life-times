@@ -12,7 +12,15 @@ from zoneinfo import ZoneInfo
 from mbb_player_boxscores import parse_boxscore, aggregate
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'data/mbb-live.json'
-FEEDS=[('CBS Sports','https://www.cbssports.com/rss/headlines/college-basketball/'),('NCAA','https://www.ncaa.com/news/basketball-men/d1/rss.xml'),('ESPN','https://www.espn.com/espn/rss/ncb/news')]
+# Official feed directories, plus CBS and legacy ESPN for attributed headlines.
+# FOX RSS is deliberately excluded: its feed license limits free use to
+# individuals and non-profit organizations for non-commercial purposes.
+FEEDS=[
+    ('CBS Sports','https://www.cbssports.com/rss/headlines/college-basketball/','MBB'),
+    ('NCAA Men','https://www.ncaa.com/news/basketball-men/d1/rss.xml','MBB'),
+    ('NCAA Women','https://www.ncaa.com/news/basketball-women/d1/rss.xml','WBB'),
+    ('ESPN','https://www.espn.com/espn/rss/ncb/news','MBB'),
+]
 def fetch(url):
     req=urllib.request.Request(url,headers={'User-Agent':'SportingLifeTimes/1.0 (+sports newspaper; attributed links)'})
     with urllib.request.urlopen(req,timeout=18) as r:return r.read()
@@ -21,13 +29,13 @@ def date(s):
     try:return email.utils.parsedate_to_datetime(s).astimezone(dt.timezone.utc).isoformat()
     except (ValueError,TypeError,AttributeError):return None
 
-def parse_rss(payload,source):
+def parse_rss(payload,source,category='MBB'):
     root=ET.fromstring(payload);items=[]
     for item in root.findall('.//item'):
         title=clean(item.findtext('title'));link=item.findtext('link','').strip();stamp=date(item.findtext('pubDate',''))
         if not title or not link.startswith('https://') or not stamp:continue
         media=item.find('{http://search.yahoo.com/mrss/}content')
-        items.append({'title':title,'url':link,'source':source,'published_at':stamp,'summary':clean(item.findtext('description'))[:350],'category':'MBB','image_url':media.get('url') if media is not None else None})
+        items.append({'title':title,'url':link,'source':source,'published_at':stamp,'summary':clean(item.findtext('description'))[:350],'category':category,'image_url':media.get('url') if media is not None else None})
     return items
 
 def parse_scores(data):
@@ -37,6 +45,37 @@ def parse_scores(data):
         competitors=sorted(comp.get('competitors',[]),key=lambda x:x.get('homeAway')=='home')
         out.append({'id':event['id'],'date':event.get('date'),'state':status.get('state'),'status':status.get('shortDetail'),'teams':[{'id':t.get('team',{}).get('id'),'name':t.get('team',{}).get('displayName'),'logo':t.get('team',{}).get('logo'),'score':t.get('score')} for t in competitors]})
     return out
+
+def fetch_ncaa_scoreboard(sport, day, fetcher=fetch):
+    """NCAA-origin data via attributed bridge; legacy direct endpoint as fallback.
+
+    The retired Casablanca endpoint cannot be assumed to work. The bridge is
+    an independent delivery path, NOT an independent publisher of NCAA data.
+    Only accept well-formed game collections; a transport success alone does
+    not establish a verified event or third-party score corroboration.
+    """
+    assert sport in ('basketball-men','basketball-women')
+    dated=dt.date.fromisoformat(day)
+    bridge=('https://ncaa-api.henrygd.me/scoreboard/'+sport+'/d1/'
+            +dated.strftime('%Y/%m/%d')+'/all-conf')
+    direct=('https://data.ncaa.com/casablanca/scoreboard/'+sport+'/d1/'
+            +dated.strftime('%Y/%m/%d')+'/scoreboard.json')
+    attempted=[]
+    for name,url in (('NCAA.com via third-party relay',bridge),
+                     ('NCAA.com direct (legacy)',direct)):
+        try:
+            payload=json.loads(fetcher(url))
+            if not isinstance(payload,dict) or not isinstance(payload.get('games'),list):
+                raise ValueError('Scoreboard schema did not contain games array')
+            # Successful empty slate is different from failed retrieval.
+            return payload,{'provider':name,'source_url':url,'checked_day':day,
+                            'ok':True,'attempted':attempted,'source_origin':'NCAA.com',
+                            'independent_second_publisher':False}
+        except Exception as exc:
+            attempted.append({'provider':name,'url':url,'error':type(exc).__name__})
+    raise ValueError('NCAA-origin scoreboard unavailable: '+
+                     ','.join(x['provider']+'='+x['error'] for x in attempted))
+
 
 def parse_ncaa_crosscheck(payload, espn_events, crosswalk, day):
     """Admit only uniquely identified NCAA D-I fixtures. No inferred times or scores.
@@ -169,12 +208,12 @@ def main():
     now=dt.datetime.now(dt.timezone.utc).isoformat();old=json.loads(OUT.read_text()) if OUT.exists() else {}
     out={**old,'attempted_at':now,'sources':[]}; articles=[]
     def collect(spec):
-        name,url=spec
+        name,url,category=spec
         try:
-            rows=parse_rss(fetch(url),name)
+            rows=parse_rss(fetch(url),name,category)
             return rows,{'source':name,'url':url,'ok':bool(rows),'articles':len(rows)}
         except Exception as e:return [],{'source':name,'url':url,'ok':False,'error':type(e).__name__}
-    with cf.ThreadPoolExecutor(max_workers=3) as pool:
+    with cf.ThreadPoolExecutor(max_workers=4) as pool:
         for rows,status in pool.map(collect,FEEDS):articles.extend(rows);out['sources'].append(status)
     if articles:
         unique={a['url']:a for a in old.get('articles',[])}
@@ -206,27 +245,29 @@ def main():
                                 'error':type(exc).__name__})
     # Official NCAA is the independent first-party ledger; ESPN supplements it.
     # The existing newspaper workflow commits this inside mbb-live.json.
-    ncaa_url='https://data.ncaa.com/casablanca/scoreboard/basketball-men/d1/'+dt.datetime.now(ZoneInfo('America/New_York')).strftime('%Y/%m/%d')+'/scoreboard.json'
+    ncaa_day=dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
+    ncaa_url='https://ncaa-api.henrygd.me/scoreboard/basketball-men/d1/'+ncaa_day.replace('-','/')+'/all-conf'
     try:
-        ncaa_payload=json.loads(fetch(ncaa_url))
+        ncaa_payload,ncaa_origin=fetch_ncaa_scoreboard('basketball-men',ncaa_day)
         crosswalk=json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
         official_rows,unresolved=parse_ncaa_crosscheck(ncaa_payload,result.get('events',[]) if 'result' in locals() else [],crosswalk,
             dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat())
         out['ncaa_crosscheck']={'day':dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
-            'checked_at':now,'source_url':ncaa_url,'games':official_rows,
+            'checked_at':now,'source_url':ncaa_origin['source_url'],
+            'provider':ncaa_origin['provider'],'games':official_rows,
             'total_source_games':len(ncaa_payload['games']),'unresolved_games':unresolved,
-            'scope':'Verified D-I identities only; NCAA scores and status authoritative; ESPN IDs/tipoffs secondary'}
-        out['sources'].append({'source':'NCAA.com official scoreboard','url':ncaa_url,'ok':True,
+            'scope':'NCAA-origin scores via attributed delivery path; verified D-I identities only; ESPN IDs/tipoffs secondary'}
+        out['sources'].append({'source':ncaa_origin['provider'],'url':ncaa_origin['source_url'],'ok':True,
                                'resolved':len(official_rows),'unresolved':unresolved})
     except Exception as e:
         # Preserve previously published evidence with its original timestamp.
         # The reader refuses stale crosschecks; an outage is never agreement.
-        out['sources'].append({'source':'NCAA.com official scoreboard','url':ncaa_url,
+        out['sources'].append({'source':'NCAA-origin men scoreboard','url':ncaa_url,
                                'ok':False,'error':type(e).__name__})
     # Women's D-I receives the same independent official-source reconciliation.
     # ESPN identifies only the secondary event/tipoff. Shared school identities
     # use the already reviewed men's crosswalk; unmatched schools are excluded.
-    women_url='https://data.ncaa.com/casablanca/scoreboard/basketball-women/d1/'+dt.datetime.now(ZoneInfo('America/New_York')).strftime('%Y/%m/%d')+'/scoreboard.json'
+    women_url='https://ncaa-api.henrygd.me/scoreboard/basketball-women/d1/'+ncaa_day.replace('-','/')+'/all-conf'
     try:
         women_registry=json.loads((ROOT/'data/ncaaw-2026-27-retro-primary.json').read_text())
         men_names={str(t['espn_id']):t['name'] for t in crosswalk['teams']} if 'crosswalk' in locals() else {}
@@ -248,17 +289,18 @@ def main():
             women_events=[]
             out['sources'].append({'source':'ESPN women secondary game IDs','url':women_score_url,
                                    'ok':False,'error':type(exc).__name__})
-        women_ncaa=json.loads(fetch(women_url))
+        women_ncaa,women_origin=fetch_ncaa_scoreboard('basketball-women',ncaa_day)
         women_rows,women_unresolved=parse_ncaa_crosscheck(women_ncaa,women_events,women_crosswalk,
             dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat())
         out['ncaa_women_crosscheck']={'day':dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
-            'checked_at':now,'source_url':women_url,'games':women_rows,
+            'checked_at':now,'source_url':women_origin['source_url'],
+            'provider':women_origin['provider'],'games':women_rows,
             'total_source_games':len(women_ncaa['games']),'unresolved_games':women_unresolved,
-            'scope':'Independent NCAA women D-I scoreboard; verified shared school ID crosswalk'}
-        out['sources'].append({'source':'NCAA.com women official scoreboard','url':women_url,'ok':True,
+            'scope':'NCAA-origin women D-I feed through attributed delivery; verified shared school ID crosswalk'}
+        out['sources'].append({'source':women_origin['provider']+' (women)','url':women_origin['source_url'],'ok':True,
                                'resolved':len(women_rows),'unresolved':women_unresolved})
     except Exception as exc:
-        out['sources'].append({'source':'NCAA.com women official scoreboard','url':women_url,
+        out['sources'].append({'source':'NCAA-origin women scoreboard','url':women_url,
                                'ok':False,'error':type(exc).__name__})
     # Completed regular-season games only; keyed storage makes repeated ingestion idempotent.
     statpath=ROOT/'data/mbb-current-player-stats.json'
