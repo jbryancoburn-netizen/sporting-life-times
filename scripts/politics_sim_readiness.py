@@ -18,6 +18,8 @@ def build(data):
     census=data.get("census",{})
     polling=data.get("polling",{})
     poll_audit=data.get("poll_audit",{})
+    presidential=data.get("presidential",{})
+    fec_index=data.get("fec_index",{})
     house=row.get("house",[]) if row.get("status")=="ok" else []
     senate=row.get("senate",[]) if row.get("status")=="ok" else []
     fed=fec.get("candidates",[]) if fec.get("status")=="ok" else []
@@ -38,6 +40,12 @@ def build(data):
       stage("2026_fec_campaign_finance","partial" if fec.get("finance_records_joined",0)>0 else "missing",
         f"{fec.get('finance_records_joined',0)} candidate financial summaries joined to FEC IDs",
         "FEC all-candidate financial reports","Variable reporting end dates, transfers and coverage require harmonization; not a direct vote-share measurement.",fec.get("finance_records_joined",0)),
+      stage("2026_fec_district_filing_index","partial" if fec_index.get("status")=="ok" and fec_index.get("house_district_inventory")==435 else "missing",
+        f"{fec_index.get('house_districts_with_registrations',0)} of 435 House districts have at least one indexed FEC filing",
+        "Official FEC 2026 candidate registration master","A district with a filing is not proof of a general-election ballot candidate; FEC registration status may be stale.",fec_index.get("house_districts_with_registrations",0)),
+      stage("2024_presidential_county_vote_returns","partial" if presidential.get("status")=="ok" and presidential.get("state_count")==51 and presidential.get("county_count",0)>=2300 else "missing",
+        f"{presidential.get('county_count',0)} counties or equivalents in {presidential.get('state_count',0)} states/DC, from original 2024 returns",
+        "MIT Election Data and Science Lab county presidential returns","County returns are not congressional district returns; verification of precinct split and current district boundaries is required.",presidential.get("county_count",0)),
       stage("2024_acs_congressional_district_context","partial" if len(census_rows)==435 else "missing",
         f"{len(census_rows)} Census ACS 119th-Congress district profiles",
         "U.S. Census Bureau ACS 2020–2024","ACS estimates and 2026 district boundaries must be harmonized; demographics do not imply vote choice.",len(census_rows)),
@@ -74,12 +82,12 @@ def build(data):
       "status":"NOT_READY_FOR_PUBLIC_PREDICTIONS",
       "evaluated_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
       "method":"Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
-      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","fec":"politics-fec-inputs.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
+      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
       "checks":metrics,"counts":{"verified":sum(x["state"]=="verified" for x in metrics),"partial":sum(x["state"]=="partial" for x in metrics),"missing":sum(x["state"]=="missing" for x in metrics)},
       "house_forecast_ready":forecast_ready,"senate_forecast_ready":forecast_ready,"governor_forecast_ready":forecast_ready,
       "certified_original_probability_count":0,
       "priority":[
-        "Archive original House and Senate individual historical contest records with vote values and district vintage.",
+        "Complete a precinct-to-2026-district presidential vote crosswalk without assigning whole counties to split districts.",
         "Collect official 2026 state-ballot nominee lists; reconcile to FEC candidate IDs.",
         "Obtain and reconcile 2024 presidential/House district voting baselines and any 2026 boundary changes.",
         "Collect pollster-original 2026 race surveys with dates, sponsors, population and samples; audit duplicates.",
@@ -89,7 +97,8 @@ def build(data):
     }
 def main():
     d=build({"history":load("politics-history.json"),"row":load("politics-historical-contests.json"),
-             "fec":load("politics-fec-inputs.json"),"census":load("politics-census-inputs.json"),
+             "fec":load("politics-fec-inputs.json"),"fec_index":load("politics-fec-race-index.json"),
+             "presidential":load("politics-2024-county-presidential.json"),"census":load("politics-census-inputs.json"),
              "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json")})
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
