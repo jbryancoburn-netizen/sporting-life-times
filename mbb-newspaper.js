@@ -8,6 +8,14 @@ const url=s=>{try{const u=new URL(s);return ['https:','http:'].includes(u.protoc
 const get=async p=>{try{const r=await fetch(p,{cache:'no-store',signal:AbortSignal.timeout(10000)});return r.ok?await r.json():null}catch{return null}};
 const when=s=>{const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time unavailable'};
 const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const easternGameDay=value=>{
+ const raw=String(value||'');
+ if(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(raw))return raw; // Calendar-only date.
+ const date=new Date(raw);
+ return Number.isFinite(+date)?new Intl.DateTimeFormat('en-CA',{
+  timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'
+ }).format(date):'';
+};
 const page=document.body.dataset.page,params=new URLSearchParams(location.search);
 const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','articles.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json'];
 let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers]=await Promise.all(files.map(get));
@@ -58,7 +66,7 @@ async function refreshLiveScores(){
  browserScores=d.events.map(e=>({id:e.id,date:e.date,state:e.status?.type?.state,status:e.status?.type?.shortDetail,teams:[...(e.competitions?.[0]?.competitors||[])].sort((a,b)=>(a.homeAway==='home')-(b.homeAway==='home')).map(t=>({id:t.team?.id,name:t.team?.displayName,logo:t.team?.logo,score:t.score}))}));browserScoresAt=new Date().toISOString();
 }
 function liveRail(){const feeds=browserScores||(wire?.games?.length?wire.games:(scoreboards?.leagues?.find(l=>l.league==="Men's College Basketball")?.games||[]));
- const currentGames=feeds.filter(g=>String(g.date||g.start_time||'').slice(0,10)===today());
+ const currentGames=feeds.filter(g=>easternGameDay(g.date||g.start_time)===today());
  if(currentGames.length)return currentGames.map(g=>'<div class="score-card"><small>'+esc(g.status||g.state)+' · '+when(g.date)+'</small>'+(g.teams||[]).map(t=>'<div class="score-team"><span class="team-name">'+window.MBBLogos.byESPN(t.id,'score',t.name)+esc(t.name)+'</span><b>'+esc(g.state==='pre'?'':t.score??'')+'</b></div>').join('')+'</div>').join('');
  const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()).slice(0,5);return upcoming.length?upcoming.map(g=>gameCard(g)).join(''):empty('No current games are available in the schedule feed.');}
 function stories(team=null,conference=null){
