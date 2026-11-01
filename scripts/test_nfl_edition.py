@@ -59,6 +59,24 @@ class EloTests(unittest.TestCase):
         self.assertIn('nfl-front-premium.css',front)
         self.assertNotIn('nfl-live-day.js',front)
 
+    def test_live_game_center_date_filter_and_logo_fallback(self):
+        root=Path(__file__).resolve().parents[1]
+        live=(root/"nfl-live-day.js").read_text(encoding="utf-8")
+        center=(root/"nfl-game-center.html").read_text(encoding="utf-8")
+        game=(root/"nfl-game.html").read_text(encoding="utf-8")
+        self.assertIn('query.get("date")',live)
+        self.assertIn('scoreboard(viewingDate)',live)
+        self.assertIn('urlDay(requestDate)',live)
+        self.assertIn('etDate(new Date(g.date))===requestDate',live)
+        self.assertIn('if(viewingDate!==chosenDate){rerun=true;return;}',live)
+        self.assertIn('selectedTeam==="all"||g.away.id===selectedTeam',live)
+        self.assertIn('secondary:t.secondary_color||side.secondary',live)
+        self.assertIn('const duplicate=root.querySelector(".nfl-slate")',live)
+        self.assertIn('const oldNav=root.querySelector(".nfl-day-nav")',live)
+        self.assertNotIn('away:{...g.away,color:"#252525",secondary:"#ba9957"}',live)
+        self.assertIn('nfl-live-day.js?v=20261101-datefix1',center)
+        self.assertIn('nfl-live-day.js?v=20261101-datefix1',game)
+
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
         self.assertEqual(len(t),32)
