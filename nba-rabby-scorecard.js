@@ -21,7 +21,11 @@ function summary(m,label){
 }
 function view(root,ledger){
  const records=ledger.forecasts||[],outcomes=ledger.results||{},m=ledger.metrics||{};
- const frozen=records.filter(f=>!outcomes[f.id]).length, graded=Object.keys(outcomes).length;
+ const exclusions=ledger.exceptions||{};
+ const frozen=records.filter(f=>!outcomes[f.id]&&!exclusions[f.id]).length;
+ const excluded=Object.keys(exclusions).length,graded=Object.keys(outcomes).length;
+ const pending=[...records].filter(f=>!outcomes[f.id]&&!exclusions[f.id]).sort((a,b)=>a.date.localeCompare(b.date)||a.phase.localeCompare(b.phase)).slice(0,12);
+ const waitingRows=pending.map(f=>'<tr><td>'+esc(f.away)+' at '+esc(f.home)+'</td><td>'+esc(f.phase==='near_tipoff'?'Near tipoff':'Early')+'</td><td>'+esc(dt(f.captured_at))+'</td><td>'+f.away_score+'–'+f.home_score+'</td><td>'+esc(dt(f.date))+'</td></tr>').join('');
  const rows=records.filter(f=>outcomes[f.id]).slice(-14).reverse().map(f=>{
   const g=outcomes[f.id];
   const err=Math.abs(g.home_score-g.away_score-f.margin);
@@ -32,10 +36,12 @@ function view(root,ledger){
  root.innerHTML='<div class="eyebrow">Rabby · Model Accountability</div><h2>Pregame Forecast Scorecard</h2>'+
   '<p class="rabby-audit-desc">Every prediction shown here was saved <strong>before tipoff</strong> with the input-data fingerprints and model version. Finals are added separately. We never reconstruct a pregame prediction from the result.</p>'+
   '<div class="rabby-audit-summary">'+summary(m.early,'EARLY · 2–24 HOURS')+summary(m.near_tipoff,'NEAR TIPOFF · 10–120 MIN')+'</div>'+
-  '<div class="rabby-audit-meta">'+records.length+' frozen snapshots · '+graded+' completed games graded · '+frozen+' pending results · archive updated '+(ledger.updated_at?esc(dt(ledger.updated_at)):'not yet available')+'</div>'+
+  '<div class="rabby-audit-meta">'+records.length+' frozen snapshots · '+graded+' completed games graded · '+frozen+' ungraded snapshots · '+excluded+' rescheduled fixtures excluded · archive updated '+(ledger.updated_at?esc(dt(ledger.updated_at)):'not yet available')+'</div>'+
   (rows?'<div class="nba-table-wrap"><table class="nba-table rabby-audit-table"><thead><tr><th>Game / captured</th><th>Prediction<br>(away–home)</th><th>Final<br>(away–home)</th><th>Margin error</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':
   '<div class="nba-empty">Forecast scoring begins after future games finish. There are no fabricated or retroactively created model results.</div>')+
-  '<p class="rabby-audit-note">MAE = average absolute error in points. Brier = mean squared win-probability error (lower is better). Small samples are descriptive, not proof of predictive improvement. Injury availability and rest remain informational until calibrated prospectively.</p>';
+  (waitingRows?'<h3>Frozen Predictions Awaiting Finals</h3><div class="nba-table-wrap"><table class="nba-table rabby-audit-table"><thead><tr><th>Game</th><th>Capture window</th><th>Captured</th><th>Projected away–home</th><th>Scheduled tip</th></tr></thead><tbody>'+waitingRows+'</tbody></table></div>':'')+
+  (excluded?'<p class="rabby-audit-note">'+excluded+' postponed or rescheduled fixture(s) are quarantined from accuracy calculations; original pregame snapshots remain preserved.</p>':'')+
+  '<p class="rabby-audit-note">MAE = average absolute error in points. Brier = mean squared win-probability error (lower is better). Small samples are descriptive, not proof of predictive improvement. Injury availability and rest remain informational until calibrated prospectively.</p>'; 
 }
 async function refresh(){
  const root=attach();if(!root)return;
