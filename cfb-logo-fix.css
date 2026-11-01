@@ -1,0 +1,71 @@
+/* CFB logo v5: sole visual owner for FBS badges (front page, team desk, G6).
+   The existing desk/team CSS only sets size. NO border, pseudo-ring or CSS
+   box-shadow is allowed to paint another circle. */
+.cfb-crest,.cfb-team-mark,
+.cfb-desk .cfb-crest,.cfb-desk .cfb-team-mark{
+  position:relative!important;
+  display:inline-flex!important;
+  justify-content:center!important;align-items:center!important;
+  isolation:isolate!important;box-sizing:border-box!important;
+  flex-shrink:0!important;overflow:hidden!important;
+  padding:0!important;margin:0!important;
+  background:#fff!important;border:0!important;outline:0!important;
+  border-radius:50%!important;box-shadow:none!important;filter:none!important;
+}
+.cfb-crest::before,.cfb-crest::after,
+.cfb-team-mark::before,.cfb-team-mark::after{
+  content:none!important;display:none!important;
+  background:none!important;border:0!important;box-shadow:none!important;
+}
+/* The SVG contains exactly two touching team-color strokes. */
+.cfb-crest>.cfb-ring-art,.cfb-team-mark>.cfb-ring-art{
+  position:absolute!important;inset:0!important;left:0!important;top:0!important;
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:100%!important;max-height:100%!important;
+  padding:0!important;margin:0!important;transform:none!important;
+  background:transparent!important;border:0!important;outline:0!important;
+  border-radius:0!important;box-shadow:none!important;filter:none!important;
+  pointer-events:none!important;z-index:3!important;
+}
+/* Actual artwork is an ordinary in-flow image: Safari can lay it out without
+   relying on absolutely positioned lazy images and it cannot add a ring. */
+.cfb-crest>img[data-cfb-logo].cfb-logo-image,
+.cfb-team-mark>img[data-cfb-logo].cfb-logo-image{
+  position:relative!important;left:auto!important;top:auto!important;
+  right:auto!important;bottom:auto!important;transform:none!important;
+  display:block!important;flex:0 0 67%!important;width:67%!important;height:67%!important;
+  min-width:0!important;min-height:0!important;max-width:67%!important;
+  max-height:67%!important;aspect-ratio:1!important;
+  object-fit:contain!important;object-position:center!important;
+  margin:0!important;padding:0!important;background:transparent!important;
+  border:0!important;border-radius:0!important;outline:0!important;
+  box-shadow:none!important;filter:none!important;
+  opacity:1!important;visibility:visible!important;z-index:2!important;
+}
+.cfb-crest>img[data-cfb-logo].cfb-logo-image.is-failed,
+.cfb-team-mark>img[data-cfb-logo].cfb-logo-image.is-failed{
+  display:none!important;visibility:hidden!important;
+}
+.cfb-crest>.cfb-logo-fallback,.cfb-team-mark>.cfb-logo-fallback{
+  position:absolute!important;inset:17%!important;
+  align-items:center!important;justify-content:center!important;
+  text-align:center!important;display:flex!important;z-index:1!important;
+  font:800 clamp(10px,1.6vw,18px)/1 Arial,sans-serif!important;
+  letter-spacing:-.04em!important;color:var(--primary,#1d3540)!important;
+  border:0!important;outline:0!important;box-shadow:none!important;
+  background:transparent!important;pointer-events:none!important;
+}
+/* Never show letter fallback behind a successful transparent logo. */
+.cfb-crest>.cfb-logo-fallback.is-hidden,
+.cfb-team-mark>.cfb-logo-fallback.is-hidden{display:none!important}
+/* Restore clean, legible ranking density without changing rating values. */
+.cfb-desk #elo-list td{font-variant-numeric:tabular-nums}
+.cfb-desk #elo-list td.school .team-identity{gap:9px}
+@media(max-width:650px){
+ .cfb-desk #elo-list td.school .cfb-crest{
+   width:48px!important;height:48px!important;flex-basis:48px!important;
+ }
+ .cfb-desk #elo-list td.school{min-width:170px!important}
+ .cfb-desk #elo-list td{padding-top:7px;padding-bottom:7px}
+ .cfb-desk #elo-list td.power{font-size:14px}
+}
