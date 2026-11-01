@@ -78,6 +78,38 @@ class CACCOfficialTests(unittest.TestCase):
   self.assertEqual(q["enriched"],1)
   self.assertEqual(len(games),1)
 
+ def test_host_athletics_evidence_resolves_disagreeing_cacc_times(self):
+  date,away,home="2027-02-16","wilmington","georgian-court"
+  a={"date":date,"away":away,"home":home,"source_team":away,
+     "source_url":"https://caccathletics.org/schedule.aspx?schedule=2377",
+     "tipoff":"8:00 PM ET","city":"Lakewood, NJ"}
+  b={**a,"source_team":home,"source_url":"https://caccathletics.org/schedule.aspx?schedule=2389",
+     "tipoff":"7:00 PM ET"}
+  teams={k:{"id":k} for k in (away,home)}
+  games={}
+  report=cacc.reconcile_cacc({away:[a],home:[b]},games,teams,dt.date(2026,11,1))
+  self.assertEqual(report["host_sourced_resolutions"],1)
+  self.assertEqual(report["time_disagreements"],0)
+  self.assertEqual(report["verified_watch_links"],1)
+  g=next(iter(games.values()))
+  self.assertEqual(g["start_time"],"7:00 PM ET")
+  self.assertEqual(g["venue"],"GCU Wellness Center · Lakewood, NJ")
+  self.assertEqual(g["network"],"CACC Network")
+  self.assertTrue(g["stream_url"].startswith("https://caccnetwork.com/"))
+
+ def test_unverified_host_or_mismatched_host_time_leaves_conflict(self):
+  date,away,home="2027-01-16","jefferson-thomas-jefferson","bridgeport"
+  a={"date":date,"away":away,"home":home,"source_team":away,
+      "source_url":"https://caccathletics.org/schedule.aspx?schedule=2385",
+      "city":"Bridgeport, CT","tipoff":"2:00 PM ET"}
+  b={**a,"source_team":home,"source_url":"https://caccathletics.org/schedule.aspx?schedule=2384",
+      "tipoff":"3:00 PM ET"}
+  teams={k:{"id":k} for k in (away,home)};games={}
+  q=cacc.reconcile_cacc({away:[a],home:[b]},games,teams,dt.date(2026,11,1))
+  self.assertEqual(q["time_disagreements"],1)
+  self.assertEqual(q["host_sourced_resolutions"],0)
+  self.assertNotIn("start_time",next(iter(games.values())))
+
  def test_invalid_member_cannot_be_confirmed_as_dii_opponent(self):
   a={"date":"2026-12-10","away":"monroe-university","home":"caldwell",
      "source_team":"monroe-university","tipoff":"8:00 PM ET","source_url":"https://invalid","city":""}
