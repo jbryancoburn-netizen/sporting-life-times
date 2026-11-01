@@ -58,7 +58,7 @@
     const status=g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
     return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+fmt(g.date)+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<a class="wbb-game-source" href="https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.id)+'" target="_blank" rel="noopener noreferrer">Game details ↗</a></article>';
   }
-  function allGames(){const result=new Map(games);for(const [id,g] of live)result.set(id,{...result.get(id),...g});return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
+  function allGames(){const result=new Map(games);for(const [id,g] of live){const prior=result.get(id);result.set(id,{...prior,...g,broadcast:prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast)});}return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
   function drawGames(){
     const all=allGames(),dates=[...new Set(all.map(g=>localDay(g.date)).filter(Boolean))].sort(),dateSelect=document.getElementById('wbb-date');
     if(!manualDate||!dates.includes(selected))selected=dates.find(d=>d>=today())||dates.at(-1)||today();
@@ -79,12 +79,21 @@
   async function refresh(){
     if(busy)return;busy=true;
     try{
-      const [r,master,ledger,news]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json')]);
+      const [r,master,ledger,news,officialTV]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null)]);
       if(r?.gender!=='women'||r.season!=='2026-27'||r.model!=='retro-clean-slate'||r.starting_elo!==1500||r.rankings?.length!==363||new Set(r.rankings.map(t=>String(t.team_id))).size!==363||!r.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo)))throw Error('Women’s rating registry failed validation');
       if(master?.gender!=='women'||master.season!=='2026-27'||Object.keys(master.teams||{}).length!==363)throw Error('Women’s season calendar failed validation');
       await window.MBBLogos.ready;ratings=r;teams=new Map(r.rankings.map(t=>[String(t.team_id),t]));games=new Map();
       for(const [tid,t] of Object.entries(master.teams))for(const g of t.games||[]){if(games.has(String(g.id))){const old=games.get(String(g.id));if(!old.city)old.city=g.city||g.city_state||g.official_location_as_printed;if(g.broadcast_verified){old.broadcast=g.broadcast;old.broadcast_verified=true;}continue;}games.set(String(g.id),{...g,status:g.completed?'final':'scheduled',neutral:g.site==='neutral',home_name:tid===String(g.home_id)?t.team:g.opponent,away_name:tid===String(g.away_id)?t.team:g.opponent,city:g.city||g.city_state||g.official_location_as_printed});}
       if(ledger?.season==='2026-27')for(const g of [...ledger.finals||[],...ledger.upcoming||[]]){const old=games.get(String(g.id));games.set(String(g.id),{...old,...g,broadcast:old?.broadcast_verified?old.broadcast:g.broadcast||old?.broadcast,completed:g.status==='final'});}
+      // Apply individually cited women's broadcasts after merging scoreboards,
+      // so live ESPN records cannot erase an official university assignment.
+      if(officialTV?.gender==='women'&&officialTV?.season==='2026-27'){
+        for(const row of officialTV.rows||[]){
+          if(!row.game_id||!row.broadcast||!/^https:\/\//.test(row.source_url||''))continue;
+          const game=games.get(String(row.game_id));
+          if(game){game.broadcast=row.broadcast;game.broadcast_verified=true;}
+        }
+      }
       const conferences=[...new Set(r.rankings.map(t=>t.conference).filter(Boolean))].sort();
       for(const id of ['wbb-conference-select','wbb-game-conf']){const select=document.getElementById(id),old=select.value;select.innerHTML=(id==='wbb-game-conf'?'<option value="">All conferences</option>':'')+conferences.map(c=>'<option>'+esc(c)+'</option>').join('');if(conferences.includes(old))select.value=old;else if(id==='wbb-conference-select')select.value=conferences.includes('Big Ten Conference')?'Big Ten Conference':conferences[0];}
       document.getElementById('wbb-summary').innerHTML='<strong>363 <small>programs</small></strong><strong>'+conferences.length+' <small>conferences</small></strong><strong>'+games.size.toLocaleString()+' <small>season games</small></strong>';
