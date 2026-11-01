@@ -6,14 +6,23 @@ import pathlib
 import sys
 import time
 import urllib.request
+import urllib.error
 
 ROOT=pathlib.Path("data")
 BASE="https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball"
 
 def request(url):
     req=urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimesWBB/1.0"})
-    with urllib.request.urlopen(req,timeout=25) as r:
-        return json.load(r)
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req,timeout=25) as r:
+                return json.load(r)
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
+            if attempt == 2:
+                raise
+            # Retry transient provider failures instead of dropping a day's finals.
+            print(f"WBB scoreboard retry {attempt+1}/2: {exc}")
+            time.sleep(0.5 * (attempt + 1))
 
 def write(filename,payload):
     ROOT.mkdir(exist_ok=True)
@@ -148,8 +157,21 @@ def history(year):
         "games":sorted(finals.values(),key=lambda g:(g["date"],g["id"]))})
     print("Verified historical finals",year,len(finals))
 
-def live():
-    teams=team_registry()
+def live(today=None):
+    # Frequent live passes must not poll the next 14 days of already-published
+    # full team schedules. Three past days recover missed late final reports.
+    today=today or dt.datetime.now(dt.timezone.utc).date()
+    try:
+        teams=team_registry()
+    except (OSError, ValueError, RuntimeError, KeyError, TypeError) as exc:
+        # Preserve live results when the team-index endpoint alone is down.
+        path=ROOT/"ncaaw-2026-27-teams.json"
+        cache=json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        teams=cache.get("teams",[]) if cache.get("season")=="2026-27" else []
+        unique={str(t.get("team_id")) for t in teams if isinstance(t,dict) and str(t.get("team_id","")).isdigit()}
+        if len(teams)!=363 or len(unique)!=363:
+            raise RuntimeError("WBB registry unavailable and cached roster fails 363-team safety gate") from exc
+        print("WBB using certified published 363-team roster while ESPN team index is unavailable:",exc)
     ids={t["team_id"] for t in teams}
     write("ncaaw-2026-27-teams.json",{
         "season":"2026-27","source":"ESPN Division I women's team roster (group 50)",
@@ -159,9 +181,10 @@ def live():
     finals={str(g["id"]):g for g in saved if str(g["home_id"]) in ids and str(g["away_id"]) in ids}
     upcoming={}
     failed=[]
-    now=dt.datetime.now(dt.timezone.utc).date()
-    day=max(dt.date(2026,11,1),now-dt.timedelta(days=3))
-    end=min(dt.date(2027,4,30),now+dt.timedelta(days=14))
+    day=max(dt.date(2026,11,1),today-dt.timedelta(days=3))
+    end=min(dt.date(2027,4,30),today+dt.timedelta(days=2))
+    requested_start=day
+    future_warnings=[]
     while day<=end:
         try:
             for event in daily(day):
@@ -178,18 +201,29 @@ def live():
                 elif g["id"] not in finals:
                     upcoming[g["id"]]=g
         except Exception as exc:
-            failed.append({"date":str(day),"error":str(exc)})
+            problem={"date":str(day),"error":str(exc)}
+            if day<=today:
+                failed.append(problem)
+            else:
+                # Forward fixtures are already in the 363-school season ledger.
+                # Their retrieval must never prevent publishing today's finals.
+                future_warnings.append(problem)
         day+=dt.timedelta(days=1)
     if failed:
-        raise RuntimeError("Women's scoreboard ingest incomplete: "+json.dumps(failed))
+        raise RuntimeError("Women's past/current scoreboard ingest incomplete: "+json.dumps(failed))
     ordered=sorted(finals.values(),key=lambda g:(g["date"],g["id"]))
     write("ncaaw-2026-27-verified-games.json",{"season":"2026-27","games":ordered})
     write("ncaaw-2026-27-games.json",{
         "season":"2026-27","scope":"Rolling scoreboard only; not complete team schedules",
-        "source":"ESPN women's Division I completed events and fixtures",
+        "source":"ESPN women's Division I completed events and fixtures; independent NCAA-origin crosschecks are shown separately in the game desk",
+        "score_source_scope":"Single-provider ESPN status and school-ID validation for the persisted final ledger",
+        "fetch_window":{"from":str(requested_start),"through":str(end)},
+        "future_fixture_fetch_warnings":future_warnings,
         "finals":ordered[-100:],
         "upcoming":sorted(upcoming.values(),key=lambda g:(g["date"],g["id"]))})
-    print("Women's data:",len(teams),"D-I programs,",len(ordered),"finals,",len(upcoming),"upcoming")
+    print("Women's data:",len(teams),"D-I programs,",len(ordered),"finals,",len(upcoming),
+          "upcoming; fetched",str(requested_start),"through",str(end),
+          "; optional future date warnings:",len(future_warnings))
 
 if __name__=="__main__":
     if sys.argv[1:2]==["live"]:
