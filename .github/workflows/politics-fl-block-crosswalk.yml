@@ -1,0 +1,75 @@
+name: Politics Florida official 2024-2026 census block crosswalk
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_fl_block_crosswalk.py'
+      - 'test_politics_fl_block_crosswalk.py'
+      - '.github/workflows/politics-fl-block-crosswalk.yml'
+  push:
+    branches: [main, politics-fl-block-crosswalk-2026]
+    paths:
+      - 'scripts/politics_fl_block_crosswalk.py'
+      - 'test_politics_fl_block_crosswalk.py'
+      - '.github/workflows/politics-fl-block-crosswalk.yml'
+  schedule:
+    - cron: '27 12 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: politics-fl-block-crosswalk
+  cancel-in-progress: false
+jobs:
+  original-2026-geography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Strict original geographic parser regressions
+        run: |
+          python -m py_compile scripts/politics_fl_block_crosswalk.py
+          python -m unittest -v test_politics_fl_block_crosswalk test_politics_geography_guard
+      - name: Download fingerprinted original 2022/2026 Florida Legislature block files and compare
+        run: python -m scripts.politics_fl_block_crosswalk
+      - name: Verify 28-district and same-2020-block scope; reject voting projections
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-fl-2024-2026-block-transition.json'))
+          c=d['comparison']
+          assert d['status']=='OFFICIAL_BLOCK_REASSIGNMENTS_VERIFIED_NOT_VOTE_RESULTS'
+          assert d['2020_census_block_vintage_aligned'] is True and d['source_block_inventory_identical'] is True
+          assert d['congressional_districts_each_plan']==28 and len(c['districts_2026'])==28
+          assert c['total_2020_census_blocks']>=200000
+          assert c['blocks_assigned_to_different_numbered_district']+c['blocks_assigned_to_same_numbered_district']==c['total_2020_census_blocks']
+          assert sum(row['2020_blocks'] for row in c['matrix'])==c['total_2020_census_blocks']
+          assert sum(row['2020_blocks'] for row in c['districts_2026'])==c['total_2020_census_blocks']
+          assert d['2024_presidential_vote_retabulated_on_2026_boundaries'] is False
+          assert d['precinct_to_2026_district_voting_crosswalk_certified'] is False
+          assert d['forecast_eligible'] is False and d['certified_2026_probability_count']==0
+          assert all(v['presidential_2024_votes_on_2026_boundary'] is None for v in c['districts_2026'])
+          print('Florida source-ledger approved (block counts only):',c['total_2020_census_blocks'],'blocks,',c['blocks_assigned_to_different_numbered_district'],'reassigned')
+          PY
+      - name: Publish original geographic evidence without changing sports or forecasting odds
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-fl-2024-2026-block-transition.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh Florida verified 2024/2026 census block district crosswalk (not votes)"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi

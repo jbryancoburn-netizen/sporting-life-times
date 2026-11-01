@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Original public-source 2024-to-2026 Florida congressional redistricting: 2020 Census block moves across numbered districts; no invented vote or population shares.">
+<title>Florida Redistricting | The Political Life &amp; Times</title>
+<style>
+:root{--paper:#f5f1e9;--ink:#242523;--muted:#615e55;--rule:#c9c4b9;--blue:#315879;--red:#a44642;--gold:#8e693e;--highlight:#ebe1d0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Georgia,serif}
+a{color:var(--blue)}.wrap{max-width:1140px;margin:auto;padding:0 22px}
+.top{background:#272825;color:#ece8e1;padding:11px 0;font:700 11px system-ui,sans-serif;letter-spacing:1.8px;text-transform:uppercase}
+.top .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{text-align:center;border-bottom:4px double var(--ink);padding:34px 0 25px}header h1{font-size:clamp(36px,6.5vw,68px);letter-spacing:-1.8px;line-height:1;margin:10px 0}
+header em{font-weight:normal}header p{font-size:15px;margin:7px auto;color:var(--muted)}
+.eyebrow{font:750 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold)}
+nav{display:flex;flex-wrap:wrap;gap:14px;padding:12px 0;border-bottom:1px solid var(--ink);font:700 12px system-ui,sans-serif;text-transform:uppercase}
+nav a{text-decoration:none}.intro{padding:34px 0 20px;display:grid;grid-template-columns:1.6fr 1fr;gap:35px;align-items:start}
+h2{font-size:clamp(31px,4.5vw,49px);letter-spacing:-1.1px;line-height:1.06;margin:4px 0 17px}
+.intro p{margin:0 0 12px}.safety{border-left:4px solid var(--ink);background:#e8e3d8;padding:20px}
+.safety strong{font:800 12px system-ui,sans-serif;letter-spacing:1px;display:block;margin-bottom:7px;text-transform:uppercase}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin:10px 0 27px}
+.metric{padding:18px;border-right:1px solid var(--rule)}.metric:last-child{border:0}.metric strong{display:block;font-size:36px;line-height:1.2}
+.metric span{font:750 11px system-ui,sans-serif;letter-spacing:.6px;color:var(--muted);text-transform:uppercase}
+section{padding:19px 0 33px}section h3{font-size:30px;line-height:1.1;margin:0 0 6px}
+.section-head{display:flex;justify-content:space-between;gap:15px;border-bottom:2px solid var(--ink);padding:0 0 12px;align-items:end}
+.small{font:12px/1.45 system-ui,sans-serif;color:var(--muted)}
+.chart-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;padding-top:18px}
+.bar-row{display:grid;grid-template-columns:68px 1fr 75px;gap:11px;align-items:center;padding:7px 2px;border-bottom:1px solid #ded8cc}
+.bar-row button{font:750 12px system-ui,sans-serif;background:transparent;border:0;color:var(--blue);cursor:pointer;text-align:left;padding:5px;min-height:30px}
+.bar-row button[aria-pressed="true"]{background:var(--highlight);color:var(--ink);text-decoration:underline}
+.track{height:13px;background:#e0d7c9;position:relative}.fill{height:100%;background:#435d68}.bar-row b{font:700 12px system-ui,sans-serif;text-align:right}
+.detail{border:1px solid var(--rule);background:#fffdfa;padding:22px;align-self:start;position:sticky;top:10px}
+.detail h4{font-size:27px;line-height:1.1;margin:0 0 10px}.detail .large{font:700 35px system-ui,sans-serif;letter-spacing:-.8px}
+.detail .track{height:21px;margin:12px 0 17px}
+.detail table{width:100%;border-collapse:collapse;font:12px system-ui,sans-serif}
+.detail td,.detail th{padding:8px 5px;border-bottom:1px solid var(--rule);text-align:left}
+.detail td:nth-child(2),.detail td:nth-child(3),.detail th:nth-child(2),.detail th:nth-child(3){text-align:right}
+.data-table{width:100%;border-collapse:collapse;margin-top:16px;font:13px system-ui,sans-serif}
+.data-table th{font-weight:800;background:#e7e1d6;text-align:right}.data-table th:first-child{text-align:left}
+.data-table td{border-bottom:1px solid var(--rule);padding:8px;text-align:right}
+.data-table td:first-child{text-align:left;font-weight:700}
+.note{background:var(--highlight);padding:19px 21px;border:1px solid var(--rule);margin:18px 0}
+footer{border-top:2px solid var(--ink);padding:22px 0 40px;font:13px system-ui,sans-serif;color:var(--muted)}
+.error{padding:18px;background:#f5dfda;border:1px solid var(--red);font-weight:700}
+@media(max-width:850px){.intro,.chart-grid{grid-template-columns:1fr}.detail{position:static}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2){border-right:0}}
+@media(max-width:500px){.bar-row{grid-template-columns:54px 1fr 58px;gap:5px}.metric{padding:12px}.metric strong{font-size:28px}}
+</style></head><body>
+<div class="top"><div class="wrap"><span>THE POLITICAL LIFE &amp; TIMES · ELECTION GEOGRAPHY</span><span>PRIMARY SOURCE RESEARCH · FLORIDA</span></div></div>
+<div class="wrap"><header><span class="eyebrow">THE INDEPENDENT DATA DESK</span><h1>Florida's <em>New Map</em></h1><p>A block-by-block comparison of the congressional districts used in 2024 and 2026</p></header>
+<nav><a href="politics.html">← Political Front Page</a><a href="#district-chart">District Explorer</a><a href="#transition-table">All 28 Districts</a><a href="politics-ballots.html">Official Candidate Ledger</a><a href="POLITICS_DATA_POLICY.md">Methods</a></nav>
+<div class="intro"><div><p class="eyebrow">2026 FLORIDA CONGRESSIONAL REDISTRICTING</p><h2>New lines, same district numbers. Different geography.</h2>
+<p>We compared the official Florida Legislature's P000C0109 (used for the 2024 election) with EOGPCRP2026 (used for the November 2026 election).</p>
+<p>Both original files list the 2020 Census blocks assigned to each numbered congressional district. The analysis matches each block's old and new district and identifies changes in geographic assignment.</p>
+</div><aside class="safety"><strong>What this graphic does not show</strong><p>These are <b>unweighted counts of Census blocks</b>. One block may contain many people or none. They are <b>not</b> population percentages, electoral swings, voting precincts, election returns or race probabilities.</p><p>No 2024 presidential votes have been retabulated by our model on the 2026 district boundaries.</p></aside></div>
+<div class="metrics" id="summary"><div class="metric"><strong>—</strong><span>2020 Census blocks matched</span></div><div class="metric"><strong>—</strong><span>Blocks changing district number</span></div><div class="metric"><strong>—</strong><span>Unweighted block share changed</span></div><div class="metric"><strong>28</strong><span>Florida House districts</span></div></div>
+<section id="district-chart"><div class="section-head"><div><p class="eyebrow">INTERACTIVE ORIGINAL-DATA GRAPHIC</p><h3>How much of each district was reassigned?</h3></div><span class="small">Select any district to examine its sources</span></div>
+<p class="small">Bars measure the fraction of a 2026 district's 2020 Census blocks that belonged to a different numbered district in 2024. They do not show population or voting.</p>
+<div class="chart-grid"><div id="bars" aria-label="Interactive district assignments; click any district"></div>
+<aside class="detail" id="detail" aria-live="polite"><p>Loading the official Legislature comparison…</p></aside></div></section>
+<section id="transition-table"><div class="section-head"><div><p class="eyebrow">REPRODUCIBLE GEOGRAPHY TABLE</p><h3>Every 2026 Florida district</h3></div><span class="small">Original blocks, not electoral data</span></div>
+<div style="overflow-x:auto"><table class="data-table"><thead><tr><th>2026 district</th><th>All blocks</th><th>Blocks moved from another number</th><th>Unweighted share moved</th></tr></thead><tbody id="full-table"></tbody></table></div>
+<div class="note"><b>Source and quality controls:</b> The two official 2020-block inventories must contain exactly the same unique blocks, cover all 28 congressional districts, and match previously recorded file SHA-256 fingerprints. If either original file changes unexpectedly, the refresh stops rather than publishing an unreliable comparison.</div>
+<p class="small"><b>Original source files:</b> <a href="https://edr.state.fl.us/Content/redistricting/2020redistricting/index.cfm" target="_blank" rel="noopener">Florida Legislature's 2022 congressional district plan P000C0109</a>; <a href="https://edr.state.fl.us/Content/redistricting/2026redistricting/index.cfm" target="_blank" rel="noopener">Florida Legislature's 2026 congressional district plan EOGPCRP2026</a>. This is a geographic research product, not an original election forecast.</p></section>
+<footer>The Political Life &amp; Times · Public-sourced · No endorsements · All 2026 independent forecast probabilities remain uncertified.</footer></div>
+<script>
+"use strict";
+const el=(tag,text,cls)=>{const x=document.createElement(tag);if(text!=null)x.textContent=text;if(cls)x.className=cls;return x};
+const fmt=n=>Number(n).toLocaleString("en-US");
+const pct=n=>Number(n).toFixed(1)+"%";
+const node=id=>document.getElementById(id);
+async function init(){
+ try{
+ const r=await fetch("politics-fl-2024-2026-block-transition.json?t="+Date.now(),{cache:"no-store"});
+ if(!r.ok)throw new Error("original file is not yet published");
+ const d=await r.json(),c=d.comparison;
+ if(d.status!=="OFFICIAL_BLOCK_REASSIGNMENTS_VERIFIED_NOT_VOTE_RESULTS"||d.forecast_eligible!==false||
+    d["2024_presidential_vote_retabulated_on_2026_boundaries"]!==false||!c||c.districts_2026.length!==28||
+    c.total_2020_census_blocks<200000)throw new Error("source verification did not pass");
+ const metric=node("summary").querySelectorAll("strong");
+ metric[0].textContent=fmt(c.total_2020_census_blocks);
+ metric[1].textContent=fmt(c.blocks_assigned_to_different_numbered_district);
+ metric[2].textContent=pct(c.pct_blocks_assignment_changed_unweighted);
+ let active="22";
+ const options=c.districts_2026.slice().sort((a,b)=>Number(b.pct_2026_blocks_from_other_numbered_districts_unweighted)-Number(a.pct_2026_blocks_from_other_numbered_districts_unweighted));
+ const barTarget=node("bars"),table=node("full-table");
+ function showDetail(id){
+  active=id;
+  const x=c.districts_2026.find(y=>y.district_2026===id),dnode=node("detail");
+  dnode.replaceChildren();
+  dnode.append(el("div","2026 FLORIDA DISTRICT "+Number(id),"eyebrow"));
+  dnode.append(el("h4","Where its assigned blocks came from"));
+  dnode.append(el("strong",pct(x.pct_2026_blocks_from_other_numbered_districts_unweighted),"large"));
+  dnode.append(el("div","of this district's Census blocks came from a different 2024 district number","small"));
+  const track=el("div",null,"track"),fill=el("div",null,"fill");fill.style.width=x.pct_2026_blocks_from_other_numbered_districts_unweighted+"%";track.append(fill);dnode.append(track);
+  dnode.append(el("p",fmt(x["2020_blocks"])+" blocks assigned in 2026; "+fmt(x["2020_blocks_from_other_2024_districts"])+" belonged to a different numbered district in 2024."));
+  const tab=el("table"),hd=el("tr");["2024 source","2020 blocks","2026 share"].forEach(t=>hd.append(el("th",t)));tab.append(hd);
+  c.matrix.filter(row=>row.district_2026===id).sort((a,b)=>b["2020_blocks"]-a["2020_blocks"]).forEach(row=>{
+    const tr=el("tr");tr.append(el("td","FL-"+Number(row.district_2024)));tr.append(el("td",fmt(row["2020_blocks"])));tr.append(el("td",pct(100*row["2020_blocks"]/x["2020_blocks"])));tab.append(tr);
+  });
+  dnode.append(tab);dnode.append(el("p","No population or vote data have been inferred from these blocks.","small"));
+  barTarget.querySelectorAll("button").forEach(btn=>btn.setAttribute("aria-pressed",btn.dataset.id===id?"true":"false"));
+ }
+ for(const x of options){
+  const row=el("div",null,"bar-row"),btn=el("button","FL-"+Number(x.district_2026));btn.type="button";btn.dataset.id=x.district_2026;
+  btn.addEventListener("click",()=>showDetail(x.district_2026));
+  const track=el("div",null,"track"),fill=el("div",null,"fill");fill.style.width=x.pct_2026_blocks_from_other_numbered_districts_unweighted+"%";track.append(fill);
+  row.append(btn,track,el("b",pct(x.pct_2026_blocks_from_other_numbered_districts_unweighted)));barTarget.append(row);
+ }
+ for(const x of c.districts_2026){
+  const tr=el("tr");tr.append(el("td","FL-"+Number(x.district_2026)),el("td",fmt(x["2020_blocks"])),el("td",fmt(x["2020_blocks_from_other_2024_districts"])),el("td",pct(x.pct_2026_blocks_from_other_numbered_districts_unweighted)));table.append(tr);
+ }
+ showDetail(active);
+ }catch(e){node("bars").replaceChildren(el("div","The original Florida geographic comparison is unavailable or has not passed certification. No illustrative or fabricated numbers will be displayed.","error"));node("detail").textContent="No unverified district movement estimates shown.";}
+}
+init();
+</script>
+</body></html>
