@@ -51,3 +51,16 @@
 .cs-form-pill{width:29px;height:29px;display:grid;place-items:center;color:#fff!important;font:800 .72rem Arial,sans-serif;text-decoration:none!important}
 .cs-form-w{background:#367653}.cs-form-d{background:#9d8751}.cs-form-l{background:#ae5d52}
 .cs-form-group>small{font:.66rem Arial,sans-serif;color:#74858e}
+
+/* Two-ring NCAA soccer match-center badge, never text printed over school artwork. */
+.cs-match-badge{--crest-primary:#214938;--crest-secondary:#d2be8e;isolation:isolate;background:#f0f3ef!important;border:0!important;outline:0!important;box-shadow:none!important;aspect-ratio:1/1;color:#264838!important}
+.cs-match-badge.has-school-colors{border:3px solid var(--crest-primary)!important;background:#fff!important}
+.cs-match-badge.has-school-colors::before{content:"";position:absolute;inset:3px;border:3px solid var(--crest-secondary);border-radius:50%;pointer-events:none;z-index:1}
+.cs-match-badge.is-unverified-color::before{content:none!important}
+.cs-match-initials{position:relative;z-index:2;display:grid;place-items:center;font:800 clamp(11px,1.8vw,20px) Arial,sans-serif;color:var(--crest-primary)}
+.cs-match-badge.has-image .cs-match-initials{display:none!important}
+.cs-match-badge img{display:block!important;visibility:hidden!important;position:absolute!important;z-index:2;top:50%!important;left:50%!important;inset:auto!important;transform:translate(-50%,-50%)!important;width:74%!important;height:74%!important;padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;outline:0!important;clip-path:none!important;border-radius:0!important;background:transparent!important;object-fit:contain!important;object-position:center!important}
+.cs-match-badge.has-image img{visibility:visible!important}
+.cs-match-school-meta{font-variant-numeric:tabular-nums}
+.cs-match-eyebrow:has(+.cs-match-hero) {font-weight:800}
+@media(max-width:620px){.cs-match-badge.has-school-colors{border-width:2px!important}.cs-match-badge.has-school-colors::before{inset:2px;border-width:2px}.cs-match-hero{gap:6px}.cs-match-score strong{font-size:clamp(18px,6vw,28px)}.cs-match-school-meta{font-size:10px}}
