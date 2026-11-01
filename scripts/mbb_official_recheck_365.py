@@ -413,4 +413,11 @@ from mbb_apply_reviewed_announcements import execute as apply_reviewed_announcem
 reviewed_result = apply_reviewed_announcements()
 print(json.dumps({'reviewed_official_announcements':reviewed_result['summary']}, indent=2))
 
+# The game-coverage audit is read-only. Missing counterpart fixtures must be
+# confirmed independently before any new game ID or calendar entry is created.
+from mbb_reciprocal_game_gap_audit import run as audit_reciprocal_game_gaps
+coverage = audit_reciprocal_game_gaps()
+print(json.dumps({'reciprocal_fixture_coverage':coverage['summary']}, indent=2))
+
+
 
