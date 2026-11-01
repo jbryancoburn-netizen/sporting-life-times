@@ -55,3 +55,19 @@ footer{margin-top:35px;border-top:3px double var(--ink);padding:24px 0;color:var
 @media(max-width:1100px){.district-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.state-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.paper{padding:0 16px 20px}.strip{margin:0 -16px;padding:9px 16px}.mast h1{letter-spacing:-.8px}.hero,.panels{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2){border:0}.district-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.state-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:430px){.district-grid{grid-template-columns:1fr}.state-list{grid-template-columns:1fr 1fr}.state-link{grid-template-columns:7px 1fr 10px;padding:9px 7px}.metric b{font-size:25px}.mast p{font-size:14px}}
+
+/* Official Census 2026 interactive district boundaries */
+.geo-toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin:12px 0;font-size:11px}
+.geo-toolbar #geometry-vintage{flex:1;min-width:180px}
+.geo-zoom{display:flex;gap:5px}
+.geo-zoom button{font-weight:800;min-width:37px;height:36px;background:#fffefb;border:1px solid #9ca6a6;color:#17242c}
+.geo-zoom button:hover,.geo-zoom button:focus-visible{outline:2px solid var(--teal)}
+.geo-map{display:grid;place-items:center;border:1px solid #c9cfce;background:linear-gradient(165deg,#e5eaeb,#f8f7f3);padding:14px;min-height:280px;max-width:100%;overflow:hidden}
+.geo-svg{display:block;max-height:500px;max-width:100%;width:100%;height:auto}
+.geo-district{cursor:pointer;outline:0}
+.geo-district path{transition:filter .14s ease,stroke-width .14s ease}
+.geo-district:hover path,.geo-district:focus-visible path{stroke:#071218;stroke-width:3;filter:brightness(.91)}
+.geo-district:focus-visible{outline:none}
+.geo-number{font:800 9px/1 'DM Sans',Arial,sans-serif;paint-order:stroke;pointer-events:none;user-select:none}
+#geometry-hover{min-height:32px;padding:12px;border-bottom:1px solid var(--line);background:#f0f1ed;font-weight:600}
+@media(max-width:650px){.geo-map{min-height:240px;padding:8px}.geo-svg{max-height:400px}.geo-number{font-size:6px}}
