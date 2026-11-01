@@ -150,6 +150,57 @@ def baseline_check(earlier,later,first_year,second_year):
             "sign_changes":flips,
             "interpretation":"Lagged district margin arithmetic benchmark only. Same district ID does not prove same district boundaries; map changes and contestedness are unverified. Not a calibrated election model."}
 
+
+def experimental_holdout(train_before,train_after,test_before,test_after):
+    """Train a small, regularized lagged-margin logistic model ONLY on 2018->2020.
+    Evaluate on 2022->2024; no validation of district-boundary continuity yet.
+    This is an EXPERIMENTAL diagnostic, never a 2026 win probability.
+    """
+    def sample(first,second):
+        prev={x["id"]:x for x in first if x.get("two_party_margin") is not None and x.get("party_winner") in ("D","R")}
+        nxt={x["id"]:x for x in second if x.get("two_party_margin") is not None and x.get("party_winner") in ("D","R")}
+        return [(prev[k]["two_party_margin"]/10.0, 1.0 if nxt[k]["party_winner"]=="D" else 0.0)
+                for k in sorted(set(prev)&set(nxt))]
+    train=sample(train_before,train_after)
+    test=sample(test_before,test_after)
+    if len(train)<100 or len(test)<100 or len({y for x,y in train})<2:
+        raise ValueError("Insufficient separate training and holdout cycles for experimental model")
+    a,b=0.0,0.0
+    reg=0.025
+    def sigmoid(z):
+        return 1.0/(1+math.exp(-max(-30,min(30,z))))
+    for _ in range(1800):
+        gradient_a=sum(sigmoid(a+b*x)-y for x,y in train)/len(train)
+        gradient_b=sum((sigmoid(a+b*x)-y)*x for x,y in train)/len(train)+reg*b
+        a-=0.045*gradient_a
+        b-=0.045*gradient_b
+    predicted=[sigmoid(a+b*x) for x,y in test]
+    observed=[y for x,y in test]
+    brier=statistics.mean((p-y)**2 for p,y in zip(predicted,observed))
+    base_rate=statistics.mean(y for x,y in train)
+    baseline_brier=statistics.mean((base_rate-y)**2 for y in observed)
+    absolute_votes=statistics.mean(abs(p-y) for p,y in zip(predicted,observed))
+    bins=[]
+    for index in range(5):
+        entries=[(p,y) for p,y in zip(predicted,observed) if (index/5)<=p<=((index+1)/5 if index==4 else (index+1)/5-1e-12)]
+        bins.append({"from":index*20,"to":(index+1)*20,"count":len(entries),
+                     "mean_probability":round(statistics.mean(p for p,y in entries),3) if entries else None,
+                     "realized_win_rate":round(statistics.mean(y for p,y in entries),3) if entries else None})
+    return {"status":"experimental_holdout_only","training_period":"2018 House -> 2020 House",
+        "test_period":"2022 House -> 2024 House","training_samples":len(train),"test_samples":len(test),
+        "model":"L2-regularized logistic regression, predictor = previous election's two-party district margin / 10",
+        "intercept":round(a,5),"margin_coefficient":round(b,5),
+        "holdout_brier_score":round(brier,4),
+        "unconditional_baseline_brier_score":round(baseline_brier,4),
+        "holdout_mean_absolute_probability_error":round(absolute_votes,4),
+        "calibration_bins":bins,
+        "uncertainty_flags":["Train/holdout are different cycles; does not prove generalizability to 2026.",
+             "District boundary changes and candidate incumbency are NOT accounted for.",
+             "Uncontested and missing-vote districts are excluded and must be audited.",
+             "House races have correlated election-year errors; independent race draws would misstate chamber-control probabilities.",
+             "No simulated 2026 seat counts or election probabilities are authorized by this diagnostic."],
+        "forecast_2026_certified":False,"backtest_certified":False}
+
 def build(loader=load_year,now=None):
     now=now or dt.datetime.now(UTC)
     output={"status":"awaiting_verified_history","updated_at":now.isoformat(timespec="seconds"),
@@ -174,6 +225,7 @@ def build(loader=load_year,now=None):
         output["coverage"][chamber]={str(year):len(items) for year,items in years.items()}
     for first,second in ((2018,2020),(2022,2024)):
         output["historical_house_baselines"].append(baseline_check(house[first],house[second],first,second))
+    output["experimental_holdout"]=experimental_holdout(house[2018],house[2020],house[2022],house[2024])
     output["closest_house_2024"]=sorted(
         ({"id":x["id"],"state":x["state"],"dem_margin_pp":x["two_party_margin"],
           "2024_winner_party":x["party_winner"],"2024_winner_name":x["winner_name"]}
