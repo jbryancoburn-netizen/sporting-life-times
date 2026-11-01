@@ -64,7 +64,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('nfl-p26-box-points',page)
         self.assertIn('nfl-p26-box-identity',page)
         self.assertNotIn('nfl-p26-hero-score"',page)
-        self.assertIn('nfl-scoreboard-v4.css?v=20261101-scorev4a',front)
+        self.assertIn('nfl-scoreboard-v4.css?v=20261101-scorev4b',front)
         self.assertIn('nfl-p26-period-rail',page)
         self.assertIn('nfl-p26-ticker-game',page)
         self.assertIn('nfl-p26-feature-stats',page)
