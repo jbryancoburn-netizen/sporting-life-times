@@ -1,4 +1,4 @@
-/* SLT Hardwood — proprietary newspaper wordmark and attributed league marks.
+/* SLT Hardwood — restrained editorial type and attributed league marks.
  * Display marks only; league statistics, Elo and team crests stay independent.
  */
 (function(){
@@ -37,8 +37,8 @@
   brand.className='slt-network-brand';
   brand.href='sports.html';
   brand.setAttribute('aria-label','The Sporting Life and Times basketball desks');
-  brand.innerHTML='<img class="slt-network-wordmark" src="assets/hardwood-wordmark.svg" width="400" height="82" alt="The Hardwood, an original Sporting Life & Times letterpress wordmark">'+
-   '<span class="slt-network-strap"><i aria-hidden="true"></i> A SPORTING LIFE & TIMES BASKETBALL NEWSPAPER <i aria-hidden="true"></i></span>';
+  brand.innerHTML='<span class="slt-network-title"><small>THE SPORTING LIFE & TIMES <span aria-hidden="true">/</span> BASKETBALL</small>'+ 
+   '<strong>THE HARDWOOD</strong><span>NBA · COLLEGE · EUROPE · AUSTRALIA</span></span>';
   nav.appendChild(brand);
   const rail=document.createElement('div');rail.className='slt-network-rail';
   const row=document.createElement('div');row.className='slt-network-links';
