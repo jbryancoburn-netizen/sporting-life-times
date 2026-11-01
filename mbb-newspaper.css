@@ -132,3 +132,12 @@
 }
 #full-season-schedule .sched-logo-fallback{z-index:1!important;inset:0!important}
 @media(max-width:700px){#full-season-schedule .sched-logo{flex-basis:50px!important;width:50px!important;height:50px!important;min-width:50px!important;max-width:50px!important}}
+/* Shared team calendar controls stay usable on narrow screens. */
+.calendar-controls{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:14px 0}
+.calendar-controls label{display:grid;gap:5px;font:600 11px/1.4 Arial,sans-serif;letter-spacing:.05em}
+.calendar-controls .input{min-width:180px;margin:0}
+.calendar-controls select{min-width:150px;margin:0}
+.calendar-controls .note{margin:0 0 8px}
+.mbb-schedule-table tr[hidden]{display:none}
+.sched-opponent strong a{color:inherit;text-decoration:none}
+.sched-opponent strong a:hover,.sched-opponent strong a:focus-visible{text-decoration:underline}

@@ -37,7 +37,10 @@
           "venue": {
             "fullName": "Rock Hill, S.C.",
             "official_school_city": "Rock Hill, S.C.",
-            "city_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Rock Hill Sports & Event Center",
+            "arena_source_url": "https://winthropeagles.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
           "broadcasts": []
         }
@@ -124,7 +127,10 @@
           "venue": {
             "fullName": "Rock Hill, S.C.",
             "official_school_city": "Rock Hill, S.C.",
-            "city_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Rock Hill Sports & Event Center",
+            "arena_source_url": "https://merrimackathletics.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
           "broadcasts": [
             {
@@ -775,9 +781,10 @@
             {
               "homeAway": "home",
               "team": {
-                "id": "",
+                "id": "2755",
                 "displayName": "Grambling State",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2755.png",
+                "original_school_label": "Grambling State"
               }
             }
           ],
@@ -803,7 +810,9 @@
       "site_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "10160",
       "official_school_time": "2 p.m. ET",
-      "official_school_time_source": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_source": "https://gsutigers.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_method": "exact_alias_and_unique_reciprocal_official_fixture"
     },
     {
       "id": "school-2026-2026-12-31-67",
@@ -1179,7 +1188,14 @@
             "arena_source_url": "https://gseagles.com/sports/mens-basketball/schedule/text/2026-27",
             "arena_source_type": "official_school_home_arena_default_not_game_specific"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://gseagles.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -1188,7 +1204,8 @@
       "site_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "10106",
       "official_school_time": "5 p.m.",
-      "official_school_time_source": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://gseagles.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2026-2027-01-27-99",
@@ -1424,14 +1441,22 @@
             "official_school_city": "BOONE, N.C.",
             "city_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/text/2026-27"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://gseagles.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
       "official_school_time": "1 p.m.",
       "official_school_time_source": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
       "site_verified": true,
-      "site_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+      "site_source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://gseagles.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2026-2027-02-18-119",

@@ -317,10 +317,11 @@
         }
       ],
       "official_source": true,
-      "official_school_time": "TBA",
-      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "official_school_time": "10:30 a.m. MT",
+      "official_school_time_source": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27",
       "site_verified": true,
-      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "tipoff_verified_via": "reciprocal_official_game_with_explicit_timezone"
     },
     {
       "id": "school-2545-2026-12-01-27",
@@ -436,9 +437,10 @@
             {
               "homeAway": "away",
               "team": {
-                "id": "",
+                "id": "2277",
                 "displayName": "HCU",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
+                "original_school_label": "HCU"
               }
             }
           ],
@@ -460,7 +462,9 @@
       "official_school_time": "6:00 PM",
       "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "site_verified": true,
-      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_source": "https://hcuhuskies.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_method": "exact_alias_and_unique_reciprocal_official_fixture"
     },
     {
       "id": "school-2545-2026-12-10-39",
@@ -646,9 +650,19 @@
               "state": "LA"
             },
             "official_school_city": "Natchitoches, LA",
-            "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Prather Coliseum",
+            "arena_source_url": "https://nsudemons.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN"
+              ],
+              "source_url": "https://nsudemons.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -657,7 +671,8 @@
       "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "10025",
       "official_school_time": "6:30 PM",
-      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://nsudemons.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2545-2026-12-23-55",
@@ -698,7 +713,14 @@
             "arena_source_url": "https://daytonflyers.com/sports/mens-basketball/schedule",
             "arena_source_type": "official_school_home_arena_default_not_game_specific"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://daytonflyers.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -707,7 +729,8 @@
       "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "10027",
       "official_school_time": "6:00 PM CST | 7:00 PM EST",
-      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://daytonflyers.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2545-2027-01-02-59",
@@ -798,7 +821,14 @@
             "arena_source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/2026-27",
             "arena_source_type": "official_school_home_arena_default_not_game_specific"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -807,7 +837,8 @@
       "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "10029",
       "official_school_time": "6:00 PM",
-      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2545-2027-01-09-67",
@@ -1039,14 +1070,22 @@
             "official_school_city": "Hammond, LA",
             "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
       "official_school_time": "3:30 PM",
       "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "site_verified": true,
-      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://lamarcardinals.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2545-2027-01-26-87",
@@ -1213,9 +1252,10 @@
             {
               "homeAway": "home",
               "team": {
-                "id": "",
+                "id": "2277",
                 "displayName": "HCU",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
+                "original_school_label": "HCU"
               }
             }
           ],
@@ -1226,7 +1266,10 @@
               "state": "TX"
             },
             "official_school_city": "Houston, TX",
-            "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Sharp Gym",
+            "arena_source_url": "https://hcuhuskies.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
           "broadcasts": []
         }
@@ -1235,7 +1278,9 @@
       "official_school_time": "3:30 PM",
       "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "site_verified": true,
-      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_source": "https://hcuhuskies.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_method": "exact_alias_and_unique_reciprocal_official_fixture"
     },
     {
       "id": "school-2545-2027-02-08-103",
@@ -1271,7 +1316,10 @@
               "state": "TX"
             },
             "official_school_city": "San Antonio, TX",
-            "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "McDermott Center",
+            "arena_source_url": "https://uiwcardinals.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
           "broadcasts": []
         }
@@ -1320,14 +1368,22 @@
             "official_school_city": "Hammond, LA",
             "city_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN"
+              ],
+              "source_url": "https://nsudemons.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
       "official_school_time": "3:30 PM",
       "official_school_time_source": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
       "site_verified": true,
-      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27"
+      "site_source_url": "https://lionsports.net/sports/mens-basketball/schedule/2026-27",
+      "broadcast_source_url": "https://nsudemons.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2545-2027-02-15-111",

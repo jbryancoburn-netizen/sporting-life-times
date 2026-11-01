@@ -78,9 +78,10 @@
             {
               "homeAway": "home",
               "team": {
-                "id": "",
+                "id": "2628",
                 "displayName": "Texas Christian University",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2628.png",
+                "original_school_label": "Texas Christian University"
               }
             }
           ],
@@ -91,9 +92,19 @@
               "state": "TX"
             },
             "official_school_city": "Fort Worth, TX",
-            "city_source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Schollmaier Arena",
+            "arena_source_url": "https://gofrogs.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
-          "broadcasts": []
+          "broadcasts": [
+            {
+              "names": [
+                "ESPN+"
+              ],
+              "source_url": "https://gofrogs.com/sports/mens-basketball/schedule/2026-27"
+            }
+          ]
         }
       ],
       "official_source": true,
@@ -104,7 +115,10 @@
       "official_school_time": "7:00 p.m.",
       "official_school_time_source": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27",
       "official_watch_url": "https://www.espn.com/watch/player/_/id/f07522e2-3523-400c-b9c2-67b36417e950",
-      "official_watch_source": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27"
+      "official_watch_source": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_source": "https://gofrogs.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_method": "exact_alias_and_unique_reciprocal_official_fixture",
+      "broadcast_source_url": "https://gofrogs.com/sports/mens-basketball/schedule/2026-27"
     },
     {
       "id": "school-2815-2026-11-05-11",
@@ -946,7 +960,7 @@
               "team": {
                 "id": "88",
                 "displayName": "Southern Indiana Screaming Eagles",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png"
               }
             }
           ],
@@ -1463,7 +1477,7 @@
               "team": {
                 "id": "88",
                 "displayName": "Southern Indiana Screaming Eagles",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png"
               }
             }
           ],

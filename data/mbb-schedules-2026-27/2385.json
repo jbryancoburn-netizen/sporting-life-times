@@ -297,7 +297,7 @@
               "team": {
                 "id": "256",
                 "displayName": "James Madison Dukes",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/256.png"
               }
             }
           ],
@@ -442,9 +442,10 @@
             {
               "homeAway": "neutral",
               "team": {
-                "id": "",
+                "id": "399",
                 "displayName": "University at Albany",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/399.png",
+                "original_school_label": "University at Albany"
               }
             }
           ],
@@ -455,7 +456,10 @@
               "state": "NY"
             },
             "official_school_city": "Buffalo, NY",
-            "city_source_url": "https://hurstathletics.com/sports/mens-basketball/schedule/2026-27"
+            "city_source_url": "https://hurstathletics.com/sports/mens-basketball/schedule/2026-27",
+            "arenaName": "Koessler Athletic Center",
+            "arena_source_url": "https://ualbanysports.com/sports/mens-basketball/schedule/2026-27",
+            "arena_source_type": "reciprocal_official_game"
           },
           "broadcasts": []
         }
@@ -466,7 +470,9 @@
       "site_source_url": "https://hurstathletics.com/sports/mens-basketball/schedule/2026-27",
       "source_game_id": "15920",
       "official_school_time": "3:30 PM",
-      "official_school_time_source": "https://hurstathletics.com/sports/mens-basketball/schedule/2026-27"
+      "official_school_time_source": "https://hurstathletics.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_source": "https://ualbanysports.com/sports/mens-basketball/schedule/2026-27",
+      "official_opponent_identity_method": "exact_alias_and_unique_reciprocal_official_fixture"
     },
     {
       "id": "school-2385-2026-11-24-39",
@@ -539,7 +545,7 @@
               "team": {
                 "id": "277",
                 "displayName": "West Virginia Mountaineers",
-                "logo": ""
+                "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png"
               }
             }
           ],

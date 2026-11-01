@@ -1,0 +1,622 @@
+{
+  "schools_checked": 35,
+  "fields_added": {},
+  "schools": [
+    {
+      "id": "333",
+      "school": "Alabama",
+      "attempts": [
+        {
+          "url": "https://rolltide.com/sports/mbball/schedule/text",
+          "error": "HTTPSConnectionPool(host='rolltide.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://rolltide.com/sports/mbball/schedule",
+          "status": 200,
+          "rows": 34
+        },
+        {
+          "url": "https://rolltide.com/sports/mbball/schedule/2026-27",
+          "status": 200,
+          "rows": 34
+        },
+        {
+          "url": "https://rolltide.com/sports/mbball/schedule/text/2026-27",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 33
+    },
+    {
+      "id": "8",
+      "school": "Arkansas",
+      "attempts": [
+        {
+          "url": "https://arkansasrazorbacks.com/all-sports-schedule/sport/m-baskbl/",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2",
+      "school": "Auburn",
+      "attempts": [
+        {
+          "url": "https://auburntigers.com/sports/mens-basketball/schedule/text/2026-27",
+          "error": "HTTPSConnectionPool(host='auburntigers.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://auburntigers.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://auburntigers.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 32
+        }
+      ],
+      "changes": [],
+      "matches": 32
+    },
+    {
+      "id": "2066",
+      "school": "Binghamton",
+      "attempts": [
+        {
+          "url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27",
+          "error": "HTTPSConnectionPool(host='bubearcats.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://bubearcats.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200
+        },
+        {
+          "url": "https://bubearcats.com/sports/mens-basketball/schedule",
+          "status": 200
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2115",
+      "school": "Central Conn. St.",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2130",
+      "school": "Chicago St.",
+      "attempts": [
+        {
+          "url": "https://gocsucougars.com/sports/mens-basketball/schedule/text/2026-27",
+          "error": "HTTPSConnectionPool(host='www.gocsucougars.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://gocsucougars.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200
+        },
+        {
+          "url": "https://gocsucougars.com/sports/mens-basketball/schedule",
+          "status": 200
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "228",
+      "school": "Clemson",
+      "attempts": [
+        {
+          "url": "https://clemsontigers.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://clemsontigers.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://clemsontigers.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2244",
+      "school": "George Mason",
+      "attempts": [
+        {
+          "url": "https://gomason.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://gomason.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://gomason.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "108",
+      "school": "Harvard",
+      "attempts": [
+        {
+          "url": "https://gocrimson.com/sports/mens-basketball/schedule/2026-27",
+          "error": "HTTPSConnectionPool(host='gocrimson.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://gocrimson.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://gocrimson.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "84",
+      "school": "Indiana",
+      "attempts": [
+        {
+          "url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print",
+          "error": "HTTPSConnectionPool(host='iuhoosiers.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://iuhoosiers.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 36
+        },
+        {
+          "url": "https://iuhoosiers.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200,
+          "rows": 36
+        },
+        {
+          "url": "https://iuhoosiers.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 33
+    },
+    {
+      "id": "55",
+      "school": "Jacksonville St.",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2306",
+      "school": "Kansas St.",
+      "attempts": [
+        {
+          "url": "https://kstatesports.com/sports/mens-basketball/schedule/text/2026-27",
+          "error": "HTTPSConnectionPool(host='kstatesports.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://kstatesports.com/sports/mens-basketball/schedule/2026-27",
+          "error": "HTTPSConnectionPool(host='kstatesports.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://kstatesports.com/sports/mens-basketball/schedule",
+          "error": "HTTPSConnectionPool(host='kstatesports.com', port=443): Read timed out. (read timeout=5)"
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2031",
+      "school": "Little Rock",
+      "attempts": [
+        {
+          "url": "https://lrtrojans.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://lrtrojans.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://lrtrojans.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 27
+        }
+      ],
+      "changes": [],
+      "matches": 26
+    },
+    {
+      "id": "112358",
+      "school": "LIU",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "97",
+      "school": "Louisville",
+      "attempts": [
+        {
+          "url": "https://gocards.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://gocards.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://gocards.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2390",
+      "school": "Miami (FL)",
+      "attempts": [
+        {
+          "url": "https://miamihurricanes.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://miamihurricanes.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://miamihurricanes.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 38
+        }
+      ],
+      "changes": [],
+      "matches": 33
+    },
+    {
+      "id": "130",
+      "school": "Michigan",
+      "attempts": [
+        {
+          "url": "https://mgoblue.com/sports/mens-basketball/schedule/text",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://mgoblue.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 42
+        },
+        {
+          "url": "https://mgoblue.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200,
+          "rows": 42
+        },
+        {
+          "url": "https://mgoblue.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 33
+    },
+    {
+      "id": "158",
+      "school": "Nebraska",
+      "attempts": [
+        {
+          "url": "https://huskers.com/sports/mens-basketball/schedule?print=true",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://huskers.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://huskers.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://huskers.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2443",
+      "school": "New Orleans",
+      "attempts": [
+        {
+          "url": "https://unoprivateers.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://unoprivateers.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200
+        },
+        {
+          "url": "https://unoprivateers.com/sports/mens-basketball/schedule",
+          "status": 200
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "87",
+      "school": "Notre Dame",
+      "attempts": [
+        {
+          "url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "195",
+      "school": "Ohio",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2437",
+      "school": "Omaha",
+      "attempts": [
+        {
+          "url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 200
+        },
+        {
+          "url": "https://omavs.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200
+        },
+        {
+          "url": "https://omavs.com/sports/mens-basketball/schedule",
+          "status": 200
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "213",
+      "school": "Penn St.",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "21",
+      "school": "San Diego St.",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "23",
+      "school": "San Jose St.",
+      "attempts": [
+        {
+          "url": "https://sjsuspartans.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://sjsuspartans.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://sjsuspartans.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2569",
+      "school": "South Carolina St.",
+      "attempts": [
+        {
+          "url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://scsuathletics.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200
+        },
+        {
+          "url": "https://scsuathletics.com/sports/mens-basketball/schedule",
+          "status": 200
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2900",
+      "school": "St. Thomas (MN)",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "24",
+      "school": "Stanford",
+      "attempts": [
+        {
+          "url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://gostanford.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://gostanford.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "183",
+      "school": "Syracuse",
+      "attempts": [
+        {
+          "url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://cuse.com/sports/mens-basketball/schedule/2026-27",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://cuse.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2635",
+      "school": "Tennessee Tech",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "245",
+      "school": "Texas A&M",
+      "attempts": [],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2116",
+      "school": "UCF",
+      "attempts": [
+        {
+          "url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://ucfknights.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://ucfknights.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2379",
+      "school": "UMES",
+      "attempts": [
+        {
+          "url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://easternshorehawks.com/sports/mens-basketball/schedule/2026-27",
+          "error": "HTTPSConnectionPool(host='easternshorehawks.com', port=443): Read timed out. (read timeout=5)"
+        },
+        {
+          "url": "https://easternshorehawks.com/sports/mens-basketball/schedule",
+          "status": 200
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "2636",
+      "school": "UTSA",
+      "attempts": [
+        {
+          "url": "https://goutsa.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        },
+        {
+          "url": "https://goutsa.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://goutsa.com/sports/mens-basketball/schedule/text/2026-27",
+          "error": "HTTPSConnectionPool(host='goutsa.com', port=443): Read timed out. (read timeout=5)"
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    },
+    {
+      "id": "259",
+      "school": "Virginia Tech",
+      "attempts": [
+        {
+          "url": "https://hokiesports.com/sports/mens-basketball/schedule/text/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://hokiesports.com/sports/mens-basketball/schedule/2026-27",
+          "status": 404
+        },
+        {
+          "url": "https://hokiesports.com/sports/mens-basketball/schedule",
+          "status": 200,
+          "rows": 0
+        }
+      ],
+      "changes": [],
+      "matches": 0
+    }
+  ]
+}

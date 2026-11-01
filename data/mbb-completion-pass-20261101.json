@@ -1,0 +1,6465 @@
+{
+  "checked_at": "2026-11-01T13:26:50.705180+00:00",
+  "baseline_commit": "7d2758cb081d6922924b4426cfc39a5057d605c8",
+  "summary": {
+    "schools_scanned": 365,
+    "schools_with_field_changes": 243,
+    "entries_changed": 864,
+    "broadcast_changed": 154,
+    "opponent_id_changed": 221,
+    "opponent_logo_changed": 609,
+    "arenaName_changed": 109,
+    "official_school_city_changed": 86,
+    "official_school_time_changed": 34,
+    "site_verified_changed": 35
+  },
+  "remaining": {
+    "schools": 365,
+    "schools_with_all_fields_present": 24,
+    "games": 11807,
+    "missing_broadcast": 5011,
+    "missing_arena": 313,
+    "missing_city": 110,
+    "missing_tipoff": 482,
+    "missing_site": 85
+  },
+  "rosters": {
+    "schools_with_players": 365,
+    "players": 5542
+  },
+  "status": "Published improvements; complete schedule certification remains unresolved.",
+  "changes": [
+    {
+      "school_id": "103",
+      "event_id": "school-103-2027-02-16-27",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "107",
+      "event_id": "school-107-2026-10-27-7",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "107",
+      "event_id": "school-107-2026-12-19-63",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "107",
+      "event_id": "school-107-2027-01-09-79",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "107",
+      "event_id": "school-107-2027-01-30-103",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "108",
+      "event_id": "school-108-2026-12-22-59",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-11-06-virginia",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-11-10-harvard",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-11-13-yale",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-11-25-wisconsin",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-11-27-northwestern",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-12-02-holycross",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-12-06-princeton",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-12-19-rhodeisland",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2026-12-22-california",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-02-uncw",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-07-williammary",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-09-hampton",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-14-drexel",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-18-monmouth",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-21-hofstra",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-23-stonybrook",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-28-elon",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-01-30-williammary",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-02-04-drexel",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-02-11-hofstra",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-02-13-towson",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-02-18-campbell",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-02-25-monmouth",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "111",
+      "event_id": "official-111-2027-03-02-stonybrook",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "116",
+      "event_id": "school-116-2026-11-06-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "119",
+      "event_id": "school-119-2026-11-12-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "119",
+      "event_id": "school-119-2026-12-19-51",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "119",
+      "event_id": "school-119-2027-01-18-83",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "13",
+      "event_id": "official-13-2026-11-05-arizona",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "13",
+      "event_id": "school-13-2026-11-13-4",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "130",
+      "event_id": "school-130-2027-01-23-24",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "135",
+      "event_id": "school-135-2026-11-12-5",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "135",
+      "event_id": "school-135-2027-02-06-25",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "140",
+      "event_id": "school-140-2026-11-28-9",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "140",
+      "event_id": "school-140-2026-12-05-11",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "140",
+      "event_id": "school-140-2026-12-12-15",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "140",
+      "event_id": "school-140-2027-02-27-33",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-11-06-saintlouis",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-11-09-siue",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-11-15-marquette",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-11-20-lemoyne",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-11-24-evansville",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-12-01-pittsburgh",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-12-06-kansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-12-12-nebraska",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-12-18-indiana",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2026-12-20-illinois",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-02-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-05-texasam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-09-kentucky",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-13-tennessee",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-16-southcarolina",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-19-oklahoma",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-23-vanderbilt",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-26-alabama",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-01-30-olemiss",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-02-06-tennessee",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-02-13-florida",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-02-16-oklahoma",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-02-20-auburn",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-02-23-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-02-27-georgia",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-03-02-texas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "142",
+      "event_id": "official-142-2027-03-06-lsu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "145",
+      "event_id": "school-145-2026-11-10-4",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "147",
+      "event_id": "school-147-2026-11-02-2",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "147",
+      "event_id": "school-147-2027-02-11-27",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "149",
+      "event_id": "school-149-2027-02-13-27",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "150",
+      "event_id": "school-150-2026-12-17-15",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "150",
+      "event_id": "school-150-2027-01-09-20",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "150",
+      "event_id": "school-150-2027-02-01-26",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "152",
+      "event_id": "school-152-2026-12-11-12",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "152",
+      "event_id": "school-152-2026-12-29-16",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "152",
+      "event_id": "school-152-2027-01-06-18",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "152",
+      "event_id": "school-152-2027-01-27-23",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "152",
+      "event_id": "school-152-2027-02-20-29",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "153",
+      "event_id": "school-153-2026-12-30-16",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "153",
+      "event_id": "school-153-2027-02-22-31",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "153",
+      "event_id": "school-153-2027-03-02-33",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "154",
+      "event_id": "school-154-2027-01-30-23",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "154",
+      "event_id": "school-154-2027-02-13-27",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "154",
+      "event_id": "school-154-2027-02-27-31",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "155",
+      "event_id": "school-155-2026-12-05-43",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "155",
+      "event_id": "school-155-2027-02-13-115",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "156",
+      "event_id": "school-156-2027-01-03-18",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "156",
+      "event_id": "school-156-2027-02-07-27",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "158",
+      "event_id": "school-158-2027-02-23-68",
+      "fields": [
+        "arenaName",
+        "official_school_city",
+        "site_verified",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "159",
+      "event_id": "school-159-2026-11-08-2",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "159",
+      "event_id": "school-159-2026-11-11-3",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "159",
+      "event_id": "school-159-2026-11-29-7",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "159",
+      "event_id": "school-159-2027-01-29-19",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "159",
+      "event_id": "school-159-2027-02-12-22",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "160",
+      "event_id": "school-160-2026-11-02-0",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "160",
+      "event_id": "school-160-2026-11-24-7",
+      "fields": [
+        "arenaName",
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "161",
+      "event_id": "school-161-2027-01-23-135",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "161",
+      "event_id": "school-161-2027-02-03-153",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "163",
+      "event_id": "school-163-2026-11-27-7",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "163",
+      "event_id": "school-163-2027-01-23-19",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "163",
+      "event_id": "school-163-2027-02-19-25",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "164",
+      "event_id": "official-164-2026-11-17-houston",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "164",
+      "event_id": "official-164-2026-12-09-michigan",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "164",
+      "event_id": "school-164-2026-12-20-13",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "164",
+      "event_id": "official-164-2027-02-10-michiganst",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "164",
+      "event_id": "official-164-2027-03-03-illinois",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "166",
+      "event_id": "school-166-2026-11-12-11",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "166",
+      "event_id": "school-166-2027-01-14-71",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "166",
+      "event_id": "school-166-2027-02-13-103",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "171",
+      "event_id": "school-171-2026-11-28-7",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "171",
+      "event_id": "school-171-2026-12-11-11",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "171",
+      "event_id": "school-171-2027-01-18-18",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "171",
+      "event_id": "school-171-2027-02-27-27",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "172",
+      "event_id": "official-172-2026-12-02-liu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "179",
+      "event_id": "school-179-2026-11-23-31",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "183",
+      "event_id": "school-183-2026-11-25-9",
+      "fields": [
+        "official_school_city",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "183",
+      "event_id": "school-183-2027-01-09-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "183",
+      "event_id": "school-183-2027-02-20-30",
+      "fields": [
+        "official_school_city",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "194",
+      "event_id": "school-194-2026-11-13-5",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "194",
+      "event_id": "school-194-2027-02-20-29",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "198",
+      "event_id": "school-198-2026-11-02-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2",
+      "event_id": "school-2-2026-11-04-20",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2",
+      "event_id": "school-2-2026-11-09-22",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2",
+      "event_id": "school-2-2026-12-15-54",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2026-11-02-0",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2026-11-14-4",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2026-11-21-5",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2026-11-24-6",
+      "fields": [
+        "official_school_city",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2026-12-10-10",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2026-12-29-13",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-01-12-16",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-01-19-18",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-01-27-20",
+      "fields": [
+        "official_school_city",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-01-30-21",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-02-06-23",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-02-13-25",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-02-16-26",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-02-24-28",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2005",
+      "event_id": "school-2005-2027-03-06-31",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2006",
+      "event_id": "school-2006-2026-11-02-1",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "201",
+      "event_id": "school-201-2026-11-24-5",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2010",
+      "event_id": "school-2010-2026-10-24-9",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2010",
+      "event_id": "school-2010-2027-02-06-170",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2010",
+      "event_id": "school-2010-2027-02-08-177",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2010",
+      "event_id": "school-2010-2027-03-02-212",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2010",
+      "event_id": "school-2010-2027-03-04-218",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2011",
+      "event_id": "school-2011-2026-11-23-39",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2011",
+      "event_id": "school-2011-2027-02-06-147",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2011",
+      "event_id": "school-2011-2027-02-08-153",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2011",
+      "event_id": "school-2011-2027-03-02-189",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2011",
+      "event_id": "school-2011-2027-03-04-195",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2016",
+      "event_id": "school-2016-2026-11-10-15",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2016",
+      "event_id": "school-2016-2026-11-25-45",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2016",
+      "event_id": "school-2016-2026-11-28-51",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2016",
+      "event_id": "school-2016-2026-12-01-57",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2016",
+      "event_id": "school-2016-2027-01-30-129",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2016",
+      "event_id": "school-2016-2027-02-01-135",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2026",
+      "event_id": "school-2026-2026-10-17-1",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2026",
+      "event_id": "school-2026-2026-11-02-11",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2026",
+      "event_id": "school-2026-2026-12-21-63",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2026",
+      "event_id": "school-2026-2027-01-23-95",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2026",
+      "event_id": "school-2026-2027-02-13-115",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2029",
+      "event_id": "school-2029-2026-11-15-33",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2029",
+      "event_id": "official-2029-2026-11-27-universityofmissouri",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2029",
+      "event_id": "school-2029-2027-01-23-111",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2029",
+      "event_id": "school-2029-2027-01-25-117",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2029",
+      "event_id": "school-2029-2027-02-27-165",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "204",
+      "event_id": "school-204-2026-11-06-3",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2057",
+      "event_id": "school-2057-2026-11-02-7",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2057",
+      "event_id": "school-2057-2026-12-01-39",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2057",
+      "event_id": "school-2057-2026-12-14-51",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2057",
+      "event_id": "school-2057-2027-02-06-107",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2065",
+      "event_id": "school-2065-2027-01-09-63",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2065",
+      "event_id": "school-2065-2027-01-11-67",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2065",
+      "event_id": "school-2065-2027-02-25-119",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2065",
+      "event_id": "school-2065-2027-02-27-123",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2026-11-21-27",
+      "fields": [
+        "arenaName",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2027-01-09-67",
+      "fields": [
+        "arenaName",
+        "official_school_city",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2027-01-14-71",
+      "fields": [
+        "arenaName",
+        "official_school_city",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2027-01-18-75",
+      "fields": [
+        "arenaName",
+        "official_school_city",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2027-02-06-95",
+      "fields": [
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2027-02-13-103",
+      "fields": [
+        "official_school_city",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2066",
+      "event_id": "school-2066-2027-02-17-107",
+      "fields": [
+        "official_school_city",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2083",
+      "event_id": "school-2083-2027-01-13-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2083",
+      "event_id": "school-2083-2027-01-16-20",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2083",
+      "event_id": "school-2083-2027-01-30-24",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2083",
+      "event_id": "school-2083-2027-02-21-30",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2086",
+      "event_id": "school-2086-2026-11-22-39",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2086",
+      "event_id": "school-2086-2026-12-19-63",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2086",
+      "event_id": "school-2086-2026-12-31-71",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2086",
+      "event_id": "school-2086-2027-01-23-95",
+      "fields": [
+        "official_school_city",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2086",
+      "event_id": "school-2086-2027-02-20-123",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2097",
+      "event_id": "school-2097-2027-01-14-83",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2097",
+      "event_id": "school-2097-2027-03-02-135",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2099",
+      "event_id": "school-2099-2026-11-12-23",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2110",
+      "event_id": "school-2110-2026-11-02-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2110",
+      "event_id": "school-2110-2026-11-23-27",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401925857",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401920233",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401924858",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401921245",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401924764",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401911315",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401921270",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401911207",
+      "fields": [
+        "arenaName",
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401919722",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401919724",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401919726",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2115",
+      "event_id": "401919729",
+      "fields": [
+        "official_school_city",
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-11-02-2",
+      "fields": [
+        "official_school_city",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-11-14-5",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-11-17-6",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-11-20-7",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-11-24-8",
+      "fields": [
+        "arenaName",
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-12-12-12",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2026-12-22-13",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-01-09-17",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-01-16-19",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-01-19-20",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-01-26-22",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-01-30-23",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-02-13-27",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-02-16-28",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-02-23-30",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2117",
+      "event_id": "school-2117-2027-02-27-31",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2127",
+      "event_id": "school-2127-2026-12-16-12",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2132",
+      "event_id": "official-2132-2026-12-19-clemson",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2132",
+      "event_id": "official-2132-2027-01-06-byu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2132",
+      "event_id": "official-2132-2027-01-30-arizonast",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2142",
+      "event_id": "school-2142-2027-01-09-105",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2142",
+      "event_id": "school-2142-2027-02-03-147",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2142",
+      "event_id": "school-2142-2027-02-13-165",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2142",
+      "event_id": "school-2142-2027-02-27-189",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2154",
+      "event_id": "school-2154-2026-11-14-19",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2166",
+      "event_id": "school-2166-2026-12-06-10",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2168",
+      "event_id": "school-2168-2026-12-02-47",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2168",
+      "event_id": "school-2168-2026-12-23-67",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "official-2169-2026-11-20-niagarauniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "school-2169-2026-11-24-19",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "official-2169-2026-12-01-universityofnewhaven",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "official-2169-2026-12-05-umbc",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "official-2169-2026-12-08-binghamtonuniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "official-2169-2026-12-12-longwooduniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "school-2169-2026-12-15-27",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2169",
+      "event_id": "official-2169-2027-01-11-howarduniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2172",
+      "event_id": "school-2172-2026-12-09-10",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2174",
+      "event_id": "school-2174-2026-10-24-9",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2174",
+      "event_id": "school-2174-2026-12-05-69",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2174",
+      "event_id": "school-2174-2027-01-23-129",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "218",
+      "event_id": "school-218-2026-11-02-0",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "218",
+      "event_id": "school-218-2026-11-11-2",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2181",
+      "event_id": "school-2181-2026-11-08-7",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2181",
+      "event_id": "school-2181-2026-11-19-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2181",
+      "event_id": "school-2181-2027-01-24-87",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2182",
+      "event_id": "school-2182-2027-01-07-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-10-10-1",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-11-09-11",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-11-16-23",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-11-24-31",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-11-27-35",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-12-01-43",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-12-19-55",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2026-12-22-59",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2027-01-18-79",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2027-01-30-91",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2027-02-06-95",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2027-02-20-107",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "219",
+      "event_id": "school-219-2027-03-05-119",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2210",
+      "event_id": "school-2210-2026-11-06-7",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2210",
+      "event_id": "school-2210-2027-01-23-87",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2217",
+      "event_id": "official-2217-2026-11-05-vermont",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2217",
+      "event_id": "official-2217-2026-11-08-bryant",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2217",
+      "event_id": "official-2217-2026-11-14-njit",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2217",
+      "event_id": "official-2217-2026-11-22-liu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2217",
+      "event_id": "official-2217-2026-11-27-navy",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2217",
+      "event_id": "official-2217-2026-11-29-centralconnecticutstate",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "222",
+      "event_id": "school-222-2027-02-03-103",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "222",
+      "event_id": "school-222-2027-02-14-115",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2229",
+      "event_id": "school-2229-2027-01-28-103",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2229",
+      "event_id": "school-2229-2027-01-30-107",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2229",
+      "event_id": "school-2229-2027-02-25-131",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2230",
+      "event_id": "school-2230-2026-12-20-63",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2239",
+      "event_id": "school-2239-2027-01-30-91",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2239",
+      "event_id": "school-2239-2027-03-04-127",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2247",
+      "event_id": "school-2247-2027-01-16-135",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2247",
+      "event_id": "school-2247-2027-02-20-189",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-11-02-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-11-12-4",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-11-14-5",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-11-25-8",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-12-01-10",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-12-04-11",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-12-06-12",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-12-09-13",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2026-12-22-14",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-01-15-18",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-01-18-19",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-01-23-20",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-01-29-21",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-02-05-23",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-02-12-24",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-02-19-26",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-02-26-27",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "225",
+      "event_id": "school-225-2027-02-27-28",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2253",
+      "event_id": "school-2253-2026-11-14-4",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2261",
+      "event_id": "school-2261-2027-02-04-25",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2261",
+      "event_id": "school-2261-2027-02-25-30",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "227",
+      "event_id": "school-227-2026-12-01-43",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2272",
+      "event_id": "school-2272-2026-12-12-81",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2272",
+      "event_id": "school-2272-2026-12-21-99",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2275",
+      "event_id": "school-2275-2026-11-29-63",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2275",
+      "event_id": "school-2275-2027-01-30-159",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2275",
+      "event_id": "school-2275-2027-02-18-189",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2277",
+      "event_id": "school-2277-2026-11-24-35",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2277",
+      "event_id": "school-2277-2026-12-07-51",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2277",
+      "event_id": "school-2277-2026-12-22-63",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2277",
+      "event_id": "school-2277-2027-02-06-111",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2287",
+      "event_id": "school-2287-2027-02-12-171",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2294",
+      "event_id": "official-2294-2026-12-01-purdue",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2294",
+      "event_id": "official-2294-2027-02-06-ucla",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2296",
+      "event_id": "school-2296-2027-01-30-129",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2296",
+      "event_id": "school-2296-2027-02-01-135",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2309",
+      "event_id": "school-2309-2026-11-02-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2320",
+      "event_id": "school-2320-2027-01-04-63",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2320",
+      "event_id": "school-2320-2027-01-23-83",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2329",
+      "event_id": "school-2329-2027-01-06-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2329",
+      "event_id": "school-2329-2027-01-20-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2329",
+      "event_id": "school-2329-2027-01-23-20",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2329",
+      "event_id": "school-2329-2027-02-17-27",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "233",
+      "event_id": "school-233-2026-12-03-69",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "233",
+      "event_id": "school-233-2026-12-12-87",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "233",
+      "event_id": "school-233-2027-01-07-111",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2330",
+      "event_id": "school-2330-2027-01-08-75",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2330",
+      "event_id": "school-2330-2027-02-11-107",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2348",
+      "event_id": "school-2348-2026-11-02-0",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2348",
+      "event_id": "school-2348-2026-12-19-13",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2348",
+      "event_id": "school-2348-2027-02-03-25",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2348",
+      "event_id": "school-2348-2027-02-24-30",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "235",
+      "event_id": "school-235-2026-11-29-8",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2351",
+      "event_id": "school-2351-2026-10-16-1",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2351",
+      "event_id": "school-2351-2026-10-25-9",
+      "fields": [
+        "official_school_city",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2351",
+      "event_id": "school-2351-2026-12-13-87",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2352",
+      "event_id": "school-2352-2026-12-13-63",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "236",
+      "event_id": "school-236-2027-01-07-17",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "236",
+      "event_id": "school-236-2027-01-30-24",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2363",
+      "event_id": "school-2363-2026-11-20-33",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2363",
+      "event_id": "school-2363-2026-12-08-63",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2377",
+      "event_id": "school-2377-2026-10-25-9",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2377",
+      "event_id": "school-2377-2026-11-28-39",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2377",
+      "event_id": "school-2377-2027-01-09-105",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2377",
+      "event_id": "school-2377-2027-01-30-141",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2378",
+      "event_id": "school-2378-2026-12-02-55",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2378",
+      "event_id": "school-2378-2027-01-18-95",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2378",
+      "event_id": "school-2378-2027-01-23-103",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2378",
+      "event_id": "school-2378-2027-02-06-115",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2378",
+      "event_id": "school-2378-2027-02-20-131",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2026-11-05-wakeforest",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2026-11-20-ucf",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2026-12-02-notredame",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2026-12-18-southernindiana",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-01-12-southcarolina",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-01-16-kentucky",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-01-23-missouri",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-01-30-texasam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-02-02-lsu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-02-06-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-02-20-texasam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "238",
+      "event_id": "official-238-2027-02-23-kentucky",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2385",
+      "event_id": "school-2385-2026-11-15-23",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2385",
+      "event_id": "school-2385-2026-11-22-35",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2385",
+      "event_id": "school-2385-2026-12-01-43",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "239",
+      "event_id": "school-239-2026-12-19-13",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2026-11-09-northflorida",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2026-11-17-rider",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2026-11-20-manhattan",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2026-12-21-uscupstate",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2026-12-29-ncstate",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-02-pitt",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-05-georgiatech",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-09-syracuse",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-16-virginia",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-19-louisville",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-23-virginiatech",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-27-clemson",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-01-30-wakeforest",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-02-01-duke",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-02-10-stanford",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-02-13-cal",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-02-20-notredame",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-02-22-northcarolina",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-02-27-pitt",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2390",
+      "event_id": "official-2390-2027-03-02-smu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2393",
+      "event_id": "school-2393-2026-11-13-3",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2393",
+      "event_id": "school-2393-2027-01-30-22",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2393",
+      "event_id": "school-2393-2027-02-27-29",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "24",
+      "event_id": "school-24-2027-02-10-78",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2400",
+      "event_id": "school-2400-2026-12-08-51",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2400",
+      "event_id": "school-2400-2027-01-23-123",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2400",
+      "event_id": "school-2400-2027-01-25-129",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2400",
+      "event_id": "school-2400-2027-02-27-177",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2426",
+      "event_id": "school-2426-2026-11-28-55",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2426",
+      "event_id": "school-2426-2027-01-23-103",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2426",
+      "event_id": "school-2426-2027-02-20-135",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2427",
+      "event_id": "school-2427-2026-12-21-14",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2428",
+      "event_id": "official-2428-2026-11-02-georgia",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2428",
+      "event_id": "official-2428-2026-11-07-longwood",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2428",
+      "event_id": "official-2428-2026-12-05-uscupstate",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2428",
+      "event_id": "official-2428-2027-02-08-howard",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2429",
+      "event_id": "school-2429-2026-12-02-9",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2026-11-06-11",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2026-11-24-39",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2026-12-11-51",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2026-12-15-55",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2026-12-19-59",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2027-02-03-107",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2430",
+      "event_id": "school-2430-2027-02-20-123",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2433",
+      "event_id": "school-2433-2026-11-02-7",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2433",
+      "event_id": "school-2433-2026-11-24-39",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2437",
+      "event_id": "school-2437-2027-01-23-22",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2439",
+      "event_id": "school-2439-2027-03-06-35",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2440",
+      "event_id": "school-2440-2026-11-11-19",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2441",
+      "event_id": "school-2441-2026-11-10-11",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2441",
+      "event_id": "school-2441-2026-12-09-47",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2441",
+      "event_id": "school-2441-2027-01-14-75",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2441",
+      "event_id": "school-2441-2027-01-30-95",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2443",
+      "event_id": "school-2443-2026-11-25-27",
+      "fields": [
+        "official_school_city",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2443",
+      "event_id": "school-2443-2026-12-13-47",
+      "fields": [
+        "arenaName",
+        "site_verified",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2447",
+      "event_id": "school-2447-2026-12-17-47",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2447",
+      "event_id": "school-2447-2027-02-01-95",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2447",
+      "event_id": "school-2447-2027-02-15-111",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2447",
+      "event_id": "school-2447-2027-03-01-127",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2026-12-09-jamesmadisonuniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2027-01-14-stonybrookuniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2027-01-28-monmouthuniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2027-02-11-elonuniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2027-02-13-drexeluniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2027-02-20-williammary",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2448",
+      "event_id": "official-2448-2027-02-27-campbelluniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2453",
+      "event_id": "school-2453-2026-11-02-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2453",
+      "event_id": "school-2453-2027-01-16-75",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2453",
+      "event_id": "school-2453-2027-02-06-99",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-03-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-14-4",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-17-5",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-21-6",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-23-7",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-25-8",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-11-28-9",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-12-03-10",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-12-12-12",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-12-16-13",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-12-19-14",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2026-12-29-16",
+      "fields": [
+        "official_school_time",
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-01-02-18",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-01-07-19",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-01-09-20",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-01-22-23",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-01-30-25",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-02-04-26",
+      "fields": [
+        "official_school_time",
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-02-06-27",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-02-11-28",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2454",
+      "event_id": "school-2454-2027-02-13-29",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2458",
+      "event_id": "school-2458-2026-11-24-6",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2466",
+      "event_id": "school-2466-2026-12-21-55",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2466",
+      "event_id": "school-2466-2027-02-13-111",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2473",
+      "event_id": "school-2473-2026-10-24-7",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2473",
+      "event_id": "school-2473-2026-11-02-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2473",
+      "event_id": "school-2473-2026-11-09-27",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2473",
+      "event_id": "school-2473-2026-11-20-43",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2473",
+      "event_id": "school-2473-2026-11-27-47",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2473",
+      "event_id": "school-2473-2026-12-22-67",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2483",
+      "event_id": "school-2483-2026-12-05-12",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2483",
+      "event_id": "school-2483-2026-12-16-14",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2483",
+      "event_id": "school-2483-2027-02-27-32",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "25",
+      "event_id": "school-25-2026-11-11-5",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "25",
+      "event_id": "school-25-2026-12-10-12",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "25",
+      "event_id": "school-25-2026-12-20-14",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "25",
+      "event_id": "school-25-2026-12-30-16",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "25",
+      "event_id": "school-25-2027-02-17-29",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "25",
+      "event_id": "school-25-2027-02-20-30",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "250",
+      "event_id": "school-250-2026-12-19-12",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2501",
+      "event_id": "school-2501-2026-11-22-45",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2504",
+      "event_id": "school-2504-2026-11-10-15",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2504",
+      "event_id": "school-2504-2027-01-02-59",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2504",
+      "event_id": "school-2504-2027-01-04-63",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2504",
+      "event_id": "school-2504-2027-02-13-103",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2504",
+      "event_id": "school-2504-2027-02-15-107",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2507",
+      "event_id": "school-2507-2027-01-20-21",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2507",
+      "event_id": "school-2507-2027-02-27-31",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2509",
+      "event_id": "official-purdue-2026-11-06-2509",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2509",
+      "event_id": "official-purdue-2026-12-21-2509",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2509",
+      "event_id": "official-purdue-2027-01-02-2509",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2509",
+      "event_id": "official-purdue-2027-02-03-2509",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2509",
+      "event_id": "official-purdue-2027-02-21-2509",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "251",
+      "event_id": "school-251-2026-11-09-3",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "251",
+      "event_id": "school-251-2026-11-22-6",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "251",
+      "event_id": "school-251-2026-12-12-11",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2511",
+      "event_id": "school-2511-2027-02-11-115",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2514",
+      "event_id": "school-2514-2026-11-15-4",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "252",
+      "event_id": "official-252-2027-01-06-cincinnati",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "252",
+      "event_id": "official-252-2027-02-27-ucf",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2520",
+      "event_id": "school-2520-2026-11-24-35",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2520",
+      "event_id": "school-2520-2026-11-30-43",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2523",
+      "event_id": "school-2523-2026-11-19-33",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2523",
+      "event_id": "school-2523-2026-11-28-51",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-01-09-17",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-01-16-19",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-01-23-20",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-02-04-23",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-02-11-25",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-02-20-27",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-03-04-30",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2534",
+      "event_id": "school-2534-2027-03-06-31",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2535",
+      "event_id": "school-2535-2027-01-21-24",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2535",
+      "event_id": "school-2535-2027-02-11-29",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "254",
+      "event_id": "school-254-2026-12-09-11",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "254",
+      "event_id": "school-254-2026-12-19-14",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2541",
+      "event_id": "school-2541-2026-12-05-51",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2541",
+      "event_id": "school-2541-2026-12-14-59",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2026-11-24-23",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2026-12-07-35",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2026-12-21-51",
+      "fields": [
+        "arenaName",
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2026-12-23-55",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2027-01-04-63",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2027-01-23-83",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2027-02-06-99",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2027-02-08-103",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2545",
+      "event_id": "school-2545-2027-02-13-107",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2546",
+      "event_id": "school-2546-2027-01-28-23",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2546",
+      "event_id": "school-2546-2027-02-27-30",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2547",
+      "event_id": "official-2547-2026-11-11-utsa",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2547",
+      "event_id": "cross-school-2547-2026-11-17_2856",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2547",
+      "event_id": "official-2547-2026-11-22-ucsandiego",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "256",
+      "event_id": "school-256-2026-11-02-2",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2561",
+      "event_id": "school-2561-2026-11-14-19",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2567",
+      "event_id": "school-2567-2026-11-02-1",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2567",
+      "event_id": "school-2567-2026-11-05-2",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2567",
+      "event_id": "school-2567-2027-03-02-31",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2571",
+      "event_id": "school-2571-2026-12-21-14",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2572",
+      "event_id": "school-2572-2026-11-19-7",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2572",
+      "event_id": "school-2572-2026-11-29-10",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2026-12-15-clemson",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2027-01-02-lsu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2027-01-06-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2027-01-09-texasam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2027-01-12-vanderbilt",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2027-01-16-missouri",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2579",
+      "event_id": "official-2579-2027-02-10-kentucky",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "258",
+      "event_id": "official-258-2026-11-06-northeastern",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "258",
+      "event_id": "official-258-2026-11-08-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "258",
+      "event_id": "official-258-2026-11-13-maryland",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "258",
+      "event_id": "official-258-2026-11-17-olddominion",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "258",
+      "event_id": "official-258-2026-12-02-kentucky",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "258",
+      "event_id": "official-258-2027-01-16-miamiacc",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2582",
+      "event_id": "school-2582-2026-11-02-9",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2582",
+      "event_id": "school-2582-2026-11-06-15",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2582",
+      "event_id": "school-2582-2027-01-16-117",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2582",
+      "event_id": "school-2582-2027-02-20-171",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "259",
+      "event_id": "school-259-2027-01-23-80",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "259",
+      "event_id": "school-259-2027-01-27-83",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "259",
+      "event_id": "school-259-2027-02-10-92",
+      "fields": [
+        "arenaName",
+        "official_school_city",
+        "site_verified",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2599",
+      "event_id": "school-2599-2027-01-29-26",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2599",
+      "event_id": "school-2599-2027-03-02-35",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2603",
+      "event_id": "official-2603-2026-11-07-lafayette",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2603",
+      "event_id": "official-2603-2027-01-09-georgemason",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2603",
+      "event_id": "official-2603-2027-01-30-georgemason",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "261",
+      "event_id": "school-261-2026-11-29-51",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "261",
+      "event_id": "school-261-2026-12-06-59",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2617",
+      "event_id": "school-2617-2026-12-01-8",
+      "fields": [
+        "arenaName",
+        "official_school_time",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2617",
+      "event_id": "school-2617-2027-01-02-15",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2617",
+      "event_id": "school-2617-2027-01-26-22",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2026-11-28-delaware",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2026-12-12-lasalle",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2026-12-18-newhaven",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2026-12-31-monmouth",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2027-01-21-williammary",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2027-01-28-hampton",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2027-02-06-campbell",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "school-2619-2027-02-11-71",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2619",
+      "event_id": "official-2619-2027-03-02-northeastern",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2627",
+      "event_id": "school-2627-2026-11-19-31",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2628",
+      "event_id": "school-2628-2026-11-06-4",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2628",
+      "event_id": "school-2628-2026-11-24-8",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2630",
+      "event_id": "school-2630-2027-01-09-21",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2630",
+      "event_id": "school-2630-2027-02-18-31",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2634",
+      "event_id": "school-2634-2026-10-24-1",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2634",
+      "event_id": "school-2634-2026-12-04-45",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2634",
+      "event_id": "school-2634-2027-01-23-111",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2634",
+      "event_id": "school-2634-2027-02-27-165",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2026-11-08-uiw",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2026-11-12-nmstate",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2026-11-15-floridaam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "school-2638-2026-11-19-7",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2026-11-24-collegeofcharleston",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-01-05-wyoming",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-01-09-airforce",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-01-19-wyoming",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-01-23-ucdavis",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-02-06-hawaii",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-02-13-ucdavis",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-02-27-hawaii",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2638",
+      "event_id": "official-2638-2027-03-06-airforce",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "264",
+      "event_id": "school-264-2026-12-02-10",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "264",
+      "event_id": "school-264-2026-12-19-13",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "264",
+      "event_id": "school-264-2027-02-10-25",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2640",
+      "event_id": "school-2640-2027-01-02-87",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2640",
+      "event_id": "school-2640-2027-01-04-93",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2640",
+      "event_id": "school-2640-2027-02-13-153",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2640",
+      "event_id": "school-2640-2027-02-15-159",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2641",
+      "event_id": "school-2641-2026-12-13-11",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2643",
+      "event_id": "school-2643-2026-11-14-4",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2643",
+      "event_id": "school-2643-2026-12-30-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2643",
+      "event_id": "school-2643-2027-02-03-26",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2649",
+      "event_id": "school-2649-2027-01-05-16",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2649",
+      "event_id": "school-2649-2027-02-16-28",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "265",
+      "event_id": "official-265-2026-12-19-seattleu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "265",
+      "event_id": "official-265-2026-12-28-lsu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2655",
+      "event_id": "school-2655-2026-11-29-8",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2655",
+      "event_id": "school-2655-2026-12-06-10",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2670",
+      "event_id": "school-2670-2026-12-15-55",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2674",
+      "event_id": "official-2674-2026-11-06-purdue",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2674",
+      "event_id": "school-2674-2027-01-30-99",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2678",
+      "event_id": "school-2678-2026-11-05-7",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2678",
+      "event_id": "school-2678-2026-12-01-39",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2678",
+      "event_id": "school-2678-2027-02-03-99",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2678",
+      "event_id": "school-2678-2027-02-24-123",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2681",
+      "event_id": "school-2681-2026-11-06-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2681",
+      "event_id": "school-2681-2027-01-04-93",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2681",
+      "event_id": "school-2681-2027-02-20-165",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-11-02-1",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-11-09-11",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-11-17-23",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-11-29-35",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-12-05-43",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-12-13-47",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-12-16-51",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2026-12-31-67",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-01-02-71",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-01-09-75",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-01-14-79",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-01-16-83",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-01-28-95",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-01-30-99",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-02-13-111",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-02-18-115",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2697",
+      "event_id": "school-2697-2027-02-20-119",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "270",
+      "event_id": "school-270-2026-11-13-23",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2710",
+      "event_id": "school-2710-2026-11-20-23",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2710",
+      "event_id": "school-2710-2027-01-09-75",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2710",
+      "event_id": "school-2710-2027-01-28-95",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2711",
+      "event_id": "school-2711-2026-12-22-75",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2717",
+      "event_id": "school-2717-2026-10-20-1",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2717",
+      "event_id": "official-2717-2026-11-07-uncasheville",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2717",
+      "event_id": "official-2717-2026-11-17-butler",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2717",
+      "event_id": "school-2717-2027-01-13-71",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2717",
+      "event_id": "school-2717-2027-02-20-115",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2724",
+      "event_id": "school-2724-2026-11-08-11",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2729",
+      "event_id": "school-2729-2027-02-06-103",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2737",
+      "event_id": "school-2737-2026-10-17-1",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2739",
+      "event_id": "school-2739-2026-12-21-67",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2026-11-03-9",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2026-11-14-33",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2026-11-24-51",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2027-01-13-123",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2027-01-16-129",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2027-02-03-165",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2747",
+      "event_id": "school-2747-2027-02-07-171",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "275",
+      "event_id": "school-275-2027-01-16-21",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2751",
+      "event_id": "school-2751-2026-10-17-1",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2751",
+      "event_id": "school-2751-2027-01-05-18",
+      "fields": [
+        "arenaName",
+        "official_school_time",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2751",
+      "event_id": "school-2751-2027-01-19-22",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2026-11-25-39",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2026-12-04-57",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2026-12-21-75",
+      "fields": [
+        "official_school_city",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-01-04-93",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-01-09-99",
+      "fields": [
+        "official_school_city",
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-01-11-105",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-01-16-111",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-01-30-129",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-02-01-135",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-02-08-147",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-02-13-153",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-02-15-159",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-02-20-165",
+      "fields": [
+        "official_school_city",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-03-02-183",
+      "fields": [
+        "official_school_city",
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2755",
+      "event_id": "school-2755-2027-03-04-189",
+      "fields": [
+        "official_school_city"
+      ]
+    },
+    {
+      "school_id": "276",
+      "event_id": "school-276-2027-01-21-22",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "276",
+      "event_id": "school-276-2027-02-13-29",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "277",
+      "event_id": "school-277-2026-12-09-12",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2771",
+      "event_id": "school-2771-2026-11-02-1",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2771",
+      "event_id": "school-2771-2026-11-05-7",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2771",
+      "event_id": "school-2771-2026-11-08-11",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "278",
+      "event_id": "school-278-2026-12-05-10",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "279",
+      "event_id": "school-279-2026-12-18-55",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "28",
+      "event_id": "official-28-2026-11-22-seattleu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2026-12-04-43",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2027-01-07-71",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2027-01-09-75",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2027-01-21-87",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2027-02-11-107",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2027-02-25-119",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2803",
+      "event_id": "school-2803-2027-02-27-123",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2815",
+      "event_id": "school-2815-2026-11-02-7",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2815",
+      "event_id": "school-2815-2027-01-07-75",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2815",
+      "event_id": "school-2815-2027-02-13-115",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2837",
+      "event_id": "school-2837-2026-11-19-39",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2837",
+      "event_id": "school-2837-2027-01-16-117",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2837",
+      "event_id": "school-2837-2027-02-22-183",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "284",
+      "event_id": "school-284-2026-11-05-7",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "284",
+      "event_id": "school-284-2027-01-20-83",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "284",
+      "event_id": "school-284-2027-02-06-103",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2856",
+      "event_id": "school-2856-2026-11-03-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2856",
+      "event_id": "school-2856-2026-11-17-5",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2856",
+      "event_id": "school-2856-2026-12-09-10",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "2856",
+      "event_id": "school-2856-2026-12-14-11",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "288",
+      "event_id": "school-288-2027-01-09-19",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "288",
+      "event_id": "school-288-2027-02-04-25",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "290",
+      "event_id": "school-290-2026-11-06-3",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "290",
+      "event_id": "school-290-2027-01-23-24",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "290",
+      "event_id": "school-290-2027-02-13-30",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2908",
+      "event_id": "school-2908-2026-12-21-14",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2916",
+      "event_id": "school-2916-2026-11-08-15",
+      "fields": [
+        "arenaName",
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2916",
+      "event_id": "school-2916-2026-12-05-39",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2916",
+      "event_id": "school-2916-2027-01-04-71",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2916",
+      "event_id": "school-2916-2027-01-26-95",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2916",
+      "event_id": "school-2916-2027-02-08-111",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "292",
+      "event_id": "school-292-2026-12-08-39",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "292",
+      "event_id": "school-292-2027-01-04-63",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "292",
+      "event_id": "school-292-2027-01-18-79",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "292",
+      "event_id": "school-292-2027-02-20-115",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "school-2934-2026-11-20-23",
+      "fields": [
+        "arenaName"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2026-11-25-pepperdine",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2026-12-05-csun",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2027-01-07-ucriverside",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2027-01-09-californiabaptist",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2027-01-30-utahvalley",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2027-02-18-calpoly",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2027-03-04-ucsandiego",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "2934",
+      "event_id": "official-2934-2027-03-06-ucirvine",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "295",
+      "event_id": "official-295-2026-11-17-virginia",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "295",
+      "event_id": "official-295-2026-12-12-georgemason",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "301",
+      "event_id": "school-301-2026-12-08-51",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2026-12-01-portland",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2026-12-14-calbaptist",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-01-02-grandcanyon",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-01-05-hawaii",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-01-12-wyoming",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-01-19-unlv",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-01-23-utep",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-01-30-hawaii",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-02-06-airforce",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-02-13-utep",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-02-16-universityofnevada",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-02-20-airforce",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-02-23-wyoming",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-02-27-newmexico",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "302",
+      "event_id": "official-302-2027-03-02-unlv",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "305",
+      "event_id": "school-305-2026-11-05-3",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "305",
+      "event_id": "school-305-2026-11-26-8",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "309",
+      "event_id": "school-309-2026-11-22-5",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "3101",
+      "event_id": "school-3101-2026-11-14-23",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "official-322-2026-11-02-butler",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "official-322-2026-11-07-stjosephs",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "official-322-2026-11-14-stbonaventure",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "official-322-2026-11-18-binghamton",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "official-322-2026-12-07-penn",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "school-322-2027-01-06-24",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "school-322-2027-01-17-36",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "school-322-2027-01-20-40",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "322",
+      "event_id": "school-322-2027-02-10-64",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "324",
+      "event_id": "school-324-2027-01-02-17",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "325",
+      "event_id": "school-325-2026-12-21-51",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "326",
+      "event_id": "school-326-2026-11-10-15",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "326",
+      "event_id": "school-326-2026-12-08-75",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "331",
+      "event_id": "official-331-2026-12-31-southernutah",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "333",
+      "event_id": "school-333-2026-12-02-11",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "339",
+      "event_id": "school-339-2026-11-07-19",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "339",
+      "event_id": "school-339-2026-11-10-23",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "339",
+      "event_id": "school-339-2026-11-14-27",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "339",
+      "event_id": "school-339-2027-02-09-115",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "350",
+      "event_id": "school-350-2026-11-27-51",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "350",
+      "event_id": "school-350-2027-01-28-115",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "350",
+      "event_id": "school-350-2027-02-28-147",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "356",
+      "event_id": "school-356-2026-11-05-4",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "357",
+      "event_id": "school-357-2027-01-16-75",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "357",
+      "event_id": "school-357-2027-02-22-119",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "36",
+      "event_id": "school-36-2026-11-02-2",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "36",
+      "event_id": "school-36-2026-12-20-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "399",
+      "event_id": "school-399-2026-12-05-43",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "43",
+      "event_id": "school-43-2026-11-24-31",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "43",
+      "event_id": "school-43-2027-02-05-91",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "44",
+      "event_id": "school-44-2027-02-03-119",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "44",
+      "event_id": "school-44-2027-02-17-135",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "45",
+      "event_id": "school-45-2026-12-01-9",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "47",
+      "event_id": "cross-school-47-2026-11-09_219",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "48",
+      "event_id": "school-48-2027-01-14-18",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "48",
+      "event_id": "school-48-2027-02-13-27",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "5",
+      "event_id": "school-5-2026-11-02-2",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "50",
+      "event_id": "school-50-2027-01-09-105",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "50",
+      "event_id": "school-50-2027-01-11-111",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "50",
+      "event_id": "school-50-2027-02-25-189",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "50",
+      "event_id": "school-50-2027-02-27-195",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "52",
+      "event_id": "school-52-2026-11-29-10",
+      "fields": [
+        "site_verified"
+      ]
+    },
+    {
+      "school_id": "52",
+      "event_id": "school-52-2027-01-06-18",
+      "fields": [
+        "broadcast",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "52",
+      "event_id": "school-52-2027-01-30-25",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "526",
+      "event_id": "school-526-2027-01-30-155",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "56",
+      "event_id": "school-56-2026-12-05-43",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "59",
+      "event_id": "cross-school-59-2026-11-28_2016",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "61",
+      "event_id": "school-61-2026-12-29-16",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "62",
+      "event_id": "school-62-2026-12-12-55",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "62",
+      "event_id": "school-62-2027-03-06-135",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "66",
+      "event_id": "school-66-2026-11-10-4",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "77",
+      "event_id": "school-77-2027-01-30-61",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "79",
+      "event_id": "school-79-2026-12-09-9",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "79",
+      "event_id": "school-79-2027-01-12-17",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "79",
+      "event_id": "school-79-2027-02-15-27",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "82",
+      "event_id": "school-82-2026-11-22-39",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "82",
+      "event_id": "school-82-2027-02-03-153",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "87",
+      "event_id": "official-87-2026-12-02-vanderbilt",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "87",
+      "event_id": "official-87-2026-12-08-liu",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "87",
+      "event_id": "official-87-2027-01-09-georgiatech",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "87",
+      "event_id": "official-87-2027-02-13-virginia",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "87",
+      "event_id": "official-87-2027-02-20-miamifl",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "87",
+      "event_id": "official-87-2027-03-02-clemson",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "88",
+      "event_id": "school-88-2026-11-24-7",
+      "fields": [
+        "arenaName",
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "88",
+      "event_id": "official-88-2027-01-07-lindenwooduniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "88",
+      "event_id": "official-88-2027-02-13-lindenwooduniversity",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "91",
+      "event_id": "school-91-2026-11-07-15",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "91",
+      "event_id": "school-91-2026-12-16-59",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "91",
+      "event_id": "school-91-2026-12-19-63",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "91",
+      "event_id": "school-91-2027-01-07-79",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "91",
+      "event_id": "school-91-2027-01-28-99",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "91",
+      "event_id": "school-91-2027-02-27-131",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2026-12-19-16",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2026-12-29-17",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-01-04-19",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-01-12-21",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-01-21-23",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-01-24-24",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-01-30-26",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-02-03-27",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-02-06-28",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-02-09-29",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-02-12-30",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-02-15-31",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "93",
+      "event_id": "school-93-2027-02-20-32",
+      "fields": [
+        "official_school_time"
+      ]
+    },
+    {
+      "school_id": "97",
+      "event_id": "school-97-2027-01-19-21",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "98",
+      "event_id": "school-98-2026-10-25-1",
+      "fields": [
+        "broadcast"
+      ]
+    },
+    {
+      "school_id": "98",
+      "event_id": "school-98-2027-01-02-17",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "98",
+      "event_id": "school-98-2027-03-04-32",
+      "fields": [
+        "opponent_id",
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2026-12-28-washingtonst",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-01-02-southcarolina",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-01-13-kentucky",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-01-16-texasam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-01-26-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-02-02-vanderbilt",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-02-06-olemiss",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-02-27-texasam",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-03-02-arkansas",
+      "fields": [
+        "opponent_logo"
+      ]
+    },
+    {
+      "school_id": "99",
+      "event_id": "official-99-2027-03-06-missouri",
+      "fields": [
+        "opponent_logo"
+      ]
+    }
+  ]
+}
