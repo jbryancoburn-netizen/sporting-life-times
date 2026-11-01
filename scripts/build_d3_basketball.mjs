@@ -148,7 +148,7 @@ async function run(gender,deep=false){
   fs.mkdirSync(DATA,{recursive:true});
   const file=path.join(DATA,'d3-'+gender+'-2026-27.json');
   const previous=fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):{teams:[],games:[]};
-  const today=iso(new Date()),start=deep||!(previous.games||[]).length?START:addDays(today,-7);
+  const today=iso(new Date()),start=deep||!previous.coverage?.scanned_days?START:addDays(today,-7);
   const end=addDays(today,deep?21:8),dates=[];
   for(let d=start;d<=end&&d<=END;d=addDays(d,1))dates.push(d);
   const results=[];
