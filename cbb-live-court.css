@@ -21,15 +21,17 @@
  background:repeating-linear-gradient(0deg,rgba(122,83,30,.055) 0 1px,transparent 1px 28px);
  pointer-events:none}
 .slc-floor>svg{position:absolute;inset:0;width:100%;height:100%}
-.slc-ball{position:absolute;left:var(--x);top:var(--y);z-index:2;
- width:26px;height:26px;transform:translate(-50%,-50%);
- border:2px solid #572d10;border-radius:50%;
- background:radial-gradient(circle at 29% 28%,#fabe78 0 12%,#d87f2c 49%,#ab4c1b 100%);
- box-shadow:0 2px 5px rgba(65,37,14,.35);
- transition:left .66s cubic-bezier(.2,.8,.2,1),top .66s cubic-bezier(.2,.8,.2,1)}
-.slc-ball::before{content:"";position:absolute;inset:0;border-left:2px solid #562b11;border-right:2px solid #562b11;
- border-radius:50%;transform:scaleX(.5)}
-.slc-ball::after{content:"";position:absolute;left:0;right:0;top:47%;height:2px;background:#562b11}
+/* Only source-supplied, validated HALF-COURT shot positions. No animated balls. */
+.slc-shot{position:absolute;left:var(--x);top:var(--y);z-index:2;
+ width:11px;height:11px;transform:translate(-50%,-50%);border-radius:50%;
+ background:#9b3b35;border:2px solid #f8f5ef;box-shadow:0 1px 2px #1e302b70}
+.slc-shot-made{background:#216d62}
+.slc-shot-current{width:18px;height:18px;border:3px solid #fff;outline:2px solid #143a48}
+.slc-court-empty{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+ width:min(75%,390px);display:flex;flex-direction:column;gap:8px;text-align:center;
+ background:rgba(251,248,242,.93);padding:14px 9px;border:1px solid #b8a181;color:#564532}
+.slc-court-empty strong{font:800 11px/1.3 Arial,sans-serif;letter-spacing:1px}
+.slc-court-empty span{font:400 11px/1.4 Arial,sans-serif}
 .slc-court-label{position:absolute;left:0;right:0;bottom:5px;text-align:center;
  font:800 clamp(6px,1.1vw,9px)/1.3 Arial,sans-serif;letter-spacing:.55px;
  color:#61472b;text-shadow:0 1px 1px #e9d6b2}
@@ -68,10 +70,27 @@
  .slc-head small{font-size:8px}
  .slc-head>b{font-size:9px}
  .slc-teams{font-size:9px}
- .slc-ball{width:20px;height:20px}
+ .slc-shot{width:10px;height:10px}
+ .slc-shot-current{width:16px;height:16px}
+ .slc-court-empty{width:83%;padding:9px 7px}
+ .slc-court-empty strong{font-size:9px}
+ .slc-court-empty span{font-size:9px}
  .slc-now strong{font-size:13px}
  .slc-feed>ol{max-height:190px}
  .slc-feed li button{padding:9px 10px}
  .slc-note{font-size:9px}
 }
-@media(prefers-reduced-motion:reduce){.slc-ball{transition:none!important}}
+/* Radio remains on its rights-holder's site, not embedded or copied. */
+.slc-audio{display:flex;flex-direction:column;gap:9px;border-top:1px solid #d5ddd7;
+ background:#f5f7f4;padding:13px 15px}
+.slc-audio>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.slc-audio strong{font:800 11px Arial,sans-serif;letter-spacing:.55px;color:#20434b}
+.slc-audio small{font:500 10px Arial,sans-serif;color:#667979}
+.slc-audio-links{display:flex;gap:9px;flex-wrap:wrap}
+.slc-audio-links a{font:800 11px Arial,sans-serif;text-decoration:none;color:#205563;
+ border:1px solid #bccdc8;padding:8px 11px;background:#fff}
+.slc-audio-links a:hover{background:#e9f1ed;text-decoration:underline}
+.slc-audio-links a:focus-visible{outline:3px solid #aa7846;outline-offset:2px}
+.slc-audio p{font:400 10px/1.5 Arial,sans-serif;color:#6a7776;margin:0}
+@media(max-width:740px){.slc-audio{padding:10px}.slc-audio-links a{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.slc-shot{transition:none!important}}
