@@ -71,5 +71,33 @@ class D2OfficialLogoTests(unittest.TestCase):
         self.assertEqual(teams["x"]["slug"], "")
 
 
+    def test_cal_state_renames_match_only_unique_cities(self):
+        import tempfile, json
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as td:
+            p=Path(td)
+            (p/"d2-men-2026-27.json").write_text(json.dumps({"teams":[
+                {"name":"Cal State Dominguez Hills","city":"Carson",
+                 "slug":"cal-st-dom-hills","logo_source":"NCAA schools index"},
+                {"name":"Wrong School","city":"Los Angeles",
+                 "slug":"wrong","logo_source":"NCAA schools index"},
+                {"name":"Cal State Los Angeles","city":"Los Angeles",
+                 "slug":"cal-st-la","logo_source":"NCAA schools index"}
+            ]}))
+            women={
+                "safe":{"name":"California State University, Dominguez Hills",
+                        "city":"Carson","slug":""},
+                "ambiguous":{"name":"California State University, Los Angeles",
+                             "city":"Los Angeles","slug":""},
+                "wrong_city":{"name":"Cal State Dominguez Hills",
+                              "city":"San Bernardino","slug":""}
+            }
+            with patch.object(builder,"DATA",p):
+                results=builder.seed_cross_gender_logos("women",women)
+        self.assertEqual(results["added"],1)
+        self.assertEqual(women["safe"]["slug"],"cal-st-dom-hills")
+        self.assertFalse(women["ambiguous"]["slug"])
+        self.assertFalse(women["wrong_city"]["slug"])
+
 if __name__ == "__main__":
     unittest.main()

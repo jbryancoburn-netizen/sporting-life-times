@@ -252,38 +252,47 @@ def seed_official_logos(teams):
 
 
 def seed_cross_gender_logos(gender,teams):
-    """Reuse an NCAA-confirmed institutional SVG across men's and women's desks.
+    """Share the same NCAA institution's SVG, even across published name styles.
 
-    Require matching school city plus one unambiguous normalized name substring.
-    A name-only fuzzy match is not sufficient, and no unmatched logo is guessed.
+    Requires a UNIQUE DII program in the same city in the other-gender
+    registry, and an independently matching distinctive school-name token.
+    Never borrow an emblem from a different school in a multi-school city.
     """
     counterpart="women" if gender=="men" else "men"
     file=DATA/f"d2-{counterpart}-2026-27.json"
-    if not file.exists():return {"added":0,"status":"other-gender directory unavailable"}
+    if not file.exists():return {"added":0,"status":"counterpart unavailable"}
     other=json.loads(file.read_text()).get("teams",[])
     by_city={}
     for t in other:
         city=normalize_school_name(t.get("city"))
-        if city and t.get("slug") and "NCAA schools index" in t.get("logo_source",""):
-            by_city.setdefault(city,[]).append(t)
-    assigned=0
+        if city:by_city.setdefault(city,[]).append(t)
+
+    def school_tokens(value):
+        plain=unicodedata.normalize("NFKD",str(value or "")).encode("ascii","ignore").decode("ascii").lower()
+        bits=re.findall(r"[a-z0-9]+",plain)
+        common={"university","college","state","school","north","south",
+                "eastern","western","northern","southern","the","and",
+                "saint","pennsylvania","georgia","california","texas"}
+        return {v for v in bits if len(v)>=4 and v not in common}
+
+    added=0
     for t in teams.values():
         if t.get("slug"):continue
         city=normalize_school_name(t.get("city"))
-        short=normalize_school_name(t.get("name"))
-        if not city or len(short)<6:continue
-        potential=[]
-        for other_team in by_city.get(city,[]):
-            name=normalize_school_name(other_team.get("name"))
-            if len(name)<6:continue
-            if name in short or short in name:
-                potential.append(other_team)
-        if len(potential)==1:
-            t["slug"]=potential[0]["slug"]
-            t["logo_source"]="NCAA schools index via uniquely identified counterpart basketball program"
-            assigned+=1
-    return {"added":assigned,"method":"same institution, uniquely matched name and city"}
-
+        alternatives=by_city.get(city,[]) if city else []
+        if len(alternatives)!=1:continue
+        candidate=alternatives[0]
+        if not candidate.get("slug") or "NCAA schools index" not in candidate.get("logo_source",""):
+            continue
+        left=normalize_school_name(t.get("name"))
+        right=normalize_school_name(candidate.get("name"))
+        overlapping=school_tokens(t.get("name")) & school_tokens(candidate.get("name"))
+        same_name=(len(left)>=6 and len(right)>=6 and (left in right or right in left))
+        if not same_name and not overlapping:continue
+        t["slug"]=candidate["slug"]
+        t["logo_source"]="NCAA schools index via uniquely matched DII institution, city and school name"
+        added+=1
+    return {"added":added,"method":"unique same-city school with matching distinctive institutional name"}
 
 def nonwhite_color(value):
     """Valid, visible hexadecimal palette color; pure/near-white is not a ring."""
