@@ -37,6 +37,17 @@
   const today=()=>localDay(new Date());
   const fmt=s=>{const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time TBA';};
   const dayLabel=s=>new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'short',month:'short',day:'numeric'});
+  // A midnight fallback in the season calendar is a date, not a confirmed tip.
+  // Preserve printed university times without silently converting their local zones.
+  const gameWhen=g=>{
+    const d=localDay(g.date),label=d?dayLabel(d):'Date TBA';
+    if(g.status==='live'||g.status==='final'||g.completed)return fmt(g.date);
+    if(g.tipoff_disputed)return label+' · Tipoff disputed';
+    const printed=String(g.official_tipoff_local||g.official_tipoff_as_printed||g.official_time_as_printed||g.official_school_time||g.official_time||g.verified_tipoff||'').trim();
+    if(printed&&!/^(TBA|TBD|unknown)$/i.test(printed))return label+' · '+printed+' (source local)';
+    const at=new Date(g.date),midnight=Number.isFinite(+at)&&at.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})==='12:00 AM';
+    return midnight?label+' · Time TBA':fmt(g.date);
+  };
   const head=(k,h)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div></div>';
   const link=id=>'ncaaw-team.html?team='+encodeURIComponent(id);
   let ratings=null,teams=new Map(),games=new Map(),live=new Map(),selected='',manualDate=false,busy=false;
@@ -56,8 +67,8 @@
     let forecast='';
     if(!score(g)&&h&&a){const edge=g.neutral?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
     const status=g.status==='review'?'Source conflict · score withheld':g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
-    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+fmt(g.date)+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
-       (g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
+    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+esc(gameWhen(g))+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
+       (g.tipoff_disputed?'<div class="wbb-game-detail wbb-tipoff-dispute">University or organizer tipoff disagreement; start time is not confirmed.</div>':'')+(g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
        '<a class="wbb-game-source" href="'+safe(/^\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
   }
   function allGames(){const result=new Map(games);for(const [id,g] of live){const prior=result.get(id);result.set(id,{...prior,...g,broadcast:prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast)});}return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
@@ -81,7 +92,7 @@
   async function refresh(){
     if(busy)return;busy=true;
     try{
-      const [r,master,ledger,news,officialTV,wire]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),get('data/mbb-live.json').catch(()=>null)]);
+      const [r,master,ledger,news,officialTV,wire,tipoffDisputes]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),get('data/mbb-live.json').catch(()=>null),get('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null)]);
       if(r?.gender!=='women'||r.season!=='2026-27'||r.model!=='retro-clean-slate'||r.starting_elo!==1500||r.rankings?.length!==363||new Set(r.rankings.map(t=>String(t.team_id))).size!==363||!r.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo)))throw Error('Women’s rating registry failed validation');
       if(master?.gender!=='women'||master.season!=='2026-27'||Object.keys(master.teams||{}).length!==363)throw Error('Women’s season calendar failed validation');
       await window.MBBLogos.ready;ratings=r;teams=new Map(r.rankings.map(t=>[String(t.team_id),t]));games=new Map();
@@ -94,6 +105,13 @@
           if(!row.game_id||!row.broadcast||!/^https:\/\//.test(row.source_url||''))continue;
           const game=games.get(String(row.game_id));
           if(game){game.broadcast=row.broadcast;game.broadcast_verified=true;}
+        }
+      }
+      // Contradictory university tipoffs remain disputed, never silently promoted.
+      if(tipoffDisputes?.season==='2026-27'&&Array.isArray(tipoffDisputes.games)){
+        for(const issue of tipoffDisputes.games){
+          const game=games.get(String(issue.game_id));
+          if(game)game.tipoff_disputed=true;
         }
       }
       const conferences=[...new Set(r.rankings.map(t=>t.conference).filter(Boolean))].sort();
