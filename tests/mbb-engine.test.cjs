@@ -29,7 +29,7 @@ assert.equal(E.verifiedGames({...published,events:[{...published.events[0],home_
 assert.equal(E.resume([a,b],[{...verified[0],away_score:undefined}])[0].resume.n,0,'scheduled games cannot count as losses');
 const newsCode=fs.readFileSync(__dirname+'/../mbb-newspaper.js','utf8');
 const comparisonCode=fs.readFileSync(__dirname+'/../mbb-selection-comparison.js','utf8');
-assert.match(newsCode,/games=MBBEngine\\.verifiedGames\\(next,ledger\\)/);
+assert(newsCode.includes('games=MBBEngine.verifiedGames(next,ledger)'));
 assert.match(newsCode,/mbb:ratings-updated/);
 assert.match(comparisonCode,/mbb:ratings-updated/);
 console.log('PASS: 76 unique entrants, 32 AQ, 44 at-large, 12 opening games, 64 slots, venue paths, BYU and résumé accounting.');
