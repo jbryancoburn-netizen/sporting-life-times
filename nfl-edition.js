@@ -200,7 +200,7 @@ const remaining=games.filter(g=>g.state!=="post");
 function pick(a,b,home=true){const ra=team(a).elo+(home?(Number(feed.model.home_advantage_elo)||55):0),rb=team(b).elo;return random()<1/(1+Math.pow(10,-(ra-rb)/400))?a:b;}
 for(let i=0;i<count;i++){
 const wins={};feed.teams.forEach(t=>wins[t.id]=t.w+t.t*0.5);
-remaining.forEach(g=>wins[pick(g.home.id,g.away.id)]++);
+remaining.forEach(g=>wins[pick(g.home.id,g.away.id,!g.neutral_site)]++);
 const champs={};
 ["AFC","NFC"].forEach(conf=>{
 const group=feed.teams.filter(t=>t.conference===conf);
