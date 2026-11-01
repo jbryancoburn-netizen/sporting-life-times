@@ -89,7 +89,7 @@ async function start(){
  const {primary,secondary}=window.CFB_DESK.ringColors(team);
  document.documentElement.style.setProperty('--school',primary);document.documentElement.style.setProperty('--school2',secondary);
  document.title=team.displayName+' | The Sporting Life & Times';
- $('team-heading').innerHTML='<div class="team-hero">'+mark(team)+'<div><span class="team-eyebrow">2026 · '+esc(team.conference)+'</span><h1>'+esc(team.displayName)+'</h1><p>'+esc([team.location,team.nickname].filter(Boolean).join(' · ')||team.shortDisplayName||team.displayName)+'</p></div></div>';
+ $('team-heading').innerHTML='<div class="cfb-team-hero">'+mark(team)+'<div><span class="team-eyebrow">2026 · '+esc(team.conference)+'</span><h1>'+esc(team.displayName)+'</h1><p>'+esc([team.location,team.nickname].filter(Boolean).join(' · ')||team.shortDisplayName||team.displayName)+'</p></div></div>';
  $('team-info').innerHTML=[['University',team.displayName],['Nickname',team.nickname],['Location',team.location],['Abbreviation',team.abbreviation],['Conference',team.conference]].map(([k,v])=>'<div class="team-info-row"><span>'+esc(k)+'</span><strong>'+esc(v||'Not published')+'</strong></div>').join('');
  }else {$('team-heading').innerHTML='<h1>Team unavailable in published FBS data</h1>';$('team-info').innerHTML=msg('Choose an FBS team from the College Football front page.')}
  events=normalizeSchedules(snapshot?.feeds?.scoreboard?.data?.events,fixture.status==='fulfilled'?fixture.value.events:[],snapshot?.games);
