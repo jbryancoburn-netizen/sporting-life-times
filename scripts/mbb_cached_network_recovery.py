@@ -139,11 +139,25 @@ def recover():
     for owner in changed:
         path, doc = docs[owner]
         path.write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n")
+    # Final audit is calculated AFTER all offline recovery updates, rather than
+    # reporting pre-recovery counts from the earlier reciprocal-source step.
+    post = collections.Counter()
+    for _, doc in docs.values():
+        for game in doc.get("events", []):
+            post["game_entries"] += 1
+            if not CLOCK.fullmatch(str(game.get("official_school_time") or "").strip()) and not CLOCK.fullmatch(str(game.get("official_time") or "").strip()):
+                post["missing_tipoff"] += 1
+            comp = (game.get("competitions") or [{}])[0]
+            if not (comp.get("broadcasts") or game.get("broadcasts") or game.get("broadcast")):
+                post["missing_broadcast"] += 1
+            if game.get("site_verified") is not True:
+                post["site_unverified"] += 1
     report = {
         "season": "2026-27",
         "summary": {"schools_scanned": len(docs), "schools_changed": len(changed),
                     "game_records_changed": len(set((x["school_id"], x["event_id"]) for x in changes)),
-                    **dict(counts), "evidence_game_keys": len(evidence), "evidence_skipped": dict(skipped)},
+                    **dict(counts), "evidence_game_keys": len(evidence), "evidence_skipped": dict(skipped),
+                    "final_field_audit": dict(post)},
         "policy": "Exact date/two-team-ID matching; verified official sources only; no replacement of existing network or tipoff; disagreements logged.",
         "changes": changes, "conflicts": conflicts,
     }
@@ -151,7 +165,8 @@ def recover():
     manifest = DATA / "mbb-official-recheck-365-verification.json"
     if manifest.exists():
         existing = json.loads(manifest.read_text())
-        existing["saved_broadcast_recovery"] = report["summary"]
+        existing["saved_broadcast_recovery"] = report
+        existing["final_field_audit"] = dict(post)
         manifest.write_text(json.dumps(existing, indent=2) + "\n")
     print(json.dumps(report["summary"], indent=2))
     return report["summary"]
