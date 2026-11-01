@@ -38,10 +38,14 @@ function ringColors(t){const primary=color(t?.color)||color(t?.primary)||'#203b4
 }
 /* The only ring painter for the entire CFB edition: two SVG bands, no CSS border layers. */
 function ringArtwork(primary,secondary){return '<svg class="cfb-ring-art" viewBox="0 0 100 100" focusable="false" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="'+primary+'"/><circle cx="50" cy="50" r="44" fill="'+secondary+'"/><circle cx="50" cy="50" r="38" fill="#fff"/></svg>'}
-function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'">'+ringArtwork(primary,secondary)+'<img data-slt-mark-state="cfb-owned" loading="lazy" alt="" src="'+esc(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png')+'"></span>'}
+function logoInitials(t){const abbr=String(t?.abbreviation||t?.abbr||'').trim();if(abbr)return abbr.slice(0,4).toUpperCase();const name=String(t?.name||t?.shortDisplayName||t?.full||t?.displayName||'TEAM').trim().replace(/\([^)]*\)/g,'');return (name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('')||'T').toUpperCase()}
+function imageMarkup(url,t){return '<span class="cfb-logo-fallback" aria-hidden="true">'+esc(logoInitials(t))+'</span><img data-cfb-logo="1" loading="eager" decoding="async" alt="" src="'+esc(url)+'">'}
+document.addEventListener('load',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1')img.previousElementSibling?.classList?.add('is-hidden')},true);
+document.addEventListener('error',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1'){img.classList?.add('is-failed');img.previousElementSibling?.classList?.remove('is-hidden')}},true);
+function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png',t)+'</span>'}
 const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
 const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
 const ranked=a=>[...a].filter(t=>Number.isFinite(rating(t))).sort((a,b)=>rating(b)-rating(a)||a.id.localeCompare(b.id));
 let lastLoad=Date.now(),promise=load();
-window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,crest,link,rating,ranked};
+window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked};
 })();
