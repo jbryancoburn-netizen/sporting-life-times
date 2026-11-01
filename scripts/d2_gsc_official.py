@@ -18,7 +18,10 @@ STREAM_SOURCE="https://gscsports.org/news/2026/9/23/gsc-announces-2026-27-mens-a
 HOST_VERIFIED={
     ("2027-01-21","mississippi-christian","christian-brothers"):{
         "start_time":"8:00 PM ET","venue":"Canale Arena · Memphis, TN",
-        "source_url":"https://cbubucs.com/sports/mens-basketball/schedule"}
+        "source_url":"https://cbubucs.com/sports/mens-basketball/schedule"},
+    ("2026-12-17","auburn-university-at-montgomery","university-of-alabama-in-huntsville"):{
+        "start_time":"6:30 PM ET","venue":"SportsMED Arena in Spragins Hall · Huntsville, AL",
+        "source_url":"https://uahchargers.com/sports/womens-basketball/schedule/2026-27?grid=true"}
 }
 SCHOOLS={
     3075:("UAH","alabama-huntsville"),
@@ -239,6 +242,15 @@ def reconcile_schedules(school_records,known_games,teams,today):
             else:
                 audit["time_conflicts"]+=1
                 if len(audit["conflicts"])<25:audit["conflicts"].append({"date":date,"away":away,"home":home,"issue":"different posted tipoffs"})
+        elif len(times)==0 and key in HOST_VERIFIED:
+            # Two conference schedules confirm the matchup but contain an
+            # obvious AM/PM typo. Use the host school's game-specific posting.
+            resolved=HOST_VERIFIED[key]
+            target["start_time"]=resolved["start_time"]
+            target["tipoff_source_url"]=resolved["source_url"]
+            target["venue"]=resolved["venue"]
+            target["venue_source_url"]=resolved["source_url"]
+            audit["host_verified_resolutions"]+=1
         # Venue name is NOT available from composite conference tables.
         # A neutral location/city string is useful, but not certified as an arena.
         target["network"]="FloCollege"
@@ -270,6 +282,46 @@ def enrich_gsc(games,teams,today,gender="men"):
                 "verified_schedules":len(records),"errors":failures,
                 "new_games":0,"confirmed_matchups":0}
     audit=reconcile_schedules(records,games,teams,today)
+    if gender=="women":
+        # GSC's January 2 women's schedule dates are misprinted "1/2-2/2027"
+        # on BOTH conference pages. Two universities' own schedules confirm
+        # the real date and pairing, while their posted tipoffs disagree.
+        # Use the host Christian Brothers game-specific time and venue.
+        date="2027-01-02"
+        away="university-of-alabama-in-huntsville"
+        home="christian-brothers-university"
+        one=[g for g in games.values() if g.get("date")==date and {g.get("away"),g.get("home")}=={away,home}]
+        if len(one)>1 or (one and (one[0]["away"],one[0]["home"])!=(away,home)):
+            audit["ambiguous"]+=1
+            if len(audit["conflicts"])<25:
+                audit["conflicts"].append({"date":date,"away":away,"home":home,
+                                           "issue":"host-verified exception conflicts with NCAA identity"})
+        elif one or date>=today.isoformat():
+            if one:
+                game=one[0]
+            else:
+                ident="gsc-2026-27-"+date+"-"+away+"-"+home
+                game={"id":ident,"date":date,"away":away,"home":home,
+                      "away_score":None,"home_score":None,"status":"scheduled",
+                      "verified":True,"elo_eligible":True,"neutral":False,
+                      "source":"Two official university athletics schedules (GSC date typo)",
+                      "source_url":"https://cbubucs.com/sports/womens-basketball/schedule/2026-27?grid=true"}
+                games[ident]=game
+                audit["new_games"]+=1
+            game.update({"start_time":"6:00 PM ET","network":"FloCollege",
+                         "broadcast_type":"Streaming (subscription)",
+                         "broadcast_source_url":STREAM_SOURCE,
+                         "conference_game":True,"venue":"Canale Arena · Memphis, TN",
+                         "venue_city":"Memphis, TN","neutral":False,
+                         "venue_source_url":"https://cbubucs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+                         "tipoff_source_url":"https://cbubucs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+                         "official_schedule_sources":[
+                             "https://cbubucs.com/sports/womens-basketball/schedule/2026-27?grid=true",
+                             "https://uahchargers.com/sports/womens-basketball/schedule/2026-27?grid=true"]})
+            audit["host_date_corrections"]=1
+            audit["confirmed_matchups"]+=1
+            audit["documented_guest_time_disagreement"]=1
+
     audit["status"]="published with unmatched games quarantined"
     audit["source"]="Gulf South Conference 2026-27 official school schedules (both teams)"
     audit["stream_source"]=STREAM_SOURCE
