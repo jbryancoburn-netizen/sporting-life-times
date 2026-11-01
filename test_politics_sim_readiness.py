@@ -6,8 +6,15 @@ class ReadinessTests(unittest.TestCase):
         d=build({})
         self.assertEqual(d["status"],"NOT_READY_FOR_PUBLIC_PREDICTIONS")
         self.assertFalse(d["house_forecast_ready"])
-        self.assertEqual(d["counts"]["missing"],15)
+        self.assertEqual(d["counts"]["missing"],16)
         self.assertEqual(d["certified_original_probability_count"],0)
+    def test_new_older_returns_remain_partial(self):
+        d=build({"archive":{"status":"ok","house":[{"id":str(i)} for i in range(1300)],
+                             "senate":[{"id":str(i)} for i in range(80)]}})
+        archival=next(x for x in d["checks"] if x["id"]=="2012_2016_historical_source_archive")
+        self.assertEqual(archival["state"],"partial")
+        self.assertFalse(d["house_forecast_ready"])
+
     def test_even_full_primary_data_does_not_certify_forecast(self):
         d=build({
             "history":{"winner_party_totals_reconciled":True},
