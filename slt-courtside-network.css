@@ -91,3 +91,18 @@ body[data-page="home"]:has(.slt-courtside-network) .cbb-gender-bar{display:none!
  .slt-league-copy b{font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){.slt-network-links>a{transition:none}}
+
+/* MOBILE EDITORIAL FOLIO — slim secondary directory under the real newspaper masthead. */
+@media(max-width:700px){
+ .slt-courtside-network{margin:3px 0 8px!important}
+ .slt-network-brand{padding:5px 10px!important;min-height:0!important;border-bottom:1px solid #cdd0c9}
+ .slt-network-title{gap:0}
+ .slt-network-title small,.slt-network-title>span{display:none!important}
+ .slt-network-title strong{font:700 20px/1.15 Georgia,'Times New Roman',serif!important;
+  color:#223b44!important;letter-spacing:-.5px}
+ .slt-network-links>a{min-height:41px!important;padding:5px 10px!important}
+ .slt-league-image{width:28px!important;height:28px!important;flex-basis:28px!important}
+ .slt-league-image img{max-width:25px!important;max-height:25px!important}
+ .slt-league-copy small{display:none!important}
+ .slt-league-copy b{font-size:10px!important}
+}
