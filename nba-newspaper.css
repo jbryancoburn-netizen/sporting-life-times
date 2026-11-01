@@ -695,3 +695,17 @@ body.nba-newspaper[data-page="matchups"] .rabby-v2-game-link{
  body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown>div{padding:7px}
  body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats b{font-size:20px}
 }
+
+
+/* NBA independent rest-context panel: descriptive, no hidden scoring penalty. */
+body.nba-newspaper[data-page="matchups"] .rabby-rest-context{
+ display:grid;gap:4px;background:#e8eeeb;border-left:3px solid #306672;
+ padding:9px 12px;margin:7px 0 13px;
+ color:#2b5059;font:650 11px/1.45 'DM Sans',Arial,sans-serif;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-rest-context>small{
+ font:500 9px/1.45 'DM Sans',Arial,sans-serif;color:#65787a;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-rest-context>small:first-child{
+ font-weight:800;letter-spacing:.04em;color:#285e68;
+}
