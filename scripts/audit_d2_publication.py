@@ -126,6 +126,33 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
     if missing_source:
         warnings.append(f"{missing_source} fixtures have no traceable source URL")
     coverage = q.get("field_coverage") or {}
+    # The 1–2 MB game files contain detailed evidence; export a small,
+    # independently readable source audit for site operators. A verified
+    # match count is NOT a certified entire-conference season.
+    official_sources = {}
+    for source_name, quality_name in (
+        ("GSC fixtures", "official_gsc_schedule_reconciliation"),
+        ("GSC arenas", "official_gsc_venue_evidence"),
+        ("CACC fixtures", "official_cacc_schedule_reconciliation"),
+    ):
+        source = q.get(quality_name) or {}
+        if not source:
+            continue
+        keys = (
+            "status", "gender", "school_schedules", "calendars_read",
+            "schools_read", "confirmed_matchups", "two_school_matches",
+            "new_games", "added", "games_added", "existing_games_enriched",
+            "games_enriched", "enriched", "evidence_rows", "matched",
+            "unmatched", "conflicted", "quarantined", "time_conflicts",
+            "time_disagreements", "unreciprocated", "single_school_only",
+            "source",
+        )
+        small = {k: source[k] for k in keys if k in source and
+                 isinstance(source[k], (str, int, float, bool))}
+        for k in ("errors", "unavailable_calendars", "unavailable", "missing_school_ids", "missing_teams"):
+            if isinstance(source.get(k), list):
+                small[k + "_count"] = len(source[k])
+        official_sources[source_name] = small
     output = {
         "gender": gender,
         "teams": len(teams),
@@ -140,6 +167,7 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         "full_season_date_scan": bool(scan.get("completed")),
         "school_schedule_certified": complete_school_schedules,
         "source_categories": dict(sorted(source_categories.items())),
+        "official_conference_source_audit": official_sources,
         "warnings": warnings,
         "release_errors": errors[:50],
         "release_error_count": len(errors),
