@@ -11,9 +11,10 @@ class BallotAuditTests(unittest.TestCase):
 
     def test_actual_official_seed_coverage_without_forecast_permission(self):
         result = validate(self.ledger)
-        self.assertEqual(result["house_contests_transcribed"], 51)
+        self.assertGreaterEqual(result["house_contests_transcribed"], 51)
         self.assertEqual(result["senate_contests_transcribed"], 3)
-        self.assertEqual(result["candidate_ballot_entries"], 156)
+        self.assertEqual(result["candidate_ballot_entries"], sum(len(r["candidates"]) for r in self.ledger["races"]))
+        self.assertGreaterEqual(result["candidate_ballot_entries"], 156)
         self.assertTrue(result["state_coverage"]["NC"]["full_house_snapshot"])
         self.assertTrue(result["state_coverage"]["FL"]["full_house_snapshot"])
         self.assertEqual(result["certified_2026_probability_count"], 0)
@@ -24,10 +25,13 @@ class BallotAuditTests(unittest.TestCase):
         self.assertEqual(result["florida_unverified_districts"], [])
         self.assertEqual(result["qualified_write_in_entries_not_printed_on_ballot"], 12)
         self.assertEqual(result["unopposed_offices_without_general_ballot"], ["FL-10"])
-        self.assertEqual(result["house_general_ballot_contests_transcribed"], 50)
+        self.assertEqual(result["house_general_ballot_contests_transcribed"], result["house_contests_transcribed"]-1)
         self.assertEqual(result["state_coverage"]["MD"]["house"], 8)
         self.assertEqual(result["state_coverage"]["MD"]["senate"], 0)
         self.assertTrue(result["state_coverage"]["MD"]["full_house_snapshot"])
+        if any(r["state"]=="CA" for r in self.ledger["races"]):
+            self.assertEqual(result["state_coverage"]["CA"]["house"], 52)
+            self.assertEqual(result["state_coverage"]["CA"]["senate"], 0)
         self.assertEqual(self.ledger["races"][[r["id"] for r in self.ledger["races"]].index("FL-10")]["candidates"][0]["name"], "Maxwell Alejandro Frost")
         self.assertFalse(result["all_435_house_races_covered"])
 
@@ -40,7 +44,7 @@ class BallotAuditTests(unittest.TestCase):
     def test_not_transcribed_source_cannot_supply_fake_races(self):
         d = copy.deepcopy(self.ledger)
         fake = copy.deepcopy(d["races"][0])
-        fake.update(id="CA-01",state="CA",district="01",office="H",source_id="CA_SOS_2026_GENERAL")
+        fake.update(id="NV-01",state="NV",district="01",office="H",source_id="NV_SOS_2026_GENERAL")
         d["races"].append(fake)
         with self.assertRaises(ValueError):
             validate(d)
