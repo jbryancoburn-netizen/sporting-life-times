@@ -77,8 +77,8 @@ jobs:
             if ! GIT_EDITOR=true git rebase origin/main; then
               # Preserve this freshly verified snapshot on collisions with
               # another scheduled publisher; never force-push over its work.
-              git checkout --theirs -- data/d2-men-2026-27.json data/d2-women-2026-27.json
-              git add data/d2-men-2026-27.json data/d2-women-2026-27.json
+              git checkout --theirs -- data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json
+              git add data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json
               GIT_EDITOR=true git rebase --continue || { git rebase --abort || true; exit 1; }
             fi
             sleep $((n * 2))
