@@ -106,6 +106,65 @@ def parse_ncaa_crosscheck(payload, espn_events, crosswalk, day):
     return rows, unresolved
 
 
+def official_school_fixtures(root, day):
+    """Index only explicitly source-backed school fixtures; never infer tipoff."""
+    found = {}
+    directory = root/'data/mbb-schedules-2026-27'
+    for path in directory.glob('*.json'):
+        if not path.stem.isdigit():
+            continue
+        try:
+            school = json.loads(path.read_text())
+        except (ValueError, OSError):
+            continue
+        reporter = str(school.get('espn_team_id') or path.stem)
+        for event in school.get('events') or []:
+            if not str(event.get('date') or '').startswith(day):
+                continue
+            if event.get('official_source') is not True or event.get('site_verified') is not True:
+                continue
+            comp = (event.get('competitions') or [{}])[0]
+            members = comp.get('competitors') or []
+            ids = [str((m.get('team') or {}).get('id') or '') for m in members]
+            if len(ids) != 2 or not all(x.isdigit() for x in ids) or ids[0] == ids[1]:
+                continue
+            if reporter not in ids:
+                continue
+            url = event.get('school_source_url') or school.get('source') or event.get('site_source_url')
+            if not isinstance(url, str) or not url.startswith('https://'):
+                continue
+            key = tuple(sorted(ids, key=int))
+            entry = found.setdefault(key, {'team_ids':list(key),'source_urls':set(),'reporting_schools':set()})
+            entry['source_urls'].add(url)
+            entry['reporting_schools'].add(reporter)
+    return [{'team_ids':row['team_ids'],'source_urls':sorted(row['source_urls'])[:3],
+             'school_confirmations':len(row['reporting_schools'])}
+            for row in found.values()]
+
+
+def women_school_fixtures(root, day):
+    """Only independently checked women's fixture IDs and dates, not inferred scores."""
+    evidence = {}
+    for name in ('ncaaw-2026-27-official-schedule-verifications.json',
+                 'ncaaw-2026-27-additional-official-evidence.json'):
+        path = root/'data'/name
+        if not path.exists():
+            continue
+        doc = json.loads(path.read_text())
+        for row in doc.get('rows', []):
+            gid = str(row.get('game_id') or '')
+            recorded = str(row.get('verified_date') or '')
+            if not gid.isdigit() or recorded not in (day, day[5:]):
+                continue
+            url = row.get('source_url')
+            if not isinstance(url, str) or not url.startswith('https://'):
+                continue
+            record = evidence.setdefault(gid, set())
+            record.add(url)
+    return [{'espn_id':gid,'source_urls':sorted(urls)}
+            for gid, urls in evidence.items()]
+
+
 def main():
     now=dt.datetime.now(dt.timezone.utc).isoformat();old=json.loads(OUT.read_text()) if OUT.exists() else {}
     out={**old,'attempted_at':now,'sources':[]}; articles=[]
@@ -129,6 +188,22 @@ def main():
         out['games']=parse_scores(result);out['scores_updated_at']=now
         out['sources'].append({'source':'ESPN scores','url':score_url,'ok':True})
     except Exception as e:out['sources'].append({'source':'ESPN scores','url':score_url,'ok':False,'error':type(e).__name__})
+    # University athletics calendars are independent dated fixture evidence.
+    # They never certify a live score, final, or an unprinted tipoff time.
+    try:
+        school_rows=official_school_fixtures(ROOT,dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat())
+        women_school_rows=women_school_fixtures(ROOT,dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat())
+        out['school_fixtures']={'day':dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
+            'checked_at':now,'games':school_rows,
+            'source':'verified official university athletics schedules; date/opponent only'}
+        out['women_school_fixtures']={'day':dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
+            'checked_at':now,'games':women_school_rows,
+            'source':'verified individual women university schedule entries; date/opponent only'}
+        out['sources'].append({'source':'Official school fixture evidence','ok':True,
+              'men':len(school_rows),'women':len(women_school_rows)})
+    except Exception as exc:
+        out['sources'].append({'source':'Official school fixture evidence','ok':False,
+                                'error':type(exc).__name__})
     # Official NCAA is the independent first-party ledger; ESPN supplements it.
     # The existing newspaper workflow commits this inside mbb-live.json.
     ncaa_url='https://data.ncaa.com/casablanca/scoreboard/basketball-men/d1/'+dt.datetime.now(ZoneInfo('America/New_York')).strftime('%Y/%m/%d')+'/scoreboard.json'
