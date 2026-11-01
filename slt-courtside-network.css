@@ -1,7 +1,4 @@
-/* THE HARDWOOD / The Sporting Life & Times
- * Original letterpress wordmark and custom basketball-court H.
- * Authentic league marks; never add borders to NCAA team crests.
- */
+/* THE HARDWOOD / text-first newspaper typography, with authentic league logos. No artificial mascot, shield, or target-shaped letter. */
 .slt-courtside-network{
  --hw-navy:#122e3a;--hw-garnet:#8c2330;--hw-paper:#f6f1e7;--hw-brass:#b28c5b;
  box-sizing:border-box;display:grid;grid-template-columns:minmax(320px,390px) minmax(0,1fr);
@@ -11,25 +8,28 @@
  font-family:Arial,Helvetica,sans-serif;isolation:isolate;
 }
 .slt-courtside-network *{box-sizing:border-box}
+/* Intentionally typographic until a genuinely commissioned visual identity is approved. */
 .slt-network-brand{
- display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
- min-width:0;padding:6px 17px 3px;
+ display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+ gap:0;min-width:0;padding:12px 18px 12px 18px;
  color:var(--hw-navy)!important;text-decoration:none!important;
- border-right:1px solid #cec9bd;background:linear-gradient(110deg,#f1eadc,var(--hw-paper));
+ border-right:1px solid #cec9bd;background:#f6f1e7;
 }
-.slt-network-brand:hover{background:#f1e9d8}
-.slt-network-wordmark{
- display:block;max-width:100%!important;width:365px!important;height:auto!important;
- aspect-ratio:1120/230;object-fit:contain!important;flex:none;
- background:transparent!important;border:0!important;border-radius:0!important;
- box-shadow:none!important;padding:0!important;margin:0!important;
+.slt-network-brand:hover{background:#eee8df}
+.slt-network-title{display:flex;flex-direction:column;gap:5px;max-width:100%;min-width:0}
+.slt-network-title small{
+ color:#7b6d60;font:800 8px/1.3 Arial,Helvetica,sans-serif;
+ letter-spacing:1.15px;white-space:normal;
 }
-.slt-network-strap{
- width:100%;display:flex;align-items:center;justify-content:center;gap:7px;
- font:800 8px/1.3 Arial,Helvetica,sans-serif;color:#706858;
- letter-spacing:1.1px;text-align:center;white-space:nowrap;margin:0 0 5px;
+.slt-network-title small span{padding:0 4px;color:#a57c55}
+.slt-network-title strong{
+ font:700 clamp(26px,2.3vw,34px)/1 Georgia,'Times New Roman',serif;
+ letter-spacing:-.8px;color:#132f3c;white-space:nowrap;
 }
-.slt-network-strap i{display:block;height:1px;min-width:12px;flex:1;background:#b8a58b}
+.slt-network-title>span{
+ font:700 8px/1.35 Arial,Helvetica,sans-serif;
+ color:#87715b;letter-spacing:.7px;white-space:normal;
+}
 .slt-network-rail{
  overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;
  scrollbar-color:#baa98d transparent;min-width:0;
@@ -74,8 +74,7 @@ body[data-page="home"]:has(.slt-courtside-network) .cbb-gender-bar{display:none!
 @media(max-width:1220px){
  .slt-courtside-network{grid-template-columns:1fr}
  .slt-network-brand{border-right:0;border-bottom:1px solid #cac3b6;padding:4px 10px 0}
- .slt-network-wordmark{width:350px!important}
- .slt-network-strap{width:min(100%,350px);font-size:7px;letter-spacing:1px}
+ .slt-network-title strong{font-size:30px}
  .slt-network-links>a{min-height:51px;padding:7px 14px;min-width:132px}
  .slt-league-image{flex-basis:33px;width:33px;height:33px}
  .slt-league-image img{max-width:29px!important;max-height:29px!important}
@@ -83,8 +82,8 @@ body[data-page="home"]:has(.slt-courtside-network) .cbb-gender-bar{display:none!
 @media(max-width:600px){
  .slt-courtside-network{margin:7px 0 12px}
  .slt-network-brand{padding:2px 7px 0}
- .slt-network-wordmark{width:min(100%,335px)!important}
- .slt-network-strap{width:min(100%,335px);font-size:6.4px;letter-spacing:.55px;margin-top:-2px;margin-bottom:3px}
+ .slt-network-title strong{font-size:26px}
+ .slt-network-title small{font-size:7px}
  .slt-network-links>a{min-height:47px;min-width:128px;padding:6px 10px;gap:7px}
  .slt-league-image{flex-basis:31px;width:31px;height:31px}
  .slt-league-image img{max-width:27px!important;max-height:27px!important}
