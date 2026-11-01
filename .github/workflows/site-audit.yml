@@ -10,6 +10,8 @@ on:
       - 'scripts/audit_site.py'
       - 'scripts/audit-dual-ring-colors.cjs'
       - 'scripts/audit-mbb-logo-system.cjs'
+      - 'tests/cbb-courtside.test.cjs'
+      - 'assets/*.svg'
   push:
     branches: [main]
     paths:
@@ -20,6 +22,8 @@ on:
       - 'scripts/audit_site.py'
       - 'scripts/audit-dual-ring-colors.cjs'
       - 'scripts/audit-mbb-logo-system.cjs'
+      - 'tests/cbb-courtside.test.cjs'
+      - 'assets/*.svg'
       - '.github/workflows/site-audit.yml'
 permissions:
   contents: read
