@@ -360,7 +360,34 @@
       venue:'',broadcast:'',url:cleanURL(row.source_url||''),neutral:false,
       source:row.source||'NCAA-origin score report',verifiedOfficial:true,linescores:false};
   }
-  function courtDayFeed(day,espn,newsroom){
+  function certifiedArchivedFinals(day,ledger){
+    // The published RETRO final ledger is authoritative for already completed
+    // men’s games. Never convert it into a live feed or infer school identities.
+    if(women||ledger?.season!==season||!Array.isArray(ledger.games))return [];
+    const reverse=new Map([...state.crosswalk].map(([espn,ncaa])=>[String(ncaa),String(espn)]));
+    const official=[];
+    for(const event of ledger.games){
+      if(event.date!==day||!/^espn:\d+$/.test(String(event.id))||
+         !String(event.source||'').includes('NCAA'))continue;
+      const id=String(event.id).slice(5);
+      if(String(event.source_event_id||id)!==id)continue;
+      const aid=reverse.get(String(event.away_id)),hid=reverse.get(String(event.home_id));
+      const a=Number(event.away_score),h=Number(event.home_score);
+      if(!aid||!hid||aid===hid||!Number.isSafeInteger(a)||!Number.isSafeInteger(h)||
+         a<0||h<0||a>500||h>500||a===h)continue;
+      const ar=state.ratings.get(aid),hr=state.ratings.get(hid);
+      const record=normalizeOfficial({
+        id:event.id,espn_id:id,phase:'final',away_id:aid,home_id:hid,
+        away_name:ar?.team||'Away team',home_name:hr?.team||'Home team',
+        away_score:a,home_score:h,date:day,
+        source:'Verified NCAA-origin RETRO final archive'
+      });
+      if(record)official.push({...record,neutral:event.neutral===true,
+        archivedFinal:true,source:'Verified NCAA-origin final · RETRO archive'});
+    }
+    return official;
+  }
+  function courtDayFeed(day,espn,newsroom,ledger){
     // NCAA score evidence is independent of ESPN. Only uniquely resolved
     // school identities may enter this published display.
     const fromEspn=Array.isArray(espn?.events)?espn.events.map(normalizeEvent).filter(Boolean):[];
@@ -369,7 +396,29 @@
     const time=Date.parse(cross?.checked_at||'');
     const fresh=!!cross&&cross.day===day&&Number.isFinite(time)&&
       time<=Date.now()+60000&&Date.now()-time<=90*60000&&Array.isArray(cross.games);
-    const official=fresh?cross.games.map(row=>normalizeOfficial({...row,source:cross.provider||'NCAA-origin score report'})).filter(Boolean):[];
+    // Archived *finals* remain valid after a live crosscheck goes stale;
+    // stale live events must never be treated as current scores.
+    const dated=cross?.day===day&&Number.isFinite(time)&&time<=Date.now()+60000&&Array.isArray(cross.games);
+    const current=dated?cross.games
+      .filter(row=>fresh||row.phase==='final')
+      .map(row=>normalizeOfficial({...row,source:cross.provider||'NCAA-origin score report'})).filter(Boolean):[];
+    const archived=certifiedArchivedFinals(day,ledger);
+    const byId=new Map(current.map(g=>[g.id,g]));
+    for(const proof of archived){
+      const previous=byId.get(proof.id);
+      if(previous&&previous.phase==='final'&&
+          (String(score(previous.away))!==String(score(proof.away))||
+           String(score(previous.home))!==String(score(proof.home)))){
+        byId.set(proof.id,{...proof,disputed:true,
+          source:'NCAA crosscheck conflicts with certified RETRO archive'});
+      }else if(!previous||previous.phase!=='final'){
+        byId.set(proof.id,proof);
+      }else{
+        byId.set(proof.id,{...previous,archivedFinal:true,neutral:proof.neutral,
+          source:'NCAA-origin final · verified RETRO archive'});
+      }
+    }
+    const official=[...byId.values()];
     const games=[];
     for(const ncaa of official){
       let secondary=raw.get(ncaa.id);
@@ -390,11 +439,21 @@
         const a=score(secondary.away),h=score(secondary.home);
         const conflict=secondary.phase==='final'&&a!==null&&h!==null&&
           (Number(a)!==Number(score(ncaa.away))||Number(h)!==Number(score(ncaa.home)));
-        games.push(conflict?{...secondary,disputed:true,phase:'final',away:{...secondary.away,score:null},
-          home:{...secondary.home,score:null},source:'NCAA-origin/ESPN final conflict · score withheld'}:
-          {...secondary,ncaaId:ncaa.ncaaId,phase:'final',away:{...secondary.away,score:score(ncaa.away)},
+        if(ncaa.disputed){
+          games.push({...ncaa,phase:'final',disputed:true,away:{...ncaa.away,score:null},
+            home:{...ncaa.home,score:null},source:'Independent official-final sources disagree · scores withheld'});
+          continue;
+        }
+        // A verified NCAA-origin final outranks a stale ESPN score snapshot.
+        // Keep the correct result, but WITHHOLD ESPN box and play statistics
+        // when ESPN still reports a different total.
+        games.push({...secondary,ncaaId:ncaa.ncaaId,phase:'final',
+          away:{...secondary.away,score:score(ncaa.away)},
           home:{...secondary.home,score:score(ncaa.home)},
-          verifiedOfficial:true,source:'NCAA-origin final · ESPN statistics secondary'});
+          neutral:ncaa.archivedFinal?ncaa.neutral:secondary.neutral,
+          verifiedOfficial:true,statsDisputed:conflict,
+          source:conflict?'NCAA verified final · ESPN score mismatch, secondary stats withheld':
+            'NCAA-origin final · ESPN statistics secondary'});
       }else if(secondary.phase==='live'||secondary.phase==='final'){
         games.push({...secondary,ncaaId:ncaa.ncaaId,source:secondary.phase==='live'?
           'ESPN live scores · NCAA fixture identified':'ESPN final · awaiting NCAA confirmation'});
@@ -512,15 +571,17 @@
       schoolConfirmed,schoolAvailable:!!schoolFresh,conferenceConfirmed,
       networkDisagreements,conferenceAvailable:!!archiveFresh,
       officialAsOf:fresh?cross.checked_at:null,officialUnresolved:fresh?cross.unresolved_games:null,
+      archivedFinals:archived.length,
       espnLive:fromEspn.length>0};
   }
   async function getCourtGames(day){
     const date=day.replaceAll('-','');
-    const [data,newsroom]=await Promise.all([
+    const [data,newsroom,ledger]=await Promise.all([
       fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+date),
-      fetchJSON('data/mbb-live.json')
+      fetchJSON('data/mbb-live.json'),
+      women?Promise.resolve(null):fetchJSON('data/mbb-retro-live-finals.json')
     ]);
-    const result=courtDayFeed(day,data,newsroom);
+    const result=courtDayFeed(day,data,newsroom,ledger);
     if(result.games.length)return {...result,snapshot:false};
     const saved=await fallback();
     return {...result,games:saved,snapshot:true};
