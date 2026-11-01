@@ -3,6 +3,8 @@ import datetime as dt
 import io
 import zipfile
 import unittest
+import os
+from unittest.mock import patch
 from scripts.politics_real_inputs import (
     parse_fec_candidates,parse_fec_financials,parse_census,make_fec,make_census,unzip_tabular
 )
@@ -50,6 +52,10 @@ class RealInputTests(unittest.TestCase):
         head=["NAME","B01003_001E","B19013_001E","B15003_001E","B15003_022E","B15003_023E","B15003_024E","B15003_025E","state","congressional district"]
         row=["Congressional District 1","100000","70000","60000","12000","5000","1000","1000","12","01"]
         with self.assertRaises(ValueError):parse_census([head]+[row]*435)
+    def test_census_requires_secret_and_does_not_use_dummy_data(self):
+        with patch.dict(os.environ,{"CENSUS_API_KEY":""}):
+            with self.assertRaisesRegex(ValueError,"requires a free CENSUS_API_KEY"):
+                make_census(fetch=lambda *args: b"[]")
     def test_census_two_unique_rows(self):
         head=["NAME","B01003_001E","B19013_001E","B15003_001E","B15003_022E","B15003_023E","B15003_024E","B15003_025E","state","congressional district"]
         a=["Congressional District 1","100000","70000","60000","12000","5000","1000","1000","12","01"]

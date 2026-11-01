@@ -10,6 +10,8 @@ import datetime as dt
 import io
 import json
 import math
+import os
+import urllib.parse
 import pathlib
 import re
 import sys
@@ -173,7 +175,13 @@ def parse_census(rows):
 
 def make_census(fetch=get_bytes,now=None):
     now=now or NOW()
-    raw=fetch(CENSUS_URL,3_000_000)
+    # All Census API data queries have required a free API key since May 2026.
+    # The key stays in GitHub Actions secrets, never embedded in the public JSON.
+    key=os.environ.get("CENSUS_API_KEY","").strip()
+    if not key:
+        raise ValueError("Census Bureau now requires a free CENSUS_API_KEY; none is configured in this GitHub Actions run")
+    url=CENSUS_URL+"&key="+urllib.parse.quote(key,safe="")
+    raw=fetch(url,3_000_000)
     try:
         parsed=json.loads(raw)
     except (ValueError,UnicodeDecodeError) as error:
