@@ -90,14 +90,14 @@
   "women": {
     "gender": "women",
     "teams": 298,
-    "games": 3341,
+    "games": 3397,
     "verified_elo_finals": 31,
     "dated_game_days": 101,
-    "no_venue": 3208,
-    "no_network": 3203,
-    "no_tipoff": 79,
+    "no_venue": 3264,
+    "no_network": 3259,
+    "no_tipoff": 135,
     "no_source_url": 0,
-    "schools_without_a_published_game": 21,
+    "schools_without_a_published_game": 18,
     "full_season_date_scan": true,
     "school_schedule_certified": false,
     "source_categories": {
@@ -110,6 +110,7 @@
       "NSIC 2026-27 reciprocal official school calendars": 54,
       "Official university athletics schedule": 1,
       "PSAC 2026-27 reciprocal official school schedules": 22,
+      "RMAC 2026-27 reciprocal official school calendars": 56,
       "Two official university athletics schedules (GSC date typo)": 1,
       "official tournament organizer": 20,
       "official university athletics schedule or recap": 5
@@ -147,9 +148,15 @@
         "unavailable_calendars_count": 0
       },
       "RMAC fixtures": {
-        "status": "RMAC team identity validation incomplete; fixtures held",
-        "added": 0,
-        "enriched": 0
+        "status": "RMAC exact two-school conference fixtures only",
+        "gender": "women",
+        "schools_read": 15,
+        "confirmed_matchups": 150,
+        "added": 56,
+        "enriched": 94,
+        "quarantined": 0,
+        "source": "https://rmacsports.org/schedule.aspx?schedule=",
+        "unavailable_count": 0
       },
       "NSIC fixtures": {
         "status": "NSIC exact two-school 2026-27 conference fixture check",
