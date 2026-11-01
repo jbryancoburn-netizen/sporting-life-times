@@ -179,6 +179,12 @@ function home(){
     '<span class="nfl-p26-forecast-bar" role="img" aria-label="Pregame away '+format(100-percent,0)+' percent, home '+format(percent,0)+' percent"><i style="width:'+(100-percent).toFixed(1)+'%"></i></span>'+
     '<span>'+escapeHtml(h.code)+' '+format(percent,0)+'%</span></div>';
   }
+  if(g.state==='in'&&(g.down_distance||g.last_play)){
+    out+='<div class="nfl-p26-action"><span class="nfl-p26-eyebrow">LIVE DRIVE</span>'+
+      (g.possession?'<b>'+escapeHtml(team(g.possession).code)+' BALL</b>':'')+
+      (g.down_distance?'<strong>'+escapeHtml(g.down_distance)+'</strong>':'')+
+      (g.last_play?'<p>'+escapeHtml(g.last_play)+'</p>':'')+'</div>';
+  }
   out+='<div class="nfl-p26-feature-foot"><span>'+escapeHtml(pre?date(g.date):status(g))+
    (pre&&elo.away_projected_points!=null?' · USRS projected '+elo.away_projected_points+'–'+elo.home_projected_points:'')+
    '</span><a href="'+urlGame(g.id)+'">OPEN GAMEFILE ↗</a></div></div></div>';
