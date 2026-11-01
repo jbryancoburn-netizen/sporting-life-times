@@ -46,6 +46,8 @@ jobs:
           assert b['candidate_ballot_entries']==133
           assert b['florida_unverified_districts']==['10']
           assert b['qualified_write_in_entries_not_printed_on_ballot']==9
+          assert b['unopposed_offices_without_general_ballot']==['FL-10']
+          assert b['house_general_ballot_contests_transcribed']==42
           assert b['fec_identity_matches_verified']==0
           assert b['certified_2026_probability_count']==0
           r=next(c for c in m['checks'] if c['id']=='2026_official_general_election_ballot_roster')
