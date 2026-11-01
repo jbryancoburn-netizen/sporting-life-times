@@ -14,6 +14,18 @@ async function build(){
  const h=elem("strong","NOT YET READY TO PUBLISH INDEPENDENT ODDS","sim-ready-warning");
  const counter=elem("span",d.counts.verified+" verified · "+d.counts.partial+" partial · "+d.counts.missing+" missing","sim-ready-status");
  headline.append(h,counter);node.append(headline);
+ try {
+   const response=await fetch("politics-engine-status.json?v="+Date.now(),{cache:"no-store"});
+   if(response.ok) {
+     const engine=await response.json();
+     if(engine.status==="ENGINE_BUILT_INPUTS_NOT_CERTIFIED"){
+       const panel=elem("aside",null,"sim-engine-panel");
+       panel.append(elem("strong","MONTE CARLO ENGINE BUILT · 2026 FORECAST NOT CERTIFIED"));
+       panel.append(elem("p","The model has seeded simulations with national, state and race-level correlated uncertainty. It intentionally publishes zero 2026 probabilities until real candidate inputs, district geography, and empirical error calibration pass validation.","fine"));
+       node.append(panel);
+     }
+   }
+ }catch{ /* A missing engine status must not hide the original-source readiness audit. */ }
  const p=elem("p","Our evidence inventory tracks primary-source observations, not projections from other forecasters. A 'partial' dataset is NOT cleared for predictive use.","fine");node.append(p);
  const grid=elem("div",null,"sim-ready-grid");
  (d.checks||[]).forEach(c=>{
