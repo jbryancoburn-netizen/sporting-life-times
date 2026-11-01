@@ -1,0 +1,31 @@
+/* Shared CFB snapshot, FBS membership, scoring statistics, and crest identity. */
+(()=>{'use strict';
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const conf=n=>/sun belt/i.test(n)?'Sun Belt':/mid-american/i.test(n)?'MAC':/american/i.test(n)?'American':/atlantic coast/i.test(n)?'ACC':/southeastern/i.test(n)?'SEC':/big ten/i.test(n)?'Big Ten':/big 12/i.test(n)?'Big 12':/mountain west/i.test(n)?'Mountain West':/pac-12/i.test(n)?'Pac-12':/conference usa/i.test(n)?'Conference USA':/independent/i.test(n)?'Independent':n;
+const G6=['American','Conference USA','MAC','Mountain West','Pac-12','Sun Belt'];
+const stat=(e,name)=>e.stats?.find(s=>s.name===name)?.displayValue??null;
+const record=s=>{const m=String(s||'').match(/^(\d+)-(\d+)(?:-(\d+))?$/);return m?{w:+m[1],l:+m[2],t:+(m[3]||0),text:m[0]}:null};
+const pct=r=>r&&(r.w+r.l+r.t)>0?(r.w+r.t/2)/(r.w+r.l+r.t):0;
+function groups(node,parent=null,out=[]){
+ const name=conf(node.name||parent||'');const entries=node.standings?.entries||node.entries;
+ if(entries?.length){let g=out.find(g=>g.name===name);if(!g)out.push(g={name,entries:[]});g.entries.push(...entries)}
+ for(const child of node.children||[])groups(child,name,out);return out;
+}
+const load=()=>fetch('data/cfb-2026-results.json?ts='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(20000)}).then(async r=>{
+ if(!r.ok)throw Error('Results HTTP '+r.status);const p=await r.json();
+ if(p.audit?.season!==2026||!p.audit?.complete||p.audit.games!==p.games?.length||p.audit.errors?.length)throw Error('Results snapshot failed verification');
+ if(!p.feeds?.standings?.data)throw Error('Standings snapshot unavailable');
+ const gs=groups(p.feeds.standings.data),brands=new Map((p.feeds.teams?.data?.sports?.[0]?.leagues?.[0]?.teams||[]).map(x=>[String(x.team.id),x.team]));
+ const teams=new Map();for(const g of gs)for(const e of g.entries){const id=String(e.team.id),b=brands.get(id)||{},t=e.team;teams.set(id,{id,name:t.shortDisplayName||t.displayName,full:t.displayName,conference:g.name,color:b.color,secondary:b.alternateColor,logo:t.logos?.[0]?.href||b.logos?.[0]?.href||'',record:record(stat(e,'overall')),confRecord:record(stat(e,'vs. Conf.')),entry:e})}
+ const scoring=new Map();for(const g of p.games)for(const t of g.teams){const opp=g.teams.find(x=>String(x.id)!==String(t.id));const id=String(t.id);const s=scoring.get(id)||{gp:0,pf:0,pa:0,w:0,l:0};s.gp++;s.pf+=Number(t.score);s.pa+=Number(opp.score);s.w+=t.score>opp.score?1:0;s.l+=t.score<opp.score?1:0;scoring.set(id,s)}
+ for(const [id,s] of scoring){s.ppg=s.pf/s.gp;s.papg=s.pa/s.gp;s.margin=(s.pf-s.pa)/s.gp}
+ return {payload:p,groups:gs,teams,scoring};
+});
+const color=v=>/^[a-f\d]{6}$/i.test(v||'')&&!/^(ffffff|fefefe|fffefa)$/i.test(v)?'#'+v:null;
+function crest(t){const primary=color(t?.color)||'#203b49';let secondary=color(t?.secondary)||'#9c7533';if(primary.toLowerCase()===secondary.toLowerCase())secondary='#777777';return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'"><img data-slt-mark-state="cfb-owned" loading="lazy" alt="" src="'+esc(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png')+'"></span>'}
+const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
+const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
+const ranked=a=>[...a].filter(t=>Number.isFinite(rating(t))).sort((a,b)=>rating(b)-rating(a)||a.id.localeCompare(b.id));
+let lastLoad=Date.now(),promise=load();
+window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,crest,link,rating,ranked};
+})();
