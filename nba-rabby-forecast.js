@@ -29,7 +29,8 @@ function matchup(g,model,ratings){
   '<div class="rabby-v2-label">OFFENSE MATCHED AGAINST OPPONENT DEFENSE</div>'+
   '<div class="rabby-v2-breakdown"><div><small>'+esc(a)+' offensive efficiency</small><b>'+p.awayOffense.toFixed(1)+'</b><small>'+esc(h)+' defensive allowance</small><b>'+p.homeDefense.toFixed(1)+'</b><strong>Matchup: '+p.awayEfficiency.toFixed(1)+'</strong></div>'+
    '<div><small>'+esc(h)+' offensive efficiency</small><b>'+p.homeOffense.toFixed(1)+'</b><small>'+esc(a)+' defensive allowance</small><b>'+p.awayDefense.toFixed(1)+'</b><strong>Matchup: '+p.homeEfficiency.toFixed(1)+'</strong></div></div>'+
-  '<p class="rabby-v2-provenance">Points per 100 possessions · '+esc(a)+' '+p.awayGames+' games, '+esc(h)+' '+p.homeGames+' games · 12-game shrinkage · six-game 2025–26 prior · frozen historical calibration</p>'+warning+link+'</article>';
+  '<p class="rabby-v2-provenance">Points per 100 possessions · '+esc(a)+' '+p.awayGames+' games, '+esc(h)+' '+p.homeGames+' games · 12-game shrinkage · six-game 2025–26 prior · frozen historical calibration</p>'+
+  '<div data-nba-availability-away="'+esc(a)+'" data-nba-availability-home="'+esc(h)+'"></div>'+warning+link+'</article>';
 }
 async function show(){
  if(!window.RabbyPossessionModel||!window.SLTScorebug)throw Error('Shared scoring and scorebug libraries are missing');
