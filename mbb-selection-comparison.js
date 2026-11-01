@@ -100,12 +100,21 @@ function buildTournament(app,teams,games,polls){
   new Set(retro.rankings.map(t=>t.team_id)).size===365&&retro.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
  // The comparison must use the same team-only RETRO ratings as the main USRS desk.
  if(!valid||!window.MBBEngine?.verifiedGames)return;
- const teams=retro.rankings;
- const games=MBBEngine.verifiedGames(retro,ledger);
+ let teams=retro.rankings;
+ let games=MBBEngine.verifiedGames(retro,ledger);
  const render=()=>{const app=document.getElementById('app');if(!app||app.querySelector('#conference-tournament-watch,#committee-vs-elo'))return false;
  if(document.body.dataset.page==='conference'){const c=new URLSearchParams(location.search).get('conference');if(!c||!app.querySelector('.grid.two'))return false;buildConference(app,teams,games,c);}
  else{if(!app.querySelector('#field'))return false;buildTournament(app,teams,games,polls);}
  return true;};
+ window.addEventListener('mbb:ratings-updated',async()=>{
+  const [fresh,latestLedger]=await Promise.all(['data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-game-ledger.json'].map(fetchJSON));
+  const approved=fresh?.season==='2026-27'&&fresh.model==='retro-clean-slate'&&fresh.starting_elo===1500&&fresh.rankings?.length===365&&
+    new Set(fresh.rankings.map(t=>t.team_id)).size===365&&fresh.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
+  if(!approved)return;
+  teams=fresh.rankings;
+  games=MBBEngine.verifiedGames(fresh,latestLedger);
+  render();
+ });
  if(render())return;const observer=new MutationObserver(()=>{if(render())observer.disconnect()});observer.observe(document.getElementById('app'),{childList:true,subtree:false});setTimeout(()=>observer.disconnect(),20000);
 })().catch(e=>console.error('MBB comparison desk:',e));
 })();

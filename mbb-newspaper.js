@@ -252,9 +252,10 @@ async function refreshRatings(){
  const scheduleChanged=up&&JSON.stringify(up.games)!==JSON.stringify(schedule?.games);
  if(up)schedule=up;
  if(!changed&&!scheduleChanged)return;
- if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')games=log.games||[];projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
+ if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')ledger=log;games=MBBEngine.verifiedGames(next,ledger);projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
  const scroll=window.scrollY,query=$('#team-search')?.value,opponent=$('#opponent')?.value,conf=$('#conf-pick')?.value;
  if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){ /* Keep the existing team DOM and its complete schedule intact on RETRO refresh. */ const ratingNodes=$('#app .metrics'); if(ratingNodes)ratingNodes.dataset.eloUpdated=String(Date.now()); }else if(page==='tournament')tournament();
+ if(changed)window.dispatchEvent(new Event('mbb:ratings-updated'));
  if(query&&$('#team-search')){$('#team-search').value=query;$('#team-directory').innerHTML=directory(query)}
  if(conf&&$('#conf-pick')){$('#conf-pick').value=conf;$('#conf-pick').dispatchEvent(new Event('change'))}
  if(opponent&&$('#opponent')){$('#opponent').value=opponent;$('#opponent').dispatchEvent(new Event('change'))}
