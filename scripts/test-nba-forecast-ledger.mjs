@@ -6,7 +6,7 @@ import {readFileSync} from 'node:fs';
 import {updateLedger,validate,metrics} from './update-nba-forecast-ledger.mjs';
 const read=p=>JSON.parse(readFileSync(new URL('../data/'+p,import.meta.url),'utf8'));
 const fixture={
- schedule:{games:[
+ schedule:{updated_at:'2099-11-01T19:00:00.000Z',games:[
   {id:'synthetic-bos-orl',date:'2099-11-01T20:30:00Z',state:'pre',teams:[{home_away:'away',code:'BOS'},{home_away:'home',code:'ORL'}]},
   {id:'synthetic-bkn-ind',date:'2099-11-01T22:00:00Z',state:'pre',teams:[{home_away:'away',code:'BKN'},{home_away:'home',code:'IND'}]},
   {id:'synthetic-lac-gsw',date:'2099-11-02T01:30:00Z',state:'pre',teams:[{home_away:'away',code:'LAC'},{home_away:'home',code:'GSW'}]},
@@ -29,7 +29,8 @@ test('NBA prospectively freezes both phases and never rewrites forecasts',()=>{
  assert.equal(b.added,0);
  assert.equal(b.changed,false);
  assert.deepEqual(b.ledger.forecasts,a.ledger.forecasts);
- const c=updateLedger(b.ledger,fixture,'2099-11-01T20:15:00.000Z');
+ const nextSource=clone(fixture);nextSource.schedule.updated_at='2099-11-01T20:10:00.000Z';
+ const c=updateLedger(b.ledger,nextSource,'2099-11-01T20:15:00.000Z');
  assert.equal(c.added,1,'Brooklyn at Indiana now inside near-tipoff window');
  // Assert matchup identity rather than depending on a specific provider ID.
  const bkn=c.ledger.forecasts.filter(x=>x.away==='BKN'&&x.home==='IND');
@@ -51,7 +52,7 @@ test('Refuse fabricated retrospective predictions, and score only recorded games
  finished.earned.events.push({id:first.id,date:first.date,home:first.home,away:first.away,
   home_score:110,away_score:107});
  finished.earned.games_played+=1;
- const final=updateLedger(pre.ledger,finished,'2099-11-01T21:05:00.000Z');
+ const final=updateLedger(pre.ledger,finished,'2099-11-01T22:05:00.000Z');
  assert.equal(final.graded,1);
  for(const original of before){
   const archived=final.ledger.forecasts.find(x=>x.id===original.id&&x.phase===original.phase);
@@ -59,7 +60,7 @@ test('Refuse fabricated retrospective predictions, and score only recorded games
  }
  assert.equal(final.ledger.results[first.id].home_score,110);
  assert.equal(final.ledger.metrics.near_tipoff.sample,1);
- const repeat=updateLedger(final.ledger,finished,'2099-11-01T21:06:00.000Z');
+ const repeat=updateLedger(final.ledger,finished,'2099-11-01T22:06:00.000Z');
  assert.equal(repeat.graded,0,'Already graded game may not be modified');
  assert.deepEqual(repeat.ledger.results,final.ledger.results);
 });
@@ -94,4 +95,43 @@ test('NBA and ESPN game IDs can reconcile only with exact official final teams, 
  const wrongDay=clone(alternate);
  wrongDay.stats.games[0].date='2026-10-01T00:00:00Z';
  assert.throws(()=>updateLedger(null,wrongDay,now),/Possession data not reconcilable/);
+});
+
+test('Stale schedule prevents new forecasts but still permits independently verified final grading',()=>{
+ const before=updateLedger(null,fixture,now);
+ const stale=clone(fixture);stale.schedule.updated_at='2099-11-01T10:00:00Z';
+ const fromScratch=updateLedger(null,stale,now);
+ assert.equal(fromScratch.added,0,'No predictions based on an out-of-date fixture ledger');
+ assert.equal(fromScratch.skippedStale,4);
+ assert.equal(fromScratch.ledger.forecasts.length,0);
+ const completed=clone(stale),forecast=before.ledger.forecasts.find(f=>f.phase==='near_tipoff');
+ completed.earned.events.push({id:forecast.id,date:forecast.date,home:forecast.home,away:forecast.away,home_score:123,away_score:111});
+ completed.earned.games_played++;
+ const graded=updateLedger(before.ledger,completed,'2099-11-01T22:30:00.000Z');
+ assert.equal(graded.graded,1);
+ assert.equal(graded.added,0);
+});
+test('Confirmed reschedules quarantine forecasts without revising them or blocking other games',()=>{
+ const before=updateLedger(null,fixture,now);
+ const changed=clone(fixture);changed.schedule.updated_at='2099-11-01T20:10:00.000Z';
+ changed.schedule.games[0].date='2099-11-02T20:30:00Z';
+ const after=updateLedger(before.ledger,changed,'2099-11-01T20:15:00.000Z');
+ assert.equal(after.flagged,1);
+ assert.equal(after.ledger.exceptions['synthetic-bos-orl'].reason,'schedule_changed');
+ assert.deepEqual(after.ledger.forecasts.find(f=>f.id==='synthetic-bos-orl'),before.ledger.forecasts.find(f=>f.id==='synthetic-bos-orl'));
+ assert(after.ledger.forecasts.some(f=>f.away==='BKN'&&f.phase==='near_tipoff'),'Other games still processed');
+ const finished=clone(changed);
+ finished.earned.events.push({id:'synthetic-bos-orl',date:'2099-11-02T20:30:00Z',away:'BOS',home:'ORL',home_score:113,away_score:107});
+ finished.earned.games_played++;
+ const graded=updateLedger(after.ledger,finished,'2099-11-02T23:00:00.000Z');
+ assert.equal(graded.graded,0,'Rescheduled game cannot be graded against superseded pregame expectations');
+ assert.equal(graded.ledger.metrics.near_tipoff.sample,0);
+});
+test('Future Elo results never enter a forecast recorded as historical pregame',()=>{
+ const leaked=clone(fixture);
+ leaked.earned.events.push({id:'future-game',date:'2099-11-01T20:30:00Z',away:'CHI',home:'MIA',home_score:111,away_score:95});
+ leaked.earned.games_played++;
+ const created=updateLedger(null,leaked,now);
+ assert.equal(created.added,0,'Contaminated Elo blocks new snapshot captures');
+ assert.equal(created.skippedStale,4);
 });
