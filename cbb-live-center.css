@@ -201,3 +201,8 @@
 .cbb-gamefile-score .cbb-name small{color:#bacbd1!important}
 .cbb-gamefile-score .cbb-team-identity{color:#f6f7f5}
 .cbb-gamefile-score .cbb-points{color:#fff}
+
+/* Every Courtside card identifies the evidence actually displayed. */
+.cbb-game-origin{font:600 10px/1.35 Arial,sans-serif;color:#496674;letter-spacing:.1px;padding:5px 11px 8px;border-top:1px solid #dbe5e5;overflow-wrap:anywhere}
+.cbb-game-card.cbb-live .cbb-game-origin{color:#235c68}
+.cbb-game-card .cbb-game-origin:empty{display:none}
