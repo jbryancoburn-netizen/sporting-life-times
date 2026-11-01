@@ -76,7 +76,20 @@ class BallotAuditTests(unittest.TestCase):
         self.assertEqual(set(r["id"] for r in ia),{"IA-01","IA-02","IA-03","IA-04"})
         self.assertEqual(sum(len(r["candidates"]) for r in ia),11)
         self.assertEqual(sum(c.get("ballot_label")=="No Party" for r in ia for c in r["candidates"]),2)
-        self.assertEqual(audit["house_contests_transcribed"],149)
+        self.assertGreaterEqual(audit["house_contests_transcribed"],149)
+
+    def test_rhode_island_ballot_placement_slate_is_not_a_primary_filing_roll(self):
+        audit=validate(self.ledger)
+        self.assertEqual(audit["house_contests_transcribed"],151)
+        self.assertEqual(audit["state_coverage"]["RI"]["house"],2)
+        self.assertTrue(audit["state_coverage"]["RI"]["full_house_snapshot"])
+        ri={r["id"]:r for r in self.ledger["races"] if r["state"]=="RI"}
+        self.assertEqual(set(ri),{"RI-01","RI-02"})
+        self.assertEqual([c["party"] for c in ri["RI-01"]["candidates"]],["DEM","IND","REP"])
+        self.assertEqual([c["party"] for c in ri["RI-02"]["candidates"]],["DEM","REP"])
+        self.assertEqual(len(ri["RI-01"]["candidates"]),3)
+        self.assertEqual(len(ri["RI-02"]["candidates"]),2)
+        self.assertEqual(len({c["name"] for r in ri.values() for c in r["candidates"]}),5)
 
     def test_no_duplicate_race(self):
         d = copy.deepcopy(self.ledger)
