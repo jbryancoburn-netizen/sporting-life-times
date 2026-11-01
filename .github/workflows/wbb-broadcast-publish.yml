@@ -16,6 +16,20 @@ concurrency:
   group: wbb-published-broadcasts
   cancel-in-progress: false
 jobs:
+  validate:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm women-only tipoff quarantine is reproducible from cited sources
+        run: |
+          python -m py_compile scripts/wbb-tipoff-quarantine.py
+          python scripts/wbb-tipoff-quarantine.py
+          git diff --exit-code -- data/ncaaw-2026-27-tipoff-quarantine.json
   reconcile:
     # Do not publish an unmerged feature branch to main.
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
