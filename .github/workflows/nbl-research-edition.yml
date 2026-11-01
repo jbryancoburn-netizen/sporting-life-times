@@ -18,7 +18,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: nbl-research-edition
+  group: nbl-data-publication
   cancel-in-progress: false
 jobs:
   publish:
