@@ -355,6 +355,52 @@ def main():
                                              "reason":"university_tipoff_differs_from_current_utc",
                                              "official_time":local+" "+text(row.get("time_zone")),
                                              "current_utc":g.get("date")})
+    # Small, independently reread university sources for previously unmatched
+    # exact games. Keep this separate from the large retained historical ledger.
+    extra_verified=0
+    extra_review=[]
+    extra_path=ROOT/"ncaaw-2026-27-additional-official-evidence.json"
+    if extra_path.exists():
+        extra=load(extra_path)
+        if extra.get("gender")!="women" or extra.get("season")!="2026-27":
+            raise RuntimeError("Wrong sport or season in additional women university sources")
+        for row in extra.get("rows",[]):
+            tid,gid=text(row.get("team_id")),text(row.get("game_id"))
+            matches=[g for t,g in by_game.get(gid,[]) if t==tid]
+            if len(matches)!=1 or not text(row.get("source_url")).startswith("https://"):
+                extra_review.append({"team_id":tid,"game_id":gid,"reason":"missing_exact_game_or_citation"})
+                continue
+            g=matches[0]
+            local=datetime.datetime.fromisoformat(g["date"].replace("Z","+00:00")).astimezone(
+                ZoneInfo("America/New_York")).date().isoformat()
+            if (text(g.get("opponent_id"))!=text(row.get("opponent_id")) or
+                text(g.get("site"))!=text(row.get("verified_site")) or
+                local!=text(row.get("verified_date"))):
+                extra_review.append({"team_id":tid,"game_id":gid,"reason":"opponent_site_or_day_changed"})
+                continue
+            g["official_schedule_verified_fields"]=["scheduled_date","opponent","home_away"]
+            g["official_schedule_source_url"]=row["source_url"]
+            g["official_schedule_source_type"]="official_university_2026_27_womens_schedule_direct"
+            extra_verified+=1
+            venue=text(row.get("verified_venue"))
+            norm=lambda v:re.sub(r"[^a-z0-9]","",text(v).lower())
+            if venue and norm(g.get("venue"))==norm(venue):
+                if not g.get("official_venue_verified"):
+                    official_venue_rows+=1
+                g["official_venue_verified"]=True
+                g["official_venue_name"]=venue
+                g["official_venue_source_url"]=row["source_url"]
+            elif venue:
+                extra_review.append({"team_id":tid,"game_id":gid,"reason":"official_venue_disagrees"})
+            if text(g.get("date"))==text(row.get("verified_tipoff_utc")):
+                if not g.get("official_tipoff_verified"):
+                    official_tipoff_rows+=1
+                g["official_tipoff_verified"]=True
+                g["official_tipoff_source_url"]=row["source_url"]
+                g["official_tipoff_utc"]=row["verified_tipoff_utc"]
+            else:
+                extra_review.append({"team_id":tid,"game_id":gid,"reason":"official_tipoff_disagrees"})
+
     official_school_ids={
         tid for tid,t in cal["teams"].items()
         if any(g.get("official_schedule_source_url") for g in t.get("games",[]))
@@ -363,6 +409,8 @@ def main():
     university_location_count=sum(bool(r.get("source_location_as_printed")) for r in university_index.values())
     audit=load(AUDIT)
     audit.update({
+        "additional_official_university_games_verified":extra_verified,
+        "additional_official_evidence_review":extra_review,
         "official_school_calendar_verified":len(official_school_ids),
         "official_school_schedules_date_and_opponent_checked":len(official_school_ids),
         "official_school_schedule_entries_date_and_opponent_checked":sum(
