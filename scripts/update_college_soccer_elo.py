@@ -265,18 +265,35 @@ def replay(baseline: dict, ledger: dict) -> tuple[dict, dict]:
     return output, audit
 
 
-def update(baseline: dict, ledger: dict, incoming: list[dict]):
+def update(baseline: dict, ledger: dict, incoming: list[dict], verified_exceptions: dict | None = None):
     lookup = validate_ledger(ledger, baseline)
     additions = 0
     conflicts = []
+    verified = []
+    exceptions = verified_exceptions or {}
     for game in incoming:
         if game["date"] <= baseline["as_of"]:
             continue
         key = game["match_id"]
         if key in lookup:
             if lookup[key] != game:
-                conflicts.append({"match_id":key,"ledger":lookup[key],"source":game})
-                continue  # Do not silently rewrite previously published Elo history
+                previous = lookup[key]
+                exception = exceptions.get(key) or {}
+                fields = ("match_id", "gender", "date", "home_team", "away_team", "source_game")
+                expected_original = [previous["home_goals"], previous["away_goals"]]
+                reported = [game["home_goals"], game["away_goals"]]
+                matches = (all(exception.get(field) == previous[field] == game[field] for field in fields)
+                           and exception.get("ledger_score") == expected_original
+                           and exception.get("reported_feed_score") == reported
+                           and str(exception.get("independent_source", "")).startswith("https://")
+                           and exception.get("reviewed_on") and exception.get("explanation"))
+                if matches:
+                    verified.append({"match_id":key, "ledger_score":expected_original,
+                                     "feed_score":reported, "independent_source":exception["independent_source"],
+                                     "reviewed_on":exception["reviewed_on"]})
+                    continue  # Preserve university-verified final; expose the verified source discrepancy.
+                conflicts.append({"match_id":key,"ledger":previous,"source":game})
+                continue  # Any other mismatch fails closed; NEVER silently mutate published Elo history.
         else:
             lookup[key] = game
             additions += 1
@@ -290,8 +307,12 @@ def update(baseline: dict, ledger: dict, incoming: list[dict]):
     audit["new_games_seen"] = additions
     audit["unresolved_source_corrections"] = conflicts
     audit["unresolved_source_correction_count"] = len(conflicts)
+    audit["independently_verified_source_discrepancies"] = verified
+    audit["independently_verified_discrepancy_count"] = len(verified)
     if conflicts:
         audit["status"] = "provisional_conflicted"
+    elif verified:
+        audit["status"] = "provisional_independent_source_verified"
     return result, model, audit
 
 
@@ -326,7 +347,12 @@ def main():
         incoming, probe = fetch_finals(start, today)
     else:
         incoming, probe = [], {"scoreboards": 0, "fetched_finals": 0, "quarantined_final_rows": 0, "quarantined_final_details": []}
-    next_ledger, model, audit = update(base, ledger, incoming)
+    source_exceptions = read_json(HERE / "data/college-soccer-source-exceptions.json")
+    assert source_exceptions.get("schema_version") == 1
+    entries = source_exceptions.get("exceptions", [])
+    exception_map = {e["match_id"]: e for e in entries}
+    assert len(exception_map) == len(entries), "Duplicate manually verified source exceptions"
+    next_ledger, model, audit = update(base, ledger, incoming, exception_map)
     audit.update({"checked_through":today.isoformat(),"scoreboard_checks":probe["scoreboards"],
                   "source_finals_in_window":probe["fetched_finals"],
                   "quarantined_final_rows":probe["quarantined_final_rows"],
@@ -337,7 +363,8 @@ def main():
     if args.offline and AUDIT.is_file():
         previous_audit = read_json(AUDIT)
         for field in ("status", "unresolved_source_corrections",
-                      "unresolved_source_correction_count", "quarantined_final_rows",
+                      "unresolved_source_correction_count", "independently_verified_source_discrepancies",
+                      "independently_verified_discrepancy_count", "quarantined_final_rows",
                       "quarantined_final_details",
                       "source_finals_in_window", "scoreboard_checks", "checked_through"):
             if field in previous_audit:
