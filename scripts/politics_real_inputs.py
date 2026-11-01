@@ -104,10 +104,21 @@ def parse_fec_financials(rows,ids):
         if ident not in ids:continue
         receipts=number(r[5]);disbursements=number(r[7]);cash=number(r[10])
         if receipts is None or disbursements is None or cash is None:continue
+        from_auth=number(r[6]);to_auth=number(r[8])
+        # FEC warns that candidate summaries may count transfers among a
+        # candidate's own authorized committees twice. Preserve raw numbers,
+        # and calculate adjusted totals only when both component fields exist.
+        adjusted_receipts=(round(receipts-from_auth,2) if from_auth is not None and 0<=from_auth<=receipts else None)
+        adjusted_disbursements=(round(disbursements-to_auth,2) if to_auth is not None and 0<=to_auth<=disbursements else None)
         result[ident]={
           "receipts":receipts,"disbursements":disbursements,"cash_on_hand":cash,
+          "transfers_from_authorized_committees":from_auth,
+          "transfers_to_authorized_committees":to_auth,
+          "receipts_excluding_internal_transfers":adjusted_receipts,
+          "disbursements_excluding_internal_transfers":adjusted_disbursements,
           "report_end":r[27].strip() if len(r)>27 else None,
-          "data_are_filing_summaries":True
+          "data_are_filing_summaries":True,
+          "original_source":"Federal Election Commission All Candidates file weball26"
         }
     return result
 
