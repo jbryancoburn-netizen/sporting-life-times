@@ -254,6 +254,18 @@ def update(gender, bootstrap=False):
         if previous and previous.get("status")=="final" and fixture["status"]!="final":continue
         games[fixture["id"]]={**fixture,"elo_eligible":True,"verified":True}
 
+    # Independently corroborated early-season DII contests from official
+    # university athletics recaps. Keep them separate from Hawaii and from
+    # the NCAA scoreboard so every result has a traceable original source.
+    extra_path=DATA/"d2-verified-other-openers-2026-27.json"
+    extra=json.loads(extra_path.read_text()) if extra_path.exists() else {}
+    for fixture in extra.get(gender,[]):
+        if fixture["away"] not in teams or fixture["home"] not in teams:
+            raise RuntimeError(f"{gender}: verified opener team missing from registry: {fixture['id']}")
+        old_game=games.get(fixture["id"])
+        if old_game and old_game.get("status")=="final" and fixture["status"]!="final":
+            continue
+        games[fixture["id"]]={**fixture,"elo_eligible":True,"verified":True}
     today=dt.datetime.now(dt.timezone.utc).date()
     start=dt.date(2026,10,15) if bootstrap else max(dt.date(2026,10,15),today-dt.timedelta(days=12))
     end=dt.date(2027,4,12) if bootstrap else min(dt.date(2027,4,12),today+dt.timedelta(days=30))
@@ -303,9 +315,11 @@ def update(gender, bootstrap=False):
                        else "PARTIAL — 2026-27 DII membership, dates and schedules require school-level verification"),
         "dates_requested":len(days),"dates_fetched":successful,"dates_failed":len(errors),
         "sample_errors":errors[:5],"verified_dii_finals":finals,"programs_found":len(ordered),
-        "official_contests_available":any(not str(g.get("id","")).startswith("hih-2026-") for g in allgames),
+        "official_contests_available":any(not str(g.get("id","")).startswith(("hih-2026-","d2opening-2026-")) for g in allgames),
         "verified_tournament_games":sum(1 for g in allgames if g.get("source")=="official tournament organizer"),
         "verified_tournament_source":tournament_source,
+        "verified_other_openers":sum(1 for g in allgames if str(g.get("id","")).startswith("d2opening-2026-")),
+        "other_openers_provenance":"Official university athletics results, game-by-game source URLs",
         "directory_source":directory_source,"directory_error":directory_error,
         "official_logo_index":logo_quality,
         "membership_certified":False}
