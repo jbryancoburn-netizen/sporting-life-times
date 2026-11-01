@@ -110,96 +110,94 @@ function rating(teams,games){
   for(const t of teams.values())t.elo=Number(t.elo.toFixed(1));
   return finals.length;
 }
-// ESPN's published basketball group 52 is a SECONDARY provisional program list.
-// It does not certify NCAA membership; only NCAA game evidence can upgrade that flag.
-async function provisionalDirectory(gender){
-  const sport=gender==='men'?'mens-college-basketball':'womens-college-basketball';
-  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/teams?groups=52&limit=1000';
-  try{
-    const raw=await jsonAt(url), leagues=raw.sports?.flatMap(x=>x.leagues||[])||[];
-    const entries=leagues.flatMap(x=>x.teams||[]).concat(raw.teams||[])
-      .map(x=>x.team||x).filter(x=>x&&typeof x==='object');
-    if(entries.length<200||entries.length>550)throw Error('Provider index has '+entries.length+' entries; unsafe to label DIII');
-    const institutions=entries.map(x=>String(x.location||x.shortDisplayName||'').trim().toLowerCase());
-    const d1Exclusions=['abilene christian','air force','akron','duke','florida state','indiana','kentucky','kansas','ucla','houston','baylor'];
-    const d3Anchors=['trine','babson','calvin','hope','johns hopkins','swarthmore','williams','amherst','emory'];
-    const d1Hits=d1Exclusions.filter(x=>institutions.includes(x));
-    const d3Hits=d3Anchors.filter(x=>institutions.includes(x));
-    if(d1Hits.length>0||d3Hits.length<3)
-      throw Error('Division identity guard failed: DI='+d1Hits.join(',')+'; DIII anchors='+d3Hits.join(','));
-
-    const colors=x=>/^#[0-9a-f]{6}$/i.test(x||'')&&
-      ![0,2,4].every(i=>parseInt(x.slice(i+1,i+3),16)>230);
-    const teams=new Map();
-    for(const t of entries){
-      const name=String(t.location||t.shortDisplayName||'').trim();
-      const id=slug(name);
-      if(!id||name.length<3||teams.has(id))continue;
-      const primary='#'+String(t.color||'').replace(/^#/,'');
-      const secondary='#'+String(t.alternateColor||'').replace(/^#/,'');
-      const brand=colors(primary)&&colors(secondary)&&primary.toLowerCase()!==secondary.toLowerCase();
-      const logo=(t.logos||[]).map(x=>x.href).find(u=>typeof u==='string'&&
-        /^https:\/\/(?:a\.)?espncdn\.com\/i\/teamlogos\//.test(u))||'';
-      teams.set(id,{id,name,slug:'',conference:'',
-        d3_confirmed:false,identity_source:'ESPN Division III basketball group 52; membership provisional',
-        ...(logo?{logo_url:logo}:{}),
-        ...(brand?{primary,secondary,color_source:'ESPN DIII basketball team index'}:{})});
-    }
-    if(teams.size<200)throw Error('Only '+teams.size+' distinct teams after strict identity check');
-    return {teams:[...teams.values()],source:url,error:null};
-  }catch(e){return {teams:[],source:url,error:String(e.message||e).slice(0,180)};}
-}
-
 /**
- * Discover school identities from archived NCAA DIII results, not ESPN's
- * group 52 teams index (which has been observed returning DI programs).
- * Historical membership is never promoted into 2026–27 Elo eligibility.
+ * NCAA member directory, 2026–27 sport sponsorship (not a projected total).
+ * The public directory web page loads this JSON route through DataTables.
+ * Use stable official organization IDs as provenance; do not borrow DI indices.
  */
-async function historicalDirectory(gender){
-  const dates=['2025-11-08','2025-11-15','2025-11-22','2025-12-06',
-    '2026-01-10','2026-01-17','2026-01-24','2026-01-31',
-    '2026-02-07','2026-02-14','2026-02-21','2026-02-28'];
-  const teams=new Map(),errors=[],sources=new Set();
-  for(let i=0;i<dates.length;i+=3){
-    const batch=await Promise.all(dates.slice(i,i+3).map(d=>fetchDay(gender,d)));
-    for(const result of batch){
-      if(result.error){errors.push(result.date);continue;}
-      for(const item of result.items){
-        for(const t of item.teams){
-          if(!t.d3_confirmed)continue;
-          const old=teams.get(t.id);
-          teams.set(t.id,{...old,...t,d3_confirmed:false,historical_d3_confirmed:true,
-            identity_source:'NCAA 2025–26 Division III result; current membership pending',
-            conference_historical:true});
-          sources.add(result.source);
-        }
-      }
+async function officialDirectory(gender){
+  const code=gender==='men'?'MBB':'WBB';
+  const url='https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=III&sportCode='+code;
+  try{
+    const records=await jsonAt(url);
+    if(!Array.isArray(records))throw Error('NCAA directory returned a non-list document');
+    const min=gender==='men'?380:390,max=gender==='men'?420:430;
+    if(records.length<min||records.length>max)
+      throw Error('NCAA directory size outside audited DIII '+gender+' safety range: '+records.length);
+    const teams=new Map(),orgIds=new Set();
+    for(const row of records){
+      if(Number(row.division)!==3||Number(row.academicYear)!==2027||String(row.deactive||'N')!=='N')
+        throw Error('Wrong division, academic year or inactive member in NCAA directory');
+      const orgId=Number(row.orgId),name=String(row.nameOfficial||'').trim();
+      if(!Number.isSafeInteger(orgId)||orgId<=0||name.length<4)
+        throw Error('NCAA directory missing official organization identity');
+      const id=slug(name);
+      if(teams.has(id)||orgIds.has(orgId))throw Error('Ambiguous NCAA institution name or duplicate organization ID: '+name);
+      orgIds.add(orgId);
+      const athletics=String(row.athleticWebUrl||'').trim().replace(/^https?:\/\//,'');
+      teams.set(id,{
+        id,name,slug:'',conference:String(row.sportConferenceName||row.conferenceName||'').trim(),
+        conference_id:Number(row.sportConferenceId||row.conferenceId)||null,
+        state:String(row.memberOrgAddress?.state||''),
+        ncaa_org_id:orgId,d3_confirmed:true,athletics_site:athletics&&/^[\w.-]+\.[a-z]{2,}(?:\/.*)?$/i.test(athletics)?'https://'+athletics:'',
+        membership_source:url,membership_year:2027,
+        provisional_member:row.provisionalMember===true,
+        identity_source:'NCAA official 2026–27 Division III basketball sport sponsorship'});
     }
-    await new Promise(resolve=>setTimeout(resolve,400));
-  }
-  return {teams:[...teams.values()],errors,sources:[...sources],
-    description:'Archived NCAA 2025–26 DIII game identities: not certified 2026–27 membership'};
+    const values=[...teams.values()];
+    const anchors=values.filter(t=>['adrian-college','albion-college','babson-college','trine-university',
+      'amherst-college','williams-college','johns-hopkins-university'].includes(t.id));
+    if(anchors.length<4)throw Error('Official NCAA basketball directory failed known DIII identity checks');
+    return {teams:values,source:url,error:null};
+  }catch(e){return {teams:[],source:url,error:String(e.message||e).slice(0,230)};}
+}
+function identityKey(x){
+  return String(x||'').normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'')
+    .replace(/\b(?:university|college|the|of|at)\b/g,'').replace(/[^a-z0-9]/g,'');
 }
 
 function rebuild(gender,previous,results,additionalTeams=[]){
   const teams=new Map((previous.teams||[]).filter(x=>x.d3_confirmed||!/ESPN Division III basketball group 52/.test(x.identity_source||'')).map(x=>[x.id,{...x}]));
-  // Do not overwrite previously NCAA-confirmed identities with provisional source labels.
+  // Only the NCAA's year-specific sponsorship roster may establish a team as
+  // an officially verified current DIII program.
   for(const t of additionalTeams){
     const old=teams.get(t.id);
-    if(!old)teams.set(t.id,t);
-    else teams.set(t.id,{...t,...old,d3_confirmed:!!old.d3_confirmed});
+    teams.set(t.id,{...old,...t,d3_confirmed:true});
+  }
+  const byKey=new Map();
+  for(const t of teams.values()){
+    if(!t.membership_source||t.membership_year!==2027)continue;
+    const key=identityKey(t.name);
+    if(!key)continue;
+    const arr=byKey.get(key)||[];
+    arr.push(t.id);byKey.set(key,arr);
+  }
+  function reconcile(team){
+    const key=identityKey(team.name);
+    const ids=byKey.get(key)||[];
+    if(ids.length!==1)return team;
+    const official=teams.get(ids[0]);
+    if(!official)return team;
+    return {...team,id:official.id,d3_confirmed:true,
+      name:official.name,conference:official.conference,
+      ncaa_org_id:official.ncaa_org_id,identity_source:official.identity_source};
   }
   const games=new Map((previous.games||[]).map(g=>[g.id,{...g}]));
   for(const result of results){
     for(const {game,teams:pair} of result.items){
-      for(const t of pair){
+      const merged=pair.map(reconcile);
+      if(merged[0].id===merged[1].id)continue;
+      for(const t of merged){
         const old=teams.get(t.id);
         teams.set(t.id,{...old,...t,d3_confirmed:!!(old?.d3_confirmed||t.d3_confirmed),
-          conference:t.conference||old?.conference||'',slug:t.slug||old?.slug||''});
+          name:old?.membership_source?old.name:t.name,
+          conference:old?.membership_source?old.conference:(t.conference||old?.conference||''),
+          slug:t.slug||old?.slug||''});
       }
+      const updated={...game,away:merged[0].id,home:merged[1].id};
       const old=games.get(game.id);
-      if(old?.status==='final'&&game.status!=='final')continue;
-      games.set(game.id,{...old,...game});
+      if(old?.status==='final'&&updated.status!=='final')continue;
+      games.set(game.id,{...old,...updated});
     }
   }
   // Prior published contest rows keep their proven eligibility; merely seeing
@@ -236,17 +234,19 @@ async function run(gender,deep=false){
   }
   const successful=results.filter(r=>!r.error).length;
   if(!successful)throw Error('All NCAA DIII '+gender+' scoreboards failed: retaining previous publication');
-  const mustProbe=deep||!previous.coverage?.historical_probed;
-  const archive=mustProbe?await historicalDirectory(gender):null;
-  const next=rebuild(gender,previous,results,archive?.teams||[]);
-  next.coverage.historical_probed=true;
-  next.coverage.historical_school_count=next.teams.filter(t=>t.historical_d3_confirmed).length;
-  next.coverage.directory_source='NCAA 2025–26 DIII game scoreboard archive';
-  next.coverage.directory_status=archive
-    ?archive.description+'; '+archive.teams.length+' unique archived DIII schools from '+archive.sources.join(', ')+
-      '; '+archive.errors.length+' unavailable archive dates'
-    :(previous.coverage?.directory_status?.startsWith('Archived NCAA')
-      ?previous.coverage.directory_status:'Archived NCAA school identities preserved; 2026–27 membership not certified');
+  const directory=await officialDirectory(gender);
+  const next=rebuild(gender,previous,results,directory.teams);
+  const official=next.teams.filter(t=>t.membership_source&&t.membership_year===2027);
+  const target=gender==='men'?407:416;
+  next.coverage.membership_certified=!directory.error;
+  next.coverage.official_directory_count=official.length;
+  next.coverage.ncaa_projected_programs=target;
+  next.coverage.official_vs_projection_gap=target-official.length;
+  next.coverage.directory_source=directory.source;
+  next.coverage.directory_status=directory.error?
+    'NCAA 2026–27 directory fetch failed: '+directory.error+'; retaining previously certified membership':
+    'NCAA official 2026–27 '+gender+' DIII basketball sponsors: '+official.length+
+      ' (NCAA July projection '+target+'; reconciliation difference '+(target-official.length)+')';
   fs.writeFileSync(file,JSON.stringify(next,null,2)+'\n');
   console.log(gender+': '+next.teams.length+' discovered; '+next.games.length+' fixtures; '+next.coverage.eligible_finals+
     ' Elo finals; '+successful+'/'+dates.length+' days read; '+next.coverage.failed_days.length+' failed days');
@@ -263,6 +263,21 @@ function selftest(){
   assert.equal(gameRecord({teams:[{isHome:false,nameShort:'A',seoname:'a',division:3,score:77},
     {isHome:true,nameShort:'B',seoname:'b',division:3,score:72}],gameState:'F',contestId:123},
     '2026-11-10','men','NCAA GraphQL').game.elo_eligible,true);
+  const officialTeam={id:'trine-university',name:'Trine University',d3_confirmed:true,
+    membership_year:2027,membership_source:'https://web3.ncaa.org/directory/api/directory/memberList',
+    conference:'Michigan Intercollegiate Athletic Association'};
+  const officialAway={...officialTeam,id:'hope-college',name:'Hope College'};
+  const short=(id,name)=>({id,name,conference:'',d3_confirmed:false});
+  const aliasGame={id:'verified-1',date:'2026-11-06',status:'final',
+    away:'hope',home:'trine',away_score:64,home_score:70};
+  const linked=rebuild('men',{teams:[],games:[]},
+    [{date:'2026-11-06',items:[{game:aliasGame,teams:[short('hope','Hope'),short('trine','Trine')]}]}],
+    [officialTeam,officialAway]);
+  assert.equal(linked.coverage.eligible_finals,1);
+  assert.equal(linked.games[0].home,'trine-university');
+  assert.equal(linked.games[0].away,'hope-college');
+  assert.equal(linked.teams.length,2);
+  assert.equal(linked.teams.every(t=>t.d3_confirmed),true);
   console.log('DIII isolated Elo and final-score test passed');
 }
 if(process.argv.includes('--test'))selftest();

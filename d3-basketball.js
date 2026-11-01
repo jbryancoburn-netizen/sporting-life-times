@@ -34,7 +34,8 @@ function renderTeam(d){
  const games=d.games.filter(g=>g.away===id||g.home===id).sort((a,b)=>a.date.localeCompare(b.date));
  host.innerHTML='<div class="back"><a href="'+own+'">← BACK TO THE '+esc(gender.toUpperCase())+' DIII PAPER</a></div>'+
  '<div class="team-hero">'+emblem(t)+'<div><span class="eyebrow">DIVISION III · '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+esc(t.name)+'</h1>'+
- '<p>'+esc(t.conference||'Conference not verified')+'</p></div></div>'+
+ '<p>'+esc(t.conference||'Conference not verified')+' · '+esc(t.state||'State not verified')+'</p>'+
+ (t.athletics_site&&/^https:\/\//.test(t.athletics_site)?'<p><a href="'+esc(t.athletics_site)+'" rel="noopener noreferrer" target="_blank">OFFICIAL ATHLETICS ↗</a></p>':'')+'</div></div>'+
  '<div class="team-stats"><div class="team-stat"><strong>'+esc(t.w||0)+'–'+esc(t.l||0)+'</strong><span>RATED DIII RECORD</span></div>'+
  '<div class="team-stat"><strong>'+Math.round(t.elo||1500)+'</strong><span>2026–27 ELO</span></div>'+
  '<div class="team-stat"><strong>'+games.length+'</strong><span>PUBLISHED GAME ENTRIES</span></div></div>'+
@@ -47,7 +48,7 @@ function renderHome(d){
  const teams=d.teams.slice().sort((a,b)=>a.name.localeCompare(b.name)),games=d.games.slice();
  const finals=games.filter(g=>g.status==='final'&&g.elo_eligible);
  $('teams-covered').textContent=teams.length;$('finals-covered').textContent=finals.length;
- $('directory-count').textContent=teams.length+' discovered; '+d.coverage.confirmed_d3_teams+' explicitly DIII-confirmed';
+ $('directory-count').textContent=String(d.coverage.official_directory_count??teams.length)+' NCAA-listed 2026–27 programs · '+(d.coverage.ncaa_projected_programs??'—')+' projected';
  $('elo-note').textContent='All schools start at 1500 each season; K='+d.model.k+', home edge='+d.model.home_elo_edge+
  ' points. Parameters are provisional, not historically calibrated. Cross-division games and unverified results are excluded.';
  const ranked=teams.filter(t=>t.d3_confirmed&&t.games_rated>0).sort((a,b)=>b.elo-a.elo||a.name.localeCompare(b.name));
@@ -68,7 +69,7 @@ function renderHome(d){
  $('conference-board').innerHTML=a.length?'<p class="muted">Overall rated-game records; NOT official conference standings or tiebreakers.</p>'+a.map((t,i)=>row(t,i)).join(''):'<p class="note">Conference standings pending verified membership and league-only game reconciliation.</p>';}
  sel.addEventListener('change',conf);conf();
  $('coverage').innerHTML='<b>'+games.length+'</b> published games, <b>'+d.coverage.eligible_finals+'</b> Elo-eligible finals, and <b>'+d.coverage.scanned_days+'</b> recently checked NCAA dates.<br>'+
- '<b>'+d.coverage.confirmed_d3_teams+'</b> team identities have explicit DIII labels in game evidence. Source-discovered schools are <b>not a certified all-program directory</b>.<br>'+
+ '<b>'+esc(d.coverage.official_directory_count??0)+'</b> schools recorded in the NCAA’s official 2026–27 sport-sponsor directory. The July projection was <b>'+esc(d.coverage.ncaa_projected_programs??'—')+'</b>; difference <b>'+esc(d.coverage.official_vs_projection_gap??'—')+'</b> remains to reconcile.<br>'+
  '<b>'+d.coverage.failed_days.length+'</b> checked dates failed their primary and fallback reads; prior published games were retained.<br>'+
  '<b>Program directory:</b> '+esc(d.coverage.directory_status||'Published NCAA-scoreboard identities only')+'<br>Full school schedules, official conference standings, venue details, player statistics and historical K/home-edge calibration are <b>not yet certified</b>.';
 }
