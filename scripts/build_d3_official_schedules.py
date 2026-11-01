@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-SEASON_START = dt.date(2026, 10, 15)
+SEASON_START = dt.date(2026, 11, 6)
 SEASON_END = dt.date(2027, 4, 15)
 HEADERS = {"User-Agent": "SportingLifeTimes/1.0 (NCAA public schedule audit)",
            "Accept": "text/html"}
@@ -169,6 +169,14 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
                 continue
             inspected += 1
             date, time, at, opponent, location = cells[:5]
+            # School grids mix scrimmages/exhibitions with regular fixtures.
+            # Never publish them as games, even when the opponent is a DIII member.
+            result_text = cells[8] if len(cells) > 8 else ""
+            tournament_text = cells[7] if len(cells) > 7 else ""
+            if re.search(r"\b(scrimmage|exhibition|exh\.?|joint practice)\b",
+                         " ".join((time, opponent, tournament_text, result_text)), re.I):
+                omitted["preseason_or_exhibition"] += 1
+                continue
             opponent_id = resolve(opponent, by_org, exact)
             if not opponent_id or opponent_id == owner:
                 omitted["unknown_or_conditional_opponent"] += 1
@@ -336,6 +344,7 @@ def self_test():
     assert resolve("Trine or Hope", by_org, exact) is None
     assert calendar_date("January 6, 2027 (Wednesday)") == "2027-01-06"
     assert calendar_date("January 99, 2027") is None
+    assert calendar_date("October 31, 2026 (Saturday)") is None
     html = """<html><head><title>2026-27 Men's Basketball Schedule - Hope College</title></head>
       <body><h1>2026-27 Men's Basketball Schedule</h1><table><tr>
       <th>Date</th><th>Time</th><th>At</th><th>Opponent</th><th>Location</th>
