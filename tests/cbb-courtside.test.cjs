@@ -103,7 +103,7 @@ assert(helperStart>=0&&helperEnd>helperStart, 'preseason editorial helpers are b
 const alpha={team:'A School',team_id:'a',elo:1500,rank:1};
 const zulu={team:'Z School',team_id:'z',elo:1500,rank:1};
 const edition={
-  live:false,teams:[alpha,zulu],esc:x=>String(x),number:(x)=>Number(x).toFixed(0),
+  live:false,retroPreseason:true,teams:[alpha,zulu],esc:x=>String(x),number:(x)=>Number(x).toFixed(0),
   teamURL:t=>'team.html?team='+t.team_id,logo:()=>'<i>logo</i>'
 };
 vm.runInNewContext(mbbHome.slice(helperStart,helperEnd)+
@@ -111,6 +111,10 @@ vm.runInNewContext(mbbHome.slice(helperStart,helperEnd)+
 assert.match(edition.editorial.featuredRatings(),/365/);
 assert(!edition.editorial.featuredRatings().includes('A School'), 'all-tied hero cannot arbitrarily name school A');
 assert.match(edition.editorial.conferenceLeaderText([alpha,zulu]),/Every team begins at 1500/);
+edition.retroPreseason=false;
+assert.match(edition.editorial.featuredRatings(),/not currently verified/, 'unavailable rating sources must not invent preseason ties');
+assert.match(edition.editorial.conferenceLeaderText([alpha,zulu]),/not verified/, 'conference leaders withheld when rating source fails');
+edition.retroPreseason=true;
 edition.live=true;edition.teams=[alpha,{...zulu,elo:1560,rank:1}];
 const rated=edition.editorial.featuredRatings();
 assert(rated.indexOf('Z School')<rated.indexOf('A School'), 'once games exist the higher rated team leads');
