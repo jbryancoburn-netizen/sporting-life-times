@@ -64,7 +64,18 @@ async function start(){
  fill('nbl-club-results-count',completed.length?completed.length+' games this season':'Completed-game archive temporarily unavailable');
  $('nbl-club-completed').innerHTML=completed.length?completed.map(g=>gameCard(g,selected,logos)).join(''):'<p class="nbl-scoreboard-empty">No complete, sourced club results are available in this snapshot.</p>';
  let upcoming=[];
- if(scores)for(const group of scores.leagues||[])if(group.league==='Australian NBL')
+ // Use all 33 published fixtures for the upcoming club cards, not the stale
+ // rolling multi-league scoreboard (which may contain zero NBL events).
+ try {
+   if(window.NBLFullSchedule){
+     const schedule=await window.NBLFullSchedule.load();
+     upcoming=schedule.games.filter(g=>(g.home===selected||g.away===selected)&&
+       (g.state==='pre'||g.state==='in')&&Date.parse(g.date)>Date.now()-86400000)
+       .map(g=>({home:g.home,away:g.away,date:g.date,url:g.url,home_score:g.home_score,away_score:g.away_score}));
+   }
+ }catch(error){console.warn('Full NBL fixture unavailable:',error);}
+ // Retain the rolling scoreboard only as an emergency fallback.
+ if(!upcoming.length&&scores)for(const group of scores.leagues||[])if(group.league==='Australian NBL')
    for(const game of group.games||[]){
      if(!(game.state==='pre'||game.state==='in'))continue;
      const ts=game.teams||[];
