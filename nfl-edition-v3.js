@@ -194,18 +194,21 @@ function home(){
      '<div class="nfl-p26-feature-top"><span class="nfl-p26-hero-identity">FEATURED MATCHUP <small>· WEEK '+escapeHtml(g.week)+'</small></span>'+
      '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
      (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
-     '<div class="nfl-p26-score-stage">'+
-       '<div class="nfl-p26-hero-club nfl-p26-hero-club-away">'+crest(a,'lg')+
-         '<span class="nfl-p26-hero-teamname">'+escapeHtml(short(a))+'</span>'+
-         '<span class="nfl-p26-hero-code">'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+'</span></div>'+
-       '<div class="nfl-p26-hero-score" aria-label="'+escapeHtml(pre?'Game not started':format(g.away.score)+' to '+format(g.home.score))+'">'+
-         (pre?'<span class="nfl-p26-hero-vs">VS</span>':'<strong>'+format(g.away.score)+'</strong><span>–</span><strong>'+format(g.home.score)+'</strong>')+
-       '</div>'+
-       '<div class="nfl-p26-hero-club nfl-p26-hero-club-home">'+crest(h,'lg')+
-         '<span class="nfl-p26-hero-teamname">'+escapeHtml(short(h))+'</span>'+
-         '<span class="nfl-p26-hero-code">'+escapeHtml(h.code)+' · '+escapeHtml(rec(h))+'</span></div>'+
-     '</div>'+
-     '<div class="nfl-p26-hero-context"><span class="nfl-p26-eyebrow">'+escapeHtml(stateLabel)+'</span>'+
+     '<div class="nfl-p26-score-stage nfl-p26-box-score">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(a.color||'#14283a')+';--nfl-box-alt:'+escapeHtml(a.secondary_color||'#d1ad4b')+'">'+
+         '<div class="nfl-p26-box-row">'+crest(a,'lg')+
+           '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(a.name)+' score">'+(pre?'—':format(g.away.score))+'</strong></div>'+
+         '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(a))+'</b>'+
+           '<small>'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+
+           (g.state==='in'&&g.possession===a.id?' · BALL':'')+'</small></div></div>'+
+       '<span class="nfl-p26-box-seam" aria-hidden="true"></span>'+
+       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(h.color||'#14283a')+';--nfl-box-alt:'+escapeHtml(h.secondary_color||'#d1ad4b')+'">'+
+         '<div class="nfl-p26-box-row">'+
+           '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(h.name)+' score">'+(pre?'—':format(g.home.score))+'</strong>'+crest(h,'lg')+'</div>'+
+         '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(h))+'</b>'+
+           '<small>'+escapeHtml(h.code)+' · '+escapeHtml(rec(h))+
+           (g.state==='in'&&g.possession===h.id?' · BALL':'')+'</small></div></div></div>'+
+     '<div class="nfl-p26-hero-context"><span class="nfl-p26-eyebrow">'+escapeHtml(pre?'KICKOFF':g.state==='post'?'FINAL':'FROM THE FIELD')+'</span>'+
        '<span>'+escapeHtml(g.venue||g.city||'NFL regular season')+(g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</span></div>'+
      featurePeriod(g)+
      (g.state==='in'||g.state==='post'?'<div class="nfl-p26-feature-stats" id="nfl-feature-stats" data-game="'+escapeHtml(g.id)+'" hidden></div>':'');
