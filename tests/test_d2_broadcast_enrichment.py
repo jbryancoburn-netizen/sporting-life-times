@@ -74,6 +74,37 @@ class D2BroadcastEnrichmentTests(unittest.TestCase):
             builder.apply_official_tipoff_streams("women",{"ncaa-verified":fixture},
                 teams,dt.date(2026,11,1))
 
+    def test_verified_cwu_schedule_enriches_without_new_duplicate_ids(self):
+        evidence=json.loads((ROOT/"data"/"d2-verified-broadcast-fixtures-2026-27.json").read_text())
+        self.assertEqual(len(evidence["fixtures"]),10)
+        teams={key:{"id":key} for row in evidence["fixtures"] for key in (row["away"],row["home"])}
+        old={"id":"ncaa-6656777","date":"2026-11-13",
+            "away":"central-washington-university",
+            "home":"california-state-polytechnic-university-humboldt",
+            "status":"scheduled","start_time":"","network":"",
+            "source_url":"https://www.ncaa.com/game/6656777"}
+        games={old["id"]:old}
+        result=builder.apply_verified_schedule_broadcasts("women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(result,{"matched":1,"created":9,"skipped":0})
+        self.assertEqual(old["id"],"ncaa-6656777")
+        self.assertEqual(old["source_url"],"https://www.ncaa.com/game/6656777")
+        self.assertEqual(old["network"],"GNAC Network")
+        self.assertEqual(old["start_time"],"7:15 PM ET")
+        self.assertEqual(len(games),10)
+        result2=builder.apply_verified_schedule_broadcasts("women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(result2["matched"],10)
+        self.assertEqual(result2["created"],0)
+        self.assertEqual(len(games),10)
+
+    def test_unmatched_past_schedule_does_not_create_fabricated_result(self):
+        evidence=json.loads((ROOT/"data"/"d2-verified-broadcast-fixtures-2026-27.json").read_text())
+        teams={key:{"id":key} for row in evidence["fixtures"] for key in (row["away"],row["home"])}
+        games={}
+        summary=builder.apply_verified_schedule_broadcasts("women",games,teams,dt.date(2027,3,1))
+        self.assertEqual(summary["created"],0)
+        self.assertEqual(summary["skipped"],10)
+        self.assertEqual(len(games),0)
+
     def test_november_1_dst_and_source_stamps(self):
         self.assertEqual(builder.display_et_time("2026-11-01T19:00:00Z"),"2:00 PM ET")
         self.assertEqual(builder.display_et_time("2026-11-01T23:00:00Z"),"6:00 PM ET")
