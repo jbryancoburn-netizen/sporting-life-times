@@ -8,12 +8,20 @@ on:
       - 'scripts/wbb-apply-reciprocal-courts.py'
       - 'scripts/wbb-team-schedules.py'
       - 'tests/test_wbb_reciprocal_courts.py'
+      - 'tests/wbb-verified-home.test.cjs'
+      - 'wbb-site-integrity.js'
+      - 'college-basketball-gender.js'
+      - 'ncaaw-team.html'
   push:
     paths:
       - '.github/workflows/wbb-reciprocal-courts.yml'
       - 'data/ncaaw-2026-27-verified-home-courts.json'
       - 'scripts/wbb-apply-reciprocal-courts.py'
       - 'tests/test_wbb_reciprocal_courts.py'
+      - 'tests/wbb-verified-home.test.cjs'
+      - 'wbb-site-integrity.js'
+      - 'college-basketball-gender.js'
+      - 'ncaaw-team.html'
 permissions:
   contents: write
 concurrency:
@@ -29,6 +37,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check independent women university site evidence on game cards
+        run: |
+          node --check wbb-site-integrity.js
+          node --check college-basketball-gender.js
+          node --test tests/wbb-verified-home.test.cjs
       - name: Verify exact dates, reciprocal school IDs and citations
         run: |
           python -m py_compile scripts/wbb-apply-reciprocal-courts.py scripts/wbb-team-schedules.py
