@@ -3,12 +3,32 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-01T23:01:48.696682+00:00",
+  "generated_utc": "2026-11-01T23:04:00.755026+00:00",
   "source": "School-published 2026\u201327 university athletics schedule grids",
   "scope": "pilot only; not all NCAA DIII programs",
-  "verified_source_calendars": 8,
-  "school_calendars_checked": 8,
+  "verified_source_calendars": 13,
+  "school_calendars_checked": 13,
   "source_audit": [
+    {
+      "owner_org_id": 4,
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 30,
+      "verified_member_opponents": 24,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 6
+      },
+      "status": "parsed"
+    },
+    {
+      "owner_org_id": 21,
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 29,
+      "verified_member_opponents": 25,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 4
+      },
+      "status": "parsed"
+    },
     {
       "owner_org_id": 45,
       "source_url": "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -50,12 +70,42 @@
       "status": "parsed"
     },
     {
+      "owner_org_id": 326,
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 29,
+      "verified_member_opponents": 23,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 6
+      },
+      "status": "parsed"
+    },
+    {
       "owner_org_id": 398,
       "source_url": "https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "readable_rows": 37,
       "verified_member_opponents": 18,
       "excluded_rows": {
         "unknown_or_conditional_opponent": 19
+      },
+      "status": "parsed"
+    },
+    {
+      "owner_org_id": 520,
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 28,
+      "verified_member_opponents": 25,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 3
+      },
+      "status": "parsed"
+    },
+    {
+      "owner_org_id": 656,
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 29,
+      "verified_member_opponents": 19,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 10
       },
       "status": "parsed"
     },
@@ -91,9 +141,55 @@
     }
   ],
   "conflicts": [],
-  "fixture_count": 149,
-  "reciprocal_fixtures": 6,
+  "fixture_count": 238,
+  "reciprocal_fixtures": 33,
   "fixtures": [
+    {
+      "id": "d3-men-2026-10-31-4-1192",
+      "date": "2026-10-31",
+      "away_org_id": 1192,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "12:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-06-4-42",
+      "date": "2026-11-06",
+      "away_org_id": 4,
+      "home_org_id": 42,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "8:00 PM",
+      "venue": "",
+      "venue_location": "Aurora, Ill.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
     {
       "id": "d3-men-2026-11-06-114-793",
       "date": "2026-11-06",
@@ -187,6 +283,29 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-11-07-4-192",
+      "date": "2026-11-07",
+      "away_org_id": 4,
+      "home_org_id": 192,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "12:00 PM",
+      "venue": "",
+      "venue_location": "Aurora, Ill.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-07-45-8486",
       "date": "2026-11-07",
       "away_org_id": 8486,
@@ -233,6 +352,29 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-11-07-117-326",
+      "date": "2026-11-07",
+      "away_org_id": 326,
+      "home_org_id": 117,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "",
+      "venue_location": "Columbus, OH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-07-286-2694",
       "date": "2026-11-07",
       "away_org_id": 2694,
@@ -251,6 +393,29 @@
       "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
       "venue_location": "Holland, MI",
       "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-09-21-278",
+      "date": "2026-11-09",
+      "away_org_id": 21,
+      "home_org_id": 278,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Seiberling Gymnasium",
+      "venue_location": "Tiffin, Ohio",
+      "network_as_posted": "FloCollege",
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
@@ -348,6 +513,75 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-11-517-520",
+      "date": "2026-11-11",
+      "away_org_id": 517,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-11-623-656",
+      "date": "2026-11-11",
+      "away_org_id": 656,
+      "home_org_id": 623,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Newport, RI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-13-21-1332",
+      "date": "2026-11-13",
+      "away_org_id": 21,
+      "home_org_id": 1332,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "8 p.m. ET / 7 p.m. CT",
+      "venue": "Igini Sports Forum",
+      "venue_location": "River Forest, Illinois",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-13-200-713",
       "date": "2026-11-13",
       "away_org_id": 713,
@@ -394,6 +628,52 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-14-4-806",
+      "date": "2026-11-14",
+      "away_org_id": 4,
+      "home_org_id": 806,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "",
+      "venue_location": "Springfield, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-14-21-160",
+      "date": "2026-11-14",
+      "away_org_id": 21,
+      "home_org_id": 160,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4 p.m. ET / 3 p.m. CT",
+      "venue": "Geiseman Gymnasium",
+      "venue_location": "River Forest, Illinois",
+      "network_as_posted": "YouTube",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-14-45-656",
       "date": "2026-11-14",
       "away_org_id": 656,
@@ -402,15 +682,40 @@
       "status": "scheduled",
       "source_url": "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        45
+        45,
+        656
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 pm",
       "venue": "Staake Gymnasium",
       "venue_location": "Babson Park, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-14-46-520",
+      "date": "2026-11-14",
+      "away_org_id": 520,
+      "home_org_id": 46,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "",
+      "venue_location": "Berea, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -448,12 +753,14 @@
       "status": "scheduled",
       "source_url": "https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        122
+        122,
+        326
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "1:00 PM",
       "venue": "",
       "venue_location": "Kalamazoo, MI",
@@ -578,6 +885,75 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-17-656-808",
+      "date": "2026-11-17",
+      "away_org_id": 808,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-18-4-515",
+      "date": "2026-11-18",
+      "away_org_id": 515,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-18-21-1192",
+      "date": "2026-11-18",
+      "away_org_id": 1192,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-18-122-281",
       "date": "2026-11-18",
       "away_org_id": 281,
@@ -647,6 +1023,52 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-20-326-411",
+      "date": "2026-11-20",
+      "away_org_id": 411,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-20-520-973",
+      "date": "2026-11-20",
+      "away_org_id": 973,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Great Lakes Invitational",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-20-713-770",
       "date": "2026-11-20",
       "away_org_id": 713,
@@ -670,6 +1092,29 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-11-21-21-582",
+      "date": "2026-11-21",
+      "away_org_id": 21,
+      "home_org_id": 582,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "Druley Performance Gymnasium",
+      "venue_location": "Richmond, Indiana",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Earlham Hope Classic",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-21-114-411",
       "date": "2026-11-21",
       "away_org_id": 411,
@@ -690,6 +1135,29 @@
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-21-322-520",
+      "date": "2026-11-21",
+      "away_org_id": 322,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Great Lakes Invitational",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -762,6 +1230,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-22-21-195",
+      "date": "2026-11-22",
+      "away_org_id": 21,
+      "home_org_id": 195,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Druley Performance Gymnasium",
+      "venue_location": "Richmond, Indiana",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Earlham Hope Classic",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-22-45-717",
       "date": "2026-11-22",
       "away_org_id": 45,
@@ -785,6 +1276,52 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-24-4-807",
+      "date": "2026-11-24",
+      "away_org_id": 807,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-24-21-8911",
+      "date": "2026-11-24",
+      "away_org_id": 8911,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-24-114-121",
       "date": "2026-11-24",
       "away_org_id": 114,
@@ -802,6 +1339,29 @@
       "tipoff_as_posted": "7 PM (CT)",
       "venue": "",
       "venue_location": "Kenosha, Wis.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-24-117-520",
+      "date": "2026-11-24",
+      "away_org_id": 520,
+      "home_org_id": 117,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "",
+      "venue_location": "Columbus, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -854,6 +1414,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-29-520-531",
+      "date": "2026-11-29",
+      "away_org_id": 531,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-30-114-271",
       "date": "2026-11-30",
       "away_org_id": 271,
@@ -871,6 +1454,75 @@
       "tipoff_as_posted": "7 PM",
       "venue": "Van Noord Arena",
       "venue_location": "Grand Rapids, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-01-4-278",
+      "date": "2026-12-01",
+      "away_org_id": 278,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-02-177-520",
+      "date": "2026-12-02",
+      "away_org_id": 520,
+      "home_org_id": 177,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "",
+      "venue_location": "Greencastle, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-02-571-656",
+      "date": "2026-12-02",
+      "away_org_id": 571,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -923,6 +1575,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-05-4-11839",
+      "date": "2026-12-05",
+      "away_org_id": 11839,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-05-15-122",
       "date": "2026-12-05",
       "away_org_id": 122,
@@ -942,6 +1617,29 @@
       "venue_location": "Albion, MI",
       "network_as_posted": "",
       "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-05-21-517",
+      "date": "2026-12-05",
+      "away_org_id": 517,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -986,6 +1684,29 @@
       "tipoff_as_posted": "1 PM",
       "venue": "Van Noord Arena",
       "venue_location": "Grand Rapids, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-05-123-656",
+      "date": "2026-12-05",
+      "away_org_id": 656,
+      "home_org_id": 123,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Castleton, VT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1038,6 +1759,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-05-520-807",
+      "date": "2026-12-05",
+      "away_org_id": 807,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-05-802-30037",
       "date": "2026-12-05",
       "away_org_id": 802,
@@ -1078,6 +1822,98 @@
       "tipoff_as_posted": "7:00 p.m.",
       "venue": "",
       "venue_location": "West Hartford, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-08-326-747",
+      "date": "2026-12-08",
+      "away_org_id": 326,
+      "home_org_id": 747,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Crawfordsville, IN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-08-621-656",
+      "date": "2026-12-08",
+      "away_org_id": 621,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:30 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-09-182-520",
+      "date": "2026-12-09",
+      "away_org_id": 520,
+      "home_org_id": 182,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "",
+      "venue_location": "Granville, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-09-195-326",
+      "date": "2026-12-09",
+      "away_org_id": 326,
+      "home_org_id": 195,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Richmond, IN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1199,6 +2035,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-12-21-805",
+      "date": "2026-12-12",
+      "away_org_id": 21,
+      "home_org_id": 805,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5 p.m. ET / 4 p.m. CT",
+      "venue": "Kachel Gymnasium",
+      "venue_location": "Whitewater, Wisconsin",
+      "network_as_posted": "WIAC Network",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-12-69-398",
       "date": "2026-12-12",
       "away_org_id": 398,
@@ -1268,6 +2127,52 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-13-326-364",
+      "date": "2026-12-13",
+      "away_org_id": 364,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-16-21-1461",
+      "date": "2026-12-16",
+      "away_org_id": 21,
+      "home_org_id": 1461,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 p.m.",
+      "venue": "Fred Raizk Arena",
+      "venue_location": "Wilmington, Ohio",
+      "network_as_posted": "FloCollege",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-17-122-182",
       "date": "2026-12-17",
       "away_org_id": 122,
@@ -1314,6 +2219,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-18-326-1192",
+      "date": "2026-12-18",
+      "away_org_id": 326,
+      "home_org_id": 1192,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "North Manchester, IN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-19-114-520",
       "date": "2026-12-19",
       "away_org_id": 520,
@@ -1322,15 +2250,40 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        114
+        114,
+        520
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3 PM",
       "venue": "Van Noord Arena",
       "venue_location": "Grand Rapids, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-19-326-987",
+      "date": "2026-12-19",
+      "away_org_id": 326,
+      "home_org_id": 987,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Bluffton, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1383,6 +2336,29 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-12-29-4-987",
+      "date": "2026-12-29",
+      "away_org_id": 4,
+      "home_org_id": 987,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Bluffton, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-29-45-139",
       "date": "2026-12-29",
       "away_org_id": 45,
@@ -1429,6 +2405,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-29-520-1192",
+      "date": "2026-12-29",
+      "away_org_id": 520,
+      "home_org_id": 1192,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "",
+      "venue_location": "Westerville, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Smokey Ballenger Classic",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-12-30-19-122",
       "date": "2026-12-30",
       "away_org_id": 19,
@@ -1448,6 +2447,29 @@
       "venue_location": "Cleveland, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-30-21-117",
+      "date": "2026-12-30",
+      "away_org_id": 117,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -1495,6 +2517,29 @@
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "Colorado College Tournament",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
+      "id": "d3-men-2026-12-30-520-30084",
+      "date": "2026-12-30",
+      "away_org_id": 520,
+      "home_org_id": 30084,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "",
+      "venue_location": "Westerville, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Smokey Ballenger Classic",
       "neutral_home_designation_unconfirmed": true
     },
     {
@@ -1567,6 +2612,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-01-656-2758",
+      "date": "2027-01-01",
+      "away_org_id": 656,
+      "home_org_id": 2758,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
+      "venue_location": "Springfield, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Springfield College Tournament",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2027-01-01-715-808",
       "date": "2027-01-01",
       "away_org_id": 808,
@@ -1584,6 +2652,75 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "Calgaard Gymnasium",
       "venue_location": "San Antonio, TX",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-02-137-326",
+      "date": "2027-01-02",
+      "away_org_id": 137,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-02-520-806",
+      "date": "2027-01-02",
+      "away_org_id": 806,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-03-4-117",
+      "date": "2027-01-03",
+      "away_org_id": 4,
+      "home_org_id": 117,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Bexley, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1613,6 +2750,54 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-05-200-656",
+      "date": "2027-01-05",
+      "away_org_id": 200,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-06-4-326",
+      "date": "2027-01-06",
+      "away_org_id": 4,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4,
+        326
+      ],
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-06-21-114",
       "date": "2027-01-06",
       "away_org_id": 114,
@@ -1621,12 +2806,14 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        21,
         114
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "Alma, Mich.",
@@ -1642,7 +2829,7 @@
       "home_org_id": 30037,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -1652,9 +2839,32 @@
         30037
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "7:00 p.m.",
       "venue": "",
       "venue_location": "Angola, IN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-06-335-520",
+      "date": "2027-01-06",
+      "away_org_id": 335,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1738,15 +2948,40 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        4,
         114
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3 PM",
       "venue": "Van Noord Arena",
       "venue_location": "Grand Rapids, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-09-15-326",
+      "date": "2027-01-09",
+      "away_org_id": 326,
+      "home_org_id": 15,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
+      "venue_location": "Albion, MI",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1761,12 +2996,14 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        21,
         30037
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 p.m.",
       "venue": "",
       "venue_location": "Alma, MI",
@@ -1839,6 +3076,52 @@
       "tipoff_as_posted": "3:00 p.m.",
       "venue": "Ray Oosting Gymnasium/Stan Ogrodnik Court",
       "venue_location": "Hartford, Conn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-09-515-520",
+      "date": "2027-01-09",
+      "away_org_id": 520,
+      "home_org_id": 515,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4 p.m.",
+      "venue": "",
+      "venue_location": "Oberlin, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-09-656-770",
+      "date": "2027-01-09",
+      "away_org_id": 656,
+      "home_org_id": 770,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Danbury, CT",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -1922,12 +3205,14 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        4,
         286
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Adrian, MI",
@@ -1960,6 +3245,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-13-21-525",
+      "date": "2027-01-13",
+      "away_org_id": 21,
+      "home_org_id": 525,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Cutler Event Center",
+      "venue_location": "Olivet, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-13-114-326",
       "date": "2027-01-13",
       "away_org_id": 326,
@@ -1968,15 +3276,63 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        114
+        114,
+        326
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "Van Noord Arena",
       "venue_location": "Grand Rapids, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-13-320-520",
+      "date": "2027-01-13",
+      "away_org_id": 520,
+      "home_org_id": 320,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "",
+      "venue_location": "University Heights, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-13-656-662",
+      "date": "2027-01-13",
+      "away_org_id": 662,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:00 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2037,12 +3393,14 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        4,
         30037
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 p.m.",
       "venue": "",
       "venue_location": "Adrian, MI",
@@ -2083,12 +3441,14 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        21,
         286
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
       "venue_location": "Holland, MI",
@@ -2144,6 +3504,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-16-326-525",
+      "date": "2027-01-16",
+      "away_org_id": 525,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-16-398-808",
       "date": "2027-01-16",
       "away_org_id": 808,
@@ -2161,6 +3544,29 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Rockwell Cage",
       "venue_location": "Cambridge, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-16-548-656",
+      "date": "2027-01-16",
+      "away_org_id": 656,
+      "home_org_id": 548,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "",
+      "venue_location": "Plymouth, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2236,13 +3642,59 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-20-4-525",
+      "date": "2027-01-20",
+      "away_org_id": 4,
+      "home_org_id": 525,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Olivet, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-20-15-21",
+      "date": "2027-01-20",
+      "away_org_id": 15,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-20-114-30037",
       "date": "2027-01-20",
       "away_org_id": 30037,
       "home_org_id": 114,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -2252,9 +3704,9 @@
         30037
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 PM",
-      "venue": "Van Noord Arena",
-      "venue_location": "Grand Rapids, Mich.",
+      "tipoff_as_posted": "7:00 p.m.",
+      "venue": "",
+      "venue_location": "Grand Rapids, MI",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2269,15 +3721,63 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        286
+        286,
+        326
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
       "venue_location": "Holland, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-20-330-656",
+      "date": "2027-01-20",
+      "away_org_id": 330,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-20-520-747",
+      "date": "2027-01-20",
+      "away_org_id": 747,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2353,13 +3853,61 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-23-4-15",
+      "date": "2027-01-23",
+      "away_org_id": 15,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-23-21-326",
+      "date": "2027-01-23",
+      "away_org_id": 326,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21,
+        326
+      ],
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-23-114-286",
       "date": "2027-01-23",
       "away_org_id": 286,
       "home_org_id": 114,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -2369,11 +3917,57 @@
         286
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "",
-      "venue_location": "Grand Rapids, MI",
+      "tipoff_as_posted": "3 PM",
+      "venue": "Van Noord Arena",
+      "venue_location": "Grand Rapids, Mich.",
       "network_as_posted": "",
-      "radio_as_posted": "Michigan Sports Radio",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-23-123-656",
+      "date": "2027-01-23",
+      "away_org_id": 123,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-23-182-520",
+      "date": "2027-01-23",
+      "away_org_id": 182,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -2418,6 +4012,31 @@
       "tipoff_as_posted": "12:00 PM",
       "venue": "Horsburgh Gymnasium",
       "venue_location": "Cleveland, OH",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-27-4-21",
+      "date": "2027-01-27",
+      "away_org_id": 21,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4,
+        21
+      ],
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Merillat Sport & Fitness Center",
+      "venue_location": "Adrian, Michigan",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2478,15 +4097,40 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        326,
         30037
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 p.m.",
       "venue": "",
       "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-27-335-520",
+      "date": "2027-01-27",
+      "away_org_id": 520,
+      "home_org_id": 335,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "8 p.m.",
+      "venue": "",
+      "venue_location": "Gambier, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2510,6 +4154,29 @@
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Springfield, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-27-571-656",
+      "date": "2027-01-27",
+      "away_org_id": 656,
+      "home_org_id": 571,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
+      "venue_location": "Providence, RI",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2570,12 +4237,14 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        4,
         286
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
       "venue_location": "Holland, MI",
@@ -2616,12 +4285,14 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        21,
         30037
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 p.m.",
       "venue": "",
       "venue_location": "Angola, IN",
@@ -2654,6 +4325,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-30-326-525",
+      "date": "2027-01-30",
+      "away_org_id": 326,
+      "home_org_id": 525,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1:00 PM",
+      "venue": "",
+      "venue_location": "Olivet, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-30-398-623",
       "date": "2027-01-30",
       "away_org_id": 623,
@@ -2671,6 +4365,29 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Rockwell Cage",
       "venue_location": "Cambridge, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-30-520-806",
+      "date": "2027-01-30",
+      "away_org_id": 520,
+      "home_org_id": 806,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "",
+      "venue_location": "Springfield, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -2731,12 +4448,14 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        4,
         114
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "Adrian, Mich.",
@@ -2769,6 +4488,75 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-03-21-525",
+      "date": "2027-02-03",
+      "away_org_id": 525,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-03-177-520",
+      "date": "2027-02-03",
+      "away_org_id": 177,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-03-200-656",
+      "date": "2027-02-03",
+      "away_org_id": 656,
+      "home_org_id": 200,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Willimantic, CT",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-03-286-326",
       "date": "2027-02-03",
       "away_org_id": 286,
@@ -2777,12 +4565,14 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        286
+        286,
+        326
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
       "venue": "",
       "venue_location": "Kalamazoo, MI",
@@ -2869,12 +4659,14 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        4,
         30037
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 p.m.",
       "venue": "",
       "venue_location": "Angola, IN",
@@ -2892,12 +4684,14 @@
       "status": "scheduled",
       "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        21,
         286
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Alma, MI",
@@ -2938,12 +4732,14 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
-        114
+        114,
+        326
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "Kalamazoo, Mich.",
@@ -2970,6 +4766,52 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Rockwell Cage",
       "venue_location": "Cambridge, MA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-06-520-807",
+      "date": "2027-02-06",
+      "away_org_id": 520,
+      "home_org_id": 807,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:15 p.m.",
+      "venue": "",
+      "venue_location": "Wooster, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-06-548-656",
+      "date": "2027-02-06",
+      "away_org_id": 548,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:00 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -3017,6 +4859,54 @@
       "venue": "Calgaard Gymnasium",
       "venue_location": "San Antonio, TX",
       "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-4-326",
+      "date": "2027-02-10",
+      "away_org_id": 326,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4,
+        326
+      ],
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Adrian, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-15-21",
+      "date": "2027-02-10",
+      "away_org_id": 21,
+      "home_org_id": 15,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Kresge Gymnasium",
+      "venue_location": "Albion, Michigan",
+      "network_as_posted": "MIAA Sports Network",
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
@@ -3074,7 +4964,7 @@
       "home_org_id": 286,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -3084,9 +4974,55 @@
         30037
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
+      "tipoff_as_posted": "7:00 p.m.",
+      "venue": "",
       "venue_location": "Holland, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-320-520",
+      "date": "2027-02-10",
+      "away_org_id": 320,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-330-656",
+      "date": "2027-02-10",
+      "away_org_id": 656,
+      "home_org_id": 330,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 PM",
+      "venue": "",
+      "venue_location": "Keene, NH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -3139,13 +5075,61 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-13-4-21",
+      "date": "2027-02-13",
+      "away_org_id": 4,
+      "home_org_id": 21,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4,
+        21
+      ],
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "Senior Day",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-13-15-326",
+      "date": "2027-02-13",
+      "away_org_id": 15,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        326
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, MI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-13-114-30037",
       "date": "2027-02-13",
       "away_org_id": 114,
       "home_org_id": 30037,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -3155,9 +5139,9 @@
         30037
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 PM",
+      "tipoff_as_posted": "3:00 p.m.",
       "venue": "",
-      "venue_location": "Angola, Ind.",
+      "venue_location": "Angola, IN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -3233,6 +5217,52 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-13-515-520",
+      "date": "2027-02-13",
+      "away_org_id": 515,
+      "home_org_id": 520,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "Branch Rickey Arena",
+      "venue_location": "Delaware, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-13-656-662",
+      "date": "2027-02-13",
+      "away_org_id": 656,
+      "home_org_id": 662,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
+      "venue_location": "Gorham, ME",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-14-122-479",
       "date": "2027-02-14",
       "away_org_id": 479,
@@ -3279,6 +5309,29 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-17-4-525",
+      "date": "2027-02-17",
+      "away_org_id": 525,
+      "home_org_id": 4,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-17-15-286",
       "date": "2027-02-17",
       "away_org_id": 15,
@@ -3310,12 +5363,14 @@
       "status": "scheduled",
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        21,
         114
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7 PM",
       "venue": "Van Noord Arena",
       "venue_location": "Grand Rapids, Mich.",
@@ -3356,15 +5411,40 @@
       "status": "scheduled",
       "source_url": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
+        326,
         30037
       ],
-      "source_verification": "single_official_school",
+      "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 p.m.",
       "venue": "",
       "venue_location": "Angola, IN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-17-520-747",
+      "date": "2027-02-17",
+      "away_org_id": 520,
+      "home_org_id": 747,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        520
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "",
+      "venue_location": "Crawfordsville, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -3417,6 +5497,54 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-20-4-15",
+      "date": "2027-02-20",
+      "away_org_id": 4,
+      "home_org_id": 15,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        4
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "",
+      "venue_location": "Albion, Mich.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-20-21-326",
+      "date": "2027-02-20",
+      "away_org_id": 21,
+      "home_org_id": 326,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        21,
+        326
+      ],
+      "source_verification": "reciprocal",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Anderson Athletic Center",
+      "venue_location": "Kalamazoo, Michigan",
+      "network_as_posted": "YouTube",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-20-45-623",
       "date": "2027-02-20",
       "away_org_id": 623,
@@ -3446,7 +5574,7 @@
       "home_org_id": 286,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -3456,11 +5584,11 @@
         286
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
-      "venue_location": "Holland, MI",
+      "tipoff_as_posted": "7 PM",
+      "venue": "",
+      "venue_location": "Holland, Mich.",
       "network_as_posted": "",
-      "radio_as_posted": "Michigan Sports Radio",
+      "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -3485,6 +5613,29 @@
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-20-656-770",
+      "date": "2027-02-20",
+      "away_org_id": 770,
+      "home_org_id": 656,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        656
+      ],
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 PM",
+      "venue": "Tripp Athletic Center",
+      "venue_location": "Dartmouth, Mass.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Senior Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
