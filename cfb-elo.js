@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const root=document.getElementById('elo-list');if(!root&&!document.getElementById('bowl-content')&&!document.getElementById('g6-field'))return;
+const root=document.getElementById('elo-list');if(!root&&!document.getElementById('bowl-content')&&!document.getElementById('g6-field')&&!document.getElementById('team-heading'))return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const run=()=>{const ratings=new Map(),seen=new Set(),history=new Map(),counts=new Map(),errors=[];const opponents=new Map();const records=new Map();
 const initial=1500,K=28,homeEdge=65;const winProbability=(own,opp,edge=0)=>1/(1+Math.pow(10,(opp-own-edge)/400));
