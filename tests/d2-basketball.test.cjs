@@ -87,7 +87,18 @@ test('DII game cards publish source-grounded provisional Elo chances and game mo
     assert.ok(Math.abs(g.elo_change_home+g.elo_change_away)<0.11,'Elo not zero sum '+g.id);
    }
   }
-  assert.ok(d.model.status.toLowerCase().includes('provisional'),'DII coefficients must remain labeled provisional');
+  if(d.model.calibrated){
+   const source=JSON.parse(fs.readFileSync('data/d2-elo-parameters-2026-27.json','utf8'));
+   assert.equal(source.historical_source_season,'2025-26');
+   assert.equal(source.season,'2026-27');
+   assert.equal(d.model.k,source[gender].k);
+   assert.equal(d.model.home_elo_edge,source[gender].home_elo_edge);
+   assert.ok(source[gender].sample_games>=500,'historical sample insufficient for calibration');
+   assert.ok(source[gender].no_previous_year_rating_carryover);
+   assert.ok(d.model.status.toLowerCase().includes('historically fitted'),'Fitted coefficients must disclose their historical provenance');
+  }else{
+   assert.ok(d.model.status.toLowerCase().includes('provisional'),'Unfitted DII coefficients must be labeled provisional');
+  }
   assert.ok(d.games.some(g=>g.neutral&&g.status==='final'&&g.pred_home_pct!==undefined));
  }
 });
