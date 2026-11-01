@@ -2,7 +2,7 @@
   "schools_targeted": 365,
   "schools_checked": 365,
   "totals": {
-    "matched": 6711,
+    "matched": 6800,
     "site_corrected": 0,
     "site_conflicts": 5,
     "location_corrected": 0,
@@ -11,13 +11,13 @@
     "tipoff_added": 0
   },
   "status_counts": {
-    "already_matched": 323,
-    "source_fetch_failed": 42
+    "already_matched": 326,
+    "source_fetch_failed": 39
   },
   "source_method_counts": {
-    "sidearm_card": 163,
+    "sidearm_card": 166,
     "table": 159,
-    "unreadable": 42,
+    "unreadable": 39,
     "official_conference": 1
   },
   "schools": [
@@ -614,12 +614,12 @@
     {
       "team": "Coppin St.",
       "id": "2154",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 31,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Cornell",
@@ -664,12 +664,12 @@
     {
       "team": "Dayton",
       "id": "2168",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "DePaul",
@@ -2015,12 +2015,12 @@
     {
       "team": "Norfolk St.",
       "id": "2450",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 31,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "North Ala.",
@@ -2336,12 +2336,12 @@
     {
       "team": "Prairie View",
       "id": "2504",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 30,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Presbyterian",
@@ -3236,12 +3236,12 @@
     {
       "team": "UNC Greensboro",
       "id": "2430",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 27,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UNCW",
@@ -7068,30 +7068,30 @@
     "changes": [],
     "conflicts": [
       {
-        "school_id": "239",
-        "event_id": "school-239-2026-11-24-7",
-        "date": "2026-11-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN"
-          ],
-          [
-            "ESPN2"
-          ]
-        ]
-      },
-      {
         "school_id": "333",
         "event_id": "school-333-2026-11-24-8",
         "date": "2026-11-24",
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN"
+            "ESPN2"
           ],
           [
+            "ESPN"
+          ]
+        ]
+      },
+      {
+        "school_id": "239",
+        "event_id": "school-239-2026-11-24-7",
+        "date": "2026-11-24",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
             "ESPN2"
+          ],
+          [
+            "ESPN"
           ]
         ]
       }
@@ -10200,6 +10200,235 @@
         "citation_owner_ids": [],
         "issues": [
           "arena_source_unrecorded"
+        ]
+      }
+    ],
+    "urgent_unrelated_school_citations": [
+      {
+        "school_id": "107",
+        "event_id": "school-107-2027-02-21-127",
+        "date": "2027-02-21",
+        "teams": [
+          "104",
+          "107"
+        ],
+        "arena": "Conte Forum",
+        "arena_source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "103"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "159",
+        "event_id": "school-159-2026-11-15-4",
+        "date": "2026-11-15",
+        "teams": [
+          "104",
+          "159"
+        ],
+        "arena": "Conte Forum",
+        "arena_source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "103"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "193",
+        "event_id": "school-193-2027-01-26-21",
+        "date": "2027-01-26",
+        "teams": [
+          "113",
+          "193"
+        ],
+        "arena": "Tsongas Center",
+        "arena_source_url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "2349"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2006",
+        "event_id": "school-2006-2026-12-29-13",
+        "date": "2026-12-29",
+        "teams": [
+          "113",
+          "2006"
+        ],
+        "arena": "Tsongas Center",
+        "arena_source_url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "2349"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2050",
+        "event_id": "school-2050-2027-01-02-15",
+        "date": "2027-01-02",
+        "teams": [
+          "113",
+          "2050"
+        ],
+        "arena": "Tsongas Center",
+        "arena_source_url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "2349"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2083",
+        "event_id": "school-2083-2027-01-06-17",
+        "date": "2027-01-06",
+        "teams": [
+          "104",
+          "2083"
+        ],
+        "arena": "Conte Forum",
+        "arena_source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "103"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2142",
+        "event_id": "school-2142-2027-02-10-159",
+        "date": "2027-02-10",
+        "teams": [
+          "104",
+          "2142"
+        ],
+        "arena": "Conte Forum",
+        "arena_source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "103"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2309",
+        "event_id": "school-2309-2027-02-09-25",
+        "date": "2027-02-09",
+        "teams": [
+          "113",
+          "2309"
+        ],
+        "arena": "Tsongas Center",
+        "arena_source_url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "2349"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2352",
+        "event_id": "school-2352-2027-02-13-159",
+        "date": "2027-02-13",
+        "teams": [
+          "104",
+          "2352"
+        ],
+        "arena": "Conte Forum",
+        "arena_source_url": "https://bceagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "103"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2617",
+        "event_id": "school-2617-2026-11-23-7",
+        "date": "2026-11-23",
+        "teams": [
+          "",
+          "2617"
+        ],
+        "arena": "Elridge Wilburn Blake Sports & Fitness Center",
+        "arena_source_url": "https://gosycamores.com/story.aspx?file_date=6%2F4%2F2026&filename=basketball-mens-basketball-releases-2026-27-non-conference-schedule",
+        "arena_source_type": "2026_specific_organizer_venue_verified",
+        "citation_owner_ids": [
+          "282"
+        ],
+        "issues": [
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "2711",
+        "event_id": "school-2711-2026-12-09-57",
+        "date": "2026-12-09",
+        "teams": [
+          "113",
+          "2711"
+        ],
+        "arena": "Tsongas Center",
+        "arena_source_url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "2349"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
+        ]
+      },
+      {
+        "school_id": "311",
+        "event_id": "school-311-2026-11-21-7",
+        "date": "2026-11-21",
+        "teams": [
+          "113",
+          "311"
+        ],
+        "arena": "Tsongas Center",
+        "arena_source_url": "https://goriverhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "arena_source_type": "official_school_home_arena_default_not_game_specific",
+        "citation_owner_ids": [
+          "2349"
+        ],
+        "issues": [
+          "generic_home_arena_not_game_specific",
+          "unrelated_university_arena_source"
         ]
       }
     ],
