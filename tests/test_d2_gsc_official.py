@@ -40,6 +40,36 @@ class GSCOfficialSchedules(unittest.TestCase):
         self.assertEqual(found[0]["away"],"alabama-huntsville")
         self.assertEqual(found[0]["start_time"],"8:30 PM ET")
 
+    def test_womens_gsc_five_column_schedule_and_utc_offsets(self):
+        dates=[dt.date(2026,12,3)+dt.timedelta(days=i*2) for i in range(18)]
+        rows="".join(
+            "<tr><td>"+f"{day.month}/{day.day}/{day.year}"+"</td>"
+            "<td>*</td><td>at Lee</td><td>Cleveland, Tenn.</td>"
+            "<td>5:30 P.M. CT</td></tr>" for day in dates)
+        html=("<title>2026-27 UAH Women's Basketball Schedule</title>"
+             "<table><tr><th>Date</th><th>*</th><th>Opponent</th>"
+             "<th>Location</th><th>Time/Result</th></tr>" +rows+"</table>")
+        found=collector.read_women_school_schedule(html,
+             "university-of-alabama-in-huntsville",3086)
+        self.assertEqual(len(found),18)
+        self.assertEqual(found[0]["away"],"university-of-alabama-in-huntsville")
+        self.assertEqual(found[0]["home"],"lee-university")
+        self.assertEqual(found[0]["start_time"],"6:30 PM ET")
+        self.assertEqual(found[0]["source_team"],"university-of-alabama-in-huntsville")
+
+    def test_womens_source_typo_does_not_publish_early_morning_tip(self):
+        dates=[dt.date(2026,12,3)+dt.timedelta(days=i*2) for i in range(17)]
+        rows="".join(
+            "<tr><td>"+f"{day.month}/{day.day}/{day.year}"+"</td>"
+            "<td>*</td><td>at Lee</td><td>Cleveland, Tenn.</td>"
+            "<td>5:30 A.M. CT</td></tr>" for day in dates)
+        html=("<title>2026-27 UAH Women's Basketball Schedule</title>"
+             "<table><tr><th>Date</th><th>*</th><th>Opponent</th>"
+             "<th>Location</th><th>Time/Result</th></tr>" +rows+"</table>")
+        found=collector.read_women_school_schedule(html,
+             "university-of-alabama-in-huntsville",3086)
+        self.assertTrue(all(g["start_time"] is None for g in found))
+
     def test_only_reciprocal_school_sources_create_scheduled_games(self):
         a={"date":"2026-12-03","away":"alabama-huntsville","home":"valdosta-state",
            "source_team":"alabama-huntsville","source_url":"https://gscsports.org/schedule.aspx?schedule=3075",
