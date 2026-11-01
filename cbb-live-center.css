@@ -1,0 +1,63 @@
+/* College basketball game center. Uses shared NCAA marks: no additional logo ring. */
+.cbb-live-desk{--cbb-ink:#122e3b;--cbb-line:#d2dadb;margin:18px 0 25px;color:var(--cbb-ink);font-family:Arial,Helvetica,sans-serif;background:#fff}
+.cbb-desk-header{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;border-top:4px double #143947;border-bottom:1px solid var(--cbb-line);padding:11px 1px}
+.cbb-kicker{font-size:10px;letter-spacing:1.6px;font-weight:800;text-transform:uppercase;color:#56707b}
+.cbb-desk-header h2{font-size:clamp(23px,3.5vw,33px);margin:5px 0 0;line-height:1.1;font-family:Georgia,'Times New Roman',serif;letter-spacing:-.5px}
+.cbb-desk-sub{font-size:12px;font-weight:400;white-space:normal;letter-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#58717a}
+.cbb-center-link{font-size:11px;font-weight:800;white-space:nowrap;color:#0b556a;text-decoration:none}
+.cbb-date-controls{display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:10px 0}
+.cbb-date-controls button,.cbb-date-controls input{border:1px solid #bbc9ce;background:#fff;border-radius:2px;color:#183b47;min-height:34px;padding:5px 10px;font:700 12px Arial,sans-serif;cursor:pointer}
+.cbb-date-controls button:hover{background:#ebf4f5}.cbb-date-controls button:focus-visible,.cbb-box-btn:focus-visible{outline:3px solid #c38d20;outline-offset:2px}
+.cbb-date-controls [data-cbb-date]{font-size:22px;line-height:18px}
+.cbb-date-label{font-size:11px;font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.cbb-source-stamp{font-size:10px!important;color:#617783!important;margin:0 0 9px!important}
+.cbb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:10px}
+.cbb-game-card{min-width:0;border:1px solid #cbd6da;background:#fff;box-shadow:0 2px 0 rgba(12,58,72,.08);overflow:hidden}
+.cbb-bug-top{font-size:10px;font-weight:800;letter-spacing:.4px;border-bottom:1px solid #dde4e6;background:#f1f5f6;min-height:32px;padding:9px 12px;color:#294e5b}
+.cbb-live .cbb-bug-top{background:#152f3b;color:#fff}
+.cbb-live-pill{display:inline-flex;align-items:center;color:#fff;border-radius:2px;background:#a51927;padding:3px 6px;margin:-3px 4px -3px -3px;font-size:9px;letter-spacing:1px}
+.cbb-live-dot{height:6px;width:6px;border-radius:50%;background:#fff;margin-right:5px;animation:cbb-beat 1.1s infinite}
+@keyframes cbb-beat{50%{opacity:.25}}
+.cbb-final{letter-spacing:.6px}
+.cbb-scorebug-row{display:flex;min-height:67px;align-items:center;padding:7px 12px;gap:10px;border-bottom:1px solid #e2e8ea;justify-content:space-between}
+.cbb-team-link{text-decoration:none!important;color:inherit!important;min-width:0;flex:1}
+.cbb-team-identity{display:flex;align-items:center;gap:10px;min-width:0}
+.cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{width:48px!important;height:48px!important;flex:0 0 48px!important;vertical-align:middle}
+.cbb-name{display:flex;flex-direction:column;min-width:0;text-align:left}
+.cbb-name b{font:800 17px/1.15 Arial,Helvetica,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbb-name small{font:400 10px/1.2 Arial,Helvetica,sans-serif!important;text-transform:none!important;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-top:4px;color:#61717b}
+.cbb-points{font:800 29px/1 Arial,Helvetica,sans-serif;color:#1d3945;font-variant-numeric:tabular-nums;min-width:38px;text-align:right}
+.cbb-winner .cbb-points{color:#085e64}.cbb-game-card.cbb-upcoming .cbb-points{color:#a3b1b7}
+.cbb-bug-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:9px 10px;min-height:37px;font-size:10px;color:#58727c;background:#fafbfb}
+.cbb-bug-bottom>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbb-box-btn{background:transparent;color:#0b5164;font:800 9px Arial,sans-serif;letter-spacing:.1px;cursor:pointer;border:0;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.cbb-fallback-crest{width:46px;height:46px;min-width:46px;border-radius:50%;border:3px solid #194854;box-shadow:inset 0 0 0 3px #d5a64c;display:grid;place-items:center;padding:5px;overflow:hidden;background:#fff}
+.cbb-fallback-crest img{width:100%;height:100%;object-fit:contain;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
+.cbb-detail{margin-top:18px;padding:16px;background:#f7f9f9;border:1px solid #c5d3d6;border-top:4px solid #153d4a;scroll-margin-top:10px}
+.cbb-detail[hidden],#score-rail[hidden],#wbb-score-rail[hidden]{display:none!important}
+.cbb-detail-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cbb-detail-head button{cursor:pointer;background:#fff;border:1px solid #a3b6bd;padding:7px 12px;font-size:11px}
+.cbb-detail h3{font:700 clamp(21px,3vw,27px) Georgia,serif;margin:11px 0 6px}
+.cbb-detail-meta{font-size:12px;color:#3c5d69;line-height:1.6}
+.cbb-detail-score{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;border:1px solid #d1dddf;margin:12px 0}
+.cbb-detail-score .cbb-scorebug-row{min-width:0;border-bottom:none}
+.cbb-stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:14px}
+.cbb-box-section{background:#fff;border:1px solid #d7e0e2;padding:12px;min-width:0}
+.cbb-box-section h4{font:700 16px Georgia,serif;margin:0 0 10px;border-bottom:1px solid #dce5e7;padding-bottom:7px}
+.cbb-stat-line,.cbb-stat-head{display:grid;grid-template-columns:1fr 70px 1fr;text-align:center;align-items:center;gap:5px;font-size:12px;padding:6px 0;border-bottom:1px solid #e6eded}
+.cbb-stat-line span:first-child{text-align:right}.cbb-stat-line span:last-child{text-align:left}.cbb-stat-line b{color:#4a626a;font-size:10px}
+.cbb-stat-head{grid-template-columns:1fr 1fr;font-weight:800;color:#184652}
+.cbb-scroll{overflow-x:auto}.cbb-box-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:11px}
+.cbb-box-table th,.cbb-box-table td{border-bottom:1px solid #e0e7e9;padding:7px 8px;text-align:right}
+.cbb-box-table th:first-child,.cbb-box-table td:first-child{text-align:left}
+.cbb-box-table thead{background:#e8f0f2}
+.cbb-leaders{font-size:11px;line-height:1.6;background:#f5f8f8;padding:8px;margin:7px 0}
+.cbb-provider-link{font-size:11px;margin:13px 0 0}.cbb-provider-link a{color:#075d77}
+.cbb-empty,.cbb-loading{padding:16px;font-size:12px;color:#4d6974;border:1px dashed #c3d0d4}
+.cbb-standalone{max-width:1220px;margin:auto;padding:20px}
+.cbb-standalone .cbb-live-desk{margin-top:24px}
+.cbb-switch{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.cbb-switch a{border:1px solid #b6c8ce;padding:8px 15px;color:#1b4d5d;text-decoration:none;font:800 13px Arial,sans-serif}
+.cbb-switch a[aria-current]{color:#fff;background:#17414e}
+@media(max-width:680px){.cbb-desk-header{align-items:flex-start;flex-direction:column}.cbb-cards{grid-template-columns:1fr}.cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{width:52px!important;height:52px!important;flex-basis:52px!important}.cbb-detail-score{grid-template-columns:1fr}.cbb-detail-score .cbb-scorebug-row:first-child{border-bottom:1px solid #dce7e9}.cbb-date-controls{gap:5px}.cbb-desk-sub{display:block;margin:5px 0}}
+@media(prefers-reduced-motion:reduce){.cbb-live-dot{animation:none}}
