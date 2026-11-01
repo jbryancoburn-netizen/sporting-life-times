@@ -251,7 +251,8 @@ assert(!fakeNode.innerHTML.includes('actual ball position'));
 const missingNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
 court.mount(missingNode,{...fakeGame,id:'401920983'},null);
 assert.match(missingNode.innerHTML,/No verified play-by-play/,'missing source shows no invented possessions');
-assert.match(missingNode.innerHTML,/NO VERIFIED SHOT LOCATIONS/,'empty court never pretends player or ball tracking');
+assert.match(missingNode.innerHTML,/COURT VIEW NOT AVAILABLE/,'empty feed should not render a decorative hardwood court');
+assert(!missingNode.innerHTML.includes('slc-floor'),'no source events means no mock basketball court');
 assert(courtFile.includes('cbb-live-court.js')&&courtFile.includes('cbb-live-court.css'),
  'CourtCast JS and CSS must actually load in the dedicated Gamefile');
 assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0})"),
