@@ -24,11 +24,11 @@ function claims(game,map){
  return (map.get(String(game.id))||[]).filter(r=>{
   const isParticipant=[game.home_id,game.away_id].map(String).includes(r.team_id);
   if(!isParticipant)return false;
-  // Team-specific home/away classifications are not venue coordinates; only
-  // check that the team's current ESPN site label matches the disputed claim.
-  if(game.site&&game.site!=='neutral'&&String(r.team_id)===String(game.home_id)&&
-     game.site==='away')return false;
-  return true;
+  // Recheck the exact contested school perspective against published
+  // game identity; do not attach a stale claim to a changed home/away mapping.
+  const expected=(game.neutral===true||game.site==='neutral')?'neutral':
+   String(game.home_id)===r.team_id?'home':'away';
+  return expected===r.published_site;
  });
 }
 function note(claims){
