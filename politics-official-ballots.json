@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination.",
+  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination. Nov 1 House candidate-source expansion: Massachusetts nine districts and Nebraska three districts verified from original state election-office general candidate lists. Massachusetts 1st party identity independently checked against FEC original candidate record; Nebraska third-party and petition designations retained verbatim.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -133,6 +133,30 @@
       "scope": "full_2026_house_snapshot",
       "transcription_status": "reviewed",
       "note": "13-page official Sept. 4 House list, including amended 7th district. All 12 districts, 35 candidates. Where independent petition slogans appear in the party field, preserve the literal election-office designation as ballot_label."
+    },
+    {
+      "id": "MA_SEC_2026_HOUSE",
+      "state": "MA",
+      "publisher": "Secretary of the Commonwealth of Massachusetts, Elections Division",
+      "url": "https://www.sec.state.ma.us/divisions/elections/research-and-statistics/2026-state-election-candidates.htm",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "state_official_2026_general_election_candidate_list",
+      "scope": "full_2026_house_snapshot",
+      "transcription_status": "reviewed",
+      "note": "All nine House districts on official 2026 state election candidate page. District 1 Richard E. Neal's party absent from this table; his 2026 Democratic status independently checked against FEC official candidate record https://www.fec.gov/data/candidate/H8MA02041/?cycle=2026&election_full=true. The site omits residential candidate address data from this archive."
+    },
+    {
+      "id": "NE_SOS_2026_FINAL",
+      "state": "NE",
+      "publisher": "Nebraska Secretary of State, Elections Division",
+      "url": "https://sos.nebraska.gov/sites/default/files/doc/elections/2026/Final_Statewide_General_Candidate_Filing_List_9.11.26.pdf",
+      "publication_date": "2026-09-11",
+      "reviewed_at": "2026-11-01",
+      "source_type": "state_certified_2026_general_candidate_filing_list",
+      "scope": "full_2026_house_snapshot",
+      "transcription_status": "reviewed",
+      "note": "All 3 congressional districts and 12 listed candidates from official final candidate list, page 1 of 24; screenshot visually inspected. Party and petition-line labels preserved. Includes Libertarian, America First, Legal Marijuana NOW, Nebraska Working People and by-petition candidates. No address/contact details retained."
     }
   ],
   "races": [
@@ -1959,6 +1983,176 @@
       "fec_identity_match_certified": false
     },
     {
+      "id": "MA-01",
+      "state": "MA",
+      "office": "H",
+      "district": "01",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Richard E. Neal",
+          "party": "DEM"
+        },
+        {
+          "name": "Nadia Donya Milleron",
+          "party": "IND",
+          "ballot_label": "Independent/Unenrolled"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-02",
+      "state": "MA",
+      "office": "H",
+      "district": "02",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "James P. McGovern",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-03",
+      "state": "MA",
+      "office": "H",
+      "district": "03",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Lori Loureiro Trahan",
+          "party": "DEM"
+        },
+        {
+          "name": "Gary J. Grossi",
+          "party": "REP"
+        },
+        {
+          "name": "Dennis R. Conlon",
+          "party": "IND",
+          "ballot_label": "Unenrolled"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-04",
+      "state": "MA",
+      "office": "H",
+      "district": "04",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Jake Auchincloss",
+          "party": "DEM"
+        },
+        {
+          "name": "Thomas Stalcup",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-05",
+      "state": "MA",
+      "office": "H",
+      "district": "05",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Katherine M. Clark",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-06",
+      "state": "MA",
+      "office": "H",
+      "district": "06",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Micah Quinney Jones",
+          "party": "REP"
+        },
+        {
+          "name": "Dan Koh",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-07",
+      "state": "MA",
+      "office": "H",
+      "district": "07",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Ayanna S. Pressley",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-08",
+      "state": "MA",
+      "office": "H",
+      "district": "08",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Stephen F. Lynch",
+          "party": "DEM"
+        },
+        {
+          "name": "Robert G. Burke",
+          "party": "REP"
+        },
+        {
+          "name": "Rasheed Nicholas Walters",
+          "party": "IND",
+          "ballot_label": "Independent"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MA-09",
+      "state": "MA",
+      "office": "H",
+      "district": "09",
+      "source_id": "MA_SEC_2026_HOUSE",
+      "candidates": [
+        {
+          "name": "Bill Keating",
+          "party": "DEM"
+        },
+        {
+          "name": "R. Tyler Macallister",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
       "id": "MD-01",
       "state": "MD",
       "office": "H",
@@ -2462,6 +2656,91 @@
         {
           "name": "Michael Dublin",
           "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NE-01",
+      "state": "NE",
+      "office": "H",
+      "district": "01",
+      "source_id": "NE_SOS_2026_FINAL",
+      "candidates": [
+        {
+          "name": "Mike Flood",
+          "party": "REP"
+        },
+        {
+          "name": "Chris Backemeyer",
+          "party": "DEM"
+        },
+        {
+          "name": "Nik Sandman",
+          "party": "LIB"
+        },
+        {
+          "name": "Dan Hartong",
+          "party": "OTH",
+          "ballot_label": "America First"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NE-02",
+      "state": "NE",
+      "office": "H",
+      "district": "02",
+      "source_id": "NE_SOS_2026_FINAL",
+      "candidates": [
+        {
+          "name": "Brinker Harding",
+          "party": "REP"
+        },
+        {
+          "name": "Denise Powell",
+          "party": "DEM"
+        },
+        {
+          "name": "Eric Michael Foreman",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NE-03",
+      "state": "NE",
+      "office": "H",
+      "district": "03",
+      "source_id": "NE_SOS_2026_FINAL",
+      "candidates": [
+        {
+          "name": "Adrian Smith",
+          "party": "REP"
+        },
+        {
+          "name": "Becky Kelly Stille",
+          "party": "DEM"
+        },
+        {
+          "name": "David J. Else",
+          "party": "OTH",
+          "ballot_label": "Legal Marijuana NOW"
+        },
+        {
+          "name": "Macey Budke",
+          "party": "OTH",
+          "ballot_label": "Nebraska Working People"
+        },
+        {
+          "name": "Mark Cohen",
+          "party": "IND",
+          "ballot_label": "By Petition"
         }
       ],
       "verification": "source_transcribed_as_of_review_date",
