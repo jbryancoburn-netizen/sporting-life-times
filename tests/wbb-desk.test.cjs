@@ -8,6 +8,7 @@ async function open(corrupt=false,liveFixture=null){
  const document={body,title:'',querySelector:s=>node(s),getElementById:node,createElement:()=>node('toggle')};
  const context={document,location:{search:'?gender=women',pathname:'/ncaam.html'},URLSearchParams,URL,AbortSignal,Date,Map,Set,Number,String,encodeURIComponent,setInterval(){},window:{MBBLogos:{ready:Promise.resolve(true),byESPN:(id,size,name)=>'<i data-team="'+id+'">'+name+'</i>'}},fetch:async url=>{
   if(liveFixture&&url.startsWith('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard'))return {ok:true,json:async()=>({events:[liveFixture]})};
+  if(liveFixture&&url==='data/mbb-live.json')return {ok:true,json:async()=>({})};
   if(!url.startsWith('data/')&&url!=='articles.json')return {ok:false};
   const data=JSON.parse(fs.readFileSync(url,'utf8'));
   if(corrupt&&url.includes('retro-primary'))data.gender='men';
