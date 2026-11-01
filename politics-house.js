@@ -70,7 +70,7 @@ function makeStateLink(s){
  const m=s["2024_presidential_actual"],c=color(m.winner_party,Math.abs(m.dem_margin_pp));
  let link=newEl("a",null,"state-link");link.href=urlForState(s.code);
  let stripe=newEl("div",null,"stripe");stripe.style.background=c.bg;
- let label=newEl("div");label.append(newEl("strong",s.name),newEl("small",s.district_count+" districts · "+s["2026_house_poll_count"]+" sourced poll"+(s["2026_house_poll_count"]===1?"":"s")));
+ let label=newEl("div");label.append(newEl("strong",s.name),newEl("small",s.district_count+" House seats · "+s["2026_verified_house_nominee_offices"]+" government-verified candidate lists · "+s["2026_house_poll_count"]+" district poll records"));
  link.append(stripe,label,newEl("span","›","arrow"));return link;
 }
 function makeDistrictCard(r){
@@ -211,7 +211,9 @@ function renderState(a){
   let grid=$("district-cards"),select=$("district-filter");
  function paint(){
   let filter=select.value,shown=rows.filter(x=>filter==="all"||(filter==="poll"&&x.district_specific_2026_polls.length)||
-    (filter==="ballot"&&x.official_2026_candidate_snapshot)||(filter==="historical"&&x["2024_house_result_on_prior_boundaries"]?.same_2026_geography));
+    (filter==="ballot"&&x.official_2026_candidate_snapshot)||(filter==="historical"&&x["2024_house_result_on_prior_boundaries"]?.same_2026_geography)||
+     (filter==="missing-ballot"&&!x.official_2026_candidate_snapshot)||(filter==="missing-poll"&&!x.district_specific_2026_polls.length)||
+     (filter==="redrawn"&&x["2026_boundaries_revised"]));
   grid.replaceChildren();shown.forEach(r=>grid.append(makeDistrictCard(r)));
   if(!shown.length)grid.append(newEl("div","No district records in this filter. An empty filter does not mean there is no election.","callout"));
   $("district-count").textContent=shown.length+" / "+rows.length+" House districts";
