@@ -26,28 +26,92 @@ def get_json(url):
     with urllib.request.urlopen(req,timeout=18) as response:
         return json.load(response)
 def fetch_day(gender, day):
+    """Read official NCAA first, then corroborating ESPN Division II event feed.
+
+    A successful but EMPTY NCAA response is not evidence that no games exist.
+    ESPN group 51 is Division II; 50 is Division I and must never be used.
+    """
     sport="MBB" if gender=="men" else "WBB"
     date=day.strftime("%Y/%m/%d")
     params={"sportCode":sport,"division":2,"seasonYear":day.year+(1 if day.month>=7 else 0),"contestDate":date}
     qs=urllib.parse.urlencode({"extensions":json.dumps({"persistedQuery":{"version":1,"sha256Hash":HASH}},separators=(',',':')),
-        "variables":json.dumps(params,separators=(',',':')),})
-    error=None
-    for source,url in [
+        "variables":json.dumps(params,separators=(',',':'))})
+    game_sport="mens-college-basketball" if gender=="men" else "womens-college-basketball"
+    espn_url=(f"https://site.api.espn.com/apis/site/v2/sports/basketball/{game_sport}/scoreboard?"
+              +urllib.parse.urlencode({"groups":51,"limit":1000,"dates":day.strftime("%Y%m%d")}))
+    sources=[
         ("NCAA official GraphQL","https://sdataprod.ncaa.com/?"+qs),
-        ("NCAA open scoreboard mirror","https://ncaa-api.henrygd.me/scoreboard/basketball-"+("men" if gender=="men" else "women")+"/d2/"+date)]:
+        ("NCAA open scoreboard mirror","https://ncaa-api.henrygd.me/scoreboard/basketball-"+gender+"/d2/"+date),
+        ("ESPN Division II scoreboard",espn_url)]
+    errors=[];empty_source=None
+    for source,url in sources:
         try:
             raw=get_json(url)
-            if raw.get("errors"):raise ValueError(str(raw["errors"])[:250])
+            if not isinstance(raw,dict) or raw.get("errors"):
+                raise ValueError(f"{source}: invalid or error response")
             if source=="NCAA official GraphQL":
-                records=raw.get("data",{}).get("contests")
-                if not isinstance(records,list):raise ValueError("Missing NCAA contests")
-                return [normalise_contest(c,date,gender) for c in records],source
-            games=raw.get("games")
-            if not isinstance(games,list):raise ValueError("Missing scoreboard games")
-            return [normalise_legacy(g.get("game",g),date,gender) for g in games],source
+                contests=raw.get("data",{}).get("contests")
+                if not isinstance(contests,list):raise ValueError("Missing NCAA contests")
+                records=[normalise_contest(c,date,gender) for c in contests]
+            elif source=="NCAA open scoreboard mirror":
+                contests=raw.get("games")
+                if not isinstance(contests,list):raise ValueError("Missing NCAA mirror games")
+                records=[normalise_legacy(g.get("game",g),date,gender) for g in contests]
+            else:
+                contests=raw.get("events")
+                if not isinstance(contests,list):raise ValueError("Missing ESPN events")
+                records=[normalise_espn_game(g,date,gender) for g in contests]
+            records=[item for item in records if item]
+            if records:
+                return records,source
+            empty_source=empty_source or source
         except Exception as exc:
-            error=exc
-    raise RuntimeError(f"{gender} {date}: {error}")
+            errors.append(str(exc)[:180])
+    if empty_source:
+        return [],empty_source+" (no games)"
+    raise RuntimeError(f"{gender} {date}: all sources failed: {errors[:3]}")
+
+def normalise_espn_game(event,date,gender):
+    """Parse site-v2 ESPN scoreboard event; verify DII status on canonical match."""
+    competitions=event.get("competitions") or []
+    if not competitions:return None
+    comp=competitions[0]
+    competitors=comp.get("competitors") or []
+    away=next((x for x in competitors if x.get("homeAway")=="away"),None)
+    home=next((x for x in competitors if x.get("homeAway")=="home"),None)
+    if not away or not home:return None
+    def institution(row):
+        provider=row.get("team") or {}
+        n=provider.get("location") or provider.get("shortDisplayName") or ""
+        return {"id":slug(n),"name":n,"slug":"","d2_confirmed":False,
+                "source":"ESPN Division II scoreboard"}
+    def score(row):
+        raw=row.get("score")
+        return raw.get("value",raw.get("displayValue")) if isinstance(raw,dict) else raw
+    status=((event.get("status") or {}).get("type") or {})
+    state=str(status.get("state") or "").lower()
+    if status.get("completed") is True or state=="post":
+        game_state="final"
+    elif state=="in":
+        game_state="live"
+    else:
+        game_state="scheduled"
+    key=str(event.get("id") or "")
+    link=(event.get("links") or [{}])
+    url=link[0].get("href","") if link and isinstance(link[0],dict) else ""
+    if not url and key.isdigit():
+        url=f"https://www.espn.com/{'mens' if gender=='men' else 'womens'}-college-basketball/game/_/gameId/{key}"
+    normalized={"id":"espn-d2-"+key,"url":url,"startTime":event.get("date") or "",
+                "neutralSite":comp.get("neutralSite") is True,
+                "network":",".join(x.get("names",[""])[0] for x in comp.get("broadcasts",[])
+                                   if x.get("names"))}
+    item=game_record(normalized,institution(away),institution(home),date,game_state,
+                     score(away),score(home),False,False,gender)
+    if item:
+        item[0]["source"]="ESPN Division II scoreboard"
+        item[0]["provider_game_id"]=key
+    return item
+
 def slug(value):
     return re.sub(r"[^a-z0-9]+","-",str(value or "").lower()).strip("-")
 def school(record):
@@ -369,7 +433,7 @@ def resolve_dii_team_id(source_team,lookup):
 def merge_ncaa_contest(games,contest,away_id,home_id):
     """Merge NCAA events without double-counting organizer-confirmed games."""
     new={**contest,"away":away_id,"home":home_id,"elo_eligible":True,
-         "verified":contest["status"]=="final","source":"NCAA scoreboard"}
+         "verified":contest["status"]=="final","source":contest.get("source","NCAA scoreboard")}
     key=(new["date"],tuple(sorted((away_id,home_id))))
     match=None
     for existing_id,old in games.items():
