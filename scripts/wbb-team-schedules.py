@@ -2,7 +2,9 @@
 """Import 2026-27 women's D-I per-team schedules; publish coverage and gaps.
 Uses women-specific ESPN team schedule, no men's fixture data or fabricated fields.
 """
-import concurrent.futures, json, pathlib, time, threading, urllib.request
+import concurrent.futures, json, pathlib, time, threading, urllib.request, runpy
+from datetime import datetime
+from zoneinfo import ZoneInfo
 DATA=pathlib.Path('data')
 BASE='https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball'
 clock=[0.0];mutex=threading.Lock()
@@ -65,23 +67,114 @@ def school(team):
     except Exception as exc:
         return ident,{'team':team['team'],'source_url':url,'game_count':0,
               'status':'source_error','error':str(exc),'games':[]}
+def local_day(value):
+    """Calendar comparisons use Eastern game dates, not the UTC date."""
+    return datetime.fromisoformat(value.replace('Z', '+00:00')).astimezone(
+        ZoneInfo('America/New_York')).date()
+
+
+def retain_official_evidence(previous, incoming):
+    """Carry prior citations only for the SAME women's game and playing day.
+
+    ESPN refreshes are not fresh official verification. Do not move verified
+    source claims to a different opponent, site, or playing date.
+    """
+    old_games={str(g.get('id')):g for g in previous.get('games', [])}
+    kept=0
+    for game in incoming.get('games', []):
+        old=old_games.get(str(game.get('id')))
+        if not old or any(str(game.get(k)) != str(old.get(k))
+                          for k in ('opponent_id','home_id','away_id')):
+            continue
+        try:
+            if local_day(game['date']) != local_day(old['date']):
+                continue
+        except (KeyError,TypeError,ValueError):
+            continue
+        official_keys=[k for k in old if k.startswith('official_')]
+        if not official_keys:
+            continue
+        for key in official_keys:
+            # These claims require independent corroboration when the event
+            # moves location or the ESPN home/neutral label changes.
+            if game.get('site') != old.get('site') and (
+                'site' in key or 'home_away' in key):
+                continue
+            if game.get('venue') != old.get('venue') and 'venue' in key:
+                continue
+            value=old[key]
+            if key.endswith('verified_fields') and isinstance(value,list):
+                value=[v for v in value if
+                       (v!='home_away' or game.get('site')==old.get('site')) and
+                       (v!='venue' or game.get('venue')==old.get('venue'))]
+            game[key]=value
+        if game.get('venue')==old.get('venue') and old.get('venue_verified') is True:
+            game['venue_verified']=True
+        kept+=1
+    return kept
+
+
+def validate_reciprocal_games(calendars):
+    """Reject importer regressions before replacing the published master."""
+    from collections import defaultdict
+    by_game=defaultdict(list)
+    for tid,entry in calendars.items():
+        seen=set()
+        for game in entry.get('games', []):
+            gid=str(game.get('id') or '')
+            if not gid or gid in seen or tid not in (
+                    str(game.get('home_id')),str(game.get('away_id'))):
+                raise RuntimeError(f"Invalid/duplicate women's game {gid} for {tid}")
+            seen.add(gid)
+            by_game[gid].append((tid,game))
+    for gid,records in by_game.items():
+        if len(records)>2:
+            raise RuntimeError('Duplicate global women game ID '+gid)
+        if len(records)==2:
+            (t1,a),(t2,b)=records
+            if str(a.get('opponent_id'))!=t2 or str(b.get('opponent_id'))!=t1:
+                raise RuntimeError('Reciprocal opponent mismatch '+gid)
+            if any(a.get(k)!=b.get(k) for k in ('date','home_id','away_id','venue')):
+                raise RuntimeError('Reciprocal date/site/venue mismatch '+gid)
+
+
 def main():
     roster=json.loads((DATA/'ncaaw-2026-27-teams.json').read_text())['teams']
     if len(roster)!=363 or len({t['team_id'] for t in roster})!=363:raise RuntimeError('363-team registry required')
     path=DATA/'ncaaw-schedules-2026-27.json'
     old=json.loads(path.read_text()).get('teams',{}) if path.exists() else {}
     result={}
+    retained_evidence=0
+    coverage_fallbacks=[]
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for ident,r in pool.map(school,roster):
-            if r['status']=='source_error' and old.get(ident,{}).get('games'):
-                r=old[ident].copy()
-                r['status']='previously_retrieved; live source failed'
+            previous=old.get(ident,{})
+            previous_games=previous.get('games',[])
+            # A shortened/empty ESPN response is not a verified cancellation.
+            # Keep the last full calendar rather than erase university evidence.
+            if previous_games and (r['status']!='retrieved' or
+                    (len(previous_games)>=20 and
+                     len(r['games'])<max(20,int(len(previous_games)*0.8)))):
+                coverage_fallbacks.append(ident)
+                r=previous.copy()
+                r['status']='previously_retrieved; live calendar unavailable/incomplete'
+            else:
+                retained_evidence+=retain_official_evidence(previous,r)
             result[ident]=r
+    # The organizer's authoritative two-game schedule must survive the weekly
+    # ESPN reimport. This is the same correction as the manual finalizer.
+    apply_maui=runpy.run_path(
+        str(pathlib.Path(__file__).with_name('apply_ncaaw_maui_tipoff_corrections.py'))
+    )['apply']
+    verified_tipoff_corrections=apply_maui({
+        'season':'2026-27','gender':'women','teams':result})
+    validate_reciprocal_games(result)
     # Merge only game-ID-matched official school or conference TV announcements.
     # Both school copies of a matchup must receive identical evidence.
     evidence_path=DATA/'ncaaw-2026-27-official-broadcast-overrides.json'
     verified_games=0
     recovered_team_entries=0
+    broadcast_disagreements=[]
     if evidence_path.exists():
         evidence=json.loads(evidence_path.read_text())
         if evidence.get('season')!='2026-27' or evidence.get('gender')!='women':
@@ -100,8 +193,11 @@ def main():
                 row=source_index.get(str(g['id']))
                 if not row:continue
                 if g.get('broadcast') and g['broadcast']!=row['broadcast']:
-                    raise RuntimeError('ESPN vs official TV conflict for '+str(g['id'])+
-                                       ': '+str(g['broadcast'])+' vs '+str(row['broadcast']))
+                    broadcast_disagreements.append({
+                        'game_id':str(g['id']),
+                        'espn_broadcast':g['broadcast'],
+                        'official_broadcast':row['broadcast'],
+                        'official_source_url':row['source_url']})
                 if not g.get('broadcast'):recovered_team_entries+=1
                 g['broadcast']=row['broadcast']
                 g['broadcast_source_url']=row['source_url']
@@ -173,7 +269,11 @@ def main():
       'official_school_schedule_evidence_file':'data/ncaaw-2026-27-official-schedule-verifications.json',
       'under_20_games':[{'team_id':i,'team':r['team'],'games':r['game_count'],
           'status':r['status'],'error':r.get('error')} for i,r in result.items() if r['game_count']<20],
-      'policy':'School-specific women ESPN calendars are NOT yet university-verified. Missing fields never fabricated.'}
+      'retained_prior_official_evidence_game_rows':retained_evidence,
+      'partial_calendar_fallback_school_ids':coverage_fallbacks,
+      'organizer_confirmed_tipoff_changes_this_refresh':verified_tipoff_corrections,
+      'official_vs_espn_broadcast_disagreements':broadcast_disagreements,
+      'policy':'Women-specific ESPN imports do not erase matching official university evidence; official tournament tipoffs and cited TV evidence take precedence. No invented fields.'}
     output={'season':'2026-27','gender':'women','source':'ESPN women-only team schedules',
       'note':'Calendar entries are source-specific; official university verification remains outstanding.',
       'teams':result}
