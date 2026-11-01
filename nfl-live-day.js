@@ -113,6 +113,15 @@ function categoryLeaders(summary){
  return found;
 }
 let statsGeneration=0;
+const boxCache=new Map();
+async function cachedLeaders(g){
+ const entry=boxCache.get(g.id),lifetime=g.state==="post"?600000:65000;
+ if(entry&&Date.now()-entry.when<lifetime)return entry.leaders;
+ try{
+  const leaders=categoryLeaders(await json(endpoint+"summary?event="+encodeURIComponent(g.id)));
+  boxCache.set(g.id,{when:Date.now(),leaders});return leaders;
+ }catch(_){return entry?entry.leaders:[];}
+}
 async function performers(games){
  const holder=document.getElementById("nfl-live-performers");
  if(!holder)return;
@@ -121,7 +130,7 @@ async function performers(games){
  if(!relevant.length||source!=="live"){holder.hidden=true;return;}
  holder.hidden=false;
  holder.innerHTML="<h3>TODAY’S STATISTICAL STANDOUTS</h3><p class='nfl-live-status'>Reading verified game box scores…</p>";
- const all=await Promise.all(relevant.map(async g=>{try{return categoryLeaders(await json(endpoint+"summary?event="+encodeURIComponent(g.id)));}catch(_){return [];}}));
+ const all=await Promise.all(relevant.map(cachedLeaders));
  if(gen!==statsGeneration)return;
  const leaders=all.flat(),top=["PASS","RUSH","REC"].map(k=>leaders.filter(x=>x.kind===k).sort((a,b)=>b.value-a.value)[0]).filter(Boolean);
  if(!top.length){holder.innerHTML="<h3>TODAY’S STATISTICAL STANDOUTS</h3><p class='nfl-live-status'>Player totals are not available from the live source yet.</p>";return;}
