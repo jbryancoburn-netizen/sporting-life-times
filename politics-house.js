@@ -18,6 +18,68 @@ const color=(party,margin)=>{
  return {bg:"hsl("+(party==="D"?216:4)+" 56% "+light+"%)",fg:light<65?"#ffffff":"#17242c"};
 };
 const voters=r=>{let a=r["2024_presidential_actual"];return a?(a.winner_party==="D"?"D":"R")+" +"+one(Math.abs(a.dem_margin_pp))+" pp · 2024 presidential":""};
+
+/* Source-matched historical portraits; candidate and party MUST equal the official ballot ledger.
+ * Unverified names use typographic initials, never an invented face or lookalike.
+ */
+let housePortraits=new Map();
+const initials=name=>String(name||"").split(/\s+/).filter(Boolean).filter(x=>!["jr.","sr.","iii"].includes(x.toLowerCase())).slice(0,2).map(x=>x.replace(/[^A-Za-z]/g,"").slice(0,1).toUpperCase()).join("")||"—";
+async function loadHousePortraits(){
+ try{
+  const response=await fetch("politics-candidate-photos.json?v=20261101-portraits1",{cache:"force-cache"});
+  if(!response.ok)throw Error("Photo ledger unavailable");
+  const data=await response.json();
+  if(data.schema_version!==1||data.status!=="SOURCE_MATCHED_CANDIDATE_PORTRAITS_PARTIAL"||
+    !Array.isArray(data.photos)||data.coverage!==data.photos.length||data.photos.length>435)
+    throw Error("Unverified candidate photo manifest");
+  const seen=new Set();const incoming=new Map();
+  for(const x of data.photos){
+   const key=x.race_id+"|"+x.candidate_name+"|"+x.party;
+   if(seen.has(key)||!/^([A-Z]{2})-(\d{2})$/.test(x.race_id)||typeof x.candidate_name!=="string"||
+      !["DEM","REP","IND","LIB","GRE","OTH","NPA","WRI","NPP","AIP","PAF"].includes(x.party)||
+      !/^https:\/\/(?:unitedstates\.github\.io\/images\/congress\/225x275\/[A-Z]\d{6}\.jpg|commons\.wikimedia\.org\/wiki\/Special:FilePath\/)/.test(x.image_url)||
+      !/^https:\/\/(?:github\.com\/unitedstates\/images|commons\.wikimedia\.org\/wiki\/File:)/.test(x.source_url))
+      throw Error("Unverified portrait source or duplicate candidate identity");
+   seen.add(key);incoming.set(key,x);
+  }
+  housePortraits=incoming;
+ }catch(error){console.warn("Candidate portraits: official fallback initials",error.message);}
+}
+function matchedPhoto(r,c){
+ const entry=housePortraits.get(r.id+"|"+c.name+"|"+c.party);
+ if(!entry||!r.official_2026_candidate_snapshot?.candidates?.some(b=>b.name===c.name&&b.party===c.party))return null;
+ return entry;
+}
+function portraitNode(r,c,detail=false){
+ const photo=matchedPhoto(r,c);
+ const figure=newEl("span",null,"candidate-portrait "+(c.party==="DEM"?"portrait-dem":c.party==="REP"?"portrait-rep":"portrait-other"));
+ figure.setAttribute("role","img");
+ figure.setAttribute("aria-label",photo?"Verified portrait of "+c.name:"Portrait unavailable for "+c.name);
+ const fallback=newEl("span",initials(c.name),"portrait-initials");figure.append(fallback);
+ if(photo){
+  const img=document.createElement("img");
+  img.loading=detail?"eager":"lazy";img.decoding="async";img.alt="";
+  img.width=detail?80:62;img.height=detail?80:62;
+  img.referrerPolicy="no-referrer";
+  img.src=photo.image_url;
+  img.onerror=()=>{img.remove();figure.classList.add("portrait-missing");};
+  figure.title=photo.credit;
+  figure.append(img);
+ }else figure.classList.add("portrait-missing");
+ return figure;
+}
+function openCardIcon(){
+ const outer=newEl("span",null,"card-open");
+ outer.setAttribute("aria-hidden","true");
+ const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+ svg.setAttribute("viewBox","0 0 24 24");svg.setAttribute("width","23");svg.setAttribute("height","23");
+ svg.setAttribute("fill","none");svg.setAttribute("stroke","currentColor");svg.setAttribute("stroke-width","2.2");
+ svg.setAttribute("stroke-linecap","round");svg.setAttribute("stroke-linejoin","round");
+ const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+ p.setAttribute("d","M5 19 19 5M9 5h10v10");svg.append(p);outer.append(svg);
+ return outer;
+}
+
 function districtEvidence(r){
  const poll=(r.district_specific_2026_polls||[]).find(p=>p.question_type!=="generic_house");
  if(poll){
@@ -81,13 +143,17 @@ function makeStateLink(s){
 function makeDistrictCard(r){
  const info=districtEvidence(r),c=color(info.party,info.margin);
  const link=newEl("a",null,"district-card");link.href=urlForDistrict(r.id);
- let top=newEl("div",null,"top"),mark=newEl("span",null,"marker");mark.style.background=c.bg;
- top.append(newEl("strong",r.at_large?r.state+" At-Large":r.id),mark);
+ let top=newEl("div",null,"top"),mark=newEl("span",info.party||"—","marker");
+ mark.style.background=c.bg;mark.style.color=c.fg;
+ mark.classList.add(info.party==="D"?"marker-dem":info.party==="R"?"marker-rep":"marker-neutral");
+ mark.title=(info.party==="D"?"Democratic":info.party==="R"?"Republican":"No comparable leader")+" · "+info.source+" · NOT a 2026 probability";
+ const actions=newEl("span",null,"card-actions");actions.append(mark,openCardIcon());
+ top.append(newEl("strong",r.at_large?r.state+" At-Large":r.id),actions);
  const status=newEl("div",info.text,"status");
  const sub=newEl("div",info.source+" · "+info.sub,"sub");
  const footer=newEl("div",null,"bottom");
  footer.append(newEl("span",r.official_2026_candidate_snapshot?"Official candidate list verified":"Candidate slate not yet verified"));
- footer.append(newEl("span","Race file →"));
+ footer.append(newEl("span","Full district report"));
  const flags=newEl("div",null,"evidence-flags");
   flags.append(newEl("span",r.official_2026_candidate_snapshot?"Candidate list ✓":"Candidate list unverified",r.official_2026_candidate_snapshot?"verified":"unverified"));
   const orig=r.district_specific_2026_polls?.some(p=>p.source_tier==="original_release_checked");
@@ -103,6 +169,7 @@ function makeDistrictCard(r){
     const names=newEl("div",null,"field-names");
     ballot.candidates.slice(0,2).forEach(c=>{
       const item=newEl("div",null,"field-person");
+      item.append(portraitNode(r,c));
       const code=newEl("span",c.party==="DEM"?"D":c.party==="REP"?"R":c.party==="IND"?"I":c.party,"field-party");
       code.classList.add(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other");
       item.append(code,newEl("span",c.name,"field-name"));names.append(item);
@@ -262,7 +329,11 @@ function candidatePanel(r){
    const list=newEl("div",null,"candidates");
    b.candidates.forEach(c=>{
      let line=newEl("div",null,"candidate"),badge=newEl("span",c.ballot_label||partyName(c.party),"party "+(c.party==="DEM"?"dem":c.party==="REP"?"rep":""));
-     line.append(newEl("strong",c.name),badge);list.append(line);
+     const photo=matchedPhoto(r,c),person=newEl("span",null,"candidate-with-portrait");
+     person.append(portraitNode(r,c,true),newEl("strong",c.name));
+     line.append(person,badge);
+     if(photo){const credit=addLink(line,"Photo source ↗",photo.source_url,"portrait-credit");credit.target="_blank";credit.rel="noopener noreferrer";}
+     list.append(line);
    });panel.append(list);
    if(b.candidates.some(c=>c.party==="WRI"))panel.append(newEl("p","WRI denotes a qualified write-in; the person's name is not printed on the ballot.","footnote"));
     if(b.candidates.some(c=>c.ballot_label))panel.append(newEl("p","Independent petition slogans and other ballot designations are reproduced from the election-office list; they are not presented as official major-party affiliations.","footnote"));
@@ -361,7 +432,7 @@ function renderDistrict(a){
 }
 function init(){
  const page=document.body.dataset.housePage;
- readAtlas().then(a=>{
+ Promise.all([readAtlas(),loadHousePortraits()]).then(([a])=>{
    if(page==="atlas")renderNational(a);
    else if(page==="state")renderState(a);
    else if(page==="district")renderDistrict(a);
