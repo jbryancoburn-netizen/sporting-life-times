@@ -24,8 +24,10 @@ test('sanctioned 2026 Hawaii games are present, neutral and counted exactly once
   assert.ok(played.every(g=>g.neutral&&g.source_url===source.source_url));
   assert.ok(played.every(g=>data.teams.some(t=>t.id===g.away)&&data.teams.some(t=>t.id===g.home)));
   assert.equal(new Set(played.map(g=>g.id)).size,12);
-  const changes=data.teams.filter(t=>t.elo!==1500);
-  assert.equal(changes.length,8);
+  const participating=data.teams.filter(t=>(t.w||0)+(t.l||0)>0);
+  assert.equal(participating.length,8);
+  assert.equal(participating.reduce((sum,t)=>sum+t.w,0),8);
+  assert.equal(participating.reduce((sum,t)=>sum+t.l,0),8);
   assert.ok(Math.abs(data.teams.reduce((s,t)=>s+t.elo,0)-1500*data.teams.length)<0.2);
  }
 });
