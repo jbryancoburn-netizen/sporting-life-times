@@ -848,6 +848,9 @@ def apply_verified_schedule_broadcasts(gender, games, teams, today):
             stats["skipped"]+=1
             continue
         game["start_time"]=exact_tipoff
+        # The named official arena establishes whether either team has home
+        # court. Correct the NCAA default when a tournament match is neutral.
+        game["neutral"]=bool(fixture["neutral"])
         game["network"]=fixture["network"]
         game["broadcast_type"]=fixture.get("broadcast_type","Streaming")
         game["stream_url"]=fixture["stream_url"]
