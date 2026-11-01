@@ -7,68 +7,14 @@
   "source_bulk_audit_sha": "06bdf4f77afbb137dd08d8101b43fdefa466758c",
   "programs": 363,
   "published_team_game_entries": 11110,
-  "certified_date_opponent_team_entries": 10960,
-  "pending_team_game_entries": 150,
-  "pending_unique_games": 103,
+  "certified_date_opponent_team_entries": 10963,
+  "pending_team_game_entries": 147,
+  "pending_unique_games": 100,
   "pending_paired_di_games": 47,
-  "pending_single_non_di_games": 56,
-  "remaining_earliest_games": 28,
+  "pending_single_non_di_games": 53,
+  "remaining_earliest_games": 25,
   "verification_policy": "Queue describes missing exact game-ID, date, and opponent source matches, not automatically absent or incorrect scheduled games. Date is the current published UTC value, not an independently verified tipoff. Source URLs indicate where to check, not a verified match. Review official women's university/organizer documents before adding claims. Keep site, broadcasts, and tipoffs unconfirmed until explicitly sourced.",
   "games": [
-    {
-      "game_id": "401915664",
-      "listed_utc": "2026-11-02T16:00Z",
-      "scope": "single_non_division_i_opponent",
-      "unverified_team_entry_count": 1,
-      "teams": [
-        {
-          "team_id": "314",
-          "team": "Iona Gaels",
-          "opponent_id": "2179",
-          "opponent": "Dominican (NY) Chargers",
-          "site": "home",
-          "official_source_url": "https://ionagaels.com/sports/womens-basketball/schedule",
-          "existing_provenance": false
-        }
-      ],
-      "requires_recheck": "unverified_exact_game_match"
-    },
-    {
-      "game_id": "401913664",
-      "listed_utc": "2026-11-02T22:00Z",
-      "scope": "single_non_division_i_opponent",
-      "unverified_team_entry_count": 1,
-      "teams": [
-        {
-          "team_id": "45",
-          "team": "George Washington Revolutionaries",
-          "opponent_id": "2177",
-          "opponent": "District of Columbia DISTRICT OF COLUMBIA",
-          "site": "home",
-          "official_source_url": "https://gwsports.com/sports/womens-basketball/schedule/text/2026-27",
-          "existing_provenance": false
-        }
-      ],
-      "requires_recheck": "unverified_exact_game_match"
-    },
-    {
-      "game_id": "401913754",
-      "listed_utc": "2026-11-02T22:00Z",
-      "scope": "single_non_division_i_opponent",
-      "unverified_team_entry_count": 1,
-      "teams": [
-        {
-          "team_id": "2803",
-          "team": "Bryant Bulldogs",
-          "opponent_id": "109",
-          "opponent": "MIT Engineers",
-          "site": "home",
-          "official_source_url": "https://bryantbulldogs.com/sports/womens-basketball/schedule",
-          "existing_provenance": false
-        }
-      ],
-      "requires_recheck": "unverified_exact_game_match"
-    },
     {
       "game_id": "401913772",
       "listed_utc": "2026-11-02T23:00Z",
@@ -2292,5 +2238,8 @@
       ],
       "requires_recheck": "unverified_exact_game_match"
     }
-  ]
+  ],
+  "supplemental_official_evidence": "data/ncaaw-2026-27-additional-official-evidence.json",
+  "supplemental_direct_verified_games": 3,
+  "snapshot_note": "The master and retained bulk evidence still show 150 unresolved entries; three November 2 games now have separately cited university confirmations and are excluded from this research queue pending next master reconciliation."
 }
