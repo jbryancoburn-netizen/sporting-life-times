@@ -9,6 +9,7 @@ on:
       - 'test_politics_house_atlas.py'
       - 'test_politics_house_ui.py'
       - 'test_politics_house_coverage.py'
+      - 'test_politics_house_state_editorial.py'
       - 'politics-house*.html'
       - 'politics-house*.js'
       - 'politics-house*.css'
@@ -46,7 +47,7 @@ jobs:
       - name: Test every district and source with no paid API
         run: |
           python -m py_compile scripts/politics_house_atlas.py
-          python -m unittest -v test_politics_house_atlas test_politics_house_ui
+          python -m unittest -v test_politics_house_atlas test_politics_house_ui test_politics_house_state_editorial
           node --check politics-house.js
           node --check politics-house-map.js
           node --check politics-house-geography.js
