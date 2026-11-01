@@ -8,7 +8,10 @@ import collections
 import datetime as dt
 import json
 import pathlib
-from scripts.politics_history import APPORTIONMENT
+try:
+    from scripts.politics_history import APPORTIONMENT
+except ImportError:
+    from politics_history import APPORTIONMENT
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 SOURCE="https://www.fec.gov/campaign-finance-data/candidate-master-file-description/"
