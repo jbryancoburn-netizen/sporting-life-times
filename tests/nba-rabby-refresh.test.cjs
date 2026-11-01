@@ -2,49 +2,63 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {readFileSync}=require('node:fs');
 const {runInNewContext}=require('node:vm');
-const source=readFileSync(new URL('../nba-rabby-forecast.js',`file://${__filename}`),'utf8');
-const tick=()=>new Promise(resolve=>setImmediate(resolve));
-const now=Date.parse('2026-10-24T18:00:00Z');
-class Clock extends Date{constructor(...args){super(...(args.length?args:[now]));}static now(){return now;}}
-async function desk(models={}){
- const nodes={'nba-rabby-status':{},'nba-rabby-games':{}};
- let fail=false,refresh,interval;
- const games=[['future','pre','20:00'],['live','in','17:00'],['final','post','16:00'],['late','pre','17:55'],['unknown',null,'21:00']].map(([id,state,time])=>({id,state,date:`2026-10-24T${time}:00Z`,teams:[{home_away:'home',code:'BOS',name:id},{home_away:'away',code:'CHI',name:'Chicago'}]}));
- const ratings=Array.from({length:30},(_,i)=>({team:i===0?'BOS':i===1?'CHI':`T${i}`,elo:1500}));
- runInNewContext(source,{
-  window:{...models,SLTScorebug:{render:g=>`<div>${g.home.name}</div>`}},
-  document:{hidden:false,getElementById:id=>nodes[id]},Date:Clock,Intl,
-  fetch:async path=>{if(fail)throw Error('network down');return {ok:true,json:async()=>path.includes('current-provisional')?{rankings:ratings,events:Array(5).fill({}),games_played:5}:path.includes('upcoming-schedule')?{games}: {}};},
-  setInterval:(f,ms)=>{refresh=f;interval=ms;}
- });
- await tick();
- return {nodes,interval,fail:()=>{fail=true;},refresh};
+const scorer=require('../nba-rabby-possession.js');
+const base='file://'+__filename;
+const src=readFileSync(new URL('../nba-rabby-forecast.js',base),'utf8');
+const load=p=>JSON.parse(readFileSync(new URL('../data/'+p,base),'utf8'));
+const now=Date.parse('2026-11-01T19:00:00Z');
+class FixedDate extends Date{
+ constructor(...args){super(...(args.length?args:[now]));}
+ static now(){return now;}
 }
-test('pregame desk includes future scheduled games and excludes live, final, overdue and unknown states',async()=>{
- const {nodes,interval}=await desk();
- const html=nodes['nba-rabby-games'].innerHTML;
- assert.match(html,/future/);assert.doesNotMatch(html,/>live<|>final<|>late<|>unknown</);
- assert.match(nodes['nba-rabby-status'].textContent,/1 upcoming games/);
- assert.equal(interval,60000);
+const settle=()=>new Promise(resolve=>setImmediate(resolve));
+async function desk(){
+ const nodes={'nba-rabby-status':{},'nba-rabby-games':{}};
+ const state={fail:false,interval:null,refresh:null,events:[]};
+ const window={RabbyPossessionModel:scorer,SLTScorebug:{
+  render:g=>'<div class="test-scorebug">'+g.away.code+' '+g.awayScore+' @ '+g.home.code+' '+g.homeScore+'</div>'
+ }};
+ const files={
+  'data/nba-elo-shadow-2026-27.json':load('nba-elo-shadow-2026-27.json'),
+  'data/nba-possession-inputs.json':load('nba-possession-inputs.json'),
+  'data/nba-upcoming-schedule.json':load('nba-upcoming-schedule.json'),
+  'data/nba-2025-26-team-advanced.json':load('nba-2025-26-team-advanced.json')
+ };
+ const document={hidden:false,getElementById:id=>nodes[id],dispatchEvent:event=>state.events.push(event.type),addEventListener:()=>{}};
+ const fetch=async path=>{if(state.fail)throw Error('network down');return {ok:!!files[path],json:async()=>files[path]};};
+ runInNewContext(src,{window,document,Date:FixedDate,Intl,Event:class{constructor(type){this.type=type}},
+  fetch,console:{warn:()=>{}},setInterval:(fn,ms)=>{state.interval=ms;state.refresh=fn;}});
+ await settle();await settle();
+ return {nodes,state,window,refresh:async()=>{await state.refresh();await settle();}};
+}
+test('actual sourced 2026-27 inputs produce paced opponent-specific cards and exclude completed games',async()=>{
+ const d=await desk();const html=d.nodes['nba-rabby-games'].innerHTML;
+ assert.match(html,/rabby-v2-game/);
+ assert.match(html,/ESTIMATED PACE/);
+ assert.match(html,/OFFENSE MATCHED AGAINST OPPONENT DEFENSE/);
+ assert.doesNotMatch(html,/Experimental early-season Elo model/);
+ assert.match(d.nodes['nba-rabby-status'].textContent,/completed team box scores/);
+ assert.equal(d.window.NBARabbyForecastState.model.coverage.teams,30);
+ assert(d.state.events.includes('nba:forecast-ready'));
+ assert.equal(d.state.interval,60000);
 });
-test('failed scheduled refresh removes previous forecast cards',async()=>{
- const d=await desk();assert.match(d.nodes['nba-rabby-games'].innerHTML,/future/);
- d.fail();await d.refresh();
- assert.doesNotMatch(d.nodes['nba-rabby-games'].innerHTML,/future/);
- assert.match(d.nodes['nba-rabby-games'].innerHTML,/Current forecasts unavailable/);
+test('network loss removes stale forecast cards instead of pretending live projections',async()=>{
+ const d=await desk();
+ assert.match(d.nodes['nba-rabby-games'].innerHTML,/rabby-v2-game/);
+ d.state.fail=true;await d.refresh();
  assert.match(d.nodes['nba-rabby-status'].textContent,/network down/);
+ assert.doesNotMatch(d.nodes['nba-rabby-games'].innerHTML,/rabby-v2-game/);
+ assert.match(d.nodes['nba-rabby-games'].innerHTML,/Waiting for qualified box scores/);
 });
-
-const projection={homePoints:110,awayPoints:100,margin:10,total:210};
-test('insufficient team possession coverage uses qualified early-season fallback',async()=>{
- const d=await desk({RabbyPossessionModel:{build:()=>({coverage:{games:28}}),project:()=>null},RabbyEarlyScore:{build:()=>({games:28}),project:()=>projection}});
- const html=d.nodes['nba-rabby-games'].innerHTML;
- assert.match(html,/Experimental early-season Elo model/);
- assert.match(html,/210.0/);
- assert.doesNotMatch(html,/awaiting qualifying data/);
-});
-test('qualified possession projection takes precedence over early-season fallback',async()=>{
- const d=await desk({RabbyPossessionModel:{build:()=>({coverage:{games:28}}),project:()=>projection},RabbyEarlyScore:{build:()=>({games:28}),project:()=>{throw Error('Fallback should not run');}}});
- assert.match(d.nodes['nba-rabby-games'].innerHTML,/Experimental possession model/);
- assert.doesNotMatch(d.nodes['nba-rabby-games'].innerHTML,/Current forecasts unavailable/);
+test('win chances use the 1500-reset earned Elo and +40 home advantage, not historic seeded ratings',async()=>{
+ const d=await desk();
+ const rates=d.window.NBARabbyForecastState.ratings;
+ const earned=load('nba-elo-shadow-2026-27.json');
+ const previous=load('nba-2026-27-current-provisional.json');
+ const earnedMap=Object.fromEntries(earned.rankings.map(r=>[r.team,r.elo]));
+ const provisional=Object.fromEntries(previous.rankings.map(r=>[r.team,r.elo]));
+ for(const [k,v] of Object.entries(earnedMap))assert.equal(rates[k],v);
+ assert.notEqual(rates.OKC,provisional.OKC);
+ const p=d.window.NBARabbyForecastState.project('ORL','BOS');
+ assert(Math.abs(p.homeWin-1/(1+10**(-(rates.ORL+40-rates.BOS)/400)))<1e-12);
 });
