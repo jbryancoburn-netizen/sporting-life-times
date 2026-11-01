@@ -34,3 +34,13 @@ test('verified university ESPN+ assignments display on women’s opening-day gam
  assert.match(html,/MIT Engineers[\s\S]{0,1300}Bryant Bulldogs[\s\S]{0,1300}ESPN\+/);
  assert.match(html,/Dominican \(NY\) Chargers[\s\S]{0,1300}Iona Gaels[\s\S]{0,1300}ESPN\+/);
 });
+
+test('women’s front page links real fixtures to the women-only live Game Center',async()=>{
+ const {node}=await open();
+ assert.match(node('header .nav').innerHTML,/cbb-game-center.html\?gender=women/);
+ node('wbb-date').listeners.change({target:{value:'2026-11-01'}});
+ const html=node('wbb-score-rail').innerHTML;
+ assert.match(html,/Gamecast &amp; box score/);
+ assert.match(html,/cbb-gamefile.html\?gender=women&amp;day=2026-11-01&amp;game=401920983/);
+ assert.doesNotMatch(html,/cbb-gamefile.html\?gender=men/);
+});
