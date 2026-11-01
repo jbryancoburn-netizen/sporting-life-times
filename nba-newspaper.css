@@ -608,3 +608,90 @@ body.nba-newspaper[data-page="home"] #app .hero-team small{
   }
   body.nba-newspaper[data-page="home"] #app .hero-team strong{font-size:22px}
 }
+
+
+/* Rabby v2: editorial game-specific projections, isolated to NBA Matchup Lab. */
+body.nba-newspaper[data-page="matchups"] #nba-rabby-games{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));
+ align-items:start;gap:16px;margin:14px 0 22px;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-game{
+ box-sizing:border-box;overflow:hidden;min-width:0;
+ padding:12px;background:#fffdfa;border:1px solid #c7d2cf;
+ border-top:4px solid #175564;box-shadow:0 2px 4px rgba(11,34,40,.06);
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-odds{
+ font-variant-numeric:tabular-nums;padding:13px 2px 11px;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-odds>div:first-child{
+ display:flex;align-items:baseline;justify-content:space-between;gap:7px;
+ font:700 12px/1.4 'DM Sans',Arial,sans-serif;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-odds small{
+ font:600 9px/1.3 'DM Sans',Arial,sans-serif;
+ color:#697a7d;text-align:center;flex:1;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-prob-bar{
+ height:7px;border-radius:2px;background:#bd715a;margin-top:8px;overflow:hidden;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-prob-bar span{
+ display:block;height:100%;background:#176f78;margin-left:auto;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ border-top:1px solid #d7dfdb;border-bottom:1px solid #d7dfdb;
+ margin:3px 0 11px;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats>div{
+ padding:10px 6px 10px 2px;min-width:0;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats>div+div{
+ border-left:1px solid #d7dfdb;padding-left:10px;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats small{
+ display:block;min-height:24px;color:#647679;
+ font:700 9px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.04em;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats b{
+ display:block;white-space:nowrap;font:700 clamp(20px,2.8vw,28px)/1.1 'Barlow Condensed',Arial,sans-serif;color:#183944;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-label{
+ font:800 10px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:.06em;
+ color:#2b6169;margin:8px 0;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;font-variant-numeric:tabular-nums;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown>div{
+ background:#edf2ef;padding:10px;min-width:0;
+ display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown small{
+ font:600 10px/1.35 'DM Sans',Arial,sans-serif;color:#5e6c70;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown b{
+ font:700 17px/1 'Barlow Condensed',Arial,sans-serif;color:#1d3b44;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown strong{
+ grid-column:1/-1;font:700 11px/1.4 'DM Sans',Arial,sans-serif;
+ border-top:1px solid #cad7d2;padding-top:5px;color:#174e5e;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-provenance,
+body.nba-newspaper[data-page="matchups"] .rabby-v2-disagreement{
+ font:500 10px/1.5 'DM Sans',Arial,sans-serif;color:#5b7278;
+ margin:9px 0;overflow-wrap:break-word;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-disagreement{
+ background:#f5eeda;padding:7px;color:#67533d;
+}
+body.nba-newspaper[data-page="matchups"] .rabby-v2-game-link{
+ display:inline-block;color:#145766;font:700 11px/1.4 'DM Sans',Arial,sans-serif;
+ text-decoration:none;border-bottom:1px solid currentColor;margin:8px 0 2px;
+}
+@media(max-width:410px){
+ body.nba-newspaper[data-page="matchups"] .rabby-v2-game{padding:9px}
+ body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown{gap:6px}
+ body.nba-newspaper[data-page="matchups"] .rabby-v2-breakdown>div{padding:7px}
+ body.nba-newspaper[data-page="matchups"] .rabby-v2-mainstats b{font-size:20px}
+}
