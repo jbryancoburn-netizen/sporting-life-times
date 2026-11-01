@@ -108,6 +108,20 @@ jobs:
           python3 scripts/inject-team-crests.py --check
           node --check shared-team-crests.js
           test -s shared-team-crests.css
+      - name: Protect NFL two-ring badges from site-wide logo injection
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          pages=('nfl.html','nfl-standings.html','nfl-rankings.html','nfl-players.html',
+                 'nfl-schedule.html','nfl-game-center.html','nfl-team.html',
+                 'nfl-game.html','nfl-playoffs.html')
+          for name in pages:
+              src=Path(name).read_text(encoding='utf-8')
+              assert 'shared-team-crests.js' not in src and 'shared-team-crests.css' not in src, name+' has a THIRD logo ring'
+              assert 'nfl-badge-v3.css' in src and 'nfl-edition-v3.js' in src, name+' lacks canonical NFL badge'
+          print('PASS: 9 NFL pages have no generic injected third ring')
+          PY
+          node --check nfl-edition-v3.js
       - name: Validate college football JavaScript before publication
         continue-on-error: true
         run: |
