@@ -46,7 +46,6 @@ jobs:
           if [ "$(date -u +%H%M)" = "1013" ]; then
             python scripts/build_nfl_edition.py
           else
-            python scripts/calibrate_nfl_elo.py
             python scripts/build_nfl_edition.py --fast
           fi
       - name: Validate saved publication and model
@@ -88,6 +87,7 @@ jobs:
             echo "Main changed; rebuild on latest published data"
             git fetch origin main
             git reset --hard origin/main
+            python scripts/calibrate_nfl_elo.py
             python scripts/build_nfl_edition.py --fast
             python scripts/test_nfl_edition.py
             git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json data/nfl-elo-calibration.json
