@@ -19,6 +19,7 @@ ALLOWED_SOURCES = {
     "CA_SOS_2026_GENERAL": ("CA", "elections.cdn.sos.ca.gov", "/statewide-elections/2026-general/"),
     "NV_SOS_2026_GENERAL": ("NV", "www.nvsos.gov", "/sos/elections/election-information/2026-election-information"),
     "WY_SOS_2026_GENERAL": ("WY", "sos.wyo.gov", "/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf"),
+    "FL_DOE_2026_UNOPPOSED": ("FL", "dos.elections.myflorida.com", "/candidates/CanDetail.asp"),
 }
 HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1}
 PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "OTH"}
@@ -70,6 +71,14 @@ def validate(data):
             raise ValueError("Race lacks a reviewed state-government source")
         if race.get("verification") != "source_transcribed_as_of_review_date" or race.get("fec_identity_match_certified") is not False:
             raise ValueError("Uncertified candidate crosswalk disguised as verified")
+        contest_status = race.get("contest_status", "general_ballot_listed")
+        if contest_status not in ("general_ballot_listed", "unopposed_no_general_ballot"):
+            raise ValueError("Unknown official-ballot appearance status")
+        if contest_status == "unopposed_no_general_ballot":
+            if rid != "FL-10" or sid != "FL_DOE_2026_UNOPPOSED" or len(race.get("candidates", [])) != 1:
+                raise ValueError("Unopposed non-ballot office requires its own official state source")
+        elif sid == "FL_DOE_2026_UNOPPOSED":
+            raise ValueError("Unopposed candidate detail must not be called a general ballot contest")
         candidates = race.get("candidates", [])
         if not 1 <= len(candidates) <= 15:
             raise ValueError("Missing or implausible candidate slate")
@@ -99,10 +108,11 @@ def validate(data):
     # Do not infer that an unlisted district is uncontested or has no candidates.
     florida = {r["district"] for r in data.get("races", []) if r["state"] == "FL" and r["office"] == "H"}
     florida_unknown = sorted({f"{i:02d}" for i in range(1, 29)} - florida)
-    if not florida_unknown:
-        raise ValueError("Florida complete-coverage claim needs explicit separate source verification")
+    if not florida_unknown and not (any(r.get("id")=="FL-10" and r.get("contest_status")=="unopposed_no_general_ballot" and r.get("source_id")=="FL_DOE_2026_UNOPPOSED" for r in data.get("races", []))):
+        raise ValueError("Florida complete coverage requires an original unopposed-office record")
     if house >= 435:
         raise ValueError("National ballot coverage cannot be certified by partial-ledger validator")
+    unopposed_nonballot = [r["id"] for r in data.get("races", []) if r.get("contest_status")=="unopposed_no_general_ballot"]
     return {
         "status": "PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED",
         "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
@@ -110,6 +120,8 @@ def validate(data):
         "official_source_links_located": len(sources),
         "states_with_transcribed_federal_contests": sorted(coverage),
         "house_contests_transcribed": house,
+        "house_general_ballot_contests_transcribed": house - len(unopposed_nonballot),
+        "unopposed_offices_without_general_ballot": unopposed_nonballot,
         "senate_contests_transcribed": senate,
         "candidate_ballot_entries": count_candidates,
         "qualified_write_in_entries_not_printed_on_ballot": qualified_write_ins,
@@ -123,7 +135,7 @@ def validate(data):
         "all_435_house_races_covered": False,
         "2026_independent_forecast_certified": False,
         "certified_2026_probability_count": 0,
-        "warning": "State government source transcriptions are dated snapshots, not continuously synchronized official ballots. Florida district 10 is absent from the state query and remains unresolved; WRI entries represent qualified write-ins and are not printed candidate names. Later changes, remaining states, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
+        "warning": "State government records include qualified ballot contests and an explicitly sourced unopposed office absent from the ballot. WRI entries are qualified write-ins, not printed ballot names. These are dated snapshots, not continuously synchronized official ballots. Later changes, remaining states, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
     }
 
 def main():
