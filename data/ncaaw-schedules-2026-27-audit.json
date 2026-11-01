@@ -15,12 +15,12 @@
   "effective_missing_network_after_verified_overlay": 6976,
   "evidence_file": "data/ncaaw-2026-27-official-broadcast-overrides.json",
   "missing_specific_venue_from_espn": 0,
-  "official_school_venue_verified": 1710,
+  "official_school_venue_verified": 1713,
   "official_school_calendar_verified": 363,
-  "venue_caveat": "1710 individual school-game venue rows are independently named by a university source; all other ESPN venue strings remain unverified until school-level confirmation.",
+  "venue_caveat": "1713 individual school-game venue rows are independently named by a university source; all other ESPN venue strings remain unverified until school-level confirmation.",
   "broadcast_caveat": "Populated networks are game-specific and labeled by official source or women-specific scoreboard; the remaining 6976 team-game rows have no confirmed listing.",
   "official_school_schedules_date_and_opponent_checked": 363,
-  "official_school_schedule_entries_date_and_opponent_checked": 10964,
+  "official_school_schedule_entries_date_and_opponent_checked": 10967,
   "school_schedule_evidence_file": "data/ncaaw-2026-27-official-schedule-verifications.json",
   "official_school_check_scope": "363 university programs have at least one source-matched game; not every game or whole school schedule is fully certified.",
   "unique_games": 5782,
@@ -33,7 +33,7 @@
   "official_broadcast_unique_games": 1555,
   "official_broadcast_team_entries": 3108,
   "espn_scoreboard_broadcast_unique_games": 510,
-  "recovered_broadcast_team_entries_this_pass": 216,
+  "recovered_broadcast_team_entries_this_pass": 0,
   "source_counts_by_team_entry": {
     "espn_womens_game_scoreboard": 1020,
     "official_school_athletics": 606,
@@ -172,7 +172,7 @@
   "official_field_evidence_file": "data/ncaaw-2026-27-official-field-crosschecks.json",
   "additional_bulk_official_school_entries_kept": 0,
   "bulk_university_date_conflicts_quarantined": 16,
-  "official_school_tipoff_verified": 307,
+  "official_school_tipoff_verified": 310,
   "official_school_venue_confirmation_discrepancies": 0,
   "official_tipoff_discrepancies_for_review": 61,
   "official_schools_with_at_least_one_verified_game": 363,
@@ -187,5 +187,7 @@
     }
   ],
   "offline_official_source_rows_newly_matched": 12,
-  "offline_official_source_date_opponent_site_policy": "Preserve existing evidence. Unique women's team+local date+source opponent required. No fabricated venue, tipoff or TV."
+  "offline_official_source_date_opponent_site_policy": "Preserve existing evidence. Unique women's team+local date+source opponent required. No fabricated venue, tipoff or TV.",
+  "additional_official_university_games_verified": 3,
+  "additional_official_evidence_review": []
 }
