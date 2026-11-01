@@ -758,6 +758,18 @@ def update(gender, bootstrap=False):
         "school_color_coverage":color_quality,
         "membership_certified":False,
         "membership_review":membership_quality}
+    # A complete DATE scan is not certification of every school schedule.
+    previous=(prior.get("quality") or {}).get("full_season_scan")
+    if bootstrap:
+        scan={"as_of":dt.datetime.now(dt.timezone.utc).isoformat(),
+              "start":start.isoformat(),"end":end.isoformat(),
+              "dates_requested":len(days),"dates_fetched":successful,
+              "dates_failed":len(errors),
+              "completed":len(days)>=150 and successful>=int(len(days)*0.95),
+              "schedules_certified":False}
+    else:
+        scan=previous or {"completed":False,"schedules_certified":False}
+    quality["full_season_scan"]=scan
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
         "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,"status":"provisional coefficients; historical calibration not completed"},
