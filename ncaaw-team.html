@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Women’s Basketball Team Desk | The Sporting Life &amp; Times</title><link rel="stylesheet" href="wbb-roster-desk.css?v=wbb-site-integrity-20261101"><script src="wbb-roster-desk.js?v=exact-player-photo-match-20261101"></script><script src="wbb-team-stats.js?v=verified-women-finals-20261101"></script><script src="wbb-game-results.js?v=20261101-b"></script><script src="wbb-site-integrity.js?v=verified-neutral-20261101"></script><script src="wbb-team-live.js?v=wbb-verified-neutral-20261101"></script>
+<title>Women’s Basketball Team Desk | The Sporting Life &amp; Times</title><link rel="stylesheet" href="wbb-roster-desk.css?v=wbb-site-integrity-20261101"><script src="wbb-roster-desk.js?v=exact-player-photo-match-20261101"></script><script src="wbb-team-stats.js?v=verified-women-finals-20261101"></script><script src="wbb-game-results.js?v=20261101-b"></script><script src="wbb-site-integrity.js?v=verified-home-20261101"></script><script src="wbb-team-live.js?v=wbb-verified-neutral-20261101"></script>
 <meta name="slt-wbb-build" content="unified-logos-20261030-1345">
 <link rel="stylesheet" href="mbb-newspaper.css?v=wbb-unified-20261030-1345"><link rel="stylesheet" href="mbb-logo-system.css?v=ncaa-single-owner-20261101c"><script src="mbb-logo-system.js?v=ncaa-single-owner-20261101c"></script>
 <style>
@@ -23,11 +23,12 @@ const load=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Er
 if(!id||!/^[0-9]+$/.test(id)){host.innerHTML='<div class="wbb-panel"><h2>Choose a team</h2><a href="ncaam.html?gender=women#wbb-teams">Women’s team directory →</a></div>';return}
 try{
 await window.MBBLogos.ready;
-const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts,verifiedFinals,tipoffQuarantine,siteConflictAudit,verifiedNeutralEvidence]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),load('data/ncaaw-2026-27-verified-games.json').catch(()=>null),load('data/ncaaw-2026-27-tipoff-quarantine.json').catch(()=>null),load('data/ncaaw-2026-27-official-site-conflicts.json').catch(()=>null),load('data/ncaaw-2026-27-verified-neutral-sites.json').catch(()=>null)]);
+const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts,verifiedFinals,tipoffQuarantine,siteConflictAudit,verifiedNeutralEvidence,verifiedHomeEvidence]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),load('data/ncaaw-2026-27-verified-games.json').catch(()=>null),load('data/ncaaw-2026-27-tipoff-quarantine.json').catch(()=>null),load('data/ncaaw-2026-27-official-site-conflicts.json').catch(()=>null),load('data/ncaaw-2026-27-verified-neutral-sites.json').catch(()=>null),load('data/ncaaw-2026-27-verified-home-courts.json').catch(()=>null)]);
 const teams=registry.teams||[],lookup=new Map(teams.map(t=>[String(t.team_id),t]));
 const t=lookup.get(id),entry=master.teams?.[id];
 if(!t||!entry)throw Error('No published women’s schedule found for team '+id);
-const baseGames=entry.games||[];
+const homeProof=window.WBBSiteIntegrity?.verifiedHomeCourts(verifiedHomeEvidence)||new Map();
+const baseGames=(entry.games||[]).map(g=>window.WBBSiteIntegrity?.correctedHome(g,homeProof,id)||g);
 const reconciled=window.WBBGameResults.merge(baseGames,verifiedFinals,id),games=reconciled.games;
 const rating=ratings?.gender==='women'&&ratings?.season==='2026-27'?ratings.rankings?.find(x=>String(x.team_id)===id):null;
 const sorted=games.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
@@ -72,11 +73,15 @@ const rows=sorted.map(g=>{
   const other=rmap.get(String(g.opponent_id||''));
   const tv=tvmap.get(String(g.id)),tvName=tv?.broadcast||g.broadcast||'Network TBA',tvUrl=tv?.source_url||g.broadcast_source_url||'';
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const neutral=window.WBBSiteIntegrity?.certifiedNeutral(g,neutralProof);
-  const siteClaims=window.WBBSiteIntegrity?.claims(g,siteDisputes,neutralProof)||[];
+  const officialHome=window.WBBSiteIntegrity?.officialHome(g,homeProof);
+  const siteClaims=officialHome?[]:window.WBBSiteIntegrity?.claims(g,siteDisputes,neutralProof)||[];
   const probability=g.completed?'Final':siteClaims.length?'Venue review':winChance(rating,other,neutral?{...g,site:'neutral'}:g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();
   const source=(siteClaims.find(x=>window.WBBSiteIntegrity.safeURL(x.source_url))||{}).source_url;
-  const siteLabel=neutral?
+  const siteLabel=officialHome?
+   '<small class="wbb-venue-verified">Host and venue verified by both universities · '+esc(officialHome.venue)+
+   ' <a href="'+esc(officialHome.sources[0])+'" target="_blank" rel="noopener noreferrer">School source ↗</a></small>':
+   neutral?
    '<small class="wbb-venue-verified">Verified neutral-site game · '+esc(neutral.verified_venue)+
    ' <a href="'+esc(neutral.source_url)+'" target="_blank" rel="noopener noreferrer">University source ↗</a></small>':
    siteClaims.length?'<small class="wbb-venue-dispute">'+
