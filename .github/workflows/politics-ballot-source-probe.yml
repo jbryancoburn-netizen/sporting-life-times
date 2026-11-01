@@ -47,14 +47,23 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-ballot-source-health.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Refresh official ballot source health; require review on changed files"
-            for attempt in $(seq 1 12); do
-              git fetch origin main
-              git rebase origin/main
-              if git push origin HEAD:main; then exit 0; fi
-              sleep 3
-            done
-            exit 1
-          fi
+          # Retain ONLY the validated probe output across concurrent main updates.
+          cp politics-ballot-source-health.json /tmp/politics-ballot-source-health.json
+          for attempt in $(seq 1 15); do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/politics-ballot-source-health.json politics-ballot-source-health.json
+            git add politics-ballot-source-health.json
+            if git diff --cached --quiet; then
+              echo "Source health already current"
+              exit 0
+            fi
+            git commit -m "Refresh official ballot source health; flag source changes for review"
+            if git push origin HEAD:main; then
+              echo "Updated original source health on attempt $attempt"
+              exit 0
+            fi
+            echo "Concurrent main update: rebuilding original-source-only commit ($attempt/15)"
+            sleep 2
+          done
+          exit 1
