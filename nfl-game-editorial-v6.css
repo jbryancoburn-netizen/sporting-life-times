@@ -1,0 +1,65 @@
+/* NFL Gamefile | Unified front desk editorial treatment, 2026.
+   Applies only to individual games; shares dynamic two-color diagonal split,
+   exact double-ring crests, season Elo independence, and live data.
+*/
+.nfl-paper[data-page="game"]{background:#e9e9e1}
+.nfl-paper[data-page="game"] .nfl-wrap{max-width:1450px;background:#f8f7f2;box-shadow:0 0 36px #10182012}
+.nfl-paper[data-page="game"] #nfl-app{min-width:0}
+.nfl-paper[data-page="game"] .nfl-p26-game{--nfl-game-ink:#132530;--nfl-game-verm:#ac2a25;margin-top:12px}
+.nfl-paper[data-page="game"] .nfl-game-return{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 1px;margin-bottom:7px;border-top:2px solid #20323c;border-bottom:1px solid #c4c5bc;font:800 11px Arial,sans-serif;letter-spacing:.08em;color:#575f5d}
+.nfl-paper[data-page="game"] .nfl-game-return a{color:#9a2d26;text-decoration:none}
+.nfl-paper[data-page="game"] .nfl-game-title{font:700 clamp(23px,3.2vw,41px)/1.04 Georgia,serif;letter-spacing:-.05em;margin:7px 0 13px;color:#17242c}
+.nfl-paper[data-page="game"] .nfl-p26-feature{margin:0 0 14px;overflow:hidden;border:1px solid #263943;border-top:0;box-shadow:0 6px 0 #21303b12;min-height:0}
+.nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-feature-top{background:#142530}
+.nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-box-team{min-height:0}
+.nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-hero-footer a{background:#a63229;color:#fff}
+.nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-hero-footer a:hover{background:#842720}
+.nfl-paper[data-page="game"] .nfl-game-model{margin:0 0 16px}
+.nfl-paper[data-page="game"] .nfl-game-model-heading{display:flex;align-items:end;justify-content:space-between;gap:11px;flex-wrap:wrap;border-top:4px solid #1a2a35;padding:10px 0;font:800 10px Arial,sans-serif;letter-spacing:.09em;color:#aa3027}
+.nfl-paper[data-page="game"] .nfl-game-model-heading span{font:11px Arial,sans-serif;letter-spacing:0;color:#666a64}
+.nfl-paper[data-page="game"] .nfl-game-model .nfl-statline{grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#c8cbc4;margin:0}
+.nfl-paper[data-page="game"] .nfl-game-model .nfl-stat{border:0;min-width:0;min-height:65px;background:#edede6;padding:11px 12px}
+.nfl-paper[data-page="game"] .nfl-game-model .nfl-stat b{font:800 clamp(18px,2.2vw,27px) Georgia,serif}
+.nfl-paper[data-page="game"] .nfl-game-model .nfl-stat span{font:800 9px/1.35 Arial,sans-serif;letter-spacing:.06em;color:#656c69}
+.nfl-paper[data-page="game"] .nfl-game-live-slot{min-height:0}
+.nfl-paper[data-page="game"] .nfl-live-details{background:#f2f0e8;border:1px solid #c8cbc1;border-top:4px solid #253843;margin:0 0 21px;padding:15px}
+.nfl-paper[data-page="game"] .nfl-live-details .nfl-live-head{border-bottom:1px solid #c6c9c0}
+.nfl-paper[data-page="game"] .nfl-live-details .nfl-live-head h2{font:700 25px Georgia,serif;letter-spacing:-.035em;color:#172831}
+.nfl-paper[data-page="game"] .nfl-live-details .nfl-live-kicker{color:#a02d26}
+.nfl-paper[data-page="game"] .nfl-live-mini-table td{font-variant-numeric:tabular-nums}
+.nfl-paper[data-page="game"] .nfl-live-details .nfl-live-play b{color:#a6322a}
+.nfl-paper[data-page="game"] .nfl-section{border-top:3px solid #172932;padding:11px 0}
+.nfl-paper[data-page="game"] .nfl-section h2{font:700 27px Georgia,serif;letter-spacing:-.04em}
+.nfl-paper[data-page="game"] .nfl-box-comparison{border-color:#cbd0c9}
+.nfl-paper[data-page="game"] #nfl-game-box{min-width:0}
+.nfl-paper[data-page="game"] .nfl-game-source{margin-top:15px;color:#646967}
+.nfl-paper[data-page="game"] .nfl-game-source a{color:#a32c25;font-weight:800}
+@media(max-width:780px){
+ .nfl-paper[data-page="game"] .nfl-live-detail-grid{grid-template-columns:1fr}
+ .nfl-paper[data-page="game"] .nfl-game-model .nfl-statline{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+ .nfl-paper[data-page="game"] .nfl-topline{display:none}
+ .nfl-paper[data-page="game"] .nfl-mast{padding:8px 0}
+ .nfl-paper[data-page="game"] .nfl-mast a{display:block!important;text-align:center;white-space:nowrap;font:700 clamp(20px,5.6vw,28px)/1.1 Georgia,serif!important;letter-spacing:-.06em!important}
+ .nfl-paper[data-page="game"] .nfl-mast .sub{font-size:8px;letter-spacing:.12em}
+ .nfl-paper[data-page="game"] .nfl-nav{display:flex;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;justify-content:flex-start;gap:0 14px;scrollbar-width:none}
+ .nfl-paper[data-page="game"] .nfl-nav a{flex:0 0 auto;font-size:10px;padding:8px 1px}
+ .nfl-paper[data-page="game"] .nfl-bar{font-size:10px;line-height:1.25}
+ .nfl-paper[data-page="game"] .nfl-game-return{font-size:9px;letter-spacing:.04em}
+ .nfl-paper[data-page="game"] .nfl-game-title{font-size:clamp(22px,6vw,31px);margin:7px 0 11px}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-feature-top{padding:9px 10px}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-score-stage.nfl-p26-box-score{grid-template-columns:repeat(2,minmax(0,1fr));padding:0;gap:0}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-box-team{min-height:0}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-period-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-period-label{display:none}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-period{background:#172631;min-height:37px;border:0}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-period.active{background:#354b59}
+ .nfl-paper[data-page="game"] .nfl-p26 .nfl-p26-hero-footer>span{font-size:9px}
+ .nfl-paper[data-page="game"] .nfl-game-model-heading span{font-size:10px}
+ .nfl-paper[data-page="game"] .nfl-game-model .nfl-stat{min-height:59px;padding:9px 10px}
+ .nfl-paper[data-page="game"] .nfl-live-details{padding:11px}
+ .nfl-paper[data-page="game"] .nfl-live-details .nfl-live-head h2{font-size:21px}
+ .nfl-paper[data-page="game"] .nfl-live-performance-grid{grid-template-columns:1fr}
+ .nfl-paper[data-page="game"] .nfl-section h2{font-size:24px}
+}
