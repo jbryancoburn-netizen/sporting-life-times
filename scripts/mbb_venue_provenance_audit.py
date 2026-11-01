@@ -39,7 +39,7 @@ def audit():
         doc=json.loads(p.read_text());docs[owner]=doc
         raw=host(doc.get('source_url'))
         if raw:school_hosts[raw].add(owner)
-    stats=collections.Counter();issues=[];by_school=collections.Counter()
+    stats=collections.Counter();issues=[];priority=[];by_school=collections.Counter()
     for owner,doc in sorted(docs.items()):
         for event in doc.get('events',[]):
             stats['entries_scanned']+=1
@@ -73,15 +73,16 @@ def audit():
                 reasons.append('date_label_is_not_an_arena')
             if reasons:
                 by_school[owner]+=1
-                if len(issues)<350:
-                    issues.append({
-                        'school_id':owner,'event_id':event.get('id'),
-                        'date':str(event.get('date') or '')[:10],
-                        'teams':sorted(pair),'arena':arena,'arena_source_url':src,
-                        'arena_source_type':source_kind,
-                        'citation_owner_ids':sorted(represented),
-                        'issues':reasons
-                    })
+                detail={
+                    'school_id':owner,'event_id':event.get('id'),
+                    'date':str(event.get('date') or '')[:10],
+                    'teams':sorted(pair),'arena':arena,'arena_source_url':src,
+                    'arena_source_type':source_kind,
+                    'citation_owner_ids':sorted(represented),
+                    'issues':reasons
+                }
+                if len(issues)<350:issues.append(detail)
+                if 'unrelated_university_arena_source' in reasons:priority.append(detail)
     stats['schools_scanned']=len(docs)
     stats['schools_with_flagged_records']=len(by_school)
     report={
@@ -89,15 +90,18 @@ def audit():
         'summary':dict(stats),
         'policy':'Diagnostic only. Quarantine weak/default/unrelated-school arena citations; never replace or remove a venue without game-specific university/conference evidence.',
         'flagged_examples':issues,
+        'urgent_unrelated_school_citations':priority,
         'schools_with_issues':[{'school_id':i,'flagged_entries':n} for i,n in by_school.most_common()]
     }
     REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     manifest=DATA/'mbb-official-recheck-365-verification.json'
     if manifest.exists():
         d=json.loads(manifest.read_text())
-        d['arena_source_integrity_audit']={'summary':dict(stats),'flagged_examples':issues[:50],'policy':report['policy']}
+        d['arena_source_integrity_audit']={'summary':dict(stats),'flagged_examples':issues[:50],
+             'urgent_unrelated_school_citations':priority,'policy':report['policy']}
         manifest.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report['summary'],indent=2))
+    print(json.dumps({'urgent_unrelated_school_citations':priority},indent=2))
     return report
 
 if __name__=='__main__':audit()
