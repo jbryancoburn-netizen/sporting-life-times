@@ -205,6 +205,7 @@ def enrich_cacc_women(games, teams, today):
     missing = [name for _, name in SCHOOLS.values() if name not in teams]
     if missing:
         return {"status": "withheld: women's directory identity mismatch",
+                "source": "CACC official 2026-27 women's basketball university calendars",
                 "missing_school_ids": missing, "two_school_matches": 0}
     calendars = {}
     failures = []
@@ -217,6 +218,7 @@ def enrich_cacc_women(games, teams, today):
     # Continue only with the verified two-team subset of accessible schools.
     if len(calendars) < 7:
         return {"status": "withheld: fewer than seven current CACC school calendars",
+                "source": "CACC official 2026-27 women's basketball university calendars",
                 "calendars_read": len(calendars), "unavailable_calendars": failures,
                 "two_school_matches": 0}
     audit = reconcile_women_cacc(calendars, games, teams, today)

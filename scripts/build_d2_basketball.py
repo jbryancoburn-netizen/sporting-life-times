@@ -997,6 +997,13 @@ def update(gender, bootstrap=False, live=False):
     if rapid:
         gsc_quality=previous_quality.get("official_gsc_schedule_reconciliation") or {"status":"daily source check pending"}
         cacc_quality=previous_quality.get("official_cacc_schedule_reconciliation") or {"status":"daily source check pending"}
+        # First publication after a new women's source importer is installed:
+        # seed once even if the workflow was invoked by a fast push event.
+        # All later rapid polls reuse this result, including an explicit
+        # source-unavailable status; the daily job handles normal retries.
+        if gender=="women" and cacc_quality.get("source") != "CACC official 2026-27 women's basketball university calendars":
+            from d2_cacc_women_official import enrich_cacc_women
+            cacc_quality=enrich_cacc_women(games,teams,today)
     else:
         gsc_quality=enrich_gsc(games,teams,today,gender=gender)
         if gender=="men":
