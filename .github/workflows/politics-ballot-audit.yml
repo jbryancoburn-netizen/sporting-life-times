@@ -41,17 +41,17 @@ jobs:
           m=json.load(open('politics-sim-readiness.json'))
           assert b['status']=='PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED'
           assert b['all_435_house_races_covered'] is False
-          assert b['house_contests_transcribed']==42
+          assert b['house_contests_transcribed']==43
           assert b['senate_contests_transcribed']==3
-          assert b['candidate_ballot_entries']==133
-          assert b['florida_unverified_districts']==['10']
+          assert b['candidate_ballot_entries']==134
+          assert b['florida_unverified_districts']==[]
           assert b['qualified_write_in_entries_not_printed_on_ballot']==9
           assert b['unopposed_offices_without_general_ballot']==['FL-10']
           assert b['house_general_ballot_contests_transcribed']==42
           assert b['fec_identity_matches_verified']==0
           assert b['certified_2026_probability_count']==0
           r=next(c for c in m['checks'] if c['id']=='2026_official_general_election_ballot_roster')
-          assert r['state']=='partial' and r['verified_record_count']==45
+          assert r['state']=='partial' and r['verified_record_count']==46
           assert m['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
           assert not m['house_forecast_ready'] and m['certified_original_probability_count']==0
           print('Official ballot snapshot checked. Not nationwide or forecast approved.')
