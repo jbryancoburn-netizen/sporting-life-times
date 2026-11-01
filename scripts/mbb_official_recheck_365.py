@@ -3,6 +3,7 @@
 Only exact date + opponent matches may modify existing records.
 """
 import json, re, pathlib, datetime, collections, time
+from urllib.parse import urlsplit
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 from bs4 import BeautifulSoup
@@ -10,6 +11,22 @@ root=pathlib.Path(__file__).resolve().parents[1]
 teams=[t for t in json.loads((root/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams'] if t.get('espn_id')][:]
 assert len(teams)==365
 USER_AGENT='Mozilla/5.0 (compatible; SportingLifeTimesScheduleVerifier/1.0)'
+
+def hostname(url):
+ try:
+  host=(urlsplit(str(url or '')).hostname or '').lower()
+ except ValueError:return ''
+ return host[4:] if host.startswith('www.') else host
+OFFICIAL_HOST_BY_ID={}
+for team in teams:
+ try:
+  tid=str(team['espn_id'])
+  fp=root/'data/mbb-schedules-2026-27'/(tid+'.json')
+  if fp.exists():
+   host=hostname(json.loads(fp.read_text()).get('source_url'))
+   if host and not host.endswith('espn.com'):OFFICIAL_HOST_BY_ID[tid]=host
+ except (OSError,ValueError,TypeError):continue
+
 def norm(s):return re.sub('[^a-z0-9]','',str(s or '').lower())
 def datekey(raw):
  m=re.search(r'\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b',raw,re.I)
@@ -65,7 +82,9 @@ def rows_from_sidearm_cards(html):
   key=(day,norm(opponent),site)
   if key in seen:continue
   seen.add(key)
-  found.append({'date':day,'site':site,'site_certified':bool(certified),'opponent':opponent,'location':location,'time':clock,'broadcast':''})
+  link=el.select_one('a[href]') or card.select_one('.sidearm-schedule-game-opponent-name a[href]')
+  opponent_host=hostname(link.get('href','')) if link else ''
+  found.append({'date':day,'site':site,'site_certified':bool(certified),'opponent':opponent,'opponent_host':opponent_host,'location':location,'time':clock,'broadcast':''})
  return found
 
 def opponent_variants(x):
@@ -115,7 +134,9 @@ def verify_team(team):
   opp=next((p for p in ps if p is not selfrow),None)
   if not selfrow or not opp:continue
   opname=(opp.get('team') or {}).get('displayName') or (opp.get('team') or {}).get('name') or event.get('name','')
-  eligible=[x for x in lookup.get(date,[]) if norm(x['opponent'])==norm(opname) or (opponent_variants(x['opponent']) and opponent_variants(x['opponent'])==opponent_variants(opname))]
+  opponent_id=str((opp.get('team') or {}).get('id') or '')
+  opponent_host=OFFICIAL_HOST_BY_ID.get(opponent_id,'')
+  eligible=[x for x in lookup.get(date,[]) if norm(x['opponent'])==norm(opname) or (opponent_variants(x['opponent']) and opponent_variants(x['opponent'])==opponent_variants(opname)) or (bool(opponent_host) and bool(x.get('opponent_host')) and x['opponent_host']==opponent_host)]
   if len(eligible)!=1:continue
   row=eligible[0];item['matched']+=1
   site=row['site']
