@@ -103,6 +103,41 @@ class TestCollegeSoccerLive(unittest.TestCase):
         self.assertEqual(audit["unresolved_source_corrections"][0]["match_id"], "men-100")
         self.assertEqual(audit["status"], "provisional_conflicted")
 
+    def test_independent_verified_source_exception_keeps_certified_final(self):
+        first, previous_model, _ = c.update(self.b, self.l, [game(hg=1, ag=0)])
+        official = game(hg=3, ag=1)
+        exception = {
+            "match_id": "men-100", "gender": "men", "date": "2026-10-23",
+            "home_team": "men-d1-a", "away_team": "men-d1-b",
+            "source_game": "https://www.ncaa.com/game/100",
+            "ledger_score": [1, 0], "reported_feed_score": [3, 1],
+            "independent_source": "https://example.edu/official-recap",
+            "reviewed_on": "2026-11-01", "explanation": "Game recap confirmed 1-0."
+        }
+        current, new_model, audit = c.update(self.b, first, [official], {"men-100": exception})
+        self.assertEqual(current, first)
+        self.assertEqual(previous_model, new_model)
+        self.assertEqual(audit["unresolved_source_correction_count"], 0)
+        self.assertEqual(audit["independently_verified_discrepancy_count"], 1)
+        self.assertEqual(audit["status"], "provisional_independent_source_verified")
+
+    def test_source_exception_wrong_score_still_fails_closed(self):
+        first, previous_model, _ = c.update(self.b, self.l, [game(hg=1, ag=0)])
+        exception = {
+            "match_id": "men-100", "gender": "men", "date": "2026-10-23",
+            "home_team": "men-d1-a", "away_team": "men-d1-b",
+            "source_game": "https://www.ncaa.com/game/100",
+            "ledger_score": [1, 0], "reported_feed_score": [2, 2],
+            "independent_source": "https://example.edu/official-recap",
+            "reviewed_on": "2026-11-01", "explanation": "Attestation for a different score."
+        }
+        current, new_model, audit = c.update(self.b, first, [game(hg=3, ag=1)], {"men-100": exception})
+        self.assertEqual(current, first)
+        self.assertEqual(new_model, previous_model)
+        self.assertEqual(audit["unresolved_source_correction_count"], 1)
+        self.assertEqual(audit["independently_verified_discrepancy_count"], 0)
+        self.assertEqual(audit["status"], "provisional_conflicted")
+
     def test_cross_division_excluded_with_evidence(self):
         _, m, a = c.update(self.b, self.l, [game(away="women-d1-a")])
         self.assertEqual(a["excluded_finals"], 1)
