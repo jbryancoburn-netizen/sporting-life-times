@@ -56,7 +56,9 @@
     let forecast='';
     if(!score(g)&&h&&a){const edge=g.neutral?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
     const status=g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
-    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+fmt(g.date)+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<a class="wbb-game-source" href="https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.id)+'" target="_blank" rel="noopener noreferrer">Game details ↗</a></article>';
+    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+fmt(g.date)+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
+       (g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
+       '<a class="wbb-game-source" href="'+safe(/^\\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
   }
   function allGames(){const result=new Map(games);for(const [id,g] of live){const prior=result.get(id);result.set(id,{...prior,...g,broadcast:prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast)});}return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
   function drawGames(){
@@ -108,13 +110,101 @@
   }
   async function refreshLive(){
     if(!ratings)return;
-    const day=today(),data=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?groups=50&limit=500&dates='+day.replaceAll('-',''));
+    const day=today();
+    const [data,wire]=await Promise.all([
+      get('https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?groups=50&limit=500&dates='+day.replaceAll('-','')),
+      get('data/mbb-live.json')
+    ]);
+    const cross=wire?.ncaa_women_crosscheck;
+    const checked=Date.parse(cross?.checked_at||'');
+    const current=cross?.day===day&&Number.isFinite(checked)&&
+      checked<=Date.now()+60000&&Date.now()-checked<=90*60000&&Array.isArray(cross?.games);
+    const official=current?cross.games:[];
+    const officialById=new Map(official.filter(r=>r.espn_id&&r.phase!=='unconfirmed')
+      .map(r=>[String(r.espn_id),r]));
+    const candidates=new Map();
+    let disputed=0,ncaaMatched=0;
     if(Array.isArray(data?.events)){
-      live=new Map();
-      for(const e of data.events){const c=e.competitions?.[0],h=c?.competitors?.find(t=>t.homeAway==='home'),a=c?.competitors?.find(t=>t.homeAway==='away');if(!h||!a||!teams.has(String(h.id))&&!teams.has(String(a.id)))continue;const state=e.status?.type?.state;live.set(String(e.id),{id:String(e.id),date:e.date,home_id:String(h.id),away_id:String(a.id),home_name:h.team?.displayName,away_name:a.team?.displayName,home_score:h.score,away_score:a.score,status:state==='post'?'final':state==='in'?'live':'scheduled',completed:state==='post',detail:e.status?.type?.shortDetail,neutral:!!c.neutralSite,venue:c.venue?.fullName,city:[c.venue?.address?.city,c.venue?.address?.state].filter(Boolean).join(', '),broadcast:(c.broadcasts||[]).flatMap(b=>b.names||[]).join(' / ')});}
-      drawGames();document.getElementById('wbb-score-stamp').textContent='Live scoreboard checked '+fmt(new Date())+' · '+live.size+' games today · season calendar '+games.size.toLocaleString()+' games';
-    }else document.getElementById('wbb-score-stamp').textContent='Showing published season calendar · live scoreboard unavailable; retrying in one minute.';
-    const access=document.getElementById('access-stamp');if(access)access.textContent='Viewed '+fmt(new Date());
+      for(const e of data.events){
+        const c=e.competitions?.[0],h=c?.competitors?.find(t=>t.homeAway==='home'),
+              a=c?.competitors?.find(t=>t.homeAway==='away');
+        if(!h||!a||(!teams.has(String(h.id))&&!teams.has(String(a.id))))continue;
+        const state=e.status?.type?.state;
+        let g={id:String(e.id),espn_id:String(e.id),date:e.date,home_id:String(h.id),
+          away_id:String(a.id),home_name:h.team?.displayName,away_name:a.team?.displayName,
+          home_score:h.score,away_score:a.score,
+          status:state==='post'?'final':state==='in'?'live':'scheduled',
+          completed:state==='post',detail:e.status?.type?.shortDetail,
+          neutral:!!c.neutralSite,venue:c.venue?.fullName,
+          city:[c.venue?.address?.city,c.venue?.address?.state].filter(Boolean).join(', '),
+          broadcast:(c.broadcasts||[]).flatMap(b=>b.names||[]).join(' / '),
+          source:'ESPN secondary score; awaiting NCAA-origin crosscheck'};
+        const ncaa=officialById.get(g.id);
+        if(ncaa){
+          ncaaMatched++;
+          const matching=String(ncaa.away_id)===g.away_id&&String(ncaa.home_id)===g.home_id;
+          if(!matching){
+            disputed++;
+            g={...g,source_conflict:true,status:'review',completed:false,
+              home_score:null,away_score:null,
+              source:'NCAA-origin / ESPN school identity conflict'};
+          }else if(ncaa.phase==='final'&&Number.isFinite(Number(ncaa.away_score))&&
+                   Number.isFinite(Number(ncaa.home_score))&&ncaa.away_score!==ncaa.home_score){
+            const disagree=state==='post'&&Number.isFinite(Number(g.away_score))&&
+              Number.isFinite(Number(g.home_score))&&
+              (Number(g.away_score)!==Number(ncaa.away_score)||
+               Number(g.home_score)!==Number(ncaa.home_score));
+            if(disagree){
+              disputed++;
+              g={...g,status:'review',completed:false,source_conflict:true,
+                away_score:null,home_score:null,
+                source:'NCAA-origin / ESPN final scores conflict'};
+            }else{
+              g={...g,status:'final',completed:true,
+                away_score:ncaa.away_score,home_score:ncaa.home_score,
+                source:'NCAA-origin final; ESPN game metadata secondary'};
+            }
+          }else if(ncaa.phase==='live'&&g.status==='scheduled'){
+            g={...g,status:'live',completed:false,away_score:ncaa.away_score,
+              home_score:ncaa.home_score,source:'NCAA-origin live snapshot (newsroom refresh)'};
+          }else{
+            g.source='NCAA-origin fixture matched; '+(g.status==='live'?
+              'ESPN live scores secondary':g.status==='final'?
+              'ESPN final awaiting NCAA confirmation':'ESPN tipoff listing secondary');
+          }
+        }
+        candidates.set(g.id,g);
+      }
+    }
+    // NCAA-origin games with a known dated tipoff remain visible if ESPN
+    // is unavailable. Missing times are never fabricated.
+    if(current)for(const row of official){
+      const id=String(row.espn_id||row.id);
+      if(candidates.has(id)||row.phase==='unconfirmed'||!row.date||
+         localDay(row.date)!==day||!teams.has(String(row.away_id))||
+         !teams.has(String(row.home_id)))continue;
+      candidates.set(id,{id,espn_id:row.espn_id,date:row.date,away_id:String(row.away_id),
+        home_id:String(row.home_id),away_name:row.away_name,home_name:row.home_name,
+        away_score:row.away_score,home_score:row.home_score,
+        status:row.phase==='final'?'final':row.phase==='live'?'live':'scheduled',
+        completed:row.phase==='final',source:'NCAA-origin scoreboard; ESPN unavailable',
+        venue:'',city:'',broadcast:'',neutral:false});
+    }
+    if(candidates.size){
+      live=candidates;
+      drawGames();
+      document.getElementById('wbb-score-stamp').textContent='Scoreboard checked '+fmt(new Date())+
+        ' · '+live.size+' games today · '+ncaaMatched+' NCAA-origin crosschecks'+
+        (disputed?' · '+disputed+' disputed scores withheld':'')+
+        ' · ESPN secondary; season calendar '+games.size.toLocaleString()+' games';
+    }else{
+      live=new Map();drawGames();
+      document.getElementById('wbb-score-stamp').textContent=
+        'No current scores retrieved. Showing the published women’s schedule; retrying in one minute.'+
+        (current?' NCAA-origin archive checked.':' NCAA-origin crosscheck unavailable or stale.');
+    }
+    const access=document.getElementById('access-stamp');
+    if(access)access.textContent='Viewed '+fmt(new Date());
   }
   document.getElementById('wbb-date').addEventListener('change',e=>{selected=e.target.value;manualDate=true;drawGames();});
   for(const [id,step] of [['wbb-prev',-1],['wbb-next',1]])document.getElementById(id).addEventListener('click',()=>{const select=document.getElementById('wbb-date'),option=select.options[select.selectedIndex+step];if(option){selected=option.value;manualDate=true;drawGames();}});
