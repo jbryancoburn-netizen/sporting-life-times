@@ -99,3 +99,9 @@
 #college-soccer-visual-desk .cs-live-score-line{padding:9px 2px;font:700 16px/1.35 Georgia,serif;color:#193c50}
 #college-soccer-visual-desk .cs-game-is-live{border-left:5px solid #b5342c}
 #college-soccer-visual-desk .cs-game-is-live>small:first-child{color:#b5342c;font-weight:800}
+
+/* No initials beneath an image in NCAA matchday standings or power rows. */
+#college-soccer-visual-desk .cs-mark .cs-mark-initial{display:grid;place-items:center;position:relative;z-index:1;font:800 10px Arial,sans-serif;color:#fff}
+#college-soccer-visual-desk .cs-mark.cs-has-logo .cs-mark-initial{display:none!important}
+#college-soccer-visual-desk .cs-mark:not(.cs-has-logo)>img{visibility:hidden!important}
+#college-soccer-visual-desk .cs-mark.cs-has-logo>img{visibility:visible!important}
