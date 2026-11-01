@@ -59,6 +59,14 @@ jobs:
                       print('APPORTIONMENT MISMATCH',item['year'],item['apportionment_audit'])
 
               assert d['data_quality_status'] in ('reconstruction_pending','reconciled')
+              assert isinstance(d['winner_party_totals_reconciled'],bool)
+              for item in d['house_reconciliation']:
+                  for verified in item['official_unopposed_winner_only']:
+                      assert verified['numeric_votes'] is None
+                      assert verified['source_url'].startswith('https://')
+                  assert isinstance(item['winner_party_totals_reconciled'],bool)
+              print('OFFICIAL WINNER PARTY COVERAGE:',d['winner_party_totals_reconciled'])
+
               if d['data_quality_status']=='reconstruction_pending':
                   assert d['forecast_2026_certified'] is False
                   print('House result reconciliation OPEN:',[(x['year'],x['difference_official_minus_reconstructed'],x['excluded_contests']) for x in d['house_reconciliation'] if x['status']!='matched'])
