@@ -18,10 +18,10 @@ ALLOWED_SOURCES = {
     "FL_DOE_2026_GENERAL": ("FL", "dos.elections.myflorida.com", "/candidates/CanList.asp"),
     "CA_SOS_2026_GENERAL": ("CA", "elections.cdn.sos.ca.gov", "/statewide-elections/2026-general/"),
     "NV_SOS_2026_GENERAL": ("NV", "www.nvsos.gov", "/sos/elections/election-information/2026-election-information"),
-    "WY_SOS_2026_GENERAL": ("WY", "sos.wyo.gov", "/Elections/2026ElectionInformation.aspx"),
+    "WY_SOS_2026_GENERAL": ("WY", "sos.wyo.gov", "/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf"),
 }
 HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1}
-PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "OTH"}
+PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "OTH"}
 
 def validate(data):
     if data.get("schema_version") != 1 or data.get("election_date") != "2026-11-03":
@@ -51,6 +51,7 @@ def validate(data):
     race_ids = set()
     coverage = {}
     count_candidates = 0
+    qualified_write_ins = 0
     for race in data.get("races", []):
         rid = race.get("id", "")
         state, office = race.get("state"), race.get("office")
@@ -60,7 +61,7 @@ def validate(data):
         if office == "H":
             if not re.fullmatch(r"[0-9]{2}", race.get("district", "")):
                 raise ValueError("Noncanonical House district")
-            if not 1 <= int(race["district"]) <= HOUSE_SEATS.get(state, 0):
+            if not ((race["district"] == "00" and HOUSE_SEATS.get(state) == 1) or (1 <= int(race["district"]) <= HOUSE_SEATS.get(state, 0) and race["district"] != "00")):
                 raise ValueError("House district not valid for this 2026 state")
         elif race.get("district") is not None:
             raise ValueError("Senate race must be statewide")
@@ -82,6 +83,8 @@ def validate(data):
             if name.casefold() in seen:
                 raise ValueError("Duplicate candidate in one race")
             seen.add(name.casefold())
+            if party == "WRI":
+                qualified_write_ins += 1
         race_ids.add(rid)
         coverage.setdefault(state, {"house": 0, "senate": 0})["house" if office == "H" else "senate"] += 1
         count_candidates += len(candidates)
@@ -92,6 +95,12 @@ def validate(data):
                 raise ValueError("Claim of complete federal source transcription does not match state races")
     house = sum(x["house"] for x in coverage.values())
     senate = sum(x["senate"] for x in coverage.values())
+    # Florida 10 is absent from the linked qualified-candidate search page.
+    # Do not infer that an unlisted district is uncontested or has no candidates.
+    florida = {r["district"] for r in data.get("races", []) if r["state"] == "FL" and r["office"] == "H"}
+    florida_unknown = sorted({f"{i:02d}" for i in range(1, 29)} - florida)
+    if not florida_unknown:
+        raise ValueError("Florida complete-coverage claim needs explicit separate source verification")
     if house >= 435:
         raise ValueError("National ballot coverage cannot be certified by partial-ledger validator")
     return {
@@ -103,6 +112,8 @@ def validate(data):
         "house_contests_transcribed": house,
         "senate_contests_transcribed": senate,
         "candidate_ballot_entries": count_candidates,
+        "qualified_write_in_entries_not_printed_on_ballot": qualified_write_ins,
+        "florida_unverified_districts": florida_unknown,
         "state_coverage": {
             state: {**counts, "full_house_snapshot": counts["house"] == HOUSE_SEATS[state]}
             for state, counts in sorted(coverage.items())
@@ -112,7 +123,7 @@ def validate(data):
         "all_435_house_races_covered": False,
         "2026_independent_forecast_certified": False,
         "certified_2026_probability_count": 0,
-        "warning": "State government source transcriptions are historical snapshots, not continuously synchronized official ballots. Remaining races, later changes, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
+        "warning": "State government source transcriptions are dated snapshots, not continuously synchronized official ballots. Florida district 10 is absent from the state query and remains unresolved; WRI entries represent qualified write-ins and are not printed candidate names. Later changes, remaining states, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
     }
 
 def main():
