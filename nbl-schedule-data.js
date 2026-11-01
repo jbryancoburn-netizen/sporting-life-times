@@ -60,7 +60,7 @@
         home:g.home,away:g.away,state:completed?'post':'pre',
         home_score:completed?hs:null,away_score:completed?as:null,
         venue:g.venue||'',broadcasts:Array.isArray(g.broadcasts)?g.broadcasts:[],
-        round:g.round||null,url:completed&&/^\\d+$/.test(String(g.id))?'https://www.espn.com/nbl/game/_/gameId/'+g.id:'',
+        round:g.round||null,url:completed&&/^[0-9]+$/.test(String(g.id))?'https://www.espn.com/nbl/game/_/gameId/'+g.id:'',
         status_detail:completed?'Final':'Scheduled',fixture_source:g.source||raw.source||'NBL fixture candidate',
         official_verified:g.official_nbl_verified===true};
     });
