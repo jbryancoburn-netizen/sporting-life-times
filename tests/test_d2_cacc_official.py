@@ -2,6 +2,7 @@ import datetime as dt
 import importlib.util
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 SPEC=importlib.util.spec_from_file_location("official_cacc",Path(__file__).resolve().parents[1]/"scripts"/"d2_cacc_official.py")
 cacc=importlib.util.module_from_spec(SPEC)
@@ -125,6 +126,36 @@ class CACCOfficialTests(unittest.TestCase):
   self.assertEqual(q["time_disagreements"],1)
   self.assertEqual(q["host_sourced_resolutions"],0)
   self.assertNotIn("start_time",next(iter(games.values())))
+
+ def test_extract_real_home_venue_only_from_same_day_same_opponent(self):
+  rows=[]
+  for i in range(8):
+   d=dt.date(2026,12,2)+dt.timedelta(days=i*5)
+   rows.append(f"<tr><td>{d.strftime('%B')} {d.day}, {d.year} (Wednesday)</td><td>7:30 pm</td><td>Home</td><td>Holy Family University</td><td>Wilmington, DE / Joseph West Jones Center</td><td></td><td></td><td></td><td></td></tr>")
+  rows+=["<tr><td>January 7, 2027 (Thursday)</td><td>8 pm</td><td>Away</td><td>Holy Family University</td><td>Philadelphia, PA</td><td></td><td></td><td></td><td></td></tr>",
+         "<tr><td>January 8, 2027 (Friday)</td><td>8 pm</td><td>Home</td><td>Post University</td><td>Wilmington, DE</td><td></td><td></td><td></td><td></td></tr>"]
+  html="<title>2026-2027 Men's Basketball Schedule</title><table><tr><th>Date</th><th>Time</th><th>At</th><th>Opponent</th><th>Location</th><th>TV</th><th>Radio</th><th>Tournament</th><th>Result</th></tr>"+"".join(rows)+"</table>"
+  result=cacc.parse_host_venues(html,"goldey-beacom")
+  self.assertEqual(len(result),8)
+  self.assertEqual(result[("2026-12-02","holy-family","goldey-beacom")],"Joseph West Jones Center · Wilmington, DE")
+
+ def test_home_venue_enrichment_never_overwrites_existing_conflicting_arena(self):
+  rows=[]
+  for i in range(8):
+   day=dt.date(2026,12,2)+dt.timedelta(days=i*5)
+   rows.append(f"<tr><td>{day.strftime('%B')} {day.day}, {day.year}</td><td>7:30 pm</td><td>Home</td><td>Holy Family University</td><td>Wilmington, DE / Joseph West Jones Center</td><td></td><td></td><td></td><td></td></tr>")
+  html="<title>2026-2027 Men's Basketball Schedule</title><table><tr><th>Date</th><th>Time</th><th>At</th><th>Opponent</th><th>Location</th></tr>"+"".join(rows)+"</table>"
+  g1={"id":"same-match","date":"2026-12-02","away":"holy-family","home":"goldey-beacom"}
+  g2={"id":"different-venue","date":"2026-12-07","away":"holy-family","home":"goldey-beacom",
+       "venue":"Official Tournament Arena · Wilmington, DE"}
+  with patch.dict(cacc.HOST_GRID_SOURCES,{"goldey-beacom":"https://example.test/schedule"},clear=True):
+   with patch.object(cacc,"read_page",return_value=html):
+    stats=cacc.enrich_cacc_host_venues({g1["id"]:g1,g2["id"]:g2})
+  self.assertEqual(stats["official_host_schedules"],1)
+  self.assertEqual(stats["venues_added"],1)
+  self.assertEqual(stats["venue_conflicts"],1)
+  self.assertEqual(g1["venue"],"Joseph West Jones Center · Wilmington, DE")
+  self.assertEqual(g2["venue"],"Official Tournament Arena · Wilmington, DE")
 
  def test_invalid_member_cannot_be_confirmed_as_dii_opponent(self):
   a={"date":"2026-12-10","away":"monroe-university","home":"caldwell",
