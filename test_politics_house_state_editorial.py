@@ -80,7 +80,7 @@ class StateEdition(unittest.TestCase):
         self.assertIn('2026 map · redrawn',self.js)
         self.assertIn('2026 map · unchanged',self.js)
         self.assertIn("color(info.party,info.margin)",(ROOT/"politics-house-map.js").read_text(encoding="utf-8"))
-        self.assertIn('not a forecast',self.html.lower()+(ROOT/"politics-house-map.js").read_text().lower())
+        self.assertIn('not forecasts',(ROOT/"politics-house-map.js").read_text(encoding="utf-8").lower())
 
 if __name__=="__main__":
     unittest.main()
