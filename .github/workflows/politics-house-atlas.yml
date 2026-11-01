@@ -21,6 +21,7 @@ on:
       - 'politics-fec-race-index.json'
       - 'politics-official-ballots.json'
       - 'politics-2024-county-presidential.json'
+      - 'politics-2024-unopposed-house.json'
       - 'politics-2026-district-geography.json'
       - 'scripts/politics_house_atlas.py'
       - 'test_politics_house_atlas.py'
@@ -66,6 +67,8 @@ jobs:
           assert len(set(x['id'] for x in a['districts']))==435
           assert a['forecast_eligible'] is False and a['certified_2026_probabilities']==0
           assert a['2026_polled_districts']>=115
+          assert a.get('2024_unopposed_winners_verified')==2
+          assert {r['id'] for r in a['districts'] if r.get('2024_unopposed_official_context')}=={'FL-20','OK-03'}
           assert a['2026_directly_checked_release_count']>=7
           assert a['2026_secondary_compilation_poll_count']>=110
           assert all(p.get('source_verified') is False and p['sample_size'] is None
