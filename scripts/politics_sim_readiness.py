@@ -22,6 +22,8 @@ def build(data):
     archive=data.get("archive",{})
     deep_history=data.get("deep_history",{})
     fec_index=data.get("fec_index",{})
+    ballot_audit=data.get("ballot_audit",{})
+    ballot_partial=ballot_audit.get("status")=="PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED" and ballot_audit.get("all_435_house_races_covered") is False and ballot_audit.get("house_contests_transcribed",0)>0 and ballot_audit.get("certified_2026_probability_count")==0
     house=row.get("house",[]) if row.get("status")=="ok" else []
     senate=row.get("senate",[]) if row.get("status")=="ok" else []
     fed=fec.get("candidates",[]) if fec.get("status")=="ok" else []
@@ -62,10 +64,11 @@ def build(data):
       stage("2026_national_generic_ballot_polls","partial" if polling.get("status")=="ok" else "missing",
         f"{poll_audit.get('eligible_polls',0)} recent eligible polls from {poll_audit.get('unique_pollsters',0)} pollsters",
         "VoteHub polling API CC BY 4.0","Minimum 3 independent pollsters not met, or historical/pollster weights not calibrated.",poll_audit.get("eligible_polls",0)),
-      stage("2026_official_general_election_ballot_roster","missing",
-        "No authoritative nationwide ballot-by-district roster in the independent data store",
-        "Individual state secretary-of-state and county election officials",
-        "Verify actual November nominees, withdrawals, write-ins, special elections and no-candidate contests."),
+      stage("2026_official_general_election_ballot_roster","partial" if ballot_partial else "missing",
+        (f"{ballot_audit.get('house_contests_transcribed',0)} House and {ballot_audit.get('senate_contests_transcribed',0)} Senate contests transcribed from dated state government candidate lists; {ballot_audit.get('house_contests_unverified',435)} House contests not yet verified" if ballot_partial else "No audited partial official ballot roster available"),
+        "North Carolina State Board of Elections and Florida Division of Elections (official candidate lists)",
+        "Only the dated source-transcribed contests are recognized. FEC candidate identity matching, later state changes, remaining states and 2026 map adjustments remain unresolved; nationwide ballot certification is NOT complete.",
+        ballot_audit.get("house_contests_transcribed",0) + ballot_audit.get("senate_contests_transcribed",0) if ballot_partial else 0),
       stage("2026_district_geography_change_table","missing",
         "No verified GIS mapping from 2024 voter districts to 2026 boundaries",
         "U.S. Census Bureau TIGER/Line and state redistricting authorities",
@@ -92,7 +95,7 @@ def build(data):
       "status":"NOT_READY_FOR_PUBLIC_PREDICTIONS",
       "evaluated_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
       "method":"Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
-      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
+      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json","official_ballot_roster":"politics-official-ballots.json","official_ballot_audit":"politics-ballot-audit.json"},
       "checks":metrics,"counts":{"verified":sum(x["state"]=="verified" for x in metrics),"partial":sum(x["state"]=="partial" for x in metrics),"missing":sum(x["state"]=="missing" for x in metrics)},
       "house_forecast_ready":forecast_ready,"senate_forecast_ready":forecast_ready,"governor_forecast_ready":forecast_ready,
       "certified_original_probability_count":0,
@@ -109,7 +112,8 @@ def main():
     d=build({"history":load("politics-history.json"),"row":load("politics-historical-contests.json"),
              "fec":load("politics-fec-inputs.json"),"fec_index":load("politics-fec-race-index.json"),
              "presidential":load("politics-2024-county-presidential.json"),"archive":load("politics-historical-archive.json"),"deep_history":load("politics-deep-history.json"),"census":load("politics-census-inputs.json"),
-             "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json")})
+             "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json"),
+             "ballot_audit":load("politics-ballot-audit.json")})
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
 if __name__=="__main__":main()
