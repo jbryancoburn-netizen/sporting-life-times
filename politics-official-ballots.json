@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster.",
+  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -85,6 +85,18 @@
       "scope": "full_house_snapshot_no_senate_2026",
       "transcription_status": "reviewed",
       "cross_check_url": "https://msa.maryland.gov/msa/mdmanual/42electg/html/2026/2026usrep.html"
+    },
+    {
+      "id": "DE_DOE_2026_GENERAL",
+      "state": "DE",
+      "publisher": "Delaware Department of Elections",
+      "url": "https://elections.delaware.gov/candidates/candidatelist/genl_fcddt_2026.html",
+      "publication_date": "2026-10-30",
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_general_election_qualified_candidate_listing",
+      "scope": "statewide_at_large_house_two_qualified_candidates;_withdrawn_republican_excluded",
+      "transcription_status": "reviewed",
+      "note": "The government list has Sarah McBride and Joseph Arminio marked Qualified; Lee Murphy is Withdrawn and excluded."
     }
   ],
   "races": [
@@ -1070,6 +1082,25 @@
         },
         {
           "name": "Jeff Belle",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "DE-00",
+      "state": "DE",
+      "office": "H",
+      "district": "00",
+      "source_id": "DE_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Sarah McBride",
+          "party": "DEM"
+        },
+        {
+          "name": "Joseph \"Dr. Joe\" Arminio",
           "party": "REP"
         }
       ],
