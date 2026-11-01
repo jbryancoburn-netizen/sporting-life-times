@@ -17,20 +17,15 @@ ENDPOINT="https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/scoreboar
 MONTHS=[("20260919","20261031"),("20261101","20261130"),("20261201","20261231"),("20270101","20270131"),("20270201","20270228")]
 TEAMS={"Adelaide 36ers","Brisbane Bullets","Cairns Taipans","Illawarra Hawks","Melbourne United","New Zealand Breakers","Perth Wildcats","South East Melbourne Phoenix","Sydney Kings","Tasmania JackJumpers"}
 def get(a,b):
-    url=f"{ENDPOINT}?dates={a}-{b}&limit=300"
-    req=urllib.request.Request(url,headers={"User-Agent":"SportingLifeTimes-NBL-Audit/1.0"})
-    last_error=None
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req,timeout=45) as response:
-                payload=json.load(response)
-            if not isinstance(payload.get("events"),list):
-                raise ValueError("No events array returned")
-            return payload["events"]
-        except Exception as exc:
-            last_error=exc
-            if attempt<2: time.sleep(2**attempt)
-    raise RuntimeError(f"ESPN source fetch failed for {a}-{b}: {last_error}")
+    """Fetch available scoreboard dates. ESPN rejects long date ranges (HTTP 400);
+    reuse the tested single-day fallback in the existing NBL collector.
+    """
+    from stage_nbl_history import fetch_month
+    start=dt.datetime.strptime(a,"%Y%m%d").date()
+    end=dt.datetime.strptime(b,"%Y%m%d").date()
+    events,_=fetch_month(start,end)
+    return events
+
 def transform(event):
     comp=(event.get("competitions") or [{}])[0]
     cs=comp.get("competitors") or []
@@ -81,8 +76,14 @@ def as_fixture(row):
 
 def main():
     raw=[];failures=[]
+    today=dt.datetime.now(dt.timezone.utc).date()
     for start,end in MONTHS:
-        try:raw.extend(get(start,end))
+        # Future rounds are covered by the 165-fixture source, not empty
+        # ESPN scoreboard requests. Only request dates that have occurred.
+        if dt.datetime.strptime(start,"%Y%m%d").date()>today:
+            continue
+        actual_end=min(dt.datetime.strptime(end,"%Y%m%d").date(),today).strftime("%Y%m%d")
+        try:raw.extend(get(start,actual_end))
         except Exception as exc:failures.append({"start":start,"end":end,"error":str(exc)})
     # Secondary fixture retrieval must still run when ESPN is unavailable.
     by_id={str(g.get("id")):g for g in raw if g.get("id")}
