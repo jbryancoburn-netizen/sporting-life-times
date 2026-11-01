@@ -57,9 +57,26 @@ class OfficialSites(unittest.TestCase):
   self.assertEqual(case["published_site"],"neutral")
   self.assertEqual(case["university_listed_site"],"home")
   self.assertEqual(case["site_evidence"],"vs_prefix")
+  self.assertEqual(case["review_classification"],"ambiguous_vs_at_neutral_site")
+  self.assertEqual(result["site_inferred_matches"],0)
   self.assertEqual(case["source_url"],response.url)
   self.assertNotIn("home_away",result["evidence"][0]["verified_fields"])
   self.assertEqual(games[0]["site"],"neutral","the current schedule cannot be rewritten by an inference")
+
+ def test_an_undisputed_vs_does_not_certify_a_home_game(self):
+  rows=[dict(date=f"2026-11-{i:02d}",opponent=f"School {i}",site="home",
+       origin="official_university_sidearm_card",site_evidence="vs_prefix") for i in range(11,16)]
+  games=[dict(id=str(401000000+i),date=f"2026-11-{i:02d}T17:00:00Z",
+      site="home",opponent=f"School {i}",opponent_id=str(1000+i)) for i in range(11,16)]
+  resp=type("Response",(),{"ok":True,"url":"https://auburntigers.com/sports/womens-basketball/schedule","text":"<div></div>"})()
+  with patch.object(mod,"official_urls",return_value=[resp.url]),\
+       patch.object(mod.requests,"get",return_value=resp),\
+       patch.object(mod,"read_source",return_value=rows):
+   result=mod.school("2",dict(team="Auburn Tigers",games=games),{})
+  self.assertEqual(result["site_conflicts"],0)
+  self.assertEqual(result["site_matched"],0)
+  self.assertEqual(result["site_inferred_matches"],5)
+  self.assertTrue(all(x["verified_fields"]==["scheduled_date","opponent"] for x in result["evidence"]))
 
 
 if __name__=="__main__":
