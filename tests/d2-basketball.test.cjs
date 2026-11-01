@@ -113,3 +113,23 @@ test('DII newspaper provides date navigation, winner markings and exact official
  assert.match(js,/winA\?'winner'/);assert.match(js,/WOMEN’S/);
  assert.match(css,/game-day-navigation/);assert.match(js,/forecast-strip/);
 });
+
+test('DII membership and color provenance are labeled honestly',()=>{
+ const official=JSON.parse(fs.readFileSync('data/d2-membership-notes-2026-27.json','utf8'));
+ const men=JSON.parse(fs.readFileSync('data/d2-men-2026-27.json','utf8'));
+ const women=JSON.parse(fs.readFileSync('data/d2-women-2026-27.json','utf8'));
+ assert.equal(men.teams.filter(t=>t.not_eligible_for_dii_elo).length,4);
+ assert.equal(women.teams.filter(t=>t.not_eligible_for_dii_elo).length,0);
+ const m=new Map(men.teams.map(t=>[t.id,t]));
+ for(const [id,n] of Object.entries(official.men)){
+  assert.equal(m.get(id).membership_status,n.status);
+  assert.equal(m.get(id).not_eligible_for_dii_elo,n.not_eligible_for_dii_elo);
+ }
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ assert.match(js,/memberBadge/);
+ assert.match(js,/tonal accent/);
+ for(const d of [men,women])for(const t of d.teams){
+   if(t.primary)assert.match(t.primary,/^#[0-9a-f]{6}$/i);
+   if(t.secondary)assert.match(t.secondary,/^#[0-9a-f]{6}$/i);
+ }
+});
