@@ -1,0 +1,76 @@
+name: DIII basketball — independent men and women verified ledgers
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'd3-*-basketball.html'
+      - 'd3-basketball.js'
+      - 'd3-basketball.css'
+      - 'scripts/build_d3_basketball.mjs'
+      - '.github/workflows/d3-basketball.yml'
+  schedule:
+    - cron: '9,24,39,54 0-6,16-23 * * *'
+    - cron: '13 8 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: d3-basketball-verified-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify men/women source isolation and RETRO chronological Elo
+        run: |
+          node --check scripts/build_d3_basketball.mjs
+          node --check d3-basketball.js
+          node scripts/build_d3_basketball.mjs --test
+      - name: Build NCAA DIII scoreboard and verify every eligible final
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "13 8 * * *" ]; then
+            node scripts/build_d3_basketball.mjs --deep
+          else
+            node scripts/build_d3_basketball.mjs
+          fi
+      - name: Audit DIII-only publication contracts
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          for(const gender of ['men','women']){
+            const d=JSON.parse(fs.readFileSync('data/d3-'+gender+'-2026-27.json'));
+            if(d.division!=='d3'||d.gender!==gender||d.starting_elo!==1500)throw Error('DIII gender/Elo isolation failed');
+            const seen=new Set();
+            for(const g of d.games){
+              if(seen.has(g.id))throw Error('Duplicate DIII game: '+g.id);
+              seen.add(g.id);
+              if(g.elo_eligible&&!d.teams.some(t=>t.id===g.away&&t.d3_confirmed))throw Error('Unverified DIII away membership');
+              if(g.elo_eligible&&!d.teams.some(t=>t.id===g.home&&t.d3_confirmed))throw Error('Unverified DIII home membership');
+            }
+            if(d.coverage.eligible_finals>d.games.length)throw Error('Impossible final count');
+            console.log(gender, d.teams.length+' schools',d.games.length+' games',d.coverage.eligible_finals+' rated finals');
+          }
+          NODE
+      - name: Commit DIII-only verified snapshots (never modify DI or DII)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/d3-men-2026-27.json data/d3-women-2026-27.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh DIII men's and women's verified NCAA result ledgers"
+          for n in 1 2 3 4; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "Concurrent DIII data update; preserving existing publication and failing safely."
+              exit 1
+            fi
+            sleep $((n * 2))
+          done
+          exit 1
