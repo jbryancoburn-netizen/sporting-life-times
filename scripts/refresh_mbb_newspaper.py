@@ -109,6 +109,77 @@ def fetch_ncaa_scoreboard(sport, day, fetcher=fetch):
                      ','.join(x['provider']+'='+x['error'] for x in attempted))
 
 
+def parse_ncaa_team_boxscore(payload, contest):
+    """Verify both NCAA-origin teams using explicit home flags AND final points.
+
+    Player arrays may be empty in the current NCAA GraphQL boxscore. Team
+    statistics can still be useful if they agree with the final score and
+    with the fundamental field-goal scoring identity.
+    """
+    if not isinstance(payload,dict) or contest.get('phase') != 'final':
+        return None
+    data=payload.get('data') if isinstance(payload.get('data'),dict) else payload
+    box=data.get('boxscore',data) if isinstance(data,dict) else {}
+    if not isinstance(box,dict):
+        return None
+    blocks=box.get('teamBoxscore') or []
+    teams=box.get('teams') or []
+    if not isinstance(blocks,list) or len(blocks)!=2 or not isinstance(teams,list):
+        return None
+    side={}
+    for team in teams:
+        if not isinstance(team,dict) or not isinstance(team.get('isHome'),bool):
+            continue
+        tid=str(team.get('teamId') or '')
+        if tid.isdigit() and tid not in side:
+            side[tid]='home' if team['isHome'] else 'away'
+    if len(side)!=2 or set(side.values())!={'home','away'}:
+        return None
+    def number(raw):
+        if isinstance(raw,bool) or raw is None:
+            return None
+        value=str(raw).strip()
+        return int(value) if value.isdigit() and int(value)<=350 else None
+    fields=(('pts','points'),('fgm','fieldGoalsMade'),('fga','fieldGoalsAttempted'),
+            ('tpm','threePointsMade'),('tpa','threePointsAttempted'),
+            ('ftm','freeThrowsMade'),('fta','freeThrowsAttempted'),
+            ('reb','totalRebounds'),('oreb','offensiveRebounds'),
+            ('ast','assists'),('stl','steals'),('blk','blockedShots'),
+            ('tov','turnovers'),('pf','personalFouls'))
+    result={}
+    for block in blocks:
+        if not isinstance(block,dict):
+            return None
+        tid=str(block.get('teamId') or '')
+        name=side.get(tid)
+        stats=block.get('teamStats')
+        if not name or name in result or not isinstance(stats,dict):
+            return None
+        vals={key:number(stats.get(origin)) for key,origin in fields}
+        scoreboard=number(contest.get(name+'_score'))
+        if scoreboard is None or vals['pts']!=scoreboard or scoreboard>200:
+            return None
+        # For basketball 2*FGM+3PM+FTM must equal total points. This
+        # rejects stale partial/incorrect shooting splits.
+        if None in (vals['fgm'],vals['tpm'],vals['ftm']):
+            return None
+        if 2*vals['fgm']+vals['tpm']+vals['ftm'] != scoreboard:
+            return None
+        for made,tries in (('fgm','fga'),('tpm','tpa'),('ftm','fta')):
+            if vals[made] is None or vals[tries] is None or vals[made]>vals[tries]:
+                return None
+        if vals['tpm']>vals['fgm'] or vals['tpa']>vals['fga']:
+            return None
+        result[name]={'ncaa_team_id':tid,**vals}
+    if set(result)!={'home','away'}:
+        return None
+    return {'ncaa_id':str(contest['ncaa_id']),'espn_id':contest.get('espn_id'),
+            'day':contest.get('day'),'gender':contest.get('gender','men'),
+            'source':'NCAA-origin team boxscore, relayed from NCAA.com',
+            'source_url':'https://ncaa-api.henrygd.me/game/'+str(contest['ncaa_id'])+'/boxscore',
+            'home':result['home'],'away':result['away']}
+
+
 def parse_ncaa_player_boxscore(payload, contest, expected_ncaa_ids=None):
     """Safely normalize NCAA-origin player totals; never infer team membership.
 
@@ -541,6 +612,10 @@ def main():
     existing=out.get('ncaa_player_boxscores') or {}
     safe_games={gid:record for gid,record in (existing.get('games') or {}).items()
                 if isinstance(record,dict) and str(gid).isdigit()}
+    existing_teams=out.get('ncaa_team_boxscores') or {}
+    verified_teams={gid:record for gid,record in (existing_teams.get('games') or {}).items()
+                    if isinstance(record,dict) and str(gid).isdigit()}
+    team_audit={'eligible':0,'accepted':0,'rejected':0}
     audited={'eligible':0,'accepted':0,'rejected_or_unavailable':0,'requests':0}
     xref_by_espn={str(t['espn_id']):t for t in
                   (json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
@@ -556,7 +631,8 @@ def main():
     for gender,game in qualified[:8]:
         gid=str(game['ncaa_id'])
         audited['eligible']+=1
-        if gid in safe_games:continue
+        team_audit['eligible']+=1
+        if gid in safe_games and gid in verified_teams:continue
         expected={}
         if gender=='men':
             for side in ('away','home'):
@@ -567,6 +643,13 @@ def main():
         audited['requests']+=1
         try:
             data=json.loads(fetch(url))
+            team_candidate=parse_ncaa_team_boxscore(data,{**game,'gender':gender})
+            if team_candidate:
+                team_candidate['checked_at']=now
+                verified_teams[gid]=team_candidate
+                team_audit['accepted']+=1
+            else:
+                team_audit['rejected']+=1
             candidate=parse_ncaa_player_boxscore(data,{**game,'gender':gender},expected)
             if candidate:
                 candidate['checked_at']=now
@@ -597,6 +680,12 @@ def main():
             audited['rejected_or_unavailable']+=1
             audited.setdefault('errors',{}).setdefault(type(exc).__name__,0)
             audited['errors'][type(exc).__name__]+=1
+    out['ncaa_team_boxscores']={'checked_at':now,'day':ncaa_day,
+        'provenance':'NCAA.com data via third-party relay; independently verified against NCAA game final totals',
+        'games':dict(list(verified_teams.items())[-180:]),'audit':team_audit}
+    out['sources'].append({'source':'NCAA-origin verified team boxscores',
+        'ok':bool(verified_teams),'accepted_new':team_audit['accepted'],
+        'rejected':team_audit['rejected'],'certified_total':len(verified_teams)})
     out['ncaa_player_boxscores']={'checked_at':now,'day':ncaa_day,
         'provenance':'NCAA.com data delivered by third-party relay; not independent second publisher',
         'scope':'Only verified final games with exact player-to-final point reconciliation',
