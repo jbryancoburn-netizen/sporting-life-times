@@ -2,8 +2,13 @@
   "model": "retro-clean-slate",
   "gender": "women",
   "season": "2026-27",
-  "source": "Women-only Division I verified finals",
+  "source": "Women-only Division I finals: ESPN event results and NCAA-origin corroboration where available",
   "starting_elo": 1500,
+  "result_source_audit": {
+    "ncaa_origin_corroborated": 0,
+    "espn_final_without_current_ncaa_crosscheck": 1,
+    "note": "The NCAA-origin source is relayed through a third party. Each stored final records score_evidence. A live NCAA/ESPN conflict blocks publication."
+  },
   "status": "in-season",
   "games_played": 1,
   "as_of": "2026-11-01",
@@ -6200,7 +6205,8 @@
       "broadcast": "FS1",
       "status": "final",
       "home_score": 75,
-      "away_score": 99
+      "away_score": 99,
+      "score_evidence": "espn_final_ncaa_pending"
     }
   ]
 }
