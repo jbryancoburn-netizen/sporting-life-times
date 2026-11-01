@@ -12,7 +12,10 @@ import datetime as dt
 import re
 from collections import defaultdict
 
-from d2_cacc_official import BASE, read_page, eastern_time
+try:
+    from scripts.d2_cacc_official import BASE, read_page, eastern_time
+except ModuleNotFoundError:
+    from d2_cacc_official import BASE, read_page, eastern_time
 
 # Exact 2026-27 CACC school-calendar IDs, checked against caccathletics.org.
 # Canonical team IDs come from the women's 2026-27 school directory.
