@@ -20,7 +20,7 @@ const logoFor=(cohort,id)=>{
 const club=(name,cohort,id,small=false)=>{
  const wrap=E('span',null,'cs-team'),mark=E('span',null,'cs-mark');
  const identity=brand.teams?.[cohort+':'+id]||(cohort==='women-d1'?brand.teams?.['men-d1:'+id]:null);
- const fallback=E('span',String(identity?.badge_text||name||id).trim().split(/\\s+/).filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase()||'SC','cs-mark-initial');
+ const fallback=E('span',String(identity?.badge_text||name||id).trim().split(/\s+/).filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase()||'SC','cs-mark-initial');
  mark.append(fallback);
  const src=logoFor(cohort,id);
  if(src){
