@@ -6,12 +6,21 @@ on:
       - '.github/workflows/mbb-retro-primary.yml'
       - 'scripts/publish-mbb-retro-primary.js'
       - 'scripts/collect-mbb-retro-finals.py'
+      - 'scripts/refresh_mbb_newspaper.py'
+      - 'data/mbb-live.json'
+      - 'data/mbb-retro-live-finals.json'
       - 'mbb-retro.js'
   schedule:
-    - cron: '7,27,47 0-7 * * *'
-    - cron: '16 12 * * *'
+    # GitHub's fastest practical cron interval is five minutes, not instant.
+    # During NCAA game/final windows, ingest official finals every five minutes;
+    # retain a cheaper cadence during the quieter eastern-morning hours.
+    - cron: '*/5 11-23,0-7 * * *'
+    - cron: '*/15 8-10 * * *'
 permissions:
   contents: write
+concurrency:
+  group: mbb-retro-primary-publish
+  cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
