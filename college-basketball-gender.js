@@ -66,7 +66,7 @@
     const row=(id,name,n)=>'<div class="score-team">'+(teams.has(String(id))?teamName(id):'<span>'+esc(name||'Opponent TBA')+'</span>')+'<b>'+(score(g)?esc(n??'—'):'')+'</b></div>';
     const eventId=String(g.espn_id||g.id||'');
     const day=localDay(g.date);
-    const gamefile=/^\\d+$/.test(eventId)&&/^\\d{4}-\\d{2}-\\d{2}$/.test(day)?
+    const gamefile=/^\d+$/.test(eventId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
       'cbb-gamefile.html?gender=women&day='+encodeURIComponent(day)+'&game='+encodeURIComponent(eventId):'';
     let forecast='';
     if(!score(g)&&h&&a){const edge=g.neutral?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
