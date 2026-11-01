@@ -4,6 +4,7 @@ This collector does not invent membership, location, conference, color or player
 Old Casablanca endpoints were retired for basketball; use NCAA GraphQL with API fallback.
 """
 import argparse
+import copy
 import datetime as dt
 import json
 import os
@@ -884,10 +885,27 @@ def apply_verified_schedule_broadcasts(gender, games, teams, today, registry_fil
     return stats
 
 
+def mutable_ledger(prior):
+    """Start a refresh with independent objects, never in-place views of prior.
+
+    A score or venue update to an existing game must be detectable by the
+    live no-change gate. Shallow copies are insufficient for nested evidence,
+    source URL lists or any later game-stat additions.
+    """
+    teams={t["id"]:copy.deepcopy(t) for t in prior.get("teams",[])}
+    games={str(g["id"]):copy.deepcopy(g) for g in prior.get("games",[])}
+    return teams,games
+
+
+def ledger_changed(prior,teams,games):
+    """Do not conflate a reused object with an unchanged published ledger."""
+    return prior.get("teams",[])!=teams or prior.get("games",[])!=games
+
+
 def update(gender, bootstrap=False, live=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
-    teams={t["id"]:t for t in prior.get("teams",[])}
+    teams,games=mutable_ledger(prior)
     # Scoreboard polls happen twice an hour. Reusing the last certified
     # directory and logo palette prevents thousands of redundant school SVG,
     # conference and directory requests per game day. The daily run still
@@ -927,7 +945,7 @@ def update(gender, bootstrap=False, live=False):
         logo_quality["cross_gender"]=paired_quality
         logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
         logo_quality["unmatched"]=len(teams)-logo_quality["matched"]
-    games={str(g["id"]):g for g in prior.get("games",[])}
+    # Each game is an independent copy of the persisted source record.
     # CCA-sanctioned Hawaii October tournament games were independently
     # verified against the tournament organizer's published score bracket.
     # They are neutral-site: the first/second teams are NOT home and away.
@@ -1151,7 +1169,7 @@ def update(gender, bootstrap=False, live=False):
     # of timestamp-only Git commits, needless redeploys, and write conflicts
     # with other league newspapers that share this public repository.
     # The regular daily run still publishes its fresh source-health audit.
-    if live and prior and prior.get("teams")==ordered and prior.get("games")==allgames:
+    if live and prior and not ledger_changed(prior,ordered,allgames):
         print(gender,"live refresh checked",successful,"days without material data changes")
         return
     tmp=output.with_suffix(".json.tmp");tmp.write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':'))+"\n");tmp.replace(output)
