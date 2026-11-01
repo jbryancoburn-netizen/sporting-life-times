@@ -27,3 +27,36 @@
 .wire-byline{color:var(--teal);font-size:9px;letter-spacing:.35px;text-transform:uppercase;font-weight:800}
 @media(max-width:900px){.wire-stories{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:660px){.wire-stories{grid-template-columns:1fr}.live-wire-heading{display:block}.live-wire-heading p{text-align:left}.lab-top{flex-wrap:wrap}}
+
+
+/* Historic election evidence: explicitly separated from forward-looking probabilities. */
+.history-section{padding:29px 0;border-bottom:2px solid var(--ink)}
+.history-intro{border:1px solid var(--line);border-left:5px solid var(--teal);background:#fffefa;padding:14px 18px;display:flex;align-items:center;gap:20px;margin-bottom:18px}
+.history-intro p{font-family:Georgia,serif;font-size:14px;line-height:1.6;margin:0;flex:1}
+.history-intro strong{flex:0 0 205px;text-transform:uppercase;letter-spacing:.5px;font-size:11px;color:#a1412e}
+.history-note{font-size:10px;font-weight:700;color:var(--muted);line-height:1.6}
+.history-subsection{margin:23px 0}
+.history-subsection h3,.history-closest h3,.history-bench h3{font:700 23px Georgia,serif;margin:0 0 13px}
+.history-years{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.history-year{background:#fffefa;border:1px solid var(--line);border-top:4px solid var(--teal);padding:15px;min-width:0}
+.history-yr{font:700 32px Georgia,serif}
+.history-vote{font-size:11px;color:var(--muted);line-height:1.45;min-height:34px}
+.history-year-bar{height:16px;display:flex;background:#d5dbd9;overflow:hidden}
+.history-year-bar .d{background:var(--blue)}
+.history-year-bar .r{background:var(--red)}
+.history-wins{font-size:10px;font-weight:800;line-height:1.4}
+.history-closest,.history-bench{border-top:1px solid var(--line);padding-top:22px;margin:24px 0}
+.history-close-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.history-close-row{display:flex;justify-content:space-between;align-items:center;gap:7px;background:#fffefa;border:1px solid var(--line);padding:12px;font-size:11px}
+.history-close-row strong{font-family:Georgia,serif;font-size:17px}
+.history-close-row span{font-weight:800;color:var(--teal)}
+.history-baseline-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.history-baseline{background:#fffefa;border:1px solid var(--line);border-top:3px solid var(--orange);padding:16px;display:flex;gap:8px;flex-direction:column}
+.history-baseline>span{font-size:10px;font-weight:800;letter-spacing:.7px}
+.history-baseline>strong{font:700 37px Georgia,serif}
+.history-baseline>small{color:var(--muted);font-size:10px;line-height:1.5}
+.history-flag{font-size:11px;font-weight:800;letter-spacing:1px;color:#933c2e;background:#f7e9e4;border-left:5px solid #af4843;padding:12px 15px}
+.history-sources{display:flex;gap:17px;flex-wrap:wrap;font-size:11px;font-weight:800;margin:15px 0}
+.history-sources a{color:var(--teal)}
+@media(max-width:900px){.history-years{grid-template-columns:repeat(2,minmax(0,1fr))}.history-close-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:660px){.history-intro{display:block}.history-intro strong{display:block;margin-top:10px}.history-years,.history-close-grid,.history-baseline-grid{grid-template-columns:1fr 1fr}.history-year{padding:10px}.history-year .history-yr{font-size:27px}.history-closest h3{font-size:20px}.history-close-row{padding:8px}.history-close-row strong{font-size:14px}.history-close-row span{font-size:10px}.history-baseline>strong{font-size:29px}}

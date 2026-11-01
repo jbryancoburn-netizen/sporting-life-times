@@ -45,3 +45,17 @@ A separate GitHub Actions workflow runs on a 30-minute schedule. It attempts six
 ## Source changes
 
 If a public API or RSS feed discontinues access or changes schema, leave the last valid dataset intact with its original timestamp and surface the failure. Never silently replace actual records with guessed data, another provider's unlabelled figures, or a hard-coded fallback.
+
+
+## Historical Desk v1: sourced evidence before predictions
+
+We independently process MEDSL historical results accessed through the CC0 electiondata.dev mirrors:
+- House general elections: 2018, 2020, 2022, 2024; exclude specials and runoffs.
+- Senate general elections: the same four cycles; exclude specials and runoffs.
+- Missing numeric vote totals are excluded, never imputed; candidate total votes include fusion-ticket votes without double-counting the candidate.
+- Derive major-party vote percentages and historical elected-candidate party counts from the original vote rows.
+- Store complete per-year coverage and excluded/missing-vote counts in politics-history.json. Require at least 425 valid House contests and 24 valid Senate contests per year before publication.
+
+The first unadjusted *arithmetic benchmark* compares same-ID House district two-party vote margins 2018→2020 and 2022→2024. It reports mean/median absolute margin error and sign changes, with sample size. **It is NOT a predictive backtest or calibrated model**: district boundaries, runoffs, candidate exits and uncontested elections need more careful modeling. Historical 2024 district close-race rankings must not be represented as 2026 competitive race ratings.
+
+A separate weekly-refresh workflow validates this independently of sports, and keeps last verified data on network failure. Future releases will combine redistricting-adjusted district history with polls, incumbency and funding, then test actual 2018–2024 out-of-sample predictions and correlated errors before any 2026 probabilistic label.

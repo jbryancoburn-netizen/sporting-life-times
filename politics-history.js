@@ -1,0 +1,74 @@
+(function(){
+"use strict";
+const byId=id=>document.getElementById(id);
+const number=n=>Number(n).toLocaleString("en-US");
+const pct=n=>Number(n).toFixed(1)+"%";
+const NAMES={D:"Democratic",R:"Republican",O:"Other"};
+function message(text){const root=byId("history-lab");root.replaceChildren();const p=document.createElement("p");p.className="fine";p.textContent=text;root.appendChild(p);}
+function el(tag,cl,content){const out=document.createElement(tag);if(cl)out.className=cl;if(content!==undefined)out.textContent=content;return out;}
+function card(year,source){
+ const div=el("article","history-year");
+ div.append(el("span","history-yr",String(year.year)));
+ const dSeats=year.dem_wins,rSeats=year.rep_wins,other=year.other_wins;
+ const caption=el("p","history-vote","Two-party D share "+pct(year.dem_two_party_share)+" · "+year.contests+" general contests");
+ div.append(caption);
+ const bar=el("div","history-year-bar");
+ bar.setAttribute("role","img");
+ bar.setAttribute("aria-label",year.year+" "+source+" House or Senate: "+dSeats+" Democratic wins, "+rSeats+" Republican wins, "+other+" other wins");
+ const percent=100*dSeats/Math.max(1,year.contests);
+ const blue=el("span","d");blue.style.width=percent+"%";
+ const red=el("span","r");red.style.width=100*rSeats/Math.max(1,year.contests)+"%";
+ bar.append(blue,red);
+ const line=el("p","history-wins",dSeats+" Democratic · "+rSeats+" Republican"+(other?" · "+other+" other":""));
+ div.append(bar,line);
+ return div;
+}
+function render(data){
+ if(data.status!=="ok"||!Array.isArray(data.house)||data.house.length!==4||!Array.isArray(data.senate)||data.senate.length!==4){
+  message("Historical election data are awaiting verified MIT results. No 2026 predictions have been inferred from missing records.");return;
+ }
+ const last=new Date(data.updated_at),age=(Date.now()-last.getTime())/86400000;
+ if(!Number.isFinite(age)||age>40||age< -1){
+  message("Historical election dataset is outdated or its timestamp cannot be verified. Use the original source links below.");return;
+ }
+ const root=byId("history-lab");root.replaceChildren();
+ const kicker=el("p","history-note","Original calculations from MIT Election Data and Science Lab historical results, via electiondata.dev · CC0 1.0 · Updated "+last.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric",timeZone:"UTC"}));
+ root.appendChild(kicker);
+ [["U.S. House",data.house],["U.S. Senate",data.senate]].forEach(([title,years])=>{
+  const section=el("section","history-subsection");
+  section.append(el("h3",null,title+" elections since 2018"));
+  const grid=el("div","history-years");
+  years.forEach(y=>grid.append(card(y,title)));
+  section.append(grid);root.appendChild(section);
+ });
+ const closest=el("section","history-closest");
+ closest.append(el("h3",null,"Closest U.S. House races in 2024"));
+ closest.append(el("p","fine","Historical margin among the two major parties in the 2024 election. These are NOT the closest contests in 2026; redistricting and candidate changes make direct transfer unsafe."));
+ const rows=el("div","history-close-grid");
+ (data.closest_house_2024||[]).slice(0,12).forEach(item=>{
+  const entry=el("div","history-close-row");
+  const party=item.dem_margin_pp>0?"D":"R";
+  entry.append(el("strong","",item.id),el("span","",party+" +"+Math.abs(item.dem_margin_pp).toFixed(1)+" pp"));
+  rows.append(entry);
+ });closest.append(rows);root.append(closest);
+ const bench=el("section","history-bench");
+ bench.append(el("h3",null,"Pre-model test: how far can the previous election miss?"));
+ const groups=el("div","history-baseline-grid");
+ (data.historical_house_baselines||[]).forEach(item=>{
+  const box=el("div","history-baseline");
+  box.append(el("span","",item.training_year+" → "+item.test_year));
+  box.append(el("strong","",item.mean_absolute_margin_error===null?"—":item.mean_absolute_margin_error.toFixed(1)+" pp"));
+  box.append(el("small","",number(item.sample_size)+" paired districts · lagged-margin mean absolute error"));
+  groups.append(box);
+ });bench.append(groups);
+ const explanation=el("p","fine","This is a simple historical same-district-ID benchmark, NOT a calibrated statistical model. Redistricting, uncontested races, and candidate changes are not fully adjusted; a same-numbered district may have different boundaries. No 2026 win probabilities are generated from these comparisons.");
+ bench.append(explanation);root.append(bench);
+ const status=el("p","history-flag","MODEL STATUS · 2026 PROBABILITY FORECAST NOT CERTIFIED");
+ root.append(status);
+}
+async function init(){
+ try{const response=await fetch("politics-history.json?source="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error("File unavailable");render(await response.json());}
+ catch{message("The historical results desk could not retrieve its verified data. Original sources are linked below.");}
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
