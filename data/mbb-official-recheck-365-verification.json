@@ -2,16 +2,16 @@
   "schools_targeted": 365,
   "schools_checked": 365,
   "totals": {
-    "matched": 1936,
+    "matched": 1820,
     "site_corrected": 0,
-    "location_corrected": 30,
+    "location_corrected": 1,
     "broadcast_added": 0
   },
   "status_counts": {
-    "source_fetch_failed": 194,
-    "already_matched": 152,
-    "verified_changes": 3,
-    "no_official_source": 16
+    "source_fetch_failed": 203,
+    "already_matched": 153,
+    "no_official_source": 8,
+    "verified_changes": 1
   },
   "schools": [
     {
@@ -37,7 +37,7 @@
       "team": "Air Force",
       "id": "2005",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -55,7 +55,7 @@
       "team": "Alabama",
       "id": "333",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -163,7 +163,7 @@
       "team": "Army West Point",
       "id": "349",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -202,7 +202,7 @@
       "team": "Ball St.",
       "id": "2050",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -211,7 +211,7 @@
       "team": "Baylor",
       "id": "239",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -325,7 +325,7 @@
       "team": "Bucknell",
       "id": "2083",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -334,7 +334,7 @@
       "team": "Buffalo",
       "id": "2084",
       "status": "already_matched",
-      "matched": 20,
+      "matched": 18,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -362,11 +362,12 @@
     {
       "team": "CSUN",
       "id": "2463",
-      "status": "already_matched",
-      "matched": 5,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Cal Poly",
@@ -391,7 +392,7 @@
       "team": "California",
       "id": "25",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -449,7 +450,7 @@
       "team": "Central Mich.",
       "id": "2117",
       "status": "already_matched",
-      "matched": 18,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 38
@@ -467,16 +468,16 @@
       "team": "Charlotte",
       "id": "2429",
       "status": "already_matched",
-      "matched": 13,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 32
     },
     {
       "team": "Chattanooga",
       "id": "236",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -525,7 +526,7 @@
       "team": "Coastal Carolina",
       "id": "324",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -562,7 +563,7 @@
       "team": "Colorado St.",
       "id": "36",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -571,7 +572,7 @@
       "team": "Columbia",
       "id": "171",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 31
@@ -618,7 +619,7 @@
       "team": "Davidson",
       "id": "2166",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -637,7 +638,7 @@
       "team": "DePaul",
       "id": "305",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -646,7 +647,7 @@
       "team": "Delaware",
       "id": "48",
       "status": "already_matched",
-      "matched": 13,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -665,7 +666,7 @@
       "team": "Denver",
       "id": "2172",
       "status": "already_matched",
-      "matched": 10,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -703,7 +704,7 @@
       "team": "Duke",
       "id": "150",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -771,7 +772,7 @@
       "team": "Eastern Mich.",
       "id": "2199",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37
@@ -878,7 +879,7 @@
       "team": "Florida St.",
       "id": "52",
       "status": "already_matched",
-      "matched": 16,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -897,7 +898,7 @@
       "team": "Fresno St.",
       "id": "278",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -925,7 +926,7 @@
       "team": "Gardner-Webb",
       "id": "2241",
       "status": "already_matched",
-      "matched": 16,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 31
@@ -1089,7 +1090,7 @@
       "team": "Houston",
       "id": "248",
       "status": "already_matched",
-      "matched": 11,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 51
@@ -1166,10 +1167,10 @@
     {
       "team": "Indiana",
       "id": "84",
-      "status": "verified_changes",
+      "status": "already_matched",
       "matched": 32,
       "site_corrected": 0,
-      "location_corrected": 21,
+      "location_corrected": 0,
       "school_rows": 36
     },
     {
@@ -1206,7 +1207,7 @@
       "team": "Iowa St.",
       "id": "66",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -1244,7 +1245,7 @@
       "team": "James Madison",
       "id": "256",
       "status": "already_matched",
-      "matched": 13,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -1262,7 +1263,7 @@
       "team": "Kansas City",
       "id": "140",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -1327,11 +1328,12 @@
     {
       "team": "LSU",
       "id": "99",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "La Salle",
@@ -1377,7 +1379,7 @@
       "team": "Lehigh",
       "id": "2329",
       "status": "already_matched",
-      "matched": 13,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -1405,7 +1407,7 @@
       "team": "Lipscomb",
       "id": "288",
       "status": "already_matched",
-      "matched": 11,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -1461,7 +1463,7 @@
       "team": "Louisville",
       "id": "97",
       "status": "already_matched",
-      "matched": 10,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -1519,7 +1521,7 @@
       "team": "Marquette",
       "id": "269",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -1528,7 +1530,7 @@
       "team": "Marshall",
       "id": "276",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -1640,7 +1642,7 @@
       "team": "Middle Tenn.",
       "id": "2393",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -1659,7 +1661,7 @@
       "team": "Minnesota",
       "id": "135",
       "status": "already_matched",
-      "matched": 8,
+      "matched": 7,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -1724,7 +1726,7 @@
     {
       "team": "Montana St.",
       "id": "147",
-      "status": "verified_changes",
+      "status": "already_matched",
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
@@ -1793,7 +1795,7 @@
       "team": "NC State",
       "id": "152",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -1851,10 +1853,10 @@
     {
       "team": "New Hampshire",
       "id": "160",
-      "status": "already_matched",
+      "status": "verified_changes",
       "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
+      "location_corrected": 1,
       "school_rows": 32
     },
     {
@@ -1941,7 +1943,7 @@
       "team": "North Carolina",
       "id": "153",
       "status": "already_matched",
-      "matched": 13,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -1969,10 +1971,10 @@
       "team": "North Florida",
       "id": "2454",
       "status": "already_matched",
-      "matched": 18,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 36
     },
     {
       "team": "North Texas",
@@ -2007,7 +2009,7 @@
       "team": "Northern Colo.",
       "id": "2458",
       "status": "already_matched",
-      "matched": 11,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -2045,11 +2047,12 @@
     {
       "team": "Notre Dame",
       "id": "87",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Oakland",
@@ -2083,7 +2086,7 @@
       "team": "Oklahoma",
       "id": "201",
       "status": "already_matched",
-      "matched": 16,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -2092,7 +2095,7 @@
       "team": "Oklahoma St.",
       "id": "197",
       "status": "already_matched",
-      "matched": 18,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 50
@@ -2139,7 +2142,7 @@
       "team": "Oregon",
       "id": "2483",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -2148,7 +2151,7 @@
       "team": "Oregon St.",
       "id": "204",
       "status": "already_matched",
-      "matched": 21,
+      "matched": 20,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -2357,7 +2360,7 @@
       "team": "Rutgers",
       "id": "164",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -2366,7 +2369,7 @@
       "team": "SFA",
       "id": "2617",
       "status": "already_matched",
-      "matched": 18,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -2385,7 +2388,7 @@
       "team": "SMU",
       "id": "2567",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 38
@@ -2452,7 +2455,7 @@
       "team": "Sam Houston",
       "id": "2534",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32
@@ -2461,7 +2464,7 @@
       "team": "Samford",
       "id": "2535",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -2517,11 +2520,12 @@
     {
       "team": "Seattle U",
       "id": "2547",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Seton Hall",
@@ -2555,11 +2559,12 @@
     {
       "team": "South Carolina",
       "id": "2579",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "South Carolina St.",
@@ -2594,7 +2599,7 @@
       "team": "South Fla.",
       "id": "58",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -2746,7 +2751,7 @@
       "team": "Syracuse",
       "id": "183",
       "status": "already_matched",
-      "matched": 10,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -2755,7 +2760,7 @@
       "team": "TCU",
       "id": "2628",
       "status": "already_matched",
-      "matched": 16,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -2811,7 +2816,7 @@
       "team": "Texas",
       "id": "251",
       "status": "already_matched",
-      "matched": 21,
+      "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33
@@ -2858,7 +2863,7 @@
       "team": "The Citadel",
       "id": "2643",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -2867,7 +2872,7 @@
       "team": "Toledo",
       "id": "2649",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -2895,7 +2900,7 @@
       "team": "Tulane",
       "id": "2655",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34
@@ -2913,7 +2918,7 @@
       "team": "UAB",
       "id": "5",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -2959,11 +2964,12 @@
     {
       "team": "UC San Diego",
       "id": "28",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "UC Santa Barbara",
@@ -3058,7 +3064,7 @@
       "team": "UMass Lowell",
       "id": "2349",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -3113,10 +3119,10 @@
     {
       "team": "USC Upstate",
       "id": "2908",
-      "status": "verified_changes",
-      "matched": 17,
+      "status": "already_matched",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 9,
+      "location_corrected": 0,
       "school_rows": 32
     },
     {
@@ -3132,7 +3138,7 @@
       "team": "UT Martin",
       "id": "2630",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -3171,7 +3177,7 @@
       "team": "Utah",
       "id": "254",
       "status": "already_matched",
-      "matched": 22,
+      "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 40
@@ -3239,11 +3245,12 @@
     {
       "team": "Vanderbilt",
       "id": "238",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Vermont",
@@ -3268,11 +3275,12 @@
     {
       "team": "Virginia",
       "id": "258",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Virginia Tech",
@@ -3298,7 +3306,7 @@
       "team": "Wake Forest",
       "id": "154",
       "status": "already_matched",
-      "matched": 13,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -3315,17 +3323,18 @@
     {
       "team": "Washington St.",
       "id": "265",
-      "status": "no_official_source",
+      "status": "source_fetch_failed",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Weber St.",
       "id": "2692",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35
@@ -3354,7 +3363,7 @@
       "team": "West Virginia",
       "id": "277",
       "status": "already_matched",
-      "matched": 15,
+      "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36
@@ -3488,10 +3497,4915 @@
       "team": "Youngstown St.",
       "id": "2754",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 38
     }
-  ]
+  ],
+  "reciprocal_pass": {
+    "summary": {
+      "ambiguous_or_nonreciprocal_groups": 311,
+      "unique_verified_reciprocal_games": 5322,
+      "conflicts_broadcast_disagreement": 388,
+      "conflicts_arena_disagreement": 668,
+      "conflicts_site_mismatch_or_unverified": 25,
+      "game_records_repaired": 154,
+      "arena": 17,
+      "city": 24,
+      "tipoff": 115,
+      "conflicts_time_disagreement": 54,
+      "schools_scanned": 365,
+      "schools_changed": 67,
+      "all_game_entries": 11807,
+      "remaining_missing_broadcast": 4999,
+      "remaining_missing_tipoff": 1212,
+      "remaining_missing_valid_arena": 725,
+      "remaining_missing_city": 88,
+      "remaining_unverified_site": 83
+    },
+    "policy": "Source links and unique exact-day D-I opponent ID pairs; never overwrite an announced clock/channel; valid arena excludes date labels; conflicts quarantined; no generic TV assignments.",
+    "conflicts": [
+      {
+        "date": "2026-10-04",
+        "schools": [
+          "154",
+          "46"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ACCNX"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-04",
+        "schools": [
+          "154",
+          "46"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACCNX"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-08",
+        "schools": [
+          "2377",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Lake Charles, La. (Townsley Law Arena)",
+          "source": "Townsley Law Arena"
+        }
+      },
+      {
+        "date": "2026-10-08",
+        "schools": [
+          "2377",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Townsley Law Arena",
+          "source": "Lake Charles, La. (Townsley Law Arena)"
+        }
+      },
+      {
+        "date": "2026-10-11",
+        "schools": [
+          "164",
+          "222"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "B1G+"
+          ],
+          "right": [
+            "Big 10 +"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-11",
+        "schools": [
+          "164",
+          "222"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Big 10 +"
+          ],
+          "right": [
+            "B1G+"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-11",
+        "schools": [
+          "167",
+          "197"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "exhibition"
+          ],
+          "right": [
+            "No TV"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-11",
+        "schools": [
+          "167",
+          "197"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "No TV"
+          ],
+          "right": [
+            "exhibition"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-14",
+        "schools": [
+          "2116",
+          "99"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "schools": [
+          "154",
+          "2579"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rock Hill Sports & Event Center",
+          "source": "Rock Hill Sports & Events Center"
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "schools": [
+          "154",
+          "2579"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rock Hill Sports & Events Center",
+          "source": "Rock Hill Sports & Event Center"
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "schools": [
+          "2633",
+          "2752"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "SECN+"
+          ],
+          "right": [
+            "SEC Network +"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "schools": [
+          "2633",
+          "2752"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Food City Center",
+          "source": "Thompson-Boling Arena at Food City Center"
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "schools": [
+          "2633",
+          "2752"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "SEC Network +"
+          ],
+          "right": [
+            "SECN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "schools": [
+          "2633",
+          "2752"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Thompson-Boling Arena at Food City Center",
+          "source": "Food City Center"
+        }
+      },
+      {
+        "date": "2026-10-16",
+        "schools": [
+          "2031",
+          "96"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rupp Arena at Central Bank Center",
+          "source": "Rupp Arena"
+        }
+      },
+      {
+        "date": "2026-10-16",
+        "schools": [
+          "2031",
+          "96"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rupp Arena",
+          "source": "Rupp Arena at Central Bank Center"
+        }
+      },
+      {
+        "date": "2026-10-17",
+        "schools": [
+          "2026",
+          "2737"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "away",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-10-17",
+        "schools": [
+          "2168",
+          "87"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "UD Arena",
+          "source": "Dayton, Ohio UD Arena"
+        }
+      },
+      {
+        "date": "2026-10-17",
+        "schools": [
+          "2168",
+          "87"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Dayton, Ohio UD Arena",
+          "source": "UD Arena"
+        }
+      },
+      {
+        "date": "2026-10-17",
+        "schools": [
+          "222",
+          "2244"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Villanova, Pa. Finneran Pavilion",
+          "source": "Finneran Pavilion"
+        }
+      },
+      {
+        "date": "2026-10-17",
+        "schools": [
+          "222",
+          "2244"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Finneran Pavilion",
+          "source": "Villanova, Pa. Finneran Pavilion"
+        }
+      },
+      {
+        "date": "2026-10-18",
+        "schools": [
+          "2885",
+          "44"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Wellness and Events Center",
+          "source": "Joel & Diane Bloom Wellness and Events Center (WEC)"
+        }
+      },
+      {
+        "date": "2026-10-18",
+        "schools": [
+          "2885",
+          "44"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Joel & Diane Bloom Wellness and Events Center (WEC)",
+          "source": "Wellness and Events Center"
+        }
+      },
+      {
+        "date": "2026-10-21",
+        "schools": [
+          "26",
+          "2856"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pauley Pavilion",
+          "source": "Pauley Pavilion presented by Wescom Financial"
+        }
+      },
+      {
+        "date": "2026-10-21",
+        "schools": [
+          "26",
+          "2856"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pauley Pavilion presented by Wescom Financial",
+          "source": "Pauley Pavilion"
+        }
+      },
+      {
+        "date": "2026-10-22",
+        "schools": [
+          "2229",
+          "93"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Ocean Bank Convocation Center",
+          "source": "Miami, Fla. Ocean Bank Convocation Center"
+        }
+      },
+      {
+        "date": "2026-10-22",
+        "schools": [
+          "2229",
+          "93"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Miami, Fla. Ocean Bank Convocation Center",
+          "source": "Ocean Bank Convocation Center"
+        }
+      },
+      {
+        "date": "2026-10-22",
+        "schools": [
+          "2509",
+          "2870"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Allen County War Memorial Coliseum",
+          "source": "Memorial Coliseum"
+        }
+      },
+      {
+        "date": "2026-10-22",
+        "schools": [
+          "2509",
+          "2870"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Memorial Coliseum",
+          "source": "Allen County War Memorial Coliseum"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2010",
+          "2174"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "away",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2168",
+          "2413"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "UD Arena",
+          "source": "Dayton, Ohio UD Arena"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2168",
+          "2413"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Dayton, Ohio UD Arena",
+          "source": "UD Arena"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2277",
+          "2627"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Stephenville, TX EECU Center",
+          "source": "EECU Center"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2277",
+          "2627"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "EECU Center",
+          "source": "Stephenville, TX EECU Center"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2473",
+          "2634"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Detroit, Mich. | Wayne State Fieldhouse",
+          "source": "Wayne State Fieldhouse"
+        }
+      },
+      {
+        "date": "2026-10-24",
+        "schools": [
+          "2473",
+          "2634"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Wayne State Fieldhouse",
+          "source": "Detroit, Mich. | Wayne State Fieldhouse"
+        }
+      },
+      {
+        "date": "2026-10-26",
+        "schools": [
+          "158",
+          "2306"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "171",
+          "2210"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "SCHILLER COURT AT LEVIEN GYMNASIUM",
+          "source": "Levien Gymnasium"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "171",
+          "2210"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Levien Gymnasium",
+          "source": "SCHILLER COURT AT LEVIEN GYMNASIUM"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "189",
+          "2247"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Georgia State Convocation Center",
+          "source": "GSU Convocation Center"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "189",
+          "2247"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "GSU Convocation Center",
+          "source": "Georgia State Convocation Center"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2031",
+          "2670"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Stuart C. Siegel Arena",
+          "source": "Siegel Center"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2031",
+          "2670"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Siegel Center",
+          "source": "Stuart C. Siegel Arena"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2352",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Capital One Arena",
+          "source": "Washington, D.C. / Capital One Arena"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2352",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Washington, D.C. / Capital One Arena",
+          "source": "Capital One Arena"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "239",
+          "2466"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "239",
+          "2466"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2453",
+          "302"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Mountain West +"
+          ],
+          "right": [
+            "MW+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2453",
+          "302"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "MW+"
+          ],
+          "right": [
+            "Mountain West +"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2511",
+          "2737"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rock Hill Sports and Event Center",
+          "source": "Rock Hill Sports & Event Center"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2511",
+          "2737"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rock Hill Sports & Event Center",
+          "source": "Rock Hill Sports and Event Center"
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2550",
+          "2612"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "2550",
+          "2612"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "261",
+          "314"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-02",
+        "schools": [
+          "261",
+          "314"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-03",
+        "schools": [
+          "2294",
+          "288"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Big Ten Network"
+          ],
+          "right": [
+            "BTN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-03",
+        "schools": [
+          "2294",
+          "288"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "BTN"
+          ],
+          "right": [
+            "Big Ten Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-03",
+        "schools": [
+          "2443",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Baton Rouge, La. (Maravich Center)",
+          "source": "Pete Maravich Assembly Center"
+        }
+      },
+      {
+        "date": "2026-11-03",
+        "schools": [
+          "2443",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pete Maravich Assembly Center",
+          "source": "Baton Rouge, La. (Maravich Center)"
+        }
+      },
+      {
+        "date": "2026-11-04",
+        "schools": [
+          "2",
+          "2545"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "SEC Network+"
+          ],
+          "right": [
+            "SECN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-04",
+        "schools": [
+          "2",
+          "2545"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "SECN+"
+          ],
+          "right": [
+            "SEC Network+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-04",
+        "schools": [
+          "2344",
+          "2603"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Philadelphia, Pa. Michael J. Hagan '85 Arena",
+          "source": "Michael J. Hagan '85 Arena"
+        }
+      },
+      {
+        "date": "2026-11-04",
+        "schools": [
+          "2344",
+          "2603"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Michael J. Hagan '85 Arena",
+          "source": "Philadelphia, Pa. Michael J. Hagan '85 Arena"
+        }
+      },
+      {
+        "date": "2026-11-05",
+        "schools": [
+          "2349",
+          "2771"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Lawler Arena",
+          "source": "Hammel Court"
+        }
+      },
+      {
+        "date": "2026-11-05",
+        "schools": [
+          "2349",
+          "2771"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Hammel Court",
+          "source": "Lawler Arena"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "130",
+          "41"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "TNT, truTV, HBO Max"
+          ],
+          "right": [
+            "TNT, truTV and HBO Max"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "130",
+          "41"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "TNT, truTV and HBO Max"
+          ],
+          "right": [
+            "TNT, truTV, HBO Max"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2174",
+          "269"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2174",
+          "269"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2226",
+          "2750"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Nutter Center",
+          "source": "Wright State University Nutter Center"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2226",
+          "2750"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Wright State University Nutter Center",
+          "source": "Nutter Center"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2454",
+          "26"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pauley Pavilion",
+          "source": "Pauley Pavilion presented by Wescom Financial"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2454",
+          "26"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pauley Pavilion presented by Wescom Financial",
+          "source": "Pauley Pavilion"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2653",
+          "52"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Donald L. Tucker Center",
+          "source": "Donald L. Tucker Civic Center"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "2653",
+          "52"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Donald L. Tucker Civic Center",
+          "source": "Donald L. Tucker Center"
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "290",
+          "59"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACCNX"
+          ],
+          "right": [
+            "ACC Network Extra"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-06",
+        "schools": [
+          "290",
+          "59"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACC Network Extra"
+          ],
+          "right": [
+            "ACCNX"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-07",
+        "schools": [
+          "120",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Capital One Arena",
+          "source": "Washington, D.C. / Capital One Arena"
+        }
+      },
+      {
+        "date": "2026-11-07",
+        "schools": [
+          "120",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Washington, D.C. / Capital One Arena",
+          "source": "Capital One Arena"
+        }
+      },
+      {
+        "date": "2026-11-08",
+        "schools": [
+          "248",
+          "25"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Tahoe Blue Events Center",
+          "source": "Tahoe Blue Event Center"
+        }
+      },
+      {
+        "date": "2026-11-08",
+        "schools": [
+          "248",
+          "25"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Tahoe Blue Event Center",
+          "source": "Tahoe Blue Events Center"
+        }
+      },
+      {
+        "date": "2026-11-08",
+        "schools": [
+          "250",
+          "62"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Bankoh Arena at Stan Sheriff Center",
+          "source": "Stan Sheriff Center"
+        }
+      },
+      {
+        "date": "2026-11-08",
+        "schools": [
+          "250",
+          "62"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Stan Sheriff Center",
+          "source": "Bankoh Arena at Stan Sheriff Center"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "171",
+          "284"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "SCHILLER COURT AT LEVIEN GYMNASIUM",
+          "source": "Francis S. Levien Gymnasium"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "171",
+          "284"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Francis S. Levien Gymnasium",
+          "source": "SCHILLER COURT AT LEVIEN GYMNASIUM"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2130",
+          "2569"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2197",
+          "87"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACC Network Extra"
+          ],
+          "right": [
+            "ACCNX"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2197",
+          "87"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACCNX"
+          ],
+          "right": [
+            "ACC Network Extra"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2348",
+          "99"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7:00 p.m. CT",
+          "source": "7:00 PM CT"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2348",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pete Maravich Assembly Center",
+          "source": "Baton Rouge, La. (Maravich Center)"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2348",
+          "99"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7:00 PM CT",
+          "source": "7:00 p.m. CT"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2348",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Baton Rouge, La. (Maravich Center)",
+          "source": "Pete Maravich Assembly Center"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2501",
+          "62"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Bankoh Arena at Stan Sheriff Center",
+          "source": "Stan Sheriff Center"
+        }
+      },
+      {
+        "date": "2026-11-09",
+        "schools": [
+          "2501",
+          "62"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Stan Sheriff Center",
+          "source": "Bankoh Arena at Stan Sheriff Center"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "145",
+          "2545"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "SJB Pavilion",
+          "source": "The Sandy and John Black Pavilion at Ole Miss"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "145",
+          "2545"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "The Sandy and John Black Pavilion at Ole Miss",
+          "source": "SJB Pavilion"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2169",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Washington, D.C. / McDonough Arena",
+          "source": "McDonough Arena"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2169",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "McDonough Arena",
+          "source": "Washington, D.C. / McDonough Arena"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2174",
+          "2752"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2174",
+          "2752"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2230",
+          "314"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rose Hill Gym",
+          "source": "Rose Hill Gymnasium"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2230",
+          "314"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rose Hill Gymnasium",
+          "source": "Rose Hill Gym"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2275",
+          "9"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2275",
+          "9"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2305",
+          "96"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "United Center (Chicago)",
+          "source": "United Center"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2305",
+          "96"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "United Center",
+          "source": "United Center (Chicago)"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2382",
+          "290"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Jack and Ruth Ann Hill Convocation Center",
+          "source": "Hill Convocation Center"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2382",
+          "290"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Hill Convocation Center",
+          "source": "Jack and Ruth Ann Hill Convocation Center"
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2641",
+          "356"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Peacock/NBCSN"
+          ],
+          "right": [
+            "Peacock"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-10",
+        "schools": [
+          "2641",
+          "356"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Peacock"
+          ],
+          "right": [
+            "Peacock/NBCSN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "151",
+          "2448"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Williams Arena at Minges Coliseum",
+          "source": "Minges Coliseum"
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "151",
+          "2448"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Minges Coliseum",
+          "source": "Williams Arena at Minges Coliseum"
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "172",
+          "179"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "172",
+          "179"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "2226",
+          "2729"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Abessinio Court at Eleanor R. Baldwin Arena",
+          "source": "Eleanor R. Baldwin Arena"
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "2226",
+          "2729"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Eleanor R. Baldwin Arena",
+          "source": "Abessinio Court at Eleanor R. Baldwin Arena"
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "25",
+          "30"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "8 p.m. PT",
+          "source": "8:00 p.m. PT"
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "25",
+          "30"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "8:00 p.m. PT",
+          "source": "8 p.m. PT"
+        }
+      },
+      {
+        "date": "2026-11-11",
+        "schools": [
+          "2569",
+          "87"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-11-12",
+        "schools": [
+          "166",
+          "2638"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7:00 p.m. MT",
+          "source": "7 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-11-12",
+        "schools": [
+          "166",
+          "2638"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7 p.m. MT",
+          "source": "7:00 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "153",
+          "61"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Dean Smith Center",
+          "source": "Smith Center"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "153",
+          "61"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Smith Center",
+          "source": "Dean Smith Center"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "194",
+          "41"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "TNT/truTV/HBO Max"
+          ],
+          "right": [
+            "TNT"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "194",
+          "41"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "TNT"
+          ],
+          "right": [
+            "TNT/truTV/HBO Max"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2050",
+          "2567"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACC Network"
+          ],
+          "right": [
+            "ACCN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2050",
+          "2567"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACCN"
+          ],
+          "right": [
+            "ACC Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2086",
+          "221"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Hinkle Fieldhouse",
+          "source": "Indianapolis, Ind. Hinkle Fieldhouse"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2086",
+          "221"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Indianapolis, Ind. Hinkle Fieldhouse",
+          "source": "Hinkle Fieldhouse"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2275",
+          "314"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "David S. Mack Sports and Exhibition Complex",
+          "source": "Mack Sports Complex"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2275",
+          "314"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Mack Sports Complex",
+          "source": "David S. Mack Sports and Exhibition Complex"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "228",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Clemson, S.C. / Littlejohn Coliseum",
+          "source": "Littlejohn Coliseum"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "228",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Littlejohn Coliseum",
+          "source": "Clemson, S.C. / Littlejohn Coliseum"
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2534",
+          "356"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "B1G+"
+          ],
+          "right": [
+            "BIG+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2534",
+          "356"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "BIG+"
+          ],
+          "right": [
+            "B1G+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2628",
+          "270"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-13",
+        "schools": [
+          "2628",
+          "270"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-14",
+        "schools": [
+          "149",
+          "155"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Summit League Network"
+          ],
+          "right": [
+            "Midco Sports/Summit League Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-14",
+        "schools": [
+          "149",
+          "155"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Midco Sports/Summit League Network"
+          ],
+          "right": [
+            "Summit League Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-14",
+        "schools": [
+          "2005",
+          "279"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-14",
+        "schools": [
+          "2005",
+          "279"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-14",
+        "schools": [
+          "2250",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Spokane Numerica Veterans Arena",
+          "source": "Spokane, Wash. (Numerica Veterans Arena)"
+        }
+      },
+      {
+        "date": "2026-11-14",
+        "schools": [
+          "2250",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Spokane, Wash. (Numerica Veterans Arena)",
+          "source": "Spokane Numerica Veterans Arena"
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "130",
+          "2729"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "B1G+"
+          ],
+          "right": [
+            "Big Ten Network+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "130",
+          "2729"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Big Ten Network+"
+          ],
+          "right": [
+            "B1G+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "142",
+          "269"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Peacock/NBCSN"
+          ],
+          "right": [
+            "Peacock"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "142",
+          "269"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Peacock"
+          ],
+          "right": [
+            "Peacock/NBCSN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "239",
+          "251"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN/2/U"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "239",
+          "251"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN/2/U"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "2711",
+          "88"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Liberty Arena",
+          "source": "Screaming Eagles Arena"
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
+          "2711",
+          "88"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Screaming Eagles Arena",
+          "source": "Liberty Arena"
+        }
+      },
+      {
+        "date": "2026-11-17",
+        "schools": [
+          "164",
+          "248"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Michelob ULTRA Arena – Las Vegas",
+          "source": "Michelob ULTRA Arena"
+        }
+      },
+      {
+        "date": "2026-11-17",
+        "schools": [
+          "164",
+          "248"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Michelob ULTRA Arena",
+          "source": "Michelob ULTRA Arena – Las Vegas"
+        }
+      },
+      {
+        "date": "2026-11-17",
+        "schools": [
+          "2117",
+          "2168"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Spectrum News"
+          ],
+          "right": [
+            "Spectrum News 1"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-17",
+        "schools": [
+          "2117",
+          "2168"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Spectrum News 1"
+          ],
+          "right": [
+            "Spectrum News"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-17",
+        "schools": [
+          "2603",
+          "2681"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Michael J. Hagan '85 Arena",
+          "source": "Hagan Arena"
+        }
+      },
+      {
+        "date": "2026-11-17",
+        "schools": [
+          "2603",
+          "2681"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Hagan Arena",
+          "source": "Michael J. Hagan '85 Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "119",
+          "256"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "TU Arena",
+          "source": "SECU Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "119",
+          "256"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "SECU Arena",
+          "source": "TU Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "12",
+          "41"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "McKale Center at ALKEME Arena",
+          "source": "McKale Center"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "12",
+          "41"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "McKale Center",
+          "source": "McKale Center at ALKEME Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "2241",
+          "2430"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Boiling Springs, N.C. / Paul Porter Arena",
+          "source": "Paul Porter Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "2241",
+          "2430"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Paul Porter Arena",
+          "source": "Boiling Springs, N.C. / Paul Porter Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "2426",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Capital One Arena",
+          "source": "Washington, D.C. / Capital One Arena"
+        }
+      },
+      {
+        "date": "2026-11-18",
+        "schools": [
+          "2426",
+          "46"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Washington, D.C. / Capital One Arena",
+          "source": "Capital One Arena"
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "166",
+          "2638"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "166",
+          "2638"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7:00 p.m. MT",
+          "source": "7 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "166",
+          "2638"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "166",
+          "2638"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7 p.m. MT",
+          "source": "7:00 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "204",
+          "2483"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "BTN"
+          ],
+          "right": [
+            "Big 10 Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "204",
+          "2483"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Big 10 Network"
+          ],
+          "right": [
+            "BTN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "2181",
+          "232"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Des Moines, Iowa Knapp Center",
+          "source": "Knapp Center"
+        }
+      },
+      {
+        "date": "2026-11-19",
+        "schools": [
+          "2181",
+          "232"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Knapp Center",
+          "source": "Des Moines, Iowa Knapp Center"
+        }
+      },
+      {
+        "date": "2026-11-20",
+        "schools": [
+          "135",
+          "197"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Arena, Charleston, SC",
+          "source": "TD Arena"
+        }
+      },
+      {
+        "date": "2026-11-20",
+        "schools": [
+          "135",
+          "197"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "TD Arena",
+          "source": "Arena, Charleston, SC"
+        }
+      },
+      {
+        "date": "2026-11-20",
+        "schools": [
+          "2739",
+          "52"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Donald L. Tucker Center",
+          "source": "Donald L. Tucker Civic Center"
+        }
+      },
+      {
+        "date": "2026-11-20",
+        "schools": [
+          "2739",
+          "52"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Donald L. Tucker Civic Center",
+          "source": "Donald L. Tucker Center"
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "130",
+          "222"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Fox"
+          ],
+          "right": [
+            "FOX"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "130",
+          "222"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "FOX"
+          ],
+          "right": [
+            "Fox"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "198",
+          "357"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Center",
+          "source": "Mabee Center"
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "198",
+          "357"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Mabee Center",
+          "source": "Center"
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "2154",
+          "46"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "2154",
+          "46"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "135",
+          "254"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Arena, Charleston, SC",
+          "source": "TD Arena"
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "135",
+          "254"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "TD Arena",
+          "source": "Arena, Charleston, SC"
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "26",
+          "48"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Big Ten Plus"
+          ],
+          "right": [
+            "B1G+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "26",
+          "48"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "B1G+"
+          ],
+          "right": [
+            "Big Ten Plus"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "2697",
+          "6"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Mitchell Center",
+          "source": "Jag Gym"
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "2697",
+          "6"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Jag Gym",
+          "source": "Mitchell Center"
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "2729",
+          "2754"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Zidian Family Arena",
+          "source": "Zidian Family Arena at Beeghly Center"
+        }
+      },
+      {
+        "date": "2026-11-22",
+        "schools": [
+          "2729",
+          "2754"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Zidian Family Arena at Beeghly Center",
+          "source": "Zidian Family Arena"
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "172",
+          "2083"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN+"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "172",
+          "2083"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "2117",
+          "87"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACC Network Extra/ESPN+"
+          ],
+          "right": [
+            "ACCNX"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "2117",
+          "87"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACCNX"
+          ],
+          "right": [
+            "ACC Network Extra/ESPN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "2226",
+          "2382"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Abessinio Court at Eleanor R. Baldwin Arena",
+          "source": "Eleanor R. Baldwin Arena"
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "2226",
+          "2382"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Eleanor R. Baldwin Arena",
+          "source": "Abessinio Court at Eleanor R. Baldwin Arena"
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "239",
+          "333"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN2"
+          ],
+          "right": [
+            "ESPN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "239",
+          "333"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ESPN"
+          ],
+          "right": [
+            "ESPN2"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "2430",
+          "2540"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "The Thunderdome",
+          "source": "Santa Barbara, Calif. / The Thunderdome"
+        }
+      },
+      {
+        "date": "2026-11-24",
+        "schools": [
+          "2430",
+          "2540"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Santa Barbara, Calif. / The Thunderdome",
+          "source": "The Thunderdome"
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "150",
+          "41"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Prime Video"
+          ],
+          "right": [
+            "Prime"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "150",
+          "41"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "Prime"
+          ],
+          "right": [
+            "Prime Video"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "2363",
+          "2885"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Joel & Diane Bloom Wellness and Events Center",
+          "source": "Joel & Diane Bloom Wellness and Events Center (WEC)"
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "2363",
+          "2885"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Joel & Diane Bloom Wellness and Events Center (WEC)",
+          "source": "Joel & Diane Bloom Wellness and Events Center"
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "2567",
+          "328"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CBSSN"
+          ],
+          "right": [
+            "CBS Sports Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "2567",
+          "328"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CBS Sports Network"
+          ],
+          "right": [
+            "CBSSN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "2916",
+          "62"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Bankoh Arena at Stan Sheriff Center",
+          "source": "Honolulu, O'ahu Bankoh Arena at Stan Sheriff Center"
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "2916",
+          "62"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Honolulu, O'ahu Bankoh Arena at Stan Sheriff Center",
+          "source": "Bankoh Arena at Stan Sheriff Center"
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "9",
+          "99"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CBS Sports Network"
+          ],
+          "right": [
+            "CBSSN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "9",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Acrisure Arena",
+          "source": "Palm Desert, Calif. (Acrisure Arena)"
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "9",
+          "99"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CBSSN"
+          ],
+          "right": [
+            "CBS Sports Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-25",
+        "schools": [
+          "9",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Palm Desert, Calif. (Acrisure Arena)",
+          "source": "Acrisure Arena"
+        }
+      },
+      {
+        "date": "2026-11-26",
+        "schools": [
+          "2567",
+          "99"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "6:00 PM CT",
+          "source": "6 p.m. CT"
+        }
+      },
+      {
+        "date": "2026-11-26",
+        "schools": [
+          "2567",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Palm Desert, Calif. (Acrisure Arena)",
+          "source": "Acrisure Arena"
+        }
+      },
+      {
+        "date": "2026-11-26",
+        "schools": [
+          "2567",
+          "99"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "6 p.m. CT",
+          "source": "6:00 PM CT"
+        }
+      },
+      {
+        "date": "2026-11-26",
+        "schools": [
+          "2567",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Acrisure Arena",
+          "source": "Palm Desert, Calif. (Acrisure Arena)"
+        }
+      },
+      {
+        "date": "2026-11-26",
+        "schools": [
+          "2579",
+          "9"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CBSSN"
+          ],
+          "right": [
+            "CBS Sports Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-26",
+        "schools": [
+          "2579",
+          "9"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CBS Sports Network"
+          ],
+          "right": [
+            "CBSSN"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-27",
+        "schools": [
+          "198",
+          "2623"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Center",
+          "source": "Mabee Center"
+        }
+      },
+      {
+        "date": "2026-11-27",
+        "schools": [
+          "198",
+          "2623"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Mabee Center",
+          "source": "Center"
+        }
+      },
+      {
+        "date": "2026-11-27",
+        "schools": [
+          "2437",
+          "55"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "152",
+          "2210"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACC Network"
+          ],
+          "right": [
+            "ACC Network Extra"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "152",
+          "2210"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "ACC Network Extra"
+          ],
+          "right": [
+            "ACC Network"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "166",
+          "2172"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "1 p.m. MT",
+          "source": "1:00 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "166",
+          "2172"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Las Cruces, N.M. Pan American Center",
+          "source": "Pan American Center"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "166",
+          "2172"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "1:00 p.m. MT",
+          "source": "1 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "166",
+          "2172"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Pan American Center",
+          "source": "Las Cruces, N.M. Pan American Center"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2005",
+          "225"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Clune Arena - Basketball",
+          "source": "Clune Arena"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2005",
+          "225"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Clune Arena",
+          "source": "Clune Arena - Basketball"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2050",
+          "88"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Screaming Eagles Arena",
+          "source": "Liberty Arena"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2050",
+          "88"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Liberty Arena",
+          "source": "Screaming Eagles Arena"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2130",
+          "71"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2272",
+          "2643"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Qubein Center",
+          "source": "Quebin Center"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "2272",
+          "2643"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Quebin Center",
+          "source": "Qubein Center"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "284",
+          "87"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Purcell Pavilion",
+          "source": "Purcell Pavilion at the Joyce Center"
+        }
+      },
+      {
+        "date": "2026-11-28",
+        "schools": [
+          "284",
+          "87"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Purcell Pavilion at the Joyce Center",
+          "source": "Purcell Pavilion"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "107",
+          "160"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Hart Center Arena",
+          "source": "Hart Center"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "107",
+          "160"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Hart Center",
+          "source": "Hart Center Arena"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "167",
+          "328"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "CW"
+          ],
+          "right": [
+            "The CW"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "167",
+          "328"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "The CW"
+          ],
+          "right": [
+            "CW"
+          ]
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "2099",
+          "82"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Credit Union 1 Center",
+          "source": "Credit Union 1 Arena"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "2099",
+          "82"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Credit Union 1 Arena",
+          "source": "Credit Union 1 Center"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "2166",
+          "2226"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Eleanor R. Baldwin Arena",
+          "source": "Abessinio Court at Eleanor R. Baldwin Arena"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "2166",
+          "2226"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Abessinio Court at Eleanor R. Baldwin Arena",
+          "source": "Eleanor R. Baldwin Arena"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "2261",
+          "44"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "home",
+          "right": "neutral"
+        }
+      },
+      {
+        "date": "2026-11-29",
+        "schools": [
+          "2697",
+          "52"
+        ],
+        "kind": "site_mismatch_or_unverified",
+        "details": {
+          "left": "neutral",
+          "right": "away"
+        }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "12",
+          "2443"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "McKale Center at ALKEME Arena",
+          "source": "Arena"
+        }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "12",
+          "2443"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Arena",
+          "source": "McKale Center at ALKEME Arena"
+        }
+      }
+    ],
+    "changes": [
+      {
+        "school_id": "135",
+        "opponent_id": "2437",
+        "date": "2026-10-15",
+        "event_id": "school-135-2026-10-15-0",
+        "fields": [
+          "arena",
+          "city"
+        ],
+        "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "333",
+        "date": "2026-10-15",
+        "event_id": "school-145-2026-10-15-0",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "252",
+        "date": "2026-10-16",
+        "event_id": "school-158-2026-10-16-8",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://byucougars.com/sports/mens-basketball/schedule/season/2026-2027"
+      },
+      {
+        "school_id": "2031",
+        "opponent_id": "96",
+        "date": "2026-10-16",
+        "event_id": "school-2031-2026-10-16-0",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/news/2026/10/07/kentucky-mens-basketball-finalizes-2026-27-schedule/"
+      },
+      {
+        "school_id": "2351",
+        "opponent_id": "25",
+        "date": "2026-10-16",
+        "event_id": "school-2351-2026-10-16-1",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2",
+        "opponent_id": "333",
+        "date": "2026-10-22",
+        "event_id": "school-2-2026-10-22-9",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
+      },
+      {
+        "school_id": "238",
+        "opponent_id": "2390",
+        "date": "2026-10-23",
+        "event_id": "cross-school-238-2026-10-23_2390",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "2483",
+        "date": "2026-10-25",
+        "event_id": "school-24-2026-10-25-9",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://goducks.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "149",
+        "opponent_id": "2483",
+        "date": "2026-11-02",
+        "event_id": "school-149-2026-11-02-1",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://goducks.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "290",
+        "opponent_id": "2050",
+        "date": "2026-11-02",
+        "event_id": "school-290-2026-11-02-2",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://ballstatesports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2142",
+        "opponent_id": "264",
+        "date": "2026-11-02",
+        "event_id": "school-2142-2026-11-02-0",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2166",
+        "opponent_id": "265",
+        "date": "2026-11-02",
+        "event_id": "school-2166-2026-11-02-1",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://wsucougars.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "2197",
+        "opponent_id": "84",
+        "date": "2026-11-02",
+        "event_id": "school-2197-2026-11-02-1",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+      },
+      {
+        "school_id": "91",
+        "opponent_id": "238",
+        "date": "2026-11-02",
+        "event_id": "school-91-2026-11-02-7",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://vucommodores.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "2385",
+        "opponent_id": "269",
+        "date": "2026-11-02",
+        "event_id": "school-2385-2026-11-02-7",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2515",
+        "opponent_id": "25",
+        "date": "2026-11-04",
+        "event_id": "school-2515-2026-11-04-2",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "2473",
+        "date": "2026-11-06",
+        "event_id": "school-24-2026-11-06-16",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2535",
+        "opponent_id": "2439",
+        "date": "2026-11-07",
+        "event_id": "school-2535-2026-11-07-4",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2197",
+        "opponent_id": "87",
+        "date": "2026-11-09",
+        "event_id": "school-2197-2026-11-09-11",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf"
+      },
+      {
+        "school_id": "2116",
+        "opponent_id": "6",
+        "date": "2026-11-10",
+        "event_id": "school-2116-2026-11-10-16",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2275",
+        "opponent_id": "9",
+        "date": "2026-11-10",
+        "event_id": "school-2275-2026-11-10-15",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://thesundevils.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2294",
+        "opponent_id": "259",
+        "date": "2026-11-10",
+        "event_id": "cross-school-2294-2026-11-10_259",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "2305",
+        "opponent_id": "96",
+        "date": "2026-11-10",
+        "event_id": "school-2305-2026-11-10-5",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      },
+      {
+        "school_id": "135",
+        "opponent_id": "2582",
+        "date": "2026-11-12",
+        "event_id": "school-135-2026-11-12-5",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://gojagsports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2351",
+        "opponent_id": "6",
+        "date": "2026-11-12",
+        "event_id": "school-2351-2026-11-12-33",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2050",
+        "opponent_id": "2567",
+        "date": "2026-11-13",
+        "event_id": "school-2050-2026-11-13-5",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "2439",
+        "date": "2026-11-13",
+        "event_id": "school-24-2026-11-13-20",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2433",
+        "opponent_id": "9",
+        "date": "2026-11-13",
+        "event_id": "school-2433-2026-11-13-23",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://thesundevils.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "156",
+        "opponent_id": "2294",
+        "date": "2026-11-15",
+        "event_id": "school-156-2026-11-15-5",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hawkeyesports.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "2197",
+        "opponent_id": "2870",
+        "date": "2026-11-15",
+        "event_id": "school-2197-2026-11-15-19",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://gomastodons.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "79",
+        "opponent_id": "2335",
+        "date": "2026-11-17",
+        "event_id": "school-79-2026-11-17-5",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "290",
+        "opponent_id": "2393",
+        "date": "2026-11-17",
+        "event_id": "school-290-2026-11-17-6",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://goblueraiders.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "278",
+        "date": "2026-11-18",
+        "event_id": "school-23-2026-11-18-16",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gobulldogs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2837",
+        "opponent_id": "25",
+        "date": "2026-11-19",
+        "event_id": "school-2837-2026-11-19-39",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2330",
+        "opponent_id": "142",
+        "date": "2026-11-20",
+        "event_id": "school-2330-2026-11-20-23",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "59",
+        "date": "2026-11-20",
+        "event_id": "school-61-2026-11-20-8",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ramblinwreck.com/sports/m-baskbl/schedule"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "2086",
+        "date": "2026-11-22",
+        "event_id": "school-158-2026-11-22-22",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://www.bigeast.com/news/2026/10/5/full-2026-27-big-east-mens-basketball-television-schedule-released.aspx"
+      },
+      {
+        "school_id": "309",
+        "opponent_id": "30",
+        "date": "2026-11-22",
+        "event_id": "school-309-2026-11-22-5",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2011",
+        "opponent_id": "25",
+        "date": "2026-11-23",
+        "event_id": "school-2011-2026-11-23-39",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "349",
+        "opponent_id": "2005",
+        "date": "2026-11-24",
+        "event_id": "school-349-2026-11-24-6",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://goairforcefalcons.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2441",
+        "opponent_id": "2815",
+        "date": "2026-11-24",
+        "event_id": "school-2441-2026-11-24-27",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2535",
+        "opponent_id": "59",
+        "date": "2026-11-24",
+        "event_id": "school-2535-2026-11-24-8",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ramblinwreck.com/sports/m-baskbl/schedule"
+      },
+      {
+        "school_id": "251",
+        "opponent_id": "46",
+        "date": "2026-11-26",
+        "event_id": "school-251-2026-11-26-7",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://www.bigeast.com/news/2026/10/5/full-2026-27-big-east-mens-basketball-television-schedule-released.aspx"
+      },
+      {
+        "school_id": "111",
+        "opponent_id": "77",
+        "date": "2026-11-27",
+        "event_id": "official-111-2026-11-27-northwestern",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "3084",
+        "date": "2026-11-28",
+        "event_id": "school-23-2026-11-28-26",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gouvu.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "259",
+        "date": "2026-12-01",
+        "event_id": "school-145-2026-12-01-9",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "55",
+        "opponent_id": "2031",
+        "date": "2026-12-01",
+        "event_id": "cross-school-55-2026-12-01_2031",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://lrtrojans.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2681",
+        "opponent_id": "269",
+        "date": "2026-12-01",
+        "event_id": "school-2681-2026-12-01-51",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2330",
+        "opponent_id": "2066",
+        "date": "2026-12-03",
+        "event_id": "school-2330-2026-12-03-43",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "12",
+        "opponent_id": "2599",
+        "date": "2026-12-05",
+        "event_id": "school-12-2026-12-05-16",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2275",
+        "opponent_id": "99",
+        "date": "2026-12-05",
+        "event_id": "school-2275-2026-12-05-75",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://lsusports.net/sports/mb/schedule"
+      },
+      {
+        "school_id": "2492",
+        "opponent_id": "526",
+        "date": "2026-12-05",
+        "event_id": "school-2492-2026-12-05-10",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "2729",
+        "date": "2026-12-07",
+        "event_id": "school-145-2026-12-07-10",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://tribeathletics.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "135",
+        "opponent_id": "356",
+        "date": "2026-12-08",
+        "event_id": "school-135-2026-12-08-11",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://gophersports.com/news/2026/5/12/big-ten-announces-conference-opponents-for-2026-27-mens-basketball-season"
+      },
+      {
+        "school_id": "160",
+        "opponent_id": "269",
+        "date": "2026-12-09",
+        "event_id": "school-160-2026-12-09-11",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2492",
+        "opponent_id": "2504",
+        "date": "2026-12-09",
+        "event_id": "school-2492-2026-12-09-11",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2545",
+        "opponent_id": "25",
+        "date": "2026-12-10",
+        "event_id": "school-2545-2026-12-10-39",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "142",
+        "date": "2026-12-12",
+        "event_id": "school-158-2026-12-12-32",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2116",
+        "opponent_id": "84",
+        "date": "2026-12-12",
+        "event_id": "school-2116-2026-12-12-39",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print"
+      },
+      {
+        "school_id": "2755",
+        "opponent_id": "2443",
+        "date": "2026-12-13",
+        "event_id": "school-2755-2026-12-13-63",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://unoprivateers.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "2458",
+        "date": "2026-12-14",
+        "event_id": "school-24-2026-12-14-50",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://uncbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "279",
+        "opponent_id": "166",
+        "date": "2026-12-15",
+        "event_id": "school-279-2026-12-15-51",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "135",
+        "opponent_id": "2640",
+        "date": "2026-12-16",
+        "event_id": "school-135-2026-12-16-13",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://gophersports.com/news/2026/5/12/big-ten-announces-conference-opponents-for-2026-27-mens-basketball-season"
+      },
+      {
+        "school_id": "2385",
+        "opponent_id": "77",
+        "date": "2026-12-16",
+        "event_id": "school-2385-2026-12-16-63",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "290",
+        "opponent_id": "324",
+        "date": "2026-12-16",
+        "event_id": "school-290-2026-12-16-15",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://goccusports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2348",
+        "opponent_id": "2026",
+        "date": "2026-12-19",
+        "event_id": "school-2348-2026-12-19-13",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2514",
+        "opponent_id": "26",
+        "date": "2026-12-19",
+        "event_id": "school-2514-2026-12-19-11",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://uclabruins.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "45",
+        "opponent_id": "2539",
+        "date": "2026-12-19",
+        "event_id": "school-45-2026-12-19-13",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://usfdons.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "2241",
+        "date": "2026-12-20",
+        "event_id": "school-61-2026-12-20-15",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://www.secsports.com/news/2026/10/espn-sec-reveal-loaded-2026-27-mens-basketball-slate"
+      },
+      {
+        "school_id": "2678",
+        "opponent_id": "259",
+        "date": "2026-12-21",
+        "event_id": "school-2678-2026-12-21-55",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "45",
+        "opponent_id": "328",
+        "date": "2026-12-21",
+        "event_id": "school-45-2026-12-21-14",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://utahstateaggies.com/news/2026/10/14/mens-basketball-aggies-announce-23-nationally-televised-games-for-2026-27.aspx"
+      },
+      {
+        "school_id": "111",
+        "opponent_id": "25",
+        "date": "2026-12-22",
+        "event_id": "official-111-2026-12-22-california",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2117",
+        "opponent_id": "8",
+        "date": "2026-12-22",
+        "event_id": "school-2117-2026-12-22-13",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
+      },
+      {
+        "school_id": "2351",
+        "opponent_id": "2751",
+        "date": "2026-12-22",
+        "event_id": "school-2351-2026-12-22-99",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://gowyo.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "279",
+        "opponent_id": "328",
+        "date": "2026-12-29",
+        "event_id": "school-279-2026-12-29-63",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://utahstateaggies.com/news/2026/10/14/mens-basketball-aggies-announce-23-nationally-televised-games-for-2026-27.aspx"
+      },
+      {
+        "school_id": "79",
+        "opponent_id": "9",
+        "date": "2026-12-29",
+        "event_id": "school-79-2026-12-29-13",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://thesundevils.com/news/2026/10/14/tv-schedule-and-times-revealed-for-sun-devil-mens-basketball-schedule"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "87",
+        "date": "2026-12-30",
+        "event_id": "school-24-2026-12-30-56",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf"
+      },
+      {
+        "school_id": "2197",
+        "opponent_id": "2546",
+        "date": "2026-12-31",
+        "event_id": "school-2197-2026-12-31-63",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "245",
+        "opponent_id": "2",
+        "date": "2027-01-02",
+        "event_id": "cross-school-245-2027-01-02_2",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2348",
+        "opponent_id": "295",
+        "date": "2027-01-02",
+        "event_id": "school-2348-2027-01-02-16",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://odusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2643",
+        "opponent_id": "236",
+        "date": "2027-01-02",
+        "event_id": "school-2643-2027-01-02-16",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2415",
+        "opponent_id": "2379",
+        "date": "2027-01-02",
+        "event_id": "school-2415-2027-01-02-63",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "97",
+        "date": "2027-01-02",
+        "event_id": "school-24-2027-01-02-58",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://gocards.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "130",
+        "date": "2027-01-05",
+        "event_id": "school-158-2027-01-05-42",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://mgoblue.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "96",
+        "date": "2027-01-05",
+        "event_id": "school-145-2027-01-05-17",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "2005",
+        "date": "2027-01-05",
+        "event_id": "school-23-2027-01-05-45",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://goairforcefalcons.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "251",
+        "date": "2027-01-09",
+        "event_id": "school-145-2027-01-09-18",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://texaslonghorns.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "2",
+        "date": "2027-01-09",
+        "event_id": "school-61-2027-01-09-19",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2116",
+        "opponent_id": "9",
+        "date": "2027-01-09",
+        "event_id": "school-2116-2027-01-09-51",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://thesundevils.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "2483",
+        "date": "2027-01-10",
+        "event_id": "school-158-2027-01-10-44",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://goducks.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "213",
+        "opponent_id": "77",
+        "date": "2027-01-10",
+        "event_id": "cross-school-213-2027-01-10_77",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "333",
+        "date": "2027-01-13",
+        "event_id": "school-145-2027-01-13-19",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "264",
+        "date": "2027-01-13",
+        "event_id": "school-158-2027-01-13-46",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2110",
+        "opponent_id": "2000",
+        "date": "2027-01-13",
+        "event_id": "school-2110-2027-01-13-75",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://acusports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "290",
+        "opponent_id": "256",
+        "date": "2027-01-13",
+        "event_id": "school-290-2027-01-13-21",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://jmusports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2540",
+        "opponent_id": "3084",
+        "date": "2027-01-14",
+        "event_id": "school-2540-2027-01-14-71",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gouvu.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "2",
+        "date": "2027-01-16",
+        "event_id": "school-145-2027-01-16-20",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "2294",
+        "date": "2027-01-16",
+        "event_id": "school-158-2027-01-16-48",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hawkeyesports.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "97",
+        "opponent_id": "183",
+        "date": "2027-01-16",
+        "event_id": "school-97-2027-01-16-20",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "25",
+        "opponent_id": "87",
+        "date": "2027-01-16",
+        "event_id": "school-25-2027-01-16-21",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "356",
+        "date": "2027-01-19",
+        "event_id": "school-158-2027-01-19-50",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://fightingillini.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "8",
+        "date": "2027-01-19",
+        "event_id": "school-61-2027-01-19-22",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "167",
+        "date": "2027-01-20",
+        "event_id": "school-23-2027-01-20-53",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://golobos.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "250",
+        "opponent_id": "2698",
+        "date": "2027-01-20",
+        "event_id": "school-250-2027-01-20-20",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://uwgathletics.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "26",
+        "date": "2027-01-22",
+        "event_id": "school-158-2027-01-22-52",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://uclabruins.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "290",
+        "opponent_id": "2026",
+        "date": "2027-01-23",
+        "event_id": "school-290-2027-01-23-24",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2197",
+        "opponent_id": "2630",
+        "date": "2027-01-23",
+        "event_id": "school-2197-2027-01-23-91",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://utmsports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "25",
+        "date": "2027-01-23",
+        "event_id": "school-24-2027-01-23-68",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2550",
+        "opponent_id": "2599",
+        "date": "2027-01-23",
+        "event_id": "school-2550-2027-01-23-21",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2502",
+        "opponent_id": "2458",
+        "date": "2027-01-25",
+        "event_id": "school-2502-2027-01-25-91",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://uncbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "135",
+        "opponent_id": "264",
+        "date": "2027-01-26",
+        "event_id": "school-135-2027-01-26-23",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://gophersports.com/news/2026/5/12/big-ten-announces-conference-opponents-for-2026-27-mens-basketball-season"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "2509",
+        "date": "2027-01-26",
+        "event_id": "school-158-2027-01-26-54",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://purduesports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "238",
+        "date": "2027-01-27",
+        "event_id": "school-145-2027-01-27-22",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://vucommodores.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "183",
+        "date": "2027-01-27",
+        "event_id": "school-24-2027-01-27-70",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "41",
+        "opponent_id": "2599",
+        "date": "2027-01-29",
+        "event_id": "school-41-2027-01-29-25",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "142",
+        "date": "2027-01-30",
+        "event_id": "school-145-2027-01-30-23",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "2294",
+        "date": "2027-01-30",
+        "event_id": "school-158-2027-01-30-56",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hawkeyesports.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "2638",
+        "date": "2027-01-30",
+        "event_id": "school-23-2027-01-30-57",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://utepminers.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "258",
+        "opponent_id": "259",
+        "date": "2027-01-30",
+        "event_id": "cross-school-258-2027-01-30_259",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "99",
+        "date": "2027-01-30",
+        "event_id": "school-61-2027-01-30-24",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://lsusports.net/sports/mb/schedule"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "96",
+        "date": "2027-02-02",
+        "event_id": "school-145-2027-02-02-24",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "167",
+        "date": "2027-02-02",
+        "event_id": "school-23-2027-02-02-59",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://golobos.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "59",
+        "date": "2027-02-03",
+        "event_id": "school-24-2027-02-03-74",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ramblinwreck.com/sports/m-baskbl/schedule"
+      },
+      {
+        "school_id": "25",
+        "opponent_id": "2567",
+        "date": "2027-02-03",
+        "event_id": "school-25-2027-02-03-25",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "290",
+        "opponent_id": "276",
+        "date": "2027-02-03",
+        "event_id": "school-290-2027-02-03-27",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://herdzone.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2197",
+        "opponent_id": "88",
+        "date": "2027-02-04",
+        "event_id": "school-2197-2027-02-04-99",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+      },
+      {
+        "school_id": "23",
+        "opponent_id": "2439",
+        "date": "2027-02-06",
+        "event_id": "school-23-2027-02-06-61",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "2567",
+        "date": "2027-02-06",
+        "event_id": "school-24-2027-02-06-76",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "8",
+        "date": "2027-02-09",
+        "event_id": "school-145-2027-02-09-26",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "238",
+        "date": "2027-02-09",
+        "event_id": "school-61-2027-02-09-27",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://vucommodores.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "2390",
+        "date": "2027-02-10",
+        "event_id": "school-24-2027-02-10-78",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
+      },
+      {
+        "school_id": "2116",
+        "opponent_id": "2132",
+        "date": "2027-02-13",
+        "event_id": "school-2116-2027-02-13-69",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://gobearcats.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "259",
+        "date": "2027-02-13",
+        "event_id": "school-24-2027-02-13-80",
+        "fields": [
+          "tipoff",
+          "city"
+        ],
+        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "2415",
+        "opponent_id": "2569",
+        "date": "2027-02-13",
+        "event_id": "school-2415-2027-02-13-95",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2492",
+        "opponent_id": "2541",
+        "date": "2027-02-13",
+        "event_id": "school-2492-2027-02-13-27",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "96",
+        "date": "2027-02-16",
+        "event_id": "school-61-2027-02-16-29",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "183",
+        "date": "2027-02-17",
+        "event_id": "school-24-2027-02-17-82",
+        "fields": [
+          "city"
+        ],
+        "source_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "2539",
+        "opponent_id": "2351",
+        "date": "2027-02-17",
+        "event_id": "school-2539-2027-02-17-30",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://lmulions.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2534",
+        "opponent_id": "166",
+        "date": "2027-02-20",
+        "event_id": "school-2534-2027-02-20-27",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "2253",
+        "opponent_id": "2439",
+        "date": "2027-02-20",
+        "event_id": "school-2253-2027-02-20-28",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "8",
+        "opponent_id": "96",
+        "date": "2027-02-20",
+        "event_id": "official-ark-2027-02-20-96",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      },
+      {
+        "school_id": "135",
+        "opponent_id": "77",
+        "date": "2027-02-21",
+        "event_id": "school-135-2027-02-21-29",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "30",
+        "date": "2027-02-23",
+        "event_id": "school-158-2027-02-23-68",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "258",
+        "opponent_id": "259",
+        "date": "2027-02-23",
+        "event_id": "cross-school-258-2027-02-23_259",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "school_id": "2335",
+        "opponent_id": "166",
+        "date": "2027-02-25",
+        "event_id": "school-2335-2027-02-25-29",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "142",
+        "date": "2027-02-27",
+        "event_id": "school-61-2027-02-27-32",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "158",
+        "opponent_id": "77",
+        "date": "2027-02-27",
+        "event_id": "school-158-2027-02-27-70",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2",
+        "opponent_id": "96",
+        "date": "2027-02-27",
+        "event_id": "school-2-2027-02-27-103",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      },
+      {
+        "school_id": "2492",
+        "opponent_id": "279",
+        "date": "2027-02-27",
+        "event_id": "school-2492-2027-02-27-31",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://pacifictigers.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "145",
+        "opponent_id": "2",
+        "date": "2027-03-02",
+        "event_id": "school-145-2027-03-02-32",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
+      },
+      {
+        "school_id": "2116",
+        "opponent_id": "2306",
+        "date": "2027-03-03",
+        "event_id": "school-2116-2027-03-03-79",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://kstatesports.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "school_id": "61",
+        "opponent_id": "333",
+        "date": "2027-03-03",
+        "event_id": "school-61-2027-03-03-33",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
+      },
+      {
+        "school_id": "24",
+        "opponent_id": "25",
+        "date": "2027-03-06",
+        "event_id": "school-24-2027-03-06-90",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "school_id": "57",
+        "opponent_id": "96",
+        "date": "2027-03-06",
+        "event_id": "school-57-2027-03-06-33",
+        "fields": [
+          "tipoff"
+        ],
+        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
+      }
+    ]
+  }
 }
