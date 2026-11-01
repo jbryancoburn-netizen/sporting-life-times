@@ -96,6 +96,25 @@ class GSCOfficialSchedules(unittest.TestCase):
         self.assertEqual(info2["new_games"],0)
         self.assertEqual(len(games),1)
 
+    def test_host_school_resolves_only_documented_cbu_time_conflict(self):
+        key=("2027-01-21","mississippi-christian","christian-brothers")
+        a={"date":key[0],"away":key[1],"home":key[2],
+           "source_team":key[1],"source_url":"https://gscsports.org/schedule.aspx?schedule=3080",
+           "city":"Memphis, TN","start_time":"8:30 PM ET"}
+        b={**a,"source_team":key[2],
+           "source_url":"https://gscsports.org/schedule.aspx?schedule=3077",
+           "start_time":"8:00 PM ET"}
+        games={};teams={name:{"id":name} for name in key[1:]}
+        result=collector.reconcile_schedules({key[1]:[a],key[2]:[b]},
+            games,teams,dt.date(2026,11,1))
+        self.assertEqual(result["confirmed_matchups"],1)
+        self.assertEqual(result["host_verified_resolutions"],1)
+        self.assertEqual(result["time_conflicts"],0)
+        g=next(iter(games.values()))
+        self.assertEqual(g["start_time"],"8:00 PM ET")
+        self.assertEqual(g["venue"],"Canale Arena · Memphis, TN")
+        self.assertEqual(g["venue_source_url"],"https://cbubucs.com/sports/mens-basketball/schedule")
+
     def test_conflicting_time_does_not_replace_verified_tipoff(self):
         a={"date":"2026-12-03","away":"alabama-huntsville","home":"valdosta-state",
            "source_team":"alabama-huntsville","source_url":"https://gscsports.org/schedule.aspx?schedule=3075",
