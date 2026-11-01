@@ -259,6 +259,22 @@ for team in teams:
  tid=str(team['espn_id']);p=root/'data/mbb-schedules-2026-27'/(tid+'.json')
  if p.exists():team_records[tid]=(p,json.loads(p.read_text()))
 assert len(team_records)==365, 'All 365 school schedule files are required for the reciprocal audit'
+# Map registered university schedule hosts to their actual school identities.
+# An arena citation belonging to a third school must not certify this matchup.
+official_school_hosts=collections.defaultdict(set)
+for sid,(path,document) in team_records.items():
+ try:
+  registered=(urllib.parse.urlsplit(document.get('source_url') or '').hostname or '').lower()
+  if registered.startswith('www.'):registered=registered[4:]
+  if registered:official_school_hosts[registered].add(sid)
+ except (TypeError,ValueError):continue
+def source_matches_game(url,team_pair):
+ try:
+  host=(urllib.parse.urlsplit(str(url or '')).hostname or '').lower()
+  if host.startswith('www.'):host=host[4:]
+  registered=official_school_hosts.get(host,set())
+  return not registered or not registered.isdisjoint(set(team_pair))
+ except (TypeError,ValueError):return False
 def good_url(value):
  try:
   u=urllib.parse.urlsplit(str(value or ''))
@@ -293,7 +309,8 @@ def net_values(e):
 def has_network(e):
  c=(e.get('competitions') or [{}])[0]
  return bool(c.get('broadcasts') or e.get('broadcasts') or e.get('broadcast'))
-def clean_arena(v):
+def clean_arena(v, as_source=False):
+ if as_source and 'default_not_game_specific' in str(v.get('arena_source_type') or '').lower():return ''
  value=str(v.get('arenaName') or '').strip()
  if re.search(r'(?i)^(TBA|TBD|unknown|choose a location)$',value):return ''
  if re.search(r'(?i)^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\w*\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w*\s+\d',value):return ''
@@ -363,17 +380,22 @@ for (day,pair),matches in sorted(ledger.items()):
    te['official_school_time_verified_via']='reciprocal_official_2026_27'
    changed.append('tipoff')
   tv=tc.setdefault('venue',{});sv=sc.get('venue') or {}
-  arena=clean_arena(sv);t_arena=clean_arena(tv)
+  arena=clean_arena(sv,as_source=True);t_arena=clean_arena(tv)
   vsource=sv.get('arena_source_url') or sv.get('source_url') or se.get('school_source_url') or sd.get('source_url')
-  if arena and not t_arena and good_url(vsource):
+  admissible_arena=good_url(vsource) and source_matches_game(vsource,pair)
+  if arena and not admissible_arena:
+   issue(day,pair,'unrelated_school_arena_source',{'school':sowner,'source_url':vsource,'arena':arena})
+  if not arena and clean_arena(sv) and not t_arena:
+   reciprocal['weak_default_arena_excluded_from_copies']+=1
+  if arena and not t_arena and admissible_arena:
    tv['arenaName']=arena;tv['arena_source_url']=vsource
    if not clean_arena({'arenaName':tv.get('fullName')}):tv['fullName']=arena
    changed.append('arena')
-  elif arena and t_arena and arena.lower()!=t_arena.lower() and good_url(vsource):
+  elif arena and t_arena and arena.lower()!=t_arena.lower() and admissible_arena:
    issue(day,pair,'arena_disagreement',{'target':t_arena,'source':arena})
   city=clean_city(sv);targetcity=clean_city(tv)
   csource=sv.get('city_source_url') or sv.get('source_url') or sd.get('source_url')
-  if city and not targetcity and good_url(csource):
+  if city and not targetcity and good_url(csource) and source_matches_game(csource,pair):
    tv['official_school_city']=city;tv['city_source_url']=csource
    changed.append('city')
   if changed:
