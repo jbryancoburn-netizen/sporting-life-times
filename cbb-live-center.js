@@ -100,7 +100,7 @@
   }
   function summaryStats(g){
     const raw=state.summaryCache.get(g.id)?.data;
-    if(!raw||g.phase==='upcoming'||g.disputed)return '';
+    if(!raw||g.phase==='upcoming'||g.disputed||g.statsDisputed)return '';
     const teams=raw.boxscore?.teams||[];
     const teamStats=id=>{
       const t=teams.find(x=>String(x.team?.id)===String(id));
@@ -713,11 +713,19 @@
     let entry=state.summaryCache.get(g.id);
     if(!entry)node.innerHTML='<p class="cbb-loading">Checking available attributed box-score information…</p>';
     if(!entry||g.phase==='live'||Date.now()-entry.at>180000){
-      const data=(!g.disputed&&/^\d+$/.test(String(g.espnId||g.id)))?await fetchJSON(api+'summary?event='+encodeURIComponent(g.espnId||g.id)):null;
-      entry={at:Date.now(),data};state.summaryCache.set(g.id,entry);
+      const data=(!g.disputed&&!g.statsDisputed&&/^\d+$/.test(String(g.espnId||g.id)))?
+        await fetchJSON(api+'summary?event='+encodeURIComponent(g.espnId||g.id)):null;
+      if(data){
+        entry={at:Date.now(),data};state.summaryCache.set(g.id,entry);
+      }else if(!entry?.data){
+        // No older verified feed to preserve. Don't claim fresh statistics.
+        entry={at:0,data:null};state.summaryCache.set(g.id,entry);
+      }
+      // A transient provider error must not erase a previously fetched play log.
+      // Keep its original timestamp so CourtCast can label it stale.
     }
     if(state.selected!==g.id)return;
-    const raw=g.disputed?null:entry?.data;
+    const raw=(g.disputed||g.statsDisputed)?null:entry?.data;
     const periods=periodTable(g,raw),
       team=g.certifiedTeamBox?ncaaTeamStats(g,g.certifiedTeamBox):statsPairs(g,raw),
       playersHTML=g.certifiedBox?ncaaPlayerBox({
@@ -751,7 +759,7 @@
        (g.certifiedBox?' · NCAA-origin individual totals available under Player Box Score':'')+
        (g.certifiedTeamBox?' · NCAA-origin verified team totals available under Team Statistics':'')+'</p>';
     selectGameTab(state.section);
-    if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw);
+    if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0});
   }
   async function openGamefile(){
     const host=document.getElementById('cbb-gamefile-root');if(!host)return;
