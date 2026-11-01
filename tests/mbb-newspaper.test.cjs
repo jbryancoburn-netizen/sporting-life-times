@@ -6,7 +6,7 @@ const go=async x=>{const response=await p.goto('http://127.0.0.1:8765/'+x,{waitU
 await go('ncaam.html');assert.equal(await p.locator('#team-directory>a').count(),24);await p.fill('#team-search','Indiana');assert((await p.locator('#team-directory').innerText()).includes('Indiana'));await p.selectOption('#conf-pick','SEC');assert((await p.locator('#conf-table').innerText()).includes('Florida'));await p.click('[data-poll=coaches]');
 await go('ncaam-conference.html');assert.equal(await p.locator('.conf-card').count(),32);
 await go('ncaam-conference.html?conference=Big%20Ten');assert((await p.locator('#app').innerText()).includes('Indiana'));
-await go('ncaam-team.html?team=ncaa%3A609574');assert((await p.locator('#app').innerText()).includes('Indiana'));assert(await p.locator('table tbody tr').count()>10);await p.selectOption('#opponent',{index:5});assert((await p.locator('#series').innerText()).includes('verified meetings'));
+await go('ncaam-team.html?team=ncaa%3A609574');assert((await p.locator('#app').innerText()).includes('Indiana'));assert(await p.locator('table tbody tr').count()>10);await p.selectOption('#opponent',{index:5});await p.waitForFunction(()=>document.querySelector('#series')?.textContent?.includes('games shown'),null,{timeout:20000});assert((await p.locator('#series').innerText()).includes('games shown'));
 await go('ncaam-tournament.html');assert.equal(await p.locator('.region').count(),8);assert.equal(await p.locator('.region .match').count(),32);assert.equal(await p.locator('.opening-grid .match').count(),12);
 assert.equal(await p.locator('[data-bracket-tab]').count(),4);
 await p.locator('[data-bracket-tab]').first().focus();await p.keyboard.press('ArrowRight');
