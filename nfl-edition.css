@@ -298,3 +298,47 @@ body.nfl-paper{margin:0;color:#211f1b;background:#f6f3eb;font:14px/1.43 Georgia,
 @media(max-width:600px){
  .nfl-paper .nfl-elo-podium-card .nfl-crest.lg{--nfl-inner-ring:4px}
 }
+
+/* NFL ISOLATED TWO-BAND RENDERER: replaces legacy .nfl-crest component.
+   One radial gradient paints exactly two contiguous colored rings and a white
+   center. No borders, shadows or generated circles. */
+.nfl-paper .nfl-two-band{
+ --primary:#2b3444;--secondary:#d2a74f;
+ display:inline-flex;position:relative;isolation:isolate;
+ width:62px;height:62px;flex:0 0 62px;
+ box-sizing:border-box;align-items:center;justify-content:center;
+ vertical-align:middle;overflow:hidden;
+ border-radius:50%;border:0!important;padding:0!important;
+ outline:0!important;box-shadow:none!important;filter:none!important;
+ background:radial-gradient(circle closest-side at center,
+ #fff 0 67%,var(--secondary) 67% 84%,var(--primary) 84% 100%)!important;
+}
+.nfl-paper .nfl-two-band::before,.nfl-paper .nfl-two-band::after{
+ content:none!important;display:none!important;
+}
+.nfl-paper .nfl-two-band img{
+ display:block;position:relative;z-index:1;
+ width:65%;height:65%;max-width:65%;max-height:65%;
+ padding:0!important;margin:0!important;
+ border:0!important;border-radius:0!important;outline:0!important;
+ box-shadow:none!important;filter:none!important;
+ background:transparent!important;object-fit:contain!important;
+}
+.nfl-paper .nfl-two-band.sm{width:44px;height:44px;flex-basis:44px}
+.nfl-paper .nfl-two-band.lg{width:118px;height:118px;flex-basis:118px}
+.nfl-paper .nfl-two-band.head{width:77px;height:77px;flex-basis:77px}
+.nfl-paper .nfl-mini .nfl-two-band.sm{width:35px;height:35px;flex-basis:35px}
+.nfl-paper .nfl-table .nfl-two-band.sm{width:41px;height:41px;flex-basis:41px}
+.nfl-paper .nfl-leader-club .nfl-two-band.sm{width:27px;height:27px;flex-basis:27px}
+.nfl-paper .nfl-feature-top .nfl-two-band.head{width:62px;height:62px;flex-basis:62px}
+.nfl-paper .nfl-rank-card>.nfl-two-band{grid-column:2;grid-row:1/4;width:48px;height:48px;flex-basis:48px}
+@media(max-width:600px){
+ .nfl-paper .nfl-two-band{width:52px;height:52px;flex-basis:52px}
+ .nfl-paper .nfl-two-band.sm{width:39px;height:39px;flex-basis:39px}
+ .nfl-paper .nfl-team-head .nfl-two-band.lg{width:90px;height:90px;flex-basis:90px}
+ .nfl-paper .nfl-elo-podium-card .nfl-two-band.lg{width:67px;height:67px;flex-basis:67px}
+ .nfl-paper .nfl-feature-top .nfl-two-band.head{width:43px;height:43px;flex-basis:43px}
+ .nfl-paper .nfl-box-side .nfl-two-band.head{width:48px;height:48px;flex-basis:48px}
+ .nfl-paper .nfl-rank-card>.nfl-two-band{width:48px;height:48px;flex-basis:48px}
+}
+@media(max-width:365px){.nfl-paper .nfl-rank-card>.nfl-two-band{width:42px;height:42px;flex-basis:42px}}
