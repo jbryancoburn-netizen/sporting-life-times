@@ -29,6 +29,24 @@ class HouseCoverage(unittest.TestCase):
         self.assertFalse(a["forecast_eligible"])
         self.assertEqual(a["certified_2026_probabilities"],0)
 
+    def test_unopposed_2024_winners_have_original_sources_but_no_vote_totals(self):
+        actual={r["id"]:r["2024_unopposed_official_context"] for r in self.a["districts"]
+                if r.get("2024_unopposed_official_context")}
+        self.assertEqual(set(actual),{"FL-20","OK-03"})
+        self.assertEqual(self.a["2024_unopposed_winners_verified"],2)
+        self.assertEqual(self.a["2024_house_results_found"],433)
+        for rid,context in actual.items():
+            with self.subTest(district=rid):
+                self.assertIsNone(next(r for r in self.a["districts"] if r["id"]==rid)["2024_house_result_on_prior_boundaries"])
+                self.assertEqual(context["contest_status"],"elected_unopposed")
+                self.assertFalse(context["general_election_vote_totals_available"])
+                self.assertTrue(context["source_url"].startswith("https://"))
+                self.assertNotIn("dem_votes",context)
+                self.assertNotIn("rep_votes",context)
+                self.assertNotIn("dem_two_party_margin_pp",context)
+        self.assertFalse(actual["FL-20"]["verified_2026_geographic_comparability"])
+        self.assertTrue(actual["OK-03"]["verified_2026_geographic_comparability"])
+
     def test_each_district_fec_party_breakdown_is_real_and_reconciled(self):
         by_id={x["id"]:x for x in self.a["districts"]}
         self.assertEqual(set(by_id),{x["id"] for x in self.f["house"]})
