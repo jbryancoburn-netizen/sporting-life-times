@@ -54,7 +54,7 @@ leaders+="</div>";
 out+=panel("PLAYER LEADERS",statsCaveat()+leaders);
 out+=panel("LEAGUE COVERAGE",'<div class="nfl-statline"><div class="nfl-stat"><b>'+feed.coverage.finals+'</b><span>Finals</span></div><div class="nfl-stat"><b>'+feed.coverage.boxscores+'</b><span>Box scores</span></div><div class="nfl-stat"><b>1500</b><span>Starting Elo</span></div><div class="nfl-stat"><b>32</b><span>Teams</span></div></div>');
 out+='</div></div>';
-return out+panel("FIND YOUR TEAM",directory());
+return out+'<section class="nfl-section" id="teams"><h2>FIND YOUR TEAM</h2>'+directory()+'</section>';
 }
 function standings(){
 let out='<p class="nfl-kicker">REGULAR SEASON · CONFERENCE TABLES</p><h1 class="nfl-title">NFL STANDINGS</h1>';
@@ -105,7 +105,7 @@ const id=params.get("team"),t=team(id);
 if(!teams[id])return note("Unknown NFL franchise. "+link("nfl.html","Choose a team."));
 const slate=games.filter(g=>g.away.id===id||g.home.id===id).sort((a,b)=>a.date.localeCompare(b.date));
 let out='<div class="nfl-team-head">'+crest(t,"lg")+'<div><p class="nfl-kicker">'+escapeHtml(t.division)+'</p><h1>'+escapeHtml(t.name)+'</h1><span class="detail">'+t.w+'–'+t.l+'–'+t.t+' · '+format(t.elo,1)+' Elo · '+(t.elo_change>0?"+":"")+format(t.elo_change,1)+' this season</span></div></div>';
-const metrics=[["Points for",t.pf],["Points against",t.pa],["Total yards",(t.team_stats||{}).totalYards],["Pass yards",(t.team_stats||{}).passingYards],["Rush yards",(t.team_stats||{}).rushingYards],["1st downs",(t.team_stats||{}).firstDowns],["Turnovers",(t.team_stats||{}).turnovers],["Point diff.",t.point_diff]];
+const metrics=[["Points for",t.pf],["Points against",t.pa],["Total yards",(t.team_stats||{}).totalYards],["Pass yards",(t.team_stats||{}).netPassingYards],["Rush yards",(t.team_stats||{}).rushingYards],["1st downs",(t.team_stats||{}).firstDowns],["Turnovers",(t.team_stats||{}).turnovers],["Point diff.",t.point_diff]];
 out+='<div class="nfl-statline">'+metrics.map(v=>'<div class="nfl-stat"><b>'+format(v[1])+'</b><span>'+escapeHtml(v[0])+'</span></div>').join("")+'</div>'+statsCaveat();
 out+='<div class="nfl-duo">'+panel("RECENT RESULTS",slate.filter(g=>g.state==="post").slice(-5).reverse().map(gameLine).join(""))+panel("NEXT KICKOFFS",slate.filter(g=>g.state!=="post").slice(0,5).map(gameLine).join(""))+'</div>';
 out+=panel("CLUB STATISTICAL LEADERS",["passing","rushing","receiving","sacks"].map(cat=>'<h3>'+cat.toUpperCase()+'</h3>'+((feed.leaders||{})[cat]||[]).filter(p=>p.team_id===id).slice(0,5).map(p=>'<div class="nfl-mini">'+escapeHtml(p.name)+'<b>'+format(p.value,1)+'</b></div>').join("")).join(""));
