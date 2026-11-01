@@ -1,5 +1,7 @@
 """Offline verification for reciprocal 2026-27 women's CACC schedules."""
 import datetime as dt
+import json
+from pathlib import Path
 import unittest
 from unittest.mock import patch
 
@@ -20,6 +22,15 @@ class CACCDivisionTwoWomen(unittest.TestCase):
         self.assertEqual(w.SCHOOLS[2395][1],"thomas-jefferson-university")
         self.assertEqual(w.ALIASES["university of bridgeport"],"university-of-bridgeport")
         self.assertNotIn("monroe university",w.ALIASES)
+
+    def test_2026_27_womens_registry_matches_actual_published_team_ids(self):
+        # Silent identity mismatches must not make a supposedly successful
+        # conference crawl produce zero verified fixtures.
+        path=Path(__file__).resolve().parents[1]/"data/d2-women-2026-27.json"
+        data=json.loads(path.read_text())
+        ids={x["id"] for x in data["teams"]}
+        missing=[ident for _,ident in w.SCHOOLS.values() if ident not in ids]
+        self.assertEqual(missing,[], "CACC women's calendar IDs disagree with the published NCAA school directory")
 
     def test_2026_27_womens_calendar_parse_and_eastern_tipoff(self):
         # Sample fixture matrix reproduces Sidearm's actual six-column
