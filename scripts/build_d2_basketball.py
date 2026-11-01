@@ -1072,7 +1072,7 @@ def update(gender, bootstrap=False, live=False):
     # frequent live-score refreshes consume the existing verified venues.
     from d2_gliac_venues_official import enrich_gliac_venues
     gliac_venue_quality=previous_quality.get("official_gliac_university_venue_evidence")
-    if not rapid or not gliac_venue_quality:
+    if not rapid or not gliac_venue_quality or gliac_venue_quality.get("canonical_matching_version")!=2:
         gliac_venue_quality=enrich_gliac_venues(gender,games,teams)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
