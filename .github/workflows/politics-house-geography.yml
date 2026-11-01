@@ -31,6 +31,8 @@ jobs:
         run: python scripts/politics_house_geometry.py
       - name: Verify archived district geometry
         run: python scripts/politics_house_geometry.py --validate-only
+      - name: Test all 50 state maps and 435 congressional links
+        run: python -m unittest -v test_politics_house_geography.py
       - name: Publish verified static polygons
         run: |
           git config user.name "github-actions[bot]"
