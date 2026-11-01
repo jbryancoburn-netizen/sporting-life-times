@@ -135,3 +135,24 @@ test('Future Elo results never enter a forecast recorded as historical pregame',
  assert.equal(created.added,0,'Contaminated Elo blocks new snapshot captures');
  assert.equal(created.skippedStale,4);
 });
+
+test('Every model revision is evaluated separately and cannot inherit the older version metrics',()=>{
+ const original=updateLedger(null,fixture,now);
+ const next=clone(fixture);
+ next.fingerprints.model='brand-new-model-sha';
+ next.schedule.updated_at='2099-11-01T20:10:00Z';
+ const updated=updateLedger(original.ledger,next,'2099-11-01T20:15:00Z');
+ const versions=updated.ledger.metrics.by_model_version;
+ assert.equal(Object.keys(versions).length,2);
+ assert.equal(versions['rabby-test-version'].forecasts,4);
+ assert.equal(versions['brand-new-model-sha'].forecasts,1);
+ assert.equal(versions['brand-new-model-sha'].near_tipoff.sample,0);
+ const game=updated.ledger.forecasts.find(f=>f.away==='BKN'&&f.home==='IND'&&f.phase==='early');
+ const completed=clone(next);completed.earned.events.push({
+  id:game.id,date:game.date,away:game.away,home:game.home,away_score:101,home_score:112
+ });completed.earned.games_played++;
+ const result=updateLedger(updated.ledger,completed,'2099-11-02T01:00:00Z');
+ assert.equal(result.ledger.metrics.early.sample,1);
+ assert.equal(result.ledger.metrics.by_model_version['rabby-test-version'].early.sample,1);
+ assert.equal(result.ledger.metrics.by_model_version['brand-new-model-sha'].near_tipoff.sample,1);
+});
