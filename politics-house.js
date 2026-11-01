@@ -140,47 +140,119 @@ function makeStateLink(s){
  let label=newEl("div");label.append(newEl("strong",s.name),newEl("small",s.district_count+" House seats · "+s["2026_verified_house_nominee_offices"]+" government-verified candidate lists · "+s["2026_house_poll_count"]+" district poll records"));
  link.append(stripe,label,newEl("span","›","arrow"));return link;
 }
+/* Election infographics use only attributable measurements, never model odds.
+ * A 2026 poll is NOT averaged with 2024 votes; new boundaries are not backfilled.
+ */
+function districtGraphicData(r){
+ const poll=(r.district_specific_2026_polls||[]).find(p=>p.question_type==="named_house");
+ if(poll){
+   const dem=(poll.candidates||[]).filter(x=>x.party==="D"),rep=(poll.candidates||[]).filter(x=>x.party==="R");
+   if(dem.length===1&&rep.length===1){
+     const d=dem[0].pct,v=rep[0].pct;
+     if(Number.isFinite(d)&&Number.isFinite(v)&&d>=0&&v>=0&&d+v<=100.01){
+       return {type:"poll",label:poll.source_tier==="original_release_checked"?"2026 POLL · ORIGINAL RELEASE":"2026 POLL · SECONDARY REPORT",
+         source:poll.pollster+" · reported "+(poll.reported_date||poll.end_date),dem:d,rep:v,other:Math.max(0,100-d-v),
+         foot:"Reported poll shares, not probabilities. Other / unreported share shown in gray.",
+         caveat:poll.source_tier!=="original_release_checked"?"Original sample and sponsor not independently checked.":"Original survey source reviewed.",
+         url:poll.source_url};
+     }
+   }
+ }
+ const hist=r["2024_house_result_on_prior_boundaries"];
+ if(hist?.same_2026_geography&&hist.both_major_parties&&
+    Number.isFinite(hist.dem_votes)&&Number.isFinite(hist.rep_votes)&&
+    hist.dem_votes>0&&hist.rep_votes>0){
+   const sum=hist.dem_votes+hist.rep_votes;
+   return {type:"historical",label:"2024 HOUSE VOTE · ACTUAL RESULTS",source:"Previous election · comparable district boundaries",
+     dem:hist.dem_votes/sum*100,rep:hist.rep_votes/sum*100,other:0,
+     foot:"2024 two-party vote share only · NOT a 2026 poll or forecast.",
+     caveat:"2024 vote totals: D "+fmt(hist.dem_votes)+" · R "+fmt(hist.rep_votes),
+     url:hist.source_url};
+ }
+ return {type:"unavailable",label:r["2026_boundaries_revised"]?"2026 MAP · REVISED DISTRICTS":"DISTRICT EVIDENCE · PENDING",
+   source:"No validated D/R vote-share comparison",dem:null,rep:null,other:null,
+   foot:"No comparable D/R percentage can be calculated from verified records.",
+   caveat:r["2026_boundaries_revised"]?"2024 voting districts have different boundaries.":"A named-candidate poll or comparable two-party result is not available.",url:null};
+}
+function renderDistrictGraphic(r){
+ const data=districtGraphicData(r);
+ const block=newEl("section",null,"district-infographic "+data.type);
+ const head=newEl("div",null,"infographic-head");
+ head.append(newEl("strong",data.label,"infographic-label"),newEl("span",data.type==="poll"?"SURVEY":data.type==="historical"?"HISTORY":"NO ESTIMATE","infographic-kind"));
+ block.append(head);
+ if(data.type==="unavailable"){
+   const empty=newEl("div",null,"graphic-empty");
+   empty.append(newEl("span","—","graphic-empty-mark"),newEl("span","No sourced comparison to chart","graphic-empty-text"));
+   block.append(empty);
+ }else{
+   const figures=newEl("div",null,"infographic-figures");
+   const left=newEl("span",null,"infographic-dem"),right=newEl("span",null,"infographic-rep");
+   left.append(newEl("b",one(data.dem)+"%"),newEl("small","DEM"));
+   right.append(newEl("b",one(data.rep)+"%"),newEl("small","REP"));
+   figures.append(left,right);block.append(figures);
+   const bar=newEl("div",null,"infographic-track");
+   bar.setAttribute("role","img");
+   bar.setAttribute("aria-label",data.label+": Democrats "+one(data.dem)+" percent; Republicans "+one(data.rep)+
+       " percent"+(data.type==="poll"?"; other or unreported "+one(data.other)+" percent":"; two-party vote share")+".");
+   const d=newEl("span",null,"infographic-dem-bar"),rep=newEl("span",null,"infographic-rep-bar");
+   d.style.width=data.dem+"%";rep.style.width=data.rep+"%";bar.append(d,rep);
+   if(data.type==="poll"&&data.other>0.01){
+     const rest=newEl("span",null,"infographic-other-bar");rest.style.width=data.other+"%";bar.append(rest);
+   }
+   block.append(bar);
+ }
+ const source=newEl("div",null,"infographic-source");
+ source.append(newEl("strong",data.source),newEl("span",data.foot));
+ block.append(source,newEl("p",data.caveat,"infographic-caveat"));
+ return block;
+}
 function makeDistrictCard(r){
- const info=districtEvidence(r),c=color(info.party,info.margin);
- const link=newEl("a",null,"district-card");link.href=urlForDistrict(r.id);
- let top=newEl("div",null,"top"),mark=newEl("span",info.party||"—","marker");
- mark.style.background=c.bg;mark.style.color=c.fg;
+ const info=districtEvidence(r),paint=color(info.party,info.margin);
+ const link=newEl("a",null,"district-card district-card-infographic");link.href=urlForDistrict(r.id);
+ link.setAttribute("aria-label",r.id+": "+info.text+". Open the source-linked district report.");
+ const top=newEl("div",null,"top");
+ const mark=newEl("span",info.party||"—","marker");
+ mark.style.background=paint.bg;mark.style.color=paint.fg;
  mark.classList.add(info.party==="D"?"marker-dem":info.party==="R"?"marker-rep":"marker-neutral");
- mark.title=(info.party==="D"?"Democratic":info.party==="R"?"Republican":"No comparable leader")+" · "+info.source+" · NOT a 2026 probability";
+ mark.title=(info.party==="D"?"Democratic":info.party==="R"?"Republican":"No comparable lead")+" · "+info.source+" · never a 2026 probability";
  const actions=newEl("span",null,"card-actions");actions.append(mark,openCardIcon());
- top.append(newEl("strong",r.at_large?r.state+" At-Large":r.id),actions);
- const status=newEl("div",info.text,"status");
- const sub=newEl("div",info.source+" · "+info.sub,"sub");
- const footer=newEl("div",null,"bottom");
- footer.append(newEl("span",r.official_2026_candidate_snapshot?"Official candidate list verified":"Candidate slate not yet verified"));
- footer.append(newEl("span","Full district report"));
- const flags=newEl("div",null,"evidence-flags");
-  flags.append(newEl("span",r.official_2026_candidate_snapshot?"Candidate list ✓":"Candidate list unverified",r.official_2026_candidate_snapshot?"verified":"unverified"));
-  const orig=r.district_specific_2026_polls?.some(p=>p.source_tier==="original_release_checked");
-  const compilation=r.district_specific_2026_polls?.some(p=>p.source_tier==="public_compilation_not_original_checked");
-  flags.append(newEl("span",orig?"Original poll ✓":compilation?"Compiled poll":"No sourced poll",orig?"verified":"unverified"));
-  const prior=r["2024_house_result_on_prior_boundaries"];
-  flags.append(newEl("span",prior?(prior.same_2026_geography?"2024 comparable":"2024 old lines"):"2024 result missing",prior?.same_2026_geography?"verified":"unverified"));
-  const ballot=r.official_2026_candidate_snapshot;
-  let field=null;
-  if(ballot?.candidates?.length){
-    field=newEl("div",null,"state-candidate-preview");
-    field.append(newEl("span","VERIFIED 2026 CANDIDATE FIELD","field-label"));
-    const names=newEl("div",null,"field-names");
-    ballot.candidates.slice(0,2).forEach(c=>{
-      const item=newEl("div",null,"field-person");
-      item.append(portraitNode(r,c));
-      const code=newEl("span",c.party==="DEM"?"D":c.party==="REP"?"R":c.party==="IND"?"I":c.party,"field-party");
-      code.classList.add(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other");
-      const identity=newEl("span",null,"field-identity");identity.append(code,newEl("span",c.name,"field-name"));
-      item.append(identity);names.append(item);
-    });
-    field.append(names);
-    if(ballot.candidates.length>2)field.append(newEl("span","+"+(ballot.candidates.length-2)+" more candidate"+(ballot.candidates.length===3?"":"s")+" · open race file","field-more"));
-  }
-  if(field)link.append(top,status,sub,field,flags,footer);
-  else link.append(top,status,sub,flags,footer);
- link.title=r.id+": "+info.source+". "+info.text;
+ const titleWrap=newEl("div",null,"card-district-title");
+ titleWrap.append(newEl("span","CONGRESSIONAL DISTRICT","district-kicker"),newEl("strong",r.at_large?r.state+" At-Large":r.id));
+ top.append(titleWrap,actions);
+ const lead=newEl("div",null,"district-graphic-lead");
+ lead.append(newEl("span",info.poll?"PUBLISHED 2026 POLL":info.dated==="2024"?"PREVIOUS ELECTION":"RESEARCH STATUS","lead-kicker"),
+   newEl("strong",info.text,"status"));
+ const evidence=renderDistrictGraphic(r);
+ const ballot=r.official_2026_candidate_snapshot;
+ let field=null;
+ if(ballot?.candidates?.length){
+   field=newEl("div",null,"state-candidate-preview infographic-candidate-field");
+   field.append(newEl("span","2026 BALLOT · VERIFIED CANDIDATES","field-label"));
+   const names=newEl("div",null,"field-names");
+   // Display both major parties where possible without changing the official source list.
+   const selected=[...ballot.candidates].sort((x,y)=>{
+     const priority=p=>p==="DEM"?0:p==="REP"?1:2;
+     return priority(x.party)-priority(y.party);
+   }).slice(0,2);
+   selected.forEach(c=>{
+     const item=newEl("div",null,"field-person");
+     item.append(portraitNode(r,c));
+     const code=newEl("span",c.party==="DEM"?"D":c.party==="REP"?"R":c.party==="IND"?"I":c.party,"field-party");
+     code.classList.add(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other");
+     const identity=newEl("span",null,"field-identity");
+     identity.append(code,newEl("span",c.name,"field-name"));item.append(identity);names.append(item);
+   });
+   field.append(names);
+   if(ballot.candidates.length>2)field.append(newEl("span","+"+(ballot.candidates.length-2)+" more verified candidate"+(ballot.candidates.length===3?"":"s")+" · full roster in report","field-more"));
+ }else{
+   field=newEl("div",null,"field-unverified");
+   field.append(newEl("span","CANDIDATE FILE","field-label"),newEl("strong","2026 official list not yet independently verified"));
+ }
+ const foot=newEl("div",null,"bottom infographic-bottom");
+ const sourceBadge=newEl("span",ballot?"CANDIDATES VERIFIED ✓":"BALLOT SOURCE PENDING","source-chip "+(ballot?"source-chip-ok":"source-chip-pending"));
+ foot.append(sourceBadge,newEl("span","VIEW RACE FILE →","infographic-cta"));
+ link.append(top,lead,evidence,field,foot);
+ link.title=r.id+": "+info.source+". "+info.text+". Data is not a forecast.";
  return link;
 }
 /* Transparent, identical source-coverage criteria for every 2026 House seat. */
