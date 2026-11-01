@@ -1,0 +1,69 @@
+name: Politics official state ballot source audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'politics-official-ballots.json'
+      - 'scripts/politics_ballot_audit.py'
+      - 'test_politics_ballot_audit.py'
+      - 'scripts/politics_sim_readiness.py'
+      - '.github/workflows/politics-ballot-audit.yml'
+  schedule:
+    - cron: '43 12 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-ballot-audit
+  cancel-in-progress: false
+jobs:
+  audit-official-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test accuracy and safety with no network
+        run: |
+          python -m py_compile scripts/politics_ballot_audit.py scripts/politics_sim_readiness.py
+          python -m unittest -v test_politics_ballot_audit test_politics_sim_readiness
+      - name: Independently validate dated government ballot transcriptions
+        run: |
+          python scripts/politics_ballot_audit.py
+          python scripts/politics_sim_readiness.py
+      - name: Reject false completeness or implied original predictions
+        run: |
+          python - <<'PY'
+          import json
+          b=json.load(open('politics-ballot-audit.json'))
+          m=json.load(open('politics-sim-readiness.json'))
+          assert b['status']=='PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED'
+          assert b['all_435_house_races_covered'] is False
+          assert b['house_contests_transcribed']==15
+          assert b['senate_contests_transcribed']==2
+          assert b['candidate_ballot_entries']==47
+          assert b['fec_identity_matches_verified']==0
+          assert b['certified_2026_probability_count']==0
+          r=next(c for c in m['checks'] if c['id']=='2026_official_general_election_ballot_roster')
+          assert r['state']=='partial' and r['verified_record_count']==17
+          assert m['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert not m['house_forecast_ready'] and m['certified_original_probability_count']==0
+          print('Official ballot snapshot checked. Not nationwide or forecast approved.')
+          PY
+      - name: Publish audited counts without altering any sports workflow
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-ballot-audit.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish partial official-state ballot evidence with explicit forecast gate"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
