@@ -22,7 +22,7 @@ function published(teamId){const a=schools.get(String(teamId))||{},b=brands.get(
 }
 function mark(t){const b=published(t?.id)||{},a={...b,...t};
  const {primary,secondary}=window.CFB_DESK.ringColors(a);
- return '<span class="cfb-team-mark" style="--primary:'+primary+';--secondary:'+secondary+'">'+window.CFB_DESK.ringArtwork(primary,secondary)+'<img loading="lazy" src="'+esc(logo(a))+'" alt=""></span>';
+ return '<span class="cfb-team-mark" style="--primary:'+primary+';--secondary:'+secondary+'">'+window.CFB_DESK.ringArtwork(primary,secondary)+window.CFB_DESK.imageMarkup(logo(a),a)+'</span>';
 }
 function normalizeSchedules(saved,fixture,finals){const map=new Map();
  for(const e of fixture||[])if(e?.id)map.set(String(e.id),e);
