@@ -1,0 +1,77 @@
+name: Politics 2026 official House district vintage guard
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'politics-2026-district-geography.json'
+      - 'scripts/politics_geography_guard.py'
+      - 'test_politics_geography_guard.py'
+      - 'scripts/politics_sim_readiness.py'
+      - '.github/workflows/politics-geography-vintage.yml'
+  push:
+    branches: [main, politics-2026-district-vintage-guard]
+    paths:
+      - 'politics-2026-district-geography.json'
+      - 'scripts/politics_geography_guard.py'
+      - 'test_politics_geography_guard.py'
+      - 'scripts/politics_sim_readiness.py'
+      - '.github/workflows/politics-geography-vintage.yml'
+permissions:
+  contents: write
+concurrency:
+  group: politics-geography-vintage
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Census 2026 House maps and Missouri exception
+        run: |
+          python -m py_compile scripts/politics_geography_guard.py scripts/politics_sim_readiness.py
+          python -m unittest -v test_politics_geography_guard test_politics_sim_readiness
+      - name: Recompute official map-vintage and source-readiness record
+        run: |
+          python -m scripts.politics_geography_guard
+          python scripts/politics_sim_readiness.py
+      - name: Reject invalid geographic vote inference and forecast approval
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-geography-audit.json'))
+          a=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='VERIFIED_OFFICIAL_DISTRICT_VINTAGES_NOT_DISTRICT_VOTES'
+          assert d['states_checked']==50 and d['boundary_changed_states_count']==9
+          assert d['missouri_2026_boundary_remains_2024'] is True
+          assert d['states_with_complete_precinct_crosswalk']==0
+          assert d['states_with_certified_2024_presidential_vote_on_2026_districts']==0
+          geography=next(x for x in a['checks'] if x['id']=='2026_district_geography_change_table')
+          votes=next(x for x in a['checks'] if x['id']=='2024_presidential_vote_by_2026_house_district')
+          assert geography['state']=='partial' and votes['state']=='missing'
+          assert not a['house_forecast_ready'] and a['certified_original_probability_count']==0
+          print('Census 2026 vintage status verified; district-vote model still blocked')
+          PY
+      - name: Publish audited map-vintage findings without altering sports or forecast probabilities
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-geography-audit.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Audit 2026 US House geography vintage without assigning votes"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
