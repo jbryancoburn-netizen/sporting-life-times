@@ -40,7 +40,7 @@ jobs:
               ids=[g['match_id'] for g in team['games']]
               assert len(ids)==len(set(ids)),key
               assert all(g['source_url'].startswith('https://www.ncaa.com/game/') for g in team['games'])
-          print('D-I men's teams:',len(p['teams']),'games:',p['unique_games'],'coverage:',p['coverage'])
+          print("D-I men's teams:",len(p['teams']),'games:',p['unique_games'],'coverage:',p['coverage'])
           PY
       - name: Update newspaper team schedule index
         run: python scripts/build_college_soccer_team_game_index.py
