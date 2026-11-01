@@ -1,0 +1,82 @@
+name: Politics original FEC and Census data acquisition
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_real_inputs.py'
+      - 'test_politics_real_inputs.py'
+      - '.github/workflows/politics-original-inputs.yml'
+  schedule:
+    - cron: '26 11 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-original-inputs
+  cancel-in-progress: false
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test authentic FEC and Census parsers before use
+        run: |
+          python -m py_compile scripts/politics_real_inputs.py
+          python -m unittest -v test_politics_real_inputs test_politics_sim_readiness
+      - name: Read current government primary data
+        id: collect
+        continue-on-error: true
+        run: python scripts/politics_real_inputs.py
+      - name: Verify provenance and update publication status
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          f=json.loads(pathlib.Path('politics-fec-inputs.json').read_text())
+          c=json.loads(pathlib.Path('politics-census-inputs.json').read_text())
+          s=json.loads(pathlib.Path('politics-input-source-status.json').read_text())
+          if f['status']=='ok':
+              assert f['cycle']==2026 and f['house_count']>0 and f['senate_count']>0
+              assert len(f['candidates'])==f['house_count']+f['senate_count']
+              assert all(x['fec_registration_only'] for x in f['candidates'])
+              assert f['forecast_eligible'] is False
+          if c['status']=='ok':
+              assert c['district_count']==435==len(c['districts'])
+              assert len({d['id'] for d in c['districts']})==435
+              assert c['forecast_eligible'] is False
+          print('Government input status',s,'FEC:',f['status'],'Census:',c['status'])
+          PY
+      - name: Independently audit whether simulation inputs can be certified
+        run: |
+          python -m py_compile scripts/politics_sim_readiness.py
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert d['certified_original_probability_count']==0
+          assert d['house_forecast_ready'] is False
+          print('Evidence audit',d['counts'])
+          PY
+      - name: Safely commit original evidence independent of sports
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-fec-inputs.json politics-census-inputs.json politics-input-source-status.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh original FEC campaign data and Census district evidence"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo "Government input evidence published after attempt $attempt"
+                exit 0
+              fi
+              echo "Concurrent GitHub update; retry $attempt of 12"
+              sleep 3
+            done
+            exit 1
+          fi
