@@ -169,7 +169,11 @@ def reconcile_women_cacc(calendars, games, teams, today):
         else:
             # A past fixture without an NCAA result is not a final.
             continue
-        game["verified"] = True
+        # A future schedule verifies the fixture, NOT a published final
+        # score. Only the NCAA/verified recap can authenticate final results.
+        game["fixture_verified"] = True
+        if game.get("status") != "final":
+            game["verified"] = True
         game["conference_game"] = True
         game["conference_schedule_sources"] = sorted(x["source_url"] for x in rows)
         times = {r["tipoff"] for r in rows if r["tipoff"]}
