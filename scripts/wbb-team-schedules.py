@@ -191,7 +191,7 @@ def main():
         for row in evidence.get('rows',[]):
             gid=str(row.get('game_id') or '')
             if not gid or not row.get('broadcast') or not row.get('source_url'):
-                raise RuntimeError('Incomplete women's TV evidence')
+                raise RuntimeError("Incomplete women's TV evidence")
             if gid in source_index and source_index[gid]['broadcast']!=row['broadcast']:
                 raise RuntimeError('Conflicting TV evidence for '+gid)
             source_index[gid]=row
