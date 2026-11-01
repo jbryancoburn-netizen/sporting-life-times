@@ -36,3 +36,11 @@
 .member-tag{display:block;max-width:190px;margin-top:3px;color:#96552d;font:700 9px/1.25 'Barlow Condensed',Arial,sans-serif;letter-spacing:.045em;white-space:normal}
 .member-alert{margin-bottom:14px;border-left:4px solid #b07b31;padding:12px 15px}
 .member-alert a{font-weight:800;color:#0d7077}
+
+/* DII television and subscription-stream details on compact game cards. */
+.game-head{align-items:flex-start;line-height:1.4}
+.game-head>span:first-child{flex:1;min-width:0}
+.game-broadcast{flex:none;max-width:43%;text-align:right;color:var(--teal);font-size:10px;font-weight:800;letter-spacing:0}
+.game-broadcast a{color:var(--teal);text-decoration:underline;text-underline-offset:2px}
+.game-broadcast small{display:block;color:var(--muted);font-size:9px;font-weight:600}
+@media(max-width:550px){.game-head{gap:5px}.game-broadcast{max-width:48%;font-size:9px}.game-broadcast small{font-size:8px}}
