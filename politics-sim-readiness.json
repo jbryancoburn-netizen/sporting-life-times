@@ -1,11 +1,13 @@
 {
   "status": "NOT_READY_FOR_PUBLIC_PREDICTIONS",
-  "evaluated_at": "2026-11-01T16:26:33+00:00",
+  "evaluated_at": "2026-11-01T16:38:27+00:00",
   "method": "Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
   "source_keys": {
     "history": "politics-history.json",
     "historical_contests": "politics-historical-contests.json",
     "fec": "politics-fec-inputs.json",
+    "fec_index": "politics-fec-race-index.json",
+    "presidential_counties": "politics-2024-county-presidential.json",
     "census": "politics-census-inputs.json",
     "polls": "politics-polls.json"
   },
@@ -49,6 +51,22 @@
       "evidence": "2822 candidate financial summaries joined to FEC IDs",
       "source": "FEC all-candidate financial reports",
       "blocker": "Variable reporting end dates, transfers and coverage require harmonization; not a direct vote-share measurement."
+    },
+    {
+      "id": "2026_fec_district_filing_index",
+      "state": "missing",
+      "verified_record_count": 0,
+      "evidence": "0 of 435 House districts have at least one indexed FEC filing",
+      "source": "Official FEC 2026 candidate registration master",
+      "blocker": "A district with a filing is not proof of a general-election ballot candidate; FEC registration status may be stale."
+    },
+    {
+      "id": "2024_presidential_county_vote_returns",
+      "state": "partial",
+      "verified_record_count": 3154,
+      "evidence": "3154 counties or equivalents in 51 states/DC, from original 2024 returns",
+      "source": "MIT Election Data and Science Lab county presidential returns",
+      "blocker": "County returns are not congressional district returns; verification of precinct split and current district boundaries is required."
     },
     {
       "id": "2024_acs_congressional_district_context",
@@ -117,15 +135,15 @@
   ],
   "counts": {
     "verified": 1,
-    "partial": 4,
-    "missing": 8
+    "partial": 5,
+    "missing": 9
   },
   "house_forecast_ready": false,
   "senate_forecast_ready": false,
   "governor_forecast_ready": false,
   "certified_original_probability_count": 0,
   "priority": [
-    "Archive original House and Senate individual historical contest records with vote values and district vintage.",
+    "Complete a precinct-to-2026-district presidential vote crosswalk without assigning whole counties to split districts.",
     "Collect official 2026 state-ballot nominee lists; reconcile to FEC candidate IDs.",
     "Obtain and reconcile 2024 presidential/House district voting baselines and any 2026 boundary changes.",
     "Collect pollster-original 2026 race surveys with dates, sponsors, population and samples; audit duplicates.",
