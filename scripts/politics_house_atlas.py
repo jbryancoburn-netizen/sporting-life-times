@@ -24,7 +24,7 @@ def load(name):
 def finite_vote(n):
     return isinstance(n,int) and not isinstance(n,bool) and n>=0
 
-def build(fec,historical,county,ballots,geography,politics,polls):
+def build(fec,historical,county,ballots,geography,politics,polls,compiled=None):
     if fec.get("status")!="ok" or fec.get("cycle")!=2026 or fec.get("house_district_inventory")!=435:
         raise ValueError("FEC actual 2026 congressional district list incomplete")
     if historical.get("status")!="ok" or 2024 not in historical.get("years",[]):
@@ -72,8 +72,38 @@ def build(fec,historical,county,ballots,geography,politics,polls):
             raise ValueError("Poll lacks valid sample size")
         for c in p["candidates"]:
             if not isinstance(c.get("pct"),(float,int)) or not 0<=c["pct"]<=100: raise ValueError("Invalid poll percentage")
-        race_polls.setdefault(rid,[]).append(p)
-    for vals in race_polls.values():vals.sort(key=lambda p:(p["end_date"],p["id"]),reverse=True)
+        row={**p,"source_tier":"original_release_checked","question_type":"named_house"}
+        race_polls.setdefault(rid,[]).append(row)
+    if compiled is not None:
+        if compiled.get("status")!="SECONDARY_LATEST_HOUSE_POLL_COMPILATION_NOT_PRIMARY_VERIFIED" or compiled.get("election_year")!=2026 or not 95<=compiled.get("polled_districts",0)<=135:
+            raise ValueError("Public secondary House district poll compilation is not certified")
+        if compiled["polled_districts"]!=len(compiled.get("polls",[])):
+            raise ValueError("Public compilation count does not match rows")
+        for p in compiled["polls"]:
+            rid=p.get("race_id")
+            if rid not in {row["id"] for row in fec["house"]}:raise ValueError("Compiled poll points outside 2026 House districts")
+            if p.get("source_verified") is not False or p.get("compilation_verified") is not True or p.get("sample_size") is not None or p.get("sponsorship_not_independently_verified") is not True:
+                raise ValueError("Secondhand polling must never claim independently checked originals, samples or sponsor")
+            if p.get("source_type")!="public_nyt_cc_by_compilation_as_reported_by_peoples_poll" or p.get("compilation_url")!="https://peoplespoll.com/house":
+                raise ValueError("Not a publicly reviewed compilation source")
+            if not p.get("source_url","").startswith("https://") or not "2026-" in p.get("end_date",""):
+                raise ValueError("Missing published poll date or original hyperlink")
+            if p.get("question_type") not in ("generic_house","named_house"):
+                raise ValueError("Unclassified candidate-vs-generic poll")
+            if len(p.get("candidates",[]))<2 or sum(c.get("pct",0) for c in p["candidates"])>101.5:
+                raise ValueError("Impossible or incomplete public poll percentages")
+            if any(c.get("party") not in ("D","R","I","L","G","O") or not isinstance(c.get("pct"),(int,float)) or not 0<=c["pct"]<=100 for c in p["candidates"]):
+                raise ValueError("Invalid public poll party or percentage")
+            previous=race_polls.get(rid,[])
+            # The same original survey is not counted twice because two
+            # publishers described it. Prefer a directly checked release.
+            duplicate=any(q["source_url"].rstrip("/").casefold()==p["source_url"].rstrip("/").casefold()
+                          or (abs((dt.date.fromisoformat(q["end_date"])-dt.date.fromisoformat(p["end_date"])).days)<=3
+                              and q["pollster"].split()[0].casefold().strip(",")==p["pollster"].split()[0].casefold().strip(","))
+                          for q in previous)
+            if not duplicate:race_polls.setdefault(rid,[]).append({**p,"source_tier":"public_compilation_not_original_checked"})
+    for vals in race_polls.values():
+        vals.sort(key=lambda p:(p["end_date"],p.get("source_tier")=="original_release_checked",p["id"]),reverse=True)
     records=[]
     all_ids=set()
     for row in fec["house"]:
@@ -146,26 +176,28 @@ def build(fec,historical,county,ballots,geography,politics,polls):
         "2026_official_ballot_offices":len(candidates),
         "2026_district_poll_count":sum(len(x["district_specific_2026_polls"]) for x in records),
         "2026_polled_districts":sum(bool(x["district_specific_2026_polls"]) for x in records),
+        "2026_directly_checked_release_count":sum(sum(p.get("source_tier")=="original_release_checked" for p in x["district_specific_2026_polls"]) for x in records),
+        "2026_secondary_compilation_poll_count":sum(sum(p.get("source_tier")=="public_compilation_not_original_checked" for p in x["district_specific_2026_polls"]) for x in records),
         "2026_changed_map_states":sorted(MAP_CHANGED),
         "source_notes":{
             "district_id_source":"FEC 2026 candidate master district index; NOT proof of ballot access",
             "prior_house_results":historical.get("source")+" (2024 House official-source-derived election returns)",
             "state_shading":"2024 actual statewide presidential two-party vote margin, never 2026 state prediction",
             "district_shading":"Most recent directly sourced 2026 district poll (when valid), otherwise 2024 actual House winner and two-party vote margin ONLY where unchanged congressional boundaries; gray denotes insufficient comparable evidence",
-            "2026_polls":"politics-house-district-polls.json; individual poll, not necessarily average, forecast or election outcome",
+            "2026_polls":"politics-house-district-polls.json directly checked originals, plus politics-house-polls-compilation.json secondary public latest-poll summaries; each individually attributed; NOT averages or election outcomes",
             "2026_official_candidates":"State government snapshot; remaining districts have no confirmed candidate slate",
             "geography":"U.S. Census 120th Congressional District geography guard; nine states changed 2026 boundaries"
         },
         "states":states,"districts":records,
         "forecast_eligible":False,"certified_2026_probabilities":0,
-        "warning":"Historical margins are previous election results, not 2026 probabilities. Redistricted states' 2024 district returns do NOT apply to 2026 geography. Generic ballot surveys, national polls, DDHQ probabilities and candidate filings are never presented as district-specific polling. Missing data remain labeled."
+        "warning":"Compiled latest poll summaries are secondary evidence with samples and sponsorship unverified; historical margins are previous election results, not 2026 probabilities. Redistricted states' 2024 district returns do NOT apply to 2026 geography. Generic ballot surveys, national polls, DDHQ probabilities and candidate filings are never presented as district-specific polling. Missing data remain labeled."
     }
 
 def main():
     data=build(load("politics-fec-race-index.json"),load("politics-historical-contests.json"),
                load("politics-2024-county-presidential.json"),load("politics-official-ballots.json"),
                load("politics-2026-district-geography.json"),load("politics-data.json"),
-               load(POLL_FILE))
+               load(POLL_FILE),load("politics-house-polls-compilation.json"))
     OUTPUT.write_text(json.dumps(data,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
     print("House atlas:",data["district_count"],"districts,",data["2024_house_results_found"],
           "historical results,",data["2026_official_ballot_offices"],
