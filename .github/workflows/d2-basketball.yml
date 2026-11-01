@@ -12,6 +12,7 @@ on:
       - '.github/workflows/d2-basketball.yml'
       - 'tests/d2-basketball.test.cjs'
       - 'tests/test_d2_logo_identity.py'
+      - 'tests/test_d2_game_identity.py'
       - 'data/d2-verified-tournaments-2026-27.json'
       - 'data/d2-verified-other-openers-2026-27.json'
   schedule:
@@ -42,7 +43,7 @@ jobs:
           node --check d2-basketball.js
           node --test tests/d2-basketball.test.cjs
           python -m py_compile scripts/build_d2_basketball.py
-          python -m unittest discover -s tests -p 'test_d2_logo_identity.py' -v
+          python -m unittest discover -s tests -p 'test_d2_*.py' -v
       - name: Bootstrap entire 2026-27 schedule or refresh recent NCAA games
         run: |
           if ! test -s data/d2-men-2026-27.json || ! python -c "import json; assert json.load(open('data/d2-men-2026-27.json')).get('as_of')"; then

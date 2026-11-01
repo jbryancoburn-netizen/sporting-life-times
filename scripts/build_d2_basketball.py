@@ -88,7 +88,7 @@ def game_record(c,away,home,date,status,away_score,home_score,away_win,home_win,
     game={"id":key,"date":date.replace("/","-"),"away":away["id"],"home":home["id"],
         "away_score":away_score,"home_score":home_score,"status":status,"start_time":c.get("startTime") or "",
         "network":c.get("broadcasterName") or c.get("network") or "",
-        "source_url":url,"venue":"","elo_eligible":eligible}
+        "source_url":url,"venue":"","neutral":any(c.get(k) is True for k in ("neutralSite","isNeutralSite","isNeutral")),"elo_eligible":eligible}
     return game,away,home
 
 def seed_directory(gender):
@@ -220,6 +220,65 @@ def seed_cross_gender_logos(gender,teams):
             assigned+=1
     return {"added":assigned,"method":"same institution, uniquely matched name and city"}
 
+def build_dii_team_lookup(teams):
+    """Build a unique, conservative identity map for official NCAA contests."""
+    by_slug={};by_name={}
+    for ident,t in teams.items():
+        slug_value=t.get("slug")
+        if slug_value:by_slug.setdefault(slug_value,set()).add(ident)
+        names=[t.get("name",""),ident]
+        for label in names:
+            normalized=normalize_school_name(label)
+            if normalized:by_name.setdefault(normalized,set()).add(ident)
+    return by_slug,by_name
+
+def resolve_dii_team_id(source_team,lookup):
+    """Return a canonical directory ID only when NCAA identity is unambiguous."""
+    by_slug,by_name=lookup
+    candidate=source_team.get("slug")
+    if candidate:
+        result=by_slug.get(candidate,set())
+        if len(result)==1:return next(iter(result))
+        if len(result)>1:return None
+    # The official source may report shorter names; exact normalized names
+    # are permitted only if exactly one registry entry matches.
+    for label in (source_team.get("name"),source_team.get("id")):
+        norm=normalize_school_name(label)
+        result=by_name.get(norm,set()) if norm else set()
+        if len(result)==1:return next(iter(result))
+        if len(result)>1:return None
+    return None
+
+def merge_ncaa_contest(games,contest,away_id,home_id):
+    """Merge NCAA events without double-counting organizer-confirmed games."""
+    new={**contest,"away":away_id,"home":home_id,"elo_eligible":True,
+         "verified":contest["status"]=="final","source":"NCAA scoreboard"}
+    key=(new["date"],tuple(sorted((away_id,home_id))))
+    match=None
+    for existing_id,old in games.items():
+        old_key=(old.get("date"),tuple(sorted((old.get("away"),old.get("home")))))
+        if old_key==key:
+            match=existing_id;break
+    if match is None:
+        games[new["id"]]=new
+        return "added"
+    old=games[match]
+    if old.get("status")=="final" and new["status"]!="final":
+        return "kept_verified_final"
+    if old.get("status")=="final" and new["status"]=="final":
+        if ({old.get("away"):old.get("away_score"),old.get("home"):old.get("home_score")} ==
+            {away_id:new.get("away_score"),home_id:new.get("home_score")}):
+            old["ncaa_id"]=new["id"]
+            return "confirmed_duplicate"
+        # Conflicts must be investigated rather than silently flipping scores.
+        return "score_conflict"
+    # Preserve official neutral-site venue, listing order, and provenance.
+    old.update({"status":new["status"],"away_score":new["away_score"] if old["away"]==away_id else new["home_score"],
+                "home_score":new["home_score"] if old["home"]==home_id else new["away_score"],
+                "elo_eligible":True,"verified":new["verified"],"ncaa_id":new["id"]})
+    if new.get("network"):old["network"]=new["network"]
+    return "updated"
+
 def update(gender, bootstrap=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
@@ -271,6 +330,9 @@ def update(gender, bootstrap=False):
     end=dt.date(2027,4,12) if bootstrap else min(dt.date(2027,4,12),today+dt.timedelta(days=30))
     days=[start+dt.timedelta(days=i) for i in range((end-start).days+1)]
     successful=0;errors=[];source_counts={}
+    ingestion={"added":0,"updated":0,"kept_verified_final":0,
+               "confirmed_duplicate":0,"score_conflict":0,"unmatched_identity":0}
+    identity=build_dii_team_lookup(teams)
     with ThreadPoolExecutor(max_workers=3) as pool:
         tasks={pool.submit(fetch_day,gender,day):day for day in days}
         for job in as_completed(tasks):
@@ -278,15 +340,16 @@ def update(gender, bootstrap=False):
             except Exception as exc:errors.append(str(exc));continue
             for item in records:
                 if not item:continue
-                g,a,h=item
-                for school_data in (a,h):
-                    ident=school_data.pop("id")
-                    previous=teams.get(ident,{})
-                    teams[ident]={**previous,**{k:v for k,v in school_data.items() if v not in ("",None)}, "id":ident}
-                # NCAA scoreboard home/away team identifiers may differ from
-                # the directory's canonical school spellings. Retain the NCAA
-                # matchup but do not count unmatched opponents as NCAA DII.
-                games[g["id"]]=g
+                g,away_source,home_source=item
+                aa=resolve_dii_team_id(away_source,identity)
+                hh=resolve_dii_team_id(home_source,identity)
+                if not aa or not hh:
+                    # Cross-division/unknown teams belong in an opponent
+                    # ledger, not silently added as NCAA DII programs.
+                    ingestion["unmatched_identity"]+=1
+                    continue
+                disposition=merge_ncaa_contest(games,g,aa,hh)
+                ingestion[disposition]+=1
     if successful<max(1,len(days)//2):
         raise RuntimeError(f"{gender}: {successful}/{len(days)} NCAA date requests succeeded. Refusing to publish suspect empty/partial feed. Errors: {errors[:3]}")
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
@@ -315,7 +378,8 @@ def update(gender, bootstrap=False):
                        else "PARTIAL — 2026-27 DII membership, dates and schedules require school-level verification"),
         "dates_requested":len(days),"dates_fetched":successful,"dates_failed":len(errors),
         "sample_errors":errors[:5],"verified_dii_finals":finals,"programs_found":len(ordered),
-        "official_contests_available":any(not str(g.get("id","")).startswith(("hih-2026-","d2opening-2026-")) for g in allgames),
+        "official_contests_available":ingestion["added"]+ingestion["updated"]+ingestion["confirmed_duplicate"]>0,
+        "ncaa_ingestion":ingestion,
         "verified_tournament_games":sum(1 for g in allgames if g.get("source")=="official tournament organizer"),
         "verified_tournament_source":tournament_source,
         "verified_other_openers":sum(1 for g in allgames if str(g.get("id","")).startswith("d2opening-2026-")),
