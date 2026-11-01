@@ -2,7 +2,7 @@ import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mbb_player_boxscores import parse_boxscore,aggregate
-from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures,parse_ncaa_player_boxscore
+from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures,parse_ncaa_player_boxscore,parse_ncaa_team_boxscore
 class Ingestion(unittest.TestCase):
  def test_boxscore_and_replay(self):
   data={'boxscore':{'players':[{'team':{'id':'1'},'statistics':[{'labels':['PTS','REB','AST','FG','FT','STL','BLK'],'athletes':[{'athlete':{'id':'8','displayName':'A Player'},'stats':['20','5','3','7-14','4-5','2','1']},{'didNotPlay':True}]}]}]}}
@@ -162,4 +162,36 @@ class Ingestion(unittest.TestCase):
  def test_ncaa_boxscore_cannot_promote_live_stats_as_finals(self):
   game={'phase':'live','ncaa_id':'6651023','away_score':12,'home_score':9}
   self.assertIsNone(parse_ncaa_player_boxscore({'teamBoxscore':[]},game))
+ def test_ncaa_team_boxscore_succeeds_without_player_arrays(self):
+  contest={'phase':'final','ncaa_id':'6651023','espn_id':'401920982',
+           'day':'2026-11-01','away_score':74,'home_score':72}
+  def team(teamid,pts,fgm,tpm,ftm):
+   return {'teamId':teamid,'playerStats':[],
+           'teamStats':{'points':str(pts),'fieldGoalsMade':str(fgm),
+              'fieldGoalsAttempted':'50','threePointsMade':str(tpm),
+              'threePointsAttempted':'20','freeThrowsMade':str(ftm),
+              'freeThrowsAttempted':'15','totalRebounds':'30','assists':'11'}}
+  data={'teams':[{'teamId':'1717','isHome':True},{'teamId':'1281','isHome':False}],
+        'teamBoxscore':[team('1717',72,24,8,16),team('1281',74,25,8,16)]}
+  # Deliberate mis-sum: 2*25+8+16=74 away; 2*24+8+16=72 home.
+  result=parse_ncaa_team_boxscore(data,contest)
+  self.assertIsNotNone(result)
+  self.assertEqual(result['home']['ncaa_team_id'],'1717')
+  self.assertEqual(result['away']['pts'],74)
+  data['teamBoxscore'][0]['teamStats']['points']='71'
+  self.assertIsNone(parse_ncaa_team_boxscore(data,contest))
+ def test_ncaa_team_boxscore_requires_explicit_home_and_valid_shots(self):
+  contest={'phase':'final','ncaa_id':'1','away_score':2,'home_score':3}
+  box={'teamBoxscore':[
+    {'teamId':'1','teamStats':{'points':'2','fieldGoalsMade':'1',
+      'fieldGoalsAttempted':'2','threePointsMade':'0','threePointsAttempted':'1',
+      'freeThrowsMade':'0','freeThrowsAttempted':'0'}},
+    {'teamId':'2','teamStats':{'points':'3','fieldGoalsMade':'1',
+      'fieldGoalsAttempted':'2','threePointsMade':'1','threePointsAttempted':'1',
+      'freeThrowsMade':'0','freeThrowsAttempted':'0'}}]}
+  self.assertIsNone(parse_ncaa_team_boxscore(box,contest))
+  box['teams']=[{'teamId':'1','isHome':False},{'teamId':'2','isHome':True}]
+  self.assertIsNotNone(parse_ncaa_team_boxscore(box,contest))
+  box['teamBoxscore'][0]['teamStats']['fieldGoalsAttempted']='0'
+  self.assertIsNone(parse_ncaa_team_boxscore(box,contest))
 if __name__=='__main__':unittest.main()
