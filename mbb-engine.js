@@ -16,15 +16,38 @@ const sites=[
 ];
 const regionSites={East:'New York · Madison Square Garden',West:'Los Angeles · Crypto.com Arena',South:'San Antonio · Frost Bank Center',Midwest:'Kansas City · T-Mobile Center'};
 const id=g=>[g.home_id||g.home,g.away_id||g.away];
+const neutralGame=g=>g.site==='neutral'||g.neutral===true||g.neutral_site===true;
+function verifiedFinal(g){
+ if(!g)return false;
+ const [home,away]=id(g);
+ const score=v=>v!==null&&v!==undefined&&String(v).trim()!==''&&Number.isInteger(Number(v))&&Number(v)>=0;
+ const phase=String(g.phase||g.state||g.status?.type?.state||'').toLowerCase();
+ return !!home&&!!away&&home!==away&&score(g.home_score)&&score(g.away_score)&&Number(g.home_score)!==Number(g.away_score)&&!['pre','in','live','scheduled'].includes(phase);
+}
+// Use the same certified finals as the primary 1500-start RETRO rankings.
+// Never replay duplicate games or infer a result from a scheduled fixture.
+function verifiedGames(retro,ledger){
+ const canonical=retro?.season==='2026-27'&&retro.model==='retro-clean-slate'&&Number.isInteger(retro.games_played)&&Array.isArray(retro.events)&&retro.events.length===retro.games_played;
+ const rows=canonical?retro.events:(ledger?.season==='2026-27'&&Array.isArray(ledger.games)?ledger.games:[]);
+ const seen=new Set();
+ return rows.filter(g=>{
+  if(!verifiedFinal(g))return false;
+  const [home,away]=id(g);
+  const key=[String(g.date||''),home,away].join('|');
+  if(seen.has(key))return false;
+  seen.add(key);
+  return true;
+ });
+}
 function resume(teams,games,net={}){
  const lookup=new Map(teams.map(t=>[t.team_id,t]));
  return teams.map(t=>{
  let wab=0,sos=0,w=0,l=0,road=0;const quadrants=Array.from({length:4},()=>[0,0]);let netGames=0;
- const played=games.filter(g=>id(g).includes(t.team_id));
+ const played=games.filter(g=>verifiedFinal(g)&&id(g).includes(t.team_id));
  for(const g of played){const [h,a]=id(g),home=h===t.team_id,opp=lookup.get(home?a:h);if(!opp)continue;
  const won=Number(home?g.home_score:g.away_score)>Number(home?g.away_score:g.home_score);
- won?w++:l++;if(won&&!home&&g.site!=='neutral')road++;
- const advantage=g.site==='neutral'?0:(home?65:-65);
+ won?w++:l++;if(won&&!home&&!neutralGame(g))road++;
+ const advantage=neutralGame(g)?0:(home?65:-65);
  wab+=(won?1:0)-1/(1+10**((opp.elo-1650-advantage)/400));sos+=opp.elo;
  const rank=net[opp.team_id];if(rank){netGames++;const cuts=g.site==='neutral'?[50,100,200]:(home?[30,75,160]:[75,135,240]);const q=cuts.findIndex(c=>rank<=c);quadrants[q<0?3:q][won?0:1]++;}
  }
@@ -96,5 +119,5 @@ function field(teams,games=[]){
  opening.forEach((o,i)=>{const target=Object.values(bracket).flatMap(r=>Object.values(r)).find(s=>s.teams[0].team_id===o.teams[0].team_id);Object.assign(o,{seed:target.seed,region:regions.find(r=>Object.values(bracket[r]).includes(target)),site:target.site,openingSite:i%2?'Wichita':'Dayton',openingDate:target.site?.fri?'March 17':'March 16'});});
  return {selected,auto,at,bubble:ranked.filter(t=>!selectedMap.has(t.team_id)).slice(0,8),bracket,opening,violations,mode:games.length?'Experimental résumé forecast':'Preseason Elo field',regions,pairs,regionSites};
 }
-const api={resume,field,regions,pairs,sites,regionSites};if(typeof module!=='undefined')module.exports=api;root.MBBEngine=api;
+const api={resume,field,verifiedGames,regions,pairs,sites,regionSites};if(typeof module!=='undefined')module.exports=api;root.MBBEngine=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -32,7 +32,7 @@ if(!teams.every(t=>t.conference)){console.warn('MBB: conference reference is mis
 const ratingMethod=(retroPreseason||retroInSeason)?'RETRO · 1500 clean slate':'Legacy Elo fallback — RETRO feed unavailable';
 const teamMap=new Map(teams.map(t=>[t.team_id,t])),ids=new Map((cross?.teams||[]).map(t=>[t.id,t.espn_id]));
 const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort();
-let games=ledger?.season==='2026-27'?(ledger.games||[]):[];
+let games=MBBEngine.verifiedGames(retroPublication,ledger);
 let projection;try{projection=MBBEngine.field(teams,games)}catch(e){console.error(e)}
 const resumes=new Map(MBBEngine.resume(teams,games).map(t=>[t.team_id,t.resume]));
 const teamURL=t=>'ncaam-team.html?team='+encodeURIComponent(t.team_id),confURL=c=>'ncaam-conference.html?conference='+encodeURIComponent(c);
@@ -138,11 +138,23 @@ function tournament(){if(!projection){$('#app').innerHTML=empty('The bracket cou
  '<nav class="tournament-index" aria-label="Bracket sections"><a href="#field">Four regions</a><a href="#opening">Opening Round</a><a href="#bubble">Bubble</a><a href="#committee-vs-elo">Model comparison</a></nav><section class="panel" id="field">'+header('The projected first-round draw','Four Regions. One Destination.')+'<div class="bracket-region-tabs" role="tablist" aria-label="Projected region">'+f.regions.map((r,i)=>'<button type="button" role="tab" aria-selected="'+(i===0?'true':'false')+'" data-bracket-tab="'+esc(r)+'" aria-controls="region-'+esc(r.toLowerCase())+'">'+esc(r)+'</button>').join('')+'</div>'+
  '<div class="bracket-grid bracket-grid--selectable">'+f.regions.map((r,i)=>'<section class="region" id="region-'+esc(r.toLowerCase())+'" role="tabpanel" data-bracket-panel="'+esc(r)+'" '+(i===0?'':'hidden')+'><div class="region-head"><h2>'+r.toUpperCase()+'</h2><small>'+esc(f.regionSites[r])+' · Regional site</small></div><div class="bracket-rounds"><div><div class="eyebrow">First round</div>'+f.pairs.map(([a,b])=>{const s=f.bracket[r][a];return '<div class="match"><small>'+esc(s.site?.city||'Site pending')+' · '+esc(s.site?.days||'')+'</small>'+slotHTML(s)+slotHTML(f.bracket[r][b])+'</div>';}).join('')+'</div><div class="second-round">'+Array.from({length:4},(_,i)=>'<div class="round-slot">SECOND ROUND<br>Winner of games '+(i*2+1)+' &amp; '+(i*2+2)+'</div>').join('')+'</div></div></section>').join('')+'</div></section><section class="panel orange" id="opening">'+header('The opening-round gateway','Twelve Games. Twelve Places.')+'<p class="muted">Six automatic-qualifier games and six at-large games. Winners feed the corresponding seed line; no winner is assumed.</p><div class="opening-grid">'+f.opening.map(o=>'<div class="match"><small>'+o.openingSite+' · '+o.openingDate+' · '+o.bid+'</small>'+slotHTML({...o,teams:[o.teams[0]]})+slotHTML({...o,teams:[o.teams[1]]})+'<small>Winner → '+o.region+' #'+o.seed+' · '+esc(o.site?.city||'Site pending')+'</small></div>').join('')+'</div></section><section class="panel" id="bubble">'+header('Life on the cut line','The Bubble')+'<div class="bubble"><div class="bubble-box"><h3>Last four in</h3>'+rankRows(f.at.slice(-4))+'</div><div class="bubble-box out"><h3>First four out</h3>'+rankRows(f.bubble.slice(0,4))+'</div></div></section><section class="panel" id="method">'+header('The selection desk','What This Projection Uses')+'<p>The NCAA committee evaluates team résumés and votes on selection and seeding. There is no official formula that converts Elo or NET directly into a seed. Our current preseason field selects one projected representative per conference and 44 at-large teams using published USRS strength.</p><p>Once verified games arrive, the experimental résumé view measures wins above a fixed Elo bubble benchmark, opponent strength and road wins. It is not a trained committee simulator. Official NET quadrants are withheld until a verified NET feed is available.</p><p>The bracket uses 76 teams, the lowest 12 projected automatic qualifiers and lowest 12 at-large teams in the opening round, four 16-slot regions, and shared sites for each four-team pod. Later-round winners are left open. Geography currently uses region site preferences rather than campus mileage. These limitations mean this is not yet a fully rules-certified committee forecast.</p><details><summary>Placement review / remaining certification</summary><p>'+esc(f.violations.length?f.violations.join(' '):'No seed-line conference conflicts found by the implemented checks.')+'</p><p>Still required: current postseason eligibility audit, full conference tournament rules, committee-model validation, campus distances, arena-use history, all rematch restrictions and regional balance optimization.</p></details><p><a href="https://www.ncaa.org/championships/march-madness/selections-101/division-i-mens-basketball-championship/" target="_blank" rel="noopener">NCAA selection and bracketing principles ↗</a> · <a href="https://www.ncaa.com/mens-final-four/future-info" target="_blank" rel="noopener">Official tournament sites ↗</a></p></section>';
  const regionTabs=[...document.querySelectorAll('[data-bracket-tab]')];
- regionTabs.forEach(tab=>tab.addEventListener('click',()=>{
+ const activateRegion=tab=>{
   const region=tab.dataset.bracketTab;
-  regionTabs.forEach(x=>x.setAttribute('aria-selected',String(x===tab)));
+  regionTabs.forEach(x=>{const selected=x===tab;x.setAttribute('aria-selected',String(selected));x.tabIndex=selected?0:-1;});
   document.querySelectorAll('[data-bracket-panel]').forEach(panel=>{panel.hidden=panel.dataset.bracketPanel!==region;});
- }));
+ };
+ regionTabs.forEach((tab,index)=>{
+  tab.tabIndex=index===0?0:-1;
+  tab.addEventListener('click',()=>activateRegion(tab));
+  tab.addEventListener('keydown',event=>{
+   if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
+   event.preventDefault();
+   const step=event.key==='ArrowRight'?1:-1;
+   const next=event.key==='Home'?0:event.key==='End'?regionTabs.length-1:(index+step+regionTabs.length)%regionTabs.length;
+   activateRegion(regionTabs[next]);
+   regionTabs[next].focus();
+  });
+ });
 
 }
 let archive;
@@ -240,9 +252,10 @@ async function refreshRatings(){
  const scheduleChanged=up&&JSON.stringify(up.games)!==JSON.stringify(schedule?.games);
  if(up)schedule=up;
  if(!changed&&!scheduleChanged)return;
- if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')games=log.games||[];projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
+ if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')ledger=log;games=MBBEngine.verifiedGames(next,ledger);projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
  const scroll=window.scrollY,query=$('#team-search')?.value,opponent=$('#opponent')?.value,conf=$('#conf-pick')?.value;
  if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){ /* Keep the existing team DOM and its complete schedule intact on RETRO refresh. */ const ratingNodes=$('#app .metrics'); if(ratingNodes)ratingNodes.dataset.eloUpdated=String(Date.now()); }else if(page==='tournament')tournament();
+ if(changed)window.dispatchEvent(new Event('mbb:ratings-updated'));
  if(query&&$('#team-search')){$('#team-search').value=query;$('#team-directory').innerHTML=directory(query)}
  if(conf&&$('#conf-pick')){$('#conf-pick').value=conf;$('#conf-pick').dispatchEvent(new Event('change'))}
  if(opponent&&$('#opponent')){$('#opponent').value=opponent;$('#opponent').dispatchEvent(new Event('change'))}

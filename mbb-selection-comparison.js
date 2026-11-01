@@ -94,16 +94,27 @@ function buildTournament(app,teams,games,polls){
 }
 
 (async()=>{
- const sources=await Promise.all(['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-national-polls.json'].map(fetchJSON));
- const [pre,current,retro,ledger,polls]=sources;const valid=x=>x?.season==='2026-27'&&x.rankings?.length===365;
- const live=valid(current)&&current.games_played>0&&current.preseason_seed==='data/ncaam-2026-27-preseason-player-quality-live.json';
- const teams=live?current.rankings:(valid(retro)&&retro.model==='retro-roster-adjusted'?retro.rankings:pre?.rankings);
- if(!teams||!window.MBBEngine)return;
- const games=ledger?.season==='2026-27'?(ledger.games||[]):[];
+ const sources=await Promise.all(['data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-national-polls.json'].map(fetchJSON));
+ const [retro,ledger,polls]=sources;
+ const valid=retro?.season==='2026-27'&&retro.model==='retro-clean-slate'&&retro.starting_elo===1500&&retro.rankings?.length===365&&
+  new Set(retro.rankings.map(t=>t.team_id)).size===365&&retro.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
+ // The comparison must use the same team-only RETRO ratings as the main USRS desk.
+ if(!valid||!window.MBBEngine?.verifiedGames)return;
+ let teams=retro.rankings;
+ let games=MBBEngine.verifiedGames(retro,ledger);
  const render=()=>{const app=document.getElementById('app');if(!app||app.querySelector('#conference-tournament-watch,#committee-vs-elo'))return false;
  if(document.body.dataset.page==='conference'){const c=new URLSearchParams(location.search).get('conference');if(!c||!app.querySelector('.grid.two'))return false;buildConference(app,teams,games,c);}
  else{if(!app.querySelector('#field'))return false;buildTournament(app,teams,games,polls);}
  return true;};
+ window.addEventListener('mbb:ratings-updated',async()=>{
+  const [fresh,latestLedger]=await Promise.all(['data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-game-ledger.json'].map(fetchJSON));
+  const approved=fresh?.season==='2026-27'&&fresh.model==='retro-clean-slate'&&fresh.starting_elo===1500&&fresh.rankings?.length===365&&
+    new Set(fresh.rankings.map(t=>t.team_id)).size===365&&fresh.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo));
+  if(!approved)return;
+  teams=fresh.rankings;
+  games=MBBEngine.verifiedGames(fresh,latestLedger);
+  render();
+ });
  if(render())return;const observer=new MutationObserver(()=>{if(render())observer.disconnect()});observer.observe(document.getElementById('app'),{childList:true,subtree:false});setTimeout(()=>observer.disconnect(),20000);
 })().catch(e=>console.error('MBB comparison desk:',e));
 })();
