@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('college-soccer-match.js','utf8');
 class El {
- constructor(tag='div'){this.tag=tag;this.children=[];this.className='';this.style={setProperty:()=>{}};this.attributes={};this.textContent='';}
+ constructor(tag='div'){this.tag=tag;this.children=[];this.className='';this.style={setProperty:()=>{}};this.attributes={};this.textContent='';this.classList={add:cls=>{this.className=[...new Set([...this.className.split(' ').filter(Boolean),cls])].join(' ')},remove:cls=>{this.className=this.className.split(' ').filter(c=>c!==cls).join(' ')}};}
  append(...items){this.children.push(...items);for(const i of items)if(i && typeof i==='object')i.parent=this;}
  replaceChildren(...items){this.children=[];this.append(...items)}
  setAttribute(name,value){this.attributes[name]=value}
@@ -40,7 +40,7 @@ async function caseRun(status){
   fetch:async path=>({ok:true,json:async()=>data[path.split('/').at(-1).split('?')[0]]})};
  vm.runInNewContext(source,env,{timeout:2000});
  await new Promise(resolve=>setTimeout(resolve,30));
- assert(!find(root,'cs-match-hero').length===false,'Live-only game must render match hero');
+ assert(find(root,'cs-match-hero').length>0,'Live-only game must render match hero');
  const head=find(root,'cs-match-hero')[0],hero=head.children;
  assert.equal(hero.length,3);
  assert.equal(find(head,'cs-match-school').length,2);
