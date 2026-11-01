@@ -109,6 +109,7 @@ function showCoverage(rows,mode){
  const primary=rows.filter(r=>r.district_specific_2026_polls?.some(p=>p.source_tier==="original_release_checked")).length;
  const secondary=rows.filter(r=>r.district_specific_2026_polls?.some(p=>p.source_tier==="public_compilation_not_original_checked")).length;
  const old=rows.filter(r=>!!r["2024_house_result_on_prior_boundaries"]).length;
+ const unopposed=rows.filter(r=>!!r["2024_unopposed_official_context"]).length;
  const comparable=rows.filter(r=>r["2024_house_result_on_prior_boundaries"]?.same_2026_geography).length;
  const fec=rows.filter(r=>r.registered_fec_filings_2026>0).length;
  const changed=rows.filter(r=>r["2026_boundaries_revised"]).length;
@@ -116,7 +117,7 @@ function showCoverage(rows,mode){
  target.append(
    coverageCell("State-source candidate snapshots",official+suffix,official===n?"Government-source candidate lists present.":"Other seats await independently reviewed general-election candidate lists.",official===n?"ok":"limited"),
    coverageCell("2026 district polls published",anyPoll+suffix,primary+" seat(s) with directly checked originals; "+secondary+" with secondary compiled entries.",anyPoll===n?"ok":anyPoll?"limited":"absent"),
-   coverageCell("2024 House returns recorded",old+suffix,comparable+" on unchanged 2026 boundaries; "+changed+" districts have revised maps.",old===n&&changed===0?"ok":"limited"),
+   coverageCell("2024 House counted-vote records",old+suffix,unopposed+" official unopposed winner(s) without general-election vote totals; "+comparable+" counted-vote records on comparable boundaries.",old===n&&changed===0?"ok":"limited"),
    coverageCell("FEC registration records",fec+suffix,"Official candidate registrations; not November ballot qualification.",fec===n?"ok":"limited"),
    coverageCell("Census demographic context",n+suffix,changed?"ACS 2020–2024 district profiles use old boundaries in "+changed+" seat(s).":"Historical ACS 2020–2024; not a current population count.",changed?"limited":"ok"),
    coverageCell("Certified 2026 district forecasts","0"+suffix,"Our independent probabilities are not yet certified; never fill missing odds.", "absent")
@@ -127,7 +128,7 @@ function showCoverage(rows,mode){
    const yes=cell=>cell.querySelector("strong").textContent==="1";
    cells[0].querySelector("strong").textContent=official?"Available":"Not verified";
    cells[1].querySelector("strong").textContent=primary?"Original checked":secondary?"Compiled only":anyPoll?"Poll recorded":"No reviewed poll";
-   cells[2].querySelector("strong").textContent=old?(comparable?"Comparable 2024":"Old boundaries"):"Not in archive";
+   cells[2].querySelector("strong").textContent=old?(comparable?"Comparable 2024":"Old boundaries"):unopposed?"Unopposed; no tally":"Not in archive";
    cells[3].querySelector("strong").textContent=fec?"FEC records":"None indexed";
    cells[4].querySelector("strong").textContent=changed?"Historical lines":"Historical ACS";
    cells[5].querySelector("strong").textContent="Not certified";
@@ -283,7 +284,16 @@ function resultPanel(r,state){
  const box=$("result-panel");
  const h=r["2024_house_result_on_prior_boundaries"];
  if(!h){
-   box.append(newEl("p","No 2024 House result row was available in the independently collected MEDSL district extract for this office. No margin will be manufactured."));
+   const u=r["2024_unopposed_official_context"];
+   if(u&&u.contest_status==="elected_unopposed"&&u.general_election_vote_totals_available===false){
+     box.append(newEl("div","2024 winner: "+u.winner+" ("+partyName(u.party)+")","big-margin"));
+     box.append(newEl("p","ELECTED UNOPPOSED · Confirmed from state election-office records · No general-election candidate vote totals recorded.","callout"));
+     box.append(newEl("p","No vote share, two-party margin or 2026 forecast can be inferred from an unopposed result.","footnote"));
+     if(!u.verified_2026_geographic_comparability)box.append(newEl("p","2026 boundaries differ: the historical district number does not represent the same set of voters.","footnote"));
+     const link=addLink(box,"Official original 2024 unopposed winner record ↗",u.source_url,"src");link.target="_blank";link.rel="noopener noreferrer";
+   }else{
+     box.append(newEl("p","No 2024 counted-vote record or official unopposed winner was found for this district. No margin will be manufactured."));
+   }
  }else{
    const comparable=h.same_2026_geography;
    if(!comparable)box.append(newEl("div","IMPORTANT: This result used the 2024 district boundaries. "+state.name+" changed its House map for 2026, so the result cannot be used as a 2026 district margin.","callout"));
