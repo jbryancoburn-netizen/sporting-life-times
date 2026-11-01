@@ -59,12 +59,12 @@ jobs:
           assert all(r.get('fec_identity_match_certified') is False for r in b['races'] if r['state']=='CA')
           print('Original candidate slate: CA 52 House districts, 104 candidates; all forecast gates remain closed')
           PY
-      - name: Persist source-linked California candidate records, not predictions
+      - name: Persist only actual official candidate changes, not duplicate audit timestamps
         if: github.event_name != 'pull_request'
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-official-ballots.json politics-ca-certified-ballot-status.json politics-ballot-audit.json politics-sim-readiness.json
+          # Only candidate source changes belong in this job.\n          # Dedicated ballot and readiness audits independently publish their status.\n          # Never generate timestamp-only churn that conflicts with other live source jobs.\n          git add politics-official-ballots.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh original California-certified 2026 House ballot roster"
             if [ "$GITHUB_REF_NAME" != "main" ]; then
