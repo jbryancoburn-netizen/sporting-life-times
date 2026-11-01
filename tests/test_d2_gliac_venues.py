@@ -92,6 +92,40 @@ class OfficialGLIACVenues(unittest.TestCase):
         html=school_html().replace("<td>Home</td>","<td>Neutral</td>")
         self.assertEqual(venues.read_game_arenas(html,"men",home,url),{})
 
+    def test_only_explicit_official_aliases_match_not_fuzzy_arena_names(self):
+        eq=venues.official_venue_identity
+        self.assertEqual(eq("Davenport Student Center · Grand Rapids, Mich."),
+                         eq("DU Student Center · Grand Rapids, MI"))
+        self.assertEqual(eq("GVSU Fieldhouse Arena · Allendale, Mich."),
+                         eq("GVSU Fieldhouse Arena · Allendale, MI"))
+        self.assertEqual(eq("Bud Cooper Gymnasium · Sault Ste. Marie, Mich."),
+                         eq("Bud Cooper Gymnasium · Sault Ste. Marie, MI"))
+        self.assertNotEqual(eq("Jim Wink Arena · Big Rapids, MI"),
+                            eq("Another Arena · Big Rapids, MI"))
+        self.assertNotEqual(eq("Jim Wink Arena · Big Rapids, MI"),
+                            eq("Jim Wink Arena · Other Town, MI"))
+
+    def test_equivalent_official_labels_do_not_overwrite_existing_evidence(self):
+        home="grand-valley-state"
+        source=venues.SOURCES["men"][home]
+        dates=[dt.date(2027,1,7)+dt.timedelta(days=i*3) for i in range(10)]
+        games={}
+        for i,day in enumerate(dates):
+            games[str(i)]={"id":str(i),"date":day.isoformat(),
+                           "away":"ferris-state","home":home,
+                           "conference_game":True,"neutral":False}
+        games["0"]["venue"]="GVSU Fieldhouse Arena · Allendale, MI"
+        games["0"]["venue_source_url"]="https://gvsulakers.com/verified/old-game"
+        with patch.object(venues,"get_html",side_effect=lambda u: school_html(when=dates) if u==source else (_ for _ in ()).throw(OSError("skip"))):
+            r=venues.enrich_gliac_venues("men",games,{home:{}, "ferris-state":{}})
+        self.assertEqual(r["quarantined_conflicts"],0)
+        self.assertEqual(r["confirmed_alias_equivalences"],1)
+        self.assertEqual(r["enriched"],9)
+        self.assertEqual(games["0"]["venue"],"GVSU Fieldhouse Arena · Allendale, MI")
+        self.assertIn(source,games["0"]["venue_corrob_source_urls"])
+        self.assertIn("https://gvsulakers.com/verified/old-game",
+                      games["0"]["venue_corrob_source_urls"])
+
     def test_conflicting_venue_is_preserved_not_overwritten(self):
         home="grand-valley-state"
         source=venues.SOURCES["men"][home]
