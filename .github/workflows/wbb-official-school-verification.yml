@@ -6,12 +6,16 @@ on:
       - '.github/workflows/wbb-official-school-verification.yml'
       - 'scripts/wbb-verify-official-schools.py'
       - 'tests/test_wbb_site_claims.py'
+      - 'scripts/wbb-assert-site-manifest.py'
+      - 'tests/test_wbb_site_manifest.py'
   push:
     paths:
       - '.github/workflows/wbb-official-school-verification.yml'
       - 'scripts/wbb-preserve-university-evidence.py'
       - 'scripts/wbb-verify-official-schools.py'
       - 'tests/test_wbb_site_claims.py'
+      - 'scripts/wbb-assert-site-manifest.py'
+      - 'tests/test_wbb_site_manifest.py'
       - 'data/mbb-official-school-schedule-sources.json'
 permissions:
   contents: write
@@ -34,6 +38,7 @@ jobs:
         run: |
           python -m py_compile scripts/wbb-verify-official-schools.py
           python -m unittest discover -s tests -p 'test_wbb_site_claims.py' -v
+          python -m unittest discover -s tests -p 'test_wbb_site_manifest.py' -v
   certify:
     # Never let feature-branch pushes or PRs push unmerged source evidence to main.
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -117,24 +122,27 @@ jobs:
           git add data/ncaaw-2026-27-preserved-university-evidence-audit.json data/ncaaw-schedule-completeness-deep-audit.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Publish official athletics checks for 363 women's programs"
-          # These are generated JSON outputs. If another publisher updates
-          # main, merging two generated snapshots is unsafe and often conflicts.
-          # Reload the latest published inputs and regenerate rather than rebasing.
-          for n in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
-            echo "Another publisher advanced main; rechecking current women's evidence (attempt $n)"
+          # Prefer the complete independently researched snapshot if main is
+          # unchanged. Never re-fetch all 363 schools in a busy push retry loop.
+          if git push origin HEAD:main; then exit 0; fi
+          echo "Other sports advanced main; preserving the independently verified WBB case ledger only."
+          cp data/ncaaw-2026-27-official-site-conflicts.json "$RUNNER_TEMP/wbb-site-conflicts-verified.json"
+          for n in 1 2 3 4 5 6 7 8 9 10 11 12; do
             git fetch origin main
             git reset --hard origin/main
-            python -u scripts/wbb-verify-official-schools.py
-            git fetch --no-tags --depth=1 origin 23da984d8aabe8210dfec44b910b2e17ba43b621
-            python scripts/wbb-preserve-university-evidence.py
-            python scripts/wbb-reconcile-schedule-evidence.py
-            python scripts/audit_ncaaw_schedule_completeness.py
-            git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
-            git add data/ncaaw-2026-27-official-schedule-bulk-evidence.json data/ncaaw-2026-27-official-schedule-bulk-audit.json data/ncaaw-2026-27-official-site-conflicts.json
-            git add data/ncaaw-2026-27-preserved-university-evidence-audit.json data/ncaaw-schedule-completeness-deep-audit.json
-            if git diff --cached --quiet; then echo "Current source checks already published"; exit 0; fi
-            git commit -m "Publish refreshed official women's schedule verification after concurrent update"
-            sleep 2
+            cp "$RUNNER_TEMP/wbb-site-conflicts-verified.json" data/ncaaw-2026-27-official-site-conflicts.json
+            # The same team, opponent, Eastern date and source site must still
+            # exist in the latest published women's calendar. Fail closed.
+            python scripts/wbb-assert-site-manifest.py
+            git add data/ncaaw-2026-27-official-site-conflicts.json
+            if git diff --cached --quiet; then
+              echo "Exactly matched women's school-site case ledger already published"; exit 0
+            fi
+            git commit -m "Publish verified women school-site disputes with source game IDs"
+            if git push origin HEAD:main; then
+              echo "Published source-cited site cases without rewriting other sports data"; exit 0
+            fi
+            sleep 1
           done
+          echo "Refusing a stale or unmerged school-site source publication"
           exit 1
