@@ -117,6 +117,18 @@ def execute():
     summary['schools_scanned']=len(docs)
     summary['schools_changed']=len(changed_schools)
     summary['reviewed_unique_games']=len(source['games'])
+    post=collections.Counter()
+    for _,doc in docs.values():
+        for event in doc.get('events',[]):
+            post['game_entries']+=1
+            if not CLOCK.fullmatch(str(event.get('official_school_time') or '').strip()) and not CLOCK.fullmatch(str(event.get('official_time') or '').strip()):
+                post['missing_tipoff']+=1
+            comp=(event.get('competitions') or [{}])[0]
+            if not (comp.get('broadcasts') or event.get('broadcasts') or event.get('broadcast')):
+                post['missing_broadcast']+=1
+            if event.get('site_verified') is not True:
+                post['site_unverified']+=1
+    summary['post_announcement_field_audit']=dict(post)
     report={'summary':dict(summary),'policy':'Exact date+two ESPN school IDs; only explicitly reviewed official school announcements; no overwrite of contradictory networks; approved simultaneity only; game IDs untouched.',
             'changes':changes,'issues':issues}
     (DATA/'mbb-reviewed-athletics-announcements-recovery.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
@@ -124,6 +136,7 @@ def execute():
     if manifest.exists():
         doc=json.loads(manifest.read_text())
         doc['reviewed_official_announcements']=report
+        doc['final_field_audit']=dict(post)
         manifest.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report['summary'],indent=2))
     return report
