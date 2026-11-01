@@ -19,7 +19,7 @@ class EloTests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]
         css=(root/"nfl-edition.css").read_text(encoding="utf-8")
         javascript=(root/"nfl-edition.js").read_text(encoding="utf-8")
-        styles=re.sub(r"/\\*[\\s\\S]*?\\*/", "", css)
+        styles=re.sub(r"/[*].*?[*]/", "", css, flags=re.S)
         self.assertNotIn(".nfl-crest",styles,
             "Old legacy crest selectors must never be reintroduced")
         self.assertIn(".nfl-paper .nfl-two-band{",styles)
