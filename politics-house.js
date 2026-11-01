@@ -35,6 +35,11 @@ function districtEvidence(r){
            party:h.party,margin:margin==null?null:Math.abs(margin),sub:"2024 actual result · not a 2026 poll",
            source_url:h.source_url,dated:"2024",poll:false};
  }
+ const unopposed=r["2024_unopposed_official_context"];
+ if(unopposed&&unopposed.contest_status==="elected_unopposed"){
+   return {source:"Official 2024 unopposed result",text:unopposed.winner+" elected unopposed in 2024",
+           party:null,margin:null,sub:"Winner verified; no vote-share tally or 2026 lead",dated:"2024",poll:false,source_url:unopposed.source_url};
+ }
  if(r["2026_boundaries_revised"]){
    return {source:"2026 district boundaries changed",text:"New 2026 boundaries",party:null,margin:null,
            sub:"No sourced 2026 district poll yet",dated:"2026",poll:false};
