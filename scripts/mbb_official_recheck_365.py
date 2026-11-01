@@ -10,6 +10,11 @@ from bs4 import BeautifulSoup
 root=pathlib.Path(__file__).resolve().parents[1]
 teams=[t for t in json.loads((root/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())['teams'] if t.get('espn_id')][:]
 assert len(teams)==365
+# Keep concurrent third-party newsroom jobs from producing a rebase conflict
+# on the shared quality manifest. Detailed recovery totals remain in job logs;
+# individual school files retain each correction's source and verification.
+_REPORT_PATH=root/'data/mbb-official-recheck-365-verification.json'
+_ORIGINAL_REPORT=_REPORT_PATH.read_text() if _REPORT_PATH.exists() else None
 USER_AGENT='Mozilla/5.0 (compatible; SportingLifeTimesScheduleVerifier/1.0)'
 
 def hostname(url):
@@ -424,6 +429,12 @@ print(json.dumps({'verified_opponent_identity_repair':identity_result['summary']
 from mbb_reciprocal_game_gap_audit import run as audit_reciprocal_game_gaps
 coverage = audit_reciprocal_game_gaps()
 print(json.dumps({'reciprocal_fixture_coverage':coverage['summary']}, indent=2))
+# Report aggregation is independent of the corrected university schedule files.
+# Preserve the checked-in manifest version if other workflows may be writing it;
+# a separate quality audit can update this shared artifact after publication.
+if _ORIGINAL_REPORT is not None:
+ _REPORT_PATH.write_text(_ORIGINAL_REPORT)
+
 
 
 
