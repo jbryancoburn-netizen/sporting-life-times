@@ -47,15 +47,52 @@ function committee(teams,games,polls){
  const result=MBBEngine.field(adjusted,[]);
  return {result,anyGames,hasPolls};
 }
-function teamList(list){return '<div class="bracket-list">'+list.map(t=>'<div class="rank-row"><span class="rank">'+(t.trueSeed||'')+'</span>'+name(t)+'<small>'+esc(t.bid||'')+'</small></div>').join('')+'</div>';}
+function teamList(list,limit){
+ const shown=Number.isInteger(limit)?list.slice(0,limit):list;
+ return '<div class="selection-compact-list">'+shown.map(t=>'<div class="selection-row">'+
+  '<span class="selection-seed">'+esc(t.trueSeed||'—')+'</span>'+name(t)+
+  '<small>'+esc(t.bid==='Projected AQ'?'Projected AQ':t.bid||'At-large')+'</small></div>').join('')+'</div>';
+}
 function buildTournament(app,teams,games,polls){
  const proxy=committee(teams,games,polls),f=proxy.result;
- const elo=MBBEngine.field(teams,games),eloIds=new Set(elo.selected.map(t=>t.team_id)),commIds=new Set(f.selected.map(t=>t.team_id));
- const onlyCommittee=f.selected.filter(t=>!eloIds.has(t.team_id)),onlyElo=elo.selected.filter(t=>!commIds.has(t.team_id));
- const block=document.createElement('section');block.className='panel';block.id='committee-vs-elo';
- block.innerHTML='<div class="eyebrow">Two independent editorial views</div><h2>Committee Watch vs. USRS Elo Field</h2><p class="note"><strong>Committee-style forecast is an experimental editorial proxy, not an NCAA committee projection.</strong> '+(proxy.anyGames?'It adds a wins-above-bubble résumé and road-results adjustment.':'Before regular-season results, there is no demonstrated 2026–27 résumé to compare.')+(proxy.hasPolls?' Published AP/Coaches poll positions provide additional context.':' No usable contemporary poll context was loaded.')+' The model is not validated against historical committee selections, and it is not a substitute for official NET, eligibility or conference tournament rules. The USRS Elo field remains unchanged.</p><div class="grid two"><div class="column"><h3>Committee-style field · 76 teams</h3>'+teamList(f.selected)+'</div><div class="column"><h3>Independent USRS field · 76 teams</h3>'+teamList(elo.selected)+'</div></div><div class="grid two"><div class="column"><h3>Committee-only selections</h3>'+(onlyCommittee.length?teamList(onlyCommittee):'<p>Same selected field in this snapshot.</p>')+'</div><div class="column"><h3>Elo-only selections</h3>'+(onlyElo.length?teamList(onlyElo):'<p>Same selected field in this snapshot.</p>')+'</div></div><details><summary>Projected committee-style regional seed lines and opening-round paths</summary><div class="bracket-grid">'+f.regions.map(r=>'<div class="region"><h3>'+esc(r)+'</h3>'+Array.from({length:16},(_,i)=>{const s=f.bracket[r][i+1];return '<div class="slot"><span class="seed">'+(i+1)+'</span>'+s.teams.map(name).join(' / ')+'</div>'}).join('')+'</div>').join('')+'</div><h3>Opening round · 12 games</h3>'+f.opening.map(o=>'<p>'+o.teams.map(name).join(' vs. ')+' → '+esc(o.region)+' #'+o.seed+'</p>').join('')+'</details>';
- const anchor=app.querySelector('#field');if(anchor)anchor.parentNode.insertBefore(block,anchor);else app.appendChild(block);
+ const elo=MBBEngine.field(teams,games);
+ const eloIds=new Set(elo.selected.map(t=>t.team_id)),commIds=new Set(f.selected.map(t=>t.team_id));
+ const shared=f.selected.filter(t=>eloIds.has(t.team_id));
+ const onlyProxy=f.selected.filter(t=>!eloIds.has(t.team_id));
+ const onlyElo=elo.selected.filter(t=>!commIds.has(t.team_id));
+ const label=proxy.anyGames?'Experimental résumé model':'Preseason poll-adjusted illustration';
+ const explainer=proxy.anyGames?
+  'The résumé model uses game results and opponent-based adjustments; it is not a trained or validated NCAA committee simulator.':
+  'No verified 2026–27 résumé exists yet. Preseason polls can illustrate a possible field, but they cannot establish committee selection or seeding.';
+ const block=document.createElement('section');block.className='panel selection-comparison';block.id='committee-vs-elo';
+ block.innerHTML='<div class="eyebrow">Optional analysis / not official NCAA seeding</div>'+
+  '<h2>Where our models disagree</h2><p class="selection-compare-intro">'+esc(explainer)+
+  ' '+(proxy.hasPolls?'Published AP and Coaches polls inform the illustration.':'Contemporary polls were unavailable.')+
+  ' Independent USRS Elo ratings are not adjusted by this comparison.</p>'+
+  '<div class="selection-summary">'+
+    '<div><strong>'+shared.length+'</strong><span>Common picks</span></div>'+
+    '<div><strong>'+onlyProxy.length+'</strong><span>'+esc(proxy.anyGames?'Résumé-only':'Poll-only')+'</span></div>'+
+    '<div><strong>'+onlyElo.length+'</strong><span>USRS-only</span></div></div>'+
+  '<div class="selection-exclusive"><div><h3>'+esc(proxy.anyGames?'Résumé model only':'Poll-adjusted only')+'</h3>'+
+   (onlyProxy.length?teamList(onlyProxy,4):'<p>No differences.</p>')+
+   (onlyProxy.length>4?'<details><summary>See all '+onlyProxy.length+' differences</summary>'+teamList(onlyProxy)+'</details>':'')+'</div>'+
+  '<div><h3>USRS-only selections</h3>'+(onlyElo.length?teamList(onlyElo,4):'<p>No differences.</p>')+
+   (onlyElo.length>4?'<details><summary>See all '+onlyElo.length+' differences</summary>'+teamList(onlyElo)+'</details>':'')+'</div></div>'+
+  '<details class="selection-all"><summary>Compare complete 76-team fields</summary>'+
+    '<p class="selection-method-note">Model order is not official NCAA seeding. All automatic bids remain projected.</p>'+
+    '<details><summary>'+esc(label)+' · 76 teams</summary>'+teamList(f.selected)+'</details>'+
+    '<details><summary>Independent USRS Elo · 76 teams</summary>'+teamList(elo.selected)+'</details></details>'+
+  '<details class="selection-all"><summary>Compare projected regional placements and Opening Round</summary>'+
+    '<p class="selection-method-note">These are not approved NCAA assignments.</p>'+
+    '<div class="bracket-grid">'+f.regions.map(r=>'<div class="region"><h3>'+esc(r)+'</h3>'+
+     Array.from({length:16},(_,i)=>{const s=f.bracket[r][i+1];return '<div class="slot"><span class="seed">'+(i+1)+'</span>'+s.teams.map(name).join(' / ')+'</div>'}).join('')+
+     '</div>').join('')+'</div><h3>Opening Round · 12 games</h3>'+
+     f.opening.map(o=>'<p>'+o.teams.map(name).join(' vs. ')+' → '+esc(o.region)+' #'+o.seed+'</p>').join('')+'</details>';
+ const method=app.querySelector('#method');
+ if(method)method.parentNode.insertBefore(block,method);
+ else app.appendChild(block);
 }
+
 (async()=>{
  const sources=await Promise.all(['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-national-polls.json'].map(fetchJSON));
  const [pre,current,retro,ledger,polls]=sources;const valid=x=>x?.season==='2026-27'&&x.rankings?.length===365;
