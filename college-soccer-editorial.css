@@ -60,3 +60,9 @@
 #college-soccer-editorial .cs-edit-result-teams .cs-edit-school-mark{width:21px;height:21px}
 #college-soccer-editorial .cs-edit-result-score{font:800 1.05rem Arial,sans-serif;color:#203a4a;white-space:nowrap;font-variant-numeric:tabular-nums}
 #college-soccer-editorial .cs-edit-result>a{display:inline-block;margin-top:.32rem;font:700 .65rem Arial,sans-serif;color:#285979!important;text-decoration:underline!important}
+
+/* Never paint two letters across the top of a verified school emblem. */
+#college-soccer-editorial .cs-edit-school-mark .cs-edit-school-initial{display:grid;place-items:center;position:relative;z-index:1;font:700 10px Arial,sans-serif;color:#345a49}
+#college-soccer-editorial .cs-edit-school-mark.has-image .cs-edit-school-initial{display:none!important}
+#college-soccer-editorial .cs-edit-school-mark:not(.has-image)>img{visibility:hidden!important}
+#college-soccer-editorial .cs-edit-school-mark.has-image>img{visibility:visible!important}
