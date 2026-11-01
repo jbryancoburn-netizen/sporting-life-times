@@ -7,7 +7,7 @@ const nbaPrimaryIds={"ATL":1610612737,"BOS":1610612738,"BKN":1610612751,"CHA":16
 const canonicalCode=c=>({NY:'NYK',SA:'SAS',GS:'GSW',NO:'NOP',WSH:'WAS',UTAH:'UTA'}[String(c||'').toUpperCase()]||String(c||'').toUpperCase());
 const logo=c=>'assets/nba-logos/'+canonicalCode(c)+'.png';
 let lastOK=0;let fallbackRecords={};
-let eloRatings={},forecastModel=null;
+let eloRatings={},forecastModel=null,completedEvents=[];
 async function loadPregameElo(){
  try{
   const [eloResponse,statResponse,priorResponse]=await Promise.all([
@@ -21,7 +21,7 @@ async function loadPregameElo(){
   const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>nbaPrimaryIds[r.team]&&Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
   const model=window.RabbyPossessionModel.build(stats,4,priors);
   if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('NBA 30-team scoring coverage incomplete');
-  eloRatings=ratings;forecastModel=model;
+  eloRatings=ratings;forecastModel=model;completedEvents=elo.events||[];
  }catch(error){console.warn('NBA pregame forecast retains last verified snapshot:',error.message);}
 }
 function projectNumbers(g){
@@ -42,6 +42,7 @@ function projected(g){
   '<div class="nba-pregame-breakdown"><span>Projected total <b>'+x.total.toFixed(1)+'</b></span><span>Margin <b>'+esc(spread)+' '+Math.abs(x.margin).toFixed(1)+'</b></span><span>Tempo <b>'+x.possessions.toFixed(1)+' poss.</b></span></div>'+
   '<div class="nba-pregame-ratings">Offense vs opponent defense · '+esc(away)+' '+x.awayEfficiency.toFixed(1)+' · '+esc(home)+' '+x.homeEfficiency.toFixed(1)+' pts/100</div>'+
   '<div class="nba-pregame-source">'+x.coverage.games+' verified box scores · '+esc(away)+' '+x.awayGames+' GP / '+esc(home)+' '+x.homeGames+' GP · updated '+esc(asOf)+'</div>'+ 
+  '<div class="nba-pregame-rest">'+esc(away)+': '+esc(window.RabbyPossessionModel.restDisplay(window.RabbyPossessionModel.scheduleContext(away,g.date,completedEvents)))+' · '+esc(home)+': '+esc(window.RabbyPossessionModel.restDisplay(window.RabbyPossessionModel.scheduleContext(home,g.date,completedEvents)))+' <small>Completed fixtures only; no fatigue points assumed.</small></div>'+
   '<div data-nba-availability-away="'+esc(away)+'" data-nba-availability-home="'+esc(home)+'"></div>'+
   '</div>';
 }
