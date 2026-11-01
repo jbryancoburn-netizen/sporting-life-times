@@ -58,7 +58,7 @@ class EloTests(unittest.TestCase):
         front=(root/"nfl.html").read_text(encoding="utf-8")
         self.assertIn('nfl-front-premium.css',front)
         self.assertNotIn('nfl-live-day.js',front)
-        self.assertIn('nfl-mobile-broadcast.css?v=20261101-broadcast2',front)
+        self.assertIn('nfl-mobile-broadcast.css?v=20261101-broadcast3',front)
         self.assertIn('nfl-p26-score-stage',page)
         self.assertIn('nfl-p26-period-rail',page)
         self.assertNotIn("'LIVE · '+status(g)",page)
