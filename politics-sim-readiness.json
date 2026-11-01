@@ -1,6 +1,6 @@
 {
   "status": "NOT_READY_FOR_PUBLIC_PREDICTIONS",
-  "evaluated_at": "2026-11-01T19:24:45+00:00",
+  "evaluated_at": "2026-11-01T19:40:55+00:00",
   "method": "Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
   "source_keys": {
     "history": "politics-history.json",
@@ -93,9 +93,9 @@
     },
     {
       "id": "2024_acs_congressional_district_context",
-      "state": "missing",
-      "verified_record_count": 0,
-      "evidence": "0 Census ACS 119th-Congress district profiles",
+      "state": "partial",
+      "verified_record_count": 435,
+      "evidence": "435 Census ACS 119th-Congress district profiles",
       "source": "U.S. Census Bureau ACS 2020–2024",
       "blocker": "ACS estimates and 2026 district boundaries must be harmonized; demographics do not imply vote choice."
     },
@@ -113,7 +113,7 @@
       "verified_record_count": 106,
       "evidence": "103 House offices documented (102 general-ballot contests, 1 separately sourced unopposed offices), 3 Senate contests; 332 House offices not yet verified",
       "source": "Original state election offices (CA, FL, MD, NC, WY), dated candidate records",
-      "blocker": "Ballot records cover only the listed states; The audited original FEC identity crosswalk is incomplete or out of sync. Remaining state candidates, newer office changes and 2026 precinct/district voting baselines are unverified; no nationwide roster or probabilities are certified."
+      "blocker": "Ballot records cover only the listed states; 149 original FEC candidate IDs have an exact match, but most state ballots remain unverified. Remaining state candidates, newer office changes and 2026 precinct/district voting baselines are unverified; no nationwide roster or probabilities are certified."
     },
     {
       "id": "2026_district_geography_change_table",
@@ -158,8 +158,8 @@
   ],
   "counts": {
     "verified": 1,
-    "partial": 10,
-    "missing": 6
+    "partial": 11,
+    "missing": 5
   },
   "house_forecast_ready": false,
   "senate_forecast_ready": false,

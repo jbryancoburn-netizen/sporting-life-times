@@ -207,11 +207,48 @@ def make_census(fetch=get_bytes,now=None):
       "warning":"Census ACS figures are survey-based estimates with sampling error, not election results or predicted voting. Redistricting since the ACS district vintage must be resolved before 2026 model use.",
       "forecast_eligible":False
     }
+def valid_saved_census_bulk(dataset):
+    """Retain already checked Census 119th geographic data instead of redoing API auth.
+
+    The independent monthly original-source bulk workflow rechecks three file
+    SHA-256 hashes. Daily FEC ingestion must not turn a real Census file into a
+    'missing key' false alarm or overwrite it with a different boundary vintage.
+    """
+    if dataset.get("status")!="ok" or dataset.get("district_count")!=435 or dataset.get("forecast_eligible") is not False:
+        return False
+    if dataset.get("geography","").startswith("119th Congress") is False:
+        return False
+    if dataset.get("2026_district_geography_harmonized") is not False or dataset.get("model_eligible") is not False:
+        return False
+    if len(dataset.get("districts",[]))!=435:
+        return False
+    expected=set()
+    for state,n in APPORTIONMENT[2020].items():
+        for i in range(1,n+1) if n>1 else (0,):
+            expected.add(state+"-"+str(i).zfill(2))
+    if set(x.get("id") for x in dataset["districts"])!=expected:
+        return False
+    files=dataset.get("source_files",{})
+    if set(files)!={"B01003","B15003","B19013"}:
+        return False
+    for table,source in files.items():
+        if not source.get("url","").startswith("https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-"+table.lower()+".dat"):
+            return False
+        if not re.fullmatch(r"[a-f0-9]{64}",source.get("sha256","")) or source.get("districts")!=435:
+            return False
+    return True
+
 def main():
     failures=[]
     for name,func in (("fec",make_fec),("census",make_census)):
         path=ROOT/f"politics-{name}-inputs.json"
         try:
+            if name=="census" and path.exists():
+                try: previous=json.loads(path.read_text(encoding="utf-8"))
+                except (OSError,ValueError): previous={}
+                if valid_saved_census_bulk(previous):
+                    print("Retaining validated 435-district official 2024 ACS bulk evidence; no Census API key required")
+                    continue
             dataset=func()
             path.write_text(json.dumps(dataset,separators=(",",":"),ensure_ascii=False)+"\n",encoding="utf-8")
             print("Validated",name,"rows",len(dataset.get("candidates",dataset.get("districts",[]))))

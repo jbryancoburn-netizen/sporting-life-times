@@ -1,0 +1,88 @@
+name: Politics original 2024 ACS bulk district evidence no API key
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_acs_bulk.py'
+      - 'test_politics_acs_bulk.py'
+      - 'scripts/politics_real_inputs.py'
+      - 'test_politics_real_inputs.py'
+      - '.github/workflows/politics-acs-bulk.yml'
+  push:
+    branches: [main, politics-acs-2024-official-bulk-fallback]
+    paths:
+      - 'scripts/politics_acs_bulk.py'
+      - 'test_politics_acs_bulk.py'
+      - 'scripts/politics_real_inputs.py'
+      - 'test_politics_real_inputs.py'
+      - '.github/workflows/politics-acs-bulk.yml'
+  schedule:
+    - cron: '41 12 1 * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-acs-2024-original-bulk
+  cancel-in-progress: false
+jobs:
+  original-119th-congress-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify all 435-seat parser invariants without network
+        run: |
+          python -m py_compile scripts/politics_acs_bulk.py
+          python -m unittest -v test_politics_acs_bulk test_politics_real_inputs
+      - name: Download original US Census Bureau 2024 ACS summary-file tables
+        run: python -m scripts.politics_acs_bulk
+      - name: Reject missing district, unexpected 2026 geographic use or forecasts
+        run: |
+          python - <<'PY'
+          import json
+          c=json.load(open('politics-census-inputs.json'))
+          assert c['status']=='ok' and c['district_count']==435
+          assert len(c['districts'])==435 and len({r['id'] for r in c['districts']})==435
+          assert len({r['state'] for r in c['districts']})==50
+          assert c['geography'].startswith('119th Congress')
+          assert c['2026_district_geography_harmonized'] is False
+          assert c['forecast_eligible'] is False and c['model_eligible'] is False
+          assert sorted(c['source_files'])==['B01003','B15003','B19013']
+          assert sorted(c['2026_boundary_changed_states'])==['AL','CA','FL','LA','NC','OH','TN','TX','UT']
+          assert all(not d['geographically_usable_as_2026_population'] for d in c['districts'])
+          assert all(d['population_2020_2024_acs_est']>150000 for d in c['districts'])
+          print('No-key Census 119th geography verified: 435 real 2024 ACS districts; election predictions 0')
+          PY
+      - name: Update original input evidence readiness, still no certified forecasts
+        run: |
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert d['certified_original_probability_count']==0
+          assert d['house_forecast_ready'] is False
+          print('Census 2024 ACS context imported without misleading 2026 district alignment')
+          PY
+      - name: Publish original census data only, never sports or model odds
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-census-inputs.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish official Census 2024 ACS 435-district estimates without API key"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
