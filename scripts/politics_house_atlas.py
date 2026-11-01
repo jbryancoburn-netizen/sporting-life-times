@@ -24,7 +24,7 @@ def load(name):
 def finite_vote(n):
     return isinstance(n,int) and not isinstance(n,bool) and n>=0
 
-def build(fec,historical,county,ballots,geography,politics,polls,compiled=None):
+def build(fec,historical,county,ballots,geography,politics,polls,compiled=None,unopposed=None):
     if fec.get("status")!="ok" or fec.get("cycle")!=2026 or fec.get("house_district_inventory")!=435:
         raise ValueError("FEC actual 2026 congressional district list incomplete")
     if historical.get("status")!="ok" or 2024 not in historical.get("years",[]):
@@ -104,6 +104,32 @@ def build(fec,historical,county,ballots,geography,politics,polls,compiled=None):
             if not duplicate:race_polls.setdefault(rid,[]).append({**p,"source_tier":"public_compilation_not_original_checked"})
     for vals in race_polls.values():
         vals.sort(key=lambda p:(p["end_date"],p.get("source_tier")=="original_release_checked",p["id"]),reverse=True)
+    # Recover historically unopposed winners from original election-office
+    # documents without fabricating votes or a numerical margin. This is
+    # winner-only context, not a substitute for MEDSL counted-vote records.
+    recovered={}
+    if unopposed is not None:
+        if (unopposed.get("status")!="OFFICIAL_2024_UNOPPOSED_HOUSE_WINNER_CONTEXT_NO_VOTE_TOTALS"
+            or unopposed.get("reference_election")!="2024-11-05"):
+            raise ValueError("Unverified official winner-only historical evidence")
+        rows=unopposed.get("records",[])
+        if {x.get("id") for x in rows}!={"FL-20","OK-03"} or len(rows)!=2:
+            raise ValueError("Winner-only results must reconcile exactly two independently sourced omissions")
+        for x in rows:
+            rid=x["id"]
+            if x.get("year")!=2024 or x.get("contest_status")!="elected_unopposed" or x.get("general_election_vote_totals_available") is not False:
+                raise ValueError("Numeric votes or election status fabricated for "+rid)
+            if x.get("party") not in ("D","R") or not x.get("winner") or x.get("state")+"-"+x.get("district")!=rid:
+                raise ValueError("Invalid original unopposed winner")
+            url=x.get("source_url","")
+            if not (url.startswith("https://dos.elections.myflorida.com/candidates/CanList.asp") if rid=="FL-20"
+                    else url.startswith("https://former.okhouse.gov/Journals/HJ2025/")):
+                raise ValueError("Original official election source missing for "+rid)
+            if rid in old:
+                raise ValueError("Winner-only recovery must not overwrite actual numeric vote totals")
+            if x.get("verified_2026_geographic_comparability")!=(x["state"] not in MAP_CHANGED):
+                raise ValueError("Historical voting geography incorrectly inherited for "+rid)
+            recovered[rid]=x
     records=[]
     all_ids=set()
     for row in fec["house"]:
@@ -142,6 +168,7 @@ def build(fec,historical,county,ballots,geography,politics,polls,compiled=None):
                 "registered_fec_filings_2026":row.get("registered_filings",0),
                 "fec_records_are_not_qualified_nominees":True,
                 "2024_house_result_on_prior_boundaries":past,
+                "2024_unopposed_official_context":recovered.get(rid),
                 "district_specific_2026_polls":race_polls.get(rid,[]),
                 "2026_forecast":None}
         records.append(record)
@@ -173,6 +200,7 @@ def build(fec,historical,county,ballots,geography,politics,polls,compiled=None):
         "district_count":435,"state_count":50,
         "2024_house_results_found":len(all_ids-set(old_missing)),
         "2024_house_result_missing_districts":old_missing,
+        "2024_unopposed_winners_verified":len(recovered),
         "2026_official_ballot_offices":len(candidates),
         "2026_district_poll_count":sum(len(x["district_specific_2026_polls"]) for x in records),
         "2026_polled_districts":sum(bool(x["district_specific_2026_polls"]) for x in records),
@@ -186,7 +214,8 @@ def build(fec,historical,county,ballots,geography,politics,polls,compiled=None):
             "district_shading":"Most recent directly sourced 2026 district poll (when valid), otherwise 2024 actual House winner and two-party vote margin ONLY where unchanged congressional boundaries; gray denotes insufficient comparable evidence",
             "2026_polls":"politics-house-district-polls.json directly checked originals, plus politics-house-polls-compilation.json secondary public latest-poll summaries; each individually attributed; NOT averages or election outcomes",
             "2026_official_candidates":"State government snapshot; remaining districts have no confirmed candidate slate",
-            "geography":"U.S. Census 120th Congressional District geography guard; nine states changed 2026 boundaries"
+            "geography":"U.S. Census 120th Congressional District geography guard; nine states changed 2026 boundaries",
+            "2024_unopposed_winners":"Two official state election-office unopposed winners are recovered separately; no general-election vote totals or margins are imputed"
         },
         "states":states,"districts":records,
         "forecast_eligible":False,"certified_2026_probabilities":0,
@@ -197,7 +226,7 @@ def main():
     data=build(load("politics-fec-race-index.json"),load("politics-historical-contests.json"),
                load("politics-2024-county-presidential.json"),load("politics-official-ballots.json"),
                load("politics-2026-district-geography.json"),load("politics-data.json"),
-               load(POLL_FILE),load("politics-house-polls-compilation.json"))
+               load(POLL_FILE),load("politics-house-polls-compilation.json"),load("politics-2024-unopposed-house.json"))
     OUTPUT.write_text(json.dumps(data,ensure_ascii=False,separators=(",",":"))+"\n",encoding="utf-8")
     print("House atlas:",data["district_count"],"districts,",data["2024_house_results_found"],
           "historical results,",data["2026_official_ballot_offices"],
