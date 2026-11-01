@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "OFFICIAL_2024_UNOPPOSED_HOUSE_WINNER_CONTEXT_NO_VOTE_TOTALS",
+  "reviewed_at": "2026-11-01",
+  "reference_election": "2024-11-05",
+  "source_scope": "Only 2024 House districts not assigned a numeric MEDSL general-election result, where an original state election-office document explicitly records an unopposed winner.",
+  "warning": "These are certified or election-office unopposed winner records, NOT 2024 counted-vote totals. Do not impute zero votes, 100% two-party share, a partisan margin, a general-election swing, a 2026 district prediction, or a redistricting-adjusted estimate.",
+  "records": [
+    {
+      "id": "FL-20",
+      "state": "FL",
+      "district": "20",
+      "year": 2024,
+      "winner": "Sheila Cherfilus-McCormick",
+      "party": "D",
+      "contest_status": "elected_unopposed",
+      "general_election_vote_totals_available": false,
+      "source_authority": "Florida Division of Elections",
+      "source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20241105-GEN",
+      "verified_2026_geographic_comparability": false,
+      "reviewed_at": "2026-11-01",
+      "source_evidence": "Official 2024 House district 20 candidate listing: incumbent elected, general-election status Unopposed."
+    },
+    {
+      "id": "OK-03",
+      "state": "OK",
+      "district": "03",
+      "year": 2024,
+      "winner": "Frank D. Lucas",
+      "party": "R",
+      "contest_status": "elected_unopposed",
+      "general_election_vote_totals_available": false,
+      "source_authority": "Oklahoma State Election Board certified returns (printed in Oklahoma House Journal, Jan 7, 2025, page 26)",
+      "source_url": "https://former.okhouse.gov/Journals/HJ2025/2025%20HLeg%20Day1.pdf#page=26",
+      "verified_2026_geographic_comparability": true,
+      "reviewed_at": "2026-11-01",
+      "source_evidence": "Official certified 2024 general-election returns: U.S. Representative District 03, Frank D. Lucas, Republican, Unopposed."
+    }
+  ]
+}
