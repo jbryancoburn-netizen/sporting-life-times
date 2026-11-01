@@ -198,3 +198,14 @@ body.nfl-paper[data-page="front"] .nfl-bar{padding:8px 0;color:#6a6a60;line-heig
  .nfl-p26 .nfl-p26-score{min-height:135px}
  .nfl-p26 .nfl-p26-feature h2{font-size:25px}
 }
+
+/* Score typography intentionally uses one horizontal scoreline, never a three-line stack. */
+.nfl-p26 .nfl-p26-match{grid-template-columns:minmax(0,1fr) minmax(126px,29%) minmax(0,1fr)}
+.nfl-p26 .nfl-p26-big-score{display:flex;align-items:center;justify-content:center;white-space:nowrap;gap:3px;font-size:clamp(42px,4.4vw,69px)}
+.nfl-p26 .nfl-p26-big-score i{font:400 .55em Georgia,serif;color:#e2c88e}
+.nfl-p26 .nfl-p26-big-score.is-pregame{font-size:31px}
+@media(max-width:620px){
+ .nfl-p26 .nfl-p26-match{grid-template-columns:minmax(0,1fr) minmax(102px,32%) minmax(0,1fr);gap:2px}
+ .nfl-p26 .nfl-p26-big-score{font-size:clamp(30px,10vw,47px);gap:1px}
+ .nfl-p26 .nfl-p26-big-score.is-pregame{font-size:25px}
+}
