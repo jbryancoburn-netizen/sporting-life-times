@@ -281,7 +281,8 @@
         '<div class="cbb-preview cbb-preview-empty" id="cbb-preview-'+esc(g.id)+'"></div>')+
       '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
       '<a class="cbb-box-btn" href="'+gameLink(g)+'">Game details →</a></div>'+
-      '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+'</div>'+      '</article>';
+      '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+
+       (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference listing ↗</a>':'')+'</div>'+      '</article>';
   }
   function updateStatsPreview(g){
     const target=document.getElementById('cbb-preview-'+g.id);
@@ -431,8 +432,44 @@
         games.push({...g,source:'ESPN secondary · official fixture not independently matched'});
       }
     }
-    return {games,officialCount:official.length,espnCount:fromEspn.length,
-      schoolConfirmed,schoolAvailable:!!schoolFresh,
+    // Conference office announcements independently corroborate MATCHUPS and
+    // broadcast announcements, but never certify scores or updated tipoffs.
+    // Only join evidence for this date and exactly matching school IDs.
+    const archive=!women?newsroom?.conference_fixtures:null;
+    const archivedAt=Date.parse(archive?.indexed_at||'');
+    const archiveFresh=archive?.day===day&&Number.isFinite(archivedAt)&&
+      archivedAt<=Date.now()+60000&&Date.now()-archivedAt<=90*60000&&
+      Array.isArray(archive?.games);
+    const conferenceIndex=new Map();
+    if(archiveFresh)for(const item of archive.games){
+      const ids=(item.team_ids||[]).map(String);
+      if(ids.length!==2||ids[0]===ids[1]||!ids.every(x=>/^\\d+$/.test(x)))continue;
+      const key=ids.sort((a,b)=>Number(a)-Number(b)).join(':');
+      conferenceIndex.set(key,item);
+    }
+    let conferenceConfirmed=0,networkDisagreements=0;
+    const enriched=games.map(g=>{
+      const aid=String(g.away.team?.id||''),hid=String(g.home.team?.id||'');
+      const key=[aid,hid].sort((a,b)=>Number(a)-Number(b)).join(':');
+      const proof=conferenceIndex.get(key);
+      if(!proof)return g;
+      conferenceConfirmed++;
+      const officialNetwork=proof.network_announced||'';
+      const advertised=String(g.broadcast||'');
+      const simplify=x=>x.toUpperCase().replace(/[^A-Z0-9]+/g,'');
+      const mismatch=!!(proof.network_conflict||
+        (officialNetwork&&advertised&&simplify(officialNetwork)!==simplify(advertised)));
+      if(mismatch)networkDisagreements++;
+      return {...g,conferenceSource:(proof.source_urls||[])[0]||'',
+        conferenceNetwork:officialNetwork,
+        conferenceNetworkDisagreement:mismatch,
+        broadcast:(!mismatch&&!advertised&&officialNetwork)?officialNetwork:g.broadcast,
+        source:String(g.source||'Source pending')+' · conference fixture'+
+          (mismatch?' (network listings differ)':'')};
+    });
+    return {games:enriched,officialCount:official.length,espnCount:fromEspn.length,
+      schoolConfirmed,schoolAvailable:!!schoolFresh,conferenceConfirmed,
+      networkDisagreements,conferenceAvailable:!!archiveFresh,
       officialAsOf:fresh?cross.checked_at:null,officialUnresolved:fresh?cross.unresolved_games:null,
       espnLive:fromEspn.length>0};
   }
@@ -519,7 +556,9 @@
     if(stamp){
       const ncaaStamp=feed.officialAsOf?'NCAA-origin feed checked '+new Date(feed.officialAsOf).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'NCAA-origin check unavailable or stale';
       stamp.textContent=ncaaStamp+' · '+feed.officialCount+' NCAA games · '+feed.espnCount+
-        ' ESPN events (secondary) · '+feed.schoolConfirmed+' school-fixture crosschecks'+(state.fallback?' · local snapshot, not live':' · ESPN checks every 30s')+
+        ' ESPN events (secondary) · '+feed.schoolConfirmed+' school fixtures · '+
+         (feed.conferenceConfirmed||0)+' conference fixtures'+
+         (feed.networkDisagreements?' · '+feed.networkDisagreements+' TV listings under review':'')+(state.fallback?' · local snapshot, not live':' · ESPN checks every 30s')+
         ' · scores individually attributed below';
     }
     // Do not hide the original until this desk has a real scoreboard or a valid fallback.
@@ -623,6 +662,8 @@
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
       '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
       (g.schoolSource?' · <a href="'+cleanURL(g.schoolSource)+'" rel="noopener noreferrer" target="_blank">Verified school schedule ↗</a>':'')+
+       (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference schedule ↗</a>':'')+
+       (g.conferenceNetworkDisagreement?' · Network listings differ: conference '+esc(g.conferenceNetwork||'disputed')+'; other provider '+esc(g.broadcast||'unlisted'):'')+
       ' · <a href="'+cleanURL(ext)+'" rel="noopener noreferrer" target="_blank">'+
       (hasStats?'ESPN box statistics (secondary) ↗':'Source scoreboard ↗')+'</a></p>';
     selectGameTab(state.section);
