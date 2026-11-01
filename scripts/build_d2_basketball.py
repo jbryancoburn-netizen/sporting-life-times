@@ -980,8 +980,9 @@ def update(gender, bootstrap=False, live=False):
         stream_host="https://justagame.com/clients/justagame-fieldhouse/")
     # GSC men's and women's official school calendars are independently
     # reconciled for reciprocal matchups, dates, time zones, and broadcasts.
-    from d2_gsc_official import enrich_gsc
+    from d2_gsc_official import enrich_gsc, enrich_gsc_venue_evidence
     gsc_quality=enrich_gsc(games,teams,today,gender=gender)
+    gsc_venue_quality=enrich_gsc_venue_evidence(games,gender)
     if gender=="men":
         from d2_cacc_official import enrich_cacc
         cacc_quality=enrich_cacc(games,teams,today)
@@ -1047,6 +1048,7 @@ def update(gender, bootstrap=False, live=False):
         "official_other_schedule_broadcasts":extra_broadcasts,
         "official_midwest_tipoff_broadcasts":midwest_broadcasts,
         "official_gsc_schedule_reconciliation":gsc_quality,
+        "official_gsc_venue_evidence":gsc_venue_quality,
         "official_cacc_schedule_reconciliation":cacc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
