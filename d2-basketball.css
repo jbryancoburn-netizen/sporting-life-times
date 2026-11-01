@@ -44,3 +44,21 @@
 .game-broadcast a{color:var(--teal);text-decoration:underline;text-underline-offset:2px}
 .game-broadcast small{display:block;color:var(--muted);font-size:9px;font-weight:600}
 @media(max-width:550px){.game-head{gap:5px}.game-broadcast{max-width:48%;font-size:9px}.game-broadcast small{font-size:8px}}
+
+/* Compact front-page cards link to a dedicated game source and model desk. */
+.gamefile-tools{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:18px 0}
+.gamefile-tools a{text-decoration:none;font-weight:700;color:var(--teal)}
+.gamefile-tools button{background:var(--ink);border:0;color:white;padding:9px 13px;font:700 10px 'DM Sans',Arial,sans-serif;letter-spacing:.4px;cursor:pointer}
+.gamefile-title{padding:20px 0 8px}.gamefile-title>span{font:700 11px 'DM Sans',Arial,sans-serif;color:var(--teal);letter-spacing:1.1px}
+.gamefile-title h1{font:700 clamp(30px,5vw,62px)/1 'Barlow Condensed',Arial,sans-serif;margin:9px 0}
+.gamefile-title h1 em{font-style:normal;color:var(--rust);font-size:.55em;vertical-align:middle}
+.gamefile-title p{font-size:12px;color:var(--muted)}.gamefile-score{max-width:800px}.gamefile-score .game-card{padding:18px}
+.gamefile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}
+.gamefile-box{padding:19px 21px;border:1px solid var(--line);border-top:3px solid var(--ink);background:#fffefa}
+.gamefile-box h2{font:29px/1.1 'Libre Caslon Display',Georgia,serif;margin:0 0 14px}
+.gamefile-box p{line-height:1.7}.gamefile-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gamefile-facts div{background:#e8eeeb;padding:12px}.gamefile-facts small{display:block;color:var(--muted);font-size:9px;letter-spacing:.5px}
+.gamefile-facts strong{font:700 30px 'Barlow Condensed',Arial,sans-serif}
+.gamefile-source-links{display:flex;gap:8px;flex-wrap:wrap}.gamefile-source-links a{padding:8px 10px;border:1px solid var(--line);font-weight:700;font-size:11px;text-decoration:none}
+.gamefile-source-box{margin-bottom:25px}.gamefile-link{font-weight:700;color:var(--teal)}
+@media(max-width:700px){.gamefile-grid{grid-template-columns:1fr}.gamefile-tools{align-items:start;flex-direction:column}.gamefile-title h1{font-size:36px}}
