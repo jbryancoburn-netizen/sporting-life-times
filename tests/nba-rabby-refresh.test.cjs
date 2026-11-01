@@ -6,7 +6,7 @@ const scorer=require('../nba-rabby-possession.js');
 const base='file://'+__filename;
 const src=readFileSync(new URL('../nba-rabby-forecast.js',base),'utf8');
 const load=p=>JSON.parse(readFileSync(new URL('../data/'+p,base),'utf8'));
-const now=Date.parse('2026-11-01T19:00:00Z');
+const now=Date.parse('2099-11-01T19:00:00Z');
 class FixedDate extends Date{
  constructor(...args){super(...(args.length?args:[now]));}
  static now(){return now;}
@@ -21,7 +21,12 @@ async function desk(){
  const files={
   'data/nba-elo-shadow-2026-27.json':load('nba-elo-shadow-2026-27.json'),
   'data/nba-possession-inputs.json':load('nba-possession-inputs.json'),
-  'data/nba-upcoming-schedule.json':load('nba-upcoming-schedule.json'),
+  'data/nba-upcoming-schedule.json':{games:[
+   {id:'synthetic-bos-orl',date:'2099-11-01T20:30:00Z',state:'pre',teams:[{home_away:'away',code:'BOS',name:'Boston Celtics'},{home_away:'home',code:'ORL',name:'Orlando Magic'}]},
+   {id:'synthetic-lac-gsw',date:'2099-11-02T01:30:00Z',state:'pre',teams:[{home_away:'away',code:'LAC',name:'LA Clippers'},{home_away:'home',code:'GSW',name:'Golden State Warriors'}]},
+   {id:'synthetic-final',date:'2099-11-01T15:00:00Z',state:'post',teams:[{home_away:'away',code:'IND'},{home_away:'home',code:'BOS'}]},
+   {id:'synthetic-live',date:'2099-11-01T18:30:00Z',state:'in',teams:[{home_away:'away',code:'WAS'},{home_away:'home',code:'NYK'}]}
+  ]},
   'data/nba-2025-26-team-advanced.json':load('nba-2025-26-team-advanced.json')
  };
  const document={hidden:false,getElementById:id=>nodes[id],dispatchEvent:event=>state.events.push(event.type),addEventListener:()=>{}};
@@ -36,6 +41,7 @@ test('actual sourced 2026-27 inputs produce paced opponent-specific cards and ex
  assert.match(html,/rabby-v2-game/);
  assert.match(html,/ESTIMATED PACE/);
  assert.match(html,/OFFENSE MATCHED AGAINST OPPONENT DEFENSE/);
+ assert.doesNotMatch(html,/synthetic-final|synthetic-live/);
  assert.doesNotMatch(html,/Experimental early-season Elo model/);
  assert.match(d.nodes['nba-rabby-status'].textContent,/completed team box scores/);
  assert.equal(d.window.NBARabbyForecastState.model.coverage.teams,30);
