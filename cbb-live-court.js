@@ -157,7 +157,7 @@ function draw(c){
       (p.id===selected?.id?' aria-current="true"':'')+'><time>'+esc(p.clock||'—')+
       '</time><span>'+esc(p.text)+'</span></button></li>').join('')+'</ol>':
       '<p>Play-by-play is not available. We do not create simulated events.</p>')+'</aside></div>'+
-    stationLinks(g)+
+    (global.SLTRadio?'':stationLinks(g))+
     '<footer class="slc-note">Play log: attributed ESPN events. Shot marks appear only where normalized source coordinates exist. '+
     'This is not optical tracking or radio transcription. For ongoing games, score and plays are checked approximately every 15 seconds.</footer></div>';
   c.previousPlay=selected||null;
