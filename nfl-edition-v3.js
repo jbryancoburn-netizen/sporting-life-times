@@ -121,36 +121,144 @@ function liveGamePanel(g){
 }
 
 function home(){
-const w=week(),today=easternDay(new Date()),todayGames=games.filter(g=>easternDay(g.date)===today).sort((a,b)=>a.date.localeCompare(b.date)),thisWeek=games.filter(g=>g.week===w&&easternDay(g.date)!==today),liveCount=todayGames.filter(g=>g.state==='in').length;
-const finals=games.filter(g=>g.state==="post").slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,7);
-const future=games.filter(g=>g.state!=="post").slice().sort((a,b)=>a.date.localeCompare(b.date)).slice(0,7);
-let out='<p class="nfl-kicker">NATIONAL FOOTBALL LEAGUE · 2026</p><h1 class="nfl-title">THE NFL NEWSPAPER</h1>';
-out+='<p class="nfl-lede">The entire NFL season in the Sporting Life &amp; Times: all 32 clubs, sourced results, standings, independent USRS Elo, game previews and player leaders.</p>';
-const model=feed.model||{};
- out+='<div class="nfl-model-ribbon"><div class="nfl-model-head"><span>USRS · INDEPENDENT ELO MODEL</span><a href="nfl-rankings.html">POWER RANKINGS →</a></div><div class="nfl-model-metrics">'+
- '<div><strong>1500</strong><span>Starting Elo · all clubs</span></div>'+
- '<div><strong>+'+format(model.home_advantage_elo)+'</strong><span>Calibrated home field</span></div>'+
- '<div><strong>'+format(model.k_base)+'</strong><span>Calibrated K-factor</span></div>'+
- '<div><strong>'+format(model.calibration_validation_brier,4)+'</strong><span>2025 holdout Brier</span></div>'+
- '</div><p>Fit to '+format(model.calibration_train_games)+' historical games; checked against '+format(model.calibration_validation_games)+' unseen 2025 games. Every new season resets to 1500.</p></div>';
- out+='<div class="nfl-gameday-header"><div><p class="nfl-kicker">NFL GAME DAY · '+escapeHtml(today)+'</p><h2>'+(liveCount?'LIVE FROM '+liveCount+' STADIUM'+(liveCount===1?'':'S'):'TODAY’S NFL SCOREBOARD')+'</h2></div><span class="nfl-source-stamp">'+(liveFeed?'Scores checked '+escapeHtml(date(liveFeed.updated_at)):'Awaiting live scoreboard')+'</span></div>';
-out+='<div class="nfl-rail nfl-today-rail">'+(todayGames.length?todayGames.map(gameCard).join(''):note('No NFL games scheduled today.'))+'</div>';
-if(liveCount){out+=panel('LIVE PLAYER WATCH',liveLeaders()||note('Source-backed live player statistics will appear as soon as games report them.'));}
-out+='<div class="nfl-controls"><b>REST OF WEEK '+w+'</b> · '+link('nfl-schedule.html','Full 18-week schedule →')+'</div><div class="nfl-rail">'+thisWeek.map(gameCard).join('')+'</div>';
-out+='<div class="nfl-front-grid"><div>';
-out+=panel("NFL · TOP STORIES",'<div id="nfl-stories">Loading sourced headlines…</div>');
-out+=panel("RECENT FINALS",finals.map(gameLine).join("")||"No verified finals.");
-out+=panel("NEXT GAMES",future.map(gameLine).join("")||"Fixtures currently unavailable.");
-out+='</div><div>';
-out+=panel("USRS · TOP TEN",gridTable(["TEAM","W-L-T","ELO"],feed.teams.slice(0,10).map((t,i)=>'<tr><td><strong>'+(i+1)+'.</strong> '+club(t)+'</td><td>'+t.w+'-'+t.l+'-'+t.t+'</td><td><b>'+format(t.elo,1)+'</b></td></tr>'))+'<p class="nfl-small">'+link("nfl-rankings.html","Complete 32-team ranking →")+'</p>');
-let leaders="<div class='nfl-duo'>";
-["passing","rushing","receiving","sacks"].forEach(cat=>{leaders+=panel(cat.toUpperCase(),listLeaders(cat,5));});
-leaders+="</div>";
-out+=panel("PLAYER LEADERS",statsCaveat()+leaders);
-out+=panel("LEAGUE COVERAGE",'<div class="nfl-statline"><div class="nfl-stat"><b>'+feed.coverage.finals+'</b><span>Finals</span></div><div class="nfl-stat"><b>'+feed.coverage.boxscores+'</b><span>Box scores</span></div><div class="nfl-stat"><b>1500</b><span>Starting Elo</span></div><div class="nfl-stat"><b>32</b><span>Teams</span></div></div>');
-out+='</div></div>';
-return out+'<section class="nfl-section" id="teams"><h2>FIND YOUR TEAM</h2>'+directory()+'</section>';
+ const now=new Date(),day=easternDay(now);
+ const dayText=now.toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric',year:'numeric'});
+ const slate=games.filter(g=>easternDay(g.date)===day).sort((a,b)=>a.date.localeCompare(b.date));
+ const isGameDay=slate.length>0;
+ const nextGames=games.filter(g=>g.state!=='post'&&new Date(g.date).getTime()>now.getTime()-7200000).sort((a,b)=>a.date.localeCompare(b.date));
+ const shown=slate.length?slate:nextGames.slice(0,8);
+ const live=slate.filter(g=>g.state==='in');
+ const candidates=(live.length?live:slate.some(g=>g.state==='pre')?slate.filter(g=>g.state==='pre'):slate.length?slate:nextGames);
+ const featured=(candidates.slice().sort((a,b)=>{
+   const grade=x=>x.state==='in'?1000-Math.abs((x.away.score||0)-(x.home.score||0))*20+
+    (Number(x.period)||0)*3:x.state==='pre'?400-Math.abs((x.elo?.home_win_probability||0.5)-0.5)*200
+    :200-Math.abs((x.away.score||0)-(x.home.score||0))*3;
+   return grade(b)-grade(a)||String(a.date).localeCompare(String(b.date));
+ })[0])||shown[0];
+ const other=shown.filter(g=>!featured||g.id!==featured.id).slice().sort((a,b)=>{
+  const k=x=>x.state==='in'?3:x.state==='pre'?2:1;
+  return k(b)-k(a)||String(a.date).localeCompare(String(b.date));
+ }).slice(0,3);
+ const allFinals=games.filter(g=>g.state==='post').slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+ const future=nextGames.filter(g=>!slate.some(s=>s.id===g.id)).slice(0,5);
+ const model=feed.model||{},coverage=feed.coverage||{};
+ const status=g=>g.state==='in'?('LIVE · '+(g.period>4?'OT':'Q'+(g.period||'?'))+' '+(g.clock||'')):g.state==='post'?'FINAL':date(g.date);
+ const points=g=>g.state==='pre'?null:g;
+ const rec=t=>t&&t.w!=null?t.w+'–'+t.l+(t.t?'–'+t.t:''):'';
+ const kickoff=g=>g.broadcast||g.venue||date(g.date);
+ function scoreRow(s,g){
+  const t=team(s.id);
+  return '<div class="nfl-p26-score-row">'+crest(t,'sm')+
+    '<span class="nfl-p26-score-id">'+escapeHtml(t.code)+'<small>'+escapeHtml(rec(t))+'</small></span>'+
+    '<span class="nfl-p26-score-val'+(g.state==='pre'?' blank':'')+'">'+(g.state==='pre'?'—':format(s.score))+'</span></div>';
+ }
+ function scoreCard(g){
+  return '<a class="nfl-p26-score" href="'+urlGame(g.id)+'"><div class="nfl-p26-score-top"><span>WEEK '+escapeHtml(g.week)+'</span>'+
+   '<span class="'+(g.state==='in'?'in':'')+'">'+(g.state==='in'?'● ':'')+escapeHtml(status(g))+'</span></div>'+
+   scoreRow(g.away,g)+scoreRow(g.home,g)+
+   '<div class="nfl-p26-score-bottom">'+escapeHtml(g.state==='pre'?date(g.date)+(g.broadcast?' · '+g.broadcast:''):g.broadcast||g.last_play||g.venue||'Game center →')+'</div></a>';
+ }
+ function featuredMatch(g){
+  if(!g)return '<div class="nfl-p26-feature"><div><span class="nfl-p26-eyebrow">NFL GAME DAY</span><h2>YOUR NFL EDITION</h2><p>Game details are temporarily unavailable.</p></div></div>';
+  const a=team(g.away.id),h=team(g.home.id),pre=g.state==='pre',elo=g.elo||{},homePct=elo.home_win_probability;
+  const line=g.state==='in'?'LIVE · '+status(g):pre?'PREGAME SPOTLIGHT':'FINAL SCORE';
+  const headline=pre?a.name+' at '+h.name:g.state==='in'?a.name+' at '+h.name:a.name+' at '+h.name;
+  let out='<div class="nfl-p26-feature"><div><div class="nfl-p26-feature-kicker"><span>THE FEATURED GAME · WEEK '+escapeHtml(g.week)+'</span>'+
+   '<span class="nfl-p26-status '+(pre?'pre':g.state==='post'?'post':'')+'">'+(g.state==='in'?'<i class="nfl-p26-red-dot" aria-hidden="true"></i>':'')+escapeHtml(line)+'</span></div>'+
+   '<h2>'+escapeHtml(headline)+'</h2><p class="nfl-p26-feature-deck">'+escapeHtml(g.venue||g.city||'NFL regular season')+
+   (g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</p></div>';
+  out+='<div class="nfl-p26-match"><div class="nfl-p26-match-side">'+crest(a,'lg')+
+    '<span class="nfl-p26-name">'+escapeHtml(a.name)+'</span><span class="nfl-p26-record">'+escapeHtml(rec(a))+'</span></div>'+
+    '<div class="nfl-p26-big-score'+(pre?' is-pregame':'')+'">'+(pre?'VS':format(g.away.score)+'<br>–<br>'+format(g.home.score))+'</div>'+
+    '<div class="nfl-p26-match-side">'+crest(h,'lg')+'<span class="nfl-p26-name">'+escapeHtml(h.name)+'</span>'+
+    '<span class="nfl-p26-record">'+escapeHtml(rec(h))+'</span></div></div>';
+  out+='<div>';
+  if(homePct!=null){
+   const percent=Math.max(0,Math.min(100,100*Number(homePct)));
+   out+='<div class="nfl-p26-feature-forecast"><b>USRS PREGAME</b><span>'+escapeHtml(a.code)+' '+format(100-percent,0)+'%</span>'+
+    '<span class="nfl-p26-forecast-bar" role="img" aria-label="Pregame away '+format(100-percent,0)+' percent, home '+format(percent,0)+' percent"><i style="width:'+(100-percent).toFixed(1)+'%"></i></span>'+
+    '<span>'+escapeHtml(h.code)+' '+format(percent,0)+'%</span></div>';
+  }
+  out+='<div class="nfl-p26-feature-foot"><span>'+escapeHtml(pre?date(g.date):status(g))+
+   (pre&&elo.away_projected_points!=null?' · USRS projected '+elo.away_projected_points+'–'+elo.home_projected_points:'')+
+   '</span><a href="'+urlGame(g.id)+'">OPEN GAMEFILE ↗</a></div></div></div>';
+  return out;
+ }
+ function focusRow(g){
+  const a=team(g.away.id),h=team(g.home.id);
+  const both=g.state!=='pre'&&g.away.score!=null&&g.home.score!=null;
+  return '<a class="nfl-p26-focus-row" href="'+urlGame(g.id)+'"><div class="nfl-p26-focus-meta"><span>'+escapeHtml(g.state==='in'?'● LIVE':'WEEK '+g.week)+'</span>'+
+   '<span>'+escapeHtml(status(g))+'</span></div>'+
+   '<div class="nfl-p26-focus-teams">'+crest(a,'sm')+'<span>'+escapeHtml(a.code)+' <span class="nfl-p26-faint">at</span> '+escapeHtml(h.code)+'</span>'+
+   '<b>'+(both?format(g.away.score)+'–'+format(g.home.score):'VS')+'</b></div>'+
+   '<div class="nfl-p26-focus-line">'+escapeHtml(g.broadcast||g.venue||date(g.date))+'</div></a>';
+ }
+ function sectionHead(eye,title,href,cta,desc){
+  return '<div class="nfl-p26-section-head"><div><span class="nfl-p26-eyebrow nfl-p26-red">'+escapeHtml(eye)+'</span><h2>'+escapeHtml(title)+'</h2>'+
+   (desc?'<p>'+escapeHtml(desc)+'</p>':'')+'</div>'+(href?'<a href="'+href+'">'+escapeHtml(cta||'MORE')+' ↗</a>':'')+'</div>';
+ }
+ let out='<div class="nfl-p26"><div class="nfl-p26-opening"><div>'+
+  '<p class="nfl-p26-eyebrow">THE SPORTING LIFE &amp; TIMES · NATIONAL FOOTBALL LEAGUE · VOL. 2026</p>'+
+  '<h1 class="nfl-p26-main-title">THE GRIDIRON <em>desk.</em></h1>'+
+  '<p class="nfl-p26-main-deck">The league, as it happens. Real scores, complete gamefiles, the statistical race and independently calibrated USRS Elo.</p></div>'+
+  '<div class="nfl-p26-issue"><b>NFL / 2026</b><span>'+escapeHtml(dayText)+'</span><span>THE INDEPENDENT FOOTBALL EDITION</span></div></div>';
+ out+='<div class="nfl-p26-topline"><div class="nfl-p26-live-ident">'+(live.length?'<i class="nfl-p26-red-dot" aria-hidden="true"></i>':'')+
+   '<span>'+(live.length?'LIVE FROM '+live.length+' STADIUM'+(live.length===1?'':'S'):'THE GAME-DAY REPORT')+'</span></div>'+
+   '<span class="nfl-p26-sub">LIVE UPDATES · EASTERN TIME · <a href="nfl-game-center.html">OPEN FULL GAME CENTER ↗</a></span></div>';
+ out+='<div class="nfl-p26-hero">'+featuredMatch(featured)+
+   '<aside class="nfl-p26-focus-rail"><span class="nfl-p26-eyebrow nfl-p26-red">AROUND THE LEAGUE</span>'+
+   '<h3>'+(live.length?'In the balance.':'Next in line.')+'</h3>'+
+   '<p class="nfl-p26-focus-deck">Other games on the board. Away team first, home team second.</p>'+
+   '<div class="nfl-p26-focus-list">'+(other.length?other.map(focusRow).join(''):
+   '<p class="nfl-p26-faint">See the full slate and upcoming kickoffs in Game Center.</p>')+'</div>'+
+   '<div class="nfl-p26-rail-link"><a href="nfl-game-center.html">EVERY NFL GAME →</a></div></aside></div>';
+ out+=sectionHead('01 / LIVE DESK',isGameDay?'Across today’s scoreboard':'The next kickoffs','nfl-game-center.html','ALL SCORES',
+  isGameDay?'Every matchup. Live scores and game status refresh from source reporting.':'No NFL games scheduled for today; showing upcoming fixtures.');
+ out+='<div class="nfl-p26-score-grid">'+(shown.length?shown.map(scoreCard).join(''):
+   '<div class="nfl-p26-broken">No confirmed fixtures to display.</div>')+'</div>';
+ out+='<div class="nfl-p26-data-strip"><div class="nfl-p26-data-point"><b>'+format(coverage.finals)+'</b><span>Completed season games</span></div>'+
+   '<div class="nfl-p26-data-point"><b>'+format(coverage.boxscores)+'</b><span>Verified final box scores</span></div>'+
+   '<div class="nfl-p26-data-point"><b>32</b><span>NFL franchises</span></div>'+
+   '<div class="nfl-p26-data-point"><b>1,500</b><span>Every club’s starting Elo</span></div></div>';
+ out+=sectionHead('02 / THE STAT SHEET','The players setting the pace','nfl-players.html','FULL LEADERBOARDS',
+   coverage.boxscore_complete?'Season leaders calculated from every confirmed final box score.':'Season leader totals are partial pending additional game boxes.');
+ out+='<div class="nfl-p26-player-grid">';
+ [['passing','PASSING YARDS'],['rushing','RUSHING YARDS'],['receiving','RECEIVING YARDS']].forEach(([cat,label])=>{
+  const p=((feed.leaders||{})[cat]||[])[0];
+  if(!p){out+='<div class="nfl-p26-broken">Verified '+escapeHtml(cat)+' leaders pending.</div>';return;}
+  const t=team(p.team_id),photo=p.headshot||'',stat=p.value;
+  out+='<a class="nfl-p26-player" href="nfl-players.html?category='+cat+'" style="--club:'+escapeHtml(t.color)+'">'+
+   '<div class="nfl-p26-player-copy"><small>LEAGUE LEADER / '+escapeHtml(label)+'</small>'+
+   '<strong>'+escapeHtml(p.name)+'</strong><span class="nfl-p26-eyebrow">'+escapeHtml(t.name)+'</span>'+
+   '<div class="nfl-p26-player-number"><b>'+format(stat)+'</b><span>YDS</span></div>'+
+   '<span class="nfl-p26-player-detail">'+format(p.games)+' verified games · '+escapeHtml(t.code)+'</span></div>'+
+   '<div class="nfl-p26-player-photo">'+(photo?'<img loading="lazy" src="'+escapeHtml(photo)+'" alt="">':'')+'</div></a>';
+ });
+ out+='</div>';
+ out+='<div class="nfl-p26-editorial"><div class="nfl-p26-column nfl-p26-news">'+
+  sectionHead('03 / HEADLINES','Around the NFL',null,null,'Reporting from independent and attributed sources.')+
+  panel('NFL TOP STORIES','<div id="nfl-stories">Loading sourced NFL headlines…</div>')+'</div>'+
+  '<div class="nfl-p26-column">'+sectionHead('04 / THE MODEL','Power & probability','nfl-rankings.html','ALL 32 CLUBS',
+  'Independent USRS ratings. Every team started 2026 at 1,500.')+
+  '<div class="nfl-p26-rankings">'+feed.teams.slice(0,8).map((t,i)=>{
+    const pct=Math.max(2,Math.min(100,(Number(t.elo)-1250)/500*100));
+    return '<a class="nfl-p26-power-row" href="'+urlTeam(t.id)+'"><span class="nfl-p26-power-rank">'+(i+1)+'</span>'+crest(t,'sm')+
+    '<span class="nfl-p26-power-name">'+escapeHtml(t.name)+'<small>'+t.w+'–'+t.l+(t.t?'–'+t.t:'')+
+    '</small><span class="nfl-p26-power-meter"><i style="width:'+pct.toFixed(1)+'%"></i></span></span>'+
+    '<span class="nfl-p26-power-val">'+format(t.elo,0)+'</span></a>';
+   }).join('')+'<div class="nfl-p26-power-foot">Historically calibrated · HFA '+format(model.home_advantage_elo)+
+   ' Elo · K '+format(model.k_base)+'. Ratings update only when source-confirmed games become final.</div></div></div></div>';
+ out+='<div class="nfl-p26-lower"><div class="nfl-p26-results">'+
+  sectionHead('05 / THE FINAL WHISTLE','Latest results','nfl-schedule.html','SEASON SCHEDULE')+
+  (allFinals.map(gameLine).join('')||'<p class="nfl-p26-broken">No verified final scores available.</p>')+'</div>'+
+  '<div class="nfl-p26-results">'+sectionHead('06 / ON THE HORIZON','Coming up','nfl-schedule.html','UPCOMING GAMES')+
+  (future.map(gameLine).join('')||'<p class="nfl-p26-broken">No upcoming regular-season fixtures remain.</p>')+'</div></div>';
+ out+='<section id="teams" class="nfl-p26-team-list"><div><h2>The 32 clubs.</h2><span class="nfl-p26-eyebrow nfl-p26-red">CHOOSE A TEAM ↘</span></div>'+
+ directory()+'</section>';
+ out+='<p class="nfl-p26-method">Source-reported scores and game statistics are distinct from USRS model outputs. Pregame forecast probabilities are not in-game win probabilities. The model starts every club at 1,500 each regular season; no historical rating is carried into 2026. Live game numbers are provisional until verified final data publishes.</p>';
+ return out+'</div>';
 }
+
 function standings(){
 let out='<p class="nfl-kicker">REGULAR SEASON · CONFERENCE TABLES</p><h1 class="nfl-title">NFL STANDINGS</h1>';
 out+=note("Standings are computed from ESPN-sourced finals. Display ties use Elo after win percentage, <strong>not</strong> the NFL’s complete official tiebreaking procedures.");
