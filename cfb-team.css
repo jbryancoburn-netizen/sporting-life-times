@@ -107,3 +107,25 @@
  border:0!important;outline:0!important;border-radius:0!important;
  padding:0!important;margin:0!important;background:transparent!important;box-shadow:none!important;z-index:2!important;
 }
+
+
+/* Logo center recovery: keep the original team image in normal flex layout.
+   iOS Safari can fail to paint lazy, absolutely positioned images above SVG.
+   Rings remain a single two-color SVG; the mark is a separate visible sibling. */
+.cfb-crest,.cfb-team-mark{display:inline-flex!important;align-items:center!important;justify-content:center!important}
+.cfb-crest>.cfb-ring-art,.cfb-team-mark>.cfb-ring-art{z-index:0!important}
+.cfb-crest>img[data-cfb-logo],.cfb-team-mark>img[data-cfb-logo]{
+ position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;
+ transform:none!important;display:block!important;flex:0 0 70%!important;
+ width:70%!important;height:70%!important;min-width:0!important;min-height:0!important;
+ max-width:70%!important;max-height:70%!important;object-fit:contain!important;
+ background:transparent!important;border:0!important;padding:0!important;margin:0!important;
+ opacity:1!important;visibility:visible!important;z-index:2!important;
+}
+.cfb-crest>.cfb-logo-fallback,.cfb-team-mark>.cfb-logo-fallback{
+ position:absolute!important;inset:15%!important;z-index:1!important;display:flex!important;
+ justify-content:center!important;align-items:center!important;text-align:center!important;
+ color:var(--primary,#1d3540)!important;font:800 clamp(10px,1.6vw,19px)/1 Arial,sans-serif!important;
+ letter-spacing:-.04em!important;background:transparent!important;pointer-events:none!important;
+}
+.cfb-crest>.cfb-logo-fallback.is-hidden,.cfb-team-mark>.cfb-logo-fallback.is-hidden{display:none!important}
