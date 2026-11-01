@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/nfl-edition.yml'
       - 'scripts/build_nfl_edition.py'
+      - 'scripts/calibrate_nfl_elo.py'
       - 'scripts/test_nfl_edition.py'
       - 'nfl.html'
       - 'nfl-edition.js'
@@ -35,13 +36,17 @@ jobs:
           python-version: '3.12'
       - name: Validate model and 1500 season reset
         run: |
-          python -m py_compile scripts/build_nfl_edition.py
+          python -m py_compile scripts/build_nfl_edition.py scripts/calibrate_nfl_elo.py
           python scripts/test_nfl_edition.py
+      - name: Recover and backtest NFL historical Elo parameters
+        run: |
+          python scripts/calibrate_nfl_elo.py
       - name: Fetch full 2026 NFL season or nearby weeks
         run: |
           if [ "$(date -u +%H%M)" = "1013" ]; then
             python scripts/build_nfl_edition.py
           else
+            python scripts/calibrate_nfl_elo.py
             python scripts/build_nfl_edition.py --fast
           fi
       - name: Validate saved publication and model
@@ -52,6 +57,11 @@ jobs:
           f=json.loads(Path('data/nfl-2026-edition.json').read_text())
           assert f['season']==2026 and f['model']['baseline']==1500
           assert f['model']['season_reset'] is True and f['model']['historical_prior'] is False
+          assert f['model']['calibrated'] is True, 'Historical Elo calibration is required'
+          cal=json.loads(Path('data/nfl-elo-calibration.json').read_text())
+          assert cal['status']=='calibrated' and cal['train_games']>=540
+          assert f['model']['home_advantage_elo']==cal['home_advantage_elo']
+          assert f['model']['k_base']==cal['k_base']
           assert f['coverage']['teams']==32 and f['coverage']['games']>=200
           assert len(set(g['id'] for g in f['games']))==len(f['games'])
           assert f['coverage']['finals']==sum(g['state']=='post' for g in f['games'])
@@ -64,7 +74,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json
+          git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json data/nfl-elo-calibration.json
           if git diff --cached --quiet; then
             echo "Verified NFL data unchanged"
             exit 0
@@ -80,7 +90,7 @@ jobs:
             git reset --hard origin/main
             python scripts/build_nfl_edition.py --fast
             python scripts/test_nfl_edition.py
-            git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json
+            git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json data/nfl-elo-calibration.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "Reconcile NFL 2026 verified results and independent Elo"
             sleep 2
