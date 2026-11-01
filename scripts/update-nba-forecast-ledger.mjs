@@ -113,11 +113,30 @@ function updateLedger(previous,sources,now=new Date().toISOString()){
  };
  validate(ledger);
  if(!ledger.exceptions)ledger.exceptions={};
+ // Guard historical truth: a newly revised final must never silently replace
+ // an already published and graded archived result.
+ for(const [id,saved] of Object.entries(ledger.results)){
+  const current=verified.get(id);
+  if(current&&(current.home!==saved.home||current.away!==saved.away||
+    current.home_score!==saved.home_score||current.away_score!==saved.away_score))
+   throw Error('Previously published NBA final changed: '+id+' (requires explicit source review)');
+ }
+ // Conflicting duplicate schedule identifiers are quarantined as feed errors;
+ // they cannot be used to mint a verifiable pregame prediction.
+ const identities=new Map(),conflicts=new Set();
+ for(const g of schedule.games){
+  if(!g.id)continue;
+  const teams=g.teams||[],away=teams.find(z=>z.home_away==='away')?.code,
+   home=teams.find(z=>z.home_away==='home')?.code;
+  const identity=[away,home,Date.parse(g.date)].join('|');
+  if(identities.has(g.id)&&identities.get(g.id)!==identity)conflicts.add(g.id);
+  else identities.set(g.id,identity);
+ }
  const present=new Set(ledger.forecasts.map(f=>f.id+':'+f.phase));
  let added=0,graded=0,flagged=0,skippedStale=0;
  const seen=new Set();
  for(const g of schedule.games){
-  if(!g.id||seen.has(g.id))continue;seen.add(g.id);
+  if(!g.id||seen.has(g.id)||conflicts.has(g.id))continue;seen.add(g.id);
   const until=Date.parse(g.date)-t;
   const earlier=ledger.forecasts.filter(f=>f.id===g.id);
   const away=g.teams?.find(z=>z.home_away==='away')?.code;
