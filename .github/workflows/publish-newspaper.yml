@@ -16,6 +16,11 @@ on:
       - 'data/epl-*.json'
       - 'data/mbb-schedules-2026-27/*.json'
       - 'data/mbb-external-top25.json'
+      # Direct source or verified rating updates should publish immediately.
+      # GitHub Actions-origin commits use workflow_dispatch from the Elo job.
+      - 'data/mbb-live.json'
+      - 'data/ncaam-2026-27-retro-primary.json'
+      - 'data/ncaaw-2026-27-retro-primary.json'
   workflow_dispatch:
   workflow_run:
     workflows:
