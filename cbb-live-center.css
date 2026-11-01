@@ -61,3 +61,145 @@
 .cbb-switch a[aria-current]{color:#fff;background:#17414e}
 @media(max-width:680px){.cbb-desk-header{align-items:flex-start;flex-direction:column}.cbb-cards{grid-template-columns:1fr}.cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{width:52px!important;height:52px!important;flex-basis:52px!important}.cbb-detail-score{grid-template-columns:1fr}.cbb-detail-score .cbb-scorebug-row:first-child{border-bottom:1px solid #dce7e9}.cbb-date-controls{gap:5px}.cbb-desk-sub{display:block;margin:5px 0}}
 @media(prefers-reduced-motion:reduce){.cbb-live-dot{animation:none}}
+
+/* 2026 COURTSIDE EDITION: broadcast-grade game cards, newspaper hierarchy. 
+   Important: never apply another border or pseudo-element to .mbb-mark artwork. */
+.cbb-live-desk{
+  --cbb-navy:#061c2b;--cbb-slate:#102c3b;--cbb-accent:#25c7cd;
+  --cbb-gold:#dbbd78;--cbb-quiet:#a7c0cb;
+  margin:24px 0 32px;background:transparent;color:var(--cbb-ink);
+}
+.cbb-live-desk.cbb-women{--cbb-accent:#f28a9b;--cbb-gold:#f0c5b5}
+.cbb-desk-header{
+  border-top:5px solid #0c3345;border-bottom:2px solid #abc7cc;
+  padding:18px 12px 19px 0;background:linear-gradient(90deg,#fff 0%,#f1f6f7 100%);
+}
+.cbb-kicker{font-size:10px;font-weight:900;color:#34626f;letter-spacing:2px}
+.cbb-desk-header h2{font:700 clamp(30px,4.4vw,46px)/.98 Georgia,'Times New Roman',serif;letter-spacing:-1.5px;color:#092b3a}
+.cbb-desk-sub{display:block;margin-top:7px;font:800 10px/1.3 Arial,sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:#65808c}
+.cbb-center-link{padding:10px 13px;border:1px solid #c1d5d8;font-weight:900;letter-spacing:.5px;transition:background .15s,color .15s}
+.cbb-center-link:hover{background:#0d3548;color:#fff;text-decoration:none}
+.cbb-date-controls{padding:15px 0 6px}
+.cbb-date-controls button,.cbb-date-controls input{background:#fff;border:1px solid #bfd0d5;border-radius:0;padding:8px 12px;min-height:39px}
+.cbb-date-controls button:hover{background:#eaf6f7}
+.cbb-date-label{letter-spacing:.7px;color:#244b59}
+.cbb-source-stamp{font-size:10px!important;padding:2px 0 7px;margin:0!important;color:#607d8a!important}
+.cbb-filter-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-bottom:1px solid #b7ccd1;padding:8px 0 13px;margin-bottom:17px}
+.cbb-filter-bar button{cursor:pointer;background:#e9f0f2;color:#244653;border:1px solid #d4e0e3;padding:9px 12px;font:900 10px Arial,sans-serif;letter-spacing:.7px}
+.cbb-filter-bar button span{display:inline-block;margin-left:5px;font-variant-numeric:tabular-nums;color:#687f8b}
+.cbb-filter-bar button[aria-pressed="true"]{background:#112e3e;color:#fff;border-color:#112e3e;box-shadow:inset 0 -3px 0 #2bc0c8}
+.cbb-filter-bar button[aria-pressed="true"] span{color:#e2f2f4}
+.cbb-filter-bar [data-cbb-filter="live"]:not([aria-pressed="true"]){color:#a52a35}
+.cbb-filter-bar button:focus-visible{outline:3px solid #b88727;outline-offset:2px}
+.cbb-cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px;align-items:stretch}
+.cbb-game-card{
+  position:relative;isolation:isolate;display:flex;flex-direction:column;
+  background:linear-gradient(135deg,#153749 0%,#091f30 58%,#061923 100%);
+  border:1px solid #254658;border-top:0;min-width:0;overflow:hidden;
+  color:#edf6f8;box-shadow:0 9px 20px rgba(5,29,44,.14),0 2px 1px rgba(5,29,44,.1);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.cbb-game-card:hover{transform:translateY(-2px);box-shadow:0 14px 27px rgba(5,29,44,.22)}
+.cbb-game-card::before{content:"";position:absolute;z-index:-1;width:270px;height:270px;right:-146px;top:85px;border:1px solid rgba(255,255,255,.035);border-radius:50%;box-shadow:0 0 0 38px rgba(255,255,255,.015),0 0 0 84px rgba(255,255,255,.01);pointer-events:none}
+.cbb-card-brand{
+  display:flex;align-items:center;justify-content:space-between;min-width:0;gap:10px;
+  background:#071722;color:#c8e5eb;border-top:3px solid var(--cbb-accent);
+  padding:8px 13px;font:900 9px/1.2 Arial,Helvetica,sans-serif;letter-spacing:1.5px;
+}
+.cbb-court-icon{font-size:13px;color:var(--cbb-gold);vertical-align:middle;margin-right:2px}
+.cbb-brand-suffix{color:#779bac;font-weight:600;letter-spacing:.8px}
+.cbb-brand-live{font-size:9px;color:#e8c992;letter-spacing:.8px;white-space:nowrap}
+.cbb-live .cbb-card-brand{border-top-color:#ee5867}
+.cbb-live .cbb-brand-live{color:#ff7580}
+.cbb-bug-top{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:transparent!important;border:0;padding:14px 15px 5px;
+  color:#eaf6fa!important;font-size:11px;letter-spacing:.25px;min-height:42px}
+.cbb-bug-top>span:first-child{display:flex;gap:7px;align-items:center;flex-wrap:wrap;font-weight:900}
+.cbb-bug-network{font:800 9px/1.1 Arial,sans-serif;color:#89b6c0;letter-spacing:.8px;text-align:right;max-width:130px}
+.cbb-live-pill{background:#c62537!important;padding:5px 8px;border-radius:2px;font-size:10px;letter-spacing:1.3px}
+.cbb-live-dot{height:7px;width:7px}
+.cbb-final{color:#a7dfe0;letter-spacing:1.1px}
+.cbb-match-rows{margin:4px 12px 0;border:1px solid rgba(164,211,222,.13);background:rgba(255,255,255,.025)}
+.cbb-scorebug-row{
+  min-height:88px;padding:11px 14px 11px 10px;gap:10px;
+  border-bottom:1px solid rgba(175,212,218,.14);
+  box-shadow:inset 4px 0 0 var(--cbb-away);background:linear-gradient(90deg,rgba(255,255,255,.035),transparent);
+}
+.cbb-match-rows .cbb-scorebug-row:nth-child(2){box-shadow:inset 4px 0 0 var(--cbb-home);border-bottom:0}
+.cbb-team-side{
+  flex:0 0 35px;text-align:center;font:900 8px/1.2 Arial,sans-serif;
+  letter-spacing:1px;color:#7fa8b6;writing-mode:vertical-rl;transform:rotate(180deg)
+}
+.cbb-team-link{flex:1;min-width:0;color:#fff!important}
+.cbb-team-link:hover .cbb-name b{color:#a4f1ed}
+.cbb-team-identity{gap:11px}
+.cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{
+  --mbb-size:58px;
+  flex:0 0 var(--mbb-size)!important;width:var(--mbb-size)!important;height:var(--mbb-size)!important;
+  min-width:var(--mbb-size)!important;max-width:var(--mbb-size)!important;
+  min-height:var(--mbb-size)!important;max-height:var(--mbb-size)!important;
+}
+.cbb-fallback-crest{width:58px;height:58px;min-width:58px;flex-shrink:0;background:#fff}
+.cbb-name b{font:900 clamp(17px,1.6vw,21px)/1.08 'Arial Narrow',Arial,sans-serif;letter-spacing:.2px;color:#f7fdff}
+.cbb-name small{font-size:11px!important;color:#aac4d0!important;line-height:1.22!important;-webkit-line-clamp:2}
+.cbb-points{font:900 clamp(36px,4vw,48px)/1 'Arial Narrow',Impact,Arial,sans-serif;min-width:50px;letter-spacing:-1.3px;color:#f3fbff;font-variant-numeric:tabular-nums}
+.cbb-winner .cbb-points{color:#84f6db;text-shadow:0 0 16px rgba(71,237,205,.22)}
+.cbb-upcoming .cbb-points{color:#557480!important}
+.cbb-score-card-foot{display:flex;flex-direction:column;margin-top:auto}
+.cbb-preview{min-height:44px;margin:0 12px;padding:10px 8px;color:#bcd5dc;background:rgba(1,12,22,.4);font-size:10px;border:1px solid rgba(164,211,222,.13);border-top:0}
+.cbb-preview-hint{font:800 10px Arial,sans-serif;letter-spacing:.7px;color:#97bdc8}
+.cbb-micro-wrap{display:grid;gap:10px}
+.cbb-micro-statline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.cbb-micro-stat{display:flex;align-items:center;justify-content:space-between;gap:4px;min-width:0;background:rgba(255,255,255,.07);padding:8px 6px;border-radius:2px}
+.cbb-micro-stat b{font-size:12px;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap;color:#eefbff}
+.cbb-micro-stat small{font:900 8px Arial,sans-serif;letter-spacing:.5px;color:#9cbec8}
+.cbb-leader-ticker{font-size:10px;display:flex;gap:5px;flex-wrap:wrap;align-items:baseline}
+.cbb-leader-ticker>span{flex-basis:100%;color:#8fc5cd;font-weight:900;font-size:9px;letter-spacing:1px}
+.cbb-leader-ticker b{font-size:11px;color:#fff;font-weight:700}
+.cbb-leader-ticker em{color:#81e9df;font-style:normal;font-weight:900}
+.cbb-leader-ticker i{font-style:normal;color:#6e9fac}
+.cbb-bug-bottom{background:transparent;border-top:1px solid rgba(164,211,222,.16);margin:0 12px;min-height:55px;padding:12px 2px;color:#9fbbc4;gap:12px;font-size:10px}
+.cbb-bug-bottom>span{max-width:52%;line-height:1.3}
+.cbb-box-btn{background:#eff8f8;color:#0f3445;display:inline-flex;justify-content:center;align-items:center;gap:7px;padding:9px 10px;
+  min-height:33px;letter-spacing:.6px;white-space:nowrap;border:1px solid #b9d9dc;font-size:9px;text-decoration:none}
+.cbb-box-btn:hover{background:#66e5de;border-color:#66e5de;color:#0a2a37}
+.cbb-box-btn span{font-size:15px;line-height:0}
+.cbb-detail{border-top:5px solid #0a4459;box-shadow:0 8px 24px rgba(19,65,76,.1);background:#f3f7f8}
+.cbb-detail h3{color:#092e40}
+.cbb-standalone .cbb-desk-header{padding-top:20px}
+.cbb-standalone .cbb-cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr))}
+.cbb-switch{gap:0;border-bottom:2px solid #123948}
+.cbb-switch a{padding:13px 21px;letter-spacing:.6px;font-size:12px;background:#f0f4f5;border-color:#cfdee1}
+.cbb-switch a[aria-current]{background:#0a3042;color:#fff;border-bottom:3px solid #55d8d6}
+@media(max-width:900px){
+ .cbb-cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+ .cbb-scorebug-row{min-height:79px}
+ .cbb-name b{font-size:19px}
+}
+@media(max-width:680px){
+ .cbb-desk-header{padding:15px 10px 16px}
+ .cbb-desk-header h2{font-size:34px;letter-spacing:-1px}
+ .cbb-desk-sub{display:block}
+ .cbb-cards{grid-template-columns:1fr;gap:13px}
+ .cbb-game-card:hover{transform:none}
+ .cbb-card-brand{letter-spacing:1px}
+ .cbb-scorebug-row{min-height:84px}
+ .cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{--mbb-size:61px}
+ .cbb-name b{font-size:19px}
+ .cbb-points{font-size:43px}
+ .cbb-bug-bottom>span{max-width:47%}
+ .cbb-filter-bar{gap:4px}
+ .cbb-filter-bar button{padding:9px 8px;font-size:9px}
+ .cbb-date-controls button,.cbb-date-controls input{padding:7px 9px}
+}
+@media(max-width:375px){
+ .cbb-scorebug-row{padding:9px 8px;gap:5px}
+ .cbb-team-side{flex-basis:23px;font-size:7px}
+ .cbb-team-identity{gap:6px}
+ .cbb-team-identity .mbb-mark,.cbb-team-identity .mbb-mark--score{--mbb-size:52px}
+ .cbb-fallback-crest{width:52px;height:52px;min-width:52px}
+ .cbb-name b{font-size:16px}
+ .cbb-name small{font-size:10px!important}
+ .cbb-points{font-size:39px;min-width:39px}
+}
+@media(prefers-reduced-motion:reduce){.cbb-game-card{transition:none}}
