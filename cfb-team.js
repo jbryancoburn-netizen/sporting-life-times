@@ -20,8 +20,9 @@ function published(teamId){const a=schools.get(String(teamId))||{},b=brands.get(
  const t={...b,...a,id:String(teamId),displayName:a.displayName||b.displayName,shortDisplayName:a.shortDisplayName||b.shortDisplayName,color:b.color||a.color,alternateColor:b.alternateColor||a.alternateColor,logos:a.logos||b.logos,conference:a.conference};
  return t.displayName?t:null;
 }
-function mark(t){const b=published(t?.id)||{},a={...b,...t},outer=color(a.color,'#203b49');let inner=color(a.alternateColor,'#b68e46');if(inner===outer)inner='#87939b';
- return '<span class="cfb-team-mark" style="--primary:'+outer+';--secondary:'+inner+'"><img loading="lazy" src="'+esc(logo(a))+'" alt=""></span>';
+function mark(t){const b=published(t?.id)||{},a={...b,...t};
+ const {primary,secondary}=window.CFB_DESK.ringColors(a);
+ return '<span class="cfb-team-mark" style="--primary:'+primary+';--secondary:'+secondary+'"><img loading="lazy" src="'+esc(logo(a))+'" alt=""></span>';
 }
 function normalizeSchedules(saved,fixture,finals){const map=new Map();
  for(const e of fixture||[])if(e?.id)map.set(String(e.id),e);
@@ -84,8 +85,9 @@ async function start(){
  if(results.status==='fulfilled'){snapshot=results.value;if(snapshot.audit?.complete&&snapshot.audit?.games===snapshot.games?.length&&snapshot.audit?.errors?.length===0)indexTeams(snapshot);else snapshot=null;}
  const saved=published(id),live=info.status==='fulfilled'?(info.value.team||info.value):null;
  team=live||saved;
- if(team){team={...saved,...live,id,conference:saved?.conference||live?.groups?.parent?.name||live?.groups?.name||'FBS'};const primary=color(team.color,'#203b49'),secondary=color(team.alternateColor,'#b68e46');
- document.documentElement.style.setProperty('--school',primary);document.documentElement.style.setProperty('--school2',primary===secondary?'#87939b':secondary);
+ if(team){team={...saved,...live,id,conference:saved?.conference||live?.groups?.parent?.name||live?.groups?.name||'FBS'};
+ const {primary,secondary}=window.CFB_DESK.ringColors(team);
+ document.documentElement.style.setProperty('--school',primary);document.documentElement.style.setProperty('--school2',secondary);
  document.title=team.displayName+' | The Sporting Life & Times';
  $('team-heading').innerHTML='<div class="team-hero">'+mark(team)+'<div><span class="team-eyebrow">2026 · '+esc(team.conference)+'</span><h1>'+esc(team.displayName)+'</h1><p>'+esc([team.location,team.nickname].filter(Boolean).join(' · ')||team.shortDisplayName||team.displayName)+'</p></div></div>';
  $('team-info').innerHTML=[['University',team.displayName],['Nickname',team.nickname],['Location',team.location],['Abbreviation',team.abbreviation],['Conference',team.conference]].map(([k,v])=>'<div class="team-info-row"><span>'+esc(k)+'</span><strong>'+esc(v||'Not published')+'</strong></div>').join('');
