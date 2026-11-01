@@ -12,7 +12,7 @@ const row={
 const issue={season:'2026-27',gender:'women',status:'unresolved_university_site_claims',games:[row]};
 const g={id:'401999777',home_id:'2',away_id:'87',site:'neutral',neutral:true,
  date:'2026-11-19T18:00Z',status:'scheduled',completed:false};
-test('same neutral-site women's event identity is quarantined without inventing a host',()=>{
+test('same neutral-site women event identity is quarantined without inventing a host',()=>{
  const index=api.index(issue);
  assert.equal(index.size,1);
  assert.equal(api.claims(g,index).length,1);
