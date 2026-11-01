@@ -196,6 +196,77 @@ def reconcile_cacc(records,games,teams,today):
   game["venue_city"]=next((r["city"] for r in rows if r["source_team"]==home and r["city"]),rows[0]["city"])
  return report
 
+HOST_GRID_SOURCES={
+ "caldwell":"https://caldwellathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+ "chestnut-hill":"https://griffinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+ "goldey-beacom":"https://www.gbcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+ "post":"https://posteagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
+}
+
+def parse_host_venues(html,home):
+ """School's own actual 2026-27 grid, never a guessed usual campus arena."""
+ from bs4 import BeautifulSoup
+ soup=BeautifulSoup(html,"html.parser")
+ title=clean(soup.get_text(" ",strip=True)).lower()
+ if "2026-27" not in title and "2026-2027" not in title:
+  raise ValueError("Host schedule not for 2026-27")
+ if "men's basketball" not in title:raise ValueError("Host schedule sport not men's basketball")
+ matches=[]
+ for table in soup.select("table"):
+  heads=" ".join(clean(th.get_text(" ",strip=True)).lower() for th in table.select("th"))
+  if not all(x in heads for x in ("date","time","at","opponent","location")):continue
+  for tr in table.select("tr"):
+   cols=[clean(x.get_text(" ",strip=True)) for x in tr.find_all(["th","td"],recursive=False)]
+   if len(cols)<5:continue
+   day,time,role,opponent,place=cols[:5]
+   if role.lower()!="home" or "/" not in place:continue
+   date_match=re.search(r"([A-Za-z]+\\s+\\d{1,2},\\s+202[67])",day)
+   if not date_match:continue
+   try:when=dt.datetime.strptime(date_match[1],"%B %d, %Y").date()
+   except ValueError:continue
+   if not(dt.date(2026,11,1)<=when<=dt.date(2027,2,28)):continue
+   away=opponent_id(opponent)
+   if not away or away==home:continue
+   city,arena=map(clean,place.split("/",1))
+   if not arena or not re.search(r"\\b(center|arena|gym(?:nasium)?|fieldhouse|pavilion)\\b",arena,re.I):
+    continue
+   matches.append({"date":when.isoformat(),"away":away,"home":home,
+                   "venue":arena+" · "+city})
+ # Ambiguous duplicate date/team venues are explicitly withheld.
+ grouped=defaultdict(set)
+ for r in matches:grouped[(r["date"],r["away"],r["home"])].add(r["venue"])
+ return {key:next(iter(venues)) for key,venues in grouped.items() if len(venues)==1}
+
+def enrich_cacc_host_venues(games):
+ """Only official 2026-27 HOME game venue names, matched by exact opponent."""
+ stats={"official_host_schedules":0,"venues_added":0,"venue_conflicts":0,
+        "unavailable":[],"coverage_by_host":{}}
+ for home,url in HOST_GRID_SOURCES.items():
+  try:
+   venues=parse_host_venues(read_page(url),home)
+  except Exception as exc:
+   stats["unavailable"].append({"host":home,"cause":str(exc)[:150]})
+   continue
+  if len(venues)<7: # Safeguard against truncated/wrong-year source.
+   stats["unavailable"].append({"host":home,"cause":"too few independently matched home game venue rows"})
+   continue
+  stats["official_host_schedules"]+=1
+  found=0
+  for game in games.values():
+   key=(game.get("date"),game.get("away"),game.get("home"))
+   if key not in venues:continue
+   verified=venues[key]
+   old=game.get("venue")
+   if old and old!=verified:
+    stats["venue_conflicts"]+=1
+    continue
+   if not old:
+    game["venue"]=verified
+    game["venue_source_url"]=url
+    found+=1;stats["venues_added"]+=1
+  stats["coverage_by_host"][home]=found
+ return stats
+
 def enrich_cacc(games,teams,today):
  ids={v[1] for v in SCHOOLS.values()}
  if not ids.issubset(teams):
@@ -208,6 +279,7 @@ def enrich_cacc(games,teams,today):
   return {"status":"withheld: one or more official school schedules unavailable",
    "verified_schools":len(records),"errors":failed,"added":0}
  audit=reconcile_cacc(records,games,teams,today)
+ audit["home_venue_coverage"]=enrich_cacc_host_venues(games)
  audit["status"]="verified reciprocal games only; provisional programs excluded"
  audit["official_network_context"]=OFFICIAL_NETWORK
  audit["streaming_not_blanket_verified"]=True
