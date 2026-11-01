@@ -359,7 +359,9 @@ def main():
             'checked_at':now,'games':women_school_rows,
             'source':'verified individual women university schedule entries; date/opponent only'}
         out['sources'].append({'source':'Official school fixture evidence','ok':True,
-              'men':len(school_rows),'women':len(women_school_rows)})
+              'men':len(school_rows),'women':len(women_school_rows),
+              'men_school_confirmations':sum(int(g.get('school_confirmations') or 0) for g in school_rows),
+              'women_school_confirmations':sum(int(g.get('school_confirmations') or 0) for g in women_school_rows)})
     except Exception as exc:
         out['sources'].append({'source':'Official school fixture evidence','ok':False,
                                 'error':type(exc).__name__})
