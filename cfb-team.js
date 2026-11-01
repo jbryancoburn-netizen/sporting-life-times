@@ -80,7 +80,9 @@ function conferenceView(tree){const groups=[];
  walk(tree);const best=groups.sort((a,b)=>b.entries.length-a.entries.length)[0];
  $('team-conference').innerHTML=best?'<h3>'+esc(team?.conference||best.name)+'</h3>'+best.entries.map(e=>'<div class="team-info-row"><span>'+esc(e.team?.shortDisplayName||e.team?.displayName)+'</span><strong>'+esc((e.stats||[]).find(x=>x.name==='overall'||x.name==='overallRecord')?.displayValue||'—')+'</strong></div>').join(''):msg('Conference table unavailable.');}
 async function start(){
- const requests=await Promise.allSettled([source('teams/'+id),source('teams/'+id+'/schedule?season=2026'),source('teams/'+id+'/roster?season=2026'),source('teams/'+id+'/statistics?season=2026'),get('data/cfb-2026-results.json?ts='+Date.now()),get('https://site.api.espn.com/apis/v2/sports/football/college-football/standings?season=2026&group=80')]);
+ const requestsPending=Promise.allSettled([source('teams/'+id),source('teams/'+id+'/schedule?season=2026'),source('teams/'+id+'/roster?season=2026'),source('teams/'+id+'/statistics?season=2026'),get('data/cfb-2026-results.json?ts='+Date.now()),get('https://site.api.espn.com/apis/v2/sports/football/college-football/standings?season=2026&group=80')]);
+ await window.CFB_DESK.logosReady;
+ const requests=await requestsPending;
  const [info,fixture,personnel,stats,results,standings]=requests;
  if(results.status==='fulfilled'){snapshot=results.value;if(snapshot.audit?.complete&&snapshot.audit?.games===snapshot.games?.length&&snapshot.audit?.errors?.length===0)indexTeams(snapshot);else snapshot=null;}
  const saved=published(id),live=info.status==='fulfilled'?(info.value.team||info.value):null;
