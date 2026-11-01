@@ -55,7 +55,7 @@ for(const bad of [
 const game={id:'401920982',away:{team:{id:'87'}},home:{team:{id:'222'}}};
 const selected=radio.getGameSources(config.sources,game,'men');
 assert(selected.some(x=>x.id==='nd-mbb-radio')&&selected.some(x=>x.id==='varsity-radio'));
-assert(!selected.some(x=>x.id==='nd-wbb-radio'),'do not mix men's and women's radio feeds');
+assert(!selected.some(x=>x.id==='nd-wbb-radio'),"do not mix men's and women's radio feeds");
 assert(radio.getGameSources(config.sources,game,'women').some(x=>x.id==='nd-wbb-radio'));
 assert(!radio.getGameSources(config.sources,{away:{team:{id:'123'}},home:{team:{id:'456'}}},'men')
   .some(x=>x.id==='nd-mbb-radio'),'unrelated team cannot inherit Notre Dame audio');
