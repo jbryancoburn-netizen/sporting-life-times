@@ -331,8 +331,8 @@ def seed_espn_dii_branding(gender,teams):
     url=f"https://site.api.espn.com/apis/site/v2/sports/basketball/{sport}/teams?group=51&limit=1000"
     try:
         entries=espn_team_entries(get_json(url))
-        if len(entries)<25:
-            raise ValueError(f"ESPN DII directory incomplete ({len(entries)} teams)")
+        if not 25<=len(entries)<=330:
+            raise ValueError(f"ESPN DII team-list data unverified ({len(entries)} teams); rejecting mismatched division")
     except Exception as exc:
         return {"matched":sum(bool(t.get("primary") and t.get("secondary")) for t in teams.values()),
                 "directory_teams":0,"source":url,"error":str(exc)[:200]}
@@ -400,6 +400,29 @@ def seed_shared_dii_colors(gender,teams):
         t["color_provenance"]=source.get("color_provenance","") + " (shared institutional palette across genders)"
         count+=1
     return {"added":count,"method":"unique matching NCAA school logo slug"}
+
+def seed_published_dii_palettes(gender,teams):
+    """Apply institution-specific published DII team colors with source URLs."""
+    path=DATA/"d2-school-color-evidence-2026.json"
+    if not path.exists():return {"matched":0,"status":"source registry missing"}
+    evidence=json.loads(path.read_text())
+    matched=0;tonal=0
+    for item in evidence.get("entries",[]):
+        ident=item.get("gender_ids",{}).get(gender)
+        if not ident or ident not in teams:continue
+        primary=nonwhite_color(item.get("primary"))
+        second=nonwhite_color(item.get("secondary"))
+        if not primary:continue
+        if item.get("secondary_kind")=="white_replaced_with_tonal":
+            second=tonal_accent(primary);tonal+=1
+            provenance="published primary; editorial nonwhite tonal accent (official secondary white)"
+        elif second and second!=primary:
+            provenance="independently published two-color school palette"
+        else:continue
+        teams[ident].update({"primary":primary,"secondary":second,
+            "color_source":item["source_url"],"color_provenance":provenance})
+        matched+=1
+    return {"matched":matched,"tonal_accents":tonal,"source":"school-specific documented colors"}
 
 def build_dii_team_lookup(teams):
     """Build a unique, conservative identity map for official NCAA contests."""
@@ -474,10 +497,17 @@ def update(gender, bootstrap=False):
     except Exception as exc:
         directory_error=str(exc)
         print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
+    # ESPN's team listing sometimes ignores the DII group and returns D-I.
+    # Withdraw earlier unverified imports rather than preserving bad colors.
+    for team in teams.values():
+        if "site.api.espn.com" in team.get("color_source","") and "group=51" in team.get("color_source",""):
+            for field in ("primary","secondary","color_source","color_provenance","espn_id"):
+                team.pop(field,None)
     color_quality=seed_espn_dii_branding(gender,teams)
     logo_quality=seed_official_logos(teams)
     paired_quality=seed_cross_gender_logos(gender,teams)
     color_quality['cross_gender']=seed_shared_dii_colors(gender,teams)
+    color_quality['published_school_evidence']=seed_published_dii_palettes(gender,teams)
     color_quality['total_with_two_visible_colors']=sum(bool(t.get('primary') and t.get('secondary')) for t in teams.values())
     logo_quality["cross_gender"]=paired_quality
     logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
