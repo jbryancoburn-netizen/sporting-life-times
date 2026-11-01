@@ -821,11 +821,13 @@
        (g.certifiedTeamBox?' · NCAA-origin verified team totals available under Team Statistics':'')+'</p>';
     selectGameTab(state.section);
     if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0});
+    if(window.SLTRadio)window.SLTRadio.mount(document.getElementById('cbb-radio-companion-root'),g,women?'women':'men');
   }
   async function openGamefile(){
     const host=document.getElementById('cbb-gamefile-root');if(!host)return;
     const id=here.get('game')||'';
     host.innerHTML='<div class="cbb-gamefile-back"><a href="'+backLink()+'">← RETURN TO THE COURTSIDE DESK</a></div>'+
+      '<div id="cbb-radio-companion-root" aria-label="Official radio listening options"></div>'+
       '<article id="cbb-detail" class="cbb-gamefile-detail" aria-live="polite"><p class="cbb-loading">Connecting to the game feed…</p></article>';
     host.addEventListener('click',e=>{const button=e.target.closest('[data-gamefile-tab]');if(button)selectGameTab(button.dataset.gamefileTab);});
     if(!/^(?:\d+|ncaa:\d+)$/.test(id)){q('#cbb-detail').innerHTML='<p class="cbb-empty">Choose a matchup from the Courtside Desk to open its Gamefile.</p>';return;}
