@@ -3,6 +3,7 @@
   'use strict';
   const here=new URLSearchParams(location.search);
   const isStandalone=!!document.getElementById('cbb-center-root');
+  const isGamefile=!!document.getElementById('cbb-gamefile-root');
   const women=here.get('gender')==='women';
   const sport=women?'womens-college-basketball':'mens-college-basketball';
   const season='2026-27';
@@ -16,10 +17,11 @@
   function plusDays(day,n){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
   function localDate(s){const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time TBA';}
   function dateLabel(s){return new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',weekday:'short',timeZone:'UTC'});}
-  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null};
+  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null};
   const tag=women?'Women':'Men';
   const display=women?'WOMEN’S DIVISION I':'MEN’S DIVISION I';
-  const gameLink=(g)=>'cbb-game-center.html?'+(women?'gender=women&':'')+'day='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
+  const gameLink=(g)=>'cbb-gamefile.html?'+(women?'gender=women&':'')+'day='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
+  const backLink=()=> 'cbb-game-center.html'+(women?'?gender=women&day='+encodeURIComponent(state.day):'?day='+encodeURIComponent(state.day));
   let mounted=false,interval=null;
   const fetchJSON=async path=>{try{const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(10500)});return r.ok?await r.json():null;}catch{return null;}};
   const code=t=>String(t?.team?.abbreviation||t?.abbreviation||t?.team?.shortDisplayName||t?.name||'TEAM').slice(0,15);
@@ -278,7 +280,7 @@
       (quick||'<span class="cbb-preview-hint">'+(g.phase==='upcoming'?'TIPOFF · '+esc(localDate(g.date)):
         g.phase==='live'?'UPDATING LIVE GAME STATS':g.phase==='final'?'BOX SCORE DATA WHEN AVAILABLE':'')+'</span>')+
       '</div><div class="cbb-bug-bottom"><span>'+esc(g.venue||(g.neutral?'Neutral court':'NCAA Basketball'))+'</span>'+
-      '<button type="button" class="cbb-box-btn" data-cbb-open="'+esc(g.id)+'">OPEN BOX SCORE <span aria-hidden="true">↗</span></button></div></div>'+
+      '<a class="cbb-box-btn" href="'+gameLink(g)+'">VIEW GAMEFILE <span aria-hidden="true">↗</span></a></div></div>'+
       '</article>';
   }
   function updateStatsPreview(g){
@@ -323,19 +325,16 @@
       '<button type="button" class="cbb-refresh-btn" data-cbb-refresh>↻ Refresh</button></div>'+
       '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Checking ESPN’s current game feed…</p>'+      '<div class="cbb-filter-bar" role="group" aria-label="Filter college basketball games">'+      '<button type="button" data-cbb-filter="all" aria-pressed="true">ALL GAMES <span id="cbb-count-all">0</span></button>'+      '<button type="button" data-cbb-filter="live" aria-pressed="false">● LIVE <span id="cbb-count-live">0</span></button>'+      '<button type="button" data-cbb-filter="final" aria-pressed="false">FINAL <span id="cbb-count-final">0</span></button>'+      '<button type="button" data-cbb-filter="upcoming" aria-pressed="false">UPCOMING <span id="cbb-count-upcoming">0</span></button></div>'+
       '<div id="cbb-radar-host"></div><div id="cbb-feature-host"></div>'+      '<div class="cbb-games-heading"><b>THE FULL SLATE</b><span>AWAY FIRST · HOME SECOND</span></div>'+      '<div class="cbb-cards" id="cbb-cards"><p class="cbb-loading">Checking game data…</p></div>'+
-      '<section class="cbb-detail" id="cbb-detail" hidden aria-live="polite"></section>';
+      '';
     if(isStandalone)old.appendChild(host);
     else old.parentNode.insertBefore(host,old);
     host.addEventListener('click',function(e){
-      const open=e.target.closest('[data-cbb-open]');
-      if(open){openDetails(open.dataset.cbbOpen);return;}
       const shift=e.target.closest('[data-cbb-date]');
       if(shift){state.day=plusDays(state.day,Number(shift.dataset.cbbDate));syncPicker();refresh();return;}
       if(e.target.closest('[data-cbb-today]')){state.day=today();syncPicker();refresh();return;}
       if(e.target.closest('[data-cbb-refresh]')){refresh();return;}
       const filter=e.target.closest('[data-cbb-filter]');
       if(filter){state.filter=filter.dataset.cbbFilter;renderCards();return;}
-      if(e.target.closest('[data-cbb-close]')){state.selected=null;q('#cbb-detail').hidden=true;return;}
     });
     host.querySelector('#cbb-day-picker').addEventListener('change',function(){if(/^\d{4}-\d{2}-\d{2}$/.test(this.value)){state.day=this.value;refresh();}});
     mounted=true;return true;
@@ -419,8 +418,6 @@
     const original=q(women?'#wbb-score-rail':'#score-rail');
     if(original&&games.length)original.hidden=true;
     else if(original)original.hidden=false;
-    if(active&&state.games.some(g=>g.id===active))await openDetails(active,true);
-    else if(active){state.selected=null;const detail=q('#cbb-detail');if(detail)detail.hidden=true;}
     state.pending=false;
     if(!state.fallback)preloadVisibleStats(state.games,generation,day).catch(console.warn);
   }
@@ -477,40 +474,69 @@
         '<div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Player</th>'+heading+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
     }).filter(Boolean).join('');
   }
-  async function openDetails(id,silent){
-    const g=state.games.find(x=>x.id===String(id));
-    if(!g)return;
+  function selectGameTab(tab){
+    state.section=tab;
+    document.querySelectorAll('#cbb-gamefile-root [data-gamefile-tab]').forEach(b=>{
+      const active=b.dataset.gamefileTab===tab;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;
+    });
+    document.querySelectorAll('#cbb-gamefile-root [data-gamefile-panel]').forEach(p=>{p.hidden=p.dataset.gamefilePanel!==tab;});
+  }
+  async function openDetails(id){
+    if(!isGamefile)return;
+    const g=state.games.find(x=>x.id===String(id));if(!g)return;
     state.selected=g.id;
-    const node=q('#cbb-detail');
-    if(!node)return;
-    node.hidden=false;
-    node.innerHTML='<div class="cbb-detail-head"><div class="cbb-kicker">GAME BOOK · '+tag.toUpperCase()+'’S DIVISION I</div><button type="button" data-cbb-close aria-label="Close box score">✕ Close</button></div>'+
-      '<h3>'+esc(teamName(g.away))+' at '+esc(teamName(g.home))+'</h3>'+
-      '<p class="cbb-detail-meta">'+currentView(g)+' · '+esc(g.venue||'Venue not available')+
-      (g.broadcast?' · '+esc(g.broadcast):'')+'</p><p class="cbb-loading">Checking verified game statistics…</p>';
-    if(!silent)node.scrollIntoView({behavior:'smooth',block:'nearest'});
-    let s=state.summaryCache.get(g.id);
-    // Live games always request fresh box scores. Cache only finals/pregame briefly.
-    if(!s||g.phase==='live'||Date.now()-s.at>180000){
+    const node=q('#cbb-detail');if(!node)return;
+    let entry=state.summaryCache.get(g.id);
+    if(!entry)node.innerHTML='<p class="cbb-loading">Loading verified box-score information…</p>';
+    if(!entry||g.phase==='live'||Date.now()-entry.at>180000){
       const data=await fetchJSON(api+'summary?event='+encodeURIComponent(g.id));
-      s={at:Date.now(),data};
-      state.summaryCache.set(g.id,s);
+      entry={at:Date.now(),data};state.summaryCache.set(g.id,entry);
     }
     if(state.selected!==g.id)return;
-    const details=s?.data;
-    const parts=[periodTable(g,details),statsPairs(g,details),players(details)].filter(Boolean);
-    const external=g.url||'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(g.id);
-    const link='<p class="cbb-provider-link"><a href="'+cleanURL(external)+'" target="_blank" rel="noopener noreferrer">Official game feed at ESPN ↗</a></p>';
-    node.innerHTML='<div class="cbb-detail-head"><div class="cbb-kicker">GAME BOOK · '+tag.toUpperCase()+'’S DIVISION I</div>'+
-      '<button type="button" data-cbb-close aria-label="Close box score">✕ Close</button></div>'+
-      '<h3>'+esc(teamName(g.away))+' at '+esc(teamName(g.home))+'</h3>'+
-      '<p class="cbb-detail-meta">'+currentView(g)+' · '+esc(g.venue||'Venue not available')+
-      (g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
-      '<div class="cbb-detail-score">'+row(g.away,g.phase,false)+row(g.home,g.phase,false)+'</div>'+
-      (parts.length?'<div class="cbb-stats-grid">'+parts.join('')+'</div>':
-      '<p class="cbb-empty">'+(g.phase==='upcoming'?'The game has not started. Live player and team statistics will appear when the provider posts them.':
-      'The provider has not supplied an accessible statistical box score for this game yet. No figures have been estimated.')+'</p>')+
-      link;
+    const raw=entry?.data;
+    const periods=periodTable(g,raw),team=statsPairs(g,raw),playersHTML=players(raw);
+    const missing='<p class="cbb-empty">Detailed game statistics are not yet available from the provider. No values have been estimated.</p>';
+    const ext=g.url||'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(g.id);
+    node.innerHTML='<header class="cbb-gamefile-hero"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
+      '<h1>'+esc(teamName(g.away))+' <em>at</em> '+esc(teamName(g.home))+'</h1>'+
+      '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
+      '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false)+row(g.home,g.phase,false)+'</div></header>'+
+      '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
+      '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
+      '<button role="tab" type="button" id="gf-tab-team" aria-controls="gf-panel-team" data-gamefile-tab="team">Team Statistics</button>'+
+      '<button role="tab" type="button" id="gf-tab-players" aria-controls="gf-panel-players" data-gamefile-tab="players">Player Box Score</button></nav>'+
+      '<section role="tabpanel" id="gf-panel-summary" aria-labelledby="gf-tab-summary" data-gamefile-panel="summary">'+
+      '<div class="cbb-gamefile-note"><span>'+(g.phase==='live'?'LIVE NOTEBOOK':g.phase==='final'?'FINAL LEDGER':'MATCHUP FILE')+'</span><p>'+
+      esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+(periods||missing)+usrsLine(g)+'</section>'+
+      '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
+      '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
+      '<p class="cbb-provider-link"><a href="'+cleanURL(ext)+'" rel="noopener noreferrer" target="_blank">Source data at ESPN ↗</a></p>';
+    selectGameTab(state.section);
+  }
+  async function openGamefile(){
+    const host=document.getElementById('cbb-gamefile-root');if(!host)return;
+    const id=here.get('game')||'';
+    host.innerHTML='<div class="cbb-gamefile-back"><a href="'+backLink()+'">← RETURN TO THE COURTSIDE DESK</a></div>'+
+      '<article id="cbb-detail" class="cbb-gamefile-detail" aria-live="polite"><p class="cbb-loading">Connecting to the game feed…</p></article>';
+    host.addEventListener('click',e=>{const button=e.target.closest('[data-gamefile-tab]');if(button)selectGameTab(button.dataset.gamefileTab);});
+    if(!/^\d+$/.test(id)){q('#cbb-detail').innerHTML='<p class="cbb-empty">Choose a matchup from the Courtside Desk to open its Gamefile.</p>';return;}
+    let busy=false;
+    async function update(){
+      if(busy)return;busy=true;
+      try{
+        const src=await fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+state.day.replaceAll('-',''));
+        let events=Array.isArray(src?.events)?src.events.map(normalizeEvent).filter(Boolean):null;
+        if(!events?.length)events=await fallback();
+        state.games=events||[];
+        if(!state.games.some(g=>g.id===id)){
+          q('#cbb-detail').innerHTML='<p class="cbb-empty">This game was not found in the '+esc(dateLabel(state.day))+' feed. Return to the Courtside Desk and choose another matchup.</p>';return;
+        }
+        await openDetails(id);
+      }finally{busy=false;}
+    }
+    await update();
+    setInterval(()=>{if(!document.hidden)update();},30000);
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
   }
   async function boot(){
     if(window.MBBLogos?.ready)await Promise.race([window.MBBLogos.ready,new Promise(ok=>setTimeout(ok,4500))]);
@@ -553,6 +579,7 @@
         state.forecast.set(String(f.id).split(':')[1],f);
       }
     }
+    if(isGamefile){await openGamefile();return;}
     let tries=0;
     const start=()=>{
       if(createShell()){refresh();interval=setInterval(()=>{if(!document.hidden)refresh();},30000);return;}
