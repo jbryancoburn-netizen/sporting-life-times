@@ -1,34 +1,53 @@
-/* SLT Courtside Network: shared, lightweight, independent league masthead. */
+/* THE HARDWOOD — an SLT editorial folio, not a row of generic UI tabs. */
 .slt-courtside-network{
- --slt-ink:#153847;--slt-brass:#b79961;box-sizing:border-box;
- display:flex;align-items:stretch;justify-content:space-between;gap:0;
- margin:0 0 12px;min-width:0;background:#f2f0e8;color:var(--slt-ink);
- border-top:1px solid #e0d1b5;border-bottom:3px double var(--slt-ink);
- font-family:Arial,Helvetica,sans-serif;line-height:1.3;
+ --slt-navy:#193845;--slt-warm:#f5f1e8;--slt-gold:#ad874f;
+ box-sizing:border-box;display:grid;grid-template-columns:minmax(220px,280px) minmax(0,1fr);
+ align-items:stretch;gap:0;margin:9px 0 17px;min-width:0;max-width:100%;
+ background:var(--slt-warm);color:var(--slt-navy);
+ border-top:1px solid var(--slt-navy);border-bottom:3px double var(--slt-navy);
+ font-family:Arial,Helvetica,sans-serif;isolation:isolate;
 }
-.slt-network-brand{display:flex;align-items:center;gap:10px;padding:9px 14px;min-width:195px}
-.slt-network-stamp{display:grid;place-items:center;background:var(--slt-ink);color:#e8c992;
- width:44px;height:34px;flex:none;font:900 13px Georgia,serif;letter-spacing:1.2px;
- clip-path:polygon(0 0,100% 0,100% 100%,50% 85%,0 100%);}
-.slt-network-title{display:flex;flex-direction:column;gap:2px;min-width:0}
-.slt-network-title strong{font:900 10px/1.2 Arial,sans-serif;letter-spacing:1.2px}
-.slt-network-title small{font:700 8px/1.2 Arial,sans-serif;letter-spacing:.55px;color:#6a7775}
-.slt-network-links{display:flex;align-items:stretch;justify-content:flex-end;flex-wrap:wrap;gap:0}
-.slt-network-links a{display:flex;align-items:center;justify-content:center;
- text-align:center;padding:11px 12px;font:900 10px/1.2 Arial,sans-serif;
- text-decoration:none!important;letter-spacing:.65px;color:#274753!important;
- border-left:1px solid #d8dcda;white-space:nowrap;min-height:45px}
-.slt-network-links a[aria-current="page"]{background:#164456;color:#fff!important;box-shadow:inset 0 -4px 0 var(--slt-brass)}
-.slt-network-links a:hover:not([aria-current]){background:#e0e8e4;color:#102f3b!important}
-.slt-network-links a:focus-visible{outline:3px solid #a4762c;outline-offset:-3px}
-@media(max-width:960px){
- .slt-courtside-network{flex-direction:column}
- .slt-network-brand{border-bottom:1px solid #d7dfdc}
- .slt-network-links{justify-content:flex-start}
- .slt-network-links a{flex:1;min-width:85px}
+.slt-courtside-network *{box-sizing:border-box}
+.slt-network-brand{display:flex;align-items:center;gap:11px;padding:9px 14px 9px 12px;min-width:0;
+ border-right:1px solid #c4c2b9;background:linear-gradient(115deg,#e9e7db,var(--slt-warm))}
+.slt-network-seal{display:flex;align-items:baseline;justify-content:center;flex:0 0 52px;width:52px;
+ color:var(--slt-navy);font:700 20px/1 Georgia,'Times New Roman',serif;
+ border:2px solid var(--slt-navy);border-radius:50%;padding:11px 4px 10px;letter-spacing:-2px;
+ box-shadow:inset 0 0 0 2px var(--slt-warm),inset 0 0 0 3px var(--slt-gold)}
+.slt-network-seal em{font-size:10px;font-weight:400;font-style:italic;position:relative;top:-1px;margin:0 2px;letter-spacing:0}
+.slt-network-title{min-width:0;display:flex;flex-direction:column;gap:1px}
+.slt-network-title>small{font:700 8px/1.4 Arial,sans-serif;letter-spacing:1.05px;color:#777d77;white-space:nowrap}
+.slt-network-title>strong{font:700 clamp(18px,1.7vw,23px)/1 Georgia,'Times New Roman',serif;letter-spacing:-.8px;white-space:nowrap}
+.slt-network-title>span{font:800 8px/1.4 Arial,sans-serif;letter-spacing:1.15px;color:#807258;white-space:nowrap}
+.slt-network-rail{min-width:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#baa77e transparent}
+.slt-network-links{display:flex;align-items:stretch;justify-content:stretch;width:max(100%,min-content);min-width:0;height:100%}
+.slt-network-links a{position:relative;flex:1 0 auto;min-width:102px;display:flex;align-items:center;justify-content:center;gap:9px;
+ padding:12px 10px;min-height:67px;border-right:1px solid #d7d4c9;
+ font:800 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:1px;text-decoration:none!important;
+ color:var(--slt-navy)!important;background:transparent;text-align:left;white-space:nowrap}
+.slt-network-links a:hover{background:#e9e1d2!important}
+.slt-network-links a[aria-current="page"]{background:#e5e5db;color:#112e3b!important;
+ box-shadow:inset 0 -4px 0 var(--slt-gold)}
+.slt-network-links a[aria-current="page"]:before{content:"";position:absolute;top:0;left:0;right:0;border-top:2px solid var(--slt-navy)}
+.slt-network-number{font:400 12px/1 Georgia,'Times New Roman',serif;color:#977d50;letter-spacing:0}
+.slt-network-label{font-size:inherit;line-height:1.2}
+.slt-network-links a:focus-visible{outline:3px solid var(--slt-gold);outline-offset:-3px;z-index:2}
+@media(max-width:1130px){
+ .slt-courtside-network{grid-template-columns:1fr}
+ .slt-network-brand{border-right:0;border-bottom:1px solid #d1cbbd;padding:7px 12px}
+ .slt-network-seal{flex-basis:42px;width:42px;font-size:16px;padding:9px 3px 8px}
+ .slt-network-title>strong{font-size:21px}
+ .slt-network-links{width:max-content;min-width:100%}
+ .slt-network-links a{min-height:43px;padding:9px 14px;min-width:0}
 }
-@media(max-width:520px){
- .slt-network-brand{padding:9px 12px}
- .slt-network-links a{font-size:9px;padding:11px 7px;min-width:0}
- .slt-network-title small{font-size:7px}
+@media(max-width:600px){
+ .slt-courtside-network{margin:7px 0 13px}
+ .slt-network-brand{padding:5px 10px;gap:9px}
+ .slt-network-seal{flex-basis:37px;width:37px;font-size:15px;padding:8px 2px 7px}
+ .slt-network-title>small{font-size:7px;letter-spacing:.7px}
+ .slt-network-title>strong{font-size:19px}
+ .slt-network-title>span{font-size:7px}
+ .slt-network-links a{min-height:39px;padding:8px 12px;gap:7px;font-size:9px}
+ .slt-network-number{font-size:11px}
 }
+@media(prefers-reduced-motion:reduce){.slt-network-rail{scroll-behavior:auto}}
