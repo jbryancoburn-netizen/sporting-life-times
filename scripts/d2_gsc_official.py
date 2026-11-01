@@ -6,11 +6,14 @@ Only a date/opponent/home-away match confirmed by BOTH GSC members is admitted.
 No schedule entries are scores, no city is misrepresented as a verified arena.
 """
 import datetime as dt
+import json
+from pathlib import Path
 import re
 import urllib.request
 from collections import defaultdict
 from zoneinfo import ZoneInfo
 
+DATA_DIR=Path(__file__).resolve().parents[1]/"data"
 ROOT_URL="https://gscsports.org/schedule.aspx?schedule="
 STREAM_SOURCE="https://gscsports.org/news/2026/9/23/gsc-announces-2026-27-mens-and-womens-basketball-conference-schedule.aspx"
 # Game-specific host athletics evidence independently confirms the otherwise
@@ -327,4 +330,77 @@ def enrich_gsc(games,teams,today,gender="men"):
     audit["stream_source"]=STREAM_SOURCE
     audit["gender"]=gender
     audit["schedules"]=[ROOT_URL+str(x) for x in schedule_set]
+    return audit
+
+
+def enrich_gsc_venue_evidence(games, gender, registry_file=None):
+    """Add an arena ONLY for an exact, conference-verified home/away matchup.
+
+    Source records come from specific dated university basketball schedules,
+    not generic school-home-court lists. Conflicting existing venue evidence
+    is quarantined. This function never rewrites scores, game IDs, or Elo.
+    """
+    if gender not in ("men", "women"):
+        raise ValueError("Unknown Division II gender")
+    path=Path(registry_file) if registry_file else DATA_DIR/"d2-gsc-venue-evidence-2026-27.json"
+    audit={"evidence_rows":0,"matched":0,"enriched":0,"existing":0,
+           "unmatched":0,"conflicted":0,"quarantined":0,"examples":[]}
+    if not path.exists():
+        audit["status"]="official school schedule venue registry unavailable"
+        return audit
+    registry=json.loads(path.read_text(encoding="utf-8"))
+    if registry.get("season")!="2026-27" or registry.get("schema")!=1:
+        raise ValueError("GSC school venue provenance registry has wrong season/schema")
+    matches=defaultdict(list)
+    for g in games.values():
+        matches[(g.get("date"),g.get("away"),g.get("home"))].append(g)
+    seen=set()
+    for evidence in registry.get("fixtures",[]):
+        if evidence.get("gender")!=gender:
+            continue
+        audit["evidence_rows"]+=1
+        key=(evidence.get("date"),evidence.get("away"),evidence.get("home"))
+        source_team=evidence.get("source_school")
+        source_role=evidence.get("source_role")
+        if key in seen:
+            raise ValueError("Duplicate exact GSC school arena source: "+str(key))
+        seen.add(key)
+        if (not key[0] or not key[1] or not key[2] or key[1]==key[2]
+                or source_role not in ("home","away")
+                or source_team != (key[2] if source_role=="home" else key[1])
+                or not str(evidence.get("source_url","")).startswith("https://")
+                or not str(evidence.get("venue","")).strip()
+                or any(bad in evidence["venue"].lower() for bad in ("tba","unknown","pending"))):
+            audit["quarantined"]+=1
+            if len(audit["examples"])<15:
+                audit["examples"].append({"key":key,"issue":"invalid dated school source"})
+            continue
+        candidate=matches.get(key,[])
+        if not candidate:
+            audit["unmatched"]+=1
+            if len(audit["examples"])<15:
+                audit["examples"].append({"key":key,"issue":"unmatched official fixture"})
+            continue
+        if len(candidate)!=1 or not candidate[0].get("conference_game") or candidate[0].get("neutral"):
+            audit["quarantined"]+=1
+            if len(audit["examples"])<15:
+                audit["examples"].append({"key":key,"issue":"duplicate, non-GSC or neutral-site contest"})
+            continue
+        game=candidate[0]
+        old=game.get("venue")
+        if old and " ".join(old.casefold().split())!=" ".join(evidence["venue"].casefold().split()):
+            audit["conflicted"]+=1
+            if len(audit["examples"])<15:
+                audit["examples"].append({"key":key,"issue":"two contradictory named arenas",
+                    "existing":old,"new":evidence["venue"]})
+            continue
+        audit["matched"]+=1
+        if old:
+            audit["existing"]+=1
+        else:
+            game["venue"]=evidence["venue"]
+            audit["enriched"]+=1
+        game["venue_source_url"]=evidence["source_url"]
+        game["venue_source_school"]=source_team
+    audit["status"]="published exact matched university arena evidence; conflicts withheld"
     return audit
