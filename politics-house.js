@@ -19,13 +19,13 @@ const color=(party,margin)=>{
 };
 const voters=r=>{let a=r["2024_presidential_actual"];return a?(a.winner_party==="D"?"D":"R")+" +"+one(Math.abs(a.dem_margin_pp))+" pp · 2024 presidential":""};
 function districtEvidence(r){
- const poll=r.district_specific_2026_polls?.[0];
+ const poll=(r.district_specific_2026_polls||[]).find(p=>p.question_type!=="generic_house");
  if(poll){
    const people=[...poll.candidates].sort((a,b)=>b.pct-a.pct);
    const margin=people[0].pct-people[1].pct;
    const leader=margin<=0?"TIE":people[0].party;
-   return {source:"2026 district poll",text:margin<=0?"Tied in latest poll":partyName(leader)+" +"+one(margin)+" points",
-           party:leader,margin:margin,sub:poll.pollster+" · "+poll.end_date,
+   return {source:poll.source_tier==="public_compilation_not_original_checked"?"2026 published poll (compiled)":"2026 district poll (original release checked)",text:margin<=0?"Tied in latest named-candidate poll":partyName(leader)+" +"+one(margin)+" points",
+           party:leader,margin:margin,sub:poll.pollster+" · "+poll.end_date+(poll.source_tier==="public_compilation_not_original_checked"?" · unverified survey sample":""),
            source_url:poll.source_url,dated:"2026",poll:true};
  }
  const h=r["2024_house_result_on_prior_boundaries"];
@@ -159,11 +159,12 @@ function pollPanel(r){
    box.append(newEl("p","A national generic-ballot poll or forecast probability is never substituted for a district poll.","footnote"));
    return;
  }
- box.append(newEl("p",polls.length+" individually sourced poll"+(polls.length===1?"":"s")+" in our evidence ledger. These are poll readings, not a model projection or election outcome.","footnote"));
+ box.append(newEl("p",polls.length+" published 2026 poll record"+(polls.length===1?"":"s")+" in our evidence ledger. Original releases checked directly and secondary public poll compilations are distinguished below; neither is a forecast.","footnote"));
  polls.forEach(p=>{
    const block=newEl("article",null,"callout");
    let hdr=newEl("div",null,"poll-head");
-   hdr.append(newEl("strong",p.pollster),newEl("small",p.start_date+" – "+p.end_date+" · "+p.sample_size+" "+p.population));
+   const compiled=p.source_tier==="public_compilation_not_original_checked";
+   hdr.append(newEl("strong",p.pollster),newEl("small",compiled?"PUBLIC COMPILATION · listed "+p.reported_date+" · sample not given":p.start_date+" – "+p.end_date+" · "+p.sample_size+" "+p.population));
    block.append(hdr);
    let vals=[...p.candidates].sort((x,y)=>y.pct-x.pct);
    for(const c of vals){
@@ -174,10 +175,12 @@ function pollPanel(r){
      row.append(track);block.append(row);
    }
    const margin=vals[0].pct-vals[1].pct;
-   block.append(newEl("p",margin===0?"Poll reports a tie":vals[0].name+" leads by "+one(margin)+" percentage points in this one poll.","footnote"));
-   block.append(newEl("p",p.sponsor?"Survey sponsor: "+p.sponsor:"Survey sponsor not specified in the reviewed source.","footnote"));
+   block.append(newEl("p",p.question_type==="generic_house"?"Generic district House-party question; this is NOT a named-candidate lead.":margin===0?"Poll reports a tie":vals[0].name+" leads by "+one(margin)+" percentage points in this reported poll.","footnote"));
+   if(compiled)block.append(newEl("p","SECONDARY EVIDENCE: People's Poll lists this as the most recently reported poll in the district and attributes its records to a New York Times compilation. We have not independently verified this original survey's sample, field dates, sponsor or question wording.","footnote"));
+   block.append(newEl("p",p.sponsor?"Survey sponsor: "+p.sponsor:compiled?"Survey sponsor: not independently confirmed from public compilation.":"Survey sponsor not specified in the reviewed source.","footnote"));
    block.append(newEl("p",p.method_note||"","footnote"));
-   let link=addLink(block,"Original published survey ↗",p.source_url,"src");link.target="_blank";link.rel="noopener noreferrer";
+   let link=addLink(block,compiled?"Original publication link provided by compilation ↗":"Original published survey ↗",p.source_url,"src");link.target="_blank";link.rel="noopener noreferrer";
+   if(compiled){let a=addLink(block," · View public polling compilation ↗",p.compilation_url,"src");a.target="_blank";a.rel="noopener noreferrer";}
    box.append(block);
  });
  box.append(newEl("p","Single polls, including internal and partisan-sponsored surveys, can have sizable uncertainty. Leads should not be interpreted as win probabilities.","footnote"));
