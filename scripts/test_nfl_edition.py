@@ -74,8 +74,11 @@ class EloTests(unittest.TestCase):
         self.assertIn('const duplicate=root.querySelector(".nfl-slate")',live)
         self.assertIn('const oldNav=root.querySelector(".nfl-day-nav")',live)
         self.assertNotIn('away:{...g.away,color:"#252525",secondary:"#ba9957"}',live)
-        self.assertIn('nfl-live-day.js?v=20261101-datefix1',center)
-        self.assertIn('nfl-live-day.js?v=20261101-datefix1',game)
+        self.assertIn("const observer=new MutationObserver",live)
+        self.assertIn("observer.observe(root,{childList:true})",live)
+        self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
+        self.assertIn('nfl-live-day.js?v=20261101-datefix2',center)
+        self.assertIn('nfl-live-day.js?v=20261101-datefix2',game)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
