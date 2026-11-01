@@ -125,9 +125,8 @@ def main():
             "certified_regular_season_complete":False,
             "reason":"ESPN events are not independently cross-matched to all 165 official NBL round fixtures."}
     DATA.mkdir(parents=True,exist_ok=True)
-    (DATA/"nbl27-season-candidates.json").write_text(json.dumps({"season":"2026-27","source":"ESPN","official_verified":False,"games":games},indent=2)+"\n")
-    (DATA/"nbl27-schedule-audit.json").write_text(json.dumps(report,indent=2)+"\n")
+    # Never overwrite a good 165-game file with a truncated or doubled schedule.\n    # Write the audit report even when fixture publication is blocked.\n    complete_coverage=(len(games)==165 and all(counts[t]==33 for t in TEAMS)\n                       and not invalid and not duplicate_keys)\n    report["candidate_coverage_valid"]=complete_coverage\n    (DATA/"nbl27-schedule-audit.json").write_text(json.dumps(report,indent=2)+"\n")\n    if complete_coverage:\n        (DATA/"nbl27-season-candidates.json").write_text(json.dumps({"season":"2026-27","source":"ESPN + FixtureDownload secondary","official_verified":False,"games":games},indent=2)+"\n")
     print(json.dumps(report,indent=2))
     if failures or invalid or duplicate_keys or bad_scores:raise SystemExit("NBL source/identity/score audit failed; see JSON report")
-    if len(games)<165:raise SystemExit("NBL fixture feed has fewer than 165 candidates; schedule remains incomplete")
+    if not complete_coverage:raise SystemExit("NBL fixture coverage failed 165-game / 33-per-team invariant; preserving last good schedule")
 if __name__=="__main__":main()
