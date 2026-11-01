@@ -215,7 +215,7 @@ for (day,pair),matches in sorted(ledger.items()):
   issue(day,pair,'site_mismatch_or_unverified',{'left':a,'right':b});continue
  reciprocal['unique_verified_reciprocal_games']+=1
  # Flag contradictions without overwriting either university's explicitly sourced record.
- for target,source in (left,right):
+ for target,source in ((left,right),(right,left)):
   owner,te=target;sowner,se=source
   tc=(te.get('competitions') or [{}])[0];sc=(se.get('competitions') or [{}])[0]
   td=team_records[owner][1];sd=team_records[sowner][1]
