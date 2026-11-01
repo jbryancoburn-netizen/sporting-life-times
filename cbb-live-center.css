@@ -203,3 +203,19 @@
  .cbb-points{font-size:39px;min-width:39px}
 }
 @media(prefers-reduced-motion:reduce){.cbb-game-card{transition:none}}
+
+.cbb-more-games{
+ display:flex;align-items:center;justify-content:center;gap:12px;
+ text-decoration:none!important;min-height:52px;grid-column:1/-1;
+ background:#0e3446;color:#f0fafc!important;border:1px solid #175068;
+ font:900 12px Arial,Helvetica,sans-serif;letter-spacing:1.3px;
+}
+.cbb-more-games span{font-size:18px;color:#7ff0ea}
+.cbb-more-games:hover{background:#0a2532;color:#fff!important}
+.cbb-women .cbb-filter-bar button[aria-pressed="true"]{box-shadow:inset 0 -3px 0 #f28a9b}
+.cbb-women .cbb-live-pill{background:#b61d43!important}
+.cbb-women .cbb-winner .cbb-points{color:#ffc3cf;text-shadow:0 0 16px rgba(242,138,155,.18)}
+.cbb-women .cbb-leader-ticker em{color:#ffb9c9}
+.cbb-women .cbb-card-brand{border-top-color:#f28a9b}
+.cbb-women .cbb-live .cbb-card-brand{border-top-color:#ef435a}
+.cbb-women .cbb-box-btn:hover{background:#ffc4d0;border-color:#ffc4d0}
