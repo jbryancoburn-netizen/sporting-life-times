@@ -158,46 +158,70 @@ function home(){
    scoreRow(g.away,g)+scoreRow(g.home,g)+
    '<div class="nfl-p26-score-bottom">'+escapeHtml(g.state==='pre'?date(g.date)+(g.broadcast?' · '+g.broadcast:''):g.broadcast||g.last_play||g.venue||'Game center →')+'</div></a>';
  }
+ function featurePeriod(g){
+   const a=g.away.linescores||[],h=g.home.linescores||[],total=Math.min(5,Math.max(a.length,h.length));
+   if(g.state==='pre'||total===0)return '';
+   let out='<div class="nfl-p26-period-rail" aria-label="Quarter by quarter scoring"><span class="nfl-p26-period-label">SCORING</span>';
+   for(let i=0;i<total;i++){
+     const name=i===4?'OT':'Q'+(i+1);
+     const av=a[i]&&a[i].score!=null?format(a[i].score):'—';
+     const hv=h[i]&&h[i].score!=null?format(h[i].score):'—';
+     out+='<span class="nfl-p26-period"><small>'+name+'</small><strong>'+av+'<i>:</i>'+hv+'</strong></span>';
+   }
+   return out+'</div>';
+ }
  function featuredMatch(g){
-  if(!g)return '<div class="nfl-p26-feature"><div><span class="nfl-p26-eyebrow">NFL GAME DAY</span><h2>YOUR NFL EDITION</h2><p>Game details are temporarily unavailable.</p></div></div>';
-  const a=team(g.away.id),h=team(g.home.id),pre=g.state==='pre',elo=g.elo||{},homePct=elo.home_win_probability;
-  const line=g.state==='in'?'LIVE · '+status(g):pre?'PREGAME SPOTLIGHT':'FINAL SCORE';
-  const headline=pre?a.name+' at '+h.name:g.state==='in'?a.name+' at '+h.name:a.name+' at '+h.name;
-  let out='<div class="nfl-p26-feature"><div><div class="nfl-p26-feature-kicker"><span>THE FEATURED GAME · WEEK '+escapeHtml(g.week)+'</span>'+
-   '<span class="nfl-p26-status '+(pre?'pre':g.state==='post'?'post':'')+'">'+(g.state==='in'?'<i class="nfl-p26-red-dot" aria-hidden="true"></i>':'')+escapeHtml(line)+'</span></div>'+
-   '<h2>'+escapeHtml(headline)+'</h2><p class="nfl-p26-feature-deck">'+escapeHtml(g.venue||g.city||'NFL regular season')+
-   (g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</p></div>';
-  out+='<div class="nfl-p26-match"><div class="nfl-p26-match-side">'+crest(a,'lg')+
-    '<span class="nfl-p26-name">'+escapeHtml(a.name)+'</span><span class="nfl-p26-record">'+escapeHtml(rec(a))+'</span></div>'+
-    '<div class="nfl-p26-big-score'+(pre?' is-pregame':'')+'">'+(pre?'VS':'<span>'+format(g.away.score)+'</span><i>:</i><span>'+format(g.home.score)+'</span>')+'</div>'+
-    '<div class="nfl-p26-match-side">'+crest(h,'lg')+'<span class="nfl-p26-name">'+escapeHtml(h.name)+'</span>'+
-    '<span class="nfl-p26-record">'+escapeHtml(rec(h))+'</span></div></div>';
-  out+='<div>';
-  if(homePct!=null){
-   const percent=Math.max(0,Math.min(100,100*Number(homePct)));
-   out+='<div class="nfl-p26-feature-forecast"><b>USRS PREGAME</b><span>'+escapeHtml(a.code)+' '+format(100-percent,0)+'%</span>'+
-    '<span class="nfl-p26-forecast-bar" role="img" aria-label="Pregame away '+format(100-percent,0)+' percent, home '+format(percent,0)+' percent"><i style="width:'+(100-percent).toFixed(1)+'%"></i></span>'+
-    '<span>'+escapeHtml(h.code)+' '+format(percent,0)+'%</span></div>';
-  }
-  if(g.state==='in'&&(g.down_distance||g.last_play)){
-    out+='<div class="nfl-p26-action"><span class="nfl-p26-eyebrow">LIVE DRIVE</span>'+
-      (g.possession?'<b>'+escapeHtml(team(g.possession).code)+' BALL</b>':'')+
-      (g.down_distance?'<strong>'+escapeHtml(g.down_distance)+'</strong>':'')+
-      (g.last_play?'<p>'+escapeHtml(g.last_play)+'</p>':'')+'</div>';
-  }
-  out+='<div class="nfl-p26-feature-foot"><span>'+escapeHtml(pre?date(g.date):status(g))+
-   (pre&&elo.away_projected_points!=null?' · USRS projected '+elo.away_projected_points+'–'+elo.home_projected_points:'')+
-   '</span><a href="'+urlGame(g.id)+'">OPEN GAMEFILE ↗</a></div></div></div>';
-  return out;
+   if(!g)return '<div class="nfl-p26-feature"><div class="nfl-p26-feature-top"><b>GAME OF THE MOMENT</b></div><p>Verified game details are temporarily unavailable.</p></div>';
+   const a=team(g.away.id),h=team(g.home.id),pre=g.state==='pre',elo=g.elo||{},homePct=elo.home_win_probability;
+   const short=t=>t.name.split(' ').slice(-1)[0];
+   const stateLabel=g.state==='in'?(g.period>4?'OVERTIME':'QUARTER '+(g.period||'?')):g.state==='post'?'FINAL':'UP NEXT';
+   const detail=g.state==='in'?((g.period>4?'OT':'Q'+(g.period||'?'))+' · '+(g.clock||'IN PROGRESS')):g.state==='post'?'FINAL':date(g.date);
+   const clockLabel=g.state==='in'?'LIVE · '+detail:g.state==='post'?'FINAL':'KICKOFF · '+date(g.date);
+   let out='<section class="nfl-p26-feature" aria-label="Featured NFL matchup: '+escapeHtml(a.name)+' at '+escapeHtml(h.name)+'">'+
+     '<div class="nfl-p26-feature-top"><span class="nfl-p26-hero-identity">FEATURED MATCHUP <small>· WEEK '+escapeHtml(g.week)+'</small></span>'+
+     '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
+     (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
+     '<div class="nfl-p26-score-stage">'+
+       '<div class="nfl-p26-hero-club nfl-p26-hero-club-away">'+crest(a,'lg')+
+         '<span class="nfl-p26-hero-teamname">'+escapeHtml(short(a))+'</span>'+
+         '<span class="nfl-p26-hero-code">'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+'</span></div>'+
+       '<div class="nfl-p26-hero-score" aria-label="'+escapeHtml(pre?'Game not started':format(g.away.score)+' to '+format(g.home.score))+'">'+
+         (pre?'<span class="nfl-p26-hero-vs">VS</span>':'<strong>'+format(g.away.score)+'</strong><span>:</span><strong>'+format(g.home.score)+'</strong>')+
+       '</div>'+
+       '<div class="nfl-p26-hero-club nfl-p26-hero-club-home">'+crest(h,'lg')+
+         '<span class="nfl-p26-hero-teamname">'+escapeHtml(short(h))+'</span>'+
+         '<span class="nfl-p26-hero-code">'+escapeHtml(h.code)+' · '+escapeHtml(rec(h))+'</span></div>'+
+     '</div>'+
+     '<div class="nfl-p26-hero-context"><span class="nfl-p26-eyebrow">'+escapeHtml(stateLabel)+'</span>'+
+       '<span>'+escapeHtml(g.venue||g.city||'NFL regular season')+(g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</span></div>'+
+     featurePeriod(g);
+   if(pre&&homePct!=null){
+      const pct=Math.max(0,Math.min(100,Number(homePct)*100));
+      out+='<div class="nfl-p26-hero-projection"><span class="nfl-p26-eyebrow">USRS PREGAME ODDS</span><b>'+escapeHtml(a.code)+' '+format(100-pct)+'%</b>'+
+       '<span class="nfl-p26-hero-meter"><i style="width:'+(100-pct).toFixed(1)+'%"></i></span><b>'+escapeHtml(h.code)+' '+format(pct)+'%</b></div>';
+   }
+   if(g.state==='in'&&(g.down_distance||g.last_play)){
+     out+='<div class="nfl-p26-action"><div class="nfl-p26-action-title"><span class="nfl-p26-live-indicator">● LIVE DRIVE</span>'+
+       (g.possession?'<strong>'+escapeHtml(team(g.possession).code)+' BALL</strong>':'')+
+       (g.down_distance?'<b>'+escapeHtml(g.down_distance)+'</b>':'')+'</div>'+
+       (g.last_play?'<p><em>LAST PLAY</em> '+escapeHtml(g.last_play)+'</p>':'')+'</div>';
+   }
+   if(g.state==='in'&&homePct!=null){
+      out+='<div class="nfl-p26-elo-note">USRS pregame · '+escapeHtml(a.code)+' '+format((1-homePct)*100)+'% / '+escapeHtml(h.code)+' '+format(homePct*100)+'% <span>Not an in-game win probability</span></div>';
+   }
+   out+='<div class="nfl-p26-hero-footer"><span>'+escapeHtml(clockLabel)+'</span>'+
+     '<a href="'+urlGame(g.id)+'">'+(g.state==='in'?'FOLLOW THE GAME':'OPEN GAMEFILE')+' <span aria-hidden="true">↗</span></a></div></section>';
+   return out;
  }
  function focusRow(g){
-  const a=team(g.away.id),h=team(g.home.id);
-  const both=g.state!=='pre'&&g.away.score!=null&&g.home.score!=null;
-  return '<a class="nfl-p26-focus-row" href="'+urlGame(g.id)+'"><div class="nfl-p26-focus-meta"><span>'+escapeHtml(g.state==='in'?'● LIVE':'WEEK '+g.week)+'</span>'+
-   '<span>'+escapeHtml(status(g))+'</span></div>'+
-   '<div class="nfl-p26-focus-teams">'+crest(a,'sm')+'<span>'+escapeHtml(a.code)+' <span class="nfl-p26-faint">at</span> '+escapeHtml(h.code)+'</span>'+
-   '<b>'+(both?format(g.away.score)+'–'+format(g.home.score):'VS')+'</b></div>'+
-   '<div class="nfl-p26-focus-line">'+escapeHtml(g.broadcast||g.venue||date(g.date))+'</div></a>';
+   const a=team(g.away.id),h=team(g.home.id),scores=g.state!=='pre'&&g.away.score!=null&&g.home.score!=null;
+   const status=g.state==='in'?(g.period>4?'OT':'Q'+(g.period||'?'))+' '+(g.clock||''):g.state==='post'?'FINAL':date(g.date);
+   return '<a class="nfl-p26-focus-row" href="'+urlGame(g.id)+'"><div class="nfl-p26-focus-match">'+
+     '<div class="nfl-p26-focus-clubs">'+crest(a,'sm')+crest(h,'sm')+'</div>'+
+     '<span class="nfl-p26-focus-abbr">'+escapeHtml(a.code)+' <i>@</i> '+escapeHtml(h.code)+'</span>'+
+     '<b class="nfl-p26-focus-score">'+(scores?format(g.away.score)+'<i>–</i>'+format(g.home.score):'VS')+'</b></div>'+
+     '<div class="nfl-p26-focus-meta"><span class="'+(g.state==='in'?'is-live':'')+'">'+(g.state==='in'?'● ':'')+escapeHtml(status)+'</span>'+
+     '<span>'+escapeHtml(g.broadcast||'OPEN GAME ↗')+'</span></div></a>';
  }
  function sectionHead(eye,title,href,cta,desc){
   return '<div class="nfl-p26-section-head"><div><span class="nfl-p26-eyebrow nfl-p26-red">'+escapeHtml(eye)+'</span><h2>'+escapeHtml(title)+'</h2>'+
@@ -205,16 +229,16 @@ function home(){
  }
  let out='<div class="nfl-p26"><div class="nfl-p26-opening"><div>'+
   '<p class="nfl-p26-eyebrow">THE SPORTING LIFE &amp; TIMES · NATIONAL FOOTBALL LEAGUE · VOL. 2026</p>'+
-  '<h1 class="nfl-p26-main-title">THE GRIDIRON <em>desk.</em></h1>'+
+  '<h1 class="nfl-p26-main-title">THE GRIDIRON <em>report.</em></h1>'+
   '<p class="nfl-p26-main-deck">The league, as it happens. Real scores, complete gamefiles, the statistical race and independently calibrated USRS Elo.</p></div>'+
   '<div class="nfl-p26-issue"><b>NFL / 2026</b><span>'+escapeHtml(dayText)+'</span><span>THE INDEPENDENT FOOTBALL EDITION</span></div></div>';
  out+='<div class="nfl-p26-topline"><div class="nfl-p26-live-ident">'+(live.length?'<i class="nfl-p26-red-dot" aria-hidden="true"></i>':'')+
-   '<span>'+(live.length?'LIVE FROM '+live.length+' STADIUM'+(live.length===1?'':'S'):'THE GAME-DAY REPORT')+'</span></div>'+
+   '<span>'+(live.length?live.length+' GAMES LIVE':'THE GAME-DAY REPORT')+'</span></div>'+
    '<span class="nfl-p26-sub">LIVE UPDATES · EASTERN TIME · <a href="nfl-game-center.html">OPEN FULL GAME CENTER ↗</a></span></div>';
  out+='<div class="nfl-p26-hero">'+featuredMatch(featured)+
    '<aside class="nfl-p26-focus-rail"><span class="nfl-p26-eyebrow nfl-p26-red">AROUND THE LEAGUE</span>'+
-   '<h3>'+(live.length?'In the balance.':'Next in line.')+'</h3>'+
-   '<p class="nfl-p26-focus-deck">Other games on the board. Away team first, home team second.</p>'+
+   '<h3>'+(live.length?'LIVE ELSEWHERE':'MORE MATCHUPS')+'</h3>'+
+   '<p class="nfl-p26-focus-deck">The rest of the action, one tap away.</p>'+
    '<div class="nfl-p26-focus-list">'+(other.length?other.map(focusRow).join(''):
    '<p class="nfl-p26-faint">See the full slate and upcoming kickoffs in Game Center.</p>')+'</div>'+
    '<div class="nfl-p26-rail-link"><a href="nfl-game-center.html">EVERY NFL GAME →</a></div></aside></div>';
