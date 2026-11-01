@@ -16,6 +16,11 @@ class PoliticsNewsTests(unittest.TestCase):
         result = news.parse_feed(body, "PBS News", ("pbs.org",), now)
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["source"], "PBS News")
+    def test_rejects_non_story_calendar_title(self):
+        now = dt.datetime(2026, 11, 1, 15, tzinfo=dt.timezone.utc)
+        body = b'<rss><channel><item><title>November 2026</title><link>https://www.pbs.org/newshour/politics/calendar</link><pubDate>Sun, 01 Nov 2026 13:00:00 GMT</pubDate></item></channel></rss>'
+        self.assertEqual(news.parse_feed(body, "PBS News", ("pbs.org",), now), [])
+
     def test_atom(self):
         now = dt.datetime(2026, 11, 1, 15, tzinfo=dt.timezone.utc)
         body = b'<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>Congress faces a vote</title><link rel="alternate" href="https://www.axios.com/a"/><published>2026-11-01T13:00:00Z</published></entry></feed>'

@@ -96,6 +96,9 @@ def parse_feed(body: bytes, source: str, hosts: tuple[str, ...], now: dt.datetim
         published = as_utc(node_text(entry, "pubDate", "date", FEED_ATOM + "published", FEED_ATOM + "updated"))
         if not title or not link or published is None:
             continue
+        # Reject calendar/header placeholders that RSS providers sometimes emit as stories.
+        if len(title.split()) < 4 or len(title) < 20:
+            continue
         age = (now - published).total_seconds()
         if age < -5400 or age > 72 * 3600:
             continue
