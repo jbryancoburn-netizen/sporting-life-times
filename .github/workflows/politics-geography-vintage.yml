@@ -60,7 +60,8 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-geography-audit.json politics-sim-readiness.json
+          git restore --worktree politics-sim-readiness.json
+          git add politics-geography-audit.json
           if ! git diff --cached --quiet; then
             git commit -m "Audit 2026 US House geography vintage without assigning votes"
             if [ "$GITHUB_REF_NAME" != "main" ]; then
