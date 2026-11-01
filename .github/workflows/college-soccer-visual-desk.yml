@@ -216,7 +216,7 @@ jobs:
           assert.equal(postseasonRules.conferences['women-d2:gliac'].tournament.field,null);
                     const confJs=fs.readFileSync('college-soccer-conference-page.js','utf8');
           assert(confJs.includes('cup.bracket(')||confJs.includes('cup.bracketEight'));
-          assert(confJs.includes('cup.decorateTable('));
+          assert(confJs.includes('cup.crest(') && confJs.includes('cup.school('),'Shared school crest component not applied to standings and brackets');
           assert(confJs.includes('bracketOdds('));
           assert(confJs.includes('bracketOdds('));
           assert(confJs.includes('bracketEight'));
