@@ -101,3 +101,20 @@ body.epl-newspaper .hero-art:before{content:'PREMIER LEAGUE USRS · THE POWER FO
 .epl-newspaper .hero-art img[src*="/500/366.png"]{--epl-primary:#eb172b;--epl-secondary:#171717}
 .epl-newspaper .hero-art img[src*="/500/367.png"]{--epl-primary:#132257;--epl-secondary:#a58a50}
 .epl-newspaper .hero-art img.epl-crest{border:3px solid var(--epl-primary,var(--teal));box-shadow:0 0 0 2px var(--epl-secondary,var(--gold));padding:6px}
+
+/* Race tables retain the same row rhythm at narrow phone widths. */
+.epl-newspaper #epl-race-watch .epl-race-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+.epl-newspaper #epl-race-watch .epl-race-card{min-width:0;border-top:1px solid var(--line);padding-top:12px}
+.epl-newspaper #epl-race-watch .epl-race-card h3{font:24px/1.15 'Libre Caslon Display',Georgia,serif;margin:0 0 10px}
+.epl-newspaper #epl-race-watch .epl-race-club{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-width:0;padding:9px 0;border-bottom:1px solid var(--line)}
+.epl-newspaper #epl-race-watch .epl-race-identity{display:flex;align-items:center;gap:9px;min-width:0;font:600 12px/1.35 'DM Sans',Arial,sans-serif}
+.epl-newspaper #epl-race-watch .epl-race-identity>span:last-child{min-width:0;overflow-wrap:break-word}
+.epl-newspaper #epl-race-watch .epl-race-club>strong{font:26px/1 'Barlow Condensed',Arial,sans-serif;white-space:nowrap;text-align:right;min-width:50px;font-variant-numeric:tabular-nums}
+.epl-newspaper #epl-race-watch .epl-race-club>strong small{font:500 10px 'DM Sans',Arial,sans-serif;color:var(--muted)}
+.epl-newspaper #epl-race-watch .epl-race-context{font:11px/1.55 'DM Sans',Arial,sans-serif;color:var(--muted);margin:10px 0 0}
+.epl-newspaper #epl-race-watch .epl-badge{--epl-badge-size:32px}
+.epl-newspaper #epl-race-watch img{width:32px;height:32px;object-fit:contain}
+.epl-newspaper .epl-power-row{display:grid;grid-template-columns:23px minmax(0,1fr) auto 46px;align-items:center;column-gap:9px}
+.epl-newspaper .epl-power-row .epl-team>span:last-child{white-space:normal;overflow-wrap:break-word}
+.epl-newspaper .epl-power-row .epl-elo-delta{font-variant-numeric:tabular-nums}
+@media(max-width:380px){.epl-newspaper .epl-power-row{grid-template-columns:20px minmax(0,1fr) auto 42px;gap:6px}.epl-newspaper .epl-power-row strong{font-size:23px}.epl-newspaper .epl-power-row .epl-team{font-size:10px}}
