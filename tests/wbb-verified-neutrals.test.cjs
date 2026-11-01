@@ -30,7 +30,7 @@ test('wrong year, wrong team and missing independent URL fail closed',()=>{
  assert.equal(api.neutrals({...evidence,season:'2025-26'}).size,0);
  assert.equal(api.neutrals({...evidence,games:[{...confirmed,corroborating_source_url:'http://invalid'}]}).size,0);
 });
-test('live women's source refresh keeps source-confirmed neutral home-court edge at zero',()=>{
+test('live women source refresh keeps source-confirmed neutral home-court edge at zero',()=>{
  const front=fs.readFileSync('college-basketball-gender.js','utf8'),
        team=fs.readFileSync('ncaaw-team.html','utf8'),
        live=fs.readFileSync('wbb-team-live.js','utf8');
