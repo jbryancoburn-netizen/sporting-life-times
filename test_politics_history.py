@@ -1,7 +1,7 @@
 """Deterministic offline tests for MEDSL election history parser."""
 import datetime as dt
 import unittest
-from scripts.politics_history import collate, baseline_check, describe, classify
+from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout
 
 def item(name,party,votes,district=1,year=2024,fusion=False,total=None,stage="GEN",special=False,chamber="house"):
     return {"year":year,"state_po":"FL","district":district,"candidate":name,"party":party,
@@ -45,5 +45,22 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(out["mean_absolute_margin_error"],5.0)
         self.assertEqual(out["sign_changes"],1)
         self.assertIn("Not a calibrated",out["interpretation"])
+
+
+    def test_experimental_holdout_is_never_a_2026_forecast(self):
+        def sample_year(offset):
+            out=[]
+            for i in range(200):
+                margin=(i-100)/3.0+offset
+                out.append({"id":"S-%03d"%i,"two_party_margin":margin,
+                            "party_winner":"D" if margin>0 else "R"})
+            return out
+        report=experimental_holdout(sample_year(0),sample_year(2),sample_year(-3),sample_year(-1))
+        self.assertEqual(report["status"],"experimental_holdout_only")
+        self.assertFalse(report["forecast_2026_certified"])
+        self.assertFalse(report["backtest_certified"])
+        self.assertEqual(report["test_samples"],200)
+        self.assertTrue(0<=report["holdout_brier_score"]<=1)
+        self.assertEqual(sum(b["count"] for b in report["calibration_bins"]),200)
 
 if __name__=="__main__":unittest.main()
