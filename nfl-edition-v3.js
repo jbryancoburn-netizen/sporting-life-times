@@ -196,7 +196,7 @@ function home(){
          '<span class="nfl-p26-hero-teamname">'+escapeHtml(short(a))+'</span>'+
          '<span class="nfl-p26-hero-code">'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+'</span></div>'+
        '<div class="nfl-p26-hero-score" aria-label="'+escapeHtml(pre?'Game not started':format(g.away.score)+' to '+format(g.home.score))+'">'+
-         (pre?'<span class="nfl-p26-hero-vs">VS</span>':'<strong>'+format(g.away.score)+'</strong><span>:</span><strong>'+format(g.home.score)+'</strong>')+
+         (pre?'<span class="nfl-p26-hero-vs">VS</span>':'<strong>'+format(g.away.score)+'</strong><span>–</span><strong>'+format(g.home.score)+'</strong>')+
        '</div>'+
        '<div class="nfl-p26-hero-club nfl-p26-hero-club-home">'+crest(h,'lg')+
          '<span class="nfl-p26-hero-teamname">'+escapeHtml(short(h))+'</span>'+
