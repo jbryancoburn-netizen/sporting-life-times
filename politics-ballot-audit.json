@@ -1,31 +1,43 @@
 {
   "status": "PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED",
-  "checked_at": "2026-11-01T18:50:41+00:00",
+  "checked_at": "2026-11-01T18:54:39+00:00",
   "source_reviewed_at": "2026-11-01",
-  "official_source_links_located": 5,
+  "official_source_links_located": 6,
   "states_with_transcribed_federal_contests": [
     "FL",
-    "NC"
+    "NC",
+    "WY"
   ],
-  "house_contests_transcribed": 41,
-  "senate_contests_transcribed": 2,
-  "candidate_ballot_entries": 127,
+  "house_contests_transcribed": 43,
+  "house_general_ballot_contests_transcribed": 42,
+  "unopposed_offices_without_general_ballot": [
+    "FL-10"
+  ],
+  "senate_contests_transcribed": 3,
+  "candidate_ballot_entries": 134,
+  "qualified_write_in_entries_not_printed_on_ballot": 9,
+  "florida_unverified_districts": [],
   "state_coverage": {
     "FL": {
-      "house": 27,
+      "house": 28,
       "senate": 1,
-      "full_house_snapshot": false
+      "full_house_snapshot": true
     },
     "NC": {
       "house": 14,
       "senate": 1,
       "full_house_snapshot": true
+    },
+    "WY": {
+      "house": 1,
+      "senate": 1,
+      "full_house_snapshot": true
     }
   },
-  "house_contests_unverified": 394,
+  "house_contests_unverified": 392,
   "fec_identity_matches_verified": 0,
   "all_435_house_races_covered": false,
   "2026_independent_forecast_certified": false,
   "certified_2026_probability_count": 0,
-  "warning": "State government source transcriptions are historical snapshots, not continuously synchronized official ballots. Remaining races, later changes, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
+  "warning": "State government records include qualified ballot contests and an explicitly sourced unopposed office absent from the ballot. WRI entries are qualified write-ins, not printed ballot names. These are dated snapshots, not continuously synchronized official ballots. Later changes, remaining states, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
 }
