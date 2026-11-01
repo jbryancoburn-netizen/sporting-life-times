@@ -186,6 +186,40 @@ def seed_official_logos(teams):
     return {"matched":matched,"unmatched":len(teams)-matched,
             "ambiguous":ambiguous,"index_source":used}
 
+
+def seed_cross_gender_logos(gender,teams):
+    """Reuse an NCAA-confirmed institutional SVG across men's and women's desks.
+
+    Require matching school city plus one unambiguous normalized name substring.
+    A name-only fuzzy match is not sufficient, and no unmatched logo is guessed.
+    """
+    counterpart="women" if gender=="men" else "men"
+    file=DATA/f"d2-{counterpart}-2026-27.json"
+    if not file.exists():return {"added":0,"status":"other-gender directory unavailable"}
+    other=json.loads(file.read_text()).get("teams",[])
+    by_city={}
+    for t in other:
+        city=normalize_school_name(t.get("city"))
+        if city and t.get("slug") and "NCAA schools index" in t.get("logo_source",""):
+            by_city.setdefault(city,[]).append(t)
+    assigned=0
+    for t in teams.values():
+        if t.get("slug"):continue
+        city=normalize_school_name(t.get("city"))
+        short=normalize_school_name(t.get("name"))
+        if not city or len(short)<6:continue
+        potential=[]
+        for other_team in by_city.get(city,[]):
+            name=normalize_school_name(other_team.get("name"))
+            if len(name)<6:continue
+            if name in short or short in name:
+                potential.append(other_team)
+        if len(potential)==1:
+            t["slug"]=potential[0]["slug"]
+            t["logo_source"]="NCAA schools index via uniquely identified counterpart basketball program"
+            assigned+=1
+    return {"added":assigned,"method":"same institution, uniquely matched name and city"}
+
 def update(gender, bootstrap=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
@@ -201,6 +235,10 @@ def update(gender, bootstrap=False):
         directory_error=str(exc)
         print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
     logo_quality=seed_official_logos(teams)
+    paired_quality=seed_cross_gender_logos(gender,teams)
+    logo_quality["cross_gender"]=paired_quality
+    logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
+    logo_quality["unmatched"]=len(teams)-logo_quality["matched"]
     games={str(g["id"]):g for g in prior.get("games",[])}
     # CCA-sanctioned Hawaii October tournament games were independently
     # verified against the tournament organizer's published score bracket.

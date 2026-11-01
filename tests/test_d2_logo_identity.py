@@ -38,6 +38,31 @@ class D2OfficialLogoTests(unittest.TestCase):
         self.assertEqual(teams["uaa"]["slug"], "alaska-anchorage")
         self.assertEqual(teams["other"]["slug"], "")
 
+    def test_reuse_across_genders_only_when_same_city_and_unambiguous_name(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder)
+            partner = {
+                "teams": [
+                    {"name": "University of Alaska Anchorage", "city": "Anchorage",
+                     "slug": "alas-anchorage", "logo_source": "NCAA schools index"},
+                    {"name": "Same Name College", "city": "Elsewhere",
+                     "slug": "other", "logo_source": "NCAA schools index"}
+                ]
+            }
+            (source / "d2-men-2026-27.json").write_text(json.dumps(partner))
+            candidates = {
+                "real": {"name": "Alaska Anchorage", "city": "Anchorage", "slug": ""},
+                "wrong_city": {"name": "Same Name College", "city": "Anchorage", "slug": ""}
+            }
+            with patch.object(builder, "DATA", source):
+                report = builder.seed_cross_gender_logos("women", candidates)
+            self.assertEqual(report["added"], 1)
+            self.assertEqual(candidates["real"]["slug"], "alas-anchorage")
+            self.assertEqual(candidates["wrong_city"]["slug"], "")
+
     def test_no_invented_logos_when_school_index_unavailable(self):
         teams = {"x": {"name": "Unrecognized College", "slug": ""}}
         with patch.object(builder, "get_json", side_effect=OSError("source unavailable")):
