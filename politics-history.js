@@ -9,17 +9,19 @@ function el(tag,cl,content){const out=document.createElement(tag);if(cl)out.clas
 function card(year,source){
  const div=el("article","history-year");
  div.append(el("span","history-yr",String(year.year)));
- const dSeats=year.dem_wins,rSeats=year.rep_wins,other=year.other_wins;
- const caption=el("p","history-vote","Two-party D share "+pct(year.dem_two_party_share)+" · "+year.contests+" general contests");
+ const official=year.official_seats||null;
+ const dSeats=official?official.dem_wins:year.dem_wins,rSeats=official?official.rep_wins:year.rep_wins;
+ const other=official?official.unresolved_seats:year.other_wins;
+ const caption=el("p","history-vote",official?"Official House winner totals · MIT extracted "+year.contests+"/435 races (not reconciled)":"MIT extracted Senate results · "+year.contests+" general contests");
  div.append(caption);
  const bar=el("div","history-year-bar");
  bar.setAttribute("role","img");
- bar.setAttribute("aria-label",year.year+" "+source+" House or Senate: "+dSeats+" Democratic wins, "+rSeats+" Republican wins, "+other+" other wins");
- const percent=100*dSeats/Math.max(1,year.contests);
+ bar.setAttribute("aria-label",year.year+" "+source+": "+dSeats+" Democratic wins, "+rSeats+" Republican wins, "+other+" other or unresolved");
+ const percent=100*dSeats/(official?435:Math.max(1,year.contests));
  const blue=el("span","d");blue.style.width=percent+"%";
- const red=el("span","r");red.style.width=100*rSeats/Math.max(1,year.contests)+"%";
+ const red=el("span","r");red.style.width=100*rSeats/(official?435:Math.max(1,year.contests))+"%";
  bar.append(blue,red);
- const line=el("p","history-wins",dSeats+" Democratic · "+rSeats+" Republican"+(other?" · "+other+" other":""));
+ const line=el("p","history-wins",dSeats+" Democratic · "+rSeats+" Republican"+(other?" · "+other+" other/unresolved":""));
  div.append(bar,line);
  return div;
 }
@@ -32,13 +34,24 @@ function render(data){
   message("Historical election dataset is outdated or its timestamp cannot be verified. Use the original source links below.");return;
  }
  const root=byId("history-lab");root.replaceChildren();
+ const issues=(data.house_reconciliation||[]).filter(r=>r.status!=="matched");
+ const sourceLink=el("a",null,"U.S. House Historian ↗");
+ sourceLink.href="https://history.house.gov/Institution/Party-Divisions/Party-Divisions/";
+ sourceLink.target="_blank";sourceLink.rel="noopener noreferrer";
+ const alert=el("aside","history-flag",issues.length?
+   "DATA QUALITY: "+issues.length+" historical House cycles do not yet reconcile at the candidate level. House charts use separately verified official seat totals; the MIT extract is not yet certified as model training data.":
+   "Historical House outcomes passed the seat-total check.");
+ alert.appendChild(document.createTextNode(" "));alert.appendChild(sourceLink);root.appendChild(alert);
  const kicker=el("p","history-note","Original calculations from MIT Election Data and Science Lab historical results, via electiondata.dev · CC0 1.0 · Updated "+last.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric",timeZone:"UTC"}));
  root.appendChild(kicker);
  [["U.S. House",data.house],["U.S. Senate",data.senate]].forEach(([title,years])=>{
   const section=el("section","history-subsection");
   section.append(el("h3",null,title+" elections since 2018"));
   const grid=el("div","history-years");
-  years.forEach(y=>grid.append(card(y,title)));
+  years.forEach(y=>{
+    const recon=title==="U.S. House"?(data.house_reconciliation||[]).find(r=>r.year===y.year):null;
+    grid.append(card({...y,official_seats:recon&&recon.official},title));
+  });
   section.append(grid);root.appendChild(section);
  });
  const closest=el("section","history-closest");
@@ -65,7 +78,7 @@ function render(data){
  bench.append(explanation);root.append(bench);
 
  const model=data.experimental_holdout;
- if(model&&model.status==="experimental_holdout_only"){
+ if(model&&model.status==="experimental_holdout_only"&&data.reconciliation_complete===true){
   const panel=el("section","historical-holdout");
   panel.append(el("p","eyebrow","EXPERIMENTAL STATISTICAL VALIDATION · NOT A 2026 FORECAST"));
   panel.append(el("h3",null,"An actual out-of-sample probability test."));
@@ -86,6 +99,9 @@ function render(data){
   });panel.append(table);
   panel.append(el("p","fine","These bins summarize the held-out 2024 test set, not a forecast for 2026. They are not proof of accuracy under new district boundaries or a changing national environment. The Brier score measures average squared probability error."));
   root.append(panel);
+ }
+ if(model && !data.reconciliation_complete){
+  root.append(el("p","history-flag","VALIDATION GATE: Experimental Brier scores are withheld pending district-level reconciliation between official House results and the MIT candidate records. No independently certified 2026 forecast is available."));
  }
  const status=el("p","history-flag","MODEL STATUS · 2026 PROBABILITY FORECAST NOT CERTIFIED");
  root.append(status);
