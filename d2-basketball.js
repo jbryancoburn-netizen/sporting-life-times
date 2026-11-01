@@ -46,7 +46,7 @@ function game(g){
  (final||g.status==='live'?esc(g.away_score??'—'):'')+'</b></div>'+
  '<div class="game-row '+(winH?'winner':'')+'">'+logo(home)+'<a class="school-link" href="'+link(home)+'">'+name(home)+'</a><b>'+
  (final||g.status==='live'?esc(g.home_score??'—'):'')+'</b></div>'+odds+
- '<div class="game-footer">'+esc(g.venue||'Venue awaiting official confirmation')+
+ '<div class="game-footer">'+esc(g.venue||(g.venue_city?g.venue_city+' · Arena not confirmed':'Venue awaiting official confirmation'))+
  (g.tournament?' · '+esc(g.tournament):'')+
  (g.source_url?' · <a target="_blank" rel="noopener noreferrer" href="'+esc(g.source_url)+'">OFFICIAL SOURCE ↗</a>':'')+
  '</div></article>';
