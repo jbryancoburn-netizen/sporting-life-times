@@ -3,6 +3,7 @@
 'use strict';
 const contexts=new WeakMap(),activeByGame=new Map(),MAX=12;
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const score=v=>v===null||v===undefined||v===''||!Number.isFinite(Number(v))?null:Number(v);
 function parsePlays(data){
   let raw=data?.plays;
   if(!Array.isArray(raw))raw=raw?.items||data?.gamepackageJSON?.plays||data?.playByPlay?.plays||[];
@@ -18,6 +19,7 @@ function parsePlays(data){
       scoring: p.scoringPlay===true || p.scoring_play===true,
       // Only recognized normalized half-court coordinates, NEVER guessed.
       shotX:p.coordinate_x??null,shotY:p.coordinate_y??null,
+      awayScore:score(p.awayScore??p.away_score),homeScore:score(p.homeScore??p.home_score),
       text:p.text.replace(/\s+/g,' ').trim().slice(0,350)}];
   });
 }
@@ -31,6 +33,29 @@ function location(play){
     !Number.isFinite(x)||!Number.isFinite(y)||x<0||x>50||y<0||y>47)return null;
  // This is a normalized shot MAP, not an observed ball animation.
  return {x:50+x/50*43,y:6+(47-y)/47*88};
+}
+function gameFlow(plays){
+ // Actual scoreboard values only. This is a LEAD curve, not a physical court.
+ const scoring=plays.filter(p=>p.awayScore!==null&&p.homeScore!==null);
+ if(scoring.length<3)return '';
+ const sampled=scoring.length>300?scoring.filter((p,i)=>i%Math.ceil(scoring.length/300)===0||i===scoring.length-1):scoring;
+ const max=Math.max(6,...sampled.map(p=>Math.abs(p.awayScore-p.homeScore)));
+ const xy=sampled.map((p,i)=>[
+   46+(848*i/Math.max(1,sampled.length-1)),
+   204-((p.awayScore-p.homeScore)/max)*146
+ ]);
+ const poly=xy.map(([x,y])=>x.toFixed(1)+','+y.toFixed(1)).join(' ');
+ const last=scoring[scoring.length-1];
+ return '<div class="slc-flow" role="img" aria-label="Score margin by sourced play, Notre Dame and opponent leads shown on opposite sides of the center line">'+
+   '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>SOURCED SCORE MARGINS · NOT PLAYER TRACKING</span></div>'+
+   '<svg viewBox="0 0 940 410" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
+   '<line x1="46" y1="204" x2="894" y2="204" stroke="#aab9b6" stroke-dasharray="5 6" stroke-width="2"/>'+
+   '<text x="48" y="32">AWAY LEAD</text><text x="48" y="379">HOME LEAD</text>'+
+   '<polyline points="'+poly+'" fill="none" stroke="#204b57" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>'+
+   '<circle cx="'+xy.at(-1)[0]+'" cy="'+xy.at(-1)[1]+'" r="10" fill="#ad673e" stroke="#fff" stroke-width="3"/>'+
+   '<text x="860" y="32" text-anchor="end">AWAY '+last.awayScore+'</text>'+
+   '<text x="860" y="379" text-anchor="end">HOME '+last.homeScore+'</text></svg>'+
+   '<p>Each point comes from a published play-by-play score. The line is updated only when the source records a new score.</p></div>';
 }
 function stationLinks(g){
  const id=String(g.id||'');
@@ -64,15 +89,17 @@ function draw(c){
   const g=c.game,plays=c.plays,selected=c.follow?plays.at(-1):plays.find(p=>p.id===c.selected)||plays.at(-1);
   const pos=selected?location(selected):null,arr=plays.slice(-MAX).reverse();
   const shotPlays=plays.filter(p=>location(p)!==null).slice(-30);
+  const flow=shotPlays.length?'':gameFlow(plays);
   const live=g.phase==='live',final=g.phase==='final';
   c.node.innerHTML='<div class="slc-wrap"><header class="slc-head"><div><small>THE SPORTING LIFE & TIMES / GAMEFILE</small>'+
     '<h2>COURTCAST</h2></div><b>'+(live?'LIVE PLAY-BY-PLAY':final?'FINAL · PLAY REPLAY':'PREGAME')+'</b></header>'+
     '<div class="slc-columns"><section class="slc-visual"><div class="slc-teams"><span>AWAY · '+esc(name(g.away))+'</span>'+
     '<span>HOME · '+esc(name(g.home))+'</span></div>'+
-    '<div class="slc-floor">'+lines+
+    (flow?flow:
+      '<div class="slc-floor">'+lines+
       shotPlays.map(p=>{const xy=location(p);return '<span class="slc-shot'+(p.scoring?' slc-shot-made':'')+(selected?.id===p.id?' slc-shot-current':'')+'" style="--x:'+xy.x+'%;--y:'+xy.y+'%" title="'+esc(p.text)+'" aria-hidden="true"></span>';}).join('')+
       (!shotPlays.length?'<div class="slc-court-empty"><strong>NO VERIFIED SHOT LOCATIONS</strong><span>Follow the live events below. Positions are never estimated.</span></div>':'')+
-      '<span class="slc-court-label">'+(shotPlays.length?'SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT':'NO SIMULATED BALL TRACKING')+'</span></div>'+
+      '<span class="slc-court-label">'+(shotPlays.length?'SOURCE-REPORTED SHOT LOCATIONS · HALF-COURT PLOT':'NO SIMULATED BALL TRACKING')+'</span></div>')+
     '<div class="slc-now" aria-live="polite">'+
     (selected?'<small>'+esc(selected.clock||'TIME NOT LISTED')+
       (selected.period?' · PERIOD '+esc(selected.period):'')+'</small><strong>'+esc(selected.text)+'</strong>':
@@ -126,5 +153,5 @@ function mount(node,game,summary){
  if(c.selected&&!c.plays.some(p=>p.id===c.selected)){c.follow=true;c.selected=null;}
  draw(c);
 }
-global.SLTCourt={mount,parsePlays,location,stationLinks};
+global.SLTCourt={mount,parsePlays,location,stationLinks,gameFlow};
 })(window);
