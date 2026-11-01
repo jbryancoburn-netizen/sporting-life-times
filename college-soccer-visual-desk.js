@@ -10,7 +10,7 @@ const section=(parent,title,subtitle)=>{const wrap=E('section',null,'cs-visual-s
 const link=(name,cohort,id)=>{const a=E('a',name);a.href=URL_TEAM(cohort,id);return a;};
 const pct=n=>Math.round(100*Number(n))+'%';
 const logoFor=(cohort,id)=>{
- const identity=brand.teams?.[cohort+':'+id];
+ const identity=brand.teams?.[cohort+':'+id]||(cohort==='women-d1'?brand.teams?.['men-d1:'+id]:null);
  if(identity?.logo_url)return identity.logo_url;
  // NCAA.com itself publishes member-school marks using its canonical school slug.
  // Only exact safe school identifiers are candidates; failed loads keep the text badge.
@@ -18,14 +18,16 @@ const logoFor=(cohort,id)=>{
  return 'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg';
 };
 const club=(name,cohort,id,small=false)=>{
- const wrap=E('span',null,'cs-team');const mark=E('span',null,'cs-mark');const identity=brand.teams?.[cohort+':'+id];
- mark.textContent=String(name).slice(0,2).toUpperCase();
+ const wrap=E('span',null,'cs-team'),mark=E('span',null,'cs-mark');
+ const identity=brand.teams?.[cohort+':'+id]||(cohort==='women-d1'?brand.teams?.['men-d1:'+id]:null);
+ const fallback=E('span',String(identity?.badge_text||name||id).trim().split(/\\s+/).filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase()||'SC','cs-mark-initial');
+ mark.append(fallback);
  const src=logoFor(cohort,id);
  if(src){
-  const pic=E('img');pic.src=src;pic.alt='';pic.loading='lazy';pic.decoding='async';
-  pic.addEventListener('load',()=>mark.classList.add('cs-has-logo'));
-  pic.addEventListener('error',()=>pic.remove());
-  mark.append(pic);
+  const pic=E('img');pic.alt='';pic.loading='lazy';pic.decoding='async';
+  pic.addEventListener('load',()=>{if(pic.naturalWidth>0){mark.classList.add('cs-has-logo');fallback.remove();}});
+  pic.addEventListener('error',()=>{mark.classList.remove('cs-has-logo');pic.remove();});
+  mark.append(pic);pic.src=src;
  }
  if(identity?.primary)mark.style.setProperty('--cs-color',identity.primary);
  wrap.append(mark,link(name,cohort,id));return wrap;
