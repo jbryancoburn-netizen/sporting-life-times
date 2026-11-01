@@ -1013,6 +1013,13 @@ def update(gender, bootstrap=False, live=False):
             from d2_cacc_women_official import enrich_cacc_women
             cacc_quality=enrich_cacc_women(games,teams,today)
     gsc_venue_quality=enrich_gsc_venue_evidence(games,gender)
+    # PSAC 2026-27 official calendars are the next certified conference.
+    # Bootstrap once after deployment, then update in the daily source pass.
+    # Half-hour NCAA polls reuse the earlier two-school reconciliation.
+    from d2_psac_official import enrich_psac
+    psac_quality=previous_quality.get("official_psac_schedule_reconciliation")
+    if not rapid or not psac_quality:
+        psac_quality=enrich_psac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1074,7 +1081,8 @@ def update(gender, bootstrap=False, live=False):
         "official_midwest_tipoff_broadcasts":midwest_broadcasts,
         "official_gsc_schedule_reconciliation":gsc_quality,
         "official_gsc_venue_evidence":gsc_venue_quality,
-        "official_cacc_schedule_reconciliation":cacc_quality}
+        "official_cacc_schedule_reconciliation":cacc_quality,
+        "official_psac_schedule_reconciliation":psac_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
