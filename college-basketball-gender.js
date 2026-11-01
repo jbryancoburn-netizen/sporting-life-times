@@ -115,7 +115,12 @@
     document.getElementById('wbb-prev').disabled=dates.indexOf(selected)<=0;document.getElementById('wbb-next').disabled=dates.indexOf(selected)>=dates.length-1;
     document.getElementById('wbb-recent').innerHTML=all.filter(g=>g.status==='final'||g.completed).slice(-6).reverse().map(card).join('')||empty('No completed 2026–27 games have been published yet.');
   }
-  const boardRow=t=>'<div class="rank-row"><span class="rank">'+esc(t.rank??'—')+'</span>'+teamName(t.team_id)+'<span class="rank-score">'+Number(t.elo).toFixed(1)+'<small>'+record(t)+' · Δ '+(t.daily_change>0?'+':'')+Number(t.daily_change||0).toFixed(1)+'</small></span></div>';
+  const hasFinal=t=>(Number(t?.wins)||0)+(Number(t?.losses)||0)>0;
+  const boardRow=t=>'<div class="rank-row'+(hasFinal(t)?'':' wbb-unplayed-row')+'"><span class="rank">'+
+   esc(hasFinal(t)?(t.rank??'—'):'—')+'</span>'+teamName(t.team_id)+
+   '<span class="rank-score">'+Number(t.elo).toFixed(1)+'<small>'+
+   (hasFinal(t)?record(t)+' · Δ '+(Number(t.daily_change)>0?'+':'')+Number(t.daily_change||0).toFixed(1):
+    'Not yet played · baseline 1500')+'</small></span></div>';
   function drawDirectory(){const q=document.getElementById('wbb-team-search').value.trim().toLowerCase();document.getElementById('wbb-directory-list').innerHTML=ratings.rankings.filter(t=>(t.team+' '+t.conference).toLowerCase().includes(q)).map(boardRow).join('')||empty('No matching school.');}
   function drawStandings(){
     const c=document.getElementById('wbb-conference-select').value;
@@ -150,8 +155,17 @@
       const conferences=[...new Set(r.rankings.map(t=>t.conference).filter(Boolean))].sort();
       for(const id of ['wbb-conference-select','wbb-game-conf']){const select=document.getElementById(id),old=select.value;select.innerHTML=(id==='wbb-game-conf'?'<option value="">All conferences</option>':'')+conferences.map(c=>'<option>'+esc(c)+'</option>').join('');if(conferences.includes(old))select.value=old;else if(id==='wbb-conference-select')select.value=conferences.includes('Big Ten Conference')?'Big Ten Conference':conferences[0];}
       document.getElementById('wbb-summary').innerHTML='<strong>363 <small>programs</small></strong><strong>'+conferences.length+' <small>conferences</small></strong><strong>'+games.size.toLocaleString()+' <small>season games</small></strong>';
-      document.getElementById('wbb-rating-note').textContent=r.games_played?'1500-start RETRO · '+r.games_played+' Division I finals · through '+r.as_of:'Preseason · All 363 programs begin tied at 1500. Rankings take shape after verified results arrive.';
-      document.getElementById('wbb-powerboard').innerHTML=r.games_played?r.rankings.slice(0,25).map(boardRow).join(''):'<div class="wbb-preseason">363 TEAMS · ELO 1500</div><p class="note">Home advantage: '+Number(r.parameters.home_edge)+' Elo points, calibrated on women’s historical results. No prior-season rating carryover.</p><a class="cta" href="#wbb-teams">Browse every program →</a>';
+      const activeRatings=r.rankings.filter(hasFinal),unplayed=r.rankings.length-activeRatings.length;
+      document.getElementById('wbb-rating-note').textContent=r.games_played?
+       'PROVISIONAL · '+r.games_played+' verified Division I finals · '+activeRatings.length+' of 363 programs played · through '+r.as_of+
+       '. Unplayed teams remain at the 1500 baseline and are omitted from this results-only Power Board. These are early Elo observations, not a mature national ranking.':
+       'Preseason · All 363 programs begin tied at 1500. Rankings take shape after verified results arrive.';
+      document.getElementById('wbb-powerboard').innerHTML=r.games_played?
+       activeRatings.slice(0,25).map(boardRow).join('')+
+       (unplayed?'<p class="note wbb-provisional-rank-note">'+unplayed+
+        ' programs have not played; their untouched 1500 ratings are available in the full team directory below.</p>':''):
+       '<div class="wbb-preseason">363 TEAMS · ELO 1500</div><p class="note">Home advantage: '+
+       Number(r.parameters.home_edge)+' Elo points, calibrated on women’s historical results. No prior-season rating carryover.</p><a class="cta" href="#wbb-teams">Browse every program →</a>';
       const stories=[...(wire?.articles||[]),...(news?.articles||[])].filter(a=>a.category==='WBB'||/women.s.{0,28}basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category,a.league].join(' '))).filter(a=>a.title&&safe(a.url));
       const seen=new Set();document.getElementById('wbb-stories').innerHTML=stories.filter(a=>!seen.has(a.url)&&seen.add(a.url)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0)).slice(0,10).map((a,i)=>'<article class="story'+(!i?' lead':'')+'"><div class="source">'+esc(a.source||'Reporting')+' · '+fmt(a.published_at)+'</div><h3><a href="'+safe(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(String(a.summary).slice(0,240))+'</p>':'')+'</article>').join('')||empty('No women’s basketball headlines in the current feed.');
       drawDirectory();drawStandings();drawGames();
