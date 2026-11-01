@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "updated_at": "2026-11-01T15:44:41+00:00",
+  "updated_at": "2026-11-01T15:48:29+00:00",
   "attribution": "MIT Election Data and Science Lab (MEDSL), via electiondata.dev",
   "data_license": "CC0 1.0",
   "sources": {
@@ -370,5 +370,64 @@
     "The 2018→2020 and 2022→2024 same-ID margin baselines have NOT been certified for boundary changes or uncontested races. Do not use them as predictive calibration."
   ],
   "backtest_certified": false,
-  "forecast_2026_certified": false
+  "forecast_2026_certified": false,
+  "experimental_holdout": {
+    "status": "experimental_holdout_only",
+    "training_period": "2018 House -> 2020 House",
+    "test_period": "2022 House -> 2024 House",
+    "training_samples": 374,
+    "test_samples": 373,
+    "model": "L2-regularized logistic regression, predictor = previous election's two-party district margin / 10",
+    "intercept": -0.68847,
+    "margin_coefficient": 1.67536,
+    "holdout_brier_score": 0.05,
+    "unconditional_baseline_brier_score": 0.2517,
+    "holdout_mean_absolute_probability_error": 0.1099,
+    "calibration_bins": [
+      {
+        "from": 0,
+        "to": 20,
+        "count": 170,
+        "mean_probability": 0.02,
+        "realized_win_rate": 0.029
+      },
+      {
+        "from": 20,
+        "to": 40,
+        "count": 23,
+        "mean_probability": 0.293,
+        "realized_win_rate": 0.391
+      },
+      {
+        "from": 40,
+        "to": 60,
+        "count": 20,
+        "mean_probability": 0.515,
+        "realized_win_rate": 0.8
+      },
+      {
+        "from": 60,
+        "to": 80,
+        "count": 25,
+        "mean_probability": 0.711,
+        "realized_win_rate": 1.0
+      },
+      {
+        "from": 80,
+        "to": 100,
+        "count": 135,
+        "mean_probability": 0.962,
+        "realized_win_rate": 0.985
+      }
+    ],
+    "uncertainty_flags": [
+      "Train/holdout are different cycles; does not prove generalizability to 2026.",
+      "District boundary changes and candidate incumbency are NOT accounted for.",
+      "Uncontested and missing-vote districts are excluded and must be audited.",
+      "House races have correlated election-year errors; independent race draws would misstate chamber-control probabilities.",
+      "No simulated 2026 seat counts or election probabilities are authorized by this diagnostic."
+    ],
+    "forecast_2026_certified": false,
+    "backtest_certified": false
+  }
 }
