@@ -1,0 +1,85 @@
+name: Politics 435-district House research atlas
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'politics-house-district-polls.json'
+      - 'scripts/politics_house_atlas.py'
+      - 'test_politics_house_atlas.py'
+      - 'test_politics_house_ui.py'
+      - 'politics-house*.html'
+      - 'politics-house*.js'
+      - 'politics-house*.css'
+      - '.github/workflows/politics-house-atlas.yml'
+  push:
+    branches: [main, politics-house-atlas-435-20261101]
+    paths:
+      - 'politics-house-district-polls.json'
+      - 'politics-historical-contests.json'
+      - 'politics-fec-race-index.json'
+      - 'politics-official-ballots.json'
+      - 'politics-2024-county-presidential.json'
+      - 'politics-2026-district-geography.json'
+      - 'scripts/politics_house_atlas.py'
+      - 'test_politics_house_atlas.py'
+      - '.github/workflows/politics-house-atlas.yml'
+  schedule:
+    - cron: '29 11 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-house-atlas
+  cancel-in-progress: false
+jobs:
+  validated-atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test every district and source with no paid API
+        run: |
+          python -m py_compile scripts/politics_house_atlas.py
+          python -m unittest -v test_politics_house_atlas test_politics_house_ui
+          node --check politics-house.js
+          node --check politics.js
+      - name: Build 435 distinct source-checked House district records
+        run: python -m scripts.politics_house_atlas
+      - name: Stop incomplete publishing or misleading forecasts
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('politics-house-atlas.json'))
+          assert a['status']=='COMPLETE_435_DISTRICT_RESEARCH_ATLAS_NOT_FORECAST'
+          assert a['district_count']==435 and a['state_count']==50
+          assert len(a['districts'])==435 and len(a['states'])==50
+          assert sum(x['district_count'] for x in a['states'])==435
+          assert len(set(x['id'] for x in a['districts']))==435
+          assert a['forecast_eligible'] is False and a['certified_2026_probabilities']==0
+          assert all(r['2026_forecast'] is None for r in a['districts'])
+          assert all(not (r['2026_boundaries_revised'] and (r['2024_house_result_on_prior_boundaries'] or {}).get('same_2026_geography')) for r in a['districts'])
+          assert all(r['fec_records_are_not_qualified_nominees'] is True for r in a['districts'])
+          print('VALIDATED: every House seat present; period, map-vintage and source labels preserved.')
+          PY
+      - name: Publish regenerated evidence, not sports data
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-house-atlas.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh verified complete House election atlas (not a 2026 forecast)"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
