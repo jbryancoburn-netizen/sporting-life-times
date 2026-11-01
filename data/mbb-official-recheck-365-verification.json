@@ -2,7 +2,7 @@
   "schools_targeted": 365,
   "schools_checked": 365,
   "totals": {
-    "matched": 6801,
+    "matched": 6742,
     "site_corrected": 0,
     "site_conflicts": 5,
     "location_corrected": 0,
@@ -11,13 +11,13 @@
     "tipoff_added": 0
   },
   "status_counts": {
-    "already_matched": 326,
-    "source_fetch_failed": 39
+    "already_matched": 324,
+    "source_fetch_failed": 41
   },
   "source_method_counts": {
-    "sidearm_card": 166,
+    "sidearm_card": 164,
     "table": 159,
-    "unreadable": 39,
+    "unreadable": 41,
     "official_conference": 1
   },
   "schools": [
@@ -175,7 +175,7 @@
       "team": "Army West Point",
       "id": "349",
       "status": "already_matched",
-      "matched": 10,
+      "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 36,
@@ -325,7 +325,7 @@
       "team": "Brown",
       "id": "225",
       "status": "already_matched",
-      "matched": 14,
+      "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 30,
@@ -345,7 +345,7 @@
       "team": "Bucknell",
       "id": "2083",
       "status": "already_matched",
-      "matched": 9,
+      "matched": 7,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 37,
@@ -614,12 +614,12 @@
     {
       "team": "Coppin St.",
       "id": "2154",
-      "status": "already_matched",
-      "matched": 31,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Cornell",
@@ -645,7 +645,7 @@
       "team": "Dartmouth",
       "id": "159",
       "status": "already_matched",
-      "matched": 17,
+      "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 28,
@@ -724,12 +724,12 @@
     {
       "team": "Drake",
       "id": "2181",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 30,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Drexel",
@@ -844,12 +844,12 @@
     {
       "team": "Evansville",
       "id": "339",
-      "status": "already_matched",
-      "matched": 27,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "FDU",
@@ -1135,7 +1135,7 @@
       "team": "Holy Cross",
       "id": "107",
       "status": "already_matched",
-      "matched": 31,
+      "matched": 33,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 34,
@@ -1296,7 +1296,7 @@
       "team": "Jacksonville St.",
       "id": "55",
       "status": "already_matched",
-      "matched": 8,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33,
@@ -1566,7 +1566,7 @@
       "team": "Maine",
       "id": "311",
       "status": "already_matched",
-      "matched": 10,
+      "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 33,
@@ -2396,12 +2396,12 @@
     {
       "team": "Queens (NC)",
       "id": "2511",
-      "status": "already_matched",
-      "matched": 30,
+      "status": "source_fetch_failed",
+      "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33,
-      "source_method": "sidearm_card"
+      "school_rows": 0,
+      "detail": "No readable official schedule table at available source URLs"
     },
     {
       "team": "Quinnipiac",
@@ -3217,7 +3217,7 @@
       "team": "UMass Lowell",
       "id": "2349",
       "status": "already_matched",
-      "matched": 12,
+      "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 35,
@@ -3570,7 +3570,7 @@
       "team": "Western Mich.",
       "id": "2711",
       "status": "already_matched",
-      "matched": 29,
+      "matched": 31,
       "site_corrected": 0,
       "location_corrected": 0,
       "school_rows": 32,
@@ -3679,19 +3679,21 @@
   ],
   "reciprocal_pass": {
     "summary": {
-      "ambiguous_or_nonreciprocal_groups": 311,
-      "unique_verified_reciprocal_games": 5327,
-      "conflicts_broadcast_disagreement": 388,
-      "conflicts_arena_disagreement": 668,
+      "ambiguous_or_nonreciprocal_groups": 214,
+      "unique_verified_reciprocal_games": 5385,
+      "conflicts_broadcast_disagreement": 398,
+      "conflicts_arena_disagreement": 614,
       "conflicts_site_mismatch_or_unverified": 20,
       "conflicts_time_disagreement": 54,
+      "game_records_repaired": 1,
+      "arena": 1,
       "schools_scanned": 365,
-      "schools_changed": 0,
-      "all_game_entries": 11807,
-      "remaining_missing_broadcast": 4986,
-      "remaining_missing_tipoff": 983,
-      "remaining_missing_valid_arena": 721,
-      "remaining_missing_city": 88,
+      "schools_changed": 1,
+      "all_game_entries": 11828,
+      "remaining_missing_broadcast": 4967,
+      "remaining_missing_tipoff": 938,
+      "remaining_missing_valid_arena": 704,
+      "remaining_missing_city": 85,
       "remaining_unverified_site": 55
     },
     "policy": "Source links and unique exact-day D-I opponent ID pairs; never overwrite an announced clock/channel; valid arena excludes date labels; conflicts quarantined; no generic TV assignments.",
@@ -4048,18 +4050,6 @@
         ],
         "kind": "arena_disagreement",
         "details": {
-          "target": "Ocean Bank Convocation Center",
-          "source": "Miami, Fla. Ocean Bank Convocation Center"
-        }
-      },
-      {
-        "date": "2026-10-22",
-        "schools": [
-          "2229",
-          "93"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
           "target": "Miami, Fla. Ocean Bank Convocation Center",
           "source": "Ocean Bank Convocation Center"
         }
@@ -4086,6 +4076,62 @@
         "details": {
           "target": "Memorial Coliseum",
           "source": "Allen County War Memorial Coliseum"
+        }
+      },
+      {
+        "date": "2026-10-23",
+        "schools": [
+          "2641",
+          "96"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "SEC Network+"
+          ],
+          "right": [
+            "SECN+"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-23",
+        "schools": [
+          "2641",
+          "96"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rupp Arena at Central Bank Center",
+          "source": "Rupp Arena"
+        }
+      },
+      {
+        "date": "2026-10-23",
+        "schools": [
+          "2641",
+          "96"
+        ],
+        "kind": "broadcast_disagreement",
+        "details": {
+          "left": [
+            "SECN+"
+          ],
+          "right": [
+            "SEC Network+"
+          ]
+        }
+      },
+      {
+        "date": "2026-10-23",
+        "schools": [
+          "2641",
+          "96"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Rupp Arena",
+          "source": "Rupp Arena at Central Bank Center"
         }
       },
       {
@@ -4552,18 +4598,6 @@
         ],
         "kind": "arena_disagreement",
         "details": {
-          "target": "Lawler Arena",
-          "source": "Hammel Court"
-        }
-      },
-      {
-        "date": "2026-11-05",
-        "schools": [
-          "2349",
-          "2771"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
           "target": "Hammel Court",
           "source": "Lawler Arena"
         }
@@ -4946,18 +4980,6 @@
         "details": {
           "target": "SJB Pavilion",
           "source": "The Sandy and John Black Pavilion at Ole Miss"
-        }
-      },
-      {
-        "date": "2026-11-10",
-        "schools": [
-          "145",
-          "2545"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "The Sandy and John Black Pavilion at Ole Miss",
-          "source": "SJB Pavilion"
         }
       },
       {
@@ -5388,18 +5410,6 @@
         ],
         "kind": "arena_disagreement",
         "details": {
-          "target": "Hinkle Fieldhouse",
-          "source": "Indianapolis, Ind. Hinkle Fieldhouse"
-        }
-      },
-      {
-        "date": "2026-11-13",
-        "schools": [
-          "2086",
-          "221"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
           "target": "Indianapolis, Ind. Hinkle Fieldhouse",
           "source": "Hinkle Fieldhouse"
         }
@@ -5607,6 +5617,18 @@
       {
         "date": "2026-11-15",
         "schools": [
+          "104",
+          "159"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Conte Forum",
+          "source": "Case Gym \u2013 \"The Roof\""
+        }
+      },
+      {
+        "date": "2026-11-15",
+        "schools": [
           "130",
           "2729"
         ],
@@ -5698,30 +5720,6 @@
           "right": [
             "ESPN/2/U"
           ]
-        }
-      },
-      {
-        "date": "2026-11-15",
-        "schools": [
-          "2711",
-          "88"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Liberty Arena",
-          "source": "Screaming Eagles Arena"
-        }
-      },
-      {
-        "date": "2026-11-15",
-        "schools": [
-          "2711",
-          "88"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Screaming Eagles Arena",
-          "source": "Liberty Arena"
         }
       },
       {
@@ -5732,7 +5730,7 @@
         ],
         "kind": "arena_disagreement",
         "details": {
-          "target": "Michelob ULTRA Arena – Las Vegas",
+          "target": "Michelob ULTRA Arena \u2013 Las Vegas",
           "source": "Michelob ULTRA Arena"
         }
       },
@@ -5745,7 +5743,7 @@
         "kind": "arena_disagreement",
         "details": {
           "target": "Michelob ULTRA Arena",
-          "source": "Michelob ULTRA Arena – Las Vegas"
+          "source": "Michelob ULTRA Arena \u2013 Las Vegas"
         }
       },
       {
@@ -5807,13 +5805,13 @@
       {
         "date": "2026-11-18",
         "schools": [
-          "119",
-          "256"
+          "104",
+          "2771"
         ],
         "kind": "arena_disagreement",
         "details": {
-          "target": "TU Arena",
-          "source": "SECU Arena"
+          "target": "North Andover, Mass. Lawler Arena",
+          "source": "Lawler Arena"
         }
       },
       {
@@ -5824,8 +5822,8 @@
         ],
         "kind": "arena_disagreement",
         "details": {
-          "target": "SECU Arena",
-          "source": "TU Arena"
+          "target": "TU Arena",
+          "source": "SECU Arena"
         }
       },
       {
@@ -6001,18 +5999,6 @@
         }
       },
       {
-        "date": "2026-11-19",
-        "schools": [
-          "2181",
-          "232"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Knapp Center",
-          "source": "Des Moines, Iowa Knapp Center"
-        }
-      },
-      {
         "date": "2026-11-20",
         "schools": [
           "135",
@@ -6058,6 +6044,18 @@
         "details": {
           "target": "Donald L. Tucker Civic Center",
           "source": "Donald L. Tucker Center"
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "schools": [
+          "113",
+          "311"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Tsongas Center",
+          "source": "Mullins Center"
         }
       },
       {
@@ -6751,18 +6749,6 @@
       {
         "date": "2026-11-28",
         "schools": [
-          "166",
-          "2172"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Pan American Center",
-          "source": "Las Cruces, N.M. Pan American Center"
-        }
-      },
-      {
-        "date": "2026-11-28",
-        "schools": [
           "2005",
           "225"
         ],
@@ -6787,30 +6773,6 @@
       {
         "date": "2026-11-28",
         "schools": [
-          "2050",
-          "88"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Screaming Eagles Arena",
-          "source": "Liberty Arena"
-        }
-      },
-      {
-        "date": "2026-11-28",
-        "schools": [
-          "2050",
-          "88"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Liberty Arena",
-          "source": "Screaming Eagles Arena"
-        }
-      },
-      {
-        "date": "2026-11-28",
-        "schools": [
           "2130",
           "71"
         ],
@@ -6818,18 +6780,6 @@
         "details": {
           "left": "neutral",
           "right": "neutral"
-        }
-      },
-      {
-        "date": "2026-11-28",
-        "schools": [
-          "2272",
-          "2643"
-        ],
-        "kind": "arena_disagreement",
-        "details": {
-          "target": "Qubein Center",
-          "source": "Quebin Center"
         }
       },
       {
@@ -6999,6 +6949,18 @@
       {
         "date": "2026-12-01",
         "schools": [
+          "104",
+          "2230"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Palm Springs, Calif. Acrisure Arena",
+          "source": "Rose Hill Gym"
+        }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
           "12",
           "2443"
         ],
@@ -7031,20 +6993,77 @@
           "target": "Baton Rouge, La. (Maravich Center)",
           "source": "Maravich Center"
         }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "154",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Maravich Center",
+          "source": "Baton Rouge, La. (Maravich Center)"
+        }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "2005",
+          "2172"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7:00 pm MT",
+          "source": "7 p.m. MT"
+        }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "2005",
+          "2172"
+        ],
+        "kind": "time_disagreement",
+        "details": {
+          "target": "7 p.m. MT",
+          "source": "7:00 pm MT"
+        }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "225",
+          "227"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Ryan Center",
+          "source": "Thomas M. Ryan Center"
+        }
       }
     ],
-    "changes": []
+    "changes": [
+      {
+        "school_id": "235",
+        "opponent_id": "213",
+        "date": "2026-11-25",
+        "event_id": "school-235-2026-11-25-7",
+        "fields": [
+          "arena"
+        ],
+        "source_url": "https://gopsusports.com/sports/mens-basketball/schedule"
+      }
+    ]
   },
   "saved_broadcast_recovery": {
     "season": "2026-27",
     "summary": {
       "schools_scanned": 365,
-      "schools_changed": 20,
-      "game_records_changed": 51,
-      "exact_matching_entries": 4391,
+      "schools_changed": 0,
+      "game_records_changed": 0,
+      "exact_matching_entries": 4419,
       "time_conflicts": 44,
-      "tipoffs_added": 45,
-      "networks_added": 6,
       "network_conflicts": 2,
       "evidence_game_keys": 2266,
       "evidence_skipped": {
@@ -7052,450 +7071,15 @@
         "unresolved_teams_or_date": 98
       },
       "final_field_audit": {
-        "game_entries": 11807,
-        "missing_broadcast": 4980,
+        "game_entries": 11828,
+        "missing_broadcast": 4967,
         "missing_tipoff": 938,
         "site_unverified": 55
       }
     },
     "policy": "Exact date/two-team-ID matching; verified official sources only; no replacement of existing network or tipoff; disagreements logged.",
-    "changes": [
-      {
-        "school_id": "251",
-        "event_id": "school-251-2026-12-01-9",
-        "date": "2026-12-01",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "251",
-        "event_id": "school-251-2027-01-05-16",
-        "date": "2027-01-05",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "251",
-        "event_id": "school-251-2027-01-27-22",
-        "date": "2027-01-27",
-        "field": "tipoff",
-        "value": "8:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "251",
-        "event_id": "school-251-2027-02-06-24",
-        "date": "2027-02-06",
-        "field": "tipoff",
-        "value": "12:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "2253",
-        "event_id": "school-2253-2026-12-11-11",
-        "date": "2026-12-11",
-        "field": "tipoff",
-        "value": "8 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      },
-      {
-        "school_id": "2253",
-        "event_id": "school-2253-2026-12-18-12",
-        "date": "2026-12-18",
-        "field": "tipoff",
-        "value": "6:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "24",
-        "event_id": "school-24-2026-11-09-18",
-        "date": "2026-11-09",
-        "field": "tipoff",
-        "value": "10 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      },
-      {
-        "school_id": "98",
-        "event_id": "school-98-2027-01-02-17",
-        "date": "2027-01-02",
-        "field": "network",
-        "value": [
-          "ESPN+"
-        ],
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "98",
-        "event_id": "school-98-2027-03-04-32",
-        "date": "2027-03-04",
-        "field": "network",
-        "value": [
-          "ESPN+"
-        ],
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2636",
-        "event_id": "cross-school-2636-2026-11-02_23",
-        "date": "2026-11-02",
-        "field": "tipoff",
-        "value": "3 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      },
-      {
-        "school_id": "2116",
-        "event_id": "school-2116-2026-11-27-30",
-        "date": "2026-11-27",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2026-11-13-6",
-        "date": "2026-11-13",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2026-11-16-7",
-        "date": "2026-11-16",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2026-11-27-10",
-        "date": "2026-11-27",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2026-12-01-11",
-        "date": "2026-12-01",
-        "field": "tipoff",
-        "value": "5:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2026-12-08-12",
-        "date": "2026-12-08",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2026-12-16-14",
-        "date": "2026-12-16",
-        "field": "tipoff",
-        "value": "6:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-01-02-17",
-        "date": "2027-01-02",
-        "field": "tipoff",
-        "value": "1:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-01-05-18",
-        "date": "2027-01-05",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-01-12-20",
-        "date": "2027-01-12",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-01-23-23",
-        "date": "2027-01-23",
-        "field": "tipoff",
-        "value": "4:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-02-03-25",
-        "date": "2027-02-03",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-02-24-31",
-        "date": "2027-02-24",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "61",
-        "event_id": "school-61-2027-03-06-34",
-        "date": "2027-03-06",
-        "field": "tipoff",
-        "value": "12:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "2229",
-        "event_id": "school-2229-2027-01-28-103",
-        "date": "2027-01-28",
-        "field": "network",
-        "value": [
-          "ESPN+"
-        ],
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2229",
-        "event_id": "school-2229-2027-02-25-131",
-        "date": "2027-02-25",
-        "field": "network",
-        "value": [
-          "ESPN+"
-        ],
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2335",
-        "event_id": "school-2335-2027-01-09-16",
-        "date": "2027-01-09",
-        "field": "tipoff",
-        "value": "3:00 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2335",
-        "event_id": "school-2335-2027-01-21-19",
-        "date": "2027-01-21",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2335",
-        "event_id": "school-2335-2027-02-11-25",
-        "date": "2027-02-11",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2335",
-        "event_id": "school-2335-2027-02-13-26",
-        "date": "2027-02-13",
-        "field": "tipoff",
-        "value": "4:00 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2335",
-        "event_id": "school-2335-2027-02-27-30",
-        "date": "2027-02-27",
-        "field": "tipoff",
-        "value": "4:00 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "245",
-        "event_id": "cross-school-245-2027-01-23_145",
-        "date": "2027-01-23",
-        "field": "tipoff",
-        "value": "6:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "282",
-        "event_id": "school-282-2027-01-02-105",
-        "date": "2027-01-02",
-        "field": "tipoff",
-        "value": "4 p.m. CT",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/mvc.sidearmsports.com/documents/2026/10/19/2026_27_MVC_Mens_Basketball_Productions_on_ESPN_Platforms.pdf"
-      },
-      {
-        "school_id": "2534",
-        "event_id": "school-2534-2027-01-16-19",
-        "date": "2027-01-16",
-        "field": "network",
-        "value": [
-          "ESPN+"
-        ],
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2534",
-        "event_id": "school-2534-2027-02-11-25",
-        "date": "2027-02-11",
-        "field": "network",
-        "value": [
-          "ESPN+"
-        ],
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "2492",
-        "event_id": "school-2492-2026-11-11-3",
-        "date": "2026-11-11",
-        "field": "tipoff",
-        "value": "7:30 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "50",
-        "event_id": "school-50-2026-11-09-27",
-        "date": "2026-11-09",
-        "field": "tipoff",
-        "value": "7:30 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      },
-      {
-        "school_id": "50",
-        "event_id": "school-50-2026-11-18-45",
-        "date": "2026-11-18",
-        "field": "tipoff",
-        "value": "8 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      },
-      {
-        "school_id": "50",
-        "event_id": "school-50-2026-12-12-75",
-        "date": "2026-12-12",
-        "field": "tipoff",
-        "value": "3 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      },
-      {
-        "school_id": "2166",
-        "event_id": "school-2166-2026-12-18-13",
-        "date": "2026-12-18",
-        "field": "tipoff",
-        "value": "7:00 pm ET",
-        "source_url": "https://s3.amazonaws.com/atlantic10.com/documents/2026/10/21/2627_MBB_Composite_TV_times.pdf"
-      },
-      {
-        "school_id": "2166",
-        "event_id": "school-2166-2027-01-16-19",
-        "date": "2027-01-16",
-        "field": "tipoff",
-        "value": "2:30 pm ET",
-        "source_url": "https://s3.amazonaws.com/atlantic10.com/documents/2026/10/21/2627_MBB_Composite_TV_times.pdf"
-      },
-      {
-        "school_id": "2166",
-        "event_id": "school-2166-2027-02-16-28",
-        "date": "2027-02-16",
-        "field": "tipoff",
-        "value": "7:00 pm ET",
-        "source_url": "https://s3.amazonaws.com/atlantic10.com/documents/2026/10/21/2627_MBB_Composite_TV_times.pdf"
-      },
-      {
-        "school_id": "265",
-        "event_id": "cross-school-265-2027-02-10_204",
-        "date": "2027-02-10",
-        "field": "tipoff",
-        "value": "8 p.m. PT",
-        "source_url": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx"
-      },
-      {
-        "school_id": "145",
-        "event_id": "school-145-2026-12-19-13",
-        "date": "2026-12-19",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "145",
-        "event_id": "school-145-2027-01-23-21",
-        "date": "2027-01-23",
-        "field": "tipoff",
-        "value": "6:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "145",
-        "event_id": "school-145-2027-02-17-28",
-        "date": "2027-02-17",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "145",
-        "event_id": "school-145-2027-02-24-30",
-        "date": "2027-02-24",
-        "field": "tipoff",
-        "value": "9:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "145",
-        "event_id": "school-145-2027-03-06-33",
-        "date": "2027-03-06",
-        "field": "tipoff",
-        "value": "4:00 PM ET",
-        "source_url": "https://www.secsports.com/schedule/basketball-m"
-      },
-      {
-        "school_id": "55",
-        "event_id": "cross-school-55-2027-01-21_2335",
-        "date": "2027-01-21",
-        "field": "tipoff",
-        "value": "7:00 PM ET",
-        "source_url": "https://conferenceusa.com/news/2026/10/14/mbb-cusa-announces-mens-basketball-broadcast-schedule.aspx"
-      },
-      {
-        "school_id": "204",
-        "event_id": "school-204-2027-02-10-27",
-        "date": "2027-02-10",
-        "field": "tipoff",
-        "value": "8 p.m. PT",
-        "source_url": "https://pac-12.com/news/2026/10/14/2026-27-pac-12-mens-basketball-broadcast-schedule-information-announced.aspx"
-      },
-      {
-        "school_id": "23",
-        "event_id": "school-23-2026-11-02-8",
-        "date": "2026-11-02",
-        "field": "tipoff",
-        "value": "3 p.m. ET",
-        "source_url": "https://s3.amazonaws.com/sidearm.sites/theamerican.sidearmsports.com/documents/2026/10/26/2026_27_American_Men_s_Basketball_Composite_Schedule.pdf"
-      }
-    ],
+    "changes": [],
     "conflicts": [
-      {
-        "school_id": "333",
-        "event_id": "school-333-2026-11-24-8",
-        "date": "2026-11-24",
-        "issue": "conflicting_network_sources",
-        "values": [
-          [
-            "ESPN2"
-          ],
-          [
-            "ESPN"
-          ]
-        ]
-      },
       {
         "school_id": "239",
         "event_id": "school-239-2026-11-24-7",
@@ -7503,18 +7087,32 @@
         "issue": "conflicting_network_sources",
         "values": [
           [
-            "ESPN2"
+            "ESPN"
           ],
           [
+            "ESPN2"
+          ]
+        ]
+      },
+      {
+        "school_id": "333",
+        "event_id": "school-333-2026-11-24-8",
+        "date": "2026-11-24",
+        "issue": "conflicting_network_sources",
+        "values": [
+          [
             "ESPN"
+          ],
+          [
+            "ESPN2"
           ]
         ]
       }
     ]
   },
   "final_field_audit": {
-    "game_entries": 11807,
-    "missing_broadcast": 4980,
+    "game_entries": 11828,
+    "missing_broadcast": 4967,
     "missing_tipoff": 938,
     "site_unverified": 55
   },
@@ -7524,8 +7122,8 @@
       "schools_changed": 0,
       "reviewed_unique_games": 14,
       "post_announcement_field_audit": {
-        "game_entries": 11807,
-        "missing_broadcast": 4980,
+        "game_entries": 11828,
+        "missing_broadcast": 4967,
         "missing_tipoff": 938,
         "site_unverified": 55
       }
@@ -7534,59 +7132,2217 @@
     "changes": [],
     "issues": []
   },
-  "reciprocal_game_coverage": {
-    "status": "pre-restoration conservatively filtered audit; requires rescan following additional university-certified fixtures",
-    "audit_run_id": 41341302636,
+  "verified_opponent_identity_repair": {
     "summary": {
       "schools_scanned": 365,
-      "paired_existing_games": 5387,
-      "single_owner_groups": 231,
+      "schools_changed": 0,
+      "candidate_identity_mismatches": 2,
+      "peer_source_not_independently_official": 2
+    },
+    "policy": "Original official school game + unique exact normalized school identity + unique independently official reciprocal peer same date; preserve event IDs; no new games; collisions flagged.",
+    "changes": [],
+    "review": [
+      {
+        "owner": "8",
+        "date": "2027-01-12",
+        "old_id": "2837",
+        "proposed_id": "245",
+        "raw": "Texas A&M",
+        "reason": "peer_source_not_verified"
+      },
+      {
+        "owner": "96",
+        "date": "2027-03-03",
+        "old_id": "2837",
+        "proposed_id": "245",
+        "raw": "Texas A&M",
+        "reason": "peer_source_not_verified"
+      }
+    ]
+  },
+  "reciprocal_game_coverage": {
+    "summary": {
+      "schools_scanned": 365,
+      "paired_existing_games": 5405,
+      "single_owner_groups": 214,
       "unique_official_candidates": 18,
       "schools_with_candidate_gaps": 5,
       "rejected": {
-        "source_opponent_identity_unconfirmed": 134,
+        "source_opponent_identity_unconfirmed": 117,
         "independent_target_calendar_requires_source_review": 62,
         "no_unique_official_source": 17
       }
     },
-    "prior_unfiltered_summary": {
-      "schools_scanned": 365,
-      "paired_existing_games": 5347,
-      "single_owner_groups": 311,
-      "unique_official_candidates": 278,
-      "schools_with_candidate_gaps": 140,
-      "rejected": {
-        "no_unique_official_source": 17,
-        "near_date_opponent_collision": 16
+    "candidates": [
+      {
+        "target_id": "195",
+        "opponent_id": "2509",
+        "date": "2026-11-13",
+        "opponent_game_id": "official-purdue-2026-11-13-195",
+        "official_source_url": "https://purduesports.com/sports/mens-basketball/schedule",
+        "venue": "Mackey Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "112358",
+        "opponent_id": "2217",
+        "date": "2026-11-22",
+        "opponent_game_id": "official-2217-2026-11-22-liu",
+        "official_source_url": "https://fairfieldstags.com/sports/mens-basketball/schedule/2026-27",
+        "venue": null,
+        "source_has_tv": false,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "112358",
+        "opponent_id": "172",
+        "date": "2026-12-02",
+        "opponent_game_id": "official-172-2026-12-02-liu",
+        "official_source_url": "https://cornellbigred.com/sports/mens-basketball/schedule",
+        "venue": null,
+        "source_has_tv": false,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "2244",
+        "opponent_id": "295",
+        "date": "2026-12-12",
+        "opponent_game_id": "official-295-2026-12-12-georgemason",
+        "official_source_url": "https://odusports.com/sports/mens-basketball/schedule",
+        "venue": "EagleBank Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "228",
+        "opponent_id": "2579",
+        "date": "2026-12-15",
+        "opponent_game_id": "official-2579-2026-12-15-clemson",
+        "official_source_url": "https://gamecocksonline.com/sports/mbball/schedule/",
+        "venue": "Colonial Life Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "228",
+        "opponent_id": "2132",
+        "date": "2026-12-19",
+        "opponent_game_id": "official-2132-2026-12-19-clemson",
+        "official_source_url": "https://gobearcats.com/sports/mens-basketball/schedule",
+        "venue": null,
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "245",
+        "opponent_id": "142",
+        "date": "2027-01-05",
+        "opponent_game_id": "official-142-2027-01-05-texasam",
+        "official_source_url": "https://mutigers.com/sports/mens-basketball/schedule",
+        "venue": "Mizzou Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "2244",
+        "opponent_id": "2603",
+        "date": "2027-01-09",
+        "opponent_game_id": "official-2603-2027-01-09-georgemason",
+        "official_source_url": "https://sjuhawks.com/sports/mens-basketball/schedule",
+        "venue": "Michael J. Hagan '85 Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "245",
+        "opponent_id": "2579",
+        "date": "2027-01-09",
+        "opponent_game_id": "official-2579-2027-01-09-texasam",
+        "official_source_url": "https://gamecocksonline.com/sports/mbball/schedule/",
+        "venue": "Colonial Life Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "228",
+        "opponent_id": "59",
+        "date": "2027-01-12",
+        "opponent_game_id": "official-gatech-2027-01-12-228",
+        "official_source_url": "https://ramblinwreck.com/news/2026/10/7/jackets-slated-for-national-television-in-2026-27-season",
+        "venue": "Littlejohn Coliseum",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "245",
+        "opponent_id": "99",
+        "date": "2027-01-16",
+        "opponent_game_id": "official-99-2027-01-16-texasam",
+        "official_source_url": "https://lsusports.net/sports/mb/schedule",
+        "venue": "Bryan-College Station, Texas (Reed Arena)",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "228",
+        "opponent_id": "2390",
+        "date": "2027-01-27",
+        "opponent_game_id": "official-2390-2027-01-27-clemson",
+        "official_source_url": "https://miamihurricanes.com/sports/mbball/schedule",
+        "venue": "Watsco Center",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "2244",
+        "opponent_id": "2603",
+        "date": "2027-01-30",
+        "opponent_game_id": "official-2603-2027-01-30-georgemason",
+        "official_source_url": "https://sjuhawks.com/sports/mens-basketball/schedule",
+        "venue": "EagleBank Arena",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "245",
+        "opponent_id": "238",
+        "date": "2027-01-30",
+        "opponent_game_id": "official-238-2027-01-30-texasam",
+        "official_source_url": "https://vucommodores.com/sports/mbball/schedule",
+        "venue": "Memorial Gymnasium",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "228",
+        "opponent_id": "59",
+        "date": "2027-02-16",
+        "opponent_game_id": "official-gatech-2027-02-16-228",
+        "official_source_url": "https://ramblinwreck.com/news/2026/10/7/jackets-slated-for-national-television-in-2026-27-season",
+        "venue": "McCamish Pavilion",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "245",
+        "opponent_id": "238",
+        "date": "2027-02-20",
+        "opponent_game_id": "official-238-2027-02-20-texasam",
+        "official_source_url": "https://vucommodores.com/sports/mbball/schedule",
+        "venue": "Reed Arena",
+        "source_has_tv": true,
+        "source_has_clock": false
+      },
+      {
+        "target_id": "245",
+        "opponent_id": "99",
+        "date": "2027-02-27",
+        "opponent_game_id": "official-99-2027-02-27-texasam",
+        "official_source_url": "https://lsusports.net/sports/mb/schedule",
+        "venue": "Baton Rouge, La. (Maravich Center)",
+        "source_has_tv": true,
+        "source_has_clock": true
+      },
+      {
+        "target_id": "228",
+        "opponent_id": "87",
+        "date": "2027-03-02",
+        "opponent_game_id": "official-87-2027-03-02-clemson",
+        "official_source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf",
+        "venue": "Littlejohn Coliseum",
+        "source_has_tv": true,
+        "source_has_clock": true
       }
-    },
-    "candidate_details_not_current": true,
-    "policy": "Conservative source-name and ID confirmation; do not import candidates automatically. Additional school-restoration commits occurred afterward."
-  },
-  "verified_opponent_identity_repair_latest": {
-    "audit_run_id": 41341302636,
-    "workflow_conclusion": "success",
-    "published": true,
-    "summary": {
-      "schools_scanned": 365,
-      "schools_changed": 24,
-      "candidate_identity_mismatches": 39,
-      "opponent_ids_corrected": 37,
-      "peer_source_not_independently_official": 2
-    },
-    "policy": "Original official university schedule plus exact name plus independent same-date reciprocal official school game; source event IDs unchanged."
-  },
-  "arena_audit_note": {
-    "audit_run_id": 41341592862,
-    "read_only_summary": {
-      "schools_scanned": 365,
-      "total_game_records": 11828,
-      "missing_arena_fields": 290,
-      "schools_with_missing_arenas": 162,
-      "unique_unresolved_groups": 200
-    },
-    "job_conclusion": "failure",
-    "failure_detail": "Post-scan validator counted 370 JSONs in directory including five sidecar report files; actual school scan covered 365 numeric school files.",
-    "note": "This field-absence metric differs from the stricter 725 'valid arena' metric and must not be compared as though identical."
+    ],
+    "quarantined_examples": [
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-02",
+        "source_school_id": "2916",
+        "target_school_id": "127",
+        "source_event_id": "school-2916-2026-10-02-1",
+        "source_game_name": "Michigan State University",
+        "source_url": "https://uiwcardinals.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-07",
+        "source_school_id": "2247",
+        "target_school_id": "61",
+        "source_event_id": "school-2247-2026-10-07-1",
+        "source_game_name": "Georgia (Exhib.)",
+        "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-08",
+        "source_school_id": "150",
+        "target_school_id": "2057",
+        "source_event_id": "school-150-2026-10-08-1",
+        "source_game_name": "Belmont",
+        "source_url": "https://goduke.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://belmontbruins.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-09",
+        "source_school_id": "153",
+        "target_school_id": "30",
+        "source_event_id": "school-153-2026-10-09-0",
+        "source_game_name": "Southern California (Preseason)",
+        "source_url": "https://goheels.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-10",
+        "source_school_id": "52",
+        "target_school_id": "344",
+        "source_event_id": "school-52-2026-10-10-0",
+        "source_game_name": "Mississippi State",
+        "source_url": "https://seminoles.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-11",
+        "source_school_id": "84",
+        "target_school_id": "2086",
+        "source_event_id": "official-indiana-2026-10-11-2086",
+        "source_game_name": "Butler",
+        "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print",
+        "target_schedule_url": "https://butlersports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-11",
+        "source_school_id": "338",
+        "target_school_id": "2382",
+        "source_event_id": "school-338-2026-10-11-1",
+        "source_game_name": "Mercer",
+        "source_url": "https://ksuowls.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://mercerbears.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-11",
+        "source_school_id": "2751",
+        "target_school_id": "2458",
+        "source_event_id": "school-2751-2026-10-11-0",
+        "source_game_name": "University of Northern Colorado",
+        "source_url": "https://gowyo.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-13",
+        "source_school_id": "41",
+        "target_school_id": "183",
+        "source_event_id": "school-41-2026-10-13-0",
+        "source_game_name": "Syracuse",
+        "source_url": "https://uconnhuskies.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-16",
+        "source_school_id": "130",
+        "target_school_id": "204",
+        "source_event_id": "school-130-2026-10-16-1",
+        "source_game_name": "Oregon State (ex)",
+        "source_url": "https://mgoblue.com/sports/mens-basketball/schedule/text",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-16",
+        "source_school_id": "2247",
+        "target_school_id": "2698",
+        "source_event_id": "school-2247-2026-10-16-9",
+        "source_game_name": "West Georgia (Closed Scrimmage)",
+        "source_url": "https://georgiastatesports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-16",
+        "source_school_id": "2747",
+        "target_school_id": "259",
+        "source_event_id": "school-2747-2026-10-16-1",
+        "source_game_name": "Virginia Tech (EX)",
+        "source_url": "https://woffordterriers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-17",
+        "source_school_id": "107",
+        "target_school_id": "261",
+        "source_event_id": "school-107-2026-10-17-1",
+        "source_game_name": "Vermont",
+        "source_url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://uvmathletics.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-17",
+        "source_school_id": "2099",
+        "target_school_id": "2330",
+        "source_event_id": "school-2099-2026-10-17-1",
+        "source_game_name": "Le Moyne",
+        "source_url": "https://gogriffs.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-17",
+        "source_school_id": "221",
+        "target_school_id": "2507",
+        "source_event_id": "school-221-2026-10-17-0",
+        "source_game_name": "Providence (Exh.)",
+        "source_url": "https://pittsburghpanthers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-17",
+        "source_school_id": "264",
+        "target_school_id": "68",
+        "source_event_id": "school-264-2026-10-17-0",
+        "source_game_name": "Boise State (Exh.)",
+        "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-17",
+        "source_school_id": "93",
+        "target_school_id": "2916",
+        "source_event_id": "school-93-2026-10-17-1",
+        "source_game_name": "UIW (Closed Scrimmage)",
+        "source_url": "https://goracers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "120",
+        "target_school_id": "277",
+        "source_event_id": "school-120-2026-10-18-1",
+        "source_game_name": "West Virginia (Exh.)",
+        "source_url": "https://umterps.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "147",
+        "target_school_id": "2172",
+        "source_event_id": "school-147-2026-10-18-0",
+        "source_game_name": "Denver (Exh.)",
+        "source_url": "https://msubobcats.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "156",
+        "target_school_id": "66",
+        "source_event_id": "school-156-2026-10-18-0",
+        "source_game_name": "Iowa State",
+        "source_url": "https://gocreighton.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "164",
+        "target_school_id": "2599",
+        "source_event_id": "school-164-2026-10-18-1",
+        "source_game_name": "St. John's",
+        "source_url": "https://scarletknights.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "167",
+        "target_school_id": "45",
+        "source_event_id": "official-unm-2026-10-18-45",
+        "source_game_name": "Washington State",
+        "source_url": "https://golobos.com/sports/mbball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-18",
+        "source_school_id": "2561",
+        "target_school_id": "183",
+        "source_event_id": "school-2561-2026-10-18-1",
+        "source_game_name": "Syracuse",
+        "source_url": "https://sienasaints.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "2630",
+        "target_school_id": "2110",
+        "source_event_id": "school-2630-2026-10-18-1",
+        "source_game_name": "Central Arkansas",
+        "source_url": "https://utmsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-18",
+        "source_school_id": "2287",
+        "target_school_id": "77",
+        "source_event_id": "school-2287-2026-10-18-1",
+        "source_game_name": "Northwestern",
+        "source_url": "https://goredbirds.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://nusports.com/sports/mens-basketball/schedule"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-18",
+        "source_school_id": "231",
+        "target_school_id": "290",
+        "source_event_id": "school-231-2026-10-18-7",
+        "source_game_name": "Georgia Southern",
+        "source_url": "https://furmanpaladins.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-18",
+        "source_school_id": "239",
+        "target_school_id": "57",
+        "source_event_id": "official-239-2026-10-18-florida",
+        "source_game_name": "Florida",
+        "source_url": "https://baylorbears.com/sports/mens-basketball/schedule/2026-27",
+        "target_schedule_url": "https://floridagators.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-18",
+        "source_school_id": "38",
+        "target_school_id": "249",
+        "source_event_id": "school-38-2026-10-18-0",
+        "source_game_name": "North Texas",
+        "source_url": "https://cubuffs.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://meangreensports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-19",
+        "source_school_id": "2739",
+        "target_school_id": "269",
+        "source_event_id": "school-2739-2026-10-19-7",
+        "source_game_name": "Marquette (Exh.)",
+        "source_url": "https://greenbayphoenix.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-20",
+        "source_school_id": "41",
+        "target_school_id": "127",
+        "source_event_id": "school-41-2026-10-20-1",
+        "source_game_name": "Michigan State",
+        "source_url": "https://uconnhuskies.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-10-21",
+        "source_school_id": "97",
+        "target_school_id": "2305",
+        "source_event_id": "school-97-2026-10-21-1",
+        "source_game_name": "Kansas (EXH)",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-21",
+        "source_school_id": "2443",
+        "target_school_id": "2572",
+        "source_event_id": "school-2443-2026-10-21-1",
+        "source_game_name": "Southern Miss",
+        "source_url": "https://unoprivateers.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://southernmiss.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-21",
+        "source_school_id": "2483",
+        "target_school_id": "254",
+        "source_event_id": "school-2483-2026-10-21-1",
+        "source_game_name": "Utah",
+        "source_url": "https://goducks.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://utahutes.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-22",
+        "source_school_id": "2511",
+        "target_school_id": "2127",
+        "source_event_id": "school-2511-2026-10-22-1",
+        "source_game_name": "Charleston Southern",
+        "source_url": "https://queensathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-23",
+        "source_school_id": "2306",
+        "target_school_id": "142",
+        "source_event_id": "school-2306-2026-10-23-0",
+        "source_game_name": "Missouri",
+        "source_url": "https://kstatesports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://mutigers.com/sports/mens-basketball/schedule/season/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-23",
+        "source_school_id": "2752",
+        "target_school_id": "2309",
+        "source_event_id": "school-2752-2026-10-23-2",
+        "source_game_name": "Kent State",
+        "source_url": "https://goxavier.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-23",
+        "source_school_id": "344",
+        "target_school_id": "235",
+        "source_event_id": "school-344-2026-10-23-1",
+        "source_game_name": "Memphis (Exh.)",
+        "source_url": "https://hailstate.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-23",
+        "source_school_id": "2617",
+        "target_school_id": "2534",
+        "source_event_id": "school-2617-2026-10-23-0",
+        "source_game_name": "Sam Houston",
+        "source_url": "https://sfajacks.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://gobearkats.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-24",
+        "source_school_id": "315",
+        "target_school_id": "183",
+        "source_event_id": "school-315-2026-10-24-1",
+        "source_game_name": "Syracuse University (EXH)",
+        "source_url": "https://purpleeagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-24",
+        "source_school_id": "2565",
+        "target_school_id": "2032",
+        "source_event_id": "school-2565-2026-10-24-1",
+        "source_game_name": "Arkansas State",
+        "source_url": "https://siuecougars.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-24",
+        "source_school_id": "25",
+        "target_school_id": "204",
+        "source_event_id": "school-25-2026-10-24-1",
+        "source_game_name": "Oregon State (exhib.)",
+        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-24",
+        "source_school_id": "2405",
+        "target_school_id": "2550",
+        "source_event_id": "school-2405-2026-10-24-1",
+        "source_game_name": "Seton Hall",
+        "source_url": "https://monmouthhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://shupirates.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-24",
+        "source_school_id": "350",
+        "target_school_id": "2430",
+        "source_event_id": "school-350-2026-10-24-11",
+        "source_game_name": "UNC Greensboro",
+        "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://uncgspartans.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-24",
+        "source_school_id": "2751",
+        "target_school_id": "70",
+        "source_event_id": "school-2751-2026-10-24-2",
+        "source_game_name": "The College of Idaho",
+        "source_url": "https://gowyo.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-25",
+        "source_school_id": "167",
+        "target_school_id": "12",
+        "source_event_id": "official-unm-2026-10-25-12",
+        "source_game_name": "Arizona State",
+        "source_url": "https://golobos.com/sports/mbball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-25",
+        "source_school_id": "130",
+        "target_school_id": "248",
+        "source_event_id": "school-130-2026-10-25-2",
+        "source_game_name": "#10 Houston (ex)",
+        "source_url": "https://mgoblue.com/sports/mens-basketball/schedule/text",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-25",
+        "source_school_id": "150",
+        "target_school_id": "2305",
+        "source_event_id": "school-150-2026-10-25-3",
+        "source_game_name": "#17 Kansas",
+        "source_url": "https://goduke.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-25",
+        "source_school_id": "194",
+        "target_school_id": "2086",
+        "source_event_id": "school-194-2026-10-25-1",
+        "source_game_name": "Butler (Exh.)",
+        "source_url": "https://ohiostatebuckeyes.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-25",
+        "source_school_id": "2377",
+        "target_school_id": "2582",
+        "source_event_id": "school-2377-2026-10-25-9",
+        "source_game_name": "Southern",
+        "source_url": "https://mcneesesports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-25",
+        "source_school_id": "2502",
+        "target_school_id": "2440",
+        "source_event_id": "school-2502-2026-10-25-1",
+        "source_game_name": "(RV) Nevada",
+        "source_url": "https://goviks.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-25",
+        "source_school_id": "2670",
+        "target_school_id": "256",
+        "source_event_id": "school-2670-2026-10-25-11",
+        "source_game_name": "James Madison",
+        "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://jmusports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-26",
+        "source_school_id": "2466",
+        "target_school_id": "249",
+        "source_event_id": "school-2466-2026-10-26-1",
+        "source_game_name": "North Texas",
+        "source_url": "https://nsudemons.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://meangreensports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-26",
+        "source_school_id": "2717",
+        "target_school_id": "2908",
+        "source_event_id": "school-2717-2026-10-26-7",
+        "source_game_name": "USC Upstate",
+        "source_url": "https://catamountsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://upstatespartans.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-27",
+        "source_school_id": "107",
+        "target_school_id": "2115",
+        "source_event_id": "school-107-2026-10-27-7",
+        "source_game_name": "Central Connecticut State",
+        "source_url": "https://goholycross.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-27",
+        "source_school_id": "2405",
+        "target_school_id": "227",
+        "source_event_id": "school-2405-2026-10-27-7",
+        "source_game_name": "Rhode Island College",
+        "source_url": "https://monmouthhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-27",
+        "source_school_id": "26",
+        "target_school_id": "301",
+        "source_event_id": "official-ucla-2026-10-27-301",
+        "source_game_name": "San Diego",
+        "source_url": "https://uclabruins.com/sports/mens-basketball/schedule",
+        "target_schedule_url": "https://usdtoreros.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-27",
+        "source_school_id": "56",
+        "target_school_id": "57",
+        "source_event_id": "school-56-2026-10-27-1",
+        "source_game_name": "Florida",
+        "source_url": "https://gohatters.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://floridagators.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-28",
+        "source_school_id": "116",
+        "target_school_id": "2426",
+        "source_event_id": "school-116-2026-10-28-1",
+        "source_game_name": "Navy",
+        "source_url": "https://mountathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://navysports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-28",
+        "source_school_id": "2031",
+        "target_school_id": "2029",
+        "source_event_id": "school-2031-2026-10-28-8",
+        "source_game_name": "Arkansas-Pine Bluff",
+        "source_url": "https://lrtrojans.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-28",
+        "source_school_id": "96",
+        "target_school_id": "2116",
+        "source_event_id": "official-kentucky-2026-10-28-2116",
+        "source_game_name": "UCF",
+        "source_url": "https://ukathletics.com/news/2026/10/07/kentucky-mens-basketball-finalizes-2026-27-schedule/",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-10-28",
+        "source_school_id": "8",
+        "target_school_id": "235",
+        "source_event_id": "official-ark-2026-10-28-235",
+        "source_game_name": "Memphis",
+        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/",
+        "target_schedule_url": "https://gotigersgo.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-10-28",
+        "source_school_id": "356",
+        "target_school_id": "82",
+        "source_event_id": "school-356-2026-10-28-2",
+        "source_game_name": "UIC (Exh.)",
+        "source_url": "https://fightingillini.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-02",
+        "source_school_id": "145",
+        "target_school_id": "2016",
+        "source_event_id": "school-145-2026-11-02-2",
+        "source_game_name": "Alcorn State",
+        "source_url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-02",
+        "source_school_id": "2509",
+        "target_school_id": "2250",
+        "source_event_id": "official-purdue-2026-11-02-2250",
+        "source_game_name": "Gonzaga",
+        "source_url": "https://purduesports.com/sports/mens-basketball/schedule",
+        "target_schedule_url": "https://gozags.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-02",
+        "source_school_id": "399",
+        "target_school_id": "227",
+        "source_event_id": "school-399-2026-11-02-1",
+        "source_game_name": "Rhode Island College",
+        "source_url": "https://ualbanysports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-02",
+        "source_school_id": "2458",
+        "target_school_id": "38",
+        "source_event_id": "school-2458-2026-11-02-0",
+        "source_game_name": "Colorado College",
+        "source_url": "https://uncbears.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-02",
+        "source_school_id": "94",
+        "target_school_id": "2638",
+        "source_event_id": "school-94-2026-11-02-7",
+        "source_game_name": "UTEP",
+        "source_url": "https://nkunorse.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://utepminers.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-04",
+        "source_school_id": "2379",
+        "target_school_id": "2272",
+        "source_event_id": "school-2379-2026-11-04-7",
+        "source_game_name": "High Point University",
+        "source_url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-05",
+        "source_school_id": "349",
+        "target_school_id": "116",
+        "source_event_id": "school-349-2026-11-05-1",
+        "source_game_name": "Mount Saint Mary",
+        "source_url": "https://goarmywestpoint.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-06",
+        "source_school_id": "145",
+        "target_school_id": "2110",
+        "source_event_id": "school-145-2026-11-06-3",
+        "source_game_name": "Central Arkansas",
+        "source_url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-11-06",
+        "source_school_id": "2115",
+        "target_school_id": "183",
+        "source_event_id": "401909717",
+        "source_game_name": "Central Connecticut Blue Devils at Syracuse Orange",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-06",
+        "source_school_id": "82",
+        "target_school_id": "2523",
+        "source_event_id": "school-82-2026-11-06-15",
+        "source_game_name": "Robert Morris",
+        "source_url": "https://uicflames.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://rmucolonials.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-06",
+        "source_school_id": "2569",
+        "target_school_id": "2908",
+        "source_event_id": "school-2569-2026-11-06-11",
+        "source_game_name": "University of South Carolina - Upstate",
+        "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-11-07",
+        "source_school_id": "2029",
+        "target_school_id": "142",
+        "source_event_id": "school-2029-2026-11-07-15",
+        "source_game_name": "University of Missouri",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-08",
+        "source_school_id": "108",
+        "target_school_id": "2130",
+        "source_event_id": "school-108-2026-11-08-15",
+        "source_game_name": "University of Chicago",
+        "source_url": "https://gocrimson.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-09",
+        "source_school_id": "140",
+        "target_school_id": "294",
+        "source_event_id": "school-140-2026-11-09-3",
+        "source_game_name": "Jacksonville",
+        "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://judolphins.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-09",
+        "source_school_id": "2352",
+        "target_school_id": "264",
+        "source_event_id": "school-2352-2026-11-09-15",
+        "source_game_name": "Washington (Md.)",
+        "source_url": "https://loyolagreyhounds.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-10",
+        "source_school_id": "2344",
+        "target_school_id": "2608",
+        "source_event_id": "school-2344-2026-11-10-15",
+        "source_game_name": "St. Mary's (Md.)",
+        "source_url": "https://longwoodlancers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-10",
+        "source_school_id": "252",
+        "target_school_id": "2511",
+        "source_event_id": "official-252-2026-11-10-queens",
+        "source_game_name": "Queens",
+        "source_url": "https://byucougars.com/sports/mens-basketball/schedule/season/2026-2027",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-12",
+        "source_school_id": "2529",
+        "target_school_id": "2115",
+        "source_event_id": "school-2529-2026-11-12-3",
+        "source_game_name": "Central Connecticut",
+        "source_url": "https://sacredheartpioneers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-11-13",
+        "source_school_id": "2115",
+        "target_school_id": "2529",
+        "source_event_id": "401924876",
+        "source_game_name": "Central Connecticut Blue Devils at Sacred Heart Pioneers",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-13",
+        "source_school_id": "2437",
+        "target_school_id": "2815",
+        "source_event_id": "school-2437-2026-11-13-5",
+        "source_game_name": "Lindenwood",
+        "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-14",
+        "source_school_id": "2415",
+        "target_school_id": "119",
+        "source_event_id": "school-2415-2026-11-14-19",
+        "source_game_name": "Towson University",
+        "source_url": "https://morganstatebears.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-17",
+        "source_school_id": "2739",
+        "target_school_id": "2697",
+        "source_event_id": "school-2739-2026-11-17-35",
+        "source_game_name": "West Florida",
+        "source_url": "https://greenbayphoenix.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://goargos.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-18",
+        "source_school_id": "2698",
+        "target_school_id": "171",
+        "source_event_id": "school-2698-2026-11-18-23",
+        "source_game_name": "Columbia College (S.C.)",
+        "source_url": "https://uwgathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-18",
+        "source_school_id": "236",
+        "target_school_id": "2737",
+        "source_event_id": "school-236-2026-11-18-5",
+        "source_game_name": "Winthrop",
+        "source_url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://winthropeagles.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-18",
+        "source_school_id": "2448",
+        "target_school_id": "2415",
+        "source_event_id": "official-2448-2026-11-18-morganstateuniversity",
+        "source_game_name": "Morgan State University",
+        "source_url": "https://ncataggies.com/sports/mens-basketball/schedule/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-19",
+        "source_school_id": "2572",
+        "target_school_id": "2755",
+        "source_event_id": "school-2572-2026-11-19-7",
+        "source_game_name": "Grambling State",
+        "source_url": "https://southernmiss.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-20",
+        "source_school_id": "238",
+        "target_school_id": "2116",
+        "source_event_id": "official-238-2026-11-20-ucf",
+        "source_game_name": "UCF",
+        "source_url": "https://vucommodores.com/sports/mbball/schedule",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-21",
+        "source_school_id": "2031",
+        "target_school_id": "2454",
+        "source_event_id": "school-2031-2026-11-21-20",
+        "source_game_name": "North Florida",
+        "source_url": "https://lrtrojans.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://unfospreys.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-23",
+        "source_school_id": "2032",
+        "target_school_id": "253",
+        "source_event_id": "school-2032-2026-11-23-33",
+        "source_game_name": "Southern Utah",
+        "source_url": "https://astateredwolves.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://suutbirds.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-23",
+        "source_school_id": "2448",
+        "target_school_id": "2569",
+        "source_event_id": "school-2448-2026-11-23-8",
+        "source_game_name": "South Carolina State University",
+        "source_url": "https://ncataggies.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-23",
+        "source_school_id": "47",
+        "target_school_id": "87",
+        "source_event_id": "official-47-2026-11-23-notredamemd",
+        "source_game_name": "Notre Dame (MD)",
+        "source_url": "https://hubison.com/sports/mens-basketball/schedule/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-24",
+        "source_school_id": "140",
+        "target_school_id": "2739",
+        "source_event_id": "school-140-2026-11-24-8",
+        "source_game_name": "Green Bay",
+        "source_url": "https://kcroos.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://greenbayphoenix.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-24",
+        "source_school_id": "2029",
+        "target_school_id": "2571",
+        "source_event_id": "school-2029-2026-11-24-45",
+        "source_game_name": "South Dakota State University",
+        "source_url": "https://uapblionsroar.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-24",
+        "source_school_id": "2229",
+        "target_school_id": "253",
+        "source_event_id": "school-2229-2026-11-24-35",
+        "source_game_name": "Southern Utah",
+        "source_url": "https://fiusports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://suutbirds.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-25",
+        "source_school_id": "233",
+        "target_school_id": "2029",
+        "source_event_id": "school-233-2026-11-25-51",
+        "source_game_name": "Arkansas Pine Bluff",
+        "source_url": "https://goyotes.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-25",
+        "source_school_id": "2230",
+        "target_school_id": "2385",
+        "source_event_id": "school-2230-2026-11-25-39",
+        "source_game_name": "Mercy",
+        "source_url": "https://fordhamsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-25",
+        "source_school_id": "299",
+        "target_school_id": "253",
+        "source_event_id": "school-299-2026-11-25-7",
+        "source_game_name": "Southern Utah",
+        "source_url": "https://longbeachstate.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://suutbirds.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-27",
+        "source_school_id": "315",
+        "target_school_id": "322",
+        "source_event_id": "school-315-2026-11-27-27",
+        "source_game_name": "Lafayette",
+        "source_url": "https://purpleeagles.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://goleopards.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-28",
+        "source_school_id": "2448",
+        "target_school_id": "2169",
+        "source_event_id": "school-2448-2026-11-28-12",
+        "source_game_name": "Delaware State University",
+        "source_url": "https://ncataggies.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-11-28",
+        "source_school_id": "311",
+        "target_school_id": "322",
+        "source_event_id": "school-311-2026-11-28-9",
+        "source_game_name": "Lafayette",
+        "source_url": "https://goblackbears.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://goleopards.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-29",
+        "source_school_id": "2330",
+        "target_school_id": "322",
+        "source_event_id": "school-2330-2026-11-29-39",
+        "source_game_name": "Lafayette College",
+        "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-29",
+        "source_school_id": "264",
+        "target_school_id": "2450",
+        "source_event_id": "school-264-2026-11-29-9",
+        "source_game_name": "Norfolk State",
+        "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-11-29",
+        "source_school_id": "2572",
+        "target_school_id": "2755",
+        "source_event_id": "school-2572-2026-11-29-10",
+        "source_game_name": "Grambling State",
+        "source_url": "https://southernmiss.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-01",
+        "source_school_id": "2547",
+        "target_school_id": "2450",
+        "source_event_id": "official-2547-2026-12-01-norfolkstate",
+        "source_game_name": "Norfolk State",
+        "source_url": "https://goseattleu.com/sports/mens-basketball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-02",
+        "source_school_id": "139",
+        "target_school_id": "2029",
+        "source_event_id": "school-139-2026-12-02-43",
+        "source_game_name": "Arkansas-Pine Bluff",
+        "source_url": "https://slubillikens.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-02",
+        "source_school_id": "2630",
+        "target_school_id": "2198",
+        "source_event_id": "school-2630-2026-12-02-11",
+        "source_game_name": "Eastern Kentucky",
+        "source_url": "https://utmsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-05",
+        "source_school_id": "155",
+        "target_school_id": "2638",
+        "source_event_id": "school-155-2026-12-05-43",
+        "source_game_name": "UTEP",
+        "source_url": "https://fightinghawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://utepminers.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-05",
+        "source_school_id": "2448",
+        "target_school_id": "2379",
+        "source_event_id": "school-2448-2026-12-05-16",
+        "source_game_name": "University of Maryland Eastern Shore",
+        "source_url": "https://ncataggies.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-05",
+        "source_school_id": "2437",
+        "target_school_id": "2815",
+        "source_event_id": "school-2437-2026-12-05-11",
+        "source_game_name": "Lindenwood",
+        "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-12-08",
+        "source_school_id": "87",
+        "target_school_id": "112358",
+        "source_event_id": "official-87-2026-12-08-liu",
+        "source_game_name": "LIU",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-09",
+        "source_school_id": "43",
+        "target_school_id": "227",
+        "source_event_id": "school-43-2026-12-09-47",
+        "source_game_name": "Rhode Island College",
+        "source_url": "https://yalebulldogs.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-10",
+        "source_school_id": "2239",
+        "target_school_id": "304",
+        "source_event_id": "school-2239-2026-12-10-39",
+        "source_game_name": "Idaho State",
+        "source_url": "https://fullertontitans.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-12",
+        "source_school_id": "2540",
+        "target_school_id": "43",
+        "source_event_id": "school-2540-2026-12-12-43",
+        "source_game_name": "Yale",
+        "source_url": "https://ucsbgauchos.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://yalebulldogs.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-12",
+        "source_school_id": "62",
+        "target_school_id": "2545",
+        "source_event_id": "school-62-2026-12-12-55",
+        "source_game_name": "Southeastern Louisiana",
+        "source_url": "https://hawaiiathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-13",
+        "source_school_id": "2545",
+        "target_school_id": "62",
+        "source_event_id": "school-2545-2026-12-13-43",
+        "source_game_name": "Hawaii",
+        "source_url": "https://lionsports.net/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://hawaiiathletics.com/sports/mens-basketball/schedule"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-15",
+        "source_school_id": "145",
+        "target_school_id": "2754",
+        "source_event_id": "school-145-2026-12-15-12",
+        "source_game_name": "Youngstown State",
+        "source_url": "https://olemisssports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-15",
+        "source_school_id": "2670",
+        "target_school_id": "2115",
+        "source_event_id": "school-2670-2026-12-15-55",
+        "source_game_name": "Central Connecticut State",
+        "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-15",
+        "source_school_id": "2504",
+        "target_school_id": "251",
+        "source_event_id": "school-2504-2026-12-15-47",
+        "source_game_name": "Texas College",
+        "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-15",
+        "source_school_id": "2535",
+        "target_school_id": "2803",
+        "source_event_id": "school-2535-2026-12-15-13",
+        "source_game_name": "Bryan",
+        "source_url": "https://samfordsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-15",
+        "source_school_id": "28",
+        "target_school_id": "2900",
+        "source_event_id": "official-28-2026-12-15-stthomas",
+        "source_game_name": "St. Thomas",
+        "source_url": "https://ucsdtritons.com/sports/mens-basketball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-12-16",
+        "source_school_id": "2115",
+        "target_school_id": "2670",
+        "source_event_id": "401920206",
+        "source_game_name": "Central Connecticut Blue Devils at VCU Rams",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-16",
+        "source_school_id": "236",
+        "target_school_id": "2569",
+        "source_event_id": "school-236-2026-12-16-12",
+        "source_game_name": "South Carolina State",
+        "source_url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-16",
+        "source_school_id": "309",
+        "target_school_id": "2433",
+        "source_event_id": "school-309-2026-12-16-11",
+        "source_game_name": "ULM",
+        "source_url": "https://ragincajuns.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-18",
+        "source_school_id": "23",
+        "target_school_id": "24",
+        "source_event_id": "school-23-2026-12-18-37",
+        "source_game_name": "Stanford",
+        "source_url": "https://sjsuspartans.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://gostanford.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-19",
+        "source_school_id": "30",
+        "target_school_id": "294",
+        "source_event_id": "school-30-2026-12-19-15",
+        "source_game_name": "Jacksonville",
+        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://judolphins.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2026-12-20",
+        "source_school_id": "2437",
+        "target_school_id": "2309",
+        "source_event_id": "school-2437-2026-12-20-14",
+        "source_game_name": "Kent State University",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-21",
+        "source_school_id": "149",
+        "target_school_id": "2507",
+        "source_event_id": "school-149-2026-12-21-13",
+        "source_game_name": "Providence (Mont.)",
+        "source_url": "https://gogriz.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-22",
+        "source_school_id": "62",
+        "target_school_id": "2011",
+        "source_event_id": "school-62-2026-12-22-63",
+        "source_game_name": "Alabama State",
+        "source_url": "https://hawaiiathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-22",
+        "source_school_id": "2670",
+        "target_school_id": "2415",
+        "source_event_id": "school-2670-2026-12-22-63",
+        "source_game_name": "Morgan State",
+        "source_url": "https://vcuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-23",
+        "source_school_id": "2011",
+        "target_school_id": "62",
+        "source_event_id": "school-2011-2026-12-23-81",
+        "source_game_name": "University of Hawaii",
+        "source_url": "https://bamastatesports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-28",
+        "source_school_id": "350",
+        "target_school_id": "171",
+        "source_event_id": "school-350-2026-12-28-79",
+        "source_game_name": "Columbia College (S.C.)",
+        "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2026-12-29",
+        "source_school_id": "258",
+        "target_school_id": "228",
+        "source_event_id": "official-258-2026-12-29-clemsonacc",
+        "source_game_name": "Clemson (ACC)",
+        "source_url": "https://virginiasports.com/sports/mbball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2026-12-31",
+        "source_school_id": "232",
+        "target_school_id": "111",
+        "source_event_id": "school-232-2026-12-31-16",
+        "source_game_name": "Northeastern",
+        "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-01-02",
+        "source_school_id": "2115",
+        "target_school_id": "2130",
+        "source_event_id": "401919596",
+        "source_game_name": "Central Connecticut Blue Devils at Chicago State Cougars",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-02",
+        "source_school_id": "2390",
+        "target_school_id": "221",
+        "source_event_id": "official-2390-2027-01-02-pitt",
+        "source_game_name": "Pitt",
+        "source_url": "https://miamihurricanes.com/sports/mbball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-04",
+        "source_school_id": "2681",
+        "target_school_id": "2115",
+        "source_event_id": "school-2681-2027-01-04-93",
+        "source_game_name": "CCSU",
+        "source_url": "https://wagnerathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-05",
+        "source_school_id": "30",
+        "target_school_id": "120",
+        "source_event_id": "school-30-2027-01-05-19",
+        "source_game_name": "Maryland",
+        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://umterps.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-01-05",
+        "source_school_id": "2115",
+        "target_school_id": "2681",
+        "source_event_id": "401919597",
+        "source_game_name": "Wagner Seahawks at Central Connecticut Blue Devils",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-06",
+        "source_school_id": "12",
+        "target_school_id": "2116",
+        "source_event_id": "school-12-2027-01-06-22",
+        "source_game_name": "UCF",
+        "source_url": "https://arizonawildcats.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-07",
+        "source_school_id": "350",
+        "target_school_id": "2448",
+        "source_event_id": "school-350-2027-01-07-91",
+        "source_game_name": "North Carolina A&T",
+        "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-08",
+        "source_school_id": "30",
+        "target_school_id": "164",
+        "source_event_id": "school-30-2027-01-08-20",
+        "source_game_name": "Rutgers",
+        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://scarletknights.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-08",
+        "source_school_id": "2330",
+        "target_school_id": "2115",
+        "source_event_id": "school-2330-2027-01-08-75",
+        "source_game_name": "Central Connecticut State University",
+        "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-01-09",
+        "source_school_id": "2115",
+        "target_school_id": "2330",
+        "source_event_id": "401919598",
+        "source_game_name": "Central Connecticut Blue Devils at Le Moyne Dolphins",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-12",
+        "source_school_id": "8",
+        "target_school_id": "2837",
+        "source_event_id": "official-ark-2027-01-12-2837",
+        "source_game_name": "Texas A&M",
+        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/",
+        "recognized_team_ids": [
+          "245"
+        ]
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-14",
+        "source_school_id": "2441",
+        "target_school_id": "2115",
+        "source_event_id": "school-2441-2027-01-14-75",
+        "source_game_name": "Central Connecticut State University",
+        "source_url": "https://newhavenchargers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-01-15",
+        "source_school_id": "2115",
+        "target_school_id": "2441",
+        "source_event_id": "401919720",
+        "source_game_name": "New Haven Chargers at Central Connecticut Blue Devils",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-16",
+        "source_school_id": "2305",
+        "target_school_id": "2116",
+        "source_event_id": "school-2305-2027-01-16-21",
+        "source_game_name": "UCF",
+        "source_url": "https://kuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-18",
+        "source_school_id": "2065",
+        "target_school_id": "2029",
+        "source_event_id": "school-2065-2027-01-18-75",
+        "source_game_name": "Arkansas - Pine Bluff",
+        "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-20",
+        "source_school_id": "284",
+        "target_school_id": "2115",
+        "source_event_id": "school-284-2027-01-20-83",
+        "source_game_name": "Central Connecticut State University",
+        "source_url": "https://stonehillskyhawks.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-20",
+        "source_school_id": "2509",
+        "target_school_id": "219",
+        "source_event_id": "official-purdue-2027-01-20-219",
+        "source_game_name": "Penn State",
+        "source_url": "https://purduesports.com/sports/mens-basketball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-01-21",
+        "source_school_id": "2115",
+        "target_school_id": "284",
+        "source_event_id": "401919721",
+        "source_game_name": "Central Connecticut Blue Devils at Stonehill Skyhawks",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-21",
+        "source_school_id": "47",
+        "target_school_id": "2415",
+        "source_event_id": "official-47-2027-01-21-morganstate",
+        "source_game_name": "Morgan State",
+        "source_url": "https://hubison.com/sports/mens-basketball/schedule/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-23",
+        "source_school_id": "66",
+        "target_school_id": "2116",
+        "source_event_id": "school-66-2027-01-23-23",
+        "source_game_name": "UCF",
+        "source_url": "https://cyclones.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-01-28",
+        "source_school_id": "47",
+        "target_school_id": "2450",
+        "source_event_id": "official-47-2027-01-28-norfolkstate",
+        "source_game_name": "Norfolk State",
+        "source_url": "https://hubison.com/sports/mens-basketball/schedule/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-01-29",
+        "source_school_id": "2115",
+        "target_school_id": "112358",
+        "source_event_id": "401919723",
+        "source_game_name": "Long Island University Sharks at Central Connecticut Blue Devils",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-30",
+        "source_school_id": "2641",
+        "target_school_id": "2116",
+        "source_event_id": "school-2641-2027-01-30-23",
+        "source_game_name": "UCF",
+        "source_url": "https://texastech.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-01-30",
+        "source_school_id": "2440",
+        "target_school_id": "2439",
+        "source_event_id": "school-2440-2027-01-30-99",
+        "source_game_name": "UNLV",
+        "source_url": "https://nevadawolfpack.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://unlvrebels.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-03",
+        "source_school_id": "161",
+        "target_school_id": "2115",
+        "source_event_id": "school-161-2027-02-03-153",
+        "source_game_name": "Central Connecticut State",
+        "source_url": "https://fduknights.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-03",
+        "source_school_id": "250",
+        "target_school_id": "2198",
+        "source_event_id": "school-250-2027-02-03-24",
+        "source_game_name": "Eastern Kentucky",
+        "source_url": "https://utamavs.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-02-04",
+        "source_school_id": "2115",
+        "target_school_id": "161",
+        "source_event_id": "401919725",
+        "source_game_name": "Central Connecticut Blue Devils at Fairleigh Dickinson Knights",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-06",
+        "source_school_id": "99",
+        "target_school_id": "145",
+        "source_event_id": "official-99-2027-02-06-olemiss",
+        "source_game_name": "Ole Miss",
+        "source_url": "https://lsusports.net/sports/mb/schedule",
+        "target_schedule_url": "https://olemisssports.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-10",
+        "source_school_id": "248",
+        "target_school_id": "2116",
+        "source_event_id": "school-248-2027-02-10-26",
+        "source_game_name": "UCF",
+        "source_url": "https://uhcougars.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-11",
+        "source_school_id": "2330",
+        "target_school_id": "2115",
+        "source_event_id": "school-2330-2027-02-11-107",
+        "source_game_name": "Central Connecticut State University",
+        "source_url": "https://lemoynedolphins.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-02-12",
+        "source_school_id": "2115",
+        "target_school_id": "2330",
+        "source_event_id": "401919727",
+        "source_game_name": "Le Moyne Dolphins at Central Connecticut Blue Devils",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-13",
+        "source_school_id": "2390",
+        "target_school_id": "25",
+        "source_event_id": "official-2390-2027-02-13-cal",
+        "source_game_name": "Cal",
+        "source_url": "https://miamihurricanes.com/sports/mbball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-18",
+        "source_school_id": "2640",
+        "target_school_id": "2029",
+        "source_event_id": "school-2640-2027-02-18-165",
+        "source_game_name": "Arkansas-Pine Bluff",
+        "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-18",
+        "source_school_id": "2400",
+        "target_school_id": "2504",
+        "source_event_id": "school-2400-2027-02-18-165",
+        "source_game_name": "Prairie View A&M University",
+        "source_url": "https://mvsusports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-19",
+        "source_school_id": "288",
+        "target_school_id": "91",
+        "source_event_id": "school-288-2027-02-19-29",
+        "source_game_name": "Bellarmine",
+        "source_url": "https://lipscombsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-20",
+        "source_school_id": "232",
+        "target_school_id": "111",
+        "source_event_id": "school-232-2027-02-20-30",
+        "source_game_name": "Northeastern",
+        "source_url": "https://cofcsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://nuhuskies.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-20",
+        "source_school_id": "2029",
+        "target_school_id": "2640",
+        "source_event_id": "school-2029-2027-02-20-159",
+        "source_game_name": "Texas Southern University",
+        "source_url": "https://uapblionsroar.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-20",
+        "source_school_id": "2641",
+        "target_school_id": "2116",
+        "source_event_id": "school-2641-2027-02-20-28",
+        "source_game_name": "UCF",
+        "source_url": "https://texastech.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-20",
+        "source_school_id": "2504",
+        "target_school_id": "2400",
+        "source_event_id": "school-2504-2027-02-20-115",
+        "source_game_name": "Mississippi Valley State",
+        "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-20",
+        "source_school_id": "91",
+        "target_school_id": "288",
+        "source_event_id": "school-91-2027-02-20-123",
+        "source_game_name": "Lipscomb University",
+        "source_url": "https://athletics.bellarmine.edu/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-25",
+        "source_school_id": "2016",
+        "target_school_id": "2504",
+        "source_event_id": "school-2016-2027-02-25-171",
+        "source_game_name": "Prairie View A&M University",
+        "source_url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-25",
+        "source_school_id": "2640",
+        "target_school_id": "2016",
+        "source_event_id": "school-2640-2027-02-25-177",
+        "source_game_name": "Alcorn State",
+        "source_url": "https://tsusports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-25",
+        "source_school_id": "2065",
+        "target_school_id": "2755",
+        "source_event_id": "school-2065-2027-02-25-119",
+        "source_game_name": "Grambling State",
+        "source_url": "https://bcuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-02-25",
+        "source_school_id": "2115",
+        "target_school_id": "2130",
+        "source_event_id": "401919730",
+        "source_game_name": "Chicago State Cougars at Central Connecticut Blue Devils",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-25",
+        "source_school_id": "350",
+        "target_school_id": "2448",
+        "source_event_id": "school-350-2027-02-25-143",
+        "source_game_name": "North Carolina A&T",
+        "source_url": "https://uncwsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-25",
+        "source_school_id": "2755",
+        "target_school_id": "50",
+        "source_event_id": "school-2755-2027-02-25-171",
+        "source_game_name": "Florida A&M University",
+        "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-26",
+        "source_school_id": "309",
+        "target_school_id": "2433",
+        "source_event_id": "school-309-2027-02-26-30",
+        "source_game_name": "ULM",
+        "source_url": "https://ragincajuns.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://ulmwarhawks.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-26",
+        "source_school_id": "357",
+        "target_school_id": "2466",
+        "source_event_id": "school-357-2027-02-26-123",
+        "source_game_name": "Northwestern State",
+        "source_url": "https://goislanders.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "no_unique_official_source",
+        "date": "2027-02-27",
+        "source_school_id": "2115",
+        "target_school_id": "112358",
+        "source_event_id": "401919731",
+        "source_game_name": "Central Connecticut Blue Devils at Long Island University Sharks",
+        "source_url": "",
+        "source_record_count": 0
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-27",
+        "source_school_id": "2504",
+        "target_school_id": "2016",
+        "source_event_id": "school-2504-2027-02-27-123",
+        "source_game_name": "Alcorn State University",
+        "source_url": "https://pvpanthers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-27",
+        "source_school_id": "2016",
+        "target_school_id": "2640",
+        "source_event_id": "school-2016-2027-02-27-177",
+        "source_game_name": "Texas Southern University",
+        "source_url": "https://alcornsports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-27",
+        "source_school_id": "2755",
+        "target_school_id": "2065",
+        "source_event_id": "school-2755-2027-02-27-177",
+        "source_game_name": "Bethune-Cookman University",
+        "source_url": "https://gsutigers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-27",
+        "source_school_id": "252",
+        "target_school_id": "2116",
+        "source_event_id": "official-252-2027-02-27-ucf",
+        "source_game_name": "UCF",
+        "source_url": "https://byucougars.com/sports/mens-basketball/schedule/season/2026-2027",
+        "target_schedule_url": "https://ucfknights.com/sports/mens-basketball/schedule/text/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-27",
+        "source_school_id": "2390",
+        "target_school_id": "221",
+        "source_event_id": "official-2390-2027-02-27-pitt",
+        "source_game_name": "Pitt",
+        "source_url": "https://miamihurricanes.com/sports/mbball/schedule",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "independent_target_calendar_requires_source_review",
+        "date": "2027-02-27",
+        "source_school_id": "2440",
+        "target_school_id": "2439",
+        "source_event_id": "school-2440-2027-02-27-127",
+        "source_game_name": "UNLV",
+        "source_url": "https://nevadawolfpack.com/sports/mens-basketball/schedule/text/2026-27",
+        "target_schedule_url": "https://unlvrebels.com/sports/mens-basketball/schedule/2026-27"
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-27",
+        "source_school_id": "2466",
+        "target_school_id": "357",
+        "source_event_id": "school-2466-2027-02-27-127",
+        "source_game_name": "Texas A&M - Corpus Christi",
+        "source_url": "https://nsudemons.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-02-27",
+        "source_school_id": "50",
+        "target_school_id": "2755",
+        "source_event_id": "school-50-2027-02-27-195",
+        "source_game_name": "Grambling State",
+        "source_url": "https://famuathletics.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-03-03",
+        "source_school_id": "96",
+        "target_school_id": "2837",
+        "source_event_id": "official-kentucky-2027-03-03-2837",
+        "source_game_name": "Texas A&M",
+        "source_url": "https://ukathletics.com/news/2026/10/07/kentucky-mens-basketball-finalizes-2026-27-schedule/",
+        "recognized_team_ids": [
+          "245"
+        ]
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-03-04",
+        "source_school_id": "2296",
+        "target_school_id": "2400",
+        "source_event_id": "school-2296-2027-03-04-189",
+        "source_game_name": "Mississippi Valley State",
+        "source_url": "https://gojsutigers.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-03-06",
+        "source_school_id": "250",
+        "target_school_id": "2198",
+        "source_event_id": "school-250-2027-03-06-32",
+        "source_game_name": "Eastern Kentucky",
+        "source_url": "https://utamavs.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      },
+      {
+        "reason": "source_opponent_identity_unconfirmed",
+        "date": "2027-03-06",
+        "source_school_id": "2400",
+        "target_school_id": "2296",
+        "source_event_id": "school-2400-2027-03-06-189",
+        "source_game_name": "Jackson State University",
+        "source_url": "https://mvsusports.com/sports/mens-basketball/schedule/text/2026-27",
+        "recognized_team_ids": []
+      }
+    ],
+    "by_target": [
+      {
+        "school_id": "228",
+        "candidate_games": 6
+      },
+      {
+        "school_id": "245",
+        "candidate_games": 6
+      },
+      {
+        "school_id": "2244",
+        "candidate_games": 3
+      },
+      {
+        "school_id": "112358",
+        "candidate_games": 2
+      },
+      {
+        "school_id": "195",
+        "candidate_games": 1
+      }
+    ],
+    "policy": "Read-only: exact date and two D-I team IDs, independent official source/opponent identity, unique game and reciprocal home/away; existing school authority and same/near-date conflicts quarantined; never add fixtures automatically."
   }
 }
