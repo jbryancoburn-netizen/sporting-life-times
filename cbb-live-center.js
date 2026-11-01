@@ -56,9 +56,9 @@
     return (league?.games||[]).filter(g=>etParts(new Date(g.date))===state.day).map(normalizeSnapshot).filter(Boolean);
   }
   function currentView(g){
-    if(g.phase==='live')return '<span class="cbb-live-pill"><span class="cbb-live-dot"></span>LIVE</span> '+esc(g.headline||('Period '+g.period));
-    if(g.phase==='final')return '<strong class="cbb-final">FINAL</strong> '+esc(g.headline||'');
-    return 'UPCOMING · '+esc(localDate(g.date));
+    if(g.phase==='live')return '<span class="cbb-live-pill">LIVE</span> '+esc(g.headline||('Period '+g.period));
+    if(g.phase==='final')return '<strong class="cbb-final">FINAL</strong>';
+    return esc(localDate(g.date));
   }
   function schoolLink(t){
     const id=String(t?.team?.id||'');
@@ -187,10 +187,10 @@
     const x=Number(as),y=Number(hs);
     if(!Number.isFinite(x)||!Number.isFinite(y))return 'Game in progress; a validated score is not available.';
     const margin=Math.abs(x-y),leader=x>y?away:y>x?home:'';
-    if(p==='final')return leader?leader+' wins by '+margin+' · '+x+'–'+y+' final (away–home).':
+    if(p==='final')return leader?leader+' wins by '+margin+' · '+Math.max(x,y)+'–'+Math.min(x,y)+'.':
       away+' and '+home+' finish level in the provider feed; final outcome under review.';
     if(x===y)return 'Level at '+x+'–'+y+' · '+(g.headline||'live period')+'.';
-    return leader+' leads by '+margin+' · '+x+'–'+y+' away–home'+(g.headline?' · '+g.headline:'')+'.';
+    return leader+' leads by '+margin+' · '+Math.max(x,y)+'–'+Math.min(x,y)+(g.headline?' · '+g.headline:'')+'.';
   }
   function statEditorial(g){
     const raw=state.summaryCache.get(g.id)?.data;
@@ -233,14 +233,8 @@
     return games.reduce((best,g)=>!best||scoreGame(g)>scoreGame(best)?g:best,null);
   }
   function featuredGame(g){
-    return '<div class="cbb-featured"><div class="cbb-feature-editorial">'+
-      '<div class="cbb-feature-ribbon"><span>✦</span> THE LEAD GAME <small>NO. 01 / '+esc(dateLabel(state.day).toUpperCase())+'</small></div>'+
-      '<div class="cbb-feature-league">'+display+' · '+(g.phase==='live'?'ON THE FLOOR':g.phase==='final'?'THE FINAL WORD':'THE NEXT TIPOFF')+'</div>'+
-      '<h3>'+esc(teamName(g.away))+' <em>at</em> '+esc(teamName(g.home))+'</h3>'+
-      '<p>'+esc(gameEditorial(g))+'</p>'+
-      '<div class="cbb-feature-identity"><span>THE SPORTING LIFE & TIMES</span><strong>GAMEFILE / '+esc(g.id)+'</strong></div>'+
-      '<a class="cbb-feature-link" href="'+gameLink(g)+'">READ THE GAMEFILE <span aria-hidden="true">→</span></a></div>'+
-      '<div class="cbb-feature-score">'+scorebug(g)+'</div></div>';
+    // A single featured scorecard replaces the redundant editorial billboard.
+    return '<div class="cbb-featured"><div class="cbb-feature-marker">FEATURED GAME</div>'+scorebug(g)+'</div>';
   }
   function radarBar(games){
     const live=games.filter(x=>x.phase==='live'),final=games.filter(x=>x.phase==='final');
@@ -269,18 +263,21 @@
   function scorebug(g){
     const as=Number(score(g.away)),hs=Number(score(g.home));
     const winner=g.phase==='final'&&score(g.away)!=null&&score(g.home)!=null&&as!==hs;
-    const awayWin=winner&&as>hs,homeWin=winner&&hs>as;
-    const onAir=g.broadcast?'ON '+g.broadcast:(g.neutral?'NEUTRAL SITE':'DIVISION I');
-    const quick=summaryStats(g);
+    const broadcast=g.broadcast?' · '+esc(g.broadcast):'';
+    const details=summaryStats(g);
+    const model=modelFor(g);
+    // Never print equal clean-slate ratings as artificial pregame matchup intelligence.
+    const prob=Number.isFinite(model?.probability)&&g.phase==='upcoming'?
+      '<span class="cbb-model-inline">USRS: '+esc(code(model.probability>.5?g.home:g.away))+' '+
+      Math.round(Math.max(model.probability,1-model.probability)*100)+'% pregame</span>':'';
     return '<article class="cbb-game-card cbb-'+g.phase+'" data-cbb-game="'+esc(g.id)+'" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
-      '<div class="cbb-card-brand"><span><span class="cbb-court-icon" aria-hidden="true">◈</span> COURTSIDE <span class="cbb-brand-suffix">/ '+(women?'WOMEN':'MEN')+'’S D-I</span></span><span class="cbb-brand-live">'+(g.phase==='live'?'● IN PLAY':g.phase==='final'?'FULL TIME':'MATCHUP')+'</span></div>'+
-      '<div class="cbb-bug-top"><span>'+currentView(g)+'</span><span class="cbb-bug-network">'+esc(onAir)+'</span></div>'+
-      '<div class="cbb-match-rows">'+row(g.away,g.phase,awayWin)+row(g.home,g.phase,homeWin)+'</div>'+
-      '<div class="cbb-score-card-foot">'+usrsLine(g)+storyNote(g)+'<div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+
-      (quick||'<span class="cbb-preview-hint">'+(g.phase==='upcoming'?'TIPOFF · '+esc(localDate(g.date)):
-        g.phase==='live'?'UPDATING LIVE GAME STATS':g.phase==='final'?'BOX SCORE DATA WHEN AVAILABLE':'')+'</span>')+
-      '</div><div class="cbb-bug-bottom"><span>'+esc(g.venue||(g.neutral?'Neutral court':'NCAA Basketball'))+'</span>'+
-      '<a class="cbb-box-btn" href="'+gameLink(g)+'">VIEW GAMEFILE <span aria-hidden="true">↗</span></a></div></div>'+
+      '<div class="cbb-bug-top"><span>'+currentView(g)+'</span><span class="cbb-bug-network">'+
+      esc(g.broadcast||'')+'</span></div>'+
+      '<div class="cbb-match-rows">'+row(g.away,g.phase,winner&&as>hs)+row(g.home,g.phase,winner&&hs>as)+'</div>'+
+      (details?'<div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+details+'</div>':
+        '<div class="cbb-preview cbb-preview-empty" id="cbb-preview-'+esc(g.id)+'"></div>')+
+      '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
+      '<a class="cbb-box-btn" href="'+gameLink(g)+'">Game details →</a></div>'+
       '</article>';
   }
   function updateStatsPreview(g){
@@ -288,8 +285,7 @@
     if(!target)return;
     const result=summaryStats(g);
     if(result)target.innerHTML=result;
-    const note=target.closest('.cbb-game-card')?.querySelector('.cbb-story-note');
-    if(note)note.outerHTML=storyNote(g);
+
   }
   async function preloadVisibleStats(games,generation,day){
     // Limit provider traffic: use cached final boxes and short-lived live updates.
@@ -315,17 +311,22 @@
     const old=isStandalone?root:q(women?'#wbb-score-rail':'#score-rail');
     if(!old)return false;
     const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk'+(women?' cbb-women':'');
-    host.innerHTML='<div class="cbb-desk-header"><div><div class="cbb-kicker">THE SPORTING LIFE & TIMES · '+tag.toUpperCase()+'’S DIVISION I</div>'+
-      '<div class="cbb-desk-folio">ISSUE '+esc(dateLabel(state.day).toUpperCase())+' <span>EST. 2026 · EVERY GAME HAS A STORY</span></div>'+      '<h2>The Courtside Desk <span class="cbb-desk-sub">LIVE SCOREBUGS / GAMEFILES / INDEPENDENT USRS INTELLIGENCE</span></h2></div>'+
-      '<a class="cbb-center-link" href="'+centerURL()+'">FULL GAME CENTER ↗</a></div>'+
+    host.innerHTML='<div class="cbb-desk-header"><div><div class="cbb-kicker">'+(women?'WOMEN’S':'MEN’S')+' DIVISION I</div>'+
+      '<h2>The Courtside Desk</h2></div>'+
+      (isStandalone?'':'<a class="cbb-center-link" href="'+centerURL()+'">All games →</a>')+'</div>'+
       '<div class="cbb-date-controls"><button type="button" data-cbb-date="-1" aria-label="Previous day">‹</button>'+
-      '<label class="cbb-date-label" for="cbb-day-picker">Games for <input id="cbb-day-picker" type="date" value="'+esc(state.day)+'"></label>'+
+      '<label class="cbb-date-label" for="cbb-day-picker"><span>Date</span><input id="cbb-day-picker" type="date" value="'+esc(state.day)+'"></label>'+
       '<button type="button" data-cbb-date="1" aria-label="Next day">›</button>'+
       '<button type="button" class="cbb-today-btn" data-cbb-today>Today</button>'+
-      '<button type="button" class="cbb-refresh-btn" data-cbb-refresh>↻ Refresh</button></div>'+
-      '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Checking ESPN’s current game feed…</p>'+      '<div class="cbb-filter-bar" role="group" aria-label="Filter college basketball games">'+      '<button type="button" data-cbb-filter="all" aria-pressed="true">ALL GAMES <span id="cbb-count-all">0</span></button>'+      '<button type="button" data-cbb-filter="live" aria-pressed="false">● LIVE <span id="cbb-count-live">0</span></button>'+      '<button type="button" data-cbb-filter="final" aria-pressed="false">FINAL <span id="cbb-count-final">0</span></button>'+      '<button type="button" data-cbb-filter="upcoming" aria-pressed="false">UPCOMING <span id="cbb-count-upcoming">0</span></button></div>'+
-      '<div id="cbb-radar-host"></div><div id="cbb-feature-host"></div>'+      '<div class="cbb-games-heading"><b>THE FULL SLATE</b><span>AWAY FIRST · HOME SECOND</span></div>'+      '<div class="cbb-cards" id="cbb-cards"><p class="cbb-loading">Checking game data…</p></div>'+
-      '';
+      '<button type="button" class="cbb-refresh-btn" data-cbb-refresh aria-label="Refresh scores">↻</button></div>'+
+      '<div class="cbb-filter-bar" role="group" aria-label="Filter college basketball games">'+
+      '<button type="button" data-cbb-filter="all" aria-pressed="true">All <span id="cbb-count-all">0</span></button>'+
+      '<button type="button" data-cbb-filter="live" aria-pressed="false">Live <span id="cbb-count-live">0</span></button>'+
+      '<button type="button" data-cbb-filter="final" aria-pressed="false">Final <span id="cbb-count-final">0</span></button>'+
+      '<button type="button" data-cbb-filter="upcoming" aria-pressed="false">Upcoming <span id="cbb-count-upcoming">0</span></button></div>'+
+      '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Loading current scores…</p>'+
+      '<div id="cbb-feature-host"></div>'+
+      '<div class="cbb-cards" id="cbb-cards"><p class="cbb-loading">Checking game data…</p></div>';
     if(isStandalone)old.appendChild(host);
     else old.parentNode.insertBefore(host,old);
     host.addEventListener('click',function(e){
@@ -376,12 +377,11 @@
     }
     document.querySelectorAll('#cbb-live-desk [data-cbb-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cbbFilter===state.filter)));
     const matching=state.filter==='all'?state.games:state.games.filter(g=>g.phase===state.filter);
-    const visible=isStandalone?matching:matching.slice(0,6);
+    const visible=isStandalone?matching:matching.slice(0,4);
     const hero=selectFeatured(matching);
-    const rest=(hero?matching.filter(x=>x.id!==hero.id):matching).slice(0,isStandalone?matching.length:5);
-    const featured=q('#cbb-feature-host'),radar=q('#cbb-radar-host');
+    const rest=(hero?matching.filter(x=>x.id!==hero.id):matching).slice(0,isStandalone?matching.length:3);
+    const featured=q('#cbb-feature-host');
     if(featured)featured.innerHTML=hero?featuredGame(hero):'';
-    if(radar)radar.innerHTML=radarBar(state.games);
     const result=q('#cbb-cards');
     if(result)result.innerHTML=rest.length?rest.map(scorebug).join('')+
       (!isStandalone&&matching.length>6?'<a class="cbb-more-games" href="'+centerURL()+'">VIEW ALL '+matching.length+' GAMES <span aria-hidden="true">↗</span></a>':''):
@@ -394,7 +394,6 @@
   async function refresh(){
     if(!createShell()||state.pending)return;
     state.pending=true;
-    const active=state.selected;
     const day=state.day, generation=++state.generation;
     const date=day.replaceAll('-','');
     const data=await fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+date);
@@ -411,9 +410,7 @@
     state.lastUpdate=new Date();
     const result=q('#cbb-cards'),stamp=q('#cbb-source-stamp');
     renderCards();
-    if(stamp)stamp.textContent=(state.fallback?'SNAPSHOT — not live. ':'')+state.source+' · '+dateLabel(state.day)+
-      ' · checked '+state.lastUpdate.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET'+
-      (state.fallback?' · Live stats require ESPN connectivity.':' · Auto-refresh every 30 seconds.');
+    if(stamp)stamp.textContent=(state.fallback?'Snapshot, not live':'ESPN live feed')+' · updated '+state.lastUpdate.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET'+(state.fallback?'':' · refreshes every 30s');
     // Do not hide the original until this desk has a real scoreboard or a valid fallback.
     const original=q(women?'#wbb-score-rail':'#score-rail');
     if(original&&games.length)original.hidden=true;
