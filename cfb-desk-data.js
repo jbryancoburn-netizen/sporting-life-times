@@ -37,7 +37,8 @@ function ringColors(t){const primary=color(t?.color)||color(t?.primary)||'#203b4
   return {primary,secondary};
 }
 /* The only ring painter for the entire CFB edition: two SVG bands, no CSS border layers. */
-function ringArtwork(primary,secondary){return '<svg class="cfb-ring-art" viewBox="0 0 100 100" focusable="false" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="'+primary+'"/><circle cx="50" cy="50" r="44" fill="'+secondary+'"/><circle cx="50" cy="50" r="38" fill="#fff"/></svg>'}
+/* Exactly TWO SVG ring elements, no third white-filled SVG circle. */
+function ringArtwork(primary,secondary){return '<svg class="cfb-ring-art" viewBox="0 0 100 100" focusable="false" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="'+primary+'" stroke-width="7"/><circle cx="50" cy="50" r="39" fill="none" stroke="'+secondary+'" stroke-width="7"/></svg>'}
 function logoInitials(t){const abbr=String(t?.abbreviation||t?.abbr||'').trim();if(abbr)return abbr.slice(0,4).toUpperCase();const name=String(t?.name||t?.shortDisplayName||t?.full||t?.displayName||'TEAM').trim().replace(/\([^)]*\)/g,'');return (name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('')||'T').toUpperCase()}
 function imageMarkup(url,t){return '<span class="cfb-logo-fallback" aria-hidden="true">'+esc(logoInitials(t))+'</span><img data-cfb-logo="1" loading="eager" decoding="async" alt="" src="'+esc(url)+'">'}
 document.addEventListener('load',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1')img.previousElementSibling?.classList?.add('is-hidden')},true);
