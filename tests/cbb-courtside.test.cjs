@@ -42,6 +42,12 @@ assert.match(men.gameEditorial(live),/Villanova Wildcats leads by 4/);
 assert(!men.gameEditorial(live).includes('9–2 run'));
 assert.match(men.featuredGame(live),/THE LEAD GAME/);
 assert.match(men.scorebug(live),/LIVE/);
+assert.match(men.scorebug(live),/cbb-gamefile\.html\?/,'card opens separate Gamefile');
+assert(!men.scorebug(live).includes('data-cbb-open'),'game cards never append an inline box');
+assert(js.includes('isGamefile')&&js.includes('data-gamefile-panel'),'Gamefile has its own tabbed route');
+assert(!js.includes('data-cbb-close'),'scoreboard no longer creates inline box score');
+assert(fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8').includes('cbb-gamefile-root'),'dedicated Gamefile HTML exists');
+assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-number'),'Hardwood is an editorial folio');
 const snapshot=men.normalizeSnapshot({id:'401920982',date:'2026-11-01T14:30Z',state:'in',status:'Halftime',teams:[
  {id:'87',home_away:'away',name:'Notre Dame Fighting Irish',score:'31'},
  {id:'222',home_away:'home',name:'Villanova Wildcats',score:'35'}
