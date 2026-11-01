@@ -59,7 +59,7 @@ ALIASES = {
 
 
 def normalized(text):
-    text = re.sub(r"^(?:at|vs\\.?|versus)\\s+", "", " ".join(str(text or "").strip().lower().split()))
+    text = re.sub(r"^(?:at|vs\.?|versus)\s+", "", " ".join(str(text or "").strip().lower().split()))
     text = re.sub(r"[^a-z0-9 ]+", " ", text)
     return " ".join(text.split())
 
@@ -83,7 +83,7 @@ def parse_women_calendar(html, owner, schedule_id):
             if len(cells) < 5:
                 continue
             day, time, opponent, city = cells[:4]
-            if not re.fullmatch(r"\\d{1,2}/\\d{1,2}/202[67]", day):
+            if not re.fullmatch(r"\d{1,2}/\d{1,2}/202[67]", day):
                 continue
             date = dt.datetime.strptime(day, "%m/%d/%Y").date()
             if not (dt.date(2026, 11, 1) <= date <= dt.date(2027, 2, 28)):
