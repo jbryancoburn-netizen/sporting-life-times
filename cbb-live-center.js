@@ -422,7 +422,11 @@
       const key=women?String(g.id):[String(g.away.team?.id),String(g.home.team?.id)]
         .sort((a,b)=>Number(a)-Number(b)).join(':');
       const proof=schoolIndex.get(key);
-      if(proof){
+      const participantIds=[String(g.away.team?.id||''),String(g.home.team?.id||'')]
+        .sort((a,b)=>Number(a)-Number(b)).join(':');
+      const schoolPair=(proof?.team_ids||[]).map(String)
+        .sort((a,b)=>Number(a)-Number(b)).join(':');
+      if(proof&&(!women||!schoolPair||schoolPair===participantIds)){
         schoolConfirmed++;
         const status=g.phase==='live'?'ESPN live score (secondary)':
           g.phase==='final'?'ESPN reported final (NCAA not confirmed)':'ESPN tipoff listing';
@@ -431,6 +435,23 @@
       }else{
         games.push({...g,source:'ESPN secondary · official fixture not independently matched'});
       }
+    }
+    // Apply university fixture evidence to NCAA-matched entries as well;
+    // they were removed from the raw ESPN map above and otherwise missed.
+    for(let i=0;i<games.length;i++){
+      const g=games[i];
+      if(g.schoolVerified)continue;
+      const ids=[String(g.away.team?.id||''),String(g.home.team?.id||'')];
+      const pair=ids.sort((a,b)=>Number(a)-Number(b)).join(':');
+      const key=women?String(g.id):pair;
+      const proof=schoolIndex.get(key);
+      const schoolPair=(proof?.team_ids||[]).map(String)
+        .sort((a,b)=>Number(a)-Number(b)).join(':');
+      if(!proof||(women&&schoolPair&&schoolPair!==pair))continue;
+      schoolConfirmed++;
+      games[i]={...g,schoolVerified:true,
+        schoolSource:(proof.source_urls||[])[0]||'',
+        source:String(g.source||'Source pending')+' · university fixture corroborated'};
     }
     // Conference office announcements independently corroborate MATCHUPS and
     // broadcast announcements, but never certify scores or updated tipoffs.
