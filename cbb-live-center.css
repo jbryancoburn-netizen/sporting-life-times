@@ -31,7 +31,7 @@
 .cbb-bug-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:9px 10px;min-height:37px;font-size:10px;color:#58727c;background:#fafbfb}
 .cbb-bug-bottom>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cbb-box-btn{background:transparent;color:#0b5164;font:800 9px Arial,sans-serif;letter-spacing:.1px;cursor:pointer;border:0;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
-.cbb-fallback-crest{width:46px;height:46px;min-width:46px;border-radius:50%;border:3px solid #194854;box-shadow:inset 0 0 0 3px #d5a64c;display:grid;place-items:center;padding:5px;overflow:hidden;background:#fff}
+.cbb-fallback-crest{width:46px;height:46px;min-width:46px;border-radius:50%;border:3px solid var(--cbb-primary,#194854);box-shadow:inset 0 0 0 3px var(--cbb-secondary,#5c8395);display:grid;place-items:center;padding:5px;overflow:hidden;background:#fff}
 .cbb-fallback-crest img{width:100%;height:100%;object-fit:contain;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
 .cbb-detail{margin-top:18px;padding:16px;background:#f7f9f9;border:1px solid #c5d3d6;border-top:4px solid #153d4a;scroll-margin-top:10px}
 .cbb-detail[hidden],#score-rail[hidden],#wbb-score-rail[hidden]{display:none!important}
