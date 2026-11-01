@@ -1,6 +1,6 @@
 {
   "as_of_date": "2026-11-01",
-  "completed_matches": 88,
+  "completed_matches": 89,
   "elo_history": {
     "Arsenal": [
       {
@@ -63,6 +63,13 @@
         "fixture_id": "401878768",
         "match": 8,
         "opponent": "Everton"
+      },
+      {
+        "date": "2026-11-01",
+        "elo": 1565.65075,
+        "fixture_id": "401879246",
+        "match": 9,
+        "opponent": "Liverpool"
       }
     ],
     "Aston Villa": [
@@ -959,6 +966,13 @@
         "fixture_id": "401878765",
         "match": 8,
         "opponent": "Brighton"
+      },
+      {
+        "date": "2026-11-01",
+        "elo": 1518.58047,
+        "fixture_id": "401879246",
+        "match": 9,
+        "opponent": "Arsenal"
       }
     ],
     "Manchester City": [
@@ -1377,8 +1391,8 @@
   },
   "last_five_form": {
     "Arsenal": [
-      "W",
       "L",
+      "W",
       "W",
       "W",
       "W"
@@ -1468,11 +1482,11 @@
       "L"
     ],
     "Liverpool": [
-      "D",
       "W",
       "L",
       "W",
-      "W"
+      "W",
+      "L"
     ],
     "Manchester City": [
       "W",
@@ -1518,7 +1532,7 @@
     ]
   },
   "last_match_elo_delta": {
-    "Arsenal": 7.2991,
+    "Arsenal": 10.8508,
     "Aston Villa": -2.16704,
     "Bournemouth": 8.83215,
     "Brentford": 7.41774,
@@ -1531,7 +1545,7 @@
     "Hull": -1.75818,
     "Ipswich": 1.75818,
     "Leeds United": -8.83215,
-    "Liverpool": 8.89111,
+    "Liverpool": -10.8508,
     "Manchester City": -12.24431,
     "Manchester United": -7.65151,
     "Newcastle United": 11.49194,
@@ -1546,11 +1560,11 @@
     "fixture_policy": "only feed-confirmed future fixtures",
     "rating_origin": "neutral baseline; no independently sourced prior-season ratings",
     "season": "2026-2027",
-    "source_fixtures": 88,
-    "source_sha256": "d1508c32fceaf298b8e36ec3466650685463f5b03d50f3cd0fbba18de72ab9e0"
+    "source_fixtures": 89,
+    "source_sha256": "2002ba8225e1dc9b2a2f3ed57f4be8d7ec1b38072e8994576807dd6a74e77396"
   },
   "ratings": {
-    "Arsenal": 1554.79995,
+    "Arsenal": 1565.65075,
     "Aston Villa": 1503.15489,
     "Bournemouth": 1501.6944,
     "Brentford": 1515.31888,
@@ -1563,7 +1577,7 @@
     "Hull": 1495.14962,
     "Ipswich": 1491.9393,
     "Leeds United": 1498.26898,
-    "Liverpool": 1529.43126,
+    "Liverpool": 1518.58047,
     "Manchester City": 1540.04407,
     "Manchester United": 1472.76547,
     "Newcastle United": 1498.42873,
@@ -2275,9 +2289,28 @@
       "home": "Aston Villa",
       "home_score": 1,
       "kickoff_utc": "2026-10-31T20:00:00+00:00"
+    },
+    {
+      "away": "Arsenal",
+      "away_score": 1,
+      "fixture_id": "401879246",
+      "home": "Liverpool",
+      "home_score": 0,
+      "kickoff_utc": "2026-11-01T16:30:00+00:00"
     }
   ],
   "standings": [
+    {
+      "club": "Arsenal",
+      "drawn": 0,
+      "ga": 5,
+      "gd": 9,
+      "gf": 14,
+      "lost": 1,
+      "played": 9,
+      "points": 24,
+      "won": 8
+    },
     {
       "club": "Manchester City",
       "drawn": 0,
@@ -2286,17 +2319,6 @@
       "gf": 20,
       "lost": 2,
       "played": 9,
-      "points": 21,
-      "won": 7
-    },
-    {
-      "club": "Arsenal",
-      "drawn": 0,
-      "ga": 5,
-      "gd": 8,
-      "gf": 13,
-      "lost": 1,
-      "played": 8,
       "points": 21,
       "won": 7
     },
@@ -2325,11 +2347,11 @@
     {
       "club": "Liverpool",
       "drawn": 3,
-      "ga": 8,
-      "gd": 3,
+      "ga": 9,
+      "gd": 2,
       "gf": 11,
-      "lost": 1,
-      "played": 8,
+      "lost": 2,
+      "played": 9,
       "points": 15,
       "won": 4
     },

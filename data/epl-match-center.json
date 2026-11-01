@@ -3,32 +3,6 @@
   "fixtures": [
     {
       "away": {
-        "elo": 1554.799952691797,
-        "expected_goals": 1.2104915855346323,
-        "id": "359",
-        "name": "Arsenal"
-      },
-      "fixture_id": "401879246",
-      "home": {
-        "elo": 1529.4312635408228,
-        "expected_goals": 1.4895084144653676,
-        "id": "364",
-        "name": "Liverpool"
-      },
-      "kickoff_utc": "2026-11-01T16:30:00+00:00",
-      "probabilities": {
-        "away": 0.33246020589849024,
-        "draw": 0.25,
-        "home": 0.41753979410150976
-      },
-      "projected_score": {
-        "away": 1,
-        "home": 1,
-        "method": "heuristic_unvalidated_goal_rates"
-      }
-    },
-    {
-      "away": {
         "elo": 1498.9755978556755,
         "expected_goals": 1.1773958225637886,
         "id": "368",
@@ -108,22 +82,22 @@
     {
       "away": {
         "elo": 1495.1496197805627,
-        "expected_goals": 1.0971328894516876,
+        "expected_goals": 1.0826651616089806,
         "id": "306",
         "name": "Hull"
       },
       "fixture_id": "401878760",
       "home": {
-        "elo": 1554.799952691797,
-        "expected_goals": 1.6028671105483123,
+        "elo": 1565.6507485738273,
+        "expected_goals": 1.6173348383910193,
         "id": "359",
         "name": "Arsenal"
       },
       "kickoff_utc": "2026-11-07T15:00:00+00:00",
       "probabilities": {
-        "away": 0.21574402146825433,
+        "away": 0.20185533913369713,
         "draw": 0.25,
-        "home": 0.5342559785317457
+        "home": 0.5481446608663029
       },
       "projected_score": {
         "away": 1,
@@ -211,23 +185,23 @@
     },
     {
       "away": {
-        "elo": 1529.4312635408228,
-        "expected_goals": 1.2628331658265257,
+        "elo": 1518.5804676587925,
+        "expected_goals": 1.2483654379838187,
         "id": "364",
         "name": "Liverpool"
       },
       "fixture_id": "401879243",
       "home": {
         "elo": 1464.8063891709285,
-        "expected_goals": 1.4371668341734742,
+        "expected_goals": 1.4516345620161812,
         "id": "384",
         "name": "Crystal Palace"
       },
       "kickoff_utc": "2026-11-08T14:00:00+00:00",
       "probabilities": {
-        "away": 0.3888477654155469,
+        "away": 0.37323576444730533,
         "draw": 0.25,
-        "home": 0.36115223458445317
+        "home": 0.37676423555269467
       },
       "projected_score": {
         "away": 1,
@@ -314,8 +288,16 @@
       }
     }
   ],
-  "issued_at_utc": "2026-11-01T16:28:54.873831+00:00",
+  "issued_at_utc": "2026-11-01T20:48:57.831162+00:00",
   "recent_results": [
+    {
+      "away": "Arsenal",
+      "away_score": 1,
+      "fixture_id": "401879246",
+      "home": "Liverpool",
+      "home_score": 0,
+      "kickoff_utc": "2026-11-01T16:30:00+00:00"
+    },
     {
       "away": "Fulham",
       "away_score": 1,
@@ -451,14 +433,6 @@
       "home": "Aston Villa",
       "home_score": 2,
       "kickoff_utc": "2026-10-24T11:30:00+00:00"
-    },
-    {
-      "away": "Nott'm Forest",
-      "away_score": 1,
-      "fixture_id": "401879253",
-      "home": "Ipswich",
-      "home_score": 1,
-      "kickoff_utc": "2026-10-23T19:00:00+00:00"
     }
   ],
   "schema_version": 1,

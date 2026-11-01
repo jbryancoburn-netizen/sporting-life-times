@@ -49,6 +49,22 @@
         "log_loss": 1.273345377182424
       }
     },
+    "401879246": {
+      "away": "Arsenal",
+      "away_score": 1,
+      "baseline": {
+        "brier": 0.6824488563674173,
+        "log_loss": 1.1012351075569315
+      },
+      "fixture_id": "401879246",
+      "home": "Liverpool",
+      "home_score": 0,
+      "outcome": "away",
+      "research": {
+        "brier": 0.7341354360747269,
+        "log_loss": 1.1767571190453263
+      }
+    },
     "401879247": {
       "away": "Sunderland",
       "away_score": 1,
@@ -475,19 +491,19 @@
   "schema_version": 1,
   "status": "research_only_not_for_live_promotion",
   "summary": {
-    "graded_count": 8,
+    "graded_count": 9,
     "locked_count": 20,
     "new_grades": 1,
     "new_locks": 0,
     "note": "Paired pregame outcomes only; a small sample cannot validate superiority.",
     "scores": {
       "baseline": {
-        "brier": 0.582789,
-        "log_loss": 0.982654
+        "brier": 0.593862,
+        "log_loss": 0.99583
       },
       "research": {
-        "brier": 0.585654,
-        "log_loss": 0.986348
+        "brier": 0.602152,
+        "log_loss": 1.007505
       }
     }
   }
