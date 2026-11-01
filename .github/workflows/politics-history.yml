@@ -53,6 +53,11 @@ jobs:
               assert d['official_house_history']['2024']['dem']==215
               assert d['official_house_history']['2024']['rep']==220
               assert all(item['official']['total_seats']==435 for item in d['house_reconciliation'])
+              assert all(item['apportionment_audit']['expected_voting_house_districts']==435 for item in d['house_reconciliation'])
+              for item in d['house_reconciliation']:
+                  if item['apportionment_audit']['unexpected_districts'] or item['apportionment_audit']['missing_districts']:
+                      print('APPORTIONMENT MISMATCH',item['year'],item['apportionment_audit'])
+
               assert d['data_quality_status'] in ('reconstruction_pending','reconciled')
               if d['data_quality_status']=='reconstruction_pending':
                   assert d['forecast_2026_certified'] is False

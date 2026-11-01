@@ -33,6 +33,11 @@ OFFICIAL_HOUSE={
 }
 HOUSE_CLERK="https://history.house.gov/Institution/Election-Statistics/Election-Statistics/"
 HOUSE_HISTORIAN="https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+# Census Bureau's 2010/2020 allocations: exactly 435 voting House seats
+# across the 50 states. DC and territorial delegates do NOT count toward 435.
+APPORTIONMENT_SOURCE="https://www.census.gov/data/tables/time-series/dec/apportionment-data-text.html"
+APPORTIONMENT={2010:{"AL":7,"AK":1,"AZ":9,"AR":4,"CA":53,"CO":7,"CT":5,"DE":1,"FL":27,"GA":14,"HI":2,"ID":2,"IL":18,"IN":9,"IA":4,"KS":4,"KY":6,"LA":6,"ME":2,"MD":8,"MA":9,"MI":14,"MN":8,"MS":4,"MO":8,"MT":1,"NE":3,"NV":4,"NH":2,"NJ":12,"NM":3,"NY":27,"NC":13,"ND":1,"OH":16,"OK":5,"OR":5,"PA":18,"RI":2,"SC":7,"SD":1,"TN":9,"TX":36,"UT":4,"VT":1,"VA":11,"WA":10,"WV":3,"WI":8,"WY":1},2020:{"AL":7,"AK":1,"AZ":9,"AR":4,"CA":52,"CO":8,"CT":5,"DE":1,"FL":28,"GA":14,"HI":2,"ID":2,"IL":17,"IN":9,"IA":4,"KS":4,"KY":6,"LA":6,"ME":2,"MD":8,"MA":9,"MI":13,"MN":8,"MS":4,"MO":8,"MT":2,"NE":3,"NV":4,"NH":2,"NJ":12,"NM":3,"NY":26,"NC":14,"ND":1,"OH":15,"OK":5,"OR":6,"PA":17,"RI":2,"SC":7,"SD":1,"TN":9,"TX":38,"UT":4,"VT":1,"VA":11,"WA":10,"WV":2,"WI":8,"WY":1}}
+
 
 
 def flag(value):
@@ -81,6 +86,9 @@ def collate(rows,chamber,year):
         if flag(row.get("runoff")):continue
         state=str(row.get("state_po") or "").upper().strip()
         if not len(state)==2:continue
+        if chamber=="house" and state not in APPORTIONMENT[2010]:
+            # Delegate districts cannot be included in 435 voting-seat totals.
+            continue
         if flag(row.get("unofficial")):unofficial+=1
         if chamber=="house":
             district=number(row.get("district"))
@@ -165,6 +173,33 @@ def describe(contests,year,chamber,quality):
             "data_quality":quality}
 
 
+
+def apportionment_audit(rows,year):
+    allocations=APPORTIONMENT[2010 if year<=2020 else 2020]
+    expected=set()
+    for state,count in allocations.items():
+        for district in ([0] if count==1 else range(1,count+1)):
+            expected.add(f"{state}-{district:02d}")
+    observed=set()
+    for row in rows:
+        if number(row.get("year"))!=year:continue
+        if str(row.get("stage") or "").upper().strip() not in ("GEN","GENERAL"):continue
+        if flag(row.get("special")) or flag(row.get("runoff")):continue
+        state=str(row.get("state_po") or "").strip().upper()
+        district=number(row.get("district"))
+        if len(state)!=2 or district is None:continue
+        observed.add(f"{state}-{district:02d}")
+    return {
+        "source":APPORTIONMENT_SOURCE,
+        "census_cycle":2010 if year<=2020 else 2020,
+        "expected_voting_house_districts":len(expected),
+        "source_election_districts":len(observed),
+        "missing_districts":sorted(expected-observed),
+        "unexpected_districts":sorted(observed-expected),
+        "status":"matches_apportionment" if observed==expected else "requires_review",
+        "note":"Only the 435 voting-seat districts are eligible for national House seat sums, not DC or territorial delegates."
+    }
+
 def reconcile_house_year(contests,year,quality):
     official=OFFICIAL_HOUSE[year]
     raw=collections.Counter(c["party_winner"] for c in contests)
@@ -177,6 +212,7 @@ def reconcile_house_year(contests,year,quality):
       "reconstructed":extracted,"difference_official_minus_reconstructed":differences,
       "excluded_contests":quality.get("excluded_contests",[]),
       "other_winners":quality.get("other_winners",[]),
+      "apportionment_audit":quality.get("apportionment"),
       "status":"matched" if differences=={"dem":0,"rep":0} and extracted["other"]==0 and
                       official["unresolved"]+extracted["total"]==435
                else "requires_district_reconciliation",
@@ -267,6 +303,7 @@ def build(loader=load_year,now=None):
         for year in YEARS:
             rows=loader(chamber,year)
             contests,quality=collate(rows,chamber,year)
+            if chamber=="house":quality["apportionment"]=apportionment_audit(rows,year)
             # 2024 House should have >425 distinct seats and 2018 etc likewise.
             min_contests=425 if chamber=="house" else 24
             if len(contests)<min_contests:

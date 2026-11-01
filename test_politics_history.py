@@ -1,7 +1,7 @@
 """Deterministic offline tests for MEDSL election history parser."""
 import datetime as dt
 import unittest
-from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout, reconcile_house_year, OFFICIAL_HOUSE
+from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout, reconcile_house_year, OFFICIAL_HOUSE, APPORTIONMENT, apportionment_audit
 
 def item(name,party,votes,district=1,year=2024,fusion=False,total=None,stage="GEN",special=False,chamber="house"):
     return {"year":year,"state_po":"FL","district":district,"candidate":name,"party":party,
@@ -47,6 +47,21 @@ class HistoryTests(unittest.TestCase):
         self.assertIn("Not a calibrated",out["interpretation"])
 
 
+    def test_census_apportionment_totals_and_exclude_delegates(self):
+        self.assertEqual(sum(APPORTIONMENT[2010].values()),435)
+        self.assertEqual(sum(APPORTIONMENT[2020].values()),435)
+        self.assertEqual(len(APPORTIONMENT[2020]),50)
+        data=[item("JANE","DEMOCRAT",600,year=2024)]
+        district_columbia=item("DELEGATE","DEMOCRAT",300,year=2024,district=0)
+        district_columbia["state_po"]="DC"
+        data.append(district_columbia)
+        races,_=collate(data,"house",2024)
+        self.assertEqual(len(races),1)
+        self.assertEqual(races[0]["id"],"FL-01")
+        audit=apportionment_audit(data,2024)
+        self.assertEqual(audit["expected_voting_house_districts"],435)
+        self.assertIn("DC-00",audit["unexpected_districts"])
+        self.assertEqual(audit["status"],"requires_review")
     def test_ranked_choice_ballot_metadata_not_candidate(self):
         rows=[
           item("EXHAUSTED BALLOT","",344433,district=2,year=2022),
