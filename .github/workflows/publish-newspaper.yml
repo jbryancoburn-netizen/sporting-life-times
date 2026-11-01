@@ -21,6 +21,8 @@ on:
       - 'data/mbb-live.json'
       - 'data/ncaam-2026-27-retro-primary.json'
       - 'data/ncaaw-2026-27-retro-primary.json'
+      - 'data/d2-men-2026-27.json'
+      - 'data/d2-women-2026-27.json'
   workflow_dispatch:
   workflow_run:
     workflows:
@@ -28,6 +30,7 @@ on:
       - NBA Elo verified final-game refresh
       - Official NBA game-center refresh
       - NBA full 30-team roster refresh
+      - DII basketball — independent men and women editions
     types: [completed]
     branches: [main]
   schedule:
