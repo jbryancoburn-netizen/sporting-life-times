@@ -1,0 +1,74 @@
+name: Politics Florida original 2024 presidential precinct reconciliation
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_fl_2024_precincts.py'
+      - 'test_politics_fl_2024_precincts.py'
+      - '.github/workflows/politics-fl-2024-precinct-reconcile.yml'
+  push:
+    branches: [main, politics-fl-2024-precinct-source-discovery-20261101]
+    paths:
+      - 'scripts/politics_fl_2024_precincts.py'
+      - 'test_politics_fl_2024_precincts.py'
+      - '.github/workflows/politics-fl-2024-precinct-reconcile.yml'
+permissions:
+  contents: write
+concurrency:
+  group: politics-fl-2024-precinct-reconciliation
+  cancel-in-progress: false
+jobs:
+  independent-official-2024-votes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Strict tests for 2024 statewide original candidate-vote provenance
+        run: |
+          python -m py_compile scripts/politics_fl_2024_precincts.py
+          python -m unittest -v test_politics_fl_2024_precincts
+      - name: Download and validate the original Florida 2024 statewide precinct returns and certified county canvass
+        run: python -m scripts.politics_fl_2024_precincts
+      - name: Reject false precinct-to-2026 House district vote claims
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('politics-fl-2024-precinct-reconciliation.json'))
+          p=json.load(open('politics-fl-2024-presidential-precincts.json'))
+          assert a['status']=='ORIGINAL_FLORIDA_PRECINCT_RETURNS_VERIFIED_WITH_ONE_VOTE_QUARANTINED_DISCREPANCY'
+          assert a['county_count']==67 and a['all_original_input_rows']==537897
+          assert a['precinct_count']==5712==p['precinct_count']==len(p['precinct_records'])
+          assert a['candidate_vote_totals_from_precinct_ZIP']['REP']==6110126
+          assert a['candidate_vote_totals_from_precinct_ZIP']['DEM']==4683038
+          assert a['official_statewide_major_candidate_totals']['REP']==6110125
+          assert a['official_statewide_major_candidate_totals']['DEM']==4683038
+          assert a['known_discrepancies']==[{'county':'hardee','party':'REP','precinct_zip_minus_certified':1}]
+          assert a['statewide_major_candidate_total_fully_reconciled'] is False
+          assert a['2024_precinct_to_2026_congressional_district_geography_verified'] is False
+          assert a['2026_vote_baselines_certified'] is False and not p['forecast_eligible']
+          assert a['certified_original_2026_probability_count']==0
+          print('Official 2024 Florida precincts validated with Hardee one-vote exception; no district votes or forecast odds inferred')
+          PY
+      - name: Publish only original 2024 public precinct votes and transparent audit
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-fl-2024-precinct-reconciliation.json politics-fl-2024-presidential-precincts.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Store original 2024 Florida presidential precinct returns with Hardee exception"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
