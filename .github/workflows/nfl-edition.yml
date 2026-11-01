@@ -1,0 +1,89 @@
+name: NFL 2026 newspaper - sourced scores, stats and Elo
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfl-edition.yml'
+      - 'scripts/build_nfl_edition.py'
+      - 'scripts/test_nfl_edition.py'
+      - 'nfl.html'
+      - 'nfl-edition.js'
+      - 'nfl-edition.css'
+  schedule:
+    - cron: '*/15 * * * *'
+    - cron: '13 10 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: nfl-2026-edition-data
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Use latest main
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate model and 1500 season reset
+        run: |
+          python -m py_compile scripts/build_nfl_edition.py
+          python scripts/test_nfl_edition.py
+      - name: Fetch full 2026 NFL season or nearby weeks
+        run: |
+          if [ "$(date -u +%H%M)" = "1013" ]; then
+            python scripts/build_nfl_edition.py
+          else
+            python scripts/build_nfl_edition.py --fast
+          fi
+      - name: Validate saved publication and model
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=json.loads(Path('data/nfl-2026-edition.json').read_text())
+          assert f['season']==2026 and f['model']['baseline']==1500
+          assert f['model']['season_reset'] is True and f['model']['historical_prior'] is False
+          assert f['coverage']['teams']==32 and f['coverage']['games']>=200
+          assert len(set(g['id'] for g in f['games']))==len(f['games'])
+          assert f['coverage']['finals']==sum(g['state']=='post' for g in f['games'])
+          assert sum(t['played'] for t in f['teams'])==2*f['coverage']['finals']
+          assert abs(sum(t['elo'] for t in f['teams'])-48000)<2
+          assert sum(t['w'] for t in f['teams'])==sum(t['l'] for t in f['teams'])
+          print('NFL publication integrity PASSED:',f['coverage'])
+          PY
+      - name: Publish NFL ledger, player boxscores and rosters
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json
+          if git diff --cached --quiet; then
+            echo "Verified NFL data unchanged"
+            exit 0
+          fi
+          git commit -m "Publish verified NFL 2026 games, independent Elo and stats"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "NFL newspaper data published"
+              exit 0
+            fi
+            echo "Main changed; rebuild on latest published data"
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/build_nfl_edition.py --fast
+            python scripts/test_nfl_edition.py
+            git add data/nfl-2026-edition.json data/nfl-2026-boxscores.json data/nfl-2026-rosters.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Reconcile NFL 2026 verified results and independent Elo"
+            sleep 2
+          done
+          echo "NFL data push failed after retries" >&2
+          exit 1
