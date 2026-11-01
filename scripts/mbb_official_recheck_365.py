@@ -407,3 +407,10 @@ from mbb_cached_network_recovery import recover as recover_cached_networks
 cached_summary = recover_cached_networks()
 print(json.dumps({'official_broadcast_recovery':cached_summary}, indent=2))
 
+# University newsroom releases cover WMT/modern pages that do not expose
+# the traditional Sidearm game cards. Preserve dual national/regional broadcasts.
+from mbb_apply_reviewed_announcements import execute as apply_reviewed_announcements
+reviewed_result = apply_reviewed_announcements()
+print(json.dumps({'reviewed_official_announcements':reviewed_result['summary']}, indent=2))
+
+
