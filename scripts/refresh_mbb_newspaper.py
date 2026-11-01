@@ -213,6 +213,59 @@ def official_school_fixtures(root, day):
             for row in found.values()]
 
 
+def conference_schedule_fixtures(root, day):
+    """Dated, source-linked men's fixture evidence from published conferences.
+
+    This indexes curated historical announcement rows, not a fresh live check.
+    Only verified numeric ESPN identities and exact dates are usable. A
+    neutral-site 'vs.' row does not assert an actual home-court advantage.
+    Conference TV names are retained as attributed announcements, never used
+    as independent final-score evidence.
+    """
+    filenames = (
+        'mbb-official-conference-game-evidence.json',
+        'mbb-additional-conference-game-evidence.json',
+        'mbb-october-conference-evidence.json',
+        'mbb-western-conference-game-evidence.json',
+    )
+    found = {}
+    invalid = 0
+    for filename in filenames:
+        document = json.loads((root/'data'/filename).read_text())
+        if document.get('season') != '2026-27':
+            raise ValueError('Unexpected conference schedule season: '+filename)
+        for row in document.get('rows', []):
+            if row.get('date') != day:
+                continue
+            away, home = str(row.get('visitor_id') or ''), str(row.get('host_id') or '')
+            url = row.get('source_url')
+            if (not away.isdigit() or not home.isdigit() or away == home or
+                    not isinstance(url, str) or not url.startswith('https://')):
+                invalid += 1
+                continue
+            pair = tuple(sorted((away, home), key=int))
+            entry = found.setdefault(pair, {'team_ids': list(pair), 'source_urls': set(),
+                                              'network_announcements': set(),
+                                              'sources': set(), 'neutral_announced': False})
+            entry['source_urls'].add(url)
+            entry['sources'].add(filename)
+            if row.get('tv') and str(row['tv']).strip().upper() not in ('TBA','TBD'):
+                entry['network_announcements'].add(str(row['tv']).strip())
+            if str(row.get('relation') or '').lower().rstrip('.') == 'vs':
+                entry['neutral_announced'] = True
+    results = []
+    for entry in found.values():
+        networks = sorted(entry['network_announcements'])
+        results.append({'team_ids': entry['team_ids'],
+                        'source_urls': sorted(entry['source_urls'])[:4],
+                        'network_announced': networks[0] if len({x.casefold() for x in networks}) == 1 else None,
+                        'network_conflict': len({x.casefold() for x in networks}) > 1,
+                        'neutral_announced': entry['neutral_announced'],
+                        'evidence_files': len(entry['sources'])})
+    return {'games': results, 'invalid_rows': invalid,
+            'documents_consulted': len(filenames)}
+
+
 def women_school_fixtures(root, day):
     """Only independently checked women's fixture IDs and dates, not inferred scores."""
     evidence = {}
@@ -275,6 +328,21 @@ def main():
     except Exception as exc:
         out['sources'].append({'source':'Official school fixture evidence','ok':False,
                                 'error':type(exc).__name__})
+    # Conference office announcements are independent of ESPN's fixture list.
+    # These archived rows do not certify a game's current score.
+    try:
+        cday=dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
+        conference=conference_schedule_fixtures(ROOT,cday)
+        out['conference_fixtures']={'day':cday,'indexed_at':now,
+            'source':'curated conference athletics schedules; fixture and announced TV only',
+            **conference}
+        out['sources'].append({'source':'Conference-published fixture archives',
+            'ok':True,'games':len(conference['games']),
+            'documents_consulted':conference['documents_consulted'],
+            'invalid_rows':conference['invalid_rows']})
+    except Exception as exc:
+        out['sources'].append({'source':'Conference-published fixture archives',
+            'ok':False,'error':type(exc).__name__})
     # Official NCAA is the independent first-party ledger; ESPN supplements it.
     # The existing newspaper workflow commits this inside mbb-live.json.
     ncaa_day=dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
