@@ -122,9 +122,25 @@
   }
   function syncPicker(){if(q('#cbb-day-picker'))q('#cbb-day-picker').value=state.day;}
   async function fallback(){
-    const [snap,live]=await Promise.all([fetchJSON('multi_scoreboards.json'),!women?fetchJSON('data/mbb-live.json'):Promise.resolve(null)]);
+    const [snap,live,verified,registry]=await Promise.all([
+      fetchJSON('multi_scoreboards.json'),
+      !women?fetchJSON('data/mbb-live.json'):Promise.resolve(null),
+      women?fetchJSON('data/ncaaw-2026-27-games.json'):Promise.resolve(null),
+      women?fetchJSON('data/ncaaw-2026-27-retro-primary.json'):Promise.resolve(null)
+    ]);
     const found=fallbackEvents(snap);
     if(found.length)return found;
+    if(women&&verified?.season===season&&registry?.season===season&&registry.gender==='women'){
+      const teams=new Map((registry.rankings||[]).map(t=>[String(t.team_id),t]));
+      return [...(verified.finals||[]),...(verified.upcoming||[])].filter(g=>etParts(new Date(g.date))===state.day).map(g=>{
+        const a=teams.get(String(g.away_id)),h=teams.get(String(g.home_id));
+        if(!a||!h)return null;
+        const convert=(t,side,score)=>({team:{id:String(t.team_id),displayName:t.team,abbreviation:t.team.split(' ').slice(0,2).map(x=>x[0]).join(''),logo:t.logo},homeAway:side,score});
+        return {id:String(g.id),date:g.date,away:convert(a,'away',g.away_score),home:convert(h,'home',g.home_score),
+          phase:g.status==='final'?'final':'upcoming',headline:g.status==='final'?'Final':'Scheduled',
+          venue:g.venue||'',broadcast:g.broadcast||'',url:cleanURL(g.source_url||''),source:'Verified women-only schedule'};
+      }).filter(Boolean);
+    }
     if(!women&&Array.isArray(live?.games)){
       return live.games.filter(x=>etParts(new Date(x.date))===state.day).map(g=>{
         const match=(snap?.leagues||[]).flatMap(x=>x.games||[]).find(x=>String(x.id)===String(g.id));
@@ -140,7 +156,7 @@
     const date=state.day.replaceAll('-','');
     const data=await fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+date);
     let games=Array.isArray(data?.events)?data.events.map(normalizeEvent).filter(Boolean):null;
-    if(games){state.source='ESPN current scoreboard';state.fallback=false;}
+    if(games?.length){state.source='ESPN current scoreboard';state.fallback=false;}
     else{games=await fallback();state.source='Local published scoreboard snapshot · not confirmed live';state.fallback=true;}
     if(!mounted){state.pending=false;return;}
     state.games=games.sort((a,b)=>{
@@ -159,6 +175,7 @@
     if(original&&games.length)original.hidden=true;
     else if(original)original.hidden=false;
     if(active&&state.games.some(g=>g.id===active))await openDetails(active,true);
+    else if(active){state.selected=null;const detail=q('#cbb-detail');if(detail)detail.hidden=true;}
     state.pending=false;
   }
   function statsPairs(g,summary){
