@@ -57,6 +57,9 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The previous validation step may have regenerated this tracked output.
+          # Clear only that temporary output before checking out fresh main.
+          git restore --worktree politics-sim-readiness.json
           for attempt in $(seq 1 12); do
             git fetch origin main
             git checkout -B politics-readiness-publish origin/main
