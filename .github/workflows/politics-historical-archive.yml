@@ -1,0 +1,72 @@
+name: Independent MIT earlier House and Senate election research archive
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_historical_archive.py'
+      - 'test_politics_historical_archive.py'
+      - '.github/workflows/politics-historical-archive.yml'
+  schedule:
+    - cron: '43 12 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: politics-earlier-history-archive
+  cancel-in-progress: false
+jobs:
+  archival-election-returns:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test independent House and Senate archival parser
+        run: |
+          python -m py_compile scripts/politics_historical_archive.py
+          python -m unittest -v test_politics_historical_archive
+      - name: Collect 2012, 2014, 2016 actual historical returns
+        id: archive
+        continue-on-error: true
+        run: python scripts/politics_historical_archive.py
+      - name: Validate historic coverage and prevent false certification
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-historical-archive.json'))
+          s=json.load(open('politics-historical-archive-status.json'))
+          if s['status']=='success':
+              assert d['status']=='ok' and d['years']==[2012,2014,2016]
+              assert len(d['house'])>=1230 and len(d['senate'])>=72
+              assert not d['district_geography_certified']
+              assert not d['reconciled_against_official_chamber_totals']
+              assert not d['2026_forecast_eligible']
+          print('Original historical data archive:',s,'archive:',d['status'])
+          PY
+      - name: Independently recalculate model readiness with archival data
+        run: |
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert d['certified_original_probability_count']==0
+          print('Evidence audit',d['counts'])
+          PY
+      - name: Publish historical results without touching sports pipelines
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-historical-archive.json politics-historical-archive-status.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh actual 2012–2016 U.S. election return archives"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
