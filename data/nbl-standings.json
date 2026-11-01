@@ -6,8 +6,8 @@
   "elo_approved": false,
   "source": "ESPN site API, completed finals since NBL27 regular-season opening",
   "season_start": "2026-09-19",
-  "updated_at": "2026-11-01T06:20:18.220158+00:00",
-  "games_replayed": 50,
+  "updated_at": "2026-11-01T16:06:43.410230+00:00",
+  "games_replayed": 51,
   "teams": 10,
   "rows": [
     {
@@ -61,24 +61,24 @@
       "points_pct": 104.54
     },
     {
-      "team": "Adelaide 36ers",
+      "team": "Brisbane Bullets",
       "wins": 5,
       "losses": 5,
       "played": 10,
       "win_pct": 0.5,
-      "points_for": 912,
-      "points_against": 935,
-      "points_pct": 97.54
+      "points_for": 938,
+      "points_against": 967,
+      "points_pct": 97.0
     },
     {
-      "team": "Brisbane Bullets",
-      "wins": 4,
-      "losses": 5,
-      "played": 9,
-      "win_pct": 0.444,
-      "points_for": 842,
-      "points_against": 878,
-      "points_pct": 95.9
+      "team": "Adelaide 36ers",
+      "wins": 5,
+      "losses": 6,
+      "played": 11,
+      "win_pct": 0.455,
+      "points_for": 1001,
+      "points_against": 1031,
+      "points_pct": 97.09
     },
     {
       "team": "South East Melbourne Phoenix",
@@ -112,6 +112,18 @@
     }
   ],
   "recent_finals": [
+    {
+      "id": "401875288",
+      "played_at": "2026-11-01T06:00Z",
+      "home": "Adelaide 36ers",
+      "away": "Brisbane Bullets",
+      "home_score": 89,
+      "away_score": 96,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875288/bullets-36ers",
+      "verified": false,
+      "provider": "espn",
+      "state": "candidate"
+    },
     {
       "id": "401875313",
       "played_at": "2026-11-01T04:00Z",
@@ -216,18 +228,6 @@
       "home_score": 86,
       "away_score": 84,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875276/breakers-taipans",
-      "verified": false,
-      "provider": "espn",
-      "state": "candidate"
-    },
-    {
-      "id": "401875275",
-      "played_at": "2026-10-24T08:30Z",
-      "home": "South East Melbourne Phoenix",
-      "away": "Adelaide 36ers",
-      "home_score": 108,
-      "away_score": 94,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875275/36ers-phoenix",
       "verified": false,
       "provider": "espn",
       "state": "candidate"
