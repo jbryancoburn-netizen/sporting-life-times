@@ -13,6 +13,21 @@ from zoneinfo import ZoneInfo
 
 BASE="https://caccathletics.org/schedule.aspx?schedule="
 OFFICIAL_NETWORK="https://caccnetwork.com/faq/"
+# Game-by-game host athletics source, not a league-wide inferred time or venue.
+# Used only for a date/team pair already confirmed by BOTH CACC schedules.
+HOST_VERIFIED={
+ ("2026-12-02","wilmington","goldey-beacom"):("7:30 PM ET","Joseph West Jones Center · Wilmington, DE","https://www.gbcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"),
+ ("2026-12-05","goldey-beacom","post"):("7:30 PM ET","Drubner Center · Waterbury, CT","https://posteagles.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+ ("2027-01-13","chestnut-hill","georgian-court"):("7:00 PM ET","GCU Wellness Center · Lakewood, NJ","https://gculions.com/sports/mens-basketball/schedule/2026-27"),
+ ("2027-02-10","chestnut-hill","goldey-beacom"):("7:30 PM ET","Joseph West Jones Center · Wilmington, DE","https://www.gbcathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"),
+ ("2027-02-16","jefferson-thomas-jefferson","chestnut-hill"):("8:00 PM ET","Sorgenti Arena · Philadelphia, PA","https://griffinathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"),
+ ("2027-02-16","wilmington","georgian-court"):("7:00 PM ET","GCU Wellness Center · Lakewood, NJ","https://gculions.com/sports/mens-basketball/schedule/2026-27"),
+ ("2027-02-20","chestnut-hill","caldwell"):("1:00 PM ET","George R. Newman Center · Caldwell, NJ","https://caldwellathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+}
+HOST_WATCH_CONFIRMED={
+ ("2027-01-13","chestnut-hill","georgian-court"),
+ ("2027-02-16","wilmington","georgian-court"),
+}
 SCHOOLS={
   2377:("Wilmington","wilmington"),
   2380:("Goldey-Beacom","goldey-beacom"),
@@ -122,6 +137,7 @@ def reconcile_cacc(records,games,teams,today):
  report={"schools_read":len(records),"school_entries":sum(map(len,records.values())),
   "confirmed_matchups":0,"added":0,"enriched":0,"unreciprocated":0,
   "identity_conflicts":0,"time_disagreements":0,"empty_tipoffs":0,
+  "host_sourced_resolutions":0,"verified_watch_links":0,
   "quarantined":[]}
  for (date,away,home),rows in sorted(grouped.items()):
   owners={r["source_team"] for r in rows}
@@ -153,9 +169,26 @@ def reconcile_cacc(records,games,teams,today):
    game["start_time"]=next(iter(times))
    game["tipoff_source_url"]=rows[0]["source_url"]
   elif len(times)>1:
-   report["time_disagreements"]+=1
-   if len(report["quarantined"])<18:report["quarantined"].append({"date":date,"away":away,"home":home,"reason":"opposing posted times disagree"})
+   host_evidence=HOST_VERIFIED.get((date,away,home))
+   host_row=next((row for row in rows if row["source_team"]==home),None)
+   if host_evidence and host_row and host_row["tipoff"]==host_evidence[0]:
+    time,venue,source=host_evidence
+    game["start_time"]=time
+    game["venue"]=venue
+    game["venue_source_url"]=source
+    game["tipoff_source_url"]=source
+    report["host_sourced_resolutions"]+=1
+   else:
+    report["time_disagreements"]+=1
+    if len(report["quarantined"])<18:report["quarantined"].append({"date":date,"away":away,"home":home,"reason":"opposing posted times disagree"})
   else:report["empty_tipoffs"]+=1
+  if (date,away,home) in HOST_WATCH_CONFIRMED and game.get("network") in (None,"","CACC Network"):
+   # The GCU athletics fixture explicitly includes a WATCH link.
+   game["network"]="CACC Network"
+   game["stream_url"]="https://caccnetwork.com/"
+   game["broadcast_type"]="Streaming"
+   game["broadcast_source_url"]=HOST_VERIFIED[(date,away,home)][2]
+   report["verified_watch_links"]+=1
   # CACC has an official streaming network, but broadcast coverage is not
   # proven game-by-game; do NOT assign it to every game.
   game["conference_game"]=True
