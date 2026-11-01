@@ -170,7 +170,7 @@ class Ingestion(unittest.TestCase):
            'teamStats':{'points':str(pts),'fieldGoalsMade':str(fgm),
               'fieldGoalsAttempted':'50','threePointsMade':str(tpm),
               'threePointsAttempted':'20','freeThrowsMade':str(ftm),
-              'freeThrowsAttempted':'15','totalRebounds':'30','assists':'11'}}
+              'freeThrowsAttempted':'20','totalRebounds':'30','assists':'11'}}
   data={'teams':[{'teamId':'1717','isHome':True},{'teamId':'1281','isHome':False}],
         'teamBoxscore':[team('1717',72,24,8,16),team('1281',74,25,8,16)]}
   # Deliberate mis-sum: 2*25+8+16=74 away; 2*24+8+16=72 home.
