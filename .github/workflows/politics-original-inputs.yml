@@ -26,7 +26,7 @@ jobs:
       - name: Test authentic FEC and Census parsers before use
         run: |
           python -m py_compile scripts/politics_real_inputs.py
-          python -m unittest -v test_politics_real_inputs
+          python -m unittest -v test_politics_real_inputs test_politics_sim_readiness
       - name: Read current government primary data
         id: collect
         continue-on-error: true
