@@ -42,6 +42,27 @@ ARENA_LABEL = re.compile(
 BAD_PLACE = ("tba", "unknown", "to be announced", "pending", "tbd")
 
 
+def official_venue_identity(value):
+    """Compare only explicit, identified naming variants from official grids.
+
+    This is NOT fuzzy arena matching: 'DU Student Center' is the abbreviation
+    of Davenport University's 'Davenport Student Center'; 'Mich.' and 'MI'
+    identify the same published state. Any other named arenas remain distinct.
+    The original source spelling stays on the printed game card.
+    """
+    parts=str(value or "").split(" · ",1)
+    if len(parts)!=2:
+        return None
+    arena=clean(parts[0]).casefold()
+    city=clean(parts[1]).casefold()
+    known_arenas={"du student center":"davenport student center"}
+    arena=known_arenas.get(arena,arena)
+    city=re.sub(r"\b(?:michigan|mich\.|mi)\b", "mi", city)
+    city=re.sub(r"[^a-z0-9 ]+"," ",city)
+    return (arena," ".join(city.split()))
+
+
+
 def clean(value):
     return " ".join(str(value or "").split())
 
@@ -130,6 +151,7 @@ def enrich_gliac_venues(gender,games,teams):
         index[(game.get("date"),game.get("away"),game.get("home"))].append(game)
     stats={"source_schedules":len(good),"evidence_rows":0,"matched":0,
            "enriched":0,"already_present":0,"quarantined_conflicts":0,
+           "confirmed_alias_equivalences":0,"canonical_matching_version":2,
            "unmatched":0,"source_errors":sorted(failed,key=lambda x:x["school"]),
            "breakdown":[],"sample_conflicts":[]}
     for school,url,evidence in sorted(good):
@@ -150,7 +172,9 @@ def enrich_gliac_venues(gender,games,teams):
                 continue
             candidate=arena+" · "+city
             previous=game.get("venue")
-            if previous and previous.casefold()!=candidate.casefold():
+            same_official_venue=(previous and official_venue_identity(previous)
+                                 and official_venue_identity(previous)==official_venue_identity(candidate))
+            if previous and not same_official_venue:
                 stats["quarantined_conflicts"]+=1
                 if len(stats["sample_conflicts"])<15:
                     stats["sample_conflicts"].append({"key":key,"previous":previous,
@@ -160,6 +184,14 @@ def enrich_gliac_venues(gender,games,teams):
             matches+=1
             if previous:
                 stats["already_present"]+=1
+                if previous!=candidate:
+                    stats["confirmed_alias_equivalences"]+=1
+                # Preserve the display string and its primary source while
+                # adding the independently corroborating exact source URL.
+                sources=set(game.get("venue_corrob_source_urls",[]))
+                if game.get("venue_source_url"):sources.add(game["venue_source_url"])
+                sources.add(url)
+                game["venue_corrob_source_urls"]=sorted(sources)
                 continue
             game["venue"]=candidate
             game["venue_source_url"]=url
