@@ -118,3 +118,19 @@
 .cfb-crest>.cfb-logo-fallback.is-hidden,.cfb-team-mark>.cfb-logo-fallback.is-hidden{display:none!important}
 
 .cfb-crest>img[data-cfb-logo].is-failed,.cfb-team-mark>img[data-cfb-logo].is-failed{display:none!important;visibility:hidden!important}
+
+/* CFB two-stroke badge contract. SVG alone paints the two colored rings.
+   White is the underlying center, not a third circle/stroke. */
+.cfb-crest,.cfb-team-mark{
+ background:#fff!important;border:0!important;outline:0!important;
+ box-shadow:none!important;filter:none!important;
+}
+.cfb-crest::before,.cfb-crest::after,
+.cfb-team-mark::before,.cfb-team-mark::after{
+ content:none!important;display:none!important;border:0!important;
+ background:none!important;box-shadow:none!important;
+}
+.cfb-crest>.cfb-ring-art,.cfb-team-mark>.cfb-ring-art{
+ border:0!important;outline:0!important;background:transparent!important;
+ box-shadow:none!important;filter:none!important;
+}
