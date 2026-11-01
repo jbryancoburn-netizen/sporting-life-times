@@ -8,7 +8,7 @@ const byNcaa=new Map(),byName=new Map(),ambiguous=new Set();let registry={},pale
 function alias(n,id){let key=norm(n);if(!key||ambiguous.has(key))return;if(byName.has(key)&&byName.get(key)!==id){ambiguous.add(key);byName.delete(key)}else byName.set(key,id)}
 const ready=(async()=>{
 try{
-const [reg,cross,colors]=await Promise.all(['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json'].map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})));
+const [reg,cross,colors]=await Promise.all(['data/mbb-logo-registry.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json?v=ncaa-two-rings-20261101b'].map(p=>fetch(p,{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error(p+' '+x.status);return x.json()})));
 if(Object.keys(reg.teams||{}).length!==365||cross.teams?.length!==365)throw Error('Incomplete 365-team logo registry');
 registry=reg.teams;palette=colors.mbb||{};
 if(Object.keys(palette).length!==365)throw Error('Incomplete 365-program MBB color palette');
