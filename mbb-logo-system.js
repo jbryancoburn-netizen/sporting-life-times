@@ -32,13 +32,13 @@ let id=resolved||given||byTitle;
 if(!ncaa&&byTitle&&given&&byTitle!==given)id=byTitle;
 if((resolved&&given&&resolved!==given)||!registry[id]||(ncaa&&registry[id].canonical_id!==ncaa))id='';
 const school=registry[id],brand=palette[id],art=school?.artwork_type||'unverified';
-const corrected=school?.ring_override==='two'&&art==='embedded_roundel';
+
 const primary=school?.logo_url_verified?safeURL(school.official_logo_url||school.logo_url):'';
 const backup=(school?.provider_logo_candidates||[]).map(safeURL).find(x=>x&&x!==primary)||'';
 const initials=name.split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
 const kind=/^(small|score|power|schedule|hero|featured|history)$/.test(options.size||'')?options.size:'small';
 const clr=brand?.primary||'#385866',alt=brand?.secondary||'#597582';
-return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(corrected?' mbb-mark--corrected-two-rings':'')+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(id)+'" data-artwork="'+esc(art)+'" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
+return '<span class="mbb-mark mbb-mark--'+kind+' mbb-mark--art-'+art+(primary?'':' mbb-mark--missing')+'" style="--mbb-primary:'+esc(clr)+';--mbb-secondary:'+esc(alt)+'" data-espn-id="'+esc(id)+'" data-artwork="'+esc(art)+'" data-ring-count="2" role="img" aria-label="'+esc(name)+' logo"><span class="mbb-mark__initials" aria-hidden="true">'+esc(initials)+'</span>'+(primary?'<img class="mbb-mark__img" src="'+esc(primary)+'" data-logo-alternate="'+esc(backup)+'" loading="lazy" decoding="async" alt="" onerror="window.MBBLogos.fail(this)">':'')+'</span>';
 }
 function fail(img){
 if(!(img instanceof HTMLImageElement))return;
