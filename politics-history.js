@@ -44,6 +44,9 @@ function render(data){
  alert.appendChild(document.createTextNode(" "));alert.appendChild(sourceLink);root.appendChild(alert);
  const kicker=el("p","history-note","Original calculations from MIT Election Data and Science Lab historical results, via electiondata.dev · CC0 1.0 · Updated "+last.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric",timeZone:"UTC"}));
  root.appendChild(kicker);
+ if(data.winner_party_totals_reconciled===true){
+  root.append(el("p","history-note","Verified winner-party coverage: all 435 voting House seats for 2020, 2022 and 2024, and 434 certified winners plus the unresolved NC-09 seat in 2018. Some uncontested races have no reported vote totals; no vote totals were imputed. Experimental model results remain withheld."));
+ }
  [["U.S. House",data.house],["U.S. Senate",data.senate]].forEach(([title,years])=>{
   const section=el("section","history-subsection");
   section.append(el("h3",null,title+" elections since 2018"));
