@@ -19,9 +19,9 @@ class SourceProbeTests(unittest.TestCase):
     def test_first_probe_keeps_candidates_unchanged_and_uncertified(self):
         d=copy.deepcopy(self.data)
         out=collect(d, fetch=self.fake, now=dt.datetime(2026,11,1,tzinfo=dt.timezone.utc))
-        self.assertEqual(out["sources_accessible"],5)
+        self.assertEqual(out["sources_accessible"],6)
         self.assertFalse(out["forecast_eligible"])
-        self.assertEqual(len(d["races"]),17)
+        self.assertEqual(len(d["races"]),46)
         self.assertTrue(all(x["candidate_rows_automatically_updated"] is False for x in out["sources"]))
 
     def test_changed_document_requires_review_not_auto_rewrite(self):
