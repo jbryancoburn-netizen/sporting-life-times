@@ -343,3 +343,10 @@ verification['reciprocal_pass']={
 }
 verification_path.write_text(json.dumps(verification,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({'365_school_reciprocal_pass':dict(reciprocal),'conflict_samples':len(conflicts)},indent=2))
+
+# Complete the same single-pass recovery from existing official conference and
+# broadcaster game ledgers. This runs offline and does not refetch school sites.
+from mbb_cached_network_recovery import recover as recover_cached_networks
+cached_summary = recover_cached_networks()
+print(json.dumps({'official_broadcast_recovery':cached_summary}, indent=2))
+
