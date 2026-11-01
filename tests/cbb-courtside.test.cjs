@@ -143,4 +143,38 @@ assert(compareJS.includes('selection-all')&&compareJS.includes('<details'),'full
 assert(compareJS.includes('No verified 2026–27 résumé exists yet'),'preseason poll illustration must not be marketed as a committee forecast');
 assert(bracketCSS.includes('.selection-compare-intro')&&bracketCSS.includes('.bracket-grid--selectable'),'bracket UI has mobile rules');
 assert(!compareJS.includes('<h3>Committee-style field · 76 teams</h3>'),'remove uncollapsed 76-item committee list');
+// CourtCast: only source-reported play events may move the schematic ball.
+const courtSource=fs.readFileSync(path.join(root,'cbb-live-court.js'),'utf8');
+const courtCSS=fs.readFileSync(path.join(root,'cbb-live-court.css'),'utf8');
+const courtFile=fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8');
+const courtWorld={window:{},setInterval:()=>0,clearInterval:()=>{},requestAnimationFrame:fn=>fn()};
+vm.runInNewContext(courtSource,courtWorld,{filename:'cbb-live-court.js'});
+const court=courtWorld.window.SLTCourt;
+assert(court&&typeof court.parsePlays==='function'&&typeof court.mount==='function');
+const playRows=[
+ {id:'100',text:'Notre Dame made three point jumper',team:{id:'87'},period:{number:1},clock:{displayValue:'12:20'}},
+ {id:'101',text:'Villanova defensive rebound',team:{id:'222'},period:{number:1},clock:{displayValue:'12:15'}},
+ {id:'102',text:'Villanova turnover',team:{id:'222'},period:{number:1},clock:{displayValue:'12:07'}}
+];
+assert.equal(court.parsePlays({plays:playRows}).length,3);
+assert.equal(court.parsePlays({}).length,0,'no fabricated play data');
+assert.equal(court.parsePlays({plays:{items:playRows}}).length,3,'ESPN item container supported');
+const fakeGame={id:'401920982',phase:'final',away:{team:{id:'87',abbreviation:'ND'}},
+ home:{team:{id:'222',abbreviation:'VILL'}}};
+assert(court.location(court.parsePlays({plays:playRows})[0],fakeGame).x<50,'away team has left schematic region');
+assert(court.location(court.parsePlays({plays:playRows})[1],fakeGame).x>50,'home team has right schematic region');
+const fakeNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
+court.mount(fakeNode,fakeGame,{plays:playRows});
+assert.match(fakeNode.innerHTML,/COURTCAST/);
+assert.match(fakeNode.innerHTML,/SCHEMATIC ACTIVITY/);
+assert.match(fakeNode.innerHTML,/Villanova turnover/);
+assert(!fakeNode.innerHTML.includes('actual ball position'));
+const missingNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
+court.mount(missingNode,{...fakeGame,id:'401920983'},null);
+assert.match(missingNode.innerHTML,/No verified play-by-play/,'missing source shows no invented possessions');
+assert(courtFile.includes('cbb-live-court.js')&&courtFile.includes('cbb-live-court.css'),
+ 'CourtCast JS and CSS must actually load in the dedicated Gamefile');
+assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw)"),
+ 'Gamefile must mount on verified score-and-plays summary, without a separate unverified feed');
+assert(courtCSS.includes('prefers-reduced-motion'),'accessible reduced-motion state is required');
 console.log('PASS Courtside: live/snapshot separation, away/home, verified notes, gender-isolated Elo, neutral/site/stale model checks, navigation, no logo overlay.');
