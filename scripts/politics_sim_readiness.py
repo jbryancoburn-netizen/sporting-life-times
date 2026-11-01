@@ -23,6 +23,16 @@ def build(data):
     deep_history=data.get("deep_history",{})
     fec_index=data.get("fec_index",{})
     ballot_audit=data.get("ballot_audit",{})
+    fec_crosswalk=data.get("fec_crosswalk",{})
+    ballot_states=sorted(ballot_audit.get("state_coverage",{}))
+    candidate_count=ballot_audit.get("candidate_ballot_entries",0)
+    exact_join_ready=(fec_crosswalk.get("status")=="EXACT_JOIN_DIAGNOSTIC_ONLY"
+      and fec_crosswalk.get("forecast_eligible") is False
+      and fec_crosswalk.get("candidate_records")==candidate_count
+      and fec_crosswalk.get("official_ballot_reviewed_at")==ballot_audit.get("source_reviewed_at")
+      and fec_crosswalk.get("certified_2026_probability_count")==0
+      and isinstance(fec_crosswalk.get("counts",{}).get("unique_exact"),int))
+    exact_join_count=fec_crosswalk.get("counts",{}).get("unique_exact",0) if exact_join_ready else 0
     geo=data.get("geography_audit",{})
     geo_vintages_verified=geo.get("status")=="VERIFIED_OFFICIAL_DISTRICT_VINTAGES_NOT_DISTRICT_VOTES" and geo.get("states_checked")==50 and geo.get("boundary_changed_states_count")==9 and geo.get("original_2026_house_model_geography_eligible") is False
     ballot_partial=ballot_audit.get("status")=="PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED" and ballot_audit.get("all_435_house_races_covered") is False and ballot_audit.get("house_contests_transcribed",0)>0 and ballot_audit.get("certified_2026_probability_count")==0
@@ -68,8 +78,8 @@ def build(data):
         "VoteHub polling API CC BY 4.0","Minimum 3 independent pollsters not met, or historical/pollster weights not calibrated.",poll_audit.get("eligible_polls",0)),
       stage("2026_official_general_election_ballot_roster","partial" if ballot_partial else "missing",
         (f"{ballot_audit.get('house_contests_transcribed',0)} House offices documented ({ballot_audit.get('house_general_ballot_contests_transcribed',0)} general-ballot contests, {len(ballot_audit.get('unopposed_offices_without_general_ballot',[]))} separately sourced unopposed offices), {ballot_audit.get('senate_contests_transcribed',0)} Senate contests; {ballot_audit.get('house_contests_unverified',435)} House offices not yet verified" if ballot_partial else "No audited partial official ballot roster available"),
-        "State government election offices (North Carolina, Florida and Wyoming), original dated candidate records",
-        "Only the dated source-transcribed contests are recognized. FEC candidate identity matching, later state changes, remaining states and 2026 map adjustments remain unresolved; nationwide ballot certification is NOT complete.",
+        ("Original state election offices ("+", ".join(ballot_states)+"), dated candidate records" if ballot_partial else "Individual state government election offices"),
+        ("Ballot records cover only the listed states; "+(f"{exact_join_count} original FEC candidate IDs have an exact match, but most state ballots remain unverified. " if exact_join_ready else "The audited original FEC identity crosswalk is incomplete or out of sync. ")+"Remaining state candidates, newer office changes and 2026 precinct/district voting baselines are unverified; no nationwide roster or probabilities are certified."),
         ballot_audit.get("house_contests_transcribed",0) + ballot_audit.get("senate_contests_transcribed",0) if ballot_partial else 0),
       stage("2026_district_geography_change_table","partial" if geo_vintages_verified else "missing",
         "Official Census 120th Congress district vintage cross-checked for 50 states; nine boundary changes and Missouri unchanged after judicial action" if geo_vintages_verified else "No verified 2026 congressional district boundary-vintage registry",
@@ -98,7 +108,7 @@ def build(data):
       "status":"NOT_READY_FOR_PUBLIC_PREDICTIONS",
       "evaluated_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
       "method":"Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
-      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json","official_ballot_roster":"politics-official-ballots.json","official_ballot_audit":"politics-ballot-audit.json","2026_boundary_vintage":"politics-2026-district-geography.json","2026_boundary_vintage_audit":"politics-geography-audit.json"},
+      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json","official_ballot_roster":"politics-official-ballots.json","official_ballot_audit":"politics-ballot-audit.json","ballot_fec_identity_crosswalk":"politics-ballot-fec-crosswalk.json","2026_boundary_vintage":"politics-2026-district-geography.json","2026_boundary_vintage_audit":"politics-geography-audit.json"},
       "checks":metrics,"counts":{"verified":sum(x["state"]=="verified" for x in metrics),"partial":sum(x["state"]=="partial" for x in metrics),"missing":sum(x["state"]=="missing" for x in metrics)},
       "house_forecast_ready":forecast_ready,"senate_forecast_ready":forecast_ready,"governor_forecast_ready":forecast_ready,
       "certified_original_probability_count":0,
@@ -116,7 +126,8 @@ def main():
              "fec":load("politics-fec-inputs.json"),"fec_index":load("politics-fec-race-index.json"),
              "presidential":load("politics-2024-county-presidential.json"),"archive":load("politics-historical-archive.json"),"deep_history":load("politics-deep-history.json"),"census":load("politics-census-inputs.json"),
              "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json"),
-             "ballot_audit":load("politics-ballot-audit.json"),"geography_audit":load("politics-geography-audit.json")})
+             "ballot_audit":load("politics-ballot-audit.json"),"fec_crosswalk":load("politics-ballot-fec-crosswalk.json"),
+             "geography_audit":load("politics-geography-audit.json")})
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
 if __name__=="__main__":main()

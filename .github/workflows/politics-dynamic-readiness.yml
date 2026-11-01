@@ -1,0 +1,67 @@
+name: Politics dynamic original source-readiness integrity
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, politics-dynamic-ballot-readiness-20261101]
+    paths:
+      - 'scripts/politics_sim_readiness.py'
+      - 'test_politics_sim_readiness.py'
+      - '.github/workflows/politics-dynamic-readiness.yml'
+  pull_request:
+    paths:
+      - 'scripts/politics_sim_readiness.py'
+      - 'test_politics_sim_readiness.py'
+      - '.github/workflows/politics-dynamic-readiness.yml'
+permissions:
+  contents: write
+concurrency:
+  group: politics-dynamic-readiness
+  cancel-in-progress: false
+jobs:
+  source-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify dynamic official-source attribution and no prediction leakage
+        run: |
+          python -m py_compile scripts/politics_sim_readiness.py
+          python -m unittest -v test_politics_sim_readiness test_politics_ballot_audit
+      - name: Regenerate original source-readiness from the actual repository evidence
+        run: |
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          c=next(x for x in d['checks'] if x['id']=='2026_official_general_election_ballot_roster')
+          assert c['state']=='partial' and c['verified_record_count']==54
+          assert 'FL, MD, NC, WY' in c['source']
+          assert '76 original FEC candidate IDs' in c['blocker']
+          assert d['house_forecast_ready'] is False
+          assert d['certified_original_probability_count']==0
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          print('Sourced candidate/finance evidence accurately attributed without 2026 odds')
+          PY
+      - name: Publish only accurate original-source readiness text
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Correct election source attribution and exact FEC join disclosure"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
