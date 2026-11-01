@@ -2,7 +2,7 @@ import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mbb_player_boxscores import parse_boxscore,aggregate
-from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard
+from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures
 class Ingestion(unittest.TestCase):
  def test_boxscore_and_replay(self):
   data={'boxscore':{'players':[{'team':{'id':'1'},'statistics':[{'labels':['PTS','REB','AST','FG','FT','STL','BLK'],'athletes':[{'athlete':{'id':'8','displayName':'A Player'},'stats':['20','5','3','7-14','4-5','2','1']},{'didNotPlay':True}]}]}]}}
@@ -69,4 +69,29 @@ class Ingestion(unittest.TestCase):
   def fetched(url):return b'{"error":"outage"}'
   with self.assertRaises(ValueError):
    fetch_ncaa_scoreboard('basketball-men','2026-11-01',fetcher=fetched)
+ def test_conference_fixture_index_uses_published_ids_and_announced_tv(self):
+  import tempfile,json
+  with tempfile.TemporaryDirectory() as tmp:
+   data=Path(tmp)/'data';data.mkdir()
+   files=['mbb-official-conference-game-evidence.json','mbb-additional-conference-game-evidence.json','mbb-october-conference-evidence.json','mbb-western-conference-game-evidence.json']
+   example={'season':'2026-27','rows':[{'date':'2026-11-01','visitor_id':'87','host_id':'222','relation':'vs.','tv':'FOX','source_url':'https://www.bigeast.com/2026/schedule'}]}
+   for i,file in enumerate(files):
+    (data/file).write_text(json.dumps(example if i==0 else {'season':'2026-27','rows':[]}))
+   rows=conference_schedule_fixtures(Path(tmp),'2026-11-01')
+   self.assertEqual(len(rows['games']),1)
+   self.assertEqual(rows['games'][0]['team_ids'],['87','222'])
+   self.assertEqual(rows['games'][0]['network_announced'],'FOX')
+   self.assertTrue(rows['games'][0]['neutral_announced'])
+   self.assertEqual(rows['invalid_rows'],0)
+ def test_conference_conflicting_networks_are_not_guessed(self):
+  import tempfile,json
+  with tempfile.TemporaryDirectory() as tmp:
+   data=Path(tmp)/'data';data.mkdir()
+   files=['mbb-official-conference-game-evidence.json','mbb-additional-conference-game-evidence.json','mbb-october-conference-evidence.json','mbb-western-conference-game-evidence.json']
+   for i,file in enumerate(files):
+    rows=([{'date':'2026-11-01','visitor_id':'2','host_id':'3','tv':('FOX' if i==0 else 'CBS'),'source_url':'https://conference.example/schedule'}] if i<2 else [])
+    (data/file).write_text(json.dumps({'season':'2026-27','rows':rows}))
+   item=conference_schedule_fixtures(Path(tmp),'2026-11-01')['games'][0]
+   self.assertTrue(item['network_conflict'])
+   self.assertIsNone(item['network_announced'])
 if __name__=='__main__':unittest.main()
