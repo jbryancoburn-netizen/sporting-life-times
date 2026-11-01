@@ -96,8 +96,21 @@ def parse_cacc_school(html,identity,schedule_id):
   if len(candidates)>len(chosen):chosen=candidates
  if len(chosen)<15 or len(chosen)>24:
   raise ValueError(f"CACC {schedule_id} has {len(chosen)} DII conference entries, expected roughly 20")
- if len({(g["date"],g["away"],g["home"]) for g in chosen})!=len(chosen):
-  raise ValueError("Duplicate CACC school schedule entries")
+ # Some Sidearm calendars include the same fixture twice, once without
+ # a venue city. Collapse only IDENTICAL date, schools, home/away and time;
+ # conflicting source data must still stop certification.
+ by_game={}
+ for game in chosen:
+  key=(game["date"],game["away"],game["home"])
+  prior=by_game.get(key)
+  if prior is None:
+   by_game[key]=game
+  elif prior["tipoff"]==game["tipoff"]:
+   if game.get("city") and not prior.get("city"):
+    by_game[key]=game
+  else:
+   raise ValueError("Conflicting duplicate CACC date/opponent/tipoff: "+str(key))
+ chosen=list(by_game.values())
  return chosen
 
 def reconcile_cacc(records,games,teams,today):
