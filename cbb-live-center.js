@@ -195,6 +195,7 @@
     return leader+' leads by '+margin+' · '+Math.max(x,y)+'–'+Math.min(x,y)+(g.headline?' · '+g.headline:'')+'.';
   }
   function statEditorial(g){
+    if(g.disputed)return '';
     const raw=state.summaryCache.get(g.id)?.data;
     const a=raw?.boxscore?.teams?.find(x=>String(x.team?.id)===String(g.away.team?.id));
     const h=raw?.boxscore?.teams?.find(x=>String(x.team?.id)===String(g.home.team?.id));
@@ -403,8 +404,35 @@
         games.push({...secondary,source:'NCAA.com fixture · ESPN scheduled tipoff',verifiedOfficial:true});
       }
     }
-    for(const g of raw.values())games.push({...g,source:'ESPN secondary · no NCAA crosscheck'});
+    // Verified university athletics schedules are independent fixture
+    // evidence. They never independently confirm live/final scores.
+    const school=women?newsroom?.women_school_fixtures:newsroom?.school_fixtures;
+    const schoolTime=Date.parse(school?.checked_at||'');
+    const schoolFresh=school?.day===day&&Number.isFinite(schoolTime)&&
+      schoolTime<=Date.now()+60000&&Date.now()-schoolTime<90*60000&&Array.isArray(school?.games);
+    const schoolIndex=new Map();
+    if(schoolFresh)for(const item of school.games){
+      const key=women?String(item.espn_id||''):
+        (item.team_ids||[]).map(String).sort((a,b)=>Number(a)-Number(b)).join(':');
+      if(key)schoolIndex.set(key,item);
+    }
+    let schoolConfirmed=0;
+    for(const g of raw.values()){
+      const key=women?String(g.id):[String(g.away.team?.id),String(g.home.team?.id)]
+        .sort((a,b)=>Number(a)-Number(b)).join(':');
+      const proof=schoolIndex.get(key);
+      if(proof){
+        schoolConfirmed++;
+        const status=g.phase==='live'?'ESPN live score (secondary)':
+          g.phase==='final'?'ESPN reported final (NCAA not confirmed)':'ESPN tipoff listing';
+        games.push({...g,schoolVerified:true,schoolSource:(proof.source_urls||[])[0]||'',
+          source:'Official university fixture · '+status});
+      }else{
+        games.push({...g,source:'ESPN secondary · official fixture not independently matched'});
+      }
+    }
     return {games,officialCount:official.length,espnCount:fromEspn.length,
+      schoolConfirmed,schoolAvailable:!!schoolFresh,
       officialAsOf:fresh?cross.checked_at:null,officialUnresolved:fresh?cross.unresolved_games:null,
       espnLive:fromEspn.length>0};
   }
@@ -491,7 +519,7 @@
     if(stamp){
       const ncaaStamp=feed.officialAsOf?'NCAA.com checked '+new Date(feed.officialAsOf).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'NCAA.com check unavailable or stale';
       stamp.textContent=ncaaStamp+' · '+feed.officialCount+' NCAA games · '+feed.espnCount+
-        ' ESPN events (secondary)'+(state.fallback?' · local snapshot, not live':' · ESPN checks every 30s')+
+        ' ESPN events (secondary) · '+feed.schoolConfirmed+' school-fixture crosschecks'+(state.fallback?' · local snapshot, not live':' · ESPN checks every 30s')+
         ' · scores individually attributed below';
     }
     // Do not hide the original until this desk has a real scoreboard or a valid fallback.
@@ -573,7 +601,7 @@
       entry={at:Date.now(),data};state.summaryCache.set(g.id,entry);
     }
     if(state.selected!==g.id)return;
-    const raw=entry?.data;
+    const raw=g.disputed?null:entry?.data;
     const periods=periodTable(g,raw),team=statsPairs(g,raw),playersHTML=players(raw);
     const missing='<p class="cbb-empty">Detailed game statistics are not available from a confirmed provider. No values have been estimated.</p>';
     const hasStats=!!raw?.boxscore;
@@ -593,7 +621,10 @@
       esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+(periods||missing)+usrsLine(g)+'</section>'+
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
-      '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+' · <a href="'+cleanURL(ext)+'" rel="noopener noreferrer" target="_blank">'+(hasStats?'ESPN box statistics (secondary) ↗':'Source scoreboard ↗')+'</a></p>';
+      '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
+      (g.schoolSource?' · <a href="'+cleanURL(g.schoolSource)+'" rel="noopener noreferrer" target="_blank">Verified school schedule ↗</a>':'')+
+      ' · <a href="'+cleanURL(ext)+'" rel="noopener noreferrer" target="_blank">'+
+      (hasStats?'ESPN box statistics (secondary) ↗':'Source scoreboard ↗')+'</a></p>';
     selectGameTab(state.section);
   }
   async function openGamefile(){
