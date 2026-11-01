@@ -228,7 +228,7 @@
         Math.max(0,1000-100*Math.abs(Number(as)-Number(hs))):0;
       const m=modelFor(g);
       const model=Number.isFinite(m?.probability)?Math.max(0,400-Math.abs(m.probability-.5)*800):0;
-      const soon=g.phase==='upcoming'?Math.max(0,400-((Date.parse(g.date)-Date.now())/3600000)):0;
+      const soon=g.phase==='upcoming'&&g.date?Math.max(0,400-((Date.parse(g.date)-Date.now())/3600000)):0;
       return phase+ranked+closeness+model+soon;
     };
     // Identity-first: live, ranked, and tight games lead; never invent a "big" game.
@@ -354,7 +354,7 @@
       date:row.date||null,away:team(row.away_id,row.away_name,'away',row.away_score),
       home:team(row.home_id,row.home_name,'home',row.home_score),
       phase:row.phase,headline:row.phase==='final'?'NCAA final':'NCAA scoreboard',
-      venue:'',broadcast:'',url:'',neutral:false,
+      venue:'',broadcast:'',url:cleanURL(row.source_url||''),neutral:false,
       source:'NCAA.com official scoreboard',verifiedOfficial:true,linescores:false};
   }
   function courtDayFeed(day,espn,newsroom){
@@ -362,7 +362,7 @@
     // school identities may enter this published display.
     const fromEspn=Array.isArray(espn?.events)?espn.events.map(normalizeEvent).filter(Boolean):[];
     const raw=new Map(fromEspn.map(g=>[g.id,g]));
-    const cross=women?null:newsroom?.ncaa_crosscheck;
+    const cross=women?newsroom?.ncaa_women_crosscheck:newsroom?.ncaa_crosscheck;
     const time=Date.parse(cross?.checked_at||'');
     const fresh=!!cross&&cross.day===day&&Number.isFinite(time)&&
       time<=Date.now()+60000&&Date.now()-time<=90*60000&&Array.isArray(cross.games);
@@ -412,7 +412,7 @@
     const date=day.replaceAll('-','');
     const [data,newsroom]=await Promise.all([
       fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+date),
-      women?Promise.resolve(null):fetchJSON('data/mbb-live.json')
+      fetchJSON('data/mbb-live.json')
     ]);
     const result=courtDayFeed(day,data,newsroom);
     if(result.games.length)return {...result,snapshot:false};
@@ -436,7 +436,7 @@
         const convert=(t,side,score)=>({team:{id:String(t.team_id),displayName:t.team,abbreviation:t.team.split(' ').slice(0,2).map(x=>x[0]).join(''),logo:t.logo},homeAway:side,score});
         return {id:String(g.id),date:g.date,away:convert(a,'away',g.away_score),home:convert(h,'home',g.home_score),
           phase:g.status==='final'?'final':'upcoming',headline:g.status==='final'?'Final':'Scheduled',
-          venue:g.venue||'',broadcast:g.broadcast||'',url:cleanURL(g.source_url||''),source:'Verified women-only schedule'};
+          venue:g.venue||'',broadcast:g.broadcast||'',url:cleanURL(g.source_url||''),source:'ESPN-derived women’s fixture snapshot · not live'};
       }).filter(Boolean);
     }
     if(!women&&Array.isArray(live?.games)){
@@ -575,11 +575,11 @@
     if(state.selected!==g.id)return;
     const raw=entry?.data;
     const periods=periodTable(g,raw),team=statsPairs(g,raw),playersHTML=players(raw);
-    const missing='<p class="cbb-empty">Detailed game statistics are not yet available from the provider. No values have been estimated.</p>';
+    const missing='<p class="cbb-empty">Detailed game statistics are not available from a confirmed provider. No values have been estimated.</p>';
     const hasStats=!!raw?.boxscore;
     const espnId=/^\d+$/.test(String(g.espnId||g.id))?String(g.espnId||g.id):null;
     const ext=(hasStats&&espnId)?'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(espnId):
-      (g.url||'https://www.ncaa.com/scoreboard/basketball-men/d1');
+      (g.url||('https://www.ncaa.com/scoreboard/'+(women?'basketball-women':'basketball-men')+'/d1'));
     node.innerHTML='<header class="cbb-gamefile-hero"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
       '<h1>'+esc(teamName(g.away))+' <em>at</em> '+esc(teamName(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
