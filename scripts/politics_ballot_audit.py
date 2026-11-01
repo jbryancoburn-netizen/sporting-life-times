@@ -21,8 +21,12 @@ ALLOWED_SOURCES = {
     "WY_SOS_2026_GENERAL": ("WY", "sos.wyo.gov", "/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf"),
     "FL_DOE_2026_UNOPPOSED": ("FL", "dos.elections.myflorida.com", "/candidates/CanDetail.asp"),
     "MD_SBE_2026_HOUSE_GENERAL": ("MD", "elections.maryland.gov", "/elections/2026/general_candidates/2026_GG_statewide_candidatelist.html"),
+    "DE_DOE_2026_GENERAL": ("DE", "elections.delaware.gov", "/candidates/candidatelist/genl_fcddt_2026.html"),
+    "KY_SOS_2026_GENERAL": ("KY", "web.sos.ky.gov", "/CandidateFilings/default.aspx"),
+    "VA_ELECT_2026_NOV_FEDERAL": ("VA", "www.elections.virginia.gov", "/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/"),
+    "NJ_DOE_2026_GENERAL_HOUSE": ("NJ", "www.nj.gov", "/state/elections/assets/pdf/election-results/2026/2026-official-general-candidates-us-house-0904.pdf"),
 }
-HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8}
+HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8, "DE": 1, "KY": 6, "VA": 11, "NJ": 12}
 PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "NPP", "AIP", "PAF", "OTH"}
 
 def validate(data):
@@ -85,8 +89,10 @@ def validate(data):
             raise ValueError("Missing or implausible candidate slate")
         seen = set()
         for c in candidates:
-            if set(c) != {"name", "party"}:
-                raise ValueError("Keep only ballot name and party; no private contact fields")
+            if not {"name", "party"}.issubset(c) or not set(c).issubset({"name", "party", "ballot_label"}):
+                raise ValueError("Only public candidate name, party code, and official ballot designation are allowed")
+            if "ballot_label" in c and (not isinstance(c["ballot_label"], str) or not 2 <= len(c["ballot_label"]) <= 90):
+                raise ValueError("Invalid original election-office party/petition designation")
             name, party = c.get("name"), c.get("party")
             if not isinstance(name, str) or not 2 <= len(name.strip()) <= 100 or not re.fullmatch(r"[A-Z]{3}", str(party)) or party not in PARTIES:
                 raise ValueError("Invalid original candidate name or party")
@@ -103,6 +109,14 @@ def validate(data):
             c = coverage.get(src["state"], {})
             if c.get("house") != HOUSE_SEATS[src["state"]] or c.get("senate") != 1:
                 raise ValueError("Claim of complete federal source transcription does not match state races")
+    # A reviewed complete House-only source must have all district IDs, but it
+    # does not imply certification of any statewide Senate race.
+    for src in sources.values():
+        if src.get("scope") == "full_2026_house_snapshot":
+            c = coverage.get(src["state"], {})
+            if c.get("house") != HOUSE_SEATS[src["state"]]:
+                raise ValueError("Complete official House source does not cover every district")
+
     # Maryland has all 8 House races but no regular US Senate election in 2026.
     for src in sources.values():
         if src["scope"] == "full_house_snapshot_no_senate_2026":
