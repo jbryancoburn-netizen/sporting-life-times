@@ -89,6 +89,13 @@ def main():
                 for key in ('date', 'home_id', 'away_id'):
                     if previous.get(key) != candidate[key]:
                         raise ValueError('NCAA fixture identity conflict: '+candidate['id'])
+                # Do not throw away verified neutral-court evidence when an
+                # official scoreboard publishes final scores but no venue flag.
+                if (previous.get('site_verified') is True and
+                    previous.get('neutral') is True and
+                    previous.get('away_score') == a and previous.get('home_score') == h):
+                    candidate['site_verified'] = True
+                    candidate['source'] = previous.get('source', candidate['source'])
             collected[candidate['id']] = candidate
     now = datetime.now(timezone.utc)
     today = now.astimezone(EASTERN).date()
