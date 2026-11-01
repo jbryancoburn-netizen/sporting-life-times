@@ -84,7 +84,8 @@ class WomensCalendarRefreshTests(unittest.TestCase):
 
     def test_reciprocal_validator_rejects_missing_division_one_copy(self):
         first = game("401000001","204","999","2026-12-19T03:00Z")
-        second = game("401000001","204","999","2026-12-19T03:00Z")
+        second = game("401000001","204","204","2026-12-19T03:00Z")
+        second["away_id"] = "999"
         calendars={"204":{"games":[first]}, "999":{"games":[second]}}
         IMPORTER["validate_reciprocal_games"](calendars)
         calendars["999"]["games"].clear()
