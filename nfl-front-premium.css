@@ -1,0 +1,200 @@
+/* Sporting Life & Times | NFL editorial edition / November 2026
+   One signature front page, not another generic card dashboard. */
+body.nfl-paper[data-page="front"]{background:#eeede7;color:#161a1c}
+body.nfl-paper[data-page="front"] .nfl-wrap{max-width:1496px;padding:0 clamp(14px,2.45vw,44px) 46px;background:#f8f7f2;box-shadow:0 0 45px #0c152118;min-height:100vh}
+body.nfl-paper[data-page="front"] .nfl-topline{border-bottom:1px solid #99958e;letter-spacing:.17em;color:#40423e;padding:10px 0}
+body.nfl-paper[data-page="front"] .nfl-mast{padding:14px 0 11px;border-bottom:4px double #191b1d}
+body.nfl-paper[data-page="front"] .nfl-mast a{font-size:clamp(30px,4.8vw,70px);letter-spacing:-.055em}
+body.nfl-paper[data-page="front"] .nfl-mast .sub{color:#912521;letter-spacing:.22em;font-size:11px}
+body.nfl-paper[data-page="front"] .nfl-nav{gap:3px 14px;padding:8px 0 7px;border-bottom:1px solid #8b8982;letter-spacing:.04em}
+body.nfl-paper[data-page="front"] .nfl-nav a{border-bottom-width:3px}
+body.nfl-paper[data-page="front"] .nfl-nav a[aria-current="page"]{color:#9d221e}
+body.nfl-paper[data-page="front"] .nfl-bar{padding:8px 0;color:#6a6a60;line-height:1.45}
+#nfl-app .nfl-p26{--paper:#f8f7f2;--ink:#161d23;--verm:#b32b27;--gold:#d6b875;--line:#cfcfc5;--muted:#696e6d;color:var(--ink);min-width:0}
+.nfl-p26 *, .nfl-p26 *::before, .nfl-p26 *::after{box-sizing:border-box}
+.nfl-p26 a{text-decoration:none}
+.nfl-p26 a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.nfl-p26 .nfl-p26-eyebrow{font:800 10px/1.4 Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.nfl-p26 .nfl-p26-red{color:#b32b27}
+.nfl-p26 .nfl-p26-faint{color:#9e9f9b}
+.nfl-p26 .nfl-p26-red-dot{width:9px;height:9px;border-radius:50%;background:#d42f26;display:inline-block;box-shadow:0 0 0 3px #d42f262b;animation:nfl-p26-pulse 1.8s ease-in-out infinite}
+@keyframes nfl-p26-pulse{50%{box-shadow:0 0 0 6px #d42f2608}}
+@media(prefers-reduced-motion:reduce){.nfl-p26 .nfl-p26-red-dot{animation:none}}
+.nfl-p26 .nfl-p26-opening{display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px 30px;margin:20px 0 19px;padding:0 0 15px;border-bottom:2px solid var(--ink)}
+.nfl-p26 .nfl-p26-opening .nfl-p26-eyebrow{color:#a62621;margin:0 0 5px}
+.nfl-p26 .nfl-p26-main-title{font:900 clamp(47px,6.2vw,98px)/.92 Georgia,'Times New Roman',serif;letter-spacing:-.075em;margin:0;white-space:nowrap}
+.nfl-p26 .nfl-p26-main-title em{font:italic 400 .56em Georgia,serif;letter-spacing:-.07em;color:#a32823}
+.nfl-p26 .nfl-p26-main-deck{margin:9px 0 0;max-width:810px;font:15px/1.4 Georgia,serif;color:#535954}
+.nfl-p26 .nfl-p26-issue{text-align:right;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 3px}
+.nfl-p26 .nfl-p26-issue b{font:800 14px Arial,sans-serif;letter-spacing:.1em}
+.nfl-p26 .nfl-p26-issue span{font:700 10px/1.55 Arial,sans-serif;color:#646765;text-transform:uppercase}
+.nfl-p26 .nfl-p26-topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:0 0 10px}
+.nfl-p26 .nfl-p26-live-ident{display:inline-flex;align-items:center;gap:9px}
+.nfl-p26 .nfl-p26-live-ident span{font:800 12px Arial,sans-serif;letter-spacing:.12em}
+.nfl-p26 .nfl-p26-topline .nfl-p26-sub{font:700 11px Arial,sans-serif;color:#65706c}
+.nfl-p26 .nfl-p26-topline .nfl-p26-sub a{color:#a72c26}
+.nfl-p26 .nfl-p26-hero{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(275px,.9fr);gap:12px;min-height:384px;margin-bottom:25px}
+.nfl-p26 .nfl-p26-feature{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(circle at 64% 46%,#233a43 0%,#121e26 43%,#0b1118 100%);color:#fff;padding:24px clamp(17px,2.2vw,30px) 23px;isolation:isolate;border-top:5px solid var(--gold)}
+.nfl-p26 .nfl-p26-feature::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.26;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(10% - 1px),#f3edd621 10%,transparent calc(10% + 1px),transparent 20%),repeating-linear-gradient(0deg,transparent 0,transparent 44px,#e7ebed1b 45px,transparent 46px,transparent 90px)}
+.nfl-p26 .nfl-p26-feature::after{content:"NFL";position:absolute;z-index:-1;right:-15px;bottom:-72px;font:900 255px/1 Georgia,serif;letter-spacing:-.09em;color:#ffffff07;pointer-events:none}
+.nfl-p26 .nfl-p26-feature-kicker{display:flex;align-items:center;justify-content:space-between;gap:12px;font:800 10px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#e5d19c}
+.nfl-p26 .nfl-p26-feature-kicker .nfl-p26-status{display:inline-flex;align-items:center;gap:8px;color:#fff;background:#ad302a;padding:6px 9px;font-size:10px}
+.nfl-p26 .nfl-p26-feature-kicker .nfl-p26-status.pre{background:#e6d0a52a;border:1px solid #e6d0a556}
+.nfl-p26 .nfl-p26-feature-kicker .nfl-p26-status.post{background:#d9dfd62e;border:1px solid #d9dfd64f}
+.nfl-p26 .nfl-p26-feature h2{font:700 clamp(25px,2.6vw,39px)/1.13 Georgia,serif;letter-spacing:-.04em;margin:15px 0 6px}
+.nfl-p26 .nfl-p26-feature-deck{font:13px/1.4 Georgia,serif;color:#c9d1d0;margin:0 0 12px;max-width:600px}
+.nfl-p26 .nfl-p26-match{display:grid;grid-template-columns:minmax(0,1fr) 80px minmax(0,1fr);gap:8px;align-items:center;margin:12px 0 14px}
+.nfl-p26 .nfl-p26-match-side{display:flex;align-items:center;flex-direction:column;justify-content:center;gap:6px;min-width:0;text-align:center}
+.nfl-p26 .nfl-p26-match-side .nfl-badge.lg{width:91px;height:91px;flex:0 0 91px;--nfl-outer:7px;--nfl-inner:6px}
+.nfl-p26 .nfl-p26-match-side .nfl-p26-name{font:700 clamp(13px,1.5vw,19px)/1.15 Georgia,serif;color:#fff;text-align:center}
+.nfl-p26 .nfl-p26-match-side .nfl-p26-record{font:700 10px/1.3 Arial,sans-serif;letter-spacing:.06em;color:#aebfc3;text-transform:uppercase}
+.nfl-p26 .nfl-p26-big-score{font:800 clamp(40px,5.4vw,80px)/1 Georgia,serif;letter-spacing:-.055em;text-align:center;color:#fff}
+.nfl-p26 .nfl-p26-big-score.is-pregame{font-size:clamp(22px,2.4vw,31px);letter-spacing:.05em;color:#dfcfac}
+.nfl-p26 .nfl-p26-feature-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:14px;border-top:1px solid #ffffff3b;font:700 11px/1.45 Arial,sans-serif;color:#d6dedc}
+.nfl-p26 .nfl-p26-feature-foot a{font:800 11px Arial,sans-serif;color:#eac985;letter-spacing:.06em}
+.nfl-p26 .nfl-p26-feature-forecast{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:12px;color:#e0e1d9;font:11px Arial,sans-serif}
+.nfl-p26 .nfl-p26-feature-forecast b{color:#fff}
+.nfl-p26 .nfl-p26-forecast-bar{height:7px;width:min(185px,32vw);min-width:85px;background:#a12331;overflow:hidden;box-shadow:0 0 0 1px #ffffff24}
+.nfl-p26 .nfl-p26-forecast-bar i{display:block;height:100%;background:#e0bf79}
+.nfl-p26 .nfl-p26-focus-rail{display:flex;flex-direction:column;border:1px solid #d0cfc6;background:#f0efe8;padding:17px 17px 14px;min-width:0}
+.nfl-p26 .nfl-p26-focus-rail h3{font:700 27px/.98 Georgia,serif;letter-spacing:-.05em;margin:5px 0 11px}
+.nfl-p26 .nfl-p26-focus-rail .nfl-p26-focus-deck{font:12px/1.35 Georgia,serif;color:#626760;margin:0 0 8px}
+.nfl-p26 .nfl-p26-focus-row{display:block;padding:11px 0;border-top:1px solid #bfc1b9;text-decoration:none!important}
+.nfl-p26 .nfl-p26-focus-row:hover{background:#e4e2d8}
+.nfl-p26 .nfl-p26-focus-meta{display:flex;align-items:center;justify-content:space-between;gap:4px;font:800 9px Arial,sans-serif;letter-spacing:.08em;color:#a02c29;text-transform:uppercase;margin-bottom:6px}
+.nfl-p26 .nfl-p26-focus-teams{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:8px;font:700 13px Arial,sans-serif}
+.nfl-p26 .nfl-p26-focus-teams .nfl-badge.sm{width:34px;height:34px;flex-basis:34px;--nfl-outer:3px;--nfl-inner:3px}
+.nfl-p26 .nfl-p26-focus-teams b{font:800 16px Georgia,serif}
+.nfl-p26 .nfl-p26-focus-row .nfl-p26-focus-line{font:11px/1.35 Arial,sans-serif;color:#626963;margin-top:5px}
+.nfl-p26 .nfl-p26-rail-link{margin-top:auto;border-top:2px solid #1b2325;padding-top:10px;font:800 10px Arial,sans-serif;letter-spacing:.12em}
+.nfl-p26 .nfl-p26-rail-link a{color:#9c2922}
+.nfl-p26 .nfl-p26-section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-top:4px solid var(--ink);padding:10px 0 13px;margin-top:8px}
+.nfl-p26 .nfl-p26-section-head h2{font:700 clamp(25px,2.8vw,38px)/1 Georgia,serif;letter-spacing:-.05em;margin:2px 0 0}
+.nfl-p26 .nfl-p26-section-head p{font:12px/1.35 Arial,sans-serif;margin:2px 0;color:#60645f}
+.nfl-p26 .nfl-p26-section-head a{font:800 10px/1.4 Arial,sans-serif;letter-spacing:.1em;color:#a32d25}
+.nfl-p26 .nfl-p26-score-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#cacbc3;border:1px solid #cacbc3}
+.nfl-p26 .nfl-p26-score{display:flex;flex-direction:column;background:#fdfcf8;padding:11px 12px 9px;text-decoration:none!important;min-width:0;min-height:153px;transition:background .15s}
+.nfl-p26 .nfl-p26-score:hover{background:#f0eee5}
+.nfl-p26 .nfl-p26-score-top{display:flex;justify-content:space-between;gap:5px;align-items:center;font:800 10px/1.25 Arial,sans-serif;letter-spacing:.06em;color:#74776f;margin-bottom:8px}
+.nfl-p26 .nfl-p26-score-top .in{color:#b12c22}
+.nfl-p26 .nfl-p26-score-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:8px;align-items:center;margin:2px 0;min-height:39px}
+.nfl-p26 .nfl-p26-score-row .nfl-badge.sm{width:34px;height:34px;flex-basis:34px;--nfl-outer:3px;--nfl-inner:3px}
+.nfl-p26 .nfl-p26-score-id{font:800 13px Arial,sans-serif;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nfl-p26 .nfl-p26-score-id small{display:block;font:10px Arial,sans-serif;color:#75786f;margin-top:2px}
+.nfl-p26 .nfl-p26-score-val{font:800 23px Georgia,serif;letter-spacing:-.04em}
+.nfl-p26 .nfl-p26-score-val.blank{color:#aaa}
+.nfl-p26 .nfl-p26-score-bottom{margin-top:auto;padding-top:7px;border-top:1px solid #deded6;font:10px/1.25 Arial,sans-serif;min-height:19px;color:#73776f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nfl-p26 .nfl-p26-data-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#c7c9c1;border:1px solid #c7c9c1;margin:22px 0}
+.nfl-p26 .nfl-p26-data-point{background:#eae9e1;padding:14px 18px;min-width:0}
+.nfl-p26 .nfl-p26-data-point b{display:block;font:700 clamp(26px,3.1vw,42px)/1 Georgia,serif;letter-spacing:-.045em}
+.nfl-p26 .nfl-p26-data-point span{display:block;font:800 9px/1.4 Arial,sans-serif;color:#69706c;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.nfl-p26 .nfl-p26-player-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.nfl-p26 .nfl-p26-player{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) 44%;min-height:197px;background:#1c262e;color:#fff;overflow:hidden;border-top:4px solid var(--club,#c3b17e)}
+.nfl-p26 .nfl-p26-player::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 70%,var(--club,#333),transparent 65%);opacity:.52;z-index:-1}
+.nfl-p26 .nfl-p26-player-copy{padding:17px 0 15px 18px;z-index:1;min-width:0;display:flex;flex-direction:column}
+.nfl-p26 .nfl-p26-player-copy small{font:800 10px Arial,sans-serif;letter-spacing:.14em;color:#e2d2a3}
+.nfl-p26 .nfl-p26-player-copy strong{font:700 clamp(18px,1.8vw,26px)/1.05 Georgia,serif;margin:17px 0 6px;letter-spacing:-.035em}
+.nfl-p26 .nfl-p26-player-copy .nfl-p26-player-number{margin-top:auto;display:flex;align-items:baseline;gap:6px}
+.nfl-p26 .nfl-p26-player-copy .nfl-p26-player-number b{font:700 clamp(36px,3.8vw,56px)/1 Georgia,serif;letter-spacing:-.045em}
+.nfl-p26 .nfl-p26-player-copy .nfl-p26-player-number span{font:800 10px Arial,sans-serif;color:#cbd0d0}
+.nfl-p26 .nfl-p26-player-copy .nfl-p26-player-detail{font:10px/1.4 Arial,sans-serif;color:#d0d7d6;margin-top:3px}
+.nfl-p26 .nfl-p26-player-photo{position:relative;min-height:180px;overflow:hidden}
+.nfl-p26 .nfl-p26-player-photo img{display:block;width:100%;height:100%;position:absolute;bottom:0;right:0;object-fit:contain;object-position:bottom right;filter:drop-shadow(-8px 0 9px #0003)}
+.nfl-p26 .nfl-p26-player a{color:inherit}
+.nfl-p26 .nfl-p26-editorial{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:25px;margin:23px 0 0}
+.nfl-p26 .nfl-p26-column{min-width:0}
+.nfl-p26 .nfl-p26-column .nfl-section{border-top:0;padding:0 0 16px}
+.nfl-p26 .nfl-p26-column .nfl-section>h2{display:none}
+.nfl-p26 .nfl-p26-news .nfl-news{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px}
+.nfl-p26 .nfl-p26-news .nfl-story{padding:15px 0;border-bottom:1px solid #d3d2c8}
+.nfl-p26 .nfl-p26-news .nfl-story:first-child{grid-column:1/-1;border-top:0}
+.nfl-p26 .nfl-p26-news .nfl-story:first-child a{font-size:clamp(24px,2.45vw,36px);line-height:1.06}
+.nfl-p26 .nfl-p26-news .nfl-story a{display:block;font:700 19px/1.15 Georgia,serif;letter-spacing:-.025em}
+.nfl-p26 .nfl-p26-news .nfl-story p{font:700 10px/1.4 Arial,sans-serif;color:#a3342d;text-transform:uppercase;letter-spacing:.03em;margin:8px 0 0}
+.nfl-p26 .nfl-p26-rankings{background:#ecece5;padding:16px 16px 10px;border-top:4px solid #17212a}
+.nfl-p26 .nfl-p26-power-row{display:grid;grid-template-columns:25px 34px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #cecec4}
+.nfl-p26 .nfl-p26-power-row .nfl-badge.sm{width:33px;height:33px;flex-basis:33px;--nfl-outer:3px;--nfl-inner:3px}
+.nfl-p26 .nfl-p26-power-rank{font:800 13px Georgia,serif;color:#b42b24}
+.nfl-p26 .nfl-p26-power-name{min-width:0;font:700 12px/1.25 Arial,sans-serif}
+.nfl-p26 .nfl-p26-power-name small{display:block;font:10px Arial,sans-serif;color:#676f69;margin-top:3px}
+.nfl-p26 .nfl-p26-power-meter{margin-top:5px;height:4px;background:#c4c7c1;overflow:hidden}
+.nfl-p26 .nfl-p26-power-meter i{display:block;height:100%;background:#a32b24}
+.nfl-p26 .nfl-p26-power-val{font:800 18px Georgia,serif;letter-spacing:-.04em}
+.nfl-p26 .nfl-p26-power-foot{padding:12px 0 3px;font:11px/1.4 Arial,sans-serif;color:#616d6b}
+.nfl-p26 .nfl-p26-lower{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:25px 0 23px}
+.nfl-p26 .nfl-p26-lower .nfl-p26-section-head{margin-top:0}
+.nfl-p26 .nfl-p26-results .nfl-game{padding:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.nfl-p26 .nfl-p26-results .nfl-game .meta,.nfl-p26 .nfl-p26-results .nfl-game .line{grid-column:1/-1}
+.nfl-p26 .nfl-p26-results .nfl-game .nfl-side>a{white-space:normal}
+.nfl-p26 .nfl-p26-results .nfl-game .nfl-side .nfl-badge.sm{width:30px;height:30px;flex-basis:30px;--nfl-outer:3px;--nfl-inner:2px}
+.nfl-p26 .nfl-p26-team-list{border-top:4px solid #191f24;margin-top:25px}
+.nfl-p26 .nfl-p26-team-list>div:first-child{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:12px 0 16px}
+.nfl-p26 .nfl-p26-team-list h2{font:700 31px Georgia,serif;letter-spacing:-.05em;margin:0}
+.nfl-p26 .nfl-p26-team-list .nfl-directory{grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#c9cdc8;border:1px solid #c9cdc8}
+.nfl-p26 .nfl-p26-team-list .nfl-tile{background:#fbfaf7;padding:9px 10px;min-width:0}
+.nfl-p26 .nfl-p26-team-list .nfl-tile:hover{background:#eee9dd}
+.nfl-p26 .nfl-p26-team-list .nfl-tile .nfl-badge.sm{width:37px;height:37px;flex-basis:37px;--nfl-outer:3px;--nfl-inner:3px}
+.nfl-p26 .nfl-p26-team-list .nfl-tile span{min-width:0}
+.nfl-p26 .nfl-p26-broken{font:12px/1.5 Arial,sans-serif;background:#f0eee5;border-left:3px solid #ae372b;padding:12px;margin:8px 0}
+.nfl-p26 .nfl-p26-method{font:11px/1.45 Arial,sans-serif;color:#6e746d;border-top:1px solid #cccdc5;padding-top:12px;margin-top:13px}
+@media(max-width:1100px){
+ .nfl-p26 .nfl-p26-score-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .nfl-p26 .nfl-p26-feature{padding:19px 21px}
+ .nfl-p26 .nfl-p26-player-copy strong{font-size:20px}
+}
+@media(max-width:850px){
+ .nfl-p26 .nfl-p26-hero{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-focus-rail{display:block}
+ .nfl-p26 .nfl-p26-focus-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+ .nfl-p26 .nfl-p26-focus-row{border-top:1px solid #c4c4bd}
+ .nfl-p26 .nfl-p26-match-side .nfl-badge.lg{width:85px;height:85px;flex-basis:85px}
+ .nfl-p26 .nfl-p26-player-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nfl-p26 .nfl-p26-player-grid .nfl-p26-player:last-child{grid-column:1/-1}
+ .nfl-p26 .nfl-p26-editorial{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-team-list .nfl-directory{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:620px){
+ body.nfl-paper[data-page="front"] .nfl-wrap{padding:0 12px 35px}
+ body.nfl-paper[data-page="front"] .nfl-mast a{font-size:clamp(31px,8vw,48px)}
+ .nfl-p26 .nfl-p26-opening{grid-template-columns:1fr;margin:15px 0}
+ .nfl-p26 .nfl-p26-main-title{font-size:clamp(43px,10.5vw,64px)}
+ .nfl-p26 .nfl-p26-issue{display:none}
+ .nfl-p26 .nfl-p26-main-deck{font-size:13px}
+ .nfl-p26 .nfl-p26-hero{gap:10px}
+ .nfl-p26 .nfl-p26-feature{min-height:359px;padding:17px 13px}
+ .nfl-p26 .nfl-p26-feature h2{font-size:29px}
+ .nfl-p26 .nfl-p26-match{grid-template-columns:1fr 56px 1fr;gap:3px}
+ .nfl-p26 .nfl-p26-match-side .nfl-badge.lg{width:72px;height:72px;flex-basis:72px;--nfl-outer:6px;--nfl-inner:5px}
+ .nfl-p26 .nfl-p26-match-side .nfl-p26-name{font-size:13px}
+ .nfl-p26 .nfl-p26-big-score{font-size:45px}
+ .nfl-p26 .nfl-p26-focus-list{grid-template-columns:1fr;gap:0}
+ .nfl-p26 .nfl-p26-focus-rail{padding:15px}
+ .nfl-p26 .nfl-p26-score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nfl-p26 .nfl-p26-score{padding:9px 8px;min-height:145px}
+ .nfl-p26 .nfl-p26-score-row{grid-template-columns:29px minmax(0,1fr) auto;gap:4px}
+ .nfl-p26 .nfl-p26-score-row .nfl-badge.sm{width:29px;height:29px;flex-basis:29px;--nfl-outer:3px;--nfl-inner:2px}
+ .nfl-p26 .nfl-p26-score-id{font-size:11px}
+ .nfl-p26 .nfl-p26-score-val{font-size:20px}
+ .nfl-p26 .nfl-p26-data-strip{grid-template-columns:1fr 1fr}
+ .nfl-p26 .nfl-p26-data-point{padding:12px}
+ .nfl-p26 .nfl-p26-data-point b{font-size:30px}
+ .nfl-p26 .nfl-p26-player-grid{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-player-grid .nfl-p26-player:last-child{grid-column:auto}
+ .nfl-p26 .nfl-p26-player{min-height:155px;grid-template-columns:1fr 41%}
+ .nfl-p26 .nfl-p26-player-photo{min-height:155px}
+ .nfl-p26 .nfl-p26-player-copy{padding:14px}
+ .nfl-p26 .nfl-p26-player-copy strong{margin:11px 0 5px;font-size:22px}
+ .nfl-p26 .nfl-p26-news .nfl-news{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-news .nfl-story:first-child{grid-column:auto}
+ .nfl-p26 .nfl-p26-lower{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-team-list .nfl-directory{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nfl-p26 .nfl-p26-team-list .nfl-tile{padding:8px 5px}
+ .nfl-p26 .nfl-p26-team-list .nfl-tile .nfl-badge.sm{width:32px;height:32px;flex-basis:32px}
+ .nfl-p26 .nfl-p26-section-head h2{font-size:28px}
+}
+@media(max-width:390px){
+ .nfl-p26 .nfl-p26-main-title{font-size:40px}
+ .nfl-p26 .nfl-p26-score-grid{grid-template-columns:1fr}
+ .nfl-p26 .nfl-p26-score{min-height:135px}
+ .nfl-p26 .nfl-p26-feature h2{font-size:25px}
+}
