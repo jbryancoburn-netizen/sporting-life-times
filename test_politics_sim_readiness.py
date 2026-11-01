@@ -6,13 +6,19 @@ class ReadinessTests(unittest.TestCase):
         d=build({})
         self.assertEqual(d["status"],"NOT_READY_FOR_PUBLIC_PREDICTIONS")
         self.assertFalse(d["house_forecast_ready"])
-        self.assertEqual(d["counts"]["missing"],16)
+        self.assertEqual(d["counts"]["missing"],17)
         self.assertEqual(d["certified_original_probability_count"],0)
     def test_historical_archive_still_ineligible_for_live_forecast(self):
         d=build({"archive":{"status":"ok","house":[{"id":str(i)} for i in range(1300)],
                              "senate":[{"id":str(i)} for i in range(80)]}})
         archive=next(x for x in d["checks"] if x["id"]=="2012_2016_historical_source_archive")
         self.assertEqual(archive["state"],"partial")
+        self.assertFalse(d["house_forecast_ready"])
+
+    def test_2000_archive_does_not_certify_house_forecast(self):
+        d=build({"deep_history":{"status":"ok","house":[{"id":str(i)} for i in range(2600)],"senate":[{"id":str(i)} for i in range(195)]}})
+        item=next(x for x in d["checks"] if x["id"]=="2000_2010_original_election_archive")
+        self.assertEqual(item["state"],"partial")
         self.assertFalse(d["house_forecast_ready"])
 
     def test_even_full_primary_data_does_not_certify_forecast(self):
