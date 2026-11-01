@@ -41,6 +41,39 @@ class D2BroadcastEnrichmentTests(unittest.TestCase):
         self.assertEqual(result["verified"],3)
         self.assertEqual(result["new_fixtures"],2)
 
+    def test_missing_prior_day_final_is_recovered_only_from_official_score(self):
+        evidence=json.loads((ROOT/"data"/"d2-cwu-official-tipoff-streams-2026.json").read_text())
+        teams={key:{"id":key} for item in evidence["games"] for key in (item["away"],item["home"])}
+        games={}
+        stats=builder.apply_official_tipoff_streams("women",games,teams,dt.date(2026,11,1))
+        match=[g for g in games.values() if
+            g["date"]=="2026-10-31" and
+            frozenset((g["away"],g["home"]))==
+            frozenset(("montana-state-university-billings","minnesota-state-university-moorhead"))]
+        self.assertEqual(len(match),1)
+        g=match[0]
+        self.assertEqual(g["status"],"final")
+        self.assertEqual((g["away_score"],g["home_score"]),(56,61))
+        self.assertEqual(g["start_time"],"12:00 PM ET")
+        self.assertIn("wildcatsports.com",g["source_url"])
+        self.assertTrue(g["elo_eligible"])
+        self.assertEqual(stats["unmatched_past"],5)
+        games2={g["id"]:g}
+        stats2=builder.apply_official_tipoff_streams("women",games2,teams,dt.date(2026,11,1))
+        self.assertEqual(stats2["updated"],1)
+        self.assertEqual(len([v for v in games2.values() if v["date"]=="2026-10-31"]),1)
+
+    def test_conflicting_official_final_is_not_silently_overwritten(self):
+        fixture={"id":"ncaa-verified","date":"2026-10-31",
+            "away":"montana-state-university-billings",
+            "home":"minnesota-state-university-moorhead","status":"final",
+            "away_score":61,"home_score":56}
+        evidence=json.loads((ROOT/"data"/"d2-cwu-official-tipoff-streams-2026.json").read_text())
+        teams={key:{"id":key} for item in evidence["games"] for key in (item["away"],item["home"])}
+        with self.assertRaisesRegex(RuntimeError,"Conflicting verified CWU final"):
+            builder.apply_official_tipoff_streams("women",{"ncaa-verified":fixture},
+                teams,dt.date(2026,11,1))
+
     def test_november_1_dst_and_source_stamps(self):
         self.assertEqual(builder.display_et_time("2026-11-01T19:00:00Z"),"2:00 PM ET")
         self.assertEqual(builder.display_et_time("2026-11-01T23:00:00Z"),"6:00 PM ET")
