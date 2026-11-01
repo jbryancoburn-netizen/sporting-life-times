@@ -46,7 +46,7 @@ function logoInitials(t){const abbr=String(t?.abbreviation||t?.abbr||'').trim();
 /* ID-verified independent image backups. One small same-origin manifest,
    loaded in parallel with the scores; never substitute a guessed team mark. */
 let mirrorLogos=Object.create(null);
-const mirrorsReady=fetch('data/cfb-logo-mirrors.json?v=20261101-verified',{cache:'force-cache'})
+const mirrorsReady=fetch('data/cfb-logo-mirrors.json?v=20261101-verified',{cache:'force-cache',signal:AbortSignal.timeout(7000)})
  .then(r=>{if(!r.ok)throw Error('FBS logo mirror manifest '+r.status);return r.json()})
  .then(d=>{if(d.primary_identity==='ESPN school ID matched to existing verified NCAA Division I registry'&&d.logos)mirrorLogos=d.logos})
  .catch(()=>{mirrorLogos=Object.create(null)});
@@ -76,7 +76,7 @@ function logoFailed(img){
  if(!img)return;
  const attempt=Number(img.dataset.cfbAttempt||0);
  const next=img.dataset['cfbBackup'+(attempt+1)];
- if(next&&attempt<3){img.dataset.cfbAttempt=String(attempt+1);img.src=next;return;}
+ if(next&&attempt<8){img.dataset.cfbAttempt=String(attempt+1);img.src=next;return;}
  img.classList.add('is-failed');
  img.previousElementSibling?.classList.remove('is-hidden');
  img.closest('.cfb-crest,.cfb-team-mark')?.classList.remove('has-logo');
@@ -85,7 +85,7 @@ function imageMarkup(url,t){
  const urls=logoCandidates(url,t),fallback='<span class="cfb-logo-fallback'+(urls.length?' is-hidden':'')+'" aria-hidden="true">'+esc(logoInitials(t))+'</span>';
  if(!urls.length)return fallback;
  return fallback+'<img class="cfb-logo-image" data-cfb-logo="1" data-cfb-attempt="0"'+
-   urls.slice(1,4).map((u,i)=>' data-cfb-backup'+(i+1)+'="'+esc(u)+'"').join('')+
+   urls.slice(1,8).map((u,i)=>' data-cfb-backup'+(i+1)+'="'+esc(u)+'"').join('')+
    ' loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="" src="'+esc(urls[0])+'" onload="window.CFB_DESK.logoLoaded(this)" onerror="window.CFB_DESK.logoFailed(this)">';
 }
 function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'" data-ring-count="2">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'',t)+'</span>'}
