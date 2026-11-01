@@ -51,6 +51,39 @@ function certifiedNeutral(game,map){
  if(easternDay(game.date)!==row.date)return null;
  return row;
 }
+function verifiedHomeCourts(doc){
+ const map=new Map();
+ if(doc?.season!=='2026-27'||doc?.gender!=='women'||doc.status!=='reciprocal_official_home_venue_verified'||!Array.isArray(doc.games))return map;
+ for(const r of doc.games){
+  const id=String(r.game_id||''),h=String(r.verified_home_id||''),a=String(r.verified_away_id||'');
+  if(!validId(id)||!validId(h)||!validId(a)||h===a||
+   !/^202[67]-\d\d-\d\d$/.test(r.date||'')||
+   !r.venue||!r.city||!Array.isArray(r.sources)||r.sources.length<3||
+   new Set(r.sources).size<3||r.sources.some(x=>!safeURL(x)))continue;
+  if(map.has(id)){map.delete(id);continue;}
+  map.set(id,r);
+ }
+ return map;
+}
+function officialHome(game,map){
+ if(!game||!map||!validId(game.id)||game.completed||game.status==='final')return null;
+ const r=map.get(String(game.id));
+ if(!r||easternDay(game.date)!==r.date)return null;
+ if(new Set([String(game.home_id),String(game.away_id)]).size!==2)return null;
+ if(new Set([String(game.home_id),String(game.away_id)]).size!==new Set([String(r.verified_home_id),String(r.verified_away_id)]).size)return null;
+ if(![String(game.home_id),String(game.away_id)].includes(String(r.verified_home_id))||
+    ![String(game.home_id),String(game.away_id)].includes(String(r.verified_away_id)))return null;
+ return r;
+}
+function correctedHome(game,map,teamId){
+ const r=officialHome(game,map);
+ if(!r)return game;
+ const result={...game,home_id:String(r.verified_home_id),away_id:String(r.verified_away_id),
+  venue:r.venue,city:r.city,neutral:false,official_home_site_verified:true,
+  official_home_site_sources:r.sources};
+ if(teamId!=null)result.site=String(teamId)===String(r.verified_home_id)?'home':'away';
+ return result;
+}
 function claims(game,map,verifiedNeutralMap){
  if(certifiedNeutral(game,verifiedNeutralMap))return [];
  if(!game||!map||!validId(game.id)||game.status==='final'||game.completed)return [];
@@ -70,5 +103,5 @@ function note(claims){
   'Venue review: university “vs.” listing does not prove an on-campus game.':
   'Venue review: university site designation differs from the published calendar.';
 }
-w.WBBSiteIntegrity={index,claims,note,safeURL,neutrals,certifiedNeutral};
+w.WBBSiteIntegrity={index,claims,note,safeURL,neutrals,certifiedNeutral,verifiedHomeCourts,officialHome,correctedHome};
 })(window);

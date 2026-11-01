@@ -1,0 +1,97 @@
+name: WBB Verified Reciprocal Home Courts
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/wbb-reciprocal-courts.yml'
+      - 'data/ncaaw-2026-27-verified-home-courts.json'
+      - 'scripts/wbb-apply-reciprocal-courts.py'
+      - 'scripts/wbb-team-schedules.py'
+      - 'tests/test_wbb_reciprocal_courts.py'
+      - 'tests/wbb-verified-home.test.cjs'
+      - 'wbb-site-integrity.js'
+      - 'college-basketball-gender.js'
+      - 'ncaaw-team.html'
+  push:
+    paths:
+      - '.github/workflows/wbb-reciprocal-courts.yml'
+      - 'data/ncaaw-2026-27-verified-home-courts.json'
+      - 'scripts/wbb-apply-reciprocal-courts.py'
+      - 'tests/test_wbb_reciprocal_courts.py'
+      - 'tests/wbb-verified-home.test.cjs'
+      - 'wbb-site-integrity.js'
+      - 'college-basketball-gender.js'
+      - 'ncaaw-team.html'
+permissions:
+  contents: write
+concurrency:
+  group: wbb-verified-home-courts
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check independent women university site evidence on game cards
+        run: |
+          node --check wbb-site-integrity.js
+          node --check college-basketball-gender.js
+          node --test tests/wbb-verified-home.test.cjs
+      - name: Verify exact dates, reciprocal school IDs and citations
+        run: |
+          python -m py_compile scripts/wbb-apply-reciprocal-courts.py scripts/wbb-team-schedules.py
+          python -m unittest discover -s tests -p 'test_wbb_reciprocal_courts.py' -v
+          python scripts/wbb-apply-reciprocal-courts.py
+          python - <<'PY'
+          import json
+          doc=json.load(open('data/ncaaw-schedules-2026-27.json'))
+          proof=json.load(open('data/ncaaw-2026-27-verified-home-courts.json'))
+          assert doc['gender']=='women' and len(doc['teams'])==363
+          for p in proof['games']:
+              for tid,site in ((p['verified_home_id'],'home'),(p['verified_away_id'],'away')):
+                  rows=[g for g in doc['teams'][tid]['games'] if g['id']==p['game_id']]
+                  assert len(rows)==1 and rows[0]['site']==site
+                  assert rows[0]['venue']==p['venue']
+          print('Verified official WBB home court corrections:',len(proof['games']))
+          PY
+  publish:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Replay and validate exact official reciprocal changes
+        run: |
+          python -m unittest discover -s tests -p 'test_wbb_reciprocal_courts.py' -v
+          python scripts/wbb-apply-reciprocal-courts.py
+      - name: Safely commit both women's team schedule entries on current main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for n in 1 2 3 4 5 6 7 8 9 10 11 12; do
+            git add data/ncaaw-schedules-2026-27.json
+            if git diff --cached --quiet; then
+              echo "All three home-court corrections already published"; exit 0
+            fi
+            git commit -m "Correct three verified women's D-I host sites in both team calendars"
+            if git push origin HEAD:main; then
+              echo "Published validated reciprocal host assignments"; exit 0
+            fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/wbb-apply-reciprocal-courts.py
+            sleep 1
+          done
+          echo "Concurrent commits prevented full schedule publish; official source manifest remains merged"
+          exit 1
