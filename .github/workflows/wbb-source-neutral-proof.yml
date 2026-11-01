@@ -7,12 +7,22 @@ on:
       - 'scripts/wbb-verified-neutral-sites.py'
       - 'data/ncaaw-2026-27-auburn-neutral-site-evidence.json'
       - 'tests/test_wbb_venue_resolution.py'
+      - 'tests/wbb-verified-neutrals.test.cjs'
+      - 'wbb-site-integrity.js'
+      - 'wbb-team-live.js'
+      - 'ncaaw-team.html'
+      - 'college-basketball-gender.js'
   push:
     paths:
       - '.github/workflows/wbb-source-neutral-proof.yml'
       - 'scripts/wbb-verified-neutral-sites.py'
       - 'data/ncaaw-2026-27-auburn-neutral-site-evidence.json'
       - 'tests/test_wbb_venue_resolution.py'
+      - 'tests/wbb-verified-neutrals.test.cjs'
+      - 'wbb-site-integrity.js'
+      - 'wbb-team-live.js'
+      - 'ncaaw-team.html'
+      - 'college-basketball-gender.js'
 permissions:
   contents: write
 concurrency:
@@ -28,6 +38,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test source-verified venue labels and no-home-edge forecasts
+        run: |
+          node --check wbb-site-integrity.js
+          node --check wbb-team-live.js
+          node --check college-basketball-gender.js
+          node --test tests/wbb-verified-neutrals.test.cjs tests/wbb-site-integrity.test.cjs
       - name: Check unique school, opponent, Eastern date and game ID
         run: |
           python -m unittest discover -s tests -p 'test_wbb_venue_resolution.py' -v
