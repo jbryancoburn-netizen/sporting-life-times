@@ -31,12 +31,12 @@ ALIAS={
  "mines":("colorado school of mines","colorado mines"),
  "pueblo":("csu pueblo","colorado state university pueblo","colorado state pueblo"),
  "lewis":("fort lewis","fort lewis college"),
- "sdmines":("south dakota mines","south dakota school of mines","south dakota school of mines and technology"),
+ "sdmines":("south dakota mines","south dakota school of mines","south dakota school of mines and technology","south dakota school of mines technology"),
  "uccs":("uccs","university of colorado colorado springs","uc colorado springs","u c colorado springs"),
  "western":("western colorado","western colorado university"),
- "westminster":("westminster","westminster university","westminster college"),
+ "westminster":("westminster","westminster university","westminster college","westminster university utah"),
  "msudenver":("msu denver","metropolitan state","metropolitan state university of denver"),
- "regis":("regis","regis university"),
+ "regis":("regis","regis university","regis university colorado"),
  "highlands":("new mexico highlands","new mexico highlands university","n m highlands"),
  "chadron":("chadron state","chadron state college"),
 }
@@ -82,7 +82,7 @@ def enrich_rmac(gender,games,teams,today=None,fetcher=fetch):
  today=today or dt.date.today()
  identities={};conflicted=set()
  for ident,t in teams.items():
-  if t.get("conference")!="RMAC":continue
+  if t.get("conference") not in ("RMAC","Rocky Mountain Athletic Conference"):continue
   key=school(t.get("name")) or school(str(ident).replace("-"," "))
   if not key:continue
   if key in identities and identities[key]!=ident:conflicted.add(key)
