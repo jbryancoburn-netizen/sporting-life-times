@@ -1,0 +1,71 @@
+name: Independent politics source refresh
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_news_refresh.py'
+      - 'scripts/politics_polling_refresh.py'
+      - 'test_politics_news.py'
+      - 'test_politics_polling.py'
+      - '.github/workflows/politics-sources.yml'
+  schedule:
+    - cron: '13,43 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-source-release
+  cancel-in-progress: false
+jobs:
+  update-politics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test parsers and aggregation before fetching
+        run: |
+          python -m py_compile scripts/politics_news_refresh.py scripts/politics_polling_refresh.py
+          python -m unittest -v test_politics_news test_politics_polling
+      - name: Gather reputable publisher headlines
+        id: news
+        continue-on-error: true
+        run: python scripts/politics_news_refresh.py
+      - name: Independently aggregate public polling records
+        id: polls
+        continue-on-error: true
+        run: python scripts/politics_polling_refresh.py
+      - name: Validate outputs and write status heartbeat
+        env:
+          NEWS_STATUS: ${{ steps.news.outcome }}
+          POLL_STATUS: ${{ steps.polls.outcome }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python - <<'PY'
+          import datetime,json,os,pathlib
+          now=datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
+          status={'checked_at':now,'news_status':os.environ.get('NEWS_STATUS'),'poll_status':os.environ.get('POLL_STATUS'),'run_id':os.environ.get('GITHUB_RUN_ID'),
+                  'policy':'Failure must not overwrite a last-valid data file.'}
+          pathlib.Path('politics-source-status.json').write_text(json.dumps(status,indent=2)+'\n')
+          news=json.loads(pathlib.Path('politics-news.json').read_text())
+          polls=json.loads(pathlib.Path('politics-polls.json').read_text())
+          if news['status']=='ok':
+              assert len(news['articles'])>=4 and news['source_count']>=2
+              for article in news['articles']:
+                  assert article['title'] and article['source'] and article['url'].startswith('https://')
+          if polls['status']=='ok':
+              assert polls['pollsters']>=3 and polls['poll_count']>=3 and polls['average'] is not None
+          print('news=',news['status'],'polls=',polls['status'],'refresh=',status)
+          PY
+      - name: Commit dated data and source health to main
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-news.json politics-polls.json politics-source-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update cited political news links and original polling averages"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
