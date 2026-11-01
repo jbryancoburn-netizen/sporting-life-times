@@ -12,7 +12,7 @@ const urlGame=id=>"nfl-game.html?id="+encode(id);
 const link=(href,title)=>'<a href="'+escapeHtml(href)+'">'+escapeHtml(title)+'</a>';
 let feed={},teams={},games=[];
 function team(id){return teams[String(id)]||{id:String(id),name:"Unknown team",code:"?",color:"#222",secondary_color:"#cfa951"};}
-function crest(t,size=""){return '<span class="nfl-crest '+size+'" style="--primary:'+escapeHtml(t.color||"#222")+';--secondary:'+escapeHtml(t.secondary_color||"#cfa951")+'"><img loading="lazy" src="'+escapeHtml(t.logo||"")+'" alt=""></span>';}
+function crest(t,size=""){return '<span class="nfl-two-band '+size+'" style="--primary:'+escapeHtml(t.color||"#222")+';--secondary:'+escapeHtml(t.secondary_color||"#cfa951")+'"><img loading="lazy" src="'+escapeHtml(t.logo||"")+'" alt=""></span>';}
 function side(s,showScore){const t=team(s.id);return '<div class="nfl-side">'+crest(t,"sm")+link(urlTeam(t.id),t.name)+(showScore&&s.score!=null?'<b class="nfl-score">'+s.score+'</b>':"")+'</div>';}
 function panel(title,content){return '<section class="nfl-section"><h2>'+escapeHtml(title)+'</h2>'+content+'</section>';}
 function note(content){return '<div class="nfl-note">'+content+'</div>';}
