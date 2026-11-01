@@ -70,7 +70,7 @@ const rows=sorted.map(g=>{
   const date=Number.isNaN(d.getTime())?esc(g.date||'TBA'):esc(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}));
   const other=rmap.get(String(g.opponent_id||''));
   const tv=tvmap.get(String(g.id)),tvName=tv?.broadcast||g.broadcast||'Network TBA',tvUrl=tv?.source_url||g.broadcast_source_url||'';
-  const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const siteClaims=window.WBBSiteIntegrity.claims(g,siteDisputes);
+  const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const siteClaims=window.WBBSiteIntegrity?.claims(g,siteDisputes)||[];
   const probability=g.completed?'Final':siteClaims.length?'Venue review':winChance(rating,other,g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();
   const source=(siteClaims.find(x=>window.WBBSiteIntegrity.safeURL(x.source_url))||{}).source_url;
