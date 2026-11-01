@@ -49,6 +49,15 @@ jobs:
               assert all(year['contests']>=24 for year in d['senate'])
               assert len(d['closest_house_2024'])>0
               assert d['sources']['house'] and d['sources']['senate']
+              assert len(d['house_reconciliation'])==4
+              assert d['official_house_history']['2024']['dem']==215
+              assert d['official_house_history']['2024']['rep']==220
+              assert all(item['official']['total_seats']==435 for item in d['house_reconciliation'])
+              assert d['data_quality_status'] in ('reconstruction_pending','reconciled')
+              if d['data_quality_status']=='reconstruction_pending':
+                  assert d['forecast_2026_certified'] is False
+                  print('House result reconciliation OPEN:',[(x['year'],x['difference_official_minus_reconstructed'],x['excluded_contests']) for x in d['house_reconciliation'] if x['status']!='matched'])
+
           print('Historical audit status',status,'published data:',d['status'])
           PY
       - name: Publish historical evidence without touching sports pipelines
