@@ -4,7 +4,7 @@
   "gender": "men",
   "season": "2026-27",
   "starting_elo": 1500,
-  "as_of": "2026-11-01T22:36:05.678Z",
+  "as_of": "2026-11-01T22:37:38.456Z",
   "source": "NCAA DIII official scoreboard; mirror only if official unavailable",
   "model": {
     "k": 24,
@@ -22,8 +22,8 @@
     "full_school_calendar_audit": false,
     "membership_certified": false,
     "note": "Games are not a complete school-by-school schedule. Only both explicitly DIII-confirmed opponents enter Elo.",
-    "directory_source": "ESPN group-52 response failed division identity audit",
-    "directory_status": "REJECTED: group 52 team-list endpoint returned Division I institutions; no DIII program claims published"
+    "directory_source": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?groups=52&limit=1000",
+    "directory_status": "Provider directory unavailable: Division identity guard failed: DI=abilene christian,air force,akron,duke,florida state,indiana,kentucky,kansas,ucla,houston,baylor; DIII anchors="
   },
   "teams": [],
   "games": []
