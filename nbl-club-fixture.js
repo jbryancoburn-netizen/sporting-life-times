@@ -1,15 +1,26 @@
-/* All 10 club fixture pages use the same season source as the NBL Game Center. */
-(()=>{'use strict';const root=document.getElementById('nbl-club-full-fixture');if(!root)return;
+/* Shared NBL full-season club schedules, no dependence on failing multiweek ESPN API queries. */
+(function(){
+'use strict';
+const root=document.getElementById('nbl-club-full-fixture');if(!root)return;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
-const dates=[['20260919','20261031'],['20261101','20261130'],['20261201','20261231'],['20270101','20270131'],['20270201','20270228']];
-const url='https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/scoreboard';
-const day=s=>new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Australia/Sydney'}).format(new Date(s));
 const selected=()=>new URLSearchParams(location.search).get('team')||document.getElementById('nbl-club-picker')?.value||'Sydney Kings';
-function render(events){const team=selected();const items=events.filter(e=>{const cs=e.competitions?.[0]?.competitors||[];return cs.some(c=>norm(c.team?.displayName)===norm(team));}).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
-const finished=items.filter(e=>e.status?.type?.state==='post').length,upcoming=items.filter(e=>e.status?.type?.state==='pre').length;
-root.innerHTML='<h2>Full-season club fixture</h2><p>'+items.length+' sourced games · '+finished+' completed · '+upcoming+' scheduled. Times shown in Sydney local time.</p>'+(items.length?'<div class="nbl-fixture-scroll"><table><thead><tr><th>Date</th><th>Visitor</th><th>Home</th><th>Result</th><th>Arena</th><th>Television</th></tr></thead><tbody>'+items.map(e=>{const c=e.competitions?.[0]||{},v=c.competitors?.find(x=>x.homeAway==='away'),h=c.competitors?.find(x=>x.homeAway==='home'),final=e.status?.type?.state==='post';const dt=new Date(e.date).toLocaleString('en-AU',{timeZone:'Australia/Sydney',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});return '<tr><td>'+esc(dt)+'</td><td>'+esc(v?.team?.displayName||'TBA')+'</td><td>'+esc(h?.team?.displayName||'TBA')+'</td><td>'+(final?esc((v?.score??'—')+'–'+(h?.score??'—')):esc(e.status?.type?.shortDetail||'Scheduled'))+'</td><td>'+esc(c.venue?.fullName||'TBA')+'</td><td>'+esc((c.broadcasts||[]).flatMap(b=>b.names||[]).join(', ')||'TBA')+'</td></tr>'}).join('')+'</tbody></table></div>':'<p>No games matched this club in the current source. Do not interpret this as an empty schedule.</p>')+'<small>ESPN NBL event source. Verify dates, arenas and classifications against <a href="https://schedule.nbl.com.au/nbl" target="_blank" rel="noopener">the NBL official fixture</a>. Events are displayed without silently discarding games.</small>';
+const date=s=>new Date(s).toLocaleString('en-AU',{timeZone:'Australia/Sydney',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+function render(data){
+ const name=selected(),items=data.games.filter(g=>norm(g.home)===norm(name)||norm(g.away)===norm(name));
+ const completed=items.filter(g=>g.state==='post').length,upcoming=items.filter(g=>g.state==='pre').length;
+ const dates=items.sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
+ root.innerHTML='<h2>Full-season club fixture</h2><p>'+items.length+' scheduled games · '+completed+' sourced finals · '+upcoming+' upcoming. '+(items.length===33?'All 33 regular-season fixtures are represented.':'WARNING: The club does not have all 33 required games.')+' Times are Sydney local.</p>'+
+ (items.length?'<div class="nbl-fixture-scroll"><table><thead><tr><th>Date</th><th>Visitor</th><th>Home</th><th>Result</th><th>Arena</th><th>Television</th></tr></thead><tbody>'+dates.map(g=>{
+  const result=g.state==='post'?g.away_score+'–'+g.home_score:(g.state==='in'?'LIVE '+(g.away_score??'')+'–'+(g.home_score??''):'Scheduled');
+  return '<tr><td>'+esc(date(g.date))+'</td><td>'+esc(g.away)+'</td><td>'+esc(g.home)+'</td><td>'+esc(result)+'</td><td>'+esc(g.venue||'TBA')+'</td><td>'+esc(g.broadcasts.join(', ')||'TBA')+'</td></tr>';
+ }).join('')+'</tbody></table></div>':'<p>Club fixtures could not be matched to the published season file.</p>')+
+ '<small>FixtureDownload schedule candidates, with ESPN final-score candidates layered where available. Official NBL fixture-by-fixture certification remains pending. Verify against <a href="https://schedule.nbl.com.au/nbl" target="_blank" rel="noopener noreferrer">the NBL schedule</a>.'+(data.failedDates?' Recent live ESPN checks failed; results may lag.':'')+'</small>';
 }
-async function load(){const responses=await Promise.allSettled(dates.map(async([a,b])=>{const r=await fetch(url+'?dates='+a+'-'+b+'&limit=300',{cache:'no-store'});if(!r.ok)throw Error(r.status);return (await r.json()).events||[];}));let entries=new Map;for(const r of responses)if(r.status==='fulfilled')for(const e of r.value)entries.set(String(e.id),e);if(entries.size){render([...entries.values()]);if(responses.some(r=>r.status==='rejected'))root.insertAdjacentHTML('beforeend','<p>WARNING: One or more source months failed to load, so the displayed season may be incomplete.</p>');}else root.innerHTML='<h2>Full-season club fixture</h2><p>Schedule retrieval unavailable. See <a href="https://schedule.nbl.com.au/nbl" target="_blank" rel="noopener">official NBL schedule</a>.</p>';}
+async function load(){try{
+ if(!window.NBLFullSchedule)throw Error('Fixture library missing');
+ const data=await window.NBLFullSchedule.load();
+ render(data);
+}catch(e){root.innerHTML='<h2>Full-season club fixture</h2><p>Cannot load the stored club fixture: '+esc(e.message)+'. <a href="https://schedule.nbl.com.au/nbl" target="_blank" rel="noopener noreferrer">Official NBL schedule ↗</a></p>';}}
 load();setInterval(load,5*60*1000);
 })();
