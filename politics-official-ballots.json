@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded.",
+  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -97,6 +97,42 @@
       "scope": "statewide_at_large_house_two_qualified_candidates;_withdrawn_republican_excluded",
       "transcription_status": "reviewed",
       "note": "The government list has Sarah McBride and Joseph Arminio marked Qualified; Lee Murphy is Withdrawn and excluded."
+    },
+    {
+      "id": "KY_SOS_2026_GENERAL",
+      "state": "KY",
+      "publisher": "Kentucky Secretary of State",
+      "url": "https://web.sos.ky.gov/CandidateFilings/default.aspx?id=4",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_2026_general_election_candidate_filing_list",
+      "scope": "full_2026_house_snapshot",
+      "transcription_status": "reviewed",
+      "note": "All six House districts; 21 active candidates including qualified write-in filings. Explicit withdrawn/deceased/disqualified list excluded. Source is a government list of general-election filings, not a claim that every active candidate appears printed on the ballot."
+    },
+    {
+      "id": "VA_ELECT_2026_NOV_FEDERAL",
+      "state": "VA",
+      "publisher": "Virginia Department of Elections",
+      "url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "publication_date": "2026-10-06",
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_2026_november_federal_candidate_list",
+      "scope": "full_2026_house_snapshot",
+      "transcription_status": "reviewed",
+      "note": "Government's November federal-office candidate table, last updated October 6, 2026. All 11 House districts."
+    },
+    {
+      "id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "state": "NJ",
+      "publisher": "New Jersey Department of State, Division of Elections",
+      "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-official-general-candidates-us-house-0904.pdf",
+      "publication_date": "2026-09-04",
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_2026_general_election_house_candidate_list",
+      "scope": "full_2026_house_snapshot",
+      "transcription_status": "reviewed",
+      "note": "13-page official Sept. 4 House list, including amended 7th district. All 12 districts, 35 candidates. Where independent petition slogans appear in the party field, preserve the literal election-office designation as ballot_label."
     }
   ],
   "races": [
@@ -1772,6 +1808,157 @@
       "fec_identity_match_certified": false
     },
     {
+      "id": "KY-01",
+      "state": "KY",
+      "office": "H",
+      "district": "01",
+      "source_id": "KY_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "John \"Drew\" Williams",
+          "party": "DEM"
+        },
+        {
+          "name": "James R. Comer",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "KY-02",
+      "state": "KY",
+      "office": "H",
+      "district": "02",
+      "source_id": "KY_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Megan Wingfield",
+          "party": "DEM"
+        },
+        {
+          "name": "S. Brett Guthrie",
+          "party": "REP"
+        },
+        {
+          "name": "Thomas A. Loecken",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "KY-03",
+      "state": "KY",
+      "office": "H",
+      "district": "03",
+      "source_id": "KY_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Morgan McGarvey",
+          "party": "DEM"
+        },
+        {
+          "name": "Maria Teresa Rodriguez",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "KY-04",
+      "state": "KY",
+      "office": "H",
+      "district": "04",
+      "source_id": "KY_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Melissa Claire Strange",
+          "party": "DEM"
+        },
+        {
+          "name": "Ed Gallrein",
+          "party": "REP"
+        },
+        {
+          "name": "Jeremy Todd",
+          "party": "LIB"
+        },
+        {
+          "name": "Peter Harmon Williams",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "KY-05",
+      "state": "KY",
+      "office": "H",
+      "district": "05",
+      "source_id": "KY_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Hal Rogers",
+          "party": "REP"
+        },
+        {
+          "name": "Ned Pillersdorf",
+          "party": "DEM"
+        },
+        {
+          "name": "Billy Ray Wilson",
+          "party": "WRI"
+        },
+        {
+          "name": "Gerardo Serrano",
+          "party": "IND"
+        },
+        {
+          "name": "Mikel Wein",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "KY-06",
+      "state": "KY",
+      "office": "H",
+      "district": "06",
+      "source_id": "KY_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ralph Alvarado",
+          "party": "REP"
+        },
+        {
+          "name": "Zach Dembo",
+          "party": "DEM"
+        },
+        {
+          "name": "Jay J Bowman",
+          "party": "IND"
+        },
+        {
+          "name": "Pete Lynch",
+          "party": "OTH",
+          "ballot_label": "Kentucky Party"
+        },
+        {
+          "name": "Robert Quigley",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
       "id": "MD-01",
       "state": "MD",
       "office": "H",
@@ -2274,6 +2461,551 @@
         },
         {
           "name": "Michael Dublin",
+          "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-01",
+      "state": "NJ",
+      "office": "H",
+      "district": "01",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Donald Norcross",
+          "party": "DEM"
+        },
+        {
+          "name": "Damon Galdo",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-02",
+      "state": "NJ",
+      "office": "H",
+      "district": "02",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Jeff Van Drew",
+          "party": "REP"
+        },
+        {
+          "name": "Zack Mullock",
+          "party": "DEM"
+        },
+        {
+          "name": "Ramon Mora Jr.",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-03",
+      "state": "NJ",
+      "office": "H",
+      "district": "03",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Herb Conaway",
+          "party": "DEM"
+        },
+        {
+          "name": "Michael P. McGuire",
+          "party": "REP"
+        },
+        {
+          "name": "Ryan Michael Kelly",
+          "party": "OTH",
+          "ballot_label": "AFFORDABILITY, ACCOUNTABILITY, PEOPLE"
+        },
+        {
+          "name": "Steven Welzer",
+          "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-04",
+      "state": "NJ",
+      "office": "H",
+      "district": "04",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Christopher H. Smith",
+          "party": "REP"
+        },
+        {
+          "name": "Rachel Peace",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-05",
+      "state": "NJ",
+      "office": "H",
+      "district": "05",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Josh Gottheimer",
+          "party": "DEM"
+        },
+        {
+          "name": "Sean Kirrane",
+          "party": "REP"
+        },
+        {
+          "name": "Adam Rueda",
+          "party": "OTH",
+          "ballot_label": "HUMANE SUSTAINABLE FUTURE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-06",
+      "state": "NJ",
+      "office": "H",
+      "district": "06",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Frank Pallone Jr.",
+          "party": "DEM"
+        },
+        {
+          "name": "Hillary Herzig",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-07",
+      "state": "NJ",
+      "office": "H",
+      "district": "07",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Thomas H. Kean Jr.",
+          "party": "REP"
+        },
+        {
+          "name": "Rebecca Bennett",
+          "party": "DEM"
+        },
+        {
+          "name": "Seamus Patrick O'Toole",
+          "party": "OTH",
+          "ballot_label": "STOP ISRAEL'S GENOCIDE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-08",
+      "state": "NJ",
+      "office": "H",
+      "district": "08",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Rob Menendez",
+          "party": "DEM"
+        },
+        {
+          "name": "Aristotle Eliopoulos",
+          "party": "IND"
+        },
+        {
+          "name": "Craig Honts",
+          "party": "OTH",
+          "ballot_label": "SOCIALIST WORKERS PARTY"
+        },
+        {
+          "name": "Da'Shone Hughey",
+          "party": "OTH",
+          "ballot_label": "WE THE PEOPLE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-09",
+      "state": "NJ",
+      "office": "H",
+      "district": "09",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Nelida Pou",
+          "party": "DEM"
+        },
+        {
+          "name": "Rosie Pino",
+          "party": "REP"
+        },
+        {
+          "name": "Terrisa Bukovinac",
+          "party": "OTH",
+          "ballot_label": "SAVE OUR BABIES"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-10",
+      "state": "NJ",
+      "office": "H",
+      "district": "10",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Lamonica R. McIver",
+          "party": "DEM"
+        },
+        {
+          "name": "Carmen Bucco",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-11",
+      "state": "NJ",
+      "office": "H",
+      "district": "11",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Analilia Mejia",
+          "party": "DEM"
+        },
+        {
+          "name": "Joe Hathaway",
+          "party": "REP"
+        },
+        {
+          "name": "Alan B. Bond",
+          "party": "OTH",
+          "ballot_label": "HOPE FOR TOMORROW"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NJ-12",
+      "state": "NJ",
+      "office": "H",
+      "district": "12",
+      "source_id": "NJ_DOE_2026_GENERAL_HOUSE",
+      "candidates": [
+        {
+          "name": "Adam Hamawy",
+          "party": "DEM"
+        },
+        {
+          "name": "Gregg Mele",
+          "party": "REP"
+        },
+        {
+          "name": "Andres Jinete",
+          "party": "GRE"
+        },
+        {
+          "name": "Winston Jordan",
+          "party": "OTH",
+          "ballot_label": "GET MONEY OUT"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-01",
+      "state": "VA",
+      "office": "H",
+      "district": "01",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Shannon L. Taylor",
+          "party": "DEM"
+        },
+        {
+          "name": "Robert J. \"Rob\" Wittman",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-02",
+      "state": "VA",
+      "office": "H",
+      "district": "02",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Elaine G. Luria",
+          "party": "DEM"
+        },
+        {
+          "name": "Jen A. Kiggans",
+          "party": "REP"
+        },
+        {
+          "name": "Geral D. \"Bishop\" Staten",
+          "party": "IND"
+        },
+        {
+          "name": "J. Matt Baker",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-03",
+      "state": "VA",
+      "office": "H",
+      "district": "03",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Robert C. \"Bobby\" Scott",
+          "party": "DEM"
+        },
+        {
+          "name": "Edwin Rivera, Jr.",
+          "party": "REP"
+        },
+        {
+          "name": "Makiba A. Gaines",
+          "party": "IND"
+        },
+        {
+          "name": "Stephen C. Woll",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-04",
+      "state": "VA",
+      "office": "H",
+      "district": "04",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Jennifer L. McClellan",
+          "party": "DEM"
+        },
+        {
+          "name": "Robert P. \"Family Man\" Murray, Jr.",
+          "party": "REP"
+        },
+        {
+          "name": "Joan E. \"Andrews\" Bell",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-05",
+      "state": "VA",
+      "office": "H",
+      "district": "05",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Tom S. P. Perriello",
+          "party": "DEM"
+        },
+        {
+          "name": "John J. McGuire III",
+          "party": "REP"
+        },
+        {
+          "name": "Cooke C. Harvey",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-06",
+      "state": "VA",
+      "office": "H",
+      "district": "06",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Beth A. Macy",
+          "party": "DEM"
+        },
+        {
+          "name": "Ben L. Cline",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-07",
+      "state": "VA",
+      "office": "H",
+      "district": "07",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Eugene S. Vindman",
+          "party": "DEM"
+        },
+        {
+          "name": "Doug A. Ollivant",
+          "party": "REP"
+        },
+        {
+          "name": "Taner E. Demirci Lopez",
+          "party": "LIB"
+        },
+        {
+          "name": "Alaha Ahrar",
+          "party": "IND"
+        },
+        {
+          "name": "Joshua E. Ertle",
+          "party": "IND"
+        },
+        {
+          "name": "Randall A. Terry",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-08",
+      "state": "VA",
+      "office": "H",
+      "district": "08",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Donald S. Beyer, Jr.",
+          "party": "DEM"
+        },
+        {
+          "name": "Tony A. Sabio",
+          "party": "REP"
+        },
+        {
+          "name": "Shelly M. Arnoldi",
+          "party": "LIB"
+        },
+        {
+          "name": "Tim S. Sharman",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-09",
+      "state": "VA",
+      "office": "H",
+      "district": "09",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Joy A. Powers",
+          "party": "DEM"
+        },
+        {
+          "name": "H. Morgan Griffith",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-10",
+      "state": "VA",
+      "office": "H",
+      "district": "10",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "Suhas Subramanyam",
+          "party": "DEM"
+        },
+        {
+          "name": "Dave T. Beckwith",
+          "party": "REP"
+        },
+        {
+          "name": "Ahsen Mujeeb Malik",
+          "party": "IND"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "VA-11",
+      "state": "VA",
+      "office": "H",
+      "district": "11",
+      "source_id": "VA_ELECT_2026_NOV_FEDERAL",
+      "candidates": [
+        {
+          "name": "James R. Walkinshaw",
+          "party": "DEM"
+        },
+        {
+          "name": "Arthur G. Purves",
+          "party": "REP"
+        },
+        {
+          "name": "Dianne L. Blais",
           "party": "GRE"
         }
       ],
