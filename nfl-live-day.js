@@ -71,7 +71,7 @@ function teamRow(t,state){
 }
 function liveStatus(g){
  if(g.state==="in")return (g.stale?"IN PROGRESS · SNAPSHOT":((g.period>4?"OT":"Q"+g.period)+" · "+(g.clock||"LIVE")));
- if(g.state==="post")return "FINAL";
+ if(g.state==="post")return (Number(g.period)>4||/\b(?:OT|OVERTIME)\b/i.test(g.status||""))?"FINAL/OT":"FINAL";
  return monthDay(g.date);
 }
 function card(g){
@@ -210,7 +210,7 @@ async function gameDetails(){
   const box={...d,__away:str(a?.team?.id||nGame?.away.id),__home:str(h?.team?.id||nGame?.home.id),
    __awayCode:a?.team?.abbreviation||nGame?.away.code||"AWAY",__homeCode:h?.team?.abbreviation||nGame?.home.code||"HOME"};
   const status=match.status||d.header?.competitions?.[0]?.status||{};
-  const state=status.type?.description||status.type?.shortDetail||"Game update";
+  const state=status.type?.state==="post"&&(Number(status.period)>4||/\b(?:OT|OVERTIME)\b/i.test(status.type?.shortDetail||status.type?.description||""))?"FINAL/OT":status.type?.shortDetail||status.type?.description||"Game update";
   const gameLeaders=categoryLeaders(d);
   const leaders=["PASS","RUSH","REC"].map(k=>gameLeaders.filter(p=>p.kind===k).sort((x,y)=>y.value-x.value)[0]).filter(Boolean);
   target.innerHTML='<div class="nfl-live-head"><div><span class="nfl-live-kicker">GAME-DAY TRACKER · IN-GAME STATISTICS</span><h2>'+html(state)+'</h2></div>'+
@@ -234,7 +234,7 @@ function mountContent(){
  const root=document.getElementById("nfl-app");if(!root)return;
  if(page==="game"){
   if(root.querySelector("#nfl-live-game-data"))return;
-  const box=root.querySelector(".nfl-team-head");
+  const box=root.querySelector("#nfl-game-live-slot")||root.querySelector(".nfl-team-head");
   if(!box)return;
   const section=document.createElement("section");section.id="nfl-live-game-data";section.className="nfl-live-details";
   section.innerHTML='<h2>LIVE GAME-DAY TRACKER</h2><p>Loading in-game statistics…</p>';
