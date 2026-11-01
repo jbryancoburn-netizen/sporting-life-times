@@ -1,0 +1,63 @@
+name: Political historical results and benchmark audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_history.py'
+      - 'test_politics_history.py'
+      - '.github/workflows/politics-history.yml'
+  schedule:
+    - cron: '39 10 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: politics-history-release
+  cancel-in-progress: false
+jobs:
+  historical-desk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 11
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit-test historical parsing and calculations
+        run: |
+          python -m py_compile scripts/politics_history.py
+          python -m unittest -v test_politics_history
+      - name: Download four historical House and Senate general elections
+        id: gather
+        continue-on-error: true
+        run: python scripts/politics_history.py
+      - name: Write last-run status and validate output
+        env:
+          INGEST_STATUS: ${{ steps.gather.outcome }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python - <<'PY'
+          import datetime,json,os,pathlib
+          status={'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                  'ingest_status':os.environ['INGEST_STATUS'],'run_id':os.environ['RUN_ID']}
+          pathlib.Path('politics-history-status.json').write_text(json.dumps(status,indent=2)+'\n')
+          d=json.loads(pathlib.Path('politics-history.json').read_text())
+          if d.get('status')=='ok':
+              assert len(d['house'])==4 and len(d['senate'])==4
+              assert d['forecast_2026_certified'] is False
+              assert all(year['contests']>=425 for year in d['house'])
+              assert all(year['contests']>=24 for year in d['senate'])
+              assert len(d['closest_house_2024'])>0
+              assert d['sources']['house'] and d['sources']['senate']
+          print('Historical audit status',status,'published data:',d['status'])
+          PY
+      - name: Publish historical evidence without touching sports pipelines
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-history.json politics-history-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh sourced historical election data and benchmark audit"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
