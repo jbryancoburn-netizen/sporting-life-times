@@ -128,6 +128,13 @@ def main():
              "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json"),
              "ballot_audit":load("politics-ballot-audit.json"),"fec_crosswalk":load("politics-ballot-fec-crosswalk.json"),
              "geography_audit":load("politics-geography-audit.json")})
+    current=load("politics-sim-readiness.json")
+    # An audit timestamp alone is not new evidence. Avoid a fresh Git commit
+    # for every scheduled job when source coverage and all safeguards agree.
+    def evidence_only(entry):return {k:v for k,v in entry.items() if k!="evaluated_at"}
+    if current and evidence_only(current)==evidence_only(d):
+        print("Readiness evidence unchanged; preserve prior audit timestamp",current.get("evaluated_at"))
+        return
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
 if __name__=="__main__":main()

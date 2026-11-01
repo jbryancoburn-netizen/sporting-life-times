@@ -59,7 +59,8 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-historical-archive.json politics-historical-archive-status.json politics-sim-readiness.json
+          git restore --worktree politics-sim-readiness.json
+          git add politics-historical-archive.json politics-historical-archive-status.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh actual 2012–2016 U.S. election return archives"
             for attempt in $(seq 1 12); do

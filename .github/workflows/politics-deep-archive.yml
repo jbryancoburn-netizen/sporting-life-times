@@ -60,7 +60,8 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-deep-history.json politics-deep-history-status.json politics-sim-readiness.json
+          git restore --worktree politics-sim-readiness.json
+          git add politics-deep-history.json politics-deep-history-status.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh real MEDSL 2000–2010 elections (research archive only)"
             for attempt in $(seq 1 12); do

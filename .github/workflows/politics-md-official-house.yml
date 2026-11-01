@@ -14,7 +14,7 @@ on:
       - 'scripts/politics_ballot_audit.py'
       - '.github/workflows/politics-md-official-house.yml'
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: politics-2026-md-house-review
   cancel-in-progress: false
@@ -61,23 +61,3 @@ jobs:
           print('Official MD House roster, FEC diagnostic and independent forecast guard verified')
           PY
           python -m unittest -v test_politics_data_integrity
-      - name: Publish only the audited original research ledger and derived counts
-        if: github.event_name != 'pull_request'
-        run: |
-          git config user.name "sporting-life-times-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-ballot-audit.json politics-ballot-fec-crosswalk.json politics-sim-readiness.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Reconcile official Maryland House ballot evidence with FEC and original model readiness"
-            if [ "$GITHUB_REF_NAME" != "main" ]; then
-              git push origin HEAD:"$GITHUB_REF_NAME"
-              exit 0
-            fi
-            for attempt in $(seq 1 12); do
-              git fetch origin main
-              git rebase origin/main
-              if git push origin HEAD:main; then exit 0; fi
-              sleep 3
-            done
-            exit 1
-          fi

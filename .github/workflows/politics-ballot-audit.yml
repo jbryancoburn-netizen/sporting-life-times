@@ -62,7 +62,8 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-ballot-audit.json politics-sim-readiness.json
+          git restore --worktree politics-sim-readiness.json
+          git add politics-ballot-audit.json
           if ! git diff --cached --quiet; then
             git commit -m "Publish partial official-state ballot evidence with explicit forecast gate"
             for attempt in $(seq 1 12); do
