@@ -4,3 +4,32 @@ body.nba-newspaper[data-page="home"] .nba-pregame-label{font:800 9px/1.2 Arial,s
 body.nba-newspaper[data-page="home"] .nba-pregame-ratings{font:700 10px/1.5 Arial,sans-serif;color:#3d5a67}
 body.nba-newspaper[data-page="home"] .nba-pregame-score{font:800 19px/1.4 'Barlow Condensed',Arial,sans-serif;color:#0e3348}
 body.nba-newspaper[data-page="home"] .nba-pregame-prob{font:700 10px/1.4 Arial,sans-serif;color:#2b617b}
+
+
+/* Hybrid Rabby: compact but meaningful NBA front-page scoring breakdown. */
+body.nba-newspaper[data-page="home"] .nba-pregame{
+ background:#eef3f1!important;border-left:3px solid #155b66;
+}
+body.nba-newspaper[data-page="home"] .nba-pregame-score{
+ font-size:clamp(20px,2.4vw,26px);line-height:1.3;
+ font-variant-numeric:tabular-nums;white-space:normal;
+}
+body.nba-newspaper[data-page="home"] .nba-pregame-breakdown{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:7px;padding:9px 0 7px;margin-top:8px;
+ border-top:1px solid #d0dbd9;
+}
+body.nba-newspaper[data-page="home"] .nba-pregame-breakdown>span{
+ font:600 9px/1.45 'DM Sans',Arial,sans-serif;color:#526b73;min-width:0;
+}
+body.nba-newspaper[data-page="home"] .nba-pregame-breakdown b{
+ display:block;color:#172f36;font:700 15px/1.3 'Barlow Condensed',Arial,sans-serif;
+}
+body.nba-newspaper[data-page="home"] .nba-pregame-source{
+ font:500 9px/1.45 'DM Sans',Arial,sans-serif;color:#687980;
+ margin-top:7px;overflow-wrap:break-word;
+}
+@media(max-width:390px){
+ body.nba-newspaper[data-page="home"] .nba-pregame-breakdown{gap:4px}
+ body.nba-newspaper[data-page="home"] .nba-pregame-breakdown b{font-size:13px}
+}
