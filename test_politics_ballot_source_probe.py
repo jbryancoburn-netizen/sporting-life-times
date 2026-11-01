@@ -4,7 +4,7 @@ import datetime as dt
 import hashlib
 import json
 import unittest
-from scripts.politics_ballot_source_probe import collect, CALIFORNIA_PDF_LIMIT, LIMIT
+from scripts.politics_ballot_source_probe import collect, CALIFORNIA_PDF_LIMIT, CALIFORNIA_CERTIFIED_PDF, LIMIT
 from scripts.politics_ballot_audit import ROOT
 
 class SourceProbeTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class SourceProbeTests(unittest.TestCase):
 
     def fake(self, url):
         return {"http_status": 200, "sha256": hashlib.sha256(url.encode()).hexdigest(),
-                "content_type":"text/html", "content_bytes": 50}
+                "content_type":"application/pdf" if url==CALIFORNIA_CERTIFIED_PDF else "text/html", "content_bytes": 50}
 
     def test_first_probe_keeps_candidates_unchanged_and_uncertified(self):
         d=copy.deepcopy(self.data)
