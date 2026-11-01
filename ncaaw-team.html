@@ -23,7 +23,7 @@ const load=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Er
 if(!id||!/^[0-9]+$/.test(id)){host.innerHTML='<div class="wbb-panel"><h2>Choose a team</h2><a href="ncaam.html?gender=women#wbb-teams">Women’s team directory →</a></div>';return}
 try{
 await window.MBBLogos.ready;
-const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null)]);
+const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null)]);
 const teams=registry.teams||[],lookup=new Map(teams.map(t=>[String(t.team_id),t]));
 const t=lookup.get(id),entry=master.teams?.[id];
 if(!t||!entry)throw Error('No published women’s schedule found for team '+id);
@@ -33,6 +33,7 @@ const rmap=new Map((ratings?.gender==='women'?ratings.rankings||[]:[]).map(x=>[S
 const tvmap=new Map();
 for(const row of scoreboardTV?.gender==='women'&&scoreboardTV?.season==='2026-27'?(scoreboardTV.rows||[]):[]){if(row.game_id&&row.broadcast)tvmap.set(String(row.game_id),row);}
 for(const row of officialTV?.gender==='women'&&officialTV?.season==='2026-27'?(officialTV.rows||[]):[]){if(row.game_id&&row.broadcast&&row.source_url)tvmap.set(String(row.game_id),row);}
+const timeDisputes=new Map(timeConflicts?.season==='2026-27'?(timeConflicts.games||[]).map(x=>[String(x.game_id),x]):[]);
 const fmtElo=x=>x&&Number.isFinite(Number(x.elo))?Math.round(Number(x.elo)).toString():'—';
 const homeEdge=Number(ratings?.parameters?.home_edge)||75;
 const winChance=(ours,theirs,g)=>{if(!ours||!theirs||!Number.isFinite(Number(ours.elo))||!Number.isFinite(Number(theirs.elo)))return '—';const edge=g.site==='home'?homeEdge:g.site==='away'?-homeEdge:0;return (100/(1+Math.pow(10,-((Number(ours.elo)-Number(theirs.elo)+edge)/400)))).toFixed(0)+'%';};
@@ -53,11 +54,17 @@ const rows=sorted.map(g=>{
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const probability=winChance(rating,other,g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();const location=esc(g.venue||'Arena TBA')+(city?'<span class="wbb-location-note">'+esc(city)+'</span>':'');
   const officialTip=g.official_tipoff_local||g.official_tipoff_as_printed||g.official_time_as_printed||g.official_school_time||g.official_time||g.verified_tipoff||'';
-  const tip=officialTip&&!/TBA|TBD/i.test(officialTip)?esc(officialTip):'TBA';
-  const outcome=g.completed&&g.home_score!=null&&g.away_score!=null?
-    (Number(g.site==='away'?g.away_score:g.home_score)>Number(g.site==='away'?g.home_score:g.away_score)?'W ':'L ')+
-    esc(g.site==='away'?g.away_score+'–'+g.home_score:g.home_score+'–'+g.away_score):'—';
-  return '<tr><td>'+date+'</td><td><div class="sched-matchup">'+opponent+'<span class="wbb-site-label">'+esc(site(g))+'</span></div></td><td>'+location+'</td><td>'+tip+'</td><td class="wbb-broadcast">'+television+'</td><td>'+fmtElo(other)+'</td><td class="wbb-forecast">'+probability+'</td><td class="wbb-forecast">'+delta+'</td><td>'+outcome+'</td></tr>';
+  const disputed=timeDisputes.has(String(g.id));
+  const tip=disputed?'Disputed — verify':officialTip&&!/TBA|TBD/i.test(officialTip)?esc(officialTip):'TBA';
+  const tipNote=disputed?'<small class="wbb-muted">Official calendars disagree; event organizer confirmation pending.</small>':'';
+  // Neutral-site opponents still have an actual home/away scoreboard identity.
+  // Using g.site here silently reverses a neutral-site away team's result.
+  const isHome=String(g.home_id)===id,isAway=String(g.away_id)===id;
+  const ours=isHome?Number(g.home_score):isAway?Number(g.away_score):NaN;
+  const theirs=isHome?Number(g.away_score):isAway?Number(g.home_score):NaN;
+  const outcome=g.completed&&g.home_score!=null&&g.away_score!=null&&Number.isFinite(ours)&&Number.isFinite(theirs)?
+    (ours>theirs?'W ':'L ')+esc(ours+'–'+theirs):'—';
+  return '<tr><td>'+date+'</td><td><div class="sched-matchup">'+opponent+'<span class="wbb-site-label">'+esc(site(g))+'</span></div></td><td>'+location+'</td><td>'+tip+tipNote+'</td><td class="wbb-broadcast">'+television+'</td><td>'+fmtElo(other)+'</td><td class="wbb-forecast">'+probability+'</td><td class="wbb-forecast">'+delta+'</td><td>'+outcome+'</td></tr>';
 }).join('');
 host.innerHTML='<section class="wbb-mast"><div class="wbb-identity">'+logo+'<div><div class="eyebrow">The Women’s Team Desk · 2026–27</div><h1>'+esc(t.team)+'</h1><p>'+esc(t.conference||'Conference unverified')+' · NCAA Division I</p></div></div><div class="wbb-nav"><a href="#schedule">Full Schedule</a><a href="#team-notes">Team Notes</a><a href="#roster">Roster & Players</a><a href="ncaam.html?gender=women#wbb-rankings">Women’s Rankings</a><a href="ncaam.html?gender=women#wbb-teams">All 363 Teams</a></div></section>'+
 '<section class="wbb-kpis"><div class="wbb-kpi"><small>Women’s Elo</small><strong>'+esc(rating&&Number.isFinite(Number(rating.elo))?Number(rating.elo).toFixed(0):'—')+'</strong></div><div class="wbb-kpi"><small>Overall Record</small><strong>'+esc(record)+'</strong></div><div class="wbb-kpi"><small>Scheduled Games</small><strong>'+games.length+'</strong></div><div class="wbb-kpi"><small>Home / Away / Neutral</small><strong>'+count('home')+' / '+count('away')+' / '+count('neutral')+'</strong></div></section>'+
