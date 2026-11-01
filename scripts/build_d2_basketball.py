@@ -1066,6 +1066,14 @@ def update(gender, bootstrap=False, live=False):
     gliac_quality=previous_quality.get("official_gliac_schedule_reconciliation")
     if not rapid or not gliac_quality:
         gliac_quality=enrich_gliac(gender,games,teams,today)
+    # Named venues must be tied to a real game on the exact 2026-27
+    # university school grid, never inferred from a host school's usual gym.
+    # Initial source bootstrap runs once, then only the daily source audit;
+    # frequent live-score refreshes consume the existing verified venues.
+    from d2_gliac_venues_official import enrich_gliac_venues
+    gliac_venue_quality=previous_quality.get("official_gliac_university_venue_evidence")
+    if not rapid or not gliac_venue_quality:
+        gliac_venue_quality=enrich_gliac_venues(gender,games,teams)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1130,7 +1138,8 @@ def update(gender, bootstrap=False, live=False):
         "official_cacc_schedule_reconciliation":cacc_quality,
         "official_psac_schedule_reconciliation":psac_quality,
         "official_psac_temporary_home_venues":psac_venue_quality,
-        "official_gliac_schedule_reconciliation":gliac_quality}
+        "official_gliac_schedule_reconciliation":gliac_quality,
+        "official_gliac_university_venue_evidence":gliac_venue_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
