@@ -58,7 +58,9 @@
     }
     if(data.error)throw Error(data.error.message||"Census server error");
     if(data.type!=="FeatureCollection"||!Array.isArray(data.features))throw Error("Unexpected official geographic response");
-    return {features:data.features,field,source:data.meta?.source_url||url.toString(),vintage:missouri?"119th (2024 lines reinstated for 2026)":"120th Congress (2026)"};
+    // The Census may also return ZZ polygons (unassigned water), not voting House seats.
+    const districts=data.features.filter(f=>f.properties?.[field]!=="ZZ");
+    return {features:districts,field,source:data.meta?.source_url||url.toString(),vintage:missouri?"119th (2024 lines reinstated for 2026)":"120th Congress (2026)"};
   }
   function makeInfoNode(id,info){
     const box=document.createElement("div");
