@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-01T22:57:07.244214+00:00",
+  "checked_at_utc": "2026-11-01T23:07:19.247185+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -54,6 +54,19 @@
       "away_id": "san-francisco",
       "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6615630"
+    },
+    {
+      "match_id": "men-6615645",
+      "cohort": "men-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "New Haven",
+      "away_name": "FDU",
+      "home_id": "new-haven",
+      "away_id": "fdu",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6615645"
     },
     {
       "match_id": "men-6615661",
@@ -1892,7 +1905,7 @@
       "match_id": "men-6663245",
       "cohort": "men-d2",
       "status": "live",
-      "home_score": 2,
+      "home_score": 3,
       "away_score": 0,
       "home_name": "CSUSB",
       "away_name": "UC Merced",
@@ -2643,6 +2656,32 @@
       "source_url": "https://www.ncaa.com/game/6664789"
     },
     {
+      "match_id": "men-6664794",
+      "cohort": "men-d2",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 1,
+      "home_name": "Frostburg St.",
+      "away_name": "Salem (WV)",
+      "home_id": "frostburg-st",
+      "away_id": "salem-intl",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6664794"
+    },
+    {
+      "match_id": "men-6664795",
+      "cohort": "men-d2",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Concord",
+      "away_name": "Point Park",
+      "home_id": "concord",
+      "away_id": "point-park",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6664795"
+    },
+    {
       "match_id": "men-6664800",
       "cohort": "men-d2",
       "status": "final",
@@ -3250,7 +3289,7 @@
       "away_name": "Lamar University",
       "home_id": "houston-christian",
       "away_id": "lamar",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6607323"
     },
     {
@@ -3503,14 +3542,14 @@
     {
       "match_id": "women-6607784",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Portland",
       "away_name": "LMU (CA)",
       "home_id": "portland",
       "away_id": "loyola-marymount",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6607784"
     },
     {
@@ -3575,7 +3614,7 @@
       "away_name": "Old Dominion",
       "home_id": "georgia-st",
       "away_id": "old-dominion",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6607874"
     },
     {
@@ -4296,14 +4335,14 @@
     {
       "match_id": "women-6609092",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 2,
       "home_name": "Stanford",
       "away_name": "Notre Dame",
       "home_id": "stanford",
       "away_id": "notre-dame",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6609092"
     },
     {
@@ -4595,14 +4634,14 @@
     {
       "match_id": "women-6609592",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 1,
       "home_name": "Portland St.",
       "away_name": "Eastern Wash.",
       "home_id": "portland-st",
       "away_id": "eastern-wash",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6609592"
     },
     {
@@ -4699,14 +4738,14 @@
     {
       "match_id": "women-6609952",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 2,
       "home_name": "Miami (FL)",
       "away_name": "Florida St.",
       "home_id": "miami-fl",
       "away_id": "florida-st",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6609952"
     },
     {
@@ -5090,7 +5129,7 @@
       "match_id": "women-6612512",
       "cohort": "women-d3",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 0,
       "home_name": "Pacific Lutheran",
       "away_name": "Lewis & Clark",
@@ -5122,7 +5161,7 @@
       "away_name": "Whitworth",
       "home_id": "george-fox",
       "away_id": "whitworth",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6612560"
     },
     {
