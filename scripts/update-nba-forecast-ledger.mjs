@@ -45,22 +45,29 @@ function validate(ledger){
  return true;
 }
 function metrics(ledger){
- const result={};
- for(const phase of ['early','near_tipoff']){
-  const rows=ledger.forecasts.filter(f=>f.phase===phase&&ledger.results[f.id]&&!ledger.exceptions?.[f.id]).map(f=>{
-   const g=ledger.results[f.id],delta=g.home_score-g.away_score,total=g.home_score+g.away_score;
+ // Separate early vs near-tipoff; also partition by immutable model source hash.
+ // A new model version must never inherit the previous version's reputation.
+ const summarize=(forecasts)=>{
+  const rows=forecasts.filter(f=>ledger.results[f.id]&&!ledger.exceptions?.[f.id]).map(f=>{
+   const g=ledger.results[f.id],margin=g.home_score-g.away_score,total=g.home_score+g.away_score;
    return {teams:(Math.abs(g.home_score-f.home_score)+Math.abs(g.away_score-f.away_score))/2,
-    margin:Math.abs(f.margin-delta),total:Math.abs(f.total-total),
+    margin:Math.abs(f.margin-margin),total:Math.abs(f.total-total),
     baseline:Math.abs(f.league_total_baseline-total),
-    brier:(f.home_win_prob-Number(delta>0))**2,
-    winner:Number((f.home_win_prob>=.5)===(delta>0))};
+    brier:(f.home_win_prob-Number(margin>0))**2,
+    winner:Number((f.home_win_prob>=.5)===(margin>0))};
   });
-  const metric=k=>rows.length?round(mean(rows.map(r=>r[k]))):null;
-  result[phase]={sample:rows.length,team_score_mae:metric('teams'),
-   total_mae:metric('total'),margin_mae:metric('margin'),
-   league_total_baseline_mae:metric('baseline'),
-   elo_brier:metric('brier'),elo_winner_accuracy:metric('winner')};
- }
+  const x=k=>rows.length?round(mean(rows.map(r=>r[k]))):null;
+  return {sample:rows.length,team_score_mae:x('teams'),margin_mae:x('margin'),
+   total_mae:x('total'),league_total_baseline_mae:x('baseline'),
+   elo_brier:x('brier'),elo_winner_accuracy:x('winner')};
+ };
+ const phases=['early','near_tipoff'],result={};
+ for(const phase of phases)result[phase]=summarize(ledger.forecasts.filter(f=>f.phase===phase));
+ const versions=[...new Set(ledger.forecasts.map(f=>f.model_version))].sort();
+ result.by_model_version=Object.fromEntries(versions.map(version=>[version,{
+  forecasts:ledger.forecasts.filter(f=>f.model_version===version).length,
+  ...Object.fromEntries(phases.map(phase=>[phase,summarize(ledger.forecasts.filter(f=>f.phase===phase&&f.model_version===version))]))
+ }]));
  return result;
 }
 function updateLedger(previous,sources,now=new Date().toISOString()){
