@@ -2,7 +2,7 @@ import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mbb_player_boxscores import parse_boxscore,aggregate
-from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck
+from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard
 class Ingestion(unittest.TestCase):
  def test_boxscore_and_replay(self):
   data={'boxscore':{'players':[{'team':{'id':'1'},'statistics':[{'labels':['PTS','REB','AST','FG','FT','STL','BLK'],'athletes':[{'athlete':{'id':'8','displayName':'A Player'},'stats':['20','5','3','7-14','4-5','2','1']},{'didNotPlay':True}]}]}]}}
@@ -37,4 +37,36 @@ class Ingestion(unittest.TestCase):
   rows,missed=parse_ncaa_crosscheck(official,[],cross,'2026-11-03')
   self.assertEqual(rows,[])
   self.assertEqual(missed,1)
+ def test_womens_official_news_feed_is_tagged_wbb(self):
+  rss=b'<rss><channel><item><title>Women basketball</title><link>https://www.ncaa.com/story</link><pubDate>Sun, 01 Nov 2026 12:00:00 GMT</pubDate></item></channel></rss>'
+  parsed=parse_rss(rss,'NCAA Women','WBB')
+  self.assertEqual(len(parsed),1)
+  self.assertEqual(parsed[0]['category'],'WBB')
+  self.assertEqual(parsed[0]['source'],'NCAA Women')
+ def test_ncaa_relay_is_not_independent_confirmation(self):
+  urls=[]
+  def fetched(url):
+   urls.append(url)
+   return b'{"games":[{"game":{"gameID":"123"}}]}'
+  data,info=fetch_ncaa_scoreboard('basketball-men','2026-11-01',fetcher=fetched)
+  self.assertEqual(len(data['games']),1)
+  self.assertEqual(len(urls),1)
+  self.assertTrue(urls[0].startswith('https://ncaa-api.henrygd.me/scoreboard/basketball-men/d1/2026/11/01'))
+  self.assertEqual(info['provider'],'NCAA.com via third-party relay')
+  self.assertFalse(info['independent_second_publisher'])
+ def test_ncaa_direct_fallback_is_clearly_labeled(self):
+  urls=[]
+  def fetched(url):
+   urls.append(url)
+   if 'henrygd.me' in url:raise OSError('relay down')
+   return b'{"games":[]}'
+  data,info=fetch_ncaa_scoreboard('basketball-women','2026-11-02',fetcher=fetched)
+  self.assertEqual(data['games'],[])
+  self.assertEqual(len(urls),2)
+  self.assertEqual(info['provider'],'NCAA.com direct (legacy)')
+  self.assertEqual(info['attempted'][0]['error'],'OSError')
+ def test_ncaa_unavailable_is_never_faked(self):
+  def fetched(url):return b'{"error":"outage"}'
+  with self.assertRaises(ValueError):
+   fetch_ncaa_scoreboard('basketball-men','2026-11-01',fetcher=fetched)
 if __name__=='__main__':unittest.main()
