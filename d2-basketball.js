@@ -37,7 +37,7 @@ function game(g,includeLink=true){
  const hasProbability=Number.isFinite(probability)&&probability>=0&&probability<=100;
  const formatChange=v=>(Number(v)>0?'+':'')+Number(v).toFixed(1);
  const odds=hasProbability?'<div class="forecast-strip" aria-label="Experimental USRS projected win probabilities">'+
- '<div class="forecast-label"><span>USRS MATCHUP · EXPERIMENTAL</span><small>Uncalibrated DII coefficients</small></div>'+
+ '<div class="forecast-label"><span>USRS MATCHUP · EXPERIMENTAL</span><small>'+(state.data?.model?.calibrated?'2025–26 NCAA historical fit':'Uncalibrated DII coefficients')+'</small></div>'+
  '<div class="forecast-values"><strong>'+esc((100-probability).toFixed(1))+'% <small>'+esc(away.name)+'</small></strong>'+
  '<strong>'+esc(probability.toFixed(1))+'% <small>'+esc(home.name)+'</small></strong></div>'+
  '<div class="forecast-meter" aria-hidden="true"><span style="width:'+esc(probability.toFixed(1))+'%"></span></div>'+
@@ -77,7 +77,7 @@ date.value=gameDates[i];showDate();updateNav();});
 date.addEventListener('change',updateNav);updateNav();
 const ranked=teams.filter(t=>!t.not_eligible_for_dii_elo&&(t.w||0)+(t.l||0)>0).sort((a,b)=>b.elo-a.elo||b.w-a.w||a.name.localeCompare(b.name));
 const hasGames=finals.length>0;
-$('elo-note').textContent=(hasGames?'Early-season ratings from verified Division II finals; provisional model calibration.':'Every program began at Elo 1500; no artificial carryover or rankings before verified games.')+' · Home edge '+(d.model?.home_elo_edge??'TBA')+' · K '+(d.model?.k??'TBA')+' · '+(d.model?.status||'Calibration pending')+'.';
+$('elo-note').textContent=(hasGames?'Early-season ratings from verified Division II finals; see model calibration status below.':'Every program began at Elo 1500; no artificial carryover or rankings before verified games.')+' · Home edge '+(d.model?.home_elo_edge??'TBA')+' · K '+(d.model?.k??'TBA')+' · '+(d.model?.status||'Calibration pending')+'.';
 $('elo-board').innerHTML=(hasGames?'<div class="board-row board-header"><span>#</span><span></span><span>SCHOOL</span><span>W–L</span><span>PCT</span><span>ELO</span></div>'+ranked.slice(0,30).map((t,i)=>row(t,i)).join(''):'<div class="note">No power order until eligible games are completed.</div>');
 function directory(q){const found=teams.filter(t=>(t.name+' '+label(t)).toLowerCase().includes(q));$('team-directory').innerHTML=found.length?found.map((t,i)=>row(t,i,false)).join(''):'<div class="note">No teams match the search or the registry has not yet been verified.</div>'}
 $('team-search').addEventListener('input',e=>directory(e.target.value.trim().toLowerCase()));directory('');
@@ -130,7 +130,7 @@ function renderGame(d){
  '<div class="gamefile-score">'+game(g,false)+'</div><div class="gamefile-grid">'+
  '<section class="gamefile-box"><h2>THE USRS MODEL</h2><div class="gamefile-facts"><div><small>AWAY PREGAME ELO</small><strong>'+esc(fmt(g.pregame_elo_away))+'</strong></div><div><small>HOME PREGAME ELO</small><strong>'+esc(fmt(g.pregame_elo_home))+'</strong></div></div>'+
  '<p>'+(pregame?'Pre-game win chances: <b>'+esc((100-g.pred_home_pct).toFixed(1))+'%</b> '+name(away)+'; <b>'+esc(g.pred_home_pct.toFixed(1))+'%</b> '+name(home)+'.':'No evidence-backed win estimate.')+'</p>'+
- '<p class="muted">Independent 1500-start Elo. Home edge: '+esc(g.neutral?'none (neutral site)':d.model?.home_elo_edge??'unavailable')+' · K: '+esc(d.model?.k??'unavailable')+'. <b>Division II parameters are provisional, not historically calibrated.</b></p></section>'+
+ '<p class="muted">Independent 1500-start Elo. Home edge: '+esc(g.neutral?'none (neutral site)':d.model?.home_elo_edge??'unavailable')+' · K: '+esc(d.model?.k??'unavailable')+'. <b>'+(d.model?.calibrated?'Parameters fitted on official 2025–26 NCAA Division II finals; season Elo reset remains 1500.':'Division II parameters are provisional, not historically calibrated.')+'</b></p></section>'+
  '<section class="gamefile-box"><h2>GAME INTELLIGENCE</h2><p><b>Tipoff:</b> '+esc(g.start_time||'Unconfirmed')+'<br><b>Arena:</b> '+esc(g.venue||'Unconfirmed')+
  (g.venue_city?'<br><b>Published location:</b> '+esc(g.venue_city):'')+
  '<br><b>Network / stream:</b> '+esc(g.network||'Not verified')+
