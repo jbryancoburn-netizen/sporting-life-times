@@ -194,7 +194,7 @@ function home(){
      '<div class="nfl-p26-feature-top"><span class="nfl-p26-hero-identity">FEATURED MATCHUP <small>· WEEK '+escapeHtml(g.week)+'</small></span>'+
      '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
      (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
-     '<div class="nfl-p26-score-stage nfl-p26-box-score">'+
+     '<div class="nfl-p26-score-stage nfl-p26-box-score" style="--nfl-away-color:'+escapeHtml(a.color||'#22344b')+';--nfl-away-accent:'+escapeHtml(a.secondary_color||'#d6ad4b')+';--nfl-home-color:'+escapeHtml(h.color||'#22344b')+';--nfl-home-accent:'+escapeHtml(h.secondary_color||'#d6ad4b')+'">'+
        '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(a.color||'#14283a')+';--nfl-box-alt:'+escapeHtml(a.secondary_color||'#d1ad4b')+'">'+
          '<div class="nfl-p26-box-row">'+crest(a,'lg')+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(a.name)+' score">'+(pre?'—':format(g.away.score))+'</strong></div>'+
