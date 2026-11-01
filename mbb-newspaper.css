@@ -141,3 +141,39 @@
 .mbb-schedule-table tr[hidden]{display:none}
 .sched-opponent strong a{color:inherit;text-decoration:none}
 .sched-opponent strong a:hover,.sched-opponent strong a:focus-visible{text-decoration:underline}
+
+/* SLT college desk · accurate clean-slate presentation.
+   Do not assign visual first place to alphabetically first schools when all are tied. */
+.hero-art--preseason{display:flex!important;flex-direction:column!important;justify-content:center!important;
+ align-items:stretch!important;gap:0!important;border-radius:0!important;
+ padding:25px 27px!important;background:linear-gradient(145deg,#163e49,#0a2b37)!important;
+ border:1px solid rgba(233,218,181,.47)!important}
+.hero-slate{max-width:100%;min-width:0}
+.hero-slate-dash{font:900 10px/1.3 Arial,sans-serif;letter-spacing:2px;color:#eed4a3;
+ padding-bottom:14px;border-bottom:1px solid rgba(239,219,177,.3)}
+.hero-slate-number{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ column-gap:15px;align-items:baseline;padding:22px 0 10px}
+.hero-slate-number strong{font:900 clamp(38px,5vw,58px)/1 'Barlow Condensed',Impact,Arial,sans-serif;
+ color:#fff8e8;letter-spacing:-.4px;grid-row:1}
+.hero-slate-number strong:nth-of-type(2){color:#eed19c}
+.hero-slate-number span{font:800 9px/1.3 Arial,sans-serif;letter-spacing:1.25px;color:#a8c5ca;
+ grid-row:2;padding-top:3px}
+.hero-slate p{font:400 16px/1.48 Georgia,'Times New Roman',serif;color:#e4efec!important;margin:9px 0 16px}
+.hero-slate>small{display:block;font:800 10px/1.55 Arial,sans-serif;color:#b7d1d6;letter-spacing:.3px;
+ border-top:1px solid rgba(210,227,225,.2);padding-top:13px}
+.hero-rated-caption{grid-column:1/-1;font:800 10px Arial,sans-serif;color:#f4cf94;letter-spacing:1.4px;
+ text-align:center;padding:10px 0 3px}
+.mbb-clean-slate{margin:8px 0 14px;padding:18px 20px;border:1px solid #ccdad9;border-left:4px solid #b6965d;
+ background:#f6f7f2;display:grid;gap:3px;max-width:100%}
+.mbb-clean-slate>span{font:900 10px Arial,sans-serif;letter-spacing:1.4px;color:#546e72}
+.mbb-clean-slate>strong{font:900 clamp(39px,5vw,51px)/1 'Barlow Condensed',Impact,Arial,sans-serif;
+ color:#123b48}
+.mbb-clean-slate>p{font:400 13px/1.45 Georgia,'Times New Roman',serif;color:#41606a;margin:2px 0 7px}
+.mbb-clean-slate>a{font:800 11px Arial,sans-serif;color:#136173;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:700px){
+ .hero-art--preseason{padding:19px 18px!important}
+ .hero-slate-number{padding:15px 0 8px}
+ .hero-slate-number strong{font-size:46px}
+ .hero-slate p{font-size:15px}
+ .mbb-clean-slate{padding:14px}
+}
