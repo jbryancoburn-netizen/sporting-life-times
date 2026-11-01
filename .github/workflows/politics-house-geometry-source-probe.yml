@@ -1,0 +1,40 @@
+name: Temporary 2026 Census House district geometry inspection
+on:
+  workflow_dispatch:
+  push:
+    branches: [politics-house-census-district-shapes-20261101]
+    paths: ['.github/workflows/politics-house-geometry-source-probe.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -q pyshp==2.3.1
+      - name: Check district boundaries, field formats and Missouri fallback
+        run: |
+          python - <<'PY'
+          import io,urllib.request,zipfile,hashlib,shapefile
+          docs={
+             'FL_2026':'https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_12_cd120.zip',
+             'WY_2026':'https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_56_cd120.zip',
+             'MO_2025_119':'https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_29_cd119.zip',
+             'MO_2026_STALE':'https://www2.census.gov/geo/tiger/TIGER2026/CD/tl_2026_29_cd120.zip',
+          }
+          for key,url in docs.items():
+              q=urllib.request.Request(url,headers={'User-Agent':'Political-Life-and-Times/1.0 original-Census-geography'})
+              with urllib.request.urlopen(q,timeout=40) as f:b=f.read(8_000_001)
+              if len(b)>8_000_000:raise ValueError('Oversized Census zip')
+              z=zipfile.ZipFile(io.BytesIO(b)); files=z.namelist()
+              shp=next(x for x in files if x.endswith('.shp')); stem=shp[:-4]
+              reader=shapefile.Reader(shp=io.BytesIO(z.read(stem+'.shp')),shx=io.BytesIO(z.read(stem+'.shx')),dbf=io.BytesIO(z.read(stem+'.dbf')))
+              print('ORIGINAL',key,'ZIP_SIZE',len(b),'SHA',hashlib.sha256(b).hexdigest(),'SHAPES',len(reader),'DBF_FIELDS',[f[0] for f in reader.fields[1:]])
+              for record in list(reader.iterShapeRecords())[:2]:
+                  v=record.shape
+                  print('EXAMPLE',key,str(record.record.as_dict())[:500],'PARTS',len(v.parts),'POINTS',len(v.points))
+          PY
