@@ -413,6 +413,12 @@ from mbb_apply_reviewed_announcements import execute as apply_reviewed_announcem
 reviewed_result = apply_reviewed_announcements()
 print(json.dumps({'reviewed_official_announcements':reviewed_result['summary']}, indent=2))
 
+# Repair mismatched opponent IDs only when both independent university
+# schedules uniquely verify the same date and the original source opponent.
+from mbb_verified_opponent_identity_repair import run as repair_school_opponent_identities
+identity_result = repair_school_opponent_identities()
+print(json.dumps({'verified_opponent_identity_repair':identity_result['summary']}, indent=2))
+
 # The game-coverage audit is read-only. Missing counterpart fixtures must be
 # confirmed independently before any new game ID or calendar entry is created.
 from mbb_reciprocal_game_gap_audit import run as audit_reciprocal_game_gaps
