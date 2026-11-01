@@ -469,3 +469,11 @@ body[data-house-page=state] .infographic-cta{font:900 11px/1.3 'DM Sans',sans-se
  body[data-house-page=state] .district-card-infographic .infographic-candidate-field{padding:15px 17px}
  body[data-house-page=state] .infographic-figures b{font-size:31px}
 }
+
+
+/* Reading guide sits above graphics without becoming another oversized notice. */
+body[data-house-page="state"] .infographic-editorial-note{
+ display:block;margin:10px 0 1px;padding:11px 14px;border-left:4px solid #4c777b;
+ color:#49636a;background:#e9eeea;font:500 11px/1.55 'DM Sans',sans-serif
+}
+body[data-house-page="state"] .infographic-editorial-note strong{color:#213d45;font-weight:800}
