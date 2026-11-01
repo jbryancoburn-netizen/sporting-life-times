@@ -1074,6 +1074,13 @@ def update(gender, bootstrap=False, live=False):
     gliac_venue_quality=previous_quality.get("official_gliac_university_venue_evidence")
     if not rapid or not gliac_venue_quality or gliac_venue_quality.get("canonical_matching_version")!=2:
         gliac_venue_quality=enrich_gliac_venues(gender,games,teams)
+    # RMAC: 30 official 2026-27 university calendars (15 per gender).
+    # Only date + home/away + independently corroborating BOTH school pages
+    # may publish a conference fixture; no guessed Mountain/Central times.
+    from d2_rmac_official import enrich_rmac
+    rmac_quality=previous_quality.get("official_rmac_schedule_reconciliation")
+    if not rapid or not rmac_quality:
+        rmac_quality=enrich_rmac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1139,7 +1146,8 @@ def update(gender, bootstrap=False, live=False):
         "official_psac_schedule_reconciliation":psac_quality,
         "official_psac_temporary_home_venues":psac_venue_quality,
         "official_gliac_schedule_reconciliation":gliac_quality,
-        "official_gliac_university_venue_evidence":gliac_venue_quality}
+        "official_gliac_university_venue_evidence":gliac_venue_quality,
+        "official_rmac_schedule_reconciliation":rmac_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
