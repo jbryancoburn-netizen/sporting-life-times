@@ -267,27 +267,62 @@ def conference_schedule_fixtures(root, day):
 
 
 def women_school_fixtures(root, day):
-    """Only independently checked women's fixture IDs and dates, not inferred scores."""
+    """Use school-published women's game verifications, never an inferred score.
+
+    The three independent school-verification batches contain school-specific
+    date, opponent and venue checks. They are indexed by the existing ESPN
+    game ID ONLY when the university source and team pair agree. This is
+    evidence for a published FIXTURE, never a final or live score.
+    """
     evidence = {}
-    for name in ('ncaaw-2026-27-official-schedule-verifications.json',
-                 'ncaaw-2026-27-additional-official-evidence.json'):
-        path = root/'data'/name
-        if not path.exists():
-            continue
-        doc = json.loads(path.read_text())
+    base = root/'data'
+    source_files = (
+        'ncaaw-2026-27-official-schedule-verifications.json',
+        'ncaaw-2026-27-additional-official-evidence.json',
+        'ncaaw-official-school-verification-batch-01.json',
+        'ncaaw-official-school-verification-batch-02.json',
+        'ncaaw-official-school-verification-batch-03.json',
+    )
+    for filename in source_files:
+        doc = json.loads((base/filename).read_text())
+        if doc.get('season') != '2026-27' or doc.get('gender') != 'women':
+            raise ValueError('Unexpected women schedule ledger: '+filename)
         for row in doc.get('rows', []):
             gid = str(row.get('game_id') or '')
-            recorded = str(row.get('verified_date') or '')
+            recorded = str(row.get('date') or row.get('verified_date') or '')
             if not gid.isdigit() or recorded not in (day, day[5:]):
                 continue
             url = row.get('source_url')
             if not isinstance(url, str) or not url.startswith('https://'):
                 continue
-            record = evidence.setdefault(gid, set())
-            record.add(url)
-    return [{'espn_id':gid,'source_urls':sorted(urls)}
-            for gid, urls in evidence.items()]
-
+            reporter = str(row.get('team_id') or '')
+            other = str(row.get('opponent_id') or '')
+            verified = set(row.get('verified_fields') or [])
+            if filename.startswith('ncaaw-official-school-verification-batch-'):
+                if not (reporter.isdigit() and other.isdigit() and reporter != other and
+                        {'local_game_date','opponent_id'}.issubset(verified)):
+                    continue
+            pair = tuple(sorted((reporter,other), key=int)) if (
+                reporter.isdigit() and other.isdigit() and reporter != other) else None
+            entry = evidence.setdefault(gid, {'urls':set(),'schools':set(),
+                                                'pairs':set()})
+            entry['urls'].add(url)
+            if reporter.isdigit():
+                entry['schools'].add(reporter)
+            if pair:
+                entry['pairs'].add(pair)
+    rows = []
+    for gid,entry in evidence.items():
+        # The same ESPN game ID with contradictory university opponent pairs
+        # is unsafe to certify; discard it until the master ledger is audited.
+        if len(entry['pairs']) > 1:
+            continue
+        item={'espn_id':gid,'source_urls':sorted(entry['urls'])[:4],
+              'school_confirmations':len(entry['schools'])}
+        if entry['pairs']:
+            item['team_ids']=list(next(iter(entry['pairs'])))
+        rows.append(item)
+    return rows
 
 def main():
     now=dt.datetime.now(dt.timezone.utc).isoformat();old=json.loads(OUT.read_text()) if OUT.exists() else {}
