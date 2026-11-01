@@ -142,7 +142,7 @@ function home(){
  const allFinals=games.filter(g=>g.state==='post').slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
  const future=nextGames.filter(g=>!slate.some(s=>s.id===g.id)).slice(0,5);
  const model=feed.model||{},coverage=feed.coverage||{};
- const status=g=>g.state==='in'?('LIVE · '+(g.period>4?'OT':'Q'+(g.period||'?'))+' '+(g.clock||'')):g.state==='post'?'FINAL':date(g.date);
+ const status=g=>g.state==='in'?((g.period>4?'OT':'Q'+(g.period||'?'))+' '+(g.clock||'')):g.state==='post'?'FINAL':date(g.date);
  const points=g=>g.state==='pre'?null:g;
  const rec=t=>t&&t.w!=null?t.w+'–'+t.l+(t.t?'–'+t.t:''):'';
  const kickoff=g=>g.broadcast||g.venue||date(g.date);
@@ -159,16 +159,26 @@ function home(){
    '<div class="nfl-p26-score-bottom">'+escapeHtml(g.state==='pre'?date(g.date)+(g.broadcast?' · '+g.broadcast:''):g.broadcast||g.last_play||g.venue||'Game center →')+'</div></a>';
  }
  function featurePeriod(g){
-   const a=g.away.linescores||[],h=g.home.linescores||[],total=Math.min(5,Math.max(a.length,h.length));
+   const a=g.away.linescores||[],h=g.home.linescores||[],total=Math.min(5,Math.max(4,a.length,h.length));
    if(g.state==='pre'||total===0)return '';
    let out='<div class="nfl-p26-period-rail" aria-label="Quarter by quarter scoring"><span class="nfl-p26-period-label">SCORING</span>';
    for(let i=0;i<total;i++){
-     const name=i===4?'OT':'Q'+(i+1);
+     const name=i>=4?'OT'+(i===4?'':i-3):'Q'+(i+1);
      const av=a[i]&&a[i].score!=null?format(a[i].score):'—';
      const hv=h[i]&&h[i].score!=null?format(h[i].score):'—';
-     out+='<span class="nfl-p26-period"><small>'+name+'</small><strong>'+av+'<i>:</i>'+hv+'</strong></span>';
+     out+='<span class="nfl-p26-period'+(g.state==='in'&&Number(g.period)===i+1?' active':'')+'"><small>'+name+'</small><strong>'+av+'<i>–</i>'+hv+'</strong></span>';
    }
    return out+'</div>';
+ }
+ function featureTicker(g){
+  const tAway=team(g.away.id),tHome=team(g.home.id),pre=g.state==='pre';
+  const tstate=g.state==='in'?(g.period>4?'OT':'Q'+(g.period||'?'))+' '+(g.clock||''):
+    g.state==='post'?'FINAL':date(g.date);
+  const label=pre?'–':format(g.away.score)+'–'+format(g.home.score);
+  return '<a class="nfl-p26-ticker-game'+(g.state==='in'?' is-live':'')+'" href="'+urlGame(g.id)+'" aria-label="'+escapeHtml(tAway.name+' at '+tHome.name+', '+tstate)+'">'+
+    '<span class="nfl-p26-ticker-logos">'+crest(tAway,'sm')+crest(tHome,'sm')+'</span>'+
+    '<span class="nfl-p26-ticker-text"><b>'+escapeHtml(tAway.code)+' @ '+escapeHtml(tHome.code)+'</b><small>'+escapeHtml(tstate)+'</small></span>'+
+    '<strong>'+label+'</strong></a>';
  }
  function featuredMatch(g){
    if(!g)return '<div class="nfl-p26-feature"><div class="nfl-p26-feature-top"><b>GAME OF THE MOMENT</b></div><p>Verified game details are temporarily unavailable.</p></div>';
@@ -194,7 +204,8 @@ function home(){
      '</div>'+
      '<div class="nfl-p26-hero-context"><span class="nfl-p26-eyebrow">'+escapeHtml(stateLabel)+'</span>'+
        '<span>'+escapeHtml(g.venue||g.city||'NFL regular season')+(g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</span></div>'+
-     featurePeriod(g);
+     featurePeriod(g)+
+     (g.state==='in'||g.state==='post'?'<div class="nfl-p26-feature-stats" id="nfl-feature-stats" data-game="'+escapeHtml(g.id)+'" hidden></div>':'');
    if(pre&&homePct!=null){
       const pct=Math.max(0,Math.min(100,Number(homePct)*100));
       out+='<div class="nfl-p26-hero-projection"><span class="nfl-p26-eyebrow">USRS PREGAME ODDS</span><b>'+escapeHtml(a.code)+' '+format(100-pct)+'%</b>'+
@@ -235,10 +246,11 @@ function home(){
  out+='<div class="nfl-p26-topline"><div class="nfl-p26-live-ident">'+(live.length?'<i class="nfl-p26-red-dot" aria-hidden="true"></i>':'')+
    '<span>'+(live.length?live.length+' GAMES LIVE':'THE GAME-DAY REPORT')+'</span></div>'+
    '<span class="nfl-p26-sub">LIVE UPDATES · EASTERN TIME · <a href="nfl-game-center.html">OPEN FULL GAME CENTER ↗</a></span></div>';
+ out+='<div class="nfl-p26-ticker" role="region" aria-label="NFL live scores" tabindex="0"><div class="nfl-p26-ticker-track">'+shown.map(featureTicker).join('')+'</div></div>';
  out+='<div class="nfl-p26-hero">'+featuredMatch(featured)+
    '<aside class="nfl-p26-focus-rail"><span class="nfl-p26-eyebrow nfl-p26-red">AROUND THE LEAGUE</span>'+
    '<h3>'+(live.length?'LIVE ELSEWHERE':'MORE MATCHUPS')+'</h3>'+
-   '<p class="nfl-p26-focus-deck">The rest of the action, one tap away.</p>'+
+   '<p class="nfl-p26-focus-deck">Scores and kickoff times.</p>'+
    '<div class="nfl-p26-focus-list">'+(other.length?other.map(focusRow).join(''):
    '<p class="nfl-p26-faint">See the full slate and upcoming kickoffs in Game Center.</p>')+'</div>'+
    '<div class="nfl-p26-rail-link"><a href="nfl-game-center.html">EVERY NFL GAME →</a></div></aside></div>';
@@ -462,13 +474,64 @@ target.innerHTML=relevant.length?'<div class="nfl-news">'+relevant.map(a=>'<arti
 catch(e){target.innerHTML=note("Headline feed unavailable; game scores and model data remain independent.");}
 }
 
+// The summary endpoint supplies sourced in-game statistics while the season Elo ledger remains untouched.
+let nflFeatureBoxRequestAt={},nflFeatureBoxCache={},nflFeatureBoxInflight={};
+function featureStatView(gameId,box){
+ const g=games.find(x=>x.id===gameId),target=document.getElementById('nfl-feature-stats');
+ if(!g||!target||target.getAttribute('data-game')!==gameId||!box)return;
+ const away=(box.teams||{})[g.away.id]||{},home=(box.teams||{})[g.home.id]||{};
+ const types=[['YARDS','totalYards'],['1ST DOWNS','firstDowns'],['TURNOVERS','turnovers']];
+ const lines=types.filter(([_,key])=>away[key]!=null&&home[key]!=null);
+ if(!lines.length)return;
+ target.hidden=false;
+ target.innerHTML='<div class="nfl-p26-live-stats-head"><strong>LIVE TEAM COMPARISON</strong><span>'+escapeHtml(team(g.away.id).code)+' / '+escapeHtml(team(g.home.id).code)+'</span></div>'+
+ '<div class="nfl-p26-live-stats-row">'+lines.map(([label,key])=>
+ '<div class="nfl-p26-live-stat"><b>'+format(away[key])+' <i>–</i> '+format(home[key])+'</b><span>'+label+'</span></div>').join('')+'</div>';
+}
+async function featuredLiveStats(){
+ const target=document.getElementById('nfl-feature-stats');
+ if(!target||!liveFeed)return;
+ const id=target.getAttribute('data-game');
+ if(!id||!games.some(g=>g.id===id&&['in','post'].includes(g.state)))return;
+ const age=Date.now()-Date.parse(liveFeed.updated_at);
+ if(age>=0&&age<150000&&(liveFeed.boxes||{})[id]){
+   featureStatView(id,liveFeed.boxes[id]);return;
+ }
+ const previous=nflFeatureBoxCache[id];
+ if(previous&&Date.now()-previous.at<75000){featureStatView(id,previous.box);return;}
+ if(nflFeatureBoxInflight[id]||Date.now()-(nflFeatureBoxRequestAt[id]||0)<45000)return;
+ nflFeatureBoxRequestAt[id]=Date.now();nflFeatureBoxInflight[id]=true;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),7000);
+ try{
+  const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event='+encodeURIComponent(id),
+    {cache:'no-store',signal:controller.signal});
+  if(!response.ok)throw Error('Summary source offline');
+  const json=await response.json();
+  const out={teams:{}};
+  for(const t of (json.boxscore?.teams||[])){
+    const tid=String(t.team?.id||'');
+    if(!tid)continue;
+    const stats={};
+    for(const s of (t.statistics||[])){
+     const key=String(s.name||''),val=String(s.displayValue??'').replace(/,/g,'');
+     if(key&&/^-?\d+(?:\.\d+)?$/.test(val))stats[key]=Number(val);
+    }
+    out.teams[tid]=stats;
+  }
+  const g=games.find(x=>x.id===id);
+  if(!g||!out.teams[g.away.id]||!out.teams[g.home.id])return;
+  nflFeatureBoxCache[id]={box:out,at:Date.now()};
+  featureStatView(id,out);
+ }catch(_){/* Never invent missing game statistics. */}
+ finally{clearTimeout(timer);delete nflFeatureBoxInflight[id];}
+}
 function renderNFL(){
  const screens={front:home,standings:standings,rankings:rankings,players:players,schedule:schedule,games:gameCenter,team:teamPage,game:gamePage,playoffs:playoffs};
  root.innerHTML=(screens[page]||home)();
  let stamp="Verified NFL season ledger · "+date(feed.updated_at)+" · "+feed.coverage.games+" fixtures · "+feed.coverage.finals+" finals · "+feed.coverage.boxscores+" boxes";
  if(liveFeed)stamp+=" · "+(Date.now()-new Date(liveFeed.updated_at).getTime()<600000?"LIVE SCORES":"LIVE FEED DELAYED")+" "+date(liveFeed.updated_at)+" ("+liveSource+")";
  document.getElementById("nfl-stamp").textContent=stamp;
- if(page==="front")news();
+ if(page==="front"){news();featuredLiveStats();}
  if(page==="team")roster();
  if(page==="game")gameBox();
  const wk=document.getElementById("nfl-week");if(wk)wk.onchange=()=>location.href="nfl-schedule.html?week="+encode(wk.value);
@@ -514,6 +577,8 @@ async function refreshLive(){
   catch(e){/* A CORS-blocked direct source must not break the published paper. */}
  }
  if(!incoming||incoming.season!==2026||!Array.isArray(incoming.games))return;
+ // Do not present an hours-old snapshot as current live action if the direct source fails.
+ if(Date.now()-Date.parse(incoming.updated_at)>600000)return;
  const canonical=new Map(feed.games.map(g=>[g.id,g]));
  const verified=incoming.games.filter(g=>{
   const c=canonical.get(String(g.id));
