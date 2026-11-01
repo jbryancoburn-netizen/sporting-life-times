@@ -23,11 +23,13 @@ try{
  if(!host.dataset.scheduleLoaded)host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
  const data=await load(path);
  const valid=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2);
+ const officialClock=s=>/^(?:(?:[01]?\d|2[0-3]):[0-5]\d(?:\s*(?:a\.?m\.?|p\.?m\.?))?|\d{1,2}\s*(?:a\.?m\.?|p\.?m\.?)|noon|midnight)(?:\s*(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT))?$/i.test(String(s||'').trim());
+ const dateLabel=s=>/^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)[a-z]*\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}$/i.test(String(s||'').trim());
  const quality=e=>{const c=e.competitions[0],v=c.venue?.fullName||'';
   const schoolTime=e.official_school_time||e.official_time||'';
-  const validTime=schoolTime&&!/^(?:TBA|TBD|unknown)$/i.test(String(schoolTime).trim());
+  const validTime=officialClock(schoolTime);
   const networks=[...(c.broadcasts||[]),...(e.broadcasts||[])];
-  return (/Choose A Location|All Games Home|Select Location/i.test(v)?0:v?4:0)
+  return (/Choose A Location|All Games Home|Select Location/i.test(v)||dateLabel(v)?0:v?4:0)
     +(validTime?8:0)+(networks.length?3:0)+(e.site_verified===true?2:0);
  };
  const distinct=new Map();
@@ -55,8 +57,8 @@ try{
   const emblem=window.MBBLogos.byESPN(opponentId,'schedule',opponentName);
   const date=new Date(e.date);
   const day=Number.isFinite(+date)?date.toLocaleDateString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',year:'numeric'}):e.date.slice(0,10);
-  const verifiedTip=e.official_school_time||e.official_time||'';
-  const confirmed=verifiedTip&&!/TBA|TBD/i.test(verifiedTip);
+  const verifiedTip=[e.official_school_time,e.official_time].find(officialClock)||'';
+  const confirmed=Boolean(verifiedTip);
   const tip=confirmed?verifiedTip:'TBA'; // Never present placeholder imported noon as an official tip.
   const vs=e.site_verified===true?(self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':e.neutralSite===true?'NEUTRAL':'SITE TBA'):'SITE UNVERIFIED';
   const broadcastLabels=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>{
@@ -70,7 +72,7 @@ try{
   const watchLink=watchURL?'<a href="'+escape(watchURL)+'" target="_blank" rel="noopener noreferrer">Watch live ↗</a>':'';
   const network=(namedNetwork?escape(namedNetwork):'Network TBA')+(watchLink?' · '+watchLink:'');
   const rawVenue=(c.venue?.fullName||'').trim();
-  const cleanVenue=/Choose A Location|All Games Home|Select Location/i.test(rawVenue)?'':rawVenue;
+  const cleanVenue=/Choose A Location|All Games Home|Select Location/i.test(rawVenue)||dateLabel(rawVenue)?'':rawVenue;
   const address=c.venue?.address||{};
   const venueCity=[address.city,address.state].filter(Boolean).join(', ');
   const cityOnly=/^[A-Za-z .'-]+,\s*[A-Z]{2}(?:\s.*)?$/.test(cleanVenue)||/^[A-Za-z .'-]+,\s*(?:Ohio|Florida|California|Texas|New York|Pennsylvania|Virginia|Georgia|Indiana|Kentucky|Tennessee|Illinois|Michigan|Wisconsin|Alabama|Arkansas|Missouri|Oklahoma|Iowa|Utah|Colorado|Arizona|Nevada|Oregon|Washington|Louisiana|Mississippi|Idaho|Kansas|Nebraska|Minnesota|Maryland|Connecticut|Montana|Maine|Vermont|Hawaii|Alaska|Wyoming|Delaware|Carolina|Dakota|Jersey|Mexico)(?:\s.*)?$/i.test(cleanVenue);
@@ -81,8 +83,9 @@ try{
   const officialFacility=officialLocation.match(/\(([^()]+)\)/);
   const officialArena=officialFacility&&/Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation|Stadium|Dome|Auditorium/i.test(officialFacility[1])?officialFacility[1].trim():'';
   const arenaFromOfficialLine=cleanVenue.match(/(?:^|\s)((?:[A-Za-z0-9'.&-]+\s+){0,6}(?:Arena|Center|Centre|Coliseum|Gymnasium|Fieldhouse|Pavilion|Forum|Convocation Center|Indoor Stadium|Dome|Auditorium))\s*$/i)?.[1]||'';
-  let arena=c.venue?.arenaName||officialArena||embeddedArena||arenaFromOfficialLine||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
-  const rawCity=c.venue?.official_school_city||venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
+  let arena=(dateLabel(c.venue?.arenaName)?'':c.venue?.arenaName)||officialArena||embeddedArena||arenaFromOfficialLine||((cityOnly||locationLabel)?'Arena TBA':cleanVenue||'Arena TBA');
+  const schoolCity=dateLabel(c.venue?.official_school_city)?'':c.venue?.official_school_city;
+  const rawCity=schoolCity||venueCity||(embedded&&embeddedArena?embedded[1].trim():((cityOnly||locationLabel)?cleanVenue:'City TBA'));
   const cityState=(address.state||'').trim();
    const city=cityState&&rawCity!=='City TBA'&&!rawCity.includes(',')?rawCity+', '+cityState:rawCity;
   if(rawCity&&rawCity!=='City TBA'&&arena.startsWith(rawCity))arena=arena.slice(rawCity.length).replace(/^[\s/|,]+/,'')||arena;
