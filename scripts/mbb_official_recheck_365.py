@@ -79,12 +79,37 @@ def rows_from_sidearm_cards(html):
    if node:
     match=re.search(r'(?i)(?<![\d:])(?:[01]?\d(?::[0-5]\d)?\s*(?:a\.?m\.?|p\.?m\.?)|noon|midnight)(?:\s+(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT))?(?!\w)',node.get_text(' ',strip=True))
     if match:clock=match.group(0).strip();break
+  # A network is accepted only from this particular game's TV coverage
+  # markup. Generic "Watch" links, radio tags, and page-wide TV promos
+  # cannot identify a game's broadcaster.
+  known_tv=re.compile(
+   r"(?i)(?:ESPN(?:2|3|U|\+)?|ACCNX|ACC Network(?: Extra)?|SEC Network(?:\+)?|SECN\+?|"
+   r"Big Ten Network|Big Ten Plus|B1G\+|BTN|FOX|FS1|FS2|CBS(?: Sports Network)?|CBSSN|"
+   r"NBC|Peacock|The CW|CW|TNT|truTV|FloSports|FloHoops|SWAC TV|HBCU GO|"
+   r"Mountain West Network|MW\+|WCC Network|Summit League Network|K5|ESPN\+)"
+  )
+  labels=[]
+  for media in card.select(
+   ".sidearm-schedule-game-coverage-tv-content,[class*='coverage-tv-content'],"
+   "[class*='tv-network'],[class*='television'],"
+   "[class*='broadcast-network'],[class*='game-network'],[class*='tv-logo']"
+  ):
+   if re.search(r'(?i)(?:radio|audio)'," ".join(media.get('class',[]))):continue
+   labels.append(media.get_text(' ',strip=True))
+   labels.extend(img.get('alt') or img.get('title') or '' for img in media.select('img[alt],img[title]'))
+  networks=set()
+  for value in labels:
+   label=re.sub(r'\s+',' ',str(value or '').strip())
+   label=re.sub(r'(?i)^(?:TV|Television|Network|Broadcast|Stream)\s*:\s*','',label).strip(' :-')
+   if 1<len(label)<52 and known_tv.fullmatch(label):
+    networks.add(label)
+  broadcast=next(iter(networks)) if len(networks)==1 else ''
   key=(day,norm(opponent),site)
   if key in seen:continue
   seen.add(key)
   link=el.select_one('a[href]') or card.select_one('.sidearm-schedule-game-opponent-name a[href]')
   opponent_host=hostname(link.get('href','')) if link else ''
-  found.append({'date':day,'site':site,'site_certified':bool(certified),'opponent':opponent,'opponent_host':opponent_host,'location':location,'time':clock,'broadcast':''})
+  found.append({'date':day,'site':site,'site_certified':bool(certified),'opponent':opponent,'opponent_host':opponent_host,'location':location,'time':clock,'broadcast':broadcast})
  return found
 
 def opponent_variants(x):
