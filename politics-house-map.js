@@ -40,12 +40,25 @@
       returnGeometry:"true",outSR:"4326",geometryPrecision:"5",maxAllowableOffset:"0.0015",
       f:"geojson"
     }).toString();
-    const response=await fetch(url.toString(),{signal});
-    if(!response.ok)throw Error("Census boundary server returned "+response.status);
-    const data=await response.json();
+    // Prefer our published, ID-validated Census copy: no per-visitor Census API dependency.
+    // Before the archive workflow finishes (or if a file is missing), use official live API.
+    let data=null;
+    try{
+      const local=await fetch("politics-geometry/"+code+".geojson",{signal,cache:"force-cache"});
+      if(local.ok){
+        const candidate=await local.json();
+        if(candidate.meta?.state===code&&candidate.meta?.layer===layer&&candidate.meta?.field===field)
+          data=candidate;
+      }
+    }catch(error){if(error.name==="AbortError")throw error;}
+    if(!data){
+      const response=await fetch(url.toString(),{signal});
+      if(!response.ok)throw Error("Census boundary server returned "+response.status);
+      data=await response.json();
+    }
     if(data.error)throw Error(data.error.message||"Census server error");
     if(data.type!=="FeatureCollection"||!Array.isArray(data.features))throw Error("Unexpected official geographic response");
-    return {features:data.features,field,source:url.toString(),vintage:missouri?"119th (2024 lines reinstated for 2026)":"120th Congress (2026)"};
+    return {features:data.features,field,source:data.meta?.source_url||url.toString(),vintage:missouri?"119th (2024 lines reinstated for 2026)":"120th Congress (2026)"};
   }
   function makeInfoNode(id,info){
     const box=document.createElement("div");
