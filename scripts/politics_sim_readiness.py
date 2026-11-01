@@ -20,6 +20,7 @@ def build(data):
     poll_audit=data.get("poll_audit",{})
     presidential=data.get("presidential",{})
     archive=data.get("archive",{})
+    deep_history=data.get("deep_history",{})
     fec_index=data.get("fec_index",{})
     house=row.get("house",[]) if row.get("status")=="ok" else []
     senate=row.get("senate",[]) if row.get("status")=="ok" else []
@@ -32,6 +33,10 @@ def build(data):
       stage("historical_house_vote_records","partial" if len(house)>=1700 else "missing",
         f"{len(house)} persistently stored candidate-vote contest summaries from 2018–2024",
         "MIT Election Data and Science Lab (MEDSL)","Missing/uncontested votes, RCV methodology, data lineage, and redistricting compatibility remain incomplete.",len(house)),
+      stage("2000_2010_original_election_archive","partial" if deep_history.get("status")=="ok" and len(deep_history.get("house",[]))>=2460 and len(deep_history.get("senate",[]))>=144 else "missing",
+        f"{len(deep_history.get('house',[]))} House and {len(deep_history.get('senate',[]))} Senate historical contests from 2000–2010",
+        "MIT Election Data and Science Lab (MEDSL) original historical returns",
+        "Source party/winner totals and congressional-map vintages are not reconciled; retain for research only. Do not extend beyond the year 2000.",len(deep_history.get("house",[]))+len(deep_history.get("senate",[]))),
       stage("2012_2016_historical_source_archive","partial" if archive.get("status")=="ok" and len(archive.get("house",[]))>=1230 and len(archive.get("senate",[]))>=72 else "missing",
         f"{len(archive.get('house',[]))} House and {len(archive.get('senate',[]))} Senate historical contests from 2012–2016",
         "MIT Election Data and Science Lab (MEDSL), original general election returns",
@@ -87,7 +92,7 @@ def build(data):
       "status":"NOT_READY_FOR_PUBLIC_PREDICTIONS",
       "evaluated_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
       "method":"Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
-      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
+      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json"},
       "checks":metrics,"counts":{"verified":sum(x["state"]=="verified" for x in metrics),"partial":sum(x["state"]=="partial" for x in metrics),"missing":sum(x["state"]=="missing" for x in metrics)},
       "house_forecast_ready":forecast_ready,"senate_forecast_ready":forecast_ready,"governor_forecast_ready":forecast_ready,
       "certified_original_probability_count":0,
@@ -103,7 +108,7 @@ def build(data):
 def main():
     d=build({"history":load("politics-history.json"),"row":load("politics-historical-contests.json"),
              "fec":load("politics-fec-inputs.json"),"fec_index":load("politics-fec-race-index.json"),
-             "presidential":load("politics-2024-county-presidential.json"),"archive":load("politics-historical-archive.json"),"census":load("politics-census-inputs.json"),
+             "presidential":load("politics-2024-county-presidential.json"),"archive":load("politics-historical-archive.json"),"deep_history":load("politics-deep-history.json"),"census":load("politics-census-inputs.json"),
              "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json")})
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
