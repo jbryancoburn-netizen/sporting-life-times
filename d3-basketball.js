@@ -1,0 +1,94 @@
+(()=>{'use strict';
+const $=id=>document.getElementById(id),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gender=document.body.dataset.gender,own=gender==='women'?'d3-womens-basketball.html':'d3-mens-basketball.html';
+const state={data:null,teams:new Map()},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
+const teamLink=t=>own+'?team='+encodeURIComponent(t.id);
+const source=g=>/^https:\/\//.test(g.source_url||'')?'<a href="'+esc(g.source_url)+'" target="_blank" rel="noopener noreferrer">NCAA SOURCE ↗</a>':'NCAA scoreboard entry';
+const emblem=t=>{
+ const title=t.d3_confirmed?'DIII program confirmed in NCAA scoreboard record':'Division membership unconfirmed';
+ const slug=String(t.slug||'').replace(/[^a-z0-9-]/g,'');
+ const primary=/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'';
+ const secondary=/^#[0-9a-f]{6}$/i.test(t.secondary||'')?t.secondary:'';
+ const verified=!!(primary&&secondary&&primary!==secondary&&t.color_source);
+ const initials=String(t.name||'?').replace(/\b(university|college|the|of|at)\b/gi,'').trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
+ return '<span class="logo-shell '+(verified?'branded':'unbranded')+'" title="'+esc(title)+'" '+(verified?'style="--c1:'+primary+';--c2:'+secondary+'"':'')+'>'+
+   (slug?'<img loading="lazy" alt="" src="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" onerror="this.remove()">':'')+
+   '<small class="logo-initials">'+esc(initials)+'</small></span>';
+};
+const team=id=>state.teams.get(id)||{id,name:id};
+const row=(t,i)=>'<div class="board-row"><span>'+esc(i==null?'':i+1)+'</span>'+emblem(t)+'<a class="school-link" href="'+teamLink(t)+'">'+esc(t.name)+'</a><span>'+esc(t.w||0)+'–'+esc(t.l||0)+'</span><span>'+pct(t)+'%</span><span class="elo">'+Math.round(t.elo||1500)+'</span></div>';
+function card(g){
+ const a=team(g.away),h=team(g.home),final=g.status==='final',live=g.status==='live';
+ const showScore=final||live,winA=final&&g.away_score>g.home_score,winH=final&&g.home_score>g.away_score;
+ const time=final?'FINAL':live?'LIVE · SOURCE SNAPSHOT':g.start_time||'TIPOFF UNCONFIRMED';
+ const p=typeof g.pred_home_pct==='number'&&g.elo_eligible?'<p class="muted">Pregame home win chance: '+esc(g.pred_home_pct)+'% · provisional DIII Elo</p>':'';
+ return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
+ '<div class="game-row '+(winA?'winner':'')+'">'+emblem(a)+'<a class="school-link" href="'+teamLink(a)+'">'+esc(a.name)+'</a><b>'+(showScore?esc(g.away_score??'—'):'')+'</b></div>'+
+ '<div class="game-row '+(winH?'winner':'')+'">'+emblem(h)+'<a class="school-link" href="'+teamLink(h)+'">'+esc(h.name)+'</a><b>'+(showScore?esc(g.home_score??'—'):'')+'</b></div>'+p+
+ '<div class="game-footer">'+(g.elo_eligible?'Verified both-DIII matchup':'DIII opponent status not fully confirmed · excluded from ratings')+' · '+source(g)+'</div></article>';
+}
+function renderTeam(d){
+ const id=new URLSearchParams(location.search).get('team'),t=team(id),host=$('team-detail');
+ if(!state.teams.has(id)){host.innerHTML='<p class="note">School not found in the published DIII source ledger.</p>';return;}
+ const games=d.games.filter(g=>g.away===id||g.home===id).sort((a,b)=>a.date.localeCompare(b.date));
+ host.innerHTML='<div class="back"><a href="'+own+'">← BACK TO THE '+esc(gender.toUpperCase())+' DIII PAPER</a></div>'+
+ '<div class="team-hero">'+emblem(t)+'<div><span class="eyebrow">DIVISION III · '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+esc(t.name)+'</h1>'+
+ '<p>'+esc(t.conference||'Conference not verified')+'</p></div></div>'+
+ '<div class="team-stats"><div class="team-stat"><strong>'+esc(t.w||0)+'–'+esc(t.l||0)+'</strong><span>RATED DIII RECORD</span></div>'+
+ '<div class="team-stat"><strong>'+Math.round(t.elo||1500)+'</strong><span>2026–27 ELO</span></div>'+
+ '<div class="team-stat"><strong>'+games.length+'</strong><span>PUBLISHED GAME ENTRIES</span></div></div>'+
+ (!t.d3_confirmed?'<p class="note">The published source has not explicitly confirmed DIII division membership for this school. Its games do not count toward independent Elo.</p>':'')+
+ '<section class="panel"><div class="section-head"><h2>THE SCHOOL GAMEFILE</h2><span>AWAY FIRST · HOME SECOND</span></div>'+
+ (games.length?games.map(card).join(''):'<p class="note">No school fixtures found in the published NCAA source window. This is not a certified full-season calendar.</p>')+
+ '</section>';
+}
+function renderHome(d){
+ const teams=d.teams.slice().sort((a,b)=>a.name.localeCompare(b.name)),games=d.games.slice();
+ const finals=games.filter(g=>g.status==='final'&&g.elo_eligible);
+ $('teams-covered').textContent=teams.length;$('finals-covered').textContent=finals.length;
+ $('directory-count').textContent=teams.length+' discovered; '+d.coverage.confirmed_d3_teams+' explicitly DIII-confirmed';
+ $('elo-note').textContent='All schools start at 1500 each season; K='+d.model.k+', home edge='+d.model.home_elo_edge+
+ ' points. Parameters are provisional, not historically calibrated. Cross-division games and unverified results are excluded.';
+ const ranked=teams.filter(t=>t.d3_confirmed&&t.games_rated>0).sort((a,b)=>b.elo-a.elo||a.name.localeCompare(b.name));
+ $('elo-board').innerHTML=ranked.length?'<div class="board-row board-header"><span>#</span><span></span><span>PROGRAM</span><span>W–L</span><span>PCT</span><span>ELO</span></div>'+ranked.slice(0,35).map((t,i)=>row(t,i)).join(''):'<p class="note">No eligible finals are published yet. Rankings will begin only after confirmed DIII results.</p>';
+ const dates=[...new Set(games.map(g=>g.date))].sort(),today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const input=$('game-date');input.value=dates.find(x=>x>=today)||dates.at(-1)||today;
+ function draw(){const selected=games.filter(g=>g.date===input.value);
+ $('game-grid').innerHTML=selected.length?selected.map(card).join(''):'<p class="note">No NCAA DIII games available for this date in the published feed window.</p>';
+ const i=dates.indexOf(input.value);$('game-pos').textContent=i<0?'SELECT DATE':(i+1)+' / '+dates.length;
+ $('prev-date').disabled=i<=0;$('next-date').disabled=i<0||i>=dates.length-1;}
+ input.addEventListener('change',draw);draw();
+ for(const [id,n] of [['prev-date',-1],['next-date',1]])$(id).addEventListener('click',()=>{const i=dates.indexOf(input.value)+n;if(i>=0&&i<dates.length){input.value=dates[i];draw();}});
+ const dir=q=>{$('team-directory').innerHTML=teams.filter(t=>(t.name+' '+t.conference).toLowerCase().includes(q)).map(t=>row(t,null)).join('')||'<p class="note">No matching programs found in the published source window.</p>';};
+ $('team-search').addEventListener('input',e=>dir(e.target.value.trim().toLowerCase()));dir('');
+ const confs=[...new Set(teams.map(t=>t.conference).filter(Boolean))].sort(),sel=$('conference-select');
+ sel.innerHTML='<option value="">Select a source-labeled conference</option>'+confs.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('');
+ function conf(){const a=teams.filter(t=>t.conference===sel.value).sort((a,b)=>pct(b)-pct(a)||b.elo-a.elo);
+ $('conference-board').innerHTML=a.length?'<p class="muted">Overall rated-game records; NOT official conference standings or tiebreakers.</p>'+a.map((t,i)=>row(t,i)).join(''):'<p class="note">Conference standings pending verified membership and league-only game reconciliation.</p>';}
+ sel.addEventListener('change',conf);conf();
+ $('coverage').innerHTML='<b>'+games.length+'</b> published games, <b>'+d.coverage.eligible_finals+'</b> Elo-eligible finals, and <b>'+d.coverage.scanned_days+'</b> recently checked NCAA dates.<br>'+
+ '<b>'+d.coverage.confirmed_d3_teams+'</b> team identities have explicit DIII labels in game evidence. Source-discovered schools are <b>not a certified all-program directory</b>.<br>'+
+ '<b>'+d.coverage.failed_days.length+'</b> checked dates failed their primary and fallback reads; prior published games were retained.<br>'+
+ 'Full school schedules, official conference standings, venue details, player statistics and historical K/home-edge calibration are <b>not yet certified</b>.';
+}
+async function start(){
+ try{
+  const r=await fetch('data/d3-'+gender+'-2026-27.json?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('DIII game publisher has not delivered a dataset.');
+  const d=await r.json();
+  if(d.gender!==gender||d.division!=='d3'||d.season!=='2026-27'||d.starting_elo!==1500||!Array.isArray(d.games)||!Array.isArray(d.teams))
+    throw Error('Wrong division, gender, or Elo dataset refused.');
+  state.data=d;state.teams=new Map(d.teams.map(t=>[t.id,t]));
+  $('status').textContent='NCAA DIII game-source edition · '+(d.as_of?new Date(d.as_of).toLocaleString():'Source refresh pending');
+  if(new URLSearchParams(location.search).has('team')){
+   $('home-content').hidden=true;$('team-detail').hidden=false;renderTeam(d);
+  }else renderHome(d);
+ }catch(e){
+  $('status').textContent='DIII verified feed unavailable; no fabricated statistics shown.';
+  $('home-content').innerHTML='<div class="note">'+esc(e.message)+'</div>';
+ }
+}
+start();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)start();});
+setInterval(()=>{if(!document.hidden)start();},60000);
+})();
