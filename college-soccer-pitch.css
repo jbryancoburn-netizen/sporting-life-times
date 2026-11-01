@@ -111,3 +111,31 @@ body[data-league="college-soccer"] .cs-showcase-panel{padding:11px!important}
 body[data-league="college-soccer"] .cs-showcase-picks{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 @media(prefers-reduced-motion:reduce){body[data-league="college-soccer"] .cs-pitch-match{transition:none!important}}
+
+
+/* A changing, source-backed Elo leader makes the masthead editorial rather than promotional. */
+body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside{justify-content:space-between!important;min-width:0}
+body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside a.cs-hero-leader{display:flex!important;align-items:center!important;text-align:left!important;gap:9px!important;padding:12px 9px!important;margin:0!important;background:#10372e!important;color:#fff!important;border:1px solid #497665!important;text-decoration:none!important;min-width:0!important}
+body[data-league="college-soccer"] .cs-hero-leader-rank{font:800 27px/.9 Georgia,serif!important;color:#e8cb87!important;letter-spacing:-.06em}
+body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-crest{width:42px!important;height:42px!important;flex:0 0 42px!important}
+body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-crest .cs-mark{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;flex:0 0 42px!important}
+body[data-league="college-soccer"] .cs-hero-leader-meta{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+body[data-league="college-soccer"] .cs-hero-leader-meta strong{font:800 15px/1.12 Georgia,serif!important;color:#fff!important;overflow-wrap:anywhere}
+body[data-league="college-soccer"] .cs-hero-leader-meta small{font:800 9px/1.25 Arial,sans-serif!important;color:#d6dfd2!important}
+body[data-league="college-soccer"] .cs-hero-leader-arrow{color:#d6b86a!important;font:800 18px Arial,sans-serif!important}
+body[data-league="college-soccer"] .cs-hero-leader-pending{color:#fff!important;font:800 10px Arial,sans-serif!important}
+body[data-league="college-soccer"] .cs-hero-aside-foot{display:flex;flex-direction:column;gap:10px;border-top:1px solid #678c79;padding-top:11px}
+body[data-league="college-soccer"] .cs-hero-aside-foot span{font:800 10px/1.3 Arial,sans-serif!important;letter-spacing:.04em;color:#e0d1a3!important}
+body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside-foot a{background:#dec48a!important;color:#153c32!important;padding:9px!important;font:800 10px Arial,sans-serif!important;margin:0!important}
+@media(max-width:700px){
+ body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:6px!important;padding:9px 0 0!important}
+ body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside a.cs-hero-leader{display:flex!important;grid-column:auto!important;grid-row:auto!important;max-width:none!important;padding:7px!important;gap:8px!important}
+ body[data-league="college-soccer"] .cs-hero-leader-rank{font-size:20px!important}
+ body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-crest{width:32px!important;height:32px!important;flex:0 0 32px!important}
+ body[data-league="college-soccer"] .cs-hero-leader .cs-pitch-crest .cs-mark{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;flex:0 0 32px!important}
+ body[data-league="college-soccer"] .cs-hero-leader-meta strong{font-size:13px!important}
+ body[data-league="college-soccer"] .cs-hero-leader-meta small{font-size:9px!important}
+ body[data-league="college-soccer"] .cs-hero-aside-foot{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;padding-top:6px!important}
+ body[data-league="college-soccer"] .cs-hero-aside-foot span{font-size:9px!important}
+ body[data-league="college-soccer"] .cs-pitch-hero .cs-hero-aside-foot a{display:inline-block!important;grid-column:auto!important;grid-row:auto!important;flex:0 0 auto!important;max-width:145px!important;font-size:9px!important;padding:8px!important}
+}
