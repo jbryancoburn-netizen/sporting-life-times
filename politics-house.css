@@ -55,3 +55,27 @@ footer{margin-top:35px;border-top:3px double var(--ink);padding:24px 0;color:var
 @media(max-width:1100px){.district-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.state-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.paper{padding:0 16px 20px}.strip{margin:0 -16px;padding:9px 16px}.mast h1{letter-spacing:-.8px}.hero,.panels{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(2){border:0}.district-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.state-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:430px){.district-grid{grid-template-columns:1fr}.state-list{grid-template-columns:1fr 1fr}.state-link{grid-template-columns:7px 1fr 10px;padding:9px 7px}.metric b{font-size:25px}.mast p{font-size:14px}}
+
+
+/* Geographic district cartography: SVG vectors from the Census; no basemap tiles. */
+.district-map-section{margin:20px 0 26px;min-width:0}
+.map-actions{display:flex;flex-wrap:wrap;align-items:end;gap:12px;padding:13px 0}
+.map-actions label{flex:1 1 230px;max-width:370px}
+.map-actions select{width:100%;font-size:12px;font-weight:700;letter-spacing:normal;text-transform:none}
+.map-actions button{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:11px 15px;font-weight:800;font-size:12px}
+.map-actions button:hover,.map-actions button:focus-visible{background:var(--teal)}
+.map-help{color:var(--muted);font-size:11px;align-self:center}
+.geo-district-map{width:100%;height:min(66vw,620px);min-height:400px;background:#dfe9e9;border:1px solid #a7b8b9;z-index:0}
+.geo-district-map .leaflet-container{background:#dfe9e9}
+.geo-district-map .leaflet-interactive{cursor:pointer}
+.geo-district-map .leaflet-interactive:focus-visible{stroke:#152f3a;stroke-width:4px;outline:none}
+.geo-district-map .leaflet-control-zoom a{color:var(--ink)}
+.geo-district-map .leaflet-pane svg{overflow:visible}
+.house-district-icon{background:transparent;border:0}
+.house-district-label{display:flex;justify-content:center;align-items:center;width:27px;height:23px;background:#fffcf3e9;
+ color:#1b2b32;border:1px solid #6a8287;border-radius:3px;box-shadow:0 1px 3px #0003;font-size:10px;font-weight:800;line-height:1}
+.district-map-tip{border:1px solid #5e787d;border-radius:2px;background:#fffffd;box-shadow:0 2px 10px #0003;color:var(--ink);font-size:11px}
+.district-map-tip strong{font-size:13px}
+.map-vintage-note{border-left:3px solid var(--teal);padding:8px 12px;background:#e9eeeb;color:var(--muted);font-size:12px}
+@media(max-width:720px){.geo-district-map{height:490px;min-height:390px}.map-actions{gap:8px}.map-actions button{padding:11px 8px}.house-district-label{width:25px;height:22px;font-size:9px}}
+@media(max-width:430px){.geo-district-map{height:420px;min-height:380px}.map-actions label{flex-basis:170px}.map-help{flex-basis:100%}}
