@@ -17,23 +17,23 @@ def mk(game_id,away,home,ascore,hscore,date="2026-09-10T23:20:00Z",state="post")
 class EloTests(unittest.TestCase):
     def test_nfl_crest_has_exactly_two_bands(self):
         root=Path(__file__).resolve().parents[1]
-        css=(root/"nfl-edition.css").read_text(encoding="utf-8")
-        javascript=(root/"nfl-edition.js").read_text(encoding="utf-8")
-        styles=re.sub(r"/[*].*?[*]/", "", css, flags=re.S)
-        self.assertNotIn(".nfl-crest",styles,
-            "Old legacy crest selectors must never be reintroduced")
-        self.assertIn(".nfl-paper .nfl-two-band{",styles)
-        self.assertIn("#fff 0 67%,var(--secondary) 67% 84%,var(--primary) 84% 100%",styles)
-        self.assertIn("border:0!important",styles)
-        self.assertIn(".nfl-paper .nfl-two-band::before,.nfl-paper .nfl-two-band::after",styles)
-        self.assertIn("content:none!important",styles)
-        self.assertIn('class="nfl-two-band ',javascript)
+        css=(root/"nfl-badge-v3.css").read_text(encoding="utf-8")
+        javascript=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
+        self.assertIn("background:var(--nfl-primary)!important",css)
+        self.assertIn("border:var(--nfl-inner) solid var(--nfl-secondary)!important",css)
+        self.assertIn("background:#fff!important",css)
+        self.assertIn('class="nfl-badge ',javascript)
+        self.assertIn('class="nfl-badge-core"',javascript)
         self.assertNotIn('class="nfl-crest ',javascript)
+        self.assertNotIn('class="nfl-two-band ',javascript)
+        self.assertNotIn("radial-gradient(",css)
+        self.assertIn("content:none!important",css)
         for name in ["nfl.html","nfl-standings.html","nfl-rankings.html","nfl-players.html","nfl-schedule.html","nfl-game-center.html","nfl-team.html","nfl-game.html","nfl-playoffs.html"]:
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
-                self.assertIn("nfl-edition.css?v=20261101-nfl-two-colors-clean9",page)
-                self.assertIn("nfl-edition.js?v=20261101-nfl-two-colors-clean9",page)
+                self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
+                self.assertIn("nfl-edition-v3.js?v=20261101-2realrings",page)
+                self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
