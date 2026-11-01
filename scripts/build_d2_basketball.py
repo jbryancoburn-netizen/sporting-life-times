@@ -27,7 +27,7 @@ def get_json(url):
 def fetch_day(gender, day):
     sport="MBB" if gender=="men" else "WBB"
     date=day.strftime("%Y/%m/%d")
-    params={"sportCode":sport,"division":2,"seasonYear":2027,"contestDate":date}
+    params={"sportCode":sport,"division":2,"seasonYear":day.year+(1 if day.month>=7 else 0),"contestDate":date}
     qs=urllib.parse.urlencode({"extensions":json.dumps({"persistedQuery":{"version":1,"sha256Hash":HASH}},separators=(',',':')),
         "variables":json.dumps(params,separators=(',',':')),})
     error=None
@@ -146,6 +146,20 @@ def update(gender, bootstrap=False):
         directory_error=str(exc)
         print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
     games={str(g["id"]):g for g in prior.get("games",[])}
+    # CCA-sanctioned Hawaii October tournament games were independently
+    # verified against the tournament organizer's published score bracket.
+    # They are neutral-site: the first/second teams are NOT home and away.
+    tournament_path=DATA/"d2-verified-tournaments-2026-27.json"
+    tournament=json.loads(tournament_path.read_text()) if tournament_path.exists() else {}
+    tournament_source=tournament.get("source_url","")
+    for fixture in tournament.get(gender,[]):
+        if fixture["away"] not in teams or fixture["home"] not in teams:
+            raise RuntimeError(f"{gender}: official event team not found in directory: {fixture['id']}")
+        previous=games.get(fixture["id"])
+        # Never roll a final backward to a scheduled game during an import.
+        if previous and previous.get("status")=="final" and fixture["status"]!="final":continue
+        games[fixture["id"]]={**fixture,"elo_eligible":True,"verified":True}
+
     today=dt.datetime.now(dt.timezone.utc).date()
     start=dt.date(2026,10,15) if bootstrap else max(dt.date(2026,10,15),today-dt.timedelta(days=12))
     end=dt.date(2027,4,12) if bootstrap else min(dt.date(2027,4,12),today+dt.timedelta(days=30))
@@ -163,6 +177,9 @@ def update(gender, bootstrap=False):
                     ident=school_data.pop("id")
                     previous=teams.get(ident,{})
                     teams[ident]={**previous,**{k:v for k,v in school_data.items() if v not in ("",None)}, "id":ident}
+                # NCAA scoreboard home/away team identifiers may differ from
+                # the directory's canonical school spellings. Retain the NCAA
+                # matchup but do not count unmatched opponents as NCAA DII.
                 games[g["id"]]=g
     if successful<max(1,len(days)//2):
         raise RuntimeError(f"{gender}: {successful}/{len(days)} NCAA date requests succeeded. Refusing to publish suspect empty/partial feed. Errors: {errors[:3]}")
@@ -177,7 +194,8 @@ def update(gender, bootstrap=False):
         a,h=game["away"],game["home"]
         if a not in rating or h not in rating:continue
         outcome=1 if game["home_score"]>game["away_score"] else 0
-        expectation=1/(1+10**((rating[a]-rating[h]-home_edge)/400))
+        match_edge=0.0 if game.get("neutral") else home_edge
+        expectation=1/(1+10**((rating[a]-rating[h]-match_edge)/400))
         movement=k*(outcome-expectation)
         rating[h]+=movement;rating[a]-=movement
         if outcome:wins[h]+=1;losses[a]+=1
@@ -191,7 +209,9 @@ def update(gender, bootstrap=False):
                        else "PARTIAL — 2026-27 DII membership, dates and schedules require school-level verification"),
         "dates_requested":len(days),"dates_fetched":successful,"dates_failed":len(errors),
         "sample_errors":errors[:5],"verified_dii_finals":finals,"programs_found":len(ordered),
-        "official_contests_available":len(allgames)>0,
+        "official_contests_available":any(not str(g.get("id","")).startswith("hih-2026-") for g in allgames),
+        "verified_tournament_games":sum(1 for g in allgames if g.get("source")=="official tournament organizer"),
+        "verified_tournament_source":tournament_source,
         "directory_source":directory_source,"directory_error":directory_error,
         "membership_certified":False}
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,

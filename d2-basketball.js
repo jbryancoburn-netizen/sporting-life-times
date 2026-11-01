@@ -10,13 +10,21 @@ const name=t=>esc(t?.name||t?.id||'Unknown school');
 const pct=t=>((t.w||0)+(t.l||0))?((t.w||0)/((t.w||0)+(t.l||0))):0;
 const label=t=>t?.conference||'Conference unverified';
 const color=v=>/^#[0-9a-f]{6}$/i.test(v||'')?v:'#274c5e';
-function logo(t){const slug=String(t?.slug||'').replace(/[^a-z0-9-]/gi,'');const colors='style="--c1:'+color(t?.primary)+';--c2:'+color(t?.secondary||'#8ca4ab')+'"';return '<span class="logo-shell '+(slug?'':'placeholder')+'" '+colors+'>'+(slug?'<img loading="lazy" alt="" src="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" onerror="this.remove();">':esc((t?.name||'?').slice(0,2).toUpperCase()))+'</span>'}
+function logo(t){
+ const slug=String(t?.slug||'').replace(/[^a-z0-9-]/gi,'');
+ const branded=/^#[0-9a-f]{6}$/i.test(t?.primary||'')&&/^#[0-9a-f]{6}$/i.test(t?.secondary||'');
+ const initials=String(t?.name||'?').replace(/\b(?:university|college|of|at|the)\b/gi,'').trim().split(/\s+/).slice(0,2).map(v=>v[0]||'').join('').toUpperCase();
+ const colors='style="--c1:'+color(t?.primary)+';--c2:'+color(t?.secondary)+'"';
+ return '<span class="logo-shell '+(branded?'branded':'unbranded')+'" '+colors+'>'+
+ (slug?'<img loading="lazy" alt="" src="https://ncaa-api.henrygd.me/logo/'+encodeURIComponent(slug)+'.svg" onerror="this.remove()">':'')+
+ '<small class="logo-initials">'+esc(initials)+'</small></span>';
+}
 function school(id){return state.teams.get(String(id))||{id:String(id),name:id,slug:''}}
 function row(t,i,withRank=true){return '<div class="board-row"><span>'+(withRank?i+1:'')+'</span>'+logo(t)+'<a class="school-link" href="'+link(t)+'">'+name(t)+'</a><span>'+(t.w||0)+'–'+(t.l||0)+'</span><span>'+Math.round(pct(t)*1000)/10+'%</span><span class="elo">'+Number(t.elo||1500).toFixed(0)+'</span></div>'}
-function game(g){const away=school(g.away),home=school(g.home);const final=g.status==='final',time=g.start_time||'Tipoff TBA';return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(final?'FINAL':g.status==='live'?'LIVE':time)+'</span><span>'+esc(g.network||'')+'</span></div>'+
+function game(g){const away=school(g.away),home=school(g.home);const final=g.status==='final',time=g.start_time||'Tipoff TBA';return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(final?'FINAL':g.status==='live'?'LIVE':time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
 '<div class="game-row">'+logo(away)+'<a class="school-link" href="'+link(away)+'">'+name(away)+'</a><b>'+(final||g.status==='live'?esc(g.away_score??'—'):'')+'</b></div>'+
 '<div class="game-row">'+logo(home)+'<a class="school-link" href="'+link(home)+'">'+name(home)+'</a><b>'+(final||g.status==='live'?esc(g.home_score??'—'):'')+'</b></div>'+
-'<div class="game-footer">'+esc(g.venue||'Venue awaiting official confirmation')+(g.source_url?' · <a target="_blank" rel="noopener" href="'+esc(g.source_url)+'">NCAA game ↗</a>':'')+'</div></article>'}
+'<div class="game-footer">'+esc(g.venue||'Venue awaiting official confirmation')+(g.tournament?' · '+esc(g.tournament):'')+(g.source_url?' · <a target="_blank" rel="noopener" href="'+esc(g.source_url)+'">NCAA game ↗</a>':'')+'</div></article>'}
 function renderHome(d){const teams=(d.teams||[]).slice().sort((a,b)=>a.name.localeCompare(b.name));const games=d.games||[];const finals=games.filter(g=>g.status==='final'&&g.elo_eligible);
 $('teams-covered').textContent=teams.length;$('finals-covered').textContent=finals.length;
 $('directory-count').textContent=teams.length+' identified of '+d.team_target+' projected'+(teams.length!==d.team_target?' · membership reconciliation needed':' · independently verified against published directory');
@@ -25,9 +33,9 @@ const today=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'})
 date.value=gameDates.find(v=>v>=today)||gameDates.at(-1)||today;
 function showDate(){const selected=games.filter(g=>g.date===date.value);$('game-grid').innerHTML=selected.length?selected.sort((a,b)=>String(a.start_time||'').localeCompare(String(b.start_time||''))).map(game).join(''):'<div class="note">No verified NCAA Division II games published for this date.</div>'}
 date.addEventListener('change',showDate);showDate();
-const ranked=teams.slice().sort((a,b)=>b.elo-a.elo||b.w-a.w||a.name.localeCompare(b.name));
+const ranked=teams.filter(t=>(t.w||0)+(t.l||0)>0).sort((a,b)=>b.elo-a.elo||b.w-a.w||a.name.localeCompare(b.name));
 const hasGames=finals.length>0;
-$('elo-note').textContent=(hasGames?'2026–27 ratings computed chronologically from eligible NCAA Division II finals.':'Preseason tie: all teams begin at Elo 1500. No artificial ranking before verified games.')+' · Home edge '+(d.model?.home_elo_edge??'TBA')+' · K '+(d.model?.k??'TBA')+' · '+(d.model?.status||'Calibration pending')+'.';
+$('elo-note').textContent=(hasGames?'Early-season ratings from verified Division II finals; provisional model calibration.':'Every program began at Elo 1500; no artificial carryover or rankings before verified games.')+' · Home edge '+(d.model?.home_elo_edge??'TBA')+' · K '+(d.model?.k??'TBA')+' · '+(d.model?.status||'Calibration pending')+'.';
 $('elo-board').innerHTML=(hasGames?'<div class="board-row board-header"><span>#</span><span></span><span>SCHOOL</span><span>W–L</span><span>PCT</span><span>ELO</span></div>'+ranked.slice(0,30).map((t,i)=>row(t,i)).join(''):'<div class="note">No power order until eligible games are completed.</div>');
 function directory(q){const found=teams.filter(t=>(t.name+' '+label(t)).toLowerCase().includes(q));$('team-directory').innerHTML=found.length?found.map((t,i)=>row(t,i,false)).join(''):'<div class="note">No teams match the search or the registry has not yet been verified.</div>'}
 $('team-search').addEventListener('input',e=>directory(e.target.value.trim().toLowerCase()));directory('');

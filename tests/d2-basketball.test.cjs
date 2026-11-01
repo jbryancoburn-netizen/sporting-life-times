@@ -12,3 +12,26 @@ test('single common team desk routes to separate gender-specific dataset',()=>{
 const s=fs.readFileSync('d2-team.html','utf8');assert.match(s,/d2-basketball\.js/);
 const js=fs.readFileSync('d2-basketball.js','utf8');assert.match(js,/elo_eligible/);assert.match(js,/game-grid/);assert.match(js,/conference-board/);
 });
+
+test('sanctioned 2026 Hawaii games are present, neutral and counted exactly once',()=>{
+ const source=JSON.parse(fs.readFileSync('data/d2-verified-tournaments-2026-27.json','utf8'));
+ for(const gender of ['men','women']){
+  const data=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
+  const played=data.games.filter(g=>g.id.startsWith('hih-2026-'));
+  assert.equal(source[gender].length,12);
+  assert.equal(played.length,12);
+  assert.equal(played.filter(g=>g.status==='final').length,8);
+  assert.ok(played.every(g=>g.neutral&&g.source_url===source.source_url));
+  assert.ok(played.every(g=>data.teams.some(t=>t.id===g.away)&&data.teams.some(t=>t.id===g.home)));
+  assert.equal(new Set(played.map(g=>g.id)).size,12);
+  const changes=data.teams.filter(t=>t.elo!==1500);
+  assert.equal(changes.length,8);
+  assert.ok(Math.abs(data.teams.reduce((s,t)=>s+t.elo,0)-1500*data.teams.length)<0.2);
+ }
+});
+test('scorecards distinguish neutral sites and logo stylesheet contains no outside outline ring',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const css=fs.readFileSync('d2-basketball.css','utf8');
+ assert.match(js,/NEUTRAL SITE/);assert.match(css,/logo-shell\.branded/);
+ assert.doesNotMatch(css,/outline:\s*3px solid var\(--c2\)/);
+});
