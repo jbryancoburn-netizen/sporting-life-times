@@ -64,5 +64,16 @@ jobs:
             exit 0
           fi
           git commit -m "Publish source-derived NBL standings and research Elo [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5 6; do
+            # The repository has simultaneous league workflows. Retry only
+            # non-fast-forward push races; never force-push generated data.
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              echo "NBL snapshot published"
+              exit 0
+            fi
+            echo "Concurrent update changed main (attempt $attempt); retrying"
+            sleep "$((attempt * 2))"
+          done
+          echo "Failed to publish NBL snapshot after retry budget"
+          exit 1
