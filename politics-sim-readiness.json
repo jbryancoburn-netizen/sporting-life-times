@@ -1,10 +1,11 @@
 {
   "status": "NOT_READY_FOR_PUBLIC_PREDICTIONS",
-  "evaluated_at": "2026-11-01T16:39:19+00:00",
+  "evaluated_at": "2026-11-01T16:51:33+00:00",
   "method": "Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
   "source_keys": {
     "history": "politics-history.json",
     "historical_contests": "politics-historical-contests.json",
+    "archive_2012_2016": "politics-historical-archive.json",
     "fec": "politics-fec-inputs.json",
     "fec_index": "politics-fec-race-index.json",
     "presidential_counties": "politics-2024-county-presidential.json",
@@ -27,6 +28,14 @@
       "evidence": "1730 persistently stored candidate-vote contest summaries from 2018–2024",
       "source": "MIT Election Data and Science Lab (MEDSL)",
       "blocker": "Missing/uncontested votes, RCV methodology, data lineage, and redistricting compatibility remain incomplete."
+    },
+    {
+      "id": "2012_2016_historical_source_archive",
+      "state": "partial",
+      "verified_record_count": 1396,
+      "evidence": "1296 House and 100 Senate historical contests from 2012–2016",
+      "source": "MIT Election Data and Science Lab (MEDSL), original general election returns",
+      "blocker": "Winner-party totals are not yet independently reconciled and district boundaries require mapping before use in 2026 training."
     },
     {
       "id": "historical_senate_vote_records",
@@ -135,7 +144,7 @@
   ],
   "counts": {
     "verified": 1,
-    "partial": 6,
+    "partial": 7,
     "missing": 8
   },
   "house_forecast_ready": false,
