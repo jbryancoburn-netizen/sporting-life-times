@@ -16,7 +16,7 @@
   function plusDays(day,n){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
   function localDate(s){const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time TBA';}
   function dateLabel(s){return new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',weekday:'short',timeZone:'UTC'});}
-  const state={day:today(),games:[],selected:null,pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map()};
+  const state={day:today(),games:[],selected:null,pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),filter:'all',generation:0};
   const tag=women?'Women':'Men';
   let mounted=false,interval=null;
   const fetchJSON=async path=>{try{const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(10500)});return r.ok?await r.json():null;}catch{return null;}};
@@ -43,8 +43,8 @@
     const home=teams.find(t=>t.home_away==='home')||teams[1];
     if(!away||!home||!g.id)return null;
     function team(t){return {team:{id:String(t.id||''),displayName:t.name,abbreviation:t.name?.slice(0,3).toUpperCase(),logo:t.logo},score:t.score,homeAway:t.home_away};}
-    const phase=g.state==='in'?'live':g.state==='post'?'final':'upcoming';
-    // A published snapshot does not verify that a game is currently live.
+    const phase=g.state==='post'?'final':'upcoming';
+    // A stale published snapshot must never be presented as a verified live score.
     return {id:String(g.id),date:g.date,away:team(away),home:team(home),phase,headline:g.status||'Published fixture',venue:g.venue||'',broadcast:g.broadcast||'',url:cleanURL(g.url),source:'Published snapshot',linescores:false};
   }
   function fallbackEvents(data){
@@ -79,23 +79,97 @@
     return '<span class="cbb-fallback-crest" style="--cbb-primary:'+esc(primary)+';--cbb-secondary:'+esc(secondary)+'">'+
       (src?'<img src="'+src+'" alt="" loading="lazy">':'<span>'+esc(code(t).slice(0,2))+'</span>')+'</span>';
   }
+  const safeTeamColor=t=>{
+    const raw=String(t?.team?.color||'').replace(/^#/,'');
+    return /^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff'?'#'+raw:'#294650';
+  };
   function row(t,phase,winning){
     const s=phase==='upcoming'?'—':score(t)??'—';
     const link=schoolLink(t);
-    const mark='<span class="cbb-team-identity">'+crest(t)+'<span class="cbb-name"><b>'+esc(code(t))+'</b><small>'+esc(teamName(t))+'</small></span></span>';
-    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'">'+(link?'<a href="'+link+'" class="cbb-team-link">'+mark+'</a>':mark)+
+    const identity='<span class="cbb-team-identity">'+crest(t)+
+      '<span class="cbb-name"><b>'+esc(code(t))+'</b><small>'+esc(teamName(t))+'</small></span></span>';
+    return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'"><span class="cbb-team-side">'+
+      esc(t.homeAway==='away'?'AWAY':'HOME')+'</span>'+
+      (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+
       '<strong class="cbb-points" aria-label="'+esc(teamName(t))+' score">'+esc(s)+'</strong></div>';
+  }
+  function summaryStats(g){
+    const raw=state.summaryCache.get(g.id)?.data;
+    if(!raw||g.phase==='upcoming')return '';
+    const teams=raw.boxscore?.teams||[];
+    const teamStats=id=>{
+      const t=teams.find(x=>String(x.team?.id)===String(id));
+      return new Map((t?.statistics||[]).flatMap(st=>[
+        [String(st.name||'').toLowerCase(),st.displayValue??st.value],
+        [String(st.abbreviation||'').toLowerCase(),st.displayValue??st.value]
+      ]));
+    };
+    const a=teamStats(g.away.team?.id),h=teamStats(g.home.team?.id);
+    const selections=[
+      ['FG%', ['fieldgoalpct','fg%','fg pct','field goal percentage']],
+      ['3PT', ['threepointfieldgoalpct','3p%','3pt%','three point percentage']],
+      ['REB', ['totalrebounds','reb','rebounds']]
+    ];
+    function pick(map,aliases){for(const k of aliases){if(map.has(k)&&map.get(k)!=null)return String(map.get(k));}return null;}
+    const metrics=selections.flatMap(([label,aliases])=>{
+      const one=pick(a,aliases),two=pick(h,aliases);
+      return one===null||two===null?[]:['<span class="cbb-micro-stat"><b>'+esc(one)+'</b><small>'+label+'</small><b>'+esc(two)+'</b></span>'];
+    });
+    const ptsLeaders=(raw.boxscore?.players||[]).flatMap(group=>{
+      const source=(group.statistics||[]).find(x=>x.labels?.includes('PTS'));
+      if(!source)return [];
+      const index=source.labels.indexOf('PTS');
+      const rows=(source.athletes||[]).filter(x=>Array.isArray(x.stats)&&x.athlete?.displayName&&Number.isFinite(Number(x.stats[index])));
+      if(!rows.length)return [];
+      const lead=rows.reduce((best,x)=>Number(x.stats[index])>Number(best.stats[index])?x:best);
+      return [{id:String(group.team?.id||''),name:lead.athlete.displayName,pts:lead.stats[index]}];
+    });
+    const leaders=ptsLeaders.filter(p=>p.id===String(g.away.team?.id)||p.id===String(g.home.team?.id))
+      .sort((p,z)=>Number(z.pts)-Number(p.pts)).slice(0,2);
+    if(!metrics.length&&!leaders.length)return '';
+    return '<div class="cbb-micro-wrap">'+
+      (metrics.length?'<div class="cbb-micro-statline" aria-label="Team stats, away then home">'+metrics.join('')+'</div>':'')+
+      (leaders.length?'<div class="cbb-leader-ticker"><span>TOP SCORERS</span>'+
+      leaders.map(p=>'<b>'+esc(p.name)+' <em>'+esc(p.pts)+' PTS</em></b>').join('<i aria-hidden="true">·</i>')+'</div>':'')+
+      '</div>';
   }
   function scorebug(g){
     const as=Number(score(g.away)),hs=Number(score(g.home));
     const winner=g.phase==='final'&&score(g.away)!=null&&score(g.home)!=null&&as!==hs;
     const awayWin=winner&&as>hs,homeWin=winner&&hs>as;
-    return '<article class="cbb-game-card cbb-'+g.phase+'">'+
-      '<div class="cbb-bug-top">'+currentView(g)+'</div>'+
-      row(g.away,g.phase,awayWin)+row(g.home,g.phase,homeWin)+
-      '<div class="cbb-bug-bottom"><span>'+esc(g.broadcast||g.venue||'College basketball')+'</span>'+
-      '<button type="button" class="cbb-box-btn" data-cbb-open="'+esc(g.id)+'">STATS & BOX SCORE ↗</button></div>'+
+    const onAir=g.broadcast?'ON '+g.broadcast:(g.neutral?'NEUTRAL SITE':'DIVISION I');
+    const quick=summaryStats(g);
+    return '<article class="cbb-game-card cbb-'+g.phase+'" data-cbb-game="'+esc(g.id)+'" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'">'+
+      '<div class="cbb-card-brand"><span><span class="cbb-court-icon" aria-hidden="true">◈</span> COURTSIDE <span class="cbb-brand-suffix">/ '+(women?'WOMEN':'MEN')+'’S D-I</span></span><span class="cbb-brand-live">'+(g.phase==='live'?'● IN PLAY':g.phase==='final'?'FULL TIME':'MATCHUP')+'</span></div>'+
+      '<div class="cbb-bug-top"><span>'+currentView(g)+'</span><span class="cbb-bug-network">'+esc(onAir)+'</span></div>'+
+      '<div class="cbb-match-rows">'+row(g.away,g.phase,awayWin)+row(g.home,g.phase,homeWin)+'</div>'+
+      '<div class="cbb-score-card-foot"><div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+
+      (quick||'<span class="cbb-preview-hint">'+(g.phase==='upcoming'?'TIPOFF · '+esc(localDate(g.date)):
+        g.phase==='live'?'UPDATING LIVE GAME STATS':g.phase==='final'?'BOX SCORE DATA WHEN AVAILABLE':'')+'</span>')+
+      '</div><div class="cbb-bug-bottom"><span>'+esc(g.venue||(g.neutral?'Neutral court':'NCAA Basketball'))+'</span>'+
+      '<button type="button" class="cbb-box-btn" data-cbb-open="'+esc(g.id)+'">OPEN BOX SCORE <span aria-hidden="true">↗</span></button></div></div>'+
       '</article>';
+  }
+  function updateStatsPreview(g){
+    const target=document.getElementById('cbb-preview-'+g.id);
+    if(!target)return;
+    const result=summaryStats(g);
+    if(result)target.innerHTML=result;
+  }
+  async function preloadVisibleStats(games,generation,day){
+    // Limit provider traffic: use cached final boxes and short-lived live updates.
+    const candidates=games.filter(g=>g.phase==='live').slice(0,6)
+      .concat(games.filter(g=>g.phase==='final').slice(0,3));
+    await Promise.allSettled(candidates.map(async g=>{
+      const previous=state.summaryCache.get(g.id);
+      const fresh=previous&&Date.now()-previous.at<(g.phase==='live'?45000:300000);
+      if(!fresh){
+        const data=await fetchJSON(api+'summary?event='+encodeURIComponent(g.id));
+        if(data?.boxscore)state.summaryCache.set(g.id,{at:Date.now(),data});
+        else if(previous)state.summaryCache.set(g.id,{...previous,at:Date.now()});
+      }
+      if(state.generation===generation&&state.day===day)updateStatsPreview(g);
+    }));
   }
   function centerURL(){return 'cbb-game-center.html'+(women?'?gender=women':'');}
   function createShell(){
@@ -111,7 +185,7 @@
       '<button type="button" data-cbb-date="1" aria-label="Next day">›</button>'+
       '<button type="button" class="cbb-today-btn" data-cbb-today>Today</button>'+
       '<button type="button" class="cbb-refresh-btn" data-cbb-refresh>↻ Refresh</button></div>'+
-      '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Checking ESPN’s current game feed…</p>'+
+      '<p class="cbb-source-stamp" id="cbb-source-stamp" aria-live="polite">Checking ESPN’s current game feed…</p>'+      '<div class="cbb-filter-bar" role="group" aria-label="Filter college basketball games">'+      '<button type="button" data-cbb-filter="all" aria-pressed="true">ALL GAMES <span id="cbb-count-all">0</span></button>'+      '<button type="button" data-cbb-filter="live" aria-pressed="false">● LIVE <span id="cbb-count-live">0</span></button>'+      '<button type="button" data-cbb-filter="final" aria-pressed="false">FINAL <span id="cbb-count-final">0</span></button>'+      '<button type="button" data-cbb-filter="upcoming" aria-pressed="false">UPCOMING <span id="cbb-count-upcoming">0</span></button></div>'+
       '<div class="cbb-cards" id="cbb-cards"><p class="cbb-loading">Checking game data…</p></div>'+
       '<section class="cbb-detail" id="cbb-detail" hidden aria-live="polite"></section>';
     if(isStandalone)old.appendChild(host);
@@ -123,6 +197,8 @@
       if(shift){state.day=plusDays(state.day,Number(shift.dataset.cbbDate));syncPicker();refresh();return;}
       if(e.target.closest('[data-cbb-today]')){state.day=today();syncPicker();refresh();return;}
       if(e.target.closest('[data-cbb-refresh]')){refresh();return;}
+      const filter=e.target.closest('[data-cbb-filter]');
+      if(filter){state.filter=filter.dataset.cbbFilter;renderCards();return;}
       if(e.target.closest('[data-cbb-close]')){state.selected=null;q('#cbb-detail').hidden=true;return;}
     });
     host.querySelector('#cbb-day-picker').addEventListener('change',function(){if(/^\d{4}-\d{2}-\d{2}$/.test(this.value)){state.day=this.value;refresh();}});
@@ -157,24 +233,37 @@
     }
     return [];
   }
+  function renderCards(){
+    const countBy=phase=>state.games.filter(g=>g.phase===phase).length;
+    const all=state.games.length;
+    for(const [k,n] of Object.entries({all,live:countBy('live'),final:countBy('final'),upcoming:countBy('upcoming')})){
+      const num=document.getElementById('cbb-count-'+k);if(num)num.textContent=String(n);
+    }
+    document.querySelectorAll('#cbb-live-desk [data-cbb-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cbbFilter===state.filter)));
+    const visible=state.filter==='all'?state.games:state.games.filter(g=>g.phase===state.filter);
+    const result=q('#cbb-cards');
+    if(result)result.innerHTML=visible.length?visible.map(scorebug).join(''):
+      '<p class="cbb-empty">'+(all?'No '+state.filter+' games on '+dateLabel(state.day)+'. Choose another filter.':
+      'No '+tag.toLowerCase()+'’s Division I games listed for '+dateLabel(state.day)+'. Try another date.')+'</p>';
+  }
   async function refresh(){
     if(!createShell()||state.pending)return;
     state.pending=true;
     const active=state.selected;
-    const date=state.day.replaceAll('-','');
+    const day=state.day, generation=++state.generation;
+    const date=day.replaceAll('-','');
     const data=await fetchJSON(api+'scoreboard?groups=50&limit=1000&dates='+date);
     let games=Array.isArray(data?.events)?data.events.map(normalizeEvent).filter(Boolean):null;
     if(games?.length){state.source='ESPN current scoreboard';state.fallback=false;}
     else{games=await fallback();state.source='Local published scoreboard snapshot · not confirmed live';state.fallback=true;}
-    if(!mounted){state.pending=false;return;}
+    if(!mounted||state.day!==day){state.pending=false;return;}
     state.games=games.sort((a,b)=>{
       const order={live:0,upcoming:1,final:2};
       return order[a.phase]-order[b.phase]||Date.parse(a.date)-Date.parse(b.date);
     });
     state.lastUpdate=new Date();
     const result=q('#cbb-cards'),stamp=q('#cbb-source-stamp');
-    if(result)result.innerHTML=games.length?state.games.map(scorebug).join(''):
-      '<p class="cbb-empty">No '+tag.toLowerCase()+'’s Division I games are listed for '+esc(dateLabel(state.day))+'. Try another date.</p>';
+    renderCards();
     if(stamp)stamp.textContent=(state.fallback?'SNAPSHOT — not live. ':'')+state.source+' · '+dateLabel(state.day)+
       ' · checked '+state.lastUpdate.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET'+
       (state.fallback?' · Live stats require ESPN connectivity.':' · Auto-refresh every 30 seconds.');
@@ -185,6 +274,7 @@
     if(active&&state.games.some(g=>g.id===active))await openDetails(active,true);
     else if(active){state.selected=null;const detail=q('#cbb-detail');if(detail)detail.hidden=true;}
     state.pending=false;
+    if(!state.fallback)preloadVisibleStats(state.games,generation,day).catch(console.warn);
   }
   function statsPairs(g,summary){
     const sections=summary?.boxscore?.teams||[];
