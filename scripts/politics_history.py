@@ -327,6 +327,7 @@ def build(loader=load_year,now=None):
             "closest_house_2024":[],"house_reconciliation":[],"coverage":{},"warnings":[],"backtest_certified":False,
             "forecast_2026_certified":False}
     house={}
+    rowlevel={"updated_at":now.isoformat(timespec="seconds"),"status":"verified_source_rows_unreconciled","source":SOURCE,"licence":"CC0 1.0","years":list(YEARS),"house":[],"senate":[],"note":"Actual MEDSL contest rows, with missing and unopposed cases explicitly omitted. These are not 2026 predictions. District boundary continuity is not certified.","provenance":{"house":CREDIT_HOUSE,"senate":CREDIT_SENATE}}
     for chamber in ("house","senate"):
         years={}
         for year in YEARS:
@@ -338,6 +339,8 @@ def build(loader=load_year,now=None):
             if len(contests)<min_contests:
                 raise ValueError(f"Insufficient historical coverage {chamber} {year}: {len(contests)} < {min_contests}")
             years[year]=contests
+            for c in contests:
+                rowlevel[chamber].append({"year":year,**c,"source":f"{URL_ROOT}/{chamber}-results/table/{year}.json","source_version":"MEDSL"})
             output[chamber].append(describe(contests,year,chamber,quality))
             if chamber=="house":
                 output["house_reconciliation"].append(reconcile_house_year(contests,year,quality))
@@ -363,6 +366,9 @@ def build(loader=load_year,now=None):
     output["data_quality_status"]="reconstruction_pending" if not output["reconciliation_complete"] else "reconciled"
     output["forecast_2026_certified"]=False
     output["status"]="ok"
+    rowlevel["status"]="ok"
+    # Write the detailed training-source evidence only after all cycles passed validation.
+    (ROOT/"politics-historical-contests.json").write_text(json.dumps(rowlevel,separators=(",",":"),ensure_ascii=False)+"\n",encoding="utf-8")
     return output
 
 def main():
