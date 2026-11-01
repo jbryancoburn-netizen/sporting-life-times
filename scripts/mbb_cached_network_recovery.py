@@ -15,6 +15,11 @@ SOURCES = (
     ("mbb-official-conference-game-evidence.json", "conference"),
     ("mbb-network-grid-evidence.json", "broadcaster"),
     ("mbb-sec-official-feed-recovery.json", "sec"),
+    ("mbb-additional-conference-game-evidence.json", "conference"),
+    ("mbb-american-a10-cusa-game-evidence.json", "conference"),
+    ("mbb-october-conference-evidence.json", "conference"),
+    ("mbb-patriot-summit-game-evidence.json", "conference"),
+    ("mbb-western-conference-game-evidence.json", "conference"),
 )
 SKIP = re.compile(r"(?i)\b(?:TBA|TBD|unknown|wild\s*card|to\s+be\s+announced|unannounced)\b")
 CLOCK = re.compile(r"(?i)^(?:(?:[01]?\d|2[0-3])(?::[0-5]\d)?\s*(?:a\.?m\.?|p\.?m\.?)|noon|midnight)(?:\s+(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT))?$")
@@ -33,7 +38,7 @@ def norm(s):
 
 def safe_network(v):
     s = str(v or "").strip()
-    if not 2 <= len(s) <= 44 or SKIP.search(s) or re.search(r"(?i)(?:\sOR\s|[|?,])", s):
+    if not 2 <= len(s) <= 44 or SKIP.search(s) or re.search(r"(?i)(?:\sOR\s|[|?,])", s) or ("/" in s and norm(s) not in ("K5/MW+",)):
         return ""
     if not re.fullmatch(r"[\w\s+()./&'-]+", s):
         return ""
@@ -51,6 +56,18 @@ def clock_with_zone(row, default_zone):
     if not ZONES.fullmatch(tz):
         return ""
     return value if zone else value + " " + tz
+
+def normalized_clock(clock):
+    """Compare differing printed forms without treating 7 PM and 7:00 p.m. as conflicts."""
+    raw = re.sub(r"[.\\s]+", " ", str(clock or "").strip().upper()).replace("A M", "AM").replace("P M", "PM")
+    raw = re.sub(r"\\s+", " ", raw).strip()
+    m = re.fullmatch(r"(\\d{1,2})(?::(\\d{2}))?\\s*(AM|PM)\\s+(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)", raw)
+    if not m:
+        special = re.fullmatch(r"(NOON|MIDNIGHT)\\s+(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)", raw)
+        if special:
+            return ("12:00 PM" if special.group(1) == "NOON" else "12:00 AM", special.group(2)[:1])
+        return raw
+    return (f"{int(m.group(1))}:{m.group(2) or '00'} {m.group(3)}", m.group(4)[:1])
 
 def load_evidence():
     grouped = collections.defaultdict(list)
@@ -92,6 +109,15 @@ def recover():
             raise RuntimeError("Missing schedule " + owner)
         docs[owner] = (path, json.loads(path.read_text()))
     evidence, skipped = load_evidence()
+    # A duplicate date/opponent pair within the same school is not a unique fixture.
+    game_keys = collections.Counter()
+    for owner, (_, doc) in docs.items():
+        for game in doc.get("events", []):
+            ps = (game.get("competitions") or [{}])[0].get("competitors") or []
+            ids = [str((p.get("team") or {}).get("id") or "") for p in ps]
+            day = str(game.get("date") or "")[:10]
+            if len(ids) == 2 and owner in ids and all(x in owners for x in ids) and ids[0] != ids[1]:
+                game_keys[(owner, day, tuple(sorted(ids)))] += 1
     counts = collections.Counter()
     changes, conflicts, changed = [], [], set()
     for owner, (path, doc) in docs.items():
@@ -101,7 +127,11 @@ def recover():
             day = str(game.get("date") or "")[:10]
             if len(ids) != 2 or owner not in ids or any(x not in owners for x in ids) or ids[0] == ids[1]:
                 continue
-            facts = evidence.get((day, tuple(sorted(ids))), [])
+            key = (day, tuple(sorted(ids)))
+            if game_keys[(owner, *key)] != 1:
+                counts["nonunique_school_game_skipped"] += 1
+                continue
+            facts = evidence.get(key, [])
             if not facts:
                 continue
             counts["exact_matching_entries"] += 1
@@ -122,7 +152,7 @@ def recover():
                 changed.add(owner)
                 changes.append({"school_id": owner, "event_id": game.get("id"), "date": day,
                                 "field": "network", "value": candidate["networks"], "source_url": candidate["source_url"]})
-            times = {x["time"].lower().replace(".", ""): x for x in facts if x["time"]}
+            times = {normalized_clock(x["time"]): x for x in facts if x["time"]}
             prior = str(game.get("official_school_time") or "").strip()
             other = str(game.get("official_time") or "").strip()
             if len(times) > 1:
