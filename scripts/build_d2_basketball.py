@@ -220,6 +220,123 @@ def seed_cross_gender_logos(gender,teams):
             assigned+=1
     return {"added":assigned,"method":"same institution, uniquely matched name and city"}
 
+
+def nonwhite_color(value):
+    """Valid, visible hexadecimal palette color; pure/near-white is not a ring."""
+    value=str(value or "").strip().lstrip("#")
+    if not re.fullmatch(r"[a-fA-F0-9]{6}",value):
+        return None
+    rgb=[int(value[i:i+2],16) for i in (0,2,4)]
+    if min(rgb)>231:
+        return None
+    return "#"+value.lower()
+
+def tonal_accent(primary):
+    """Editorial darker/lighter accent if ESPN reports white-only secondary.
+
+    This color is NEVER described as an official school secondary.
+    """
+    rgb=[int(primary[i:i+2],16) for i in (1,3,5)]
+    bright=sum(rgb)/3
+    if bright<110:
+        new=[int(x*0.6+255*0.4) for x in rgb]
+    else:
+        new=[int(x*0.66) for x in rgb]
+    return "#"+"".join(f"{max(0,min(255,x)):02x}" for x in new)
+
+def espn_team_entries(payload):
+    """Extract published team objects from ESPN's public site-v2 teams list."""
+    if not isinstance(payload,dict):
+        return []
+    sports=payload.get("sports") or []
+    for sport in sports:
+        for league in sport.get("leagues",[]):
+            teams=league.get("teams") or []
+            if isinstance(teams,list):
+                return [x.get("team",x) for x in teams if isinstance(x,dict)]
+    # Allows locally supplied snapshots with the same nested team shapes.
+    return [x.get("team",x) for x in payload.get("teams",[]) if isinstance(x,dict)]
+
+def seed_espn_dii_branding(gender,teams):
+    """Only import colors after strict ESPN Division II institutional matching.
+
+    Men and women are separate ESPN leagues; only group=51 (DII) is queried.
+    Unmatched/ambiguous schools keep neutral logos instead of false colors.
+    """
+    sport="mens-college-basketball" if gender=="men" else "womens-college-basketball"
+    url=f"https://site.api.espn.com/apis/site/v2/sports/basketball/{sport}/teams?group=51&limit=1000"
+    try:
+        entries=espn_team_entries(get_json(url))
+        if len(entries)<25:
+            raise ValueError(f"ESPN DII directory incomplete ({len(entries)} teams)")
+    except Exception as exc:
+        return {"matched":sum(bool(t.get("primary") and t.get("secondary")) for t in teams.values()),
+                "directory_teams":0,"source":url,"error":str(exc)[:200]}
+    registry={}
+    for key,team in teams.items():
+        for label in (team.get("name",""),):
+            normalized=normalize_school_name(label)
+            if normalized:registry.setdefault(normalized,set()).add(key)
+    matches=0;ambiguous=0;editorial=0;two_school_colors=0
+    for provider in entries:
+        # ESPN 'name' is usually mascot; 'location' is the school name.
+        names=(provider.get("location",""),provider.get("shortDisplayName",""))
+        keys={k for label in names for k in registry.get(normalize_school_name(label),set())
+              if normalize_school_name(label)}
+        if len(keys)!=1:
+            if len(keys)>1:ambiguous+=1
+            continue
+        school_id=next(iter(keys))
+        existing=teams[school_id]
+        primary=nonwhite_color(provider.get("color"))
+        second=nonwhite_color(provider.get("alternateColor"))
+        if not primary:continue
+        if not second or second.lower()==primary.lower():
+            second=tonal_accent(primary)
+            nature="ESPN primary plus editorial nonwhite tonal accent"
+            editorial+=1
+        else:
+            nature="ESPN-published primary and secondary team colors"
+            two_school_colors+=1
+        # Never replace a previously published verified institutional palette
+        # with an untrusted heuristic or an accidental ESPN short-name collision.
+        existing.update({"primary":primary,"secondary":second,
+                         "espn_id":str(provider.get("id","")),
+                         "color_source":url,
+                         "color_provenance":nature})
+        matches+=1
+    return {"matched":matches,"official_secondary":two_school_colors,
+            "editorial_tonal_secondary":editorial,
+            "directory_teams":len(entries),"ambiguous":ambiguous,
+            "source":url}
+
+def seed_shared_dii_colors(gender,teams):
+    """Same NCAA school logo identity means reusable institutional colors.
+
+    The two genders share school colors, never schedules, ratings or rosters.
+    """
+    other="women" if gender=="men" else "men"
+    path=DATA/f"d2-{other}-2026-27.json"
+    if not path.exists():return {"added":0}
+    found=json.loads(path.read_text()).get("teams",[])
+    by_slug={}
+    for t in found:
+        key=t.get("slug")
+        if key and t.get("primary") and t.get("secondary"):
+            by_slug.setdefault(key,[]).append(t)
+    count=0
+    for t in teams.values():
+        if t.get("primary") and t.get("secondary"):continue
+        matches=by_slug.get(t.get("slug"),[])
+        if len(matches)!=1:continue
+        source=matches[0]
+        if not nonwhite_color(source["primary"]) or not nonwhite_color(source["secondary"]):continue
+        t["primary"]=source["primary"];t["secondary"]=source["secondary"]
+        t["color_source"]=source.get("color_source","")
+        t["color_provenance"]=source.get("color_provenance","") + " (shared institutional palette across genders)"
+        count+=1
+    return {"added":count,"method":"unique matching NCAA school logo slug"}
+
 def build_dii_team_lookup(teams):
     """Build a unique, conservative identity map for official NCAA contests."""
     by_slug={};by_name={}
@@ -293,8 +410,11 @@ def update(gender, bootstrap=False):
     except Exception as exc:
         directory_error=str(exc)
         print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
+    color_quality=seed_espn_dii_branding(gender,teams)
     logo_quality=seed_official_logos(teams)
     paired_quality=seed_cross_gender_logos(gender,teams)
+    color_quality['cross_gender']=seed_shared_dii_colors(gender,teams)
+    color_quality['total_with_two_visible_colors']=sum(bool(t.get('primary') and t.get('secondary')) for t in teams.values())
     logo_quality["cross_gender"]=paired_quality
     logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
     logo_quality["unmatched"]=len(teams)-logo_quality["matched"]
@@ -419,6 +539,7 @@ def update(gender, bootstrap=False):
         "other_openers_provenance":"Official university athletics results, game-by-game source URLs",
         "directory_source":directory_source,"directory_error":directory_error,
         "official_logo_index":logo_quality,
+        "school_color_coverage":color_quality,
         "membership_certified":False}
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",

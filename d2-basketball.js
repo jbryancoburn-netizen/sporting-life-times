@@ -76,6 +76,13 @@ sel.innerHTML='<option value="">Select a verified conference</option>'+confs.map
 function conference(){const list=teams.filter(t=>t.conference&&t.conference===sel.value).sort((a,b)=>pct(b)-pct(a)||b.elo-a.elo);$('conference-board').innerHTML=list.length?'<p class="muted">Overall records only until official conference games/tiebreakers are verified.</p>'+list.map((t,i)=>row(t,i)).join(''):'<div class="note">Conference memberships and official standings are not yet verified for this edition.</div>'}
 sel.addEventListener('change',conference);conference();
 $('coverage').innerHTML='NCAA projects <b>298</b> programs in this gender for 2026–27. This desk currently lists <b>'+teams.length+'</b> identified programs and <b>'+games.length+'</b> published fixtures or finals.<br>School-specific conference, venue, television, roster and color fields appear only when the sources support them. A discovered team is not automatically a certified 2026–27 member.<br><b>Feed:</b> '+esc(d.source||'NCAA')+'<br><b>Quality:</b> '+esc(d.quality?.status||'Refresh pending')+'<br><b>Important:</b> Independent Elo changes require confirmed Division II opponents; exhibitions and cross-division games are excluded.';
+
+const brandedSchools=teams.filter(t=>/^#[0-9a-f]{6}$/i.test(t.primary||'')&&/^#[0-9a-f]{6}$/i.test(t.secondary||''));
+const officialPairs=brandedSchools.filter(t=>t.color_provenance&&t.color_provenance.includes('ESPN-published primary and secondary')).length;
+$('coverage').innerHTML+='<br><b>Logo rings:</b> '+brandedSchools.length+' of '+teams.length+
+ ' teams currently have institution-matched palette data ('+officialPairs+' ESPN-published two-color pairs).'+
+ ' When a university lists white as its secondary, a nonwhite <em>editorial tonal accent</em> is used and marked in the source data; it is not represented as an official second school color.'+
+ ' Schools without a verified primary remain in neutral paper styling.';
 }
 function renderTeam(d){const id=new URLSearchParams(location.search).get('team');const t=state.teams.get(id);$('back-link').href=path;const el=$('team-profile');
 const back=$('back-link');if(back)back.textContent='← BACK TO '+(gender==='women'?'WOMEN’S':'MEN’S')+' DII NEWSPAPER';
