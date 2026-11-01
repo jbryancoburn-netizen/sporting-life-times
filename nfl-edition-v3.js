@@ -169,7 +169,7 @@ function home(){
    (g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</p></div>';
   out+='<div class="nfl-p26-match"><div class="nfl-p26-match-side">'+crest(a,'lg')+
     '<span class="nfl-p26-name">'+escapeHtml(a.name)+'</span><span class="nfl-p26-record">'+escapeHtml(rec(a))+'</span></div>'+
-    '<div class="nfl-p26-big-score'+(pre?' is-pregame':'')+'">'+(pre?'VS':format(g.away.score)+'<br>–<br>'+format(g.home.score))+'</div>'+
+    '<div class="nfl-p26-big-score'+(pre?' is-pregame':'')+'">'+(pre?'VS':'<span>'+format(g.away.score)+'</span><i>:</i><span>'+format(g.home.score)+'</span>')+'</div>'+
     '<div class="nfl-p26-match-side">'+crest(h,'lg')+'<span class="nfl-p26-name">'+escapeHtml(h.name)+'</span>'+
     '<span class="nfl-p26-record">'+escapeHtml(rec(h))+'</span></div></div>';
   out+='<div>';
