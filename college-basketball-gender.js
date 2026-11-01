@@ -76,7 +76,35 @@
        (gamefile?'<a class="wbb-gamecast-link" href="'+esc(gamefile)+'">Gamecast &amp; box score →</a>':'')+
        '<a class="wbb-game-source" href="'+safe(/^\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
   }
-  function allGames(){const result=new Map(games);for(const [id,g] of live){const prior=result.get(id);result.set(id,{...prior,...g,broadcast:prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast)});}return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));}
+  function allGames(){
+    const result=new Map(games);
+    for(const [id,g] of live){
+      const prior=result.get(id);
+      const broadcast=prior?.broadcast_verified?prior.broadcast:(g.broadcast||prior?.broadcast);
+      const priorFinal=prior?.status==='final'||prior?.completed===true;
+      if(priorFinal){
+        if(g.source_conflict){
+          result.set(id,{...prior,...g,status:'review',completed:false,home_score:null,away_score:null,
+            source_conflict:true,broadcast});
+          continue;
+        }
+        const incomingFinal=g.status==='final'||g.completed===true;
+        if(incomingFinal&&g.home_score!=null&&g.away_score!=null&&
+          (Number(g.home_score)!==Number(prior.home_score)||Number(g.away_score)!==Number(prior.away_score))){
+          result.set(id,{...prior,status:'review',completed:false,home_score:null,away_score:null,
+            source_conflict:true,source:'Published final / live scoreboard score conflict',broadcast});
+          continue;
+        }
+        if(!incomingFinal){
+          // A stale live snapshot must never downgrade a published final.
+          result.set(id,{...prior,broadcast});
+          continue;
+        }
+      }
+      result.set(id,{...prior,...g,broadcast});
+    }
+    return [...result.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  }
   function drawGames(){
     const all=allGames(),dates=[...new Set(all.map(g=>localDay(g.date)).filter(Boolean))].sort(),dateSelect=document.getElementById('wbb-date');
     if(!manualDate||!dates.includes(selected))selected=dates.find(d=>d>=today())||dates.at(-1)||today();
