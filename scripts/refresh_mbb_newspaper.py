@@ -586,6 +586,9 @@ def main():
                       'expected_team_ids':expected,
                       'player_counts':[len(x.get('playerStats',[])) for x in blocks[:2]
                          if isinstance(x,dict) and isinstance(x.get('playerStats'),list)],
+                      'team_box_keys':[list(x)[:16] for x in blocks[:2] if isinstance(x,dict)],
+                      'team_stat_keys':[list(x.get('teamStats',{}))[:22] for x in blocks[:2]
+                         if isinstance(x,dict) and isinstance(x.get('teamStats'),dict)],
                       'team_info':[(str(x.get('teamId','')),x.get('isHome')) for x in
                          ((raw.get('teams') or []) if isinstance(raw,dict) else [])[:2]
                          if isinstance(x,dict)]}
