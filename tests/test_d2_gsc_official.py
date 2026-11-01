@@ -2,6 +2,7 @@ import datetime as dt
 import importlib.util
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 MOD=Path(__file__).resolve().parents[1]/"scripts"/"d2_gsc_official.py"
 spec=importlib.util.spec_from_file_location("gsc_official_test",MOD)
@@ -114,6 +115,46 @@ class GSCOfficialSchedules(unittest.TestCase):
         self.assertEqual(g["start_time"],"8:00 PM ET")
         self.assertEqual(g["venue"],"Canale Arena · Memphis, TN")
         self.assertEqual(g["venue_source_url"],"https://cbubucs.com/sports/mens-basketball/schedule")
+
+    def test_womens_verified_host_recovers_malformed_december_am(self):
+        a={"date":"2026-12-17","away":"auburn-university-at-montgomery",
+           "home":"university-of-alabama-in-huntsville",
+           "source_team":"auburn-university-at-montgomery",
+           "source_url":"https://gscsports.org/schedule.aspx?schedule=3087",
+           "start_time":None,"city":"Huntsville, AL"}
+        b={**a,"source_team":"university-of-alabama-in-huntsville",
+           "source_url":"https://gscsports.org/schedule.aspx?schedule=3086"}
+        teams={x:{"id":x} for x in (a["away"],a["home"])}
+        games={}
+        audit=collector.reconcile_schedules({a["away"]:[a],a["home"]:[b]},
+            games,teams,dt.date(2026,11,1))
+        g=next(iter(games.values()))
+        self.assertEqual(g["start_time"],"6:30 PM ET")
+        self.assertEqual(g["venue"],"SportsMED Arena in Spragins Hall · Huntsville, AL")
+        self.assertEqual(audit["host_verified_resolutions"],1)
+
+    def test_womens_january_gsc_misprinted_date_repaired_using_host(self):
+        teams={team_id:{"id":team_id} for _,team_id in collector.WOMEN_SCHOOLS.values()}
+        with patch.object(collector,"read_html",return_value="official"),patch.object(
+            collector,"read_women_school_schedule",return_value=[]):
+            games={}
+            audit=collector.enrich_gsc(games,teams,dt.date(2026,11,1),gender="women")
+        self.assertEqual(audit["host_date_corrections"],1)
+        self.assertEqual(audit["new_games"],1)
+        self.assertEqual(len(games),1)
+        g=next(iter(games.values()))
+        self.assertEqual(g["date"],"2027-01-02")
+        self.assertEqual(g["away"],"university-of-alabama-in-huntsville")
+        self.assertEqual(g["home"],"christian-brothers-university")
+        self.assertEqual(g["start_time"],"6:00 PM ET")
+        self.assertEqual(g["venue"],"Canale Arena · Memphis, TN")
+        self.assertIsNone(g["away_score"])
+        self.assertEqual(g["network"],"FloCollege")
+        with patch.object(collector,"read_html",return_value="official"),patch.object(
+            collector,"read_women_school_schedule",return_value=[]):
+            repeated=collector.enrich_gsc(games,teams,dt.date(2026,11,1),gender="women")
+        self.assertEqual(repeated["new_games"],0)
+        self.assertEqual(len(games),1)
 
     def test_conflicting_time_does_not_replace_verified_tipoff(self):
         a={"date":"2026-12-03","away":"alabama-huntsville","home":"valdosta-state",
