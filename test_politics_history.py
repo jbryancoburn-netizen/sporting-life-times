@@ -1,7 +1,7 @@
 """Deterministic offline tests for MEDSL election history parser."""
 import datetime as dt
 import unittest
-from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout, reconcile_house_year, OFFICIAL_HOUSE, APPORTIONMENT, apportionment_audit
+from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout, reconcile_house_year, OFFICIAL_HOUSE, APPORTIONMENT, apportionment_audit, verified_winner_only_overlay
 
 def item(name,party,votes,district=1,year=2024,fusion=False,total=None,stage="GEN",special=False,chamber="house"):
     return {"year":year,"state_po":"FL","district":district,"candidate":name,"party":party,
@@ -47,6 +47,16 @@ class HistoryTests(unittest.TestCase):
         self.assertIn("Not a calibrated",out["interpretation"])
 
 
+    def test_official_unopposed_winner_has_no_invented_votes(self):
+        excluded=[{"id":"FL-20","reason":"missing_numeric_votes",
+                   "ballot_candidates":["SHEILA CHERFILUS-MCCORMICK"]}]
+        overlay=verified_winner_only_overlay(2024,excluded)
+        self.assertEqual(len(overlay),1)
+        self.assertEqual(overlay[0]["party"],"D")
+        self.assertIsNone(overlay[0]["numeric_votes"])
+        with self.assertRaises(ValueError):
+            verified_winner_only_overlay(2024,[{"id":"FL-20","reason":"missing_numeric_votes",
+              "ballot_candidates":["SOME OTHER CANDIDATE"]}])
     def test_census_apportionment_totals_and_exclude_delegates(self):
         self.assertEqual(sum(APPORTIONMENT[2010].values()),435)
         self.assertEqual(sum(APPORTIONMENT[2020].values()),435)
