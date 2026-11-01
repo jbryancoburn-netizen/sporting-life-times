@@ -50,3 +50,21 @@ test('official university tip-off results and fixture provenance retained across
   assert.equal(new Set(data.games.map(g=>g.id)).size,data.games.length);
  }
 });
+
+test('official 2026 DII opening-game source URLs match each specific result',()=>{
+ const source=JSON.parse(fs.readFileSync('data/d2-verified-other-openers-2026-27.json','utf8'));
+ const expected={
+  'd2opening-2026-men-03':'wildcatsports.com/news/2026/10/30/mens-basketball-cwu-claims-battle-of-the-wildcats-with-season-opening-victory.aspx',
+  'd2opening-2026-men-09':'wildcatsports.com/news/2026/10/31/mens-basketball-cwu-drops-hard-fought-battle-with-cal-state-san-bernardino.aspx',
+  'd2opening-2026-women-05':'wwuvikings.com/sports/womens-basketball/schedule/2026-27?grid=true'
+ };
+ for(const gender of ['men','women']){
+  const current=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
+  for(const game of source[gender]){
+   const published=current.games.find(g=>g.id===game.id);
+   assert.ok(published,'published fixture missing '+game.id);
+   assert.equal(published.source_url,game.source_url,'wrong provenance '+game.id);
+   if(expected[game.id])assert.ok(game.source_url.includes(expected[game.id]),'source mismatch '+game.id);
+  }
+ }
+});
