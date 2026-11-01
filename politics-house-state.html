@@ -2,37 +2,40 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f3">
 <meta name="description" content="Source-checked 2026 congressional districts within each U.S. state. Compare published House polls, official ballot candidates and previous election returns with clear geography-vintage rules.">
 <title>State House District Directory | The Political Life &amp; Times</title>
-<link rel="stylesheet" href="politics-house.css?v=20261101-coverage1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261101-2" defer></script><script src="politics-house.js?v=20261101-official-133-unopposed2" defer></script></head>
+<link rel="stylesheet" href="politics-house.css?v=20261101-state-edition-2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261101-2" defer></script><script src="politics-house.js?v=20261101-state-edition-2" defer></script></head>
 <body data-house-page="state"><main class="paper" id="view-content">
 <div class="strip"><span>THE SPORTING LIFE &amp; TIMES / CIVIC AFFAIRS</span><span>HOUSE ELECTIONS · STATE DESK</span></div>
-<header class="mast"><span class="folio">THE POLITICAL LIFE &amp; TIMES · 2026 HOUSE ELECTIONS</span>
-<h1 id="state-title">State House districts</h1><p id="state-desc">An individual profile for each congressional office within this state.</p></header>
-<nav class="nav" aria-label="Political newspaper navigation"><a href="politics-house.html">← National House map</a><a href="politics.html">Political front page</a><a id="state-back" href="politics-house.html">State directory</a><a href="politics-ballots.html">Official candidates</a></nav>
-<section class="hero"><div><span class="eyebrow">DISTRICT DIRECTORY · NOVEMBER 3, 2026</span>
-<h2>Every congressional seat. Every available piece of evidence.</h2>
-<p>Explore each numbered district. Blue/red cards show the latest named-candidate 2026 district poll lead, marked as either an original checked release or a public compilation, or the 2024 House election margin where boundaries did not change. Gray cards mean a directly comparable margin is unavailable.</p>
-<p class="footnote" id="state-history">2024 state election context loading…</p></div>
-<aside class="caution"><strong>One election, three different kinds of data</strong>
-<p><b>2026 poll</b>: a dated original survey or published compilation, not a forecast. Compilation details such as sponsor and sample can be unverified. <b>2024 House result</b>: real prior-cycle votes, not a current lead. <b>2026 candidates</b>: official state-government snapshots, not candidates inferred from FEC registrations. Gray does not mean a toss-up.</p></aside></section>
-<div class="metrics" id="metrics"><div class="metric"><b>—</b><span>House seats in this state</span></div><div class="metric"><b>—</b><span>Government-verified candidate offices</span></div><div class="metric"><b>—</b><span>Published district poll entries</span></div><div class="metric"><b>—</b><span>2026 congressional map</span></div></div>
-<section id="coverage-section"><div class="section-heading"><h3>What the state desk has verified</h3><p>Source coverage, not voting probabilities</p></div><div class="evidence-coverage-grid" id="coverage-board" aria-live="polite"><p>Checking district records…</p></div></section>
+<header class="mast state-mast"><span class="folio">THE POLITICAL LIFE &amp; TIMES · 2026 HOUSE ELECTIONS</span>
+<h1 id="state-title">State House districts</h1><p id="state-desc">The congressional edition · November 3, 2026</p></header>
+<nav class="nav state-nav" aria-label="Political newspaper navigation"><a href="politics-house.html">← National atlas</a><a href="politics.html">Politics front page</a><a href="politics-ballots.html">Ballot ledger</a></nav>
+<section class="state-edition" aria-labelledby="state-edition-heading">
+<div class="state-edition-line"><span class="eyebrow">THE HOUSE DESK / STATE REPORT</span><span>GENERAL ELECTION · NOV 3, 2026</span></div>
+<div class="state-lead-grid"><div class="state-lead-main"><h2 id="state-edition-heading">The congressional field</h2><p>Verified candidates, published district polling and historical results—one profile for every seat.</p><div class="state-jump-links"><a href="#district-geography">View district map <span aria-hidden="true">↘</span></a><a href="#district-list">Browse the races <span aria-hidden="true">↘</span></a></div></div>
+<aside class="state-context"><span class="state-context-label">THE HISTORICAL BASELINE · 2024</span><p id="state-history">Checking actual statewide presidential returns…</p><span id="state-map-status-pill" class="state-map-status-pill">2026 boundary check pending</span></aside></div>
+</section>
+<div class="metrics state-metrics" id="metrics">
+<div class="metric"><b>—</b><span>House seats</span></div>
+<div class="metric"><b>—</b><span>2026 candidate lists checked</span></div>
+<div class="metric"><b>—</b><span>Published district polls</span></div>
+</div>
 <div class="callout" id="boundary-caution" hidden></div>
-<section class="district-map-section" id="district-geography">
-<div class="section-heading"><h3>Explore the full congressional map</h3><p>Official geographic outlines · each district opens its race profile</p></div>
+<section class="district-map-section state-feature-map" id="district-geography">
+<div class="section-heading"><h3>The district map</h3><p>Tap a district to open its race profile · official Census outlines</p></div>
 <p class="footnote" id="district-map-status" role="status" aria-live="polite">Loading official congressional district geometry…</p>
 <div class="map-actions"><label for="map-district-jump">Find a district<select id="map-district-jump"><option value="">Loading districts…</option></select></label><button type="button" id="map-open-district">Open selected district →</button><span class="map-help">Drag to move · + / − to zoom · select a district directly</span></div>
 <div id="geo-district-map" class="geo-district-map" aria-label="Interactive geographic map showing each 2026 U.S. House district in this state"></div>
 <p class="callout" id="map-fallback" hidden></p>
 <p class="map-vintage-note" id="map-vintage-note">Boundaries are independent of historical election and polling data.</p>
-<p class="footnote">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
+<p class="footnote state-map-source">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
 </section>
-<section><div class="section-heading"><h3>Congressional districts</h3><p id="district-count">Loading all districts…</p></div>
+<section id="district-list" class="state-races-section"><div class="section-heading"><h3>Congressional races</h3><p id="district-count">Loading all districts…</p></div>
 <div class="toolbar"><label for="district-filter">Show districts<select id="district-filter"><option value="all">All House districts</option><option value="poll">2026 polling available</option><option value="ballot">Official candidate slate</option><option value="historical">Comparable 2024 House results</option><option value="missing-ballot">Candidate list not yet verified</option><option value="missing-poll">No published district poll in ledger</option><option value="redrawn">2026 boundaries changed</option></select></label></div>
 <div id="district-cards" class="district-grid" aria-live="polite"></div></section>
-<section><div class="section-heading"><h3>How the shades work</h3></div>
+<details class="state-sources-details" id="coverage-section"><summary><span><small>DOCUMENTATION DESK</small><strong>What's verified—and what's missing?</strong></span><span class="details-chevron" aria-hidden="true">+</span></summary><div class="source-detail-body"><p>Exactly the same evidence categories are checked for every district. A missing poll or candidate list means our source review is incomplete, not that no race or poll exists.</p><div class="evidence-coverage-grid" id="coverage-board" aria-live="polite"><p>Checking district records…</p></div></div></details>
+<details class="state-sources-details"><summary><span><small>METHODOLOGY</small><strong>How to read the map and data</strong></span><span class="details-chevron" aria-hidden="true">+</span></summary><div class="source-detail-body">
 <div class="legend"><span><i class="swatch blue"></i> Democratic candidate leads published poll, or Democrat won last comparable House election</span>
 <span><i class="swatch red"></i> Republican candidate leads published poll, or Republican won last comparable House election</span>
 <span><i class="swatch gray"></i> No current poll or comparable prior result</span></div>
-<p class="footnote">Each card clearly labels the poll or election year. Within a color family, stronger color denotes a larger observed margin. It does not measure win probability or confidence. Poll sponsorship, sample, dates and linked original releases appear inside individual district profiles.</p></section>
+<p class="footnote">Each card clearly labels the poll or election year. Within a color family, stronger color denotes a larger observed margin. It does not measure win probability or confidence. Poll sponsorship, sample, dates and linked original releases appear inside individual district profiles.</p></div></details>
 <footer><span>THE POLITICAL LIFE &amp; TIMES · NONPARTISAN SOURCE-BASED ELECTION ATLAS</span><span><a href="politics-house.html">← Back to all 50 states</a></span></footer>
 </main></body></html>
