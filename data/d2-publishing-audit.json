@@ -6,14 +6,14 @@
   "men": {
     "gender": "men",
     "teams": 299,
-    "games": 1169,
+    "games": 1294,
     "verified_elo_finals": 21,
     "dated_game_days": 100,
-    "no_venue": 1040,
-    "no_network": 1039,
-    "no_tipoff": 45,
+    "no_venue": 1165,
+    "no_network": 1164,
+    "no_tipoff": 170,
     "no_source_url": 0,
-    "schools_without_a_published_game": 36,
+    "schools_without_a_published_game": 31,
     "full_season_date_scan": true,
     "school_schedule_certified": false,
     "source_categories": {
@@ -23,6 +23,7 @@
       "Gulf South Conference member schedules (reciprocal)": 109,
       "NCAA scoreboard": 716,
       "PSAC 2026-27 reciprocal official school schedules": 170,
+      "RMAC 2026-27 reciprocal official school calendars": 125,
       "official tournament organizer": 12,
       "official university athletics schedule or recap": 14
     },
@@ -55,6 +56,17 @@
         "enriched": 110,
         "time_disagreements": 1,
         "unreciprocated": 0
+      },
+      "RMAC fixtures": {
+        "status": "RMAC exact two-school conference fixtures only",
+        "gender": "men",
+        "schools_read": 15,
+        "confirmed_matchups": 129,
+        "added": 125,
+        "enriched": 4,
+        "quarantined": 41,
+        "source": "https://rmacsports.org/schedule.aspx?schedule=",
+        "unavailable_count": 0
       }
     },
     "warnings": [
@@ -67,7 +79,7 @@
     "gender": "women",
     "teams": 298,
     "games": 3287,
-    "verified_elo_finals": 30,
+    "verified_elo_finals": 31,
     "dated_game_days": 101,
     "no_venue": 3154,
     "no_network": 3149,
@@ -120,6 +132,11 @@
         "single_school_only": 0,
         "source": "CACC official 2026-27 women's basketball university calendars",
         "unavailable_calendars_count": 0
+      },
+      "RMAC fixtures": {
+        "status": "RMAC team identity validation incomplete; fixtures held",
+        "added": 0,
+        "enriched": 0
       }
     },
     "warnings": [
