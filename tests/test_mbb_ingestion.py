@@ -2,7 +2,7 @@ import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mbb_player_boxscores import parse_boxscore,aggregate
-from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures
+from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures
 class Ingestion(unittest.TestCase):
  def test_boxscore_and_replay(self):
   data={'boxscore':{'players':[{'team':{'id':'1'},'statistics':[{'labels':['PTS','REB','AST','FG','FT','STL','BLK'],'athletes':[{'athlete':{'id':'8','displayName':'A Player'},'stats':['20','5','3','7-14','4-5','2','1']},{'didNotPlay':True}]}]}]}}
@@ -94,4 +94,43 @@ class Ingestion(unittest.TestCase):
    item=conference_schedule_fixtures(Path(tmp),'2026-11-01')['games'][0]
    self.assertTrue(item['network_conflict'])
    self.assertIsNone(item['network_announced'])
+ def test_womens_verified_school_batches_keep_fixture_evidence_without_scores(self):
+  import tempfile,json
+  with tempfile.TemporaryDirectory() as tmp:
+   data=Path(tmp)/'data';data.mkdir()
+   files=['ncaaw-2026-27-official-schedule-verifications.json',
+          'ncaaw-2026-27-additional-official-evidence.json',
+          'ncaaw-official-school-verification-batch-01.json',
+          'ncaaw-official-school-verification-batch-02.json',
+          'ncaaw-official-school-verification-batch-03.json']
+   for i,name in enumerate(files):
+    rows=[]
+    if i in (2,3):
+     rows=[{'game_id':'401906031','team_id':('103' if i==2 else '107'),
+            'opponent_id':('107' if i==2 else '103'),'date':'2026-11-02',
+            'verified_fields':['local_game_date','opponent_id','home_away_or_neutral'],
+            'source_url':'https://university.example/sports/womens-basketball/schedule'}]
+    (data/name).write_text(json.dumps({'season':'2026-27','gender':'women','rows':rows}))
+   evidence=women_school_fixtures(Path(tmp),'2026-11-02')
+   self.assertEqual(len(evidence),1)
+   self.assertEqual(evidence[0]['team_ids'],['103','107'])
+   self.assertEqual(evidence[0]['school_confirmations'],2)
+   self.assertNotIn('away_score',evidence[0])
+ def test_conflicting_womens_school_opponents_are_quarantined(self):
+  import tempfile,json
+  with tempfile.TemporaryDirectory() as tmp:
+   data=Path(tmp)/'data';data.mkdir()
+   files=['ncaaw-2026-27-official-schedule-verifications.json',
+          'ncaaw-2026-27-additional-official-evidence.json',
+          'ncaaw-official-school-verification-batch-01.json',
+          'ncaaw-official-school-verification-batch-02.json',
+          'ncaaw-official-school-verification-batch-03.json']
+   for i,name in enumerate(files):
+    rows=[]
+    if i in (2,3):
+     rows=[{'game_id':'401906031','team_id':'103','opponent_id':('107' if i==2 else '108'),
+            'date':'2026-11-02','verified_fields':['local_game_date','opponent_id'],
+            'source_url':'https://university.example/schedule'}]
+    (data/name).write_text(json.dumps({'season':'2026-27','gender':'women','rows':rows}))
+   self.assertEqual(women_school_fixtures(Path(tmp),'2026-11-02'),[])
 if __name__=='__main__':unittest.main()
