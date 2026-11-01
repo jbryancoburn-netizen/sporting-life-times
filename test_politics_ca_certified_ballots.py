@@ -52,6 +52,8 @@ D Name       Democratic
         with self.assertRaises(ValueError):parse_house(bad,required=2)
     def test_all_house_districts_required_before_updating_other_states(self):
         d=copy.deepcopy(self.ledger)
+        # Test first-time import even when checked-in production data already contain CA.
+        d["races"]=[r for r in d["races"] if r["state"]!="CA"]
         rows=[{"id":f"CA-{i:02d}","state":"CA","office":"H","district":f"{i:02d}",
                "source_id":SOURCE_ID,"candidates":[{"name":"Dem Candidate","party":"DEM"},{"name":"Rep Candidate","party":"REP"}],
                "verification":"source_transcribed_as_of_review_date","fec_identity_match_certified":False} for i in range(1,53)]
