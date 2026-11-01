@@ -40,11 +40,12 @@ function matchup(g,model,ratings,calendar=[]){
 async function show(){
  if(!window.RabbyPossessionModel||!window.SLTScorebug)throw Error('Shared scoring and scorebug libraries are missing');
  const [elo,stats,schedule,priors]=await Promise.all([
-  get('data/nba-2026-27-current-provisional.json'),
+  get('data/nba-elo-shadow-2026-27.json'),
   get('data/nba-possession-inputs.json'),
   get('data/nba-upcoming-schedule.json'),
   get('data/nba-2025-26-team-advanced.json')
  ]);
+ if(elo.status!=='primary_live_earned_elo'||elo.parameters?.season_start_elo!==1500||elo.parameters?.home_elo!==40)throw Error('NBA 1500-reset earned Elo unavailable');
  const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
  const model=window.RabbyPossessionModel.build(stats,4,priors);
  if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('All 30 teams require verified NBA scoring and Elo data');
