@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'politics-official-ballots.json'
       - 'scripts/politics_ballot_source_probe.py'
       - 'test_politics_ballot_source_probe.py'
       - '.github/workflows/politics-ballot-source-probe.yml'
