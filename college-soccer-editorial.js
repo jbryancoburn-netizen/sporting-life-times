@@ -4,21 +4,26 @@ const el=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!==undefined&
 const showDate=s=>{const d=new Date(s);return isNaN(d)?'Date unavailable':d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});};
 const load=async p=>{const r=await fetch(p+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(p);return r.json();};
 const nav=(href,name)=>{const a=el('a',name);a.href=href;if(/^https?:/.test(href)){a.target='_blank';a.rel='noopener noreferrer';}return a;};
+let brands={teams:{}};
 const schoolLabel=(name,cohort,id)=>{
- const frag=el('span',null,'cs-edit-school');
- const badge=el('span',String(name).slice(0,2).toUpperCase(),'cs-edit-school-mark');
- if(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id||''))){
+ const frag=el('span',null,'cs-edit-school'),badge=el('span',null,'cs-edit-school-mark');
+ const b=brands.teams?.[cohort+':'+id]||(cohort==='women-d1'?brands.teams?.['men-d1:'+id]:null)||{};
+ const initials=String(b.badge_text||name||id||'SC').split(/\s+/).filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+ const fallback=el('span',initials,'cs-edit-school-initial');
+ badge.append(fallback);
+ const src=b.logo_url||(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(id||''))?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null);
+ if(src){
   const img=el('img');img.alt='';img.loading='lazy';img.decoding='async';
-  img.src='https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg';
-  img.addEventListener('load',()=>badge.classList.add('has-image'));
-  img.addEventListener('error',()=>img.remove());badge.append(img);
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){badge.classList.add('has-image');fallback.remove();}});
+  img.addEventListener('error',()=>{badge.classList.remove('has-image');img.remove();});
+  badge.append(img);img.src=src;
  }
  frag.append(badge,nav('college-soccer-team.html?team='+encodeURIComponent(cohort+':'+id),name));
  return frag;
 };
 const tagged=(cohort,label)=>{const x=el('span',label,'cs-edit-tag');return x;};
 (async()=>{try{
-const [feed,ratings]=await Promise.all([load('data/college-soccer-team-news.json'),load('data/college-soccer-elo.json')]);
+const [feed,ratings,loadedBrands]=await Promise.all([load('data/college-soccer-team-news.json'),load('data/college-soccer-elo.json'),load('data/college-soccer-team-branding.json').catch(()=>({teams:{}}))]);brands=loadedBrands;
 const articles=(feed.articles||[]).filter(a=>a.title&&/^https?:/.test(a.url)&&a.team_keys?.length).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0));
 root.replaceChildren();
 const intro=el('div',null,'cs-edit-heading');intro.append(el('h2','Around the College Game'),el('span','SOURCED REPORTING · THE CHAMPIONSHIP RACE'));root.append(intro);
