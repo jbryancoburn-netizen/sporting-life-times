@@ -98,3 +98,20 @@ footer{margin-top:35px;border-top:3px double var(--ink);padding:24px 0;color:var
 .district-map-label{pointer-events:none!important;background:transparent;border:0;display:flex;align-items:center;justify-content:center}
 .district-map-label span{display:block;text-align:center;font-weight:800;font-size:12px;color:#17242c;background:#fffefbcb;border:1px solid #17242c33;border-radius:2px;min-width:23px;padding:1px 2px;line-height:18px;box-shadow:0 1px 3px #0002}
 @media(max-width:720px){.national-shape-map{padding:3px;min-height:200px}.geo-label{font-size:15px}.state-geometry{height:75vw;min-height:390px}}
+
+/* All House seats share evidence-status panels. Status is source coverage, not win odds. */
+.evidence-coverage-grid,.district-coverage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 24px}
+.coverage-cell{border:1px solid var(--line);background:#fffefb;padding:15px 15px 13px;min-width:0;min-height:104px}
+.coverage-cell strong{display:block;font:700 23px/1.25 'Libre Baskerville',Georgia,serif;margin:7px 0 4px}
+.coverage-cell .coverage-label{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.1px;color:#46585e}
+.coverage-cell .coverage-note{display:block;font-size:11px;line-height:1.45;color:#526066}
+.coverage-cell.ok{border-top:4px solid #276f5e}.coverage-cell.limited{border-top:4px solid #c08d3b}.coverage-cell.absent{border-top:4px solid #748087}
+.coverage-status{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;margin:8px 0 0;color:#526066}
+.district-card .evidence-flags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.evidence-flags span{font-size:9px;font-weight:800;letter-spacing:.2px;padding:2px 5px;border:1px solid #b6bfbe}
+.evidence-flags .verified{background:#e2f0eb;border-color:#a5c9bd}.evidence-flags .unverified{background:#f3ece1;border-color:#d8c3a3}
+.fec-wrap{margin:19px 0}.fec-tags{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0}
+.fec-tags span{display:inline-block;border:1px solid #bbc6c5;background:#f5f7f5;padding:7px 10px;font-size:12px;font-weight:700}
+.fec-wrap .fec-rule{border-left:4px solid #b7894b;background:#f5efe5;padding:13px 15px;line-height:1.6}
+@media(max-width:850px){.evidence-coverage-grid,.district-coverage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.evidence-coverage-grid,.district-coverage-grid{grid-template-columns:1fr 1fr;gap:7px}.coverage-cell{padding:10px;min-height:112px}.coverage-cell strong{font-size:19px}}
