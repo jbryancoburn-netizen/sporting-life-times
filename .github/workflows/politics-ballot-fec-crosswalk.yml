@@ -1,0 +1,75 @@
+name: Politics official-ballot FEC exact-ID reconciliation
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_ballot_fec_crosswalk.py'
+      - 'test_politics_ballot_fec_crosswalk.py'
+      - '.github/workflows/politics-ballot-fec-crosswalk.yml'
+  push:
+    branches: [main, politics-fec-ballot-crosswalk-20261101]
+    paths:
+      - 'politics-official-ballots.json'
+      - 'politics-fec-inputs.json'
+      - 'scripts/politics_ballot_fec_crosswalk.py'
+      - 'test_politics_ballot_fec_crosswalk.py'
+      - '.github/workflows/politics-ballot-fec-crosswalk.yml'
+  schedule:
+    - cron: '43 15 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-fec-ballot-crosswalk
+  cancel-in-progress: false
+jobs:
+  exact-identity-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test matching and official ballot validators without network
+        run: |
+          python -m py_compile scripts/politics_ballot_fec_crosswalk.py
+          python -m unittest -v test_politics_ballot_fec_crosswalk test_politics_ballot_audit
+      - name: Generate exact-match candidate FEC index from previously collected real evidence
+        run: |
+          python -m scripts.politics_ballot_fec_crosswalk
+      - name: Prohibit false matches and election predictions
+        run: |
+          python - <<'PY'
+          import json
+          b=json.load(open('politics-official-ballots.json'))
+          d=json.load(open('politics-ballot-fec-crosswalk.json'))
+          a=json.load(open('politics-ballot-audit.json'))
+          assert d['status']=='EXACT_JOIN_DIAGNOSTIC_ONLY' and d['source_cycle']==2026
+          assert d['candidate_records']==sum(len(x['candidates']) for x in b['races'])
+          assert d['candidate_records']>=134
+          assert d['forecast_eligible'] is False and d['certified_2026_probability_count']==0
+          assert all(x['fec_id'] is None for x in d['entries'] if x['status']!='unique_exact')
+          assert all(not x['finance'] for x in d['entries'] if x['status']!='unique_exact')
+          assert d['house_offices']>=43 and d['senate_offices']>=3
+          print('Verified-source/FEC exact ID audit:',d['counts'])
+          PY
+      - name: Publish only the reconciled index, with no changes to election slate or sports
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-ballot-fec-crosswalk.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh strictly matched candidate IDs from original FEC filings"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
