@@ -64,7 +64,16 @@ def run():
             if set(by)!=set(ids) or by[ids[0]] not in ('home','away','neutral'):continue
             if {'home':'away','away':'home','neutral':'neutral'}[by[ids[0]]]!=by[ids[1]]:continue
             sources[key].append((owner,event,source))
-    candidates=[];rejected=collections.Counter()
+    candidates=[];rejected=collections.Counter();quarantined=[]
+    def quarantine(reason, day, pair, source_owner, event, origin='', **details):
+        rejected[reason]+=1
+        if len(quarantined)<200:
+            quarantined.append({
+                'reason':reason,'date':day,'source_school_id':source_owner,
+                'target_school_id':pair[0] if pair[1]==source_owner else pair[1],
+                'source_event_id':event.get('id'),'source_game_name':event.get('name'),
+                'source_url':origin,**details
+            })
     for key,owner_rows in sorted(game_index.items()):
         day,pair=key
         present={o for o,_ in owner_rows}
@@ -73,20 +82,28 @@ def run():
         target=pair[0] if pair[1]==owner else pair[1]
         own_sources=[r for r in sources.get(key,[]) if r[0]==owner]
         if len(own_sources)!=1:
-            rejected['no_unique_official_source']+=1;continue
+            quarantine('no_unique_official_source',day,pair,owner,owner_rows[0][1],
+                       source_record_count=len(own_sources))
+            continue
         _,event,origin=own_sources[0]
         raw=normalized(event.get('name'))
         identified=names.get(raw,set())
         if len(identified)!=1 or target not in identified:
-            rejected['source_opponent_identity_unconfirmed']+=1
+            quarantine('source_opponent_identity_unconfirmed',day,pair,owner,event,origin,
+                       recognized_team_ids=sorted(identified))
             continue
         # Directly verified university calendars have authority over
         # inferred opponent-only imports. Escalate rather than auto-add.
         if docs[target].get('verified_from_school') is True:
-            rejected['independent_target_calendar_requires_source_review']+=1
+            quarantine('independent_target_calendar_requires_source_review',day,pair,owner,event,origin,
+                       target_schedule_url=docs[target].get('source_url'))
             continue
-        if any(str(e.get('date') or '')[:10]==day for e in docs[target].get('events',[])):
-            rejected['different_opponent_already_on_target_date']+=1
+        same_day=[e for e in docs[target].get('events',[])
+                  if str(e.get('date') or '')[:10]==day]
+        if same_day:
+            quarantine('different_opponent_already_on_target_date',day,pair,owner,event,origin,
+                       existing_target_events=[
+                           {'id':e.get('id'),'name':e.get('name')} for e in same_day[:5]])
             continue
         # Never duplicate a same-opponent game on a nearby date if the two
         # school calendars disagree over timezone/day or an event ID.
@@ -101,7 +118,9 @@ def run():
             except ValueError:continue
             if distance<=1:collision.append(e.get('id'))
         if collision:
-            rejected['near_date_opponent_collision']+=1;continue
+            quarantine('near_date_opponent_collision',day,pair,owner,event,origin,
+                       conflicting_target_event_ids=collision[:6])
+            continue
         candidates.append({
             'target_id':target,'opponent_id':owner,'date':day,
             'opponent_game_id':event.get('id'),'official_source_url':origin,
@@ -120,8 +139,9 @@ def run():
             'rejected':dict(rejected),
         },
         'candidates':candidates,
+        'quarantined_examples':quarantined,
         'by_target':[{'school_id':k,'candidate_games':n} for k,n in by_target.most_common()],
-        'policy':'Read-only: exact date + both verified D-I team IDs, unique official source game, valid reciprocal home/away, no near-date counterpart collision; no games created.'
+        'policy':'Read-only: exact date and two D-I team IDs, independent official source/opponent identity, unique game and reciprocal home/away; existing school authority and same/near-date conflicts quarantined; never add fixtures automatically.'
     }
     (DATA/'mbb-reciprocal-game-coverage-audit.json').write_text(json.dumps(report,indent=2)+'\n')
     manifest=DATA/'mbb-official-recheck-365-verification.json'
