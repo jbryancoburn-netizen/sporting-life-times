@@ -31,6 +31,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install public directory HTML parser
+        run: python -m pip install --quiet beautifulsoup4
       - name: Verify new papers and separate 1500 Elo systems
         run: |
           node --check d2-basketball.js
