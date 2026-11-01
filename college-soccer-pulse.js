@@ -13,19 +13,41 @@ function balanced(rows,count){
  for(const g of rows){if(result.length>=count)break;if(!used.has(g.match_id)){result.push(g);used.add(g.match_id)}}
  return result;
 }
-function mark(name,id,cohort,brand){
- const shell=make('span','cs-pitch-crest');
- const mark=make('span','cs-mark',clean(name).split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase());
- const b=brand?.teams?.[cohort+':'+id]||{};
- const colors=[b.primary,b.secondary].filter(s=>/^#[0-9A-Fa-f]{6}$/.test(s||''));
- if(colors.length)mark.style.setProperty('--cs-color',colors[0]);
- if(id){
-  const img=make('img');img.alt='';img.loading='lazy';img.decoding='async';img.src=b.logo_url||('https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+encodeURIComponent(id)+'.svg');
-  img.onerror=()=>img.remove();mark.append(img);
+function mark(name,id,cohort,brand,palette,overrides){
+ const badge=make('span','cs-pitch-badge');
+ const key=cohort+':'+id,schoolKey=cohort==='women-d1'?'men-d1:'+id:null;
+ const team=brand?.teams?.[key]||(schoolKey&&brand?.teams?.[schoolKey])||{};
+ const shared=palette?.soccer?.[key]||(schoolKey&&palette?.soccer?.[schoolKey])||{};
+ const verified=overrides?.schools?.[id]||{};
+ const hex=x=>/^#[0-9a-f]{6}$/i.test(String(x||''))&&String(x).toLowerCase()!=='#ffffff';
+ const primary=shared.primary||verified.primary||team.primary;
+ const secondary=shared.secondary||verified.secondary||team.secondary||team.accent;
+ if(hex(primary)&&hex(secondary)&&primary.toLowerCase()!==secondary.toLowerCase()){
+  badge.classList.add('has-school-colors');
+  badge.style.setProperty('--crest-primary',primary);
+  badge.style.setProperty('--crest-secondary',secondary);
+ }else{
+  badge.classList.add('is-unverified-color');
  }
- shell.append(mark);return shell;
+ // No text node alongside an image: fallback is its own element, hidden on successful load.
+ const initials=String(team.badge_text||name||id||'?').replace(/[^A-Za-z0-9 ]/g,'').trim().split(/\s+/).filter(Boolean).map(word=>word.charAt(0)).slice(0,2).join('').toUpperCase()||'SC';
+ badge.append(make('span','cs-pitch-initials',initials));
+ const src=team.logo_url||shared.logo_url||(id&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null);
+ if(src){
+  const img=make('img','cs-pitch-badge-logo');
+  img.alt='';
+  img.loading='lazy';
+  img.decoding='async';
+  img.addEventListener('load',()=>{if(img.naturalWidth>0){badge.classList.add('has-image');}});
+  img.addEventListener('error',()=>{badge.classList.remove('has-image');img.remove();});
+  badge.append(img);
+  img.src=src;
+ }
+ const container=make('span','cs-pitch-crest');
+ container.append(badge);
+ return container;
 }
-function oneCard(g,kind,brand){
+function oneCard(g,kind,brand,palette,overrides){
  const box=make('a','cs-pitch-match '+(kind==='live'?'is-live':'is-final'));
  box.href='college-soccer-match.html?game='+encodeURIComponent(g.match_id);
  const top=make('div','cs-pitch-match-top');
@@ -36,7 +58,7 @@ function oneCard(g,kind,brand){
  for(const side of ['away','home']){
   const item=make('div','cs-pitch-side');
   const n=clean(g[side+'_name']);
-  item.append(mark(n,g[side+'_id'],g.cohort,brand));
+  item.append(mark(n,g[side+'_id'],g.cohort,brand,palette,overrides));
   const school=make('span','cs-pitch-school',n);school.title=n;
   item.append(school,make('strong','cs-pitch-goals',g[side+'_score']));
   teams.append(item);
@@ -51,17 +73,17 @@ function verifiedFinals(elo){
   return {match_id:g.match_id,cohort:g.cohort,away_name:g.away,home_name:g.home,away_score:scores[1],home_score:scores[0],date:g.date,status:'final'};
  }).filter(g=>Number.isInteger(g.away_score)&&Number.isInteger(g.home_score));
 }
-function renderHero(elo,brand){
+function renderHero(elo,brand,palette,overrides){
  const host=document.getElementById('cs-hero-leader'),leader=elo.cohorts?.['men-d1']?.[0];
  if(!host||!leader)return;
  host.href='college-soccer-team.html?team='+encodeURIComponent('men-d1:'+leader.team_id);
  const meta=make('span','cs-hero-leader-meta');
  meta.append(make('strong',null,leader.team),make('small',null,leader.record+'  ·  '+Math.round(leader.elo)+' USRS ELO'));
- host.replaceChildren(make('span','cs-hero-leader-rank','01'),mark(leader.team,leader.team_id,'men-d1',brand),meta,make('span','cs-hero-leader-arrow','↗'));
+ host.replaceChildren(make('span','cs-hero-leader-rank','01'),mark(leader.team,leader.team_id,'men-d1',brand,palette,overrides),meta,make('span','cs-hero-leader-arrow','↗'));
 }
 function render(){
  if(!data)return;
- const {elo,live,brand,forecast}=data,at=Date.parse(live?.checked_at_utc||''),fresh=Number.isFinite(at)&&at<=Date.now()+60000&&Date.now()-at<15*60*1000;
+ const {elo,live,brand,forecast,palette,overrides}=data,at=Date.parse(live?.checked_at_utc||''),fresh=Number.isFinite(at)&&at<=Date.now()+60000&&Date.now()-at<15*60*1000;
  const forecastMap=new Map((forecast?.forecasts||[]).map(g=>[g.match_id,g]));
  const fromFeed=(live?.games||[]).map(g=>{
   const f=forecastMap.get(g.match_id)||{};
@@ -93,7 +115,7 @@ function render(){
  root.append(tabs);
  const cards=make('div','cs-pitch-match-strip');
  const items=active==='live'?displayLive:finals;
- for(const g of items)cards.append(oneCard(g,active,brand));
+ for(const g of items)cards.append(oneCard(g,active,brand,palette,overrides));
  if(!items.length)cards.append(make('p','cs-pitch-empty','No source-verified scores are available for this view.'));
  root.append(cards);
  const footer=make('div','cs-pitch-board-footer');
@@ -102,9 +124,9 @@ function render(){
 }
 async function refresh(){
  try{
-  const [elo,live,brand,forecast]=await Promise.all([load('college-soccer-elo.json'),load('college-soccer-live-scores.json').catch(()=>null),load('college-soccer-team-branding.json').catch(()=>null),load('college-soccer-prospective-v2.json').catch(()=>null)]);
+  const [elo,live,brand,forecast,palette,overrides]=await Promise.all([load('college-soccer-elo.json'),load('college-soccer-live-scores.json').catch(()=>null),load('college-soccer-team-branding.json').catch(()=>null),load('college-soccer-prospective-v2.json').catch(()=>null),load('dual-ring-team-palette.json').catch(()=>null),load('college-soccer-crest-overrides.json').catch(()=>null)]);
   if(!elo?.cohorts)throw Error('Elo feed invalid');
-  data={elo,live,brand,forecast};renderHero(elo,brand);render();
+  data={elo,live,brand,forecast,palette,overrides};renderHero(elo,brand,palette,overrides);render();
  }catch(e){root.replaceChildren(make('p','cs-pitch-error','Matchday scores are temporarily unavailable. The NCAA match centre and verified ratings remain accessible below.'))}
 }
 refresh();setInterval(()=>{if(document.visibilityState==='visible')refresh()},60000);
