@@ -31,3 +31,8 @@
 .game-day-navigation button{font:700 12px 'Barlow Condensed',Arial,sans-serif;letter-spacing:.8px;padding:7px 9px;border:1px solid var(--ink);background:#153b45;color:#fff;cursor:pointer}
 .game-day-navigation button:last-child{justify-self:end}.game-day-navigation button:disabled{opacity:.33;cursor:not-allowed}
 .game-day-navigation span{text-align:center;font:700 10px 'DM Sans',Arial,sans-serif;color:#35565c}
+
+/* Membership labels are informational; they are not fake team records. */
+.member-tag{display:block;max-width:190px;margin-top:3px;color:#96552d;font:700 9px/1.25 'Barlow Condensed',Arial,sans-serif;letter-spacing:.045em;white-space:normal}
+.member-alert{margin-bottom:14px;border-left:4px solid #b07b31;padding:12px 15px}
+.member-alert a{font-weight:800;color:#0d7077}
