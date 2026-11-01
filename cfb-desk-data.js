@@ -21,7 +21,9 @@ const load=()=>fetch('data/cfb-2026-results.json?ts='+Date.now(),{cache:'no-stor
  for(const [id,s] of scoring){s.ppg=s.pf/s.gp;s.papg=s.pa/s.gp;s.margin=(s.pf-s.pa)/s.gp}
  return {payload:p,groups:gs,teams,scoring};
 });
-/* School-color rings: preserve verified alternates; never invent generic gold. */
+/* Shared College Football badge identity. There is only one ring painter, and
+   image URLs are selected by verified numeric team ID before feed-provided links.
+   Do not use generic initial-letter artwork unless every logo URL has failed. */
 const color=v=>{const s=String(v||'').replace(/^#/,'').toLowerCase();return /^[a-f\d]{6}$/.test(s)?'#'+s:null};
 const channels=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
 const nearWhite=hex=>hex&&channels(hex).every(n=>n>=218);
@@ -36,17 +38,48 @@ function ringColors(t){const primary=color(t?.color)||color(t?.primary)||'#203b4
   const secondary=!supplied||nearWhite(supplied)||distance(primary,supplied)<36?shade(primary):supplied;
   return {primary,secondary};
 }
-/* The only ring painter for the entire CFB edition: two SVG bands, no CSS border layers. */
-/* Exactly TWO SVG ring elements, no third white-filled SVG circle. */
-function ringArtwork(primary,secondary){return '<svg class="cfb-ring-art" viewBox="0 0 100 100" focusable="false" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="'+primary+'" stroke-width="7"/><circle cx="50" cy="50" r="39" fill="none" stroke="'+secondary+'" stroke-width="7"/></svg>'}
+/* Two touching SVG strokes. No third SVG circle, border, outline, or pseudo-ring. */
+function ringArtwork(primary,secondary){
+  return '<svg class="cfb-ring-art" viewBox="0 0 100 100" focusable="false" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="'+primary+'" stroke-width="8"/><circle cx="50" cy="50" r="38" fill="none" stroke="'+secondary+'" stroke-width="8"/></svg>';
+}
 function logoInitials(t){const abbr=String(t?.abbreviation||t?.abbr||'').trim();if(abbr)return abbr.slice(0,4).toUpperCase();const name=String(t?.name||t?.shortDisplayName||t?.full||t?.displayName||'TEAM').trim().replace(/\([^)]*\)/g,'');return (name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('')||'T').toUpperCase()}
-function imageMarkup(url,t){return '<span class="cfb-logo-fallback" aria-hidden="true">'+esc(logoInitials(t))+'</span><img data-cfb-logo="1" loading="eager" decoding="async" alt="" src="'+esc(url)+'">'}
-document.addEventListener('load',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1')img.previousElementSibling?.classList?.add('is-hidden')},true);
-document.addEventListener('error',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1'){img.classList?.add('is-failed');img.previousElementSibling?.classList?.remove('is-hidden')}},true);
-function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png',t)+'</span>'}
+function safeLogoURL(raw){try{let s=String(raw||'').trim();if(s.startsWith('http://'))s='https://'+s.slice(7);const u=new URL(s,location.href);return u.protocol==='https:'?u.href:''}catch{return ''}}
+function logoCandidates(url,t){
+  const id=String(t?.id||'').trim(),valid=/^\d+$/.test(id);
+  const names=valid?[
+    'https://a.espncdn.com/i/teamlogos/ncaa/500/'+id+'.png',
+    safeLogoURL(url),
+    'https://a.espncdn.com/i/teamlogos/ncaa/500-dark/'+id+'.png'
+  ]:[safeLogoURL(url)];
+  return [...new Set(names.filter(Boolean))];
+}
+function logoLoaded(img){
+ if(!img?.naturalWidth){logoFailed(img);return;}
+ img.classList.remove('is-failed');
+ img.previousElementSibling?.classList.add('is-hidden');
+ img.closest('.cfb-crest,.cfb-team-mark')?.classList.add('has-logo');
+}
+function logoFailed(img){
+ if(!img)return;
+ const attempt=Number(img.dataset.cfbAttempt||0);
+ const next=img.dataset['cfbBackup'+(attempt+1)];
+ if(next&&attempt<3){img.dataset.cfbAttempt=String(attempt+1);img.src=next;return;}
+ img.classList.add('is-failed');
+ img.previousElementSibling?.classList.remove('is-hidden');
+ img.closest('.cfb-crest,.cfb-team-mark')?.classList.remove('has-logo');
+}
+function imageMarkup(url,t){
+ const urls=logoCandidates(url,t),fallback='<span class="cfb-logo-fallback'+(urls.length?' is-hidden':'')+'" aria-hidden="true">'+esc(logoInitials(t))+'</span>';
+ if(!urls.length)return fallback;
+ return fallback+'<img class="cfb-logo-image" data-cfb-logo="1" data-cfb-attempt="0"'+
+   (urls[1]?' data-cfb-backup1="'+esc(urls[1])+'"':'')+
+   (urls[2]?' data-cfb-backup2="'+esc(urls[2])+'"':'')+
+   ' loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="" src="'+esc(urls[0])+'" onload="window.CFB_DESK.logoLoaded(this)" onerror="window.CFB_DESK.logoFailed(this)">';
+}
+function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'" data-ring-count="2">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'',t)+'</span>'}
 const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
 const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
 const ranked=a=>[...a].filter(t=>Number.isFinite(rating(t))).sort((a,b)=>rating(b)-rating(a)||a.id.localeCompare(b.id));
 let lastLoad=Date.now(),promise=load();
-window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked};
+window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,ringColors,ringArtwork,imageMarkup,crest,link,rating,ranked,logoLoaded,logoFailed};
 })();
