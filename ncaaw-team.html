@@ -54,7 +54,7 @@ const rows=sorted.map(g=>{
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const probability=winChance(rating,other,g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();const location=esc(g.venue||'Arena TBA')+(city?'<span class="wbb-location-note">'+esc(city)+'</span>':'');
   const officialTip=g.official_tipoff_local||g.official_tipoff_as_printed||g.official_time_as_printed||g.official_school_time||g.official_time||g.verified_tipoff||'';
-  const disputed=timeDisputes.has(String(g.id));
+  const disputed=!g.completed&&timeDisputes.has(String(g.id));
   const tip=disputed?'Disputed — verify':officialTip&&!/TBA|TBD/i.test(officialTip)?esc(officialTip):'TBA';
   const tipNote=disputed?'<small class="wbb-muted">Official calendars disagree; event organizer confirmation pending.</small>':'';
   // Neutral-site opponents still have an actual home/away scoreboard identity.
