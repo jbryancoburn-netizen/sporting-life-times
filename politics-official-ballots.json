@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination. Nov 1 House candidate-source expansion: Massachusetts nine districts and Nebraska three districts verified from original state election-office general candidate lists. Massachusetts 1st party identity independently checked against FEC original candidate record; Nebraska third-party and petition designations retained verbatim.",
+  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination. Nov 1 House candidate-source expansion: Massachusetts nine districts and Nebraska three districts verified from original state election-office general candidate lists. Massachusetts 1st party identity independently checked against FEC original candidate record; Nebraska third-party and petition designations retained verbatim. Source expansion: Iowa 4 House districts, official Iowa Elections Division August 19 2026 list checked Nov 1; independent candidates marked No Party, no vote probabilities.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -157,6 +157,18 @@
       "scope": "full_2026_house_snapshot",
       "transcription_status": "reviewed",
       "note": "All 3 congressional districts and 12 listed candidates from official final candidate list, page 1 of 24; screenshot visually inspected. Party and petition-line labels preserved. Includes Libertarian, America First, Legal Marijuana NOW, Nebraska Working People and by-petition candidates. No address/contact details retained."
+    },
+    {
+      "id": "IA_SOS_2026_GENERAL",
+      "state": "IA",
+      "publisher": "Iowa Secretary of State, Elections Division",
+      "url": "https://sos.iowa.gov/sites/default/files/2026-08/2026%20General%20-%20Candidate%20List%20Database%20-%20All%20Elections_1.pdf",
+      "publication_date": "2026-08-19",
+      "reviewed_at": "2026-11-01",
+      "source_type": "original_2026_general_election_candidate_list",
+      "scope": "full_2026_house_snapshot",
+      "transcription_status": "reviewed",
+      "note": "Page 1 of 14 of official candidate list (last updated August 19 at 1:36 PM) visually checked for all four U.S. House districts; No Party is preserved as a ballot designation, not party membership. Only candidate names and ballot party labels are retained, not addresses, phones or emails."
     }
   ],
   "races": [
@@ -1825,6 +1837,96 @@
         },
         {
           "name": "Angie Nixon",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "IA-01",
+      "state": "IA",
+      "office": "H",
+      "district": "01",
+      "source_id": "IA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mariannette Miller-Meeks",
+          "party": "REP"
+        },
+        {
+          "name": "Christina Bohannan",
+          "party": "DEM"
+        },
+        {
+          "name": "Michael Bridgford",
+          "party": "IND",
+          "ballot_label": "No Party"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "IA-02",
+      "state": "IA",
+      "office": "H",
+      "district": "02",
+      "source_id": "IA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Joe Mitchell",
+          "party": "REP"
+        },
+        {
+          "name": "Lindsay James",
+          "party": "DEM"
+        },
+        {
+          "name": "Rick Stewart",
+          "party": "LIB"
+        },
+        {
+          "name": "Dave Bushaw",
+          "party": "IND",
+          "ballot_label": "No Party"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "IA-03",
+      "state": "IA",
+      "office": "H",
+      "district": "03",
+      "source_id": "IA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Zach Nunn",
+          "party": "REP"
+        },
+        {
+          "name": "Sarah Trone Garriott",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "IA-04",
+      "state": "IA",
+      "office": "H",
+      "district": "04",
+      "source_id": "IA_SOS_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Chris McGowan",
+          "party": "REP"
+        },
+        {
+          "name": "Dave Dawson",
           "party": "DEM"
         }
       ],
