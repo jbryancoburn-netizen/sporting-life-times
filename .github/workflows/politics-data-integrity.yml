@@ -1,0 +1,50 @@
+name: Politics original source evidence display audit
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'politics-data-integrity.js'
+      - 'politics-ballots.html'
+      - 'politics.html'
+      - 'test_politics_data_integrity.py'
+      - '.github/workflows/politics-data-integrity.yml'
+  push:
+    branches: [main, politics-original-data-integrity-20261101]
+    paths:
+      - 'politics-data-integrity.js'
+      - 'politics-ballots.html'
+      - 'politics.html'
+      - 'test_politics_data_integrity.py'
+      - '.github/workflows/politics-data-integrity.yml'
+permissions:
+  contents: read
+concurrency:
+  group: politics-original-data-integrity
+  cancel-in-progress: false
+jobs:
+  validate-data-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check browser script syntax without external dependencies
+        run: node --check politics-data-integrity.js
+      - name: Cross-check all primary-source evidence and newspaper links
+        run: |
+          python -m unittest -v test_politics_data_integrity
+          python -m unittest -v test_politics_ballot_audit test_politics_geography_guard test_politics_sim_readiness
+      - name: Block false independent 2026 forecast publication
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('politics-sim-readiness.json'))
+          m=json.load(open('politics-ballot-fec-crosswalk.json'))
+          g=json.load(open('politics-geography-audit.json'))
+          assert r['certified_original_probability_count']==0
+          assert m['forecast_eligible'] is False
+          assert g['states_with_certified_2024_presidential_vote_on_2026_districts']==0
+          print('Evidence panel uses validated original inputs, not commercial odds.')
+          PY

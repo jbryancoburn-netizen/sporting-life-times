@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f4f0e8">
+<script src="politics-data-integrity.js?v=20261101" defer></script>
 <meta name="description" content="Officially sourced November 3, 2026 U.S. House and Senate ballot candidates, with visible source coverage and missing-data disclosure.">
 <title>Official Ballot Ledger | The Political Life &amp; Times</title>
 <style>
@@ -39,6 +40,17 @@ section h3{font-size:29px;line-height:1.1;margin:0}.status{font:650 11px system-
 .candidate{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #ece7de;padding:9px 0;align-items:center}
 .candidate .name{font-size:15px}.candidate .party{font:700 10px system-ui,sans-serif;color:var(--muted);padding:3px 5px;border:1px solid var(--rule);white-space:nowrap}
 .source{font:600 11px system-ui,sans-serif;color:var(--muted);margin-top:14px}.source a{color:var(--blue)}
+.evidence-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding-top:18px}
+.evidence-card{background:#fffdf9;border-top:3px solid var(--ink);padding:18px 17px 15px;min-height:205px}
+.evidence-title{display:block;font:750 11px system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.evidence-value{display:block;font-size:32px;line-height:1.24;margin:14px 0 10px}
+.evidence-description{font-size:14px;line-height:1.5;margin:0}
+.evidence-disclosure{grid-column:1/-1;background:#e7e2d8;border-left:4px solid var(--ink);margin:5px 0 0;padding:13px 16px;font-size:14px}
+.evidence-source,.evidence-timestamp,.evidence-unavailable,.evidence-waiting{grid-column:1/-1;color:var(--muted);font:12px/1.5 system-ui,sans-serif}
+.evidence-unavailable{padding:17px;background:#ede5dc}
+.evidence-source{color:var(--blue);font-weight:700}
+@media(max-width:950px){.evidence-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.evidence-grid{grid-template-columns:1fr}}
 .source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:20px}
 .source-card{border-top:2px solid var(--ink);padding:13px 15px;background:var(--panel)}
 .source-card p{margin:7px 0;font-size:14px}.source-card strong{font-size:17px}.source-card .label{font:700 10px system-ui,sans-serif;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
@@ -53,13 +65,16 @@ footer{padding:29px 0 40px;border-top:2px solid var(--ink);color:var(--muted);fo
 <div class="top"><div class="wrap"><span>THE SPORTING LIFE &amp; TIMES / CIVIC AFFAIRS</span><span>ORIGINAL RECORDS · SOURCES VISIBLE</span></div></div>
 <div class="wrap">
 <header class="mast"><div class="folio">THE POLITICAL LIFE &amp; TIMES · ELECTION DESK</div><h1>Official <em>Ballot</em> Ledger</h1><p>The November 3, 2026 federal election • Government records, not a forecast</p></header>
-<nav aria-label="Edition navigation"><a href="politics.html">← Political Front Page</a><a href="#races">Verified Candidate Records</a><a href="#sources">Government Sources</a><a href="POLITICS_DATA_POLICY.md">Methodology</a><a href="index.html">Sports Edition ↗</a></nav>
+<nav aria-label="Edition navigation"><a href="politics.html">← Political Front Page</a><a href="#races">Verified Candidate Records</a><a href="#sources">Government Sources</a><a href="#evidence">Data Integrity</a><a href="POLITICS_DATA_POLICY.md">Methodology</a><a href="index.html">Sports Edition ↗</a></nav>
 <div class="hero"><div><p class="eyebrow">THE ELECTION IN BLACK AND WHITE</p><h2>Who qualified for the November election?</h2><p>We are checking each House and Senate race against state election officials—not assuming that federal campaign registration means a candidate made the November ballot.</p><p>Every published name links to a government source. Qualified write-ins do not have their names printed on ballots; an unopposed candidate may not appear on the general-election ballot at all. Unreviewed offices remain unlisted.</p></div>
 <aside class="notice"><strong>THE DATA STANDARD</strong><p><b>This is a partial ledger.</b> The dates shown describe when we reviewed the government sources, not a live connection to every election office.</p><p>No candidate probabilities, projected vote totals, or independent seat forecasts are inferred from these lists. An unopposed candidate is not a contested race; a qualified write-in is not a printed name. We have not certified a nationwide ballot roster. Names marked WRI are qualified write-ins, not printed ballot choices. Offices marked unopposed have no general-election ballot contest.</p></aside></div>
 <div class="metrics" id="metrics" aria-live="polite"><div class="metric"><strong>—</strong><span>House offices reviewed</span></div><div class="metric"><strong>—</strong><span>Senate offices reviewed</span></div><div class="metric"><strong>—</strong><span>Candidate records sourced</span></div><div class="metric"><strong>—</strong><span>House offices outstanding</span></div></div>
 <section id="races"><div class="section-top"><div><p class="eyebrow">STATE-GOVERNMENT RECORDS</p><h3>Source-linked federal office records</h3></div><span class="status" id="audit-time">Source coverage loading</span></div>
 <div class="controls"><label>State<select id="state-filter"><option value="ALL">All reviewed states</option></select></label><label>Office<select id="office-filter"><option value="ALL">House and Senate</option><option value="H">House only</option><option value="S">Senate only</option></select></label><label>Find a candidate or district<input id="race-search" type="search" placeholder="Name, party, NC-01, FL-22…"></label></div>
 <div id="race-grid" aria-live="polite"><div class="empty">Loading original state-government ballot observations…</div></div></section>
+<section id="evidence"><div class="section-top"><div><p class="eyebrow">INDEPENDENT RESEARCH DESK · ORIGINAL EVIDENCE ONLY</p><h3>What we know — and what we cannot yet predict.</h3></div><span class="status">Sourced audits, not model projections</span></div>
+<p>Each figure below is computed from our own source files and independently audited. FEC financial summaries are different from ballot qualification; a Census map change is not an election result. We will not manufacture district voting baselines or substitute another forecast's probabilities.</p>
+<div id="original-evidence-panel" class="evidence-grid" aria-live="polite"><p class="evidence-waiting">Verifying dated source audits…</p></div></section>
 <section id="sources"><div class="section-top"><div><p class="eyebrow">PRIMARY DOCUMENTS</p><h3>The government sources</h3></div><span class="status">A source link is not the same as completed verification</span></div>
 <div id="source-grid" class="source-grid"></div>
 <p style="font-size:13px;color:var(--muted)">Full coverage in one state refers only to the dated document we reviewed; it does not certify that every candidate remains unchanged through Election Day. Redistricting, FEC identity matching, district-level voting baselines, and polling require separate verification.</p></section>
