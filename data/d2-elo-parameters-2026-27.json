@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "season": "2026-27",
+  "historical_source_season": "2025-26",
+  "as_of": "2026-11-01T23:04:47.277847+00:00",
+  "source_policy": "NCAA-only final scores; exact canonical DII opponent IDs; no ESPN-only results",
+  "men": {
+    "status": "2025-26 NCAA DII historically fitted; independent 2026-27 reset",
+    "k": 38,
+    "home_elo_edge": 60,
+    "sample_games": 569,
+    "train_games": 341,
+    "validation_games": 114,
+    "test_games": 114,
+    "validation_log_loss": 0.64131,
+    "unseen_test_log_loss": 0.65135,
+    "provisional_20_65_test_log_loss": 0.66135,
+    "source": "2025-26 NCAA original scoreboards and open NCAA scoreboard mirror",
+    "no_previous_year_rating_carryover": true,
+    "source_audit": {
+      "dated_requests": 180,
+      "dates_retrieved": 180,
+      "accepted_ncca_finals": 569,
+      "unmatched_identity_rows": 215,
+      "source_disagreement_quarantined": 0,
+      "failed_days": 0,
+      "first_source_errors": []
+    }
+  },
+  "women": {
+    "status": "2025-26 NCAA DII historically fitted; independent 2026-27 reset",
+    "k": 38,
+    "home_elo_edge": 40,
+    "sample_games": 1014,
+    "train_games": 608,
+    "validation_games": 203,
+    "test_games": 203,
+    "validation_log_loss": 0.61165,
+    "unseen_test_log_loss": 0.58065,
+    "provisional_20_65_test_log_loss": 0.61277,
+    "source": "2025-26 NCAA original scoreboards and open NCAA scoreboard mirror",
+    "no_previous_year_rating_carryover": true,
+    "source_audit": {
+      "dated_requests": 180,
+      "dates_retrieved": 180,
+      "accepted_ncca_finals": 1014,
+      "unmatched_identity_rows": 376,
+      "source_disagreement_quarantined": 0,
+      "failed_days": 0,
+      "first_source_errors": []
+    }
+  }
+}
