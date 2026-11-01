@@ -36,7 +36,7 @@ ALIASES={
  "siouxfalls":("sioux falls","university of sioux falls"),
  "southwest":("southwest minnesota state","southwest minnesota state university"),
  "stcloud":("st cloud state","st cloud state university","saint cloud state","saint cloud state university"),
- "wayne":("wayne state","wayne state college","wayne state ne"),
+ "wayne":("wayne state","wayne state college","wayne state ne","wayne state college nebraska"),
  "winona":("winona state","winona state university"),
 }
 REVERSE={norm(n):k for k,names in ALIASES.items() for n in names}
@@ -82,7 +82,7 @@ def enrich_nsic(gender,games,teams,today=None,fetcher=fetch):
  today=today or dt.date.today()
  identities={};ambiguous=set()
  for team_id,t in teams.items():
-  if t.get("conference")!="NSIC":continue
+  if t.get("conference") not in ("NSIC","Northern Sun Intercollegiate Conference"):continue
   s=school(t.get("name")) or school(str(team_id).replace("-"," "))
   if not s:continue
   if s in identities and identities[s]!=team_id:ambiguous.add(s)
