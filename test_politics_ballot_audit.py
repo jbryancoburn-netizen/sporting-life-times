@@ -57,7 +57,7 @@ class BallotAuditTests(unittest.TestCase):
         self.assertEqual(audit["state_coverage"]["NE"]["house"],3)
         self.assertTrue(audit["state_coverage"]["MA"]["full_house_snapshot"])
         self.assertTrue(audit["state_coverage"]["NE"]["full_house_snapshot"])
-        self.assertEqual(audit["house_contests_transcribed"],145)
+        self.assertGreaterEqual(audit["house_contests_transcribed"],145)
         ma=[r for r in self.ledger["races"] if r["office"]=="H" and r["state"]=="MA"]
         ne=[r for r in self.ledger["races"] if r["office"]=="H" and r["state"]=="NE"]
         self.assertEqual(sum(len(r["candidates"]) for r in ma),17)
@@ -67,6 +67,16 @@ class BallotAuditTests(unittest.TestCase):
         for row in ma+ne:
             self.assertFalse(row["fec_identity_match_certified"])
             self.assertEqual(row["verification"],"source_transcribed_as_of_review_date")
+
+    def test_four_iowa_house_districts_use_state_original_source(self):
+        audit=validate(self.ledger)
+        self.assertEqual(audit["state_coverage"]["IA"]["house"],4)
+        self.assertTrue(audit["state_coverage"]["IA"]["full_house_snapshot"])
+        ia=[r for r in self.ledger["races"] if r["state"]=="IA" and r["office"]=="H"]
+        self.assertEqual(set(r["id"] for r in ia),{"IA-01","IA-02","IA-03","IA-04"})
+        self.assertEqual(sum(len(r["candidates"]) for r in ia),11)
+        self.assertEqual(sum(c.get("ballot_label")=="No Party" for r in ia for c in r["candidates"]),2)
+        self.assertEqual(audit["house_contests_transcribed"],149)
 
     def test_no_duplicate_race(self):
         d = copy.deepcopy(self.ledger)
