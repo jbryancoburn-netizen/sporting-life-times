@@ -1,7 +1,7 @@
 {
   "player_snapshot": {
     "scope": "published_match_reports_only",
-    "matches_covered": 88,
+    "matches_covered": 89,
     "goals": [
       {
         "player": "Erling Haaland",
@@ -86,6 +86,11 @@
       {
         "player": "Jack Rudoni",
         "team": "Coventry City",
+        "count": 3
+      },
+      {
+        "player": "Kai Havertz",
+        "team": "Arsenal",
         "count": 3
       },
       {
@@ -181,11 +186,6 @@
       {
         "player": "Julio Enciso",
         "team": "Ipswich Town",
-        "count": 2
-      },
-      {
-        "player": "Kai Havertz",
-        "team": "Arsenal",
         "count": 2
       },
       {
@@ -673,7 +673,7 @@
       {
         "player": "Declan Rice",
         "team": "Arsenal",
-        "count": 4
+        "count": 5
       },
       {
         "player": "Evanilson",
@@ -1229,7 +1229,7 @@
     "own_goals_not_counted": 12,
     "note": "Event-derived from the published match-report window, not official season leaderboards; unresolved player names are excluded."
   },
-  "updated_at": "2026-11-01T18:58:16.455233+00:00",
+  "updated_at": "2026-11-01T22:49:50.201181+00:00",
   "source": "ESPN event summary; third-party match facts only, not Elo",
   "matches": {
     "401878768": {
@@ -41935,13 +41935,508 @@
         }
       ],
       "source_url": "https://www.espn.com/soccer/match/_/gameId/401879250"
+    },
+    "401879246": {
+      "home": "Liverpool",
+      "away": "Arsenal",
+      "home_score": 0,
+      "away_score": 1,
+      "kickoff_utc": "2026-11-01T16:30:00+00:00",
+      "teams": [
+        {
+          "team": "Liverpool",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "18",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "4",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "2",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "7",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "2",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "56.4",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "17",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "0",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.0",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "377",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "461",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.8",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "5",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "33",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.2",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "46",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "14",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.3",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "9",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "11",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "17",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.6",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "10",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "22",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "22",
+              "label": "Clearances"
+            }
+          ]
+        },
+        {
+          "team": "Arsenal",
+          "statistics": [
+            {
+              "name": "foulsCommitted",
+              "displayValue": "10",
+              "label": "Fouls"
+            },
+            {
+              "name": "yellowCards",
+              "displayValue": "4",
+              "label": "Yellow Cards"
+            },
+            {
+              "name": "redCards",
+              "displayValue": "0",
+              "label": "Red Cards"
+            },
+            {
+              "name": "offsides",
+              "displayValue": "3",
+              "label": "Offsides"
+            },
+            {
+              "name": "wonCorners",
+              "displayValue": "4",
+              "label": "Corner Kicks"
+            },
+            {
+              "name": "saves",
+              "displayValue": "0",
+              "label": "Saves"
+            },
+            {
+              "name": "possessionPct",
+              "displayValue": "43.6",
+              "label": "Possession"
+            },
+            {
+              "name": "totalShots",
+              "displayValue": "10",
+              "label": "SHOTS"
+            },
+            {
+              "name": "shotsOnTarget",
+              "displayValue": "3",
+              "label": "ON GOAL"
+            },
+            {
+              "name": "shotPct",
+              "displayValue": "0.3",
+              "label": "On Target %"
+            },
+            {
+              "name": "penaltyKickGoals",
+              "displayValue": "0",
+              "label": "Penalty Goals"
+            },
+            {
+              "name": "penaltyKickShots",
+              "displayValue": "0",
+              "label": "Penalty Kicks Taken"
+            },
+            {
+              "name": "accuratePasses",
+              "displayValue": "269",
+              "label": "Accurate Passes"
+            },
+            {
+              "name": "totalPasses",
+              "displayValue": "370",
+              "label": "Passes"
+            },
+            {
+              "name": "passPct",
+              "displayValue": "0.7",
+              "label": "Pass Completion %"
+            },
+            {
+              "name": "accurateCrosses",
+              "displayValue": "4",
+              "label": "Accurate Crosses"
+            },
+            {
+              "name": "totalCrosses",
+              "displayValue": "10",
+              "label": "Crosses"
+            },
+            {
+              "name": "crossPct",
+              "displayValue": "0.4",
+              "label": "Cross %"
+            },
+            {
+              "name": "totalLongBalls",
+              "displayValue": "67",
+              "label": "Long Balls"
+            },
+            {
+              "name": "accurateLongBalls",
+              "displayValue": "22",
+              "label": "Accurate Long Balls"
+            },
+            {
+              "name": "longballPct",
+              "displayValue": "0.3",
+              "label": "Long Balls %"
+            },
+            {
+              "name": "blockedShots",
+              "displayValue": "3",
+              "label": "Blocked Shots"
+            },
+            {
+              "name": "effectiveTackles",
+              "displayValue": "16",
+              "label": "Effective Tackles"
+            },
+            {
+              "name": "totalTackles",
+              "displayValue": "23",
+              "label": "Tackles"
+            },
+            {
+              "name": "tacklePct",
+              "displayValue": "0.7",
+              "label": "Tackle %"
+            },
+            {
+              "name": "interceptions",
+              "displayValue": "6",
+              "label": "Interceptions"
+            },
+            {
+              "name": "effectiveClearance",
+              "displayValue": "36",
+              "label": "Effective Clearances"
+            },
+            {
+              "name": "totalClearance",
+              "displayValue": "36",
+              "label": "Clearances"
+            }
+          ]
+        }
+      ],
+      "players": [],
+      "events": [
+        {
+          "clock": "",
+          "text": "First Half begins.",
+          "type": "Kickoff",
+          "team": null
+        },
+        {
+          "clock": "3'",
+          "text": "Delay in match because of an injury Gabriel Magalhães (Arsenal).",
+          "type": "Start Delay",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "3'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "4'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "4'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "16'",
+          "text": "Goal! Liverpool 0, Arsenal 1. Kai Havertz (Arsenal) left footed shot from the left side of the six yard box to the bottom left corner. Assisted by Declan Rice with a cross.",
+          "type": "Goal",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "29'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "30'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "45'+2'",
+          "text": "Bradley Barcola (Liverpool) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "45'+3'",
+          "text": "First Half ends, Liverpool 0, Arsenal 1.",
+          "type": "Halftime",
+          "team": null
+        },
+        {
+          "clock": "45'",
+          "text": null,
+          "type": "Start 2nd Half",
+          "team": null
+        },
+        {
+          "clock": "55'",
+          "text": "Noni Madueke (Arsenal) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "59'",
+          "text": "Substitution, Liverpool. Dominik Szoboszlai replaces Trey Nyoni.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "62'",
+          "text": "Substitution, Arsenal. Myles Lewis-Skelly replaces Bruno Guimarães.",
+          "type": "Substitution",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "67'",
+          "text": "Milos Kerkez (Liverpool) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "67'",
+          "text": "Substitution, Liverpool. Rio Ngumoha replaces Cody Gakpo.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "69'",
+          "text": "Delay in match because of an injury Milos Kerkez (Liverpool).",
+          "type": "Start Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "69'",
+          "text": null,
+          "type": "Start Delay",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "70'",
+          "text": "Delay over. They are ready to continue.",
+          "type": "End Delay",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "70'",
+          "text": null,
+          "type": "End Delay",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "72'",
+          "text": "Myles Lewis-Skelly (Arsenal) is shown the yellow card for a bad foul.",
+          "type": "Yellow Card",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "80'",
+          "text": "Jurriën Timber (Arsenal) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "80'",
+          "text": "Alexis Mac Allister (Liverpool) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "81'",
+          "text": "Substitution, Liverpool. Kostas Tsimikas replaces Milos Kerkez.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "81'",
+          "text": "Substitution, Liverpool. Víctor Muñoz replaces Ronald Araujo.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "81'",
+          "text": "Substitution, Liverpool. Lewis Koumas replaces Florian Wirtz.",
+          "type": "Substitution",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "84'",
+          "text": "Substitution, Arsenal. Piero Hincapié replaces Christos Tzolis.",
+          "type": "Substitution",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "84'",
+          "text": "Substitution, Arsenal. Viktor Gyökeres replaces Kai Havertz.",
+          "type": "Substitution",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "88'",
+          "text": "Substitution, Arsenal. Mikel Merino replaces Martin Ødegaard.",
+          "type": "Substitution",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "90'+3'",
+          "text": "David Raya (Arsenal) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Arsenal"
+        },
+        {
+          "clock": "90'+7'",
+          "text": "Virgil van Dijk (Liverpool) is shown the yellow card.",
+          "type": "Yellow Card",
+          "team": "Liverpool"
+        },
+        {
+          "clock": "90'+7'",
+          "text": null,
+          "type": "End Regular Time",
+          "team": null
+        }
+      ],
+      "source_url": "https://www.espn.com/soccer/match/_/gameId/401879246"
     }
   },
   "fetch_status": {
-    "successful": 0,
+    "successful": 1,
     "failed": {},
-    "attempted": 0,
-    "season_finals": 88,
-    "detailed_reports": 88
+    "attempted": 1,
+    "season_finals": 89,
+    "detailed_reports": 89
   }
 }
