@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-01T22:35:00.429603+00:00",
+  "checked_at_utc": "2026-11-01T22:38:03.608286+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -1695,7 +1695,7 @@
     },
     {
       "match_id": "men-6638624",
-      "cohort": "men-d1",
+      "cohort": "men-d2",
       "status": "final",
       "home_score": 5,
       "away_score": 0,
@@ -3241,6 +3241,19 @@
       "source_url": "https://www.ncaa.com/game/6607315"
     },
     {
+      "match_id": "women-6607323",
+      "cohort": "women-d1",
+      "status": "live",
+      "home_score": 0,
+      "away_score": 0,
+      "home_name": "Houston Christian",
+      "away_name": "Lamar University",
+      "home_id": "houston-christian",
+      "away_id": "lamar",
+      "period": "1ST HALF",
+      "source_url": "https://www.ncaa.com/game/6607323"
+    },
+    {
       "match_id": "women-6607352",
       "cohort": "women-d1",
       "status": "final",
@@ -4088,14 +4101,14 @@
     {
       "match_id": "women-6608786",
       "cohort": "women-d1",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 0,
       "home_name": "Vermont",
       "away_name": "Binghamton",
       "home_id": "vermont",
       "away_id": "binghamton",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6608786"
     },
     {
@@ -4323,7 +4336,7 @@
       "match_id": "women-6609158",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 2,
       "home_name": "UC Davis",
       "away_name": "UTEP",
@@ -7145,7 +7158,7 @@
       "cohort": "women-d2",
       "status": "live",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Glenville St.",
       "away_name": "Point Park",
       "home_id": "glenville-st",
