@@ -226,8 +226,8 @@ def reconcile_house_year(contests,year,quality):
     overlays=verified_winner_only_overlay(year,quality.get("excluded_contests",[]))
     supplemented={"dem":extracted["dem"]+sum(x["party"]=="D" for x in overlays),
                   "rep":extracted["rep"]+sum(x["party"]=="R" for x in overlays)}
-    supplemented_ok=supplemented=={"dem":official["dem"],"rep":official["rep"]} and
-          len(contests)+len(overlays)+official["unresolved"]==435 and extracted["other"]==0
+    supplemented_ok=(supplemented=={"dem":official["dem"],"rep":official["rep"]} and
+                     len(contests)+len(overlays)+official["unresolved"]==435 and extracted["other"]==0)
 
     return {
       "year":year,"official":{"dem_wins":official["dem"],"rep_wins":official["rep"],
