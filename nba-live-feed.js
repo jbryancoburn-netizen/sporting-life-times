@@ -33,13 +33,14 @@ function projectNumbers(g){
 function projected(g){
  const x=projectNumbers(g);if(!x)return '';
  const away=g.away.code,home=g.home.code,spread=x.margin>=0?home:away;
+ const spreadText=Math.abs(x.margin)<0.5?'EVEN':spread+' −'+Math.abs(x.margin).toFixed(1);
  const d=Date.parse(x.coverage.updatedAt||'');
  const asOf=Number.isFinite(d)?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(d))+' ET':'latest verified box scores';
  return '<div class="nba-pregame">'+
   '<div class="nba-pregame-label">RABBY · POSSESSION-BASED SCORE FORECAST · NOT LIVE</div>'+
   '<div class="nba-pregame-score">'+esc(away)+' '+x.awayScore+' – '+x.homeScore+' '+esc(home)+'</div>'+
   '<div class="nba-pregame-prob">Independent Elo: '+esc(away)+' '+Math.round((1-x.homeWin)*100)+'% · '+esc(home)+' '+Math.round(x.homeWin*100)+'%</div>'+
-  '<div class="nba-pregame-breakdown"><span>Projected total <b>'+x.total.toFixed(1)+'</b></span><span>Margin <b>'+esc(spread)+' '+Math.abs(x.margin).toFixed(1)+'</b></span><span>Tempo <b>'+x.possessions.toFixed(1)+' poss.</b></span></div>'+
+  '<div class="nba-pregame-breakdown"><span>Projected total <b>'+x.total.toFixed(1)+'</b></span><span>Expected margin <b>'+esc(spreadText)+'</b></span><span>Tempo <b>'+x.possessions.toFixed(1)+' poss.</b></span></div>'+
   '<div class="nba-pregame-ratings">Offense vs opponent defense · '+esc(away)+' '+x.awayEfficiency.toFixed(1)+' · '+esc(home)+' '+x.homeEfficiency.toFixed(1)+' pts/100</div>'+
   '<div class="nba-pregame-source">'+x.coverage.games+' verified box scores · '+esc(away)+' '+x.awayGames+' GP / '+esc(home)+' '+x.homeGames+' GP · updated '+esc(asOf)+'</div>'+ 
   '<div class="nba-pregame-rest">'+esc(away)+': '+esc(window.RabbyPossessionModel.restDisplay(window.RabbyPossessionModel.scheduleContext(away,g.date,completedEvents)))+' · '+esc(home)+': '+esc(window.RabbyPossessionModel.restDisplay(window.RabbyPossessionModel.scheduleContext(home,g.date,completedEvents)))+' <small>Completed fixtures only; no fatigue points assumed.</small></div>'+
