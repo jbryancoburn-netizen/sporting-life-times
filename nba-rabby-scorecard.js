@@ -50,5 +50,11 @@ async function refresh(){
   '<div class="nba-empty">The immutable forecast ledger has not published a verified snapshot yet. Predictions are never backfilled. '+esc(e.message)+'.</div>';
  }
 }
-refresh();setInterval(()=>{if(!document.hidden)refresh();},5*60000);
+refresh();
+const app=document.getElementById('app');
+if(app)new MutationObserver(changes=>{
+ if(changes.some(m=>[...m.addedNodes].some(node=>node.nodeType===1&&
+   (node.id==='nba-rabby-status'||node.querySelector?.('#nba-rabby-status')))))refresh();
+}).observe(app,{childList:true,subtree:true});
+setInterval(()=>{if(!document.hidden)refresh();},5*60000);
 })();
