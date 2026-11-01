@@ -1,0 +1,74 @@
+name: Politics original-election readiness single writer
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'politics-history.json'
+      - 'politics-historical-contests.json'
+      - 'politics-historical-archive.json'
+      - 'politics-deep-history.json'
+      - 'politics-fec-inputs.json'
+      - 'politics-fec-race-index.json'
+      - 'politics-2024-county-presidential.json'
+      - 'politics-census-inputs.json'
+      - 'politics-polls.json'
+      - 'politics-poll-health.json'
+      - 'politics-ballot-audit.json'
+      - 'politics-ballot-fec-crosswalk.json'
+      - 'politics-geography-audit.json'
+      - 'scripts/politics_sim_readiness.py'
+      - 'test_politics_sim_readiness.py'
+      - 'test_politics_readiness_publisher.py'
+      - '.github/workflows/politics-single-readiness-writer.yml'
+  schedule:
+    - cron: '37 */6 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-readiness-only-writer
+  cancel-in-progress: false
+jobs:
+  original-source-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test original data gates and idempotent publishing
+        run: |
+          python -m py_compile scripts/politics_sim_readiness.py
+          python -m unittest -v test_politics_sim_readiness test_politics_readiness_publisher
+      - name: Publish only from a freshly fetched main, retrying after concurrent source updates
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in $(seq 1 12); do
+            git fetch origin main
+            git checkout -B politics-readiness-publish origin/main
+            python scripts/politics_sim_readiness.py
+            python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert d['house_forecast_ready'] is False
+          assert d['senate_forecast_ready'] is False
+          assert d['governor_forecast_ready'] is False
+          assert d['certified_original_probability_count']==0
+          assert len(d['checks'])>=17
+          print('Safe readiness coverage',d['counts'])
+          PY
+            git add politics-sim-readiness.json
+            if git diff --cached --quiet; then
+              echo "No new source evidence; current readiness report is unchanged."
+              exit 0
+            fi
+            git commit -m "Publish independently audited original-election source readiness"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent primary-data commit detected; recomputing from latest main (attempt $attempt)"
+            sleep 2
+          done
+          echo "Unable to publish verified readiness after 12 fresh-data retries."
+          exit 1
