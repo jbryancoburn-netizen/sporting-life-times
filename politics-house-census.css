@@ -1,0 +1,15 @@
+/* Historical U.S. Census ACS context. The redistricting warning is intentional. */
+.acs-wrap{margin-top:18px;margin-bottom:28px;border-top:3px solid #26343a}
+.acs-wrap h3{margin:3px 0 9px;font:700 clamp(23px,3.2vw,32px)/1.15 Georgia,serif;letter-spacing:-.4px}
+.acs-intro{color:#3c4a4c;max-width:820px;margin:0 0 14px;line-height:1.6}
+.acs-stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:19px 0;border:1px solid #c7cfcc;background:#fdfcf9}
+.acs-stat{min-height:143px;padding:20px 20px 16px;border-right:1px solid #c7cfcc}
+.acs-stat:last-child{border-right:0}
+.acs-label{display:block;font:750 10px/1.4 system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#4c5b5e}
+.acs-value{display:block;font:700 clamp(24px,2.8vw,36px)/1.2 Georgia,serif;letter-spacing:-.5px;margin:10px 0 9px;color:#17262b}
+.acs-note{display:block;font:12px/1.5 system-ui,sans-serif;color:#56646a}
+.acs-warning{border-left:5px solid #8e4a2c;background:#f8e9de;padding:16px 18px;font:650 13px/1.6 system-ui,sans-serif;color:#5f3525;margin:17px 0}
+.acs-muted{font:12px/1.65 system-ui,sans-serif;color:#526066;margin:13px 0}
+.acs-sources{display:flex;flex-wrap:wrap;gap:9px 16px;padding-top:16px;border-top:1px solid #c7cfcc;font:650 12px/1.6 system-ui,sans-serif;color:#526066}
+.acs-sources strong{font-weight:750}.acs-sources a{color:#245d65;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:690px){.acs-stat-grid{grid-template-columns:1fr}.acs-stat{border-right:0;border-bottom:1px solid #c7cfcc;min-height:95px}.acs-stat:last-child{border:0}.acs-wrap{margin-top:10px}}
