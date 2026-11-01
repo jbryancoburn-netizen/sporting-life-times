@@ -63,7 +63,7 @@ const brandMark=(team,cohort,branding,palette,overrides)=>{
  root.replaceChildren();const eyebrow=$('div',(cohort||'NCAA SOCCER').toUpperCase().replace('-',' · DIVISION ')+' · '+state,'cs-match-eyebrow');root.append(eyebrow);
  const head=$('header',null,'cs-match-hero');
  const schoolCol=(t,side)=>{const col=$('div',null,'cs-match-school');col.append(brandMark(t,cohort,branding,palette,overrides));col.append(link(t.team,profile(cohort,t.team_id)));const meta=$('span',null,'cs-match-school-meta');if(t.record)meta.textContent=t.record+' · '+Number(t.elo).toFixed(1)+' Elo';else meta.textContent='NCAA Soccer';col.append(meta);return col;};
- head.append(schoolCol(away,'away'));const center=$('div',null,'cs-match-score');center.append($('strong',score));center.append($('span',state+(finished?' · '+date(final.date):(!live&&!scoreboardFinal&&pre?.kickoff_utc)?' · '+date(pre.kickoff_utc):'')));head.append(center,schoolCol(home,'home'));root.append(head);
+ head.append(schoolCol(away,'away'));const center=$('div',null,'cs-match-score');const scoreLabel=$('strong',score),statusLabel=$('span',state+(finished?' · '+date(final.date):(!live&&!scoreboardFinal&&pre?.kickoff_utc)?' · '+date(pre.kickoff_utc):''));center.append(scoreLabel,statusLabel);head.append(center,schoolCol(home,'home'));root.append(head);
  const links=$('div',null,'cs-match-links');links.append(link('← All NCAA scores','college-soccer.html'));
  const official=final?.source_game||pre?.source_game||snap?.source_url;if(official)links.append(link('Official NCAA match record ↗',official));root.append(links);
  const grid=$('div',null,'cs-match-grid');root.append(grid);
@@ -150,6 +150,25 @@ const brandMark=(team,cohort,branding,palette,overrides)=>{
  }
  if(formCount){form.append($('p','Partial verified-final coverage only. These strips are not presented as full season form when historical games are missing.','cs-match-note'));root.append(form);}
  const foot=$('p','Data sources: NCAA live-score snapshots, verified final ledger, frozen pregame forecasts, and independent USRS ratings. Away team appears first. Games without verified play-by-play or box scores do not display invented events, shots, cards, or lineups.','cs-match-footer');root.append(foot);
+ if(live||scoreboardFinal){
+  let polling=false;
+  setInterval(async()=>{
+   if(document.visibilityState==='hidden'||polling)return;
+   polling=true;
+   try{
+    const next=await get('data/college-soccer-live-scores.json');
+    const snapshot=next.games?.find(g=>g.match_id===id);
+    const at=Date.parse(next.checked_at_utc||'');
+    const recent=Number.isFinite(at)&&at<=Date.now()+60000&&Date.now()-at<15*60*1000;
+    if(!recent||!snapshot){statusLabel.textContent='SOURCE SCORE FEED UNAVAILABLE · LAST DISPLAYED SCORE';return;}
+    if(!Number.isInteger(snapshot.away_score)||!Number.isInteger(snapshot.home_score))return;
+    scoreLabel.textContent=snapshot.away_score+' – '+snapshot.home_score;
+    headline.textContent=away.team+' '+snapshot.away_score+', '+home.team+' '+snapshot.home_score;
+    statusLabel.textContent=(snapshot.status==='live'?'● LIVE'+(snapshot.period?' · '+snapshot.period:''):'NCAA SCOREBOARD FINAL · AWAITING ELO RECONCILIATION')+' · '+new Date(at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET';
+   }catch(err){statusLabel.textContent='SCORE CHECK UNAVAILABLE · LAST DISPLAYED SCORE';}
+   finally{polling=false;}
+  },60000);
+ }
  }catch(err){root.replaceChildren($('h1','NCAA match unavailable'),$('p','There is no confirmed match record for this link.'));root.append(link('Return to NCAA Soccer','college-soccer.html'));console.error('NCAA match detail',err);}
 })();
 })();
