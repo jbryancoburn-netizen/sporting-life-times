@@ -17,3 +17,15 @@ for(const [label,url] of sources){
     trSample:sample('<tr',800),schools:sample('Adrian',460),division:sample('division',300),apollo:sample('__NEXT_DATA__',220)}));
  }catch(e){console.log(JSON.stringify({label,error:String(e)}))}
 }
+
+for(const [label,url] of [
+ ['ncaa-js','https://web3.ncaa.org/directory/2e4c048/assets/js/memberList-page.js'],
+ ['girlhoop-js','https://girlhoop.com/assets/data/teams-lower.js']]){
+ try{
+  const r=await fetch(url,{headers:{'User-Agent':'Mozilla/5.0'},signal:AbortSignal.timeout(12000)});
+  const body=await r.text();
+  const matches=[...body.matchAll(/(?:url|type|method|ajax|fetch|endpoint)\s*[:=(]\s*['"]?([^'";\n]{3,160})/gi)]
+    .slice(0,25).map(x=>x[0].slice(0,160));
+  console.log(JSON.stringify({label,status:r.status,length:body.length,head:body.slice(0,2800),mid:body.slice(2800,4000),matches}));
+ }catch(e){console.log(JSON.stringify({label,error:String(e)}))}
+}
