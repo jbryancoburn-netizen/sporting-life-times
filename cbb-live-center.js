@@ -282,7 +282,7 @@
       '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
       '<a class="cbb-box-btn" href="'+gameLink(g)+'">Game details →</a></div>'+
       '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+
-       (g.certifiedTeamBox?' · NCAA team totals independently checked':'')+
+       (g.certifiedTeamBox?' · NCAA-origin team totals checked':'')+
        (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference listing ↗</a>':'')+'</div>'+      '</article>';
   }
   function updateStatsPreview(g){
@@ -623,7 +623,7 @@
       if(one==null||two==null)return '';
       return '<div class="cbb-stat-line"><span>'+esc(one)+'</span><b>'+label+'</b><span>'+esc(two)+'</span></div>';
     }).filter(Boolean);
-    return rows.length?'<div class="cbb-box-section"><h4>Team Statistics</h4><div class="cbb-stat-head"><span>'+esc(code(g.away))+'</span><span>'+esc(code(g.home))+'</span></div>'+rows.join('')+'</div>':'';
+    return rows.length?'<div class="cbb-box-section"><h4>Team Statistics · ESPN (secondary)</h4><div class="cbb-stat-head"><span>'+esc(code(g.away))+'</span><span>'+esc(code(g.home))+'</span></div>'+rows.join('')+'</div>':'';
   }
   function ncaaTeamStats(g,box){
     if(!box?.away||!box?.home)return '';
@@ -637,7 +637,7 @@
       return stats[key]??'—';
     };
     return '<div class="cbb-box-section"><h4>Team Statistics · NCAA-origin verified totals</h4>'+
-      '<p class="cbb-provider-link">Both teams and shooting totals reconciled with the NCAA final. '+
+      '<p class="cbb-provider-link">Shooting totals reconcile with the NCAA-origin final; not a second independent publisher. '+
       '<a href="'+cleanURL(box.source_url)+'" rel="noopener noreferrer" target="_blank">NCAA-data relay ↗</a></p>'+
       '<div class="cbb-stat-head"><span>'+esc(code(g.away))+'</span><span>'+esc(code(g.home))+'</span></div>'+
       rows.map(([key,label])=>'<div class="cbb-stat-line"><span>'+esc(format(box.away,key))+'</span>'+
@@ -675,7 +675,7 @@
       const body=eligible.slice(0,12).map(p=>'<tr><th>'+esc(p.athlete.displayName)+'</th>'+cols.map(c=>'<td>'+esc(p.stats[c.i]??'—')+'</td>').join('')+'</tr>').join('');
       const leaders=eligible.slice(0,3).map(p=>esc(p.athlete.displayName)+' '+(pts<0?'':esc(p.stats[pts]??'—')+' PTS')+
         (reb<0?'':' · '+esc(p.stats[reb]??'—')+' REB')+(ast<0?'':' · '+esc(p.stats[ast]??'—')+' AST')).join('<br>');
-      return '<div class="cbb-box-section"><h4>'+esc(label)+' · Player Box Score</h4>'+
+      return '<div class="cbb-box-section"><h4>'+esc(label)+' · ESPN Player Box Score (secondary)</h4>'+
         (leaders?'<p class="cbb-leaders">'+leaders+'</p>':'')+
         '<div class="cbb-scroll"><table class="cbb-box-table"><thead><tr><th>Player</th>'+heading+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
     }).filter(Boolean).join('');
