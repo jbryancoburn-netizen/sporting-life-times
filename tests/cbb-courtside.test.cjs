@@ -91,4 +91,34 @@ assert(!css.includes('.cbb-team-identity .mbb-mark::after'),'no extra logo bands
 for(const page of ['nba.html','ncaam.html','college-basketball.html','euroleague.html','nbl.html'])
  assert(fs.readFileSync(path.join(root,page),'utf8').includes('slt-courtside-network.js'),page+' Courtside network install');
 assert(!brandCSS.includes('slt-network-wordmark'),'rejected generated logo CSS removed');
+// The Retro clean-slate newspaper must not pretend the first alphabetical teams are leaders.
+const mbbHome=fs.readFileSync(path.join(root,'mbb-newspaper.js'),'utf8');
+const mbbCSS=fs.readFileSync(path.join(root,'mbb-newspaper.css'),'utf8');
+assert(!mbbHome.includes('teams.slice(0,4).map(t=>'), 'preseason hero cannot present first 4 alphabetically');
+assert(!mbbHome.includes("League leader by Elo: '+esc(members[0].team)"), 'conference leader must not be the first listed school');
+assert(mbbCSS.includes('.hero-art--preseason'), 'preseason feature must have dedicated responsive styles');
+const helperStart=mbbHome.indexOf('function featuredRatings(){');
+const helperEnd=mbbHome.indexOf('function home(){',helperStart);
+assert(helperStart>=0&&helperEnd>helperStart, 'preseason editorial helpers are bundled');
+const alpha={team:'A School',team_id:'a',elo:1500,rank:1};
+const zulu={team:'Z School',team_id:'z',elo:1500,rank:1};
+const edition={
+  live:false,teams:[alpha,zulu],esc:x=>String(x),number:(x)=>Number(x).toFixed(0),
+  teamURL:t=>'team.html?team='+t.team_id,logo:()=>'<i>logo</i>'
+};
+vm.runInNewContext(mbbHome.slice(helperStart,helperEnd)+
+ '\nglobalThis.editorial={featuredRatings,preseasonPowerboard,conferenceLeaderText}',edition);
+assert.match(edition.editorial.featuredRatings(),/365/);
+assert(!edition.editorial.featuredRatings().includes('A School'), 'all-tied hero cannot arbitrarily name school A');
+assert.match(edition.editorial.conferenceLeaderText([alpha,zulu]),/Every team begins at 1500/);
+edition.live=true;edition.teams=[alpha,{...zulu,elo:1560,rank:1}];
+const rated=edition.editorial.featuredRatings();
+assert(rated.indexOf('Z School')<rated.indexOf('A School'), 'once games exist the higher rated team leads');
+assert.match(edition.editorial.conferenceLeaderText(edition.teams),/Z School/);
+assert.match(edition.editorial.conferenceLeaderText([alpha,zulu]),/2 schools tied/);
+const season0=read('data/ncaam-2026-27-retro-primary.json');
+if(season0.games_played===0){
+  assert.equal(new Set(season0.rankings.map(x=>x.elo)).size,1,'real preseason rating file is tied');
+  assert.equal(season0.rankings[0].elo,1500);
+}
 console.log('PASS Courtside: live/snapshot separation, away/home, verified notes, gender-isolated Elo, neutral/site/stale model checks, navigation, no logo overlay.');
