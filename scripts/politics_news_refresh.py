@@ -97,7 +97,7 @@ def parse_feed(body: bytes, source: str, hosts: tuple[str, ...], now: dt.datetim
         if not title or not link or published is None:
             continue
         # Reject calendar/archive placeholders without suppressing legitimate short headlines.
-        if re.fullmatch(r"(January|February|March|April|May|June|July|August|September|October|November|December)\\s+20\\d{2}", title, re.I):
+        if re.fullmatch(r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}", title, re.I):
             continue
         age = (now - published).total_seconds()
         if age < -5400 or age > 72 * 3600:
