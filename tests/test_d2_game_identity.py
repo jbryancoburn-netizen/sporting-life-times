@@ -60,5 +60,17 @@ class D2GameIdentityTests(unittest.TestCase):
         self.assertTrue(games[self.verified["id"]]["neutral"])
         self.assertEqual(games[self.verified["id"]]["status"],"final")
 
+    def test_corroborating_future_fixture_keeps_original_verified_provenance(self):
+        games={self.verified["id"]:{**self.verified,"status":"scheduled",
+               "away_score":None,"home_score":None,"verified":True}}
+        espn={"id":"espn-d2-999","date":"2026-10-30","status":"scheduled",
+              "away_score":None,"home_score":None,"network":"ESPN+"}
+        result=builder.merge_ncaa_contest(games,espn,"adams-state","lake-erie")
+        self.assertEqual(result,"updated")
+        self.assertEqual(len(games),1)
+        self.assertTrue(games[self.verified["id"]]["verified"])
+        self.assertEqual(games[self.verified["id"]]["source_url"],
+                         "https://example.org/official-tournament")
+
 if __name__=="__main__":
     unittest.main()
