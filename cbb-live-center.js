@@ -10,7 +10,7 @@
   const api='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/';
   const root=document.getElementById('cbb-center-root');
   const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const cleanURL=v=>{try{const u=new URL(v,location.href);return /^https?:$/.test(u.protocol)?esc(u.href):'';}catch{return '';}};
+  const cleanURL=v=>{if(typeof v!=='string'||!v.trim())return '';try{const u=new URL(v,location.href);return /^https?:$/.test(u.protocol)?esc(u.href):'';}catch{return '';}};
   const q=s=>document.querySelector(s);
   const etParts=d=>{const o={};for(const p of new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d)){if(p.type!=='literal')o[p.type]=p.value;}return o.year+'-'+o.month+'-'+o.day;};
   const today=()=>etParts(new Date());
