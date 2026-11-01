@@ -280,7 +280,7 @@
       (details?'<div class="cbb-preview" id="cbb-preview-'+esc(g.id)+'">'+details+'</div>':
         '<div class="cbb-preview cbb-preview-empty" id="cbb-preview-'+esc(g.id)+'"></div>')+
       '<div class="cbb-bug-bottom"><span>'+esc(g.venue||localDate(g.date))+'</span>'+prob+
-      '<a class="cbb-box-btn" href="'+gameLink(g)+'">Game details →</a></div>'+
+      '<a class="cbb-box-btn" href="'+gameLink(g)+'">'+(g.phase==='live'?'CourtCast / LIVE →':g.phase==='final'?'CourtCast / Replay →':'Game details →')+'</a></div>'+
       '<div class="cbb-game-origin">'+esc(g.source||'Source not available')+
        (g.certifiedTeamBox?' · NCAA-origin team totals checked':'')+
        (g.conferenceSource?' · <a href="'+cleanURL(g.conferenceSource)+'" rel="noopener noreferrer" target="_blank">Conference listing ↗</a>':'')+'</div>'+      '</article>';
@@ -738,7 +738,8 @@
       '<button role="tab" type="button" id="gf-tab-players" aria-controls="gf-panel-players" data-gamefile-tab="players">Player Box Score</button></nav>'+
       '<section role="tabpanel" id="gf-panel-summary" aria-labelledby="gf-tab-summary" data-gamefile-panel="summary">'+
       '<div class="cbb-gamefile-note"><span>'+(g.phase==='live'?'LIVE NOTEBOOK':g.phase==='final'?'FINAL LEDGER':'MATCHUP FILE')+'</span><p>'+
-      esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+(periods||missing)+usrsLine(g)+'</section>'+
+      esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+
+      '<div id="cbb-courtcast-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
       '<section role="tabpanel" id="gf-panel-team" aria-labelledby="gf-tab-team" data-gamefile-panel="team">'+(team||missing)+'</section>'+
       '<section role="tabpanel" id="gf-panel-players" aria-labelledby="gf-tab-players" data-gamefile-panel="players">'+(playersHTML||missing)+'</section>'+
       '<p class="cbb-provider-link">'+esc(g.source||'Source pending')+
@@ -750,6 +751,7 @@
        (g.certifiedBox?' · NCAA-origin individual totals available under Player Box Score':'')+
        (g.certifiedTeamBox?' · NCAA-origin verified team totals available under Team Statistics':'')+'</p>';
     selectGameTab(state.section);
+    if(window.SLTCourt)window.SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw);
   }
   async function openGamefile(){
     const host=document.getElementById('cbb-gamefile-root');if(!host)return;
