@@ -1,0 +1,52 @@
+/* NFL team-integrated scorebug | two existing team-color rings remain untouched. */
+.nfl-p26 .nfl-p26-score-stage.nfl-p26-box-score{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;padding:0;margin:0;min-height:0;background:#16232d;color:white;isolation:isolate}
+.nfl-p26 .nfl-p26-box-score::before,.nfl-p26 .nfl-p26-box-score::after{display:none!important;content:none!important}
+.nfl-p26 .nfl-p26-box-team{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:15px clamp(9px,1.8vw,21px) 11px;background:linear-gradient(125deg,color-mix(in srgb,var(--nfl-box-color) 34%,#13222d),#13222d 86%);border-bottom:4px solid var(--nfl-box-alt);color:#fff}
+.nfl-p26 .nfl-p26-box-home{background:linear-gradient(235deg,color-mix(in srgb,var(--nfl-box-color) 34%,#13222d),#13222d 86%);border-left:1px solid #ffffff28}
+.nfl-p26 .nfl-p26-box-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.nfl-paper .nfl-p26 .nfl-p26-box-team .nfl-badge.lg{width:clamp(66px,7vw,87px);height:clamp(66px,7vw,87px);flex:0 0 clamp(66px,7vw,87px);--nfl-outer:7px;--nfl-inner:5px}
+.nfl-p26 .nfl-p26-box-points{display:block;color:#fff;min-width:0;flex:0 1 auto;font:900 clamp(61px,6.8vw,92px)/.96 Arial,Helvetica,sans-serif;letter-spacing:-.08em;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px #0004}
+.nfl-p26 .nfl-p26-box-identity{display:flex;align-items:baseline;gap:7px;min-width:0}
+.nfl-p26 .nfl-p26-box-home .nfl-p26-box-identity{justify-content:flex-end}
+.nfl-p26 .nfl-p26-box-identity b{font:800 clamp(17px,1.8vw,24px)/1.1 Georgia,serif;letter-spacing:-.035em;color:#fff}
+.nfl-p26 .nfl-p26-box-identity small{font:700 10px/1.3 Arial,sans-serif;color:#cbd5d1;white-space:nowrap}
+.nfl-p26 .nfl-p26-box-seam{position:absolute;left:50%;top:7px;bottom:7px;width:1px;z-index:1;background:#ffffff28;pointer-events:none}
+.nfl-p26 .nfl-p26-feature .nfl-p26-hero-context{background:#e9e9e1;color:#454d49;border-top:0;border-bottom:1px solid #cbd0c9;padding:8px 13px;font:700 11px Arial,sans-serif}
+.nfl-p26 .nfl-p26-hero-context .nfl-p26-eyebrow{color:#a02f2a}
+.nfl-p26 .nfl-p26-period strong{font-family:Arial,Helvetica,sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+.nfl-p26 .nfl-p26-hero-footer{padding:8px 13px;min-height:0;background:#16252f}
+.nfl-p26 .nfl-p26-hero-footer a{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:auto;min-height:30px;padding:8px 12px;background:#b0352d;border:0;font:900 10px Arial,sans-serif;letter-spacing:.05em}
+.nfl-p26 .nfl-p26-hero-footer a span{font-size:14px;line-height:1}
+@media(max-width:920px){
+ .nfl-p26 .nfl-p26-box-team{padding:12px 12px 10px}
+ .nfl-paper .nfl-p26 .nfl-p26-box-team .nfl-badge.lg{width:81px;height:81px;flex-basis:81px}
+ .nfl-p26 .nfl-p26-box-points{font-size:82px}
+}
+@media(max-width:620px){
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-opening{display:none!important}
+ .nfl-paper[data-page="front"] .nfl-bar{padding:7px 0;font-size:10px;line-height:1.2}
+ .nfl-p26 .nfl-p26-topline{margin:7px 0 0;padding-bottom:7px}
+ .nfl-p26 .nfl-p26-score-stage.nfl-p26-box-score{grid-template-columns:repeat(2,minmax(0,1fr));padding:0;gap:0;min-height:0}
+ .nfl-p26 .nfl-p26-box-team{padding:9px 7px 7px;gap:4px}
+ .nfl-p26 .nfl-p26-box-row{gap:4px}
+ .nfl-paper .nfl-p26 .nfl-p26-box-team .nfl-badge.lg{width:clamp(48px,14vw,60px);height:clamp(48px,14vw,60px);flex:0 0 clamp(48px,14vw,60px);--nfl-outer:5px;--nfl-inner:4px}
+ .nfl-p26 .nfl-p26-box-points{font-size:clamp(47px,14vw,66px);letter-spacing:-.09em;line-height:.95}
+ .nfl-p26 .nfl-p26-box-identity{display:block;line-height:1.1}
+ .nfl-p26 .nfl-p26-box-home .nfl-p26-box-identity{text-align:right}
+ .nfl-p26 .nfl-p26-box-identity b{font-size:clamp(15px,4.2vw,19px)}
+ .nfl-p26 .nfl-p26-box-identity small{display:block;font-size:10px;margin-top:2px}
+ .nfl-p26 .nfl-p26-box-seam{top:0;bottom:0}
+ .nfl-p26 .nfl-p26-feature .nfl-p26-hero-context{padding:6px 7px;font-size:10px;gap:5px}
+ .nfl-p26 .nfl-p26-hero-footer{padding:7px 10px}
+ .nfl-p26 .nfl-p26-hero-footer>span{display:block;font-size:9px}
+ .nfl-p26 .nfl-p26-hero-footer a{width:auto;min-height:29px;padding:8px 10px;font-size:10px}
+}
+@media(max-width:375px){
+ .nfl-p26 .nfl-p26-box-team{padding:8px 5px 6px}
+ .nfl-paper .nfl-p26 .nfl-p26-box-team .nfl-badge.lg{width:46px;height:46px;flex:0 0 46px;--nfl-outer:4px;--nfl-inner:3px}
+ .nfl-p26 .nfl-p26-box-points{font-size:clamp(42px,13vw,51px)}
+ .nfl-p26 .nfl-p26-box-identity b{font-size:14px}
+ .nfl-p26 .nfl-p26-box-identity small{font-size:9px}
+ .nfl-p26 .nfl-p26-hero-footer>span{display:none}
+ .nfl-p26 .nfl-p26-hero-footer a{margin-left:auto}
+}
