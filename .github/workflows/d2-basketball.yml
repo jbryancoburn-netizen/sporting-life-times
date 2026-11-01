@@ -55,7 +55,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_d2_*.py' -v
       - name: Bootstrap entire 2026-27 schedule or refresh recent NCAA games
         run: |
-          if ! test -s data/d2-men-2026-27.json || ! python -c "import json; assert json.load(open('data/d2-men-2026-27.json')).get('as_of')"; then
+          if ! test -s data/d2-men-2026-27.json || ! python -c "import json; d=json.load(open('data/d2-men-2026-27.json')); assert d.get('quality',{}).get('full_season_scan',{}).get('completed')"; then
             python scripts/build_d2_basketball.py --bootstrap
           else
             python scripts/build_d2_basketball.py
