@@ -220,7 +220,7 @@ def parse_host_venues(html,home):
    if len(cols)<5:continue
    day,time,role,opponent,place=cols[:5]
    if role.lower()!="home" or "/" not in place:continue
-   date_match=re.search(r"([A-Za-z]+\\s+\\d{1,2},\\s+202[67])",day)
+   date_match=re.search(r"([A-Za-z]+\s+\d{1,2},\s+202[67])",day)
    if not date_match:continue
    try:when=dt.datetime.strptime(date_match[1],"%B %d, %Y").date()
    except ValueError:continue
@@ -228,7 +228,7 @@ def parse_host_venues(html,home):
    away=opponent_id(opponent)
    if not away or away==home:continue
    city,arena=map(clean,place.split("/",1))
-   if not arena or not re.search(r"\\b(center|arena|gym(?:nasium)?|fieldhouse|pavilion)\\b",arena,re.I):
+   if not arena or not re.search(r"\b(center|arena|gym(?:nasium)?|fieldhouse|pavilion)\b",arena,re.I):
     continue
    matches.append({"date":when.isoformat(),"away":away,"home":home,
                    "venue":arena+" · "+city})
