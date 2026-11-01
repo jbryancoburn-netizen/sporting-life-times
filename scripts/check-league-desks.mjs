@@ -23,12 +23,20 @@ for(const page of found){
   assert(html.includes('college-soccer-visual-desk.css'),'Soccer visual edition stylesheet missing');
   assert(html.includes('college-soccer-unified.css'),'Soccer unified layout missing');
   assert(html.includes('college-soccer-men.html'),"Soccer men's edition navigation missing");
+ }else if(['d2-mens-basketball.html','d2-womens-basketball.html'].includes(page)){
+  assert(html.includes('d2-basketball.js'),'DII newspaper renderer missing: '+page);
+  assert(html.includes('d2-basketball.css'),'DII newspaper stylesheet missing: '+page);
+  for(const id of ['game-grid','elo-board','team-directory','conference-board'])
+   assert(html.includes('id="'+id+'"'),'DII desk '+id+' missing: '+page);
+ }else if(page==='nfl.html'){
+  assert(html.includes('nfl-edition.js'),'NFL edition loader missing');
+  assert(html.includes('id="nfl-app"'),'NFL edition mount missing');
  }else if(!['nba.html','epl.html','euroleague.html','college-basketball.html','college-football.html'].includes(page)){
   for(const id of ['league-news-grid','league-standings-table','league-final-lines','league-result-ledger','league-upcoming-games','league-snapshot'])assert(html.includes('id="'+id+'"'),id+' missing from '+page);
   assert(html.includes('league-desks.js'),'shared data loader missing: '+page);
  }
  if(page==='college-football.html'){
-  assert(html.includes('cfb-newspaper.js'),'College football newspaper loader missing');
+  assert(html.includes('cfb-desk.js') || html.includes('cfb-newspaper.js'),'College football newspaper loader missing');
   assert(html.includes('id="ratings"'),'College football ratings section missing');
  }
  if(page==='college-basketball.html'){

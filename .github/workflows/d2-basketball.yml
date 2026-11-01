@@ -1,0 +1,59 @@
+name: DII basketball — independent men and women editions
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'd2-basketball.js'
+      - 'd2-basketball.css'
+      - 'd2-*-basketball.html'
+      - 'd2-team.html'
+      - 'scripts/build_d2_basketball.py'
+      - '.github/workflows/d2-basketball.yml'
+  schedule:
+    - cron: '11 7 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: d2-basketball-data-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify new papers and separate 1500 Elo systems
+        run: |
+          node --check d2-basketball.js
+          node --test tests/d2-basketball.test.cjs
+          python -m py_compile scripts/build_d2_basketball.py
+      - name: Bootstrap entire 2026-27 schedule or refresh recent NCAA games
+        run: |
+          if ! test -s data/d2-men-2026-27.json || ! python -c "import json; assert json.load(open('data/d2-men-2026-27.json')).get('as_of')"; then
+            python scripts/build_d2_basketball.py --bootstrap
+          else
+            python scripts/build_d2_basketball.py
+          fi
+      - name: Commit verified DII-only data (never overwrite DI)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/d2-men-2026-27.json data/d2-women-2026-27.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Refresh verified DII men's and women's NCAA game ledgers"
+          for n in 1 2 3 4; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            sleep $((n * 2))
+          done
+          exit 1
