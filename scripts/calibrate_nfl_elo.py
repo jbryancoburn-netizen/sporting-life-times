@@ -23,11 +23,13 @@ OUTPUT=nfl.CALIBRATION
 
 def fetch_week(args):
     year,week=args
-    url=nfl.API+"scoreboard?"+urlencode({"season":year,"seasontype":2,"week":week,"limit":40})
+    url=nfl.API+"scoreboard?"+urlencode({"dates":year,"seasontype":2,"week":week,"limit":40})
     raw=nfl.request(url)
     if not isinstance(raw.get("events"),list):
         raise RuntimeError("Historical scoreboard events missing: "+str(args))
     result=[]
+    if year==2023 and week==1:
+        print("Historical fetch sample: ",len(raw["events"]),"events",[(e.get("id"),(e.get("season") or {}).get("year"),(e.get("status") or {}).get("type",{}).get("completed")) for e in raw["events"][:2]],flush=True)
     for event in raw["events"]:
         season=event.get("season") or {}
         if int(season.get("type") or 0)!=2 or int(season.get("year") or 0)!=year:
