@@ -44,6 +44,31 @@ try{
  const ratingBySchool=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.elo]));
  const ncaaByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),String(x.id)]));
  const schoolByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),x]));
+ const espnByNcaa=new Map((cross.teams||[]).map(x=>[String(x.id),String(x.espn_id)]));
+ // Join on exact NCAA/ESPN identities AND official event date, never a fuzzy school name.
+ const intervalDate=d=>/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(d||'');
+ const gameKey=(date,a,b)=>[date,...[String(a),String(b)].sort()].join('|');
+ const verifiedFinals=new Map();
+ const validRatings=ratings?.season==='2026-27'&&ratings?.model==='retro-clean-slate'&&
+  ratings?.starting_elo===1500&&ratings?.rankings?.length===365&&
+  Array.isArray(ratings?.events)&&ratings.events.length===ratings.games_played;
+ if(validRatings)for(const result of ratings.events){
+  const away=espnByNcaa.get(String(result.away_id)),home=espnByNcaa.get(String(result.home_id));
+  const score=n=>n!==null&&n!==undefined&&Number.isInteger(Number(n))&&Number(n)>=0;
+  if(!away||!home||away===home||!intervalDate(result.date)||
+    !score(result.away_score)||!score(result.home_score)||
+    Number(result.away_score)===Number(result.home_score)||result.site_verified!==true||
+    !/^espn:[0-9]+$/.test(result.id||''))continue;
+  const key=gameKey(result.date,away,home),previous=verifiedFinals.get(key);
+  if(verifiedFinals.has(key)){
+   if(!previous||previous.away!==away||previous.home!==home||
+      previous.away_score!==Number(result.away_score)||previous.home_score!==Number(result.home_score))
+    verifiedFinals.set(key,null);
+   continue;
+  }
+  verifiedFinals.set(key,{away,home,away_score:Number(result.away_score),
+   home_score:Number(result.home_score),date:result.date,id:String(result.id).slice(5)});
+ }
  const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'—';};
  const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
@@ -89,19 +114,26 @@ try{
   const cityState=(address.state||'').trim();
    const city=cityState&&rawCity!=='City TBA'&&!rawCity.includes(',')?rawCity+', '+cityState:rawCity;
   if(rawCity&&rawCity!=='City TBA'&&arena.startsWith(rawCity))arena=arena.slice(rawCity.length).replace(/^[\s/|,]+/,'')||arena;
-  const completed=e.status?.type?.completed===true||e.status?.type?.state==='post';
-  const result=completed&&self?.score!=null&&opponent?.score!=null?(Number(self.score)>Number(opponent.score)?'W ':'L ')+escape(self.score)+'–'+escape(opponent.score):'—';
+  const final=opponentId?verifiedFinals.get(gameKey(e.date.slice(0,10),team.espn_id,opponentId)):null;
+  const completed=!!final||e.status?.type?.completed===true||e.status?.type?.state==='post';
+  const teamPoints=final?(final.home===String(team.espn_id)?final.home_score:final.away_score):self?.score;
+  const opponentPoints=final?(final.home===String(team.espn_id)?final.away_score:final.home_score):opponent?.score;
+  const result=completed&&teamPoints!=null&&opponentPoints!=null&&
+    Number.isFinite(Number(teamPoints))&&Number.isFinite(Number(opponentPoints))?
+    (Number(teamPoints)>Number(opponentPoints)?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints):'—';
+  const gameFile=final?'<br><a class="mbb-schedule-gamefile" href="cbb-gamefile.html?day='+
+    encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
   const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
   const today=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});
-  return '<tr data-calendar-state="'+(completed?'final':e.date.slice(0,10)>=today?'upcoming':'past')+'" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'"><td>'+escape(day)+'</td><td><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td><td>'+escape(opponentElo(opponentId))+'</td><td>'+result+'</td></tr>';
+  return '<tr data-calendar-state="'+(completed?'final':e.date.slice(0,10)>=today?'upcoming':'past')+'" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'"><td>'+escape(day)+'</td><td><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td><td>'+escape(opponentElo(opponentId))+'</td><td>'+result+gameFile+'</td></tr>';
  }).join('');
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
  const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
  const savedSearch=host.querySelector('#calendar-opponent')?.value||'';
  const savedView=host.querySelector('#calendar-view')?.value||'all';
- host.innerHTML='<section class="panel" id="full-season-schedule"><div class="panel-head"><div class="eyebrow">'+escape(team.name)+' · 2026–27</div><h2>Full Season Schedule — '+games.length+' Games</h2></div><p class="note">'+escape(method)+' · Times follow the school listing and its published time zone. '+source+'</p><div class="calendar-controls"><label>Opponent <input id="calendar-opponent" class="input" type="search" placeholder="Find an opponent…"></label><label>Show <select id="calendar-view"><option value="all">All games</option><option value="upcoming">Upcoming games</option><option value="final">Finals</option></select></label><span id="calendar-count" class="note" aria-live="polite"></span></div><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
+ host.innerHTML='<section class="panel" id="full-season-schedule"><div class="panel-head"><div class="eyebrow">'+escape(team.name)+' · 2026–27</div><h2>Full Season Schedule — '+games.length+' Games</h2></div><p class="note">'+escape(method)+' · Times follow the school listing and its published time zone. Verified results come from the independent RETRO final ledger; unannounced broadcasts remain TBA. '+source+'</p><div class="calendar-controls"><label>Opponent <input id="calendar-opponent" class="input" type="search" placeholder="Find an opponent…"></label><label>Show <select id="calendar-view"><option value="all">All games</option><option value="upcoming">Upcoming games</option><option value="final">Finals</option></select></label><span id="calendar-count" class="note" aria-live="polite"></span></div><div class="table-wrap"><table class="mbb-schedule-table"><thead><tr><th>Date</th><th>Opponent</th><th>Arena / City</th><th>Tipoff (school listing)</th><th>TV / Stream</th><th>Opp. RETRO</th><th>Result</th></tr></thead><tbody>'+cells+'</tbody></table></div></section>';
  const search=host.querySelector('#calendar-opponent'),view=host.querySelector('#calendar-view');
  search.value=savedSearch;view.value=savedView;
  const filter=()=>{let shown=0;for(const row of host.querySelectorAll('tbody tr')){row.hidden=!(row.dataset.opponent.includes(search.value.toLowerCase().trim())&&(view.value==='all'||row.dataset.calendarState===view.value));if(!row.hidden)shown++;}host.querySelector('#calendar-count').textContent=shown+' of '+games.length+' games';};

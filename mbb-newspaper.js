@@ -8,6 +8,14 @@ const url=s=>{try{const u=new URL(s);return ['https:','http:'].includes(u.protoc
 const get=async p=>{try{const r=await fetch(p,{cache:'no-store',signal:AbortSignal.timeout(10000)});return r.ok?await r.json():null}catch{return null}};
 const when=s=>{const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time unavailable'};
 const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const easternGameDay=value=>{
+ const raw=String(value||'');
+ if(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(raw))return raw; // Calendar-only date.
+ const date=new Date(raw);
+ return Number.isFinite(+date)?new Intl.DateTimeFormat('en-CA',{
+  timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'
+ }).format(date):'';
+};
 const page=document.body.dataset.page,params=new URLSearchParams(location.search);
 const files=['data/ncaam-2026-27-preseason-player-quality-live.json','data/ncaam-2026-27-current-provisional.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/ncaam-2026-27-game-ledger.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-national-polls.json','articles.json','multi_scoreboards.json','data/mbb-live.json','data/mbb-current-player-stats.json'];
 let [pre,current,cross,ledger,schedule,polls,news,scoreboards,wire,currentPlayers]=await Promise.all(files.map(get));
@@ -48,7 +56,9 @@ function stamp(){ $('#access-stamp').textContent='Viewed '+when(new Date().toISO
 stamp();
 const gid=g=>[g.home_id||g.home,g.away_id||g.away];
 function gameCard(g,final=false){const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);if(!home||!away)return '';
-return '<div class="score-card"><small>'+esc(g.date)+' · '+(final?'FINAL':'Scheduled')+'</small><div class="score-team">'+name(away)+'<b>'+(final?esc(g.away_score):'<em>'+rec(away)+'</em>')+'</b></div><div class="score-team">'+name(home)+'<b>'+(final?esc(g.home_score):'<em>'+rec(home)+'</em>')+'</b></div>'+(g.source_url?'<a class="muted" href="'+url(g.source_url)+'" target="_blank" rel="noopener">Game source ↗</a>':'')+'</div>';}
+const event=String(g.id||'').match(/^espn:([0-9]+)$/);
+const gameFile=event?'<a class="muted" href="cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&amp;game='+event[1]+'">Live game file ↗</a>':'';
+return '<div class="score-card"><small>'+esc(g.date)+' · '+(final?'FINAL':'Scheduled')+'</small><div class="score-team">'+name(away)+'<b>'+(final?esc(g.away_score):'<em>'+rec(away)+'</em>')+'</b></div><div class="score-team">'+name(home)+'<b>'+(final?esc(g.home_score):'<em>'+rec(home)+'</em>')+'</b></div>'+(g.source_url?'<a class="muted" href="'+url(g.source_url)+'" target="_blank" rel="noopener">Game source ↗</a>':'')+gameFile+'</div>';}
 let browserScores=null,browserScoresAt=null;
 async function refreshLiveScores(){
  const d=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+today().replaceAll('-',''));
@@ -56,7 +66,7 @@ async function refreshLiveScores(){
  browserScores=d.events.map(e=>({id:e.id,date:e.date,state:e.status?.type?.state,status:e.status?.type?.shortDetail,teams:[...(e.competitions?.[0]?.competitors||[])].sort((a,b)=>(a.homeAway==='home')-(b.homeAway==='home')).map(t=>({id:t.team?.id,name:t.team?.displayName,logo:t.team?.logo,score:t.score}))}));browserScoresAt=new Date().toISOString();
 }
 function liveRail(){const feeds=browserScores||(wire?.games?.length?wire.games:(scoreboards?.leagues?.find(l=>l.league==="Men's College Basketball")?.games||[]));
- const currentGames=feeds.filter(g=>String(g.date||g.start_time||'').slice(0,10)===today());
+ const currentGames=feeds.filter(g=>easternGameDay(g.date||g.start_time)===today());
  if(currentGames.length)return currentGames.map(g=>'<div class="score-card"><small>'+esc(g.status||g.state)+' · '+when(g.date)+'</small>'+(g.teams||[]).map(t=>'<div class="score-team"><span class="team-name">'+window.MBBLogos.byESPN(t.id,'score',t.name)+esc(t.name)+'</span><b>'+esc(g.state==='pre'?'':t.score??'')+'</b></div>').join('')+'</div>').join('');
  const upcoming=(schedule?.games||[]).filter(g=>g.date>=today()).slice(0,5);return upcoming.length?upcoming.map(g=>gameCard(g)).join(''):empty('No current games are available in the schedule feed.');}
 function stories(team=null,conference=null){
@@ -254,7 +264,28 @@ async function refreshRatings(){
  if(!changed&&!scheduleChanged)return;
  if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')ledger=log;games=MBBEngine.verifiedGames(next,ledger);projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
  const scroll=window.scrollY,query=$('#team-search')?.value,opponent=$('#opponent')?.value,conf=$('#conf-pick')?.value;
- if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){ /* Keep the existing team DOM and its complete schedule intact on RETRO refresh. */ const ratingNodes=$('#app .metrics'); if(ratingNodes)ratingNodes.dataset.eloUpdated=String(Date.now()); }else if(page==='tournament')tournament();
+ if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){
+  // Fresh ratings must update visible team information without destroying the
+  // schedule filters, roster section, or the reader's chosen historical opponent.
+  const t=teamMap.get(params.get('team')),card=$('#app .metrics');
+  if(t&&card&&changed){
+   const subtitle=$('#app .team-hero p');
+   if(subtitle)subtitle.textContent=t.conference+' · '+(t.wins||0)+'–'+(t.losses||0)+
+    ' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference';
+   const values=[live?'#'+t.rank:'Tied',number(t.elo,0),
+    String((t.wins||0)+(t.losses||0)),seedFor(t)];
+   [...card.querySelectorAll('.metric>b')].slice(0,4).forEach((node,i)=>node.textContent=values[i]);
+   const r=resumes.get(t.team_id);
+   if(r)for(const el of document.querySelectorAll('#app .metric')){
+    const label=el.querySelector('span')?.textContent?.trim(),value=el.querySelector('b');
+    if(!value)continue;
+    if(label==='Experimental Elo WAB')value.textContent=r.n?number(r.wab,2):'—';
+    else if(label==='Opponent Elo')value.textContent=r.n?number(r.sos,0):'—';
+    else if(label==='Road wins')value.textContent=String(r.road);
+   }
+   card.dataset.eloUpdated=String(Date.now());
+  }
+ }else if(page==='tournament')tournament();
  if(changed)window.dispatchEvent(new Event('mbb:ratings-updated'));
  if(query&&$('#team-search')){$('#team-search').value=query;$('#team-directory').innerHTML=directory(query)}
  if(conf&&$('#conf-pick')){$('#conf-pick').value=conf;$('#conf-pick').dispatchEvent(new Event('change'))}
