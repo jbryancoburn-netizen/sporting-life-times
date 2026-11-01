@@ -424,6 +424,8 @@ from mbb_verified_opponent_identity_repair import run as repair_school_opponent_
 identity_result = repair_school_opponent_identities()
 print(json.dumps({'verified_opponent_identity_repair':identity_result['summary']}, indent=2))
 
+# Quarantine report now keeps source game names, URLs, same-date conflicts,
+# and independent target-calendar citations for human verification.
 # The game-coverage audit is read-only. Missing counterpart fixtures must be
 # confirmed independently before any new game ID or calendar entry is created.
 from mbb_reciprocal_game_gap_audit import run as audit_reciprocal_game_gaps
