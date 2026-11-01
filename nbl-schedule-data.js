@@ -53,13 +53,17 @@
     if(fixtureResult.status!=='fulfilled')throw Error('The published 2026-27 fixture file is unavailable');
     const raw=fixtureResult.value;
     const candidates=Array.isArray(raw.games)?raw.games:[];
-    const games=candidates.filter(g=>validDate(g.date_utc)&&g.home&&g.away).map(g=>({
-      id:String(g.id),date:toISO(g.date_utc),day:day(g.date_utc),
-      home:g.home,away:g.away,state:'pre',home_score:null,away_score:null,
-      venue:g.venue||'',broadcasts:Array.isArray(g.broadcasts)?g.broadcasts:[],
-      round:g.round||null,url:'',status_detail:'Scheduled',fixture_source:g.source||raw.source||'NBL fixture candidate',
-      official_verified:g.official_nbl_verified===true
-    }));
+    const games=candidates.filter(g=>validDate(g.date_utc)&&g.home&&g.away).map(g=>{
+      const hs=asNum(g.home_score),as=asNum(g.away_score);
+      const completed=g.state==='post'&&Number.isInteger(hs)&&Number.isInteger(as)&&hs!==as;
+      return {id:String(g.id),date:toISO(g.date_utc),day:day(g.date_utc),
+        home:g.home,away:g.away,state:completed?'post':'pre',
+        home_score:completed?hs:null,away_score:completed?as:null,
+        venue:g.venue||'',broadcasts:Array.isArray(g.broadcasts)?g.broadcasts:[],
+        round:g.round||null,url:completed&&/^\\d+$/.test(String(g.id))?'https://www.espn.com/nbl/game/_/gameId/'+g.id:'',
+        status_detail:completed?'Final':'Scheduled',fixture_source:g.source||raw.source||'NBL fixture candidate',
+        official_verified:g.official_nbl_verified===true};
+    });
     const map=new Map(games.map(g=>[key(g.home,g.away,g.day),g]));
     const archived=resultsResult.status==='fulfilled'&&Array.isArray(resultsResult.value.games)?resultsResult.value.games:[];
     let archiveMatches=0;
