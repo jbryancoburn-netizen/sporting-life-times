@@ -152,7 +152,8 @@ vm.runInNewContext(courtSource,courtWorld,{filename:'cbb-live-court.js'});
 const court=courtWorld.window.SLTCourt;
 assert(court&&typeof court.parsePlays==='function'&&typeof court.mount==='function');
 const playRows=[
- {id:'100',text:'Notre Dame made three point jumper',team:{id:'87'},period:{number:1},clock:{displayValue:'12:20'}},
+ {id:'100',text:'Notre Dame made three point jumper',shootingPlay:true,scoringPlay:true,
+  coordinate_x:15,coordinate_y:22,team:{id:'87'},period:{number:1},clock:{displayValue:'12:20'}},
  {id:'101',text:'Villanova defensive rebound',team:{id:'222'},period:{number:1},clock:{displayValue:'12:15'}},
  {id:'102',text:'Villanova turnover',team:{id:'222'},period:{number:1},clock:{displayValue:'12:07'}}
 ];
@@ -161,20 +162,31 @@ assert.equal(court.parsePlays({}).length,0,'no fabricated play data');
 assert.equal(court.parsePlays({plays:{items:playRows}}).length,3,'ESPN item container supported');
 const fakeGame={id:'401920982',phase:'final',away:{team:{id:'87',abbreviation:'ND'}},
  home:{team:{id:'222',abbreviation:'VILL'}}};
-assert(court.location(court.parsePlays({plays:playRows})[0],fakeGame).x<50,'away team has left schematic region');
-assert(court.location(court.parsePlays({plays:playRows})[1],fakeGame).x>50,'home team has right schematic region');
+assert(court.location(court.parsePlays({plays:playRows})[0])?.x>50,'only source shot coordinates may generate a point');
+assert.equal(court.location(court.parsePlays({plays:playRows})[1]),null,'a rebound cannot have an invented ball coordinate');
+assert.equal(court.location(court.parsePlays({plays:playRows})[2]),null,'a turnover cannot have an invented ball coordinate');
+assert.equal(court.location(court.parsePlays({plays:[{id:'103',text:'Player substitution',team:{id:'222'}}]})[0]),null,'substitutions never move a ball');
+assert.equal(court.location(court.parsePlays({plays:[{id:'104',text:'Made jumper',shootingPlay:true,coordinate_x:-100,coordinate_y:99}]})[0]),null,'invalid coordinates are discarded');
 const fakeNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
 court.mount(fakeNode,fakeGame,{plays:playRows});
 assert.match(fakeNode.innerHTML,/COURTCAST/);
-assert.match(fakeNode.innerHTML,/SCHEMATIC ACTIVITY/);
+assert.match(fakeNode.innerHTML,/SOURCE-REPORTED SHOT LOCATIONS/);
+assert.match(fakeNode.innerHTML,/slc-shot-made/);
+assert(!fakeNode.innerHTML.includes('slc-ball'), 'no fictitious basketball marker is rendered');
+assert.match(fakeNode.innerHTML,/Notre Dame Radio Network/);
+assert.match(fakeNode.innerHTML,/thevarsitynetwork.com/);
+assert(!fakeNode.innerHTML.includes('<audio'), 'do not rebroadcast rights-held radio');
 assert.match(fakeNode.innerHTML,/Villanova turnover/);
 assert(!fakeNode.innerHTML.includes('actual ball position'));
 const missingNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
 court.mount(missingNode,{...fakeGame,id:'401920983'},null);
 assert.match(missingNode.innerHTML,/No verified play-by-play/,'missing source shows no invented possessions');
+assert.match(missingNode.innerHTML,/NO VERIFIED SHOT LOCATIONS/,'empty court never pretends player or ball tracking');
 assert(courtFile.includes('cbb-live-court.js')&&courtFile.includes('cbb-live-court.css'),
  'CourtCast JS and CSS must actually load in the dedicated Gamefile');
 assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw)"),
  'Gamefile must mount on verified score-and-plays summary, without a separate unverified feed');
 assert(courtCSS.includes('prefers-reduced-motion'),'accessible reduced-motion state is required');
+assert(!courtSource.includes("function location(play,g)"), 'remove guessed team-side event positions');
+assert(!courtCSS.includes('.slc-ball{'), 'CSS for invented moving ball must be eliminated');
 console.log('PASS Courtside: live/snapshot separation, away/home, verified notes, gender-isolated Elo, neutral/site/stale model checks, navigation, no logo overlay.');
