@@ -26,8 +26,15 @@ function validCalibration(c){
   Number(c.training_games)>=100&&Number(c.untouched_test_games)>=100&&
   ['margin','total'].every(k=>Array.isArray(c.coefficients?.[k])&&c.coefficients[k].length===2&&c.coefficients[k].every(finite));
 }
-function build(stats,minimum=4){
- if(!validate(stats)||!Number.isInteger(minimum)||minimum<1)return null;
+function validatePriors(priors){
+ const teams=priors?.teams;
+ return priors?.season==='2025-26'&&/^https:\/\//.test(priors.source_url||'')&&
+  teams&&Object.keys(teams).length===30&&Object.values(teams).every(t=>
+   finite(t.offense)&&finite(t.defense)&&finite(t.pace)&&t.offense>85&&t.offense<140&&
+   t.defense>85&&t.defense<140&&t.pace>85&&t.pace<115);
+}
+function build(stats,minimum=4,priors){
+ if(!validate(stats)||!validatePriors(priors)||!Number.isInteger(minimum)||minimum<1)return null;
  const totals={};let allPace=0,allPoss=0,allPoints=0,n=0;
  for(const g of [...stats.games].sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))){
   const h=g.home,a=g.away;
@@ -43,16 +50,27 @@ function build(stats,minimum=4){
  }
  if(n<20)return null;
  const basePace=allPace/n,baseOffense=100*allPoints/(2*allPoss),teams={};
+ const history=Object.values(priors.teams),historicalMean={
+  offense:history.reduce((sum,x)=>sum+x.offense,0)/history.length,
+  defense:history.reduce((sum,x)=>sum+x.defense,0)/history.length,
+  pace:history.reduce((sum,x)=>sum+x.pace,0)/history.length
+ };
  for(const [code,t] of Object.entries(totals)){
   if(t.gp<minimum)continue;
   // This 12-game neutral shrinkage and the frozen regression match the
   // already-documented 2025-26 possession-model validation method.
-  const weight=t.gp/(t.gp+12);
+  const weight=t.gp/(t.gp+12),historicalWeight=6/(t.gp+12);
+  const prior=priors.teams[code];
+  if(!prior)return null;
+  // Historical profiles enter as deviations from the 2025-26 league average,
+  // not raw old scoring levels, avoiding artificial inflation/deflation.
+  // Weight 6 was checked against 26 chronological 2026-27 previews; it is
+  // a small pilot diagnostic, NOT a separate holdout or guarantee.
   teams[code]={
-   gp:t.gp,
-   pace:weight*(t.pace/t.gp)+(1-weight)*basePace,
-   offense:weight*(100*t.pf/t.poss)+(1-weight)*baseOffense,
-   defense:weight*(100*t.pa/t.poss)+(1-weight)*baseOffense
+   gp:t.gp,priorWeight:historicalWeight,
+   pace:basePace+weight*(t.pace/t.gp-basePace)+historicalWeight*(prior.pace-historicalMean.pace),
+   offense:baseOffense+weight*(100*t.pf/t.poss-baseOffense)+historicalWeight*(prior.offense-historicalMean.offense),
+   defense:baseOffense+weight*(100*t.pa/t.poss-baseOffense)+historicalWeight*(prior.defense-historicalMean.defense)
   };
  }
  const cal=validCalibration(stats.calibration)?stats.calibration:null;
@@ -61,6 +79,7 @@ function build(stats,minimum=4){
  return {teams,league:{pace:basePace,offense:baseOffense},
   calibration:{season:cal.season,trainingGames:cal.training_games,testGames:cal.untouched_test_games,
    coefficients:cal.coefficients,marginMAE:cal.metrics?.margin?.model_mae??null,totalMAE:cal.metrics?.total?.model_mae??null},
+  history:{season:priors.season,source:priors.source_url,effectiveGames:6,diagnosticGames:26,diagnosticMarginMAE:12.75,diagnosticTotalMAE:15.80,method:'2026-27 sequential exploratory pilot; not an untouched holdout'},
   coverage:{games:n,teams:Object.keys(teams).length,minimum,updatedAt:stats.updated_at,sourceType:stats.source_type}
  };
 }
@@ -84,8 +103,8 @@ function project(home,away,model,ratings){
   homeEfficiency:homeEff,awayEfficiency:awayEff,homeOffense:h.offense,awayOffense:a.offense,
   homeDefense:h.defense,awayDefense:a.defense,homeWin,eloHome:homeWin,
   projectedWinner:homeScore>awayScore?home:away,
-  homeGames:h.gp,awayGames:a.gp,coverage:model.coverage,calibration:model.calibration,
-  source:'Verified team possessions + historical calibrated margin and total',
+  homeGames:h.gp,awayGames:a.gp,coverage:model.coverage,calibration:model.calibration,history:model.history,
+  source:'Verified 2026-27 possessions + sourced 2025-26 league-adjusted priors + frozen scoring calibration',
   provisional:true};
 }
 root.RabbyPossessionModel={validate,build,project};
