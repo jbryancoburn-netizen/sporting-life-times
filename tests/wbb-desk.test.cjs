@@ -24,3 +24,13 @@ test('women’s desk exposes all programs, complete season calendar and isolated
 test('a men’s or invalid registry cannot populate the women’s newspaper',async()=>{
  const {node}=await open(true);assert.match(node('wbb-score-stamp').textContent,/failed validation/);assert.equal(node('wbb-directory-list').innerHTML,'');assert.equal(node('wbb-score-rail').innerHTML,'');
 });
+
+test('verified university ESPN+ assignments display on women’s opening-day game cards',async()=>{
+ const {node}=await open();
+ node('wbb-game-conf').value='';
+ node('wbb-game-conf').listeners.change();
+ node('wbb-date').listeners.change({target:{value:'2026-11-02'}});
+ const html=node('wbb-score-rail').innerHTML;
+ assert.match(html,/MIT Engineers[\s\S]{0,1300}Bryant Bulldogs[\s\S]{0,1300}ESPN\+/);
+ assert.match(html,/Dominican \(NY\) Chargers[\s\S]{0,1300}Iona Gaels[\s\S]{0,1300}ESPN\+/);
+});
