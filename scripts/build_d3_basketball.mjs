@@ -110,8 +110,46 @@ function rating(teams,games){
   for(const t of teams.values())t.elo=Number(t.elo.toFixed(1));
   return finals.length;
 }
-function rebuild(gender,previous,results){
+// ESPN's published basketball group 52 is a SECONDARY provisional program list.
+// It does not certify NCAA membership; only NCAA game evidence can upgrade that flag.
+async function provisionalDirectory(gender){
+  const sport=gender==='men'?'mens-college-basketball':'womens-college-basketball';
+  const url='https://site.api.espn.com/apis/site/v2/sports/basketball/'+sport+'/teams?group=52&limit=1000';
+  try{
+    const raw=await jsonAt(url), leagues=raw.sports?.flatMap(x=>x.leagues||[])||[];
+    const entries=leagues.flatMap(x=>x.teams||[]).concat(raw.teams||[])
+      .map(x=>x.team||x).filter(x=>x&&typeof x==='object');
+    if(entries.length<200||entries.length>550)throw Error('Provider index has '+entries.length+' entries; unsafe to label DIII');
+    const colors=x=>/^#[0-9a-f]{6}$/i.test(x||'')&&
+      ![0,2,4].every(i=>parseInt(x.slice(i+1,i+3),16)>230);
+    const teams=new Map();
+    for(const t of entries){
+      const name=String(t.location||t.shortDisplayName||'').trim();
+      const id=slug(name);
+      if(!id||name.length<3||teams.has(id))continue;
+      const primary='#'+String(t.color||'').replace(/^#/,'');
+      const secondary='#'+String(t.alternateColor||'').replace(/^#/,'');
+      const brand=colors(primary)&&colors(secondary)&&primary.toLowerCase()!==secondary.toLowerCase();
+      const logo=(t.logos||[]).map(x=>x.href).find(u=>typeof u==='string'&&
+        /^https:\/\/(?:a\.)?espncdn\.com\/i\/teamlogos\//.test(u))||'';
+      teams.set(id,{id,name,slug:'',conference:'',
+        d3_confirmed:false,identity_source:'ESPN Division III basketball group 52; membership provisional',
+        ...(logo?{logo_url:logo}:{}),
+        ...(brand?{primary,secondary,color_source:'ESPN DIII basketball team index'}:{})});
+    }
+    if(teams.size<200)throw Error('Only '+teams.size+' distinct teams after strict identity check');
+    return {teams:[...teams.values()],source:url,error:null};
+  }catch(e){return {teams:[],source:url,error:String(e.message||e).slice(0,180)};}
+}
+
+function rebuild(gender,previous,results,additionalTeams=[]){
   const teams=new Map((previous.teams||[]).map(x=>[x.id,{...x}]));
+  // Do not overwrite previously NCAA-confirmed identities with provisional source labels.
+  for(const t of additionalTeams){
+    const old=teams.get(t.id);
+    if(!old)teams.set(t.id,t);
+    else teams.set(t.id,{...t,...old,d3_confirmed:!!old.d3_confirmed});
+  }
   const games=new Map((previous.games||[]).map(g=>[g.id,{...g}]));
   for(const result of results){
     for(const {game,teams:pair} of result.items){
@@ -159,7 +197,10 @@ async function run(gender,deep=false){
   }
   const successful=results.filter(r=>!r.error).length;
   if(!successful)throw Error('All NCAA DIII '+gender+' scoreboards failed: retaining previous publication');
-  const next=rebuild(gender,previous,results);
+  const directory=await provisionalDirectory(gender);
+  const next=rebuild(gender,previous,results,directory.teams);
+  next.coverage.directory_source=directory.source;
+  next.coverage.directory_status=directory.error?'Provider directory unavailable: '+directory.error:'ESPN group 52 provisional, not NCAA-certified';
   fs.writeFileSync(file,JSON.stringify(next,null,2)+'\n');
   console.log(gender+': '+next.teams.length+' discovered; '+next.games.length+' fixtures; '+next.coverage.eligible_finals+
     ' Elo finals; '+successful+'/'+dates.length+' days read; '+next.coverage.failed_days.length+' failed days');
