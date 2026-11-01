@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "status": "PARTIAL_OFFICIAL_GENERAL_BALLOT_RECORDS",
+  "election_date": "2026-11-03",
+  "reviewed_at": "2026-11-01",
+  "model_eligible": false,
+  "nationwide_complete": false,
+  "warning": "Verified against dated state government candidate listings; not a certified nationwide candidate registry, not matched to FEC IDs, and subject to later official withdrawals or corrections. Linked states without transcriptions are not counted as verified races.",
+  "sources": [
+    {
+      "id": "NCSBE_2026_GENERAL",
+      "state": "NC",
+      "publisher": "North Carolina State Board of Elections",
+      "url": "https://s3.amazonaws.com/dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "publication_date": "2026-10-13",
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_general_election_candidate_list",
+      "scope": "full_federal_house_and_senate_snapshot",
+      "transcription_status": "reviewed"
+    },
+    {
+      "id": "FL_DOE_2026_GENERAL",
+      "state": "FL",
+      "publisher": "Florida Division of Elections",
+      "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?OfficeGroup=ALL&StatusCode=QUA&cboSortBy=Name&elecID=20261103-GEN",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_qualified_candidate_listing",
+      "scope": "partial_federal_transcription",
+      "transcription_status": "reviewed_partial"
+    },
+    {
+      "id": "CA_SOS_2026_GENERAL",
+      "state": "CA",
+      "publisher": "California Secretary of State",
+      "url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+      "publication_date": "2026-08-27",
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_certified_candidate_list",
+      "scope": "source_link_only",
+      "transcription_status": "not_transcribed"
+    },
+    {
+      "id": "NV_SOS_2026_GENERAL",
+      "state": "NV",
+      "publisher": "Nevada Secretary of State",
+      "url": "https://www.nvsos.gov/sos/elections/election-information/2026-election-information",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_general_election_candidate_list_page",
+      "scope": "source_link_only",
+      "transcription_status": "not_transcribed"
+    },
+    {
+      "id": "WY_SOS_2026_GENERAL",
+      "state": "WY",
+      "publisher": "Wyoming Secretary of State",
+      "url": "https://sos.wyo.gov/Elections/2026ElectionInformation.aspx",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_general_election_candidate_roster_page",
+      "scope": "source_link_only",
+      "transcription_status": "not_transcribed"
+    }
+  ],
+  "races": [
+    {
+      "id": "NC-S",
+      "state": "NC",
+      "office": "S",
+      "district": null,
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Roy Cooper",
+          "party": "DEM"
+        },
+        {
+          "name": "Michael Whatley",
+          "party": "REP"
+        },
+        {
+          "name": "Shannon W. Bray",
+          "party": "LIB"
+        },
+        {
+          "name": "Michael Dublin",
+          "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-01",
+      "state": "NC",
+      "office": "H",
+      "district": "01",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Don Davis",
+          "party": "DEM"
+        },
+        {
+          "name": "Laurie Buckhout",
+          "party": "REP"
+        },
+        {
+          "name": "Tom Bailey",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-02",
+      "state": "NC",
+      "office": "H",
+      "district": "02",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Deborah K. Ross",
+          "party": "DEM"
+        },
+        {
+          "name": "Eugene F. Douglass",
+          "party": "REP"
+        },
+        {
+          "name": "Matthew Laszacs",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-03",
+      "state": "NC",
+      "office": "H",
+      "district": "03",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Raymond Smith",
+          "party": "DEM"
+        },
+        {
+          "name": "Greg Murphy",
+          "party": "REP"
+        },
+        {
+          "name": "Daniel Cavender",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-04",
+      "state": "NC",
+      "office": "H",
+      "district": "04",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Valerie P. Foushee",
+          "party": "DEM"
+        },
+        {
+          "name": "Mahesh (Max) Ganorkar",
+          "party": "REP"
+        },
+        {
+          "name": "Guy Meilleur",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-05",
+      "state": "NC",
+      "office": "H",
+      "district": "05",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Chuck Hubbard",
+          "party": "DEM"
+        },
+        {
+          "name": "Virginia Foxx",
+          "party": "REP"
+        },
+        {
+          "name": "Robert B. Luffman",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-06",
+      "state": "NC",
+      "office": "H",
+      "district": "06",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Cyril Jefferson",
+          "party": "DEM"
+        },
+        {
+          "name": "Addison McDowell",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-07",
+      "state": "NC",
+      "office": "H",
+      "district": "07",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Kimberly Hardy",
+          "party": "DEM"
+        },
+        {
+          "name": "David Rouzer",
+          "party": "REP"
+        },
+        {
+          "name": "Maad Abu-Ghazalah",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-08",
+      "state": "NC",
+      "office": "H",
+      "district": "08",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Colby Watson",
+          "party": "DEM"
+        },
+        {
+          "name": "Mark Harris",
+          "party": "REP"
+        },
+        {
+          "name": "Bo Whitehead",
+          "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-09",
+      "state": "NC",
+      "office": "H",
+      "district": "09",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Richard N. Ojeda II",
+          "party": "DEM"
+        },
+        {
+          "name": "Richard Hudson",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-10",
+      "state": "NC",
+      "office": "H",
+      "district": "10",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ashley Bell",
+          "party": "DEM"
+        },
+        {
+          "name": "Pat Harrigan",
+          "party": "REP"
+        },
+        {
+          "name": "Steven Feldman",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-11",
+      "state": "NC",
+      "office": "H",
+      "district": "11",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Jamie Ager",
+          "party": "DEM"
+        },
+        {
+          "name": "Jennifer Capps Balkcom",
+          "party": "REP"
+        },
+        {
+          "name": "Travis Groo",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-12",
+      "state": "NC",
+      "office": "H",
+      "district": "12",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Alma S. Adams",
+          "party": "DEM"
+        },
+        {
+          "name": "Jack Codiga",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-13",
+      "state": "NC",
+      "office": "H",
+      "district": "13",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Paul Barringer",
+          "party": "DEM"
+        },
+        {
+          "name": "Brad Knott",
+          "party": "REP"
+        },
+        {
+          "name": "Steven Swinton",
+          "party": "LIB"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "NC-14",
+      "state": "NC",
+      "office": "H",
+      "district": "14",
+      "source_id": "NCSBE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Lakesha Womack",
+          "party": "DEM"
+        },
+        {
+          "name": "Tim Moore",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-S",
+      "state": "FL",
+      "office": "S",
+      "district": null,
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Angie Nixon",
+          "party": "DEM"
+        },
+        {
+          "name": "Ashley Moody",
+          "party": "REP"
+        },
+        {
+          "name": "Neil J. Gillespie",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-22",
+      "state": "FL",
+      "office": "H",
+      "district": "22",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Pia Dandiya",
+          "party": "DEM"
+        },
+        {
+          "name": "Casey Askar",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    }
+  ]
+}
