@@ -1,19 +1,374 @@
 {
-  "status": "awaiting_verified_history",
-  "updated_at": null,
+  "status": "ok",
+  "updated_at": "2026-11-01T15:44:41+00:00",
   "attribution": "MIT Election Data and Science Lab (MEDSL), via electiondata.dev",
   "data_license": "CC0 1.0",
+  "sources": {
+    "house": "MIT Election Data and Science Lab, 2017, U.S. House 1976–2024, Harvard Dataverse V15, https://doi.org/10.7910/DVN/IG0UN2",
+    "senate": "MIT Election Data and Science Lab, 2017, U.S. Senate statewide 1976–2024, Harvard Dataverse V8, https://doi.org/10.7910/DVN/PEJ5QU"
+  },
   "years": [
     2018,
     2020,
     2022,
     2024
   ],
-  "house": [],
-  "senate": [],
-  "historical_house_baselines": [],
-  "closest_house_2024": [],
-  "coverage": {},
+  "house": [
+    {
+      "year": 2018,
+      "chamber": "house",
+      "contests": 431,
+      "dem_wins": 231,
+      "rep_wins": 200,
+      "other_wins": 0,
+      "dem_votes": 60610769,
+      "rep_votes": 50980048,
+      "dem_two_party_share": 54.32,
+      "dem_margin_pp": 8.63,
+      "data_quality": {
+        "input_rows": 1359,
+        "unofficial_rows": 39,
+        "skipped": {
+          "missing_votes": 4,
+          "ambiguous_candidates": 0,
+          "missing_party": 1
+        },
+        "valid_contests": 431,
+        "two_party_contests": 393
+      }
+    },
+    {
+      "year": 2020,
+      "chamber": "house",
+      "contests": 435,
+      "dem_wins": 223,
+      "rep_wins": 212,
+      "other_wins": 0,
+      "dem_votes": 77743616,
+      "rep_votes": 72975326,
+      "dem_two_party_share": 51.58,
+      "dem_margin_pp": 3.16,
+      "data_quality": {
+        "input_rows": 1467,
+        "unofficial_rows": 0,
+        "skipped": {
+          "missing_votes": 1,
+          "ambiguous_candidates": 0,
+          "missing_party": 83
+        },
+        "valid_contests": 435,
+        "two_party_contests": 407
+      }
+    },
+    {
+      "year": 2022,
+      "chamber": "house",
+      "contests": 433,
+      "dem_wins": 212,
+      "rep_wins": 220,
+      "other_wins": 1,
+      "dem_votes": 51463064,
+      "rep_votes": 54520207,
+      "dem_two_party_share": 48.56,
+      "dem_margin_pp": -2.88,
+      "data_quality": {
+        "input_rows": 1349,
+        "unofficial_rows": 0,
+        "skipped": {
+          "missing_votes": 2,
+          "ambiguous_candidates": 0,
+          "missing_party": 184
+        },
+        "valid_contests": 433,
+        "two_party_contests": 403
+      }
+    },
+    {
+      "year": 2024,
+      "chamber": "house",
+      "contests": 434,
+      "dem_wins": 215,
+      "rep_wins": 219,
+      "other_wins": 0,
+      "dem_votes": 70910719,
+      "rep_votes": 74729346,
+      "dem_two_party_share": 48.69,
+      "dem_margin_pp": -2.62,
+      "data_quality": {
+        "input_rows": 1353,
+        "unofficial_rows": 0,
+        "skipped": {
+          "missing_votes": 2,
+          "ambiguous_candidates": 0,
+          "missing_party": 180
+        },
+        "valid_contests": 434,
+        "two_party_contests": 397
+      }
+    }
+  ],
+  "senate": [
+    {
+      "year": 2018,
+      "chamber": "senate",
+      "contests": 33,
+      "dem_wins": 21,
+      "rep_wins": 10,
+      "other_wins": 2,
+      "dem_votes": 50756385,
+      "rep_votes": 33406768,
+      "dem_two_party_share": 60.31,
+      "dem_margin_pp": 20.61,
+      "data_quality": {
+        "input_rows": 152,
+        "unofficial_rows": 3,
+        "skipped": {
+          "missing_votes": 0,
+          "ambiguous_candidates": 0,
+          "missing_party": 0
+        },
+        "valid_contests": 33,
+        "two_party_contests": 31
+      }
+    },
+    {
+      "year": 2020,
+      "chamber": "senate",
+      "contests": 33,
+      "dem_wins": 12,
+      "rep_wins": 20,
+      "other_wins": 1,
+      "dem_votes": 38043746,
+      "rep_votes": 39884185,
+      "dem_two_party_share": 48.82,
+      "dem_margin_pp": -2.36,
+      "data_quality": {
+        "input_rows": 204,
+        "unofficial_rows": 2,
+        "skipped": {
+          "missing_votes": 0,
+          "ambiguous_candidates": 0,
+          "missing_party": 0
+        },
+        "valid_contests": 33,
+        "two_party_contests": 31
+      }
+    },
+    {
+      "year": 2022,
+      "chamber": "senate",
+      "contests": 33,
+      "dem_wins": 12,
+      "rep_wins": 18,
+      "other_wins": 3,
+      "dem_votes": 35289496,
+      "rep_votes": 38638916,
+      "dem_two_party_share": 47.73,
+      "dem_margin_pp": -4.53,
+      "data_quality": {
+        "input_rows": 168,
+        "unofficial_rows": 2,
+        "skipped": {
+          "missing_votes": 0,
+          "ambiguous_candidates": 0,
+          "missing_party": 0
+        },
+        "valid_contests": 33,
+        "two_party_contests": 29
+      }
+    },
+    {
+      "year": 2024,
+      "chamber": "senate",
+      "contests": 33,
+      "dem_wins": 17,
+      "rep_wins": 14,
+      "other_wins": 2,
+      "dem_votes": 55939471,
+      "rep_votes": 54409180,
+      "dem_two_party_share": 50.69,
+      "dem_margin_pp": 1.39,
+      "data_quality": {
+        "input_rows": 148,
+        "unofficial_rows": 6,
+        "skipped": {
+          "missing_votes": 0,
+          "ambiguous_candidates": 0,
+          "missing_party": 0
+        },
+        "valid_contests": 33,
+        "two_party_contests": 31
+      }
+    }
+  ],
+  "historical_house_baselines": [
+    {
+      "training_year": 2018,
+      "test_year": 2020,
+      "sample_size": 374,
+      "mean_absolute_margin_error": 6.53,
+      "median_absolute_margin_error": 5.2,
+      "sign_changes": 19,
+      "interpretation": "Lagged district margin arithmetic benchmark only. Same district ID does not prove same district boundaries; map changes and contestedness are unverified. Not a calibrated election model."
+    },
+    {
+      "training_year": 2022,
+      "test_year": 2024,
+      "sample_size": 374,
+      "mean_absolute_margin_error": 4.98,
+      "median_absolute_margin_error": 3.09,
+      "sign_changes": 17,
+      "interpretation": "Lagged district margin arithmetic benchmark only. Same district ID does not prove same district boundaries; map changes and contestedness are unverified. Not a calibrated election model."
+    }
+  ],
+  "closest_house_2024": [
+    {
+      "id": "CA-13",
+      "state": "CA",
+      "dem_margin_pp": 0.09,
+      "2024_winner_party": "D",
+      "2024_winner_name": "ADAM GRAY"
+    },
+    {
+      "id": "IA-01",
+      "state": "IA",
+      "dem_margin_pp": -0.19,
+      "2024_winner_party": "R",
+      "2024_winner_name": "MARIANNETTE MILLER-MEEKS"
+    },
+    {
+      "id": "CA-45",
+      "state": "CA",
+      "dem_margin_pp": 0.21,
+      "2024_winner_party": "D",
+      "2024_winner_name": "DEREK TRAN"
+    },
+    {
+      "id": "OH-09",
+      "state": "OH",
+      "dem_margin_pp": 0.66,
+      "2024_winner_party": "D",
+      "2024_winner_name": "MARCY KAPTUR"
+    },
+    {
+      "id": "ME-02",
+      "state": "ME",
+      "dem_margin_pp": 0.69,
+      "2024_winner_party": "D",
+      "2024_winner_name": "JARED F. GOLDEN"
+    },
+    {
+      "id": "CO-08",
+      "state": "CO",
+      "dem_margin_pp": -0.76,
+      "2024_winner_party": "R",
+      "2024_winner_name": "GABE EVANS"
+    },
+    {
+      "id": "PA-07",
+      "state": "PA",
+      "dem_margin_pp": -1.01,
+      "2024_winner_party": "R",
+      "2024_winner_name": "RYAN E. MACKENZIE"
+    },
+    {
+      "id": "AK-00",
+      "state": "AK",
+      "dem_margin_pp": -1.05,
+      "2024_winner_party": "R",
+      "2024_winner_name": "NICK BEGICH"
+    },
+    {
+      "id": "PA-10",
+      "state": "PA",
+      "dem_margin_pp": -1.26,
+      "2024_winner_party": "R",
+      "2024_winner_name": "SCOTT PERRY"
+    },
+    {
+      "id": "PA-08",
+      "state": "PA",
+      "dem_margin_pp": -1.62,
+      "2024_winner_party": "R",
+      "2024_winner_name": "ROB BRESNAHAN, JR."
+    },
+    {
+      "id": "NC-01",
+      "state": "NC",
+      "dem_margin_pp": 1.72,
+      "2024_winner_party": "D",
+      "2024_winner_name": "DONALD G. DAVIS"
+    },
+    {
+      "id": "NE-02",
+      "state": "NE",
+      "dem_margin_pp": -1.85,
+      "2024_winner_party": "R",
+      "2024_winner_name": "DON BACON"
+    },
+    {
+      "id": "OH-13",
+      "state": "OH",
+      "dem_margin_pp": 2.21,
+      "2024_winner_party": "D",
+      "2024_winner_name": "EMILIA STRONG SYKES"
+    },
+    {
+      "id": "NY-19",
+      "state": "NY",
+      "dem_margin_pp": 2.22,
+      "2024_winner_party": "D",
+      "2024_winner_name": "JOSH RILEY"
+    },
+    {
+      "id": "NY-04",
+      "state": "NY",
+      "dem_margin_pp": 2.29,
+      "2024_winner_party": "D",
+      "2024_winner_name": "LAURA A. GILLEN"
+    },
+    {
+      "id": "AZ-06",
+      "state": "AZ",
+      "dem_margin_pp": -2.57,
+      "2024_winner_party": "R",
+      "2024_winner_name": "JUAN CISCOMANI"
+    },
+    {
+      "id": "TX-34",
+      "state": "TX",
+      "dem_margin_pp": 2.58,
+      "2024_winner_party": "D",
+      "2024_winner_name": "VICENTE GONZALEZ"
+    },
+    {
+      "id": "VA-07",
+      "state": "VA",
+      "dem_margin_pp": 2.65,
+      "2024_winner_party": "D",
+      "2024_winner_name": "EUGENE S. VINDMAN"
+    }
+  ],
+  "coverage": {
+    "house": {
+      "2018": 431,
+      "2020": 435,
+      "2022": 433,
+      "2024": 434
+    },
+    "senate": {
+      "2018": 33,
+      "2020": 33,
+      "2022": 33,
+      "2024": 33
+    }
+  },
+  "warnings": [
+    "These are HISTORICAL election returns, not 2026 forecasts or 2026 district ratings.",
+    "National vote share is a derived two-party tally of MEDSL candidate votes; races with unreported votes are omitted, not guessed.",
+    "MEDSL candidate labels and fusion votes are normalized; any unverified races, districts and sources remain disclosed in data_quality.",
+    "The 2018→2020 and 2022→2024 same-ID margin baselines have NOT been certified for boundary changes or uncontested races. Do not use them as predictive calibration."
+  ],
   "backtest_certified": false,
   "forecast_2026_certified": false
 }
