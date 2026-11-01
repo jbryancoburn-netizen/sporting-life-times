@@ -2,27 +2,36 @@
   "schools_targeted": 365,
   "schools_checked": 365,
   "totals": {
-    "matched": 1820,
-    "site_corrected": 0,
-    "location_corrected": 1,
-    "broadcast_added": 0
+    "matched": 3468,
+    "site_corrected": 20,
+    "site_conflicts": 0,
+    "location_corrected": 1635,
+    "arena_added": 0,
+    "broadcast_added": 0,
+    "tipoff_added": 55
   },
   "status_counts": {
-    "source_fetch_failed": 203,
-    "already_matched": 153,
+    "verified_changes": 158,
+    "already_matched": 155,
+    "source_fetch_failed": 43,
     "no_official_source": 8,
-    "verified_changes": 1
+    "no_safe_matches": 1
+  },
+  "source_method_counts": {
+    "sidearm_card": 159,
+    "table": 155,
+    "unreadable": 51
   },
   "schools": [
     {
       "team": "A&M-Corpus Christi",
       "id": "357",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Abilene Christian",
@@ -31,7 +40,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Air Force",
@@ -40,7 +50,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Akron",
@@ -49,7 +60,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Alabama",
@@ -58,57 +70,60 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Alabama A&M",
       "id": "2010",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 15,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Alabama St.",
       "id": "2011",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 20,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 20,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Alcorn",
       "id": "2016",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "American",
       "id": "44",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "App State",
       "id": "2026",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Arizona",
@@ -117,7 +132,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 40
+      "school_rows": 40,
+      "source_method": "table"
     },
     {
       "team": "Arizona St.",
@@ -132,12 +148,12 @@
     {
       "team": "Ark.-Pine Bluff",
       "id": "2029",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 16,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 16,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Arkansas",
@@ -152,12 +168,12 @@
     {
       "team": "Arkansas St.",
       "id": "2032",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Army West Point",
@@ -166,7 +182,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Auburn",
@@ -181,12 +198,12 @@
     {
       "team": "Austin Peay",
       "id": "2046",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "BYU",
@@ -205,7 +222,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Baylor",
@@ -214,17 +232,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Bellarmine",
       "id": "91",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Belmont",
@@ -239,22 +258,23 @@
     {
       "team": "Bethune-Cookman",
       "id": "2065",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Binghamton",
       "id": "2066",
-      "status": "source_fetch_failed",
-      "matched": 0,
-      "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "status": "verified_changes",
+      "matched": 12,
+      "site_corrected": 3,
+      "location_corrected": 12,
+      "school_rows": 31,
+      "source_method": "sidearm_card",
+      "tipoff_added": 11
     },
     {
       "team": "Boise St.",
@@ -263,7 +283,8 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Boston College",
@@ -272,7 +293,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Boston U.",
@@ -281,7 +303,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31
+      "school_rows": 31,
+      "source_method": "table"
     },
     {
       "team": "Bowling Green",
@@ -290,7 +313,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Bradley",
@@ -309,17 +333,18 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 30
+      "school_rows": 30,
+      "source_method": "table"
     },
     {
       "team": "Bryant",
       "id": "2803",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Bucknell",
@@ -328,7 +353,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Buffalo",
@@ -337,37 +363,38 @@
       "matched": 18,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Butler",
       "id": "2086",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "CSU Bakersfield",
       "id": "2934",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 3,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 3,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "CSUN",
       "id": "2463",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "already_matched",
+      "matched": 5,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Cal Poly",
@@ -376,17 +403,18 @@
       "matched": 3,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Cal St. Fullerton",
       "id": "2239",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "California",
@@ -395,7 +423,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "California Baptist",
@@ -404,37 +433,38 @@
       "matched": 4,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Campbell",
       "id": "2097",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 12,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Canisius",
       "id": "2099",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 3,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 3,
+      "school_rows": 39,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Central Ark.",
       "id": "2110",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Central Conn. St.",
@@ -453,7 +483,8 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 38
+      "school_rows": 38,
+      "source_method": "table"
     },
     {
       "team": "Charleston So.",
@@ -462,7 +493,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Charlotte",
@@ -471,7 +503,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Chattanooga",
@@ -480,17 +513,18 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Chicago St.",
       "id": "2130",
-      "status": "source_fetch_failed",
-      "matched": 0,
-      "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "status": "verified_changes",
+      "matched": 4,
+      "site_corrected": 3,
+      "location_corrected": 4,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Cincinnati",
@@ -515,12 +549,12 @@
     {
       "team": "Cleveland St.",
       "id": "325",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Coastal Carolina",
@@ -529,7 +563,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Col. of Charleston",
@@ -538,17 +573,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Colgate",
       "id": "2142",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Colorado",
@@ -557,7 +593,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Colorado St.",
@@ -566,7 +603,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Columbia",
@@ -575,27 +613,28 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31
+      "school_rows": 31,
+      "source_method": "table"
     },
     {
       "team": "Coppin St.",
       "id": "2154",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Cornell",
       "id": "172",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Creighton",
@@ -604,7 +643,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 39
+      "school_rows": 39,
+      "source_method": "table"
     },
     {
       "team": "Dartmouth",
@@ -613,7 +653,8 @@
       "matched": 17,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 28
+      "school_rows": 28,
+      "source_method": "table"
     },
     {
       "team": "Davidson",
@@ -622,17 +663,18 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Dayton",
       "id": "2168",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "DePaul",
@@ -641,7 +683,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Delaware",
@@ -650,17 +693,18 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Delaware St.",
       "id": "2169",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 23,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 23,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Denver",
@@ -669,27 +713,28 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Detroit Mercy",
       "id": "2174",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Drake",
       "id": "2181",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Drexel",
@@ -698,7 +743,8 @@
       "matched": 17,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Duke",
@@ -707,27 +753,28 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Duquesne",
       "id": "2184",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 28,
+      "source_method": "sidearm_card"
     },
     {
       "team": "ETSU",
       "id": "2193",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "East Carolina",
@@ -736,37 +783,39 @@
       "matched": 3,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "East Texas A&M",
       "id": "2837",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Eastern Ill.",
       "id": "2197",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 32,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Eastern Ky.",
       "id": "2198",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Eastern Mich.",
@@ -775,77 +824,78 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Eastern Wash.",
       "id": "331",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Elon",
       "id": "2210",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Evansville",
       "id": "339",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 4,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 4,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "FDU",
       "id": "161",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "FGCU",
       "id": "526",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "FIU",
       "id": "2229",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Fairfield",
       "id": "2217",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Fla. Atlantic",
@@ -854,7 +904,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Florida",
@@ -863,17 +914,18 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Florida A&M",
       "id": "50",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 17,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 17,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Florida St.",
@@ -882,7 +934,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Fordham",
@@ -901,17 +954,18 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Furman",
       "id": "231",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Ga. Southern",
@@ -920,7 +974,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Gardner-Webb",
@@ -929,7 +984,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31
+      "school_rows": 31,
+      "source_method": "table"
     },
     {
       "team": "George Mason",
@@ -948,17 +1004,18 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Georgetown",
       "id": "46",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Georgia",
@@ -967,17 +1024,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Georgia St.",
       "id": "2247",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Georgia Tech",
@@ -996,17 +1054,19 @@
       "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Grambling",
       "id": "2755",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 17,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 17,
+      "school_rows": 30,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Grand Canyon",
@@ -1015,17 +1075,18 @@
       "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Green Bay",
       "id": "2739",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Hampton",
@@ -1034,57 +1095,58 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Harvard",
       "id": "108",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Hawaii",
       "id": "62",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "High Point",
       "id": "2272",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Hofstra",
       "id": "2275",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 17,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 17,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Holy Cross",
       "id": "107",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Houston",
@@ -1093,57 +1155,58 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 51
+      "school_rows": 51,
+      "source_method": "table"
     },
     {
       "team": "Houston Christian",
       "id": "2277",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Howard",
       "id": "47",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 20,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 20,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "IU Indy",
       "id": "85",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 36,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Idaho",
       "id": "70",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Idaho St.",
       "id": "304",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Illinois",
@@ -1152,17 +1215,18 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Illinois St.",
       "id": "2287",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Indiana",
@@ -1171,17 +1235,18 @@
       "matched": 32,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Indiana St.",
       "id": "282",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Iona",
@@ -1210,27 +1275,29 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Jackson St.",
       "id": "2296",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 15,
+      "school_rows": 32,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Jacksonville",
       "id": "294",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Jacksonville St.",
@@ -1248,7 +1315,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Kansas",
@@ -1257,7 +1325,8 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Kansas City",
@@ -1266,7 +1335,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Kansas St.",
@@ -1275,17 +1345,18 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Kennesaw St.",
       "id": "338",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 15,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Kent St.",
@@ -1294,7 +1365,8 @@
       "matched": 17,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Kentucky",
@@ -1318,12 +1390,12 @@
     {
       "team": "LMU (CA)",
       "id": "2351",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "LSU",
@@ -1338,42 +1410,43 @@
     {
       "team": "La Salle",
       "id": "2325",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Lafayette",
       "id": "322",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Lamar University",
       "id": "2320",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 12,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Le Moyne",
       "id": "2330",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 30,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Lehigh",
@@ -1382,7 +1455,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Liberty",
@@ -1391,17 +1465,19 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Lindenwood",
       "id": "2815",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 16,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 16,
+      "school_rows": 31,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Lipscomb",
@@ -1410,7 +1486,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Little Rock",
@@ -1429,17 +1506,18 @@
       "matched": 1,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Longwood",
       "id": "2344",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 36,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Louisiana",
@@ -1448,7 +1526,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Louisiana Tech",
@@ -1457,7 +1536,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Louisville",
@@ -1466,27 +1546,28 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Loyola Chicago",
       "id": "2350",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Loyola Maryland",
       "id": "2352",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Maine",
@@ -1495,27 +1576,28 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Manhattan",
       "id": "2363",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Marist",
       "id": "2368",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 4,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 4,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Marquette",
@@ -1524,7 +1606,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Marshall",
@@ -1533,7 +1616,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Maryland",
@@ -1542,7 +1626,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Massachusetts",
@@ -1551,17 +1636,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "McNeese",
       "id": "2377",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Memphis",
@@ -1570,7 +1656,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Mercer",
@@ -1579,27 +1666,28 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Mercyhurst",
       "id": "2385",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Merrimack",
       "id": "2771",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Miami (FL)",
@@ -1618,7 +1706,8 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Michigan",
@@ -1627,7 +1716,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 42
+      "school_rows": 42,
+      "source_method": "table"
     },
     {
       "team": "Michigan St.",
@@ -1636,7 +1726,8 @@
       "matched": 6,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 54
+      "school_rows": 54,
+      "source_method": "table"
     },
     {
       "team": "Middle Tenn.",
@@ -1645,17 +1736,18 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Milwaukee",
       "id": "270",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Minnesota",
@@ -1664,7 +1756,8 @@
       "matched": 7,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Mississippi St.",
@@ -1673,7 +1766,8 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Mississippi Val.",
@@ -1702,17 +1796,18 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31
+      "school_rows": 31,
+      "source_method": "table"
     },
     {
       "team": "Monmouth",
       "id": "2405",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Montana",
@@ -1721,7 +1816,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 39
+      "school_rows": 39,
+      "source_method": "table"
     },
     {
       "team": "Montana St.",
@@ -1730,7 +1826,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Morehead St.",
@@ -1745,22 +1842,22 @@
     {
       "team": "Morgan St.",
       "id": "2415",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Mount St. Mary's",
       "id": "116",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Murray St.",
@@ -1769,27 +1866,29 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "N.C. A&T",
       "id": "2448",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 18,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 18,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "N.C. Central",
       "id": "2428",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 18,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 18,
+      "school_rows": 30,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "NC State",
@@ -1798,37 +1897,38 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "NIU",
       "id": "2459",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "NJIT",
       "id": "2885",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Navy",
       "id": "2426",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 40,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Nebraska",
@@ -1843,31 +1943,32 @@
     {
       "team": "Nevada",
       "id": "2440",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "New Hampshire",
       "id": "160",
-      "status": "verified_changes",
+      "status": "already_matched",
       "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 1,
-      "school_rows": 32
+      "location_corrected": 0,
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "New Haven",
       "id": "2441",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "New Mexico",
@@ -1882,62 +1983,63 @@
     {
       "team": "New Mexico St.",
       "id": "166",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 28,
+      "source_method": "sidearm_card"
     },
     {
       "team": "New Orleans",
       "id": "2443",
-      "status": "source_fetch_failed",
-      "matched": 0,
-      "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "status": "verified_changes",
+      "matched": 13,
+      "site_corrected": 1,
+      "location_corrected": 13,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 9
     },
     {
       "team": "Niagara",
       "id": "315",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 2,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 2,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Nicholls",
       "id": "2447",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Norfolk St.",
       "id": "2450",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 19,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 19,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "North Ala.",
       "id": "2453",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "North Carolina",
@@ -1946,17 +2048,18 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "North Dakota",
       "id": "155",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "North Dakota St.",
@@ -1965,7 +2068,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "North Florida",
@@ -1974,7 +2078,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "North Texas",
@@ -1983,27 +2088,28 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Northeastern",
       "id": "111",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Northern Ariz.",
       "id": "2464",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Northern Colo.",
@@ -2012,17 +2118,18 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Northern Ky.",
       "id": "94",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Northwestern",
@@ -2037,12 +2144,12 @@
     {
       "team": "Northwestern St.",
       "id": "2466",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Notre Dame",
@@ -2080,7 +2187,8 @@
       "matched": 6,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Oklahoma",
@@ -2089,7 +2197,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Oklahoma St.",
@@ -2098,7 +2207,8 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 50
+      "school_rows": 50,
+      "source_method": "table"
     },
     {
       "team": "Old Dominion",
@@ -2117,7 +2227,8 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Omaha",
@@ -2126,17 +2237,18 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Oral Roberts",
       "id": "198",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 2,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 2,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Oregon",
@@ -2145,7 +2257,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Oregon St.",
@@ -2154,27 +2267,28 @@
       "matched": 20,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Pacific",
       "id": "279",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Penn",
       "id": "219",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 16,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 16,
+      "school_rows": 28,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Penn St.",
@@ -2192,7 +2306,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Pittsburgh",
@@ -2201,47 +2316,49 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Portland",
       "id": "2501",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 28,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Portland St.",
       "id": "2502",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 2
     },
     {
       "team": "Prairie View",
       "id": "2504",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 15,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Presbyterian",
       "id": "2506",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 15,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Princeton",
@@ -2250,7 +2367,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 29
+      "school_rows": 29,
+      "source_method": "table"
     },
     {
       "team": "Providence",
@@ -2259,7 +2377,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Purdue",
@@ -2278,17 +2397,18 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Queens (NC)",
       "id": "2511",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Quinnipiac",
@@ -2297,7 +2417,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31
+      "school_rows": 31,
+      "source_method": "table"
     },
     {
       "team": "Radford",
@@ -2306,17 +2427,18 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Rhode Island",
       "id": "227",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Rice",
@@ -2325,7 +2447,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Richmond",
@@ -2334,17 +2457,18 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Rider",
       "id": "2520",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Robert Morris",
@@ -2363,7 +2487,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "SFA",
@@ -2372,17 +2497,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "SIUE",
       "id": "2565",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "SMU",
@@ -2391,17 +2517,18 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 38
+      "school_rows": 38,
+      "source_method": "table"
     },
     {
       "team": "Sacramento St.",
       "id": "16",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 3,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 3,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Sacred Heart",
@@ -2410,27 +2537,28 @@
       "matched": 5,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Saint Joseph's",
       "id": "2603",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Saint Louis",
       "id": "139",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Saint Mary's (CA)",
@@ -2439,17 +2567,18 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Saint Peter's",
       "id": "2612",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Sam Houston",
@@ -2458,7 +2587,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Samford",
@@ -2467,17 +2597,18 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "San Diego",
       "id": "301",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "San Diego St.",
@@ -2495,7 +2626,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "San Jose St.",
@@ -2510,12 +2642,12 @@
     {
       "team": "Santa Clara",
       "id": "2541",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Seattle U",
@@ -2534,27 +2666,28 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "Siena",
       "id": "2561",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "South Alabama",
       "id": "6",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "South Carolina",
@@ -2569,22 +2702,23 @@
     {
       "team": "South Carolina St.",
       "id": "2569",
-      "status": "source_fetch_failed",
-      "matched": 0,
-      "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "status": "verified_changes",
+      "matched": 17,
+      "site_corrected": 7,
+      "location_corrected": 17,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 2
     },
     {
       "team": "South Dakota",
       "id": "233",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "South Dakota St.",
@@ -2593,7 +2727,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 31
+      "school_rows": 31,
+      "source_method": "table"
     },
     {
       "team": "South Fla.",
@@ -2602,7 +2737,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Southeast Mo. St.",
@@ -2611,17 +2747,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Southeastern La.",
       "id": "2545",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Southern California",
@@ -2630,7 +2767,8 @@
       "matched": 7,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Southern Ill.",
@@ -2639,7 +2777,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "Southern Ind.",
@@ -2648,7 +2787,8 @@
       "matched": 18,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Southern Miss.",
@@ -2657,27 +2797,28 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Southern U.",
       "id": "2582",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 19,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 19,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Southern Utah",
       "id": "253",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "St. Bonaventure",
@@ -2696,7 +2837,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "St. Thomas (MN)",
@@ -2720,32 +2862,33 @@
     {
       "team": "Stetson",
       "id": "56",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Stonehill",
       "id": "284",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 34,
+      "source_method": "sidearm_card",
+      "tipoff_added": 2
     },
     {
       "team": "Stony Brook",
       "id": "2619",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 14,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 14,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Syracuse",
@@ -2754,7 +2897,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "TCU",
@@ -2763,17 +2907,18 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Tarleton St.",
       "id": "2627",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Temple",
@@ -2782,7 +2927,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Tennessee",
@@ -2791,17 +2937,18 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Tennessee St.",
       "id": "2634",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 16,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Tennessee Tech",
@@ -2819,7 +2966,8 @@
       "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Texas A&M",
@@ -2833,22 +2981,23 @@
     {
       "team": "Texas Southern",
       "id": "2640",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 12,
+      "school_rows": 32,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Texas St.",
       "id": "326",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 18,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 18,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Texas Tech",
@@ -2857,7 +3006,8 @@
       "matched": 18,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 38
+      "school_rows": 38,
+      "source_method": "table"
     },
     {
       "team": "The Citadel",
@@ -2866,7 +3016,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Toledo",
@@ -2875,17 +3026,18 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Towson",
       "id": "119",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Troy",
@@ -2894,7 +3046,8 @@
       "matched": 9,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Tulane",
@@ -2903,7 +3056,8 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "Tulsa",
@@ -2912,7 +3066,8 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "UAB",
@@ -2921,27 +3076,28 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "UAlbany",
       "id": "399",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 30,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UC Davis",
       "id": "302",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 16,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 16,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UC Irvine",
@@ -2950,7 +3106,8 @@
       "matched": 7,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 47
+      "school_rows": 47,
+      "source_method": "table"
     },
     {
       "team": "UC Riverside",
@@ -2959,27 +3116,29 @@
       "matched": 4,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "UC San Diego",
       "id": "28",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 5,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 5,
+      "school_rows": 31,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "UC Santa Barbara",
       "id": "2540",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 1,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 1,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UCF",
@@ -3008,27 +3167,28 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "UIC",
       "id": "82",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 37,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UIW",
       "id": "2916",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 17,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 17,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "ULM",
@@ -3043,22 +3203,23 @@
     {
       "team": "UMBC",
       "id": "2378",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 12,
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UMES",
       "id": "2379",
-      "status": "source_fetch_failed",
-      "matched": 0,
-      "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "status": "verified_changes",
+      "matched": 18,
+      "site_corrected": 6,
+      "location_corrected": 18,
+      "school_rows": 31,
+      "source_method": "sidearm_card",
+      "tipoff_added": 15
     },
     {
       "team": "UMass Lowell",
@@ -3067,7 +3228,8 @@
       "matched": 12,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "UNC Asheville",
@@ -3076,27 +3238,29 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "UNC Greensboro",
       "id": "2430",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 10,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 10,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "UNCW",
       "id": "350",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 38,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UNI",
@@ -3105,7 +3269,8 @@
       "matched": 7,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "UNLV",
@@ -3114,7 +3279,8 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 37
+      "school_rows": 37,
+      "source_method": "table"
     },
     {
       "team": "USC Upstate",
@@ -3123,7 +3289,8 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 32
+      "school_rows": 32,
+      "source_method": "table"
     },
     {
       "team": "UT Arlington",
@@ -3132,7 +3299,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 34
+      "school_rows": 34,
+      "source_method": "table"
     },
     {
       "team": "UT Martin",
@@ -3141,27 +3309,28 @@
       "matched": 15,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "UTEP",
       "id": "2638",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 27,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UTRGV",
       "id": "292",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "UTSA",
@@ -3180,7 +3349,8 @@
       "matched": 19,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 40
+      "school_rows": 40,
+      "source_method": "table"
     },
     {
       "team": "Utah St.",
@@ -3195,52 +3365,52 @@
     {
       "team": "Utah Tech",
       "id": "3101",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Utah Valley",
       "id": "3084",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "VCU",
       "id": "2670",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 29,
+      "source_method": "sidearm_card"
     },
     {
       "team": "VMI",
       "id": "2678",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 8,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 8,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Valparaiso",
       "id": "2674",
-      "status": "source_fetch_failed",
+      "status": "no_safe_matches",
       "matched": 0,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "school_rows": 34,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Vanderbilt",
@@ -3255,22 +3425,22 @@
     {
       "team": "Vermont",
       "id": "261",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 35,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Villanova",
       "id": "222",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 7,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 7,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Virginia",
@@ -3295,12 +3465,13 @@
     {
       "team": "Wagner",
       "id": "2681",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 11,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 11,
+      "school_rows": 30,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Wake Forest",
@@ -3309,7 +3480,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Washington",
@@ -3318,7 +3490,8 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Washington St.",
@@ -3337,27 +3510,28 @@
       "matched": 8,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "West Florida",
       "id": "2697",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 3,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 3,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "West Ga.",
       "id": "2698",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 12,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 12,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "West Virginia",
@@ -3366,27 +3540,29 @@
       "matched": 14,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Western Caro.",
       "id": "2717",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Western Ill.",
       "id": "2710",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 17,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 17,
+      "school_rows": 28,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Western Ky.",
@@ -3395,47 +3571,48 @@
       "matched": 10,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 35
+      "school_rows": 35,
+      "source_method": "table"
     },
     {
       "team": "Western Mich.",
       "id": "2711",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 13,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 13,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Wichita St.",
       "id": "2724",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 32,
+      "source_method": "sidearm_card"
     },
     {
       "team": "William & Mary",
       "id": "2729",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 15,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 15,
+      "school_rows": 31,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Winthrop",
       "id": "2737",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 9,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 9,
+      "school_rows": 33,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Wisconsin",
@@ -3444,17 +3621,19 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Wofford",
       "id": "2747",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 17,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 17,
+      "school_rows": 33,
+      "source_method": "sidearm_card",
+      "tipoff_added": 1
     },
     {
       "team": "Wright St.",
@@ -3463,7 +3642,8 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 33
+      "school_rows": 33,
+      "source_method": "table"
     },
     {
       "team": "Wyoming",
@@ -3472,7 +3652,8 @@
       "matched": 16,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Xavier",
@@ -3481,17 +3662,18 @@
       "matched": 13,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 36
+      "school_rows": 36,
+      "source_method": "table"
     },
     {
       "team": "Yale",
       "id": "43",
-      "status": "source_fetch_failed",
-      "matched": 0,
+      "status": "verified_changes",
+      "matched": 6,
       "site_corrected": 0,
-      "location_corrected": 0,
-      "school_rows": 0,
-      "detail": "No readable official schedule table at available source URLs"
+      "location_corrected": 6,
+      "school_rows": 25,
+      "source_method": "sidearm_card"
     },
     {
       "team": "Youngstown St.",
@@ -3500,29 +3682,26 @@
       "matched": 11,
       "site_corrected": 0,
       "location_corrected": 0,
-      "school_rows": 38
+      "school_rows": 38,
+      "source_method": "table"
     }
   ],
   "reciprocal_pass": {
     "summary": {
       "ambiguous_or_nonreciprocal_groups": 311,
-      "unique_verified_reciprocal_games": 5322,
+      "unique_verified_reciprocal_games": 5323,
       "conflicts_broadcast_disagreement": 388,
       "conflicts_arena_disagreement": 668,
-      "conflicts_site_mismatch_or_unverified": 25,
-      "game_records_repaired": 154,
-      "arena": 17,
-      "city": 24,
-      "tipoff": 115,
+      "conflicts_site_mismatch_or_unverified": 24,
       "conflicts_time_disagreement": 54,
       "schools_scanned": 365,
-      "schools_changed": 67,
+      "schools_changed": 0,
       "all_game_entries": 11807,
       "remaining_missing_broadcast": 4999,
-      "remaining_missing_tipoff": 1212,
+      "remaining_missing_tipoff": 1158,
       "remaining_missing_valid_arena": 725,
       "remaining_missing_city": 88,
-      "remaining_unverified_site": 83
+      "remaining_unverified_site": 63
     },
     "policy": "Source links and unique exact-day D-I opponent ID pairs; never overwrite an announced clock/channel; valid arena excludes date labels; conflicts quarantined; no generic TV assignments.",
     "conflicts": [
@@ -4660,18 +4839,6 @@
         "details": {
           "target": "Francis S. Levien Gymnasium",
           "source": "SCHILLER COURT AT LEVIEN GYMNASIUM"
-        }
-      },
-      {
-        "date": "2026-11-09",
-        "schools": [
-          "2130",
-          "2569"
-        ],
-        "kind": "site_mismatch_or_unverified",
-        "details": {
-          "left": "neutral",
-          "right": "neutral"
         }
       },
       {
@@ -6861,1551 +7028,20 @@
           "target": "Arena",
           "source": "McKale Center at ALKEME Arena"
         }
+      },
+      {
+        "date": "2026-12-01",
+        "schools": [
+          "154",
+          "99"
+        ],
+        "kind": "arena_disagreement",
+        "details": {
+          "target": "Baton Rouge, La. (Maravich Center)",
+          "source": "Maravich Center"
+        }
       }
     ],
-    "changes": [
-      {
-        "school_id": "135",
-        "opponent_id": "2437",
-        "date": "2026-10-15",
-        "event_id": "school-135-2026-10-15-0",
-        "fields": [
-          "arena",
-          "city"
-        ],
-        "source_url": "https://omavs.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "333",
-        "date": "2026-10-15",
-        "event_id": "school-145-2026-10-15-0",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "252",
-        "date": "2026-10-16",
-        "event_id": "school-158-2026-10-16-8",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://byucougars.com/sports/mens-basketball/schedule/season/2026-2027"
-      },
-      {
-        "school_id": "2031",
-        "opponent_id": "96",
-        "date": "2026-10-16",
-        "event_id": "school-2031-2026-10-16-0",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/news/2026/10/07/kentucky-mens-basketball-finalizes-2026-27-schedule/"
-      },
-      {
-        "school_id": "2351",
-        "opponent_id": "25",
-        "date": "2026-10-16",
-        "event_id": "school-2351-2026-10-16-1",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2",
-        "opponent_id": "333",
-        "date": "2026-10-22",
-        "event_id": "school-2-2026-10-22-9",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
-      },
-      {
-        "school_id": "238",
-        "opponent_id": "2390",
-        "date": "2026-10-23",
-        "event_id": "cross-school-238-2026-10-23_2390",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "2483",
-        "date": "2026-10-25",
-        "event_id": "school-24-2026-10-25-9",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://goducks.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "149",
-        "opponent_id": "2483",
-        "date": "2026-11-02",
-        "event_id": "school-149-2026-11-02-1",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://goducks.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "290",
-        "opponent_id": "2050",
-        "date": "2026-11-02",
-        "event_id": "school-290-2026-11-02-2",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://ballstatesports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2142",
-        "opponent_id": "264",
-        "date": "2026-11-02",
-        "event_id": "school-2142-2026-11-02-0",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2166",
-        "opponent_id": "265",
-        "date": "2026-11-02",
-        "event_id": "school-2166-2026-11-02-1",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://wsucougars.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "2197",
-        "opponent_id": "84",
-        "date": "2026-11-02",
-        "event_id": "school-2197-2026-11-02-1",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print"
-      },
-      {
-        "school_id": "91",
-        "opponent_id": "238",
-        "date": "2026-11-02",
-        "event_id": "school-91-2026-11-02-7",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://vucommodores.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "2385",
-        "opponent_id": "269",
-        "date": "2026-11-02",
-        "event_id": "school-2385-2026-11-02-7",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2515",
-        "opponent_id": "25",
-        "date": "2026-11-04",
-        "event_id": "school-2515-2026-11-04-2",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "2473",
-        "date": "2026-11-06",
-        "event_id": "school-24-2026-11-06-16",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://goldengrizzlies.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2535",
-        "opponent_id": "2439",
-        "date": "2026-11-07",
-        "event_id": "school-2535-2026-11-07-4",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2197",
-        "opponent_id": "87",
-        "date": "2026-11-09",
-        "event_id": "school-2197-2026-11-09-11",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf"
-      },
-      {
-        "school_id": "2116",
-        "opponent_id": "6",
-        "date": "2026-11-10",
-        "event_id": "school-2116-2026-11-10-16",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2275",
-        "opponent_id": "9",
-        "date": "2026-11-10",
-        "event_id": "school-2275-2026-11-10-15",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://thesundevils.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2294",
-        "opponent_id": "259",
-        "date": "2026-11-10",
-        "event_id": "cross-school-2294-2026-11-10_259",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "2305",
-        "opponent_id": "96",
-        "date": "2026-11-10",
-        "event_id": "school-2305-2026-11-10-5",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      },
-      {
-        "school_id": "135",
-        "opponent_id": "2582",
-        "date": "2026-11-12",
-        "event_id": "school-135-2026-11-12-5",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://gojagsports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2351",
-        "opponent_id": "6",
-        "date": "2026-11-12",
-        "event_id": "school-2351-2026-11-12-33",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://usajaguars.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2050",
-        "opponent_id": "2567",
-        "date": "2026-11-13",
-        "event_id": "school-2050-2026-11-13-5",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "2439",
-        "date": "2026-11-13",
-        "event_id": "school-24-2026-11-13-20",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2433",
-        "opponent_id": "9",
-        "date": "2026-11-13",
-        "event_id": "school-2433-2026-11-13-23",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://thesundevils.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "156",
-        "opponent_id": "2294",
-        "date": "2026-11-15",
-        "event_id": "school-156-2026-11-15-5",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hawkeyesports.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "2197",
-        "opponent_id": "2870",
-        "date": "2026-11-15",
-        "event_id": "school-2197-2026-11-15-19",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://gomastodons.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "79",
-        "opponent_id": "2335",
-        "date": "2026-11-17",
-        "event_id": "school-79-2026-11-17-5",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://libertyflames.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "290",
-        "opponent_id": "2393",
-        "date": "2026-11-17",
-        "event_id": "school-290-2026-11-17-6",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://goblueraiders.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "278",
-        "date": "2026-11-18",
-        "event_id": "school-23-2026-11-18-16",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gobulldogs.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2837",
-        "opponent_id": "25",
-        "date": "2026-11-19",
-        "event_id": "school-2837-2026-11-19-39",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2330",
-        "opponent_id": "142",
-        "date": "2026-11-20",
-        "event_id": "school-2330-2026-11-20-23",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "59",
-        "date": "2026-11-20",
-        "event_id": "school-61-2026-11-20-8",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ramblinwreck.com/sports/m-baskbl/schedule"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "2086",
-        "date": "2026-11-22",
-        "event_id": "school-158-2026-11-22-22",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://www.bigeast.com/news/2026/10/5/full-2026-27-big-east-mens-basketball-television-schedule-released.aspx"
-      },
-      {
-        "school_id": "309",
-        "opponent_id": "30",
-        "date": "2026-11-22",
-        "event_id": "school-309-2026-11-22-5",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2011",
-        "opponent_id": "25",
-        "date": "2026-11-23",
-        "event_id": "school-2011-2026-11-23-39",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "349",
-        "opponent_id": "2005",
-        "date": "2026-11-24",
-        "event_id": "school-349-2026-11-24-6",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://goairforcefalcons.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2441",
-        "opponent_id": "2815",
-        "date": "2026-11-24",
-        "event_id": "school-2441-2026-11-24-27",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://lindenwoodlions.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2535",
-        "opponent_id": "59",
-        "date": "2026-11-24",
-        "event_id": "school-2535-2026-11-24-8",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ramblinwreck.com/sports/m-baskbl/schedule"
-      },
-      {
-        "school_id": "251",
-        "opponent_id": "46",
-        "date": "2026-11-26",
-        "event_id": "school-251-2026-11-26-7",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://www.bigeast.com/news/2026/10/5/full-2026-27-big-east-mens-basketball-television-schedule-released.aspx"
-      },
-      {
-        "school_id": "111",
-        "opponent_id": "77",
-        "date": "2026-11-27",
-        "event_id": "official-111-2026-11-27-northwestern",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "3084",
-        "date": "2026-11-28",
-        "event_id": "school-23-2026-11-28-26",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gouvu.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "259",
-        "date": "2026-12-01",
-        "event_id": "school-145-2026-12-01-9",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "55",
-        "opponent_id": "2031",
-        "date": "2026-12-01",
-        "event_id": "cross-school-55-2026-12-01_2031",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://lrtrojans.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2681",
-        "opponent_id": "269",
-        "date": "2026-12-01",
-        "event_id": "school-2681-2026-12-01-51",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2330",
-        "opponent_id": "2066",
-        "date": "2026-12-03",
-        "event_id": "school-2330-2026-12-03-43",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://bubearcats.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "12",
-        "opponent_id": "2599",
-        "date": "2026-12-05",
-        "event_id": "school-12-2026-12-05-16",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2275",
-        "opponent_id": "99",
-        "date": "2026-12-05",
-        "event_id": "school-2275-2026-12-05-75",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://lsusports.net/sports/mb/schedule"
-      },
-      {
-        "school_id": "2492",
-        "opponent_id": "526",
-        "date": "2026-12-05",
-        "event_id": "school-2492-2026-12-05-10",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "2729",
-        "date": "2026-12-07",
-        "event_id": "school-145-2026-12-07-10",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://tribeathletics.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "135",
-        "opponent_id": "356",
-        "date": "2026-12-08",
-        "event_id": "school-135-2026-12-08-11",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://gophersports.com/news/2026/5/12/big-ten-announces-conference-opponents-for-2026-27-mens-basketball-season"
-      },
-      {
-        "school_id": "160",
-        "opponent_id": "269",
-        "date": "2026-12-09",
-        "event_id": "school-160-2026-12-09-11",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gomarquette.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2492",
-        "opponent_id": "2504",
-        "date": "2026-12-09",
-        "event_id": "school-2492-2026-12-09-11",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2545",
-        "opponent_id": "25",
-        "date": "2026-12-10",
-        "event_id": "school-2545-2026-12-10-39",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "142",
-        "date": "2026-12-12",
-        "event_id": "school-158-2026-12-12-32",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2116",
-        "opponent_id": "84",
-        "date": "2026-12-12",
-        "event_id": "school-2116-2026-12-12-39",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://iuhoosiers.com/sports/mens-basketball/schedule/print"
-      },
-      {
-        "school_id": "2755",
-        "opponent_id": "2443",
-        "date": "2026-12-13",
-        "event_id": "school-2755-2026-12-13-63",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://unoprivateers.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "2458",
-        "date": "2026-12-14",
-        "event_id": "school-24-2026-12-14-50",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://uncbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "279",
-        "opponent_id": "166",
-        "date": "2026-12-15",
-        "event_id": "school-279-2026-12-15-51",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "135",
-        "opponent_id": "2640",
-        "date": "2026-12-16",
-        "event_id": "school-135-2026-12-16-13",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://gophersports.com/news/2026/5/12/big-ten-announces-conference-opponents-for-2026-27-mens-basketball-season"
-      },
-      {
-        "school_id": "2385",
-        "opponent_id": "77",
-        "date": "2026-12-16",
-        "event_id": "school-2385-2026-12-16-63",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "290",
-        "opponent_id": "324",
-        "date": "2026-12-16",
-        "event_id": "school-290-2026-12-16-15",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://goccusports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2348",
-        "opponent_id": "2026",
-        "date": "2026-12-19",
-        "event_id": "school-2348-2026-12-19-13",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2514",
-        "opponent_id": "26",
-        "date": "2026-12-19",
-        "event_id": "school-2514-2026-12-19-11",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://uclabruins.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "45",
-        "opponent_id": "2539",
-        "date": "2026-12-19",
-        "event_id": "school-45-2026-12-19-13",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://usfdons.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "2241",
-        "date": "2026-12-20",
-        "event_id": "school-61-2026-12-20-15",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://www.secsports.com/news/2026/10/espn-sec-reveal-loaded-2026-27-mens-basketball-slate"
-      },
-      {
-        "school_id": "2678",
-        "opponent_id": "259",
-        "date": "2026-12-21",
-        "event_id": "school-2678-2026-12-21-55",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "45",
-        "opponent_id": "328",
-        "date": "2026-12-21",
-        "event_id": "school-45-2026-12-21-14",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://utahstateaggies.com/news/2026/10/14/mens-basketball-aggies-announce-23-nationally-televised-games-for-2026-27.aspx"
-      },
-      {
-        "school_id": "111",
-        "opponent_id": "25",
-        "date": "2026-12-22",
-        "event_id": "official-111-2026-12-22-california",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2117",
-        "opponent_id": "8",
-        "date": "2026-12-22",
-        "event_id": "school-2117-2026-12-22-13",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
-      },
-      {
-        "school_id": "2351",
-        "opponent_id": "2751",
-        "date": "2026-12-22",
-        "event_id": "school-2351-2026-12-22-99",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://gowyo.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "279",
-        "opponent_id": "328",
-        "date": "2026-12-29",
-        "event_id": "school-279-2026-12-29-63",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://utahstateaggies.com/news/2026/10/14/mens-basketball-aggies-announce-23-nationally-televised-games-for-2026-27.aspx"
-      },
-      {
-        "school_id": "79",
-        "opponent_id": "9",
-        "date": "2026-12-29",
-        "event_id": "school-79-2026-12-29-13",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://thesundevils.com/news/2026/10/14/tv-schedule-and-times-revealed-for-sun-devil-mens-basketball-schedule"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "87",
-        "date": "2026-12-30",
-        "event_id": "school-24-2026-12-30-56",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf"
-      },
-      {
-        "school_id": "2197",
-        "opponent_id": "2546",
-        "date": "2026-12-31",
-        "event_id": "school-2197-2026-12-31-63",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://semoredhawks.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "245",
-        "opponent_id": "2",
-        "date": "2027-01-02",
-        "event_id": "cross-school-245-2027-01-02_2",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2348",
-        "opponent_id": "295",
-        "date": "2027-01-02",
-        "event_id": "school-2348-2027-01-02-16",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://odusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2643",
-        "opponent_id": "236",
-        "date": "2027-01-02",
-        "event_id": "school-2643-2027-01-02-16",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://gomocs.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2415",
-        "opponent_id": "2379",
-        "date": "2027-01-02",
-        "event_id": "school-2415-2027-01-02-63",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://easternshorehawks.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "97",
-        "date": "2027-01-02",
-        "event_id": "school-24-2027-01-02-58",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://gocards.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "130",
-        "date": "2027-01-05",
-        "event_id": "school-158-2027-01-05-42",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://mgoblue.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "96",
-        "date": "2027-01-05",
-        "event_id": "school-145-2027-01-05-17",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "2005",
-        "date": "2027-01-05",
-        "event_id": "school-23-2027-01-05-45",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://goairforcefalcons.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "251",
-        "date": "2027-01-09",
-        "event_id": "school-145-2027-01-09-18",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://texaslonghorns.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "2",
-        "date": "2027-01-09",
-        "event_id": "school-61-2027-01-09-19",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2116",
-        "opponent_id": "9",
-        "date": "2027-01-09",
-        "event_id": "school-2116-2027-01-09-51",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://thesundevils.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "2483",
-        "date": "2027-01-10",
-        "event_id": "school-158-2027-01-10-44",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://goducks.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "213",
-        "opponent_id": "77",
-        "date": "2027-01-10",
-        "event_id": "cross-school-213-2027-01-10_77",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "333",
-        "date": "2027-01-13",
-        "event_id": "school-145-2027-01-13-19",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "264",
-        "date": "2027-01-13",
-        "event_id": "school-158-2027-01-13-46",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gohuskies.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2110",
-        "opponent_id": "2000",
-        "date": "2027-01-13",
-        "event_id": "school-2110-2027-01-13-75",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://acusports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "290",
-        "opponent_id": "256",
-        "date": "2027-01-13",
-        "event_id": "school-290-2027-01-13-21",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://jmusports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2540",
-        "opponent_id": "3084",
-        "date": "2027-01-14",
-        "event_id": "school-2540-2027-01-14-71",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gouvu.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "2",
-        "date": "2027-01-16",
-        "event_id": "school-145-2027-01-16-20",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "2294",
-        "date": "2027-01-16",
-        "event_id": "school-158-2027-01-16-48",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hawkeyesports.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "97",
-        "opponent_id": "183",
-        "date": "2027-01-16",
-        "event_id": "school-97-2027-01-16-20",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "25",
-        "opponent_id": "87",
-        "date": "2027-01-16",
-        "event_id": "school-25-2027-01-16-21",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://storage.googleapis.com/fightingirish-com/2026/10/08/g2iMNLH7tyY3TAnedEaOil7nqd6nD4DR5mo3TJTk.pdf"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "356",
-        "date": "2027-01-19",
-        "event_id": "school-158-2027-01-19-50",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://fightingillini.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "8",
-        "date": "2027-01-19",
-        "event_id": "school-61-2027-01-19-22",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "167",
-        "date": "2027-01-20",
-        "event_id": "school-23-2027-01-20-53",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://golobos.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "250",
-        "opponent_id": "2698",
-        "date": "2027-01-20",
-        "event_id": "school-250-2027-01-20-20",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://uwgathletics.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "26",
-        "date": "2027-01-22",
-        "event_id": "school-158-2027-01-22-52",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://uclabruins.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "290",
-        "opponent_id": "2026",
-        "date": "2027-01-23",
-        "event_id": "school-290-2027-01-23-24",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://appstatesports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2197",
-        "opponent_id": "2630",
-        "date": "2027-01-23",
-        "event_id": "school-2197-2027-01-23-91",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://utmsports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "25",
-        "date": "2027-01-23",
-        "event_id": "school-24-2027-01-23-68",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2550",
-        "opponent_id": "2599",
-        "date": "2027-01-23",
-        "event_id": "school-2550-2027-01-23-21",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2502",
-        "opponent_id": "2458",
-        "date": "2027-01-25",
-        "event_id": "school-2502-2027-01-25-91",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://uncbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "135",
-        "opponent_id": "264",
-        "date": "2027-01-26",
-        "event_id": "school-135-2027-01-26-23",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://gophersports.com/news/2026/5/12/big-ten-announces-conference-opponents-for-2026-27-mens-basketball-season"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "2509",
-        "date": "2027-01-26",
-        "event_id": "school-158-2027-01-26-54",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://purduesports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "238",
-        "date": "2027-01-27",
-        "event_id": "school-145-2027-01-27-22",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://vucommodores.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "183",
-        "date": "2027-01-27",
-        "event_id": "school-24-2027-01-27-70",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "41",
-        "opponent_id": "2599",
-        "date": "2027-01-29",
-        "event_id": "school-41-2027-01-29-25",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://redstormsports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "142",
-        "date": "2027-01-30",
-        "event_id": "school-145-2027-01-30-23",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "2294",
-        "date": "2027-01-30",
-        "event_id": "school-158-2027-01-30-56",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hawkeyesports.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "2638",
-        "date": "2027-01-30",
-        "event_id": "school-23-2027-01-30-57",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://utepminers.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "258",
-        "opponent_id": "259",
-        "date": "2027-01-30",
-        "event_id": "cross-school-258-2027-01-30_259",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "99",
-        "date": "2027-01-30",
-        "event_id": "school-61-2027-01-30-24",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://lsusports.net/sports/mb/schedule"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "96",
-        "date": "2027-02-02",
-        "event_id": "school-145-2027-02-02-24",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "167",
-        "date": "2027-02-02",
-        "event_id": "school-23-2027-02-02-59",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://golobos.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "59",
-        "date": "2027-02-03",
-        "event_id": "school-24-2027-02-03-74",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ramblinwreck.com/sports/m-baskbl/schedule"
-      },
-      {
-        "school_id": "25",
-        "opponent_id": "2567",
-        "date": "2027-02-03",
-        "event_id": "school-25-2027-02-03-25",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "290",
-        "opponent_id": "276",
-        "date": "2027-02-03",
-        "event_id": "school-290-2027-02-03-27",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://herdzone.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2197",
-        "opponent_id": "88",
-        "date": "2027-02-04",
-        "event_id": "school-2197-2027-02-04-99",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://usiscreamingeagles.com/sports/mens-basketball/schedule/2026-2027?grid=true"
-      },
-      {
-        "school_id": "23",
-        "opponent_id": "2439",
-        "date": "2027-02-06",
-        "event_id": "school-23-2027-02-06-61",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "2567",
-        "date": "2027-02-06",
-        "event_id": "school-24-2027-02-06-76",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://smumustangs.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "8",
-        "date": "2027-02-09",
-        "event_id": "school-145-2027-02-09-26",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://arkansasrazorbacks.com/arkansas-gets-tip-times-and-tv-designations/"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "238",
-        "date": "2027-02-09",
-        "event_id": "school-61-2027-02-09-27",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://vucommodores.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "2390",
-        "date": "2027-02-10",
-        "event_id": "school-24-2027-02-10-78",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://miamihurricanes.com/sports/mbball/schedule"
-      },
-      {
-        "school_id": "2116",
-        "opponent_id": "2132",
-        "date": "2027-02-13",
-        "event_id": "school-2116-2027-02-13-69",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://gobearcats.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "259",
-        "date": "2027-02-13",
-        "event_id": "school-24-2027-02-13-80",
-        "fields": [
-          "tipoff",
-          "city"
-        ],
-        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "2415",
-        "opponent_id": "2569",
-        "date": "2027-02-13",
-        "event_id": "school-2415-2027-02-13-95",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://scsuathletics.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2492",
-        "opponent_id": "2541",
-        "date": "2027-02-13",
-        "event_id": "school-2492-2027-02-13-27",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://pepperdinewaves.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "96",
-        "date": "2027-02-16",
-        "event_id": "school-61-2027-02-16-29",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "183",
-        "date": "2027-02-17",
-        "event_id": "school-24-2027-02-17-82",
-        "fields": [
-          "city"
-        ],
-        "source_url": "https://cuse.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "2539",
-        "opponent_id": "2351",
-        "date": "2027-02-17",
-        "event_id": "school-2539-2027-02-17-30",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://lmulions.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2534",
-        "opponent_id": "166",
-        "date": "2027-02-20",
-        "event_id": "school-2534-2027-02-20-27",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "2253",
-        "opponent_id": "2439",
-        "date": "2027-02-20",
-        "event_id": "school-2253-2027-02-20-28",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://unlvrebels.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "8",
-        "opponent_id": "96",
-        "date": "2027-02-20",
-        "event_id": "official-ark-2027-02-20-96",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      },
-      {
-        "school_id": "135",
-        "opponent_id": "77",
-        "date": "2027-02-21",
-        "event_id": "school-135-2027-02-21-29",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "30",
-        "date": "2027-02-23",
-        "event_id": "school-158-2027-02-23-68",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://usctrojans.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "258",
-        "opponent_id": "259",
-        "date": "2027-02-23",
-        "event_id": "cross-school-258-2027-02-23_259",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://hokiesports.com/sports/mens-basketball/schedule/season/2026-27"
-      },
-      {
-        "school_id": "2335",
-        "opponent_id": "166",
-        "date": "2027-02-25",
-        "event_id": "school-2335-2027-02-25-29",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nmstatesports.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "142",
-        "date": "2027-02-27",
-        "event_id": "school-61-2027-02-27-32",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://mutigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "158",
-        "opponent_id": "77",
-        "date": "2027-02-27",
-        "event_id": "school-158-2027-02-27-70",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://nusports.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2",
-        "opponent_id": "96",
-        "date": "2027-02-27",
-        "event_id": "school-2-2027-02-27-103",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      },
-      {
-        "school_id": "2492",
-        "opponent_id": "279",
-        "date": "2027-02-27",
-        "event_id": "school-2492-2027-02-27-31",
-        "fields": [
-          "arena"
-        ],
-        "source_url": "https://pacifictigers.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "145",
-        "opponent_id": "2",
-        "date": "2027-03-02",
-        "event_id": "school-145-2027-03-02-32",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://auburntigers.com/sports/mens-basketball/schedule"
-      },
-      {
-        "school_id": "2116",
-        "opponent_id": "2306",
-        "date": "2027-03-03",
-        "event_id": "school-2116-2027-03-03-79",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://kstatesports.com/sports/mens-basketball/schedule/text/2026-27"
-      },
-      {
-        "school_id": "61",
-        "opponent_id": "333",
-        "date": "2027-03-03",
-        "event_id": "school-61-2027-03-03-33",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://rolltide.com/sports/mbball/schedule/text"
-      },
-      {
-        "school_id": "24",
-        "opponent_id": "25",
-        "date": "2027-03-06",
-        "event_id": "school-24-2027-03-06-90",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://calbears.com/sports/mens-basketball/schedule/2026-27"
-      },
-      {
-        "school_id": "57",
-        "opponent_id": "96",
-        "date": "2027-03-06",
-        "event_id": "school-57-2027-03-06-33",
-        "fields": [
-          "tipoff"
-        ],
-        "source_url": "https://ukathletics.com/sports/mbball/schedule/"
-      }
-    ]
+    "changes": []
   }
 }
