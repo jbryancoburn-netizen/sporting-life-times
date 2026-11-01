@@ -21,11 +21,25 @@ const load=()=>fetch('data/cfb-2026-results.json?ts='+Date.now(),{cache:'no-stor
  for(const [id,s] of scoring){s.ppg=s.pf/s.gp;s.papg=s.pa/s.gp;s.margin=(s.pf-s.pa)/s.gp}
  return {payload:p,groups:gs,teams,scoring};
 });
-const color=v=>/^[a-f\d]{6}$/i.test(v||'')&&!/^(ffffff|fefefe|fffefa)$/i.test(v)?'#'+v:null;
-function crest(t){const primary=color(t?.color)||'#203b49';let secondary=color(t?.secondary)||'#9c7533';if(primary.toLowerCase()===secondary.toLowerCase())secondary='#777777';return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'"><img data-slt-mark-state="cfb-owned" loading="lazy" alt="" src="'+esc(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png')+'"></span>'}
+/* School-color rings: preserve verified alternates; never invent generic gold. */
+const color=v=>{const s=String(v||'').replace(/^#/,'').toLowerCase();return /^[a-f\d]{6}$/.test(s)?'#'+s:null};
+const channels=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
+const nearWhite=hex=>hex&&channels(hex).every(n=>n>=218);
+const distance=(a,b)=>Math.sqrt(channels(a).reduce((sum,n,i)=>sum+(n-channels(b)[i])**2,0));
+const shade=hex=>{const rgb=channels(hex),bright=(rgb[0]*299+rgb[1]*587+rgb[2]*114)/1000;
+  const factor=bright<115?.32:-.30;
+  const next=rgb.map(v=>Math.min(255,Math.max(0,Math.round(factor>0?v*(1-factor)+255*factor:v*(1+factor)))));
+  return '#'+next.map(v=>v.toString(16).padStart(2,'0')).join('');
+};
+function ringColors(t){const primary=color(t?.color)||color(t?.primary)||'#203b49';
+  const supplied=color(t?.secondary)||color(t?.alternateColor);
+  const secondary=!supplied||nearWhite(supplied)||distance(primary,supplied)<36?shade(primary):supplied;
+  return {primary,secondary};
+}
+function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'"><img data-slt-mark-state="cfb-owned" loading="lazy" alt="" src="'+esc(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png')+'"></span>'}
 const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
 const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
 const ranked=a=>[...a].filter(t=>Number.isFinite(rating(t))).sort((a,b)=>rating(b)-rating(a)||a.id.localeCompare(b.id));
 let lastLoad=Date.now(),promise=load();
-window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,crest,link,rating,ranked};
+window.CFB_DESK={get promise(){if(Date.now()-lastLoad>240000){lastLoad=Date.now();promise=load()}return promise},esc,conf,G6,record,pct,ringColors,crest,link,rating,ranked};
 })();
