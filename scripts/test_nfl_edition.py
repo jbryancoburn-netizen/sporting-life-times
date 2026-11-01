@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v=20261101-2realrings",page)
+                self.assertIn("nfl-edition-v3.js?v=20261101-live-desk",page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -43,6 +43,16 @@ class EloTests(unittest.TestCase):
         self.assertIn('missing.append(path.name + " must not load shared-team-crests")',injected)
         self.assertIn("if(img.closest('.nfl-badge,.nfl-badge-core'))return;",runtime)
         self.assertIn("if(/^nfl(?:[-.]|$)/i.test(location.pathname.split('/').pop()||''))return;",runtime)
+
+    def test_live_desk_runs_independently_of_elo(self):
+        root=Path(__file__).resolve().parents[1]
+        script=(root/"scripts/update_nfl_live.py").read_text(encoding="utf-8")
+        page=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
+        self.assertIn("if base[\"state\"]==\"post\" and game[\"state\"]!=\"post\"",script)
+        self.assertIn('data/nfl-live.json?ts=',page)
+        self.assertIn('fetchEspnLive',page)
+        self.assertIn('setInterval(refreshLive,45000)',page)
+        self.assertIn('LIVE PLAYER WATCH',page)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])

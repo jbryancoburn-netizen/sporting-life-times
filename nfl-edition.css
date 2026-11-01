@@ -223,3 +223,39 @@ body.nfl-paper{margin:0;color:#211f1b;background:#f6f3eb;font:14px/1.43 Georgia,
 }
 
 /* NFL crest appearance lives solely in nfl-badge-v3.css. */
+
+
+/* November 2026 live NFL desk: compact, readable, source-first game-day treatment. */
+.nfl-gameday-header{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:5px double #251f1c;border-bottom:1px solid #b5a798;margin:18px 0 0;padding:12px 0}
+.nfl-gameday-header .nfl-kicker{margin:0 0 4px}.nfl-gameday-header h2{font:700 clamp(23px,3.2vw,37px)/1.05 Georgia,serif;letter-spacing:-.025em;margin:0}
+.nfl-source-stamp{font:700 10px/1.4 Arial,sans-serif;color:#645548;text-align:right;text-transform:uppercase}
+.nfl-today-rail{background:#ede7db;padding:13px 10px 17px;margin-bottom:15px;scrollbar-color:#a99a87 transparent}
+.nfl-today-rail .nfl-card{flex-basis:265px;min-width:245px}
+.nfl-card.nfl-is-live{border-top:5px solid #b62b26;background:#fffefa;box-shadow:0 2px 7px #2f252015}
+.nfl-live-pill{font:800 10px Arial,sans-serif;color:#a8201e;letter-spacing:.07em;white-space:nowrap}
+.nfl-live-pill i{display:inline-block;width:7px;height:7px;vertical-align:middle;background:#c82220;border-radius:50%;margin-right:4px;animation:nflPulse 1.6s infinite}
+@keyframes nflPulse{50%{opacity:.3}}@media(prefers-reduced-motion:reduce){.nfl-live-pill i{animation:none}}
+.nfl-card-stats{display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:center;gap:6px;margin-top:9px;border-top:1px solid #ded3c5;border-bottom:1px solid #ded3c5;padding:7px 0;text-align:center}
+.nfl-card-stats b{font:700 17px Georgia,serif}.nfl-card-stats span{font:800 9px Arial,sans-serif;letter-spacing:.06em;color:#726455}
+.nfl-live-situation{font:700 10px Arial,sans-serif;text-transform:uppercase;color:#8f2928;margin:7px 0}
+.nfl-last-play{font:italic 11px/1.35 Georgia,serif;color:#574e42;margin:8px 0;max-height:3.9em;overflow:hidden}
+.nfl-open-game{border-top:1px dotted #c7b8a5;padding-top:8px}
+.nfl-open-game a{font-weight:700;text-decoration:none;color:#972b22}
+.nfl-live-player-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:10px 0}
+.nfl-live-player-grid section{border-top:3px solid #2c2824;background:#fbf8f1;padding:8px 10px 4px}
+.nfl-live-player-grid h3{margin:0 0 9px;font:800 11px Arial,sans-serif;letter-spacing:.1em}
+.nfl-live-player{display:flex;align-items:center;gap:8px;border-bottom:1px solid #ddd1c4;padding:5px 0}
+.nfl-live-player img{width:43px;height:48px;object-fit:contain;object-position:center bottom;background:#e6e0d5}
+.nfl-live-player span{flex:1;min-width:0}.nfl-live-player span b{display:block;font:700 13px Georgia,serif}
+.nfl-live-player span small{display:block;font:700 10px Arial,sans-serif;color:#706355}
+.nfl-live-player strong{white-space:nowrap;font:700 18px Georgia,serif}.nfl-live-player strong small{font:700 9px Arial,sans-serif}
+.nfl-day-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;border:1px solid #c3b6a5;background:#ebe4d7;margin:13px 0 16px}
+.nfl-day-nav a{font:700 11px Arial,sans-serif;text-decoration:none;text-transform:uppercase}
+.nfl-day-nav strong{font:700 18px Georgia,serif}
+.nfl-live-game-panel{border:1px solid #c6b8a7;background:#fffbf3;margin:15px 0;padding:12px}
+.nfl-live-game-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid #c2b4a3;padding-bottom:9px;margin-bottom:10px}
+.nfl-live-game-heading span{font:700 10px Arial,sans-serif;color:#675d52;text-transform:uppercase}
+.nfl-live-drive{margin-top:10px;font:12px Arial,sans-serif}.nfl-live-drive strong{color:#a82d28}
+.nfl-live-drive p{font:italic 14px/1.4 Georgia,serif;margin:7px 0}
+@media(max-width:760px){.nfl-live-player-grid{grid-template-columns:1fr}.nfl-gameday-header{align-items:flex-start;flex-direction:column}.nfl-source-stamp{text-align:left}}
+@media(max-width:500px){.nfl-day-nav strong{font-size:13px}.nfl-day-nav a{font-size:9px}.nfl-today-rail .nfl-card{flex-basis:215px;min-width:205px}}
