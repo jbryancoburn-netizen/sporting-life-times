@@ -41,6 +41,8 @@ jobs:
         run: node tests/mbb-rankings-runtime.test.cjs
       - name: Validate 25 AP and Coaches poll logo matches
         run: node tests/mbb-poll-logos.test.cjs
+      - name: Protect Courtside sourced scorebugs and independent USRS
+        run: node tests/cbb-courtside.test.cjs
       - name: JavaScript syntax in public assets
         shell: bash
         run: |
