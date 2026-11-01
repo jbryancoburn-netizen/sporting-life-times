@@ -1,0 +1,57 @@
+name: Independent election simulation engine validation
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_sim_engine.py'
+      - 'test_politics_sim_engine.py'
+      - '.github/workflows/politics-model-engine.yml'
+  schedule:
+    - cron: '23 12 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: politics-model-engine-validation
+  cancel-in-progress: false
+jobs:
+  model-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Monte Carlo correlation and fail-closed source gates
+        run: |
+          python -m py_compile scripts/politics_sim_engine.py
+          python -m unittest -v test_politics_sim_engine
+      - name: Recheck 2026 release-readiness gates without generating forecasts
+        run: |
+          python scripts/politics_sim_engine.py
+          python - <<'PY'
+          import json
+          data=json.load(open('politics-engine-status.json'))
+          assert data['forecast_2026_certified'] is False
+          assert data['published_real_seat_simulations']==0
+          assert data['certified_2026_probability_count']==0
+          assert data['national_sigma_pp'] is None and data['state_sigma_pp'] is None
+          assert len(data['unmet_source_gates'])>0
+          print("Independent engine gate:",data['status'],'missing inputs:',data['unmet_source_gates'])
+          PY
+      - name: Publish transparent simulator status without editing sports
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-engine-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Audit independently tested Monte Carlo engine gates"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
