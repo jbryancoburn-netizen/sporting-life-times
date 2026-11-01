@@ -29,6 +29,12 @@ def run():
     teams=json.loads(CROSS.read_text())['teams']
     known={str(t['espn_id']) for t in teams}
     assert len(known)==365
+    names=collections.defaultdict(set)
+    for t in teams:
+        for label in (t['name'],t.get('espn_name')):
+            if label:names[normalized(label)].add(str(t['espn_id']))
+    for label,sid in {'bostonuniversity':'104','bostonu':'104','umass':'113','massachusetts':'113','umasslowell':'2349','westernkentucky':'98','kentucky':'96','bostoncollege':'103'}.items():
+        names[label].add(sid)
     docs={}
     for owner in known:
         path=SCHEDULES/(owner+'.json')
@@ -69,6 +75,19 @@ def run():
         if len(own_sources)!=1:
             rejected['no_unique_official_source']+=1;continue
         _,event,origin=own_sources[0]
+        raw=normalized(event.get('name'))
+        identified=names.get(raw,set())
+        if len(identified)!=1 or target not in identified:
+            rejected['source_opponent_identity_unconfirmed']+=1
+            continue
+        # Directly verified university calendars have authority over
+        # inferred opponent-only imports. Escalate rather than auto-add.
+        if docs[target].get('verified_from_school') is True:
+            rejected['independent_target_calendar_requires_source_review']+=1
+            continue
+        if any(str(e.get('date') or '')[:10]==day for e in docs[target].get('events',[])):
+            rejected['different_opponent_already_on_target_date']+=1
+            continue
         # Never duplicate a same-opponent game on a nearby date if the two
         # school calendars disagree over timezone/day or an event ID.
         collision=[]
