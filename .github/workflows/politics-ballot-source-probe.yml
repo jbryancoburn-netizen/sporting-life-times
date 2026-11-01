@@ -36,10 +36,11 @@ jobs:
           python - <<'PY'
           import json
           d=json.load(open('politics-ballot-source-health.json'))
-          assert len(d['sources'])==6
+          original=json.load(open('politics-official-ballots.json'))
+          assert len(d['sources'])==len(original['sources'])
           assert d['forecast_eligible'] is False
           assert all(x['candidate_rows_automatically_updated'] is False for x in d['sources'])
-          assert d['sources_accessible']+d['sources_unavailable']==6
+          assert d['sources_accessible']+d['sources_unavailable']==len(original['sources'])
           print('Source refresh status:',d['status'],'changed:',d['sources_changed_since_last_probe'])
           PY
       - name: Publish source health without modifying any source transcriptions
