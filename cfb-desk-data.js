@@ -41,7 +41,7 @@ function ringArtwork(primary,secondary){return '<svg class="cfb-ring-art" viewBo
 function logoInitials(t){const abbr=String(t?.abbreviation||t?.abbr||'').trim();if(abbr)return abbr.slice(0,4).toUpperCase();const name=String(t?.name||t?.shortDisplayName||t?.full||t?.displayName||'TEAM').trim().replace(/\([^)]*\)/g,'');return (name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('')||'T').toUpperCase()}
 function imageMarkup(url,t){return '<span class="cfb-logo-fallback" aria-hidden="true">'+esc(logoInitials(t))+'</span><img data-cfb-logo="1" loading="eager" decoding="async" alt="" src="'+esc(url)+'">'}
 document.addEventListener('load',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1')img.previousElementSibling?.classList?.add('is-hidden')},true);
-document.addEventListener('error',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1'){img.style.display='none';img.previousElementSibling?.classList?.remove('is-hidden')}},true);
+document.addEventListener('error',e=>{const img=e.target;if(img?.getAttribute?.('data-cfb-logo')==='1'){img.classList?.add('is-failed');img.previousElementSibling?.classList?.remove('is-hidden')}},true);
 function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'https://a.espncdn.com/i/teamlogos/ncaa/500/'+encodeURIComponent(t?.id||'')+'.png',t)+'</span>'}
 const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
 const rating=t=>window.CFB_RATINGS?.[t.id]?.adjustedElo;
