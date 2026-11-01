@@ -29,3 +29,14 @@ for(const [label,url] of [
   console.log(JSON.stringify({label,status:r.status,length:body.length,head:body.slice(0,2800),mid:body.slice(2800,4000),matches}));
  }catch(e){console.log(JSON.stringify({label,error:String(e)}))}
 }
+
+for(const [label,url] of [
+ ['ncaa-common-js','https://web3.ncaa.org/directory/2e4c048/assets/js/ncaa-all-common.js'],
+ ['ncaa-vendor-js','https://web3.ncaa.org/directory/2e4c048/assets/js/ncaa-vendor.js']]){
+ try{
+  const r=await fetch(url,{signal:AbortSignal.timeout(12000)}),body=await r.text();
+  let matches=[...body.matchAll(/(?:getMemberListApiEndPoint|memberList|apiUrl|baseUrl|api\/directory)/gi)]
+    .slice(0,35).map(x=>body.slice(Math.max(0,x.index-140),x.index+240));
+  console.log(JSON.stringify({label,status:r.status,bytes:body.length,matches}));
+ }catch(e){console.log(JSON.stringify({label,error:String(e)}))}
+}
