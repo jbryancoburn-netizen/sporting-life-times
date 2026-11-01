@@ -22,7 +22,7 @@ const brandMark=(team,cohort,branding,palette,overrides)=>{
   badge.style.setProperty('--crest-primary',primary);
   badge.style.setProperty('--crest-secondary',secondary);
  }else badge.classList.add('is-unverified-color');
- const fallback=$('span',String(b.badge_text||team?.team||'SC').split(/\\s+/).filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'cs-match-initials');
+ const fallback=$('span',String(b.badge_text||team?.team||'SC').split(/\s+/).filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase(),'cs-match-initials');
  badge.append(fallback);
  const id=String(team?.team_id||'');
  const src=b.logo_url||paletteEntry.logo_url||(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null);
