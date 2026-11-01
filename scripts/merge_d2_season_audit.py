@@ -10,6 +10,11 @@ import datetime as dt
 import json
 from pathlib import Path
 
+try:
+    from scripts.d2_elo_chronology import game_sort_key
+except ModuleNotFoundError:  # direct python scripts/<name>.py invocation
+    from d2_elo_chronology import game_sort_key
+
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/"data"
 
@@ -52,7 +57,7 @@ def rebuild_ratings(teams,games,model):
     eligible={t["id"]:not t.get("not_eligible_for_dii_elo",False) for t in teams}
     k=float(model.get("k",20));edge=float(model.get("home_elo_edge",65))
     played=0
-    ordered=sorted(games,key=lambda x:(x["date"],str(x.get("start_time","")),str(x["id"])))
+    ordered=sorted(games,key=game_sort_key)
     for g in ordered:
         aa,hh=g.get("away"),g.get("home")
         if (aa not in elo or hh not in elo or aa==hh or not g.get("elo_eligible")
