@@ -126,7 +126,10 @@ function home(){
  const slate=games.filter(g=>easternDay(g.date)===day).sort((a,b)=>a.date.localeCompare(b.date));
  const isGameDay=slate.length>0;
  const nextGames=games.filter(g=>g.state!=='post'&&new Date(g.date).getTime()>now.getTime()-7200000).sort((a,b)=>a.date.localeCompare(b.date));
- const shown=slate.length?slate:nextGames.slice(0,8);
+ const shown=(slate.length?slate:nextGames.slice(0,8)).slice().sort((a,b)=>{
+   const priority=x=>x.state==='in'?0:x.state==='pre'?1:2;
+   return priority(a)-priority(b)||String(a.date).localeCompare(String(b.date));
+ });
  const live=slate.filter(g=>g.state==='in');
  const candidates=(live.length?live:slate.some(g=>g.state==='pre')?slate.filter(g=>g.state==='pre'):slate.length?slate:nextGames);
  const featured=(candidates.slice().sort((a,b)=>{
