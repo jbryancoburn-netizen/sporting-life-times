@@ -77,7 +77,7 @@ def fetch_day(gender, day):
 def display_et_time(raw):
     """Render published absolute timestamps in US Eastern, including DST."""
     value=str(raw or "").strip()
-    if re.match(r"^\\d{4}-\\d\\d-\\d\\dT",value):
+    if len(value)>=19 and value[4]=="-" and value[7]=="-" and value[10]=="T":
         try:
             when=dt.datetime.fromisoformat(value.replace("Z","+00:00"))
             if when.tzinfo is not None:
