@@ -1,95 +1,93 @@
-/* THE HARDWOOD | The Sporting Life & Times
- * Original SLT shield + source-league logos. No extra circular rings.
- * A compact newspaper folio that preserves the masthead and team-crest systems.
+/* THE HARDWOOD / The Sporting Life & Times
+ * Original letterpress wordmark and custom basketball-court H.
+ * Authentic league marks; never add borders to NCAA team crests.
  */
 .slt-courtside-network{
-  --slt-ink:#123744;--slt-brass:#ad8852;--slt-paper:#f5f1e7;--slt-rule:#c4c1b6;
-  display:grid;grid-template-columns:minmax(260px,316px) minmax(0,1fr);
-  align-items:stretch;box-sizing:border-box;isolation:isolate;
-  min-width:0;max-width:100%;margin:10px 0 16px;
-  background:var(--slt-paper);color:var(--slt-ink);
-  border-top:2px solid var(--slt-ink);border-bottom:3px double var(--slt-ink);
-  font-family:Arial,Helvetica,sans-serif;
+ --hw-navy:#122e3a;--hw-garnet:#8c2330;--hw-paper:#f6f1e7;--hw-brass:#b28c5b;
+ box-sizing:border-box;display:grid;grid-template-columns:minmax(320px,390px) minmax(0,1fr);
+ align-items:stretch;min-width:0;max-width:100%;margin:8px 0 17px;
+ background:var(--hw-paper);color:var(--hw-navy);
+ border-top:2px solid var(--hw-garnet);border-bottom:3px double var(--hw-navy);
+ font-family:Arial,Helvetica,sans-serif;isolation:isolate;
 }
 .slt-courtside-network *{box-sizing:border-box}
 .slt-network-brand{
-  display:flex;align-items:center;gap:10px;padding:8px 13px;
-  min-width:0;background:linear-gradient(110deg,#e7e9e0,#f5f1e7);
-  border-right:1px solid var(--slt-rule);color:var(--slt-ink)!important;
-  text-decoration:none!important;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+ min-width:0;padding:6px 17px 3px;
+ color:var(--hw-navy)!important;text-decoration:none!important;
+ border-right:1px solid #cec9bd;background:linear-gradient(110deg,#f1eadc,var(--hw-paper));
 }
-.slt-network-brand:hover{background:#eee8d9}
-.slt-network-crest{width:59px;height:66px;min-width:59px;max-width:59px;
-  object-fit:contain;display:block;border:0!important;border-radius:0!important;
-  box-shadow:none!important;background:none!important;flex-shrink:0}
-.slt-network-title{display:flex;flex-direction:column;gap:3px;min-width:0}
-.slt-network-title small{font:800 8px/1.1 Arial,Helvetica,sans-serif;letter-spacing:1.25px;color:#6d766f}
-.slt-network-title strong{font:700 clamp(20px,1.8vw,26px)/1.03 Georgia,'Times New Roman',serif;
-  color:#153747;letter-spacing:-.8px;white-space:nowrap}
-.slt-network-title>span{font:800 8px/1.25 Arial,sans-serif;letter-spacing:1px;color:#867354;white-space:nowrap}
-.slt-network-rail{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;
- scrollbar-color:#bdad91 transparent;min-width:0}
-.slt-network-links{display:flex;align-items:stretch;height:100%;min-width:100%;width:max-content}
+.slt-network-brand:hover{background:#f1e9d8}
+.slt-network-wordmark{
+ display:block;max-width:100%!important;width:365px!important;height:auto!important;
+ aspect-ratio:1120/230;object-fit:contain!important;flex:none;
+ background:transparent!important;border:0!important;border-radius:0!important;
+ box-shadow:none!important;padding:0!important;margin:0!important;
+}
+.slt-network-strap{
+ width:100%;display:flex;align-items:center;justify-content:center;gap:7px;
+ font:800 8px/1.3 Arial,Helvetica,sans-serif;color:#706858;
+ letter-spacing:1.1px;text-align:center;white-space:nowrap;margin:0 0 5px;
+}
+.slt-network-strap i{display:block;height:1px;min-width:12px;flex:1;background:#b8a58b}
+.slt-network-rail{
+ overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;
+ scrollbar-color:#baa98d transparent;min-width:0;
+}
+.slt-network-links{display:flex;align-items:stretch;width:max-content;min-width:100%;height:100%}
 .slt-network-links>a{
-  position:relative;flex:1 0 auto;display:flex;gap:9px;align-items:center;justify-content:center;
-  min-height:80px;min-width:134px;padding:10px 12px;border-right:1px solid #d3d1c9;
-  text-decoration:none!important;color:var(--slt-ink)!important;background:transparent;
-  transition:background-color .15s;cursor:pointer
+ position:relative;flex:1 0 auto;display:flex;align-items:center;justify-content:center;gap:9px;
+ min-width:132px;min-height:93px;padding:10px 12px;
+ border-right:1px solid #d3cec2;text-decoration:none!important;
+ background:transparent;color:var(--hw-navy)!important;cursor:pointer;
+ transition:background-color .15s;
 }
-.slt-network-links>a:hover{background:#e6e6db!important}
+.slt-network-links>a:hover{background:#ede4d6!important}
 .slt-network-links>a[aria-current="page"]{
-  background:#e5e8de!important;box-shadow:inset 0 -4px 0 var(--slt-brass)
+ background:#ebe7dc!important;box-shadow:inset 0 -4px 0 var(--hw-garnet)
 }
 .slt-network-links>a[aria-current="page"]::before{
-  content:"";position:absolute;left:0;right:0;top:0;border-top:3px solid #1b4b5b
+ content:"";position:absolute;left:0;right:0;top:0;border-top:3px solid var(--hw-garnet)
 }
 .slt-league-image{
-  display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;
-  background:#fff;border:1px solid #e7e2d6;border-radius:3px;
-  box-shadow:0 1px 2px #102e3922;overflow:hidden
+ display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;
+ background:#fff;border:1px solid #e5dace;border-radius:2px;
+ box-shadow:0 1px 2px #102e3920;overflow:hidden;
 }
 .slt-league-image img{
-  display:block!important;max-width:34px!important;max-height:34px!important;width:90%!important;height:90%!important;
-  object-fit:contain!important;border:0!important;outline:0!important;
-  box-shadow:none!important;background:transparent!important;border-radius:0!important;padding:0!important
+ display:block!important;max-width:35px!important;max-height:35px!important;
+ width:90%!important;height:90%!important;object-fit:contain!important;
+ border:0!important;outline:0!important;box-shadow:none!important;
+ background:transparent!important;border-radius:0!important;padding:0!important;
 }
 .slt-league-image img[hidden]{display:none!important}
-.slt-league-fallback{
-  display:none;font:900 10px/1 Arial,sans-serif;letter-spacing:-.4px;color:#143d52;
-  text-align:center
-}
+.slt-league-fallback{display:none;font:900 10px/1 Arial,sans-serif;color:var(--hw-navy);text-align:center}
 .slt-league-logo-missing .slt-league-fallback{display:inline}
 .slt-league-copy{display:flex;flex-direction:column;gap:5px;min-width:0;white-space:nowrap}
-.slt-league-copy small{font:700 8px/1.1 Arial,sans-serif;letter-spacing:.6px;color:#7d7a6e}
-.slt-league-copy b{font:900 10px/1.15 Arial,sans-serif;letter-spacing:.65px;color:#173946}
-.slt-network-links>a[aria-current="page"] .slt-league-copy b{color:#092f40}
+.slt-league-copy small{font:700 8px/1.1 Arial,sans-serif;letter-spacing:.65px;color:#80776b}
+.slt-league-copy b{font:900 10px/1.15 Arial,sans-serif;letter-spacing:.7px;color:var(--hw-navy)}
 .slt-network-brand:focus-visible,.slt-network-links>a:focus-visible{
- outline:3px solid #b38c47;outline-offset:-3px;z-index:2
+ outline:3px solid #a8763a;outline-offset:-3px;z-index:2;
 }
-/* The five-logo edition selector replaces the duplicate text-only men/women toggle
-   on the college basketball front page, keeping both sections accessible. */
+/* Maintain access to both college editions while preventing duplicate large menus. */
 body[data-page="home"]:has(.slt-courtside-network) .cbb-gender-bar{display:none!important}
-@media(max-width:1190px){
+@media(max-width:1220px){
  .slt-courtside-network{grid-template-columns:1fr}
- .slt-network-brand{padding:5px 12px;border-right:0;border-bottom:1px solid #c9c8bb}
- .slt-network-crest{width:52px;height:58px;min-width:52px;max-width:52px}
- .slt-network-title strong{font-size:23px}
- .slt-network-links>a{min-height:50px;padding:7px 14px;min-width:131px}
+ .slt-network-brand{border-right:0;border-bottom:1px solid #cac3b6;padding:4px 10px 0}
+ .slt-network-wordmark{width:350px!important}
+ .slt-network-strap{width:min(100%,350px);font-size:7px;letter-spacing:1px}
+ .slt-network-links>a{min-height:51px;padding:7px 14px;min-width:132px}
  .slt-league-image{flex-basis:33px;width:33px;height:33px}
  .slt-league-image img{max-width:29px!important;max-height:29px!important}
 }
 @media(max-width:600px){
- .slt-courtside-network{margin:7px 0 13px}
- .slt-network-brand{padding:4px 9px;gap:10px}
- .slt-network-crest{width:45px;height:51px;min-width:45px;max-width:45px}
- .slt-network-title{gap:2px}
- .slt-network-title small{font-size:7px;letter-spacing:.85px}
- .slt-network-title strong{font-size:20px}
- .slt-network-title>span{font-size:7px;letter-spacing:.55px}
- .slt-network-links>a{min-height:48px;min-width:128px;padding:6px 10px;gap:7px}
+ .slt-courtside-network{margin:7px 0 12px}
+ .slt-network-brand{padding:2px 7px 0}
+ .slt-network-wordmark{width:min(100%,335px)!important}
+ .slt-network-strap{width:min(100%,335px);font-size:6.4px;letter-spacing:.55px;margin-top:-2px;margin-bottom:3px}
+ .slt-network-links>a{min-height:47px;min-width:128px;padding:6px 10px;gap:7px}
  .slt-league-image{flex-basis:31px;width:31px;height:31px}
  .slt-league-image img{max-width:27px!important;max-height:27px!important}
- .slt-league-copy{gap:4px}
  .slt-league-copy small{font-size:7px}
  .slt-league-copy b{font-size:10px}
 }
