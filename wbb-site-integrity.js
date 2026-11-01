@@ -19,7 +19,40 @@ function index(doc){
  }
  return map;
 }
-function claims(game,map){
+function easternDay(value){
+ const dt=new Date(value||'');
+ if(!Number.isFinite(dt.getTime()))return '';
+ const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',
+  year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(dt);
+ const get=k=>parts.find(p=>p.type===k)?.value||'';
+ return get('year')+'-'+get('month')+'-'+get('day');
+}
+function neutrals(doc){
+ const found=new Map();
+ if(doc?.season!=='2026-27'||doc?.gender!=='women'||
+    doc.source_scope!=='two_source_neutral_site_verification'||!Array.isArray(doc.games))return found;
+ for(const g of doc.games){
+  if(!g||!validId(g.game_id)||!validId(g.team_id)||!validId(g.opponent_id)||
+     !/^202[67]-\d\d-\d\d$/.test(g.date||'')||g.verified_site!=='neutral'||
+     !safeURL(g.source_url)||!safeURL(g.corroborating_source_url))continue;
+  const id=String(g.game_id);
+  if(found.has(id)){found.delete(id);continue;} // Ambiguity cannot be promoted.
+  found.set(id,g);
+ }
+ return found;
+}
+function certifiedNeutral(game,map){
+ if(!game||!map||!validId(game.id))return null;
+ const row=map.get(String(game.id));
+ if(!row||String(row.team_id)===String(row.opponent_id))return null;
+ if(new Set([String(game.home_id),String(game.away_id)]).size!==2)return null;
+ if(![String(game.home_id),String(game.away_id)].includes(String(row.team_id))||
+    ![String(game.home_id),String(game.away_id)].includes(String(row.opponent_id)))return null;
+ if(easternDay(game.date)!==row.date)return null;
+ return row;
+}
+function claims(game,map,verifiedNeutralMap){
+ if(certifiedNeutral(game,verifiedNeutralMap))return [];
  if(!game||!map||!validId(game.id)||game.status==='final'||game.completed)return [];
  return (map.get(String(game.id))||[]).filter(r=>{
   const isParticipant=[game.home_id,game.away_id].map(String).includes(r.team_id);
@@ -37,5 +70,5 @@ function note(claims){
   'Venue review: university “vs.” listing does not prove an on-campus game.':
   'Venue review: university site designation differs from the published calendar.';
 }
-w.WBBSiteIntegrity={index,claims,note,safeURL};
+w.WBBSiteIntegrity={index,claims,note,safeURL,neutrals,certifiedNeutral};
 })(window);

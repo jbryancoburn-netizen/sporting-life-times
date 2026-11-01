@@ -1,7 +1,7 @@
 /* Women's team-page in-place final and Elo refresh. No men’s data dependencies. */
 (function(w){
 'use strict';
-function start(teamId,baseGames,siteDisputes){
+function start(teamId,baseGames,siteDisputes,neutralProof){
   const host=document.getElementById('desk');
   if(!host||!w.WBBGameResults||!Array.isArray(baseGames))return;
   let pending=false;
@@ -44,9 +44,10 @@ function start(teamId,baseGames,siteDisputes){
         const forecast=row.querySelector('.wbb-win-probability');
         if(forecast){
           if(game.completed||game.result_conflict)forecast.textContent=game.result_conflict?'Review':'Final';
-          else if(w.WBBSiteIntegrity?.claims(game,siteDisputes).length)forecast.textContent='Venue review';
+          else if(w.WBBSiteIntegrity?.claims(game,siteDisputes,neutralProof).length)forecast.textContent='Venue review';
           else if(ours&&opponent){
-            const adj=game.site==='home'?edge:game.site==='away'?-edge:0;
+            const neutral=w.WBBSiteIntegrity?.certifiedNeutral(game,neutralProof);
+            const adj=neutral?0:game.site==='home'?edge:game.site==='away'?-edge:0;
             const p=100/(1+Math.pow(10,-((Number(ours.elo)-Number(opponent.elo)+adj)/400)));
             forecast.textContent=Number.isFinite(p)?p.toFixed(0)+'%':'—';
           }else forecast.textContent='—';
