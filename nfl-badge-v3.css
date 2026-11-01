@@ -1,0 +1,59 @@
+/* NFL crest v3. One outer primary-color band, one inner secondary-color band.
+   Both are REAL, nested elements with a white-filled image center.
+   No gradient, outline, pseudo-element or shadow creates another ring.
+   Isolated from every former .nfl-crest and .nfl-two-band rule. */
+.nfl-paper .nfl-badge{
+ --nfl-primary:#23344e;--nfl-secondary:#d1ad4b;
+ --nfl-outer:6px;--nfl-inner:5px;
+ display:inline-flex;position:relative;isolation:isolate;
+ box-sizing:border-box;align-items:stretch;justify-content:stretch;
+ width:62px;height:62px;flex:0 0 62px;
+ border:0!important;outline:0!important;
+ border-radius:50%;padding:var(--nfl-outer)!important;
+ margin:0;box-shadow:none!important;filter:none!important;
+ background:var(--nfl-primary)!important;
+ overflow:hidden;vertical-align:middle;
+}
+.nfl-paper .nfl-badge::before,.nfl-paper .nfl-badge::after,
+.nfl-paper .nfl-badge-core::before,.nfl-paper .nfl-badge-core::after{
+ content:none!important;display:none!important;
+}
+.nfl-paper .nfl-badge-core{
+ display:flex;position:relative;box-sizing:border-box;flex:1 1 auto;
+ min-width:0;min-height:0;width:100%;height:100%;
+ align-items:center;justify-content:center;
+ padding:3px!important;margin:0!important;
+ border:var(--nfl-inner) solid var(--nfl-secondary)!important;
+ outline:0!important;border-radius:50%;
+ background:#fff!important;box-shadow:none!important;
+ overflow:hidden;
+}
+.nfl-paper .nfl-badge-core img{
+ display:block;position:relative;box-sizing:border-box;
+ width:100%;height:100%;max-width:100%;max-height:100%;
+ flex:0 1 auto;object-fit:contain;object-position:center center;
+ padding:0!important;margin:0!important;border:0!important;
+ border-radius:0!important;outline:0!important;
+ background:transparent!important;box-shadow:none!important;
+ filter:none!important;clip-path:none!important;
+}
+.nfl-paper .nfl-badge.sm{width:44px;height:44px;flex-basis:44px;--nfl-outer:4px;--nfl-inner:3px}
+.nfl-paper .nfl-badge.lg{width:118px;height:118px;flex-basis:118px;--nfl-outer:9px;--nfl-inner:7px}
+.nfl-paper .nfl-badge.head{width:77px;height:77px;flex-basis:77px;--nfl-outer:6px;--nfl-inner:5px}
+.nfl-paper .nfl-mini .nfl-badge.sm{width:35px;height:35px;flex-basis:35px;--nfl-outer:3px;--nfl-inner:3px}
+.nfl-paper .nfl-table .nfl-badge.sm{width:41px;height:41px;flex-basis:41px}
+.nfl-paper .nfl-leader-club .nfl-badge.sm{width:27px;height:27px;flex-basis:27px;--nfl-outer:2px;--nfl-inner:2px}
+.nfl-paper .nfl-feature-top .nfl-badge.head{width:62px;height:62px;flex-basis:62px}
+.nfl-paper .nfl-rank-card>.nfl-badge{grid-column:2;grid-row:1/4;width:48px;height:48px;flex-basis:48px;--nfl-outer:4px;--nfl-inner:4px}
+@media(max-width:600px){
+ .nfl-paper .nfl-badge{width:52px;height:52px;flex-basis:52px;--nfl-outer:5px;--nfl-inner:4px}
+ .nfl-paper .nfl-badge.sm{width:39px;height:39px;flex-basis:39px;--nfl-outer:4px;--nfl-inner:3px}
+ .nfl-paper .nfl-team-head .nfl-badge.lg{width:90px;height:90px;flex-basis:90px;--nfl-outer:7px;--nfl-inner:6px}
+ .nfl-paper .nfl-elo-podium-card .nfl-badge.lg{width:67px;height:67px;flex-basis:67px;--nfl-outer:6px;--nfl-inner:5px}
+ .nfl-paper .nfl-feature-top .nfl-badge.head{width:43px;height:43px;flex-basis:43px;--nfl-outer:4px;--nfl-inner:3px}
+ .nfl-paper .nfl-box-side .nfl-badge.head{width:48px;height:48px;flex-basis:48px}
+ .nfl-paper .nfl-rank-card>.nfl-badge{width:48px;height:48px;flex-basis:48px;--nfl-outer:4px;--nfl-inner:4px}
+}
+@media(max-width:365px){
+ .nfl-paper .nfl-rank-card>.nfl-badge{width:42px;height:42px;flex-basis:42px;--nfl-outer:3px;--nfl-inner:3px}
+}
