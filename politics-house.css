@@ -240,3 +240,26 @@ body[data-house-page="state"] .state-feature-map .leaflet-control-zoom a{border-
  body[data-house-page="state"] .district-grid{grid-template-columns:1fr}
  body[data-house-page="state"] .state-metrics .metric span{font-size:7.5px}
 }
+
+
+/* HOUSE RACE CARDS: authentic official-candidate field, no generated imagery. */
+body[data-house-page="state"] .state-candidate-preview{margin-top:12px;padding:10px 0 1px;border-top:1px solid #d6deda}
+body[data-house-page="state"] .state-candidate-preview .field-label{display:block;margin-bottom:8px;font:800 9px/1.4 'DM Sans',sans-serif;color:#577177;letter-spacing:1.15px}
+body[data-house-page="state"] .field-names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+body[data-house-page="state"] .field-person{display:flex;gap:6px;align-items:flex-start;min-width:0}
+body[data-house-page="state"] .field-party{display:inline-flex;align-items:center;justify-content:center;min-width:19px;min-height:19px;padding:1px 3px;font-size:10px;font-weight:900;background:#e8e8e4;color:#364850;flex-shrink:0;border-radius:2px}
+body[data-house-page="state"] .field-party.dem{background:#e1eaf8;color:#23538f}
+body[data-house-page="state"] .field-party.rep{background:#f5e1df;color:#9b3930}
+body[data-house-page="state"] .field-party.other{background:#eeeae0;color:#61503a}
+body[data-house-page="state"] .field-name{font:700 11px/1.4 'DM Sans',sans-serif;color:#213138;overflow-wrap:anywhere}
+body[data-house-page="state"] .field-more{display:inline-block;margin-top:8px;color:#52686e;font:700 10px/1.4 'DM Sans',sans-serif}
+@media(max-width:720px){
+ body[data-house-page="state"] .district-grid{grid-template-columns:1fr;gap:10px}
+ body[data-house-page="state"] .district-card{min-height:0;padding:13px 15px}
+ body[data-house-page="state"] .district-card .top strong{font-size:21px}
+ body[data-house-page="state"] .district-card .status{font-size:14px}
+ body[data-house-page="state"] .district-card .sub{font-size:10px}
+ body[data-house-page="state"] .field-name{font-size:12px}
+ body[data-house-page="state"] .field-party{min-width:21px;min-height:21px;font-size:11px}
+ body[data-house-page="state"] .district-card .evidence-flags{margin-top:7px}
+}
