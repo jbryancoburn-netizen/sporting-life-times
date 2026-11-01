@@ -18,8 +18,8 @@ async function open(corrupt=false,liveFixture=null){
  return {nodes,node,document};
 }
 test('women’s desk exposes all programs, complete season calendar and isolated ratings',async()=>{
- const {node}=await open();assert.match(node('wbb-summary').innerHTML,/5,782/);assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row"/g)||[]).length,363);assert.match(node('wbb-powerboard').innerHTML,/ELO 1500|class="rank-row"/);
- node('wbb-team-search').value='Indiana Hoosiers';node('wbb-team-search').listeners.input();assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row"/g)||[]).length,1);assert.match(node('wbb-directory-list').innerHTML,/ncaaw-team.html\?team=84/);
+ const {node}=await open();assert.match(node('wbb-summary').innerHTML,/5,782/);assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row(?: wbb-unplayed-row)?"/g)||[]).length,363);assert.match(node('wbb-powerboard').innerHTML,/ELO 1500|class="rank-row"/);
+ node('wbb-team-search').value='Indiana Hoosiers';node('wbb-team-search').listeners.input();assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row(?: wbb-unplayed-row)?"/g)||[]).length,1);assert.match(node('wbb-directory-list').innerHTML,/ncaaw-team.html\?team=84/);
  node('wbb-date').listeners.change({target:{value:'2026-11-02'}});node('wbb-game-conf').value='Big Ten Conference';node('wbb-game-conf').listeners.change();const html=node('wbb-score-rail').innerHTML;assert.match(html,/Maryland Terrapins/);assert.match(html,/South Carolina Gamecocks/);assert.ok(html.indexOf('Maryland Terrapins')<html.indexOf('South Carolina Gamecocks'));assert.match(html,/61%/);assert.doesNotMatch(html,/Villanova Wildcats/);
  node('wbb-game-search').value='no such school';node('wbb-game-search').listeners.input();assert.match(node('wbb-score-rail').innerHTML,/No games match/);
 });
@@ -69,4 +69,19 @@ test('a new provider final that conflicts with published WBB final is withheld f
  const html=node('wbb-score-rail').innerHTML;
  assert.match(html,/Source conflict · score withheld/);
  assert.match(html,/Published final \/ live scoreboard score conflict/);
+});
+
+test('the in-season women’s Power Board lists only teams with verified finals',async()=>{
+ const {node}=await open();
+ const text=node('wbb-rating-note').textContent;
+ assert.match(text,/PROVISIONAL/);
+ assert.match(text,/programs played/);
+ assert.match(text,/Unplayed teams remain at the 1500 baseline/);
+ const top=node('wbb-powerboard').innerHTML;
+ assert.match(top,/Notre Dame Fighting Irish/);
+ assert.match(top,/Villanova Wildcats/);
+ assert.doesNotMatch(top,/Abilene Christian Wildcats/);
+ const directory=node('wbb-directory-list').innerHTML;
+ assert.match(directory,/Not yet played · baseline 1500/);
+ assert.match(directory,/363|Abilene Christian Wildcats/);
 });
