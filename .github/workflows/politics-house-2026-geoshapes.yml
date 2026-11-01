@@ -1,0 +1,89 @@
+name: Politics official 2026 congressional district cartography
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_house_2026_geoshapes.py'
+      - 'test_politics_house_2026_geoshapes.py'
+      - '.github/workflows/politics-house-2026-geoshapes.yml'
+  push:
+    branches: [main, politics-house-census-district-shapes-20261101]
+    paths:
+      - 'scripts/politics_house_2026_geoshapes.py'
+      - 'test_politics_house_2026_geoshapes.py'
+      - '.github/workflows/politics-house-2026-geoshapes.yml'
+  schedule:
+    - cron: '11 09 * * 0'
+permissions:
+  contents: write
+concurrency:
+  group: politics-house-cartography
+  cancel-in-progress: false
+jobs:
+  build-original-census-maps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install small audited geographic libraries
+        run: python -m pip install -q pyshp==2.3.1 shapely==2.1.2
+      - name: Strict input, topology and Missouri exception regressions
+        run: |
+          python -m py_compile scripts/politics_house_2026_geoshapes.py
+          python -m unittest -v test_politics_house_2026_geoshapes
+      - name: Convert all 50 Census 2026 state district boundary shapefiles
+        run: python -m scripts.politics_house_2026_geoshapes
+      - name: Verify complete 435 districts and 2026 boundary vintage
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          i=json.load(open("politics-house-geography-index.json"))
+          a=json.load(open("politics-house-atlas.json"))
+          assert i['status']=='ALL_435_HOUSE_BOUNDARY_SHAPES_VERIFIED'
+          assert i['state_count']==50 and i['district_count']==435
+          assert i['missouri_map_exception_applied'] is True
+          assert i['2026_vote_result_or_probability_inferred'] is False
+          ids=set()
+          by={r['id'] for r in a['districts']}
+          assert len(by)==435
+          for s in i['states']:
+              path=pathlib.Path(s['path'])
+              d=json.loads(path.read_text())
+              assert d['status']=='CENSUS_CONGRESSIONAL_BOUNDARIES_ELECTION_2026'
+              assert d['state']==s['state']
+              assert d['source_sha256']==s['sha256']
+              assert d['forecast_eligible'] is False
+              assert d['district_count']==len(d['districts'])
+              assert all(x['polygons'] for x in d['districts'])
+              assert all(x['id'].startswith(d['state']+'-') for x in d['districts'])
+              assert all(p[0]==p[-1] for x in d['districts'] for poly in x['polygons'] for p in poly)
+              ids.update(x['id'] for x in d['districts'])
+              if d['state']=='MO':assert '119th_2025_predecessor_valid_2026'==d['vintage']
+              else:assert '120th_2026'==d['vintage']
+          assert ids==by
+          assert sum(s['district_count'] for s in i['states'])==435
+          print('Official Census 2026 congressional shapes verified:',len(ids),'district polygons across 50 states')
+          PY
+      - name: Publish geographic shapes without altering sports or election vote totals
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-house-geography-index.json politics-house-geography/
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh official Census 120th House district shapes (Missouri 119th election-plan exception)"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
