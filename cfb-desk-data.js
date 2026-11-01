@@ -51,6 +51,9 @@ const mirrorsReady=fetch('data/cfb-logo-mirrors.json?v=20261101-verified',{cache
  .then(d=>{if(d.primary_identity==='ESPN school ID matched to existing verified NCAA Division I registry'&&d.logos)mirrorLogos=d.logos})
  .catch(()=>{mirrorLogos=Object.create(null)});
 function safeLogoURL(raw){try{let s=String(raw||'').trim();if(s.startsWith('http://'))s='https://'+s.slice(7);const u=new URL(s,location.href);return u.protocol==='https:'?u.href:''}catch{return ''}}
+/* These same-origin school assets are stored in our own repository and
+   identified by the stable ESPN team ID, never by an approximate name. */
+const localLogos=new Set(['2390','254','26','87','84','68','61','154','252','2641','194','251']);
 function logoCandidates(url,t){
  const id=String(t?.id||'').trim(),valid=/^\d+$/.test(id);
  const mirror=valid?safeLogoURL(mirrorLogos[id]):'';
@@ -59,6 +62,7 @@ function logoCandidates(url,t){
  const jsdelivr=mirror&&mirror.startsWith(original)?
    'https://cdn.jsdelivr.net/gh/Lou34964/FBS-Logo-Library@'+commit+'/'+mirror.slice(original.length):'';
  const names=valid?[
+   localLogos.has(id)?'assets/cfb-logos/'+id+'.png':'',
    'https://a.espncdn.com/i/teamlogos/ncaa/500/'+id+'.png',
    mirror,jsdelivr,
    safeLogoURL(url),
@@ -86,7 +90,7 @@ function imageMarkup(url,t){
  if(!urls.length)return fallback;
  return fallback+'<img class="cfb-logo-image" data-cfb-logo="1" data-cfb-attempt="0"'+
    urls.slice(1,8).map((u,i)=>' data-cfb-backup'+(i+1)+'="'+esc(u)+'"').join('')+
-   ' loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="" src="'+esc(urls[0])+'" onload="window.CFB_DESK.logoLoaded(this)" onerror="window.CFB_DESK.logoFailed(this)">';
+   ' loading="eager" decoding="async" referrerpolicy="no-referrer" alt="" src="'+esc(urls[0])+'" onload="window.CFB_DESK.logoLoaded(this)" onerror="window.CFB_DESK.logoFailed(this)">';
 }
 function crest(t){const {primary,secondary}=ringColors(t);return '<span class="cfb-crest" style="--primary:'+primary+';--secondary:'+secondary+'" data-ring-count="2">'+ringArtwork(primary,secondary)+imageMarkup(t?.logo||'',t)+'</span>'}
 const link=t=>'<a class="team-identity" href="cfb-team.html?team='+encodeURIComponent(t.id)+'">'+crest(t)+'<span>'+esc(t.name)+'</span></a>';
