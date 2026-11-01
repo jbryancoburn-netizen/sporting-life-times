@@ -443,7 +443,7 @@
     const conferenceIndex=new Map();
     if(archiveFresh)for(const item of archive.games){
       const ids=(item.team_ids||[]).map(String);
-      if(ids.length!==2||ids[0]===ids[1]||!ids.every(x=>/^\\d+$/.test(x)))continue;
+      if(ids.length!==2||ids[0]===ids[1]||!ids.every(x=>/^\d+$/.test(x)))continue;
       const key=ids.sort((a,b)=>Number(a)-Number(b)).join(':');
       conferenceIndex.set(key,item);
     }
