@@ -794,13 +794,13 @@ def apply_official_tipoff_streams(gender, games, teams, as_of_date):
     return stats
 
 
-def apply_verified_schedule_broadcasts(gender, games, teams, today):
+def apply_verified_schedule_broadcasts(gender, games, teams, today, registry_file=None, stream_host="https://www.gnacnetwork.com/"):
     """Attach school-documented WATCH URLs to exact DII matchups only.
 
     The official school schedule confirms the date, both teams, stream host
     and venue. Existing NCAA game IDs, results and source provenance survive.
     """
-    path=DATA/"d2-verified-broadcast-fixtures-2026-27.json"
+    path=registry_file or DATA/"d2-verified-broadcast-fixtures-2026-27.json"
     stats={"matched":0,"created":0,"skipped":0}
     if not path.exists():
         return stats
@@ -816,8 +816,8 @@ def apply_verified_schedule_broadcasts(gender, games, teams, today):
         seen.add(key)
         if len(key[1])!=2 or any(v not in teams or teams[v].get("not_eligible_for_dii_elo") for v in (a,h)):
             raise RuntimeError("Broadcast fixture has invalid DII team identity: "+str(key))
-        if not str(fixture.get("source_url","")).startswith("https://") or not str(fixture.get("stream_url","")).startswith("https://www.gnacnetwork.com/"):
-            raise RuntimeError("Broadcast fixture lacks auditable official source or GNAC WATCH URL")
+        if not str(fixture.get("source_url","")).startswith("https://") or not str(fixture.get("stream_url","")).startswith(stream_host):
+            raise RuntimeError("Broadcast fixture lacks auditable official source or approved WATCH URL")
         local=dt.datetime.fromisoformat(fixture["date"]+"T"+fixture["local"])
         if local.hour>23 or local.minute>59:
             raise RuntimeError("Invalid local tipoff in official broadcast source")
@@ -962,6 +962,9 @@ def update(gender, bootstrap=False):
         raise RuntimeError(f"{gender}: {successful}/{len(days)} NCAA date requests succeeded. Refusing to publish suspect empty/partial feed. Errors: {errors[:3]}")
     official_broadcasts=apply_official_tipoff_streams(gender,games,teams,today)
     extra_broadcasts=apply_verified_schedule_broadcasts(gender,games,teams,today)
+    midwest_broadcasts=apply_verified_schedule_broadcasts(gender,games,teams,today,
+        registry_file=DATA/"d2-midwest-tipoff-official-2026.json",
+        stream_host="https://justagame.com/clients/justagame-fieldhouse/")
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1019,7 +1022,8 @@ def update(gender, bootstrap=False):
         "membership_certified":False,
         "membership_review":membership_quality,
         "official_cwu_tipoff_broadcasts":official_broadcasts,
-        "official_other_schedule_broadcasts":extra_broadcasts}
+        "official_other_schedule_broadcasts":extra_broadcasts,
+        "official_midwest_tipoff_broadcasts":midwest_broadcasts}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
