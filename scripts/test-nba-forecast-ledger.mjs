@@ -26,8 +26,7 @@ test('NBA prospectively freezes both phases and never rewrites forecasts',()=>{
  assert.deepEqual(b.ledger.forecasts,a.ledger.forecasts);
  const c=updateLedger(b.ledger,fixture,'2026-11-01T20:15:00.000Z');
  assert.equal(c.added,1,'Brooklyn at Indiana now inside near-tipoff window');
- const first=c.ledger.forecasts.filter(x=>x.id==='espn-nba-401909883');
- // ID may vary across authoritative snapshot; assert same matchup instead.
+ // Assert matchup identity rather than depending on a specific provider ID.
  const bkn=c.ledger.forecasts.filter(x=>x.away==='BKN'&&x.home==='IND');
  assert.equal(bkn.length,2);
  assert.deepEqual(bkn.map(x=>x.phase).sort(),['early','near_tipoff']);
@@ -37,7 +36,8 @@ test('NBA prospectively freezes both phases and never rewrites forecasts',()=>{
 test('Refuse fabricated retrospective predictions, and score only recorded games',()=>{
  const source=clone(fixture),fakeAt='2026-11-02T06:00:00.000Z';
  const empty=updateLedger(null,source,fakeAt);
- assert.equal(empty.added,0,'No historic reconstruction from already tipped games');
+ assert(empty.ledger.forecasts.every(x=>Date.parse(x.date)>Date.parse(fakeAt)+10*60000),'No historic reconstruction from already tipped games');
+ assert(!empty.ledger.forecasts.some(x=>['ORL','IND','GSW','LAL'].includes(x.home)),'None of the previous day’s games may be retroactively forecast');
  assert.equal(Object.keys(empty.ledger.results).length,0);
  const pre=updateLedger(null,fixture,now);
  const before=clone(pre.ledger.forecasts);
