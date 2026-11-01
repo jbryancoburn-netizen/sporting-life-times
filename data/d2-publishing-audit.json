@@ -23,6 +23,37 @@
       "official tournament organizer": 12,
       "official university athletics schedule or recap": 14
     },
+    "official_conference_source_audit": {
+      "GSC fixtures": {
+        "status": "published with unmatched games quarantined",
+        "gender": "men",
+        "school_schedules": 11,
+        "confirmed_matchups": 110,
+        "new_games": 0,
+        "existing_games_enriched": 110,
+        "time_conflicts": 0,
+        "unreciprocated": 0,
+        "source": "Gulf South Conference 2026-27 official school schedules (both teams)"
+      },
+      "GSC arenas": {
+        "status": "published exact matched university arena evidence; conflicts withheld",
+        "enriched": 0,
+        "evidence_rows": 20,
+        "matched": 20,
+        "unmatched": 0,
+        "conflicted": 0,
+        "quarantined": 0
+      },
+      "CACC fixtures": {
+        "status": "verified reciprocal games only; provisional programs excluded",
+        "schools_read": 11,
+        "confirmed_matchups": 110,
+        "added": 0,
+        "enriched": 110,
+        "time_disagreements": 1,
+        "unreciprocated": 0
+      }
+    },
     "warnings": [
       "A completed date scan is NOT a certified set of school schedules"
     ],
@@ -52,6 +83,39 @@
       "Two official university athletics schedules (GSC date typo)": 1,
       "official tournament organizer": 20,
       "official university athletics schedule or recap": 5
+    },
+    "official_conference_source_audit": {
+      "GSC fixtures": {
+        "status": "published with unmatched games quarantined",
+        "gender": "women",
+        "school_schedules": 11,
+        "confirmed_matchups": 110,
+        "new_games": 0,
+        "existing_games_enriched": 109,
+        "time_conflicts": 0,
+        "unreciprocated": 0,
+        "source": "Gulf South Conference 2026-27 official school schedules (both teams)"
+      },
+      "GSC arenas": {
+        "status": "published exact matched university arena evidence; conflicts withheld",
+        "enriched": 0,
+        "evidence_rows": 38,
+        "matched": 37,
+        "unmatched": 1,
+        "conflicted": 0,
+        "quarantined": 0
+      },
+      "CACC fixtures": {
+        "status": "partial two-school verification: unavailable school calendars and disputed fixtures withheld",
+        "calendars_read": 11,
+        "two_school_matches": 109,
+        "games_added": 39,
+        "games_enriched": 70,
+        "time_conflicts": 17,
+        "single_school_only": 0,
+        "source": "CACC official 2026-27 women's basketball university calendars",
+        "unavailable_calendars_count": 0
+      }
     },
     "warnings": [
       "A completed date scan is NOT a certified set of school schedules"
