@@ -30,7 +30,7 @@ return out+'<div class="line">'+link(urlGame(g.id),"Game center →")+'</div></a
 function gameLine(g){const done=g.state!=="pre";
 return '<div class="nfl-game"><div class="meta"><span>WEEK '+g.week+' · '+escapeHtml(g.status)+'</span><span>'+escapeHtml(date(g.date))+'</span></div>'+side(g.away,done)+side(g.home,done)+'<div class="line">'+escapeHtml(g.venue||"Venue TBA")+' · '+link(urlGame(g.id),"Game details →")+'</div></div>';}
 function sorted(t){return t.slice().sort((a,b)=>b.pct-a.pct||b.w-a.w||b.elo-a.elo);}
-function seasonTable(t){return gridTable(["TEAM","W-L-T","PCT","PF","PA","DIFF","ELO"],sorted(t).map(x=>'<tr><td>'+club(x)+'</td><td>'+x.w+'-'+x.l+'-'+x.t+'</td><td>'+(x.pct*100).toFixed(1)+'%</td><td>'+x.pf+'</td><td>'+x.pa+'</td><td>'+x.point_diff+'</td><td><b>'+format(x.elo,1)+'</b></td></tr>'));}
+function seasonTable(t){return gridTable(["TEAM","W-L-T","PCT","PF","PA","DIFF","ELO"],sorted(t).map(x=>'<tr><td>'+club(x)+'</td><td><span class="nfl-record-nowrap">'+x.w+'–'+x.l+'–'+x.t+'</span></td><td>'+(x.pct*100).toFixed(1)+'%</td><td>'+x.pf+'</td><td>'+x.pa+'</td><td>'+x.point_diff+'</td><td><b>'+format(x.elo,1)+'</b></td></tr>'));}
 function statsCaveat(){const c=feed.coverage||{};return note(c.boxscore_complete?"Player statistics represent all "+c.finals+" completed-game box scores in this edition.":"<strong>PARTIAL STATISTICS:</strong> "+c.boxscores+" of "+c.finals+" final-game box scores recovered. Player and team statistical totals are incomplete until all game boxes are verified.");}
 function week(){const next=games.filter(g=>new Date(g.date).getTime()>Date.now()-86400000).sort((a,b)=>a.date.localeCompare(b.date));return next.length?next[0].week:18;}
 function directory(){return '<div class="nfl-directory">'+feed.teams.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>'<a class="nfl-tile" href="'+urlTeam(t.id)+'">'+crest(t,"sm")+'<span>'+escapeHtml(t.name)+'<span class="small">'+escapeHtml(t.division)+' · '+t.w+'-'+t.l+'-'+t.t+'</span></span></a>').join("")+'</div>';}
@@ -114,8 +114,22 @@ out+='<div class="nfl-ranking-model"><span><b>1,500</b> starting Elo</span><span
 out+=note("The 2026 season starts with all 32 franchises at exactly <b>1500 Elo</b>. Home field and K are fitted to 2023–24 finals, and validated against held-out 2025 results. Prior seasons never carry ratings forward; neutral-site games have no home advantage. Ratings are independent from official NFL standings.");
 out+='<div class="nfl-elo-podium">'+feed.teams.slice(0,3).map((t,i)=>'<a class="nfl-elo-podium-card" style="--team:'+escapeHtml(t.color)+'" href="'+urlTeam(t.id)+'"><span>NO. '+(i+1)+'</span>'+crest(t,"lg")+'<b>'+escapeHtml(t.name)+'</b><strong>'+format(t.elo,1)+'</strong><small>'+t.w+'–'+t.l+'–'+t.t+' · '+(t.elo_change>0?'+':'')+format(t.elo_change,1)+' from 1500</small></a>').join("")+'</div>';
 const rows=feed.teams.map((t,i)=>{const pct=Math.max(2,Math.min(100,((t.elo-1250)/500)*100));
-return '<tr><td><strong class="nfl-power-rank">'+(i+1)+'</strong></td><td>'+club(t)+'</td><td>'+t.w+'–'+t.l+'–'+t.t+'</td><td><div class="nfl-elo-meter" style="--elo-team:'+escapeHtml(t.color)+'"><span style="width:'+pct.toFixed(1)+'%"></span></div><b>'+format(t.elo,1)+'</b></td><td class="'+(t.elo_change>=0?'nfl-positive':'nfl-negative')+'">'+(t.elo_change>0?'+':'')+format(t.elo_change,1)+'</td><td>'+(last[t.id]==null?'—':(last[t.id]>0?'+':'')+format(last[t.id],1))+'</td></tr>';});
-return out+gridTable(["RANK","TEAM","W-L-T","2026 ELO","FROM 1500","LAST GAME"],rows);
+return '<tr><td><strong class="nfl-power-rank">'+(i+1)+'</strong></td><td>'+club(t)+'</td><td><span class="nfl-record-nowrap">'+t.w+'–'+t.l+'–'+t.t+'</span></td><td><div class="nfl-elo-meter" style="--elo-team:'+escapeHtml(t.color)+'"><span style="width:'+pct.toFixed(1)+'%"></span></div><b>'+format(t.elo,1)+'</b></td><td class="'+(t.elo_change>=0?'nfl-positive':'nfl-negative')+'">'+(t.elo_change>0?'+':'')+format(t.elo_change,1)+'</td><td>'+(last[t.id]==null?'—':(last[t.id]>0?'+':'')+format(last[t.id],1))+'</td></tr>';});
+const cards=feed.teams.map((t,i)=>{
+ const pct=Math.max(2,Math.min(100,((t.elo-1250)/500)*100));
+ const delta=(t.elo_change>0?"+":"")+format(t.elo_change,1);
+ const lg=last[t.id]==null?"—":(last[t.id]>0?"+":"")+format(last[t.id],1);
+ return '<a class="nfl-rank-card" href="'+urlTeam(t.id)+'" style="--rank-club:'+escapeHtml(t.color)+'">'+
+  '<span class="nfl-rank-card-place">'+(i+1)+'</span>'+crest(t,"sm")+
+  '<span class="nfl-rank-card-identity"><strong>'+escapeHtml(t.name)+'</strong>'+
+   '<span class="nfl-rank-card-record" aria-label="Wins losses ties"><em>W–L–T</em> '+t.w+'–'+t.l+'–'+t.t+'</span></span>'+
+  '<span class="nfl-rank-card-rating"><strong>'+format(t.elo,1)+'</strong><small>ELO</small></span>'+
+  '<span class="nfl-rank-card-meter"><i style="width:'+pct.toFixed(1)+'%"></i></span>'+
+  '<span class="nfl-rank-card-changes"><span class="'+(t.elo_change>=0?'nfl-positive':'nfl-negative')+'">FROM 1500 '+delta+'</span>'+
+   '<span>LAST '+lg+'</span></span></a>';
+}).join("");
+return out+'<div class="nfl-rank-desktop">'+gridTable(["RANK","TEAM","W-L-T","2026 ELO","FROM 1500","LAST GAME"],rows)+'</div>'+
+ '<div class="nfl-rank-mobile" aria-label="NFL Elo rankings with single-line team records">'+cards+'</div>';
 }
 function players(){
  const categories=["passing","rushing","receiving","tackles","sacks","interceptions"];
