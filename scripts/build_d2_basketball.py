@@ -1040,6 +1040,14 @@ def update(gender, bootstrap=False, live=False):
     if not rapid or not psac_quality:
         psac_quality=enrich_psac(gender,games,teams,today)
     psac_venue_quality=enrich_psac_temporary_court(gender,games)
+    # GLIAC calendars use a mixed Eastern/Central geographical footprint.
+    # Independently published wall-clock times are retained as posted, not
+    # silently mislabeled Eastern. Only two-school-confirmed future games
+    # enter the season ledger; NCAA final scores remain authoritative.
+    from d2_gliac_official import enrich_gliac
+    gliac_quality=previous_quality.get("official_gliac_schedule_reconciliation")
+    if not rapid or not gliac_quality:
+        gliac_quality=enrich_gliac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1103,7 +1111,8 @@ def update(gender, bootstrap=False, live=False):
         "official_gsc_venue_evidence":gsc_venue_quality,
         "official_cacc_schedule_reconciliation":cacc_quality,
         "official_psac_schedule_reconciliation":psac_quality,
-        "official_psac_temporary_home_venues":psac_venue_quality}
+        "official_psac_temporary_home_venues":psac_venue_quality,
+        "official_gliac_schedule_reconciliation":gliac_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
