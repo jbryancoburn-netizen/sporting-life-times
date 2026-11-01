@@ -173,7 +173,10 @@
   }
   function centerURL(){return 'cbb-game-center.html'+(women?'?gender=women':'');}
   function createShell(){
-    if(mounted)return true;
+    // The main newspaper occasionally rebuilds its #app DOM after ratings refresh.
+    // Reattach instead of assuming the original mounted element still exists.
+    if(mounted&&document.getElementById('cbb-live-desk'))return true;
+    if(mounted)mounted=false;
     const old=isStandalone?root:q(women?'#wbb-score-rail':'#score-rail');
     if(!old)return false;
     const host=document.createElement('section');host.id='cbb-live-desk';host.className='cbb-live-desk'+(women?' cbb-women':'');
