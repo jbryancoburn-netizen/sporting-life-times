@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v=20261101-diagonal5b" if name=="nfl.html" else "nfl-edition-v3.js?v=20261101-live-desk",page)
+                self.assertIn("nfl-edition-v3.js?v=20261101-gamev6",page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -65,7 +65,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('nfl-p26-box-identity',page)
         self.assertNotIn('nfl-p26-hero-score"',page)
         self.assertIn('nfl-scoreboard-v4.css?v=20261101-scorev4b',front)
-        self.assertIn('nfl-matchup-v5.css?v=20261101-diagonal5',front)
+        self.assertIn('nfl-matchup-v5.css?v=20261101-sharedv6',front)
         self.assertIn('--nfl-away-color:',page)
         self.assertIn('--nfl-home-color:',page)
         self.assertIn('const pa=paint(a),ph=paint(h)',page)
@@ -101,8 +101,29 @@ class EloTests(unittest.TestCase):
         self.assertIn("const observer=new MutationObserver",live)
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
-        self.assertIn('nfl-live-day.js?v=20261101-datefix2',center)
+        self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
         self.assertIn('nfl-live-day.js?v=20261101-datefix2',game)
+
+
+    def test_nfl_individual_game_inherits_diagonal_design(self):
+        root=Path(__file__).resolve().parents[1]
+        page=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
+        game=(root/"nfl-game.html").read_text(encoding="utf-8")
+        stylesheet=(root/"nfl-matchup-v5.css").read_text(encoding="utf-8")
+        live=(root/"nfl-live-day.js").read_text(encoding="utf-8")
+        self.assertIn('function featuredMatch(g)',page)
+        self.assertIn('function gamePage()',page)
+        self.assertIn('featuredMatch(g)',page)
+        self.assertIn('nfl-game-live-slot',page)
+        self.assertIn('nfl-game-editorial-v6.css?v=20261101-gamev6',game)
+        self.assertIn('nfl-matchup-v5.css?v=20261101-sharedv6',game)
+        self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
+        self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
+        self.assertIn('function nflFinalStatus(g)',page)
+        self.assertIn("'FINAL/OT'",page)
+        self.assertIn('"FINAL/OT"',live)
+        self.assertIn('Number(g.period)>4',page)
+        self.assertIn('setInterval(refreshLive,45000)',page)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
