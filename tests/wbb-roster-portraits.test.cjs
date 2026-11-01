@@ -20,7 +20,7 @@ test('photos are only accepted for an exact 2026-27 women roster name + jersey p
  assert.equal(photos.get('aubreyshaw|1'),'https://a.espncdn.com/photo/aubrey.png');
 });
 test('reject different player jersey, wrong women school, or previous season',()=>{
- const other={...roster,athletes:[{...roster.athletes[0],jersey:'11'}]};
+ const other={...roster,athletes:[{...roster.athletes[0],jersey:'11'},roster.athletes[1]]};
  assert.equal(match(other,players,'108').size,1);
  assert.equal(match(roster,players,'87').size,0);
  assert.equal(match({...roster,season:{year:2026}},players,'108').size,0);
