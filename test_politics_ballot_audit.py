@@ -51,6 +51,23 @@ class BallotAuditTests(unittest.TestCase):
         self.assertTrue(all(c.get("ballot_label") for c in nj_petition))
         self.assertEqual(sum(c["party"]=="WRI" for r in self.ledger["races"] if r["state"]=="KY" for c in r["candidates"]),3)
 
+    def test_original_massachusetts_and_nebraska_full_house_coverage(self):
+        audit=validate(self.ledger)
+        self.assertEqual(audit["state_coverage"]["MA"]["house"],9)
+        self.assertEqual(audit["state_coverage"]["NE"]["house"],3)
+        self.assertTrue(audit["state_coverage"]["MA"]["full_house_snapshot"])
+        self.assertTrue(audit["state_coverage"]["NE"]["full_house_snapshot"])
+        self.assertEqual(audit["house_contests_transcribed"],145)
+        ma=[r for r in self.ledger["races"] if r["office"]=="H" and r["state"]=="MA"]
+        ne=[r for r in self.ledger["races"] if r["office"]=="H" and r["state"]=="NE"]
+        self.assertEqual(sum(len(r["candidates"]) for r in ma),17)
+        self.assertEqual(sum(len(r["candidates"]) for r in ne),12)
+        self.assertEqual(next(r for r in ma if r["id"]=="MA-01")["candidates"][0]["party"],"DEM")
+        self.assertEqual(next(r for r in ne if r["id"]=="NE-03")["candidates"][-1]["ballot_label"],"By Petition")
+        for row in ma+ne:
+            self.assertFalse(row["fec_identity_match_certified"])
+            self.assertEqual(row["verification"],"source_transcribed_as_of_review_date")
+
     def test_no_duplicate_race(self):
         d = copy.deepcopy(self.ledger)
         d["races"].append(copy.deepcopy(d["races"][0]))
