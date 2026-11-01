@@ -51,6 +51,14 @@ function verifiedFinals(elo){
   return {match_id:g.match_id,cohort:g.cohort,away_name:g.away,home_name:g.home,away_score:scores[1],home_score:scores[0],date:g.date,status:'final'};
  }).filter(g=>Number.isInteger(g.away_score)&&Number.isInteger(g.home_score));
 }
+function renderHero(elo,brand){
+ const host=document.getElementById('cs-hero-leader'),leader=elo.cohorts?.['men-d1']?.[0];
+ if(!host||!leader)return;
+ host.href='college-soccer-team.html?team='+encodeURIComponent('men-d1:'+leader.team_id);
+ const meta=make('span','cs-hero-leader-meta');
+ meta.append(make('strong',null,leader.team),make('small',null,leader.record+'  ·  '+Math.round(leader.elo)+' USRS ELO'));
+ host.replaceChildren(make('span','cs-hero-leader-rank','01'),mark(leader.team,leader.team_id,'men-d1',brand),meta,make('span','cs-hero-leader-arrow','↗'));
+}
 function render(){
  if(!data)return;
  const {elo,live,brand,forecast}=data,at=Date.parse(live?.checked_at_utc||''),fresh=Number.isFinite(at)&&at<=Date.now()+60000&&Date.now()-at<15*60*1000;
@@ -96,7 +104,7 @@ async function refresh(){
  try{
   const [elo,live,brand,forecast]=await Promise.all([load('college-soccer-elo.json'),load('college-soccer-live-scores.json').catch(()=>null),load('college-soccer-team-branding.json').catch(()=>null),load('college-soccer-prospective-v2.json').catch(()=>null)]);
   if(!elo?.cohorts)throw Error('Elo feed invalid');
-  data={elo,live,brand,forecast};render();
+  data={elo,live,brand,forecast};renderHero(elo,brand);render();
  }catch(e){root.replaceChildren(make('p','cs-pitch-error','Matchday scores are temporarily unavailable. The NCAA match centre and verified ratings remain accessible below.'))}
 }
 refresh();setInterval(()=>{if(document.visibilityState==='visible')refresh()},60000);
