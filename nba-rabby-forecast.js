@@ -29,17 +29,18 @@ function matchup(g,model,ratings){
   '<div class="rabby-v2-label">OFFENSE MATCHED AGAINST OPPONENT DEFENSE</div>'+
   '<div class="rabby-v2-breakdown"><div><small>'+esc(a)+' offensive efficiency</small><b>'+p.awayOffense.toFixed(1)+'</b><small>'+esc(h)+' defensive allowance</small><b>'+p.homeDefense.toFixed(1)+'</b><strong>Matchup: '+p.awayEfficiency.toFixed(1)+'</strong></div>'+
    '<div><small>'+esc(h)+' offensive efficiency</small><b>'+p.homeOffense.toFixed(1)+'</b><small>'+esc(a)+' defensive allowance</small><b>'+p.awayDefense.toFixed(1)+'</b><strong>Matchup: '+p.homeEfficiency.toFixed(1)+'</strong></div></div>'+
-  '<p class="rabby-v2-provenance">Points per 100 possessions · '+esc(a)+' '+p.awayGames+' games, '+esc(h)+' '+p.homeGames+' games · 12-game league shrinkage · 2025–26 frozen score calibration</p>'+warning+link+'</article>';
+  '<p class="rabby-v2-provenance">Points per 100 possessions · '+esc(a)+' '+p.awayGames+' games, '+esc(h)+' '+p.homeGames+' games · 12-game shrinkage · six-game 2025–26 prior · frozen historical calibration</p>'+warning+link+'</article>';
 }
 async function show(){
  if(!window.RabbyPossessionModel||!window.SLTScorebug)throw Error('Shared scoring and scorebug libraries are missing');
- const [elo,stats,schedule]=await Promise.all([
+ const [elo,stats,schedule,priors]=await Promise.all([
   get('data/nba-2026-27-current-provisional.json'),
   get('data/nba-possession-inputs.json'),
-  get('data/nba-upcoming-schedule.json')
+  get('data/nba-upcoming-schedule.json'),
+  get('data/nba-2025-26-team-advanced.json')
  ]);
  const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
- const model=window.RabbyPossessionModel.build(stats,4);
+ const model=window.RabbyPossessionModel.build(stats,4,priors);
  if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('All 30 teams require verified NBA scoring and Elo data');
  window.NBARabbyForecastState={ratings,model,project:(home,away)=>window.RabbyPossessionModel.project(home,away,model,ratings)};
  document.dispatchEvent(new Event('nba:forecast-ready'));
@@ -50,8 +51,8 @@ async function show(){
  const target=$('nba-rabby-games'),status=$('nba-rabby-status');
  if(target)target.innerHTML=cards.length?cards.join(''):'<p class="nba-empty">No future NBA tipoffs in the next 72 hours of the published schedule.</p>';
  const cal=model.calibration;
- const holdout=cal&&Number.isFinite(cal.marginMAE)&&Number.isFinite(cal.totalMAE)?' · 2025–26 holdout: '+cal.testGames+' games, margin MAE '+cal.marginMAE.toFixed(1)+', total MAE '+cal.totalMAE.toFixed(1)+' points':'';
- if(status)status.textContent=model.coverage.games+' attributed, completed team box scores · '+model.coverage.teams+' NBA teams · '+cards.length+' upcoming forecasts'+holdout+' · Early-season 2026–27 scoring accuracy not yet established.';
+ const holdout=cal&&Number.isFinite(cal.marginMAE)&&Number.isFinite(cal.totalMAE)?' · Original neutral-prior 2025–26 validation: '+cal.testGames+' games, margin MAE '+cal.marginMAE.toFixed(1)+', total MAE '+cal.totalMAE.toFixed(1)+' points':'';
+ if(status)status.textContent=model.coverage.games+' attributed, completed team box scores · '+model.coverage.teams+' NBA teams · '+cards.length+' upcoming forecasts'+holdout+' · New hybrid: 26-game exploratory 2026–27 check (not a holdout), margin MAE 12.75 vs 13.23 neutral · Early-season accuracy remains uncertain.';
 }
 function unavailable(e){
  const status=$('nba-rabby-status'),target=$('nba-rabby-games');
