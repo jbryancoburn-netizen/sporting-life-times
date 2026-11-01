@@ -2,7 +2,7 @@ import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mbb_player_boxscores import parse_boxscore,aggregate
-from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures
+from refresh_mbb_newspaper import parse_rss,parse_scores,parse_ncaa_crosscheck,fetch_ncaa_scoreboard,conference_schedule_fixtures,women_school_fixtures,parse_ncaa_player_boxscore
 class Ingestion(unittest.TestCase):
  def test_boxscore_and_replay(self):
   data={'boxscore':{'players':[{'team':{'id':'1'},'statistics':[{'labels':['PTS','REB','AST','FG','FT','STL','BLK'],'athletes':[{'athlete':{'id':'8','displayName':'A Player'},'stats':['20','5','3','7-14','4-5','2','1']},{'didNotPlay':True}]}]}]}}
@@ -133,4 +133,33 @@ class Ingestion(unittest.TestCase):
             'source_url':'https://university.example/schedule'}]
     (data/name).write_text(json.dumps({'season':'2026-27','gender':'women','rows':rows}))
    self.assertEqual(women_school_fixtures(Path(tmp),'2026-11-02'),[])
+ def test_ncaa_player_boxscore_requires_exact_final_points(self):
+  game={'phase':'final','ncaa_id':'6651023','espn_id':'401920982','day':'2026-11-01',
+        'away_score':74,'home_score':72}
+  players=[{'id':21,'fullName':'First Player','points':'70','assists':'2',
+            'fieldGoalsMade':'10','fieldGoalsAttempted':'12'},
+           {'id':22,'fullName':'Second Player','points':'4',
+            'fieldGoalsMade':'1','fieldGoalsAttempted':'3'}]
+  sample={'teamBoxscore':[
+    {'teamId':'100','playerStats':players},
+    {'teamId':'200','playerStats':[{'id':23,'fullName':'Home Player','points':'72'}]}],
+    'teams':[{'teamId':'100','isHome':False},{'teamId':'200','isHome':True}]}
+  verified=parse_ncaa_player_boxscore(sample,game)
+  self.assertEqual(verified['away']['score'],74)
+  self.assertEqual(verified['home']['players'][0]['pts'],72)
+  self.assertEqual(verified['gender'],'men')
+  sample['teamBoxscore'][0]['playerStats'][1]['points']='3'
+  self.assertIsNone(parse_ncaa_player_boxscore(sample,game))
+ def test_ncaa_player_boxscore_cannot_guess_unmapped_teams_or_invent_zeroes(self):
+  game={'phase':'final','ncaa_id':'6651023','away_score':12,'home_score':9}
+  data={'teamBoxscore':[{'teamId':'100','playerStats':[{'fullName':'A','points':'12'}]},
+                        {'teamId':'200','playerStats':[{'fullName':'B','points':'9'}]}]}
+  self.assertIsNone(parse_ncaa_player_boxscore(data,game))
+  confirmed=parse_ncaa_player_boxscore(data,game,{'away':'100','home':'200'})
+  self.assertIsNotNone(confirmed)
+  data['teamBoxscore'][1]['playerStats'][0]['points']=''
+  self.assertIsNone(parse_ncaa_player_boxscore(data,game,{'away':'100','home':'200'}))
+ def test_ncaa_boxscore_cannot_promote_live_stats_as_finals(self):
+  game={'phase':'live','ncaa_id':'6651023','away_score':12,'home_score':9}
+  self.assertIsNone(parse_ncaa_player_boxscore({'teamBoxscore':[]},game))
 if __name__=='__main__':unittest.main()
