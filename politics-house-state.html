@@ -2,7 +2,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f3">
 <meta name="description" content="Source-checked 2026 congressional districts within each U.S. state. Compare published House polls, official ballot candidates and previous election returns with clear geography-vintage rules.">
 <title>State House District Directory | The Political Life &amp; Times</title>
-<link rel="stylesheet" href="politics-house.css?v=20261101-1"><script src="politics-house.js?v=20261101-1" defer></script></head>
+<link rel="stylesheet" href="politics-house.css?v=20261101-2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"><script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script><script src="politics-house-map.js?v=20261101-2" defer></script><script src="politics-house.js?v=20261101-2" defer></script></head>
 <body data-house-page="state"><main class="paper" id="view-content">
 <div class="strip"><span>THE SPORTING LIFE &amp; TIMES / CIVIC AFFAIRS</span><span>HOUSE ELECTIONS · STATE DESK</span></div>
 <header class="mast"><span class="folio">THE POLITICAL LIFE &amp; TIMES · 2026 HOUSE ELECTIONS</span>
@@ -16,6 +16,15 @@
 <p><b>2026 poll</b>: a dated original survey or published compilation, not a forecast. Compilation details such as sponsor and sample can be unverified. <b>2024 House result</b>: real prior-cycle votes, not a current lead. <b>2026 candidates</b>: official state-government snapshots, not candidates inferred from FEC registrations. Gray does not mean a toss-up.</p></aside></section>
 <div class="metrics" id="metrics"><div class="metric"><b>—</b><span>House seats in this state</span></div><div class="metric"><b>—</b><span>Government-verified candidate offices</span></div><div class="metric"><b>—</b><span>Published district poll entries</span></div><div class="metric"><b>—</b><span>2026 congressional map</span></div></div>
 <div class="callout" id="boundary-caution" hidden></div>
+<section class="district-map-section" id="district-geography">
+<div class="section-heading"><h3>Explore the full congressional map</h3><p>Official geographic outlines · each district opens its race profile</p></div>
+<p class="footnote" id="district-map-status" role="status" aria-live="polite">Loading official congressional district geometry…</p>
+<div class="map-actions"><label for="map-district-jump">Find a district<select id="map-district-jump"><option value="">Loading districts…</option></select></label><button type="button" id="map-open-district">Open selected district →</button><span class="map-help">Drag to move · + / − to zoom · select a district directly</span></div>
+<div id="geo-district-map" class="geo-district-map" aria-label="Interactive geographic map showing each 2026 U.S. House district in this state"></div>
+<p class="callout" id="map-fallback" hidden></p>
+<p class="map-vintage-note" id="map-vintage-note">Boundaries are independent of historical election and polling data.</p>
+<p class="footnote">Boundary source: <a id="map-source-link" href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.120th_Congress.html" target="_blank" rel="noopener noreferrer">Census Bureau redistricting program ↗</a>. Small urban districts may require zooming. The cards below remain a fully accessible alternative.</p>
+</section>
 <section><div class="section-heading"><h3>Congressional districts</h3><p id="district-count">Loading all districts…</p></div>
 <div class="toolbar"><label for="district-filter">Show districts<select id="district-filter"><option value="all">All House districts</option><option value="poll">2026 polling available</option><option value="ballot">Official candidate slate</option><option value="historical">Comparable 2024 House results</option></select></label></div>
 <div id="district-cards" class="district-grid" aria-live="polite"></div></section>
