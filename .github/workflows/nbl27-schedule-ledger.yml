@@ -11,7 +11,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: nbl27-schedule-ledger
+  group: nbl-data-publication
   cancel-in-progress: false
 jobs:
   audit:
