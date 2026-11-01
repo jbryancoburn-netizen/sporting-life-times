@@ -23,6 +23,8 @@ def build(data):
     deep_history=data.get("deep_history",{})
     fec_index=data.get("fec_index",{})
     ballot_audit=data.get("ballot_audit",{})
+    geo=data.get("geography_audit",{})
+    geo_vintages_verified=geo.get("status")=="VERIFIED_OFFICIAL_DISTRICT_VINTAGES_NOT_DISTRICT_VOTES" and geo.get("states_checked")==50 and geo.get("boundary_changed_states_count")==9 and geo.get("original_2026_house_model_geography_eligible") is False
     ballot_partial=ballot_audit.get("status")=="PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED" and ballot_audit.get("all_435_house_races_covered") is False and ballot_audit.get("house_contests_transcribed",0)>0 and ballot_audit.get("certified_2026_probability_count")==0
     house=row.get("house",[]) if row.get("status")=="ok" else []
     senate=row.get("senate",[]) if row.get("status")=="ok" else []
@@ -69,10 +71,11 @@ def build(data):
         "State government election offices (North Carolina, Florida and Wyoming), original dated candidate records",
         "Only the dated source-transcribed contests are recognized. FEC candidate identity matching, later state changes, remaining states and 2026 map adjustments remain unresolved; nationwide ballot certification is NOT complete.",
         ballot_audit.get("house_contests_transcribed",0) + ballot_audit.get("senate_contests_transcribed",0) if ballot_partial else 0),
-      stage("2026_district_geography_change_table","missing",
-        "No verified GIS mapping from 2024 voter districts to 2026 boundaries",
-        "U.S. Census Bureau TIGER/Line and state redistricting authorities",
-        "Cannot assume 2024 district IDs represent identical voters in 2026."),
+      stage("2026_district_geography_change_table","partial" if geo_vintages_verified else "missing",
+        "Official Census 120th Congress district vintage cross-checked for 50 states; nine boundary changes and Missouri unchanged after judicial action" if geo_vintages_verified else "No verified 2026 congressional district boundary-vintage registry",
+        "U.S. Census Bureau Redistricting Data Program, 120th Congress; Florida legislative redistricting office",
+        "Identifying which boundaries changed does not create a validated 2024 precinct-to-2026 district voting crosswalk; use no old district-ID voting baseline.",
+        50 if geo_vintages_verified else 0),
       stage("2024_presidential_vote_by_2026_house_district","missing",
         "No 2024 presidential vote totals adjusted to 2026 House boundaries",
         "Official state/county election returns plus checked congressional precinct crosswalks",
@@ -95,7 +98,7 @@ def build(data):
       "status":"NOT_READY_FOR_PUBLIC_PREDICTIONS",
       "evaluated_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
       "method":"Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
-      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json","official_ballot_roster":"politics-official-ballots.json","official_ballot_audit":"politics-ballot-audit.json"},
+      "source_keys":{"history":"politics-history.json","historical_contests":"politics-historical-contests.json","archive_2012_2016":"politics-historical-archive.json","archive_2000_2010":"politics-deep-history.json","fec":"politics-fec-inputs.json","fec_index":"politics-fec-race-index.json","presidential_counties":"politics-2024-county-presidential.json","census":"politics-census-inputs.json","polls":"politics-polls.json","official_ballot_roster":"politics-official-ballots.json","official_ballot_audit":"politics-ballot-audit.json","2026_boundary_vintage":"politics-2026-district-geography.json","2026_boundary_vintage_audit":"politics-geography-audit.json"},
       "checks":metrics,"counts":{"verified":sum(x["state"]=="verified" for x in metrics),"partial":sum(x["state"]=="partial" for x in metrics),"missing":sum(x["state"]=="missing" for x in metrics)},
       "house_forecast_ready":forecast_ready,"senate_forecast_ready":forecast_ready,"governor_forecast_ready":forecast_ready,
       "certified_original_probability_count":0,
@@ -113,7 +116,7 @@ def main():
              "fec":load("politics-fec-inputs.json"),"fec_index":load("politics-fec-race-index.json"),
              "presidential":load("politics-2024-county-presidential.json"),"archive":load("politics-historical-archive.json"),"deep_history":load("politics-deep-history.json"),"census":load("politics-census-inputs.json"),
              "polling":load("politics-polls.json"),"poll_audit":load("politics-poll-health.json"),
-             "ballot_audit":load("politics-ballot-audit.json")})
+             "ballot_audit":load("politics-ballot-audit.json"),"geography_audit":load("politics-geography-audit.json")})
     (ROOT/"politics-sim-readiness.json").write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
     print("Readiness:",d["status"],d["counts"],"original forecast probabilities",d["certified_original_probability_count"])
 if __name__=="__main__":main()
