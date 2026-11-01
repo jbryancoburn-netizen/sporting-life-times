@@ -18,6 +18,7 @@ on:
     - cron: '*/15 8-10 * * *'
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: mbb-retro-primary-publish
   cancel-in-progress: false
@@ -38,17 +39,29 @@ jobs:
       - name: Rebuild 1500-start RETRO ratings
         run: node scripts/publish-mbb-retro-primary.js
       - name: Verify clean slate and publish
+        id: publish
         run: |
           node -e "const d=require('./data/ncaam-2026-27-retro-primary.json');if(d.starting_elo!==1500||d.rankings.length!==365||d.events.length!==d.games_played||d.rankings.some(x=>x.base_elo!==1500))process.exit(1);"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ncaam-2026-27-retro-primary.json data/mbb-retro-live-finals.json
-          if git diff --cached --quiet; then exit 0; fi
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           git commit -m "Refresh live NCAA Division I 1500-start RETRO"
           for attempt in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             git fetch origin main
             git rebase origin/main || { git rebase --abort || true; exit 1; }
             sleep 2
           done
           exit 1
+      - name: Publish updated RETRO ratings to the live newspaper
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-newspaper.yml --ref main
