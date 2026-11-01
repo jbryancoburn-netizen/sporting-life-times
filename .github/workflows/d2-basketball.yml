@@ -9,6 +9,7 @@ on:
       - 'd2-*-basketball.html'
       - 'd2-team.html'
       - 'scripts/build_d2_basketball.py'
+      - 'scripts/audit_d2_publication.py'
       - 'scripts/d2_gsc_official.py'
       - 'tests/test_d2_gsc_official.py'
       - '.github/workflows/d2-basketball.yml'
@@ -33,7 +34,8 @@ on:
       - 'data/d2-verified-holiday-2026-27.json'
       - 'data/d2-logo-artwork-palette-2026.json'
   schedule:
-    - cron: '11 7 * * *'
+    - cron: '11 7 * * *' # daily wider source-health check
+    - cron: '7,37 0-6,15-23 * * *' # lean game-day refresh twice an hour
 permissions:
   contents: write
 concurrency:
@@ -65,14 +67,20 @@ jobs:
         run: |
           if ! test -s data/d2-men-2026-27.json || ! python -c "import json; d=json.load(open('data/d2-men-2026-27.json')); assert d.get('quality',{}).get('full_season_scan',{}).get('completed')"; then
             python scripts/build_d2_basketball.py --bootstrap
-          else
+          elif [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "11 7 * * *" ]; then
             python scripts/build_d2_basketball.py
+          else
+            python scripts/build_d2_basketball.py --live
           fi
+      - name: Validate newly collected scoreboards before publication
+        run: |
+          python scripts/audit_d2_publication.py --strict
+          node --test tests/d2-basketball.test.cjs
       - name: Commit verified DII-only data (never overwrite DI)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json
+          git add data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json data/d2-publishing-audit.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh verified DII men's and women's NCAA game ledgers"
           for n in 1 2 3 4; do
@@ -81,8 +89,8 @@ jobs:
             if ! GIT_EDITOR=true git rebase origin/main; then
               # Preserve this freshly verified snapshot on collisions with
               # another scheduled publisher; never force-push over its work.
-              git checkout --theirs -- data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json
-              git add data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json
+              git checkout --theirs -- data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json data/d2-publishing-audit.json
+              git add data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json data/d2-publishing-audit.json
               GIT_EDITOR=true git rebase --continue || { git rebase --abort || true; exit 1; }
             fi
             sleep $((n * 2))
