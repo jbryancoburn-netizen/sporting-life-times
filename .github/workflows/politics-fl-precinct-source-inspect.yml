@@ -69,6 +69,7 @@ jobs:
           rows=0
           bad_samples=[]
           precinct_sets=collections.defaultdict(set)
+          county_vote_totals=collections.Counter()
           with zipfile.ZipFile(io.BytesIO(blob)) as z:
               for item in z.infolist():
                   if item.is_dir() or not re.fullmatch(r"[A-Z]{3}_PctResults20241105\.txt",item.filename):
@@ -93,12 +94,59 @@ jobs:
                           party=row[15].strip()
                           cand=row[14].strip()
                           totals[(party,cand)]+=votes
+                          county_vote_totals[(row[1].strip().casefold(),party,cand)]+=votes
                           precinct_sets[item.filename[:3]].add(row[5].strip())
           print("PRECINCT_2024_FIELD_LENGTHS",dict(lengths))
           print("OFFICIAL_2024_COUNTIES",len(counties),"ROWS",rows,"PRESIDENTIAL_CONTEST_CANDIDATES",sorted((f"{party}|{cand}",v) for (party,cand),v in totals.items()))
           print("FIRST_CANDIDATE_DATA_ERRORS",bad_samples)
           print("PRECINCT_GROUPS_COUNT",sum(len(p) for p in precinct_sets.values()))
           if len(counties)!=67:raise ValueError("Not all 67 Florida original county files")
+          from html.parser import HTMLParser
+          class OfficialRows(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.rows=[]
+                  self.active_row=None
+                  self.active_cell=None
+              def handle_starttag(self,tag,attrs):
+                  if tag=="tr":
+                      self.active_row=[]
+                  if tag in ("th","td") and self.active_row is not None:
+                      self.active_cell=[]
+              def handle_data(self,data):
+                  if self.active_cell is not None:
+                      self.active_cell.append(data)
+              def handle_endtag(self,tag):
+                  if tag in ("th","td") and self.active_cell is not None and self.active_row is not None:
+                      self.active_row.append(" ".join("".join(self.active_cell).split()))
+                      self.active_cell=None
+                  if tag=="tr" and self.active_row is not None:
+                      if self.active_row:self.rows.append(self.active_row)
+                      self.active_row=None
+          official_url="https://results.elections.myflorida.com/DetailRpt.Asp?DATAMODE=&DIST=&ELECTIONDATE=11%2F5%2F2024&GRP=&PARTY=&RACE=PRE"
+          req=urllib.request.Request(official_url,headers={"User-Agent":"Mozilla/5.0 original statewide certified election verification"})
+          with urllib.request.urlopen(req,timeout=30) as response:
+              official_html=response.read(600000).decode("utf-8",errors="replace")
+          parser=OfficialRows();parser.feed(official_html)
+          print("OFFICIAL_RESULTS_HTML_BYTES",len(official_html),"TABLE_ROWS",len(parser.rows))
+          matching=[]
+          diffs=[]
+          county_names=set(k[0] for k in county_vote_totals)
+          for row in parser.rows:
+              if len(row)<3:continue
+              county=row[0].casefold()
+              if county not in county_names:continue
+              try:
+                  trump=int(row[1].replace(",",""));harris=int(row[2].replace(",",""))
+              except ValueError:continue
+              matching.append(county)
+              got_t=county_vote_totals[(county,"REP","Trump / Vance")]
+              got_h=county_vote_totals[(county,"DEM","Harris / Walz")]
+              if (trump,harris)!=(got_t,got_h):
+                  diffs.append({"county":county,"official_trump":trump,"zip_trump":got_t,
+                                "official_harris":harris,"zip_harris":got_h})
+          print("OFFICIAL_MATCHED_COUNTY_ROWS",len(matching),"COUNTY_DIFFS",json.dumps(diffs))
+          if len(matching)!=67:raise ValueError("Official county comparisons did not cover all 67 Florida counties")
           if totals[("REP","Trump / Vance")]!=6_110_125 or totals[("DEM","Harris / Walz")]!=4_683_038:
               raise ValueError("Original 2024 precinct president totals do not reconcile to the Florida Division of Elections official statewide election totals")
           print("PRELIMINARY_OFFICIAL_2024_PRESIDENTIAL_RECONCILIATION_PASSED")
