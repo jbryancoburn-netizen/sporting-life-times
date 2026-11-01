@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-var data=null,activeView="senate",activeMap="senate",selectedState=null;
+var data=null,houseAtlas=null,activeView="senate",activeMap="house",selectedState=null;
 var $=function(id){return document.getElementById(id);};
 var partyColors={D:"#3165a8",R:"#af4843",I:"#83928e"};
 function countdown(){
@@ -11,8 +11,31 @@ function countdown(){
 }
 function senateRace(state){return data.senate.find(function(r){return r.state===state;});}
 function stateName(code){var item=data.states.find(function(s){return s[0]===code;});return item?item[1]:code;}
+function houseStateMargin(row){
+ var margin=row?.["2024_presidential_actual"]?.dem_margin_pp;
+ if(!Number.isFinite(margin))return {bg:"#cfd7d5",fg:"#17242c",text:"Prior result unavailable"};
+ var party=margin>0?"D":"R",light=Math.max(43,90-Math.min(42,Math.abs(margin))*1.2);
+ return {bg:"hsl("+(party==="D"?216:4)+" 56% "+light+"%)",fg:light<65?"white":"#17242c",
+         text:"2024 presidential "+(party==="D"?"Democratic":"Republican")+" +"+Math.abs(margin).toFixed(1)+" points"};
+}
 function renderMap(){
  var target=$("state-map");target.replaceChildren();
+ if(activeMap==="house"){
+  data.states.forEach(function(state){
+    var code=state[0],s=houseAtlas?.states?.find(function(x){return x.code===code;});
+    var a=document.createElement("a");
+    var c=houseStateMargin(s);
+    a.className="state-tile election";a.textContent=code;
+    a.href="politics-house-state.html?state="+encodeURIComponent(code);
+    a.style.setProperty("--col",state[2]);a.style.setProperty("--row",state[3]);
+    a.style.background=c.bg;a.style.color=c.fg;a.style.display="flex";
+    a.style.alignItems="center";a.style.justifyContent="center";a.style.textDecoration="none";
+    a.setAttribute("aria-label",state[1]+". "+(s?s.district_count+" House districts. "+c.text:"All House districts")+"; open state district directory");
+    a.title=state[1]+": "+c.text+" · open districts";target.appendChild(a);
+  });
+  $("map-caption").textContent="HOUSE MAP · Select any state to open all its 2026 House districts. State shades show actual 2024 presidential vote margins, NOT 2026 House forecasts.";
+  renderStateDetail();return;
+ }
  var senateSet=new Set(data.senateBallotStates),govSet=new Set(data.governorBallotStates);
  data.states.forEach(function(state){
   var code=state[0],button=document.createElement("button"),hasRace=(activeMap==="senate"?senateSet:govSet).has(code),r=activeMap==="senate"?senateRace(code):null;
@@ -28,6 +51,14 @@ function renderMap(){
 }
 function renderStateDetail(){
  var el=$("state-detail");
+ if(activeMap==="house"){
+  el.replaceChildren();
+  var tag=document.createElement("span");tag.className="eyebrow";tag.textContent="U.S. HOUSE · 435 DISTRICTS";el.appendChild(tag);
+  var head=document.createElement("h3");head.textContent="Click a state";el.appendChild(head);
+  var desc=document.createElement("p");desc.textContent="Every House district has its own profile with verified candidates, sourced polls when available, 2024 results and redistricting disclosures. Click any state tile to see its complete directory.";el.appendChild(desc);
+  var link=document.createElement("a");link.href="politics-house.html";link.textContent="Open the full 435-seat House atlas ↗";el.appendChild(link);
+  return;
+ }
  if(!selectedState){el.innerHTML='<span class="eyebrow">EXPLORE THE MAP</span><h3>Select a state</h3><p>Choose a state tile to inspect its ballot status and available forecast. Not every race has been imported.</p>';return;}
  var name=stateName(selectedState),senateOn=data.senateBallotStates.includes(selectedState),govOn=data.governorBallotStates.includes(selectedState);
  if(activeMap==="governors"){
@@ -68,9 +99,15 @@ function init(){
   activeView=button.dataset.raceView;document.querySelectorAll("[data-race-view]").forEach(function(b){var active=b===button;b.classList.toggle("active",active);b.setAttribute("aria-pressed",active?"true":"false");});renderRaces();
  });});
  $("race-search").addEventListener("input",renderRaces);
- [["show-senate","senate"],["show-governors","governors"]].forEach(function(pair){$(pair[0]).addEventListener("click",function(){
-  activeMap=pair[1];selectedState=null;[["show-senate","senate"],["show-governors","governors"]].forEach(function(item){var b=$(item[0]),isActive=item[1]===activeMap;b.classList.toggle("active",isActive);b.setAttribute("aria-pressed",isActive?"true":"false");});renderMap();
+ [['show-house','house'],["show-senate","senate"],["show-governors","governors"]].forEach(function(pair){$(pair[0]).addEventListener("click",function(){
+  activeMap=pair[1];selectedState=null;[['show-house','house'],["show-senate","senate"],["show-governors","governors"]].forEach(function(item){var b=$(item[0]),isActive=item[1]===activeMap;b.classList.toggle("active",isActive);b.setAttribute("aria-pressed",isActive?"true":"false");});renderMap();
  });});
+ fetch("politics-house-atlas.json?v=20261101-2",{cache:"no-store"}).then(function(response){
+  if(!response.ok)throw Error("435-house atlas unavailable");return response.json();
+ }).then(function(j){
+  if(j.status!=="COMPLETE_435_DISTRICT_RESEARCH_ATLAS_NOT_FORECAST"||j.district_count!==435||j.states?.length!==50||j.forecast_eligible!==false)throw Error("Uncertified House atlas");
+  houseAtlas=j;if(data&&activeMap==="house")renderMap();
+ }).catch(function(e){if(window.console)console.warn("House state shading not yet available; district links remain active:",e);});
  fetch("politics-data.json?v=20261101",{cache:"no-store"}).then(function(response){if(!response.ok)throw Error("Data unavailable");return response.json();}).then(function(json){
   if(!Array.isArray(json.states)||json.states.length!==50||!Array.isArray(json.senate)||json.senate.length===0)throw Error("Invalid election dataset");
   data=json;renderMap();renderRaces();
