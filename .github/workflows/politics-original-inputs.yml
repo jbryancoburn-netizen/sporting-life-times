@@ -49,11 +49,23 @@ jobs:
               assert c['forecast_eligible'] is False
           print('Government input status',s,'FEC:',f['status'],'Census:',c['status'])
           PY
+      - name: Independently audit whether simulation inputs can be certified
+        run: |
+          python -m py_compile scripts/politics_sim_readiness.py
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert d['certified_original_probability_count']==0
+          assert d['house_forecast_ready'] is False
+          print('Evidence audit',d['counts'])
+          PY
       - name: Safely commit original evidence independent of sports
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-fec-inputs.json politics-census-inputs.json politics-input-source-status.json
+          git add politics-fec-inputs.json politics-census-inputs.json politics-input-source-status.json politics-sim-readiness.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh original FEC campaign data and Census district evidence"
             for attempt in $(seq 1 12); do
