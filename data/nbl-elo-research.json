@@ -3,9 +3,9 @@
   "production_approved": false,
   "model": "nbl-retro-season-network-v1",
   "season": "2026-27",
-  "calculated_at": "2026-11-01T04:21:05.126439+00:00",
+  "calculated_at": "2026-11-01T06:20:18.279554+00:00",
   "historical_training_games": 337,
-  "current_regular_season_games": 49,
+  "current_regular_season_games": 50,
   "parameters": {
     "k": 20,
     "home_advantage_elo": 65,
@@ -21,9 +21,9 @@
     "Melbourne United": 1505.3,
     "New Zealand Breakers": 1487.31,
     "Perth Wildcats": 1494.26,
-    "South East Melbourne Phoenix": 1489.97,
+    "South East Melbourne Phoenix": 1478.99,
     "Sydney Kings": 1533.41,
-    "Tasmania JackJumpers": 1520.86
+    "Tasmania JackJumpers": 1531.84
   },
   "season_start_elo": 1500,
   "reset_every_season": true,
@@ -36,85 +36,75 @@
     {
       "rank": 1,
       "team": "Sydney Kings",
-      "elo": 1582.93,
+      "elo": 1584.12,
       "wins": 7,
       "losses": 3
     },
     {
       "rank": 2,
       "team": "Tasmania JackJumpers",
-      "elo": 1560.56,
-      "wins": 6,
+      "elo": 1581.93,
+      "wins": 7,
       "losses": 3
     },
     {
       "rank": 3,
       "team": "Cairns Taipans",
-      "elo": 1531.78,
+      "elo": 1531.9,
       "wins": 6,
       "losses": 5
     },
     {
       "rank": 4,
       "team": "Adelaide 36ers",
-      "elo": 1518.1,
+      "elo": 1517.74,
       "wins": 5,
       "losses": 5
     },
     {
       "rank": 5,
       "team": "Melbourne United",
-      "elo": 1514.05,
+      "elo": 1512.26,
       "wins": 5,
       "losses": 5
     },
     {
       "rank": 6,
       "team": "Perth Wildcats",
-      "elo": 1490.66,
+      "elo": 1487.8,
       "wins": 5,
       "losses": 4
     },
     {
       "rank": 7,
       "team": "New Zealand Breakers",
-      "elo": 1473.78,
+      "elo": 1474.8,
       "wins": 4,
       "losses": 6
     },
     {
       "rank": 8,
       "team": "Brisbane Bullets",
-      "elo": 1467.4,
+      "elo": 1468.94,
       "wins": 4,
       "losses": 5
     },
     {
       "rank": 9,
       "team": "South East Melbourne Phoenix",
-      "elo": 1467.17,
+      "elo": 1446.02,
       "wins": 4,
-      "losses": 5
+      "losses": 6
     },
     {
       "rank": 10,
       "team": "Illawarra Hawks",
-      "elo": 1395.15,
+      "elo": 1395.29,
       "wins": 3,
       "losses": 8
     }
   ],
   "recent_results": [
-    {
-      "id": "401875273",
-      "played_at": "2026-10-24T06:30Z",
-      "home": "Illawarra Hawks",
-      "away": "Brisbane Bullets",
-      "home_score": 81,
-      "away_score": 98,
-      "elo_delta_home": -11.004,
-      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875273/bullets-hawks"
-    },
     {
       "id": "401875275",
       "played_at": "2026-10-24T08:30Z",
@@ -204,6 +194,16 @@
       "away_score": 105,
       "elo_delta_home": -13.456,
       "source_url": "https://www.espn.com/nbl/game/_/gameId/401875285/hawks-wildcats"
+    },
+    {
+      "id": "401875313",
+      "played_at": "2026-11-01T04:00Z",
+      "home": "South East Melbourne Phoenix",
+      "away": "Tasmania JackJumpers",
+      "home_score": 89,
+      "away_score": 98,
+      "elo_delta_home": -10.979,
+      "source_url": "https://www.espn.com/nbl/game/_/gameId/401875313/jackjumpers-phoenix"
     }
   ],
   "prediction_certified": false,
