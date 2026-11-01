@@ -1,0 +1,98 @@
+name: DII full 2026-27 season audit (one shot)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/d2-full-season-audit-once.yml'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: d2-full-season-audit-once
+  cancel-in-progress: false
+jobs:
+  comprehensive-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install HTML source parser
+        run: python -m pip install --quiet beautifulsoup4
+      - name: Check independent mens and womens contracts
+        run: |
+          node --check d2-basketball.js
+          node --test tests/d2-basketball.test.cjs
+          python -m unittest discover -s tests -p 'test_d2_*.py' -v
+      - name: Read all official 2026-27 DII game dates
+        run: |
+          python scripts/build_d2_basketball.py --bootstrap
+          python - <<'PY'
+          import json
+          for gender in ('men','women'):
+              p=json.load(open(f'data/d2-{gender}-2026-27.json'))
+              q=p['quality']
+              assert q['dates_requested']>=175,(gender,'incomplete season-date pass',q)
+              assert q['dates_fetched']>=q['dates_requested']//2,(gender,'not enough sources responded',q)
+              assert p['starting_elo']==1500 and p['gender']==gender
+              assert len({g['id'] for g in p['games']})==len(p['games'])
+              print(gender,'programs',len(p['teams']),'games',len(p['games']),
+                    'DII finals',q['verified_dii_finals'],
+                    'requested dates',q['dates_requested'],
+                    'retrieved dates',q['dates_fetched'],
+                    'unresolved source identities',q.get('ncaa_ingestion',{}).get('unmatched_identity'))
+          PY
+      - name: Preserve full-season audit files as workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dii-2026-27-entire-season-audit
+          path: |
+            data/d2-men-2026-27.json
+            data/d2-women-2026-27.json
+          retention-days: 14
+      - name: Publish audited season ledgers without overwriting concurrent commits
+        id: publish
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/d2-men-2026-27.json data/d2-women-2026-27.json
+          if git diff --cached --quiet; then
+            echo 'No changes to publish'
+            echo 'published=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m 'DII: full-season schedule verification across both genders'
+          for n in 1 2 3 4 5 6 7 8; do
+            if git push origin HEAD:main; then
+              echo 'published=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git fetch origin main
+            if ! GIT_EDITOR=true git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Other writers changed the same data. Verified audit saved as an artifact; no records overwritten.'
+              exit 1
+            fi
+            sleep 2
+          done
+          echo 'Full-season audit artifact saved; could not push safely after eight attempts.'
+          exit 1
+      - name: Redeploy newspaper with verified schedule ledgers
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl --fail --silent --show-error -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'Content-Type: application/json' \
+            https://api.github.com/repos/jbryancoburn-netizen/sporting-life-times/actions/workflows/publish-newspaper.yml/dispatches \
+            -d '{"ref":"main"}'
