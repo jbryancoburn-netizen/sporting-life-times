@@ -1,0 +1,54 @@
+name: Politics official 2026 House district geometry
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/politics_house_geometry.py
+      - politics-house-map.js
+      - .github/workflows/politics-house-geography.yml
+  schedule:
+    - cron: "23 11 * * 1"
+permissions:
+  contents: write
+concurrency:
+  group: politics-house-geography
+  cancel-in-progress: false
+jobs:
+  census-house-geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out main repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch and cross-check 435 district polygons against atlas
+        run: python scripts/politics_house_geometry.py
+      - name: Verify archived district geometry
+        run: python scripts/politics_house_geometry.py --validate-only
+      - name: Publish verified static polygons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-geometry/
+          if git diff --cached --quiet; then
+            echo "No geographic changes."
+            exit 0
+          fi
+          git commit -m "Refresh Census-verified 2026 House district map geometry"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              echo "Official polygons published."
+              exit 0
+            fi
+            echo "Concurrent main update; retrying..."
+            sleep 8
+          done
+          echo "Could not publish after three safe fast-forward attempts."
+          exit 1
