@@ -5,6 +5,9 @@ on:
     - cron: '17 */3 * * *'
   push:
     paths:
+      - 'nbl-team.html'
+      - 'nbl-team.js'
+      - 'nbl-schedule-data.js'
       - 'scripts/publish_nbl_standings.py'
       - 'scripts/publish_nbl_player_stats.py'
       - 'scripts/publish_nbl_research_elo.py'
