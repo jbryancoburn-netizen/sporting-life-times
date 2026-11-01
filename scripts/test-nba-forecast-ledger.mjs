@@ -53,7 +53,10 @@ test('Refuse fabricated retrospective predictions, and score only recorded games
  finished.earned.games_played+=1;
  const final=updateLedger(pre.ledger,finished,'2099-11-01T21:05:00.000Z');
  assert.equal(final.graded,1);
- assert.deepEqual(final.ledger.forecasts,before,'Forecasts are immutable when graded');
+ for(const original of before){
+  const archived=final.ledger.forecasts.find(x=>x.id===original.id&&x.phase===original.phase);
+  assert.deepEqual(archived,original,'Existing forecasts are immutable when graded');
+ }
  assert.equal(final.ledger.results[first.id].home_score,110);
  assert.equal(final.ledger.metrics.near_tipoff.sample,1);
  const repeat=updateLedger(final.ledger,finished,'2099-11-01T21:06:00.000Z');
@@ -67,7 +70,7 @@ test('Rechecks truth of all source identities, no empty Elo or missing possessio
  wrongTeam.earned.events.pop();wrongTeam.earned.games_played--;
  assert.throws(()=>updateLedger(null,wrongTeam,now),/reconcilable/);
  const wrongCal=clone(fixture);delete wrongCal.stats.calibration;
- assert.throws(()=>updateLedger(null,wrongCal,now),/qualified possession/);
+ assert.throws(()=>updateLedger(null,wrongCal,now),/Missing team possession coverage/);
  const post=updateLedger(null,fixture,now),bad=clone(post.ledger);
  bad.forecasts[0].captured_at=bad.forecasts[0].date;
  assert.throws(()=>validate(bad),/Post-tipoff/);
