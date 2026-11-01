@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/d2-artwork-palette-audit.yml'
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: d2-artwork-palette-audit-once
   cancel-in-progress: false
@@ -46,3 +46,20 @@ jobs:
           name: dii-ncaa-school-logo-artwork-color-candidates
           path: data/d2-ncaa-logo-artwork-palette-audit.json
           retention-days: 14
+      - name: Publish auditable NCAA vector palette evidence (not institutional branding)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/d2-ncaa-logo-artwork-palette-audit.json
+          git commit -m 'DII NCAA logo artwork palette evidence for 264 schools'
+          for n in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! GIT_EDITOR=true git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Could not safely publish SVG palette evidence; saved as artifact.'
+              exit 1
+            fi
+            sleep 2
+          done
+          exit 1
