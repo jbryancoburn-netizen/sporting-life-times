@@ -11,12 +11,15 @@ class BallotAuditTests(unittest.TestCase):
 
     def test_actual_official_seed_coverage_without_forecast_permission(self):
         result = validate(self.ledger)
-        self.assertEqual(result["house_contests_transcribed"], 15)
+        self.assertEqual(result["house_contests_transcribed"], 41)
         self.assertEqual(result["senate_contests_transcribed"], 2)
-        self.assertEqual(result["candidate_ballot_entries"], 47)
+        self.assertEqual(result["candidate_ballot_entries"], 127)
         self.assertTrue(result["state_coverage"]["NC"]["full_house_snapshot"])
         self.assertFalse(result["state_coverage"]["FL"]["full_house_snapshot"])
         self.assertEqual(result["certified_2026_probability_count"], 0)
+        self.assertEqual(result["house_contests_unverified"], 394)
+        self.assertEqual(result["state_coverage"]["FL"]["house"], 27)
+        self.assertNotIn("FL-10", [r["id"] for r in self.ledger["races"]])
         self.assertFalse(result["all_435_house_races_covered"])
 
     def test_no_duplicate_race(self):
