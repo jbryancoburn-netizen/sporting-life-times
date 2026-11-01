@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-01T22:38:03.608286+00:00",
+  "checked_at_utc": "2026-11-01T22:54:14.834467+00:00",
   "source": "NCAA scoreboard via ncaa-api compatibility endpoint",
   "games": [
     {
@@ -1878,21 +1878,21 @@
     {
       "match_id": "men-6663244",
       "cohort": "men-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 2,
       "home_name": "Cal St. San Marcos",
       "away_name": "Cal Poly Pomona",
       "home_id": "cal-st-san-marcos",
       "away_id": "cal-poly-pomona",
-      "period": "OT",
+      "period": "FINAL (OT)",
       "source_url": "https://www.ncaa.com/game/6663244"
     },
     {
       "match_id": "men-6663245",
       "cohort": "men-d2",
       "status": "live",
-      "home_score": 1,
+      "home_score": 2,
       "away_score": 0,
       "home_name": "CSUSB",
       "away_name": "UC Merced",
@@ -2691,7 +2691,7 @@
       "away_name": "Westminster (UT)",
       "home_id": "uc-colo-springs",
       "away_id": "westminster-ut",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6664836"
     },
     {
@@ -4596,7 +4596,7 @@
       "match_id": "women-6609592",
       "cohort": "women-d1",
       "status": "live",
-      "home_score": 0,
+      "home_score": 1,
       "away_score": 1,
       "home_name": "Portland St.",
       "away_name": "Eastern Wash.",
@@ -4701,7 +4701,7 @@
       "cohort": "women-d1",
       "status": "live",
       "home_score": 0,
-      "away_score": 1,
+      "away_score": 2,
       "home_name": "Miami (FL)",
       "away_name": "Florida St.",
       "home_id": "miami-fl",
@@ -4933,14 +4933,14 @@
     {
       "match_id": "women-6612061",
       "cohort": "women-d3",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 2,
       "home_name": "St. Thomas (TX)",
       "away_name": "Hendrix",
       "home_id": "st-thomas-tx",
       "away_id": "hendrix",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6612061"
     },
     {
@@ -5096,7 +5096,7 @@
       "away_name": "Lewis & Clark",
       "home_id": "pacific-lutheran",
       "away_id": "lewis-clark",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6612512"
     },
     {
@@ -5122,7 +5122,7 @@
       "away_name": "Whitworth",
       "home_id": "george-fox",
       "away_id": "whitworth",
-      "period": "1ST HALF",
+      "period": "HALF",
       "source_url": "https://www.ncaa.com/game/6612560"
     },
     {
@@ -5304,7 +5304,7 @@
       "away_name": "Linfield",
       "home_id": "puget-sound",
       "away_id": "linfield",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6613046"
     },
     {
@@ -5876,7 +5876,7 @@
       "away_name": "Whitman",
       "home_id": "willamette",
       "away_id": "whitman",
-      "period": "HALF",
+      "period": "2ND HALF",
       "source_url": "https://www.ncaa.com/game/6615201"
     },
     {
@@ -6207,14 +6207,14 @@
     {
       "match_id": "women-6663612",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 1,
       "away_score": 1,
       "home_name": "Union (TN)",
       "away_name": "UAH",
       "home_id": "union-tn",
       "away_id": "ala-huntsville",
-      "period": "3OT",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6663612"
     },
     {
@@ -7156,14 +7156,14 @@
     {
       "match_id": "women-6664986",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 1,
       "home_name": "Glenville St.",
       "away_name": "Point Park",
       "home_id": "glenville-st",
       "away_id": "point-park",
-      "period": "2ND HALF",
+      "period": "FINAL",
       "source_url": "https://www.ncaa.com/game/6664986"
     },
     {
@@ -7171,7 +7171,7 @@
       "cohort": "women-d2",
       "status": "live",
       "home_score": 2,
-      "away_score": 0,
+      "away_score": 1,
       "home_name": "Fairmont St.",
       "away_name": "West Va. Wesleyan",
       "home_id": "fairmont-st",
@@ -7416,14 +7416,14 @@
     {
       "match_id": "women-6665586",
       "cohort": "women-d2",
-      "status": "live",
+      "status": "final",
       "home_score": 0,
       "away_score": 0,
       "home_name": "Cal State LA",
       "away_name": "Stanislaus St.",
       "home_id": "cal-st-la",
       "away_id": "cal-st-stanislaus",
-      "period": "2OT",
+      "period": "FINAL/PK",
       "source_url": "https://www.ncaa.com/game/6665586"
     },
     {
