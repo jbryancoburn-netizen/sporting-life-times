@@ -12,10 +12,10 @@ def main():
   try:
    public=json.loads(get("data/college-soccer-elo.json?attempt="+str(int(time.time()))))
    html=get("college-soccer.html")
-   script=get("college-soccer-elo.js")
+   script=get("college-soccer-visual-desk.js")
    assert public==expected,"public Elo differs from committed feed"
-   assert 'id="college-soccer-elo"' in html,"missing Elo container"
-   assert 'college-soccer-elo.js' in html,"missing browser loader"
+   assert 'id="college-soccer-visual-desk"' in html,"missing live visual desk container"
+   assert 'college-soccer-visual-desk.js' in html,"missing visual desk browser loader"
    assert "data/college-soccer-elo.json" in script,"loader does not read Elo feed"
    assert len(public.get("cohorts",{}))==6,"missing NCAA division"
    print(json.dumps({"status":"PASS","as_of":public["as_of"],"applied_finals":public.get("applied_finals_since_baseline"),"teams":sum(map(len,public["cohorts"].values()))}))
