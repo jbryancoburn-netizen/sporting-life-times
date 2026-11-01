@@ -3,6 +3,7 @@
 import importlib.util
 import math
 import unittest
+import re
 from pathlib import Path
 
 spec=importlib.util.spec_from_file_location("nfl",Path(__file__).with_name("build_nfl_edition.py"))
@@ -14,6 +15,26 @@ def mk(game_id,away,home,ascore,hscore,date="2026-09-10T23:20:00Z",state="post")
         "home":{"id":str(home),"name":nfl.META[home][0],"score":hscore},"state":state}
 
 class EloTests(unittest.TestCase):
+    def test_nfl_crest_has_exactly_two_bands(self):
+        root=Path(__file__).resolve().parents[1]
+        css=(root/"nfl-edition.css").read_text(encoding="utf-8")
+        javascript=(root/"nfl-edition.js").read_text(encoding="utf-8")
+        styles=re.sub(r"/\\*[\\s\\S]*?\\*/", "", css)
+        self.assertNotIn(".nfl-crest",styles,
+            "Old legacy crest selectors must never be reintroduced")
+        self.assertIn(".nfl-paper .nfl-two-band{",styles)
+        self.assertIn("#fff 0 67%,var(--secondary) 67% 84%,var(--primary) 84% 100%",styles)
+        self.assertIn("border:0!important",styles)
+        self.assertIn(".nfl-paper .nfl-two-band::before,.nfl-paper .nfl-two-band::after",styles)
+        self.assertIn("content:none!important",styles)
+        self.assertIn('class="nfl-two-band ',javascript)
+        self.assertNotIn('class="nfl-crest ',javascript)
+        for name in ["nfl.html","nfl-standings.html","nfl-rankings.html","nfl-players.html","nfl-schedule.html","nfl-game-center.html","nfl-team.html","nfl-game.html","nfl-playoffs.html"]:
+            with self.subTest(page=name):
+                page=(root/name).read_text(encoding="utf-8")
+                self.assertIn("nfl-edition.css?v=20261101-nfl-two-colors-clean9",page)
+                self.assertIn("nfl-edition.js?v=20261101-nfl-two-colors-clean9",page)
+
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
         self.assertEqual(len(t),32)
