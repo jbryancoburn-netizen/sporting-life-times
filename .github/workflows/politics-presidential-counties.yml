@@ -1,0 +1,65 @@
+name: Independent MIT 2024 presidential county returns
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/politics_presidential_counties.py'
+      - 'test_politics_presidential_counties.py'
+      - '.github/workflows/politics-presidential-counties.yml'
+  schedule:
+    - cron: '11 12 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: politics-presidential-county-inputs
+  cancel-in-progress: false
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test historical county votes and protect boundaries
+        run: |
+          python -m py_compile scripts/politics_presidential_counties.py
+          python -m unittest -v test_politics_presidential_counties
+      - name: Download original MIT county-level 2024 presidential votes
+        id: download
+        continue-on-error: true
+        run: python scripts/politics_presidential_counties.py
+      - name: Audit complete 2024 source
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-2024-county-presidential.json'))
+          s=json.load(open('politics-presidential-source-status.json'))
+          if s["status"]=="success":
+              assert d["status"]=="ok"
+              assert d["county_count"]>=2300 and d["state_count"]==51
+              assert d["two_party_votes"]>=100_000_000
+              assert len({c["id"] for c in d["counties"]})==len(d["counties"])
+              assert d["certified_for_2026_house_forecast"] is False
+          print('President county source:',s,'published:',d['status'])
+          PY
+      - name: Commit verified observations without touching sports workflows
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-2024-county-presidential.json politics-presidential-source-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update attributed 2024 county presidential returns"
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo "Published county historical evidence"
+                exit 0
+              fi
+              sleep 3
+            done
+            exit 1
+          fi
