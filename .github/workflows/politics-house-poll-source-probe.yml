@@ -1,0 +1,34 @@
+name: Temporary 2026 House poll source-structure inspection
+on:
+  workflow_dispatch:
+  push:
+    branches: [politics-house-poll-depth-20261101]
+    paths:
+      - '.github/workflows/politics-house-poll-source-probe.yml'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect web layout only, with no poll import
+        run: |
+          python - <<'PY'
+          import urllib.request,html,re
+          for name,url in [('peoplespoll','https://peoplespoll.com/house'),('pollingsource','https://pollingsource.com/house')]:
+              try:
+                  req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (public 2026 congressional polling research)'})
+                  with urllib.request.urlopen(req,timeout=25) as response:
+                      data=response.read(4_000_000).decode('utf-8',errors='replace')
+                  print('SOURCE',name,'LENGTH',len(data),'SAMPLE',repr(data[:500]))
+                  for needle in ['California 1','Mike McGuire','AZ-01','Shah','house-poll','house-race','poll-row']:
+                      i=data.lower().find(needle.lower())
+                      if i>=0:print('MATCH',name,needle,'INDEX',i,repr(data[max(0,i-450):i+750]))
+              except Exception as e:
+                  print('SOURCE_FAILED',name,repr(e))
+          PY
