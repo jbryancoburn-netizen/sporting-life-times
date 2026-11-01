@@ -34,6 +34,11 @@ SOURCES = {
         (122, "https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
         (713, "https://bantamsports.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (715, "https://trinitytigers.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (21, "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (4, "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (656, "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (326, "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (520, "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"),
     ],
     "women": [
         (30037, "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true"),
@@ -44,6 +49,15 @@ SOURCES = {
         (271, "https://hsuathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (122, "https://athletics.case.edu/sports/womens-basketball/schedule/2026-27?grid=true"),
         (326, "https://hornets.kzoo.edu/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (21, "https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (4, "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (398, "https://mitathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (1203, "https://cruathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"),
+        (770, "https://westconnathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (163, "https://camelathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (722, "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (142, "https://cmsathletics.org/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (300, "https://www.iwusports.com/sports/womens-basketball/schedule/2026-27?grid=true"),
     ],
 }
 # Institutional nicknames are used only when explicitly unambiguous.
@@ -136,7 +150,7 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
     visible = compact(doc.get_text(" ", strip=True)).lower()
     title = compact(doc.title.get_text(" ", strip=True)) if doc.title else ""
     kind = "men's basketball" if gender == "men" else "women's basketball"
-    if not ("2026-27" in visible or "2026-27" in title):
+    if not any(s in visible or s in title for s in ("2026-27", "2026-2027")):
         raise ValueError("2026–27 season not found in official school page")
     if kind not in (title + " " + visible[:2200]).lower():
         raise ValueError("Wrong sport/gender on school schedule")
