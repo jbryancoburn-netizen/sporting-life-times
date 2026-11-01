@@ -11,19 +11,21 @@ class BallotAuditTests(unittest.TestCase):
 
     def test_actual_official_seed_coverage_without_forecast_permission(self):
         result = validate(self.ledger)
-        self.assertEqual(result["house_contests_transcribed"], 42)
+        self.assertEqual(result["house_contests_transcribed"], 43)
         self.assertEqual(result["senate_contests_transcribed"], 3)
-        self.assertEqual(result["candidate_ballot_entries"], 133)
+        self.assertEqual(result["candidate_ballot_entries"], 134)
         self.assertTrue(result["state_coverage"]["NC"]["full_house_snapshot"])
-        self.assertFalse(result["state_coverage"]["FL"]["full_house_snapshot"])
+        self.assertTrue(result["state_coverage"]["FL"]["full_house_snapshot"])
         self.assertEqual(result["certified_2026_probability_count"], 0)
-        self.assertEqual(result["house_contests_unverified"], 393)
-        self.assertEqual(result["state_coverage"]["FL"]["house"], 27)
+        self.assertEqual(result["house_contests_unverified"], 392)
+        self.assertEqual(result["state_coverage"]["FL"]["house"], 28)
         self.assertEqual(result["state_coverage"]["WY"]["house"], 1)
         self.assertTrue(result["state_coverage"]["WY"]["full_house_snapshot"])
-        self.assertEqual(result["florida_unverified_districts"], ["10"])
+        self.assertEqual(result["florida_unverified_districts"], [])
         self.assertEqual(result["qualified_write_in_entries_not_printed_on_ballot"], 9)
-        self.assertNotIn("FL-10", [r["id"] for r in self.ledger["races"]])
+        self.assertEqual(result["unopposed_offices_without_general_ballot"], ["FL-10"])
+        self.assertEqual(result["house_general_ballot_contests_transcribed"], 42)
+        self.assertEqual(self.ledger["races"][[r["id"] for r in self.ledger["races"]].index("FL-10")]["candidates"][0]["name"], "Maxwell Alejandro Frost")
         self.assertFalse(result["all_435_house_races_covered"])
 
     def test_no_duplicate_race(self):
