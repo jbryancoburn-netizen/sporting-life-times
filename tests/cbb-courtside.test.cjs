@@ -14,7 +14,7 @@ assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'))
 assert(shell.includes('slt-courtside-network.js'));
 assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-title'),'Hardwood uses text-only editorial branding');
 function load(gender){
-  const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink};\n})();');
+  const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
   assert(patch.includes('globalThis.SLTTest'),'test harness injection');
   const sandbox={
     console,Date,Intl,URL,URLSearchParams,Number,Map,Set,Math,String,Array,RegExp,Promise,
@@ -64,12 +64,32 @@ const snapshot=men.normalizeSnapshot({id:'401920982',date:'2026-11-01T14:30Z',st
  {id:'222',home_away:'home',name:'Villanova Wildcats',score:'35'}
 ]});
 assert.equal(snapshot.phase,'upcoming','stale snapshots must not be LIVE');
+
+assert(js.includes("fetchJSON('data/mbb-retro-live-finals.json')"),'verified historical finals must be loaded for prior game dates');
+
 const xref=read('data/ncaam-2026-27-espn-team-crosswalk.json');
 const ratings=read('data/ncaam-2026-27-retro-primary.json');
 assert.equal(ratings.starting_elo,1500);
 const byNCAA=new Map(xref.teams.map(t=>[String(t.id),String(t.espn_id)]));
 for(const t of ratings.rankings){const id=byNCAA.get(String(t.team_id));if(id)men.state.ratings.set(id,t);}
 men.state.ratingsReady=men.state.ratings.size===365;
+
+for(const t of xref.teams)men.state.crosswalk.set(String(t.espn_id),String(t.id));
+const ledger=read('data/mbb-retro-live-finals.json');
+const historical=men.certifiedArchivedFinals('2026-11-01',ledger);
+assert(historical.some(g=>g.id==='401920982'&&Number(g.away.score)===74&&Number(g.home.score)===72),
+  'independent historical final must remain available after crosscheck data becomes stale');
+const outdated={...rawLive,status:{type:{state:'post',shortDetail:'Final'},displayClock:'0:00',period:2},
+ competitions:[{...rawLive.competitions[0],competitors:rawLive.competitions[0].competitors.map(t=>({
+   ...t,score:t.team.id==='87'?'74':'70'
+ }))}]};
+const archived=men.courtDayFeed('2026-11-01',{events:[outdated]},null,ledger);
+const certified=archived.games.find(g=>g.id==='401920982');
+assert(certified&&certified.phase==='final'&&Number(certified.away.score)===74&&Number(certified.home.score)===72,
+  'NCAA 74-72 final must supersede stale ESPN 74-70 on historical dates');
+assert.equal(certified.statsDisputed,true,'conflicting ESPN box and play stats must be quarantined');
+assert(!men.scorebug(certified).includes('cbb-micro-statline'),'disputed stats cannot pollute score card');
+
 men.state.preseason=true;
 const first=men.modelFor(live);
 assert(first&&first.available===false,'preseason cannot invent a favorite');
@@ -153,7 +173,7 @@ const court=courtWorld.window.SLTCourt;
 assert(court&&typeof court.parsePlays==='function'&&typeof court.mount==='function');
 const playRows=[
  {id:'100',text:'Notre Dame made three point jumper',shootingPlay:true,scoringPlay:true,
-  coordinate_x:15,coordinate_y:22,team:{id:'87'},period:{number:1},clock:{displayValue:'12:20'}},
+  coordinate_x:15,coordinate_y:22,coordinate_system:'halfcourt_feet_v1',team:{id:'87'},period:{number:1},clock:{displayValue:'12:20'}},
  {id:'101',text:'Villanova defensive rebound',team:{id:'222'},period:{number:1},clock:{displayValue:'12:15'}},
  {id:'102',text:'Villanova turnover',team:{id:'222'},period:{number:1},clock:{displayValue:'12:07'}}
 ];
@@ -162,7 +182,9 @@ assert.equal(court.parsePlays({}).length,0,'no fabricated play data');
 assert.equal(court.parsePlays({plays:{items:playRows}}).length,3,'ESPN item container supported');
 const fakeGame={id:'401920982',phase:'final',away:{team:{id:'87',abbreviation:'ND'}},
  home:{team:{id:'222',abbreviation:'VILL'}}};
-assert(court.location(court.parsePlays({plays:playRows})[0])?.x>50,'only source shot coordinates may generate a point');
+assert(court.location(court.parsePlays({plays:playRows})[0])?.x>50,'approved normalized shot coordinates may generate a point');
+assert.equal(court.location(court.parsePlays({plays:[{text:'Made shot',shootingPlay:true,coordinate_x:15,coordinate_y:22}]})[0]),null,
+ 'unlabeled coordinates cannot be guessed as court coordinates');
 assert.equal(court.location(court.parsePlays({plays:playRows})[1]),null,'a rebound cannot have an invented ball coordinate');
 assert.equal(court.location(court.parsePlays({plays:playRows})[2]),null,'a turnover cannot have an invented ball coordinate');
 assert.equal(court.location(court.parsePlays({plays:[{id:'103',text:'Player substitution',team:{id:'222'}}]})[0]),null,'substitutions never move a ball');
@@ -183,6 +205,38 @@ const realScorePlays=[
  {id:'c',text:'Away dunk',awayScore:4,homeScore:3,period:{number:1}}
 ];
 const flowPlays=court.parsePlays({plays:realScorePlays});
+
+const finalConflict={...fakeGame,away:{...fakeGame.away,score:'74'},home:{...fakeGame.home,score:'72'}};
+const staleFinalPlays=court.parsePlays({plays:[
+ {id:'z1',text:'Foul',awayScore:70,homeScore:70,clock:{displayValue:'0:30'},period:{number:2}},
+ {id:'z2',text:'Away 3PT',awayScore:73,homeScore:70,clock:{displayValue:'0:10'},period:{number:2}},
+ {id:'z3',text:'Away free throw',awayScore:74,homeScore:70,clock:{displayValue:'0:00'},period:{number:2}}
+]});
+assert.match(court.verifyPlayScores(staleFinalPlays,finalConflict).reason,/disagree with the verified final/);
+assert.equal(court.gameFlow(staleFinalPlays,finalConflict),'','70-point stale final must not produce a source-conflicting chart');
+const wrongNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
+court.mount(wrongNode,finalConflict,{plays:[
+ {id:'z1',text:'Foul',awayScore:70,homeScore:70},
+ {id:'z2',text:'Away scores',awayScore:73,homeScore:70},
+ {id:'z3',text:'Away free throw',awayScore:74,homeScore:70}
+]},{updatedAt:Date.now()});
+assert.match(wrongNode.innerHTML,/GAME FLOW UNAVAILABLE/,'false scoring timeline must display a plain conflict notice');
+assert(!wrongNode.innerHTML.includes('<polyline'),'no score curve drawn from disputed official final');
+const reverse=court.parsePlays({plays:[
+ {id:'r1',text:'End play',awayScore:74,homeScore:72,period:{number:2},clock:{displayValue:'0:01'}},
+ {id:'r2',text:'Middle play',awayScore:72,homeScore:70,period:{number:2},clock:{displayValue:'0:20'}},
+ {id:'r3',text:'Earlier play',awayScore:70,homeScore:70,period:{number:2},clock:{displayValue:'0:40'}}
+]});
+assert.equal(reverse[0].id,'r3','reverse-ordered provider events must be chronological before replay');
+assert.equal(reverse.at(-1).id,'r1','last play must actually be most recent');
+assert.equal(court.verifyPlayScores(reverse,{...finalConflict,away:{...finalConflict.away,score:74},home:{...finalConflict.home,score:72}}).ok,true);
+const rollback=court.parsePlays({plays:[
+ {id:'1',text:'Score',awayScore:4,homeScore:2},
+ {id:'2',text:'Data rollback',awayScore:2,homeScore:2},
+ {id:'3',text:'Score',awayScore:5,homeScore:4}
+]});
+assert.equal(court.verifyPlayScores(rollback).ok,false,'score rollback must not be graphed');
+
 assert.match(court.gameFlow(flowPlays),/GAME FLOW/,'source score progression renders live visual');
 assert.match(court.gameFlow(flowPlays),/AWAY 4/,'curve uses actual final play scores');
 assert.match(court.gameFlow(flowPlays),/HOME 3/,'does not invent score');
@@ -200,7 +254,7 @@ assert.match(missingNode.innerHTML,/No verified play-by-play/,'missing source sh
 assert.match(missingNode.innerHTML,/NO VERIFIED SHOT LOCATIONS/,'empty court never pretends player or ball tracking');
 assert(courtFile.includes('cbb-live-court.js')&&courtFile.includes('cbb-live-court.css'),
  'CourtCast JS and CSS must actually load in the dedicated Gamefile');
-assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw)"),
+assert(js.includes("SLTCourt.mount(document.getElementById('cbb-courtcast-root'),g,raw,{updatedAt:entry?.at||0})"),
  'Gamefile must mount on verified score-and-plays summary, without a separate unverified feed');
 assert(courtCSS.includes('prefers-reduced-motion'),'accessible reduced-motion state is required');
 assert(!courtSource.includes("function location(play,g)"), 'remove guessed team-side event positions');
