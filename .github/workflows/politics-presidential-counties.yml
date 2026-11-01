@@ -59,7 +59,8 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-2024-county-presidential.json politics-presidential-source-status.json politics-sim-readiness.json
+          git restore --worktree politics-sim-readiness.json
+          git add politics-2024-county-presidential.json politics-presidential-source-status.json
           if ! git diff --cached --quiet; then
             git commit -m "Update attributed 2024 county presidential returns"
             for attempt in $(seq 1 12); do
