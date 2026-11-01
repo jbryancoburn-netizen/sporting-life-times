@@ -1,7 +1,7 @@
 /* COURTCAST / The Sporting Life & Times. Sourced plays, not optical tracking. */
 (function(global){
 'use strict';
-const contexts=new WeakMap(),MAX=12;
+const contexts=new WeakMap(),activeByGame=new Map(),MAX=12;
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function parsePlays(data){
   let raw=data?.plays;
@@ -96,10 +96,16 @@ function replay(c){
 }
 function mount(node,game,summary){
  if(!node||!game)return;
+ const key=String(game.id||'')+'/'+String(game.away?.team?.id||'');
  let c=contexts.get(node);
  if(!c){
-  c={node,game,plays:[],follow:true,selected:null,timer:null,previousPlay:null};
+  const prior=activeByGame.get(key);
+  if(prior)stop(prior);
+  c={node,game,plays:[],follow:prior?.follow??true,selected:prior?.selected??null,
+     timer:null,previousPlay:prior?.previousPlay??null};
   contexts.set(node,c);
+  activeByGame.set(key,c);
+  if(activeByGame.size>40)activeByGame.delete(activeByGame.keys().next().value);
   node.addEventListener('click',e=>{
    const b=e.target.closest('[data-slc-play],[data-slc-action]');
    if(!b||!node.contains(b))return;
