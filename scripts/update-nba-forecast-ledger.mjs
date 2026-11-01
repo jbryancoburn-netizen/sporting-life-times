@@ -69,7 +69,22 @@ function updateLedger(previous,sources,now=new Date().toISOString()){
  const model=rabby.build(stats,4,history);
  assert.ok(model&&model.coverage.teams===30,'Missing team possession coverage');
  const verified=new Map(earned.events.map(g=>[g.id,g]));
- assert.ok(stats.games.every(g=>verified.has(g.id)),'Possession data not reconcilable to earned Elo');
+ // Provider identifiers are not guaranteed identical. ESPN and NBA official
+ // boxscore records can refer to the same contest with different ID schemes.
+ // Match only when final team identity, exact final points and game time agree.
+ const agrees=(box,final)=>{
+  const stamped=Math.abs(Date.parse(box.date)-Date.parse(final.date));
+  return box.home.code===final.home&&box.away.code===final.away&&
+   box.home.points===final.home_score&&box.away.points===final.away_score&&
+   Number.isFinite(stamped)&&stamped<24*3600000;
+ };
+ const reconcileBox=box=>{
+  const direct=verified.get(box.id);
+  if(direct)return agrees(box,direct);
+  const matches=earned.events.filter(g=>agrees(box,g));
+  return matches.length===1;
+ };
+ assert.ok(stats.games.every(reconcileBox),'Possession data not reconcilable to earned Elo');
  assert.ok(Date.parse(stats.updated_at)<=t+300000,'Future-dated possession dataset');
  assert.ok(stats.games.every(g=>Date.parse(g.date)<t),'Future game in historic scoring inputs');
  const ledger=previous?structuredClone(previous):{
