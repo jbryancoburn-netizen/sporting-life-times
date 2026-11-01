@@ -82,3 +82,10 @@ House charts display only these separately attributed *official seat winners*. M
 ## Poll source coverage and honest non-publication
 
 The VoteHub beta API may provide fewer than three distinct eligible pollsters over the last 35 days. The national average is withheld in that case; the pipeline instead publishes `politics-poll-health.json` containing the last attempted refresh time, candidate count, valid poll count, independent pollsters, excluded records, and reasons for withholding. It does not extend the lookback to an unjustifiably stale window or backfill with invented polling numbers.
+
+
+## Ranked-choice and uncertified-election safety correction
+
+The source extraction previously treated a ranked-choice administrative row labelled **EXHAUSTED BALLOT** as if it were an individual candidate in Maine's second district. The parser now excludes named ballot-administration categories from candidate vote rankings. Maine's second district in 2022 and 2024 is reconciled to the official state-certified Democratic winner, Jared Golden, and its raw two-party margin is excluded from longitudinal forecasting comparisons until the final round totals and candidate vote decomposition are verified. Official Maine 2022 ranked-choice results: https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/Rep%20to%20Congress%20Dist%202%20RCV%20results.pdf ; Maine election archives: https://www.maine.gov/sos/elections-voting/election-results-data/
+
+The uncertified 2018 **NC-09** contest is excluded from recognized winners, even when unofficial rows have numerical vote totals. It is retained in the audit as an unresolved election, matching House Historian documentation. The remaining missing uncontested candidate records are still not imputed. No 2026 election forecast is certified by these repairs alone.

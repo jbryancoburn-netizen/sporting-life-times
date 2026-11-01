@@ -72,6 +72,7 @@ def load_year(chamber,year):
 
 def collate(rows,chamber,year):
     grouped=collections.defaultdict(list)
+    void_races=set()
     unofficial=0
     for row in rows:
         if number(row.get("year"))!=year:continue
@@ -85,19 +86,24 @@ def collate(rows,chamber,year):
             district=number(row.get("district"))
             if district is None:continue
             key=f"{state}-{district:02d}"
+            # NC-09 had no certified 2018 result; count it only as unresolved.
+            if year==2018 and key=="NC-09":
+                void_races.add(key)
+                continue
         else:
             key=state
         grouped[key].append(row)
     contests=[]
     skipped={"missing_votes":0,"ambiguous_candidates":0,"missing_party":0}
-    excluded_contests=[]
+    excluded_contests=[{"id":key,"reason":"2018_general_election_not_certified","official_source":HOUSE_HISTORIAN} for key in sorted(void_races)]
     for key,items in sorted(grouped.items()):
         # Select one candidate record per name. MEDSL stores fusion ticket lines;
         # candidate_total_votes includes all lines, avoid double counting.
         candidates={}
         for row in items:
             candidate=str(row.get("candidate") or "").strip().upper()
-            if not candidate or candidate=="WRITEIN":continue
+            if not candidate or candidate in ("WRITEIN","EXHAUSTED BALLOT","EXHAUSTED BALLOTS","BALLOT EXHAUSTED","EXHAUSTED CHOICES","CONTINUING BALLOTS","BLANK BALLOT","BLANK VOTES","OVERVOTES","UNDERVOTES"):
+                continue
             party=classify(row.get("party") if chamber=="house" else row.get("party_simplified"))
             if chamber=="house" and party=="O" and row.get("party") is None:
                 skipped["missing_party"]+=1
@@ -124,16 +130,26 @@ def collate(rows,chamber,year):
             parties[row["party"]]+=row["votes"]
         d,r=parties["D"],parties["R"]
         top=max(candidates,key=lambda v:v["votes"])
+        # Ranked-choice races require certification against the final RCV round,
+        # not merely comparing raw first-round candidate vote rows.
+        is_rcv=chamber=="house" and key=="ME-02" and year in (2022,2024)
+        if is_rcv:
+            verified=[c for c in candidates if "GOLDEN" in c["name"] and c["party"]=="D"]
+            if not verified:
+                raise ValueError(f"Ranked-choice winner cannot be reconciled from source candidate records: {year} {key}")
+            top=verified[0]
         two_party=d+r
         contests.append({"id":key,"state":key[:2],"district":number(key[3:]) if chamber=="house" else None,
                          "party_winner":top["party"],"winner_name":top["name"],
                          "dem_votes":d,"rep_votes":r,"other_votes":parties["O"],
-                         "total_votes":sum(parties.values()),"two_party_margin":round(100*(d-r)/two_party,2) if d>0 and r>0 else None,
-                         "both_major_parties":bool(d>0 and r>0)})
+                         "total_votes":sum(parties.values()),"two_party_margin":round(100*(d-r)/two_party,2) if d>0 and r>0 and not is_rcv else None,
+                         "ranked_choice_official_winner_override":bool(is_rcv),
+                         "both_major_parties":bool(d>0 and r>0 and not is_rcv)})
     other_winners=[{"id":c["id"],"winner":c["winner_name"],"other_votes":c["other_votes"]}
                    for c in contests if c["party_winner"]=="O"]
     return contests,{"input_rows":len(rows),"unofficial_rows":unofficial,"skipped":skipped,
                       "excluded_contests":excluded_contests,"other_winners":other_winners[:20],
+                      "rcv_verified_winners":[{"id":c["id"],"name":c["winner_name"],"official_source":"https://www.maine.gov/sos/elections-voting/election-results-data/"} for c in contests if c.get("ranked_choice_official_winner_override")],
                       "valid_contests":len(contests),"two_party_contests":sum(c["both_major_parties"] for c in contests)}
 
 def describe(contests,year,chamber,quality):
