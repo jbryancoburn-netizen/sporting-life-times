@@ -28,7 +28,7 @@ function school(id){return state.teams.get(String(id))||{id:String(id),name:id,s
 function row(t,i,withRank=true){return '<div class="board-row"><span>'+(withRank?i+1:'')+'</span>'+logo(t)+'<a class="school-link" href="'+link(t)+'">'+name(t)+memberBadge(t)+'</a><span>'+(t.w||0)+'–'+(t.l||0)+'</span><span>'+Math.round(pct(t)*1000)/10+'%</span><span class="elo">'+Number(t.elo||1500).toFixed(0)+'</span></div>'}
 function game(g,includeLink=true){
  const away=school(g.away),home=school(g.home),final=g.status==='final';
- const time=g.start_time||'Tipoff not announced';
+ const time=g.start_time||(g.tipoff_as_posted?g.tipoff_as_posted+' · GLIAC TIME ZONE UNCONFIRMED':'Tipoff not announced');
  const broadcast=g.network?(g.stream_url&&/^https:\/\//.test(g.stream_url)?'<a target="_blank" rel="noopener noreferrer" href="'+esc(g.stream_url)+'">'+esc(g.network)+' ↗</a>':esc(g.network)):'TV / STREAM UNCONFIRMED';
  const broadcastType=g.network&&g.broadcast_type?'<small>'+esc(g.broadcast_type)+'</small>':'';
  const winA=final&&Number(g.away_score)>Number(g.home_score);
