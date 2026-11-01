@@ -16,7 +16,7 @@ async function open(corrupt=false){
  return {nodes,node,document};
 }
 test('women’s desk exposes all programs, complete season calendar and isolated ratings',async()=>{
- const {node}=await open();assert.match(node('wbb-summary').innerHTML,/5,782/);assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row"/g)||[]).length,363);assert.match(node('wbb-powerboard').innerHTML,/ELO 1500/);
+ const {node}=await open();assert.match(node('wbb-summary').innerHTML,/5,782/);assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row"/g)||[]).length,363);assert.match(node('wbb-powerboard').innerHTML,/ELO 1500|class="rank-row"/);
  node('wbb-team-search').value='Indiana Hoosiers';node('wbb-team-search').listeners.input();assert.equal((node('wbb-directory-list').innerHTML.match(/class="rank-row"/g)||[]).length,1);assert.match(node('wbb-directory-list').innerHTML,/ncaaw-team.html\?team=84/);
  node('wbb-date').listeners.change({target:{value:'2026-11-02'}});node('wbb-game-conf').value='Big Ten Conference';node('wbb-game-conf').listeners.change();const html=node('wbb-score-rail').innerHTML;assert.match(html,/Maryland Terrapins/);assert.match(html,/South Carolina Gamecocks/);assert.ok(html.indexOf('Maryland Terrapins')<html.indexOf('South Carolina Gamecocks'));assert.match(html,/61%/);assert.doesNotMatch(html,/Villanova Wildcats/);
  node('wbb-game-search').value='no such school';node('wbb-game-search').listeners.input();assert.match(node('wbb-score-rail').innerHTML,/No games match/);

@@ -28,6 +28,9 @@ async function desk(teamId,disputed=false){
     URLSearchParams,encodeURIComponent,
     fetch:async path=>({ok:true,json:async()=>lookups[path]||{}}),
   };
+  // The page now uses one shared result identity module.
+  vm.runInNewContext(fs.readFileSync('wbb-game-results.js','utf8'),
+    {window:context.window,Date,Map,Set,Number,String,Array});
   vm.runInNewContext(match[1],context);
   for(let i=0;i<25;i++)await new Promise(setImmediate);
   return root.innerHTML;
@@ -35,13 +38,13 @@ async function desk(teamId,disputed=false){
 
 test('neutral-site final follows actual ESPN home/away identity for each school',async()=>{
   const away=await desk('1');
-  assert.match(away,/>W 74–70<\/td>/);
+  assert.match(away,/<strong>W 74–70<\/strong>/);
   const home=await desk('2');
-  assert.match(home,/>L 70–74<\/td>/);
+  assert.match(home,/<strong>L 70–74<\/strong>/);
 });
 
 test('completed neutral final is not kept in a pregame tipoff dispute state',async()=>{
   const result=await desk('1',true);
-  assert.match(result,/>W 74–70<\/td>/);
+  assert.match(result,/<strong>W 74–70<\/strong>/);
   assert.doesNotMatch(result,/Disputed — verify/);
 });
