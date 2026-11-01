@@ -47,6 +47,37 @@ def parse_scores(data):
         out.append({'id':event['id'],'date':event.get('date'),'state':status.get('state'),'status':status.get('shortDetail'),'teams':[{'id':t.get('team',{}).get('id'),'name':t.get('team',{}).get('displayName'),'logo':t.get('team',{}).get('logo'),'score':t.get('score')} for t in competitors]})
     return out
 
+def reconcile_ncaa_final_scores(espn_games, official_rows):
+    """Prefer independently identified NCAA-origin finals to stale ESPN snapshots.
+
+    The official final may post before an ESPN response is complete. Only
+    reconcile an exact ESPN event ID and the same two verified school IDs.
+    Never infer a matchup, change a scheduled game, or fabricate a score.
+    """
+    by_event = {str(x.get('espn_id')): x for x in official_rows
+                if x.get('phase') == 'final' and x.get('espn_id')}
+    discrepancies = []
+    for game in espn_games:
+        official = by_event.get(str(game.get('id')))
+        if not official:
+            continue
+        away, home = str(official.get('away_id')), str(official.get('home_id'))
+        teams = {str(t.get('id')): t for t in game.get('teams', [])}
+        if set(teams) != {away, home} or away == home:
+            continue
+        a, h = official.get('away_score'), official.get('home_score')
+        if not all(isinstance(v, int) and v >= 0 for v in (a, h)) or a == h:
+            continue
+        was = (teams[away].get('score'), teams[home].get('score'))
+        if was != (str(a), str(h)):
+            discrepancies.append({'game_id': str(game['id']), 'espn_away': was[0],
+                                  'espn_home': was[1], 'ncaa_away': a, 'ncaa_home': h})
+        teams[away]['score'], teams[home]['score'] = str(a), str(h)
+        game['state'], game['status'] = 'post', 'Final'
+        game['score_source'] = 'NCAA-origin verified final'
+    return discrepancies
+
+
 def fetch_ncaa_scoreboard(sport, day, fetcher=fetch):
     """NCAA-origin data via attributed bridge; legacy direct endpoint as fallback.
 
@@ -258,6 +289,9 @@ def main():
             'provider':ncaa_origin['provider'],'games':official_rows,
             'total_source_games':len(ncaa_payload['games']),'unresolved_games':unresolved,
             'scope':'NCAA-origin scores via attributed delivery path; verified D-I identities only; ESPN IDs/tipoffs secondary'}
+        out['score_discrepancies'] = reconcile_ncaa_final_scores(out.get('games', []), official_rows)
+        if out['score_discrepancies']:
+            print('Corrected scoreboard totals using NCAA-origin verified finals:', out['score_discrepancies'])
         out['sources'].append({'source':ncaa_origin['provider'],'url':ncaa_origin['source_url'],'ok':True,
                                'resolved':len(official_rows),'unresolved':unresolved})
     except Exception as e:
