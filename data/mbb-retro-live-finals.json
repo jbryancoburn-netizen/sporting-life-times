@@ -1,5 +1,21 @@
 {
   "season": "2026-27",
-  "source": "ESPN completed D-I scoreboard with reconciled NCAA school IDs",
-  "games": []
+  "source": "Verified NCAA-origin results preferred over ESPN completed D-I scoreboard",
+  "games": [
+    {
+      "id": "espn:401920982",
+      "date": "2026-11-01",
+      "home_id": "ncaa:609509",
+      "away_id": "ncaa:609801",
+      "home_score": 72,
+      "away_score": 74,
+      "neutral": true,
+      "site_verified": false,
+      "source": "verified NCAA-origin final crosscheck",
+      "source_event_id": "401920982"
+    }
+  ],
+  "score_conflicts": [
+    "2026-11-01: ESPN score differs from NCAA official final for espn:401920982"
+  ]
 }
