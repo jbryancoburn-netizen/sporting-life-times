@@ -11,9 +11,9 @@ class BallotAuditTests(unittest.TestCase):
 
     def test_actual_official_seed_coverage_without_forecast_permission(self):
         result = validate(self.ledger)
-        self.assertGreaterEqual(result["house_contests_transcribed"], 43)
-        self.assertGreaterEqual(result["senate_contests_transcribed"], 3)
-        self.assertGreaterEqual(result["candidate_ballot_entries"], 134)
+        self.assertEqual(result["house_contests_transcribed"], 51)
+        self.assertEqual(result["senate_contests_transcribed"], 3)
+        self.assertEqual(result["candidate_ballot_entries"], 156)
         self.assertTrue(result["state_coverage"]["NC"]["full_house_snapshot"])
         self.assertTrue(result["state_coverage"]["FL"]["full_house_snapshot"])
         self.assertEqual(result["certified_2026_probability_count"], 0)
@@ -22,9 +22,12 @@ class BallotAuditTests(unittest.TestCase):
         self.assertEqual(result["state_coverage"]["WY"]["house"], 1)
         self.assertTrue(result["state_coverage"]["WY"]["full_house_snapshot"])
         self.assertEqual(result["florida_unverified_districts"], [])
-        self.assertEqual(result["qualified_write_in_entries_not_printed_on_ballot"], 9)
+        self.assertEqual(result["qualified_write_in_entries_not_printed_on_ballot"], 12)
         self.assertEqual(result["unopposed_offices_without_general_ballot"], ["FL-10"])
-        self.assertEqual(result["house_general_ballot_contests_transcribed"], 42)
+        self.assertEqual(result["house_general_ballot_contests_transcribed"], 50)
+        self.assertEqual(result["state_coverage"]["MD"]["house"], 8)
+        self.assertEqual(result["state_coverage"]["MD"]["senate"], 0)
+        self.assertTrue(result["state_coverage"]["MD"]["full_house_snapshot"])
         self.assertEqual(self.ledger["races"][[r["id"] for r in self.ledger["races"]].index("FL-10")]["candidates"][0]["name"], "Maxwell Alejandro Frost")
         self.assertFalse(result["all_435_house_races_covered"])
 
