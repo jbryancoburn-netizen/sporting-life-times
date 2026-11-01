@@ -82,3 +82,16 @@ test('Scores are null until real completed pregame predictions are available',()
  assert.deepEqual(metrics(empty.ledger).early.sample,0);
  assert.equal(metrics(empty.ledger).near_tipoff.margin_mae,null);
 });
+
+test('NBA and ESPN game IDs can reconcile only with exact official final teams, scores, and tipoff',()=>{
+ const alternate=clone(fixture);
+ const original=alternate.stats.games[0];
+ original.id='0022090999'; // simulated official identifier for an ESPN-matched final
+ assert(updateLedger(null,alternate,now).added>0,'Uniquely matched cross-provider ID is accepted');
+ const falsified=clone(alternate);
+ falsified.stats.games[0].home.points+=1;
+ assert.throws(()=>updateLedger(null,falsified,now),/Possession data not reconcilable/);
+ const wrongDay=clone(alternate);
+ wrongDay.stats.games[0].date='2026-10-01T00:00:00Z';
+ assert.throws(()=>updateLedger(null,wrongDay,now),/Possession data not reconcilable/);
+});
