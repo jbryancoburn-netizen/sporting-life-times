@@ -860,7 +860,7 @@ def apply_verified_schedule_broadcasts(gender, games, teams, today, registry_fil
     return stats
 
 
-def update(gender, bootstrap=False):
+def update(gender, bootstrap=False, live=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
     teams={t["id"]:t for t in prior.get("teams",[])}
@@ -933,9 +933,17 @@ def update(gender, bootstrap=False):
             if old.get("status")=="final" and fixture.get("status")!="final":
                 continue
             games[fixture["id"]]={**fixture,"verified":True,"elo_eligible":True}
-    today=dt.datetime.now(dt.timezone.utc).date()
-    start=dt.date(2026,10,15) if bootstrap else max(dt.date(2026,10,15),today-dt.timedelta(days=12))
-    end=dt.date(2027,4,12) if bootstrap else min(dt.date(2027,4,12),today+dt.timedelta(days=30))
+    # Use the basketball newspaper's Eastern calendar, not UTC midnight.
+    # During game hours the UTC date can already be tomorrow.
+    today=dt.datetime.now(ZoneInfo("America/New_York")).date()
+    if bootstrap:
+        start,end=dt.date(2026,10,15),dt.date(2027,4,12)
+    elif live:
+        start=max(dt.date(2026,10,15),today-dt.timedelta(days=2))
+        end=min(dt.date(2027,4,12),today+dt.timedelta(days=2))
+    else:
+        start=max(dt.date(2026,10,15),today-dt.timedelta(days=12))
+        end=min(dt.date(2027,4,12),today+dt.timedelta(days=30))
     days=[start+dt.timedelta(days=i) for i in range((end-start).days+1)]
     successful=0;errors=[];source_counts={}
     ingestion={"added":0,"updated":0,"kept_verified_final":0,
@@ -1072,11 +1080,20 @@ def update(gender, bootstrap=False):
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
         "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,"status":"provisional coefficients; historical calibration not completed"},
         "quality":quality,"teams":ordered,"games":allgames}
+    # In rapid game-day mode, record only real changes. This avoids dozens
+    # of timestamp-only Git commits, needless redeploys, and write conflicts
+    # with other league newspapers that share this public repository.
+    # The regular daily run still publishes its fresh source-health audit.
+    if live and prior and prior.get("teams")==ordered and prior.get("games")==allgames:
+        print(gender,"live refresh checked",successful,"days without material data changes")
+        return
     tmp=output.with_suffix(".json.tmp");tmp.write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':'))+"\n");tmp.replace(output)
     print(gender,json.dumps(quality),source_counts)
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("--bootstrap",action="store_true")
+    flags=parser.add_mutually_exclusive_group()
+    flags.add_argument("--bootstrap",action="store_true",help="Full 180-day season source scan")
+    flags.add_argument("--live",action="store_true",help="Lean game-day refresh, two days back and ahead")
     args=parser.parse_args()
-    for gender in ("men","women"):update(gender,bootstrap=args.bootstrap)
+    for gender in ("men","women"):update(gender,bootstrap=args.bootstrap,live=args.live)
 if __name__=="__main__":main()
