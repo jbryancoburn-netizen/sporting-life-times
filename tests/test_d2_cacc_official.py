@@ -97,6 +97,22 @@ class CACCOfficialTests(unittest.TestCase):
   self.assertEqual(g["network"],"CACC Network")
   self.assertTrue(g["stream_url"].startswith("https://caccnetwork.com/"))
 
+ def test_post_home_school_wins_over_conflicting_conference_display(self):
+  date,away,home="2026-12-05","goldey-beacom","post"
+  a={"date":date,"away":away,"home":home,"source_team":away,
+     "source_url":"https://caccathletics.org/schedule.aspx?schedule=2380",
+     "tipoff":"3:00 PM ET","city":"Waterbury, CT"}
+  b={**a,"source_team":home,"source_url":"https://caccathletics.org/schedule.aspx?schedule=2386",
+     "tipoff":"7:00 PM ET"}
+  teams={key:{"id":key} for key in (away,home)}
+  games={}
+  result=cacc.reconcile_cacc({away:[a],home:[b]},games,teams,dt.date(2026,11,1))
+  g=next(iter(games.values()))
+  self.assertEqual(result["host_sourced_resolutions"],1)
+  self.assertEqual(g["start_time"],"7:30 PM ET")
+  self.assertEqual(g["venue"],"Drubner Center · Waterbury, CT")
+  self.assertEqual(g["tipoff_source_url"],"https://posteagles.com/sports/mens-basketball/schedule/2026-27?grid=true")
+
  def test_unverified_host_or_mismatched_host_time_leaves_conflict(self):
   date,away,home="2027-01-16","jefferson-thomas-jefferson","bridgeport"
   a={"date":date,"away":away,"home":home,"source_team":away,
