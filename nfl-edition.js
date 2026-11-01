@@ -34,7 +34,39 @@ function seasonTable(t){return gridTable(["TEAM","W-L-T","PCT","PF","PA","DIFF",
 function statsCaveat(){const c=feed.coverage||{};return note(c.boxscore_complete?"Player statistics represent all "+c.finals+" completed-game box scores in this edition.":"<strong>PARTIAL STATISTICS:</strong> "+c.boxscores+" of "+c.finals+" final-game box scores recovered. Player and team statistical totals are incomplete until all game boxes are verified.");}
 function week(){const next=games.filter(g=>new Date(g.date).getTime()>Date.now()-86400000).sort((a,b)=>a.date.localeCompare(b.date));return next.length?next[0].week:18;}
 function directory(){return '<div class="nfl-directory">'+feed.teams.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>'<a class="nfl-tile" href="'+urlTeam(t.id)+'">'+crest(t,"sm")+'<span>'+escapeHtml(t.name)+'<span class="small">'+escapeHtml(t.division)+' · '+t.w+'-'+t.l+'-'+t.t+'</span></span></a>').join("")+'</div>';}
-function listLeaders(category,limit){const rows=(feed.leaders||{})[category]||[];return rows.slice(0,limit).map((p,i)=>'<div class="nfl-mini"><span>'+(i+1)+'.</span>'+link(urlTeam(p.team_id),p.name)+'<small>'+escapeHtml(team(p.team_id).code)+'</small><b>'+format(p.value,category==="sacks"?1:0)+'</b></div>').join("")||'<p class="nfl-small">Verified player figures pending.</p>';}
+const leaderLabels={
+ passing:{title:"PASSING",unit:"YDS",sub:"Passing yards"},rushing:{title:"RUSHING",unit:"YDS",sub:"Rushing yards"},
+ receiving:{title:"RECEIVING",unit:"YDS",sub:"Receiving yards"},tackles:{title:"TACKLES",unit:"TOT",sub:"Total tackles"},
+ sacks:{title:"SACKS",unit:"SACKS",sub:"Quarterback sacks"},interceptions:{title:"INTERCEPTIONS",unit:"INT",sub:"Defensive interceptions"}
+};
+function playerExtra(p,category){
+ const s=p.stats||{},keys=category==="passing"?[["TD","TD"],["INT","INT"]]:category==="rushing"?[["CAR","ATT"],["TD","TD"]]:category==="receiving"?[["REC","REC"],["TD","TD"]]:category==="tackles"?[["SOLO","SOLO"],["TFL","TFL"]]:category==="sacks"?[["TFL","TFL"],["QB HTS","QB HITS"]]:[["YDS","RETURN YDS"],["TD","TD"]];
+ return keys.filter(([key])=>s[key]!=null).map(([key,label])=>'<span><b>'+format(s[key],1)+'</b> '+label+'</span>').join("");
+}
+function leaderRow(p,i,category,max,compact=false){
+ const t=team(p.team_id),frac=Math.max(0,Math.min(100,100*(Number(p.value)||0)/Math.max(1,max)));
+ return '<div class="nfl-leader-row '+(compact?'compact':'')+'" style="--club-color:'+escapeHtml(t.color)+';--club-alt:'+escapeHtml(t.secondary_color)+'">'+
+ '<span class="nfl-leader-rank">'+String(i+1).padStart(2,"0")+'</span>'+
+ '<div class="nfl-leader-face"><img loading="lazy" src="'+escapeHtml(p.headshot||"")+'" alt=""></div>'+
+ '<div class="nfl-leader-info"><b>'+escapeHtml(p.name)+'</b><div class="nfl-leader-club">'+crest(t,"sm")+' '+link(urlTeam(t.id),t.code)+
+ '<span class="nfl-leader-detail"> · '+format(p.games)+' games</span></div>'+
+ '<div class="nfl-progress" aria-hidden="true"><span style="width:'+frac.toFixed(1)+'%"></span></div>'+
+ (compact?'':'<div class="nfl-leader-extras">'+playerExtra(p,category)+'</div>')+'</div>'+
+ '<div class="nfl-leader-value"><b>'+format(p.value,category==="sacks"?1:0)+'</b><small>'+escapeHtml(leaderLabels[category].unit)+'</small></div></div>';
+}
+function listLeaders(category,limit,teamFilter){
+ const rows=((feed.leaders||{})[category]||[]).filter(p=>!teamFilter||p.team_id===teamFilter).slice(0,limit),max=rows.length?rows[0].value:1;
+ return rows.map((p,i)=>leaderRow(p,i,category,max,true)).join("")||'<p class="nfl-small">Verified player figures pending.</p>';
+}
+function featurePlayer(p,i,category){
+ const t=team(p.team_id),label=leaderLabels[category];
+ return '<article class="nfl-feature-player place-'+(i+1)+'" style="--club-color:'+escapeHtml(t.color)+';--club-alt:'+escapeHtml(t.secondary_color)+'">'+
+ '<div class="nfl-feature-top"><span class="nfl-place-label">'+(i===0?"LEAGUE LEADER":i===1?"SECOND PLACE":"THIRD PLACE")+'</span>'+crest(t,"head")+'</div>'+
+ '<div class="nfl-feature-portrait"><img loading="lazy" src="'+escapeHtml(p.headshot||"")+'" alt=""></div>'+
+ '<div class="nfl-feature-details"><p class="nfl-feature-team">'+escapeHtml(t.name)+'</p><h2>'+escapeHtml(p.name)+'</h2>'+
+ '<div class="nfl-feature-number">'+format(p.value,category==="sacks"?1:0)+'<span>'+escapeHtml(label.unit)+'</span></div>'+
+ '<div class="nfl-feature-extra">'+playerExtra(p,category)+'</div><p class="nfl-small">'+format(p.games)+' verified games</p></div></article>';
+}
 function home(){
 const w=week(),thisWeek=games.filter(g=>g.week===w);
 const finals=games.filter(g=>g.state==="post").slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,7);
@@ -69,19 +101,26 @@ return out;
 function rankings(){
 const last={};games.filter(g=>g.state==="post").forEach(g=>["away","home"].forEach(s=>last[g[s].id]=g.elo&&g.elo[s+"_delta"]));
 let out='<p class="nfl-kicker">THE USRS RATING DESK</p><h1 class="nfl-title">NFL ELO POWER RANKINGS</h1>';
-out+=note("All 32 franchises start the 2026 regular season on <b>1500 Elo</b>. Replay is chronological; 55 Elo points of home advantage, K=20 adjusted by scoring margin. No historical carryover.");
+out+=note("All 32 franchises start the 2026 regular season on <b>1500 Elo</b>. Replay is chronological. Home-field advantage and K are shown from the published model, with margin-of-victory weighting; there is no historical carryover. <b>Model parameters:</b> HFA "+format(feed.model.home_advantage_elo)+" Elo · K="+format(feed.model.k_base)+" · "+(feed.model.calibrated?"historically calibrated":"provisional parameters")+".");
 out+=gridTable(["RANK","TEAM","W-L-T","ELO","FROM 1500","LAST GAME"],feed.teams.map((t,i)=>'<tr><td>'+(i+1)+'</td><td>'+club(t)+'</td><td>'+t.w+'-'+t.l+'-'+t.t+'</td><td><b>'+format(t.elo,1)+'</b></td><td>'+(t.elo_change>0?"+":"")+format(t.elo_change,1)+'</td><td>'+(last[t.id]==null?"—":(last[t.id]>0?"+":"")+format(last[t.id],1))+'</td></tr>'));
 return out;
 }
 function players(){
-const categories=["passing","rushing","receiving","tackles","sacks","interceptions"];
-let cat=params.get("category")||"passing";if(!categories.includes(cat))cat="passing";
-const rows=(feed.leaders||{})[cat]||[];
-let out='<p class="nfl-kicker">THE NFL PLAYER DESK</p><h1 class="nfl-title">PLAYER STATISTICS</h1>'+statsCaveat()+'<div class="nfl-controls">';
-categories.forEach(c=>{out+='<a class="nfl-button" aria-pressed="'+(c===cat)+'" href="nfl-players.html?category='+c+'">'+c.toUpperCase()+'</a>';});
-out+='</div>';
-out+=rows.length?gridTable(["RANK","PLAYER","TEAM","BOXES","TOTAL","TD"],rows.map((p,i)=>'<tr><td>'+(i+1)+'</td><td><div class="nfl-player"><img loading="lazy" src="'+escapeHtml(p.headshot||"")+'" alt=""><b>'+escapeHtml(p.name)+'</b></div></td><td>'+link(urlTeam(p.team_id),team(p.team_id).code)+'</td><td>'+p.games+'</td><td><b>'+format(p.value,cat==="sacks"?1:0)+'</b></td><td>'+(p.stats.TD==null?"—":format(p.stats.TD))+'</td></tr>')):note("No source-confirmed player totals for "+escapeHtml(cat)+" yet.");
-return out;
+ const categories=["passing","rushing","receiving","tackles","sacks","interceptions"];
+ let cat=params.get("category")||"passing";if(!categories.includes(cat))cat="passing";
+ const rows=(feed.leaders||{})[cat]||[],label=leaderLabels[cat];
+ let out='<p class="nfl-kicker">THE NFL PLAYER DESK · 2026 REGULAR SEASON</p><h1 class="nfl-title">THE LEAGUE LEADERS</h1>'+
+ '<p class="nfl-lede">The NFL’s standout performances, drawn from verified 2026 game box scores. Explore every major yardage and defensive category.</p>'+
+ '<div class="nfl-controls nfl-stat-filters" aria-label="Statistic category">';
+ categories.forEach(c=>{out+='<a class="nfl-button" aria-pressed="'+(c===cat)+'" href="nfl-players.html?category='+c+'">'+leaderLabels[c].title+'</a>';});
+ out+='</div>';
+ if(rows.length){
+  out+='<div class="nfl-stats-hero"><div class="nfl-stats-hero-title"><span>STATISTICAL LEADERBOARD / '+label.title+'</span><strong>'+label.sub+'</strong></div>'+
+    '<div class="nfl-feature-grid">'+rows.slice(0,3).map((p,i)=>featurePlayer(p,i,cat)).join("")+'</div></div>';
+  out+='<section class="nfl-section nfl-leaderboard-section"><div class="nfl-leaderboard-header"><div><p class="nfl-label">THE FULL TOP 30</p><h2>'+label.title+' LEADERBOARD</h2></div><span class="nfl-small">TOTAL · '+label.unit+' · TEAM · GAMES</span></div>'+
+  '<div class="nfl-leaderboard">'+rows.map((p,i)=>leaderRow(p,i,cat,rows[0].value,false)).join("")+'</div></section>';
+ }else out+=note("No source-confirmed player totals for "+escapeHtml(cat)+" yet.");
+ return out+statsCaveat();
 }
 function schedule(){
 const weeks=[...new Set(games.map(g=>g.week))].sort((a,b)=>a-b);
@@ -106,9 +145,9 @@ if(!teams[id])return note("Unknown NFL franchise. "+link("nfl.html","Choose a te
 const slate=games.filter(g=>g.away.id===id||g.home.id===id).sort((a,b)=>a.date.localeCompare(b.date));
 let out='<div class="nfl-team-head">'+crest(t,"lg")+'<div><p class="nfl-kicker">'+escapeHtml(t.division)+'</p><h1>'+escapeHtml(t.name)+'</h1><span class="detail">'+t.w+'–'+t.l+'–'+t.t+' · '+format(t.elo,1)+' Elo · '+(t.elo_change>0?"+":"")+format(t.elo_change,1)+' this season</span></div></div>';
 const metrics=[["Points for",t.pf],["Points against",t.pa],["Total yards",(t.team_stats||{}).totalYards],["Pass yards",(t.team_stats||{}).netPassingYards],["Rush yards",(t.team_stats||{}).rushingYards],["1st downs",(t.team_stats||{}).firstDowns],["Turnovers",(t.team_stats||{}).turnovers],["Point diff.",t.point_diff]];
-out+='<div class="nfl-statline">'+metrics.map(v=>'<div class="nfl-stat"><b>'+format(v[1])+'</b><span>'+escapeHtml(v[0])+'</span></div>').join("")+'</div>'+statsCaveat();
+out+='<div class="nfl-statline nfl-team-statline" style="--stat-accent:'+escapeHtml(t.color)+'">'+metrics.map(v=>'<div class="nfl-stat"><b>'+format(v[1])+'</b><span>'+escapeHtml(v[0])+'</span></div>').join("")+'</div>'+statsCaveat();
 out+='<div class="nfl-duo">'+panel("RECENT RESULTS",slate.filter(g=>g.state==="post").slice(-5).reverse().map(gameLine).join(""))+panel("NEXT KICKOFFS",slate.filter(g=>g.state!=="post").slice(0,5).map(gameLine).join(""))+'</div>';
-out+=panel("CLUB STATISTICAL LEADERS",["passing","rushing","receiving","sacks"].map(cat=>'<h3>'+cat.toUpperCase()+'</h3>'+((feed.leaders||{})[cat]||[]).filter(p=>p.team_id===id).slice(0,5).map(p=>'<div class="nfl-mini">'+escapeHtml(p.name)+'<b>'+format(p.value,1)+'</b></div>').join("")).join(""));
+out+=panel("CLUB STATISTICAL LEADERS",'<div class="nfl-grid">'+["passing","rushing","receiving","sacks"].map(cat=>'<div class="nfl-team-leaders"><h3>'+escapeHtml(leaderLabels[cat].title)+'</h3>'+listLeaders(cat,4,id)+'</div>').join("")+'</div>');
 const rows=slate.map(g=>{const atHome=g.home.id===id,other=atHome?g.away:g.home,us=atHome?g.home:g.away,opp=team(other.id);
 const result=g.state==="post"?(us.score>other.score?"W ":us.score<other.score?"L ":"T ")+us.score+"–"+other.score:(g.state==="in"?"LIVE":"Scheduled");
 return '<tr><td>W'+g.week+' · '+escapeHtml(date(g.date))+'</td><td>'+crest(opp,"sm")+' '+(atHome?"vs ":"@ ")+link(urlGame(g.id),opp.name)+'</td><td>'+escapeHtml(result)+'</td><td>'+format((g.elo||{})[(atHome?"home":"away")+"_before"],1)+'</td></tr>';});
@@ -133,25 +172,32 @@ out+='<div class="nfl-statline">'+stats.map(v=>'<div class="nfl-stat"><b>'+v[1]+
 return out+panel("BOX SCORE &amp; TEAM STATISTICS",'<div id="nfl-game-box">Loading sourced box score…</div>')+'<p class="nfl-small">'+link(g.url,"ESPN source game page ↗")+'</p>';
 }
 async function gameBox(){
-const id=params.get("id"),el=document.getElementById("nfl-game-box");if(!el)return;
-try{const res=await fetch("data/nfl-2026-boxscores.json?t="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error();
-const json=await res.json(),box=(json.games||{})[id];if(!box){el.innerHTML=note("Detailed statistics not available for this game yet; unverified values are never filled in.");return;}
-let out='<div class="nfl-grid">';
-Object.keys(box.teams||{}).forEach(id=>{out+=panel(team(id).name,Object.entries(box.teams[id]).map(([k,v])=>'<div class="nfl-mini">'+escapeHtml(k.replace(/([A-Z])/g," $1"))+'<b>'+format(v,1)+'</b></div>').join(""));});
-out+='</div>';
-["passing","rushing","receiving","defensive","interceptions","kicking","punting"].forEach(cat=>{
-const lines=(box.players||[]).filter(p=>(p.category||"").includes(cat));if(!lines.length)return;
-const columns=[...new Set(lines.flatMap(p=>Object.keys(p.stats||{})))].slice(0,7);
-out+=panel(cat.toUpperCase(),gridTable(["PLAYER","TEAM"].concat(columns),lines.map(p=>'<tr><td>'+escapeHtml(p.name)+'</td><td>'+escapeHtml(team(p.team_id).code)+'</td>'+columns.map(c=>'<td>'+((p.stats||{})[c]==null?"—":format(p.stats[c],1))+'</td>').join("")+'</tr>')));
-});
-el.innerHTML=out;}catch(e){el.innerHTML=note("Box-score data unavailable for this matchup.");}
+ const id=params.get("id"),el=document.getElementById("nfl-game-box");if(!el)return;
+ try{const res=await fetch("data/nfl-2026-boxscores.json?t="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error();
+ const json=await res.json(),box=(json.games||{})[id];if(!box){el.innerHTML=note("Detailed statistics not available for this game yet; unverified values are never filled in.");return;}
+ const g=games.find(x=>x.id===id),a=team(g.away.id),h=team(g.home.id),aa=(box.teams||{})[a.id]||{},hh=(box.teams||{})[h.id]||{};
+ const pairs=[["Total yards","totalYards"],["Passing yards","netPassingYards"],["Rushing yards","rushingYards"],["First downs","firstDowns"],["Turnovers","turnovers"]];
+ let out='<div class="nfl-box-comparison"><div class="nfl-box-side">'+crest(a,"head")+'<strong>'+escapeHtml(a.code)+'</strong></div>'+
+ '<div class="nfl-box-comparison-center"><span>TEAM COMPARISON</span><b>FINAL GAME STATISTICS</b></div><div class="nfl-box-side">'+crest(h,"head")+'<strong>'+escapeHtml(h.code)+'</strong></div></div>';
+ out+='<div class="nfl-box-bars">';
+ pairs.forEach(([title,key])=>{const av=aa[key],hv=hh[key],mx=Math.max(1,Number(av)||0,Number(hv)||0);
+ out+='<div class="nfl-box-row"><b>'+format(av)+'</b><div class="nfl-box-stat"><span>'+title+'</span><div class="nfl-box-compare"><i style="--bar-color:'+escapeHtml(a.color)+';width:'+((Number(av)||0)/mx*100).toFixed(1)+'%"></i><i style="--bar-color:'+escapeHtml(h.color)+';width:'+((Number(hv)||0)/mx*100).toFixed(1)+'%"></i></div></div><b>'+format(hv)+'</b></div>';});
+ out+='</div>';
+ out+='<div class="nfl-grid">'+[a,h].map(t=>panel(t.name+' · Complete Team Box Score',Object.entries((box.teams||{})[t.id]||{}).map(([key,v])=>'<div class="nfl-mini">'+escapeHtml(key.replace(/([A-Z])/g," $1"))+'<b>'+format(v,1)+'</b></div>').join(""))).join("")+'</div>';
+ ["passing","rushing","receiving","defensive","interceptions","kicking","punting"].forEach(cat=>{
+ const lines=(box.players||[]).filter(p=>(p.category||"").includes(cat));if(!lines.length)return;
+ const columns=[...new Set(lines.flatMap(p=>Object.keys(p.stats||{})))].slice(0,7);
+ out+=panel(cat.toUpperCase(),gridTable(["PLAYER","TEAM"].concat(columns),lines.map(p=>'<tr><td><div class="nfl-player"><img loading="lazy" src="'+escapeHtml(p.headshot||"")+'" alt=""><b>'+escapeHtml(p.name)+'</b></div></td><td>'+crest(team(p.team_id),"sm")+'</td>'+columns.map(c=>'<td>'+((p.stats||{})[c]==null?"—":format(p.stats[c],1))+'</td>').join("")+'</tr>')));
+ });
+ el.innerHTML=out;}catch(e){el.innerHTML=note("Box-score data unavailable for this matchup.");}
 }
+
 function prng(seed){let x=seed>>>0;return()=>{x+=0x6D2B79F5;let t=x;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
 function playoffs(){
 const random=prng(20261101),count=2000,tracker={};
 feed.teams.forEach(t=>tracker[t.id]={playoff:0,division:0,conference:0,champion:0});
 const remaining=games.filter(g=>g.state!=="post");
-function pick(a,b,home=true){const ra=team(a).elo+(home?55:0),rb=team(b).elo;return random()<1/(1+Math.pow(10,-(ra-rb)/400))?a:b;}
+function pick(a,b,home=true){const ra=team(a).elo+(home?(Number(feed.model.home_advantage_elo)||55):0),rb=team(b).elo;return random()<1/(1+Math.pow(10,-(ra-rb)/400))?a:b;}
 for(let i=0;i<count;i++){
 const wins={};feed.teams.forEach(t=>wins[t.id]=t.w+t.t*0.5);
 remaining.forEach(g=>wins[pick(g.home.id,g.away.id)]++);
