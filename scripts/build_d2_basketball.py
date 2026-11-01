@@ -824,6 +824,31 @@ def update(gender, bootstrap=False):
     else:
         scan=previous or {"completed":False,"schedules_certified":False}
     quality["full_season_scan"]=scan
+    # Explicit schedule-field coverage. A fixture is not a completed team
+    # schedule, and a blank venue is not a verified home-court location.
+    schedule_counts={ident:0 for ident in teams}
+    for g in allgames:
+        for ident in (g["away"],g["home"]):
+            if ident in schedule_counts:schedule_counts[ident]+=1
+    missing_schools=sorted((teams[k]["name"] for k,n in schedule_counts.items() if n==0))
+    arena_present=sum(bool(g.get("venue")) and not any(
+        phrase in str(g.get("venue")).lower()
+        for phrase in ("pending","tba","unknown","to be announced")) for g in allgames)
+    network_present=sum(bool(g.get("network")) and str(g.get("network")).strip().lower()
+        not in ("tba","unknown","none") for g in allgames)
+    quality["field_coverage"]={
+        "fixture_records":len(allgames),
+        "schools_with_at_least_one_fixture":len(teams)-len(missing_schools),
+        "schools_with_no_published_fixtures":len(missing_schools),
+        "schools_with_no_fixture_examples":missing_schools[:12],
+        "games_with_named_venue":arena_present,
+        "games_without_confirmed_venue":len(allgames)-arena_present,
+        "games_with_network":network_present,
+        "games_without_network":len(allgames)-network_present,
+        "distinct_game_dates":len({g["date"] for g in allgames}),
+        "schedule_certified":False,
+        "notes":"Partial coverage; school-level schedule and venue certification remain outstanding"
+    }
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
         "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,"status":"provisional coefficients; historical calibration not completed"},
