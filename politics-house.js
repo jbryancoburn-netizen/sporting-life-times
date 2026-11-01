@@ -236,10 +236,11 @@ function candidatePanel(r){
    panel.append(newEl("p",head+" · reviewed "+b.reviewed_at,"eyebrow"));
    const list=newEl("div",null,"candidates");
    b.candidates.forEach(c=>{
-     let line=newEl("div",null,"candidate"),badge=newEl("span",partyName(c.party),"party "+(c.party==="DEM"?"dem":c.party==="REP"?"rep":""));
+     let line=newEl("div",null,"candidate"),badge=newEl("span",c.ballot_label||partyName(c.party),"party "+(c.party==="DEM"?"dem":c.party==="REP"?"rep":""));
      line.append(newEl("strong",c.name),badge);list.append(line);
    });panel.append(list);
    if(b.candidates.some(c=>c.party==="WRI"))panel.append(newEl("p","WRI denotes a qualified write-in; the person's name is not printed on the ballot.","footnote"));
+    if(b.candidates.some(c=>c.ballot_label))panel.append(newEl("p","Independent petition slogans and other ballot designations are reproduced from the election-office list; they are not presented as official major-party affiliations.","footnote"));
    if(b.source_url)addLink(panel,"Open the original state election-office candidate document ↗",b.source_url,"src").target="_blank";
  }
  panel.append(newEl("p",r.registered_fec_filings_2026+" FEC candidate registration"+(r.registered_fec_filings_2026===1?"":"s")+" indexed for this district in the 2026 filing master. Registrations can include withdrawn, unsuccessful and duplicate filings; this is not a count of qualified candidates.","footnote"));
