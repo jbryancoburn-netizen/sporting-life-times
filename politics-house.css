@@ -477,3 +477,114 @@ body[data-house-page="state"] .infographic-editorial-note{
  color:#49636a;background:#e9eeea;font:500 11px/1.55 'DM Sans',sans-serif
 }
 body[data-house-page="state"] .infographic-editorial-note strong{color:#213d45;font-weight:800}
+
+
+/* EARLY RACE READ: prediction-first editorial card, no uncertified odds. */
+body[data-house-page="state"] .watchlist-count{
+ display:inline-flex;align-items:center;gap:7px;margin:9px 0 0;color:#9a5534;
+ font:800 11px/1.35 'DM Sans',sans-serif;letter-spacing:.3px
+}
+body[data-house-page="state"] .watchlist-count::before{
+ content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#d78a41;
+ box-shadow:0 0 0 3px #f4e3d2
+}
+body[data-house-page="state"] .district-card-infographic .early-race-read{
+ padding:17px 18px 14px;margin:0;background:#f5f1e8;border-bottom:1px solid #d9d1c3;
+ border-left:5px solid #6c8884
+}
+body[data-house-page="state"] .district-card-infographic .early-race-read.watch-race-read{
+ background:#f8eee1;border-left-color:#c06c38
+}
+body[data-house-page="state"] .district-card-infographic .read-heading{
+ display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px
+}
+body[data-house-page="state"] .district-card-infographic .read-eyebrow{
+ font:900 10px/1.2 'DM Sans',sans-serif;letter-spacing:1.45px;color:#a44b2e
+}
+body[data-house-page="state"] .district-card-infographic .read-status{
+ font:800 9px/1.25 'DM Sans',sans-serif;letter-spacing:.65px;text-transform:uppercase;
+ text-align:right;color:#4d6b6a
+}
+body[data-house-page="state"] .district-card-infographic .read-main{
+ display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;margin-bottom:6px
+}
+body[data-house-page="state"] .district-card-infographic .read-outlook{
+ font:700 clamp(22px,2.4vw,30px)/1.18 'Libre Baskerville',Georgia,serif;
+ color:#172f38;letter-spacing:-.7px;overflow-wrap:anywhere
+}
+body[data-house-page="state"] .district-card-infographic .read-tag{
+ flex-shrink:0;padding:5px 9px;border:1px solid #9ead9d;background:#e3eae2;color:#314f48;
+ font:900 10px/1.15 'DM Sans',sans-serif;letter-spacing:.3px
+}
+body[data-house-page="state"] .district-card-infographic .watch-race-read .read-tag{
+ border-color:#d4a572;background:#f7dac0;color:#8e421d
+}
+body[data-house-page="state"] .district-card-infographic .read-context{
+ margin:0;font:500 11px/1.5 'DM Sans',sans-serif;color:#5a6970
+}
+body[data-house-page="state"] .district-card-infographic .infographic-candidate-field{
+ margin:0;border-top:0;padding-top:16px;padding-bottom:15px
+}
+body[data-house-page="state"] .district-card-infographic .field-unverified{
+ margin:0;border-top:0;padding:16px 18px
+}
+body[data-house-page="state"] .district-card-infographic .district-infographic{
+ margin:0 17px;padding:12px 14px;min-height:0
+}
+body[data-house-page="state"] .district-card-infographic .infographic-source{
+ padding-top:8px
+}
+body[data-house-page="state"] .district-card-infographic .infographic-caveat{
+ margin-top:4px;font-size:10px
+}
+body[data-house-page="state"] .district-card-infographic .race-fast-facts{
+ padding:16px 18px 14px;background:#fffefa
+}
+body[data-house-page="state"] .district-card-infographic .fast-facts-head{
+ display:block;margin-bottom:9px;font:900 9px/1.3 'DM Sans',sans-serif;
+ letter-spacing:1.4px;color:#74513d
+}
+body[data-house-page="state"] .district-card-infographic .fast-facts-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px
+}
+body[data-house-page="state"] .district-card-infographic .fast-fact{
+ display:flex;flex-direction:column;gap:6px;padding:9px 8px;background:#f3f5f1;
+ border-top:3px solid #708886;min-width:0
+}
+body[data-house-page="state"] .district-card-infographic .fast-fact:nth-child(1){border-top-color:#4f83b1}
+body[data-house-page="state"] .district-card-infographic .fast-fact:nth-child(2){border-top-color:#b68156}
+body[data-house-page="state"] .district-card-infographic .fast-fact:nth-child(3){border-top-color:#6a9b84}
+body[data-house-page="state"] .district-card-infographic .fast-fact small{
+ font:900 8px/1.2 'DM Sans',sans-serif;letter-spacing:.85px;color:#4e666d
+}
+body[data-house-page="state"] .district-card-infographic .fast-fact strong{
+ font:800 13px/1.3 'DM Sans',sans-serif;color:#1c373d;overflow-wrap:anywhere
+}
+body[data-house-page="state"] .district-card-infographic .fast-fact em{
+ font:500 9px/1.35 'DM Sans',sans-serif;color:#5e7170;font-style:normal;overflow-wrap:anywhere
+}
+body[data-house-page="state"] .district-card-infographic .infographic-bottom{
+ padding-top:12px;padding-bottom:16px;margin-top:auto
+}
+body[data-house-page="state"] .race-watch-card .top{border-top-color:#d28645}
+@media(max-width:720px){
+ body[data-house-page="state"] .district-card-infographic .early-race-read{padding:16px 16px 14px}
+ body[data-house-page="state"] .district-card-infographic .read-outlook{font-size:27px}
+ body[data-house-page="state"] .district-card-infographic .read-tag{font-size:10px}
+ body[data-house-page="state"] .district-card-infographic .read-context{font-size:12px}
+ body[data-house-page="state"] .district-card-infographic .read-heading{align-items:flex-start}
+ body[data-house-page="state"] .district-card-infographic .read-status{max-width:50%}
+ body[data-house-page="state"] .district-card-infographic .infographic-candidate-field{padding:16px}
+ body[data-house-page="state"] .district-card-infographic .district-infographic{margin:0 16px}
+ body[data-house-page="state"] .district-card-infographic .race-fast-facts{padding:16px}
+ body[data-house-page="state"] .district-card-infographic .fast-fact{min-height:83px;padding:10px 9px}
+ body[data-house-page="state"] .district-card-infographic .fast-fact strong{font-size:13px}
+}
+@media(max-width:390px){
+ body[data-house-page="state"] .district-card-infographic .read-outlook{font-size:23px}
+ body[data-house-page="state"] .district-card-infographic .read-main{align-items:flex-start}
+ body[data-house-page="state"] .district-card-infographic .fast-facts-grid{gap:5px}
+ body[data-house-page="state"] .district-card-infographic .fast-fact{padding:8px 6px}
+ body[data-house-page="state"] .district-card-infographic .fast-fact strong{font-size:11px}
+ body[data-house-page="state"] .district-card-infographic .fast-fact small{font-size:7px}
+}
