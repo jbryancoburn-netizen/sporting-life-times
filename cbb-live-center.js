@@ -773,7 +773,12 @@
       }finally{busy=false;}
     }
     await update();
-    setInterval(()=>{if(!document.hidden)update();},30000);
+    // Poll only an active or not-yet-final game every 15 seconds. Final Gamefiles
+    // stay stable; there is no value in repeatedly re-requesting a completed game.
+    setInterval(()=>{if(document.hidden)return;
+      const phase=state.games.find(g=>g.id===id)?.phase;
+      if(phase!=='final')update();
+    },15000);
     document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
   }
   async function boot(){
