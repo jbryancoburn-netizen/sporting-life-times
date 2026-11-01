@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination. Nov 1 House candidate-source expansion: Massachusetts nine districts and Nebraska three districts verified from original state election-office general candidate lists. Massachusetts 1st party identity independently checked against FEC original candidate record; Nebraska third-party and petition designations retained verbatim. Source expansion: Iowa 4 House districts, official Iowa Elections Division August 19 2026 list checked Nov 1; independent candidates marked No Party, no vote probabilities.",
+  "warning": "Original state-certified candidate snapshots, not live continuously updated ballots; write-ins and unopposed offices require separate flags. California has 52 certified House contests; its official certified list has no U.S. Senate contest in 2026. No winner odds are inferred from the candidate roster. Delaware's at-large contest was additionally cross-checked against the October 30 state-qualified list; a withdrawn filing was excluded. November 1 original-source pass adds all Kentucky, Virginia and New Jersey House district general-election lists (29 additional offices). Write-ins are labeled separately; New Jersey independent petition-line text is preserved, not recoded as a major-party nomination. Nov 1 House candidate-source expansion: Massachusetts nine districts and Nebraska three districts verified from original state election-office general candidate lists. Massachusetts 1st party identity independently checked against FEC original candidate record; Nebraska third-party and petition designations retained verbatim. Source expansion: Iowa 4 House districts, official Iowa Elections Division August 19 2026 list checked Nov 1; independent candidates marked No Party, no vote probabilities. Rhode Island district 1 and 2 official Department of State candidate tables were reviewed Nov 1 2026 with On Election Ballot=Y and numbered ballot positions; primary-only filings and duplicate listing rows excluded.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -169,6 +169,30 @@
       "scope": "full_2026_house_snapshot",
       "transcription_status": "reviewed",
       "note": "Page 1 of 14 of official candidate list (last updated August 19 at 1:36 PM) visually checked for all four U.S. House districts; No Party is preserved as a ballot designation, not party membership. Only candidate names and ballot party labels are retained, not addresses, phones or emails."
+    },
+    {
+      "id": "RI_SOS_2026_HOUSE_1",
+      "state": "RI",
+      "publisher": "Rhode Island Department of State, Voter Information Center",
+      "url": "https://vote.sos.ri.gov/Candidates/CandidateSearchSummary?Election=18144&OfficeType=591",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_2026_house_general_election_ballot_placement",
+      "scope": "verified_house_01",
+      "transcription_status": "reviewed",
+      "note": "Nov 1 official district 1 candidate database; all three entries have On Election Ballot=Y and verified E Num positions; 2 major-party, 1 independent. Only public candidate name/party retained."
+    },
+    {
+      "id": "RI_SOS_2026_HOUSE_2",
+      "state": "RI",
+      "publisher": "Rhode Island Department of State, Voter Information Center",
+      "url": "https://vote.sos.ri.gov/Candidates/CandidateSearchSummary?Election=18144&OfficeType=592",
+      "publication_date": null,
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_2026_house_general_election_ballot_placement",
+      "scope": "verified_house_02",
+      "transcription_status": "reviewed",
+      "note": "Oct 31/Nov 1 official district 2 election candidate table; only 2 entries with On Election Ballot=Y. Other historic primary aspirants and duplicate display records omitted; no personal contact fields retained."
     }
   ],
   "races": [
@@ -3123,6 +3147,48 @@
           "name": "Winston Jordan",
           "party": "OTH",
           "ballot_label": "GET MONEY OUT"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "RI-01",
+      "state": "RI",
+      "office": "H",
+      "district": "01",
+      "source_id": "RI_SOS_2026_HOUSE_1",
+      "candidates": [
+        {
+          "name": "Gabriel Felix Kofi Amo",
+          "party": "DEM"
+        },
+        {
+          "name": "Pedro Junior Soares de Souza",
+          "party": "IND"
+        },
+        {
+          "name": "Kellie Eleanor Keenan",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "RI-02",
+      "state": "RI",
+      "office": "H",
+      "district": "02",
+      "source_id": "RI_SOS_2026_HOUSE_2",
+      "candidates": [
+        {
+          "name": "Seth Michael Magaziner",
+          "party": "DEM"
+        },
+        {
+          "name": "Victor Gilbert Mellor",
+          "party": "REP"
         }
       ],
       "verification": "source_transcribed_as_of_review_date",
