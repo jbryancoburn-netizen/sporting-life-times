@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""Offline NFL season-reset model and integrity checks."""
+import importlib.util
+import math
+import unittest
+from pathlib import Path
+
+spec=importlib.util.spec_from_file_location("nfl",Path(__file__).with_name("build_nfl_edition.py"))
+nfl=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(nfl)
+
+def mk(game_id,away,home,ascore,hscore,date="2026-09-10T23:20:00Z",state="post"):
+    return {"id":str(game_id),"date":date,"week":1,"away":{"id":str(away),"name":nfl.META[away][0],"score":ascore},
+        "home":{"id":str(home),"name":nfl.META[home][0],"score":hscore},"state":state}
+
+class EloTests(unittest.TestCase):
+    def test_exact_preseason_reset(self):
+        t=nfl.replay([])
+        self.assertEqual(len(t),32)
+        self.assertTrue(all(x["elo"]==1500.0 for x in t))
+        self.assertTrue(all(x["played"]==0 for x in t))
+
+    def test_home_win_replay_and_zero_sum(self):
+        games=[mk(1,2,1,17,24),mk(2,3,4,21,14,date="2026-09-11T00:10:00Z")]
+        t=nfl.replay(games)
+        mapping={x["id"]:x for x in t}
+        self.assertGreater(mapping["1"]["elo"],1500)
+        self.assertLess(mapping["2"]["elo"],1500)
+        self.assertAlmostEqual(sum(x["elo"] for x in t),48000,delta=1)
+        self.assertEqual(sum(x["played"] for x in t),4)
+        self.assertTrue(all(x["w"]+x["l"]+x["t"]==x["played"] for x in t))
+        self.assertAlmostEqual(games[0]["elo"]["home_win_probability"],nfl.probability(1500,1500),places=4)
+
+    def test_tie_counts_and_future_no_mutation(self):
+        games=[mk(3,2,1,21,21),mk(4,3,4,None,None,state="pre")]
+        t=nfl.replay(games)
+        ids={x["id"]:x for x in t}
+        self.assertEqual(ids["1"]["t"],1)
+        self.assertEqual(ids["2"]["t"],1)
+        self.assertEqual(ids["3"]["played"],0)
+        self.assertIn("home_win_probability",games[1]["elo"])
+        self.assertEqual(sum(x["played"] for x in t),2)
+
+    def test_no_historical_seed(self):
+        self.assertEqual(nfl.SEASON,2026)
+        self.assertEqual(nfl.probability(1500,1500),1/(1+10**(-55/400)))
+        self.assertEqual(len(nfl.META),32)
+
+if __name__=="__main__":unittest.main()
