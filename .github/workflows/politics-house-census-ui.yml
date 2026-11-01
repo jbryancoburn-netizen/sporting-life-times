@@ -1,0 +1,35 @@
+name: Politics House 435 Census context display audit
+on:
+  pull_request:
+    paths:
+      - 'politics-house-census.js'
+      - 'politics-house-census.css'
+      - 'politics-house-district.html'
+      - 'test_politics_house_census.py'
+      - '.github/workflows/politics-house-census-ui.yml'
+  push:
+    branches: [main, politics-house-acs-context-20261101]
+    paths:
+      - 'politics-house-census.js'
+      - 'politics-house-census.css'
+      - 'politics-house-district.html'
+      - 'test_politics_house_census.py'
+      - '.github/workflows/politics-house-census-ui.yml'
+permissions:
+  contents: read
+jobs:
+  readable-historical-context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate non-forecast source provenance, 435 old-vintage rows and district display
+        run: |
+          python -m unittest -v test_politics_house_census
+      - name: Check JavaScript syntax without paid dependencies
+        run: |
+          node --check politics-house-census.js
+          node --check politics-house.js
