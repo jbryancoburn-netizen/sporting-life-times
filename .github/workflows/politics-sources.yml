@@ -57,13 +57,18 @@ jobs:
                   assert article['title'] and article['source'] and article['url'].startswith('https://')
           if polls['status']=='ok':
               assert polls['pollsters']>=3 and polls['poll_count']>=3 and polls['average'] is not None
-          print('news=',news['status'],'polls=',polls['status'],'refresh=',status)
+          audit=json.loads(pathlib.Path('politics-poll-health.json').read_text())
+          if status['poll_status']=='success':
+              assert audit['status']=='ok' and audit['unique_pollsters']>=3
+          if status['poll_status']=='failure':
+              assert audit['status']!='ok'
+          print('news=',news['status'],'polls=',polls['status'],'poll_source_audit=',audit.get('status'),'refresh=',status)
           PY
       - name: Commit dated data and source health to main
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-news.json politics-polls.json politics-source-status.json
+          git add politics-news.json politics-polls.json politics-poll-health.json politics-source-status.json
           if ! git diff --cached --quiet; then
             git commit -m "Update cited political news links and original polling averages"
             git pull --rebase origin main
