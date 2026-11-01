@@ -34,6 +34,7 @@ const scores=replay(events);
 if(scores.games!==events.length)throw Error('Incomplete WBB rating replay');
 const date=events.at(-1)?.date||null;
 const previous=date?replay(events.filter(g=>g.date<date)).ratings:{};
+const independentCrosschecks=events.filter(g=>g.score_evidence==='espn_and_ncaa_origin'||g.score_evidence==='ncaa_origin_final_espn_fixture').length;
 const records=new Map(teams.map(t=>[String(t.team_id),{
   wins:0,losses:0,conference_wins:0,conference_losses:0,games_played:0
 }]));
@@ -56,7 +57,9 @@ let old=null;
 rankings.forEach((t,i)=>{t.rank=events.length?(t.elo===old?rankings[i-1].rank:i+1):null;old=t.elo;});
 const output={
   model:'retro-clean-slate',gender:'women',season:'2026-27',
-  source:'Women-only Division I verified finals',starting_elo:1500,
+  source:'Women-only Division I finals: ESPN event results and NCAA-origin corroboration where available',starting_elo:1500,
+  result_source_audit:{ncaa_origin_corroborated:independentCrosschecks,espn_final_without_current_ncaa_crosscheck:events.length-independentCrosschecks,
+    note:'The NCAA-origin source is relayed through a third party. Each stored final records score_evidence. A live NCAA/ESPN conflict blocks publication.'},
   status:events.length?'in-season':'preseason-all-tied',games_played:events.length,as_of:date,
   parameters:{baseline:1500,home_edge:edge,passes:160,
     calibration:verified?'historical holdout':'pending historical holdout; neutral home edge'},

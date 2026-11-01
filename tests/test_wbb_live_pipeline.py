@@ -87,5 +87,42 @@ class WomenLiveIngestionTests(unittest.TestCase):
             wbb.live(today=wbb.dt.date(2026,11,1))
         self.assertEqual(self.load("ncaaw-2026-27-teams.json")["count"],363)
 
+    def ncaa_feed(self,home,away,checked_at=None,phase="final"):
+        return {"ncaa_women_crosscheck":{
+            "provider":"NCAA.com via third-party relay",
+            "source_url":"https://ncaa-api.henrygd.me/scoreboard/basketball-women/d1/2026/11/01/all-conf",
+            "checked_at":checked_at or wbb.dt.datetime.now(wbb.dt.timezone.utc).isoformat(),
+            "games":[{"espn_id":"401920983","home_id":"1","away_id":"2",
+                      "home_score":home,"away_score":away,"phase":phase}]}}
+    
+    def test_ncaa_origin_final_can_complete_same_identified_espn_fixture(self):
+        (self.root/"mbb-live.json").write_text(json.dumps(self.ncaa_feed(75,78)))
+        with patch.object(wbb,"daily",side_effect=lambda day:
+                          [event("401920983","2026-11-01",done=False)]
+                          if day.isoformat()=="2026-11-01" else []):
+            wbb.live(today=wbb.dt.date(2026,11,1))
+        row=self.load("ncaaw-2026-27-verified-games.json")["games"][0]
+        self.assertEqual((row["home_score"],row["away_score"]),(75,78))
+        self.assertEqual(row["score_evidence"],"ncaa_origin_final_espn_fixture")
+
+    def test_independent_final_score_conflict_blocks_elo_publication(self):
+        (self.root/"mbb-live.json").write_text(json.dumps(self.ncaa_feed(74,78)))
+        with patch.object(wbb,"daily",side_effect=lambda day:
+                          [event("401920983","2026-11-01",done=True)]
+                          if day.isoformat()=="2026-11-01" else []):
+            with self.assertRaisesRegex(RuntimeError,"score disagreement"):
+                wbb.live(today=wbb.dt.date(2026,11,1))
+        self.assertFalse((self.root/"ncaaw-2026-27-verified-games.json").exists())
+
+    def test_stale_ncaa_snapshot_does_not_pretend_to_confirm_a_score(self):
+        stale=(wbb.dt.datetime.now(wbb.dt.timezone.utc)-wbb.dt.timedelta(hours=3)).isoformat()
+        (self.root/"mbb-live.json").write_text(json.dumps(self.ncaa_feed(75,78,checked_at=stale)))
+        with patch.object(wbb,"daily",side_effect=lambda day:
+                          [event("401920983","2026-11-01",done=True)]
+                          if day.isoformat()=="2026-11-01" else []):
+            wbb.live(today=wbb.dt.date(2026,11,1))
+        row=self.load("ncaaw-2026-27-verified-games.json")["games"][0]
+        self.assertEqual(row["score_evidence"],"espn_only")
+
 if __name__=="__main__":
     unittest.main()
