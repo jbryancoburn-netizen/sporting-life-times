@@ -1,0 +1,46 @@
+/* Live NFL game-day layer: exactly two rings, integrated with existing NFL paper. */
+.nfl-live-stage{margin:15px 0 20px;padding:14px 15px 18px;background:#ede8de;border:1px solid #c9c0b1;border-top:4px solid #26221e}
+.nfl-live-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #b8ac9d;padding-bottom:10px;margin-bottom:12px}
+.nfl-live-head h2{font:700 23px/1.12 Georgia,serif;letter-spacing:-.02em;margin:2px 0 0}
+.nfl-live-kicker{font:700 10px/1.3 Arial,sans-serif;letter-spacing:.16em;color:#922a22}
+.nfl-live-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:700 11px Arial,sans-serif}
+.nfl-live-actions button,.nfl-live-actions input{border:1px solid #a79d90;padding:7px;background:#faf7f0;color:#211f1b;font:700 12px Arial,sans-serif;cursor:pointer}
+.nfl-live-actions button:hover{background:#d7cebf}
+.nfl-live-status{font:11px/1.4 Arial,sans-serif;color:#665f56;margin:9px 0 11px}
+.nfl-live-status strong{color:#205d3e}
+.nfl-live-dot{display:inline-block;width:8px;height:8px;background:#b22622;border-radius:50%;margin-right:5px;box-shadow:0 0 0 3px #b226221f}
+.nfl-live-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.nfl-live-card{min-width:0;display:block;text-decoration:none;color:inherit!important;background:#fdfaf4;border:1px solid #cec5b8;border-top:3px solid #29231f;padding:10px 12px;transition:box-shadow .15s}
+.nfl-live-card:hover{box-shadow:0 2px 10px #0002}
+.nfl-live-card.live-now{border-top-color:#b22622}
+.nfl-live-meta{display:flex;justify-content:space-between;gap:6px;font:700 10px/1.4 Arial,sans-serif;letter-spacing:.03em;margin-bottom:9px}
+.nfl-live-meta .live{color:#ad251c}
+.nfl-live-row{display:flex;align-items:center;gap:8px;min-height:43px;padding:3px 0}
+.nfl-live-row .nfl-badge.sm{width:35px!important;height:35px!important;flex-basis:35px!important;--nfl-outer:3px;--nfl-inner:3px}
+.nfl-live-team{flex:1 1 auto;min-width:0;font:700 13px/1.2 Arial,sans-serif}
+.nfl-live-team small{display:block;font:10px/1.3 Arial,sans-serif;color:#74685d;margin-top:3px}
+.nfl-live-points{font:700 24px/1 Georgia,serif;min-width:33px;text-align:right}
+.nfl-live-footer{font:10px/1.35 Arial,sans-serif;color:#6b6158;border-top:1px solid #ded7cd;padding-top:7px;margin-top:6px;min-height:21px}
+.nfl-live-scorebug{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0 12px}
+.nfl-live-scorebug div{padding:11px 9px;background:#faf7ef;border:1px solid #d1c9bb;text-align:center}
+.nfl-live-scorebug b{display:block;font:700 23px Georgia,serif}
+.nfl-live-scorebug span{font:700 10px Arial,sans-serif;color:#6b6158}
+.nfl-live-details{border:1px solid #bfb5a8;background:#f9f6ee;padding:12px;margin:13px 0 18px}
+.nfl-live-details h2{margin:0 0 11px;font:700 21px Georgia,serif}
+.nfl-live-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.nfl-live-mini-table{width:100%;border-collapse:collapse;font:12px Arial,sans-serif}
+.nfl-live-mini-table td,.nfl-live-mini-table th{padding:6px 5px;border-bottom:1px solid #ddd3c7;text-align:right}
+.nfl-live-mini-table td:first-child,.nfl-live-mini-table th:first-child{text-align:left}
+.nfl-live-play{font:12px/1.4 Arial,sans-serif;padding:6px 0;border-bottom:1px solid #ddd6ce}
+.nfl-live-play b{color:#8b2a20}
+.nfl-live-performers{border-top:1px solid #b6ada0;margin-top:14px;padding-top:10px}
+.nfl-live-performers h3{font:700 15px Georgia,serif;margin:0 0 8px}
+.nfl-live-performance-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.nfl-live-performance{display:flex;align-items:center;gap:8px;background:#faf8f2;border:1px solid #d5cabc;padding:9px}
+.nfl-live-performance img{width:38px;height:38px;object-fit:contain;background:#ece7dc;border-radius:50%}
+.nfl-live-performance b{display:block;font:700 12px Arial,sans-serif}
+.nfl-live-performance span{font:10px Arial,sans-serif;color:#70665e}
+.nfl-live-performance strong{margin-left:auto;font:700 20px Georgia,serif}
+.nfl-live-error{padding:13px;background:#faf8f2;border:1px solid #dad0c2;font:12px/1.4 Arial,sans-serif}
+@media(max-width:850px){.nfl-live-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nfl-live-performance-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:590px){.nfl-live-stage{padding:11px}.nfl-live-grid{grid-template-columns:1fr}.nfl-live-detail-grid{grid-template-columns:1fr}.nfl-live-performance-grid{grid-template-columns:1fr}.nfl-live-scorebug{gap:4px}.nfl-live-scorebug b{font-size:19px}}
