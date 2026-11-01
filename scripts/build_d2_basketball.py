@@ -523,6 +523,59 @@ def seed_published_dii_palettes(gender,teams):
         matched+=1
     return {"matched":matched,"tonal_accents":tonal,"source":"school-specific documented colors"}
 
+def seed_logo_artwork_palettes(teams):
+    """Use only color pixels recorded in the exact NCAA school-logo SVG.
+
+    Official institutional team-color evidence always takes precedence.
+    The file is an auditable candidate scan of NCAA logo artwork, not a
+    university brand-guide certification. No guessed logos or colors.
+    """
+    path=DATA/"d2-ncaa-logo-artwork-palette-audit.json"
+    if not path.exists():
+        return {"matched":0,"status":"Official NCAA SVG evidence scan not yet published"}
+    source=json.loads(path.read_text())
+    if not source.get("kind","").startswith("candidates only"):
+        return {"matched":0,"status":"Rejected non-audited palette file"}
+    entries=source.get("entries",{})
+    added=0;rejected=0;chromatic=0
+    def rgb(color):
+        return tuple(int(color[i:i+2],16) for i in (1,3,5))
+    def lively(color):
+        r,g,b=rgb(color)
+        return max(r,g,b)-min(r,g,b)>=35
+    def distance(a,b):
+        return sum((x-y)**2 for x,y in zip(rgb(a),rgb(b)))**0.5
+    for t in teams.values():
+        if t.get("primary") or t.get("secondary") or not t.get("slug"):
+            continue
+        record=entries.get(t["slug"],{})
+        if "primary" not in record or "secondary" not in record:
+            continue
+        if "/logos/schools/bgl/"+t["slug"]+".svg" not in record.get("source_url",""):
+            rejected+=1;continue
+        # Require two visually distinct vector artwork colors and at least
+        # one chromatic paint. Pure monochrome badges retain neutral rings.
+        shades=[color for color,_ in record.get("top_colors",[])
+                if nonwhite_color(color)]
+        vivid=[color for color in shades if lively(color)]
+        if not vivid:
+            rejected+=1;continue
+        first=vivid[0]
+        second=next((v for v in vivid[1:] if distance(first,v)>=55),None)
+        if not second:
+            second=next((v for v in shades if distance(first,v)>=55),None)
+        if not second:
+            rejected+=1;continue
+        t["primary"]=first;t["secondary"]=second
+        t["color_source"]=record["source_url"]
+        t["color_provenance"]="NCAA vector LOGO artwork colors (not independently certified school brand colors)"
+        t["color_basis"]="artwork-derived"
+        added+=1
+        if lively(second):chromatic+=1
+    return {"matched":added,"two_chromatic_artwork_colors":chromatic,
+            "rejected_unclear_artwork":rejected,"source":"exact NCAA school logo SVG artwork audit",
+            "not_university_brand_colors":True}
+
 def apply_membership_notes(gender,teams):
     """Never upgrade prospective conference members into certified DII schools."""
     path=DATA/"d2-membership-notes-2026-27.json"
@@ -630,6 +683,7 @@ def update(gender, bootstrap=False):
     color_quality['cross_gender']=seed_shared_dii_colors(gender,teams)
     color_quality['ncaa_logo_artwork']=seed_logo_artwork_palette(teams)
     color_quality['published_school_evidence']=seed_published_dii_palettes(gender,teams)
+    color_quality['ncaa_svg_artwork_palette']=seed_logo_artwork_palettes(teams)
     color_quality['total_with_two_visible_colors']=sum(bool(t.get('primary') and t.get('secondary')) for t in teams.values())
     logo_quality["cross_gender"]=paired_quality
     logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
