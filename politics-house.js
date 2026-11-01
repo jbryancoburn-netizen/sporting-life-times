@@ -95,7 +95,23 @@ function makeDistrictCard(r){
   flags.append(newEl("span",orig?"Original poll ✓":compilation?"Compiled poll":"No sourced poll",orig?"verified":"unverified"));
   const prior=r["2024_house_result_on_prior_boundaries"];
   flags.append(newEl("span",prior?(prior.same_2026_geography?"2024 comparable":"2024 old lines"):"2024 result missing",prior?.same_2026_geography?"verified":"unverified"));
-  link.append(top,status,sub,flags,footer);
+  const ballot=r.official_2026_candidate_snapshot;
+  let field=null;
+  if(ballot?.candidates?.length){
+    field=newEl("div",null,"state-candidate-preview");
+    field.append(newEl("span","VERIFIED 2026 CANDIDATE FIELD","field-label"));
+    const names=newEl("div",null,"field-names");
+    ballot.candidates.slice(0,2).forEach(c=>{
+      const item=newEl("div",null,"field-person");
+      const code=newEl("span",c.party==="DEM"?"D":c.party==="REP"?"R":c.party==="IND"?"I":c.party,"field-party");
+      code.classList.add(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other");
+      item.append(code,newEl("span",c.name,"field-name"));names.append(item);
+    });
+    field.append(names);
+    if(ballot.candidates.length>2)field.append(newEl("span","+"+(ballot.candidates.length-2)+" more candidate"+(ballot.candidates.length===3?"":"s")+" · open race file","field-more"));
+  }
+  if(field)link.append(top,status,sub,field,flags,footer);
+  else link.append(top,status,sub,flags,footer);
  link.title=r.id+": "+info.source+". "+info.text;
  return link;
 }
