@@ -1,0 +1,68 @@
+{
+  "season": "2026-27",
+  "verified_at": "2026-11-01",
+  "scope": "Five exact fixtures in four Division I team schedules; no workflow edits",
+  "source_policy": "Direct 2026 NCAA school-athletics announcements and exact opponent/date verification; no generic arena or guessed D-I opponent",
+  "preserved_game_ids": true,
+  "arena_fields_added": 5,
+  "misidentified_opponents_corrected": 1,
+  "verified_tipoff_fields_added": 1,
+  "changes": [
+    {
+      "school_id": "103",
+      "event_id": "school-103-2026-11-26-7",
+      "date": "2026-11-26",
+      "opponent_id": "2116",
+      "arena": "State Farm Field House",
+      "venue_city": "Kissimmee, Fla.",
+      "source": "https://bceagles.com/news/2026/8/6/fields-revealed-for-mens-basketball-2026-espn-events-invitational-at-walt-disney-world-resort"
+    },
+    {
+      "school_id": "103",
+      "event_id": "school-103-2026-11-27-8",
+      "date": "2026-11-27",
+      "opponent_id": "2132",
+      "arena": "State Farm Field House",
+      "venue_city": "Kissimmee, Fla.",
+      "source": "https://bceagles.com/news/2026/8/6/fields-revealed-for-mens-basketball-2026-espn-events-invitational-at-walt-disney-world-resort"
+    },
+    {
+      "school_id": "2116",
+      "event_id": "school-2116-2026-11-26-24",
+      "date": "2026-11-26",
+      "opponent_id": "103",
+      "arena": "State Farm Field House",
+      "venue_city": "Kissimmee, Fla.",
+      "source": "https://bceagles.com/news/2026/8/6/fields-revealed-for-mens-basketball-2026-espn-events-invitational-at-walt-disney-world-resort"
+    },
+    {
+      "school_id": "2132",
+      "event_id": "cross-school-2132-2026-11-27_103",
+      "date": "2026-11-27",
+      "opponent_id": "103",
+      "arena": "State Farm Field House",
+      "venue_city": "Kissimmee, Fla.",
+      "source": "https://bceagles.com/news/2026/8/6/fields-revealed-for-mens-basketball-2026-espn-events-invitational-at-walt-disney-world-resort"
+    },
+    {
+      "school_id": "108",
+      "event_id": "school-108-2026-11-08-15",
+      "date": "2026-11-08",
+      "opponent": "University of Chicago Maroons (Division III)",
+      "previously_incorrect_opponent": "Chicago State Cougars (Division I)",
+      "opponent_id": null,
+      "arena": "Ratner Athletic Center",
+      "tipoff": "2:00 PM ET",
+      "source": "https://athletics.uchicago.edu/news/2026/8/13/mens-basketball-set-to-host-harvard-at-the-ratner-athletic-center-on-november-8.aspx",
+      "tipoff_source": "https://gocrimson.com/sports/mens-basketball/schedule/2026-27"
+    }
+  ],
+  "remaining_2026_11_01_baseline": {
+    "missing_arena_fields": 313,
+    "missing_broadcast_fields": 5011,
+    "missing_tipoff_fields": 482,
+    "missing_city_fields": 110,
+    "missing_site_classifications": 85,
+    "note": "These are the earlier 365-file snapshot counts, not a new full rescan. Five arena fields and one tipoff were corrected since this snapshot; other fields remain unverified."
+  }
+}
