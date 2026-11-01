@@ -21,10 +21,30 @@ function logo(t){
 }
 function school(id){return state.teams.get(String(id))||{id:String(id),name:id,slug:''}}
 function row(t,i,withRank=true){return '<div class="board-row"><span>'+(withRank?i+1:'')+'</span>'+logo(t)+'<a class="school-link" href="'+link(t)+'">'+name(t)+'</a><span>'+(t.w||0)+'–'+(t.l||0)+'</span><span>'+Math.round(pct(t)*1000)/10+'%</span><span class="elo">'+Number(t.elo||1500).toFixed(0)+'</span></div>'}
-function game(g){const away=school(g.away),home=school(g.home);const final=g.status==='final',time=g.start_time||'Tipoff TBA';return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(final?'FINAL':g.status==='live'?'LIVE':time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
-'<div class="game-row">'+logo(away)+'<a class="school-link" href="'+link(away)+'">'+name(away)+'</a><b>'+(final||g.status==='live'?esc(g.away_score??'—'):'')+'</b></div>'+
-'<div class="game-row">'+logo(home)+'<a class="school-link" href="'+link(home)+'">'+name(home)+'</a><b>'+(final||g.status==='live'?esc(g.home_score??'—'):'')+'</b></div>'+
-'<div class="game-footer">'+esc(g.venue||'Venue awaiting official confirmation')+(g.tournament?' · '+esc(g.tournament):'')+(g.source_url?' · <a target="_blank" rel="noopener" href="'+esc(g.source_url)+'">NCAA game ↗</a>':'')+'</div></article>'}
+function game(g){
+ const away=school(g.away),home=school(g.home),final=g.status==='final';
+ const time=g.start_time||'Tipoff TBA';
+ const probability=(g.pred_home_pct===null||g.pred_home_pct===undefined)?null:Number(g.pred_home_pct);
+ const hasProbability=Number.isFinite(probability)&&probability>=0&&probability<=100;
+ const formatChange=v=>(Number(v)>0?'+':'')+Number(v).toFixed(1);
+ const odds=hasProbability?'<div class="forecast-strip" aria-label="Experimental USRS projected win probabilities">'+
+ '<div class="forecast-label"><span>USRS MATCHUP · EXPERIMENTAL</span><small>Uncalibrated DII coefficients</small></div>'+
+ '<div class="forecast-values"><strong>'+esc((100-probability).toFixed(1))+'% <small>'+esc(away.name)+'</small></strong>'+
+ '<strong>'+esc(probability.toFixed(1))+'% <small>'+esc(home.name)+'</small></strong></div>'+
+ '<div class="forecast-meter" aria-hidden="true"><span style="width:'+esc(probability.toFixed(1))+'%"></span></div>'+
+ (final&&Number.isFinite(Number(g.elo_change_home))?'<p>FINAL ELO MOVEMENT · '+esc(away.name)+' '+esc(formatChange(g.elo_change_away))+
+ ' / '+esc(home.name)+' '+esc(formatChange(g.elo_change_home))+'</p>':'')+'</div>':'';
+ return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+
+ esc(final?'FINAL':g.status==='live'?'LIVE':time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
+ '<div class="game-row">'+logo(away)+'<a class="school-link" href="'+link(away)+'">'+name(away)+'</a><b>'+
+ (final||g.status==='live'?esc(g.away_score??'—'):'')+'</b></div>'+
+ '<div class="game-row">'+logo(home)+'<a class="school-link" href="'+link(home)+'">'+name(home)+'</a><b>'+
+ (final||g.status==='live'?esc(g.home_score??'—'):'')+'</b></div>'+odds+
+ '<div class="game-footer">'+esc(g.venue||'Venue awaiting official confirmation')+
+ (g.tournament?' · '+esc(g.tournament):'')+
+ (g.source_url?' · <a target="_blank" rel="noopener" href="'+esc(g.source_url)+'">Game source ↗</a>':'')+
+ '</div></article>';
+}
 function renderHome(d){const teams=(d.teams||[]).slice().sort((a,b)=>a.name.localeCompare(b.name));const games=d.games||[];const finals=games.filter(g=>g.status==='final'&&g.elo_eligible);
 $('teams-covered').textContent=teams.length;$('finals-covered').textContent=finals.length;
 $('directory-count').textContent=teams.length+' identified of '+d.team_target+' projected'+(teams.length!==d.team_target?' · membership reconciliation needed':' · independently verified against published directory');

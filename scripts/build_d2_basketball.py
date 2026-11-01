@@ -358,14 +358,31 @@ def update(gender, bootstrap=False):
     # Initial explicit uncalibrated settings: no fictitious back-tested coefficients.
     k=20.0;home_edge=65.0
     finals=0
-    for game in sorted(games.values(),key=lambda v:(v["date"],v["id"])):
-        if not (game["status"]=="final" and game.get("elo_eligible")):continue
+    for game in sorted(games.values(),key=lambda v:(v["date"],str(v.get("start_time") or ""),str(v["id"]))):
         a,h=game["away"],game["home"]
-        if a not in rating or h not in rating:continue
-        outcome=1 if game["home_score"]>game["away_score"] else 0
+        if a not in rating or h not in rating or not game.get("elo_eligible"):
+            # Cross-division opponents and uncertain memberships must not
+            # receive bogus win probabilities.
+            for field in ("pregame_elo_away","pregame_elo_home","pred_home_pct",
+                          "elo_change_home","elo_change_away"):
+                game.pop(field,None)
+            continue
         match_edge=0.0 if game.get("neutral") else home_edge
         expectation=1/(1+10**((rating[a]-rating[h]-match_edge)/400))
+        game["pregame_elo_away"]=round(rating[a],1)
+        game["pregame_elo_home"]=round(rating[h],1)
+        game["pred_home_pct"]=round(100*expectation,1)
+        game["forecast_model_status"]="experimental; DII historical calibration pending"
+        if game["status"]!="final":
+            game.pop("elo_change_home",None)
+            game.pop("elo_change_away",None)
+            continue
+        if game.get("away_score") is None or game.get("home_score") is None:
+            continue
+        outcome=1 if game["home_score"]>game["away_score"] else 0
         movement=k*(outcome-expectation)
+        game["elo_change_home"]=round(movement,1)
+        game["elo_change_away"]=round(-movement,1)
         rating[h]+=movement;rating[a]-=movement
         if outcome:wins[h]+=1;losses[a]+=1
         else:wins[a]+=1;losses[h]+=1
