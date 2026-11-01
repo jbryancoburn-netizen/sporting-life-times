@@ -131,4 +131,16 @@ if(season0.games_played===0){
   assert.equal(new Set(season0.rankings.map(x=>x.elo)).size,1,'real preseason rating file is tied');
   assert.equal(season0.rankings[0].elo,1500);
 }
+// 2027 Bracket Watch: the official 76-team structure, not a two-column 152-row wall.
+const bracketJS=fs.readFileSync(path.join(root,'mbb-newspaper.js'),'utf8');
+const compareJS=fs.readFileSync(path.join(root,'mbb-selection-comparison.js'),'utf8');
+const bracketCSS=fs.readFileSync(path.join(root,'mbb-newspaper.css'),'utf8');
+assert(bracketJS.includes('tournament-dek')&&bracketJS.includes('bracket-region-tabs'),'regional brackets precede model analysis');
+assert(bracketJS.includes('data-bracket-panel')&&bracketJS.includes('aria-selected'),'four regions are selectable without scrolling through four brackets');
+assert(bracketJS.includes('32</b> projected AQs')&&bracketJS.includes('44</b> at-large'),'official field structure is shown');
+assert(compareJS.includes("const method=app.querySelector('#method')"),'supplemental model comparison belongs after the field and opening-round bracket');
+assert(compareJS.includes('selection-all')&&compareJS.includes('<details'),'full 76-team lists must collapse by default');
+assert(compareJS.includes('No verified 2026–27 résumé exists yet'),'preseason poll illustration must not be marketed as a committee forecast');
+assert(bracketCSS.includes('.selection-compare-intro')&&bracketCSS.includes('.bracket-grid--selectable'),'bracket UI has mobile rules');
+assert(!compareJS.includes('<h3>Committee-style field · 76 teams</h3>'),'remove uncollapsed 76-item committee list');
 console.log('PASS Courtside: live/snapshot separation, away/home, verified notes, gender-isolated Elo, neutral/site/stale model checks, navigation, no logo overlay.');
