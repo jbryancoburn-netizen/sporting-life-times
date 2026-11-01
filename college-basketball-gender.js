@@ -41,8 +41,8 @@
   // Preserve printed university times without silently converting their local zones.
   const gameWhen=g=>{
     const d=localDay(g.date),label=d?dayLabel(d):'Date TBA';
-    if(g.tipoff_disputed)return label+' · Tipoff disputed';
     if(g.status==='live'||g.status==='final'||g.completed)return fmt(g.date);
+    if(g.tipoff_disputed)return label+' · Tipoff disputed';
     const printed=String(g.official_tipoff_local||g.official_tipoff_as_printed||g.official_time_as_printed||g.official_school_time||g.official_time||g.verified_tipoff||'').trim();
     if(printed&&!/^(TBA|TBD|unknown)$/i.test(printed))return label+' · '+printed+' (source local)';
     const at=new Date(g.date),midnight=Number.isFinite(+at)&&at.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})==='12:00 AM';
