@@ -54,7 +54,7 @@ def load_year(chamber,year):
     if isinstance(obj,dict):rows=obj.get("rows")
     elif isinstance(obj,list):rows=obj
     else:rows=None
-    if not isinstance(rows,list) or len(rows)<200:
+    if not isinstance(rows,list) or len(rows)<(200 if chamber=="house" else 25):
         raise ValueError(f"No usable {chamber} data for {year}: {type(rows)} {len(rows) if isinstance(rows,list) else '?'}")
     if not all(isinstance(row,dict) for row in rows):
         raise ValueError(f"{chamber} rows are not objects")
