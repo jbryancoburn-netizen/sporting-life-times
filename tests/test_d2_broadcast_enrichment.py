@@ -106,6 +106,38 @@ class D2BroadcastEnrichmentTests(unittest.TestCase):
         self.assertEqual(summary["skipped"],10)
         self.assertEqual(len(games),0)
 
+    def test_organizer_covers_all_18_midwest_games_with_central_tipoffs(self):
+        evidence=json.loads((ROOT/"data"/"d2-midwest-tipoff-official-2026.json").read_text())
+        self.assertEqual(len(evidence["fixtures"]),18)
+        self.assertEqual({x["gender"] for x in evidence["fixtures"]},{"men","women"})
+        self.assertEqual(len([x for x in evidence["fixtures"] if x["gender"]=="men"]),9)
+        self.assertEqual(len([x for x in evidence["fixtures"] if x["gender"]=="women"]),9)
+        self.assertTrue(all(g["neutral"] and g["network"]=="JustAGame Live"
+            and g["stream_url"]==evidence["source_url"] for g in evidence["fixtures"]))
+
+    def test_midwest_time_and_elo_neutrality_corrected_without_changing_results(self):
+        evidence=json.loads((ROOT/"data"/"d2-midwest-tipoff-official-2026.json").read_text())
+        teams={k:{"id":k} for row in evidence["fixtures"] for k in (row["away"],row["home"])}
+        existing={"id":"6661294","date":"2026-10-30",
+            "away":"northern-michigan-university","home":"university-of-central-missouri",
+            "status":"final","away_score":35,"home_score":56,"start_time":"11:15 AM ET",
+            "neutral":False,"source_url":"https://www.ncaa.com/game/6661294"}
+        games={existing["id"]:existing}
+        result=builder.apply_verified_schedule_broadcasts("women",games,teams,dt.date(2026,11,1),
+            registry_file=ROOT/"data"/"d2-midwest-tipoff-official-2026.json",
+            stream_host="https://justagame.com/clients/justagame-fieldhouse/")
+        self.assertEqual(result["matched"],1)
+        self.assertEqual(result["created"],3)
+        self.assertEqual(result["skipped"],5)
+        self.assertEqual(existing["start_time"],"12:15 PM ET")
+        self.assertEqual(existing["network"],"JustAGame Live")
+        self.assertEqual(existing["source_url"],"https://www.ncaa.com/game/6661294")
+        self.assertTrue(existing["neutral"],"Neutral DII tournament cannot award home Elo edge")
+        self.assertEqual((existing["away_score"],existing["home_score"]),(35,56))
+        game=next(g for g in games.values() if g["date"]=="2026-11-01"
+            and "grand-valley-state-university" in (g["away"],g["home"]))
+        self.assertEqual(game["start_time"],"12:15 PM ET")
+
     def test_november_1_dst_and_source_stamps(self):
         self.assertEqual(builder.display_et_time("2026-11-01T19:00:00Z"),"2:00 PM ET")
         self.assertEqual(builder.display_et_time("2026-11-01T23:00:00Z"),"6:00 PM ET")
