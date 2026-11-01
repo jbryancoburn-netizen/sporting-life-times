@@ -172,7 +172,8 @@ function makeDistrictCard(r){
       item.append(portraitNode(r,c));
       const code=newEl("span",c.party==="DEM"?"D":c.party==="REP"?"R":c.party==="IND"?"I":c.party,"field-party");
       code.classList.add(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other");
-      item.append(code,newEl("span",c.name,"field-name"));names.append(item);
+      const identity=newEl("span",null,"field-identity");identity.append(code,newEl("span",c.name,"field-name"));
+      item.append(identity);names.append(item);
     });
     field.append(names);
     if(ballot.candidates.length>2)field.append(newEl("span","+"+(ballot.candidates.length-2)+" more candidate"+(ballot.candidates.length===3?"":"s")+" · open race file","field-more"));
