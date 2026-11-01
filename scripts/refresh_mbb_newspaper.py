@@ -633,6 +633,16 @@ def main():
         audited['eligible']+=1
         team_audit['eligible']+=1
         if gid in safe_games and gid in verified_teams:continue
+        # Do not hammer the free NCAA relay every 15 minutes after team
+        # stats pass but upstream player rows are known to be missing.
+        if gid in verified_teams and gid not in safe_games:
+            last=verified_teams[gid].get('checked_at')
+            try:
+                if (dt.datetime.fromisoformat(now)-dt.datetime.fromisoformat(last)).total_seconds()<3*3600:
+                    audited['skipped_existing_team_verification']=audited.get('skipped_existing_team_verification',0)+1
+                    continue
+            except (TypeError,ValueError):
+                pass
         expected={}
         if gender=='men':
             for side in ('away','home'):
