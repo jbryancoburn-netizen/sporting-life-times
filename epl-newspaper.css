@@ -78,3 +78,26 @@ body.epl-newspaper .hero-art:before{content:'PREMIER LEAGUE USRS · THE POWER FO
 @media(max-width:900px){.epl-newspaper .hero{grid-template-columns:1fr}.epl-newspaper .hero-art{border-radius:50px}.epl-newspaper #forecast-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper .slt-club-directory{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:650px){.epl-newspaper .grid,.epl-newspaper .slt-more{display:block}.epl-newspaper #epl-score-rail .epl-score-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper .hero{padding:22px}.epl-newspaper .slt-hero-club img{width:45px;height:45px;padding:5px}.epl-newspaper .hero-art{padding:34px 12px 16px}.epl-newspaper .epl-power-four{gap:7px}.epl-newspaper .slt-hero-club strong{font-size:27px}.epl-newspaper .slt-club-directory{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper #forecast-grid{grid-template-columns:1fr}.epl-newspaper .metric b{font-size:25px}.epl-newspaper .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.epl-newspaper .metric:nth-child(2){border-right:0}}
 @media(max-width:380px){.epl-newspaper #epl-score-rail .epl-score-rail{grid-template-columns:1fr}body.epl-newspaper .hero-art:before{font-size:8px}.epl-newspaper .slt-hero-club small{font-size:9px}}
+
+/* Hero badges own two team-color rings, as on the NBA hero. */
+.epl-newspaper .hero-art img[src*="/500/359.png"]{--epl-primary:#ef0107;--epl-secondary:#063672}
+.epl-newspaper .hero-art img[src*="/500/362.png"]{--epl-primary:#670e36;--epl-secondary:#95bfe5}
+.epl-newspaper .hero-art img[src*="/500/349.png"]{--epl-primary:#da291c;--epl-secondary:#171717}
+.epl-newspaper .hero-art img[src*="/500/337.png"]{--epl-primary:#d20000;--epl-secondary:#171717}
+.epl-newspaper .hero-art img[src*="/500/331.png"]{--epl-primary:#0057b8;--epl-secondary:#f8bc1c}
+.epl-newspaper .hero-art img[src*="/500/363.png"]{--epl-primary:#034694;--epl-secondary:#dbb23a}
+.epl-newspaper .hero-art img[src*="/500/388.png"]{--epl-primary:#77bbdd;--epl-secondary:#243f85}
+.epl-newspaper .hero-art img[src*="/500/384.png"]{--epl-primary:#1b458f;--epl-secondary:#c4122e}
+.epl-newspaper .hero-art img[src*="/500/368.png"]{--epl-primary:#003399;--epl-secondary:#e2ac31}
+.epl-newspaper .hero-art img[src*="/500/370.png"]{--epl-primary:#111111;--epl-secondary:#cc0000}
+.epl-newspaper .hero-art img[src*="/500/306.png"]{--epl-primary:#f18a00;--epl-secondary:#171717}
+.epl-newspaper .hero-art img[src*="/500/373.png"]{--epl-primary:#0044a9;--epl-secondary:#de2c37}
+.epl-newspaper .hero-art img[src*="/500/357.png"]{--epl-primary:#1d428a;--epl-secondary:#ffcd00}
+.epl-newspaper .hero-art img[src*="/500/364.png"]{--epl-primary:#c8102e;--epl-secondary:#007f73}
+.epl-newspaper .hero-art img[src*="/500/382.png"]{--epl-primary:#6cabdd;--epl-secondary:#1c2c5b}
+.epl-newspaper .hero-art img[src*="/500/360.png"]{--epl-primary:#da291c;--epl-secondary:#171717}
+.epl-newspaper .hero-art img[src*="/500/361.png"]{--epl-primary:#171717;--epl-secondary:#8bc8e8}
+.epl-newspaper .hero-art img[src*="/500/393.png"]{--epl-primary:#dd0000;--epl-secondary:#f7bd13}
+.epl-newspaper .hero-art img[src*="/500/366.png"]{--epl-primary:#eb172b;--epl-secondary:#171717}
+.epl-newspaper .hero-art img[src*="/500/367.png"]{--epl-primary:#132257;--epl-secondary:#a58a50}
+.epl-newspaper .hero-art img.epl-crest{border:3px solid var(--epl-primary,var(--teal));box-shadow:0 0 0 2px var(--epl-secondary,var(--gold));padding:6px}
