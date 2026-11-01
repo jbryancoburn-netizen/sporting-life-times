@@ -232,3 +232,164 @@ body[data-page="home"] #score-stamp[hidden]{display:none!important}
  body[data-page="home"]:not([data-gender="women"]) .hero-facts strong{font-size:20px}
  body[data-page="home"]:not([data-gender="women"]) .hero-facts span{font-size:8px;letter-spacing:.25px}
 }
+
+
+/* 2027 BRACKET WATCH · professional compact presentation.
+   NCAA 76-team format is official; seeds, team placement and AQs are editorial projections. */
+body[data-page="tournament"] .tournament-dek{
+  background:transparent;border-top:3px solid var(--ink,#172f35);
+  border-bottom:1px solid #cad4cf;margin:16px 0 0;padding:19px 0 15px;
+}
+body[data-page="tournament"] .tournament-dek .eyebrow{color:#6d7777;font-size:10px;letter-spacing:1.35px}
+body[data-page="tournament"] .tournament-dek h1{
+  font:700 clamp(30px,4.7vw,51px)/1.05 'Libre Caslon Display',Georgia,serif!important;
+  margin:9px 0!important;letter-spacing:-.7px;color:#172e36
+}
+body[data-page="tournament"] .tournament-dek p{
+  max-width:720px;color:#576c70;font:400 14px/1.5 'DM Sans',Arial,sans-serif;margin:6px 0 16px
+}
+body[data-page="tournament"] .tournament-numbers{
+  display:flex;flex-wrap:wrap;gap:9px 18px;align-items:center
+}
+body[data-page="tournament"] .tournament-numbers span{
+  display:inline-flex;align-items:baseline;gap:5px;font:600 11px/1.4 'DM Sans',Arial,sans-serif;color:#667377;
+}
+body[data-page="tournament"] .tournament-numbers b{
+  font:700 19px/1.1 Georgia,serif;color:#183e49;font-variant-numeric:tabular-nums
+}
+body[data-page="tournament"] .tournament-disclaimer{
+  background:#f1f2ee;border-left:3px solid #8d968b;color:#4f6366;
+  padding:9px 12px;margin:11px 0 9px;font-size:12px;line-height:1.5
+}
+body[data-page="tournament"] .tournament-disclaimer a{
+  color:#175669;text-decoration:underline;text-underline-offset:2px
+}
+body[data-page="tournament"] .tournament-index{
+  display:flex;gap:6px 14px;flex-wrap:wrap;margin:0 0 19px;
+  border-bottom:1px solid #c5ccc8;padding:7px 2px 11px;
+}
+body[data-page="tournament"] .tournament-index a{
+  font:700 11px Arial,sans-serif;color:#2a5662;border:0;text-decoration:none
+}
+body[data-page="tournament"] .tournament-index a:hover{text-decoration:underline}
+body[data-page="tournament"] .bracket-region-tabs{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid #c4cfca;background:#f5f5f0;margin-bottom:13px;gap:0
+}
+body[data-page="tournament"] .bracket-region-tabs button{
+  background:transparent;border:0;border-right:1px solid #d3d9d5;
+  min-height:45px;padding:11px 5px;cursor:pointer;
+  font:700 12px Arial,sans-serif;color:#47626b;
+}
+body[data-page="tournament"] .bracket-region-tabs button:last-child{border-right:0}
+body[data-page="tournament"] .bracket-region-tabs button[aria-selected="true"]{
+  background:#173b49;color:#fff;box-shadow:inset 0 -3px 0 #bca06a
+}
+body[data-page="tournament"] .bracket-region-tabs button:focus-visible{
+  outline:2px solid #b27442;outline-offset:-2px
+}
+body[data-page="tournament"] .bracket-grid--selectable{
+  display:block!important;grid-template-columns:1fr!important;
+}
+body[data-page="tournament"] .bracket-grid--selectable .region{
+  background:#fff;border-top:3px solid #304c57;
+  padding:17px 19px;margin:0;max-width:none;
+}
+body[data-page="tournament"] .bracket-grid--selectable .region[hidden]{display:none!important}
+body[data-page="tournament"] .bracket-grid--selectable .region-head{
+  display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;
+  padding-bottom:9px;gap:8px;margin-bottom:13px
+}
+body[data-page="tournament"] .bracket-grid--selectable .region-head h2{
+  font:700 27px Georgia,serif;margin:0!important;
+}
+body[data-page="tournament"] .bracket-grid--selectable .region-head small{font-size:11px}
+body[data-page="tournament"] .bracket-grid--selectable .bracket-rounds{max-width:850px;margin:auto}
+body[data-page="tournament"] .bracket-grid--selectable .match{
+  margin-bottom:8px;border:1px solid #d7dfda;background:#fdfdfb;padding:9px 10px
+}
+body[data-page="tournament"] .bracket-grid--selectable .round-slot{background:#f4f6f3}
+body[data-page="tournament"] .selection-comparison{border-top:2px solid #a7b5b0;margin-top:28px}
+body[data-page="tournament"] .selection-comparison h2{
+  font:700 27px Georgia,serif;margin:7px 0 10px;color:#1b3640
+}
+body[data-page="tournament"] .selection-compare-intro{
+  max-width:850px;font-size:12px;color:#66767a;line-height:1.6;margin-bottom:15px
+}
+body[data-page="tournament"] .selection-summary{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border:1px solid #cad5ce;margin:13px 0 17px;background:#f7f8f5
+}
+body[data-page="tournament"] .selection-summary>div{
+  display:flex;align-items:center;gap:10px;padding:14px;
+  border-right:1px solid #d3ddd7
+}
+body[data-page="tournament"] .selection-summary>div:last-child{border-right:0}
+body[data-page="tournament"] .selection-summary strong{
+  font:700 25px/1 Georgia,serif;color:#184150
+}
+body[data-page="tournament"] .selection-summary span{
+  font:700 11px/1.3 Arial,sans-serif;color:#5e7175
+}
+body[data-page="tournament"] .selection-exclusive{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;
+}
+body[data-page="tournament"] .selection-exclusive>div{
+  min-width:0;border-top:1px solid #d3dcd7;padding:10px 0 0
+}
+body[data-page="tournament"] .selection-exclusive h3{font:700 18px Georgia,serif;margin:0 0 9px;color:#244650}
+body[data-page="tournament"] .selection-exclusive p{font-size:12px;color:#6a797b}
+body[data-page="tournament"] .selection-compact-list{min-width:0}
+body[data-page="tournament"] .selection-row{
+  display:grid;grid-template-columns:27px minmax(0,1fr) auto;align-items:center;gap:8px;
+  padding:8px 2px;border-bottom:1px solid #e3e8e3;min-width:0;font-size:12px
+}
+body[data-page="tournament"] .selection-seed{
+  font:700 15px Georgia,serif;color:#667679;font-variant-numeric:tabular-nums
+}
+body[data-page="tournament"] .selection-row a{
+  font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+body[data-page="tournament"] .selection-row small{
+  font:600 10px Arial,sans-serif;color:#738281;white-space:nowrap
+}
+body[data-page="tournament"] .selection-comparison details{
+  border:1px solid #d3dfda;background:#fafbf8;margin:10px 0;
+}
+body[data-page="tournament"] .selection-comparison details summary{
+  list-style:auto;cursor:pointer;padding:12px 13px;
+  font:700 12px Arial,sans-serif;color:#234f5c
+}
+body[data-page="tournament"] .selection-comparison details[open] summary{border-bottom:1px solid #d9e2dd}
+body[data-page="tournament"] .selection-comparison details>.selection-compact-list{padding:4px 12px 15px}
+body[data-page="tournament"] .selection-all{margin-top:17px!important}
+body[data-page="tournament"] .selection-all>details{margin:10px 12px}
+body[data-page="tournament"] .selection-method-note{
+  font-size:11px;color:#64777a;line-height:1.5;padding:8px 13px 0;margin:0
+}
+body[data-page="tournament"] .selection-comparison details .bracket-grid{padding:10px;gap:9px}
+body[data-page="tournament"] .selection-comparison details .region{
+  padding:10px;border-top:2px solid #9baea9;background:#fff
+}
+body[data-page="tournament"] .selection-comparison details .region h3{font-size:18px}
+@media(max-width:740px){
+ body[data-page="tournament"] .tournament-dek{padding:12px 0 11px}
+ body[data-page="tournament"] .tournament-dek h1{font-size:33px!important}
+ body[data-page="tournament"] .tournament-dek p{font-size:12px}
+ body[data-page="tournament"] .tournament-numbers{gap:7px 14px}
+ body[data-page="tournament"] .tournament-numbers span{font-size:10px}
+ body[data-page="tournament"] .tournament-numbers b{font-size:17px}
+ body[data-page="tournament"] .tournament-index{gap:7px 12px}
+ body[data-page="tournament"] .bracket-grid--selectable .region{padding:11px 9px}
+ body[data-page="tournament"] .bracket-grid--selectable .region-head h2{font-size:22px}
+ body[data-page="tournament"] .bracket-grid--selectable .bracket-rounds{
+   grid-template-columns:minmax(0,1fr) 90px;gap:8px
+ }
+ body[data-page="tournament"] .selection-comparison h2{font-size:23px}
+ body[data-page="tournament"] .selection-exclusive{grid-template-columns:1fr;gap:8px}
+ body[data-page="tournament"] .selection-summary>div{flex-direction:column;align-items:start;gap:5px;padding:10px}
+ body[data-page="tournament"] .selection-summary strong{font-size:23px}
+ body[data-page="tournament"] .selection-summary span{font-size:10px}
+ body[data-page="tournament"] .selection-row{grid-template-columns:23px minmax(0,1fr) auto;gap:7px}
+ body[data-page="tournament"] .selection-row small{font-size:9px}
+}
