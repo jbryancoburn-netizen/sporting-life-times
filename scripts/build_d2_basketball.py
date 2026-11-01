@@ -1074,11 +1074,41 @@ def update(gender, bootstrap=False, live=False):
     gliac_venue_quality=previous_quality.get("official_gliac_university_venue_evidence")
     if not rapid or not gliac_venue_quality or gliac_venue_quality.get("canonical_matching_version")!=2:
         gliac_venue_quality=enrich_gliac_venues(gender,games,teams)
+    # RMAC: 30 official 2026-27 university calendars (15 per gender).
+    # Only date + home/away + independently corroborating BOTH school pages
+    # may publish a conference fixture; no guessed Mountain/Central times.
+    from d2_rmac_official import enrich_rmac
+    rmac_quality=previous_quality.get("official_rmac_schedule_reconciliation")
+    if not rapid or not rmac_quality:
+        rmac_quality=enrich_rmac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
-    # Initial explicit uncalibrated settings: no fictitious back-tested coefficients.
+    # Accept fitted parameters ONLY after a real, season-isolated NCAA
+    # historical backtest with disjoint validation and unseen test segments.
+    # If the archive was unavailable, retain clearly provisional settings.
     k=20.0;home_edge=65.0
+    calibration=None
+    calibration_path=DATA/"d2-elo-parameters-2026-27.json"
+    if calibration_path.exists():
+        try:
+            source=json.loads(calibration_path.read_text())
+            candidate=source.get(gender,{})
+            if (source.get("schema")==1 and source.get("season")==SEASON
+                and source.get("historical_source_season")=="2025-26"
+                and candidate.get("no_previous_year_rating_carryover") is True
+                and candidate.get("sample_games",0)>=500
+                and candidate.get("validation_games",0)>=100
+                and candidate.get("test_games",0)>=100
+                and 8<=float(candidate["k"])<=40
+                and 0<=float(candidate["home_elo_edge"])<=130):
+                k=float(candidate["k"])
+                home_edge=float(candidate["home_elo_edge"])
+                calibration=candidate
+        except (ValueError,KeyError,TypeError,OverflowError):
+            pass
+    model_status=("historically fitted on verified 2025-26 NCAA DII finals; independent 2026-27 reset"
+                  if calibration else "provisional coefficients; historical calibration not completed")
     finals=0
     for game in sorted(games.values(),key=game_sort_key):
         a,h=game["away"],game["home"]
@@ -1094,7 +1124,7 @@ def update(gender, bootstrap=False, live=False):
         game["pregame_elo_away"]=round(rating[a],1)
         game["pregame_elo_home"]=round(rating[h],1)
         game["pred_home_pct"]=round(100*expectation,1)
-        game["forecast_model_status"]="experimental; DII historical calibration pending"
+        game["forecast_model_status"]=model_status
         if game["status"]!="final":
             game.pop("elo_change_home",None)
             game.pop("elo_change_away",None)
@@ -1139,7 +1169,8 @@ def update(gender, bootstrap=False, live=False):
         "official_psac_schedule_reconciliation":psac_quality,
         "official_psac_temporary_home_venues":psac_venue_quality,
         "official_gliac_schedule_reconciliation":gliac_quality,
-        "official_gliac_university_venue_evidence":gliac_venue_quality}
+        "official_gliac_university_venue_evidence":gliac_venue_quality,
+        "official_rmac_schedule_reconciliation":rmac_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
@@ -1181,7 +1212,10 @@ def update(gender, bootstrap=False, live=False):
     }
     payload={"season":SEASON,"gender":gender,"division":"II","team_target":298,"starting_elo":1500,
         "as_of":dt.datetime.now(dt.timezone.utc).isoformat(),"source":"NCAA official GraphQL; ncaa-api mirror fallback",
-        "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,"status":"provisional coefficients; historical calibration not completed"},
+        "model":{"name":"USRS RETRO","starting_elo":1500,"k":k,"home_elo_edge":home_edge,
+            "status":model_status,"calibrated":bool(calibration),
+            "historical_sample_games":calibration.get("sample_games",0) if calibration else 0,
+            "historical_source_season":"2025-26" if calibration else None},
         "quality":quality,"teams":ordered,"games":allgames}
     # In rapid game-day mode, record only real changes. This avoids dozens
     # of timestamp-only Git commits, needless redeploys, and write conflicts

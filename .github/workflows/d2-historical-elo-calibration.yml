@@ -1,0 +1,64 @@
+name: DII historical Elo calibration from NCAA 2025-26 (one-time)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/d2-historical-elo-calibration.yml'
+permissions:
+  contents: write
+concurrency:
+  group: d2-elo-historical-fit-once
+  cancel-in-progress: false
+jobs:
+  historical-fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate independent Elo math before accessing historical NCAA source
+        run: python -m unittest discover -s tests -p 'test_d2_elo_calibration.py' -v
+      - name: Fit two gender-isolated Elo models from verified 2025-26 NCAA finals
+        run: python scripts/d2_calibrate_historical_elo.py
+      - name: Enforce held-out scores and do not leak historical ratings
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('data/d2-elo-parameters-2026-27.json'))
+          assert p['season']=='2026-27' and p['historical_source_season']=='2025-26'
+          for g in ('men','women'):
+              c=p[g];s=c['source_audit']
+              assert s['dates_retrieved']>=140 and c['sample_games']>=500
+              assert c['train_games']+c['validation_games']+c['test_games']==c['sample_games']
+              assert c['no_previous_year_rating_carryover'] is True
+              assert 8<=c['k']<=40 and 0<=c['home_elo_edge']<=130
+              assert 0<c['unseen_test_log_loss']<5
+          PY
+      - name: Retain verified parameters if concurrent publication blocks push
+        uses: actions/upload-artifact@v4
+        with:
+          name: dii-historical-elo-parameters-2025-26
+          path: data/d2-elo-parameters-2026-27.json
+          retention-days: 30
+      - name: Commit gender-specific historical calibration without changing other leagues
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/d2-elo-parameters-2026-27.json
+          git commit -m 'DII: 2025-26 NCAA historical Elo parameters (men and women separately)'
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin main
+            if GIT_EDITOR=true git rebase origin/main && git push origin HEAD:main; then
+              echo 'Published historical parameters; DII data workflow will replay 2026-27 Elo.'
+              exit 0
+            fi
+            git rebase --abort || true
+            sleep 2
+          done
+          echo 'Verified historical parameters preserved in artifact; no force-push.'
+          exit 1
