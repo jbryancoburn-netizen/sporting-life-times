@@ -1,39 +1,51 @@
 #!/usr/bin/env node
+/* Invariant tests for the same production Rabby scorer shipped on NBA pages. */
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {runInNewContext} from 'node:vm';
-const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
-const window={};runInNewContext(read('nba-rabby-possession.js'),{window});
-const m=window.RabbyPossessionModel;
-assert.equal(m.build({source_type:'unverified',games:[]}),null);
-assert.equal(m.build({source_type:'official_nba_boxscores',games:[]}),null);
-const records=[];
-for(let i=0;i<24;i++){
- const first=i%2===0;
- records.push({final:true,regular_season:true,
- home:{code:first?'BOS':'GSW',points:first?126:96,fga:first?100:78,oreb:12,tov:12,fta:20},
- away:{code:first?'NYK':'CHI',points:first?116:104,fga:first?98:85,oreb:11,tov:14,fta:21}});
+import {createRequire} from 'node:module';
+const require=createRequire(import.meta.url);
+const m=require('../nba-rabby-possession.js');
+const read=p=>JSON.parse(readFileSync(new URL('../data/'+p,import.meta.url),'utf8'));
+const box=read('nba-possession-inputs.json');
+const history=read('nba-2025-26-team-advanced.json');
+const earned=read('nba-elo-shadow-2026-27.json');
+const ratings=Object.fromEntries(earned.rankings.map(x=>[x.team,x.elo]));
+assert.equal(earned.status,'primary_live_earned_elo');
+assert.equal(earned.parameters.season_start_elo,1500);
+assert.equal(earned.parameters.home_elo,40);
+assert.equal(m.validate({source_type:'unverified',games:[]}),false);
+assert.equal(m.build(box,4,{}),null,'Missing sourced history should not become a generic forecast');
+assert.equal(m.build({...box,calibration:null},4,history),null,'Missing calibrated score coefficients must not project');
+const bad=structuredClone(box);bad.games.push(structuredClone(box.games[0]));
+assert.equal(m.validate(bad),false,'Duplicated game cannot alter team ratings');
+assert.ok(m.validate(box));
+const model=m.build(box,4,history);
+assert.ok(model&&model.coverage.teams===30,'Must cover all 30 NBA teams');
+assert.equal(model.coverage.games,box.games.length);
+assert.ok(model.calibration.testGames>=100,'Untouched historical calibration holdout required');
+const teams=Object.keys(ratings);
+assert.equal(teams.length,30);
+let count=0;
+for(const home of teams)for(const away of teams){
+ if(home===away)continue;
+ const p=m.project(home,away,model,ratings);
+ assert.ok(p,home+' / '+away+' must have NBA-specific score');
+ assert.ok(Number.isInteger(p.homeScore)&&Number.isInteger(p.awayScore));
+ assert.notEqual(p.homeScore,p.awayScore,'No predicted NBA ties');
+ assert.ok(p.total>175&&p.total<300);
+ assert.ok(p.possessions>70&&p.possessions<130);
+ const expected=1/(1+10**(-(ratings[home]+40-ratings[away])/400));
+ assert.ok(Math.abs(p.homeWin-expected)<1e-12,'Earned USRS Elo win probability +40 home edge');
+ count++;
 }
-const model=m.build({source_type:'official_nba_boxscores',games:records});
-assert.ok(model);
-const ratings={BOS:1550,NYK:1520,GSW:1450,CHI:1480};
-const fast=m.project('BOS','NYK',model,ratings);
-const slow=m.project('GSW','CHI',model,ratings);
-assert.ok(fast&&slow);
-assert.ok(fast.total>slow.total+10,'Opponent pace/offense must produce different scoring totals');
-assert.ok(fast.possessions>slow.possessions+7,'Pace must materially affect matchups');
-assert.ok(Math.abs(fast.homePoints-fast.awayPoints)<40);
-const page=read('nba.html'),legacy=read('nba-rabby-forecast.js');
-assert.match(page,/nba-newspaper\.js/);
-assert.match(read('nba-newspaper.js'),/nba-rabby-forecast\.js/);
-assert.doesNotMatch(legacy,/meanAbsoluteMargin|meanTotal|function predict\(/);
-assert.match(legacy,/Scoring projection awaiting qualifying data/);
-console.log('Rabby NBA possession model PASS: distinct projected totals and possession counts; invalid data blocked, Elo unchanged.');
-const calibration=JSON.parse(read('data/nba-possession-historical-calibration.json'));
-const calibrated=m.build({source_type:'official_nba_boxscores',games:records,calibration});
-const scored=m.project('BOS','NYK',calibrated,ratings);
-assert.ok(scored&&Number.isFinite(scored.total));
-assert.ok(Math.abs(scored.total-(calibration.coefficients.total[0]+calibration.coefficients.total[1]*fast.total))<1e-8);
-assert.ok(Math.abs(scored.margin-(calibration.coefficients.margin[0]+calibration.coefficients.margin[1]*fast.margin))<1e-8);
-assert.equal(m.build({source_type:'official_nba_boxscores',games:records,calibration:{coefficients:{margin:[0,NaN],total:[0,1]}}}),null);
-console.log('Historical possession calibration PASS: deployed coefficients applied; invalid coefficients withheld.');
+assert.equal(count,870);
+const a=m.project('ORL','BOS',model,ratings);
+const b=m.project('SAS','UTA',model,ratings);
+assert.notEqual(a.total,b.total,'Game-specific pace and opponent defense change totals');
+const prev=[{home:'BOS',away:'ORL',date:'2026-11-01T00:30Z'}];
+const b2b=m.scheduleContext('BOS','2026-11-01T20:30Z',prev);
+assert.equal(b2b.backToBack,true,'DST and Eastern rest boundaries');
+assert.match(m.restDisplay(b2b),/Back-to-back/);
+assert.equal(m.scheduleContext('BOS','2026-11-01T20:30Z',[]).known,false);
+console.log('Rabby PASS: '+model.coverage.games+' verified team boxes, 30 ratings, '+count+
+ ' opponent-specific forecasts, frozen historical calibration, real +40 earned-Elo probabilities, Eastern rest.');
