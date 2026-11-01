@@ -47,7 +47,16 @@ assert(!men.scorebug(live).includes('data-cbb-open'),'game cards never append an
 assert(js.includes('isGamefile')&&js.includes('data-gamefile-panel'),'Gamefile has its own tabbed route');
 assert(!js.includes('data-cbb-close'),'scoreboard no longer creates inline box score');
 assert(fs.readFileSync(path.join(root,'cbb-gamefile.html'),'utf8').includes('cbb-gamefile-root'),'dedicated Gamefile HTML exists');
-assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-number'),'Hardwood is an editorial folio');
+assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-league-image'),'Hardwood has visual league marks');
+assert(brand.includes('assets/slt-hardwood-crest.svg'),'Hardwood uses the original SLT vector shield');
+const crest=fs.readFileSync(path.join(root,'assets/slt-hardwood-crest.svg'),'utf8');
+assert(crest.includes('<svg')&&crest.includes('</svg>')&&crest.includes('THE HARDWOOD'),'SLT crest is a standalone branded SVG');
+assert(brand.includes('logo-nba.svg')&&brand.includes('NCAA_logo.svg')&&brand.includes('EuroLeague_logo.svg')&&brand.includes('NBL_Logo.png'),'league logos are used, not fake icons');
+assert(brand.split('NCAA_logo.svg').length===3,'men and women use the same authentic NCAA mark');
+const brandCSS=fs.readFileSync(path.join(root,'slt-courtside-network.css'),'utf8');
+assert(brandCSS.includes('.slt-network-crest')&&brandCSS.includes('.slt-league-image'),'new SVG crest and league marks have responsive styles');
+assert(brandCSS.includes('.cbb-gender-bar'),'redundant gender toggle hidden only when Hardwood is available');
+assert(!brandCSS.includes('.mbb-mark'),'Hardwood does not add a third ring to team logos');
 const snapshot=men.normalizeSnapshot({id:'401920982',date:'2026-11-01T14:30Z',state:'in',status:'Halftime',teams:[
  {id:'87',home_away:'away',name:'Notre Dame Fighting Irish',score:'31'},
  {id:'222',home_away:'home',name:'Villanova Wildcats',score:'35'}
