@@ -743,12 +743,20 @@ def apply_official_tipoff_streams(gender, games, teams, as_of_date):
                     if g.get("date")==day and frozenset((g.get("away"),g.get("home")))==key[1]]
         if len(candidates)>1:
             raise RuntimeError("Multiple DII records for official CWU game: "+str(key))
+        verified_final=fixture.get("verified_final")
+        if verified_final:
+            scores=(verified_final.get("away_score"),verified_final.get("home_score"))
+            if not all(isinstance(v,int) and not isinstance(v,bool) and v>=0 for v in scores) or scores[0]==scores[1]:
+                raise RuntimeError("Invalid official CWU final: "+str(key))
+            if not str(verified_final.get("source_url","")).startswith("https://"):
+                raise RuntimeError("CWU final missing official source: "+str(key))
         if candidates:
             target=candidates[0]
             stats["updated"]+=1
         else:
-            if day<as_of_date.isoformat():
-                # Never invent a score or leave a long-finished game 'scheduled'.
+            if day<as_of_date.isoformat() and not verified_final:
+                # No fictional past results: only a school-verified final may
+                # create an earlier fixture after the NCAA feed misses it.
                 stats["unmatched_past"]+=1
                 continue
             ident="cwud2-2026-"+gender+"-"+day+"-"+away+"-"+home
@@ -759,6 +767,18 @@ def apply_official_tipoff_streams(gender, games, teams, as_of_date):
                     "source_url":source["source_url"],"tournament":source["event"]}
             games[ident]=target
             stats["new_fixtures"]+=1
+        if verified_final:
+            score_by_team={away:scores[0],home:scores[1]}
+            expected=(score_by_team[target["away"]],score_by_team[target["home"]])
+            if target.get("status")=="final":
+                observed=(target.get("away_score"),target.get("home_score"))
+                if observed!=expected:
+                    raise RuntimeError("Conflicting verified CWU final: "+str(key))
+            else:
+                target.update({"status":"final","away_score":expected[0],
+                    "home_score":expected[1],"verified":True,"elo_eligible":True,
+                    "source":"Central Washington official tournament final",
+                    "source_url":verified_final["source_url"]})
         local=dt.datetime.fromisoformat(day+"T"+fixture["tipoff_local"])
         local=local.replace(tzinfo=ZoneInfo(source["time_zone"]))
         target["start_time"]=local.astimezone(ZoneInfo("America/New_York")).strftime("%I:%M %p").lstrip("0")+" ET"
