@@ -37,7 +37,12 @@ jobs:
           import json
           from pathlib import Path
           d=json.loads(Path('data/college-soccer-team-game-index.json').read_text())
-          assert not d['unresolved'], f"Unresolved school IDs: {d['unresolved'][:5]}"
+          elo=json.loads(Path('data/college-soccer-elo.json').read_text())
+          known={row['team_id'] for cohort in elo['cohorts'].values() for row in cohort}
+          unknown=d.get('unresolved',[])
+          assert all(x.get('reason')=='ambiguous_or_missing_division' and x['team_id'] not in known for x in unknown), f"Unrecognized NCAA program identity: {unknown[:5]}"
+          if unknown:
+              print('Excluded',len(unknown),'non-NCAA or ambiguous opponent identities from NCAA team pages; unresolved remain visible for review')
           for team,report in d['teams'].items():
               ids=[g['match_id'] for g in report['games']]
               assert len(ids)==len(set(ids)), f"Duplicate game: {team}"
