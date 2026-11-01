@@ -1,6 +1,6 @@
 {
   "status": "NOT_READY_FOR_PUBLIC_PREDICTIONS",
-  "evaluated_at": "2026-11-01T17:19:04+00:00",
+  "evaluated_at": "2026-11-01T18:44:26+00:00",
   "method": "Primary-source evidence only; external commercial forecasts are never counted as model inputs.",
   "source_keys": {
     "history": "politics-history.json",
@@ -11,7 +11,9 @@
     "fec_index": "politics-fec-race-index.json",
     "presidential_counties": "politics-2024-county-presidential.json",
     "census": "politics-census-inputs.json",
-    "polls": "politics-polls.json"
+    "polls": "politics-polls.json",
+    "official_ballot_roster": "politics-official-ballots.json",
+    "official_ballot_audit": "politics-ballot-audit.json"
   },
   "checks": [
     {
@@ -104,11 +106,11 @@
     },
     {
       "id": "2026_official_general_election_ballot_roster",
-      "state": "missing",
-      "verified_record_count": null,
-      "evidence": "No authoritative nationwide ballot-by-district roster in the independent data store",
-      "source": "Individual state secretary-of-state and county election officials",
-      "blocker": "Verify actual November nominees, withdrawals, write-ins, special elections and no-candidate contests."
+      "state": "partial",
+      "verified_record_count": 17,
+      "evidence": "15 House and 2 Senate contests transcribed from dated state government candidate lists; 420 House contests not yet verified",
+      "source": "North Carolina State Board of Elections and Florida Division of Elections (official candidate lists)",
+      "blocker": "Only the dated source-transcribed contests are recognized. FEC candidate identity matching, later state changes, remaining states and 2026 map adjustments remain unresolved; nationwide ballot certification is NOT complete."
     },
     {
       "id": "2026_district_geography_change_table",
@@ -153,8 +155,8 @@
   ],
   "counts": {
     "verified": 1,
-    "partial": 8,
-    "missing": 8
+    "partial": 9,
+    "missing": 7
   },
   "house_forecast_ready": false,
   "senate_forecast_ready": false,
