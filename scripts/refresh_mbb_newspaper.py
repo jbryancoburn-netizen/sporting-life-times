@@ -148,6 +148,43 @@ def main():
         # The reader refuses stale crosschecks; an outage is never agreement.
         out['sources'].append({'source':'NCAA.com official scoreboard','url':ncaa_url,
                                'ok':False,'error':type(e).__name__})
+    # Women's D-I receives the same independent official-source reconciliation.
+    # ESPN identifies only the secondary event/tipoff. Shared school identities
+    # use the already reviewed men's crosswalk; unmatched schools are excluded.
+    women_url='https://data.ncaa.com/casablanca/scoreboard/basketball-women/d1/'+dt.datetime.now(ZoneInfo('America/New_York')).strftime('%Y/%m/%d')+'/scoreboard.json'
+    try:
+        women_registry=json.loads((ROOT/'data/ncaaw-2026-27-retro-primary.json').read_text())
+        men_names={str(t['espn_id']):t['name'] for t in crosswalk['teams']} if 'crosswalk' in locals() else {}
+        if not men_names:
+            men_crosswalk=json.loads((ROOT/'data/ncaam-2026-27-espn-team-crosswalk.json').read_text())
+            men_names={str(t['espn_id']):t['name'] for t in men_crosswalk['teams']}
+        women_teams=[{'id':'women:'+str(t['team_id']),'espn_id':str(t['team_id']),
+                      'name':men_names.get(str(t['team_id']),t['team']),
+                      'espn_name':t['team']} for t in women_registry.get('rankings',[])
+                     if t.get('team_id') and t.get('team')]
+        women_crosswalk={'teams':women_teams}
+        women_score_url='https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?groups=50&limit=1000&dates='+day
+        try:
+            women_provider=json.loads(fetch(women_score_url))
+            women_events=women_provider.get('events',[])
+            if not isinstance(women_events,list):women_events=[]
+            out['sources'].append({'source':'ESPN women secondary game IDs','url':women_score_url,'ok':True})
+        except Exception as exc:
+            women_events=[]
+            out['sources'].append({'source':'ESPN women secondary game IDs','url':women_score_url,
+                                   'ok':False,'error':type(exc).__name__})
+        women_ncaa=json.loads(fetch(women_url))
+        women_rows,women_unresolved=parse_ncaa_crosscheck(women_ncaa,women_events,women_crosswalk,
+            dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat())
+        out['ncaa_women_crosscheck']={'day':dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
+            'checked_at':now,'source_url':women_url,'games':women_rows,
+            'total_source_games':len(women_ncaa['games']),'unresolved_games':women_unresolved,
+            'scope':'Independent NCAA women D-I scoreboard; verified shared school ID crosswalk'}
+        out['sources'].append({'source':'NCAA.com women official scoreboard','url':women_url,'ok':True,
+                               'resolved':len(women_rows),'unresolved':women_unresolved})
+    except Exception as exc:
+        out['sources'].append({'source':'NCAA.com women official scoreboard','url':women_url,
+                               'ok':False,'error':type(exc).__name__})
     # Completed regular-season games only; keyed storage makes repeated ingestion idempotent.
     statpath=ROOT/'data/mbb-current-player-stats.json'
     playerdata=json.loads(statpath.read_text()) if statpath.exists() else {'season':'2026-27','games':{},'players':[]}
