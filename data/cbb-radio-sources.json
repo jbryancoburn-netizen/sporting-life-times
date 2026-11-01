@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "description": "Official listening links. A stream is analyzable ONLY after independent permission and CORS verification. Nothing here authorizes rebroadcast or recording.",
+  "updated": "2026-11-01",
+  "sources": [
+    {
+      "id": "nd-mbb-radio",
+      "label": "Notre Dame Men's Basketball Radio",
+      "team_espn_ids": [
+        "87"
+      ],
+      "gender": "men",
+      "listen_url": "https://fightingirish.com/mbb-live-radio-broadcast",
+      "direct_audio_url": null,
+      "visualization_permission": "unverified",
+      "cors_verified": false,
+      "permission_evidence_url": null,
+      "verified_until": null
+    },
+    {
+      "id": "nd-wbb-radio",
+      "label": "Notre Dame Women's Basketball Radio",
+      "team_espn_ids": [
+        "87"
+      ],
+      "gender": "women",
+      "listen_url": "https://fightingirish.com/radioaffiliates",
+      "direct_audio_url": null,
+      "visualization_permission": "unverified",
+      "cors_verified": false,
+      "permission_evidence_url": null,
+      "verified_until": null
+    },
+    {
+      "id": "varsity-radio",
+      "label": "The Varsity Network",
+      "team_espn_ids": [],
+      "gender": "both",
+      "listen_url": "https://thevarsitynetwork.com/audioapplink",
+      "direct_audio_url": null,
+      "visualization_permission": "unverified",
+      "cors_verified": false,
+      "permission_evidence_url": null,
+      "verified_until": null
+    }
+  ]
+}
