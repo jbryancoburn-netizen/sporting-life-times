@@ -12,7 +12,7 @@ const brand=fs.readFileSync(path.join(root,'slt-courtside-network.js'),'utf8');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,n),'utf8'));
 assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'));
 assert(shell.includes('slt-courtside-network.js'));
-assert(brand.includes('THE COURTSIDE NETWORK'));
+assert(brand.includes('THE HARDWOOD'),'basketball navigation must retain its current published Hardwood identity');
 function load(gender){
   const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink};\n})();');
   assert(patch.includes('globalThis.SLTTest'),'test harness injection');
