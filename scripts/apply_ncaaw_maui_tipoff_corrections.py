@@ -11,8 +11,14 @@ SOURCE = "https://verticalsportsmaui.com/maui-classic/"
 PATH = Path("data/ncaaw-schedules-2026-27.json")
 TIMES = {"401928314": "2026-12-19T03:00Z", "401928315": "2026-12-20T03:00Z"}
 
-def main():
-    data = json.loads(PATH.read_text(encoding="utf-8"))
+def apply(data):
+    """Apply organizer-confirmed times in memory; require both team copies.
+
+    This is shared by the normal weekly importer and the manual correction
+    command, so the next automatic ESPN refresh cannot undo verified tipoffs.
+    """
+    if data.get("season") != "2026-27" or data.get("gender") != "women":
+        raise ValueError("Only the 2026-27 women's schedule may be corrected")
     seen = {game_id: set() for game_id in TIMES}
     changed = 0
     for team_id, team in data["teams"].items():
@@ -32,8 +38,15 @@ def main():
             game["official_tipoff_verified"] = True
     if any(len(ids) != 2 for ids in seen.values()):
         raise ValueError(f"Expected both team records for both Maui games, found {seen}")
+    return changed
+
+
+def main():
+    data = json.loads(PATH.read_text(encoding="utf-8"))
+    changed = apply(data)
     PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Verified {len(seen)} game IDs in 4 team records; changed {changed} UTC times.")
+    print(f"Verified {len(TIMES)} game IDs in 4 team records; changed {changed} UTC times.")
+
 
 if __name__ == "__main__":
     main()
