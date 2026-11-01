@@ -32,7 +32,7 @@ function districtEvidence(r){
  if(h && h.same_2026_geography){
    const margin=h.dem_two_party_margin_pp;
    return {source:"2024 House result",text:margin==null?partyName(h.party)+" won (no two-party margin)":partyName(h.party)+" +"+one(Math.abs(margin))+" points",
-           party:h.party,margin:margin==null?null:Math.abs(margin),sub:"2024 actual result · not a 2026 poll",
+           party:margin==null?null:h.party,margin:margin==null?null:Math.abs(margin),sub:"2024 actual result · not a 2026 poll",
            source_url:h.source_url,dated:"2024",poll:false};
  }
  if(r["2026_boundaries_revised"]){
@@ -127,6 +127,7 @@ function renderState(a){
   $("district-count").textContent=shown.length+" / "+rows.length+" House districts";
  }
  select.addEventListener("change",paint);paint();
+ if(window.PoliticalHouseGeoMap)window.PoliticalHouseGeoMap.render(code,rows,districtEvidence,color);
  if(state["2026_congressional_map_changed"]){
   let callout=$("boundary-caution");
   callout.hidden=false;
