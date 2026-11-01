@@ -1,6 +1,11 @@
 name: Politics official candidate source monitor
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/politics_ballot_source_probe.py'
+      - 'test_politics_ballot_source_probe.py'
+      - '.github/workflows/politics-ballot-source-probe.yml'
   push:
     branches: [main]
     paths:
@@ -39,11 +44,15 @@ jobs:
           original=json.load(open('politics-official-ballots.json'))
           assert len(d['sources'])==len(original['sources'])
           assert d['forecast_eligible'] is False
+          assert d['sources_requiring_candidate_review']==sum(x['requires_candidate_review'] is True for x in d['sources'])
+          assert d['sources_out_of_sync_with_reviewed_snapshot']==sum(x.get('source_content_mismatch_against_review_baseline') is True for x in d['sources'])
+          assert all(x.get('review_baseline_sha256') is None or len(x['review_baseline_sha256'])==64 for x in d['sources'])
           assert all(x['candidate_rows_automatically_updated'] is False for x in d['sources'])
           assert d['sources_accessible']+d['sources_unavailable']==len(original['sources'])
           print('Source refresh status:',d['status'],'changed:',d['sources_changed_since_last_probe'])
           PY
       - name: Publish source health without modifying any source transcriptions
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
