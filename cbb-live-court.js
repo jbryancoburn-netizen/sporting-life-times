@@ -46,7 +46,7 @@ function gameFlow(plays){
  ]);
  const poly=xy.map(([x,y])=>x.toFixed(1)+','+y.toFixed(1)).join(' ');
  const last=scoring[scoring.length-1];
- return '<div class="slc-flow" role="img" aria-label="Score margin by sourced play, Notre Dame and opponent leads shown on opposite sides of the center line">'+
+ return '<div class="slc-flow" role="img" aria-label="Score margin by sourced play. Away leads above center, home leads below">'+
    '<div class="slc-flow-heading"><strong>GAME FLOW</strong><span>SOURCED SCORE MARGINS · NOT PLAYER TRACKING</span></div>'+
    '<svg viewBox="0 0 940 410" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
    '<line x1="46" y1="204" x2="894" y2="204" stroke="#aab9b6" stroke-dasharray="5 6" stroke-width="2"/>'+
