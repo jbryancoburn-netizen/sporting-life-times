@@ -55,6 +55,24 @@ class RealInputTests(unittest.TestCase):
         head=["NAME","B01003_001E","B19013_001E","B15003_001E","B15003_022E","B15003_023E","B15003_024E","B15003_025E","state","congressional district"]
         row=["Congressional District 1","100000","70000","60000","12000","5000","1000","1000","12","01"]
         with self.assertRaises(ValueError):parse_census([head]+[row]*435)
+    def test_existing_official_bulk_census_prevents_missing_key_false_alarm(self):
+        from scripts.politics_real_inputs import valid_saved_census_bulk
+        from scripts.politics_acs_bulk import assemble
+        from test_politics_acs_bulk import fixture
+        import copy
+        tables,sources=fixture()
+        d=assemble(tables,sources)
+        self.assertTrue(valid_saved_census_bulk(d))
+        altered=copy.deepcopy(d)
+        altered["districts"][0]["id"]="FAKE-01"
+        self.assertFalse(valid_saved_census_bulk(altered))
+        altered=copy.deepcopy(d)
+        altered["source_files"]["B01003"]["sha256"]="not_verified"
+        self.assertFalse(valid_saved_census_bulk(altered))
+        altered=copy.deepcopy(d)
+        altered["2026_district_geography_harmonized"]=True
+        self.assertFalse(valid_saved_census_bulk(altered))
+
     def test_census_requires_secret_and_does_not_use_dummy_data(self):
         with patch.dict(os.environ,{"CENSUS_API_KEY":""}):
             with self.assertRaisesRegex(ValueError,"requires a free CENSUS_API_KEY"):
