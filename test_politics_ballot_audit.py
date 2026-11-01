@@ -23,7 +23,7 @@ class BallotAuditTests(unittest.TestCase):
         self.assertEqual(result["state_coverage"]["WY"]["house"], 1)
         self.assertTrue(result["state_coverage"]["WY"]["full_house_snapshot"])
         self.assertEqual(result["florida_unverified_districts"], [])
-        self.assertEqual(result["qualified_write_in_entries_not_printed_on_ballot"], 12)
+        self.assertGreaterEqual(result["qualified_write_in_entries_not_printed_on_ballot"], 12) # More verified states may add write-ins
         self.assertEqual(result["unopposed_offices_without_general_ballot"], ["FL-10"])
         self.assertEqual(result["house_general_ballot_contests_transcribed"], result["house_contests_transcribed"]-1)
         self.assertEqual(result["state_coverage"]["MD"]["house"], 8)
@@ -34,6 +34,22 @@ class BallotAuditTests(unittest.TestCase):
             self.assertEqual(result["state_coverage"]["CA"]["senate"], 0)
         self.assertEqual(self.ledger["races"][[r["id"] for r in self.ledger["races"]].index("FL-10")]["candidates"][0]["name"], "Maxwell Alejandro Frost")
         self.assertFalse(result["all_435_house_races_covered"])
+
+
+    def test_new_source_offices_cover_kentucky_virginia_and_new_jersey(self):
+        result=validate(self.ledger)
+        for state,seat_count in (("KY",6),("VA",11),("NJ",12),("DE",1)):
+            with self.subTest(state=state):
+                self.assertEqual(result["state_coverage"][state]["house"],seat_count)
+                self.assertTrue(result["state_coverage"][state]["full_house_snapshot"])
+        self.assertGreaterEqual(result["house_contests_transcribed"],133)
+        self.assertEqual(sum(len(r["candidates"]) for r in self.ledger["races"] if r["state"]=="NJ" and r["office"]=="H"),35)
+        self.assertEqual(sum(len(r["candidates"]) for r in self.ledger["races"] if r["state"]=="KY" and r["office"]=="H"),21)
+        self.assertEqual(sum(len(r["candidates"]) for r in self.ledger["races"] if r["state"]=="VA" and r["office"]=="H"),36)
+        nj_petition=[c for r in self.ledger["races"] if r["state"]=="NJ" for c in r["candidates"] if c["party"]=="OTH"]
+        self.assertTrue(nj_petition)
+        self.assertTrue(all(c.get("ballot_label") for c in nj_petition))
+        self.assertEqual(sum(c["party"]=="WRI" for r in self.ledger["races"] if r["state"]=="KY" for c in r["candidates"]),3)
 
     def test_no_duplicate_race(self):
         d = copy.deepcopy(self.ledger)
