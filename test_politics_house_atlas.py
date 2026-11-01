@@ -58,6 +58,25 @@ class HouseAtlasTests(unittest.TestCase):
         self.assertEqual(output["2026_polled_districts"],7)
         self.assertNotIn("win_probability",p)
 
+    def test_secondary_published_house_polls_can_appear_without_fabricating_original_sources(self):
+        public=json.loads((ROOT/"politics-house-polls-compilation.json").read_text(encoding="utf-8"))
+        result=build(*self.inputs,public)
+        self.assertEqual(result["district_count"],435)
+        self.assertGreaterEqual(result["2026_polled_districts"],115)
+        self.assertEqual(result["2026_directly_checked_release_count"],7)
+        self.assertGreaterEqual(result["2026_secondary_compilation_poll_count"],110)
+        self.assertTrue(all(r["2026_forecast"] is None for r in result["districts"]))
+        compiled=[p for r in result["districts"] for p in r["district_specific_2026_polls"] if p.get("source_tier")=="public_compilation_not_original_checked"]
+        self.assertTrue(compiled)
+        self.assertTrue(all(p["sample_size"] is None and p["source_verified"] is False for p in compiled))
+        self.assertTrue(any(p["question_type"]=="generic_house" for p in compiled))
+        self.assertTrue(any(p["question_type"]=="named_house" for p in compiled))
+
+    def test_fake_public_compilation_cannot_claim_verified_original(self):
+        public=json.loads((ROOT/"politics-house-polls-compilation.json").read_text(encoding="utf-8"))
+        public["polls"][0]["source_verified"]=True
+        with self.assertRaises(ValueError):build(*self.inputs,public)
+
     def test_fake_poll_without_2026_primary_source_rejected(self):
         inputs=copy.deepcopy(self.inputs)
         inputs[-1]["polls"][0]["source_verified"]=False
