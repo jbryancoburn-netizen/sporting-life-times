@@ -79,7 +79,7 @@
   async function refresh(){
     if(busy)return;busy=true;
     try{
-      const [r,master,ledger,news,officialTV]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null)]);
+      const [r,master,ledger,news,officialTV,wire]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),get('data/mbb-live.json').catch(()=>null)]);
       if(r?.gender!=='women'||r.season!=='2026-27'||r.model!=='retro-clean-slate'||r.starting_elo!==1500||r.rankings?.length!==363||new Set(r.rankings.map(t=>String(t.team_id))).size!==363||!r.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo)))throw Error('Women’s rating registry failed validation');
       if(master?.gender!=='women'||master.season!=='2026-27'||Object.keys(master.teams||{}).length!==363)throw Error('Women’s season calendar failed validation');
       await window.MBBLogos.ready;ratings=r;teams=new Map(r.rankings.map(t=>[String(t.team_id),t]));games=new Map();
@@ -99,7 +99,7 @@
       document.getElementById('wbb-summary').innerHTML='<strong>363 <small>programs</small></strong><strong>'+conferences.length+' <small>conferences</small></strong><strong>'+games.size.toLocaleString()+' <small>season games</small></strong>';
       document.getElementById('wbb-rating-note').textContent=r.games_played?'1500-start RETRO · '+r.games_played+' Division I finals · through '+r.as_of:'Preseason · All 363 programs begin tied at 1500. Rankings take shape after verified results arrive.';
       document.getElementById('wbb-powerboard').innerHTML=r.games_played?r.rankings.slice(0,25).map(boardRow).join(''):'<div class="wbb-preseason">363 TEAMS · ELO 1500</div><p class="note">Home advantage: '+Number(r.parameters.home_edge)+' Elo points, calibrated on women’s historical results. No prior-season rating carryover.</p><a class="cta" href="#wbb-teams">Browse every program →</a>';
-      const stories=(news?.articles||[]).filter(a=>/women.s.{0,28}basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category,a.league].join(' '))).filter(a=>a.title&&safe(a.url));
+      const stories=[...(wire?.articles||[]),...(news?.articles||[])].filter(a=>a.category==='WBB'||/women.s.{0,28}basketball|ncaaw|women.s march madness/i.test([a.title,a.summary,a.category,a.league].join(' '))).filter(a=>a.title&&safe(a.url));
       const seen=new Set();document.getElementById('wbb-stories').innerHTML=stories.filter(a=>!seen.has(a.url)&&seen.add(a.url)).sort((a,b)=>Date.parse(b.published_at||0)-Date.parse(a.published_at||0)).slice(0,10).map((a,i)=>'<article class="story'+(!i?' lead':'')+'"><div class="source">'+esc(a.source||'Reporting')+' · '+fmt(a.published_at)+'</div><h3><a href="'+safe(a.url)+'" target="_blank" rel="noopener noreferrer">'+esc(a.title)+'</a></h3>'+(a.summary?'<p>'+esc(String(a.summary).slice(0,240))+'</p>':'')+'</article>').join('')||empty('No women’s basketball headlines in the current feed.');
       drawDirectory();drawStandings();drawGames();
       const stamp=document.getElementById('data-stamp');if(stamp)stamp.textContent='Women’s edition · '+games.size.toLocaleString()+' season games · Elo '+(r.as_of?'through '+r.as_of:'preseason');
