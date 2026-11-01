@@ -40,6 +40,19 @@ for path in files:
         if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
             missing.append(path.name + " must not load shared-team-crests")
         continue
+    # NFL owns exactly TWO team-color rings. Do not let the site-wide crest
+    # wrapper add a third concentric circle to its scorecards and rankings.
+    if re.match(r"nfl(?:[-.]|$)", path.name, re.IGNORECASE):
+        if CHECK:
+            if "shared-team-crests.css" in source or "shared-team-crests.js" in source:
+                missing.append(path.name + " must not load shared-team-crests")
+        else:
+            clean=re.sub(r'<link\\b[^>]+href="shared-team-crests\\.css[^"]*"[^>]*>',"",source,flags=re.I)
+            clean=re.sub(r'<script\\b[^>]+src="shared-team-crests\\.js[^"]*"[^>]*>\\s*</script>',"",clean,flags=re.I)
+            if clean!=source:
+                path.write_text(clean,encoding="utf-8")
+                changed+=1
+        continue
     # Every D-I men's college basketball page has one roundel-aware renderer.
     if "mbb-logo-system.js" in source or re.match(r"ncaam(?:[-.]|$)|college-basketball\.html$", path.name, re.IGNORECASE):
         if CHECK and ("shared-team-crests.css" in source or "shared-team-crests.js" in source):
