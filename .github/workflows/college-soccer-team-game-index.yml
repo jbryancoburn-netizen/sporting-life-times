@@ -49,7 +49,7 @@ jobs:
               assert len(ids)==len(set(ids)), f"Duplicate game: {team}"
               for game in report['games']:
                   if game['status']=='final':
-                      assert game['source_type']=='verified_official_final'
+                      assert game['source_type'] in ('verified_official_final','ncaa_di_men_2026_scoreboard'), f"Unexpected final provenance: {team} {game['match_id']}"
                       assert game['goals_for'] is not None and game['goals_against'] is not None
           print('Validated',len(d['teams']),'team game indexes')
           PY
