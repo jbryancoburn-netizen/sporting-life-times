@@ -6,7 +6,7 @@ class ReadinessTests(unittest.TestCase):
         d=build({})
         self.assertEqual(d["status"],"NOT_READY_FOR_PUBLIC_PREDICTIONS")
         self.assertFalse(d["house_forecast_ready"])
-        self.assertEqual(d["counts"]["missing"],13)
+        self.assertEqual(d["counts"]["missing"],15)
         self.assertEqual(d["certified_original_probability_count"],0)
     def test_even_full_primary_data_does_not_certify_forecast(self):
         d=build({

@@ -17,7 +17,7 @@ def master(id="H6FL01001",year="2026",office="H",district="01",state="FL"):
     return "|".join([id,"EXAMPLE, JANE","DEM",year,state,office,district,"I","C","C12345678","","","","",""])
 
 def finance(id="H6FL01001"):
-    cols=[""]*30;cols[0]=id;cols[5]="1000000";cols[7]="500000";cols[10]="400000";cols[27]="10/15/2026"
+    cols=[""]*30;cols[0]=id;cols[5]="1000000";cols[6]="100000";cols[7]="500000";cols[8]="25000";cols[10]="400000";cols[27]="10/15/2026"
     return "|".join(cols)
 
 class RealInputTests(unittest.TestCase):
@@ -37,6 +37,9 @@ class RealInputTests(unittest.TestCase):
         vals=parse_fec_financials(rows,{"H6FL01001"})
         self.assertEqual(vals["H6FL01001"]["cash_on_hand"],400000)
         self.assertEqual(vals["H6FL01001"]["report_end"],"10/15/2026")
+        self.assertEqual(vals["H6FL01001"]["receipts_excluding_internal_transfers"],900000)
+        self.assertEqual(vals["H6FL01001"]["disbursements_excluding_internal_transfers"],475000)
+        self.assertEqual(vals["H6FL01001"]["transfers_to_authorized_committees"],25000)
         self.assertNotIn("H6ZZ00001",vals)
     def test_integration_offline(self):
         cand=zipdata(master()+"\n")
