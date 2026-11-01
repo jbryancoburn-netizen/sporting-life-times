@@ -8,3 +8,16 @@
 .logo-shell:has(img) .logo-initials{display:none}
 .logo-shell.unbranded{border-color:#bbc7c7;box-shadow:none}
 .board-row .logo-shell.branded{border-width:2px;box-shadow:inset 0 0 0 2px var(--c2)}
+
+/* Compact NBA-style probability strip; percentages are provisional DII Elo only. */
+.forecast-strip{border-top:1px solid var(--line);margin:8px 0 5px;padding:10px 0 3px}
+.forecast-label{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--teal);font:700 10px 'DM Sans',Arial,sans-serif;letter-spacing:.07em}
+.forecast-label small{font-weight:500;color:var(--muted);letter-spacing:0}
+.forecast-values{display:flex;justify-content:space-between;gap:15px;margin:8px 0 5px}
+.forecast-values strong{font:700 22px 'Barlow Condensed',Arial,sans-serif}
+.forecast-values strong:last-child{text-align:right}
+.forecast-values small{display:block;color:var(--muted);font:600 10px 'DM Sans',Arial,sans-serif}
+.forecast-meter{background:#d4e0e0;height:7px;border-radius:2px;overflow:hidden}
+.forecast-meter span{display:block;height:100%;background:var(--teal);border-radius:2px}
+.forecast-strip p{font-size:10px;font-weight:700;letter-spacing:.02em;color:var(--muted);margin:9px 0 2px}
+@media(max-width:550px){.forecast-values strong{font-size:19px}.forecast-label small{font-size:9px}}

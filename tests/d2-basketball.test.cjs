@@ -68,3 +68,24 @@ test('official 2026 DII opening-game source URLs match each specific result',()=
   }
  }
 });
+
+test('DII game cards publish source-grounded provisional Elo chances and game movement',()=>{
+ const script=fs.readFileSync('d2-basketball.js','utf8');
+ assert.match(script,/forecast-strip/);assert.match(script,/EXPERIMENTAL/);
+ const categories=['men','women'];
+ for(const gender of categories){
+  const d=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
+  const eligible=d.games.filter(g=>g.elo_eligible&&g.status!=='unverified');
+  assert.ok(eligible.length>=12,'complete initial competition ledger required');
+  for(const g of eligible){
+   assert.ok(typeof g.pred_home_pct==='number'&&g.pred_home_pct>=0&&g.pred_home_pct<=100,g.id+' missing odds');
+   assert.ok(Number.isFinite(g.pregame_elo_home)&&Number.isFinite(g.pregame_elo_away));
+   if(g.status==='final'){
+    assert.ok(Number.isFinite(g.elo_change_home)&&Number.isFinite(g.elo_change_away));
+    assert.ok(Math.abs(g.elo_change_home+g.elo_change_away)<0.11,'Elo not zero sum '+g.id);
+   }
+  }
+  assert.ok(d.model.status.toLowerCase().includes('provisional'),'DII coefficients must remain labeled provisional');
+  assert.ok(d.games.some(g=>g.neutral&&g.status==='final'&&g.pred_home_pct!==undefined));
+ }
+});
