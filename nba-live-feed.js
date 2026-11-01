@@ -41,7 +41,8 @@ function projected(g){
   '<div class="nba-pregame-prob">Independent Elo: '+esc(away)+' '+Math.round((1-x.homeWin)*100)+'% · '+esc(home)+' '+Math.round(x.homeWin*100)+'%</div>'+
   '<div class="nba-pregame-breakdown"><span>Projected total <b>'+x.total.toFixed(1)+'</b></span><span>Margin <b>'+esc(spread)+' '+Math.abs(x.margin).toFixed(1)+'</b></span><span>Tempo <b>'+x.possessions.toFixed(1)+' poss.</b></span></div>'+
   '<div class="nba-pregame-ratings">Offense vs opponent defense · '+esc(away)+' '+x.awayEfficiency.toFixed(1)+' · '+esc(home)+' '+x.homeEfficiency.toFixed(1)+' pts/100</div>'+
-  '<div class="nba-pregame-source">'+x.coverage.games+' verified box scores · '+esc(away)+' '+x.awayGames+' GP / '+esc(home)+' '+x.homeGames+' GP · updated '+esc(asOf)+'</div>'+
+  '<div class="nba-pregame-source">'+x.coverage.games+' verified box scores · '+esc(away)+' '+x.awayGames+' GP / '+esc(home)+' '+x.homeGames+' GP · updated '+esc(asOf)+'</div>'+ 
+  '<div data-nba-availability-away="'+esc(away)+'" data-nba-availability-home="'+esc(home)+'"></div>'+
   '</div>';
 }
 async function refreshRecords(){try{const r=await fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'});if(!r.ok)return;const data=await r.json(),rec={};for(const e of data.events||[]){if(!Number.isFinite(Number(e.home_score))||!Number.isFinite(Number(e.away_score))||Number(e.home_score)===Number(e.away_score))continue;for(const t of [e.home,e.away])rec[t]??={w:0,l:0};const win=Number(e.home_score)>Number(e.away_score)?e.home:e.away,lose=win===e.home?e.away:e.home;rec[win].w++;rec[lose].l++}fallbackRecords=Object.fromEntries(Object.entries(rec).map(([k,v])=>[k,v.w+'-'+v.l]));}catch(e){console.warn('NBA verified record fallback unavailable',e.message)}}
