@@ -534,7 +534,8 @@ async function featuredLiveStats(){
 function renderNFL(){
  const screens={front:home,standings:standings,rankings:rankings,players:players,schedule:schedule,games:gameCenter,team:teamPage,game:gamePage,playoffs:playoffs};
  root.innerHTML=(screens[page]||home)();
- let stamp="Verified NFL season ledger · "+date(feed.updated_at)+" · "+feed.coverage.games+" fixtures · "+feed.coverage.finals+" finals · "+feed.coverage.boxscores+" boxes";
+ let stamp=page==="front"?"SEASON DATA · "+date(feed.updated_at):
+   "Verified NFL season ledger · "+date(feed.updated_at)+" · "+feed.coverage.games+" fixtures · "+feed.coverage.finals+" finals · "+feed.coverage.boxscores+" boxes";
  if(liveFeed)stamp+=" · "+(Date.now()-new Date(liveFeed.updated_at).getTime()<600000?"LIVE SCORES":"LIVE FEED DELAYED")+" "+date(liveFeed.updated_at)+" ("+liveSource+")";
  document.getElementById("nfl-stamp").textContent=stamp;
  if(page==="front"){news();featuredLiveStats();}
