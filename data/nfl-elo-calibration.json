@@ -1,0 +1,37 @@
+{
+  "status": "calibrated",
+  "source": "ESPN NFL regular-season final scores (2023–2025)",
+  "created_at": "2026-11-01T13:23:06.121319+00:00",
+  "years": [
+    2023,
+    2024,
+    2025
+  ],
+  "training_years": [
+    2023,
+    2024
+  ],
+  "validation_year": 2025,
+  "train_games": 544,
+  "validation_games": 272,
+  "games_by_year": {
+    "2023": 272,
+    "2024": 272,
+    "2025": 272
+  },
+  "home_advantage_elo": 30,
+  "k_base": 28,
+  "margin_multiplier": "min(2, 1 + log2(1+absolute point margin)/4)",
+  "objective": "Minimize chronological pregame Brier error, season reset at 1500",
+  "training_brier": 0.229266,
+  "validation_brier": 0.22379,
+  "default_validation_brier": 0.227385,
+  "yearly_brier": {
+    "2023": 0.24166,
+    "2024": 0.216872,
+    "2025": 0.22379
+  },
+  "neutral_sites_no_home_bonus": true,
+  "historical_elo_carryover": false,
+  "candidates_tested": 72
+}
