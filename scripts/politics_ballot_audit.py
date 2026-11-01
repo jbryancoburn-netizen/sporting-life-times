@@ -25,8 +25,10 @@ ALLOWED_SOURCES = {
     "KY_SOS_2026_GENERAL": ("KY", "web.sos.ky.gov", "/CandidateFilings/default.aspx"),
     "VA_ELECT_2026_NOV_FEDERAL": ("VA", "www.elections.virginia.gov", "/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/"),
     "NJ_DOE_2026_GENERAL_HOUSE": ("NJ", "www.nj.gov", "/state/elections/assets/pdf/election-results/2026/2026-official-general-candidates-us-house-0904.pdf"),
+    "MA_SEC_2026_HOUSE": ("MA", "www.sec.state.ma.us", "/divisions/elections/research-and-statistics/2026-state-election-candidates.htm"),
+    "NE_SOS_2026_FINAL": ("NE", "sos.nebraska.gov", "/sites/default/files/doc/elections/2026/Final_Statewide_General_Candidate_Filing_List_9.11.26.pdf"),
 }
-HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8, "DE": 1, "KY": 6, "VA": 11, "NJ": 12}
+HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8, "DE": 1, "KY": 6, "VA": 11, "NJ": 12, "MA": 9, "NE": 3}
 PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "NPP", "AIP", "PAF", "OTH"}
 
 def validate(data):
