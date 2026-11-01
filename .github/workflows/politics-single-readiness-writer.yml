@@ -2,7 +2,7 @@ name: Politics original-election readiness single writer
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, politics-single-readiness-writer-20261101]
     paths:
       - 'politics-history.json'
       - 'politics-historical-contests.json'
@@ -41,7 +41,19 @@ jobs:
         run: |
           python -m py_compile scripts/politics_sim_readiness.py
           python -m unittest -v test_politics_sim_readiness test_politics_readiness_publisher
+      - name: Verify reproducible original source readiness in the checked-out branch
+        run: |
+          python scripts/politics_sim_readiness.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-sim-readiness.json'))
+          assert d['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert d['certified_original_probability_count']==0
+          assert not d['house_forecast_ready']
+          print('Independent readiness QA passed',d['counts'])
+          PY
       - name: Publish only from a freshly fetched main, retrying after concurrent source updates
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
