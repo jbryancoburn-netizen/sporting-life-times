@@ -35,6 +35,15 @@ class EloTests(unittest.TestCase):
                 self.assertIn("nfl-edition-v3.js?v=20261101-2realrings",page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
+    def test_generic_sitewide_crest_does_not_add_third_ring(self):
+        root=Path(__file__).resolve().parents[1]
+        injected=(root/"scripts/inject-team-crests.py").read_text(encoding="utf-8")
+        runtime=(root/"shared-team-crests.js").read_text(encoding="utf-8")
+        self.assertIn('if re.match(r"nfl(?:[-.]|$)", path.name, re.IGNORECASE):',injected)
+        self.assertIn('missing.append(path.name + " must not load shared-team-crests")',injected)
+        self.assertIn("if(img.closest('.nfl-badge,.nfl-badge-core'))return;",runtime)
+        self.assertIn("if(/^nfl(?:[-.]|$)/i.test(location.pathname.split('/').pop()||''))return;",runtime)
+
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
         self.assertEqual(len(t),32)
