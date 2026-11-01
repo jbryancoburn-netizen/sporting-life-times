@@ -15,6 +15,7 @@ import urllib.request
 import unicodedata
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/"data"
@@ -63,6 +64,8 @@ def fetch_day(gender, day):
                 records=[normalise_espn_game(g,date,gender) for g in contests]
             records=[item for item in records if item]
             if records:
+                if source != "ESPN Division II scoreboard":
+                    records=enrich_published_details_from_espn(records,espn_url,gender,date)
                 return records,source
             empty_source=empty_source or source
         except Exception as exc:
@@ -70,6 +73,59 @@ def fetch_day(gender, day):
     if empty_source:
         return [],empty_source+" (no games)"
     raise RuntimeError(f"{gender} {date}: all sources failed: {errors[:3]}")
+
+def display_et_time(raw):
+    """Render published absolute timestamps in US Eastern, including DST."""
+    value=str(raw or "").strip()
+    if re.match(r"^\\d{4}-\\d\\d-\\d\\dT",value):
+        try:
+            when=dt.datetime.fromisoformat(value.replace("Z","+00:00"))
+            if when.tzinfo is not None:
+                return when.astimezone(ZoneInfo("America/New_York")).strftime("%I:%M %p").lstrip("0")+" ET"
+        except ValueError:
+            pass
+    return value
+
+
+def enrich_published_details_from_espn(records, url, gender, date):
+    """Use ESPN DII only as a secondary metadata source, never identity authority.
+
+    Match the exact date and both normalized team names, not event order or a
+    fuzzy score. This retains the NCAA game ID, original source and results.
+    """
+    try:
+        data=get_json(url)
+        if not isinstance(data,dict) or not isinstance(data.get("events"),list):
+            return records
+        secondary=[normalise_espn_game(x,date,gender) for x in data["events"]]
+        lookup={}
+        ambiguous=set()
+        for item in secondary:
+            if not item:
+                continue
+            game,away,home=item
+            key=(game["date"],frozenset((normalize_school_name(away["name"]),
+                                         normalize_school_name(home["name"]))))
+            if len(key[1])!=2 or not all(key[1]):
+                continue
+            if key in lookup:ambiguous.add(key)
+            else:lookup[key]=game
+        for current,a,h in records:
+            key=(current["date"],frozenset((normalize_school_name(a["name"]),
+                                            normalize_school_name(h["name"]))))
+            if key in ambiguous or key not in lookup:
+                continue
+            other=lookup[key]
+            if not current.get("network") and other.get("network"):
+                current["network"]=other["network"]
+                current["broadcast_source_url"]=other.get("source_url") or url
+            if not current.get("start_time") and other.get("start_time"):
+                current["start_time"]=other["start_time"]
+    except (OSError,ValueError,TypeError,KeyError):
+        # NCAA data stays publishable if ESPN's optional secondary feed fails.
+        pass
+    return records
+
 
 def normalise_espn_game(event,date,gender):
     """Parse site-v2 ESPN scoreboard event; verify DII status on canonical match."""
@@ -150,7 +206,7 @@ def game_record(c,away,home,date,status,away_score,home_score,away_win,home_win,
     if not url and key.isdigit():url="https://www.ncaa.com/game/"+key
     eligible=away["d2_confirmed"] and home["d2_confirmed"]
     game={"id":key,"date":date.replace("/","-"),"away":away["id"],"home":home["id"],
-        "away_score":away_score,"home_score":home_score,"status":status,"start_time":c.get("startTime") or "",
+        "away_score":away_score,"home_score":home_score,"status":status,"start_time":display_et_time(c.get("startTime")),
         "network":c.get("broadcasterName") or c.get("network") or "",
         "source_url":url,"venue":"","neutral":any(c.get(k) is True for k in ("neutralSite","isNeutralSite","isNeutral")),"elo_eligible":eligible}
     return game,away,home
@@ -649,12 +705,74 @@ def merge_ncaa_contest(games,contest,away_id,home_id):
             return "confirmed_duplicate"
         # Conflicts must be investigated rather than silently flipping scores.
         return "score_conflict"
+    # An official update must not erase verified broadcast or start metadata.
+    if new.get("start_time") and not old.get("start_time"):
+        old["start_time"]=new["start_time"]
+    if new.get("broadcast_source_url") and not old.get("broadcast_source_url"):
+        old["broadcast_source_url"]=new["broadcast_source_url"]
     # Preserve official neutral-site venue, listing order, and provenance.
     old.update({"status":new["status"],"away_score":new["away_score"] if old["away"]==away_id else new["home_score"],
                 "home_score":new["home_score"] if old["home"]==home_id else new["away_score"],
                 "elo_eligible":True,"verified":bool(old.get("verified")) or new["verified"],"ncaa_id":new["id"]})
     if new.get("network"):old["network"]=new["network"]
     return "updated"
+
+def apply_official_tipoff_streams(gender, games, teams, as_of_date):
+    """Apply named-school, date-exact CWU game streams without altering scores/IDs.
+
+    Uses the university's complete event central and its individual GNAC
+    Network WATCH links. No blanket GNAC mapping to unrelated games.
+    """
+    p=DATA/"d2-cwu-official-tipoff-streams-2026.json"
+    if not p.exists():
+        return {"verified":0,"updated":0,"new_fixtures":0,"unmatched_past":0}
+    source=json.loads(p.read_text())
+    seen=set()
+    stats={"verified":0,"updated":0,"new_fixtures":0,"unmatched_past":0}
+    for fixture in source.get("games",[]):
+        if fixture["gender"]!=gender:continue
+        away,home=fixture["away"],fixture["home"]
+        if away not in teams or home not in teams:
+            raise RuntimeError("CWU tournament identity missing from DII registry: "+away+" vs "+home)
+        day=fixture["date"]
+        key=(day,frozenset((away,home)))
+        if key in seen:
+            raise RuntimeError("CWU tournament duplicated: "+str(key))
+        seen.add(key)
+        candidates=[g for g in games.values()
+                    if g.get("date")==day and frozenset((g.get("away"),g.get("home")))==key[1]]
+        if len(candidates)>1:
+            raise RuntimeError("Multiple DII records for official CWU game: "+str(key))
+        if candidates:
+            target=candidates[0]
+            stats["updated"]+=1
+        else:
+            if day<as_of_date.isoformat():
+                # Never invent a score or leave a long-finished game 'scheduled'.
+                stats["unmatched_past"]+=1
+                continue
+            ident="cwud2-2026-"+gender+"-"+day+"-"+away+"-"+home
+            target={"id":ident,"date":day,"away":away,"home":home,
+                    "away_score":None,"home_score":None,"status":"scheduled",
+                    "elo_eligible":True,"verified":True,"neutral":fixture["neutral"],
+                    "source":"Central Washington official tournament schedule",
+                    "source_url":source["source_url"],"tournament":source["event"]}
+            games[ident]=target
+            stats["new_fixtures"]+=1
+        local=dt.datetime.fromisoformat(day+"T"+fixture["tipoff_local"])
+        local=local.replace(tzinfo=ZoneInfo(source["time_zone"]))
+        target["start_time"]=local.astimezone(ZoneInfo("America/New_York")).strftime("%I:%M %p").lstrip("0")+" ET"
+        target["network"]=fixture["network"]
+        target["broadcast_type"]=fixture["broadcast_type"]
+        target["stream_url"]=fixture["stream_url"]
+        target["broadcast_source_url"]=source["source_url"]
+        target["venue"]=source["venue"]
+        # Do not overwrite the home/away flag of a verified NCAA match.
+        if "neutral" not in target:
+            target["neutral"]=fixture["neutral"]
+        stats["verified"]+=1
+    return stats
+
 
 def update(gender, bootstrap=False):
     output=DATA/f"d2-{gender}-2026-27.json"
@@ -756,6 +874,7 @@ def update(gender, bootstrap=False):
                 ingestion[disposition]+=1
     if successful<max(1,len(days)//2):
         raise RuntimeError(f"{gender}: {successful}/{len(days)} NCAA date requests succeeded. Refusing to publish suspect empty/partial feed. Errors: {errors[:3]}")
+    official_broadcasts=apply_official_tipoff_streams(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -811,7 +930,8 @@ def update(gender, bootstrap=False):
         "official_logo_index":logo_quality,
         "school_color_coverage":color_quality,
         "membership_certified":False,
-        "membership_review":membership_quality}
+        "membership_review":membership_quality,
+        "official_cwu_tipoff_broadcasts":official_broadcasts}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
@@ -843,6 +963,8 @@ def update(gender, bootstrap=False):
         "schools_with_no_fixture_examples":missing_schools[:12],
         "games_with_named_venue":arena_present,
         "games_without_confirmed_venue":len(allgames)-arena_present,
+        "games_with_verified_tipoff":sum(bool(g.get("start_time")) for g in allgames),
+        "games_with_stream_link":sum(bool(g.get("stream_url")) for g in allgames),
         "games_with_network":network_present,
         "games_without_network":len(allgames)-network_present,
         "distinct_game_dates":len({g["date"] for g in allgames}),
