@@ -30,7 +30,7 @@ class HouseCensusUITests(unittest.TestCase):
         self.assertIn("politics-house-census.css",html)
         self.assertIn('data-house-page="district"',html)
         js=(ROOT/"politics-house-census.js").read_text()
-        self.assertIn('data.housePage!=="district"',js)
+        self.assertIn('document.body.dataset.housePage!=="district"',js)
         self.assertIn("2026_boundary_change_requires_remap",js)
         self.assertIn("2026_district_geography_harmonized",js)
         self.assertIn("population_moe_est",js)
