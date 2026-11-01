@@ -21,7 +21,7 @@ ALLOWED_SOURCES = {
     "WY_SOS_2026_GENERAL": ("WY", "sos.wyo.gov", "/Elections/2026ElectionInformation.aspx"),
 }
 HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1}
-PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "OTH"}
+PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "OTH"}
 
 def validate(data):
     if data.get("schema_version") != 1 or data.get("election_date") != "2026-11-03":
