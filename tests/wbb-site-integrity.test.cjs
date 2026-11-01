@@ -39,7 +39,7 @@ test('both live and team pages honor site disputes and the current Elo refresh w
  const team=fs.readFileSync('ncaaw-team.html','utf8');
  const front=fs.readFileSync('college-basketball-gender.js','utf8');
  const live=fs.readFileSync('wbb-team-live.js','utf8');
- assert.match(team,/WBBSiteIntegrity\.claims\(g,siteDisputes\)/);
+ assert.match(team,/WBBSiteIntegrity\?\.claims\(g,siteDisputes\)/);
  assert.match(team,/Venue review/);
  assert.match(front,/WBBSiteIntegrity\?\.claims\(g,siteDisputes\)/);
  assert.match(front,/home-court forecast withheld/);
