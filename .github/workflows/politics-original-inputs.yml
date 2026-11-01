@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/politics_real_inputs.py'
+      - 'scripts/politics_fec_race_index.py'
+      - 'test_politics_fec_race_index.py'
       - 'test_politics_real_inputs.py'
       - '.github/workflows/politics-original-inputs.yml'
   schedule:
@@ -26,7 +28,7 @@ jobs:
       - name: Test authentic FEC and Census parsers before use
         run: |
           python -m py_compile scripts/politics_real_inputs.py
-          python -m unittest -v test_politics_real_inputs test_politics_sim_readiness
+          python -m unittest -v test_politics_real_inputs test_politics_sim_readiness test_politics_fec_race_index
       - name: Read current government primary data
         id: collect
         continue-on-error: true
@@ -51,6 +53,19 @@ jobs:
               assert c['forecast_eligible'] is False
           print('Government input status',s,'FEC:',f['status'],'Census:',c['status'])
           PY
+      - name: Group the actual 2026 FEC registrations by voting House district
+        run: |
+          python -m py_compile scripts/politics_fec_race_index.py
+          python scripts/politics_fec_race_index.py
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-fec-race-index.json'))
+          assert d['house_district_inventory']==435 and len(d['house'])==435
+          assert d['senate_state_inventory']==50 and len(d['senate'])==50
+          assert d['ballot_verified_districts']==0
+          assert not d['forecast_eligible']
+          print('FEC race registration index:',d['house_districts_with_registrations'],'House districts with a filing')
+          PY
       - name: Independently audit whether simulation inputs can be certified
         run: |
           python -m py_compile scripts/politics_sim_readiness.py
@@ -67,7 +82,7 @@ jobs:
         run: |
           git config user.name "sporting-life-times-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add politics-fec-inputs.json politics-census-inputs.json politics-input-source-status.json politics-sim-readiness.json
+          git add politics-fec-inputs.json politics-fec-race-index.json politics-census-inputs.json politics-input-source-status.json politics-sim-readiness.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh original FEC campaign data and Census district evidence"
             for attempt in $(seq 1 12); do
