@@ -128,7 +128,6 @@ function renderState(a){
   $("district-count").textContent=shown.length+" / "+rows.length+" House districts";
  }
  select.addEventListener("change",paint);paint();
-  if(window.HouseGeo)window.HouseGeo.state(state,rows,districtEvidence,color,urlForDistrict);
  if(state["2026_congressional_map_changed"]){
   let callout=$("boundary-caution");
   callout.hidden=false;
