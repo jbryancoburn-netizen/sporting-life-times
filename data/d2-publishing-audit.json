@@ -6,14 +6,14 @@
   "men": {
     "gender": "men",
     "teams": 299,
-    "games": 1294,
+    "games": 1406,
     "verified_elo_finals": 21,
     "dated_game_days": 100,
-    "no_venue": 1165,
-    "no_network": 1164,
-    "no_tipoff": 170,
+    "no_venue": 1277,
+    "no_network": 1276,
+    "no_tipoff": 282,
     "no_source_url": 0,
-    "schools_without_a_published_game": 31,
+    "schools_without_a_published_game": 28,
     "full_season_date_scan": true,
     "school_schedule_certified": false,
     "source_categories": {
@@ -22,6 +22,7 @@
       "GLIAC 2026-27 reciprocal official school calendars": 44,
       "Gulf South Conference member schedules (reciprocal)": 109,
       "NCAA scoreboard": 716,
+      "NSIC 2026-27 reciprocal official school calendars": 112,
       "PSAC 2026-27 reciprocal official school schedules": 170,
       "RMAC 2026-27 reciprocal official school calendars": 125,
       "official tournament organizer": 12,
@@ -67,6 +68,17 @@
         "quarantined": 41,
         "source": "https://rmacsports.org/schedule.aspx?schedule=",
         "unavailable_count": 0
+      },
+      "NSIC fixtures": {
+        "status": "NSIC exact two-school 2026-27 conference fixture check",
+        "gender": "men",
+        "schools_read": 15,
+        "confirmed_matchups": 143,
+        "added": 112,
+        "enriched": 31,
+        "quarantined": 0,
+        "source": "Northern Sun official 2026-27 university calendars",
+        "errors_count": 1
       }
     },
     "warnings": [
@@ -78,14 +90,14 @@
   "women": {
     "gender": "women",
     "teams": 298,
-    "games": 3287,
+    "games": 3341,
     "verified_elo_finals": 31,
     "dated_game_days": 101,
-    "no_venue": 3154,
-    "no_network": 3149,
-    "no_tipoff": 25,
+    "no_venue": 3208,
+    "no_network": 3203,
+    "no_tipoff": 79,
     "no_source_url": 0,
-    "schools_without_a_published_game": 24,
+    "schools_without_a_published_game": 21,
     "full_season_date_scan": true,
     "school_schedule_certified": false,
     "source_categories": {
@@ -95,6 +107,7 @@
       "GLIAC 2026-27 reciprocal official school calendars": 20,
       "Gulf South Conference member schedules (reciprocal)": 41,
       "NCAA scoreboard": 3136,
+      "NSIC 2026-27 reciprocal official school calendars": 54,
       "Official university athletics schedule": 1,
       "PSAC 2026-27 reciprocal official school schedules": 22,
       "Two official university athletics schedules (GSC date typo)": 1,
@@ -137,6 +150,17 @@
         "status": "RMAC team identity validation incomplete; fixtures held",
         "added": 0,
         "enriched": 0
+      },
+      "NSIC fixtures": {
+        "status": "NSIC exact two-school 2026-27 conference fixture check",
+        "gender": "women",
+        "schools_read": 15,
+        "confirmed_matchups": 140,
+        "added": 54,
+        "enriched": 85,
+        "quarantined": 1,
+        "source": "Northern Sun official 2026-27 university calendars",
+        "errors_count": 1
       }
     },
     "warnings": [
