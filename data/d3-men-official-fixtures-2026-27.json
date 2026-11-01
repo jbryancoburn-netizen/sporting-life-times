@@ -3,7 +3,7 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-01T23:04:00.755026+00:00",
+  "generated_utc": "2026-11-01T23:06:30.434444+00:00",
   "source": "School-published 2026\u201327 university athletics schedule grids",
   "scope": "pilot only; not all NCAA DIII programs",
   "verified_source_calendars": 13,
@@ -12,8 +12,8 @@
     {
       "owner_org_id": 4,
       "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 30,
-      "verified_member_opponents": 24,
+      "readable_rows": 29,
+      "verified_member_opponents": 23,
       "excluded_rows": {
         "unknown_or_conditional_opponent": 6
       },
@@ -25,7 +25,8 @@
       "readable_rows": 29,
       "verified_member_opponents": 25,
       "excluded_rows": {
-        "unknown_or_conditional_opponent": 4
+        "preseason_or_exhibition": 1,
+        "unknown_or_conditional_opponent": 3
       },
       "status": "parsed"
     },
@@ -72,20 +73,20 @@
     {
       "owner_org_id": 326,
       "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 29,
+      "readable_rows": 28,
       "verified_member_opponents": 23,
       "excluded_rows": {
-        "unknown_or_conditional_opponent": 6
+        "unknown_or_conditional_opponent": 5
       },
       "status": "parsed"
     },
     {
       "owner_org_id": 398,
       "source_url": "https://mitathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "readable_rows": 37,
+      "readable_rows": 35,
       "verified_member_opponents": 18,
       "excluded_rows": {
-        "unknown_or_conditional_opponent": 19
+        "unknown_or_conditional_opponent": 17
       },
       "status": "parsed"
     },
@@ -141,32 +142,9 @@
     }
   ],
   "conflicts": [],
-  "fixture_count": 238,
+  "fixture_count": 237,
   "reciprocal_fixtures": 33,
   "fixtures": [
-    {
-      "id": "d3-men-2026-10-31-4-1192",
-      "date": "2026-10-31",
-      "away_org_id": 1192,
-      "home_org_id": 4,
-      "neutral": false,
-      "status": "scheduled",
-      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "official_schedule_sources": [
-        "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
-      ],
-      "verified_by_org_ids": [
-        4
-      ],
-      "source_verification": "single_official_school",
-      "tipoff_as_posted": "12:00 PM",
-      "venue": "Merillat Sport and Fitness Center",
-      "venue_location": "Adrian, Mich.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
-      "neutral_home_designation_unconfirmed": false
-    },
     {
       "id": "d3-men-2026-11-06-4-42",
       "date": "2026-11-06",
@@ -2779,7 +2757,7 @@
       "home_org_id": 326,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -2790,8 +2768,8 @@
       ],
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Anderson Athletic Center",
-      "venue_location": "Kalamazoo, MI",
+      "venue": "",
+      "venue_location": "Kalamazoo, Mich.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -3907,7 +3885,7 @@
       "home_org_id": 114,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -3917,11 +3895,11 @@
         286
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3 PM",
-      "venue": "Van Noord Arena",
-      "venue_location": "Grand Rapids, Mich.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Grand Rapids, MI",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "Michigan Sports Radio",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
@@ -4870,7 +4848,7 @@
       "home_org_id": 4,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -4881,8 +4859,8 @@
       ],
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "",
-      "venue_location": "Adrian, MI",
+      "venue": "Merillat Sport and Fitness Center",
+      "venue_location": "Adrian, Mich.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -5574,7 +5552,7 @@
       "home_org_id": 286,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -5584,11 +5562,11 @@
         286
       ],
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 PM",
-      "venue": "",
-      "venue_location": "Holland, Mich.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "DeVos Fieldhouse DeVette-VanWieren Court",
+      "venue_location": "Holland, MI",
       "network_as_posted": "",
-      "radio_as_posted": "",
+      "radio_as_posted": "Michigan Sports Radio",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
