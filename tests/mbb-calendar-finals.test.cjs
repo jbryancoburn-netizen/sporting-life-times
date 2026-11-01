@@ -48,5 +48,10 @@ async function render(feed){
  const newspaper=fs.readFileSync('mbb-newspaper.js','utf8');
  assert.match(newspaper,/card\.dataset\.eloUpdated/,'ratings refresh needs visible team metric update');
  assert.match(newspaper,/Live game file/);
+ const dayHelper=newspaper.match(/const easternGameDay=value=>\\{[\\s\\S]*?\\n\\};/)?.[0];
+ assert(dayHelper,'Eastern Time date helper not present');
+ const day=new Function(dayHelper+';return easternGameDay;')();
+ assert.equal(day('2026-11-02T04:59:00Z'),'2026-11-01','11:59 PM ET is the prior UTC calendar day');
+ assert.equal(day('2026-11-02'),'2026-11-02','date-only games retain their official calendar date');
  console.log('PASS: completed finals, Game Center link, opponent matching, conflict quarantine and no synthetic TV');
 })().catch(e=>{console.error(e);process.exitCode=1});
