@@ -70,3 +70,18 @@ test('a new provider final that conflicts with published WBB final is withheld f
  assert.match(html,/Source conflict · score withheld/);
  assert.match(html,/Published final \/ live scoreboard score conflict/);
 });
+
+test('the in-season women’s Power Board lists only teams with verified finals',async()=>{
+ const {node}=await open();
+ const text=node('wbb-rating-note').textContent;
+ assert.match(text,/PROVISIONAL/);
+ assert.match(text,/programs played/);
+ assert.match(text,/Unplayed teams remain at the 1500 baseline/);
+ const top=node('wbb-powerboard').innerHTML;
+ assert.match(top,/Notre Dame Fighting Irish/);
+ assert.match(top,/Villanova Wildcats/);
+ assert.doesNotMatch(top,/Abilene Christian Wildcats/);
+ const directory=node('wbb-directory-list').innerHTML;
+ assert.match(directory,/Not yet played · baseline 1500/);
+ assert.match(directory,/363|Abilene Christian Wildcats/);
+});
