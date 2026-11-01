@@ -65,5 +65,34 @@ class D2ESPNBrandingTests(unittest.TestCase):
             self.assertEqual(target["correct"]["secondary"],"#ffba00")
             self.assertNotIn("secondary",target["wrong"])
 
+    def test_reject_362_school_directory_before_wrong_color_assignments(self):
+        fake={"teams":[{"team":{"id":str(i),"location":"School "+str(i),
+            "color":"ff0000","alternateColor":"000000"}} for i in range(362)]}
+        with patch.object(builder,"get_json",return_value=fake):
+            schools={"charleston":{"name":"Charleston","slug":""}}
+            response=builder.seed_espn_dii_branding("men",schools)
+        self.assertIn("unverified",response["error"])
+        self.assertNotIn("primary",schools["charleston"])
+
+    def test_published_dii_palette_provenance_and_no_white_decorative_ring(self):
+        import tempfile
+        evidence={"entries":[
+            {"gender_ids":{"women":"chaminade-university"},"primary":"#0054A5",
+             "secondary":"#D9D9D6","secondary_kind":"published","source_url":"https://teamcolorcodes.com/chaminade-silverswords-color-codes/"},
+            {"gender_ids":{"women":"texas-woman-s-university"},"primary":"#850928",
+             "secondary":"#FFFFFF","secondary_kind":"white_replaced_with_tonal",
+             "source_url":"https://teamcolorcodes.com/texas-womans-pioneers-color-codes/"}]}
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d)/"d2-school-color-evidence-2026.json").write_text(json.dumps(evidence))
+            teams={"chaminade-university":{"name":"Chaminade University"},
+                   "texas-woman-s-university":{"name":"Texas Woman's University"}}
+            with patch.object(builder,"DATA",Path(d)):
+                result=builder.seed_published_dii_palettes("women",teams)
+        self.assertEqual(result["matched"],2)
+        self.assertEqual(result["tonal_accents"],1)
+        self.assertEqual(teams["chaminade-university"]["secondary"],"#d9d9d6")
+        self.assertNotEqual(teams["texas-woman-s-university"]["secondary"],"#ffffff")
+        self.assertIn("editorial",teams["texas-woman-s-university"]["color_provenance"])
+
 if __name__=="__main__":
     unittest.main()
