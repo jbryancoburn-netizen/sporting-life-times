@@ -1,0 +1,65 @@
+name: Politics 2026 House published poll compilation audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, politics-house-poll-depth-20261101]
+    paths:
+      - 'scripts/politics_house_poll_compilation.py'
+      - 'test_politics_house_poll_compilation.py'
+      - '.github/workflows/politics-house-poll-compilation.yml'
+  schedule:
+    - cron: '11 13 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: politics-house-poll-public-research
+  cancel-in-progress: false
+jobs:
+  compile-sourced-public-polls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test public source parser with mocked, never-invented production inputs
+        run: |
+          python -m py_compile scripts/politics_house_poll_compilation.py
+          python -m unittest -v test_politics_house_poll_compilation
+      - name: Fetch latest publicly listed original-link House polls
+        run: python -m scripts.politics_house_poll_compilation
+      - name: Block unsupported party chances, original-release certification, and incomplete polling
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-house-polls-compilation.json'))
+          a=json.load(open('politics-house-atlas.json'))
+          assert d['status']=='SECONDARY_LATEST_HOUSE_POLL_COMPILATION_NOT_PRIMARY_VERIFIED'
+          assert 95<=d['polled_districts']<=135 and len(d['polls'])==d['polled_districts']
+          assert len({p['race_id'] for p in d['polls']})==len(d['polls'])
+          assert {p['race_id'] for p in d['polls']}.issubset({r['id'] for r in a['districts']})
+          assert all(p['source_verified'] is False and p['compilation_verified'] is True for p in d['polls'])
+          assert all(p['sample_size'] is None and p['sponsorship_not_independently_verified'] is True for p in d['polls'])
+          assert d['polling_not_election_predictions'] is True
+          print('Public compilation source coverage checked:',d['polled_districts'],'distinct House offices; no fabricated samples or odds')
+          PY
+      - name: Publish verified compilation summary only, with sports workflows unchanged
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-house-polls-compilation.json politics-house-polls-compilation-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh dated public House poll compilation; label secondary evidence"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi

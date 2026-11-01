@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'politics-house-district-polls.json'
+      - 'politics-house-polls-compilation.json'
       - 'scripts/politics_house_atlas.py'
       - 'test_politics_house_atlas.py'
       - 'test_politics_house_ui.py'
@@ -12,7 +13,7 @@ on:
       - 'politics-house*.css'
       - '.github/workflows/politics-house-atlas.yml'
   push:
-    branches: [main, politics-house-atlas-435-20261101]
+    branches: [main, politics-house-atlas-435-20261101, politics-house-poll-depth-20261101]
     paths:
       - 'politics-house-district-polls.json'
       - 'politics-historical-contests.json'
@@ -58,6 +59,13 @@ jobs:
           assert sum(x['district_count'] for x in a['states'])==435
           assert len(set(x['id'] for x in a['districts']))==435
           assert a['forecast_eligible'] is False and a['certified_2026_probabilities']==0
+          assert a['2026_polled_districts']>=115
+          assert a['2026_directly_checked_release_count']>=7
+          assert a['2026_secondary_compilation_poll_count']>=110
+          assert all(p.get('source_verified') is False and p['sample_size'] is None
+                     for d in a['districts']
+                     for p in d['district_specific_2026_polls']
+                     if p.get('source_tier')=='public_compilation_not_original_checked')
           assert all(r['2026_forecast'] is None for r in a['districts'])
           assert all(not (r['2026_boundaries_revised'] and (r['2024_house_result_on_prior_boundaries'] or {}).get('same_2026_geography')) for r in a['districts'])
           assert all(r['fec_records_are_not_qualified_nominees'] is True for r in a['districts'])
