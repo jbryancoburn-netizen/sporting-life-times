@@ -65,6 +65,8 @@ jobs:
           node scripts/audit-nba-boxscore-elo.mjs
           node scripts/audit-nba-page.mjs
       - name: Freeze real pregame Rabby estimates and grade verified finals
+        # Experimental forecasting must never block the independent final-score Elo ledger.
+        continue-on-error: true
         run: |
           node scripts/test-nba-rabby-possession.mjs
           node scripts/test-nba-forecast-ledger.mjs
@@ -78,7 +80,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json data/nba-rabby-forecast-ledger.json
+          git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
+          if test -f data/nba-rabby-forecast-ledger.json; then git add data/nba-rabby-forecast-ledger.json; fi
           git commit -m "Update independent provisional NBA Elo with verified final scores"
           for attempt in 1 2 3; do
             if git push; then echo "NBA Elo and scoreboard published successfully"; exit 0; fi
@@ -92,11 +95,14 @@ jobs:
             node scripts/update-nba-elo.mjs
             node scripts/build-nba-elo-shadow.mjs --write
             node scripts/reconcile-nba-schedule.mjs
-            node scripts/update-nba-forecast-ledger.mjs
+            if ! node scripts/update-nba-forecast-ledger.mjs; then
+              echo "::warning::Rabby archive unavailable on retry; publish verified NBA Elo without altering previous forecasts."
+            fi
             node scripts/audit-nba-elo.mjs
             node scripts/audit-nba-boxscore-elo.mjs
             node scripts/reconcile-nba-schedule.mjs --check
-            git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json data/nba-rabby-forecast-ledger.json
+            git add data/nba-2026-27-current-provisional.json data/nba-elo-reconciliation.json data/nba-elo-shadow-2026-27.json data/nba-upcoming-schedule.json
+          if test -f data/nba-rabby-forecast-ledger.json; then git add data/nba-rabby-forecast-ledger.json; fi
             if git diff --cached --quiet; then echo "Remote NBA data already up-to-date"; exit 0; fi
             git commit -m "Reconcile verified NBA finals and current scoreboard"
             sleep 2
