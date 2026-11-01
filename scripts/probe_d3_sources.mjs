@@ -40,3 +40,14 @@ for(const [label,url] of [
   console.log(JSON.stringify({label,status:r.status,bytes:body.length,matches}));
  }catch(e){console.log(JSON.stringify({label,error:String(e)}))}
 }
+
+for(const gender of ['MBB','WBB']){
+ const url='https://web3.ncaa.org/directory/api/directory/memberList?type=12&division=III&sportCode='+gender;
+ try{
+  const r=await fetch(url,{headers:{'Accept':'application/json','User-Agent':'Mozilla/5.0'},signal:AbortSignal.timeout(18000)});
+  const txt=await r.text();let d;try{d=JSON.parse(txt)}catch{}
+  console.log(JSON.stringify({label:'ncaa-api-'+gender,status:r.status,length:txt.length,
+    array:Array.isArray(d),count:Array.isArray(d)?d.length:null,
+    sample:Array.isArray(d)?d.slice(0,3):txt.slice(0,450)}));
+ }catch(e){console.log(JSON.stringify({label:'ncaa-api-'+gender,error:String(e)}))}
+}
