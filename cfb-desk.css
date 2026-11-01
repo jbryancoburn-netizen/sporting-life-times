@@ -68,3 +68,29 @@
  .cfb-desk .cfb-team-grid{grid-template-columns:minmax(0,1fr)}
  .cfb-desk .cfb-team-card{padding:9px 12px}
 }
+
+
+/* CFB badge v4: the SVG is the ONE and ONLY ring painter.
+   Two adjacent institution-color bands; no CSS borders/pseudo-rings. */
+.cfb-crest,.cfb-team-mark{
+ position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ flex-shrink:0!important;box-sizing:border-box!important;padding:0!important;margin:0!important;
+ border:0!important;border-radius:50%!important;background:transparent!important;
+ box-shadow:none!important;outline:0!important;overflow:hidden!important;isolation:isolate!important;
+}
+.cfb-crest::before,.cfb-crest::after,
+.cfb-team-mark::before,.cfb-team-mark::after{content:none!important;display:none!important;border:0!important;box-shadow:none!important}
+.cfb-crest>.cfb-ring-art,.cfb-team-mark>.cfb-ring-art{
+ position:absolute!important;inset:0!important;display:block!important;
+ width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;
+ border:0!important;outline:0!important;margin:0!important;padding:0!important;
+ background:transparent!important;box-shadow:none!important;pointer-events:none!important;z-index:1!important;
+}
+.cfb-crest>img,.cfb-team-mark>img{
+ position:absolute!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;
+ transform:translate(-50%,-50%)!important;width:68%!important;height:68%!important;
+ min-width:0!important;min-height:0!important;max-width:68%!important;max-height:68%!important;
+ display:block!important;object-fit:contain!important;object-position:center!important;
+ border:0!important;outline:0!important;border-radius:0!important;
+ padding:0!important;margin:0!important;background:transparent!important;box-shadow:none!important;z-index:2!important;
+}
