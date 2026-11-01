@@ -13,6 +13,13 @@ from zoneinfo import ZoneInfo
 
 ROOT_URL="https://gscsports.org/schedule.aspx?schedule="
 STREAM_SOURCE="https://gscsports.org/news/2026/9/23/gsc-announces-2026-27-mens-and-womens-basketball-conference-schedule.aspx"
+# Game-specific host athletics evidence independently confirms the otherwise
+# discrepant guest-team listing. Never resolve unknown future conflicts by guess.
+HOST_VERIFIED={
+    ("2027-01-21","mississippi-christian","christian-brothers"):{
+        "start_time":"8:00 PM ET","venue":"Canale Arena · Memphis, TN",
+        "source_url":"https://cbubucs.com/sports/mens-basketball/schedule"}
+}
 SCHOOLS={
     3075:("UAH","alabama-huntsville"),
     3076:("AUM","auburn-montgomery"),
@@ -182,7 +189,7 @@ def reconcile_schedules(school_records,known_games,teams,today):
     audit={"school_schedules":len(school_records),
            "school_entries":sum(map(len,school_records.values())),
            "confirmed_matchups":0,"new_games":0,"existing_games_enriched":0,
-           "unreciprocated":0,"ambiguous":0,"time_conflicts":0,
+           "unreciprocated":0,"ambiguous":0,"time_conflicts":0,"host_verified_resolutions":0,
            "conflicts":[]}
     for key,rows in sorted(grouped.items()):
         date,away,home=key
@@ -221,8 +228,17 @@ def reconcile_schedules(school_records,known_games,teams,today):
             target["start_time"]=next(iter(times))
             target["tipoff_source_url"]=rows[0]["source_url"]
         elif len(times)>1:
-            audit["time_conflicts"]+=1
-            if len(audit["conflicts"])<25:audit["conflicts"].append({"date":date,"away":away,"home":home,"issue":"different posted tipoffs"})
+            resolution=HOST_VERIFIED.get(key)
+            host=next((row for row in rows if row["source_team"]==home),None)
+            if resolution and host and host["start_time"]==resolution["start_time"]:
+                target["start_time"]=resolution["start_time"]
+                target["tipoff_source_url"]=resolution["source_url"]
+                target["venue"]=resolution["venue"]
+                target["venue_source_url"]=resolution["source_url"]
+                audit["host_verified_resolutions"]+=1
+            else:
+                audit["time_conflicts"]+=1
+                if len(audit["conflicts"])<25:audit["conflicts"].append({"date":date,"away":away,"home":home,"issue":"different posted tipoffs"})
         # Venue name is NOT available from composite conference tables.
         # A neutral location/city string is useful, but not certified as an arena.
         target["network"]="FloCollege"
