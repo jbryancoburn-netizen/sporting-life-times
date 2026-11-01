@@ -170,6 +170,12 @@ def main():
     )['apply']
     verified_tipoff_corrections=apply_maui({
         'season':'2026-27','gender':'women','teams':result})
+    # Reapply school/conference corroboration after each provider schedule import.
+    apply_courts=runpy.run_path(
+        str(pathlib.Path(__file__).with_name('wbb-apply-reciprocal-courts.py'))
+    )['apply']
+    result=apply_courts({'season':'2026-27','gender':'women','teams':result},
+        json.loads((DATA/'ncaaw-2026-27-verified-home-courts.json').read_text()))['teams']
     validate_reciprocal_games(result)
     # Merge only game-ID-matched official school or conference TV announcements.
     # Both school copies of a matchup must receive identical evidence.
