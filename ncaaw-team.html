@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Women’s Basketball Team Desk | The Sporting Life &amp; Times</title><link rel="stylesheet" href="wbb-roster-desk.css?v=verified-wbb-portraits-20261101"><script src="wbb-roster-desk.js?v=exact-player-photo-match-20261101"></script><script src="wbb-team-stats.js?v=verified-women-finals-20261101"></script><script src="wbb-game-results.js?v=20261101-b"></script><script src="wbb-team-live.js?v=20261101-b"></script>
+<title>Women’s Basketball Team Desk | The Sporting Life &amp; Times</title><link rel="stylesheet" href="wbb-roster-desk.css?v=wbb-tipoff-guard-20261101"><script src="wbb-roster-desk.js?v=exact-player-photo-match-20261101"></script><script src="wbb-team-stats.js?v=verified-women-finals-20261101"></script><script src="wbb-game-results.js?v=20261101-b"></script><script src="wbb-team-live.js?v=20261101-b"></script>
 <meta name="slt-wbb-build" content="unified-logos-20261030-1345">
 <link rel="stylesheet" href="mbb-newspaper.css?v=wbb-unified-20261030-1345"><link rel="stylesheet" href="mbb-logo-system.css?v=ncaa-single-owner-20261101c"><script src="mbb-logo-system.js?v=ncaa-single-owner-20261101c"></script>
 <style>
@@ -23,7 +23,7 @@ const load=async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw Er
 if(!id||!/^[0-9]+$/.test(id)){host.innerHTML='<div class="wbb-panel"><h2>Choose a team</h2><a href="ncaam.html?gender=women#wbb-teams">Women’s team directory →</a></div>';return}
 try{
 await window.MBBLogos.ready;
-const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts,verifiedFinals]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),load('data/ncaaw-2026-27-verified-games.json').catch(()=>null)]);
+const [registry,master,ratings,officialTV,scoreboardTV,palette,artwork,timeConflicts,verifiedFinals,tipoffQuarantine]=await Promise.all([load('data/ncaaw-2026-27-teams.json'),load('data/ncaaw-schedules-2026-27.json'),load('data/ncaaw-2026-27-retro-primary.json').catch(()=>null),load('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),load('data/ncaaw-2026-27-scoreboard-broadcast-overlays.json').catch(()=>null),load('data/dual-ring-team-palette.json').catch(()=>null),load('data/mbb-logo-registry.json').catch(()=>null),load('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),load('data/ncaaw-2026-27-verified-games.json').catch(()=>null),load('data/ncaaw-2026-27-tipoff-quarantine.json').catch(()=>null)]);
 const teams=registry.teams||[],lookup=new Map(teams.map(t=>[String(t.team_id),t]));
 const t=lookup.get(id),entry=master.teams?.[id];
 if(!t||!entry)throw Error('No published women’s schedule found for team '+id);
@@ -36,6 +36,22 @@ const tvmap=new Map();
 for(const row of scoreboardTV?.gender==='women'&&scoreboardTV?.season==='2026-27'?(scoreboardTV.rows||[]):[]){if(row.game_id&&row.broadcast)tvmap.set(String(row.game_id),row);}
 for(const row of officialTV?.gender==='women'&&officialTV?.season==='2026-27'?(officialTV.rows||[]):[]){if(row.game_id&&row.broadcast&&row.source_url)tvmap.set(String(row.game_id),row);}
 const timeDisputes=new Map(timeConflicts?.season==='2026-27'?(timeConflicts.games||[]).map(x=>[String(x.game_id),x]):[]);
+if(tipoffQuarantine?.season==='2026-27'&&tipoffQuarantine?.gender==='women'&&
+   tipoffQuarantine?.status==='unresolved-source-conflicts'&&Array.isArray(tipoffQuarantine.games)){
+  for(const item of tipoffQuarantine.games){
+    if(/^\d+$/.test(String(item.game_id))&&Array.isArray(item.source_claims))
+      timeDisputes.set(String(item.game_id),item);
+  }
+}
+const listedTipoff=g=>{
+  // ESPN uses midnight Eastern placeholders when schools have not announced a time.
+  const date=new Date(g.date||'');
+  if(!Number.isFinite(date.getTime()))return '';
+  const hour=Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',
+    hourCycle:'h23'}).format(date));
+  if(!Number.isFinite(hour)||hour===0)return '';
+  return date.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
+};
 const fmtElo=x=>x&&Number.isFinite(Number(x.elo))?Math.round(Number(x.elo)).toString():'—';
 const homeEdge=Number(ratings?.parameters?.home_edge)||75;
 const winChance=(ours,theirs,g)=>{if(!ours||!theirs||!Number.isFinite(Number(ours.elo))||!Number.isFinite(Number(theirs.elo)))return '—';const edge=g.site==='home'?homeEdge:g.site==='away'?-homeEdge:0;return (100/(1+Math.pow(10,-((Number(ours.elo)-Number(theirs.elo)+edge)/400)))).toFixed(0)+'%';};
@@ -56,9 +72,19 @@ const rows=sorted.map(g=>{
   const television=tvUrl.startsWith('https://')?'<a href="'+esc(tvUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(tvName)+' ↗</a>':esc(tvName);const probability=g.completed?'Final':winChance(rating,other,g);const delta=other&&Number.isFinite(other.daily_change)?(other.daily_change>0?'+':'')+other.daily_change.toFixed(1):'—';
   const city=String(g.city||g.city_state||g.official_location_as_printed||'').trim();const location=esc(g.venue||'Arena TBA')+(city?'<span class="wbb-location-note">'+esc(city)+'</span>':'');
   const officialTip=g.official_tipoff_local||g.official_tipoff_as_printed||g.official_time_as_printed||g.official_school_time||g.official_time||g.verified_tipoff||'';
-  const disputed=!g.completed&&timeDisputes.has(String(g.id));
-  const tip=disputed?'Disputed — verify':officialTip&&!/TBA|TBD/i.test(officialTip)?esc(officialTip):'TBA';
-  const tipNote=disputed?'<small class="wbb-muted">Official calendars disagree; event organizer confirmation pending.</small>':'';
+  const dispute=!g.completed?timeDisputes.get(String(g.id)):null;
+  const disputed=!!dispute;
+  const hasOfficial=!!officialTip&&!/TBA|TBD/i.test(officialTip);
+  const tentative=(!disputed&&!hasOfficial&&!g.completed)?listedTipoff(g):'';
+  const tip=disputed?'Disputed — verify':hasOfficial?esc(officialTip):tentative?esc(tentative):'TBA';
+  const disagreement=dispute?.cross_school_disagreement?
+    'Universities report different tipoffs; organizer confirmation required.':
+    'Official university and published calendar times differ; confirmation pending.';
+  const officialSource=disputed?(dispute.source_claims||[]).find(x=>typeof x.source_url==='string'&&x.source_url.startsWith('https://'))?.source_url:'';
+  const tipNote=disputed?'<small class="wbb-tipoff-dispute">'+esc(disagreement)+
+    (officialSource?' <a href="'+esc(officialSource)+'" target="_blank" rel="noopener noreferrer">School source ↗</a>':'')+'</small>':
+    tentative?'<small class="wbb-tipoff-tentative">ESPN-listed start; unverified by school.</small>':
+    hasOfficial?'<small class="wbb-tipoff-verified">University-sourced listing</small>':'';
   const result=window.WBBGameResults.scoreFor(g,id);
   return '<tr data-game-id="'+esc(g.id)+'"><td>'+date+'</td><td><div class="sched-matchup">'+opponent+'<span class="wbb-site-label">'+esc(site(g))+'</span></div></td><td>'+location+'</td><td>'+tip+tipNote+'</td><td class="wbb-broadcast">'+television+'</td><td class="wbb-opp-elo">'+fmtElo(other)+'</td><td class="wbb-forecast wbb-win-probability">'+probability+'</td><td class="wbb-forecast wbb-opp-change">'+delta+'</td><td class="wbb-result-cell" title="'+esc(result.detail)+'"><strong>'+esc(result.value)+'</strong><small class="wbb-result-source">'+esc(result.detail)+'</small></td></tr>';
 }).join('');

@@ -14,6 +14,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    # Do not publish an unmerged feature branch to main.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:

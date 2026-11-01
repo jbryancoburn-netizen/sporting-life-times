@@ -40,3 +40,9 @@
 .wbb-player-avatar.has-photo{flex:0 0 66px;width:66px;height:76px;border-radius:4px}
 .wbb-player-avatar.has-photo img{position:absolute;inset:0;z-index:1;width:100%;height:100%;border-radius:3px;object-fit:cover;object-position:top}
 .wbb-avatar-fallback{display:grid;place-items:center;width:100%;height:100%}
+
+/* Schedule source truth: separate verified, tentative and disputed women's tipoff times. */
+.wbb-desk .wbb-tipoff-dispute{display:block;margin-top:5px;color:#8b302c;font-size:10px;line-height:1.3;font-weight:700}
+.wbb-desk .wbb-tipoff-tentative{display:block;margin-top:4px;color:#685d37;font-size:10px;line-height:1.3}
+.wbb-desk .wbb-tipoff-verified{display:block;margin-top:4px;color:#37614e;font-size:10px;line-height:1.3}
+.wbb-desk .wbb-tipoff-dispute a{text-decoration:underline}
