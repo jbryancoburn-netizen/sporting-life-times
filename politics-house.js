@@ -132,6 +132,7 @@ function renderState(a){
   callout.hidden=false;
   callout.textContent="NEW 2026 MAP: "+state.name+" changed its congressional boundaries. The 2024 House district results use previous lines and do not color today's districts. Only actual 2026 district-specific polling can provide a current-geometry colored margin.";
  }
+ if(window.PoliticsHouseMap)window.PoliticsHouseMap.drawState({state,rows,districtEvidence,color,urlForDistrict});
 }
 function candidatePanel(r){
  let panel=$("candidate-panel");
