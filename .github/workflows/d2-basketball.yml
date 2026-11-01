@@ -1,12 +1,6 @@
 name: DII basketball — independent men and women editions
 on:
   workflow_dispatch:
-    inputs:
-      full_season:
-        description: 'Verify all 2026–27 DII game dates, October through April'
-        required: false
-        default: false
-        type: boolean
   push:
     branches: [main]
     paths:
@@ -23,10 +17,12 @@ on:
       - 'tests/test_d2_membership.py'
       - 'tests/test_d2_scoreboard_fallback.py'
       - 'tests/test_d2_school_colors.py'
+      - 'tests/test_d2_artwork_palette.py'
       - 'tests/test_d2_espn_scoreboard.py'
       - 'data/d2-verified-tournaments-2026-27.json'
       - 'data/d2-verified-other-openers-2026-27.json'
       - 'data/d2-verified-holiday-2026-27.json'
+      - 'data/d2-logo-artwork-palette-2026.json'
   schedule:
     - cron: '11 7 * * *'
 permissions:
@@ -37,7 +33,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 24
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,21 +53,17 @@ jobs:
           python -m py_compile scripts/build_d2_basketball.py
           python -m unittest discover -s tests -p 'test_d2_*.py' -v
       - name: Bootstrap entire 2026-27 schedule or refresh recent NCAA games
-        env:
-          DII_FULL_BOOTSTRAP: ${{ (github.event_name == 'push' && github.event.head_commit.message == 'DII full season bootstrap kickoff') || inputs.full_season }}
         run: |
-          if [ "$DII_FULL_BOOTSTRAP" = "true" ] || ! test -s data/d2-men-2026-27.json || ! python -c "import json; assert json.load(open('data/d2-men-2026-27.json')).get('as_of')"; then
-            echo "Auditing the entire 2026-27 DII men's and women's season; preserving already verified results"
+          if ! test -s data/d2-men-2026-27.json || ! python -c "import json; assert json.load(open('data/d2-men-2026-27.json')).get('as_of')"; then
             python scripts/build_d2_basketball.py --bootstrap
           else
-            echo "Incremental DII refresh, not a full-season rescan"
             python scripts/build_d2_basketball.py
           fi
       - name: Commit verified DII-only data (never overwrite DI)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/d2-men-2026-27.json data/d2-women-2026-27.json
+          git add data/d2-men-2026-27.json data/d2-women-2026-27.json data/d2-logo-artwork-palette-2026.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Refresh verified DII men's and women's NCAA game ledgers"
           for n in 1 2 3 4; do

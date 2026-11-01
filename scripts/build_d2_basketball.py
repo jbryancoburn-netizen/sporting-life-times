@@ -410,6 +410,96 @@ def seed_shared_dii_colors(gender,teams):
         count+=1
     return {"added":count,"method":"unique matching NCAA school logo slug"}
 
+def extract_logo_artwork_colors(svg):
+    """Sample actual NCAA vector logo ink, never make up a school identity.
+
+    These are editorial *logo-derived* colors, not certified brand standards.
+    A white/transparent SVG background is never used as a site ring.
+    """
+    from collections import Counter
+    raw=str(svg or "")
+    if "<svg" not in raw[:1200].lower():return None
+    colors=[]
+    for match in re.findall(r"#[0-9a-fA-F]{6}(?![0-9a-fA-F])|#[0-9a-fA-F]{3}(?![0-9a-fA-F])",raw):
+        v=match.lower()
+        if len(v)==4:v="#"+''.join(x*2 for x in v[1:])
+        c=nonwhite_color(v)
+        if c:colors.append(c)
+    if not colors:return None
+    freq=Counter(colors)
+    def rgb(c):return [int(c[i:i+2],16) for i in (1,3,5)]
+    def chroma(c):
+        components=rgb(c)
+        return max(components)-min(components)
+    # Skip monochrome-only art rather than applying generic black rings.
+    colorful=[c for c in freq if chroma(c)>=28]
+    if not colorful:return None
+    primary=max(colorful,key=lambda c:(freq[c],chroma(c)))
+    pool=[c for c in freq if c!=primary and
+          sum(abs(a-b) for a,b in zip(rgb(c),rgb(primary)))>=110]
+    if pool:
+        secondary=max(pool,key=lambda c:(freq[c],chroma(c)))
+        kind="NCAA SVG artwork two distinct sampled colors"
+    else:
+        secondary=tonal_accent(primary)
+        kind="NCAA SVG artwork primary plus editorial tonal accent"
+    return {"primary":primary,"secondary":secondary,"provenance":kind}
+
+def get_logo_svg(slug_value):
+    url="https://ncaa-api.henrygd.me/logo/"+urllib.parse.quote(slug_value,safe="")+".svg"
+    req=urllib.request.Request(url,headers={"User-Agent":USER_AGENT,"Accept":"image/svg+xml"})
+    with urllib.request.urlopen(req,timeout=12) as response:
+        raw=response.read(2_500_000)
+    return raw.decode("utf-8","replace")
+
+def seed_logo_artwork_palette(teams):
+    """One SVG per NCAA school, with disk cache shared between both sexes."""
+    cache_path=DATA/"d2-logo-artwork-palette-2026.json"
+    if cache_path.exists():
+        try:
+            cache=json.loads(cache_path.read_text())
+            if cache.get("schema")!=1:cache={"schema":1,"teams":{}}
+        except (OSError,ValueError):cache={"schema":1,"teams":{}}
+    else:cache={"schema":1,"teams":{}}
+    known=cache.setdefault("teams",{})
+    slugs={t.get("slug") for t in teams.values() if re.fullmatch(r"[a-z0-9-]+",str(t.get("slug") or ""))}
+    needed=sorted(s for s in slugs if s not in known)
+    found=0;failures=0
+    def recover(slug_value):
+        try:
+            palette=extract_logo_artwork_colors(get_logo_svg(slug_value))
+            return slug_value,palette
+        except Exception:
+            return slug_value,None
+    if needed:
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            tasks=[pool.submit(recover,key) for key in needed]
+            for future in as_completed(tasks):
+                key,palette=future.result()
+                if palette:
+                    known[key]=palette
+                    found+=1
+                else:failures+=1
+    if needed:
+        tmp=cache_path.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(cache,separators=(',',':'))+"\n")
+        tmp.replace(cache_path)
+    matched=0;derived=0
+    for t in teams.values():
+        palette=known.get(t.get("slug")) if t.get("slug") else None
+        if not palette:continue
+        if "teamcolorcodes.com" in t.get("color_source",""):continue
+        # The institutional SVG acts as the proof of color identity.
+        t["primary"]=palette["primary"];t["secondary"]=palette["secondary"]
+        t["color_source"]="https://ncaa-api.henrygd.me/logo/"+t["slug"]+".svg"
+        t["color_provenance"]=palette["provenance"]
+        matched+=1
+        if "editorial" in palette["provenance"]:derived+=1
+    return {"matched":matched,"with_editorial_tonal_accent":derived,
+            "cached_school_logos":len(known),"new_palette_matches":found,
+            "failed_or_monochrome":failures,
+            "source":"NCAA team SVG artwork; colors are logo-derived, NOT official brand standard"}
+
 def seed_published_dii_palettes(gender,teams):
     """Apply institution-specific published DII team colors with source URLs."""
     path=DATA/"d2-school-color-evidence-2026.json"
@@ -538,6 +628,7 @@ def update(gender, bootstrap=False):
     logo_quality=seed_official_logos(teams)
     paired_quality=seed_cross_gender_logos(gender,teams)
     color_quality['cross_gender']=seed_shared_dii_colors(gender,teams)
+    color_quality['ncaa_logo_artwork']=seed_logo_artwork_palette(teams)
     color_quality['published_school_evidence']=seed_published_dii_palettes(gender,teams)
     color_quality['total_with_two_visible_colors']=sum(bool(t.get('primary') and t.get('secondary')) for t in teams.values())
     logo_quality["cross_gender"]=paired_quality
