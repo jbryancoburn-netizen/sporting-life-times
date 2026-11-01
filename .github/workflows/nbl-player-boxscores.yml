@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: nbl-boxscores
+  group: nbl-data-publication
   cancel-in-progress: false
 jobs:
   publish:
