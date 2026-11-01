@@ -11,13 +11,14 @@ let eloRatings={},forecastModel=null,completedEvents=[];
 async function loadPregameElo(){
  try{
   const [eloResponse,statResponse,priorResponse]=await Promise.all([
-   fetch('data/nba-2026-27-current-provisional.json',{cache:'no-store'}),
+   fetch('data/nba-elo-shadow-2026-27.json',{cache:'no-store'}),
    fetch('data/nba-possession-inputs.json',{cache:'no-store'}),
    fetch('data/nba-2025-26-team-advanced.json',{cache:'no-store'})
   ]);
   if(!eloResponse.ok||!statResponse.ok||!priorResponse.ok)throw Error('earned Elo or verified possessions unavailable');
   if(!window.RabbyPossessionModel)throw Error('Rabby possession engine not loaded');
   const [elo,stats,priors]=await Promise.all([eloResponse.json(),statResponse.json(),priorResponse.json()]);
+  if(elo.status!=='primary_live_earned_elo'||elo.parameters?.season_start_elo!==1500||elo.parameters?.home_elo!==40)throw Error('NBA 1500-reset earned Elo unavailable');
   const ratings=Object.fromEntries((elo.rankings||[]).filter(r=>nbaPrimaryIds[r.team]&&Number.isFinite(Number(r.elo))).map(r=>[r.team,Number(r.elo)]));
   const model=window.RabbyPossessionModel.build(stats,4,priors);
   if(Object.keys(ratings).length!==30||!model||model.coverage.teams!==30)throw Error('NBA 30-team scoring coverage incomplete');
