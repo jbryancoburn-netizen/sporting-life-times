@@ -86,8 +86,8 @@ function makeDistrictCard(r){
  const status=newEl("div",info.text,"status");
  const sub=newEl("div",info.source+" · "+info.sub,"sub");
  const footer=newEl("div",null,"bottom");
- footer.append(newEl("span",r.official_2026_candidate_snapshot?"Candidates source-checked":"2026 candidate slate pending"));
- footer.append(newEl("span","Explore →"));
+ footer.append(newEl("span",r.official_2026_candidate_snapshot?"Official candidate list verified":"Candidate slate not yet verified"));
+ footer.append(newEl("span","Race file →"));
  const flags=newEl("div",null,"evidence-flags");
   flags.append(newEl("span",r.official_2026_candidate_snapshot?"Candidate list ✓":"Candidate list unverified",r.official_2026_candidate_snapshot?"verified":"unverified"));
   const orig=r.district_specific_2026_polls?.some(p=>p.source_tier==="original_release_checked");
@@ -206,12 +206,15 @@ function renderState(a){
  let state=a.states.find(x=>x.code===code);
  if(!state){err("This is not one of the 50 states. Choose a state from the House atlas.");return}
  title(state.name+" — all House districts");
- $("state-title").textContent=state.name+" · U.S. House";
- $("state-desc").textContent=state.district_count+" seats · open any district for its verified 2026 candidate slate, published polls, previous results and data-source notes.";
- $("state-back").href=urlForState(code);
+ $("state-title").textContent=state.name;
+ $("state-desc").textContent=state.district_count+" CONGRESSIONAL "+(state.district_count===1?"SEAT":"DISTRICTS")+" · NOVEMBER 3, 2026";
+
  const pres=state["2024_presidential_actual"];
- $("state-history").textContent="2024 statewide presidential vote: "+(pres.winner_party==="D"?"Democratic":"Republican")+" +"+one(Math.abs(pres.dem_margin_pp))+" percentage points (historical, not 2026 district polling).";
- insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"],state["2026_congressional_map_changed"]?"REVISED":"UNCHANGED"]);
+ $("state-history").textContent=(pres.winner_party==="D"?"Democrat":"Republican")+" +"+one(Math.abs(pres.dem_margin_pp))+" points · statewide presidential vote";
+ $("state-edition-heading").textContent=state.district_count===1?"The race for the House seat":"The race for "+state.name+"'s "+state.district_count+" House seats";
+ const mapStatus=$("state-map-status-pill");
+ if(mapStatus)mapStatus.textContent=state["2026_congressional_map_changed"]?"2026 map · redrawn":"2026 map · unchanged";
+ insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
  showCoverage(rows,"state");
   let grid=$("district-cards"),select=$("district-filter");
