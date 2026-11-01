@@ -20,8 +20,9 @@ ALLOWED_SOURCES = {
     "NV_SOS_2026_GENERAL": ("NV", "www.nvsos.gov", "/sos/elections/election-information/2026-election-information"),
     "WY_SOS_2026_GENERAL": ("WY", "sos.wyo.gov", "/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf"),
     "FL_DOE_2026_UNOPPOSED": ("FL", "dos.elections.myflorida.com", "/candidates/CanDetail.asp"),
+    "MD_SBE_2026_HOUSE_GENERAL": ("MD", "elections.maryland.gov", "/elections/2026/general_candidates/2026_GG_statewide_candidatelist.html"),
 }
-HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1}
+HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8}
 PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "OTH"}
 
 def validate(data):
@@ -102,6 +103,12 @@ def validate(data):
             c = coverage.get(src["state"], {})
             if c.get("house") != HOUSE_SEATS[src["state"]] or c.get("senate") != 1:
                 raise ValueError("Claim of complete federal source transcription does not match state races")
+    # Maryland has all 8 House races but no regular US Senate election in 2026.
+    for src in sources.values():
+        if src["scope"] == "full_house_snapshot_no_senate_2026":
+            c = coverage.get(src["state"], {})
+            if src["state"] != "MD" or c.get("house") != HOUSE_SEATS["MD"] or c.get("senate") != 0:
+                raise ValueError("Maryland full House / no Senate 2026 classification is incomplete")
     house = sum(x["house"] for x in coverage.values())
     senate = sum(x["senate"] for x in coverage.values())
     # Florida 10 is absent from the linked qualified-candidate search page.
@@ -135,7 +142,7 @@ def validate(data):
         "all_435_house_races_covered": False,
         "2026_independent_forecast_certified": False,
         "certified_2026_probability_count": 0,
-        "warning": "State government records include qualified ballot contests and an explicitly sourced unopposed office absent from the ballot. WRI entries are qualified write-ins, not printed ballot names. These are dated snapshots, not continuously synchronized official ballots. Later changes, remaining states, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
+        "warning": "Official candidate records include state-qualified general ballot contestants, qualified write-ins, and Florida's separately sourced unopposed House office absent from the general ballot. Maryland entries exclude withdrawn or disqualified filings. These are dated government snapshots, not continually synchronized official ballots; all other states and model inputs remain unresolved. No original 2026 prediction is certified."
     }
 
 def main():

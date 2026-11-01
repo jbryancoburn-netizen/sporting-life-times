@@ -46,11 +46,11 @@ jobs:
           a=json.load(open('politics-ballot-audit.json'))
           assert d['status']=='EXACT_JOIN_DIAGNOSTIC_ONLY' and d['source_cycle']==2026
           assert d['candidate_records']==sum(len(x['candidates']) for x in b['races'])
-          assert d['candidate_records']>=134
+          assert d['candidate_records']>=156
           assert d['forecast_eligible'] is False and d['certified_2026_probability_count']==0
           assert all(x['fec_id'] is None for x in d['entries'] if x['status']!='unique_exact')
           assert all(not x['finance'] for x in d['entries'] if x['status']!='unique_exact')
-          assert d['house_offices']>=43 and d['senate_offices']>=3
+          assert d['house_offices']>=51 and d['senate_offices']>=3
           print('Verified-source/FEC exact ID audit:',d['counts'])
           PY
       - name: Publish only the reconciled index, with no changes to election slate or sports

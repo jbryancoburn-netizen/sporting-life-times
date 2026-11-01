@@ -1,26 +1,32 @@
 {
   "status": "PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED",
-  "checked_at": "2026-11-01T18:56:40+00:00",
+  "checked_at": "2026-11-01T19:13:06+00:00",
   "source_reviewed_at": "2026-11-01",
-  "official_source_links_located": 6,
+  "official_source_links_located": 7,
   "states_with_transcribed_federal_contests": [
     "FL",
+    "MD",
     "NC",
     "WY"
   ],
-  "house_contests_transcribed": 43,
-  "house_general_ballot_contests_transcribed": 42,
+  "house_contests_transcribed": 51,
+  "house_general_ballot_contests_transcribed": 50,
   "unopposed_offices_without_general_ballot": [
     "FL-10"
   ],
   "senate_contests_transcribed": 3,
-  "candidate_ballot_entries": 134,
-  "qualified_write_in_entries_not_printed_on_ballot": 9,
+  "candidate_ballot_entries": 156,
+  "qualified_write_in_entries_not_printed_on_ballot": 12,
   "florida_unverified_districts": [],
   "state_coverage": {
     "FL": {
       "house": 28,
       "senate": 1,
+      "full_house_snapshot": true
+    },
+    "MD": {
+      "house": 8,
+      "senate": 0,
       "full_house_snapshot": true
     },
     "NC": {
@@ -34,10 +40,10 @@
       "full_house_snapshot": true
     }
   },
-  "house_contests_unverified": 392,
+  "house_contests_unverified": 384,
   "fec_identity_matches_verified": 0,
   "all_435_house_races_covered": false,
   "2026_independent_forecast_certified": false,
   "certified_2026_probability_count": 0,
-  "warning": "State government records include qualified ballot contests and an explicitly sourced unopposed office absent from the ballot. WRI entries are qualified write-ins, not printed ballot names. These are dated snapshots, not continuously synchronized official ballots. Later changes, remaining states, geography and FEC identity matches are unverified. No 2026 election odds may be issued."
+  "warning": "Official candidate records include state-qualified general ballot contestants, qualified write-ins, and Florida's separately sourced unopposed House office absent from the general ballot. Maryland entries exclude withdrawn or disqualified filings. These are dated government snapshots, not continually synchronized official ballots; all other states and model inputs remain unresolved. No original 2026 prediction is certified."
 }

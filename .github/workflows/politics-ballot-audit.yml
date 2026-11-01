@@ -41,14 +41,15 @@ jobs:
           m=json.load(open('politics-sim-readiness.json'))
           assert b['status']=='PARTIAL_GOVERNMENT_SOURCE_BALLOTS_VALIDATED'
           assert b['all_435_house_races_covered'] is False
-          assert 43<=b['house_contests_transcribed']<435
+          assert 51<=b['house_contests_transcribed']<435
           assert b['senate_contests_transcribed']>=3
-          assert b['candidate_ballot_entries']>=134
+          assert b['candidate_ballot_entries']>=156
           assert b['florida_unverified_districts']==[]
           assert b['house_contests_unverified']==435-b['house_contests_transcribed']
-          assert b['qualified_write_in_entries_not_printed_on_ballot']==9
+          assert b['qualified_write_in_entries_not_printed_on_ballot']>=12
           assert b['unopposed_offices_without_general_ballot']==['FL-10']
-          assert b['house_general_ballot_contests_transcribed']==42
+          assert b['house_general_ballot_contests_transcribed']==b['house_contests_transcribed']-1
+          assert b['state_coverage']['MD']['house']==8 and b['state_coverage']['MD']['senate']==0
           assert b['fec_identity_matches_verified']==0
           assert b['certified_2026_probability_count']==0
           r=next(c for c in m['checks'] if c['id']=='2026_official_general_election_ballot_roster')

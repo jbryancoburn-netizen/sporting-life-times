@@ -1,0 +1,83 @@
+name: Politics 2026 Maryland official House source reconciliation
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, politics-md-official-house-20261101]
+    paths:
+      - 'politics-official-ballots.json'
+      - 'scripts/politics_ballot_audit.py'
+      - 'test_politics_ballot_audit.py'
+      - '.github/workflows/politics-md-official-house.yml'
+  pull_request:
+    paths:
+      - 'politics-official-ballots.json'
+      - 'scripts/politics_ballot_audit.py'
+      - '.github/workflows/politics-md-official-house.yml'
+permissions:
+  contents: write
+concurrency:
+  group: politics-2026-md-house-review
+  cancel-in-progress: false
+jobs:
+  official-ballot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify direct election-office transcriptions and no-ballot distinctions
+        run: |
+          python -m py_compile scripts/politics_ballot_audit.py scripts/politics_ballot_fec_crosswalk.py
+          python -m unittest -v test_politics_ballot_audit test_politics_ballot_source_probe test_politics_ballot_fec_crosswalk
+      - name: Recompute independently audited official House source and FEC identity join
+        run: |
+          python scripts/politics_ballot_audit.py
+          python -m scripts.politics_ballot_fec_crosswalk
+          python scripts/politics_sim_readiness.py
+      - name: Check no excluded or withdrawn Maryland candidate and no certified forecast
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('politics-official-ballots.json'))
+          a=json.load(open('politics-ballot-audit.json'))
+          f=json.load(open('politics-ballot-fec-crosswalk.json'))
+          m=json.load(open('politics-sim-readiness.json'))
+          md={r['id']:r for r in d['races'] if r['state']=='MD' and r['office']=='H'}
+          assert len(md)==8 and set(md)=={f'MD-{i:02d}' for i in range(1,9)}
+          assert sum(len(x['candidates']) for x in md.values())==22
+          assert all(r['source_id']=='MD_SBE_2026_HOUSE_GENERAL' for r in md.values())
+          assert a['state_coverage']['MD']=={'house':8,'senate':0,'full_house_snapshot':True}
+          assert a['house_contests_transcribed']==51 and a['senate_contests_transcribed']==3
+          assert a['candidate_ballot_entries']==156
+          assert a['qualified_write_in_entries_not_printed_on_ballot']==12
+          assert f['candidate_records']==a['candidate_ballot_entries']
+          assert f['forecast_eligible'] is False
+          assert m['status']=='NOT_READY_FOR_PUBLIC_PREDICTIONS'
+          assert m['certified_original_probability_count']==0
+          assert m['house_forecast_ready'] is False
+          assert not any(any(c['name'] in ('Jonathan Burruss','Brian S. Jordan','Hajra Kirmani','Chris Hyser') for c in r['candidates']) for r in md.values())
+          print('Official MD House roster, FEC diagnostic and independent forecast guard verified')
+          PY
+          python -m unittest -v test_politics_data_integrity
+      - name: Publish only the audited original research ledger and derived counts
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "sporting-life-times-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add politics-ballot-audit.json politics-ballot-fec-crosswalk.json politics-sim-readiness.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Reconcile official Maryland House ballot evidence with FEC and original model readiness"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              git push origin HEAD:"$GITHUB_REF_NAME"
+              exit 0
+            fi
+            for attempt in $(seq 1 12); do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi

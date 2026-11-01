@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Snapshot of state candidate listings; Florida's official federal listing omits FL-10 and it remains unresolved. WRI entries are qualified write-in candidates, NOT printed-ballot name options; the source roster includes them for transparency. Remaining states, withdrawals and later official corrections are not verified. Never interpret filings, source links or news forecasts as this project's own election predictions.",
+  "warning": "Government candidate-list snapshots only; Maryland's 2026 House entries include three active qualified write-in candidates but exclude withdrawn candidates, failed petitions, and other non-active filings. Florida FL-10 is separately sourced as an unopposed office without general-election ballot appearance. WRI entries are write-in qualifications, not printed candidate names. The nationwide roster is incomplete and no 2026 probability forecast is certified.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -72,6 +72,18 @@
       "source_type": "official_candidate_detail_qualified_unopposed",
       "scope": "official_unopposed_no_general_ballot_appearance",
       "transcription_status": "reviewed"
+    },
+    {
+      "id": "MD_SBE_2026_HOUSE_GENERAL",
+      "state": "MD",
+      "publisher": "Maryland State Board of Elections",
+      "url": "https://elections.maryland.gov/elections/2026/general_candidates/2026_GG_statewide_candidatelist.html",
+      "publication_date": "2026-10-16",
+      "reviewed_at": "2026-11-01",
+      "source_type": "official_general_election_active_candidate_listing",
+      "scope": "full_house_snapshot_no_senate_2026",
+      "transcription_status": "reviewed",
+      "cross_check_url": "https://msa.maryland.gov/msa/mdmanual/42electg/html/2026/2026usrep.html"
     }
   ],
   "races": [
@@ -734,6 +746,182 @@
         {
           "name": "Angie Nixon",
           "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-01",
+      "state": "MD",
+      "office": "H",
+      "district": "01",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "Dan Schwartz",
+          "party": "DEM"
+        },
+        {
+          "name": "Andy Harris",
+          "party": "REP"
+        },
+        {
+          "name": "Edward Shlikas",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-02",
+      "state": "MD",
+      "office": "H",
+      "district": "02",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "John \"Johnny O\" Olszewski, Jr.",
+          "party": "DEM"
+        },
+        {
+          "name": "Dave Wallace",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-03",
+      "state": "MD",
+      "office": "H",
+      "district": "03",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "Sarah Elfreth",
+          "party": "DEM"
+        },
+        {
+          "name": "Berney Flowers",
+          "party": "REP"
+        },
+        {
+          "name": "Robert L. Coffman",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-04",
+      "state": "MD",
+      "office": "H",
+      "district": "04",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "Glenn F. Ivey",
+          "party": "DEM"
+        },
+        {
+          "name": "George E. McDermott",
+          "party": "REP"
+        },
+        {
+          "name": "Sam Husseini",
+          "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-05",
+      "state": "MD",
+      "office": "H",
+      "district": "05",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "Adrian Boafo",
+          "party": "DEM"
+        },
+        {
+          "name": "Chris Chaffee",
+          "party": "REP"
+        },
+        {
+          "name": "Mildred Marie Hall",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-06",
+      "state": "MD",
+      "office": "H",
+      "district": "06",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "April McClain Delaney",
+          "party": "DEM"
+        },
+        {
+          "name": "Robin Ficker",
+          "party": "REP"
+        },
+        {
+          "name": "Moshe Y. Landman",
+          "party": "GRE"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-07",
+      "state": "MD",
+      "office": "H",
+      "district": "07",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "Kweisi Mfume",
+          "party": "DEM"
+        },
+        {
+          "name": "Scott M. Collier",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "MD-08",
+      "state": "MD",
+      "office": "H",
+      "district": "08",
+      "source_id": "MD_SBE_2026_HOUSE_GENERAL",
+      "candidates": [
+        {
+          "name": "Jamie Raskin",
+          "party": "DEM"
+        },
+        {
+          "name": "Cheryl Riley",
+          "party": "REP"
+        },
+        {
+          "name": "Nancy Wallace",
+          "party": "GRE"
         }
       ],
       "verification": "source_transcribed_as_of_review_date",
