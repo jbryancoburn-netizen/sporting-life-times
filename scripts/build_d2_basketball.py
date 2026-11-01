@@ -969,6 +969,11 @@ def update(gender, bootstrap=False):
     # reconciled for reciprocal matchups, dates, time zones, and broadcasts.
     from d2_gsc_official import enrich_gsc
     gsc_quality=enrich_gsc(games,teams,today,gender=gender)
+    if gender=="men":
+        from d2_cacc_official import enrich_cacc
+        cacc_quality=enrich_cacc(games,teams,today)
+    else:
+        cacc_quality={"status":"men-only CACC reconciliation not run"}
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1028,7 +1033,8 @@ def update(gender, bootstrap=False):
         "official_cwu_tipoff_broadcasts":official_broadcasts,
         "official_other_schedule_broadcasts":extra_broadcasts,
         "official_midwest_tipoff_broadcasts":midwest_broadcasts,
-        "official_gsc_schedule_reconciliation":gsc_quality}
+        "official_gsc_schedule_reconciliation":gsc_quality,
+        "official_cacc_schedule_reconciliation":cacc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
