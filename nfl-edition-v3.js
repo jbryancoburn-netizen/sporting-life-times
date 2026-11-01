@@ -427,15 +427,33 @@ el.innerHTML=rows.length?gridTable(["PLAYER","POSITION","NO.","STATUS"],rows.map
 catch(e){el.innerHTML=note("Roster feed unavailable. Club results and ratings remain available.");}
 }
 function gamePage(){
-const g=games.find(g=>g.id===params.get("id"));if(!g)return note("Game not found. "+link("nfl-game-center.html","Open the Game Center."));
-const a=team(g.away.id),h=team(g.home.id),elo=g.elo||{};
-let out='<p class="nfl-kicker">WEEK '+g.week+' · '+escapeHtml(g.status)+'</p><h1 class="nfl-title">'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+'</h1>';
-out+='<div class="nfl-team-head" style="justify-content:space-between;flex-wrap:wrap">'+side(g.away,true)+'<strong>AT</strong>'+side(g.home,true)+'</div>';
-out+='<p class="nfl-small">'+escapeHtml(date(g.date))+' · '+escapeHtml(g.venue||"Venue TBA")+' · '+escapeHtml(g.broadcast||"Broadcast TBA")+'</p>';
-const stats=[["Home win chance",elo.home_win_probability==null?"—":format(100*elo.home_win_probability,1)+"%"],["Away win chance",elo.away_win_probability==null?"—":format(100*elo.away_win_probability,1)+"%"],["Predicted score",elo.away_projected_points==null?"—":elo.away_projected_points+"–"+elo.home_projected_points],["Home Elo change",elo.home_delta==null?"Pending":format(elo.home_delta,1)]];
-out+='<div class="nfl-statline">'+stats.map(v=>'<div class="nfl-stat"><b>'+v[1]+'</b><span>'+v[0]+'</span></div>').join("")+'</div>';
-return out+liveGamePanel(g)+panel(g.state==='in'?"LIVE BOX SCORE &amp; TEAM STATISTICS":"BOX SCORE &amp; TEAM STATISTICS",'<div id="nfl-game-box">Loading sourced box score…</div>')+'<p class="nfl-small">'+link(g.url,"ESPN source game page ↗")+'</p>';
+ const g=games.find(g=>g.id===params.get("id"));
+ if(!g)return note("Game not found. "+link("nfl-game-center.html","Open the Game Center."));
+ const a=team(g.away.id),h=team(g.home.id),elo=g.elo||{};
+ const status=g.state==='in'?'LIVE · '+liveClock(g):g.state==='post'?nflFinalStatus(g):'PREGAME';
+ let out='<div class="nfl-p26 nfl-p26-game">'+
+  '<div class="nfl-game-return"><a href="nfl-game-center.html">← ALL NFL GAMES</a>'+
+  '<span>WEEK '+escapeHtml(g.week)+' · '+escapeHtml(status)+'</span></div>'+
+  '<h1 class="nfl-title nfl-game-title">'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+'</h1>'+
+  featuredMatch(g);
+ const extras=[
+  ['USRS HOME PREGAME',elo.home_win_probability==null?'—':format(100*elo.home_win_probability,1)+'%'],
+  ['USRS AWAY PREGAME',elo.away_win_probability==null?'—':format(100*elo.away_win_probability,1)+'%'],
+  ['PROJECTED SCORE',elo.away_projected_points==null?'—':elo.away_projected_points+'–'+elo.home_projected_points],
+  [g.state==='post'?'HOME ELO CHANGE':'HOME ELO SCENARIO',elo.home_delta==null?'Pending':format(elo.home_delta,1)]
+ ];
+ out+='<div class="nfl-game-model"><div class="nfl-game-model-heading"><strong>USRS / GAME INTELLIGENCE</strong>'+
+  '<span>Independent Elo · Pregame estimates, not live win probabilities</span></div>'+
+  '<div class="nfl-statline">'+extras.map(([label,value])=>'<div class="nfl-stat"><b>'+escapeHtml(value)+'</b><span>'+escapeHtml(label)+'</span></div>').join('')+
+  '</div></div>';
+ out+='<section id="nfl-game-live-slot" class="nfl-game-live-slot" aria-label="Live team statistics and play-by-play"></section>';
+ out+=panel(g.state==='in'?"LIVE BOX SCORE &amp; TEAM STATISTICS":"BOX SCORE &amp; TEAM STATISTICS",
+    '<div id="nfl-game-box">Loading sourced box score…</div>');
+ out+='<p class="nfl-small nfl-game-source">'+link(g.url,"SOURCE GAME RECORD ↗")+
+   ' · Scores and live statistics are sourced; USRS forecasts are independent.</p></div>';
+ return out;
 }
+
 async function gameBox(){
  const id=params.get("id"),el=document.getElementById("nfl-game-box");if(!el)return;
  try{const activeBox=((liveFeed||{}).boxes||{})[id];const res=activeBox?null:await fetch("data/nfl-2026-boxscores.json?t="+Date.now(),{cache:"no-store"});if(res&&!res.ok)throw Error();
@@ -562,6 +580,7 @@ function renderNFL(){
  if(liveFeed)stamp+=" · "+(Date.now()-new Date(liveFeed.updated_at).getTime()<600000?"LIVE SCORES":"LIVE FEED DELAYED")+" "+date(liveFeed.updated_at)+" ("+liveSource+")";
  document.getElementById("nfl-stamp").textContent=stamp;
  if(page==="front"){news();featuredLiveStats();}
+ if(page==="game")featuredLiveStats();
  if(page==="team")roster();
  if(page==="game")gameBox();
  const wk=document.getElementById("nfl-week");if(wk)wk.onchange=()=>location.href="nfl-schedule.html?week="+encode(wk.value);
