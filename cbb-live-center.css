@@ -352,3 +352,11 @@
   .cbb-games-heading span{font-size:8px}
 }
 @media(prefers-reduced-motion:reduce){.cbb-feature-link{transition:none}}
+
+/* AP watch is sourced to the published men's Top 25; no women's polls are inferred. */
+.cbb-ap-rank{display:inline-block;vertical-align:middle;margin-left:7px;padding:3px 4px;
+ border:1px solid rgba(221,189,124,.58);color:#f0d79e;font:900 9px/1 Arial,sans-serif;
+ font-style:normal;letter-spacing:.6px;white-space:nowrap}
+.cbb-radar-metrics:has(>div:nth-child(5)){grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:900px){.cbb-radar-metrics:has(>div:nth-child(5)){grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:580px){.cbb-radar-metrics:has(>div:nth-child(5)){grid-template-columns:repeat(2,minmax(0,1fr))}}
