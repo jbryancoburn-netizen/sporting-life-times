@@ -965,13 +965,10 @@ def update(gender, bootstrap=False):
     midwest_broadcasts=apply_verified_schedule_broadcasts(gender,games,teams,today,
         registry_file=DATA/"d2-midwest-tipoff-official-2026.json",
         stream_host="https://justagame.com/clients/justagame-fieldhouse/")
-    # Every GSC conference fixture is corroborated by BOTH official school
-    # schedules; do not assume a completed date scan certified a team schedule.
-    if gender=="men":
-        from d2_gsc_official import enrich_gsc
-        gsc_quality=enrich_gsc(games,teams,today)
-    else:
-        gsc_quality={"status":"not run: men's schedule audit only"}
+    # GSC men's and women's official school calendars are independently
+    # reconciled for reciprocal matchups, dates, time zones, and broadcasts.
+    from d2_gsc_official import enrich_gsc
+    gsc_quality=enrich_gsc(games,teams,today,gender=gender)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
