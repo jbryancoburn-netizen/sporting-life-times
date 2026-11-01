@@ -41,6 +41,21 @@ class EloTests(unittest.TestCase):
         self.assertIn("home_win_probability",games[1]["elo"])
         self.assertEqual(sum(x["played"] for x in t),2)
 
+    def test_neutral_field_has_no_hfa(self):
+        self.assertAlmostEqual(nfl.probability(1500,1500,0),0.5)
+        game=mk(5,2,1,17,24)
+        game["neutral_site"]=True
+        nfl.replay([game])
+        self.assertAlmostEqual(game["elo"]["home_win_probability"],0.5)
+
+    def test_historically_tunable_k_without_legacy_elo(self):
+        slow=[mk(7,2,1,17,24)]
+        fast=[mk(8,2,1,17,24)]
+        ra=nfl.replay(slow,home_advantage=30,k_base=12)
+        rb=nfl.replay(fast,home_advantage=30,k_base=36)
+        self.assertGreater(next(t for t in rb if t["id"]=="1")["elo"],next(t for t in ra if t["id"]=="1")["elo"])
+        self.assertAlmostEqual(sum(t["elo"] for t in rb),48000,delta=1.0)
+
     def test_no_historical_seed(self):
         self.assertEqual(nfl.SEASON,2026)
         self.assertEqual(nfl.probability(1500,1500),1/(1+10**(-55/400)))
