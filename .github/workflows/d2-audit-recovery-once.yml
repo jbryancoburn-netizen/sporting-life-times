@@ -1,0 +1,91 @@
+name: DII full-season source audit recovery and safe publish
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/d2-audit-recovery-once.yml'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: d2-audit-recovery-once
+  cancel-in-progress: false
+jobs:
+  merge-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Restore completed 180-date scan artifact from verified GitHub run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/dii-full-audit"
+          gh run download 41327741334 -R jbryancoburn-netizen/sporting-life-times \
+            -n dii-2026-27-entire-season-audit -D "$RUNNER_TEMP/dii-full-audit"
+          test -s "$RUNNER_TEMP/dii-full-audit/d2-men-2026-27.json"
+          test -s "$RUNNER_TEMP/dii-full-audit/d2-women-2026-27.json"
+      - name: Validate recovery script and source scan
+        run: |
+          python -m py_compile scripts/merge_d2_season_audit.py
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          source=Path(os.environ['RUNNER_TEMP'])/'dii-full-audit'
+          for g,minimum in [('men',742),('women',3161)]:
+              a=json.loads((source/f'd2-{g}-2026-27.json').read_text())
+              assert a['quality']['dates_fetched']==180
+              assert len(a['games'])>=minimum,(g,len(a['games']))
+              assert len({x['id'] for x in a['games']})==len(a['games'])
+              print(g,len(a['games']),'verified source-ledger fixtures')
+          PY
+      - name: Rebase safely on the newest site data and merge, retrying without force pushes
+        id: publish
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for n in 1 2 3 4 5 6 7 8 9 10 11 12; do
+            echo "Full-season source reconciliation attempt $n"
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd
+            python scripts/merge_d2_season_audit.py --source-dir "$RUNNER_TEMP/dii-full-audit"
+            python - <<'PY'
+          import json
+          for g,minimum in [('men',742),('women',3161)]:
+              p=json.load(open(f'data/d2-{g}-2026-27.json'))
+              assert len(p['games'])>=minimum
+              assert p['quality']['full_season_scan']['days_retrieved']==180
+              assert p['starting_elo']==1500
+              assert sum(t['w'] for t in p['teams'])==p['quality']['verified_dii_finals']
+              assert sum(t['l'] for t in p['teams'])==p['quality']['verified_dii_finals']
+          PY
+            git add data/d2-men-2026-27.json data/d2-women-2026-27.json
+            if git diff --cached --quiet; then
+              echo 'published=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git commit -m 'DII published full 2026-27 verified game schedule scan'
+            if git push origin HEAD:main; then
+              echo 'published=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo 'Audit artifact is safe; concurrent GitHub writers prevented an atomic publish.'
+          exit 1
+      - name: Request Pages deploy for newly published DII fixtures
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run publish-newspaper.yml -R jbryancoburn-netizen/sporting-life-times --ref main
