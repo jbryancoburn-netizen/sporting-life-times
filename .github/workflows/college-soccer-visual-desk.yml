@@ -5,6 +5,10 @@ on:
     paths:
       - 'college-soccer-visual-desk.js'
       - 'college-soccer-visual-desk.css'
+      - 'college-soccer-pulse.js'
+      - 'college-soccer-pitch.css'
+      - 'college-soccer-showcase.js'
+      - 'scripts/publish_college_soccer_live_scores.py'
       - 'college-soccer.html'
       - 'college-soccer-search.css'
       - 'college-soccer-editorial.js'
@@ -72,6 +76,8 @@ jobs:
       - name: Validate visual desk JavaScript
         run: |
           node --check college-soccer-visual-desk.js
+          node --check college-soccer-pulse.js
+          node --check college-soccer-showcase.js
           node --check college-soccer-editorial.js
           node --check college-soccer-match.js
           node --check college-soccer-postseason.js
@@ -101,6 +107,17 @@ jobs:
           node <<'NODE'
           const fs=require('fs'), assert=require('node:assert/strict');
           const html=fs.readFileSync('college-soccer.html','utf8');
+          assert(html.includes('id="cs-current-scoreboard"'), 'Missing source-backed soccer match centre');
+          assert(html.includes('college-soccer-pitch.css?v='), 'Missing modern soccer newspaper design');
+          assert(html.includes('id="cs-hero-leader"'), 'Missing Elo-backed feature team');
+          const pulse=fs.readFileSync('college-soccer-pulse.js','utf8');
+          assert(pulse.includes("data/") && pulse.includes("college-soccer-live-scores.json"), 'Scoreboard not connected to NCAA feed');
+          assert(pulse.includes("status==='live'") && pulse.includes("status:'final'"), 'No distinct live / verified final state');
+          assert(pulse.includes("encodeURIComponent(g.match_id)"), 'Matches must open their game centre');
+          const ingest=fs.readFileSync('scripts/publish_college_soccer_live_scores.py','utf8');
+          assert(ingest.includes('"home_name":home_name') && ingest.includes('"away_name":away_name'), 'Live records have no source team identities');
+          const live=JSON.parse(fs.readFileSync('data/college-soccer-live-scores.json','utf8'));
+          assert(live.games.every(g=>g.home_name && g.away_name && g.home_id && g.away_id), 'Every score requires verified source names and IDs');
           assert(html.includes('id="college-soccer-visual-desk"'));
           assert(html.includes('id="college-soccer-editorial"'));
           assert(html.includes('id="college-team-search"'));
