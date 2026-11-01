@@ -25,7 +25,9 @@ function school(id){return state.teams.get(String(id))||{id:String(id),name:id,s
 function row(t,i,withRank=true){return '<div class="board-row"><span>'+(withRank?i+1:'')+'</span>'+logo(t)+'<a class="school-link" href="'+link(t)+'">'+name(t)+memberBadge(t)+'</a><span>'+(t.w||0)+'–'+(t.l||0)+'</span><span>'+Math.round(pct(t)*1000)/10+'%</span><span class="elo">'+Number(t.elo||1500).toFixed(0)+'</span></div>'}
 function game(g){
  const away=school(g.away),home=school(g.home),final=g.status==='final';
- const time=g.start_time||'Tipoff TBA';
+ const time=g.start_time||'Tipoff not announced';
+ const broadcast=g.network?(g.stream_url&&/^https:\/\//.test(g.stream_url)?'<a target="_blank" rel="noopener noreferrer" href="'+esc(g.stream_url)+'">'+esc(g.network)+' ↗</a>':esc(g.network)):'TV / STREAM UNCONFIRMED';
+ const broadcastType=g.network&&g.broadcast_type?'<small>'+esc(g.broadcast_type)+'</small>':'';
  const winA=final&&Number(g.away_score)>Number(g.home_score);
  const winH=final&&Number(g.home_score)>Number(g.away_score);
  const probability=(g.pred_home_pct===null||g.pred_home_pct===undefined)?null:Number(g.pred_home_pct);
@@ -39,7 +41,7 @@ function game(g){
  (final&&Number.isFinite(Number(g.elo_change_home))?'<p>FINAL ELO MOVEMENT · '+esc(away.name)+' '+esc(formatChange(g.elo_change_away))+
  ' / '+esc(home.name)+' '+esc(formatChange(g.elo_change_home))+'</p>':'')+'</div>':'';
  return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+
- esc(final?'FINAL':g.status==='live'?'LIVE':time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
+ esc(final?'FINAL'+(g.start_time?' · '+g.start_time:''):g.status==='live'?'LIVE · '+time:time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span class="game-broadcast">'+broadcast+broadcastType+'</span></div>'+
  '<div class="game-row '+(winA?'winner':'')+'">'+logo(away)+'<a class="school-link" href="'+link(away)+'">'+name(away)+'</a><b>'+
  (final||g.status==='live'?esc(g.away_score??'—'):'')+'</b></div>'+
  '<div class="game-row '+(winH?'winner':'')+'">'+logo(home)+'<a class="school-link" href="'+link(home)+'">'+name(home)+'</a><b>'+
@@ -87,7 +89,7 @@ if(coverageStats){
  ' schools have at least one published fixture; '+esc(coverageStats.schools_with_no_published_fixtures)+
  ' have none. '+esc(coverageStats.games_with_named_venue)+' / '+total+
  ' games include a named venue; '+esc(coverageStats.games_with_network)+' / '+total+
- ' include a broadcast network. <b>Full schedule certification remains pending.</b>';
+ ' include a broadcast network; '+esc(coverageStats.games_with_verified_tipoff??'—')+' have posted tipoff times and '+esc(coverageStats.games_with_stream_link??'—')+' have verified stream links. <b>Full schedule certification remains pending.</b>';
 }
 const brandedSchools=teams.filter(t=>/^#[0-9a-f]{6}$/i.test(t.primary||'')&&/^#[0-9a-f]{6}$/i.test(t.secondary||''));
 const officialPairs=brandedSchools.filter(t=>t.color_provenance&&t.color_provenance.includes('ESPN-published primary and secondary')).length;
