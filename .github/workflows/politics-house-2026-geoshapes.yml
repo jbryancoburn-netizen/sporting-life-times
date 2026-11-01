@@ -33,7 +33,9 @@ jobs:
       - name: Strict input, topology and Missouri exception regressions
         run: |
           python -m py_compile scripts/politics_house_2026_geoshapes.py
-          python -m unittest -v test_politics_house_2026_geoshapes
+          python -m unittest -v test_politics_house_2026_geoshapes test_politics_house_ui
+          node --check politics-house-geomap.js
+          node --check politics-house.js
       - name: Convert all 50 Census 2026 state district boundary shapefiles
         run: python -m scripts.politics_house_2026_geoshapes
       - name: Verify complete 435 districts and 2026 boundary vintage
