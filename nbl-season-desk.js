@@ -1,25 +1,44 @@
-/* NBL27 full-season game desk. Source: ESPN event feed; never invent missing box-score data. */
-(()=>{'use strict';
+/* Full-season NBL Game Center: permanent fixture plus sourced results. */
+(function(){
+'use strict';
 const root=document.getElementById('nbl-season-desk');if(!root)return;
-const $=q=>root.querySelector(q),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const source='https://site.api.espn.com/apis/site/v2/sports/basketball/nbl/scoreboard';
-let games=[],dates=[],index=0,mode='all';
-const localDay=iso=>new Intl.DateTimeFormat('en-CA',{timeZone:'Australia/Sydney',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(iso));
-const prettyDay=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-AU',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
-const norm=e=>{const c=e.competitions?.[0],teams=c?.competitors||[];if(teams.length!==2)return null;const home=teams.find(t=>t.homeAway==='home'),away=teams.find(t=>t.homeAway==='away');if(!home||!away)return null;let state=e.status?.type?.state||'pre';return{id:String(e.id),date:e.date,day:localDay(e.date),state,venue:c.venue?.fullName||'Venue TBA',broadcast:(c.broadcasts||[]).flatMap(b=>b.names||[]).join(', ')||'Broadcast TBA',away,home,url:e.links?.[0]?.href||'',detail:e.status?.type?.detail||'',competition:c};};
-const team=t=>'<span class="nbl-sd-team">'+(t.team?.logo?'<img src="'+esc(t.team.logo)+'" alt="" loading="lazy">':'')+'<span>'+esc(t.team?.displayName||'TBA')+'</span></span>';
-const score=t=>t.score===undefined?'':esc(t.score);
-const card=g=>'<article class="nbl-sd-game"><div class="nbl-sd-head">'+esc(new Date(g.date).toLocaleTimeString('en-AU',{timeZone:'Australia/Sydney',hour:'numeric',minute:'2-digit'}))+' AEDT/AEST · '+esc(g.detail||g.state.toUpperCase())+'</div><div class="nbl-sd-row">'+team(g.away)+'<b>'+score(g.away)+'</b></div><div class="nbl-sd-row">'+team(g.home)+'<b>'+score(g.home)+'</b></div><div class="nbl-sd-meta">'+esc(g.venue)+' · '+esc(g.broadcast)+'</div>'+(g.url?'<a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Game box score ↗</a>':'')+'</article>';
-function render(){let candidates=games.filter(g=>mode==='all'||(mode==='final'?g.state==='post':mode==='live'?g.state==='in':g.state==='pre'));let days=[...new Set(candidates.map(g=>g.day))].sort();if(!days.length){$('#nbl-sd-cards').innerHTML='<p>No games for this filter.</p>';return;}let day=dates[index];if(!days.includes(day)){day=days.find(d=>d>=localDay(new Date().toISOString()))||days.at(-1);}const d=day;$('#nbl-sd-date').value=d;$('#nbl-sd-date').min=days[0];$('#nbl-sd-date').max=days.at(-1);$('#nbl-sd-day').textContent=prettyDay(d);let selected=candidates.filter(g=>g.day===d);$('#nbl-sd-cards').innerHTML=selected.length?selected.map(card).join(''):'<p>No games on this date.</p>';$('#nbl-sd-count').textContent=games.length+' season games indexed · '+games.filter(g=>g.state==='post').length+' final · '+games.filter(g=>g.state==='in').length+' live';$('#nbl-sd-prev').disabled=!days.some(x=>x<d);$('#nbl-sd-next').disabled=!days.some(x=>x>d);$('#nbl-sd-prev').onclick=()=>{const x=days.filter(x=>x<d).at(-1);index=dates.indexOf(x);render()};$('#nbl-sd-next').onclick=()=>{const x=days.find(x=>x>d);index=dates.indexOf(x);render()};}
-root.innerHTML='<div class="nbl-sd-top"><h2>THE FULL-SEASON GAME CENTER</h2><p id="nbl-sd-count">Retrieving 2026–27 games…</p><div class="nbl-sd-controls"><button type="button" id="nbl-sd-prev">← Previous game day</button><label><span id="nbl-sd-day">Select date</span> <input id="nbl-sd-date" type="date" min="2026-09-19" max="2027-02-28"></label><button type="button" id="nbl-sd-next">Next game day →</button><select id="nbl-sd-filter" aria-label="Game status"><option value="all">All games</option><option value="final">Finals</option><option value="live">Live</option><option value="upcoming">Upcoming</option></select></div></div><div class="nbl-sd-cards" id="nbl-sd-cards"></div><p class="nbl-sd-source">ESPN NBL schedule and event feed · Sydney-local game dates. Venue and television TBA when missing from source. Regular-season and postseason events may both appear; source competition type is retained.</p>';
-$('#nbl-sd-date').onchange=e=>{const d=e.target.value;index=dates.includes(d)?dates.indexOf(d):Math.max(0,dates.findIndex(x=>x>d));render()};$('#nbl-sd-filter').onchange=e=>{mode=e.target.value;render()};
-async function load(){try{let all=[];const periods=[['20260919','20261031'],['20261101','20261130'],['20261201','20261231'],['20270101','20270131'],['20270201','20270228']];
-const snapshots=await Promise.allSettled(periods.map(async([start,end])=>{const url=source+'?dates='+start+'-'+end+'&limit=300';const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('ESPN '+r.status);const j=await r.json();return j.events||[]}));
-for(const p of snapshots)if(p.status==='fulfilled')all.push(...p.value);
-const unique=new Map(all.map(e=>[String(e.id),e]));games=[...unique.values()].map(norm).filter(Boolean).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));dates=[...new Set(games.map(g=>g.day))].sort();
-if(!games.length)throw Error('No games in provider feed');
-const today=localDay(new Date().toISOString());const next=dates.find(d=>d>=today)||dates.at(-1);index=dates.indexOf(next);
-render();if(snapshots.some(p=>p.status==='rejected')){$('#nbl-sd-count').textContent+=' · WARNING: some schedule months unavailable';}
-}catch(e){$('#nbl-sd-cards').innerHTML='<p>The full-season game feed is temporarily unavailable. <a href="https://schedule.nbl.com.au/nbl" target="_blank" rel="noopener">View the official NBL fixture ↗</a></p>';$('#nbl-sd-count').textContent='Full-season schedule source unavailable';}}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let games=[],chosenDay='',mode='all',initial=true;
+const $=sel=>root.querySelector(sel);
+const nowDay=()=>window.NBLFullSchedule.day(new Date().toISOString());
+const dateLabel=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-AU',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
+const localTime=d=>new Date(d).toLocaleTimeString('en-AU',{timeZone:'Australia/Sydney',hour:'numeric',minute:'2-digit'});
+const logo=name=>'assets/nbl-logos/'+name.toLowerCase().replace(/[^a-z0-9]/g,'')+'.png';
+const team=name=>'<span class="nbl-sd-team"><img src="'+esc(logo(name))+'" loading="lazy" alt="" onerror="this.hidden=true"><span>'+esc(name)+'</span></span>';
+const status=g=>g.state==='post'?'FINAL':g.state==='in'?'LIVE':localTime(g.date)+' AEDT/AEST';
+const card=g=>'<article class="nbl-sd-game"><div class="nbl-sd-head">'+status(g)+'</div><div class="nbl-sd-row">'+team(g.away)+'<b>'+(g.away_score??'')+'</b></div><div class="nbl-sd-row">'+team(g.home)+'<b>'+(g.home_score??'')+'</b></div><div class="nbl-sd-meta">'+esc(g.venue||'Venue TBA')+' · '+esc(g.broadcasts.join(', ')||'Broadcast TBA')+'</div>'+(g.url?'<a href="'+esc(g.url)+'" target="_blank" rel="noopener noreferrer">Source box score ↗</a>':'')+'</article>';
+root.innerHTML='<div class="nbl-sd-top"><h2>FULL-SEASON GAME CENTER</h2><p id="nbl-sd-count">Loading the published 165-game fixture…</p><div class="nbl-sd-controls"><button type="button" id="nbl-sd-prev">← Previous game day</button><label><span id="nbl-sd-day">Select game day</span> <input type="date" id="nbl-sd-date"></label><button type="button" id="nbl-sd-next">Next game day →</button><select id="nbl-sd-filter" aria-label="Game status"><option value="all">All games</option><option value="final">Finals</option><option value="live">Live</option><option value="upcoming">Upcoming</option></select></div></div><div class="nbl-sd-cards" id="nbl-sd-cards"></div><p class="nbl-sd-source" id="nbl-sd-source"></p>';
+function draw(){
+ const candidates=games.filter(g=>mode==='all'||(mode==='final'?g.state==='post':mode==='live'?g.state==='in':g.state==='pre'));
+ const days=[...new Set(candidates.map(g=>g.day))].sort(),allDays=[...new Set(games.map(g=>g.day))].sort(),today=nowDay();
+ if(!days.length){$('#nbl-sd-cards').innerHTML='<p>No '+esc(mode)+' games in the current fixture.</p>';$('#nbl-sd-prev').disabled=true;$('#nbl-sd-next').disabled=true;return;}
+ if(!days.includes(chosenDay))chosenDay=days.find(d=>d>=today)||days[days.length-1];
+ $('#nbl-sd-date').value=chosenDay;$('#nbl-sd-date').min=allDays[0];$('#nbl-sd-date').max=allDays[allDays.length-1];
+ $('#nbl-sd-day').textContent=dateLabel(chosenDay);
+ $('#nbl-sd-cards').innerHTML=candidates.filter(g=>g.day===chosenDay).map(card).join('');
+ $('#nbl-sd-prev').disabled=!days.some(d=>d<chosenDay);$('#nbl-sd-next').disabled=!days.some(d=>d>chosenDay);
+ $('#nbl-sd-prev').onclick=()=>{chosenDay=days.filter(d=>d<chosenDay).at(-1)||chosenDay;draw();};
+ $('#nbl-sd-next').onclick=()=>{chosenDay=days.find(d=>d>chosenDay)||chosenDay;draw();};
+}
+$('#nbl-sd-date').addEventListener('change',e=>{chosenDay=e.target.value;draw();});
+$('#nbl-sd-filter').addEventListener('change',e=>{mode=e.target.value;draw();});
+async function load(){
+ try{
+   if(!window.NBLFullSchedule)throw Error('Shared schedule library missing');
+   const data=await window.NBLFullSchedule.load();
+   if(data.games.length<165)throw Error('Published fixture below 165 games; refusing to present partial season as complete');
+   games=data.games;
+   if(initial){const today=nowDay(),days=[...new Set(games.map(g=>g.day))].sort();chosenDay=days.find(d=>d>=today)||days.at(-1);initial=false;}
+   const finalCount=games.filter(g=>g.state==='post').length;
+   $('#nbl-sd-count').textContent=games.length+' fixtures · '+finalCount+' sourced finals · '+games.filter(g=>g.state==='in').length+' live · '+data.clubs+' clubs';
+   $('#nbl-sd-source').textContent='Season fixtures persist even when live score feeds fail. '+data.notice+(data.failedDates?' Live ESPN checks unavailable for '+data.failedDates+' of 5 recent dates; some results may lag.':'');
+   draw();
+ }catch(e){$('#nbl-sd-count').textContent='Season fixture unavailable';$('#nbl-sd-cards').innerHTML='<p>The fixture file could not be loaded. <a href="https://schedule.nbl.com.au/nbl" target="_blank" rel="noopener noreferrer">Open the official NBL schedule ↗</a></p>';$('#nbl-sd-source').textContent=e.message;}
+}
 load();setInterval(load,5*60*1000);
 })();
