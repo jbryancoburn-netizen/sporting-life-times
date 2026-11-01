@@ -116,8 +116,13 @@ def read_state(blob,state,column,expected_ids):
         for record in sf.iterShapeRecords():
             p=record.record.as_dict()
             cd=p[column]
+            # Census can include a separate 'ZZ' remainder for water or
+            # unassigned areas. It is not a voting U.S. House district.
+            if cd in ("ZZ","98","99"):
+                print("OMIT_NONVOTING_CENSUS_AREA",state,cd,flush=True)
+                continue
             if not isinstance(cd,str) or not re.fullmatch(r"\d{2}",cd):
-                raise ValueError("Noncanonical Census congressional district ID")
+                raise ValueError("Noncanonical Census congressional district ID "+repr(cd))
             rid=state+"-"+cd
             if rid in seen or rid not in expected_ids:
                 raise ValueError("Unexpected/duplicate CD geometry "+rid)
@@ -125,7 +130,11 @@ def read_state(blob,state,column,expected_ids):
                 raise ValueError("State/census GEOID mismatch "+rid)
             geo=read_shape(record.shape.__geo_interface__)
             polygons=_rounded_rings(geo)
-            districts.append({"id":rid,"polygons":polygons})
+            # An interior anchor for a map label; never population-weighted.
+            islands=_polygons(geo)
+            label=max(islands,key=lambda part:part.area).representative_point()
+            districts.append({"id":rid,"polygons":polygons,
+                              "label_lon_lat":[round(label.x,5),round(label.y,5)]})
             seen.add(rid)
     if seen!=expected_ids:
         raise ValueError("Incomplete state geographic coverage for "+state+
