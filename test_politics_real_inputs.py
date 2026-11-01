@@ -26,6 +26,9 @@ class RealInputTests(unittest.TestCase):
         self.assertEqual(len(candidate),2)
         self.assertEqual(candidate[0]["filing_status"],"C")
         self.assertTrue(candidate[0]["fec_registration_only"])
+        self.assertTrue(candidate[0]["district_within_2020_apportionment"])
+        invalid=parse_fec_candidates([master(district="59").split("|")])
+        self.assertFalse(invalid[0]["district_within_2020_apportionment"])
         self.assertEqual(candidate[0]["district"],"01")
     def test_fec_financial_fields_and_missing(self):
         rows=unzip_tabular(zipdata(finance()+"\n","weball26.txt"),30)

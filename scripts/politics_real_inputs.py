@@ -17,6 +17,10 @@ import urllib.request
 import zipfile
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+try:
+    from scripts.politics_history import APPORTIONMENT
+except ImportError:
+    from politics_history import APPORTIONMENT
 NOW=lambda: dt.datetime.now(dt.timezone.utc)
 CYCLE=2026
 FEC_URLS={
@@ -83,7 +87,8 @@ def parse_fec_candidates(rows):
         result.append({"id":key,"name":name.strip(),"party":party.strip().upper(),"state":state,
                        "office":office.strip(),"district":district.strip().zfill(2),
                        "incumbency_fec":ici.strip().upper(),"filing_status":status.strip().upper(),
-                       "principal_committee":pcc.strip(),"fec_registration_only":True})
+                       "principal_committee":pcc.strip(),"fec_registration_only":True,
+                       "district_within_2020_apportionment":office.strip()=="S" or (int(district.strip())<=APPORTIONMENT[2020][state] and (int(district.strip())>=1 if APPORTIONMENT[2020][state]>1 else int(district.strip())==0))})
     result.sort(key=lambda c:(c["office"],c["state"],c["district"],c["id"]))
     if not result:raise ValueError("No valid 2026 FEC House or Senate records")
     return result
@@ -128,6 +133,8 @@ def make_fec(fetch=get_bytes,now=None):
       "finance_documentation":"https://www.fec.gov/campaign-finance-data/all-candidates-file-description/",
       "house_count":len(house),"senate_count":len(senate),
       "house_districts_with_any_filing":len(set((c["state"],c["district"]) for c in house)),
+      "house_districts_with_valid_current_id":len(set((c["state"],c["district"]) for c in house if c["district_within_2020_apportionment"])),
+      "house_invalid_district_filings":sum(not c["district_within_2020_apportionment"] for c in house),
       "senate_states_with_any_filing":len({c["state"] for c in senate}),
       "finance_records_joined":sum(c["finance"] is not None for c in candidates),
       "finance_status":"ok" if finance else "unavailable_or_unmatched",
@@ -167,7 +174,11 @@ def parse_census(rows):
 def make_census(fetch=get_bytes,now=None):
     now=now or NOW()
     raw=fetch(CENSUS_URL,3_000_000)
-    rows=parse_census(json.loads(raw))
+    try:
+        parsed=json.loads(raw)
+    except (ValueError,UnicodeDecodeError) as error:
+        raise ValueError("Census API did not return JSON; first bytes: "+repr(raw[:250])) from error
+    rows=parse_census(parsed)
     if len(rows)!=435:raise ValueError(f"2024 Census district coverage: {len(rows)} instead of 435")
     return {
       "status":"ok","collected_at":now.isoformat(timespec="seconds"),
