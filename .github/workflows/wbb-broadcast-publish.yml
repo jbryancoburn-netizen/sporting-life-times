@@ -7,6 +7,9 @@ on:
       - 'scripts/wbb-reconcile-schedule-evidence.py'
       - 'data/ncaaw-2026-27-official-broadcast-overrides.json'
       - 'data/ncaaw-2026-27-games.json'
+      - 'scripts/wbb-tipoff-quarantine.py'
+      - 'data/ncaaw-2026-27-official-field-crosschecks.json'
+      - 'data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json'
 permissions:
   contents: write
 concurrency:
@@ -29,6 +32,8 @@ jobs:
         run: python -m py_compile scripts/wbb-reconcile-schedule-evidence.py
       - name: Reconcile all 363 school calendars without re-fetching 363 schedules
         run: python scripts/wbb-reconcile-schedule-evidence.py
+      - name: Publish source-linked disputed tipoff quarantine
+        run: python scripts/wbb-tipoff-quarantine.py
       - name: Validate published women game provenance and coverage
         run: |
           python - <<'PY'
@@ -47,7 +52,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json
+          git add data/ncaaw-schedules-2026-27.json data/ncaaw-schedules-2026-27-audit.json data/ncaaw-2026-27-tipoff-quarantine.json
           if git diff --cached --quiet; then echo "Data already current"; exit 0; fi
           git commit -m "Publish evidence-backed women basketball broadcast entries to all 363 schedules"
           for n in 1 2 3; do
