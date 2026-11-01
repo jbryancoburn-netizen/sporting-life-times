@@ -11,6 +11,7 @@ on:
       - 'scripts/audit-dual-ring-colors.cjs'
       - 'scripts/audit-mbb-logo-system.cjs'
       - 'tests/cbb-courtside.test.cjs'
+      - 'tests/cbb-radio-companion.test.cjs'
       - 'assets/*.svg'
   push:
     branches: [main]
@@ -23,6 +24,7 @@ on:
       - 'scripts/audit-dual-ring-colors.cjs'
       - 'scripts/audit-mbb-logo-system.cjs'
       - 'tests/cbb-courtside.test.cjs'
+      - 'tests/cbb-radio-companion.test.cjs'
       - 'assets/*.svg'
       - '.github/workflows/site-audit.yml'
 permissions:
@@ -47,6 +49,8 @@ jobs:
         run: node tests/mbb-poll-logos.test.cjs
       - name: Protect Courtside sourced scorebugs and independent USRS
         run: node tests/cbb-courtside.test.cjs
+      - name: Verify radio stays opt-in, unrecorded and broadcaster-approved
+        run: node tests/cbb-radio-companion.test.cjs
       - name: JavaScript syntax in public assets
         shell: bash
         run: |
