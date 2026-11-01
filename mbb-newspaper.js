@@ -48,7 +48,9 @@ function stamp(){ $('#access-stamp').textContent='Viewed '+when(new Date().toISO
 stamp();
 const gid=g=>[g.home_id||g.home,g.away_id||g.away];
 function gameCard(g,final=false){const [h,a]=gid(g),home=teamMap.get(h),away=teamMap.get(a);if(!home||!away)return '';
-return '<div class="score-card"><small>'+esc(g.date)+' · '+(final?'FINAL':'Scheduled')+'</small><div class="score-team">'+name(away)+'<b>'+(final?esc(g.away_score):'<em>'+rec(away)+'</em>')+'</b></div><div class="score-team">'+name(home)+'<b>'+(final?esc(g.home_score):'<em>'+rec(home)+'</em>')+'</b></div>'+(g.source_url?'<a class="muted" href="'+url(g.source_url)+'" target="_blank" rel="noopener">Game source ↗</a>':'')+'</div>';}
+const event=String(g.id||'').match(/^espn:([0-9]+)$/);
+const gameFile=event?'<a class="muted" href="cbb-gamefile.html?day='+encodeURIComponent(String(g.date).slice(0,10))+'&amp;game='+event[1]+'">Live game file ↗</a>':'';
+return '<div class="score-card"><small>'+esc(g.date)+' · '+(final?'FINAL':'Scheduled')+'</small><div class="score-team">'+name(away)+'<b>'+(final?esc(g.away_score):'<em>'+rec(away)+'</em>')+'</b></div><div class="score-team">'+name(home)+'<b>'+(final?esc(g.home_score):'<em>'+rec(home)+'</em>')+'</b></div>'+(g.source_url?'<a class="muted" href="'+url(g.source_url)+'" target="_blank" rel="noopener">Game source ↗</a>':'')+gameFile+'</div>';}
 let browserScores=null,browserScoresAt=null;
 async function refreshLiveScores(){
  const d=await get('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?groups=50&limit=1000&dates='+today().replaceAll('-',''));
@@ -254,7 +256,28 @@ async function refreshRatings(){
  if(!changed&&!scheduleChanged)return;
  if(changed){current=next;data=next;teams=enrichRankings(next.rankings);live=next.games_played>0;teamMap.clear();teams.forEach(t=>teamMap.set(t.team_id,t));if(log?.season==='2026-27')ledger=log;games=MBBEngine.verifiedGames(next,ledger);projection=MBBEngine.field(teams,games);resumes.clear();MBBEngine.resume(teams,games).forEach(t=>resumes.set(t.team_id,t.resume));}
  const scroll=window.scrollY,query=$('#team-search')?.value,opponent=$('#opponent')?.value,conf=$('#conf-pick')?.value;
- if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){ /* Keep the existing team DOM and its complete schedule intact on RETRO refresh. */ const ratingNodes=$('#app .metrics'); if(ratingNodes)ratingNodes.dataset.eloUpdated=String(Date.now()); }else if(page==='tournament')tournament();
+ if(page==='home')home();else if(page==='conference')conference();else if(page==='team'){
+  // Fresh ratings must update visible team information without destroying the
+  // schedule filters, roster section, or the reader's chosen historical opponent.
+  const t=teamMap.get(params.get('team')),card=$('#app .metrics');
+  if(t&&card&&changed){
+   const subtitle=$('#app .team-hero p');
+   if(subtitle)subtitle.textContent=t.conference+' · '+(t.wins||0)+'–'+(t.losses||0)+
+    ' overall · '+(t.conference_wins||0)+'–'+(t.conference_losses||0)+' conference';
+   const values=[live?'#'+t.rank:'Tied',number(t.elo,0),
+    String((t.wins||0)+(t.losses||0)),seedFor(t)];
+   [...card.querySelectorAll('.metric>b')].slice(0,4).forEach((node,i)=>node.textContent=values[i]);
+   const r=resumes.get(t.team_id);
+   if(r)for(const el of document.querySelectorAll('#app .metric')){
+    const label=el.querySelector('span')?.textContent?.trim(),value=el.querySelector('b');
+    if(!value)continue;
+    if(label==='Experimental Elo WAB')value.textContent=r.n?number(r.wab,2):'—';
+    else if(label==='Opponent Elo')value.textContent=r.n?number(r.sos,0):'—';
+    else if(label==='Road wins')value.textContent=String(r.road);
+   }
+   card.dataset.eloUpdated=String(Date.now());
+  }
+ }else if(page==='tournament')tournament();
  if(changed)window.dispatchEvent(new Event('mbb:ratings-updated'));
  if(query&&$('#team-search')){$('#team-search').value=query;$('#team-directory').innerHTML=directory(query)}
  if(conf&&$('#conf-pick')){$('#conf-pick').value=conf;$('#conf-pick').dispatchEvent(new Event('change'))}
