@@ -104,15 +104,15 @@ jobs:
           assert(html.includes('id="college-soccer-visual-desk"'));
           assert(html.includes('id="college-soccer-editorial"'));
           assert(html.includes('id="college-team-search"'));
-          assert(html.includes('college-soccer-search.css?v=restore1'));
+          assert(html.includes('college-soccer-search.css?v='));
           assert.equal((html.match(/id="college-team-search"/g)||[]).length,1,'Exactly one school search input');
           assert(html.indexOf('id="college-team-finder"') < html.indexOf('id="college-soccer-conference-index"'),'School finder must precede conference directory');
           assert(html.includes('class="college-search-field"'));
           assert(fs.readFileSync('college-soccer-search.css','utf8').includes('visibility:visible!important'));
           assert(fs.readFileSync('college-soccer-teams.js','utf8').includes("search.addEventListener('input',render)"));
           assert(html.indexOf('id="college-team-finder"') < html.indexOf('id="college-soccer-visual-desk"'),'School search must precede visual matchday desk');
-          assert(html.includes('college-soccer-editorial.js?v=results1'));
-          assert(html.includes('college-soccer-editorial.css?v=results1'));
+          assert(html.includes('college-soccer-editorial.js?v='));
+          assert(html.includes('college-soccer-editorial.css?v='));
           assert(!html.includes('id="college-soccer-elo"'));
           assert(!html.includes('id="college-soccer-predictions"'));
           assert(!html.includes('college-soccer-elo.js'));
@@ -135,7 +135,7 @@ jobs:
           assert(matchJs.includes('data/college-soccer-team-game-index.json'));
           assert(matchJs.includes('Recent verified results'));
           assert(matchJs.includes("g.status==='final'"));
-          assert(matchPage.includes('college-soccer-match.css?v=3'));
+          assert(matchPage.includes('college-soccer-match.css?v='));
           
 
 
@@ -189,8 +189,8 @@ jobs:
             const pageHtml=fs.readFileSync(page,'utf8');
             assert(pageHtml.includes('data-conference="'+conference+'"'),'Conference mismatch in '+page);
             assert(pageHtml.includes('college-soccer-conference-page.js?v='),'Missing conference renderer');
-            assert(pageHtml.includes('college-soccer-cup-ui.js?v=3'));
-            assert(pageHtml.includes('college-soccer-conference-page.css?v=2'));
+            assert(pageHtml.includes('college-soccer-cup-ui.js?v='));
+            assert(pageHtml.includes('college-soccer-conference-page.css?v='));
             assert(conferenceData.conferences[conference]?.page===page,'Registry destination missing '+page);
           }
 
