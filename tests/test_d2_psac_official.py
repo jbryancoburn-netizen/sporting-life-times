@@ -127,6 +127,48 @@ class OfficialPSACBasketball(unittest.TestCase):
         self.assertEqual(game["verified"], False, "school schedule cannot verify a final score")
         self.assertEqual(len(games), 1)
 
+    def test_temporary_kutztown_offcampus_court_both_sexes_only_for_verified_psac(self):
+        for gender in ("men", "women"):
+            kt = psac.MEN_IDS[7] if gender == "men" else psac.WOMEN_IDS[7]
+            opponent = psac.MEN_IDS[0] if gender == "men" else psac.WOMEN_IDS[0]
+            sources = [
+                "https://psacsports.org/schedule.aspx?schedule=5968",
+                "https://psacsports.org/schedule.aspx?schedule=5961",
+            ]
+            league = {"id": "official-game", "date": "2027-01-12",
+                      "away": opponent, "home": kt, "status": "scheduled",
+                      "conference_game": True, "fixture_verified": True,
+                      "neutral": False, "psac_school_sources": sources}
+            unconfirmed = {**league, "id": "unconfirmed", "date": "2027-01-14",
+                           "psac_school_sources": []}
+            neutral = {**league, "id": "neutral", "date": "2027-01-16",
+                       "neutral": True}
+            games = {"good": league, "missing": unconfirmed, "neutral": neutral}
+            info = psac.enrich_psac_temporary_court(gender, games)
+            self.assertEqual(info["newly_enriched"], 1)
+            self.assertEqual(info["skipped_unverified"], 2)
+            self.assertIn("Beaver Athletics and Wellness Center", league["venue"])
+            self.assertIn("kubears.com", league["venue_source_url"])
+            self.assertNotIn("venue", unconfirmed)
+            self.assertNotIn("venue", neutral)
+            self.assertNotIn("network", league)
+            self.assertNotIn("stream_url", league)
+
+    def test_does_not_overwrite_conflicting_named_venue_or_carry_to_new_season(self):
+        kt = psac.MEN_IDS[7]
+        other = psac.MEN_IDS[0]
+        a = {"id": "original", "date": "2027-02-18", "away": other,
+             "home": kt, "fixture_verified": True, "conference_game": True,
+             "neutral": False,
+             "psac_school_sources": ["https://psacsports.org/a",
+                                     "https://psacsports.org/b"],
+             "venue": "Different Arena"}
+        b = {**a, "id": "next-season", "date": "2027-11-18", "venue": ""}
+        result = psac.enrich_psac_temporary_court("men", {"a": a, "b": b})
+        self.assertEqual(result["conflicted"], 1)
+        self.assertEqual(a["venue"], "Different Arena")
+        self.assertEqual(b["venue"], "")
+
     def test_timing_conflict_quarantined_and_missing_sources_withheld(self):
         a, b = psac.WOMEN_IDS[5], psac.WOMEN_IDS[7]
         row = {"date": "2026-12-04", "away": a, "home": b,

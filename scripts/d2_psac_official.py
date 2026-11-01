@@ -281,3 +281,69 @@ def enrich_psac(gender, games, teams, today):
     audit["status"] = "partial: two-school-confirmed matchups only; unverified held back"
     audit["nonmember_lackawanna_excluded"] = True
     return audit
+
+
+# The university explicitly confirmed that BOTH basketball teams' 2026-27
+# "home" games move off campus while Keystone Hall undergoes renovations.
+# This is a season-specific exception; it must never carry to 2027-28.
+KUTZTOWN_TEMP_HOME = {
+    "venue": "Beaver Athletics and Wellness Center · Reading, PA",
+    "source": (
+        "https://kubears.com/news/2026/7/24/general-kutztown-announces-2026-27-"
+        "competition-plan-during-keystone-hall-renovation.aspx"
+    ),
+    "school_schedules": {
+        "men": "https://kubears.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "women": "https://kubears.com/sports/womens-basketball/schedule/2026-2027?grid=true",
+    },
+}
+
+
+def enrich_psac_temporary_court(gender, games):
+    """Exact school/calendar/season-qualified Kutztown venue correction.
+
+    Require PSAC match already attested by BOTH PSAC school calendars.
+    Source identifies the actual temporary basketball facility. Never assign
+    a venue to other schools, neutral games, or an unverified opponent.
+    """
+    if gender not in ("men", "women"):
+        raise ValueError("wrong PSAC basketball gender")
+    kt = MEN_IDS[7] if gender == "men" else WOMEN_IDS[7]
+    result = {"school": kt, "venue": KUTZTOWN_TEMP_HOME["venue"],
+              "source_url": KUTZTOWN_TEMP_HOME["source"],
+              "confirmed": 0, "newly_enriched": 0, "already_correct": 0,
+              "conflicted": 0, "skipped_unverified": 0, "conflicts": []}
+    for game in games.values():
+        if game.get("home") != kt:
+            continue
+        if (not str(game.get("date", "")).startswith(("2026-", "2027-"))
+                or not ("2026-11-01" <= str(game.get("date", "")) <= "2027-03-05")
+                or not game.get("conference_game") or game.get("neutral")
+                or not game.get("fixture_verified")
+                or len(set(game.get("psac_school_sources") or [])) != 2):
+            result["skipped_unverified"] += 1
+            continue
+        if set((game.get("away"), game.get("home"))) == {kt}:
+            result["skipped_unverified"] += 1
+            continue
+        old = game.get("venue") or ""
+        if old and " ".join(old.lower().split()) != " ".join(KUTZTOWN_TEMP_HOME["venue"].lower().split()):
+            # Contradictory game-specific venue evidence is NOT overwritten.
+            result["conflicted"] += 1
+            if len(result["conflicts"]) < 10:
+                result["conflicts"].append({
+                    "date": game.get("date"), "away": game.get("away"),
+                    "prior_venue": old,
+                })
+            continue
+        result["confirmed"] += 1
+        if old:
+            result["already_correct"] += 1
+        else:
+            game["venue"] = KUTZTOWN_TEMP_HOME["venue"]
+            result["newly_enriched"] += 1
+        game["venue_source_url"] = KUTZTOWN_TEMP_HOME["source"]
+        game["venue_source_school"] = kt
+        game["venue_source_season"] = "2026-27"
+        game["venue_calendar_url"] = KUTZTOWN_TEMP_HOME["school_schedules"][gender]
+    return result
