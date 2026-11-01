@@ -449,6 +449,13 @@ from mbb_reciprocal_game_gap_audit import run as audit_reciprocal_game_gaps
 coverage = audit_reciprocal_game_gaps()
 print(json.dumps({'reciprocal_fixture_coverage':coverage['summary']}, indent=2))
 
+# Read-only verification of every arena citation. This checks all 365 teams
+# for borrowed home-arena defaults and sources owned by unrelated schools.
+from mbb_venue_provenance_audit import audit as audit_venue_citations
+arena_provenance = audit_venue_citations()
+print(json.dumps({'arena_source_integrity':arena_provenance['summary']}, indent=2))
+
+
 
 
 
