@@ -1,0 +1,69 @@
+name: NFL 2026 independent Elo and newspaper refresh
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfl-2026-refresh.yml'
+      - 'scripts/build_nfl_2026.py'
+      - 'nfl*.html'
+      - 'nfl-newspaper.js'
+      - 'nfl-newspaper.css'
+  schedule:
+    - cron: '*/15 * * * 0,1,2'
+    - cron: '0 */3 * * 3,4,5,6'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: slt-nfl-2026-data-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate NFL data builder
+        run: python -m py_compile scripts/build_nfl_2026.py
+      - name: Backfill 272 fixtures and replay Elo from 1500
+        run: python scripts/build_nfl_2026.py --fast
+      - name: Check NFL output contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("data/nfl-2026.json").read_text())
+          assert len(d["teams"])==32
+          assert len(d["games"])==272
+          assert all(x["season"]==2026 for x in [d])
+          assert d["model"]["preseason"]==1500
+          assert sum(t["wins"]+t["losses"]+t["ties"] for t in d["teams"])==2*d["coverage"]["finals"]
+          assert abs(sum(t["elo"] for t in d["teams"])-48000)<1
+          assert all(x["week"] in range(1,19) for x in d["games"])
+          print("NFL 2026 model, schedule and score integrity passed")
+          PY
+      - name: Publish refreshed football edition, preserving other desk changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/nfl-2026.json data/nfl-boxscores-2026.json data/nfl-rosters-2026.json
+          if git diff --cached --quiet; then
+            echo "No NFL data changes"
+            exit 0
+          fi
+          git commit -m "Refresh verified NFL 2026 schedule, statistics and 1500-reset Elo"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "NFL edition published"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main || exit 1
+          done
+          echo "NFL publish failed after retries" >&2
+          exit 1
