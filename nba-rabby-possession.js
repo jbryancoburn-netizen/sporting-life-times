@@ -107,6 +107,44 @@ function project(home,away,model,ratings){
   source:'Verified 2026-27 possessions + sourced 2025-26 league-adjusted priors + frozen scoring calibration',
   provisional:true};
 }
-root.RabbyPossessionModel={validate,build,project};
-if(typeof module!=='undefined')module.exports={validate,build,project};
+/* Scheduling context is observational. No fatigue points are assumed or
+ * silently added to the forecast margin without separately tested effects.
+ * Use Eastern calendar dates, not UTC hour gaps, for back-to-back games.
+ */
+function easternDay(value){
+ const d=new Date(value);if(!Number.isFinite(+d))return null;
+ const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',
+  {timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'})
+  .formatToParts(d).map(p=>[p.type,p.value]));
+ return Math.floor(Date.UTC(+parts.year,+parts.month-1,+parts.day)/86400000);
+}
+function scheduleContext(team,tipoff,events=[]){
+ const gameDay=easternDay(tipoff);
+ if(!team||!Number.isFinite(gameDay)||!Array.isArray(events))return null;
+ const prior=[];
+ for(const g of events){
+  const home=g.home||g.teams?.find(t=>t.home_away==='home')?.code;
+  const away=g.away||g.teams?.find(t=>t.home_away==='away')?.code;
+  if(home!==team&&away!==team)continue;
+  const d=easternDay(g.date);
+  if(Number.isFinite(d)&&d<gameDay)prior.push(d);
+ }
+ const days=[...new Set(prior)].sort((a,b)=>b-a);
+ if(!days.length)return {known:false,restDays:null,backToBack:false,threeInFour:false,fourInSix:false,previousGame:null};
+ const diff=gameDay-days[0];
+ return {known:true,restDays:Math.max(0,diff-1),backToBack:diff===1,
+  threeInFour:days.filter(d=>gameDay-d<=3).length>=2,
+  fourInSix:days.filter(d=>gameDay-d<=5).length>=3,
+  previousGame:days[0]};
+}
+function restDisplay(context){
+ if(!context?.known)return 'No earlier game in verified ledger';
+ const rest=context.restDays;
+ const parts=[context.backToBack?'Back-to-back':rest===1?'1 day off':rest===0?'0 days off':rest+' days off'];
+ if(context.threeInFour)parts.push('3 games in 4 days');
+ else if(context.fourInSix)parts.push('4 games in 6 days');
+ return parts.join(' · ');
+}
+root.RabbyPossessionModel={validate,build,project,scheduleContext,restDisplay};
+if(typeof module!=='undefined')module.exports={validate,build,project,scheduleContext,restDisplay};
 })(typeof window!=='undefined'?window:globalThis);
