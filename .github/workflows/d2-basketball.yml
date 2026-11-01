@@ -11,6 +11,8 @@ on:
       - 'scripts/build_d2_basketball.py'
       - 'scripts/audit_d2_publication.py'
       - 'scripts/d2_gsc_official.py'
+      - 'scripts/d2_cacc_official.py'
+      - 'tests/test_d2_cacc_official.py'
       - 'tests/test_d2_gsc_official.py'
       - '.github/workflows/d2-basketball.yml'
       - 'tests/d2-basketball.test.cjs'
