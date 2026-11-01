@@ -284,8 +284,16 @@ def run(fast):
         # Fresh source replaces prior state; game identity remains stable.
         games[eid]=g
     games=sorted(games.values(),key=lambda g:(g["date"] or "",g["id"]))
-    if len(games)<200 or len({g["id"] for g in games})!=len(games):
-        raise RuntimeError("NFL 2026 game ledger incomplete/duplicated ("+str(len(games))+"); preserve published data")
+    if len(games)!=272 or len({g["id"] for g in games})!=272:
+        raise RuntimeError("NFL 2026 regular-season ledger must contain exactly 272 distinct games; found "+str(len(games)))
+    appearances={str(tid):0 for tid in META}
+    for game in games:
+        if not 1<=game["week"]<=18 or not game.get("date"):
+            raise RuntimeError("NFL game missing its week or kickoff: "+game["id"])
+        appearances[game["away"]["id"]]+=1
+        appearances[game["home"]["id"]]+=1
+    if any(n!=17 for n in appearances.values()):
+        raise RuntimeError("NFL team schedules are not all 17 games: "+str(appearances))
     if len({g["away"]["id"] for g in games}|{g["home"]["id"] for g in games})!=32:
         raise RuntimeError("NFL ledger lacks all 32 teams")
     finals=[g for g in games if g["state"]=="post"]
