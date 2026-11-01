@@ -32,10 +32,13 @@ def get_json(url):
     with urllib.request.urlopen(req,timeout=18) as response:
         return json.load(response)
 def fetch_day(gender, day):
-    """Read official NCAA first, then corroborating ESPN Division II event feed.
+    """Union the available NCAA and DII-only secondary scoreboards by date.
 
-    A successful but EMPTY NCAA response is not evidence that no games exist.
-    ESPN group 51 is Division II; 50 is Division I and must never be used.
+    IMPORTANT: A nonempty NCAA response can still be PARTIAL. The former
+    first-nonempty-source rule silently discarded other fixtures on that day.
+    ESPN group=51 is consulted only as an *additional* candidate source:
+    both opponents must still resolve uniquely to the DII team registry,
+    and the game ledger deduplicates same-day canonical matchups.
     """
     sport="MBB" if gender=="men" else "WBB"
     date=day.strftime("%Y/%m/%d")
@@ -49,7 +52,7 @@ def fetch_day(gender, day):
         ("NCAA official GraphQL","https://sdataprod.ncaa.com/?"+qs),
         ("NCAA open scoreboard mirror","https://ncaa-api.henrygd.me/scoreboard/basketball-"+gender+"/d2/"+date),
         ("ESPN Division II scoreboard",espn_url)]
-    errors=[];empty_source=None
+    errors=[];empty_source=None;collected=[];providers=[]
     for source,url in sources:
         try:
             raw=get_json(url)
@@ -69,12 +72,21 @@ def fetch_day(gender, day):
                 records=[normalise_espn_game(g,date,gender) for g in contests]
             records=[item for item in records if item]
             if records:
-                if source != "ESPN Division II scoreboard":
-                    records=enrich_published_details_from_espn(records,espn_url,gender,date)
-                return records,source
-            empty_source=empty_source or source
+                for game,away,home in records:
+                    game["source_provider"]=source
+                    game["source"]=("ESPN DII scoreboard (canonical DII opponents)"
+                                    if source=="ESPN Division II scoreboard"
+                                    else "NCAA scoreboard")
+                    collected.append((game,away,home))
+                providers.append(source)
+            else:
+                empty_source=empty_source or source
         except Exception as exc:
             errors.append(str(exc)[:180])
+    if collected:
+        # The caller's canonical date/team identity guard merges repeated
+        # provider events. Keep the NCAA sources first for source provenance.
+        return collected," + ".join(providers)
     if empty_source:
         return [],empty_source+" (no games)"
     raise RuntimeError(f"{gender} {date}: all sources failed: {errors[:3]}")
@@ -703,10 +715,12 @@ def merge_ncaa_contest(games,contest,away_id,home_id):
     old=games[match]
     if old.get("status")=="final" and new["status"]!="final":
         return "kept_verified_final"
+    provider_key=("espn_id" if contest.get("source_provider")=="ESPN Division II scoreboard"
+                  else "ncaa_id")
     if old.get("status")=="final" and new["status"]=="final":
         if ({old.get("away"):old.get("away_score"),old.get("home"):old.get("home_score")} ==
             {away_id:new.get("away_score"),home_id:new.get("home_score")}):
-            old["ncaa_id"]=new["id"]
+            old[provider_key]=new["id"]
             return "confirmed_duplicate"
         # Conflicts must be investigated rather than silently flipping scores.
         return "score_conflict"
@@ -718,8 +732,13 @@ def merge_ncaa_contest(games,contest,away_id,home_id):
     # Preserve official neutral-site venue, listing order, and provenance.
     old.update({"status":new["status"],"away_score":new["away_score"] if old["away"]==away_id else new["home_score"],
                 "home_score":new["home_score"] if old["home"]==home_id else new["away_score"],
-                "elo_eligible":True,"verified":bool(old.get("verified")) or new["verified"],"ncaa_id":new["id"]})
-    if new.get("network"):old["network"]=new["network"]
+                "elo_eligible":True,"verified":bool(old.get("verified")) or new["verified"]})
+    old[provider_key]=new["id"]
+    if new.get("network") and not old.get("network"):
+        old["network"]=new["network"]
+        old["broadcast_source_url"]=new.get("source_url") or ""
+    if new.get("neutral"):
+        old["neutral"]=True
     return "updated"
 
 def apply_official_tipoff_streams(gender, games, teams, as_of_date):
