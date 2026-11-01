@@ -46,7 +46,7 @@ def cleaned(text):
 
 def name_id(label):
     v=cleaned(label).lower()
-    v=re.sub(r"^(?:at|vs\\.?|versus)\\s+","",v)
+    v=re.sub(r"^(?:at|vs\.?|versus)\s+","",v)
     v=v.replace("–","-").replace("—","-")
     v=re.sub(r"[^a-z0-9 ]+"," ",v)
     v=" ".join(v.split())
@@ -60,7 +60,7 @@ def read_html(url):
 def exact_et(value,game_date):
     """Use an explicit published CT/ET designation, never infer a timezone."""
     v=cleaned(value).upper()
-    hit=re.search(r"\\b(1[0-2]|0?[1-9]):([0-5]\\d)\\s*([AP])\\.?M\\.?\\s*(CT|ET|CST|CDT|EST|EDT)\\b",v)
+    hit=re.search(r"\b(1[0-2]|0?[1-9]):([0-5]\d)\s*([AP])\.?M\.?\s*(CT|ET|CST|CDT|EST|EDT)\b",v)
     if not hit:return None
     hour=int(hit.group(1))%12+(12 if hit.group(3)=="P" else 0)
     tz=ZoneInfo("America/Chicago" if hit.group(4).startswith("C") else "America/New_York")
@@ -88,7 +88,7 @@ def read_school_schedule(html,school_id,schedule_id):
             day,opponent,location,homeaway,conference,rawtime=fields[:6]
             if "*" not in conference:
                 continue
-            if not re.fullmatch(r"\\d{1,2}/\\d{1,2}/20(?:26|27)",day):
+            if not re.fullmatch(r"\d{1,2}/\d{1,2}/20(?:26|27)",day):
                 continue
             try:date=dt.datetime.strptime(day,"%m/%d/%Y").date()
             except ValueError:continue
