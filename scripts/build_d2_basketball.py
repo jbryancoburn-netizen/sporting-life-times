@@ -869,34 +869,45 @@ def update(gender, bootstrap=False, live=False):
     output=DATA/f"d2-{gender}-2026-27.json"
     prior=json.loads(output.read_text()) if output.exists() else {}
     teams={t["id"]:t for t in prior.get("teams",[])}
-    directory_source=None
-    directory_error=None
-    try:
-        discovered,directory_source=seed_directory(gender)
-        # Do not throw away previously confirmed school-specific details.
-        for ident,found in discovered.items():
-            teams[ident]={**found,**teams.get(ident,{})}
-    except Exception as exc:
-        directory_error=str(exc)
-        print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
-    # ESPN's team listing sometimes ignores the DII group and returns D-I.
-    # Withdraw earlier unverified imports rather than preserving bad colors.
+    # Scoreboard polls happen twice an hour. Reusing the last certified
+    # directory and logo palette prevents thousands of redundant school SVG,
+    # conference and directory requests per game day. The daily run still
+    # re-checks official membership, artwork, calendars and broadcast sources.
+    rapid=bool(live and prior.get("teams") and prior.get("quality"))
+    previous_quality=prior.get("quality") or {}
+    directory_source=previous_quality.get("directory_source") if rapid else None
+    directory_error=previous_quality.get("directory_error") if rapid else None
+    if not rapid:
+        try:
+            discovered,directory_source=seed_directory(gender)
+            # Do not throw away previously confirmed school-specific details.
+            for ident,found in discovered.items():
+                teams[ident]={**found,**teams.get(ident,{})}
+        except Exception as exc:
+            directory_error=str(exc)
+            print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
+    # ESPN's team listing sometimes ignores DII and returns DI. Never carry
+    # forward previously rejected colors even on the rapid no-scrape path.
     for team in teams.values():
         if "site.api.espn.com" in team.get("color_source","") and "group=51" in team.get("color_source",""):
             for field in ("primary","secondary","color_source","color_provenance","espn_id"):
                 team.pop(field,None)
     membership_quality=apply_membership_notes(gender,teams)
-    color_quality=seed_espn_dii_branding(gender,teams)
-    logo_quality=seed_official_logos(teams)
-    paired_quality=seed_cross_gender_logos(gender,teams)
-    color_quality['cross_gender']=seed_shared_dii_colors(gender,teams)
-    color_quality['ncaa_logo_artwork']=seed_logo_artwork_palette(teams)
-    color_quality['published_school_evidence']=seed_published_dii_palettes(gender,teams)
-    color_quality['ncaa_svg_artwork_palette']=seed_logo_artwork_palettes(teams)
-    color_quality['total_with_two_visible_colors']=sum(bool(t.get('primary') and t.get('secondary')) for t in teams.values())
-    logo_quality["cross_gender"]=paired_quality
-    logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
-    logo_quality["unmatched"]=len(teams)-logo_quality["matched"]
+    if rapid:
+        color_quality=previous_quality.get("school_color_coverage") or {}
+        logo_quality=previous_quality.get("official_logo_index") or {}
+    else:
+        color_quality=seed_espn_dii_branding(gender,teams)
+        logo_quality=seed_official_logos(teams)
+        paired_quality=seed_cross_gender_logos(gender,teams)
+        color_quality['cross_gender']=seed_shared_dii_colors(gender,teams)
+        color_quality['ncaa_logo_artwork']=seed_logo_artwork_palette(teams)
+        color_quality['published_school_evidence']=seed_published_dii_palettes(gender,teams)
+        color_quality['ncaa_svg_artwork_palette']=seed_logo_artwork_palettes(teams)
+        color_quality['total_with_two_visible_colors']=sum(bool(t.get('primary') and t.get('secondary')) for t in teams.values())
+        logo_quality["cross_gender"]=paired_quality
+        logo_quality["matched"]=sum(bool(t.get("slug")) for t in teams.values())
+        logo_quality["unmatched"]=len(teams)-logo_quality["matched"]
     games={str(g["id"]):g for g in prior.get("games",[])}
     # CCA-sanctioned Hawaii October tournament games were independently
     # verified against the tournament organizer's published score bracket.
@@ -978,16 +989,23 @@ def update(gender, bootstrap=False, live=False):
     midwest_broadcasts=apply_verified_schedule_broadcasts(gender,games,teams,today,
         registry_file=DATA/"d2-midwest-tipoff-official-2026.json",
         stream_host="https://justagame.com/clients/justagame-fieldhouse/")
-    # GSC men's and women's official school calendars are independently
-    # reconciled for reciprocal matchups, dates, time zones, and broadcasts.
+    # Official conference schedules change much less often than live scores.
+    # Preserve their last verified reconciliation in rapid mode, and perform
+    # the complete two-school crawl in the DAILY extended refresh. This does
+    # not trust unauthenticated live scoreboard records as official fixtures.
     from d2_gsc_official import enrich_gsc, enrich_gsc_venue_evidence
-    gsc_quality=enrich_gsc(games,teams,today,gender=gender)
-    gsc_venue_quality=enrich_gsc_venue_evidence(games,gender)
-    if gender=="men":
-        from d2_cacc_official import enrich_cacc
-        cacc_quality=enrich_cacc(games,teams,today)
+    if rapid:
+        gsc_quality=previous_quality.get("official_gsc_schedule_reconciliation") or {"status":"daily source check pending"}
+        cacc_quality=previous_quality.get("official_cacc_schedule_reconciliation") or {"status":"daily source check pending"}
     else:
-        cacc_quality={"status":"men-only CACC reconciliation not run"}
+        gsc_quality=enrich_gsc(games,teams,today,gender=gender)
+        if gender=="men":
+            from d2_cacc_official import enrich_cacc
+            cacc_quality=enrich_cacc(games,teams,today)
+        else:
+            from d2_cacc_women_official import enrich_cacc_women
+            cacc_quality=enrich_cacc_women(games,teams,today)
+    gsc_venue_quality=enrich_gsc_venue_evidence(games,gender)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
