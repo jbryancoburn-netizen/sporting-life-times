@@ -14,6 +14,7 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "politics-polls.json"
+AUDIT = ROOT / "politics-poll-health.json"
 UTC = dt.timezone.utc
 API = "https://api.votehub.com/polls"
 SOURCE = "https://votehub.com/polls/api/"
@@ -103,7 +104,21 @@ def main():
     try:
         records=fetch_polling(now.date())
         result=average(records,now.date())
+        # Always publish a transparent source-coverage audit, including failures.
+        # No provisional average is published when the minimum coverage gate fails.
+        audit={
+            "checked_at":now.isoformat(timespec="seconds"),
+            "source":"VoteHub polling API", "source_url":SOURCE,
+            "status":result["status"], "raw_poll_records":len(records),
+            "eligible_polls":result["poll_count"], "unique_pollsters":result["pollsters"],
+            "minimum_pollsters":3, "window_days":35,
+            "exclusions":result["exclusions"],
+            "latest_eligible_poll_end_date":max((p["end_date"] for p in result["polls"]),default=None),
+            "message":"Insufficient eligible polling organizations; no independent average is certified." if result["status"]!="ok" else "Minimum source threshold passed; independent average published."
+        }
+        AUDIT.write_text(json.dumps(audit,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     except (OSError,ValueError,TimeoutError) as error:
+        AUDIT.write_text(json.dumps({"checked_at":now.isoformat(timespec="seconds"),"status":"source_error","source":"VoteHub polling API","detail":str(error)[:160]},indent=2)+"\n",encoding="utf-8")
         print("Unable to retrieve valid polling data; leaving prior report intact:",error,file=sys.stderr)
         return 1
     result.update({"computed_at":now.isoformat(timespec="seconds"),"model":"USRS independent national generic-ballot polling average v1",

@@ -64,3 +64,21 @@ A separate weekly-refresh workflow validates this independently of sports, and k
 ## Experimental holdout diagnostic: logistic regression v0 (no publication of 2026 odds)
 
 A prototype uses only prior House district two-party margin divided by 10 to estimate the following election's probability that the Democrat wins. Logistic intercept and slope are fitted with an L2 penalty using **2018 House -> 2020 House** outcomes. The entire **2022 House -> 2024 House** paired set is held out from fitting. The Brier score and calibration bins are calculated on 2024 outcomes only, alongside a constant-probability baseline learned from the training set. Fitting iterations and samples are deterministic and stored in the code. These are real historical holdout statistics, but **not certified forecasting accuracy**: unchanged district ID does not guarantee boundaries and candidate effects are not included; the national election error shared across races is not modeled. No 2026 probability may be generated from this first-stage diagnostic. When any input fails validation, the published data remains unchanged.
+
+
+## Official House result reconciliation, required before model certification
+
+We cross-check each historical House cycle against the independent U.S. House Historian / Clerk published election outcome, rather than interpreting a partially parsed candidate-vote file as all 435 certified election results.
+
+2018: 235 D, 199 R and 1 election unresolved (NC-09).
+2020: 222 D and 213 R after the eventual resolution of NY-22.
+2022: 213 D and 222 R.
+2024: 215 D and 220 R.
+
+Official sources: https://history.house.gov/Institution/Party-Divisions/Party-Divisions/ and https://history.house.gov/Institution/Election-Statistics/Election-Statistics/
+
+House charts display only these separately attributed *official seat winners*. MIT vote-record counts are visibly labeled incomplete whenever they fail reconciliation, with explicit excluded/unknown candidate records in politics-history.json. We do not fill missing candidate votes from party totals. If any of the four historical cycles are not reconciled, the experimental calibration figures are not displayed in the newspaper even when an exploratory diagnostic can be computed. This is a prerequisite for dependable independent 2026 predictions.
+
+## Poll source coverage and honest non-publication
+
+The VoteHub beta API may provide fewer than three distinct eligible pollsters over the last 35 days. The national average is withheld in that case; the pipeline instead publishes `politics-poll-health.json` containing the last attempted refresh time, candidate count, valid poll count, independent pollsters, excluded records, and reasons for withholding. It does not extend the lookback to an unjustifiably stale window or backfill with invented polling numbers.

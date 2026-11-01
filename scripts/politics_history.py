@@ -24,6 +24,16 @@ UTC=dt.timezone.utc
 SOURCE="MIT Election Data and Science Lab (MEDSL), via electiondata.dev"
 CREDIT_HOUSE="MIT Election Data and Science Lab, 2017, U.S. House 1976–2024, Harvard Dataverse V15, https://doi.org/10.7910/DVN/IG0UN2"
 CREDIT_SENATE="MIT Election Data and Science Lab, 2017, U.S. Senate statewide 1976–2024, Harvard Dataverse V8, https://doi.org/10.7910/DVN/PEJ5QU"
+# Independently certified House election outcomes, not imputed into MEDSL vote rows.
+OFFICIAL_HOUSE={
+  2018:{"dem":235,"rep":199,"unresolved":1,"context":"NC-09 lacked an election certificate"},
+  2020:{"dem":222,"rep":213,"unresolved":0,"context":"2020 general-election outcome including resolved NY-22"},
+  2022:{"dem":213,"rep":222,"unresolved":0,"context":"118th Congress election outcome"},
+  2024:{"dem":215,"rep":220,"unresolved":0,"context":"119th Congress election outcome"}
+}
+HOUSE_CLERK="https://history.house.gov/Institution/Election-Statistics/Election-Statistics/"
+HOUSE_HISTORIAN="https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+
 
 def flag(value):
     if isinstance(value,bool):return value
@@ -80,6 +90,7 @@ def collate(rows,chamber,year):
         grouped[key].append(row)
     contests=[]
     skipped={"missing_votes":0,"ambiguous_candidates":0,"missing_party":0}
+    excluded_contests=[]
     for key,items in sorted(grouped.items()):
         # Select one candidate record per name. MEDSL stores fusion ticket lines;
         # candidate_total_votes includes all lines, avoid double counting.
@@ -102,7 +113,9 @@ def collate(rows,chamber,year):
                 candidates[normalized]=next_candidate
         candidates=list(candidates.values())
         if not candidates or sum(x["votes"] for x in candidates)==0:
-            skipped["missing_votes"]+=1;continue
+            skipped["missing_votes"]+=1
+            excluded_contests.append({"id":key,"reason":"missing_numeric_votes","ballot_candidates":sorted({str(r.get("candidate") or "") for r in items})[:12]})
+            continue
         # If multiple records represent the same party's candidates (jungle, top-two
         # primaries) sum votes by party, but do not count winning party from vote sum:
         # the highest vote-getting individual candidate is the contest winner.
@@ -117,7 +130,10 @@ def collate(rows,chamber,year):
                          "dem_votes":d,"rep_votes":r,"other_votes":parties["O"],
                          "total_votes":sum(parties.values()),"two_party_margin":round(100*(d-r)/two_party,2) if d>0 and r>0 else None,
                          "both_major_parties":bool(d>0 and r>0)})
+    other_winners=[{"id":c["id"],"winner":c["winner_name"],"other_votes":c["other_votes"]}
+                   for c in contests if c["party_winner"]=="O"]
     return contests,{"input_rows":len(rows),"unofficial_rows":unofficial,"skipped":skipped,
+                      "excluded_contests":excluded_contests,"other_winners":other_winners[:20],
                       "valid_contests":len(contests),"two_party_contests":sum(c["both_major_parties"] for c in contests)}
 
 def describe(contests,year,chamber,quality):
@@ -131,6 +147,26 @@ def describe(contests,year,chamber,quality):
             "dem_two_party_share":round(100*votes_d/denom,2) if denom else None,
             "dem_margin_pp":round(100*(votes_d-votes_r)/denom,2) if denom else None,
             "data_quality":quality}
+
+
+def reconcile_house_year(contests,year,quality):
+    official=OFFICIAL_HOUSE[year]
+    raw=collections.Counter(c["party_winner"] for c in contests)
+    extracted={"dem":raw["D"],"rep":raw["R"],"other":raw["O"],"total":len(contests)}
+    differences={"dem":official["dem"]-extracted["dem"],"rep":official["rep"]-extracted["rep"]}
+    return {
+      "year":year,"official":{"dem_wins":official["dem"],"rep_wins":official["rep"],
+                              "unresolved_seats":official["unresolved"],"total_seats":435,
+                              "context":official["context"]},
+      "reconstructed":extracted,"difference_official_minus_reconstructed":differences,
+      "excluded_contests":quality.get("excluded_contests",[]),
+      "other_winners":quality.get("other_winners",[]),
+      "status":"matched" if differences=={"dem":0,"rep":0} and extracted["other"]==0 and
+                      official["unresolved"]+extracted["total"]==435
+               else "requires_district_reconciliation",
+      "official_sources":[HOUSE_HISTORIAN,HOUSE_CLERK],
+      "note":"Official winners are independently sourced, not imputed into MIT candidate-vote rows. Unreconciled districts are excluded from model certification."
+    }
 
 def baseline_check(earlier,later,first_year,second_year):
     a={x["id"]:x for x in earlier if x["two_party_margin"] is not None}
@@ -207,7 +243,7 @@ def build(loader=load_year,now=None):
             "attribution":SOURCE,"data_license":"CC0 1.0",
             "sources":{"house":CREDIT_HOUSE,"senate":CREDIT_SENATE},
             "years":list(YEARS),"house":[],"senate":[],"historical_house_baselines":[],
-            "closest_house_2024":[],"coverage":{},"warnings":[],"backtest_certified":False,
+            "closest_house_2024":[],"house_reconciliation":[],"coverage":{},"warnings":[],"backtest_certified":False,
             "forecast_2026_certified":False}
     house={}
     for chamber in ("house","senate"):
@@ -221,6 +257,8 @@ def build(loader=load_year,now=None):
                 raise ValueError(f"Insufficient historical coverage {chamber} {year}: {len(contests)} < {min_contests}")
             years[year]=contests
             output[chamber].append(describe(contests,year,chamber,quality))
+            if chamber=="house":
+                output["house_reconciliation"].append(reconcile_house_year(contests,year,quality))
         if chamber=="house":house=years
         output["coverage"][chamber]={str(year):len(items) for year,items in years.items()}
     for first,second in ((2018,2020),(2022,2024)):
@@ -233,10 +271,14 @@ def build(loader=load_year,now=None):
         key=lambda x:abs(x["dem_margin_pp"]))[:18]
     output["warnings"]=[
       "These are HISTORICAL election returns, not 2026 forecasts or 2026 district ratings.",
-      "National vote share is a derived two-party tally of MEDSL candidate votes; races with unreported votes are omitted, not guessed.",
+      "Two-party shares computed from MEDSL candidate votes omit unavailable races; do not describe them as complete certified national totals.",
       "MEDSL candidate labels and fusion votes are normalized; any unverified races, districts and sources remain disclosed in data_quality.",
       "The 2018→2020 and 2022→2024 same-ID margin baselines have NOT been certified for boundary changes or uncontested races. Do not use them as predictive calibration."
     ]
+    output["official_house_history"]={str(y):OFFICIAL_HOUSE[y] for y in YEARS}
+    output["reconciliation_complete"]=all(r["status"]=="matched" for r in output["house_reconciliation"])
+    output["data_quality_status"]="reconstruction_pending" if not output["reconciliation_complete"] else "reconciled"
+    output["forecast_2026_certified"]=False
     output["status"]="ok"
     return output
 

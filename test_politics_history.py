@@ -1,7 +1,7 @@
 """Deterministic offline tests for MEDSL election history parser."""
 import datetime as dt
 import unittest
-from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout
+from scripts.politics_history import collate, baseline_check, describe, classify, experimental_holdout, reconcile_house_year, OFFICIAL_HOUSE
 
 def item(name,party,votes,district=1,year=2024,fusion=False,total=None,stage="GEN",special=False,chamber="house"):
     return {"year":year,"state_po":"FL","district":district,"candidate":name,"party":party,
@@ -47,6 +47,22 @@ class HistoryTests(unittest.TestCase):
         self.assertIn("Not a calibrated",out["interpretation"])
 
 
+    def test_official_seats_not_imputed_into_unmatched_results(self):
+        official={2018:(235,199,1),2020:(222,213,0),2022:(213,222,0),2024:(215,220,0)}
+        for year,(dem,rep,unresolved) in official.items():
+            self.assertEqual((OFFICIAL_HOUSE[year]["dem"],OFFICIAL_HOUSE[year]["rep"],OFFICIAL_HOUSE[year]["unresolved"]),(dem,rep,unresolved))
+        data=[item("Jane","DEMOCRAT",500),item("Bob","REPUBLICAN",450)]
+        contests,quality=collate(data,"house",2024)
+        result=reconcile_house_year(contests,2024,quality)
+        self.assertEqual(result["status"],"requires_district_reconciliation")
+        self.assertEqual(result["official"]["dem_wins"],215)
+        self.assertEqual(result["reconstructed"]["dem"],1)
+        self.assertEqual(result["difference_official_minus_reconstructed"]["rep"],220)
+    def test_missing_votes_are_reported_not_filled(self):
+        races,quality=collate([item("Unopposed","REPUBLICAN",None)],"house",2024)
+        self.assertEqual(races,[])
+        self.assertEqual(quality["excluded_contests"][0]["id"],"FL-01")
+        self.assertEqual(quality["skipped"]["missing_votes"],1)
     def test_experimental_holdout_is_never_a_2026_forecast(self):
         def sample_year(offset):
             out=[]

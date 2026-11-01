@@ -19,6 +19,18 @@ function displayPolls(data){
  track.append(dem,rep);root.appendChild(track);
  const link=document.createElement("a");link.href="https://votehub.com/polls/api/";link.target="_blank";link.rel="noopener";link.textContent="Poll data, licensing and aggregation documentation ↗";root.appendChild(link);
 }
+function displayPollCoverage(audit){
+ const root=byId("original-polling");
+ if(!audit||!audit.checked_at||root.querySelector(".original-poll-track"))return;
+ const checked=utcDate(audit.checked_at);
+ const p=document.createElement("p");p.className="fine";
+ if(audit.status==="insufficient_polling"){
+   p.textContent="Most recent data check: "+(checked?formatTime(checked):"date unavailable")+". VoteHub supplied "+audit.raw_poll_records+" total records; "+audit.eligible_polls+" qualified polls from "+audit.unique_pollsters+" polling organizations. We require at least "+audit.minimum_pollsters+" organizations. No unsupported average will be shown.";
+ }else{
+   p.textContent="Most recent source check: "+(checked?formatTime(checked):"unavailable")+". Source status: "+audit.status+". We preserve the prior verified dataset instead of inventing an average.";
+ }
+ root.appendChild(p);
+}
 function displayNews(data){
  const root=byId("live-politics-wire");
  if(!data||data.status!=="ok"||!Array.isArray(data.articles)||!data.articles.length){message(root,"Live political headlines are awaiting the first verified publisher-feed refresh. Use the curated reporting links above in the meantime.");return;}
@@ -57,7 +69,7 @@ function displayNews(data){
 async function ready(){
  await Promise.all([
    loadJSON("politics-news.json").then(displayNews).catch(()=>message(byId("live-politics-wire"),"Publisher feeds are temporarily unavailable. Curated links above remain available.")),
-   loadJSON("politics-polls.json").then(displayPolls).catch(()=>message(byId("original-polling"),"Independent polling refresh unavailable; no unverified numbers will be shown."))
+   Promise.all([loadJSON("politics-polls.json"),loadJSON("politics-poll-health.json")]).then(([polls,audit])=>{displayPolls(polls);displayPollCoverage(audit);}).catch(()=>message(byId("original-polling"),"Polling source audit is unavailable; no unverified average will be displayed."))
  ]);
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",ready);}else{ready();}
