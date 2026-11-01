@@ -23,7 +23,13 @@ try{
  if(!host.dataset.scheduleLoaded)host.innerHTML='<section class="panel" id="full-season-schedule"><h2>'+escape(team.name)+' · 2026–27 Schedule</h2><p class="note">Loading published games…</p></section>';
  const data=await load(path);
  const valid=(data.events||[]).filter(e=>e.date&&e.competitions?.[0]?.competitors?.length>=2);
- const quality=e=>{const c=e.competitions[0],v=c.venue?.fullName||'';return (/Choose A Location|All Games Home|Select Location/i.test(v)?0:v?4:0)+(e.official_time?2:0)+(c.broadcasts?.length?1:0);};
+ const quality=e=>{const c=e.competitions[0],v=c.venue?.fullName||'';
+  const schoolTime=e.official_school_time||e.official_time||'';
+  const validTime=schoolTime&&!/^(?:TBA|TBD|unknown)$/i.test(String(schoolTime).trim());
+  const networks=[...(c.broadcasts||[]),...(e.broadcasts||[])];
+  return (/Choose A Location|All Games Home|Select Location/i.test(v)?0:v?4:0)
+    +(validTime?8:0)+(networks.length?3:0)+(e.site_verified===true?2:0);
+ };
  const distinct=new Map();
  for(const e of valid){const opponent=e.competitions[0].competitors.find(p=>String(p.team?.id)!==String(team.espn_id));const key=e.date.slice(0,10)+'|'+String(opponent?.team?.id||opponent?.team?.displayName||e.name||'').toLowerCase().trim();const old=distinct.get(key);if(!old||quality(e)>quality(old))distinct.set(key,e);}
  const games=[...distinct.values()].sort((a,b)=>a.date.localeCompare(b.date));
@@ -53,7 +59,13 @@ try{
   const confirmed=verifiedTip&&!/TBA|TBD/i.test(verifiedTip);
   const tip=confirmed?verifiedTip:'TBA'; // Never present placeholder imported noon as an official tip.
   const vs=e.site_verified===true?(self?.homeAway==='away'?'AWAY':self?.homeAway==='home'?'HOME':e.neutralSite===true?'NEUTRAL':'SITE TBA'):'SITE UNVERIFIED';
-  const namedNetwork=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>[...(x.names||[]),x.name,x.media?.shortName].filter(Boolean)).join(' / ');
+  const broadcastLabels=[...(c.broadcasts||[]),...(e.broadcasts||[])].flatMap(x=>{
+   if(typeof x==='string')return [x];
+   return [...(Array.isArray(x?.names)?x.names:x?.names?[x.names]:[]),x?.name,x?.media?.shortName,x?.media?.name].filter(Boolean);
+  });
+  // Published school sources may also carry a direct broadcast label.
+  if(typeof e.broadcast==='string')broadcastLabels.push(e.broadcast);
+  const namedNetwork=[...new Set(broadcastLabels.map(x=>String(x).trim()).filter(x=>x&&!/^(?:TBA|TBD|unknown|network tba)$/i.test(x)))].join(' / ');
   const watchURL=/^https:\/\/[^\s"'<>]+$/i.test(e.official_watch_url||'')?e.official_watch_url:'';
   const watchLink=watchURL?'<a href="'+escape(watchURL)+'" target="_blank" rel="noopener noreferrer">Watch live ↗</a>':'';
   const network=(namedNetwork?escape(namedNetwork):'Network TBA')+(watchLink?' · '+watchLink:'');
