@@ -33,7 +33,7 @@ function neutrals(doc){
     doc.source_scope!=='two_source_neutral_site_verification'||!Array.isArray(doc.games))return found;
  for(const g of doc.games){
   if(!g||!validId(g.game_id)||!validId(g.team_id)||!validId(g.opponent_id)||
-     !/^202[67]-\\d\\d-\\d\\d$/.test(g.date||'')||g.verified_site!=='neutral'||
+     !/^202[67]-\d\d-\d\d$/.test(g.date||'')||g.verified_site!=='neutral'||
      !safeURL(g.source_url)||!safeURL(g.corroborating_source_url))continue;
   const id=String(g.game_id);
   if(found.has(id)){found.delete(id);continue;} // Ambiguity cannot be promoted.
