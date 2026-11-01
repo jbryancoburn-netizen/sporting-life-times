@@ -73,6 +73,19 @@ for g in SCHOOLS:
     IDENTITIES[g]["lssu"] = IDENTITIES[g]["lake superior state"]
     IDENTITIES[g]["nmu"] = IDENTITIES[g]["northern michigan"]
     IDENTITIES[g]["mtu"] = IDENTITIES[g]["michigan tech"]
+    # University athletics' official grids often use the full legal name,
+    # while the conference publishes a shortened school label.
+    for official,conference in (
+        ("davenport university","davenport"),
+        ("ferris state university","ferris state"),
+        ("grand valley state university","grand valley state"),
+        ("lake superior state university","lake superior state"),
+        ("michigan technological university","michigan tech"),
+        ("northern michigan university","northern michigan"),
+        ("roosevelt university","roosevelt"),
+        ("saginaw valley state university","saginaw valley state"),
+    ):
+        IDENTITIES[g][official] = IDENTITIES[g][conference]
 
 
 def clean(value):
