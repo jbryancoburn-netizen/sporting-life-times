@@ -1,0 +1,174 @@
+/* NFL match-up feature v5
+   Team-primary panels + true diagonal split; dynamic colors passed by nfl-edition-v3.js.
+   Existing <span class="nfl-badge"> nested two real rings remain untouched. */
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-score-stage.nfl-p26-box-score{
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;
+  padding:0;
+  overflow:hidden;
+  background:linear-gradient(110deg,
+    var(--nfl-away-color,#bb1832) 0%,var(--nfl-away-color,#bb1832) 50%,
+    var(--nfl-home-color,#172e52) 50%,var(--nfl-home-color,#172e52) 100%);
+  min-height:0;
+}
+/* Each team has the *actual* color from its team record, mixed with navy
+   for readability. No static Kansas City / Denver colors or generic gold ring. */
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team{
+  position:relative;min-width:0;min-height:0;
+  color:#fff;
+  background-color:var(--nfl-box-color,#1d3048);
+  background-image:
+    radial-gradient(ellipse 145% 125% at 18% 15%,#ffffff24 0%,#ffffff00 62%),
+    linear-gradient(135deg,
+       color-mix(in srgb,var(--nfl-box-color,#23344a) 88%,#08131f 12%) 0%,
+       color-mix(in srgb,var(--nfl-box-color,#23344a) 58%,#071421 42%) 100%);
+  border-bottom:4px solid var(--nfl-box-alt,#c7a35a);
+  box-shadow:none;
+  gap:6px;
+  padding:18px clamp(11px,2vw,25px) 12px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-away{
+  grid-column:1;
+  grid-row:1;
+  z-index:2;
+  width:calc(100% + 22px);
+  padding-right:45px;
+  /* The away background angles into the home background instead of a vertical split. */
+  clip-path:polygon(0 0,100% 0,calc(100% - 22px) 100%,0 100%);
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-home{
+  grid-column:2;
+  grid-row:1;
+  z-index:1;
+  width:calc(100% + 22px);
+  margin-left:-22px;
+  padding-left:48px;
+  border-left:0;
+  background-image:
+    radial-gradient(ellipse 145% 125% at 85% 15%,#ffffff24 0%,#ffffff00 62%),
+    linear-gradient(225deg,
+       color-mix(in srgb,var(--nfl-box-color,#23344a) 88%,#08131f 12%) 0%,
+       color-mix(in srgb,var(--nfl-box-color,#23344a) 58%,#071421 42%) 100%);
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team::before{
+  content:"";display:block;position:absolute;pointer-events:none;z-index:0;
+  left:-16%;bottom:-58px;width:145%;height:78px;
+  transform:rotate(-10deg);
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--nfl-box-alt,#c7a35a) 86%,transparent) 0 6px,
+    color-mix(in srgb,var(--nfl-box-alt,#c7a35a) 20%,transparent) 7px 22px,
+    transparent 32px);
+  opacity:.78;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-home::before{
+  left:-10%;bottom:-50px;transform:rotate(10deg);
+}
+/* Fine football-fabric texture, subdued enough for live score readability. */
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team::after{
+  content:"";display:block;position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 5px,#ffffff09 6px,transparent 7px);
+  opacity:.27;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-row,
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity{
+  position:relative;z-index:1;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-seam{
+  position:absolute;
+  display:block;
+  inset:0;
+  top:0;bottom:0;left:0;right:0;
+  width:auto;height:auto;
+  background:linear-gradient(0deg,
+    var(--nfl-away-accent,#d3ab53),
+    color-mix(in srgb,var(--nfl-away-accent,#d3ab53) 70%,var(--nfl-home-accent,#df7e29) 30%));
+  clip-path:polygon(
+    calc(50% + 19px) 0,
+    calc(50% + 23px) 0,
+    calc(50% + 1px) 100%,
+    calc(50% - 3px) 100%
+  );
+  z-index:4;
+  pointer-events:none;
+  box-shadow:none;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-points{
+  color:#fff;text-shadow:0 2px 5px #0005;
+  font:900 clamp(65px,7.7vw,108px)/1 Arial,Helvetica,sans-serif;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.06em;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity{
+  display:flex;align-items:baseline;gap:9px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-home .nfl-p26-box-identity{justify-content:flex-end}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity b{
+  font:700 clamp(19px,2vw,27px)/1.06 Georgia,serif;
+  color:#fff;text-shadow:0 2px 3px #0004;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity small{
+  color:#f0f0ed;opacity:.92;text-shadow:0 1px 2px #0008;
+}
+@media(max-width:920px){
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-away{padding-right:40px}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-home{padding-left:43px}
+}
+@media(max-width:620px){
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team{
+    padding-top:15px;
+    padding-bottom:11px;
+    gap:6px;
+    min-width:0;
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-away{
+    width:calc(100% + 17px);padding-left:11px;padding-right:34px;
+    clip-path:polygon(0 0,100% 0,calc(100% - 17px) 100%,0 100%);
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-home{
+    width:calc(100% + 17px);margin-left:-17px;
+    padding-left:36px;padding-right:10px;
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-row{gap:6px}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-points{
+    font-size:clamp(45px,12.2vw,65px);letter-spacing:-.055em
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team .nfl-badge.lg{
+    width:clamp(49px,14vw,64px);height:clamp(49px,14vw,64px);
+    flex-basis:clamp(49px,14vw,64px);--nfl-outer:5px;--nfl-inner:4px;
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity{display:block}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity b{font-size:clamp(16px,4.4vw,21px);white-space:normal}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity small{margin-top:3px;font-size:10px}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-seam{
+    clip-path:polygon(calc(50% + 14px) 0,calc(50% + 17px) 0,calc(50% + 1px) 100%,calc(50% - 2px) 100%);
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team::before{
+    bottom:-53px;height:69px;opacity:.65
+  }
+}
+@media(max-width:375px){
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-away{
+    width:calc(100% + 14px);padding-right:27px;padding-left:7px;
+    clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-home{
+    width:calc(100% + 14px);margin-left:-14px;padding-left:30px;padding-right:7px;
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team .nfl-badge.lg{
+    width:44px;height:44px;flex-basis:44px;--nfl-outer:4px;--nfl-inner:3px;
+  }
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-points{font-size:clamp(40px,12vw,52px)}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-identity b{font-size:15px}
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-seam{
+    clip-path:polygon(calc(50% + 12px) 0,calc(50% + 15px) 0,calc(50% + 1px) 100%,calc(50% - 2px) 100%);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-box-team::before{animation:none}
+}
