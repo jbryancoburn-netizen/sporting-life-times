@@ -50,3 +50,16 @@
  .nfl-p26 .nfl-p26-hero-footer>span{display:none}
  .nfl-p26 .nfl-p26-hero-footer a{margin-left:auto}
 }
+
+/* One newspaper masthead on iPhone: no wrap, no second giant headline. */
+@media(max-width:620px){
+ .nfl-paper[data-page="front"] .nfl-topline{display:none}
+ .nfl-paper[data-page="front"] .nfl-mast{padding:8px 0 7px}
+ .nfl-paper[data-page="front"] .nfl-mast a{
+  display:block!important;white-space:nowrap;font:700 clamp(20px,5.6vw,28px)/1.1 Georgia,serif!important;
+  letter-spacing:-.065em!important;text-align:center
+ }
+ .nfl-paper[data-page="front"] .nfl-mast .sub{font-size:8px;letter-spacing:.12em;margin:3px 0 0}
+ .nfl-paper[data-page="front"] .nfl-nav{gap:0 13px;padding:4px 0 5px}
+ .nfl-paper[data-page="front"] .nfl-nav a{font-size:10px}
+}
