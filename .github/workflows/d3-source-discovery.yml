@@ -1,0 +1,21 @@
+name: DIII source discovery — one-time HTML shape check
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/probe_d3_sources.mjs'
+      - '.github/workflows/d3-source-discovery.yml'
+permissions:
+  contents: read
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Probe NCAA division directory and alternate school listings (no data writes)
+        run: node scripts/probe_d3_sources.mjs
