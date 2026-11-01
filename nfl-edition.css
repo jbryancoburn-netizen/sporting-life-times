@@ -191,3 +191,28 @@ body.nfl-paper{margin:0;color:#211f1b;background:#f6f3eb;font:14px/1.43 Georgia,
 .nfl-stat-filters .nfl-button{font-size:10px;padding:7px}.nfl-leaderboard-header h2{font-size:17px}.nfl-box-comparison{grid-template-columns:1fr 1.5fr 1fr}.nfl-box-side{flex-direction:column;font-size:13px}
 .nfl-box-side .nfl-crest.head{width:48px;height:48px;flex-basis:48px}.nfl-box-bars{padding:10px}.nfl-box-row{gap:6px;grid-template-columns:36px 1fr 36px}
 }
+
+/* The newspaper's calibrated Elo model and club-color power rankings */
+.nfl-model-ribbon{background:#252d34;color:#f9f5ee;margin:16px 0 19px;border-top:5px double #c2a06b;border-bottom:3px solid #b7986f;padding:13px 20px 11px}
+.nfl-model-head{display:flex;justify-content:space-between;gap:12px;align-items:center;font:800 11px Arial,sans-serif;letter-spacing:.12em}
+.nfl-model-head a{color:#ffdf99;text-decoration:none}
+.nfl-model-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:11px}
+.nfl-model-metrics>div{border-left:1px solid #71808a;padding-left:13px;min-width:0}
+.nfl-model-metrics strong{display:block;font:700 clamp(22px,3vw,33px) Georgia,serif;color:#f6e3bc}
+.nfl-model-metrics span{display:block;font:700 10px Arial,sans-serif;letter-spacing:.02em;line-height:1.4;color:#d6d2cc}
+.nfl-model-ribbon p{margin:12px 0 0;font:11px/1.4 Arial,sans-serif;color:#ddd8cf}
+.nfl-ranking-model{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:3px solid #322d26;border-bottom:1px solid #ccc0b1;background:#ebe4d9;margin:12px 0 17px}
+.nfl-ranking-model span{padding:11px 10px;font:11px/1.3 Arial,sans-serif;text-transform:uppercase;letter-spacing:.05em;border-right:1px solid #cec1b0}
+.nfl-ranking-model span:last-child{border-right:0}
+.nfl-ranking-model b{display:block;font:700 24px Georgia,serif;color:#342c26}
+.nfl-elo-podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 25px}
+.nfl-elo-podium-card{--team:#243b50;display:flex;align-items:center;flex-direction:column;text-decoration:none;border:1px solid #d9cbb9;border-top:5px solid var(--team);background:linear-gradient(155deg,#fffefb,#eae4db);padding:14px 11px 17px;min-width:0}
+.nfl-elo-podium-card>span{font:800 10px Arial,sans-serif;letter-spacing:.15em;color:#a65345;margin-bottom:11px}
+.nfl-elo-podium-card>b{font:700 clamp(14px,2vw,19px) Georgia,serif;text-align:center;min-height:42px;margin-top:9px}
+.nfl-elo-podium-card>strong{font:700 clamp(27px,3vw,37px) Georgia,serif;color:var(--team)}
+.nfl-elo-podium-card>small{font:11px Arial,sans-serif;color:#696057;text-align:center}
+.nfl-power-rank{display:block;font:700 20px Georgia,serif;color:#a54136;text-align:center}
+.nfl-elo-meter{background:#e4dbcd;display:block;height:6px;width:95px;border-radius:1px;overflow:hidden;margin-bottom:4px}
+.nfl-elo-meter>span{display:block;height:100%;background:var(--elo-team);min-width:3px}
+.nfl-positive{color:#246a45;font-weight:700}.nfl-negative{color:#ad443c;font-weight:700}
+@media(max-width:600px){.nfl-model-ribbon{padding:12px}.nfl-model-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.nfl-model-metrics strong{font-size:25px}.nfl-ranking-model{grid-template-columns:repeat(2,minmax(0,1fr))}.nfl-elo-podium{gap:6px}.nfl-elo-podium-card{padding:12px 5px}.nfl-elo-podium-card .nfl-crest.lg{width:67px;height:67px;flex-basis:67px;border-width:5px}.nfl-elo-podium-card .nfl-crest.lg::before{border-width:4px;inset:1px}.nfl-elo-podium-card>b{font-size:12px;min-height:42px}.nfl-elo-podium-card>strong{font-size:22px}.nfl-elo-ometer{width:60px}}
