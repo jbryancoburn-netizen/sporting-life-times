@@ -5,7 +5,7 @@
   "reviewed_at": "2026-11-01",
   "model_eligible": false,
   "nationwide_complete": false,
-  "warning": "Verified against dated state government candidate listings; not a certified nationwide candidate registry, not matched to FEC IDs, and subject to later official withdrawals or corrections. Linked states without transcriptions are not counted as verified races.",
+  "warning": "Verified against dated state government candidate listings; not a certified nationwide candidate registry, not matched to FEC IDs, and subject to later official withdrawals or corrections. Linked states without transcriptions are not counted as verified races. Florida U.S. House district FL-10 does not appear in the statewide-qualified candidate listing reviewed on 2026-11-01; it remains unverified pending an authoritative official candidate roster, and no absence of candidates is inferred.",
   "sources": [
     {
       "id": "NCSBE_2026_GENERAL",
@@ -26,7 +26,7 @@
       "publication_date": null,
       "reviewed_at": "2026-11-01",
       "source_type": "official_qualified_candidate_listing",
-      "scope": "partial_federal_transcription",
+      "scope": "27_of_28_federal_house_districts_plus_senate;_FL-10_absent_from_source",
       "transcription_status": "reviewed_partial"
     },
     {
@@ -65,27 +65,648 @@
   ],
   "races": [
     {
-      "id": "NC-S",
-      "state": "NC",
-      "office": "S",
-      "district": null,
-      "source_id": "NCSBE_2026_GENERAL",
+      "id": "FL-01",
+      "state": "FL",
+      "office": "H",
+      "district": "01",
+      "source_id": "FL_DOE_2026_GENERAL",
       "candidates": [
         {
-          "name": "Roy Cooper",
-          "party": "DEM"
+          "name": "Tyler L. Davis",
+          "party": "NPA"
         },
         {
-          "name": "Michael Whatley",
+          "name": "Jimmy Patronis",
           "party": "REP"
         },
         {
-          "name": "Shannon W. Bray",
-          "party": "LIB"
+          "name": "Gay Valimont",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-02",
+      "state": "FL",
+      "office": "H",
+      "district": "02",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Amanda Marie Green",
+          "party": "DEM"
         },
         {
-          "name": "Michael Dublin",
-          "party": "GRE"
+          "name": "Austin Rogers",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-03",
+      "state": "FL",
+      "office": "H",
+      "district": "03",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Kat Cammack",
+          "party": "REP"
+        },
+        {
+          "name": "Seth Harp",
+          "party": "DEM"
+        },
+        {
+          "name": "Mike Klein",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-04",
+      "state": "FL",
+      "office": "H",
+      "district": "04",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Aaron Bean",
+          "party": "REP"
+        },
+        {
+          "name": "LaShonda \"L.J.\" Holloway",
+          "party": "DEM"
+        },
+        {
+          "name": "Todd Schaefer",
+          "party": "NPA"
+        },
+        {
+          "name": "Mike Sell",
+          "party": "FFP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-05",
+      "state": "FL",
+      "office": "H",
+      "district": "05",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Rachel Grage",
+          "party": "DEM"
+        },
+        {
+          "name": "John H. Rutherford",
+          "party": "REP"
+        },
+        {
+          "name": "William Lintag Upham",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-06",
+      "state": "FL",
+      "office": "H",
+      "district": "06",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Randy Fine",
+          "party": "REP"
+        },
+        {
+          "name": "Andrew Parrott",
+          "party": "LPF"
+        },
+        {
+          "name": "Alec Pavlik",
+          "party": "WRI"
+        },
+        {
+          "name": "Eric Yonce",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-07",
+      "state": "FL",
+      "office": "H",
+      "district": "07",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Bale Dalton",
+          "party": "DEM"
+        },
+        {
+          "name": "Christopher Dennison",
+          "party": "LPF"
+        },
+        {
+          "name": "Ryan Elijah",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-08",
+      "state": "FL",
+      "office": "H",
+      "district": "08",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mike Haridopolos",
+          "party": "REP"
+        },
+        {
+          "name": "Jennifer Jenkins",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-09",
+      "state": "FL",
+      "office": "H",
+      "district": "09",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Dan Green",
+          "party": "REP"
+        },
+        {
+          "name": "Darren Soto",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-11",
+      "state": "FL",
+      "office": "H",
+      "district": "11",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Ralph Groves",
+          "party": "LPF"
+        },
+        {
+          "name": "James Pericola",
+          "party": "DEM"
+        },
+        {
+          "name": "Joe Strada",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-12",
+      "state": "FL",
+      "office": "H",
+      "district": "12",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Gus Michael Bilirakis",
+          "party": "REP"
+        },
+        {
+          "name": "Kimberly Overman",
+          "party": "DEM"
+        },
+        {
+          "name": "Branden Scrivener",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-13",
+      "state": "FL",
+      "office": "H",
+      "district": "13",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Tony D'Arrigo",
+          "party": "NPA"
+        },
+        {
+          "name": "Leela Gray",
+          "party": "DEM"
+        },
+        {
+          "name": "Anna Paulina Luna",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-14",
+      "state": "FL",
+      "office": "H",
+      "district": "14",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mike Beltran",
+          "party": "REP"
+        },
+        {
+          "name": "Kathy Castor",
+          "party": "DEM"
+        },
+        {
+          "name": "Salomon Hernandez Sr.",
+          "party": "WRI"
+        },
+        {
+          "name": "Brian Lambert",
+          "party": "LPF"
+        },
+        {
+          "name": "Keith Varian",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-15",
+      "state": "FL",
+      "office": "H",
+      "district": "15",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Angie Boone",
+          "party": "WRI"
+        },
+        {
+          "name": "Laurel Lee",
+          "party": "REP"
+        },
+        {
+          "name": "Robert People",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-16",
+      "state": "FL",
+      "office": "H",
+      "district": "16",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mark Davis",
+          "party": "NPA"
+        },
+        {
+          "name": "Sydney Gruters",
+          "party": "REP"
+        },
+        {
+          "name": "Kelly Kirschner",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-17",
+      "state": "FL",
+      "office": "H",
+      "district": "17",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Matthew Montavon",
+          "party": "DEM"
+        },
+        {
+          "name": "Michael J. Quirk",
+          "party": "NPA"
+        },
+        {
+          "name": "Greg Steube",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-18",
+      "state": "FL",
+      "office": "H",
+      "district": "18",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Scott Franklin",
+          "party": "REP"
+        },
+        {
+          "name": "Curtis Gibson",
+          "party": "DEM"
+        },
+        {
+          "name": "Deva Simmons",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-19",
+      "state": "FL",
+      "office": "H",
+      "district": "19",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Victor Arias",
+          "party": "DEM"
+        },
+        {
+          "name": "Seth Haskin",
+          "party": "NPA"
+        },
+        {
+          "name": "Jim Schwartzel",
+          "party": "REP"
+        },
+        {
+          "name": "Alexandra Zakhvatayev",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-20",
+      "state": "FL",
+      "office": "H",
+      "district": "20",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Brent Andersen",
+          "party": "REP"
+        },
+        {
+          "name": "Kedner Maxime",
+          "party": "IND"
+        },
+        {
+          "name": "Debbie Wasserman Schultz",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-21",
+      "state": "FL",
+      "office": "H",
+      "district": "21",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Alexander Cooke",
+          "party": "NPA"
+        },
+        {
+          "name": "David Fabrikant",
+          "party": "WRI"
+        },
+        {
+          "name": "James T. Martin",
+          "party": "DEM"
+        },
+        {
+          "name": "Brian Mast",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-22",
+      "state": "FL",
+      "office": "H",
+      "district": "22",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Pia Dandiya",
+          "party": "DEM"
+        },
+        {
+          "name": "Casey Askar",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-23",
+      "state": "FL",
+      "office": "H",
+      "district": "23",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Deborah Adeimy",
+          "party": "REP"
+        },
+        {
+          "name": "Lois Frankel",
+          "party": "DEM"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-24",
+      "state": "FL",
+      "office": "H",
+      "district": "24",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Te Mayonna Brown",
+          "party": "REP"
+        },
+        {
+          "name": "Oliver G. Gilbert III",
+          "party": "DEM"
+        },
+        {
+          "name": "Patricia Gonzalez",
+          "party": "WRI"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-25",
+      "state": "FL",
+      "office": "H",
+      "district": "25",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Michaelangelo Hamilton",
+          "party": "WRI"
+        },
+        {
+          "name": "Peter Jassenoff",
+          "party": "LPF"
+        },
+        {
+          "name": "Jared Moskowitz",
+          "party": "DEM"
+        },
+        {
+          "name": "Scott Singer",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-26",
+      "state": "FL",
+      "office": "H",
+      "district": "26",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Mario Diaz-Balart",
+          "party": "REP"
+        },
+        {
+          "name": "Nicole Locklin",
+          "party": "DEM"
+        },
+        {
+          "name": "Deborah Ann Meidinger Hosey",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-27",
+      "state": "FL",
+      "office": "H",
+      "district": "27",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Eliott Rodriguez",
+          "party": "DEM"
+        },
+        {
+          "name": "Maria Elvira Salazar",
+          "party": "REP"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-28",
+      "state": "FL",
+      "office": "H",
+      "district": "28",
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Phil \"Felipe\" Ehr",
+          "party": "DEM"
+        },
+        {
+          "name": "Carlos A. Gimenez",
+          "party": "REP"
+        },
+        {
+          "name": "Eddy Rojas",
+          "party": "NPA"
+        }
+      ],
+      "verification": "source_transcribed_as_of_review_date",
+      "fec_identity_match_certified": false
+    },
+    {
+      "id": "FL-S",
+      "state": "FL",
+      "office": "S",
+      "district": null,
+      "source_id": "FL_DOE_2026_GENERAL",
+      "candidates": [
+        {
+          "name": "Angie Nixon",
+          "party": "DEM"
+        },
+        {
+          "name": "Ashley Moody",
+          "party": "REP"
+        },
+        {
+          "name": "Neil J. Gillespie",
+          "party": "NPA"
         }
       ],
       "verification": "source_transcribed_as_of_review_date",
@@ -398,42 +1019,27 @@
       "fec_identity_match_certified": false
     },
     {
-      "id": "FL-S",
-      "state": "FL",
+      "id": "NC-S",
+      "state": "NC",
       "office": "S",
       "district": null,
-      "source_id": "FL_DOE_2026_GENERAL",
+      "source_id": "NCSBE_2026_GENERAL",
       "candidates": [
         {
-          "name": "Angie Nixon",
+          "name": "Roy Cooper",
           "party": "DEM"
         },
         {
-          "name": "Ashley Moody",
+          "name": "Michael Whatley",
           "party": "REP"
         },
         {
-          "name": "Neil J. Gillespie",
-          "party": "NPA"
-        }
-      ],
-      "verification": "source_transcribed_as_of_review_date",
-      "fec_identity_match_certified": false
-    },
-    {
-      "id": "FL-22",
-      "state": "FL",
-      "office": "H",
-      "district": "22",
-      "source_id": "FL_DOE_2026_GENERAL",
-      "candidates": [
-        {
-          "name": "Pia Dandiya",
-          "party": "DEM"
+          "name": "Shannon W. Bray",
+          "party": "LIB"
         },
         {
-          "name": "Casey Askar",
-          "party": "REP"
+          "name": "Michael Dublin",
+          "party": "GRE"
         }
       ],
       "verification": "source_transcribed_as_of_review_date",
