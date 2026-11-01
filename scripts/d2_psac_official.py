@@ -122,7 +122,7 @@ def parse_school_calendar(html, gender, schedule_id):
     full = normal(soup.get_text(" ", strip=True))
     sport = "men s basketball" if gender == "men" else "women s basketball"
     expected = normal(label)
-    if "2026 27" not in full or sport not in full or expected not in full:
+    if "2026 27" not in full or not re.search(r"\b" + sport + r"\b", full) or expected not in full:
         raise ValueError(f"wrong PSAC school, year or sport for {schedule_id}")
     longest = []
     for table in soup.select("table"):
