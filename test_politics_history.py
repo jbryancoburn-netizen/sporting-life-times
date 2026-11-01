@@ -47,6 +47,26 @@ class HistoryTests(unittest.TestCase):
         self.assertIn("Not a calibrated",out["interpretation"])
 
 
+    def test_ranked_choice_ballot_metadata_not_candidate(self):
+        rows=[
+          item("EXHAUSTED BALLOT","",344433,district=2,year=2022),
+          item("JARED GOLDEN","DEMOCRAT",153074,district=2,year=2022),
+          item("BRUCE POLIQUIN","REPUBLICAN",141260,district=2,year=2022)
+        ]
+        for row in rows:row["state_po"]="ME"
+        races,quality=collate(rows,"house",2022)
+        self.assertEqual(races[0]["party_winner"],"D")
+        self.assertEqual(races[0]["winner_name"],"JARED GOLDEN")
+        self.assertIsNone(races[0]["two_party_margin"])
+        self.assertTrue(races[0]["ranked_choice_official_winner_override"])
+        self.assertEqual(races[0]["total_votes"],294334)
+        self.assertEqual(len(quality["rcv_verified_winners"]),1)
+    def test_void_2018_nc_09_excluded_not_counted(self):
+        row=item("MARK HARRIS","REPUBLICAN",139246,district=9,year=2018)
+        row["state_po"]="NC"
+        races,quality=collate([row],"house",2018)
+        self.assertEqual(races,[])
+        self.assertEqual(quality["excluded_contests"][0]["reason"],"2018_general_election_not_certified")
     def test_official_seats_not_imputed_into_unmatched_results(self):
         official={2018:(235,199,1),2020:(222,213,0),2022:(213,222,0),2024:(215,220,0)}
         for year,(dem,rep,unresolved) in official.items():
