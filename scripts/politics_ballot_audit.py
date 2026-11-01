@@ -27,8 +27,9 @@ ALLOWED_SOURCES = {
     "NJ_DOE_2026_GENERAL_HOUSE": ("NJ", "www.nj.gov", "/state/elections/assets/pdf/election-results/2026/2026-official-general-candidates-us-house-0904.pdf"),
     "MA_SEC_2026_HOUSE": ("MA", "www.sec.state.ma.us", "/divisions/elections/research-and-statistics/2026-state-election-candidates.htm"),
     "NE_SOS_2026_FINAL": ("NE", "sos.nebraska.gov", "/sites/default/files/doc/elections/2026/Final_Statewide_General_Candidate_Filing_List_9.11.26.pdf"),
+    "IA_SOS_2026_GENERAL": ("IA", "sos.iowa.gov", "/sites/default/files/2026-08/2026%20General%20-%20Candidate%20List%20Database%20-%20All%20Elections_1.pdf"),
 }
-HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8, "DE": 1, "KY": 6, "VA": 11, "NJ": 12, "MA": 9, "NE": 3}
+HOUSE_SEATS = {"NC": 14, "FL": 28, "CA": 52, "NV": 4, "WY": 1, "MD": 8, "DE": 1, "KY": 6, "VA": 11, "NJ": 12, "MA": 9, "NE": 3, "IA": 4}
 PARTIES = {"DEM", "REP", "LIB", "GRE", "NPA", "WRI", "IND", "FFP", "LPF", "CST", "NPP", "AIP", "PAF", "OTH"}
 
 def validate(data):
