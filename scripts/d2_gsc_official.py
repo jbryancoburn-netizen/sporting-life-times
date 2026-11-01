@@ -41,6 +41,69 @@ ALIASES={
     "valdosta state":"valdosta-state","valdosta state university":"valdosta-state",
     "west alabama":"west-alabama","university of west alabama":"west-alabama",
 }
+WOMEN_SCHOOLS={
+    3086:("UAH","university-of-alabama-in-huntsville"),
+    3087:("AUM","auburn-university-at-montgomery"),
+    3088:("Christian Brothers","christian-brothers-university"),
+    3089:("Delta State","delta-state-university"),
+    3090:("Lee","lee-university"),
+    3091:("Mississippi Christian","mississippi-christian-university"),
+    3092:("Montevallo","university-of-montevallo"),
+    3093:("Trevecca","trevecca-nazarene-university"),
+    3094:("Union","union-university"),
+    3095:("Valdosta State","valdosta-state-university"),
+    3096:("West Alabama","university-of-west-alabama"),
+}
+MEN_TO_WOMEN={men[1]:WOMEN_SCHOOLS[num+11][1] for num,men in SCHOOLS.items()}
+
+def read_women_school_schedule(html,school_id,schedule_id):
+    """Official GSC women's pages use 5 columns and infer H/A from 'at'."""
+    from bs4 import BeautifulSoup
+    soup=BeautifulSoup(html,"html.parser")
+    heading=cleaned(soup.get_text(" ",strip=True)).lower()
+    if "2026-27" not in heading or "women's basketball" not in heading or WOMEN_SCHOOLS[schedule_id][0].lower() not in heading:
+        raise ValueError("Incorrect GSC women's school schedule "+str(schedule_id))
+    candidates=[];rejected=[]
+    for table in soup.select("table"):
+        headers=" ".join(cleaned(x.get_text(" ",strip=True)).lower() for x in table.select("th"))
+        if not all(term in headers for term in ("opponent","location","date","time")):
+            continue
+        rows=[]
+        for tr in table.select("tr"):
+            columns=[cleaned(x.get_text(" ",strip=True)) for x in tr.find_all(["td","th"],recursive=False)]
+            if len(columns)<5:
+                continue
+            date_str,conference,opponent,location,rawtime=columns[:5]
+            if "*" not in conference:continue
+            if not re.fullmatch(r"\d{1,2}/\d{1,2}/20(?:26|27)",date_str):
+                rejected.append({"date":date_str,"opponent":opponent,"reason":"nonstandard date"})
+                continue
+            date=dt.datetime.strptime(date_str,"%m/%d/%Y").date()
+            if not (dt.date(2026,11,1)<=date<=dt.date(2027,3,1)):continue
+            other=name_id(opponent)
+            if other is None:
+                raise ValueError(f"Unmapped conference opponent {school_id}: {opponent}")
+            raw=cleaned(opponent).lower()
+            if raw.startswith("vs " ) or raw.startswith("vs.") or other==school_id:
+                rejected.append({"date":date_str,"opponent":opponent,"reason":"neutral/invalid conference home designation"})
+                continue
+            common_source=next(k for k,v in MEN_TO_WOMEN.items() if v==school_id)
+            away,home=(common_source,other) if raw.startswith("at ") else (other,common_source)
+            tip=exact_et(rawtime,date)
+            # Published source has occasionally malformed AM in a 5:30 PM
+            # doubleheader slot. Never publish 5:30 AM as a valid league tip.
+            if tip and dt.datetime.strptime(tip.split(" ET")[0],"%I:%M %p").hour<10:
+                tip=None
+            rows.append({"date":date.isoformat(),"away":MEN_TO_WOMEN[away],
+                "home":MEN_TO_WOMEN[home],"start_time":tip,"city":location,
+                "source_team":school_id,"source_url":ROOT_URL+str(schedule_id)})
+        if len(rows)>len(candidates):candidates=rows
+    if len(candidates)<16 or len(candidates)>21:
+        raise ValueError(f"GSC women's schedule {schedule_id} yielded {len(candidates)} league games; expected about 20")
+    if len({(x["date"],x["away"],x["home"]) for x in candidates})!=len(candidates):
+        raise ValueError("Duplicate GSC women's school schedule fixtures")
+    return candidates
+
 def cleaned(text):
     return " ".join(str(text or "").split())
 
@@ -170,16 +233,20 @@ def reconcile_schedules(school_records,known_games,teams,today):
         target["venue_city"]=next((row["city"] for row in rows if row["source_team"]==home and row["city"]),rows[0]["city"])
     return audit
 
-def enrich_gsc(games,teams,today):
-    """Fail closed on source outages. Partial scans never certify a full conference."""
-    ids=set(value[1] for value in SCHOOLS.values())
+def enrich_gsc(games,teams,today,gender="men"):
+    """Import only conference matchups independently recorded by BOTH schools."""
+    if gender not in ("men","women"):
+        raise ValueError("DII GSC only supports men and women")
+    schedule_set=SCHOOLS if gender=="men" else WOMEN_SCHOOLS
+    ids={row[1] for row in schedule_set.values()}
     if not ids.issubset(teams):
         return {"status":"incomplete local GSC school registry","missing_teams":sorted(ids-set(teams))}
-    records={}
-    failures=[]
-    for schedule,(label,school_id) in SCHOOLS.items():
+    records={};failures=[]
+    for schedule,(label,school_id) in schedule_set.items():
         try:
-            records[school_id]=read_school_schedule(read_html(ROOT_URL+str(schedule)),school_id,schedule)
+            body=read_html(ROOT_URL+str(schedule))
+            reader=read_school_schedule if gender=="men" else read_women_school_schedule
+            records[school_id]=reader(body,school_id,schedule)
         except Exception as exc:
             failures.append({"school":label,"schedule":schedule,"reason":str(exc)[:190]})
     if failures:
@@ -190,5 +257,6 @@ def enrich_gsc(games,teams,today):
     audit["status"]="published with unmatched games quarantined"
     audit["source"]="Gulf South Conference 2026-27 official school schedules (both teams)"
     audit["stream_source"]=STREAM_SOURCE
-    audit["schedules"]=[ROOT_URL+str(x) for x in SCHOOLS]
+    audit["gender"]=gender
+    audit["schedules"]=[ROOT_URL+str(x) for x in schedule_set]
     return audit
