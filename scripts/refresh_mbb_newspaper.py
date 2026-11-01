@@ -12,14 +12,15 @@ from zoneinfo import ZoneInfo
 from mbb_player_boxscores import parse_boxscore, aggregate
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'data/mbb-live.json'
-# Official feed directories, plus CBS and legacy ESPN for attributed headlines.
+# Official NCAA men/women feed directories and CBS for attributed headlines.
+# The old ESPN RSS endpoint currently returns invalid XML and is not polled;
+# ESPN live scores/boxscore remain an attributed secondary source.
 # FOX RSS is deliberately excluded: its feed license limits free use to
 # individuals and non-profit organizations for non-commercial purposes.
 FEEDS=[
     ('CBS Sports','https://www.cbssports.com/rss/headlines/college-basketball/','MBB'),
     ('NCAA Men','https://www.ncaa.com/news/basketball-men/d1/rss.xml','MBB'),
     ('NCAA Women','https://www.ncaa.com/news/basketball-women/d1/rss.xml','WBB'),
-    ('ESPN','https://www.espn.com/espn/rss/ncb/news','MBB'),
 ]
 def fetch(url):
     req=urllib.request.Request(url,headers={'User-Agent':'SportingLifeTimes/1.0 (+sports newspaper; attributed links)'})
@@ -141,7 +142,7 @@ def parse_ncaa_crosscheck(payload, espn_events, crosswalk, day):
                      'away_name':schools[aid].get('name'),'home_name':schools[hid].get('name'),
                      'away_score':aws if phase in ('live','final') else None,
                      'home_score':hs if phase in ('live','final') else None,
-                     'phase':phase,'source':'NCAA.com official scoreboard'})
+                     'phase':phase,'source':'NCAA-origin scoreboard; transport identified separately'})
     return rows, unresolved
 
 
