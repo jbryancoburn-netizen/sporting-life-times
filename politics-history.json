@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "updated_at": "2026-11-01T15:58:59+00:00",
+  "updated_at": "2026-11-01T16:02:04+00:00",
   "attribution": "MIT Election Data and Science Lab (MEDSL), via electiondata.dev",
   "data_license": "CC0 1.0",
   "sources": {
@@ -17,14 +17,14 @@
     {
       "year": 2018,
       "chamber": "house",
-      "contests": 431,
+      "contests": 430,
       "dem_wins": 231,
-      "rep_wins": 200,
+      "rep_wins": 199,
       "other_wins": 0,
-      "dem_votes": 60610769,
-      "rep_votes": 50980048,
-      "dem_two_party_share": 54.32,
-      "dem_margin_pp": 8.63,
+      "dem_votes": 60472428,
+      "rep_votes": 50840802,
+      "dem_two_party_share": 54.33,
+      "dem_margin_pp": 8.65,
       "data_quality": {
         "input_rows": 1359,
         "unofficial_rows": 39,
@@ -34,6 +34,11 @@
           "missing_party": 1
         },
         "excluded_contests": [
+          {
+            "id": "NC-09",
+            "reason": "2018_general_election_not_certified",
+            "official_source": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+          },
           {
             "id": "FL-10",
             "reason": "missing_numeric_votes",
@@ -64,8 +69,9 @@
           }
         ],
         "other_winners": [],
-        "valid_contests": 431,
-        "two_party_contests": 393
+        "rcv_verified_winners": [],
+        "valid_contests": 430,
+        "two_party_contests": 392
       }
     },
     {
@@ -85,7 +91,7 @@
         "skipped": {
           "missing_votes": 1,
           "ambiguous_candidates": 0,
-          "missing_party": 83
+          "missing_party": 27
         },
         "excluded_contests": [
           {
@@ -97,6 +103,7 @@
           }
         ],
         "other_winners": [],
+        "rcv_verified_winners": [],
         "valid_contests": 435,
         "two_party_contests": 407
       }
@@ -105,9 +112,9 @@
       "year": 2022,
       "chamber": "house",
       "contests": 433,
-      "dem_wins": 212,
+      "dem_wins": 213,
       "rep_wins": 220,
-      "other_wins": 1,
+      "other_wins": 0,
       "dem_votes": 51463064,
       "rep_votes": 54520207,
       "dem_two_party_share": 48.56,
@@ -118,7 +125,7 @@
         "skipped": {
           "missing_votes": 2,
           "ambiguous_candidates": 0,
-          "missing_party": 184
+          "missing_party": 167
         },
         "excluded_contests": [
           {
@@ -136,15 +143,16 @@
             ]
           }
         ],
-        "other_winners": [
+        "other_winners": [],
+        "rcv_verified_winners": [
           {
             "id": "ME-02",
-            "winner": "EXHAUSTED BALLOT",
-            "other_votes": 344433
+            "name": "JARED F GOLDEN",
+            "official_source": "https://www.maine.gov/sos/elections-voting/election-results-data/"
           }
         ],
         "valid_contests": 433,
-        "two_party_contests": 403
+        "two_party_contests": 402
       }
     },
     {
@@ -164,7 +172,7 @@
         "skipped": {
           "missing_votes": 2,
           "ambiguous_candidates": 0,
-          "missing_party": 180
+          "missing_party": 176
         },
         "excluded_contests": [
           {
@@ -183,8 +191,15 @@
           }
         ],
         "other_winners": [],
+        "rcv_verified_winners": [
+          {
+            "id": "ME-02",
+            "name": "JARED F. GOLDEN",
+            "official_source": "https://www.maine.gov/sos/elections-voting/election-results-data/"
+          }
+        ],
         "valid_contests": 434,
-        "two_party_contests": 397
+        "two_party_contests": 396
       }
     }
   ],
@@ -221,6 +236,7 @@
             "other_votes": 197667
           }
         ],
+        "rcv_verified_winners": [],
         "valid_contests": 33,
         "two_party_contests": 31
       }
@@ -252,6 +268,7 @@
             "other_votes": 277432
           }
         ],
+        "rcv_verified_winners": [],
         "valid_contests": 33,
         "two_party_contests": 31
       }
@@ -280,7 +297,7 @@
           {
             "id": "AK",
             "winner": "MURKOWSKI, LISA",
-            "other_votes": 263526
+            "other_votes": 263027
           },
           {
             "id": "IL",
@@ -293,6 +310,7 @@
             "other_votes": 1320043
           }
         ],
+        "rcv_verified_winners": [],
         "valid_contests": 33,
         "two_party_contests": 29
       }
@@ -321,14 +339,15 @@
           {
             "id": "ME",
             "winner": "ANGUS S. KING JR.",
-            "other_votes": 469138
+            "other_votes": 447763
           },
           {
             "id": "VT",
             "winner": "BERNIE SANDERS",
-            "other_votes": 256373
+            "other_votes": 247037
           }
         ],
+        "rcv_verified_winners": [],
         "valid_contests": 33,
         "two_party_contests": 31
       }
@@ -338,8 +357,8 @@
     {
       "training_year": 2018,
       "test_year": 2020,
-      "sample_size": 374,
-      "mean_absolute_margin_error": 6.53,
+      "sample_size": 373,
+      "mean_absolute_margin_error": 6.52,
       "median_absolute_margin_error": 5.2,
       "sign_changes": 19,
       "interpretation": "Lagged district margin arithmetic benchmark only. Same district ID does not prove same district boundaries; map changes and contestedness are unverified. Not a calibrated election model."
@@ -347,9 +366,9 @@
     {
       "training_year": 2022,
       "test_year": 2024,
-      "sample_size": 374,
+      "sample_size": 373,
       "mean_absolute_margin_error": 4.98,
-      "median_absolute_margin_error": 3.09,
+      "median_absolute_margin_error": 3.08,
       "sign_changes": 17,
       "interpretation": "Lagged district margin arithmetic benchmark only. Same district ID does not prove same district boundaries; map changes and contestedness are unverified. Not a calibrated election model."
     }
@@ -382,13 +401,6 @@
       "dem_margin_pp": 0.66,
       "2024_winner_party": "D",
       "2024_winner_name": "MARCY KAPTUR"
-    },
-    {
-      "id": "ME-02",
-      "state": "ME",
-      "dem_margin_pp": 0.69,
-      "2024_winner_party": "D",
-      "2024_winner_name": "JARED F. GOLDEN"
     },
     {
       "id": "CO-08",
@@ -480,6 +492,13 @@
       "dem_margin_pp": 2.65,
       "2024_winner_party": "D",
       "2024_winner_name": "EUGENE S. VINDMAN"
+    },
+    {
+      "id": "CA-27",
+      "state": "CA",
+      "dem_margin_pp": 2.66,
+      "2024_winner_party": "D",
+      "2024_winner_name": "GEORGE WHITESIDES"
     }
   ],
   "house_reconciliation": [
@@ -494,15 +513,20 @@
       },
       "reconstructed": {
         "dem": 231,
-        "rep": 200,
+        "rep": 199,
         "other": 0,
-        "total": 431
+        "total": 430
       },
       "difference_official_minus_reconstructed": {
         "dem": 4,
-        "rep": -1
+        "rep": 0
       },
       "excluded_contests": [
+        {
+          "id": "NC-09",
+          "reason": "2018_general_election_not_certified",
+          "official_source": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/"
+        },
         {
           "id": "FL-10",
           "reason": "missing_numeric_votes",
@@ -586,13 +610,13 @@
         "context": "118th Congress election outcome"
       },
       "reconstructed": {
-        "dem": 212,
+        "dem": 213,
         "rep": 220,
-        "other": 1,
+        "other": 0,
         "total": 433
       },
       "difference_official_minus_reconstructed": {
-        "dem": 1,
+        "dem": 0,
         "rep": 2
       },
       "excluded_contests": [
@@ -611,13 +635,7 @@
           ]
         }
       ],
-      "other_winners": [
-        {
-          "id": "ME-02",
-          "winner": "EXHAUSTED BALLOT",
-          "other_votes": 344433
-        }
-      ],
+      "other_winners": [],
       "status": "requires_district_reconciliation",
       "official_sources": [
         "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
@@ -671,7 +689,7 @@
   ],
   "coverage": {
     "house": {
-      "2018": 431,
+      "2018": 430,
       "2020": 435,
       "2022": 433,
       "2024": 434
@@ -695,14 +713,14 @@
     "status": "experimental_holdout_only",
     "training_period": "2018 House -> 2020 House",
     "test_period": "2022 House -> 2024 House",
-    "training_samples": 374,
+    "training_samples": 373,
     "test_samples": 373,
     "model": "L2-regularized logistic regression, predictor = previous election's two-party district margin / 10",
-    "intercept": -0.68847,
-    "margin_coefficient": 1.67536,
-    "holdout_brier_score": 0.05,
-    "unconditional_baseline_brier_score": 0.2517,
-    "holdout_mean_absolute_probability_error": 0.1099,
+    "intercept": -0.67468,
+    "margin_coefficient": 1.674,
+    "holdout_brier_score": 0.0497,
+    "unconditional_baseline_brier_score": 0.2516,
+    "holdout_mean_absolute_probability_error": 0.1097,
     "calibration_bins": [
       {
         "from": 0,
@@ -715,21 +733,21 @@
         "from": 20,
         "to": 40,
         "count": 23,
-        "mean_probability": 0.293,
+        "mean_probability": 0.296,
         "realized_win_rate": 0.391
       },
       {
         "from": 40,
         "to": 60,
-        "count": 20,
-        "mean_probability": 0.515,
-        "realized_win_rate": 0.8
+        "count": 19,
+        "mean_probability": 0.514,
+        "realized_win_rate": 0.789
       },
       {
         "from": 60,
         "to": 80,
-        "count": 25,
-        "mean_probability": 0.711,
+        "count": 26,
+        "mean_probability": 0.71,
         "realized_win_rate": 1.0
       },
       {
