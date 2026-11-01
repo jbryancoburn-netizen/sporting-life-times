@@ -36,6 +36,28 @@ class CACCOfficialTests(unittest.TestCase):
   self.assertEqual(got[1]["away"],"caldwell")
   self.assertEqual(got[1]["tipoff"],"7:30 PM ET")
 
+ def test_exact_sidearm_duplicate_with_complementary_city_is_one_fixture(self):
+  rows=[]
+  for i in range(19):
+   date=dt.date(2026,12,1)+dt.timedelta(days=3*i)
+   rows.append(f"<tr><td>{date.month}/{date.day}/{date.year}</td><td>7:00 P.M.</td><td>at Caldwell University</td><td>Caldwell, NJ</td><td>7:00 P.M.</td><td></td></tr>")
+  rows+=["<tr><td>2/6/2027</td><td>3:30 P.M.</td><td>Georgian Court University</td><td></td><td>3:30 P.M.</td><td></td></tr>",
+         "<tr><td>2/6/2027</td><td>3:30 P.M.</td><td>Georgian Court University</td><td>Rutherford, NJ</td><td>3:30 P.M.</td><td></td></tr>"]
+  html="<h1>2026-27 Felician Men's Basketball Schedule</h1><table><tr><th>Date</th><th>TIme</th><th>Opponent</th><th>Location</th><th>Result</th><th>Event</th></tr>"+"".join(rows)+"</table>"
+  result=cacc.parse_cacc_school(html,"felician",2388)
+  self.assertEqual(len(result),20)
+  game=next(x for x in result if x["date"]=="2027-02-06")
+  self.assertEqual(game["city"],"Rutherford, NJ")
+
+ def test_conflicting_duplicate_is_not_auto_merged(self):
+  dates=[dt.date(2026,12,1)+dt.timedelta(days=i*3) for i in range(19)]
+  rows="".join(f"<tr><td>{d.month}/{d.day}/{d.year}</td><td>3:00 P.M.</td><td>Georgian Court University</td><td></td><td>3:00 P.M.</td><td></td></tr>" for d in dates)
+  rows+="<tr><td>2/6/2027</td><td>3:30 P.M.</td><td>Georgian Court University</td><td></td><td></td><td></td></tr>"
+  rows+="<tr><td>2/6/2027</td><td>5:30 P.M.</td><td>Georgian Court University</td><td></td><td></td><td></td></tr>"
+  html="<h1>2026-27 Felician Men's Basketball Schedule</h1><table><tr><th>Date</th><th>TIme</th><th>Opponent</th><th>Location</th><th>Result</th><th>Event</th></tr>"+rows+"</table>"
+  with self.assertRaisesRegex(ValueError,"Conflicting duplicate"):
+   cacc.parse_cacc_school(html,"felician",2388)
+
  def test_two_independent_2026_27_schedules_required_to_add_game(self):
   a={"date":"2026-12-10","away":"caldwell","home":"holy-family","tipoff":"8:00 PM ET",
      "source_team":"caldwell","source_url":"https://caccathletics.org/schedule.aspx?schedule=2381","city":"Philadelphia, PA"}
