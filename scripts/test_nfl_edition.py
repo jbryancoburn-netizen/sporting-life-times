@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v=20261101-diagonal5" if name=="nfl.html" else "nfl-edition-v3.js?v=20261101-live-desk",page)
+                self.assertIn("nfl-edition-v3.js?v=20261101-diagonal5b" if name=="nfl.html" else "nfl-edition-v3.js?v=20261101-live-desk",page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -68,6 +68,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('nfl-matchup-v5.css?v=20261101-diagonal5',front)
         self.assertIn('--nfl-away-color:',page)
         self.assertIn('--nfl-home-color:',page)
+        self.assertIn('const pa=paint(a),ph=paint(h)',page)
         css=(root/"nfl-matchup-v5.css").read_text(encoding="utf-8")
         self.assertIn('clip-path:polygon(',css)
         self.assertIn('var(--nfl-box-color',css)
