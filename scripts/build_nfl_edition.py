@@ -22,6 +22,9 @@ ROOT = Path(__file__).resolve().parents[1]
 EDITION = ROOT / "data/nfl-2026-edition.json"
 BOXES = ROOT / "data/nfl-2026-boxscores.json"
 ROSTERS = ROOT / "data/nfl-2026-rosters.json"
+CALIBRATION = ROOT / "data/nfl-elo-calibration.json"
+DEFAULT_HOME_ELO = 55
+DEFAULT_K_BASE = 20
 SEASON = 2026
 API = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/"
 # Official franchise identity by ESPN numeric team ID. (Code, division, colors.)
@@ -117,6 +120,7 @@ def parse_event(e):
       "period":(e.get("status") or {}).get("period"),"clock":(e.get("status") or {}).get("displayClock"),
       "venue":v.get("fullName") or None,"city":v.get("address",{}).get("city") or v.get("city"),
       "broadcast":", ".join(dict.fromkeys(outlets)) or None,
+      "neutral_site":bool(c.get("neutralSite")),
       "source":"ESPN NFL scoreboard","url":"https://www.espn.com/nfl/game/_/gameId/"+eid}
 
 def base_team(tid):
@@ -124,7 +128,7 @@ def base_team(tid):
     return {"id":str(tid),"code":code,"name":code,"division":div,"conference":div[:3],
       "color":col,"secondary_color":alt,"logo":"https://a.espncdn.com/i/teamlogos/nfl/500/"+code.lower()+".png",
       "w":0,"l":0,"t":0,"pf":0,"pa":0,"elo":1500.0,"elo_change":0.0,"played":0}
-def probability(away,home):return 1/(1+10**(-((home+55)-away)/400))
+def probability(away,home,home_elo=DEFAULT_HOME_ELO):return 1/(1+10**(-((home+home_elo)-away)/400))
 def projection(away,home):
     # Conservative score model using only completed 2026 games. Shrink to 22 points.
     av=(22*4+away["pf"])/(4+away["played"])
@@ -133,7 +137,7 @@ def projection(away,home):
     hd=(22*4+away["pa"])/(4+away["played"])
     return [round(max(10,min(42,(av+ad)/2-0.9))),
             round(max(10,min(42,(hv+hd)/2+0.9)))]
-def replay(games):
+def replay(games,home_advantage=DEFAULT_HOME_ELO,k_base=DEFAULT_K_BASE):
     teams={str(i):base_team(i) for i in META}
     for g in sorted(games,key=lambda z:(z.get("date") or "",z["id"])):
         for side in ("home","away"):
@@ -142,11 +146,11 @@ def replay(games):
             if g[side].get("logo"):t["logo"]=g[side]["logo"]
         if g["state"]!="post":continue
         h=teams[g["home"]["id"]];a=teams[g["away"]["id"]]
-        p=probability(a["elo"],h["elo"]);sa,sh=projection(a,h)
+        p=probability(a["elo"],h["elo"],0 if g.get("neutral_site") else home_advantage);sa,sh=projection(a,h)
         hscore=g["home"]["score"];ascore=g["away"]["score"]
         actual=1 if hscore>ascore else (0 if hscore<ascore else 0.5)
         margin=abs(hscore-ascore)
-        k=20*min(2.0,1+math.log2(1+margin)/4)
+        k=k_base*min(2.0,1+math.log2(1+margin)/4)
         delta=k*(actual-p)
         g["elo"]={"away_before":round(a["elo"],1),"home_before":round(h["elo"],1),
           "home_win_probability":round(p,4),"away_win_probability":round(1-p,4),
@@ -166,7 +170,7 @@ def replay(games):
     for g in games:
         if g["state"]=="post":continue
         a=teams[g["away"]["id"]];h=teams[g["home"]["id"]]
-        p=probability(a["elo"],h["elo"]);sa,sh=projection(a,h)
+        p=probability(a["elo"],h["elo"],0 if g.get("neutral_site") else home_advantage);sa,sh=projection(a,h)
         g["elo"]={"away_before":a["elo"],"home_before":h["elo"],
          "home_win_probability":round(p,4),"away_win_probability":round(1-p,4),
          "away_projected_points":sa,"home_projected_points":sh}
@@ -256,10 +260,26 @@ def load(path,default):
     try:return json.loads(path.read_text(encoding="utf-8"))
     except (FileNotFoundError,ValueError,OSError):return default
 
+def model_params():
+    """Backtested historical settings change K and HFA, never a team's Elo seed."""
+    raw=load(CALIBRATION,{})
+    if (raw.get("status")=="calibrated" and raw.get("years")==[2023,2024,2025]
+            and raw.get("train_games",0)>=540
+            and raw.get("validation_games",0)>=260
+            and isinstance(raw.get("home_advantage_elo"),(int,float))
+            and isinstance(raw.get("k_base"),(int,float))
+            and 0<=raw["home_advantage_elo"]<=110 and 5<=raw["k_base"]<=55):
+        return float(raw["home_advantage_elo"]),float(raw["k_base"]),raw
+    return DEFAULT_HOME_ELO,DEFAULT_K_BASE,{}
+
 def run(fast):
     now=dt.datetime.now(dt.timezone.utc)
     old=load(EDITION,{})
     old_snapshot=json.loads(json.dumps(old))
+    home_adv,k_base,history=model_params()
+    if history and not old.get("model",{}).get("calibrated"):
+        # Source every week when changing the model, including neutral-site flags.
+        fast=False
     oldgames={g["id"]:g for g in old.get("games",[]) if g.get("id")}
     weeks=list(range(1,19))
     if fast and len(oldgames)>=200:
@@ -335,14 +355,20 @@ def run(fast):
                     if rows:rosters[tid]=rows
                 except (RuntimeError,ValueError) as exc:print("Roster unavailable:",futs[fut],exc)
     roster_stamp=now.isoformat() if len(rosters)==32 else (roster_last or now.isoformat())
-    teams=replay(games)
+    teams=replay(games,home_advantage=home_adv,k_base=k_base)
     for t in teams:
         t["team_stats"]=team_stats[t["id"]]
         t["roster_count"]=len(rosters.get(t["id"],[]))
     leaders=aggregate_leaders(boxes)
     data={"season":SEASON,"updated_at":now.isoformat(),"source":"ESPN NFL scoreboard and game summaries; independent USRS model",
       "data_policy":"ESPN sourced factual results; unofficial derived ratings and forecasts, not official NFL standings/tiebreakers",
-      "model":{"baseline":1500,"home_advantage_elo":55,"k_base":20,
+      "model":{"baseline":1500,"home_advantage_elo":home_adv,"k_base":k_base,
+        "calibrated":bool(history),"calibration_years":history.get("years",[]),
+        "calibration_train_games":history.get("train_games",0),
+        "calibration_validation_games":history.get("validation_games",0),
+        "calibration_training_brier":history.get("training_brier"),
+        "calibration_validation_brier":history.get("validation_brier"),
+        "calibration_source":history.get("source"),
         "margin_multiplier":"min(2, 1 + log2(1+absolute point margin)/4)",
         "season_reset":True,"regular_season_only":True,"historical_prior":False,"tie_result":0.5},
       "coverage":{"teams":32,"games":len(games),"finals":len(finals),
@@ -376,6 +402,7 @@ def run(fast):
                      (ROSTERS,{"season":SEASON,"updated_at":roster_stamp,"teams":rosters})):
         path.parent.mkdir(parents=True,exist_ok=True)
         path.write_text(json.dumps(obj,separators=(",",":"),ensure_ascii=False)+"\n",encoding="utf-8")
+    print("NFL Elo parameters: HFA",home_adv,"K",k_base,"historically calibrated",bool(history))
     print("NFL 2026 verified: games",len(games),"finals",len(finals),"team roster",len(rosters),
           "boxscores",len(boxes),"Elo base",data["model"]["baseline"])
 
