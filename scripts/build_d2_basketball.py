@@ -325,6 +325,18 @@ def update(gender, bootstrap=False):
         if old_game and old_game.get("status")=="final" and fixture["status"]!="final":
             continue
         games[fixture["id"]]={**fixture,"elo_eligible":True,"verified":True}
+    # Official Hawaii Holiday Classic fixture cards for NCAA DII women.
+    # Strict DII school IDs; Division III December showcase games excluded.
+    holiday_path=DATA/"d2-verified-holiday-2026-27.json"
+    holiday=json.loads(holiday_path.read_text()) if holiday_path.exists() else {}
+    holiday_source=holiday.get("source_url","")
+    for fixture in holiday.get("games",[]) if gender=="women" else []:
+        if fixture["away"] not in teams or fixture["home"] not in teams:
+            raise RuntimeError(f"Holiday fixture references unknown DII team: {fixture['id']}")
+        old=games.get(fixture["id"],{})
+        if old.get("status")=="final" and fixture.get("status")!="final":
+            continue
+        games[fixture["id"]]={**fixture,"verified":True,"elo_eligible":True}
     today=dt.datetime.now(dt.timezone.utc).date()
     start=dt.date(2026,10,15) if bootstrap else max(dt.date(2026,10,15),today-dt.timedelta(days=12))
     end=dt.date(2027,4,12) if bootstrap else min(dt.date(2027,4,12),today+dt.timedelta(days=30))
@@ -358,31 +370,14 @@ def update(gender, bootstrap=False):
     # Initial explicit uncalibrated settings: no fictitious back-tested coefficients.
     k=20.0;home_edge=65.0
     finals=0
-    for game in sorted(games.values(),key=lambda v:(v["date"],str(v.get("start_time") or ""),str(v["id"]))):
+    for game in sorted(games.values(),key=lambda v:(v["date"],v["id"])):
+        if not (game["status"]=="final" and game.get("elo_eligible")):continue
         a,h=game["away"],game["home"]
-        if a not in rating or h not in rating or not game.get("elo_eligible"):
-            # Cross-division opponents and uncertain memberships must not
-            # receive bogus win probabilities.
-            for field in ("pregame_elo_away","pregame_elo_home","pred_home_pct",
-                          "elo_change_home","elo_change_away"):
-                game.pop(field,None)
-            continue
+        if a not in rating or h not in rating:continue
+        outcome=1 if game["home_score"]>game["away_score"] else 0
         match_edge=0.0 if game.get("neutral") else home_edge
         expectation=1/(1+10**((rating[a]-rating[h]-match_edge)/400))
-        game["pregame_elo_away"]=round(rating[a],1)
-        game["pregame_elo_home"]=round(rating[h],1)
-        game["pred_home_pct"]=round(100*expectation,1)
-        game["forecast_model_status"]="experimental; DII historical calibration pending"
-        if game["status"]!="final":
-            game.pop("elo_change_home",None)
-            game.pop("elo_change_away",None)
-            continue
-        if game.get("away_score") is None or game.get("home_score") is None:
-            continue
-        outcome=1 if game["home_score"]>game["away_score"] else 0
         movement=k*(outcome-expectation)
-        game["elo_change_home"]=round(movement,1)
-        game["elo_change_away"]=round(-movement,1)
         rating[h]+=movement;rating[a]-=movement
         if outcome:wins[h]+=1;losses[a]+=1
         else:wins[a]+=1;losses[h]+=1
@@ -400,6 +395,8 @@ def update(gender, bootstrap=False):
         "verified_tournament_games":sum(1 for g in allgames if g.get("source")=="official tournament organizer"),
         "verified_tournament_source":tournament_source,
         "verified_other_openers":sum(1 for g in allgames if str(g.get("id","")).startswith("d2opening-2026-")),
+        "verified_holiday_fixtures":sum(1 for g in allgames if str(g.get("id","")).startswith("d2holiday-2026-")),
+        "verified_holiday_source":holiday_source,
         "other_openers_provenance":"Official university athletics results, game-by-game source URLs",
         "directory_source":directory_source,"directory_error":directory_error,
         "official_logo_index":logo_quality,
