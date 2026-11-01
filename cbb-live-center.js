@@ -67,9 +67,17 @@
     const id=String(t?.team?.id||'');
     const n=teamName(t);
     // Use the exact shared NCAA school artwork and existing two-color ring contract.
-    if(id&&window.MBBLogos?.byESPN)return window.MBBLogos.byESPN(id,'score',n);
+    if(id&&window.MBBLogos?.byESPN){
+      const standard=window.MBBLogos.byESPN(id,'score',n);
+      if(standard&&!standard.includes('mbb-mark--missing'))return standard;
+    }
     const src=image(t);
-    return '<span class="cbb-fallback-crest">'+(src?'<img src="'+src+'" alt="" loading="lazy">':'<span>'+esc(code(t).slice(0,2))+'</span>')+'</span>';
+    const valid=x=>/^[0-9a-fA-F]{6}$/.test(String(x||'').replace(/^#/,''));
+    const primary=valid(t?.team?.color)?'#'+t.team.color.replace(/^#/,''):'#194854';
+    let secondary=valid(t?.team?.alternateColor)?'#'+t.team.alternateColor.replace(/^#/,''):'#5c8395';
+    if(secondary.toLowerCase()===primary.toLowerCase()||secondary.toLowerCase()==='#ffffff')secondary='#5c8395';
+    return '<span class="cbb-fallback-crest" style="--cbb-primary:'+esc(primary)+';--cbb-secondary:'+esc(secondary)+'">'+
+      (src?'<img src="'+src+'" alt="" loading="lazy">':'<span>'+esc(code(t).slice(0,2))+'</span>')+'</span>';
   }
   function row(t,phase,winning){
     const s=phase==='upcoming'?'—':score(t)??'—';
