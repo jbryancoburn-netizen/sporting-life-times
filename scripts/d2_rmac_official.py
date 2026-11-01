@@ -78,8 +78,8 @@ def parse(html,gender,source_id):
   break
  if not rows:raise ValueError("No valid RMAC conference schedule rows: "+str(source_id))
  return rows,quarantined
-def enrich_rmac(gender,games,teams,today=None,fetcher=fetch):
- today=today or dt.date.today()
+def team_ids(teams):
+ """Find unambiguous official RMAC institutions in short or long directory labels."""
  identities={};conflicted=set()
  for ident,t in teams.items():
   if t.get("conference") not in ("RMAC","Rocky Mountain Athletic Conference"):continue
@@ -88,6 +88,11 @@ def enrich_rmac(gender,games,teams,today=None,fetcher=fetch):
   if key in identities and identities[key]!=ident:conflicted.add(key)
   else:identities[key]=ident
  for key in conflicted:identities.pop(key,None)
+ return identities,conflicted
+
+def enrich_rmac(gender,games,teams,today=None,fetcher=fetch):
+ today=today or dt.date.today()
+ identities,conflicted=team_ids(teams)
  if len(identities)<12:
   return {"status":"RMAC team identity validation incomplete; fixtures held",
    "registered_schools":len(identities),"added":0,"enriched":0}
