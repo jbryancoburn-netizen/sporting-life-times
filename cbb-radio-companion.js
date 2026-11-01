@@ -111,8 +111,8 @@ async function start(s,source){
   audio.addEventListener('pause',()=>{stopVisual(s);status(s,'Audio paused. No waveform data retained.');});
   audio.addEventListener('ended',()=>{stopVisual(s);status(s,'Broadcast ended.');});
   audio.addEventListener('error',()=>{stopVisual(s);status(s,'Stream playback failed or browser access was denied. Use the official listening link.');});
-  await ctx.resume();
-  await audio.play();
+  // Request playback within the original user gesture on mobile Safari.
+  await Promise.all([ctx.resume(),audio.play()]);
  }catch{
   stopVisual(s);
   status(s,'The broadcaster’s stream is unavailable for visualization. Open the official player instead.');
@@ -147,7 +147,7 @@ async function mount(root,game,gender){
  const key=String(game.id||'')+'/'+String(gender);
  let s=sessions.get(root);
  if(s?.key===key)return; // NEVER interrupt a playing stream during 15s score refresh
- if(s)close(s);
+ if(s){s.abort?.abort();close(s);}
  s={root,key,audio:null,context:null,analyser:null,canvas:null,wave:null,raf:null,source:null};
  sessions.set(root,s);
  root.innerHTML='<div class="slr-loading">Checking authorized radio sources…</div>';
