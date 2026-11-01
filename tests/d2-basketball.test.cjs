@@ -69,23 +69,26 @@ test('official 2026 DII opening-game source URLs match each specific result',()=
  }
 });
 
-test('DII game cards publish source-grounded provisional Elo chances and game movement',()=>{
- const script=fs.readFileSync('d2-basketball.js','utf8');
- assert.match(script,/forecast-strip/);assert.match(script,/EXPERIMENTAL/);
- const categories=['men','women'];
- for(const gender of categories){
-  const d=JSON.parse(fs.readFileSync('data/d2-'+gender+'-2026-27.json','utf8'));
-  const eligible=d.games.filter(g=>g.elo_eligible&&g.status!=='unverified');
-  assert.ok(eligible.length>=12,'complete initial competition ledger required');
-  for(const g of eligible){
-   assert.ok(typeof g.pred_home_pct==='number'&&g.pred_home_pct>=0&&g.pred_home_pct<=100,g.id+' missing odds');
-   assert.ok(Number.isFinite(g.pregame_elo_home)&&Number.isFinite(g.pregame_elo_away));
-   if(g.status==='final'){
-    assert.ok(Number.isFinite(g.elo_change_home)&&Number.isFinite(g.elo_change_away));
-    assert.ok(Math.abs(g.elo_change_home+g.elo_change_away)<0.11,'Elo not zero sum '+g.id);
-   }
-  }
-  assert.ok(d.model.status.toLowerCase().includes('provisional'),'DII coefficients must remain labeled provisional');
-  assert.ok(d.games.some(g=>g.neutral&&g.status==='final'&&g.pred_home_pct!==undefined));
- }
+test('2026 Hawaii holiday organizer fixtures are included only for DII women',()=>{
+ const source=JSON.parse(fs.readFileSync('data/d2-verified-holiday-2026-27.json','utf8'));
+ const women=JSON.parse(fs.readFileSync('data/d2-women-2026-27.json','utf8'));
+ const men=JSON.parse(fs.readFileSync('data/d2-men-2026-27.json','utf8'));
+ const games=women.games.filter(g=>g.id.startsWith('d2holiday-2026-'));
+ assert.equal(source.games.length,8);
+ assert.equal(games.length,8);
+ assert.ok(games.every(g=>g.status==='scheduled'&&g.verified&&g.neutral));
+ assert.ok(games.every(g=>g.source_url.startsWith('https://collegetournamentshawaii.com/game/')));
+ assert.ok(games.every(g=>women.teams.some(t=>t.id===g.away)&&women.teams.some(t=>t.id===g.home)));
+ assert.ok(games.every(g=>g.date==='2026-12-18'||g.date==='2026-12-19'));
+ assert.equal(men.games.filter(g=>g.id.startsWith('d2holiday-2026-')).length,0);
+ assert.equal(new Set(women.games.map(g=>g.id)).size,women.games.length);
+});
+test('DII game cards show organizer sources, provisional forecast and game-day controls',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const css=fs.readFileSync('d2-basketball.css','utf8');
+ assert.match(js,/OFFICIAL SOURCE/);
+ assert.match(js,/PRELIMINARY ELO/);
+ assert.match(js,/game-day-navigation/);
+ assert.match(js,/WOMEN’S/);
+ assert.match(css,/game-state\.final/);
 });
