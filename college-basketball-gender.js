@@ -50,7 +50,7 @@
   };
   const head=(k,h)=>'<div class="panel-head"><div><div class="eyebrow">'+k+'</div><h2>'+h+'</h2></div></div>';
   const link=id=>'ncaaw-team.html?team='+encodeURIComponent(id);
-  let ratings=null,teams=new Map(),games=new Map(),live=new Map(),selected='',manualDate=false,busy=false;
+  let ratings=null,teams=new Map(),games=new Map(),live=new Map(),siteDisputes=new Map(),selected='',manualDate=false,busy=false;
   app.innerHTML='<section class="wbb-edition-lead"><div><div class="eyebrow">Women’s Division I · The national desk</div><h1>The women’s college game.</h1><p>363 programs. Every conference. A clean slate at 1500, and the season’s story as it unfolds.</p></div><div id="wbb-summary" class="wbb-edition-summary">Opening the season ledger…</div></section>'+
     '<section class="panel" id="wbb-games">'+head('Around the country','The Game Center')+'<div class="wbb-game-controls"><button id="wbb-prev" aria-label="Previous game date">←</button><label>Date <select id="wbb-date"></select></label><button id="wbb-next" aria-label="Next game date">→</button><label>Conference <select id="wbb-game-conf"><option value="">All conferences</option></select></label><label>Team <input id="wbb-game-search" type="search" placeholder="Find a matchup"></label></div><p class="note" id="wbb-score-stamp" role="status">Loading the full women’s season calendar…</p><div id="wbb-score-rail" class="wbb-game-grid"></div></section>'+
     '<div class="grid two"><div class="column"><section class="panel" id="wbb-news">'+head('The national conversation','Across the Women’s Game')+'<div id="wbb-stories">Loading attributed reporting…</div></section><section class="panel" id="wbb-standings">'+head('The conference races','Conference Standings')+'<label class="wbb-team-search">Conference <select id="wbb-conference-select"></select></label><div id="wbb-conference-list"></div></section></div>'+
@@ -68,10 +68,16 @@
     const day=localDay(g.date);
     const gamefile=/^\d+$/.test(eventId)&&/^\d{4}-\d{2}-\d{2}$/.test(day)?
       'cbb-gamefile.html?gender=women&day='+encodeURIComponent(day)+'&game='+encodeURIComponent(eventId):'';
-    let forecast='';
-    if(!score(g)&&h&&a){const edge=g.neutral?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
+    const siteClaims=window.WBBSiteIntegrity?.claims(g,siteDisputes)||[];
+    const siteSource=siteClaims.find(x=>window.WBBSiteIntegrity.safeURL(x.source_url))?.source_url||'';
+    let forecast=siteClaims.length?'<div class="wbb-game-forecast wbb-site-dispute">Venue under review · home-court forecast withheld</div>':'';
+    if(!siteClaims.length&&!score(g)&&h&&a){const edge=g.neutral?0:Number(ratings.parameters.home_edge)||0,p=100/(1+10**(-((a.elo-h.elo-edge)/400)));forecast='<div class="wbb-game-forecast">Win forecast · '+esc(a.team)+' '+p.toFixed(0)+'% · '+esc(h.team)+' '+(100-p).toFixed(0)+'%</div>';}
     const status=g.status==='review'?'Source conflict · score withheld':g.status==='final'?'Final':g.status==='live'?(g.detail||'Live'):'Scheduled';
-    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+esc(gameWhen(g))+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+'<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
+    return '<article class="score-card wbb-score-card"><small>'+esc(status)+' · '+esc(gameWhen(g))+'</small>'+row(g.away_id,g.away_name,g.away_score)+row(g.home_id,g.home_name,g.home_score)+'<div class="wbb-game-detail">'+esc(g.venue||'Arena TBA')+(g.city?' · '+esc(g.city):'')+'</div><div class="wbb-game-detail">'+esc(g.broadcast||'Network TBA')+(g.neutral?' · Neutral site':'')+'</div>'+forecast+
+       (siteClaims.length?'<div class="wbb-game-detail wbb-site-dispute">'+
+        esc(window.WBBSiteIntegrity.note(siteClaims))+
+        (siteSource?' <a href="'+safe(siteSource)+'" target="_blank" rel="noopener noreferrer">University source ↗</a>':'')+'</div>':'')+
+       '<div class="wbb-game-detail">'+esc(g.source||'Published season calendar; live source not confirmed')+'</div>'+
        (g.tipoff_disputed?'<div class="wbb-game-detail wbb-tipoff-dispute">University or organizer tipoff disagreement; start time is not confirmed.</div>':'')+(g.source_conflict?'<div class="wbb-game-detail">Provider conflict: score withheld until reconciled.</div>':'')+
        (gamefile?'<a class="wbb-gamecast-link" href="'+esc(gamefile)+'">Gamecast &amp; box score →</a>':'')+
        '<a class="wbb-game-source" href="'+safe(/^\d+$/.test(String(g.espn_id||g.id))?'https://www.espn.com/womens-college-basketball/game/_/gameId/'+encodeURIComponent(g.espn_id||g.id):'https://www.ncaa.com/scoreboard/basketball-women/d1')+'" target="_blank" rel="noopener noreferrer">Source details ↗</a></article>';
@@ -130,10 +136,13 @@
   async function refresh(){
     if(busy)return;busy=true;
     try{
-      const [r,master,ledger,news,officialTV,wire,tipoffDisputes]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),get('data/mbb-live.json').catch(()=>null),get('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null)]);
+      const [r,master,ledger,news,officialTV,wire,tipoffDisputes,siteConflictAudit]=await Promise.all([get('data/ncaaw-2026-27-retro-primary.json'),get('data/ncaaw-schedules-2026-27.json'),get('data/ncaaw-2026-27-games.json'),get('articles.json'),get('data/ncaaw-2026-27-official-broadcast-overrides.json').catch(()=>null),get('data/mbb-live.json').catch(()=>null),get('data/ncaaw-2026-27-cross-school-time-discrepancies-2026-10-30.json').catch(()=>null),
+       get('data/ncaaw-2026-27-official-site-conflicts.json').catch(()=>null)]);
       if(r?.gender!=='women'||r.season!=='2026-27'||r.model!=='retro-clean-slate'||r.starting_elo!==1500||r.rankings?.length!==363||new Set(r.rankings.map(t=>String(t.team_id))).size!==363||!r.rankings.every(t=>t.base_elo===1500&&Number.isFinite(t.elo)))throw Error('Women’s rating registry failed validation');
       if(master?.gender!=='women'||master.season!=='2026-27'||Object.keys(master.teams||{}).length!==363)throw Error('Women’s season calendar failed validation');
-      await window.MBBLogos.ready;ratings=r;teams=new Map(r.rankings.map(t=>[String(t.team_id),t]));games=new Map();
+      await window.MBBLogos.ready;ratings=r;teams=new Map(r.rankings.map(t=>[String(t.team_id),t]));
+       siteDisputes=window.WBBSiteIntegrity?.index(siteConflictAudit)||new Map();
+       games=new Map();
       for(const [tid,t] of Object.entries(master.teams))for(const g of t.games||[]){if(games.has(String(g.id))){const old=games.get(String(g.id));if(!old.city)old.city=g.city||g.city_state||g.official_location_as_printed;if(g.broadcast_verified){old.broadcast=g.broadcast;old.broadcast_verified=true;}continue;}games.set(String(g.id),{...g,status:g.completed?'final':'scheduled',neutral:g.site==='neutral',home_name:tid===String(g.home_id)?t.team:g.opponent,away_name:tid===String(g.away_id)?t.team:g.opponent,city:g.city||g.city_state||g.official_location_as_printed});}
       if(ledger?.season==='2026-27')for(const g of [...ledger.finals||[],...ledger.upcoming||[]]){const old=games.get(String(g.id));games.set(String(g.id),{...old,...g,broadcast:old?.broadcast_verified?old.broadcast:g.broadcast||old?.broadcast,completed:g.status==='final'});}
       // Apply individually cited women's broadcasts after merging scoreboards,
