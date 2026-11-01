@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""Recover explicitly announced Division I basketball broadcasts and tipoffs.
+
+Offline; only previously saved official conference, broadcaster, and SEC game
+records. Requires exact date and both team identities; no guessed assignments.
+"""
+import collections
+import json
+import pathlib
+import re
+
+DATA = pathlib.Path(__file__).resolve().parents[1] / "data"
+SCHEDULES = DATA / "mbb-schedules-2026-27"
+SOURCES = (
+    ("mbb-official-conference-game-evidence.json", "conference"),
+    ("mbb-network-grid-evidence.json", "broadcaster"),
+    ("mbb-sec-official-feed-recovery.json", "sec"),
+)
+SKIP = re.compile(r"(?i)\b(?:TBA|TBD|unknown|wild\s*card|to\s+be\s+announced|unannounced)\b")
+CLOCK = re.compile(r"(?i)^(?:(?:[01]?\d|2[0-3])(?::[0-5]\d)?\s*(?:a\.?m\.?|p\.?m\.?)|noon|midnight)(?:\s+(?:ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT))?$")
+ZONES = re.compile(r"\b(ET|CT|MT|PT|EST|EDT|CST|CDT|MST|MDT|PST|PDT)\b", re.I)
+ALIASES = {
+    "ACCN": "ACC NETWORK", "ACCNX": "ACC NETWORK EXTRA",
+    "SECN": "SEC NETWORK", "SECN+": "SEC NETWORK+",
+    "BTN": "BIG TEN NETWORK", "B1G+": "BIG TEN+",
+    "BIG TEN PLUS": "BIG TEN+", "CBSSN": "CBS SPORTS NETWORK",
+    "FS1": "FOX SPORTS 1", "FS2": "FOX SPORTS 2",
+}
+
+def norm(s):
+    s = re.sub(r"\s+", " ", str(s or "").strip()).upper()
+    return ALIASES.get(s, s)
+
+def safe_network(v):
+    s = str(v or "").strip()
+    if not 2 <= len(s) <= 44 or SKIP.search(s) or re.search(r"(?i)(?:\sOR\s|[|?,])", s):
+        return ""
+    if not re.fullmatch(r"[\w\s+()./&'-]+", s):
+        return ""
+    return s
+
+def url_valid(url):
+    return str(url or "").startswith("https://") and "espn.com/schedule" not in str(url)
+
+def clock_with_zone(row, default_zone):
+    value = str(row.get("time") or "").strip()
+    if not CLOCK.fullmatch(value) or SKIP.search(value):
+        return ""
+    zone = ZONES.search(value)
+    tz = zone.group(1).upper() if zone else str(row.get("timezone") or default_zone or "").upper()
+    if not ZONES.fullmatch(tz):
+        return ""
+    return value if zone else value + " " + tz
+
+def load_evidence():
+    grouped = collections.defaultdict(list)
+    skipped = collections.Counter()
+    for name, kind in SOURCES:
+        obj = json.loads((DATA / name).read_text())
+        rows = obj.get("official_game_evidence") if kind == "sec" else obj.get("rows", [])
+        for row in rows:
+            ids = row.get("teams") if kind == "sec" else [row.get("visitor_id"), row.get("host_id")]
+            day = str(row.get("date") or "")[:10]
+            if not isinstance(ids, list) or len(ids) != 2 or any(not str(x or "").isdigit() for x in ids) or ids[0] == ids[1] or not re.fullmatch(r"202[67]-\d\d-\d\d", day):
+                skipped["unresolved_teams_or_date"] += 1
+                continue
+            source = row.get("source_url") or obj.get("source_url")
+            if not url_valid(source):
+                skipped["no_official_source"] += 1
+                continue
+            raw = row.get("broadcasts") if kind == "sec" else [row.get("tv")]
+            if isinstance(raw, str):
+                raw = [raw]
+            names = [safe_network(n) for n in (raw or [])]
+            names = sorted({n for n in names if n}, key=norm)
+            time = clock_with_zone(row, obj.get("timezone") or ("ET" if kind == "sec" else ""))
+            if not names and not time:
+                skipped["no_safe_fields"] += 1
+                continue
+            key = (day, tuple(sorted(map(str, ids))))
+            grouped[key].append({"networks": names, "time": time, "source_url": source, "kind": kind})
+    return grouped, skipped
+
+def recover():
+    teams = json.loads((DATA / "ncaam-2026-27-espn-team-crosswalk.json").read_text())["teams"]
+    owners = {str(t["espn_id"]) for t in teams}
+    assert len(owners) == 365, "Require 365 school identities"
+    docs = {}
+    for owner in owners:
+        path = SCHEDULES / (owner + ".json")
+        if not path.exists():
+            raise RuntimeError("Missing schedule " + owner)
+        docs[owner] = (path, json.loads(path.read_text()))
+    evidence, skipped = load_evidence()
+    counts = collections.Counter()
+    changes, conflicts, changed = [], [], set()
+    for owner, (path, doc) in docs.items():
+        for game in doc.get("events", []):
+            ps = (game.get("competitions") or [{}])[0].get("competitors") or []
+            ids = [str((p.get("team") or {}).get("id") or "") for p in ps]
+            day = str(game.get("date") or "")[:10]
+            if len(ids) != 2 or owner not in ids or any(x not in owners for x in ids) or ids[0] == ids[1]:
+                continue
+            facts = evidence.get((day, tuple(sorted(ids))), [])
+            if not facts:
+                continue
+            counts["exact_matching_entries"] += 1
+            competition = game["competitions"][0]
+            tv = [x for x in facts if x["networks"]]
+            network_sets = {tuple(sorted(norm(n) for n in x["networks"])) for x in tv}
+            if len(network_sets) > 1:
+                counts["network_conflicts"] += 1
+                if len(conflicts) < 120:
+                    conflicts.append({"school_id": owner, "event_id": game.get("id"), "date": day,
+                                      "issue": "conflicting_network_sources", "values": [list(v) for v in network_sets]})
+            elif len(network_sets) == 1 and not (competition.get("broadcasts") or game.get("broadcasts") or game.get("broadcast")):
+                candidate = tv[0]
+                competition["broadcasts"] = [{"names": candidate["networks"], "source_url": candidate["source_url"],
+                                              "verified_via": "saved_official_schedule_2026-27"}]
+                game["broadcast_source_url"] = candidate["source_url"]
+                counts["networks_added"] += 1
+                changed.add(owner)
+                changes.append({"school_id": owner, "event_id": game.get("id"), "date": day,
+                                "field": "network", "value": candidate["networks"], "source_url": candidate["source_url"]})
+            times = {x["time"].lower().replace(".", ""): x for x in facts if x["time"]}
+            prior = str(game.get("official_school_time") or "").strip()
+            other = str(game.get("official_time") or "").strip()
+            if len(times) > 1:
+                counts["time_conflicts"] += 1
+            elif len(times) == 1 and not CLOCK.fullmatch(prior) and not CLOCK.fullmatch(other):
+                candidate = next(iter(times.values()))
+                game["official_school_time"] = candidate["time"]
+                game["official_school_time_source"] = candidate["source_url"]
+                game["official_school_time_verified_via"] = "saved_official_schedule_2026-27"
+                counts["tipoffs_added"] += 1
+                changed.add(owner)
+                changes.append({"school_id": owner, "event_id": game.get("id"), "date": day,
+                                "field": "tipoff", "value": candidate["time"], "source_url": candidate["source_url"]})
+    for owner in changed:
+        path, doc = docs[owner]
+        path.write_text(json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n")
+    report = {
+        "season": "2026-27",
+        "summary": {"schools_scanned": len(docs), "schools_changed": len(changed),
+                    "game_records_changed": len(set((x["school_id"], x["event_id"]) for x in changes)),
+                    **dict(counts), "evidence_game_keys": len(evidence), "evidence_skipped": dict(skipped)},
+        "policy": "Exact date/two-team-ID matching; verified official sources only; no replacement of existing network or tipoff; disagreements logged.",
+        "changes": changes, "conflicts": conflicts,
+    }
+    (DATA / "mbb-cached-network-recovery-20261101.json").write_text(json.dumps(report, indent=2) + "\n")
+    manifest = DATA / "mbb-official-recheck-365-verification.json"
+    if manifest.exists():
+        existing = json.loads(manifest.read_text())
+        existing["saved_broadcast_recovery"] = report["summary"]
+        manifest.write_text(json.dumps(existing, indent=2) + "\n")
+    print(json.dumps(report["summary"], indent=2))
+    return report["summary"]
+
+if __name__ == "__main__":
+    recover()
