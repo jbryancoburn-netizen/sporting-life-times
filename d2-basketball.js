@@ -80,6 +80,15 @@ function conference(){const list=teams.filter(t=>t.conference&&t.conference===se
 sel.addEventListener('change',conference);conference();
 $('coverage').innerHTML='Directory-only edition: <b>'+teams.length+'</b> listed programs, including <b>'+transitionCount+'</b> documented future or conference-transition entries not counted as certified DII opponents. NCAA membership has not yet been fully reconciled. This desk currently lists <b>'+teams.length+'</b> identified programs and <b>'+games.length+'</b> published fixtures or finals.<br>Institutional primary and secondary colors are taken from matched provider records where available. Any generated second-ring tonal accent is a visual treatment, <b>not</b> a verified school secondary color. School-specific conference, venue, television and roster fields appear only when the sources support them. A discovered team is not automatically a certified 2026–27 member.<br><b>Feed:</b> '+esc(d.source||'NCAA')+'<br><b>Quality:</b> '+esc(d.quality?.status||'Refresh pending')+'<br><b>Important:</b> Independent Elo changes require confirmed Division II opponents; exhibitions and cross-division games are excluded.';
 
+const coverageStats=d.quality?.field_coverage;
+if(coverageStats){
+ const total=Number(coverageStats.fixture_records||0);
+ $('coverage').innerHTML+='<br><b>Schedule coverage audit:</b> '+esc(coverageStats.schools_with_at_least_one_fixture)+
+ ' schools have at least one published fixture; '+esc(coverageStats.schools_with_no_published_fixtures)+
+ ' have none. '+esc(coverageStats.games_with_named_venue)+' / '+total+
+ ' games include a named venue; '+esc(coverageStats.games_with_network)+' / '+total+
+ ' include a broadcast network. <b>Full schedule certification remains pending.</b>';
+}
 const brandedSchools=teams.filter(t=>/^#[0-9a-f]{6}$/i.test(t.primary||'')&&/^#[0-9a-f]{6}$/i.test(t.secondary||''));
 const officialPairs=brandedSchools.filter(t=>t.color_provenance&&t.color_provenance.includes('ESPN-published primary and secondary')).length;
 $('coverage').innerHTML+='<br><b>Logo rings:</b> '+brandedSchools.length+' of '+teams.length+
