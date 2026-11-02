@@ -624,3 +624,66 @@ body[data-house-page="state"] .state-sources-details{
  body[data-house-page="state"] .state-feature-map .geo-district-map{min-height:340px}
 }
 @media(prefers-reduced-motion:reduce){body[data-house-page="state"] .district-card-infographic{transition:none!important}}
+
+/* Reader-facing publisher headlines: real source links, never algorithmic story copy. */
+body[data-house-page="state"] .race-wire,body[data-house-page="district"] .race-wire{
+ padding:23px 0 24px;margin:22px 0 24px;border-top:4px solid #192f43;border-bottom:1px solid #b7bfc2;
+ background:transparent;box-shadow:none
+}
+body[data-house-page="state"] .race-wire-heading,body[data-house-page="district"] .race-wire-heading{
+ display:flex;align-items:end;justify-content:space-between;gap:15px;margin:0 0 15px
+}
+body[data-house-page="state"] .race-wire-kicker,body[data-house-page="district"] .race-wire-kicker{
+ font:900 10px/1.5 'DM Sans',Arial,sans-serif;color:#a33f35;letter-spacing:1.5px
+}
+body[data-house-page="state"] .race-wire h2,body[data-house-page="district"] .race-wire h2{
+ font:700 clamp(30px,3.35vw,46px)/1.15 Georgia,serif;letter-spacing:-1px;color:#192e40;margin:7px 0 0
+}
+body[data-house-page="state"] .race-wire-heading>a,body[data-house-page="district"] .race-wire-heading>a{
+ color:#914038;font:900 11px/1.4 'DM Sans',sans-serif;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px
+}
+body[data-house-page="state"] .race-wire-status,body[data-house-page="district"] .race-wire-status{
+ color:#5a6871;font:10px/1.55 'DM Sans',sans-serif;margin:0 0 12px
+}
+body[data-house-page="state"] .race-wire-list,body[data-house-page="district"] .race-wire-list{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 22px;border-top:1px solid #aab5bb
+}
+body[data-house-page="state"] .race-wire-article,body[data-house-page="district"] .race-wire-article{
+ padding:17px 16px 17px 0;border-right:1px solid #c0c7c9
+}
+body[data-house-page="state"] .race-wire-article:last-child,body[data-house-page="district"] .race-wire-article:last-child{border:0}
+body[data-house-page="state"] .race-wire-byline,body[data-house-page="district"] .race-wire-byline{
+ margin:0 0 9px;color:#924039;font:900 9px/1.45 'DM Sans',sans-serif;letter-spacing:.7px;text-transform:uppercase
+}
+body[data-house-page="state"] .race-wire-article h3,body[data-house-page="district"] .race-wire-article h3{
+ margin:0;font:700 clamp(18px,1.85vw,24px)/1.25 Georgia,serif;letter-spacing:-.3px;color:#182f40;overflow-wrap:anywhere
+}
+body[data-house-page="state"] .race-wire-article h3 a,body[data-house-page="district"] .race-wire-article h3 a{
+ text-decoration:none;color:inherit
+}
+body[data-house-page="state"] .race-wire-article h3 a:hover,body[data-house-page="district"] .race-wire-article h3 a:hover{
+ color:#983b32;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px
+}
+body[data-house-page="state"] .race-wire-caution,body[data-house-page="district"] .race-wire-caution,
+body[data-house-page="state"] .race-wire-unavailable,body[data-house-page="district"] .race-wire-unavailable{
+ font:10px/1.6 'DM Sans',Arial,sans-serif;color:#62707a;margin:12px 0 0
+}
+/* Feature plus a tidy stack of reporting links: no repeating equal-sized boxes. */
+body[data-house-page="state"] .state-editorial-stories .state-brief-card:first-child{grid-column:1;grid-row:1/span 5}
+body[data-house-page="state"] .state-editorial-stories .state-brief-card:not(:first-child){grid-column:2}
+body[data-house-page="state"] .state-editorial-stories .state-brief-card:only-child{grid-column:1/-1;grid-row:auto;border-right:0!important}
+@media(max-width:850px){
+ body[data-house-page="state"] .state-editorial-stories .state-brief-card:first-child,
+ body[data-house-page="state"] .state-editorial-stories .state-brief-card:not(:first-child){grid-column:1;grid-row:auto}
+ body[data-house-page="state"] .race-wire-list,body[data-house-page="district"] .race-wire-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-house-page="state"] .race-wire-article:nth-child(2),body[data-house-page="district"] .race-wire-article:nth-child(2){border:0}
+ body[data-house-page="state"] .race-wire-article:nth-child(3),body[data-house-page="district"] .race-wire-article:nth-child(3){grid-column:1/-1;border-top:1px solid #c0c7c9}
+}
+@media(max-width:600px){
+ body[data-house-page="state"] .race-wire-heading,body[data-house-page="district"] .race-wire-heading{align-items:flex-start;flex-direction:column}
+ body[data-house-page="state"] .race-wire-list,body[data-house-page="district"] .race-wire-list{grid-template-columns:1fr}
+ body[data-house-page="state"] .race-wire-article,body[data-house-page="district"] .race-wire-article{
+   padding:15px 0;border-right:0!important;border-bottom:1px solid #c0c7c9!important;grid-column:1/-1
+ }
+ body[data-house-page="state"] .race-wire-article:last-child,body[data-house-page="district"] .race-wire-article:last-child{border:0!important}
+}
