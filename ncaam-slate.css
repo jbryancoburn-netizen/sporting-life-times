@@ -744,3 +744,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-editorial-badge.sl-rivalry{border-color:#7a8391;color:#243e51}
 .sl-editorial-badge.sl-rivalry:hover{text-decoration:underline}
 @media(max-width:650px){.sl-game .sl-title-stars{font-size:10px;letter-spacing:1px;min-height:12px}.sl-editorial-badges{padding:7px}.sl-editorial-badge{font-size:9px}}
+
+/* One physical star per verified national title; school secondary-color ink. */
+.sl-game .sl-title-stars{display:flex!important;justify-content:center!important;align-items:center!important;width:100%!important;max-width:100%!important;min-height:20px!important;overflow:visible!important;margin:0!important;color:var(--pennant-accent)!important;text-shadow:0 1px 2px rgba(0,0,0,.8)!important}
+.sl-game .sl-title-stars>span{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-content:center!important;gap:0 3px!important;max-width:100%!important;line-height:1!important}
+.sl-game .sl-title-stars i{display:inline-block!important;font:normal 12px/1.05 Georgia,serif!important;font-style:normal!important;color:var(--pennant-accent)!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.75))}
+.sl-game .sl-pennant{height:202px!important;min-height:202px!important}
+@media(max-width:650px){.sl-game .sl-title-stars i{font-size:10px!important}.sl-game .sl-pennant{height:188px!important;min-height:188px!important}}
