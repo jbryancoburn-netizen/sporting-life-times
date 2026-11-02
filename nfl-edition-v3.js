@@ -433,7 +433,7 @@ function gamePage(){
  if(!g)return note("Game not found. "+link("nfl-game-center.html","Open the Game Center."));
  const a=team(g.away.id),h=team(g.home.id),elo=g.elo||{},model=feed.model||{};
  const status=g.state==='in'?'LIVE · '+liveClock(g):g.state==='post'?nflFinalStatus(g):'PREGAME';
- let out='<div class="nfl-p26 nfl-p26-game">'+
+ let out='<div class="nfl-p26 nfl-p26-game" style="--nfl-match-away:'+escapeHtml(a.color||"#ad2330")+';--nfl-match-home:'+escapeHtml(h.color||"#16416a")+'">'+
   '<div class="nfl-game-return"><a href="nfl-game-center.html">← ALL NFL GAMES</a>'+
   '<span>WEEK '+escapeHtml(g.week)+' · '+escapeHtml(status)+'</span></div>'+
   '<h1 class="nfl-title nfl-game-title">'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+'</h1>'+featuredMatch(g);
