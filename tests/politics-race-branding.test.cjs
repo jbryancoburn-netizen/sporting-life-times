@@ -50,7 +50,9 @@ test('Iowa and other states display flag, real district outline, and party ident
   await page.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
   await page.goto(origin+'/politics-house-district.html?district=IA-01',{waitUntil:'domcontentloaded'});
   await page.locator('body.iowa-edition-active .race-identity-iowa').waitFor({timeout:15000});
-  assert.equal(await page.locator('body.iowa-edition-active .race-place-badge img').getAttribute('alt'),'Iowa state flag');
+  // External flag images are intentionally blocked in this browser test.
+  // The visible state abbreviation must then replace the unreachable image.
+  assert.equal(await page.locator('body.iowa-edition-active .race-flag-frame.flag-unavailable .race-flag-fallback').innerText(),'IA');
   assert.equal(await page.locator('.ia-candidate .race-party-feature').count(),2);
   assert.equal(await page.locator('.ia-candidate .race-party-blue').count(),1);
   assert.equal(await page.locator('.ia-candidate .race-party-red').count(),1);
@@ -59,7 +61,7 @@ test('Iowa and other states display flag, real district outline, and party ident
   await page.goto(origin+'/politics-house-district.html?district=NE-02',{waitUntil:'domcontentloaded'});
   await page.locator('.race-identity-general').waitFor({timeout:15000});
   await page.locator('.race-district-geometry .race-geographic-current').waitFor({timeout:15000});
-  assert.equal(await page.locator('.race-flag-frame img').getAttribute('alt'),'Nebraska state flag');
+  assert.equal(await page.locator('.race-flag-frame.flag-unavailable .race-flag-fallback').innerText(),'NE');
   assert.equal(await page.locator('.race-district-geometry .race-geographic-current').getAttribute('data-district'),'NE-02');
   assert.equal(await page.locator('.front-person .race-party-feature').count(),2);
   assert.equal(await page.locator('.race-number').count(),3);
