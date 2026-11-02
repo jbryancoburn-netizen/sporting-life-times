@@ -40,6 +40,7 @@ SOURCES = {
         (656, "https://corsairathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (326, "https://hornets.kzoo.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
         (520, "https://battlingbishops.com/sports/mens-basketball/schedule/2026-27?grid=true"),
+        (118, "https://athletics.carleton.edu/sports/mens-basketball/schedule/2026-27?grid=true"),
     ],
     "women": [
         (30037, "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true"),
@@ -59,6 +60,7 @@ SOURCES = {
         (722, "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (142, "https://cmsathletics.org/sports/womens-basketball/schedule/2026-27?grid=true"),
         (300, "https://www.iwusports.com/sports/womens-basketball/schedule/2026-27?grid=true"),
+        (376, "https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true"),
     ],
 }
 # Institutional nicknames are used only when explicitly unambiguous.
@@ -110,6 +112,9 @@ OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
 # from neighboring season IDs.
 OFFICIAL_CONFERENCE_SCHEDULES = {
     "men": {
+        161: ("https://miacathletics.com/schedule.aspx?schedule=3665", "Concordia"),
+        376: ("https://miacathletics.com/schedule.aspx?schedule=3662", "Macalester"),
+        118: ("https://miacathletics.com/schedule.aspx?schedule=3661", "Carleton"),
         # University 2026–27 athletics schedules unavailable; official SLIAC team grids.
         1450: ("https://sliac.org/schedule.aspx?schedule=2037", "Westminster"),
         53: ("https://midwestconference.org/schedule.aspx?schedule=3999", "Beloit"),
@@ -120,6 +125,9 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
     },
     "women": {
+        161: ("https://miacathletics.com/schedule.aspx?schedule=3671", "Concordia"),
+        118: ("https://miacathletics.com/schedule.aspx?schedule=3675", "Carleton"),
+        376: ("https://miacathletics.com/schedule.aspx?schedule=3681", "Macalester"),
         1450: ("https://sliac.org/schedule.aspx?schedule=2045", "Westminster"),
         53: ("https://midwestconference.org/schedule.aspx?schedule=3989", "Beloit"),
         218: ("https://sliac.org/schedule.aspx?schedule=2038", "Eureka"),
@@ -847,6 +855,8 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][218][1] == "Eureka"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][449][1] == "Mount Holyoke"
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][64][1] == "Blackburn"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][161][1] == "Concordia"
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][118][1] == "Carleton"
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1450][1] == "Westminster"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1450][0].endswith("schedule=2045")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
