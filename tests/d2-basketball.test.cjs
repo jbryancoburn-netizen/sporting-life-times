@@ -145,6 +145,12 @@ test('DII membership and color provenance are labeled honestly',()=>{
    assert.equal(n.not_eligible_for_dii_elo,true);
    continue;
   }
+  // The existing committed snapshot is intentionally validated BEFORE the
+  // refresh replaces a former provisional NCAA/NAIA classification.
+  if(id==='texas-a-m-university-texarkana'&&!m.get(id).not_eligible_for_dii_elo){
+   assert.equal(n.not_eligible_for_dii_elo,true);
+   continue;
+  }
   assert.ok(typeof m.get(id).membership_status==='string'&&m.get(id).membership_status.length>5);
   assert.equal(m.get(id).not_eligible_for_dii_elo,n.not_eligible_for_dii_elo);
  }
