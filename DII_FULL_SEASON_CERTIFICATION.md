@@ -125,3 +125,22 @@ academic-year URL spellings, `2026-27` and `2026-2027`, are supported with
 strict sport/season checks. These are verified official site URLs, not certified
 complete calendars.
 
+
+
+## Verified cross-date source conflict: Saint Martin's vs Hawaii Pacific
+
+The 2026-27 Saint Martin's official university calendar shows its men's home
+game against Hawaii Pacific on **December 19, 2026 at 7:00 PM Pacific
+(10:00 PM Eastern)**. The existing NCAA canonical contest `6665372` lists
+that pair on **December 20 at 12:30 AM Eastern**. These are contradictory
+source dates/tipoffs for one named matchup, not grounds to publish two games.
+The exact discrepancy is retained in
+`data/d2-official-school-grids-2026-27.json:cross_date_quarantines[]`.
+Only when the recorded NCAA ID, team pair, official URL and adjacent dates
+all match may the existing DII importer remove a *duplicate synthetic*
+`d2schoolgrid-2026-...` scheduled record; it never deletes NCAA games,
+verified finals, unrelated repeated pairings, or broadcasts. The source row
+remains visible to the certification auditor and the date/time conflict
+remains **unresolved** until an independent verification establishes the
+correct scheduled time. This protects both the ledger and the 1500 Elo replay.
+
