@@ -117,7 +117,7 @@ def parse_merced(html):
     soup=BeautifulSoup(html,'html.parser')
     title=soup.title.get_text(' ',strip=True).replace('’',"'") if soup.title else ''
     full=' '.join(soup.get_text(' ',strip=True).lower().split())[:3000]
-    if (not re.search(r'2026[-–](?:2027|27).*\bmen.s\s+basketball\b',title,re.I) or
+    if (not re.search(r"2026[-–](?:2027|27).*\\bmen['’]s\\s+basketball\\b",title,re.I) or
         'merced' not in (title+' '+full).lower()):
         raise ValueError('Wrong gender, institution, or year at UC Merced')
     best=[]
@@ -158,7 +158,8 @@ def identities(teams):
 def enrich_ccaa_men(games,teams,today=None,fetcher=fetch):
     today=today or dt.date.today()
     ids,ambiguous=identities(teams)
-    if len(ids)<13 or ambiguous:
+    # All fourteen conference schools must have eligible, unique identities.
+    if len(ids)<len(ALIASES) or ambiguous:
         return {'status':'CCAA institutional identities incomplete; held',
                 'teams_identified':len(ids),'ambiguous':ambiguous,'added':0,'enriched':0}
     sources={};failed=[];rejected=0

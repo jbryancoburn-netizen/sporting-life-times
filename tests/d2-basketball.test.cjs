@@ -214,3 +214,17 @@ test('DII CCAA school evidence requires independent men’s university calendars
  assert.match(code,/if all\(clocks\) and clocks\[0\]==clocks\[1\]/);
  assert.match(builder,/official_ccaa_men_schedule_reconciliation/);
 });
+
+test('DII official university school-grid evidence covers all three verified recovery calendars',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ assert.equal(evidence.season,'2026-27');
+ assert.deepEqual(evidence.schools.map(x=>x.fixtures.length),[27,28,28]);
+ assert.deepEqual(evidence.schools.map(x=>x.gender),['men','women','women']);
+ for(const calendar of evidence.schools){
+  assert.match(calendar.source_url,/^https:\/\//);
+  for(const game of calendar.fixtures){
+   assert.match(game.date,/^202[67]-\d\d-\d\d$/);
+   assert.ok(['away','home','neutral'].includes(game.role));
+  }
+ }
+});
