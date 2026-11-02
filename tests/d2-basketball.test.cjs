@@ -218,11 +218,12 @@ test('DII CCAA school evidence requires independent men’s university calendars
  assert.match(builder,/official_ccaa_men_schedule_reconciliation/);
 });
 
-test('DII official university school-grid evidence covers all three verified recovery calendars',()=>{
+test('DII official university school-grid evidence covers all four verified recovery calendars',()=>{
  const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
  assert.equal(evidence.season,'2026-27');
- assert.deepEqual(evidence.schools.map(x=>x.fixtures.length),[27,28,28]);
- assert.deepEqual(evidence.schools.map(x=>x.gender),['men','women','women']);
+ assert.deepEqual(evidence.schools.map(x=>x.fixtures.length),[27,28,28,28]);
+ assert.deepEqual(evidence.schools.map(x=>x.gender),['men','women','women','women']);
+  assert.equal(evidence.schools[3].owner_id,'university-of-charleston-west-virginia');
  for(const calendar of evidence.schools){
   assert.match(calendar.source_url,/^https:\/\//);
   for(const game of calendar.fixtures){
