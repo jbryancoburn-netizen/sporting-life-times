@@ -46,9 +46,9 @@ ALIASES = {
     "Worcester State": ["worcester state", "worcester state university"],
     "Framingham State": ["framingham state", "framingham state university"],
     "La Roche": ["la roche", "la roche university"],
-    "Pitt-Bradford": ["pitt bradford", "university of pittsburgh at bradford"],
-    "Penn State Behrend": ["penn state behrend", "pennsylvania state university behrend"],
-    "Penn State Altoona": ["penn state altoona", "pennsylvania state university altoona"],
+    "Pitt-Bradford": ["pitt bradford", "university of pittsburgh bradford"],
+    "Penn State Behrend": ["penn state behrend", "pennsylvania state univ erie the behrend college"],
+    "Penn State Altoona": ["penn state altoona", "penn state university altoona"],
     "Carlow": ["carlow", "carlow university"],
 }
 def norm(s):
@@ -71,7 +71,7 @@ def main():
         raise ValueError(f"Expected 16 official source rows, found {len(source_rows)}")
     for date, owner, other, _ in RECORDS:
         dt.date.fromisoformat(date)
-        formatted = dt.date.fromisoformat(date).strftime("%b %-d, %Y")
+        formatted = f"{dt.date.fromisoformat(date):%b} {dt.date.fromisoformat(date).day}, {dt.date.fromisoformat(date):%Y}"
         if not any(formatted in x and other.lower() in x.lower() for x in source_rows):
             raise ValueError(f"Evidence missing for {date}: {owner} / {other}")
 
@@ -94,8 +94,8 @@ def main():
             state = "matched_pair_date_site_needs_independent_check"
         else:
             x = candidates[0]
-            correct = (x.get("home_org_id") == ids[owner]) if orientation == "home" else (
-                x.get("away_org_id") == ids[owner])
+            correct = (int(x.get("home_org_id") or -1) == ids[owner]) if orientation == "home" else (
+                int(x.get("away_org_id") or -1) == ids[owner])
             state = "matched" if correct else "home_away_conflict"
         report.append({"date": day, "publisher": owner, "opponent": other,
                        "site_from_publisher": orientation, "status": state,
