@@ -1,0 +1,353 @@
+/* NFL Gamefile editorial refinements, 2026-11-01.
+   Scoped to the existing gamefile. Team hues come from each game ledger.
+   No new logo shells, data feeds, refresh jobs or score projections. */
+body.nfl-paper[data-page="game"] .nfl-feature-v10{
+  --nfl-ink:#17242c;--nfl-paper-cream:#f8f5ed;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-chart,
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-model,
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report{
+  min-width:0;max-width:100%;
+}
+/* Editorial score story: strong hierarchy, actual club colors. */
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-story-intro{
+  border-top:0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-eyebrow{
+  color:var(--nfl-ink);border-left:4px solid var(--nfl-story-away);
+  padding-left:12px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-story-intro h1{
+  max-width:100%;text-wrap:balance;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-chart{
+  margin:12px 0 25px;padding:14px 0 22px;
+  border-top:2px solid #28383c;border-bottom:1px solid #c6c6c0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-chart-header{
+  flex-wrap:wrap;row-gap:9px;
+  padding:0 0 10px;font-size:11px;letter-spacing:.09em;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-chart-legend i.away,
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-arc .arc-away{
+  background:var(--nfl-story-away);stroke:var(--nfl-story-away);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-chart-legend i.home{
+  background:var(--nfl-story-home)!important;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-arc .arc-home,
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-arc .arc-home-dot{
+  stroke:var(--nfl-story-home)!important;
+}
+/* Verified play-based scoring timeline replaces the live blank slab. */
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline{
+  display:block;margin-top:4px;padding:7px 0 0;overflow:hidden;
+}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline svg{
+  display:block;width:100%;height:auto;max-height:270px;
+  overflow:visible;
+}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-away,
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-home{
+  fill:none;stroke-width:4.6;stroke-linejoin:round;stroke-linecap:round;
+}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-away{stroke:var(--nfl-story-away)}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-home{stroke:var(--nfl-story-home)}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-away-dot,
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-home-dot{
+  fill:#f8f5ed;stroke-width:3;
+}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-away-dot{stroke:var(--nfl-story-away)}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .arc-home-dot{stroke:var(--nfl-story-home)}
+.nfl-paper[data-page="game"] .nfl-live-scoring-timeline .nfl-feature-chart-quarter.is-future{
+  fill:#bbb9b2;
+}
+.nfl-paper[data-page="game"] .nfl-live-scoring-footer{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:9px 0;border-top:1px solid #c9c6bc;
+  font:800 10px/1.35 Arial,sans-serif;letter-spacing:.10em;color:#5a6668;
+}
+.nfl-paper[data-page="game"] .nfl-live-scoring-footer strong{
+  padding:5px 8px;color:#fff;background:#25363f;letter-spacing:.13em;
+  flex:none;
+}
+.nfl-paper[data-page="game"] .nfl-score-live-preview{
+  margin:8px 0 0;padding:18px 1px;
+  border-top:1px solid #d4d0c7;
+}
+.nfl-paper[data-page="game"] .nfl-score-live-copy strong{
+  display:block;font:900 11px Arial,sans-serif;letter-spacing:.13em;color:#21323b;
+}
+.nfl-paper[data-page="game"] .nfl-score-live-copy p{
+  margin:6px 0 12px;color:#636968;font:italic 14px/1.4 Georgia,serif;
+}
+.nfl-paper[data-page="game"] .nfl-score-live-line{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:0 0 3px;font:800 13px Arial,sans-serif;color:#263942;
+  letter-spacing:.08em;
+}
+.nfl-paper[data-page="game"] .nfl-score-live-line span{
+  display:inline-flex;align-items:baseline;gap:12px;border-bottom:4px solid;padding:0 0 7px;
+}
+.nfl-paper[data-page="game"] .nfl-score-live-line .away{border-color:var(--nfl-story-away)}
+.nfl-paper[data-page="game"] .nfl-score-live-line .home{border-color:var(--nfl-story-home)}
+.nfl-paper[data-page="game"] .nfl-score-live-line b{
+  font:800 clamp(28px,5vw,44px) Georgia,serif;letter-spacing:-.04em;
+}
+/* The model should read like a sports-desk graphic, not a squeezed sidebar. */
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-model{
+  position:relative;margin:10px calc(-1 * var(--nfl-page-gutter)) 28px;
+  padding:23px var(--nfl-page-gutter) 25px;
+  background:#eae8e0;border-top:0;border-bottom:1px solid #d1cdc2;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-model:before{
+  content:"";display:block;height:5px;position:absolute;top:0;left:0;right:0;
+  background:linear-gradient(90deg,var(--nfl-story-away) 0 48%,#f8f5ed 48% 52%,var(--nfl-story-home) 52% 100%);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-section-label{
+  color:#283b43;letter-spacing:.12em;font-size:10px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-layout{
+  grid-template-columns:minmax(175px,26%) minmax(0,1fr);
+  gap:clamp(12px,2.3vw,30px);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading h2{
+  color:#182e3a;text-wrap:balance;font-size:clamp(31px,4vw,53px);
+  line-height:1.02;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading p{
+  color:#565b5d;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-scores>div:first-child{
+  border-left:3px solid var(--nfl-story-away);padding-left:12px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-scores>div:last-child{
+  padding-left:16px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-probs{
+  padding:14px 4px 13px;border-color:#adb6b2;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values{
+  gap:14px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values>div{
+  display:flex;flex-wrap:wrap;align-items:baseline;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values small:after{
+  background:var(--nfl-story-away);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values>div:last-child small:after{
+  background:var(--nfl-story-home);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-band{
+  display:flex;gap:3px;width:100%;height:11px;margin:13px 0 0;overflow:hidden;
+  background:#c9c8c0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-band .away{
+  display:block;background:var(--nfl-story-away);min-width:0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-band .home{
+  display:block;background:var(--nfl-story-home);min-width:0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-elo{
+  padding:14px 0 1px;gap:0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-elo>div{
+  padding:0 12px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-elo-matchup{
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px 13px;
+  margin:9px 0 1px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-elo-matchup b{
+  display:inline-flex;align-items:center;gap:7px;margin:0;
+  font:800 clamp(16px,1.65vw,23px)/1.15 Georgia,serif;white-space:nowrap;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-elo-matchup em{
+  font:900 10px Arial,sans-serif;font-style:normal;letter-spacing:.06em;
+  padding:4px 5px;background:#f8f5ee;border-left:3px solid;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-elo-matchup .away{
+  border-color:var(--nfl-story-away);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-elo-matchup .home{
+  border-color:var(--nfl-story-home);
+}
+/* Two-club game statistics: true club colors, no universal red/blue. */
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report{
+  position:relative;background:linear-gradient(120deg,#101f2b,#152c36 55%,#111f2b);
+  isolation:isolate;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report:before{
+  content:"";height:5px;position:absolute;top:0;left:0;right:0;
+  background:linear-gradient(90deg,var(--nfl-story-away) 0 48%,#ffffffaa 48% 52%,var(--nfl-story-home) 52% 100%);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report-heading{
+  color:#f7f7f4;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-head strong{
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-metric-identity{
+  padding:4px 6px 3px;border-bottom:3px solid;font:900 11px Arial,sans-serif;
+  letter-spacing:.13em;color:#fff;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-metric-identity.away{
+  border-color:var(--nfl-story-away-secondary);
+  background:var(--nfl-story-away);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-metric-identity.home{
+  border-color:var(--nfl-story-home-secondary);
+  background:var(--nfl-story-home);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-metric-vs{color:#d8dad8}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric{
+  padding:10px 0 14px;border-bottom:1px solid #ffffff21;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric .label{
+  margin:0 0 10px;color:#e4e9e8;
+  letter-spacing:.11em;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values{
+  grid-template-columns:78px minmax(0,1fr) 78px;
+  gap:11px;min-width:0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values b{
+  display:block;min-width:0;max-width:100%;
+  font-size:clamp(22px,2.5vw,32px);font-variant-numeric:tabular-nums;
+  padding:2px 0 6px;border-bottom:3px solid transparent;
+  letter-spacing:-.035em;white-space:nowrap;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values b.nfl-metric-away{
+  border-color:var(--nfl-story-away-secondary);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values b.nfl-metric-home{
+  border-color:var(--nfl-story-home-secondary);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-bars{
+  align-self:center;min-width:0;width:100%;height:13px;
+  gap:3px;overflow:hidden;border-radius:0;background:#36444b;
+  outline:1px solid #ffffff18;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-bars i{
+  background:var(--nfl-story-away)!important;
+  border-top:2px solid var(--nfl-story-away-secondary);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-bars em{
+  background:var(--nfl-story-home)!important;
+  border-top:2px solid var(--nfl-story-home-secondary);
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric[data-metric="possessionTime"] .nfl-live-metric-values b{
+  font-size:clamp(19px,2.1vw,25px);letter-spacing:-.055em;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-play b{color:#eee2d5}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-play.is-scoring{
+  border-left:3px solid var(--nfl-story-home-secondary);
+  padding-left:9px;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report .nfl-live-play{
+  min-width:0;
+}
+.nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report .nfl-live-play span{
+  min-width:0;overflow-wrap:anywhere;
+}
+/* No squeezed side rail or clipped numeric headings on phones. */
+@media(max-width:760px){
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-layout{
+   grid-template-columns:minmax(0,1fr)!important;gap:16px!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading{
+   border-right:0;border-bottom:1px solid #b4b5ae;padding:0 0 12px;
+   display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+   align-items:end;gap:15px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading h2{
+   font-size:clamp(27px,5.8vw,38px)!important;margin:0;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading p{
+   font-size:13px;line-height:1.3;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-scores strong{
+   font-size:clamp(36px,7vw,50px);
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-elo{
+   grid-template-columns:1fr;gap:12px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-elo>div{
+   padding:0 0 12px!important;
+   border-left:0!important;border-bottom:1px solid #c9c7bd;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-elo>div:last-child{
+   border-bottom:0;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-elo-matchup b{
+   font-size:clamp(18px,4vw,23px);
+ }
+}
+@media(max-width:600px){
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-story-model{
+   padding:18px var(--nfl-page-gutter) 18px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading{
+   grid-template-columns:minmax(0,1fr);gap:5px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading h2{
+   font-size:clamp(29px,8vw,38px)!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading h2 br{
+   display:none;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-heading p{
+   font-size:13px!important;margin:1px 0 0;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-scores>div{
+   padding:0 9px!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-model-scores strong{
+   font-size:clamp(31px,9vw,43px)!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values{
+   gap:10px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values strong{
+   font-size:clamp(26px,8.2vw,41px)!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-prob-values small{
+   font-size:11px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-chart{
+   margin:10px 0 19px;padding:12px 0 15px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-scoring-footer{
+   flex-wrap:wrap;font-size:9px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-feature-report{
+   padding:25px 16px 23px;margin-top:13px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-head{
+   align-items:center;flex-wrap:wrap;gap:8px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values{
+   grid-template-columns:69px minmax(0,1fr) 69px;gap:9px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values b{
+   font-size:clamp(20px,6vw,28px)!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric[data-metric="possessionTime"] .nfl-live-metric-values b{
+   font-size:clamp(19px,5.5vw,24px)!important;letter-spacing:-.05em;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric .label{
+   font-size:10px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-play{
+   grid-template-columns:57px minmax(0,1fr);
+ }
+}
+@media(max-width:370px){
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric-values{
+   grid-template-columns:61px minmax(0,1fr) 61px;gap:7px;
+ }
+ .nfl-paper[data-page="game"] .nfl-feature-v10 .nfl-live-metric[data-metric="possessionTime"] .nfl-live-metric-values b{
+   font-size:18px!important;
+ }
+}
