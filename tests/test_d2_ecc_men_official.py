@@ -37,6 +37,19 @@ class ECCSchoolRecoveryTests(unittest.TestCase):
                      grid("roberts","vs. Mercy"),
                      grid("roberts","Not A Real Opponent")):
             with self.assertRaises(ValueError):parse(page,2688)
+    def test_short_official_university_calendar_is_never_misrepresented_as_complete(self):
+        from bs4 import BeautifulSoup
+        for ident,owner in ((2690,"queens"),(2682,"dyouville")):
+            soup=BeautifulSoup(grid(owner,"District of Columbia"),"html.parser")
+            for row in soup.select("tbody tr")[4:]:
+                row.decompose()
+            school_owner,rows,bad=parse(str(soup),ident)
+            self.assertEqual(school_owner,owner)
+            self.assertEqual(len(rows),4)
+            self.assertEqual(bad,0)
+        ident,rows,bad=parse(grid("stac","Mercy"),2696)
+        self.assertEqual(ident,"stac")
+        self.assertEqual(len(rows),12)
     def test_two_witnesses_one_game_and_preserved_past_scores(self):
         teams={key:{"name":aliases[0],"conference":"ECC","id":key}
                for key,aliases in SCHOOLS.items()}
