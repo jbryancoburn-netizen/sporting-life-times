@@ -212,6 +212,7 @@ test('DII CCAA school evidence requires independent men’s university calendars
  assert.match(code,/set\(seen\)!=\{away,home\}/);
  assert.match(code,/if day<today\.isoformat\(\):continue/);
  assert.match(code,/if all\(clocks\) and clocks\[0\]==clocks\[1\]/);
+ assert.match(code,/unmarked_both_held/);
  assert.match(builder,/official_ccaa_men_schedule_reconciliation/);
 });
 
