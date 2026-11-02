@@ -12,7 +12,7 @@ DATA = ROOT / "data" / "d2-official-school-grids-2026-27.json"
 class D2OfficialSchoolGrids(unittest.TestCase):
     def test_three_source_grids_are_distinct_and_have_exact_provenance(self):
         data = json.loads(DATA.read_text())
-        self.assertEqual([len(x["fixtures"]) for x in data["schools"]], [27,28,28])
+        self.assertEqual([len(x["fixtures"]) for x in data["schools"]], [27,28,28,28])
         for school in data["schools"]:
             self.assertTrue(school["source_url"].startswith("https://"))
             self.assertEqual(len({(x["date"], x["opponent"]) for x in school["fixtures"]}),
@@ -47,6 +47,40 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         self.assertEqual(existing["status"],"final")
         self.assertEqual(existing["start_time"],"6:00 PM ET")
         self.assertEqual(existing["source_url"],"https://www.ncaa.com/game/123")
+
+
+    def test_charleston_2026_women_28_official_rows_and_guardrails(self):
+        evidence=json.loads(DATA.read_text())
+        school=next(s for s in evidence["schools"] if
+                    s["owner_id"]=="university-of-charleston-west-virginia")
+        self.assertEqual(len(school["fixtures"]),28)
+        self.assertTrue(all(x["date"]>="2026-11-09" for x in school["fixtures"]))
+        self.assertEqual(school["home_venue"],"Wehrle Innovation Center · Charleston, WV")
+        teams={
+            "university-of-charleston-west-virginia":{
+                "id":"university-of-charleston-west-virginia",
+                "name":"University of Charleston (West Virginia)","slug":""},
+            "fairmont-state-university":{
+                "id":"fairmont-state-university","name":"Fairmont State University","slug":""},
+            "west-virginia-wesleyan-college":{
+                "id":"west-virginia-wesleyan-college","name":"West Virginia Wesleyan College","slug":""},
+        }
+        games={}
+        first=apply_official_school_grid_snapshots("women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(first["created"],4)
+        self.assertEqual(first["source_rows"],84)
+        fairmont=[g for g in games.values() if "fairmont-state-university" in
+                  (g["away"],g["home"])]
+        self.assertEqual(len(fairmont),2)
+        home=next(g for g in fairmont if g["date"]=="2026-12-02")
+        self.assertIn("Wehrle Innovation Center",home["venue"])
+        self.assertEqual(home["home"],"university-of-charleston-west-virginia")
+        self.assertEqual(home["start_time"],"5:30 PM ET")
+        self.assertEqual(home["status"],"scheduled")
+        self.assertIsNone(home["home_score"])
+        second=apply_official_school_grid_snapshots("women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(second["created"],0)
+        self.assertEqual(len(games),4)
 
     def test_non_dii_opponent_never_becomes_eligible_fixture(self):
         teams={"lincoln-university-pennsylvania":{"id":"lincoln-university-pennsylvania","name":"Lincoln University (Pennsylvania)","slug":""},
