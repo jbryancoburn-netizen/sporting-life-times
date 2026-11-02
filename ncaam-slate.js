@@ -121,14 +121,58 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
-let cross={teams:[]},palette={},ready=false;
+let cross={teams:[]},palette={},arenaRegistry={};
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
 let followed=new Set();
 try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(String))}catch{}
 const fetchJSON=async path=>{const c=new AbortController();const tm=setTimeout(()=>c.abort(),14000);
   try{const r=await fetch(path,{cache:'no-store',signal:c.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(tm)}};
 const saveURL=()=>{const u=new URL(location.href);u.searchParams.set('date',selected);if(filter==='all')u.searchParams.delete('view');else u.searchParams.set('view',filter);history.replaceState({},'',u.pathname+u.search+u.hash)};
-const brand=t=>{if(!t)return'#133a48';const p=palette[String(t.id)];const c=p?.primary||'#234b62';return /^#[0-9a-f]{6}$/i.test(c)?c:'#234b62'};
+const brand=t=>{if(!t)return '#133a48';const p=palette[String(t.id)];const c=p?.primary||'#234b62';return /^#[0-9a-f]{6}$/i.test(c)?c:'#234b62'};
+const secondary=t=>{const c=palette[String(t?.id)]?.secondary||'#b49864';
+  return /^#[0-9a-f]{6}$/i.test(c)&&c.toLowerCase()!=='#ffffff'?c:'#b49864'};
+const mascot=t=>{const full=String(t?.full||'').trim(),school=String(t?.name||'').trim();
+  if(!full||!school)return '';
+  let label=full.toLowerCase().startsWith(school.toLowerCase())?full.slice(school.length).trim():'';
+  // Verified provider nickname can be obtained from exact ESPN team ID, but
+  // never use a first-letter guess for an unidentified opponent.
+  if(!label&&cross?.teams){const found=cross.teams.find(x=>String(x.espn_id)===String(t?.id));
+    const official=String(found?.espn_name||'');
+    if(official.toLowerCase().startsWith(school.toLowerCase()))label=official.slice(school.length).trim();}
+  return label&&label.length<=35?label:'';
+};
+const teamPage=t=>women?
+  (validId(t?.id)?'ncaaw-team.html?team='+encodeURIComponent(t.id):''):
+  (String(t?.canonical||'').startsWith('ncaa:')?'ncaam-team.html?team='+encodeURIComponent(t.id):'');
+const homeProfile=g=>{
+  if(women||g.kind==='exhibition'||!g.home?.canonical)return null;
+  const info=arenaRegistry[String(g.home.id)];
+  const name=String(info?.home_arena||'').trim(),source=String(info?.home_arena_source||'');
+  if(!name||!/^https:\/\/[^\s"'<>]+$/i.test(source))return null;
+  return {name,source};
+};
+const tonal=(t)=>'--sl-tone:'+brand(t)+';--sl-highlight:'+secondary(t);
+const metricValue=n=>Number.isFinite(Number(n))?String(Math.round(Number(n))):'—';
+const pennant=t=>'<div class="sl-pennant" style="--pennant:'+brand(t)+';--pennant-accent:'+secondary(t)+'">'+
+ '<span class="sl-pennant-rivet" aria-hidden="true"></span>'+
+ '<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
+ '<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
+ '<strong class="sl-pennant-mascot">'+esc(mascot(t)||'BASKETBALL')+'</strong></div>';
+const arenaStage=g=>{
+  const profile=homeProfile(g),venue=String(g.venue||'').trim();
+  const intro=venue?'GAME VENUE':profile?'THE HOME-COURT FILE':'THE MATCHUP FLOOR';
+  const name=venue||profile?.name||'COLLEGE BASKETBALL';
+  const source=venue?'SOURCED GAME LOCATION':profile?'SCHOOL ARENA REFERENCE · NOT A VERIFIED GAME SITE':'EDITORIAL COURT GRAPHIC';
+  const link=profile&&!venue?'<a href="'+esc(profile.source)+'" target="_blank" rel="noopener noreferrer">Arena source ↗</a>':'';
+  return '<div class="sl-arena-stage" aria-label="Team-color matchup pennants and documented arena context">'+
+   '<div class="sl-arena-gallery"><div class="sl-stage-beam" aria-hidden="true"></div>'+
+   '<div class="sl-pennant-row">'+pennant(g.away)+
+   '<div class="sl-stage-mid" aria-hidden="true"><span>SL<span class="sl-mid-dot">•</span>T</span><small>MATCHUP</small></div>'+
+   pennant(g.home)+'</div><div class="sl-floor-graphic" aria-hidden="true">'+
+   '<span class="sl-floor-half"></span><span class="sl-floor-circle"></span><span class="sl-floor-key"></span></div></div>'+
+   '<div class="sl-arena-caption"><div><small>'+esc(intro)+'</small><strong>'+esc(name)+'</strong>'+
+   '<span>'+esc(source)+'</span></div>'+link+'</div></div>';
+};
 const emblem=t=>{
   if(!women&&window.MBBLogos?.byESPN)return window.MBBLogos.byESPN(t.id,'featured',t.name);
   const obj=rankings.get(String(t.id))||{},logo=String(obj.logo||'');
@@ -140,9 +184,14 @@ const emblem=t=>{
 };
 const rating=t=>{const r=rankOf(t,ratings,women);return r&&Number.isFinite(+r.elo)?Math.round(+r.elo):null};
 const record=t=>{const r=rankOf(t,ratings,women);return r&&r.wins!=null&&r.losses!=null?Number(r.wins)+'–'+Number(r.losses):'0–0'};
-const team=t=>'<span class="sl-team">'+emblem(t)+'<span class="sl-team-copy"><strong>'+esc(t.name)+'</strong>'+
-  '<small>'+esc(t.full&&t.full.toLowerCase().startsWith(t.name.toLowerCase())?t.full.slice(t.name.length).trim():t.full||'')+'</small>'+
-  '<span class="sl-record">'+esc(record(t))+' <span aria-hidden="true">·</span> RETRO '+(rating(t)??'—')+'</span></span></span>';
+const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
+ const body='<span class="sl-team">'+emblem(t)+'<span class="sl-team-copy"><strong>'+esc(t.name)+'</strong>'+
+  '<small>'+esc(mascot(t)||'')+'</small>'+
+  '<span class="sl-record">'+esc(record(t))+' <span aria-hidden="true">·</span> RETRO '+(rating(t)??'—')+'</span>'+
+  (profile?.conference?'<span class="sl-conference">'+esc(profile.conference)+'</span>':'')+
+  '</span></span>';
+ return url?'<a class="sl-team-link" href="'+esc(url)+'" aria-label="Open '+esc(t.name)+' team page">'+body+'</a>':body;
+};
 const favorite=t=>'<button class="sl-follow'+(followed.has(t.id)?' is-followed':'')+'" type="button" data-follow="'+esc(t.id)+'" aria-pressed="'+followed.has(t.id)+'" title="'+(followed.has(t.id)?'Unfollow':'Follow')+' '+esc(t.name)+'">'+(followed.has(t.id)?'★':'☆')+'<span class="sr-only"> Follow '+esc(t.name)+'</span></button>';
 const lens=g=>{
   const a=rating(g.away),h=rating(g.home),has=a!==null&&h!==null;
@@ -157,6 +206,19 @@ const lens=g=>{
   const leader=a>=h?g.away.name:g.home.name,diff=Math.abs(a-h);
   return [diff<=1?'An even RETRO matchup':leader+' enters '+Math.round(diff)+' Elo ahead',
     'Current independent 2026–27 ratings; both teams started at 1500.'];
+};
+const matchupStats=g=>{
+ if(g.kind==='exhibition')return '<div class="sl-matchup-facts"><span>EXHIBITION</span><strong>NOT PART OF RETRO</strong></div>';
+ const a=rankOf(g.away,ratings,women),h=rankOf(g.home,ratings,women);
+ if(!a||!h)return '';
+ const vA=rating(g.away),vH=rating(g.home);
+ const delta=vA!==null&&vH!==null?Math.abs(vA-vH):null;
+ const leader=delta===0?'LEVEL':vA>vH?g.away.name:g.home.name;
+ const matchTotal=(Number(a.games_played)||0)+(Number(h.games_played)||0);
+ return '<div class="sl-matchup-facts">'+
+  '<span><small>USRS GAP</small><strong>'+(delta===null?'—':delta+' pts')+'</strong></span>'+
+  '<span><small>RATING EDGE</small><strong>'+esc(leader)+'</strong></span>'+
+  '<span><small>COMBINED FINALS</small><strong>'+matchTotal+'</strong></span></div>';
 };
 const meter=g=>{
   if(g.phase!=='upcoming'||!Number.isFinite(g.probability))return '';
@@ -174,10 +236,12 @@ function card(g,featured){
    g.phase==='live'?'Live scoreboard':'Sourced fixture + USRS';
  const score=g.phase==='upcoming'?'':(g.away.score===null||g.home.score===null?'SCORE PENDING':g.away.score+' — '+g.home.score);
  const venue=g.venue?'<span class="sl-location">'+esc(g.venue)+'</span>':'';
- return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+'">'+
+ return '<article class="sl-game'+(featured?' sl-featured':'')+'" style="--sl-away:'+brand(g.away)+';--sl-home:'+brand(g.home)+
+  ';--sl-away-alt:'+secondary(g.away)+';--sl-home-alt:'+secondary(g.home)+'">'+
   '<div class="sl-game-bar"><span class="sl-tag '+(g.phase==='live'?'sl-live':'')+'">'+
   esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
   '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
+  arenaStage(g)+
   '<div class="sl-game-main"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
   '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
@@ -186,7 +250,7 @@ function card(g,featured){
   '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
   '<div class="sl-rating-pair"><span>'+esc(g.away.name)+' <b>'+ (rating(g.away)??'—')+'</b></span>'+
   '<i aria-hidden="true"></i><span>'+esc(g.home.name)+' <b>'+(rating(g.home)??'—')+'</b></span></div>'+
-  meter(g)+'</div></div>'+
+  matchupStats(g)+meter(g)+'</div></div>'+
   '<div class="sl-game-footer"><span>'+esc(source)+'</span>'+
   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
   (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a></div></article>';
@@ -210,7 +274,7 @@ const render=()=>{
 async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
-  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json'];
+  const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json'];
   const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
@@ -221,10 +285,11 @@ async function refresh(){
     loaded=normalizeWomen(results,rank,cross);
     lastUpdate='women’s rolling fixture ledger';
   }else{
-    const [feed,forecast,rank,c,pal,ex]=output;
+    const [feed,forecast,rank,c,pal,ex,arenas]=output;
     if(!feed||rank?.model!=='retro-clean-slate'||rank.starting_elo!==1500||rank.rankings?.length!==365)
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
+    arenaRegistry=arenas?.teams||{};
     loaded=[...normalizeMen(feed,forecast,cross),...normalizeExhibitions(ex,cross)];
     lastUpdate=feed.scores_updated_at?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(feed.scores_updated_at)):'source refresh pending';
     await window.MBBLogos?.ready;
