@@ -196,6 +196,79 @@ class EloTests(unittest.TestCase):
         self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11",html)
 
 
+    def test_temporary_compact_nfl_boxscore_phone_render(self):
+        """One-run Chromium audit of OPEN box score on a 390px phone."""
+        import os, shutil, subprocess, tempfile, threading, http.server, json, base64
+        if not os.environ.get("GITHUB_ACTIONS"):
+            self.skipTest("Browser audit is restricted to GitHub Actions")
+        chrome=next((shutil.which(z) for z in ("google-chrome","google-chrome-stable","chromium","chromium-browser") if shutil.which(z)),None)
+        if not chrome:self.skipTest("Headless Chromium unavailable")
+        root=Path(__file__).resolve().parents[1]
+        class Handler(http.server.SimpleHTTPRequestHandler):
+            def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(root),**kwargs)
+            def log_message(self,*args):pass
+        server=http.server.ThreadingHTTPServer(("127.0.0.1",0),Handler)
+        threading.Thread(target=server.serve_forever,daemon=True).start()
+        target=root/"nfl-box-qa-tmp.html"
+        try:
+            target.write_text("""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<style>body{margin:0;background:#ddd;font:10px Arial}#frame{width:390px;height:1500px;border:0;display:block}
+#qa{width:390px;white-space:pre-wrap;font:9px monospace}</style></head><body>
+<iframe id="frame" src="nfl-game.html?id=401873033"></iframe><pre id="qa">Loading verified gamefile…</pre>
+<script>
+let count=0;const id=setInterval(()=>{
+  count++;const frame=document.getElementById("frame"),d=frame.contentDocument;
+  const details=d?.querySelector("#nfl-game-deep-dive");
+  if(!details){if(count>45){document.querySelector("#qa").textContent="QA_JSON:"+JSON.stringify({error:"No gamefile details"});clearInterval(id);}return;}
+  details.open=true;
+  const img=d.querySelector("#nfl-game-box .nfl-box-athlete img");
+  if(!img){if(count>45){document.querySelector("#qa").textContent="QA_JSON:"+JSON.stringify({error:"No verified player rows",snippet:d.querySelector("#nfl-game-box")?.textContent.slice(0,180)});clearInterval(id);}return;}
+  const table=d.querySelector("#nfl-game-box .nfl-box-data");
+  const scroll=d.querySelector("#nfl-game-box .nfl-box-table-scroll");
+  const insight=d.querySelector("#nfl-game-story-data");
+  const ir=img.getBoundingClientRect();
+  const player=d.querySelector("#nfl-game-box .nfl-box-player-copy b");
+  d.defaultView.scrollTo(0,Math.max(0,details.getBoundingClientRect().top+d.defaultView.scrollY-100));
+  const payload={viewport:frame.contentWindow.innerWidth,
+   contentWidth:d.documentElement.scrollWidth,
+   imgWidth:Math.round(ir.width),imgHeight:Math.round(ir.height),
+   photoCount:d.querySelectorAll("#nfl-game-box .nfl-box-athlete img").length,
+   tableWidth:Math.round(table?.getBoundingClientRect().width||0),
+   scrollWidth:scroll?.scrollWidth,clientWidth:scroll?.clientWidth,
+   player:player?.textContent,sections:d.querySelectorAll("#nfl-game-box .nfl-box-category").length,
+   insightVisible:!!insight&&!insight.hidden,insightText:insight?.textContent.slice(0,200),
+   top:Math.round(details.getBoundingClientRect().top)};
+  document.querySelector("#qa").textContent="QA_JSON:"+JSON.stringify(payload);
+  clearInterval(id);
+},400);
+</script></body></html>""",encoding="utf-8")
+            url="http://127.0.0.1:"+str(server.server_port)+"/"+target.name
+            flags=[chrome,"--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",
+                "--hide-scrollbars","--force-device-scale-factor=1","--window-size=430,1510",
+                "--virtual-time-budget=22000"]
+            proc=subprocess.run(flags+["--dump-dom",url],capture_output=True,text=True,timeout=52)
+            self.assertEqual(proc.returncode,0,proc.stderr[-600:])
+            marker=re.search(r'QA_JSON:(\{[^\n<]+\})',proc.stdout)
+            self.assertIsNotNone(marker,"No browser metrics: "+proc.stdout[-800:])
+            metrics=json.loads(marker.group(1).replace("&quot;",'"').replace("&amp;","&"))
+            print("NFL_BOX_PHONE_METRICS",json.dumps(metrics))
+            self.assertNotIn("error",metrics)
+            self.assertLessEqual(metrics["contentWidth"],metrics["viewport"]+2)
+            self.assertLessEqual(metrics["imgWidth"],36)
+            self.assertLessEqual(metrics["imgHeight"],36)
+            self.assertGreater(metrics["photoCount"],10)
+            self.assertGreater(metrics["sections"],2)
+            self.assertTrue(metrics["insightVisible"])
+            self.assertGreater(metrics["scrollWidth"],metrics["clientWidth"])
+            with tempfile.TemporaryDirectory() as tempdir:
+                png=Path(tempdir)/"nfl-boxscore-390.png"
+                shot=subprocess.run(flags+["--screenshot="+str(png),url],capture_output=True,text=True,timeout=52)
+                if shot.returncode==0 and png.exists():
+                    print("NFL_BOX_PNG_BEGIN"+base64.b64encode(png.read_bytes()).decode("ascii")+"NFL_BOX_PNG_END")
+        finally:
+            target.unlink(missing_ok=True)
+            server.shutdown()
+
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
         self.assertEqual(len(t),32)
