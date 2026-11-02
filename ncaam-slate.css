@@ -868,3 +868,39 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-game .sl-pennant,.sl-featured .sl-pennant{height:207px!important;min-height:207px!important}
  .sl-game .sl-title-stars,.sl-featured .sl-title-stars{height:38px!important;min-height:38px!important;max-height:38px!important;flex-basis:38px!important}
 }
+
+/* Pennant layout v3: fixed grid tracks, not flex space distribution.
+   The logo is always in row 2 whether championship stars exist or not. */
+.sl-game .sl-pennant,.sl-featured .sl-pennant{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:38px 56px 30px 32px 24px!important;
+ align-content:start!important;justify-items:center!important;
+ row-gap:2px!important;
+ padding:14px 8px 25px!important;
+ height:219px!important;min-height:219px!important;
+}
+.sl-game .sl-pennant-seam{position:absolute!important;grid-row:auto!important}
+.sl-game .sl-pennant-rivet{display:none!important}
+.sl-game .sl-title-stars,.sl-featured .sl-title-stars{
+ grid-row:1!important;grid-column:1!important;
+ margin:0!important;padding:0!important;width:100%!important;
+ height:38px!important;min-height:38px!important;max-height:38px!important;
+ align-self:start!important;justify-self:center!important;
+}
+.sl-game .sl-pennant-brand,.sl-featured .sl-pennant-brand{
+ grid-row:2!important;grid-column:1!important;
+ align-self:center!important;justify-self:center!important;
+ height:56px!important;min-height:56px!important;max-height:56px!important;
+ margin:0!important;padding:0!important;
+}
+.sl-game .sl-pennant-name{grid-row:3!important;grid-column:1!important;align-self:center!important;margin:0!important}
+.sl-game .sl-pennant-mascot{grid-row:4!important;grid-column:1!important;align-self:start!important;margin:0!important}
+.sl-game .sl-pennant-rating{grid-row:5!important;grid-column:1!important}
+@media(max-width:650px){
+ .sl-game .sl-pennant,.sl-featured .sl-pennant{
+  grid-template-rows:38px 56px 26px 28px 24px!important;
+  height:207px!important;min-height:207px!important;
+  padding-top:11px!important;
+ }
+}
