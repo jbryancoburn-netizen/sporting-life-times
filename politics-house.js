@@ -68,6 +68,44 @@ function portraitNode(r,c,detail=false){
  }else figure.classList.add("portrait-missing");
  return figure;
 }
+/* Readable party emblems. Free Font Awesome political-animal icons (CC BY 4.0),
+ * with text fallbacks if CDN images cannot load. These are symbols, not endorsements.
+ * https://fontawesome.com/license/free
+ */
+function partySeal(code){
+ const c=code==="DEM"?"dem":code==="REP"?"rep":"other";
+ const name=code==="DEM"?"Democratic":code==="REP"?"Republican":partyName(code);
+ const seal=newEl("span",null,"political-party-seal seal-"+c);
+ seal.setAttribute("aria-label",name+" party identification");
+ const text=newEl("span",code==="DEM"?"D":code==="REP"?"R":code==="IND"?"I":code,"seal-letter");
+ seal.append(text);
+ if(code==="DEM"||code==="REP"){
+  const image=document.createElement("img");
+  const symbol=code==="DEM"?"democrat":"republican";
+  image.alt="";image.width=24;image.height=24;
+  image.loading="lazy";image.decoding="async";
+  image.src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/svgs/solid/"+symbol+".svg";
+  image.onload=()=>{seal.classList.add("seal-loaded");};
+  image.onerror=()=>{image.remove();};
+  seal.append(image);
+ }
+ const lab=newEl("span",name,"seal-text");
+ const wrap=newEl("span",null,"party-seal-group");wrap.append(seal,lab);
+ return wrap;
+}
+function stateStamp(code,cl){
+ if(!window.PoliticsStateArt)return newEl("span",code,cl+" state-art-fallback");
+ const stamp=newEl("span",null,cl);
+ stamp.append(window.PoliticsStateArt.create(code));
+ return stamp;
+}
+function graphicTheme(r,read){
+ if(read.watch||read.label==="Signals disagree")return "purple";
+ if(read.kind.startsWith("2024")||read.kind.startsWith("HISTORICAL"))return "history";
+ if(read.source==="poll"&&read.signalParty==="D")return "dem";
+ if(read.source==="poll"&&read.signalParty==="R")return "rep";
+ return "slate";
+}
 function openCardIcon(){
  const outer=newEl("span",null,"card-open");
  outer.setAttribute("aria-hidden","true");
@@ -290,17 +328,19 @@ function raceReasonPanel(r){
 function makeDistrictCard(r){
  const info=districtEvidence(r),paint=color(info.party,info.margin);
  const read=preliminaryRaceRead(r);
- const link=newEl("a",null,"district-card district-card-infographic"+(read.watch?" race-watch-card":""));link.href=urlForDistrict(r.id);
+ const theme=graphicTheme(r,read);
+ const link=newEl("a",null,"district-card district-card-infographic theme-"+theme+(read.watch?" race-watch-card":""));link.href=urlForDistrict(r.id);
  link.setAttribute("aria-label",r.id+": "+info.text+". Open the source-linked district report.");
  const top=newEl("div",null,"top");
- const mark=newEl("span",info.party||"—","marker");
+ const mark=newEl("span",read.watch?"◆":info.party||"—","marker");
+ if(read.watch){mark.setAttribute("aria-label","Purple watchlist / mixed-signal marker");}
  mark.style.background=paint.bg;mark.style.color=paint.fg;
  mark.classList.add(info.party==="D"?"marker-dem":info.party==="R"?"marker-rep":"marker-neutral");
  mark.title=(info.party==="D"?"Democratic":info.party==="R"?"Republican":"No comparable lead")+" · "+info.source+" · never a 2026 probability";
  const actions=newEl("span",null,"card-actions");actions.append(mark,openCardIcon());
  const titleWrap=newEl("div",null,"card-district-title");
  titleWrap.append(newEl("span","CONGRESSIONAL DISTRICT","district-kicker"),newEl("strong",r.at_large?r.state+" At-Large":r.id));
- top.append(titleWrap,actions);
+ top.append(stateStamp(r.state,"district-watermark"),titleWrap,actions);
  const early=raceReadPanel(r);
  const evidence=renderDistrictGraphic(r);
  const reasons=raceReasonPanel(r);
@@ -309,7 +349,7 @@ function makeDistrictCard(r){
  if(ballot?.candidates?.length){
    field=newEl("div",null,"state-candidate-preview infographic-candidate-field");
    field.append(newEl("span","2026 BALLOT · VERIFIED CANDIDATES","field-label"));
-   const names=newEl("div",null,"field-names");
+   const names=newEl("div",null,"field-names candidate-versus");
    // Display both major parties where possible without changing the official source list.
    const selected=[...ballot.candidates].sort((x,y)=>{
      const priority=p=>p==="DEM"?0:p==="REP"?1:2;
@@ -318,11 +358,11 @@ function makeDistrictCard(r){
    selected.forEach(c=>{
      const item=newEl("div",null,"field-person");
      item.append(portraitNode(r,c));
-     const code=newEl("span",c.party==="DEM"?"D":c.party==="REP"?"R":c.party==="IND"?"I":c.party,"field-party");
-     code.classList.add(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other");
+     item.classList.add("candidate-side-"+(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other"));
      const identity=newEl("span",null,"field-identity");
-     identity.append(code,newEl("span",c.name,"field-name"));item.append(identity);names.append(item);
+     identity.append(newEl("span",c.name,"field-name"),partySeal(c.party));item.append(identity);names.append(item);
    });
+   if(selected.length===2)names.append(newEl("span","VS","faceoff-versus"));
    field.append(names);
    if(ballot.candidates.length>2)field.append(newEl("span","+"+(ballot.candidates.length-2)+" more verified candidate"+(ballot.candidates.length===3?"":"s")+" · full roster in report","field-more"));
  }else{
@@ -453,6 +493,33 @@ function renderState(a){
  if(mapStatus)mapStatus.textContent=state["2026_congressional_map_changed"]?"2026 map · redrawn":"2026 map · unchanged";
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
+ if(window.PoliticsStateArt){
+  const hero=$("state-hero-art");
+  if(hero)hero.append(window.PoliticsStateArt.create(code,"hero-outline"));
+  // A single shared SVG symbol powers the page hero and every district card.
+  window.PoliticsStateArt.prepare(code,state.district_count);
+ }
+ const watchRows=rows.filter(x=>preliminaryRaceRead(x).watch);
+ const conflicting=rows.filter(x=>preliminaryRaceRead(x).label==="Signals disagree");
+ const watchBox=$("state-headline-watch"),mixedBox=$("state-headline-conflicts"),ballotBox=$("state-headline-ballots");
+ if(watchBox)watchBox.textContent=String(watchRows.length);
+ if(mixedBox)mixedBox.textContent=String(conflicting.length);
+ if(ballotBox)ballotBox.textContent=String(rows.filter(x=>x.official_2026_candidate_snapshot).length)+" / "+rows.length;
+ const highlight=conflicting[0]||watchRows[0];
+ const spotlight=$("state-spotlight");
+ if(spotlight){
+  spotlight.replaceChildren();
+  if(highlight){
+    const read=preliminaryRaceRead(highlight),spotlink=newEl("a",null,"state-spotlight-link");
+    spotlink.href=urlForDistrict(highlight.id);
+    spotlink.append(newEl("span",highlight.id+" · THE RACE FILE","spotlight-kicker"),
+       newEl("strong",read.label,"spotlight-title"),
+       newEl("span","See the polling, historical context and candidate field ↗","spotlight-cta"));
+    spotlight.append(spotlink);
+  }else{
+    spotlight.append(newEl("span","No districts are flagged by the current screening rules; missing data is not an uncompetitive race.","spotlight-empty"));
+  }
+ }
  showCoverage(rows,"state");
   let grid=$("district-cards"),select=$("district-filter");
  function paint(){
