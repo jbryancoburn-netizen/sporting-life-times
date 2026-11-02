@@ -2005,10 +2005,14 @@ def self_test():
         pass
     neutral_html = landmark_html.replace(
         "Nov 6 (Fri)", "Nov 6 (Fri) neutral site", 1)
-    neutral_rows, neutral_report = parse_conference_calendar(
-        neutral_html, "women", 1467, landmark_url, "Goucher", by_org, exact)
-    assert len(neutral_rows) == 3
-    assert neutral_report["excluded_rows"]["possible_neutral_site"] == 1
+    # Three surviving away fixtures do not satisfy the minimum four-game
+    # evidence threshold: the entire under-supported sample must be rejected.
+    try:
+        parse_conference_calendar(
+            neutral_html, "women", 1467, landmark_url, "Goucher", by_org, exact)
+        raise AssertionError("Under-supported neutral-site schedule accepted")
+    except ValueError as ex:
+        assert "8/3" in str(ex), str(ex)
     for bad_html, bad_gender in [
         (landmark_html.replace("2026-27", "2025-26"), "women"),
         (landmark_html, "men"),
