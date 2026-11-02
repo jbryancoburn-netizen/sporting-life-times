@@ -6,25 +6,25 @@
   "men": {
     "gender": "men",
     "teams": 299,
-    "games": 2381,
-    "verified_elo_finals": 24,
-    "dated_game_days": 100,
-    "no_venue": 2252,
-    "no_network": 2251,
-    "no_tipoff": 645,
+    "games": 2451,
+    "verified_elo_finals": 25,
+    "dated_game_days": 102,
+    "no_venue": 2322,
+    "no_network": 2321,
+    "no_tipoff": 715,
     "no_source_url": 0,
-    "schools_without_a_published_game": 11,
+    "schools_without_a_published_game": 10,
     "school_schedule_recovery": {
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
-      "programs_with_published_games": 288,
-      "without_games": 11,
-      "with_1_to_6_games": 69,
+      "programs_with_published_games": 289,
+      "without_games": 10,
+      "with_1_to_6_games": 64,
       "zero_game_schools": [
         {
           "id": "azusa-pacific",
           "name": "Azusa Pacific",
           "conference": "PacWest",
-          "membership_pending": false,
+          "membership_pending": true,
           "published_fixtures": 0,
           "finals": 0,
           "with_tipoff": 0,
@@ -69,17 +69,6 @@
           "name": "Monroe University",
           "conference": "CACC",
           "membership_pending": true,
-          "published_fixtures": 0,
-          "finals": 0,
-          "with_tipoff": 0,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "point-loma-nazarene",
-          "name": "Point Loma Nazarene",
-          "conference": "PacWest",
-          "membership_pending": false,
           "published_fixtures": 0,
           "finals": 0,
           "with_tipoff": 0,
@@ -701,9 +690,9 @@
         },
         "PacWest": {
           "programs": 11,
-          "without_games": 2,
-          "with_1_to_6_games": 5,
-          "fixture_appearances": 93
+          "without_games": 1,
+          "with_1_to_6_games": 0,
+          "fixture_appearances": 233
         },
         "RMAC": {
           "programs": 15,
@@ -746,6 +735,7 @@
       "NSIC 2026-27 reciprocal official school calendars": 132,
       "PBC 2026-27 reciprocal official university calendars": 109,
       "PSAC 2026-27 reciprocal official school schedules": 170,
+      "PWC 2026-27 reciprocal official school calendars": 70,
       "RMAC 2026-27 reciprocal official school calendars": 145,
       "SAC two-university official 2026-27 school calendars": 108,
       "SIAC 2026-27 reciprocal official athletic schedules": 147,
@@ -921,6 +911,20 @@
         "one_sided": 0,
         "source": "https://sunshinestateconference.com/schedule.aspx?schedule=",
         "unavailable_count": 0
+      },
+      "PacWest fixtures": {
+        "status": "PWC 2026-27 two-university fixture verification",
+        "gender": "men",
+        "schools_read": 10,
+        "confirmed_matchups": 90,
+        "added": 70,
+        "enriched": 20,
+        "quarantined": 0,
+        "time_conflicts": 0,
+        "official_tipoffs": 0,
+        "one_sided": 0,
+        "source": "https://thepacwest.com/schedule.aspx?schedule=",
+        "unavailable_count": 0
       }
     },
     "warnings": [
@@ -932,18 +936,18 @@
   "women": {
     "gender": "women",
     "teams": 298,
-    "games": 3608,
+    "games": 3627,
     "verified_elo_finals": 32,
     "dated_game_days": 101,
-    "no_venue": 3475,
-    "no_network": 3470,
-    "no_tipoff": 265,
+    "no_venue": 3494,
+    "no_network": 3489,
+    "no_tipoff": 284,
     "no_source_url": 0,
-    "schools_without_a_published_game": 9,
+    "schools_without_a_published_game": 8,
     "school_schedule_recovery": {
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
-      "programs_with_published_games": 289,
-      "without_games": 9,
+      "programs_with_published_games": 290,
+      "without_games": 8,
       "with_1_to_6_games": 2,
       "zero_game_schools": [
         {
@@ -972,17 +976,6 @@
           "id": "missouri-western-state-university",
           "name": "Missouri Western State University",
           "conference": "Mid-America Intercollegiate Athletics Association",
-          "membership_pending": false,
-          "published_fixtures": 0,
-          "finals": 0,
-          "with_tipoff": 0,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "point-loma-nazarene-university",
-          "name": "Point Loma Nazarene University",
-          "conference": "Pacific West Conference",
           "membership_pending": false,
           "published_fixtures": 0,
           "finals": 0,
@@ -1175,9 +1168,9 @@
         },
         "Pacific West Conference": {
           "programs": 10,
-          "without_games": 1,
+          "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 212
+          "fixture_appearances": 250
         },
         "Peach Belt Conference": {
           "programs": 11,
@@ -1234,6 +1227,7 @@
       "Official university athletics schedule": 1,
       "PBC 2026-27 reciprocal official university calendars": 25,
       "PSAC 2026-27 reciprocal official school schedules": 22,
+      "PWC 2026-27 reciprocal official school calendars": 19,
       "RMAC 2026-27 reciprocal official school calendars": 56,
       "SAC two-university official 2026-27 school calendars": 18,
       "SIAC 2026-27 reciprocal official athletic schedules": 5,
@@ -1412,6 +1406,20 @@
         "official_tipoffs": 0,
         "one_sided": 15,
         "source": "https://sunshinestateconference.com/schedule.aspx?schedule=",
+        "unavailable_count": 0
+      },
+      "PacWest fixtures": {
+        "status": "PWC 2026-27 two-university fixture verification",
+        "gender": "women",
+        "schools_read": 10,
+        "confirmed_matchups": 89,
+        "added": 19,
+        "enriched": 70,
+        "quarantined": 0,
+        "time_conflicts": 0,
+        "official_tipoffs": 0,
+        "one_sided": 0,
+        "source": "https://thepacwest.com/schedule.aspx?schedule=",
         "unavailable_count": 0
       }
     },
