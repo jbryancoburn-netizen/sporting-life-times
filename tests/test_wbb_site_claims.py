@@ -102,5 +102,47 @@ class OfficialSites(unittest.TestCase):
   self.assertFalse(mod.official_opponent_matches("BYU",{"opponent_id":"2628","opponent":"TCU Horned Frogs"},{}))
 
 
+ def test_new_exact_university_opponent_labels(self):
+  school_labels=(
+   ("Boston U.","104","Boston University Terriers"),
+   ("Connecticut","41","UConn Huskies"),
+   ("Central Florida","2116","UCF Knights"),
+   ("University at Albany","399","UAlbany Great Danes"),
+   ("vs. University at Albany","399","UAlbany Great Danes"),
+   ("at University at Albany","399","UAlbany Great Danes"),
+   ("Loyola (Md.)","2352","Loyola Maryland Greyhounds"),
+   ("N.C. A&T","2448","North Carolina A&T Aggies"),
+   ("University of Portland","2501","Portland Pilots"),
+   ("Cal Baptist","2856","California Baptist Lancers"),
+   ("JMU","256","James Madison Dukes"),
+   ("New Jersey Institute of Technology","2885","NJIT Highlanders"),
+   ("Central Connecticut State University","2115","Central Connecticut Blue Devils"),
+   ("San Jose State University","23","San José State Spartans"),
+  )
+  for label,oppid,name in school_labels:
+   with self.subTest(official_label=label):
+    self.assertTrue(mod.official_opponent_matches(
+      label,{"opponent_id":oppid,"opponent":name},{}))
+
+ def test_full_label_gate_prevents_school_prefix_collisions(self):
+  collisions=(
+   ("Utah State","254","Utah Utes"),
+   ("Ohio State","195","Ohio Bobcats"),
+   ("UMass Lowell","113","Massachusetts Minutewomen"),
+   ("USC Upstate","30","USC Trojans"),
+   ("Iowa State","2294","Iowa Hawkeyes"),
+   ("Arizona State","12","Arizona Wildcats"),
+   ("California Baptist","25","California Golden Bears"),
+   ("North Carolina State","153","North Carolina Tar Heels"),
+   ("UNC Greensboro","153","North Carolina Tar Heels"),
+   ("UNC Wilmington","153","North Carolina Tar Heels"),
+  )
+  for label,oppid,name in collisions:
+   with self.subTest(official_label=label):
+    self.assertFalse(mod.official_opponent_matches(
+      label,{"opponent_id":oppid,"opponent":name},{}))
+
+
+
 if __name__=="__main__":
  unittest.main()

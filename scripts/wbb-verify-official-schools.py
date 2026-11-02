@@ -79,12 +79,12 @@ OFFICIAL_NAME_ALIASES={
 # Ohio must not mean Ohio State, and Utah must not mean Utah State.
 OFFICIAL_SHORT_ALIASES={
  "5":("uab",),
- "23":("san jose state",),
+ "23":("san jose state","san jose state university"),
  "43":("yale",),
  "55":("jax state",),
  "58":("usf",),
  "82":("uic",),
- "85":("iu indy",),
+ "85":("iu indy","iu indianapolis"),
  "98":("wku",),
  "99":("lsu",),
  "113":("umass",),
@@ -101,13 +101,13 @@ OFFICIAL_SHORT_ALIASES={
  "350":("uncw",),
  "2006":("akron","university of akron"),
  "2026":("appalachian state",),
- "2115":("ccsu","central connecticut state"),
- "2116":("ucf",),
+ "2115":("ccsu","central connecticut state","central connecticut state university"),
+ "2116":("ucf","central florida"),
  "2193":("etsu",),
  "2210":("elon",),
  "2229":("fiu",),
  "2277":("hcu",),
- "2349":("umass lowell",),
+ "2349":("umass lowell","university of massachusetts lowell"),
  "2351":("lmu",),
  "2378":("umbc",),
  "2379":("umes",),
@@ -124,14 +124,26 @@ OFFICIAL_SHORT_ALIASES={
  "2636":("utsa",),
  "2638":("utep",),
  "2755":("grambling state",),
- "2885":("njit",),
+ "2885":("njit","new jersey institute of technology"),
  "2908":("usc upstate",),
  "112358":("liu",),
+ # Additional exact labels present in the 2026-27 school-source audit.
+ # An alias is accepted only as the COMPLETE printed opponent label.
+ "41":("connecticut",),
+ "104":("boston u.","boston university"),
+ "256":("jmu",),
+ "399":("university at albany","albany","ualbany"),
+ "2352":("loyola (md.)","loyola md"),
+ "2448":("n.c. a&t","nc a&t"),
+ "2501":("university of portland",),
+ "2856":("cal baptist",),
 }
 
 def official_opponent_matches(source,game,safe_stems):
  raw=str(source or "")
- segments=re.split(r"\b(?:vs\.?|at|@)\s+",raw,flags=re.I)
+ # In "University at Albany", "at" belongs to the school name, not to
+ # the game-location marker. Still recognize a leading "at University...".
+ segments=re.split(r"\b(?:vs\.?|(?<!University )at|@)\s+",raw,flags=re.I)
  tail=segments[-1] if len(segments)>1 else raw
  text=normalize(tail)
  full=normalize(raw)
@@ -148,6 +160,17 @@ def official_opponent_matches(source,game,safe_stems):
   # Texas A&M, nor North Carolina accidentally match North Carolina State.
   display=re.sub(r"^\s*(?:vs\.?|at|@)\s+","",tail,flags=re.I).strip()
   if not re.match(r"^"+re.escape(alias)+r"(?=$|[\s,.(\-])",display,re.I):
+   continue
+  # Names shared by distinct schools must never be promoted via a
+  # generic school prefix. Full university opponent identity matters.
+  if oppid=="30" and text.startswith("uscupstate"):
+   continue
+  if oppid=="2294" and text.startswith("iowastate"):
+   continue
+  if oppid=="153" and text.startswith((
+     "northcarolinastate","northcarolinacentral","northcarolinaat",
+     "northcarolinagreensboro","northcarolinawilmington","northcarolinaasheville",
+     "uncgreensboro","uncwilmington","uncasheville","unccharlotte","unccentral","uncat")):
    continue
   if oppid=="12" and text.startswith("arizonastate"):
    continue
