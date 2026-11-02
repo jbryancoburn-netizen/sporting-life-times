@@ -20,7 +20,7 @@ const arenas=json('data/mbb-arena-registry.json');
 assert(arenas.teams&&Object.keys(arenas.teams).length>=300,'verified home-court reference coverage missing');
 assert.equal(arenas.teams['2'].home_arena,'Neville Arena');
 assert(/^https:\/\//.test(arenas.teams['2'].home_arena_source));
-for(const cls of ['.sl-arena-stage','.sl-pennant','.sl-pennant-mascot','.sl-pennant-brand',
+for(const cls of ['.sl-arena-stage','.sl-arena-wordmark','.sl-pennant','.sl-pennant-mascot','.sl-pennant-brand',
   '.sl-floor-graphic','.sl-arena-caption','.sl-matchup-facts'])
   assert(css.includes(cls),'art-directed arena module missing: '+cls);
 assert(script.includes('data/mbb-arena-registry.json'),'official arena registry not loaded');
