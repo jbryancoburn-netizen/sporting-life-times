@@ -34,7 +34,7 @@ LABELS = {
     "wingate": ("Wingate", "Wingate University"),
 }
 def norm(value):
-    txt = unicodedata.normalize("NFKD", str(value or "")).encode("ascii","ignore").decode("ascii")
+    txt = unicodedata.normalize("NFKD", str(value or "")).replace("–","-").replace("—","-").encode("ascii","ignore").decode("ascii")
     txt = txt.lower().replace("&", " and ")
     return " ".join(re.sub(r"[^a-z0-9]+", " ", txt).split())
 
