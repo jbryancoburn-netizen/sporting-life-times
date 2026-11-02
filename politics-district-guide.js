@@ -158,6 +158,17 @@ async function init(){
   const r=atlas.districts?.find(x=>x.id===id);if(!r)throw Error("District not found in the official district ledger");
   const extra=guide.districts?.[id];
   const state=atlas.states?.find(s=>s.code===r.state);
+  // Make the local field guide visible in the first viewport, not only below
+  // the race graphic. The same bridge works for all 435 shared district URLs.
+  const newDeskTitle=$("district-new-desk-title"),newDeskSummary=$("district-new-desk-summary");
+  const newDeskGeo=$("district-new-desk-geography");
+  if(newDeskTitle)newDeskTitle.textContent=extra?.title||
+    (state?.name||r.state)+" · "+(r.at_large?"At-large district":"District "+Number(r.district))+" · get to know the place behind the race.";
+  if(newDeskGeo)newDeskGeo.textContent=extra?.counties?.length?
+    extra.counties.length+" COUNTIES · "+(extra.major_communities||[]).length+" COMMUNITY PROFILES · 2022–2024 VOTE HISTORY":
+    "REAL CENSUS DISTRICT MAP · DEMOGRAPHICS · ACTUAL VOTE HISTORY";
+  if(newDeskSummary)newDeskSummary.textContent=extra?.geography_deck||
+    "An original-source guide to the geography, people, historical House results and verified polling. Specific towns are displayed only after their locations are researched.";
   $("district-dossier-title").textContent=extra?.title||"Get to know "+(state?.name||r.state)+"'s "+(r.at_large?"at-large":"District "+Number(r.district))+".";
   $("dossier-kicker").textContent=r.id+" · A FIELD GUIDE TO PLACE, PEOPLE, POLITICS AND PAST ELECTIONS";
   status.textContent="Official Census boundaries · state-verified ballot snapshots · original historical vote sources";
