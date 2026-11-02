@@ -494,6 +494,7 @@ function renderState(a){
  if(mapStatus)mapStatus.textContent=state["2026_congressional_map_changed"]?"2026 map · redrawn":"2026 map · unchanged";
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderState({state,rows});
  if(window.PoliticsStateArt){
   const hero=$("state-hero-art");
   if(hero)hero.append(window.PoliticsStateArt.create(code,"hero-outline"));
@@ -693,6 +694,7 @@ function renderDistrict(a){
  $("district-subtitle").textContent=r.id+" · November 3, 2026 · race data & original sources";
  $("state-link").href=urlForState(r.state);$("state-link").textContent="← All "+state.name+" districts";
  renderDistrictFront(r,state);
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderDistrict({r,state});
  const current=districtEvidence(r),clr=color(current.party,current.margin);
  let badge=$("leader-badge");badge.textContent=current.source.toUpperCase()+" · "+current.text;badge.style.background=clr.bg;badge.style.color=clr.fg;
  if(preliminaryRaceRead(r).watch){
