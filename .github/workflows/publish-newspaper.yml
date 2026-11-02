@@ -19,6 +19,7 @@ on:
       # Direct source or verified rating updates should publish immediately.
       # GitHub Actions-origin commits use workflow_dispatch from the Elo job.
       - 'data/mbb-live.json'
+      - 'tests/cbb-courtside.test.cjs'
       - 'data/cbb-radio-sources.json'
       - 'data/ncaam-2026-27-retro-primary.json'
       - 'data/ncaaw-2026-27-retro-primary.json'
@@ -32,6 +33,7 @@ on:
       - Official NBA game-center refresh
       - NBA full 30-team roster refresh
       - DII basketball — independent men and women editions
+      - Publish MBB RETRO Primary
     types: [completed]
     branches: [main]
   schedule:
