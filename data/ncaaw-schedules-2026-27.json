@@ -59714,17 +59714,28 @@
           "opponent": "Maine Black Bears",
           "home_id": "311",
           "away_id": "2217",
-          "site": "neutral",
-          "venue": "Portland Expo Center (ME)",
+          "site": "away",
+          "venue": "Portland Expo",
           "broadcast": null,
           "completed": false,
           "home_score": null,
           "away_score": null,
           "official_schedule_verified_fields": [
-            "scheduled_date",
-            "opponent"
+            "home_away",
+            "opponent",
+            "scheduled_date"
           ],
-          "official_schedule_source_url": "https://fairfieldstags.com/sports/womens-basketball/schedule"
+          "official_schedule_source_url": "https://fairfieldstags.com/sports/womens-basketball/schedule",
+          "city": "Portland, Maine",
+          "official_venue_verified": true,
+          "official_venue_name": "Portland Expo",
+          "official_venue_source_url": "https://goblackbears.com/news/2026/10/21/womens-basketball-to-host-fairfield-in-portland-tickets-on-sale-now",
+          "official_site_verified": true,
+          "official_site_source_urls": [
+            "https://goblackbears.com/news/2026/10/21/womens-basketball-to-host-fairfield-in-portland-tickets-on-sale-now",
+            "https://goblackbears.com/sports/womens-basketball/schedule",
+            "https://themetro.org/schedule.aspx?schedule=4209"
+          ]
         },
         {
           "id": "401915645",
@@ -111132,17 +111143,28 @@
           "opponent": "Fairfield Stags",
           "home_id": "311",
           "away_id": "2217",
-          "site": "neutral",
-          "venue": "Portland Expo Center (ME)",
+          "site": "home",
+          "venue": "Portland Expo",
           "broadcast": null,
           "completed": false,
           "home_score": null,
           "away_score": null,
           "official_schedule_verified_fields": [
-            "scheduled_date",
-            "opponent"
+            "home_away",
+            "opponent",
+            "scheduled_date"
           ],
-          "official_schedule_source_url": "https://goblackbears.com/sports/womens-basketball/schedule/text/2026-27"
+          "official_schedule_source_url": "https://goblackbears.com/sports/womens-basketball/schedule/text/2026-27",
+          "city": "Portland, Maine",
+          "official_venue_verified": true,
+          "official_venue_name": "Portland Expo",
+          "official_venue_source_url": "https://goblackbears.com/news/2026/10/21/womens-basketball-to-host-fairfield-in-portland-tickets-on-sale-now",
+          "official_site_verified": true,
+          "official_site_source_urls": [
+            "https://goblackbears.com/news/2026/10/21/womens-basketball-to-host-fairfield-in-portland-tickets-on-sale-now",
+            "https://goblackbears.com/sports/womens-basketball/schedule",
+            "https://themetro.org/schedule.aspx?schedule=4209"
+          ]
         },
         {
           "id": "401913771",
@@ -260314,5 +260336,5 @@
       ]
     }
   },
-  "verified_reciprocal_home_site_games": 3
+  "verified_reciprocal_home_site_games": 4
 }
