@@ -496,6 +496,7 @@ function renderState(a){
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
  if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderState({state,rows});
+ if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateState({state,rows});
  if(window.PoliticsStateArt){
   const hero=$("state-hero-art");
   if(hero)hero.append(window.PoliticsStateArt.create(code,"hero-outline"));
@@ -726,6 +727,7 @@ function renderDistrict(a){
  }
  candidatePanel(r);pollPanel(r);resultPanel(r,state);
  if(window.PoliticsIowaDesk)window.PoliticsIowaDesk.render(r,state);
+ if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateDistrict({r,state});
  const stateIds=a.districts.filter(x=>x.state===r.state).sort((x,y)=>x.district.localeCompare(y.district));
  const n=stateIds.findIndex(x=>x.id===r.id),prev=stateIds[(n-1+stateIds.length)%stateIds.length],next=stateIds[(n+1)%stateIds.length];
  $("prev-district").href=urlForDistrict(prev.id);$("prev-district").textContent="← "+prev.id;
