@@ -1,0 +1,145 @@
+/* November 2026: The Pitch / Form Book.
+   Purpose-built statistical leaderboard: one school + one value per compact row.
+   Scoped to Form Book only; does not affect tournament or power-board logos. */
+body[data-league="college-soccer"] #cs-showcase .cs-form-ledger{
+  background:#f9faf5!important;border:1px solid #cedacf!important;
+  border-top:4px solid #225841!important;border-radius:3px!important;
+  padding:16px!important;align-self:start!important;min-width:0!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-header{
+  padding-bottom:12px;margin-bottom:11px;border-bottom:1px solid #dce5da;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-header h2{
+  font:700 clamp(27px,2.6vw,35px)/1.06 Georgia,serif!important;
+  color:#133a2c!important;margin:5px 0 7px!important;letter-spacing:-.045em!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-deck{
+  color:#52685a!important;font:13px/1.42 Arial,sans-serif!important;
+  max-width:66ch;margin:0!important;padding:0!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-board{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:13px!important;align-items:start;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-group{
+  min-width:0;background:#fff;border:1px solid #d4ddd3;
+  border-top:3px solid var(--form-accent,#24654d);
+  box-shadow:0 1px 0 #e7ebe5;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-attack{--form-accent:#236a53;--form-tint:#e8f3eb}
+body[data-league="college-soccer"] #cs-showcase .cs-form-defense{--form-accent:#a57838;--form-tint:#f9f1e2}
+body[data-league="college-soccer"] #cs-showcase .cs-form-group-heading{
+  display:flex;align-items:end;justify-content:space-between;gap:9px;
+  padding:12px 12px 10px;background:var(--form-tint);border-bottom:1px solid #dce2d8;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-heading-copy{min-width:0}
+body[data-league="college-soccer"] #cs-showcase .cs-form-overline{
+  display:block;font:800 10px/1.2 Arial,sans-serif;letter-spacing:.1em;color:var(--form-accent);margin-bottom:4px;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-group h3{
+  font:700 clamp(18px,2vw,23px)/1.1 Georgia,serif!important;
+  color:#183b30!important;letter-spacing:-.025em!important;
+  border:0!important;margin:0!important;padding:0!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-context{
+  font:11px/1.35 Arial,sans-serif!important;color:#56655c!important;margin:5px 0 0!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-column-head{
+  font:800 10px/1 Arial,sans-serif!important;letter-spacing:.035em;
+  background:#fff;color:#2c5344;padding:5px;white-space:nowrap;border:1px solid #d5dfd3;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-list{
+  list-style:none!important;display:block!important;margin:0!important;padding:0!important;
+  counter-reset:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-entry{
+  margin:0!important;padding:0!important;list-style:none!important;border-bottom:1px solid #e0e8de!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-entry:last-child{border-bottom:0!important}
+body[data-league="college-soccer"] #cs-showcase .cs-form-entry:nth-child(even){background:#f7faf7}
+body[data-league="college-soccer"] #cs-showcase .cs-form-entry:first-child{background:#fffdf6}
+body[data-league="college-soccer"] #cs-showcase a.cs-form-row{
+  display:grid!important;grid-template-columns:23px minmax(0,1fr) 65px!important;
+  align-items:center!important;gap:8px!important;
+  padding:8px 10px!important;margin:0!important;min-height:57px!important;
+  color:#22392f!important;text-decoration:none!important;border:0!important;
+  outline-offset:-2px!important;box-shadow:none!important;background:transparent!important;
+}
+body[data-league="college-soccer"] #cs-showcase a.cs-form-row:hover,
+body[data-league="college-soccer"] #cs-showcase a.cs-form-row:focus-visible{
+  background:#eaf3e9!important;outline:2px solid #2b765c!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-place{
+  font:700 18px/1 Georgia,serif!important;letter-spacing:-.04em;
+  color:#a4ada4!important;text-align:left!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-entry:first-child .cs-form-place{color:var(--form-accent)!important}
+body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-school{
+  display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;
+  padding:0!important;margin:0!important;min-height:0!important;
+  flex:none!important;border:0!important;border-left:0!important;
+  background:transparent!important;box-shadow:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-logo{
+  width:39px!important;height:39px!important;min-width:39px!important;min-height:39px!important;
+  max-width:39px!important;max-height:39px!important;flex:0 0 39px!important;
+  padding:0!important;margin:0!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-detail{
+  display:flex!important;flex-direction:column!important;gap:3px!important;
+  min-width:0!important;overflow:hidden!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-detail strong{
+  display:block!important;text-align:left!important;color:#1a3c30!important;
+  font:700 13px/1.2 Georgia,serif!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;
+  text-decoration:none!important;text-transform:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-detail small{
+  color:#7b8e83!important;font:800 9px/1.2 Arial,sans-serif!important;
+  letter-spacing:.04em!important;text-decoration:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-value{
+  display:flex!important;flex-direction:column!important;align-items:flex-end!important;
+  justify-content:center!important;gap:4px!important;min-width:0!important;
+  margin:0!important;padding:0!important;text-align:right!important;
+  text-decoration:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-value strong{
+  color:#194937!important;font:800 22px/1 Georgia,serif!important;
+  letter-spacing:-.05em!important;text-decoration:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-value small{
+  font:800 9px/1 Arial,sans-serif!important;letter-spacing:.02em!important;
+  color:#748a7c!important;text-decoration:none!important;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-defense .cs-form-value strong{color:#815a26!important}
+body[data-league="college-soccer"] #cs-showcase .cs-form-empty{
+  padding:16px;font:13px/1.4 Arial,sans-serif;color:#53675b;
+}
+body[data-league="college-soccer"] #cs-showcase .cs-form-disclosure{
+  margin:11px 0 0!important;padding:9px 11px!important;background:#edf2ea;
+  border-left:3px solid #789b82;color:#4e6455!important;
+  font:10px/1.5 Arial,sans-serif!important;
+}
+@media(max-width:1050px){
+ body[data-league="college-soccer"] #cs-showcase .cs-form-board{grid-template-columns:minmax(0,1fr)!important;gap:11px!important}
+}
+@media(max-width:700px){
+ body[data-league="college-soccer"] #cs-showcase .cs-form-ledger{padding:11px!important}
+ body[data-league="college-soccer"] #cs-showcase .cs-form-header{padding-bottom:9px;margin-bottom:9px}
+ body[data-league="college-soccer"] #cs-showcase .cs-form-group-heading{padding:10px!important}
+ body[data-league="college-soccer"] #cs-showcase a.cs-form-row{
+  grid-template-columns:22px minmax(0,1fr) 65px!important;gap:7px!important;
+  min-height:55px!important;padding:7px 9px!important;
+ }
+ body[data-league="college-soccer"] #cs-showcase .cs-form-value strong{font-size:21px!important}
+}
+@media(max-width:360px){
+ body[data-league="college-soccer"] #cs-showcase a.cs-form-row{grid-template-columns:19px minmax(0,1fr) 58px!important;gap:5px!important;padding:7px!important}
+ body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-logo{
+  width:33px!important;height:33px!important;min-width:33px!important;min-height:33px!important;max-width:33px!important;max-height:33px!important;flex:0 0 33px!important;
+ }
+ body[data-league="college-soccer"] #cs-showcase .cs-form-row .cs-showcase-detail strong{font-size:12px!important}
+ body[data-league="college-soccer"] #cs-showcase .cs-form-value strong{font-size:19px!important}
+}
