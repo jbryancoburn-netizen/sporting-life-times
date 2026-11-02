@@ -4,6 +4,7 @@
 "use strict";
 const $=id=>document.getElementById(id);
 const N="http://www.w3.org/2000/svg";
+const partyName=p=>({DEM:"Democratic",REP:"Republican",IND:"Independent",LIB:"Libertarian",GRE:"Green",NPA:"No party",NPP:"No party",WRI:"Write-in",D:"Democratic",R:"Republican"})[p]||p||"Other";
 const el=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!=null)x.textContent=txt;return x;};
 const named={
  AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",
