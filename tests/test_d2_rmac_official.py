@@ -67,6 +67,20 @@ class TestRmac(unittest.TestCase):
         self.assertEqual(again["added"],0)
         self.assertEqual(game["status"],"final")
         self.assertEqual(game["away_score"],82)
+    def test_uccs_long_mens_registry_identity_and_duplicate_guard(self):
+        from d2_rmac_official import team_ids
+        source={"uccs-uc-colorado-springs":{
+            "name":"UCCS (UC Colorado Springs)","conference":"RMAC"}}
+        result,ambiguous=team_ids(source)
+        self.assertEqual(result.get("uccs"),"uccs-uc-colorado-springs")
+        self.assertFalse(ambiguous)
+        source["university-of-colorado-colorado-springs"]={
+            "name":"University of Colorado Colorado Springs",
+            "conference":"Rocky Mountain Athletic Conference"}
+        result,ambiguous=team_ids(source)
+        self.assertIn("uccs",ambiguous)
+        self.assertNotIn("uccs",result)
+
     def test_withhold_if_less_than_twelve_sources(self):
         src=catalog("women")
         valid=dict(list(src.items())[:11])
