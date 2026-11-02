@@ -188,9 +188,59 @@ def replay(games,home_advantage=DEFAULT_HOME_ELO,k_base=DEFAULT_K_BASE):
          "away_projected_points":sa,"home_projected_points":sh}
     return sorted(teams.values(),key=lambda t:-t["elo"])
 
+def period_lines_from_summary(raw):
+    """Return source-observed quarterly points by side, never estimated totals."""
+    header=((raw.get("header") or {}).get("competitions") or [{}])[0]
+    rows=header.get("competitors") or []
+    found={}
+    for row in rows:
+        side=row.get("homeAway")
+        if side not in ("home","away"):continue
+        lines=row.get("linescores") or row.get("lineScores") or []
+        scores=[]
+        for line in lines:
+            if not isinstance(line,dict):break
+            value=next((line[k] for k in ("score","value","displayValue") if line.get(k) is not None),None)
+            number_value=intval(value)
+            if number_value is None or number_value<0:break
+            scores.append({"period":len(scores)+1,"score":number_value})
+        if len(scores)>=4:found[side]=scores
+    if len(found)==2:return found
+    # Some ESPN summaries expose cumulative scores only in scoringPlays.
+    plays=raw.get("scoringPlays") or []
+    if not plays:return found
+    def seconds(play):
+        clock=((play.get("clock") or {}).get("displayValue") or "").split(":")
+        if len(clock)!=2:return 0
+        try:return int(clock[0])*60+int(clock[1])
+        except (TypeError,ValueError):return 0
+    ordered=sorted(
+        (p for p in plays if isinstance(p,dict) and isinstance(p.get("period"),dict)),
+        key=lambda p:(int((p.get("period") or {}).get("number") or 0),-seconds(p)))
+    if not ordered:return found
+    last={"away":0,"home":0};periods={}
+    for play in ordered:
+        period=int((play.get("period") or {}).get("number") or 0)
+        ascore=intval(play.get("awayScore"));hscore=intval(play.get("homeScore"))
+        if period<1 or period>8 or ascore is None or hscore is None:continue
+        if ascore<last["away"] or hscore<last["home"]:continue
+        last={"away":ascore,"home":hscore}
+        periods[period]=last.copy()
+    if not periods:return found
+    for side in ("away","home"):
+        if side in found:continue
+        prior=0;scores=[]
+        for p in range(1,max(4,max(periods))+1):
+            end=periods.get(p,{}).get(side,prior)
+            scores.append({"period":p,"score":end-prior})
+            prior=end
+        found[side]=scores
+    return found
+
+
 def parse_box(game_id):
     raw=request(API+"summary?event="+str(game_id))
-    out={"id":str(game_id),"teams":{},"players":[]}
+    out={"id":str(game_id),"teams":{},"players":[],"period_lines":period_lines_from_summary(raw)}
     box=raw.get("boxscore") or {}
     for side in box.get("teams") or []:
         tid=str((side.get("team") or {}).get("id") or "")
@@ -358,6 +408,16 @@ def run(fast):
                 except (RuntimeError,ValueError) as exc:print("Box score unavailable:",eid,exc)
     complete_ids={g["id"] for g in finals}
     boxes={eid:val for eid,val in boxes.items() if eid in complete_ids}
+    # Persist official quarter lines captured with player box-score summaries.
+    # Do not apply an incomplete or contradictory breakdown to a final.
+    for game in finals:
+        sourced=(boxes.get(game["id"]) or {}).get("period_lines") or {}
+        for side in ("away","home"):
+            lines=sourced.get(side) or []
+            if (not game[side].get("linescores") and len(lines)>=4
+                    and all(isinstance(x.get("score"),int) and x["score"]>=0 for x in lines)
+                    and sum(x["score"] for x in lines)==game[side]["score"]):
+                game[side]["linescores"]=lines
     team_stats={str(i):{} for i in META}
     for b in boxes.values():
         for tid,stats in b.get("teams",{}).items():
