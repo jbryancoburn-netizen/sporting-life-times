@@ -7,6 +7,7 @@ A source calendar is only an available calendar, NOT certified complete.
 import argparse
 import concurrent.futures
 import datetime as dt
+import hashlib
 import json
 import re
 import urllib.request
@@ -334,6 +335,7 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
                 explicit_women or womens_path and (generic_schedule or coded_women))):
             raise ValueError("Wrong women's sport or men's calendar")
     matches = []
+    unresolved_opponents = []
     inspected = 0
     omitted = defaultdict(int)
     for table in doc.select("table"):
@@ -357,8 +359,28 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
                 omitted["preseason_or_exhibition"] += 1
                 continue
             opponent_id = resolve(opponent, by_org, exact)
-            if not opponent_id or opponent_id == owner:
-                omitted["unknown_or_conditional_opponent"] += 1
+            if opponent_id == owner:
+                omitted["self_opponent"] += 1
+                continue
+            if opponent_id is None:
+                # A real opponent on a year/gender-validated official school
+                # calendar still belongs in the school schedule, but NEVER Elo.
+                # Don't turn an ambiguous short college name into a new school.
+                term = key(opponent)
+                ambiguous = (len(term) < 4 or sum(
+                    bool(term) and term in key(team["name"])
+                    for other_id, team in by_org.items() if other_id != owner) > 1)
+                if BAD_OPPONENT.search(opponent) or ambiguous:
+                    omitted["conditional_or_ambiguous_opponent"] += 1
+                    continue
+                unresolved_opponents.append({
+                    "date": calendar_date(date), "source_owner_org_id": owner,
+                    "external_opponent_label": compact(opponent),
+                    "placement": at.lower(), "tipoff_as_posted": compact(time),
+                    "venue_location": compact(location), "source_url": url,
+                    "source_kind": "official_school",
+                })
+                omitted["identity_not_d3_matched_but_posted"] += 1
                 continue
             at = at.lower()
             # At neutral sites, source team does not claim home-court advantage.
@@ -390,6 +412,7 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
         raise ValueError(f"Only {len(matches)} eligible matches from {inspected} rows; no publish")
     return matches, {"owner_org_id": owner, "source_url": url,
                      "readable_rows": inspected, "verified_member_opponents": len(matches),
+                     "unresolved_opponent_rows": unresolved_opponents,
                      "excluded_rows": dict(omitted), "status": "parsed"}
 
 
@@ -884,7 +907,11 @@ def process(gender, workers=30, dry_run=False):
     for f in previous.get("fixtures", []):
         for owner in f.get("verified_by_org_ids", []):
             available_previous[owner].append(f)
-    gathered, audit = [], []
+    gathered, audit, external_rows = [], [], []
+    previous_external = defaultdict(list)
+    for item in previous.get("unresolved_opponent_fixtures", []):
+        if item.get("source_owner_org_id") in by_org:
+            previous_external[item["source_owner_org_id"]].append(item)
     previous_audit = {int(a["owner_org_id"]): a for a in previous.get("source_audit", [])
                       if "owner_org_id" in a}
     # Reuse previously validated conference URLs instead of scanning them
@@ -918,6 +945,7 @@ def process(gender, workers=30, dry_run=False):
                 report = {"owner_org_id": owner, "source_url": url,
                           "status": "failed", "error": str(ex)[:200]}
             prior = available_previous[owner]
+            new_external = report.pop("unresolved_opponent_rows", [])
             if rows:
                 # Attach evidence type before dedupe so conference pages
                 # never masquerade as a university-published schedule.
@@ -925,7 +953,11 @@ def process(gender, workers=30, dry_run=False):
                     row["source_kind"] = ("official_conference" if
                         report.get("status") == "parsed_conference" else "official_school")
                 gathered.append(rows)
+                external_rows.extend(new_external)
             else:
+                for item in previous_external[owner]:
+                    if item.get("source_url") == previous_good_source.get(owner):
+                        external_rows.append(item)
                 report["retained_previous_fixtures"] = len(prior)
                 # Failed sources must not erase last verified fixture snapshots.
                 recovered = []
@@ -974,6 +1006,45 @@ def process(gender, workers=30, dry_run=False):
     for f in fixtures:
         fixture_index[f["away_org_id"]].append(f)
         fixture_index[f["home_org_id"]].append(f)
+    unresolved_opponent_fixtures = []
+    seen_unresolved = set()
+    for item in external_rows:
+        owner = item.get("source_owner_org_id")
+        label = compact(item.get("external_opponent_label", ""))
+        date, placement = item.get("date", ""), item.get("placement", "")
+        if owner not in by_org or placement not in ("home", "away", "neutral"):
+            continue
+        if not re.fullmatch(r"202[67]-\d{2}-\d{2}", date) or not label:
+            continue
+        if BAD_OPPONENT.search(label):
+            continue
+        identity = (date, owner, key(label), placement)
+        if identity in seen_unresolved:
+            continue
+        seen_unresolved.add(identity)
+        # The opponent's own official calendar might already identify this
+        # same game as DIII; avoid a duplicate due to nonstandard spelling.
+        if any(f["date"] == date and any(
+            key(label) in key(by_org[other]["name"]) or
+            key(by_org[other]["name"]) in key(label)
+            for other in (f["away_org_id"], f["home_org_id"]) if other != owner)
+               for f in fixture_index[owner]):
+            continue
+        stable = hashlib.sha256(
+            f"{owner}|{date}|{key(label)}|{placement}".encode()).hexdigest()[:12]
+        unresolved_opponent_fixtures.append({
+            "id": f"d3-{gender}-{date}-{owner}-other-{stable}",
+            "date": date, "source_owner_org_id": owner,
+            "external_opponent_label": label, "placement": placement,
+            "status": "scheduled", "elo_eligible": False,
+            "opponent_d3_identity_unverified": True, "schedule_only": True,
+            "source_kind": item.get("source_kind", "official_school"),
+            "source_url": item["source_url"],
+            "tipoff_as_posted": item.get("tipoff_as_posted", ""),
+            "venue_location": item.get("venue_location", ""),
+        })
+    unresolved_opponent_fixtures.sort(
+        key=lambda x: (x["date"], x["source_owner_org_id"], x["id"]))
     missing_school_review = []
     for a in sorted((x for x in audit if x["status"] == "failed"),
                     key=lambda x: x["owner_org_id"]):
@@ -1045,6 +1116,8 @@ def process(gender, workers=30, dry_run=False):
         "conflicts": conflicts,
         "fixture_count": len(fixtures),
         "reciprocal_fixtures": count_reciprocal,
+        "unresolved_opponent_fixture_count": len(unresolved_opponent_fixtures),
+        "unresolved_opponent_fixtures": unresolved_opponent_fixtures,
         "fixtures": fixtures
     }
     if not dry_run:
@@ -1052,6 +1125,7 @@ def process(gender, workers=30, dry_run=False):
     print(json.dumps({"gender": gender, "ncaa_members": len(by_org),
                       "calendars_parsed": successful, "conference_sources": official_conference, "fixtures": len(fixtures),
                       "reciprocal": count_reciprocal, "conflicts": len(conflicts),
+                      "non_d3_identified_games": len(unresolved_opponent_fixtures),
                       "outcomes": dict(status_counts),
                       "unverified_school_summary": review_coverage}, sort_keys=True), flush=True)
     return output
@@ -1339,6 +1413,14 @@ def self_test():
 
     rows, report = parse_calendar(html, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
     assert report["readable_rows"] == 5 and len(rows) == 3
+    assert not report["unresolved_opponent_rows"]  # conditional/ambiguous names
+    _, mixed = parse_calendar(
+        html.replace("Trine or Hope", "Marquette University"),
+        "men", 286, "https://athletics.hope.edu/example", by_org, exact)
+    assert len(mixed["unresolved_opponent_rows"]) == 1
+    assert mixed["unresolved_opponent_rows"][0]["external_opponent_label"] == "Marquette University"
+    assert mixed["unresolved_opponent_rows"][0]["placement"] == "neutral"
+    assert resolve("Marquette University", by_org, exact) is None
     assert rows[0]["away_org_id"] == 286 and rows[0]["home_org_id"] == 30037
     assert rows[1]["venue"] == "DeVos Fieldhouse"
     assert rows[0]["tipoff_as_posted"] == "7 PM"
