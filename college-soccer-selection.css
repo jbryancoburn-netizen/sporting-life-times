@@ -98,3 +98,59 @@
  #ncaa-selection-forecast .ncaa-compare-team{min-height:62px!important;gap:10px!important;padding:6px 2px!important}
  #ncaa-selection-forecast .ncaa-compare-team .ncaa-school-meta strong{font-size:15px!important}
 }
+
+
+/* ORIGINAL SCHOOL ARTWORK • no manufactured circular borders around logos that
+   may already include their own school roundel or internal stripes. */
+#ncaa-selection-forecast .ncaa-native-mark{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ position:relative!important;isolation:isolate!important;box-sizing:border-box!important;
+ width:58px!important;height:52px!important;min-width:58px!important;min-height:52px!important;
+ max-width:58px!important;max-height:52px!important;flex:0 0 58px!important;
+ padding:0!important;margin:0!important;border:0!important;outline:0!important;
+ box-shadow:none!important;background:transparent!important;overflow:visible!important;
+ border-radius:0!important;clip-path:none!important;mask:none!important;
+}
+#ncaa-selection-forecast .ncaa-native-mark .ncaa-native-image{
+ display:block!important;position:relative!important;inset:auto!important;top:auto!important;left:auto!important;
+ width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+ max-width:100%!important;max-height:100%!important;flex:0 0 auto!important;
+ object-fit:contain!important;object-position:center center!important;
+ border:0!important;border-radius:0!important;outline:0!important;
+ padding:0!important;margin:0!important;box-shadow:none!important;
+ transform:none!important;clip-path:none!important;mask:none!important;
+ background:transparent!important;filter:none!important;
+}
+#ncaa-selection-forecast .ncaa-native-mark:not(.has-image) .ncaa-native-image{visibility:hidden!important}
+#ncaa-selection-forecast .ncaa-native-mark .ncaa-native-initial{
+ display:flex!important;position:absolute!important;inset:2px!important;
+ align-items:center!important;justify-content:center!important;
+ font:800 13px/1 Arial,sans-serif!important;color:var(--native-school-color,#225443)!important;
+ background:#eef3ef!important;border:1px solid #b7c8bd!important;
+ border-radius:6px!important;box-shadow:none!important;
+}
+#ncaa-selection-forecast .ncaa-native-mark.has-image .ncaa-native-initial{display:none!important}
+#ncaa-selection-forecast .ncaa-school-row{
+ min-width:0!important;align-items:center!important;gap:12px!important;
+}
+#ncaa-selection-forecast .ncaa-selection-compare-lists .ncaa-compare-team{
+ border-left:3px solid var(--school-accent,#476958)!important;
+ padding-left:10px!important;
+}
+#ncaa-selection-forecast .ncaa-compare-team .ncaa-school-meta strong{
+ font-size:15px!important;line-height:1.2!important;text-decoration:none!important;
+}
+#ncaa-selection-forecast .ncaa-bracket-team .ncaa-native-mark{
+ width:43px!important;height:41px!important;min-width:43px!important;min-height:41px!important;
+ max-width:43px!important;max-height:41px!important;flex-basis:43px!important;
+}
+@media(max-width:620px){
+ #ncaa-selection-forecast .ncaa-selection-compare-lists .ncaa-compare-team{
+  min-height:66px!important;gap:11px!important;padding:7px 8px!important;
+ }
+ #ncaa-selection-forecast .ncaa-compare-team .ncaa-school-meta small{font-size:10px!important}
+ #ncaa-selection-forecast .ncaa-native-mark{
+  width:53px!important;height:50px!important;min-width:53px!important;min-height:50px!important;
+  max-width:53px!important;max-height:50px!important;flex-basis:53px!important;
+ }
+}
