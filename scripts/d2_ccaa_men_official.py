@@ -110,11 +110,11 @@ def parse_league(html,sid):
                 rows.append((day,away,home,owner,clock_pt(wall_clock)))
             if best is None or len(rows)>len(best):best=rows
             break
-    # Fresno Pacific's official league calendar currently flags only six
+    # Fresno Pacific's official league calendar currently flags only seven
     # of its games with the conference asterisk. Treat this as a PARTIAL
     # university source instead of falsely discarding the whole school;
     # unstarred games never become league fixtures through this importer.
-    minimum=6 if owner=='fresno' else 12
+    minimum=7 if owner=='fresno' else 12
     if best is None or len(best)<minimum:
         raise ValueError(f'CCAA page {sid} has fewer than {minimum} recognizable conference games')
     return owner,best,rejected
