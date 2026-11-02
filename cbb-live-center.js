@@ -848,12 +848,12 @@
       '<h1>'+esc(teamName(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(teamName(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
       '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true)+row(g.home,g.phase,false,true)+'</div></header>'+
+      gamefileStatStrip(g,raw)+
       '<nav class="cbb-gamefile-tabs" role="tablist" aria-label="Gamefile statistics">'+
       '<button role="tab" type="button" id="gf-tab-summary" aria-controls="gf-panel-summary" data-gamefile-tab="summary">Game Summary</button>'+
       '<button role="tab" type="button" id="gf-tab-team" aria-controls="gf-panel-team" data-gamefile-tab="team">Team Statistics</button>'+
       '<button role="tab" type="button" id="gf-tab-players" aria-controls="gf-panel-players" data-gamefile-tab="players">Player Box Score</button></nav>'+
       '<section role="tabpanel" id="gf-panel-summary" aria-labelledby="gf-tab-summary" data-gamefile-panel="summary">'+
-      gamefileStatStrip(g,raw)+
       '<div class="cbb-gamefile-note"><span>'+(g.phase==='live'?'LIVE NOTEBOOK':g.phase==='final'?'FINAL LEDGER':'MATCHUP FILE')+'</span><p>'+
       esc(statEditorial(g)||gameEditorial(g))+'</p></div>'+
       '<div id="cbb-courtcast-root"></div>'+(periods||missing)+usrsLine(g)+'</section>'+
