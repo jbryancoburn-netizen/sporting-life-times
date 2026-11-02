@@ -1807,7 +1807,7 @@ def self_test():
     for bad_html, bad_gender in [
         (landmark_html.replace("2026-27", "2025-26"), "women"),
         (landmark_html, "men"),
-        (landmark_html.replace("Nov 6 (Fri)", "Nov 6 (Sat)"), "men"),
+        (landmark_html.replace("Nov 6 (Fri)", "Nov 6 (Sat)"), "women"),
     ]:
         try:
             parse_conference_calendar(
