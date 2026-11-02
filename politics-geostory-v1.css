@@ -1,0 +1,188 @@
+/* THE POLITICAL LIFE & TIMES / COUNTY & COMMUNITY MAP
+ * Official vector geometry; typography and color are for information,
+ * not synthetic venue maps or empty AI dashboard cards.
+ */
+body[data-house-page="district"] .geo-story-controls{
+ display:flex;align-items:center;justify-content:space-between;
+ flex-wrap:wrap;gap:8px 18px;margin:14px 0 10px;
+ border-top:2px solid #23485d;border-bottom:1px solid #afc0c4;
+ padding:12px 1px;background:#f5f7f4
+}
+body[data-house-page="district"] .geo-story-toolbar-title{
+ color:#a33d36;font:900 10px/1.45 'DM Sans',Arial,sans-serif;letter-spacing:1px
+}
+body[data-house-page="district"] .geo-story-toolbar{
+ display:flex;flex-wrap:wrap;gap:3px
+}
+body[data-house-page="district"] .geo-story-toolbar button{
+ appearance:none;border:1px solid #a2b2b8;padding:9px 12px;
+ background:#fffef9;color:#2a4c5f;border-radius:0;
+ font:900 10px/1.25 'DM Sans',Arial,sans-serif;
+ cursor:pointer;letter-spacing:.3px
+}
+body[data-house-page="district"] .geo-story-toolbar button.is-selected{
+ color:#fffef7;background:#1c465f;border-color:#1c465f
+}
+body[data-house-page="district"] .geo-story-toolbar button:hover,
+body[data-house-page="district"] .geo-story-toolbar button:focus-visible{
+ outline:2px solid #b45b51;outline-offset:1px
+}
+body[data-house-page="district"] .geo-story-legend{
+ padding:9px 3px 11px;border-bottom:1px solid #bac7ca;
+ color:#566f7d;font:900 10px/1.65 'DM Sans',sans-serif;letter-spacing:.35px
+}
+body[data-house-page="district"] .geo-story-status{
+ color:#576b75;font:10px/1.65 'DM Sans',sans-serif;
+ margin:10px 0 0;display:flex;flex-wrap:wrap;gap:5px 12px
+}
+body[data-house-page="district"] .geo-story-status>a{
+ color:#205f7c;text-decoration:underline;text-underline-offset:2px;
+ font-weight:900
+}
+body[data-house-page="district"] .geo-story-reset{
+ display:inline-block;cursor:pointer;float:right;
+ border:0;border-bottom:1px solid #284e62;border-radius:0;
+ background:transparent;color:#284e62;
+ padding:4px 2px;font:900 10px/1.3 'DM Sans',sans-serif
+}
+body[data-house-page="district"] #dossier-map{height:510px!important;min-height:390px!important}
+body[data-house-page="district"] .geo-story-detail-wrap{
+ display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:0;
+ background:#fcfbf6;border-top:3px solid #1b3a50;
+ border-bottom:2px solid #b6c3c6;min-height:190px
+}
+body[data-house-page="district"] #geo-story-detail{padding:23px 27px 25px;min-width:0}
+body[data-house-page="district"] .geo-story-side{
+ padding:24px 20px;border-left:1px solid #b7c5c9;background:#eff4f3
+}
+body[data-house-page="district"] .geo-story-side .geo-story-eyebrow{
+ display:block;color:#a94339;font:900 10px/1.4 'DM Sans',sans-serif;letter-spacing:.7px
+}
+body[data-house-page="district"] .geo-story-side strong{
+ display:block;margin:11px 0 7px;font:700 21px/1.18 Georgia,serif;
+ color:#244357;letter-spacing:-.5px
+}
+body[data-house-page="district"] .geo-story-side p{
+ margin:6px 0 12px;color:#566b76;font:12px/1.6 Georgia,serif
+}
+body[data-house-page="district"] .geo-story-side a{
+ color:#205c78;font:900 11px/1.5 'DM Sans',sans-serif;
+ text-decoration:underline;text-underline-offset:2px
+}
+body[data-house-page="district"] .geo-story-eyebrow{
+ color:#a3433b;font:900 10px/1.45 'DM Sans',sans-serif;
+ letter-spacing:1.15px
+}
+body[data-house-page="district"] .geo-story-card h4{
+ font:700 clamp(26px,3vw,39px)/1.08 Georgia,serif;
+ margin:7px 0 13px;color:#193d54;letter-spacing:-1px
+}
+body[data-house-page="district"] .geo-story-card h5{
+ font:700 20px/1.24 Georgia,serif;margin:14px 0 7px;color:#264659
+}
+body[data-house-page="district"] .geo-story-card>p{
+ margin:11px 0;color:#536a75;font:13px/1.6 Georgia,serif
+}
+body[data-house-page="district"] .geo-story-winner{
+ display:flex;align-items:baseline;gap:11px 19px;
+ flex-wrap:wrap;padding:4px 0 14px
+}
+body[data-house-page="district"] .geo-story-winner strong{
+ font:700 clamp(27px,4vw,48px)/1 Georgia,serif;letter-spacing:-1.7px
+}
+body[data-house-page="district"] .geo-story-winner.dem strong{color:#2c70a4}
+body[data-house-page="district"] .geo-story-winner.rep strong{color:#ae4740}
+body[data-house-page="district"] .geo-story-winner span{
+ color:#657680;font:900 10px/1.35 'DM Sans',sans-serif;
+ letter-spacing:.4px
+}
+body[data-house-page="district"] .geo-story-vote-share{
+ height:17px;width:100%;display:flex;background:#dce5e6;
+ overflow:hidden;max-width:780px
+}
+body[data-house-page="district"] .geo-story-vote-share .dem{background:#3976a5}
+body[data-house-page="district"] .geo-story-vote-share .rep{background:#b45047}
+body[data-house-page="district"] .geo-story-stat-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+ max-width:780px;border-bottom:1px solid #b9c9cc
+}
+body[data-house-page="district"] .geo-story-stat{
+ padding:12px 13px 13px 0;border-right:1px solid #c2cdd0;
+ min-width:0
+}
+body[data-house-page="district"] .geo-story-stat:not(:first-child){padding-left:13px}
+body[data-house-page="district"] .geo-story-stat:last-child{border-right:0}
+body[data-house-page="district"] .geo-story-stat span{
+ display:block;color:#677b85;font:900 9px/1.35 'DM Sans',sans-serif
+}
+body[data-house-page="district"] .geo-story-stat strong{
+ display:block;color:#26485d;font:700 clamp(17px,2vw,25px)/1.1 Georgia,serif;
+ margin-top:5px;letter-spacing:-.4px
+}
+body[data-house-page="district"] .geo-story-county-context{
+ border-top:1px solid #becbcf;margin-top:15px;padding-top:10px;max-width:80ch
+}
+body[data-house-page="district"] .geo-story-county-context p{
+ font:12px/1.66 Georgia,serif;color:#4c6270;margin:6px 0
+}
+body[data-house-page="district"] .geo-story-card a{
+ display:inline-block;color:#255c77;font:900 11px/1.5 'DM Sans',sans-serif;
+ text-decoration:underline;text-underline-offset:3px;margin:8px 12px 1px 0
+}
+body[data-house-page="district"] .geo-story-footnote{
+ font:11px/1.55 'DM Sans',sans-serif!important;color:#74848b!important
+}
+body[data-house-page="district"] .geo-story-source{margin:8px 0 0;font:10px/1.5 'DM Sans',sans-serif}
+body[data-house-page="district"] .geo-story-employers{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;
+ border-top:1px solid #bbc9cb;border-bottom:1px solid #bbc9cb;margin:15px 0;
+ padding:10px 0
+}
+body[data-house-page="district"] .geo-story-employers h5{
+ grid-column:1/-1;margin:0 0 7px
+}
+body[data-house-page="district"] .geo-story-employers p{
+ color:#34546a;margin:8px 0 8px;padding-left:13px;
+ border-left:3px solid #9e7b3b;font:700 13px/1.35 Georgia,serif
+}
+body[data-house-page="district"] .geo-story-news-list{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:0 18px;margin:14px 0
+}
+body[data-house-page="district"] .geo-story-news-list article{
+ padding:12px 0;border-top:1px solid #b8c6c8
+}
+body[data-house-page="district"] .geo-story-news-list article span{
+ color:#a74a42;font:900 10px 'DM Sans',sans-serif
+}
+body[data-house-page="district"] .geo-story-news-list article a{
+ display:block;font:700 16px/1.4 Georgia,serif;text-decoration:none;margin:7px 0
+}
+body[data-house-page="district"] .geo-story-news-list article a:hover{text-decoration:underline}
+body[data-house-page="district"] .dossier-town-zoom{
+ cursor:pointer!important
+}
+body[data-house-page="district"] .leaflet-container{
+ font:13px/1.4 'DM Sans',Arial,sans-serif!important
+}
+body[data-house-page="district"] .leaflet-tooltip{
+ font:900 12px/1.35 'DM Sans',sans-serif!important;
+ color:#1a4058;background:#fffefa;border:1px solid #9eb3bf;
+ box-shadow:none;border-radius:0
+}
+@media(max-width:900px){
+ body[data-house-page="district"] .geo-story-detail-wrap{grid-template-columns:1fr}
+ body[data-house-page="district"] .geo-story-side{border-left:0;border-top:1px solid #b8c5c9}
+}
+@media(max-width:690px){
+ body[data-house-page="district"] .geo-story-controls{display:block}
+ body[data-house-page="district"] .geo-story-toolbar{margin-top:9px}
+ body[data-house-page="district"] .geo-story-toolbar button{padding:9px 7px;font-size:9px}
+ body[data-house-page="district"] #dossier-map{height:370px!important;min-height:330px!important}
+ body[data-house-page="district"] #geo-story-detail{padding:18px 16px}
+ body[data-house-page="district"] .geo-story-side{padding:19px 16px}
+ body[data-house-page="district"] .geo-story-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-house-page="district"] .geo-story-stat:nth-child(2){border-right:0}
+ body[data-house-page="district"] .geo-story-stat:nth-child(3){grid-column:1/-1;padding-left:0;border-top:1px solid #bec8ca}
+ body[data-house-page="district"] .geo-story-news-list{grid-template-columns:1fr}
+}
