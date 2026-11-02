@@ -188,8 +188,13 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
         if ("women's basketball" in identity_text or
                 not (explicit_men or (mens_path and basketball_schedule))):
             raise ValueError("Wrong men's sport or women's calendar")
-    if gender == "women" and not re.search(r"women's\s+basketball", identity_text):
-        raise ValueError("Wrong women's sport or men's calendar")
+    if gender == "women":
+        womens_path = "/sports/womens-basketball/schedule" in urlsplit(url).path.lower()
+        explicit_women = bool(re.search(r"women's\s+basketball", identity_text))
+        basketball_schedule = bool(re.search(r"\bbasketball\s+schedule\b", identity_text))
+        if ("men's basketball" in identity_text and not explicit_women) or not (
+                explicit_women or (womens_path and basketball_schedule)):
+            raise ValueError("Wrong women's sport or men's calendar")
     matches = []
     inspected = 0
     omitted = defaultdict(int)
@@ -381,6 +386,13 @@ def process(gender, workers=30, dry_run=False):
     prior_file = DATA / f"d3-{gender}-official-fixtures-2026-27.json"
     previous = json.loads(prior_file.read_text()) if prior_file.exists() else {}
     available_previous = defaultdict(list)
+    # Bind recovered historical evidence to the actual university URL that
+    # passed validation on the earlier run, never an unrelated opponent link.
+    previous_good_source = {
+        int(a["owner_org_id"]): a.get("source_url", "")
+        for a in previous.get("source_audit", [])
+        if a.get("status") == "parsed" and a.get("source_url", "").startswith("https://")
+    }
     for f in previous.get("fixtures", []):
         for owner in f.get("verified_by_org_ids", []):
             available_previous[owner].append(f)
@@ -408,8 +420,9 @@ def process(gender, workers=30, dry_run=False):
                 # Failed sources must not erase last verified fixture snapshots.
                 recovered = []
                 for f in prior:
-                    prior_urls = f.get("official_schedule_sources") or [f.get("source_url", "")]
-                    prev_source = next((x for x in prior_urls if x), f.get("source_url", ""))
+                    prev_source = previous_good_source.get(owner, "")
+                    if not prev_source:
+                        continue  # evidence attribution cannot be proven
                     recovered.append({
                         "date": f["date"], "away_org_id": f["away_org_id"],
                         "home_org_id": f["home_org_id"], "neutral": f["neutral"],
@@ -555,6 +568,16 @@ def self_test():
       <tr><td>January 17, 2027 (Sunday)</td><td>7 PM</td><td>Away</td><td>Trine</td>
       <td>Angola, IN</td><td></td><td></td><td></td><td></td></tr>
       </table></body></html>"""
+    # Gender-specific official school paths may legitimately use the title
+    # "Basketball Schedule" without spelling out men/women; still deny a
+    # male page on a women's path and vice versa.
+    generic = html.replace("Men's Basketball", "Basketball")
+    gr, _ = parse_calendar(generic, "men", 286,
+                           "https://athletics.hope.edu/sports/mens-basketball/schedule/2026-27", by_org, exact)
+    assert len(gr) == 3
+    grw, _ = parse_calendar(generic, "women", 286,
+                            "https://athletics.hope.edu/sports/womens-basketball/schedule/2026-27", by_org, exact)
+    assert len(grw) == 3
     rows, report = parse_calendar(html, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
     assert report["readable_rows"] == 5 and len(rows) == 3
     assert rows[0]["away_org_id"] == 286 and rows[0]["home_org_id"] == 30037
