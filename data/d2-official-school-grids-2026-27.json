@@ -911,7 +911,7 @@
       "gender": "women",
       "owner_id": "lenoir-rhyne-university",
       "source_url": "https://lrbears.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "scope": "One independently verified DII opponent matchup from official university schedule. Not a complete Lenoir–Rhyne season.",
+      "scope": "Individually confirmed DII opponent fixtures from the owner's official 2026–27 school calendar; not a complete university season.",
       "fixtures": [
         {
           "date": "2026-12-18",
@@ -921,6 +921,15 @@
           "start_time": "2:00 PM ET",
           "source_venue": "Coliseo Roger Luis Mendoza · Caguas, Puerto Rico",
           "opponent_identity_source_url": "https://web3.ncaa.org/directory/orgDetail?id=24361"
+        },
+        {
+          "date": "2026-12-19",
+          "role": "neutral",
+          "opponent": "University of Puerto Rico, Rio Piedras",
+          "source_opponent": "University of Puerto Rico-Rio Piedras",
+          "start_time": "12:00 PM ET",
+          "source_venue": "Coliseo Roger Luis Mendoza · Caguas, Puerto Rico",
+          "opponent_identity_source_url": "https://web3.ncaa.org/directory/orgDetail?id=24347"
         }
       ]
     },
@@ -928,8 +937,17 @@
       "gender": "women",
       "owner_id": "the-university-of-virginia-s-college-at-wise",
       "source_url": "https://uvawisecavs.com/sports/womens-basketball/schedule",
-      "scope": "One independently verified DII opponent matchup from official university schedule. Not a complete UVA Wise season.",
+      "scope": "Individually confirmed DII opponent fixtures from the owner's official 2026–27 school calendar; not a complete university season.",
       "fixtures": [
+        {
+          "date": "2026-12-18",
+          "role": "neutral",
+          "opponent": "University of Puerto Rico, Rio Piedras",
+          "source_opponent": "Puerto Rico-Rio Piedras",
+          "start_time": "11:00 AM ET",
+          "source_venue": "Caguas, Puerto Rico (specific court unverified)",
+          "opponent_identity_source_url": "https://web3.ncaa.org/directory/orgDetail?id=24347"
+        },
         {
           "date": "2026-12-19",
           "role": "neutral",
@@ -1829,6 +1847,38 @@
         }
       ],
       "notes": "2026–27 official Falcons calendar, Nov 14–Feb 27. Its January 6 West Liberty tipoff is listed as 7:30 PM whereas West Liberty lists 4:00 PM; withheld pending official resolution. No stream/network inferred from generic watch links."
+    },
+    {
+      "gender": "women",
+      "owner_id": "tiffin-university",
+      "source_url": "https://gotiffindragons.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "scope": "Only one official Puerto Rico-Rio Piedras opponent fixture verified on Tiffin calendar; no full Tiffin season asserted.",
+      "fixtures": [
+        {
+          "date": "2026-12-17",
+          "role": "neutral",
+          "opponent": "University of Puerto Rico, Rio Piedras",
+          "source_opponent": "University of Puerto Rico-Rio Piedras",
+          "start_time": "1:00 PM ET",
+          "source_venue": "Coliseo Guillermo Angulo · San Juan, Puerto Rico"
+        }
+      ]
+    },
+    {
+      "gender": "women",
+      "owner_id": "minot-state-university",
+      "source_url": "https://msubeavers.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "scope": "Only one official Puerto Rico-Rio Piedras opponent fixture verified on Minot State calendar; no full Minot season asserted.",
+      "fixtures": [
+        {
+          "date": "2026-11-14",
+          "role": "away",
+          "opponent": "University of Puerto Rico, Rio Piedras",
+          "source_opponent": "University of Puerto Rico-Rio Piedras",
+          "start_time": "9:00 AM ET",
+          "source_venue": "Caguas, Puerto Rico (specific court unverified)"
+        }
+      ]
     }
   ],
   "live_school_sources": [
@@ -1921,7 +1971,7 @@
       "owner_id": "seattle-pacific",
       "source_url": "https://spufalcons.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "time_zone": "America/Los_Angeles",
-      "school_identity": "Seattle Pacific"
+      "school_identity": "SPU"
     },
     {
       "gender": "women",
