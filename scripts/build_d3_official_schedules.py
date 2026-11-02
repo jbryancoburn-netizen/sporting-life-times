@@ -524,8 +524,10 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
             })
     if inspected < 4:
         raise ValueError(f"Fewer than 4 readable grid rows ({inspected}); no publish")
-    if len(matches) < 3:
-        raise ValueError(f"Only {len(matches)} eligible matches from {inspected} rows; no publish")
+    if len(matches) + len(unresolved_opponents) < 3:
+        raise ValueError(
+            f"Only {len(matches)} DIII-matched and {len(unresolved_opponents)} "
+            f"other real posted games from {inspected} rows; no publish")
     return matches, {"owner_org_id": owner, "source_url": url,
                      "readable_rows": inspected, "verified_member_opponents": len(matches),
                      "unresolved_opponent_rows": unresolved_opponents,
@@ -1094,7 +1096,10 @@ def process(gender, workers=30, dry_run=False):
                           "status": "failed", "error": str(ex)[:200]}
             prior = available_previous[owner]
             new_external = report.pop("unresolved_opponent_rows", [])
-            if rows:
+            if rows is not None and (rows or new_external):
+                # Verified school calendars with no matching DIII opponents
+                # still have genuine published fixtures against other schools.
+                # Their games remain non-Elo and their identity unresolved.
                 # Attach evidence type before dedupe so conference pages
                 # never masquerade as a university-published schedule.
                 for row in rows:
@@ -1562,6 +1567,16 @@ def self_test():
     rows, report = parse_calendar(html, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
     assert report["readable_rows"] == 5 and len(rows) == 3
     assert not report["unresolved_opponent_rows"]  # conditional/ambiguous names
+    external_heavy = (html.replace("Trine University", "Marquette University")
+                     .replace("<td>Trine</td>", "<td>Georgetown University</td>")
+                     .replace("<td>Trinity</td>", "<td>Stanford University</td>"))
+    other_rows, other_audit = parse_calendar(
+        external_heavy, "men", 286, "https://athletics.hope.edu/example", by_org, exact)
+    assert not other_rows  # Nothing misrepresented as a DIII member game.
+    assert len(other_audit["unresolved_opponent_rows"]) == 4
+    assert other_audit["status"] == "parsed"
+    assert all(r["external_opponent_label"] and r["source_owner_org_id"] == 286
+               for r in other_audit["unresolved_opponent_rows"])
     _, mixed = parse_calendar(
         html.replace("Trine or Hope", "Marquette University"),
         "men", 286, "https://athletics.hope.edu/example", by_org, exact)
