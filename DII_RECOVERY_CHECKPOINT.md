@@ -93,3 +93,15 @@ Always use the **latest main HEAD** rather than assuming these remain the newest
 6. **Budget check**: confirm every new tool, endpoint and runtime step is free and does not trigger paid capacity. Any cost risk is a blocker, not something to silently accept.
 
 **Scope of this checkpoint:** It preserves requirements, audit facts, and recovery instructions. It is not a claim that missing schedules were completed, that all tests were run during this checkpoint write, or that deployment succeeded.
+
+## Recovery batch 2026-11-01: Salem and Lincoln official schedules
+
+**This is a dated snapshot, not a new complete-calendar certification. Read the current live audit after future commits.**
+
+- Committed `cf94a4d`: **83 official school-calendar source rows**, namely Salem men (27), Salem women (28), and Lincoln University (PA) women (28), in `data/d2-official-school-grids-2026-27.json`. The existing DII publisher now conservatively adds only games with uniquely matched eligible DII opponents, preserves existing NCAA IDs/finals and never creates fake historical results. Some official source rows involve non-DII schools and must not be published as DII games.
+- Corrected West Florida's 2026–27 **Division I** transition in the official membership notes for both sexes. Its legacy zero-fixture listing does not signify a missing eligible DII schedule.
+- Corrected CCAA men's university-grid gender-title validation and reconciliation safeguards; retain two distinct corroborating schools and exclude membership-ineligible schools. Related code and test commits `85ac196d`, `166ff414`, `d0752c09`. **Check latest workflow outcome, not chat assertions.**
+- DII workflow run **41380575116** succeeded with existing verification and publication steps. Its success is independent from later regression runs; verify newer changes before declaring green.
+- Published audit at blob `7a7e7f417df7179d0fb8dede2103b6b5fa746adc`: men **301 schools / 2925 game records / 26 verified Elo finals / 6 zero schedules / 22 thin (1–6)**; women **298 / 3714 / 33 / 3 / 3** respectively. Changes include concurrent DII commits from other work; do not attribute all additions to one source batch.
+- Still missing **men: 2790 arenas, 2795 broadcasts, 933 tipoffs; women: 3566, 3576, 331**. Full institution-by-institution schedules remain **UNCERTIFIED**.
+- Hard operating rule: **$0**. No paid APIs, subscriptions, vendor feeds, CI upgrades, premium hosting, or enabling billing. Use existing free sources and current workflows only.
