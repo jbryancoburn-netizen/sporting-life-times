@@ -180,7 +180,7 @@ function card(g,featured){
   '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
   '<div class="sl-game-main"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
-  '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>at / vs</span>')+'</div>'+
+  '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
   '<div class="sl-school">'+team(g.home)+favorite(g.home)+'</div>'+
   '</div><div class="sl-game-editorial"><p class="sl-kicker">'+(featured?'THE FEATURE MATCHUP':'MATCHUP NOTES')+'</p>'+
   '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
