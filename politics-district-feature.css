@@ -440,3 +440,60 @@ body[data-house-page="district"] .feature-number[data-digits="8"]{
  body[data-house-page="district"] .feature-number[data-digits="7"],
  body[data-house-page="district"] .feature-number[data-digits="8"]{font-size:clamp(46px,11vw,72px)}
 }
+
+/* THE REAL PLACES / Original photo essay. No generated stock imagery.
+   The source and license travel with every photograph. */
+body[data-house-page="district"] .dossier-actual-photo-essay{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;
+ margin:22px 0 29px;background:#112b3f;
+ border-top:5px solid #c15348;position:relative
+}
+body[data-house-page="district"] .dossier-actual-photo-essay:before{
+ grid-column:1/-1;content:"TWO CENTERS. ONE CONGRESSIONAL DISTRICT.";
+ display:block;padding:16px 16px 13px;background:#153248;
+ font:900 10px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:1.6px;color:#efd078
+}
+body[data-house-page="district"] .dossier-place-photo{
+ display:flex;flex-direction:column;min-width:0;margin:0;
+ border-right:1px solid #618091;background:#122d44
+}
+body[data-house-page="district"] .dossier-place-photo:last-child{border-right:0}
+body[data-house-page="district"] .dossier-place-photo img{
+ display:block;width:100%;height:clamp(145px,17vw,245px);
+ min-height:145px;object-fit:cover;object-position:center;filter:saturate(.88);
+ background:#22465e;border:0
+}
+body[data-house-page="district"] .dossier-place-photo figcaption{
+ display:flex;flex-direction:column;gap:7px;flex:1;
+ padding:16px 16px 18px;background:#122d44;color:#edf3ef
+}
+body[data-house-page="district"] .dossier-photo-where{
+ color:#f2c86b;font:900 9px/1.4 'DM Sans',Arial,sans-serif;
+ letter-spacing:1.35px
+}
+body[data-house-page="district"] .dossier-place-photo figcaption strong{
+ color:#fff8e7;font:700 clamp(20px,2.3vw,31px)/1.12 Georgia,serif;
+ letter-spacing:-.7px
+}
+body[data-house-page="district"] .dossier-photo-description{
+ font:12px/1.6 Georgia,serif;color:#c5d8e0
+}
+body[data-house-page="district"] .dossier-photo-credit{
+ display:block;margin-top:auto;padding-top:11px;border-top:1px solid #54748a;
+ font:10px/1.6 'DM Sans',Arial,sans-serif;color:#a9c2cf
+}
+body[data-house-page="district"] .dossier-photo-credit a{
+ color:#f4d58a;text-decoration:underline;text-underline-offset:2px
+}
+body[data-house-page="district"] .dossier-place-photo.photo-unavailable img{
+ display:none
+}
+body[data-house-page="district"] .dossier-place-photo.photo-unavailable figcaption:before{
+ content:"ARCHIVE IMAGE UNAVAILABLE";font:900 10px 'DM Sans',sans-serif;
+ color:#f3d47a;letter-spacing:1px
+}
+@media(max-width:520px){
+ body[data-house-page="district"] .dossier-actual-photo-essay{grid-template-columns:1fr}
+ body[data-house-page="district"] .dossier-place-photo{border-right:0;border-bottom:1px solid #618091}
+ body[data-house-page="district"] .dossier-place-photo img{height:230px}
+}
