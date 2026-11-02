@@ -1153,6 +1153,14 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not glvc_quality or
         glvc_quality.get("status")!="GLVC 2026-27 exact two-university fixtures verified"):
         glvc_quality=enrich_glvc(gender,games,teams,today)
+    # Sunshine State Conference 2026-27: eleven independent school grids
+    # per gender. Two-school source agreement is required; NCAA games keep
+    # their original IDs and scores, with no cross-gender identity borrowing.
+    from d2_ssc_official import enrich_ssc
+    ssc_quality=previous_quality.get("official_ssc_schedule_reconciliation")
+    if (not rapid or not ssc_quality or
+        ssc_quality.get("status")!="SSC 2026-27 two-university fixture verification"):
+        ssc_quality=enrich_ssc(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1250,7 +1258,8 @@ def update(gender, bootstrap=False, live=False):
         "official_ne10_schedule_reconciliation":ne10_quality,
         "official_siac_schedule_reconciliation":siac_quality,
         "official_sac_schedule_reconciliation":sac_quality,
-        "official_glvc_schedule_reconciliation":glvc_quality}
+        "official_glvc_schedule_reconciliation":glvc_quality,
+        "official_ssc_schedule_reconciliation":ssc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
