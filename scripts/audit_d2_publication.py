@@ -220,6 +220,7 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         ("GMAC fixtures", "official_gmac_schedule_reconciliation"),
         ("MIAA fixtures", "official_miaa_schedule_reconciliation"),
         ("CCAA men fixtures", "official_ccaa_men_schedule_reconciliation"),
+        ("MEC men fixtures", "official_mec_men_schedule_reconciliation"),
         ("SSC fixtures", "official_ssc_schedule_reconciliation"),
         ("PacWest fixtures", "official_pwc_schedule_reconciliation"),
         ("Lone Star men fixtures", "official_lsc_men_schedule_reconciliation"),

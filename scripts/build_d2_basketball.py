@@ -1376,6 +1376,14 @@ def update(gender, bootstrap=False, live=False):
             (ccaa_men_quality.get("status")!="CCAA 2026-27 exact two-university men fixtures verified" or
              ccaa_men_quality.get("source_reconciliation_version")!=2)):
             ccaa_men_quality=enrich_ccaa_men(games,teams,today)
+    # Mountain East men's: exact reciprocal school-calendar matches only.
+    # Daily pass rechecks the 12 university grids; the rapid pass retains
+    # prior evidence unless no certified report was ever produced.
+    mec_men_quality=previous_quality.get("official_mec_men_schedule_reconciliation") if gender=="men" else None
+    if gender=="men":
+        from d2_mec_men_official import enrich_mec_men
+        if not rapid or not mec_men_quality or mec_men_quality.get("status")!="MEC 2026-27 exact two-university men's fixtures verified":
+            mec_men_quality=enrich_mec_men(games,teams,today)
     enforce_dii_elo_member_gate(games, teams)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
@@ -1481,6 +1489,7 @@ def update(gender, bootstrap=False, live=False):
         "official_gmac_schedule_reconciliation":gmac_quality,
         "official_miaa_schedule_reconciliation":miaa_quality,
         "official_ccaa_men_schedule_reconciliation":ccaa_men_quality,
+        "official_mec_men_schedule_reconciliation":mec_men_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
         "official_pwc_schedule_reconciliation":pwc_quality,
         "official_lsc_men_schedule_reconciliation":lsc_quality,
