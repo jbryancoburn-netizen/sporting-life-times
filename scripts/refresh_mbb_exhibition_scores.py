@@ -57,7 +57,9 @@ def candidates():
         for e in doc.get("events", []):
             day = str(e.get("date", ""))[:10]
             # A full-season listing is NOT itself evidence of a final.
-            if not re.fullmatch(r"2026-(?:09|10|11)-\d{2}", day) or not exhibition(e):
+            if (not re.fullmatch(r"2026-(?:09|10|11)-\d{2}", day)
+                    or not exhibition(e) or e.get("exhibition_canceled") is True
+                    or e.get("status", {}).get("type", {}).get("state") == "canceled"):
                 continue
             people = (e.get("competitions") or [{}])[0].get("competitors") or []
             own = next((p for p in people if str(p.get("team", {}).get("id")) == espn_id), None)
