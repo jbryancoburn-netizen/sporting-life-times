@@ -502,6 +502,23 @@ function renderState(a){
   window.PoliticsStateArt.prepare(code,state.district_count);
  }
  const watchRows=rows.filter(x=>preliminaryRaceRead(x).watch);
+ const lead=$("state-edition-heading");
+ const deck=document.querySelector(".state-lead-main > p");
+ const topHistory=rows.filter(r=>r["2024_house_result_on_prior_boundaries"]?.same_2026_geography&&
+  Number.isFinite(r["2024_house_result_on_prior_boundaries"].dem_votes)&&
+  Number.isFinite(r["2024_house_result_on_prior_boundaries"].rep_votes))
+  .sort((a,b)=>{
+    const aa=a["2024_house_result_on_prior_boundaries"],bb=b["2024_house_result_on_prior_boundaries"];
+    return Math.abs(aa.dem_votes-aa.rep_votes)-Math.abs(bb.dem_votes-bb.rep_votes);
+  })[0];
+ if(lead&&state.district_count===4)lead.textContent="Four districts. Four different House stories.";
+ if(deck){
+  const nearest=topHistory?topHistory["2024_house_result_on_prior_boundaries"]:null;
+  const gap=nearest?Math.abs(nearest.dem_votes-nearest.rep_votes):null;
+  deck.textContent=(gap!=null?"The closest 2024 House vote was "+fmt(gap)+" ballots in "+topHistory.id+". ":"")+
+   watchRows.length+" watch-flagged district"+(watchRows.length===1?"":"s")+" and "+
+   rows.filter(r=>r.district_specific_2026_polls?.length).length+" district"+(rows.filter(r=>r.district_specific_2026_polls?.length).length===1?"":"s")+" with a published polling record. All source-vintage limits remain visible.";
+ }
  const conflicting=rows.filter(x=>preliminaryRaceRead(x).label==="Signals disagree");
  const watchBox=$("state-headline-watch"),mixedBox=$("state-headline-conflicts"),ballotBox=$("state-headline-ballots");
  if(watchBox)watchBox.textContent=String(watchRows.length);
