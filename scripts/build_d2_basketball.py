@@ -950,6 +950,29 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
         raise ValueError("Incorrect DII official school grid evidence schema/season")
     lookup = build_dii_team_lookup(teams)
     counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
+    # Two campus calendars can disagree. Detect all corroborated discrepancies
+    # BEFORE inserting either side: otherwise the first school's unverified
+    # clock or court role can leak into the published scorebug.
+    clock_claims, court_claims = {}, {}
+    for calendar in evidence.get("schools", []):
+        owner = calendar.get("owner_id")
+        if calendar.get("gender") != gender or owner not in teams or teams[owner].get("not_eligible_for_dii_elo"):
+            continue
+        for row in calendar.get("fixtures", []):
+            opponent = resolve_dii_team_id({"name": row.get("opponent")}, lookup)
+            if not opponent or owner == opponent:
+                continue
+            key = (row["date"], tuple(sorted((owner, opponent))))
+            if row.get("start_time"):
+                clock_claims.setdefault(key, set()).add(row["start_time"])
+            if row.get("role") == "home":
+                court_claims.setdefault(key, set()).add((opponent, owner))
+            elif row.get("role") == "away":
+                court_claims.setdefault(key, set()).add((owner, opponent))
+    disputed_times = {k for k, v in clock_claims.items() if len(v) > 1}
+    disputed_courts = {k for k, v in court_claims.items() if len(v) > 1}
+    counts["time_conflicts"] = len(disputed_times)
+    counts["home_away_conflicts"] = len(disputed_courts)
     # Rebuild for each school so newly created games can never double-enter.
     for calendar in evidence.get("schools", []):
         if calendar.get("gender") != gender:
@@ -967,12 +990,18 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             if not opponent or owner == opponent:
                 counts["unmatched"] += 1
                 continue
+            fixture_key = (row["date"], tuple(sorted((owner, opponent))))
+            if fixture_key in disputed_courts:
+                counts["conflicts"] += 1
+                continue
             # All currently registered school grids are Eastern-time campuses.
             # Reject an unconverted local/Pacific clock rather than silently
             # presenting it as Eastern to readers or the Elo game center.
             clock = row.get("start_time") or ""
             if clock and not re.fullmatch(r"(?:[1-9]|1[0-2]):[0-5][0-9] [AP]M ET", clock):
                 raise ValueError("Official DII school tipoff must be normalized to ET")
+            if fixture_key in disputed_times:
+                clock = ""  # Conflicting independent school time evidence.
             date = row["date"]
             if not (dt.date(2026, 10, 1) <= dt.date.fromisoformat(date) <= dt.date(2027, 4, 15)):
                 raise ValueError("School source game date outside DII season")
@@ -995,8 +1024,8 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
                 if neutral:
                     old["neutral"] = True
                     old["neutral_source_url"] = source_url
-                if row.get("start_time") and not old.get("start_time"):
-                    old["start_time"] = row["start_time"]
+                if clock and not old.get("start_time"):
+                    old["start_time"] = clock
                     old["tipoff_source_url"] = source_url
                 if role == "home" and calendar.get("home_venue") and not old.get("venue"):
                     old["venue"] = calendar["home_venue"]
@@ -1011,7 +1040,7 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             games[ident] = {
                 "id": ident, "date": date, "away": away, "home": home,
                 "status": "scheduled", "away_score": None, "home_score": None,
-                "start_time": row.get("start_time") or "",
+                "start_time": clock,
                 "venue": calendar.get("home_venue", "") if role == "home" else "",
                 "network": "", "neutral": neutral,
                 "site_designation": ("Neutral site; official school grid does not certify home/away"
