@@ -157,6 +157,8 @@ function featuredMatch(g){
       return isOrange&&dark?{base:alternate,accent:primary}:{base:primary,accent:alternate};
    };
    const pa=paint(a),ph=paint(h);
+   // Authentic team marks used only for wallpaper; the double-ring crest is unchanged.
+   const officialMark=t=>/^https:\/\/a\.espncdn\.com\/i\/teamlogos\/nfl\/\d+\/[a-z0-9_-]+\.png$/i.test(t.logo||'')?'url(&quot;'+escapeHtml(t.logo)+'&quot;)':'none';
 
    const stateLabel=g.state==='in'?(g.period>4?'OVERTIME':'QUARTER '+(g.period||'?')):g.state==='post'?nflFinalStatus(g):'UP NEXT';
    const detail=g.state==='in'?((g.period>4?'OT':'Q'+(g.period||'?'))+' · '+(g.clock||'IN PROGRESS')):g.state==='post'?nflFinalStatus(g):date(g.date);
@@ -166,14 +168,14 @@ function featuredMatch(g){
      '<span class="nfl-p26-hero-state '+(g.state==='in'?'is-live':pre?'is-pre':'is-final')+'">'+
      (g.state==='in'?'<i class="nfl-p26-red-dot"></i>':'')+escapeHtml(detail)+'</span></div>'+
      '<div class="nfl-p26-score-stage nfl-p26-box-score" style="--nfl-away-color:'+escapeHtml(pa.base)+';--nfl-away-accent:'+escapeHtml(pa.accent)+';--nfl-home-color:'+escapeHtml(ph.base)+';--nfl-home-accent:'+escapeHtml(ph.accent)+'">'+
-       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-away" style="--nfl-box-color:'+escapeHtml(pa.base)+';--nfl-box-alt:'+escapeHtml(pa.accent)+';--nfl-club-mark:'+officialMark(a)+'">'+
          '<div class="nfl-p26-box-row">'+crest(a,'lg')+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(a.name)+' score">'+(pre?'—':format(g.away.score))+'</strong></div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(a))+'</b>'+
            '<small>'+escapeHtml(a.code)+' · '+escapeHtml(rec(a))+
            (g.state==='in'&&g.possession===a.id?' · BALL':'')+'</small></div></div>'+
        '<span class="nfl-p26-box-seam" aria-hidden="true"></span>'+
-       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+'">'+
+       '<div class="nfl-p26-box-team nfl-p26-box-home" style="--nfl-box-color:'+escapeHtml(ph.base)+';--nfl-box-alt:'+escapeHtml(ph.accent)+';--nfl-club-mark:'+officialMark(h)+'">'+
          '<div class="nfl-p26-box-row">'+
            '<strong class="nfl-p26-box-points" aria-label="'+escapeHtml(h.name)+' score">'+(pre?'—':format(g.home.score))+'</strong>'+crest(h,'lg')+'</div>'+
          '<div class="nfl-p26-box-identity"><b>'+escapeHtml(short(h))+'</b>'+
@@ -429,35 +431,65 @@ catch(e){el.innerHTML=note("Roster feed unavailable. Club results and ratings re
 function gamePage(){
  const g=games.find(g=>g.id===params.get("id"));
  if(!g)return note("Game not found. "+link("nfl-game-center.html","Open the Game Center."));
- const a=team(g.away.id),h=team(g.home.id),elo=g.elo||{};
+ const a=team(g.away.id),h=team(g.home.id),elo=g.elo||{},model=feed.model||{};
  const status=g.state==='in'?'LIVE · '+liveClock(g):g.state==='post'?nflFinalStatus(g):'PREGAME';
  let out='<div class="nfl-p26 nfl-p26-game">'+
   '<div class="nfl-game-return"><a href="nfl-game-center.html">← ALL NFL GAMES</a>'+
   '<span>WEEK '+escapeHtml(g.week)+' · '+escapeHtml(status)+'</span></div>'+
-  '<h1 class="nfl-title nfl-game-title">'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+'</h1>'+
-  featuredMatch(g);
- const extras=[
-  ['USRS HOME PREGAME',elo.home_win_probability==null?'—':format(100*elo.home_win_probability,1)+'%'],
-  ['USRS AWAY PREGAME',elo.away_win_probability==null?'—':format(100*elo.away_win_probability,1)+'%'],
-  ['PROJECTED SCORE',elo.away_projected_points==null?'—':elo.away_projected_points+'–'+elo.home_projected_points],
-  [g.state==='post'?'HOME ELO CHANGE':'HOME ELO SCENARIO',elo.home_delta==null?'Pending':format(elo.home_delta,1)]
- ];
- out+='<div class="nfl-game-model"><div class="nfl-game-model-heading"><strong>USRS / GAME INTELLIGENCE</strong>'+
-  '<span>Independent Elo · Pregame estimates, not live win probabilities</span></div>'+
-  '<div class="nfl-statline">'+extras.map(([label,value])=>'<div class="nfl-stat"><b>'+escapeHtml(value)+'</b><span>'+escapeHtml(label)+'</span></div>').join('')+
-  '</div></div>';
+  '<h1 class="nfl-title nfl-game-title">'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+'</h1>'+featuredMatch(g);
+ const pHome=Number(elo.home_win_probability);
+ const validOdds=elo.home_win_probability!=null&&Number.isFinite(pHome);
+ const homePct=validOdds?Math.max(0,Math.min(100,pHome*100)):null;
+ const awayPct=homePct==null?null:100-homePct;
+ const scoresReady=g.state==='post'&&g.away.score!=null&&g.home.score!=null;
+ const homePoints=Number(g.home.score),awayPoints=Number(g.away.score);
+ // Exact calibrated multiplier and K from scripts/build_nfl_edition.py.
+ const k=Number(model.k_base),margin=Math.abs(homePoints-awayPoints);
+ const multiplier=Math.min(2,1+Math.log2(1+margin)/4);
+ const liveEstimate=scoresReady&&validOdds&&Number.isFinite(k)?
+   k*multiplier*((homePoints>awayPoints?1:homePoints<awayPoints?0:0.5)-pHome):null;
+ const verified=elo.home_delta!=null&&Number.isFinite(Number(elo.home_delta));
+ const homeChange=verified?Number(elo.home_delta):liveEstimate;
+ const awayChange=homeChange==null?null:-homeChange;
+ const signed=x=>x==null?'—':(x>0?'+':'')+format(x,1);
+ const beforeAway=elo.away_before==null?'—':format(elo.away_before,1);
+ const beforeHome=elo.home_before==null?'—':format(elo.home_before,1);
+ const projected=elo.away_projected_points==null||elo.home_projected_points==null?
+ '—':escapeHtml(elo.away_projected_points)+' – '+escapeHtml(elo.home_projected_points);
+ out+='<section class="nfl-game-model nfl-usrs-v7" style="--usrs-away:'+escapeHtml(a.color||'#ad2330')+
+  ';--usrs-home:'+escapeHtml(h.color||'#163b60')+'">'+
+  '<div class="nfl-usrs-title"><div><span>USRS · INDEPENDENT GAME INTELLIGENCE</span><h2>THE MATCHUP EDGE</h2></div>'+
+  '<small>CALIBRATED ELO · 2026 SEASON RESET</small></div>'+
+  '<div class="nfl-usrs-odds"><div class="nfl-usrs-team nfl-usrs-team-away"><b>'+escapeHtml(a.code)+'</b><strong>'+
+  (awayPct==null?'—':format(awayPct,1)+'%')+'</strong><small>AWAY</small></div>'+
+  '<div class="nfl-usrs-odds-track" aria-label="Pregame win probabilities"><i style="width:'+(awayPct==null?50:awayPct.toFixed(2))+'%"></i></div>'+
+  '<div class="nfl-usrs-team nfl-usrs-team-home"><b>'+escapeHtml(h.code)+'</b><strong>'+
+  (homePct==null?'—':format(homePct,1)+'%')+'</strong><small>HOME</small></div></div>'+
+  '<div class="nfl-usrs-data"><div class="nfl-usrs-projection"><span>USRS SCORE FORECAST</span><b>'+projected+
+  '</b><small>'+escapeHtml(a.code)+' AWAY · '+escapeHtml(h.code)+' HOME</small></div>'+
+  '<div class="nfl-usrs-base"><span>BEFORE KICKOFF · ELO</span><div><b>'+escapeHtml(a.code)+' '+beforeAway+
+  '</b><b>'+escapeHtml(h.code)+' '+beforeHome+'</b></div><small>All clubs began the 2026 season at 1,500</small></div></div>'+
+  '<div class="nfl-usrs-impact"><div class="nfl-usrs-impact-heading"><span>'+
+  (g.state==='post'?'ELO MOVEMENT · FINAL':'ELO MOVEMENT · AFTER THE FINAL')+'</span>'+
+  '<small>'+(verified?'VERIFIED SEASON LEDGER':liveEstimate!=null?'PROVISIONAL · LIVE RESULT':'AWAITING FINAL SCORE')+
+  '</small></div><div class="nfl-usrs-impact-teams">'+
+  '<div class="'+(awayChange!=null?(awayChange>=0?'is-up':'is-down'):'')+'"><span>'+escapeHtml(a.code)+'</span><b>'+signed(awayChange)+'</b></div>'+
+  '<div class="'+(homeChange!=null?(homeChange>=0?'is-up':'is-down'):'')+'"><span>'+escapeHtml(h.code)+'</span><b>'+signed(homeChange)+'</b></div></div>'+
+  '<p>'+(verified?'Confirmed game result is included in the published independent Elo ledger.':
+  liveEstimate!=null?'Live-source final; Elo movement calculated using the calibrated model. It will be verified by the next season-ledger refresh.':
+  'Elo ratings move only after a confirmed final. Forecast percentages are pregame estimates, not live win probabilities.')+
+  '</p></div></section>';
  out+='<section id="nfl-game-live-slot" class="nfl-game-live-slot" aria-label="Live team statistics and play-by-play"></section>';
- out+=panel(g.state==='in'?"LIVE BOX SCORE &amp; TEAM STATISTICS":"BOX SCORE &amp; TEAM STATISTICS",
-    '<div id="nfl-game-box">Loading sourced box score…</div>');
+ out+='<details class="nfl-game-deep-dive" id="nfl-game-deep-dive"><summary><span>THE VERIFIED BOX SCORE</span><strong>PLAYER STATS &amp; TEAM BREAKDOWN ↓</strong></summary>'+
+  '<div id="nfl-game-box">Loading verified player box score…</div></details>';
  out+='<p class="nfl-small nfl-game-source">'+link(g.url,"SOURCE GAME RECORD ↗")+
    ' · Scores and live statistics are sourced; USRS forecasts are independent.</p></div>';
  return out;
 }
-
 async function gameBox(){
  const id=params.get("id"),el=document.getElementById("nfl-game-box");if(!el)return;
  try{const activeBox=((liveFeed||{}).boxes||{})[id];const res=activeBox?null:await fetch("data/nfl-2026-boxscores.json?t="+Date.now(),{cache:"no-store"});if(res&&!res.ok)throw Error();
- const json=res?await res.json():{games:{}},box=((liveFeed||{}).boxes||{})[id]||(json.games||{})[id];if(!box){el.innerHTML=note("Detailed statistics not available for this game yet; unverified values are never filled in.");return;}
+ const json=res?await res.json():{games:{}},box=((liveFeed||{}).boxes||{})[id]||(json.games||{})[id];if(!box){const deep=document.getElementById("nfl-game-deep-dive");if(deep)deep.hidden=true;el.innerHTML="";return;}
  const g=games.find(x=>x.id===id),a=team(g.away.id),h=team(g.home.id),aa=(box.teams||{})[a.id]||{},hh=(box.teams||{})[h.id]||{};
  const pairs=[["Total yards","totalYards"],["Passing yards","netPassingYards"],["Rushing yards","rushingYards"],["First downs","firstDowns"],["Turnovers","turnovers"]];
  let out='<div class="nfl-box-comparison"><div class="nfl-box-side">'+crest(a,"head")+'<strong>'+escapeHtml(a.code)+'</strong></div>'+
