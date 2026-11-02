@@ -54,20 +54,34 @@ def school_schedule_coverage(teams: list[dict], games: list[dict]) -> dict:
         x["published_fixtures"], x["name"].casefold(), x["id"]))
     zero = [s for s in ordered if s["published_fixtures"] == 0]
     thin = [s for s in ordered if 1 <= s["published_fixtures"] <= 6]
+    # Eligibility changes recovery priority but does not erase membership review
+    # records. Keep legacy totals for historical comparisons and existing UI.
+    eligible_zero = [s for s in zero if not s["membership_pending"]]
+    excluded_zero = [s for s in zero if s["membership_pending"]]
+    eligible_thin = [s for s in thin if not s["membership_pending"]]
     conf = {}
     for row in ordered:
         c = conf.setdefault(row["conference"], {
             "programs": 0, "without_games": 0,
-            "with_1_to_6_games": 0, "fixture_appearances": 0})
+            "with_1_to_6_games": 0, "fixture_appearances": 0,
+            "eligible_without_games": 0, "excluded_without_games": 0,
+            "eligible_with_1_to_6_games": 0})
         c["programs"] += 1
         c["without_games"] += int(row["published_fixtures"] == 0)
         c["with_1_to_6_games"] += int(1 <= row["published_fixtures"] <= 6)
         c["fixture_appearances"] += row["published_fixtures"]
+        c["eligible_without_games"] += int(row["published_fixtures"] == 0 and not row["membership_pending"])
+        c["excluded_without_games"] += int(row["published_fixtures"] == 0 and row["membership_pending"])
+        c["eligible_with_1_to_6_games"] += int(1 <= row["published_fixtures"] <= 6 and not row["membership_pending"])
     return {
         "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
         "programs_with_published_games": len(ordered) - len(zero),
         "without_games": len(zero),
         "with_1_to_6_games": len(thin),
+        "eligible_without_games": len(eligible_zero),
+        "excluded_without_games": len(excluded_zero),
+        "eligible_with_1_to_6_games": len(eligible_thin),
+        "eligible_zero_game_schools": eligible_zero,
         "zero_game_schools": zero,
         "thin_schedule_priority": thin[:40],
         "conference_gaps": dict(sorted(conf.items())),
@@ -242,6 +256,8 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         "no_tipoff": missing_time,
         "no_source_url": missing_source,
         "schools_without_a_published_game": school_gaps["without_games"],
+        "eligible_schools_without_a_published_game": school_gaps["eligible_without_games"],
+        "excluded_elo_schools_without_a_published_game": school_gaps["excluded_without_games"],
         "school_schedule_recovery": school_gaps,
         "full_season_date_scan": bool(scan.get("completed")),
         "school_schedule_certified": complete_school_schedules,
