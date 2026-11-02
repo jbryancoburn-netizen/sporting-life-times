@@ -17,14 +17,34 @@
   function plusDays(day,n){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
   function localDate(s){if(!s)return 'Tipoff TBA';const d=new Date(s);return Number.isFinite(+d)?d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}):'Time TBA';}
   function dateLabel(s){return new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',weekday:'short',timeZone:'UTC'});}
-  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null};
+  const state={day:(/^\d{4}-\d{2}-\d{2}$/.test(here.get('day')||'')?here.get('day'):today()),games:[],section:'summary',selected:(/^\d+$/.test(here.get('game')||'')?here.get('game'):null),pending:false,source:'',lastUpdate:null,fallback:false,summaryCache:new Map(),crosswalk:new Map(),schoolNames:new Map(),filter:'all',generation:0,ratings:new Map(),forecast:new Map(),ratingsReady:false,modelDate:null,preseason:false,forecastDate:null,poll:new Map(),pollDate:null};
   const tag=women?'Women':'Men';
   const display=women?'WOMEN’S DIVISION I':'MEN’S DIVISION I';
   const gameLink=(g)=>'cbb-gamefile.html?'+(women?'gender=women&':'')+'day='+encodeURIComponent(state.day)+'&game='+encodeURIComponent(g.id);
   const backLink=()=> 'cbb-game-center.html'+(women?'?gender=women&day='+encodeURIComponent(state.day):'?day='+encodeURIComponent(state.day));
   let mounted=false,interval=null;
   const fetchJSON=async path=>{try{const r=await fetch(path,{cache:'no-store',signal:AbortSignal.timeout(10500)});return r.ok?await r.json():null;}catch{return null;}};
-  const code=t=>String(t?.team?.abbreviation||t?.abbreviation||t?.team?.shortDisplayName||t?.name||'TEAM').slice(0,15);
+  // School-first identity: the curated NCAA/ESPN crosswalk is keyed by exact
+  // ESPN school ID. Never create first-letter abbreviations from a fixture.
+  const fullSchool=s=>String(s||'').trim().replace(/\bSt\.$/,'State');
+  const schoolLabel=t=>{
+    const id=String(t?.team?.id||'');
+    const canonical=state.schoolNames.get(id);
+    if(canonical)return canonical;
+    const fromLogo=!women?window.MBBLogos?.schoolNameForESPN?.(id):'';
+    if(fromLogo)return fullSchool(fromLogo);
+    const short=String(t?.team?.shortDisplayName||t?.team?.location||'').trim();
+    if(short.length>2&&!/^[A-Z]{1,2}$/.test(short))return fullSchool(short);
+    return fullSchool(t?.team?.displayName||t?.team?.name||t?.name||'School not listed');
+  };
+  const code=t=>schoolLabel(t);
+  const mascotLabel=t=>{
+    const full=String(t?.team?.displayName||t?.team?.name||'').trim();
+    const school=schoolLabel(t);
+    const nickname=full.toLowerCase().startsWith(school.toLowerCase())?
+      full.slice(school.length).trim():'';
+    return nickname||(!full.toLowerCase().includes(school.toLowerCase())?full:'');
+  };
   const image=t=>cleanURL(t?.team?.logos?.[0]?.href||t?.team?.logo||t?.logo||'');
   const teamName=t=>t?.team?.displayName||t?.team?.name||t?.name||'Team';
   const score=t=>{const v=t?.score;if(v==null)return null;const n=typeof v==='object'?(v.displayValue??v.value):v;return n===''?null:String(n);};
@@ -98,8 +118,9 @@
     const elo=rating&&Number.isFinite(Number(rating.elo))?'USRS '+Math.round(Number(rating.elo)):'';
     const context=gamefile?[record,elo].filter(Boolean).join(' · '):'';
     const identity='<span class="cbb-team-identity">'+crest(t)+
-      '<span class="cbb-name"><b>'+esc(code(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
-      '<small>'+esc(teamName(t))+'</small>'+(context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
+      '<span class="cbb-name"><b class="cbb-school-label">'+esc(schoolLabel(t))+(apRank(t)?'<i class="cbb-ap-rank">AP '+esc(apRank(t))+'</i>':'')+'</b>'+
+      (mascotLabel(t)?'<small class="cbb-school-mascot">'+esc(mascotLabel(t))+'</small>':'')+
+      (context?'<span class="cbb-team-context">'+esc(context)+'</span>':'')+'</span></span>';
     return '<div class="cbb-scorebug-row'+(winning?' cbb-winner':'')+'" data-team-side="'+esc(t.homeAway||'')+'">'+
       '<span class="cbb-team-side">'+esc(code(t))+'</span>'+
       (link?'<a href="'+link+'" class="cbb-team-link">'+identity+'</a>':identity)+
@@ -851,7 +872,7 @@
     const ext=(hasStats&&espnId)?'https://www.espn.com/'+sport+'/game/_/gameId/'+encodeURIComponent(espnId):
       (g.url||('https://www.ncaa.com/scoreboard/'+(women?'basketball-women':'basketball-men')+'/d1'));
     node.innerHTML='<header class="cbb-gamefile-hero" style="--cbb-away:'+safeTeamColor(g.away)+';--cbb-home:'+safeTeamColor(g.home)+'"><div class="cbb-gamefile-eyebrow">THE SPORTING LIFE & TIMES · '+(women?'WOMEN’S':'MEN’S')+' D-I · GAMEFILE '+esc(g.id)+'</div>'+
-      '<h1>'+esc(teamName(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(teamName(g.home))+'</h1>'+
+      '<h1>'+esc(schoolLabel(g.away))+' <em>'+(g.neutral?'vs.':'at')+'</em> '+esc(schoolLabel(g.home))+'</h1>'+
       '<p class="cbb-gamefile-status">'+currentView(g)+' · '+esc(g.venue||'Venue not listed')+(g.broadcast?' · '+esc(g.broadcast):'')+'</p>'+
       '<div class="cbb-gamefile-score">'+row(g.away,g.phase,false,true)+row(g.home,g.phase,false,true)+'</div></header>'+
       gamefileStatStrip(g,raw)+
@@ -915,7 +936,10 @@
       !women?fetchJSON('data/ncaam-2026-27-national-polls.json'):Promise.resolve(null)
     ]);
     const menRegistry=new Map((xref?.teams||[]).map(t=>[String(t.id),String(t.espn_id)]));
-    for(const t of xref?.teams||[])state.crosswalk.set(String(t.espn_id),String(t.id));
+    for(const t of xref?.teams||[]){
+      state.crosswalk.set(String(t.espn_id),String(t.id));
+      if(t.name)state.schoolNames.set(String(t.espn_id),fullSchool(t.name));
+    }
     const expected=women?363:365;
     const validRatings=ratings?.season===season&&ratings?.model==='retro-clean-slate'&&ratings?.starting_elo===1500&&
       (women?ratings.gender==='women':true)&&ratings.rankings?.length===expected&&
