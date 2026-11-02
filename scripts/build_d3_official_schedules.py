@@ -1615,9 +1615,14 @@ def process(gender, workers=30, dry_run=False):
                     report["approved_landmark_error"] = str(ex)[:200]
             # Current official Landmark women's 2026-27 conference pages
             # sometimes return ambiguous DOM containers in server-side reads.
+            # Once a complete verified conference source has succeeded,
+            # retain those prior fixtures on any transient fetch failure
+            # instead of replacing them with fewer manually archived games.
             # Never guess home or neutral games: use the separately validated
             # first-party dated 'at' entries only if a direct parse fails.
-            if gender == "women" and owner in (1467, 325, 443) and rows is None:
+            if (gender == "women" and owner in (1467, 325, 443) and
+                    rows is None and owner not in previous_good_conference and
+                    owner not in previous_good_source):
                 try:
                     known_away, known_report = dated_landmark_womens_official_away(
                         owner, by_org)
