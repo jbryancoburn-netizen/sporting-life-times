@@ -253,6 +253,10 @@
         a=get(lookup(g.away.team?.id),aliases);h=get(lookup(g.home.team?.id),aliases);
       }
       if(a===null||h===null||!a||!h)return [];
+      if(key==='fgPct'||key==='threePct'){
+        if(/^\d+(?:\.\d+)?$/.test(a))a+='%';
+        if(/^\d+(?:\.\d+)?$/.test(h))h+='%';
+      }
       return ['<div class="cbb-gamefile-stat"><span class="cbb-gamefile-stat-label">'+label+'</span>'+
         '<span class="cbb-gamefile-stat-values"><b>'+esc(a)+'</b><i>–</i><b>'+esc(h)+'</b></span></div>'];
     });
