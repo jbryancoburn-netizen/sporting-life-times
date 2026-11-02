@@ -12,7 +12,7 @@ const link=(txt,url)=>{const a=el("a",txt);a.href=url;a.target="_blank";a.rel="n
 const validSource=url=>typeof url==="string"&&/^https:\/\/[a-z0-9.-]+\//i.test(url);
 const warn=(host,text)=>host.append(el("p",text,"dossier-caution"));
 async function dataFile(path){
- const response=await fetch(path,{cache:"force-cache"});
+ const response=await fetch(path,{cache:"no-cache"});
  if(!response.ok)throw Error("Missing "+path);
  return response.json();
 }

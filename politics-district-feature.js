@@ -100,7 +100,7 @@ function render(){
  const id=(new URLSearchParams(location.search).get("district")||"").trim().toUpperCase();
  if(!/^[A-Z]{2}-\d{2}$/.test(id)||!$("district-feature"))return;
  Promise.all(["politics-house-atlas.json","politics-district-guide.json"].map(async path=>{
-  const r=await fetch(path,{cache:"force-cache"});if(!r.ok)throw Error(path);return r.json();
+  const r=await fetch(path,{cache:"no-cache"});if(!r.ok)throw Error(path);return r.json();
  })).then(([atlas,guide])=>{
   const district=atlas.districts.find(x=>x.id===id);if(!district)return;
   const state=atlas.states.find(x=>x.code===district.state);

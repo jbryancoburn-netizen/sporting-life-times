@@ -172,7 +172,7 @@ async function build(){
  if(!/^[A-Z]{2}-\d{2}$/.test(id)||!$("district-data-story"))return;
  const root=$("district-data-story"),status=$("charts-load-status");
  try{
-  const [ar,cr,gr]=await Promise.all(["politics-house-atlas.json","politics-census-inputs.json","politics-district-guide.json"].map(x=>fetch(x,{cache:"force-cache"})));
+  const [ar,cr,gr]=await Promise.all(["politics-house-atlas.json","politics-census-inputs.json","politics-district-guide.json"].map(x=>fetch(x,{cache:"no-cache"})));
   if(!ar.ok||!cr.ok||!gr.ok)throw Error("A source archive could not be loaded");
   const [atlas,census,guide]=await Promise.all([ar.json(),cr.json(),gr.json()]);
   if(atlas.district_count!==435||census.district_count!==435)throw Error("District data coverage is incomplete");
