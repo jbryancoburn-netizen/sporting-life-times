@@ -2,6 +2,10 @@
 (()=>{'use strict';
 const config={
  'nba.html':['NBA','NBA','data/nba-top-stories.json','#a42535'],
+ 'nfl-team.html':['NFL','NFL',null,'#136b59'],
+ 'nfl-game.html':['NFL','NFL',null,'#136b59'],
+ 'nfl-standings.html':['NFL','NFL',null,'#136b59'],
+ 'nfl-rankings.html':['NFL','NFL',null,'#136b59'],
  'nfl.html':['NFL','NFL',null,'#136b59'],
  'epl.html':['Premier League','PREMIER LEAGUE',null,'#63308a'],
  'college-football.html':['College Football','COLLEGE FOOTBALL',null,'#9c5825'],
@@ -15,7 +19,7 @@ const safe=s=>{try{const u=new URL(s,location.href);return /^https?:$/.test(u.pr
 const espnPath={'nba.html':'basketball/nba','nfl.html':'football/nfl','epl.html':'soccer/eng.1','college-football.html':'football/college-football','nbl.html':'basketball/australian-nbl','euroleague.html':'basketball/euroleague'};
 const get=async url=>{try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(12000)});return r.ok?await r.json():null}catch{return null}};
 async function liveBoard(){
- const path=espnPath[page];if(!path)return null;
+ const path=espnPath[page]||(page.startsWith('nfl-')?'football/nfl':null);if(!path)return null;
  try{
  const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/'+path+'/scoreboard?limit=100',{signal:AbortSignal.timeout(8000),cache:'no-store'});
  if(!r.ok)return null;const data=await r.json();
