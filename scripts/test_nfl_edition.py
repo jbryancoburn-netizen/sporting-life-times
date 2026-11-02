@@ -32,7 +32,7 @@ class EloTests(unittest.TestCase):
             with self.subTest(page=name):
                 page=(root/name).read_text(encoding="utf-8")
                 self.assertIn("nfl-badge-v3.css?v=20261101-2realrings",page)
-                self.assertIn("nfl-edition-v3.js?v="+("20261101-boxscore-v11" if name=="nfl-game.html" else "20261101-gamev6"),page)
+                self.assertIn("nfl-edition-v3.js?v="+("20261101-boxscore-v11b" if name=="nfl-game.html" else "20261101-gamev6"),page)
                 self.assertNotIn('src="nfl-edition.js?',page)
 
     def test_generic_sitewide_crest_does_not_add_third_ring(self):
@@ -115,7 +115,7 @@ class EloTests(unittest.TestCase):
         self.assertIn('function gamePage()',page)
         self.assertIn('featuredMatch(g)',page)
         self.assertIn('nfl-game-live-slot',page)
-        self.assertIn('nfl-game-editorial-v10.css?v=20261101-boxscore-v11',game)
+        self.assertIn('nfl-game-editorial-v10.css?v=20261101-boxscore-v11b',game)
         self.assertNotIn('nfl-matchup-v5.css',game)
         self.assertIn(':is([data-page="front"],[data-page="game"])',stylesheet)
         self.assertIn('root.querySelector("#nfl-game-live-slot")',live)
@@ -193,7 +193,7 @@ class EloTests(unittest.TestCase):
         self.assertIn(".nfl-feature-tabs a{",css)
         self.assertIn("font-variant-numeric:tabular-nums",css)
         self.assertIn("display:none!important",css)
-        self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11",html)
+        self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11b",html)
 
 
     def test_gamefile_compact_boxscore_and_source_story(self):
@@ -202,6 +202,9 @@ class EloTests(unittest.TestCase):
         css=(root/"nfl-game-editorial-v10.css").read_text(encoding="utf-8")
         html=(root/"nfl-game.html").read_text(encoding="utf-8")
         self.assertIn("function gameInsightHTML(",js)
+        self.assertIn("nfl-insight-quarterbacks",js)
+        self.assertIn("nfl-insight-qb-grid",css)
+        self.assertIn("nfl-insight-qb-player img",css)
         self.assertIn("nfl-insight-offense-track",js)
         self.assertIn("nfl-box-category-count",js)
         self.assertIn("nfl-box-player-copy",js)
@@ -215,8 +218,8 @@ class EloTests(unittest.TestCase):
         self.assertIn('max-height:34px!important',css)
         self.assertIn('position:sticky!important',css)
         self.assertIn('nfl-insight-three',css)
-        self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11",html)
-        self.assertIn("nfl-edition-v3.js?v=20261101-boxscore-v11",html)
+        self.assertIn("nfl-game-editorial-v10.css?v=20261101-boxscore-v11b",html)
+        self.assertIn("nfl-edition-v3.js?v=20261101-boxscore-v11b",html)
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
