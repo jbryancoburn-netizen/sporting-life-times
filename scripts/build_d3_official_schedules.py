@@ -10,7 +10,7 @@ import datetime as dt
 import json
 import re
 import urllib.request
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urljoin, urldefrag
 from collections import defaultdict, Counter
 from pathlib import Path
 
@@ -412,14 +412,56 @@ def source_candidates(gender, by_org):
     return sources, unlisted
 
 
-def inspect_source(gender, source, by_org, exact):
+
+def matching_calendar_links(html, parent_url, gender):
+    """Follow only dated, sport-specific schedule links on the school's site.
+
+    This is webpage discovery, not a license to import unverified opponents:
+    the full 2026-27 calendar is re-parsed and must pass all strict checks.
+    """
+    page = BeautifulSoup(html, "html.parser")
+    host = (urlsplit(parent_url).hostname or "").lower().removeprefix("www.")
+    sport = "mens-basketball" if gender == "men" else "womens-basketball"
+    short = "mbball" if gender == "men" else "wbball"
+    old_short = "mbkb" if gender == "men" else "wbkb"
+    opposite = ("womens-basketball", "wbball", "wbkb") if gender == "men" else (
+        "mens-basketball", "mbball", "mbkb")
+    matches = []
+    for link in page.select("a[href]"):
+        raw_href = str(link.get("href", "")).strip()
+        if not raw_href or raw_href.startswith(("javascript:", "mailto:", "#")):
+            continue
+        target = urldefrag(urljoin(parent_url, raw_href))[0]
+        u = urlsplit(target)
+        target_host = (u.hostname or "").lower().removeprefix("www.")
+        if (u.scheme != "https" or target_host != host or
+                any(x in u.path.lower() for x in opposite)):
+            continue
+        label = compact(link.get_text(" ", strip=True)).lower()
+        path = u.path.lower()
+        context = path + " " + label
+        sport_match = any(v in context for v in (sport, short, old_short))
+        season_match = bool(re.search(r"2026\s*[-_/–]\s*(?:27|2027)", context))
+        if not sport_match or not (
+                "schedule" in path or season_match and "schedule" in label):
+            continue
+        score = 4 if season_match else 2
+        if "schedule" in label:
+            score += 1
+        if "?grid=true" in target:
+            score += 1
+        matches.append((score, target))
+    return [u for _, u in sorted(set(matches), reverse=True)][:8]
+
+
+def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_discovery=False):
     """Reject incorrect seasons/sexes and unknown calendars, even on HTTP 200."""
     org, url, pinned = source
     if not url:
         return None, {"owner_org_id": org, "source_url": "",
                       "status": "no_official_athletics_site",
                       "error": "NCAA directory has no usable athletics URL"}
-    attempts = [url]
+    attempts = [preferred_url, url] if preferred_url else [url]
     if not pinned:
         base = url.split("/sports/", 1)[0]
         sport = "mens-basketball" if gender == "men" else "womens-basketball"
@@ -440,9 +482,21 @@ def inspect_source(gender, source, by_org, exact):
             f"{base}/sports/{sport}/2026-27/schedule",
         ])
     errors = []
-    for candidate in dict.fromkeys(attempts):
+    observed_links = []
+    fetched_html = None
+    fetched_from = None
+    visited = set()
+    attempt_queue = list(dict.fromkeys(attempts))
+    for candidate in attempt_queue:
+        if not candidate or candidate in visited:
+            continue
+        visited.add(candidate)
         try:
             _, verified_url, html = fetch_calendar((org, candidate))
+            if deep_discovery and len(observed_links) < 14:
+                observed_links.extend(matching_calendar_links(html, verified_url, gender))
+            if candidate == url:
+                fetched_html, fetched_from = html, verified_url
             try:
                 rows, report = parse_calendar(html, gender, org, verified_url, by_org, exact)
                 report["calendar_origin"] = ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")
@@ -459,7 +513,12 @@ def inspect_source(gender, source, by_org, exact):
                     raise primary_error
                 report["status"] = "parsed"
                 report["calendar_origin"] = "ncaa_directory_verified_university_legacy_table"
-            report["candidate_urls_tried"] = len(errors) + 1
+            report["candidate_urls_tried"] = len(visited)
+            report["verified_direct_url"] = verified_url
+            report["discovery_method"] = (
+                "previously_verified_source" if preferred_url == candidate else
+                "school_link_discovery" if candidate not in attempts else
+                "official_school_url_or_vendor_variant")
             return rows, report
         except Exception as ex:
             err = str(ex)
@@ -468,6 +527,42 @@ def inspect_source(gender, source, by_org, exact):
             # 403s, repeated rate limits, or access controls.
             if re.search(r"HTTP Error (403|429):", err):
                 break
+    # 2026-27 current schedule is sometimes linked from another official
+    # school page rather than living at a predictable vendor URL.
+    if deep_discovery and not any(re.search(r"HTTP Error (403|429):", e) for e in errors):
+        if not observed_links:
+            # Fetch the school's official athletics landing page once.
+            # Never follow a generic campus directory to unrelated hosts.
+            landing = "https://" + (urlsplit(url).hostname or "")
+            if landing != "https://" and not any("http error 403" in e.lower()
+                                                for e in errors):
+                try:
+                    _, location, landing_html = fetch_calendar((org, landing))
+                    observed_links.extend(matching_calendar_links(
+                        landing_html, location, gender))
+                except Exception as ex:
+                    errors.append("Official school landing: " + str(ex)[:90])
+        for target in list(dict.fromkeys(observed_links))[:6]:
+            if target in visited:
+                continue
+            visited.add(target)
+            try:
+                _, verified_url, html = fetch_calendar((org, target))
+                try:
+                    rows, report = parse_calendar(
+                        html, gender, org, verified_url, by_org, exact)
+                except ValueError:
+                    rows, report = parse_conference_calendar(
+                        html, gender, org, verified_url, by_org[org]["name"],
+                        by_org, exact, school_legacy=True)
+                    report["status"] = "parsed"
+                report["calendar_origin"] = "discovered_on_official_school_site"
+                report["verified_direct_url"] = verified_url
+                report["discovery_method"] = "school_link_discovery"
+                report["candidate_urls_tried"] = len(visited)
+                return rows, report
+            except Exception as ex:
+                errors.append("Discovered schedule: " + str(ex)[:100])
     # An independently listed conference's dated team schedule is valid
     # fixture evidence, not proof the institution publishes its own calendar.
     conference = OFFICIAL_CONFERENCE_SCHEDULES[gender].get(org)
@@ -483,7 +578,8 @@ def inspect_source(gender, source, by_org, exact):
             errors.append("Official conference: " + str(ex)[:105])
     return None, {"owner_org_id": org, "source_url": url,
                   "status": "failed", "error": " | ".join(errors)[:260],
-                  "candidate_urls_tried": len(errors),
+                  "candidate_urls_tried": len(visited),
+                  "discovered_schedule_links": list(dict.fromkeys(observed_links))[:8],
                   "calendar_origin": ("pinned_official_url" if pinned else "independently_verified_athletics_host" if org in OFFICIAL_ATHLETICS_HOST_OVERRIDE else "NCAA_directory_athletics_hostname")}
 
 
@@ -560,13 +656,18 @@ def process(gender, workers=30, dry_run=False):
         for owner in f.get("verified_by_org_ids", []):
             available_previous[owner].append(f)
     gathered, audit = [], []
+    previous_audit = {int(a["owner_org_id"]): a for a in previous.get("source_audit", [])
+                      if "owner_org_id" in a}
     sources, missing = source_candidates(gender, by_org)
     assert len(sources) == len(by_org) and len({s[0] for s in sources}) == len(by_org)
 
     # Bounded workers: independent university hosts, no NCAA scraping flood.
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        results = {pool.submit(inspect_source, gender, source, by_org, exact): source
-                   for source in sources}
+        results = {pool.submit(
+            inspect_source, gender, source, by_org, exact,
+            previous_good_source.get(source[0]),
+            previous_audit.get(source[0], {}).get("status") not in ("parsed", "parsed_conference")
+        ): source for source in sources}
         for future in concurrent.futures.as_completed(results):
             owner, url, pinned = results[future]
             try:
@@ -650,6 +751,17 @@ def process(gender, workers=30, dry_run=False):
             "ncaa_org_id": org, "school": by_org[org]["name"],
             "conference": by_org[org].get("conference", ""),
             "category": category, "failed_url": a.get("source_url", ""),
+            "last_successful_school_schedule_url": previous_good_source.get(org, ""),
+            "discovered_schedule_links": a.get("discovered_schedule_links", []),
+            "checked_schedule_candidates": a.get("candidate_urls_tried", 0),
+            "next_action": {
+                "season_heading_not_verified": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
+                "server_refused_method": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
+                "access_restricted": "Use school's public conference schedule or official opponent schedule",
+                "calendar_path_unavailable": "Find school's current official athletics website and season-specific schedule path",
+                "unsupported_calendar_or_opponent_format": "Add a source-specific parser only after checking dates/opponents/home-away manually",
+                "temporary_network_failure": "Retry prior official published schedule without deleting verified entries",
+            }.get(category, "Locate an official school or conference 2026-27 calendar"),
             "opponent_published_fixtures": len(other_sourced),
             "opponent_source_examples": list(dict.fromkeys(
                 f["source_url"] for f in other_sourced))[:3]
@@ -718,6 +830,14 @@ def self_test():
     assert len(candidates) == 2 and not missing
     assert all(s[2] is True for s in candidates)  # the prior explicit source wins
     assert len({x[0] for x in candidates}) == 2
+    link_sample = """<a href="/sports/mens-basketball/schedule/2026-27?grid=true">
+      2026-27 Men's Basketball Schedule</a>
+      <a href="/sports/womens-basketball/schedule/2026-27">Women</a>
+      <a href="https://other.example/sports/mens-basketball/schedule/2026-27">External</a>"""
+    discovered = matching_calendar_links(
+        link_sample, "https://athletics.hope.edu/landing/index", "men")
+    assert len(discovered) == 1 and "mens-basketball" in discovered[0]
+    assert not matching_calendar_links(link_sample, "https://athletics.hope.edu", "women") == []
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
