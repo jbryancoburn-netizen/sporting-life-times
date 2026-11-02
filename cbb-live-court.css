@@ -124,3 +124,31 @@
 .slc-warning{padding:9px 14px;margin:0;border-bottom:1px solid #dfb796;
  background:#fff3e6;color:#8b542d;font:600 11px/1.45 Arial,sans-serif}
 @media(max-width:740px){.slc-standby,.slc-data-conflict{min-height:90px;padding:15px 12px}}
+
+
+/* CourtCast team-identified scoring and broadcast-style editorial layout. */
+.slc-wrap{border-top-color:var(--slc-away,#23657d);background:#fff}
+.slc-head{background:#f8faf8;border-bottom:2px solid #d1dcd8}
+.slc-head>b{border-left:3px solid var(--slc-home,#b17931)}
+.slc-teams{border-bottom:1px solid #dde5e2;margin-bottom:9px;gap:13px;align-items:stretch;padding:0 0 10px}
+.slc-teams span{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.04em;min-width:0}
+.slc-teams span::before{content:'';display:inline-block;width:4px;height:16px;background:var(--slc-away,#23657d);flex:0 0 4px}
+.slc-teams .slc-home-name::before{background:var(--slc-home,#b17931)}
+.slc-flow{background:#f9fbfa;border-color:#d1ddda}
+.slc-flow-heading{gap:7px}
+.slc-flow-heading span{letter-spacing:.035em}
+.slc-flow-key{display:flex;align-items:center;gap:16px;padding:10px 0 0;
+  font:800 10px/1.2 Arial,sans-serif;color:#39545e;letter-spacing:.045em;flex-wrap:wrap}
+.slc-flow-key>span{display:inline-flex;gap:7px;align-items:center}
+.slc-flow-key i{display:inline-block;width:12px;height:5px;border-radius:1px;background:var(--slc-away,#23657d)}
+.slc-flow-key .slc-home-dot{background:var(--slc-home,#b17931)}
+.slc-now{min-height:65px;border-left:3px solid var(--slc-home,#b17931)}
+.slc-now strong{font-size:15px;line-height:1.35}
+.slc-feed li button[aria-current="true"]{box-shadow:inset 3px 0 0 var(--slc-away,#23657d)}
+@media(max-width:740px){
+ .slc-teams span{font-size:10px}
+ .slc-flow-key{gap:10px;font-size:9px}
+ .slc-now{min-height:61px}
+ .slc-now strong{font-size:14px}
+ .slc-flow svg{max-height:200px}
+}
