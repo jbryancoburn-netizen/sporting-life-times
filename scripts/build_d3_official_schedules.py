@@ -2168,32 +2168,32 @@ def self_test():
         f"<td>{time}</td><td>{site}</td></tr>"
         for date, opponent, location, time, site in oac_rows)
     oac_html = (
-        "<html><title>2026-27 Hope Men's Basketball Schedule</title>"
-        "<h2>2026-27 Hope Men's Basketball Schedule</h2>"
+        "<html><title>2026-27 Trinity College (Connecticut) Men's Basketball Schedule</title>"
+        "<h2>2026-27 Trinity College (Connecticut) Men's Basketball Schedule</h2>"
         "<table><thead><tr><th>Date</th><th>Opponent</th><th>Location</th>"
         "<th>Result</th><th>Home / Away</th></tr></thead><tbody>" +
         oac_markup + "</tbody></table></html>")
     oac_games, oac_report = parse_conference_calendar(
-        oac_html, "men", 286, "https://oac.org/schedule.aspx?schedule=example",
-        "Hope", by_org, exact)
+        oac_html, "men", 713, "https://oac.org/schedule.aspx?schedule=example",
+        "Trinity College (Connecticut)", by_org, exact)
     assert oac_report["readable_rows"] == 10
     assert len(oac_games) == 8, (len(oac_games), oac_report)
     assert oac_report["excluded_rows"]["opponent_prefix_conflicts_with_explicit_site"] == 1
     assert oac_report["excluded_rows"]["missing_or_unknown_explicit_site"] == 1
-    assert oac_games[0]["away_org_id"] == 286 and oac_games[0]["home_org_id"] == 30037
-    assert oac_games[2]["home_org_id"] == 286 and not oac_games[2]["neutral"]
-    assert oac_games[4]["neutral"] and oac_games[4]["home_org_id"] == 286
+    assert oac_games[0]["away_org_id"] == 713 and oac_games[0]["home_org_id"] == 30037
+    assert oac_games[2]["home_org_id"] == 713 and not oac_games[2]["neutral"]
+    assert oac_games[4]["neutral"] and oac_games[4]["home_org_id"] == 713
     assert oac_games[6]["tipoff_as_posted"] == ""  # do not import W/L as a tipoff
     assert all(game["source_kind"] == "official_conference" for game in oac_games)
     e8_html = oac_html.replace("<th>Home / Away</th>", "<th>H/A</th>")
     e8_games, _ = parse_conference_calendar(
-        e8_html, "men", 286, "https://empire8.com/schedule.aspx?schedule=example",
-        "Hope", by_org, exact)
+        e8_html, "men", 713, "https://empire8.com/schedule.aspx?schedule=example",
+        "Trinity College (Connecticut)", by_org, exact)
     assert len(e8_games) == 8
     try:
         parse_conference_calendar(
-            oac_html.replace("2026-27", "2025-26"), "men", 286,
-            "https://oac.org/schedule.aspx?schedule=example", "Hope", by_org, exact)
+            oac_html.replace("2026-27", "2025-26"), "men", 713,
+            "https://oac.org/schedule.aspx?schedule=example", "Trinity College (Connecticut)", by_org, exact)
         raise AssertionError("Wrong season conference H/A table accepted")
     except ValueError:
         pass
