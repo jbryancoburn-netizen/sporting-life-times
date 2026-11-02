@@ -132,7 +132,7 @@ OFFICIAL_SHORT_ALIASES={
  "41":("connecticut",),
  "104":("boston u.","boston university"),
  "256":("jmu",),
- "399":("university at albany",),
+ "399":("university at albany","albany","ualbany"),
  "2352":("loyola (md.)","loyola md"),
  "2448":("n.c. a&t","nc a&t"),
  "2501":("university of portland",),
@@ -141,7 +141,9 @@ OFFICIAL_SHORT_ALIASES={
 
 def official_opponent_matches(source,game,safe_stems):
  raw=str(source or "")
- segments=re.split(r"\b(?:vs\.?|at|@)\s+",raw,flags=re.I)
+ # In "University at Albany", "at" belongs to the school name, not to
+ # the game-location marker. Still recognize a leading "at University...".
+ segments=re.split(r"\b(?:vs\.?|(?<!University )at|@)\s+",raw,flags=re.I)
  tail=segments[-1] if len(segments)>1 else raw
  text=normalize(tail)
  full=normalize(raw)
