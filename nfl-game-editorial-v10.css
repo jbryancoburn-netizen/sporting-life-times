@@ -533,3 +533,71 @@ body.nfl-paper[data-page="game"]{--paper:#f8f5ed;--ink:#151b20;--soft:#55595c;--
  .nfl-paper[data-page="game"] #nfl-game-box .nfl-box-data th,
  .nfl-paper[data-page="game"] #nfl-game-box .nfl-box-data td{padding:9px 7px!important;font-size:11px!important;min-width:50px!important}
 }
+
+
+/* Two-club passing duel — authentic source headshots, always contained. */
+.nfl-paper[data-page="game"] .nfl-insight-quarterbacks{
+ padding:17px 0 12px;border-top:1px solid #c5c5bd;
+ margin-top:8px;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-label{
+ display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+ color:#172e3b;font:800 21px/1.15 "Iowan Old Style",Baskerville,Georgia,serif;
+ margin:0 0 12px;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-label small{
+ color:#666b69;font:700 10px Arial,sans-serif;letter-spacing:.03em;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-grid{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-player{
+ display:grid;grid-template-columns:56px minmax(0,1fr);gap:9px;align-items:center;
+ border-right:1px solid #d3cfc5;padding:8px 15px 11px 0;min-width:0;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-player:last-child{
+ border:0;padding-left:16px;padding-right:0;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-player img{
+ display:block!important;position:static!important;width:46px!important;height:46px!important;
+ min-width:46px!important;max-width:46px!important;min-height:46px!important;max-height:46px!important;
+ border-radius:50%!important;object-fit:cover!important;object-position:center top!important;
+ background:#e5e8e2!important;border:1px solid #d6d6cd!important;box-shadow:none!important;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-body{min-width:0}
+.nfl-paper[data-page="game"] .nfl-insight-qb-body>span{
+ color:#a73330;font:900 10px Arial,sans-serif;letter-spacing:.13em;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-body>strong{
+ display:block;font:800 clamp(14px,1.8vw,21px)/1.17 "Iowan Old Style",Baskerville,Georgia,serif;
+ color:#19303d;overflow-wrap:break-word;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-line{
+ display:flex;align-items:baseline;gap:9px;margin:4px 0;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-line b{
+ font:800 clamp(25px,3vw,39px)/1 "Iowan Old Style",Baskerville,Georgia,serif;
+ font-variant-numeric:tabular-nums;letter-spacing:-.05em;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-line small{
+ color:#656968;font:700 9px Arial,sans-serif;
+}
+.nfl-paper[data-page="game"] .nfl-insight-qb-mini{
+ display:flex;flex-wrap:wrap;gap:5px 12px;
+ color:#59666d;font:800 10px Arial,sans-serif;
+}
+@media(max-width:600px){
+ .nfl-paper[data-page="game"] .nfl-insight-qb-label{display:block;font-size:19px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-label small{display:block;margin-top:3px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-player{grid-template-columns:39px 1fr;gap:6px;padding-right:7px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-player:last-child{padding-left:8px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-player img{
+  width:37px!important;height:37px!important;min-width:37px!important;max-width:37px!important;
+  min-height:37px!important;max-height:37px!important;
+ }
+ .nfl-paper[data-page="game"] .nfl-insight-qb-body>strong{font-size:13px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-line b{font-size:26px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-line{gap:4px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-line small{font-size:8px}
+ .nfl-paper[data-page="game"] .nfl-insight-qb-mini{font-size:9px}
+}
