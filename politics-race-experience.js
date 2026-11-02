@@ -205,6 +205,21 @@ function renderDistrict({r,state}){
  // Put the data story above the generic source and filing blocks on every district file.
  const before=root.querySelector(".front-evidence-grid");
  if(before)root.insertBefore(featured,before);else root.append(featured);
+ // Preserve every original source and data table, but move it beneath one
+ // accessible disclosure on non-Iowa pages. Iowa has its own established dossier.
+ const sourcePanels=document.querySelector("body[data-house-page=district] .panels");
+ const fecPanel=document.querySelector("body[data-house-page=district] .fec-wrap");
+ const historyPanel=$("result-panel")?.closest("section");
+ if(sourcePanels&&fecPanel&&historyPanel&&!$("race-receipts")){
+  const details=el("details",null,"race-deep-dive");details.id="race-receipts";
+  details.append(el("summary","THE ORIGINAL REPORTS · CANDIDATES, POLLS, FEC AND 2024 RETURNS"));
+  const content=el("div",null,"race-deep-content");
+  content.append(sourcePanels,fecPanel,historyPanel);
+  details.append(content);
+  const mapWarning=$("map-warning");
+  if(mapWarning)mapWarning.insertAdjacentElement("afterend",details);
+  else root.insertAdjacentElement("afterend",details);
+ }
 }
 function makeStateStory(r){
  const s=story(r),a=el("a",null,"state-brief-card");
