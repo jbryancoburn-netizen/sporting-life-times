@@ -497,30 +497,30 @@ function gameStoryData(g){
  return {away,home,aq,hq,hasPeriods,a3,h3,winner,wSide,headline,deck,tag,short,fourthComeback};
 }
 function gameScoringArc(g,story){
- if(!story.hasPeriods)return '<p class="nfl-story-await">Quarter-by-quarter scoring will appear when confirmed by the source.</p>';
- const a=story.aq,h=story.hq,count=Math.min(5,Math.max(a.length,h.length));
- const cum=q=>{let n=0;return [0,...q.slice(0,count).map(x=>(n+=x))];};
- const av=cum(a),hv=cum(h),max=Math.max(7,...av,...hv);
- const X=i=>42+(i/count)*520;
- const Y=v=>171-(v/max)*123;
+ if(!story.hasPeriods)return '<p class="nfl-feature-chart-await">Quarter-by-quarter scoring will appear once source-confirmed.</p>';
+ const count=Math.min(5,Math.max(story.aq.length,story.hq.length));
+ const cum=q=>{let n=0;return [0,...q.slice(0,count).map(v=>(n+=v))];};
+ const a=cum(story.aq),h=cum(story.hq),top=Math.max(10,Math.ceil(Math.max(...a,...h)/10)*10);
+ const X=i=>51+(i/count)*502;
+ const Y=v=>166-(v/top)*123;
  const line=q=>q.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
- const circles=(q,cl)=>q.map((v,i)=>'<circle class="'+cl+'" cx="'+X(i).toFixed(1)+
-  '" cy="'+Y(v).toFixed(1)+'" r="'+(i===count?5:3)+'"></circle>').join('');
+ const circles=(q,cl)=>q.slice(1).map((v,i)=>'<circle class="'+cl+'" cx="'+X(i+1).toFixed(1)+
+  '" cy="'+Y(v).toFixed(1)+'" r="4.5"></circle>').join('');
  const ticks=Array.from({length:count},(_,i)=>{
-  const name=i<4?'Q'+(i+1):'OT'+(i-3);
-  return '<text x="'+X(i+1).toFixed(1)+'" y="198" text-anchor="middle">'+name+'</text>';
+  const label=i<4?'Q'+(i+1):'OT'+(i-3);
+  return '<text class="nfl-feature-chart-quarter" x="'+X(i+1).toFixed(1)+'" y="198" text-anchor="middle">'+label+'</text>';
  }).join('');
- const marker=story.fourthComeback?'<rect x="'+X(3)+'" y="21" width="'+(X(4)-X(3))+
-  '" height="164" fill="var(--nfl-story-winning)" opacity=".10"></rect>':'';
- return '<div class="nfl-story-arc" role="img" aria-label="Cumulative score after each period. '+
-  escapeHtml(story.away.code)+' '+av.slice(1).join(', ')+'; '+escapeHtml(story.home.code)+
-  ' '+hv.slice(1).join(', ')+'."><svg viewBox="0 0 610 207" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
-  '<path d="M42 171H573" stroke="#1e3441" opacity=".18" fill="none"></path>'+marker+
-  '<path class="arc-away" d="'+line(av)+'"></path>'+
-  '<path class="arc-home" d="'+line(hv)+'"></path>'+circles(av,'arc-away-dot')+circles(hv,'arc-home-dot')+
-  ticks+'</svg><div class="nfl-story-arc-legend"><span><i class="away-dot"></i>'+escapeHtml(story.away.code)+
-  ' · '+format(g.away.score)+'</span><span><i class="home-dot"></i>'+escapeHtml(story.home.code)+
-  ' · '+format(g.home.score)+'</span></div></div>';
+ const guides=Array.from({length:4},(_,i)=>{
+  const val=Math.round(top*i/3),yy=Y(val);
+  return '<line class="nfl-feature-chart-guide" x1="51" x2="565" y1="'+yy+'" y2="'+yy+'"></line>'+
+   '<text class="nfl-feature-chart-tick" x="38" y="'+(yy+4)+'" text-anchor="end">'+val+'</text>';
+ }).join('');
+ return '<div class="nfl-story-arc" role="img" aria-label="Cumulative points by quarter: '+
+ escapeHtml(story.away.code)+' '+a.slice(1).join(', ')+'; '+escapeHtml(story.home.code)+' '+h.slice(1).join(', ')+
+ '."><svg viewBox="0 0 610 207" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
+ '<rect class="nfl-feature-chart-final" x="'+X(count-1).toFixed(1)+'" y="35" width="'+(X(count)-X(count-1)).toFixed(1)+'" height="132"></rect>'+
+ guides+'<path class="arc-away" d="'+line(a)+'"></path><path class="arc-home" d="'+line(h)+'"></path>'+
+ circles(a,'arc-away-dot')+circles(h,'arc-home-dot')+ticks+'</svg></div>';
 }
 function gamePage(){
  const g=games.find(x=>x.id===params.get("id"));
