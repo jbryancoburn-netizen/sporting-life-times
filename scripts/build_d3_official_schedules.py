@@ -117,6 +117,7 @@ ALIASES = {
     "penn college": 30190, "penn college of technology": 30190,
     "penn state university altoona": 25719,
     "penn state university abington": 30114,
+    "la roche": 1163,  # Carlow University lists La Roche without its institutional suffix.
     "pitt bradford": 1315, "pitt greensburg": 11839,
     "university of pittsburgh at bradford": 1315,
     "university of pittsburgh at greensburg": 11839,
