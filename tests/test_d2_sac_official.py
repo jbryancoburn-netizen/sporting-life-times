@@ -17,7 +17,7 @@ def grid(gender, owner, special=None, time="4:00 P.M."):
             "<th>Status</th><th>Notes</th>")
     rows=[]
     for day in range(2, 11):
-        rival = special if day == 2 and special else "at Newberry College"
+        rival = special if day == 2 and special else ("at Coker University" if owner=="newberry" else "at Newberry College")
         cells = [f"1/{day}/2027", rival, "Hickory, NC", time, "", ""]
         if gender == "women":
             cells[2], cells[3] = cells[3], cells[2]
