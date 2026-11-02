@@ -238,11 +238,25 @@ test('DII CCAA school evidence requires independent men’s university calendars
 test('DII official university school-grid evidence covers all four verified recovery calendars',()=>{
  const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
  assert.equal(evidence.season,'2026-27');
- assert.deepEqual(evidence.schools.map(x=>x.fixtures.length),[27,28,28,28]);
- assert.deepEqual(evidence.schools.map(x=>x.gender),['men','women','women','women']);
-  assert.equal(evidence.schools[3].owner_id,'university-of-charleston-west-virginia');
-  assert.ok(evidence.schools[3].fixtures.some(g=>g.date==='2026-12-02' && g.role==='home' && g.start_time==='5:30 PM ET'));
-  assert.equal(new Set(evidence.schools[3].fixtures.map(g=>g.date+'|'+g.opponent)).size,28);
+ const required={
+  'men|salem':27,
+  'women|salem-university-west-virginia':28,
+  'women|lincoln-university-pennsylvania':28,
+  'women|university-of-charleston-west-virginia':28,
+  'women|upper-iowa-university':26
+ };
+ const keys=evidence.schools.map(s=>s.gender+'|'+s.owner_id);
+ assert.equal(new Set(keys).size,keys.length);
+ for(const [key,n] of Object.entries(required)){
+  const grid=evidence.schools.find(s=>s.gender+'|'+s.owner_id===key);
+  assert.ok(grid,'missing university calendar '+key);
+  assert.equal(grid.fixtures.length,n);
+ }
+ const upper=evidence.schools.find(s=>s.owner_id==='upper-iowa-university');
+ assert.equal(new Set(upper.fixtures.map(g=>g.date+'|'+g.opponent)).size,26);
+ assert.ok(upper.fixtures.some(g=>g.date==='2026-11-22' &&
+  g.opponent==='University of Puerto Rico, Mayaguez' &&
+  g.role==='neutral' && g.start_time==='12:30 PM ET'));
  for(const calendar of evidence.schools){
   assert.match(calendar.source_url,/^https:\/\//);
   for(const game of calendar.fixtures){
