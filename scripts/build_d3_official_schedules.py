@@ -438,7 +438,7 @@ def inspect_source(gender, source, by_org, exact):
                 # full-calendar test applies; "vs."-only sites are excluded.
                 try:
                     rows, report = parse_conference_calendar(
-                        html, gender, org, verified_url, "", by_org, exact,
+                        html, gender, org, verified_url, by_org[org]["name"], by_org, exact,
                         school_legacy=True)
                 except ValueError:
                     raise primary_error
@@ -718,7 +718,7 @@ def self_test():
     assert conference_rows[2]["neutral"] is True
     legacy_rows, legacy_report = parse_conference_calendar(
         conf_html, "men", 64, "https://blackburnbeavers.com/sports/mbkb/2026-27/schedule",
-        "", by_org, exact, school_legacy=True)
+        "Blackburn College", by_org, exact, school_legacy=True)
     assert legacy_report["status"] == "parsed_conference"  # caller recategorizes university
     assert len(legacy_rows) == 6  # neutral 'vs.' suppressed as ambiguous in legacy mode
     assert all(not x["neutral"] for x in legacy_rows)
