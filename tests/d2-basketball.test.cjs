@@ -188,6 +188,17 @@ test('DII scoreboard and both Elo builders order Eastern tipoffs by meridiem, ne
 });
 
 
+test('DII recovery excludes noneligible transfers and future applicants from missing schedule counts',()=>{
+ const js=fs.readFileSync('d2-basketball.js','utf8');
+ const audit=fs.readFileSync('scripts/audit_d2_publication.py','utf8');
+ assert.match(js,/const eligible=entries\.filter\(x=>!x\.team\.not_eligible_for_dii_elo\)/);
+ assert.match(js,/const excluded=entries\.filter\(x=>x\.team\.not_eligible_for_dii_elo\)/);
+ assert.match(js,/UNLISTED ELIGIBLE SCHOOL SCHEDULES/);
+ assert.match(js,/NOT ELIGIBLE FOR 2026–27 DII ELO/);
+ assert.match(audit,/"eligible_without_games"/);
+ assert.match(audit,/"excluded_without_games"/);
+});
+
 test('both DII papers expose dynamic clickable school-by-school schedule recovery without invented full calendars',()=>{
  const js=fs.readFileSync('d2-basketball.js','utf8');
  const css=fs.readFileSync('d2-basketball.css','utf8');
