@@ -125,6 +125,9 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         53: ("https://midwestconference.org/schedule.aspx?schedule=3999", "Beloit"),
         218: ("https://sliac.org/schedule.aspx?schedule=2031", "Eureka"),
         684: ("https://cnesports.org/schedule.aspx?schedule=4107", "Suffolk"),
+        # Exact 2026-27 CNE team calendars; fallback is conference evidence, not school-certified.
+        8981: ("https://cnesports.org/schedule.aspx?schedule=4110", "Endicott"),
+        762: ("https://cnesports.org/schedule.aspx?schedule=4111", "Wentworth"),
         64: ("https://sliac.org/schedule.aspx?schedule=2030", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1162", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
@@ -137,6 +140,11 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         53: ("https://midwestconference.org/schedule.aspx?schedule=3989", "Beloit"),
         218: ("https://sliac.org/schedule.aspx?schedule=2038", "Eureka"),
         449: ("https://newmacsports.com/schedule.aspx?schedule=3965", "Mount Holyoke"),
+        # Exact 2026-27 CNE team calendars; full year, gender and opponent checks still apply.
+        170: ("https://cnesports.org/schedule.aspx?schedule=4125", "Curry"),
+        8981: ("https://cnesports.org/schedule.aspx?schedule=4121", "Endicott"),
+        762: ("https://cnesports.org/schedule.aspx?schedule=4122", "Wentworth"),
+        684: ("https://cnesports.org/schedule.aspx?schedule=4118", "Suffolk"),
         64: ("https://sliac.org/schedule.aspx?schedule=2029", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1154", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2274", "Olivet"),
@@ -880,6 +888,19 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1450][1] == "Westminster"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1450][0].endswith("schedule=2045")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][525][1] == "Olivet"
+    # Lock down individually checked CNE team-specific season IDs and sport identity.
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][8981] == (
+        "https://cnesports.org/schedule.aspx?schedule=4110", "Endicott")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][762] == (
+        "https://cnesports.org/schedule.aspx?schedule=4111", "Wentworth")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][170] == (
+        "https://cnesports.org/schedule.aspx?schedule=4125", "Curry")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][8981] == (
+        "https://cnesports.org/schedule.aspx?schedule=4121", "Endicott")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][762] == (
+        "https://cnesports.org/schedule.aspx?schedule=4122", "Wentworth")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][684] == (
+        "https://cnesports.org/schedule.aspx?schedule=4118", "Suffolk")
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
     <body><h2>2026-27 Blackburn Men's Basketball Schedule (0-0)</h2>
     <table><thead><tr><th>Date</th><th>Opponent</th><th>Status</th><th>Result</th><th>Location</th></tr></thead><tbody>
