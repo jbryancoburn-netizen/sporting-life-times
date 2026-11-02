@@ -221,17 +221,32 @@ const team=t=>{const profile=rankOf(t,ratings,women),url=teamPage(t);
 const favorite=t=>'<button class="sl-follow'+(followed.has(t.id)?' is-followed':'')+'" type="button" data-follow="'+esc(t.id)+'" aria-pressed="'+followed.has(t.id)+'" title="'+(followed.has(t.id)?'Unfollow':'Follow')+' '+esc(t.name)+'">'+(followed.has(t.id)?'★':'☆')+'<span class="sr-only"> Follow '+esc(t.name)+'</span></button>';
 const lens=g=>{
   const a=rating(g.away),h=rating(g.home),has=a!==null&&h!==null;
-  if(g.kind==='exhibition')return ['Preseason ledger','This result does not affect regular-season records or RETRO ratings.'];
+  const aw=rankOf(g.away,ratings,women),hm=rankOf(g.home,ratings,women);
+  if(g.kind==='exhibition')return ['The preseason record','An exhibition final, kept separate from the regular-season standings and RETRO Elo.'];
   if(g.phase==='live'&&g.home.score!==null&&g.away.score!==null){
     const diff=g.home.score-g.away.score,leader=diff>0?g.home.name:g.away.name;
-    return [diff===0?'Level game':leader+' by '+Math.abs(diff),
-      'Reported live score: '+g.away.score+'–'+g.home.score+'. Updates depend on the source feed.'];
+    return [diff===0?'Nothing between them':leader+' leads by '+Math.abs(diff),
+      'Live score: '+g.away.name+' '+g.away.score+', '+g.home.name+' '+g.home.score+
+      '. Scores follow the attributed live feed.'];
   }
-  if(g.phase==='final')return ['Final result','Reported score: '+g.away.score+'–'+g.home.score+'. See the Gamefile for available statistics.'];
-  if(!has)return ['Matchup preview','RETRO information is not available for both teams.'];
+  if(g.phase==='final'&&g.home.score!==null&&g.away.score!==null){
+    const diff=g.home.score-g.away.score,leader=diff>0?g.home.name:g.away.name;
+    return [diff===0?'Finished level':leader+' wins by '+Math.abs(diff),
+      'The final: '+g.away.name+' '+g.away.score+', '+g.home.name+' '+g.home.score+
+      '. Open the Gamefile for available sourced box-score detail.'];
+  }
+  if(!has)return ['The matchup file','Both teams do not yet have certified RETRO ratings.'];
   const leader=a>=h?g.away.name:g.home.name,diff=Math.abs(a-h);
-  return [diff<=1?'An even RETRO matchup':leader+' enters '+Math.round(diff)+' Elo ahead',
-    'Current independent 2026–27 ratings; both teams started at 1500.'];
+  const combined=(Number(aw?.games_played)||0)+(Number(hm?.games_played)||0);
+  if(!combined)return ['A clean slate','Both programs remain at the 1500 RETRO starting line. The first verified final will change that.'];
+  if(Number(aw?.wins)>0&&Number(hm?.wins)>0&&Number(aw?.losses)===0&&Number(hm?.losses)===0)
+    return ['Unbeaten starts meet','Neither team has lost a verified 2026–27 final. '+leader+
+      ' carries the '+Math.round(diff)+'-point rating edge.'];
+  if(aw?.conference&&hm?.conference&&aw.conference===hm.conference)
+    return ['A conference test',g.away.name+' and '+g.home.name+
+      ' share the '+aw.conference+'. The current RETRO gap is '+Math.round(diff)+' points.'];
+  return [diff<=1?'The numbers are level':leader+' holds the RETRO edge',
+    'A '+Math.round(diff)+'-point difference in independent in-season Elo. All programs started at 1500.'];
 };
 const matchupStats=g=>{
  if(g.kind==='exhibition')return '<div class="sl-matchup-facts"><span>EXHIBITION</span><strong>NOT PART OF RETRO</strong></div>';
