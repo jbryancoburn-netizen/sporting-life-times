@@ -1444,7 +1444,7 @@ def archived_carlow_first_party_school_events(gender, owner, by_org):
                                  r"[a-z0-9-]+/", u.path)):
             raise ValueError("Carlow archive individual university event URL invalid")
         time = game["tipoff_as_posted"]
-        if time and not re.fullmatch(r"(?:1[0-2]|[1-9]):[0-5]\\d [AP]M", time):
+        if time and not re.fullmatch(r"(?:1[0-2]|[1-9]):[0-5]\d [AP]M", time):
             raise ValueError("Carlow archive includes an unverified/invalid tipoff")
         identity = (day.isoformat(),opponent)
         if identity in seen:
