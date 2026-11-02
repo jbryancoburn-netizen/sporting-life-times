@@ -3,19 +3,19 @@
   "division": "d3",
   "gender": "women",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T19:26:58.603793+00:00",
+  "generated_utc": "2026-11-02T19:29:59.864858+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 415,
   "verified_source_calendars": 365,
-  "official_conference_calendar_fallbacks": 30,
+  "official_conference_calendar_fallbacks": 32,
   "school_calendars_checked": 415,
   "school_calendars_missing": 50,
-  "school_calendars_unresolved": 20,
+  "school_calendars_unresolved": 18,
   "source_status_counts": {
     "parsed": 365,
-    "parsed_conference": 30,
-    "failed": 20
+    "failed": 18,
+    "parsed_conference": 32
   },
   "last_verified_school_source": {
     "4": "https://adrianbulldogs.com/sports/womens-basketball/schedule/2026-27?grid=true",
@@ -761,11 +761,11 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 20,
+    "remaining_unverified_school_calendars": 18,
     "missing_schools_with_at_least_10_opponent_sourced_games": 14,
     "missing_schools_with_zero_opponent_sourced_games": 0,
     "recovery_reason_counts": {
-      "season_heading_not_verified": 19,
+      "season_heading_not_verified": 17,
       "calendar_path_unavailable": 1
     }
   },
@@ -2677,7 +2677,7 @@
       "owner_org_id": 324,
       "source_url": "https://nvubadgers.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "<urlopen error _ssl.c:993: The handshake operation timed out> | HTTP Error 404: Not Found | HTTP Error 404: Not Found | <urlopen error _ssl.c:993: The handshake operation timed out> | <urlopen error _ssl.c:993: The handshake operation timed out> | HTTP Error 4",
+      "error": "HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | <urlopen error _ssl.c:993: The handshake operation timed out> | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | HTTP Error 404: Not Found | ",
       "candidate_urls_tried": 15,
       "rejected_page_evidence": [],
       "conference_page_evidence": [],
@@ -7117,9 +7117,9 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2,
-      "verified_direct_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
-      "discovery_method": "official_school_url_or_vendor_variant"
+      "candidate_urls_tried": 1,
+      "verified_direct_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
+      "discovery_method": "previously_verified_source"
     },
     {
       "owner_org_id": 16142,
@@ -8287,6 +8287,18 @@
       "source_urls": [
         "https://warrenwilsonowls.com/sports/womens-basketball/schedule?grid=true",
         "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true"
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "members": [
+        119,
+        266
+      ],
+      "problem": "home/away or neutral-site source disagreement",
+      "source_urls": [
+        "https://gogusties.com/sports/womens-basketball/schedule/2026-27?grid=true",
+        "https://uaasports.info/schedule.aspx?schedule=1154"
       ]
     },
     {
@@ -32716,7 +32728,7 @@
       "home_org_id": 30172,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.illinoistechathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.illinoistechathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://beloitcollegeathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.illinoistechathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -34876,7 +34888,7 @@
       "home_org_id": 214,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.elmira.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true"
@@ -38310,7 +38322,7 @@
       "home_org_id": 27892,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.huntercollegeathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -43258,7 +43270,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://coastguardathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -44916,7 +44928,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gobrynmawr.com/sports/womens-basketball/schedule?grid=true",
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -45416,7 +45428,7 @@
       "home_org_id": 27892,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.mecathletics.com/sports/womens-basketball/schedule?grid=true"
@@ -51252,7 +51264,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://www.norwichathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -52314,7 +52326,7 @@
       "home_org_id": 11324,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
         "https://www.hollinssports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -58086,7 +58098,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://www.wnegoldenbears.com/sports/womens-basketball/schedule?grid=true"
@@ -58799,9 +58811,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
+      "tipoff_as_posted": "7:00 P.M.",
       "venue": "",
-      "venue_location": "New Concord, Ohio",
+      "venue_location": "New Concord, OH",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -72099,7 +72111,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
+      "tipoff_as_posted": "6:00 P.M.",
       "venue": "",
       "venue_location": "New Concord, OH",
       "network_as_posted": "",
@@ -72238,7 +72250,7 @@
       "home_org_id": 491,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.mumonarchs.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -74863,7 +74875,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "New Concord, OH",
       "network_as_posted": "",
@@ -75334,7 +75346,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.suseagulls.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -76334,7 +76346,7 @@
       "home_org_id": 780,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://whitmanblues.com/sports/womens-basketball/schedule/2026-2027?grid=true",
         "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true"
@@ -76636,7 +76648,7 @@
       "home_org_id": 344,
       "neutral": true,
       "status": "scheduled",
-      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
         "https://www.goforesters.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -78835,7 +78847,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
+      "tipoff_as_posted": "2:00 P.M.",
       "venue": "",
       "venue_location": "New Concord, OH",
       "network_as_posted": "",
@@ -82470,7 +82482,7 @@
       "home_org_id": 11324,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=549",
         "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true"
@@ -86098,7 +86110,7 @@
       "home_org_id": 491,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.goavengingangels.com/sports/womens-basketball/schedule?grid=true"
@@ -92256,7 +92268,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.wilsonphoenix.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -93364,7 +93376,7 @@
       "home_org_id": 11324,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.ascscotties.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.ascscotties.com/sports/womens-basketball/schedule?grid=true",
         "https://www.lagrangepanthers.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -93570,7 +93582,7 @@
       "home_org_id": 214,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://www.emersonlions.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.amherst.edu/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.emersonlions.com/sports/womens-basketball/schedule?grid=true"
@@ -96422,7 +96434,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -99774,7 +99786,7 @@
       "home_org_id": 27892,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.govaliants.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -101568,7 +101580,7 @@
       "home_org_id": 30081,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3833",
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -104410,7 +104422,7 @@
       "home_org_id": 389,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -107514,7 +107526,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://cnesports.org/schedule.aspx?schedule=4125"
@@ -114450,7 +114462,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://gounitedeast.com/schedule.aspx?schedule=3832",
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -118634,7 +118646,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://cnesports.org/schedule.aspx?schedule=4118"
@@ -119539,7 +119551,7 @@
       "source_url": "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true",
-        "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
+        "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         14795,
@@ -120650,7 +120662,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.lbcchargers.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -122964,7 +122976,7 @@
       "home_org_id": 27892,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.yumacs.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -126116,7 +126128,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://hartfordhawks.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -126843,7 +126855,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1 pm",
+      "tipoff_as_posted": "1:00 P.M.",
       "venue": "",
       "venue_location": "New Concord, OH",
       "network_as_posted": "",
@@ -128476,7 +128488,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.gokcgiants.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -130891,7 +130903,7 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 p.m.",
+      "tipoff_as_posted": "7:00 P.M.",
       "venue": "",
       "venue_location": "New Concord, OH",
       "network_as_posted": "",
@@ -131516,7 +131528,7 @@
       "home_org_id": 14795,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true",
         "https://www.smcmathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -135764,7 +135776,7 @@
       "home_org_id": 27892,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.farmingdalesports.com/sports/womens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://umsvathletics.com/sports/womens-basketball/schedule?grid=true",
         "https://www.farmingdalesports.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -135886,7 +135898,7 @@
       "home_org_id": 1099,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://athletics.gordon.edu/sports/womens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.gordon.edu/sports/womens-basketball/schedule?grid=true",
         "https://www.nicholsathletics.com/sports/womens-basketball/schedule/2026-27?grid=true"
@@ -139828,7 +139840,7 @@
       "home_org_id": 491,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true"
@@ -142946,7 +142958,7 @@
       "home_org_id": 491,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
+      "source_url": "https://ncwsports.com/sports/womens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://ncwsports.com/sports/womens-basketball/schedule?grid=true",
         "https://www.greensborocollegesports.com/sports/womens-basketball/schedule/2026-27?grid=true"
