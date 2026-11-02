@@ -587,7 +587,7 @@ function gamePage(){
   '<span>'+escapeHtml(g.week)+' / '+escapeHtml(status)+'</span></div>'+
   '<section class="nfl-story-turn" id="nfl-story-turn">'+
   '<header class="nfl-feature-story-intro"><span class="nfl-feature-eyebrow">The game story</span>'+
-  '<h1>'+escapeHtml(headline)+'</h1><p>'+escapeHtml(lead)+'</p></header>';
+  '<h1 class="nfl-title">'+escapeHtml(headline)+'</h1><p>'+escapeHtml(lead)+'</p></header>';
  if(story.hasPeriods){
   const preFourth=story.a3+'–'+story.h3;
   const fourth=story.aq[3]+'–'+story.hq[3];
