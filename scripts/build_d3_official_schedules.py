@@ -89,6 +89,33 @@ ALIASES = {
     "uw la crosse": 795, "uw platteville": 800,
     "uw river falls": 801, "uw stout": 803, "uw stout polytechnic": 803,
     "uw superior": 804, "uw whitewater": 805,
+    # School-brand names used on other universities' official 2026–27 schedules.
+    # Do not merge ambiguous bare 'Regis', 'Anderson', 'Centenary' or 'Bridgewater'.
+    "penn state behrend": 538, "penn st behrend": 538,
+    "penn state erie behrend": 538, "penn state behrend college": 538,
+    "penn state altoona": 25719, "penn st altoona": 25719,
+    "penn state abington": 30114, "penn st abington": 30114,
+    "penn state berks": 30044, "penn st berks": 30044,
+    "penn college": 30190, "penn college of technology": 30190,
+    "penn state university altoona": 25719,
+    "penn state university abington": 30114,
+    "pitt bradford": 1315, "pitt greensburg": 11839,
+    "university of pittsburgh at bradford": 1315,
+    "university of pittsburgh at greensburg": 11839,
+    "suny delhi": 30225, "suny delhi broncos": 30225,
+    "regis college": 569, "regis college ma": 569,
+    "regis college mass": 569, "regis mass": 569,
+    "university of saint joseph": 8687,
+    "university of st joseph": 8687,
+    "university of saint joseph ct": 8687,
+    "university of saint joseph conn": 8687,
+    "anderson university in": 939, "anderson university ind": 939,
+    "anderson indiana": 939, "anderson ind": 939,
+    "bridgewater state": 76, "bridgewater college va": 75,
+    "centenary college la": 125, "centenary la": 125,
+    "centenary university nj": 12884,
+    "mcla": 486, "umass boston": 401,
+    "uc santa cruz": 113, "ucsc": 113,
 }
 # Official athletics domains independently verified against 2026–27 school sites.
 # The NCAA member directory sometimes exposes an old generic campus URL.
@@ -141,6 +168,9 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         641: ("https://rollrivers.com/schedule.aspx?schedule=2841", "Simpson"),
         806: ("https://northcoast.org/schedule.aspx?schedule=2761", "Wittenberg"),
         8597: ("https://umacathletics.com/schedule.aspx?schedule=4445", "Martin Luther"),
+        # Official United East 2026–27 university-specific conference calendars.
+        30189: ("https://gounitedeast.com/schedule.aspx?schedule=3821", "Penn State Brandywine"),
+        30081: ("https://gounitedeast.com/schedule.aspx?schedule=3822", "Penn State Harrisburg"),
         # Published current-season official conference team pages, independently
         # checked for school, basketball sex and 2026-27 year.
         1355: ("https://ascsports.org/schedule.aspx?schedule=6196", "Schreiner"),
@@ -165,6 +195,8 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         348: ("https://midwestconference.org/schedule.aspx?schedule=3994", "Lawrence"),
         641: ("https://rollrivers.com/schedule.aspx?schedule=2849", "Simpson"),
         806: ("https://northcoast.org/schedule.aspx?schedule=2771", "Wittenberg"),
+        30189: ("https://gounitedeast.com/schedule.aspx?schedule=3832", "Penn State Brandywine"),
+        30081: ("https://gounitedeast.com/schedule.aspx?schedule=3833", "Penn State Harrisburg"),
         987: ("https://heartlandconf.org/schedule.aspx?schedule=4399", "Bluffton"),
         1467: ("https://landmarkconference.org/schedule.aspx?schedule=2615", "Goucher"),
         325: ("https://landmarkconference.org/schedule.aspx?schedule=2616", "Juniata"),
@@ -914,12 +946,36 @@ def self_test():
         {"ncaa_org_id": 30037, "name": "Trine University", "membership_year": 2027, "d3_confirmed": True},
         {"ncaa_org_id": 713, "name": "Trinity College (Connecticut)", "membership_year": 2027, "d3_confirmed": True},
         {"ncaa_org_id": 715, "name": "Trinity University (Texas)", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 538, "name": "Pennsylvania State Univ. Erie, the Behrend College", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 569, "name": "Regis College (Massachusetts)", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 30225, "name": "State University of New York at Delhi", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 8687, "name": "University of Saint Joseph (Connecticut)", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 25719, "name": "Penn State University, Altoona", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 30189, "name": "Penn State Brandywine", "membership_year": 2027, "d3_confirmed": True},
+        {"ncaa_org_id": 939, "name": "Anderson University (Indiana)", "membership_year": 2027, "d3_confirmed": True},
     ]
     by_org, exact = official_index(teams)
     assert resolve("Hope", by_org, exact) == 286
     assert resolve("Trine University", by_org, exact) == 30037
     assert resolve("Trinity", by_org, exact) is None
     assert resolve("Trine or Hope", by_org, exact) is None
+    # Cross-school fixture identities must not disappear due to NCAA's formal
+    # institution names; ambiguous names remain unresolved rather than guessed.
+    for label, expected_org in (
+        ("Penn State Behrend", 538),
+        ("Penn St. Behrend", 538),
+        ("Regis College", 569),
+        ("Regis (Mass.)", 569),
+        ("SUNY-Delhi", 30225),
+        ("University of Saint Joseph", 8687),
+        ("Penn State Altoona", 25719),
+        ("Penn State Brandywine", 30189),
+        ("Anderson University (IN)", 939),
+    ):
+        assert resolve(label, by_org, exact) == expected_org, label
+    assert resolve("Regis", by_org, exact) is None
+    assert resolve("Anderson", by_org, exact) is None
+    assert resolve("Trinity", by_org, exact) is None
     wisconsin=[{"ncaa_org_id":i,"name":"University of Wisconsin-"+name,
                 "membership_year":2027,"d3_confirmed":True}
                for i,name in [(793,"Eau Claire"),(795,"La Crosse"),(798,"Oshkosh"),
@@ -1014,6 +1070,14 @@ def self_test():
             assert urlsplit(url).query == f"schedule={season_id}"
             assert subject == label
 
+    # United East calendar IDs checked against their exact public 2026–27 headings.
+    expected_ue = {"men": {30189: 3821, 30081: 3822},
+                   "women": {30189: 3832, 30081: 3833}}
+    for sex, ids in expected_ue.items():
+        for org, schedule_id in ids.items():
+            link, subject = OFFICIAL_CONFERENCE_SCHEDULES[sex][org]
+            assert link == f"https://gounitedeast.com/schedule.aspx?schedule={schedule_id}"
+            assert subject in ("Penn State Brandywine", "Penn State Harrisburg")
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
     <body><h2>2026-27 Blackburn Men's Basketball Schedule (0-0)</h2>
     <table><thead><tr><th>Date</th><th>Opponent</th><th>Status</th><th>Result</th><th>Location</th></tr></thead><tbody>
