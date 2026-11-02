@@ -675,8 +675,21 @@ def conference_markup_evidence(html, url, reason):
                     break
         if len(seen) >= 20:
             break
+    # Unsupported SIDEARM list pages can show date/opponent in nested spans
+    # rather than the table/date format above. Retain only two short public
+    # game-card text/attribute fingerprints, never the full HTML document.
+    card_sample = []
+    for card in doc.select(".sidearm-schedule-list-game")[:2]:
+        card_sample.append({
+            "visible_text": compact(card.get_text(" ", strip=True))[:190],
+            "time_datetime_values": [x.get("datetime", "")[:40]
+                                     for x in card.select("time[datetime]")[:2]],
+            "child_classes": [compact(" ".join(x.get("class", [])))[:95]
+                              for x in card.select("[class]")[:9]]
+        })
     return {"url": url, "reason": str(reason)[:110],
             "headings": heads, "table_headers": tables,
+            "sample_game_cards": card_sample,
             "schedule_dom_classes": seen,
             "date_text_fragments": len(re.findall(
                 r"(?:11|12|1|2|3)/\d{1,2}/202[67]", doc.get_text(" ", strip=True)))}
@@ -1595,7 +1608,17 @@ def self_test():
         ValueError("insufficient table rows"))
     assert mark["schedule_dom_classes"] == ["sidearm-schedule-game"]
     assert mark["table_headers"] == []
+    assert mark["sample_game_cards"] == []
     assert "2026-27 Goucher" in mark["headings"][0]
+    diag = conference_markup_evidence(
+        "<h2>2026-27 Goucher Women's Basketball Schedule</h2>"
+        "<li class='sidearm-schedule-list-game'><time datetime='2026-11-07'>"
+        "Nov 7</time><div class='sidearm-schedule-list-game-opponent'>"
+        "at Hope College</div></li>", "https://landmarkconference.org/schedule.aspx?schedule=2615",
+        ValueError("date format unhandled"))
+    assert len(diag["sample_game_cards"]) == 1
+    assert diag["sample_game_cards"][0]["time_datetime_values"] == ["2026-11-07"]
+    assert "Hope College" in diag["sample_game_cards"][0]["visible_text"]
     assert javascript_only_placeholder(
         "<html><body><h1>JavaScript is disabled</h1>"
         "<p>Enable JavaScript to view this calendar.</p></body></html>")
