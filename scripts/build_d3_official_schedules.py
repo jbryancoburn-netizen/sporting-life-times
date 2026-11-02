@@ -1402,6 +1402,80 @@ def parse_carlow_university_event_page(html, gender, owner, url, by_org, exact):
     }
 
 
+def archived_carlow_first_party_school_events(gender, owner, by_org):
+    """Restore only individually URL-verified 2026–27 Carlow school events.
+
+    First-party snapshot is a dated DIII subset, NOT an invented full
+    institutional calendar. Used solely when the university's public tag
+    feed cannot be refreshed directly from the GitHub runner.
+    """
+    if owner != 30253 or gender not in ("men", "women"):
+        raise ValueError("Carlow archive owner/gender mismatch")
+    record = json.loads((DATA / "d3-carlow-first-party-dated-basketball-2026-27.json").read_text())
+    if (record.get("division"),record.get("season"),record.get("school_ncaa_org_id")) != (
+            "d3", "2026-27", owner):
+        raise ValueError("Carlow original-school snapshot metadata invalid")
+    if "not_a_claim_that_every" not in record.get("scope", ""):
+        raise ValueError("Carlow archive must declare partial schedule scope")
+    suffix = "mens" if gender == "men" else "womens"
+    expected_host = "www.carlow.edu"
+    games = record.get("programs", {}).get(gender)
+    if not isinstance(games, list) or len(games) < 15 or len(games) > 28:
+        raise ValueError("Carlow first-party original game card list incomplete")
+    seen, rows = set(), []
+    for game in games:
+        if set(game) != {"date", "opponent_org_id", "site", "source_url", "tipoff_as_posted"}:
+            raise ValueError("Carlow first-party archive has unexpected fields")
+        if not isinstance(game["opponent_org_id"], int):
+            raise ValueError("Carlow archive lacks numeric NCAA identity")
+        opponent = game["opponent_org_id"]
+        if opponent not in by_org or opponent == owner or not by_org[opponent].get("d3_confirmed"):
+            raise ValueError("Carlow archive includes a non-DIII or self opponent")
+        day = dt.date.fromisoformat(game["date"])
+        if not SEASON_START <= day <= SEASON_END:
+            raise ValueError("Carlow archive contains wrong year/season fixture")
+        site = game["site"]
+        if site not in ("home", "away"):
+            raise ValueError("Carlow archive guesses a neutral or ambiguous site")
+        u = urlsplit(game["source_url"])
+        if (u.scheme != "https" or u.hostname != expected_host or u.query or
+                not re.fullmatch(r"/event/" + suffix + r"-basketball-" +
+                                 ("vs-" if site == "home" else "at-") +
+                                 r"[a-z0-9-]+/", u.path)):
+            raise ValueError("Carlow archive individual university event URL invalid")
+        time = game["tipoff_as_posted"]
+        if time and not re.fullmatch(r"(?:1[0-2]|[1-9]):[0-5]\d [AP]M", time):
+            raise ValueError("Carlow archive includes an unverified/invalid tipoff")
+        identity = (day.isoformat(),opponent)
+        if identity in seen:
+            raise ValueError("Carlow archived university fixture duplicate")
+        seen.add(identity)
+        away = owner if site == "away" else opponent
+        home = opponent if site == "away" else owner
+        rows.append({
+            "date": day.isoformat(), "away_org_id": away,
+            "home_org_id": home, "neutral": False,
+            "source_owner_org_id": owner, "source_url": game["source_url"],
+            "source_kind": "official_school",
+            "tipoff_as_posted": time, "venue": "", "venue_location": "",
+            "network_as_posted": "", "radio_as_posted": "", "tournament": ""
+        })
+    if not (any(x["date"].startswith("2026-") for x in rows) and
+            any(x["date"].startswith("2027-") for x in rows)):
+        raise ValueError("Carlow archive not a 2026–27 regular-season calendar")
+    root = f"https://www.carlow.edu/events/tag/{suffix}-basketball/"
+    return rows, {
+        "owner_org_id": owner, "source_url": root,
+        "verified_direct_url": root, "status": "parsed",
+        "calendar_origin": "official_university_individually_dated_event_archive",
+        "calendar_scope": "source_verified_d3_game_subset_not_complete_institutional_schedule",
+        "verified_member_opponents": len(rows), "readable_rows": len(rows),
+        "excluded_rows": {}, "discovery_method": "verified_official_university_event_card_archive",
+        "candidate_urls_tried": len(rows),
+        "refresh_rule": "Recheck individually linked school event pages and replace with full live school calendar when available"
+    }
+
+
 def recover_carlow_university_events(gender, owner, by_org, exact):
     """Recover Carlow's real 2026–27 university-published event calendar.
 
@@ -1472,14 +1546,26 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
     """Reject incorrect seasons/sexes and unknown calendars, even on HTTP 200."""
     org, url, pinned = source
     if org == 30253:
-        # Carlow's main institutional domain publishes the season's dated
-        # men's/women's events even when athletics.carlow.edu refuses reads.
-        # If the public university event calendar fails strict validation,
-        # continue to the usual conservative source recovery unchanged.
+        # Refresh the first-party university event listings first. If that
+        # school site is inaccessible to GitHub, retain the dated events
+        # independently inspected on official carlow.edu pages, preserving
+        # each original event URL and explicitly marking partial coverage.
+        # Do not substitute any third-party sports calendar or inferred result.
         try:
             return recover_carlow_university_events(gender, org, by_org, exact)
-        except (ValueError, OSError, urllib.error.URLError):
-            pass
+        except (ValueError, OSError, urllib.error.URLError) as ex:
+            try:
+                archived_rows, archived_report = archived_carlow_first_party_school_events(
+                    gender, org, by_org)
+                archived_report["live_university_event_refresh_error"] = (
+                    type(ex).__name__ + ": " + str(ex)[:100])
+                return archived_rows, archived_report
+            except (ValueError, OSError) as archive_ex:
+                print(json.dumps({
+                    "d3_carlow_source_blocked_and_archive_rejected": gender,
+                    "live_failure": str(ex)[:110],
+                    "archive_failure": str(archive_ex)[:110]
+                }), flush=True)
     if not url:
         return None, {"owner_org_id": org, "source_url": "",
                       "status": "no_official_athletics_site",
@@ -2414,6 +2500,24 @@ def self_test():
     assert oac_onu_rows[1]["home_org_id"] == 517
     # No fallback on arbitrary OAC schedule IDs, women, other owners or
     # other conference domains; the normal strict H/A tests above stand.
+    # Archived school event pages remain safely usable during vendor
+    # outages; verification uses the full, NCAA-confirmed year-specific
+    # DIII directory and rejects fictional opponents and duplicate dates.
+    for archive_gender, expected_games in (("men", 19), ("women", 21)):
+        teams = json.loads((DATA / f"d3-{archive_gender}-2026-27.json").read_text())["teams"]
+        verified_directory, _ = official_index(teams)
+        archive_games, archive_report = archived_carlow_first_party_school_events(
+            archive_gender, 30253, verified_directory)
+        assert len(archive_games) == expected_games
+        assert archive_report["verified_member_opponents"] == expected_games
+        assert archive_report["status"] == "parsed"
+        assert "not_complete" in archive_report["calendar_scope"]
+        assert all(r["source_url"].startswith(
+            f"https://www.carlow.edu/event/{'mens' if archive_gender == 'men' else 'womens'}-basketball-")
+            for r in archive_games)
+        assert all(r["source_kind"] == "official_school" and not r["neutral"]
+                   for r in archive_games)
+    # Ordinary university schedule parser remains the first choice.
     # A real university campus event identifies both teams and the exact
     # date without borrowing a third-party scoreboard. No TBA games,
     # multi-team tournament @ locations, or wrong-gender events accepted.
