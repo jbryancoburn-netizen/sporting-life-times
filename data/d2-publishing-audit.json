@@ -6,19 +6,19 @@
   "men": {
     "gender": "men",
     "teams": 301,
-    "games": 2714,
+    "games": 2827,
     "verified_elo_finals": 25,
-    "dated_game_days": 103,
-    "no_venue": 2585,
-    "no_network": 2584,
-    "no_tipoff": 810,
+    "dated_game_days": 104,
+    "no_venue": 2698,
+    "no_network": 2697,
+    "no_tipoff": 923,
     "no_source_url": 0,
-    "schools_without_a_published_game": 8,
+    "schools_without_a_published_game": 7,
     "school_schedule_recovery": {
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
-      "programs_with_published_games": 293,
-      "without_games": 8,
-      "with_1_to_6_games": 39,
+      "programs_with_published_games": 294,
+      "without_games": 7,
+      "with_1_to_6_games": 32,
       "zero_game_schools": [
         {
           "id": "azusa-pacific",
@@ -47,17 +47,6 @@
           "name": "Loyola University New Orleans",
           "conference": "GSC",
           "membership_pending": true,
-          "published_fixtures": 0,
-          "finals": 0,
-          "with_tipoff": 0,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "missouri-southern",
-          "name": "Missouri Southern",
-          "conference": "MIAA",
-          "membership_pending": false,
           "published_fixtures": 0,
           "finals": 0,
           "with_tipoff": 0,
@@ -188,28 +177,6 @@
           "with_network": 0
         },
         {
-          "id": "fort-hays-state",
-          "name": "Fort Hays State",
-          "conference": "MIAA",
-          "membership_pending": false,
-          "published_fixtures": 2,
-          "finals": 0,
-          "with_tipoff": 2,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "northwest-missouri-state",
-          "name": "Northwest Missouri State",
-          "conference": "MIAA",
-          "membership_pending": false,
-          "published_fixtures": 2,
-          "finals": 0,
-          "with_tipoff": 2,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "wheeling",
           "name": "Wheeling",
           "conference": "MEC",
@@ -217,17 +184,6 @@
           "published_fixtures": 2,
           "finals": 0,
           "with_tipoff": 2,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "arkansas-fort-smith",
-          "name": "Arkansas–Fort Smith",
-          "conference": "MIAA",
-          "membership_pending": false,
-          "published_fixtures": 3,
-          "finals": 0,
-          "with_tipoff": 3,
           "with_venue": 0,
           "with_network": 0
         },
@@ -331,17 +287,6 @@
           "with_network": 0
         },
         {
-          "id": "washburn",
-          "name": "Washburn",
-          "conference": "MIAA",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "west-virginia-state",
           "name": "West Virginia State",
           "conference": "MEC",
@@ -367,39 +312,6 @@
           "id": "cal-poly-humboldt",
           "name": "Cal Poly Humboldt",
           "conference": "CCAA",
-          "membership_pending": false,
-          "published_fixtures": 5,
-          "finals": 0,
-          "with_tipoff": 5,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "central-missouri",
-          "name": "Central Missouri",
-          "conference": "MIAA",
-          "membership_pending": false,
-          "published_fixtures": 5,
-          "finals": 0,
-          "with_tipoff": 5,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "northeastern-state",
-          "name": "Northeastern State",
-          "conference": "MIAA",
-          "membership_pending": false,
-          "published_fixtures": 5,
-          "finals": 0,
-          "with_tipoff": 5,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "rogers-state",
-          "name": "Rogers State",
-          "conference": "MIAA",
           "membership_pending": false,
           "published_fixtures": 5,
           "finals": 0,
@@ -627,9 +539,9 @@
         },
         "MIAA": {
           "programs": 14,
-          "without_games": 1,
-          "with_1_to_6_games": 7,
-          "fixture_appearances": 100
+          "without_games": 0,
+          "with_1_to_6_games": 0,
+          "fixture_appearances": 326
         },
         "NE-10": {
           "programs": 10,
@@ -700,6 +612,7 @@
       "GMAC 2026-27 reciprocal official school calendars": 91,
       "Gulf South Conference member schedules (reciprocal)": 109,
       "LSC 2026-27 reciprocal official university schedules": 123,
+      "MIAA 2026-27 two-university official schedules": 113,
       "NCAA scoreboard": 716,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
@@ -895,6 +808,17 @@
         "conflicts": 0,
         "source": "Great Midwest Athletic Conference university schedules"
       },
+      "MIAA fixtures": {
+        "status": "MIAA 2026-27 reciprocal school schedules verified",
+        "gender": "men",
+        "added": 113,
+        "enriched": 41,
+        "quarantined": 109,
+        "one_sided": 0,
+        "conflicts": 0,
+        "source": "https://themiaa.com/schedule.aspx?schedule=",
+        "unavailable_count": 0
+      },
       "SSC fixtures": {
         "status": "SSC 2026-27 two-university fixture verification",
         "gender": "men",
@@ -955,46 +879,24 @@
   "women": {
     "gender": "women",
     "teams": 298,
-    "games": 3632,
-    "verified_elo_finals": 32,
+    "games": 3678,
+    "verified_elo_finals": 33,
     "dated_game_days": 101,
-    "no_venue": 3499,
-    "no_network": 3494,
-    "no_tipoff": 285,
+    "no_venue": 3545,
+    "no_network": 3540,
+    "no_tipoff": 331,
     "no_source_url": 0,
-    "schools_without_a_published_game": 7,
+    "schools_without_a_published_game": 5,
     "school_schedule_recovery": {
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
-      "programs_with_published_games": 291,
-      "without_games": 7,
+      "programs_with_published_games": 293,
+      "without_games": 5,
       "with_1_to_6_games": 3,
       "zero_game_schools": [
         {
           "id": "lincoln-university-pennsylvania",
           "name": "Lincoln University (Pennsylvania)",
           "conference": "Central Intercollegiate Athletic Association",
-          "membership_pending": false,
-          "published_fixtures": 0,
-          "finals": 0,
-          "with_tipoff": 0,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "missouri-southern-state-university",
-          "name": "Missouri Southern State University",
-          "conference": "Mid-America Intercollegiate Athletics Association",
-          "membership_pending": false,
-          "published_fixtures": 0,
-          "finals": 0,
-          "with_tipoff": 0,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
-          "id": "missouri-western-state-university",
-          "name": "Missouri Western State University",
-          "conference": "Mid-America Intercollegiate Athletics Association",
           "membership_pending": false,
           "published_fixtures": 0,
           "finals": 0,
@@ -1163,9 +1065,9 @@
         },
         "Mid-America Intercollegiate Athletics Association": {
           "programs": 14,
-          "without_games": 2,
+          "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 272
+          "fixture_appearances": 364
         },
         "Mountain East Conference": {
           "programs": 12,
@@ -1242,6 +1144,7 @@
       "GLVC 2026-27 reciprocal university calendars": 20,
       "GMAC 2026-27 reciprocal official school calendars": 1,
       "Gulf South Conference member schedules (reciprocal)": 41,
+      "MIAA 2026-27 two-university official schedules": 46,
       "NCAA scoreboard": 3136,
       "NE10 2026-27 official reciprocal school calendars": 21,
       "NSIC 2026-27 reciprocal official school calendars": 74,
@@ -1441,6 +1344,17 @@
         "one_sided": 5,
         "conflicts": 0,
         "source": "Great Midwest Athletic Conference university schedules"
+      },
+      "MIAA fixtures": {
+        "status": "MIAA 2026-27 reciprocal school schedules verified",
+        "gender": "women",
+        "added": 46,
+        "enriched": 108,
+        "quarantined": 119,
+        "one_sided": 0,
+        "conflicts": 0,
+        "source": "https://themiaa.com/schedule.aspx?schedule=",
+        "unavailable_count": 0
       },
       "SSC fixtures": {
         "status": "SSC 2026-27 two-university fixture verification",
