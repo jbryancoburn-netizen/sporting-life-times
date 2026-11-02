@@ -224,10 +224,7 @@ const homeProfile=g=>{
 // These are editorial school pennants, not claims about actual arena
 // banners, championship wins or physical architectural features.
 // Editorial badges use a small vetted NCAA title ledger; unknown teams never get invented stars.
-const ncaaTitles={
- men:{'26':11,'96':8,'153':6,'41':6,'150':5,'84':5,'2305':4,'57':3,'130':2,'97':2},
- women:{'41':12,'26':1}
-};
+const ncaaTitleYears={"men":{"8":[1994],"12":[1997],"24":[1942],"25":[1959],"26":[1964,1965,1967,1968,1969,1970,1971,1972,1973,1975,1995],"30":[],"41":[1999,2004,2011,2014,2023,2024],"46":[1984],"57":[2006,2007,2025],"84":[1940,1953,1976,1981,1987],"96":[1948,1949,1951,1958,1978,1996,1998,2012],"97":[1980,1986],"107":[1947],"120":[2002],"127":[1979,2000],"130":[1989,2026],"150":[1991,1992,2001,2010,2015],"152":[1974,1983],"153":[1957,1982,1993,2005,2009,2017],"183":[2003],"194":[1960],"197":[1945,1946],"222":[1985,2016,2018],"239":[2021],"254":[1944],"258":[2019],"269":[1977],"275":[1941],"2132":[1961,1962],"2305":[1952,1988,2008,2022],"2325":[1954],"2350":[1963],"2439":[1990],"2483":[1939],"2539":[1955,1956],"2638":[1966],"2751":[1943]},"women":{"24":[1990,1992,2021],"26":[2026],"30":[1983,1984],"41":[1995,2000,2002,2003,2004,2009,2010,2013,2014,2015,2016,2025],"87":[2001,2018],"99":[2023],"120":[2006],"153":[1994],"239":[2005,2012,2019],"245":[2011],"251":[1986],"295":[1985],"2348":[1982,1988],"2509":[1999],"2579":[2017,2022,2024],"2633":[1987,1989,1991,1996,1997,1998,2007,2008],"2641":[1993]}};
 const titleSource={men:'https://www.ncaa.com/history/basketball-men/d1',women:'https://www.ncaa.com/history/basketball-women/d1'};
 const rivalryLedger={
  '150|153':{name:'Tobacco Road',source:'https://goduke.com/news/2026/3/6/mens-basketball-top-ranked-duke-hosts-no-17-unc-in-rivalry-clash'},
@@ -236,10 +233,11 @@ const rivalryLedger={
  '84|96':{name:'Indiana–Kentucky',source:'https://www.lucasoilstadium.com/event/iu-vs-uk-mens-basketball/'}
 };
 const titleMarks=t=>{
- const count=(ncaaTitles[women?'women':'men']||{})[String(t.id)]||0;
- if(!count)return '';
- return '<span class="sl-title-stars" title="'+count+' NCAA Division I national title'+(count===1?'':'s')+'" aria-label="'+count+' NCAA national championships">'+
-   '<span aria-hidden="true">'+Array.from({length:count},()=>'<i>★</i>').join('')+'</span></span>';
+ const years=(ncaaTitleYears[women?'women':'men']||{})[String(t.id)]||[];
+ if(!years.length)return '';
+ const heading=years.length+' NCAA Division I titles: '+years.join(', ');
+ return '<span class="sl-title-stars" title="'+esc(heading)+'" aria-label="'+esc(heading)+'">'+
+  '<span aria-hidden="true">'+years.map(y=>'<i title="'+y+'">★</i>').join('')+'</span></span>';
 };
 const editorialBadges=g=>{
  if(g.kind==='exhibition')return '';
@@ -263,8 +261,8 @@ const pennant=t=>{
    '" style="--pennant:'+brand(t)+';--pennant-accent:'+secondary(t)+';--star-ink:'+starInk(t)+'">'+
    '<span class="sl-pennant-seam" aria-hidden="true"></span>'+
    '<span class="sl-pennant-rivet" aria-hidden="true"></span>'+
-   '<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
-   titleMarks(t)+'<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
+   titleMarks(t)+'<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
+   '<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
    '<strong class="sl-pennant-mascot">'+esc(nickname||t.name)+'</strong>'+
    (elo!==null?'<span class="sl-pennant-rating">USRS '+elo+'</span>':'')+close;
 };
