@@ -17,7 +17,7 @@ def collect(node):
     if isinstance(node,list):
         for x in node: yield from collect(x)
     elif isinstance(node,dict):
-        if isinstance(node.get('slug'),str) and any(isinstance(node.get(k),str) for k in ('name','school','title','fullName','school_name')):
+        if isinstance(node.get('slug'),str) and any(isinstance(node.get(k),str) for k in ('name','school','title','fullName','school_name','long_name')):
             yield node
         for v in node.values():
             if isinstance(v,(list,dict)):yield from collect(v)
@@ -27,7 +27,7 @@ def main():
     with urllib.request.urlopen(req,timeout=30) as resp: schools=json.load(resp)
     by_name={}
     for x in collect(schools):
-        for k in ('name','school','title','fullName','school_name'):
+        for k in ('name','school','title','fullName','school_name','long_name'):
             n=norm(x.get(k))
             slug=str(x.get('slug',''))
             if n and re.fullmatch(r'[a-z0-9-]+',slug):
