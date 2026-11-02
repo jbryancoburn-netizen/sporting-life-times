@@ -270,6 +270,19 @@ test('DII official university school-grid evidence covers all four verified reco
 
 // The source calendar only authorizes fixture/date/opponent fields. Scores
 // must come from independently verified NCAA/official postgame results.
+
+test('Queens College 2026-27 official calendar quarantines other-division opponents',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const queens=evidence.schools.find(x=>x.gender==='women'&&x.owner_id==='queens-college-new-york');
+ assert.ok(queens);
+ assert.equal(queens.fixtures.length,28);
+ assert.equal(queens.fixtures.filter(x=>x.opponent==='Lackawanna College').length,2);
+ assert.ok(queens.fixtures.some(x=>x.date==='2026-11-15' &&
+   x.opponent==='Thomas Jefferson University' && x.start_time==='2:30 PM ET'));
+ assert.match(queens.source_url,/^https:\/\/queensknights.com\//);
+ assert.equal(new Set(queens.fixtures.map(x=>x.date+'|'+x.opponent)).size,28);
+});
+
 test('DII school-grid fixtures are not fabricated results',()=>{
  const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
  for(const school of evidence.schools)for(const item of school.fixtures){

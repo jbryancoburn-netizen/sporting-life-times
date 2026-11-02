@@ -168,6 +168,32 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         self.assertEqual(second["created"],0)
         self.assertEqual(second["matched"],2)
 
+    def test_queens_full_2026_27_university_schedule_guards(self):
+        evidence=json.loads(DATA.read_text())
+        queens=next(x for x in evidence["schools"] if x["owner_id"]==
+                    "queens-college-new-york")
+        self.assertEqual(len(queens["fixtures"]),28)
+        self.assertEqual(sum(x["opponent"]=="Lackawanna College"
+                             for x in queens["fixtures"]),2)
+        self.assertEqual(len({(x["date"],x["opponent"]) for x in queens["fixtures"]}),28)
+        teams={
+            "queens-college-new-york":{"id":"queens-college-new-york",
+                "name":"Queens College (New York)"},
+            "thomas-jefferson-university":{"id":"thomas-jefferson-university",
+                "name":"Thomas Jefferson University"}
+        }
+        games={}
+        stats=apply_official_school_grid_snapshots(
+            "women",games,teams,dt.date(2026,11,1))
+        self.assertEqual(stats["created"],1)
+        jeff=next(iter(games.values()))
+        self.assertEqual(jeff["date"],"2026-11-15")
+        self.assertEqual(jeff["away"],"queens-college-new-york")
+        self.assertEqual(jeff["home"],"thomas-jefferson-university")
+        self.assertEqual(jeff["start_time"],"2:30 PM ET")
+        self.assertEqual(jeff["status"],"scheduled")
+        self.assertIsNone(jeff["home_score"])
+
     def test_wrong_time_zone_school_evidence_is_rejected(self):
         import tempfile
         entry = {
