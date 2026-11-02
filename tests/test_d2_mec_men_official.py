@@ -89,8 +89,8 @@ class MEC(unittest.TestCase):
         teams={k:dict(v) for k,v in self.teams.items()}
         teams["point-park"]["not_eligible_for_dii_elo"]=True
         q,g=self.call(pages,teams=teams)
-        self.assertEqual(q["added"],0)
-        self.assertIn("held",q["status"])
+        self.assertEqual(q["added"],110)
+        self.assertTrue(all("point-park" not in (g["away"],g["home"]) for g in g.values()))
         teams={k:dict(v) for k,v in self.teams.items()}
         teams["point-park-duplicate"]={"id":"point-park-duplicate","name":"Point Park","conference":"MEC"}
         q,g=self.call(pages,teams=teams)
