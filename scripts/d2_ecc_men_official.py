@@ -2,6 +2,8 @@
 """2026–27 East Coast Conference men's official nine-school calendar recovery.
 
 A season/gender/school validated Sidearm calendar is source evidence only.
+The official D'Youville and Queens 2026–27 calendars are currently PARTIAL;
+accept their verified rows only as a possible second corroborating witness.
 Publish fixtures ONLY when both ECC universities agree on date and home/away.
 No new scores, broadcasts, venues, or unverified Eastern tipoffs.
 """
@@ -14,7 +16,7 @@ from concurrent.futures import ThreadPoolExecutor,as_completed
 from bs4 import BeautifulSoup
 
 BASE="https://eccsports.org/schedule.aspx?schedule="
-CANDIDATES=tuple(range(2679,2695))
+CANDIDATES=tuple(range(2679,2697))
 SCHOOLS={
  "daemen":("Daemen","Daemen University","Daemen College"),
  "udc":("District of Columbia","University of the District of Columbia",
@@ -83,8 +85,8 @@ def parse(html,sid):
                 data.append((date,away,home,owner))
             break
         if found:break
-    if not found or len(data)<8:
-        raise ValueError("ECC school grid missing full 2026-27 conference season")
+    if not found or len(data)<1:
+        raise ValueError("ECC school grid has no valid 2026-27 in-conference fixtures")
     return owner,data,rejected
 def identities(teams):
     found={};ambiguous=set()

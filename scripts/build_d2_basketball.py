@@ -1217,6 +1217,7 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not ecc_quality or
         ecc_quality.get("status")!="ECC 2026-27 exact reciprocal school calendars verified"):
         ecc_quality=enrich_ecc(gender,games,teams,today)
+    # ECC Queens and D'Youville grids are partial; never invent their other fixtures.
     # Nine East Coast Conference men's university calendars: two-school
     # agreement required for date, opponent IDs, and site designation.
     ecc_men_quality=previous_quality.get("official_ecc_men_schedule_reconciliation") if gender=="men" else None
