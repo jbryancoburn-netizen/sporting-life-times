@@ -19,9 +19,9 @@ async function start(){
   const stateName=state?.name||district.state;
   $("district-overview-id").textContent=stateName.toUpperCase()+" / "+(district.at_large?"AT-LARGE":"DISTRICT "+Number(district.district))+" / NOVEMBER 2026";
   $("district-overview-title").textContent=profile?
-   id==="IA-01"?"A university town, a river city, and a seat decided by 799 votes.":profile.title:
+   id==="IA-01"?profile.explainer?.headline||profile.title:profile.title:
    stateName+"'s "+(district.at_large?"at-large seat":"District "+Number(district.district))+" — a closer look.";
-  $("district-overview-summary").textContent=profile?.geography_deck||
+  $("district-overview-summary").textContent=profile?.explainer?.subheading||profile?.geography_deck||
     "An original-source portrait of the district's boundaries, voters and candidates. Place-by-place reporting is added only after verification.";
   $("district-overview-places").textContent=profile?.major_communities?.length?
     profile.major_communities.slice(0,7).map(p=>p.name).join("  ·  "):

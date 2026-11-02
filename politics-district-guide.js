@@ -145,7 +145,7 @@ function local(host,extra,r){
  for(const item of extra.sources||[]){if(validSource(item.url))sources.append(link(item.title+" ↗",item.url));}
  host.append(sources);
 }
-function officialMap(r){
+function officialMap(r,extra){
  const node=$("dossier-map");if(!node)return;
  if(!window.L){node.textContent="Map library unavailable. Official Census boundaries remain available from the source link.";return;}
  const state=r.state,field=state==="MO"?"CD119":"CD120",name=state+".geojson";
@@ -164,6 +164,20 @@ function officialMap(r){
   L.geoJSON(data,{interactive:false,style:()=>({color:"#5d7180",weight:1.2,fillColor:"#829eb1",fillOpacity:0.03})}).addTo(map);
   const shape=L.geoJSON(feature,{style:()=>({color:"#102f47",weight:3.2,fillColor:"#245d83",fillOpacity:.14})}).addTo(map);
   shape.eachLayer(layer=>layer.bindTooltip(r.id+" · official congressional district", {sticky:true}));
+  // Named locations are plotted at documented town coordinates; the polygons
+  // remain U.S. Census data. Marker layers do not imply county boundaries.
+  const list=$("dossier-map-town-links");if(list)list.replaceChildren();
+  const places=Array.isArray(extra?.map_places)?extra.map_places.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon)):[];
+  for(const p of places){
+    const pin=L.circleMarker([p.lat,p.lon],{radius:6,color:"#fff",weight:2,fillColor:"#b54b40",fillOpacity:1});
+    pin.addTo(map);
+    pin.bindTooltip(p.name,{direction:"top",permanent:false,opacity:.95});
+    if(list){
+      const button=el("button",p.name,"dossier-town-zoom");button.type="button";
+      button.addEventListener("click",()=>{map.flyTo([p.lat,p.lon],9,{duration:.5});pin.openTooltip();});
+      list.append(button);
+    }
+  }
   map.fitBounds(shape.getBounds(),{padding:[24,24],maxZoom:9});
   const source=$("dossier-map-source");
   if(source){source.replaceChildren(link("Census 120th Congressional District geometry ↗",data.meta.source_url));}
@@ -201,7 +215,7 @@ async function init(){
   historyRows($("dossier-history"),r,extra);
   polling($("dossier-polling"),r);
   census($("dossier-people"),null,r,census);
-  officialMap(r);
+  officialMap(r,extra);
  }catch(error){
   status.textContent="The district guide is temporarily unavailable. See the independently sourced race report above and the official links below.";
   console.warn("District guide:",error);
