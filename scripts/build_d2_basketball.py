@@ -1235,6 +1235,14 @@ def update(gender, bootstrap=False, live=False):
         gmac_quality.get("status")!="GMAC exact two-university 2026-27 fixture verification" or
         gmac_quality.get("gender")!=gender):
         gmac_quality=enrich_gmac(gender,games,teams,today)
+    # MIAA has 14 published university calendars per gender (not yet in the
+    # NCAA-only 2026-27 fixture ledger). Require the two school pages to
+    # agree independently on day and away/home; do not guess local time zone.
+    from d2_miaa_official import enrich_miaa
+    miaa_quality=previous_quality.get("official_miaa_schedule_reconciliation")
+    if (not rapid or not miaa_quality or
+        miaa_quality.get("status")!="MIAA 2026-27 reciprocal school schedules verified"):
+        miaa_quality=enrich_miaa(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1336,6 +1344,7 @@ def update(gender, bootstrap=False, live=False):
         "official_glvc_schedule_reconciliation":glvc_quality,
         "official_ecc_schedule_reconciliation":ecc_quality,
         "official_gmac_schedule_reconciliation":gmac_quality,
+        "official_miaa_schedule_reconciliation":miaa_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
         "official_pwc_schedule_reconciliation":pwc_quality,
         "official_lsc_men_schedule_reconciliation":lsc_quality,
