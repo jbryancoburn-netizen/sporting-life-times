@@ -192,3 +192,191 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-team{gap:9px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* ═══ SCHOOL-COLORED ARENA EDITION / 2026–27 ═══
+   These are editorial pennants, not representations of actual championship
+   banners. Official logos and verified venue names are separately sourced. */
+.sl-game{
+  border-top:0;
+  --sl-court-paper:#fff9ee;
+  --sl-court-dark:#0d2735;
+  isolation:isolate;
+  box-shadow:0 4px 0 color-mix(in srgb,var(--sl-away) 13%,transparent),
+             0 14px 27px rgba(21,39,47,.06);
+}
+.sl-game:before{z-index:3;width:6px;pointer-events:none}
+.sl-game-bar{
+  background:linear-gradient(98deg,color-mix(in srgb,var(--sl-away) 88%,#111820),
+    color-mix(in srgb,var(--sl-home) 78%,#111820));
+  color:#fff;
+  padding:12px 18px 12px 24px;
+  border-bottom:1px solid rgba(255,255,255,.22);
+}
+.sl-game-bar .sl-tag{color:#fff5e4;text-shadow:0 1px 1px #1116}
+.sl-game-bar .sl-game-time{color:#fff;font-weight:800}
+.sl-game-bar .sl-location{color:#f4e8d6}
+.sl-game-bar .sl-tag.sl-live{background:#a22a24;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.17)}
+.sl-arena-stage{
+  position:relative;overflow:hidden;
+  border-bottom:3px solid color-mix(in srgb,var(--sl-home) 45%,#102d38);
+  background:linear-gradient(115deg,var(--sl-away),var(--sl-home));
+}
+.sl-arena-gallery{
+  position:relative;isolation:isolate;
+  height:174px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 19px,rgba(255,255,255,.055) 20px 21px),
+    radial-gradient(ellipse at 50% 145%,rgba(219,180,106,.5),transparent 56%),
+    linear-gradient(125deg,color-mix(in srgb,var(--sl-away) 80%,#0b1520),
+        color-mix(in srgb,var(--sl-home) 70%,#0a1821));
+}
+.sl-arena-gallery:before{
+  content:'';position:absolute;z-index:0;
+  width:130%;height:150px;bottom:-125px;left:-15%;
+  border:1px solid rgba(255,255,255,.24);border-radius:50%;
+  box-shadow:0 -22px 0 -21px rgba(255,255,255,.3),
+             0 -48px 0 -47px rgba(255,255,255,.2);
+  pointer-events:none;
+}
+.sl-stage-beam{
+  position:absolute;top:0;left:0;width:100%;height:14px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.30) 0 2px,transparent 2px 36px),
+             linear-gradient(180deg,#06152170,#1527344d);
+  border-bottom:2px solid rgba(255,255,255,.24);
+}
+.sl-pennant-row{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr);
+  align-items:start;gap:12px;padding:12px 20px 0}
+.sl-pennant{
+  position:relative;width:min(100%,185px);min-height:144px;max-width:185px;
+  padding:15px 9px 19px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  text-align:center;color:#fff;
+  background:linear-gradient(130deg,
+    color-mix(in srgb,var(--pennant) 85%,#091a23),
+    color-mix(in srgb,var(--pennant) 65%,#172532));
+  border:1px solid color-mix(in srgb,var(--pennant-accent) 80%,white);
+  box-shadow:0 5px 15px rgba(0,0,0,.2),inset 0 0 0 4px rgba(255,255,255,.1);
+  clip-path:polygon(0 0,100% 0,100% 84%,50% 100%,0 84%);
+}
+.sl-pennant:first-child{justify-self:end;transform:rotate(-2deg)}
+.sl-pennant:last-child{justify-self:start;transform:rotate(2deg)}
+.sl-pennant:before{content:'';position:absolute;left:8px;right:8px;top:8px;border-top:2px solid var(--pennant-accent);opacity:.85}
+.sl-pennant-rivet{display:block;position:absolute;width:5px;height:5px;top:3px;left:calc(50% - 2px);
+  border-radius:50%;background:#f5dec0;box-shadow:0 0 0 1px #533d21}
+.sl-pennant-brand{display:block;line-height:0}
+.sl-pennant-brand .mbb-mark,.sl-pennant-brand .sl-emblem{
+  --mbb-size:50px!important;width:50px!important;height:50px!important;
+  min-width:50px!important;max-width:50px!important;min-height:50px!important;max-height:50px!important;
+  margin:auto;
+}
+.sl-pennant-name{display:block;width:100%;font:800 10px/1.1 'DM Sans',Arial,sans-serif;
+  overflow-wrap:break-word;text-transform:uppercase;letter-spacing:.08em}
+.sl-pennant-mascot{display:block;font:italic 14px/1.08 Georgia,serif;
+  overflow-wrap:break-word;color:#fff1d7}
+.sl-stage-mid{align-self:center;justify-self:center;position:relative;display:flex;
+  flex-direction:column;align-items:center;text-align:center;margin-top:35px;gap:4px;
+  color:#fff8eb;text-shadow:0 2px 7px #111b21}
+.sl-stage-mid>span{font:italic 28px/1 Georgia,serif;white-space:nowrap;letter-spacing:-.05em}
+.sl-stage-mid small{font:800 9px/1 'DM Sans',Arial,sans-serif;letter-spacing:.2em}
+.sl-mid-dot{color:#f6c46c}
+.sl-floor-graphic{position:absolute;z-index:0;left:50%;top:27px;transform:translateX(-50%) perspective(200px) rotateX(42deg);
+  height:198px;width:min(610px,97%);border:2px solid rgba(252,240,214,.3);opacity:.46}
+.sl-floor-half{position:absolute;top:50%;left:0;right:0;border-top:2px solid #fffae25c}
+.sl-floor-circle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:67px;width:67px;border:2px solid #fffae273;border-radius:50%}
+.sl-floor-key{position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:85px;height:68px;border:2px solid #fffae273;border-top:0}
+.sl-arena-caption{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 17px 12px 23px;color:#fcf6e9;background:#122d39;
+  border-top:1px solid #ffffff26;
+}
+.sl-arena-caption>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sl-arena-caption small{font:800 9px/1.2 'DM Sans',Arial,sans-serif;letter-spacing:.14em;color:#d9b275}
+.sl-arena-caption strong{font:500 18px/1.15 'Libre Caslon Display',Georgia,serif;overflow-wrap:break-word}
+.sl-arena-caption div>span{font:700 9px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.04em;color:#a6c4cb}
+.sl-arena-caption a{flex:0 0 auto;font:800 10px/1.4 'DM Sans',Arial,sans-serif;
+  text-decoration:underline;color:#efd0a0;text-underline-offset:3px}
+.sl-school{position:relative}
+.sl-team-link{display:block;min-width:0;flex:1}
+.sl-team-link:hover .sl-team-copy strong{text-decoration:underline;text-underline-offset:3px}
+.sl-team-copy strong{color:var(--sl-ink)}
+.sl-conference{display:block;max-width:240px;font:700 9px/1.3 'DM Sans',Arial,sans-serif;
+  letter-spacing:.055em;color:#7a694f;text-transform:uppercase}
+.sl-game-teams{background:linear-gradient(160deg,
+ color-mix(in srgb,var(--sl-away) 9%,#fffdf7) 0%,
+ #fffdf7 43%,
+ color-mix(in srgb,var(--sl-home) 10%,#fffdf7) 100%)}
+.sl-game-teams>.sl-school:first-child>.sl-team-link{border-left:3px solid var(--sl-away);padding:4px 0 4px 9px}
+.sl-game-teams>.sl-school:last-child>.sl-team-link{border-left:3px solid var(--sl-home);padding:4px 0 4px 9px}
+.sl-game-editorial{background:#fffdf8}
+.sl-matchup-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  background:#f0ebe0;border:1px solid #d9d2c4;margin-top:11px}
+.sl-matchup-facts>span{display:flex;flex-direction:column;gap:3px;padding:10px 7px 9px;
+  border-right:1px solid #d5cdbc;min-width:0}
+.sl-matchup-facts>span:last-child{border-right:0}
+.sl-matchup-facts small{font:800 9px/1.25 'DM Sans',Arial,sans-serif;
+  color:#856c4a;letter-spacing:.035em}
+.sl-matchup-facts strong{font:800 12px/1.2 'DM Sans',Arial,sans-serif;
+  color:#233d48;overflow-wrap:anywhere}
+.sl-matchup-facts:not(:has(span)){display:flex;gap:12px;align-items:center;padding:9px}
+.sl-matchup-facts:not(:has(span)) strong{font-size:11px}
+.sl-game-footer{background:#f3ede1;border-color:#d9cbb2}
+.sl-details{background:var(--sl-ink);color:#fff6e9;border-left-color:var(--sl-home-alt)}
+.sl-details:hover{background:#294957;text-decoration:none}
+.sl-featured .sl-arena-gallery{height:220px}
+.sl-featured .sl-pennant-row{grid-template-columns:minmax(0,1fr) 140px minmax(0,1fr);padding-top:18px}
+.sl-featured .sl-pennant{max-width:230px;min-height:184px;gap:6px;padding-top:16px}
+.sl-featured .sl-pennant-brand .mbb-mark,.sl-featured .sl-pennant-brand .sl-emblem{
+  --mbb-size:76px!important;width:76px!important;height:76px!important;min-width:76px!important;
+  min-height:76px!important;max-width:76px!important;max-height:76px!important}
+.sl-featured .sl-pennant-name{font-size:13px}
+.sl-featured .sl-pennant-mascot{font-size:20px}
+.sl-featured .sl-stage-mid{margin-top:51px}
+.sl-featured .sl-stage-mid>span{font-size:40px}
+.sl-featured .sl-arena-caption strong{font-size:22px}
+.sl-featured .sl-game-main{grid-template-columns:minmax(0,1fr) minmax(0,.86fr)}
+.sl-featured .sl-game-teams{border-right:1px solid #d4d2ca}
+.sl-featured .sl-game-editorial{background:linear-gradient(125deg,
+ color-mix(in srgb,var(--sl-home) 9%,#fffdf8),#fffdf8 70%);}
+.sl-featured .sl-game-bar{background:linear-gradient(95deg,
+ color-mix(in srgb,var(--sl-away) 92%,#101b23),
+ color-mix(in srgb,var(--sl-home) 86%,#101b23))}
+@media(max-width:940px){
+ .sl-pennant-row{gap:7px;padding-inline:10px}
+ .sl-featured .sl-pennant-row{gap:7px}
+}
+@media(max-width:700px){
+ .sl-arena-gallery{height:144px}
+ .sl-pennant-row,.sl-featured .sl-pennant-row{
+   grid-template-columns:minmax(0,1fr) 50px minmax(0,1fr);
+   gap:5px;padding:12px 12px 0}
+ .sl-pennant,.sl-featured .sl-pennant{
+   width:min(100%,142px);max-width:142px;min-height:125px;
+   padding:12px 6px 17px;gap:2px}
+ .sl-pennant-brand .mbb-mark,.sl-featured .sl-pennant-brand .mbb-mark,
+ .sl-pennant-brand .sl-emblem,.sl-featured .sl-pennant-brand .sl-emblem{
+   --mbb-size:46px!important;width:46px!important;height:46px!important;
+   min-width:46px!important;max-width:46px!important;min-height:46px!important;max-height:46px!important}
+ .sl-pennant-name,.sl-featured .sl-pennant-name{font-size:10px;letter-spacing:.03em}
+ .sl-pennant-mascot,.sl-featured .sl-pennant-mascot{font-size:13px}
+ .sl-stage-mid,.sl-featured .sl-stage-mid{margin-top:38px}
+ .sl-stage-mid>span,.sl-featured .sl-stage-mid>span{font-size:19px}
+ .sl-stage-mid small{font-size:7px;letter-spacing:.04em}
+ .sl-featured .sl-arena-gallery{height:144px}
+ .sl-arena-caption{padding:10px 12px 11px 17px;gap:7px}
+ .sl-arena-caption strong,.sl-featured .sl-arena-caption strong{font-size:16px}
+ .sl-arena-caption small{font-size:8px}
+ .sl-arena-caption div>span{font-size:8px}
+ .sl-arena-caption a{font-size:9px;max-width:95px;text-align:right}
+ .sl-featured .sl-game-teams{border-right:0;border-bottom:1px solid #d4d2ca}
+ .sl-featured .sl-game-main{grid-template-columns:minmax(0,1fr)}
+ .sl-conference{max-width:190px}
+ .sl-matchup-facts small{font-size:8px}
+ .sl-matchup-facts strong{font-size:11px}
+ .sl-game-footer>span{min-width:0;overflow-wrap:anywhere}
+}
+@media(max-width:360px){
+ .sl-pennant,.sl-featured .sl-pennant{width:min(100%,116px)}
+ .sl-pennant-mascot,.sl-featured .sl-pennant-mascot{font-size:12px}
+ .sl-pennant-row,.sl-featured .sl-pennant-row{grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr)}
+}
