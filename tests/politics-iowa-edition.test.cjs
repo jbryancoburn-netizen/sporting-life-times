@@ -18,7 +18,7 @@ test('All 435 House races: shared source-led newsroom, real maps, state emblems,
  try{
   browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
   const page=await browser.newPage({viewport:{width:1300,height:950}});
-  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
   await page.route('https://**/*',route=>route.abort()); // No external fonts, flags or candidate image dependency.
   const visit=async(id)=>{
    const response=await page.goto(origin+'/politics-house-district.html?district='+id,{waitUntil:'domcontentloaded'});
