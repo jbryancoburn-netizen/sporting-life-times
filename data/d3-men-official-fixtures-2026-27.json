@@ -3,18 +3,18 @@
   "division": "d3",
   "gender": "men",
   "season": "2026-27",
-  "generated_utc": "2026-11-02T01:53:04.669776+00:00",
+  "generated_utc": "2026-11-02T01:56:35.499929+00:00",
   "source": "NCAA 2026-27 member directory + year/gender-validated official school athletics calendars",
   "scope": "NCAA membership-wide first pass; sources without independently validated 2026-27 schedules excluded",
   "ncaa_confirmed_programs": 406,
-  "verified_source_calendars": 347,
+  "verified_source_calendars": 349,
   "official_conference_calendar_fallbacks": 5,
   "school_calendars_checked": 406,
-  "school_calendars_missing": 59,
-  "school_calendars_unresolved": 54,
+  "school_calendars_missing": 57,
+  "school_calendars_unresolved": 52,
   "source_status_counts": {
-    "parsed": 347,
-    "failed": 54,
+    "parsed": 349,
+    "failed": 52,
     "parsed_conference": 5
   },
   "last_verified_school_source": {
@@ -190,6 +190,7 @@
     "581": "https://uofrathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "582": "https://www.rockfordregents.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "583": "https://www.rwuhawks.com/sports/mens-basketball/schedule/2026-27?grid=true",
+    "585": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "588": "https://www.scarletraptors.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "589": "https://www.rutgersnewarkathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "600": "https://www.sfuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -299,7 +300,7 @@
     "2713": "https://www.gopetrels.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "2715": "https://www.goprattgo.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "2730": "https://www.yorkathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-    "2741": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+    "2741": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
     "2751": "https://www.goboxers.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "2758": "https://www.thomasathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
     "2810": "https://www.ustcelts.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -334,6 +335,7 @@
     "28749": "https://www.transysports.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30029": "https://www.purchasecollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30031": "https://unweagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
+    "30035": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
     "30036": "https://www.mountieathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30037": "https://trinethunder.com/sports/mens-basketball/schedule/2026-27?grid=true",
     "30038": "https://www.blcvikings.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -500,7 +502,7 @@
       "ncaa_org_id": 325,
       "school": "Juniata College",
       "conference": "Landmark Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-27?grid=true",
       "opponent_published_fixtures": 17,
       "opponent_source_examples": [
@@ -526,7 +528,7 @@
       "ncaa_org_id": 443,
       "school": "Moravian University",
       "conference": "Landmark Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://moraviansports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "opponent_published_fixtures": 18,
       "opponent_source_examples": [
@@ -539,7 +541,7 @@
       "ncaa_org_id": 455,
       "school": "Muskingum University",
       "conference": "Ohio Athletic Conference",
-      "category": "season_heading_not_verified",
+      "category": "server_refused_method",
       "failed_url": "https://www.fightingmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "opponent_published_fixtures": 21,
       "opponent_source_examples": [
@@ -614,15 +616,6 @@
       "conference": "Great Northeast Athletic Conference",
       "category": "season_heading_not_verified",
       "failed_url": "https://www.goregispride.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "opponent_published_fixtures": 0,
-      "opponent_source_examples": []
-    },
-    {
-      "ncaa_org_id": 585,
-      "school": "Rose-Hulman Institute of Technology",
-      "conference": "Heartland Collegiate Athletic Conference",
-      "category": "season_heading_not_verified",
-      "failed_url": "https://www.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "opponent_published_fixtures": 0,
       "opponent_source_examples": []
     },
@@ -761,7 +754,7 @@
       "conference": "Heartland Collegiate Athletic Conference",
       "category": "season_heading_not_verified",
       "failed_url": "https://www.blufftonbeavers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "opponent_published_fixtures": 18,
+      "opponent_published_fixtures": 20,
       "opponent_source_examples": [
         "https://athletics.kenyon.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.goearlham.com/sports/mens-basketball/schedule/2026-27?grid=true",
@@ -865,7 +858,7 @@
       "conference": "Upper Midwest Athletic Conference",
       "category": "season_heading_not_verified",
       "failed_url": "https://www.mlcknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "opponent_published_fixtures": 20,
+      "opponent_published_fixtures": 23,
       "opponent_source_examples": [
         "https://www.hamlineathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.saintmaryssports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
@@ -939,21 +932,12 @@
       "conference": "Allegheny Mountain Collegiate Conference",
       "category": "season_heading_not_verified",
       "failed_url": "https://www.psaltoonalions.com/sports/mens-basketball/schedule/2026-27?grid=true",
-      "opponent_published_fixtures": 12,
+      "opponent_published_fixtures": 13,
       "opponent_source_examples": [
         "https://cnusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
         "https://athletics.pct.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.thielathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
-    },
-    {
-      "ncaa_org_id": 30035,
-      "school": "Crown College (Minnesota)",
-      "conference": "Upper Midwest Athletic Conference",
-      "category": "source_unavailable_or_unverified",
-      "failed_url": "https://www.athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "opponent_published_fixtures": 0,
-      "opponent_source_examples": []
     },
     {
       "ncaa_org_id": 30042,
@@ -1018,11 +1002,11 @@
       "conference": "Allegheny Mountain Collegiate Conference",
       "category": "season_heading_not_verified",
       "failed_url": "https://athletics.carlow.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "opponent_published_fixtures": 5,
+      "opponent_published_fixtures": 6,
       "opponent_source_examples": [
         "https://www.woosterathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.alleghenygators.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://athletics.pct.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+        "https://www.alleghenygators.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ]
     },
     {
@@ -1040,17 +1024,16 @@
     }
   ],
   "unverified_school_summary": {
-    "remaining_unverified_school_calendars": 54,
+    "remaining_unverified_school_calendars": 52,
     "missing_schools_with_at_least_10_opponent_sourced_games": 34,
-    "missing_schools_with_zero_opponent_sourced_games": 7,
+    "missing_schools_with_zero_opponent_sourced_games": 5,
     "recovery_reason_counts": {
-      "server_refused_method": 7,
+      "server_refused_method": 9,
       "unsupported_calendar_or_opponent_format": 1,
-      "season_heading_not_verified": 39,
+      "season_heading_not_verified": 36,
       "access_restricted": 2,
       "calendar_path_unavailable": 2,
-      "temporary_network_failure": 2,
-      "source_unavailable_or_unverified": 1
+      "temporary_network_failure": 2
     }
   },
   "no_athletics_host": 0,
@@ -2783,7 +2766,7 @@
       "owner_org_id": 443,
       "source_url": "https://moraviansports.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual pa",
       "candidate_urls_tried": 9,
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0
@@ -2828,7 +2811,7 @@
       "owner_org_id": 455,
       "source_url": "https://www.fightingmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "error": "HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season ",
       "candidate_urls_tried": 9,
       "calendar_origin": "NCAA_directory_athletics_hostname",
       "retained_previous_fixtures": 0
@@ -3359,12 +3342,15 @@
     },
     {
       "owner_org_id": 585,
-      "source_url": "https://www.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
-      "candidate_urls_tried": 9,
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 28,
+      "verified_member_opponents": 23,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 5
+      },
+      "status": "parsed",
+      "calendar_origin": "independently_verified_athletics_host",
+      "candidate_urls_tried": 1
     },
     {
       "owner_org_id": 588,
@@ -4838,7 +4824,7 @@
     },
     {
       "owner_org_id": 2741,
-      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
       "readable_rows": 27,
       "verified_member_opponents": 17,
       "excluded_rows": {
@@ -4846,7 +4832,7 @@
       },
       "status": "parsed",
       "calendar_origin": "NCAA_directory_athletics_hostname",
-      "candidate_urls_tried": 2
+      "candidate_urls_tried": 3
     },
     {
       "owner_org_id": 2751,
@@ -5342,12 +5328,15 @@
     },
     {
       "owner_org_id": 30035,
-      "source_url": "https://www.athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
-      "status": "failed",
-      "error": "<urlopen error [Errno -5] No address associated with hostname> | <urlopen error [Errno -5] No address associated with hostname> | <urlopen error [Errno -5] No address associated with hostname> | <urlopen error [Errno -5] No address associated with hostname> | ",
-      "candidate_urls_tried": 9,
-      "calendar_origin": "NCAA_directory_athletics_hostname",
-      "retained_previous_fixtures": 0
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "readable_rows": 28,
+      "verified_member_opponents": 15,
+      "excluded_rows": {
+        "unknown_or_conditional_opponent": 13
+      },
+      "status": "parsed",
+      "calendar_origin": "independently_verified_athletics_host",
+      "candidate_urls_tried": 1
     },
     {
       "owner_org_id": 30036,
@@ -5809,7 +5798,7 @@
       "problem": "home/away or neutral-site source disagreement",
       "source_urls": [
         "https://gogusties.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ]
     },
     {
@@ -5957,7 +5946,7 @@
       ]
     }
   ],
-  "fixture_count": 4072,
+  "fixture_count": 4110,
   "reciprocal_fixtures": 2003,
   "fixtures": [
     {
@@ -9213,6 +9202,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-07-585-747",
+      "date": "2026-11-07",
+      "away_org_id": 747,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-07-611-10972",
       "date": "2026-11-07",
       "away_org_id": 611,
@@ -10955,7 +10968,7 @@
       "home_org_id": 73,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://babsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.brandeisjudges.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -10966,8 +10979,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
-      "venue": "",
+      "tipoff_as_posted": "7:00 pm",
+      "venue": "Red Auerbach Arena",
       "venue_location": "Waltham, Mass.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -11673,6 +11686,30 @@
       "tipoff_as_posted": "6 p.m.",
       "venue": "Darby Gymnasium",
       "venue_location": "Grinnell, IA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-11-268-30035",
+      "date": "2026-11-11",
+      "away_org_id": 268,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:30 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -12535,7 +12572,7 @@
       "home_org_id": 30170,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.alfredstateathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.houghton.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://athletics.houghton.edu/sports/mens-basketball/schedule/2026-2027?grid=true",
         "https://www.alfredstateathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -12546,8 +12583,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
-      "venue": "Orvis Gym",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
       "venue_location": "Alfred, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -14534,7 +14571,7 @@
       "source_url": "https://www.bvuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.bvuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         84,
@@ -15879,6 +15916,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-14-515-585",
+      "date": "2026-11-14",
+      "away_org_id": 515,
+      "home_org_id": 585,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 PM CT | 3 PM ET",
+      "venue": "",
+      "venue_location": "Chicago, Ill.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Chicago Tournament",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-14-517-1192",
       "date": "2026-11-14",
       "away_org_id": 1192,
@@ -16381,7 +16442,7 @@
       "home_org_id": 784,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gowilkesu.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gowilkesu.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -16394,7 +16455,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "2:00 p.m.",
       "venue": "",
-      "venue_location": "Wilkes-Barre, PA",
+      "venue_location": "/ Marts Center",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -16693,6 +16754,30 @@
       "radio_as_posted": "",
       "tournament": "",
       "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-15-69-585",
+      "date": "2026-11-15",
+      "away_org_id": 69,
+      "home_org_id": 585,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "12 PM CT | 1 PM ET",
+      "venue": "",
+      "venue_location": "Chicago, Ill.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Chicago Tournament",
+      "neutral_home_designation_unconfirmed": true
     },
     {
       "id": "d3-men-2026-11-15-113-679",
@@ -18054,7 +18139,7 @@
       "source_url": "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://tlubulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1400,
@@ -19605,6 +19690,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-18-615-30035",
+      "date": "2026-11-18",
+      "away_org_id": 615,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7:00 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-18-618-804",
       "date": "2026-11-18",
       "away_org_id": 618,
@@ -19811,7 +19920,7 @@
       "home_org_id": 966,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.arcadiaknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.ycpspartans.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -19822,9 +19931,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 pm",
-      "venue": "",
-      "venue_location": "Glenside, PA",
+      "tipoff_as_posted": "6:00 p.m.",
+      "venue": "Alumni Gymnasium",
+      "venue_location": "Glenside, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -19935,7 +20044,7 @@
       "home_org_id": 12399,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://gwyneddathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://gwyneddathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
         "https://www.wilsonphoenix.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -19946,9 +20055,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "8 p.m.",
-      "venue": "",
-      "venue_location": "Gwynedd Valley, Pa.",
+      "tipoff_as_posted": "8:00 P.M.",
+      "venue": "The Griffin Complex",
+      "venue_location": "Gwynedd Valley, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -20841,6 +20950,30 @@
       "neutral_home_designation_unconfirmed": true
     },
     {
+      "id": "d3-men-2026-11-20-585-25719",
+      "date": "2026-11-20",
+      "away_org_id": 585,
+      "home_org_id": 25719,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "5:30 PM",
+      "venue": "",
+      "venue_location": "Wooster, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Wooster Invitational",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-20-612-8597",
       "date": "2026-11-20",
       "away_org_id": 8597,
@@ -21019,7 +21152,7 @@
       "home_org_id": 30083,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://fightingtigers.cobleskill.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.lyndonhornets.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -21031,7 +21164,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5:00 PM",
-      "venue": "Iorio Gymnasium",
+      "venue": "",
       "venue_location": "Cobleskill, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -23159,6 +23292,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-21-585-30253",
+      "date": "2026-11-21",
+      "away_org_id": 585,
+      "home_org_id": 30253,
+      "neutral": true,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 PM",
+      "venue": "",
+      "venue_location": "Wooster, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "Wooster Invitational",
+      "neutral_home_designation_unconfirmed": true
+    },
+    {
       "id": "d3-men-2026-11-21-588-12884",
       "date": "2026-11-21",
       "away_org_id": 588,
@@ -23301,6 +23458,30 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Ericksen Center",
       "venue_location": "St. Paul, Minn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-11-21-618-30035",
+      "date": "2026-11-21",
+      "away_org_id": 30035,
+      "home_org_id": 618,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3:00 pm",
+      "venue": "Reif Gym",
+      "venue_location": "Duluth, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -25731,6 +25912,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-11-24-177-585",
+      "date": "2026-11-24",
+      "away_org_id": 585,
+      "home_org_id": 177,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6 PM",
+      "venue": "",
+      "venue_location": "Greencastle, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-11-24-179-303",
       "date": "2026-11-24",
       "away_org_id": 179,
@@ -27145,7 +27350,7 @@
       "home_org_id": 802,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -27156,9 +27361,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
-      "venue": "",
-      "venue_location": "Stevens Point, WI",
+      "tipoff_as_posted": "6:00 p.m.",
+      "venue": "Bennett Court at Quandt Fieldhouse",
+      "venue_location": "Stevens Point, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -27616,7 +27821,7 @@
       "source_url": "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://calvinknights.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         114,
@@ -28109,7 +28314,7 @@
       "home_org_id": 1066,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.edgewoodeagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.uwsp.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.edgewoodeagles.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -28120,9 +28325,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
-      "venue": "Todd Wehr Edgedome",
-      "venue_location": "Madison, WI",
+      "tipoff_as_posted": "2:00 p.m.",
+      "venue": "",
+      "venue_location": "Madison, Wis.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -28963,9 +29168,9 @@
       "home_org_id": 525,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         2741
@@ -29393,7 +29598,7 @@
       "home_org_id": 403,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://umsvathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://umsvathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -29404,9 +29609,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "6:00 PM",
-      "venue": "LaGuardia Community College",
-      "venue_location": "Queens, NY",
+      "tipoff_as_posted": "6:00pm",
+      "venue": "",
+      "venue_location": "LaGuardia C.C. (Long Island City, NY)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -31447,6 +31652,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-02-585-2694",
+      "date": "2026-12-02",
+      "away_org_id": 2694,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-02-600-30069",
       "date": "2026-12-02",
       "away_org_id": 30069,
@@ -33289,7 +33518,7 @@
       "home_org_id": 50,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -33300,8 +33529,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Underhill Arena",
       "venue_location": "Lewiston, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -35313,6 +35542,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-05-585-30171",
+      "date": "2026-12-05",
+      "away_org_id": 585,
+      "home_org_id": 30171,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "",
+      "venue_location": "Berea, Ky.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-05-589-712",
       "date": "2026-12-05",
       "away_org_id": 589,
@@ -36205,6 +36458,30 @@
       "tipoff_as_posted": "1:00 PM",
       "venue": "Solheim Arena",
       "venue_location": "Longview, Texas",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-05-8597-30035",
+      "date": "2026-12-05",
+      "away_org_id": 8597,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:45 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -38347,6 +38624,30 @@
       "tipoff_as_posted": "6:45 PM",
       "venue": "James Gremmels Court",
       "venue_location": "Morris, Minn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-09-30035-30038",
+      "date": "2026-12-09",
+      "away_org_id": 30035,
+      "home_org_id": 30038,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "North Gymnasium",
+      "venue_location": "Mankato, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -40509,6 +40810,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-12-585-987",
+      "date": "2026-12-12",
+      "away_org_id": 987,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "4 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-12-600-12399",
       "date": "2026-12-12",
       "away_org_id": 600,
@@ -40853,6 +41178,30 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Schwartz Center",
       "venue_location": "Chester, Pa.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-12-804-30035",
+      "date": "2026-12-12",
+      "away_org_id": 804,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:45 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -42797,7 +43146,7 @@
       "home_org_id": 1162,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -42808,12 +43157,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 p.m.",
-      "venue": "Mariotti Gymnasium",
-      "venue_location": "LaGrange, Ga.",
+      "tipoff_as_posted": "2:00 PM (CST)",
+      "venue": "",
+      "venue_location": "LaGrange, GA",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Panther Classic",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -44275,6 +44624,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2026-12-19-286-585",
+      "date": "2026-12-19",
+      "away_org_id": 286,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2026-12-19-296-1066",
       "date": "2026-12-19",
       "away_org_id": 1066,
@@ -44811,6 +45184,30 @@
       "tipoff_as_posted": "6:00 PM",
       "venue": "",
       "venue_location": "Austin, Texas",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2026-12-19-1226-30035",
+      "date": "2026-12-19",
+      "away_org_id": 30035,
+      "home_org_id": 1226,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:45 pm",
+      "venue": "James Gremmels Court",
+      "venue_location": "Morris, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -45899,7 +46296,7 @@
       "status": "scheduled",
       "source_url": "https://www.udallasathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
         "https://www.udallasathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
       ],
       "verified_by_org_ids": [
@@ -47681,10 +48078,10 @@
       "home_org_id": 24400,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://athletics.concordia.edu/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
         "https://athletics.concordia.edu/sports/mens-basketball/schedule?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         2741,
@@ -47692,12 +48089,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "1:00 PM",
-      "venue": "",
+      "tipoff_as_posted": "1 PM",
+      "venue": "Deb & Don Christian Fieldhouse",
       "venue_location": "Austin, TX",
       "network_as_posted": "",
       "radio_as_posted": "",
-      "tournament": "Concordia Classic",
+      "tournament": "",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -48473,7 +48870,7 @@
       "home_org_id": 278,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hiramterriers.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://bergathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://bergathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.hiramterriers.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -48486,7 +48883,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "6:00 PM",
       "venue": "",
-      "venue_location": "Tiffin, OH",
+      "venue_location": "/ Seiberling Gymnasium",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -48599,7 +48996,7 @@
       "home_org_id": 373,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://lycomingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://lycomingathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.godutchmen.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -48611,7 +49008,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "5 p.m.",
-      "venue": "Lamade Gym",
+      "venue": "",
       "venue_location": "Williamsport, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -51639,7 +52036,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -51650,9 +52047,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 P.M.",
+      "tipoff_as_posted": "2:00 PM",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA (Highmark Center)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -52133,7 +52530,7 @@
       "home_org_id": 480,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.ccnyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.ccnyathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gonyuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -52145,7 +52542,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "7:00 PM",
-      "venue": "Nat Holman Gymnasium",
+      "venue": "",
       "venue_location": "New York, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -53035,7 +53432,7 @@
       "home_org_id": 30094,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -53046,7 +53443,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
+      "tipoff_as_posted": "2 pm",
       "venue": "",
       "venue_location": "Brevard, N.C.",
       "network_as_posted": "",
@@ -53905,6 +54302,30 @@
       "tipoff_as_posted": "7:30 p.m.",
       "venue": "Stoltz Sports Center",
       "venue_location": "Dubuque, Iowa",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-06-195-585",
+      "date": "2027-01-06",
+      "away_org_id": 195,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -55301,7 +55722,7 @@
       "home_org_id": 1254,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.neumannathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.goeasterneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goeasterneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.neumannathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -55312,9 +55733,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "The Mirenda Center for Sport, Spirituality and Character Development",
-      "venue_location": "Aston, Pa.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "Aston Township, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -55417,6 +55838,30 @@
       "tipoff_as_posted": "7:30 PM",
       "venue": "",
       "venue_location": "Beaver Falls, PA",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-06-30035-30038",
+      "date": "2027-01-06",
+      "away_org_id": 30038,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -57569,7 +58014,7 @@
       "home_org_id": 239,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.godiplomats.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.godiplomats.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -57581,8 +58026,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
-      "venue": "Mayser Center",
-      "venue_location": "Lancaster, Pa.",
+      "venue": "",
+      "venue_location": "Lancaster, PA (Mayser Center)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -58995,6 +59440,30 @@
       "tipoff_as_posted": "3:15 PM",
       "venue": "Seaver Center",
       "venue_location": "Rockford, IL",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-09-585-8567",
+      "date": "2027-01-09",
+      "away_org_id": 8567,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -61819,7 +62288,7 @@
       "home_org_id": 185,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gettysburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gettysburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -61831,8 +62300,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "8:00 PM",
-      "venue": "",
-      "venue_location": "Carlisle, PA",
+      "venue": "Kline Center",
+      "venue_location": "Carlisle, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -62949,6 +63418,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-13-585-1115",
+      "date": "2027-01-13",
+      "away_org_id": 585,
+      "home_org_id": 1115,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "",
+      "venue_location": "Hanover, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-13-589-681",
       "date": "2027-01-13",
       "away_org_id": 589,
@@ -63469,6 +63962,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-13-8597-30035",
+      "date": "2027-01-13",
+      "away_org_id": 30035,
+      "home_org_id": 8597,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "LSC Gymnasium",
+      "venue_location": "New Ulm, MN",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-13-8600-30085",
       "date": "2027-01-13",
       "away_org_id": 30085,
@@ -63722,7 +64239,7 @@
       "source_url": "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1062,
@@ -66923,7 +67440,7 @@
       "home_org_id": 424,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.northpark.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.millikin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.millikin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://athletics.northpark.edu/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -66934,7 +67451,7 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "4:15 PM",
+      "tipoff_as_posted": "4:15 p.m.",
       "venue": "Griswold Center",
       "venue_location": "Decatur, IL",
       "network_as_posted": "",
@@ -67233,6 +67750,30 @@
       "tipoff_as_posted": "3:15 PM",
       "venue": "Sadoff Gymnasium",
       "venue_location": "Fond du Lac, Wis.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-16-585-1192",
+      "date": "2027-01-16",
+      "away_org_id": 1192,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -67918,7 +68459,7 @@
       "source_url": "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1203,
@@ -67929,6 +68470,30 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "Mayborn Campus Center",
       "venue_location": "Belton, TX",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-16-1226-30035",
+      "date": "2027-01-16",
+      "away_org_id": 1226,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:45 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -68335,7 +68900,7 @@
       "home_org_id": 69,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.bowdoin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gobatesbobcats.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -68346,8 +68911,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "",
-      "venue": "Morrell Gymnasium",
+      "tipoff_as_posted": "1 p.m.",
+      "venue": "Morrell Gym",
       "venue_location": "Brunswick, Maine",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -69989,7 +70554,7 @@
       "home_org_id": 182,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.denisonbigred.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.denisonbigred.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -70000,8 +70565,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5:30 P.M.",
-      "venue": "Livingston Gymnasium",
+      "tipoff_as_posted": "5:30 p.m.",
+      "venue": "",
       "venue_location": "Granville, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -70079,6 +70644,30 @@
       "tipoff_as_posted": "7:30 p.m.",
       "venue": "Lillis Athletic & Wellness Center",
       "venue_location": "Dubuque, Iowa",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-20-195-585",
+      "date": "2027-01-20",
+      "away_org_id": 585,
+      "home_org_id": 195,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "",
+      "venue_location": "Richmond, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -70395,7 +70984,7 @@
       "home_org_id": 292,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.huntercollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.huntercollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -70406,9 +70995,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 pm",
-      "venue": "Hunter Sportsplex",
-      "venue_location": "New York, N.Y.",
+      "tipoff_as_posted": "7:00 PM",
+      "venue": "",
+      "venue_location": "New York, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -71852,7 +72441,7 @@
       "source_url": "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         271,
@@ -72071,7 +72660,7 @@
       "home_org_id": 119,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://uaasports.info/schedule.aspx?schedule=1162",
+      "source_url": "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://uaasports.info/schedule.aspx?schedule=1162",
         "https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -72082,9 +72671,9 @@
       ],
       "source_kind": "official_conference_and_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:30 P.M.",
+      "tipoff_as_posted": "7:30 PM",
       "venue": "",
-      "venue_location": "",
+      "venue_location": "Pittsburgh, PA",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -75223,6 +75812,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-23-585-28749",
+      "date": "2027-01-23",
+      "away_org_id": 585,
+      "home_org_id": 28749,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "",
+      "venue_location": "Lexington, Ky.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-23-589-712",
       "date": "2027-01-23",
       "away_org_id": 712,
@@ -76203,7 +76816,7 @@
       "status": "scheduled",
       "source_url": "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
         "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -77179,7 +77792,7 @@
       "home_org_id": 4,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -77190,9 +77803,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Merillat Sport and Fitness Center",
-      "venue_location": "Adrian, Mich.",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Merillat Sport & Fitness Center",
+      "venue_location": "Adrian, Michigan",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -79127,6 +79740,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-27-585-1192",
+      "date": "2027-01-27",
+      "away_org_id": 585,
+      "home_org_id": 1192,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "",
+      "venue_location": "North Manchester, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-27-588-712",
       "date": "2027-01-27",
       "away_org_id": 588,
@@ -79411,6 +80048,30 @@
       "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "Oshkosh, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-01-27-804-30035",
+      "date": "2027-01-27",
+      "away_org_id": 30035,
+      "home_org_id": 804,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "Mertz Mortorelli Gymnasium",
+      "venue_location": "Superior, WI",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -83365,6 +84026,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-01-30-585-30171",
+      "date": "2027-01-30",
+      "away_org_id": 30171,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-01-30-600-30084",
       "date": "2027-01-30",
       "away_org_id": 600,
@@ -84093,9 +84778,9 @@
       "home_org_id": 2741,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         2741
@@ -86219,7 +86904,7 @@
       "home_org_id": 258,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.gettysburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.gettysburgsports.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -86231,8 +86916,8 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "8:00 PM",
-      "venue": "Bream Gym",
-      "venue_location": "Gettysburg, PA",
+      "venue": "",
+      "venue_location": "Gettysburg, PA (Bream Gymnasium)",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -86955,7 +87640,7 @@
       "home_org_id": 496,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://athletics.northpark.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://athletics.millikin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://athletics.millikin.edu/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://athletics.northpark.edu/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -86966,8 +87651,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7:00 PM",
-      "venue": "Carlson Gymnasium",
+      "tipoff_as_posted": "7:00 p.m.",
+      "venue": "",
       "venue_location": "Chicago, IL",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -87987,6 +88672,30 @@
       "tipoff_as_posted": "7 pm",
       "venue": "",
       "venue_location": "Bronxville, NY",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-03-30035-30038",
+      "date": "2027-02-03",
+      "away_org_id": 30035,
+      "home_org_id": 30038,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "North Gymnasium",
+      "venue_location": "Mankato, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -91615,6 +92324,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-06-585-8567",
+      "date": "2027-02-06",
+      "away_org_id": 585,
+      "home_org_id": 8567,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "1 PM",
+      "venue": "",
+      "venue_location": "Cincinnati, Ohio",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-06-600-10972",
       "date": "2027-02-06",
       "away_org_id": 600,
@@ -92269,7 +93002,7 @@
       "home_org_id": 8968,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.neumannathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.goeasterneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goeasterneagles.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.neumannathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true"
@@ -92282,7 +93015,7 @@
       "source_verification": "reciprocal",
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
-      "venue_location": "St. David's, Pa.",
+      "venue_location": "St. Davids, Pa",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -92295,9 +93028,9 @@
       "home_org_id": 1355,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+      "source_url": "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
       "official_schedule_sources": [
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         2741
@@ -94477,7 +95210,7 @@
       "home_org_id": 279,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.huntercollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.huntercollegeathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.lehmanathletics.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -94488,8 +95221,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "5 pm",
-      "venue": "",
+      "tipoff_as_posted": "5:00 PM",
+      "venue": "APEX Main Gym",
       "venue_location": "Bronx, NY",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -95025,6 +95758,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-10-585-1115",
+      "date": "2027-02-10",
+      "away_org_id": 1115,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-10-588-681",
       "date": "2027-02-10",
       "away_org_id": 588,
@@ -95313,6 +96070,30 @@
       "tipoff_as_posted": "7 PM",
       "venue": "",
       "venue_location": "Stevens Point, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-10-804-30035",
+      "date": "2027-02-10",
+      "away_org_id": 804,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -95745,7 +96526,7 @@
       "status": "scheduled",
       "source_url": "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true",
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true",
         "https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
       ],
       "verified_by_org_ids": [
@@ -96743,7 +97524,7 @@
       "home_org_id": 21,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://adrianbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://almascots.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -96754,12 +97535,12 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "3:00 PM",
-      "venue": "",
-      "venue_location": "Alma, Mich.",
-      "network_as_posted": "",
-      "radio_as_posted": "",
-      "tournament": "",
+      "tipoff_as_posted": "3 p.m.",
+      "venue": "Art Smith Arena",
+      "venue_location": "Alma, Michigan",
+      "network_as_posted": "MIAA Sports Network",
+      "radio_as_posted": "104.9 WQBX",
+      "tournament": "Senior Day",
       "neutral_home_designation_unconfirmed": false
     },
     {
@@ -98194,7 +98975,7 @@
       "source_url": "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://hsuathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         271,
@@ -99203,6 +99984,30 @@
       "tipoff_as_posted": "3:15 PM",
       "venue": "",
       "venue_location": "Milwaukee, WI",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-13-585-987",
+      "date": "2027-02-13",
+      "away_org_id": 585,
+      "home_org_id": 987,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "",
+      "venue_location": "Bluffton, Ohio",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -100357,7 +101162,7 @@
       "home_org_id": 30164,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://knightathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.bctornados.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -100368,9 +101173,9 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "2:00 PM",
-      "venue": "Knight Arena",
-      "venue_location": "Buena Vista, VA",
+      "tipoff_as_posted": "2 pm",
+      "venue": "",
+      "venue_location": "Buena Vista, Va.",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
@@ -101875,7 +102680,7 @@
       "home_org_id": 177,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.denisonbigred.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://depauwtigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.denisonbigred.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -101886,8 +102691,8 @@
       ],
       "source_kind": "official_school",
       "source_verification": "reciprocal",
-      "tipoff_as_posted": "7 P.M.",
-      "venue": "Neil Fieldhouse",
+      "tipoff_as_posted": "7 p.m.",
+      "venue": "Neal Fieldhouse",
       "venue_location": "Greencastle, Ind.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -103025,6 +103830,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-17-585-2694",
+      "date": "2027-02-17",
+      "away_org_id": 585,
+      "home_org_id": 2694,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "7 PM",
+      "venue": "",
+      "venue_location": "Franklin, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-17-589-681",
       "date": "2027-02-17",
       "away_org_id": 681,
@@ -103395,6 +104224,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-17-8597-30035",
+      "date": "2027-02-17",
+      "away_org_id": 8597,
+      "home_org_id": 30035,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "6:45 pm",
+      "venue": "Teal Athletic Center",
+      "venue_location": "St. Bonifacius, Minn.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-17-9684-12884",
       "date": "2027-02-17",
       "away_org_id": 9684,
@@ -103652,7 +104505,7 @@
       "source_url": "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
       "official_schedule_sources": [
         "https://cruathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1203,
@@ -105031,7 +105884,7 @@
       "home_org_id": 185,
       "neutral": false,
       "status": "scheduled",
-      "source_url": "https://www.godiplomats.com/sports/mens-basketball/schedule/2026-27?grid=true",
+      "source_url": "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.dickinsonathletics.com/sports/mens-basketball/schedule/2026-27?grid=true",
         "https://www.godiplomats.com/sports/mens-basketball/schedule/2026-27?grid=true"
@@ -105043,7 +105896,7 @@
       "source_kind": "official_school",
       "source_verification": "reciprocal",
       "tipoff_as_posted": "4:00 PM",
-      "venue": "",
+      "venue": "Kline Center",
       "venue_location": "Carlisle, Pa.",
       "network_as_posted": "",
       "radio_as_posted": "",
@@ -106427,6 +107280,30 @@
       "neutral_home_designation_unconfirmed": false
     },
     {
+      "id": "d3-men-2027-02-20-585-28749",
+      "date": "2027-02-20",
+      "away_org_id": 28749,
+      "home_org_id": 585,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.rose-hulman.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        585
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "3 PM",
+      "venue": "Hulbert Arena",
+      "venue_location": "Terre Haute, Ind.",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
       "id": "d3-men-2027-02-20-607-727",
       "date": "2027-02-20",
       "away_org_id": 607,
@@ -106858,7 +107735,7 @@
       "source_url": "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
       "official_schedule_sources": [
         "https://www.goetbutigers.com/sports/mens-basketball/schedule/2026-27?grid=true",
-        "https://www.hpusports.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+        "https://www.hpusports.com/sports/mens-basketball/schedule?grid=true"
       ],
       "verified_by_org_ids": [
         1062,
@@ -107067,6 +107944,30 @@
       "tipoff_as_posted": "3:00 PM",
       "venue": "",
       "venue_location": "Kerrville, TX",
+      "network_as_posted": "",
+      "radio_as_posted": "",
+      "tournament": "",
+      "neutral_home_designation_unconfirmed": false
+    },
+    {
+      "id": "d3-men-2027-02-20-1226-30035",
+      "date": "2027-02-20",
+      "away_org_id": 30035,
+      "home_org_id": 1226,
+      "neutral": false,
+      "status": "scheduled",
+      "source_url": "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true",
+      "official_schedule_sources": [
+        "https://athletics.crown.edu/sports/mens-basketball/schedule/2026-27?grid=true"
+      ],
+      "verified_by_org_ids": [
+        30035
+      ],
+      "source_kind": "official_school",
+      "source_verification": "single_official_school",
+      "tipoff_as_posted": "2:45 pm",
+      "venue": "James Gremmels Court",
+      "venue_location": "Morris, MN",
       "network_as_posted": "",
       "radio_as_posted": "",
       "tournament": "",
