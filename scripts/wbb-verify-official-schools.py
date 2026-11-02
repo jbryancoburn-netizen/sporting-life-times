@@ -159,6 +159,16 @@ def official_opponent_matches(source,game,safe_stems):
   display=re.sub(r"^\s*(?:vs\.?|at|@)\s+","",tail,flags=re.I).strip()
   if not re.match(r"^"+re.escape(alias)+r"(?=$|[\s,.(\-])",display,re.I):
    continue
+  # Names shared by distinct schools must never be promoted via a
+  # generic school prefix. Full university opponent identity matters.
+  if oppid=="30" and text.startswith("uscupstate"):
+   continue
+  if oppid=="2294" and text.startswith("iowastate"):
+   continue
+  if oppid=="153" and text.startswith((
+     "northcarolinastate","northcarolinacentral","northcarolinaat",
+     "northcarolinagreensboro","northcarolinawilmington","northcarolinaasheville")):
+   continue
   if oppid=="12" and text.startswith("arizonastate"):
    continue
   if oppid=="25" and text.startswith("californiabaptist"):
