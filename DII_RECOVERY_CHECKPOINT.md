@@ -140,3 +140,31 @@ Always use the **latest main HEAD** rather than assuming these remain the newest
 - **GitHub Pages workflow observed** run `41381862422` status `in_progress`, conclusion `not yet available`. Do not claim this checkpoint confirms a fresh public page until Pages passes.
 - **Next true work:** source-recover full calendars for thin eligible programs (men MEC, CIAA, GNAC prioritized; women Queens College NY, Montana State Billings, UPR Rio Piedras), check two remaining zero-fixture women's teams for current official evidence, then enrich exact venue/tipoff/broadcast data. Never claim completion based on a date scan.
 - **Non-negotiable budget:** **$0**; official/public free sources, existing no-cost infrastructure and the existing GitHub Actions publisher only. Do not enable billing, add paid APIs or change workflow schedules.
+
+## Verified continuation: 2026-11-02 (after Charleston and Mayaguez recovery)
+
+**Authoritative source**: `data/d2-publishing-audit.json` read from `main` after GitHub Actions DII workflow **#41382690253** completed **success** (all automated tests, build, strict ledger audit, and verified data commit). [DII Actions success](https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/41382690253). GitHub Pages must be checked independently; rapid main pushes may cancel older deployment attempts.
+
+| Latest stored integrity audit | Men | Women |
+|---|---:|---:|
+| Registry entries, including DII-ineligible transitions | 301 | 298 |
+| Published 2026–27 ledger games | **2,930** | **3,746** |
+| Verified season Elo final games | 26 | 33 |
+| Zero-fixture registered programs | 6 | 1 |
+| Zero-fixture **eligible DII Elo** programs | **0** | **0** |
+| Programs with only 1–6 fixtures, NOT certified full schedules | 22 | 4 |
+| Ledger games missing arena/venue | 2,795 | 3,575 |
+| Ledger games missing broadcast/network | 2,800 | 3,608 |
+| Ledger games missing tipoff | 933 | 334 |
+| University-by-university full-season schedules certified | **NO** | **NO** |
+
+The raw zero-fixture rows above are *not* missing eligible DII calendars: men's Azusa Pacific, Lackawanna, Loyola New Orleans, Monroe, Texas Wesleyan and West Florida are excluded by documented membership transitions; women's Texas A&M–Texarkana competes in NAIA during 2026–27 despite DII reclassification. The registry intentionally retains these identities for traceability. Never add cross-division games to manufacture complete DII coverage. Read `data/d2-membership-notes-2026-27.json` for current status; zero eligible fixture count does NOT mean complete schedules.
+
+**Specific evidence saved and validated in existing systems:**
+- [PR #193](https://github.com/jbryancoburn-netizen/sporting-life-times/pull/193): added **28 University of Charleston (WV) women** officially dated rows. [PR #202](https://github.com/jbryancoburn-netizen/sporting-life-times/pull/202): seven source school-name variants reconciled to distinct canonical NCAA program names, retaining the original opponent labels and identity evidence. Direct blob inspection confirmed **28 distinct ledger games** for Charleston with zero duplicates, all scheduled without fabricated finals.
+- [PR #194](https://github.com/jbryancoburn-netizen/sporting-life-times/pull/194), [#196](https://github.com/jbryancoburn-netizen/sporting-life-times/pull/196), [#197](https://github.com/jbryancoburn-netizen/sporting-life-times/pull/197): time-zone guard and regression-test repairs; **existing DII workflow** passed after changes. No new workflows or billed services.
+- The existing official school-grid file also includes **26 Upper Iowa women** school calendar rows including 2026-11-22 versus Puerto Rico–Mayagüez, 12:30 PM ET (school source: https://uiupeacocks.com/sports/womens-basketball/schedule/2026-27?grid=true).
+- [PR #206](https://github.com/jbryancoburn-netizen/sporting-life-times/pull/206): independently sourced **two more Mayagüez women's neutral fixtures** (2026-12-18 Lenoir–Rhyne, 2:00 PM ET, and 2026-12-19 UVA Wise, 9:00 AM ET) from official 2026–27 university calendars. Mayagüez has at least three distinct scheduled games in the stored ledger (Upper Iowa Nov 22 plus these December games); do **not** call this a certified complete Puerto Rico calendar.
+- Both divisions retain season-isolated **1500 starting Elo**; publish only verified real finals. There is no authorization to carry historical ratings forward, infer scores or call USRS calibration gate complete.
+
+**Next actual work**: finish full school-by-school schedule **certification** using official university grids and reconciled conference calendars (particularly 22 men's and 4 women's thin schedules); reduce thousands of unsourced venue/network/time fields only with exact-source evidence; preserve IDs, neutral Elo, away-first and exactly two colored logo rings. Check recent DII Actions and GitHub Pages deployments separately after each source/data batch. This checkpoint is a snapshot, not a proof of deployment or all-school certification. **Budget remains $0.**
