@@ -86,7 +86,9 @@
   }
   const safeTeamColor=t=>{
     const raw=String(t?.team?.color||'').replace(/^#/,'');
-    return /^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff'?'#'+raw:'#294650';
+    const branded=window.MBBLogos?.colorForESPN?.(t?.team?.id);
+    if(/^[a-f\d]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff')return '#'+raw;
+    return branded?.primary||'#294650';
   };
   function row(t,phase,winning,gamefile=false){
     const s=phase==='upcoming'?'—':score(t)??'—';
