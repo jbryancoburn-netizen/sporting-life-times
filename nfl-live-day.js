@@ -296,7 +296,7 @@ function mountContent(){
   if(!box)return;
   const section=document.createElement("section");section.id="nfl-live-game-data";section.className="nfl-live-details";
   section.innerHTML='<h2>LIVE GAME-DAY TRACKER</h2><p>Loading in-game statistics…</p>';
-  box.insertAdjacentElement("afterend",section);gameDetails();
+  if(box.id==="nfl-game-live-slot")box.append(section);else box.insertAdjacentElement("afterend",section);gameDetails();
   return;
  }
  if(root.querySelector("#nfl-live-stage"))return;
