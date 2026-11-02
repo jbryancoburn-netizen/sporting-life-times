@@ -228,3 +228,16 @@ test('DII official university school-grid evidence covers all three verified rec
   }
  }
 });
+
+// The source calendar only authorizes fixture/date/opponent fields. Scores
+// must come from independently verified NCAA/official postgame results.
+test('DII school-grid fixtures are not fabricated results',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ for(const school of evidence.schools)for(const item of school.fixtures){
+  assert.equal(Object.hasOwn(item,'away_score'),false);
+  assert.equal(Object.hasOwn(item,'home_score'),false);
+  assert.equal(Object.hasOwn(item,'status'),false);
+  assert.equal(Object.hasOwn(item,'elo_change_home'),false);
+  assert.ok(item.opponent.length>2);
+ }
+});
