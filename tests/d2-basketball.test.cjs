@@ -244,8 +244,8 @@ test('DII official university school-grid evidence covers all four verified reco
   'women|lincoln-university-pennsylvania':28,
   'women|university-of-charleston-west-virginia':28,
   'women|upper-iowa-university':26,
-  'women|lenoir-rhyne-university':1,
-  'women|the-university-of-virginia-s-college-at-wise':1
+  'women|lenoir-rhyne-university':2,
+  'women|the-university-of-virginia-s-college-at-wise':2
  };
  const keys=evidence.schools.map(s=>s.gender+'|'+s.owner_id);
  assert.equal(new Set(keys).size,keys.length);
@@ -321,10 +321,11 @@ test('DII Mayaguez opponents independently verify two extra neutral-site Decembe
  for(const [owner,[date,time]] of Object.entries(dates)){
   const calendar=evidence.schools.find(s=>s.gender==='women'&&s.owner_id===owner);
   assert.ok(calendar);
-  assert.equal(calendar.fixtures.length,1);
+  assert.equal(calendar.fixtures.length,2);
   assert.match(calendar.source_url,/^https:\/\//);
   assert.match(calendar.scope,/Not a complete/);
-  const f=calendar.fixtures[0];
+  const f=calendar.fixtures.find(row=>row.opponent==='University of Puerto Rico, Mayaguez');
+   assert.ok(f,'original Mayagüez game must remain');
   assert.equal(f.date,date);
   assert.equal(f.start_time,time);
   assert.equal(f.role,'neutral');
