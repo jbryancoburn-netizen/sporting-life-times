@@ -1145,6 +1145,14 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not sac_quality or
         (gender=="women" and "school_grids_read" not in sac_quality)):
         sac_quality=enrich_sac(gender,games,teams,today)
+    # GLVC 2026-27: 15 university calendars per gender, exact season/school
+    # headings and two-school date + home/away corroboration required.
+    # Keep men's and women's ledgers independent and preserve NCAA IDs/finals.
+    from d2_glvc_official import enrich_glvc
+    glvc_quality=previous_quality.get("official_glvc_schedule_reconciliation")
+    if (not rapid or not glvc_quality or
+        glvc_quality.get("status")!="GLVC 2026-27 exact two-university fixtures verified"):
+        glvc_quality=enrich_glvc(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1241,7 +1249,8 @@ def update(gender, bootstrap=False, live=False):
         "official_pbc_schedule_reconciliation":pbc_quality,
         "official_ne10_schedule_reconciliation":ne10_quality,
         "official_siac_schedule_reconciliation":siac_quality,
-        "official_sac_schedule_reconciliation":sac_quality}
+        "official_sac_schedule_reconciliation":sac_quality,
+        "official_glvc_schedule_reconciliation":glvc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
