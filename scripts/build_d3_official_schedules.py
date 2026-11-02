@@ -118,6 +118,12 @@ ALIASES = {
     "penn state university altoona": 25719,
     "penn state university abington": 30114,
     "la roche": 1163,  # Carlow University lists La Roche without its institutional suffix.
+    # Verified against both independently maintained NCAA DIII 2026-27
+    # team directories: exact school names, no ambiguous bare "Saint".
+    # These appear in the university-run Carlow 2026-27 game calendar.
+    "hilbert": 8398, "mt aloysius": 30036, "mount aloysius": 30036,
+    "geneva": 30084, "wooster": 807, "allegheny": 19,
+    "st vincent": 30064, "alfred st": 30170, "alfred state": 30170,
     "pitt bradford": 1315, "pitt greensburg": 11839,
     "university of pittsburgh at bradford": 1315,
     "university of pittsburgh at greensburg": 11839,
