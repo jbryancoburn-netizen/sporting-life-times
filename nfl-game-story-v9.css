@@ -397,3 +397,48 @@ body.nfl-paper[data-page="game"]{background:#e9e6dd;color:#172932}
 @media(prefers-reduced-motion:reduce){
  .nfl-paper[data-page="game"] *{scroll-behavior:auto!important}
 }
+
+/* Sourced statistical lede and independently reported player spotlights. */
+.nfl-paper[data-page="game"] .nfl-story-field-note{
+ margin:0;background:#e8e8dc;border-bottom:1px solid #c1cac1;
+ border-left:7px solid var(--nfl-story-winning);padding:18px 23px 17px;
+ display:grid;gap:7px;
+}
+.nfl-paper[data-page="game"] .nfl-story-field-note small{
+ color:#ad3028;font:900 10px Arial,sans-serif;letter-spacing:.14em;
+}
+.nfl-paper[data-page="game"] .nfl-story-field-note strong{
+ color:#1d3746;font:800 clamp(18px,2.4vw,28px)/1.16 Georgia,serif;letter-spacing:-.03em;
+}
+.nfl-paper[data-page="game"] .nfl-story-field-note span{
+ color:#59696c;font:700 11px Arial,sans-serif;
+}
+.nfl-paper[data-page="game"] .nfl-story-leaders-head{
+ display:flex;justify-content:space-between;align-items:center;gap:7px;flex-wrap:wrap;
+ border-top:4px solid #1e3e4c;padding-top:12px;margin-bottom:12px;
+}
+.nfl-paper[data-page="game"] .nfl-story-leaders-head h3{
+ margin:0;border:0;padding:0;font:900 12px Arial,sans-serif;letter-spacing:.13em;color:#a32d2c;
+}
+.nfl-paper[data-page="game"] .nfl-story-leaders-head span{
+ font:900 9px Arial,sans-serif;color:#667475;letter-spacing:.12em;
+}
+.nfl-paper[data-page="game"] .nfl-live-performance{
+ border-bottom:4px solid var(--spotlight-color,#183848);
+}
+.nfl-paper[data-page="game"] .nfl-live-performance .nfl-story-player-kind{
+ display:block!important;color:#a52d27;margin-bottom:5px;
+ font:900 9px Arial,sans-serif;letter-spacing:.06em;
+}
+@media(max-width:710px){
+ .nfl-paper[data-page="game"] .nfl-story-field-note{padding:14px 13px}
+ .nfl-paper[data-page="game"] .nfl-live-performance-grid{
+  display:flex;overflow-x:auto;overscroll-behavior-inline:contain;
+  gap:8px;scroll-snap-type:x mandatory;scrollbar-width:thin;
+  padding-bottom:11px;
+ }
+ .nfl-paper[data-page="game"] .nfl-live-performance{
+  flex:0 0 min(84%,325px);scroll-snap-align:start;
+  min-height:110px;border:1px solid #ccd2ca;border-bottom:5px solid var(--spotlight-color,#183848);
+ }
+}
