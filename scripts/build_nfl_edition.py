@@ -129,14 +129,23 @@ def base_team(tid):
       "color":col,"secondary_color":alt,"logo":"https://a.espncdn.com/i/teamlogos/nfl/500/"+code.lower()+".png",
       "w":0,"l":0,"t":0,"pf":0,"pa":0,"elo":1500.0,"elo_change":0.0,"played":0}
 def probability(away,home,home_elo=DEFAULT_HOME_ELO):return 1/(1+10**(-((home+home_elo)-away)/400))
-def projection(away,home):
-    # Conservative score model using only completed 2026 games. Shrink to 22 points.
-    av=(22*4+away["pf"])/(4+away["played"])
-    ad=(22*4+home["pa"])/(4+home["played"])
-    hv=(22*4+home["pf"])/(4+home["played"])
-    hd=(22*4+away["pa"])/(4+away["played"])
-    return [round(max(10,min(42,(av+ad)/2-0.9))),
-            round(max(10,min(42,(hv+hd)/2+0.9)))]
+def projection(away,home,home_advantage=DEFAULT_HOME_ELO,neutral=False):
+    """Matchup-adjusted scoring using only pregame data and an Elo margin."""
+    def attack(t):return (22*4+t["pf"])/(4+t["played"])
+    def defense(t):return (22*4+t["pa"])/(4+t["played"])
+    away_base=(attack(away)+defense(home))/2-0.9
+    home_base=(attack(home)+defense(away))/2+0.9
+    total=max(30,min(70,away_base+home_base))
+    home_edge=(home["elo"]+(0 if neutral else home_advantage)-away["elo"])/20
+    margin=.65*(home_base-away_base)+.35*home_edge
+    away_pts=round(max(10,min(45,(total-margin)/2)))
+    home_pts=round(max(10,min(45,(total+margin)/2)))
+    if away_pts==home_pts:
+        # Avoid an accidental rounded draw without changing actual NFL tie logic.
+        if margin>=0:home_pts+=1
+        else:away_pts+=1
+    return [away_pts,home_pts]
+
 def replay(games,home_advantage=DEFAULT_HOME_ELO,k_base=DEFAULT_K_BASE):
     teams={str(i):base_team(i) for i in META}
     for g in sorted(games,key=lambda z:(z.get("date") or "",z["id"])):
@@ -146,7 +155,7 @@ def replay(games,home_advantage=DEFAULT_HOME_ELO,k_base=DEFAULT_K_BASE):
             if g[side].get("logo"):t["logo"]=g[side]["logo"]
         if g["state"]!="post":continue
         h=teams[g["home"]["id"]];a=teams[g["away"]["id"]]
-        p=probability(a["elo"],h["elo"],0 if g.get("neutral_site") else home_advantage);sa,sh=projection(a,h)
+        p=probability(a["elo"],h["elo"],0 if g.get("neutral_site") else home_advantage);sa,sh=projection(a,h,home_advantage=home_advantage,neutral=bool(g.get("neutral_site")))
         hscore=g["home"]["score"];ascore=g["away"]["score"]
         actual=1 if hscore>ascore else (0 if hscore<ascore else 0.5)
         margin=abs(hscore-ascore)
@@ -170,7 +179,7 @@ def replay(games,home_advantage=DEFAULT_HOME_ELO,k_base=DEFAULT_K_BASE):
     for g in games:
         if g["state"]=="post":continue
         a=teams[g["away"]["id"]];h=teams[g["home"]["id"]]
-        p=probability(a["elo"],h["elo"],0 if g.get("neutral_site") else home_advantage);sa,sh=projection(a,h)
+        p=probability(a["elo"],h["elo"],0 if g.get("neutral_site") else home_advantage);sa,sh=projection(a,h,home_advantage=home_advantage,neutral=bool(g.get("neutral_site")))
         g["elo"]={"away_before":a["elo"],"home_before":h["elo"],
          "home_win_probability":round(p,4),"away_win_probability":round(1-p,4),
          "away_projected_points":sa,"home_projected_points":sh}
@@ -375,6 +384,8 @@ def run(fast):
         "calibration_validation_brier":history.get("validation_brier"),
         "calibration_source":history.get("source"),
         "margin_multiplier":"min(2, 1 + log2(1+absolute point margin)/4)",
+        "score_projection_version":2,
+        "score_projection_method":"opponent-adjusted offense, defense and Elo expected margin",
         "season_reset":True,"regular_season_only":True,"historical_prior":False,"tie_result":0.5},
       "coverage":{"teams":32,"games":len(games),"finals":len(finals),
         "future_or_live":len(games)-len(finals),"boxscores":len(boxes),
