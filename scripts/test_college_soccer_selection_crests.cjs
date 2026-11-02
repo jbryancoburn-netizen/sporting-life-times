@@ -12,7 +12,7 @@ assert(!cup.includes("node('span','slt-mark soccer-school-mark')"),'Generic slt-
 assert(!cup.includes('slt-dual-shell'),'Legacy dual-shell belongs to the generic decorator, not Cup UI');
 assert(generic.includes("img.closest('.cs-pitch-badge,.cs-match-badge,.soccer-school-mark,.ncaa-native-mark')"),'Shared decorator must explicitly skip owned soccer and natural-artwork crests');
 assert(html.includes('college-soccer-cup-ui.js?v=20261102-single-owner1'),'Selection has stale renderer cache key');
-assert(html.includes('soccer-cup-owner=20261102'),'Selection has stale generic decorator cache key');
+assert(html.includes('soccer-native=20261102'),'Selection has stale generic decorator cache key');
 assert(selection.includes("file('data/dual-ring-team-palette.json')"),'Selection fails to load actual school colors');
 class Element{
  constructor(tag){this.tag=tag;this.className='';this.children=[];this.events={};this.attrs={};this.removed=false;this.naturalWidth=0;this.dataset={};this.style={
