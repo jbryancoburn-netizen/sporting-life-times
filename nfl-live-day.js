@@ -208,19 +208,41 @@ function boxRows(summary){
  return out+'</section>';
 }
 function playRows(summary){
+ const done=(summary.header?.competitions||[]).some(c=>c.status?.type?.state==="post");
+ const scored=arr(summary.scoringPlays);
  const current=summary.drives?.current,prior=arr(summary.drives?.previous);
- const plays=arr(current?.plays).slice(-6);
- if(!plays.length)plays.push(...arr(prior.at(-1)?.plays).slice(-6));
- if(!plays.length)plays.push(...arr(summary.scoringPlays).slice(-6));
+ let plays=done&&scored.length?scored.slice(-8):arr(current?.plays).slice(-7);
+ if(!plays.length)plays=arr(prior.at(-1)?.plays).slice(-7);
+ if(!plays.length)plays=scored.slice(-7);
  if(!plays.length)return '<p>No source-verified play descriptions are available yet.</p>';
  return plays.reverse().map(p=>{
   const words=str(p.text||p.type?.text||"Play detail pending");
   const kind=/touchdown|field goal is good|extra point is good|safety/i.test(words)?'is-scoring':
    /intercepted|fumble recovered|turnover on downs/i.test(words)?'is-turnover':'';
   const q=p.period?.number?'Q'+p.period.number+' · ':'';
-  const clock=str(p.clock?.displayValue||"");
-  return '<div class="nfl-live-play '+kind+'"><b>'+html(q+clock||'PLAY')+'</b><span>'+html(words)+'</span></div>';
+  return '<div class="nfl-live-play '+kind+'"><b>'+html(q+str(p.clock?.displayValue||"")||'PLAY')+
+   '</b><span>'+html(words)+'</span></div>';
  }).join("");
+}
+function nflGameStatInsight(box,comp){
+ const entries=arr(box.boxscore?.teams),participants=arr(comp?.competitors);
+ if(entries.length<2||participants.length<2)return '';
+ const a=participants.find(t=>t.homeAway==="away"),h=participants.find(t=>t.homeAway==="home");
+ if(!a||!h)return '';
+ const yards=id=>{
+  const t=entries.find(x=>str(x.team?.id)===str(id));
+  const value=arr(t?.statistics).find(x=>x.name==="totalYards")?.displayValue;
+  return value!=null&&/^\d[\d,]*$/.test(str(value))?Number(str(value).replace(/,/g,'')):null;
+ };
+ const ay=yards(a.team?.id),hy=yards(h.team?.id),as=Number(a.score),hs=Number(h.score);
+ if(ay==null||hy==null||!Number.isFinite(as)||!Number.isFinite(hs)||as===hs)return '';
+ const winner=as>hs?a:h,loser=as>hs?h:a;
+ const winnerY=as>hs?ay:hy,loserY=as>hs?hy:ay;
+ const short=t=>str(t.team?.shortDisplayName||t.team?.displayName||t.team?.abbreviation||"Club");
+ if(winnerY>=loserY)return '';
+ return '<div class="nfl-story-field-note"><small>THE NUMBER BEHIND THE RESULT</small><strong>'+
+  html(short(winner))+' won despite being outgained by '+html(loserY-winnerY)+' yards.</strong>'+
+  '<span>'+html(short(loser))+' '+html(loserY)+' total yards · '+html(short(winner))+' '+html(winnerY)+' total yards</span></div>';
 }
 async function gameDetails(){
  const target=document.getElementById("nfl-live-game-data");if(!target||!currentEvent||document.hidden)return;
@@ -234,13 +256,27 @@ async function gameDetails(){
   const status=match.status||d.header?.competitions?.[0]?.status||{};
   const state=status.type?.state==="post"&&(Number(status.period)>4||/\b(?:OT|OVERTIME)\b/i.test(status.type?.shortDetail||status.type?.description||""))?"FINAL/OT":status.type?.shortDetail||status.type?.description||"Game update";
   const gameLeaders=categoryLeaders(d);
-  const leaders=["PASS","RUSH","REC"].map(k=>gameLeaders.filter(p=>p.kind===k).sort((x,y)=>y.value-x.value)[0]).filter(Boolean);
-  target.innerHTML='<div class="nfl-live-head"><div><span class="nfl-live-kicker">GAME-DAY TRACKER · IN-GAME STATISTICS</span><h2>'+html(state)+'</h2></div>'+
-   '<span class="nfl-live-status">Live source · '+html(new Date().toLocaleTimeString("en-US",{timeZone:"America/New_York",hour:"numeric",minute:"2-digit"}))+' ET · refresh 25 seconds</span></div>'+
-   '<div class="nfl-live-detail-grid"><div>'+boxRows(box)+'</div><div><h3>RECENT PLAYS</h3>'+playRows(d)+'</div></div>'+
-   (leaders.length?'<div class="nfl-live-performers"><h3>GAME LEADERS</h3><div class="nfl-live-performance-grid">'+leaders.map(p=>
-    '<div class="nfl-live-performance"><img loading="lazy" src="'+html(p.headshot)+'" alt=""><div><b>'+html(p.name)+'</b><span>'+html(p.team+' · '+p.kind+' YARDS')+'</span></div><strong>'+p.value+'</strong></div>').join("")+'</div></div>':
-   '<p class="nfl-live-status">Player box scores pending.</p>');
+  const spotlight=["PASS","RUSH","REC"].flatMap(kind=>
+   [box.__awayCode,box.__homeCode].map(code=>gameLeaders.filter(p=>p.kind===kind&&p.team===code)
+     .sort((x,y)=>y.value-x.value)[0]).filter(Boolean));
+  const isFinal=status.type?.state==="post";
+  const recentScoring=isFinal&&arr(d.scoringPlays).length>0;
+  target.innerHTML='<div class="nfl-live-head"><div><span class="nfl-live-kicker">03 / VERIFIED GAME REPORT</span>'+
+   '<h2>'+(isFinal?'Inside the final':html(state))+'</h2></div>'+
+   '<span class="nfl-live-status">Sourced game record · checked '+
+    html(new Date().toLocaleTimeString("en-US",{timeZone:"America/New_York",hour:"numeric",minute:"2-digit"}))+
+    ' ET · refreshes every 25 seconds</span></div>'+
+   nflGameStatInsight(box,match)+
+   '<div class="nfl-live-detail-grid"><div>'+boxRows(box)+'</div><div><h3>'+
+   (recentScoring?'THE SCORING PLAYS':'LATEST PLAYS')+'</h3>'+playRows(d)+'</div></div>'+
+   (spotlight.length?'<div class="nfl-live-performers"><div class="nfl-story-leaders-head"><h3>THE PLAYER REPORT</h3>'+
+    '<span>VERIFIED GAME LEADERS · BOTH CLUBS</span></div>'+
+    '<div class="nfl-live-performance-grid">'+spotlight.map(p=>
+     '<div class="nfl-live-performance" style="--spotlight-color:'+(p.team===box.__awayCode?'var(--nfl-story-away)':'var(--nfl-story-home)')+'">'+
+     '<img loading="lazy" src="'+html(p.headshot)+'" alt=""><div><small class="nfl-story-player-kind">'+
+     html(p.team+' · '+p.kind+' LEADER')+'</small><b>'+html(p.name)+'</b><span>VERIFIED YARDS</span></div>'+
+     '<strong>'+html(p.value)+'</strong></div>').join("")+'</div></div>':
+    '<p class="nfl-live-status">Verified individual statistics are not yet available for this game.</p>');
  }catch(e){
   target.innerHTML='<p class="nfl-live-error">In-game statistics are temporarily unavailable from the live source. The verified historical game details below remain available.</p>';
  }
