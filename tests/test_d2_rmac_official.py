@@ -67,6 +67,20 @@ class TestRmac(unittest.TestCase):
         self.assertEqual(again["added"],0)
         self.assertEqual(game["status"],"final")
         self.assertEqual(game["away_score"],82)
+    def test_uccs_long_mens_directory_name_is_exact_identity(self):
+        from d2_rmac_official import team_ids
+        found,conflicted=team_ids({
+            "uccs-uc-colorado-springs":{"name":"UCCS (UC Colorado Springs)","conference":"RMAC"},
+            "university-of-colorado-colorado-springs":{
+                "name":"University of Colorado Colorado Springs",
+                "conference":"Rocky Mountain Athletic Conference"}})
+        # This synthetic duplicate must be quarantined, not counted twice.
+        self.assertIn("uccs",conflicted)
+        self.assertNotIn("uccs",found)
+        found,conflicted=team_ids({"uccs-uc-colorado-springs":{
+            "name":"UCCS (UC Colorado Springs)","conference":"RMAC"}})
+        self.assertEqual(found["uccs"],"uccs-uc-colorado-springs")
+        self.assertFalse(conflicted)
     def test_withhold_if_less_than_twelve_sources(self):
         src=catalog("women")
         valid=dict(list(src.items())[:11])
