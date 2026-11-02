@@ -141,13 +141,14 @@ def parse_university_grid(html, owner):
     rejected = 0
     found = False
     for table in soup.select("table"):
-        for tr in table.select("tr"):
+        table_rows=table.select("tr")
+        for header_index,tr in enumerate(table_rows):
             headers = [norm(x.get_text(" ", strip=True)) for x in tr.find_all("th",recursive=False)]
             if not {"date","time","at","opponent"}.issubset(headers):
                 continue
             pos = {key:headers.index(key) for key in ("date","time","at","opponent")}
             found=True
-            for row in tr.find_next_siblings("tr"):
+            for row in table_rows[header_index+1:]:
                 cells=[x.get_text(" ",strip=True) for x in row.find_all("td",recursive=False)]
                 if len(cells)<=max(pos.values()):
                     continue
