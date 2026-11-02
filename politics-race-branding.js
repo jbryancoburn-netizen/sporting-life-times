@@ -228,6 +228,20 @@ function decorateState({state,rows}){
   geography(state.code,state,row.id,geo,true);
   const label=el("span","race-brief-state-id",state.code+" / "+row.district);
   existing.append(label);
+  const named=(row.official_2026_candidate_snapshot?.candidates||[])
+   .filter(c=>c.party==="DEM"||c.party==="REP")
+   .sort((a,b)=>a.party==="DEM"?-1:1);
+  if(named.length){
+   const matchup=el("div","race-story-party-match");
+   matchup.setAttribute("aria-label","Official 2026 candidate affiliations");
+   for(const person of named){
+    const contender=el("span","race-story-contender");
+    contender.append(partyEmblem(person.party),el("span","race-story-candidate-text",person.name));
+    matchup.append(contender);
+   }
+   const bottom=card.querySelector(".state-brief-bottom");
+   if(bottom)card.insertBefore(matchup,bottom);else card.append(matchup);
+  }
  }
 }
 window.PoliticsRaceBranding=Object.freeze({decorateDistrict,decorateState,buildCartography,partyEmblem});
