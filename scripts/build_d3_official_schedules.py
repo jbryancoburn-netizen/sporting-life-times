@@ -226,6 +226,122 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
     },
 }
 
+# GNAC's administrative master schedules (www.quickscores.com/gnac) are
+# explicitly labeled AD Council approved 11/27/25. They certify 16 CONFERENCE
+# games ONLY and explicitly direct visitors to schools for nonleague games,
+# start times and venues. Never call these complete university calendars.
+GNAC_APPROVED_CONFERENCE_SCHEDULES = {
+    "men": {
+        2798: (14300749, "Albertus Magnus"),
+        532: (14300753, "Elms"),
+        8486: (14300755, "Lasell"),
+        30042: (14300756, "Mitchell"),
+        569: (14300759, "Regis"),
+        8687: (14300762, "Saint Joseph CT"),
+    },
+    "women": {
+        2798: (14305305, "Albertus Magnus"),
+        532: (14305309, "Elms"),
+        8486: (14305311, "Lasell"),
+        30042: (14305312, "Mitchell"),
+        569: (14305315, "Regis"),
+        8687: (14305318, "Saint Joseph CT"),
+    },
+}
+GNAC_NCAA_OPPONENTS = {
+    "albertus magnus": 2798, "colby sawyer": 152, "dean": 30219,
+    "elms": 532, "emmanuel": 215, "lasell": 8486,
+    "mitchell": 30042, "new england": 467, "norwich": 511,
+    "regis": 569, "rivier": 18422, "saint joseph ct": 8687,
+    "saint joseph's me": 605,
+}
+GNAC_LEAGUES = {"men": 1634344, "women": 1634829}
+
+
+def gnac_schedule_url(gender, team_id):
+    if gender not in GNAC_LEAGUES or not isinstance(team_id, int):
+        raise ValueError("Invalid GNAC team or gender")
+    return (f"https://www.quickscores.com/Orgs/PrintSchedule.php?"
+            f"LeagueID={GNAC_LEAGUES[gender]}&OrgDir=gnac&TeamID={team_id}")
+
+
+def parse_gnac_approved_calendar(html, gender, owner, url, subject, by_org, exact):
+    """Read only GNAC AD Council-approved 2026–27 conference fixtures.
+
+    This official master source has NO official school full-season schedule,
+    no confirmed time, and no nonconference games. IDs must match the
+    independently observed team/season-specific publisher URLs.
+    """
+    pinned = GNAC_APPROVED_CONFERENCE_SCHEDULES.get(gender, {}).get(owner)
+    if not pinned or pinned[1] != subject or url != gnac_schedule_url(gender, pinned[0]):
+        raise ValueError("Wrong GNAC league, school or team-specific source URL")
+    doc = BeautifulSoup(html, "html.parser")
+    visible = compact(doc.get_text(" ", strip=True))
+    prefix = visible.lower().split("regular season standings", 1)[0]
+    expected_title = "men's basketball" if gender == "men" else "women's basketball"
+    if not (expected_title in prefix and
+            "ad council approved 11/27/25" in prefix and
+            re.search(r"winter\s+2026\s*[-–]\s*2027", prefix) and
+            key(subject) in key(prefix) and
+            "gnac" in prefix):
+        raise ValueError("GNAC official sport, season, approval or subject not verified")
+    if gender == "men" and "women's basketball" in prefix:
+        raise ValueError("GNAC women's page not a men's calendar")
+    found, excluded = [], defaultdict(int)
+    inspected = 0
+    for table in doc.select("table"):
+        for tr in table.select("tr"):
+            cells = [compact(c.get_text(" ", strip=True))
+                     for c in tr.find_all(["td", "th"], recursive=False)]
+            if len(cells) < 5:
+                continue
+            raw_date = cells[1]
+            m = re.search(r"(?<!\d)(\d{1,2})/(\d{1,2})/(26|27)(?!\d)", raw_date)
+            if not m:
+                continue
+            try:
+                date = dt.date(2000+int(m[3]), int(m[1]), int(m[2]))
+            except ValueError:
+                continue
+            if not SEASON_START <= date <= SEASON_END:
+                continue
+            inspected += 1
+            home_label = compact(cells[3]).lower().replace("’", "'")
+            away_label = compact(cells[4]).lower().replace("’", "'")
+            if "bye" in (home_label, away_label) or not home_label or not away_label:
+                excluded["bye_or_missing_opponent"] += 1
+                continue
+            home_id = GNAC_NCAA_OPPONENTS.get(home_label)
+            away_id = GNAC_NCAA_OPPONENTS.get(away_label)
+            if not home_id or not away_id or home_id == away_id:
+                excluded["unknown_or_ambiguous_opponent"] += 1
+                continue
+            if owner not in (home_id, away_id) or not {home_id, away_id} <= set(by_org):
+                excluded["member_or_subject_disagreement"] += 1
+                continue
+            found.append({
+                "date": date.isoformat(), "away_org_id": away_id,
+                "home_org_id": home_id, "neutral": False,
+                "source_owner_org_id": owner, "source_url": url,
+                "source_kind": "official_conference",
+                "tipoff_as_posted": "", "venue": "",
+                "venue_location": cells[2], "network_as_posted": "",
+                "radio_as_posted": "", "tournament": "",
+            })
+    # A valid league calendar has about 16 fixtures. Refuse partial fragments,
+    # the 2027–28 calendar, administrative byes, and nonmember game rows.
+    if inspected < 12 or len(found) < 12 or len({x["date"] for x in found}) < 10:
+        raise ValueError(f"GNAC official master incomplete: {inspected}/{len(found)}")
+    return found, {
+        "owner_org_id": owner, "source_url": url,
+        "verified_direct_url": url, "status": "parsed_conference",
+        "calendar_origin": "GNAC_AD_Council_approved_conference_games_only",
+        "readable_rows": inspected, "verified_member_opponents": len(found),
+        "excluded_rows": dict(excluded),
+        "coverage_note": "Conference games only; school must verify nonconference dates and game times",
+    }
+
+
 DATE = re.compile(
     r"^([A-Za-z]+)\s+(\d{1,2}),?\s+(2026|2027)(?:\s+\([^)]+\))?$")
 MONTHS = {m: i for i, m in enumerate(
@@ -770,6 +886,21 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
             return rows, report
         except Exception as ex:
             errors.append("Official conference: " + str(ex)[:105])
+    # The GNAC explicitly posts an AD Council-approved league-only master
+    # schedule on its own administrative scheduling account. This is an
+    # identified official fallback and must NEVER certify a school calendar.
+    gnac = GNAC_APPROVED_CONFERENCE_SCHEDULES[gender].get(org)
+    if gnac:
+        team_id, subject = gnac
+        gnac_url = gnac_schedule_url(gender, team_id)
+        try:
+            _, _, gnac_html = fetch_calendar((org, gnac_url))
+            rows, report = parse_gnac_approved_calendar(
+                gnac_html, gender, org, gnac_url, subject, by_org, exact)
+            report["failed_school_calendar_urls"] = len(errors)
+            return rows, report
+        except Exception as ex:
+            errors.append("GNAC approved league schedule: " + str(ex)[:105])
     return None, {"owner_org_id": org, "source_url": url,
                   "status": "failed", "error": " | ".join(errors)[:260],
                   "candidate_urls_tried": len(visited),
@@ -1387,6 +1518,55 @@ def self_test():
     assert '/schedule/2026-27?print=true' in _inspect_source_text
     assert '/schedule/text/2026-27' in _inspect_source_text
     assert 'if deep_discovery:' in _inspect_source_text
+
+    # GNAC's linked 2026-27 administrative team calendar: only conference
+    # dates; no fabricated times, postseason, byes or cross-division members.
+    gnac_ids = [2798, 569]
+    gnac_by_org, gnac_exact = official_index([
+        {"ncaa_org_id": org, "name": name, "membership_year": 2027,
+         "d3_confirmed": True}
+        for org, name in [(2798, "Albertus Magnus College"),
+                          (569, "Regis College (Massachusetts)")]
+    ])
+    gnac_url = gnac_schedule_url("men", 14300749)
+    sample_rows = "".join(
+        f"<tr><td>Week 1</td><td>Tue 12/{i}/26</td><td>New Haven, CT</td>"
+        "<td>Albertus Magnus</td><td>Regis</td></tr>"
+        for i in (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23)
+    )
+    gnac_html = (
+        "<html><head><title>Men's Basketball AD Council approved 11/27/25</title></head>"
+        "<body><h1>Men's Basketball AD Council approved 11/27/25</h1>"
+        "<h2>Winter 2026-2027 - Basketball</h2>"
+        "<h2>Albertus Magnus</h2><p>GNAC conference master schedule</p>"
+        "<h3>Regular Season Standings</h3>"
+        "<table><tr><th>Week</th><th>Date</th><th>Location</th>"
+        "<th>Home</th><th>Away</th></tr>" + sample_rows + "</table></body></html>"
+    )
+    gnac_rows, gnac_report = parse_gnac_approved_calendar(
+        gnac_html, "men", 2798, gnac_url,
+        "Albertus Magnus", gnac_by_org, gnac_exact)
+    assert len(gnac_rows) == 12
+    assert all(not row["tipoff_as_posted"] for row in gnac_rows)
+    assert gnac_report["status"] == "parsed_conference"
+    for invalid_url in (
+        gnac_url.replace("TeamID=14300749", "TeamID=14300759"),
+        gnac_url.replace("LeagueID=1634344", "LeagueID=1634829"),
+    ):
+        try:
+            parse_gnac_approved_calendar(
+                gnac_html, "men", 2798, invalid_url,
+                "Albertus Magnus", gnac_by_org, gnac_exact)
+            raise AssertionError("Mismatched GNAC team/league source accepted")
+        except ValueError:
+            pass
+    try:
+        parse_gnac_approved_calendar(
+            gnac_html.replace("Winter 2026-2027", "Winter 2025-2026"),
+            "men", 2798, gnac_url, "Albertus Magnus", gnac_by_org, gnac_exact)
+        raise AssertionError("Wrong season GNAC calendar accepted")
+    except ValueError:
+        pass
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
