@@ -16,7 +16,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 28
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,7 +29,7 @@ jobs:
           python -m py_compile scripts/build_d3_official_schedules.py
           python scripts/build_d3_official_schedules.py --test
       - name: Fetch official DIII men's and women's school schedules
-        run: python scripts/build_d3_official_schedules.py
+        run: python scripts/build_d3_official_schedules.py --workers 30
       - name: Validate source-linked fixture publication
         run: |
           python - <<'PY'
@@ -41,6 +41,15 @@ jobs:
               assert f['gender']==gender and f['division']=='d3' and f['season']=='2026-27'
               ids={t['ncaa_org_id'] for t in d['teams'] if t.get('d3_confirmed') and t.get('membership_year')==2027}
               assert f['verified_source_calendars']>=1
+              # Every year-specific NCAA sport sponsor must have an auditable
+              # success, missing-site, or failed-source outcome.
+              assert f['school_calendars_checked']==len(ids)
+              assert f['ncaa_confirmed_programs']==len(ids)
+              assert f['verified_source_calendars']+f['school_calendars_missing']==len(ids)
+              assert len(f['source_audit'])==len(ids)
+              assert len({a['owner_org_id'] for a in f['source_audit']})==len(ids)
+              assert sum(f['source_status_counts'].values())==len(ids)
+              assert f['no_athletics_host']>=0
               assert len(f['fixtures'])==f['fixture_count']
               keys=set()
               for game in f['fixtures']:
@@ -60,7 +69,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/d3-men-official-fixtures-2026-27.json data/d3-women-official-fixtures-2026-27.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Publish official-school DIII game schedules with audit provenance"
+          git commit -m "Publish NCAA member-wide DIII university schedule audit and fixtures"
           for n in 1 2 3 4; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
