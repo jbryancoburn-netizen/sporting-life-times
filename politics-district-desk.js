@@ -11,7 +11,13 @@ const dt=x=>{const t=new Date(x);return Number.isFinite(t.getTime())?t:null};
 const format=x=>{const v=dt(x);return v?v.toLocaleDateString("en-US",{timeZone:"America/New_York",year:"numeric",month:"short",day:"numeric"}):"date unavailable"};
 const good=u=>typeof u==="string"&&u.startsWith("https://");
 const A=(label,url)=>{const a=E("a",label);a.href=url;a.target="_blank";a.rel="noopener noreferrer";return a};
-const isoLocal=()=>new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+function localClock(){
+ const parts=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date());
+ const get=k=>parts.find(p=>p.type===k)?.value||"00";
+ return {day:get("year")+"-"+get("month")+"-"+get("day"),hour:Number(get("hour"))};
+}
+const isoLocal=()=>localClock().day;
+const electionClosed=()=>{const t=localClock();return t.day>"2026-11-03"||(t.day==="2026-11-03"&&t.hour>=21)};
 function news(d,host,phase){
  const articles=Array.isArray(d?.articles)?d.articles.filter(x=>x&&good(x.url)&&x.title&&x.source&&dt(x.published_at)): [];
  articles.sort((a,b)=>new Date(b.published_at)-new Date(a.published_at));
@@ -85,7 +91,7 @@ function record(d,host){
  host.replaceChildren();
  const e=d?.election||{},rep=d?.representation||{};
  const today=isoLocal();
- const after=today>"2026-11-03";
+ const after=electionClosed();
  const top=E("div",null,"desk-intro");
  top.append(E("span","OFFICIAL RECORD / VERIFY, DON'T INFER","desk-kicker"),
  E("h3",after?"Election results and the representative":"Who's representing the district now?"));
@@ -142,7 +148,7 @@ async function init(){
   }));
   const d=r1.districts?.[id],district=r2.districts?.find(x=>x.id===id);
   if(!district)throw Error("District not in congressional ledger");
-  const state=(d?.election?.certified&&d.election.winner)?"certified":isoLocal()>"2026-11-03"?"after":"campaign";
+  const state=(d?.election?.certified&&d.election.winner)?"certified":electionClosed()?"after":"campaign";
   document.body.dataset.districtEdition=state;
   if(note)note.textContent=state==="campaign"?"ELECTION 2026 / CAMPAIGN & SOURCED EVIDENCE":
    state==="certified"?"CERTIFIED ELECTION / REPRESENTATION & ACCOUNTABILITY":
@@ -161,6 +167,17 @@ async function init(){
   }
   for(const button of selectors)button.addEventListener("click",()=>choose(button.dataset.deskView));
   choose(state==="campaign"?"news":"record");
+  // Once Iowa polls close, the district and governing record supersede the
+  // campaign landing page. Make the campaign material explicitly archival.
+  const archive=$("desk-campaign-archive-toggle");
+  if(archive&&state!=="campaign"){
+   archive.hidden=false;archive.setAttribute("aria-expanded","false");
+   archive.addEventListener("click",()=>{
+    const open=document.body.classList.toggle("show-district-campaign-archive");
+    archive.setAttribute("aria-expanded",open?"true":"false");
+    archive.textContent=open?"Hide 2026 campaign materials ↑":"View archived 2026 campaign materials ↓";
+   });
+  }
  }catch(error){if(note)note.textContent="DISTRICT SOURCE DESK UNAVAILABLE · THE VERIFIED LOCAL FIELD GUIDE REMAINS BELOW";console.warn("District wire:",error);}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
