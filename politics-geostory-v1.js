@@ -52,7 +52,9 @@ function countyCard(row,extra,desk){
 function townCard(town,extra,desk){
  const root=EL("div",null,"geo-story-card");
  root.append(EL("span","TOWN / WORK & COMMUNITY","geo-story-eyebrow"),EL("h4",town.name),
-  EL("p",town.description,"geo-story-town-deck"),EL("p",town.county+" County · approximate city-level label, not a workplace location.","geo-story-footnote"));
+  EL("p",town.description,"geo-story-town-deck"));
+ root.append(numberLine("2020 CENSUS · CITY RESIDENTS",fmt(town.population2020),"geo-story-population"));
+ root.append(EL("p",town.county+" County · Census incorporated-place geographic label, not an employer facility pin.","geo-story-footnote"));
  const region=regionFor(extra,town.county);
  if(region){root.append(EL("h5","This part of Iowa"),EL("p",region.detail));
   root.append(linkLocal("#iowa-place-"+region.slug,"Read more about the "+region.title.toLowerCase()+" ↓"));}
@@ -163,6 +165,25 @@ async function attach({map,shape,route,extra,fallbackLayer}){
   activeTown=name;details.replaceChildren(townCard(town,extra,desk));map.flyTo([town.lat,town.lon],Math.max(map.getZoom(),9),{duration:.45});
   pin.openTooltip();
  }
+ function cityPopulationOverview(){
+  const root=EL("div",null,"geo-story-card");
+  root.append(EL("span","POPULATION CENTERS / 2020 DECENNIAL CENSUS","geo-story-eyebrow"),
+   EL("h4","Where are the largest towns?"),
+   EL("p","Compare the incorporated cities and explore what each community does. These are city populations, NOT full metropolitan-area populations or 2026 estimates.","geo-story-town-deck"));
+  const set=[...conf.towns].sort((a,b)=>b.population2020-a.population2020),highest=set[0].population2020;
+  const list=EL("div",null,"geo-story-city-list");
+  for(const t of set){
+   const button=EL("button",null,"geo-story-city-row");
+   button.type="button";button.setAttribute("aria-label","Explore "+t.name+", 2020 Census population "+fmt(t.population2020));
+   const label=EL("strong",t.name),track=EL("span",null,"geo-story-city-track"),fill=EL("span",null,"geo-story-city-fill");
+   fill.style.width=(100*t.population2020/highest).toFixed(1)+"%";track.append(fill);
+   button.append(label,track,EL("span",fmt(t.population2020)));
+   button.addEventListener("click",()=>chosenTown(t.name));list.append(button);
+  }
+  root.append(list);
+  sourceText(root,"U.S. Census incorporated-place counts",conf.town_population_source);
+  return root;
+ }
  const state={origin:countyFeature.origin,complete:countyFeature.collection.features.length};
  const countyGeo=L.geoJSON(countyFeature.collection,{
   style(feature){const row=lookup.get(nrm(feature.properties.name||feature.properties.NAME));
@@ -178,9 +199,9 @@ async function attach({map,shape,route,extra,fallbackLayer}){
   }
  });countyGeo.addTo(countyLayers);
  for(const town of conf.towns){
-  if(!Number.isFinite(town.lat)||!Number.isFinite(town.lon)||!lookup.has(nrm(town.county)))throw Error("Town metadata malformed: "+town.name);
+  if(!Number.isFinite(town.lat)||!Number.isFinite(town.lon)||!Number.isInteger(town.population2020)||town.population2020<100||!lookup.has(nrm(town.county)))throw Error("Town metadata malformed: "+town.name);
   const pin=L.circleMarker([town.lat,town.lon],{radius:7,color:"#fffefa",weight:2,fillColor:"#244a61",fillOpacity:1});
-  pin.bindTooltip(town.name,{direction:"top",opacity:.95});
+  pin.bindTooltip(town.name+" · "+fmt(town.population2020)+" people (2020)",{direction:"top",opacity:.95});
   pin.on("click",()=>chosenTown(town.name));pin.addTo(townLayers);towns.set(town.name,pin);
  }
  const group=$("dossier-map-town-links");if(group)group.replaceChildren();
@@ -201,7 +222,7 @@ async function attach({map,shape,route,extra,fallbackLayer}){
    legend.textContent="2024 COUNTY WINNER · BLUE: BOHANNAN (D) · RED: MILLER-MEEKS (R) · DARKER: LARGER TWO-PARTY MARGIN";
   }else if(mode==="towns"){
    if(map.hasLayer(countyLayers))map.removeLayer(countyLayers);
-   townLayers.addTo(map);details.replaceChildren(townCard(conf.towns[0],extra,desk));
+   townLayers.addTo(map);details.replaceChildren(cityPopulationOverview());
    map.fitBounds(shape.getBounds(),{padding:[24,24],maxZoom:9});
    activeCounty=null;activeTown=null;
    legend.textContent="PIN = CITY CENTER · EMPLOYERS ARE CITY-LEVEL CONTEXT, NOT PLOTTED FACTORY LOCATIONS";
