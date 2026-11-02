@@ -93,6 +93,7 @@ function partySeal(code){
  const wrap=newEl("span",null,"party-seal-group");wrap.append(seal,lab);
  return wrap;
 }
+window.PoliticsHouseIdentity=Object.freeze({portrait:(r,c)=>portraitNode(r,c,true),seal:partySeal});
 function stateStamp(code,cl){
  if(!window.PoliticsStateArt)return newEl("span",code,cl+" state-art-fallback");
  const stamp=newEl("span",null,cl);
@@ -706,6 +707,7 @@ function renderDistrict(a){
    let box=$("map-warning");box.hidden=false;box.textContent="2026 district geography changed in "+state.name+". A 2024 race with the same district number may include different voters. We do not use its margin as a 2026 forecast or shade for this district.";
  }
  candidatePanel(r);pollPanel(r);resultPanel(r,state);
+ if(window.PoliticsIowaDesk)window.PoliticsIowaDesk.render(r,state);
  const stateIds=a.districts.filter(x=>x.state===r.state).sort((x,y)=>x.district.localeCompare(y.district));
  const n=stateIds.findIndex(x=>x.id===r.id),prev=stateIds[(n-1+stateIds.length)%stateIds.length],next=stateIds[(n+1)%stateIds.length];
  $("prev-district").href=urlForDistrict(prev.id);$("prev-district").textContent="← "+prev.id;
