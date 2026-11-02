@@ -8,7 +8,15 @@ const men=cross.teams;
 assert.equal(men.length,365);
 assert.equal(Object.keys(reg.teams).length,365);
 assert.equal(feature.schema,'slt-arena-file-v1');
-assert.equal(Object.keys(feature.features).length,1);
+assert.equal(Object.keys(feature.features).length,5);
+for(const id of ['84','150','2305','153','2509']){
+ const school=men.find(t=>t.espn_id===id);
+ const profile=arena.compose(school,reg,feature);
+ assert(profile.verified&&profile.hasDeepProfile&&profile.photo,'featured arena sources missing '+id);
+ assert(profile.sources.some(x=>/^https:\/\//.test(x.url)),'no athletics citation for '+id);
+ assert(/^https:\/\//.test(profile.photo.license_url),'image license missing for '+id);
+}
+assert.equal(feature.features['2509'].capacity,null,'conflicting Mackey seating totals must not be guessed');
 const indiana=men.find(t=>t.espn_id==='84');
 const p=arena.compose(indiana,reg,feature);
 assert.equal(p.arena,'Simon Skjodt Assembly Hall');
