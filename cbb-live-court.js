@@ -7,8 +7,13 @@ const score=v=>v===null||v===undefined||v===''||!Number.isSafeInteger(Number(v))
 const teamColor=(t,fallback)=>{const raw=String(t?.team?.color||'').replace(/^#/,'');
  if(/^[a-f0-9]{6}$/i.test(raw)&&raw.toLowerCase()!=='ffffff')return '#'+raw;
  return global.MBBLogos?.colorForESPN?.(t?.team?.id)?.primary||fallback;};
-const sideName=t=>String(t?.team?.shortDisplayName||t?.team?.abbreviation||t?.team?.displayName||'TEAM')
- .trim().slice(0,27).toUpperCase();
+const sideName=t=>{
+ const id=String(t?.team?.id||'');
+ const canonical=t?.team?.schoolLabel||global.MBBLogos?.schoolNameForESPN?.(id)||'';
+ const short=String(t?.team?.shortDisplayName||'').trim();
+ const fallback=short.length>2?short:t?.team?.displayName||t?.team?.name||'TEAM';
+ return String(canonical||fallback).trim().replace(/\bSt\.$/,'State').toUpperCase();
+};
 function parsePlays(data){
   let raw=data?.plays;
   if(!Array.isArray(raw))raw=raw?.items||data?.gamepackageJSON?.plays||data?.playByPlay?.plays||[];
@@ -139,7 +144,7 @@ const lines='<svg viewBox="0 0 940 500" preserveAspectRatio="none" aria-hidden="
  '<circle cx="74" cy="250" r="15" fill="none" stroke="currentColor" stroke-width="3"/>'+
  '<circle cx="866" cy="250" r="15" fill="none" stroke="currentColor" stroke-width="3"/>'+
  '</svg>';
-function name(t){return t?.team?.abbreviation||t?.team?.shortDisplayName||t?.team?.displayName||'Team';}
+function name(t){return sideName(t);}
 function stop(c){if(c.timer){clearInterval(c.timer);c.timer=null;}}
 function draw(c){
   const g=c.game,plays=c.plays,selected=c.follow?plays.at(-1):plays.find(p=>p.id===c.selected)||plays.at(-1);
