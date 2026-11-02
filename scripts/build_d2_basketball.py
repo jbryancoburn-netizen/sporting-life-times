@@ -1112,6 +1112,14 @@ def update(gender, bootstrap=False, live=False):
     gac_quality=previous_quality.get("official_gac_schedule_reconciliation")
     if not rapid or not gac_quality:
         gac_quality=enrich_gac(gender,games,teams,today,previous=gac_quality)
+    # Peach Belt 2026-27: all eleven university grids per gender. Admit only
+    # exact two-school corroborated date/H-A matchups, with Eastern tipoffs
+    # applied solely when both independent university calendars agree.
+    from d2_pbc_official import enrich_pbc
+    pbc_quality=previous_quality.get("official_pbc_schedule_reconciliation")
+    if (not rapid or not pbc_quality or
+        pbc_quality.get("status")!="PBC 2026-27 two-school official fixtures verified"):
+        pbc_quality=enrich_pbc(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1204,7 +1212,8 @@ def update(gender, bootstrap=False, live=False):
         "official_rmac_schedule_reconciliation":rmac_quality,
         "official_nsic_schedule_reconciliation":nsic_quality,
         "official_carolinas_schedule_reconciliation":carolinas_quality,
-        "official_gac_schedule_reconciliation":gac_quality}
+        "official_gac_schedule_reconciliation":gac_quality,
+        "official_pbc_schedule_reconciliation":pbc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:

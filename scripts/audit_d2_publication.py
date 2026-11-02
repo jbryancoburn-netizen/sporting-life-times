@@ -138,6 +138,7 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         ("NSIC fixtures", "official_nsic_schedule_reconciliation"),
         ("Carolinas fixtures", "official_carolinas_schedule_reconciliation"),
         ("GAC fixtures", "official_gac_schedule_reconciliation"),
+        ("PBC fixtures", "official_pbc_schedule_reconciliation"),
     ):
         source = q.get(quality_name) or {}
         if not source:
@@ -149,6 +150,7 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
             "games_enriched", "enriched", "evidence_rows", "matched",
             "unmatched", "conflicted", "quarantined", "time_conflicts",
             "time_disagreements", "unreciprocated", "single_school_only",
+            "official_tipoffs",
             "source",
         )
         small = {k: source[k] for k in keys if k in source and
