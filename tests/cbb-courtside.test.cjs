@@ -338,3 +338,5 @@ assert(courtCSS.includes('prefers-reduced-motion'),'accessible reduced-motion st
 assert(!courtSource.includes("function location(play,g)"), 'remove guessed team-side event positions');
 assert(!courtCSS.includes('.slc-ball{'), 'CSS for invented moving ball must be eliminated');
 console.log('PASS Courtside: live/snapshot separation, away/home, verified notes, gender-isolated Elo, neutral/site/stale model checks, navigation, no logo overlay.');
+// The existing publisher runs this check; enforce the new functional slate contract as well.
+require('./ncaam-slate.test.cjs');
