@@ -571,7 +571,7 @@ function gamePage(){
   '<nav class="nfl-feature-tabs" aria-label="Sections of the NFL game report">'+
   '<a href="#nfl-story-turn" class="is-current">Game Story</a>'+
   '<a href="#nfl-story-model">USRS Model</a>'+
-  '<a href="#nfl-game-live-data">Live &amp; Game Stats</a>'+
+  '<a href="#nfl-live-game-data">Live &amp; Game Stats</a>'+
   '<a href="#nfl-game-deep-dive">Full Box Score</a></nav>'+
   '<section class="nfl-feature-hero" aria-label="'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+' '+escapeHtml(status)+'">'+
   '<div class="nfl-feature-fabric fabric-away" aria-hidden="true"></div>'+
