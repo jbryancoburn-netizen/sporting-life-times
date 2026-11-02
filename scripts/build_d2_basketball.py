@@ -949,8 +949,12 @@ def parse_dii_live_school_grid(html, record):
     gender = record["gender"]
     if gender not in ("men", "women") or not url.startswith("https://"):
         raise ValueError("Invalid official calendar identity/source")
-    if (("/sports/mens-basketball/schedule/2026-27" if gender == "men"
-         else "/sports/womens-basketball/schedule/2026-27") not in url):
+    # University SIDEARM sites independently use either 2026-27 or
+    # 2026-2027. Require the correct sport and CURRENT academic season.
+    expected_sport = "mens" if gender == "men" else "womens"
+    if not re.search(
+            rf"/sports/{expected_sport}-basketball/schedule/2026-(?:27|2027)(?:[/?]|$)",
+            url):
         raise ValueError("University schedule URL must identify 2026-27 gender")
     soup = BeautifulSoup(html, "html.parser")
     title = soup.title.get_text(" ", strip=True) if soup.title else ""
