@@ -73,6 +73,62 @@ OFFICIAL_NAME_ALIASES={
  "26":("ucla",),
  "25":("cal", "california"),
 }
+# Short, exact official-school labels recovered from 2026-27 women-only
+# university schedule rows. ESPN team IDs are the authority for identity.
+# Match the ENTIRE printed opponent name: Penn must not mean Penn State,
+# Ohio must not mean Ohio State, and Utah must not mean Utah State.
+OFFICIAL_SHORT_ALIASES={
+ "5":("uab",),
+ "23":("san jose state",),
+ "43":("yale",),
+ "55":("jax state",),
+ "58":("usf",),
+ "82":("uic",),
+ "85":("iu indy",),
+ "98":("wku",),
+ "99":("lsu",),
+ "113":("umass",),
+ "195":("ohio",),
+ "219":("penn",),
+ "232":("college of charleston",),
+ "242":("rice",),
+ "249":("north texas","university of north texas"),
+ "252":("byu",),
+ "254":("utah",),
+ "292":("utrgv",),
+ "314":("iona",),
+ "349":("army","army west point"),
+ "350":("uncw",),
+ "2006":("akron","university of akron"),
+ "2026":("appalachian state",),
+ "2115":("ccsu","central connecticut state"),
+ "2116":("ucf",),
+ "2193":("etsu",),
+ "2210":("elon",),
+ "2229":("fiu",),
+ "2277":("hcu",),
+ "2349":("umass lowell",),
+ "2351":("lmu",),
+ "2378":("umbc",),
+ "2379":("umes",),
+ "2426":("navy",),
+ "2433":("ulm",),
+ "2439":("unlv",),
+ "2443":("new orleans",),
+ "2460":("uni",),
+ "2463":("csun",),
+ "2546":("semo",),
+ "2565":("siue",),
+ "2567":("smu",),
+ "2628":("tcu",),
+ "2636":("utsa",),
+ "2638":("utep",),
+ "2755":("grambling state",),
+ "2885":("njit",),
+ "2908":("usc upstate",),
+ "112358":("liu",),
+}
+
 def official_opponent_matches(source,game,safe_stems):
  raw=str(source or "")
  segments=re.split(r"\b(?:vs\.?|at|@)\s+",raw,flags=re.I)
@@ -99,6 +155,9 @@ def official_opponent_matches(source,game,safe_stems):
    continue
   if oppid=="309" and any(p in full for p in ("louisianatech","southeasternlouisiana","louisianamonroe")):
    continue
+  return True
+ # Exact short labels cannot be accepted as prefixes of another program.
+ if any(text==normalize(alias) for alias in OFFICIAL_SHORT_ALIASES.get(oppid,())):
   return True
  return False
 

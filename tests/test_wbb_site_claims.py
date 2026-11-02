@@ -79,5 +79,28 @@ class OfficialSites(unittest.TestCase):
   self.assertTrue(all(x["verified_fields"]==["scheduled_date","opponent"] for x in result["evidence"]))
 
 
+ def test_curated_short_names_match_correct_women_teams_only(self):
+  examples=[
+   ("TCU","2628","TCU Horned Frogs"),
+   ("Navy","2426","Navy Midshipmen"),
+   ("BYU","252","BYU Cougars"),
+   ("IU Indy","85","IU Indianapolis Jaguars"),
+   ("LMU","2351","Loyola Marymount Lions"),
+   ("CSUN","2463","Cal State Northridge Matadors"),
+   ("Penn","219","Pennsylvania Quakers"),
+   ("USC Upstate","2908","South Carolina Upstate Spartans"),
+   ("CCSU","2115","Central Connecticut Blue Devils"),
+  ]
+  for short,tid,full in examples:
+   with self.subTest(alias=short):
+    self.assertTrue(mod.official_opponent_matches(short,{"opponent_id":tid,"opponent":full},{}))
+    self.assertTrue(mod.official_opponent_matches("at "+short,{"opponent_id":tid,"opponent":full},{}))
+  self.assertFalse(mod.official_opponent_matches("Penn State",{"opponent_id":"219","opponent":"Pennsylvania Quakers"},{}))
+  self.assertFalse(mod.official_opponent_matches("Ohio State",{"opponent_id":"195","opponent":"Ohio Bobcats"},{}))
+  self.assertFalse(mod.official_opponent_matches("Utah State",{"opponent_id":"254","opponent":"Utah Utes"},{}))
+  self.assertFalse(mod.official_opponent_matches("TCU",{"opponent_id":"252","opponent":"BYU Cougars"},{}))
+  self.assertFalse(mod.official_opponent_matches("BYU",{"opponent_id":"2628","opponent":"TCU Horned Frogs"},{}))
+
+
 if __name__=="__main__":
  unittest.main()
