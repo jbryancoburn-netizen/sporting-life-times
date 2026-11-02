@@ -413,16 +413,16 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
 
     q = data.get("quality") or {}
     scan = q.get("full_season_scan") or {}
-    # Older date-scan flags are NOT a substitute for institution-level proof.
+    # Date scan alone never certifies an institution's entire fixture list.
     complete_school_schedules = False
-    if not complete_school_schedules:
-        warnings.append("A completed date scan is NOT a certified set of school schedules")
     if missing_source:
         warnings.append(f"{missing_source} fixtures have no traceable source URL")
     coverage = q.get("field_coverage") or {}
     school_gaps = school_schedule_coverage(teams, games)
     school_certification = full_season_school_certification(gender, teams, games, data_dir)
     complete_school_schedules = (school_certification["uncertified_schools"] == 0)
+    if not complete_school_schedules:
+        warnings.append("A completed date scan is NOT a certified set of school schedules")
     reported_zero = coverage.get("schools_with_no_published_fixtures")
     if reported_zero is not None and reported_zero != school_gaps["without_games"]:
         warnings.append("Stored school coverage differs from the live ledger; school-by-school report is authoritative")
@@ -529,7 +529,10 @@ def main() -> None:
         "schema": 1,
         "season": "2026-27",
         "independent_elo_start": 1500,
-        "status": "BLOCKED" if men_errors or women_errors else "PASS — school schedules remain uncertified",
+        "status": ("BLOCKED" if men_errors or women_errors else
+                   ("PASS — all eligible full school schedules independently certified"
+                    if men["school_schedule_certified"] and women["school_schedule_certified"]
+                    else "PASS — school schedules remain uncertified")),
         "men": men,
         "women": women,
         "cross_gender_logo_palette_conflicts": mismatch[:30],
