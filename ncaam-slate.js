@@ -121,7 +121,7 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
-let cross={teams:[]},palette={},arenaRegistry={};
+let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map();
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
 let followed=new Set();
 try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(String))}catch{}
@@ -176,32 +176,51 @@ const homeProfile=g=>{
   if(!name||!/^https:\/\/[^\s"'<>]+$/i.test(source))return null;
   return {name,source};
 };
-const tonal=(t)=>'--sl-tone:'+brand(t)+';--sl-highlight:'+secondary(t);
-const metricValue=n=>Number.isFinite(Number(n))?String(Math.round(Number(n))):'—';
-const pennant=t=>'<div class="sl-pennant" style="--pennant:'+brand(t)+';--pennant-accent:'+secondary(t)+'">'+
- '<span class="sl-pennant-rivet" aria-hidden="true"></span>'+
- '<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
- '<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
- '<strong class="sl-pennant-mascot">'+esc(mascot(t)||'BASKETBALL')+'</strong></div>';
+// These are editorial school pennants, not claims about actual arena
+// banners, championship wins or physical architectural features.
+const pennant=t=>{
+ const i=Number(t.id),cut=Number.isSafeInteger(i)?i%3:0;
+ const shape=['tail','point','shield'][cut],link=teamPage(t);
+ const open=link?'<a href="'+esc(link)+'" aria-label="View '+esc(t.name)+' team page"':'<div';
+ const close=link?'</a>':'</div>';
+ const elo=rating(t),nickname=mascot(t);
+ return open+' class="sl-pennant sl-pennant--'+shape+
+   '" style="--pennant:'+brand(t)+';--pennant-accent:'+secondary(t)+'">'+
+   '<span class="sl-pennant-seam" aria-hidden="true"></span>'+
+   '<span class="sl-pennant-rivet" aria-hidden="true"></span>'+
+   '<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
+   '<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
+   '<strong class="sl-pennant-mascot">'+esc(nickname||t.name)+'</strong>'+
+   (elo!==null?'<span class="sl-pennant-rating">USRS '+elo+'</span>':'')+close;
+};
 const arenaStage=g=>{
-  const profile=homeProfile(g),venue=String(g.venue||'').trim();
-  const intro=venue?'GAME VENUE':profile?'THE HOME-COURT FILE':'THE MATCHUP FLOOR';
-  const name=venue||profile?.name||'COLLEGE BASKETBALL';
-  const source=venue?'SOURCED GAME LOCATION':profile?'SCHOOL ARENA REFERENCE · NOT A VERIFIED GAME SITE':'EDITORIAL COURT GRAPHIC';
-  const link=profile&&!venue?'<a href="'+esc(profile.source)+'" target="_blank" rel="noopener noreferrer">Arena source ↗</a>':'';
-  return '<div class="sl-arena-stage" aria-label="Team-color matchup pennants and documented arena context">'+
-   '<div class="sl-arena-gallery"><div class="sl-arena-wordmark" aria-hidden="true">'+
-   esc(mascot(g.home)||g.home.name)+'</div><div class="sl-stage-beam" aria-hidden="true"></div>'+
-   '<div class="sl-pennant-row">'+pennant(g.away)+
-   '<div class="sl-stage-mid" aria-hidden="true"><span>SL<span class="sl-mid-dot">•</span>T</span><small>MATCHUP</small></div>'+
-   pennant(g.home)+'</div><div class="sl-floor-graphic" aria-hidden="true">'+
-   '<span class="sl-floor-half"></span><span class="sl-floor-circle"></span><span class="sl-floor-key"></span></div></div>'+
-   '<div class="sl-arena-caption"><div><small>'+esc(intro)+'</small><strong>'+esc(name)+'</strong>'+
-   '<span>'+esc(source)+'</span></div>'+link+'</div></div>';
+ const profile=homeProfile(g),venue=String(g.venue||'').trim();
+ const intro=venue?'GAME VENUE':profile?'THE HOME-COURT FILE':'VENUE NOT REPORTED';
+ const name=venue||profile?.name||'Venue not confirmed';
+ const source=venue?'VENUE REPORTED BY GAME FEED':profile?
+   'DOCUMENTED SCHOOL HOME COURT · NOT CONFIRMED FOR THIS GAME':'VENUE AWAITING SOURCE';
+ const link=profile&&!venue?'<a href="'+esc(profile.source)+
+   '" target="_blank" rel="noopener noreferrer">University source ↗</a>':'';
+ const arenaVariation=Number(g.home.id)%3;
+ const architecture=['rafters','gallery','grandstand'][Number.isFinite(arenaVariation)?arenaVariation:0];
+ return '<div class="sl-arena-stage" aria-label="Editorial school pennants, basketball court illustration and sourced venue information">'+
+  '<div class="sl-arena-gallery sl-arena--'+architecture+'">'+
+  '<div class="sl-stands" aria-hidden="true"></div>'+
+  '<div class="sl-arena-wordmark" aria-hidden="true">'+esc(mascot(g.home)||g.home.name)+'</div>'+
+  '<div class="sl-stage-beam" aria-hidden="true"></div>'+
+  '<div class="sl-pennant-row">'+pennant(g.away)+
+  '<div class="sl-stage-mid" aria-hidden="true"><span>VS</span><small>THE SLATE</small></div>'+
+  pennant(g.home)+'</div>'+
+  '<div class="sl-floor-graphic" aria-hidden="true"><span class="sl-floor-half"></span>'+
+  '<span class="sl-floor-circle"></span><span class="sl-floor-key"></span></div>'+
+  '<span class="sl-arena-spotlight" aria-hidden="true"></span></div>'+
+  '<div class="sl-arena-caption"><div><small>'+esc(intro)+'</small>'+
+  '<strong>'+esc(name)+'</strong><span>'+esc(source)+'</span></div>'+link+'</div></div>';
 };
 const emblem=t=>{
-  if(!women&&window.MBBLogos?.byESPN)return window.MBBLogos.byESPN(t.id,'featured',t.name);
-  const obj=rankings.get(String(t.id))||{},logo=String(obj.logo||'');
+  if(window.MBBLogos?.byESPN&&palette[String(t.id)])
+    return window.MBBLogos.byESPN(t.id,'featured',t.name);
+  const obj=womenTeams.get(String(t.id))||ratings.get(String(t.id))||{},logo=String(obj.logo||'');
   const primary=brand(t),secondary=palette[String(t.id)]?.secondary||'#b39a65';
   const safe=/^https:\/\/[^\s"'<>]+$/i.test(logo)?logo:'';
   return '<span class="sl-emblem" style="--ring1:'+esc(primary)+';--ring2:'+esc(secondary)+'">'+
@@ -316,13 +335,14 @@ async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
   const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json'];
-  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json'];
+  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
   if(women){
-    const [results,rank,c,pal]=output;
+    const [results,rank,c,pal,wTeams]=output;
     if(!results||rank?.gender!=='women'||rank.starting_elo!==1500)throw Error('Women’s game or rating data unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.wbb||pal?.mbb||{};
+    womenTeams=new Map((wTeams?.teams||[]).map(t=>[String(t.team_id),t]));
     loaded=normalizeWomen(results,rank,cross);
     lastUpdate='women’s rolling fixture ledger';
   }else{
