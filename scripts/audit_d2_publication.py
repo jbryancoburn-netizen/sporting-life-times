@@ -137,6 +137,7 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
         ("RMAC fixtures", "official_rmac_schedule_reconciliation"),
         ("NSIC fixtures", "official_nsic_schedule_reconciliation"),
         ("Carolinas fixtures", "official_carolinas_schedule_reconciliation"),
+        ("PBC fixtures", "official_pbc_schedule_reconciliation"),
         ("GAC fixtures", "official_gac_schedule_reconciliation"),
     ):
         source = q.get(quality_name) or {}
