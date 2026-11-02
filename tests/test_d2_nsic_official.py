@@ -39,6 +39,19 @@ class TestNsic(unittest.TestCase):
         self.assertFalse(set(SOURCES["men"]) & set(SOURCES["women"]))
         self.assertEqual(school("Wayne State College (Nebraska)"),"wayne")
         self.assertEqual(school("Concordia University, St. Paul"),"concordia")
+    def test_moorhead_uses_full_official_2026_27_school_name(self):
+        for gender in ("men","women"):
+            sid=next(k for k,v in SOURCES[gender].items() if v=="MSU Moorhead")
+            rows,rejected=parse(html(gender,"Minnesota State University Moorhead",
+                                     "at Augustana",role="A"),gender,sid)
+            self.assertEqual(len(rows),1)
+            self.assertEqual(rows[0][1],"moorhead")
+            self.assertEqual(rows[0][2],"augustana")
+            self.assertEqual(rejected,0)
+            # Mankato is a DIFFERENT school, not a spelling of Moorhead.
+            with self.assertRaises(ValueError):
+                parse(html(gender,"Minnesota State University Mankato",
+                           "at Augustana",role="A"),gender,sid)
     def test_genders_and_home_away_roles_are_strict(self):
         sid=next(iter(SOURCES["men"]));n=SOURCES["men"][sid]
         with self.assertRaises(ValueError):parse(html("women",n,"Bemidji State"),"men",sid)
