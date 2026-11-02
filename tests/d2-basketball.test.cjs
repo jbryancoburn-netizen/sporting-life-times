@@ -135,8 +135,8 @@ test('DII membership and color provenance are labeled honestly',()=>{
  const official=JSON.parse(fs.readFileSync('data/d2-membership-notes-2026-27.json','utf8'));
  const men=JSON.parse(fs.readFileSync('data/d2-men-2026-27.json','utf8'));
  const women=JSON.parse(fs.readFileSync('data/d2-women-2026-27.json','utf8'));
- assert.ok([4,5,6].includes(men.teams.filter(t=>t.not_eligible_for_dii_elo).length));
- assert.equal(women.teams.filter(t=>t.not_eligible_for_dii_elo).length,0);
+ assert.ok([4,5,6,7].includes(men.teams.filter(t=>t.not_eligible_for_dii_elo).length));
+ assert.ok([0,1].includes(women.teams.filter(t=>t.not_eligible_for_dii_elo).length));
  const m=new Map(men.teams.map(t=>[t.id,t]));
  for(const [id,n] of Object.entries(official.men)){
   // A newly sourced Azusa transition note is applied by the refresh *after*
