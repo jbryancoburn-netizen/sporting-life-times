@@ -236,7 +236,8 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
             "games_enriched", "enriched", "evidence_rows", "matched",
             "unmatched", "conflicted", "quarantined", "time_conflicts",
             "time_disagreements", "unreciprocated", "single_school_only",
-            "official_tipoffs", "reciprocal_matchups", "one_sided",
+            "official_tipoffs", "reciprocal_matchups", "reciprocal", "one_sided",
+            "official_tipoffs_added", "official_arenas_added",
             "conflicts", "mutually_verified_eastern_tipoffs", "school_grids_read",
             "source",
         )
