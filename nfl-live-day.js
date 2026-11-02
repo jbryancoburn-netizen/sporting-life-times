@@ -196,14 +196,14 @@ function boxRows(summary){
   ["Time of possession","possessionTime"]].filter(row=>a[row[1]]!=null||h[row[1]]!=null);
  if(!rows.length)return '<p>Live team totals pending.</p>';
  let out='<section class="nfl-live-stats-graphic"><div class="nfl-live-metric-head"><span>FIELD PERFORMANCE</span><strong>'+
-  html(summary.__awayCode)+' · '+html(summary.__homeCode)+'</strong></div>';
+  '<span class="nfl-metric-identity away">'+html(summary.__awayCode)+'</span> <span class="nfl-metric-vs">/</span> <span class="nfl-metric-identity home">'+html(summary.__homeCode)+'</span></strong></div>';
  rows.forEach(([label,key])=>{
   const av=numeric(a[key]),hv=numeric(h[key]),total=Math.max(1,Math.max(0,av||0)+Math.max(0,hv||0));
   const aw=av==null||hv==null||(av===0&&hv===0)?50:100*Math.max(0,av)/total,hw=100-aw;
-  out+='<div class="nfl-live-metric"><span class="label">'+html(label)+'</span>'+
-   '<div class="nfl-live-metric-values"><b>'+html(a[key]??"—")+'</b>'+
+  out+='<div class="nfl-live-metric" data-metric="'+html(key)+'"><span class="label">'+html(label)+'</span>'+
+   '<div class="nfl-live-metric-values"><b class="nfl-metric-away">'+html(a[key]??"—")+'</b>'+
    '<div class="nfl-live-metric-bars" aria-hidden="true"><i style="width:'+aw.toFixed(2)+'%"></i>'+
-   '<em style="width:'+hw.toFixed(2)+'%"></em></div><b>'+html(h[key]??"—")+'</b></div></div>';
+   '<em style="width:'+hw.toFixed(2)+'%"></em></div><b class="nfl-metric-home">'+html(h[key]??"—")+'</b></div></div>';
  });
  return out+'</section>';
 }
@@ -298,7 +298,7 @@ function offlinePlayers(verified){
  return '<div class="nfl-live-performers"><div class="nfl-story-leaders-head"><h3>THE PLAYER REPORT</h3>'+
   '<span>VERIFIED GAME LEADERS · BOTH CLUBS</span></div><div class="nfl-live-performance-grid">'+
   spots.map(p=>'<div class="nfl-live-performance" style="--spotlight-color:'+
-   (p.team===game.away.code?'var(--nfl-story-away)':'#5390cd')+'">'+
+   (p.team===game.away.code?'var(--nfl-story-away)':'var(--nfl-story-home)')+'">'+
    '<img loading="lazy" src="'+html(p.headshot||"")+'" alt=""><div><small class="nfl-story-player-kind">'+
    html(p.team+' · '+p.kind+' LEADER')+'</small><b>'+html(p.name)+'</b><span>VERIFIED YARDS</span></div>'+
    '<strong>'+html(p.value)+'</strong></div>').join("")+'</div></div>';
@@ -314,6 +314,57 @@ async function renderVerifiedGame(target){
   '<div class="nfl-live-detail-grid"><div>'+boxRows(summary)+'</div><div><h3>SCORING BY PERIOD</h3>'+
   offlineQuarters(v)+'</div></div>'+offlinePlayers(v);
  target.dataset.nflVerifiedFallback="1";
+}
+
+
+/* Source-only in-progress quarter chart; no speculative scoring. */
+function paintVerifiedScoreTrend(summary,match,box){
+ const holder=document.querySelector(".nfl-paper[data-page='game'] .nfl-feature-chart");
+ if(!holder)return;
+ const scores=arr(summary.scoringPlays).map(p=>({
+  period:Number(p.period?.number||p.period||0),
+  away:p.awayScore==null?NaN:Number(p.awayScore),
+  home:p.homeScore==null?NaN:Number(p.homeScore),
+  time:Number(p.clock?.value)
+ })).filter(p=>p.period>=1&&Number.isFinite(p.away)&&Number.isFinite(p.home))
+ .sort((a,b)=>a.period-b.period||(Number.isFinite(b.time)?b.time:0)-(Number.isFinite(a.time)?a.time:0));
+ if(!scores.length)return;
+ const actualPeriod=Number(match?.status?.period||summary.header?.competitions?.[0]?.status?.period||0);
+ const through=Math.max(1,Math.min(9,Math.max(actualPeriod,...scores.map(p=>p.period))));
+ const quarters=Math.max(4,through);
+ let av=0,hv=0;
+ const away=[0],home=[0];
+ for(let q=1;q<=through;q++){
+  const group=scores.filter(p=>p.period===q);
+  if(group.length){av=group[group.length-1].away;hv=group[group.length-1].home;}
+  away.push(av);home.push(hv);
+ }
+ const max=Math.max(7,Math.ceil(Math.max(...away,...home)/7)*7);
+ const X=i=>49+(i/quarters)*515;
+ const Y=v=>175-(v/max)*139;
+ const line=vals=>vals.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+ const dot=(vals,cl)=>vals.slice(1).map((v,i)=>'<circle class="'+cl+'" cx="'+X(i+1).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="5"></circle>').join("");
+ const grid=Array.from({length:4},(_,i)=>{
+  const val=Math.round(max*i/3),y=Y(val);
+  return '<line class="nfl-feature-chart-guide" x1="49" x2="564" y1="'+y+'" y2="'+y+'"></line>'+
+   '<text class="nfl-feature-chart-tick" x="39" y="'+(y+4)+'" text-anchor="end">'+val+'</text>';
+ }).join("");
+ const ticks=Array.from({length:quarters},(_,i)=>
+  '<text class="nfl-feature-chart-quarter'+(i+1>through?' is-future':'')+
+  '" x="'+X(i+1)+'" y="210" text-anchor="middle">'+(i<4?'Q'+(i+1):'OT'+(i-3))+'</text>').join("");
+ const current=match?.status?.type?.state==='post'?'FINAL':through<=4?'Q'+through:'OT'+(through-4);
+ const aria='Verified scoring play progression: '+box.__awayCode+' '+away.slice(1).join(", ")+
+  '; '+box.__homeCode+' '+home.slice(1).join(", ")+'.';
+ const node=holder.querySelector(".nfl-score-live-preview,.nfl-story-arc,.nfl-live-scoring-timeline");
+ if(!node)return;
+ node.outerHTML='<div class="nfl-live-scoring-timeline" role="img" aria-label="'+html(aria)+'">'+
+ '<svg viewBox="0 0 610 220" aria-hidden="true">'+grid+
+ '<path class="arc-away" d="'+line(away)+'"></path><path class="arc-home" d="'+line(home)+'"></path>'+
+ dot(away,'arc-away-dot')+dot(home,'arc-home-dot')+ticks+'</svg>'+
+ '<div class="nfl-live-scoring-footer"><strong>'+html(current)+'</strong>'+
+ '<span>SOURCED SCORING PLAYS · '+html(box.__awayCode)+' '+av+' / '+html(box.__homeCode)+' '+hv+'</span></div></div>';
+ const heading=holder.querySelector(".nfl-feature-chart-header>span");
+ if(heading)heading.textContent="Verified scoring progression";
 }
 
 async function gameDetails(){
@@ -333,6 +384,7 @@ async function gameDetails(){
    [box.__awayCode,box.__homeCode].map(code=>gameLeaders.filter(p=>p.kind===kind&&p.team===code)
      .sort((x,y)=>y.value-x.value)[0]).filter(Boolean));
   const isFinal=status.type?.state==="post";
+  paintVerifiedScoreTrend(d,match,box);
   const recentScoring=isFinal&&arr(d.scoringPlays).length>0;
   target.innerHTML='<div class="nfl-live-head"><div><span class="nfl-live-kicker">03 / VERIFIED GAME REPORT</span>'+
    '<h2>'+(isFinal?'Inside the final':html(state))+'</h2></div>'+
