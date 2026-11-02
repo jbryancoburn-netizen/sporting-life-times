@@ -40,7 +40,8 @@
   const code=t=>schoolLabel(t);
   const mascotLabel=t=>{
     const full=String(t?.team?.displayName||t?.team?.name||'').trim();
-    const school=schoolLabel(t);
+    const school=schoolLabel(t),id=String(t?.team?.id||'');
+    if(school==='Queens (NC)'&&/^Queens University Royals$/i.test(full))return 'Royals';
     const nickname=full.toLowerCase().startsWith(school.toLowerCase())?
       full.slice(school.length).trim():'';
     return nickname||(!full.toLowerCase().includes(school.toLowerCase())?full:'');
@@ -938,7 +939,10 @@
     const menRegistry=new Map((xref?.teams||[]).map(t=>[String(t.id),String(t.espn_id)]));
     for(const t of xref?.teams||[]){
       state.crosswalk.set(String(t.espn_id),String(t.id));
-      if(t.name)state.schoolNames.set(String(t.espn_id),fullSchool(t.name));
+      if(t.name){
+        state.schoolNames.set(String(t.espn_id),fullSchool(t.name));
+        state.schoolNames.set(String(t.id),fullSchool(t.name));
+      }
     }
     const expected=women?363:365;
     const validRatings=ratings?.season===season&&ratings?.model==='retro-clean-slate'&&ratings?.starting_elo===1500&&
