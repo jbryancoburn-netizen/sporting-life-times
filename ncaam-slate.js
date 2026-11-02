@@ -207,6 +207,38 @@ const homeProfile=g=>{
 };
 // These are editorial school pennants, not claims about actual arena
 // banners, championship wins or physical architectural features.
+// Editorial badges use a small vetted NCAA title ledger; unknown teams never get invented stars.
+const ncaaTitles={
+ men:{'26':11,'96':8,'153':6,'41':6,'150':5,'84':5,'2305':4,'57':3,'130':2,'97':2},
+ women:{'41':12,'26':1}
+};
+const titleSource={men:'https://www.ncaa.com/history/basketball-men/d1',women:'https://www.ncaa.com/history/basketball-women/d1'};
+const rivalryLedger={
+ '150|153':{name:'Tobacco Road',source:'https://goduke.com/news/2026/3/6/mens-basketball-top-ranked-duke-hosts-no-17-unc-in-rivalry-clash'},
+ '84|2509':{name:'Indiana–Purdue',source:'https://www.dukebasketballreport.com/2024/9/1/24232760/the-best-rivalries-college-basketball-duke-north-carolina-cincinnati-xavier-indiana-purdue'},
+ '96|97':{name:'Battle for the Bluegrass',source:'https://news.bet365.com/en-us/article/10-best-rivalries-in-mens-college-basketball/2023121516070914571'},
+ '84|96':{name:'Indiana–Kentucky',source:'https://www.lucasoilstadium.com/event/iu-vs-uk-mens-basketball/'}
+};
+const titleMarks=t=>{
+ const count=(ncaaTitles[women?'women':'men']||{})[String(t.id)]||0;
+ if(!count)return '';
+ return '<span class="sl-title-stars" title="'+count+' NCAA Division I national title'+(count===1?'':'s')+'" aria-label="'+count+' NCAA national championships">'+
+   '<span aria-hidden="true">'+(count<=6?'★'.repeat(count):'★')+'</span>'+
+   (count>6?'<b>×'+count+'</b>':'')+'</span>';
+};
+const editorialBadges=g=>{
+ if(g.kind==='exhibition')return '';
+ const key=[String(g.away.id),String(g.home.id)].sort((a,b)=>Number(a)-Number(b)).join('|');
+ const rivalry=!women?rivalryLedger[key]:null;
+ const tags=[];
+ if(rivalry)tags.push('<a class="sl-editorial-badge sl-rivalry" href="'+esc(rivalry.source)+'" target="_blank" rel="noopener noreferrer" title="Verified rivalry source">RIVALRY · '+esc(rivalry.name)+' ↗</a>');
+ if(g.phase==='upcoming'&&Number.isFinite(g.probability)){
+  const underdog=Math.min(g.probability,1-g.probability),eloGap=Math.abs((rating(g.away)||1500)-(rating(g.home)||1500));
+  if(underdog>=0.30&&underdog<=0.45&&eloGap>=40)
+   tags.push('<span class="sl-editorial-badge sl-upset" title="USRS probability: underdog '+Math.round(underdog*100)+'%; threshold 30–45%, rating gap at least 40">UPSET WATCH · '+Math.round(underdog*100)+'% underdog chance</span>');
+ }
+ return tags.length?'<div class="sl-editorial-badges">'+tags.join('')+'</div>':'';
+};
 const pennant=t=>{
  const shape='point',link=teamPage(t);
  const open=link?'<a href="'+esc(link)+'" aria-label="View '+esc(t.name)+' team page"':'<div';
@@ -217,7 +249,7 @@ const pennant=t=>{
    '<span class="sl-pennant-seam" aria-hidden="true"></span>'+
    '<span class="sl-pennant-rivet" aria-hidden="true"></span>'+
    '<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
-   '<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
+   titleMarks(t)+'<span class="sl-pennant-name">'+esc(t.name)+'</span>'+
    '<strong class="sl-pennant-mascot">'+esc(nickname||t.name)+'</strong>'+
    (elo!==null?'<span class="sl-pennant-rating">USRS '+elo+'</span>':'')+close;
 };
@@ -394,7 +426,7 @@ function card(g,featured){
   '<div class="sl-game-bar"><span class="sl-tag '+(g.phase==='live'?'sl-live':'')+'">'+
   esc(g.kind==='exhibition'?'EXHIBITION':g.phase==='live'?'LIVE':g.phase==='final'?'FINAL':'UPCOMING')+'</span>'+
   '<span class="sl-game-time">'+esc(formatClock(g))+'</span>'+venue+'</div>'+
-  arenaStage(g)+
+  editorialBadges(g)+arenaStage(g)+
   '<div class="sl-game-main sl-game-main--'+esc(g.phase)+'"><div class="sl-game-teams">'+
   '<div class="sl-school">'+team(g.away)+favorite(g.away)+'</div>'+
   '<div class="sl-vs">'+(score?'<strong>'+esc(score)+'</strong>':'<span>VS</span>')+'</div>'+
