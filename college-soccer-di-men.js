@@ -7,7 +7,9 @@ const division='men-d1';
 async function render(){
 try{
 const [directory,elo,rules,branding,projections]=await Promise.all([get('data/college-soccer-conferences.json'),get('data/college-soccer-elo.json'),get('data/college-soccer-postseason-rules.json'),get('data/college-soccer-team-branding.json').catch(()=>({teams:{}})),get('data/college-soccer-projected-standings.json').catch(()=>({conferences:{}}))]);
-const entries=Object.entries(directory.conferences||{}).filter(([k,x])=>k.startsWith(division+':')&&x.page&&x.teams?.length);
+const [teamPalette,crestOverrides]=await Promise.all([get('data/dual-ring-team-palette.json').catch(()=>({soccer:{}})),get('data/college-soccer-crest-overrides.json').catch(()=>({schools:{}}))]);
+ branding.soccer_palette=teamPalette.soccer||{};branding.crest_overrides=crestOverrides.schools||{};
+ const entries=Object.entries(directory.conferences||{}).filter(([k,x])=>k.startsWith(division+':')&&x.page&&x.teams?.length);
 const ratings=new Map((elo.cohorts?.[division]||[]).map(x=>[x.team_id,x]));
 const controls=E('div','dim-controls'),summary=E('p','dim-summary'),grid=E('div','dim-grid');
 const input=E('input');input.type='search';input.placeholder='Find a conference';input.setAttribute('aria-label','Find Division I mens soccer conference');controls.append(input);
