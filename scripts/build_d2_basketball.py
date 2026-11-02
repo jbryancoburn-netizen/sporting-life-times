@@ -1142,7 +1142,8 @@ def update(gender, bootstrap=False, live=False):
     # unresolved conflicts cannot become forecast fixtures.
     from d2_sac_official import enrich_sac
     sac_quality=previous_quality.get("official_sac_schedule_reconciliation")
-    if not rapid or not sac_quality:
+    if (not rapid or not sac_quality or
+        (gender=="women" and "school_grids_read" not in sac_quality)):
         sac_quality=enrich_sac(gender,games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
