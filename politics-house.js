@@ -497,7 +497,7 @@ function renderState(a){
  insertMetric($("metrics"),[state.district_count,state["2026_verified_house_nominee_offices"],state["2026_house_poll_count"]]);
  const rows=a.districts.filter(x=>x.state===code).sort((a,b)=>a.district.localeCompare(b.district));
  if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderState({state,rows});
- if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateState({state,rows});
+ // PoliticsRaceExperience.renderState applies shared 50-state identity.
  if(window.PoliticsStateArt){
   const hero=$("state-hero-art");
   if(hero)hero.append(window.PoliticsStateArt.create(code,"hero-outline"));
