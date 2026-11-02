@@ -1,7 +1,7 @@
 {
   "division": "d3",
   "season": "2026-27",
-  "updated_utc": "2026-11-02T03:19:11.943250+00:00",
+  "updated_utc": "2026-11-02T03:22:17.885503+00:00",
   "summary": {
     "men": {
       "ncaa_teams": 406,
@@ -3660,64 +3660,10 @@
       ],
       "attempted_source_urls": 15,
       "additional_candidate_links": [],
-      "failure_category": "season_heading_not_verified",
-      "next_manual_action": "Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar",
-      "source_error": "No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the actual page title/headi",
+      "failure_category": "server_refused_method",
+      "next_manual_action": "Inspect official school schedule platform's public print/text calendar; do not circumvent access controls",
+      "source_error": "HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | HTTP Error 405: Not Allowed | No 2026\u201327 season in the actual page title/heading | No 2026\u201327 season in the ac",
       "rejected_page_evidence": [
-        {
-          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-27?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-2027?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.juniatasports.net/sports/mbball/schedule?grid=true",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
-        {
-          "url": "https://www.juniatasports.net/sports/mbball/schedule",
-          "title": "",
-          "headings": [
-            "JavaScript is disabled"
-          ],
-          "date_tables": 0,
-          "reason": "No 2026\u201327 season in the actual page title/heading"
-        },
         {
           "url": "https://www.juniatasports.net/sports/mbkb/2026-27/schedule",
           "title": "",
@@ -3729,6 +3675,60 @@
         },
         {
           "url": "https://www.juniatasports.net/sports/mbkb/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/mens-basketball/2026-27/schedule",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026?grid=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-27?print=true",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/text/2026-27",
+          "title": "",
+          "headings": [
+            "JavaScript is disabled"
+          ],
+          "date_tables": 0,
+          "reason": "No 2026\u201327 season in the actual page title/heading"
+        },
+        {
+          "url": "https://www.juniatasports.net/sports/mens-basketball/schedule/2026-27",
           "title": "",
           "headings": [
             "JavaScript is disabled"
@@ -11341,6 +11341,7 @@
               "Notes"
             ]
           ],
+          "sample_game_cards": [],
           "schedule_dom_classes": [
             "sidearm-schedule",
             "sidearm-schedule-header",
@@ -13634,6 +13635,38 @@
             "Footer"
           ],
           "table_headers": [],
+          "sample_game_cards": [
+            {
+              "visible_text": "Nov 7 (Sat) 6:00 P.M. at Delaware Valley Doylestown, Pa. Doylestown, Pa.",
+              "time_datetime_values": [],
+              "child_classes": [
+                "sidearm-schedule-list-game-row flex flex-wrap flex-align-center row",
+                "sidearm-schedule-list-game-opponent flex flex-align-center x-large-5 medium-8 x-small-12 full c",
+                "sidearm-schedule-list-game-opponent-logo",
+                "lazy",
+                "sidearm-schedule-list-game-opponent-details flex-item-1",
+                "sidearm-schedule-list-game-opponent-date",
+                "sidearm-schedule-game-conference-conference flex flex-inline noprint",
+                "sidearm-schedule-list-game-opponent-text",
+                "sidearm-schedule-list-game-conference-at-vs flex flex-inline"
+              ]
+            },
+            {
+              "visible_text": "Nov 13 (Fri) 5:00 P.M. vs Johns Hopkins Baltimore, Md. Baltimore, Md.",
+              "time_datetime_values": [],
+              "child_classes": [
+                "sidearm-schedule-list-game-row flex flex-wrap flex-align-center row",
+                "sidearm-schedule-list-game-opponent flex flex-align-center x-large-5 medium-8 x-small-12 full c",
+                "sidearm-schedule-list-game-opponent-logo",
+                "lazy",
+                "sidearm-schedule-list-game-opponent-details flex-item-1",
+                "sidearm-schedule-list-game-opponent-date",
+                "sidearm-schedule-game-conference-conference flex flex-inline noprint",
+                "sidearm-schedule-list-game-opponent-text",
+                "sidearm-schedule-list-game-conference-at-vs flex flex-inline"
+              ]
+            }
+          ],
           "schedule_dom_classes": [
             "s-schedule",
             "s-schedule__top",
@@ -14562,6 +14595,38 @@
             "Footer"
           ],
           "table_headers": [],
+          "sample_game_cards": [
+            {
+              "visible_text": "Nov 6 (Fri) 7:00 P.M. vs Dickinson Huntingdon, Pa. Huntingdon, Pa.",
+              "time_datetime_values": [],
+              "child_classes": [
+                "sidearm-schedule-list-game-row flex flex-wrap flex-align-center row",
+                "sidearm-schedule-list-game-opponent flex flex-align-center x-large-5 medium-8 x-small-12 full c",
+                "sidearm-schedule-list-game-opponent-logo",
+                "lazy",
+                "sidearm-schedule-list-game-opponent-details flex-item-1",
+                "sidearm-schedule-list-game-opponent-date",
+                "sidearm-schedule-game-conference-conference flex flex-inline noprint",
+                "sidearm-schedule-list-game-opponent-text",
+                "sidearm-schedule-list-game-conference-at-vs flex flex-inline"
+              ]
+            },
+            {
+              "visible_text": "Nov 10 (Tue) 7:00 P.M. vs Penn State Altoona Huntingdon, Pa. Huntingdon, Pa.",
+              "time_datetime_values": [],
+              "child_classes": [
+                "sidearm-schedule-list-game-row flex flex-wrap flex-align-center row",
+                "sidearm-schedule-list-game-opponent flex flex-align-center x-large-5 medium-8 x-small-12 full c",
+                "sidearm-schedule-list-game-opponent-logo",
+                "lazy",
+                "sidearm-schedule-list-game-opponent-details flex-item-1",
+                "sidearm-schedule-list-game-opponent-date",
+                "sidearm-schedule-game-conference-conference flex flex-inline noprint",
+                "sidearm-schedule-list-game-opponent-text",
+                "sidearm-schedule-list-game-conference-at-vs flex flex-inline"
+              ]
+            }
+          ],
           "schedule_dom_classes": [
             "s-schedule",
             "s-schedule__top",
@@ -16117,6 +16182,38 @@
             "Footer"
           ],
           "table_headers": [],
+          "sample_game_cards": [
+            {
+              "visible_text": "Nov 9 (Mon) 6:00 P.M. at Arcadia Glenside, Pa. Glenside, Pa.",
+              "time_datetime_values": [],
+              "child_classes": [
+                "sidearm-schedule-list-game-row flex flex-wrap flex-align-center row",
+                "sidearm-schedule-list-game-opponent flex flex-align-center x-large-5 medium-8 x-small-12 full c",
+                "sidearm-schedule-list-game-opponent-logo",
+                "lazy",
+                "sidearm-schedule-list-game-opponent-details flex-item-1",
+                "sidearm-schedule-list-game-opponent-date",
+                "sidearm-schedule-game-conference-conference flex flex-inline noprint",
+                "sidearm-schedule-list-game-opponent-text",
+                "sidearm-schedule-list-game-conference-at-vs flex flex-inline"
+              ]
+            },
+            {
+              "visible_text": "Nov 14 (Sat) 1:00 P.M. at Lebanon Valley Annville, Pa. Annville, Pa.",
+              "time_datetime_values": [],
+              "child_classes": [
+                "sidearm-schedule-list-game-row flex flex-wrap flex-align-center row",
+                "sidearm-schedule-list-game-opponent flex flex-align-center x-large-5 medium-8 x-small-12 full c",
+                "sidearm-schedule-list-game-opponent-logo",
+                "lazy",
+                "sidearm-schedule-list-game-opponent-details flex-item-1",
+                "sidearm-schedule-list-game-opponent-date",
+                "sidearm-schedule-game-conference-conference flex flex-inline noprint",
+                "sidearm-schedule-list-game-opponent-text",
+                "sidearm-schedule-list-game-conference-at-vs flex flex-inline"
+              ]
+            }
+          ],
           "schedule_dom_classes": [
             "s-schedule",
             "s-schedule__top",
