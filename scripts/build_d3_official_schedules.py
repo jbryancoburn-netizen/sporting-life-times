@@ -192,6 +192,8 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         455: ("https://oac.org/schedule.aspx?schedule=2381", "Muskingum"),
         517: ("https://oac.org/schedule.aspx?schedule=2382", "Ohio Northern"),
         22235: ("https://nwcsports.com/schedule.aspx?schedule=2501", "Lewis & Clark"),
+        # Huntingdon's own team-specific 2026-27 published CCS calendar.
+        1130: ("https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=542", "Huntingdon"),
     },
     "women": {
         161: ("https://miacathletics.com/schedule.aspx?schedule=3671", "Concordia"),
@@ -224,6 +226,7 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         785: ("https://nwcsports.com/schedule.aspx?schedule=2511", "Willamette"),
         1355: ("https://ascsports.org/schedule.aspx?schedule=6202", "Schreiner"),
         179: ("https://gomacsports.com/schedule.aspx?schedule=7633", "Delaware Valley"),
+        1130: ("https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=549", "Huntingdon"),
     },
 }
 
@@ -1393,6 +1396,10 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][685][0].endswith("schedule=2619")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][22235][0].endswith("schedule=2504")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][785][0].endswith("schedule=2511")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1130] == (
+        "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=542", "Huntingdon")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1130] == (
+        "https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=549", "Huntingdon")
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][179][0].endswith("schedule=7613")
     assert OFFICIAL_CONFERENCE_RECOVERY_WINDOWS["men"][0][0] == "heartlandconf.org"
     assert OFFICIAL_CONFERENCE_RECOVERY_WINDOWS["women"][-1][0] == "oac.org"
