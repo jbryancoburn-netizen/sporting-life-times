@@ -7,13 +7,13 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from d2_pbc_official import SOURCES,SCHOOLS,BASE,school,time_et,parse,enrich_pbc
 
-def html(gender,label,opponent="at Augusta",times="7:30 P.M."):
+def html(gender,label,opponent="at Augusta",times="7:30 P.M.",other_dates="at Lander"):
     sex="Women's" if gender=="women" else "Men's"
     # Every school has a plausible-length fixture grid so one malformed
     # example cannot masquerade as an entire season.
     rows=[]
     for day in range(11,19):
-        rows.append(f"<tr><td>1/{day}/2027</td><td>{opponent}</td>"
+        rows.append(f"<tr><td>1/{day}/2027</td><td>{other_dates}</td>"
                     f"<td></td><td>{times}</td><td></td></tr>")
     rows.append(f"<tr><td>12/2/2026</td><td>{opponent}</td>"
                 f"<td></td><td>{times}</td><td></td></tr>")
@@ -30,7 +30,8 @@ def catalog(gender):
         opponent=("at Augusta" if owner=="georgia-southwestern" else
                   "Georgia Southwestern" if owner=="augusta" else
                   "at Augusta")
-        pages[BASE+str(sid)]=html(gender,label,opponent)
+        pages[BASE+str(sid)]=html(gender,label,opponent,other_dates=(
+            "at Lander" if owner=="augusta" else "at Augusta"))
     return pages
 
 def teams(gender):
