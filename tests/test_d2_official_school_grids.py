@@ -82,6 +82,33 @@ class D2OfficialSchoolGrids(unittest.TestCase):
         self.assertEqual(second["created"],0)
         self.assertEqual(len(games),4)
 
+
+    def test_wrong_time_zone_school_evidence_is_rejected(self):
+        import tempfile
+        entry = {
+            "gender": "men", "owner_id": "salem",
+            "source_url": "https://salemtigers.com/sports/mens-basketball/schedule",
+            "home_venue": "T. Edward Davis Gymnasium",
+            "fixtures": [{
+                "date": "2027-01-01", "role": "home",
+                "opponent": "Concord University",
+                "start_time": "7:00 PM PT"
+            }]
+        }
+        teams = {
+            "salem": {"id": "salem", "name": "Salem"},
+            "concord": {"id": "concord", "name": "Concord University"}
+        }
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "official-grid.json"
+            path.write_text(json.dumps({
+                "schema": 1, "season": "2026-27", "schools": [entry]
+            }), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "normalized to ET"):
+                apply_official_school_grid_snapshots(
+                    "men", {}, teams, dt.date(2026, 11, 1),
+                    registry_file=path)
+
     def test_non_dii_opponent_never_becomes_eligible_fixture(self):
         teams={"lincoln-university-pennsylvania":{"id":"lincoln-university-pennsylvania","name":"Lincoln University (Pennsylvania)","slug":""},
                "fayetteville-state":{"id":"fayetteville-state","name":"Fayetteville State University","slug":""}}

@@ -967,6 +967,12 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
             if not opponent or owner == opponent:
                 counts["unmatched"] += 1
                 continue
+            # All currently registered school grids are Eastern-time campuses.
+            # Reject an unconverted local/Pacific clock rather than silently
+            # presenting it as Eastern to readers or the Elo game center.
+            clock = row.get("start_time") or ""
+            if clock and not re.fullmatch(r"(?:[1-9]|1[0-2]):[0-5][0-9] [AP]M ET", clock):
+                raise ValueError("Official DII school tipoff must be normalized to ET")
             date = row["date"]
             if not (dt.date(2026, 10, 1) <= dt.date.fromisoformat(date) <= dt.date(2027, 4, 15)):
                 raise ValueError("School source game date outside DII season")
