@@ -368,7 +368,7 @@
     const official=[];
     for(const event of ledger.games){
       if(event.date!==day||!/^espn:\d+$/.test(String(event.id))||
-         !String(event.source||'').includes('NCAA'))continue;
+         !(/NCAA-origin|ESPN completed D-I scoreboard/.test(String(event.source||''))))continue;
       const id=String(event.id).slice(5);
       if(String(event.source_event_id||id)!==id)continue;
       const aid=reverse.get(String(event.away_id)),hid=reverse.get(String(event.home_id));
@@ -380,10 +380,10 @@
         id:event.id,espn_id:id,phase:'final',away_id:aid,home_id:hid,
         away_name:ar?.team||'Away team',home_name:hr?.team||'Home team',
         away_score:a,home_score:h,date:day,
-        source:'Verified NCAA-origin RETRO final archive'
+        source:'Verified RETRO final archive'
       });
       if(record)official.push({...record,neutral:event.neutral===true,
-        archivedFinal:true,source:'Verified NCAA-origin final · RETRO archive'});
+        archivedFinal:true,source:'Verified final · RETRO archive'});
     }
     return official;
   }
@@ -415,7 +415,7 @@
         byId.set(proof.id,proof);
       }else{
         byId.set(proof.id,{...previous,archivedFinal:true,neutral:proof.neutral,
-          source:'NCAA-origin final · verified RETRO archive'});
+          source:'Verified final · RETRO archive'});
       }
     }
     const official=[...byId.values()];
