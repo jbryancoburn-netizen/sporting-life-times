@@ -18,6 +18,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check district source importer and browser desk syntax
+        run: |
+          python3 -m py_compile scripts/refresh-politics-district-desk.py
+          node --check politics-district-desk.js
       - name: Validate existing source ledger
         run: |
           python3 - <<'PY'
