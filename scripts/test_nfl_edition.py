@@ -172,81 +172,11 @@ class EloTests(unittest.TestCase):
         self.assertIn("nflGameStatInsight(box,match)", (root/"nfl-live-day.js").read_text(encoding="utf-8"))
         self.assertIn("nfl-story-scoreline",css)
         self.assertIn("nfl-story-arc",css)
+        self.assertIn(".nfl-story-topline a{",css)
+        self.assertIn("white-space:nowrap!important",css)
         self.assertIn("display:none!important",css)
         self.assertIn("nfl-game-story-v9.css?v=20261101-nfl-story2",html)
 
-
-    def test_temporary_mobile_visual_audit(self):
-        """One-off on-runner Chrome screenshot: verify the actual 390px rendered game page."""
-        import os, shutil, subprocess, tempfile, threading, http.server, base64, json
-        if not os.environ.get("GITHUB_ACTIONS"):
-            self.skipTest("Visual audit runs only on the GitHub runner")
-        chrome=next((shutil.which(x) for x in ("google-chrome","google-chrome-stable","chromium","chromium-browser") if shutil.which(x)),None)
-        if not chrome:
-            self.skipTest("Headless Chrome not installed on runner")
-        root=Path(__file__).resolve().parents[1]
-        class Handler(http.server.SimpleHTTPRequestHandler):
-            def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(root),**kwargs)
-            def log_message(self,*args):pass
-        server=http.server.ThreadingHTTPServer(("127.0.0.1",0),Handler)
-        threading.Thread(target=server.serve_forever,daemon=True).start()
-        target=root/"nfl-mobile-audit-tmp.html"
-        try:
-            target.write_text("""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-<style>body{margin:0;background:#ddd;font:13px Arial}#frame{width:390px;height:1400px;display:block;border:0;margin:0}
-#qa{font-size:12px;white-space:pre-wrap;max-width:390px;padding:7px}</style></head>
-<body><iframe id="frame" src="nfl-game.html?id=401873033"></iframe><pre id="qa">loading</pre>
-<script>
-let attempts=0;const id=setInterval(()=>{
-  attempts++;
-  const f=document.getElementById("frame"),doc=f.contentDocument;
-  const story=doc&&doc.querySelector(".nfl-story"),arc=doc&&doc.querySelector(".nfl-story-arc");
-  if(!story||!arc){if(attempts>25){document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify({error:"story failed to render"});clearInterval(id);}return;}
-  const width=f.contentWindow.innerWidth,actual=doc.documentElement.scrollWidth;
-  const elements=[".nfl-story-scoreline",".nfl-story-club.away",".nfl-story-club.home",".nfl-story-intro",".nfl-story-arc",".nfl-story-elo",".nfl-story-model-table"].map(sel=>{
-    const el=doc.querySelector(sel),r=el&&el.getBoundingClientRect();
-    return {selector:sel,x:Math.round(r?.x||0),right:Math.round(r?.right||0),
-      width:Math.round(r?.width||0),height:Math.round(r?.height||0)};
-  });
-  const report={viewport:width,documentWidth:actual,headline:doc.querySelector(".nfl-story-intro h1")?.textContent||"",
-    scoreboardCount:doc.querySelectorAll(".nfl-story-score").length,
-    periodGraphic:!!doc.querySelector(".nfl-story-arc svg"),
-    actualLogoCount:doc.querySelectorAll(".nfl-story-logo img").length,
-    genericOldCards:doc.querySelectorAll(".nfl-usrs-v7,.nfl-p26-feature").length,
-    elements};
-  document.getElementById("qa").textContent="QA_JSON:"+JSON.stringify(report);
-  clearInterval(id);
-},450);
-</script></body></html>""",encoding="utf-8")
-            with tempfile.TemporaryDirectory() as temp:
-                url="http://127.0.0.1:"+str(server.server_port)+"/"+target.name
-                proc=subprocess.run([chrome,"--headless=new","--no-sandbox","--disable-gpu",
-                    "--disable-dev-shm-usage","--hide-scrollbars","--force-device-scale-factor=1",
-                    "--virtual-time-budget=13000","--window-size=430,1540",
-                    "--dump-dom",url],capture_output=True,text=True,timeout=42)
-                self.assertEqual(proc.returncode,0,proc.stderr[-1300:])
-                match=re.search(r'QA_JSON:(\{[^\n<]+\})',proc.stdout)
-                self.assertIsNotNone(match,"Browser QA marker missing: "+proc.stdout[-1400:])
-                metrics=json.loads(match.group(1).replace("&quot;",'"').replace("&amp;","&"))
-                print("NFL_MOBILE_QA_METRICS:",json.dumps(metrics))
-                self.assertNotIn("error",metrics)
-                self.assertIn("Broncos turn",metrics["headline"])
-                self.assertEqual(metrics["scoreboardCount"],2)
-                self.assertTrue(metrics["periodGraphic"])
-                self.assertEqual(metrics["actualLogoCount"],2)
-                self.assertEqual(metrics["genericOldCards"],0)
-                self.assertLessEqual(metrics["documentWidth"],metrics["viewport"]+3)
-                capture=Path(temp)/"nfl-mobile-390.png"
-                proc=subprocess.run([chrome,"--headless=new","--no-sandbox","--disable-gpu",
-                    "--disable-dev-shm-usage","--hide-scrollbars","--force-device-scale-factor=1",
-                    "--virtual-time-budget=11000","--window-size=430,1540",
-                    "--screenshot="+str(capture),url],capture_output=True,text=True,timeout=42)
-                if proc.returncode==0 and capture.exists():
-                    payload=base64.b64encode(capture.read_bytes()).decode("ascii")
-                    print("NFL_MOBILE_QA_PNG_BEGIN"+payload+"NFL_MOBILE_QA_PNG_END")
-        finally:
-            target.unlink(missing_ok=True)
-            server.shutdown()
 
     def test_exact_preseason_reset(self):
         t=nfl.replay([])
