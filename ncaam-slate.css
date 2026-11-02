@@ -388,3 +388,163 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-pennant-mascot,.sl-featured .sl-pennant-mascot{font-size:12px}
  .sl-pennant-row,.sl-featured .sl-pennant-row{grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr)}
 }
+
+
+/* ARENA EDITION II — Editorial rafter/bleacher architecture and school pennants.
+   Deliberately illustrated, not actual arena photos or championship banners. */
+.sl-arena-gallery {
+  background:
+    radial-gradient(ellipse 68% 60% at 50% 105%, rgba(229,185,112,.22), transparent 90%),
+    linear-gradient(106deg,
+      color-mix(in srgb,var(--sl-away) 52%,#091b28) 0%,
+      #0b202d 48%,
+      color-mix(in srgb,var(--sl-home) 55%,#071925) 100%);
+  border-top:1px solid rgba(252,247,232,.22);
+}
+.sl-arena-gallery::after{
+  content:'';position:absolute;inset:13px 8px auto;
+  height:17px;pointer-events:none;opacity:.7;
+  border-top:1px solid rgba(255,242,222,.45);
+  background:repeating-linear-gradient(90deg,
+    transparent 0 58px,rgba(225,216,200,.28) 59px 61px,transparent 62px 90px);
+}
+.sl-stands{
+  position:absolute;inset:23px 0 0;z-index:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0 8px,rgba(248,224,192,.095) 9px 10px,
+      rgba(9,20,30,.23) 11px 19px,transparent 20px 23px),
+    linear-gradient(90deg,rgba(2,12,21,.46),transparent 35%,transparent 65%,rgba(2,12,21,.46));
+  transform:perspective(420px) rotateX(-9deg);
+  clip-path:polygon(0 8%,100% 8%,100% 93%,75% 62%,25% 62%,0 93%);
+}
+.sl-arena--rafters .sl-stands{
+  background:
+    repeating-linear-gradient(108deg,transparent 0 24px,rgba(255,239,207,.13) 25px 26px,transparent 27px 58px),
+    linear-gradient(180deg,rgba(14,34,43,.08),rgba(0,8,18,.68));
+  clip-path:polygon(0 0,100% 0,100% 96%,83% 85%,50% 54%,17% 85%,0 96%);
+}
+.sl-arena--gallery .sl-stands{
+  background:
+    repeating-radial-gradient(ellipse at 50% -105%,
+      rgba(248,232,207,.16) 0 1px,transparent 2px 18px),
+    linear-gradient(180deg,rgba(6,18,27,.07),rgba(6,18,27,.69));
+  clip-path:polygon(0 0,100% 0,100% 92%,84% 78%,50% 53%,16% 78%,0 92%);
+}
+.sl-arena--grandstand .sl-stands{
+  background:
+    repeating-linear-gradient(0deg,transparent 0 12px,rgba(248,232,207,.13) 13px 14px,transparent 15px 21px),
+    repeating-linear-gradient(90deg,transparent 0 20px,rgba(2,13,24,.35) 21px 23px);
+}
+.sl-stage-beam{
+  height:14px;background:
+    repeating-linear-gradient(90deg,transparent 0 44px,rgba(255,240,216,.34) 45px 47px,transparent 48px 77px),
+    linear-gradient(180deg,rgba(4,10,20,.8),rgba(21,42,55,.72));
+}
+.sl-arena-spotlight{
+  position:absolute;z-index:1;pointer-events:none;top:5%;left:50%;
+  width:55%;height:180%;transform:translateX(-50%);
+  background:radial-gradient(ellipse 46% 52% at 50% 38%,rgba(249,231,183,.1),transparent 100%);
+  mix-blend-mode:screen;
+}
+.sl-arena-wordmark{
+  right:0;bottom:2px;max-width:95%;
+  color:color-mix(in srgb,var(--sl-home-alt) 29%,transparent);
+  font-family:Georgia,serif;opacity:.35;letter-spacing:-.05em;
+}
+.sl-floor-graphic{opacity:.24;top:42px}
+.sl-pennant-row{z-index:3}
+.sl-pennant{
+  --sl-wedge:polygon(0 0,100% 0,100% 86%,50% 100%,0 86%);
+  position:relative;clip-path:var(--sl-wedge);
+  text-decoration:none!important;color:#fff!important;
+  min-height:161px;padding:18px 10px 25px;gap:4px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.085) 0 7%,transparent 8% 91%,rgba(0,0,0,.16) 92% 100%),
+    linear-gradient(145deg,
+     color-mix(in srgb,var(--pennant) 56%,#081923),
+     color-mix(in srgb,var(--pennant) 43%,#0a1b29));
+  box-shadow:0 6px 19px rgba(0,0,0,.27),inset 0 0 0 3px color-mix(in srgb,var(--pennant-accent) 55%,#fff);
+  transition:filter .17s ease,transform .17s ease;
+}
+.sl-pennant--tail{--sl-wedge:polygon(0 0,100% 0,100% 95%,83% 86%,50% 100%,17% 86%,0 95%)}
+.sl-pennant--point{--sl-wedge:polygon(0 0,100% 0,100% 78%,50% 100%,0 78%)}
+.sl-pennant--shield{--sl-wedge:polygon(0 0,100% 0,100% 80%,91% 92%,50% 100%,9% 92%,0 80%)}
+.sl-pennant:hover{filter:brightness(1.12)}
+.sl-pennant:focus-visible{outline-offset:5px}
+.sl-pennant::before{
+  top:10px;left:13px;right:13px;height:0;
+  border-top:2px solid color-mix(in srgb,var(--pennant-accent) 70%,#f3eee2);
+}
+.sl-pennant::after{
+  content:'';position:absolute;top:0;bottom:0;left:4px;right:4px;
+  border-left:1px dashed color-mix(in srgb,var(--pennant-accent) 57%,#e6d5b3);
+  border-right:1px dashed color-mix(in srgb,var(--pennant-accent) 57%,#e6d5b3);
+  opacity:.7;pointer-events:none;
+}
+.sl-pennant-seam{
+  display:block;position:absolute;inset:0 0 auto;height:6px;
+  background:repeating-linear-gradient(90deg,
+   var(--pennant-accent) 0 15px,
+   color-mix(in srgb,var(--pennant) 68%,#071620) 15px 25px);
+  border-bottom:1px solid rgba(255,255,255,.24);
+}
+.sl-pennant-brand{position:relative;z-index:1;padding-top:3px}
+.sl-pennant-name{
+  z-index:1;position:relative;font-size:11px;
+  line-height:1.12;letter-spacing:.055em;max-width:95%;
+  text-shadow:0 1px 2px rgba(0,0,0,.3);
+}
+.sl-pennant-mascot{position:relative;z-index:1;font-size:15px;
+  max-width:96%;line-height:1.13;max-height:36px;overflow:hidden}
+.sl-pennant-rating{
+  position:relative;z-index:1;display:inline-block;
+  background:color-mix(in srgb,var(--pennant-accent) 85%,#061b24);
+  color:#101f26;min-width:64px;padding:3px 8px;margin-top:2px;
+  font:800 9px/1.1 'DM Sans',Arial,sans-serif;letter-spacing:.075em;
+}
+.sl-pennant-rating:empty{display:none}
+.sl-stage-mid{z-index:2}
+.sl-stage-mid>span{
+  display:grid;place-items:center;
+  width:65px;height:65px;border-radius:50%;
+  border:2px solid rgba(240,224,194,.69);
+  background:rgba(11,27,39,.78);
+  font:italic 700 29px/1 Georgia,serif;letter-spacing:-.07em;
+  box-shadow:0 0 0 5px rgba(246,226,194,.07);
+}
+.sl-stage-mid small{color:#eddec3;text-shadow:0 1px 2px #0019}
+.sl-featured .sl-pennant{min-height:204px;padding:20px 14px 25px}
+.sl-featured .sl-pennant-rating{font-size:10px}
+.sl-featured .sl-stage-mid>span{height:91px;width:91px;font-size:38px}
+.sl-featured .sl-arena-gallery{height:244px}
+@media(max-width:700px){
+ .sl-arena-gallery,.sl-featured .sl-arena-gallery{height:174px}
+ .sl-arena-gallery::after{inset:13px 6px auto}
+ .sl-stage-beam{height:13px}
+ .sl-stands{inset:18px 0 0}
+ .sl-arena-wordmark{opacity:.29;font-size:65px;bottom:7px}
+ .sl-pennant,.sl-featured .sl-pennant{
+   min-height:151px;padding:14px 5px 17px;gap:2px;
+ }
+ .sl-pennant::before{top:9px;left:9px;right:9px}
+ .sl-pennant-name,.sl-featured .sl-pennant-name{font-size:10px}
+ .sl-pennant-mascot,.sl-featured .sl-pennant-mascot{font-size:12px;max-height:29px}
+ .sl-pennant-rating{min-width:0;padding:2px 5px;font-size:8px}
+ .sl-pennant-row,.sl-featured .sl-pennant-row{padding:10px 9px 0}
+ .sl-stage-mid,.sl-featured .sl-stage-mid{margin-top:38px}
+ .sl-stage-mid>span,.sl-featured .sl-stage-mid>span{
+   width:37px;height:37px;font-size:18px;
+ }
+ .sl-stage-mid small{font-size:7px;letter-spacing:0}
+}
+@media(max-width:360px){
+ .sl-pennant,.sl-featured .sl-pennant{
+   padding-inline:3px;max-width:117px;
+ }
+ .sl-pennant-name,.sl-featured .sl-pennant-name{font-size:9px}
+ .sl-pennant-mascot,.sl-featured .sl-pennant-mascot{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+ .sl-pennant{transition:none}
+}
