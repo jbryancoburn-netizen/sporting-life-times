@@ -132,6 +132,8 @@ class OfficialSites(unittest.TestCase):
    ("Arizona State","12","Arizona Wildcats"),
    ("California Baptist","25","California Golden Bears"),
    ("North Carolina State","153","North Carolina Tar Heels"),
+   ("UNC Greensboro","153","North Carolina Tar Heels"),
+   ("UNC Wilmington","153","North Carolina Tar Heels"),
   )
   for label,oppid,name in collisions:
    with self.subTest(official_label=label):
