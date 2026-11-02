@@ -1,0 +1,253 @@
+/* POLITICAL LIFE & TIMES / GRAPHICS DESK V5
+ * Quiet editorial typography, native CSS chart elements, no decorative cards.
+ * Party colors only identify a measured election or released poll.
+ */
+body[data-house-page="district"] .district-glance{
+ margin:0;padding:12px 27px 16px;background:#f2f5f3;
+ border-top:1px solid #96aab5;border-bottom:4px solid #24485a;color:#19394e
+}
+body[data-house-page="district"] .ig-glance-title{
+ display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px 17px;
+ border-bottom:1px solid #acbcbf;padding:3px 0 10px
+}
+body[data-house-page="district"] .ig-glance-title strong{
+ font:900 10px/1.45 'DM Sans',Arial,sans-serif;letter-spacing:1px;color:#a4433c
+}
+body[data-house-page="district"] .ig-glance-title span{
+ font:10px/1.45 'DM Sans',Arial,sans-serif;color:#667984
+}
+body[data-house-page="district"] .ig-fact-rail{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0
+}
+body[data-house-page="district"] .ig-fact{
+ min-width:0;border-right:1px solid #afc0c4;padding:17px 17px 11px
+}
+body[data-house-page="district"] .ig-fact:first-child{padding-left:0}
+body[data-house-page="district"] .ig-fact:last-child{border-right:0}
+body[data-house-page="district"] .ig-fact-label{
+ display:block;color:#65757e;font:900 9px/1.35 'DM Sans',sans-serif;letter-spacing:1.05px;
+ min-height:25px
+}
+body[data-house-page="district"] .ig-fact-value{
+ display:block;margin:5px 0 7px;color:#24485f;
+ font:700 clamp(22px,2.7vw,34px)/1.03 Georgia,serif;letter-spacing:-.65px;overflow-wrap:anywhere
+}
+body[data-house-page="district"] .ig-fact-detail{
+ margin:0;min-height:32px;color:#536a78;font:10px/1.42 'DM Sans',Arial,sans-serif
+}
+body[data-house-page="district"] .ig-fact>a{
+ display:inline-block;margin-top:10px;font:900 9px/1.2 'DM Sans',sans-serif;
+ letter-spacing:.4px;text-decoration:underline;text-underline-offset:3px;color:#aa473f
+}
+body[data-house-page="district"] .ig-caveat{
+ margin:9px 0 0;border-top:1px solid #b3c1c5;padding-top:9px;
+ font:10px/1.5 'DM Sans',Arial,sans-serif;color:#697c85
+}
+body[data-house-page="district"] .ig-head{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,.62fr);
+ gap:5px 20px;align-items:end;margin:0 0 17px
+}
+body[data-house-page="district"] .ig-kicker{
+ display:block;grid-column:1/-1;color:#a5423a;
+ font:900 10px/1.45 'DM Sans',Arial,sans-serif;letter-spacing:1.2px
+}
+body[data-house-page="district"] .ig-head h3{
+ font:700 clamp(23px,2.8vw,36px)/1.12 Georgia,serif;letter-spacing:-.9px;
+ color:#1d4155;margin:0
+}
+body[data-house-page="district"] .ig-head>.ig-intro{
+ margin:0;color:#4e6775;font:12px/1.55 Georgia,serif
+}
+body[data-house-page="district"] .ig-source{
+ margin:14px 0 0;color:#596d76;font:11px/1.65 Georgia,serif
+}
+body[data-house-page="district"] .ig-source a{
+ font:800 11px 'DM Sans',Arial,sans-serif;color:#226080;
+ text-decoration:underline;text-underline-offset:3px
+}
+body[data-house-page="district"] .ig-county-structure{
+ margin:13px 0 23px;padding:24px 0 24px;
+ border-top:4px solid #24485c;border-bottom:2px solid #bcc9cc
+}
+body[data-house-page="district"] .ig-county-balance{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;
+ border-top:1px solid #aabcc3;border-bottom:1px solid #aabcc3
+}
+body[data-house-page="district"] .ig-county-side{
+ padding:17px 23px 17px 0;min-width:0
+}
+body[data-house-page="district"] .ig-county-side:last-child{
+ padding-left:24px;border-left:1px solid #b8c8cd
+}
+body[data-house-page="district"] .ig-balance-side-label{
+ display:block;color:#5e7281;font:900 10px/1.35 'DM Sans',Arial,sans-serif;letter-spacing:.6px
+}
+body[data-house-page="district"] .ig-county-side strong{
+ display:block;margin:9px 0 4px;font:700 clamp(25px,3.7vw,45px)/1 Georgia,serif;
+ letter-spacing:-1.2px
+}
+body[data-house-page="district"] .ig-county-side.dem strong{color:#376b95}
+body[data-house-page="district"] .ig-county-side.rep strong{color:#a84c46}
+body[data-house-page="district"] .ig-county-side p{
+ margin:0;color:#576d7a;font:11px/1.48 'DM Sans',Arial,sans-serif;min-height:30px
+}
+body[data-house-page="district"] .ig-balance-line{
+ display:block;height:12px;max-width:100%;margin-top:12px
+}
+body[data-house-page="district"] .ig-county-side.dem .ig-balance-line{background:#3679ab}
+body[data-house-page="district"] .ig-county-side.rep .ig-balance-line{background:#b85047}
+body[data-house-page="district"] .ig-county-net{
+ display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 17px;
+ border-bottom:1px solid #becbcf;padding:12px 0
+}
+body[data-house-page="district"] .ig-county-net-result{
+ color:#a94741;font:700 clamp(28px,3.1vw,41px)/1 Georgia,serif
+}
+body[data-house-page="district"] .ig-county-net span{
+ color:#526975;font:900 10px/1.35 'DM Sans',Arial,sans-serif;letter-spacing:.5px
+}
+body[data-house-page="district"] .ig-county-leaders{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 27px
+}
+body[data-house-page="district"] .ig-county-leader-column{min-width:0}
+body[data-house-page="district"] .ig-county-leader-column:nth-child(2){
+ border-left:1px solid #c1ced1;padding-left:24px
+}
+body[data-house-page="district"] .ig-county-leader-column h4{
+ font:700 19px/1.2 Georgia,serif;color:#24455a;margin:18px 0 10px
+}
+body[data-house-page="district"] .ig-county-leader-row{
+ display:grid;grid-template-columns:90px minmax(0,1fr) 86px;gap:8px;align-items:center;
+ border-bottom:1px solid #e0e4e3;padding:9px 0
+}
+body[data-house-page="district"] .ig-county-leader-row>span:first-child{
+ font:700 12px/1.25 Georgia,serif;color:#2a4453
+}
+body[data-house-page="district"] .ig-county-leader-track{height:11px;background:#e4e8e6;overflow:hidden}
+body[data-house-page="district"] .ig-county-leader-fill{display:block;height:100%}
+body[data-house-page="district"] .ig-county-leader-fill.dem{background:#3574a4}
+body[data-house-page="district"] .ig-county-leader-fill.rep{background:#b24a43}
+body[data-house-page="district"] .ig-county-leader-row strong{
+ text-align:right;color:#345061;font:800 11px/1.4 'DM Sans',sans-serif;white-space:nowrap
+}
+body[data-house-page="district"] .ig-poll-comparison{
+ margin:0 0 22px;padding:22px 22px 24px;border:1px solid #b2c2c7;
+ border-top:4px solid #23495f;background:#fffefa
+}
+body[data-house-page="district"] .ig-poll-legend{
+ display:flex;align-items:center;flex-wrap:wrap;gap:8px 19px;
+ padding:7px 0 13px;border-bottom:1px solid #bdcacc
+}
+body[data-house-page="district"] .ig-poll-legend span{
+ display:inline-flex;gap:7px;align-items:center;
+ font:800 11px 'DM Sans',sans-serif;color:#485e69
+}
+body[data-house-page="district"] .ig-poll-legend span:before{
+ content:"";width:11px;height:11px;border-radius:50%;background:#7c8992
+}
+body[data-house-page="district"] .ig-poll-legend .dem:before{background:#3679ab}
+body[data-house-page="district"] .ig-poll-legend .rep:before{background:#b44b45}
+body[data-house-page="district"] .ig-poll-snapshot{
+ display:grid;grid-template-columns:minmax(180px,.55fr) minmax(0,1fr);
+ gap:10px 24px;align-items:center;padding:20px 0 15px;border-bottom:1px solid #b8c8ce
+}
+body[data-house-page="district"] .ig-poll-survey-title strong{
+ display:block;margin:0 0 7px;font:700 22px/1.15 Georgia,serif;color:#27475b
+}
+body[data-house-page="district"] .ig-poll-survey-title span{
+ display:block;color:#526d7b;font:11px/1.5 'DM Sans',sans-serif
+}
+body[data-house-page="district"] .ig-poll-plot{
+ grid-column:2;grid-row:1/3;min-width:0;padding:21px 14px 7px 8px
+}
+body[data-house-page="district"] .ig-poll-ticks{
+ position:relative;display:block;height:14px;margin:0 0 6px;
+ border-top:1px solid #8fa7b3
+}
+body[data-house-page="district"] .ig-poll-ticks span{
+ position:absolute;top:-17px;transform:translateX(-50%);
+ font:9px 'DM Sans',sans-serif;color:#687d85
+}
+body[data-house-page="district"] .ig-poll-dotline{
+ position:relative;height:23px;border-bottom:1px dashed #c1cfd2;
+ background:linear-gradient(to right,#e5eaea 0%,#f3f5f5 100%)
+}
+body[data-house-page="district"] .ig-poll-dot{
+ position:absolute;top:6px;transform:translateX(-50%);
+ width:11px;height:11px;border-radius:50%;
+ border:2px solid white;box-shadow:0 0 0 1px #a7b6bd;background:#7b8992
+}
+body[data-house-page="district"] .ig-poll-dotline.dem .ig-poll-dot{background:#3679aa}
+body[data-house-page="district"] .ig-poll-dotline.rep .ig-poll-dot{background:#bc5148}
+body[data-house-page="district"] .ig-poll-number{
+ position:absolute;top:1px;transform:translateX(10px);
+ font:900 11px 'DM Sans',sans-serif;color:#2e4959
+}
+body[data-house-page="district"] .ig-poll-snapshot>.ig-source{
+ grid-column:1;grid-row:2;margin:0!important
+}
+body[data-house-page="district"] .ig-poll-comparison figcaption{
+ margin-top:15px;color:#60737e;font:10px/1.5 'DM Sans',sans-serif
+}
+body[data-house-page="district"] .ig-representative-brief{
+ padding:20px 0 24px;border-top:3px solid #24485e;
+ border-bottom:1px solid #b6c3c7;margin:0 0 22px
+}
+body[data-house-page="district"] .ig-member-line{
+ display:flex;gap:8px 21px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid #bccbd0;
+ padding:0 0 11px
+}
+body[data-house-page="district"] .ig-member-line strong{
+ font:700 26px/1.1 Georgia,serif;color:#24465c
+}
+body[data-house-page="district"] .ig-member-line span{
+ font:900 11px/1.45 'DM Sans',sans-serif;color:#586e79
+}
+body[data-house-page="district"] .ig-record-samples{
+ display:flex;align-items:baseline;gap:12px 22px;flex-wrap:wrap;padding:14px 0
+}
+body[data-house-page="district"] .ig-record-samples strong{
+ font:700 29px/1 Georgia,serif;color:#20465a
+}
+body[data-house-page="district"] .ig-record-samples p{
+ margin:0;font:12px/1.5 Georgia,serif;color:#607580
+}
+body[data-house-page="district"] .ig-record-issue{
+ display:grid;grid-template-columns:minmax(90px,.27fr) 58px minmax(0,1fr);
+ gap:10px;align-items:center;padding:13px 0;border-block-start:1px solid #c1cdd0
+}
+body[data-house-page="district"] .ig-record-issue-type{
+ font:900 10px/1.45 'DM Sans',sans-serif;letter-spacing:.4px;color:#5e737d
+}
+body[data-house-page="district"] .ig-record-issue-choice{
+ font:900 11px/1.35 'DM Sans',sans-serif;color:#276c8b
+}
+body[data-house-page="district"] .ig-record-issue a{
+ font:700 13px/1.45 Georgia,serif;color:#245b77;text-decoration:underline;text-underline-offset:3px
+}
+@media(max-width:950px){
+ body[data-house-page="district"] .ig-fact-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body[data-house-page="district"] .ig-fact:nth-child(3){border-right:0}
+ body[data-house-page="district"] .ig-fact:nth-child(4){padding-left:0}
+ body[data-house-page="district"] .ig-poll-snapshot{grid-template-columns:minmax(0,1fr)}
+ body[data-house-page="district"] .ig-poll-plot,body[data-house-page="district"] .ig-poll-snapshot>.ig-source{
+ grid-column:1;grid-row:auto}
+}
+@media(max-width:650px){
+ body[data-house-page="district"] .district-glance{padding:13px 15px}
+ body[data-house-page="district"] .ig-fact-rail{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-house-page="district"] .ig-fact{border-bottom:1px solid #b7c5c9;padding:15px 12px}
+ body[data-house-page="district"] .ig-fact:nth-child(odd){padding-left:0}
+ body[data-house-page="district"] .ig-fact:nth-child(even){border-right:0}
+ body[data-house-page="district"] .ig-fact:nth-child(3){border-right:1px solid #b7c5c9}
+ body[data-house-page="district"] .ig-fact:last-child{border-bottom:0}
+ body[data-house-page="district"] .ig-head{display:block}
+ body[data-house-page="district"] .ig-head>.ig-intro{margin-top:9px}
+ body[data-house-page="district"] .ig-county-balance{grid-template-columns:1fr}
+ body[data-house-page="district"] .ig-county-side:last-child{border:0;border-top:1px solid #b8c8cd;padding-left:0}
+ body[data-house-page="district"] .ig-county-leaders{grid-template-columns:1fr}
+ body[data-house-page="district"] .ig-county-leader-column:nth-child(2){padding-left:0;border:0}
+ body[data-house-page="district"] .ig-county-leader-row{grid-template-columns:90px minmax(0,1fr) 81px}
+ body[data-house-page="district"] .ig-poll-comparison{padding:18px 13px}
+ body[data-house-page="district"] .ig-record-issue{grid-template-columns:64px 50px minmax(0,1fr);gap:7px}
+}
