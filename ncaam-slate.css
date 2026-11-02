@@ -826,3 +826,31 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 }
 .sl-game .sl-title-stars .sl-title-star{flex:0 0 16px!important;width:16px!important;text-align:center!important;font-style:normal!important}
 @media(max-width:650px){.sl-game .sl-title-stars>span{width:93px!important;gap:1px 2px!important}.sl-game .sl-title-stars .sl-title-star{flex-basis:13px!important;width:13px!important}}
+
+/* 1990s national-TV inspired, independently branded SL&T broadcast fascia. */
+.sl-game .sl-broadcast-bug{
+ position:relative!important;grid-template-columns:100px minmax(0,1fr) 110px!important;
+ border:3px solid #c5a15a!important;border-bottom:5px solid #b58b38!important;
+ background:linear-gradient(180deg,#255bb3 0%,#0a2d78 47%,#041d4c 100%)!important;
+ box-shadow:0 3px 0 #061534,0 9px 20px rgba(0,0,0,.26),inset 0 2px 0 rgba(255,255,255,.45)!important;
+}
+.sl-game .sl-broadcast-mark{
+ background:linear-gradient(155deg,#194e9f,#061d55)!important;
+ box-shadow:inset -3px 0 0 rgba(255,255,255,.17);
+}
+.sl-game .sl-broadcast-mark b{font:900 29px/1 'DM Sans',Arial,sans-serif!important;letter-spacing:-.085em!important;font-style:normal!important;color:#f4d18a!important;text-shadow:1px 2px 0 #6b4817,0 0 8px #cfb36b}
+.sl-game .sl-broadcast-mark .sl-mark-amp{font-size:17px;vertical-align:middle;margin:0 2px}
+.sl-game .sl-broadcast-mark>span{font:900 11px/1 'DM Sans',Arial,sans-serif!important;letter-spacing:.16em!important;color:#fff}
+.sl-game .sl-broadcast-row{background:linear-gradient(180deg,rgba(255,255,255,.12),transparent 66%);border-left-width:7px!important}
+.sl-game .sl-broadcast-name{font-weight:900!important;text-transform:uppercase!important;color:#fff!important;letter-spacing:.025em!important;text-shadow:0 2px 0 #071a39}
+.sl-game .sl-broadcast-points{color:#fff!important;text-shadow:0 2px 0 #071a39}
+.sl-game .sl-broadcast-status{background:linear-gradient(150deg,#bd9042 0%,#745018 45%,#092b6c 47%,#071f4d 100%)!important}
+.sl-game .sl-broadcast-status strong{font-size:16px!important;color:#fff;text-shadow:0 1px #071b3a}
+.sl-game .sl-broadcast-status small{color:#f6d689}
+@media(max-width:600px){
+ .sl-game .sl-broadcast-bug{grid-template-columns:61px minmax(0,1fr) 73px!important}
+ .sl-game .sl-broadcast-mark b{font-size:19px!important}
+ .sl-game .sl-broadcast-mark .sl-mark-amp{font-size:11px}
+ .sl-game .sl-broadcast-mark>span{font-size:7px!important}
+ .sl-game .sl-broadcast-status strong{font-size:11px!important}
+}
