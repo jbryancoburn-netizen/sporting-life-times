@@ -334,3 +334,43 @@ test('DII Mayaguez opponents independently verify two extra neutral-site Decembe
   assert.ok(!Object.hasOwn(f,'home_score')&&!Object.hasOwn(f,'away_score'));
  }
 });
+
+test('DII Saint Martins official 27-game fallback survives live source timeout without duplicate crossover',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const smu=evidence.schools.find(x=>x.gender==='men'&&x.owner_id==='saint-martin-s');
+ assert.ok(smu);
+ assert.equal(smu.fixtures.length,27);
+ assert.match(smu.source_url,/^https:\/\/smusaints\.com\//);
+ assert.equal(new Set(smu.fixtures.map(x=>x.date+'|'+x.opponent)).size,27);
+ assert.ok(!smu.fixtures.some(x=>x.date==='2026-12-19'),
+           'quarantined Hawaii Pacific crossover needs NCAA date reconciliation');
+ assert.ok(smu.fixtures.some(x=>x.date==='2027-02-20' &&
+   x.opponent==='Northwest Nazarene' && x.start_time==='10:30 PM ET'));
+ for(const g of smu.fixtures){
+  assert.match(g.source_clock,/ PT$/);
+  assert.match(g.start_time,/ ET$/);
+  assert.ok(!Object.hasOwn(g,'home_score')&&!Object.hasOwn(g,'away_score'));
+ }
+});
+
+test('DII Puerto Rico women get four new 2026-27 school-source dates without inventing finals',()=>{
+ const evidence=JSON.parse(fs.readFileSync('data/d2-official-school-grids-2026-27.json','utf8'));
+ const expected={
+  'walsh-university':[['2026-11-13','neutral','University of Puerto Rico, Mayaguez']],
+  'augustana-university-south-dakota':[
+   ['2026-11-27','away','University of Puerto Rico, Mayaguez'],
+   ['2026-11-28','away','University of Puerto Rico, Rio Piedras']],
+  'mckendree-university':[['2026-12-17','neutral','University of Puerto Rico, Mayaguez']]
+ };
+ for(const [owner,rows] of Object.entries(expected)){
+  const school=evidence.schools.find(x=>x.gender==='women'&&x.owner_id===owner);
+  assert.ok(school);
+  assert.deepEqual(school.fixtures.map(x=>[x.date,x.role,x.opponent]),rows);
+  assert.ok(school.source_url.startsWith('https://'));
+  for(const game of school.fixtures){
+   assert.ok(game.opponent_identity_source_url?.startsWith('https://'));
+   assert.equal(Object.hasOwn(game,'home_score'),false);
+   assert.equal(Object.hasOwn(game,'away_score'),false);
+  }
+ }
+});
