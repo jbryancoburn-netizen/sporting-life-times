@@ -1168,6 +1168,15 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not pwc_quality or
         pwc_quality.get("status")!="PWC 2026-27 two-university fixture verification"):
         pwc_quality=enrich_pwc(gender,games,teams,today)
+    # Verified Lone Star Conference: all seventeen 2026-27 men's university
+    # schedules are checked independently; only reciprocal league matches go live.
+    # Women's independent collector remains unchanged by this men's-only repair.
+    lsc_quality=previous_quality.get("official_lsc_men_schedule_reconciliation") if gender=="men" else None
+    if gender=="men":
+        from d2_lsc_men_official import enrich_lsc_men
+        if (not rapid or not lsc_quality or
+            lsc_quality.get("status")!="LSC 2026-27 two-university men's fixture verification"):
+            lsc_quality=enrich_lsc_men(games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1267,7 +1276,8 @@ def update(gender, bootstrap=False, live=False):
         "official_sac_schedule_reconciliation":sac_quality,
         "official_glvc_schedule_reconciliation":glvc_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
-        "official_pwc_schedule_reconciliation":pwc_quality}
+        "official_pwc_schedule_reconciliation":pwc_quality,
+        "official_lsc_men_schedule_reconciliation":lsc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
