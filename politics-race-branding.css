@@ -268,3 +268,15 @@ body[data-house-page="atlas"] .national-card-cta{font:900 9px 'DM Sans',sans-ser
  body[data-house-page="atlas"] .national-watch-grid{grid-template-columns:1fr}
  body[data-house-page="district"] .race-field-promoted .front-person .front-person-name{font-size:16px}
 }
+
+/* National race cards retain their state silhouette identity and a real flag image. */
+body[data-house-page="atlas"] .national-card-insignia{overflow:visible}
+body[data-house-page="atlas"] .national-card-flag{
+ position:absolute;left:-5px;bottom:-10px;width:39px;height:24px;object-fit:contain;
+ border:2px solid #fff;background:#fff;box-shadow:0 2px 5px #1a293859
+}
+body[data-house-page="atlas"] .national-card-flag[hidden]{display:none!important}
+body[data-house-page="atlas"] .national-card-insignia .state-flag-fallback{
+ position:absolute;bottom:-9px;left:-3px;background:#fff;padding:2px 5px;
+ border:1px solid #bbc8c9;color:var(--state-primary);font:900 10px 'DM Sans',sans-serif
+}
