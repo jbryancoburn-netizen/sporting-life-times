@@ -38,8 +38,13 @@ def norm(value):
     txt = txt.lower().replace("&", " and ")
     return " ".join(re.sub(r"[^a-z0-9]+", " ", txt).split())
 
-NAMES = {norm(label): key for key, labels in LABELS.items() for label in labels}
-assert len(NAMES) == sum(map(len, LABELS.values()))
+NAMES = {}
+for key, labels in LABELS.items():
+    for label in labels:
+        normalized = norm(label)
+        if normalized in NAMES and NAMES[normalized] != key:
+            raise ValueError("Conflicting SAC university alias")
+        NAMES[normalized] = key
 def school(label):
     return NAMES.get(norm(label))
 
