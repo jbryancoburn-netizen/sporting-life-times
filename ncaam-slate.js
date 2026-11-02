@@ -173,6 +173,22 @@ const saveURL=()=>{const u=new URL(location.href);u.searchParams.set('date',sele
 const brand=t=>{if(!t)return '#133a48';const p=palette[String(t.id)];const c=p?.primary||'#234b62';return /^#[0-9a-f]{6}$/i.test(c)?c:'#234b62'};
 const secondary=t=>{const c=palette[String(t?.id)]?.secondary||'#b49864';
   return /^#[0-9a-f]{6}$/i.test(c)&&c.toLowerCase()!=='#ffffff'?c:'#b49864'};
+// Contrast-safe star ink: retain school color, brighten its tint only as needed.
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const hex=a=>'#'+a.map(n=>Math.max(0,Math.min(255,Math.round(n))).toString(16).padStart(2,'0')).join('');
+const mix=(a,b,p)=>hex(rgb(a).map((v,i)=>v*(1-p)+rgb(b)[i]*p));
+const luminance=h=>{const v=rgb(h).map(x=>{x/=255;return x<=0.04045?x/12.92:((x+0.055)/1.055)**2.4});return .2126*v[0]+.7152*v[1]+.0722*v[2]};
+const contrast=(a,b)=>{const x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+const starInk=t=>{
+ const accent=secondary(t),base=brand(t),background=mix(base,'#152630',.32);
+ // Mirror the darkest pennant gradient stop; account for the shadowed backdrop.
+ const dark=mix(base,'#101f2a',.32);
+ for(let tint=0;tint<=1.001;tint+=.05){
+  const proposed=mix(accent,'#ffffff',tint);
+  if(Math.min(contrast(proposed,background),contrast(proposed,dark))>=4.5)return proposed;
+ }
+ return mix(accent,'#ffffff',.95);
+};
 const mascot=t=>{const full=String(t?.full||'').trim(),school=String(t?.name||'').trim();
   if(!full||!school)return '';
   const canonical=cross?.teams?.find(x=>String(x.espn_id)===String(t?.id));
@@ -244,7 +260,7 @@ const pennant=t=>{
  const close=link?'</a>':'</div>';
  const elo=rating(t),nickname=mascot(t);
  return open+' class="sl-pennant sl-pennant--'+shape+
-   '" style="--pennant:'+brand(t)+';--pennant-accent:'+secondary(t)+'">'+
+   '" style="--pennant:'+brand(t)+';--pennant-accent:'+secondary(t)+';--star-ink:'+starInk(t)+'">'+
    '<span class="sl-pennant-seam" aria-hidden="true"></span>'+
    '<span class="sl-pennant-rivet" aria-hidden="true"></span>'+
    '<span class="sl-pennant-brand">'+emblem(t)+'</span>'+
