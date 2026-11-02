@@ -634,6 +634,53 @@ function resultPanel(r,state){
  }
  box.append(newEl("p","Statewide 2024 presidential outcome (not a district result): "+voters(state)+".","footnote"));
 }
+/* District profile: the same transparent race read as the 435-seat atlas,
+ * with official candidate identities and original observed data in a newsroom front.
+ * No uncertified forecast percentages are created here.
+ */
+function renderDistrictFront(r,state){
+ const root=$("district-front");
+ if(!root)return;
+ const read=preliminaryRaceRead(r);
+ const graphic=districtGraphicData(r);
+ root.classList.add("front-theme-"+graphicTheme(r,read));
+ $("front-title").textContent=r.at_large?state.name+" at-large":r.id+" / "+state.name;
+ const readBox=$("front-read");
+ readBox.replaceChildren(raceReadPanel(r));
+ const chart=$("front-chart");
+ chart.append(renderDistrictGraphic(r));
+ if(graphic.url){
+  const link=addLink(chart,"OPEN MEASURED-DATA SOURCE ↗",graphic.url,"src front-source-link");
+  link.target="_blank";link.rel="noopener noreferrer";
+ }
+ $("front-facts").append(raceReasonPanel(r));
+ const roster=$("front-field");
+ const ballot=r.official_2026_candidate_snapshot;
+ if(!ballot?.candidates?.length){
+  roster.append(newEl("div","Official November candidate list has not been independently verified for this district. FEC registrations are not a ballot.","front-unverified"));
+ }else{
+  const people=newEl("div",null,"front-faceoff");
+  const selected=[...ballot.candidates].sort((a,b)=>{
+   const priority=p=>p==="DEM"?0:p==="REP"?1:2;
+   return priority(a.party)-priority(b.party);
+  }).slice(0,2);
+  for(const c of selected){
+   const person=newEl("div",null,"front-person front-party-"+(c.party==="DEM"?"dem":c.party==="REP"?"rep":"other"));
+   person.append(portraitNode(r,c,true),newEl("strong",c.name,"front-person-name"),partySeal(c.party));
+   people.append(person);
+  }
+  if(selected.length===2)people.append(newEl("span","VS","front-vs"));
+  roster.append(people);
+  const label=ballot.candidates.length>2?
+   (ballot.candidates.length-2)+" additional verified candidate"+(ballot.candidates.length===3?"":"s")+" listed in the detailed roster.":
+   "Candidates matched to the election-office record; photographs appear only when source-verified.";
+  roster.append(newEl("p",label,"front-candidate-note"));
+ }
+ if(window.PoliticsStateArt){
+  $("front-map-art").append(window.PoliticsStateArt.create(r.state,"front-map-shape"));
+  window.PoliticsStateArt.prepare(r.state,state.district_count);
+ }
+}
 function renderDistrict(a){
  let id=(new URLSearchParams(location.search).get("district")||"").trim().toUpperCase();
  const r=a.districts.find(x=>x.id===id);
@@ -645,8 +692,13 @@ function renderDistrict(a){
  const titleNode=$("district-title");titleNode.textContent=r.at_large?state.name+" at-large House seat":state.name+"'s "+parseInt(r.district,10)+(Number(r.district)%10===1&&r.district!=="11"?"st":Number(r.district)%10===2&&r.district!=="12"?"nd":Number(r.district)%10===3&&r.district!=="13"?"rd":"th")+" Congressional District";
  $("district-subtitle").textContent=r.id+" · November 3, 2026 · race data & original sources";
  $("state-link").href=urlForState(r.state);$("state-link").textContent="← All "+state.name+" districts";
+ renderDistrictFront(r,state);
  const current=districtEvidence(r),clr=color(current.party,current.margin);
  let badge=$("leader-badge");badge.textContent=current.source.toUpperCase()+" · "+current.text;badge.style.background=clr.bg;badge.style.color=clr.fg;
+ if(preliminaryRaceRead(r).watch){
+  badge.textContent="◆ WATCH / CONFLICTING OR CLOSE SIGNALS";
+  badge.style.background="#6f4bae";badge.style.color="#ffffff";
+ }
  $("district-updated").textContent="Evidence assembled "+a.generated_at.slice(0,10)+" · "+current.sub;
  insertMetric($("metrics"),[r.district_specific_2026_polls.length,r.official_2026_candidate_snapshot?r.official_2026_candidate_snapshot.candidates.length:"—",
   fmt(r.registered_fec_filings_2026),r["2026_boundaries_revised"]?"NEW":"OLD"]);
