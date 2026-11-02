@@ -233,3 +233,8 @@ body[data-house-page="district"] .geo-story-city-fill{
  body[data-house-page="district"] .geo-story-city-list{grid-template-columns:1fr}
  body[data-house-page="district"] .geo-story-city-row{grid-template-columns:88px minmax(0,1fr) 68px}
 }
+
+/* Iowa-only map controls never leak into another state's district page. */
+body[data-house-page="district"] .geo-story-controls[hidden],
+body[data-house-page="district"] .geo-story-legend[hidden],
+body[data-house-page="district"] .geo-story-status[hidden]{display:none!important}

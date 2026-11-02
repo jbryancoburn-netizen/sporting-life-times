@@ -186,11 +186,15 @@ function officialMap(r,extra){
   if(r.id==="IA-01"&&window.PoliticalGeoStory?.attach){
    window.PoliticalGeoStory.attach({map,shape,route:r,extra,fallbackLayer}).then(ok=>{
     const detail=$("geo-story-detail-wrap");if(detail)detail.hidden=!ok;
+    for(const id of ["geo-story-controls","geo-story-legend","geo-story-status"]){
+      const element=$(id);if(element)element.hidden=!ok;
+    }
     requestAnimationFrame(()=>map.invalidateSize());
    }).catch(error=>{
     console.warn("Verified county map unavailable:",error);
     const status=$("geo-story-status");
     if(status){
+      status.hidden=false;
       status.textContent="County GIS overlay unavailable; the official district outline and town map remain usable. ";
       status.append(link("State of Iowa county GIS ↗","https://geoservices.iowa.gov/arcgis/rest/services/revenue/iowa_counties/FeatureServer/0"));
     }
