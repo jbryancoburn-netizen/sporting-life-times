@@ -35,6 +35,7 @@ def run():
                 "previously_verified_university_url":known.get(org,""),
                 "discovery_method":a.get("discovery_method",a.get("calendar_origin","")),
                 "verified_opponent_rows":a.get("verified_member_opponents",0),
+                "calendar_scope":a.get("calendar_scope","verified_university_calendar" if status=="verified_university" else "conference_or_unresolved"),
                 "dated_games_from_other_official_sources":len(other),
                 "opponent_source_examples":m.get("opponent_source_examples",[]),
                 "attempted_source_urls":a.get("candidate_urls_tried",0),
@@ -44,19 +45,23 @@ def run():
                 "source_error":a.get("error",""),
                 "rejected_page_evidence":a.get("rejected_page_evidence",[]),
                 "conference_page_evidence":a.get("conference_page_evidence",[]),
-                "refresh_rule":("Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
+                "refresh_rule":(a.get("refresh_rule") or "Refresh exact URL and reverify season/gender/opponents/date; never infer scores"
                     if status=="verified_university" else
                     "Recheck official conference schedule; do not certify university calendar"
                     if status=="verified_conference" else
                     "Follow official university sports navigation, conference calendars and opponent evidence without inventing missing games")})
         summary[gender]={"ncaa_teams":len(teams),**tally}
+        summary[gender]["partial_first_party_event_archives"] = sum(
+            x["gender"]==gender and
+            x.get("calendar_scope")=="source_verified_d3_game_subset_not_complete_institutional_schedule"
+            for x in schools)
     payload={"division":"d3","season":"2026-27",
         "updated_utc":datetime.now(timezone.utc).isoformat(),
         "summary":summary,"schools":schools}
     (DATA/"d3-calendar-source-register-2026-27.json").write_text(json.dumps(payload,indent=2)+"\n")
     lines=["# NCAA DIII 2026-27 basketball schedule sourcebook","",
       "Every NCAA-confirmed men/women program has an individual source status and refresh rule.",
-      "An opponent-published game does not prove the missing school's full calendar.",
+      "An opponent-published game does not prove the missing school's full calendar. School event archives certify individual source-backed games only, not the whole school season.",
       "No schedule row is evidence of a final score. Access restrictions must not be bypassed.","",
       "| Measure | Men | Women |","|---|---:|---:|"]
     for field,label in [("ncaa_teams","NCAA-listed teams"),("verified_university","University schedules"),
@@ -72,7 +77,9 @@ def run():
             url=x["verified_2026_27_schedule_url"]
             link="[Exact verified URL]("+url+")" if url.startswith("https://") else "URL not captured"
             lines.append("| "+x["school"].replace("|","/")+" ("+str(x["ncaa_org_id"])+") | "+
-                x["status"]+" | "+link+" | "+str(x["verified_opponent_rows"])+" |")
+                x["status"]+(" (FIRST-PARTY EVENT ARCHIVE; FULL SCHEDULE NOT CERTIFIED)"
+                    if x["calendar_scope"]=="source_verified_d3_game_subset_not_complete_institutional_schedule"
+                    else "")+" | "+link+" | "+str(x["verified_opponent_rows"])+" |")
         lines.extend(["","## "+gender.title()+" — schools requiring individual source investigation","",
           "| School / NCAA ID | Starting official school site | Failure / exact next action | Games confirmed by opponents |",
           "|---|---|---|---:|"])
@@ -95,7 +102,8 @@ def run():
       "2. Recheck sport, year, opponent NCAA org ID, home/away and postseason exclusions.",
       "3. If changed, follow the university athletics schedule links and record the new verified URL.",
       "4. Use official opponent sources only for individual documented fixtures, not full calendar certification.",
-      "5. Final scores remain exclusive to the independently verified NCAA result ledger.",""])
+      "5. First-party dated event archives require separate full-school calendar certification.",
+       "6. Final scores remain exclusive to the independently verified NCAA result ledger.",""])
     (DATA/"d3-calendar-source-notebook-2026-27.md").write_text("\n".join(lines))
     print("DIII individual source documents:",len(schools),"entries;",
           sum(s["unresolved"] for s in summary.values()),"unresolved")
