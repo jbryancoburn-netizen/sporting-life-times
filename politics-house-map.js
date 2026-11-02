@@ -91,19 +91,40 @@
         if(state.code==="AK")flattenGeojsonAlaska(feature.geometry);
       }
       if(seen.size!==rows.length)throw Error("Missing or unexpected districts ("+seen.size+" of "+rows.length+")");
-      const map=L.map(ROOT,{attributionControl:false,scrollWheelZoom:false,zoomControl:true,preferCanvas:false,
-        minZoom:2,zoomSnap:0.25,keyboard:true});
+      // The original viewer drew district polygons on an EMPTY background.
+      // That obscured the geographic context, especially Michigan's two peninsulas
+      // and the closely packed districts around Detroit. Use an ACTUAL street/
+      // community basemap beneath authoritative Census boundaries.
+      // Standard OSM raster tiles are requested only as a reader pans or zooms.
+      // https://operations.osmfoundation.org/policies/tiles/
+      const map=L.map(ROOT,{attributionControl:true,scrollWheelZoom:false,zoomControl:true,preferCanvas:false,
+        minZoom:2,maxZoom:17,zoomSnap:0.25,keyboard:true});
+      const OSM_TILES="https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+      const base=L.tileLayer(OSM_TILES,{
+        attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>',
+        minZoom:2,maxZoom:17,maxNativeZoom:17,detectRetina:false,
+        className:"politics-geographic-basemap",
+        crossOrigin:false
+      }).addTo(map);
+      let basemapErrorCount=0;
+      base.on("tileerror",()=>{
+        basemapErrorCount++;
+        if(basemapErrorCount===3){
+          const warning=document.getElementById("map-base-warning");
+          if(warning){warning.hidden=false;warning.textContent="Street-map tiles could not be loaded. The congressional district outlines are still authentic U.S. Census geography; the official map link below remains available.";}
+        }
+      });
       const group=L.featureGroup();
       const layers=new Map();
       let labels=[];
       for(const feature of features){
         const id=featureId(feature,state.code,field),row=byId.get(id);
         const info=districtEvidence(row),paint=color(info.party,info.margin);
-        const layer=L.geoJSON(feature,{style:()=>({fillColor:paint.bg,color:"#44545d",weight:1.25,
-          fillOpacity:0.95,opacity:1}),interactive:true});
+        const layer=L.geoJSON(feature,{style:()=>({fillColor:paint.bg,color:"#263e50",weight:2.1,
+          fillOpacity:0.13,opacity:0.94,dashArray:null}),interactive:true});
         layer.eachLayer(shape=>{
           shape.bindTooltip(makeInfoNode(id,info),{sticky:true,direction:"top",opacity:0.98,className:"district-map-tip"});
-          shape.on("mouseover",()=>{shape.setStyle({weight:3,color:"#142d3b",fillOpacity:1});shape.bringToFront();});
+          shape.on("mouseover",()=>{shape.setStyle({weight:3.5,color:"#142d3b",fillOpacity:0.34});shape.bringToFront();});
           shape.on("mouseout",()=>layer.resetStyle(shape));
           shape.on("click",()=>{location.href=urlForDistrict(id)});
           shape.on("add",()=>{
@@ -131,10 +152,36 @@
         labels.push(marker);
       }
       group.addTo(map);
-      map.fitBounds(group.getBounds(),{padding:[23,23],maxZoom:8});
+      const completeBounds=group.getBounds();
+      map.fitBounds(completeBounds,{padding:[32,32],maxZoom:8});
+      const zoomViews=document.getElementById("map-real-views");
+      if(zoomViews){
+        zoomViews.hidden=false;
+        zoomViews.replaceChildren();
+        const views=[{label:"Entire state",action:()=>map.fitBounds(completeBounds,{padding:[32,32],maxZoom:8})}];
+        if(state.code==="MI"){
+          // Coordinates are geographic viewport centers, not inferred district centroids.
+          // Readers can see true Michigan terrain and towns on OSM tiles underneath
+          // the exact archived 2026 Census congressional polygons.
+          views.push(
+            {label:"Detroit metro",action:()=>map.setView([42.45,-83.15],9)},
+            {label:"Grand Rapids",action:()=>map.setView([42.97,-85.67],9)},
+            {label:"Northern Michigan",action:()=>map.setView([44.77,-85.62],8)},
+            {label:"Upper Peninsula",action:()=>map.setView([46.5,-87.3],7)}
+          );
+        }
+        for(const view of views){
+          const button=document.createElement("button");button.type="button";
+          button.textContent=view.label;button.className="map-real-view";
+          button.addEventListener("click",()=>{view.action();setStatus(state.name+": viewing "+view.label.toLowerCase()+" on the OpenStreetMap base with verified Census district boundaries.");});
+          zoomViews.append(button);
+        }
+      }
       const toggleLabels=()=>{
         // Avoid obscuring dozens of narrow congressional seats at small scales.
-        const show=map.getZoom()>=5.5||rows.length<=12;
+        // Metro Detroit labels overlap at the Michigan overview scale.
+        // Keep polygons clickable at every zoom; show number chips only after zoom.
+        const show=state.code==="MI"?map.getZoom()>=8:(map.getZoom()>=5.5||rows.length<=12);
         labels.forEach(marker=>{
           const el=marker.getElement();
           if(el)el.style.display=show?"":"none";
@@ -162,7 +209,7 @@
       const mo=document.getElementById("map-vintage-note");
       if(mo)mo.textContent=state.code==="MO"?
         "Missouri: the 119th Congress boundaries are displayed because the newer map was blocked for the 2026 election. Some Census 120th products still show the superseded map.":
-        "The map uses Census 120th Congress district geometry for the November 2026 election. Colors show sourced polls or comparable 2024 House results, NOT forecasts.";
+        "District outlines: official Census 120th Congress (2026) polygons. Street and city labels: OpenStreetMap contributors. Transparent blue/red shading only reflects dated source evidence, never a 2026 forecast.";
       setStatus(state.name+": "+seen.size+" of "+rows.length+" districts matched to official Census geometry. Click any district to open its profile.");
       // Leaflet must recalculate its dimensions after the state section renders.
       requestAnimationFrame(()=>map.invalidateSize());
