@@ -14,7 +14,7 @@ def make_pages(flip=None,duplicate=None):
     pairs=[];n=0
     for i,a in enumerate(allids):
         for b in allids[i+1:]:
-            day=dt.date(2026,11,3)+dt.timedelta(days=n)
+            day=dt.date(2026,11,25)+dt.timedelta(days=n)
             n+=1
             pairs.append((day.isoformat(),a,b))
             rows[a].append((day,b,'Home'))
