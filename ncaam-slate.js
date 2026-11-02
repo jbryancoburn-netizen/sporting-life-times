@@ -237,7 +237,7 @@ const titleMarks=t=>{
  if(!years.length)return '';
  const heading=years.length+' NCAA Division I titles: '+years.join(', ');
  return '<span class="sl-title-stars" title="'+esc(heading)+'" aria-label="'+esc(heading)+'">'+
-  '<span aria-hidden="true">'+years.map(y=>'<i title="'+y+'">★</i>').join('')+'</span></span>';
+  '<span aria-hidden="true">'+years.map(y=>'<span class="sl-title-star" title="NCAA champion '+y+'">★</span>').join('')+'</span></span>';
 };
 const editorialBadges=g=>{
  if(g.kind==='exhibition')return '';
