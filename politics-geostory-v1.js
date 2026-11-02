@@ -70,6 +70,20 @@ function townCard(town,extra,desk){
  sourceText(root,"City label source",town.source_url);
  return root;
 }
+function openingCountyCard(extra){
+ const root=EL("div",null,"geo-story-card");
+ root.append(EL("span","2024 ELECTION / COUNTY GEOGRAPHY","geo-story-eyebrow"),
+  EL("h4","Twenty counties. Twenty different results."),
+  EL("p","Choose a shaded county on the map to see its actual Democratic and Republican House votes, a short regional portrait, and source-linked reporting.","geo-story-town-deck"));
+ const summary=EL("div",null,"geo-story-stat-grid");
+ summary.append(numberLine("BOHANNAN COUNTY WINS","3"),
+  numberLine("MILLER-MEEKS COUNTY WINS","17"),
+  numberLine("DISTRICT RESULT","R +799"));
+ root.append(summary);
+ root.append(EL("p","The blue counties were Johnson, Scott and Jefferson. Miller-Meeks carried the other seventeen. County results reflect the 2024 House election—not polling or the 2026 race.","geo-story-footnote"));
+ sourceText(root,"Official county canvass",extra.county_results_2024.source_url);
+ return root;
+}
 function districtNewsCard(desk){
  const node=EL("div",null,"geo-story-card");
  node.append(EL("span","THE NEWS MAP / IA-01","geo-story-eyebrow"),EL("h4","What’s happening across the district"),
@@ -181,7 +195,7 @@ async function attach({map,shape,route,extra,fallbackLayer}){
    if(!map.hasLayer(countyLayers))countyLayers.addTo(map);
    if(map.hasLayer(townLayers))map.removeLayer(townLayers);
    if(map.hasLayer(labels))map.removeLayer(labels);
-   details.replaceChildren(countyCard(lookup.get("johnson"),extra,desk));
+   details.replaceChildren(openingCountyCard(extra));
    map.fitBounds(shape.getBounds(),{padding:[24,24],maxZoom:9});
    activeCounty=null;activeTown=null;
    legend.textContent="2024 COUNTY WINNER · BLUE: BOHANNAN (D) · RED: MILLER-MEEKS (R) · DARKER: LARGER TWO-PARTY MARGIN";
@@ -206,7 +220,7 @@ async function attach({map,shape,route,extra,fallbackLayer}){
  if(fallbackLayer&&map.hasLayer(fallbackLayer))map.removeLayer(fallbackLayer);
  status.replaceChildren(EL("span","20 of 20 verified county boundaries loaded · "+state.origin+" · 2024 county canvass"));
  if(validURL(conf.county_geography.source_page))status.append(A("Iowa GIS boundaries ↗",conf.county_geography.source_page));
- sourceText(status,"Iowa county list (Code §40.1)",conf.county_geography.district_counties_source);
+ if(validURL(conf.county_geography.district_counties_source))status.append(A("Iowa Code §40.1 ↗",conf.county_geography.district_counties_source));
  const source=$("dossier-map-source");if(source)source.append(" · County GIS: State of Iowa");
  const reset=$("geo-story-reset");if(reset)reset.addEventListener("click",()=>selectMode("votes"));
  window.PoliticalGeoStoryLast={counties:state.complete,towns:towns.size,countyTotals:{dem:206156,rep:206955},modes:3,geometrySource:state.origin};
