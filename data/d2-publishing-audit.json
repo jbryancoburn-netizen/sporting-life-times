@@ -5,20 +5,20 @@
   "status": "PASS — school schedules remain uncertified",
   "men": {
     "gender": "men",
-    "teams": 299,
-    "games": 2570,
+    "teams": 301,
+    "games": 2623,
     "verified_elo_finals": 25,
     "dated_game_days": 102,
-    "no_venue": 2441,
-    "no_network": 2440,
+    "no_venue": 2494,
+    "no_network": 2493,
     "no_tipoff": 719,
     "no_source_url": 0,
     "schools_without_a_published_game": 8,
     "school_schedule_recovery": {
       "disclaimer": "These are published ledger entries, not full-school schedule certifications. NCAA scoreboard and university schedules may be incomplete.",
-      "programs_with_published_games": 291,
+      "programs_with_published_games": 293,
       "without_games": 8,
-      "with_1_to_6_games": 48,
+      "with_1_to_6_games": 47,
       "zero_game_schools": [
         {
           "id": "azusa-pacific",
@@ -408,17 +408,6 @@
           "with_network": 0
         },
         {
-          "id": "st-mary-s-tx",
-          "name": "St. Mary's (TX)",
-          "conference": "LSC",
-          "membership_pending": false,
-          "published_fixtures": 4,
-          "finals": 0,
-          "with_tipoff": 4,
-          "with_venue": 0,
-          "with_network": 0
-        },
-        {
           "id": "thomas-more",
           "name": "Thomas More",
           "conference": "G-MAC",
@@ -549,6 +538,17 @@
           "with_tipoff": 6,
           "with_venue": 0,
           "with_network": 0
+        },
+        {
+          "id": "cal-state-los-angeles",
+          "name": "Cal State Los Angeles",
+          "conference": "CCAA",
+          "membership_pending": false,
+          "published_fixtures": 6,
+          "finals": 0,
+          "with_tipoff": 6,
+          "with_venue": 0,
+          "with_network": 0
         }
       ],
       "conference_gaps": {
@@ -625,10 +625,10 @@
           "fixture_appearances": 0
         },
         "LSC": {
-          "programs": 17,
+          "programs": 19,
           "without_games": 1,
-          "with_1_to_6_games": 2,
-          "fixture_appearances": 273
+          "with_1_to_6_games": 1,
+          "fixture_appearances": 379
         },
         "MEC": {
           "programs": 12,
@@ -709,7 +709,7 @@
       "GLIAC 2026-27 reciprocal official school calendars": 44,
       "GLVC 2026-27 reciprocal university calendars": 145,
       "Gulf South Conference member schedules (reciprocal)": 109,
-      "LSC 2026-27 reciprocal official university schedules": 70,
+      "LSC 2026-27 reciprocal official university schedules": 123,
       "NCAA scoreboard": 716,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
@@ -879,19 +879,11 @@
         "unavailable_count": 0
       },
       "ECC fixtures": {
-        "status": "ECC 2026-27 exact reciprocal school calendars verified",
-        "gender": "men",
-        "school_schedules": 9,
-        "schools_read": 9,
-        "confirmed_matchups": 50,
-        "added": 49,
-        "enriched": 1,
-        "quarantined": 77,
-        "time_conflicts": 2,
-        "official_tipoffs": 45,
-        "one_sided": 20,
-        "conflicts": 0,
-        "source": "East Coast Conference official 2026-27 university calendars"
+        "status": "Insufficient independent 2026-27 ECC school calendars; held",
+        "schools_read": 6,
+        "added": 0,
+        "enriched": 0,
+        "unavailable_count": 10
       },
       "SSC fixtures": {
         "status": "SSC 2026-27 two-university fixture verification",
@@ -924,14 +916,21 @@
       "Lone Star men fixtures": {
         "status": "LSC 2026-27 two-university men's fixture verification",
         "gender": "men",
-        "added": 70,
-        "enriched": 42,
-        "quarantined": 116,
+        "added": 53,
+        "enriched": 4,
+        "quarantined": 2,
         "time_conflicts": 0,
-        "official_tipoffs": 70,
+        "official_tipoffs": 53,
         "one_sided": 0,
         "source": "https://lonestarconference.org/schedule.aspx?schedule=",
         "unavailable_count": 1
+      },
+      "East Coast men fixtures": {
+        "status": "Insufficient independent 2026-27 ECC school calendars; held",
+        "schools_read": 6,
+        "added": 0,
+        "enriched": 0,
+        "unavailable_count": 10
       }
     },
     "warnings": [
@@ -1401,21 +1400,6 @@
         "conflicts": 0,
         "source": "https://glvcsports.com/schedule.aspx?schedule=",
         "unavailable_count": 0
-      },
-      "ECC fixtures": {
-        "status": "ECC 2026-27 exact reciprocal school calendars verified",
-        "gender": "women",
-        "school_schedules": 9,
-        "schools_read": 9,
-        "confirmed_matchups": 60,
-        "added": 4,
-        "enriched": 56,
-        "quarantined": 91,
-        "time_conflicts": 8,
-        "official_tipoffs": 4,
-        "one_sided": 12,
-        "conflicts": 0,
-        "source": "East Coast Conference official 2026-27 university calendars"
       },
       "SSC fixtures": {
         "status": "SSC 2026-27 two-university fixture verification",
