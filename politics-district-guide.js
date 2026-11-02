@@ -102,6 +102,31 @@ function local(host,extra,r){
  host.append(el("span","GEOGRAPHY, COMMUNITIES AND CHARACTER","dossier-overline"),el("h3","Where you are—and what makes it different"));
  if(!extra){warn(host,"Community-by-community reporting for "+r.id+" is still being source-checked. The interactive map shows real cities, towns, roads and district boundaries. No town lists have been guessed.");return;}
  host.append(el("p",extra.geography_deck,"dossier-local-deck"));
+ // Actual geographic photography is never invented or reused for a different
+ // district. Display only curated Commons images with verifiable file credits.
+ const photos=(Array.isArray(extra.location_photography)?extra.location_photography:[])
+  .filter(p=>/^https:\/\/commons\.wikimedia\.org\/wiki\/(?:Special:FilePath\/|File:)/.test(p.image_url||"")&&
+    /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(p.source_url||"")&&
+    /^https:\/\/creativecommons\.org\/licenses\/by-sa\//.test(p.license_url||""));
+ if(photos.length){
+  const gallery=el("div",null,"dossier-actual-photo-essay");gallery.setAttribute("aria-label","Verified photographs from communities in this congressional district");
+  for(const p of photos){
+   const figure=el("figure",null,"dossier-place-photo");
+   const photo=el("img");photo.src=p.image_url;photo.alt=p.headline+": "+p.caption;
+   photo.loading="lazy";photo.decoding="async";photo.referrerPolicy="no-referrer";
+   photo.addEventListener("error",()=>{figure.classList.add("photo-unavailable");});
+   const caption=el("figcaption");
+   caption.append(el("span",p.place,"dossier-photo-where"),el("strong",p.headline),
+     el("span",p.caption,"dossier-photo-description"));
+   const credit=el("span",null,"dossier-photo-credit");
+   credit.append(link("Photograph: "+p.photographer+" ↗",p.source_url),
+     el("span"," · "),
+     link(p.license+" ↗",p.license_url),
+     el("span"," · "+p.taken));
+   caption.append(credit);figure.append(photo,caption);gallery.append(figure);
+  }
+  host.append(gallery);
+ }
  const people=el("div",null,"dossier-local-places");
  for(const c of extra.major_communities||[]){
   const item=el("div",null,"dossier-local-place");item.append(el("strong",c.name),el("span",c.region),el("p",c.note));people.append(item);
