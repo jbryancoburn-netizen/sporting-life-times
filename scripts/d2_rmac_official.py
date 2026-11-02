@@ -32,7 +32,7 @@ ALIAS={
  "pueblo":("csu pueblo","colorado state university pueblo","colorado state pueblo"),
  "lewis":("fort lewis","fort lewis college"),
  "sdmines":("south dakota mines","south dakota school of mines","south dakota school of mines and technology","south dakota school of mines technology"),
- "uccs":("uccs","university of colorado colorado springs","uc colorado springs","u c colorado springs"),
+ "uccs":("uccs","uccs uc colorado springs","university of colorado colorado springs","uc colorado springs","u c colorado springs"),
  "western":("western colorado","western colorado university"),
  "westminster":("westminster","westminster university","westminster college","westminster university utah"),
  "msudenver":("msu denver","metropolitan state","metropolitan state university of denver"),

@@ -1082,7 +1082,8 @@ def update(gender, bootstrap=False, live=False):
     # A prior identity audit that failed before fetching any schedules is
     # never a valid cached result after the official NCAA name aliases change.
     if (not rapid or not rmac_quality or
-        rmac_quality.get("status")=="RMAC team identity validation incomplete; fixtures held"):
+        rmac_quality.get("status")=="RMAC team identity validation incomplete; fixtures held" or
+        (gender=="men" and rmac_quality.get("registered_schools",0)<15)):
         rmac_quality=enrich_rmac(gender,games,teams,today)
     # NSIC: sixteen independently identified 2026-27 school calendars per
     # gender, explicit H/A role and two-school agreement. Daily only.
