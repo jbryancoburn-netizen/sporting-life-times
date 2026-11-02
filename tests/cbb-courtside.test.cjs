@@ -101,8 +101,22 @@ men.state.forecastDate=forecasts.as_of;
 men.state.preseason=false;
 assert.equal(men.modelFor(live)?.probability,undefined,'neutral site probability suppressed');
 const nonneutral={...live,neutral:false};
-assert(Number.isFinite(men.modelFor(nonneutral)?.probability),'same-ID valid dated forecast can display');
-const stale={...nonneutral,date:'2027-05-01T14:30:00Z'};
+if(men.state.forecast.has(live.id)){
+  assert(Number.isFinite(men.modelFor(nonneutral)?.probability),'active same-ID forecast can display');
+}else{
+  assert.equal(men.modelFor(nonneutral)?.probability,undefined,'a completed final must not retain a stale forecast');
+}
+// Exercise an actual upcoming source fixture rather than assuming the first
+// November 1 game remains upcoming after its verified final is ingested.
+const scheduled=forecasts.games.find(f=>byNCAA.has(String(f.home_id))&&byNCAA.has(String(f.away_id))&&
+  Number.isFinite(Number(f.home_win_probability)));
+assert(scheduled,'at least one verified upcoming matchup should be available');
+const forthcoming={...nonneutral,id:String(scheduled.id).replace(/^espn:/,''),
+  date:scheduled.date+'T19:00:00Z',
+  home:{...nonneutral.home,team:{...nonneutral.home.team,id:byNCAA.get(String(scheduled.home_id))}},
+  away:{...nonneutral.away,team:{...nonneutral.away.team,id:byNCAA.get(String(scheduled.away_id))}}};
+assert(Number.isFinite(men.modelFor(forthcoming)?.probability),'real upcoming game uses its verified dated forecast');
+const stale={...forthcoming,date:'2027-05-01T14:30:00Z'};
 assert.equal(men.modelFor(stale)?.probability,undefined,'stale forecast suppressed');
 const wbb=read('data/ncaaw-2026-27-retro-primary.json');
 assert.equal(wbb.rankings.length,363);
