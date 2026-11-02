@@ -105,3 +105,6 @@ const badForecast={games:[{id:'espn:4444444',date:'2026-11-02',
 const mismatched=slate.normalizeMen({games:[fixture]},badForecast,cross);
 assert.equal(mismatched[0].probability,null,'disputed matchup cannot receive a false model forecast');
 console.log('PASS NCAA slate: interactive controls, 365-school identity, sourced scores, 1500 RETRO, men/women separation, search/date, sourced exhibition exclusions.');
+
+// Arena File, box-score provenance and future live-data correctness are release gates.
+require('./mbb-arena-insights.test.cjs');
