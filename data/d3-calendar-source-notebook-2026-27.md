@@ -7,9 +7,9 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Measure | Men | Women |
 |---|---:|---:|
 | NCAA-listed teams | 406 | 415 |
-| University schedules | 358 | 364 |
-| Official conference calendars | 30 | 32 |
-| School and conference calendars unresolved | 18 | 19 |
+| University schedules | 358 | 365 |
+| Official conference calendars | 29 | 31 |
+| School and conference calendars unresolved | 19 | 19 |
 
 ## Men — verified calendar source URLs
 
@@ -62,7 +62,6 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Capital University (117) | verified_university | [Exact verified URL](https://athletics.capital.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 22 |
 | Carleton College (118) | verified_university | [Exact verified URL](https://athletics.carleton.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 15 |
 | Carlow University (30253) | verified_university (FIRST-PARTY EVENT ARCHIVE; FULL SCHEDULE NOT CERTIFIED) | [Exact verified URL](https://www.carlow.edu/events/tag/mens-basketball/) | 19 |
-| Carnegie Mellon University (119) | verified_conference | [Exact verified URL](https://uaasports.info/schedule.aspx?schedule=1162) | 24 |
 | Carroll University (Wisconsin) (120) | verified_university | [Exact verified URL](https://www.gopios.com/sports/mens-basketball/schedule/2026-27?grid=true) | 16 |
 | Carthage College (121) | verified_university | [Exact verified URL](https://athletics.carthage.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 14 |
 | Case Western Reserve University (122) | verified_university | [Exact verified URL](https://athletics.case.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
@@ -108,7 +107,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Elmira College (213) | verified_university | [Exact verified URL](https://athletics.elmira.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 18 |
 | Elms College (532) | verified_conference | [Exact verified URL](https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300753) | 16 |
 | Emerson College (214) | verified_university | [Exact verified URL](https://www.emersonlions.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
-| Emmanuel College (Massachusetts) (215) | verified_university | [Exact verified URL](https://www.goecsaints.com/sports/mens-basketball/schedule?grid=true) | 24 |
+| Emmanuel College (Massachusetts) (215) | verified_university | [Exact verified URL](https://www.goecsaints.com/sports/mens-basketball/schedule/2026-27?grid=true) | 24 |
 | Emory University (217) | verified_university | [Exact verified URL](https://www.emoryathletics.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
 | Endicott College (8981) | verified_conference | [Exact verified URL](https://cnesports.org/schedule.aspx?schedule=4110) | 19 |
 | Eureka College (218) | verified_conference | [Exact verified URL](https://sliac.org/schedule.aspx?schedule=2031) | 18 |
@@ -170,7 +169,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Knox College (337) | verified_university | [Exact verified URL](https://prairiefire.knox.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
 | LaGrange College (1162) | verified_university | [Exact verified URL](https://www.lagrangepanthers.com/sports/mens-basketball/schedule/2026-27?grid=true) | 19 |
 | Lake Forest College (344) | verified_university | [Exact verified URL](https://www.goforesters.com/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
-| Lakeland University (1164) | verified_university | [Exact verified URL](https://lakelandmuskies.com/sports/mens-basketball/schedule/2026-27?grid=true) | 15 |
+| Lakeland University (1164) | verified_university | [Exact verified URL](https://lakelandmuskies.com/sports/mens-basketball/schedule?grid=true) | 15 |
 | Lancaster Bible College (30085) | verified_university | [Exact verified URL](https://www.lbcchargers.com/sports/mens-basketball/schedule/2026-27?grid=true) | 16 |
 | Lasell University (8486) | verified_conference | [Exact verified URL](https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634344&OrgDir=gnac&TeamID=14300755) | 16 |
 | Lawrence University (348) | verified_university | [Exact verified URL](https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true) | 21 |
@@ -200,7 +199,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | McMurry University (8530) | verified_university | [Exact verified URL](https://www.mcmurrysports.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 17 |
 | Medgar Evers College (403) | verified_university | [Exact verified URL](https://www.mecathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 14 |
 | Messiah University (411) | verified_university | [Exact verified URL](https://www.gomessiah.com/sports/mens-basketball/schedule/2026-27?grid=true) | 24 |
-| Methodist University (412) | verified_university | [Exact verified URL](https://www.mumonarchs.com/sports/mens-basketball/schedule?grid=true) | 23 |
+| Methodist University (412) | verified_university | [Exact verified URL](https://www.mumonarchs.com/sports/mens-basketball/schedule/2026-27?grid=true) | 23 |
 | Middlebury College (420) | verified_university | [Exact verified URL](https://athletics.middlebury.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 20 |
 | Millikin University (424) | verified_university | [Exact verified URL](https://athletics.millikin.edu/sports/mens-basketball/schedule/2026-27?grid=true) | 16 |
 | Millsaps College (426) | verified_university | [Exact verified URL](https://www.gomajors.com/sports/mens-basketball/schedule/2026-27?grid=true) | 13 |
@@ -236,7 +235,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Otterbein University (531) | verified_university | [Exact verified URL](https://www.otterbeincardinals.com/sports/mens-basketball/schedule/2026-27?grid=true) | 21 |
 | Pacific Lutheran University (1297) | verified_university | [Exact verified URL](https://www.golutes.com/sports/mens-basketball/schedule/2026-27?grid=true) | 17 |
 | Pacific University (Oregon) (2751) | verified_university | [Exact verified URL](https://www.goboxers.com/sports/mens-basketball/schedule?grid=true) | 17 |
-| Penn State Berks College (30044) | verified_university | [Exact verified URL](https://www.psuberksathletics.com/sports/mens-basketball/schedule/2026-2027?grid=true) | 21 |
+| Penn State Berks College (30044) | verified_university | [Exact verified URL](https://www.psuberksathletics.com/sports/mens-basketball/schedule?grid=true) | 21 |
 | Penn State Brandywine (30189) | verified_conference | [Exact verified URL](https://gounitedeast.com/schedule.aspx?schedule=3821) | 24 |
 | Penn State Harrisburg (30081) | verified_conference | [Exact verified URL](https://gounitedeast.com/schedule.aspx?schedule=3822) | 22 |
 | Penn State University, Abington (30114) | verified_university | [Exact verified URL](https://www.abingtonsports.com/sports/mens-basketball/schedule/2026-27?grid=true) | 21 |
@@ -411,6 +410,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Anderson University (Indiana) (939) | [NCAA athletics](https://athletics.anderson.edu) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 19 |
 | Austin College (953) | [NCAA athletics](https://www.acroos.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 23 |
 | Bridgewater State University (76) | [NCAA athletics](https://www.bsubears.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 10 |
+| Carnegie Mellon University (119) | [NCAA athletics](https://athletics.cmu.edu) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 9 URLs checked | 2 |
 | Centenary College (Louisiana) (125) | [NCAA athletics](https://www.GoCentenary.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 14 |
 | Fitchburg State University (227) | [NCAA athletics](https://www.fitchburgfalcons.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 10 |
 | Framingham State University (238) | [NCAA athletics](https://www.fsurams.com) | server_refused_method; Inspect official school schedule platform's public print/text calendar; do not circumvent access controls; 15 URLs checked | 7 |
@@ -436,7 +436,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Albertus Magnus College (2798) | verified_conference | [Exact verified URL](https://www.quickscores.com/Orgs/PrintSchedule.php?LeagueID=1634829&OrgDir=gnac&TeamID=14305305) | 16 |
 | Albion College (15) | verified_university | [Exact verified URL](https://www.gobrits.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Albright College (16) | verified_university | [Exact verified URL](https://www.albrightathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 22 |
-| Alfred State College (30170) | verified_university | [Exact verified URL](https://www.alfredstateathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 10 |
+| Alfred State College (30170) | verified_university | [Exact verified URL](https://www.alfredstateathletics.com/sports/womens-basketball/schedule?grid=true) | 10 |
 | Alfred University (18) | verified_university | [Exact verified URL](https://www.gosaxons.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Allegheny College (19) | verified_university | [Exact verified URL](https://www.alleghenygators.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
 | Alma College (21) | verified_university | [Exact verified URL](https://almascots.com/sports/womens-basketball/schedule/2026-27?grid=true) | 25 |
@@ -482,12 +482,11 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Capital University (117) | verified_university | [Exact verified URL](https://athletics.capital.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Carleton College (118) | verified_conference | [Exact verified URL](https://miacathletics.com/schedule.aspx?schedule=3675) | 17 |
 | Carlow University (30253) | verified_university (FIRST-PARTY EVENT ARCHIVE; FULL SCHEDULE NOT CERTIFIED) | [Exact verified URL](https://www.carlow.edu/events/tag/womens-basketball/) | 21 |
-| Carnegie Mellon University (119) | verified_conference | [Exact verified URL](https://uaasports.info/schedule.aspx?schedule=1154) | 25 |
-| Carroll University (Wisconsin) (120) | verified_university | [Exact verified URL](https://www.gopios.com/sports/womens-basketball/schedule?grid=true) | 18 |
+| Carroll University (Wisconsin) (120) | verified_university | [Exact verified URL](https://www.gopios.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Carthage College (121) | verified_university | [Exact verified URL](https://athletics.carthage.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Case Western Reserve University (122) | verified_university | [Exact verified URL](https://athletics.case.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Catholic University (124) | verified_university | [Exact verified URL](https://www.catholicathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
-| Cedar Crest College (14795) | verified_university | [Exact verified URL](https://www.cedarcrestathletics.com/sports/womens-basketball/schedule?grid=true) | 18 |
+| Cedar Crest College (14795) | verified_university | [Exact verified URL](https://www.cedarcrestathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Centenary University (New Jersey) (12884) | verified_university | [Exact verified URL](https://www.centenarycyclones.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
 | Central College (Iowa) (126) | verified_university | [Exact verified URL](https://athletics.central.edu/sports/womens-basketball/schedule?grid=true) | 15 |
 | Centre College (132) | verified_university | [Exact verified URL](https://www.centrecolonels.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
@@ -506,6 +505,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Concordia University Chicago (160) | verified_university | [Exact verified URL](https://www.cucougars.com/sports/womens-basketball/schedule/2026-27?grid=true) | 13 |
 | Concordia University Texas (24400) | verified_university | [Exact verified URL](https://athletics.concordia.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | Concordia University Wisconsin (1036) | verified_university | [Exact verified URL](https://www.cuwfalcons.com/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
+| Connecticut College (163) | verified_university | [Exact verified URL](https://camelathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
 | Cornell College (166) | verified_university | [Exact verified URL](https://www.cornellrams.com/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
 | Covenant College (30111) | verified_university | [Exact verified URL](https://athletics.covenant.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
 | Crown College (Minnesota) (30035) | verified_university | [Exact verified URL](https://athletics.crown.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
@@ -606,12 +606,12 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Lyon College (22989) | verified_university | [Exact verified URL](https://lyonscots.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
 | Macalester College (376) | verified_university | [Exact verified URL](https://athletics.macalester.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | Maine Maritime Academy (378) | verified_university | [Exact verified URL](https://www.marinersports.org/sports/womens-basketball/schedule/2026-27?grid=true) | 22 |
-| Manchester University (1192) | verified_university | [Exact verified URL](https://www.muspartans.com/sports/womens-basketball/schedule?grid=true) | 20 |
+| Manchester University (1192) | verified_university | [Exact verified URL](https://www.muspartans.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Manhattanville University (382) | verified_university | [Exact verified URL](https://www.govaliants.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |
 | Maranatha Baptist University (1194) | verified_university | [Exact verified URL](https://mbusabercats.com/sports/womens-basketball/schedule/2026-27?grid=true) | 7 |
 | Marian University (Wisconsin) (1196) | verified_university | [Exact verified URL](https://www.sabreathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 18 |
 | Marietta College (385) | verified_university | [Exact verified URL](https://pioneers.marietta.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
-| Martin Luther College (8597) | verified_university | [Exact verified URL](https://www.mlcknights.com/sports/womens-basketball/schedule?grid=true) | 15 |
+| Martin Luther College (8597) | verified_university | [Exact verified URL](https://www.mlcknights.com/sports/wbball/schedule?grid=true) | 15 |
 | Mary Baldwin University (389) | verified_university | [Exact verified URL](https://www.marybaldwinathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 20 |
 | Marymount University (Virginia) (394) | verified_university | [Exact verified URL](https://www.marymountsaints.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | Maryville College (Tennessee) (396) | verified_university | [Exact verified URL](https://www.mcscots.com/sports/womens-basketball/schedule/2026-27?grid=true) | 17 |
@@ -662,7 +662,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Penn State Brandywine (30189) | verified_conference | [Exact verified URL](https://gounitedeast.com/schedule.aspx?schedule=3832) | 22 |
 | Penn State Harrisburg (30081) | verified_conference | [Exact verified URL](https://gounitedeast.com/schedule.aspx?schedule=3833) | 23 |
 | Penn State University, Abington (30114) | verified_university | [Exact verified URL](https://www.abingtonsports.com/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
-| Pennsylvania College of Technology (30190) | verified_university | [Exact verified URL](https://athletics.pct.edu/sports/womens-basketball/schedule?grid=true) | 23 |
+| Pennsylvania College of Technology (30190) | verified_university | [Exact verified URL](https://athletics.pct.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Pfeiffer University (542) | verified_university | [Exact verified URL](https://www.gofalconsports.com/sports/womens-basketball/schedule?grid=true) | 19 |
 | Piedmont University (21830) | verified_university | [Exact verified URL](https://www.piedmontlions.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 14 |
 | Plattsburgh State University of New York (547) | verified_university | [Exact verified URL](https://www.gocardinalsports.com/sports/womens-basketball/schedule/2026-27?grid=true) | 12 |
@@ -679,7 +679,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | Rensselaer Polytechnic Institute (570) | verified_university | [Exact verified URL](https://www.rpiathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
 | Rhode Island College (571) | verified_university | [Exact verified URL](https://www.goanchormen.com/sports/womens-basketball/schedule/2026-27?grid=true) | 23 |
 | Rhodes College (573) | verified_university | [Exact verified URL](https://www.rhodeslynx.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
-| Ripon College (577) | verified_university | [Exact verified URL](https://riponredhawks.com/sports/womens-basketball/schedule?grid=true) | 21 |
+| Ripon College (577) | verified_university | [Exact verified URL](https://riponredhawks.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | Rivier University (18422) | verified_university | [Exact verified URL](https://www.rivierathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 15 |
 | Roanoke College (578) | verified_university | [Exact verified URL](https://maroons.roanoke.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 19 |
 | Rochester Institute of Technology (580) | verified_university | [Exact verified URL](https://www.ritathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 16 |
@@ -769,7 +769,7 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 | University of Mount Union (452) | verified_university | [Exact verified URL](https://athletics.mountunion.edu/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | University of New England (1255) | verified_university | [Exact verified URL](https://athletics.une.edu/sports/womens-basketball/schedule?grid=true) | 19 |
 | University of Northwestern-St. Paul (30031) | verified_university | [Exact verified URL](https://unweagles.com/sports/womens-basketball/schedule?grid=true) | 18 |
-| University of Pittsburgh, Greensburg (11839) | verified_university | [Exact verified URL](https://pittgreensburgathletics.com/sports/womens-basketball/schedule/2026-2027?grid=true) | 20 |
+| University of Pittsburgh, Greensburg (11839) | verified_university | [Exact verified URL](https://pittgreensburgathletics.com/sports/womens-basketball/schedule?grid=true) | 20 |
 | University of Puget Sound (557) | verified_university | [Exact verified URL](https://www.loggerathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
 | University of Redlands (567) | verified_university | [Exact verified URL](https://www.goredlands.com/sports/womens-basketball/schedule/2026-27?grid=true) | 21 |
 | University of Rochester (581) | verified_university | [Exact verified URL](https://uofrathletics.com/sports/womens-basketball/schedule/2026-27?grid=true) | 20 |
@@ -834,8 +834,8 @@ No schedule row is evidence of a final score. Access restrictions must not be by
 |---|---|---|---:|
 | Austin College (953) | [NCAA athletics](https://www.acroos.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 23 |
 | Bridgewater State University (76) | [NCAA athletics](https://www.bsubears.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 12 |
+| Carnegie Mellon University (119) | [NCAA athletics](https://athletics.cmu.edu) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 9 URLs checked | 1 |
 | Centenary College (Louisiana) (125) | [NCAA athletics](https://www.GoCentenary.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 13 |
-| Connecticut College (163) | [NCAA athletics](https://camelathletics.com/) | temporary_network_failure; Retry prior official published schedule without deleting verified entries; 1 URLs checked | 6 |
 | Fitchburg State University (227) | [NCAA athletics](https://www.fitchburgfalcons.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 7 |
 | Framingham State University (238) | [NCAA athletics](https://www.fsurams.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 7 |
 | La Roche University (1163) | [NCAA athletics](https://larochesports.com) | season_heading_not_verified; Check official school's 2026-27 basketball schedule link, schedule text/print pages and team-specific conference calendar; 15 URLs checked | 18 |
