@@ -751,3 +751,6 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
 .sl-game .sl-title-stars i{display:inline-block!important;font:normal 12px/1.05 Georgia,serif!important;font-style:normal!important;color:var(--pennant-accent)!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.75))}
 .sl-game .sl-pennant{height:202px!important;min-height:202px!important}
 @media(max-width:650px){.sl-game .sl-title-stars i{font-size:10px!important}.sl-game .sl-pennant{height:188px!important;min-height:188px!important}}
+
+/* School-associated contrast-adjusted title stars (computed against pennant gradient). */
+.sl-game .sl-title-stars,.sl-game .sl-title-stars i{color:var(--star-ink,var(--pennant-accent))!important}
