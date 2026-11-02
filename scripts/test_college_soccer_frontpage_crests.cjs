@@ -29,10 +29,10 @@ const start=matchJs.indexOf('const club='),end=matchJs.indexOf('\nconst row=',st
 assert(start>=0&&end>start,'Visual desk club function missing');
 let brand=branding;
 const club=new Function('E','link','logoFor','brand','palette','overrides','return ('+matchJs.slice(start,end).replace(/^const club=/,'').replace(/;\s*$/,'')+')')(E,link,logoFor,brand,palette,overrides);
-const sj=selectionJs.indexOf('const badge='),se=selectionJs.indexOf(';async function render(){',sj);
+const sj=selectionJs.indexOf('function badge('),se=selectionJs.indexOf('\nfunction render(){',sj);
 assert(sj>=0&&se>sj,'Selection badge renderer missing');
 const S=(tag,cls,txt)=>{const e=new El(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
-const badge=new Function('E','return ('+selectionJs.slice(sj,se).replace(/^const badge=/,'')+')')(S);
+const badge=new Function('E','return ('+selectionJs.slice(sj,se)+')')(S);
 const rows=[
  ['men-d1','georgetown','Georgetown'],
  ['men-d1','memphis','Memphis'],
@@ -56,7 +56,7 @@ for(const [cohort,id,name] of rows){
  assert(mark.className.includes('cs-has-logo'),'Loaded image must toggle without initials underneath');
 }
 for(const id of ['georgetown','smu','memphis']){
- const el=badge({team_id:id,team:id.toUpperCase(),conference:'big-east'},branding,palette);
+ const el=badge({team_id:id,team:id.toUpperCase(),conference:'big-east'},'men-d1',branding,palette);
  const mark=el.children[0];
  assert(mark.className.includes('has-school-colors'));
  assert.equal(mark.properties['--crest-primary'].toLowerCase(),palette.soccer['men-d1:'+id].primary.toLowerCase());
