@@ -45,6 +45,7 @@ SOURCES = {
         (30067, "https://morrisvillemustangs.com/sports/mens-basketball/schedule/2026-27?grid=true"),
         (348, "https://vikings.lawrence.edu/sports/mens-basketball/schedule/2026?grid=true"),
         (30264, "https://regentroyals.com/sports/mens-basketball/schedule/2026?grid=true"),
+        (113, "https://goslugs.com/sports/mens-basketball/schedule/text"),
     ],
     "women": [
         (30037, "https://trinethunder.com/sports/womens-basketball/schedule/2026-27?grid=true"),
@@ -68,6 +69,7 @@ SOURCES = {
         (30067, "https://morrisvillemustangs.com/sports/womens-basketball/schedule/2026-27?grid=true"),
         (348, "https://vikings.lawrence.edu/sports/womens-basketball/schedule/2026?grid=true"),
         (30264, "https://regentroyals.com/sports/womens-basketball/schedule/2026?grid=true"),
+        (113, "https://goslugs.com/sports/womens-basketball/schedule/text"),
     ],
 }
 # Institutional nicknames are used only when explicitly unambiguous.
@@ -538,6 +540,115 @@ def parse_calendar(html, gender, owner, url, by_org, exact):
 
 
 
+
+def parse_text_only_school_calendar(html, gender, owner, url, by_org, exact):
+    """Read an official Sidearm text-only university grid, not a generic sports page.
+
+    Its rows use 'Nov 6 (Fri)' and date/time/at/opponent/location columns.
+    Year inference is permitted ONLY after the actual heading certifies 2026-27,
+    with separate 2026-Nov/Dec and 2027-Jan/Apr season ranges.
+    """
+    sport = "mens-basketball" if gender == "men" else "womens-basketball"
+    path = urlsplit(url).path.lower()
+    if not re.fullmatch(r"/sports/" + sport + r"/schedule/text(?:/2026-27)?/?", path):
+        raise ValueError("Not a gender-specific text-only school schedule URL")
+    doc = BeautifulSoup(html, "html.parser")
+    headings = [compact(x.get_text(" ", strip=True)).lower().replace("’", "'")
+                for x in doc.select("h1")[:3]]
+    expected = "men's" if gender == "men" else "women's"
+    expected_heading = re.compile(
+        r"^2026\s*[-–]\s*(?:27|2027)\s+" + expected +
+        r"\s+basketball\s+schedule\b", re.I)
+    if not any(expected_heading.search(x) for x in headings):
+        raise ValueError("Text-only official schedule lacks exact 2026-27 gender heading")
+    if gender == "men" and any("women's basketball" in h for h in headings):
+        raise ValueError("Women's basketball on men's university schedule")
+    matches, unresolved, inspected = [], [], 0
+    omitted = defaultdict(int)
+    for table in doc.select("table"):
+        headers = [compact(th.get_text(" ", strip=True)).lower()
+                   for th in table.select("th")]
+        # Avoid team bios, prior-season score summaries, and sidebar tables.
+        if not all(any(x == field for x in headers)
+                   for field in ("date", "time", "at", "opponent", "location")):
+            continue
+        for tr in table.select("tbody tr") or table.select("tr"):
+            cells = [compact(c.get_text(" ", strip=True))
+                     for c in tr.find_all(["td", "th"], recursive=False)]
+            if len(cells) < 5:
+                continue
+            md = re.fullmatch(
+                r"([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:\s+\([A-Za-z]{2,10}\))?",
+                cells[0])
+            if not md:
+                continue
+            month = next((i for name, i in MONTHS.items()
+                          if name.lower().startswith(md[1].lower()[:3])), None)
+            if month is None:
+                continue
+            year = 2026 if month >= 11 else 2027
+            try:
+                date = dt.date(year, month, int(md[2]))
+            except ValueError:
+                continue
+            if not SEASON_START <= date <= SEASON_END:
+                continue
+            time, placement, opponent, location = cells[1:5]
+            placement = placement.lower()
+            if placement not in ("home", "away", "neutral"):
+                continue
+            inspected += 1
+            tournament = cells[5] if len(cells) > 5 else ""
+            if (BAD_OPPONENT.search(opponent) or
+                    re.search(r"\b(?:exhibition|scrimmage|joint practice)\b",
+                              " ".join((opponent, tournament)), re.I)):
+                omitted["conditional_or_nonregular_opponent"] += 1
+                continue
+            opponent_id = resolve(opponent, by_org, exact)
+            if opponent_id == owner:
+                omitted["self_opponent"] += 1
+                continue
+            if opponent_id is None:
+                token = key(opponent)
+                ambiguous = len(token) < 4 or sum(
+                    bool(token) and token in key(t["name"])
+                    for org, t in by_org.items() if org != owner) > 1
+                if ambiguous:
+                    omitted["ambiguous_outside_opponent"] += 1
+                    continue
+                unresolved.append({
+                    "date": date.isoformat(), "source_owner_org_id": owner,
+                    "external_opponent_label": compact(opponent),
+                    "placement": placement, "tipoff_as_posted": compact(time),
+                    "venue_location": compact(location), "source_url": url,
+                    "source_kind": "official_school"
+                })
+                continue
+            away = owner if placement == "away" else opponent_id
+            home = opponent_id if placement == "away" else owner
+            matches.append({
+                "date": date.isoformat(), "away_org_id": away,
+                "home_org_id": home, "neutral": placement == "neutral",
+                "source_owner_org_id": owner, "source_url": url,
+                "source_kind": "official_school",
+                "tipoff_as_posted": compact(time), "venue": "",
+                "venue_location": compact(location),
+                "network_as_posted": "", "radio_as_posted": "",
+                "tournament": compact(tournament)
+            })
+    if inspected < 4 or len(matches) + len(unresolved) < 3:
+        raise ValueError("Too few verified text-grid rows: " +
+                         str(inspected) + " dated, " + str(len(matches)) +
+                         " DIII and " + str(len(unresolved)) + " other games")
+    return matches, {
+        "owner_org_id": owner, "source_url": url, "readable_rows": inspected,
+        "verified_member_opponents": len(matches),
+        "unresolved_opponent_rows": unresolved,
+        "excluded_rows": dict(omitted), "status": "parsed",
+        "calendar_origin": "official_university_text_schedule"
+    }
+
+
 def parse_conference_calendar(html, gender, owner, url, subject, by_org, exact, school_legacy=False):
     """Read an explicitly selected OFFICIAL conference team season table.
 
@@ -847,13 +958,17 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
                 # The same strict year, gender, NCAA opponent and minimum
                 # full-calendar test applies; "vs."-only sites are excluded.
                 try:
-                    rows, report = parse_conference_calendar(
-                        html, gender, org, verified_url, by_org[org]["name"], by_org, exact,
-                        school_legacy=True)
+                    rows, report = parse_text_only_school_calendar(
+                        html, gender, org, verified_url, by_org, exact)
                 except ValueError:
-                    raise primary_error
-                report["status"] = "parsed"
-                report["calendar_origin"] = "ncaa_directory_verified_university_legacy_table"
+                    try:
+                        rows, report = parse_conference_calendar(
+                            html, gender, org, verified_url, by_org[org]["name"],
+                            by_org, exact, school_legacy=True)
+                    except ValueError:
+                        raise primary_error
+                    report["status"] = "parsed"
+                    report["calendar_origin"] = "ncaa_directory_verified_university_legacy_table"
             report["candidate_urls_tried"] = len(visited)
             report["verified_direct_url"] = verified_url
             report["discovery_method"] = (
@@ -906,10 +1021,14 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
                     rows, report = parse_calendar(
                         html, gender, org, verified_url, by_org, exact)
                 except ValueError:
-                    rows, report = parse_conference_calendar(
-                        html, gender, org, verified_url, by_org[org]["name"],
-                        by_org, exact, school_legacy=True)
-                    report["status"] = "parsed"
+                    try:
+                        rows, report = parse_text_only_school_calendar(
+                            html, gender, org, verified_url, by_org, exact)
+                    except ValueError:
+                        rows, report = parse_conference_calendar(
+                            html, gender, org, verified_url, by_org[org]["name"],
+                            by_org, exact, school_legacy=True)
+                        report["status"] = "parsed"
                 report["calendar_origin"] = "discovered_on_official_school_site"
                 report["verified_direct_url"] = verified_url
                 report["discovery_method"] = "school_link_discovery"
@@ -1688,6 +1807,47 @@ def self_test():
         raise AssertionError("Wrong season GNAC calendar accepted")
     except ValueError:
         pass
+
+    # UC Santa Cruz uses a year-certified official /schedule/text grid, where
+    # dates have no printed year. Reject older seasons or opposite sex.
+    text_rows = """<html><h1>2026-27 Women's Basketball Schedule</h1>
+        <table><thead><tr><th>Date</th><th>Time</th><th>At</th>
+        <th>Opponent</th><th>Location</th><th>Tournament</th><th>Result</th>
+        </tr></thead><tbody>
+        <tr><td>Nov 3 (Tue)</td><td>6 PM</td><td>Away</td>
+        <td>Trine University</td><td>Angola, IN</td><td></td><td>-</td></tr>
+        <tr><td>Nov 7 (Sat)</td><td>1 PM</td><td>Home</td>
+        <td>Trine University</td><td>Santa Cruz, CA</td><td></td><td>-</td></tr>
+        <tr><td>Nov 8 (Sun)</td><td>3 PM</td><td>Away</td>
+        <td>Hope College</td><td>Holland, MI</td><td></td><td>-</td></tr>
+        <tr><td>Dec 29 (Tue)</td><td>11 AM</td><td>Neutral</td>
+        <td>Marquette University</td><td>Denver, CO</td><td></td><td>-</td></tr>
+        <tr><td>Jan 9 (Sat)</td><td>2 PM CT</td><td>Home</td>
+        <td>Trine University</td><td>Santa Cruz, CA</td><td></td><td>-</td></tr>
+        <tr><td>Feb 27 (Sat)</td><td></td><td>Home</td>
+        <td>Coast-to-Coast Athletic Conference Tournament</td>
+        <td>Santa Cruz</td><td></td><td>-</td></tr>
+        </tbody></table></html>"""
+    w_url = "https://goslugs.com/sports/womens-basketball/schedule/text"
+    text_matches, text_report = parse_text_only_school_calendar(
+        text_rows, "women", 286, w_url, by_org, exact)
+    assert len(text_matches) == 3
+    assert text_matches[0]["date"] == "2026-11-07"
+    assert text_matches[-1]["date"] == "2027-01-09"
+    assert text_matches[-1]["tipoff_as_posted"] == "2 PM CT"
+    assert len(text_report["unresolved_opponent_rows"]) == 1
+    assert all(x["source_kind"] == "official_school" for x in text_matches)
+    for wrong_text, wrong_gender, wrong_url in [
+        (text_rows, "men", "https://goslugs.com/sports/mens-basketball/schedule/text"),
+        (text_rows.replace("2026-27", "2025-26"), "women", w_url),
+        (text_rows, "women", "https://goslugs.com/sports/womens-basketball/schedule")
+    ]:
+        try:
+            parse_text_only_school_calendar(
+                wrong_text, wrong_gender, 286, wrong_url, by_org, exact)
+            raise AssertionError("Invalid text-only source accepted")
+        except ValueError:
+            pass
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
