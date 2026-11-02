@@ -167,6 +167,7 @@ class EloTests(unittest.TestCase):
         self.assertNotIn("--nfl-club-archive",js)
         self.assertIn("scoreForecast(g)",js)
         self.assertIn("function gameStoryData(g)",js)
+        self.assertIn('<h1 class="nfl-title">',js)  # Live statistics mount detection contract
         self.assertIn("function gameScoringArc(g,story)",js)
         self.assertIn("nfl-story-field-note", (root/"nfl-game-editorial-v10.css").read_text(encoding="utf-8"))
         self.assertIn("nflGameStatInsight(box,match)", (root/"nfl-live-day.js").read_text(encoding="utf-8"))
