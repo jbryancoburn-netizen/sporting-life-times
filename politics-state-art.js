@@ -39,8 +39,13 @@ function generate(code,json,expected){
     const rawX=Number(point[0]),y=Number(point[1]);
     if(!Number.isFinite(rawX)||!Number.isFinite(y))continue;
     const x=code==="AK"&&rawX>0?rawX-360:rawX;
-    xy.push([x,y]);minX=Math.min(minX,x);maxX=Math.max(maxX,x);
-    minY=Math.min(minY,y);maxY=Math.max(maxY,y);
+    // A longitude degree is shorter than a latitude degree, particularly in
+    // Michigan's north. Drawing raw lon/lat as x/y stretches the Upper Peninsula
+    // into a fake cartoon. Project the real Census rings to Web Mercator.
+    const mercatorY=Math.log(Math.tan(Math.PI/4+y*Math.PI/360))*180/Math.PI;
+    if(!Number.isFinite(mercatorY))continue;
+    xy.push([x,mercatorY]);minX=Math.min(minX,x);maxX=Math.max(maxX,x);
+    minY=Math.min(minY,mercatorY);maxY=Math.max(maxY,mercatorY);
    }
    if(xy.length>=3)rings.push(xy);
   });
