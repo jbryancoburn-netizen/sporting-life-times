@@ -18,7 +18,7 @@ function badge(r,cohort,brands,palette){
  const initials=E('span','cs-showcase-initials',String(identity.badge_text||r.team).split(/\s+/).filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase());
  logo.append(initials);
  const candidates=[identity.logo_url,colors.logo_url,/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(r.team_id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+r.team_id+'.svg':null].filter(Boolean);
- if(candidates.length){const img=E('img');img.loading='lazy';img.decoding='async';img.alt='';let idx=0;const next=()=>{if(idx<candidates.length)img.src=candidates[idx++];else img.remove()};img.addEventListener('load',()=>{if(img.naturalWidth>0)logo.classList.add('has-image');else next()});img.addEventListener('error',next);logo.append(img);next();}
+ if(candidates.length){const img=E('img');img.loading='lazy';img.decoding='async';img.alt='';let idx=0;const next=()=>{if(idx<candidates.length)img.src=candidates[idx++];else img.remove()};img.addEventListener('load',()=>{if(img.naturalWidth>0){logo.classList.add('has-image');initials.remove()}else next()});img.addEventListener('error',next);logo.append(img);next();}
  const detail=E('span','cs-showcase-detail');detail.append(E('strong',null,r.team),E('small',null,String(r.conference||divisionName(cohort)).replace(cohort+':','').replaceAll('-',' ').toUpperCase()));wrap.append(logo,detail);
  if(hex(p))wrap.style.setProperty('--school-color',p);return wrap;
 }
