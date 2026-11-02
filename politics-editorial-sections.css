@@ -305,3 +305,10 @@ footer{border-top:4px double #182c3e;padding-top:24px;padding-bottom:10px}
  #method{grid-template-columns:1fr}
  #method .method-warning{grid-column:1}
 }
+
+/* Deep links from DDHQ battleground rows into independently sourced local district coverage. */
+#races .race-foot{align-items:flex-start}
+#races .race-foot .race-card-links{display:flex;justify-content:flex-end;gap:10px 18px;flex-wrap:wrap;text-align:right}
+#races .race-card-links a{text-decoration:underline;text-underline-offset:3px}
+#races .race-card-links .race-atlas-link{color:#214a64}
+@media(max-width:660px){#races .race-foot{flex-direction:column;align-items:flex-start}#races .race-foot .race-card-links{text-align:left;justify-content:flex-start}}
