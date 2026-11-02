@@ -423,7 +423,7 @@ def run(fast):
                 if now-dt.datetime.fromisoformat(last)<dt.timedelta(hours=12):return False
             except (TypeError,ValueError):pass
         return True
-    pending_periods=sorted((g for g in finals if needs_periods(g)),
+    pending_periods=sorted((g for g in finals if g["id"] in boxes and needs_periods(g)),
                            key=lambda g:g["date"],reverse=True)[:24]
     if pending_periods:
         print("NFL archival quarter-scoring recovery:",len(pending_periods),"final games")
@@ -432,7 +432,7 @@ def run(fast):
                                   game["id"]):game for game in pending_periods}
             for future in concurrent.futures.as_completed(requests):
                 game=requests[future]
-                target=boxes.setdefault(game["id"],{"id":game["id"],"teams":{},"players":[]})
+                target=boxes[game["id"]]
                 target["period_lines_checked"]=now.isoformat()
                 try:periods=future.result()
                 except (RuntimeError,ValueError,TypeError) as exc:
