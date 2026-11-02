@@ -49,15 +49,15 @@ test('Iowa and other states display flag, real district outline, and party ident
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
   await page.goto(origin+'/politics-house-district.html?district=IA-01',{waitUntil:'domcontentloaded'});
-  await page.locator('body.iowa-edition-active .race-identity-iowa').waitFor({timeout:15000});
-  // External flag images are intentionally blocked in this browser test.
-  // The visible state abbreviation must then replace the unreachable image.
-  assert.equal(await page.locator('body.iowa-edition-active .race-flag-frame.flag-unavailable .race-flag-fallback').innerText(),'IA');
-  assert.equal(await page.locator('.ia-candidate .race-party-feature').count(),2);
-  assert.equal(await page.locator('.ia-candidate .race-party-blue').count(),1);
-  assert.equal(await page.locator('.ia-candidate .race-party-red').count(),1);
-  assert.equal(await page.locator('.ia-map-seat').count(),4);
-  assert.equal(await page.locator('.race-local-map-id').innerText(),'IA-01 / SELECTED');
+  await page.locator('.race-identity-general').waitFor({timeout:15000});
+  assert.equal(await page.locator('.race-flag-frame.flag-unavailable .race-flag-fallback').innerText(),'IA');
+  assert.equal(await page.locator('.front-person .race-party-feature').count(),2);
+  assert.equal(await page.locator('.front-person .race-party-blue').count(),1);
+  assert.equal(await page.locator('.front-person .race-party-red').count(),1);
+  await page.locator('.race-district-geometry .race-geographic-current').waitFor({timeout:15000});
+  assert.equal(await page.locator('.race-district-geometry .race-geographic-current').getAttribute('data-district'),'IA-01');
+  assert.equal(await page.locator('.race-number').count(),3);
+  assert.equal(await page.locator('#iowa-edition').count(),0,'No one-off Iowa page remains');
   await page.goto(origin+'/politics-house-district.html?district=NE-02',{waitUntil:'domcontentloaded'});
   await page.locator('.race-identity-general').waitFor({timeout:15000});
   await page.locator('.race-district-geometry .race-geographic-current').waitFor({timeout:15000});
@@ -78,7 +78,7 @@ test('Iowa and other states display flag, real district outline, and party ident
    '/politics-house-district.html?district=NE-02',
    '/politics-house-state.html?state=IA']){
    await page.goto(origin+url,{waitUntil:'domcontentloaded'});
-   await page.locator(url.includes('state=')?'.race-state-signature':url.includes('IA-01')?'.race-identity-iowa':'.race-identity-general').waitFor({timeout:15000});
+   await page.locator(url.includes('state=')?'.race-state-signature':'.race-identity-general').waitFor({timeout:15000});
    const dim=await page.evaluate(()=>({viewport:innerWidth,body:document.body.scrollWidth}));
    assert(dim.body<=dim.viewport+2,url+' horizontal overflow '+JSON.stringify(dim));
   }
