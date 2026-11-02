@@ -425,7 +425,7 @@ const broadcastBug=g=>{
  const pts=t=>g.phase==='upcoming'?'—':Number.isFinite(t.score)?String(t.score):'—';
  const status=g.phase==='final'?'FINAL':g.phase==='live'?String(g.status||'LIVE'):'PREGAME';
  return '<div class="sl-broadcast-bug" aria-label="Game scoreboard">'+
-  '<div class="sl-broadcast-mark"><b>SL</b><span>THE SPORTING LIFE</span></div>'+
+  '<div class="sl-broadcast-mark"><b>SL<span class="sl-mark-amp">&</span>T</b><span>SPORTS</span></div>'+
   '<div class="sl-broadcast-pair">'+
   [g.away,g.home].map((t,i)=>'<div class="sl-broadcast-row" style="--bug-team:'+brand(t)+';--bug-accent:'+secondary(t)+'">'+
    '<span class="sl-broadcast-crest">'+emblem(t)+'</span>'+
