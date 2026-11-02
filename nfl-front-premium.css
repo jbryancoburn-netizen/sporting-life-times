@@ -215,3 +215,65 @@ body.nfl-paper[data-page="front"] .nfl-bar{padding:8px 0;color:#6a6a60;line-heig
 .nfl-p26 .nfl-p26-action b{font:800 10px Arial,sans-serif;color:#e8f0ef}
 .nfl-p26 .nfl-p26-action strong{font:800 11px Arial,sans-serif;color:#fff}
 .nfl-p26 .nfl-p26-action p{flex:1 0 100%;font:12px/1.4 Georgia,serif;margin:2px 0 0;color:#d7e1df}
+
+
+/* 2026-11-01 | Legible NFL badges in front-page rankings, results and fixtures.
+   Preserve EXACTLY two real colored rings: the crest and its nested core.
+   Increase the whole mark rather than introducing outlines or pseudo-rings. */
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-row{
+  grid-template-columns:30px 52px minmax(0,1fr) auto;
+  column-gap:12px;min-height:65px;padding:8px 0;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-row .nfl-badge.sm{
+  width:52px;height:52px;flex:0 0 52px;--nfl-outer:4px;--nfl-inner:3px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-name{font-size:clamp(13px,1.3vw,16px)}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-results .nfl-game{
+  padding:15px 0;row-gap:10px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-results .nfl-game .nfl-side .nfl-badge.sm{
+  width:52px;height:52px;flex:0 0 52px;--nfl-outer:4px;--nfl-inner:3px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-team-list .nfl-tile .nfl-badge.sm{
+  width:49px;height:49px;flex:0 0 49px;--nfl-outer:4px;--nfl-inner:3px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-score-row{
+  grid-template-columns:48px minmax(0,1fr) auto;min-height:52px;gap:8px;
+}
+.nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-score-row .nfl-badge.sm{
+  width:48px;height:48px;flex:0 0 48px;--nfl-outer:4px;--nfl-inner:3px;
+}
+@media(max-width:620px){
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-row{
+   grid-template-columns:23px 52px minmax(0,1fr) auto;gap:10px;min-height:67px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-row .nfl-badge.sm{
+   width:52px;height:52px;flex:0 0 52px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-results .nfl-game{
+   grid-template-columns:repeat(2,minmax(0,1fr));row-gap:8px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-results .nfl-game .nfl-side{
+   min-width:0;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-results .nfl-game .nfl-side .nfl-badge.sm{
+   width:48px;height:48px;flex:0 0 48px;--nfl-outer:4px;--nfl-inner:3px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-score-row{
+   grid-template-columns:45px minmax(0,1fr) auto;min-height:50px;gap:6px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-score-row .nfl-badge.sm{
+   width:45px;height:45px;flex:0 0 45px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-team-list .nfl-tile .nfl-badge.sm{
+   width:46px;height:46px;flex:0 0 46px;
+ }
+}
+@media(max-width:370px){
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-row{
+  grid-template-columns:20px 46px minmax(0,1fr) auto;gap:7px;
+ }
+ .nfl-paper[data-page="front"] .nfl-p26 .nfl-p26-power-row .nfl-badge.sm{
+  width:46px;height:46px;flex:0 0 46px;
+ }
+}
