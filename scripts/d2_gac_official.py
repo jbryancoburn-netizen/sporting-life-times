@@ -34,7 +34,7 @@ SCHOOLS={
 def norm(value):
     return " ".join(re.sub(r"[^a-z0-9 ]"," ",str(value or "").lower()).split())
 NAMES={norm(name):key for key,aliases in SCHOOLS.items() for name in aliases}
-assert len(NAMES)==sum(len(a) for a in SCHOOLS.values())
+assert all(NAMES[norm(alias)]==key for key,names in SCHOOLS.items() for alias in names)
 def school(value):return NAMES.get(norm(value))
 def fetch(url):
     request=urllib.request.Request(url,headers={
