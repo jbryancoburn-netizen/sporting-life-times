@@ -14,10 +14,11 @@
 .cbb-wire-empty{padding:30px 18px;color:#cad6de;font-size:12px}.cbb-wire-empty a{color:#f3d59c}
 .cbb-wire-news-row{display:flex;align-items:center;min-height:35px;background:#f0e6d2;color:#1e2b39;border-top:1px solid #b7a988}
 .cbb-wire-news-label{padding:11px 12px;background:#aa282e;color:white;flex:none;font-size:10px;font-weight:800;letter-spacing:.1em}.cbb-wire-news-label span{font-size:7px}
-.cbb-wire-news-viewport{overflow:hidden;flex:1;min-width:0}.cbb-wire-news-track{display:flex;align-items:center;width:max-content;gap:28px;padding-left:18px;animation:cbb-wire-scroll 95s linear infinite;white-space:nowrap}
+.cbb-wire-news-viewport{overflow:hidden;flex:1;min-width:0}.cbb-wire-news-track{display:flex;align-items:center;width:max-content;gap:0;padding-left:0;animation:cbb-wire-scroll var(--cbb-news-duration,95s) linear infinite;white-space:nowrap}
 .cbb-wire-news-track a{font-size:12px;color:#243447;text-decoration:none;font-weight:500}.cbb-wire-news-track a:hover{text-decoration:underline}.cbb-wire-news-track strong{color:#9a2730;font-size:10px;margin-right:7px}
 .cbb-wire-news-row:hover .cbb-wire-news-track,.cbb-wire-news-row:focus-within .cbb-wire-news-track{animation-play-state:paused}
 .cbb-wire-separator{color:#9b7d5a;font-size:8px}.cbb-wire-news-more{flex:none;padding:11px 14px;color:#83212a;text-decoration:none;font-size:10px;font-weight:800;border-left:1px solid #cfbfa2}
-@keyframes cbb-wire-scroll{from{transform:translateX(0)}to{transform:translateX(-75%)}}
+.cbb-wire-news-group{display:flex;flex:none;align-items:center;gap:28px;padding:0 14px;min-width:max-content}.cbb-wire-news-group::after{content:'◆';font-size:8px;color:#9b7d5a}
+@keyframes cbb-wire-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:650px){.cbb-wire-top{gap:7px;padding:9px;font-size:9px;flex-wrap:wrap}.cbb-wire-brand{font-size:11px}#cbb-wire-updated{order:3;width:100%}.cbb-wire-game{width:182px}.cbb-wire-news-more{display:none}}
 @media(prefers-reduced-motion:reduce){.cbb-wire-news-track{animation:none}.cbb-wire-news-viewport{overflow-x:auto}}
