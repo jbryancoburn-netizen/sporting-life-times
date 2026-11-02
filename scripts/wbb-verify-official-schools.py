@@ -72,6 +72,48 @@ OFFICIAL_NAME_ALIASES={
  "150":("duke",),
  "26":("ucla",),
  "25":("cal", "california"),
+ # Explicit women-specific school abbreviations found in the published
+ # university 2026-27 unmatched-source review. Each applies only to the
+ # candidate's fixed NCAA team ID, on its verified date, never to a new game.
+ "2426":("navy",),
+ "252":("byu",),
+ "5":("uab",),
+ "254":("utah",),
+ "85":("iu indy","iu indianapolis"),
+ "2628":("tcu",),
+ "2636":("utsa",),
+ "242":("rice",),
+ "314":("iona",),
+ "2463":("csun",),
+ "2638":("utep",),
+ "2567":("smu",),
+ "2439":("unlv",),
+ "2116":("ucf",),
+ "82":("uic",),
+ "2908":("usc upstate",),
+ "195":("ohio",),
+ "2433":("ulm",),
+ "349":("army west point","army"),
+ "43":("yale",),
+ "2378":("umbc",),
+ "2885":("njit",),
+ "2565":("siue",),
+ "2229":("fiu",),
+ "292":("utrgv",),
+ "350":("uncw",),
+ "2193":("etsu",),
+ "2349":("umass lowell",),
+ "113":("umass",),
+ "2210":("elon",),
+ "104":("boston u.","boston university"),
+ "256":("jmu",),
+ "2115":("ccsu","central connecticut state"),
+ "55":("jax state",),
+ "2379":("umes",),
+ "2351":("lmu",),
+ "2460":("uni",),
+ "249":("university of north texas",),
+ "2501":("university of portland",),
 }
 # Short, exact official-school labels recovered from 2026-27 women-only
 # university schedule rows. ESPN team IDs are the authority for identity.
@@ -148,6 +190,14 @@ def official_opponent_matches(source,game,safe_stems):
   # Texas A&M, nor North Carolina accidentally match North Carolina State.
   display=re.sub(r"^\s*(?:vs\.?|at|@)\s+","",tail,flags=re.I).strip()
   if not re.match(r"^"+re.escape(alias)+r"(?=$|[\s,.(\-])",display,re.I):
+   continue
+  # A source shorthand is not permission to absorb another distinct
+  # DI program with the same prefix. Examples: Utah != Utah State.
+  if (oppid=="254" and text.startswith("utahstate")) or \
+     (oppid=="195" and text.startswith("ohiostate")) or \
+     (oppid=="113" and text.startswith(("umasslowell","universityofmassachusettslowell"))) or \
+     (oppid=="30" and text.startswith("uscupstate")) or \
+     (oppid=="2294" and text.startswith("iowastate")):
    continue
   if oppid=="12" and text.startswith("arizonastate"):
    continue
