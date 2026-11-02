@@ -329,3 +329,28 @@
    min-height:45px!important;max-height:45px!important;width:45px!important;height:45px!important}
  .cbb-game-card .cbb-match-rows .cbb-name b{font-size:16px}
 }
+
+
+/* A school's actual name is the primary scorebug label.
+   Never ellipsize full names into cryptic 1–2 character school codes. */
+.cbb-game-card .cbb-name b.cbb-school-label,
+.cbb-gamefile-score .cbb-name b.cbb-school-label{
+  display:block;white-space:normal;overflow:visible;text-overflow:clip;
+  line-height:1.14;overflow-wrap:break-word;hyphens:none;
+}
+.cbb-game-card .cbb-school-mascot,
+.cbb-gamefile-score .cbb-school-mascot{
+  display:block;white-space:normal;overflow-wrap:break-word;
+  line-height:1.3;opacity:.93;
+}
+.cbb-game-card .cbb-team-link,
+.cbb-gamefile-score .cbb-team-link,
+.cbb-game-card .cbb-name,
+.cbb-gamefile-score .cbb-name{min-width:0}
+.cbb-game-card .cbb-scorebug-row,
+.cbb-gamefile-score .cbb-scorebug-row{height:auto}
+@media(max-width:540px){
+ .cbb-game-card .cbb-name b.cbb-school-label{font-size:17px;line-height:1.15}
+ .cbb-gamefile-score .cbb-name b.cbb-school-label{font-size:20px;line-height:1.15}
+ .cbb-game-card .cbb-points{flex:0 0 auto}
+}
