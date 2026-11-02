@@ -83,6 +83,8 @@ ALIASES = {
 # The NCAA member directory sometimes exposes an old generic campus URL.
 # Every candidate still must pass exact 2026–27, sex, row and NCAA-opponent tests.
 OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
+    58: "athletics.baruch.cuny.edu", 82: "gobrynmawr.com",
+    151: "colbyathletics.com", 1111: "greenvillepanthers.com",
     69: "athletics.bowdoin.edu", 117: "athletics.capital.edu",
     126: "athletics.central.edu", 168: "www.cortlandreddragons.com",
     192: "udspartans.com", 266: "gogusties.com",
@@ -471,6 +473,8 @@ def self_test():
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[58] == "athletics.baruch.cuny.edu"
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[151] == "colbyathletics.com"
     fixes, _ = source_candidates("men", {69: {
         "name": "Bowdoin College", "ncaa_org_id": 69,
         "athletics_site": "https://www.bowdoin.edu/athletics/"}})
