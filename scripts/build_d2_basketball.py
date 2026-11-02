@@ -923,6 +923,30 @@ def update(gender, bootstrap=False, live=False):
         except Exception as exc:
             directory_error=str(exc)
             print(f"WARNING: {gender} directory not refreshed: {exc}",file=sys.stderr)
+    # The Wikipedia men's basketball roster omits TWO confirmed current NCAA
+    # Division II programs. Never let its incomplete extraction erase official
+    # NCAA membership or Lone Star Conference fixture access.
+    # These identities are NCAA-directory confirmed (not guessed from standings).
+    if gender=="men":
+        official_lsc_missing={
+            "university-of-texas-at-dallas":{
+                "id":"university-of-texas-at-dallas","name":"University of Texas at Dallas",
+                "city":"Richardson","conference":"LSC","slug":"texas-dallas",
+                "logo_source":"NCAA schools index","d2_confirmed":True,
+                "membership_status":"NCAA Division II active member, Lone Star Conference",
+                "membership_source":"https://web3.ncaa.org/directory/orgDetail?id=23121",
+                "source":"https://web3.ncaa.org/directory/orgDetail?id=23121"},
+            "the-university-of-texas-at-tyler":{
+                "id":"the-university-of-texas-at-tyler",
+                "name":"The University of Texas at Tyler",
+                "city":"Tyler","conference":"LSC","slug":"texas-tyler",
+                "logo_source":"NCAA schools index","d2_confirmed":True,
+                "membership_status":"NCAA Division II active member, Lone Star Conference",
+                "membership_source":"https://web3.ncaa.org/directory/orgDetail?id=30028",
+                "source":"https://web3.ncaa.org/directory/orgDetail?id=30028"}}
+        for ident,verified_school in official_lsc_missing.items():
+            if ident not in teams:
+                teams[ident]=verified_school
     # ESPN's team listing sometimes ignores DII and returns DI. Never carry
     # forward previously rejected colors even on the rapid no-scrape path.
     for team in teams.values():
@@ -1175,7 +1199,8 @@ def update(gender, bootstrap=False, live=False):
     if gender=="men":
         from d2_lsc_men_official import enrich_lsc_men
         if (not rapid or not lsc_quality or
-            lsc_quality.get("status")!="LSC 2026-27 two-university men's fixture verification"):
+            lsc_quality.get("status")!="LSC 2026-27 two-university men's fixture verification" or
+            lsc_quality.get("teams_identified",0)<17):
             lsc_quality=enrich_lsc_men(games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
