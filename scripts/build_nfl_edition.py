@@ -408,6 +408,40 @@ def run(fast):
                 except (RuntimeError,ValueError) as exc:print("Box score unavailable:",eid,exc)
     complete_ids={g["id"] for g in finals}
     boxes={eid:val for eid,val in boxes.items() if eid in complete_ids}
+    # Gradually recover the older quarter-by-quarter timelines through the
+    # same official game-summary endpoint already used for player box scores.
+    # Limit calls each run; a failed source is not retried more than every 12h.
+    def needs_periods(game):
+        present=all(len((game[side].get("linescores") or []))>=4 for side in ("away","home"))
+        if present:return False
+        current=boxes.get(game["id"]) or {}
+        if all(len((current.get("period_lines") or {}).get(side) or [])>=4
+               for side in ("away","home")):return False
+        last=current.get("period_lines_checked")
+        if last:
+            try:
+                if now-dt.datetime.fromisoformat(last)<dt.timedelta(hours=12):return False
+            except (TypeError,ValueError):pass
+        return True
+    pending_periods=sorted((g for g in finals if needs_periods(g)),
+                           key=lambda g:g["date"],reverse=True)[:24]
+    if pending_periods:
+        print("NFL archival quarter-scoring recovery:",len(pending_periods),"final games")
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+            requests={pool.submit(lambda eid:period_lines_from_summary(request(API+"summary?event="+eid)),
+                                  game["id"]):game for game in pending_periods}
+            for future in concurrent.futures.as_completed(requests):
+                game=requests[future]
+                target=boxes.setdefault(game["id"],{"id":game["id"],"teams":{},"players":[]})
+                target["period_lines_checked"]=now.isoformat()
+                try:periods=future.result()
+                except (RuntimeError,ValueError,TypeError) as exc:
+                    print("NFL quarter-score source unavailable:",game["id"],exc)
+                    continue
+                if not all(len(periods.get(side) or [])>=4
+                           and sum(row["score"] for row in periods[side])==game[side]["score"]
+                           for side in ("away","home")):continue
+                target["period_lines"]=periods
     # Persist official quarter lines captured with player box-score summaries.
     # Do not apply an incomplete or contradictory breakdown to a final.
     for game in finals:
@@ -480,7 +514,9 @@ def run(fast):
         cov.pop("weeks_fetched",None)
         cov.pop("mode",None)
         return obj
-    unchanged=bool(old_snapshot) and comparable(old_snapshot)==comparable(data) and prior_rosters==rosters
+    prior_box_games=(load(BOXES,{"games":{}}).get("games") or {})
+    unchanged=(bool(old_snapshot) and comparable(old_snapshot)==comparable(data)
+               and prior_rosters==rosters and prior_box_games==boxes)
     if unchanged:
         try:
             prior_time=dt.datetime.fromisoformat(old_snapshot["updated_at"])
