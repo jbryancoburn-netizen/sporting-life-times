@@ -139,7 +139,7 @@ class EloTests(unittest.TestCase):
     def test_gamefile_story_has_no_background_logo_wallpaper(self):
         root=Path(__file__).resolve().parents[1]
         js=(root/"nfl-edition-v3.js").read_text(encoding="utf-8")
-        css=(root/"nfl-game-showcase-v7.css").read_text(encoding="utf-8")
+        css=(root/"nfl-game-story-v9.css").read_text(encoding="utf-8")
         html=(root/"nfl-game.html").read_text(encoding="utf-8")
         self.assertNotIn("archivalMark(",js)
         self.assertNotIn("--nfl-club-archive",js)
