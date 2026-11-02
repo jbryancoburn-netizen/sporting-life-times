@@ -240,5 +240,6 @@ test('DII school-grid fixtures are not fabricated results',()=>{
   assert.equal(Object.hasOwn(item,'status'),false);
   assert.equal(Object.hasOwn(item,'elo_change_home'),false);
   assert.ok(item.opponent.length>2);
+  assert.ok(!item.start_time || /^([1-9]|1[0-2]):[0-5]\\d [AP]M ET$/.test(item.start_time));
  }
 });

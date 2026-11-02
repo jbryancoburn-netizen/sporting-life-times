@@ -162,8 +162,10 @@ def identities(teams):
 def enrich_ccaa_men(games,teams,today=None,fetcher=fetch):
     today=today or dt.date.today()
     ids,ambiguous=identities(teams)
-    # All fourteen conference schools must have eligible, unique identities.
-    if len(ids)<len(ALIASES) or ambiguous:
+    # At least thirteen uniquely eligible members are needed to recover
+    # reciprocal fixtures. An ineligible 14th member must never participate,
+    # but must not suppress independently verified games among the other 13.
+    if len(ids)<13 or ambiguous:
         return {'status':'CCAA institutional identities incomplete; held',
                 'teams_identified':len(ids),'ambiguous':ambiguous,'added':0,'enriched':0}
     sources={};failed=[];rejected=0
