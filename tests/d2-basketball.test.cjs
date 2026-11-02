@@ -209,7 +209,7 @@ test('DII CCAA school evidence requires independent men’s university calendars
  const builder=fs.readFileSync('scripts/build_d2_basketball.py','utf8');
  assert.match(code,/def parse_league\(/);
  assert.match(code,/def parse_merced\(/);
- assert.match(code,/set\(seen\)!==\{away,home\}/);
+ assert.match(code,/set\(seen\)!=\{away,home\}/);
  assert.match(code,/if day<today\.isoformat\(\):continue/);
  assert.match(code,/if all\(clocks\) and clocks\[0\]==clocks\[1\]/);
  assert.match(builder,/official_ccaa_men_schedule_reconciliation/);
