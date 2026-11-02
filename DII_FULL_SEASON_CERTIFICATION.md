@@ -57,6 +57,22 @@ The existing official school grid JSON includes `certification_assertions: []`. 
 
 **Do not add this record until the check has actually been performed.** If the complete school calendar contains no other-division games, use `other_division_classifications: []`. Otherwise enumerate **every** non-DII/exhibition source row by exact date and original opponent, plus a reliable independent classification URL; unresolved identities cannot be certified. The audit rejects wrong-season/duplicate attestations, unverified second sources, unresolved opponents, mismatched snapshot counts, missing or extra DII games, conflicting home/away, and conflicting published clocks. The mere presence of an official URL, 25 games or a reciprocal conference schedule is insufficient.
 
+
+## November 2 school-calendar recovery batch (published, not yet certified)
+
+Actual official-school rows captured in `data/d2-official-school-grids-2026-27.json`:
+
+| School/edition | Dated official source rows | Current unique school-ledger fixtures | Important exclusions/unresolved |
+| --- | ---: | ---: | --- |
+| D'Youville men | 25 | 25 | Independent all-calendar attestation outstanding |
+| Roberts Wesleyan men | 25 | 22 | 2 D-I exhibition games + Redeemer non-DII; 1 tipoff discrepancy |
+| Minnesota–Duluth men | 29 | 27 | Carleton and Wisconsin–Superior are outside DII; ambiguous source clocks withheld |
+| Wayne State (Detroit) women | 31 | 30 | March 3 GLIAC tournament **TBD** has no opponent; never create a phantom game |
+
+DII publish totals after both successful existing-workflow refreshes: **3,305 men + 3,802 women** = **7,107 unique games**, a net **+53** from 3,264 + 3,790. Each source row has an official university URL and known original opponent label; no school receives a certification attestation from having a source snapshot alone.
+
+The public full-season milestone must distinguish a future postseason TBD from an out-of-division/exhibition opponent: neither generates a phantom DII game. An unresolved tournament placeholder has its own `POSTSEASON_TBD_REVIEW_REQUIRED` stage, and **blocks certification** until the organizer names the opponent and the record is reconciled.
+
 ## Recovery order / next substantive batches
 
 Prioritize source-backed, exhaustive school captures: (1) Mayagüez women (6 games), Río Piedras (7), Bayamón (8), Salem women (12); (2) D'Youville men (7), Ferris State, Minnesota–Duluth and Roberts Wesleyan (12 each); (3) the remaining 20-or-fewer men's and women's schools; (4) all institutions with larger existing ledgers, **including** 25+ games, because their published records are not proof of a complete season. During each batch classify every uncovered DII fixture, source-only opponent and tipoff conflict. Reconcile both teams' ledgers without changing canonical NCAA IDs.
