@@ -173,7 +173,8 @@ def enrich(conf,gender,games,teams,today=None,fetcher=fetch):
     today=today or dt.date.today()
     team_index,ambiguities=identities(conf,teams)
     expected=len(SOURCES[conf][gender])
-    if len(team_index)!=expected or ambiguities:
+    minimum=12 if conf=="GLVC" else 9
+    if len(team_index)<minimum or ambiguities:
         return {"status":"Conference institutional identity unresolved; fixtures withheld",
                 "teams_identified":len(team_index),"target_teams":expected,
                 "ambiguous":sorted(ambiguities),"added":0,"enriched":0}
@@ -210,6 +211,8 @@ def enrich(conf,gender,games,teams,today=None,fetcher=fetch):
     for (date,away,home),votes in sorted(observed.items()):
         if set(votes)!={away,home} or any(value is None for value in votes.values()):
             one_sided+=1;continue
+        if away not in team_index or home not in team_index:
+            rejected+=1;continue
         a,h=team_index[away],team_index[home]
         key=(date,frozenset((a,h)))
         current=existing.get(key,[])
