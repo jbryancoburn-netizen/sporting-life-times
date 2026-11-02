@@ -728,38 +728,38 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
                 date.strftime("%a").lower() != md[3].lower()[:3]):
             excluded["invalid_date_or_weekday"] += 1
             continue
-        element = card.select_one(".sidearm-schedule-list-game-opponent")
-        if element is None:
-            excluded["no_structured_opponent"] += 1
+        # Landmark's 2026-27 SIDEARM cards use three separate descendants
+        # for opponent date, opponent identity and at/vs game-site marker.
+        # Reading the entire wrapper includes the date and city, preventing
+        # NCAA identity resolution even for valid public schedule pages.
+        name_node = card.select_one(".sidearm-schedule-list-game-opponent-text")
+        site_node = card.select_one(".sidearm-schedule-list-game-conference-at-vs")
+        if name_node is None or site_node is None:
+            excluded["no_structured_opponent_or_site"] += 1
             continue
-        label = compact(element.get_text(" ", strip=True))
-        opponent = re.sub(r"(?i)^(?:at|vs\.?)\s+", "", label).strip()
-        if not opponent or BAD_OPPONENT.search(opponent):
-            excluded["conditional_or_unverified_opponent"] += 1
-            continue
-        # The game card must itself visibly state the at/vs relation. The
-        # school name alone is not evidence of who is home. Landmark SIDEARM
-        # cards use "at" for away and "vs" for home. Neutral/TBA sites are
-        # held rather than assigned fictional home advantage.
-        placement = re.search(
-            r"(?i)\b(at|vs\.?)\s+" + re.escape(opponent) + r"(?=\b|$)",
-            text[md.end():])
-        if not placement or re.search(
-                r"(?i)\bneutral\s*(?:site|court)?\b", text):
+        opponent = compact(name_node.get_text(" ", strip=True))
+        placement = compact(site_node.get_text(" ", strip=True)).lower()
+        if placement not in ("at", "vs", "vs."):
             excluded["site_not_explicitly_verified"] += 1
             continue
         inspected += 1
-        if placement[1].lower() != "at":
-            # SIDEARM 'vs' includes both actual home and neutral tournament
-            # games (e.g., Juniata vs Westminster in Bethlehem). The label
-            # alone never certifies host or neutral-site Elo status.
+        if placement != "at":
+            # 'vs' includes both real home games and neutral tournament sites;
+            # never award home-court advantage based solely on that text.
             excluded["vs_home_or_neutral_not_verified"] += 1
+            continue
+        if not opponent or BAD_OPPONENT.search(opponent) or re.search(
+                r"(?i)\b(exhibition|scrimmage|joint practice)\b", text):
+            excluded["conditional_or_nonregular_opponent"] += 1
+            continue
+        if re.search(r"(?i)\bneutral\s*(?:site|court)?\b", text):
+            excluded["possible_neutral_site"] += 1
             continue
         opp_id = resolve(opponent, by_org, exact)
         if opp_id is None or opp_id == owner:
             excluded["missing_or_ambiguous_ncaa_opponent"] += 1
             continue
-        is_away = placement[1].lower() == "at"
+        is_away = True
         time = re.search(r"\b\d{1,2}:\d{2}\s*[AP]\.?M\.?", text[md.end():], re.I)
         entries.append({
             "date": date.isoformat(),
@@ -1975,9 +1975,12 @@ def self_test():
     ]:
         landmark_items.append(
             '<div class="sidearm-schedule-list-game"><div class="sidearm-schedule-list-game-row">'
-            f'Nov {day} ({dow}) 7:00 P.M. {venue} '
-            f'<div class="sidearm-schedule-list-game-opponent">{opponent}</div>'
-            '</div></div>')
+            '<div class="sidearm-schedule-list-game-opponent">'
+            f'<span class="sidearm-schedule-list-game-opponent-date">Nov {day} ({dow})</span> '
+            '<span class="sidearm-schedule-list-game-conference-at-vs">' +
+            venue + '</span> '
+            f'<span class="sidearm-schedule-list-game-opponent-text">{opponent}</span>'
+            ' 7:00 P.M.</div></div></div>')
     landmark_html = (
         "<html><head><title>2026-27 Goucher Women's Basketball Schedule</title></head>"
         "<body><h2>2026-27 Goucher Women's Basketball Schedule</h2>" +
@@ -1990,6 +1993,22 @@ def self_test():
     assert all(row["away_org_id"] == 1467 for row in lr)
     assert lr[0]["home_org_id"] == 286 and lr[1]["home_org_id"] == 30037
     assert lr[0]["date"] == "2026-11-06" and not lr[1]["neutral"]
+    # Quarantine ambiguous unmarked home/away and any neutral site indication.
+    without_site = landmark_html.replace(
+        'class="sidearm-schedule-list-game-conference-at-vs"',
+        'class="no-confirmed-site"')
+    try:
+        parse_conference_calendar(
+            without_site, "women", 1467, landmark_url, "Goucher", by_org, exact)
+        raise AssertionError("Game-card schedule lacking site marker accepted")
+    except ValueError:
+        pass
+    neutral_html = landmark_html.replace(
+        "Nov 6 (Fri)", "Nov 6 (Fri) neutral site", 1)
+    neutral_rows, neutral_report = parse_conference_calendar(
+        neutral_html, "women", 1467, landmark_url, "Goucher", by_org, exact)
+    assert len(neutral_rows) == 3
+    assert neutral_report["excluded_rows"]["possible_neutral_site"] == 1
     for bad_html, bad_gender in [
         (landmark_html.replace("2026-27", "2025-26"), "women"),
         (landmark_html, "men"),
