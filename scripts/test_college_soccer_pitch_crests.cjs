@@ -45,8 +45,8 @@ function check(name,id,cohort,expected,primary,secondary){
  assert(!badge.textContent,'Initials must not appear as a raw text node underneath school logo');
  img.naturalWidth=120;img.events.load();
  assert(badge.classList.contains('has-image'));
- img.events.error();
- assert(!badge.classList.contains('has-image')&&img.removed);
+ for(let i=0;i<8&&!img.removed;i++)img.events.error();
+ assert(!badge.classList.contains('has-image')&&img.removed,'All failed school-logo sources must restore initials');
 }
 check('Georgetown','georgetown','men-d1',true,palette.soccer['men-d1:georgetown'].primary,palette.soccer['men-d1:georgetown'].secondary);
 check('Houston Christian','houston-christian','women-d1',true,palette.soccer['men-d1:houston-christian'].primary,palette.soccer['men-d1:houston-christian'].secondary);
