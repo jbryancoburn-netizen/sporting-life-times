@@ -59,6 +59,9 @@ function apply(img){
  if(!img.isConnected||!img.getAttribute('src'))return;
  // The Pitch's crest renderer owns exactly two rings. Never layer legacy rings on it.
  if(league==='soccer'&&img.closest('.cs-pitch-badge,.cs-match-badge'))return;
+ // College soccer's main desk now owns a single two-color crest system.
+ // Never layer these legacy outlines on the scoreboard or selection rankings.
+ if(league==='soccer'&&document.body?.dataset?.league==='college-soccer'&&img.closest('#college-soccer-visual-desk .cs-mark,#cs-showcase .cs-showcase-logo'))return;
  // The unified NBA/EuroLeague/NBL paper owns its crest badge.
  // Applying this site's generic two-ring treatment here caused FOUR overlapping rings.
  if(img.closest('.pb-club-crest'))return;
