@@ -216,7 +216,10 @@ try{
   if(e.date.slice(0,10)>='2026-11-01')return false;
   const opponents=e.competitions?.[0]?.competitors||[];
   const other=opponents.find(x=>String(x.team?.id)!==String(team.espn_id));
-  return !!other&&!!exhibitionFinals.get(gameKey(e.date.slice(0,10),team.espn_id,other.team?.id));
+  const special=e.exhibition_result;
+  const sourcedNonDI=special?.verified===true&&special.counts_for_retro===false&&
+    /^https:\/\/[^\s"'<>]+$/.test(special.source_url||'');
+  return !!(sourcedNonDI||(other&&exhibitionFinals.get(gameKey(e.date.slice(0,10),team.espn_id,other.team?.id))));
  }).length;
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
  const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
