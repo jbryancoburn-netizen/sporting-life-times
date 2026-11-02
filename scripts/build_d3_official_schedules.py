@@ -661,6 +661,20 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
             f"{base}/sports/{old_short}/schedule",
             f"{base}/sports/{sport}/2026-27/schedule",
         ])
+        if deep_discovery:
+            # SIDEARM archives sometimes use the starting calendar year
+            # ('2026') instead of '2026-27'. Prior failed schools only:
+            # do not add requests to 700+ already certified institutions.
+            # The actual page must still pass sport + 2026-27 heading,
+            # NCAA opponent, date and home/away verification.
+            attempts.extend([
+                f"{base}/sports/{sport}/schedule/2026?grid=true",
+                f"{base}/sports/{sport}/schedule/2026",
+                f"{base}/sports/{sport}/schedule/2026-27?print=true",
+                f"{base}/sports/{sport}/schedule/text/2026-27",
+                f"{base}/sports/{sport}/schedule/2026-27",
+                f"{base}/sports/{short}/schedule/2026",
+            ])
     errors = []
     observed_links = []
     fetched_html = None
@@ -1364,6 +1378,15 @@ def self_test():
     assert retained_fixture_source(
         prior_game, 999, "parsed", {999: "https://school.example/schedule"},
         {}) is None
+
+    # Prior failed NCAA schools search the year-only and print/text routes.
+    # This is discovery, not a relaxation of source verification.
+    import inspect as _inspect
+    _inspect_source_text = _inspect.getsource(inspect_source)
+    assert '/schedule/2026?grid=true' in _inspect_source_text
+    assert '/schedule/2026-27?print=true' in _inspect_source_text
+    assert '/schedule/text/2026-27' in _inspect_source_text
+    assert 'if deep_discovery:' in _inspect_source_text
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
