@@ -168,9 +168,10 @@ function officialMap(r,extra){
   // remain U.S. Census data. Marker layers do not imply county boundaries.
   const list=$("dossier-map-town-links");if(list)list.replaceChildren();
   const places=Array.isArray(extra?.map_places)?extra.map_places.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon)):[];
+  const fallbackLayer=L.layerGroup().addTo(map);
   for(const p of places){
     const pin=L.circleMarker([p.lat,p.lon],{radius:6,color:"#fff",weight:2,fillColor:"#b54b40",fillOpacity:1});
-    pin.addTo(map);
+    pin.addTo(fallbackLayer);
     pin.bindTooltip(p.name,{direction:"top",permanent:false,opacity:.95});
     if(list){
       const button=el("button",p.name,"dossier-town-zoom");button.type="button";
@@ -182,6 +183,19 @@ function officialMap(r,extra){
   const source=$("dossier-map-source");
   if(source){source.replaceChildren(link("Census 120th Congressional District geometry ↗",data.meta.source_url));}
   requestAnimationFrame(()=>map.invalidateSize());
+  if(r.id==="IA-01"&&window.PoliticalGeoStory?.attach){
+   window.PoliticalGeoStory.attach({map,shape,route:r,extra,fallbackLayer}).then(ok=>{
+    const detail=$("geo-story-detail-wrap");if(detail)detail.hidden=!ok;
+    requestAnimationFrame(()=>map.invalidateSize());
+   }).catch(error=>{
+    console.warn("Verified county map unavailable:",error);
+    const status=$("geo-story-status");
+    if(status){
+      status.textContent="County GIS overlay unavailable; the official district outline and town map remain usable. ";
+      status.append(link("State of Iowa county GIS ↗","https://geoservices.iowa.gov/arcgis/rest/services/revenue/iowa_counties/FeatureServer/0"));
+    }
+   });
+  }
  }).catch(()=>{
   node.textContent="This district's live map could not load; no approximate map has been substituted.";
  });
