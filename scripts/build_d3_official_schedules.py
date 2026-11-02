@@ -83,6 +83,8 @@ ALIASES = {
 # The NCAA member directory sometimes exposes an old generic campus URL.
 # Every candidate still must pass exact 2026–27, sex, row and NCAA-opponent tests.
 OFFICIAL_ATHLETICS_HOST_OVERRIDE = {
+    # Live 2026-27 official university athletics calendars; NCAA directory host stale.
+    585: "athletics.rose-hulman.edu", 30035: "athletics.crown.edu",
     53: "beloitcollegeathletics.com", 549: "sagehens.com",
     1450: "wcbluejays.wcmo.edu",
     58: "athletics.baruch.cuny.edu", 82: "gobrynmawr.com",
@@ -716,6 +718,8 @@ def self_test():
     # No future-season or wrong-sport page can be accepted just because its
     # URL looks right. Yearless routes must still have the exact 2026-27 title.
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[69] == "athletics.bowdoin.edu"
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[585] == "athletics.rose-hulman.edu"
+    assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[30035] == "athletics.crown.edu"
     assert OFFICIAL_ATHLETICS_HOST_OVERRIDE[53] == "beloitcollegeathletics.com"
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][218][1] == "Eureka"
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][449][1] == "Mount Holyoke"
