@@ -135,6 +135,12 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         64: ("https://sliac.org/schedule.aspx?schedule=2030", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1162", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2283", "Olivet"),
+        # Independent 2026–27 team-specific conference calendars verified by page title.
+        170: ("https://cnesports.org/schedule.aspx?schedule=4114", "Curry"),
+        348: ("https://midwestconference.org/schedule.aspx?schedule=4005", "Lawrence"),
+        641: ("https://rollrivers.com/schedule.aspx?schedule=2841", "Simpson"),
+        806: ("https://northcoast.org/schedule.aspx?schedule=2761", "Wittenberg"),
+        8597: ("https://umacathletics.com/schedule.aspx?schedule=4445", "Martin Luther"),
     },
     "women": {
         161: ("https://miacathletics.com/schedule.aspx?schedule=3671", "Concordia"),
@@ -152,6 +158,10 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         64: ("https://sliac.org/schedule.aspx?schedule=2029", "Blackburn"),
         119: ("https://uaasports.info/schedule.aspx?schedule=1154", "Carnegie Mellon"),
         525: ("https://miaa.org/schedule.aspx?schedule=2274", "Olivet"),
+        # Independent 2026–27 team-specific conference calendars verified by page title.
+        348: ("https://midwestconference.org/schedule.aspx?schedule=3994", "Lawrence"),
+        641: ("https://rollrivers.com/schedule.aspx?schedule=2849", "Simpson"),
+        806: ("https://northcoast.org/schedule.aspx?schedule=2771", "Wittenberg"),
     },
 }
 
@@ -961,6 +971,29 @@ def self_test():
         "https://cnesports.org/schedule.aspx?schedule=4122", "Wentworth")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][684] == (
         "https://cnesports.org/schedule.aspx?schedule=4118", "Suffolk")
+    # Eight 2026-27 conference fallbacks: identify the exact institution,
+    # season, gender and page ID before game-row verification begins.
+    expected = {
+        "men": {
+            170: ("cnesports.org", 4114, "Curry"),
+            348: ("midwestconference.org", 4005, "Lawrence"),
+            641: ("rollrivers.com", 2841, "Simpson"),
+            806: ("northcoast.org", 2761, "Wittenberg"),
+            8597: ("umacathletics.com", 4445, "Martin Luther"),
+        },
+        "women": {
+            348: ("midwestconference.org", 3994, "Lawrence"),
+            641: ("rollrivers.com", 2849, "Simpson"),
+            806: ("northcoast.org", 2771, "Wittenberg"),
+        },
+    }
+    for sport, schools in expected.items():
+        for org, (domain, season_id, label) in schools.items():
+            url, subject = OFFICIAL_CONFERENCE_SCHEDULES[sport][org]
+            assert urlsplit(url).hostname == domain
+            assert urlsplit(url).query == f"schedule={season_id}"
+            assert subject == label
+
     conf_html = """<html><head><title>2026-27 Blackburn Men's Basketball Schedule</title></head>
     <body><h2>2026-27 Blackburn Men's Basketball Schedule (0-0)</h2>
     <table><thead><tr><th>Date</th><th>Opponent</th><th>Status</th><th>Result</th><th>Location</th></tr></thead><tbody>
