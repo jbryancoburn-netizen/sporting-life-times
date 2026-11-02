@@ -151,6 +151,37 @@ class FullSeasonCertificationTests(unittest.TestCase):
         self.assertEqual(alpha["status"], "ATTESTATION_FAILED")
         self.assertFalse(alpha["certified"])
 
+    def test_explicitly_classified_non_dii_source_rows_can_be_excluded(self):
+        source = snapshot()
+        source["fixtures"].append({
+            "date": "2026-11-21", "opponent": "Unlisted Junior College",
+            "role": "home", "start_time": "",
+        })
+        assertion = attestation()
+        assertion["snapshot_rows"] = 2
+        assertion["other_division_classifications"] = [{
+            "date": "2026-11-21",
+            "opponent": "Unlisted Junior College",
+            "classification": "not_dii_2026_27",
+            "membership_source_url": "https://ncaa.example.org/directory/junior-college",
+        }]
+        result = self.report(sources=[source], assertions=[assertion])
+        self.assertEqual(result["certified_schools"], 1)
+        self.assertTrue(self.find(result)["certified"])
+        self.assertEqual(self.find(result)["unidentified_or_other_division_rows"], 1)
+        # The source is exhaustive; the non-DII matchup was NOT added
+        # to the DII game ledger or Elo system.
+        self.assertEqual(self.find(result)["published_games"], 1)
+        incorrect = attestation()
+        incorrect["snapshot_rows"] = 2
+        incorrect["other_division_classifications"] = [{
+            "date": "2026-11-21", "opponent": "Unlisted Junior College",
+            "classification": "unresolved_identity",
+            "membership_source_url": "https://ncaa.example.org/directory/junior-college",
+        }]
+        result = self.report(sources=[source], assertions=[incorrect])
+        self.assertFalse(self.find(result)["certified"])
+
     def test_duplicate_and_wrong_season_attestations_rejected(self):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             self.report(sources=[snapshot()],
