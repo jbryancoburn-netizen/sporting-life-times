@@ -1216,6 +1216,14 @@ def update(gender, bootstrap=False, live=False):
     if (not rapid or not ecc_quality or
         ecc_quality.get("status")!="ECC 2026-27 exact reciprocal school calendars verified"):
         ecc_quality=enrich_ecc(gender,games,teams,today)
+    # Nine East Coast Conference men's university calendars: two-school
+    # agreement required for date, opponent IDs, and site designation.
+    ecc_quality=previous_quality.get("official_ecc_men_schedule_reconciliation") if gender=="men" else None
+    if gender=="men":
+        from d2_ecc_men_official import enrich_ecc_men
+        if (not rapid or not ecc_quality or
+            ecc_quality.get("status")!="ECC 2026-27 official two-university men's matchups verified"):
+            ecc_quality=enrich_ecc_men(games,teams,today)
     # Ratings start at 1500 on every new season; only NCAA verified DII-v-DII finals count.
     rating={key:1500.0 for key in teams}
     wins={key:0 for key in teams};losses={key:0 for key in teams}
@@ -1318,7 +1326,8 @@ def update(gender, bootstrap=False, live=False):
         "official_ecc_schedule_reconciliation":ecc_quality,
         "official_ssc_schedule_reconciliation":ssc_quality,
         "official_pwc_schedule_reconciliation":pwc_quality,
-        "official_lsc_men_schedule_reconciliation":lsc_quality}
+        "official_lsc_men_schedule_reconciliation":lsc_quality,
+        "official_ecc_men_schedule_reconciliation":ecc_quality}
     # A complete DATE scan is not certification of every school schedule.
     previous=(prior.get("quality") or {}).get("full_season_scan")
     if bootstrap:
