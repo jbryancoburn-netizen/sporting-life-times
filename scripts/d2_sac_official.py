@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 BASE = "https://thesac.com/schedule.aspx?schedule="
 SOURCES = {"men": tuple(range(2584, 2596)), "women": tuple(range(2596, 2608))}
 LABELS = {
-    "anderson": ("Anderson", "Anderson University", "Anderson University South Carolina"),
+    "anderson": ("Anderson", "Anderson University", "Anderson University South Carolina", "Anderson University (SC)"),
     "carson": ("Carson-Newman", "Carson Newman", "Carson-Newman University"),
     "catawba": ("Catawba", "Catawba College"),
     "coker": ("Coker", "Coker University"),
@@ -29,7 +29,7 @@ LABELS = {
     "mars": ("Mars Hill", "Mars Hill University"),
     "newberry": ("Newberry", "Newberry College"),
     "tusculum": ("Tusculum", "Tusculum University"),
-    "wise": ("UVA Wise", "University of Virginia's College at Wise",
+    "wise": ("UVA Wise", "UVA-Wise", "University of Virginia's College at Wise",
              "The University of Virginia's College at Wise"),
     "wingate": ("Wingate", "Wingate University"),
 }
@@ -110,6 +110,84 @@ def parse(html, gender, sid):
         raise ValueError(f"SAC official 2026-27 grid unavailable for {sid}")
     return owner, rows, rejected
 
+
+# Institution-owned SIDEARM grids verified separately from the conference host.
+# Fallbacks are deliberately pinned to published 2026-27 women's pages,
+# never guessed URL patterns or stale 2025-26 athlete schedules.
+WOMEN_SCHOOL_GRIDS = {
+    "anderson": ("https://autrojans.com/sports/womens-basketball/schedule/2026-27?grid=true", "Anderson University"),
+    "lenoir": ("https://lrbears.com/sports/womens-basketball/schedule/2026-27?grid=true", "Lenoir-Rhyne University"),
+    "lincoln": ("https://lmurailsplitters.com/sports/womens-basketball/schedule/2026-27?grid=true", "Lincoln Memorial University"),
+    "newberry": ("https://newberrywolves.com/sports/womens-basketball/schedule/2026-27?grid=true", "Newberry College"),
+    "wise": ("https://uvawisecavs.com/sports/womens-basketball/schedule/2026-27?grid=true", "The University of Virginia"),
+}
+MONTHS = r"(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
+def parse_university_grid(html, owner):
+    """Fail-closed parser for a genuine season-specific university-owned grid.
+
+    Each row requires an explicit 2026-27 calendar date and the posted
+    Home/Away designation. Neutral sites and out-of-division opponents are
+    excluded; time is only attributed ET once another campus agrees.
+    """
+    if owner not in WOMEN_SCHOOL_GRIDS:
+        raise ValueError("Not a vetted official women's SAC school site")
+    soup = BeautifulSoup(html, "html.parser")
+    title = soup.title.get_text(" ", strip=True) if soup.title else ""
+    brand = WOMEN_SCHOOL_GRIDS[owner][1]
+    if (not re.search(r"2026[-–]27\s+Women's\s+Basketball\s+Schedule",title,re.I)
+            or norm(brand) not in norm(title)):
+        raise ValueError("University calendar title/season/gender/institution mismatch")
+    records = []
+    rejected = 0
+    found = False
+    for table in soup.select("table"):
+        table_rows=table.select("tr")
+        for header_index,tr in enumerate(table_rows):
+            headers = [norm(x.get_text(" ", strip=True)) for x in tr.find_all("th",recursive=False)]
+            if not {"date","time","at","opponent"}.issubset(headers):
+                continue
+            pos = {key:headers.index(key) for key in ("date","time","at","opponent")}
+            found=True
+            for row in table_rows[header_index+1:]:
+                cells=[x.get_text(" ",strip=True) for x in row.find_all("td",recursive=False)]
+                if len(cells)<=max(pos.values()):
+                    continue
+                date_text=" ".join(cells[pos["date"]].split()).replace("Sept ", "Sep ")
+                hit=re.search(r"\b"+MONTHS+r"\.?\s+\d{1,2},\s*202[67]\b",date_text,re.I)
+                if not hit:
+                    rejected+=1
+                    continue
+                date=None
+                for fmt in ("%B %d, %Y","%b %d, %Y"):
+                    try:
+                        date=dt.datetime.strptime(hit.group(0).replace(".",""),fmt).date()
+                        break
+                    except ValueError:
+                        continue
+                if date is None or not dt.date(2026,11,1)<=date<=dt.date(2027,3,1):
+                    rejected+=1
+                    continue
+                role=norm(cells[pos["at"]])
+                if role not in ("home","away"):
+                    rejected+=1
+                    continue
+                opponent_name=cells[pos["opponent"]].strip()
+                if re.search(r"\bexhibition\b",opponent_name,re.I):
+                    rejected+=1
+                    continue
+                rival=school(opponent_name)
+                if not rival or rival==owner:
+                    rejected+=1
+                    continue
+                away,home=(owner,rival) if role=="away" else (rival,owner)
+                records.append((date.isoformat(),away,home,owner,et_clock(cells[pos["time"]])))
+            break
+        if found:
+            break
+    if not found or len(records)<7:
+        raise ValueError("No verified 2026-27 school university schedule grid")
+    return owner,records,rejected
+
 def identities(gender, teams):
     conference = "SAC" if gender == "men" else "South Atlantic Conference"
     found = {}
@@ -150,10 +228,33 @@ def enrich_sac(gender, games, teams, today=None, fetcher=fetch):
                     calendars[owner] = None
                     rejected += 1
                 else:
-                    calendars[owner] = (sid, rows)
+                    calendars[owner] = (BASE + str(sid), rows)
                 rejected += bad
             except Exception as exc:
                 unavailable.append({"id":sid,"error":str(exc)[:140]})
+    # The SAC host returns HTTP 500 for seven women's 2026-27 calendar
+    # endpoints. Independently published, pinned university schedules are
+    # recovered ONLY for missing/failed institutions; they never override
+    # a healthy conference-school calendar or collapse school identities.
+    school_grids_read = 0
+    school_grid_errors = []
+    if gender == "women":
+        missing = {owner: entry for owner,entry in WOMEN_SCHOOL_GRIDS.items()
+                   if owner not in calendars or calendars[owner] is None}
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            pending = {pool.submit(fetcher,url): (owner,url)
+                       for owner,(url,brand) in missing.items()}
+            for future in as_completed(pending):
+                owner,url = pending[future]
+                try:
+                    parsed_owner,rows,bad=parse_university_grid(future.result(),owner)
+                    if parsed_owner!=owner:
+                        raise ValueError("Wrong school grid identity")
+                    calendars[owner]=(url,rows)
+                    school_grids_read+=1
+                    rejected+=bad
+                except Exception as exc:
+                    school_grid_errors.append({"school":owner,"error":str(exc)[:130]})
     if len([x for x in calendars.values() if x]) < 2:
         return {"status":"SAC official source calendars insufficient; fixtures held",
                 "gender":gender, "schools_read":0, "unavailable":unavailable,
@@ -163,7 +264,7 @@ def enrich_sac(gender, games, teams, today=None, fetcher=fetch):
     for owner, payload in calendars.items():
         if not payload:
             continue
-        sid, rows = payload
+        source_url, rows = payload
         for date, away, home, witness, clock in rows:
             if any(x not in ids for x in (owner, away, home)):
                 rejected += 1
@@ -173,12 +274,12 @@ def enrich_sac(gender, games, teams, today=None, fetcher=fetch):
                 # Exact duplicated rows on the SAC site should not discard
                 # a real two-school match; competing tipoffs must be held.
                 old = sightings[key][witness]
-                new = (sid, clock)
+                new = (source_url, clock)
                 if old != new:
                     sightings[key][witness] = None
                     duplicate_rows += 1
             else:
-                sightings[key][witness] = (sid, clock)
+                sightings[key][witness] = (source_url, clock)
     existing = defaultdict(list)
     for ident, game in games.items():
         if game.get("date") and game.get("away") and game.get("home"):
@@ -195,7 +296,7 @@ def enrich_sac(gender, games, teams, today=None, fetcher=fetch):
         if len(same_day) > 1:
             conflicts += 1
             continue
-        sources = sorted(BASE + str(v[0]) for v in votes.values())
+        sources = sorted(v[0] for v in votes.values())
         clocks = [v[1] for v in votes.values()]
         tipoff = clocks[0] if clocks[0] and clocks[0] == clocks[1] else None
         if all(clocks) and not tipoff:
@@ -241,4 +342,6 @@ def enrich_sac(gender, games, teams, today=None, fetcher=fetch):
             "quarantined":rejected + conflicts + duplicate_rows,
             "conflicts":conflicts, "time_conflicts":time_conflicts,
             "mutually_verified_eastern_tipoffs":time_added,
-            "unavailable":unavailable, "source":"South Atlantic Conference official school calendars"}
+            "unavailable":unavailable, "school_grids_read":school_grids_read,
+            "school_grid_errors":school_grid_errors,
+            "source":"South Atlantic Conference official school calendars plus verified university grids"}

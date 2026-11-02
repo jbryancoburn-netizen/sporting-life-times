@@ -154,12 +154,12 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
             "unmatched", "conflicted", "quarantined", "time_conflicts",
             "time_disagreements", "unreciprocated", "single_school_only",
             "official_tipoffs", "reciprocal_matchups", "one_sided",
-            "conflicts", "mutually_verified_eastern_tipoffs",
+            "conflicts", "mutually_verified_eastern_tipoffs", "school_grids_read",
             "source",
         )
         small = {k: source[k] for k in keys if k in source and
                  isinstance(source[k], (str, int, float, bool))}
-        for k in ("errors", "unavailable_calendars", "unavailable", "missing_school_ids", "missing_teams"):
+        for k in ("errors", "unavailable_calendars", "unavailable", "school_grid_errors", "missing_school_ids", "missing_teams"):
             if isinstance(source.get(k), list):
                 small[k + "_count"] = len(source[k])
         official_sources[source_name] = small

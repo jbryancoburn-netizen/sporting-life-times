@@ -1136,7 +1136,9 @@ def update(gender, bootstrap=False, live=False):
         siac_quality.get("status")!="SIAC 2026-27 exact reciprocal university fixture check"):
         siac_quality=enrich_siac(gender,games,teams,today)
     # SAC: institution-specific 2026-27 school calendars independently attest
-    # each date and H/A role. University titles/gender/season are validated;
+    # each date and H/A role. Five independent women university grids provide
+    # vetted fallback sources when the SAC host serves HTTP 500.
+    # University titles/gender/season are validated;
     # unresolved conflicts cannot become forecast fixtures.
     from d2_sac_official import enrich_sac
     sac_quality=previous_quality.get("official_sac_schedule_reconciliation")
