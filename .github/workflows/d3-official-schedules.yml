@@ -73,7 +73,10 @@ jobs:
           for n in 1 2 3 4; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
-            if ! git rebase origin/main; then
+            # The rebase conflict side named "theirs" is this run's
+            # already validated DIII-only fixture snapshot. Preserve
+            # unrelated upstream changes, replay only our audited files.
+            if ! git rebase -X theirs origin/main; then
               git rebase --abort || true
               echo "Concurrent schedule update; preserving existing published data"
               exit 1
