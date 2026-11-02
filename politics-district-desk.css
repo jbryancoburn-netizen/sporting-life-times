@@ -1,0 +1,161 @@
+/* DISTRICT SERVICE DESK — SOURCE-LED EDITORIAL SYSTEM */
+body[data-house-page="district"] .district-service-desk{
+ border-top:5px solid #20465d;border-bottom:2px solid #203e50;
+ margin:0;padding:21px 28px 30px;background:#faf9f4;color:#183348
+}
+body[data-house-page="district"] .desk-frame{
+ display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;
+ padding-bottom:18px;border-bottom:1px solid #9fb1bc
+}
+body[data-house-page="district"] .desk-frame>div>span{
+ display:block;font:900 10px/1.5 'DM Sans',Arial,sans-serif;letter-spacing:1.1px;color:#b04e41
+}
+body[data-house-page="district"] .desk-frame h2{
+ font:700 clamp(29px,3.5vw,46px)/1.05 Georgia,serif;letter-spacing:-1.4px;
+ color:#163649;margin:6px 0
+}
+body[data-house-page="district"] #desk-edition-status{
+ max-width:300px;font:900 10px/1.5 'DM Sans',sans-serif;letter-spacing:.65px;color:#5b6c78
+}
+body[data-house-page="district"] .desk-switcher{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ border-bottom:3px solid #193b51
+}
+body[data-house-page="district"] .desk-switcher button{
+ background:#ebeff0;color:#20445c;border:0;border-right:1px solid #bbc8cd;
+ border-bottom:4px solid transparent;border-radius:0;padding:16px 13px 14px;
+ text-align:left;font:900 12px/1.4 'DM Sans',Arial,sans-serif;
+ cursor:pointer
+}
+body[data-house-page="district"] .desk-switcher button:last-child{border-right:0}
+body[data-house-page="district"] .desk-switcher button:hover,
+body[data-house-page="district"] .desk-switcher button:focus-visible{background:#dbe5e7}
+body[data-house-page="district"] .desk-switcher button.is-current{
+ background:#fffefa;color:#9d4138;border-bottom-color:#bb4a3c
+}
+body[data-house-page="district"] .desk-panel{padding:25px 0 6px;min-height:220px}
+body[data-house-page="district"] .desk-panel[hidden]{display:none!important}
+body[data-house-page="district"] .desk-kicker,
+body[data-house-page="district"] .desk-overline{
+ color:#ac4940;font:900 10px/1.5 'DM Sans',Arial,sans-serif;letter-spacing:1px
+}
+body[data-house-page="district"] .desk-intro{
+ display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.6fr);
+ align-items:end;gap:4px 24px;padding-bottom:19px
+}
+body[data-house-page="district"] .desk-intro .desk-kicker{grid-column:1/-1}
+body[data-house-page="district"] .desk-intro h3{
+ grid-column:1;font:700 clamp(27px,3vw,41px)/1.1 Georgia,serif;
+ letter-spacing:-1px;margin:0;color:#1c3c52
+}
+body[data-house-page="district"] .desk-intro p{
+ grid-column:2;font:13px/1.57 Georgia,serif;margin:0;color:#526671
+}
+body[data-house-page="district"] .desk-lead-story{
+ display:flex;flex-direction:column;gap:7px;
+ background:#e5eff0;border-left:7px solid #1d526b;
+ padding:23px 25px;margin:4px 0 0
+}
+body[data-house-page="district"] .desk-lead-story>a{
+ font:700 clamp(24px,2.8vw,39px)/1.15 Georgia,serif;color:#183a50;
+ text-decoration:none!important;letter-spacing:-.9px
+}
+body[data-house-page="district"] .desk-lead-story>a:hover{text-decoration:underline!important}
+body[data-house-page="district"] .desk-lead-story>p{
+ color:#566e7a;font:800 11px/1.5 'DM Sans',sans-serif;margin:3px 0 0
+}
+body[data-house-page="district"] .desk-news-list{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:0 24px;margin-top:9px
+}
+body[data-house-page="district"] .desk-news-row{border-bottom:1px solid #c2ced0;padding:19px 2px 17px}
+body[data-house-page="district"] .desk-news-row .desk-overline{display:block;margin-bottom:8px}
+body[data-house-page="district"] .desk-news-row>a{
+ font:700 clamp(17px,1.85vw,23px)/1.32 Georgia,serif;
+ color:#1d4159;text-decoration:none
+}
+body[data-house-page="district"] .desk-news-row>a:hover{text-decoration:underline}
+body[data-house-page="district"] .desk-attribution,
+body[data-house-page="district"] .desk-empty{
+ font:12px/1.65 Georgia,serif;color:#536b77;margin:15px 0
+}
+body[data-house-page="district"] .desk-attribution a,
+body[data-house-page="district"] .desk-empty a{
+ color:#205b7b;text-decoration:underline;text-underline-offset:3px
+}
+body[data-house-page="district"] .desk-poll{
+ padding:17px 0 22px;border-top:1px solid #b3c3c7
+}
+body[data-house-page="district"] .desk-poll-head{
+ display:flex;justify-content:space-between;align-items:baseline;gap:8px 20px
+}
+body[data-house-page="district"] .desk-poll-head h4{
+ font:700 25px/1.2 Georgia,serif;color:#17364c;margin:0
+}
+body[data-house-page="district"] .desk-poll-dates{
+ font:800 11px/1.5 'DM Sans',sans-serif;color:#526775
+}
+body[data-house-page="district"] .desk-poll-method{
+ font:12px/1.6 Georgia,serif;color:#5b707b;margin:9px 0 13px
+}
+body[data-house-page="district"] .desk-poll-bars{max-width:740px}
+body[data-house-page="district"] .desk-poll-choice{
+ display:grid;grid-template-columns:155px minmax(0,1fr) 50px;
+ gap:12px;align-items:center;padding:7px 0
+}
+body[data-house-page="district"] .desk-poll-name{font:700 13px/1.3 Georgia,serif;color:#233e50}
+body[data-house-page="district"] .desk-poll-track{display:block;height:18px;background:#e0e6e6;overflow:hidden}
+body[data-house-page="district"] .desk-poll-fill{display:block;height:100%}
+body[data-house-page="district"] .desk-poll-fill.party-d{background:#3b78a2}
+body[data-house-page="district"] .desk-poll-fill.party-r{background:#ba5048}
+body[data-house-page="district"] .desk-poll-fill.party-i{background:#7c8992}
+body[data-house-page="district"] .desk-poll-choice strong{font:700 17px/1 Georgia,serif;color:#1d4157}
+body[data-house-page="district"] .desk-poll-caution{font:11px/1.5 'DM Sans',sans-serif;color:#975448}
+body[data-house-page="district"] .desk-poll>a,
+body[data-house-page="district"] .desk-result-status a,
+body[data-house-page="district"] .desk-member>a{
+ display:inline-block;margin:7px 15px 7px 0;
+ color:#215f81;font:900 11px/1.5 'DM Sans',sans-serif;
+ text-decoration:underline;text-underline-offset:3px
+}
+body[data-house-page="district"] .desk-result-status{
+ border-left:5px solid #b14b40;background:#edf1f0;padding:21px 23px;margin:6px 0 22px
+}
+body[data-house-page="district"] .desk-result-status strong{
+ display:block;font:900 12px/1.5 'DM Sans',sans-serif;color:#a34940;letter-spacing:.8px
+}
+body[data-house-page="district"] .desk-result-status p{
+ font:14px/1.55 Georgia,serif;color:#274354
+}
+body[data-house-page="district"] .desk-member{border-top:2px solid #274b60;padding:22px 0 0}
+body[data-house-page="district"] .desk-member h4{
+ font:700 clamp(24px,3vw,39px)/1.1 Georgia,serif;color:#203e53;margin:9px 0
+}
+body[data-house-page="district"] .desk-member>p{font:13px/1.6 Georgia,serif;color:#576b76}
+body[data-house-page="district"] .desk-member h5{
+ font:700 24px/1.2 Georgia,serif;color:#203e53;margin:20px 0 10px
+}
+body[data-house-page="district"] .desk-vote-list{border-top:1px solid #becacc}
+body[data-house-page="district"] .desk-vote{
+ display:grid;grid-template-columns:94px minmax(0,1fr) 143px;
+ gap:12px;align-items:start;padding:15px 0;border-bottom:1px solid #bbc9cb
+}
+body[data-house-page="district"] .desk-vote-choice{font:900 11px 'DM Sans',sans-serif;color:#a4473f;text-transform:uppercase}
+body[data-house-page="district"] .desk-vote>a{font:700 15px/1.4 Georgia,serif;color:#245773}
+body[data-house-page="district"] .desk-vote-date{font:11px 'DM Sans',sans-serif;color:#5b717b;text-align:right}
+body[data-house-page="district"] #race-wire{display:none!important}
+body[data-house-page="district"] .metrics{display:none!important}
+@media(max-width:700px){
+ body[data-house-page="district"] .district-service-desk{padding:17px 15px 22px}
+ body[data-house-page="district"] .desk-switcher button{font-size:10px;padding:13px 8px}
+ body[data-house-page="district"] .desk-intro{grid-template-columns:1fr}
+ body[data-house-page="district"] .desk-intro h3,
+ body[data-house-page="district"] .desk-intro p{grid-column:1;grid-row:auto}
+ body[data-house-page="district"] .desk-intro p{margin-top:8px}
+ body[data-house-page="district"] .desk-news-list{grid-template-columns:1fr}
+ body[data-house-page="district"] .desk-poll-choice{grid-template-columns:114px minmax(0,1fr) 38px;gap:7px}
+ body[data-house-page="district"] .desk-poll-name{font-size:11px}
+ body[data-house-page="district"] .desk-poll-head{display:block}
+ body[data-house-page="district"] .desk-vote{grid-template-columns:80px 1fr}
+ body[data-house-page="district"] .desk-vote-date{grid-column:2;text-align:left}
+}
