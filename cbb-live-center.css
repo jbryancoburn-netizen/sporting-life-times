@@ -303,3 +303,29 @@
   .cbb-gamefile-tabs button{font-size:10px;letter-spacing:0;min-height:49px;padding:10px 5px}
 }
 @media(prefers-reduced-motion:reduce){.cbb-gamefile-tabs button{transition:none}}
+
+
+/* Compact team-color treatment on the main Courtside game cards, too. */
+.cbb-game-card .cbb-match-rows{padding:0;background:#fff}
+.cbb-game-card .cbb-match-rows .cbb-scorebug-row{
+  padding:9px 12px 9px 10px;min-height:70px;
+  border-bottom:1px solid #dde5e4;
+}
+.cbb-game-card .cbb-match-rows .cbb-scorebug-row:first-child{
+  border-left:4px solid var(--cbb-away,#23657d);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--cbb-away,#23657d) 12%,white),#fff 75%);
+}
+.cbb-game-card .cbb-match-rows .cbb-scorebug-row:nth-child(2){
+  border-left:4px solid var(--cbb-home,#b17931);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--cbb-home,#b17931) 12%,white),#fff 75%);
+}
+.cbb-game-card .cbb-match-rows .cbb-team-identity .mbb-mark{--mbb-size:50px;
+  flex-basis:50px!important;min-width:50px!important;max-width:50px!important;
+  min-height:50px!important;max-height:50px!important;width:50px!important;height:50px!important}
+.cbb-game-card .cbb-match-rows .cbb-name b{font-size:18px}
+@media(max-width:380px){
+ .cbb-game-card .cbb-match-rows .cbb-team-identity .mbb-mark{--mbb-size:45px;
+   flex-basis:45px!important;min-width:45px!important;max-width:45px!important;
+   min-height:45px!important;max-height:45px!important;width:45px!important;height:45px!important}
+ .cbb-game-card .cbb-match-rows .cbb-name b{font-size:16px}
+}
