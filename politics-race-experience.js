@@ -59,17 +59,17 @@ function story(r){
   }
   importance="The two measures come from different elections, candidates, and populations. A 2026 poll is not counted votes; neither one is a verified 2026 prediction.";
  }else if(p){
-  headline="A poll to examine. Not enough evidence to call the election.";
+  headline="A "+dec(Math.abs(pm))+"-point reported poll gap. What does it really establish?";
   sub="A "+pLabel+" dated "+reported+" reports "+(pm===0?"a tied Democratic–Republican race":nameD(pm>0?"D":"R").toLowerCase()+" "+dec(Math.abs(pm))+" points ahead")+".";
   importance=r["2026_boundaries_revised"]?"The district has new 2026 boundaries, so an old House result cannot be used as a comparable baseline.":"No comparable two-party vote margin is verified in the published archive.";
  }else if(h){
   if(diff<1000)headline="Only "+fmt(diff)+" votes separated the major parties last time.";
   else if(Math.abs(hm)<5)headline="The last House vote was decided by "+dec(Math.abs(hm))+" points.";
-  else headline="The last election is a baseline, not a 2026 forecast.";
+  else headline="A "+dec(Math.abs(hm))+"-point 2024 House margin. The 2026 question remains.";
   sub="In 2024, "+nameD(hm>0?"D":"R").toLowerCase()+" received "+fmt(Math.max(h.dem_votes,h.rep_votes))+" votes to "+fmt(Math.min(h.dem_votes,h.rep_votes))+" for the other major party. No independently reviewed 2026 named-candidate district poll is in this desk's ledger.";
   importance="No new district poll has cleared our source review. The absence of a poll in this ledger does not mean no polls exist, and 2024 vote totals do not establish a 2026 winner.";
  }else{
-  headline=r["2026_boundaries_revised"]?"New congressional lines. No comparable outcome yet.":"The available evidence cannot support a race call.";
+  headline=r["2026_boundaries_revised"]?"New 2026 district boundaries. Old numbers no longer match.":"This district needs more direct election evidence.";
   sub=n?"An official 2026 candidate list is present. A usable current poll and comparable two-party historical vote margin are not both available.":"The newsroom is still checking current candidates and directly usable district election measurements.";
   importance="The absence of data should not be colored as a tie, a toss-up or a predicted winner.";
  }
@@ -151,8 +151,6 @@ function snapshotPanel(data,type){
  return section;
 }
 function renderDistrict({r,state}){
- // Iowa has a dedicated four-seat interactive edition with a clickable Census map.
- if(r.state==="IA")return;
  const root=$("district-front");if(!root)return;
  const s=story(r);
  const title=$("front-title");if(title)title.textContent=r.at_large?state.name+" · At-large":state.name+" · District "+Number(r.district);
@@ -205,21 +203,7 @@ function renderDistrict({r,state}){
  // Put the data story above the generic source and filing blocks on every district file.
  const before=root.querySelector(".front-evidence-grid");
  if(before)root.insertBefore(featured,before);else root.append(featured);
- // Preserve every original source and data table, but move it beneath one
- // accessible disclosure on non-Iowa pages. Iowa has its own established dossier.
- const sourcePanels=document.querySelector("body[data-house-page=district] .panels");
- const fecPanel=document.querySelector("body[data-house-page=district] .fec-wrap");
- const historyPanel=$("result-panel")?.closest("section");
- if(sourcePanels&&fecPanel&&historyPanel&&!$("race-receipts")){
-  const details=el("details",null,"race-deep-dive");details.id="race-receipts";
-  details.append(el("summary","THE ORIGINAL REPORTS · CANDIDATES, POLLS, FEC AND 2024 RETURNS"));
-  const content=el("div",null,"race-deep-content");
-  content.append(sourcePanels,fecPanel,historyPanel);
-  details.append(content);
-  const mapWarning=$("map-warning");
-  if(mapWarning)mapWarning.insertAdjacentElement("afterend",details);
-  else root.insertAdjacentElement("afterend",details);
- }
+ if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.renderDistrict(r,state);
 }
 function makeStateStory(r){
  const s=story(r),a=el("a",null,"state-brief-card");
@@ -232,19 +216,49 @@ function makeStateStory(r){
  if(s.p)bottom.append(el("b",(s.pm===0?"TIED":(s.pm>0?"D ":"R ")+dec(Math.abs(s.pm))+"-POINT")+" REPORTED POLL GAP"));
  if(!s.p&&!s.h)bottom.append(el("b","SOURCE REVIEW NEEDED"));
  bottom.append(el("span","READ THE RACE →"));a.append(bottom);
+ if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateStateCard(a,r);
  return a;
+}
+function priority(r){
+ const brand=window.PoliticsRaceBranding;
+ const evidence=brand?brand.watch(r):null;
+ const data=story(r);
+ const old=data.hm!=null?Math.abs(data.hm):100;
+ const close=data.pm!=null?Math.abs(data.pm):old;
+ const hasBoth=Number(data.p!=null&&data.h!=null);
+ const tier=evidence?.isWatch?0:data.p?1:data.h?2:3;
+ // Directly reviewed original survey receives priority *within* watch category.
+ const original=evidence?.poll?.source==="ORIGINAL POLL"?0:1;
+ return [tier,original,close,hasBoth?-1:0];
+}
+function orderRaces(rows){
+ return [...rows].sort((a,b)=>{
+  const ap=priority(a),bp=priority(b);
+  for(let i=0;i<ap.length;i++)if(ap[i]!==bp[i])return ap[i]-bp[i];
+  return a.id.localeCompare(b.id);
+ });
 }
 function renderState({state,rows}){
  const host=$("state-editorial-stories");if(!host)return;
- const eligible=[...rows].sort((a,b)=>{
-  const ah=validHistory(a),bh=validHistory(b);
-  const ac=ah?Math.abs(ah.dem_votes-ah.rep_votes)/(ah.dem_votes+ah.rep_votes):Infinity;
-  const bc=bh?Math.abs(bh.dem_votes-bh.rep_votes)/(bh.dem_votes+bh.rep_votes):Infinity;
-  return ac-bc||a.id.localeCompare(b.id);
- }).slice(0,Math.min(4,rows.length));
- const title=$("state-editorial-title");if(title)title.textContent=state.name+": The races behind the numbers";
- const sub=$("state-editorial-deck");if(sub)sub.textContent="Four source-based stories, ordered by how close the 2024 counted major-party House vote was. Polls, where available, are separately reported—not 2026 win odds.";
+ const eligible=orderRaces(rows).slice(0,Math.min(6,rows.length));
+ const title=$("state-editorial-title");if(title)title.textContent=state.name+": The races that deserve a closer look";
+ const filtered=eligible.filter(r=>window.PoliticsRaceBranding?.watch(r).isWatch).length;
+ const sub=$("state-editorial-deck");
+ if(sub)sub.textContent=filtered+" evidence-based watch race"+(filtered===1?"":"s")+" in this featured selection. Every district has its own full race file; close or conflicting measured signals are NOT certified 2026 win probabilities.";
  host.replaceChildren(...eligible.map(makeStateStory));
 }
-window.PoliticsRaceExperience=Object.freeze({renderDistrict,renderState,story,validPoll,validHistory});
+function renderNational({rows}){
+ const host=$("national-watch-races");if(!host)return;
+ const eligible=orderRaces(rows).filter(r=>window.PoliticsRaceBranding?.watch(r).isWatch).slice(0,12);
+ host.replaceChildren();
+ const heading=$("national-watch-count");
+ if(heading)heading.textContent=rows.filter(r=>window.PoliticsRaceBranding?.watch(r).isWatch).length+" evidence-watch districts in our current ledger";
+ for(const r of eligible){
+  const anchor=el("a",null,"national-watch-tile");
+  if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateNationalCard(anchor,r);
+  host.append(anchor);
+ }
+}
+
+window.PoliticsRaceExperience=Object.freeze({renderDistrict,renderState,renderNational,story,validPoll,validHistory,orderRaces});
 })();
