@@ -682,3 +682,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #c481
  .sl-game .sl-arena-wordmark{font-size:19px}
  .sl-game .sl-stage-beam span{font-size:9px}
 }
+
+.sl-game .sl-score-context{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px 13px;margin:13px 0;padding:10px 13px;border-left:4px solid var(--sl-home);background:color-mix(in srgb,var(--sl-home) 9%,#fffaf2)}
+.sl-game .sl-score-context span{font:800 10px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.09em;color:#4b5e64}
+.sl-game .sl-score-context strong{font:800 15px/1.3 'DM Sans',Arial,sans-serif;color:#132c36}
+.sl-game .sl-score-context small{font-size:11px;color:#4b5e64}
