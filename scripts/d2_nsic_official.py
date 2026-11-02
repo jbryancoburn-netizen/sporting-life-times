@@ -48,11 +48,19 @@ def parse(html,gender,sid):
         [x.get_text(" ",strip=True) for x in soup.find_all(["h1","h2"],limit=3)])
  t=title.lower().replace("’","'")
  required="women's basketball" if gender=="women" else "men's basketball"
+ # Official NSIC title uses full legal "Minnesota State University Moorhead"
+ # while its visible schedule heading uses "MSU Moorhead". A literal label
+ # substring rejected BOTH otherwise valid 2026-27 school calendars.
+ # Match the entire named institution before sport instead; NEVER opponent
+ # text from the table or a similar but different Minnesota State campus.
+ title_identity=re.search(r"2026-27\s+(.+?)\s+(?:women's|men's)\s+basketball",t,re.I)
+ expected=school(SOURCES[gender][sid])
+ actual=school(title_identity.group(1)) if title_identity else None
  if ("2026-27" not in t or required not in t or
      (gender=="men" and "women's basketball" in t) or
-     norm(SOURCES[gender][sid]) not in norm(title)):
+     not expected or actual!=expected):
   raise ValueError("Wrong NSIC source season/gender/institution: "+str(sid))
- me=school(SOURCES[gender][sid]);out=[];bad=0
+ me=expected;out=[];bad=0
  for table in soup.select("table"):
   heading=norm(" ".join(x.get_text(" ",strip=True) for x in table.select("th")))
   if not all(v in heading for v in ("date","opponent","home","away")):continue
