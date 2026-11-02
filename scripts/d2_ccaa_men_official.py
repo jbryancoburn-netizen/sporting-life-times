@@ -117,7 +117,7 @@ def parse_merced(html):
     soup=BeautifulSoup(html,'html.parser')
     title=soup.title.get_text(' ',strip=True).replace('’',"'") if soup.title else ''
     full=' '.join(soup.get_text(' ',strip=True).lower().split())[:3000]
-    if (not re.search(r"2026[-–](?:2027|27).*\\bmen['’]s\\s+basketball\\b",title,re.I) or
+    if (not re.search(r"2026[-–](?:2027|27).*\bmen['’]s\s+basketball\b",title,re.I) or
         'merced' not in (title+' '+full).lower()):
         raise ValueError('Wrong gender, institution, or year at UC Merced')
     best=[]
