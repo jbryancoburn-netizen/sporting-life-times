@@ -190,7 +190,8 @@ const arenaStage=g=>{
   const source=venue?'SOURCED GAME LOCATION':profile?'SCHOOL ARENA REFERENCE · NOT A VERIFIED GAME SITE':'EDITORIAL COURT GRAPHIC';
   const link=profile&&!venue?'<a href="'+esc(profile.source)+'" target="_blank" rel="noopener noreferrer">Arena source ↗</a>':'';
   return '<div class="sl-arena-stage" aria-label="Team-color matchup pennants and documented arena context">'+
-   '<div class="sl-arena-gallery"><div class="sl-stage-beam" aria-hidden="true"></div>'+
+   '<div class="sl-arena-gallery"><div class="sl-arena-wordmark" aria-hidden="true">'+
+   esc(mascot(g.home)||g.home.name)+'</div><div class="sl-stage-beam" aria-hidden="true"></div>'+
    '<div class="sl-pennant-row">'+pennant(g.away)+
    '<div class="sl-stage-mid" aria-hidden="true"><span>SL<span class="sl-mid-dot">•</span>T</span><small>MATCHUP</small></div>'+
    pennant(g.home)+'</div><div class="sl-floor-graphic" aria-hidden="true">'+
