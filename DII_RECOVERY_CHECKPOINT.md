@@ -105,3 +105,8 @@ Always use the **latest main HEAD** rather than assuming these remain the newest
 - Published audit at blob `7a7e7f417df7179d0fb8dede2103b6b5fa746adc`: men **301 schools / 2925 game records / 26 verified Elo finals / 6 zero schedules / 22 thin (1–6)**; women **298 / 3714 / 33 / 3 / 3** respectively. Changes include concurrent DII commits from other work; do not attribute all additions to one source batch.
 - Still missing **men: 2790 arenas, 2795 broadcasts, 933 tipoffs; women: 3566, 3576, 331**. Full institution-by-institution schedules remain **UNCERTIFIED**.
 - Hard operating rule: **$0**. No paid APIs, subscriptions, vendor feeds, CI upgrades, premium hosting, or enabling billing. Use existing free sources and current workflows only.
+
+### Latest workflow verification (2026-11-01 Eastern)
+
+- **DII workflow run 41381128079 succeeded** on commit `a8f81f689e05`: GitHub Actions completed Python/Node preflight, existing collection, strict publication audit, and verified DII-only data commit steps without failure. This supersedes the earlier failed validation attempts from simultaneous CCAA edits. As always, this does not certify all institutional schedules.
+- **Public GitHub Pages deployment is separate** from DII workflow success; confirm the Pages workflow conclusion and public URL independently before claiming a new deployment.
