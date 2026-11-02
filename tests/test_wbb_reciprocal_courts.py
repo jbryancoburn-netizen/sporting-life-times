@@ -53,6 +53,8 @@ class Courts(unittest.TestCase):
   with self.assertRaises(RuntimeError):m.apply(d,p)
  def test_off_campus_official_host_is_recorded_as_maine_home_not_fake_campus(self):
   d,p=fixture()
+  # Exchange two unrelated blank teams; preserve the 363-school isolation gate.
+  d["teams"].pop("10000");d["teams"].pop("10001")
   d["teams"]["311"]={"games":[{
    "id":"401913770","date":"2026-12-09T23:00:00Z",
    "home_id":"2217","away_id":"311","opponent_id":"2217",
