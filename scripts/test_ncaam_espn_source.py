@@ -51,6 +51,17 @@ class ESPNSourceTests(unittest.TestCase):
         self.assertEqual(count,0)
         self.assertEqual(rows[0]["status"],"final")
 
+    def test_production_quarantines_changed_event_and_keeps_independent_games(self):
+        disputed,_=normalize_event(sample(event_id="40100000"),CROSS)
+        unaffected,_=normalize_event(sample(event_id="40100001"),CROSS)
+        replacement=dict(disputed,away="Wrong School")
+        conflicts=[]
+        rows,corrected=merge([disputed,unaffected],[replacement,disputed],conflicts)
+        self.assertEqual(corrected,0)
+        self.assertEqual([r["contest_id"] for r in rows],["espn:40100001"])
+        self.assertEqual(len(conflicts),1)
+        self.assertEqual(conflicts[0]["event_id"],"espn:40100000")
+
     def test_unchanged_events_do_not_rewrite_cache(self):
         with TemporaryDirectory() as temp:
             path=Path(temp)/"events.json"
