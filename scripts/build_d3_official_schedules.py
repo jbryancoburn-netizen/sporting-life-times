@@ -684,11 +684,12 @@ def conference_markup_evidence(html, url, reason):
 
 
 def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
-    """Read dated SIDEARM conference game cards, never a generic team listing.
+    """Read dated official conference cards, not inferred home fixtures.
 
-    Only the actual institution-specific 2026-27 Landmark schedule endpoint
-    is eligible. Every game needs its own calendar date, explicit at/vs
-    placement, resolvable NCAA DIII opponent, and regular-season window.
+    The SIDEARM label 'vs' can mean home OR a neutral-site game; absent an
+    explicit home/neutral marker this importer retains only unambiguous 'at'
+    rows. Other schools' official schedules may independently certify those
+    home/neutral games without injecting fictional site information here.
     """
     source = urlsplit(url)
     if (source.hostname not in ("landmarkconference.org", "www.landmarkconference.org")
@@ -735,6 +736,12 @@ def parse_landmark_list_schedule(doc, gender, owner, url, by_org, exact):
             excluded["site_not_explicitly_verified"] += 1
             continue
         inspected += 1
+        if placement[1].lower() != "at":
+            # SIDEARM 'vs' includes both actual home and neutral tournament
+            # games (e.g., Juniata vs Westminster in Bethlehem). The label
+            # alone never certifies host or neutral-site Elo status.
+            excluded["vs_home_or_neutral_not_verified"] += 1
+            continue
         opp_id = resolve(opponent, by_org, exact)
         if opp_id is None or opp_id == owner:
             excluded["missing_or_ambiguous_ncaa_opponent"] += 1
@@ -1800,9 +1807,10 @@ def self_test():
     landmark_url = "https://landmarkconference.org/schedule.aspx?schedule=2615"
     lr, audit = parse_conference_calendar(
         landmark_html, "women", 1467, landmark_url, "Goucher", by_org, exact)
-    assert len(lr) == 8 and audit["readable_rows"] == 8, (len(lr), audit)
-    assert lr[0]["away_org_id"] == 1467 and lr[0]["home_org_id"] == 286
-    assert lr[1]["away_org_id"] == 30037 and lr[1]["home_org_id"] == 1467
+    assert len(lr) == 4 and audit["readable_rows"] == 8, (len(lr), audit)
+    assert audit["excluded_rows"]["vs_home_or_neutral_not_verified"] == 4
+    assert all(row["away_org_id"] == 1467 for row in lr)
+    assert lr[0]["home_org_id"] == 286 and lr[1]["home_org_id"] == 30037
     assert lr[0]["date"] == "2026-11-06" and not lr[1]["neutral"]
     for bad_html, bad_gender in [
         (landmark_html.replace("2026-27", "2025-26"), "women"),
