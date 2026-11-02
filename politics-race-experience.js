@@ -51,7 +51,7 @@ function story(r){
    headline=fmt(diff)+" votes decided the last election.";
    sub="In 2024, "+voteSide.toLowerCase()+" won the House vote by only "+fmt(diff)+" ballots. A "+pLabel+" lists "+pollSide.toLowerCase()+" "+(pm===0?"tied":"ahead by "+dec(Math.abs(pm))+" points")+".";
   }else if(contrast){
-   headline="The latest poll and the last election point in different directions.";
+   headline="A reported poll and the last election point in different directions.";
    sub="The "+pLabel+" lists "+pollSide.toLowerCase()+" "+(pm===0?"tied":"up "+dec(Math.abs(pm))+" points")+". In 2024, "+voteSide.toLowerCase()+" won this district by "+dec(Math.abs(hm))+" points.";
   }else{
    headline="A "+dec(Math.abs(hm))+"-point race in 2024. A different test in 2026.";
@@ -72,6 +72,19 @@ function story(r){
   headline=r["2026_boundaries_revised"]?"New congressional lines. No comparable outcome yet.":"The available evidence cannot support a race call.";
   sub=n?"An official 2026 candidate list is present. A usable current poll and comparable two-party historical vote margin are not both available.":"The newsroom is still checking current candidates and directly usable district election measurements.";
   importance="The absence of data should not be colored as a tie, a toss-up or a predicted winner.";
+ }
+ // Third-party polling is often important in a close contest, and must not disappear into "other".
+ if(p){
+  const namedOthers=p.candidates.filter(c=>c.party!=="D"&&c.party!=="R"&&c.pct>=5).sort((a,b)=>b.pct-a.pct);
+  if(namedOthers.length){
+   const notable=namedOthers[0];
+   sub+=" The same report lists "+notable.name+" ("+partyName(notable.party)+") at "+dec(notable.pct)+"%.";
+  }
+ }
+ if(!p&&h&&r.official_2026_candidate_snapshot?.candidates?.length){
+  const current=r.official_2026_candidate_snapshot.candidates;
+  const d=current.find(c=>c.party==="DEM"),g=current.find(c=>c.party==="REP");
+  if(d&&g)sub+=" The election-office list names "+d.name+" (D) and "+g.name+" (R) for 2026.";
  }
  const items=[];
  if(h)items.push({value:fmt(diff),unit:"VOTE GAP · 2024",note:"Actual counted Democratic–Republican vote difference; comparable district lines.",tone:"past"});
@@ -120,7 +133,7 @@ function snapshotPanel(data,type){
   }else section.append(el("p","This desk does not have a verified named-candidate 2026 district poll to chart. No substitute figures will be shown.","race-no-data"));
  }else{
   const h=data.h;
-  top.append(el("strong","2024 · COUNTED HOUSE VOTES","race-period"),el("small",h?"OFFICIAL-ORIGIN RETURNS · PRIOR ELECTION":"COMPARISON UNAVAILABLE"));
+  top.append(el("strong","2024 · COUNTED HOUSE VOTES","race-period"),el("small",h?"ARCHIVED HOUSE RETURNS · PRIOR ELECTION":"COMPARISON UNAVAILABLE"));
   section.append(top);
   if(h){
    section.append(el("h3",fmt(data.diff)+" votes separated the major parties","race-snapshot-title"));
@@ -142,7 +155,7 @@ function renderDistrict({r,state}){
  const s=story(r);
  const title=$("front-title");if(title)title.textContent=r.at_large?state.name+" · At-large":state.name+" · District "+Number(r.district);
  // Lead with an actual reporting takeaway instead of a district number or a generic research phrase.
- const banner=root.querySelector(".front-deck");if(banner)banner.textContent=s.headline;
+ const banner=root.querySelector(".front-deck");if(banner)banner.textContent="An independently assembled guide to the candidate field, published polling and actual prior election returns.";
  const featured=el("section",null,"race-experience");featured.id="race-experience";featured.setAttribute("aria-label","Editorial summary and district evidence");
  const head=el("div",null,"race-experience-top");
  const intro=el("div",null,"race-experience-lead");
@@ -199,7 +212,7 @@ function makeStateStory(r){
  a.append(top,el("h3",s.headline),el("p",s.sub));
  const bottom=el("div",null,"state-brief-bottom");
  if(s.h)bottom.append(el("b",fmt(s.diff)+"-VOTE 2024 GAP"));
- if(s.p)bottom.append(el("b",(s.pm>=0?"D ":"R ")+dec(Math.abs(s.pm))+"-POINT REPORTED POLL GAP"));
+ if(s.p)bottom.append(el("b",(s.pm===0?"TIED":(s.pm>0?"D ":"R ")+dec(Math.abs(s.pm))+"-POINT")+" REPORTED POLL GAP"));
  if(!s.p&&!s.h)bottom.append(el("b","SOURCE REVIEW NEEDED"));
  bottom.append(el("span","READ THE RACE →"));a.append(bottom);
  return a;
