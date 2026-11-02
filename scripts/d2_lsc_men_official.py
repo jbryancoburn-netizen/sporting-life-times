@@ -26,7 +26,7 @@ SCHOOLS={
  "midwestern":("Midwestern State","Midwestern State University","MSU Texas"),
  "oc":("Oklahoma Christian","Oklahoma Christian University"),
  "stedwards":("St. Edward's","St Edward's","St. Edward's University","St Edward's University"),
- "stmarys":("St. Mary's","St Mary's","St. Mary's (Texas)","St. Mary's University","St Mary's University (Texas)" ,"St. Mary's (TX)","St. Mary's University (Texas)","Saint Mary's (Texas)")
+ "stmarys":("St. Mary's","St Mary's","St. Mary's (Texas)","St. Mary's University","St Mary's University (Texas)" ,"St. Mary's (TX)","St. Mary's University (Texas)","Saint Mary's (Texas)"),
  "sulross":("Sul Ross State","Sul Ross State University"),
  "tamiu":("Texas A&M International","Texas A&M International University","Texas AM International"),
  "tamuk":("Texas A&M-Kingsville","Texas A&M Kingsville","Texas A&M University-Kingsville"),
