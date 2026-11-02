@@ -7,7 +7,8 @@ from scripts.d2_glvc_ssc_official import (
 
 def fake_grid(school, opponent, gender="men", conference="SSC",
               home=True, dates=None, clock="7:30 PM"):
-    title=f"2026-27 {school} {\"Men's\" if gender=='men' else \"Women's\"} Basketball - Schedule - "+(
+    label = "Men's" if gender=="men" else "Women's"
+    title=f"2026-27 {school} {label} Basketball - Schedule - "+(
         "Sunshine State Conference" if conference=="SSC" else "Great Lakes Valley Conference")
     flag="SSC" if conference=="SSC" else "C"
     days=dates or [f"11/{day}/2026" for day in range(18,26)]
