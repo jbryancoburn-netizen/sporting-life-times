@@ -1,11 +1,11 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const gender=document.body.dataset.gender,own=gender==='women'?'d3-womens-basketball.html':'d3-mens-basketball.html';
-const state={data:null,teams:new Map()},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
+const state={data:null,teams:new Map(),fixtureData:null,fixtureFetchedAt:0},pct=t=>(t.w||0)+(t.l||0)?Math.round(1000*t.w/(t.w+t.l))/10:0;
 const teamLink=t=>own+'?team='+encodeURIComponent(t.id);
 const source=g=>/^https:\/\//.test(g.source_url||'')?'<a href="'+esc(g.source_url)+'" target="_blank" rel="noopener noreferrer">'+(g.schedule_only?'OFFICIAL SCHOOL SCHEDULE ↗':'NCAA SCOREBOARD SOURCE ↗')+'</a>':'Source link unavailable';
 const emblem=t=>{
- const title=t.d3_confirmed?'DIII program confirmed in NCAA scoreboard record':'Division membership unconfirmed';
+ const title=t.d3_confirmed?'Official NCAA 2026–27 Division III sport sponsor':'Division membership unconfirmed';
  const slug=String(t.slug||'').replace(/[^a-z0-9-]/g,'');
  const primary=/^#[0-9a-f]{6}$/i.test(t.primary||'')?t.primary:'';
  const secondary=/^#[0-9a-f]{6}$/i.test(t.secondary||'')?t.secondary:'';
@@ -21,21 +21,24 @@ const row=(t,i)=>'<div class="board-row"><span>'+esc(i==null?'':i+1)+'</span>'+e
 function card(g){
  const a=team(g.away),h=team(g.home),final=g.status==='final',live=g.status==='live';
  const showScore=final||live,winA=final&&g.away_score>g.home_score,winH=final&&g.home_score>g.away_score;
- const time=final?'FINAL':live?'LIVE · SOURCE SNAPSHOT':g.start_time||'TIPOFF UNCONFIRMED';
+ const time=final?'FINAL':live?'LIVE · SOURCE SNAPSHOT':g.start_time||(g.tipoff_as_posted?g.tipoff_as_posted+' · POSTED TIME (ZONE UNVERIFIED)':'TIPOFF UNCONFIRMED');
  const p=typeof g.pred_home_pct==='number'&&g.elo_eligible?'<p class="muted">Pregame home win chance: '+esc(g.pred_home_pct)+'% · provisional DIII Elo</p>':'';
  return '<article class="game-card"><div class="game-head"><span>'+esc(g.date)+' · '+esc(time)+(g.neutral?' · NEUTRAL SITE':'')+'</span><span>'+esc(g.network||'')+'</span></div>'+
  '<div class="game-row '+(winA?'winner':'')+'">'+emblem(a)+'<a class="school-link" href="'+teamLink(a)+'">'+esc(a.name)+'</a><b>'+(showScore?esc(g.away_score??'—'):'')+'</b></div>'+
  '<div class="game-row '+(winH?'winner':'')+'">'+emblem(h)+'<a class="school-link" href="'+teamLink(h)+'">'+esc(h.name)+'</a><b>'+(showScore?esc(g.home_score??'—'):'')+'</b></div>'+p+
- '<div class="game-footer">'+(g.schedule_only?(g.source_verification==='reciprocal'?'RECIPROCALLY VERIFIED UNIVERSITY FIXTURE':'SCHOOL-PUBLISHED UNIVERSITY FIXTURE')+' · NO GAME RESULT YET':g.elo_eligible?'NCAA-VERIFIED DIII RESULT':'OPPONENT ELIGIBILITY NOT VERIFIED · EXCLUDED FROM ELO')+' · '+source(g)+(g.tipoff_as_posted?' · Posted time: '+esc(g.tipoff_as_posted)+' (time zone not verified)':'')+(g.venue?' · '+esc(g.venue):'')+'</div></article>';
+ '<div class="game-footer">'+(g.schedule_only?(g.source_verification==='reciprocal'?'RECIPROCALLY VERIFIED UNIVERSITY FIXTURE':'SCHOOL-PUBLISHED UNIVERSITY FIXTURE')+' · NO GAME RESULT YET':g.elo_eligible?'NCAA-VERIFIED DIII RESULT':'OPPONENT ELIGIBILITY NOT VERIFIED · EXCLUDED FROM ELO')+' · '+source(g)+(g.venue?' · '+esc(g.venue):'')+(g.venue_location?' · '+esc(g.venue_location):'')+'</div></article>';
 }
 function renderTeam(d){
  const id=new URLSearchParams(location.search).get('team'),t=team(id),host=$('team-detail');
  if(!state.teams.has(id)){host.innerHTML='<p class="note">School not found in the published DIII source ledger.</p>';return;}
  const games=d.games.filter(g=>g.away===id||g.home===id).sort((a,b)=>a.date.localeCompare(b.date));
+ const audit=state.fixtureData?.source_audit?.find(a=>a.owner_org_id===t.ncaa_org_id);
+ const calendarStatus=audit?.status==='parsed'?'OFFICIAL 2026–27 SCHOOL CALENDAR VERIFIED':games.length?'SCHEDULE ENTRIES FROM OPPONENT SOURCES':'SCHOOL CALENDAR NOT YET VERIFIED';
  host.innerHTML='<div class="back"><a href="'+own+'">← BACK TO THE '+esc(gender.toUpperCase())+' DIII PAPER</a></div>'+
  '<div class="team-hero">'+emblem(t)+'<div><span class="eyebrow">DIVISION III · '+esc(gender.toUpperCase())+' · SCHOOL DESK</span><h1>'+esc(t.name)+'</h1>'+
  '<p>'+esc(t.conference||'Conference not verified')+' · '+esc(t.state||'State not verified')+'</p>'+
  (t.athletics_site&&/^https:\/\//.test(t.athletics_site)?'<p><a href="'+esc(t.athletics_site)+'" rel="noopener noreferrer" target="_blank">OFFICIAL ATHLETICS ↗</a></p>':'')+'</div></div>'+
+ '<p class="d3-calendar-status">'+esc(calendarStatus)+(audit?.status==='parsed'?' · '+esc(audit.verified_member_opponents)+' NCAA-MATCHED OPPONENTS':'')+'</p>'+
  '<div class="team-stats"><div class="team-stat"><strong>'+esc(t.w||0)+'–'+esc(t.l||0)+'</strong><span>RATED DIII RECORD</span></div>'+
  '<div class="team-stat"><strong>'+Math.round(t.elo||1500)+'</strong><span>2026–27 ELO</span></div>'+
  '<div class="team-stat"><strong>'+games.length+'</strong><span>PUBLISHED GAME ENTRIES</span></div></div>'+
@@ -71,8 +74,8 @@ function renderHome(d){
  $('coverage').innerHTML='<b>'+games.length+'</b> published games, <b>'+d.coverage.eligible_finals+'</b> Elo-eligible finals, and <b>'+d.coverage.scanned_days+'</b> recently checked NCAA dates.<br>'+
  '<b>'+esc(d.coverage.official_directory_count??0)+'</b> schools recorded in the NCAA’s official 2026–27 sport-sponsor directory. The July projection was <b>'+esc(d.coverage.ncaa_projected_programs??'—')+'</b>; difference <b>'+esc(d.coverage.official_vs_projection_gap??'—')+'</b> remains to reconcile.<br>'+
  '<b>'+d.coverage.failed_days.length+'</b> checked dates failed their primary and fallback reads; prior published games were retained.<br>'+
- '<b>University schedules:</b> '+esc(d.coverage.school_calendars_verified??0)+' official calendars parsed; '+esc(d.coverage.official_fixture_count??0)+' additional fixtures; '+esc(d.coverage.official_fixture_overlaps??0)+' corroborated scoreboard entries; '+esc(d.coverage.reciprocal_fixtures??0)+' cross-school corroborations; '+esc(d.coverage.source_conflicts??0)+' conflicting source matches quarantined.<br>'+
- '<b>Program directory:</b> '+esc(d.coverage.directory_status||'Published NCAA-scoreboard identities only')+'<br>Calendar coverage remains a limited pilot; full school schedules, official conference standings, venue details, player statistics and historical K/home-edge calibration are <b>not yet certified</b>.';
+ '<b>University schedule crawl:</b> '+esc(d.coverage.school_calendars_checked??0)+' NCAA programs audited, '+esc(d.coverage.school_calendars_verified??0)+' school calendars verified, '+esc(d.coverage.school_calendars_missing??0)+' missing or unreadable; '+esc(d.coverage.official_fixture_count??0)+' additional fixtures; '+esc(d.coverage.official_fixture_overlaps??0)+' corroborated scoreboard entries; '+esc(d.coverage.reciprocal_fixtures??0)+' cross-school corroborations; '+esc(d.coverage.source_conflicts??0)+' conflicting source matches quarantined.<br>'+
+ '<b>Program directory:</b> '+esc(d.coverage.directory_status||'Published NCAA-scoreboard identities only')+'<br>Calendar availability is tracked school by school; no readable page does not mean no games. Complete calendars, official conference standings, player statistics and historical Elo calibration remain <b>outstanding</b>.';
 }
 async function start(){
  try{
@@ -81,13 +84,20 @@ async function start(){
   const d=await r.json();
   if(d.gender!==gender||d.division!=='d3'||d.season!=='2026-27'||d.starting_elo!==1500||!Array.isArray(d.games)||!Array.isArray(d.teams))
     throw Error('Wrong division, gender, or Elo dataset refused.');
-  let fixtureData=null;
-  try{
-    const scheduled=await fetch('data/d3-'+gender+'-official-fixtures-2026-27.json?v='+Date.now(),{cache:'no-store'});
-    if(scheduled.ok)fixtureData=await scheduled.json();
-    if(fixtureData && (fixtureData.division!=='d3'||fixtureData.gender!==gender||fixtureData.season!=='2026-27'||!Array.isArray(fixtureData.fixtures)))
-      throw Error('Rejected wrong-division official fixtures');
-  }catch(e){fixtureData=null;}
+  let fixtureData=state.fixtureData;
+  // Revalidate full national schedule ledger every 15 minutes, not every minute.
+  if(!state.fixtureFetchedAt||Date.now()-state.fixtureFetchedAt>15*60*1000){
+    state.fixtureFetchedAt=Date.now();
+    try{
+      const scheduled=await fetch('data/d3-'+gender+'-official-fixtures-2026-27.json',{cache:'no-cache'});
+      if(scheduled.ok){
+        const candidate=await scheduled.json();
+        if(candidate.division==='d3'&&candidate.gender===gender&&candidate.season==='2026-27'&&Array.isArray(candidate.fixtures)){
+          state.fixtureData=candidate;fixtureData=candidate;
+        }
+      }
+    }catch(e){/* Preserve last verified university fixture snapshot. */}
+  }
   const orgIds=new Map(d.teams.filter(t=>t.d3_confirmed&&t.membership_year===2027&&Number.isInteger(t.ncaa_org_id))
     .map(t=>[t.ncaa_org_id,t]));
   const merged=new Map(d.games.map(g=>[g.date+'|'+[g.away,g.home].sort().join('|'),{...g}]));
@@ -110,6 +120,8 @@ async function start(){
   d.coverage.official_fixture_count=added;
   d.coverage.official_fixture_overlaps=enhanced;
   d.coverage.school_calendars_verified=fixtureData?.verified_source_calendars??0;
+  d.coverage.school_calendars_checked=fixtureData?.school_calendars_checked??0;
+  d.coverage.school_calendars_missing=fixtureData?.school_calendars_missing??0;
   d.coverage.reciprocal_fixtures=fixtureData?.reciprocal_fixtures??0;
   d.coverage.source_conflicts=fixtureData?.conflicts?.length??0;
   const version=d.as_of+'|'+(fixtureData?.generated_utc||'');
