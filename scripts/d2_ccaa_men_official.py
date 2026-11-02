@@ -94,12 +94,16 @@ def parse_league(html,sid):
                 c=[td.get_text(' ',strip=True) for td in row.find_all('td',recursive=False)]
                 if len(c)!=5:continue
                 date_raw,flag,opponent,_,wall_clock=[v.strip() for v in c]
-                if '*' not in flag:continue
                 if not re.fullmatch(r'\d{1,2}/\d{1,2}/20(?:26|27)',date_raw):
                     rejected+=1;continue
                 try:day=dt.datetime.strptime(date_raw,'%m/%d/%Y').date().isoformat()
                 except ValueError:rejected+=1;continue
                 if not '2026-11-01'<=day<='2027-03-01':continue
+                # Some CCAA schools omit conference asterisks for actual
+                # league games. Consider *unstarred* same-league rows only
+                # after official conference play begins; final admission
+                # still requires two campuses AND >=1 conference marker.
+                if '*' not in flag and day<'2026-12-03':continue
                 if re.match(r'^vs\.?\s+',opponent,re.I) or 'exhibition' in opponent.lower():
                     rejected+=1;continue
                 road=bool(re.match(r'^at\s+',opponent,re.I))
@@ -107,7 +111,7 @@ def parse_league(html,sid):
                 if not rival or rival==owner:
                     rejected+=1;continue
                 away,home=(owner,rival) if road else (rival,owner)
-                rows.append((day,away,home,owner,clock_pt(wall_clock)))
+                rows.append((day,away,home,owner,clock_pt(wall_clock),'*' in flag))
             if best is None or len(rows)>len(best):best=rows
             break
     if best is None or len(best)<12:
@@ -140,7 +144,7 @@ def parse_merced(html):
                 rival=school(c[oi])
                 if not rival or rival=='merced':continue
                 away,home=('merced',rival) if role=='away' else (rival,'merced')
-                rows.append((day,away,home,'merced',clock_pt(c[ti])))
+                rows.append((day,away,home,'merced',clock_pt(c[ti]),False))
             if len(rows)>len(best):best=rows
             break
     if len(best)<12:raise ValueError("UC Merced official men's schedule has too few CCAA opponents")
@@ -181,22 +185,26 @@ def enrich_ccaa_men(games,teams,today=None,fetcher=fetch):
                 'schools_read':len(sources),'unavailable':failed,'added':0,'enriched':0}
     witnesses=defaultdict(dict);duplicated=0
     for owner,(url,rows) in sources.items():
-        for day,away,home,source,clock in rows:
+        for day,away,home,source,clock,marked_conference in rows:
             if owner!=source:raise ValueError('Source owner mismatch')
             key=(day,away,home)
             if owner in witnesses[key]:
                 duplicated+=1;witnesses[key][owner]=None
-            else:witnesses[key][owner]=(url,clock)
+            else:witnesses[key][owner]=(url,clock,marked_conference)
     existing=defaultdict(list)
     for g in games.values():
         if g.get('date') and g.get('away') and g.get('home'):
             existing[(g['date'],frozenset((g['away'],g['home'])))].append(g)
-    added=enriched=one_sided=conflicts=reciprocal=time_conflicts=tipoffs=0
+    added=enriched=one_sided=conflicts=reciprocal=time_conflicts=tipoffs=unmarked=0
     for (day,away,home),seen in sorted(witnesses.items()):
         if set(seen)!={away,home} or None in seen.values():
             one_sided+=1;continue
         if away not in ids or home not in ids:
             rejected+=1;continue
+        # Both unstarred entries may be a separately scheduled nonleague
+        # meeting. Do not silently classify such games as CCAA standings.
+        if not any(value[2] for value in seen.values()):
+            unmarked+=1;continue
         reciprocal+=1
         a,h=ids[away],ids[home]
         match=existing.get((day,frozenset((a,h))),[])
@@ -232,7 +240,7 @@ def enrich_ccaa_men(games,teams,today=None,fetcher=fetch):
     return {'status':'CCAA 2026-27 exact two-university men fixtures verified',
             'gender':'men','schools_read':len(sources),'reciprocal_games':reciprocal,
             'added':added,'enriched':enriched,'one_sided':one_sided,
-            'quarantined':rejected+duplicated+conflicts,
+            'quarantined':rejected+duplicated+conflicts,'unmarked_both_held':unmarked,
             'conflicts':conflicts,'time_disagreements':time_conflicts,
             'mutually_verified_et_tipoffs':tipoffs,
             'unavailable':failed,'source':BASE}
