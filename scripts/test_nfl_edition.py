@@ -102,7 +102,7 @@ class EloTests(unittest.TestCase):
         self.assertIn("observer.observe(root,{childList:true})",live)
         self.assertIn('setInterval(page==="game"?gameDetails:update,25000)',live)
         self.assertIn('nfl-live-day.js?v=20261101-gamev6',center)
-        self.assertIn('nfl-live-day.js?v=20261101-boxscore-v11',game)
+        self.assertIn('nfl-live-day.js?v=20261101-approved-design-v10b',game)
 
 
     def test_nfl_individual_game_has_sourced_editorial_story(self):
