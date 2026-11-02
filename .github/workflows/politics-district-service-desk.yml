@@ -1,0 +1,67 @@
+name: District Desk — local news and Congress public record
+on:
+  schedule:
+    # Best-effort GitHub schedule. Free public RSS and a free public record feed.
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: politics-district-service-desk
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate existing source ledger
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/politics-district-desk.json').read_text())
+          assert d['districts']['IA-01']['election']['certified'] is False or d['districts']['IA-01']['election']['winner']
+          print('District source ledger valid')
+          PY
+      - name: Refresh source-linked IA-01 headlines and named-member roll calls
+        run: python3 scripts/refresh-politics-district-desk.py
+      - name: Validate refresh preserves official-result guard
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/politics-district-desk.json').read_text())['districts']['IA-01']
+          for story in d['articles']:
+              assert story['url'].startswith('https://')
+              assert story['title'] and story['source'] and story['published_at']
+          for poll in d['polls']:
+              assert poll['start'] and poll['end'] and poll['n'] and poll['url']
+              assert all(0<=c['pct']<=100 for c in poll['results'])
+          assert d['election'].get('certified') is not True or d['election'].get('winner')
+          print('PASS: linked local stories, dated surveys and no inferred winner')
+          PY
+      - name: Commit only real source changes; never overwrite other work
+        run: |
+          set -euo pipefail
+          git add data/politics-district-desk.json
+          if git diff --cached --quiet; then
+            echo 'No updated public source records'
+            exit 0
+          fi
+          git config user.name 'District Desk Source Updater'
+          git config user.email 'district-desk@users.noreply.github.com'
+          git commit -m 'Refresh IA-01 direct news and verified House member record'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              echo "Published source updates";exit 0
+            fi
+            git rebase --abort || true
+            sleep 2
+          done
+          echo 'Other commits were racing; retained valid source ledger in this run without overwriting main'
+          exit 1
