@@ -524,7 +524,7 @@ def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_disco
                 break
     # 2026-27 current schedule is sometimes linked from another official
     # school page rather than living at a predictable vendor URL.
-    if deep_discovery:
+    if deep_discovery and not any(re.search(r"HTTP Error (403|429):", e) for e in errors):
         if not observed_links:
             # Fetch the school's official athletics landing page once.
             # Never follow a generic campus directory to unrelated hosts.
