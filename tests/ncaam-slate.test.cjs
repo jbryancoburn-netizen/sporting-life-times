@@ -24,7 +24,7 @@ for(const cls of ['.sl-arena-stage','.sl-arena-wordmark','.sl-pennant','.sl-penn
   '.sl-floor-graphic','.sl-arena-caption','.sl-matchup-facts'])
   assert(css.includes(cls),'art-directed arena module missing: '+cls);
 assert(script.includes('data/mbb-arena-registry.json'),'official arena registry not loaded');
-assert(script.includes('SCHOOL ARENA REFERENCE · NOT A VERIFIED GAME SITE'),
+assert(script.includes('DOCUMENTED SCHOOL HOME COURT · NOT CONFIRMED FOR THIS GAME'),
   'avoid claiming a team home arena is the site of a neutral or alternate-host game');
 assert(script.includes('data/dual-ring-team-palette.json'),'real two-color school palette not loaded');
 
