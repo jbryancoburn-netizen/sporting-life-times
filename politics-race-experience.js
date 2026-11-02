@@ -224,7 +224,7 @@ function priority(r){
  const evidence=brand?brand.watch(r):null;
  const data=story(r);
  const old=data.hm!=null?Math.abs(data.hm):100;
- const close=data.pm!=null?Math.abs(data.pm):old;
+ const close=Math.min(data.pm!=null?Math.abs(data.pm):100,old);
  const hasBoth=Number(data.p!=null&&data.h!=null);
  const tier=evidence?.isWatch?0:data.p?1:data.h?2:3;
  // Directly reviewed original survey receives priority *within* watch category.
