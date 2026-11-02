@@ -110,7 +110,7 @@ console.log('Validated '+watch+' purple watch cards, '+mixed+' conflicting-signa
         self.assertIn('front-theme-rep',visual)
         self.assertIn('front-theme-history',visual)
         self.assertIn('grid-template-columns:1fr',visual)
-        self.assertIn('NOT A 2026 POLL',self.js)
+        self.assertIn('NOT a 2026 poll or forecast.',self.js)
         self.assertIn('not a guaranteed winner',district.lower())
         self.assertNotIn('win probability 60%',district.lower())
 
