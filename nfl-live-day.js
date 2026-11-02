@@ -244,8 +244,81 @@ function nflGameStatInsight(box,comp){
   html(short(winner))+' won despite being outgained by '+html(loserY-winnerY)+' yards.</strong>'+
   '<span>'+html(short(loser))+' '+html(loserY)+' total yards · '+html(short(winner))+' '+html(winnerY)+' total yards</span></div>';
 }
+let lastVerifiedGame=null,verifiedGameAt=0,verifiedFetchInFlight=null;
+async function loadVerifiedGame(){
+ const age=Date.now()-verifiedGameAt;
+ if(lastVerifiedGame&&age<300000)return lastVerifiedGame;
+ if(verifiedFetchInFlight)return verifiedFetchInFlight;
+ verifiedFetchInFlight=Promise.all([
+  json("data/nfl-2026-boxscores.json?v="+Math.floor(Date.now()/300000)),
+  json("data/nfl-2026-edition.json?v="+Math.floor(Date.now()/300000))
+ ]).then(([boxes,season])=>{
+  const game=arr(season.games).find(g=>str(g.id)===str(currentEvent));
+  const box=(boxes.games||{})[str(currentEvent)];
+  if(!game||!box)throw Error("No verified published player box score for this event");
+  lastVerifiedGame={game,box,updated:boxes.updated_at||season.updated_at};
+  verifiedGameAt=Date.now();
+  return lastVerifiedGame;
+ }).finally(()=>{verifiedFetchInFlight=null});
+ return verifiedFetchInFlight;
+}
+function offlineBoxRows(verified){
+ const {game,box}=verified;
+ const teamStats=["away","home"].map(side=>{
+  const id=str(game[side].id),stats=box.teams?.[id]||{};
+  return {team:{id},statistics:Object.entries(stats).map(([name,value])=>({name,displayValue:str(value)}))};
+ });
+ const summary={boxscore:{teams:teamStats},
+  __away:str(game.away.id),__home:str(game.home.id),
+  __awayCode:game.away.code,__homeCode:game.home.code};
+ const competitors=["away","home"].map(side=>({homeAway:side,team:{id:str(game[side].id),displayName:game[side].name,
+  shortDisplayName:game[side].name},score:game[side].score}));
+ return {summary,comp:{competitors}};
+}
+function offlineQuarters(verified){
+ const {game,box}=verified;
+ const away=arr(box.period_lines?.away).length?arr(box.period_lines.away):arr(game.away.linescores);
+ const home=arr(box.period_lines?.home).length?arr(box.period_lines.home):arr(game.home.linescores);
+ if(!away.length||!home.length)return '<p>Verified quarter details pending.</p>';
+ return '<div class="nfl-offline-quarter-list">'+
+  away.slice(0,Math.min(5,away.length)).map((q,i)=>'<div class="nfl-offline-quarter">'+
+   '<b>'+(i>=4?'OT':'Q'+(i+1))+'</b><span>'+html(game.away.code)+' '+html(q.score??"—")+
+   ' · '+html(game.home.code)+' '+html(home[i]?.score??"—")+'</span></div>').join("")+'</div>';
+}
+function offlinePlayers(verified){
+ const {game,box}=verified;
+ const kinds=[["passing","PASS"],["rushing","RUSH"],["receiving","REC"]];
+ const spots=kinds.flatMap(([category,kind])=>[game.away,game.home].map(side=>{
+  const list=arr(box.players).filter(p=>p.team_id===str(side.id)&&p.category===category&&Number.isFinite(Number(p.stats?.YDS)));
+  if(!list.length)return null;
+  const player=list.sort((x,y)=>Number(y.stats.YDS)-Number(x.stats.YDS))[0];
+  return {team:side.code,kind,value:player.stats.YDS,name:player.name,headshot:player.headshot};
+ }).filter(Boolean));
+ if(!spots.length)return '';
+ return '<div class="nfl-live-performers"><div class="nfl-story-leaders-head"><h3>THE PLAYER REPORT</h3>'+
+  '<span>VERIFIED GAME LEADERS · BOTH CLUBS</span></div><div class="nfl-live-performance-grid">'+
+  spots.map(p=>'<div class="nfl-live-performance" style="--spotlight-color:'+
+   (p.team===game.away.code?'var(--nfl-story-away)':'#5390cd')+'">'+
+   '<img loading="lazy" src="'+html(p.headshot||"")+'" alt=""><div><small class="nfl-story-player-kind">'+
+   html(p.team+' · '+p.kind+' LEADER')+'</small><b>'+html(p.name)+'</b><span>VERIFIED YARDS</span></div>'+
+   '<strong>'+html(p.value)+'</strong></div>').join("")+'</div></div>';
+}
+async function renderVerifiedGame(target){
+ const v=await loadVerifiedGame(),{summary,comp}=offlineBoxRows(v);
+ if(!target?.isConnected)return;
+ const formatted=v.updated?html(new Date(v.updated).toLocaleString("en-US",{
+  timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))+" ET":"verified archive";
+ target.innerHTML='<div class="nfl-live-head"><div><span class="nfl-live-kicker">SOURCED GAME REPORT</span>'+
+  '<h2>Final game statistics</h2></div><span class="nfl-live-status">Verified season ledger · '+formatted+'</span></div>'+
+  nflGameStatInsight({...v.box,boxscore:summary.boxscore},comp)+
+  '<div class="nfl-live-detail-grid"><div>'+boxRows(summary)+'</div><div><h3>SCORING BY PERIOD</h3>'+
+  offlineQuarters(v)+'</div></div>'+offlinePlayers(v);
+ target.dataset.nflVerifiedFallback="1";
+}
+
 async function gameDetails(){
  const target=document.getElementById("nfl-live-game-data");if(!target||!currentEvent||document.hidden)return;
+ if(!target.dataset.nflVerifiedStarted){target.dataset.nflVerifiedStarted="1";renderVerifiedGame(target).catch(()=>{});}
  try{
   const d=await json(endpoint+"summary?event="+encodeURIComponent(currentEvent));
   const match=arr(d.header?.competitions)[0]||{},c=arr(match.competitors);
@@ -278,7 +351,12 @@ async function gameDetails(){
      '<strong>'+html(p.value)+'</strong></div>').join("")+'</div></div>':
     '<p class="nfl-live-status">Verified individual statistics are not yet available for this game.</p>');
  }catch(e){
-  target.innerHTML='<p class="nfl-live-error">In-game statistics are temporarily unavailable from the live source. The verified historical game details below remain available.</p>';
+  try{await renderVerifiedGame(target);}
+  catch(backupError){
+   if(!target.querySelector(".nfl-live-metric")){
+    target.innerHTML='<p class="nfl-live-status">Live statistics and the verified saved box score are temporarily unavailable. Game results and the independent forecast above remain available.</p>';
+   }
+  }
  }
 }
 async function waitForPage(){
