@@ -156,6 +156,12 @@ async function init(){
   news(d,$("desk-local-news"),state);
   polls(d,district,$("desk-local-polls"),state);
   record(d,$("desk-local-record"));
+  // The graphic modules are drawn from the same source ledger as the text,
+  // not another copy with invented polling averages or county swings.
+  if(window.PoliticsDistrictGraphics){
+    window.PoliticsDistrictGraphics.pollVisual(d,$("desk-local-polls"));
+    window.PoliticsDistrictGraphics.representative(d,$("desk-local-record"),state);
+  }
   // After election, congressional record becomes the leading tab. The
   // three sections remain accessible without losing campaign archives.
   const selectors=[...root.querySelectorAll("[data-desk-view]")];

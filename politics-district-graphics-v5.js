@@ -151,7 +151,7 @@ function representative(d,host,edition){
   "A selected roll-call reading, not a fabricated legislative score or party-loyalty percentage."));
  if(!serving){frame.append(E("p","A verified member identity is not yet available.","ig-source"));host.append(frame);return}
  const top=E("div",null,"ig-member-line");
- top.append(E("strong",serving.name),E("span",serving.party+" · "+(serving===next?"120th Congress":"119th Congress")+" · verified identity"));
+ top.append(E("strong",serving.name),E("span",serving.party+" · "+(serving===next?"120th Congress":"119th Congress archive")+" · verified identity"));
  frame.append(top);
  const summary=E("div",null,"ig-record-samples");
  const filtered=records.filter(v=>v&&["Yea","Nay","Present","Not Voting"].includes(v.position)&&validUrl(v.url)&&v.title);

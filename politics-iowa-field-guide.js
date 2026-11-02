@@ -142,6 +142,9 @@ async function init(){
   if(!extra?.county_results_2024||!extra.explainer)throw Error("Source-backed guide not yet certified");
   host.replaceChildren();
   article(extra,host);places(extra,host);voting(extra,host);turnout(extra,host);lenses(extra,host);mapCTA(host);
+  if(window.PoliticsDistrictGraphics?.county){
+    window.PoliticsDistrictGraphics.county(extra,host.querySelector("#iowa-voting-story"));
+  }
   host.hidden=false;
  }catch(error){host.hidden=true;console.warn("Iowa field guide:",error);}
 }
