@@ -39,7 +39,11 @@ try{
  const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
  const matches=new Map();
  for(const entry of cross.teams||[]){for(const n of [entry.name,entry.espn_name]){const k=norm(n);if(!k)continue;if(!matches.has(k))matches.set(k,new Set());matches.get(k).add(String(entry.espn_id));}}
- const exactId=n=>{const ids=matches.get(norm(n));return ids?.size===1?[...ids][0]:'';};
+ // Reviewed official-school abbreviations, never fuzzy or guessed logos.
+ const schoolAliases={'mdeasternshore':'2379','marylandeasternshore':'2379','etsu':'2193'};
+ const exactId=n=>{const ids=matches.get(norm(n));if(ids?.size===1)return [...ids][0];
+   const reviewed=schoolAliases[norm(n)];return reviewed&&schoolByCross.has(reviewed)?reviewed:'';};
+ const schoolByCross=new Map((cross.teams||[]).map(t=>[String(t.espn_id),t]));
  const ratings=await load('data/ncaam-2026-27-retro-primary.json').catch(()=>null);
  const ratingBySchool=new Map((ratings?.rankings||[]).map(x=>[String(x.team_id),x.elo]));
  const ncaaByEspn=new Map((cross.teams||[]).map(x=>[String(x.espn_id),String(x.id)]));
@@ -57,7 +61,7 @@ try{
   const score=n=>n!==null&&n!==undefined&&Number.isInteger(Number(n))&&Number(n)>=0;
   if(!away||!home||away===home||!intervalDate(result.date)||
     !score(result.away_score)||!score(result.home_score)||
-    Number(result.away_score)===Number(result.home_score)||result.site_verified!==true||
+    Number(result.away_score)===Number(result.home_score)||
     !/^espn:[0-9]+$/.test(result.id||''))continue;
   const key=gameKey(result.date,away,home),previous=verifiedFinals.get(key);
   if(verifiedFinals.has(key)){
@@ -69,7 +73,22 @@ try{
   verifiedFinals.set(key,{away,home,away_score:Number(result.away_score),
    home_score:Number(result.home_score),date:result.date,id:String(result.id).slice(5)});
  }
- const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'—';};
+ // Source venue verification does NOT determine whether a final score is valid.
+ // School-site midnight openers can be dated one day later than the ESPN
+ // event archive. Permit a one-day rollover ONLY for an exact unique matchup.
+ const finalArchive=[...verifiedFinals.values()].filter(Boolean);
+ const schoolFinal=(date,opponentId,midnight)=>{
+   const direct=verifiedFinals.get(gameKey(date,team.espn_id,opponentId));
+   if(direct)return direct;
+   if(!midnight)return null;
+   const epoch=Date.parse(date+'T12:00:00Z');
+   const possible=finalArchive.filter(g=>
+     [g.home,g.away].includes(String(team.espn_id))&&
+     [g.home,g.away].includes(String(opponentId))&&
+     Math.abs(Date.parse(g.date+'T12:00:00Z')-epoch)===86400000);
+   return possible.length===1?possible[0]:null;
+ };
+ const opponentElo=id=>{const n=ratingBySchool.get(ncaaByEspn.get(String(id)));return Number.isFinite(Number(n))?Math.round(Number(n)).toString():'Not rated';};
  const cells=games.map(e=>{
   const c=e.competitions[0],contestants=c.competitors||[];
   const self=contestants.find(x=>String(x.team?.id)===String(team.espn_id));
@@ -94,8 +113,8 @@ try{
   if(typeof e.broadcast==='string')broadcastLabels.push(e.broadcast);
   const namedNetwork=[...new Set(broadcastLabels.map(x=>String(x).trim()).filter(x=>x&&!/^(?:TBA|TBD|unknown|network tba)$/i.test(x)))].join(' / ');
   const watchURL=/^https:\/\/[^\s"'<>]+$/i.test(e.official_watch_url||'')?e.official_watch_url:'';
-  const watchLink=watchURL?'<a href="'+escape(watchURL)+'" target="_blank" rel="noopener noreferrer">Watch live ↗</a>':'';
-  const network=(namedNetwork?escape(namedNetwork):'Network TBA')+(watchLink?' · '+watchLink:'');
+  const watchLink=watchURL?'<a href="'+escape(watchURL)+'" target="_blank" rel="noopener noreferrer">Stream link ↗</a>':'';
+  const network=(namedNetwork?escape(namedNetwork):'Not announced')+(watchLink?' · '+watchLink:'');
   const rawVenue=(c.venue?.fullName||'').trim();
   const cleanVenue=/Choose A Location|All Games Home|Select Location/i.test(rawVenue)||dateLabel(rawVenue)?'':rawVenue;
   const address=c.venue?.address||{};
@@ -114,20 +133,36 @@ try{
   const cityState=(address.state||'').trim();
    const city=cityState&&rawCity!=='City TBA'&&!rawCity.includes(',')?rawCity+', '+cityState:rawCity;
   if(rawCity&&rawCity!=='City TBA'&&arena.startsWith(rawCity))arena=arena.slice(rawCity.length).replace(/^[\s/|,]+/,'')||arena;
-  const final=opponentId?verifiedFinals.get(gameKey(e.date.slice(0,10),team.espn_id,opponentId)):null;
+  const scheduledDate=e.date.slice(0,10);
+  const midnight=/^12:0[0-9]\s*A\.?M\.?/i.test(verifiedTip.trim());
+  const final=opponentId?schoolFinal(scheduledDate,opponentId,midnight):null;
   const completed=!!final||e.status?.type?.completed===true||e.status?.type?.state==='post';
   const teamPoints=final?(final.home===String(team.espn_id)?final.home_score:final.away_score):self?.score;
   const opponentPoints=final?(final.home===String(team.espn_id)?final.away_score:final.home_score):opponent?.score;
-  const result=completed&&teamPoints!=null&&opponentPoints!=null&&
-    Number.isFinite(Number(teamPoints))&&Number.isFinite(Number(opponentPoints))?
-    (Number(teamPoints)>Number(opponentPoints)?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints):'—';
+  const hasScore=completed&&teamPoints!=null&&opponentPoints!=null&&
+    String(teamPoints).trim()!==''&&String(opponentPoints).trim()!==''&&
+    Number.isFinite(Number(teamPoints))&&Number.isFinite(Number(opponentPoints))&&
+    Number(teamPoints)!==Number(opponentPoints);
+  const exhibition=e.exhibition===true||scheduledDate<'2026-11-01';
+  const gameState=hasScore?'FINAL':exhibition?'EXHIBITION':completed?'RESULT PENDING':'UPCOMING';
+  const result=hasScore?'<strong class="sched-result-score '+(Number(teamPoints)>Number(opponentPoints)?'sched-win':'sched-loss')+'">'+
+    (Number(teamPoints)>Number(opponentPoints)?'W ':'L ')+escape(teamPoints)+'–'+escape(opponentPoints)+'</strong>':
+    '<span class="sched-result-pending">'+(exhibition?'No regular-season Elo':'Not final')+'</span>';
   const gameFile=final?'<br><a class="mbb-schedule-gamefile" href="cbb-gamefile.html?day='+
     encodeURIComponent(final.date)+'&amp;game='+encodeURIComponent(final.id)+'">Game file ↗</a>':'';
   const school=schoolByEspn.get(opponentId);
   const label=escape(school?.name||opponentName);
   const title=school?'<a href="ncaam-team.html?team='+encodeURIComponent(school.id)+'">'+label+'</a>':label;
-  const today=new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});
-  return '<tr data-calendar-state="'+(completed?'final':e.date.slice(0,10)>=today?'upcoming':'past')+'" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'"><td>'+escape(day)+'</td><td><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs+'</small></span></div></td><td><strong>'+escape(arena)+'</strong><br><small>'+escape(city)+'</small>'+'</td><td>'+escape(tip)+'</td><td>'+network+'</td><td>'+escape(opponentElo(opponentId))+'</td><td>'+result+gameFile+'</td></tr>';
+  const today=new Date().toLocaleDateString('sv-SE',{timeZone:'America/New_York'});
+  const scheduleState=hasScore?'final':scheduledDate>=today?'upcoming':'past';
+  return '<tr data-calendar-state="'+scheduleState+'" data-opponent="'+escape((school?.name||opponentName).toLowerCase())+'">'+
+    '<td class="sched-date-cell"><time datetime="'+escape(scheduledDate)+'">'+escape(day)+'</time><span class="sched-game-status sched-status--'+(hasScore?'final':exhibition?'exhibition':completed?'pending':'upcoming')+'">'+gameState+'</span></td>'+
+    '<td class="sched-matchup-cell"><div class="sched-matchup">'+emblem+'<span class="sched-opponent"><strong>'+title+'</strong><small>'+vs.replace('SITE UNVERIFIED','LOCATION UNCONFIRMED')+'</small></span></div></td>'+
+    '<td class="sched-venue-cell"><div class="sched-venue"><strong>'+escape(arena)+'</strong><small>'+escape(city)+'</small></div></td>'+
+    '<td class="sched-time-cell">'+escape(tip)+'</td>'+
+    '<td class="sched-network-cell">'+network+'</td>'+
+    '<td class="sched-elo-cell">'+(exhibition?'Not applicable':escape(opponentElo(opponentId)))+'</td>'+
+    '<td class="sched-result-cell">'+result+gameFile+'</td></tr>';
  }).join('');
  const method=data.verified_from_school?'Official university athletics calendar':data.verified_by_opponents?'Opponent universities confirmed these games; partial coverage':'Published schedule feed; official verification pending';
  const source=/^https:\/\/[^\s"'<>]+$/.test(data.source_url||'')&&!/espn\.com|realgm\.com|wikipedia\.org/i.test(data.source_url)?'<a href="'+escape(data.source_url)+'" target="_blank" rel="noopener">School athletics source ↗</a>':'';
