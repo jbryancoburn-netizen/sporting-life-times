@@ -6,12 +6,12 @@
   "men": {
     "gender": "men",
     "teams": 301,
-    "games": 3264,
+    "games": 3305,
     "verified_elo_finals": 30,
     "dated_game_days": 104,
-    "no_venue": 2847,
-    "no_network": 3134,
-    "no_tipoff": 948,
+    "no_venue": 2866,
+    "no_network": 3175,
+    "no_tipoff": 953,
     "no_source_url": 0,
     "schools_without_a_published_game": 6,
     "eligible_schools_without_a_published_game": 0,
@@ -111,7 +111,7 @@
           "programs": 12,
           "without_games": 1,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 233,
+          "fixture_appearances": 234,
           "eligible_without_games": 0,
           "excluded_without_games": 1,
           "eligible_with_1_to_6_games": 0
@@ -147,7 +147,7 @@
           "programs": 9,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 128,
+          "fixture_appearances": 167,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -174,7 +174,7 @@
           "programs": 11,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 228,
+          "fixture_appearances": 229,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -237,7 +237,7 @@
           "programs": 14,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 326,
+          "fixture_appearances": 327,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -246,7 +246,7 @@
           "programs": 10,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 203,
+          "fixture_appearances": 207,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -255,7 +255,7 @@
           "programs": 16,
           "without_games": 0,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 358,
+          "fixture_appearances": 386,
           "eligible_without_games": 0,
           "excluded_without_games": 0,
           "eligible_with_1_to_6_games": 0
@@ -273,7 +273,7 @@
           "programs": 18,
           "without_games": 1,
           "with_1_to_6_games": 0,
-          "fixture_appearances": 374,
+          "fixture_appearances": 382,
           "eligible_without_games": 0,
           "excluded_without_games": 1,
           "eligible_with_1_to_6_games": 0
@@ -332,19 +332,19 @@
       "certified_schools": 0,
       "uncertified_schools": 294,
       "excluded_membership_schools": 7,
-      "eligible_with_saved_official_snapshots": 6,
-      "eligible_without_saved_official_snapshots": 288,
+      "eligible_with_saved_official_snapshots": 9,
+      "eligible_without_saved_official_snapshots": 285,
       "unresolved_official_source_games": 0,
       "role_conflicts": 0,
-      "tipoff_disagreements": 2,
+      "tipoff_disagreements": 3,
       "outside_source_snapshot_games": 14,
-      "unclassified_other_division_source_rows": 34,
+      "unclassified_other_division_source_rows": 39,
       "stage_counts": {
-        "COMPLETE_SEASON_ATTESTATION_REQUIRED": 2,
+        "COMPLETE_SEASON_ATTESTATION_REQUIRED": 4,
         "MEMBERSHIP_EXCLUDED": 7,
-        "OFFICIAL_FULL_CALENDAR_REQUIRED": 276,
+        "OFFICIAL_FULL_CALENDAR_REQUIRED": 273,
         "OFFICIAL_PINNED_CALENDAR_SNAPSHOT_REQUIRED": 12,
-        "SOURCE_LEDGER_RECONCILIATION": 4
+        "SOURCE_LEDGER_RECONCILIATION": 5
       },
       "schools": [
         {
@@ -706,7 +706,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -719,7 +719,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-13",
@@ -742,8 +742,8 @@
               "opponent_id": "queens-ny"
             },
             {
-              "date": "2027-01-03",
-              "opponent_id": "southern-new-hampshire"
+              "date": "2026-12-20",
+              "opponent_id": "d-youville"
             }
           ],
           "attestation_errors": [],
@@ -1206,7 +1206,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -1219,7 +1219,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
@@ -1431,7 +1431,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -1444,8 +1444,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-24",
+              "opponent_id": "minnesota-duluth"
+            },
             {
               "date": "2026-11-27",
               "opponent_id": "tampa"
@@ -1465,10 +1469,6 @@
             {
               "date": "2026-12-12",
               "opponent_id": "northern-state"
-            },
-            {
-              "date": "2026-12-17",
-              "opponent_id": "mary"
             }
           ],
           "attestation_errors": [],
@@ -3233,7 +3233,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -3246,7 +3246,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-21",
@@ -3255,6 +3255,10 @@
             {
               "date": "2026-12-05",
               "opponent_id": "east-stroudsburg"
+            },
+            {
+              "date": "2026-12-12",
+              "opponent_id": "roberts-wesleyan"
             },
             {
               "date": "2026-12-15",
@@ -3267,10 +3271,6 @@
             {
               "date": "2026-12-20",
               "opponent_id": "bloomsburg"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "mansfield"
             }
           ],
           "attestation_errors": [],
@@ -3881,50 +3881,27 @@
           "name": "D'Youville",
           "conference": "ECC",
           "eligible": true,
-          "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
+          "status": "COMPLETE_SEASON_ATTESTATION_REQUIRED",
           "certified": false,
-          "published_games": 7,
-          "official_source_urls": [],
-          "official_snapshot_count": 0,
+          "published_games": 25,
+          "official_source_urls": [
+            "https://dyusaints.com/news/2026/10/16/mens-basketball-d-youville-mens-basketball-announces-2026-27-schedule.aspx"
+          ],
+          "official_snapshot_count": 1,
           "explicitly_partial_source": false,
-          "official_source_rows": 0,
-          "eligible_source_games": 0,
-          "matched_source_games": 0,
+          "official_source_rows": 25,
+          "eligible_source_games": 25,
+          "matched_source_games": 25,
           "unidentified_or_other_division_rows": 0,
           "other_division_source_examples": [],
           "missing_source_games_count": 0,
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 7,
-          "outside_snapshot_examples": [
-            {
-              "date": "2026-11-09",
-              "opponent_id": "point-park"
-            },
-            {
-              "date": "2026-12-03",
-              "opponent_id": "st-thomas-aquinas"
-            },
-            {
-              "date": "2026-12-05",
-              "opponent_id": "queens-ny"
-            },
-            {
-              "date": "2027-01-03",
-              "opponent_id": "salem"
-            },
-            {
-              "date": "2027-01-14",
-              "opponent_id": "st-thomas-aquinas"
-            },
-            {
-              "date": "2027-01-23",
-              "opponent_id": "udc"
-            }
-          ],
+          "published_games_not_in_source_snapshot": 0,
+          "outside_snapshot_examples": [],
           "attestation_errors": [],
-          "next_action": "Find and independently verify the school's full official 2026-27 calendar, including non-DII games."
+          "next_action": "Verify the stored calendar includes every regular-season game and postseason TBD, classify non-DII opponents, and record independent crosscheck."
         },
         {
           "id": "daemen",
@@ -3933,7 +3910,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 16,
+          "published_games": 18,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -3946,7 +3923,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 16,
+          "published_games_not_in_source_snapshot": 18,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -5612,7 +5589,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 20,
+          "published_games": 21,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -5625,7 +5602,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 20,
+          "published_games_not_in_source_snapshot": 21,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -5644,12 +5621,12 @@
               "opponent_id": "adelphi"
             },
             {
-              "date": "2026-12-16",
-              "opponent_id": "queens-ny"
+              "date": "2026-12-13",
+              "opponent_id": "d-youville"
             },
             {
-              "date": "2027-01-02",
-              "opponent_id": "pace"
+              "date": "2026-12-16",
+              "opponent_id": "queens-ny"
             }
           ],
           "attestation_errors": [],
@@ -5762,7 +5739,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -5775,11 +5752,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-07",
               "opponent_id": "central-missouri"
+            },
+            {
+              "date": "2026-11-13",
+              "opponent_id": "roberts-wesleyan"
             },
             {
               "date": "2026-12-04",
@@ -5796,10 +5777,6 @@
             {
               "date": "2026-12-19",
               "opponent_id": "mansfield"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "east-stroudsburg"
             }
           ],
           "attestation_errors": [],
@@ -6362,7 +6339,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -6375,8 +6352,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-18",
+              "opponent_id": "roberts-wesleyan"
+            },
             {
               "date": "2026-11-24",
               "opponent_id": "bridgeport"
@@ -6396,10 +6377,6 @@
             {
               "date": "2026-12-12",
               "opponent_id": "caldwell"
-            },
-            {
-              "date": "2026-12-19",
-              "opponent_id": "tampa"
             }
           ],
           "attestation_errors": [],
@@ -7622,7 +7599,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -7635,8 +7612,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-23",
+              "opponent_id": "roberts-wesleyan"
+            },
             {
               "date": "2026-12-04",
               "opponent_id": "mansfield"
@@ -7656,10 +7637,6 @@
             {
               "date": "2027-01-02",
               "opponent_id": "bloomsburg"
-            },
-            {
-              "date": "2027-01-06",
-              "opponent_id": "indiana-pa"
             }
           ],
           "attestation_errors": [],
@@ -7847,7 +7824,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -7860,11 +7837,19 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-13",
               "opponent_id": "winston-salem-state"
+            },
+            {
+              "date": "2026-11-14",
+              "opponent_id": "d-youville"
+            },
+            {
+              "date": "2026-11-21",
+              "opponent_id": "roberts-wesleyan"
             },
             {
               "date": "2026-12-04",
@@ -7877,14 +7862,6 @@
             {
               "date": "2026-12-15",
               "opponent_id": "slippery-rock"
-            },
-            {
-              "date": "2026-12-19",
-              "opponent_id": "gannon"
-            },
-            {
-              "date": "2026-12-20",
-              "opponent_id": "edinboro"
             }
           ],
           "attestation_errors": [],
@@ -7947,7 +7924,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 20,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -7960,7 +7937,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 20,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
@@ -8147,7 +8124,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 15,
+          "published_games": 17,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8160,7 +8137,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 15,
+          "published_games_not_in_source_snapshot": 17,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-10",
@@ -8179,12 +8156,12 @@
               "opponent_id": "adelphi"
             },
             {
-              "date": "2027-01-14",
-              "opponent_id": "roberts-wesleyan"
+              "date": "2027-01-07",
+              "opponent_id": "d-youville"
             },
             {
-              "date": "2027-01-21",
-              "opponent_id": "staten-island"
+              "date": "2027-01-14",
+              "opponent_id": "roberts-wesleyan"
             }
           ],
           "attestation_errors": [],
@@ -8247,7 +8224,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8260,7 +8237,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-13",
@@ -8269,6 +8246,10 @@
             {
               "date": "2026-11-14",
               "opponent_id": "umsl-missouri-st-louis"
+            },
+            {
+              "date": "2026-11-21",
+              "opponent_id": "minnesota-duluth"
             },
             {
               "date": "2026-11-28",
@@ -8281,10 +8262,6 @@
             {
               "date": "2026-12-05",
               "opponent_id": "roosevelt"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "davenport"
             }
           ],
           "attestation_errors": [],
@@ -8447,7 +8424,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 23,
+          "published_games": 24,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8460,8 +8437,12 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 23,
+          "published_games_not_in_source_snapshot": 24,
           "outside_snapshot_examples": [
+            {
+              "date": "2026-11-13",
+              "opponent_id": "d-youville"
+            },
             {
               "date": "2026-11-14",
               "opponent_id": "winston-salem-state"
@@ -8481,10 +8462,6 @@
             {
               "date": "2026-12-05",
               "opponent_id": "slippery-rock"
-            },
-            {
-              "date": "2026-12-15",
-              "opponent_id": "lock-haven"
             }
           ],
           "attestation_errors": [],
@@ -8547,7 +8524,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 20,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8560,11 +8537,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 20,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
               "opponent_id": "minnesota-crookston"
+            },
+            {
+              "date": "2026-12-03",
+              "opponent_id": "minnesota-duluth"
             },
             {
               "date": "2026-12-05",
@@ -8581,10 +8562,6 @@
             {
               "date": "2026-12-17",
               "opponent_id": "northern-state"
-            },
-            {
-              "date": "2026-12-19",
-              "opponent_id": "jamestown"
             }
           ],
           "attestation_errors": [],
@@ -8597,7 +8574,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 24,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8610,7 +8587,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 24,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -8629,12 +8606,12 @@
               "opponent_id": "bemidji-state"
             },
             {
-              "date": "2026-12-10",
-              "opponent_id": "mary"
+              "date": "2026-12-05",
+              "opponent_id": "minnesota-duluth"
             },
             {
-              "date": "2026-12-12",
-              "opponent_id": "minot-state"
+              "date": "2026-12-10",
+              "opponent_id": "mary"
             }
           ],
           "attestation_errors": [],
@@ -8645,50 +8622,38 @@
           "name": "Minnesota–Duluth",
           "conference": "NSIC",
           "eligible": true,
-          "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
+          "status": "COMPLETE_SEASON_ATTESTATION_REQUIRED",
           "certified": false,
-          "published_games": 12,
-          "official_source_urls": [],
-          "official_snapshot_count": 0,
+          "published_games": 27,
+          "official_source_urls": [
+            "https://umdbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+          ],
+          "official_snapshot_count": 1,
           "explicitly_partial_source": false,
-          "official_source_rows": 0,
-          "eligible_source_games": 0,
-          "matched_source_games": 0,
-          "unidentified_or_other_division_rows": 0,
-          "other_division_source_examples": [],
+          "official_source_rows": 29,
+          "eligible_source_games": 27,
+          "matched_source_games": 27,
+          "unidentified_or_other_division_rows": 2,
+          "other_division_source_examples": [
+            {
+              "date": "2026-11-01",
+              "opponent": "Carleton College",
+              "source_url": "https://umdbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            },
+            {
+              "date": "2026-12-29",
+              "opponent": "University of Wisconsin-Superior",
+              "source_url": "https://umdbulldogs.com/sports/mens-basketball/schedule/2026-27?grid=true"
+            }
+          ],
           "missing_source_games_count": 0,
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 12,
-          "outside_snapshot_examples": [
-            {
-              "date": "2026-11-09",
-              "opponent_id": "concordia-st-paul"
-            },
-            {
-              "date": "2026-11-13",
-              "opponent_id": "emporia-state"
-            },
-            {
-              "date": "2026-11-28",
-              "opponent_id": "northern-michigan"
-            },
-            {
-              "date": "2026-12-10",
-              "opponent_id": "northern-state"
-            },
-            {
-              "date": "2026-12-12",
-              "opponent_id": "jamestown"
-            },
-            {
-              "date": "2026-12-17",
-              "opponent_id": "minot-state"
-            }
-          ],
+          "published_games_not_in_source_snapshot": 0,
+          "outside_snapshot_examples": [],
           "attestation_errors": [],
-          "next_action": "Find and independently verify the school's full official 2026-27 calendar, including non-DII games."
+          "next_action": "Verify the stored calendar includes every regular-season game and postseason TBD, classify non-DII opponents, and record independent crosscheck."
         },
         {
           "id": "minot-state",
@@ -8897,7 +8862,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 23,
+          "published_games": 24,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8910,11 +8875,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 23,
+          "published_games_not_in_source_snapshot": 24,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
               "opponent_id": "quincy"
+            },
+            {
+              "date": "2026-11-14",
+              "opponent_id": "minnesota-duluth"
             },
             {
               "date": "2026-11-27",
@@ -8931,10 +8900,6 @@
             {
               "date": "2026-12-05",
               "opponent_id": "washburn"
-            },
-            {
-              "date": "2026-12-16",
-              "opponent_id": "emporia-state"
             }
           ],
           "attestation_errors": [],
@@ -8947,7 +8912,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 15,
+          "published_games": 17,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -8960,7 +8925,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 15,
+          "published_games_not_in_source_snapshot": 17,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-10",
@@ -10326,7 +10291,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 23,
+          "published_games": 24,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -10339,11 +10304,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 23,
+          "published_games_not_in_source_snapshot": 24,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-18",
               "opponent_id": "frostburg-state"
+            },
+            {
+              "date": "2026-11-25",
+              "opponent_id": "d-youville"
             },
             {
               "date": "2026-12-04",
@@ -10360,10 +10329,6 @@
             {
               "date": "2026-12-19",
               "opponent_id": "millersville"
-            },
-            {
-              "date": "2026-12-20",
-              "opponent_id": "shepherd"
             }
           ],
           "attestation_errors": [],
@@ -10578,7 +10543,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 14,
+          "published_games": 17,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -10591,7 +10556,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 14,
+          "published_games_not_in_source_snapshot": 17,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -10726,50 +10691,43 @@
           "name": "Roberts Wesleyan",
           "conference": "ECC",
           "eligible": true,
-          "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
+          "status": "SOURCE_LEDGER_RECONCILIATION",
           "certified": false,
-          "published_games": 12,
-          "official_source_urls": [],
-          "official_snapshot_count": 0,
+          "published_games": 22,
+          "official_source_urls": [
+            "https://robertsredhawks.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+          ],
+          "official_snapshot_count": 1,
           "explicitly_partial_source": false,
-          "official_source_rows": 0,
-          "eligible_source_games": 0,
-          "matched_source_games": 0,
-          "unidentified_or_other_division_rows": 0,
-          "other_division_source_examples": [],
+          "official_source_rows": 25,
+          "eligible_source_games": 22,
+          "matched_source_games": 22,
+          "unidentified_or_other_division_rows": 3,
+          "other_division_source_examples": [
+            {
+              "date": "2026-11-06",
+              "opponent": "Kent State University (Exhibition)",
+              "source_url": "https://robertsredhawks.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+            },
+            {
+              "date": "2026-12-28",
+              "opponent": "St. Bonaventure University (Exhibition)",
+              "source_url": "https://robertsredhawks.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+            },
+            {
+              "date": "2027-01-04",
+              "opponent": "Redeemer University",
+              "source_url": "https://robertsredhawks.com/sports/mens-basketball/schedule/2026-2027?grid=true"
+            }
+          ],
           "missing_source_games_count": 0,
           "missing_source_games": [],
           "role_conflicts": 0,
-          "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 12,
-          "outside_snapshot_examples": [
-            {
-              "date": "2026-12-03",
-              "opponent_id": "molloy"
-            },
-            {
-              "date": "2026-12-05",
-              "opponent_id": "mercy"
-            },
-            {
-              "date": "2027-01-07",
-              "opponent_id": "staten-island"
-            },
-            {
-              "date": "2027-01-09",
-              "opponent_id": "st-thomas-aquinas"
-            },
-            {
-              "date": "2027-01-14",
-              "opponent_id": "mercy"
-            },
-            {
-              "date": "2027-01-16",
-              "opponent_id": "molloy"
-            }
-          ],
+          "tipoff_disagreements": 1,
+          "published_games_not_in_source_snapshot": 0,
+          "outside_snapshot_examples": [],
           "attestation_errors": [],
-          "next_action": "Find and independently verify the school's full official 2026-27 calendar, including non-DII games."
+          "next_action": "Reconcile exact date/opponent/role/time conflicts without inventing games."
         },
         {
           "id": "rockhurst",
@@ -11175,7 +11133,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 19,
+          "published_games": 21,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -11188,11 +11146,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 19,
+          "published_games_not_in_source_snapshot": 21,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
               "opponent_id": "chestnut-hill"
+            },
+            {
+              "date": "2026-11-14",
+              "opponent_id": "roberts-wesleyan"
             },
             {
               "date": "2026-12-02",
@@ -11203,16 +11165,12 @@
               "opponent_id": "bentley"
             },
             {
+              "date": "2026-12-19",
+              "opponent_id": "d-youville"
+            },
+            {
               "date": "2027-01-03",
               "opponent_id": "assumption"
-            },
-            {
-              "date": "2027-01-06",
-              "opponent_id": "southern-new-hampshire"
-            },
-            {
-              "date": "2027-01-09",
-              "opponent_id": "adelphi"
             }
           ],
           "attestation_errors": [],
@@ -11815,7 +11773,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 22,
+          "published_games": 23,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -11828,7 +11786,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 22,
+          "published_games_not_in_source_snapshot": 23,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -11865,7 +11823,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -11878,11 +11836,15 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
               "opponent_id": "lincoln-pa"
+            },
+            {
+              "date": "2026-11-29",
+              "opponent_id": "d-youville"
             },
             {
               "date": "2026-12-04",
@@ -11899,10 +11861,6 @@
             {
               "date": "2026-12-20",
               "opponent_id": "east-stroudsburg"
-            },
-            {
-              "date": "2027-01-02",
-              "opponent_id": "kutztown"
             }
           ],
           "attestation_errors": [],
@@ -12315,7 +12273,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -12328,7 +12286,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
@@ -12465,7 +12423,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 24,
+          "published_games": 25,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -12478,7 +12436,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 24,
+          "published_games_not_in_source_snapshot": 25,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-09",
@@ -12665,7 +12623,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 15,
+          "published_games": 17,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -12678,7 +12636,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 15,
+          "published_games_not_in_source_snapshot": 17,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-29",
@@ -12701,8 +12659,8 @@
               "opponent_id": "roberts-wesleyan"
             },
             {
-              "date": "2027-01-14",
-              "opponent_id": "udc"
+              "date": "2027-01-09",
+              "opponent_id": "d-youville"
             }
           ],
           "attestation_errors": [],
@@ -14272,7 +14230,7 @@
           "eligible": true,
           "status": "OFFICIAL_FULL_CALENDAR_REQUIRED",
           "certified": false,
-          "published_games": 21,
+          "published_games": 22,
           "official_source_urls": [],
           "official_snapshot_count": 0,
           "explicitly_partial_source": false,
@@ -14285,7 +14243,7 @@
           "missing_source_games": [],
           "role_conflicts": 0,
           "tipoff_disagreements": 0,
-          "published_games_not_in_source_snapshot": 21,
+          "published_games_not_in_source_snapshot": 22,
           "outside_snapshot_examples": [
             {
               "date": "2026-11-24",
@@ -15370,7 +15328,7 @@
       "NCAA scoreboard": 716,
       "NE10 2026-27 official reciprocal school calendars": 65,
       "NSIC 2026-27 reciprocal official school calendars": 132,
-      "Official university 2026-27 school schedule": 242,
+      "Official university 2026-27 school schedule": 283,
       "PBC 2026-27 reciprocal official university calendars": 109,
       "PSAC 2026-27 reciprocal official school schedules": 170,
       "PWC 2026-27 reciprocal official school calendars": 70,
