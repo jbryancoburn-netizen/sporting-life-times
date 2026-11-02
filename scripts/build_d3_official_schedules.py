@@ -194,6 +194,8 @@ OFFICIAL_CONFERENCE_SCHEDULES = {
         455: ("https://oac.org/schedule.aspx?schedule=2381", "Muskingum"),
         517: ("https://oac.org/schedule.aspx?schedule=2382", "Ohio Northern"),
         22235: ("https://nwcsports.com/schedule.aspx?schedule=2501", "Lewis & Clark"),
+        # Official HCAC 2026-27 Bluffton men's page (season and member labeled).
+        987: ("https://heartlandconf.org/schedule.aspx?schedule=4398", "Bluffton"),
         # Huntingdon's own team-specific 2026-27 published CCS calendar.
         1130: ("https://collegiateconferenceofthesouth.com/schedule.aspx?schedule=542", "Huntingdon"),
     },
@@ -1509,6 +1511,7 @@ def self_test():
     assert OFFICIAL_CONFERENCE_SCHEDULES["men"][1355][0].endswith("schedule=6196")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1355][0].endswith("schedule=6202")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][987][0].endswith("schedule=4399")
+    assert OFFICIAL_CONFERENCE_SCHEDULES["men"][987][0].endswith("schedule=4398")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][1467][0].endswith("schedule=2615")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][325][0].endswith("schedule=2616")
     assert OFFICIAL_CONFERENCE_SCHEDULES["women"][443][0].endswith("schedule=2618")
