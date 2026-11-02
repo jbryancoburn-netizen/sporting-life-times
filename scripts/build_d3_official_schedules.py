@@ -1340,7 +1340,12 @@ def combine(gender, parsed):
             "official_schedule_sources": sorted({x["source_url"] for x in unique}),
             "verified_by_org_ids": owners,
             "source_kind": fixture_source_kind,
-            "source_verification": "reciprocal" if len(owners) >= 2 else "single_official_school",
+            "source_verification": (
+                "reciprocal" if len(owners) >= 2 and
+                len({x["source_url"] for x in unique}) >= 2
+                else "single_official_conference"
+                if kinds == {"official_conference"}
+                else "single_official_school"),
             "tipoff_as_posted": best["tipoff_as_posted"],
             "venue": best["venue"], "venue_location": best["venue_location"],
             "network_as_posted": best["network_as_posted"],
@@ -2189,6 +2194,15 @@ def self_test():
             assert stamp not in approved_games or approved_games[stamp] == sites
             approved_games[stamp] = sites
     assert len(approved_games) == 48
+    # Two team declarations copied from ONE approved PDF do not constitute
+    # independent reciprocal source verification; no inflated confidence.
+    shared = []
+    for school in (1467, 325):
+        rows, _ = approved_landmark_mens_conference(school, landmark_by_org)
+        shared.append([r for r in rows if r["date"] == "2027-01-09"])
+    certified, conflicted = combine("men", shared)
+    assert not conflicted and len(certified) == 1
+    assert certified[0]["source_verification"] == "single_official_conference"
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
