@@ -14,18 +14,18 @@
 
 ## Point-in-time published-data audit (2026–27 season)
 
-Source of truth: `data/d2-publishing-audit.json`, as inspected from GitHub main on **2026-11-02 03:21 UTC**. The audit's own status is **"PASS — school schedules remain uncertified."** A passing integrity check is not evidence that every institution's schedule has been recovered.
+Source of truth: `data/d2-publishing-audit.json`, as inspected from GitHub main on **2026-11-02 03:25 UTC**. The audit's own status is **"PASS — school schedules remain uncertified."** A passing integrity check is not evidence that every institution's schedule has been recovered.
 
 | Metric | Men | Women |
 |---|---:|---:|
 | Schools listed in registry | 301 | 298 |
-| Published game ledger records | 2,930 | 3,744 |
+| Published game ledger records | 2,930 | 3,768 |
 | Verified Elo final games in current ledger | 26 | 33 |
 | Programs without a published fixture | 6 | 1 |
-| Programs with only 1–6 published fixtures | 22 | 4 |
-| Games missing venue | 2,795 | 3,573 |
-| Games missing network/broadcast | 2,800 | 3,606 |
-| Games missing tipoff | 933 | 334 |
+| Programs with only 1–6 published fixtures | 22 | 3 |
+| Games missing venue | 2,795 | 3,584 |
+| Games missing network/broadcast | 2,800 | 3,630 |
+| Games missing tipoff | 933 | 336 |
 | Games missing source URL (audit field) | 0 | 0 |
 | Full-season date scan flagged complete | Yes | Yes |
 | Every university's full schedule certified | **NO** | **NO** |
@@ -60,7 +60,7 @@ These are committed historical calibration artifacts, **not proof of full 2026�
 - `data/d2-publishing-audit.json`: current published snapshot's quantitative integrity and recovery report.
 - `data/d2-elo-parameters-2026-27.json`: historical parameter-fit evidence.
 - `scripts/build_d2_basketball.py`: existing main collector and game reconciliation entry point.
-- `data/d2-official-school-grids-2026-27.json`: official university 2026–27 school-grid evidence and conservative canonical opponent labels for Salem men, Salem women, Lincoln (PA) women, Charleston women, Upper Iowa women. The Upper Iowa neutral-site Puerto Rico–Mayagüez game is sourced to its athletics schedule. `tests/test_d2_official_school_grids.py` and `tests/d2-basketball.test.cjs` guard those fixtures.
+- `data/d2-official-school-grids-2026-27.json`: official university 2026–27 school-grid evidence and conservative canonical opponent labels for Salem men, Salem women, Lincoln (PA) women, Charleston women, Upper Iowa women and Queens College women. The Upper Iowa neutral-site Puerto Rico–Mayagüez game is sourced to its athletics schedule. `tests/test_d2_official_school_grids.py` and `tests/d2-basketball.test.cjs` guard those fixtures.
 - `scripts/audit_d2_publication.py --strict`: offline publication integrity check and per-school triage.
 - `scripts/d2_*_official.py`: official conference/school reciprocal schedule collectors; keep working through outstanding gaps with conservative matching.
 - `scripts/d2_calibrate_historical_elo.py`: historical calibration.
@@ -69,9 +69,10 @@ These are committed historical calibration artifacts, **not proof of full 2026�
 - `DATA_ACQUISITION_POLICY.md`, `USRS_RELEASE_POLICY.md`: provenance, conflict-handling and release constraints.
 
 Recent confirmed DII merge / mainline checkpoints at time of inspection:
+- PR #207 / merge `1ac763d53216c98abd4c9c58c2db37b16c427363`: Queens College women's **28 official calendar rows**, including two non-DII Lackawanna opponents excluded from the game ledger. 22 new DII games added, bringing Queens from 4 to **26 published DII games**. Existing DII workflow [41382878614](https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/41382878614) **SUCCESS** (tests, build, strict audit, data commit). Queens official ET times and South Gym home venue were merged where source-proven; never synthesize a final.
 - PR #205 / merge `9d85c13c875ecf98b04541ae81bcbb91549f2d05`: Upper Iowa women's 26 official 2026–27 fixtures, including neutral Puerto Rico–Mayagüez on 2026-11-22; full DII publisher action **41382550184 SUCCESS**, strict audit and tests passed, with automated published ledger commit after the build.
 - PR #193: 28 University of Charleston women's schedule rows; all 28 now matched after seven canonical opponent identity corrections in later mainline changes. PRs #194, #196 and #197 protected the importer and fixed regression-test blockers.
-- Current point-in-time main audit: 2,930 men / 3,744 women games, 26 / 33 Elo finals, 6 / 1 zero-fixture registrants. No university full-season certification. **GitHub Pages deployment must be separately checked**; do not infer publication from a passing DII builder.
+- Current point-in-time main audit: 2,930 men / 3,768 women games, 26 / 33 Elo finals, 6 / 1 zero-fixture registrants. No university full-season certification. **GitHub Pages deployment must be separately checked**; do not infer publication from a passing DII builder.
 - `6ccb60cc6e85af243e8f2e8714d0bb04d520d5d8`: MIAA men's/women's reciprocal recovery and tests.
 - `3a72c9b08ce3b35c9a9e570bdc8f299aba5d70b5`: GMAC official schedules.
 - `7740ce89096974df1c6e35dad1defdd9cebfd7f1`: school schedule audit / clickable queues.
@@ -82,10 +83,11 @@ Always use the **latest main HEAD** rather than assuming these remain the newest
 ## 2026-11-02 recovery facts and next priority
 
 - Existing DII workflow `.github/workflows/d2-basketball.yml` succeeded on run [41382550184](https://github.com/jbryancoburn-netizen/sporting-life-times/actions/runs/41382550184), including JS/Python tests, source build, strict release audit and data commit. The subsequent GitHub Pages deployment run was still pending/in progress when checked, so do not assert it has deployed.
-- Newly sourced school grids contain 27 Salem men, 28 Salem women, 28 Lincoln (PA) women, 28 Charleston women, 26 Upper Iowa women = **137 university schedule source rows**. Rows already existing in the ledger or with other-division opponents are not counted as newly created DII games; source rows and game-ledger additions must not be confused.
+- Newly sourced school grids contain 27 Salem men, 28 Salem women, 28 Lincoln (PA) women, 28 Charleston women, 26 Upper Iowa women, 28 Queens College women = **165 university schedule source rows**. Rows already existing in the ledger or with other-division opponents are not counted as newly created DII games; source rows and game-ledger additions must not be confused.
+- Queens College's official 2026–27 grid contains 28 rows. **26** are known DII matchups, now represented in the women's ledger; **two Lackawanna games remain excluded as non-DII opponents**. Queens's South Gym and stated Eastern tipoffs supply venue/time data. Its schedule was the last women thin-fixture program restored to at least 7 in this batch.
 - Official Upper Iowa opponent evidence confirms the currently first-known DII women's fixture for University of Puerto Rico–Mayagüez, **2026-11-22, neutral, 12:30 PM ET**. Only the university's posted ET clock was imported; other ambiguous local time-zone displays were deliberately not guessed.
 - Do not treat the 2026–27 Texas A&M–Texarkana women's zero-fixture row as automatically missing a DII game. Search its official university calendar and reciprocal confirmed **DII-v-DII** opponents. It may chiefly play former NAIA/other-division schools during transition.
-- Next large data batches: official school-level 2026–27 confirmation for the remaining **22 thin men's and 4 thin women's schedules**, and missing verified venues/networks/tipoffs. Verify pending membership and exclude future/Division I schools from DII Elo. Historical Elo calibration remains independently reset to 1500 for each season.
+- Next large data batches: official school-level 2026–27 confirmation for the remaining **22 thin men's and 3 thin women's schedules**, and missing verified venues/networks/tipoffs. Verify pending membership and exclude future/Division I schools from DII Elo. Historical Elo calibration remains independently reset to 1500 for each season.
 - **Zero-dollar constraint remains absolute:** public/free sources, existing public repo and existing workflows only; no paid accounts, paywalled APIs, premium Actions, or extra hosting bills.
 
 ## Immediate unfinished work, in priority order
