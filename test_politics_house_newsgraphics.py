@@ -114,4 +114,64 @@ console.log('Validated '+watch+' purple watch cards, '+mixed+' conflicting-signa
         self.assertIn('not a guaranteed winner',district.lower())
         self.assertNotIn('win probability 60%',district.lower())
 
+
+    def test_435_districts_have_real_editorial_stories_without_fabricated_swing(self):
+        """Iowa source samples and every district must preserve poll/history separation."""
+        district=(ROOT/"politics-house-district.html").read_text(encoding="utf-8")
+        state=(ROOT/"politics-house-state.html").read_text(encoding="utf-8")
+        visual=(ROOT/"politics-race-experience.css").read_text(encoding="utf-8")
+        engine=(ROOT/"politics-race-experience.js").read_text(encoding="utf-8")
+        for marker in ["race-snapshots","politics-race-experience.js","politics-race-experience.css",
+                       "race-receipts","race-experience"]:
+            self.assertIn(marker,district)
+        for marker in ["state-editorial-stories","politics-race-experience.js","politics-race-experience.css"]:
+            self.assertIn(marker,state)
+        self.assertIn('role","tablist"',engine)
+        self.assertIn('role","tabpanel"',engine)
+        self.assertIn('ArrowRight',engine)
+        self.assertIn('aria-selected',engine)
+        self.assertIn('race-snapshot-panel[hidden]{display:none!important}',visual)
+        self.assertIn('grid-template-columns:1fr',visual)
+        self.assertNotIn('win odds',engine.lower())
+        if not shutil.which("node"):self.skipTest("Node required for source-based narrative test")
+        node=r"""
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const context={window:{}};vm.runInNewContext(fs.readFileSync('politics-race-experience.js','utf8'),context);
+const api=context.window.PoliticsRaceExperience;
+const atlas=JSON.parse(fs.readFileSync('politics-house-atlas.json','utf8'));
+assert.strictEqual(atlas.districts.length,435);
+const byId=new Map(atlas.districts.map(r=>[r.id,r]));
+const ia01=api.story(byId.get('IA-01'));
+assert.strictEqual(ia01.diff,799);
+assert(ia01.headline.includes('799 votes'));
+assert(ia01.sub.includes('Michael Bridgford'));
+assert(ia01.sub.includes('11.0%'));
+assert.strictEqual(ia01.pm,5);
+const ia02=api.story(byId.get('IA-02'));
+assert(ia02.headline.includes('different directions'));
+assert.strictEqual(ia02.diff,63600);
+const ia03=api.story(byId.get('IA-03'));
+assert.strictEqual(ia03.diff,15784);
+assert.strictEqual(ia03.pm,-6);
+const ia04=api.story(byId.get('IA-04'));
+assert.strictEqual(ia04.p,null);
+assert(ia04.sub.includes('Chris McGowan')&&ia04.sub.includes('Dave Dawson'));
+let changed=0,withPoll=0;
+for(const r of atlas.districts){
+ const data=api.story(r);
+ assert(data.headline.length>20,r.id);
+ assert.strictEqual(data.items.length,3,r.id);
+ if(r['2026_boundaries_revised']){
+   changed++;
+   assert.strictEqual(data.h,null,r.id+' changed boundaries were used as historic baseline');
+ }
+ if(data.p){withPoll++;assert(data.items[1].unit.startsWith('2026 REPORTED POLL'));}
+ if(!data.p)assert(!data.sub.includes('poll lists '),r.id);
+}
+assert(changed>0&&withPoll>50);
+console.log('Iowa 4/4 checked; all '+atlas.districts.length+' distinct House races use source-specific editorial metrics.');
+"""
+        test=subprocess.run(["node","-e",node],cwd=ROOT,text=True,capture_output=True,timeout=25)
+        self.assertEqual(test.returncode,0,test.stdout+"\\n"+test.stderr)
+
 if __name__=="__main__":unittest.main()
