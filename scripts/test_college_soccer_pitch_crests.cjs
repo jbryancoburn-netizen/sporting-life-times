@@ -56,3 +56,6 @@ check('Cal St. San Marcos','cal-st-san-marcos','men-d2',true,overrides.schools['
 check('Stanislaus St.','cal-st-stanislaus','women-d2',true,overrides.schools['cal-st-stanislaus'].primary,overrides.schools['cal-st-stanislaus'].secondary);
 check('Unknown School','no-such-program','women-d3',false);
 console.log('PASS: 7 NCAA crest cases; correct source palette, no initials over logos, no extra rings, safe fallback.');
+
+// The tournament crest component is shared by the selection and conference pages.
+require('./test_college_soccer_selection_crests.cjs');
