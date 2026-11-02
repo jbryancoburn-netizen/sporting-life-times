@@ -1,0 +1,229 @@
+/* POLITICAL LIFE & TIMES · THE RACE READ
+   Editorial narrative, discrete observed evidence, and accessible source toggles.
+   Never display polling responses as winner probabilities. */
+body[data-house-page="district"]:not(.iowa-edition-active){background:#ebece9}
+body[data-house-page="district"]:not(.iowa-edition-active) .paper{max-width:1210px}
+body[data-house-page="district"]:not(.iowa-edition-active) .district-front{
+ margin:16px 0 24px;border:1px solid #bcc5c4;border-top:5px solid var(--race-accent,#768b91);
+ box-shadow:0 8px 26px #1a2a3419;background:#fff;
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .district-front-banner{min-height:0;padding:20px 28px 21px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-rail{padding-bottom:8px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-banner-grid{padding-top:13px;align-items:center}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-title{font-size:clamp(28px,4.3vw,48px);margin:3px 0 6px;letter-spacing:-1px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-deck{font-size:13px;line-height:1.5;max-width:46ch}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-kicker{font-size:10px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-map-art{right:1%;top:-30%;width:43%;height:175%;opacity:.18}
+body[data-house-page="district"]:not(.iowa-edition-active) #leader-badge{max-width:260px;min-width:170px;font-size:10px;line-height:1.45;padding:10px 12px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-experience{background:#fffefa;color:#20333e}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-experience-top{
+ display:grid;grid-template-columns:minmax(0,1.8fr) minmax(220px,.8fr);
+ gap:25px;padding:26px 29px 25px;border-bottom:1px solid #c6d0d1;background:#fafaf7
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-eyebrow{color:#6f4bae;font:900 11px/1.3 'DM Sans',sans-serif;letter-spacing:1.65px;text-transform:uppercase}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-feature-headline{
+ font:700 clamp(29px,3.4vw,43px)/1.15 'Libre Baskerville',Georgia,serif;
+ letter-spacing:-1.05px;margin:12px 0 16px;color:#122f41
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-feature-deck{
+ font:500 clamp(15px,1.45vw,18px)/1.65 'DM Sans',Arial,sans-serif;
+ color:#364e5c;margin:0;max-width:71ch
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-editor-note{
+ padding:18px 18px 17px;border-left:5px solid var(--race-accent,#6f4bae);
+ background:var(--race-tint,#eee7f8);align-self:stretch
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-editor-note b{
+ display:block;font:900 10px/1.3 'DM Sans',sans-serif;color:var(--race-ink,#53348a);letter-spacing:1.2px
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-editor-note p{font:600 13px/1.6 'DM Sans',sans-serif;color:#354854;margin:11px 0 0}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-headline-numbers{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#182c3c;
+ color:#fff;border-top:4px solid var(--race-accent,#6f4bae);border-bottom:4px solid #d4dce0
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number{
+ min-width:0;padding:21px 23px 22px;border-right:1px solid #74879676
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number:last-child{border:0}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number strong{
+ display:block;font:900 clamp(27px,3vw,42px)/1.05 'DM Sans',Arial,sans-serif;
+ letter-spacing:-1px;color:#f8f5ff;overflow-wrap:anywhere
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number-survey strong{color:#e0d1ff}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number-ballot strong{color:#d9f1ea}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number span{
+ display:block;margin-top:7px;font:900 10px/1.35 'DM Sans',sans-serif;
+ letter-spacing:1.1px;color:#c6d8e6
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-number p{
+ margin:9px 0 0;font:500 11px/1.5 'DM Sans',sans-serif;color:#cad3db
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-explore{padding:28px 29px 31px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-explore-head{
+ margin:8px 0 9px;font:700 clamp(22px,2.7vw,32px)/1.2 'Libre Baskerville',Georgia,serif;color:#193748
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-explore-intro{
+ max-width:82ch;color:#46606e;font:600 13px/1.65 'DM Sans',sans-serif;margin:0 0 21px
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-tabbar{display:flex;gap:0;border-bottom:3px solid #1b3546}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-tab{
+ width:auto;padding:14px 20px;border:1px solid #c8d0d2;border-bottom:0;
+ background:#e8eef0;color:#304f5f;font:900 12px 'DM Sans',sans-serif;
+ letter-spacing:.45px;cursor:pointer
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-tab + .race-tab{border-left:0}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-tab[aria-selected="true"]{background:#243c50;color:#fff;border-color:#243c50}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-tab:hover:not([aria-selected="true"]){background:#d0dde2}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-tab:focus-visible{outline:3px solid #be8ae2;outline-offset:3px;z-index:2}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-panel{padding:23px 24px 26px;background:#f3f5f4;min-height:265px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-panel[hidden]{display:none!important}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-head{
+ display:flex;justify-content:space-between;gap:13px;align-items:start;
+ font:900 11px 'DM Sans',sans-serif;letter-spacing:.85px;color:#385162
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-head small{color:#70549a;text-align:right}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-title{
+ font:700 clamp(20px,2.6vw,30px)/1.2 'Libre Baskerville',Georgia,serif;
+ margin:13px 0 7px;color:#142e40
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-sub{font:600 12px/1.6 'DM Sans',sans-serif;color:#4b5f6c;margin:0 0 19px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot{display:grid;gap:13px;max-width:790px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-text{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:14px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-text strong{font-weight:800;color:#1f3441}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-text b{font-size:23px;line-height:1.1;color:#1c364a}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-track{height:19px;background:#d9e0e2;overflow:hidden;border:1px solid #9eafb5}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-fill{display:block;height:100%;background:#899caa}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-fill.dem{background:#286ab8}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-fill.rep{background:#b7464c}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-fill.other{background:#8a8790}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-source-row{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-source-link{display:inline-block;margin-top:12px;color:#14567c;font:900 11px/1.5 'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:3px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-note{
+ color:#526a76;font:600 11px/1.6 'DM Sans',sans-serif;margin:13px 0 0;max-width:86ch
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-no-data{
+ border-left:4px solid #8496a0;background:#fff;padding:19px 22px;
+ font:600 16px/1.6 'DM Sans',sans-serif;color:#3d5663;margin-top:18px
+}
+/* The new reader-friendly summary replaces duplicated generic read-and-fact blocks. */
+body[data-house-page="district"]:not(.iowa-edition-active) .front-evidence-grid{display:block}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-evidence-grid .front-lead-read{display:none}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-evidence-grid .front-field{
+ padding:24px 29px 27px;background:#f7f8f6
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-field .front-section-label{margin-bottom:16px;font-size:11px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-faceoff{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:770px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-person{
+ display:grid;grid-template-columns:125px minmax(0,1fr);grid-template-rows:1fr auto;gap:8px 16px;
+ padding:13px 14px;align-items:center;text-align:left;background:#fff
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-person .candidate-portrait{
+ grid-row:1/3;width:125px;height:145px;min-width:125px;min-height:145px
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-person .front-person-name{
+ text-align:left;font:800 20px/1.25 'DM Sans',sans-serif
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-person .party-seal-group{justify-content:flex-start}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-vs{top:50%}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-candidate-note{font-size:12px;margin-top:13px}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-graphics-grid{display:none}
+body[data-house-page="district"]:not(.iowa-edition-active) .front-disclaimer{padding:11px 29px;font-size:10px;line-height:1.6}
+/* Lower-page audit stays available, without occupying the first three screens. */
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive{
+ background:#fffefa;border-top:3px solid #182f40;margin:20px 0 0
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive summary{
+ display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;
+ padding:18px 20px;font:800 15px 'DM Sans',sans-serif;color:#172f42
+}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive summary::after{content:"+";font-size:20px;color:#7b548e}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive[open] summary::after{content:"−"}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive>div{padding:8px 18px 18px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive .panels{padding:0;gap:12px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive .panel{border:1px solid #d0d8da;margin-bottom:14px}
+body[data-house-page="district"]:not(.iowa-edition-active) .race-deep-dive .panel h3{font-size:20px}
+body[data-house-page="district"]:not(.iowa-edition-active) .metrics{display:none}
+body[data-house-page="district"]:not(.iowa-edition-active) .district-coverage-details{margin:19px 0}
+body[data-house-page="district"]:not(.iowa-edition-active) .district-coverage-details summary strong{font-size:15px}
+/* State briefing: put sourced stories before the map and giant dossier cards. */
+body[data-house-page="state"] .state-editorial-briefing{
+ margin:18px 0 23px;background:#f9f8f5;border-top:6px solid #6f4bae;
+ border-bottom:2px solid #202f3b;padding:20px 21px 23px
+}
+body[data-house-page="state"] .state-editorial-briefing .state-brief-label{
+ font:900 10px 'DM Sans',sans-serif;color:#694b9d;letter-spacing:1.6px
+}
+body[data-house-page="state"] .state-editorial-briefing h2{
+ font:700 clamp(25px,3vw,36px)/1.15 'Libre Baskerville',Georgia,serif;margin:8px 0 7px;color:#1a3646
+}
+body[data-house-page="state"] .state-editorial-briefing>p{
+ max-width:95ch;font:600 13px/1.6 'DM Sans',sans-serif;color:#46616d;margin:0 0 19px
+}
+body[data-house-page="state"] .state-editorial-stories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+body[data-house-page="state"] .state-brief-card{
+ display:flex;flex-direction:column;min-width:0;border:1px solid #bccacf;border-top:4px solid #6f4bae;
+ background:#fff;padding:18px 17px 15px;text-decoration:none;color:#263a45
+}
+body[data-house-page="state"] .state-brief-card:hover,
+body[data-house-page="state"] .state-brief-card:focus-visible{outline:2px solid #6f4bae;box-shadow:0 6px 14px #213b4d1f}
+body[data-house-page="state"] .state-brief-top{display:flex;justify-content:space-between;gap:7px;align-items:center}
+body[data-house-page="state"] .state-brief-top strong{font:900 12px 'DM Sans',sans-serif;color:#5c3a91}
+body[data-house-page="state"] .state-brief-top span{font:900 9px/1.3 'DM Sans',sans-serif;letter-spacing:.35px;color:#61727d;text-align:right}
+body[data-house-page="state"] .state-brief-card h3{
+ font:700 clamp(17px,1.8vw,22px)/1.24 'Libre Baskerville',Georgia,serif;
+ color:#1c3343;margin:11px 0 9px
+}
+body[data-house-page="state"] .state-brief-card p{
+ font:500 13px/1.6 'DM Sans',sans-serif;color:#495f6c;margin:0 0 16px
+}
+body[data-house-page="state"] .state-brief-bottom{
+ display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:7px 14px;margin-top:auto;
+ border-top:1px solid #d7dede;padding-top:12px
+}
+body[data-house-page="state"] .state-brief-bottom b{font:900 11px 'DM Sans',sans-serif;color:#654292}
+body[data-house-page="state"] .state-brief-bottom span{font:900 11px 'DM Sans',sans-serif;color:#155c7b}
+@media(max-width:850px){
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-experience-top{grid-template-columns:1fr;gap:17px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-editor-note{max-width:none}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-faceoff{max-width:none}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person{grid-template-columns:100px minmax(0,1fr)}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person .candidate-portrait{width:100px;height:120px;min-width:100px;min-height:120px}
+}
+@media(max-width:720px){
+ body[data-house-page="district"]:not(.iowa-edition-active) .district-front{margin:11px -16px 17px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .district-front-banner{padding:15px 18px 17px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-title{font-size:34px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-deck{font-size:12px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-experience-top{padding:22px 18px 24px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-feature-headline{font-size:29px;letter-spacing:-.6px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-feature-deck{font-size:15px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-headline-numbers{grid-template-columns:1fr 1fr}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-number{padding:16px 15px;border-bottom:1px solid #74879676}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-number:last-child{grid-column:1/-1;border-bottom:0}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-number strong{font-size:27px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-explore{padding:22px 17px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-explore-head{font-size:24px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-tab{flex:1 1 50%;font-size:11px;padding:11px 8px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-panel{padding:20px 15px 23px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-head{font-size:9px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-snapshot-title{font-size:23px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-evidence-grid .front-field{padding:21px 16px 23px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person{grid-template-columns:1fr;grid-template-rows:auto auto auto;text-align:center;padding:10px 6px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person .candidate-portrait{grid-row:auto;margin:auto;width:100px;height:119px;min-width:100px;min-height:119px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person .front-person-name{font-size:14px;text-align:center}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person .party-seal-group{justify-content:center}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-vs{top:39%}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-disclaimer{padding:12px 17px}
+ body[data-house-page="state"] .state-editorial-briefing{margin:16px -16px 21px;padding:19px 17px}
+ body[data-house-page="state"] .state-editorial-stories{grid-template-columns:1fr}
+}
+@media(max-width:390px){
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-text{font-size:12px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-plot-text b{font-size:21px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .front-person .candidate-portrait{width:94px;height:113px;min-width:94px;min-height:113px}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-headline-numbers{grid-template-columns:1fr}
+ body[data-house-page="district"]:not(.iowa-edition-active) .race-number:last-child{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-house-page="district"]:not(.iowa-edition-active) *,body[data-house-page="state"] .state-brief-card{scroll-behavior:auto;animation:none}
+}
