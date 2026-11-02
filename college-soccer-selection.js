@@ -3,37 +3,13 @@ const host=document.getElementById('ncaa-selection-forecast');if(!host)return;
 const el=(tag,txt,cls)=>{const x=document.createElement(tag);if(txt!==undefined&&txt!==null)x.textContent=String(txt);if(cls)x.className=cls;return x};
 const file=async path=>{const r=await fetch(path+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' unavailable');return r.json()};
 let mode='ncaa';
+// The shared NCAA soccer crest renderer is the sole owner of both school-color rings.
 const brandFor=(entry,branding)=>branding?.teams?.['men-d1:'+entry?.team_id]||{};
-function nativeSchoolLogo(entry,branding){
- // The published logo is itself the school artwork. Do not frame a
- // built-in circular logo with an additional two-ring outline.
- const school=brandFor(entry,branding),palette=branding?.soccer_palette?.['men-d1:'+entry?.team_id]||{};
- const frame=el('span',null,'ncaa-native-mark');
- frame.dataset.soccerNativeLogo='true';
- const color=/^#[0-9a-f]{6}$/i.test(palette.primary||school.primary||'')?(palette.primary||school.primary):'#275342';
- frame.style.setProperty('--native-school-color',color);
- const backup=el('span',String(school.badge_text||entry.team||entry.team_id||'SC').replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).map(word=>word[0]).slice(0,3).join('').toUpperCase()||'SC','ncaa-native-initial');
- frame.append(backup);
- const id=String(entry.team_id||'');
- const urls=[school.logo_url,palette.logo_url,
-   /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)?'https://www.ncaa.com/sites/default/files/images/logos/schools/bgl/'+id+'.svg':null]
-   .filter(Boolean).filter((u,i,all)=>all.indexOf(u)===i);
- if(urls.length){
-  const img=el('img',null,'ncaa-native-image');
-  img.alt='';img.loading='lazy';img.decoding='async';
-  let offset=0;
-  const tryNext=()=>{frame.classList.remove('has-image');if(offset<urls.length)img.src=urls[offset++];else img.remove()};
-  img.addEventListener('load',()=>{if(img.naturalWidth){frame.classList.add('has-image');backup.hidden=true}else tryNext()});
-  img.addEventListener('error',tryNext);
-  frame.append(img);tryNext();
- }
- return frame;
-}
 function schoolRow(entry,branding,kind=''){
  const line=el('div',null,'ncaa-school-row '+kind);
  if(!entry){line.append(el('span','TO BE SELECTED','ncaa-school-placeholder'));return line}
  const name=entry.team||entry.team_id;
- const crest=nativeSchoolLogo(entry,branding);
+ const crest=window.CollegeSoccerCupUI.crest(name,entry.team_id,'men-d1',branding);
  const meta=el('span',null,'ncaa-school-meta');meta.append(el('strong',name),el('small',(entry.conference||'').replace('men-d1:','').toUpperCase()+' · '+(entry.bid_type==='projected_aq'?'AUTO BID':'AT-LARGE')));
  const schoolColor=branding?.soccer_palette?.['men-d1:'+entry.team_id]?.primary||brandFor(entry,branding).primary;
  if(/^#[0-9a-f]{6}$/i.test(schoolColor||''))line.style.setProperty('--school-accent',schoolColor);
