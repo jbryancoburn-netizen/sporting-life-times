@@ -182,6 +182,28 @@ class FullSeasonCertificationTests(unittest.TestCase):
         result = self.report(sources=[source], assertions=[incorrect])
         self.assertFalse(self.find(result)["certified"])
 
+    def test_partial_source_is_never_full_certification(self):
+        source = snapshot()
+        source["scope"] = "One exact fixture only. Not a complete season."
+        result = self.report(sources=[source])
+        self.assertEqual(self.find(result)["status"], "PARTIAL_SOURCE_CAPTURE")
+        self.assertTrue(self.find(result)["explicitly_partial_source"])
+        result = self.report(sources=[source], assertions=[attestation()])
+        self.assertFalse(self.find(result)["certified"])
+        self.assertIn(
+            "Source snapshot expressly documents only partial game coverage",
+            self.find(result)["attestation_errors"])
+
+    def test_official_snapshot_must_cover_existing_ledger_fixtures(self):
+        result = self.report(
+            sources=[snapshot()],
+            games=[game(), game(day="2026-11-25")])
+        alpha = self.find(result)
+        self.assertEqual(alpha["published_games_not_in_source_snapshot"], 1)
+        self.assertEqual(alpha["status"], "SOURCE_LEDGER_RECONCILIATION")
+        self.assertEqual(result["outside_source_snapshot_games"], 1)
+        # Only alpha has a source snapshot; beta is queued for discovery.
+
     def test_duplicate_and_wrong_season_attestations_rejected(self):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             self.report(sources=[snapshot()],

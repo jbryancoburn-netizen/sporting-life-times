@@ -153,6 +153,13 @@ def full_season_school_certification(gender: str, teams: list[dict],
         own = snapshots.get(ident, [])
         pinned = live_pins.get(ident, [])
         assertion = assertions.get(ident)
+        # A one-/two-game opponent snippet is never an exhaustive calendar,
+        # even when every saved row already exists in the published ledger.
+        partial_snapshot = any(
+            any(term in str(source.get("scope") or "").lower() for term in (
+                "not a complete", "no full", "one exact",
+                "two dated", "only one", "individually confirmed"))
+            for source in own)
         evidence_rows = 0
         eligible_rows = 0
         corroborated = 0
@@ -217,6 +224,8 @@ def full_season_school_certification(gender: str, teams: list[dict],
         if assertion:
             if not own or len(own) != 1:
                 attestation_errors.append("Must attach exactly one authoritative full-season snapshot")
+            if partial_snapshot:
+                attestation_errors.append("Source snapshot expressly documents only partial game coverage")
             if assertion.get("complete_calendar") is not True:
                 attestation_errors.append("Complete calendar not explicitly attested")
             if assertion.get("all_eligible_games_checked") is not True:
@@ -275,11 +284,20 @@ def full_season_school_certification(gender: str, teams: list[dict],
         elif attested:
             stage = "CERTIFIED"
             next_action = "Revalidate on subsequent official schedule changes."
+        elif not own and pinned:
+            stage = "OFFICIAL_PINNED_CALENDAR_SNAPSHOT_REQUIRED"
+            next_action = ("Persist all dated games from the already identified"
+                           " official 2026-27 school calendar; independently"
+                           " verify the complete source, not the URL alone.")
         elif not own:
             stage = "OFFICIAL_FULL_CALENDAR_REQUIRED"
-            next_action = ("Save and independently verify all dated official games,"
-                           " including non-DII opponents and tournament placeholders.")
-        elif missing_games or role_conflicts or disputed_times:
+            next_action = ("Find and independently verify the school's full"
+                           " official 2026-27 calendar, including non-DII games.")
+        elif partial_snapshot:
+            stage = "PARTIAL_SOURCE_CAPTURE"
+            next_action = ("Replace the explicitly partial university fixture"
+                           " excerpt with the complete dated season calendar.")
+        elif missing_games or role_conflicts or disputed_times or outside_snapshot:
             stage = "SOURCE_LEDGER_RECONCILIATION"
             next_action = "Reconcile exact date/opponent/role/time conflicts without inventing games."
         elif not assertion:
@@ -300,6 +318,7 @@ def full_season_school_certification(gender: str, teams: list[dict],
             "published_games": len(by_team_games[ident]),
             "official_source_urls": source_links,
             "official_snapshot_count": len(own),
+            "explicitly_partial_source": partial_snapshot,
             "official_source_rows": evidence_rows,
             "eligible_source_games": eligible_rows,
             "matched_source_games": corroborated,
@@ -332,6 +351,11 @@ def full_season_school_certification(gender: str, teams: list[dict],
         "unresolved_official_source_games": sum(s["missing_source_games_count"] for s in eligible),
         "role_conflicts": sum(s["role_conflicts"] for s in eligible),
         "tipoff_disagreements": sum(s["tipoff_disagreements"] for s in eligible),
+        "outside_source_snapshot_games": sum(
+            s["published_games_not_in_source_snapshot"] for s in eligible
+            if s["official_snapshot_count"]),
+        "unclassified_other_division_source_rows": sum(
+            s["unidentified_or_other_division_rows"] for s in eligible),
         "stage_counts": dict(sorted(stage_counts.items())),
         "schools": rows,
     }
@@ -444,7 +468,9 @@ def audit_one(gender: str, data_dir: Path) -> tuple[dict, list[str]]:
     coverage = q.get("field_coverage") or {}
     school_gaps = school_schedule_coverage(teams, games)
     school_certification = full_season_school_certification(gender, teams, games, data_dir)
-    complete_school_schedules = (school_certification["uncertified_schools"] == 0)
+    complete_school_schedules = (
+        school_certification["eligible_schools"] > 0 and
+        school_certification["uncertified_schools"] == 0)
     if not complete_school_schedules:
         warnings.append("A completed date scan is NOT a certified set of school schedules")
     reported_zero = coverage.get("schools_with_no_published_fixtures")
