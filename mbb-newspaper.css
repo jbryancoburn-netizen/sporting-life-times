@@ -493,3 +493,9 @@ body[data-page="tournament"] .selection-comparison details .region h3{font-size:
     border-top-color:#91423b!important;background:#fbf7f6!important
   }
 }
+
+/* Shared season-calendar status spacing: applies to all 365 men's school pages. */
+#full-season-schedule .sched-date-cell{vertical-align:middle}
+#full-season-schedule .sched-date-cell time{display:inline-block;margin-right:12px;white-space:nowrap}
+#full-season-schedule .sched-date-cell .sched-game-status{display:inline-block;margin-left:0;vertical-align:baseline;white-space:nowrap;line-height:1.45}
+@media(max-width:700px){#full-season-schedule .sched-date-cell time{margin-right:10px}#full-season-schedule .sched-date-cell .sched-game-status{margin-top:3px}}
