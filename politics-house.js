@@ -469,6 +469,7 @@ function renderNational(a){
  title("All 435 U.S. House districts");
  insertMetric($("metrics"),["435","50",fmt(a["2026_official_ballot_offices"]),a["2026_polled_districts"]]);
   showCoverage(a.districts,"national");
+ if(window.PoliticsRaceExperience)window.PoliticsRaceExperience.renderNational({rows:a.districts});
  const board=$("state-tiles"),list=$("state-list");
  a.states.forEach(s=>list.append(makeStateLink(s)));
   if(window.HouseGeo){window.HouseGeo.evidenceColor=color;window.HouseGeo.national(a,board);}
@@ -726,7 +727,7 @@ function renderDistrict(a){
    let box=$("map-warning");box.hidden=false;box.textContent="2026 district geography changed in "+state.name+". A 2024 race with the same district number may include different voters. We do not use its margin as a 2026 forecast or shade for this district.";
  }
  candidatePanel(r);pollPanel(r);resultPanel(r,state);
- if(window.PoliticsIowaDesk)window.PoliticsIowaDesk.render(r,state);
+ // Iowa and every other state use the same interactive race edition.
  if(window.PoliticsRaceBranding)window.PoliticsRaceBranding.decorateDistrict({r,state});
  const stateIds=a.districts.filter(x=>x.state===r.state).sort((x,y)=>x.district.localeCompare(y.district));
  const n=stateIds.findIndex(x=>x.id===r.id),prev=stateIds[(n-1+stateIds.length)%stateIds.length],next=stateIds[(n+1)%stateIds.length];
