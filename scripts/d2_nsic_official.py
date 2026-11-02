@@ -50,12 +50,12 @@ def parse(html,gender,sid):
  required="women's basketball" if gender=="women" else "men's basketball"
  if ("2026-27" not in t or required not in t or
      (gender=="men" and "women's basketball" in t) or
-     not re.search(r"2026-27\\s+(.+?)\\s+(?:women's|men's)\\s+basketball",t)):
+     not re.search(r"2026-27\s+(.+?)\s+(?:women's|men's)\s+basketball",t)):
   raise ValueError("Wrong NSIC source season/gender/institution: "+str(sid))
  # Match the school that owns the heading, not an opponent appearing in
  # the table. Official Moorhead calendars spell out Minnesota State Moorhead,
  # while the NSIC registration uses the abbreviated 'MSU Moorhead'.
- owner_label=re.search(r"2026-27\\s+(.+?)\\s+(?:women's|men's)\\s+basketball",t).group(1)
+ owner_label=re.search(r"2026-27\s+(.+?)\s+(?:women's|men's)\s+basketball",t).group(1)
  if school(owner_label)!=school(SOURCES[gender][sid]):
   raise ValueError("Wrong NSIC school identity: "+str(sid))
  me=school(SOURCES[gender][sid]);out=[];bad=0
