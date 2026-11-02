@@ -52,7 +52,7 @@
    p.sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(s.label)+' ↗</a>').join('')+
    '</div></div><div class="af-information">'+
    '<div class="af-stats">'+box('CAPACITY',p.capacity===null?null:p.capacity.toLocaleString('en-US'))+
-   box('OPENED',p.opened)+box('LOCATION',city)+box('2016 REDEDICATION',p.rededicated)+'</div>'+
+   box('OPENED',p.opened)+box('LOCATION',city)+box('REDEDICATION',p.rededicated)+'</div>'+
    '<div class="af-story"><span class="af-overline">BENEATH THE RAFTERS</span><h2>'+
    (p.hasDeepProfile?'A living basketball landmark':'A home court with a story still being sourced')+'</h2>'+
    '<p>'+esc(p.history||'We have confirmed the team’s listed home arena, but a source-verified history has not yet been published in the Arena File. No capacity, attendance, or architectural features are assumed.')+'</p>'+
