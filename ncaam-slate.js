@@ -121,7 +121,8 @@ const url=new URL(location.href),women=url.searchParams.get('gender')==='women';
 let selected=/^\d{4}-\d\d-\d\d$/.test(url.searchParams.get('date')||'')?url.searchParams.get('date'):today();
 let filter=['all','live','final','upcoming','exhibition','favorites'].includes(url.searchParams.get('view'))?url.searchParams.get('view'):'all';
 let search='',loaded=[],ratings=new Map(),lastUpdate='',limit=18,loading=false,sourceError='';
-let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map();
+let cross={teams:[]},palette={},arenaRegistry={},womenTeams=new Map(),sourceFeed=null,seasonStats=new Map(),liveChanges=new Map();
+const insight=window.SLTBasketballInsights;
 const favoriteKey='slt-slate-favorites-'+(women?'women':'men');
 let followed=new Set();
 try{followed=new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]').map(String))}catch{}
@@ -280,6 +281,54 @@ const matchupStats=g=>{
   '<span><small>RATING EDGE</small><strong>'+esc(leader)+'</strong></span>'+
   '<span><small>COMBINED FINALS</small><strong>'+matchTotal+'</strong></span></div>';
 };
+const comparison=g=>{
+ if(g.kind==='exhibition')return '';
+ const x=seasonStats.get(String(g.away.canonical)),y=seasonStats.get(String(g.home.canonical));
+ if(!x?.g&&!y?.g)return '<p class="sl-info-pending">In-season offense, defense and pace appear only after verified games and box scores are available.</p>';
+ const line=(label,a,b,format)=>'<div class="sl-comparison-line"><span>'+esc(label)+'</span>'+
+  '<strong>'+esc(a&&a.g?format(a):'—')+'</strong><i aria-hidden="true"></i>'+
+  '<strong>'+esc(b&&b.g?format(b):'—')+'</strong></div>';
+ const n=p=>(p.pf/p.g).toFixed(1),allowed=p=>(p.pa/p.g).toFixed(1);
+ const form=p=>p.results.slice(-5).map(r=>r.result).join(' · ');
+ return '<div class="sl-season-comparison"><div class="sl-comparison-title"><span>2026–27 VERIFIED FINALS</span>'+
+  '<span>'+esc(g.away.name)+' / '+esc(g.home.name)+'</span></div>'+
+  line('Points for / G',x,y,n)+line('Points against / G',x,y,allowed)+
+  line('Last five',x,y,form)+
+  '<p>Regular-season verified finals only · sample sizes '+(x?.g||0)+' and '+(y?.g||0)+'.</p></div>';
+};
+const liveEditorial=g=>{
+ if(g.phase==='live'){
+  const delta=liveChanges.get(g.id);
+  const leader=g.home.score===g.away.score?'TIED':g.home.score>g.away.score?g.home.name:g.away.name;
+  const diff=Math.abs(g.home.score-g.away.score);
+  return '<div class="sl-live-desk"><div><span class="sl-live-pulse">● LIVE SCOREBOARD</span>'+
+    '<strong>'+esc(leader)+(diff?' +'+diff:'')+'</strong>'+
+    '<small>'+esc(g.status||'Game in progress')+'</small></div>'+
+    (delta?'<div class="sl-update-graphic"><span>SINCE LAST SOURCE CHECK</span>'+
+      '<strong>'+esc(g.away.name)+' +'+delta.away+' / '+esc(g.home.name)+' +'+delta.home+'</strong>'+
+      '<small>Not a verified uninterrupted run</small></div>':
+      '<div class="sl-update-graphic"><span>SCORING MOVEMENT</span>'+
+      '<strong>Tracking verified score changes</strong><small>Play-by-play needed for exact scoring runs</small></div>')+
+    '</div>';
+ }
+ const data=insight?.gameNumbers(g,sourceFeed,women?'women':'men');
+ const leaders=insight?.gameLeaders(g,sourceFeed,women?'women':'men')||[];
+ if(!data&&!leaders.length)return '';
+ let html='<section class="sl-game-analytics"><div class="sl-comparison-title"><span>THE GAME IN NUMBERS</span>'+
+   '<span>SOURCE-VERIFIED BOX</span></div>';
+ if(data?.metrics?.length){
+  html+='<div class="sl-game-metrics">'+data.metrics.map(m=>
+   '<div class="sl-game-metric"><small>'+esc(m.label)+'</small><strong>'+
+   esc(m.away)+(m.suffix||'')+' <span>—</span> '+esc(m.home)+(m.suffix||'')+
+   '</strong></div>').join('')+'</div>'+
+   '<p>'+esc(data.caveat)+'</p><a href="'+esc(data.source_url)+
+   '" target="_blank" rel="noopener noreferrer">Attribution: NCAA-origin box score ↗</a>';
+ }
+ if(leaders.length)html+='<div class="sl-leading-players"><span>LEADING SCORERS</span>'+
+   leaders.map(p=>'<div><strong>'+esc(p.name)+'</strong><small>'+esc(p.school)+'</small>'+
+   '<b>'+esc(p.pts)+' PTS · '+esc(p.reb)+' REB · '+esc(p.ast)+' AST</b></div>').join('')+'</div>';
+ return html+'</section>';
+};
 const meter=g=>{
   if(g.phase!=='upcoming'||!Number.isFinite(g.probability))return '';
   const home=Math.round(g.probability*100),away=100-home;
@@ -310,10 +359,12 @@ function card(g,featured){
   '<h3>'+esc(pair[0])+'</h3><p>'+esc(pair[1])+'</p>'+
   '<div class="sl-rating-pair"><span>'+esc(g.away.name)+' <b>'+ (rating(g.away)??'—')+'</b></span>'+
   '<i aria-hidden="true"></i><span>'+esc(g.home.name)+' <b>'+(rating(g.home)??'—')+'</b></span></div>'+
-  matchupStats(g)+meter(g)+'</div></div>'+
+  matchupStats(g)+comparison(g)+meter(g)+liveEditorial(g)+'</div></div>'+
   '<div class="sl-game-footer"><span>'+esc(source)+'</span>'+
   '<a class="sl-details" href="'+esc(href)+'"'+(isExternal?' target="_blank" rel="noopener noreferrer"':'')+'>'+
-  (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a></div></article>';
+  (isExternal?'Result source':'Game details')+' <span aria-hidden="true">↗</span></a>'+
+  (!women&&g.home?.canonical?'<a class="sl-arena-deep-link" href="ncaam-arena.html?team='+
+    encodeURIComponent(g.home.id)+'">Arena File ↗</a>':'')+'</div></article>';
 }
 const render=()=>{
  const games=selectGames(loaded,selected,filter,search,followed),shown=games.slice(0,limit);
@@ -335,14 +386,15 @@ async function refresh(){
  if(loading)return;loading=true;const status=document.getElementById('sl-data');status.textContent='Refreshing verified sources…';
  try{
   const menFiles=['data/mbb-live.json','data/ncaam-2026-27-upcoming-forecasts.json','data/ncaam-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/mbb-exhibition-finals-2026-27.json','data/mbb-arena-registry.json'];
-  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json'];
+  const womenFiles=['data/ncaaw-2026-27-games.json','data/ncaaw-2026-27-retro-primary.json','data/ncaam-2026-27-espn-team-crosswalk.json','data/dual-ring-team-palette.json','data/ncaaw-2026-27-teams.json','data/mbb-live.json'];
   const paths=women?womenFiles:menFiles;
   const output=await Promise.all(paths.map(p=>fetchJSON(p).catch(()=>null)));
   if(women){
-    const [results,rank,c,pal,wTeams]=output;
+    const [results,rank,c,pal,wTeams,feed]=output;
     if(!results||rank?.gender!=='women'||rank.starting_elo!==1500)throw Error('Women’s game or rating data unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.wbb||pal?.mbb||{};
     womenTeams=new Map((wTeams?.teams||[]).map(t=>[String(t.team_id),t]));
+    sourceFeed=feed||null;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
     loaded=normalizeWomen(results,rank,cross);
     lastUpdate='women’s rolling fixture ledger';
   }else{
@@ -351,7 +403,14 @@ async function refresh(){
       throw Error('Men’s scoreboard or certified RETRO feed unavailable');
     cross=c||{teams:[]};ratings=rankingsMap(rank);palette=pal?.mbb||{};
     arenaRegistry=arenas?.teams||{};
+    const before=new Map(loaded.filter(g=>g.phase==='live'&&g.kind==='regular').map(g=>
+      [g.id,{id:g.id,day:g.day,away_score:g.away.score,home_score:g.home.score}]));
+    sourceFeed=feed;seasonStats=insight?.seasonProfiles(rank.events)||new Map();
     loaded=[...normalizeMen(feed,forecast,cross),...normalizeExhibitions(ex,cross)];
+    liveChanges=new Map(loaded.filter(g=>g.phase==='live').flatMap(g=>{
+      const delta=insight?.scoreDelta(before.get(g.id),g);
+      return delta?[[g.id,delta]]:[];
+    }));
     lastUpdate=feed.scores_updated_at?new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(feed.scores_updated_at)):'source refresh pending';
     await window.MBBLogos?.ready;
   }
