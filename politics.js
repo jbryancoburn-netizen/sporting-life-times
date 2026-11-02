@@ -71,7 +71,9 @@ function renderStateDetail(){
 }
 function raceCard(r){
  var left=r.chance,right=100-r.chance,party2=r.otherParty||"I",name=r.district||stateName(r.state)+" Senate";
- return '<article class="race-card"><div class="race-head"><strong>'+name+'</strong><span>'+r.rating.toUpperCase()+'</span></div><div class="race-names"><b>'+r.name+' ('+r.fav+')</b><span>'+left+'% favorite</span></div><div class="race-progress" role="img" aria-label="'+r.name+' '+left+' percent win probability, '+r.other+' '+right+' percent"><span style="width:'+left+'%;background:'+partyColors[r.fav]+'"></span><span style="width:'+right+'%;background:'+partyColors[party2]+'"></span></div><div class="race-foot"><span>'+r.other+' ('+party2+') · '+right+'%</span><a href="'+r.url+'" target="_blank" rel="noopener">DDHQ source ↗</a></div></article>';
+ var rating=(r.rating||"unrated").toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
+ var atlas=r.district?'<a class="race-atlas-link" href="politics-house-district.html?district='+encodeURIComponent(r.district)+'">Our district report →</a>':"";
+ return '<article class="race-card" data-rating="'+rating+'"><div class="race-head"><strong>'+name+'</strong><span>'+r.rating.toUpperCase()+'</span></div><div class="race-names"><b>'+r.name+' ('+r.fav+')</b><span>'+left+'% model win chance</span></div><div class="race-progress" role="img" aria-label="'+r.name+' '+left+' percent win probability, '+r.other+' '+right+' percent"><span style="width:'+left+'%;background:'+partyColors[r.fav]+'"></span><span style="width:'+right+'%;background:'+partyColors[party2]+'"></span></div><div class="race-foot"><span>'+r.other+' ('+party2+') · '+right+'% model win chance</span><span class="race-card-links">'+atlas+'<a href="'+r.url+'" target="_blank" rel="noopener noreferrer">Original forecast ↗</a></span></div></article>';
 }
 function renderRaces(){
  var q=$("race-search").value.toLowerCase().trim(),list=(activeView==="senate"?data.senate:data.house);
