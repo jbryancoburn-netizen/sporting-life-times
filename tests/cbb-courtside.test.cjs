@@ -14,7 +14,7 @@ assert(js.includes('The Courtside Desk')&&css.includes('SLT COURTSIDE EDITION'))
 assert(shell.includes('slt-courtside-network.js'));
 assert(brand.includes('THE HARDWOOD')&&brand.includes('slt-network-title'),'Hardwood uses text-only editorial branding');
 function load(gender){
-  const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
+  const patch=js.replace(/\s+boot\(\);\s*\}\)\(\);\s*$/,'\n globalThis.SLTTest={state,normalizeEvent,normalizeSnapshot,modelFor,gameEditorial,statEditorial,gamefileStatStrip,storyNote,usrsLine,featuredGame,scorebug,radarBar,gameLink,courtDayFeed,certifiedArchivedFinals};\n})();');
   assert(patch.includes('globalThis.SLTTest'),'test harness injection');
   const sandbox={
     console,Date,Intl,URL,URLSearchParams,Number,Map,Set,Math,String,Array,RegExp,Promise,
@@ -47,6 +47,28 @@ assert.match(men.scorebug(live),/cbb-gamefile\.html\?/,'card opens separate Game
 assert(!men.scorebug(live).includes('data-cbb-open'),'game cards never append an inline box');
 assert(!men.scorebug(live).includes('cbb-usrs-module'),'full model ratings must not crowd game cards');
 assert(!men.scorebug(live).includes('cbb-story-note'),'no repetitive editorial prose under every scorecard');
+// Live Gamefile must show named schools and sourced totals, never generic
+// home/away text or invented values.
+assert(!men.scorebug(live).includes('>AWAY</span>'));
+assert(!men.scorebug(live).includes('>HOME</span>'));
+const verifiedBox={boxscore:{teams:[
+ {team:{id:'87'},statistics:[{name:'totalRebounds',displayValue:'10'},
+   {name:'fieldGoalPct',displayValue:'41.2'}, {name:'turnovers',displayValue:'5'}]},
+ {team:{id:'222'},statistics:[{name:'totalRebounds',displayValue:'16'},
+   {name:'fieldGoalPct',displayValue:'48.5'}, {name:'turnovers',displayValue:'7'}]}
+]}};
+const statRail=men.gamefileStatStrip(live,verifiedBox);
+assert.match(statRail,/GAME NUMBERS/);
+assert.match(statRail,/10/);
+assert.match(statRail,/16/);
+assert.match(statRail,/41.2/);
+assert.match(statRail,/48.5/);
+assert(!statRail.includes('3PT%'),'missing metrics must not be fabricated');
+men.state.summaryCache.set(live.id,{at:Date.now(),data:verifiedBox});
+assert.match(men.statEditorial(live),/Villanova Wildcats leads the rebounding battle 16–10/);
+assert(!men.statEditorial(live).includes('away–home'));
+assert.equal(men.gamefileStatStrip({...live,statsDisputed:true},verifiedBox),'',
+ 'disputed box figures may not enter the live gamefile');
 assert(!js.includes('id="cbb-radar-host"'),'remove decorative zero-value watch dashboard');
 assert(js.includes('isGamefile')&&js.includes('data-gamefile-panel'),'Gamefile has its own tabbed route');
 assert(!js.includes('data-cbb-close'),'scoreboard no longer creates inline box score');
@@ -254,6 +276,20 @@ assert.equal(court.verifyPlayScores(rollback).ok,false,'score rollback must not 
 assert.match(court.gameFlow(flowPlays),/GAME FLOW/,'source score progression renders live visual');
 assert.match(court.gameFlow(flowPlays),/AWAY 4/,'curve uses actual final play scores');
 assert.match(court.gameFlow(flowPlays),/HOME 3/,'does not invent score');
+const namedGame={...fakeGame,away:{...fakeGame.away,team:{...fakeGame.away.team,shortDisplayName:'Merrimack',color:'135b84'}},
+ home:{...fakeGame.home,team:{...fakeGame.home.team,shortDisplayName:'App State',color:'e0b43e'}}};
+const teamFlow=court.gameFlow(flowPlays,namedGame);
+assert.match(teamFlow,/MERRIMACK LEAD/);
+assert.match(teamFlow,/APP STATE LEAD/);
+assert.match(teamFlow,/MRMK|ND/); // Scoring endpoint must identify the actual school abbreviation.
+assert.match(teamFlow,/#135b84/);
+assert.match(teamFlow,/#e0b43e/);
+assert(!teamFlow.includes('AWAY LEAD'));
+const namedNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
+court.mount(namedNode,{...namedGame,id:'named-match'}, {plays:realScorePlays});
+assert.match(namedNode.innerHTML,/slc-away-name/);
+assert.match(namedNode.innerHTML,/MERRIMACK/);
+assert.match(namedNode.innerHTML,/APP STATE/);
 assert.equal(court.gameFlow(court.parsePlays({plays:[{text:'Rebound'},{text:'Substitution'}]})),'','no fabricated scoring flow');
 const flowNode={innerHTML:'',isConnected:true,addEventListener:()=>{},querySelector:()=>null};
 court.mount(flowNode,{...fakeGame,id:'score-flow'}, {plays:realScorePlays});
