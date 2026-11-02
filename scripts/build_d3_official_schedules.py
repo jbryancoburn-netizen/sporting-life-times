@@ -394,7 +394,10 @@ def official_index(teams):
 
 
 def resolve(label, by_org, exact):
-    label = compact(label)
+    # Sidearm team grids append conference footnote markers ("* *") to
+    # opponent labels. Remove ONLY trailing asterisks, not name characters,
+    # tournament notes or other ambiguous labels.
+    label = re.sub(r"(?:\\s+\\*)+\\s*$", "", compact(label)).strip()
     if not label or BAD_OPPONENT.search(label):
         return None
     x = key(label)
@@ -2959,6 +2962,15 @@ def self_test():
             assert stamp not in league_pair_dates
             league_pair_dates.add(stamp)
     assert len(league_pair_dates) == 27
+
+    # Mount Aloysius official AMCC grid uses trailing asterisk footnotes.
+    # Those are not part of an NCAA member institution's name.
+    mount_orgs, mount_exact = official_index(full_men["teams"])
+    assert resolve("Pitt-Bradford * *", mount_orgs, mount_exact) == 1315
+    assert resolve("Penn State Behrend * *", mount_orgs, mount_exact) == 538
+    assert resolve("Pitt-Greensburg * *", mount_orgs, mount_exact) == 11839
+    assert resolve("Arcadia/Salisbury", mount_orgs, mount_exact) is None
+    assert resolve("Pitt-Bradford * * / Salisbury", mount_orgs, mount_exact) is None
 
     print("DIII schedule importer: date/identity/conditional/neutral/reciprocal tests PASS")
 
