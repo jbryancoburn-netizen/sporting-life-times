@@ -77,3 +77,11 @@ body.af-page{margin:0;background:#f5f0e6;color:var(--af-ink);font:14px/1.5 Arial
  .af-inline-title>a{align-self:flex-start}
 }
 @media(max-width:420px){.af-identity{display:none}.af-photo img,.af-illustrated{height:235px}.af-options a span{display:none}}
+
+
+/* Shared official logo roundel is centered, with no additional rings. */
+.af-official-mark{display:flex;align-items:center;justify-content:flex-end;margin-bottom:9px}
+.af-official-mark .mbb-mark{--mbb-size:78px;width:78px;height:78px;min-width:78px;min-height:78px;
+ max-width:78px;max-height:78px;margin:0}
+@media(max-width:730px){.af-official-mark .mbb-mark{--mbb-size:58px;width:58px;height:58px;
+ min-width:58px;min-height:58px;max-width:58px;max-height:58px}}
