@@ -619,25 +619,55 @@ function gamePage(){
 }
 async function gameBox(){
  const id=params.get("id"),el=document.getElementById("nfl-game-box");if(!el)return;
- try{const activeBox=((liveFeed||{}).boxes||{})[id];const res=activeBox?null:await fetch("data/nfl-2026-boxscores.json?t="+Date.now(),{cache:"no-store"});if(res&&!res.ok)throw Error();
- const json=res?await res.json():{games:{}},box=((liveFeed||{}).boxes||{})[id]||(json.games||{})[id];if(!box){const deep=document.getElementById("nfl-game-deep-dive");if(deep)deep.hidden=true;el.innerHTML="";return;}
- const g=games.find(x=>x.id===id),a=team(g.away.id),h=team(g.home.id),aa=(box.teams||{})[a.id]||{},hh=(box.teams||{})[h.id]||{};
- const pairs=[["Total yards","totalYards"],["Passing yards","netPassingYards"],["Rushing yards","rushingYards"],["First downs","firstDowns"],["Turnovers","turnovers"]];
- let out='<div class="nfl-box-comparison"><div class="nfl-box-side">'+crest(a,"head")+'<strong>'+escapeHtml(a.code)+'</strong></div>'+
- '<div class="nfl-box-comparison-center"><span>TEAM COMPARISON</span><b>'+(g.state==='in'?'LIVE · PROVISIONAL STATISTICS':'FINAL GAME STATISTICS')+'</b></div><div class="nfl-box-side">'+crest(h,"head")+'<strong>'+escapeHtml(h.code)+'</strong></div></div>';
- out+='<div class="nfl-box-bars">';
- pairs.forEach(([title,key])=>{const av=aa[key],hv=hh[key],mx=Math.max(1,Number(av)||0,Number(hv)||0);
- out+='<div class="nfl-box-row"><b>'+format(av)+'</b><div class="nfl-box-stat"><span>'+title+'</span><div class="nfl-box-compare"><i style="--bar-color:'+escapeHtml(a.color)+';width:'+((Number(av)||0)/mx*100).toFixed(1)+'%"></i><i style="--bar-color:'+escapeHtml(h.color)+';width:'+((Number(hv)||0)/mx*100).toFixed(1)+'%"></i></div></div><b>'+format(hv)+'</b></div>';});
- out+='</div>';
- out+='<div class="nfl-grid">'+[a,h].map(t=>panel(t.name+' · Complete Team Box Score',Object.entries((box.teams||{})[t.id]||{}).map(([key,v])=>'<div class="nfl-mini">'+escapeHtml(key.replace(/([A-Z])/g," $1"))+'<b>'+format(v,1)+'</b></div>').join(""))).join("")+'</div>';
- ["passing","rushing","receiving","defensive","interceptions","kicking","punting"].forEach(cat=>{
- const lines=(box.players||[]).filter(p=>(p.category||"").includes(cat));if(!lines.length)return;
- const columns=[...new Set(lines.flatMap(p=>Object.keys(p.stats||{})))].slice(0,7);
- out+=panel(cat.toUpperCase(),gridTable(["PLAYER","TEAM"].concat(columns),lines.map(p=>'<tr><td><div class="nfl-player"><img loading="lazy" src="'+escapeHtml(p.headshot||"")+'" alt=""><b>'+escapeHtml(p.name)+'</b></div></td><td>'+crest(team(p.team_id),"sm")+'</td>'+columns.map(c=>'<td>'+((p.stats||{})[c]==null?"—":format(p.stats[c],1))+'</td>').join("")+'</tr>')));
- });
- el.innerHTML=out;}catch(e){el.innerHTML=note("Box-score data unavailable for this matchup.");}
+ try{
+  const activeBox=((liveFeed||{}).boxes||{})[id];
+  const res=activeBox?null:await fetch("data/nfl-2026-boxscores.json?t="+Date.now(),{cache:"no-store"});
+  if(res&&!res.ok)throw Error("Source box score is not available");
+  const json=res?await res.json():{games:{}},box=((liveFeed||{}).boxes||{})[id]||(json.games||{})[id];
+  if(!box){const deep=document.getElementById("nfl-game-deep-dive");if(deep)deep.hidden=true;el.innerHTML="";return;}
+  const game=games.find(x=>x.id===id),away=team(game.away.id),home=team(game.home.id);
+  let out='<div class="nfl-box-report-head"><strong>THE VERIFIED STATISTICAL LEDGER</strong>'+
+    '<span>'+escapeHtml(away.code)+' AWAY / '+escapeHtml(home.code)+' HOME</span></div>';
+  let hasPlayerData=false;
+  const categories=[
+   ['passing','PASSING'],['rushing','RUSHING'],['receiving','RECEIVING'],
+   ['defensive','DEFENSE'],['interceptions','INTERCEPTIONS'],
+   ['kicking','KICKING'],['punting','PUNTING']
+  ];
+  categories.forEach(([cat,title])=>{
+   const lines=(box.players||[]).filter(p=>String(p.category||"").includes(cat));
+   if(!lines.length)return;
+   hasPlayerData=true;
+   const cols=[...new Set(lines.flatMap(p=>Object.keys(p.stats||{})))].slice(0,9);
+   out+='<section class="nfl-box-category"><h3>'+title+'</h3>'+
+     '<div class="nfl-box-table-scroll" tabindex="0" aria-label="'+title+' player statistics, scroll horizontally for more columns">'+
+     '<table class="nfl-box-data"><thead><tr><th>PLAYER / CLUB</th>'+
+     cols.map(col=>'<th>'+escapeHtml(col)+'</th>').join('')+'</tr></thead><tbody>'+
+     lines.map(p=>'<tr><td><div class="nfl-box-athlete">'+
+      (p.headshot?'<img loading="lazy" src="'+escapeHtml(p.headshot)+'" alt="">':'')+
+      '<span><b>'+escapeHtml(p.name)+'</b><small>'+
+      escapeHtml(team(p.team_id).code)+'</small></span></div></td>'+
+      cols.map(col=>'<td>'+((p.stats||{})[col]==null?'—':escapeHtml((p.stats||{})[col]))+'</td>').join('')+
+      '</tr>').join('')+'</tbody></table></div></section>';
+  });
+  if(!hasPlayerData)out+='<p class="nfl-box-no-data">Verified individual player box scores are not available yet.</p>';
+  const totals=(box.teams||{});
+  const keys=[...new Set(Object.values(totals).flatMap(t=>Object.keys(t||{})))];
+  if(keys.length){
+   out+='<details class="nfl-box-totals"><summary>COMPLETE TEAM TOTALS <span>OPEN ↗</span></summary>'+
+    '<div class="nfl-box-table-scroll" tabindex="0" aria-label="Verified team statistics">'+
+    '<table class="nfl-box-data"><thead><tr><th>METRIC</th><th>'+escapeHtml(away.code)+
+    '</th><th>'+escapeHtml(home.code)+'</th></tr></thead><tbody>'+
+    keys.map(key=>'<tr><th>'+escapeHtml(key.replace(/([A-Z])/g," $1"))+'</th>'+
+      '<td>'+((totals[away.id]||{})[key]==null?'—':escapeHtml(totals[away.id][key]))+'</td>'+
+      '<td>'+((totals[home.id]||{})[key]==null?'—':escapeHtml(totals[home.id][key]))+'</td></tr>').join('')+
+    '</tbody></table></div></details>';
+  }
+  el.innerHTML=out;
+ }catch(e){
+  el.innerHTML=note("Player box-score details are unavailable from the source for this matchup.");
+ }
 }
-
 function prng(seed){let x=seed>>>0;return()=>{x+=0x6D2B79F5;let t=x;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
 function playoffs(){
 const random=prng(20261101),count=2000,tracker={};
