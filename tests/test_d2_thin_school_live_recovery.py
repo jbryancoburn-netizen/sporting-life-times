@@ -46,18 +46,18 @@ def page(source, gender="Men's", season="2026-27", home_role="Home",
 
 
 class ThinSchoolSourceTests(unittest.TestCase):
-    def test_sources_cover_all_13_thin_men_and_msub_women(self):
+    def test_sources_cover_13_original_men_6_new_men_and_msub_women(self):
         path = Path(__file__).resolve().parents[1] / "data" / "d2-official-school-grids-2026-27.json"
         entries = json.loads(path.read_text())["live_school_sources"]
         men = [s for s in entries if s["gender"] == "men"]
         women = [s for s in entries if s["gender"] == "women"]
-        self.assertEqual(len(men), 13)
+        self.assertEqual(len(men), 19)
         self.assertEqual(len(women), 1)
-        self.assertEqual(len({(s["gender"], s["owner_id"]) for s in entries}), 14)
+        self.assertEqual(len({(s["gender"], s["owner_id"]) for s in entries}), 20)
         for entry in entries:
             self.assertTrue(entry["source_url"].startswith("https://"))
             self.assertTrue(entry["time_zone"].startswith("America/"))
-            self.assertIn("/2026-27", entry["source_url"])
+            self.assertRegex(entry["source_url"], r"/2026-(?:27|2027)")
 
     def test_own_university_grid_accepted_and_dates_verified(self):
         result = parse_dii_live_school_grid(page(SOURCE), SOURCE)
@@ -131,6 +131,11 @@ class ThinSchoolSourceTests(unittest.TestCase):
             first = apply_official_school_grid_snapshots(*args, **kwargs)
             self.assertEqual(first["created"], 12)
             self.assertEqual(first["live_school_sources"]["parsed"], 1)
+            self.assertEqual(first["captured_school_count"], 1)
+            self.assertEqual(first["captured_source_rows"], 12)
+            self.assertEqual(first["live_calendar_captures"][0]["capture_scope"],
+                             "partial_verified_dated_rows")
+            self.assertEqual(len(first["live_calendar_captures"][0]["fixtures"]), 12)
             self.assertEqual(len(games), 12)
             self.assertTrue(all(g["status"] == "scheduled" and
                                 g["home_score"] is None and
@@ -139,6 +144,78 @@ class ThinSchoolSourceTests(unittest.TestCase):
             self.assertEqual(second["created"], 0)
             self.assertEqual(second["matched"], 12)
             self.assertEqual(len(games), 12)
+
+
+    def test_2026_2027_school_slug_is_valid_without_accepting_last_year(self):
+        other = dict(SOURCE)
+        other["source_url"] = (
+            "https://ecsuvikings.com/sports/mens-basketball/schedule/2026-2027?grid=true")
+        self.assertEqual(
+            len(parse_dii_live_school_grid(page(other, season="2026-2027"),
+                                           other)["fixtures"]), 12)
+        other["source_url"] = other["source_url"].replace("2026-2027", "2025-2026")
+        with self.assertRaises(ValueError):
+            parse_dii_live_school_grid(page(other, season="2026-2027"), other)
+
+    def test_live_captures_survive_network_failure_and_fast_refresh(self):
+        source = dict(SOURCE)
+        evidence = {"schema": 1, "season": "2026-27",
+                    "schools": [], "live_school_sources": [source]}
+        teams = {"elizabeth-city-state": {"id": "elizabeth-city-state",
+                                           "name": "Elizabeth City State"},
+                 "shaw": {"id": "shaw", "name": "Shaw University"}}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "evidence.json"
+            path.write_text(json.dumps(evidence))
+            games = {}
+            kwargs = {"registry_file": path, "today": dt.date(2026, 11, 2)}
+            live = apply_official_school_grid_snapshots(
+                "men", games, teams, live_sources=True,
+                live_fetcher=lambda url: page(source), **kwargs)
+            self.assertEqual(live["created"], 12)
+            captures = live["live_calendar_captures"]
+            # Exact source fixture evidence is still present when a rapid
+            # game-day pass deliberately does not access university sites.
+            lean = apply_official_school_grid_snapshots(
+                "men", games, teams, live_sources=False,
+                previous_live_captures=captures, **kwargs)
+            self.assertEqual(lean["captured_source_rows"], 12)
+            self.assertEqual(lean["captured_school_count"], 1)
+            self.assertEqual(lean["live_calendar_captures"], captures)
+            self.assertEqual(lean["created"], 0)
+            # A transient upstream timeout is NOT an instruction to erase
+            # a previously sourced university schedule.
+            def timeout(url):
+                raise TimeoutError("temporary school outage")
+            failed = apply_official_school_grid_snapshots(
+                "men", games, teams, live_sources=True,
+                live_fetcher=timeout,
+                previous_live_captures=captures, **kwargs)
+            self.assertEqual(failed["live_school_sources"]["parsed"], 0)
+            self.assertEqual(failed["captured_school_count"], 1)
+            self.assertEqual(failed["live_calendar_captures"], captures)
+            self.assertEqual(len(games), 12)
+            self.assertTrue(all(g["status"] == "scheduled" for g in games.values()))
+
+    def test_wrong_owner_source_cannot_be_cached_as_another_school(self):
+        source = dict(SOURCE)
+        registry = {"schema": 1, "season": "2026-27",
+                    "schools": [], "live_school_sources": [source]}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "evidence.json"
+            path.write_text(json.dumps(registry))
+            forgery = {"owner_id": "elizabeth-city-state", "gender": "men",
+                       "source_url": WEST["source_url"],
+                       "capture_scope": "partial_verified_dated_rows",
+                       "fixtures": [{"date": "2026-11-10",
+                                     "opponent": "Shaw University"}]}
+            x = apply_official_school_grid_snapshots(
+                "men", {}, {"elizabeth-city-state": {
+                    "id": "elizabeth-city-state", "name": "Elizabeth City State"}},
+                registry_file=path, today=dt.date(2026, 11, 2),
+                live_sources=False, previous_live_captures=[forgery])
+            self.assertEqual(x["captured_school_count"], 0)
+            self.assertEqual(x["captured_source_rows"], 0)
 
 
 if __name__ == "__main__":
