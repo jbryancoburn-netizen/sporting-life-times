@@ -462,3 +462,22 @@ body[data-page="tournament"] .selection-comparison details .region h3{font-size:
  body[data-page="tournament"] .selection-row{grid-template-columns:23px minmax(0,1fr) auto;gap:7px}
  body[data-page="tournament"] .selection-row small{font-size:9px}
 }
+
+
+/* Exhibition scores are visible but never styled as RETRO-rated finals. */
+#full-season-schedule tr[data-exhibition="true"] .sched-date-cell{border-left:3px solid #a47b3f}
+#full-season-schedule .sched-status--exhibition{color:#865b26!important;font-weight:800}
+#full-season-schedule .mbb-exhibition-source{
+  display:inline-block;margin-top:5px;color:#6c4e27;font:700 11px/1.4 Arial,sans-serif;
+  text-decoration:underline;text-underline-offset:3px;
+}
+#full-season-schedule .mbb-exhibition-source:hover{color:#163d4b}
+@media(max-width:700px){
+  #full-season-schedule .mbb-schedule-table tbody tr[data-exhibition="true"]{
+    border-top-color:#b38b4b!important
+  }
+  #full-season-schedule .mbb-schedule-table tbody tr[data-exhibition="true"] td.sched-date-cell{
+    border-left:0!important
+  }
+  #full-season-schedule .mbb-exhibition-source{font-size:10px!important}
+}
