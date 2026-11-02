@@ -16,7 +16,7 @@ function segments(geometry){
  else if(geometry.type==="MultiPolygon")coords.forEach(p=>p.forEach(r=>parts.push(r)));
  return parts.filter(r=>r.length>=3);
 }
-function mapArt(root,geometry,district){
+function mapArt(root,geometry,district,places=[]){
  const rings=segments(geometry);
  if(!rings.length)throw Error("No official district polygon");
  const xy=rings.flatMap(r=>r.filter(x=>Number.isFinite(x[0])&&Number.isFinite(x[1])));
@@ -46,12 +46,37 @@ function mapArt(root,geometry,district){
  // Boundary drawn directly from source coordinates — no approximated state art.
  const outline=s("path");outline.setAttribute("d",rings.map(pts).join(" "));
  outline.setAttribute("fill-rule","evenodd");outline.setAttribute("class","feature-census-border");svg.append(outline);
+ // Town dots are drawn ONLY when a source supplies exact lat/lon (in
+ // Iowa: original 2026 Census incorporated-place centroids). No guessed pins.
+ const validPlaces=(Array.isArray(places)?places:[]).filter(p=>p&&typeof p.name==="string"&&
+  Number.isFinite(p.lat)&&Number.isFinite(p.lon)&&p.lat>=minLat&&p.lat<=maxLat&&p.lon>=minLon&&p.lon<=maxLon);
+ const positions=validPlaces.map(p=>({name:p.name,x:offX+(p.lon-minLon)*scale,
+   y:offY+(maxY-merc(p.lat))*scale})).sort((a,b)=>a.y-b.y);
+ // Keep labels on distinct lines without moving the authentic marker dots.
+ let previous=5;for(const p of positions){p.ty=Math.max(25,p.y,previous+28);previous=p.ty;}
+ const excess=positions.length?Math.max(0,positions[positions.length-1].ty-432):0;
+ if(excess)positions.forEach(p=>p.ty-=excess);
+ for(const p of positions){
+  const left=p.x>width*.58,tx=left?p.x-28:p.x+28;
+  const g=s("g");g.setAttribute("class","feature-town-pin");
+  const leader=s("line");leader.setAttribute("x1",p.x);leader.setAttribute("y1",p.y);
+  leader.setAttribute("x2",left?tx+4:tx-4);leader.setAttribute("y2",p.ty-3);
+  leader.setAttribute("class","feature-city-leader");g.append(leader);
+  const halo=s("circle");halo.setAttribute("cx",p.x);halo.setAttribute("cy",p.y);
+  halo.setAttribute("r","6.2");halo.setAttribute("class","feature-city-marker-halo");g.append(halo);
+  const dot=s("circle");dot.setAttribute("cx",p.x);dot.setAttribute("cy",p.y);
+  dot.setAttribute("r","3.1");dot.setAttribute("class","feature-city-marker");g.append(dot);
+  const title=s("title");title.textContent=p.name+" · U.S. Census 2026 incorporated-place centroid";g.append(title);
+  const text=s("text");text.setAttribute("x",tx);text.setAttribute("y",p.ty);
+  text.setAttribute("text-anchor",left?"end":"start");text.setAttribute("class","feature-city-label");
+  text.textContent=p.name;g.append(text);svg.append(g);
+ }
  const label=s("text");label.setAttribute("x","28");label.setAttribute("y","450");
  label.setAttribute("class","feature-census-watermark");
  label.textContent=district.replace("-"," / ");svg.append(label);
  root.replaceChildren(svg);
 }
-async function loadArt(id){
+async function loadArt(id,places){
  const root=$("feature-terrain");if(!root)return;
  const state=id.slice(0,2),field=state==="MO"?"CD119":"CD120";
  try{
@@ -61,8 +86,8 @@ async function loadArt(id){
   if(g.meta?.state!==state||g.meta?.field!==field)throw Error("geometry vintage mismatch");
   const f=g.features.find(x=>state+"-"+String(x.properties?.[field]).padStart(2,"0")===id);
   if(!f?.geometry)throw Error("specific district geometry not verified");
-  mapArt(root,f.geometry,id);
-  text("feature-map-caption","REAL BOUNDARIES / U.S. CENSUS "+(state==="MO"?"119TH":"120TH")+" CONGRESS");
+  mapArt(root,f.geometry,id,places);
+  text("feature-map-caption",(Array.isArray(places)&&places.length?"REAL BOUNDARIES + TOWN CENTROIDS":"REAL BOUNDARIES")+" / U.S. CENSUS "+(state==="MO"?"119TH":"120TH")+" CONGRESS");
  }catch(error){
   root.replaceChildren(e("p","Official shape unavailable. No illustrative substitute is used.","feature-map-unavailable"));
   text("feature-map-caption","CENSUS DISTRICT GEOGRAPHY / UNAVAILABLE");
@@ -142,7 +167,7 @@ function render(){
    const source=$("feature-election-source");
    if(source){source.href=history.source_url;source.target="_blank";source.rel="noopener noreferrer";}
   }
-  loadArt(id);
+  loadArt(id,add?.map_places||[]);
  }).catch(error=>{
   console.warn("District cover:",error);
   text("feature-deck","The congressional atlas could not be loaded. Source-linked district research remains available below.");
