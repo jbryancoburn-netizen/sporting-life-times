@@ -178,3 +178,19 @@ The raw zero-fixture rows above are *not* missing eligible DII calendars: men's 
 - Both divisions retain season-isolated **1500 starting Elo**; publish only verified real finals. There is no authorization to carry historical ratings forward, infer scores or call USRS calibration gate complete.
 
 **Next actual work**: finish full school-by-school schedule **certification** using official university grids and reconciled conference calendars (particularly 22 men's and 4 women's thin schedules); reduce thousands of unsourced venue/network/time fields only with exact-source evidence; preserve IDs, neutral Elo, away-first and exactly two colored logo rings. Check recent DII Actions and GitHub Pages deployments separately after each source/data batch. This checkpoint is a snapshot, not a proof of deployment or all-school certification. **Budget remains $0.**
+
+
+## Follow-on milestone implementation — durable university source capture (Nov 2)
+
+The DII gender-ledger publisher now stores actual date-by-date rows from pinned
+official university sources under
+`quality.official_school_grid_recovery.live_calendar_captures`. This is
+persisted by the **existing** workflow, with exact school/gender/season identity
+checks; rapid refreshes and timeouts retain previously captured university
+rows. The certification audit uses this evidence for per-school reconciliation
+and labels every automated capture **PARTIAL_SOURCE_CAPTURE**, never CERTIFIED.
+Six new vetted official men's schedule sources: Minnesota–Duluth, Roberts
+Wesleyan, Queens (NY), Molloy, Mercy and Fresno Pacific. There are 20 pinned
+university calendars (19 men's and one women's). No new workflows, no paid data,
+no fabricated results, no lowered certification standards.
+

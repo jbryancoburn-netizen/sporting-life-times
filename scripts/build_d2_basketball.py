@@ -949,8 +949,12 @@ def parse_dii_live_school_grid(html, record):
     gender = record["gender"]
     if gender not in ("men", "women") or not url.startswith("https://"):
         raise ValueError("Invalid official calendar identity/source")
-    if (("/sports/mens-basketball/schedule/2026-27" if gender == "men"
-         else "/sports/womens-basketball/schedule/2026-27") not in url):
+    # University SIDEARM sites independently use either 2026-27 or
+    # 2026-2027. Require the correct sport and CURRENT academic season.
+    expected_sport = "mens" if gender == "men" else "womens"
+    if not re.search(
+            rf"/sports/{expected_sport}-basketball/schedule/2026-(?:27|2027)(?:[/?]|$)",
+            url):
         raise ValueError("University schedule URL must identify 2026-27 gender")
     soup = BeautifulSoup(html, "html.parser")
     title = soup.title.get_text(" ", strip=True) if soup.title else ""
@@ -1074,7 +1078,7 @@ def fetch_dii_live_school_grids(gender, sources, fetcher=None):
     }
 
 
-def apply_official_school_grid_snapshots(gender, games, teams, today=None, registry_file=None, live_sources=False, live_fetcher=None):
+def apply_official_school_grid_snapshots(gender, games, teams, today=None, registry_file=None, live_sources=False, live_fetcher=None, previous_live_captures=None):
     """Reconcile exact official school calendars into the EXISTING DII ledger.
 
     Never introduce a non-DII opponent, change a final, invent home court
@@ -1090,16 +1094,52 @@ def apply_official_school_grid_snapshots(gender, games, teams, today=None, regis
     if evidence.get("season") != SEASON or evidence.get("schema") != 1:
         raise ValueError("Incorrect DII official school grid evidence schema/season")
     live_report = {"attempted": 0, "parsed": 0, "source_rows": 0, "failed": []}
+    pins = {rec["owner_id"]: rec for rec in evidence.get("live_school_sources", [])
+            if rec.get("gender") == gender and rec.get("source_url")}
+    # Retain exact fixture rows in the existing LEDGER QUALITY record, which
+    # the unchanged DII workflow already publishes and commits. A successful
+    # fetch must never erase a previously verified school on a timeout.
+    # Auto-extracted rows intentionally DO NOT mean a complete university
+    # calendar: the parser excludes placeholders and non-school showcases.
+    cached = {rec.get("owner_id"): rec
+              for rec in (previous_live_captures or [])
+              if (isinstance(rec, dict) and rec.get("gender") == gender and
+                  rec.get("owner_id") in pins and
+                  rec.get("source_url") == pins[rec["owner_id"]]["source_url"] and
+                  rec.get("capture_scope") == "partial_verified_dated_rows" and
+                  isinstance(rec.get("fixtures"), list))}
+    calendars = []
     if live_sources:
         calendars, live_report = fetch_dii_live_school_grids(
-            gender, evidence.get("live_school_sources", []), fetcher=live_fetcher)
-        # Use the same canonical identity, collision, Elo and final guards as
-        # the hand-verified grids. This is not a second publishing pipeline.
+            gender, list(pins.values()), fetcher=live_fetcher)
+        for verified in calendars:
+            cached[verified["owner_id"]] = {
+                "gender": gender, "owner_id": verified["owner_id"],
+                "source_url": verified["source_url"],
+                "capture_scope": "partial_verified_dated_rows",
+                "scope": ("Machine-captured dated rows from an official 2026-27"
+                          " university grid. NOT a complete calendar or"
+                          " independent season attestation; undated TBD,"
+                          " other-team showcase rows and filtered dates need"
+                          " an explicit separate reconciliation."),
+                "fixtures": verified["fixtures"],
+            }
+    # Persist previous captures on lean runs, and new ones on source refresh.
+    # All snapshots retain dated source rows, NOT just a summary count.
+    captures = [cached[k] for k in sorted(cached)]
+    # During collection, only newly retrieved grids are imported as before.
+    # Saved evidence is consulted by the auditor but never triggers fresh
+    # game creation when network data is unavailable.
+    if calendars:
         evidence["schools"] = list(evidence["schools"]) + calendars
     lookup = build_dii_team_lookup(teams)
     counts = {"source_rows": 0, "created": 0, "matched": 0, "unmatched": 0, "conflicts": 0, "past_unpublished": 0}
     counts["live_source_attempted"] = bool(live_sources)
     counts["live_school_sources"] = live_report
+    counts["live_calendar_captures"] = captures
+    counts["captured_school_count"] = len(captures)
+    counts["captured_source_rows"] = sum(len(c["fixtures"]) for c in captures)
+    counts["live_capture_incomplete_by_design"] = True
     # Two campus calendars can disagree. Detect all corroborated discrepancies
     # BEFORE inserting either side: otherwise the first school's unverified
     # clock or court role can leak into the published scorebug.
@@ -1329,10 +1369,11 @@ def update(gender, bootstrap=False, live=False):
             games[fixture["id"]]={**fixture,"verified":True,"elo_eligible":True}
     # Official university grids for neglected independent/CIAA programs;
     # reconcile into canonical games without changing IDs or inventing finals.
+    previous_grids = previous_quality.get("official_school_grid_recovery") or {}
     school_grid_quality=apply_official_school_grid_snapshots(
         gender, games, teams,
-        live_sources=(not rapid or not
-                      (previous_quality.get("official_school_grid_recovery") or {}).get("live_source_attempted")))
+        live_sources=(not rapid or not previous_grids.get("live_calendar_captures")),
+        previous_live_captures=previous_grids.get("live_calendar_captures"))
     # Use the basketball newspaper's Eastern calendar, not UTC midnight.
     # During game hours the UTC date can already be tomorrow.
     today=dt.datetime.now(ZoneInfo("America/New_York")).date()

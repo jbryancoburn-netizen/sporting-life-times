@@ -217,5 +217,62 @@ class FullSeasonCertificationTests(unittest.TestCase):
                                              self.directory)
 
 
+    def test_captured_live_dates_are_partial_evidence_not_certification(self):
+        university = snapshot()
+        captured = {
+            **university, "capture_scope": "partial_verified_dated_rows",
+            "scope": ("Machine-captured dated official university rows."
+                      " Not a complete season independently verified.")
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            evidence = {"schema": 1, "season": "2026-27", "schools": [],
+                        "live_school_sources": [{
+                            "gender": "men", "owner_id": "alpha",
+                            "source_url": captured["source_url"],
+                        }], "certification_assertions": []}
+            (directory / "d2-official-school-grids-2026-27.json").write_text(
+                json.dumps(evidence))
+            result = full_season_school_certification(
+                "men", teams(), [game()], directory,
+                live_captures=[captured])
+            alpha = next(s for s in result["schools"] if s["id"] == "alpha")
+            self.assertEqual(alpha["status"], "PARTIAL_SOURCE_CAPTURE")
+            self.assertEqual(alpha["matched_source_games"], 1)
+            self.assertEqual(alpha["published_games_not_in_source_snapshot"], 0)
+            self.assertTrue(alpha["live_source_rows_persisted"])
+            self.assertEqual(result["eligible_with_auto_captured_unreviewed_dates"], 1)
+            self.assertEqual(result["certified_schools"], 0)
+            # A fabricated complete attestation cannot promote an automated
+            # partial capture: it is explicitly barred even when rows match.
+            evidence["certification_assertions"] = [attestation()]
+            (directory / "d2-official-school-grids-2026-27.json").write_text(
+                json.dumps(evidence))
+            later = full_season_school_certification(
+                "men", teams(), [game()], directory, live_captures=[captured])
+            alpha = next(s for s in later["schools"] if s["id"] == "alpha")
+            self.assertFalse(alpha["certified"])
+            self.assertIn("partial", " ".join(alpha["attestation_errors"]).lower())
+
+    def test_static_school_snapshot_supersedes_auto_capture_without_double_count(self):
+        static = snapshot()
+        capture = {**snapshot(), "capture_scope": "partial_verified_dated_rows",
+                   "scope": "Not a complete source",
+                   "fixtures": snapshot()["fixtures"]}
+        registry = {"schema": 1, "season": "2026-27",
+                    "schools": [static], "live_school_sources": [],
+                    "certification_assertions": []}
+        (self.directory / "d2-official-school-grids-2026-27.json").write_text(
+            json.dumps(registry))
+        result = full_season_school_certification(
+            "men", teams(), [game()], self.directory,
+            live_captures=[capture])
+        alpha = self.find(result)
+        self.assertEqual(alpha["official_source_rows"], 1)
+        self.assertEqual(alpha["official_snapshot_count"], 1)
+        self.assertFalse(alpha["live_source_rows_persisted"])
+        self.assertEqual(result["certified_schools"], 0)
+
+
 if __name__ == "__main__":
     unittest.main()

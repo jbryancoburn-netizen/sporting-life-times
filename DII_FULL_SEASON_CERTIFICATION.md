@@ -76,3 +76,36 @@ python scripts/audit_d2_publication.py --strict
 ```
 
 The existing workflow performs these checks on a normal publishing run and commits the certification report inside `data/d2-publishing-audit.json`. Report separately: source changes committed, publishing run succeeded, and GitHub Pages deployment succeeded. Never call a school certified based on a successful workflow alone.
+
+
+## Durable official date-by-date capture in the existing publisher
+
+The existing DII gender-ledger publisher now retains the actual dated, verified
+rows from its **20 pinned university SIDEARM 2026–27 sources** (19 men, 1 women),
+not just transient fetched counts. Each source is validated by season, gender,
+university header, dates, and pinned campus time zone. The record is embedded in
+`data/d2-{men,women}-2026-27.json` at
+`quality.official_school_grid_recovery.live_calendar_captures[]`, which the
+**unchanged** existing GitHub Actions workflow commits. Each record has
+`capture_scope: "partial_verified_dated_rows"`, source URL, gender,
+institution ID and its exact dated fixtures. A successful new collection
+refreshes the source; a timeout retains the last correctly identified school
+snapshot; lean hourly passes retain the last capture. Neither route fabricates
+a final result or overwrites a canonical NCAA event ID.
+
+The existing `scripts/audit_d2_publication.py` now reads those persisted
+captures and compares each dated university DII match to the published
+canonical ledger under `full_school_schedule_certification.schools[]`.
+An automatic extraction is **never** treated as a complete season: tournament
+TBDs, exhibitions, source row bounds, opponent classifications, and independent
+review still require separate human/source verification. The audit reports
+`eligible_with_auto_captured_unreviewed_dates`, missing mismatches, and
+`PARTIAL_SOURCE_CAPTURE`. The `certification_assertions[]` registry remains
+empty until an entire university calendar is independently verified.
+
+The six newest priority-source URLs: Minnesota–Duluth (UMD), Roberts Wesleyan,
+Queens (NY), Molloy, Mercy and Fresno Pacific men's basketball. Both official
+academic-year URL spellings, `2026-27` and `2026-2027`, are supported with
+strict sport/season checks. These are verified official site URLs, not certified
+complete calendars.
+
