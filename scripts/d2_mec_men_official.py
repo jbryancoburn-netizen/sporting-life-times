@@ -68,8 +68,12 @@ def parse(html,owner,url):
  full=soup.get_text(" ",strip=True)
  if not re.search(r"2026\s*[-–]\s*(?:2027|27)\s+Men['’]s Basketball",title,re.I):
   raise ValueError("Incorrect gender or season for MEC "+owner+": "+title[:90])
- if not any(norm(name) in norm(title+" "+full[:1300]) for name in ALIASES[owner] if len(norm(name))>8):
-  raise ValueError("MEC school identity missing in official page header: "+owner)
+ # Check ONLY the document title and actual HTML masthead/header. A
+ # university named in a *game row* is merely an opponent, not the source
+ # institution; allowing that forged school identity failed our release test.
+ masthead=" ".join(x.get_text(" ",strip=True) for x in soup.select("header")[:2])
+ if not any(norm(name) in norm(title+" "+masthead) for name in ALIASES[owner] if len(norm(name))>8):
+  raise ValueError("MEC school identity missing in official page masthead: "+owner)
  selected=[]
  for table in soup.select("table"):
   for hr in table.select("tr"):
