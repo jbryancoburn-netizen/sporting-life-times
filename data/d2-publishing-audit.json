@@ -6,14 +6,14 @@
   "men": {
     "gender": "men",
     "teams": 299,
-    "games": 2038,
+    "games": 2146,
     "verified_elo_finals": 24,
     "dated_game_days": 100,
-    "no_venue": 1909,
-    "no_network": 1908,
+    "no_venue": 2017,
+    "no_network": 2016,
     "no_tipoff": 618,
     "no_source_url": 0,
-    "schools_without_a_published_game": 13,
+    "schools_without_a_published_game": 12,
     "full_season_date_scan": true,
     "school_schedule_certified": false,
     "source_categories": {
@@ -29,6 +29,7 @@
       "PBC 2026-27 reciprocal official university calendars": 109,
       "PSAC 2026-27 reciprocal official school schedules": 170,
       "RMAC 2026-27 reciprocal official school calendars": 145,
+      "SAC two-university official 2026-27 school calendars": 108,
       "SIAC 2026-27 reciprocal official athletic schedules": 147,
       "official tournament organizer": 12,
       "official university athletics schedule or recap": 14
@@ -71,6 +72,8 @@
         "added": 20,
         "enriched": 0,
         "quarantined": 1,
+        "one_sided": 2,
+        "conflicts": 0,
         "source": "https://rmacsports.org/schedule.aspx?schedule=",
         "unavailable_count": 0
       },
@@ -82,6 +85,8 @@
         "added": 20,
         "enriched": 0,
         "quarantined": 0,
+        "one_sided": 13,
+        "conflicts": 0,
         "source": "Northern Sun official 2026-27 university calendars",
         "errors_count": 0
       },
@@ -93,6 +98,8 @@
         "added": 156,
         "enriched": 5,
         "quarantined": 143,
+        "one_sided": 2,
+        "conflicts": 0,
         "source": "Conference Carolinas official 2026-27 school schedules",
         "unavailable_count": 0
       },
@@ -103,6 +110,8 @@
         "confirmed_matchups": 131,
         "added": 115,
         "enriched": 16,
+        "one_sided": 1,
+        "conflicts": 0,
         "source": "Great American Conference official 2026-27 basketball calendars"
       },
       "PBC fixtures": {
@@ -115,6 +124,8 @@
         "quarantined": 32,
         "time_conflicts": 10,
         "official_tipoffs": 99,
+        "one_sided": 2,
+        "conflicts": 0,
         "source": "https://peachbeltconference.org/schedule.aspx?schedule=",
         "unavailable_count": 0
       },
@@ -128,6 +139,7 @@
         "quarantined": 0,
         "time_conflicts": 0,
         "official_tipoffs": 63,
+        "one_sided": 0,
         "source": "Northeast-10 Conference official university calendars",
         "unavailable_count": 0
       },
@@ -140,7 +152,25 @@
         "enriched": 32,
         "quarantined": 0,
         "time_conflicts": 5,
+        "one_sided": 2,
+        "conflicts": 0,
+        "mutually_verified_eastern_tipoffs": 134,
         "source": "https://thesiac.com/schedule.aspx?schedule=",
+        "unavailable_count": 0
+      },
+      "SAC fixtures": {
+        "status": "SAC exact reciprocal 2026-27 university schedules checked",
+        "gender": "men",
+        "schools_read": 12,
+        "added": 108,
+        "enriched": 22,
+        "quarantined": 72,
+        "time_conflicts": 0,
+        "reciprocal_matchups": 130,
+        "one_sided": 0,
+        "conflicts": 0,
+        "mutually_verified_eastern_tipoffs": 108,
+        "source": "South Atlantic Conference official school calendars",
         "unavailable_count": 0
       }
     },
@@ -223,6 +253,8 @@
         "added": 56,
         "enriched": 94,
         "quarantined": 0,
+        "one_sided": 0,
+        "conflicts": 0,
         "source": "https://rmacsports.org/schedule.aspx?schedule=",
         "unavailable_count": 0
       },
@@ -234,6 +266,8 @@
         "added": 20,
         "enriched": 0,
         "quarantined": 1,
+        "one_sided": 15,
+        "conflicts": 1,
         "source": "Northern Sun official 2026-27 university calendars",
         "errors_count": 0
       },
@@ -245,6 +279,8 @@
         "added": 41,
         "enriched": 117,
         "quarantined": 152,
+        "one_sided": 1,
+        "conflicts": 1,
         "source": "Conference Carolinas official 2026-27 school schedules",
         "unavailable_count": 0
       },
@@ -255,6 +291,8 @@
         "confirmed_matchups": 131,
         "added": 61,
         "enriched": 70,
+        "one_sided": 1,
+        "conflicts": 0,
         "source": "Great American Conference official 2026-27 basketball calendars"
       },
       "PBC fixtures": {
@@ -267,6 +305,8 @@
         "quarantined": 34,
         "time_conflicts": 3,
         "official_tipoffs": 24,
+        "one_sided": 0,
+        "conflicts": 1,
         "source": "https://peachbeltconference.org/schedule.aspx?schedule=",
         "unavailable_count": 0
       },
@@ -280,6 +320,7 @@
         "quarantined": 1,
         "time_conflicts": 0,
         "official_tipoffs": 20,
+        "one_sided": 4,
         "source": "Northeast-10 Conference official university calendars",
         "unavailable_count": 0
       },
@@ -292,8 +333,26 @@
         "enriched": 157,
         "quarantined": 2,
         "time_conflicts": 0,
+        "one_sided": 1,
+        "conflicts": 1,
+        "mutually_verified_eastern_tipoffs": 5,
         "source": "https://thesiac.com/schedule.aspx?schedule=",
         "unavailable_count": 0
+      },
+      "SAC fixtures": {
+        "status": "SAC exact reciprocal 2026-27 university schedules checked",
+        "gender": "women",
+        "schools_read": 5,
+        "added": 0,
+        "enriched": 19,
+        "quarantined": 35,
+        "time_conflicts": 0,
+        "reciprocal_matchups": 19,
+        "one_sided": 68,
+        "conflicts": 0,
+        "mutually_verified_eastern_tipoffs": 0,
+        "source": "South Atlantic Conference official school calendars",
+        "unavailable_count": 7
       }
     },
     "warnings": [
