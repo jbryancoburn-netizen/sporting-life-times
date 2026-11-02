@@ -100,6 +100,8 @@
     if(inline){
       const query=new URLSearchParams(location.search),team=teamFromParam(cross,query);
       if(!team)return;
+      const nav=document.querySelector('[data-arena-nav]');
+      if(nav)nav.href='ncaam-arena.html?team='+encodeURIComponent(team.espn_id);
       const p=compose(team,registry,features);
       inline.innerHTML='<div class="af-inline-card"><span class="af-overline">THE ARENA FILE</span>'+
        '<div class="af-inline-title"><div><h2>'+esc(p.arena)+'</h2><p>'+esc(p.city?[p.city,p.state].join(', '):
