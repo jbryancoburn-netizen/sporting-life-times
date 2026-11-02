@@ -1308,9 +1308,165 @@ def matching_calendar_links(html, parent_url, gender):
     return [u for _, u in sorted(set(matches), reverse=True)][:8]
 
 
+def parse_carlow_university_event_page(html, gender, owner, url, by_org, exact):
+    """Verify an individually dated Carlow University *campus* sports event.
+
+    This source is www.carlow.edu, Carlow's actual institutional hostname,
+    not a scraped scoreboard or the blocked athletics vendor. A page proves
+    one fixture only: never derive opponents/dates from a tag URL or infer a
+    result. Ambiguous at-site tournament cards are quarantined.
+    """
+    u = urlsplit(url)
+    path = u.path.rstrip("/").lower()
+    sport = "mens" if gender == "men" else "womens"
+    if (owner != 30253 or u.scheme != "https" or
+            u.hostname not in ("www.carlow.edu", "carlow.edu") or
+            not re.fullmatch(r"/event/" + sport + r"-basketball-[a-z0-9-]+", path)):
+        raise ValueError("Carlow event is not from its verified university sports tag")
+    doc = BeautifulSoup(html, "html.parser")
+    head = doc.select_one("h1")
+    title = compact(head.get_text(" ", strip=True)).replace("’", "'") if head else ""
+    m = re.fullmatch(r"(?:men's|women's) basketball\s+(vs\.?|at)\s+(.+)", title, re.I)
+    if not m or not title.lower().startswith(
+            "men's basketball" if gender == "men" else "women's basketball"):
+        raise ValueError("Carlow event has wrong gender or no explicit opponent")
+    site, opponent = m[1].lower(), m[2].strip()
+    if (BAD_OPPONENT.search(opponent) or
+            re.search(r"\s+@\s+|\b(?:exhibition|scrimmage)\b", opponent, re.I)):
+        return None
+    opponent_id = resolve(opponent, by_org, exact)
+    if opponent_id is None or opponent_id == owner:
+        return None  # non-DIII or ambiguous; keep school events DIII-only
+    # Calendar event pages publish the event's date in a time[datetime],
+    # event startDate metadata, or their visible date. No URL-based year
+    # assumption, and never interpret an unrelated athletics schedule URL.
+    dates = []
+    for node in doc.select("time[datetime]"):
+        val = str(node.get("datetime", ""))
+        if re.match(r"^202[67]-\d{2}-\d{2}", val):
+            dates.append(val[:10])
+    if not dates:
+        for node in doc.select('[itemprop="startDate"], meta[property="event:start_time"]'):
+            val = str(node.get("content") or node.get("datetime") or "")
+            if re.match(r"^202[67]-\d{2}-\d{2}", val):
+                dates.append(val[:10])
+    text_body = compact(doc.get_text(" ", strip=True))
+    if not dates:
+        # Displayed university event date: e.g. January 27, 2027 @ 7 pm.
+        dm = re.search(
+            r"\b(January|February|March|April|November|December)\s+"
+            r"(\d{1,2}),?\s+(2026|2027)\b", text_body, re.I)
+        if dm:
+            try:
+                dates.append(dt.date(
+                    int(dm[3]), dt.datetime.strptime(dm[1], "%B").month,
+                    int(dm[2])).isoformat())
+            except ValueError:
+                pass
+    distinct = set(dates)
+    if len(distinct) != 1:
+        raise ValueError("Carlow event date absent or ambiguous: " + str(dates[:4]))
+    try:
+        date = dt.date.fromisoformat(next(iter(distinct)))
+    except ValueError as ex:
+        raise ValueError("Invalid official university event date") from ex
+    if not SEASON_START <= date <= SEASON_END:
+        return None
+    # Midnight is the event CMS default for unknown start time, NOT a
+    # verified basketball tipoff. Keep the time blank in that case.
+    tm = re.search(r"\b(?:at|@)\s*((?:1[0-2]|0?[1-9]):[0-5]\d\s*[ap]m)\b",
+                   text_body, re.I)
+    time = tm[1].upper() if tm and not tm[1].startswith("12:00") else ""
+    away = owner if site == "at" else opponent_id
+    home = opponent_id if site == "at" else owner
+    return {
+        "date": date.isoformat(), "away_org_id": away,
+        "home_org_id": home, "neutral": False,
+        "source_owner_org_id": owner, "source_url": url,
+        "source_kind": "official_school",
+        "tipoff_as_posted": time, "venue": "", "venue_location": "",
+        "network_as_posted": "", "radio_as_posted": "", "tournament": ""
+    }
+
+
+def recover_carlow_university_events(gender, owner, by_org, exact):
+    """Recover Carlow's real 2026–27 university-published event calendar.
+
+    The 2026–27 athletics host is JavaScript-only/blocked. The university
+    separately publishes two twelve-event tag pages per gender. Verify every
+    linked campus event individually; accept only DIII school opponents and
+    explicit campus-home/away. A tag listing is not itself an invented game.
+    """
+    if owner != 30253 or gender not in ("men", "women"):
+        raise ValueError("Not a Carlow gender-specific source")
+    sport = "mens" if gender == "men" else "womens"
+    root = f"https://www.carlow.edu/events/tag/{sport}-basketball/"
+    links = set()
+    for tag_url in (root, root + "page/2/"):
+        _, _, html = fetch_calendar((owner, tag_url))
+        doc = BeautifulSoup(html, "html.parser")
+        heading = " ".join(compact(h.get_text(" ", strip=True)).lower().replace("’", "'")
+                           for h in doc.select("h1,h2")[:6])
+        expected = "men's basketball" if gender == "men" else "women's basketball"
+        if expected not in heading:
+            raise ValueError("Carlow university event tag has wrong sport/gender")
+        this_page = set()
+        for a in doc.select("a[href]"):
+            link = urljoin(tag_url, str(a["href"]).strip()).split("#", 1)[0]
+            parsed = urlsplit(link)
+            if (parsed.scheme == "https" and
+                    parsed.hostname in ("www.carlow.edu", "carlow.edu") and
+                    re.fullmatch(r"/event/" + sport + r"-basketball-[a-z0-9-]+/?",
+                                 parsed.path.lower())):
+                this_page.add(link)
+        if len(this_page) < 9 or len(this_page) > 15:
+            raise ValueError("Carlow school tag lacks expected dated event links")
+        links.update(this_page)
+    # Explicit university event after the paginated tag page's last card.
+    # This URL must independently verify its own 2027 date and DIII opponent.
+    links.add(f"https://www.carlow.edu/event/{sport}-basketball-at-mt-aloysius/")
+    if len(links) < 23 or len(links) > 31:
+        raise ValueError("Carlow university tag pagination is incomplete")
+    matches, ignored = [], 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        tasks = {pool.submit(fetch_calendar, (owner, u)): u for u in sorted(links)}
+        for future in concurrent.futures.as_completed(tasks):
+            event_url = tasks[future]
+            _, _, html = future.result()
+            row = parse_carlow_university_event_page(
+                html, gender, owner, event_url, by_org, exact)
+            if row is None:
+                ignored += 1
+            else:
+                matches.append(row)
+    identities = {(r["date"], r["away_org_id"], r["home_org_id"]) for r in matches}
+    if len(matches) < 12 or len(identities) != len(matches):
+        raise ValueError("Carlow campus events fail minimum or duplicate fixture audit")
+    if not any(r["date"].startswith("2026-") for r in matches) or not any(
+            r["date"].startswith("2027-") for r in matches):
+        raise ValueError("Carlow calendar lacks both sides of the 2026-27 season")
+    return matches, {
+        "owner_org_id": owner, "source_url": root, "verified_direct_url": root,
+        "status": "parsed", "calendar_origin": "official_university_2026_27_event_calendar",
+        "verified_member_opponents": len(matches), "readable_rows": len(links),
+        "excluded_rows": {"non_diii_ambiguous_or_out_of_season_event": ignored},
+        "discovery_method": "official_university_sports_event_tag",
+        "candidate_urls_tried": len(links) + 2,
+    }
+
+
 def inspect_source(gender, source, by_org, exact, preferred_url=None, deep_discovery=False):
     """Reject incorrect seasons/sexes and unknown calendars, even on HTTP 200."""
     org, url, pinned = source
+    if org == 30253:
+        # Carlow's main institutional domain publishes the season's dated
+        # men's/women's events even when athletics.carlow.edu refuses reads.
+        # If the public university event calendar fails strict validation,
+        # continue to the usual conservative source recovery unchanged.
+        try:
+            return recover_carlow_university_events(gender, org, by_org, exact)
+        except (ValueError, OSError, urllib.error.URLError):
+            pass
     if not url:
         return None, {"owner_org_id": org, "source_url": "",
                       "status": "no_official_athletics_site",
@@ -2244,6 +2400,42 @@ def self_test():
     assert oac_onu_rows[1]["home_org_id"] == 517
     # No fallback on arbitrary OAC schedule IDs, women, other owners or
     # other conference domains; the normal strict H/A tests above stand.
+    # A real university campus event identifies both teams and the exact
+    # date without borrowing a third-party scoreboard. No TBA games,
+    # multi-team tournament @ locations, or wrong-gender events accepted.
+    campus_url = "https://www.carlow.edu/event/mens-basketball-vs-penn-st-altoona/"
+    campus_html = (
+        "<html><h1>Men’s Basketball vs. Penn St.-Altoona</h1>"
+        "<time datetime='2027-01-06T17:00:00'>January 6, 2027</time>"
+        "<div>January 6, 2027 @ 5:00 pm</div></html>")
+    campus_game = parse_carlow_university_event_page(
+        campus_html, "men", 30253, campus_url, by_org, exact)
+    assert campus_game["date"] == "2027-01-06"
+    assert campus_game["home_org_id"] == 30253
+    assert campus_game["away_org_id"] == 25719
+    assert campus_game["source_kind"] == "official_school"
+    assert parse_carlow_university_event_page(
+        campus_html.replace("vs. Penn St.-Altoona", "vs. TBA"), "men",
+        30253, campus_url, by_org, exact) is None
+    campus_road_url = "https://www.carlow.edu/event/womens-basketball-at-la-roche/"
+    campus_road_html = (
+        "<html><h1>Women's Basketball at La Roche</h1>"
+        "<time datetime='2027-01-27'>January 27, 2027</time></html>")
+    campus_road = parse_carlow_university_event_page(
+        campus_road_html, "women", 30253, campus_road_url, by_org, exact)
+    assert campus_road["away_org_id"] == 30253
+    assert campus_road["home_org_id"] == 1163
+    for wrong_html, wrong_url in [
+        (campus_html.replace("Men’s", "Women’s"), campus_url),
+        (campus_html, campus_url.replace("www.carlow.edu", "fake.example")),
+        (campus_html.replace("2027-01-06", "2025-01-06"), campus_url),
+    ]:
+        try:
+            invalid = parse_carlow_university_event_page(
+                wrong_html, "men", 30253, wrong_url, by_org, exact)
+            assert invalid is None
+        except ValueError:
+            pass
     legacy_rows, legacy_report = parse_conference_calendar(
         conf_html, "men", 64, "https://blackburnbeavers.com/sports/mbkb/2026-27/schedule",
         "Blackburn College", by_org, exact, school_legacy=True)
