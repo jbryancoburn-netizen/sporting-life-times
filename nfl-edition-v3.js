@@ -526,95 +526,110 @@ function gamePage(){
  const g=games.find(x=>x.id===params.get("id"));
  if(!g)return note("Game not found. "+link("nfl-game-center.html","Open the Game Center."));
  const story=gameStoryData(g),a=story.away,h=story.home,elo=g.elo||{},model=feed.model||{};
- const pre=g.state==='pre',done=g.state==='post';
+ const done=g.state==='post',pre=g.state==='pre';
  const status=pre?'UPCOMING':done?nflFinalStatus(g):'LIVE · '+liveClock(g);
  const fmt=x=>x==null?'—':format(x);
  const signed=x=>x==null?'—':(x>0?'+':'')+format(x,1);
  const p=elo.home_win_probability==null?null:Number(elo.home_win_probability);
  const validP=p!=null&&Number.isFinite(p);
- const homePct=validP?Math.max(0,Math.min(100,p*100)):null;
- const awayPct=homePct==null?null:100-homePct;
- const pick=scoreForecast(g);
- const homeScore=Number(g.home.score),awayScore=Number(g.away.score);
- const liveEstimate=done&&elo.home_delta==null&&validP?
-  Number(model.k_base||28)*Math.min(2,1+Math.log2(1+Math.abs(homeScore-awayScore))/4)*
-  ((homeScore>awayScore?1:homeScore<awayScore?0:0.5)-p):null;
- const verified=elo.home_delta!=null;
- const homeDelta=verified?Number(elo.home_delta):liveEstimate;
+ const awayPct=validP?(1-p)*100:null,homePct=validP?p*100:null;
+ const pick=scoreForecast(g),forecast=pick?fmt(pick.away)+'–'+fmt(pick.home):'—';
+ const result=done?fmt(g.away.score)+'–'+fmt(g.home.score):'—';
+ const baseHome=Number(g.home.score),baseAway=Number(g.away.score);
+ const provisional=done&&elo.home_delta==null&&validP?
+  Number(model.k_base||28)*Math.min(2,1+Math.log2(1+Math.abs(baseHome-baseAway))/4)*
+  ((baseHome>baseAway?1:baseHome<baseAway?0:0.5)-p):null;
+ const hasVerifiedDelta=elo.home_delta!=null&&Number.isFinite(Number(elo.home_delta));
+ const homeDelta=hasVerifiedDelta?Number(elo.home_delta):provisional;
  const awayDelta=homeDelta==null?null:-homeDelta;
- const winnerCode=story.winner?story.winner.code:'';
  const record=t=>t.w+'–'+t.l+(t.t?'–'+t.t:'');
  const darkField=t=>{
-  const c=String(t.color||'#244255'),alt=String(t.secondary_color||c);
-  const rgb=x=>/^#[0-9a-f]{6}$/i.test(x)?[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)):[85,85,85];
-  const [r,g,b]=rgb(c),sum=rgb(alt).reduce((a,v)=>a+v,0);
-  return r>160&&g>45&&g<190&&b<100&&sum<345?alt:c;
+  const c=String(t.color||'#243c50'),alt=String(t.secondary_color||c);
+  const rgb=x=>/^#[0-9a-f]{6}$/i.test(x)?[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)):[80,80,80];
+  const [rr,gg,bb]=rgb(c);
+  return rr>160&&gg>45&&gg<190&&bb<100&&rgb(alt).reduce((v,x)=>v+x,0)<345?alt:c;
  };
- const teamSide=(t,side,gScore)=>'<div class="nfl-story-club '+side+'">'+
-  '<a href="'+urlTeam(t.id)+'" class="nfl-story-logo" aria-label="'+escapeHtml(t.name)+' team profile">'+crest(t,'lg')+'</a>'+
-  '<div class="nfl-story-club-copy"><span class="nfl-story-city">'+escapeHtml(t.name.split(' ').slice(0,-1).join(' '))+'</span>'+
-  '<strong>'+escapeHtml(story.short(t))+'</strong><small>'+escapeHtml(t.code)+' · '+escapeHtml(record(t))+'</small></div>'+
-  '<b class="nfl-story-score" aria-label="'+escapeHtml(t.name)+' points">'+(pre?'—':fmt(gScore))+'</b></div>';
- let out='<article class="nfl-story" style="--nfl-story-away:'+escapeHtml(a.color||'#b61d31')+
-  ';--nfl-story-home:'+escapeHtml(darkField(h))+
-  ';--nfl-story-winning:'+escapeHtml(story.winner?.color||h.color||'#e76237')+'">'+
-  '<div class="nfl-story-topline"><a href="nfl-game-center.html">← NFL GAME CENTER</a>'+
-  '<span>WEEK '+escapeHtml(g.week)+' / '+escapeHtml(status)+'</span></div>'+
-  '<header class="nfl-story-intro"><p>THE SPORTING LIFE &amp; TIMES <span>/</span> NFL GAMEFILE</p>'+
-  '<h1 class="nfl-title">'+escapeHtml(story.headline)+'</h1>'+
-  '<div class="nfl-story-deck">'+escapeHtml(story.deck)+'</div></header>'+
-  '<section class="nfl-story-game" aria-label="Game scoreboard">'+
-  '<div class="nfl-story-game-kicker"><span>NFL · '+escapeHtml(a.division===h.division?a.division:'REGULAR SEASON')+
-  '</span><strong>'+escapeHtml(status)+'</strong></div>'+
-  '<div class="nfl-story-scoreline">'+teamSide(a,'away',g.away.score)+
-  '<span class="nfl-story-mid" aria-hidden="true">AT</span>'+teamSide(h,'home',g.home.score)+'</div>'+
-  '<div class="nfl-story-venue"><span>'+escapeHtml(g.venue||'Venue to be confirmed')+
-  (g.city?' · '+escapeHtml(g.city):'')+'</span><b>'+escapeHtml(g.broadcast||'Broadcast TBA')+'</b></div>'+
-  '</section>'+
-  '<div class="nfl-story-subnav"><a href="#nfl-story-turn">GAME STORY</a><a href="#nfl-story-model">USRS MODEL</a>'+
-  '<a href="#nfl-game-live-data">LIVE &amp; GAME STATS</a><a href="#nfl-game-deep-dive">FULL BOX SCORE</a></div>'+
-  '<section class="nfl-story-turn" id="nfl-story-turn"><div class="nfl-story-sectionhead"><span>01 / '+escapeHtml(story.tag)+'</span>'+
-  '<small>FROM THE SOURCED QUARTER SCORES</small></div>';
+ const fullName=t=>t.name;
+ const headline=story.fourthComeback?'The Fourth-Quarter Swing':story.headline;
+ const opponent=story.wSide==='home'?a:h;
+ const winTeam=story.winner;
+ const qWinner=story.wSide==='home'?story.hq:story.aq;
+ const qLoser=story.wSide==='home'?story.aq:story.hq;
+ const lead=story.fourthComeback?
+  'Trailing by '+Math.abs(story.a3-story.h3)+' entering the fourth, the '+
+  story.short(winTeam)+' outscored the '+story.short(opponent)+' '+
+  qWinner[3]+'–'+qLoser[3]+' to rally for a '+fmt(winTeam.id===a.id?g.away.score:g.home.score)+
+  '–'+fmt(winTeam.id===a.id?g.home.score:g.away.score)+' win.':story.deck;
+ const colorA=escapeHtml(a.color||'#b9213e'),colorH=escapeHtml(darkField(h));
+ const scoreSide=(t,side,value)=>'<div class="nfl-feature-side '+side+'">'+
+  '<a class="nfl-feature-side-mark" href="'+urlTeam(t.id)+'" aria-label="'+escapeHtml(fullName(t))+' team page">'+crest(t,'lg')+'</a>'+
+  '<span class="nfl-feature-side-code">'+escapeHtml(t.code)+'</span>'+
+  '<strong class="nfl-feature-side-score">'+(pre?'—':fmt(value))+'</strong>'+
+  '<small class="nfl-feature-side-record">'+escapeHtml(record(t))+'</small></div>';
+ let out='<article class="nfl-story nfl-feature-v10" style="--nfl-story-away:'+colorA+
+  ';--nfl-story-home:'+colorH+';--nfl-story-winning:'+escapeHtml(winTeam?.color||h.color||'#d45128')+'">'+
+  '<nav class="nfl-feature-tabs" aria-label="Sections of the NFL game report">'+
+  '<a href="#nfl-story-turn" class="is-current">Game Story</a>'+
+  '<a href="#nfl-story-model">USRS Model</a>'+
+  '<a href="#nfl-game-live-data">Live &amp; Game Stats</a>'+
+  '<a href="#nfl-game-deep-dive">Full Box Score</a></nav>'+
+  '<section class="nfl-feature-hero" aria-label="'+escapeHtml(a.name)+' at '+escapeHtml(h.name)+' '+escapeHtml(status)+'">'+
+  '<div class="nfl-feature-fabric fabric-away" aria-hidden="true"></div>'+
+  '<div class="nfl-feature-fabric fabric-home" aria-hidden="true"></div>'+
+  '<div class="nfl-feature-hero-kicker"><span></span>NFL · WEEK '+escapeHtml(g.week)+'<span></span></div>'+
+  '<div class="nfl-feature-hero-center">'+
+  scoreSide(a,'away',g.away.score)+
+  '<div class="nfl-feature-hero-final"><b>'+escapeHtml(status)+'</b></div>'+
+  scoreSide(h,'home',g.home.score)+'</div>'+
+  '<div class="nfl-feature-hero-venue">'+escapeHtml(g.venue||g.city||'NFL REGULAR SEASON')+
+  (g.broadcast?' · '+escapeHtml(g.broadcast):'')+'</div></section>'+
+  '<div class="nfl-feature-return"><a href="nfl-game-center.html">← All NFL games</a>'+
+  '<span>'+escapeHtml(g.week)+' / '+escapeHtml(status)+'</span></div>'+
+  '<section class="nfl-story-turn" id="nfl-story-turn">'+
+  '<header class="nfl-feature-story-intro"><span class="nfl-feature-eyebrow">The game story</span>'+
+  '<h1>'+escapeHtml(headline)+'</h1><p>'+escapeHtml(lead)+'</p></header>';
  if(story.hasPeriods){
   const preFourth=story.a3+'–'+story.h3;
   const fourth=story.aq[3]+'–'+story.hq[3];
-  out+='<div class="nfl-story-turnkey"><div><span>AFTER THREE</span><b>'+preFourth+'</b><small>'+
-   escapeHtml(a.code)+' / '+escapeHtml(h.code)+'</small></div>'+
-   '<span class="nfl-story-swing-arrow" aria-hidden="true">→</span>'+
-   '<div><span>FOURTH QUARTER</span><b>'+fourth+'</b><small>'+
-   escapeHtml(a.code)+' / '+escapeHtml(h.code)+'</small></div></div>';
+  out+='<div class="nfl-feature-swing"><div class="nfl-feature-swing-cell">'+
+   '<span>After three</span><b>'+preFourth+'</b><small>'+escapeHtml(a.code)+' / '+escapeHtml(h.code)+'</small></div>'+
+   '<i aria-hidden="true">→</i><div class="nfl-feature-swing-cell">'+
+   '<span>Fourth quarter</span><b>'+fourth+'</b><small>'+escapeHtml(a.code)+' / '+escapeHtml(h.code)+'</small></div>'+
+   '<div class="nfl-feature-swing-final"><span>Final</span><b>'+result+'</b>'+
+   '<small>'+escapeHtml(a.code)+' / '+escapeHtml(h.code)+'</small></div></div>';
  }
- out+='<div class="nfl-story-arc-frame">'+
-  '<div class="nfl-story-arc-heading"><strong>HOW THE SCORE MOVED</strong><span>CUMULATIVE POINTS</span></div>'+
-  gameScoringArc(g,story)+'</div></section>';
- const scorePair=pick?fmt(pick.away)+'–'+fmt(pick.home):'—';
- const actualPair=done?fmt(g.away.score)+'–'+fmt(g.home.score):'NOT FINAL';
- out+='<section class="nfl-story-model" id="nfl-story-model">'+
-  '<div class="nfl-story-sectionhead"><span>02 / THE USRS PREGAME READ</span><small>INDEPENDENT · NOT LIVE ODDS</small></div>'+
-  '<div class="nfl-story-model-table"><div class="nfl-story-model-lead"><span>THE FORECAST</span><b>'+scorePair+
-  '</b><small>'+escapeHtml(a.code)+' AWAY · '+escapeHtml(h.code)+' HOME</small></div>'+
-  '<div class="nfl-story-model-result"><span>THE RESULT</span><b>'+actualPair+'</b>'+
-  '<small>'+escapeHtml(a.code)+' AWAY · '+escapeHtml(h.code)+' HOME</small></div></div>'+
-  '<div class="nfl-story-prob"><span>BEFORE KICKOFF</span>'+
-  '<div class="nfl-story-prob-ends"><strong>'+escapeHtml(a.code)+' '+(awayPct==null?'—':format(awayPct,1)+'%')+
-  '</strong><strong>'+escapeHtml(h.code)+' '+(homePct==null?'—':format(homePct,1)+'%')+'</strong></div>'+
-  '<div class="nfl-story-prob-bar" aria-label="Pregame model probabilities"><i style="width:'+
-  (awayPct==null?50:awayPct.toFixed(1))+'%"></i></div></div>'+
-  '<div class="nfl-story-elo"><div><span>BEFORE KICKOFF</span><b>'+
-  escapeHtml(a.code)+' '+fmt(elo.away_before)+' <em>·</em> '+escapeHtml(h.code)+' '+fmt(elo.home_before)+
-  '</b></div><div><span>'+(done?'ELO AFTER THE FINAL':'ELO CHANGE AT FINAL')+'</span>'+
-  '<b class="nfl-story-elo-delta">'+escapeHtml(a.code)+' '+signed(awayDelta)+
-  ' <em>·</em> '+escapeHtml(h.code)+' '+signed(homeDelta)+'</b></div></div>'+
-  '<p class="nfl-story-method">USRS begins all 32 clubs at 1,500 each season. The prediction is a pregame model estimate; '+
-  (verified?'the Elo change is confirmed by the verified season ledger.':
-   liveEstimate!=null?'the result-based Elo movement is provisional pending ledger reconciliation.':
-   'the rating adjustment is calculated after the final.')+'</p></section>'+
-  '<section class="nfl-game-live-slot" id="nfl-game-live-slot" aria-label="Sourced live game statistics"></section>'+
-  '<details class="nfl-game-deep-dive" id="nfl-game-deep-dive"><summary>'+
-  '<span>04 / FULL VERIFIED BOX SCORE</span><strong>OPEN PLAYER &amp; TEAM STATISTICS ↗</strong></summary>'+
-  '<div id="nfl-game-box">Checking verified player statistics…</div></details>'+
-  '<div class="nfl-story-source">'+link(g.url,'SOURCE GAME RECORD ↗')+
-  '<p>Reported game information is sourced. USRS Elo and forecasts are independently calculated.</p></div></article>';
+ out+='<div class="nfl-feature-chart"><div class="nfl-feature-chart-header"><span>Cumulative points by quarter</span>'+
+  '<div class="nfl-feature-chart-legend"><i class="away"></i>'+escapeHtml(a.code)+
+  '<i class="home"></i>'+escapeHtml(h.code)+'</div></div>'+
+  gameScoringArc(g,story)+'</div></section>'+
+  '<section class="nfl-story-model" id="nfl-story-model">'+
+  '<div class="nfl-feature-section-label">The USRS pregame read <i></i></div>'+
+  '<div class="nfl-feature-model-layout">'+
+  '<div class="nfl-feature-model-heading"><h2>The USRS<br>Pregame Read</h2>'+
+  '<p>What the model saw before kickoff, and how it played out.</p></div>'+
+  '<div class="nfl-feature-model-report"><div class="nfl-feature-model-scores">'+
+  '<div><span>Forecast</span><strong>'+forecast+'</strong></div>'+
+  '<div><span>Final result</span><strong>'+result+'</strong></div></div>'+
+  '<div class="nfl-feature-model-probs"><span>Pregame win probability</span>'+
+  '<div class="nfl-feature-prob-values">'+
+  '<div><small>'+escapeHtml(a.code)+'</small><strong>'+(awayPct==null?'—':format(awayPct,1)+'%')+'</strong></div>'+
+  '<div><small>'+escapeHtml(h.code)+'</small><strong>'+(homePct==null?'—':format(homePct,1)+'%')+'</strong></div></div></div>'+
+  '<div class="nfl-feature-model-elo"><div><span>Before kickoff (Elo)</span><b>'+
+  escapeHtml(a.code)+' '+fmt(elo.away_before)+' <i>|</i> '+escapeHtml(h.code)+' '+fmt(elo.home_before)+'</b></div>'+
+  '<div><span>Elo after the final</span><b>'+
+  escapeHtml(a.code)+' '+signed(awayDelta)+' <i>|</i> '+escapeHtml(h.code)+' '+signed(homeDelta)+'</b></div></div>'+
+  '</div></div>'+
+  '<p class="nfl-feature-model-note">Independent 2026 Elo starts all 32 teams at 1,500; the forecast reflects pregame information. '+
+  (hasVerifiedDelta?'Elo adjustments are verified by the season ledger.':
+  provisional!=null?'Result-based Elo adjustments remain provisional until ledger reconciliation.':
+  'Rating changes are determined after confirmed finals.')+'</p></section>'+
+  '<section class="nfl-feature-report" id="nfl-game-live-slot" aria-label="Sourced game report">'+
+  '<div class="nfl-feature-report-heading"><span>Verified game report</span><i></i></div></section>'+
+  '<details id="nfl-game-deep-dive" class="nfl-game-deep-dive"><summary>'+
+  '<span>Full verified box score</span><strong>Player and team statistics ↗</strong></summary>'+
+  '<div id="nfl-game-box">Checking sourced player statistics…</div></details>'+
+  '<footer class="nfl-feature-source">'+link(g.url,'Original game record ↗')+
+  '<p>Game results and statistics are sourced; USRS forecasts and ratings are independent.</p></footer></article>';
  return out;
 }
 async function gameBox(){
