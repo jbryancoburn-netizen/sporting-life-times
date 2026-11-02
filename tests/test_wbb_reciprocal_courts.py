@@ -51,6 +51,31 @@ class Courts(unittest.TestCase):
   with self.assertRaises(RuntimeError):m.apply(d,p)
   d,p=fixture();d["teams"]["324"]["games"][0]["completed"]=True
   with self.assertRaises(RuntimeError):m.apply(d,p)
+ def test_off_campus_official_host_is_recorded_as_maine_home_not_fake_campus(self):
+  d,p=fixture()
+  d["teams"]["311"]={"games":[{
+   "id":"401913770","date":"2026-12-09T23:00:00Z",
+   "home_id":"2217","away_id":"311","opponent_id":"2217",
+   "site":"neutral","venue":"TBA","completed":False,"home_score":None,"away_score":None}]}
+  d["teams"]["2217"]={"games":[{
+   "id":"401913770","date":"2026-12-09T23:00:00Z",
+   "home_id":"2217","away_id":"311","opponent_id":"311",
+   "site":"neutral","venue":"TBA","completed":False,"home_score":None,"away_score":None}]}
+  p["games"]=[{
+   "game_id":"401913770","date":"2026-12-09",
+   "verified_home_id":"311","verified_away_id":"2217",
+   "venue":"Portland Expo","city":"Portland, Maine",
+   "sources":[
+    "https://goblackbears.com/news/2026/10/21/womens-basketball-to-host-fairfield-in-portland-tickets-on-sale-now",
+    "https://goblackbears.com/sports/womens-basketball/schedule",
+    "https://themetro.org/schedule.aspx?schedule=4209"]}]
+  result=m.apply(d,p)
+  self.assertEqual(result["teams"]["311"]["games"][0]["site"],"home")
+  self.assertEqual(result["teams"]["2217"]["games"][0]["site"],"away")
+  self.assertEqual(result["teams"]["311"]["games"][0]["venue"],"Portland Expo")
+  self.assertEqual(result["teams"]["311"]["games"][0]["city"],"Portland, Maine")
+  self.assertTrue(result["teams"]["311"]["games"][0]["official_venue_verified"])
+
  def test_missing_reciprocal_school_record_blocks(self):
   d,p=fixture();d["teams"]["2572"]["games"]=[]
   with self.assertRaises(RuntimeError):m.apply(d,p)
